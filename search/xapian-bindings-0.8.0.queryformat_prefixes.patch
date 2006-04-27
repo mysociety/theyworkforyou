@@ -1,0 +1,28 @@
+--- xapian.i.orig	2004-05-26 20:52:47.000000000 +0100
++++ xapian.i	2004-05-28 13:49:15.000000000 +0100
+@@ -29,6 +29,7 @@
+ // ExpandDecider (+ subclasses)			TODO
+ // Weight (+ subclasses)			TODO
+ 
++
+ #undef list
+ #include <xapian.h>
+ #include <xapian/queryparser.h>
+@@ -509,6 +510,17 @@
+ 
+   void set_default_op(Query::op default_op_);
+   Query parse_query(const string &q);
++
++  %extend {
++    void set_prefix(const std::string &name, std::string value) {
++      self->prefixes[name] = value;
++    }
++
++    std::string get_prefix(const std::string &name) {
++      return self->prefixes[name];
++    }
++  };
++
+ };
+ 
+ class Stem {

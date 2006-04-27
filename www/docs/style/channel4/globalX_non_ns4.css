@@ -1,0 +1,149 @@
+body {
+	width: 770px;
+}
+
+h2 {
+	color: #133885;
+	}
+	
+h3 {
+	color: #133885;
+	}
+	
+h4 {
+	color: #FF6600;
+	}
+
+a {
+	color: #FF6600;
+	font-weight: bold;
+}
+
+a:visited {
+	color: #999999;
+	font-weight: bold;
+	}
+a:active, a:hover {
+	color: #7a619f;
+	font-weight: bold;
+}
+	
+li {
+	margin: 0 0 0.5em 1.2em;
+	color: #133885;
+	}
+
+input.submit {
+	font-weight: bold;
+	color: #133885;
+	}	
+	
+#title {
+	padding: 0;
+	}
+
+#search {
+	background-color: #658CDD;
+	}
+
+#menu {
+	background-color: #133885;
+	}
+
+#footer {
+	background-color: #133885;
+	color: #FFFFFF;
+	}
+
+#bottommenu {	
+	background-color: #658CDD;
+	}
+	
+#topmenu a,
+#bottommenu a {
+	background: #133885;
+	color: #FFFFFF;
+	}
+	
+#bottommenu a {
+	border: 1px solid #658cdd; /* not #133885 */
+	background: #658cdd; /* not #133885 */
+	color: #fff;
+	}
+
+#topmenu a.on,
+#topmenu a:hover {
+	background: #658CDD;
+	color: #fff;
+	}
+	
+#topmenu a.on {
+	border-bottom: 1px solid #658cdd; /* not #133885 */
+	}
+
+div.stripe-side {
+	background: #FF6600;
+	}
+
+div.stripe-2,
+div.stripe-2-on {
+	background: #FFDE00;
+	}
+
+div.stripe-2 div.main,
+div.stripe-2-on div.main {
+	background: #FFDE00;
+	}
+div.main p.italic,
+div.main p.indentitalic {
+	color: #133885;
+	}
+
+
+div.block {
+	border: 1px solid #133885;
+	}
+	
+div.block h4 {
+	background: #133885;
+	color: #658CDD;
+	}
+
+div.block div.blockbody {
+	background-color: #FFFFFF;
+	}
+
+div.sidebar div.block {
+	border: 1px solid #133885;
+	}
+div.sidebar div.block h4 {
+	background: #133885;
+	color: #fff;
+	}
+div.extra a {
+	color: #FF6600;
+	}
+table.people th {
+	background: #133885;
+	color: #FFFFFF;
+	}
+table.people td.row-1 {
+	background: #658CDD;
+	}
+table.people td.row-2 {
+	background: #FF6600;
+	}
+table.people td.row-1 a, table.people td.row-2 a {
+	color: #000000;
+}
+table.people td.row-1 a:hover, table.people td.row-2 a:hover {
+	color: #7a619f;
+}
+
+#topmenu {
+	padding-right: 5px;
+}
+#topmenu ul {
+	margin-left: 5px;
+}
+

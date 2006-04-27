@@ -1,0 +1,10 @@
+# Constants for bash scripts
+
+PWDATA=$HOME/pwdata
+XAPIANDB=$HOME/searchdb
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin:/home/fawkes/bin
+
+# needed for correct group permissions
+umask 002
+

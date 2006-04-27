@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+echo "You need to edit this carefully or you will trash something important"
+exit 1;
+
+# Quick one off script by Francis 2004-10-27 for migrating TheyWorkForYou
+# database from server baked to tenfootpoll.
+
+mysqldump -u fawkes -p fawkes anonvotes commentreports comments editqueue glossary search_query_log trackbacks users uservotes | bzip2 -c > ~/twfy-dynamic-tables.sql.bz2
+
+rsync --progress -v ~/twfy-dynamic-tables.sql.bz2 fawkes@very.unfortu.net:~/twfy-dynamic-tables.sql.bz2
+
+ssh fawkes@very.unfortu.net "cat twfy-dynamic-tables.sql.bz2 | bunzip2 -c | mysql"
+

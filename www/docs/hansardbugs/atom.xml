@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<feed version="0.3" xmlns="http://purl.org/atom/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">
+  <title>Hansard Bugs Blog</title>
+  <link rel="alternate" type="text/html" href="http://www.theyworkforyou.com/hansardbugs/" />
+  <modified>2005-02-09T18:52:02Z</modified>
+  <tagline>A collection of bugs and errors found by the TheyWorkForYou.com volunteers in the content and code of Hansard&apos;s official website.</tagline>
+  <id>tag:www.theyworkforyou.com,2005:/hansardbugs//2</id>
+  <generator url="http://www.movabletype.org/" version="2.661">Movable Type</generator>
+  <copyright>Copyright (c) 2005, matthew</copyright>
+  <entry>
+    <title>Quandry</title>
+    <link rel="alternate" type="text/html" href="http://www.theyworkforyou.com/hansardbugs/archives/000029.php" />
+    <modified>2005-02-09T18:52:02Z</modified>
+    <issued>2005-02-09T18:52:02+00:00</issued>
+    <id>tag:www.theyworkforyou.com,2005:/hansardbugs//2.29</id>
+    <created>2005-02-09T18:52:02Z</created>
+    <summary type="text/plain">Our scraper runs at 8:05am every morning, followed immediately by the parser, database-adder (which puts it live) and search-indexer (which adds new entries to the search index). Now, sometimes (rarely) this all goes fine. Sometimes (like today) Hansard isn&apos;t up...</summary>
+    <author>
+      <name>matthew</name>
+      
+      <email>matthew@dracos.co.uk</email>
+    </author>
+    
+    <content type="text/html" mode="escaped" xml:lang="en" xml:base="http://www.theyworkforyou.com/hansardbugs/">
+      <![CDATA[<p>Our scraper runs at 8:05am every morning, followed immediately by the parser, database-adder (which puts it live) and search-indexer (which adds new entries to the search index). Now, sometimes (rarely) this all goes fine. Sometimes (like today) Hansard isn't up until a few minutes after our scraper has run, and we don't get anything, whoops. And sometimes (most common), the scraping goes fine, but there are fiddly flaws in their HTML which prevent the parser parsing some or all of the new content.</p>
+
+<p>Currently, I appear to be the only one who fixes things that are wrong and puts up the latest stuff, and if I go to work early (as I did this morning), I can't rerun the scraper until I get home. Which means a whole day when content isn't up that could/should have been. Which isn't good when we want to be running email alerts on new content very soon.</p>
+
+<p>One solution (at least to them putting content up a bit late) is simply to run the update (or an even more cut down version of it) again later in the day (midday or something like that). But this doesn't stop the second problem, of the parser not parsing the new stuff. Our parser is quite honed nowadays, so the only problems generally appear to be a single misspelling (a missing space or dot in a time, for example), a missing "To ask" statement at the beginning of a Written Question, missing indication of a new speaker (&lt;b&gt;&lt;/b&gt; around the speaker's name), and missing "(1)" in a multi-part written question. My current feeling is that getting new stuff live is more important than any of these, so am thinking of changing the parser to pass some of these failures (rather than die) and then email me so I can update later on (which would only be a minor change). This should certainly be possible for missing text errors; harder for missing speaker indication. We shall see.</p>]]>
+      
+    </content>
+  </entry>
+  <entry>
+    <title>Volume 423</title>
+    <link rel="alternate" type="text/html" href="http://www.theyworkforyou.com/hansardbugs/archives/000028.php" />
+    <modified>2005-02-07T23:49:01Z</modified>
+    <issued>2005-02-07T23:49:01+00:00</issued>
+    <id>tag:www.theyworkforyou.com,2005:/hansardbugs//2.28</id>
+    <created>2005-02-07T23:49:01Z</created>
+    <summary type="text/plain">Volume 423 of Hansard is out - http://www.publications.parliament.uk/pa/cm/cmvol423.htm - so this weekend every day from 2004-06-28 to 2004-07-16 changed, sometimes dramatically, and had to be reparsed. These changes are normally spelling corrections and the like, normally for the better (e.g....</summary>
+    <author>
+      <name>matthew</name>
+      
+      <email>matthew@dracos.co.uk</email>
+    </author>
+    
+    <content type="text/html" mode="escaped" xml:lang="en" xml:base="http://www.theyworkforyou.com/hansardbugs/">
+      <![CDATA[<p>Volume 423 of Hansard is out - http://www.publications.parliament.uk/pa/cm/cmvol423.htm - so this weekend every day from 2004-06-28 to 2004-07-16 changed, sometimes dramatically, and had to be reparsed. These changes are normally spelling corrections and the like, normally for the better (e.g. lots of erroneous "Sitting suspended" headings in the Westminster Hall debates have become plain paragraphs, various people's names are corrected), but not always (e.g. some Bill Clause debate headings have mysteriously become plain paragraphs, so are now being tacked on to the end of the previous speech - I've added a hack for those, hopefully).</p>
+
+<p>Also, another batch of Thursday's Written Answers only appeared this morning - I think this has become a regular thing for them.</p>]]>
+      
+    </content>
+  </entry>
+  <entry>
+    <title>24th-26th January</title>
+    <link rel="alternate" type="text/html" href="http://www.theyworkforyou.com/hansardbugs/archives/000027.php" />
+    <modified>2005-01-28T00:04:54Z</modified>
+    <issued>2005-01-28T00:04:54+00:00</issued>
+    <id>tag:www.theyworkforyou.com,2005:/hansardbugs//2.27</id>
+    <created>2005-01-28T00:04:54Z</created>
+    <summary type="text/plain"><![CDATA[Monday had a missing &lt;b&gt;&lt;/b&gt; around a speaker's name (hmm, maybe we should check if the first two words of a speech are actually "Title Surname:" - that might actually work...), and a couple of questions had missing bits of...]]></summary>
+    <author>
+      <name>matthew</name>
+      
+      <email>matthew@dracos.co.uk</email>
+    </author>
+    
+    <content type="text/html" mode="escaped" xml:lang="en" xml:base="http://www.theyworkforyou.com/hansardbugs/">
+      <![CDATA[<p>Monday had a missing &lt;b&gt;&lt;/b&gt; around a speaker's name (hmm, maybe we should check if the first two words of a speech are actually "Title Surname:" - that might actually work...), and a couple of questions had missing bits of the "To ask" section.</p>
+
+<p>Tuesday went fine, but they only put the written answers up at 8.22am, and also added another lot of written answers to Monday at the same time. As our parser runs at 8.05am, it didn't pick these up until Thursday morning, when my new diff checker spotted the additions and seamlessly added them (yay me). We will probably make some changes and run the automatic jobs much more frequently to catch these sooner - hopefully using HTTP cacheing headers to save on bandwidth all round.</p>]]>
+      
+    </content>
+  </entry>
+  <entry>
+    <title>weeklyupdate has some fun</title>
+    <link rel="alternate" type="text/html" href="http://www.theyworkforyou.com/hansardbugs/archives/000024.php" />
+    <modified>2005-01-23T21:24:38Z</modified>
+    <issued>2005-01-23T21:24:38+00:00</issued>
+    <id>tag:www.theyworkforyou.com,2005:/hansardbugs//2.24</id>
+    <created>2005-01-23T21:24:38Z</created>
+    <summary type="text/plain">weeklyupdate is a script that runs weekly (Sunday mornings, 4.23am) over the whole of Hansard back to June 2001, until this week simply to spot when Hansard do a &quot;daily&quot; to &quot;bound volume&quot; edition switch (this is when they make...</summary>
+    <author>
+      <name>matthew</name>
+      
+      <email>matthew@dracos.co.uk</email>
+    </author>
+    
+    <content type="text/html" mode="escaped" xml:lang="en" xml:base="http://www.theyworkforyou.com/hansardbugs/">
+      <![CDATA[<p>weeklyupdate is a script that runs weekly (Sunday mornings, 4.23am) over the whole of Hansard back to June 2001, until this week simply to spot when Hansard do a "daily" to "bound volume" edition switch (this is when they make big changes to the text to bring it to its final edition, and change the URLs to have "vo" instead of "cm" in them, thereby breaking all existing links to the pages), and to try and parse anything from long ago we've forgotten about.</p>
+
+<p>This week, I added the diff functionality I mentioned in the previous post. Which meant this week weeklyupdate went and redownloaded the <em>whole</em> of Hansard back to June 2001, and checked it all against what we had to see what had changed. I was somewhat surprised when I did not receive a gigabyte email this morning...</p>]]>
+      <![CDATA[<p>Here, for anyone who might care, is what had changed:</p>
+
+<p><h4>Written Answers</h4></p>
+
+<p>For 2004-12-06, 2004-11-18, 2004-11-17, 2004-11-01, 2004-10-26, 2004-10-25, 2004-10-18, 2004-10-12, 2004-10-11, 2004-09-08, 2004-07-22, 2004-07-21, 2004-07-20, and 2004-07-19, we were missing written answers, all from the end (as in, our scraper had not downloaded all of the pages of written answers for some reason). Still don't know why, but we have them now. Also, Lord Filkin decided to answer one of the new answers on 2004-11-18, which is annoying, as we don't have Lords in a database yet.</p>
+
+<p>2004-10-04: A table about primary schools became a table about secondary schools<br />
+2004-03-12 and 2003-07-17: A very big reordering of the text, don't know why. But the parser coped magnificantly.</p>
+
+<p><h4>Debates</h4></p>
+
+<p>2004-12-02: "to about $200 an ounce" became "by about $200 an ounce". And the Solicitor-General got asked another question.<br />
+2004-11-30: They realised they'd forgotten to say when someone had stopped talking and someone else had began, which was amusing as it used to have a Lib Dem MP saying how people "thank me as a Labour MP". This change reflowed a number of columns later on the day, which meant some tedious renumbering so that our URLs stayed consistent.<br />
+2004-11-29: Mr Khabra's speech changed (in fact, this correction can be found the following day at http://www.theyworkforyou.com/debates/?id=2004-11-30.611.4 )<br />
+2004-11-18: I don't like how they present the end of the session of Parliament, so had changed it manually. Obviously, the redownload overrode that. I have applied my change as a patch, which is the proper way to do it to ensure it is not lost.<br />
+2004-11-08: Jane Whitaker now has her name spelt, I presume, correctly<br />
+2004-10-25: Kim Howell's amendment has been changed<br />
+2004-07-06: Buxton has become Butterton</p>
+
+<p>And that was it! Very impressed at how it all held up and worked together. :)</p>]]>
+    </content>
+  </entry>
+  <entry>
+    <title>This week&apos;s problems</title>
+    <link rel="alternate" type="text/html" href="http://www.theyworkforyou.com/hansardbugs/archives/000022.php" />
+    <modified>2005-01-21T23:03:56Z</modified>
+    <issued>2005-01-21T23:03:56+00:00</issued>
+    <id>tag:www.theyworkforyou.com,2005:/hansardbugs//2.22</id>
+    <created>2005-01-21T23:03:56Z</created>
+    <summary type="text/plain">This week was very uneventful. Written answers on the 17th were missing marking Mr Kilfoyle as a speaker and &quot;ask the Secretary of State for Foreign and Commonwealth Affairs&quot; at the start of a question. Written ministerial statements said it...</summary>
+    <author>
+      <name>matthew</name>
+      
+      <email>matthew@dracos.co.uk</email>
+    </author>
+    
+    <content type="text/html" mode="escaped" xml:lang="en" xml:base="http://www.theyworkforyou.com/hansardbugs/">
+      <![CDATA[<p>This week was very uneventful. Written answers on the 17th were missing marking Mr Kilfoyle as a speaker and "ask the Secretary of State for Foreign and Commonwealth Affairs" at the start of a question. Written ministerial statements said it was 2004. One multi-part written answer question was missing a "(1)" on the 18th, the 19th was totally problem free, and on the 20th a simple misspelling of AFFAIRS with 3 Fs.</p>
+
+<p>I changed our scraper to diff downloaded stuff, which means we should soon be able to spot any changes they make to old entries, besides the obvious daily to bound volume edition change.</p>]]>
+      
+    </content>
+  </entry>
+  <entry>
+    <title>Last week</title>
+    <link rel="alternate" type="text/html" href="http://www.theyworkforyou.com/hansardbugs/archives/000023.php" />
+    <modified>2005-01-18T23:09:30Z</modified>
+    <issued>2005-01-18T23:09:30+00:00</issued>
+    <id>tag:www.theyworkforyou.com,2005:/hansardbugs//2.23</id>
+    <created>2005-01-18T23:09:30Z</created>
+    <summary type="text/plain"><![CDATA[Woo, I have a blog! All right, it's not mine, it's to fill with long, rambling, and probably boring posts about errors in the Official Parliamentary Record. So without further ado... 10th - Some rogue "&amp;nbsp;" in some headings, a...]]></summary>
+    <author>
+      <name>matthew</name>
+      
+      <email>matthew@dracos.co.uk</email>
+    </author>
+    
+    <content type="text/html" mode="escaped" xml:lang="en" xml:base="http://www.theyworkforyou.com/hansardbugs/">
+      <![CDATA[<p>Woo, I have a blog! All right, it's not mine, it's to fill with long, rambling, and probably boring posts about errors in the Official Parliamentary Record. So without further ado...</p>
+
+<p>10th - Some rogue "&amp;nbsp;" in some headings, a missing start of question in written answers, and a random "23" in someone's name</p>
+
+<p>11th - Today was the last day I had to manually remove the "&lt;/ul&gt;&lt;/ul&gt;&lt;/ul&gt;" gumph from the end of a debate day, as I added an automatic check for it. :) No actual problems besides this.</p>
+
+<p>12th - a misplaced "&amp;#151;" in debates</p>
+
+<p>13th - written ministerial statements thought it was February, and had a missing <b></b> aroud the DWP minister. Sorry about the delay getting written answers up: I got confused by Hansard's parser saying some text (which was actually quoted from a letter) was a new question, and trying to work around it before spotting what it actually was.</p>
+
+<p>Also, we appear to be missing the end of written answers sometimes; will investigate cause and solution.</p>]]>
+      
+    </content>
+  </entry>
+
+</feed>

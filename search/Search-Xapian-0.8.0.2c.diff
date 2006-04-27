@@ -1,0 +1,441 @@
+diff -ru Search-Xapian-0.8.0.2-orig/Changes Search-Xapian-0.8.0.2/Changes
+--- Search-Xapian-0.8.0.2-orig/Changes	2004-05-13 17:38:35.000000000 +0100
++++ Search-Xapian-0.8.0.2/Changes	2004-05-29 14:40:10.000000000 +0100
+@@ -1,5 +1,20 @@
+ Revision history for Perl extension Search::Xapian.
+ 
++0.8.0.3  ??? ??? ?? ??:??:?? 2004
++	[Changes contributed by Olly Betts]
++	- Wrapped Database::postlist_begin() and postlist_end()
++	- Database::get_doccount(), get_avlength(), and get_termfreq()
++	  now return values correctly
++	- WritableDatabase::delete_document() and replace_document()
++	  now handle exceptions
++	- Wrapped all methods which WritableDatabase inherits from
++	  Database
++	- Fixed 2 warnings when building with GCC 3.3
++	- Added more test cases to index.t
++	- Corrected typemap - weight is a floating point value; other
++	  types are unsigned
++	- Wrapped Stem::get_description()
++
+ 0.8.0.2  Thu May 13 17:36:45 2004
+ 	- More error handling for Query and Document classes
+ 	- Fully wrapped PositionIterator and PostingIterator
+diff -ru Search-Xapian-0.8.0.2-orig/XS/Database.xs Search-Xapian-0.8.0.2/XS/Database.xs
+--- Search-Xapian-0.8.0.2-orig/XS/Database.xs	2004-05-13 11:06:40.000000000 +0100
++++ Search-Xapian-0.8.0.2/XS/Database.xs	2004-05-29 14:35:47.000000000 +0100
+@@ -59,6 +59,8 @@
+         catch (const Error &error) {
+             croak( "Exception: %s", error.get_msg().c_str() );
+         }
++    OUTPUT:
++        RETVAL
+ 
+ TermIterator *
+ Database::termlist_begin(did)
+@@ -114,6 +116,34 @@
+     OUTPUT:
+         RETVAL
+ 
++PostingIterator *
++Database::postlist_begin(term)
++    string	term
++    CODE:
++        RETVAL = new PostingIterator();
++	try {
++	    *RETVAL = THIS->postlist_begin(term);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++PostingIterator *
++Database::postlist_end(term)
++    string	term
++    CODE:
++        RETVAL = new PostingIterator();
++	try {
++	    *RETVAL = THIS->postlist_end(term);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
+ doccount
+ Database::get_doccount()
+     CODE:
+@@ -123,6 +153,8 @@
+         catch (const Error &error) {
+             croak( "Exception: %s", error.get_msg().c_str() );
+         }
++    OUTPUT:
++        RETVAL
+ 
+ doclength
+ Database::get_avlength()
+@@ -133,6 +165,8 @@
+         catch (const Error &error) {
+             croak( "Exception: %s", error.get_msg().c_str() );
+         }
++    OUTPUT:
++        RETVAL
+ 
+ doccount
+ Database::get_termfreq(tname)
+@@ -183,6 +217,8 @@
+         catch (const Error &error) {
+             croak( "Exception: %s", error.get_msg().c_str() );
+         }
++    OUTPUT:
++        RETVAL
+ 
+ void
+ Database::keep_alive()
+diff -ru Search-Xapian-0.8.0.2-orig/XS/Stem.xs Search-Xapian-0.8.0.2/XS/Stem.xs
+--- Search-Xapian-0.8.0.2-orig/XS/Stem.xs	2004-05-13 11:06:40.000000000 +0100
++++ Search-Xapian-0.8.0.2/XS/Stem.xs	2004-05-29 14:36:07.000000000 +0100
+@@ -18,5 +18,17 @@
+     OUTPUT:
+         RETVAL
+ 
++string
++Stem::get_description()
++    CODE:
++	try {
++            RETVAL = THIS->get_description();
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
+ void
+ Stem::DESTROY()
+diff -ru Search-Xapian-0.8.0.2-orig/XS/WritableDatabase.xs Search-Xapian-0.8.0.2/XS/WritableDatabase.xs
+--- Search-Xapian-0.8.0.2-orig/XS/WritableDatabase.xs	2004-05-13 11:06:40.000000000 +0100
++++ Search-Xapian-0.8.0.2/XS/WritableDatabase.xs	2004-05-29 14:38:01.000000000 +0100
+@@ -79,17 +79,230 @@
+         RETVAL
+ 
+ void
+-WritableDatabase::delete_document(docid did)
++WritableDatabase::delete_document(did)
++    docid	did
++    CODE:
++        try {
++	    THIS->delete_document(did);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
+ 
+ void
+ WritableDatabase::replace_document(did, document)
+     docid	did
+     Document *	document
+     CODE:
+-        THIS->replace_document(did, *document);
++        try {
++	    THIS->replace_document(did, *document);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++
++void
++WritableDatabase::reopen()
++    CODE:
++	try {
++            THIS->reopen();
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
+ 
+ string
+ WritableDatabase::get_description()
++    CODE:
++	try {
++            RETVAL = THIS->get_description();
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++TermIterator *
++WritableDatabase::termlist_begin(did)
++    docid	did
++    CODE:
++        RETVAL = new TermIterator();
++	try {
++	    *RETVAL = THIS->termlist_begin(did);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++TermIterator *
++WritableDatabase::termlist_end(did)
++    docid	did
++    CODE:
++        RETVAL = new TermIterator();
++	try {
++	    *RETVAL = THIS->termlist_end(did);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++TermIterator *
++WritableDatabase::allterms_begin()
++    CODE:
++        RETVAL = new TermIterator();
++	try {
++	    *RETVAL = THIS->allterms_begin();
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++TermIterator *
++WritableDatabase::allterms_end()
++    CODE:
++        RETVAL = new TermIterator();
++	try {
++	    *RETVAL = THIS->allterms_end();
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++PostingIterator *
++WritableDatabase::postlist_begin(term)
++    string	term
++    CODE:
++        RETVAL = new PostingIterator();
++	try {
++	    *RETVAL = THIS->postlist_begin(term);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++PostingIterator *
++WritableDatabase::postlist_end(term)
++    string	term
++    CODE:
++        RETVAL = new PostingIterator();
++	try {
++	    *RETVAL = THIS->postlist_end(term);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++doccount
++WritableDatabase::get_doccount()
++    CODE:
++	try {
++            RETVAL = THIS->get_doccount();
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++doclength
++WritableDatabase::get_avlength()
++    CODE:
++	try {
++            RETVAL = THIS->get_avlength();
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++doccount
++WritableDatabase::get_termfreq(tname)
++    string	tname
++    CODE:
++	try {
++            RETVAL = THIS->get_termfreq(tname);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++bool
++WritableDatabase::term_exists(tname)
++    string	tname
++    CODE:
++	try {
++	    RETVAL = THIS->term_exists(tname);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++termcount
++WritableDatabase::get_collection_freq(tname)
++    string	tname
++    CODE:
++	try {
++	    RETVAL = THIS->get_collection_freq(tname);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++doclength
++WritableDatabase::get_doclength(did)
++    docid	did
++    CODE:
++	try {
++	    RETVAL = THIS->get_doclength(did);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
++
++void
++WritableDatabase::keep_alive()
++    CODE:
++	try {
++	    THIS->keep_alive();
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++
++Document *
++WritableDatabase::get_document(docid did)
++    CODE:
++        RETVAL = new Document();
++	try {
++	    *RETVAL = THIS->get_document(did);
++        }
++        catch (const Error &error) {
++            croak( "Exception: %s", error.get_msg().c_str() );
++        }
++    OUTPUT:
++        RETVAL
+ 
+ void
+ WritableDatabase::DESTROY()
+diff -ru Search-Xapian-0.8.0.2-orig/Xapian.xs Search-Xapian-0.8.0.2/Xapian.xs
+--- Search-Xapian-0.8.0.2-orig/Xapian.xs	2004-05-13 17:32:53.000000000 +0100
++++ Search-Xapian-0.8.0.2/Xapian.xs	2004-05-29 14:38:37.000000000 +0100
+@@ -1,6 +1,6 @@
+ #include <xapian.h>
+-#include <string.h>
+-#include <vector.h>
++#include <string>
++#include <vector>
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -ru Search-Xapian-0.8.0.2-orig/t/index.t Search-Xapian-0.8.0.2/t/index.t
+--- Search-Xapian-0.8.0.2-orig/t/index.t	2004-05-13 11:06:40.000000000 +0100
++++ Search-Xapian-0.8.0.2/t/index.t	2004-05-28 16:54:07.000000000 +0100
+@@ -7,7 +7,7 @@
+ 
+ use Test;
+ use Devel::Peek;
+-BEGIN { plan tests => 7 };
++BEGIN { plan tests => 15 };
+ use Search::Xapian qw(:standard);
+ 
+ #########################
+@@ -16,25 +16,32 @@
+ # its man page ( perldoc Test ) for help writing this test script.
+ 
+ my $database;
+-ok( $database = Search::Xapian::WritableDatabase->new( 'testdb', Search::Xapian::DB_OPEN ) );
++ok( $database = Search::Xapian::WritableDatabase->new( 'testdb', Search::Xapian::DB_CREATE_OR_OVERWRITE ) );
++
++ok( $database->get_description() );
+ 
+ my $stemmer;
+ ok( $stemmer = Search::Xapian::Stem->new( 'english' ) );
++ok( $stemmer->get_description() );
+ 
+ my %docs;
+ 
+ my $term = 'test';
+ ok( $term = $stemmer->stem_word( $term ) );
+ 
+-for my $num qw( one two ) {
++my $docid;
++for my $num qw( one two three ) {
+   ok( $docs{$num} = Search::Xapian::Document->new() );
++  ok( $docs{$num}->get_description() );
+ 
+   $docs{$num}->set_data( "$term $num" );
+ 
+   $docs{$num}->add_posting( $term, 0 );
+   $docs{$num}->add_posting( $num, 1 );
+ 
+-  ok( $database->add_document( $docs{$num} ) );
++  ok( $docid = $database->add_document( $docs{$num} ) );
+ }
++$database->delete_document( $docid );
++ok( $database->get_doccount(), 2 );
+ 
+ 1;
+diff -ru Search-Xapian-0.8.0.2-orig/typemap Search-Xapian-0.8.0.2/typemap
+--- Search-Xapian-0.8.0.2-orig/typemap	2004-05-13 11:59:02.000000000 +0100
++++ Search-Xapian-0.8.0.2/typemap	2004-05-28 16:19:51.000000000 +0100
+@@ -37,14 +37,14 @@
+ 
+ string			STRING
+ 
+-docid			T_IV
+-doccount		T_IV
+-doclength		T_IV
+-percent			T_IV
+-termcount		T_IV
+-termpos			T_IV
+-valueno			T_IV
+-weight			T_IV
++docid			T_UV
++doccount		T_UV
++doclength		T_UV
++percent			T_UV
++termcount		T_UV
++termpos			T_UV
++valueno			T_UV
++weight			T_NV
+ 
+ 
+ 

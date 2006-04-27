@@ -1,0 +1,27 @@
+#!/bin/bash
+# compactsearchdb. Compacts the Xapian search database using quartzcompact.
+
+#set -x  # for debugging, prints each line before executing it
+set -e
+
+source /home/fawkes/fawkes/scripts/consts
+
+# Make sure only one copy runs at once
+if [ x$LOCKFILE = x ]
+then
+        /home/fawkes/fawkes/scripts/run-with-lockfile -n /home/fawkes/fawkes/scripts/morningupdate-lockfile $0
+        if [ $? = 100 ]
+        then
+                echo "morningupdate or compactsearchdb is already running" 1>&2
+        fi
+        exit $?
+fi
+
+cd ~
+rm -fr searchdb-compacted
+/usr/local/bin/quartzcompact ~/searchdb/ ~/searchdb-compacted/ >/dev/null
+rm -fr searchdb-previous
+mv searchdb searchdb-previous
+mv searchdb-compacted searchdb
+
+

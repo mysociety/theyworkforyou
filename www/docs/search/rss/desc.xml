@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearchdescription/1.0/">
+<Url>http://www.theyworkforyou.com/search/rss/?s={searchTerms}&amp;p={startPage}</Url>
+<Format>http://a9.com/-/spec/opensearchrss/1.0/</Format>
+<ShortName>TheyWorkForYou</ShortName>
+<LongName>TheyWorkForYou.com</LongName>
+<Description>Search what MPs and Peers have said in Parliament.</Description>
+<Tags>democracy mp mps peer peers britain uk parliament house of commons lords</Tags>
+<Image>http://www.theyworkforyou.com/search/rss/image.gif</Image>
+<SampleSearch>iraq</SampleSearch>
+<Developer>Matthew Somerville</Developer>
+<Contact>beta&#64;theyworkforyou.com</Contact>
+<Attribution>Copyright UK Parliament. Licensed.</Attribution>
+<SyndicationRight>limited</SyndicationRight>
+<AdultContent>false</AdultContent>
+</OpenSearchDescription>

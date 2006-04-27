@@ -1,0 +1,12 @@
+#!/bin/bash
+# Jobs that need running daily, that aren't with urgency dependent on new stuff
+# from Hansard
+
+source ~/fawkes/scripts/consts
+
+# Update MP info from Public Whip, FaxYourMP and other places
+cd ~/parlparse/members
+svn -q update
+cd ~/fawkes/scripts
+./mpinfoin.pl
+

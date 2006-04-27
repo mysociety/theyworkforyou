@@ -1,0 +1,24 @@
+Subject:One of your comments has been deleted
+Hi {FIRSTNAME},
+
+Thanks for taking the time to contribute to TheyWorkForYou.com. 
+
+Unfortunately, another user has indicated that the comment copied at the bottom of this email might be in breach of the House Rules listed here http://www.theyworkforyou.com/houserules/ 
+
+We have removed your comment from TheyWorkForYou.com for the following reason: 
+
+{DELETEDREASON}.
+
+Sorry if this sounds all a bit bossy and strict. We want as many people as possible to scribble in the margins of Hansard, but between us we have learned that a healthy community needs clear rules. And if someone continues to break our House Rules, we may suspend their account. 
+
+Best wishes,
+
+- The TheyWorkForYou.com Volunteers
+
+
+PS  If you're still in the mood, we'd be delighted if you wanted to redraft your comment so it meets our House Rules. Just visit this address
+{ADDCOMMENTURL} 
+
+Your original comment:
+
+{COMMENTBODY}

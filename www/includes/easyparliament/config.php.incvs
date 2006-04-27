@@ -1,0 +1,100 @@
+<?php
+// This file config.php.incvs is a template config file.
+// Edit this, and copy it to a file called config.php.
+
+// *******************************************************************************
+// MySQL database.
+define ("DB_HOST", "localhost");
+define ("DB_USER", "username");
+define ("DB_PASSWORD", "password");
+define ("DB_NAME", "fawkes");
+
+// *******************************************************************************
+// Domains.
+// Set this to the domain you are hosting on. If you're running locally, this will be "localhost" 
+define ("DOMAIN", "www.example.org");
+define ("COOKIEDOMAIN", "www.example.org");
+
+// General 'Contact us' type email address. Point this at a real address if you 
+// want the site generated email to come to you. Can be overridden for other mails below.
+
+define ("CONTACTEMAIL", "you@yourdomain.com");
+
+// File system path to the top directory of this Theyworkforyou installation
+define ("BASEDIR","/home/user/theyworkforyou/"); 
+
+// Webserver path to 'top' directory of the site (possibly just "/"). For example,
+// if the site is at 'http://www.yourdomain.com/public/theyworkforyou', 
+// this would be '/public/theyworkforyou'
+define ("WEBPATH", "/");
+
+// *******************************************************************************
+// Stop Here. In a basic developer configuration you shouldn't need to edit 
+// anything below this point.
+// Feel free to have an explore if you wish though.
+// *******************************************************************************
+
+// Variables that are local to this particular set-up.
+// Put variables that are consistent across development and live servers in init.php.
+
+// If true, php errors will be displayed, not emailed to the bugs list.
+define ("DEVSITE", true);
+
+// Add this and a number to the URL (eg '?debug=1') to view debug info.
+define ("DEBUGTAG", 'debug');
+
+// If defined, will display the NEWSBLOG. Defining this without installing 
+// the Movable Type code will cause errors. For most developers, leave undefined.
+//define("NEWSBLOG", true);
+
+// *******************************************************************************
+// File system path to the 'top' directory of the site.
+// If you've unpacked the tar file normally, and set the paths correctly above, 
+// you shouldn't change these.
+
+define ("FILEPATH", BASEDIR . WEBPATH);
+
+// File system path to where all the include files live.
+define ("INCLUDESPATH", BASEDIR . "/www/includes/");
+
+// Web path to the directory where the site's images are kept.
+define ("IMAGEPATH", WEBPATH . "images/");
+
+
+// This will be included in data.php. It's an array of page/section metadata.
+define ("METADATAPATH", BASEDIR . "/www/includes/easyparliament/metadata.php");
+
+// Search related. If defined will use XAPIAN search instead of mysql search
+//define ("XAPIANDB", "/home/fawkes/searchdb");
+
+// XML files and other scraped data stored as files
+define ("RAWDATA", "/home/fawkes/pwdata");
+
+// Location of the parliamentary recess data file. You can access this remotely 
+// from the main theyworkforyou site if you use
+define ("RECESSFILE","http://www.theyworkforyou.com/pwdata/parl-recesses.txt");
+// AND amend your global php.ini to 'allow_url_fopen = On'
+//define ("RECESSFILE", RAWDATA . "/parl-recesses.txt");
+
+
+
+// *******************************************************************************
+// More Email addresses.
+
+// When a user reports a comment, notification is sent to this address.
+define ("REPORTLIST", CONTACTEMAIL);
+
+// All outgoing emails to users get BCC'd to this address.
+define ("BCCADDRESS", CONTACTEMAIL);
+
+// All error emails go to this address.
+define ("BUGSLIST", CONTACTEMAIL);
+
+// Postcode lookup
+// Not defined on dev copies, causes postcode lookups to be random but deterministic
+//define ("POSTCODE_SEARCH_DOMAIN", "www.somedomain.com");
+define ("POSTCODE_SEARCH_PORT", "80");
+define ("POSTCODE_SEARCH_PATH", "somescript.php?postcode=");
+
+
+?>

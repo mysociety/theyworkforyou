@@ -1,0 +1,15 @@
+# crontab for TheyWorkForYou
+
+# m h dom mon dow command
+
+MAILTO=fawkes@lists.isness.org
+
+# daily update at night for MP data (regmem, data from Public Whip etc.)
+37 1 * * * $HOME/fawkes/scripts/dailyupdate
+
+# every week early Sunday grab weekly range of data
+23 4 * * Sun $HOME/fawkes/scripts/weeklyupdate
+
+# daily backup
+30 2 * * * $HOME/fawkes/scripts/dumpallforbackup
+

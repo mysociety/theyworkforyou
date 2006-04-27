@@ -1,0 +1,82 @@
+/* These styles override all the others and are used when a page is printed. */
+
+#search,
+#menu,
+#footer,
+#addcomment,
+div.sidebar,
+div.extra,
+div.mainsearchbox,
+div.pagelinks,
+a.permalink{
+	display: none;
+	}
+	
+a {
+	text-decoration: none;
+	}
+div.calendar a {
+	font-weight: bold;
+	}
+	
+div.main {
+	width: 100%;
+	}
+
+div.stripe-side,
+div.stripe-head-1,
+div.stripe-head-2,
+div.stripe-head-2,
+div.stripe-foot,
+div.stripe-1,
+div.stripe-time-1,
+div.stripe-procedural-1,
+div.stripe-2,
+div.stripe-time-2,
+div.stripe-procedural-2 {
+	background: none;
+	color: #000;
+	}
+
+div.stripe-time-1,
+div.stripe-procedural-1,
+div.stripe-time-2,
+div.stripe-procedural-2 {
+	font-style: italic;
+	}
+
+div.stripe-1 div.main,
+div.stripe-2 div.main,
+div.stripe-1-on div.main,
+div.stripe-2-on div.main {
+	padding: 0 0 1em 0;
+	}
+	
+div.block h4 {
+	margin: 0.1em;
+	}
+
+span.hi {
+	background: none;
+	font-weight: bold;
+	}
+#votingrecord {
+	clear: both;
+}
+.jumpers {
+	display: none;
+}
+.unneededprintlinks {
+	display: none;
+}
+
+#register a:after {
+	content: " ( " attr(href) " )";
+}
+#hansard #moreappear a:after {
+	content: " ( http://www.theyworkforyou.com" attr(href) " )";
+}
+.printonly {
+	display: block;
+}
+

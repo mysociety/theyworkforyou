@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /pwdata
+Disallow: /pwdata/scrapedxml
+Disallow: /pwdata/cmpages
+Disallow: /user
+
+User-agent: Slurp
+Crawl-delay: 5

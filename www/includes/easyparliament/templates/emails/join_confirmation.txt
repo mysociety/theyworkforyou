@@ -1,0 +1,18 @@
+Subject: Please confirm your TheyWorkForYou.com account
+Hi {FIRSTNAME},
+
+Welcome to TheyWorkForYou.com, the website which lets you scribble all over the margins of Hansard.
+
+Before you can log in and add comments, we need you to confirm your registration by clicking on the link below:
+
+{CONFIRMURL}
+
+If clicking the link above doesn't work, you may have to copy it and then paste it into the 'Location' or 'Address' box of your web browser, and then press 'enter' or 'return' on your keyboard.
+
+Please feel free to email us at volunteers@theyworkforyou.com with any comments, problems or suggestions. 
+
+And don't forget to let your friends and family know about TheyWorkForYou.com 
+
+Best wishes,
+
+- The TheyWorkForYou.com Volunteers

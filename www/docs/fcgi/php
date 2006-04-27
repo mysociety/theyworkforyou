@@ -1,0 +1,4 @@
+#!/bin/sh
+PHP_FCGI_CHILDREN=1 exec /usr/local/bin/php "$@"
+#PHPRC=/usr/local/etc/php-eaccelerator PHP_FCGI_CHILDREN=1 exec /usr/local/bin/php "$@"
+#PHPRC=/usr/local/etc/php-eaccelerator PHP_FCGI_CHILDREN=1 exec strace -f -o /tmp/php-strace.log.$$ /usr/local/bin/php "$@"

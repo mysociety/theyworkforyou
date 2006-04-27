@@ -1,0 +1,881 @@
+/* Only included by modern browsers. */
+/* The 'body' and font sizes are set in global.css. */
+
+/**** GENERIC HTML ELEMENTS *****************************************************/
+
+h1 {
+	margin: 0;
+	padding: 0;
+	display: inline;
+	font-size: 1px;
+	line-height: 0em;
+	}
+	
+h2 {
+	color: #B82E00;
+	font-weight: bold;
+	margin: 0.2em 14px 0 18px;
+	}
+	
+h3 {
+	color: #880101;
+	margin: 0 14px 1em 18px;
+	}
+	
+h4 {
+	color: #4D6C25;
+	margin: 1em 14px 0 18px;
+	}
+
+h5 {
+	margin: 0 14px 1.4em 18px;
+	}
+	
+form {
+	margin: 0;
+	padding: 0;
+	}
+
+a {
+	color: #00b;
+	text-decoration: underline;
+}
+
+a:visited {
+	color: #505;
+	text-decoration: underline;
+	}
+	
+p {
+	margin: 0 0 1em 0;
+	padding: 0;
+	line-height: 1.5em;
+	}
+
+ul, ol, li {
+	margin: 0;
+	padding: 0;
+	}
+li {
+	margin: 0 0 0.5em 1.2em;
+	}
+ol li {
+	margin-left: 1.5em;
+	}
+dt {
+	margin-left: 0;
+	font-weight: bold;
+	}
+dd {
+	margin: 0 0 1.5em 0;
+	}
+
+input.submit {
+	font-weight: bold;
+	color: #333;
+	}	
+	
+div.break {
+	clear: both;
+	height: 1px;
+	font-size: 1px;
+	background: #fff;
+	}
+
+div.row {
+  clear: both;
+  margin: 0 14px 0 18px;
+  padding-top: 0.5em;
+  }
+
+div.row span.label {
+  display: block;
+  float: left;
+  width: 10.5em;
+  font-weight: bold;
+  }
+
+div.row span.formw {
+  display: block;
+  float: left;
+  width: 25em;
+  text-align: left;
+  }
+
+
+/**** MAIN STRUCTURAL BLOCKS *****************************************************/
+
+/* Used on every page */
+
+#container {
+	margin: 0 auto 0 auto;
+	padding: 0;
+	}
+
+#banner {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	}
+#title {
+	padding: 15px 14px 16px 18px;
+	line-height: 0;
+	font-size: 10%; /* Only way to stop space below images in Win IE? */
+	}
+
+#search {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 34%;
+	height: 68px;
+	padding: 0;
+	background-color: #E8FDCB;
+	z-index: 0;
+	}
+
+#search form {
+	margin: 1.4em 14px 0 20px;
+	font-weight: bold;
+	}
+	
+#menu {
+	position: relative;
+	width: 100%;
+	background-color: #E8FDCB;
+	border-top: 1px solid #fff;
+	}
+
+#content {
+	clear: both;
+	width: 100%;
+	}
+
+#footer {
+	width: 100%;
+	padding: 0.7em 0 0.2em 0;
+	margin: 0;
+	background-color: #E8FDCB;
+	}
+
+#footer p {
+	margin-left: 18px;
+	}
+
+/**** MENU ***********************************************************************/
+
+#topmenu {
+	position: relative;
+	margin: 0;
+	padding: 0 14px 0 0;
+	border-top: 1px solid #fff;
+	z-index: 10;
+	}
+	
+#bottommenu {	
+	position: relative;
+	width: 100%;
+	height: 2em;
+	margin: 0;
+	padding: 0 0 0 0px; /* was 2px left padding */
+	z-index: 10;
+	background-color: #4D6C25;
+	}
+	
+#topmenu ul,
+#bottommenu ul {
+	list-style: none;
+	margin: 0 0 0 18px;
+	padding: 0;
+	}
+	
+ul#user {
+	position: relative;
+	float: right;
+	width: 25em;
+	}
+ul#user li {
+	float: right;
+	}
+ul#user .name {
+	display: block;
+	margin: 3px 5px 0 0;
+	}
+	
+#topmenu li,
+#bottommenu li {
+	position: relative;
+	display: block;
+	float: left;
+	width: auto;
+	margin: 0;
+	padding: 0;
+	}
+	
+#topmenu br { 
+	clear: both; 
+	}
+	
+#topmenu a,
+#bottommenu a {
+	position: relative;
+	display: block;
+	margin: 0;
+	padding: 3px 10px;
+	background: #BDE190;
+	border-left: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	color: #000;
+	font-weight: bold;
+	width: 5.5em;
+	/* Mac IE will ignore the next line \*/
+	width: auto;
+	/* end hack */
+	}
+	
+#bottommenu a {
+	padding-right: 20px;
+	border: 1px solid #4D6C25;
+	background: #4D6C25;
+	color: #fff;
+	}
+
+#topmenu a.on,
+#topmenu a:hover {
+	background: #4D6C25;
+	color: #fff;
+	}
+	
+#topmenu a.on {
+	border-bottom: 1px solid #4D6C25;
+	}
+
+#bottommenu a.on,
+#bottommenu a:hover {
+	background: #4D6C25 url("../../images/menuarrow.gif") no-repeat left;
+	}
+
+/**** STRIPES *****************************************************************/
+/**** The horizontal stripes. And/or the main column / sidebar structure.     */
+/**** A stripe* will probably contain main and sidebar divs. */
+
+div.stripe-side,
+div.stripe-head-1,
+div.stripe-head-2 {
+	margin: 0;
+	padding: 0;
+	background: #F5FDEA;
+	}
+
+div.stripe-head-2,
+div.stripe-foot {
+	background: #FDF5F5;
+	}
+
+div.stripe-1,
+div.stripe-1-on,
+div.stripe-time-1,
+div.stripe-procedural-1 {
+	background: #F5FDEA;
+	}
+
+div.stripe-2,
+div.stripe-2-on,
+div.stripe-time-2,
+div.stripe-procedural-2 {
+	background: #E8FDCB;
+	}
+
+/* The main, left-column */
+
+div.main {	
+	float: left;
+	width: 66%;
+	margin: 0;
+	padding: 0;
+	background: #fff;
+	}	
+
+div.stripe-side div.main {
+	padding-top: 1em;
+	padding-bottom: 3em;
+	}
+div.stripe-head-1 div.main {
+	padding-top: 1em;
+	}
+div.stripe-head-2 div.main,
+div.stripe-foot div.main {
+	border-right: 1px solid #fff;
+	background: #FDF5F5;
+	}
+
+div.stripe-1 div.main,
+div.stripe-2 div.main,
+div.stripe-1-on div.main,
+div.stripe-2-on div.main {
+	padding: 1em 0 1em 0;
+	}
+div.stripe-1 div.main,
+div.stripe-1-on div.main,
+div.stripe-time-1 div.main,
+div.stripe-procedural-1 div.main {
+	border-right: 1px solid #fff;
+	background: #F5FDEA;
+	}
+div.stripe-2 div.main,
+div.stripe-2-on div.main,
+div.stripe-time-2 div.main,
+div.stripe-procedural-2 div.main {
+	border-right: 1px solid #fff;
+	background: #E8FDCB;
+	}
+div.stripe-time-1 div.main,
+div.stripe-time-2 div.main,
+div.stripe-procedural-1 div.main,
+div.stripe-procedural-2 div.main {
+	padding-top: 0.5em;
+	color: #4D6C25;
+}
+p.moved {
+	color: #4D6C25;
+}
+div.stripe-1 p,
+div.stripe-2 p,
+div.stripe-1-on p,
+div.stripe-2-on p,
+div.stripe-time-1 p,
+div.stripe-procedural-1 p,
+div.stripe-time-2 p,
+div.stripe-procedural-2 p {
+	margin-bottom: 0.5em;
+	}
+
+
+div.main p,
+div.main ul,
+div.main ol,
+div.main dl,
+div.main table {
+	margin-left: 18px;
+	margin-right: 14px;
+	}
+div.main dd p {
+	margin-left: 0;
+	margin-right: 0;
+	}
+	
+div.main p.speaker,
+div.main p.unknownspeaker {
+	margin-bottom: 0;
+	}
+div.main p.unknownspeaker {
+	font-weight: bold;
+	}
+	
+div.stripe-1-on p.speaker a,
+div.stripe-2-on p.speaker a {
+	color: #B82E00;
+	}
+div.stripe-1-on p.speaker a.permalink,
+div.stripe-2-on p.speaker a.permalink {
+	color: #000;
+	}
+	
+div.main img.portrait {
+	margin: 0.3em 1em 1em 0;
+	border: none;
+	float: left;
+	}
+div.main p.divisionheading {
+	font-weight: bold;
+	color: #000;
+	}
+div.main p.indent,
+div.main p.indentitalic,
+div.main p.numindent {
+	margin-left: 4em;
+	}
+div.main p.italic,
+div.main p.indentitalic {
+	font-style: italic;
+	color: #4D6C25;
+	}
+
+
+
+/**** BLOCKS *************************************************************************/	
+/* A 'block' is a colored area with a headline, like all those ones on the home page. */
+
+div.block {
+	margin: 0 14px 1.5em 18px;
+	padding: 0;
+	border: 1px solid #BDE190;
+	background-color: #fff;
+	}
+	
+div.block h4 {
+	margin: 0;
+	padding: 0.15em 0.7em 0.3em 0.7em;
+	background: #BDE190;
+	color: #000;
+	}
+
+div.block div.blockbody {
+	padding: 0.7em;
+	}
+
+div.block div.blockbody p,
+div.block div.blockbody ul {
+	margin-left: 0;
+	margin-right: 0;
+	}
+
+div#help.block {
+	border: 1px solid #D24000;
+	}
+div#help.block h4 {
+	padding: 2px 0 5px 30px;
+	background: url("../../images/help.gif") no-repeat top left #B82E00;
+	color: #fff;
+	}
+div#help.block h4 a {
+	color: #fff;
+	}
+	
+	
+	
+/**** SIDEBARS ******************************************************************/
+
+div.sidebar {
+	float: right;
+	width: 33%;
+	padding: 1em 0 0 0;
+	margin: 0;
+	background: transparent;
+	}
+
+/* Overriding the standard block styles for the sidebar. */
+div.sidebar div.block {
+	margin: 0 14px 1em 10px;
+	padding: 4px;
+	border: 1px solid #89B84B;
+	}
+div.sidebar div.block h4 {
+	background: #89B84B;
+	color: #fff;
+	padding-left: 0.35em;
+	padding-right: 0.35em;
+	}
+div.sidebar div.block h4 a {
+	color: #fff;
+	}
+	
+div.sidebar div.block h5 {
+	margin: 1em 0 0 0;
+	}
+	
+div.sidebar div.blockbody {
+	padding: 0 0.35em 0em 0.35em;
+	}
+
+div.sidebar p {
+	line-height: 1.3em;
+	margin-top: 0.5em;
+	margin-bottom: 1em;
+	}
+div.sidebar p.vote {
+	margin: 0.2em 14px 0 10px;
+	}
+div.sidebar p.vote a {
+	background-color: #4D6C25;
+	padding: 2px 4px;
+	border-top: 2px solid #EAECE7;
+	border-right: 2px solid #F0F1ED;
+	border-bottom: 2px solid #3C541D;
+	border-left: 2px solid #324518;
+	color: #fff;
+	font-weight: bold;
+	text-decoration: none;
+	}
+span.wransvote {
+	line-height: 2.2em;
+	}
+
+div.sidebar p.comment-teaser {
+	margin: 0 14px 0 10px;
+	}
+	
+div.sidebar p.nextprev {
+	margin: 0.5em 14px 2em 10px;
+	height: 3em;
+	}
+.up {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 0.5em;
+	text-align: center;
+	}
+.prev {
+	display: block;
+	float: left;
+	}
+.next {
+	display: block;
+	float: right;
+	}
+	
+div.sidebar ul {
+	margin-top: 0.5em;
+	}
+
+/* eg, the 'source' link on Hansard pages. */
+div.extra {
+	float: right;
+	margin: -1.8em 14px 0 0;
+	}
+div.extra a {
+	color: #A1B487;
+	}
+
+
+/**** CALENDARS ****************************************************************/	
+
+div.calendar {
+	float: left;
+	margin: 0 14px 1em 18px;
+	padding: 0;
+	height: 11.5em;
+	}
+	
+div.calendar table {
+	margin: 0;
+	}
+	
+div.calendar caption {
+	caption-side: top;
+	text-align: left;
+	padding: 0.2em 0.4em;
+	background: #BDE190;
+	}
+div.calendar th,
+div.calendar td {
+	text-align: center;
+	font-weight: normal;
+	background: #E8FDCB;
+	padding: 0.2em 0.1em;
+	}
+div.calendar td {
+	padding: 0.2em 0.4em;
+	color: #4D6C25;
+	}
+div.calendar td.on {
+	background: #89B84B;
+	color: #fff;
+	}
+div.calendar td.on a {
+	color: #fff;
+	}
+div.calendar td.no, div.sidebar div.calendar td.no {
+	color: #cccccc;
+	background-color: #eeeeee;
+}
+/* Changes for sidebar */
+div.sidebar div.calendar {
+	float: none;
+	margin: 0.5em 0 0.5em 0;
+	height: auto;
+	}
+div.sidebar div.calendar caption {
+	font-weight: bold;
+	background: none;
+	}
+div.sidebar div.calendar th,
+div.sidebar div.calendar td {
+	background: #fff;
+	}
+div.sidebar div.calendar td.on {
+	background: #89B84B;
+	color: #fff;
+	}
+	
+	
+
+/**** MISC THINGS ****************************************************************/	
+
+ul#hansard-day,
+ul#hansard-day li,
+ul#hansard-day ul,
+ul#hansard-day ul li {
+	list-style-type: none;
+	line-height: 1.3em;
+	margin: 0;
+	padding: 0;
+	}
+ul#hansard-day {
+	margin: 0 14px 1em 18px;
+	}
+ul#hansard-day li,
+ul#hansard-day ul li {
+	margin-bottom: 0.5em;
+	}
+ul#hansard-day ul {
+	margin: 0.5em 0 0 3em;
+	}
+div#intro ul#hansard-day {
+	list-style-type: disc;
+	margin: 0 0 0 2em;
+	padding: 0;
+}
+div#intro ul#hansard-day li {
+	list-style-type: disc;
+	margin: 0 0 0 0;
+	padding: 0;
+}
+div#intro ul#hansard-day ul {
+	padding: 0;
+	margin: 0 0 0.5em 2em;
+}
+div#intro ul#hansard-day ul li {
+}
+div#intro ul#hansard-day ul ul {
+	margin: 0 0 0 2em;
+}
+
+div.comment {
+	margin-top: 2em;
+	}
+div.comment p.credit {
+	line-height: 1.3em;
+	margin-bottom: 0;
+	}
+div.comment p.comment {
+	margin-bottom: 0;
+	}
+
+
+dl.big-debates dt,
+dl.recent-wrans dt {
+	line-height: 1.3em;
+	font-weight: normal;
+	}
+dl.big-debates dd {
+	line-height: 1.3em;
+	margin: 0 0 0.5em 1.5em;
+	}
+dl.recent-wrans dd {
+	margin: 0 0 1em 1.5em;
+	}
+dl.recent-wrans p {
+	display: inline;
+	}
+dl.recent-wrans p.numindent {
+	margin: 0;
+	}
+
+table.people th {
+	text-align: left;
+	background: #BDE190;
+	}
+table.people td.row-1 {
+	background: #F5FDEA;
+	}
+table.people td.row-2 {
+	background: #E8FDCB;
+	}
+
+dl.searchresults {
+	margin: 0;
+	}
+dl#searchresults dt,
+dl#searchresults dd {
+	margin: 0;
+	padding: 0;
+	}
+dl#searchresults dt {
+	margin: 0 0 0.2em 0;
+	font-weight: normal;
+	}
+dl#searchresults dd {
+	margin-bottom: 1em;
+	}
+
+div.mainsearchbox,
+div.pagelinks {
+	margin: 1em 14px 1em 18px;
+	text-align: center;
+	}
+
+span.hi {
+	background: #ff3;
+	}
+a span.hi {
+	text-decoration: underline;
+	}
+	
+span.example-input {
+	display: block;
+	background: #eee; 
+	margin: 0.2em 0;
+	padding: 2px; 
+	border-top: 1px solid #666; 
+	border-left: 1px solid #666;
+	}
+	
+	
+/* Site News */
+form.blogcomment {
+	margin-left: 18px;
+	margin-right: 14px;
+	}
+
+/* Admin */	
+p.email-template {
+	font-family: monospace;
+	background: #F5FDEA;
+	border: 1px solid #4D6C25;
+	padding: 1em;
+	}
+
+/**** GLOSSARY ***********************************************************************/
+
+p.glossary-body {
+	clear: both;
+	margin-top: 1em;
+}
+
+a.glossary {
+	/*cursor: help;*/
+}
+
+ul.glossary {
+	margin: 1em 14px 1em 18px;
+	padding-top: 1em;
+	clear: left;
+	}
+
+div.letters {
+	margin: 1em 14px 0 18px;
+	}
+div.letters ul,
+div.letters li {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	}
+div.letters ul {
+	clear: left;
+	}
+div.letters li {
+	float: left;
+	width: 2em;
+	margin: 0 1px 1px 0;
+	padding-top: 0.3em;
+	padding-bottom: 0.5em;
+	text-align: center;
+	background: #E8FDCB;
+	}
+div.letters li.on {
+	background: #880000;
+	color: #fff;
+	font-weight: bold;
+	}
+div.letters li.on a {
+	background: #880000;
+	color: #fff;
+	font-weight: bold;
+	}
+
+
+/**** MP PAGE ****************************************************************/	
+/* We override the standard block styles for these special MP page blocks.   */
+
+div#mp.block {
+	/* Stops contents disappearing in Win IE. Weird. */
+	line-height: 1.2em;
+	}
+	
+div#mp.block,
+div#mpsearch.block {
+	background: #FDF5F5;
+	border: 1px solid #C00;
+	}
+div#mp.block h4,
+div#mpsearch.block h4 {
+	background: #C00;
+	color: #fff;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	}
+div#emailfriend.block {
+	background: #eeeeff;
+	border: 1px solid #000099;
+}
+div#emailfriend.block h4 {
+	background: #000099;
+	color: #ffffff;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+div#mp img.portrait {
+	float: left;
+	display: block;
+	margin: 0 2em 1em 0;
+	}
+
+ul.jumpers {
+	clear: left;
+	}
+	
+.regmemcategory {
+	font-weight: bold;
+	}
+.regmemitem {
+	margin: 0.5em 0;
+	}
+	
+	
+/**** HOME PAGE ****************************************************************/	
+/* We override the standard block styles for this special home page block.     */
+
+div#intro.block {
+	background: #FDF5F5;
+	border: 1px solid #C00;
+	}
+div#intro.block h4 {
+	background: #C00;
+	color: #fff;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	}
+div#intro.block li {
+	font-weight: bold;
+	margin-bottom: 1em;
+	}
+div#intro.block li li {
+	font-weight: normal;
+}
+div#intro.block li p {
+	font-weight: normal;
+	line-height: 1.8em;
+	padding: 0.2em 0 0 0.5em;
+	margin-bottom: 0;
+	}
+
+p#howvoted {
+	margin-bottom: 0.5em;
+}
+ul#dreamcomparisons {
+	margin-bottom: 1em;
+}
+
+acronym {
+	border-bottom: dotted 1px black;
+}
+
+#warning {
+	font-size: larger;
+	font-weight: bold;
+	text-align: center;
+	border: solid 1px #990000;
+	background-color: #ffcccc;
+}

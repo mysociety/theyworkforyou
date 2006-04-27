@@ -1,0 +1,25 @@
+Subject: Please confirm your TheyWorkForYou.com alert
+
+You have asked to subscribe to an alert at TheyWorkForYou.com
+for the following criteria:
+
+{CRITERIA}
+Before the alert is activated we need you to confirm your
+registration by clicking on the link below:
+
+{CONFIRMURL}
+
+If clicking the link above doesn't work, you may have to copy it
+and then paste it into the 'Location' or 'Address' box of your web
+browser, and then press 'enter' or 'return' on your keyboard.
+
+If you have not tried to register for this alert then someone else
+entered your address. If you think this has been done maliciously
+then let us know at volunteers@theyworkforyou.com
+
+And don't forget to let your friends and family know about
+TheyWorkForYou.com 
+
+Best wishes,
+
+- The TheyWorkForYou.com Volunteers

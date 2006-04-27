@@ -1,0 +1,71 @@
+Note that now the codebase requires 0.9.0 of Xapian.  The packaging
+is a bit better, so the below should be a bit less hassle free
+with 0.9.0
+
+Install Xapian (Ben's notes)
+--------------
+
+% wget http://www.oligarchy.co.uk/xapian/0.8.1/xapian-core-0.8.1.tar.gz
+
+unpack,
+
+% cd xapian-core-0.8.1
+% ./configure
+% make
+% su
+# make install
+
+Perl bindings:
+
+# perl -MCPAN -e shell
+.
+.
+.
+cpan> install Search::Xapian
+.
+.
+.
+cpan> quit
+Lockfile removed.
+
+SWIG:
+
+# pkg_fetch swig
+# pkg_add /path/to/swig
+
+PHP bindings:
+
+% wget http://www.oligarchy.co.uk/xapian/0.8.1/xapian-bindings-0.8.1.tar.gz
+
+unpack,
+
+% cd xapian-bindings-0.8.1
+% ./configure --without-python
+
+I had to manually softlink libtoolize13 to libtoolize in
+/usr/local/bin to make this work.
+
+For 0.8.2 I had to comment out:
+
+SUBDIRS=docs
+
+in php4/Makefile.
+
+On Mac OS X, this won't work.  Dorian says: << I went into php4/xapian and ran
+"glibtoolize -f -c" which created config.sub >>.  There is no libtoolize on the
+Mac, it is called glibtoolize.
+
+Then I manually installed it:
+
+# cp ~ben/software/unpacked/xapian-bindings-0.8.1/php4/xapian/modules/xapian.so /usr/local/lib/php/
+
+add two lines to /usr/local/etc/php.ini:
+
+extension_dir = "/usr/local/lib/php"
+extension = xapian.so
+
+RESTART APACHE!!!
+
+confirm xapian is installed with:
+
+http://parl.stand.org.uk/fawkes/www/docs/admin/test.php

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rss version="2.0" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+  xmlns:admin="http://webns.net/mvcb/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<channel>
+<title>Hansard Bugs Blog</title>
+<link>http://www.theyworkforyou.com/hansardbugs/</link>
+<description>A collection of bugs and errors found by the TheyWorkForYou.com volunteers in the content and code of Hansard&apos;s official website.</description>
+<dc:language>en-us</dc:language>
+<dc:creator>matthew@dracos.co.uk</dc:creator>
+<dc:date>2005-02-09T18:52:02+00:00</dc:date>
+<admin:generatorAgent rdf:resource="http://www.movabletype.org/?v=2.661" />
+<sy:updatePeriod>hourly</sy:updatePeriod>
+<sy:updateFrequency>1</sy:updateFrequency>
+<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+
+<item>
+<title>Quandry</title>
+<link>http://www.theyworkforyou.com/hansardbugs/archives/000029.php</link>
+<description>Our scraper runs at 8:05am every morning, followed immediately by the parser, database-adder (which puts it live) and search-indexer (which adds new entries to the search index). Now, sometimes (rarely) this all goes fine. Sometimes (like today) Hansard isn&apos;t up...</description>
+<guid isPermaLink="false">29@http://www.theyworkforyou.com/hansardbugs/</guid>
+<dc:subject></dc:subject>
+<dc:date>2005-02-09T18:52:02+00:00</dc:date>
+</item>
+<item>
+<title>Volume 423</title>
+<link>http://www.theyworkforyou.com/hansardbugs/archives/000028.php</link>
+<description>Volume 423 of Hansard is out - http://www.publications.parliament.uk/pa/cm/cmvol423.htm - so this weekend every day from 2004-06-28 to 2004-07-16 changed, sometimes dramatically, and had to be reparsed. These changes are normally spelling corrections and the like, normally for the better (e.g....</description>
+<guid isPermaLink="false">28@http://www.theyworkforyou.com/hansardbugs/</guid>
+<dc:subject></dc:subject>
+<dc:date>2005-02-07T23:49:01+00:00</dc:date>
+</item>
+<item>
+<title>24th-26th January</title>
+<link>http://www.theyworkforyou.com/hansardbugs/archives/000027.php</link>
+<description><![CDATA[Monday had a missing &lt;b&gt;&lt;/b&gt; around a speaker's name (hmm, maybe we should check if the first two words of a speech are actually "Title Surname:" - that might actually work...), and a couple of questions had missing bits of...]]></description>
+<guid isPermaLink="false">27@http://www.theyworkforyou.com/hansardbugs/</guid>
+<dc:subject></dc:subject>
+<dc:date>2005-01-28T00:04:54+00:00</dc:date>
+</item>
+<item>
+<title>weeklyupdate has some fun</title>
+<link>http://www.theyworkforyou.com/hansardbugs/archives/000024.php</link>
+<description>weeklyupdate is a script that runs weekly (Sunday mornings, 4.23am) over the whole of Hansard back to June 2001, until this week simply to spot when Hansard do a &quot;daily&quot; to &quot;bound volume&quot; edition switch (this is when they make...</description>
+<guid isPermaLink="false">24@http://www.theyworkforyou.com/hansardbugs/</guid>
+<dc:subject></dc:subject>
+<dc:date>2005-01-23T21:24:38+00:00</dc:date>
+</item>
+<item>
+<title>This week&apos;s problems</title>
+<link>http://www.theyworkforyou.com/hansardbugs/archives/000022.php</link>
+<description>This week was very uneventful. Written answers on the 17th were missing marking Mr Kilfoyle as a speaker and &quot;ask the Secretary of State for Foreign and Commonwealth Affairs&quot; at the start of a question. Written ministerial statements said it...</description>
+<guid isPermaLink="false">22@http://www.theyworkforyou.com/hansardbugs/</guid>
+<dc:subject></dc:subject>
+<dc:date>2005-01-21T23:03:56+00:00</dc:date>
+</item>
+<item>
+<title>Last week</title>
+<link>http://www.theyworkforyou.com/hansardbugs/archives/000023.php</link>
+<description><![CDATA[Woo, I have a blog! All right, it's not mine, it's to fill with long, rambling, and probably boring posts about errors in the Official Parliamentary Record. So without further ado... 10th - Some rogue "&amp;nbsp;" in some headings, a...]]></description>
+<guid isPermaLink="false">23@http://www.theyworkforyou.com/hansardbugs/</guid>
+<dc:subject></dc:subject>
+<dc:date>2005-01-18T23:09:30+00:00</dc:date>
+</item>
+
+
+</channel>
+</rss>

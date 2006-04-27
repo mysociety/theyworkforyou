@@ -1,0 +1,7 @@
+#!/usr/bin/perl -w
+
+# Displays epoch time in a comprehensible form
+
+my $in = <>;
+die "Please specify an epoch!" unless $in;
+print scalar localtime($in) . "\n";

@@ -1,0 +1,14 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	}
+
+h2, h3, h4, h5, p, th, td, caption {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.error {
+	color: #133885;
+	}
+/*
+.block h4 { background-color: #FFFFFF }
+*/

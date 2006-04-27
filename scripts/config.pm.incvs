@@ -1,0 +1,16 @@
+package config;
+
+# rename this as config.pm, and edit it with your settings
+
+use vars qw($user $pass $pwdata $pwmembers);
+
+$dsn="DBI:mysql:database=fawkes:host=";
+$user="";
+$pass="";
+
+# this is where the XML files come from:
+$pwdata = "/home/fawkes/pwdata/";
+# and where all-members.xml is:
+$pwmembers = "/home/fawkes/parlparse/members/";
+
+1;

@@ -1,0 +1,51 @@
+<?php $URL = new URL('houserules');
+$houserulesurl = $URL->generate();
+?>
+
+<p>Access to and use of this beta (trial) version of the site ('TheyWorkForYou.com) is provided by FaxYourMP Ltd. subject to the following terms: By using TheyWorkForYou.com you agree to be legally bound by these terms, which shall take effect immediately on your first use of TheyWorkForYou.com. If you do not agree to be legally bound by all the following terms please do not access and/or use TheyWorkForYou.com. </p>
+<p>
+FaxYourMP Ltd. may change these terms at any time by posting changes online. Please review these terms regularly to ensure you are aware of any changes made by FaxYourMP Ltd. Your continued use of TheyWorkForYou.com after changes are posted means you agree to be legally bound by these terms as updated and/or amended. 
+</p>
+<h2>Use of TheyWorkForYou.com</h2>
+<p>
+The copyright of <a href="http://www.hansard-westminster.co.uk/" title="hansard link">Hansard</a> remains under <a href="http://www.hmso.gov.uk/copyright/policy/parli_copyright.htm" title="link to details of Parliamentary Copyright">Parliamentary Copyright</a>. This site acts as a search engine of the official Hansard record. When someone uses this trial version of our search engine to find a <a href="http://www.theyworkforyou.com/debate/?id=2004-05-27.1747.2" title="link to example speech">particular speech</a>, we supply a precise "source" link to the appropriate paragraph on <a href="http://www.publications.parliament.uk/pa/cm200304/cmhansrd/cm040527/debtext/40527-15.htm#40527-15_spnew3" title="link to example debate on official hansard website">official Hansard website</a>. We make use of Hansard data in much the same way as does Google, who store much of the web in their cache.</p>
+
+<p>
+You agree to use TheyWorkForYou.com only for lawful purposes, and in a way that does not infringe the rights of, restrict or inhibit anyone else's use and enjoyment of TheyWorkForYou.com. Prohibited behaviour includes harassing or causing distress or inconvenience to any person, transmitting obscene or offensive content or disrupting the normal flow of dialogue within TheyWorkForYou.com. 
+</p>
+<h2>Disclaimers and Limitation of Liability</h2>
+<p>
+TheyWorkForYou.com content, including the information, names, images, pictures, logos and icons regarding or relating to FaxYourMP Ltd., its products and services (or to third party products and services), is provided "AS IS" and on an "IS AVAILABLE" basis without any representations or any kind of warranty made (whether express or implied by law) to the extent permitted by law, including the implied warranties of satisfactory quality, fitness for a particular purpose, non-infringement, compatibility, security and accuracy.  </p>
+<p>
+Under no circumstances will FaxYourMP Ltd. be liable for any of the following losses or damage (whether such losses where foreseen, foreseeable, known or otherwise): (a) loss of data; (b) loss of revenue or anticipated profits; (c) loss of business; (d) loss of opportunity; (e) loss of goodwill or injury to reputation; (f) losses suffered by third parties; or (g) any indirect, consequential, special or exemplary damages arising from the use of TheyWorkForYou.com regardless of the form of action. </p>
+<p>
+FaxYourMP Ltd. does not warrant that functions contained in TheyWorkForYou.com content will be uninterrupted or error free, that defects will be corrected, or that TheyWorkForYou.com or the server that makes it available are free of viruses or bugs. 
+</p>
+
+<h2>Contributions to TheyWorkForYou.com</h2>
+<p>
+Where you are invited to submit any contribution to TheyWorkForYou.com (including any text, photographs, graphics, video or audio) you agree, by submitting your contribution, to grant FaxYourMP Ltd. a perpetual, royalty-free, non-exclusive, sub-licenseable right and license to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, perform, play, make available to the public, and exercise all copyright and publicity rights with respect to your contribution worldwide and/or to incorporate your contribution in other works in any media now known or later developed for the full term of any rights that may exist in your contribution, and in accordance with privacy restrictions set out in FaxYourMP Ltd.'s Privacy Policy. If you do not want to grant to FaxYourMP Ltd. the rights set out above, please do not submit your contribution to TheyWorkForYou.com. </p>
+  <p>
+Further to the above paragraph, by submitting your contribution to TheyWorkForYou.com, you:
+</p>
+<ul>
+<li>Warrant that your contribution;</li>
+
+<ul>
+<li>is your own original work and that you have the right to make it available to FaxYourMP Ltd. for all the purposes specified above;</li>
+<li>is not defamatory; and</li>
+<li>does not infringe any law; and  </li>
+</ul>
+
+<li>Indemnify FaxYourMP Ltd. against all legal fees, damages and other expenses that may be incurred by FaxYourMP Ltd. as a result of your breach of the above warranty.</li>
+</ul>
+
+<h2>TheyWorkForYou.com House Rules</h2>
+<p>You agree to use TheyWorkForYou.com website in accordance with the <a href="<?php echo $houserulesurl; ?>">House Rules</a>. If you persist in breaking the House Rules, we reserve the right to suspend your TheyWorkForYou.com account(s) and take any appropriate action to prevent any further breaches. 
+</p>
+
+<h2>General</h2>
+ <p>
+If any of these terms are determined to be illegal, invalid or otherwise unenforceable by reason of the laws of any state or country in which these terms are intended to be effective, then to the extent and within the jurisdiction in which that term is illegal, invalid or unenforceable, it shall be severed and deleted from these terms and the remaining terms shall survive, remain in full force and effect and continue to be binding and enforceable.
+These terms shall be governed by and interpreted in accordance with the laws of England and Wales.
+</p>

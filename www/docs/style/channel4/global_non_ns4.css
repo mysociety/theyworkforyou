@@ -1,0 +1,198 @@
+/* Only included by modern browsers. */
+/* The 'body' and font sizes are set in global.css. */
+
+/**** GENERIC HTML ELEMENTS *****************************************************/
+
+body {
+	background-color: #333333;
+	width: 770px;
+}
+
+h2 {
+	color: #B82E00;
+	}
+	
+h3 {
+	color: #880101;
+	}
+	
+h4 {
+	color: #3e206a;
+	}
+
+a {
+	color: #3e206a;
+	font-weight: bold;
+	text-decoration: none;
+}
+a:visited {
+	color: #3e206a;
+	font-weight: bold;
+	text-decoration: none;
+	}
+a:active, a:hover {
+	color: #7a619f;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+/**** MAIN STRUCTURAL BLOCKS *****************************************************/
+
+/* Used on every page */
+
+#banner {
+	background-color: #ffffff;
+}
+
+#title {
+	padding: 0 0 7px 0;
+	}
+#search {
+	background-color: #e7e7e7;
+	}
+
+#menu {
+	background-color: #e7e7e7;
+	background-color: #ffffff;
+	}
+
+#footer {
+	padding-top: 1px;
+	padding-bottom: 2px;
+	background-color: #FFFFFF;
+	font-size:90%;
+	color:#666666;
+	width:770px
+}
+#footer p {
+	margin-top: 0; margin-bottom: 0;
+	font-family: Arial, Verdana, Helvetica, serif;
+}
+#footer a:visited {color:#666666;text-decoration:none}
+#footer a:link {color:#666666;font-weight: none; text-decoration:none}
+#footer a:active {color:#666666;text-decoration:none}
+#footer a:hover {color:#666666;text-decoration:underline}
+
+/**** MENU ***********************************************************************/
+
+#bottommenu {	
+	background-color: #3e206a;
+	}
+
+#topmenu a, #topmenu a:hover {
+	background-image: url(/images/c4n-cnr.gif);
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}
+
+#topmenu a,
+#bottommenu a {
+	background-color: #c5addd;
+	color: #000;
+	}
+	
+#bottommenu a {
+	padding-right: 20px;
+	border: 1px solid #3e206a;
+	background: #3e206a;
+	color: #fff;
+	}
+
+#topmenu a.on,
+#topmenu a:hover {
+	background-color: #3e206a;
+	color: #fff;
+	}
+#topmenu a.on { background: #3e206a; }
+
+#topmenu a.on {
+	border-bottom: 1px solid #3e206a;
+	}
+
+#bottommenu a.on,
+#bottommenu a:hover {
+	background: url("../../images/menuarrow.gif") no-repeat left;
+	}
+
+/**** STRIPES *****************************************************************/
+/**** The horizontal stripes. And/or the main column / sidebar structure.     */
+/**** A stripe* will probably contain main and sidebar divs. */
+
+div.stripe-side {
+	background: #F5F3f7;
+	}
+
+/* The main, left-column */
+
+div.main {	
+	background: #fff;
+	border-right: solid 1px #3e206a;
+	}	
+
+div.main p.italic,
+div.main p.indentitalic {
+	color: #3e206a;
+	}
+
+/**** BLOCKS *************************************************************************/	
+/* A 'block' is a colored area with a headline, like all those ones on the home page. */
+
+div.block {
+	border: 1px solid #c5addd; /* #BDE190; */
+	background-color: #fff;
+	}
+	
+div.block h4 {
+	background: #c5addd;
+	color: #000;
+	}
+
+/**** SIDEBARS ******************************************************************/
+
+/* Overriding the standard block styles for the sidebar. */
+div.sidebar div.block {
+	border: none;
+	background-color: transparent;
+	}
+div.sidebar div.block h4 {
+	background: #3e206a;
+	color: #fff;
+	}
+div.sidebar div.block h4 a {
+	color: #fff;
+	}
+	
+/**** MISC THINGS ****************************************************************/	
+
+table.people th {
+	text-align: left;
+	background: #c5addd;
+	}
+table.people td.row-1 {
+	background: #F5F3f7;
+	}
+table.people td.row-2 {
+	background: #c5becf;
+	}
+
+	
+/**** MP PAGE ****************************************************************/	
+/* We override the standard block styles for these special MP page blocks.   */
+
+div#mp.block,
+div#mpsearch.block {
+	background: #F5F5FD;
+	border: 1px solid #348d9e;
+	}
+div#mp.block h4,
+div#mpsearch.block h4 {
+	background: #348d9e;
+	color: #fff;
+	}
+
+#topmenu {
+	padding-right: 5px;
+}
+#topmenu ul {
+	margin-left: 5px;
+}

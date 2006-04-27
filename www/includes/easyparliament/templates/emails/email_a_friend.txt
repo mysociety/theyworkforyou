@@ -1,0 +1,37 @@
+Subject: Find out all about {REP_NAME}
+
+Hello,
+
+{NAME} ({EMAIL})
+has sent you this link so that you can see exactly what
+{REP_NAME} has been up to.
+
+{REP_URL}
+
+(If you want to find out about your current MP, if it's not
+the above, just enter your postcode at
+http://www.theyworkforyou.com/ to check.)
+
+We have their full voting record (broken down by key issues), 
+all their speeches, performance data, expenses, and more...
+
+If clicking the link above doesn't work, you may have to
+copy it and then paste them into the 'Location' or
+'Address' box of your web browser, and then press 'enter'
+or 'return' on your keyboard.
+
+About TheyWorkForYou.com
+
+TheyWorkForYou.com is a non-partisan volunteer-run 
+re-creation of the Parliamentary record, aiming to demystify
+and debunk the parliamentary process.
+
+About Privacy
+
+We have not stored your email and will not contact you again
+unless you ask us.
+
+
+Best wishes,
+
+- TheyWorkForYou.com

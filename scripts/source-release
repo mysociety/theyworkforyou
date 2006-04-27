@@ -1,0 +1,41 @@
+#!/bin/bash
+set -e
+
+# Makes a source release of the TheyWorkForYou code tree
+
+if ! cd ../fawkes
+then
+    echo "Run this script from within the fawkes directory with command scripts/source-release" 
+    exit 1
+fi
+cvs -Q update -dP
+
+# Update release of source number, and mark it in CVS
+BUILD=`cat scripts/source-version.txt`
+let BUILD=BUILD+1
+echo $BUILD >scripts/source-version.txt
+WHO=`whoami`@`hostname`
+cvs commit -m "Auto source release $BUILD from $WHO" scripts/source-version.txt
+
+cvs tag -r HEAD source-release-$BUILD .
+export CVSROOT=`cat CVS/Root`
+
+# Make somewhere to put the new tarball
+cd /tmp
+rm -fr theyworkforyou-export-temp
+mkdir theyworkforyou-export-temp
+cd theyworkforyou-export-temp
+
+# Get the code, and tidy it up
+cvs export -r source-release-$BUILD fawkes
+rm -fr fawkes/www/docs/images/mps
+mv fawkes theyworkforyou-source-$BUILD
+
+# Create the tarball
+tar cvfz theyworkforyou-source-$BUILD.tar.gz theyworkforyou-source-$BUILD
+
+# Upload it
+#ftp-upload --passive --host upload.sourceforge.net --dir /incoming --user anonymous theyworkforyou-source-$BUILD.tar.gz
+# echo theyworkforyou-source-$BUILD.tar.gz now in sourceforge.net incoming
+
+

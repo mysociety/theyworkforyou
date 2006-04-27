@@ -1,0 +1,23 @@
+#!/bin/bash
+# Jobs that need running weekly
+#set -x
+
+source ~/fawkes/scripts/consts
+
+# Get new wikipedia titles database
+cd ~/pwdata/dumps
+rm -f all-titles-in-ns0.gz
+rm -f all-titles-in-ns0
+
+DUMPDATE=`fetch -q -o - http://download.wikimedia.org/ | grep "enwiki/" | perl -pi.bak -e "s/.*(\d\d\d\d\d\d\d\d).*/\\\$1/;"`
+#echo "Wikipedia dump date $DUMPDATE"
+fetch -q -o all-titles-in-ns0.gz http://download.wikimedia.org/enwiki/$DUMPDATE/enwiki-$DUMPDATE-all-titles-in-ns0.gz
+gunzip all-titles-in-ns0.gz
+echo "load data infile '/home/fawkes/pwdata/dumps/all-titles-in-ns0' ignore into table titles;" | mysql
+echo "delete from titles where title in ('Johnny_Byrne', 'The_Bill', 'John_Turner', 'John_Dyson', 'Andy_Black', 'III', 'Charlotte_Wilson', 'Cheryl_James', 'DAWN')" | mysql
+
+# Compact Xapian database
+cd ~/fawkes/scripts
+./compactsearchdb
+
+

@@ -1,0 +1,87 @@
+body {
+	background-color: #fff;
+	font-family: Verdana, Arial, Geneva, Sans-serif;
+	margin: 0;
+	padding: 0;
+	}
+
+a img {
+	border: none;
+	}
+
+/* For NS4 */	
+h2, h3, h4, h5, p, th, td, caption {
+	font-family: Verdana, Arial, Geneva, Sans-serif;
+}
+
+
+/**** FONT SIZES *************************************************************/
+/**** We keep these all together so it's easy to compare and change */
+
+body {
+	font-size: 80%;
+	}
+	
+h2,
+h4 {
+	font-size: 1.4em;
+	}
+
+h3,
+h5 {
+	font-size: 1.2em;
+	}
+	
+p,
+.sidebar h4,
+.block h4,
+.block li,
+div.row,
+input.submit {
+	font-size: 1em;
+	}
+
+small,
+.sidebar h5,
+.sidebar p,
+.sidebar li,
+div.calendar caption,
+div.calendar th,
+div.calendar td,
+div.extra,
+div.main table th,
+div.main table td {
+	font-size: 0.85em;
+	}
+	
+#topmenu,
+#bottommenu {
+	font-size: 12px;
+	}
+
+/* Changes for the front page intro block. */
+
+div#intro h4,
+div#mp h4,
+div#intro ol {
+	font-size: 1.2em;
+	}
+div#intro ol p {
+	font-size: 0.85em; /* Put the text (rather than the ol numbers) to normal size. */
+	}
+div#intro ol ul#hansard-day {
+	font-size: 0.85em;
+}
+
+.error {
+	color: #B82E00;
+	}
+p.error {
+	clear: left;
+	margin-bottom: 0;
+	}
+
+.printonly {
+	display: none;
+}
+/* Everything else is in global_non_ns4.css */

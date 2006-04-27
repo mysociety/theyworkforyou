@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+# Dumps database for backups
+/usr/local/bin/mysqldump fawkes | bzip2 -c > ~/backup/twfy-all-including-sensitive-data-`date +%F`.sql.bz2
+
