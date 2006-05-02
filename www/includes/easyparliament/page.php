@@ -1474,49 +1474,43 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 		}
 
 		if(isset($links['guardian_biography'])) {
-			$html .= '
-					<li><a href="' . $links['guardian_biography'] . '">Biography</a> <small>(From The Guardian)</small></li>';
+			$html .= '	<li><a href="' . $links['guardian_biography'] . '">Biography</a> <small>(From The Guardian)</small></li>';
 		}
 		if(isset($links['wikipedia_url'])) {
-			$html .= '
-					<li><a href="' . $links['wikipedia_url'] . '">Biography</a> <small>(From Wikipedia)</small></li>';
+			$html .= '	<li><a href="' . $links['wikipedia_url'] . '">Biography</a> <small>(From Wikipedia)</small></li>';
+		}
+		
+		if(isset($links['diocese_url'])) {
+			$html .= '	<li><a href="' . $links['diocese_url'] . '">Diocese website</a></li>';
 		}
 		
 		if (isset($links['guardian_parliament_history'])) {
-			$html .= '
-					<li><a href="' . $links['guardian_parliament_history'] . '">Parliamentary career</a> <small>(From The Guardian)</small></li>';
+			$html .= '	<li><a href="' . $links['guardian_parliament_history'] . '">Parliamentary career</a> <small>(From The Guardian)</small></li>';
 		}
 
 		if (isset($links['guardian_election_results'])) {
-			$html .= '
-					<li><a href="' . $links['guardian_election_results'] . '">Election results for ' . $member->constituency() . '</a> <small>(From The Guardian)</small></li>';
+			$html .= '	<li><a href="' . $links['guardian_election_results'] . '">Election results for ' . $member->constituency() . '</a> <small>(From The Guardian)</small></li>';
 		}
 
 		if (isset($links['guardian_candidacies'])) {
-			$html .= '
-					<li><a href="' . $links['guardian_candidacies'] . '">Previous candidacies</a> <small>(From The Guardian)</small></li>';
+			$html .= '	<li><a href="' . $links['guardian_candidacies'] . '">Previous candidacies</a> <small>(From The Guardian)</small></li>';
 		}
 
 		if (isset($links['guardian_contactdetails'])) {
-			$html .= '
-					<li><a href="' . $links['guardian_contactdetails'] . '">Contact details</a> <small>(From The Guardian)</small></li>';
+			$html .= '	<li><a href="' . $links['guardian_contactdetails'] . '">Contact details</a> <small>(From The Guardian)</small></li>';
 		}
 
 		if (isset($links['bbc_profile_url'])) {
-			$html .= '
-					<li><a href="' . $links['bbc_profile_url'] . '">General information</a> <small>(From BBC News)</small></li>';
+			$html .= '	<li><a href="' . $links['bbc_profile_url'] . '">General information</a> <small>(From BBC News)</small></li>';
 
 		} 
 
 		
-		$html .= "
-					</ul>
+		$html .= "	</ul>
 					</div>
 				</div> <!-- end block -->
 ";
-		
 		return $html;
-	
 	}
 	
 	
