@@ -857,6 +857,9 @@ pr()//-->
 <script type="text/javascript" src="http://www.channel4.com/media/scripts/statstag.js"></script> <!--//end WEB STATS --> <noscript><div style="display:none"><img width="1" height="1" src="http://stats.channel4.com/njs.gif?dcsuri=/nojavascript&amp;WT.js=No" alt="" /></div></noscript>
 <?			}
 		}
+
+                // XXX placeholder for mySociety user-tracking
+                // track_event();
 		
 		// DAMN, this really shouldn't be in PAGE.
 		$db = new ParlDB;
