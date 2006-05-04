@@ -1,5 +1,7 @@
 <?php
 
+require_once INCLUDESPATH . '../../../phplib/tracking.php';
+
 class PAGE {
 
 	// So we can tell from other places whether we need to output the page_start or not.
@@ -859,7 +861,7 @@ pr()//-->
 		}
 
                 // XXX placeholder for mySociety user-tracking
-                // track_event();
+                track_event();
 		
 		// DAMN, this really shouldn't be in PAGE.
 		$db = new ParlDB;
