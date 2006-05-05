@@ -2,7 +2,7 @@
 set -e
 
 # Dumps database for backups
-#/usr/local/bin/mysqldump fawkes | bzip2 -c > ~/backup/twfy-all-including-sensitive-data-`date +%F`.sql.bz2
+/usr/local/bin/mysqldump fawkes | bzip2 -c > ~/backup/twfy-all-including-sensitive-data-`date +%F`.sql.bz2
 
 # As sams suggests, keep whole of last month, and first of month before then
 
@@ -12,13 +12,13 @@ cd ~/backup
 touch dummy-01.sql.bz2
 mv *-01.sql.bz2 firsts
 rm firsts/dummy-01.sql.bz2
-echo firsts
-ls -1 firsts
+#echo firsts
+#ls -1 firsts
 
 # Delete all except 35
 ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | fgrep -v "`ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | sort -n | tail -n 35`" | while read X
 do
-	echo "Deleting old backup $X"
+	#echo "Deleting old backup $X"
 	rm $X
 done
 
