@@ -984,6 +984,8 @@ pr()//-->
 		}
 		if ($member['party']) {
 			$desc .= htmlentities($member['party']);
+			if ($member['party']=='Speaker' || $member['party']=='Deputy-Speaker')
+				$desc .= ', and';
 	       		if ($member['house'] == 'House of Commons') $desc .= ' MP for ' . $member['constituency'];
 			elseif ($member['party'] != 'Bishop') $desc .= ' Peer';
 		}
@@ -1338,15 +1340,15 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 			'max'	=> 3
 		);
 		
-		$HANSARDLIST = new HANSARDLIST();
-        debug_timestamp();
-		$HANSARDLIST->display('person', $args);
-        debug_timestamp();
+		#		$HANSARDLIST = new HANSARDLIST();
+		#        debug_timestamp();
+		#		$HANSARDLIST->display('person', $args);
+		#        debug_timestamp();
 		
 		$MOREURL = new URL('search');
 		$MOREURL->insert( array('pid'=>$member['person_id'], 'pop'=>1) );
 		?>
-					<p id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4">More of <?php echo $member['full_name']; ?>'s recent appearances</a></p>
+	<p id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4"><!-- More of --><?php echo ucfirst($member['full_name']); ?>'s recent appearances</a></p>
 
 <?php
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
@@ -1391,19 +1393,19 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 			print '<p class="italic">Figures in brackets are ranks. Parliament\'s <a href="http://www.parliament.uk/site_information/allowances.cfm">explanatory notes</a>.</p>';
 			print '<table class="people"><tr><th>Type</th><th>2004/05';
 			if (isset($extra_info['expenses2005_col1_rank_outof'])) {
-				print ' (highest out of ' . $extra_info['expenses2005_col1_rank_outof'] . ')';
+				print ' (ranking out of ' . $extra_info['expenses2005_col1_rank_outof'] . ')';
 			}
 			print '</th><th>2003/04';
 			if (isset($extra_info['expenses2004_col1_rank_outof'])) {
-				print ' (highest out of&nbsp;'.$extra_info['expenses2004_col1_rank_outof'].')';
+				print ' (ranking out of&nbsp;'.$extra_info['expenses2004_col1_rank_outof'].')';
 			}
 			print '</th><th>2002/03';
 			if (isset($extra_info['expenses2003_col1_rank_outof'])) {
-				print ' (highest out of&nbsp;'.$extra_info['expenses2003_col1_rank_outof'].')';
+				print ' (ranking out of&nbsp;'.$extra_info['expenses2003_col1_rank_outof'].')';
 			}
 			print '</th><th>2001/02';
 			if (isset($extra_info['expenses2002_col1_rank_outof'])) {
-				print ' (highest out of&nbsp;'.$extra_info['expenses2002_col1_rank_outof'].')';
+				print ' (ranking out of&nbsp;'.$extra_info['expenses2002_col1_rank_outof'].')';
 			}
 			print '</th></tr>';
 			print '<tr><td class="row-1">Additional Costs Allowance</td>';

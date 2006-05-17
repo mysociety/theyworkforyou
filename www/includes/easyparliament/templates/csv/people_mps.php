@@ -12,7 +12,7 @@ $order = $data['info']['order'];
 
 ?>
 <?php
-print "First name,Last name,Party,Constituency,URI";
+print "Person ID,First name,Last name,Party,Constituency,URI";
 if ($order == 'expenses') print ', 2004 Expenses Grand Total';
 elseif ($order == 'debates') print ',Debates spoken in the last year';
 print "\n";
@@ -39,6 +39,7 @@ function render_mps_row($mp, $order) {
 	global $parties;
 	$con = html_entity_decode($mp['constituency']);
 	if (strstr($con, ',')) $con = "\"$con\"";
+	print $mp['person_id'] . ',';
 	print html_entity_decode($mp['first_name']) . ',' .
 		html_entity_decode($mp['last_name']) . ',';
 	if (array_key_exists($mp['party'], $parties))

@@ -312,6 +312,8 @@ class GLOSSARY {
 		
 		// check for any glossary terms to replace
 		foreach ($this->replace_order as $glossary_id => $count) {
+			if ($glossary_id == $this->glossary_id)
+				continue;
 			
 			$term_body = $this->terms[$glossary_id]['body'];
 			$term_title = $this->terms[$glossary_id]['title'];
@@ -339,6 +341,8 @@ class GLOSSARY {
 		}
 		// Highlight all occurrences of another glossary term in the definition.
 		$body = preg_replace($findwords, $replacewords, $body);
+		if (isset($this->glossary_id))
+			$body = preg_replace("/([^>\.\'\/])\b(" . $this->terms[$this->glossary_id]['title'] . ")\b([^<\'])/i", '\\1<strong>\\2</strong>\\3', $body, 1);
 
 		// Replace any phrases in wikipedia
 		// TODO: Merge this code into above, so our gloss and wikipedia

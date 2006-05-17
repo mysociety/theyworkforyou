@@ -1,21 +1,16 @@
-Subject: Something happened in Parliament
-
-Hello,
-
-You asked to be emailed when certain words were used in
-Hansard, or when a particular MP or Lord made a contribution
-within Parliament. Well, it looks like we've got something
-for you today:
+Subject: Your TheyWorkForYou email alert
 
 {DATA}
 
-If clicking the link(s) above doesn't work, you may have to
-copy it and then paste them into the 'Location' or
+If clicking any of these links doesn't work, you may have
+to copy and then paste them into the 'Location' or
 'Address' box of your web browser, and then press 'enter'
 or 'return' on your keyboard.
 
-And don't forget to let your friends and family know about
-www.TheyWorkForYou.com
+-------------------------------------------------
+Plug: Have a long term relationship with your MP:
+      http://www.HearFromYourMP.com/
+-------------------------------------------------
 
 Best wishes,
 TheyWorkForYou.com

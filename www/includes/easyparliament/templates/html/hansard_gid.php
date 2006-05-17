@@ -238,7 +238,7 @@ if (isset ($data['rows'])) {
 #			$body = str_replace('</phrase>', '</a>', $body);
 			$body = preg_replace('#(<p[^>]*class=".*?)("[^>]*)pwmotiontext="moved"#', '$1 moved$2', $body);
 			$body = str_replace('pwmotiontext="moved"', 'class="moved"', $body);
-			echo str_replace('</p><p>','</p> <p>',$body);
+			echo str_replace('</p><p','</p> <p',$body);
 			
 			context_link($row);
 			
