@@ -84,7 +84,7 @@ class SEARCHENGINE {
                 $value = join(":", array_slice($items,1));
                 if ($type == "section") {
                     if ($value == "debates" || $value == "debate") $value = 1;
-                    elseif ($value == 'whall' || $value == 'westminster') $value = 2;
+                    elseif ($value == 'whall' || $value == 'westminster' || $value == 'westminhall') $value = 2;
                     elseif ($value == "wrans" || $value == "wran") $value = 3;
                     elseif ($value == 'wms' || $value == 'statements' || $value == 'statement') $value = 4;
                     elseif ($value == 'lordsdebates' || $value == 'lords') $value = 101;

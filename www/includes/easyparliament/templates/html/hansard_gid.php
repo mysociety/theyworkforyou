@@ -195,13 +195,13 @@ if (isset ($data['rows'])) {
 				$speakername = ucfirst(member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']));
 				?>
 				<p class="speaker"><a href="<?php echo $speaker['url']; ?>" title="See more information about <?php echo $speakername; ?>">
-<? if (is_file(BASEDIR . IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpg')) { ?>
-                <img src="<?php echo IMAGEPATH . 'mps/' . $speaker['person_id']; ?>.jpg" class="portrait" alt="Photo of <?php echo $speakername; ?>" 
+<? if (is_file(BASEDIR . IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpeg')) { ?>
+                <img src="<?php echo IMAGEPATH . 'mps/' . $speaker['person_id']; ?>.jpeg" class="portrait" alt="Photo of <?php echo $speakername; ?>" 
 				<?php if (get_http_var('partycolours')) { ?>
                 style="border: 3px solid <?php echo party_to_colour($speaker['party']) ?>;"
                 <?php } ?>
-		/><?php } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpeg')) { ?>
-		<img src="<?php echo IMAGEPATH . 'mps/' . $speaker['person_id']; ?>.jpeg" class="portrait" alt="Photo of <?php echo $speakername; ?>" /><? } ?>
+		/><?php } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpg')) { ?>
+		<img src="<?php echo IMAGEPATH . 'mps/' . $speaker['person_id']; ?>.jpg" class="portrait" alt="Photo of <?php echo $speakername; ?>" /><? } ?>
                 <strong><?php echo $speakername; ?></strong></a> <small><?php 
 				$desc = '';
 				if (isset($speaker['office'])) {

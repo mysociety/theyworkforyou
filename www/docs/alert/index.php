@@ -23,6 +23,7 @@ set_criteria()	Sets search criteria from information in MP and Keyword fields.
 include_once "../../includes/easyparliament/init.php";
 include_once "../../includes/easyparliament/people.php";
 include_once "../../includes/easyparliament/member.php";
+include_once INCLUDESPATH . '../../../phplib/auth.php';
 
 $this_page = "alert";
 
@@ -85,18 +86,6 @@ function check_input ($details) {
 	
 	} 
 	
-/* Could add additional code here limiting the number of alerts for any particular email address	
-	else {
-	}
-*/
-	
-
-/* Check criteria - must initially relate to a valid MP code, later may also include search terms
-	if ($details["postcode"] != "" && !validate_postcode($details["postcode"])) {
-		$errors["postcode"] = "Sorry, this isn't a valid postcode.";
-	}
-
-*/
 	if ($details['pid'] != 'Any' && !ctype_digit($details['pid']))
 		$errors['pid'] = 'Please choose a valid person';
 #	if (!$details['keyword'])
@@ -116,7 +105,8 @@ function add_alert ($details) {
 	// Instantiate an instance of ALERT
 	$ALERT = new ALERT;
 
-	if ($THEUSER->loggedin()) {
+	$external_auth = auth_verify_with_shared_secret($details['email'], OPTION_AUTH_SHARED_SECRET, get_http_var('sign'));
+	if ($THEUSER->loggedin() || $external_auth) {
 		$confirm = false;
 	} else {
 		$confirm = true;

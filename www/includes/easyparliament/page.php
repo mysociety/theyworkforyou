@@ -858,11 +858,13 @@ pr()//-->
 			if (get_http_var('c4') || get_http_var('c4x')) { ?>
 <script type="text/javascript" src="http://www.channel4.com/media/scripts/statstag.js"></script> <!--//end WEB STATS --> <noscript><div style="display:none"><img width="1" height="1" src="http://stats.channel4.com/njs.gif?dcsuri=/nojavascript&amp;WT.js=No" alt="" /></div></noscript>
 <?			}
+
+			// mySociety tracking, not on staging
+			if (defined('OPTION_TRACKING') && OPTION_TRACKING) {
+		                track_event();
+			}
 		}
 
-                // XXX placeholder for mySociety user-tracking
-                track_event();
-		
 		// DAMN, this really shouldn't be in PAGE.
 		$db = new ParlDB;
 		$db->display_total_duration();
@@ -1274,7 +1276,6 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 			$Lminister = true;
 		$displayed_stuff |= display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, $extra_info, $minister, $Lminister);
 
-
 		if (isset($extra_info['writetothem_responsiveness_notes'])) {
 		?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com">WriteToThem.com</a> in 2005: <?=$extra_info['writetothem_responsiveness_notes']?>.</li><?
 		} elseif (isset($extra_info['writetothem_responsiveness_mean_2005'])) {
@@ -1348,7 +1349,7 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 		$MOREURL = new URL('search');
 		$MOREURL->insert( array('pid'=>$member['person_id'], 'pop'=>1) );
 		?>
-	<p id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4"><!-- More of --><?php echo ucfirst($member['full_name']); ?>'s recent appearances</a></p>
+	<p id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4"><!-- More of --><?php echo ucfirst($member['full_name']); ?>'s recent appearances</a> (apologies for the extra click, server load is <em>high</em></p>
 
 <?php
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
