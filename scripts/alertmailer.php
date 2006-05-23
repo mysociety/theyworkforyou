@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.1 2006-04-27 14:20:20 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.2 2006-05-23 16:43:26 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -48,9 +48,9 @@ $alertdata = $alertdata['data'];
 $DEBATELIST = new DEBATELIST; # Nothing debate specific, but has to be one of them
 $db = new ParlDB;
 
-$sects = array('', 'Commons Debates', 'Westminster Hall Debates', 'Written Answers', 'Written Ministerial Statements');
-$sects[101] = 'Lords Debates';
-$sects_short = array('', 'debate', 'whall', 'wrans', 'wms');
+$sects = array('', 'Commons debate', 'Westminster Hall debate', 'Written Answer', 'Written Ministerial Statement');
+$sects[101] = 'Lords debate';
+$sects_short = array('', 'debate', 'westminhall', 'wrans', 'wms');
 $sects_short[101] = 'lords';
 $results = array();
 
@@ -130,18 +130,19 @@ foreach ($alertdata as $alertitem) {
 
 		if ($any_content) {
 			# Add data to email_text
-			$desc = html_entity_decode($data['searchdescription']);
-			$email_text .= "$desc\n" . str_repeat('=', strlen($desc)) . "\n\n";
+			$desc = trim(html_entity_decode($data['searchdescription']));
+			$deschead = ucfirst(str_replace('containing ', '', $desc));
 			foreach ($o as $major => $body) {
 				if ($body) {
-					$email_text .= "$sects[$major] ({$count[$major]} result".($count[$major]!=1?'s':'').")\n".str_repeat('-',strlen($sects[$major]))."\n\n";
+					$heading = $deschead . ' : ' . $count[$major] . ' ' . $sects[$major] . ($count[$major]!=1?'s':'');
+					$email_text .= "$heading\n".str_repeat('=',strlen($heading))."\n\n";
 					if ($count[$major] > 3) {
 						$email_text .= "There are more results than we have shown here. See more:\nhttp://www.theyworkforyou.com/search/?s=".urlencode($criteria)."+section:".$sects_short[$major]."&o=d\n\n";
 					}
 					$email_text .= $body;
 				}
 			}
-			$email_text .= "If you no longer wish to receive alerts for items\n" . $desc . ", please use the following link:\nhttp://www.theyworkforyou.com/alert/delete/?t=" . $alertitem['alert_id'] . '::' . $alertitem['registrationtoken'] . "\n\n";
+			$email_text .= "To cancel your alert for items " . $desc . ", please use:\nhttp://www.theyworkforyou.com/alert/delete/?t=" . $alertitem['alert_id'] . '::' . $alertitem['registrationtoken'] . "\n\n";
 		}
 	}
 }
@@ -179,10 +180,11 @@ function sort_by_stuff($a, $b) {
 function write_and_send_email($email, $user_id, $data) {
 	global $globalsuccess, $sentemails, $nomail;
 
+	$data .= '===================='."\n\n";
 	if ($user_id) {
-		$data = "As a registered user, visit http://www.theyworkforyou.com/user/\nto manage your alerts.\n\n" . $data;
+		$data .= "As a registered user, visit http://www.theyworkforyou.com/user/\nto manage your alerts.\n";
 	} else {
-		$data = "If you register on the site, you will be able to manage your\nalerts there as well as post comments. :)\n\n" . $data;
+		$data .= "If you register on the site, you will be able to manage your\nalerts there as well as post comments. :)\n";
 	}
 	$sentemails++;
 	print "SEND $sentemails : Sending email to $email\n";

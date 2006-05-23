@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.1 2006-04-27 14:20:20 twfy-live Exp $
+# $Id: xml2db.pl,v 1.2 2006-05-23 16:43:27 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1088,7 +1088,7 @@ sub load_debate_heading {
         # major headings "under" it.
         my $text = strip_string($speech->sprint(1));
         if ($inoralanswers) {
-                if ($text =~ m/[a-z]/ || $text eq 'BILL PRESENTED' || $text eq 'NEW MEMBER') {
+                if ($text =~ m/[a-z]/ || $text eq 'BILL PRESENTED' || $text eq 'NEW MEMBER' || $text eq 'POINT OF ORDER') {
                         $inoralanswers = 0;
                 } else {
                         # &#8212; is mdash (apparently some browsers don't know &mdash;)
@@ -1260,11 +1260,12 @@ sub load_lords_wms_speech {
                 $text = "<p class=\"italic\">Probably duplicate of Commons Statement</p> $text";
                 return 1;
         }
-        if (!$overhead && $heading) {
-                my $ohgid = $heading->att('id');
+        my $firsthead = $heading || $subheading;
+        if (!$overhead && $firsthead) {
+                my $ohgid = $firsthead->att('id');
                 $ohgid =~ s/\d+\.\d+$//;
-                my $ohcolnum = $heading->att('colnum');
-                my $ohurl = $heading->att('url');
+                my $ohcolnum = $firsthead->att('colnum');
+                my $ohurl = $firsthead->att('url');
                 $overhead = XML::Twig::Elt->new('major-heading',
                         {       id=>$ohgid . 'L',
                                 colnum=> $ohcolnum,
@@ -1273,7 +1274,7 @@ sub load_lords_wms_speech {
                         }, 'HOUSE OF LORDS');
                 do_load_heading($overhead, 4, strip_string($overhead->sprint(1)));
         }
-        do_load_subheading($heading, 4, strip_string($heading->sprint(1))) if $heading;
+        do_load_subheading($firsthead, 4, strip_string($firsthead->sprint(1))) if $firsthead;
         do_load_speech($speech, 4, 0, $text);
 }
 

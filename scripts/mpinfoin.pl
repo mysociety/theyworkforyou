@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.1 2006-04-27 14:20:20 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.2 2006-05-23 16:43:27 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -38,6 +38,7 @@ my $twig = XML::Twig->new(
 # TODO: Parse ALL regmem in forwards chronological order, so each MP (even ones left parl) gets their most recent one
 $twig->parsefile($config::pwdata . "scrapedxml/regmem/$regmemfile", ErrorContext => 2);
 $twig->parsefile($config::pwmembers . "wikipedia-lords.xml", ErrorContext => 2);
+$twig->parsefile($config::pwmembers . "diocese-bishops.xml", ErrorContext => 2);
 $twig->parsefile($config::pwmembers . "edm-links.xml", ErrorContext => 2);
 $twig->parsefile($config::pwmembers . "bbc-links.xml", ErrorContext => 2);
 # TODO: Update Guardian links
@@ -235,7 +236,7 @@ sub makerankings {
                 $personinfohash->{$person_fullid}->{"debate_sectionsspoken_inlastyear"} += int($rows);
 
                 $tth = $dbh->prepare("
-                       select count(*) from hansard, comments where hansard.epobject_id = comments.epobject_id 
+                       select count(*) from hansard, comments where hansard.epobject_id = comments.epobject_id and visible
                        and speaker_id = ?");
                 $tth->execute($mp_id);
                 my @thisrow = $tth->fetchrow_array();
@@ -298,7 +299,7 @@ sub makerankings {
                 $personinfohash->{$person_fullid}->{"Ldebate_sectionsspoken_inlastyear"} += int($rows);
 
                 $tth = $dbh->prepare("
-                       select count(*) from hansard, comments where hansard.epobject_id = comments.epobject_id 
+                       select count(*) from hansard, comments where hansard.epobject_id = comments.epobject_id and visible
                        and speaker_id = ?");
                 $tth->execute($mp_id);
                 my @thisrow = $tth->fetchrow_array();
