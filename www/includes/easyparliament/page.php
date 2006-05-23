@@ -67,9 +67,9 @@ class PAGE {
 	}
 	
 	
-	function page_end () {
+	function page_end ($extra = null) {
 		$this->content_end();
-		$this->page_footer();
+		$this->page_footer($extra);
 	}
 	
 	
@@ -834,7 +834,7 @@ urchinTracker();
 	
 	
 	
-	function page_footer () {
+	function page_footer ($extra = null) {
 		global $DATA, $this_page;
 
 
@@ -861,7 +861,7 @@ pr()//-->
 
 			// mySociety tracking, not on staging
 			if (defined('OPTION_TRACKING') && OPTION_TRACKING) {
-		                track_event();
+		                track_event($extra);
 			}
 		}
 

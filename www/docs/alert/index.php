@@ -102,11 +102,16 @@ function add_alert ($details) {
 
 	global $ALERT, $PAGE, $THEUSER, $this_page;
 
+	$extra = null;
+
 	// Instantiate an instance of ALERT
 	$ALERT = new ALERT;
 
 	$external_auth = auth_verify_with_shared_secret($details['email'], OPTION_AUTH_SHARED_SECRET, get_http_var('sign'));
-	if ($THEUSER->loggedin() || $external_auth) {
+	if ($external_auth) {
+		$extra = 'from_hfymp=1';
+		$confirm = false;
+	} elseif ($THEUSER->loggedin()) {
 		$confirm = false;
 	} else {
 		$confirm = true;
@@ -156,7 +161,7 @@ function add_alert ($details) {
 	}
 	$PAGE->message($message);
 	$PAGE->stripe_end();
-	$PAGE->page_end();
+	$PAGE->page_end($extra);
 }
 
 /*  This function creates the form for displaying an alert, prompts the user for input and creates
