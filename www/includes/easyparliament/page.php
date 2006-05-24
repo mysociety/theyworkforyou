@@ -1154,7 +1154,7 @@ pr()//-->
 	<?
 		$got_dream = false;
 		$got_dream |= display_dream_comparison($extra_info, $member, 811, "introducing a <strong>smoking ban</strong>", false, "smoking");
-		$got_dream |= display_dream_comparison($extra_info, $member, 856, "the <strong>reduction of parliamentary scrutiny</strong>", false, "legislative and regulatory reform bill");
+		$got_dream |= display_dream_comparison($extra_info, $member, 856, "the <strong>Legislative and Regulatory Reform Bill</strong>", false, "legislative and regulatory reform bill");
 		$got_dream |= display_dream_comparison($extra_info, $member, 230, "introducing <strong>ID cards</strong>", true, "id cards");
 		$got_dream |= display_dream_comparison($extra_info, $member, 363, "introducing <strong>foundation hospitals</strong>", false, "foundation hospital");
 		$got_dream |= display_dream_comparison($extra_info, $member, 367, "introducing <strong>student top-up fees</strong>", true, "top-up fees");

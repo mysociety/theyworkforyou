@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.2 2006-05-23 16:43:27 twfy-live Exp $
+# $Id: xml2db.pl,v 1.3 2006-05-24 22:26:54 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1437,6 +1437,7 @@ sub do_load_gidredirect
         } else {
                 return if ($matchtype eq 'multiplecover' && defined $gids{$oldgid});
                 $gids{$oldgid} = 1;
+                return if ($matchtype eq 'removed');
         }
  
         $gradd->execute($oldgid, $newgid, $curdate, $major);

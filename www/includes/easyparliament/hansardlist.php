@@ -681,16 +681,15 @@ class HANSARDLIST {
 		}
 			
 		if (count($itemdata) == 0) {
-			if (strstr($args['gid'], 'a')) {
-				$check_gid = str_replace('a','',$args['gid']);
-				$input['where'] = array('gid=' => $this->gidprefix . $check_gid);
-				$itemdata = $this->_get_hansard_data($input);
-				if (count($itemdata) > 0) {
-					$itemdata[0]['redirected_gid'] = $check_gid;
-					$itemdata = $itemdata[0];
-					return $itemdata;
-				}
-			}
+			/* Deal with old links to some Lords pages. Somewhere. I can't remember where */
+			$itemdata = $this->check_gid_change($args['gid'], 'a', ''); if ($itemdata) return $itemdata;
+
+			/* A lot of written answers were moved from 10th to 11th May and 11th May to 12th May.
+			   Deal with the 0 people who have created links to those now non-existant written answers. */
+			$itemdata = $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-11c'); if ($itemdata) return $itemdata;
+			$itemdata = $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-12b'); if ($itemdata) return $itemdata;
+
+			/* Right back when Lords began, we sent out email alerts when they weren't on the site. So this was to work that. */
 			$q = $this->db->query('SELECT source_url FROM hansard WHERE gid LIKE "uk.org.publicwhip/lords/'.mysql_escape_string($args['gid']).'%"');
 			$u = '';
 			if ($q->rows()) {
@@ -705,6 +704,19 @@ class HANSARDLIST {
 
 	}
 
+	function check_gid_change($gid, $from, $to) {
+		if (strstr($gid, $from)) {
+			$check_gid = str_replace($from, $to, $gid);
+			$input['where'] = array('gid=' => $this->gidprefix . $check_gid);
+			$itemdata = $this->_get_hansard_data($input);
+			if (count($itemdata) > 0) {
+				$itemdata[0]['redirected_gid'] = $check_gid;
+				$itemdata = $itemdata[0];
+				return $itemdata;
+			}
+		}
+		return null;
+	}
 
 
 	function _get_data_by_date ($args) {
