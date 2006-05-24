@@ -685,7 +685,7 @@ class HANSARDLIST {
 			$itemdata = $this->check_gid_change($args['gid'], 'a', ''); if ($itemdata) return $itemdata;
 
 			/* A lot of written answers were moved from 10th to 11th May and 11th May to 12th May.
-			   Deal with the 0 people who have created links to those now non-existant written answers. */
+			   Deal with the bots who have stored links to those now non-existant written answers. */
 			$itemdata = $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-11c'); if ($itemdata) return $itemdata;
 			$itemdata = $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-12b'); if ($itemdata) return $itemdata;
 
@@ -705,6 +705,14 @@ class HANSARDLIST {
 	}
 
 	function check_gid_change($gid, $from, $to) {
+		$input = array (
+			'amount' => array (
+				'body' => true,
+				'speaker' => true,
+				'comment' => true,
+				'votes' => true
+			)
+		);
 		if (strstr($gid, $from)) {
 			$check_gid = str_replace($from, $to, $gid);
 			$input['where'] = array('gid=' => $this->gidprefix . $check_gid);
