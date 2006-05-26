@@ -57,7 +57,7 @@ if (!sizeof($errors) && ( (get_http_var('submitted') && ($details['keyword'] || 
 	display_form($details, $errors);
 	$PAGE->block_end();	
 	$end = array();
-	if (!$details['pid']) {
+	if (!get_http_var('only') || !$details['pid'] || $details['keyword']) {
 		$end[] = array('type' => 'include', 'content' => 'search');
 	}
 	$PAGE->stripe_end($end);
@@ -86,12 +86,12 @@ function check_input ($details) {
 	
 	} 
 	
-	if ($details['pid'] != 'Any' && !ctype_digit($details['pid']))
+	if (!ctype_digit($details['pid']))
 		$errors['pid'] = 'Please choose a valid person';
 #	if (!$details['keyword'])
 #		$errors['keyword'] = 'Please enter a search term';
 
-	if (get_http_var('submitted') && !$details['pid'] && !$details['keyword'])
+	if ((get_http_var('submitted') || get_http_var('only')) && !$details['pid'] && !$details['keyword'])
 		$errors['keyword'] = 'Please choose a person and/or enter a keyword';
 	// Send the array of any errors back...
 	return $errors;
@@ -206,7 +206,7 @@ above.</li>
 				<span class="formw"><input type="text" name="email" id="email" value="<?php if (isset($details["email"])) { echo htmlentities($details["email"]); } ?>" maxlength="255" size="30" class="form" /></span>
 				</div>
 	<?php	}
-		if (!get_http_var('only') || $details['pid']) {
+		if (!get_http_var('only') || !$details['keyword']) {
 			if (isset($errors['pid'])) {
 				$PAGE->error_message($errors['pid']);
 			}
@@ -232,7 +232,7 @@ above.</li>
 				</span>
 				</div>
 	<?php	}
-		if (!get_http_var('only') || $details['keyword']) {
+		if (!get_http_var('only') || !$details['pid']) {
 			if (isset($errors["keyword"])) {
 				$PAGE->error_message($errors["keyword"]);
 			}

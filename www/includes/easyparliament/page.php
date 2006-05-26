@@ -1847,6 +1847,8 @@ if (!$wtt) { ?>
 		$qds = $SEARCHENGINE->query_description_short();
 		$plural = 'is';
 		if (strstr($qds, 'phrases') || strstr($qds, 'words') || preg_match('/word.*?phrase/', $qds)) $plural = 'are';
+		$qds .= " $plural mentioned in Parliament";
+		$qds = preg_replace('#spoken by (.*?) is mentioned in#', 'is spoken by $1 in', $qds);
 	}
         $person_id = get_http_var('pid');
         if ($person_id != "") {
@@ -1867,7 +1869,7 @@ if (!$wtt) { ?>
 					</form>
 				</div><? if ($SEARCHENGINE && !$wtt) { ?>
 			<div class="stripe-2" align="center" style="margin-bottom: 0.5em">
-		<a href="/alert/?only=1&amp;keyword=<?=urlencode($value) ?>">Email me when <?=$qds ?> <?=$plural ?> mentioned in Parliament</a>
+		<a href="/alert/?only=1<?=($value?'&amp;keyword='.urlencode($value):'') . ($person_id?'&amp;pid='.urlencode($person_id):'') ?>">Email me when <?=$qds ?></a>
 		</div>
 <?php				}
 	}

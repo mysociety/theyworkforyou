@@ -190,7 +190,7 @@ class SEARCHENGINE {
                 } elseif ($items[1] == 'debate') {
                     $description .= ' grouped by debate/department';
                 } elseif ($items[1] == 'speech') {
-                    $description .= ' grouped by speeches';
+                    $description .= ' showing all speeches';
                 } else {
                     $PAGE->error_message("Unknown group by '$items[1]' ignored");
                 }
@@ -203,8 +203,8 @@ class SEARCHENGINE {
                 $PAGE->error_message("Unknown search prefix '$items[0]' ignored");
             }
         }
-        if (sizeof($major)) $description .= ' in ' . join(' or ', $major);
         if (sizeof($speaker)) $description .= ' spoken by ' . join(' or ', $speaker);
+        if (sizeof($major)) $description .= ' in ' . join(' or ', $major);
 
         return trim($description);
     }
