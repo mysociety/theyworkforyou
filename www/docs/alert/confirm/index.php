@@ -29,6 +29,8 @@
 // INITIALISATION
 
 include_once "../../../includes/easyparliament/init.php";
+include_once "../../../includes/easyparliament/member.php";
+include_once INCLUDESPATH . '../../../phplib/crosssell.php';
 
 // Instantiate an instance of ALERT
 
@@ -37,24 +39,43 @@ $ALERT = new ALERT;
 $success = $ALERT->confirm( get_http_var('t') );
 	
 if ($success) {
-	confirm_success();}
-else {
+	confirm_success($ALERT);
+} else {
 	confirm_error();
 }
 
 // FUNCTION:  confirm_success
 
-function confirm_success () {
-	global $PAGE, $this_page;
+function confirm_success ($ALERT) {
+	global $PAGE, $this_page, $THEUSER;
 	$this_page = 'alertconfirmsucceeded';
+	$criteria = $ALERT->criteria_pretty(true);
+	$email = $ALERT->email();
+	$extra = null;
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 	?>
 	<p>Your alert has been confirmed.</p>
-	<p>You will now receive email alerts when entries in Hansard that match your criteria appear on the website - this is normally the day after, but could conceivably be later due to issues at our or parliament.uk's end.</p>
+	<p>You will now receive email alerts for the following criteria:</p>
+	<ul><?=$criteria?></ul>
+	<p>This is normally the day after, but could conceivably be later due to issues at our or parliament.uk's end.</p>
 <?php
+	if ($THEUSER->isloggedin()) {
+		$extra = crosssell_display_advert('twfy', $email, $THEUSER->firstname() . ' ' . $THEUSER->lastname(), $THEUSER->postcode());
+	} else {
+		$extra = crosssell_display_advert('twfy', $email, '', '');
+	}
+	if ($extra == 'other-twfy-alert-type') {
+		if (strstr($ALERT->criteria(), 'speaker:')) { ?>
+<p>Did you know that TheyWorkForYou can also email you when a certain word or phrases is spoken in parliament? For example, it could mail you when your town is mentioned, or an issue you care about. Don't rely on the newspapers to keep you informed about your interests - find out what's happening straight from the horse's mouth.
+<a href="/alert/">Sign up for an email alert</a></p>
+<?		} else { ?>
+<p>Did you know that TheyWorkForYou can also email you when a certain MP or Lord speaks in parliament? Don't rely on the newspapers to keep you informed about someone you're interested in - find out what's happening straight from the horse's mouth.
+<a href="/alert/">Sign up for an email alert</a></p>
+<?		}
+	}
 	$PAGE->stripe_end();
-	$PAGE->page_end();
+	$PAGE->page_end($extra);
 }
 
 // FUNCTION:  confirm_error

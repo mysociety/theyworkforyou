@@ -311,23 +311,19 @@ class ALERT {
 						");
 
 		if ($q->rows() == 1) {
-
-			// Set that they're confirmed in the DB.
+			$this->criteria = $q->field(0, 'criteria');
+			$this->email = $q->field(0, 'email');
 			$r = $this->db->query("UPDATE alerts
 						SET confirmed = '1', deleted = '0'
 						WHERE	alert_id = '" . mysql_escape_string($alert_id) . "'
 						");
 
 			if ($r->success()) {
-
 				$this->confirmed = true;
 				return true;
-				
 			} else {
-				// Couldn't set them as confirmed in the DB.
 				return false;
 			}
-
 		} else {
 			// Couldn't find this alert in the DB. Maybe the token was
 			// wrong or incomplete?
@@ -389,7 +385,7 @@ class ALERT {
 	function alert_id() 			{ return $this->alert_id; }
 	function email() 			{ return $this->email; }
 	function criteria() 			{ return $this->criteria; }
-	function criteria_pretty() {
+	function criteria_pretty($html = false) {
 		$criteria = explode(' ',$this->criteria);
 		$words = array(); $spokenby = '';
 		foreach ($criteria as $c) {
@@ -401,8 +397,8 @@ class ALERT {
 			}
 		}
 		$criteria = '';
-		if (count($words)) $criteria .= '* Containing the ' . make_plural('word', count($words)) . ': ' . join(' ', $words) . "\n";
-		if ($spokenby) $criteria .= "* Spoken by $spokenby\n";
+		if (count($words)) $criteria .= ($html?'<li>':'* ') . 'Containing the ' . make_plural('word', count($words)) . ': ' . join(' ', $words) . ($html?'</li>':'') . "\n";
+		if ($spokenby) $criteria .= ($html?'<li>':'* ') . "Spoken by $spokenby" . ($html?'</li>':'') . "\n";
 		return $criteria;
 	}
 	function deleted() 			{ return $this->deleted; }

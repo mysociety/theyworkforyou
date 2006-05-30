@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.3 2006-05-24 22:26:54 twfy-live Exp $
+# $Id: xml2db.pl,v 1.4 2006-05-30 14:53:37 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -441,35 +441,10 @@ sub delete_lonely_epobjects()
         return if $c2 == $c1;
         
         print "Fixing up lonely epobjects. Counts: $c1 $c2\n" unless $cronquiet;
-        my $q = $dbh->prepare("select epobject_id from epobject");
-        $q->execute();
-        my $left;
-        while (my @row = $q->fetchrow_array) {
-                $left->{$row[0]} = 1;
-        }
-        $q = $dbh->prepare("select epobject_id from hansard");
-        $q->execute();
-        while (my @row = $q->fetchrow_array) {
-                delete($left->{$row[0]});
-        }
-
-        my @array = keys(%$left);
-        my $rows = @array;
-        print "Lonely epobject count: $rows\n" unless $cronquiet;
-        if ($rows > 0)
-        {
-                if (!$quiet) {
-                        print "deleting $rows epobjects type 1 with no associated hansard object\n";
-                        print Dumper(\@array);
-                }
-                my $delids = join(", ", @array);
-                my $qq = $dbh->prepare("delete from epobject where epobject_id in (" . $delids . ")");
-                my $delrows = $qq->execute();
-                $qq->finish();
-
-                die "deleted " . $delrows . " but thought " . $rows if $delrows != $rows;
-        }
+        my $q = $dbh->prepare('delete from epobject where epobject_id not in (select epobject_id from hansard)');
+        my $rows = $q->execute();
         $q->finish();
+        print "Lonely epobjects deleted: $rows\n" unless $cronquiet;
 }
 
 # Check that there are no extra gids in db that weren't in xml

@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.2 2006-05-23 16:43:26 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.3 2006-05-30 14:53:37 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -110,7 +110,7 @@ foreach ($alertdata as $alertitem) {
 				$k = 3;
 			}
 			#print $row['major'] . " " . $row['gid'] ."\n";
-			if ($row['hdate'] < '2006-03-01') continue;
+			if ($row['hdate'] < '2006-05-19') continue;
 			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_short[$major] . '/' . mysql_escape_string($row['gid']) . "'");
 			if ($q->rows() > 0) continue;
 			--$k;

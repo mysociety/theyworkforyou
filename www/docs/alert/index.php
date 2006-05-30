@@ -109,7 +109,9 @@ function add_alert ($details) {
 
 	$external_auth = auth_verify_with_shared_secret($details['email'], OPTION_AUTH_SHARED_SECRET, get_http_var('sign'));
 	if ($external_auth) {
-		$extra = 'from_hfymp=1';
+		$site = get_http_var('site');
+		if ($site != 'wtt' && $site != 'hfymp') $site = 'unknown';
+		$extra = 'from_' . $site . '=1';
 		$confirm = false;
 	} elseif ($THEUSER->loggedin()) {
 		$confirm = false;
@@ -177,22 +179,22 @@ function display_form ( $details = array(), $errors = array() ) {
 <p>This page allows you to request an email alert from TheyWorkForYou.com.</p>
 
 <ul>
-<li>To receive an alert <strong>every time a particular MP or Peer appears</strong>,
-select their name from the drop-down list of MPs and Peers, and
+<li>To receive an alert <strong>every time a particular MP or Lord appears</strong>,
+select their name from the drop-down list of MPs and Lords, and
 leave the word/phrase box blank.</li>
 
 <li>To receive an alert <strong>every time a particular keyword or phrase appears</strong>,
-select "Any MP/Peer" from the drop-down list of MPs and Peers, and enter your search term in
+select "Any MP/Lord" from the drop-down list of MPs and Lords, and enter your search term in
 the box underneath.  The results are selected using the same rules as for a
 normal search (see the box to the right for help on setting your criteria).</li>
 
 <li>You can also <strong>combine</strong> both types of criteria to be alerted
-<strong>only</strong> when a particular MP or Peer uses the keywords you have defined.
-To do this, select the MP or Peer from the drop-down list <em>and</em> enter the keyword(s) as
+<strong>only</strong> when a particular MP or Lord uses the keywords you have defined.
+To do this, select the MP or Lord from the drop-down list <em>and</em> enter the keyword(s) as
 above.</li>
 </ul>
 
-<p>Please note that you should only enter one topic per alert - if you wish to receive alerts on more than one topic, or for more than one MP or Peer, simply fill in this form as many times as you need.</p>
+<p>Please note that you should only enter one topic per alert - if you wish to receive alerts on more than one topic, or for more than one MP or Lord, simply fill in this form as many times as you need.</p>
 
 	<form method="post" action="<?php echo $ACTIONURL->generate(); ?>">
 	
@@ -212,16 +214,16 @@ above.</li>
 			}
 	?>
 				<div class="row">
-				<span class="label"><label for="pid">MP or Peer you wish to receive alerts for:</label></span>
+				<span class="label"><label for="pid">MP or Lord you wish to receive alerts for:</label></span>
 				<span class="formw"><?
 				if (get_http_var('only') && $details['pid']) {
 					$MEMBER = new MEMBER(array('person_id'=>$details['pid']));
 					print $MEMBER->full_name();
 					print '<input type="hidden" name="pid" value="' . htmlspecialchars($details['pid']) . '">';
 				} else { ?><select name="pid">
-				<option value="Any">Any MP/Peer</option>
+				<option value="Any">Any MP/Lord</option>
 				<?php 
-				// Get a list of MPs/Peers for displaying in the form using the PEOPLE class
+				// Get a list of MPs/Lords for displaying in the form using the PEOPLE class
 				$LIST = new PEOPLE;
 				$args['order'] = 'last_name';
 				if ($details['pid']) $args['pid'] = $details['pid'];
