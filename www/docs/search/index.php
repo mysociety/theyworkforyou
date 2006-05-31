@@ -478,16 +478,21 @@ function find_members ($args) {
 	}
 
 	$searchwords = explode(' ', $searchstring);
+    foreach ($searchwords as $i=>$searchword) {
+        $searchwords[$i] = mysql_real_escape_string(htmlentities($searchword));
+        if (!strcasecmp($searchword,'Opik'))
+            $searchwords[$i] = '&Ouml;pik';
+    }
 	if (count($searchwords) == 1) {
-		$where = "first_name LIKE '%" . addslashes($searchwords[0]) . "%' OR last_name LIKE '%" . addslashes($searchwords[0]) . "%'";
+		$where = "first_name LIKE '%" . $searchwords[0] . "%' OR last_name LIKE '%" . $searchwords[0] . "%'";
 	} elseif (count($searchwords) == 2) {
 		// We don't do anything special if there are more than two search words.
 		// And here we're assuming the user's put the names in the right order.
-		$where = "(first_name LIKE '%" . addslashes($searchwords[0]) . "%' AND last_name LIKE '%" . addslashes($searchwords[1]) . "%')";
-        $where .= " OR (first_name LIKE '%" . addslashes($searchwords[1]) . "%' AND last_name LIKE '%" . addslashes($searchwords[0]) . "%')";
+		$where = "(first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
+        $where .= " OR (first_name LIKE '%" . $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[0] . "%')";
 	} else {
-		$where = "(first_name LIKE '%" . addslashes($searchwords[0].' '.$searchwords[1]) . "%' AND last_name LIKE '%" . addslashes($searchwords[2]) . "%')";
-        $where .= " OR (first_name LIKE '%" . addslashes($searchwords[0]) . "%' AND last_name LIKE '%" . addslashes($searchwords[1].' '.$searchwords[2]) . "%')";
+		$where = "(first_name LIKE '%" . $searchwords[0].' '.$searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
+        $where .= " OR (first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1].' '.$searchwords[2] . "%')";
     }
 
 	$q = $db->query("SELECT person_id,

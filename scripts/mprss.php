@@ -97,7 +97,7 @@ if ($q->rows() > 0) {
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
 		
 <channel rdf:about="http://' . DOMAIN . $mpurl . '">
-<title>' . $MEMBER->full_name() . '\'s Recent Appearances (TheyWorkForYou.com)</title>
+<title>' . str_replace('&Ouml;', 'O', $MEMBER->full_name()) . '\'s Recent Appearances (TheyWorkForYou.com)</title>
 <link>http://' . DOMAIN . $mpurl . '</link>
 <description></description>
 <dc:language>en-gb</dc:language>

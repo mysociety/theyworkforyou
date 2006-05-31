@@ -24,6 +24,7 @@ include_once "../../includes/easyparliament/init.php";
 include_once "../../includes/easyparliament/people.php";
 include_once "../../includes/easyparliament/member.php";
 include_once INCLUDESPATH . '../../../phplib/auth.php';
+include_once INCLUDESPATH . '../../../phplib/crosssell.php';
 
 $this_page = "alert";
 
@@ -131,6 +132,7 @@ function add_alert ($details) {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 	
+	$advert = false;
 	if ($success>0 && !$confirm) {
 		if ($details['pid']) {
 			$MEMBER = new MEMBER(array('person_id'=>$details['pid']));
@@ -147,6 +149,7 @@ function add_alert ($details) {
 			'title' => 'Your alert has been added',
 			'text' => 'You will now receive email alerts on any day when ' . $criteria . ' in Hansard.'
 		);
+		$advert = true;
 	} elseif ($success>0) {
 		$message = array(
 			'title' => "We're nearly done...",
@@ -156,12 +159,35 @@ function add_alert ($details) {
 		$message = array('title' => 'You already have this alert',
 		'text' => 'You already appear to be subscribed to this email alert, so we have not signed you up to it again.'
 		);
+		$advert = true;
 	} else {
 		$message = array ('title' => "This alert has not been accepted",
 		'text' => "Sorry, we were unable to create this alert. Please <a href=\"mailto:". CONTACTEMAIL . "\">let us know</a>. Thanks."
 		);
 	}
 	$PAGE->message($message);
+	if ($advert) {
+		if ($THEUSER->isloggedin()) {
+			$advert_shown = crosssell_display_advert('twfy', $details['email'], $THEUSER->firstname() . ' ' . $THEUSER->lastname(), $THEUSER->postcode());
+		} else {
+			$advert_shown = crosssell_display_advert('twfy', $details['email'], '', '');
+		}
+		if ($advert_shown == 'other-twfy-alert-type') {
+			if ($details['pid']) {
+				$advert_shown = 'twfy-alert-word';
+?>		
+<p>Did you know that TheyWorkForYou can also email you when a certain word or phrases is spoken in parliament? For example, it could mail you when your town is mentioned, or an issue you care about. Don't rely on the newspapers to keep you informed about your interests - find out what's happening straight from the horse's mouth.
+<a href="/alert/">Sign up for an email alert</a></p>
+<?			} else {
+				$advert_shown = 'twfy-alert-person';
+?>
+<p>Did you know that TheyWorkForYou can also email you when a certain MP or Lord speaks in parliament? Don't rely on the newspapers to keep you informed about someone you're interested in - find out what's happening straight from the horse's mouth.
+<a href="/alert/">Sign up for an email alert</a></p>
+	<?		}
+		}
+		if ($extra) $extra .= "; ";
+		$extra .= "advert=$advert_shown";
+	}
 	$PAGE->stripe_end();
 	$PAGE->page_end($extra);
 }
