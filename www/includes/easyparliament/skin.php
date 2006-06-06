@@ -114,7 +114,7 @@ class SKIN {
 			$this->skin = "default";
 		}
 
-		debug ("SKIN", "Skin set to '".$this->skin."'");
+		twfy_debug ("SKIN", "Skin set to '".$this->skin."'");
 	}
 	
 	

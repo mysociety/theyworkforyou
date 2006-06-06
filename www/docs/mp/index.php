@@ -33,7 +33,7 @@ include_once INCLUDESPATH."easyparliament/member.php";
 include_once INCLUDESPATH."postcode.inc";
 include_once INCLUDESPATH . 'technorati.php';
 
-debug_timestamp("after includes");
+twfy_debug_timestamp("after includes");
 
 $errors = array();
 
@@ -94,13 +94,13 @@ if (is_numeric(get_http_var('m'))) {
 	$pc = get_http_var('pc');
 	$pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
 	if (validate_postcode($pc)) {
-		debug ('MP', "MP lookup by postcode");
+		twfy_debug ('MP', "MP lookup by postcode");
 		$constituency = strtolower(postcode_to_constituency($pc));
 		if ($constituency == "CONNECTION_TIMED_OUT") {
 			$errors['pc'] = "Sorry, we couldn't check your postcode right now. Please use the 'All Mps' link above to browse MPs";
 		} elseif ($constituency == "") {
 			$errors['pc'] = "Sorry, ".htmlentities($pc) ." isn't a known postcode";
-			debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
+			twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
 		} else {
 			// Redirect to the canonical MP page, with a person id.
 			$MEMBER = new MEMBER(array('constituency' => $constituency));
@@ -112,7 +112,7 @@ if (is_numeric(get_http_var('m'))) {
 		}
 	} else {
 		$errors['pc'] = "Sorry, ".htmlentities($pc) ." isn't a valid postcode";
-		debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
+		twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
 	}
 
 /////////////////////////////////////////////////////////
@@ -130,7 +130,7 @@ if (is_numeric(get_http_var('m'))) {
 	if ($MEMBER->the_users_mp) {
 		$this_page = 'yourmp';
 	}
-	debug ('MP', 'Displaying MP by name');
+	twfy_debug ('MP', 'Displaying MP by name');
 } elseif ($name) {
 	$MEMBER = new MEMBER(array('name' => $name));
 	if ($MEMBER->house() == 1 && ($MEMBER->valid || !is_array($MEMBER->person_id()))) {
@@ -147,7 +147,7 @@ if ($cconstituency == 'your &amp; my society') {
 	member_redirect($MEMBER);
 } else {
 	// No postcode, member_id or person_id to use.
-	debug ('MP', "We don't have any way of telling what MP to display");
+	twfy_debug ('MP', "We don't have any way of telling what MP to display");
 }
 
 	
@@ -181,9 +181,9 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 
 } elseif (isset($MEMBER) && $MEMBER->person_id()) {
 	
-debug_timestamp("before load_extra_info");
+twfy_debug_timestamp("before load_extra_info");
 	$MEMBER->load_extra_info();
-debug_timestamp("after load_extra_info");
+twfy_debug_timestamp("after load_extra_info");
 	
 	$member_name = ucfirst($MEMBER->full_name());
 
@@ -201,18 +201,18 @@ debug_timestamp("after load_extra_info");
 	$feedurl = $DATA->page_metadata('mp_rss', 'url');
 	$DATA->set_page_metadata($this_page, 'rss', $feedurl . $MEMBER->person_id() . '.rdf');
 
-debug_timestamp("before page_start");
+twfy_debug_timestamp("before page_start");
 	
 	$PAGE->page_start();
-debug_timestamp("after page_start");
+twfy_debug_timestamp("after page_start");
 
-debug_timestamp("before stripe start");
+twfy_debug_timestamp("before stripe start");
 	$PAGE->stripe_start();
-debug_timestamp("after stripe start");
+twfy_debug_timestamp("after stripe start");
 	
-debug_timestamp("before display of MP");
+twfy_debug_timestamp("before display of MP");
 	$MEMBER->display();
-debug_timestamp("after display of MP");
+twfy_debug_timestamp("after display of MP");
 	
 	// SIDEBAR.
 

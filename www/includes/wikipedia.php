@@ -61,7 +61,7 @@ function wikipedize ($source) {
   $matched = array();
   foreach ($phrases as $phrase) {
     $phrase = trim($phrase);
-    debug("WIKIPEDIA", "Trying '$phrase'");
+    twfy_debug("WIKIPEDIA", "Trying '$phrase'");
     $wikistring = ereg_replace(" ","_", $phrase);
 
     $q = $this->db->query("SELECT title FROM titles WHERE title = '" . mysql_escape_string($wikistring). "';");
@@ -77,7 +77,7 @@ function wikipedize ($source) {
         }
         # Go ahead only if haven't...
         if ($use) {
-          debug("WIKIPEDIA", "Matched '$phrase'");
+          twfy_debug("WIKIPEDIA", "Matched '$phrase'");
 	  # 1 means only replace one match for phrase per paragraph
           $temp1 = preg_replace ("/{$phrase}/", "<a href=\"http://en.wikipedia.org/wiki/{$wikistring}\">{$phrase}</a>", $temp1, 1);
           array_push($matched, $phrase);

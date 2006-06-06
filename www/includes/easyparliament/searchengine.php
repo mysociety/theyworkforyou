@@ -107,11 +107,11 @@ class SEARCHENGINE {
             }
         }
 
-        debug("SEARCH", "words: " . var_export($this->words, true));
-        debug("SEARCH", "phrases: " . var_export($this->phrases, true));
-        debug("SEARCH", "prefixed: " . var_export($this->prefixed, true));
-        debug("SEARCH", "excluded: " . var_export($this->excluded, true));
-        // debug("SEARCH", "rough: " . var_export($this->rough, true));
+        twfy_debug("SEARCH", "words: " . var_export($this->words, true));
+        twfy_debug("SEARCH", "phrases: " . var_export($this->phrases, true));
+        twfy_debug("SEARCH", "prefixed: " . var_export($this->prefixed, true));
+        twfy_debug("SEARCH", "excluded: " . var_export($this->excluded, true));
+        // twfy_debug("SEARCH", "rough: " . var_export($this->rough, true));
     }
 
     function make_phrase($phrasearray) {
@@ -271,13 +271,13 @@ class SEARCHENGINE {
         queryparser_add_prefix($queryparser, "speaker", "speaker:");
         queryparser_add_prefix($queryparser, "major", "major:");
         queryparser_add_prefix($queryparser, 'date', 'date:');
-        debug("SEARCH", "query remade -- ". $this->query_remade());
+        twfy_debug("SEARCH", "query remade -- ". $this->query_remade());
         // We rebuild (with query_remade) our query and feed that text string to 
         // the query parser.  This is because the error handling in the query parser
         // is a bit knackered, and we want to be sure our highlighting etc. exactly
         // matches.
         $query = queryparser_parse_query($queryparser, $this->query_remade());
-        debug("SEARCH", "queryparser description -- " . query_get_description($query));
+        twfy_debug("SEARCH", "queryparser description -- " . query_get_description($query));
 
         enquire_set_query($this->enquire, $query);
 
@@ -316,7 +316,7 @@ class SEARCHENGINE {
             $count = mset_get_matches_estimated($matches);
         }
 		$duration = getmicrotime() - $start;
-		debug ("SEARCH", "Search count took $duration seconds.");
+		twfy_debug ("SEARCH", "Search count took $duration seconds.");
         return $count;
     }
 
@@ -350,13 +350,13 @@ class SEARCHENGINE {
             if ($sort_order=='created') {
                 array_push($this->created, document_get_value($doc, 6));
             }
-			debug("SEARCH", "gid: $gid relevancy: $relevancy% weight: $weight");
+			twfy_debug("SEARCH", "gid: $gid relevancy: $relevancy% weight: $weight");
 			array_push($this->gids, "uk.org.publicwhip/".$gid);
 			array_push($this->relevances, $relevancy);
             msetiterator_next($iter);
         }
 		$duration = getmicrotime() - $start;
-		debug ("SEARCH", "Run search took $duration seconds.");
+		twfy_debug ("SEARCH", "Run search took $duration seconds.");
     }	
     // ... use these to get the results
     function get_gids() {

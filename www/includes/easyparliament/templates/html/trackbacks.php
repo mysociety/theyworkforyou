@@ -30,7 +30,7 @@
 */
 global $PAGE, $this_page, $DATA;
 
-debug ("TEMPLATE", "trackbacks.php");
+twfy_debug("TEMPLATE", "trackbacks.php");
 
 $info = $data['info'];
 $data = $data['data'];

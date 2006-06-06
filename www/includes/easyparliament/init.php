@@ -39,7 +39,7 @@ And now all the files we'll include on every page.
 
 include_once "config.php";
 include_once (INCLUDESPATH."utility.php");
-debug_timestamp("after including utility.php");
+twfy_debug_timestamp("after including utility.php");
 
 
 // The error_handler function is in includes/utility.php
@@ -74,6 +74,6 @@ include_once (INCLUDESPATH."easyparliament/trackback.php");
 // Added in as new module by Richard Allan MP
 include_once (INCLUDESPATH."easyparliament/alert.php");
 
-debug_timestamp("at end of init.php");
+twfy_debug_timestamp("at end of init.php");
 
 ?>

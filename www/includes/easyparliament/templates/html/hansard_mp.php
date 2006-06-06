@@ -1,7 +1,7 @@
 <?php
 global $PAGE, $DATA, $this_page;
 
-debug ("TEMPLATE", "hansard_mp.php");
+twfy_debug("TEMPLATE", "hansard_mp.php");
 $PAGE->page_start();
 $PAGE->stripe_start();
 ?>

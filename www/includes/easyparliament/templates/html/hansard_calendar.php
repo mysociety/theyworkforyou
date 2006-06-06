@@ -26,7 +26,7 @@
 include_once INCLUDESPATH."easyparliament/recess.php";
 global $PAGE, $DATA, $this_page, $hansardmajors;
 
-debug ("TEMPLATE", "hansard_calendar.php");
+twfy_debug("TEMPLATE", "hansard_calendar.php");
 
 if (isset($data['years'])) {
 	foreach ($data['years'] as $year => $months) {

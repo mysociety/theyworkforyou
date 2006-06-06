@@ -219,7 +219,7 @@ class MEMBER {
 	
 	function postcode_to_person_id ($postcode) {
 	
-        debug ('MP', "postcode_to_person_id converting postcode to person");
+        twfy_debug ('MP', "postcode_to_person_id converting postcode to person");
 		$constituency = strtolower(postcode_to_constituency($postcode));
 
 		return $this->constituency_to_person_id($constituency);
@@ -346,7 +346,7 @@ class MEMBER {
 		if (is_object($THEUSER) && $THEUSER->postcode_is_set() && $this->house()==1 && $this->current_member()) {
 			
 			$pc = $THEUSER->postcode();
-            debug ('MP', "set_users_mp converting postcode to person");
+            twfy_debug ('MP', "set_users_mp converting postcode to person");
 			$constituency = strtolower(postcode_to_constituency($pc));
 
 			if ($constituency == strtolower($this->constituency())) {

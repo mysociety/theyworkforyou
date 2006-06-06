@@ -6,7 +6,7 @@ Used on the 'All MPs' page to produce the list of MPs in CSV format.
 
 global $this_page;
 
-debug ("TEMPLATE", "people_mps.php");
+twfy_debug ("TEMPLATE", "people_mps.php");
 
 $order = $data['info']['order'];
 

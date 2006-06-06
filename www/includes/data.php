@@ -166,7 +166,7 @@ class DATA {
 			$key = $args;
 		}
 
-		debug ("DATA", "$type: $item, $key");
+		twfy_debug("DATA", "$type: $item, $key");
 		$dataarray =& $this->$type;
 		
 		if ($this->test_for_metadata($type, $item, $key)) {
@@ -182,7 +182,7 @@ class DATA {
 			$debugtext = "No metadata found for key '$key'";
 		}
 		
-		debug("DATA", "$debugtext, returning '$return'.");
+		twfy_debug("DATA", "$debugtext, returning '$return'.");
 
 		return $return;
 	}
@@ -202,7 +202,7 @@ class DATA {
 		$key = $args["key"];
 		$value = $args["value"];
 				
-		debug("DATA", "Setting: ".$type."[".$item."][".$key."] = '$value'");
+		twfy_debug("DATA", "Setting: ".$type."[".$item."][".$key."] = '$value'");
 		
 		$dataarray =& $this->$type;
 		$dataarray[$item][$key] = $value;

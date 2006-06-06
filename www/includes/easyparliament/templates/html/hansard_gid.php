@@ -15,7 +15,7 @@ include_once INCLUDESPATH."easyparliament/searchengine.php";
 include_once INCLUDESPATH."easyparliament/member.php";
 
 
-debug ("TEMPLATE", "hansard_gid.php");
+twfy_debug("TEMPLATE", "hansard_gid.php");
 
 // Will set the page headings and start the page HTML if it hasn't 
 // already been started.
@@ -103,7 +103,7 @@ if (isset ($data['rows'])) {
 		// NOW, depending on the contents of this row, we do something different...
 		if ($row['htype'] == '10') {
 			$section_title = $row['body'];
-			debug("DATAMODEL" , "epobjectid " . htmlentities($row['epobject_id']));
+			twfy_debug("DATAMODEL" , "epobjectid " . htmlentities($row['epobject_id']));
 		} elseif ($row['htype'] == '11') {
 			$subsection_title = $row['body'];
 		} elseif ($row['htype'] == '13') {

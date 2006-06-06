@@ -18,7 +18,7 @@
 <? }
 
 global $this_page;
-debug ("TEMPLATE", "rss/hansard_search.php");
+twfy_debug("TEMPLATE", "rss/hansard_search.php");
 
 if (isset ($data['rows']) && count($data['rows']) > 0) {
 	for ($i=0; $i<count($data['rows']); $i++) {

@@ -19,7 +19,7 @@ $data = array (
 
 global $this_page;
 
-debug ("TEMPLATE", "people_mps.php");
+twfy_debug("TEMPLATE", "people_mps.php");
 
 $order = $data['info']['order'];
 

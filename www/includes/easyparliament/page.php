@@ -235,7 +235,7 @@ urchinTracker();
 <body>
 <div id="container">
 <?php
-		debug ("PAGE", "This page: $this_page");
+		twfy_debug ("PAGE", "This page: $this_page");
 		
 		print "\t<a name=\"top\"></a>\n\n";
 
@@ -871,11 +871,11 @@ pr()//-->
 		
 		$rusage = getrusage();
 		$duration = getmicrotime() - STARTTIME;
-		debug ("TIME", "Total time for page: $duration seconds.");
+		twfy_debug ("TIME", "Total time for page: $duration seconds.");
 		$duration = $rusage['ru_utime.tv_sec']*1000000 + $rusage['ru_utime.tv_usec'] - STARTTIMEU;
-		debug ('TIME', "Total user time: $duration microseconds.");
+		twfy_debug ('TIME', "Total user time: $duration microseconds.");
 		$duration = $rusage['ru_stime.tv_sec']*1000000 + $rusage['ru_stime.tv_usec'] - STARTTIMES;
-		debug ('TIME', "Total system time: $duration microseconds.");
+		twfy_debug ('TIME', "Total system time: $duration microseconds.");
 		
 		?>
 </div> <!-- end #container -->
@@ -1330,22 +1330,30 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 				<a name="hansard"></a>
 <?php
 		$this->block_start(array('id'=>'hansard', 'title'=>'Most recent appearances in parliament'));
-
+?>
+<p><em>If this MP has contributed more than once to one debate, only one speech is shown.</em></p>
+<?php
 		// This is really far from ideal - I don't really want $PAGE to know
 		// anything about HANSARDLIST / DEBATELIST / WRANSLIST.
 		// But doing this any other way is going to be a lot more work for little 
 		// benefit unfortunately.
 	
-		$args = array (
-			'person_id' => $member['person_id'],
-			'max'	=> 3
-		);
+	        twfy_debug_timestamp();
+		$HANSARDLIST = new HANSARDLIST();
 		
-		#		$HANSARDLIST = new HANSARDLIST();
-		#        debug_timestamp();
-		#		$HANSARDLIST->display('person', $args);
-		#        debug_timestamp();
-		
+		$searchstring = "speaker:$member[person_id]";
+		global $SEARCHENGINE;
+        	$SEARCHENGINE = new SEARCHENGINE($searchstring); 
+	    	$args = array (
+	    		's' => $searchstring,
+	    		'p' => 1,
+	    		'num' => 3,
+		        'pop' => 1,
+			'o' => 'd',
+	    	);
+	        $HANSARDLIST->display('search_min', $args);
+	        twfy_debug_timestamp();
+
 		$MOREURL = new URL('search');
 		$MOREURL->insert( array('pid'=>$member['person_id'], 'pop'=>1) );
 		?>

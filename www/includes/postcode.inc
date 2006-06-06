@@ -26,16 +26,16 @@ if(!defined("POSTCODE_SEARCH_DOMAIN")){
 	$postcode = canonicalise_postcode($postcode);
 
     if ($last_postcode == $postcode) {
-        debug ("TIME", "Postcode $postcode looked up last time, is $last_postcode_value .");
+        twfy_debug ("TIME", "Postcode $postcode looked up last time, is $last_postcode_value .");
         return $last_postcode_value;
     }
 
     $start = getmicrotime();
-    debug_timestamp();
+    twfy_debug_timestamp();
     $ret = postcode_to_constituency_internal($postcode);
     $duration = getmicrotime() - $start;
-    debug ("TIME", "Postcode $postcode lookup took $duration seconds, returned $ret.");
-    debug_timestamp();
+    twfy_debug ("TIME", "Postcode $postcode lookup took $duration seconds, returned $ret.");
+    twfy_debug_timestamp();
     $last_postcode = $postcode;
     $last_postcode_value = $ret;
     return $ret;

@@ -107,7 +107,7 @@ class COMMENTLIST {
 		// Get all the data attached to an epobject.
 		global $PAGE;
 
-		debug (get_class($this), "getting data by epobject");
+		twfy_debug (get_class($this), "getting data by epobject");
 		
 		// What we return.
 		$data = array();
@@ -149,7 +149,7 @@ class COMMENTLIST {
 		// comments by things in $args?
 		global $PAGE;
 		
-		debug (get_class($this), "getting data by user");
+		twfy_debug (get_class($this), "getting data by user");
 		
 		// What we return.
 		$data = array();
@@ -281,7 +281,7 @@ class COMMENTLIST {
 		// $args should contain 'num', indicating how many to get.
 		// and perhaps pid too, for a particular person
 		
-		debug (get_class($this), "getting data by recent");
+		twfy_debug (get_class($this), "getting data by recent");
 
 		// What we return.
 		$data = array();
@@ -338,7 +338,7 @@ class COMMENTLIST {
 	function _get_data_by_search ($args) {
 		// $args should contain 'num', indicating how many to get.
 		
-		debug (get_class($this), "getting data by search");
+		twfy_debug (get_class($this), "getting data by search");
 
 		// What we return.
 		$data = array();

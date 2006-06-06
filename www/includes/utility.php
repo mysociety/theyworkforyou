@@ -5,7 +5,7 @@ General utility functions v1.1 (well, it was).
 
 */
 
-function debug ($header, $text="") {
+function twfy_debug ($header, $text="") {
 	// Pass it a brief header word and some debug text and it'll be output.
 
 	// We set ?DEBUGTAG=n in the URL.
@@ -266,7 +266,6 @@ function validate_postcode ($postcode) {
 	}
 }
 
-
 // Returns the unixtime in microseconds.
 function getmicrotime() {
 	$mtime = microtime();
@@ -276,13 +275,13 @@ function getmicrotime() {
 	return $mtime;
 }
 
-/* debug_timestamp
+/* twfy_debug_timestamp
  * Output a timestamp since the page was started. */
 $timestamp_last = $timestamp_start = getmicrotime();
-function debug_timestamp($label = "") {
+function twfy_debug_timestamp($label = "") {
     global $timestamp_last, $timestamp_start;
     $t = getmicrotime();
-    debug("TIME", sprintf("%f msecs since start; %f msecs since last; %s",
+    twfy_debug("TIME", sprintf("%f msecs since start; %f msecs since last; %s",
             ($t - $timestamp_start)*1000.0, ($t - $timestamp_last)*1000.0, $label));
     $timestamp_last = $t;
 }
@@ -441,12 +440,12 @@ function parse_date($date) {
 	return array('iso'=>"$year-$month-$day", 'epoch'=>$epoch, 'day'=>$day, 'month'=>$month, 'year'=>$year);
 }
 
-// Alternative to strip_tags which replaces some tags with spaces,
-// so words don't end up stuck together. For example, if they were only
-// separated by a <p>.
+/* strip_tags_tospaces TEXT
+ * Return a copy of TEXT in which certain block-level HTML tags have been
+ * replaced by single spaces, and other HTML tags have been removed. */
 function strip_tags_tospaces($text) {
-	$text = preg_replace("#\<(p|br|div|td|tr|th|table)[^>]*\>#i", " ", $text);
-	return strip_tags(trim($text));
+    $text = preg_replace("#\<(p|br|div|td|tr|th|table)[^>]*\>#i", " ", $text);
+    return strip_tags(trim($text)); 
 }
 
 function trim_characters ($text, $start, $length) {
@@ -737,7 +736,7 @@ function send_email ($to, $subject, $message) {
   		$headers .= "\r\nBcc: " . BCCADDRESS;
 	}
      */
-	debug('EMAIL', "Sending email to $to with subject of '$subject'");
+	twfy_debug('EMAIL', "Sending email to $to with subject of '$subject'");
 
 	$success = mail ($to, $subject, $message, $headers);
 

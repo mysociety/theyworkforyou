@@ -20,7 +20,7 @@ $data['info'] = array (
 
 global $PAGE, $this_page, $GLOSSARY;
 
-debug ("TEMPLATE", "hansard_search.php");
+twfy_debug("TEMPLATE", "hansard_search.php");
 
 $info = $data['info'];
 $searchdescription = $data['searchdescription'];

@@ -10,7 +10,7 @@
 
 global $PAGE;
 
-debug ("TEMPLATE", "hansard_recentvotes.php");
+twfy_debug("TEMPLATE", "hansard_recentvotes.php");
 
 if (isset ($data['rows']) && count($data['rows']) > 0) {
 	$PAGE->block_start(array('title'=>'Most interesting speeches from past ' . $data['info']['days'] . ' days'));

@@ -9,7 +9,7 @@
 
 global $PAGE, $DATA, $this_page, $hansardmajors;
 
-debug ("TEMPLATE", "hansard_column.php");
+twfy_debug("TEMPLATE", "hansard_column.php");
 
 $PAGE->page_start();
 

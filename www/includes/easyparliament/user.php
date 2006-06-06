@@ -142,11 +142,11 @@ class USER {
 			// *Should* never happen...
 
 			return false;
-			debug("USER", "There is more than one user with an id of '".htmlentities($user_id)."'");
+			twfy_debug("USER", "There is more than one user with an id of '".htmlentities($user_id)."'");
 
 		} else {
 			return false;
-			debug("USER", "There is no user with an id of '".htmlentities($user_id)."'");
+			twfy_debug("USER", "There is no user with an id of '".htmlentities($user_id)."'");
 		}
 
 	}
@@ -780,7 +780,7 @@ class THEUSER extends USER {
 		$cookie = get_cookie_var("epuser_id"); // In includes/utility.php.
 
 		if ($cookie == '') {
-			debug("THEUSER init FAILED", "No cookie set");
+			twfy_debug("THEUSER init FAILED", "No cookie set");
 			$this->loggedin = false;
 
 		} elseif (ereg ("([[:alnum:]]*)\.([[:alnum:]]*)", $cookie, $matches)) {
@@ -804,29 +804,29 @@ class THEUSER extends USER {
 						// to need. Their preferences and saved things or something.
 
 
-						debug ("THEUSER init SUCCEEDED", "setting as logged in");
+						twfy_debug ("THEUSER init SUCCEEDED", "setting as logged in");
 						$this->loggedin = true;
 
 					} elseif (md5 ($this->password()) != $matches[2]) {
-						debug ("THEUSER init FAILED", "Password doesn't match cookie");
+						twfy_debug ("THEUSER init FAILED", "Password doesn't match cookie");
 						$this->loggedin = false;
 					} else {
-						debug ("THEUSER init FAILED", "User is deleted");
+						twfy_debug ("THEUSER init FAILED", "User is deleted");
 						$this->loggedin = false;
 					}
 
 				} else {
-					debug ("THEUSER init FAILED", "didn't get 1 row from db");
+					twfy_debug ("THEUSER init FAILED", "didn't get 1 row from db");
 					$this->loggedin = false;
 				}
 
 			} else {
-				debug ("THEUSER init FAILED", "cookie's user_id is not numeric");
+				twfy_debug ("THEUSER init FAILED", "cookie's user_id is not numeric");
 				$this->loggedin = false;
 			}
 
 		} else {
-			debug ("THEUSER init FAILED", "cookie is not of the correct form");
+			twfy_debug ("THEUSER init FAILED", "cookie is not of the correct form");
 			$this->loggedin = false;
 		}
 
@@ -871,10 +871,10 @@ class THEUSER extends USER {
 		// Call this function to check if the user is successfully logged in.
 
 		if ($this->loggedin()) {
-			debug("THEUSER", "isloggedin: true");
+			twfy_debug("THEUSER", "isloggedin: true");
 			return true;
 		} else {
-			debug("THEUSER", "isloggedin: false");
+			twfy_debug("THEUSER", "isloggedin: false");
 			return false;
 		}
 	}
@@ -1056,7 +1056,7 @@ class THEUSER extends USER {
         if (!headers_sent()) // if in debug mode
             setcookie (POSTCODE_COOKIE, $pc, time()+7*86400, "/", COOKIEDOMAIN);
 		
-		debug('USER', "Set the cookie named '" . POSTCODE_COOKIE . " to '$pc' for " . COOKIEDOMAIN . " domain");
+		twfy_debug('USER', "Set the cookie named '" . POSTCODE_COOKIE . " to '$pc' for " . COOKIEDOMAIN . " domain");
 	}
 	
 	

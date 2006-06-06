@@ -9,7 +9,7 @@
 
 global $PAGE, $hansardmajors;
 
-debug ("TEMPLATE", "hansard_person.php");
+twfy_debug("TEMPLATE", "hansard_person.php");
 
 
 if (isset ($data['rows']) && count($data['rows']) > 0) {

@@ -9,7 +9,7 @@
 
 global $PAGE;
 
-debug ("TEMPLATE", "hansard_recent.php");
+twfy_debug("TEMPLATE", "hansard_recent.php");
 
 
 // Will set the page headings and start the page HTML if it hasn't 

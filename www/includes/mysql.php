@@ -132,7 +132,7 @@ Class MySQLQuery {
 		}
 		
 				
-		debug ("SQL", $sql);
+		twfy_debug ("SQL", $sql);
 		
 		$q = mysql_query($sql,$this->conn) or $this->error(mysql_errno().": ".mysql_error());
 		
@@ -183,7 +183,7 @@ Class MySQLQuery {
 				$this->fields		= sizeof($fieldnames_byid);
 				$this->data			= $result;
 	
-				debug ("SQLRESULT", $this->_display_result());
+				twfy_debug ("SQLRESULT", $this->_display_result());
 	
 				mysql_free_result($q);
 	
@@ -341,7 +341,7 @@ Class MySQL {
 		$duration = getmicrotime() - $start;
 		global $mysqltotalduration;
 		$mysqltotalduration += $duration;
-		debug ("SQL", "Complete after $duration seconds.");
+		twfy_debug ("SQL", "Complete after $duration seconds.");
 		// We could also output $q->mysql_info() here, but that's for
 		// PHP >= 4.3.0.
 
@@ -353,7 +353,7 @@ Class MySQL {
 	// Call at the end of a page.
 	function display_total_duration () {
 		global $mysqltotalduration;
-		debug ("TIME", "Total time for MySQL queries on this page: " . $mysqltotalduration . " seconds.");
+		twfy_debug ("TIME", "Total time for MySQL queries on this page: " . $mysqltotalduration . " seconds.");
 	}
 
 

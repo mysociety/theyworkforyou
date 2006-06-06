@@ -130,7 +130,7 @@ class HANSARDLIST {
 		
 		global $PAGE;
 
-		$validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp');
+		$validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_min', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp');
 		if (in_array($view, $validviews)) {
 
 			// What function do we call for this view?
@@ -258,7 +258,7 @@ class HANSARDLIST {
 		// Pass it an array of data about an item and it will return an
 		// array of data about the item's section heading.
 
-		debug (get_class($this), "getting an item's section");
+		twfy_debug (get_class($this), "getting an item's section");
 		
 		// What we return.
 		$sectiondata = array ();
@@ -301,7 +301,7 @@ class HANSARDLIST {
 		// Pass it an array of data about an item and it will return an
 		// array of data about the item's subsection heading.
 
-		debug (get_class($this), "getting an item's subsection");
+		twfy_debug (get_class($this), "getting an item's subsection");
 		
 		// What we return.
 		$subsectiondata = array ();
@@ -342,7 +342,7 @@ class HANSARDLIST {
 		// Pass it an array of item info, of a section/subsection, and this will return
 		// data for the next/prev items.
 				
-		debug (get_class($this), "getting next/prev items");
+		twfy_debug (get_class($this), "getting next/prev items");
 		
 		// What we return.
 		$nextprevdata = array ();
@@ -530,7 +530,7 @@ class HANSARDLIST {
 		// containing the next/prev dates that contain items from 
 		// $this->major of hansard object.
 		
-		debug (get_class($this), "getting next/prev dates");
+		twfy_debug (get_class($this), "getting next/prev dates");
 		
 		// What we return.
 		$nextprevdata = array ();
@@ -656,7 +656,7 @@ class HANSARDLIST {
 			)
 		);
 
-		debug (get_class($this), "looking for redirected gid");
+		twfy_debug (get_class($this), "looking for redirected gid");
 		$gid = $this->gidprefix . $args['gid'];
 		$q = $this->db->query ("SELECT gid_to FROM gidredirect WHERE gid_from = '" . mysql_escape_string($gid) . "'");
 		if ($q->rows() == 0) {
@@ -667,7 +667,7 @@ class HANSARDLIST {
 				$q = $this->db->query("SELECT gid_to FROM gidredirect WHERE gid_from = '" . mysql_escape_string($gid) . "'");
 			} while ($q->rows() > 0);
 			$redirected_gid = $gid;
-			debug (get_class($this), "found redirected gid $redirected_gid" );
+			twfy_debug (get_class($this), "found redirected gid $redirected_gid" );
 			$input['where'] = array('gid=' => $redirected_gid);
 			$itemdata = $this->_get_hansard_data($input);
 			// Store that it is one, in case caller wants to do proper redirect
@@ -733,7 +733,7 @@ class HANSARDLIST {
 	
 		global $DATA, $this_page;
 		
-		debug (get_class($this), "getting data by date");
+		twfy_debug (get_class($this), "getting data by date");
 		
 		// Where we'll put all the data we want to render.
 		$data = array ();
@@ -972,6 +972,9 @@ class HANSARDLIST {
 	
 	
 	
+	function _get_data_by_search_min ($args) {
+		return $this->_get_data_by_search($args);
+	}
 	function _get_data_by_search ($args) {
 		
 		// Creates a fairly standard $data structure for the search function.
@@ -1207,7 +1210,7 @@ class HANSARDLIST {
 				// Wrans or WMS
 				$section = $this->_get_section($itemdata);
 				$subsection = $this->_get_subsection($itemdata);
-				$body = ($itemdata['major']==3?'Written Answers':'Written Ministerial Statements') . ' &#8212; ';
+				$body = $hansardmajors[$itemdata['major']]['title'] . ' &#8212; ';
 				if (isset($section['body'])) $body .= $section['body'];
 				if (isset($subsection['body'])) $body .= ': ' . $subsection['body'];
 				if (isset($subsection['listurl'])) $listurl = $subsection['listurl'];
@@ -2156,7 +2159,7 @@ class HANSARDLIST {
 		// Then depending on what htype it is, we get the data for other items too.
 		global $DATA, $this_page, $hansardmajors;
 
-		debug (get_class($this), "getting data by gid");
+		twfy_debug (get_class($this), "getting data by gid");
 
 		// Where we'll put all the data we want to render.
 		$data = array ();
@@ -2175,7 +2178,7 @@ class HANSARDLIST {
 	            );
 	            $parent = $this->_get_hansard_data($input);
 	            // display that item, i.e. the whole of the Written Answer
-	            debug (get_class($this), "instead of " . $args['gid'] . " selecting subheading gid " . $parent[0]['gid'] . " to get whole wrans");
+	            twfy_debug (get_class($this), "instead of " . $args['gid'] . " selecting subheading gid " . $parent[0]['gid'] . " to get whole wrans");
 	            $args['gid'] = $parent[0]['gid'];
 	            $itemdata = $this->_get_item($args);
 		    $itemdata['redirected_gid'] = $args['gid'];
@@ -2192,7 +2195,7 @@ class HANSARDLIST {
 				'limit' => 1
 			);
 			$next = $this->_get_hansard_data($input);
-			debug (get_class($this), 'instead of ' . $args['gid'] . ' moving to ' . $next[0]['gid']);
+			twfy_debug (get_class($this), 'instead of ' . $args['gid'] . ' moving to ' . $next[0]['gid']);
 			$args['gid'] = $next[0]['gid'];
 			$itemdata = $this->_get_item($args);
 			$itemdata['redirected_gid'] = $args['gid'];
@@ -2363,7 +2366,7 @@ class HANSARDLIST {
 	function _get_data_by_column($args) {
 		global $DATA, $this_page;
 
-		debug (get_class($this), "getting data by column");
+		twfy_debug (get_class($this), "getting data by column");
 
 		$input = array( 'amount' => array('body'=>true, 'comment'=>true),
 		'where' => array( 'hdate='=>$args['date'], 'major=' => $this->major, 'gid LIKE ' =>'%.'.$args['column'].'.%' ),

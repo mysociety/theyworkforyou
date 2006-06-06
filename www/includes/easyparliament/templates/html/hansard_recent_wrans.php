@@ -24,7 +24,7 @@
 	
 */
 
-debug ("TEMPLATE", "hansard_recent_wrans.php");
+twfy_debug("TEMPLATE", "hansard_recent_wrans.php");
 
 ?>
 				<dl class="recent-wrans">

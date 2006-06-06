@@ -23,7 +23,7 @@
 	
 */
 
-debug ("TEMPLATE", "hansard_biggest_debates.php");
+twfy_debug("TEMPLATE", "hansard_biggest_debates.php");
 
 ?>
 				<dl class="big-debates">
