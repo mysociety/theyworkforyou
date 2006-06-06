@@ -29,7 +29,8 @@ Regulatory Reform Bill (141)</a>.</li>
 <li><a href="http://www.publications.parliament.uk/pa/cm200506/cmselect/cmdereg/1004/100402.htm">The Government's response to the Regulatory Reform Committee's Special Report</a>, 21st March.</li>
 
 <li>The government proposed some <a href="http://www.cabinetoffice.gov.uk/regulation/documents/pdf/amendments.pdf">amendments to the Bill</a> on 4th May.
-Unfortunately, this is only in the form of one big PDF with lots of cross-referencing needed to the original Bill 141. So here's TheyWorkForYou's helpful diff version of the Bill:
+Unfortunately, this is only in the form of one big PDF with lots of cross-referencing needed to the original Bill 141. So here's TheyWorkForYou's helpful version, showing the differences from the current version to one with all the amendments applied. <del>This means something removed from the Bill</del>, <ins>this means something new added</ins>.
+
 <style type="text/css">
 ins { color: #009900; }
 del { color: #990000; }

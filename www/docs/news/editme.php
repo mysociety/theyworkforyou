@@ -19,6 +19,24 @@ EOT
 , "2006-04-09 10:01:00"),
 */
 
+38 => array("Got an idea for a useful website?", <<<EOT
+mySociety is running a call for proposals until 16th June. If you can
+come up with an idea for a useful site like this one, and it beats all
+the other ideas, we'll build it for free. <a href="http://www.mysociety.org/proposals2006/submit">Submit an idea</a>
+or <a href="http://www.mysociety.org/proposals2006/view">read and comment on what other people have submitted</a>.
+EOT
+, "2006-06-06 06:06:06"),
+
+37 => array("We've added the Lords, and more", <<<EOT
+For your use and enjoyment we've added Hansard for the House of Lords (their debates,
+written questions and ministerial statements, just like the Commons), and a page
+on each of the <a href="/peers/">members of the House of Lords</a>. That isn't all - we've
+also added a feature to the search to help you identify which MPs or
+Lords are interested in a certain word or phrases. Just search as
+usual and then click 'Show use by person'.
+EOT
+, "2006-06-01 12:34:56"),
+
 36 => array("Changes to the Register of Members' Interests", <<<EOT
 One of the many things our site does, probably without you realising, is to track the Register of Members' Interests, in which MPs are "to provide information of any pecuniary interest or other material benefit which a Member receives which might reasonably be thought by others to influence his or her actions, speeches or votes in Parliament, or actions taken in the capacity of a Member of Parliament". The latest entry published on the official site has always been shown on MP pages (<a href="http://www.theyworkforyou.com/mp/tony_blair/sedgefield#register">here's Tony Blair's</a>), however we kept all previous editions of the Register safe and sound. And now, after a bit of coding, you can view a history of the Register, either <a href="http://www.theyworkforyou.com/regmem/?f=2005-12-14">comparing particular editions</a>, or for particular MPs (<a href="http://www.theyworkforyou.com/regmem/?p=10001">Diane Abbott</a>, for example). Entries only have to stay on the Register for a year, so this can make for some interesting reading.
 

@@ -399,6 +399,7 @@ function relative_time ($datetime) {
 function parse_date($date) {
 	$now = time();
 	$date = preg_replace('#\b([a-z]|on|an|of|in|the|year of our lord)\b#i','',$date);
+	$date = preg_replace('#[\x80-\xff]#','',$date);
 	if (!$date)
 		return null;
 
@@ -936,7 +937,7 @@ function major_summary($data) {
 			$gid = fix_gid_from_db($q->field($i, 'gid'));
 			$major = $q->field($i, 'major');
 			$body = $q->field($i, 'body');
-			if (strstr($body, 'Chair]')) continue;
+			//if (strstr($body, 'Chair]')) continue;
 			if ($major != $current_major) {
 				if ($current_major) print '</ul>';
 				$LISTURL = new URL($hansardmajors[$major]['page_all']);
