@@ -54,7 +54,7 @@ function OpenTrackback (c) {
 <div align="center" class="calendar">
 
 <table border="0" cellspacing="4" cellpadding="0" summary="Monthly calendar with links to each day's posts">
-<caption class="calendarhead">May 2005</caption>
+<caption class="calendarhead">June 2006</caption>
 <tr>
 <th abbr="Sunday" align="center"><span class="calendar">Sun</span></th>
 <th abbr="Monday" align="center"><span class="calendar">Mon</span></th>
@@ -68,13 +68,25 @@ function OpenTrackback (c) {
 <tr>
 
 <td align="center"><span class="calendar">
+&nbsp;</span></td>
+
+<td align="center"><span class="calendar">
+&nbsp;</span></td>
+
+<td align="center"><span class="calendar">
+&nbsp;</span></td>
+
+<td align="center"><span class="calendar">
+&nbsp;</span></td>
+
+<td align="center"><span class="calendar">
 1</span></td>
 
 <td align="center"><span class="calendar">
 2</span></td>
 
 <td align="center"><span class="calendar">
-3</span></td>
+3</span></td></tr><tr>
 
 <td align="center"><span class="calendar">
 4</span></td>
@@ -86,7 +98,7 @@ function OpenTrackback (c) {
 6</span></td>
 
 <td align="center"><span class="calendar">
-7</span></td></tr><tr>
+7</span></td>
 
 <td align="center"><span class="calendar">
 8</span></td>
@@ -95,7 +107,7 @@ function OpenTrackback (c) {
 9</span></td>
 
 <td align="center"><span class="calendar">
-10</span></td>
+10</span></td></tr><tr>
 
 <td align="center"><span class="calendar">
 11</span></td>
@@ -107,7 +119,7 @@ function OpenTrackback (c) {
 13</span></td>
 
 <td align="center"><span class="calendar">
-14</span></td></tr><tr>
+14</span></td>
 
 <td align="center"><span class="calendar">
 15</span></td>
@@ -116,7 +128,7 @@ function OpenTrackback (c) {
 16</span></td>
 
 <td align="center"><span class="calendar">
-17</span></td>
+17</span></td></tr><tr>
 
 <td align="center"><span class="calendar">
 18</span></td>
@@ -128,7 +140,7 @@ function OpenTrackback (c) {
 20</span></td>
 
 <td align="center"><span class="calendar">
-21</span></td></tr><tr>
+21</span></td>
 
 <td align="center"><span class="calendar">
 22</span></td>
@@ -137,7 +149,7 @@ function OpenTrackback (c) {
 23</span></td>
 
 <td align="center"><span class="calendar">
-24</span></td>
+24</span></td></tr><tr>
 
 <td align="center"><span class="calendar">
 25</span></td>
@@ -149,25 +161,13 @@ function OpenTrackback (c) {
 27</span></td>
 
 <td align="center"><span class="calendar">
-28</span></td></tr><tr>
+28</span></td>
 
 <td align="center"><span class="calendar">
 29</span></td>
 
 <td align="center"><span class="calendar">
 30</span></td>
-
-<td align="center"><span class="calendar">
-31</span></td>
-
-<td align="center"><span class="calendar">
-&nbsp;</span></td>
-
-<td align="center"><span class="calendar">
-&nbsp;</span></td>
-
-<td align="center"><span class="calendar">
-&nbsp;</span></td>
 
 <td align="center"><span class="calendar">
 &nbsp;</span></td></tr>

@@ -50,21 +50,6 @@ function OpenTrackback (c) {
 </div>
 
 <div class="blog">
-<!--
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
-         xmlns:dc="http://purl.org/dc/elements/1.1/">
-<rdf:Description
-    rdf:about="http://www.theyworkforyou.com/hansardbugs/archives/2005_02.php#000029"
-    trackback:ping="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi/28"
-    dc:title="Quandry"
-    dc:identifier="http://www.theyworkforyou.com/hansardbugs/archives/2005_02.php#000029"
-    dc:subject=""
-    dc:description="Our scraper runs at 8:05am every morning, followed immediately by the parser, database-adder (which puts it live) and search-indexer (which adds new entries to the search index). Now, sometimes (rarely) this all goes fine. Sometimes (like today) Hansard isn&apos;t up..."
-    dc:creator="matthew"
-    dc:date="2005-02-09T18:52:02+00:00" />
-</rdf:RDF>
--->
 
 
 <h2 class="date">February 09, 2005</h2>
@@ -84,29 +69,13 @@ function OpenTrackback (c) {
 
 <div class="posted">
 	Posted by matthew at <a href="http://www.theyworkforyou.com/hansardbugs/archives/000029.php">06:52 PM</a>
-		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?entry_id=29" onclick="OpenComments(this.href); return false">Comments (2)</a>
+		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?entry_id=29" onclick="OpenComments(this.href); return false">Comments (0)</a>
 	
-		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi?__mode=view&amp;entry_id=29" onclick="OpenTrackback(this.href); return false">TrackBack</a>
 	
 </div>
 
 </div>
 
-<!--
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
-         xmlns:dc="http://purl.org/dc/elements/1.1/">
-<rdf:Description
-    rdf:about="http://www.theyworkforyou.com/hansardbugs/archives/2005_02.php#000028"
-    trackback:ping="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi/27"
-    dc:title="Volume 423"
-    dc:identifier="http://www.theyworkforyou.com/hansardbugs/archives/2005_02.php#000028"
-    dc:subject=""
-    dc:description="Volume 423 of Hansard is out - http://www.publications.parliament.uk/pa/cm/cmvol423.htm - so this weekend every day from 2004-06-28 to 2004-07-16 changed, sometimes dramatically, and had to be reparsed. These changes are normally spelling corrections and the like, normally for the better (e.g...."
-    dc:creator="matthew"
-    dc:date="2005-02-07T23:49:01+00:00" />
-</rdf:RDF>
--->
 
 
 <h2 class="date">February 07, 2005</h2>
@@ -126,7 +95,6 @@ function OpenTrackback (c) {
 	Posted by matthew at <a href="http://www.theyworkforyou.com/hansardbugs/archives/000028.php">11:49 PM</a>
 		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?entry_id=28" onclick="OpenComments(this.href); return false">Comments (0)</a>
 	
-		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi?__mode=view&amp;entry_id=28" onclick="OpenTrackback(this.href); return false">TrackBack</a>
 	
 </div>
 

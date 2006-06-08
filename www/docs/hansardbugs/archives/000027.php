@@ -82,21 +82,6 @@ function forgetMe (f) {
 //-->
 </script>
 
-<!--
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
-         xmlns:dc="http://purl.org/dc/elements/1.1/">
-<rdf:Description
-    rdf:about="http://www.theyworkforyou.com/hansardbugs/archives/000027.php"
-    trackback:ping="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi/26"
-    dc:title="24th-26th January"
-    dc:identifier="http://www.theyworkforyou.com/hansardbugs/archives/000027.php"
-    dc:subject=""
-    dc:description="<![CDATA[Monday had a missing &lt;b&gt;&lt;/b&gt; around a speaker's name (hmm, maybe we should check if the first two words of a speech are actually "Title Surname:" - that might actually work...), and a couple of questions had missing bits of...]]>"
-    dc:creator="matthew"
-    dc:date="2005-01-28T00:04:54+00:00" />
-</rdf:RDF>
--->
 
 
 
@@ -141,7 +126,6 @@ function forgetMe (f) {
 
 
 <span class="posted">Posted by matthew at January 28, 2005 12:04 AM
-| <a href="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi?__mode=view&amp;entry_id=27" onclick="OpenTrackback(this.href); return false">TrackBack</a>
 
 <br /></span>
 
@@ -150,55 +134,8 @@ function forgetMe (f) {
 
 <div class="comments-head"><a name="comments"></a>Comments</div>
 
-<div class="comments-body">
-<p>Save money with Sierra Trading Post promotions</p>
-<span class="comments-post">Posted by: <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?__mode=red&amp;id=29">Sierra Trading Post promotions</a> at February 28, 2005 07:39 AM</span>
-</div>
 
 
-
-<div class="comments-head">Post a comment</div>
-
-<div class="comments-body">
-<form method="post" action="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi" name="comments_form" onsubmit="if (this.bakecookie[0].checked) rememberMe(this)">
-<input type="hidden" name="static" value="1" />
-<input type="hidden" name="entry_id" value="27" />
-
-<div style="width:180px; padding-right:15px; margin-right:15px; float:left; text-align:left; border-right:1px dotted #bbb;">
-	<label for="author">Name:</label><br />
-	<input tabindex="1" id="author" name="author" /><br /><br />
-
-	<label for="email">Email Address:</label><br />
-	<input tabindex="2" id="email" name="email" /><br /><br />
-
-	<label for="url">URL:</label><br />
-	<input tabindex="3" id="url" name="url" /><br /><br />
-</div>
-
-Remember personal info?<br />
-<input type="radio" id="bakecookie" name="bakecookie" /><label for="bakecookie">Yes</label><input type="radio" id="forget" name="bakecookie" onclick="forgetMe(this.form)" value="Forget Info" style="margin-left: 15px;" /><label for="forget">No</label><br style="clear: both;" />
-
-<label for="text">Comments:</label><br />
-<textarea tabindex="4" id="text" name="text" rows="10" cols="50"></textarea><br /><br />
-
-<input type="submit" name="preview" value="&nbsp;Preview&nbsp;" />
-<input style="font-weight: bold;" type="submit" name="post" value="&nbsp;Post&nbsp;" /><br /><br />
-
-</form>
-
-<script type="text/javascript" language="javascript">
-<!--
-document.comments_form.email.value = getCookie("mtcmtmail");
-document.comments_form.author.value = getCookie("mtcmtauth");
-document.comments_form.url.value = getCookie("mtcmthome");
-if (getCookie("mtcmtauth")) {
-    document.comments_form.bakecookie[0].checked = true;
-} else {
-    document.comments_form.bakecookie[1].checked = true;
-}
-//-->
-</script>
-</div>
 
 
 </div>

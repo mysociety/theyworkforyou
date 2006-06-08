@@ -81,21 +81,6 @@ function forgetMe (f) {
 //-->
 </script>
 
-<!--
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
-         xmlns:dc="http://purl.org/dc/elements/1.1/">
-<rdf:Description
-    rdf:about="http://www.theyworkforyou.com/hansardbugs/archives/000029.php"
-    trackback:ping="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi/28"
-    dc:title="Quandry"
-    dc:identifier="http://www.theyworkforyou.com/hansardbugs/archives/000029.php"
-    dc:subject=""
-    dc:description="Our scraper runs at 8:05am every morning, followed immediately by the parser, database-adder (which puts it live) and search-indexer (which adds new entries to the search index). Now, sometimes (rarely) this all goes fine. Sometimes (like today) Hansard isn&apos;t up..."
-    dc:creator="matthew"
-    dc:date="2005-02-09T18:52:02+00:00" />
-</rdf:RDF>
--->
 
 
 
@@ -141,7 +126,6 @@ function forgetMe (f) {
 
 
 <span class="posted">Posted by matthew at February  9, 2005 06:52 PM
-| <a href="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi?__mode=view&amp;entry_id=29" onclick="OpenTrackback(this.href); return false">TrackBack</a>
 
 <br /></span>
 
@@ -150,61 +134,8 @@ function forgetMe (f) {
 
 <div class="comments-head"><a name="comments"></a>Comments</div>
 
-<div class="comments-body">
-<p>That's a good idea, if you think you can pull it off.  There's the danger that we might forget or miss an error though, or it might cause a change in IDs.  </p>
-
-<p>It could write out the XML file with an invalid (old date), but still stick in in recentchanges.txt.  So then the db updates from the XML file, but the next time parser runs it runs again to update the XML file (if the parser does check dates).</p>
-<span class="comments-post">Posted by: <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?__mode=red&amp;id=28">Francis Irving</a> at February  9, 2005 07:42 PM</span>
-</div>
-<div class="comments-body">
-<p>Save money with Office Max code</p>
-<span class="comments-post">Posted by: <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?__mode=red&amp;id=30">Office Max code</a> at February 28, 2005 10:47 AM</span>
-</div>
 
 
-
-<div class="comments-head">Post a comment</div>
-
-<div class="comments-body">
-<form method="post" action="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi" name="comments_form" onsubmit="if (this.bakecookie[0].checked) rememberMe(this)">
-<input type="hidden" name="static" value="1" />
-<input type="hidden" name="entry_id" value="29" />
-
-<div style="width:180px; padding-right:15px; margin-right:15px; float:left; text-align:left; border-right:1px dotted #bbb;">
-	<label for="author">Name:</label><br />
-	<input tabindex="1" id="author" name="author" /><br /><br />
-
-	<label for="email">Email Address:</label><br />
-	<input tabindex="2" id="email" name="email" /><br /><br />
-
-	<label for="url">URL:</label><br />
-	<input tabindex="3" id="url" name="url" /><br /><br />
-</div>
-
-Remember personal info?<br />
-<input type="radio" id="bakecookie" name="bakecookie" /><label for="bakecookie">Yes</label><input type="radio" id="forget" name="bakecookie" onclick="forgetMe(this.form)" value="Forget Info" style="margin-left: 15px;" /><label for="forget">No</label><br style="clear: both;" />
-
-<label for="text">Comments:</label><br />
-<textarea tabindex="4" id="text" name="text" rows="10" cols="50"></textarea><br /><br />
-
-<input type="submit" name="preview" value="&nbsp;Preview&nbsp;" />
-<input style="font-weight: bold;" type="submit" name="post" value="&nbsp;Post&nbsp;" /><br /><br />
-
-</form>
-
-<script type="text/javascript" language="javascript">
-<!--
-document.comments_form.email.value = getCookie("mtcmtmail");
-document.comments_form.author.value = getCookie("mtcmtauth");
-document.comments_form.url.value = getCookie("mtcmthome");
-if (getCookie("mtcmtauth")) {
-    document.comments_form.bakecookie[0].checked = true;
-} else {
-    document.comments_form.bakecookie[1].checked = true;
-}
-//-->
-</script>
-</div>
 
 
 </div>

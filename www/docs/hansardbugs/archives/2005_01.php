@@ -50,21 +50,6 @@ function OpenTrackback (c) {
 </div>
 
 <div class="blog">
-<!--
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
-         xmlns:dc="http://purl.org/dc/elements/1.1/">
-<rdf:Description
-    rdf:about="http://www.theyworkforyou.com/hansardbugs/archives/2005_01.php#000027"
-    trackback:ping="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi/26"
-    dc:title="24th-26th January"
-    dc:identifier="http://www.theyworkforyou.com/hansardbugs/archives/2005_01.php#000027"
-    dc:subject=""
-    dc:description="<![CDATA[Monday had a missing &lt;b&gt;&lt;/b&gt; around a speaker's name (hmm, maybe we should check if the first two words of a speech are actually "Title Surname:" - that might actually work...), and a couple of questions had missing bits of...]]>"
-    dc:creator="matthew"
-    dc:date="2005-01-28T00:04:54+00:00" />
-</rdf:RDF>
--->
 
 
 <h2 class="date">January 28, 2005</h2>
@@ -82,29 +67,13 @@ function OpenTrackback (c) {
 
 <div class="posted">
 	Posted by matthew at <a href="http://www.theyworkforyou.com/hansardbugs/archives/000027.php">12:04 AM</a>
-		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?entry_id=27" onclick="OpenComments(this.href); return false">Comments (1)</a>
+		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?entry_id=27" onclick="OpenComments(this.href); return false">Comments (0)</a>
 	
-		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi?__mode=view&amp;entry_id=27" onclick="OpenTrackback(this.href); return false">TrackBack</a>
 	
 </div>
 
 </div>
 
-<!--
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
-         xmlns:dc="http://purl.org/dc/elements/1.1/">
-<rdf:Description
-    rdf:about="http://www.theyworkforyou.com/hansardbugs/archives/2005_01.php#000024"
-    trackback:ping="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi/23"
-    dc:title="weeklyupdate has some fun"
-    dc:identifier="http://www.theyworkforyou.com/hansardbugs/archives/2005_01.php#000024"
-    dc:subject=""
-    dc:description="weeklyupdate is a script that runs weekly (Sunday mornings, 4.23am) over the whole of Hansard back to June 2001, until this week simply to spot when Hansard do a &quot;daily&quot; to &quot;bound volume&quot; edition switch (this is when they make..."
-    dc:creator="matthew"
-    dc:date="2005-01-23T21:24:38+00:00" />
-</rdf:RDF>
--->
 
 
 <h2 class="date">January 23, 2005</h2>
@@ -142,29 +111,13 @@ function OpenTrackback (c) {
 
 <div class="posted">
 	Posted by matthew at <a href="http://www.theyworkforyou.com/hansardbugs/archives/000024.php">09:24 PM</a>
-		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?entry_id=24" onclick="OpenComments(this.href); return false">Comments (7)</a>
+		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?entry_id=24" onclick="OpenComments(this.href); return false">Comments (0)</a>
 	
-		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi?__mode=view&amp;entry_id=24" onclick="OpenTrackback(this.href); return false">TrackBack</a>
 	
 </div>
 
 </div>
 
-<!--
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
-         xmlns:dc="http://purl.org/dc/elements/1.1/">
-<rdf:Description
-    rdf:about="http://www.theyworkforyou.com/hansardbugs/archives/2005_01.php#000022"
-    trackback:ping="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi/21"
-    dc:title="This week&apos;s problems"
-    dc:identifier="http://www.theyworkforyou.com/hansardbugs/archives/2005_01.php#000022"
-    dc:subject=""
-    dc:description="This week was very uneventful. Written answers on the 17th were missing marking Mr Kilfoyle as a speaker and &quot;ask the Secretary of State for Foreign and Commonwealth Affairs&quot; at the start of a question. Written ministerial statements said it..."
-    dc:creator="matthew"
-    dc:date="2005-01-21T23:03:56+00:00" />
-</rdf:RDF>
--->
 
 
 <h2 class="date">January 21, 2005</h2>
@@ -182,29 +135,13 @@ function OpenTrackback (c) {
 
 <div class="posted">
 	Posted by matthew at <a href="http://www.theyworkforyou.com/hansardbugs/archives/000022.php">11:03 PM</a>
-		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?entry_id=22" onclick="OpenComments(this.href); return false">Comments (7)</a>
+		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?entry_id=22" onclick="OpenComments(this.href); return false">Comments (0)</a>
 	
-		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi?__mode=view&amp;entry_id=22" onclick="OpenTrackback(this.href); return false">TrackBack</a>
 	
 </div>
 
 </div>
 
-<!--
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
-         xmlns:dc="http://purl.org/dc/elements/1.1/">
-<rdf:Description
-    rdf:about="http://www.theyworkforyou.com/hansardbugs/archives/2005_01.php#000023"
-    trackback:ping="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi/22"
-    dc:title="Last week"
-    dc:identifier="http://www.theyworkforyou.com/hansardbugs/archives/2005_01.php#000023"
-    dc:subject=""
-    dc:description="<![CDATA[Woo, I have a blog! All right, it's not mine, it's to fill with long, rambling, and probably boring posts about errors in the Official Parliamentary Record. So without further ado... 10th - Some rogue "&amp;nbsp;" in some headings, a...]]>"
-    dc:creator="matthew"
-    dc:date="2005-01-18T23:09:30+00:00" />
-</rdf:RDF>
--->
 
 
 <h2 class="date">January 18, 2005</h2>
@@ -232,7 +169,6 @@ function OpenTrackback (c) {
 	Posted by matthew at <a href="http://www.theyworkforyou.com/hansardbugs/archives/000023.php">11:09 PM</a>
 		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?entry_id=23" onclick="OpenComments(this.href); return false">Comments (0)</a>
 	
-		| <a href="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi?__mode=view&amp;entry_id=23" onclick="OpenTrackback(this.href); return false">TrackBack</a>
 	
 </div>
 

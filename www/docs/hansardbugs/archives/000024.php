@@ -82,21 +82,6 @@ function forgetMe (f) {
 //-->
 </script>
 
-<!--
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
-         xmlns:dc="http://purl.org/dc/elements/1.1/">
-<rdf:Description
-    rdf:about="http://www.theyworkforyou.com/hansardbugs/archives/000024.php"
-    trackback:ping="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi/23"
-    dc:title="weeklyupdate has some fun"
-    dc:identifier="http://www.theyworkforyou.com/hansardbugs/archives/000024.php"
-    dc:subject=""
-    dc:description="weeklyupdate is a script that runs weekly (Sunday mornings, 4.23am) over the whole of Hansard back to June 2001, until this week simply to spot when Hansard do a &quot;daily&quot; to &quot;bound volume&quot; edition switch (this is when they make..."
-    dc:creator="matthew"
-    dc:date="2005-01-23T21:24:38+00:00" />
-</rdf:RDF>
--->
 
 
 
@@ -160,7 +145,6 @@ function forgetMe (f) {
 <p>And that was it! Very impressed at how it all held up and worked together. :)</p>
 
 <span class="posted">Posted by matthew at January 23, 2005 09:24 PM
-| <a href="http://live.theyworkforyou.com/cgi-bin/mt-tb.cgi?__mode=view&amp;entry_id=24" onclick="OpenTrackback(this.href); return false">TrackBack</a>
 
 <br /></span>
 
@@ -169,81 +153,8 @@ function forgetMe (f) {
 
 <div class="comments-head"><a name="comments"></a>Comments</div>
 
-<div class="comments-body">
-<p>backgammon games - backgammon-games.net</p>
-<span class="comments-post">Posted by: <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?__mode=red&amp;id=36">backgammon games</a> at April 11, 2005 03:12 AM</span>
-</div>
-<div class="comments-body">
-<p>Does anyone know where to find a good foreign pharmacy, online pharmacy, or internet pharmacy?  I found this website http://www.freebeeonlinepharmacy.com and it seems to be a directory of foreign pharmacies with reviews of each.  Has anyone heard of them.  Thanks and keep up the blog.</p>
-<span class="comments-post">Posted by: <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?__mode=red&amp;id=47">online pharmacies</a> at May  4, 2005 05:41 AM</span>
-</div>
-<div class="comments-body">
-<p>Can anyone help me find a place in Miami?  I need a Miami apartment rental fast.  Does anyone know where to find a sublease in Miami or apartments for rent in Miami?  So far this is the best place I found: www.subleaseauction.com . Any help would be appreciated.  Thanks</p>
-<span class="comments-post">Posted by: <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?__mode=red&amp;id=48">Miami Apartment Rentals</a> at May  4, 2005 06:32 AM</span>
-</div>
-<div class="comments-body">
-<p>Can anyone help me find a place in Miami?  I need a Miami apartment rental fast.  Does anyone know where to find a sublease in Miami?  So far this is the best place I found: www.subleaseauction.com . Any help would be appreciated.  Thanks</p>
-<span class="comments-post">Posted by: <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?__mode=red&amp;id=49">Miami Apartment Rentals</a> at May  4, 2005 06:33 AM</span>
-</div>
-<div class="comments-body">
-<p>Can anyone help me find a place in Miami?  I need a Miami apartment rental fast.  Does anyone know where to find a sublease in Miami?  So far this is the best place I found: www.subleaseauction.com . Any help would be appreciated.  Thanks</p>
-<span class="comments-post">Posted by: <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?__mode=red&amp;id=50">Miami Apartment Rentals</a> at May  4, 2005 06:33 AM</span>
-</div>
-<div class="comments-body">
-<p>Great site</p>
-<span class="comments-post">Posted by: <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?__mode=red&amp;id=61">blow job video</a> at May 18, 2005 03:40 PM</span>
-</div>
-<div class="comments-body">
-<p>I agree with you about the way you view the issue. I remember, long time ago, Jack London said something like "Everything positive has a negative side; everything negative has a positive side." I also find it interesting to see different points of views and learn useful things in the discussion.<br />
- <br />
-Posted by: Richard Hill at May 18, 2005 08:59 AM</p>
-<span class="comments-post">Posted by: <a href="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi?__mode=red&amp;id=62">sizepro</a> at May 18, 2005 11:18 PM</span>
-</div>
 
 
-
-<div class="comments-head">Post a comment</div>
-
-<div class="comments-body">
-<form method="post" action="http://live.theyworkforyou.com/cgi-bin/mt-comments.cgi" name="comments_form" onsubmit="if (this.bakecookie[0].checked) rememberMe(this)">
-<input type="hidden" name="static" value="1" />
-<input type="hidden" name="entry_id" value="24" />
-
-<div style="width:180px; padding-right:15px; margin-right:15px; float:left; text-align:left; border-right:1px dotted #bbb;">
-	<label for="author">Name:</label><br />
-	<input tabindex="1" id="author" name="author" /><br /><br />
-
-	<label for="email">Email Address:</label><br />
-	<input tabindex="2" id="email" name="email" /><br /><br />
-
-	<label for="url">URL:</label><br />
-	<input tabindex="3" id="url" name="url" /><br /><br />
-</div>
-
-Remember personal info?<br />
-<input type="radio" id="bakecookie" name="bakecookie" /><label for="bakecookie">Yes</label><input type="radio" id="forget" name="bakecookie" onclick="forgetMe(this.form)" value="Forget Info" style="margin-left: 15px;" /><label for="forget">No</label><br style="clear: both;" />
-
-<label for="text">Comments:</label><br />
-<textarea tabindex="4" id="text" name="text" rows="10" cols="50"></textarea><br /><br />
-
-<input type="submit" name="preview" value="&nbsp;Preview&nbsp;" />
-<input style="font-weight: bold;" type="submit" name="post" value="&nbsp;Post&nbsp;" /><br /><br />
-
-</form>
-
-<script type="text/javascript" language="javascript">
-<!--
-document.comments_form.email.value = getCookie("mtcmtmail");
-document.comments_form.author.value = getCookie("mtcmtauth");
-document.comments_form.url.value = getCookie("mtcmthome");
-if (getCookie("mtcmtauth")) {
-    document.comments_form.bakecookie[0].checked = true;
-} else {
-    document.comments_form.bakecookie[1].checked = true;
-}
-//-->
-</script>
-</div>
 
 
 </div>
