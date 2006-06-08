@@ -429,6 +429,9 @@ function parse_date($date) {
 		$t = strtotime($date,$now);
 		if ($t != -1) {
 			$day = date('d',$t); $month = date('m',$t); $year = date('Y',$t); $epoch = $t;
+			if ("$day$month$year"==date('dmY')) {
+				$epoch = 0; $day = 0; $month = 0; $year = 0;
+			}
 		}
 	}
 	if (!$epoch && $day && $month && $year) {

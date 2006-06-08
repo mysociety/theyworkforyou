@@ -70,12 +70,12 @@ function confirm_success ($ALERT) {
 			$extra = 'twfy-alert-word';
 ?>		
 <p>Did you know that TheyWorkForYou can also email you when a certain word or phrases is spoken in parliament? For example, it could mail you when your town is mentioned, or an issue you care about. Don't rely on the newspapers to keep you informed about your interests - find out what's happening straight from the horse's mouth.
-<a href="/alert/">Sign up for an email alert</a></p>
+<a href="/alert/"><strong>Sign up for an email alert</strong></a></p>
 <?		} else {
 			$extra = 'twfy-alert-person';
 ?>
 <p>Did you know that TheyWorkForYou can also email you when a certain MP or Lord speaks in parliament? Don't rely on the newspapers to keep you informed about someone you're interested in - find out what's happening straight from the horse's mouth.
-<a href="/alert/">Sign up for an email alert</a></p>
+<a href="/alert/"><strong>Sign up for an email alert</strong></a></p>
 <?		}
 	}
 	$PAGE->stripe_end();

@@ -19,6 +19,7 @@ cd ~/fawkes/search
 cd ~/fawkes/scripts
 ./wms2rss.pl > /data/vhost/www.theyworkforyou.com/docs/wms/wms.rss
 ./debates2rss.pl > /data/vhost/www.theyworkforyou.com/docs/debates/debates.rss
+./lords2rss.pl > /data/vhost/www.theyworkforyou.com/docs/lords/lords.rss
 ./whall2rss.pl > /data/vhost/www.theyworkforyou.com/docs/whall/whall.rss
 php -q mprss.php
 

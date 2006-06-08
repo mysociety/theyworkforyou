@@ -1,238 +1,113 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-
-<title>Hansard Bugs Blog</title>
-
-<link rel="stylesheet" href="http://www.theyworkforyou.com/hansardbugs/styles-site.css" type="text/css" />
-<link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.theyworkforyou.com/hansardbugs/index.rdf" />
-<link rel="alternate" type="application/atom+xml" title="Atom" href="http://www.theyworkforyou.com/hansardbugs/atom.xml" />
-<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.theyworkforyou.com/hansardbugs/rsd.xml" />
-
-<script language="javascript" type="text/javascript">
-function OpenComments (c) {
-    window.open(c,
-                    'comments',
-                    'width=480,height=480,scrollbars=yes,status=yes');
-}
-
-function OpenTrackback (c) {
-    window.open(c,
-                    'trackback',
-                    'width=480,height=480,scrollbars=yes,status=yes');
-}
-</script>
-
-
-
-</head>
-
-<body>
-
-<div id="banner">
-<h1><a href="http://www.theyworkforyou.com/hansardbugs/" accesskey="1">Hansard Bugs Blog</a></h1>
-<span class="description">A collection of bugs and errors found by the TheyWorkForYou.com volunteers in the content and code of Hansard's official website.</span>
-</div>
-
-<div id="content">
-
-<div class="blog">
-
-
-
-</div>
-
-</div>
-
-
-<div id="links">
-
-
-
-<div align="center" class="calendar">
-
-<table border="0" cellspacing="4" cellpadding="0" summary="Monthly calendar with links to each day's posts">
-<caption class="calendarhead">June 2006</caption>
-<tr>
-<th abbr="Sunday" align="center"><span class="calendar">Sun</span></th>
-<th abbr="Monday" align="center"><span class="calendar">Mon</span></th>
-<th abbr="Tuesday" align="center"><span class="calendar">Tue</span></th>
-<th abbr="Wednesday" align="center"><span class="calendar">Wed</span></th>
-<th abbr="Thursday" align="center"><span class="calendar">Thu</span></th>
-<th abbr="Friday" align="center"><span class="calendar">Fri</span></th>
-<th abbr="Saturday" align="center"><span class="calendar">Sat</span></th>
-</tr>
-
-<tr>
-
-<td align="center"><span class="calendar">
-&nbsp;</span></td>
-
-<td align="center"><span class="calendar">
-&nbsp;</span></td>
-
-<td align="center"><span class="calendar">
-&nbsp;</span></td>
-
-<td align="center"><span class="calendar">
-&nbsp;</span></td>
-
-<td align="center"><span class="calendar">
-1</span></td>
-
-<td align="center"><span class="calendar">
-2</span></td>
-
-<td align="center"><span class="calendar">
-3</span></td></tr><tr>
-
-<td align="center"><span class="calendar">
-4</span></td>
-
-<td align="center"><span class="calendar">
-5</span></td>
-
-<td align="center"><span class="calendar">
-6</span></td>
-
-<td align="center"><span class="calendar">
-7</span></td>
-
-<td align="center"><span class="calendar">
-8</span></td>
-
-<td align="center"><span class="calendar">
-9</span></td>
-
-<td align="center"><span class="calendar">
-10</span></td></tr><tr>
-
-<td align="center"><span class="calendar">
-11</span></td>
-
-<td align="center"><span class="calendar">
-12</span></td>
-
-<td align="center"><span class="calendar">
-13</span></td>
-
-<td align="center"><span class="calendar">
-14</span></td>
-
-<td align="center"><span class="calendar">
-15</span></td>
-
-<td align="center"><span class="calendar">
-16</span></td>
-
-<td align="center"><span class="calendar">
-17</span></td></tr><tr>
-
-<td align="center"><span class="calendar">
-18</span></td>
-
-<td align="center"><span class="calendar">
-19</span></td>
-
-<td align="center"><span class="calendar">
-20</span></td>
-
-<td align="center"><span class="calendar">
-21</span></td>
-
-<td align="center"><span class="calendar">
-22</span></td>
-
-<td align="center"><span class="calendar">
-23</span></td>
-
-<td align="center"><span class="calendar">
-24</span></td></tr><tr>
-
-<td align="center"><span class="calendar">
-25</span></td>
-
-<td align="center"><span class="calendar">
-26</span></td>
-
-<td align="center"><span class="calendar">
-27</span></td>
-
-<td align="center"><span class="calendar">
-28</span></td>
-
-<td align="center"><span class="calendar">
-29</span></td>
-
-<td align="center"><span class="calendar">
-30</span></td>
-
-<td align="center"><span class="calendar">
-&nbsp;</span></td></tr>
-</table>
-
-</div>
-
-<div class="sidetitle">
-Search
-</div>
- 
-<div class="side">
-<form method="get" action="http://live.theyworkforyou.com/cgi-bin/mt-search.cgi">
-<input type="hidden" name="IncludeBlogs" value="2" />
-<label for="search" accesskey="4">Search this site:</label><br />
-<input id="search" name="search" size="20" /><br />
-<input type="submit" value="Search" />
-</form>
-</div>
-
-<div class="sidetitle">
-Archives
-</div>
-
-<div class="side">
-<a href="http://www.theyworkforyou.com/hansardbugs/archives/2005_02.php">February 2005</a><br />
-<a href="http://www.theyworkforyou.com/hansardbugs/archives/2005_01.php">January 2005</a><br />
-
-</div>
-
-<div class="sidetitle">
-Recent Entries
-</div>
-
-<div class="side">
-<a href="http://www.theyworkforyou.com/hansardbugs/archives/000029.php">Quandry</a><br />
-<a href="http://www.theyworkforyou.com/hansardbugs/archives/000028.php">Volume 423</a><br />
-<a href="http://www.theyworkforyou.com/hansardbugs/archives/000027.php">24th-26th January</a><br />
-<a href="http://www.theyworkforyou.com/hansardbugs/archives/000024.php">weeklyupdate has some fun</a><br />
-<a href="http://www.theyworkforyou.com/hansardbugs/archives/000022.php">This week's problems</a><br />
-<a href="http://www.theyworkforyou.com/hansardbugs/archives/000023.php">Last week</a><br />
-
-</div>
-
-<div class="sidetitle">
-Links
-</div>
-
-<div class="side">
-<a href="">Add Your Links Here</a><br />
-</div>
-
-<div class="syndicate">
-<a href="http://www.theyworkforyou.com/hansardbugs/index.rdf">Syndicate this site (XML)</a>
-</div>
-
-
-
-<div class="powered">
-Powered by<br /><a href="http://www.movabletype.org">Movable Type 2.661</a><br />    
-</div>
-
-</div>
-
-<br clear="all" />
-
-</body>
-</html>
+<?php
+
+$this_page = 'hansard_bugs';
+include_once "../../includes/easyparliament/init.php";
+$DATA->set_page_metadata($this_page, 'heading','Official Hansard problems');
+
+$PAGE->page_start();
+$PAGE->stripe_start();
+
+$PAGE->block_start(array ('title'=>'Things currently noticeable to the user'));
+?>
+
+<dl>
+
+<dt>Written Answers navigation problems</dt>
+<dd>
+<p>The start of one day's Written Answers does not now start at the beginning of a new
+page as it always used to, but is adjoined to the end of the previous day.
+So the first link on the <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060606/index/60606-x.htm">6th June index page</a>
+actually goes to the last page of the 5th June, and as it's the last page
+there's no way to get to the real first page of 6th June answers, without
+going back to the index, finding the first question on that next page and clicking it.
+</p>
+<p>Also, when a new batch of a day's written answers are added, the "Next Section"
+link from the last page of the previous batch is not always added,
+so it is very hard to navigate through. For example,
+<a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0605.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0605.htm</a>
+has no Next Section link to 
+<a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0607.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0607.htm</a>
+and
+<a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0638.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0638.htm</a>
+has no Next Section link to
+<a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0673.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0673.htm</a>.
+
+<p>If I were browsing the 5th June written answers, I would get very confused when I got to the end and found just a few 6th June answers. The same thing seems to apply to most days since the new system began. I personally think it would be better if each day's written answers appeared in their own sections, so that it is very clear.</p>
+</dd>
+
+<dt>Division lists</dt>
+<dd><p>Something odd is happening in the list of names in divisions, that makes it look odd when viewed.
+For example, <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060522/debtext/60522-0283.htm#06052329001881">division 246 on the 22nd of May</a>
+is missing a "&lt;br&gt;" between various names:</p>
+<ul><li>"Gilroy, Linda" and "Goldsworthy, Julia"
+<li>"Roy, Mr. Frank" and "Ruddock, Joan"
+<li>"Jack, rh Mr. Michael" and "Jackson, Mr. Stewart"
+</ul>
+<p>However, on the first version of the debates of 22nd May uploaded, the missing "&lt;br&gt;"s
+were in different places, between Hope and Hopkins, Soulsby and Spellar, and Pelling and Penrose.</p>
+</dd>
+
+<dt>Missing spaces</dt>
+<dd>This one needs no explanation: <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060522/text/60522w0454.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060522/text/60522w0454.htm</a>
+</dd>
+
+<dt>Unicode output</dt>
+<dd>Since 8th May, the text in Hansard has sometimes contained characters encoded in UTF-8 (Unicode),
+but the page still says it in ISO-8859-1 (or the Windows variant). Added to this, somewhere along the
+line certain symbols are rewritten (e.g. the copyright symbol changes from &#169; to (c)) which breaks
+the UTF-8 encoding, and means "café" becomes "cafÃ(c)", for example:
+<a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060511/debtext/60511-0136.htm">column 580 on 11th May 2006</a>.
+</dd>
+
+<dt>Michael Foster as a teller</dt>
+<dd>Michael Foster no longer appears to have his constituency listed in divisions where he's a teller, so you don't know which Michael Foster it is (okay, so you can work it out, but it's much easier).
+</dd>
+
+<dt>Heading importance</dt>
+<dd>There is no real way to tell whether something is a major or a minor heading,
+and it is impossible to tell programmatically when Oral Questions finish. Major
+headings used to appear in all capitals to differentiate themselves from lesser
+headings - this wasn't perfect, but was better than now.
+</dd>
+
+<dt>Ministerial Statement tables</dt>
+<dd>Compare <a href="http://ukparse.kforge.net/parldata/cmpages/wms/ministerial2006-05-08a.html">old style</a> with <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060508/wmstext/60508m01.htm">new style</a> - the table has gone.
+
+<dt>Volume 428</dt>
+<dd>Lots went wrong when volume 428 was uploaded, replacing the Daily Editions for dates at the end of 2004 with Bound Volume editions. All the Oral Questions
+have disappeared from the 8th, 9th and 13th December 2004. On the 15th
+December, the Oral Answers have gone and the debates remaining are actually
+those from the 14th December, even though the date says the 15th. The 16th
+December starts off with the correct Oral Answers, but then shows the
+debates from the 15th, and so does the 20th, showing the debates from the
+16th. See how the column numbering goes from 1909 to 1793 on
+<a href="http://www.publications.parliament.uk/pa/cm200405/cmhansrd/vo041220/debindx/41220-x.htm">http://www.publications.parliament.uk/pa/cm200405/cmhansrd/vo041220/debindx/41220-x.htm</a>.
+The 21st debates return to behaving like the 15th, with no Oral Answers, and
+showing the debates from the 20th.
+There are a couple of other minor issues, but that's the important stuff. :)
+</dd>
+
+<dt>Written Answer columns</dt>
+<dd>Note that although the column numbering has got up to 214W, the footer still says column 153W: <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0617.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0617.htm</a>.
+</dd>
+
+</dl>
+
+<?
+$PAGE->block_end();
+$PAGE->block_start(array ('title'=>'Things not noticeable to the user'));
+?>
+
+<ul>
+<li>Some XHTML is being output when the pages are in HTML (e.g. &lt;hr/&gt; and even &lt;br&gt;&lt;/br&gt;). Not very important.
+</ul>
+
+<?
+$PAGE->block_end();
+
+$includes = array(
+);
+$PAGE->stripe_end($includes);
+$PAGE->page_end();
+
+?>

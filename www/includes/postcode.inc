@@ -58,12 +58,12 @@ function postcode_to_constituency_internal($postcode) {
 	if (!is_postcode($postcode))
 		return '';
   
-	$db = new ParlDB;
-	$q = $db->query('select name from postcode_lookup where postcode = "'. mysql_escape_string($postcode).'"');
-	if ($q->rows > 0) {
-		$name = $q->field(0, 'name');
-		return $name;
-	}
+		#	$db = new ParlDB;
+	#	$q = $db->query('select name from postcode_lookup where postcode = "'. mysql_escape_string($postcode).'"');
+	#	if ($q->rows > 0) {
+		#		$name = $q->field(0, 'name');
+		#		return $name;
+		#	}
 
 # Otherwise hit the server (URL is private)
 # We use fsockopen rather than just fopen or file_get_contents so we can do timeouts
@@ -125,7 +125,7 @@ function postcode_to_constituency_internal($postcode) {
 #    print "<pre>$file</pre><br>$constituency<br>";
     $normalised = normalise_constituency_name(strtolower($constituency));
     if ($normalised) {
-	$db->query('replace into postcode_lookup values("'. mysql_escape_string($postcode).'", "'.mysql_escape_string($normalised).'")');
+	    #	$db->query('replace into postcode_lookup values("'. mysql_escape_string($postcode).'", "'.mysql_escape_string($normalised).'")');
         return $normalised;
     }
     else

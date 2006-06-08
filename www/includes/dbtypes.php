@@ -1,6 +1,6 @@
 <?
 // Constants of types used in epobjects and hansard objects
-// $Id: dbtypes.php,v 1.1 2006-04-27 14:20:39 twfy-live Exp $
+// $Id: dbtypes.php,v 1.2 2006-06-08 16:21:58 twfy-live Exp $
 
 // The type field in the epobject database table
 /*
@@ -29,7 +29,7 @@ $hansardmajors = array(
 		'singular'=>'Westminster Hall debate',
 		'plural'=>'Westminster Hall debates',
 		'page'=>'whall',
-		'page_all'=>'whall',
+		'page_all'=>'whalls',
 		'gidvar'=>'gid',
 		'page_year'=>'whallyear',
 		'sidebar'=>'whalldebates',
