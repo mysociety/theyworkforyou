@@ -992,6 +992,14 @@ pr()//-->
 			elseif ($member['party'] != 'Bishop') $desc .= ' Peer';
 		}
 		if ($desc) print "<li><strong>$desc</strong></li>";
+		if ($member['other_parties']) {
+			print "<li>Changed party ";
+			foreach ($member['other_parties'] as $r) {
+				$out[] = 'from ' . $r['from'] . ' on ' . format_date($r['date'], SHORTDATEFORMAT);
+			}
+			print join('; ', $out);
+			print '</li>';
+		}
 
 		// Ministerial position
 		if (array_key_exists('office', $extra_info)) {

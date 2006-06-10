@@ -14,6 +14,7 @@ class MEMBER {
 	var $last_name;
 	var $constituency; 
 	var $party;
+	var $other_parties;
 	var $entered_house;
 	var $left_house;
 	var $entered_reason;
@@ -124,14 +125,14 @@ class MEMBER {
 						");
 						
 		if ($q->rows() > 0) {
-			$this->member_id			= $q->field(0, 'member_id');
+			$this->member_id	= $q->field(0, 'member_id');
 			$this->house		= $q->field(0, 'house');
 			$this->title		= $q->field(0, 'title');
 			$this->first_name	= $q->field(0, 'first_name');
 			$this->last_name	= $q->field(0, 'last_name');
 			$this->constituency	= $q->field(0, 'constituency');
 			$this->party		= $q->field(0, 'party');
-			$this->entered_house= $q->field(0, 'entered_house');
+			$this->entered_house	= $q->field(0, 'entered_house');
 			$this->left_house	= $q->field(0, 'left_house');
 			$this->entered_reason	= $q->field(0, 'entered_reason');
 			$this->left_reason	= $q->field(0, 'left_reason');
@@ -151,12 +152,12 @@ class MEMBER {
 			// Will be -1 if the person is still in office.
 			$member_left_time = strtotime($this->left_house);
 
-			$transfer = 0;
+			$transfer = false;
 			for ($row=1; $row<$q->rows(); $row++) {
 
 				if (!$transfer && $this->house == 2 && $q->field($row, 'house') == 1) {
 					# A Lord who was once an MP
-					$transfer = 1;
+					$transfer = true;
 					$this->lord_entered_house = $this->entered_house;
 					$this->lord_entered_reason = $this->entered_reason;
 					$this->mp_left_house = $q->field($row, 'left_house');
@@ -165,7 +166,6 @@ class MEMBER {
 				}
 
 				$entered_time = strtotime($q->field($row, 'entered_house'));
-				
 				if ($entered_time < $member_entered_time) {
 					// This start of this term is before whatever we've already got.
 					$member_entered_time = $entered_time;
@@ -174,7 +174,6 @@ class MEMBER {
 				} 
 
 				$left_time = strtotime($q->field($row, 'left_house'));
-
 				if ($member_left_time != '-1' && $left_time > $member_left_time ||
 					$left_time == '-1'
 					) {
@@ -187,8 +186,14 @@ class MEMBER {
 					// Bit of a kludge - give the person the most recent member_id.
 					$this->member_id = $q->field($row, 'member_id');
 				}
+
+				if ($q->field($row, 'left_reason') == 'changed_party') {
+					$this->other_parties[] = array(
+						'from' => $this->party_text($q->field($row, 'party')),
+						'date' => $q->field($row, 'left_house')
+					);
+				}
 			}
-		
 		}
 
 		// Loads extra info from DB - you now have to call this from outside
@@ -482,12 +487,14 @@ class MEMBER {
 	function house_text() 		{ return $this->houses[$this->house]; }
 	function constituency() 	{ return $this->constituency; }
 	function party() 			{ return $this->party; }
-	function party_text() 		{
+	function party_text($party = null) {
 		global $parties;
-		if (isset($parties[$this->party])) {
-			return $parties[$this->party];
+		if (!$party)
+			$party = $this->party;
+		if (isset($parties[$party])) {
+			return $parties[$party];
 		} else {
-			return $this->party;
+			return $party;
 		}
 	}
 
@@ -573,6 +580,7 @@ class MEMBER {
 			'person_id'			=> $this->person_id(),
 			'constituency' 		=> $this->constituency(),
 			'party'				=> $this->party_text(),
+			'other_parties'				=> $this->other_parties,
 			'house'				=> $this->house_text(),
 			'entered_house'		=> $this->entered_house(),
 			'entered_house_text'	=> $this->entered_house_text($this->entered_house),
