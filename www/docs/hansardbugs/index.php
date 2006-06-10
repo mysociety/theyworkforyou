@@ -12,6 +12,10 @@ $PAGE->block_start(array ('title'=>'Things currently noticeable to the user'));
 
 <dl>
 
+<dt>Missing Written Answers</dt>
+<dd>The written answers from the 5th June of the Prime Minister, Culture, Media and Sport, Electoral Commission Committee, Church Commissioners, Solicitor-General, and Scotland have disappeared from the official site this morning (9th June), though they were there yesterday. I believe this to be simply a navigation problem (see below). TheyWorkForYou still <a href="/wrans/?d=2006-06-05">has them all in its database</a>.
+</dd>
+
 <dt>Written Answers navigation problems</dt>
 <dd>
 <p>The start of one day's Written Answers does not now start at the beginning of a new

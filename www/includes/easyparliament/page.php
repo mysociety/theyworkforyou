@@ -1365,7 +1365,7 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 		$MOREURL = new URL('search');
 		$MOREURL->insert( array('pid'=>$member['person_id'], 'pop'=>1) );
 		?>
-	<p id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4"><!-- More of --><?php echo ucfirst($member['full_name']); ?>'s recent appearances</a> (apologies for the extra click, server load is <em>high</em></p>
+	<p id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4">More of <?php echo ucfirst($member['full_name']); ?>'s recent appearances</a></p>
 
 <?php
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
