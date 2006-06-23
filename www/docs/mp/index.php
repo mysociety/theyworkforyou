@@ -49,6 +49,7 @@ if ($cconstituency == 'mysociety test constituency') {
 
 # Special case names
 if ($name == 'sion simon') $name = "si&ocirc;n simon";
+if ($name == 'sian james') $name = "si&acirc;n james";
 if ($name == 'lembit opik') $name = "lembit &ouml;pik";
 if ($cconstituency == 'ynys mon') $cconstituency = "ynys m&ocirc;n";
 

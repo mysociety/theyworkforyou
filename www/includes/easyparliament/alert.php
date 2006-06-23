@@ -16,7 +16,7 @@ Functions here:
 ALERT
 	fetch($confirmed, $deleted)		Fetch all alert data from DB.
 	listalerts()					Lists all live alerts
-	add($details, $confirmation_required)	Add a new alert to the DB.
+	add($details, $confirmation_email)	Add a new alert to the DB.
 	send_confirmation_email($details)	Done after add()ing the alert.
 	email_exists($email)			Checks if an alert exists with a certain email address.
 	confirm($token)				Confirm a new alert in the DB
@@ -111,7 +111,7 @@ class ALERT {
 
 // FUNCTION: add
 
-	function add ($details, $confirmation_required=false) {
+	function add ($details, $confirmation_email=false, $instantly_confirm=true) {
 		
 		// Adds a new alert's info into the database.
 		// Then calls another function to send them a confirmation email.
@@ -130,7 +130,7 @@ class ALERT {
 		$alerttime = gmdate("YmdHis");
 
 		$criteria = array();
-		if ($details['keyword']) $criteria[] = $details['keyword'];
+		if (isset($details['keyword']) && $details['keyword']) $criteria[] = $details['keyword'];
 		if ($details['pid']) $criteria[] = 'speaker:'.$details['pid'];
 		$criteria = join(' ', $criteria);
 
@@ -146,17 +146,11 @@ class ALERT {
 		}
 
 		$q = $this->db->query("INSERT INTO alerts (
-				email,
-				criteria,
-				deleted,
-				confirmed,
-				created
+				email, criteria, deleted, confirmed, created
 			) VALUES (
 				'" . mysql_escape_string($details["email"]) . "',
 				'" . mysql_escape_string($criteria) . "',
-				'0',
-				'0',
-				NOW()
+				'0', '0', NOW()
 			)
 		");
 
@@ -192,7 +186,7 @@ class ALERT {
 			if ($r->success()) {
 				// Updated DB OK.
 
-				if ($confirmation_required) {
+				if ($confirmation_email) {
 					// Right, send the email...
 					$success = $this->send_confirmation_email($details);
 
@@ -203,7 +197,7 @@ class ALERT {
 						// Couldn't send the email.
 						return -1;
 					}
-				} else {
+				} elseif ($instantly_confirm) {
 					// No confirmation email needed.
 					$s = $this->db->query("UPDATE alerts
 						SET confirmed = '1'

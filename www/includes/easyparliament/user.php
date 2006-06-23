@@ -230,12 +230,22 @@ class USER {
 
 			// Add that to the DB.
 			$r = $this->db->query("UPDATE users
-							SET		registrationtoken = '" . mysql_escape_string($this->registrationtoken) . "'
+							SET	registrationtoken = '" . mysql_escape_string($this->registrationtoken) . "'
 							WHERE	user_id = '" . mysql_escape_string($this->user_id) . "'
 							");
 
 			if ($r->success()) {
 				// Updated DB OK.
+
+				if ($details['mp_alert'] && $details['postcode']) {
+					$MEMBER = new MEMBER(array('postcode'=>$details['postcode']));
+					$pid = $MEMBER->person_id();
+					# No confirmation email, but don't automatically confirm
+					$ALERT = new ALERT;
+					$ALERT->add(array(
+						'email' => $details['email'],
+						'pid' => $pid), false, false);
+				}
 
 				if ($confirmation_required) {
 					// Right, send the email...
@@ -1002,8 +1012,7 @@ class THEUSER extends USER {
 			return false;
 		}
 
-		$q = $this->db->query("SELECT email,
-								password
+		$q = $this->db->query("SELECT email, password, postcode
 						FROM	users
 						WHERE	user_id = '" . mysql_escape_string($user_id) . "'
 						AND		registrationtoken = '" . mysql_escape_string($registrationtoken) . "'
@@ -1021,6 +1030,15 @@ class THEUSER extends USER {
 							SET		confirmed = '1'
 							WHERE	user_id = '" . mysql_escape_string($user_id) . "'
 							");
+
+			if ($q->field(0, 'postcode')) {
+				$MEMBER = new MEMBER(array('postcode'=>$q->field(0, 'postcode')));
+				$pid = $MEMBER->person_id();
+				# This should probably be in the ALERT class
+				$this->db->query('update alerts set confirmed=1 where email="' .
+					mysql_escape_string($this->email) . '" and criteria="speaker:' .
+					mysql_escape_string($pid) . '"');
+			}
 
 			if ($r->success()) {
 

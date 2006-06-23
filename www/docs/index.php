@@ -140,7 +140,7 @@ if(defined("NEWSBLOG")){
 		array (
 			
 			'type'=>'html',
-			'content' => 'DEVSITE set. The News Blog is not included in the developer version of the code, due to MovableType licensing issues (we cannot redistribute their code)'
+			'content' => 'DEVSITE set. The News Blog is not included in the developer version of the code.)'
 		)
 	);
 }

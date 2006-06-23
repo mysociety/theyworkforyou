@@ -106,6 +106,7 @@ if (get_http_var("submitted") == "true") {
 	$details["password"]		= trim(get_http_var("password"));
 	$details["password2"]		= trim(get_http_var("password2"));
 	$details["optin"] = get_http_var("optin") == "true" ? true : false;
+	$details['mp_alert'] = get_http_var('mp_alert') == 'true' ? true : false;
 	if (get_http_var("remember") != "") {
 		$remember				= get_http_var("remember");
 		$details["remember"] = $remember[0] == "true" ? true : false;
@@ -683,7 +684,28 @@ function display_form ( $details = array(), $errors = array() ) {
 	?>/> <label for="optinfalse">No</label></span>
 				</div>
 
-<?php
+<?php	if ($this_page == 'userjoin') { ?>
+				<div class="row">
+				&nbsp;<br />Would <?php if ($this_page == "otheruseredit") { echo "they"; } else { echo "you"; } ?> like to receive an email whenever your MP does something in Parliament?
+				</div>
+
+				<div class="row">
+				<span class="label">&nbsp;</span>
+				<span class="formw"><input type="radio" name="mp_alert" id="mp_alerttrue" value="true" <?php
+	if (isset($details["mp_alert"]) && $details["mp_alert"] == true) {
+		print 'checked="checked" ';
+	}
+	?>/> <label for="mp_alerttrue">Yes</label><br />
+				<input type="radio" name="mp_alert" id="mp_alertfalse" value="false" <?php
+	if (($this_page == "userjoin" && get_http_var("submitted") != "true")
+		||
+		(isset($details["mp_alert"]) && $details["mp_alert"] == false)
+		) {
+		print 'checked="checked" ';
+	}
+	?>/> <label for="mp_alertfalse">No</label></span>
+				</div>
+<?php	}
 
 	if ($this_page == "otheruseredit") {
 
