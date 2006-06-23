@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.4 2006-05-30 14:53:37 twfy-live Exp $
+# $Id: xml2db.pl,v 1.5 2006-06-23 23:18:19 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -138,6 +138,27 @@ $westminhalldir = $config::pwdata . "scrapedxml/westminhall/";
 $wmsdir = $config::pwdata . "scrapedxml/wms/";
 $lordswmsdir = $config::pwdata . "scrapedxml/lordswms/";
 $lordsdebatesdir = $config::pwdata . "scrapedxml/lordspages/";
+
+my @wrans_major_headings = (
+"ADVOCATE-GENERAL", "ADVOCATE GENERAL", "ADVOCATE-GENERAL FOR SCOTLAND", "AGRICULTURE, FISHERIES AND FOOD",
+"ATTORNEY-GENERAL", "CABINET OFFICE", "CABINET", "CULTURE MEDIA AND SPORT", "CULTURE, MEDIA AND SPORT",
+"CULTURE, MEDIA AND SPORTA", "CULTURE, MEDIA, SPORT", "CHURCH COMMISSIONERS", "CHURCH COMMISSIONER",
+"COMMUNITIES AND LOCAL GOVERNMENT", "CONSTITUTIONAL AFFAIRS", "CONSTITIONAL AFFAIRS", "CONSTITUTIONAL AFFFAIRS",
+"DEFENCE", "DEPUTY PRIME MINISTER", "DUCHY OF LANCASTER", "EDUCATION AND EMPLOYMENT", "ENVIRONMENT FOOD AND RURAL AFFAIRS",
+"ENVIRONMENT, FOOD AND RURAL AFFAIRS", "DEFRA", "ENVIRONMENT, FOOD AND THE REGIONS", "ENVIRONMENT",
+"EDUCATION AND SKILLS", "EDUCATION", "ELECTORAL COMMISSION COMMITTEE", "ELECTORAL COMMISSION",
+"SPEAKER'S COMMITTEE ON THE ELECTORAL COMMISSION", "FOREIGN AND COMMONWEALTH AFFAIRS", "FOREIGN AND COMMONWEALTH",
+"FOREIGN AND COMMONWEALTH OFFICE", "HOME DEPARTMENT", "HOME OFFICE", "HOME", "HEALTH", "HOUSE OF COMMONS",
+"HOUSE OF COMMONS COMMISSION", "HOUSE OF COMMMONS COMMISSION", "INTERNATIONAL DEVELOPMENT", "INTERNATIONAL DEVEOPMENT",
+"LEADER OF THE HOUSE", "LEADER OF THE COUNCIL", "LORD CHANCELLOR", "LORD CHANCELLOR'S DEPARTMENT",
+"LORD CHANCELLORS DEPARTMENT", "LORD CHANCELLOR'S DEPT", "LORD PRESIDENT OF THE COUNCIL", "MINISTER FOR WOMEN",
+"WOMEN", "NATIONAL HERITAGE", "NORTHERN IRELAND", "OVERSEAS DEVELOPMENT ADMINISTRATION", "PRIME MINISTER",
+"PRIVY COUNCIL", "PRIVY COUNCIL OFFICE", "PRESIDENT OF THE COUNCIL", "PUBLIC ACCOUNTS COMMISSION",
+"PUBLIC ACCOUNTS COMMITTEE", "SOLICITOR-GENERAL", "SOLICITOR GENERAL", "SCOTLAND", "SOCIAL SECURITY", "TRANSPORT",
+"TRANSPORT, LOCAL GOVERNMENT AND THE REGIONS", "TRADE AND INDUSTRY", "TREASURY", "WALES", "WORK AND PENSIONS"
+);
+use vars qw($wrans_major_headings);
+$wrans_major_headings = ',' . join(',', @wrans_major_headings) . ',';
 
 # Do dates in reverse order
 sub revsort {
@@ -812,8 +833,8 @@ sub check_member_ids {
 my @moffices = ();
 sub loadmoffices {
         foreach my $row (@moffices) {
-                my $sth = $dbh->do("insert into moffice (moffice_id, dept, position, from_date, to_date, person) values (?, ?, ?, ?, ?, ?)", {}, 
-                $row->[0], $row->[1], $row->[2], $row->[3], $row->[5], $row->[7]);
+                my $sth = $dbh->do("insert into moffice (moffice_id, dept, position, from_date, to_date, person, source) values (?, ?, ?, ?, ?, ?, ?)", {}, 
+                $row->[0], $row->[1], $row->[2], $row->[3], $row->[5], $row->[7], $row->[8]);
         }
 }
 
@@ -839,6 +860,7 @@ sub loadmoffice
         $pos .= ' (' . $moff->att('responsibility') . ')';
     }
 
+        # XXX: Surely the XML should join two consecutive offices together somewhere?!
         if (@moffices>0 && ($moffices[-1][7] eq $person && $moffices[-1][1] eq $moff->att('dept') && $moffices[-1][2] eq $pos
             && $moffices[-1][5] eq $moff->att('fromdate') && $moffices[-1][6] eq $moff->att('fromtime') )) {
                 $moffices[-1][5] = $moff->att('todate');
@@ -847,7 +869,7 @@ sub loadmoffice
                 # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
                 # get lost somewhere between Perl, the database and the browser.
                 push @moffices, [$mofficeid, encode_entities($moff->att('dept')), encode_entities($pos), $moff->att('fromdate'),
-                        $moff->att('fromtime'), $moff->att('todate'), $moff->att('totime'), $person ];
+                        $moff->att('fromtime'), $moff->att('todate'), $moff->att('totime'), $person, $moff->att('source') ];
         }
 }
 
@@ -1063,7 +1085,7 @@ sub load_debate_heading {
         # major headings "under" it.
         my $text = strip_string($speech->sprint(1));
         if ($inoralanswers) {
-                if ($text =~ m/[a-z]/ || $text eq 'BILL PRESENTED' || $text eq 'NEW MEMBER' || $text eq 'POINT OF ORDER') {
+                if ($wrans_major_headings !~ /,$text,/) { # $text =~ m/[a-z]/ || $text eq 'BILL PRESENTED' || $text eq 'NEW MEMBER' || $text eq 'POINT OF ORDER') {
                         $inoralanswers = 0;
                 } else {
                         # &#8212; is mdash (apparently some browsers don't know &mdash;)

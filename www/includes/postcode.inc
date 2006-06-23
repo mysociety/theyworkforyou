@@ -58,20 +58,26 @@ function postcode_to_constituency_internal($postcode) {
 	if (!is_postcode($postcode))
 		return '';
   
-		#	$db = new ParlDB;
-	#	$q = $db->query('select name from postcode_lookup where postcode = "'. mysql_escape_string($postcode).'"');
-	#	if ($q->rows > 0) {
-		#		$name = $q->field(0, 'name');
-		#		return $name;
-		#	}
+	$db = new ParlDB;
+	$q = $db->query('select name from postcode_lookup where postcode = "'. mysql_escape_string($postcode).'"');
+	if ($q->rows > 0) {
+		$name = $q->field(0, 'name');
+		return $name;
+	}
 
 # Otherwise hit the server (URL is private)
 # We use fsockopen rather than just fopen or file_get_contents so we can do timeouts
   $filename = POSTCODE_SEARCH_PATH .  urlencode($postcode);
   $file = ""; // just to be safe. Dunno, if this is really needed
   // try several times with low timeout
+  $g_errno = '';
+  $g_errstr = '';
   for ($i = 0; $i < 4; $i++) {
+  	$errno = 0;
+	$errstr = '';
 	$fp = @fsockopen(POSTCODE_SEARCH_DOMAIN, POSTCODE_SEARCH_PORT, $errno, $errstr, 10);
+	$g_errno .= $errno.';';
+	$g_errstr .= $errstr.';';
 	if ($fp) {
 		break;
 	}
@@ -100,7 +106,7 @@ function postcode_to_constituency_internal($postcode) {
         
         fclose($fp);
   } else {
-	trigger_error("Postcode database: Socket error no. $errno, $errstr.", E_USER_WARNING);
+	trigger_error("Postcode database: Socket error no. $g_errno, $g_errstr.", E_USER_WARNING);
         return 'CONNECTION_TIMED_OUT';
   }
 	
@@ -125,7 +131,7 @@ function postcode_to_constituency_internal($postcode) {
 #    print "<pre>$file</pre><br>$constituency<br>";
     $normalised = normalise_constituency_name(strtolower($constituency));
     if ($normalised) {
-	    #	$db->query('replace into postcode_lookup values("'. mysql_escape_string($postcode).'", "'.mysql_escape_string($normalised).'")');
+	$db->query('replace into postcode_lookup values("'. mysql_escape_string($postcode).'", "'.mysql_escape_string($normalised).'")');
         return $normalised;
     }
     else

@@ -97,8 +97,8 @@ if (is_numeric(get_http_var('m'))) {
 	if (validate_postcode($pc)) {
 		twfy_debug ('MP', "MP lookup by postcode");
 		$constituency = strtolower(postcode_to_constituency($pc));
-		if ($constituency == "CONNECTION_TIMED_OUT") {
-			$errors['pc'] = "Sorry, we couldn't check your postcode right now. Please use the 'All Mps' link above to browse MPs";
+		if ($constituency == "connection_timed_out") {
+			$errors['pc'] = "Sorry, we couldn't check your postcode right now. Please use the 'All MPs' link above to browse MPs";
 		} elseif ($constituency == "") {
 			$errors['pc'] = "Sorry, ".htmlentities($pc) ." isn't a known postcode";
 			twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
@@ -276,7 +276,11 @@ twfy_debug_timestamp("after display of MP");
 		$mins = '';
 		foreach ($office as $row) {
 			if ($row['to_date'] != '9999-12-31') {
-				$mins .= '<li>' . prettify_office($row['position'], $row['dept']) . ' ('.format_date($row['from_date'],SHORTDATEFORMAT).' to '.format_date($row['to_date'],SHORTDATEFORMAT).')</li>';
+				$mins .= '<li>' . prettify_office($row['position'], $row['dept']);
+			       	$mins .= ' (';
+				if ($row['source'] != 'chgpages/selctee' || $row['from_date'] != '2004-05-28')
+					$mins .= format_date($row['from_date'],SHORTDATEFORMAT) . ' ';
+				$mins .= 'to '.format_date($row['to_date'],SHORTDATEFORMAT).')</li>';
 			}
 		}
 		if ($mins) {

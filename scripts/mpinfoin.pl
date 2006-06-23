@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.2 2006-05-23 16:43:27 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.3 2006-06-23 23:18:19 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -277,6 +277,15 @@ sub makerankings {
                         }
                 }
                 $first_member{$person_id} = 1;
+
+                $tth = $dbh->prepare("select count(*) from moffice where person=? and source='chgpages/selctee' and to_date='9999-12-31'");
+                $tth->execute($person_id);
+                my $selctees = ($tth->fetchrow_array())[0];
+                $personinfohash->{$person_fullid}->{'select_committees'} = $selctees if ($selctees);
+                $tth = $dbh->prepare("select count(*) from moffice where person=? and source='chgpages/selctee' and to_date='9999-12-31' and position='Chairman'");
+                $tth->execute($person_id);
+                $selctees = ($tth->fetchrow_array())[0];
+                $personinfohash->{$person_fullid}->{'select_committees_chair'} = $selctees if $selctees;
         }
 
         # Loop through Lords
@@ -334,7 +343,6 @@ sub makerankings {
                                 $personinfohash->{$person_fullid}->{'Lending_with_a_preposition'} += 1;
                         }
                 }
-                
         }
 
         for (my $year=2002; $year<=2005; ++$year) {

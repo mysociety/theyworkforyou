@@ -857,8 +857,8 @@ function make_plural($word, $number)
 }
 
 function make_member_url($name, $const = '', $house = 1) {
-	$s = array(' ', '&amp;', '&ocirc;', '&ouml;');
-	$r = array('_', 'and',     'o',       'o'     );
+	$s = array(' ', '&amp;', '&ocirc;', '&ouml;', '&acirc;');
+	$r = array('_', 'and',     'o',       'o', 'a' );
 	$name = preg_replace('#^the #', '', strtolower($name));
 	$out = urlencode(str_replace($s, $r, $name));
 	if ($const && $house==1)

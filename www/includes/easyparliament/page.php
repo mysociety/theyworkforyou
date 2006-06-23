@@ -1010,7 +1010,10 @@ pr()//-->
 			$mins = array();
 			foreach ($extra_info['office'] as $row) {
 				if ($row['to_date'] == '9999-12-31') {
-					$mins[] = prettify_office($row['position'], $row['dept']) . ' (since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')';
+					$m = prettify_office($row['position'], $row['dept']);
+					if ($row['from_date']!='2004-05-28' || $row['source'] != 'chgpages/selctee')
+						$m .= ' (since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')';
+					$mins[] = $m;
 				}
 			}
 			if ($mins) {
@@ -1166,7 +1169,7 @@ pr()//-->
 	<?
 		$got_dream = false;
 		$got_dream |= display_dream_comparison($extra_info, $member, 811, "introducing a <strong>smoking ban</strong>", false, "smoking");
-		$got_dream |= display_dream_comparison($extra_info, $member, 856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>", false, "legislative and regulatory reform bill");
+		#$got_dream |= display_dream_comparison($extra_info, $member, 856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>", false, "legislative and regulatory reform bill");
 		$got_dream |= display_dream_comparison($extra_info, $member, 230, "introducing <strong>ID cards</strong>", true, "id cards");
 		$got_dream |= display_dream_comparison($extra_info, $member, 363, "introducing <strong>foundation hospitals</strong>", false, "foundation hospital");
 		$got_dream |= display_dream_comparison($extra_info, $member, 367, "introducing <strong>student top-up fees</strong>", true, "top-up fees");
@@ -1235,7 +1238,7 @@ pr()//-->
 		$this->block_start(array('id'=>'performance', 'title'=>'Performance data'));
 		$displayed_stuff = 0;
 		?>
-		<p><em>Please note that MPs and peers may do other things not currently covered by this site &ndash; for example, take part in Select Committees.</em></p>
+		<p><em>Please note that MPs and peers may do other things not currently covered by this site &ndash; for example, we do not yet track speeches in committees.</em></p>
 <ul>
 <?php
 
@@ -1287,6 +1290,15 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 		if (isset($extra_info['Lwrans_answered_inlastyear']) && $extra_info['Lwrans_answered_inlastyear'] > 0 && $extra_info['Lwrans_asked_inlastyear'] == 0)
 			$Lminister = true;
 		$displayed_stuff |= display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, $extra_info, $minister, $Lminister);
+
+		if (isset($extra_info['select_committees'])) {
+			print "<li>Is a member of <strong>$extra_info[select_committees]</strong> select committee";
+			if ($extra_info['select_committees'] > 1)
+				print "s";
+			if (isset($extra_info['select_committees_chair']))
+				print " ($extra_info[select_committees_chair] as chair)";
+			print '.</li>';
+		}
 
 		if (isset($extra_info['writetothem_responsiveness_notes'])) {
 		?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com">WriteToThem.com</a> in 2005: <?=$extra_info['writetothem_responsiveness_notes']?>.</li><?
