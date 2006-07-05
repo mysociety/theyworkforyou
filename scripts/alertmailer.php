@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.3 2006-05-30 14:53:37 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.4 2006-07-05 14:36:29 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -58,7 +58,7 @@ foreach ($alertdata as $alertitem) {
 	$active++;
 	$email = $alertitem['email'];
 	if ($onlyemail && $email != $onlyemail) continue;
-	#	if ($email < 'EMAIL') continue;
+	#if ($email < 'XXXXXXX@XXXXXXXXXXXXX') continue;
 	$criteria = $alertitem['criteria'];
 
 	print "$active : Checking $criteria for $email\n";
@@ -163,7 +163,7 @@ if (!$nomail && !$onlyemail) {
 	$fp = fopen('alerts-lastsent', 'w');
 	fwrite($fp, time() );
 	fclose($fp);
-	mail('fawkes@dracos.co.uk, XXXXXX@XXXXXXXXXXXXXX', 'Email alert statistics', $sss, 'From: Email Alerts <fawkes@dracos.co.uk>');
+	mail(ALERT_STATS_EMAILS, 'Email alert statistics', $sss, 'From: Email Alerts <fawkes@dracos.co.uk>');
 }
 
 function sort_by_stuff($a, $b) {
