@@ -90,6 +90,9 @@ define ("BCCADDRESS", CONTACTEMAIL);
 // All error emails go to this address.
 define ("BUGSLIST", CONTACTEMAIL);
 
+// Email addresses that alertmailer.php sends stats to
+define('ALERT_STATS_EMAILS', CONTACTEMAIL);
+
 // Postcode lookup
 // Not defined on dev copies, causes postcode lookups to be random but deterministic
 //define ("POSTCODE_SEARCH_DOMAIN", "www.somedomain.com");
