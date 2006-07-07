@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.5 2006-06-23 23:18:19 twfy-live Exp $
+# $Id: xml2db.pl,v 1.6 2006-07-07 17:58:16 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -800,8 +800,7 @@ sub memory_test
 ##########################################################################
 # MPs and Peers, also constituencies, people
 
-sub add_mps_and_peers
-{
+sub add_mps_and_peers {
         $dbh->do("delete from moffice");
         my $twig = XML::Twig->new(twig_handlers => 
                 { 'constituency' => \&loadconstituency, 
@@ -832,24 +831,38 @@ sub check_member_ids {
 
 my @moffices = ();
 sub loadmoffices {
+        # XXX: Surely the XML should join two consecutive offices together somewhere?!
+        # Also, have to check all previous offices as offices are not consecutive in XML. <sigh>
+        my $add = 1;
+        @moffices = sort { $a->[3] cmp $b->[3] } @moffices;
+        for (my $i=0; $i<@moffices; $i++) {
+                for (my $j=0; $j<$i; $j++) {
+                        next unless $moffices[$j];
+                        if ($moffices[$i][7] eq $moffices[$j][7] && $moffices[$i][1] eq $moffices[$j][1]
+                            && $moffices[$i][2] eq $moffices[$j][2] && $moffices[$i][3] eq $moffices[$j][5]
+                            && $moffices[$i][4] eq $moffices[$j][6] ) {
+                                $moffices[$j][5] = $moffices[$i][5];
+                                $moffices[$j][6] = $moffices[$i][6];
+                                delete $moffices[$i];
+                                last;
+                        }
+                }
+        }
         foreach my $row (@moffices) {
+                next unless $row;
                 my $sth = $dbh->do("insert into moffice (moffice_id, dept, position, from_date, to_date, person, source) values (?, ?, ?, ?, ?, ?, ?)", {}, 
                 $row->[0], $row->[1], $row->[2], $row->[3], $row->[5], $row->[7], $row->[8]);
         }
 }
 
 # Add office
-sub loadmoffice
-{
+sub loadmoffice {
     my ($twig, $moff) = @_;
 
     my $mofficeid = $moff->att('id');
     $mofficeid =~ s#uk.org.publicwhip/moffice/##;
     my $mpid = $moff->att('matchid');
-    if (!$mpid) {
-        return;
-    }
-    $mpid =~ s#uk.org.publicwhip/member/##;
+    return unless $mpid;
 
     my $person = $membertoperson{$moff->att('matchid')};
     die "mp " . $mpid . " " . $moff->att('name') . " has no person" if !defined($person);
@@ -860,17 +873,15 @@ sub loadmoffice
         $pos .= ' (' . $moff->att('responsibility') . ')';
     }
 
-        # XXX: Surely the XML should join two consecutive offices together somewhere?!
-        if (@moffices>0 && ($moffices[-1][7] eq $person && $moffices[-1][1] eq $moff->att('dept') && $moffices[-1][2] eq $pos
-            && $moffices[-1][5] eq $moff->att('fromdate') && $moffices[-1][6] eq $moff->att('fromtime') )) {
-                $moffices[-1][5] = $moff->att('todate');
-                $moffices[-1][6] = $moff->att('totime');
-        } else {
-                # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
-                # get lost somewhere between Perl, the database and the browser.
-                push @moffices, [$mofficeid, encode_entities($moff->att('dept')), encode_entities($pos), $moff->att('fromdate'),
-                        $moff->att('fromtime'), $moff->att('todate'), $moff->att('totime'), $person, $moff->att('source') ];
-        }
+    my $dept = $moff->att('dept');
+    # Hack
+    return if ($pos eq 'PPS (Rt Hon Peter Hain, Secretary of State)' && $dept eq 'Northern Ireland Office' && $person == 10518);
+    return if ($pos eq 'PPS (Rt Hon Peter Hain, Secretary of State)' && $dept eq 'Office of the Secretary of State for Wales' && $person == 10458);
+
+        # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
+        # get lost somewhere between Perl, the database and the browser.
+        push @moffices, [$mofficeid, encode_entities($dept), encode_entities($pos), $moff->att('fromdate'),
+                $moff->att('fromtime'), $moff->att('todate'), $moff->att('totime'), $person, $moff->att('source') ];
 }
 
 # Add constituency
@@ -903,8 +914,7 @@ sub loadconstituency
 }
 
 # Add members of parliament (from all-members.xml file)
-sub loadmember
-{
+sub loadmember {
 	my ($twig, $member) = @_;
 
 	my $id = $member->att('id');
@@ -935,8 +945,7 @@ sub loadmember
 }
 
 # Add members of parliament (from all-lords*.xml file)
-sub loadlord
-{
+sub loadlord {
 	my ($twig, $member) = @_;
 
 	my $id = $member->att('id');

@@ -307,7 +307,7 @@ urchinTracker();
 		// Links in the top menu, and the sublinks we see if
 		// we're within that section.
 		$items = array (
-			'home' 		=> array ('sitenews', 'comments_recent'),
+			'home' 		=> array ('sitenews', 'comments_recent', 'api_front'),
 			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront'),
 			'yourmp'	=> array (),
 			'mps'           => array (),
@@ -1340,10 +1340,12 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 
 		$displayed_stuff |= display_stats_line('three_word_alliterations', 'Has used a three-word alliterative phrase (e.g. "she sells seashells") ', 'time', ' in debates', $extra_info);
 		$displayed_stuff |= display_stats_line('ending_with_a_preposition', "Has ended a sentence with 'with' ", 'time', ' in debates', $extra_info);
+		#		$displayed_stuff |= display_stats_line('only_asked_why', "Has made a speech consisting solely of 'Why?' ", 'time', ' in debates', $extra_info);
 
 
 ?>
 						</ul>
+						<p align="right"><a href="/help/#perfdata">Why are these last two here?</a></p>
 <?php
 		if (!$displayed_stuff) {
 			print '<p>No data to display yet.</p>';

@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.3 2006-06-23 23:18:19 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.4 2006-07-07 17:58:16 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -37,6 +37,7 @@ my $twig = XML::Twig->new(
         }, output_filter => 'safe' );
 # TODO: Parse ALL regmem in forwards chronological order, so each MP (even ones left parl) gets their most recent one
 $twig->parsefile($config::pwdata . "scrapedxml/regmem/$regmemfile", ErrorContext => 2);
+$twig->parsefile($config::pwmembers . "wikipedia-commons.xml", ErrorContext => 2);
 $twig->parsefile($config::pwmembers . "wikipedia-lords.xml", ErrorContext => 2);
 $twig->parsefile($config::pwmembers . "diocese-bishops.xml", ErrorContext => 2);
 $twig->parsefile($config::pwmembers . "edm-links.xml", ErrorContext => 2);
@@ -267,6 +268,7 @@ sub makerankings {
                 $tth->execute($mp_id);
                 $personinfohash->{$person_fullid}->{'ending_with_a_preposition'} = 0 if !$personinfohash->{$person_fullid}->{'ending_with_a_preposition'};
                 $personinfohash->{$person_fullid}->{'three_word_alliterations'} = 0 if !$personinfohash->{$person_fullid}->{'three_word_alliterations'};
+                $personinfohash->{$person_fullid}->{'only_asked_why'} = 0 if !$personinfohash->{$person_fullid}->{'only_asked_why'};
                 while (my @row = $tth->fetchrow_array()) {
                         my $body = $row[0];
                         if ($body =~ m/\b((\w)\w*\s+\2\w*\s+\2\w*)\b/) {
@@ -274,6 +276,9 @@ sub makerankings {
                         }
                         if ($body =~ m/\s+with(\.|!|\?)/) {
                                 $personinfohash->{$person_fullid}->{'ending_with_a_preposition'} += 1;
+                        }
+                        if ($body =~ m/^<p[^>]*>Why\?<\/p>$/) {
+                                $personinfohash->{$person_fullid}->{'only_asked_why'} += 1;
                         }
                 }
                 $first_member{$person_id} = 1;
@@ -370,6 +375,7 @@ sub makerankings {
         enrankify($personinfohash, "Lwrans_asked_inlastyear", 0);
         enrankify($personinfohash, "three_word_alliterations", 0);
         enrankify($personinfohash, "ending_with_a_preposition", 0);
+        enrankify($personinfohash, "only_asked_why", 0);
         enrankify($personinfohash, "Lthree_word_alliterations", 0);
         enrankify($personinfohash, "Lending_with_a_preposition", 0);
         enrankify($memberinfohash, "swing_to_lose_seat_today", 0);

@@ -6,6 +6,7 @@
 <li><a href="#extreme">What's that weird 'extreme tracker' javascript I spy in your page source?</a></li>
 <li><a href="#rss">What is RSS?</a></li>
 <li><a href="#votingrecord">How is the voting record decided?</a></li>
+<li><a href="#perfdata">Why are there strange entries in the performance data?</a></li>
 </ul>
 
 <br />
@@ -81,6 +82,49 @@ Additionally, in many votes, MPs and Peers are told how to vote ('whipped') by t
 parties. Since the Whip is secret, we have to assume, <a
 href="http://www.theyworkforyou.com/debate/?id=2005-02-07.1200.2">like the
 Speaker</a>, that all votes are free.  </P>
+</dd>
+
+<dt><a name="perfdata"></a>Why are there strange entries in the performance data?</dt>
+
+<dd>
+<p>We've had a couple of questions asking why we publish
+performance data for use of alliterative phrases and ending
+a sentence with 'with' &ndash; it has even been
+<a href="/debate/?id=2006-06-28a.348.0">mentioned in the House of Commons</a>.
+Simply put, we realise that our performance data on the number
+of written questions answered and number of debates spoken
+in means little or nothing in terms of an MP's actual
+performance. However,
+those numbers are nevertheless interesting, and provide an easy way to
+link to that member's contributions.</p>
+
+<p>After reading media reports like <a href="http://www.timesonline.co.uk/article/0,,17129-2060278,00.html">this one in The Times</a>,
+we became concerned about the use of these statistics,
+so we added two slightly less serious measures, to try
+and highlight the near worthlessness of trying to "game"
+such things (though note that
+<a href="http://www.theyworkforyou.com/mp/tony_blair/sedgefield">Tony
+Blair</a> is currently top for both!).</p>
+
+<p>Peter Luff is right when he says:
+"One good question is better than 100 bad ones."
+If there were automated metrics &ndash; we do not have the manpower to, e.g.
+rank every contribution manually! &ndash;
+that we could use that would mean more, we
+would love to add them &ndash; please send suggestions to the
+<a href="mailto:beta&#64;theyworkforyou.com">usual address</a>.
+We do ask users of our site whether written answers actually answer
+the question or not &ndash; this seems quite objective, and we should
+try and get the data that has been collected published in some way. 
+Also, our to-do list includes, for example,
+adding the department a member asks the most written questions of,
+to try to show where an MP's interest might lie.
+</p>
+
+<p>As ever, if you have anything you wish to ask or say about
+our site, please <a href="mailto:beta&#64;theyworkforyou.com">get
+in touch</a>!</p>
+
 </dd>
 
 <!-- end old faq entry -->

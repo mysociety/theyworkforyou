@@ -216,6 +216,16 @@ $this->page = array (
 
 // End of ALERTS additions
 		
+	'api_front'		=> array (
+		'menu'			=> array (
+			'text'			=> 'API',
+			'title'			=> 'Access our data'
+		),
+		'parent'		=> 'home',
+		'title'			=> 'TheyWorkForYou API',
+		'url'			=> 'api/'
+	),
+
 	'cards' => array (
 		'title'			=> 'MP Stats Cards',
 		'url'			=> 'cards/'
