@@ -204,6 +204,7 @@ function display_form ( $details = array(), $errors = array() ) {
 
 <p>This page allows you to request an email alert from TheyWorkForYou.com.</p>
 
+<?	if (!get_http_var('only')) { ?>
 <ul>
 <li>To receive an alert <strong>every time a particular MP or Lord appears</strong>,
 select their name from the drop-down list of MPs and Lords, and
@@ -221,6 +222,7 @@ above.</li>
 </ul>
 
 <p>Please note that you should only enter one topic per alert - if you wish to receive alerts on more than one topic, or for more than one MP or Lord, simply fill in this form as many times as you need.</p>
+<?	} ?>
 
 	<form method="post" action="<?php echo $ACTIONURL->generate(); ?>">
 	

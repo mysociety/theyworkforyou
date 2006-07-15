@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.6 2006-07-07 17:58:16 twfy-live Exp $
+# $Id: xml2db.pl,v 1.7 2006-07-15 15:10:22 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -806,6 +806,7 @@ sub add_mps_and_peers {
                 { 'constituency' => \&loadconstituency, 
                   'member' => \&loadmember, 
                   'lord' => \&loadlord, 
+                  'member_ni' => \&loadni,
                   'person' => \&loadperson,
                   'moffice' => \&loadmoffice }, 
                 output_filter => $outputfilter );
@@ -815,6 +816,7 @@ sub add_mps_and_peers {
         $twig->parsefile($config::pwmembers . "people.xml");
         $twig->parsefile($config::pwmembers . "all-members.xml");
         $twig->parsefile($config::pwmembers . "peers-ucl.xml");
+#        $twig->parsefile($config::pwmembers . "ni-members.xml");
         $twig->parsefile($config::pwmembers . "ministers.xml");
         loadmoffices();
         check_member_ids();
@@ -981,8 +983,26 @@ sub loadlord {
 		'', $towhy);
 }
 
-sub loadperson
-{
+sub loadni {
+	my ($twig, $member) = @_;
+	my $id = $member->att('id');
+        my $person_id = $membertoperson{$id};
+	$id =~ s:uk.org.publicwhip/member/::;
+	$person_id =~ s:uk.org.publicwhip/person/::;
+        my $house = 3;
+	db_memberadd($id, 
+                $person_id,
+                $house, 
+                encode_entities($member->att('title')),
+                encode_entities($member->att('firstname')), 
+                encode_entities($member->att('lastname')),
+		encode_entities($member->att('constituency')), 
+                $member->att('party'),
+		$member->att('fromdate'), $member->att('todate'),
+		$member->att('fromwhy'), $member->att('towhy'));
+}
+
+sub loadperson {
     my ($twig, $person) = @_;
     my $curperson = $person->att('id');
 

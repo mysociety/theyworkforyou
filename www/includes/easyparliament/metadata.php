@@ -221,8 +221,15 @@ $this->page = array (
 			'text'			=> 'API',
 			'title'			=> 'Access our data'
 		),
-		'parent'		=> 'home',
 		'title'			=> 'TheyWorkForYou API',
+		'url'			=> 'api/'
+	),
+	'api_doc_front'		=> array (
+		'menu'			=> array (
+			'text'			=> 'API',
+			'title'			=> 'Access our data'
+		),
+		'parent'		=> 'api_front',
 		'url'			=> 'api/'
 	),
 

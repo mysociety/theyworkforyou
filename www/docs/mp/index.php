@@ -278,9 +278,17 @@ twfy_debug_timestamp("after display of MP");
 			if ($row['to_date'] != '9999-12-31') {
 				$mins .= '<li>' . prettify_office($row['position'], $row['dept']);
 			       	$mins .= ' (';
-				if ($row['source'] != 'chgpages/selctee' || $row['from_date'] != '2004-05-28')
+				if (!($row['source'] == 'chgpages/selctee' && $row['from_date'] == '2004-05-28')
+					&& !($row['source'] == 'chgpages/privsec' && $row['from_date'] == '2004-05-13')) {
+					if ($row['source'] == 'chgpages/privsec' && $row['from_date'] == '2005-11-10')
+						$mins .= 'before ';
 					$mins .= format_date($row['from_date'],SHORTDATEFORMAT) . ' ';
-				$mins .= 'to '.format_date($row['to_date'],SHORTDATEFORMAT).')</li>';
+				}
+				$mins .= 'to ';
+				if ($row['source'] == 'chgpages/privsec' && $row['to_date'] == '2005-11-10')
+					$mins .= 'before ';
+				$mins .= format_date($row['to_date'], SHORTDATEFORMAT);
+				$mins .= ')</li>';
 			}
 		}
 		if ($mins) {

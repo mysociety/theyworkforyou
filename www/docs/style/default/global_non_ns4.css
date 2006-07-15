@@ -355,6 +355,8 @@ div.main p,
 div.main ul,
 div.main ol,
 div.main dl,
+div.main pre,
+div.main iframe,
 div.main table {
 	margin-left: 18px;
 	margin-right: 14px;

@@ -32,7 +32,8 @@ class MEMBER {
 	// Mapping member table 'house' numbers to text.
 	var $houses = array (
 		1	=> 'House of Commons',
-		2	=> 'House of Lords'
+		2	=> 'House of Lords',
+		3	=> 'Northern Ireland Assembly',
 	);
 	
 	// Mapping member table reasons to text.
@@ -120,7 +121,7 @@ class MEMBER {
 								left_reason,
 								person_id
 						FROM 	member
-						WHERE	person_id = '" . mysql_escape_string($person_id) . "'
+						WHERE	house!=3 AND person_id = '" . mysql_escape_string($person_id) . "'
                         ORDER BY entered_house DESC
 						");
 						
@@ -166,7 +167,7 @@ class MEMBER {
 				}
 
 				$entered_time = strtotime($q->field($row, 'entered_house'));
-				if ($entered_time < $member_entered_time) {
+				if ($entered_time < $member_entered_time && $q->field($row, 'house') != 3) {
 					// This start of this term is before whatever we've already got.
 					$member_entered_time = $entered_time;
 					$this->entered_house = $q->field($row, 'entered_house');
@@ -339,8 +340,8 @@ class MEMBER {
 		} elseif ($q->rows > 0) {
 			return $q->field(0, 'person_id');
 		} else {
-			$PAGE->error_message("Sorry, there is no current member with that name.");
-			return false;
+			$this->canonical = false;
+			return $this->name_to_person_id($name);
 		}
 	}
 
@@ -532,13 +533,13 @@ class MEMBER {
 	}
 	
 	function left_reason() 		{ return $this->left_reason; }
-	function left_reason_text($left_reason) { 
+	function left_reason_text($left_reason, $mponly=0) { 
 		if (isset($this->reasons[$left_reason])) {
 			$left_reason = $this->reasons[$left_reason];
 			if (is_array($left_reason)) {
 				$q = $this->db->query("SELECT MAX(left_house) AS max FROM member");
 				$max = $q->field(0, 'max');
-				if ($max == $this->left_house) {
+				if ((!$mponly && $max == $this->left_house) || ($mponly && $max == $this->mp_left_house)) {
 					return $left_reason[0];
 				} else {
 					return $left_reason[1];
@@ -596,7 +597,7 @@ class MEMBER {
 			'lord_entered_reason'	=> $this->entered_reason_text($this->lord_entered_reason),
 			'mp_left_house'		=> $this->mp_left_house,
 			'mp_left_house_text'	=> $this->left_house_text($this->mp_left_house),
-			'mp_left_reason'		=> $this->left_reason_text($this->mp_left_reason),
+			'mp_left_reason'		=> $this->left_reason_text($this->mp_left_reason, 1),
 			'mp_left_constituency'	=> $this->mp_left_constituency,
 		);
 		
