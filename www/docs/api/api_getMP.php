@@ -33,8 +33,9 @@ function api_getMP_front() {
 
 function api_getMP_id($id) {
 	$db = new ParlDB;
-	$q = $db->query("SELECT * FROM member
-		WHERE person_id = '" . mysql_escape_string($id) . "'");
+	$q = $db->query("select * from member
+		where house=1 and person_id = '" . mysql_escape_string($id) . "'
+		order by left_house desc");
 	if ($q->rows()) {
 		$out = array_map('html_entity_decode', $q->row(0));
 		$output['twfy']['mp'] = $out;

@@ -37,7 +37,7 @@ function api_getconstituencies_search($s) {
 	for ($i=0; $i<$q->rows(); $i++) {
 		$output['twfy']['matches'][] = array(
 			'id' => $q->field($i, 'cons_id'),
-			'name' => $q->field($i, 'name')
+			'name' => html_entity_decode($q->field($i, 'name'))
 		);
 	}
 	api_output($output);
@@ -59,7 +59,7 @@ function api_getconstituencies($date = 'now()') {
 	for ($i=0; $i<$q->rows(); $i++) {
 		$output['twfy']['matches'][] = array(
 			'id' => $q->field($i, 'cons_id'),
-			'name' => $q->field($i, 'name')
+			'name' => html_entity_decode($q->field($i, 'name'))
 		);
 	}
 	api_output($output);

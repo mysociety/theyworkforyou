@@ -26,7 +26,7 @@ function api_getconstituency_postcode($pc) {
 		if ($constituency == 'CONNECTION_TIMED_OUT') {
 			api_error('Connection timed out');
 		} elseif ($constituency) {
-			$output['twfy']['name'] = strip_tags($constituency);
+			$output['twfy']['name'] = html_entity_decode($constituency);
 			api_output($output);
 		} else {
 			api_error('Unknown postcode');

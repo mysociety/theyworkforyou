@@ -29,10 +29,14 @@ $methods = array(
 		'help' => 'Returns details for an MP'
 	),
 	'getMPs' => array(
-		'parameters' => array('date', 'party', 'constituency?', 'postcode?', 'date', 'search'),
-		'working' => false,
+		'parameters' => array('party', 'date', 'search'),
 		'required' => false,
 		'help' => 'Returns list of MPs',
+	),
+	'getCommittee' => array(
+		'parameters' => array('name', 'date'),
+		'required' => true,
+		'help' => 'Returns members of Select Committee',
 	),
 	'getLord' => array(
 		'parameters' => array('id', 'search'),
@@ -41,8 +45,7 @@ $methods = array(
 		'help' => 'Returns details for a Lord'
 	),
 	'getLords' => array(
-		'parameters' => array('date', 'party'),
-		'working' => false,
+		'parameters' => array('date', 'party', 'search'),
 		'required' => false,
 		'help' => 'Returns list of Lords',
 	),
