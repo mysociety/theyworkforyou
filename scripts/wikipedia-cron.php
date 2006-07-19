@@ -1,8 +1,8 @@
 <?
 
+$dir = '../www/docs/wikipedia/cache/';
 contributions('194.60.38.10');
 contributions('194.203.158.97');
-$dir = '../www/docs/wikipedia/cache/';
 
 function contributions($ip) {
 	global $dir;
@@ -13,13 +13,16 @@ function contributions($ip) {
 	fclose($fp);
 	preg_match_all('#<li>(.*?) \(<a[^>]*>hist</a>\) \(<a href="(.*?title=(.*?)&.*?oldid=(.*?))"[^>]*>diff</a>\)  <a[^>]*>(.*?)</a>  .*?</li>#', $file['body'], $m, PREG_SET_ORDER);
 	foreach ($m as $row) {
+		print "$row[3] / $row[4]";
 		$cache = $dir . html_entity_decode("$row[3].$row[4]");
 		if (!is_file($cache)) {
+			print " - fetching";
 			$file = fetch(html_entity_decode($row[2]));
 			$fp = fopen($cache, 'w');
 			fwrite($fp, $file['body']);
 			fclose($fp);
 		}
+		print "\n";
 	}
 }
 

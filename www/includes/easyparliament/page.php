@@ -1072,7 +1072,7 @@ pr()//-->
 			$pc = $THEUSER->postcode();
 			?>
 						<li><a href="http://www.writetothem.com/?a=WMC&amp;pc=<?php echo htmlentities(urlencode($pc)); ?>"><strong>Send a message to <?php echo $member['full_name']; ?></strong></a> (only use this for <em>your</em> MP) <small>(via WriteToThem.com)</small></li>
-						<li><a href="http://www.hearfromyourmp.com/?pc=<?=htmlentities(urlencode($pc)) ?>"><strong>Sign up to <em>HearFromYourMP</em></strong></a> to get messages from your MP</li>
+						<li><a href="http://www.hearfromyourmp.com/?pc=<?=htmlentities(urlencode($pc)) ?>"><strong>Get messages from your MP</strong></a> <small>(via HearFromYourMP)</small></strong></a></li>
 <?php
 		} elseif ($member['house'] == 'House of Commons' && $member['current_member']) {
 			?>
@@ -1096,8 +1096,8 @@ pr()//-->
 						
 						<ul class="jumpers">
 						<li><a href="#votingrecord">Voting record</a></li>
-						<li><a href="#performance">Performance data</a></li>
 						<li><a href="#hansard">Recent appearances in Parliament</a></li>
+						<li><a href="#numbers">Numerology</a></li>
 <?php		if (isset($extra_info['register_member_interests_html'])) { ?>
 						<li><a href="#register">Register of Members' Interests</a></li>
 <?php		}
@@ -1117,7 +1117,7 @@ pr()//-->
 
 		// Voting Record.
 		?> <a name="votingrecord"></a> <?php
-		$this->block_start(array('id'=>'votingrecord', 'title'=>'Voting record'));
+		$this->block_start(array('id'=>'votingrecord', 'title'=>'Voting record (from PublicWhip)'));
 		$displayed_stuff = 0;
 		function display_dream_comparison($extra_info, $member, $dreamid, $desc, $inverse, $search) {
 			if (isset($extra_info["public_whip_dreammp${dreamid}_distance"])) {
@@ -1163,8 +1163,7 @@ pr()//-->
 		$displayed_stuff = 1; ?>
 
 
-	<p id="howvoted">How <?=$member['full_name']?> voted on key issues since 2001
-	<small>(From Public Whip)</small> :</p>
+	<p id="howvoted">How <?=$member['full_name']?> voted on key issues since 2001:</p>
 	<ul id="dreamcomparisons">
 	<?
 		$got_dream = false;
@@ -1191,20 +1190,17 @@ pr()//-->
 <?
 		// Links to full record at Guardian and Public Whip	
 		$record = array();
-		$recordcredits = array();
 		if (isset($extra_info['guardian_howtheyvoted'])) {
-			$record[] = '<a href="' . $extra_info['guardian_howtheyvoted'] . '" title="At The Guardian">well-known issues</a>';
-			$recordcredits[] = 'The Guardian';
+			$record[] = '<a href="' . $extra_info['guardian_howtheyvoted'] . '" title="At The Guardian">well-known issues</a> <small>(from the Guardian)</small>';
 		}
 		if (isset($extra_info['public_whip_division_attendance']) && $extra_info['public_whip_division_attendance'] != 'n/a') { 
-			$record[] = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="At Public Whip">full record</a>';
-			$recordcredits[] = 'Public Whip';
+			$record[] = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="At Public Whip">their full record</a>';
 		}
 
 		if (count($record) > 0) {
 			$displayed_stuff = 1;
 			?>
-			<p>More on <?php echo implode(' &amp; ', $record); ?> <small>(From <?php echo implode(' and ', $recordcredits); ?>)</small></p>
+			<p>More on <?php echo implode(' &amp; ', $record); ?></p>
 <?php
 		}
 	        
@@ -1215,138 +1211,20 @@ pr()//-->
 							<li><a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?=$member['member_id'] ?>#divisions" title="See more details at Public Whip">
                         <strong><?php echo htmlentities(ucfirst($extra_info['public_whip_rebel_description'])); ?> rebels</strong></a> against their party<?php
 			if (isset($extra_info['public_whip_rebelrank'])) {
-				echo " in this parliament &#8212; ";
+				echo " in this parliament"; /* &#8212; ";
 				if (isset($extra_info['public_whip_rebelrank_joint']))
 					print 'joint ';
 				echo make_ranking($extra_info['public_whip_rebelrank']);
 				echo " most rebellious of ";
 				echo $extra_info['public_whip_rebelrank_outof'];
 				echo ($member['house']=='House of Commons') ? " MPs" : ' Lords';
+				*/
 			}
 			?>.
-
-			<small>(From Public Whip)</small> </li>
+			</li>
 		</ul><?php
 		}
 
-		if (!$displayed_stuff) {
-			print '<p>No data to display yet.</p>';
-		}
-		$this->block_end();
-
-		?> <a name="performance"></a> <?php
-		$this->block_start(array('id'=>'performance', 'title'=>'Performance data'));
-		$displayed_stuff = 0;
-		?>
-		<p><em>Please note that MPs and peers may do other things not currently covered by this site &ndash; for example, we do not yet track speeches in committees.</em></p>
-<ul>
-<?php
-
-		$since_text = 'in the last year';
-		if ($member['entered_house'] > '2005-05-05')
-			$since_text = 'since joining Parliament';
-
-function display_stats_line($category, $blurb, $type, $inwhat, $extra_info, $minister = false, $Lminister = false) {
-	$return = false;
-	if (isset($extra_info[$category]))
-		$return = display_stats_line_house(1, $category, $blurb, $type, $inwhat, $extra_info, $minister);
-	if (isset($extra_info["L$category"]))
-		$return = display_stats_line_house(2, "L$category", $blurb, $type, $inwhat, $extra_info, $Lminister);
-	return $return;
-}
-function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $extra_info, $minister) {
-	if ($extra_info[$category]==0) $blurb = preg_replace('#<a.*?>#', '', $blurb);
-	if ($house==2) $inwhat = str_replace('MP', 'Lord', $inwhat);
-	print '<li>' . $blurb;
-	print '<strong>' . $extra_info[$category];
-	if ($type) print ' ' . make_plural($type, $extra_info[$category]);
-	print '</strong>';
-	print $inwhat . ' &#8212; ';
-	if ($minister)
-		print 'Ministers do not ask written questions.';
-	else {
-		if (isset($extra_info[$category . '_rank_joint']))
-			print 'joint ';
-		print make_ranking($extra_info[$category . '_rank']) . ' out of ' . $extra_info[$category . '_rank_outof'];
-		print ' ' . ($house==1?'MP':'Lord') . 's.</li>';
-	}
-	return 1;
-}
-
-		$MOREURL = new URL('search');
-		if ($member['house']=='House of Commons') {
-			$section = 'debates';
-		} else {
-			$section = 'lordsdebates';
-		}
-		$MOREURL->insert(array('pid'=>$member['person_id'], 's'=>'section:'.$section, 'pop'=>1));
-		$displayed_stuff |= display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, $extra_info);
-
-		$MOREURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
-		// We assume that if they've answered a question, they're a minister
-		$minister = false; $Lminister = false;
-		if (isset($extra_info['wrans_answered_inlastyear']) && $extra_info['wrans_answered_inlastyear'] > 0 && $extra_info['wrans_asked_inlastyear'] == 0)
-			$minister = true;
-		if (isset($extra_info['Lwrans_answered_inlastyear']) && $extra_info['Lwrans_answered_inlastyear'] > 0 && $extra_info['Lwrans_asked_inlastyear'] == 0)
-			$Lminister = true;
-		$displayed_stuff |= display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, $extra_info, $minister, $Lminister);
-
-		if (isset($extra_info['select_committees'])) {
-			print "<li>Is a member of <strong>$extra_info[select_committees]</strong> select committee";
-			if ($extra_info['select_committees'] > 1)
-				print "s";
-			if (isset($extra_info['select_committees_chair']))
-				print " ($extra_info[select_committees_chair] as chair)";
-			print '.</li>';
-		}
-
-		if (isset($extra_info['writetothem_responsiveness_notes'])) {
-		?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com">WriteToThem.com</a> in 2005: <?=$extra_info['writetothem_responsiveness_notes']?>.</li><?
-		} elseif (isset($extra_info['writetothem_responsiveness_mean_2005'])) {
-			$mean = $extra_info['writetothem_responsiveness_mean_2005'];
-			$extra_info['writetothem_responsiveness_mean_2005'] = $extra_info['writetothem_responsiveness_low_2005'] . ' &ndash; ' . $extra_info['writetothem_responsiveness_high_2005'];
-			$displayed_stuff |= display_stats_line('writetothem_responsiveness_mean_2005', 'Replied within 2 or 3 weeks to <a href="http://www.writetothem.com/stats/2005/mps" title="From WriteToThem.com">', '', '</a> (click for details) <!-- Mean: ' . $mean . ' --> of messages sent via WriteToThem.com during 2005', $extra_info);
-		}
-
-		if (isset($extra_info['public_whip_division_attendance']) && $extra_info['public_whip_division_attendance'] != 'n/a') {
-			$displayed_stuff = 1;
-			?>
-						<li>Has attended <strong><a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?=$member['member_id'] ?>&amp;showall=yes#divisions" title="See more details at Public Whip"><?php echo htmlentities($extra_info['public_whip_division_attendance']); ?> of votes</a></strong> in parliament
-<?php 
-			if (isset($extra_info['public_whip_attendrank'])) { 
-				?> &#8212; <?php
-				if (isset($extra_info['public_whip_attendrank_join']))
-					print 'joint ';
-				echo make_ranking($extra_info['public_whip_attendrank']); ?> out of <?php echo $extra_info['public_whip_attendrank_outof']; ?> <?=($member['house']=='House of Commons' ? 'MPs' : 'Lords') . '.';
-			} 
-			print ' <small>(From Public Whip)</small> ';
-			if ($member['party'] == 'Scottish National Party') {
-				print '<br /><em>Note SNP MPs do not vote on legislation not affecting Scotland.</em>';
-			}
-			print '</li>';
-		}
-
-		$displayed_stuff |= display_stats_line('comments_on_speeches', 'People have made <a href="/comments/recent/?pid='.$member['person_id'].'">', 'comment', "</a> on this MP's speeches", $extra_info);
-		
-		if (isset($extra_info['number_of_alerts'])) {
-			$displayed_stuff = 1;
-			?>
-		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking whenever this <?=($member['house']=='House of Commons'?'MP':'peer') ?> speaks<?php
-			if ($member['current_member']) {
-				print ' &mdash; <a href="/alert/?only=1&amp;pid='.$member['person_id'].'">email me whenever '. $member['full_name']. ' speaks</a>';
-			}
-			print '.</li>';
-		}
-
-		$displayed_stuff |= display_stats_line('three_word_alliterations', 'Has used a three-word alliterative phrase (e.g. "she sells seashells") ', 'time', ' in debates', $extra_info);
-		$displayed_stuff |= display_stats_line('ending_with_a_preposition', "Has ended a sentence with 'with' ", 'time', ' in debates', $extra_info);
-		#		$displayed_stuff |= display_stats_line('only_asked_why', "Has made a speech consisting solely of 'Why?' ", 'time', ' in debates', $extra_info);
-
-
-?>
-						</ul>
-						<p align="right"><a href="/help/#perfdata">Why are these last two here?</a></p>
-<?php
 		if (!$displayed_stuff) {
 			print '<p>No data to display yet.</p>';
 		}
@@ -1394,6 +1272,84 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 <?php
 		}
 		
+		$this->block_end();
+
+		?> <a name="numbers"></a> <?php
+		$this->block_start(array('id'=>'numbers', 'title'=>'Numerology'));
+		$displayed_stuff = 0;
+		?>
+		<p><em>Please note that MPs and peers may do other things not currently covered by this site &ndash; for example, we do not yet track speeches in committees.</em></p>
+<ul>
+<?php
+
+		$since_text = 'in the last year';
+		if ($member['entered_house'] > '2005-05-05')
+			$since_text = 'since joining Parliament';
+
+		$MOREURL = new URL('search');
+		if ($member['house']=='House of Commons') {
+			$section = 'debates';
+		} else {
+			$section = 'lordsdebates';
+		}
+		$MOREURL->insert(array('pid'=>$member['person_id'], 's'=>'section:'.$section, 'pop'=>1));
+		$displayed_stuff |= display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info);
+
+		$MOREURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
+		// We assume that if they've answered a question, they're a minister
+		$minister = false; $Lminister = false;
+		if (isset($extra_info['wrans_answered_inlastyear']) && $extra_info['wrans_answered_inlastyear'] > 0 && $extra_info['wrans_asked_inlastyear'] == 0)
+			$minister = true;
+		if (isset($extra_info['Lwrans_answered_inlastyear']) && $extra_info['Lwrans_answered_inlastyear'] > 0 && $extra_info['Lwrans_asked_inlastyear'] == 0)
+			$Lminister = true;
+		$displayed_stuff |= display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister);
+
+		if (isset($extra_info['select_committees'])) {
+			print "<li>Is a member of <strong>$extra_info[select_committees]</strong> select committee";
+			if ($extra_info['select_committees'] > 1)
+				print "s";
+			if (isset($extra_info['select_committees_chair']))
+				print " ($extra_info[select_committees_chair] as chair)";
+			print '.</li>';
+		}
+
+		if (isset($extra_info['writetothem_responsiveness_notes'])) {
+		?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com">WriteToThem.com</a> in 2005: <?=$extra_info['writetothem_responsiveness_notes']?>.</li><?
+		} elseif (isset($extra_info['writetothem_responsiveness_mean_2005'])) {
+			$mean = $extra_info['writetothem_responsiveness_mean_2005'];
+			$extra_info['writetothem_responsiveness_mean_2005'] = $extra_info['writetothem_responsiveness_low_2005'] . ' &ndash; ' . $extra_info['writetothem_responsiveness_high_2005'];
+			$displayed_stuff |= display_stats_line('writetothem_responsiveness_mean_2005', 'Replied within 2 or 3 weeks to <a href="http://www.writetothem.com/stats/2005/mps" title="From WriteToThem.com">', '', '</a> (click for details) <!-- Mean: ' . $mean . ' --> of messages sent via WriteToThem.com during 2005', '', $extra_info);
+		}
+
+		$after_stuff = ' <small>(From Public Whip)</small>';
+		if ($member['party'] == 'Scottish National Party') {
+			$after_stuff .= '<br /><em>Note SNP MPs do not vote on legislation not affecting Scotland.</em>';
+		}
+		$displayed_stuff |= display_stats_line('public_whip_division_attendance', 'Has attended <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> in parliament', $after_stuff, $extra_info);
+
+		$displayed_stuff |= display_stats_line('comments_on_speeches', 'People have made <a href="/comments/recent/?pid='.$member['person_id'].'">', 'comment', "</a> on this MP's speeches", '', $extra_info);
+		
+		if (isset($extra_info['number_of_alerts'])) {
+			$displayed_stuff = 1;
+			?>
+		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking whenever this <?=($member['house']=='House of Commons'?'MP':'peer') ?> speaks<?php
+			if ($member['current_member']) {
+				print ' &mdash; <a href="/alert/?only=1&amp;pid='.$member['person_id'].'">email me whenever '. $member['full_name']. ' speaks</a>';
+			}
+			print '.</li>';
+		}
+
+		$displayed_stuff |= display_stats_line('three_word_alliterations', 'Has used a three-word alliterative phrase (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="/help/#numbers">Why is this here?</a>)</small>', $extra_info);
+		#		$displayed_stuff |= display_stats_line('ending_with_a_preposition', "Has ended a sentence with 'with' ", 'time', ' in debates', '', $extra_info);
+		#		$displayed_stuff |= display_stats_line('only_asked_why', "Has made a speech consisting solely of 'Why?' ", 'time', ' in debates', '', $extra_info);
+
+
+?>
+						</ul>
+<?php
+		if (!$displayed_stuff) {
+			print '<p>No data to display yet.</p>';
+		}
 		$this->block_end();
 
 		if (isset($extra_info['register_member_interests_html'])) {
@@ -2807,5 +2763,54 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 
 
 $PAGE = new PAGE;
+
+function display_stats_line($category, $blurb, $type, $inwhat, $afterstuff, $extra_info, $minister = false, $Lminister = false) {
+	$return = false;
+	if (isset($extra_info[$category]))
+		$return = display_stats_line_house(1, $category, $blurb, $type, $inwhat, $extra_info, $minister, $afterstuff);
+	if (isset($extra_info["L$category"]))
+		$return = display_stats_line_house(2, "L$category", $blurb, $type, $inwhat, $extra_info, $Lminister, $afterstuff);
+	return $return;
+}
+function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $extra_info, $minister, $afterstuff) {
+	if ($extra_info[$category]==0) $blurb = preg_replace('#<a.*?>#', '', $blurb);
+	if ($house==2) $inwhat = str_replace('MP', 'Lord', $inwhat);
+	print '<li>' . $blurb;
+	print '<strong>' . $extra_info[$category];
+	if ($type) print ' ' . make_plural($type, $extra_info[$category]);
+	print '</strong>';
+	print $inwhat;
+	if ($minister)
+		print ' &#8212; Ministers do not ask written questions';
+	else {
+		if (isset($extra_info[$category . '_quintile'])) {
+			print ' &#8212; ';
+			$q = $extra_info[$category . '_quintile'];
+			if ($q == 0) {
+				print 'well above average';
+			} elseif ($q == 1) {
+				print 'above average';
+			} elseif ($q == 2) {
+				print 'average';
+			} elseif ($q == 3) {
+				print 'below average';
+			} elseif ($q == 4) {
+				print 'well below average';
+			} else {
+				print '[Impossible quintile!]';
+			}
+			print ' amongst ';
+			print ($house==1?'MP':'Lord') . 's';
+		} elseif (isset($extra_info[$category . '_rank'])) {
+			print ' &#8212; ';
+			#if (isset($extra_info[$category . '_rank_joint']))
+			#	print 'joint ';
+			print make_ranking($extra_info[$category . '_rank']) . ' out of ' . $extra_info[$category . '_rank_outof'];
+			print ' ' . ($house==1?'MP':'Lord') . 's';
+		}
+	}
+	print ".$afterstuff</li>";
+	return true;
+}
 
 ?>

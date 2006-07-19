@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.4 2006-07-07 17:58:16 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.5 2006-07-19 16:10:06 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -266,19 +266,11 @@ sub makerankings {
 
                 $tth = $dbh->prepare("select body from epobject,hansard where hansard.epobject_id = epobject.epobject_id and speaker_id=? and (major=1 or major=2)");
                 $tth->execute($mp_id);
-                $personinfohash->{$person_fullid}->{'ending_with_a_preposition'} = 0 if !$personinfohash->{$person_fullid}->{'ending_with_a_preposition'};
                 $personinfohash->{$person_fullid}->{'three_word_alliterations'} = 0 if !$personinfohash->{$person_fullid}->{'three_word_alliterations'};
-                $personinfohash->{$person_fullid}->{'only_asked_why'} = 0 if !$personinfohash->{$person_fullid}->{'only_asked_why'};
                 while (my @row = $tth->fetchrow_array()) {
                         my $body = $row[0];
                         if ($body =~ m/\b((\w)\w*\s+\2\w*\s+\2\w*)\b/) {
                                 $personinfohash->{$person_fullid}->{'three_word_alliterations'} += 1
-                        }
-                        if ($body =~ m/\s+with(\.|!|\?)/) {
-                                $personinfohash->{$person_fullid}->{'ending_with_a_preposition'} += 1;
-                        }
-                        if ($body =~ m/^<p[^>]*>Why\?<\/p>$/) {
-                                $personinfohash->{$person_fullid}->{'only_asked_why'} += 1;
                         }
                 }
                 $first_member{$person_id} = 1;
@@ -337,15 +329,11 @@ sub makerankings {
 
                 $tth = $dbh->prepare("select body from epobject,hansard where hansard.epobject_id = epobject.epobject_id and speaker_id=? and major=101");
                 $tth->execute($mp_id);
-                $personinfohash->{$person_fullid}->{'Lending_with_a_preposition'} = 0 if !$personinfohash->{$person_fullid}->{'Lending_with_a_preposition'};
                 $personinfohash->{$person_fullid}->{'Lthree_word_alliterations'} = 0 if !$personinfohash->{$person_fullid}->{'Lthree_word_alliterations'};
                 while (my @row = $tth->fetchrow_array()) {
                         my $body = $row[0];
                         if ($body =~ m/\b((\w)\w*\s+\2\w*\s+\2\w*)\b/) {
                                 $personinfohash->{$person_fullid}->{'Lthree_word_alliterations'} += 1
-                        }
-                        if ($body =~ m/\s+with(\.|!|\?)/) {
-                                $personinfohash->{$person_fullid}->{'Lending_with_a_preposition'} += 1;
                         }
                 }
         }
@@ -409,24 +397,31 @@ sub enrankify
                         $mpsvalue{$mp_id} = $value;
                 }
         }
+        my @quintile = ();
+        for (my $i=1; $i<=5; $i++) {
+                $quintile[$i-1] = (@mps+1) * $i / 5;
+        }
 
         # Sort, and calculate ranking for
         if ($backwards) {
                 @mps = sort { $mpsvalue{$a} <=> $mpsvalue{$b} } @mps;
-        } {
+        } else {
                 @mps = sort { $mpsvalue{$b} <=> $mpsvalue{$a} } @mps;
         }
         my %mpvaluerank;
         my $rank = 0;
         my $activerank = 0;
         my $prevvalue = -1;
+        my $quintile = 0;
         for my $mp (@mps)
         {
                 $rank++;
                 $activerank = $rank if ($mpsvalue{$mp} != $prevvalue);
+                $quintile++ if ($activerank>$quintile[$quintile]);
                 #print $field . " " . $mp . " value $activerank of " . $#mps . "\n";
                 $hash->{$mp}->{$field . "_rank"} = $activerank;
                 $hash->{$mp}->{$field . "_rank_outof"} = scalar @mps;
+                $hash->{$mp}->{$field . '_quintile'} = $quintile;
                 $prevvalue = $mpsvalue{$mp};
         }
 }

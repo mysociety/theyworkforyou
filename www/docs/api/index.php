@@ -162,7 +162,7 @@ function api_front_page($error = '') {
 		print "<p style='color: #cc0000'>$error</p>";
 	}
 ?>
-<p>Welcome to TheyWorkForYou's API section, where you can learn how to query our database for information. Non-commercial use is free, please contact us for commercial use.</p>
+<p>Welcome to TheyWorkForYou's API section, where you can learn how to query our database for information. Non-commercial use is free, please contact us for commercial use. <em>This API is currently being written!</em></p>
 
 <h3>Overview</h3>
 
@@ -201,6 +201,8 @@ function api_sidebar() {
 		$sidebar .= $method;
 		if (!isset($data['working']) || $data['working'])
 			$sidebar .= '</a>';
+		else
+			$sidebar .= ' - <em>not written yet</em>';
 		#		if ($data['required'])
 		#			$sidebar .= ' (parameter required)';
 		#		else

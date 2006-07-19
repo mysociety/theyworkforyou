@@ -456,6 +456,18 @@ class MEMBER {
             $this->extra_info['public_whip_rebel_description'] = $rebel_desc; 
         }
         
+	if (isset($this->extra_info['public_whip_attendrank'])) {
+		$prefix = ($this->house() == 2 ? 'L' : '');
+		$this->extra_info[$prefix.'public_whip_division_attendance_rank'] = $this->extra_info['public_whip_attendrank'];
+		$this->extra_info[$prefix.'public_whip_division_attendance_rank_outof'] = $this->extra_info['public_whip_attendrank_outof'];
+		$this->extra_info[$prefix.'public_whip_division_attendance_quintile'] = floor($this->extra_info['public_whip_attendrank'] / ($this->extra_info['public_whip_attendrank_outof']+1) * 5);
+	}
+	if ($this->house() == 2 && isset($this->extra_info['public_whip_division_attendance'])) {
+		$this->extra_info['Lpublic_whip_division_attendance'] = $this->extra_info['public_whip_division_attendance'];
+		unset($this->extra_info['public_whip_division_attendance']);
+	}
+	
+
         if (array_key_exists('register_member_interests_html', $this->extra_info) && ($this->extra_info['register_member_interests_html'] != ''))
         {
         	$args = array (

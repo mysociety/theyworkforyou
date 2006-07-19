@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.5 2006-07-15 15:10:22 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.6 2006-07-19 16:10:06 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -61,7 +61,7 @@ foreach ($alertdata as $alertitem) {
 	#if (strtolower($email) < 'XXX') continue;
 	$criteria = $alertitem['criteria'];
 
-	print "$active : Checking $criteria for $email\n";
+	print "$active : Checking $criteria for $email; current memory usage : ".memory_get_usage()."\n";
 
 	if ($email != $current_email) {
 		if ($email_text)

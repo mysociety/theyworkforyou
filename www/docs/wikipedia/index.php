@@ -44,14 +44,16 @@ h3 { margin-top: 1em; }
 <hr />
 
 <?
-$file = file_get_contents($ip);
+$file = file_get_contents("cache/$ip");
 preg_match_all('#<li>.*? \(<a[^>]*>hist</a>\) \(<a href=".*?title=(.*?)&.*?oldid=(.*?)"[^>]*>diff</a>\)  <a[^>]*>(.*?)</a>  .*?</li>#', $file, $m, PREG_SET_ORDER);
 foreach ($m as $row) {
 	$file = file_get_contents("cache/$row[1].$row[2]");
 	$file = str_replace(array("\xe2\x86\x90","\xe2\x86\x92"), array('&larr;', '&rarr;'), $file);
-	preg_match('#<table.*?</table>#s', $file, $m);
 	print "<h3>$row[3]</h3>";
-	print preg_replace('#href=(\'|")(.*?)\1#', 'href=\1http://en.wikipedia.org\2\1', $m[0]);
+	if (preg_match('#<table.*?</table>#s', $file, $m))
+		print preg_replace('#href=(\'|")(.*?)\1#', 'href=\1http://en.wikipedia.org\2\1', $m[0]);
+	elseif (preg_match('#<div class="firstrevisionheader.*?</div>#s', $file, $m))
+		print preg_replace('#href=(\'|")(.*?)\1#', 'href=\1http://en.wikipedia.org\2\1', $m[0]);
 }
 
 
