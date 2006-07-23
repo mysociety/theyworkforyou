@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.5 2006-07-19 16:10:06 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.6 2006-07-23 17:58:13 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -16,6 +16,7 @@ use XML::Twig;
 use DBI; 
 use File::Find;
 use HTML::Entities;
+use Data::Dumper;
 
 # Fat old hashes intotwixt all the XML is loaded and colated before being squirted to the DB
 my $memberinfohash;
@@ -198,7 +199,8 @@ sub makerankings {
         my $query = "select member_id,person_id,entered_house,left_house from member 
                 where person_id in ";
         my $sth = $dbh->prepare($query .
-                '(select person_id from member where house=1 AND curdate() <= left_house) order by member_id');
+                #"( 10001 )");
+                    '(select person_id from member where house=1 AND curdate() <= left_house) order by member_id');
         $sth->execute();
         if ($sth->rows == 0) {
                 $sth = $dbh->prepare($query .
@@ -264,6 +266,20 @@ sub makerankings {
                         $memberinfohash->{$fullid}->{"swing_to_lose_seat_today"} = $memberinfohash->{$fullid}->{"swing_to_lose_seat"};
                 }
 
+                $tth = $dbh->prepare("select count(*), body from hansard as h1 
+                                        left join hansard as h2 on h1.section_id = h2.epobject_id 
+                                        left join epobject on h2.epobject_id = epobject.epobject_id 
+                                        where h1.major = 3 and h1.minor = 
+                                        1 and h1.speaker_id = ? group by body");
+                $tth->execute($mp_id);
+                while (my @row = $tth->fetchrow_array()) {
+                        my $count = $row[0];
+                        my $dept = $row[1];
+                        $personinfohash->{$person_fullid}->{"wrans_departments"}->{$dept} = 0 if
+                                !defined($personinfohash->{$person_fullid}->{"wrans_departments"}->{$dept});
+                        $personinfohash->{$person_fullid}->{"wrans_departments"}->{$dept} += $count;
+                }
+ 
                 $tth = $dbh->prepare("select body from epobject,hansard where hansard.epobject_id = epobject.epobject_id and speaker_id=? and (major=1 or major=2)");
                 $tth->execute($mp_id);
                 $personinfohash->{$person_fullid}->{'three_word_alliterations'} = 0 if !$personinfohash->{$person_fullid}->{'three_word_alliterations'};
@@ -283,6 +299,17 @@ sub makerankings {
                 $tth->execute($person_id);
                 $selctees = ($tth->fetchrow_array())[0];
                 $personinfohash->{$person_fullid}->{'select_committees_chair'} = $selctees if $selctees;
+        }
+
+        # Consolidate wrans departments, to pick top 3
+        foreach (keys %$personinfohash) {
+                my $key = $_;
+                my $dept = $personinfohash->{$key}->{'wrans_departments'};
+                if (defined($dept)) {
+                        my @ordered = sort { $dept->{$b} <=> $dept->{$a} } keys %$dept;
+                        @ordered = @ordered[0..2] if (scalar(@ordered) > 3);
+                        $personinfohash->{$key}->{'wrans_departments'} = join(', ', @ordered);
+                }
         }
 
         # Loop through Lords

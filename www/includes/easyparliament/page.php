@@ -1066,6 +1066,11 @@ pr()//-->
 			} ?></li>
 <?php 
 		} 
+		if (isset($extra_info['wrans_departments'])) { 
+			?>
+						<li><strong>Favourite departments:</strong> 
+						<?php echo $extra_info['wrans_departments']; ?> <small>(based on written questions)</small> <?php
+		} 
 		
 					
 		if ($member['the_users_mp'] == true) {
@@ -1838,6 +1843,7 @@ if (!$wtt) { ?>
 		$plural = 'is';
 		if (strstr($qds, 'phrases') || strstr($qds, 'words') || preg_match('/word.*?phrase/', $qds)) $plural = 'are';
 		$qds .= " $plural mentioned in Parliament";
+		$qds = preg_replace('#^spoken by (.*?) is mentioned in#', 'something is said by $1 in', $qds);
 		$qds = preg_replace('#spoken by (.*?) is mentioned in#', 'is spoken by $1 in', $qds);
 	}
         $person_id = get_http_var('pid');
