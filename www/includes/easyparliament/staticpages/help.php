@@ -6,7 +6,7 @@
 <li><a href="#extreme">What's that weird 'extreme tracker' javascript I spy in your page source?</a></li>
 <li><a href="#rss">What is RSS?</a></li>
 <li><a href="#votingrecord">How is the voting record decided?</a></li>
-<li><a href="#numbers">Why do you count how often "she sells seashells"?</a></li>
+<li><a href="#numbers">Why should I read in more depth than just the numbers?</a></li>
 </ul>
 
 <br />
@@ -84,7 +84,7 @@ href="http://www.theyworkforyou.com/debate/?id=2005-02-07.1200.2">like the
 Speaker</a>, that all votes are free.  </P>
 </dd>
 
-<dt><a name="numbers"></a>Why do you count how often "she sells seashells"?</dt>
+<dt><a name="numbers"></a>Why should I read in more depth than just the numbers?</dt>
 
 <dd>
 <p>A few people have asked why we publish statistics on how often MPs use
@@ -111,7 +111,7 @@ And we've removed the absolute rankings. Instead of saying an MP is exactly
 <p>Our advice &mdash; when you're judging your MP, read some of their speeches,
 check out their website, even go to a local meeting and ask them a question.
 Use TheyWorkForYou as a gateway, rather than a simple place to find a number
-measuring competance.
+measuring competence.
 
 <p>If you have suggestions for other metrics we could add which would be
 useful, send them to the <a href="mailto:beta&#64;theyworkforyou.com">usual

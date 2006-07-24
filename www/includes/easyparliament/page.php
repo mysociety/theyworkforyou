@@ -1095,8 +1095,8 @@ pr()//-->
 						
 						<ul class="jumpers">
 						<li><a href="#votingrecord">Voting record</a></li>
+						<li><a href="#topics">Topics of interest</a></li>
 						<li><a href="#hansard">Recent appearances in Parliament</a></li>
-						<li><a href="#topics">Topics interested in</a></li>
 						<li><a href="#numbers">Numerology</a></li>
 <?php		if (isset($extra_info['register_member_interests_html'])) { ?>
 						<li><a href="#register">Register of Members' Interests</a></li>
@@ -1229,9 +1229,61 @@ pr()//-->
 			print '<p>No data to display yet.</p>';
 		}
 		$this->block_end();
-		?>
 
-		<a name="hansard"></a> <?
+?>	<a name="topics"></a>
+		<? $this->block_start(array('id'=>'topics', 'title'=>'Topics of interest')); 
+		$topics_block_empty = true;
+
+		// Select committee membership
+		if (array_key_exists('office', $extra_info)) {
+			$mins = array();
+			foreach ($extra_info['office'] as $row) {
+				if ($row['to_date'] == '9999-12-31' && $row['source'] == 'chgpages/selctee') {
+					$m = prettify_office($row['position'], $row['dept']);
+					if ($row['from_date']!='2004-05-28')
+						$m .= ' (since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')';
+					$mins[] = $m;
+				}
+			}
+			if ($mins) {
+				print "<p><strong>Select committee membership</strong></p>";
+				print "<ul>";
+				foreach ($mins as $min) {
+					print '<li>' . $min . '</li>';
+				}
+				print "</ul>";
+				$topics_block_empty = false;
+			}
+		}
+		$wrans_dept = false;
+		$wrans_dept_1 = null;
+		$wrans_dept_2 = null;
+		if (isset($extra_info['wrans_departments'])) { 
+				$wrans_dept = true;
+				$wrans_dept_1 = "<li><strong>Departments:</strong> ".$extra_info['wrans_departments']."</p>";
+		} 
+		if (isset($extra_info['wrans_subjects'])) { 
+				$wrans_dept = true;
+				$wrans_dept_2 = "<li><strong>Subjects:</strong> ".$extra_info['wrans_subjects']."</p>";
+		} 
+		
+		if ($wrans_dept) {
+			print "<p><strong>Asks most questions about</strong></p>";
+			print "<ul>";
+			if ($wrans_dept_2) print $wrans_dept_2;
+			if ($wrans_dept_1) print $wrans_dept_1;
+			print "</ul>";
+			$topics_block_empty = false;
+			$WRANSURL = new URL('search');
+			$WRANSURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
+		?>							<p><small>(based on <a href="<?=$WRANSURL->generate()?>">written questions asked by <?=$member['full_name']?></a> and answered by departments)</small></p><?
+		}
+		if ($topics_block_empty) {
+			print "<p><em>This MP is a not on any select committee and has had no written questions answered for which we know the department or subject.</em></p>";
+		}
+		$this->block_end();
+
+	?>		<a name="hansard"></a> <?
 		$this->block_start(array('id'=>'hansard', 'title'=>'Most recent appearances in parliament'));
 ?>
 <p><em>If this MP has contributed more than once to one debate, only one speech is shown.</em></p>
@@ -1273,64 +1325,14 @@ pr()//-->
 		
 		$this->block_end();
 
-	?>	
-		<a name="topics"></a>
-		<? $this->block_start(array('id'=>'topics', 'title'=>'Topics interested in')); 
-		$topics_block_empty = true;
-
-		// Select committee membership
-		if (array_key_exists('office', $extra_info)) {
-			$mins = array();
-			foreach ($extra_info['office'] as $row) {
-				if ($row['to_date'] == '9999-12-31' && $row['source'] == 'chgpages/selctee') {
-					$m = prettify_office($row['position'], $row['dept']);
-					if ($row['from_date']!='2004-05-28')
-						$m .= ' (since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')';
-					$mins[] = $m;
-				}
-			}
-			if ($mins) {
-				print "<p><strong>Select committee membership</strong></p>";
-				print "<ul>";
-				foreach ($mins as $min) {
-					print '<li>' . $min . '</li>';
-				}
-				print "</ul>";
-				$topics_block_empty = false;
-			}
-		}
-		$wrans_dept = false;
-		if (isset($extra_info['wrans_departments'])) { 
-				$wrans_dept = true;
-			?>
-						<p><strong>Departments most questioned</strong> </p>
-						<p><?php echo $extra_info['wrans_departments']; ?> </p>
-							<?php
-		} 
-		if (isset($extra_info['wrans_subjects'])) { 
-				$wrans_dept = true;
-			?>
-						<p><strong>Subjects most questioned</strong> </p>
-						<p><?php echo $extra_info['wrans_subjects']; ?> 
-						</p><?php
-		} 
-		
-		if ($wrans_dept) {
-			$topics_block_empty = false;
-			$WRANSURL = new URL('search');
-			$WRANSURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
-		?>							<p><small>(based on <a href="<?=$WRANSURL->generate()?>">written questions asked by <?=$member['full_name']?></a> and answered by departments)</small></p><?
-		}
-		if ($topics_block_empty) {
-			print "<p><em>This MP is a not on any select committee and has had no written questions answered for which we know the department or subject.</em></p>";
-		}
-		$this->block_end();
 
 		?> <a name="numbers"></a> <?php
 		$this->block_start(array('id'=>'numbers', 'title'=>'Numerology'));
 		$displayed_stuff = 0;
 		?>
-		<p><em>Please note that MPs and peers may do other things not currently covered by this site &ndash; for example, we do not yet track speeches in committees.</em></p>
+		<p><em>Please note that numbers do not measure quality. 
+		Also, MPs and peers may do other things not currently covered
+		by this site.</em> (<a href="/help/#numbers">More about this</a>)</p>
 <ul>
 <?php
 
