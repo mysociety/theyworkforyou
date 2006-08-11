@@ -24,7 +24,7 @@ $methods = array(
 		'help' => 'Returns list of constituencies',
 	),
 	'getMP' => array(
-		'parameters' => array('id', 'constituency', 'postcode', 'extra?'),
+		'parameters' => array('id', 'constituency', 'postcode', 'always_return', 'extra?'),
 		'required' => true,
 		'help' => 'Returns details for an MP'
 	),

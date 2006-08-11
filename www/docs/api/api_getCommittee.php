@@ -25,9 +25,13 @@ function api_getCommittee_name($name) {
 	$name = htmlspecialchars($name); # Names in the database have & as &amp;...
 	$name = preg_replace('#\s+Committee#', '', $name);
 
+	$date = parse_date(get_http_var('date'));
+	if ($date) $date = '"' . $date['iso'] . '"';
+	else $date = 'date(now())';
 	$q = $db->query("select distinct(dept) from moffice
 		where dept like '%" . mysql_escape_string($name) . "%Committee'
-		and from_date<=date(now()) and date(now())<=to_date");
+		and from_date <= " . $date . ' and '
+		. $date . ' <= to_date');
 	if ($q->rows() > 1) {
 		# More than one committee matches
 		for ($i=0; $i<$q->rows(); $i++) {
@@ -41,8 +45,8 @@ function api_getCommittee_name($name) {
 		$q = $db->query("select * from moffice,member
 			where moffice.person = member.person_id
 			and dept like '%" . mysql_escape_string($name) . "%Committee'
-			and from_date<=date(now()) and date(now())<=to_date
-			and entered_house<=date(now()) and date(now())<=left_house");
+			and from_date <= " . $date . ' and ' . $date . " <= to_date
+			and entered_house <= " . $date . ' and ' . $date . ' <= left_house');
 		if ($q->rows()) {
 			$output = array();
 			$output['twfy']['committee'] = html_entity_decode($q->field(0, 'dept'));

@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.6 2006-07-23 17:58:13 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.7 2006-08-11 20:55:55 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -266,9 +266,8 @@ sub makerankings {
                         $memberinfohash->{$fullid}->{"swing_to_lose_seat_today"} = $memberinfohash->{$fullid}->{"swing_to_lose_seat"};
                 }
 
-                $tth = $dbh->prepare("select count(*), body from hansard as h1 
-                                        left join hansard as h2 on h1.section_id = h2.epobject_id 
-                                        left join epobject on h2.epobject_id = epobject.epobject_id 
+                $tth = $dbh->prepare("select count(*) as c, body from hansard as h1 
+                                        left join epobject on h1.section_id = epobject.epobject_id 
                                         where h1.major = 3 and h1.minor = 
                                         1 and h1.speaker_id = ? group by body");
                 $tth->execute($mp_id);
@@ -278,6 +277,18 @@ sub makerankings {
                         $personinfohash->{$person_fullid}->{"wrans_departments"}->{$dept} = 0 if
                                 !defined($personinfohash->{$person_fullid}->{"wrans_departments"}->{$dept});
                         $personinfohash->{$person_fullid}->{"wrans_departments"}->{$dept} += $count;
+                }
+                $tth = $dbh->prepare("select count(*) as c, body from hansard as h1 
+                                        left join epobject on h1.subsection_id = epobject.epobject_id 
+                                        where h1.major = 3 and h1.minor = 
+                                        1 and h1.speaker_id = ? group by body");
+                $tth->execute($mp_id);
+                while (my @row = $tth->fetchrow_array()) {
+                        my $count = $row[0];
+                        my $subject = $row[1];
+                        $personinfohash->{$person_fullid}->{"wrans_subjects"}->{$subject} = 0 if
+                                !defined($personinfohash->{$person_fullid}->{"wrans_subjects"}->{$subject});
+                        $personinfohash->{$person_fullid}->{"wrans_subjects"}->{$subject} += $count;
                 }
  
                 $tth = $dbh->prepare("select body from epobject,hansard where hansard.epobject_id = epobject.epobject_id and speaker_id=? and (major=1 or major=2)");
@@ -301,14 +312,20 @@ sub makerankings {
                 $personinfohash->{$person_fullid}->{'select_committees_chair'} = $selctees if $selctees;
         }
 
-        # Consolidate wrans departments, to pick top 3
+        # Consolidate wrans departments and subjects, to pick top 5
         foreach (keys %$personinfohash) {
                 my $key = $_;
                 my $dept = $personinfohash->{$key}->{'wrans_departments'};
                 if (defined($dept)) {
                         my @ordered = sort { $dept->{$b} <=> $dept->{$a} } keys %$dept;
-                        @ordered = @ordered[0..2] if (scalar(@ordered) > 3);
+                        @ordered = @ordered[0..4] if (scalar(@ordered) > 5);
                         $personinfohash->{$key}->{'wrans_departments'} = join(', ', @ordered);
+                }
+                my $subj = $personinfohash->{$key}->{'wrans_subjects'};
+                if (defined($subj)) {
+                        my @ordered = sort { $subj->{$b} <=> $subj->{$a} } keys %$subj;
+                        @ordered = @ordered[0..4] if (scalar(@ordered) > 5);
+                        $personinfohash->{$key}->{'wrans_subjects'} = join(', ', @ordered);
                 }
         }
 

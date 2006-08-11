@@ -13,7 +13,7 @@ function api_getMP_front() {
 <dt>id (optional)</dt>
 <dd>If you know the person ID for the member you want (returned from getMPs or elsewhere), this will return data for that person.</dd>
 <dt>always_return (optional)</dt>
-<dd>Defaults to true. For the postcode and constituency options, sets whether to always try and return an MP, even if the seat is currently vacant.</dd>
+<dd>For the postcode and constituency options, sets whether to always try and return an MP, even if the seat is currently vacant.</dd>
 </dl>
 
 <h4>Example Response</h4>
@@ -93,11 +93,13 @@ function _api_getMP_constituency($constituency) {
 	if ($q->rows > 0)
 		return array_map('html_entity_decode', $q->row(0));
 
-	$q = $db->query("SELECT * FROM member
-		WHERE house=1 AND constituency = '".mysql_escape_string($constituency)."'
-		ORDER BY left_house DESC LIMIT 1");
-	if ($q->rows > 0)
-		return array_map('html_entity_decode', $q->row(0));
+	if (get_http_var('always_return')) {
+		$q = $db->query("SELECT * FROM member
+			WHERE house=1 AND constituency = '".mysql_escape_string($constituency)."'
+			ORDER BY left_house DESC LIMIT 1");
+		if ($q->rows > 0)
+			return array_map('html_entity_decode', $q->row(0));
+	}
 	
 	return false;
 }

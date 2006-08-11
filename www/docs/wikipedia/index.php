@@ -3,7 +3,10 @@
 include_once '../../includes/easyparliament/init.php';
 $site = array(
 	'194.60.38.10' => 'Parliament',
-	'194.203.158.97' => 'Conservative Central Headquarters',
+	'194.203.158.97' => 'Conservatives Central Headquarters',
+	'217.207.36.186' => 'Plaid Cyrmu',
+	'195.224.195.66' => 'Labour Party',
+	'212.35.252.2' => 'Liberal Democrats',
 );
 $ip = get_http_var('ip');
 if (!array_key_exists($ip, $site))

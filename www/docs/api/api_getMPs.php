@@ -1,5 +1,7 @@
 <?
 
+include_once 'api_getMembers.php';
+
 function api_getMPs_front() {
 ?>
 <p><big>Fetch a list of MPs.</big></p>
@@ -17,7 +19,7 @@ function api_getMPs_front() {
 <?	
 }
 
-/* See api_functions.php for these shared functions */
+/* See api_getMembers.php for these shared functions */
 function api_getMPs_party($s) {
 	api_getMembers_party(1, $s);
 }

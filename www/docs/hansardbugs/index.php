@@ -88,8 +88,8 @@ headings - this wasn't perfect, but was better than now.
 <dt>Ministerial Statement tables - <strong>still a problem</strong></dt>
 <dd>Compare <a href="http://ukparse.kforge.net/parldata/cmpages/wms/ministerial2006-05-08a.html">old style</a> with <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060508/wmstext/60508m01.htm">new style</a> - the table has gone.
 
-<dt>Volume 428 - <strong>still broken, TSO say it will be fixed this week!</strong></dt>
-<dd>Lots went wrong when volume 428 was uploaded, replacing the Daily Editions for dates at the end of 2004 with Bound Volume editions. All the Oral Questions
+<dt>Volume 428 - <strong>fixed 20th July!</strong></dt>
+<dd>Lots went wrong when volume 428 was uploaded in January 2006, replacing the Daily Editions for dates at the end of 2004 with Bound Volume editions. All the Oral Questions
 have disappeared from the 8th, 9th and 13th December 2004. On the 15th
 December, the Oral Answers have gone and the debates remaining are actually
 those from the 14th December, even though the date says the 15th. The 16th

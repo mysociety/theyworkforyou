@@ -339,9 +339,12 @@ class MEMBER {
 			return $person_ids;
 		} elseif ($q->rows > 0) {
 			return $q->field(0, 'person_id');
-		} else {
+		} elseif ($const) {
 			$this->canonical = false;
 			return $this->name_to_person_id($name);
+		} else {
+			$PAGE->error_message("Sorry, there is no current member with that name.");
+			return false;
 		}
 	}
 

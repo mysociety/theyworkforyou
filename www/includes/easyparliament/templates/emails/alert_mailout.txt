@@ -1,4 +1,7 @@
 Subject: Your TheyWorkForYou email alert
+[ Parliament has entered its Summer Recess. This email alert
+  is for the Written Answers that have appeared for the final
+  Tuesday, and another set from the final Monday. ]
 
 {DATA}
 

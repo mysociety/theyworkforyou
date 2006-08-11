@@ -1,8 +1,12 @@
+#!/usr/local/bin/php -q
 <?
 
-$dir = '../www/docs/wikipedia/cache/';
-contributions('194.60.38.10');
-contributions('194.203.158.97');
+$dir = '/data/vhost/www.theyworkforyou.com/docs/wikipedia/cache/';
+contributions('194.60.38.10'); # Parliament
+contributions('194.203.158.97'); # Conservative
+contributions('217.207.36.186'); # PC
+contributions('195.224.195.66'); # Labour
+contributions('212.35.252.2'); # LibDem
 
 function contributions($ip) {
 	global $dir;
@@ -13,16 +17,28 @@ function contributions($ip) {
 	fclose($fp);
 	preg_match_all('#<li>(.*?) \(<a[^>]*>hist</a>\) \(<a href="(.*?title=(.*?)&.*?oldid=(.*?))"[^>]*>diff</a>\)  <a[^>]*>(.*?)</a>  .*?</li>#', $file['body'], $m, PREG_SET_ORDER);
 	foreach ($m as $row) {
-		print "$row[3] / $row[4]";
-		$cache = $dir . html_entity_decode("$row[3].$row[4]");
+		# print "$row[3] / $row[4]";
+		$filename = html_entity_decode("$row[3].$row[4]");
+		$path = $dir;
+		if (strstr($filename, '/')) {
+			$bits = explode('/', $filename);
+			array_pop($bits);
+			foreach ($bits as $bit) {
+				@mkdir($path . $bit);
+				$path .= "$bit/";
+			}
+		}
+		$cache = $dir . $filename;
 		if (!is_file($cache)) {
-			print " - fetching";
+			# print " - fetching";
 			$file = fetch(html_entity_decode($row[2]));
 			$fp = fopen($cache, 'w');
-			fwrite($fp, $file['body']);
-			fclose($fp);
+			if ($fp) {
+				fwrite($fp, $file['body']);
+				fclose($fp);
+			}
 		}
-		print "\n";
+		# print "\n";
 	}
 }
 

@@ -137,7 +137,7 @@ class PEOPLE {
 				$data[$p_id] = $narray;
 			}
 		}
-		if ($args['house'] == 2)
+		if ($args['house'] == 2 && $order != 'party')
 			uasort($data, array($this, 'by_peer_name'));
 		
 		$data = array (

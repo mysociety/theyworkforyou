@@ -295,10 +295,11 @@ class SEARCHENGINE {
                     ; // no collapse key
                 else 
                     $PAGE->error_message("Unknown group by '$items[1]' ignored");
-            }
-            if ($items[0] == 'bias') {
+            } elseif ($items[0] == 'bias') {
                 list($weight, $halflife) = explode(":", $items[1]);
                 enquire_set_bias($this->enquire, $weight, intval($halflife));
+            } elseif ($items[0] == 'speaker') {
+                $collapsed = true;
             }
         }
         // default to grouping by subdebate, i.e. by page

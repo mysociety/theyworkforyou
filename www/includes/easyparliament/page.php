@@ -1095,7 +1095,9 @@ pr()//-->
 						
 						<ul class="jumpers">
 						<li><a href="#votingrecord">Voting record</a></li>
+<?		if ($member['house'] == 'House of Commons') { ?>
 						<li><a href="#topics">Topics of interest</a></li>
+<?		} ?>
 						<li><a href="#hansard">Recent appearances in Parliament</a></li>
 						<li><a href="#numbers">Numerology</a></li>
 <?php		if (isset($extra_info['register_member_interests_html'])) { ?>
@@ -1230,6 +1232,9 @@ pr()//-->
 		}
 		$this->block_end();
 
+		# Topics of interest only for MPs at the moment
+		if ($member['house'] == 'House of Commons') {
+
 ?>	<a name="topics"></a>
 		<? $this->block_start(array('id'=>'topics', 'title'=>'Topics of interest')); 
 		$topics_block_empty = true;
@@ -1279,14 +1284,16 @@ pr()//-->
 		?>							<p><small>(based on <a href="<?=$WRANSURL->generate()?>">written questions asked by <?=$member['full_name']?></a> and answered by departments)</small></p><?
 		}
 		if ($topics_block_empty) {
-			print "<p><em>This MP is a not on any select committee and has had no written questions answered for which we know the department or subject.</em></p>";
+			print "<p><em>This MP is not on any select committee and has had no written questions answered for which we know the department or subject.</em></p>";
 		}
 		$this->block_end();
+
+		}
 
 	?>		<a name="hansard"></a> <?
 		$this->block_start(array('id'=>'hansard', 'title'=>'Most recent appearances in parliament'));
 ?>
-<p><em>If this MP has contributed more than once to one debate, only one speech is shown.</em></p>
+<p><em>If this MP or Lord has contributed more than once to one debate, only one speech is shown.</em></p>
 <?php
 		// This is really far from ideal - I don't really want $PAGE to know
 		// anything about HANSARDLIST / DEBATELIST / WRANSLIST.
@@ -1331,7 +1338,7 @@ pr()//-->
 		$displayed_stuff = 0;
 		?>
 		<p><em>Please note that numbers do not measure quality. 
-		Also, MPs and peers may do other things not currently covered
+		Also, MPs and Lords may do other things not currently covered
 		by this site.</em> (<a href="/help/#numbers">More about this</a>)</p>
 <ul>
 <?php

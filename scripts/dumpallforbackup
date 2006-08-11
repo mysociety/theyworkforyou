@@ -15,8 +15,8 @@ rm firsts/dummy-01.sql.bz2
 #echo firsts
 #ls -1 firsts
 
-# Delete all except 35
-ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | fgrep -v "`ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | sort -n | tail -n 35`" | while read X
+# Delete all except 31
+ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | fgrep -v "`ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | sort -n | tail -n 31`" | while read X
 do
 	#echo "Deleting old backup $X"
 	rm $X

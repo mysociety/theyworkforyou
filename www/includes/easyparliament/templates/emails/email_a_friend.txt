@@ -1,5 +1,4 @@
 Subject: Find out all about {REP_NAME}
-
 Hello,
 
 {NAME} ({EMAIL})
