@@ -33,6 +33,12 @@ $methods = array(
 		'required' => false,
 		'help' => 'Returns list of MPs',
 	),
+	'getBoundary' => array(
+		'parameters' => array('id', 'constituency', 'postcode'),
+		'working' => false,
+		'required' => true,
+		'help' => 'Returns boundary details for a constituency'
+	),
 	'getCommittee' => array(
 		'parameters' => array('name', 'date'),
 		'required' => true,
@@ -50,20 +56,20 @@ $methods = array(
 		'help' => 'Returns list of Lords',
 	),
 	'getDebates' => array(
-		'parameters' => array('type', 'date', 'search'),
-		'working' => false,
+		'parameters' => array('type', 'date', 'search', 'person'),
+		'working' => true,
 		'required' => true,
 		'help' => 'Returns Debates (either Commons, Westminhall Hall, or Lords)',
 	),
 	'getWrans' => array(
-		'parameters' => array('date', 'department?', 'search'),
-		'working' => false,
+		'parameters' => array('date', 'department', 'search', 'person'),
+		'working' => true,
 		'required' => true,
 		'help' => 'Returns Written Answers',
 	),
 	'getWMS' => array(
-		'parameters' => array('date', 'department?', 'search'),
-		'working' => false,
+		'parameters' => array('date', 'department', 'search', 'person'),
+		'working' => true,
 		'required' => true,
 		'help' => 'Returns Written Ministerial Statements',
 	),
@@ -78,6 +84,12 @@ $methods = array(
 		'working' => false,
 		'required' => true,
 		'help' => 'Returns comments'
+	),
+	'postComment' => array(
+		'parameters' => array('user_id', 'gid?'),
+		'working' => false,
+		'required' => true,
+		'help' => 'Posts a comment - needs authentication!'
 	),
 );
 

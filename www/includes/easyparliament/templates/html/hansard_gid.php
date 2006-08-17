@@ -426,7 +426,7 @@ function generate_commentteaser (&$row, $major) {
 				}
 			}
 		
-			$html = '<em>' . htmlentities($comment['username']) . '</em>: ' . $commentbody;
+			$html = '<em>' . htmlentities($comment['username']) . '</em>: ' . prepare_comment_for_display($commentbody);
 			
 			if (isset($linktext)) {
 				$html .= ' <a href="' . $row['commentsurl'] . '#c' . $comment['comment_id'] . '" title="See any comments posted about this">' . $linktext . '</a>';

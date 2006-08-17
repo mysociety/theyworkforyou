@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.8 2006-08-11 20:55:55 twfy-live Exp $
+# $Id: xml2db.pl,v 1.9 2006-08-17 18:30:00 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -404,9 +404,9 @@ sub db_connect
 
         # epobject queries
         $epadd = $dbh->prepare("insert into epobject (title, body, type, created, modified)
-                values (?, ?, ?, NOW(), NOW())");
+                values ('', ?, 1, NOW(), NOW())");
         $epcheck = $dbh->prepare("select title, body, type from epobject where epobject_id = ?");
-        $epupdate = $dbh->prepare("update epobject set title = ?, body = ?, type = ?, modified = NOW() where epobject_id = ?");
+        $epupdate = $dbh->prepare("update epobject set body = ?, modified = NOW() where epobject_id = ?");
 
         # hansard object queries
         $hadd = $dbh->prepare("insert into hansard (epobject_id, gid, htype, speaker_id, major, minor, section_id, subsection_id, hpos, hdate, htime, source_url, created, modified)
@@ -1357,7 +1357,7 @@ sub do_load_speech
 		$speaker = 0;
 	}
 
-	my @epparam = ("", $pretext . $text, 1);
+	my @epparam = ($pretext . $text);
 	my @hparam = ($id, $type, $speaker, $major, $minor, $currsection, $currsubsection, $hpos, $curdate, $htime, $url);
 	my $epid = db_addpair(\@epparam, \@hparam);
 }
@@ -1386,7 +1386,7 @@ sub do_load_heading
 	my $type = 10;
 	my $speaker = 0;
        
-	my @epparam = ("", fix_case($text), 1);
+	my @epparam = (fix_case($text));
 	my @hparam = ($speech->att('id'), $type, $speaker, $major, $minor, 0, 0, $hpos, $curdate, $htime, $url);
 	my $epid = db_addpair(\@epparam, \@hparam);
 
@@ -1436,7 +1436,7 @@ sub do_load_subheading
 	my $type = 11;
 	my $speaker = 0;
 
-        my @epparam = ("", fix_case($text), 1);
+        my @epparam = (fix_case($text));
         my @hparam = ($speech->att('id'), $type, $speaker, $major, $minor, $currsection, 0, $hpos, $curdate, $htime, $url);
 	my $epid = db_addpair(\@epparam, \@hparam);
 

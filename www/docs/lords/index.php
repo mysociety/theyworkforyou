@@ -129,7 +129,7 @@ if (get_http_var("d") != "") {
 		$PAGE->stripe_start('side', 'addcomment');
 		$commendata = array(
 			'epobject_id' => $LORDSDEBATELIST->epobject_id(),
-			'gid' => get_http_var('id'),
+			'gid' => get_http_var('gid'),
 			'return_page' => $this_page
 		);
 		$PAGE->comment_form($commendata);

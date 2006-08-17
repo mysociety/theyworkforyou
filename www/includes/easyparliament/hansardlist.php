@@ -1597,7 +1597,7 @@ class HANSARDLIST {
 		if ((isset($amount['body']) && $amount['body'] == true) || 
 			(isset($amount['comment']) && $amount['comment'] == true)
 			) {
-			$fieldsarr['epobject'] = array ('title', 'body');
+			$fieldsarr['epobject'] = array ('body');
 			$join = 'LEFT OUTER JOIN epobject ON hansard.epobject_id = epobject.epobject_id';
 		} else {
 			$join = '';
