@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.9 2006-08-17 18:30:00 twfy-live Exp $
+# $Id: xml2db.pl,v 1.10 2006-08-18 08:22:38 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -405,7 +405,7 @@ sub db_connect
         # epobject queries
         $epadd = $dbh->prepare("insert into epobject (title, body, type, created, modified)
                 values ('', ?, 1, NOW(), NOW())");
-        $epcheck = $dbh->prepare("select title, body, type from epobject where epobject_id = ?");
+        $epcheck = $dbh->prepare("select body from epobject where epobject_id = ?");
         $epupdate = $dbh->prepare("update epobject set body = ?, modified = NOW() where epobject_id = ?");
 
         # hansard object queries
