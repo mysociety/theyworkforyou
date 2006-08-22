@@ -477,7 +477,7 @@ function find_members ($args) {
 		return false;
 	}
 
-	$searchwords = explode(' ', $searchstring);
+	$searchwords = explode(' ', preg_replace('#[^a-z ]#i', '', $searchstring));
     foreach ($searchwords as $i=>$searchword) {
         $searchwords[$i] = mysql_real_escape_string(htmlentities($searchword));
         if (!strcasecmp($searchword,'Opik'))
