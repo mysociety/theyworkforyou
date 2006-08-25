@@ -62,16 +62,16 @@ function api_output_js($v, $level=0) {
 	if (is_array($v)) {
 		# PHP arrays are both JS arrays and objects
 		if (count($v) && array_keys($v) === range(0, count($v)-1))
-			return '[' . join(',' , array_map('api_output_js', $v)) . ']';
+			return '[' . join(",$verbose" , array_map('api_output_js', $v)) . ']';
 		$out = '{' . $verbose;
 		$b = false;
 		foreach ($v as $k => $vv) {
 			if ($b) $out .= ",$verbose";
 			if ($verbose) {
 				$out .= str_repeat(' ', ($level+1)*2);
-				$out .= $k . ' : ';
+				$out .= '"' . $k . '" : ';
 			} else {
-				$out .= $k . ':';
+				$out .= '"' . $k . '":';
 			}
 			$out .= api_output_js($vv, $level+1);
 			$b = true;

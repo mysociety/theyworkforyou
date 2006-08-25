@@ -19,6 +19,34 @@ EOT
 , "2006-04-09 10:01:00"),
 */
 
+39 => array('New features over the last couple of months', <<<EOT
+Just a brief round-up of what we've added since our last piece of news.
+
+We've added MPs' membership of select committees, taken from
+<a href="http://www.parliament.uk/directories/hciolists/selmem.cfm">this
+official list</a>, including membership history where we can work it out.
+
+Our rankings for various numbers have been removed, to be replaced by
+woolly text &ndash; we have <a href="http://www.theyworkforyou.com/help/#numbers">more
+information on this</a>. To make up for it, we've done a bit more text
+analysis, and added which departments and subjects an MP asks most
+written questions about, so you can see that
+<a href="http://www.theyworkforyou.com/mp/alan_williams/swansea_west">Alan Williams</a>
+has asked more questions about Royal Residences than anything else, or that
+<a href="http://www.theyworkforyou.com/mp/anne_main/st_albans">Anne Main</a> has asked
+more questions on Flag Flying.
+
+Firefox users can download a
+<a href="http://mycroft.mozdev.org/download.html?name=theyworkforyou">search plugin</a>,
+to enable easy searching of the site from Firefox's search bar.
+
+And a few bugfixes - our handling of when Oral Answers finish should be a bit better than previously, 
+and when searching a particular person's speeches, we no longer group the results by debate, which
+was confusing, as you obviously expected to see all the speeches for that person that matched your
+search terms.
+EOT
+, "2006-08-18 09:46:36"),
+
 38 => array("Got an idea for a useful website?", <<<EOT
 mySociety is running a call for proposals until 16th June. If you can
 come up with an idea for a useful site like this one, and it beats all

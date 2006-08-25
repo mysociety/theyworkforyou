@@ -272,10 +272,10 @@ if (isset ($data['rows'])) {
 		
 
 		// TRACKBACK AUTO DISCOVERY 
-		if (isset($row['trackback']) && count($row['trackback']) > 0) {
+/*		if (isset($row['trackback']) && count($row['trackback']) > 0) {
 
 			$PAGE->trackback_rss($row['trackback']);
-		}
+		} */
 		ob_flush(); //flush the output buffer		
 	
 	} // End cycling through rows.

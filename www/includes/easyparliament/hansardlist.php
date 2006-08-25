@@ -2106,7 +2106,7 @@ class HANSARDLIST {
 	}
 	
 	
-	
+/*	
 	function _get_trackback_data ($itemdata) {
 		// Returns a array of data we need to create the Trackback Auto-discovery
 		// RDF on a page.
@@ -2151,7 +2151,7 @@ class HANSARDLIST {
 		return $trackback;
 	
 	}
-
+*/
 
 	function _get_data_by_gid ($args) {
 	
@@ -2290,7 +2290,7 @@ class HANSARDLIST {
 				// This item is a section, so we're displaying all the items within 
 				// it that aren't within a subsection.
 				
-				$sectionrow['trackback'] = $this->_get_trackback_data($sectionrow);
+				# $sectionrow['trackback'] = $this->_get_trackback_data($sectionrow);
 
 				$input = array (
 				 	'amount' => $amount,
@@ -2325,7 +2325,7 @@ class HANSARDLIST {
 			} elseif ($itemdata['htype'] == '11') {
 				// This item is a subsection, so we're displaying everything within it.
 				
-				$subsectionrow['trackback'] = $this->_get_trackback_data($subsectionrow);
+				# $subsectionrow['trackback'] = $this->_get_trackback_data($subsectionrow);
 				
 				$input = array (
 					'amount' => $amount,
@@ -2341,7 +2341,7 @@ class HANSARDLIST {
 			} elseif ($itemdata['htype'] == '12' || $itemdata['htype'] == '13') {
 				// Debate speech or procedural, so we're just displaying this one item.
 				
-				$itemdata['trackback'] = $this->_get_trackback_data($itemdata);
+				# $itemdata['trackback'] = $this->_get_trackback_data($itemdata);
 
 				$data['rows'][] = $itemdata;	
 							

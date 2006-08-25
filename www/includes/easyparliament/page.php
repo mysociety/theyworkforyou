@@ -1379,7 +1379,7 @@ pr()//-->
 		} elseif (isset($extra_info['writetothem_responsiveness_mean_2005'])) {
 			$mean = $extra_info['writetothem_responsiveness_mean_2005'];
 			$extra_info['writetothem_responsiveness_mean_2005'] = $extra_info['writetothem_responsiveness_low_2005'] . ' &ndash; ' . $extra_info['writetothem_responsiveness_high_2005'];
-			$displayed_stuff |= display_stats_line('writetothem_responsiveness_mean_2005', 'Replied within 2 or 3 weeks to <a href="http://www.writetothem.com/stats/2005/mps" title="From WriteToThem.com">', '', '</a> (click for details) <!-- Mean: ' . $mean . ' --> of messages sent via WriteToThem.com during 2005', '', $extra_info);
+			$displayed_stuff |= display_stats_line('writetothem_responsiveness_mean_2005', 'Replied within 2 or 3 weeks to <a href="http://www.writetothem.com/stats/2005/mps" title="From WriteToThem.com">', '', '</a> <!-- Mean: ' . $mean . ' --> of messages sent via WriteToThem.com during 2005, according to polling data', '', $extra_info);
 		}
 
 		$after_stuff = ' <small>(From Public Whip)</small>';

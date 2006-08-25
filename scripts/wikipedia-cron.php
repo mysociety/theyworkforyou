@@ -12,6 +12,7 @@ function contributions($ip) {
 	global $dir;
 
 	$file = fetch("/w/index.php?title=Special:Contributions&limit=100&target=$ip");
+	if (!$file) continue;
 	$fp = fopen($dir . $ip, 'w');
 	fwrite($fp, $file['body']);
 	fclose($fp);
@@ -32,6 +33,7 @@ function contributions($ip) {
 		if (!is_file($cache)) {
 			# print " - fetching";
 			$file = fetch(html_entity_decode($row[2]));
+			if (!$file) continue;
 			$fp = fopen($cache, 'w');
 			if ($fp) {
 				fwrite($fp, $file['body']);
@@ -45,9 +47,9 @@ function contributions($ip) {
 function fetch($url) {
     $ua = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.4) Gecko/20060508 Firefox/1.5.0.4';
     $host = 'en.wikipedia.org';
-    $fp = fsockopen($host, 80, $errno, $errstr, 10);
+    $fp = @fsockopen($host, 80, $errno, $errstr, 10);
     if (!$fp) {
-            print "$errstr ($errno)\n";
+	    #print "$errstr ($errno)\n";
             return '';
         }
     $out = "GET $url HTTP/1.1\r\n";

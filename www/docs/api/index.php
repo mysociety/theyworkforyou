@@ -56,25 +56,25 @@ $methods = array(
 		'help' => 'Returns list of Lords',
 	),
 	'getDebates' => array(
-		'parameters' => array('type', 'date', 'search', 'person'),
+		'parameters' => array('type', 'date', 'search', 'person', 'gid', 'year'),
 		'working' => true,
 		'required' => true,
 		'help' => 'Returns Debates (either Commons, Westminhall Hall, or Lords)',
 	),
 	'getWrans' => array(
-		'parameters' => array('date', 'department', 'search', 'person'),
+		'parameters' => array('date', 'department', 'search', 'person', 'gid', 'year'),
 		'working' => true,
 		'required' => true,
 		'help' => 'Returns Written Answers',
 	),
 	'getWMS' => array(
-		'parameters' => array('date', 'department', 'search', 'person'),
+		'parameters' => array('date', 'department', 'search', 'person', 'gid', 'year'),
 		'working' => true,
 		'required' => true,
 		'help' => 'Returns Written Ministerial Statements',
 	),
 	'getHansard' => array(
-		'parameters' => array('date', 'search', 'id'),
+		'parameters' => array('date', 'search'),
 		'working' => false,
 		'required' => true,
 		'help' => 'Returns anything?'
