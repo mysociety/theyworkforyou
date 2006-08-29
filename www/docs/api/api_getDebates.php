@@ -19,6 +19,12 @@ function api_getDebates_front() {
 <dd>Fetch the debates by a particular person ID.</dd>
 <dt>gid</dt>
 <dd>Fetch the speech or debate that matches this GID.</dd>
+<dt>order (optional, when using search or person)</dt>
+<dd><kbd>d</kbd> for date ordering, <kbd>r</kbd> for relevance ordering.</dd>
+<dt>page (optional, when using search or person)</dt>
+<dd>Page of results to return.</dd>
+<dt>num (optional, when using search or person)</dt>
+<dd>Number of results to return.</dd>
 </dl>
 
 <h4>Example Response</h4>
@@ -29,20 +35,27 @@ function api_getDebates_front() {
 function api_getDebates_type($t) {
 	if ($t == 'commons') {
 		$list = 'DEBATE';
+		$type = 'debates';
 	} elseif ($t == 'lords') {
 		$list = 'LORDSDEBATE';
+		$type = 'lords';
 	} elseif ($t == 'westminsterhall') {
 		$list = 'WHALL';
+		$type = 'whall';
 	} else {
 		api_error('Unknown type');
 		return;
 	}
 	if ($d = get_http_var('date')) {
 		_api_getHansard_date($list, $d);
-	} elseif ($s = get_http_var('search')) {
-		_api_getHansard_search($list, $s);
-	} elseif ($pid = get_http_var('person')) {
-		_api_getHansard_person($list, $pid);
+	} elseif (get_http_var('search') || get_http_var('person')) {
+		$s = get_http_var('search');
+		$pid = get_http_var('person');
+		_api_getHansard_search(array(
+			's' => $s,
+			'pid' => $pid,
+			'type' => $type,
+		));
 	} elseif ($gid = get_http_var('gid')) {
 		_api_getHansard_gid($list, $gid);
 	} elseif ($y = get_http_var('year')) {

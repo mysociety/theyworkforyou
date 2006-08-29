@@ -14,6 +14,7 @@ $methods = array(
 		'help' => 'Converts a parliament.uk Hansard URL into a TheyWorkForYou one, if possible',
 	),
 	'getConstituency' => array(
+		'new' => true,
 		'parameters' => array('postcode'),
 		'required' => true,
 		'help' => 'Searches for a constituency',
@@ -24,6 +25,7 @@ $methods = array(
 		'help' => 'Returns list of constituencies',
 	),
 	'getMP' => array(
+		'new' => true,
 		'parameters' => array('id', 'constituency', 'postcode', 'always_return', 'extra?'),
 		'required' => true,
 		'help' => 'Returns details for an MP'
@@ -32,17 +34,6 @@ $methods = array(
 		'parameters' => array('party', 'date', 'search'),
 		'required' => false,
 		'help' => 'Returns list of MPs',
-	),
-	'getBoundary' => array(
-		'parameters' => array('id', 'constituency', 'postcode'),
-		'working' => false,
-		'required' => true,
-		'help' => 'Returns boundary details for a constituency'
-	),
-	'getCommittee' => array(
-		'parameters' => array('name', 'date'),
-		'required' => true,
-		'help' => 'Returns members of Select Committee',
 	),
 	'getLord' => array(
 		'parameters' => array('id', 'search'),
@@ -55,31 +46,45 @@ $methods = array(
 		'required' => false,
 		'help' => 'Returns list of Lords',
 	),
+	'getCentroids' => array(
+		'new' => true,
+		'parameters' => array(),
+		'required' => false,
+		'help' => 'Returns centroids of all constituencies'
+	),
+	'getBoundary' => array(
+		'parameters' => array('id', 'constituency', 'postcode'),
+		'working' => false,
+		'required' => true,
+		'help' => 'Returns boundary details for a constituency'
+	),
+	'getCommittee' => array(
+		'new' => true,
+		'parameters' => array('name', 'date'),
+		'required' => true,
+		'help' => 'Returns members of Select Committee',
+	),
 	'getDebates' => array(
-		'parameters' => array('type', 'date', 'search', 'person', 'gid', 'year'),
+		'new' => true,
+		'parameters' => array('type', 'date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
 		'working' => true,
 		'required' => true,
 		'help' => 'Returns Debates (either Commons, Westminhall Hall, or Lords)',
 	),
 	'getWrans' => array(
-		'parameters' => array('date', 'department', 'search', 'person', 'gid', 'year'),
+		'parameters' => array('date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
 		'working' => true,
 		'required' => true,
 		'help' => 'Returns Written Answers',
 	),
 	'getWMS' => array(
-		'parameters' => array('date', 'department', 'search', 'person', 'gid', 'year'),
+		'parameters' => array('date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
 		'working' => true,
 		'required' => true,
 		'help' => 'Returns Written Ministerial Statements',
 	),
-	'getHansard' => array(
-		'parameters' => array('date', 'search'),
-		'working' => false,
-		'required' => true,
-		'help' => 'Returns anything?'
-	),
 	'getComments' => array(
+		'new' => true,
 		'parameters' => array('user_id', 'page', 'number'),
 		'working' => false,
 		'required' => true,
@@ -210,7 +215,10 @@ function api_sidebar() {
 	global $methods;
 	$sidebar = '<div class="block"><h4>API Methods</h4> <div class="blockbody"><ul>';
 	foreach ($methods as $method => $data){
-		$sidebar .= '<li>';
+		$sidebar .= '<li';
+		if (isset($data['new']))
+			$sidebar .= ' style="border-top: solid 1px #999999;"';
+		$sidebar .= '>';
 		if (!isset($data['working']) || $data['working'])
 			$sidebar .= '<a href="/api/docs/' . $method . '">';
 		$sidebar .= $method;
