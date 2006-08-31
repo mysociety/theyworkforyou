@@ -4,7 +4,7 @@ function api_output($arr) {
 	$output = get_http_var('output');
 	api_header($output);
 	if ($output == 'xml') {
-		$out = api_output_xml($arr);
+		$out = '<twfy>' . api_output_xml($arr) . '</twfy>';
 	} elseif ($output == 'php') {
 		$out = api_output_php($arr);
 	} else { # JS
@@ -30,7 +30,7 @@ function api_header($o) {
 }
 
 function api_error($e) {
-	api_output(array('twfy'=>array('error' => $e)));
+	api_output(array('error' => $e));
 }
 
 function api_output_php($arr) {
@@ -39,11 +39,18 @@ function api_output_php($arr) {
 	return $out;
 }
 
+$api_xml_arr = 0;
 function api_output_xml($v, $k=null) {
+	global $api_xml_arr;
 	$verbose = get_http_var('verbose') ? "\n" : '';
 	if (is_array($v)) {
 		if (count($v) && array_keys($v) === range(0, count($v)-1)) {
-			return join("</$k>$verbose<$k>", array_map('api_output_xml', $v));
+			$elt = $api_xml_arr ? "arr$api_xml_arr" : 'match';
+			$out = "<$elt>";
+			$out .= join("</$elt>$verbose<$elt>", array_map('api_output_xml', $v));
+			$out .= "</$elt>$verbose";
+			$api_xml_arr++;
+			return $out;
 		}
 		$out = '';
 		foreach ($v as $k => $vv) {

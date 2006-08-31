@@ -12,10 +12,6 @@ function api_getCommittee_front() {
 <dd>Return the members of the committee as they were on this date.</dd>
 </dl>
 
-<h4>Example Response</h4>
-<pre>&lt;twfy&gt;
-&lt;/twfy&gt;</pre>
-
 <?	
 }
 
@@ -35,7 +31,7 @@ function api_getCommittee_name($name) {
 	if ($q->rows() > 1) {
 		# More than one committee matches
 		for ($i=0; $i<$q->rows(); $i++) {
-			$output['twfy']['committees'][] = array(
+			$output['committees'][] = array(
 				'name' => html_entity_decode($q->field($i, 'dept'))
 			);
 		}
@@ -49,7 +45,7 @@ function api_getCommittee_name($name) {
 			and entered_house <= " . $date . ' and ' . $date . ' <= left_house');
 		if ($q->rows()) {
 			$output = array();
-			$output['twfy']['committee'] = html_entity_decode($q->field(0, 'dept'));
+			$output['committee'] = html_entity_decode($q->field(0, 'dept'));
 			for ($i=0; $i<$q->rows(); $i++) {
 				$member = array(
 					'person_id' => $q->field($i, 'person'),
@@ -58,7 +54,7 @@ function api_getCommittee_name($name) {
 				if ($q->field($i, 'position') == 'Chairman') {
 					$member['position'] = $q->field($i, 'position');
 				}
-				$output['twfy']['members'][] = $member;
+				$output['members'][] = $member;
 			}
 			api_output($output);
 		} else {

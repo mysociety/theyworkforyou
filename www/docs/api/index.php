@@ -20,7 +20,7 @@ $methods = array(
 		'help' => 'Searches for a constituency',
 	),
 	'getConstituencies' => array(
-		'parameters' => array('date', 'search'),
+		'parameters' => array('date', 'search', 'latitude', 'longitude', 'distance'),
 		'required' => false,
 		'help' => 'Returns list of constituencies',
 	),

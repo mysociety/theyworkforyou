@@ -6,7 +6,7 @@ function _api_getMembers_output($sql) {
 	global $parties;
 	$db = new ParlDB;
 	$q = $db->query($sql);
-	$output['twfy']['matches'] = array();
+	$output = array();
 	for ($i=0; $i<$q->rows(); $i++) {
 		$row = array(
 			'member_id' => $q->field($i, 'member_id'),
@@ -18,7 +18,7 @@ function _api_getMembers_output($sql) {
 		);
 		if ($q->field($i, 'house') == 1)
 			$row['constituency'] = html_entity_decode($q->field($i, 'constituency'));
-		$output['twfy']['matches'][] = $row;
+		$output[] = $row;
 	}
 	api_output($output);
 }

@@ -11,7 +11,7 @@ function api_getConstituency_front() {
 </dl>
 
 <h4>Example Response</h4>
-<pre>{ twfy : { name : "Manchester, Gorton" } }</pre>
+<pre>{ name : "Manchester, Gorton" }</pre>
 
 <h4>Error Codes</h4>
 <p></p>
@@ -26,7 +26,7 @@ function api_getconstituency_postcode($pc) {
 		if ($constituency == 'CONNECTION_TIMED_OUT') {
 			api_error('Connection timed out');
 		} elseif ($constituency) {
-			$output['twfy']['name'] = html_entity_decode($constituency);
+			$output['name'] = html_entity_decode($constituency);
 			api_output($output);
 		} else {
 			api_error('Unknown postcode');
