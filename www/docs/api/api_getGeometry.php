@@ -1,19 +1,20 @@
 <?
 
 include_once '../../../../phplib/mapit.php';
-include_once 'api_getConstituencies.php';
 
 function api_getGeometry_front() {
 ?>
 <p><big>Returns geometry information for constituencies.</big></p>
 
 <p>This currently includes the latitude and longitude of the centre point of
-the bounding box of the constituency, and its area.</p>
+the bounding box of the constituency, and its area in square metres.</p>
 
 <h4>Arguments</h4>
 <dl>
 <dt>name (optional)</dt>
-<dd>Limit returned data to constituencies matching <kbd>name</kbd>.
+<dd>Limit returned data to constituency <kbd>name</kbd>. If you wish to fetch
+geometry for a number of constituencies, better to just call getGeometry with
+no arguments and work through the list.
 </dl>
 
 <?	
@@ -26,22 +27,18 @@ function api_getGeometry() {
 
 function api_getGeometry_name($name) {
 	$out = _api_getGeometry_name($name);
-	api_output($out);
+	if ($out) api_output($out);
+	else api_error('Name not recognised');
 }
 function _api_getGeometry_name($name) {
 	$geometry = _api_getGeometry();
-	$consts = _api_getConstituencies_search($name);
-	$names = array();
-	foreach ($consts as $data) {
-		$names[] = $data['name'];
-	}
+	$name = html_entity_decode(normalise_constituency_name($name)); # XXX
 	$out = array();
-	foreach ($geometry['data'] as $data) {
-		if (in_array($data['name'], $names)) {
-			$out[] = $data;
-		}
+	foreach ($geometry['data'] as $n => $data) {
+		if ($n == $name)
+			return $data;
 	}
-	return $out;
+	return null;
 }
 
 function _api_cacheCheck($fn, $arg) {
@@ -69,13 +66,13 @@ function _api_getGeometry() {
 	$names = normalise_constituency_names($names);
 	foreach (array_keys($areas_info) as $area_id) {
 		$out = array();
-		$out['name'] = $names[$area_id];
+		$name = $names[$area_id];
 		if (count($areas_geometry[$area_id])) {
 			$out['centre_lat'] = $areas_geometry[$area_id]['centre_lat'];
 			$out['centre_lon'] = $areas_geometry[$area_id]['centre_lon'];
 			$out['area'] = $areas_geometry[$area_id]['area'];
 		}
-		$areas_out['data'][] = $out;
+		$areas_out['data'][$name] = $out;
 	}
 	return $areas_out;
 }

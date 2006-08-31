@@ -26,9 +26,14 @@ $methods = array(
 	),
 	'getMP' => array(
 		'new' => true,
-		'parameters' => array('id', 'constituency', 'postcode', 'always_return', 'extra?'),
+		'parameters' => array('id', 'constituency', 'postcode', 'always_return'),
 		'required' => true,
-		'help' => 'Returns details for an MP'
+		'help' => 'Returns main details for an MP'
+	),
+	'getMPInfo' => array(
+		'parameters' => array('id'),
+		'required' => true,
+		'help' => 'Returns extra information for an MP'
 	),
 	'getMPs' => array(
 		'parameters' => array('party', 'date', 'search'),
@@ -166,7 +171,7 @@ Output:
 <input type="submit" value="Go" />
 </p>
 </form>
-<iframe name="iframe">Output here</iframe>
+<iframe name="iframe" style="width: 40em; height: 20em">Output here</iframe>
 <?
 	$sidebar = api_sidebar();
 	$PAGE->stripe_end(array($sidebar));

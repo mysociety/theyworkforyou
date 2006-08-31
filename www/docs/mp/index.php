@@ -53,7 +53,12 @@ if ($cconstituency == 'mysociety test constituency') {
 if ($name == 'sion simon') $name = "si&ocirc;n simon";
 if ($name == 'sian james') $name = "si&acirc;n james";
 if ($name == 'lembit opik') $name = "lembit &ouml;pik";
-if ($cconstituency == 'ynys mon') $cconstituency = "ynys m&ocirc;n";
+
+# Special stuff for Ynys Mon
+if ($cconstituency == 'ynys mon') $cconstituency = "ynys m&ocirc;n"; # Stop infinite loop
+# And cope with Unicode URL
+if (preg_match("#^ynys m\xc3\xb4n#i", $cconstituency))
+	$cconstituency = "ynys m&ocirc;n";
 
 // Redirect for MP recent appearanecs
 if (get_http_var('recent')) {
@@ -276,9 +281,9 @@ twfy_debug_timestamp("after display of MP");
 	if ($MEMBER->house() == 1) {
 		$lat = null; $lon = null;
 		$geometry = _api_getGeometry_name($MEMBER->constituency());
-		if (isset($geometry[0]['centre_lat'])) {
-			$lat = $geometry[0]['centre_lat'];
-			$lon = $geometry[0]['centre_lon'];
+		if (isset($geometry['centre_lat'])) {
+			$lat = $geometry['centre_lat'];
+			$lon = $geometry['centre_lon'];
 		}
 		if ($lat && $lon) {
 			$nearby_consts = _api_getConstituencies_latitude($lat, $lon, 100);
@@ -289,7 +294,7 @@ twfy_debug_timestamp("after display of MP");
 					$dist = $nearby_consts[$k]['distance'];
 					$out .= '<li><a href="/mp/?c=' . urlencode($name) . '">';
 					$out .= $nearby_consts[$k]['name'] . '</a>';
-					$out .= ' <small>(' . round($dist, 1) . ' km)</small>';
+					$out .= ' <small title="Centre to centre">(' . round($dist, 1) . ' km)</small>';
 					$out .= '</li>';
 				}
 				$out .= '</ul>';

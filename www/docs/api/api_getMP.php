@@ -25,14 +25,27 @@ function api_getMP_front() {
 <?	
 }
 
+function _api_getMP_row($row) {
+	global $parties;
+	$row['full_name'] = member_full_name($row['house'], $row['title'], $row['first_name'],
+		$row['last_name'], $row['constituency']);
+	if (isset($parties[$row['party']]))
+		$row['party'] = $parties[$row['party']];
+	$row = array_map('html_entity_decode', $row);
+	return $row;
+}
+
 function api_getMP_id($id) {
 	$db = new ParlDB;
 	$q = $db->query("select * from member
 		where house=1 and person_id = '" . mysql_escape_string($id) . "'
 		order by left_house desc");
 	if ($q->rows()) {
-		$out = array_map('html_entity_decode', $q->row(0));
-		$output = $out;
+		$output = array();
+		for ($i=0; $i<$q->rows(); $i++) {
+			$out = _api_getMP_row($q->row($i));
+			$output[] = $out;
+		}
 		api_output($output);
 	} else {
 		api_error('Unknown person ID');
@@ -85,14 +98,14 @@ function _api_getMP_constituency($constituency) {
 		WHERE constituency = '" . mysql_escape_string($constituency) . "'
 		AND left_reason = 'still_in_office' AND house=1");
 	if ($q->rows > 0)
-		return array_map('html_entity_decode', $q->row(0));
+		return _api_getMP_row($q->row(0));
 
 	if (get_http_var('always_return')) {
 		$q = $db->query("SELECT * FROM member
 			WHERE house=1 AND constituency = '".mysql_escape_string($constituency)."'
 			ORDER BY left_house DESC LIMIT 1");
 		if ($q->rows > 0)
-			return array_map('html_entity_decode', $q->row(0));
+			return _api_getMP_row($q->row(0));
 	}
 	
 	return false;
