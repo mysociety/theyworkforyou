@@ -41,8 +41,7 @@ $methods = array(
 		'help' => 'Returns list of MPs',
 	),
 	'getLord' => array(
-		'parameters' => array('id', 'search'),
-		'working' => false,
+		'parameters' => array('id'),
 		'required' => true,
 		'help' => 'Returns details for a Lord'
 	),
