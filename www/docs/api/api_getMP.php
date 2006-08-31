@@ -17,11 +17,9 @@ function api_getMP_front() {
 </dl>
 
 <h4>Example Response</h4>
-<pre>&lt;mp&gt;
-  &lt;first_name&gt;Martin&lt;/first_name&gt;
+<pre>&lt;first_name&gt;Martin&lt;/first_name&gt;
   &lt;last_name&gt;Horwood&lt;/last_name&gt;
   ...
-&lt;/mp&gt;
 </pre>
 
 <?	
@@ -34,7 +32,7 @@ function api_getMP_id($id) {
 		order by left_house desc");
 	if ($q->rows()) {
 		$out = array_map('html_entity_decode', $q->row(0));
-		$output['mp'] = $out;
+		$output = $out;
 		api_output($output);
 	} else {
 		api_error('Unknown person ID');
@@ -49,7 +47,7 @@ function api_getMP_postcode($pc) {
 			api_error('Connection timed out');
 		} elseif ($constituency) {
 			$person = _api_getMP_constituency($constituency);
-			$output['mp'] = $person;
+			$output = $person;
 			api_output($output);
 		} else {
 			api_error('Unknown postcode');
@@ -62,7 +60,7 @@ function api_getMP_postcode($pc) {
 function api_getMP_constituency($constituency) {
 	$person = _api_getMP_constituency($constituency);
 	if ($person) {
-		$output['mp'] = $person;
+		$output = $person;
 		api_output($output);
 	} else {
 		api_error('Unknown constituency, or no MP for that constituency');
