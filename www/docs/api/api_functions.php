@@ -45,11 +45,11 @@ function api_output_xml($v, $k=null) {
 	$verbose = get_http_var('verbose') ? "\n" : '';
 	if (is_array($v)) {
 		if (count($v) && array_keys($v) === range(0, count($v)-1)) {
-			$elt = $api_xml_arr ? "arr$api_xml_arr" : 'match';
+			$elt = 'match';
+			$api_xml_arr++;
 			$out = "<$elt>";
 			$out .= join("</$elt>$verbose<$elt>", array_map('api_output_xml', $v));
 			$out .= "</$elt>$verbose";
-			$api_xml_arr++;
 			return $out;
 		}
 		$out = '';

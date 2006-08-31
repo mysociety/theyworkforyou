@@ -15,6 +15,16 @@ function api_getMPs_front() {
 </dl>
 
 <h4>Example Response</h4>
+<pre>a:646:{
+	i:0; a:5:{
+		s:9:"member_id"; s:4:"1368";
+		s:9:"person_id"; s:5:"10900";
+		s:4:"name"; s:13:"Hywel Francis";
+		s:5:"party"; s:6:"Labour";
+		s:12:"constituency"; s:8:"Aberavon";
+	}
+	i:1; ...
+</pre>
 
 <?	
 }

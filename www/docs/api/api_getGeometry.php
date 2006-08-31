@@ -17,6 +17,14 @@ geometry for a number of constituencies, better to just call getGeometry with
 no arguments and work through the list.
 </dl>
 
+<h4>Example Response</h4>
+<pre>
+&lt;twfy&gt;
+	&lt;centre_lat&gt;52.204105461821&lt;/centre_lat&gt;
+	&lt;centre_lon&gt;0.12659823548615&lt;/centre_lon&gt;
+	&lt;area&gt;28775860&lt;/area&gt;
+&lt;/twfy&gt;
+</pre>
 <?	
 }
 

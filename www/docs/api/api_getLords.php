@@ -15,7 +15,22 @@ function api_getLords_front() {
 </dl>
 
 <h4>Example Response</h4>
-
+<pre>
+&lt;twfy&gt;
+	&lt;match&gt;
+		&lt;member_id&gt;100003&lt;/member_id&gt;
+		&lt;person_id&gt;13375&lt;/person_id&gt;
+		&lt;name&gt;Lord Acton&lt;/name&gt;
+		&lt;party&gt;Labour&lt;/party&gt;
+	&lt;/match&gt;
+	&lt;match&gt;
+		&lt;member_id&gt;100060&lt;/member_id&gt;
+		&lt;person_id&gt;12981&lt;/person_id&gt;
+		&lt;name&gt;Lord Blyth of Rowington&lt;/name&gt;
+		&lt;party&gt;Conservative&lt;/party&gt;
+	&lt;/match&gt;
+	...
+</pre>
 <?	
 }
 

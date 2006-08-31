@@ -18,10 +18,10 @@ function api_getConstituencies_front() {
 
 <h4>Example Response</h4>
 <pre>[
-		{ name : "Aberavon" },
-		{ name : "Aldershot" },
-		{ name : "Aldridge-Brownhills" },
-		...
+	{ name : "Aberavon" },
+	{ name : "Aldershot" },
+	{ name : "Aldridge-Brownhills" },
+	...
 ]</pre>
 
 <?	

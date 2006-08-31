@@ -12,6 +12,34 @@ function api_getCommittee_front() {
 <dd>Return the members of the committee as they were on this date.</dd>
 </dl>
 
+<h4>Example responses</h4>
+
+<pre>{ "committees" : [
+	{ "name" : "Scottish Affairs Committee" },
+	{ "name" : "Northern Ireland Affairs Committee" },
+	{ "name" : "Home Affairs Committee" },
+	{ "name" : "Constitutional Affairs Committee" },
+	{ "name" : "Environment, Food and Rural Affairs Committee" },
+	{ "name" : "Foreign Affairs Committee" },
+	{ "name" : "Welsh Affairs Committee" }
+] }</pre>
+
+<pre>{
+    "committee" : "Health Committee",
+    "members" : [
+	{ "person_id" : "10009", "name" : "David Amess" },
+	{ "person_id" : "10018", "name" : "Charlotte Atkins" },
+	{ "person_id" : "10176", "name" : "Jim Dowd" },
+	{ "person_id" : "11603", "name" : "Anne Milton" },
+	{ "person_id" : "10455", "name" : "Doug Naysmith" },
+	{ "person_id" : "11626", "name" : "Michael Penning" },
+	{ "person_id" : "10571", "name" : "Howard Stoate" },
+	{ "person_id" : "11275", "name" : "Richard Taylor" },
+	{ "person_id" : "10027", "name" : "Kevin Barron", "position" : "Chairman" },
+	{ "person_id" : "10089", "name" : "Ronnie Campbell" },
+	{ "person_id" : "10677", "name" : "Sandra Gidley" }
+  ]
+}
 <?	
 }
 
@@ -48,8 +76,8 @@ function api_getCommittee_name($name) {
 			$output['committee'] = html_entity_decode($q->field(0, 'dept'));
 			for ($i=0; $i<$q->rows(); $i++) {
 				$member = array(
-					'person_id' => $q->field($i, 'person'),
-					'name' => $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name'),
+'person_id' => $q->field($i, 'person'),
+'name' => $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name'),
 				);
 				if ($q->field($i, 'position') == 'Chairman') {
 					$member['position'] = $q->field($i, 'position');
