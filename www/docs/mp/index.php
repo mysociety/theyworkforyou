@@ -32,7 +32,7 @@ include_once INCLUDESPATH."easyparliament/member.php";
 // From http://cvs.sourceforge.net/viewcvs.py/publicwhip/publicwhip/website/
 include_once INCLUDESPATH."postcode.inc";
 include_once INCLUDESPATH . 'technorati.php';
-include_once '../api/api_getCentroids.php';
+include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
 
 twfy_debug_timestamp("after includes");
@@ -275,13 +275,10 @@ twfy_debug_timestamp("after display of MP");
 
 	if ($MEMBER->house() == 1) {
 		$lat = null; $lon = null;
-		$centroids = _api_getCentroids();
-		foreach ($centroids as $area_id => $data) {
-			if (isset($data['centre_lat']) && $data['name'] == $MEMBER->constituency()) {
-				$lat = $data['centre_lat'];
-				$lon = $data['centre_lon'];
-				break;
-			}
+		$geometry = _api_getGeometry_name($MEMBER->constituency());
+		if (isset($geometry[0]['centre_lat'])) {
+			$lat = $geometry[0]['centre_lat'];
+			$lon = $geometry[0]['centre_lon'];
 		}
 		if ($lat && $lon) {
 			$nearby_consts = _api_getConstituencies_latitude($lat, $lon, 100);

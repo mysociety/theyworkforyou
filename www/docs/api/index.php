@@ -46,11 +46,11 @@ $methods = array(
 		'required' => false,
 		'help' => 'Returns list of Lords',
 	),
-	'getCentroids' => array(
+	'getGeometry' => array(
 		'new' => true,
-		'parameters' => array(),
+		'parameters' => array('name'),
 		'required' => false,
-		'help' => 'Returns centroids of all constituencies'
+		'help' => 'Returns geometry of constituencies'
 	),
 	'getBoundary' => array(
 		'parameters' => array('id', 'constituency', 'postcode'),
@@ -117,7 +117,7 @@ if ($q_method = get_http_var('method')) {
 			}
 			if ($match == 1) {
 				if ($data['required']) {
-					api_error('No parameter provided to method "' .
+					api_error('No parameter provided to function "' .
 					htmlspecialchars($q_method) .
 						'". Possible choices are: ' .
 						join(', ', $data['parameters']) );
@@ -131,8 +131,8 @@ if ($q_method = get_http_var('method')) {
 		}
 	}
 	if (!$match) {
-		api_front_page('Unknown method "' . htmlspecialchars($q_method) .
-			'". Possible methods are: ' .
+		api_front_page('Unknown function "' . htmlspecialchars($q_method) .
+			'". Possible functions are: ' .
 			join(', ', array_keys($methods)) );
 	}
 } else {
@@ -142,7 +142,7 @@ if ($q_method = get_http_var('method')) {
 function api_documentation_front($method) {
 	global $PAGE, $this_page, $DATA, $methods;
 	$this_page = 'api_doc_front';
-	$DATA->set_page_metadata($this_page, 'title', "$method method");
+	$DATA->set_page_metadata($this_page, 'title', "$method function");
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 	include_once 'api_' . $method . '.php';
@@ -150,7 +150,7 @@ function api_documentation_front($method) {
 	api_call_user_func_or_error('api_' . $method . '_front', null, 'No documentation yet', 'html');
 ?>
 <h4>Explorer</h4>
-<p>Try out this method without writing any code!</p>
+<p>Try out this function without writing any code!</p>
 <form method="get" action="/api/<?=$method ?>" target="iframe">
 <p>
 <? foreach ($methods[$method]['parameters'] as $parameter) {
@@ -188,7 +188,7 @@ function api_front_page($error = '') {
 
 <p>All requests take a number of parameters. <em>output</em> is optional, and defaults to <kbd>js</kbd>.</p>
 
-<p align="center"><strong>http://www.theyworkforyou.com/api/<em>method</em>?output=<em>output</em>&<em>other_variables</em></strong></p>
+<p align="center"><strong>http://www.theyworkforyou.com/api/<em>function</em>?output=<em>output</em>&<em>other_variables</em></strong></p>
 
 <h3>Outputs</h3>
 <dl>
@@ -213,7 +213,7 @@ function will be called with the data as its argument.
 
 function api_sidebar() {
 	global $methods;
-	$sidebar = '<div class="block"><h4>API Methods</h4> <div class="blockbody"><ul>';
+	$sidebar = '<div class="block"><h4>API Functions</h4> <div class="blockbody"><ul>';
 	foreach ($methods as $method => $data){
 		$sidebar .= '<li';
 		if (isset($data['new']))

@@ -1,6 +1,6 @@
 <?
 
-include_once 'api_getCentroids.php';
+include_once 'api_getGeometry.php';
 
 function api_getConstituencies_front() {
 ?>
@@ -27,30 +27,41 @@ function api_getConstituencies_front() {
 <?	
 }
 
-function api_getconstituencies_search($s) {
-	$db = new ParlDB;
-	$q = $db->query('select * from constituency
-		where main_name and name like "%' . mysql_escape_string($s) .
-		'%" and from_date <= date(now()) and date(now()) <= to_date');
-	$output = array();
-	for ($i=0; $i<$q->rows(); $i++) {
-		$output[] = array(
-			# 'id' => $q->field($i, 'cons_id'),
-			'name' => html_entity_decode($q->field($i, 'name'))
-		);
-	}
+function api_getConstituencies_search($s) {
+	$output = _api_getConstituencies_search($s);
 	api_output($output);
 }
+function _api_getConstituencies_search($s) {
+	$db = new ParlDB;
+	$q = $db->query('select c_main.name from constituency, constituency as c_main
+		where constituency.cons_id = c_main.cons_id
+		and c_main.main_name and constituency.name like "%' . mysql_escape_string($s) .
+		'%" and constituency.from_date <= date(now())
+		and date(now()) <= constituency.to_date');
+	$output = array();
+	$done = array();
+	for ($i=0; $i<$q->rows(); $i++) {
+		$name = html_entity_decode($q->field($i, 'name'));
+		if (!in_array($name, $done)) {
+			$output[] = array(
+				# 'id' => $q->field($i, 'cons_id'),
+				'name' => $name
+			);
+			$done[] = $name;
+		}
+	}
+	return $output;
+}
 
-function api_getconstituencies_date($date) {
+function api_getConstituencies_date($date) {
 	if ($date = parse_date($date)) {
-		api_getconstituencies('"' . $date['iso'] . '"');
+		api_getConstituencies('"' . $date['iso'] . '"');
 	} else {
 		api_error('Invalid date format');
 	}
 }
 
-function api_getconstituencies($date = 'now()') {
+function api_getConstituencies($date = 'now()') {
 	$db = new ParlDB;
 	$q = $db->query('select cons_id, name from constituency
 		where main_name and from_date <= date('.$date.') and date('.$date.') <= to_date');
@@ -82,10 +93,9 @@ function api_getConstituencies_latitude($lat) {
 }
 
 function _api_getConstituencies_latitude($lat, $lon, $d) {
-	$centroids = _api_getCentroids();
+	$geometry = _api_getGeometry();
 	$out = array();
-	foreach ($centroids as $area_id => $data) {
-		if ($area_id == 'date') continue;
+	foreach ($geometry['data'] as $data) {
 		if (!isset($data['centre_lat']) || !isset($data['centre_lon'])) continue;
 		$distance = R_e * acos(
 			sin(deg2rad($lat)) * sin(deg2rad($data['centre_lat']))
@@ -97,7 +107,7 @@ function _api_getConstituencies_latitude($lat, $lon, $d) {
 				|| _api_angle_between(deg2rad($data['centre_lon']), deg2rad($lon))
 					< $d / (R_e * cos(deg2rad($lat + $d / R_e))))
 			&& $distance < $d) {
-				$out[] = array_merge($data, array('area_id' => $area_id, 'distance' => $distance));
+				$out[] = array_merge($data, array('distance' => $distance));
 		}
 	}
 	usort($out, create_function('$a,$b', "
