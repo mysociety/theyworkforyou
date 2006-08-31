@@ -77,6 +77,11 @@ function api_getConstituencies_latitude($lat) {
 		api_error('You must supply a latitude and longitude');
 		return;
 	}
+	$out = _api_getConstituencies_latitude($lat, $lon, $d);
+	api_output($out);
+}
+
+function _api_getConstituencies_latitude($lat, $lon, $d) {
 	$centroids = _api_getCentroids();
 	$out = array();
 	foreach ($centroids as $area_id => $data) {
@@ -95,12 +100,17 @@ function api_getConstituencies_latitude($lat) {
 				$out[] = array_merge($data, array('area_id' => $area_id, 'distance' => $distance));
 		}
 	}
-	usort($out, create_function('$a,$b', "return \$a['distance'] - \$b['distance'];"));
-	api_output($out);
+	usort($out, create_function('$a,$b', "
+		if (\$a['distance'] > \$b['distance']) return 1;
+		if (\$a['distance'] < \$b['distance']) return -1;
+		return 0;"));
+	return $out;
 }
+
 function api_getConstituencies_longitude($lon) {
 	api_error('You must supply a latitude');
-	}
+}
+
 function api_getConstituencies_distance($d) {
 	api_error('You must supply a latitude and longitude');
 }

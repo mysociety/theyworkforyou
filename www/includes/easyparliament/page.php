@@ -967,6 +967,9 @@ pr()//-->
 			$title .= ', former';
 		}
 		if ($member['house'] == 'House of Commons') $title .= ' MP';
+		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
+			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="/images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
+		}
 		print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
 		$this->block_start(array('id'=>'mp', 'title'=>$title));
 		if (is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $member['person_id'] . '.jpg')) {
@@ -1291,7 +1294,12 @@ pr()//-->
 		}
 
 	?>		<a name="hansard"></a> <?
-		$this->block_start(array('id'=>'hansard', 'title'=>'Most recent appearances in parliament'));
+		$title = 'Most recent appearances in parliament';
+		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
+			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="/images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
+		}
+
+		$this->block_start(array('id'=>'hansard', 'title'=>$title));
 ?>
 <p><em>If this MP or Lord has contributed more than once to one debate, only one speech is shown.</em></p>
 <?php

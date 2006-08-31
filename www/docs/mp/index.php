@@ -32,6 +32,8 @@ include_once INCLUDESPATH."easyparliament/member.php";
 // From http://cvs.sourceforge.net/viewcvs.py/publicwhip/publicwhip/website/
 include_once INCLUDESPATH."postcode.inc";
 include_once INCLUDESPATH . 'technorati.php';
+include_once '../api/api_getCentroids.php';
+include_once '../api/api_getConstituencies.php';
 
 twfy_debug_timestamp("after includes");
 
@@ -235,14 +237,15 @@ twfy_debug_timestamp("after display of MP");
 		)
 	);
 
-
+/*
 	if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
 		$sidebars[] = array (
 			'type' 		=> 'html',
 			'content'	=> $PAGE->member_rss_block(array('appearances' => WEBPATH . $rssurl))
 		);
 	}
-	
+*/
+
 #	$MPSURL = new URL('mps');
 #	$sidebars[] = array (
 #		'type' => 'html',
@@ -267,6 +270,37 @@ twfy_debug_timestamp("after display of MP");
 				'type' => 'html',
 				'content' => '<div class="block"><h4>Succeeding MPs in this constituency</h4><div class="blockbody"><ul>' . $future_people . '</ul></div></div>'
 			);
+		}
+	}
+
+	if ($MEMBER->house() == 1) {
+		$lat = null; $lon = null;
+		$centroids = _api_getCentroids();
+		foreach ($centroids as $area_id => $data) {
+			if (isset($data['centre_lat']) && $data['name'] == $MEMBER->constituency()) {
+				$lat = $data['centre_lat'];
+				$lon = $data['centre_lon'];
+				break;
+			}
+		}
+		if ($lat && $lon) {
+			$nearby_consts = _api_getConstituencies_latitude($lat, $lon, 100);
+			if ($nearby_consts) {
+				$out = '<ul><!-- '.$lat.','.$lon.' -->';
+				for ($k=1; $k<=5; $k++) {
+					$name = $nearby_consts[$k]['name'];
+					$dist = $nearby_consts[$k]['distance'];
+					$out .= '<li><a href="/mp/?c=' . urlencode($name) . '">';
+					$out .= $nearby_consts[$k]['name'] . '</a>';
+					$out .= ' <small>(' . round($dist, 1) . ' km)</small>';
+					$out .= '</li>';
+				}
+				$out .= '</ul>';
+				$sidebars[] = array(
+					'type' => 'html',
+					'content' => '<div class="block"><h4>Nearby constituencies</h4><div class="blockbody">' . $out .' </div></div>'
+				);
+			}
 		}
 	}
 

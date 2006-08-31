@@ -18,7 +18,7 @@ function api_getCentroids() {
 }
 
 function _api_cacheCheck($fn, $arg) {
-	$cache = 'cache/' . $fn;
+	$cache = INCLUDESPATH . '../docs/api/cache/' . $fn;
 	if (is_file($cache))
 		return unserialize(file_get_contents($cache));
 	$out = call_user_func($fn, $arg);
