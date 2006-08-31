@@ -7,6 +7,9 @@ function api_getGeometry_front() {
 ?>
 <p><big>Returns geometry information for constituencies.</big></p>
 
+<p>This currently includes the latitude and longitude of the centre point of
+the bounding box of the constituency, and its area.</p>
+
 <h4>Arguments</h4>
 <dl>
 <dt>name (optional)</dt>
@@ -70,6 +73,7 @@ function _api_getGeometry() {
 		if (count($areas_geometry[$area_id])) {
 			$out['centre_lat'] = $areas_geometry[$area_id]['centre_lat'];
 			$out['centre_lon'] = $areas_geometry[$area_id]['centre_lon'];
+			$out['area'] = $areas_geometry[$area_id]['area'];
 		}
 		$areas_out['data'][] = $out;
 	}
