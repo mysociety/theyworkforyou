@@ -939,7 +939,7 @@ pr()//-->
 						<ul>
 ';
 		if (isset($urls['appearances'])) {
-			$html .= '<li><a href="' . $urls['appearances'] . '"><img src="/images/rss.gif" alt="RSS feed" border="0" align="middle"></a> <a href="' . $urls['appearances'] . '">Recent appearances</a></li>';
+			$html .= '<li><a href="' . $urls['appearances'] . '"><img src="/images/rss.gif" alt="RSS feed" border="0" align="middle" /></a> <a href="' . $urls['appearances'] . '">Recent appearances</a></li>';
 		}
 		
 		$HELPURL = new URL('help');
@@ -968,7 +968,7 @@ pr()//-->
 		}
 		if ($member['house'] == 'House of Commons') $title .= ' MP';
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="/images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
+			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="/images/rss.gif" alt="RSS feed" border="0" align="right" /></a> ' . $title;
 		}
 		print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
 		$this->block_start(array('id'=>'mp', 'title'=>$title));
@@ -1296,7 +1296,7 @@ pr()//-->
 	?>		<a name="hansard"></a> <?
 		$title = 'Most recent appearances in parliament';
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="/images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
+			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="/images/rss.gif" alt="RSS feed" border="0" align="right" /></a> ' . $title;
 		}
 
 		$this->block_start(array('id'=>'hansard', 'title'=>$title));

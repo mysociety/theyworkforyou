@@ -286,10 +286,10 @@ twfy_debug_timestamp("after display of MP");
 			$lon = $geometry['centre_lon'];
 		}
 		if ($lat && $lon) {
-			$nearby_consts = _api_getConstituencies_latitude($lat, $lon, 100);
+			$nearby_consts = _api_getConstituencies_latitude($lat, $lon, 300);
 			if ($nearby_consts) {
 				$out = '<ul><!-- '.$lat.','.$lon.' -->';
-				for ($k=1; $k<=5; $k++) {
+				for ($k=1; $k<=min(5, count($nearby_consts)-1); $k++) {
 					$name = $nearby_consts[$k]['name'];
 					$dist = $nearby_consts[$k]['distance'];
 					$out .= '<li><a href="/mp/?c=' . urlencode($name) . '">';

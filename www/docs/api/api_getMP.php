@@ -31,6 +31,15 @@ function _api_getMP_row($row) {
 		$row['last_name'], $row['constituency']);
 	if (isset($parties[$row['party']]))
 		$row['party'] = $parties[$row['party']];
+	if (is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $row['person_id'] . '.jpg')) {
+		$row['image'] = IMAGEPATH . 'mpsL/' . $row['person_id'] . '.jpg';
+	} elseif (is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $row['person_id'] . '.jpeg')) {
+		$row['image'] = IMAGEPATH . 'mpsL/' . $row['person_id'] . '.jpeg';
+	} elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $row['person_id'] . '.jpg')) {
+		$row['image'] = IMAGEPATH . 'mps/' . $row['person_id'] . '.jpg';
+	} elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $row['person_id'] . '.jpeg')) {
+		$row['image'] = IMAGEPATH . 'mps/' . $row['person_id'] . '.jpeg';
+	}
 	$row = array_map('html_entity_decode', $row);
 	return $row;
 }

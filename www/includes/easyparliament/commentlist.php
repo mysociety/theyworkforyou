@@ -88,20 +88,9 @@ class COMMENTLIST {
 		return true;
 	}
 	
-	
-
 	function render ($data, $format='html', $template='comments') {
-		// Once we have the data that's to be rendered,
-		// include the template.
-		
-		if ($format != 'html') {
-			$format = 'html';
-		}
-		
 		include (FILEPATH."/../includes/easyparliament/templates/$format/$template.php");
-	
 	}
-		
 	
 	function _get_data_by_ep ($args) {
 		// Get all the data attached to an epobject.

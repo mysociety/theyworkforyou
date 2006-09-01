@@ -1,5 +1,7 @@
 <?
 
+include '../../../../phplib/rabx.php';
+
 function api_output($arr) {
 	$output = get_http_var('output');
 	api_header($output);
@@ -7,6 +9,8 @@ function api_output($arr) {
 		$out = '<twfy>' . api_output_xml($arr) . '</twfy>';
 	} elseif ($output == 'php') {
 		$out = api_output_php($arr);
+	} elseif ($output == 'rabx') {
+		$out = api_output_rabx($arr);
 	} else { # JS
 		$out = api_output_js($arr);
 		$callback = get_http_var('callback');
@@ -36,6 +40,13 @@ function api_error($e) {
 function api_output_php($arr) {
 	$out = serialize($arr);
 	if (get_http_var('verbose')) $out = str_replace(';', ";\n", $out);
+	return $out;
+}
+
+function api_output_rabx($arr) {
+	$out = '';
+	rabx_wire_wr($arr, $out);
+	if (get_http_var('verbose')) $out = str_replace(',', ",\n", $out);
 	return $out;
 }
 

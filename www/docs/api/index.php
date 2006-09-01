@@ -54,13 +54,12 @@ $methods = array(
 		'new' => true,
 		'parameters' => array('name'),
 		'required' => false,
-		'help' => 'Returns geometry of constituencies'
+		'help' => 'Returns centre, bounding box of constituencies'
 	),
 	'getBoundary' => array(
-		'parameters' => array('id', 'constituency', 'postcode'),
-		'working' => false,
+		'parameters' => array('name'),
 		'required' => true,
-		'help' => 'Returns boundary details for a constituency'
+		'help' => 'Returns boundary polygon of constituency'
 	),
 	'getCommittee' => array(
 		'new' => true,
@@ -89,9 +88,8 @@ $methods = array(
 	),
 	'getComments' => array(
 		'new' => true,
-		'parameters' => array('user_id', 'page', 'number'),
-		'working' => false,
-		'required' => true,
+		'parameters' => array('search', 'page', 'num', 'pid'),
+		'required' => false,
 		'help' => 'Returns comments'
 	),
 	'postComment' => array(
@@ -165,6 +163,7 @@ Output:
 <input id="output_js" type="radio" name="output" value="js" checked> <label for="output_js">JS</label>
 <input id="output_xml" type="radio" name="output" value="xml"> <label for="output_xml">XML</label>
 <input id="output_php" type="radio" name="output" value="php"> <label for="output_php">Serialised PHP</label>
+<input id="output_rabx" type="radio" name="output" value="rabx"> <label for="output_rabx">RABX</label>
 
 <input type="hidden" name="verbose" value="1" />
 <input type="submit" value="Go" />
@@ -203,6 +202,8 @@ function api_front_page($error = '') {
 <dt>js
 <dd>A JavaScript object. You can provide a callback function with the <em>callback</em> variable, and then that
 function will be called with the data as its argument.
+<dt>rabx
+<dd>"RPC over Anything But XML".
 </dl>
 
 <h3>Examples</h3>
