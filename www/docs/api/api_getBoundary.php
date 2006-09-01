@@ -8,9 +8,9 @@ function api_getBoundary_front() {
 <p><big>Returns boundary information for a constituency.</big></p>
 
 <p>Returns the bounding polygon of the constituency, in latitude and longitude
-coordinates. Note that some constituencies have multiple parts to their polygon,
-including holes in polygons. The 'sense' field gives the winding direction
-of that part of the polygon.</p>
+coordinates (WGS84). Note that some constituencies have multiple parts to their
+polygon, including holes in polygons. The 'sense' field gives the sense
+direction of that part of the polygon.</p>
 
 <h4>Arguments</h4>
 <dl>
