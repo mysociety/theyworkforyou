@@ -4,19 +4,21 @@ function api_getComments_front() {
 ?>
 <p><big>Fetch comments left on TheyWorkForYou.</big></p>
 
+<p>With no arguments, returns most recent comments in reverse date order.</p>
+
 <h4>Arguments</h4>
 <dl>
-<dt>date</dt>
+<dt>date (optional)</dt>
 <dd>Fetch the comments for this date.</dd>
-<dt>search</dt>
+<dt>search (optional)</dt>
 <dd>Fetch the comments that contain this term.</dd>
-<dt>user_id</dt>
+<dt>user_id (optional)</dt>
 <dd>Fetch the comments by a particular user ID.</dd>
 <dt>pid</dt>
 <dd>Fetch the comments made on a particular person ID (MP/Lord).</dd>
-<dt>page (optional, when using search)</dt>
+<dt>page (optional)</dt>
 <dd>Page of results to return.</dd>
-<dt>num (optional, when using search)</dt>
+<dt>num (optional)</dt>
 <dd>Number of results to return.</dd>
 </dl>
 

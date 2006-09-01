@@ -1,5 +1,7 @@
 <?
 
+include INCLUDESPATH . 'easyparliament/member.php';
+
 function api_getMP_front() {
 ?>
 <p><big>Fetch a particular MP.</big></p>
@@ -11,15 +13,14 @@ function api_getMP_front() {
 <dt>constituency (optional)</dt>
 <dd>The name of a constituency; we will try and work it out from whatever you give us. :)</dd>
 <dt>id (optional)</dt>
-<dd>If you know the person ID for the member you want (returned from getMPs or elsewhere), this will return data for that person.</dd>
+<dd>If you know the person ID for the member you want (returned from getMPs or elsewhere), this will return data for that person. <!-- <em>Also returns select committee membership and ministerial positions, past and present.</em> --></dd>
 <dt>always_return (optional)</dt>
 <dd>For the postcode and constituency options, sets whether to always try and return an MP, even if the seat is currently vacant.</dd>
 </dl>
 
 <h4>Example Response</h4>
-<pre>&lt;first_name&gt;Martin&lt;/first_name&gt;
-  &lt;last_name&gt;Horwood&lt;/last_name&gt;
-  ...
+<pre>&lt;twfy&gt;
+  &lt;/twfy&gt;
 </pre>
 
 <?	
@@ -51,6 +52,14 @@ function api_getMP_id($id) {
 		order by left_house desc");
 	if ($q->rows()) {
 		$output = array();
+		/*
+		$MEMBER = new MEMBER(array('person_id'=>$id));
+		$MEMBER->load_extra_info();
+		$extra_info = $MEMBER->extra_info();
+		if (array_key_exists('office', $extra_info)) {
+			$output['offices'] = $extra_info['office'];
+		}
+		*/
 		for ($i=0; $i<$q->rows(); $i++) {
 			$out = _api_getMP_row($q->row($i));
 			$output[] = $out;
