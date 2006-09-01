@@ -9,8 +9,12 @@ function api_getBoundary_front() {
 
 <p>Returns the bounding polygon of the constituency, in latitude and longitude
 coordinates (WGS84). Note that some constituencies have multiple parts to their
-polygon, including holes in polygons. The 'sense' field gives the sense
-direction of that part of the polygon.</p>
+polygon, including holes in polygons. The return value is an array of these
+parts.</p>
+
+<p>Each part is an associative array containing two values. The 'points' one is
+an array of pairs of latitude, longitude. The 'sense' field gives the
+direction of that part of the polygon, whether it adds or subtracts from the area.</p>
 
 <h4>Arguments</h4>
 <dl>
@@ -21,13 +25,7 @@ direction of that part of the polygon.</p>
 <?	
 }
 
-function api_getBoundary() {
-	api_error('Name is a required option');
-}
-
 function api_getBoundary_name($name) {
-	$areas_out = array('date' => date('Y-m-d'), 'data' => array());
-
 	$name = html_entity_decode(normalise_constituency_name($name)); # XXX
 	if (!$name) {
 		api_error('Name not recognised');
@@ -48,8 +46,6 @@ function api_getBoundary_name($name) {
 		return;
 	}
 	$out = mapit_get_voting_area_geometry($id, 'wgs84');
-
-	$areas_out['data'] = $out['polygon'];
-	api_output($areas_out);
+	api_output($out['polygon']);
 }
 

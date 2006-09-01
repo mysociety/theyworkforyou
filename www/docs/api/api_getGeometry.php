@@ -7,7 +7,8 @@ function api_getGeometry_front() {
 <p><big>Returns geometry information for constituencies.</big></p>
 
 <p>This currently includes the latitude and longitude of the centre point of
-the bounding box of the constituency, and its area in square metres.</p>
+the bounding box of the constituency, its area in square metres, the bounding
+box itself and the number of parts in the polygon that makes up the constituency.</p>
 
 <h4>Arguments</h4>
 <dl>
@@ -23,6 +24,11 @@ no arguments and work through the list.
 	&lt;centre_lat&gt;52.204105461821&lt;/centre_lat&gt;
 	&lt;centre_lon&gt;0.12659823548615&lt;/centre_lon&gt;
 	&lt;area&gt;28775860&lt;/area&gt;
+	&lt;min_lat&gt;52.171543612943&lt;/min_lat&gt;
+	&lt;max_lat&gt;52.236635567414&lt;/max_lat&gt;
+	&lt;min_lon&gt;0.066543287124126&lt;/min_lon&gt;
+	&lt;max_lon&gt;0.18674084465674&lt;/max_lon&gt;
+	&lt;parts&gt;1&lt;/parts&gt;
 &lt;/twfy&gt;
 </pre>
 <?	
@@ -79,6 +85,11 @@ function _api_getGeometry() {
 			$out['centre_lat'] = $areas_geometry[$area_id]['centre_lat'];
 			$out['centre_lon'] = $areas_geometry[$area_id]['centre_lon'];
 			$out['area'] = $areas_geometry[$area_id]['area'];
+			$out['min_lat'] = $areas_geometry[$area_id]['min_lat'];
+			$out['max_lat'] = $areas_geometry[$area_id]['max_lat'];
+			$out['min_lon'] = $areas_geometry[$area_id]['min_lon'];
+			$out['max_lon'] = $areas_geometry[$area_id]['max_lon'];
+			$out['parts'] = $areas_geometry[$area_id]['parts'];
 		}
 		$areas_out['data'][$name] = $out;
 	}
