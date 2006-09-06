@@ -19,6 +19,25 @@ EOT
 , "2006-04-09 10:01:00"),
 */
 
+40 => array('TheyWorkForYou API', <<<EOT
+Today, we launched an API (Application Programming Interface) to the
+data TheyWorkForYou contains. This lets other sites query our site for
+various bits of information, such as the constituency or MP for a particular
+postcode, the debates for a particular date, the comments left on a certain
+MP's speeches, and so on. It's not complete
+and will hopefully have improvements in future &ndash;
+<a href="/api/">see the
+documentation and have a play with it</a>. Do dive in, and <a href="/contact/">let us 
+know</a> of any interesting or fun applications you come up with! The
+immediate new feature on TheyWorkForYou itself is the list of
+neighbouring constituencies on an MP's page.
+
+Here's my <a href="http://www.mysociety.org/2006/barcamp-london/">BarCamp
+Presentation</a> launching the API, and a <a href="http://www.dracos.co.uk/work/theyworkforyou/api/fabfarts/">couple</a>
+of <a href="http://www.mysociety.org/2006/09/02/battle-your-way-to-sedgefield/">applications</a> using it.
+EOT
+, "2006-09-02 17:10:00"),
+
 39 => array('New features over the last couple of months', <<<EOT
 Just a brief round-up of what we've added since our last piece of news.
 

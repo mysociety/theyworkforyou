@@ -46,6 +46,9 @@ function api_getBoundary_name($name) {
 		return;
 	}
 	$out = mapit_get_voting_area_geometry($id, 'wgs84');
-	api_output($out['polygon']);
+	if (isset($out['polygon']))
+		api_output($out['polygon']);
+	else
+		api_error('Nothing returned from get_voting_areas_geometry');
 }
 

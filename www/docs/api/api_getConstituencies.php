@@ -7,6 +7,7 @@ function api_getConstituencies_front() {
 <p><big>Fetch a list of constituencies.</big></p>
 
 <h4>Arguments</h4>
+<p>Note only one argument can be given at present.</p>
 <dl>
 <dt>date (optional)</dt>
 <dd>Fetch the list of constituencies as it was on this date.</dd>
