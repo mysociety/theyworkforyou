@@ -66,49 +66,18 @@ function postcode_to_constituency_internal($postcode) {
 	}
 
 # Otherwise hit the server (URL is private)
-# We use fsockopen rather than just fopen or file_get_contents so we can do timeouts
-  $filename = POSTCODE_SEARCH_PATH .  urlencode($postcode);
-  $file = ""; // just to be safe. Dunno, if this is really needed
-  // try several times with low timeout
-  $g_errno = '';
-  $g_errstr = '';
-  for ($i = 0; $i < 4; $i++) {
-  	$errno = 0;
-	$errstr = '';
-	$fp = @fsockopen(POSTCODE_SEARCH_DOMAIN, POSTCODE_SEARCH_PORT, $errno, $errstr, 10);
-	$g_errno .= $errno.';';
-	$g_errstr .= $errstr.';';
-	if ($fp) {
-		break;
+	$filename = POSTCODE_SEARCH_PATH .  urlencode($postcode);
+	$ch = curl_init('http://' . POSTCODE_SEARCH_DOMAIN . $filename);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+	$file = curl_exec($ch);
+	if (curl_errno($ch)) {
+		$errno = curl_errno($ch);
+		trigger_error("Postcode database: " . $errno . ' ' . curl_error($ch), E_USER_WARNING);
+		return 'CONNECTION_TIMED_OUT';
 	}
-  }
-  if ($fp) {
-    stream_set_timeout($fp, 10);
-    $sockstart = getmicrotime(); # feof doesn't time out, so we have to measure ourselves also
-        $out = "GET $filename HTTP/1.0\r\n";
-        $out .= "Host: " . POSTCODE_SEARCH_DOMAIN. "\r\n";
-        $out .= "Connection: Close\r\n\r\n";
-
-        fwrite($fp, $out);
-        $inbody = false;
-        while (!feof($fp) and (getmicrotime() < $sockstart + 10)) {
-            $line = fgets($fp, 1024);
-            if ($line == "\r\n")
-                $inbody = true;
-            if ($inbody)
-                $file .= $line;
-        }
-        // give ourselves 10 seconds for a response
-        if (getmicrotime() >= $sockstart + 10) {
-            trigger_error("Postcode database:  Connection timed out.", E_USER_WARNING);
-            return 'CONNECTION_TIMED_OUT';
-        }
-        
-        fclose($fp);
-  } else {
-	trigger_error("Postcode database: Socket error no. $g_errno, $g_errstr.", E_USER_WARNING);
-        return 'CONNECTION_TIMED_OUT';
-  }
+	curl_close($ch);
 	
   // Back to the original code.
   $file = str_replace("&", "&amp;", $file);
