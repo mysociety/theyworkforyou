@@ -194,21 +194,25 @@ function api_front_page($error = '') {
 <p align="center"><strong>http://www.theyworkforyou.com/api/<em>function</em>?output=<em>output</em>&<em>other_variables</em></strong></p>
 
 <h3>Outputs</h3>
-<dl>
-<dt>xml
-<dd>XML. The root element is twfy.
-<dt>php
-<dd>Serialized PHP, that can be turned back into useful information with the unserialize() command.
-<dt>js
-<dd>A JavaScript object. You can provide a callback function with the <em>callback</em> variable, and then that
-function will be called with the data as its argument.
-<dt>rabx
-<dd>"RPC over Anything But XML".
-</dl>
+<p>The <em>output</em> argument can take any of the following values:
+<ul>
+<li><strong>xml</strong>. XML. The root element is twfy.</li>
+<li><strong>php</strong>. Serialized PHP, that can be turned back into useful information with the unserialize() command. Quite useful in Python as well, using <a href="http://hurring.com/code/python/serialize/">PHPUnserialize</a>.</li>
+<li><strong>js</strong>. A JavaScript object. You can provide a callback
+function with the <em>callback</em> variable, and then that function will be
+called with the data as its argument.</li>
+<li><strong>rabx</strong>. "RPC over Anything But XML".</li>
+</ul>
 
 <h3>Examples</h3>
 
-<p><a href="javascript:function foo(r){if(r.twfy.url)window.location=r.twfy.url;};(function(){var s=document.createElement('script');s.setAttribute('src','http://theyworkforyou.com/api/convertURL?callback=foo&url='+encodeURIComponent(window.location));s.setAttribute('type','text/javascript');document.getElementsByTagName('head')[0].appendChild(s);})()">Hansard prettifier</a> - drag this bookmarklet to your bookmarks bar, or bookmark it. Then if you ever find yourself on the official site, clicking this will try and take you to the equivalent page on TheyWorkForYou. (Tested in IE, Firefox, Opera.)</p>
+<ul>
+<li><a href="http://www.dracos.co.uk/work/theyworkforyou/api/postcode/">Postcode to constituency lookup, with no server side code</a> - use this to add constituency or MP lookup to a form on your website.
+<li><a href="http://www.dracos.co.uk/work/theyworkforyou/api/map/">Map showing location of all 646 constituencies, with no server side code</a> - example code using JavaScript and Google Maps.
+<li><a href="javascript:function foo(r){if(r.twfy.url)window.location=r.twfy.url;};(function(){var s=document.createElement('script');s.setAttribute('src','http://theyworkforyou.com/api/convertURL?callback=foo&url='+encodeURIComponent(window.location));s.setAttribute('type','text/javascript');document.getElementsByTagName('head')[0].appendChild(s);})()">Hansard prettifier</a> - drag this bookmarklet to your bookmarks bar, or bookmark it. Then if you ever find yourself on the official site, clicking this will try and take you to the equivalent page on TheyWorkForYou. (Tested in IE, Firefox, Opera.)</li>
+<li><a href="http://www.dracos.co.uk/work/theyworkforyou/api/fabfarts/">Matthew's MP Fab Farts</a> - every technology has the capacity to be used for fun.
+<li><a href="telnet://seagrass.goatchurch.org.uk:646/">Francis' MP Fight telnet text adventure</a> (and <a href="http://caesious.beasts.org/~chris/scripts/mpfight">Chris' web version</a>) - battle your way to Sedgefield!
+</ul>
 
 <?
 	$sidebar = api_sidebar();
