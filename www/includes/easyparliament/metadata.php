@@ -378,7 +378,7 @@ $this->page = array (
 		'url'			=> ''
 	),
 	'houserules' => array (
-		'title'			=> 'House Rules',
+		'title'			=> 'House rules',
 		'url'			=> 'houserules/'
 	),
 

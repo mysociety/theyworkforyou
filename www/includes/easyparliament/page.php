@@ -819,6 +819,8 @@ urchinTracker();
 				$links[] = '<a href="' . $URL->generate() . '">' . $title . '</a>';
 			}
 		}
+		$links[] = '<a href="/api">API</a>';
+		$links[] = '<a href="http://ukparse.kforge.net/parlparse">XML</a>';
 
 		$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? strtolower( $_SERVER['HTTP_USER_AGENT'] ) : '';
 		if (stristr($user_agent, 'Firefox/'))

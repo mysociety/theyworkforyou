@@ -484,6 +484,12 @@ class MEMBER {
 	$q = $this->db->query('select count(*) as c from alerts where criteria like "%speaker:'.$this->person_id.'%" and confirmed and not deleted');
 	$this->extra_info['number_of_alerts'] = $q->field(0, 'c');
 
+	if (isset($this->extra_info['reading_ease'])) {
+		$this->extra_info['reading_ease'] = round($this->extra_info['reading_ease'], 2);
+		$this->extra_info['reading_year'] = round($this->extra_info['reading_year'], 0);
+		$this->extra_info['reading_age'] = $this->extra_info['reading_year'] + 4;
+		$this->extra_info['reading_age'] .= '&ndash;' . ($this->extra_info['reading_year'] + 5);
+	}
     }
 	
 	// Functions for accessing things about this Member.

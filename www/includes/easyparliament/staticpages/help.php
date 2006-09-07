@@ -1,5 +1,5 @@
 <ul>
-<li><a href="#moderation">How Do You Moderate Comments?</a></li>
+<li><a href="#moderation">How do you moderate comments?</a></li>
 <li><a href="#missing">Is this the whole of Hansard?</a></li>
 <li><a href="#privacy">What is your Privacy Policy?</a></li>
 <li><a href="#cookie">What is your Cookie Policy?</a></li>
@@ -7,6 +7,7 @@
 <li><a href="#rss">What is RSS?</a></li>
 <li><a href="#votingrecord">How is the voting record decided?</a></li>
 <li><a href="#numbers">Why should I read in more depth than just the numbers?</a></li>
+<li><a href="#api">Do you have the data as a spreadsheet file, XML or in an API?</a></li>
 </ul>
 
 <br />
@@ -14,7 +15,7 @@
 <!-- start new faq entry-->
 <dl>
 
-<dt><a name="moderation"></a>How Do You Moderate Comments?</dt>
+<dt><a name="moderation"></a>How do you moderate comments?</dt>
 <dd>
 <p>Ideally, we won't. If everyone keeps to the <a href="http://www.theyworkforyou.com/houserules/" title="link to House Rules">House Rules</a>, that is. But we're not naive enough to think that life online is that simple. TheyWorkForYou.com operates a 'reactive moderation' policy. We will only check whether a comment breaches our House Rules if someone lets us know of their concerns via the 'Report this Comment' link,  which can be found next to every comment. If we decide that the comment has breached our House Rules, we will delete it and let the original author know via email. We will also give them opportunity to rephrase and resubmit their orginal comment. If we deem the comment to be legit, we'll leave it up, and email the complainant to let them know why. We will do our utmost to respond to reports of potential breaches of our House Rules within forty-eight hours, but please bear in mind that this service is run by volunteers, and sometimes it might take us slightly longer.</p>
 </dd>
@@ -121,5 +122,18 @@ address</a>. We've got a few ideas ourselves, to keep you on your toes.
 
 <!-- end old faq entry -->
 
+<!-- start new faq entry-->
+<dt><a name="api"></a>Do you have the data as a spreadsheet file, XML or in an API?</dt>
+<dd>
+<p>Yes. We have an <a href="/api">API (Application Programming Interface)</a> which 
+gives you the power to do almost anything with our data.
+Alternatively, you can <a href="http://ukparse.kforge.net/parlparse">get XML files</a>,
+which can be loaded into many spreadsheets. If you just need a spreadsheet of
+MPs, you'll find one on the right hand side of <a href="/mps">this page</a>. 
+Please <a href="mailto:beta&#64;theyworkforyou.com">mail us</a> if you want help 
+working out how to use the data, or want to hire us to make something specific
+for you.
+</dd>
+<!-- end old faq entry -->
 
 </dl>
