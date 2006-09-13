@@ -27,10 +27,16 @@ function api_getMPinfo_id($id) {
 		$q = $db->query("select * from memberinfo
 			where member_id in (select member_id from member where person_id = '" . mysql_escape_string($id) . "')");
 		if ($q->rows()) {
+			$oldmid = 0; $count = -1;
 			for ($i=0; $i<$q->rows(); $i++) {
 				$mid = $q->field($i, 'member_id');
-				if (!isset($output[$mid])) $output[$mid] = array();
-				$output[$mid][$q->field($i, 'data_key')] = $q->field($i, 'data_value');
+				if (!isset($output['by_member_id'])) $output['by_member_id'] = array();
+				if ($oldmid != $mid) {
+					$count++;
+					$oldmid = $mid;
+					$output['by_member_id'][$count]['member_id'] = $mid;
+				}
+				$output['by_member_id'][$count][$q->field($i, 'data_key')] = $q->field($i, 'data_value');
 			}
 		}
 		ksort($output);

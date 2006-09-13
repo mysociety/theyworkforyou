@@ -29,7 +29,7 @@ function api_header($o) {
 	} else {
 		$type = 'text/javascript';
 	}
-	$type = 'text/plain';
+	#$type = 'text/plain';
 	header("Content-Type: $type; charset=iso-8859-1");
 }
 

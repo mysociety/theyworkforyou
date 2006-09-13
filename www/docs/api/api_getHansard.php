@@ -13,7 +13,7 @@ function _api_getHansard_year($type, $y) {
 	$LIST->display('calendar', $args, 'api');
 }
 function _api_getHansard_search($array) {
-	$search = trim($array['s']);
+	$search = isset($array['s']) ? trim($array['s']) : '';
 	$pid = trim($array['pid']);
 	$type = $array['type'];
 	$search = filter_user_input($search, 'strict');
