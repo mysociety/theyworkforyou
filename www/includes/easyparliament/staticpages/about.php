@@ -16,6 +16,9 @@ We aim to help bridge this growing democratic disconnect, in the belief that the
 <p>It's not strictly true to say that the website was built entirely by volunteer effort. One of our key developers was kept fed for a month by a small grant from a charity called <a href="http://www.democracy.org.uk/">UK Citizen's Online Democracy</a>. This money was vital. Hungry developers don't write good code.
 </p>
 
+<p>If you're technically minded, we make all the <a href="https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy">TheyWorkForYou source code</a> freely available.
+</p>
+
 <ul>
 <li>Martin Belam</li>
 <li>James Crabtree</li>
