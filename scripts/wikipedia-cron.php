@@ -12,7 +12,7 @@ function contributions($ip) {
 	global $dir;
 
 	$file = fetch("/w/index.php?title=Special:Contributions&limit=100&target=$ip");
-	if (!$file) continue;
+	if (!$file) return;
 	$fp = fopen($dir . $ip, 'w');
 	fwrite($fp, $file['body']);
 	fclose($fp);

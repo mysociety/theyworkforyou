@@ -1073,6 +1073,9 @@ pr()//-->
 <?php 
 		} 
 		
+		if ($member['party'] == 'Sinn Fein') {
+			print '<li>Sinn Fein MPs do not take their seats in Parliament</li>';
+		}
 					
 		if ($member['the_users_mp'] == true) {
 			$pc = $THEUSER->postcode();
@@ -1092,7 +1095,7 @@ pr()//-->
 
 		}
 
-		if ($member['current_member']) {
+		if ($member['current_member'] && $member['party']!='Sinn Fein') {
 			print '<li><a href="/alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a> (no more than once per day)</li>';
 		}
 
@@ -1101,11 +1104,13 @@ pr()//-->
 						
 						
 						<ul class="jumpers">
+<? if ($member['party'] != 'Sinn Fein') { ?>
 						<li><a href="#votingrecord">Voting record</a></li>
 <?		if ($member['house'] == 'House of Commons') { ?>
 						<li><a href="#topics">Topics of interest</a></li>
 <?		} ?>
 						<li><a href="#hansard">Recent appearances in Parliament</a></li>
+<? } ?>
 						<li><a href="#numbers">Numerology</a></li>
 <?php		if (isset($extra_info['register_member_interests_html'])) { ?>
 						<li><a href="#register">Register of Members' Interests</a></li>
@@ -1123,6 +1128,8 @@ pr()//-->
 						</ul>
 <?php
 		$this->block_end();
+
+if ($member['party'] != 'Sinn Fein') { # Big don't-print for Sinn Fein
 
 		// Voting Record.
 		?> <a name="votingrecord"></a> <?php
@@ -1344,6 +1351,7 @@ pr()//-->
 		
 		$this->block_end();
 
+} # End Sinn Fein
 
 		?> <a name="numbers"></a> <?php
 		$this->block_start(array('id'=>'numbers', 'title'=>'Numerology'));
@@ -1366,7 +1374,8 @@ pr()//-->
 			$section = 'lordsdebates';
 		}
 		$MOREURL->insert(array('pid'=>$member['person_id'], 's'=>'section:'.$section, 'pop'=>1));
-		$displayed_stuff |= display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info);
+		if ($member['party']!='Sinn Fein') {
+			$displayed_stuff |= display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info);
 
 		$MOREURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
 		// We assume that if they've answered a question, they're a minister
@@ -1376,6 +1385,7 @@ pr()//-->
 		if (isset($extra_info['Lwrans_answered_inlastyear']) && $extra_info['Lwrans_answered_inlastyear'] > 0 && $extra_info['Lwrans_asked_inlastyear'] == 0)
 			$Lminister = true;
 		$displayed_stuff |= display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister);
+		}
 
 		if (isset($extra_info['select_committees'])) {
 			print "<li>Is a member of <strong>$extra_info[select_committees]</strong> select committee";
@@ -1398,10 +1408,12 @@ pr()//-->
 		if ($member['party'] == 'Scottish National Party') {
 			$after_stuff .= '<br /><em>Note SNP MPs do not vote on legislation not affecting Scotland.</em>';
 		}
-		$displayed_stuff |= display_stats_line('public_whip_division_attendance', 'Has attended <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> in parliament', $after_stuff, $extra_info);
+		if ($member['party'] != 'Sinn Fein') {
+			$displayed_stuff |= display_stats_line('public_whip_division_attendance', 'Has attended <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> in parliament', $after_stuff, $extra_info);
 
-		$displayed_stuff |= display_stats_line('comments_on_speeches', 'People have made <a href="/comments/recent/?pid='.$member['person_id'].'">', 'comment', "</a> on this MP's speeches", '', $extra_info);
-		$displayed_stuff |= display_stats_line('reading_age', 'This MP\'s speeches are understandable to an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
+			$displayed_stuff |= display_stats_line('comments_on_speeches', 'People have made <a href="/comments/recent/?pid='.$member['person_id'].'">', 'comment', "</a> on this MP's speeches", '', $extra_info);
+			$displayed_stuff |= display_stats_line('reading_age', 'This MP\'s speeches are understandable to an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
+		}
 		
 		if (isset($extra_info['number_of_alerts'])) {
 			$displayed_stuff = 1;
@@ -1413,7 +1425,9 @@ pr()//-->
 			print '.</li>';
 		}
 
-		$displayed_stuff |= display_stats_line('three_word_alliterations', 'Has used a three-word alliterative phrase (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="/help/#numbers">Why is this here?</a>)</small>', $extra_info);
+		if ($member['party']!='Sinn Fein') {
+			$displayed_stuff |= display_stats_line('three_word_alliterations', 'Has used a three-word alliterative phrase (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="/help/#numbers">Why is this here?</a>)</small>', $extra_info);
+		}
 		#		$displayed_stuff |= display_stats_line('ending_with_a_preposition', "Has ended a sentence with 'with' ", 'time', ' in debates', '', $extra_info);
 		#		$displayed_stuff |= display_stats_line('only_asked_why', "Has made a speech consisting solely of 'Why?' ", 'time', ' in debates', '', $extra_info);
 
@@ -1445,7 +1459,7 @@ pr()//-->
 			}
 			echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/051214/memi01.htm">More about the Register</a>';
 			echo '</p>';
-			print '<p><strong><span style="color: #ff0000;">New:</span> <a href="/regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
+			print '<p><strong><a href="/regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
 			$this->block_end();
 		}
 
@@ -2446,7 +2460,7 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 			$USERURL->insert(array('id'=>$data['user_id']));
 			$username = '<a href="' . $USERURL->generate() . '">' . htmlentities($data['user_name']) . '</a>';
 		} else {
-			$username = $data['user_name'];
+			$username = htmlentities($data['user_name']);
 		}
 		?>	
 				<div class="comment">
@@ -2511,8 +2525,8 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 				$body = trim_characters($report['body'], 0, 40);
 								
 				$tabledata['rows'][] = array (
-					$report['firstname'] . ' ' . $report['lastname'],
-					$body,
+					htmlentities($report['firstname'] . ' ' . $report['lastname']),
+					htmlentities($body),
 					$report['reported'],
 					$editlink
 				);

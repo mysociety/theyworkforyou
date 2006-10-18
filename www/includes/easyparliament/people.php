@@ -181,7 +181,9 @@ class PEOPLE {
 			}
 			print '<option';
 			if (isset($args['pid']) && $args['pid']==$row['person_id']) print ' selected';
-			print ' value="'.$row['person_id'].'">' . $row['first_name'].' '.$row['last_name'].'</option>';
+			print ' value="'.$row['person_id'].'">' . $row['first_name'].' '.$row['last_name'];
+			print ', ' . $row['constituency'];
+			print '</option>';
 		}
 		print '</optgroup> <optgroup label="Peers">';
 		$data = $this->_get_data_by_peers($args);

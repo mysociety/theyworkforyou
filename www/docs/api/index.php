@@ -56,11 +56,12 @@ $methods = array(
 		'required' => false,
 		'help' => 'Returns centre, bounding box of constituencies'
 	),
-	'getBoundary' => array(
+/*	'getBoundary' => array(
 		'parameters' => array('name'),
 		'required' => true,
 		'help' => 'Returns boundary polygon of constituency'
 	),
+*/
 	'getCommittee' => array(
 		'new' => true,
 		'parameters' => array('name', 'date'),
@@ -70,19 +71,16 @@ $methods = array(
 	'getDebates' => array(
 		'new' => true,
 		'parameters' => array('type', 'date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
-		'working' => true,
 		'required' => true,
 		'help' => 'Returns Debates (either Commons, Westminhall Hall, or Lords)',
 	),
 	'getWrans' => array(
 		'parameters' => array('date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
-		'working' => true,
 		'required' => true,
 		'help' => 'Returns Written Answers',
 	),
 	'getWMS' => array(
 		'parameters' => array('date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
-		'working' => true,
 		'required' => true,
 		'help' => 'Returns Written Ministerial Statements',
 	),
@@ -185,7 +183,7 @@ function api_front_page($error = '') {
 		print "<p style='color: #cc0000'>$error</p>";
 	}
 ?>
-<p>Welcome to TheyWorkForYou's API section, where you can learn how to query our database for information. Non-commercial use is free, please contact us for commercial use. <em>This API is currently being written!</em></p>
+<p>Welcome to TheyWorkForYou's API section, where you can learn how to query our database for information.</p>
 
 <h3>Overview</h3>
 
@@ -203,6 +201,24 @@ function with the <em>callback</em> variable, and then that function will be
 called with the data as its argument.</li>
 <li><strong>rabx</strong>. "RPC over Anything But XML".</li>
 </ul>
+
+<h3>Licensing</h3>
+
+<p>To use parliamentary material yourself (that's data returned from
+getDebates, getWrans, and getWMS), you will need to get a
+<a href="http://www.opsi.gov.uk/click-use/parliamentary-licence-information/index.htm">Parliamentary Licence</a> from the Office of Public Sector
+Information.
+
+<? /* All Ordnance Survey data (returned by getGeometry and getBoundary) is
+covered by the <acronym title="Pan-Government Agreement">PGA</acronym>
+under the <a href="http://www.dca.gov.uk/">Department for Constitutional
+Affairs</a>; you will have to get your own licence to re-use them. */ ?>
+
+Our own data - lists of MPs, Lords, constituencies and so on - is available
+under the <a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative
+Commons Attribution-ShareAlike license version 2.5</a>.
+
+<p>Non-commercial use is free, please contact us for commercial use.
 
 <h3>Examples</h3>
 

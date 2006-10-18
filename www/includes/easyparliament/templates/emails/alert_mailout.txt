@@ -1,21 +1,10 @@
 Subject: Your TheyWorkForYou email alert
-[ Parliament has entered its Summer Recess. This email alert
-  is for the Written Answers that have appeared for the final
-  Tuesday, and another set from the final Monday. ]
-
 {DATA}
 
 If clicking any of these links doesn't work, you may have
 to copy and then paste them into the 'Location' or
 'Address' box of your web browser, and then press 'enter'
 or 'return' on your keyboard.
-
--------------------------------------------------
-Plug: Want to discuss the impact that TheyWorkForYou.com and
-other mySociety sites are having on MPs and parliament? Come
-to our event in Westminster on November 7th from 6:30-8:30pm.
-Email team@mysociety.org to reserve a place.
--------------------------------------------------
 
 Best wishes,
 TheyWorkForYou.com

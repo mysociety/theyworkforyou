@@ -59,6 +59,7 @@ function postcode_to_constituency_internal($postcode) {
 		return '';
   
 	$db = new ParlDB;
+
 	$q = $db->query('select name from postcode_lookup where postcode = "'. mysql_escape_string($postcode).'"');
 	if ($q->rows > 0) {
 		$name = $q->field(0, 'name');
@@ -66,19 +67,26 @@ function postcode_to_constituency_internal($postcode) {
 	}
 
 # Otherwise hit the server (URL is private)
+
+	$pid = getmypid();
+	# $tracefn = '/tmp/apache.ktrace.' . getmicrotime();
+	# system("/home/fawkes/bin/ktracewrap -p $pid -f " . $tracefn);
+
 	$filename = POSTCODE_SEARCH_PATH .  urlencode($postcode);
 	$ch = curl_init('http://' . POSTCODE_SEARCH_DOMAIN . $filename);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
 	curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 	$file = curl_exec($ch);
+	# system("/home/fawkes/bin/ktracewrap -c -p $pid");
 	if (curl_errno($ch)) {
 		$errno = curl_errno($ch);
 		trigger_error("Postcode database: " . $errno . ' ' . curl_error($ch), E_USER_WARNING);
 		return 'CONNECTION_TIMED_OUT';
 	}
 	curl_close($ch);
-	
+	#unlink($tracefn);
+
   // Back to the original code.
   $file = str_replace("&", "&amp;", $file);
   $file = str_replace("&amp;amp;", "&amp;", $file);

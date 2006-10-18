@@ -82,6 +82,7 @@ function _api_getGeometry() {
 		$out = array();
 		$name = $names[$area_id];
 		if (count($areas_geometry[$area_id])) {
+			$out['name'] = $name;
 			$out['centre_lat'] = $areas_geometry[$area_id]['centre_lat'];
 			$out['centre_lon'] = $areas_geometry[$area_id]['centre_lon'];
 			$out['area'] = $areas_geometry[$area_id]['area'];

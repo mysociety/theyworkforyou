@@ -916,7 +916,7 @@ function major_summary($data) {
 			else $daytext[$major] = "The most recent ";
 		}
 	}
-	$printed_majors = array(1, 2, 3, 101);
+	$printed_majors = array(3, 1, 2, 101);
 	print '<ul id="hansard-day">';
 	while (count($printed_majors)) {
 		if (!array_key_exists($printed_majors[0], $data)) {

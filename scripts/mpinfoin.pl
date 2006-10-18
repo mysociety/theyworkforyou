@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.7 2006-08-11 20:55:55 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.8 2006-10-18 22:38:53 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -17,6 +17,7 @@ use DBI;
 use File::Find;
 use HTML::Entities;
 use Data::Dumper;
+use Syllable;
 
 # Fat old hashes intotwixt all the XML is loaded and colated before being squirted to the DB
 my $memberinfohash;
@@ -294,12 +295,30 @@ sub makerankings {
                 $tth = $dbh->prepare("select body from epobject,hansard where hansard.epobject_id = epobject.epobject_id and speaker_id=? and (major=1 or major=2)");
                 $tth->execute($mp_id);
                 $personinfohash->{$person_fullid}->{'three_word_alliterations'} = 0 if !$personinfohash->{$person_fullid}->{'three_word_alliterations'};
+                my $words = 0; my $syllables = 0; my $sentences = 0;
                 while (my @row = $tth->fetchrow_array()) {
                         my $body = $row[0];
+                        $body =~ s/<\/p>/\n\n/g;
+                        $body =~ s/<\/?p[^>]*>//g;
+                        $body =~ s/ hon\. / honourable /g;
                         if ($body =~ m/\b((\w)\w*\s+\2\w*\s+\2\w*)\b/) {
                                 $personinfohash->{$person_fullid}->{'three_word_alliterations'} += 1
                         }
+                        
+                        my @sent = split(/(?:(?<!Mr|St)(?<!Ltd)\.|!|\?)\s+/, $body);
+                        $sentences += @sent;
+                        for (split /\W+/, $body) {
+                                $words++;
+                                $syllables += syllable($_);
+                        }
                 }
+                $personinfohash->{$person_fullid}->{'total_words'} = 0 if !$personinfohash->{$person_fullid}->{'total_words'};
+                $personinfohash->{$person_fullid}->{'total_words'} += $words;
+                $personinfohash->{$person_fullid}->{'total_sents'} = 0 if !$personinfohash->{$person_fullid}->{'total_sents'};
+                $personinfohash->{$person_fullid}->{'total_sents'} += $sentences;
+                $personinfohash->{$person_fullid}->{'total_sylls'} = 0 if !$personinfohash->{$person_fullid}->{'total_sylls'};
+                $personinfohash->{$person_fullid}->{'total_sylls'} += $syllables;
+
                 $first_member{$person_id} = 1;
 
                 $tth = $dbh->prepare("select count(*) from moffice where person=? and source='chgpages/selctee' and to_date='9999-12-31'");
@@ -327,6 +346,18 @@ sub makerankings {
                         @ordered = @ordered[0..4] if (scalar(@ordered) > 5);
                         $personinfohash->{$key}->{'wrans_subjects'} = join(', ', @ordered);
                 }
+                #$personinfohash->{$key}->{'reading_ease'} = -1;
+                if ($personinfohash->{$key}->{'total_sents'} && $personinfohash->{$key}->{'total_words'}) {
+                        $personinfohash->{$key}->{'reading_ease'} = 206.835
+                                - 1.015 * ($personinfohash->{$key}->{'total_words'} / $personinfohash->{$key}->{'total_sents'})
+                                - 84.6 * ($personinfohash->{$key}->{'total_sylls'} / $personinfohash->{$key}->{'total_words'});
+                        $personinfohash->{$key}->{'reading_year'} = 1 -15.59
+                                + 0.39 * ($personinfohash->{$key}->{'total_words'} / $personinfohash->{$key}->{'total_sents'})
+                                + 11.8 * ($personinfohash->{$key}->{'total_sylls'} / $personinfohash->{$key}->{'total_words'});
+                }
+                delete $personinfohash->{$key}->{'total_words'};
+                delete $personinfohash->{$key}->{'total_sylls'};
+                delete $personinfohash->{$key}->{'total_sents'};
         }
 
         # Loop through Lords
@@ -411,6 +442,8 @@ sub makerankings {
         enrankify($personinfohash, "Lthree_word_alliterations", 0);
         enrankify($personinfohash, "Lending_with_a_preposition", 0);
         enrankify($memberinfohash, "swing_to_lose_seat_today", 0);
+        enrankify($personinfohash, "reading_ease", 0);
+        enrankify($personinfohash, "reading_year", 0);
         for (my $year=2002; $year<=2005; ++$year) {
                 for (my $col=1; $col<=9; ++$col) {
                         enrankify($personinfohash, 'expenses'.$year.'_col'.$col, 0);
