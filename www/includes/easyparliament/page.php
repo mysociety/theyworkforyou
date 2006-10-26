@@ -1426,7 +1426,7 @@ if ($member['party'] != 'Sinn Fein') { # Big don't-print for Sinn Fein
 		}
 
 		if ($member['party']!='Sinn Fein') {
-			$displayed_stuff |= display_stats_line('three_word_alliterations', 'Has used a three-word alliterative phrase (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="/help/#numbers">Why is this here?</a>)</small>', $extra_info);
+			$displayed_stuff |= display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="/help/#numbers">Why is this here?</a>)</small>', $extra_info);
 		}
 		#		$displayed_stuff |= display_stats_line('ending_with_a_preposition', "Has ended a sentence with 'with' ", 'time', ' in debates', '', $extra_info);
 		#		$displayed_stuff |= display_stats_line('only_asked_why', "Has made a speech consisting solely of 'Why?' ", 'time', ' in debates', '', $extra_info);
