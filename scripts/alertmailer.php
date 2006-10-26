@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.6 2006-07-19 16:10:06 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.7 2006-10-26 10:55:32 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -16,16 +16,22 @@ $lastupdated = join('', $lastupdated);
 if (!$lastupdated) $lastupdated = strtotime('00:00 today');
 
 # For testing purposes, specify nomail on command line to not send out emails
-$nomail = 0;
-if (isset($_SERVER['argv'][1]) && $_SERVER['argv'][1] == 'nomail') $nomail = 1;
-if ($nomail) print "NOT SENDING EMAIL\n";
-
+$nomail = false;
 $onlyemail = '';
-if (isset($_SERVER['argv'][1]) && $_SERVER['argv'][1] != 'nomail') {
-	$onlyemail = $_SERVER['argv'][1];
+$fromemail = '';
+for ($k=1; $k<$argc; $k++) {
+	if ($argv[$k] == '--nomail')
+		$nomail = true;
+	if (preg_match('#^--only=(.*)$#', $argv[$k], $m))
+		$onlyemail = $m[1];
+	if (preg_match('#^--from=(.*)$#', $argv[$k], $m))
+		$fromemail = $m[1];
 }
-if (isset($_SERVER['argv'][2])) {
-	$onlyemail = $_SERVER['argv'][2];
+
+if ($nomail) print "NOT SENDING EMAIL\n";
+if ($fromemail && $onlyemail) {
+	print "Can't have both from and only!\n";
+	exit;
 }
 
 $active = 0;
@@ -58,7 +64,7 @@ foreach ($alertdata as $alertitem) {
 	$active++;
 	$email = $alertitem['email'];
 	if ($onlyemail && $email != $onlyemail) continue;
-	#if (strtolower($email) < 'XXX') continue;
+	if ($fromemail && strtolower($email) < $fromemail) continue;
 	$criteria = $alertitem['criteria'];
 
 	print "$active : Checking $criteria for $email; current memory usage : ".memory_get_usage()."\n";
