@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.8 2006-10-18 22:38:53 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.9 2006-11-01 08:37:15 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -56,6 +56,8 @@ $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords"); #
 foreach my $dreamid (219, 258, 358, 363, 826, 230, 367, 856, 811) {
         $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid");
 }
+$twig->parsefile($config::pwmembers . "expenses200506.xml", ErrorContext => 2);
+$twig->parsefile($config::pwmembers . "expenses200506former.xml", ErrorContext => 2);
 $twig->parsefile($config::pwmembers . "expenses200405.xml", ErrorContext => 2);
 $twig->parsefile($config::pwmembers . "expenses200304.xml", ErrorContext => 2);
 $twig->parsefile($config::pwmembers . "expenses200203.xml", ErrorContext => 2);
@@ -413,7 +415,7 @@ sub makerankings {
                 }
         }
 
-        for (my $year=2002; $year<=2005; ++$year) {
+        for (my $year=2002; $year<=2006; ++$year) {
                 foreach my $mp_id (keys %$personinfohash) {
                         if (defined($personinfohash->{$mp_id}->{'expenses'.$year.'_col1'})) {
                                 my $total = 0; my $num;

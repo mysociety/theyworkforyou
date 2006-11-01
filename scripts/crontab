@@ -2,7 +2,7 @@
 
 # m h dom mon dow command
 
-MAILTO=fawkes@lists.isness.org
+MAILTO=fawkes@lists.mysociety.org
 
 # daily update at night for MP data (regmem, data from Public Whip etc.)
 37 1 * * * $HOME/fawkes/scripts/dailyupdate
@@ -13,3 +13,6 @@ MAILTO=fawkes@lists.isness.org
 # daily backup
 30 2 * * * $HOME/fawkes/scripts/dumpallforbackup
 
+# not for the glossary links, but for the editing history from
+# political IP addresses
+4 0-23/2 * * * $HOME/fawkes/scripts/wikipedia-cron.php
