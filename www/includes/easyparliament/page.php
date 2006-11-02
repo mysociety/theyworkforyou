@@ -807,7 +807,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 	function content_end () {
 		global $DATA, $this_page;
 		
-		$pages = array ('about', 'contact', 'linktous', 'houserules', 'disclaimer');
+		$pages = array ('about', 'contact', 'linktous', 'houserules');
 		
 		foreach ($pages as $page) {
 			$URL = new URL($page);
@@ -819,8 +819,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 				$links[] = '<a href="' . $URL->generate() . '">' . $title . '</a>';
 			}
 		}
-		$links[] = '<a href="/api">API</a>';
-		$links[] = '<a href="http://ukparse.kforge.net/parlparse">XML</a>';
+		$links[] = '<a href="/api">API</a> / <a href="http://ukparse.kforge.net/parlparse">XML</a>';
 		$links[] = '<a href="https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy">Source code</a>';
 
 		$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? strtolower( $_SERVER['HTTP_USER_AGENT'] ) : '';
@@ -1469,14 +1468,19 @@ if ($member['party'] != 'Sinn Fein') { # Big don't-print for Sinn Fein
 			$this->block_end();
 		}
 
-		if (isset($extra_info['expenses2004_col1'])) {
+		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1'])) {
 ?>
 <a name="expenses"></a>
 <?php
 			$title = 'Expenses';
 			$this->block_start(array('id'=>'expenses', 'title'=>$title));
 			print '<p class="italic">Figures in brackets are ranks. Parliament\'s <a href="http://www.parliament.uk/site_information/allowances.cfm">explanatory notes</a>.</p>';
-			print '<table class="people"><tr><th>Type</th><th>2004/05';
+			print '<table class="people"><tr><th>Type</th><th>2005/06';
+			if (isset($extra_info['expenses2006_col1_rank_outof'])) {
+				# TODO: Needs to be more complicated, because of General Election
+				print ' (ranking out of ' . $extra_info['expenses2006_col1_rank_outof'] . ')';
+			}
+			print '</th><th>2004/05';
 			if (isset($extra_info['expenses2005_col1_rank_outof'])) {
 				print ' (ranking out of ' . $extra_info['expenses2005_col1_rank_outof'] . ')';
 			}
@@ -1521,7 +1525,7 @@ if ($member['party'] != 'Sinn Fein') { # Big don't-print for Sinn Fein
 	}
 	
 	function expenses_printout($col, $extra_info, $style) {
-		for ($ey=2005; $ey>=2002; --$ey) {
+		for ($ey=2006; $ey>=2002; --$ey) {
 			$k = 'expenses' . $ey . '_' . $col;
 			$kr = $k . '_rank';
 			print '<td class="row-'.$style.'">';

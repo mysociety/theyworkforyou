@@ -275,6 +275,7 @@ if ($q_house==1) {
 */
     } else {
 
+
         $SEARCHENGINE = new SEARCHENGINE($searchstring); 
     	$pagetitle = "Search: " . $SEARCHENGINE->query_description_short();
     	$pagenum = get_http_var('p');
@@ -283,6 +284,7 @@ if ($q_house==1) {
     	}
 	
     	$DATA->set_page_metadata($this_page, 'title', $pagetitle);
+	    $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . $searchstring);
     	$PAGE->page_start();
     	$PAGE->stripe_start();
     	$PAGE->search_form();

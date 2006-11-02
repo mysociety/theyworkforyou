@@ -4,3 +4,4 @@ RewriteRule ^mps/c4x/$ mps/?c4x=1 [QSA]
 RewriteRule ^peer/(.*) mp/$1?peer=1 [QSA]
 
 RedirectPermanent /awstats http://cake.ukcod.org.uk/awstats/awstats.pl?config=theyworkforyou
+RedirectPermanent /termsofuse http://www.theyworkforyou.com/about

@@ -293,10 +293,6 @@ $this->page = array (
 		'title'			=> 'Debates for ',
 		'url'			=> 'debates/'
 	),
-	'disclaimer' => array (
-		'title'			=> 'Terms of use',
-		'url'			=> 'termsofuse/'
-	),
 	'epvote' => array (
 		'url'			=> 'vote/'
 	),

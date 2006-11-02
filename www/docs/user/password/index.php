@@ -38,7 +38,7 @@ if (get_http_var("submitted")) {
 		$USER = new USER;
 		$emailexists = $USER->email_exists($email);
 		if (!$emailexists) {
-			$errors["email"] = "There is no user with this email address";
+			$errors["email"] = 'There is no user registered with that email address. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave comments.';
 		}
 		
 	}
