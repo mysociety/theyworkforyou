@@ -22,7 +22,7 @@ UK Citizens Online Democracy does not warrant that functions contained in TheyWo
 
 <h2>Contributions to TheyWorkForYou.com</h2>
 <p>
-Where you are invited to submit any contribution to TheyWorkForYou.com (including any text, photographs, graphics, video or audio) you agree, by submitting your contribution, to grant UK Citizens Online Democracy a perpetual, royalty-free, non-exclusive, sub-licenseable right and license to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, perform, play, make available to the public, and exercise all copyright and publicity rights with respect to your contribution worldwide and/or to incorporate your contribution in other works in any media now known or later developed for the full term of any rights that may exist in your contribution. If you do not want to grant to UK Citizens Online Democracy the rights set out above, please do not submit your contribution to TheyWorkForYou.com. </p>
+Where you are invited to submit any contribution to TheyWorkForYou.com you agree, by submitting your contribution, to grant UK Citizens Online Democracy a perpetual, royalty-free, non-exclusive, sub-licenseable right and license to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, perform, play, make available to the public, and exercise all copyright and publicity rights with respect to your contribution worldwide and/or to incorporate your contribution in other works in any media now known or later developed for the full term of any rights that may exist in your contribution. If you do not want to grant to UK Citizens Online Democracy the rights set out above, please do not submit your contribution to TheyWorkForYou.com. </p>
   <p>
 Further to the above paragraph, by submitting your contribution to TheyWorkForYou.com, you:
 </p>
@@ -42,8 +42,3 @@ Further to the above paragraph, by submitting your contribution to TheyWorkForYo
 <p>You agree to use TheyWorkForYou.com website in accordance with the <a href="<?php echo $houserulesurl; ?>">House Rules</a>. If you persist in breaking the House Rules, we reserve the right to suspend your TheyWorkForYou.com account(s) and take any appropriate action to prevent any further breaches. 
 </p>
 
-<h2>General</h2>
- <p>
-If any of these terms are determined to be illegal, invalid or otherwise unenforceable by reason of the laws of any state or country in which these terms are intended to be effective, then to the extent and within the jurisdiction in which that term is illegal, invalid or unenforceable, it shall be severed and deleted from these terms and the remaining terms shall survive, remain in full force and effect and continue to be binding and enforceable.
-These terms shall be governed by and interpreted in accordance with the laws of England and Wales.
-</p>
