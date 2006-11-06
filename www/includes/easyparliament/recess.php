@@ -73,7 +73,21 @@ $GLOBALS['recessdates'] = array(
 		7=>array('more'=>25),
 		8=>array('all'=>1),
 		9=>array('all'=>1),
-		10=>array('less'=>9) ),
+		10=>array('less'=>9),
+		12=>array('more'=>19),
+	),
+	2007 => array(
+		1=>array('less'=>8),
+		2=>array('between'=>array(8,19)),
+		3=>array('more'=>29),
+		4=>array('less'=>16),
+		5=>array('more'=>24),
+		6=>array('less'=>4),
+		7=>array('more'=>26),
+		8=>array('all'=>1),
+		9=>array('all'=>1),
+		10=>array('less'=>8),
+	),
 );
 
 function currently_in_recess() {
@@ -82,16 +96,15 @@ function currently_in_recess() {
     $today = date("Y-m-d");
     while ($line = fgets($h)){
         list($name, $from, $to) = split(",", $line);
-        if ($from <= $today and $today <=$to) {
+        if ($from <= $today and $today <= $to) {
             return array($name, trim($from), trim($to));
         }
     }
     // Second manual override file
     $h = fopen(RECESSFILE.".extra", "r");
-    $today = date("Y-m-d");
     while ($line = fgets($h)){
         list($name, $from, $to) = split(",", $line);
-        if ($from <= $today and $today <=$to) {
+        if ($from <= $today and $today <= $to) {
             return array($name, trim($from), trim($to));
         }
     }

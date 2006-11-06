@@ -66,6 +66,7 @@ if (get_http_var("submitcomment") != '') {
 			'user_id' => $THEUSER->user_id(),
 			'posted' => date('Y-m-d H:i:s', time()),
 			'modflagged' => NULL,
+			'visible' => 1,
 			'preview' => true	// Extra tag so we know this is just a preview.
 		);
 	

@@ -84,7 +84,9 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 
 		// COMMENT REPORTING LINK.
 		
-		if (($this_page != 'commentreport' && 
+		if (!$comment['visible']) {
+			$reporthtml = '';
+		} elseif (($this_page != 'commentreport' && 
 			$this_page != 'addcomment'  && 
 			$this_page != 'admin_commentreport') 
 			&& $THEUSER->is_able_to('reportcomment')
@@ -135,12 +137,13 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 <?php
 
 		// THE COMMENT BODY.
-		
-		// Make URLs into links and do <br>s.
-		$body = prepare_comment_for_display($comment['body']); // In utility.php
-		
-		echo "<p class=\"comment\">$body</p>\n";
-
+		if ($comment['visible']) {
+			// Make URLs into links and do <br>s.
+			$body = prepare_comment_for_display($comment['body']); // In utility.php
+			echo "<p class=\"comment\">$body</p>\n";
+		} else {
+			print '<p class="comment"><em>This comment has been deleted</em></p>'."\n";
+		}
 		
 		?>
 				</div> <!-- end .comment -->

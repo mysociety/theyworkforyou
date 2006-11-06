@@ -219,7 +219,8 @@ class COMMENT {
 			'modflagged'	=> $this->modflagged,
 			'url'			=> $this->url,
 			'firstname'		=> $this->firstname,
-			'lastname'		=> $this->lastname
+			'lastname'		=> $this->lastname,
+			'visible'		=> $this->visible,
 		);	
 
 		// Use the same renderer as the COMMENTLIST class.

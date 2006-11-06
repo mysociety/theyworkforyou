@@ -112,7 +112,7 @@ class COMMENTLIST {
 			),
 			'where' => array (
 				'comments.epobject_id=' => $args['epobject_id'],
-				'visible=' => '1'
+				#'visible=' => '1'
 			),
 			'order' => 'posted ASC'
 		);
