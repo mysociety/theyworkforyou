@@ -69,8 +69,8 @@ if (!defined("POSTCODE_SEARCH_DOMAIN")) {
 	$SEARCHURL = new URL('search');
 	?>
 						<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-						<p><strong>Search Commons and Lords debates, written answers, and statements since 2001; for an MP, peer, constituency, or date.</strong><br />
-						<label for="s">Type what you are looking for:</label>&nbsp; <input type="text" name="s" id="s" size="15" maxlength="100" class="text" />&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit" /></p>
+						<p><strong>Search Commons and Lords debates, written answers, and statements since 2001<?=get_http_var("keyword") ? ' for \'' . htmlspecialchars(get_http_var("keyword")) . '\'.' : '; for an MP, peer, constituency, or date.'?></strong><br />
+					<label for="s">Type what you are looking for:</label>&nbsp; <input type="text" name="s" id="s" size="15" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>" />&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit" /></p>
                         <?
                             // Display popular queries
                             global $SEARCHLOG;
@@ -97,7 +97,11 @@ if (!defined("POSTCODE_SEARCH_DOMAIN")) {
 <?php
 
 	?>
-						<li><p><a href="/alert/"><strong>Sign up to be emailed when something relevant to you happens in Parliament</strong></a></p></li>
+	<? if (get_http_var("keyword")) { ?>
+		<li><p><a href="/alert?keyword=<?=htmlspecialchars(get_http_var('keyword'))?>&only=1"><strong>Sign up to be emailed when '<?=htmlspecialchars(get_http_var('keyword'))?>' is mentioned in Parliament</strong></a></p></li>
+	<? } else { ?>
+		<li><p><a href="/alert/"><strong>Sign up to be emailed when something relevant to you happens in Parliament</strong></a></p></li>
+	<? } ?>
 						<li><p><strong>Comment on:</strong></p>
 
 <?php 
