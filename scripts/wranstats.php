@@ -1,6 +1,6 @@
 <?php
 
-include '/data/vhost/staging.theyworkforyou.com/includes/easyparliament/init.php';
+include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
 # include INCLUDESPATH . 'easyparliament/member.php';
 
 $db = new ParlDB;

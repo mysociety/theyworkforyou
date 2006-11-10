@@ -1180,7 +1180,7 @@ if ($member['party'] != 'Sinn Fein') { # Big don't-print for Sinn Fein
 			return false;
 		}
 
-	if (isset($extra_info["public_whip_dreammp219_distance"])) {
+	if (isset($extra_info["public_whip_dreammp230_distance"])) {
 		$displayed_stuff = 1; ?>
 
 
@@ -1414,7 +1414,7 @@ if ($member['party'] != 'Sinn Fein') { # Big don't-print for Sinn Fein
 			$after_stuff .= '<br /><em>Note SNP MPs do not vote on legislation not affecting Scotland.</em>';
 		}
 		if ($member['party'] != 'Sinn Fein') {
-			$displayed_stuff |= display_stats_line('public_whip_division_attendance', 'Has attended <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> in parliament', $after_stuff, $extra_info);
+			$displayed_stuff |= display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> in parliament', $after_stuff, $extra_info);
 
 			$displayed_stuff |= display_stats_line('comments_on_speeches', 'People have made <a href="/comments/recent/?pid='.$member['person_id'].'">', 'comment', "</a> on this MP's speeches", '', $extra_info);
 			$displayed_stuff |= display_stats_line('reading_age', 'This MP\'s speeches are understandable to an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
@@ -1432,6 +1432,10 @@ if ($member['party'] != 'Sinn Fein') { # Big don't-print for Sinn Fein
 
 		if ($member['party']!='Sinn Fein') {
 			$displayed_stuff |= display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="/help/#numbers">Why is this here?</a>)</small>', $extra_info);
+			if (isset($extra_info['three_word_alliteration_content'])) {
+					print "\n<!-- " . $extra_info['three_word_alliteration_content'] . " -->\n";
+			}
+
 		}
 		#		$displayed_stuff |= display_stats_line('ending_with_a_preposition', "Has ended a sentence with 'with' ", 'time', ' in debates', '', $extra_info);
 		#		$displayed_stuff |= display_stats_line('only_asked_why', "Has made a speech consisting solely of 'Why?' ", 'time', ' in debates', '', $extra_info);
@@ -2882,7 +2886,7 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 	if ($minister)
 		print ' &#8212; Ministers do not ask written questions';
 	else {
-		if (isset($extra_info[$category . '_quintile'])) {
+		if (!get_http_var('rem') && isset($extra_info[$category . '_quintile'])) {
 			print ' &#8212; ';
 			$q = $extra_info[$category . '_quintile'];
 			if ($q == 0) {
@@ -2900,7 +2904,7 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 			}
 			print ' amongst ';
 			print ($house==1?'MP':'Lord') . 's';
-		} elseif (isset($extra_info[$category . '_rank'])) {
+		} elseif (!get_http_var('rem') && isset($extra_info[$category . '_rank'])) {
 			print ' &#8212; ';
 			#if (isset($extra_info[$category . '_rank_joint']))
 			#	print 'joint ';

@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.9 2006-11-01 08:37:15 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.10 2006-11-10 14:34:35 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -18,6 +18,34 @@ use File::Find;
 use HTML::Entities;
 use Data::Dumper;
 use Syllable;
+
+my %action;
+foreach (@ARGV) {
+        if ($_ eq 'publicwhip') {
+                $action{'pw'} = 1;
+        } elsif ($_ eq 'expenses') {
+                $action{'expenses'} = 1;
+        } elsif ($_ eq 'regmem') {
+                $action{'regmem'} = 1;
+        } elsif ($_ eq 'links') {
+                $action{'links'} = 1;
+        } elsif ($_ eq 'writetothem') {
+                $action{'wtt'} = 1;
+        } elsif ($_ eq 'rankings') {
+                $action{'rankings'} = 1;
+        } else {
+                print "Action '$_' not known\n";
+                exit(0);
+        }
+}
+if (scalar(@ARGV) == 0) {
+        $action{'pw'} = 1;
+        $action{'expenses'} = 1;
+        $action{'regmem'} = 1;
+        $action{'links'} = 1;
+        $action{'wtt'} = 1;
+        $action{'rankings'} = 1;
+}
 
 # Fat old hashes intotwixt all the XML is loaded and colated before being squirted to the DB
 my $memberinfohash;
@@ -37,88 +65,91 @@ my $twig = XML::Twig->new(
                 'consinfo' => \&loadconsinfo,
                 'regmem' => \&loadregmeminfo
         }, output_filter => 'safe' );
-# TODO: Parse ALL regmem in forwards chronological order, so each MP (even ones left parl) gets their most recent one
-$twig->parsefile($config::pwdata . "scrapedxml/regmem/$regmemfile", ErrorContext => 2);
-$twig->parsefile($config::pwmembers . "wikipedia-commons.xml", ErrorContext => 2);
-$twig->parsefile($config::pwmembers . "wikipedia-lords.xml", ErrorContext => 2);
-$twig->parsefile($config::pwmembers . "diocese-bishops.xml", ErrorContext => 2);
-$twig->parsefile($config::pwmembers . "edm-links.xml", ErrorContext => 2);
-$twig->parsefile($config::pwmembers . "bbc-links.xml", ErrorContext => 2);
-# TODO: Update Guardian links
-$twig->parsefile($config::pwmembers . "guardian-links.xml", ErrorContext => 2);
-$twig->parseurl("http://www.writetothem.com/stats/2005/mps?xml=1");
-$twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml"); # i love twig
-$twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords"); # i love twig
-# TODO: Add smoking, parliamentary scrutiny
-# Iraq war, terrorism law, Hunting, Foundation hospitals, gay vote,
-# no2id, top-up fees, abolish parliament, no smoking
-# TODO: Think about how these (esp no2id) might change now after election
-foreach my $dreamid (219, 258, 358, 363, 826, 230, 367, 856, 811) {
-        $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid");
+
+if ($action{'regmem'}) {
+        # TODO: Parse ALL regmem in forwards chronological order, so each MP (even ones left parl) gets their most recent one
+        $twig->parsefile($config::pwdata . "scrapedxml/regmem/$regmemfile", ErrorContext => 2);
 }
-$twig->parsefile($config::pwmembers . "expenses200506.xml", ErrorContext => 2);
-$twig->parsefile($config::pwmembers . "expenses200506former.xml", ErrorContext => 2);
-$twig->parsefile($config::pwmembers . "expenses200405.xml", ErrorContext => 2);
-$twig->parsefile($config::pwmembers . "expenses200304.xml", ErrorContext => 2);
-$twig->parsefile($config::pwmembers . "expenses200203.xml", ErrorContext => 2);
-$twig->parsefile($config::pwmembers . "expenses200102.xml", ErrorContext => 2);
-# TODO: Update websites (esp. with new MPs)
-$twig->parsefile($config::pwmembers . 'websites.xml', ErrorContext => 2);
+
+if ($action{'links'}) {
+        $twig->parsefile($config::pwmembers . "wikipedia-commons.xml", ErrorContext => 2);
+        $twig->parsefile($config::pwmembers . "wikipedia-lords.xml", ErrorContext => 2);
+        $twig->parsefile($config::pwmembers . "diocese-bishops.xml", ErrorContext => 2);
+        $twig->parsefile($config::pwmembers . "edm-links.xml", ErrorContext => 2);
+        $twig->parsefile($config::pwmembers . "bbc-links.xml", ErrorContext => 2);
+        # TODO: Update Guardian links
+        $twig->parsefile($config::pwmembers . "guardian-links.xml", ErrorContext => 2);
+        # TODO: Update websites (esp. with new MPs)
+        $twig->parsefile($config::pwmembers . 'websites.xml', ErrorContext => 2);
+}
+
+if ($action{'wtt'}) {
+        $twig->parseurl("http://www.writetothem.com/stats/2005/mps?xml=1");
+}
+
+if ($action{'pw'}) {
+        $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml"); # i love twig
+        $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords"); # i love twig
+        # TODO: Add smoking, parliamentary scrutiny
+        # Iraq war, terrorism law, Hunting, Foundation hospitals, gay vote,
+        # no2id, top-up fees, abolish parliament, no smoking
+        # TODO: Think about how these (esp no2id) might change now after election
+        foreach my $dreamid (219, 258, 358, 363, 826, 230, 367, 856, 811) {
+                $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid");
+        }
+}
+
+if ($action{'expenses'}) {
+        $twig->parsefile($config::pwmembers . "expenses200506.xml", ErrorContext => 2);
+        $twig->parsefile($config::pwmembers . "expenses200506former.xml", ErrorContext => 2);
+        $twig->parsefile($config::pwmembers . "expenses200405.xml", ErrorContext => 2);
+        $twig->parsefile($config::pwmembers . "expenses200304.xml", ErrorContext => 2);
+        $twig->parsefile($config::pwmembers . "expenses200203.xml", ErrorContext => 2);
+        $twig->parsefile($config::pwmembers . "expenses200102.xml", ErrorContext => 2);
+}
 
 # Get any data from the database
 my $dbh = DBI->connect($config::dsn, $config::user, $config::pass, { RaiseError => 1, PrintError => 0 });
 #DBI->trace(2);
-makerankings($dbh);
+if ($action{'rankings'}) {
+        makerankings($dbh);
+}
+
+# XXX: Will only ever add/update data now - need way to remove without dropping whole table...
 
 # Now we are sure we have all the new data...
-# Clean out old db
-$dbh->prepare("delete from memberinfo")->execute();
-$dbh->prepare("delete from personinfo")->execute();
-$dbh->prepare("delete from consinfo")->execute();
-my $memberinfoadd = $dbh->prepare("insert into memberinfo (member_id, data_key, data_value) values (?, ?, ?)");
-my $personinfoadd = $dbh->prepare("insert into personinfo (person_id, data_key, data_value) values (?, ?, ?)");
-my $consinfoadd = $dbh->prepare("insert into consinfo (constituency, data_key, data_value) values (?, ?, ?)");
+my $memberinfoadd = $dbh->prepare("insert into memberinfo (member_id, data_key, data_value) values (?, ?, ?) on duplicate key update data_value=?");
+my $personinfoadd = $dbh->prepare("insert into personinfo (person_id, data_key, data_value) values (?, ?, ?) on duplicate key update data_value=?");
+my $consinfoadd = $dbh->prepare("insert into consinfo (constituency, data_key, data_value) values (?, ?, ?) on duplicate key update data_value=?");
 
 # Write to database - members
-foreach my $mp_id (keys %$memberinfohash)
-{
-        my $mp_id_num = $mp_id;
-        $mp_id_num =~ s#uk.org.publicwhip/member/##;
-        $mp_id_num =~ s#uk.org.publicwhip/lord/##;
-
+foreach my $mp_id (keys %$memberinfohash) {
+        (my $mp_id_num = $mp_id) =~ s#uk.org.publicwhip/(member|lord)/##;
         my $data = $memberinfohash->{$mp_id};
-        foreach my $key (keys %$data)
-        {
+        foreach my $key (keys %$data) {
                 my $value = $data->{$key};
-                $memberinfoadd->execute($mp_id_num, $key, $value);
+                $memberinfoadd->execute($mp_id_num, $key, $value, $value);
         }
 }
 
 # Write to database - people
-foreach my $person_id (keys %$personinfohash)
-{
-        my $person_id_num = $person_id;
-        $person_id_num =~ s#uk.org.publicwhip/person/##;
-
+foreach my $person_id (keys %$personinfohash) {
+        (my $person_id_num = $person_id) =~ s#uk.org.publicwhip/person/##;
         my $data = $personinfohash->{$person_id};
-        foreach my $key (keys %$data)
-        {
+        foreach my $key (keys %$data) {
                 my $value = $data->{$key};
-                $personinfoadd->execute($person_id_num, $key, $value);
+                $personinfoadd->execute($person_id_num, $key, $value, $value);
         }
 }
 
 # Write to database - cons
-foreach my $constituency (keys %$consinfohash)
-{
+foreach my $constituency (keys %$consinfohash) {
         my $data = $consinfohash->{$constituency};
-        foreach my $key (keys %$data)
-        {
+        foreach my $key (keys %$data) {
                 my $value = $data->{$key};
-                $consinfoadd->execute(encode_entities($constituency), $key, $value);
+                $consinfoadd->execute(encode_entities($constituency), $key, $value, $value);
         }
 }
-
 
 # just temporary to check cron working
 # print "mpinfoin done\n";
@@ -297,6 +328,7 @@ sub makerankings {
                 $tth = $dbh->prepare("select body from epobject,hansard where hansard.epobject_id = epobject.epobject_id and speaker_id=? and (major=1 or major=2)");
                 $tth->execute($mp_id);
                 $personinfohash->{$person_fullid}->{'three_word_alliterations'} = 0 if !$personinfohash->{$person_fullid}->{'three_word_alliterations'};
+                $personinfohash->{$person_fullid}->{'three_word_alliteration_content'} = "" if !$personinfohash->{$person_fullid}->{'three_word_alliteration_content'};
                 my $words = 0; my $syllables = 0; my $sentences = 0;
                 while (my @row = $tth->fetchrow_array()) {
                         my $body = $row[0];
@@ -304,7 +336,8 @@ sub makerankings {
                         $body =~ s/<\/?p[^>]*>//g;
                         $body =~ s/ hon\. / honourable /g;
                         if ($body =~ m/\b((\w)\w*\s+\2\w*\s+\2\w*)\b/) {
-                                $personinfohash->{$person_fullid}->{'three_word_alliterations'} += 1
+                                $personinfohash->{$person_fullid}->{'three_word_alliterations'} += 1;
+                                $personinfohash->{$person_fullid}->{'three_word_alliteration_content'} .= ":$1";
                         }
                         
                         my @sent = split(/(?:(?<!Mr|St)(?<!Ltd)\.|!|\?)\s+/, $body);

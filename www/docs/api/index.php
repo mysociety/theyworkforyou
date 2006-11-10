@@ -191,6 +191,11 @@ function api_front_page($error = '') {
 
 <p align="center"><strong>http://www.theyworkforyou.com/api/<em>function</em>?output=<em>output</em>&<em>other_variables</em></strong></p>
 
+<p>The current version of the API is <em>1.0.0</em>. If we make changes
+to the API,
+we'll increase the version number and make it an argument so you can still
+use the old version.</p>
+
 <h3>Outputs</h3>
 <p>The <em>output</em> argument can take any of the following values:
 <ul>
@@ -219,6 +224,13 @@ under the <a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative
 Commons Attribution-ShareAlike license version 2.5</a>.
 
 <p>Non-commercial use is free, please contact us for commercial use.
+
+<h3>Bindings</h3>
+
+<p>If anyone wishes to write bindings for the API in any language, please
+do so, let us know and we'll link to it here. You might want to
+<a href="https://secure.mysociety.org/admin/lists/mailman/listinfo/developers-public">join our public developer mailing list</a>
+to discuss things.</p>
 
 <h3>Examples</h3>
 

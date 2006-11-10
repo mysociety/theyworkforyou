@@ -916,7 +916,7 @@ function major_summary($data) {
 			else $daytext[$major] = "The most recent ";
 		}
 	}
-	$printed_majors = array(3, 1, 2, 101);
+	$printed_majors = array(101, 1, 2, 3);
 	print '<ul id="hansard-day">';
 	while (count($printed_majors)) {
 		if (!array_key_exists($printed_majors[0], $data)) {
@@ -934,7 +934,7 @@ function major_summary($data) {
 				WHERE hansard.epobject_id = epobject.epobject_id AND section_id=0
 				AND hdate="'.$date.'"
 				AND major IN (' . join(',',$printed_majors) . ')
-				ORDER BY major, hpos');
+				ORDER BY major desc, hpos');
 		$current_major = 0;
 		for ($i = 0; $i < $q->rows(); $i++) {
 			$gid = fix_gid_from_db($q->field($i, 'gid'));

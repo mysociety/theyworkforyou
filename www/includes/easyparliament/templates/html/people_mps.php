@@ -33,7 +33,7 @@ if ($order == 'first_name') {
 }
 $th_name .= ' &amp; ';
 if ($order == 'last_name') {
-	$th_name .= 'Last';
+	$th_name .= 'last';
 } else {
 	$URL->insert(array('o'=>'l'));
 	$th_name .= '<a href="' . $URL->generate() . '">Last</a>';
@@ -56,7 +56,7 @@ if ($order == 'party') {
 				<th><?php echo $th_name; ?></th>
 				<th><?php echo $th_party; ?></th>
 				<th><?php echo $th_constituency; ?></th>
-				<th>Ministerialship</th>
+				<th>Positions</th>
 <?php	if ($order == 'expenses') { ?>
 				<th>2004 Expenses Grand Total</th>
 <?php	} elseif ($order == 'debates') { ?>
