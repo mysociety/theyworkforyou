@@ -247,11 +247,13 @@ class SEARCHENGINE {
             if (count($prefix))
                 $remade[] = '(' . join(' OR ', $prefix) . ')';
         }
-        foreach( $this->excluded as $exclude ) {
-            $remade[] = " -$exclude";
+
+        $query = trim(join(' AND ', $remade));
+        if ($this->excluded) {
+            $query .= ' NOT (' . join(' AND ', $this->excluded) . ')';
         }
         // $remade .= ' ' . join(' ', array_map(array($this, "stem"), $this->rough));
-        return trim(join(' AND ',$remade));
+        return $query;
     }
 
     // Perform partial query to get a count of number of matches
