@@ -104,8 +104,8 @@ if ($q_method = get_http_var('method')) {
 		if (strtolower($q_method) == strtolower($method)) {
 			$match++;
 			if (get_http_var('docs')) {
-				api_documentation_front($method);
-				break;
+				$_GET['verbose'] = 1;
+				ob_start();
 			}
 			foreach ($data['parameters'] as $parameter) {
 				if ($q_param = trim(get_http_var($parameter))) {
@@ -115,7 +115,7 @@ if ($q_method = get_http_var('method')) {
 					break;
 				}
 			}
-			if ($match == 1) {
+			if ($match == 1 && !get_http_var('docs')) {
 				if ($data['required']) {
 					api_error('No parameter provided to function "' .
 					htmlspecialchars($q_method) .
@@ -135,11 +135,15 @@ if ($q_method = get_http_var('method')) {
 			'". Possible functions are: ' .
 			join(', ', array_keys($methods)) );
 	}
+	if (get_http_var('docs')) {
+		$explorer = ob_get_clean();
+		api_documentation_front($method, $explorer);
+	}
 } else {
 	api_front_page();
 }
 
-function api_documentation_front($method) {
+function api_documentation_front($method, $explorer) {
 	global $PAGE, $this_page, $DATA, $methods;
 	$this_page = 'api_doc_front';
 	$DATA->set_page_metadata($this_page, 'title', "$method function");
@@ -151,24 +155,40 @@ function api_documentation_front($method) {
 ?>
 <h4>Explorer</h4>
 <p>Try out this function without writing any code!</p>
-<form method="get" action="/api/<?=$method ?>" target="iframe">
+<form method="get" action="?#output">
 <p>
 <? foreach ($methods[$method]['parameters'] as $parameter) {
-	print $parameter . ': <input type="text" name="'.$parameter.'" value="" size="30"><br>';
+	print $parameter . ': <input type="text" name="'.$parameter.'" value="';
+	if ($val = get_http_var($parameter))
+		print htmlspecialchars($val);
+	print '" size="30"><br>';
 }
 ?>
 Output:
-<input id="output_js" type="radio" name="output" value="js" checked> <label for="output_js">JS</label>
-<input id="output_xml" type="radio" name="output" value="xml"> <label for="output_xml">XML</label>
-<input id="output_php" type="radio" name="output" value="php"> <label for="output_php">Serialised PHP</label>
-<input id="output_rabx" type="radio" name="output" value="rabx"> <label for="output_rabx">RABX</label>
+<input id="output_js" type="radio" name="output" value="js"<? if (get_http_var('output')=='js' || !get_http_var('output')) print ' checked'?>>
+<label for="output_js">JS</label>
+<input id="output_xml" type="radio" name="output" value="xml"<? if (get_http_var('output')=='xml') print ' checked'?>>
+<label for="output_xml">XML</label>
+<input id="output_php" type="radio" name="output" value="php"<? if (get_http_var('output')=='php') print ' checked'?>>
+<label for="output_php">Serialised PHP</label>
+<input id="output_rabx" type="radio" name="output" value="rabx"<? if (get_http_var('output')=='rabx') print ' checked'?>>
+<label for="output_rabx">RABX</label>
 
-<input type="hidden" name="verbose" value="1" />
 <input type="submit" value="Go" />
 </p>
 </form>
-<iframe name="iframe" style="width: 40em; height: 20em">Output here</iframe>
 <?
+	if ($explorer) {
+		$qs = array();
+		foreach ($methods[$method]['parameters'] as $parameter) {
+			if (get_http_var($parameter))
+				$qs[] = htmlspecialchars(rawurlencode($parameter) . '=' . urlencode(get_http_var($parameter)));
+		}
+		print '<h4><a name="output"></a>Output</h4>';
+		print '<p>URL for this: <strong>http://www.theyworkforyou.com/api/';
+		print $method . '?' . join('&amp;', $qs) . '&amp;output='.get_http_var('output').'</strong></p>';
+		print '<pre>' . htmlspecialchars($explorer) . '</pre>';
+	}
 	$sidebar = api_sidebar();
 	$PAGE->stripe_end(array($sidebar));
 	$PAGE->page_end();

@@ -4,7 +4,8 @@ include '../../../../phplib/rabx.php';
 
 function api_output($arr) {
 	$output = get_http_var('output');
-	api_header($output);
+	if (!get_http_var('docs'))
+		api_header($output);
 	if ($output == 'xml') {
 		$out = '<twfy>' . api_output_xml($arr) . '</twfy>';
 	} elseif ($output == 'php') {
