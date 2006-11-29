@@ -211,6 +211,8 @@ class PAGE {
 		if ($this_page == 'sitenews_individual') {
 			$this->_mt_javascript();
 		}
+
+		if (!DEVSITE) {
 		?>
 
 <script src="http://www.google-analytics.com/urchin.js"
@@ -221,6 +223,7 @@ _uacct = "UA-660910-1";
 if (typeof urchinTracker == 'function') urchinTracker();
 </script>
 
+<?		} ?>
 
 </head>
 
