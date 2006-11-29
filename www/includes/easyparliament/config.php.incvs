@@ -21,7 +21,7 @@ define ("COOKIEDOMAIN", "www.example.org");
 define ("CONTACTEMAIL", "you@yourdomain.com");
 
 // File system path to the top directory of this Theyworkforyou installation
-define ("BASEDIR","/home/user/theyworkforyou/"); 
+define ("BASEDIR","/home/user/theyworkforyou/docs"); 
 
 // Webserver path to 'top' directory of the site (possibly just "/"). For example,
 // if the site is at 'http://www.yourdomain.com/public/theyworkforyou', 
@@ -55,14 +55,14 @@ define ("DEBUGTAG", 'debug');
 define ("FILEPATH", BASEDIR . WEBPATH);
 
 // File system path to where all the include files live.
-define ("INCLUDESPATH", BASEDIR . "/www/includes/");
+define ("INCLUDESPATH", BASEDIR . "/../includes/");
 
 // Web path to the directory where the site's images are kept.
 define ("IMAGEPATH", WEBPATH . "images/");
 
 
 // This will be included in data.php. It's an array of page/section metadata.
-define ("METADATAPATH", BASEDIR . "/www/includes/easyparliament/metadata.php");
+define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");
 
 // Search related. If defined will use XAPIAN search instead of mysql search
 //define ("XAPIANDB", "/home/fawkes/searchdb");

@@ -107,8 +107,8 @@ class PEOPLE {
 			$dept = $q->field($row, 'dept');
 			$pos = $q->field($row, 'position');
 			if (isset($data[$p_id])) {
-				$data[$p_id]['dept'] = array_merge($data[$p_id]['dept'], $dept);
-				$data[$p_id]['pos'] = array_merge($data[$p_id]['pos'], $pos);
+				$data[$p_id]['dept'] = array_merge((array)$data[$p_id]['dept'], (array)$dept);
+				$data[$p_id]['pos'] = array_merge((array)$data[$p_id]['pos'], (array)$pos);
 			} else {
 				$narray = array (
 					'person_id' 	=> $p_id,

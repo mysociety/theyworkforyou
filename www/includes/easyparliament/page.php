@@ -1,6 +1,7 @@
 <?php
 
-require_once INCLUDESPATH . '../../../phplib/tracking.php';
+if (defined('OPTION_TRACKING') && OPTION_TRACKING)
+	require_once INCLUDESPATH . '../../../phplib/tracking.php';
 
 class PAGE {
 
@@ -876,13 +877,15 @@ pr()//-->
 		$db = new ParlDB;
 		$db->display_total_duration();
 		
-		$rusage = getrusage();
 		$duration = getmicrotime() - STARTTIME;
 		twfy_debug ("TIME", "Total time for page: $duration seconds.");
-		$duration = $rusage['ru_utime.tv_sec']*1000000 + $rusage['ru_utime.tv_usec'] - STARTTIMEU;
-		twfy_debug ('TIME', "Total user time: $duration microseconds.");
-		$duration = $rusage['ru_stime.tv_sec']*1000000 + $rusage['ru_stime.tv_usec'] - STARTTIMES;
-		twfy_debug ('TIME', "Total system time: $duration microseconds.");
+		if (!isset($_SERVER['WINDIR'])) {
+			$rusage = getrusage();
+			$duration = $rusage['ru_utime.tv_sec']*1000000 + $rusage['ru_utime.tv_usec'] - STARTTIMEU;
+			twfy_debug ('TIME', "Total user time: $duration microseconds.");
+			$duration = $rusage['ru_stime.tv_sec']*1000000 + $rusage['ru_stime.tv_usec'] - STARTTIMES;
+			twfy_debug ('TIME', "Total system time: $duration microseconds.");
+		}
 		
 		?>
 </div> <!-- end #container -->

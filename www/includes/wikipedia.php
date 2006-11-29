@@ -30,7 +30,7 @@ function lensort($a, $b) {
 
 function wikipedize ($source) {
 
-  $this->db = new ParlDB;  
+  $db = new ParlDB;  
   $temp1 = $source;
 
   # Set up various variables
@@ -64,7 +64,7 @@ function wikipedize ($source) {
     twfy_debug("WIKIPEDIA", "Trying '$phrase'");
     $wikistring = ereg_replace(" ","_", $phrase);
 
-    $q = $this->db->query("SELECT title FROM titles WHERE title = '" . mysql_escape_string($wikistring). "';");
+    $q = $db->query("SELECT title FROM titles WHERE title = '" . mysql_escape_string($wikistring). "';");
     if ($q->rows > 0) { 
       $found = $q->field(0, 'title');
       if ($found == $wikistring) {

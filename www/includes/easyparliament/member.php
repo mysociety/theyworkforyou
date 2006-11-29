@@ -1,7 +1,6 @@
 <?php
 
 include_once INCLUDESPATH."postcode.inc";
-include_once INCLUDESPATH."easyparliament/member.php";
 include_once INCLUDESPATH."easyparliament/glossary.php";
 
 class MEMBER {
@@ -150,8 +149,8 @@ class MEMBER {
 			// This person has had more than one term of office, so reset some info.
 
 			$member_entered_time = strtotime($this->entered_house);
-			// Will be -1 if the person is still in office.
 			$member_left_time = strtotime($this->left_house);
+			if ($member_left_time === '-1') $member_left_time = false;
 
 			$transfer = false;
 			for ($row=1; $row<$q->rows(); $row++) {
@@ -175,8 +174,9 @@ class MEMBER {
 				} 
 
 				$left_time = strtotime($q->field($row, 'left_house'));
-				if ($member_left_time != '-1' && $left_time > $member_left_time ||
-					$left_time == '-1'
+				if ($left_time === '-1') $left_time = false;
+				if ($member_left_time !== false && ($left_time > $member_left_time ||
+					$left_time === false)
 					) {
 					// The end of this term is after whatever we've already got.
 					$member_left_time = $left_time;
@@ -681,7 +681,7 @@ $party_colours = array(
     "SPK" => "#999999",
 );
 
-function party_to_colour($party)     {
+function party_to_colour($party) {
     global $party_colours;
     if (isset($party_colours[$party])) {
         return $party_colours[$party];

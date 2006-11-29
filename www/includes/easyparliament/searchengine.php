@@ -32,6 +32,9 @@ global $xapiandb;
 class SEARCHENGINE {
 
 	function SEARCHENGINE ($query) {
+        if (!defined('XAPIANDB'))
+            return null;
+
 		$this->query = $query;
         $this->stemmer = new_stem('english');
         $this->enquire = null; 
@@ -121,6 +124,9 @@ class SEARCHENGINE {
     function query_description_internal($long) {
     	global $PAGE, $hansardmajors;
     	
+        if (!defined('XAPIANDB'))
+            return '';
+
         $description = "";
 
         if (count($this->words) > 0) {
@@ -258,6 +264,9 @@ class SEARCHENGINE {
 
     // Perform partial query to get a count of number of matches
     function run_count () {
+        if (!defined('XAPIANDB'))
+            return null;
+
 		$start = getmicrotime();
         global $xapiandb;
         if (!$xapiandb) {

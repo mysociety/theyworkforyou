@@ -72,8 +72,8 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 		E_USER_ERROR		=> "User Error",
 		E_USER_WARNING		=> "User Warning",
 		E_USER_NOTICE		=> "User Notice",
-		// PHP 5 only
-		//E_STRICT			=> "Runtime Notice"
+		// PHP 5 only, 2048 = E_STRICT
+		2048			=> "Runtime Notice"
 	);
 
 	$err = '';

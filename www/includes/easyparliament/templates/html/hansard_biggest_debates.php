@@ -24,7 +24,7 @@
 */
 
 twfy_debug("TEMPLATE", "hansard_biggest_debates.php");
-
+if (array_key_exists('data', $data) && is_array($data['data'])) {
 ?>
 				<dl class="big-debates">
 <?php
@@ -63,3 +63,4 @@ foreach ($data['data'] as $debate) {
 }
 ?>
 				</dl>
+<? }

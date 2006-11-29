@@ -1,6 +1,6 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.1 2006-04-27 14:20:19 twfy-live Exp $
+$Id: INSTALL.txt,v 1.2 2006-11-29 18:55:44 matthew Exp $
 
 TODO: Add an explanation of how to set up a virtual host in apache.
 
@@ -19,7 +19,8 @@ PHP 4.3.3
 Apache 1.3.28
 MySQL 4.1
 
-Note: it is possible to make the code with 4.0 versions of MySQL, but you have to do some mucking around with character sets. The code does NOT work with PHP 5.
+Note: it is possible to make the code with 4.0 versions of MySQL, but you have to do some mucking around with character sets.
+The site appears to work on the whole with PHP 5, do let us know if it errors anywhere.
 
 Other sources of help
 =====================
@@ -44,26 +45,10 @@ NOTE:
 
 INSTALLATION SECTION 1 -- THE BASICS
 ====================================
-1. download the latest versions of BOTH theyworkforyou and publicwhip
-   source code packages from sourceforge.
-http://sourceforge.net/project/showfiles.php?group_id=87640
+1. Download the latest version of the TheyWorkForYou code from:
+   https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy
 
-2. untar the packages to wherever you want them to live, e.g.:
-
-$ cd /var/www/
-$ tar zxf theyworkforyou-source-5.tar.gz
-$ tar zxf publicwhip-source-5.tar.gz
-
-these will explode into directories name theyworkforyou-source-5 and
-publicwhip-source-5.
-
-I'll assume that you're lazy like me and prefer to type shorter
-things, so rename these dirs:
-
-$ mv theyworkforyou-source-5 theyworkforyou
-$ mv publicwhip-source-5 publicwhip
-
-3. create a new mysql database:
+2. create a new mysql database:
 
 mysqladmin -u root -p create twfy
 
@@ -91,7 +76,7 @@ to
 and then edit the following lines to have the following values (or as
 appropriate for your setup):
 
-7. configure apache:
+6. configure apache:
 
 If you want to create a virtual host, make sure that the 
 NameVirtualHost directive is uncommented and says

@@ -20,7 +20,7 @@ CREATE TABLE `constituency` (
 CREATE TABLE `epobject` (
   `epobject_id` int(11) NOT NULL auto_increment,
   `title` varchar(255) default NULL,
-  `body` text,
+  `body` mediumtext,
   `type` int(11) default NULL,
   `created` datetime default NULL,
   `modified` datetime default NULL,
@@ -100,6 +100,7 @@ CREATE TABLE `moffice` (
   `from_date` date NOT NULL default '1000-01-01',
   `to_date` date NOT NULL default '9999-12-31',
   `person` int(11) default NULL,
+  `source` varchar(255) NOT NULL,
   PRIMARY KEY  (`moffice_id`),
   KEY `person` (`person`)
 );

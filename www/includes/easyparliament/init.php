@@ -45,13 +45,14 @@ twfy_debug_timestamp("after including utility.php");
 // The error_handler function is in includes/utility.php
 $old_error_handler = set_error_handler("error_handler");
 
-
 // The time the page starts, so we can display the total at the end.
 // getmicrotime() is in utiltity.php.
-$rusage = getrusage();
 define ("STARTTIME", getmicrotime());
-define ('STARTTIMES', $rusage['ru_stime.tv_sec']*1000000 + $rusage['ru_stime.tv_usec']);
-define ('STARTTIMEU', $rusage['ru_utime.tv_sec']*1000000 + $rusage['ru_utime.tv_usec']);
+if (!isset($_SERVER['WINDIR'])) {
+	$rusage = getrusage();
+	define ('STARTTIMES', $rusage['ru_stime.tv_sec']*1000000 + $rusage['ru_stime.tv_usec']);
+	define ('STARTTIMEU', $rusage['ru_utime.tv_sec']*1000000 + $rusage['ru_utime.tv_usec']);
+}
 include_once (INCLUDESPATH."data.php");
 include_once (INCLUDESPATH."mysql.php");
 

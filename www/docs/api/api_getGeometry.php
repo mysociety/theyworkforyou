@@ -69,6 +69,9 @@ function _api_cacheCheck($fn, $arg) {
 }
 
 function _api_getGeometry() {
+	if (!defined('OPTION_MAPIT_URL'))
+		return array('data'=>array());
+
 	$areas = _api_cacheCheck('mapit_get_areas_by_type', 'WMC');
 	$areas_geometry = _api_cacheCheck('mapit_get_voting_areas_geometry', $areas);
 	$areas_info = _api_cacheCheck('mapit_get_voting_areas_info', $areas);
