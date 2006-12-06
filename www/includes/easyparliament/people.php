@@ -84,17 +84,24 @@ class PEOPLE {
 			} elseif ($args['order'] == 'expenses') {
 				$order = 'expenses';
 				$sqlorder = 'data_value+0 DESC, last_name, first_name';
-				$query = 'SELECT member.person_id, first_name, last_name, constituency, party, dept, position, data_value
+				$query = 'SELECT member.person_id, title, first_name, last_name, constituency, party, dept, position, data_value
 					FROM member LEFT OUTER JOIN moffice ON member.person_id=moffice.person AND to_date="9999-12-31", personinfo
 					WHERE member.person_id = personinfo.person_id AND house=1 AND left_house = (SELECT MAX(left_house) FROM member)
 					AND data_key="expenses2004_total" ';
 			} elseif ($args['order'] == 'debates') {
 				$order = 'debates';
 				$sqlorder = 'data_value+0 DESC, last_name, first_name';
-				$query = 'SELECT member.person_id, first_name, last_name, constituency, party, dept, position, data_value
+				$query = 'SELECT member.person_id, title, first_name, last_name, constituency, party, dept, position, data_value
 					FROM member LEFT OUTER JOIN moffice ON member.person_id=moffice.person AND to_date="9999-12-31", personinfo
 					WHERE member.person_id = personinfo.person_id AND house=1 AND left_house = (SELECT MAX(left_house) FROM member)
 					AND data_key="debate_sectionsspoken_inlastyear" ';
+			} elseif ($args['order'] == 'safety') {
+				$order = 'safety';
+				$sqlorder = 'data_value+0 DESC, last_name, first_name';
+				$query = 'SELECT member.person_id, title, first_name, last_name, constituency, party, dept, position, data_value
+					FROM member LEFT OUTER JOIN moffice ON member.person_id=moffice.person AND to_date="9999-12-31", memberinfo
+					WHERE member.member_id = memberinfo.member_id AND house=1 AND left_house = (SELECT MAX(left_house) FROM member)
+					AND data_key="swing_to_lose_seat_today" ';
 			}
 		}
 		
@@ -120,7 +127,7 @@ class PEOPLE {
 					'dept'		=> $dept,
 					'pos'		=> $pos
 				);
-				if ($order=='expenses' || $order=='debates') {
+				if ($order=='expenses' || $order=='debates' || $order=='safety') {
 					$narray['data_value'] = $q->field($row, 'data_value');
 				}
 

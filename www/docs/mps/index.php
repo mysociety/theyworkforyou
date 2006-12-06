@@ -29,6 +29,8 @@ if (get_http_var('o') == 'f') {
 	$args['order'] = 'expenses';
 } elseif (get_http_var('o') == 'd') {
 	$args['order'] = 'debates';
+} elseif (get_http_var('o') == 's') {
+	$args['order'] = 'safety';
 }
 
 $PEOPLE = new PEOPLE;

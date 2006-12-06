@@ -293,7 +293,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			?>
 		<div id="search">
 			<form action="<?php echo $URL->generate(); ?>" method="get">
-			<p>Search <input name="s" size="15" maxlength="100" /> <input type="submit" class="submit" value="GO" /></p>
+			<p>Search <input name="s" size="15" /> <input type="submit" class="submit" value="GO" /></p>
 			</form>
 		</div>
 <?php
@@ -1074,11 +1074,28 @@ pr()//-->
 		if (isset($extra_info['majority_in_seat'])) { 
 			?>
 						<li><strong>Majority:</strong> 
-						<?php echo number_format($extra_info['majority_in_seat']); ?> voters <?php
+						<?php echo number_format($extra_info['majority_in_seat']); ?> votes. <?php
 
 			if (isset($extra_info['swing_to_lose_seat_today'])) { 
-				?>
-							&#8212; <?php echo make_ranking($extra_info['swing_to_lose_seat_today_rank']); ?> safest out of <?php echo $extra_info['swing_to_lose_seat_today_rank_outof']; ?> MPs
+				/*
+				if (isset($extra_info['swing_to_lose_seat_today_quintile'])) {
+					$q = $extra_info['swing_to_lose_seat_today_quintile'];
+					if ($q == 0) {
+						print 'Very safe seat';
+					} elseif ($q == 1) {
+						print 'Safe seat';
+					} elseif ($q == 2) {
+						print '';
+					} elseif ($q == 3) {
+						print 'Unsafe seat';
+					} elseif ($q == 4) {
+						print 'Very unsafe seat';
+					} else {
+						print '[Impossible quintile!]';
+					}
+				}
+				*/
+				print ' &mdash; ' . make_ranking($extra_info['swing_to_lose_seat_today_rank']); ?> out of <?php echo $extra_info['swing_to_lose_seat_today_rank_outof']; ?> MPs.
 <?php 
 			} ?></li>
 <?php 
@@ -1201,6 +1218,7 @@ if ($member['party'] != 'Sinn Fein') { # Big don't-print for Sinn Fein
 		$got_dream |= display_dream_comparison($extra_info, $member, 367, "introducing <strong>student top-up fees</strong>", true, "top-up fees");
 		$got_dream |= display_dream_comparison($extra_info, $member, 258, "Labour's <strong>anti-terrorism laws</strong>", true, "terrorism");
 		$got_dream |= display_dream_comparison($extra_info, $member, 219, "the <strong>Iraq war</strong>", true, "iraq");
+		$got_dream |= display_dream_comparison($extra_info, $member, 975, "investigating the <strong>Iraq war</strong>", false, "iraq");
 		$got_dream |= display_dream_comparison($extra_info, $member, 358, "the <strong>fox hunting ban</strong>", true, "hunting");
 		$got_dream |= display_dream_comparison($extra_info, $member, 826, "equal <strong>gay rights</strong>", false, "gay");
 		if (!$got_dream) {
@@ -1472,7 +1490,7 @@ if ($member['party'] != 'Sinn Fein') { # Big don't-print for Sinn Fein
 				echo format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
 				echo '. ';
 			}
-			echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/051214/memi01.htm">More about the Register</a>';
+			echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/061106/memi01.htm">More about the Register</a>';
 			echo '</p>';
 			print '<p><strong><a href="/regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
 			$this->block_end();
@@ -1897,7 +1915,7 @@ if ($member['party'] != 'Sinn Fein') { # Big don't-print for Sinn Fein
 	if (get_http_var('house')) { ?>
 					<input type="hidden" name="house" value="<?=htmlentities(get_http_var('house')); ?>" />
 <?php } ?>
-					<input type="text" name="s" value="<?php echo htmlentities($value); ?>" maxlength="100" size="20" />
+					<input type="text" name="s" value="<?php echo htmlentities($value); ?>" size="20" />
 					<input type="submit" value=" <?=($wtt?'Modify search':'Search') ?> " /><br />
 <?
 
@@ -2066,7 +2084,7 @@ if (!$wtt) { ?>
 				<div class="mpsearchbox">
 					<form action="<?php echo $URL->generate(); ?>" method="get">
                     <p>
-                    <input name="s" size="12" maxlength="100" /> 
+                    <input name="s" size="12" /> 
                     <input type="hidden" name="pid" value="<?=$person_id ?>" />
                     <input type="submit" class="submit" value="GO" /></p>
 					</form>

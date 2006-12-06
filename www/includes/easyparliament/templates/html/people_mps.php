@@ -61,6 +61,8 @@ if ($order == 'party') {
 				<th>2004 Expenses Grand Total</th>
 <?php	} elseif ($order == 'debates') { ?>
 				<th>Debates spoken in the last year</th>
+<?php	} elseif ($order == 'safety') { ?>
+				<th>Swing to lose seat (%)</th>
 <?php	}
 ?>
 				</thead>
@@ -118,6 +120,8 @@ function render_mps_row($mp, &$style, $order, $MPURL) {
 				<td class="row-<?php echo $style; ?>">&pound;<?php echo number_format($mp['data_value']); ?></td>
 <?php	} elseif ($order == 'debates') { ?>
 				<td class="row-<?php echo $style; ?>"><?php echo number_format($mp['data_value']); ?></td>
+<?php	} elseif ($order == 'safety') { ?>
+				<td class="row-<?php echo $style; ?>"><?=$mp['data_value'] ?></td>
 <?php	}
 ?>
 				</tr>
