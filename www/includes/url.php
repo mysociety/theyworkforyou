@@ -182,15 +182,13 @@ class URL {
 	// pass "s" in in the $remove_vars array, so it isn't created as a
 	// hidden variable.
 	function hidden_form_varsOLD ($remove_vars=array(), $insert_vars=array()) {
-		global $HTTP_GET_VARS, $HTTP_POST_VARS;
-		
 		// This should really be tidied up lots. That $dont_keep array for a start is NASTY!
 		// You can also pass in an array of variables to remove() and insert().
 		
-		foreach ($HTTP_GET_VARS as $key => $val) {
+		foreach ($_GET as $key => $val) {
 			$vars[$key] = get_http_var($key);
 		}
-		foreach ($HTTP_POST_VARS as $key => $val) {
+		foreach ($_POST as $key => $val) {
 			$vars[$key] = get_http_var($key);
 		}
 

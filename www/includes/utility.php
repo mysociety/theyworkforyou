@@ -755,12 +755,11 @@ function send_email ($to, $subject, $message) {
 
 // Call this with a key name to get a GET or POST variable.
 function get_http_var ($name, $default=''){
-	global $HTTP_GET_VARS, $HTTP_POST_VARS;
-	if (arrayKeyExists($name, $HTTP_GET_VARS)) {
-		return clean_var($HTTP_GET_VARS[$name]);
+	if (array_key_exists($name, $_GET)) {
+		return clean_var($_GET[$name]);
 	}
-	if (arrayKeyExists($name, $HTTP_POST_VARS)) {
-		return clean_var($HTTP_POST_VARS[$name]);
+	if (array_key_exists($name, $_POST)) {
+		return clean_var($_POST[$name]);
 	}
 	return $default;
 }
@@ -783,24 +782,12 @@ function recursive_strip ($a){
 
 // Call this with a key name to get a COOKIE variable.
 function get_cookie_var($name, $default=''){
-	global $HTTP_COOKIE_VARS;
-	if (arrayKeyExists($name, $HTTP_COOKIE_VARS)) {
-		return clean_var($HTTP_COOKIE_VARS[$name]);
+	if (array_key_exists($name, $_COOKIE)) {
+		return clean_var($_COOKIE[$name]);
 	}
 	return $default;
 }
 ///////////////////////////////
-
-
-
-// Because array_key_exists() doesn't exist prior to PHP v4.1.0
-function arrayKeyExists($key, $search) {
-   if (in_array($key, array_keys($search))) {
-       return true;
-   } else {
-       return false;
-   }
-}
 
 
 // Pass it an array of key names that should not be generated as
