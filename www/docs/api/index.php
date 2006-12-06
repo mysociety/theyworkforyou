@@ -247,6 +247,12 @@ Commons Attribution-ShareAlike license version 2.5</a>.
 
 <h3>Bindings</h3>
 
+<p>These help you interface with the API more easily in a particular language:</p>
+<ul>
+<li><a href="http://codefluency.com/2006/11/21/tfwy-1-0-0-released">Ruby</a> (thanks to Bruce Williams and Martin Owen)</li>
+<li><a href="http://search.cpan.org/~sden/WebService-TWFY-API-0.01/lib/WebService/TWFY/API.pm">Perl</a> (thanks to Spiros Denaxas)</li>
+</ul>
+
 <p>If anyone wishes to write bindings for the API in any language, please
 do so, let us know and we'll link to it here. You might want to
 <a href="https://secure.mysociety.org/admin/lists/mailman/listinfo/developers-public">join our public developer mailing list</a>

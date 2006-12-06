@@ -7,7 +7,8 @@ function api_output($arr) {
 	if (!get_http_var('docs'))
 		api_header($output);
 	if ($output == 'xml') {
-		$out = '<twfy>' . api_output_xml($arr) . '</twfy>';
+		$out = '<?xml version="1.0" encoding="iso-8859-1"?>'."\n";
+		$out .= '<twfy>' . api_output_xml($arr) . '</twfy>';
 	} elseif ($output == 'php') {
 		$out = api_output_php($arr);
 	} elseif ($output == 'rabx') {
