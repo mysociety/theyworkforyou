@@ -35,7 +35,9 @@ sort of thing before, but never on this scale.</p>
 
 <p>(<a name="1">[1]</a> One of the key developers was kept fed for a month by a small grant
 from UK Citizen's Online Democracy, before TheyWorkForYou became a mySociety project. This
-money was vital. Hungry developers don't write good code.)</p>
+money was vital. Hungry developers don't write good code. If you like
+TheyWorkForYou, and want to support mySociety, you can <a
+href="https://secure.mysociety.org/donate/">make a donation</a> yourself.)</p>
 
 <p>Between them, the original volunteers had developed and run a range of not-for-profit websites of a vaguely similar ilk.
 <a href="http://www.publicwhip.org.uk/">PublicWhip.org.uk</a>,
