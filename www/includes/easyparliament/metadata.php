@@ -334,13 +334,13 @@ $this->page = array (
 			'text'			=> 'Hansard',
 			'title'			=> "House of Commons debates and Written Answers"
 		),
-		'title'			=> 'House of Commons and House of Lords',
+		'title'			=> 'House of Commons, House of Lords, and Northern Ireland Assembly',
 		'track'			=> true,
 		'url'			=> 'hansard/'
 	),	
 	'hansard_date' => array (
 		'parent'		=> 'hansard',
-		'title'			=> 'House of Commons and House of Lords',
+		'title'			=> 'House of Commons, House of Lords, and Northern Ireland Assembly',
 		'track'			=> true,
 		'url'			=> 'hansard/'
 	),	
@@ -434,6 +434,21 @@ $this->page = array (
 		'url'			=> 'peers/'
 	),
 
+	'mla' => array (
+		'title'			=> 'MLA',
+		'track'			=> true,
+		'url'			=> 'mla/'
+	),
+	'mlas' => array (
+		 'menu'			=> array (
+			'text'			=> 'All MLAs',
+			'title'			=> "List of all MLAs"
+		),
+		'title'			=> 'All MLAs',
+		'track'			=> true,
+		'url'			=> 'mlas/'
+	),
+
 	/* Not 'Your MP', whose name is 'yourmp'... */
 	'mp' => array (
 		'title'			=> 'MP',
@@ -479,6 +494,42 @@ $this->page = array (
 		'track' => true,
 		'url' => 'mps/c4x/'
 	),
+
+	'nidebate'  => array (
+		'parent'		=> 'nidebatesfront',
+		'track'			=> true,
+		'url'			=> 'ni/',
+		'session_vars'	=> array ('id'),
+	),
+	'nidebates'  => array (
+		'parent'		=> 'nidebatesfront',
+		'track'			=> true,
+		'url'			=> 'ni/',
+		'session_vars'	=> array ('id'),
+	),
+	'nidebatesday' => array (
+		'parent'		=> 'nidebatesfront',
+		'session_vars'	=> array ('d'),
+		'track'			=> true,
+		'url'			=> 'ni/',
+	),			
+	'nidebatesfront' => array (
+		'menu'			=> array (
+			'text'			=> 'NIA Debates',
+			'title'			=> "Northern Ireland Assembly debates"
+		),
+		'parent'		=> 'hansard',
+		'title'			=> 'Northern Ireland Assembly debates',
+		'track'			=> true,
+		'rss'			=> 'ni/ni.rss',
+		'url'			=> 'ni/'
+	),
+	'nidebatesyear' => array (
+		'parent'		=> 'nidebatesfront',
+		'title'			=> 'Debates for ',
+		'url'			=> 'ni/'
+	),
+
 	'otheruseredit' => array (
 		'pg'			=> 'editother',
 		'title'			=> "Editing a user's data",

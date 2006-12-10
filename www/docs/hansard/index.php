@@ -194,6 +194,29 @@ $PAGE->stripe_end(array(
 
 $PAGE->stripe_start();
 ?>
+	<h3>Busiest Northern Ireland Assembly debates from the most recent month</h3>
+<?php
+$DEBATELIST = new NILIST;
+$DEBATELIST->display('biggest_debates', array('days'=>30, 'num'=>$number_of_debates_to_show));
+
+$MOREURL = new URL('nidebatesfront');
+$anchor = $number_of_debates_to_show + 1;
+?>
+		<p><strong><a href="<?php echo $MOREURL->generate(); ?>#d<?php echo $anchor; ?>">See more debates</a></strong></p>
+<?php
+
+$PAGE->stripe_end(array(
+	array (
+		'type' => 'include',
+		'content' => "nidebates_short"
+	),
+	array (
+		'type' => 'include',
+		'content' => "calendar_nidebates"
+	)
+));
+$PAGE->stripe_start();
+?>
 
 <p>Still to come: Select Committees, and much more...</p>
 

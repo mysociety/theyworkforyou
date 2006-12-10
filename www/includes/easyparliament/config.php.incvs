@@ -43,16 +43,9 @@ define ("DEVSITE", true);
 // Add this and a number to the URL (eg '?debug=1') to view debug info.
 define ("DEBUGTAG", 'debug');
 
-// If defined, will display the NEWSBLOG. Defining this without installing 
-// the Movable Type code will cause errors. For most developers, leave undefined.
-//define("NEWSBLOG", true);
-
 // *******************************************************************************
-// File system path to the 'top' directory of the site.
 // If you've unpacked the tar file normally, and set the paths correctly above, 
 // you shouldn't change these.
-
-define ("FILEPATH", BASEDIR . WEBPATH);
 
 // File system path to where all the include files live.
 define ("INCLUDESPATH", BASEDIR . "/../includes/");

@@ -89,7 +89,7 @@ class COMMENTLIST {
 	}
 	
 	function render ($data, $format='html', $template='comments') {
-		include (FILEPATH."/../includes/easyparliament/templates/$format/$template.php");
+		include (INCLUDESPATH."easyparliament/templates/$format/$template.php");
 	}
 	
 	function _get_data_by_ep ($args) {

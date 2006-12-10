@@ -14,8 +14,8 @@ data for PublicWhip and TheyWorkForYou.</p>
 
 $html = '/home/fawkes/parldata/cmpages/';
 $xml = '/home/fawkes/parldata/scrapedxml/';
-$dir = array('debates', 'wrans', 'wms', 'westminhall', 'lordspages');
-$majors = array(1,3,4,2,101);
+$dir = array('debates', 'wrans', 'wms', 'westminhall', 'lordspages', 'ni');
+$majors = array(1,3,4,2,101,5);
 
 $hdates = array();
 $db = new ParlDB;

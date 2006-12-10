@@ -44,7 +44,9 @@ if (sizeof($errors)) {
 </form>
 <?
 } else {
-	$rep_name = $MEMBER->full_name() . ($MEMBER->house() == 1 ? ' MP' : '');
+	$rep_name = $MEMBER->full_name();
+	if ($MEMBER->house_disp==1) $rep_name .= ' MP';
+	elseif ($MEMBER->house_disp==3) $rep_name .= ' MLA';
 	$data = array (
 		'template'      => 'email_a_friend',
 		'to'            => $recipient_email,

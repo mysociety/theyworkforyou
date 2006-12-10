@@ -4,20 +4,45 @@
 
 $all_news = array(
 
-/* Draft I think that Tomski left in MT, probably delete it now?
-37 => array("The Times has a grumble", <<<EOT
-The venerable <i>Times</i> is grumpy. In a <a href="http://www.timesonline.co.uk/article/0,,17129-2060278,00.html">feature article</a> by the tabloid's <a href="http://www.explore.parliament.uk/Parliament.aspx?id=10305&glossary=true">lobby correspondent</a> Greg Hurst, the paper claims that some new MPs are asking frivolous written questions with the sole intention of improving their statistics on TheyWorkForYou.com. 
+41 => array('The Northern Ireland Assembly', <<<EOT
+I'm extremely proud to announce that TheyWorkForYou now covers
+the debates of the Northern Ireland Assembly from its
+<a href="/ni/?d=1998-07-01">creation in 1998</a> to its current
+<a href="/ni/?d=2006-12-04">Transitional Assembly</a> status.
+Everything should integrate with the rest of the site, so
+MLAs who are also MPs only have the one central page, such as
+<a href="/mp/gerry_adams/belfast_west">Gerry Adams</a> or
+<a href="/mp/ian_paisley/north_antrim">Ian Paisley</a>.
 
-Here at TheyWorkForYou.com we are honoured to be featured so prominently in such a venerable organ as <i>The Times</i>.  
+I've done this voluntarily, in secret &mdash;
+this announcement comes as much as a surprise to everyone else involved with
+TheyWorkForYou as it does to you &mdash;
+partly to try out 
+<a title="The moment I realised I should simply make &lt;b&gt;, &lt;i&gt;, and &lt;font&gt; nestable to get everything to parse was quite good"
+ href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a>,
+partly because I obviously didn't have enough to do writing a
+<a href="http://petitions.pm.gov.uk/">No10 Petitions</a> website and
+answering mountains of support mail, partly as an early Christmas present for everyone I know in the world
+of the internets (hey guys), and partly to show how easy I think it is and that there's no excuse
+for people not to volunteer to do the Scottish Parliament
+and Welsh Assembly. :) 
+<a href="http://project.knowledgeforge.net/ukparse/trac/browser/trunk/parlparse/pyscraper/ni">Here's all the code</a>
+(and there's not much; the scraper is 28 lines long, the name resolver 273, and the parser only 343 &mdash; including comments!)
+for scraping and parsing the Northern Ireland Assembly,
+<a href="http://project.knowledgeforge.net/ukparse/trac/browser/trunk/parlparse/members">the XML list of Assembly Members</a>
+I created was quite important, and then it was a matter of adapting the existing
+<a href="https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy">TheyWorkForYou code</a> to add
+a new major type (and completely rewrite the enter/leaving code as that assumed you couldn't be
+in more than one Parliament/Assembly at once...).
 
-And we share a concern that overly crude measurement can distort behaviours. But the volunteers who run this site favour transparent hard data over lobby gossip, anecdote and anonymous parliamentary sources. So we examined the volume of Written Questios 
+I'm sure there are bugs around the place (<a href="/contact/">do let us know</a>), but I'm off on holiday for a week now;
+I look forward to my return (so don't expect a quick reply to suggestions or
+complaints)! :-)
 
-The Times also puiblished a typically despairing leader on the same subject, bemoaning the demise of parliamentary oratory and describing TheyWorkForYou as 'intimidatingly named'. 
-
-and a leader, the tabloid MP's 'intimidatingly named' TheyWorkForYou.com  
+ATB,<br />
+<a href="http://www.dracos.co.uk/">Matthew Somerville</a>
 EOT
-, "2006-04-09 10:01:00"),
-*/
+, "2006-12-11 00:00:00"),
 
 40 => array('TheyWorkForYou API', <<<EOT
 Today, we launched an API (Application Programming Interface) to the
@@ -405,7 +430,22 @@ function news_format_ref($title) {
 	return $x;
 }
 function news_individual_link($date, $title) {
-	return "/news/archives/" . str_replace("-", "/", substr($date, 0, 10)) . "/" . news_format_ref($title) . ".php";
+	return WEBPATH . "news/archives/" . str_replace("-", "/", substr($date, 0, 10)) . "/" . news_format_ref($title);
 }
+
+/* Draft I think that Tomski left in MT, probably delete it now?
+37 => array("The Times has a grumble", <<<EOT
+The venerable <i>Times</i> is grumpy. In a <a href="http://www.timesonline.co.uk/article/0,,17129-2060278,00.html">feature article</a> by the tabloid's <a href="http://www.explore.parliament.uk/Parliament.aspx?id=10305&glossary=true">lobby correspondent</a> Greg Hurst, the paper claims that some new MPs are asking frivolous written questions with the sole intention of improving their statistics on TheyWorkForYou.com. 
+
+Here at TheyWorkForYou.com we are honoured to be featured so prominently in such a venerable organ as <i>The Times</i>.  
+
+And we share a concern that overly crude measurement can distort behaviours. But the volunteers who run this site favour transparent hard data over lobby gossip, anecdote and anonymous parliamentary sources. So we examined the volume of Written Questios 
+
+The Times also puiblished a typically despairing leader on the same subject, bemoaning the demise of parliamentary oratory and describing TheyWorkForYou as 'intimidatingly named'. 
+
+and a leader, the tabloid MP's 'intimidatingly named' TheyWorkForYou.com  
+EOT
+, "2006-04-09 10:01:00"),
+*/
 
 

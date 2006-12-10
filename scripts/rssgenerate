@@ -21,5 +21,6 @@ cd ~/fawkes/scripts
 ./debates2rss.pl > /data/vhost/www.theyworkforyou.com/docs/debates/debates.rss
 ./lords2rss.pl > /data/vhost/www.theyworkforyou.com/docs/lords/lords.rss
 ./whall2rss.pl > /data/vhost/www.theyworkforyou.com/docs/whall/whall.rss
+./ni2rss.pl > /data/vhost/www.theyworkforyou.com/docs/ni/ni.rss
 php -q mprss.php
 

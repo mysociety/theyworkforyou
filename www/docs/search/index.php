@@ -126,7 +126,7 @@ if (get_http_var('s') != '' || get_http_var('pid') != '') {
                 $moffice_id = $q->field($n, 'moffice_id');
                 if ($dept && $q->field($n, 'to_date') == '9999-12-31')
                     $office[$pid][$moffice_id] = prettify_office($posn, $dept);
-                # $names[$mid] = '<a href="/' . ($house==1?'mp':'peer') . '/?m=' . $mid . '">' . $full_name . ($house==1?' MP':'') . '</a>';
+                # $names[$mid] = '<a href="' . WEBPATH . ($house==1?'mp':'peer') . '/?m=' . $mid . '">' . $full_name . ($house==1?' MP':'') . '</a>';
                 if (!isset($names[$pid])) {
                     $names[$pid] = $full_name . ($house==1?' MP':'');
                     $parties[$pid] = $party;
@@ -208,7 +208,7 @@ if ($q_house==1) {
                 } elseif ($houses[$pid]==2) {
                     print '<span style="color:#990000">&bull;</span>';
                 }
-                print ' <a href="/search/?s='.urlencode($searchstring).'&amp;pid=' . $pid;
+                print ' <a href="' . WEBPATH . 'search/?s='.urlencode($searchstring).'&amp;pid=' . $pid;
                 if ($wtt) print '&amp;wtt=2';
                 print '">';
             }
@@ -266,7 +266,7 @@ if ($q_house==1) {
         foreach ($hdates as $hdate => $count) {
             print '<tr><td>';
             print $count . '</td><td>';
-            print '<a href="/hansard/?d=' . $hdate . '">';
+            print '<a href="' . WEBPATH . 'hansard/?d=' . $hdate . '">';
             print $hdate;
             print '</a>';
             print '</td></tr>';

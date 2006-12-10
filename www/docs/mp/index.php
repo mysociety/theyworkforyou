@@ -1,15 +1,15 @@
 <?php
 
-/* For displaying info about the MP for a postcode or constituency.
+/* For displaying info about a person for a postcode or constituency.
 
 	This page accepts either 'm' (a member_id), 'pid' (a person_id),
 	'c' (a postcode or constituency), or 'n' (a name).
 	
 	First, we check to see if a person_id's been submitted.
-	If so, we display that MP.
+	If so, we display that person.
 	
 	Else, we check to see if a member_id's been submitted.
-	If so, we display that MP.
+	If so, we display that person.
 	
 	Otherwise, we then check to see if a postcode's been submitted.
 	If it's valid we put it in a cookie.
@@ -53,6 +53,7 @@ if ($cconstituency == 'mysociety test constituency') {
 if ($name == 'sion simon') $name = "si&ocirc;n simon";
 if ($name == 'sian james') $name = "si&acirc;n james";
 if ($name == 'lembit opik') $name = "lembit &ouml;pik";
+if ($name == 'bairbre de brun') $name = "bairbre de br&uacute;n";
 
 # Special stuff for Ynys Mon
 if ($cconstituency == 'ynys mon') $cconstituency = "ynys m&ocirc;n"; # Stop infinite loop
@@ -81,6 +82,7 @@ if (get_http_var('recent')) {
 if (get_http_var('c4')) $this_page = 'c4_mp';
 elseif (get_http_var('c4x')) $this_page = 'c4x_mp';
 elseif (get_http_var('peer')) $this_page = 'peer';
+elseif (get_http_var('mla')) $this_page = 'mla';
 else $this_page = 'mp';
 
 if (is_numeric(get_http_var('m'))) {
@@ -141,12 +143,12 @@ if (is_numeric(get_http_var('m'))) {
 	twfy_debug ('MP', 'Displaying MP by name');
 } elseif ($name) {
 	$MEMBER = new MEMBER(array('name' => $name));
-	if ($MEMBER->house() == 1 && ($MEMBER->valid || !is_array($MEMBER->person_id()))) {
+	if ((($MEMBER->house(1) && $this_page!='mp') || ($MEMBER->house(2) && $this_page!='peer'))
+	    && ($MEMBER->valid || !is_array($MEMBER->person_id()))) {
 		member_redirect($MEMBER);
 	}
 } elseif ($cconstituency) {
 
-# non-CVS addition 2005-02-18 - matthew
 if ($cconstituency == 'your &amp; my society') {
 	header('Location: /mp/stom%20teinberg');
 	exit;
@@ -171,36 +173,40 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	$cs = $MEMBER->constituency();
 	$c = 0;
 	foreach ($MEMBER->person_id() as $id) {
-		print '<li><a href="/mp/?pid='.$id.'">' . ucwords(strtolower($name)) . ', ' . $cs[$c++] . '</a></li>';
+		print '<li><a href="' . WEBPATH . 'mp/?pid='.$id.'">' . ucwords(strtolower($name)) . ', ' . $cs[$c++] . '</a></li>';
 	}
 	print '</ul>';
 
 	$MPSURL = new URL('mps');
 	$sidebar = array(
 		'type' => 'html',
-		'content' => '
-						<div class="block">
-							<h4><a href="' . $MPSURL->generate() . '">Browse all MPs</a></h4>
-						</div>
-'
+		'content' => '<div class="block">
+				<h4><a href="' . $MPSURL->generate() . '">Browse all MPs</a></h4>
+			</div>'
 	);
 	
 	$PAGE->stripe_end(array($sidebar));
 
 } elseif (isset($MEMBER) && $MEMBER->person_id()) {
 	
-twfy_debug_timestamp("before load_extra_info");
+	twfy_debug_timestamp("before load_extra_info");
 	$MEMBER->load_extra_info();
-twfy_debug_timestamp("after load_extra_info");
+	twfy_debug_timestamp("after load_extra_info");
 	
 	$member_name = ucfirst($MEMBER->full_name());
 
 	$subtitle = $member_name;
-	if ($MEMBER->house() == 1) {
-		if (!$MEMBER->current_member()) {
+	if ($MEMBER->house(1)) {
+		if (!$MEMBER->current_member(1)) {
 			$subtitle .= ', former';
 		}
 		$subtitle .= ' MP, '.$MEMBER->constituency();
+	}
+	if ($MEMBER->house(3)) {
+		if (!$MEMBER->current_member(3)) {
+			$subtitle .= ', former';
+		}
+		$subtitle .= ' MLA, '.$MEMBER->constituency();
 	}
 	$DATA->set_page_metadata($this_page, 'subtitle', $subtitle);
 	$DATA->set_page_metadata($this_page, 'heading', '');
@@ -209,18 +215,17 @@ twfy_debug_timestamp("after load_extra_info");
 	$feedurl = $DATA->page_metadata('mp_rss', 'url');
 	$DATA->set_page_metadata($this_page, 'rss', $feedurl . $MEMBER->person_id() . '.rdf');
 
-twfy_debug_timestamp("before page_start");
-	
+	twfy_debug_timestamp("before page_start");
 	$PAGE->page_start();
-twfy_debug_timestamp("after page_start");
+	twfy_debug_timestamp("after page_start");
 
-twfy_debug_timestamp("before stripe start");
+	twfy_debug_timestamp("before stripe start");
 	$PAGE->stripe_start();
-twfy_debug_timestamp("after stripe start");
+	twfy_debug_timestamp("after stripe start");
 	
-twfy_debug_timestamp("before display of MP");
+	twfy_debug_timestamp("before display of MP");
 	$MEMBER->display();
-twfy_debug_timestamp("after display of MP");
+	twfy_debug_timestamp("after display of MP");
 	
 	// SIDEBAR.
 
@@ -251,17 +256,7 @@ twfy_debug_timestamp("after display of MP");
 	}
 */
 
-#	$MPSURL = new URL('mps');
-#	$sidebars[] = array (
-#		'type' => 'html',
-#		'content' => '
-#						<div class="block">
-#							<h4><a href="' . $MPSURL->generate() . '">Browse all MPs</a></h4>
-#						</div>
-#'
-#	);
-
-	if ($MEMBER->house() == 1) {
+	if ($MEMBER->house(1)) {
 		$previous_people = $MEMBER->previous_mps();
 		if ($previous_people) {
 			$sidebars[] = array(
@@ -278,7 +273,7 @@ twfy_debug_timestamp("after display of MP");
 		}
 	}
 
-	if ($MEMBER->house() == 1) {
+	if ($MEMBER->house(1)) {
 		$lat = null; $lon = null;
 		$geometry = _api_getGeometry_name($MEMBER->constituency());
 		if (isset($geometry['centre_lat'])) {
@@ -292,7 +287,7 @@ twfy_debug_timestamp("after display of MP");
 				for ($k=1; $k<=min(5, count($nearby_consts)-1); $k++) {
 					$name = $nearby_consts[$k]['name'];
 					$dist = $nearby_consts[$k]['distance'];
-					$out .= '<li><a href="/mp/?c=' . urlencode($name) . '">';
+					$out .= '<li><a href="' . WEBPATH . 'mp/?c=' . urlencode($name) . '">';
 					$out .= $nearby_consts[$k]['name'] . '</a>';
 					$out .= ' <small title="Centre to centre">(' . round($dist, 1) . ' km)</small>';
 					$out .= '</li>';
@@ -340,7 +335,7 @@ twfy_debug_timestamp("after display of MP");
 			'content' => '<div class="block"><h4>People talking about this MP</h4><div class="blockbody">' . $body . '</div></div>'
 	);
 	}
-	*/
+*/
 	$sidebars[] = array('type'=>'html',
 		'content' => '<div class="block"><h4>Journalist?</h4>
 <div class="blockbody"><p>Please feel free to use the data

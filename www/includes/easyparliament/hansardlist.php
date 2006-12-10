@@ -173,7 +173,7 @@ class HANSARDLIST {
 			return $data;
 		}
 		
-		include (FILEPATH."/../includes/easyparliament/templates/$format/hansard_$view" . ".php");
+		include (INCLUDESPATH."easyparliament/templates/$format/hansard_$view" . ".php");
 		return true;
 	
 	}
@@ -690,13 +690,13 @@ class HANSARDLIST {
 			$itemdata = $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-12b'); if ($itemdata) return $itemdata;
 
 			/* Right back when Lords began, we sent out email alerts when they weren't on the site. So this was to work that. */
-			$q = $this->db->query('SELECT source_url FROM hansard WHERE gid LIKE "uk.org.publicwhip/lords/'.mysql_escape_string($args['gid']).'%"');
-			$u = '';
-			if ($q->rows()) {
-				$u = $q->field(0, 'source_url');
-				$u = '<br><a href="'. $u . '">' . $u . '</a>';
-			}
-			$PAGE->error_message ("Sorry, there is no Hansard object with a gid of '".htmlentities($args['gid'])."'. If you've just followed a link in an alert email or from a search page, this is probably because the text was actually said in a Lords debate, which we're currently starting to alpha-test. Unfortunately, the email alerts script and search can get a bit confused, and sent out results that the website can't yet show. To hopefully make it up, below might possibly be a link to the actual Lords debate, which will contain the text you wished to be alerted on: $u");
+			#$q = $this->db->query('SELECT source_url FROM hansard WHERE gid LIKE "uk.org.publicwhip/lords/'.mysql_escape_string($args['gid']).'%"');
+			#$u = '';
+			#if ($q->rows()) {
+			#	$u = $q->field(0, 'source_url');
+			#	$u = '<br><a href="'. $u . '">' . $u . '</a>';
+			#}
+			$PAGE->error_message ("Sorry, there is no Hansard object with a gid of '".htmlentities($args['gid'])."'.");
 			return false;
 		}
 		
@@ -1469,19 +1469,11 @@ class HANSARDLIST {
 
 		$YEARURL = new URL($hansardmajors[$this->major]['page_year']);
 			
-		if ($this_page == 'debatesyear' || $this_page == 'wransyear' || $this_page == 'whallyear' || $this_page == 'wmsyear' || $this_page == 'lordsdebatesyear') {
+		if ($this_page == 'debatesyear' || $this_page == 'wransyear' || $this_page == 'whallyear' || $this_page == 'wmsyear' || $this_page == 'lordsdebatesyear' || $this_page == 'nidebatesyear') {
 			// Only need next/prev on these pages.
 			// Not sure this is the best place for this, but...
 
 			$nextprev = array();
-			
-			$UPURL = new URL('hansard');
-			
-			$nextprev['up'] = array (
-				'body' => 'House of Commons',
-				'url' => $UPURL->generate(),
-				'title' => ''
-			);
 			
 			if ($action == 'recentyear') {
 				// Assuming there will be a previous year!
@@ -1493,36 +1485,32 @@ class HANSARDLIST {
 					'url' => $YEARURL->generate()				
 				);
 			
-			} else {
-				// action is 'year'.
+			} else { // action is 'year'.
 
 				$nextprev['prev'] = array ('body' => 'Previous year');
 				$nextprev['next'] = array ('body' => 'Next year');
 				
-				$q = $this->db->query("SELECT DATE_FORMAT(MIN(hdate), '%Y') AS minyear,
-										DATE_FORMAT(MAX(hdate), '%Y') AS maxyear
-										FROM	hansard WHERE major = " . $this->major . "
-								LIMIT	1");
+				$q = $this->db->query("SELECT DATE_FORMAT(hdate, '%Y') AS year
+							FROM hansard WHERE major = " . $this->major . "
+							AND year(hdate) < " . $firstyear . "
+							ORDER BY hdate DESC
+							LIMIT 1");
 				
-				$minyear = $q->field(0, 'minyear');
-				$maxyear = $q->field(0, 'maxyear');
+				$prevyear = $q->field(0, 'year');
+				$q = $this->db->query("SELECT DATE_FORMAT(hdate, '%Y') AS year
+							FROM hansard WHERE major = " . $this->major . "
+							AND year(hdate) > " . $finalyear . "
+							ORDER BY hdate
+							LIMIT 1");
+				$nextyear = $q->field(0, 'year');
 
-				if ($action == 'year' && $minyear < $firstyear) {
-
-					$prevyear = $firstyear - 1;
-					
+				if ($action == 'year' && $prevyear) {
 					$YEARURL->insert(array('y'=>$prevyear));
-					
 					$nextprev['prev']['title'] = $prevyear;
 					$nextprev['prev']['url'] = $YEARURL->generate();
 				}
-
-				if ($maxyear > $finalyear) {
-					
-					$nextyear = $finalyear + 1;
-					
+				if ($nextyear) {
 					$YEARURL->insert(array('y'=>$nextyear));
-					
 					$nextprev['next']['title'] = $nextyear;
 					$nextprev['next']['url'] = $YEARURL->generate();
 				}
@@ -1954,6 +1942,8 @@ class HANSARDLIST {
 						$URL = new URL('mp');
 					} elseif ($house==2) {
 						$URL = new URL('peer');
+					} elseif ($house==3) {
+						$URL = new URL('mla');
 					}
 					$URL->insert( array ('m' => $speaker_id) );
 					$speaker = array (
@@ -2407,6 +2397,16 @@ class WHALLLIST extends DEBATELIST {
 	function whalllist () {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'westminhall/';
+	}
+}
+
+class NILIST extends DEBATELIST {
+	var $major = 5;
+	var $listpage = 'nidebates';
+	var $commentspage = 'nidebate';
+	function nilist() {
+		$this->db = new ParlDB;
+		$this->gidprefix .= 'ni/';
 	}
 }
 

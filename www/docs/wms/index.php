@@ -138,8 +138,8 @@ if (get_http_var("d") != "") {
 			'type' => 'html',
 			'content' => '<div class="block">
 <h4>RSS feed</h4>
-<p><a href="/' . $rssurl . '"><img border="0" alt="RSS feed" align="middle" src="http://www.theyworkforyou.com/images/rss.gif"></a>
-<a href="/' . $rssurl . '">RSS feed of recent statements</a></p>
+<p><a href="' . WEBPATH . $rssurl . '"><img border="0" alt="RSS feed" align="middle" src="http://www.theyworkforyou.com/images/rss.gif"></a>
+<a href="' . WEBPATH . $rssurl . '">RSS feed of recent statements</a></p>
 </div>'
 
 		)

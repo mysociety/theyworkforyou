@@ -3,41 +3,18 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
-
-// For displaying all the debates on a day, or a single debate. 
-
+// For displaying all the NIA debates on a day, or a single debate. 
 
 if (get_http_var("d") != "") {
-	if (get_http_var('c') != '') {
-		$this_page = 'debatescolumn';
-		$args = array(
-			'date' => get_http_var('d'),
-			'column' => get_http_var('c')
-		);
-		$LIST = new DEBATELIST;
-		$LIST->display('column', $args);
-	} else {
-	// We have a date. so show all debates on this day.
-	
-	$this_page = "debatesday";
-	
+	$this_page = "nidebatesday";
 	$args = array (
 		'date' => get_http_var('d')
 	);
-	
-	$LIST = new DEBATELIST;
-	
+	$LIST = new NILIST;
 	$LIST->display('date', $args);
-	}
 	
 } elseif (get_http_var('id') != "") {
-	// We have an id so show that item.
-	// Could be a section id (so we get a list of all the subsections in it),
-	// or a subsection id (so we'd get the whole debate),
-	// or an item id within a debate in which case we just get that item and some headings.
-	
-	$this_page = "debates";
-
+	$this_page = "nidebates";
 	$args = array (
 		'gid' => get_http_var('id'),
 		's'	=> get_http_var('s'),	// Search terms to be highlighted.
@@ -57,37 +34,20 @@ if (get_http_var("d") != "") {
 		$GLOSSARY = new GLOSSARY($args);
 	}
 
-	
-	$LIST = new DEBATELIST;
+	$LIST = new NILIST;
 	
 	$result = $LIST->display('gid', $args);
 	// If it is a redirect, change URL
 	if (is_string($result)) {
-		$URL = new URL('debates');
+		$URL = new URL('nidebates');
 		$URL->insert( array('id'=>$result) );
 		header('Location: http://' . DOMAIN . $URL->generate('none'));
 		exit;
 	}
 
-	
-
-	// We show trackbacks on this page.
-	
-	$args = array (
-		'epobject_id' => $LIST->epobject_id()
-	);
-	
-#	$TRACKBACK = new TRACKBACK;
-	
-#	$TRACKBACK->display('epobject_id', $args);
-
-
-	
 } elseif (get_http_var('y') != '') {
 	
-	// Show a calendar for a particular year's debates.
-	
-	$this_page = 'debatesyear';
+	$this_page = 'nidebatesyear';
 
 	if (is_numeric(get_http_var('y'))) {
 		$pagetitle = $DATA->page_metadata($this_page, 'title');
@@ -102,10 +62,9 @@ if (get_http_var("d") != "") {
 		'year' => get_http_var('y')
 	);
 
-	$LIST = new DEBATELIST;
+	$LIST = new NILIST;
 	
 	$LIST->display('calendar', $args);
-
 	
 	$PAGE->stripe_end(array(
 		array (
@@ -113,24 +72,58 @@ if (get_http_var("d") != "") {
 		),
 		array (
 			'type' => 'include',
-			'content' => "hocdebates"
+			'content' => "nidebates"
 		)
 	));
 	
+} elseif (get_http_var('gid') != '') {
+	$this_page = 'nidebate';
+	$args = array('gid' => get_http_var('gid') );
+	$NILIST = new NILIST;
+	$result = $NILIST->display('gid', $args);
+	// If it is a redirect, change URL
+	if (is_string($result)) {
+		$URL = new URL('nidebate');
+		$URL->insert( array('gid'=>$result) );
+		header('Location: http://' . DOMAIN . $URL->generate('none'));
+		exit;
+	}
+	if ($NILIST->htype() == '12' || $NILIST->htype() == '13') {
+		$PAGE->stripe_start('side', 'comments');
+		$COMMENTLIST = new COMMENTLIST;
+		$args['user_id'] = get_http_var('u');
+		$args['epobject_id'] = $NILIST->epobject_id();
+		$COMMENTLIST->display('ep', $args);
+		$PAGE->stripe_end();
+		$PAGE->stripe_start('side', 'addcomment');
+		$commendata = array(
+			'epobject_id' => $NILIST->epobject_id(),
+			'gid' => get_http_var('gid'),
+			'return_page' => $this_page
+		);
+		$PAGE->comment_form($commendata);
+		if ($THEUSER->isloggedin()) {
+			$sidebar = array(
+				array(
+					'type' => 'include',
+					'content' => 'comment'
+				)
+			);
+			$PAGE->stripe_end($sidebar);
+		} else {
+			$PAGE->stripe_end();
+		}
+	}
 } else {
-	// No date or debate id. Show recent years with debates on.
-
-	$this_page = "debatesfront";
-	
+	$this_page = "nidebatesfront";
 	$PAGE->page_start();
-
 	$PAGE->stripe_start();
 	?>
 				<h4>Busiest debates from the most recent week</h4>
 <?php
 	
-	$DEBATELIST = new DEBATELIST;
-	$DEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>20));
+	$LIST = new NILIST;
+	$LIST->display('biggest_debates', array('days'=>7, 'num'=>20));
 
 	$rssurl = $DATA->page_metadata($this_page, 'rss');
 	$PAGE->stripe_end(array(
@@ -139,19 +132,15 @@ if (get_http_var("d") != "") {
 		),
 		array (
 			'type' => 'include',
-			'content' => 'calendar_hocdebates'
+			'content' => 'calendar_nidebates'
 		),
 		array (
 			'type' => 'include',
-			'content' => "hocdebates"
+			'content' => "nidebates"
 		),
 		array (
 			'type' => 'html',
-			'content' => '<div class="block">
-<h4>RSS feed</h4>
-<p><a href="' . WEBPATH . $rssurl . '"><img align="middle" src="http://www.theyworkforyou.com/images/rss.gif" border="0" alt="RSS feed"></a>
-<a href="' . WEBPATH . $rssurl . '">RSS feed of most recent debates</a></p>
-</div>'
+			'content' => '<div class="block"><h4><a href="/' . $rssurl . '">RSS feed of most recent debates</a></h4></div>'
 		)
 	));
 	

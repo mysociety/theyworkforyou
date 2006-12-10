@@ -6,7 +6,7 @@ include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
 include INCLUDESPATH . 'easyparliament/member.php';
 
 // Where all the RSS feeds go.
-$rsspath = FILEPATH . 'rss/mp/';
+$rsspath = BASEDIR . '/rss/mp/';
 
 // Make things group writable.
 umask (002);

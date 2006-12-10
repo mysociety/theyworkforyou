@@ -10,7 +10,7 @@ $URL = new URL('help');
 $helpurl = $URL->generate();
 ?>
 
-<p><a href="<?php echo $abouturl; ?>" title="link to About Us page">TheyWorkForYou.com</a> is a non-partisan, volunteer-run website which aims to make it easy for people to keep tabs on their elected <strong>and unelected</strong> representatives in Parliament.</p>
+<p><a href="<?php echo $abouturl; ?>" title="link to About Us page">TheyWorkForYou.com</a> is a non-partisan, partly volunteer-run website which aims to make it easy for people to keep tabs on their elected and unelected representatives in Parliament, and other assemblies.</p>
 
 <?php
 $this->block_end();

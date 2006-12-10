@@ -202,7 +202,7 @@ if ($action ne "check") {
     my $alltermsend = $db->allterms_end();
     while ($allterms ne $alltermsend) {
         my $term = "$allterms";
-        if ($term =~ m#(?:wrans|debate|westminhall|wms|lords)/#) {
+        if ($term =~ m#(?:wrans|debate|westminhall|wms|lords|ni)/#) {
             $xapian_gids{$term} = 1;
         }
         $allterms++;

@@ -54,23 +54,21 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 						<p><strong>Find out more about your MP</strong><br />
 						<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text" />&nbsp;&nbsp;<input type="submit" value=" GO " class="submit" /></p>
 						</form>
-
 <?php
-if (!defined("POSTCODE_SEARCH_DOMAIN")) {
-	echo "POSTCODE_SEARCH_DOMAIN not defined. Postcodes will be mapped to a random MP";
-}
+	if (!defined("POSTCODE_SEARCH_DOMAIN")) {
+		print '<p align="right"><em>Postcodes are being mapped to a random MP</em></p>';
+	}
 
 }
 ?>
-						</li>
-						
-						<li>
+	</li>
+	<li>
 <?php
 	$SEARCHURL = new URL('search');
 	?>
 						<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-						<p><strong>Search Commons and Lords debates, written answers, and statements since 2001<?=get_http_var("keyword") ? ' for \'' . htmlspecialchars(get_http_var("keyword")) . '\'.' : '; for an MP, peer, constituency, or date.'?></strong><br />
-					<label for="s">Type what you are looking for:</label>&nbsp; <input type="text" name="s" id="s" size="15" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>" />&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit" /></p>
+						<p><strong><label for="s">Search<?=get_http_var("keyword") ? ' for \'' . htmlspecialchars(get_http_var("keyword")) . '\'' : ''?>:</label></strong>
+					<input type="text" name="s" id="s" size="15" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>" />&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit" /></p>
                         <?
                             // Display popular queries
                             global $SEARCHLOG;
@@ -110,6 +108,7 @@ if (!defined("POSTCODE_SEARCH_DOMAIN")) {
 	$WHALLLIST = new WHALLLIST; $data[2] = $WHALLLIST->most_recent_day();
 	$WMSLIST = new WMSLIST; $data[4] = $WMSLIST->most_recent_day();
 	$LORDSDEBATELIST = new LORDSDEBATELIST; $data[101] = $LORDSDEBATELIST->most_recent_day();
+	$NILIST = new NILIST; $data[5] = $NILIST->most_recent_day();
 	foreach (array_keys($hansardmajors) as $major) {
 		if (array_key_exists($major, $data)) {
 			unset($data[$major]['listurl']);
@@ -124,33 +123,19 @@ if (!defined("POSTCODE_SEARCH_DOMAIN")) {
 <?php
 $PAGE->block_end();
 
-if(defined("NEWSBLOG")){
-	$includes = array(
-		array (
-			'type' => 'include',
-			'content' => 'whatisthissite'
-		),
-		array (
-			'type' => 'include',
-			'content' => 'sitenews_recent'
-		)
-	);
-} else {
-	$includes = array(
-		array (
-			'type' => 'include',
-			'content' => 'whatisthissite'
-		),
-		array (
-			
-			'type'=>'html',
-			'content' => 'DEVSITE set. The News Blog is not included in the developer version of the code.)'
-		)
-	);
-}
-$includes[] = array(
-	'type' => 'include',
-	'content' => 'comments_recent',
+$includes = array(
+	array (
+		'type' => 'include',
+		'content' => 'whatisthissite'
+	),
+	array (
+		'type' => 'include',
+		'content' => 'sitenews_recent'
+	),
+	array(
+		'type' => 'include',
+		'content' => 'comments_recent',
+	)
 );
 $PAGE->stripe_end($includes);
 $PAGE->page_end();

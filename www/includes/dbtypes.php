@@ -1,6 +1,6 @@
 <?
 // Constants of types used in epobjects and hansard objects
-// $Id: dbtypes.php,v 1.2 2006-06-08 16:21:58 twfy-live Exp $
+// $Id: dbtypes.php,v 1.3 2006-12-10 23:35:41 matthew Exp $
 
 // The type field in the epobject database table
 /*
@@ -70,6 +70,18 @@ $hansardmajors = array(
 		'page_year'=>'lordsdebatesyear',
 		'sidebar'=>'holdebates',
 		'sidebar_short'=>'holdebates_short',
+	),
+	5 => array(
+		'type'=>'debate',
+		'title'=>'Northern Ireland Assembly debates',
+		'singular'=>'debate',
+		'plural'=>'debates',
+		'page'=>'nidebates',
+		'page_all'=>'nidebates',
+		'gidvar'=>'gid',
+		'page_year'=>'nidebatesyear',
+		'sidebar'=>'nidebates',
+		'sidebar_short'=>'nidebates_short',
 	),
 );
 $hansardmajors[104] = $hansardmajors[4];

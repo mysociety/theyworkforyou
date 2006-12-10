@@ -91,6 +91,7 @@ class SEARCHENGINE {
                     elseif ($value == "wrans" || $value == "wran") $value = 3;
                     elseif ($value == 'wms' || $value == 'statements' || $value == 'statement') $value = 4;
                     elseif ($value == 'lordsdebates' || $value == 'lords') $value = 101;
+                    elseif ($value == 'ni') $value = 5;
                     $type = "major";
                 }
                 if ($type == "groupby") {

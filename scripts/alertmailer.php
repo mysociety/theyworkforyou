@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.7 2006-10-26 10:55:32 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.8 2006-12-10 23:35:37 matthew Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -109,6 +109,8 @@ foreach ($alertdata as $alertitem) {
 		$o = array(); $major = 0; $count = array(); $total = 0;
 		$any_content = false;
 		foreach ($data['rows'] as $row) {
+			if ($row['major'] == 5) continue;
+
 			if ($major != $row['major']) {
 				$count[$major] = $total; $total = 0;
 				$major = $row['major'];

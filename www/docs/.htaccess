@@ -1,7 +1,9 @@
 RewriteEngine on
-RewriteRule ^mps/c4/$ mps/?c4=1 [QSA]
+RewriteBase /twfyni/
+RewriteRule ^mps/c4/$  mps/?c4=1 [QSA]
 RewriteRule ^mps/c4x/$ mps/?c4x=1 [QSA]
 RewriteRule ^peer/(.*) mp/$1?peer=1 [QSA]
+RewriteRule ^mla/(.*)  mp/$1?mla=1 [QSA]
 
 RedirectPermanent /awstats http://cake.ukcod.org.uk/awstats/awstats.pl?config=theyworkforyou
 RedirectPermanent /termsofuse http://www.theyworkforyou.com/about

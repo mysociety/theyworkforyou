@@ -283,7 +283,7 @@ function api_sidebar() {
 			$sidebar .= ' style="border-top: solid 1px #999999;"';
 		$sidebar .= '>';
 		if (!isset($data['working']) || $data['working'])
-			$sidebar .= '<a href="/api/docs/' . $method . '">';
+			$sidebar .= '<a href="' . WEBPATH . 'api/docs/' . $method . '">';
 		$sidebar .= $method;
 		if (!isset($data['working']) || $data['working'])
 			$sidebar .= '</a>';

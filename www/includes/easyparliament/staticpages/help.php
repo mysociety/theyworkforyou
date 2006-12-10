@@ -25,9 +25,10 @@
 <dt><a name="missing"></a>Is this the whole of Hansard?</dt>
 <dd>
 <p>This is everything in the House of Commons Hansard,
-back to the General Election of June 2001. It is also everything
+back to the General Election of June 2001, everything
 in the House of Lords Hansard (except Grand Committees) back to around
-November 1999.
+November 1999, and everything in the various Northern Ireland
+(Transitional) Assembly debates. 
 But this is by no means everything. Think of what we've done
 thus far as a mere taster of what could be possible.
 In the future we plan to incorporate the

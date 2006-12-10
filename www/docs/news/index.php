@@ -1,14 +1,12 @@
 <?php
 
-// This needs to be done at the top of every page...
-// Sets up variables and includes essential PHP files.
-include ($_SERVER['DOCUMENT_ROOT'] . '/../includes/easyparliament/init.php');
+include_once '../../includes/easyparliament/init.php';
 
 // News content is in here
 require_once "editme.php";
 
 $uri = $_SERVER['REQUEST_URI'];
-if (preg_match("#/(\d\d\d\d)/(\d\d)/(\d\d)/([a-z0-9_]+).php$#", $uri, $matches)) {
+if (preg_match("#/(\d\d\d\d)/(\d\d)/(\d\d)/([a-z0-9_]+)(\.php)?$#", $uri, $matches)) {
 	// Individual item
 	list($all, $year, $month, $day, $ref) = $matches;
 	if ($ref == "please_build_on_") $ref = "new_full_source_";

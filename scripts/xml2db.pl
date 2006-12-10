@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.10 2006-08-18 08:22:38 twfy-live Exp $
+# $Id: xml2db.pl,v 1.11 2006-12-10 23:35:37 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -41,7 +41,7 @@ use Uncapitalise;
 my $outputfilter = 'safe';
 #DBI->trace(1);
 
-use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall $wms $lordsdebates $members $force $quiet $cronquiet $memtest);
+use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall $wms $lordsdebates $ni $members $force $quiet $cronquiet $memtest);
 my $result = GetOptions ( "all" => \$all,
                         "recent" => \$recent,
                         "date=s" => \$date,
@@ -52,6 +52,7 @@ my $result = GetOptions ( "all" => \$all,
                         "debates" => \$debates,
                         "wms" => \$wms,
                         "lordsdebates" => \$lordsdebates,
+                        "ni" => \$ni,
                         "members" => \$members,
                         "force" => \$force,
                         "memtest" => \$memtest,
@@ -66,7 +67,7 @@ $c++ if $date;
 $c++ if ($datefrom || $dateto);
 $c = 1 if $memtest;
 
-if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$members && !$memtest && !$lordsdebates))
+if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$members && !$memtest && !$lordsdebates && !$ni))
 {
 print <<END;
 
@@ -82,6 +83,7 @@ database id.
 --westminhall - process Westminster Hall
 --wms - process Written Ministerial Statements (C&L)
 --lordsdebates - process Lords Debates
+--ni - process Northern Ireland Assembly debates
 
 --recent - acts incrementally, using xml2db-lastload files
 --all - reprocess every single date back in time
@@ -130,7 +132,7 @@ use vars qw(%gids %grdests %ignorehistorygids $tallygidsmode $tallygidsmodedummy
 use vars qw(%membertoperson);
 use vars qw();
 
-use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir $lordswmsdir $lordsdebatesdir);
+use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir $lordswmsdir $lordsdebatesdir $nidir);
 $debatesdir = $config::pwdata . "scrapedxml/debates/";
 $wransdir = $config::pwdata . "scrapedxml/wrans/";
 $lordswransdir = $config::pwdata . "scrapedxml/lordswrans/";
@@ -138,6 +140,7 @@ $westminhalldir = $config::pwdata . "scrapedxml/westminhall/";
 $wmsdir = $config::pwdata . "scrapedxml/wms/";
 $lordswmsdir = $config::pwdata . "scrapedxml/lordswms/";
 $lordsdebatesdir = $config::pwdata . "scrapedxml/lordspages/";
+$nidir = $config::pwdata . 'scrapedxml/ni/';
 
 my @wrans_major_headings = (
 "ADVOCATE-GENERAL", "ADVOCATE GENERAL", "ADVOCATE-GENERAL FOR SCOTLAND", "AGRICULTURE, FISHERIES AND FOOD",
@@ -257,6 +260,7 @@ process_type(["answers", "lordswrans"], [$wransdir, $lordswransdir], \&add_wrans
 process_type(["westminster"], [$westminhalldir], \&add_westminhall_day) if ($westminhall);
 process_type(["ministerial", "lordswms"], [$wmsdir, $lordswmsdir], \&add_wms_day) if ($wms);
 process_type(["daylord"], [$lordsdebatesdir], \&add_lordsdebates_day) if ($lordsdebates);
+process_type(['ni'], [$nidir], \&add_ni_day) if ($ni);
 
 # Process members
 if ($members) {
@@ -817,7 +821,7 @@ sub add_mps_and_peers {
         $twig->parsefile($config::pwmembers . "people.xml");
         $twig->parsefile($config::pwmembers . "all-members.xml");
         $twig->parsefile($config::pwmembers . "peers-ucl.xml");
-#        $twig->parsefile($config::pwmembers . "ni-members.xml");
+        $twig->parsefile($config::pwmembers . "ni-members.xml");
         $twig->parsefile($config::pwmembers . "ministers.xml");
         loadmoffices();
         check_member_ids();
@@ -883,7 +887,7 @@ sub loadmoffice {
 
         # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
         # get lost somewhere between Perl, the database and the browser.
-        push @moffices, [$mofficeid, encode_entities($dept), encode_entities($pos), $moff->att('fromdate'),
+        push @moffices, [$mofficeid, encode_entities_noapos($dept), encode_entities_noapos($pos), $moff->att('fromdate'),
                 $moff->att('fromtime'), $moff->att('todate'), $moff->att('totime'), $person, $moff->att('source') ];
 }
 
@@ -903,7 +907,7 @@ sub loadconstituency
         # get lost somewhere between Perl, the database and the browser.
         $constituencyadd->execute(
             $consid,
-            encode_entities($name->att('text')),             
+            encode_entities($name->att('text')),
             $main_name,
             $cons->att('fromdate'),
             $cons->att('todate'),
@@ -938,10 +942,10 @@ sub loadmember {
 	db_memberadd($id, 
                 $person_id,
                 $house, 
-                encode_entities($member->att('title')),
-                encode_entities($member->att('firstname')), 
-                encode_entities($member->att('lastname')),
-		encode_entities($member->att('constituency')), 
+                encode_entities_noapos($member->att('title')),
+                encode_entities_noapos($member->att('firstname')), 
+                encode_entities_noapos($member->att('lastname')),
+		encode_entities_noapos($member->att('constituency')), 
                 $member->att('party'),
 		$member->att('fromdate'), $member->att('todate'),
 		$member->att('fromwhy'), $member->att('towhy'));
@@ -975,10 +979,10 @@ sub loadlord {
 	db_memberadd($id,
                 $person_id,
                 $house,
-                encode_entities($member->att('title')),
+                encode_entities_noapos($member->att('title')),
                 $member->att('forenames'),
                 $member->att('lordname'), 
-                encode_entities($member->att('lordofname')),
+                encode_entities_noapos($member->att('lordofname')),
                 $affiliation,
 		$fromdate, $member->att('todate'),
 		'', $towhy);
@@ -994,11 +998,11 @@ sub loadni {
 	db_memberadd($id, 
                 $person_id,
                 $house, 
-                encode_entities($member->att('title')),
-                encode_entities($member->att('firstname')), 
-                encode_entities($member->att('lastname')),
-		encode_entities($member->att('constituency')), 
-                $member->att('party'),
+                encode_entities_noapos($member->att('title')),
+                encode_entities_noapos($member->att('firstname')), 
+                encode_entities_noapos($member->att('lastname')),
+		encode_entities_noapos($member->att('constituency')), 
+                Encode::encode('iso-8859-1', $member->att('party')),
 		$member->att('fromdate'), $member->att('todate'),
 		$member->att('fromwhy'), $member->att('towhy'));
 }
@@ -1306,6 +1310,56 @@ sub load_lords_wms_speech {
 }
 
 ##########################################################################
+# Northern Ireland Assembly
+
+sub add_ni_day {
+        my ($date) = @_;
+        my $twig = XML::Twig->new(twig_handlers => { 
+                'speech' => sub {
+                        my $speech = $_;
+                        if (!$currsection && !$currsubsection) {
+                                my $overhead = XML::Twig::Elt->new('major-heading',
+                                        {       id=>'uk.org.publicwhip/ni/'.$date.'.0.0',
+                                                url=>'',
+                                                nospeaker=>'true'
+                                        }, 'Northern Ireland Assembly');
+                                do_load_heading($overhead, 5, strip_string($overhead->sprint(1)));
+                        }
+                        do_load_speech($speech, 5, 0, $speech->sprint(1))
+                },
+                'minor-heading' => sub { do_load_subheading($_, 5, strip_string($_->sprint(1))) },
+                'oral-heading/major-heading' => sub { load_ni_heading($_, 1) },
+                'major-heading' => sub { load_ni_heading($_, 0) },
+                }, output_filter => $outputfilter );
+        $curdate = $date;
+
+        # find out what gids there are (using tallygidsmode)
+        $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
+        $tallygidsmode = 1; %gids = (); $tallygidsmodedummycount = 10;
+        parsefile_glob($twig, $config::pwdata . "scrapedxml/ni/ni" . $curdate. "*.xml");
+        # see if there are deleted gids
+        my @gids = keys %gids;
+        check_extra_gids($date, \@gids, "major = 5");
+
+        # make the modifications
+        $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
+        $tallygidsmode = 0; %gids = ();
+        parsefile_glob($twig, $config::pwdata . "scrapedxml/ni/ni" . $curdate. "*.xml");
+
+        undef $twig;
+}
+
+sub load_ni_heading { 
+	my ($speech, $inoralanswers) = @_;
+        my $text = strip_string($speech->sprint(1));
+        if ($inoralanswers) {
+                $text = "Oral Answers to Questions &#8212; " . fix_case($text);
+        }
+        do_load_heading($speech, 5, $text);
+        return 0; # Do not chain handlers
+}
+
+##########################################################################
 # Handlers for speech/heading elements which are in debates, wrans and
 # westminhall
 
@@ -1471,6 +1525,12 @@ sub do_load_gidredirect
         $gradd->finish();
 }
 
+sub encode_entities_noapos($) {
+        my $s = shift;
+        encode_entities($s);
+        $s =~ s/&#39;/'/;
+        return $s;
+}
 
 # TODO
 # Check we don't have duplicates between two tables

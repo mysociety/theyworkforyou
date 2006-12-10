@@ -223,10 +223,10 @@ if (isset ($data['rows'])) {
 				if ($desc) print "($desc)";
 
 				if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
-					?> <a href="<?php echo $row['commentsurl']; ?>" title="Copy this URL to link directly to this piece of text" class="permalink">Link to this</a> | <?php
+					?> <a href="<?php echo $row['commentsurl']; ?>" title="Copy this URL to link directly to this piece of text" class="permalink">Link to this</a><?php
 				}
 				if (isset($row['source_url']) && $row['source_url'] != '') {
-					echo ' <a href="' . $row['source_url'] . '" title="The source of this piece of text">Hansard source</a>';
+					echo ' | <a href="' . $row['source_url'] . '" title="The source of this piece of text">Hansard source</a>';
 				}
 
 				echo "</small></p>\n";
@@ -343,7 +343,7 @@ if (isset ($data['rows'])) {
 
 
 
-if ($this_page == 'debates' || $this_page == 'whall' || $this_page == 'lordsdebates') {
+if ($this_page == 'debates' || $this_page == 'whall' || $this_page == 'lordsdebates' || $this_page == 'nidebates') {
 	// Previous / Index / Next links, if any.
 	
 	$PAGE->stripe_start('foot');

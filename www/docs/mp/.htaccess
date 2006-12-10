@@ -1,5 +1,5 @@
 RewriteEngine on
-RewriteBase /mp/
+RewriteBase /twfyni/mp/
 RewriteRule ^c4/(['a-zA-Z_+-]+)/([\(\)\.a-zA-Z_+,'-]+)$ index.php?c4=1&n=$1&c=$2
 RewriteRule ^c4x/(['a-zA-Z_+-]+)/([\(\)\.a-zA-Z_+,'-]+)$ index.php?c4x=1&n=$1&c=$2
 RewriteRule ^(['a-zA-Z_+-]+)/([\(\)\.a-zA-Z_+,'-]+)$ index.php?n=$1&c=$2 [QSA]

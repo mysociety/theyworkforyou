@@ -10,7 +10,7 @@ class GLOSSARYLIST {
 			$format = 'html';
 		}
 		
-		include (FILEPATH."/../includes/easyparliament/templates/$format/$template.php");
+		include (INCLUDESPATH."easyparliament/templates/$format/$template.php");
 	
 	}
 

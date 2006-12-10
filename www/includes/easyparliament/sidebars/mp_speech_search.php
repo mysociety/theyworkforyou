@@ -7,7 +7,7 @@ $SEARCHURL = new URL("search");
 
 if ($MEMBER->person_id()) {
 	$pid = $MEMBER->person_id();
-	$this->block_start(array('id'=>'mpsearch', 'title'=>"Search this " . ($MEMBER->house()==1?'MP':'peer') . "'s speeches"));
+	$this->block_start(array('id'=>'mpsearch', 'title'=>"Search this person's speeches"));
 	?>
 
 				<div class="mpsearchbox">

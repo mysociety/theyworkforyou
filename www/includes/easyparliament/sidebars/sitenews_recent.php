@@ -9,7 +9,7 @@ $archiveurl = $URL->generate();
 
 $this->block_start(array('title'=>"Site news", 'url'=>$sitenewsurl));
 
-include FILEPATH . '/news/home_page_include.php';
+include BASEDIR . '/news/home_page_include.php';
 ?>
 
 <p><a href="<?php echo $archiveurl; ?>">Archive</a></p>

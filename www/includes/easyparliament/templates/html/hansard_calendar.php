@@ -135,6 +135,8 @@ if (isset($data['years'])) {
 				}
 
 				$recess = recess_prettify($currentDay, $month, $year);
+				if ($data['info']['major'] == 5)
+					$recess = false;
 
 				// Is this day actually Today in the real world?
 				// If so, higlight it.

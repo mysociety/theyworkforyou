@@ -10,7 +10,7 @@
 <dl>
 
 <dt><a name="nontechie"></a>I'd like to help out, but I'm not really a Techie.</dt>
-<dd><p>There's a load of things you can do. Blog about us, vote on a speech, create a dream MP at publicwhip, leave a comment, or add a glossary entry.</p>
+<dd><p>There's a load of things you can do. Blog about us, vote on a speech, create a policy at PublicWhip, leave a comment, or add a glossary entry.</p>
 </dd>
 <!-- end old faq entry -->
 </dl>

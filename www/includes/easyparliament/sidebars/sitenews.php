@@ -5,7 +5,7 @@ $ARCHIVEURL = new URL('sitenews_archive');
 $url = $ARCHIVEURL->generate();
 
 $this->block_start(array('title'=>'News Archives', 'url'=>$url));
-include FILEPATH . '/news/sidebar_archives.php';
+include BASEDIR . '/news/sidebar_archives.php';
 $this->block_end();
 
 $this->block_start(array('title'=>'RSS/XML'));

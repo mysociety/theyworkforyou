@@ -1,7 +1,7 @@
 <?php
 
 include_once "../../includes/easyparliament/init.php";
-include_once "../../includes/easyparliament/glossary.php";
+include_once INCLUDESPATH . "easyparliament/glossary.php";
 
 // For displaying all the Lords debates on a day, or a single debate. 
 

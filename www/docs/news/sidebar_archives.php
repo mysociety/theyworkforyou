@@ -12,7 +12,7 @@ foreach ($all_news as $id => $news_row) {
 
 	$ym = substr($date, 0, 7);
 	if ($ym != $last) {
-		$url = "/news/archives/".str_replace("-", "/", $ym);
+		$url = WEBPATH . "news/archives/".str_replace("-", "/", $ym);
 		print "<a href=\"$url\">".format_date($ym."-01", "F Y")."</a>";
 		print "<br>";
 		$last = $ym;

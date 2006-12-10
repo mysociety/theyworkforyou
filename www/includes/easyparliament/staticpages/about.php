@@ -13,7 +13,7 @@ little wrong with Parliament that a healthy mixture of transparency and public e
 which is itself a project of UK Citizens Online Democracy, a registered charity.
 It was originally built almost entirely by volunteers (see <a href="#history">History</a> below),
 but now mySociety pays Matthew to keep the site running and up-to-date as part of his
-wider work for mySociety.
+wider work for mySociety. However, things are still added voluntarily by anyone who wishes.
 </p>
 
 <p>The copyright of Hansard remains under
@@ -55,6 +55,10 @@ back in <a href="http://web.archive.org/web/19981202165125/http://www.upmystreet
 <p>In early 2006 Tom and Stef decided that the overlap of people and goals with mySociety
 was so substantial that it was best to pass the running over to mySociety, who are an actual
 proper organisation with staff and time.</p>
+
+<p>Matthew added the Northern Ireland Assembly as an early Christmas present in 2006, working
+alone and voluntarily, perhaps as a nudge to the Scots and the Welsh to come forward and 
+work on their own versions. :)</p>
 
 <h4>Volunteers</h4>
 <p><em>They did all this in their spare time, because they thought it was worth doing.
