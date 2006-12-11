@@ -20,6 +20,7 @@ class MEMBER {
 	// Is this MP THEUSERS's MP?
 	var $the_users_mp = false;
 	var $canonical = true;
+	var $house_disp = 0;
 	
 	// Mapping member table 'house' numbers to text.
 	var $houses_pretty = array(

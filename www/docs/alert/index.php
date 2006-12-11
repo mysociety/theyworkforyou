@@ -249,7 +249,7 @@ above.</li>
 					print $MEMBER->full_name();
 					print '<input type="hidden" name="pid" value="' . htmlspecialchars($details['pid']) . '">';
 				} else { ?><select name="pid">
-				<option value="Any">Any MP/Lord</option>
+				<option value="Any">Any MP/Lord/MLA</option>
 				<?php 
 				// Get a list of MPs/Lords for displaying in the form using the PEOPLE class
 				$LIST = new PEOPLE;

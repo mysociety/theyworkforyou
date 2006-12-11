@@ -1,5 +1,4 @@
 RewriteEngine on
-RewriteBase /twfyni/
 RewriteRule ^mps/c4/$  mps/?c4=1 [QSA]
 RewriteRule ^mps/c4x/$ mps/?c4x=1 [QSA]
 RewriteRule ^peer/(.*) mp/$1?peer=1 [QSA]

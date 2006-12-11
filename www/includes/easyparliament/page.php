@@ -1363,7 +1363,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		}
 	}
 
-	if (!in_array(1, $member['houses']) || $member['party'] == 'Sinn Fein') {
+	if (!in_array(1, $member['houses']) || $member['party'] != 'Sinn Fein') {
 
 
 	?>		<a name="hansard"></a> <?
