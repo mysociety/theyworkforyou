@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.8 2006-12-10 23:35:37 matthew Exp $
+ * $Id: alertmailer.php,v 1.9 2006-12-11 08:53:41 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -54,9 +54,9 @@ $alertdata = $alertdata['data'];
 $DEBATELIST = new DEBATELIST; # Nothing debate specific, but has to be one of them
 $db = new ParlDB;
 
-$sects = array('', 'Commons debate', 'Westminster Hall debate', 'Written Answer', 'Written Ministerial Statement');
+$sects = array('', 'Commons debate', 'Westminster Hall debate', 'Written Answer', 'Written Ministerial Statement', 'Northern Ireland Assembly debate');
 $sects[101] = 'Lords debate';
-$sects_short = array('', 'debate', 'westminhall', 'wrans', 'wms');
+$sects_short = array('', 'debate', 'westminhall', 'wrans', 'wms', 'ni');
 $sects_short[101] = 'lords';
 $results = array();
 
@@ -109,8 +109,6 @@ foreach ($alertdata as $alertitem) {
 		$o = array(); $major = 0; $count = array(); $total = 0;
 		$any_content = false;
 		foreach ($data['rows'] as $row) {
-			if ($row['major'] == 5) continue;
-
 			if ($major != $row['major']) {
 				$count[$major] = $total; $total = 0;
 				$major = $row['major'];
