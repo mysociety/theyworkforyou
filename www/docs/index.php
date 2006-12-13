@@ -38,7 +38,8 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 	$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode()));
 	$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
 	$former = "";
-	if ($MEMBER->left_house() != '9999-12-31') {
+	$left_house = $MEMBER->left_house();
+	if ($left_house[1]['date'] != '9999-12-31') { # XXX odd that this index is 1
 		$former = 'former';
 	}
 
