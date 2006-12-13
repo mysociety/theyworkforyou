@@ -58,6 +58,14 @@ if ($action eq "sincefile") {
     $now_start_string = $row[0];
 }
 
+# Batch numbers - each new stuff gets a new batch number
+my $sth = $dbh->prepare("insert into indexbatch (created) values (now())");
+$sth->execute();
+$sth = $dbh->prepare("select last_insert_id()");
+$sth->execute();
+my @row = $sth->fetchrow_array();
+my $new_indexbatch = $row[0];
+
 # Date range case
 my $datefrom;
 my $dateto;
@@ -145,6 +153,7 @@ if ($action ne "check") {
         $::doc->set_data($gid);
         $::doc->add_term("speaker:" . $person_id);
         $::doc->add_term("major:" . $$row{'major'});
+        $::doc->add_term("batch:" . $new_indexbatch);
 #        my $ddd = $$row{'hdate'};
 #        $ddd =~ s/-//g;
 #        $::doc->add_term('date:' . $ddd);

@@ -125,3 +125,12 @@ CREATE TABLE `tmpindextest` (
   `gid` varchar(60) default NULL,
   `major` int(11) default NULL
 );
+
+-- each time we index, we increment the batch number;
+-- can use this to speed up search
+CREATE TABLE `indexbatch` (
+  `indexbatch_id` int(11) NOT NULL auto_increment,
+  `created` datetime default NULL,
+  PRIMARY KEY  (`indexbatch_id`)
+);
+
