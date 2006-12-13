@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.10 2006-12-13 16:30:28 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.11 2006-12-13 19:34:23 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -80,6 +80,7 @@ $sects_short[101] = 'lords';
 $results = array();
 
 $outof = count($alertdata);
+$start_time = time();
 foreach ($alertdata as $alertitem) {
 	$active++;
 	$email = $alertitem['email'];
@@ -214,7 +215,7 @@ function sort_by_stuff($a, $b) {
 }
 
 function write_and_send_email($email, $user_id, $data) {
-	global $globalsuccess, $sentemails, $nomail;
+	global $globalsuccess, $sentemails, $nomail, $start_time;
 
 	$data .= '===================='."\n\n";
 	if ($user_id) {
@@ -228,8 +229,12 @@ function write_and_send_email($email, $user_id, $data) {
 	$m = array('DATA' => $data);
 	if (!$nomail) {
 		$success = send_template_email($d, $m);
-		print "sent ... pausing ... ";
-		usleep(500000);
+		print "sent ... ";
+		# sleep if time between sending mails is less than a certain number of seconds on average
+		if (((time() - $start_time) / $sentemails) < 0.5 ) { # number of seconds per mail not to be quicker than
+			print "pausing ... ";
+			sleep(1);
+		}
 	} else {
 		print $data;
 		$success = 1;
