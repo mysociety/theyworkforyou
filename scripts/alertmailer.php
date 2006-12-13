@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.11 2006-12-13 19:34:23 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.12 2006-12-13 19:52:30 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -107,7 +107,7 @@ foreach ($alertdata as $alertitem) {
 
 	$data = null;
 	if (!isset($results[$criteria_batch])) {
-		print "  ACTION $active/$outof QUERY $queries : Xapian query '$criteria_batch'";
+		print "  ALERT $active/$outof QUERY $queries : Xapian query '$criteria_batch'";
 		$start = getmicrotime();
 		$SEARCHENGINE = new SEARCHENGINE($criteria_batch);
 		#print "query_remade: " . $SEARCHENGINE->query_remade() . "\n";
@@ -198,7 +198,7 @@ print $sss;
 if (!$nomail && !$onlyemail) {
 	$fp = fopen('alerts-lastsent', 'w');
 	fwrite($fp, time() . "\n");
-	fwrite($fp, $lastbatch);
+	fwrite($fp, $max_batch_id);
 	fclose($fp);
 	mail(ALERT_STATS_EMAILS, 'Email alert statistics', $sss, 'From: Email Alerts <fawkes@dracos.co.uk>');
 }
