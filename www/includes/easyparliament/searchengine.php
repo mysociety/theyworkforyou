@@ -206,6 +206,9 @@ class SEARCHENGINE {
                 $description .= " bias by $weight halflife $halflife seconds";
             } elseif ($items[0] == 'date') {
                 $description .= ' spoken on ' . $items[1];
+            } elseif ($items[0] == 'batch') {
+                # silently ignore, as description goes in email alerts
+                #$description .= ' in search batch ' . $items[1];
             } else {
                 $PAGE->error_message("Unknown search prefix '$items[0]' ignored");
             }
@@ -283,11 +286,12 @@ class SEARCHENGINE {
         queryparser_add_prefix($queryparser, "speaker", "speaker:");
         queryparser_add_prefix($queryparser, "major", "major:");
         queryparser_add_prefix($queryparser, 'date', 'date:');
+        queryparser_add_prefix($queryparser, 'batch', 'batch:');
         twfy_debug("SEARCH", "query remade -- ". $this->query_remade());
         // We rebuild (with query_remade) our query and feed that text string to 
         // the query parser.  This is because the error handling in the query parser
         // is a bit knackered, and we want to be sure our highlighting etc. exactly
-        // matches.
+        // matches. XXX don't need to do this for more recent Xapians
         $query = queryparser_parse_query($queryparser, $this->query_remade());
         twfy_debug("SEARCH", "queryparser description -- " . query_get_description($query));
 

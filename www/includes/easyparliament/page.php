@@ -2,6 +2,7 @@
 
 if (defined('OPTION_TRACKING') && OPTION_TRACKING)
 	require_once INCLUDESPATH . '../../../phplib/tracking.php';
+#require_once INCLUDESPATH . '../../../phplib/gaze.php';
 
 class PAGE {
 
