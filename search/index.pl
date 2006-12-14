@@ -58,14 +58,6 @@ if ($action eq "sincefile") {
     $now_start_string = $row[0];
 }
 
-# Batch numbers - each new stuff gets a new batch number
-my $sth = $dbh->prepare("insert into indexbatch (created) values (now())");
-$sth->execute();
-$sth = $dbh->prepare("select last_insert_id()");
-$sth->execute();
-my @row = $sth->fetchrow_array();
-my $new_indexbatch = $row[0];
-
 # Date range case
 my $datefrom;
 my $dateto;
@@ -94,7 +86,15 @@ if ($section && $section eq 'cronquiet') {
 my $db=Search::Xapian::WritableDatabase->new($dbfile, Search::Xapian::DB_CREATE_OR_OPEN);
 
 if ($action ne "check") {
-    # Get data for items to update from MySQL MySQL
+    # Batch numbers - each new stuff gets a new batch number
+    my $sth = $dbh->prepare("insert into indexbatch (created) values (now())");
+    $sth->execute();
+    $sth = $dbh->prepare("select last_insert_id()");
+    $sth->execute();
+    my @row = $sth->fetchrow_array();
+    my $new_indexbatch = $row[0];
+
+    # Get data for items to update from MySQL 
     my $query = "select epobject.epobject_id, body, person_id, hdate, gid, major, 
         section_id, subsection_id, party,
         unix_timestamp(concat(hdate, ' ', if(htime, htime, 0))) as unix_time,
