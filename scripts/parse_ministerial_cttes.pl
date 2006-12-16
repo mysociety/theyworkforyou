@@ -150,11 +150,18 @@ sub cleanup_members {
 sub output {
 	my $ref = shift;
 
-
+	print "ctte\tsubctte\ttype\tvalue\tnote\n";
 	foreach my $ctte (keys %{$ref}) {
 		foreach my $subctte (keys %{$ref->{$ctte}}){  
+			if ($ref->{$ctte}->{$subctte}->{'termsofreference'}) {
+				print "$ctte\t$subctte\tterms\t$ref->{$ctte}->{$subctte}->{'termsofreference'}\n";
+			}
 			foreach my $member (@{$ref->{$ctte}->{$subctte}->{'composition'}}) {
-				print "$member\n";
+				if ($member=~m#^\[([^\]]+)\] (.*)#) {
+					print "$ctte\t$subctte\tcomposition\t$2\t$1\n";
+				} else {
+					print "$ctte\t$subctte\tcomposition\t$member\n";
+				}
 			}
 		}
 	}
