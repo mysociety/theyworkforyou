@@ -119,7 +119,7 @@ if ($action ne "check") {
 
     # Loop through all the rows from MySQL
     my $parser=new HTML::Parser();
-    $parser->handler(text => \&text);
+    $parser->handler(text => \&process_text);
     croak if !$db;
     my $last_hdate = "";
     my $last_area = "";
@@ -154,6 +154,7 @@ if ($action ne "check") {
         $::doc->add_term("speaker:" . $person_id);
         $::doc->add_term("major:" . $$row{'major'});
         $::doc->add_term("batch:" . $new_indexbatch);
+        # XXX someone requested party here (remember to lowercase it)
 #        my $ddd = $$row{'hdate'};
 #        $ddd =~ s/-//g;
 #        $::doc->add_term('date:' . $ddd);
@@ -254,7 +255,7 @@ if ($action ne "check") {
 }
 
 # Does the actual adding (this is a handler for the HTML parser)
-sub text {
+sub process_text {
     my $p=shift;
     my $text=shift;
 
