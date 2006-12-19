@@ -155,6 +155,8 @@ if ($action ne "check") {
         $::doc->add_term("major:" . $$row{'major'});
         $::doc->add_term("batch:" . $new_indexbatch);
         # XXX someone requested party here (remember to lowercase it)
+        # (And standardise on something - e.g. MLA party names aren't the
+        # same as MPs; *and* use "P:" rather than "party:" or similar)
 #        my $ddd = $$row{'hdate'};
 #        $ddd =~ s/-//g;
 #        $::doc->add_term('date:' . $ddd);
