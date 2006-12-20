@@ -1424,8 +1424,8 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 <?php
 
 		$since_text = 'in the last year';
-		if ($member['entered_house'] > '2005-05-05')
-			$since_text = 'since joining Parliament';
+		#if ($member['entered_house'] > '2005-05-05')
+		#	$since_text = 'since joining Parliament';
 
 		$MOREURL = new URL('search');
 		if (in_array(1, $member['houses'])) {

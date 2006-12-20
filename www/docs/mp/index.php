@@ -143,7 +143,8 @@ if (is_numeric(get_http_var('m'))) {
 	twfy_debug ('MP', 'Displaying MP by name');
 } elseif ($name) {
 	$MEMBER = new MEMBER(array('name' => $name));
-	if ((($MEMBER->house(1) && $this_page!='mp') || ($MEMBER->house(2) && $this_page!='peer'))
+	if ((($MEMBER->house_disp==1 && $this_page!='mp')
+	    || ($MEMBER->house_disp==2 && $this_page!='peer'))
 	    && ($MEMBER->valid || !is_array($MEMBER->person_id()))) {
 		member_redirect($MEMBER);
 	}

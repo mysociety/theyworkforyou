@@ -289,6 +289,15 @@ class MEMBER {
 		if ($q->rows > 1) {
 			# Hacky as a very hacky thing that's graduated in hacking from the University of Hacksville
 			# Anyone who wants to do it properly, feel free
+
+			# Firstly, the special case of Roy Beggs
+			# Perhaps if on an MP page, only looking for MPs would be wise?
+			# I'm sure there's a reason why it looks at everywhere, though
+			if ($q->field(0, 'person_id') == 13887) {
+				if ($this_page=='mla') return 13887; # Roy Beggs Jnr
+				return 10033; # Roy Beggs Snr
+			}
+
 			$person_ids = array(); $consts = array();
 			for ($i=0; $i<$q->rows(); ++$i) {
 				$pid = $q->field($i, 'person_id');
