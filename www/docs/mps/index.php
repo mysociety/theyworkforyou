@@ -37,7 +37,10 @@ $PEOPLE = new PEOPLE;
 $PEOPLE->display('mps', $args, $format);
 
 if (get_http_var('f') != 'csv') {
-	$PAGE->stripe_end(array(array('type'=>'include', 'content'=>'mps')));
+	$PAGE->stripe_end(array(
+		array('type'=>'include', 'content'=>'mps'),
+		array('type'=>'include', 'content'=>'donate')
+	));
 	$PAGE->page_end();
 }
 

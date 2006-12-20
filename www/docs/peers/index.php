@@ -27,7 +27,10 @@ $PEOPLE = new PEOPLE;
 $PEOPLE->display('peers', $args, $format);
 
 if (get_http_var('f') != 'csv') {
-	$PAGE->stripe_end(array(array('type'=>'include', 'content'=>'peers')));
+	$PAGE->stripe_end(array(
+		array('type'=>'include', 'content'=>'peers'),
+		array('type'=>'include', 'content'=>'donate')
+	));
 	$PAGE->page_end();
 }
 

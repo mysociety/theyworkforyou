@@ -107,7 +107,7 @@ if (is_numeric(get_http_var('m'))) {
 		twfy_debug ('MP', "MP lookup by postcode");
 		$constituency = strtolower(postcode_to_constituency($pc));
 		if ($constituency == "connection_timed_out") {
-			$errors['pc'] = "Sorry, we couldn't check your postcode right now. Please use the 'All MPs' link above to browse MPs";
+			$errors['pc'] = "Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load. Please use the 'All MPs' link above to browse all the MPs.";
 		} elseif ($constituency == "") {
 			$errors['pc'] = "Sorry, ".htmlentities($pc) ." isn't a known postcode";
 			twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
@@ -234,6 +234,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	$linkshtml = $PAGE->generate_member_links($MEMBER, $MEMBER->extra_info());
 	
 	$sidebars = array(
+		array('type'=>'include', 'content' => 'donate'),
 		array (
 			'type'		=> 'include',
 			'content'	=> 'mp_email_friend'
