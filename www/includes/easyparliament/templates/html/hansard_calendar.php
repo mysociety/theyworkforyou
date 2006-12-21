@@ -136,7 +136,7 @@ if (isset($data['years'])) {
 
 				$recess = recess_prettify($currentDay, $month, $year);
 				if ($data['info']['major'] == 5)
-					$recess = false;
+					$recess = array('');
 
 				// Is this day actually Today in the real world?
 				// If so, higlight it.
@@ -144,11 +144,11 @@ if (isset($data['years'])) {
 				// sittings - e.g. WH is only Tuesday-Thursday
 				if ($currentDay == $toDay) {
 					print '<td class="on"';
-					if ($recess && $recess!=1) print ' title="'.$recess.'"';
+					if ($recess[0] && $recess[0]!=1) print ' title="'.$recess[0].'"';
 					print '>';
-				} elseif ($recess) {
+				} elseif ($recess[0]) {
 					print '<td class="no"';
-					if ($recess!=1) print ' title="'.$recess.'"';
+					if ($recess[0]!=1) print ' title="'.$recess[0].'"';
 					print '>';
 				} else {
 					print '<td>';

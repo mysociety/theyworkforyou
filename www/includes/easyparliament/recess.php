@@ -90,6 +90,7 @@ $GLOBALS['recessdates'] = array(
 	),
 );
 
+/*
 function currently_in_recess() {
     // Main file which recesswatcher.py overwrites each day
     $h = fopen(RECESSFILE, "r");
@@ -110,12 +111,18 @@ function currently_in_recess() {
     }
     return false;
 }
+*/
 
 function recess_prettify($currentDay, $month, $year) {
 	global $recessdates;
-	$recess = 0;
+	$recess = 0; $from = ''; $to = '';
 	if (isset($recessdates[$year][$month]['all'])) {
 		$recess = 'Summer Recess';
+		$from = "$year-7-" . $recessdates[$year][7]['more'];
+		if (isset($recessdates[$year][9]['all']))
+			$to = "$year-10-" . $recessdates[$year][10]['less'];
+		else
+			$to = "$year-9-" . $recessdates[$year][9]['less'];
 	}
 	if ( (isset($recessdates[$year][$month]['less']) && $currentDay < $recessdates[$year][$month]['less'])
 	|| (isset($recessdates[$year][$month]['more']) && $currentDay > $recessdates[$year][$month]['more'])
@@ -133,7 +140,41 @@ function recess_prettify($currentDay, $month, $year) {
 			case 10: $recess = 'Conference Recess'; break;
 			default: $recess = 1;
 		}
+		if (isset($recessdates[$year][$month]['less']) && $currentDay < $recessdates[$year][$month]['less']) {
+			$to = "$year-$month-" . $recessdates[$year][$month]['less'];
+			if ($month==1)
+				$from = ($year-1)."-12-" . $recessdates[$year-1][12]['more'];
+			else {
+				for ($newmonth = $month-1; $newmonth>=1; $newmonth--) {
+					if (isset($recessdates[$year][$newmonth]['more'])) {
+						$from = "$year-".($newmonth)."-" . $recessdates[$year][$newmonth]['more'];
+						break;
+					}
+				}
+			}
+		}
+		if (isset($recessdates[$year][$month]['more']) && $currentDay > $recessdates[$year][$month]['more']) {
+			$from = "$year-$month-" . $recessdates[$year][$month]['more'];
+			if ($month==12)
+				$to = ($year+1)."-01-" . $recessdates[$year+1][1]['less'];
+			else {
+				for ($newmonth = $month+1; $newmonth<=12; $newmonth++) {
+					if (isset($recessdates[$year][$newmonth]['less'])) {
+						$to = "$year-".($newmonth)."-" . $recessdates[$year][$newmonth]['less'];
+						break;
+					}
+				}
+			}
+		}
+		if (isset($recessdates[$year][$month]['between']) && $currentDay > $recessdates[$year][$month]['between'][0] && $currentDay < $recessdates[$year][$month]['between'][1]) {
+			$from = "$year-$month-" . $recessdates[$year][$month]['between'][0];
+			$to = "$year-$month-" . $recessdates[$year][$month]['between'][1];
+		}
+		if (isset($recessdates[$year][$month]['between'][2]) && $currentDay > $recessdates[$year][$month]['between'][2] && $currentDay < $recessdates[$year][$month]['between'][3]) {
+			$from = "$year-$month-" . $recessdates[$year][$month]['between'][2];
+			$to = "$year-$month-" . $recessdates[$year][$month]['between'][3];
+		}
 	}
-	return $recess;
+	return array($recess, $from, $to);
 }
 ?>

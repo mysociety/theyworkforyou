@@ -309,7 +309,7 @@ function format_date ($date, $format) {
 	// PHP date format string (eg, "Y-m-d H:i:s")
 	// and it returns a nicely formatted string according to requirements.
 
-	if (preg_match("/^(\d\d\d\d)-(\d\d)-(\d\d)$/", $date, $matches)) {
+	if (preg_match("/^(\d\d\d\d)-(\d\d?)-(\d\d?)$/", $date, $matches)) {
 		list($string, $year, $month, $day) = $matches;
 	
 		return gmdate ($format, gmmktime(0, 0, 0, $month, $day, $year));

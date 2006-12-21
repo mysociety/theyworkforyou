@@ -1876,28 +1876,25 @@ elseif (in_array(3, $member['houses'])) print 'MLA'; ?> speaks<?php
 	}
 
 	 
-	function recess_message () {
+	function recess_message() {
 		// Returns a message if parliament is currently in recess.
 		include_once INCLUDESPATH."easyparliament/recess.php";
-	
 		$message = '';
-		
-		$recess = currently_in_recess();
-		
-		if ($recess != false) {
-			list($name, $from, $to) = $recess;
-			$from = format_date($from, SHORTDATEFORMAT);
-			$to = format_date($to, SHORTDATEFORMAT);
-            // If years are the same, only print once
-            if (substr($from, -4, 4) == substr($to, -4, 4)) {
-                $from = substr($from, 0, strlen($from) - 4);
-            }
-			$message = "$name. Parliament is not sitting from $from until $to.";
+		if (list($name, $from, $to) = recess_prettify(date('j'), date('n'), date('Y'))) {
+			$message = 'The Houses of Parliament are in their ' . $name . ' ';
+			if ($from && $to) {
+				$from = format_date($from, SHORTDATEFORMAT);
+				$to = format_date($to, SHORTDATEFORMAT);
+				if (substr($from, -4, 4) == substr($to, -4, 4)) {
+					$from = substr($from, 0, strlen($from) - 4);
+				}
+				$message .= "from $from until $to.";
+			} else {
+				$message .= 'at this time.';
+			}
 		}
-		
 		return $message;
 	}
-
 
 	function trackback_rss ($trackbackdata) {
 		/*

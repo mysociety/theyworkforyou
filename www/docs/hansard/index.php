@@ -47,7 +47,7 @@ if (($date = get_http_var('d')) && preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) 
 	$time = strtotime($date);
 	$dayofweek = date('w', $time);
 	if ($recess = recess_prettify(date('j', $time), date('n', $time), date('Y', $time))) {
-		print '<p>The Houses of Parliament are in their ' . $recess . ' at this time.</p>';
+		print '<p>The Houses of Parliament are in their ' . $recess[0] . ' at this time.</p>';
 	} elseif ($dayofweek == 0 || $dayofweek == 6) {
 		print '<p>The Houses of Parliament do not meet at weekends.</p>';
 	} else {
