@@ -10,8 +10,7 @@ twfy_debug ("TEMPLATE", "people_mps.php");
 
 $order = $data['info']['order'];
 
-?>
-<?php
+header('Content-Type: text/csv');
 print "Person ID,First name,Last name,Party,Constituency,URI";
 if ($order == 'expenses') print ', 2004 Expenses Grand Total';
 elseif ($order == 'debates') print ',Debates spoken in the last year';

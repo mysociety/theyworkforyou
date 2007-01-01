@@ -10,6 +10,7 @@ twfy_debug("TEMPLATE", "people_mlas.php");
 
 $order = $data['info']['order'];
 
+header('Content-Type: text/csv');
 print "Person ID,Name,Party,Constituency,URI";
 print "\n";
 

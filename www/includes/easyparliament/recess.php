@@ -6,6 +6,9 @@ francis@flourish.org
 */
 
 $GLOBALS['recessdates'] = array(
+	2000 => array(
+		12=>array('more'=>21)
+	),
 	2001 => array(
 		1=>array('less'=>8),
 		2=>array('between'=>array(15,26)),

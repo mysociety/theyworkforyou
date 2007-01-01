@@ -10,8 +10,7 @@ twfy_debug("TEMPLATE", "people_peers.php");
 
 $order = $data['info']['order'];
 
-?>
-<?php
+header('Content-Type: text/csv');
 print "Person ID,Name,Party,URI";
 print "\n";
 
