@@ -22,49 +22,57 @@ $MPURL = new URL('yourmp');
 $PAGE->block_start(array ('id'=>'intro', 'title'=>'At TheyWorkForYou.com you can:'));
 ?>
 						<ol>
-						<li>
-<?php
-if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
-	// User is logged in and has a postcode, or not logged in with a cookied postcode.
-	
-	// (We don't allow the user to search for a postcode if they
-	// already have one set in their prefs.)
-	
-	if ($THEUSER->isloggedin()) {
-		$CHANGEURL = new URL('useredit');
+
+<?php 
+
+// Find out more about your MP / Find out more about David Howarth, your MP
+function your_mp_bullet_point() {
+	global $THEUSER, $MPURL;
+	print "<li>";
+	if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
+		// User is logged in and has a postcode, or not logged in with a cookied postcode.
+		
+		// (We don't allow the user to search for a postcode if they
+		// already have one set in their prefs.)
+		
+		if ($THEUSER->isloggedin()) {
+			$CHANGEURL = new URL('useredit');
+		} else {
+			$CHANGEURL = new URL('userchangepc');
+		}
+		$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode()));
+		$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
+		$former = "";
+		$left_house = $MEMBER->left_house();
+		if ($left_house[1]['date'] != '9999-12-31') {
+			$former = 'former';
+		}
+
+		?>
+	<p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br />
+							In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
+	<?php
+		
 	} else {
-		$CHANGEURL = new URL('userchangepc');
-	}
-	$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode()));
-	$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
-	$former = "";
-	$left_house = $MEMBER->left_house();
-	if ($left_house[1]['date'] != '9999-12-31') {
-		$former = 'former';
-	}
+		// User is not logged in and doesn't have a personal postcode set.
+		?>
+							<form action="<?php echo $MPURL->generate(); ?>" method="get">
+							<p><strong>Find out more about your MP</strong><br />
+							<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text" />&nbsp;&nbsp;<input type="submit" value=" GO " class="submit" /></p>
+							</form>
+	<?php
+		if (!defined("POSTCODE_SEARCH_DOMAIN")) {
+			print '<p align="right"><em>Postcodes are being mapped to a random MP</em></p>';
+		}
 
-	?>
-<p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br />
-						In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
-<?php
-	
-} else {
-	// User is not logged in and doesn't have a personal postcode set.
-	?>
-						<form action="<?php echo $MPURL->generate(); ?>" method="get">
-						<p><strong>Find out more about your MP</strong><br />
-						<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text" />&nbsp;&nbsp;<input type="submit" value=" GO " class="submit" /></p>
-						</form>
-<?php
-	if (!defined("POSTCODE_SEARCH_DOMAIN")) {
-		print '<p align="right"><em>Postcodes are being mapped to a random MP</em></p>';
 	}
-
+	print "</li>";
 }
-?>
-	</li>
-	<li>
-<?php
+
+// Search / Search for 'mouse'
+function search_bullet_point() {
+	global $SEARCHURL;
+	?> <li> <?php
 	$SEARCHURL = new URL('search');
 	?>
 						<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
@@ -94,14 +102,23 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 						</form>
 						</li>
 <?php
+}
 
-	?>
-	<? if (get_http_var("keyword")) { ?>
+// Sign up to be emailed when something relevant to you happens in Parliament 
+// Sign up to be emailed when 'mouse' is mentioned in Parliament
+function email_alert_bullet_point() {
+	if (get_http_var("keyword")) { ?>
 		<li><p><a href="/alert?keyword=<?=htmlspecialchars(get_http_var('keyword'))?>&only=1"><strong>Sign up to be emailed when '<?=htmlspecialchars(get_http_var('keyword'))?>' is mentioned in Parliament</strong></a></p></li>
 	<? } else { ?>
 		<li><p><a href="/alert/"><strong>Sign up to be emailed when something relevant to you happens in Parliament</strong></a></p></li>
-	<? } ?>
-						<li><p><strong>Comment on:</strong></p>
+	<? } 
+} 
+
+// Comment on (recent debates)
+function comment_on_recent_bullet_point() {
+	global $hansardmajors;
+?>
+	<li><p><strong>Comment on:</strong></p>
 
 <?php 
 	$DEBATELIST = new DEBATELIST; $data[1] = $DEBATELIST->most_recent_day();
@@ -118,8 +135,25 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 		}
 	}
 	major_summary($data);
-	?>
-						</li>
+	?> </li> <?php 
+}
+
+if (get_http_var('keyword')) {
+	// This is for links from Google adverts, where we want to
+	// promote the features relating to their original search higher
+	// than "your MP"
+	search_bullet_point(); 
+	email_alert_bullet_point();
+	your_mp_bullet_point();
+	comment_on_recent_bullet_point();
+} else {
+	your_mp_bullet_point();
+	search_bullet_point(); 
+	email_alert_bullet_point();
+	comment_on_recent_bullet_point();
+}
+
+?>
 						</ol>
 <?php
 $PAGE->block_end();
