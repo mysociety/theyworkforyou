@@ -2814,7 +2814,7 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 		global $this_page, $DATA;
 		
 		$pages = array ('admin_home', 
-                'admin_comments','admin_trackbacks', 'admin_searchlogs', 'admin_failedsearches',
+                'admin_comments','admin_trackbacks', 'admin_searchlogs', 'admin_popularsearches', 'admin_failedsearches',
                 'admin_statistics', 
                 'admin_commentreports', 'admin_glossary', 'admin_glossary_pending', 'admin_badusers',
 		'admin_alerts',

@@ -146,6 +146,11 @@ $this->page = array (
 		'parent'		=> 'admin',
 		'url'			=> 'admin/searchlogs.php'
 	),
+	'admin_popularsearches' => array (
+		'title'			=> 'Popular searches',
+		'parent'		=> 'admin',
+		'url'			=> 'admin/popularsearches.php'
+	),
 	'admin_statistics' => array (
 		'title'			=> 'General statistics',
 		'parent'		=> 'admin',
