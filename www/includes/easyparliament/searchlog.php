@@ -43,7 +43,7 @@ class SEARCHLOG {
 
     }
 
-    // Select popular queries, ignore speaker tagged ones
+    // Select popular queries
     function popular_recent ($count) {
 
         $q =  $this->db->query("SELECT *, count(*) AS c FROM search_query_log 
@@ -92,6 +92,21 @@ class SEARCHLOG {
         }
         return $searches_array;
     }
+
+    function admin_popular_searches ($count) {
+
+        $q =  $this->db->query("SELECT *, count(*) AS c FROM search_query_log 
+                WHERE count_hits != 0 AND query_string NOT LIKE '%speaker:%'
+                AND query_time > date_sub(NOW(), INTERVAL 30 DAY) 
+                GROUP BY query_string ORDER BY c desc LIMIT $count;");
+
+        $popular_searches = array();
+        for ($row=0; $row<$q->rows(); $row++) {
+            array_push($popular_searches, $this->_db_row_to_array($q, $row));
+        }
+        return $popular_searches;
+    }
+
 
     function admin_failed_searches () {
 

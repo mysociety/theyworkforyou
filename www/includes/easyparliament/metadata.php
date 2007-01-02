@@ -147,7 +147,7 @@ $this->page = array (
 		'url'			=> 'admin/searchlogs.php'
 	),
 	'admin_popularsearches' => array (
-		'title'			=> 'Popular searches',
+		'title'			=> 'Popular searches in last 30 days (first 1000)',
 		'parent'		=> 'admin',
 		'url'			=> 'admin/popularsearches.php'
 	),
