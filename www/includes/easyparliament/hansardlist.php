@@ -688,6 +688,7 @@ class HANSARDLIST {
 			   Deal with the bots who have stored links to those now non-existant written answers. */
 			$itemdata = $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-11c'); if ($itemdata) return $itemdata;
 			$itemdata = $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-12b'); if ($itemdata) return $itemdata;
+			$itemdata = $this->check_gid_change($args['gid'], '2007-01-08', '2007-01-05'); if ($itemdata) return $itemdata;
 
 			/* Right back when Lords began, we sent out email alerts when they weren't on the site. So this was to work that. */
 			#$q = $this->db->query('SELECT source_url FROM hansard WHERE gid LIKE "uk.org.publicwhip/lords/'.mysql_escape_string($args['gid']).'%"');
@@ -865,17 +866,17 @@ class HANSARDLIST {
 	function _get_data_by_person ($args) {
 		// Display a person's most recent debates.
 		global $PAGE, $hansardmajors;
-		$items_to_list = isset($args['max']) ? $args['max'] : 10;
+		$items_to_list = isset($args['max']) ? $args['max'] : 20;
 	
 		// Where we'll put all the data we want to render.
-		$data = array ();
+		$data = array();
 		
-		if (!isset($args['person_id']) || !is_numeric($args['person_id'])) {
-			$PAGE->error_message ("Sorry, we need a valid person ID.");
+		if (!isset($args['member_ids']) || !is_string($args['member_ids'])) {
+			$PAGE->error_message ("Sorry, we need a valid string of member IDs.");
 			return $data;
 		}
 
-		$where = 'person_id = ' . $args['person_id'];
+		$where = 'hansard.speaker_id in (' . $args['member_ids'] . ')';
 
 		if (isset($this->major)) {
 			$majorwhere = "AND hansard.major = '" . $this->major . "' ";
@@ -884,74 +885,54 @@ class HANSARDLIST {
 			$majorwhere = '';
 		}
 
-		$q = $this->db->query("SELECT hansard.subsection_id,
-								hansard.section_id,
-								hansard.htype,
-								hansard.gid,
-								hansard.major,
-								hansard.hdate,
-								hansard.htime,
-								hansard.speaker_id,
-								COUNT(*) AS total_speeches,
-								epobject.body,
-								epobject_section.body AS body_section,
-								epobject_subsection.body AS body_subsection,
-								epobject_subsection.epobject_id AS epobject_id_subsection,
-                                hansard_subsection.gid AS gid_subsection
-						FROM	hansard
-						LEFT JOIN member
-				ON hansard.speaker_id = member.member_id
-						LEFT JOIN epobject
-                                ON hansard.epobject_id = epobject.epobject_id
-						LEFT JOIN epobject AS epobject_section
-                                ON hansard.section_id = epobject_section.epobject_id
-						LEFT JOIN epobject AS epobject_subsection
-                                ON hansard.subsection_id = epobject_subsection.epobject_id
-						LEFT JOIN hansard AS hansard_subsection
-                                ON hansard.subsection_id = hansard_subsection.epobject_id
-						WHERE	$where
-								$majorwhere
-						GROUP BY hansard.subsection_id
+		$q = $this->db->query("SELECT hansard.subsection_id, hansard.section_id,
+					hansard.htype, hansard.gid, hansard.major,
+					hansard.hdate, hansard.htime, hansard.speaker_id,
+					epobject.body, epobject_section.body AS body_section,
+					epobject_subsection.body AS body_subsection,
+	                                hansard_subsection.gid AS gid_subsection
+				FROM hansard
+				JOIN epobject
+					ON hansard.epobject_id = epobject.epobject_id
+				JOIN epobject AS epobject_section
+                        	        ON hansard.section_id = epobject_section.epobject_id
+				JOIN epobject AS epobject_subsection
+                                	ON hansard.subsection_id = epobject_subsection.epobject_id
+				JOIN hansard AS hansard_subsection
+                                	ON hansard.subsection_id = hansard_subsection.epobject_id
+						WHERE	$where $majorwhere
 						ORDER BY hansard.hdate DESC, hansard.hpos DESC
 						LIMIT	$items_to_list
 						");
 
 
-		$speeches = array ();
-		
+		$speeches = array();
 		if ($q->rows() > 0) {
 			for ($n=0; $n<$q->rows(); $n++) {
-			
 				$speech = array (
 					'subsection_id'	=> $q->field($n, 'subsection_id'),
 					'section_id'	=> $q->field($n, 'section_id'),
-					'htype'			=> $q->field($n, 'htype'),
-					'major'			=> $q->field($n, 'major'),
-					'hdate'			=> $q->field($n, 'hdate'),
-					'htime'			=> $q->field($n, 'htime'),
+					'htype'		=> $q->field($n, 'htype'),
+					'major'		=> $q->field($n, 'major'),
+					'hdate'		=> $q->field($n, 'hdate'),
+					'htime'		=> $q->field($n, 'htime'),
 					'speaker_id'	=> $q->field($n, 'speaker_id'),
-					'body'			=> $q->field($n, 'body'),
+					'body'		=> $q->field($n, 'body'),
 					'body_section'  => $q->field($n, 'body_section'),
-					'body_subsection'  => $q->field($n, 'body_subsection'),
-					'total_speeches' => $q->field($n, 'total_speeches')
+					'body_subsection' => $q->field($n, 'body_subsection'),
+					'gid'		=> fix_gid_from_db($q->field($n, 'gid')),
 				);
-				// Remove the "uk.org.publicwhip/blah/" from the gid:
-				// (In includes/utility.php)
-				$speech['gid'] = fix_gid_from_db( $q->field($n, 'gid') );
-
-                // Cache parent id to speed up _get_listurl
-                $this->epobjectid_to_gid[$q->field($n, 'epobject_id_subsection') ] = fix_gid_from_db( $q->field($n, 'gid_subsection') );
+				// Cache parent id to speed up _get_listurl
+				$this->epobjectid_to_gid[$q->field($n, 'subsection_id') ] = fix_gid_from_db( $q->field($n, 'gid_subsection') );
 		
 				$url_args = array ('m'=>$q->field($n, 'speaker_id'));
 				$speech['listurl'] = $this->_get_listurl($speech, $url_args);
-				
 				$speeches[] = $speech;
 			}
 		}
 
 		if (count($speeches) > 0) {
 			// Get the subsection texts.
-			
 			for ($n=0; $n<count($speeches); $n++) {
 				$thing = $hansardmajors[$speeches[$n]['major']]['title'];
 				// Add the parent's body on...
@@ -960,16 +941,12 @@ class HANSARDLIST {
 					$speeches[$n]['parent']['body'] .= ': ' . $speeches[$n]['body_subsection'];
 				}
 			}
-			
 			$data['rows'] = $speeches;
-		
 		} else {
-			$data['rows'] = array ();
+			$data['rows'] = array();
 		}
 		return $data;
-	
 	}
-	
 	
 	
 	function _get_data_by_search_min ($args) {

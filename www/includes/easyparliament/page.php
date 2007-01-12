@@ -1880,7 +1880,8 @@ elseif (in_array(3, $member['houses'])) print 'MLA'; ?> speaks<?php
 		// Returns a message if parliament is currently in recess.
 		include_once INCLUDESPATH."easyparliament/recess.php";
 		$message = '';
-		if (list($name, $from, $to) = recess_prettify(date('j'), date('n'), date('Y'))) {
+		list($name, $from, $to) = recess_prettify(date('j'), date('n'), date('Y'));
+		if ($name) {
 			$message = 'The Houses of Parliament are in their ' . $name . ' ';
 			if ($from && $to) {
 				$from = format_date($from, SHORTDATEFORMAT);

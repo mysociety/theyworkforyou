@@ -1,10 +1,4 @@
 Subject: Your TheyWorkForYou email alert
-============================================================
-Do you like this free service? Well then, why not give a 
-seasonal donation to the charity that runs TheyWorkForYou?
-https://secure.mysociety.org/donate/
-============================================================
-
 {DATA}
 
 If clicking any of these links doesn't work, you may have
@@ -16,9 +10,7 @@ Best wishes,
 TheyWorkForYou.com
 
 ------------------------------------------------------------
-New: TheyWorkForYou now covers the Northern Ireland Assembly
-from its inception in 1998 to its current Transitional
-status: http://www.theyworkforyou.com/ni/ Hope you like it!
-
-                            -- Matthew Somerville, mySociety
+Do you like this free service? Well then, why not give a 
+donation to the charity that runs TheyWorkForYou?
+    https://secure.mysociety.org/donate/
 ------------------------------------------------------------

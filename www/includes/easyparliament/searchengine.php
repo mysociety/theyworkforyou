@@ -315,6 +315,7 @@ class SEARCHENGINE {
                 list($weight, $halflife) = explode(":", $items[1]);
                 enquire_set_bias($this->enquire, $weight, intval($halflife));
             } elseif ($items[0] == 'speaker') {
+                # Don't do any collapsing if we're searching for a person's speeches
                 $collapsed = true;
             }
         }

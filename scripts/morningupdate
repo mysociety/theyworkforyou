@@ -48,7 +48,7 @@ cd ~/fawkes/scripts
 ./xml2db.pl $CRONQUIET --recent --westminhall --quiet
 ./xml2db.pl $CRONQUIET --recent --wms --quiet
 ./xml2db.pl $CRONQUIET --recent --lordsdebates --quiet
-./xml2db.pl $CRONQUIET --ni --from=2006-12-01 --quiet
+./xml2db.pl $CRONQUIET --ni --from=`date +"^%Y-%m"`-01 --quiet
 
 # Update Xapan index
 $VERBOSE && echo "Xapian indexing"
@@ -60,10 +60,11 @@ if $VERBOSE
 then
 	echo "Running rssgenerate"
 	/home/fawkes/fawkes/scripts/rssgenerate
-else
-	at NOW >/dev/null 2>/dev/null <<EOF
-/home/fawkes/fawkes/scripts/rssgenerate
-EOF
+# Always something needs altering, and then have to wait for this to finish
+# else
+# 	at NOW >/dev/null 2>/dev/null <<EOF
+# /home/fawkes/fawkes/scripts/rssgenerate
+# EOF
 fi
 
 #echo -n "Whole thing done time: "
