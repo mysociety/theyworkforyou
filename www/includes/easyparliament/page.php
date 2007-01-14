@@ -1342,14 +1342,14 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		} 
 		if (isset($extra_info['wrans_subjects'])) { 
 				$wrans_dept = true;
-				$wrans_dept_2 = "<li><strong>Subjects:</strong> ".$extra_info['wrans_subjects']."</p>";
+				$wrans_dept_2 = "<li><strong>Subjects (based on headings added by Hansard):</strong> ".$extra_info['wrans_subjects']."</p>";
 		} 
 		
 		if ($wrans_dept) {
 			print "<p><strong>Asks most questions about</strong></p>";
 			print "<ul>";
-			if ($wrans_dept_2) print $wrans_dept_2;
 			if ($wrans_dept_1) print $wrans_dept_1;
+			if ($wrans_dept_2) print $wrans_dept_2;
 			print "</ul>";
 			$topics_block_empty = false;
 			$WRANSURL = new URL('search');

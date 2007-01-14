@@ -968,9 +968,11 @@ class THEUSER extends USER {
 		$cookie = $this->user_id() . "." . md5 ($this->password());
 
 		if ($expire == 'never') {
-			Header("Location: $returl\nSet-Cookie:epuser_id=$cookie;expires=Friday, 16-Jan-2037 00:00:00 GMT;domain=".COOKIEDOMAIN.";path=/\n\n");
+			header("Location: $returl");
+			header("Set-Cookie: epuser_id=$cookie;expires=Friday, 16-Jan-2037 00:00:00 GMT;domain=".COOKIEDOMAIN.";path=/");
 		} else {
-			Header("Location: $returl\nSet-Cookie:epuser_id=$cookie;domain=".COOKIEDOMAIN.";path=/\n\n");
+			header("Location: $returl");
+			header("Set-Cookie: epuser_id=$cookie;domain=".COOKIEDOMAIN.";path=/");
 		}
 	}
 
