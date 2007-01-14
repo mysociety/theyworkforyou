@@ -1,6 +1,6 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.2 2006-11-29 18:55:44 matthew Exp $
+$Id: INSTALL.txt,v 1.3 2007-01-14 14:18:13 matthew Exp $
 
 TODO: Add an explanation of how to set up a virtual host in apache.
 
@@ -27,13 +27,15 @@ Other sources of help
 
 Documentation and help is also available from the following:
 
-1. Wiki
- http://wiki.theyworkforyou.com/cgi-bin/moin.cgi
+1. mySociety IRC - http://www.irc.mysociety.org/ - there are
+   generally always people hanging around willing to help or
+   point you in the right direction.
 
-2. publicwhip-playing list:
- http://sourceforge.net/mailarchive/forum.php?forum_id=40780
+2. Out of date wiki:
+   http://wiki.theyworkforyou.com/cgi-bin/moin.cgi
 
-3. also look out for announcements on http://www.theyworkforyou.com/
+3. Also look out for announcements on http://www.theyworkforyou.com/
+   or http://www.mysociety.org/
 
 Installation
 ============
@@ -73,8 +75,7 @@ You should rename the file:
 to 
   config.php
 
-and then edit the following lines to have the following values (or as
-appropriate for your setup):
+and then edit the first few lines to be appropriate for your setup.
 
 6. configure apache:
 
@@ -108,56 +109,24 @@ In this section we'll populate your mysql database with lots of nice
 data about MPs. This will be based on XML format data published by
 theyworkforyou.com.
 
-1. download various data from http://www.theyworkforyou.com/pwdata/
+1. Download various data from http://www.theyworkforyou.com/pwdata/
 
 You need to preserve the directory structure which exists under
 pwdata, but you don't need to get *everything*. Most of the useful
 stuff is under scrapedxml, but there are a few other bits needed as
-well.
+well. I recommend either using rsync or downloading the zip files
+containing all the data if you want it - for more information, see
+http://ukparse.kforge.net/parlparse/
 
-you can use the following script to get what you need. Or otherwise
-download it manually, being sure to preserve the directory
-structure. Note: this script gets just 1 debate (debates????.xml)
-file, 1 register of members interests file (regmem????.xml) and 1
-written answers file (answers????.xml). There are large zip files
-containing the entire backlog of data if you want it (~75MB for
-debates and written answers).
-
----BEGIN SCRIPT---
-#!/bin/sh
-mkdir pwdata
-cd pwdata
-sed 's/^/http:\/\/www.theyworkforyou.com\/pwdata\//' <<HERE | xargs wget 
-cmindex.xml
-divreport.html
-emblinks.txt
-faxyourmp-responsiveness.xml
-filtertemp.xml
-lordindex.xml
-parl-recesses.txt
-schema.sql
-HERE
-
-mkdir scrapedxml
-cd scrapedxml
-mkdir debates
-mkdir regmem
-mkdir wrans
-
-wget -O debates/debates2004-11-03.xml http://www.theyworkforyou.com/pwdata/scrapedxml/debates/debates2004-11-03.xml                       
-wget -O regmem/regmem2004-10-22.xml http://www.theyworkforyou.com/pwdata/scrapedxml/regmem/regmem2004-10-22.xml
-wget -O wrans/answers2004-11-04.xml http://www.theyworkforyou.com/pwdata/scrapedxml/wrans/answers2004-11-04.xml
----END SCRIPT---
-
-2. now you have that data, you are ready to import it into your
+2. Now you have that data, you are ready to import it into your
    database. You do this using a script called xml2db.pl which is in
    the "scripts" subdir. But first you must configure the config.pm
    file.
 
-3. in the "scripts" subdir, copy config.pm.incvs to config.pm and
+3. In the "scripts" subdir, copy config.pm.incvs to config.pm and
    customise the variables to suit your installation. Note, the
-   $pwmembers variable should point to the 'members' subdir contained
-   in the publicwhip-source-5 package which you unzipped earlier.
+   $pwmembers variable should point to the 'members' subdir which you
+   fetched above.
 
 # database connection details
 $dsn="DBI:mysql:database=twfy:host=localhost"
@@ -167,7 +136,7 @@ $pass="mypass";
 # this is where the XML files come from:
 $pwdata = "/var/www/theyworkforyou/pwdata/";
 # and where all-members.xml is:
-$pwmembers = "/var/www/publicwhip/members/";
+$pwmembers = "/var/www/path-to/parlparse/members/";
 
 4. now run xml2db.pl as follows:
 
