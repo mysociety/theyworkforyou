@@ -19,10 +19,10 @@ $q = $db->query("SELECT person_id, group_concat(member_id order by member_id sep
 			FROM member GROUP BY person_id HAVING max(left_house)='9999-12-31'");
 if ($q->rows() <= 0) exit;
 
+$starttime = time();
 for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 	$person_id = $q->field($personrow, 'person_id');
 	$member_ids = $q->field($personrow, 'member_ids');
-	print date('H:i:s')." $person_id $member_ids\n";
 
 	$args = array ( 'member_ids' => $member_ids );
 	$speeches = $HANSARDLIST->display('person', $args, 'none');
@@ -112,5 +112,7 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 	fclose ($fh);
 
 }
+
+print "Took " . (time()-$starttime) . " seconds\n";
 
 ?>
