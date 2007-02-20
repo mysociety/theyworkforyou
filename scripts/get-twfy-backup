@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+
+# Use a crontab something like this:
+# MAILTO=fawkes@lists.isness.org 
+# # backup of TWFY 
+# 10 5 * * * /home/fawkes/bin/get-twfy-backup
+
+TODAY=`date +%F`
+
+cd ~/twfy-backups
+scp -q fawkes@cake.ukcod.org.uk:~/backup/twfy-all-including-sensitive-data-$TODAY.sql.bz2 .
+
+#echo "Backup to cerulean.beasts.org complete"
+
+# As sams suggests, keep whole of last month, and second of month before then
+
+# Move second of month
+touch dummy-02.sql.bz2
+mv *-02.sql.bz2 second-of-month
+rm second-of-month/dummy-02.sql.bz2
+#echo second-of-month:
+#ls -1 second-of-month
+
+# Delete all except 35
+ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | sort -n | head --lines=-35 | while read X
+do
+	#echo "Deleting old backup $X"
+	rm $X
+done
+
+
