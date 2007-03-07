@@ -535,6 +535,9 @@ function find_members ($args) {
                 if (isset($parties[$party]))
                     $party = $parties[$party];
                 $s .= $party . ')';
+		        $MOREURL = new URL('search');
+                $MOREURL->insert( array('pid'=>$last_pid, 'pop'=>1, 's'=>null) );
+                $s .= ' - <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
                 $members[] = $s;
             }
 		}

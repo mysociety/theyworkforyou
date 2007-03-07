@@ -1,6 +1,6 @@
 <?
 
-include '../../../../phplib/rabx.php';
+include_once '../../../../phplib/rabx.php';
 
 function api_output($arr) {
 	$output = get_http_var('output');

@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.12 2006-12-13 19:52:30 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.13 2007-03-07 16:33:25 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -39,6 +39,7 @@ print "batch_query_fragment: " . $batch_query_fragment . "\n";
 $nomail = false;
 $onlyemail = '';
 $fromemail = '';
+$toemail = '';
 for ($k=1; $k<$argc; $k++) {
 	if ($argv[$k] == '--nomail')
 		$nomail = true;
@@ -46,11 +47,13 @@ for ($k=1; $k<$argc; $k++) {
 		$onlyemail = $m[1];
 	if (preg_match('#^--from=(.*)$#', $argv[$k], $m))
 		$fromemail = $m[1];
+	if (preg_match('#^--to=(.*)$#', $argv[$k], $m))
+		$toemail = $m[1];
 }
 
 if ($nomail) print "NOT SENDING EMAIL\n";
-if ($fromemail && $onlyemail) {
-	print "Can't have both from and only!\n";
+if (($fromemail && $onlyemail) || ($toemail && $onlyemail)) {
+	print "Can't have both from/to and only!\n";
 	exit;
 }
 
@@ -86,6 +89,7 @@ foreach ($alertdata as $alertitem) {
 	$email = $alertitem['email'];
 	if ($onlyemail && $email != $onlyemail) continue;
 	if ($fromemail && strtolower($email) < $fromemail) continue;
+	if ($toemail && strtolower($email) >= $toemail) continue;
 	$criteria_raw = $alertitem['criteria'];
 	$criteria_batch = $criteria_raw . " " . $batch_query_fragment;
 

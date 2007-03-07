@@ -2,7 +2,7 @@
 set -e
 
 # Dumps database for backups
-/usr/local/bin/mysqldump fawkes | bzip2 -c > ~/backup/twfy-all-including-sensitive-data-`date +%F`.sql.bz2
+/usr/local/bin/mysqldump --skip-lock-tables fawkes | bzip2 -c > ~/backup/twfy-all-including-sensitive-data-`date +%F`.sql.bz2
 
 # As sams suggests, keep whole of last month, and first of month before then
 

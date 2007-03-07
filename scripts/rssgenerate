@@ -12,8 +12,9 @@ then
 fi
 
 # Check Xapian index is correct
-cd ~/fawkes/search
-./index.pl ~/searchdb/ check $CRONQUIET_NODASH
+# Far too slow to be run in daily process
+#cd ~/fawkes/search
+#./index.pl ~/searchdb/ check $CRONQUIET_NODASH
 
 # Make RSS this takes a while
 cd ~/fawkes/scripts

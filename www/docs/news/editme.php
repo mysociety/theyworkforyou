@@ -230,7 +230,9 @@ EOT
 , "2005-02-24 22:02:44"),
 
 26 => array("New Release of TheyWorkForYou.com Source Code", <<<EOT
-We've released version 8 of the <a href="https://sourceforge.net/projects/publicwhip/">TheyWorkForYou.com source code</a> which is available for download under an Open Source licence.
+<strong>Update:</strong> New URL for the code.
+
+We've released version 8 of the <a href="https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy">TheyWorkForYou.com source code</a> which is available for download under an Open Source licence.
 
 The update contains new code for:
 
@@ -332,33 +334,22 @@ EOT
 , "2004-10-01 23:14:13"),
 
 8 => array("New! Full Source Code Published", <<<EOT
-We're <i>really</i> keen for others to use both our code and the data feeds we make available to make the UK's Parliament more accessible.
+<strong>Update:</strong> Code has moved location, updated the URLs and text accordingly.
 
-Most notably, we've recently <a href="https://sourceforge.net/project/showfiles.php?group_id=87640">published the source code</a> for the front and back end of TheyWorkForYou.com. 
+We're <em>really</em> keen for others to use both our code and the data feeds we make available to make the UK's Parliament more accessible.
 
-It's available here: <a href="https://sourceforge.net/project/showfiles.php?group_id=87640">https://sourceforge.net/project/showfiles.php?group_id=87640</a> It's mainly php at the front, mysql at the back while python does the parsing, all stuck together with the usual glue code. We use <a href="http://www.xapian.org/">Xapian</a> for the search engine.
+Most notably, we've published the source code for the front and back end of TheyWorkForYou.com. It's available here:
+<a href="https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy">https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy</a> for the front end website, and
+<a href="http://www.knowledgeforge.net/project/ukparse/">http://www.knowledgeforge.net/project/ukparse/</a> for the backend scraper and parser.
 
-<b>But there's more!</b> Below, you'll find links to various other open data feeds and resources we've produced to date:
+<strong>But there's more!</strong> Below, you'll find links to various other open data feeds and resources we've produced to date:
 
-<a href="http://www.theyworkforyou.com/raw/">http://www.theyworkforyou.com/raw/</a>
-    - XML files of debates / written answers back to June 2001 (House of Commons only - not Westminster Hall)
+<a href="http://ukparse.kforge.net/parlparse/">http://ukparse.kforge.net/parlparse/</a> - XML files of debates / written answers back to June 2001 (House of Commons only - not Westminster Hall); MP id and constituency index files;  how to use the parser source code.
 
-<a href="http://www.publicwhip.org.uk/project/data.php">http://www.publicwhip.org.uk/project/data.php</a>
-    - MP id and constituency index files
-    - MP performance data
-    - Voting record matrices
+<a href="http://www.publicwhip.org.uk/project/data.php">http://www.publicwhip.org.uk/project/data.php</a> - MP performance data; voting record matrices.
 
 <a href="http://theyworkforyou.com/rss/mp/10508.rdf">http://theyworkforyou.com/rss/mp/10508.rdf</a>
-    - Typical MP 'recent appearances' RSS feed, uses Person id from <a href="http://www.publicwhip.org.uk/data/people.xml">here</a>
-
-<a href="http://www.publicwhip.org.uk/project/code.php">http://www.publicwhip.org.uk/project/code.php</a>
-    - How to use the parser source code
-
-<a href="http://sourceforge.net/projects/publicwhip/">http://sourceforge.net/projects/publicwhip/</a>
-    - Sourceforge account, for anonymous CVS access
-
-<a href="https://lists.sourceforge.net/lists/listinfo/publicwhip-playing ">https://lists.sourceforge.net/lists/listinfo/publicwhip-playing </a>
-    - Join an email list to talk about all of the above. 
+    - Typical MP 'recent appearances' RSS feed, uses person id.
 EOT
 , "2004-07-18 22:58:23"),
 
