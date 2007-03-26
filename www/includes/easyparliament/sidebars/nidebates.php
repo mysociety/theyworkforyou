@@ -6,7 +6,7 @@ $this->block_start(array('id'=>'help', 'title'=>"What is the Northern Ireland As
 ?>
 
 <p>"The <strong>Northern Ireland Assembly</strong> was established as part of the Belfast Agreement and meets in Parliament Buildings.
-The Northern Ireland Assembly was suspended on the 14th of October 2002, and remains suspended.</p>
+The Northern Ireland Assembly was suspended on the 14th of October 2002, and remained suspended until 26th March 2007.</p>
 
 <p>"Between 8 May 2006 and 22 November 2006 the <strong>Assembly established under the Northern Ireland Act 2006</strong> met.</p>
 
