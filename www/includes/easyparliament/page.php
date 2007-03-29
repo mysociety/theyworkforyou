@@ -1003,7 +1003,7 @@ pr()//-->
 		$desc = '';
 		foreach ($member['houses'] as $house) {
 			$party = $member['left_house'][$house]['party'];
-			if ($house==1 && isset($member['entered_house'][2])) continue;
+			if ($house==1 && isset($member['entered_house'][2])) continue; # Same info is printed further down
 			$desc .= '<li><strong>';
 			if (!$member['current_member'][$house]) $desc .= 'Former ';
 			$desc .= htmlentities($party);

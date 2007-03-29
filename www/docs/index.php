@@ -29,42 +29,44 @@ $PAGE->block_start(array ('id'=>'intro', 'title'=>'At TheyWorkForYou.com you can
 function your_mp_bullet_point() {
 	global $THEUSER, $MPURL;
 	print "<li>";
+	$pc_form = true;
 	if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
 		// User is logged in and has a postcode, or not logged in with a cookied postcode.
 		
 		// (We don't allow the user to search for a postcode if they
 		// already have one set in their prefs.)
 		
-		if ($THEUSER->isloggedin()) {
-			$CHANGEURL = new URL('useredit');
-		} else {
-			$CHANGEURL = new URL('userchangepc');
-		}
 		$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode()));
-		$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
-		$former = "";
-		$left_house = $MEMBER->left_house();
-		if ($left_house[1]['date'] != '9999-12-31') {
-			$former = 'former';
+		if ($MEMBER->valid) {
+			$pc_form = false;
+			if ($THEUSER->isloggedin()) {
+				$CHANGEURL = new URL('useredit');
+			} else {
+				$CHANGEURL = new URL('userchangepc');
+			}
+			$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
+			$former = "";
+			$left_house = $MEMBER->left_house();
+			if ($left_house[1]['date'] != '9999-12-31') {
+				$former = 'former';
+			}
 		}
-
-		?>
+?>
 	<p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br />
-							In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
-	<?php
+	In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
+<?php
 		
-	} else {
-		// User is not logged in and doesn't have a personal postcode set.
-		?>
-							<form action="<?php echo $MPURL->generate(); ?>" method="get">
-							<p><strong>Find out more about your MP</strong><br />
-							<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text" />&nbsp;&nbsp;<input type="submit" value=" GO " class="submit" /></p>
-							</form>
+	}
+
+	if ($pc_form) { ?>
+		<form action="<?php echo $MPURL->generate(); ?>" method="get">
+		<p><strong>Find out more about your MP</strong><br />
+		<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text" />&nbsp;&nbsp;<input type="submit" value=" GO " class="submit" /></p>
+		</form>
 	<?php
 		if (!defined("POSTCODE_SEARCH_DOMAIN")) {
 			print '<p align="right"><em>Postcodes are being mapped to a random MP</em></p>';
 		}
-
 	}
 	print "</li>";
 }

@@ -9,6 +9,10 @@ if (get_http_var('f') != 'csv') {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 	$format = 'html';
+?>
+<p>This list has been updated with the results of the
+2007 election.</p>
+<?
 } else {
 	$format = 'csv';
 }

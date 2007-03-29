@@ -42,7 +42,8 @@ class MEMBER {
 		'general_election_not_standing' 	=> 'did not stand for re-election',
 		'reinstated'		=> 'Reinstated',
 		'resigned'		=> 'Resigned',
-		'still_in_office'	=> 'Still in office'
+		'still_in_office'	=> 'Still in office',
+		'dissolution'		=> 'Dissolved for election'
 	);
 	
 	function MEMBER ($args) {

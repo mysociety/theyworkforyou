@@ -33,7 +33,8 @@ foreach ($dir as $k=>$bit) {
 		$stat = stat("$html$bit/$filename");
 		$base = substr($filename, 0, -5);
 		if (!is_file("$xml$bit/$base.xml")) {
-			print "<li>$date : $part version $version, size $stat[7] bytes, last modified ".date('Y-m-d H:i:s', $stat[9])."</li>\n";
+			if ($date>'2001-05-11')
+				print "<li>$date : $part version $version, size $stat[7] bytes, last modified ".date('Y-m-d H:i:s', $stat[9])."</li>\n";
 		} else {
 			if (!array_key_exists($date, $hdates) || !array_key_exists($majors[$k], $hdates[$date])) {
 				$notloaded .= "<li>$date : $part version $version</li>\n";
