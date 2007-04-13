@@ -50,12 +50,11 @@ function your_mp_bullet_point() {
 			if ($left_house[1]['date'] != '9999-12-31') {
 				$former = 'former';
 			}
-		}
 ?>
 	<p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br />
 	In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
 <?php
-		
+		}
 	}
 
 	if ($pc_form) { ?>

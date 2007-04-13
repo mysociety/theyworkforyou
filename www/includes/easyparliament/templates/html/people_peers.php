@@ -43,6 +43,9 @@ if ($order == 'party')
 				<th><?php echo $th_name; ?></th>
 				<th><?php echo $th_party; ?></th>
 				<th>Ministerialship</th>
+<?php if ($order == 'debates') { ?>
+				<th>Debates spoken in the last year</th>
+<?php } ?>
 				</thead>
 				<tbody>
 <?php
@@ -85,6 +88,11 @@ function render_peers_row($peer, &$style, $order, $URL) {
 	elseif ($peer['dept']) print prettify_office($peer['pos'], $peer['dept']);
 	else print '&nbsp;'
 ?></td>
+
+<?php	if ($order == 'debates') { ?>
+				<td class="row-<?php echo $style; ?>"><?php echo number_format($peer['data_value']); ?></td>
+<?php } ?>
+
 				</tr>
 <?php
 

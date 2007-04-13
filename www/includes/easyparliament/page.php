@@ -1205,7 +1205,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 				if ($dmpscore > 0.95 && $dmpscore <= 1.0)
 					$dmpdesc = "very strongly against";
 				elseif ($dmpscore > 0.85)
-					$dmpdesc = "quite strongly against";
+					$dmpdesc = "strongly against";
 				elseif ($dmpscore > 0.6)
 					$dmpdesc = "moderately against";
 				elseif ($dmpscore > 0.4)
@@ -1213,7 +1213,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 				elseif ($dmpscore > 0.15) 
 					$dmpdesc = "moderately for";
 				elseif ($dmpscore > 0.05) 
-					$dmpdesc = "quite strongly for";
+					$dmpdesc = "strongly for";
 				elseif ($dmpscore >= 0.0) 
 					$dmpdesc = "very strongly for";
 				// How many votes Dream MP and MP both voted (and didn't abstain) in
