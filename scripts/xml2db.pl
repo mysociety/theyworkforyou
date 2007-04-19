@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.11 2006-12-10 23:35:37 matthew Exp $
+# $Id: xml2db.pl,v 1.12 2007-04-19 10:27:48 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -845,11 +845,9 @@ sub loadmoffices {
         for (my $i=0; $i<@moffices; $i++) {
                 for (my $j=0; $j<$i; $j++) {
                         next unless $moffices[$j];
-                        if ($moffices[$i][7] eq $moffices[$j][7] && $moffices[$i][1] eq $moffices[$j][1]
-                            && $moffices[$i][2] eq $moffices[$j][2] && $moffices[$i][3] eq $moffices[$j][5]
-                            && $moffices[$i][4] eq $moffices[$j][6] ) {
-                                $moffices[$j][5] = $moffices[$i][5];
-                                $moffices[$j][6] = $moffices[$i][6];
+                        if ($moffices[$i][5] eq $moffices[$j][5] && $moffices[$i][1] eq $moffices[$j][1]
+                            && $moffices[$i][2] eq $moffices[$j][2] && $moffices[$i][3] eq $moffices[$j][4]) {
+                                $moffices[$j][4] = $moffices[$i][4];
                                 delete $moffices[$i];
                                 last;
                         }
@@ -858,7 +856,7 @@ sub loadmoffices {
         foreach my $row (@moffices) {
                 next unless $row;
                 my $sth = $dbh->do("insert into moffice (moffice_id, dept, position, from_date, to_date, person, source) values (?, ?, ?, ?, ?, ?, ?)", {}, 
-                $row->[0], $row->[1], $row->[2], $row->[3], $row->[5], $row->[7], $row->[8]);
+                $row->[0], $row->[1], $row->[2], $row->[3], $row->[4], $row->[5], $row->[6]);
         }
 }
 
@@ -888,7 +886,7 @@ sub loadmoffice {
         # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
         # get lost somewhere between Perl, the database and the browser.
         push @moffices, [$mofficeid, encode_entities_noapos($dept), encode_entities_noapos($pos), $moff->att('fromdate'),
-                $moff->att('fromtime'), $moff->att('todate'), $moff->att('totime'), $person, $moff->att('source') ];
+                $moff->att('todate'), $person, $moff->att('source') ];
 }
 
 # Add constituency

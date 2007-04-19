@@ -2,6 +2,6 @@
 
 # Displays epoch time in a comprehensible form
 
-my $in = <>;
+my $in = shift || <>;
 die "Please specify an epoch!" unless $in;
 print scalar localtime($in) . "\n";

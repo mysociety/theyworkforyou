@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.13 2007-03-07 16:33:25 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.14 2007-04-19 10:27:48 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -88,7 +88,7 @@ foreach ($alertdata as $alertitem) {
 	$active++;
 	$email = $alertitem['email'];
 	if ($onlyemail && $email != $onlyemail) continue;
-	if ($fromemail && strtolower($email) < $fromemail) continue;
+	if ($fromemail && strtolower($email) <= $fromemail) continue;
 	if ($toemail && strtolower($email) >= $toemail) continue;
 	$criteria_raw = $alertitem['criteria'];
 	$criteria_batch = $criteria_raw . " " . $batch_query_fragment;
