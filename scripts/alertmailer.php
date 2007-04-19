@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.14 2007-04-19 10:27:48 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.15 2007-04-19 23:42:58 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -232,7 +232,7 @@ function write_and_send_email($email, $user_id, $data) {
 	$d = array('to' => $email, 'template' => 'alert_mailout');
 	$m = array('DATA' => $data);
 	if (!$nomail) {
-		$success = send_template_email($d, $m);
+		$success = send_template_email($d, $m, true); # true = "Precedence: bulk"
 		print "sent ... ";
 		# sleep if time between sending mails is less than a certain number of seconds on average
 		if (((time() - $start_time) / $sentemails) < 0.5 ) { # number of seconds per mail not to be quicker than

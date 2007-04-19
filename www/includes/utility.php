@@ -630,7 +630,7 @@ function gid_to_anchor ($gid) {
 }
 
 
-function send_template_email ($data, $merge) {
+function send_template_email ($data, $merge, $bulk = false) {
 	// We should have some email templates in INCLUDESPATH/easyparliament/templates/emails/.
 	
 	// $data is like:
@@ -713,7 +713,7 @@ function send_template_email ($data, $merge) {
 	$emailtext = preg_replace($search, $replace, $emailtext);
 	
 	// Send it!
-	$success = send_email ($data['to'], $subject, $emailtext);
+	$success = send_email ($data['to'], $subject, $emailtext, $bulk);
 
 	return $success;
 
@@ -721,7 +721,7 @@ function send_template_email ($data, $merge) {
 
 
 
-function send_email ($to, $subject, $message) {
+function send_email ($to, $subject, $message, $bulk = false) {
 	// Use this rather than PHP's mail() direct, so we can make alterations
 	// easily to all the emails we send out from the site.
 	
@@ -734,6 +734,7 @@ function send_email ($to, $subject, $message) {
      "Reply-To: TheyWorkForYou.com <" . CONTACTEMAIL . ">\r\n" .
      "Content-Type: text/plain; charset=iso-8859-1\r\n" .
      "Content-Transfer-Encoding: 8bit\r\n" . 
+     ($bulk ? "Precedence: bulk\r\n" : "" ).
      "X-Mailer: PHP/" . phpversion();
     /* 
 	if ($to != REPORTLIST) {
