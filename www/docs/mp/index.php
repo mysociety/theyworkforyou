@@ -235,10 +235,10 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	
 	$sidebars = array(
 		array('type'=>'include', 'content' => 'donate'),
-		array (
+/*		array (
 			'type'		=> 'include',
 			'content'	=> 'mp_email_friend'
-		),
+		), */
 		array (
 			'type'		=> 'include',
 			'content'	=> 'mp_speech_search'
