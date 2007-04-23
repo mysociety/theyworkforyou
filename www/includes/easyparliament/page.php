@@ -322,7 +322,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			'mps'           => array (),
 			'peers'		=> array (),
 			'mlas'          => array (),
-			'help_us_out'	=> array (), 
+#			'help_us_out'	=> array (), 
 /*			'help_us_out'	=> array ('glossary_addterm'),  */
 			'help'		=> array ()
 		);
