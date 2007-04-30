@@ -118,14 +118,6 @@ CREATE TABLE `postcode_lookup` (
   PRIMARY KEY  (`postcode`)
 );
 
-CREATE TABLE `tmpindextest` (
-  `body` text,
-  `person_id` int(11) default '0',
-  `hdate` date NOT NULL default '0000-00-00',
-  `gid` varchar(60) default NULL,
-  `major` int(11) default NULL
-);
-
 -- each time we index, we increment the batch number;
 -- can use this to speed up search
 CREATE TABLE `indexbatch` (
