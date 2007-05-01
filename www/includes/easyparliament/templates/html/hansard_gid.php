@@ -9,7 +9,7 @@
 // The array $data will be packed full of luverly stuff about hansard objects.
 // See the bottom of this document for information about its structure and contents...
 
-global $PAGE, $this_page, $DATA, $GLOSSARY, $hansardmajors;
+global $PAGE, $this_page, $GLOSSARY, $hansardmajors;
 
 include_once INCLUDESPATH."easyparliament/searchengine.php";
 include_once INCLUDESPATH."easyparliament/member.php";

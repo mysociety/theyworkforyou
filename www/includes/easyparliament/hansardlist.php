@@ -861,11 +861,10 @@ class HANSARDLIST {
 		return $data;
 	}
 	
-
-
-
+	# Display a person's most recent debates.
+	# Only used by MP RSS generator now, MP pages use Xapian search
+	# XXX: Abolish this entirely?
 	function _get_data_by_person ($args) {
-		// Display a person's most recent debates.
 		global $PAGE, $hansardmajors;
 		$items_to_list = isset($args['max']) ? $args['max'] : 20;
 	
@@ -937,9 +936,10 @@ class HANSARDLIST {
 			for ($n=0; $n<count($speeches); $n++) {
 				$thing = $hansardmajors[$speeches[$n]['major']]['title'];
 				// Add the parent's body on...
-				$speeches[$n]['parent']['body'] = $thing . ' &#8212; ' . $speeches[$n]['body_section'];
+				$speeches[$n]['parent']['body'] = $speeches[$n]['body_section'] . ' | ' . $thing;
 				if ($speeches[$n]['subsection_id'] != $speeches[$n]['section_id']) {
-					$speeches[$n]['parent']['body'] .= ': ' . $speeches[$n]['body_subsection'];
+					$speeches[$n]['parent']['body'] = $speeches[$n]['body_subsection'] .
+						' | ' . $speeches[$n]['parent']['body'];
 				}
 			}
 			$data['rows'] = $speeches;
@@ -2335,7 +2335,7 @@ class HANSARDLIST {
 	}
 
 	function _get_data_by_column($args) {
-		global $DATA, $this_page;
+		global $this_page;
 
 		twfy_debug (get_class($this), "getting data by column");
 
