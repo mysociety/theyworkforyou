@@ -113,6 +113,6 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 
 }
 
-print "Took " . (time()-$starttime) . " seconds\n";
+#print "Took " . (time()-$starttime) . " seconds\n";
 
 ?>

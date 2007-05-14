@@ -11,11 +11,13 @@ require Exporter;
 use vars qw/ $VERSION $REVISION @AddSyl @SubSyl /;
 use strict;
 
+use FindBin;
+
 $VERSION = '0.251';
-$REVISION = '$Id: Syllable.pm,v 1.1 2006-10-18 22:38:53 twfy-live Exp $ ';
+$REVISION = '$Id: Syllable.pm,v 1.2 2007-05-14 16:47:41 twfy-live Exp $ ';
 
 my %lookup;
-open(FP, 'Syllable.txt') or die $!;
+open(FP, "$FindBin::Bin/Syllable.txt") or die $!;
 while (<FP>) {
 	my @row = split;
 	$lookup{$row[0]} = $row[1];

@@ -14,7 +14,7 @@ DUMPDATE=`fetch -q -o - http://download.wikimedia.org/ | grep "enwiki/" | perl -
 fetch -q -o all-titles-in-ns0.gz http://download.wikimedia.org/enwiki/$DUMPDATE/enwiki-$DUMPDATE-all-titles-in-ns0.gz
 gunzip all-titles-in-ns0.gz
 echo "load data infile '/home/fawkes/parldata/dumps/all-titles-in-ns0' ignore into table titles;" | mysql
-echo "delete from titles where title in ('Johnny_Byrne', 'The_Bill', 'John_Turner', 'John_Dyson', 'Andy_Black', 'III', 'Charlotte_Wilson', 'Cheryl_James', 'DAWN', 'Michael_Williams', 'Mike_Palmer', 'Lizzie_West', 'Peter_McDonald', 'Robin_Daniels', 'The_Members', 'HC', 'Ian_Carr', 'HCR', 'Elaine_Morton', 'James_Hewitt', 'EMI', 'DE', 'MD', 'Neil_Smith')" | mysql
+cat wikipedia-exceptions | mysql
 
 # Compact Xapian database
 cd ~/fawkes/scripts

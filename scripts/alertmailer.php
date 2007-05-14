@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.15 2007-04-19 23:42:58 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.16 2007-05-14 16:47:41 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
@@ -206,6 +206,7 @@ if (!$nomail && !$onlyemail) {
 	fclose($fp);
 	mail(ALERT_STATS_EMAILS, 'Email alert statistics', $sss, 'From: Email Alerts <fawkes@dracos.co.uk>');
 }
+print date('r') . "\n";
 
 function sort_by_stuff($a, $b) {
 	if ($a['major'] > $b['major']) return 1;
