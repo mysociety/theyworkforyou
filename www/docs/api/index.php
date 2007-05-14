@@ -84,6 +84,11 @@ $methods = array(
 		'required' => true,
 		'help' => 'Returns Written Ministerial Statements',
 	),
+	'getHansard' => array(
+		'parameters' => array('search', 'person', 'order', 'page', 'num'),
+		'required' => true,
+		'help' => 'Returns any of the above',
+	),
 	'getComments' => array(
 		'new' => true,
 		'parameters' => array('search', 'page', 'num', 'pid'),
