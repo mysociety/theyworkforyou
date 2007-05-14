@@ -542,10 +542,12 @@ function find_members ($args) {
             }
 		}
 		?>
+<div id="people_results">
 	<h3>MPs and Peers matching '<?php echo htmlentities($searchstring); ?>'</h3> 
 	<ul>
 	<li><?php print implode("</li>\n\t<li>", $members); ?></li>
 	</ul>
+</div>
 <?php	
 	}
 	

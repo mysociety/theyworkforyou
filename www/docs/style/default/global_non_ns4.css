@@ -685,6 +685,11 @@ table.people td.row-2 {
 	background: #E8FDCB;
 	}
 
+#people_results {
+	margin-bottom: 1em;
+	padding-bottom: 1em;
+}
+
 dl.searchresults {
 	margin: 0;
 	}

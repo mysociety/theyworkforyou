@@ -2021,7 +2021,7 @@ if (!$wtt) { ?>
 
 					</form>
 				</div><? if ($SEARCHENGINE && !$wtt) { ?>
-			<div class="stripe-2" align="center" style="margin-bottom: 0.5em">
+			<div class="stripe-2" align="center" style="margin-bottom: 2em">
 		<a href="<?=WEBPATH ?>alert/?only=1<?=($value?'&amp;keyword='.urlencode($value):'') . ($person_id?'&amp;pid='.urlencode($person_id):'') ?>">Email me when <?=$qds ?></a>
 		</div>
 <?php				}
