@@ -2936,7 +2936,8 @@ function display_stats_line($category, $blurb, $type, $inwhat, $afterstuff, $ext
 	return $return;
 }
 function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $extra_info, $minister, $afterstuff) {
-	if ($extra_info[$category]==0) $blurb = preg_replace('#<a.*?>#', '', $blurb);
+	if ($extra_info[$category]==0 && $category !='public_whip_division_attendance' && $category != 'Lpublic_whip_division_attendance')
+		$blurb = preg_replace('#<a.*?>#', '', $blurb);
 	if ($house==2) $inwhat = str_replace('MP', 'Lord', $inwhat);
 	print '<li>' . $blurb;
 	print '<strong>' . $extra_info[$category];
