@@ -1,0 +1,8 @@
+delete from titles where title in ('Johnny_Byrne', 'The_Bill', 'John_Turner',
+'John_Dyson', 'Andy_Black', 'III', 'Charlotte_Wilson', 'Cheryl_James', 'DAWN',
+'Michael_Williams', 'Mike_Palmer', 'Lizzie_West', 'Peter_McDonald',
+'Robin_Daniels', 'The_Members', 'HC', 'Ian_Carr', 'HCR', 'Elaine_Morton',
+'James_Hewitt', 'EMI', 'DE', 'MD', 'Neil_Smith', 'John_Cahill',
+'Christopher_Williams', 'Richard_Steele', 'Alex_Fox', 'SEAL'
+);
+
