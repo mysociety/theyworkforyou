@@ -50,10 +50,15 @@ if ($cconstituency == 'mysociety test constituency') {
 }
 
 # Special case names
+$redirect = false;
 if ($name == 'sion simon') $name = "si&ocirc;n simon";
 if ($name == 'sian james') $name = "si&acirc;n james";
 if ($name == 'lembit opik') $name = "lembit &ouml;pik";
 if ($name == 'bairbre de brun') $name = "bairbre de br&uacute;n";
+if ($name == 'a j beith') {
+	$name = 'alan beith';
+	$redirect = true;
+}
 
 # Special stuff for Ynys Mon
 if ($cconstituency == 'ynys mon') $cconstituency = "ynys m&ocirc;n"; # Stop infinite loop
@@ -134,7 +139,7 @@ if (is_numeric(get_http_var('m'))) {
 	member_redirect($MEMBER);
 } elseif ($name && $cconstituency) {
 	$MEMBER = new MEMBER(array('name'=>$name, 'constituency'=>$cconstituency));
-	if (!$MEMBER->canonical) {
+	if (!$MEMBER->canonical || $redirect) {
 		member_redirect($MEMBER);
 	}
 	if ($MEMBER->the_users_mp) {
