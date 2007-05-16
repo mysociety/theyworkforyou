@@ -876,8 +876,13 @@ function prettify_office($pos, $dept) {
 		'Prime Minister, HM Treasury' => 'Prime Minister',
 		'Secretary of State, Foreign & Commonwealth Office' => 'Foreign Secretary',
 		'Secretary of State, Home Office' => 'Home Secretary',
-		'Minister of State (Energy), Department of Trade and Industry' => 'Minister for energy, Department of Trade and Industry',
-		'Minister of State (Pensions), Department for Work and Pensions' => 'Minister for pensions, Department for Work and Pensions',
+		'Minister of State (Energy), Department of Trade and Industry'
+			=> 'Minister for energy, Department of Trade and Industry',
+		'Minister of State (Pensions), Department for Work and Pensions'
+			=> 'Minister for pensions, Department for Work and Pensions',
+		'Lords Commissioner, HM Treasury' => 'Lords Commissioner, HM Treasury, i.e. Government Whip',
+		'Parliamentary Secretary to the Treasury, HM Treasury'
+			=> 'Parliamentary Secretary to the Treasury, i.e. Chief Whip',
 	);
 	if ($pos) { # Government post, or Chairman of Select Committee
 		$pretty = "$pos, $dept";

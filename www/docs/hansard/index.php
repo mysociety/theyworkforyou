@@ -46,7 +46,8 @@ if (($date = get_http_var('d')) && preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) 
 	include_once INCLUDESPATH . 'easyparliament/recess.php';
 	$time = strtotime($date);
 	$dayofweek = date('w', $time);
-	if ($recess = recess_prettify(date('j', $time), date('n', $time), date('Y', $time))) {
+	$recess = recess_prettify(date('j', $time), date('n', $time), date('Y', $time));
+	if ($recess[0]) {
 		print '<p>The Houses of Parliament are in their ' . $recess[0] . ' at this time.</p>';
 	} elseif ($dayofweek == 0 || $dayofweek == 6) {
 		print '<p>The Houses of Parliament do not meet at weekends.</p>';
