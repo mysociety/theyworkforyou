@@ -1198,26 +1198,30 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		$displayed_stuff = 0;
 		function display_dream_comparison($extra_info, $member, $dreamid, $desc, $inverse, $search) {
 			if (isset($extra_info["public_whip_dreammp${dreamid}_distance"])) {
-				$dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
-				if ($inverse) 
-					$dmpscore = 1.0 - $dmpscore;
-				$dmpdesc = "unknown about";
-				if ($dmpscore > 0.95 && $dmpscore <= 1.0)
-					$dmpdesc = "very strongly against";
-				elseif ($dmpscore > 0.85)
-					$dmpdesc = "strongly against";
-				elseif ($dmpscore > 0.6)
-					$dmpdesc = "moderately against";
-				elseif ($dmpscore > 0.4)
-					$dmpdesc = "a mixture of for and against";
-				elseif ($dmpscore > 0.15) 
-					$dmpdesc = "moderately for";
-				elseif ($dmpscore > 0.05) 
-					$dmpdesc = "strongly for";
-				elseif ($dmpscore >= 0.0) 
-					$dmpdesc = "very strongly for";
-				// How many votes Dream MP and MP both voted (and didn't abstain) in
-				// $extra_info["public_whip_dreammp${dreamid}_both_voted"];
+				if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 0) {
+					$dmpdesc = 'has never voted on';
+				} else {
+					$dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
+					if ($inverse) 
+						$dmpscore = 1.0 - $dmpscore;
+					$dmpdesc = "unknown about";
+					if ($dmpscore > 0.95 && $dmpscore <= 1.0)
+						$dmpdesc = "very strongly against";
+					elseif ($dmpscore > 0.85)
+						$dmpdesc = "strongly against";
+					elseif ($dmpscore > 0.6)
+						$dmpdesc = "moderately against";
+					elseif ($dmpscore > 0.4)
+						$dmpdesc = "a mixture of for and against";
+					elseif ($dmpscore > 0.15) 
+						$dmpdesc = "moderately for";
+					elseif ($dmpscore > 0.05) 
+						$dmpdesc = "strongly for";
+					elseif ($dmpscore >= 0.0) 
+						$dmpdesc = "very strongly for";
+					// How many votes Dream MP and MP both voted (and didn't abstain) in
+					// $extra_info["public_whip_dreammp${dreamid}_both_voted"];
+				}
 				$search_link = WEBPATH . "search/?s=" . urlencode($search) . 
 					"&pid=" . $member['person_id'] . "&pop=1";
 				?>
