@@ -170,7 +170,7 @@ if ($cconstituency == 'your &amp; my society') {
 
 
 /////////////////////////////////////////////////////////
-// DISPLAY AN MP
+// DISPLAY A REPRESENTATIVE
 
 if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	$PAGE->page_start();

@@ -216,8 +216,6 @@ class MEMBER {
 		}
 	}
 
-	#if ($title) $q .= 'title = \'' . mysql_escape_string($title) . '\' AND ';
-
 	function name_to_person_id ($name, $const='') {
 		global $PAGE, $this_page;
 		if ($name == '') {
@@ -227,7 +225,7 @@ class MEMBER {
 		# Matthew made this change, but I don't know why.  It broke
 		# Iain Duncan Smith, so I've put it back.  FAI 2005-03-14
 		#		$success = preg_match('#^(.*? .*?) (.*?)$#', $name, $m);
-		$title = ''; $first_name = ''; $middle_name = '';
+		$q = "SELECT DISTINCT person_id,constituency FROM member WHERE ";
 		if ($this_page=='peer') {
 			$success = preg_match('#^(.*?) (.*?) of (.*?)$#', $name, $m);
 			if (!$success)
@@ -238,12 +236,10 @@ class MEMBER {
 				$PAGE->error_message('Sorry, that name was not recognised.');
 				return false;
 			}
-			$title = $m[1];
-			$last_name = $m[2];
+			$title = mysql_escape_string($m[1]);
+			$last_name = mysql_escape_string($m[2]);
 			$const = $m[3];
-			$q = "SELECT DISTINCT person_id,constituency FROM member WHERE ";
-			$q .= 'title = \'' . mysql_escape_string($title) . '\' AND ';
-			$q .= "last_name='".mysql_escape_string($last_name)."'";
+			$q .= "house = 2 AND title = '$title' AND last_name='$last_name'";
 		} elseif ($this_page=='mla') {
 			$success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
 			if (!$success)
@@ -252,12 +248,12 @@ class MEMBER {
 				$PAGE->error_message('Sorry, that name was not recognised.');
 				return false;
 			}
-			$first_name = $m[1];
-			$middle_name = $m[2];
-			$last_name = $m[3];
-			$q = "SELECT DISTINCT person_id,constituency FROM member WHERE ";
-			$q .= "(first_name='".mysql_escape_string($first_name." ".$middle_name)."' AND last_name='".mysql_escape_string($last_name)."')";
-			$q .= " or (first_name='".mysql_escape_string($first_name)."' AND last_name='".mysql_escape_string($middle_name .' '.$last_name)."')";
+			$first_name = mysql_escape_string($m[1]);
+			$middle_name = mysql_escape_string($m[2]);
+			$last_name = mysql_escape_string($m[3]);
+			$q .= "house = 3 AND (";
+			$q .= "(first_name='$first_name $middle_name' AND last_name='$last_name')";
+			$q .= " or (first_name='$first_name' AND last_name='$middle_name $last_name') )";
 		} elseif (strstr($this_page, 'mp')) {
 			$success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
 			if (!$success)
@@ -269,9 +265,8 @@ class MEMBER {
 			$first_name = $m[1];
 			$middle_name = $m[2];
 			$last_name = $m[3];
-			$q = "SELECT DISTINCT person_id,constituency FROM member WHERE ";
-			if ($title) $q .= 'title = \'' . mysql_escape_string($title) . '\' AND ';
-			$q .= "((first_name='".mysql_escape_string($first_name." ".$middle_name)."' AND last_name='".mysql_escape_string($last_name)."') OR ".
+			# if ($title) $q .= 'title = \'' . mysql_escape_string($title) . '\' AND ';
+			$q .= "house =1 AND ((first_name='".mysql_escape_string($first_name." ".$middle_name)."' AND last_name='".mysql_escape_string($last_name)."') OR ".
 			"(first_name='".mysql_escape_string($first_name)."' AND last_name='".mysql_escape_string($middle_name." ".$last_name)."'))";
 			if ($const) {
 				$normalised = normalise_constituency_name($const);
@@ -290,14 +285,6 @@ class MEMBER {
 		if ($q->rows > 1) {
 			# Hacky as a very hacky thing that's graduated in hacking from the University of Hacksville
 			# Anyone who wants to do it properly, feel free
-
-			# Firstly, the special case of Roy Beggs
-			# Perhaps if on an MP page, only looking for MPs would be wise?
-			# I'm sure there's a reason why it looks at everywhere, though
-			if ($q->field(0, 'person_id') == 13887) {
-				if ($this_page=='mla') return 13887; # Roy Beggs Jnr
-				return 10033; # Roy Beggs Snr
-			}
 
 			$person_ids = array(); $consts = array();
 			for ($i=0; $i<$q->rows(); ++$i) {
