@@ -1202,6 +1202,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 					$dmpdesc = 'has never voted on';
 				} else {
 					$dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
+					print "<!-- distance $dreamid: $dmpscore -->";
 					if ($inverse) 
 						$dmpscore = 1.0 - $dmpscore;
 					$dmpdesc = "unknown about";
@@ -1240,7 +1241,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 			return false;
 		}
 
-	if (isset($extra_info["public_whip_dreammp230_distance"])) {
+	if (isset($extra_info["public_whip_dreammp230_distance"]) || isset($extra_info["public_whip_dreammp996_distance"])) { # XXX
 		$displayed_stuff = 1; ?>
 
 
