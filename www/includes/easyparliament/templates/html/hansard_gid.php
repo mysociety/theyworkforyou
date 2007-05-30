@@ -55,6 +55,36 @@ if (isset ($data['rows'])) {
         $SEARCHENGINE = new SEARCHENGINE($data['info']['searchstring']);
     }
 
+	// Before we print the body text we need to insert glossary links
+	// and highlight search string words.
+	
+	// This doesn't quite work yet, as clashes with
+	// highlighting of constituency name. Also the link
+	// text comes out a bit long?
+	// $row['body'] = preg_replace('#<phrase class="honfriend" id="uk.org.publicwhip/member/(\d+)" name="(.*?)">(.*)</phrase>#', '<a href="/mp/?m=$1" title="Our page on $2">$3</a>', $row['body']);
+
+	$bodies = array();
+	foreach ($data['rows'] as $row) {
+		$bodies[] = $row['body'];
+	}
+	if (isset($data['info']['glossarise']) && ($data['info']['glossarise'] == 1)) {
+		// And glossary phrases
+		$bodies = $GLOSSARY->glossarise($bodies, 1);
+	}
+	if ($SEARCHENGINE) {
+		// We have some search terms to highlight.
+		$bodies = $SEARCHENGINE->highlight($bodies);
+	}
+	if (isset($data['info']['glossarise']) && ($data['info']['glossarise'] == 1)) {
+		// Now we replace the title attributes for the glossarised links
+		// to avoid words being highlighted within them.
+		$bodies = $GLOSSARY->glossarise_titletags($bodies, 1);
+	}
+	for ($i=0; $i<count($data['rows']); $i++) {
+		if ($data['rows'][$i]['htype'] == 12)
+			$data['rows'][$i]['body'] = $bodies[$i];
+	}
+
 	// Stores the current time of items, so we can tell when an item appears
 	// at a new time.
 	$timetracker = 0;
@@ -71,8 +101,7 @@ if (isset ($data['rows'])) {
 
 	// So we don't keep on printing the titles!
 	$titles_displayed = false;
-	for ($i=0; $i<count($data['rows']); $i++) {
-		$row = $data['rows'][$i];
+	foreach ($data['rows'] as $row) {
 		if (count($row) == 0) {
 			// Oops, there's nothing in this row. A check just in case.
 			continue;
@@ -166,28 +195,6 @@ if (isset ($data['rows'])) {
 				<a name="<?php echo $id; ?>"></a>
 <?php
 
-			// Before we print the body text we need to insert glossary links
-			// and highlight search string words.
-			
-			// This doesn't quite work yet, as clashes with
-			// highlighting of constituency name. Also the link
-			// text comes out a bit long?
-			// $row['body'] = preg_replace('#<phrase class="honfriend" id="uk.org.publicwhip/member/(\d+)" name="(.*?)">(.*)</phrase>#', '<a href="/mp/?m=$1" title="Our page on $2">$3</a>', $row['body']);
-			
-			if (isset($data['info']['glossarise']) && ($data['info']['glossarise'] == 1)) {
-				// And glossary phrases
-				$row['body'] = $GLOSSARY->glossarise($row['body'], 1);
-			}
-			if ($SEARCHENGINE) {
-				// We have some search terms to highlight.
-				$row['body'] = $SEARCHENGINE->highlight($row['body']);
-			}
-			if (isset($data['info']['glossarise']) && ($data['info']['glossarise'] == 1)) {
-				// Now we replace the title attributes for the glossarised links
-				// to avoid words being highlighted within them.
-				$row['body'] = $GLOSSARY->glossarise_titletags($row['body'], 1);
-			}
-			
 			if (isset($row['speaker']) && count($row['speaker']) > 0) {
 			  // We have a speaker to print.
 			  

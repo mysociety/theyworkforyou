@@ -45,15 +45,11 @@ class GLOSSARY {
 			$this->db = new ParlDB;
 			
             $this->replace_order = array();
-            $got = false;
 			if (isset($args['s']) && ($args['s'] != "")) {
 				$args['s'] = urldecode($args['s']);
 				$this->search_glossary($args);
-				$got = $this->get_glossary_item($args);
 			}
-			else {
-				$got = $this->get_glossary_item($args);
-			}
+		$got = $this->get_glossary_item($args);
 			if ($got && isset($args['sort']) && ($args['sort'] == 'regexp_replace')) {
 				// We need to sort the terms in the array by "number of words in term".
 				// This way, "prime minister" gets dealt with before "minister" when generating glossary links.
@@ -92,9 +88,10 @@ class GLOSSARY {
 			$this->alphabet[$letter] = array();
 		}
 		
-		$orderby = " ORDER by g.title";
-		$where = " g.glossary_id=eq.glossary_id AND u.user_id=eq.user_id AND g.visible=1 AND eq.approved=1";		
-		$q = $this->db->query("SELECT g.glossary_id, g.title, g.body, u.user_id, u.firstname, u.lastname FROM editqueue AS eq, glossary AS g, users AS u WHERE " . $where . $orderby . ";");
+		$q = $this->db->query("SELECT g.glossary_id, g.title, g.body, u.user_id, u.firstname, u.lastname
+			FROM editqueue AS eq, glossary AS g, users AS u
+			WHERE g.glossary_id=eq.glossary_id AND u.user_id=eq.user_id AND g.visible=1 AND eq.approved=1
+			ORDER by g.title");
 		if ($q->success() && $q->rows()) {
 			for ($i=0; $i < $q->rows(); $i++) {
 				$this->terms[ $q->field($i,"glossary_id") ] = $q->row($i);
@@ -145,40 +142,22 @@ class GLOSSARY {
 		// Search for and fetch glossary item with a title
 		// Useful for the search page, and nowhere else (so far)
 		
-		// No point going any further without a term to search for
-		if (isset($args['s'])) {
-			$this->query = addslashes($args['s']);
-			$this->search_matches = array();
-			$this->num_search_matches = 0;
-		} else { 
-			return false;
-		}
+		$this->query = addslashes($args['s']);
+		$this->search_matches = array();
+		$this->num_search_matches = 0;
 				
-		$where = "g.glossary_id=eq.glossary_id AND u.user_id=eq.user_id AND g.visible=1 AND g.title LIKE '%" . $this->query . "%'";
-		$orderby = " ORDER by g.title";
-		
-		$query = "SELECT g.glossary_id, g.title, g.body, u.user_id, u.firstname, u.lastname FROM editqueue AS eq, glossary AS g, users AS u WHERE " . $where . $orderby . ";";
-
+		$query = "SELECT g.glossary_id, g.title, g.body, u.user_id, u.firstname, u.lastname
+			FROM editqueue AS eq, glossary AS g, users AS u
+			WHERE g.glossary_id=eq.glossary_id AND u.user_id=eq.user_id AND g.visible=1
+				AND g.title LIKE '%" . $this->query . "%'
+			ORDER by g.title";
 		$q = $this->db->query($query);
 		if ($q->success() && $q->rows()) {
 			for ($i=0; $i < $q->rows(); $i++) {
 				$this->search_matches[ $q->field($i,"glossary_id") ] = $q->row($i);
 			}
 			$this->num_search_matches = $q->rows();
-			return ($this->num_search_matches);
 		}
-		else {
-			return false;
-		}
-	}
-
-	function get_most_recent($n) {
-		// Fetch the $n most recent Glossary additions.
-		// In the absence of $n fetches all glossary items ordered most recent first
-	}
-	
-	function get_unmoderated() {
-		// Fetch a list of all unmoderated (i.e. pending) comments.
 	}
 
 	function create(&$data) {
@@ -188,12 +167,6 @@ class GLOSSARY {
 		// where editqueue.epobject_id_l = epobject.epobject_id
 		
 		$EDITQUEUE = new GLOSSEDITQUEUE();
-		
-		/*
-		print "<pre>";
-		print_r ($data);
-		print "</pre>";
-		*/
 		
 		// Assuming that everything is ok, we will need:
 		// For epobject:
@@ -271,8 +244,7 @@ class GLOSSARY {
 	
 	function delete($glossary_id)
 	{
-		
-		$q = $this->db->query("DELETE from glossary where glossary_id=".$glossary_id." LIMIT 1;");
+		$q = $this->db->query("DELETE from glossary where glossary_id=$glossary_id LIMIT 1;");
 		// if that worked, we need to update the editqueue,
 		// and remove the term from the already generated object list.
 		if ($q->affected_rows() >= 1) {
@@ -296,7 +268,7 @@ class GLOSSARY {
 		// External links shown within their own definition
 		// should be the complete and linked url.
 		// NB. This should only match when $body is a definition beginning with "http:"
-		if (preg_match("/^(http:*[^\s])$/i", $body)) {
+		if (is_string($body) && preg_match("/^(http:*[^\s])$/i", $body)) {
 			$body = "<a href=\"" . $body . "\" title=\"External link to " . $body . "\">" . $body . "</a>";
 			return ($body);
 
@@ -319,10 +291,10 @@ class GLOSSARY {
 			$term_title = $this->terms[$glossary_id]['title'];
 			
 			$URL->update(array("gl" => $glossary_id));
-			$findwords[$glossary_id] = "/([^>\.\'\/])\b(" . $term_title . ")\b([^<\'])/i";
+			$findwords[$glossary_id] = "/(?<![>\.\'\/])\b(" . $term_title . ")\b(?![<\'])/i";
 			// catch glossary terms within their own definitions
 			if ($glossary_id == $this->glossary_id) {
-				$replacewords[] = "\\1<strong>\\2</strong>\\3";
+				$replacewords[] = "<strong>\\1</strong>";
 			}
 			else {
 				if ($this_page == "admin_glossary"){
@@ -331,7 +303,7 @@ class GLOSSARY {
 				else {
 					$link_url = $URL->generate('url');
 				}
-				$replacewords[] = "\\1<a href=\"" . $link_url . "\" title=\"##". $glossary_id . "##\" class=\"glossary\">\\2</a>\\3";
+				$replacewords[] = "<a href=\"$link_url\" title=\"##$glossary_id##\" class=\"glossary\">\\1</a>";
 			}
 			
 			// Deal with the link titles in a separate process afterwards to avoid recursion.
@@ -342,12 +314,20 @@ class GLOSSARY {
 		// Highlight all occurrences of another glossary term in the definition.
 		$body = preg_replace($findwords, $replacewords, $body);
 		if (isset($this->glossary_id))
-			$body = preg_replace("/([^>\.\'\/])\b(" . $this->terms[$this->glossary_id]['title'] . ")\b([^<\'])/i", '\\1<strong>\\2</strong>\\3', $body, 1);
+			$body = preg_replace("/(?<![>\.\'\/])\b(" . $this->terms[$this->glossary_id]['title'] . ")\b(?![<\'])/i", '<strong>\\1</strong>', $body, 1);
 
 		// Replace any phrases in wikipedia
 		// TODO: Merge this code into above, so our gloss and wikipedia
 		// don't clash (e.g. URLs getting doubly munged etc.)
+		$was_array = false;
+		if (is_array($body)) {
+			$was_array = true;
+			$body = join('|||', $body);
+		}
 		$body = wikipedize($body);  
+		if ($was_array) {
+			$body = explode('|||', $body);
+		}
 	
 		// Then translate all the title tag codes.
 		// (this stops preg replace replacing content in the title tags)

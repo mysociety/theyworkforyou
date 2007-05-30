@@ -75,8 +75,8 @@ function wikipedize ($source) {
         $wikipedia_cache[$wikistring] = false;
         continue;
       }
+      $wikipedia_cache[$wikistring] = true;
     }
-    $wikipedia_cache[$wikistring] = true;
 
     # See if already matched a string this one is contained within
     foreach ($matched as $got) {
@@ -92,7 +92,8 @@ function wikipedize ($source) {
   }
 
   # clean up links with img tags
-  $temp1 = antiTagInTag ($temp1);
+  # $temp1 = antiTagInTag ($temp1);
+  # XXX: Not needed on TWFY. However, if it ever is, it's *VERY SLOW* now
 
   return $temp1;
 }
