@@ -93,7 +93,8 @@ function wikipedize ($source) {
 
   # clean up links with img tags
   # $temp1 = antiTagInTag ($temp1);
-  # XXX: Not needed on TWFY. However, if it ever is, it's *VERY SLOW* now
+  # XXX: This breaks '<phrase class="honfriend">' and so on :-/
+  # So need a way to do this, but that's actually quick
 
   return $temp1;
 }
