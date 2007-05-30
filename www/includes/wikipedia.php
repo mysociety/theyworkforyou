@@ -28,9 +28,10 @@ function lensort($a, $b) {
   return strlen($a) < strlen($b);
 }
 
+$wikipedia_cache = array();
 function wikipedize ($source) {
+	global $wikipedia_cache;
 
-  $db = new ParlDB;  
   $temp1 = $source;
 
   # Set up various variables
@@ -59,38 +60,41 @@ function wikipedize ($source) {
   # Open up a db connection, and whittle our list down even further, against
   # the real titles.
   $matched = array();
+  $db = new ParlDB;  
   foreach ($phrases as $phrase) {
     $phrase = trim($phrase);
     twfy_debug("WIKIPEDIA", "Trying '$phrase'");
-    $wikistring = ereg_replace(" ","_", $phrase);
+    $wikistring = str_replace(' ', '_', $phrase);
 
-    $q = $db->query("SELECT title FROM titles WHERE title = '" . mysql_escape_string($wikistring). "';");
-    if ($q->rows > 0) { 
-      $found = $q->field(0, 'title');
-      if ($found == $wikistring) {
-        # See if already matched a string this one is contained within
-        $use = true;
-        foreach ($matched as $got) {
-          if (strstr($got, trim($phrase))) {
-            $use = false;
-          }
-        }
-        # Go ahead only if haven't...
-        if ($use) {
-          twfy_debug("WIKIPEDIA", "Matched '$phrase'");
-	  # 1 means only replace one match for phrase per paragraph
-          $temp1 = preg_replace ("/{$phrase}/", "<a href=\"http://en.wikipedia.org/wiki/{$wikistring}\">{$phrase}</a>", $temp1, 1);
-          array_push($matched, $phrase);
-        }
+    if (array_key_exists($wikistring, $wikipedia_cache)) {
+      if (!$wikipedia_cache[$wikistring])
+        continue;
+    } else {
+      $q = $db->query("SELECT title FROM titles WHERE title = '" . mysql_escape_string($wikistring). "';");
+      if ($q->rows <= 0) {
+        $wikipedia_cache[$wikistring] = false;
+        continue;
       }
     }
+    $wikipedia_cache[$wikistring] = true;
+
+    # See if already matched a string this one is contained within
+    foreach ($matched as $got) {
+      if (strstr($got, $phrase))
+        continue 2;
+    }
+
+    # Go ahead
+    twfy_debug("WIKIPEDIA", "Matched '$phrase'");
+    # 1 means only replace one match for phrase per paragraph
+    $temp1 = preg_replace ("/{$phrase}/", "<a href=\"http://en.wikipedia.org/wiki/{$wikistring}\">{$phrase}</a>", $temp1, 1);
+    array_push($matched, $phrase);
   }
 
   # clean up links with img tags
   $temp1 = antiTagInTag ($temp1);
 
   return $temp1;
-
 }
 
 #credit: isaac schlueter (lifted from http://uk2.php.net/strip-tags)

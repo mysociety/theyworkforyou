@@ -77,7 +77,7 @@ function _api_getHansard_search($array) {
 function _api_getHansard_gid($type, $gid) {
 	$args = array('gid' => $gid);
 	$LIST = _api_getListObject($type);
-	$LIST->display('gid', $args, 'api');
+	return $LIST->display('gid', $args, 'api');
 }
 
 function _api_getHansard_department($type, $dept) {

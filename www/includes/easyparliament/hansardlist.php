@@ -1718,10 +1718,9 @@ class HANSARDLIST {
 					$item['commentsurl'] = $COMMENTSURL->generate();	
 				}					
 					
-				
 				// Get the user/anon votes items that have them.
-				if ((isset($amount['votes']) && $amount['votes'] == true) && 
-					$item['htype'] == '12' || $item['htype'] == '62') {
+				if ($this->major == 3 && (isset($amount['votes']) && $amount['votes'] == true) && 
+					$item['htype'] == '12') {
 					// Debate speech or written answers (not questions).
 				
 					$item['votes'] = $this->_get_votes( $item['epobject_id'] );

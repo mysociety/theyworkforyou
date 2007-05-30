@@ -55,6 +55,8 @@ if ($name == 'sion simon') $name = "si&ocirc;n simon";
 if ($name == 'sian james') $name = "si&acirc;n james";
 if ($name == 'lembit opik') $name = "lembit &ouml;pik";
 if ($name == 'bairbre de brun') $name = "bairbre de br&uacute;n";
+if ($name == 'daithi mckay') $name = 'daith&iacute; mckay';
+if ($name == 'caral ni chuilin') $name = 'car&aacute;l n&iacute; chuil&iacute;n';
 if ($name == 'a j beith') {
 	$name = 'alan beith';
 	$redirect = true;

@@ -66,7 +66,13 @@ function api_getWrans_person($pid) {
 	));
 }
 function api_getWrans_gid($gid) {
-	_api_getHansard_gid('WRANS', $gid);
+	$result = _api_getHansard_gid('WRANS', $gid);
+	if (is_string($result)) {
+		$URL = $_SERVER['REQUEST_URI'];
+		$URL = str_replace($gid, $result, $URL);
+		header('Location: http://' . DOMAIN . $URL);
+		exit;
+	}
 }
 function api_getWrans_department($dept) {
 	_api_getHansard_department('WRANS', $dept);

@@ -24,17 +24,18 @@ for ($i=0; $i<$q->rows(); $i++) {
 	$hdates[$q->field($i, 'hdate')][$q->field($i, 'major')] = true;
 }
 foreach ($dir as $k=>$bit) {
+	$out = array();
 	$dh = opendir("$html$bit/");
 	while (false !== ($filename = readdir($dh))) {
 		if (substr($filename, -5)!='.html' || substr($filename, -8, 3)=='tmp') continue;
-		if ($bit=='lordspages' && substr($filename,7,4)!='2005') continue;
+		#if ($bit=='lordspages' && substr($filename,7,4)!='2005') continue;
 		preg_match('#^(.*?)(\d\d\d\d-\d\d-\d\d)(.*?)\.#', $filename, $m);
 		$part = ucfirst($m[1]); $date = $m[2]; $version = $m[3];
 		$stat = stat("$html$bit/$filename");
 		$base = substr($filename, 0, -5);
 		if (!is_file("$xml$bit/$base.xml")) {
 			if ($date>'2001-05-11')
-				print "<li>$date : $part version $version, size $stat[7] bytes, last modified ".date('Y-m-d H:i:s', $stat[9])."</li>\n";
+				$out[$date] = "<li>$date : $part version $version, size $stat[7] bytes, last modified ".date('Y-m-d H:i:s', $stat[9])."</li>\n";
 		} else {
 			if (!array_key_exists($date, $hdates) || !array_key_exists($majors[$k], $hdates[$date])) {
 				$notloaded .= "<li>$date : $part version $version</li>\n";
@@ -42,6 +43,10 @@ foreach ($dir as $k=>$bit) {
 		}
 	}
 	closedir($dh);
+	ksort($out);
+	foreach ($out as $date => $str) {
+		print $str;
+	}
 }
 
 ?>
