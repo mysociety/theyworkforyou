@@ -319,15 +319,7 @@ class GLOSSARY {
 		// Replace any phrases in wikipedia
 		// TODO: Merge this code into above, so our gloss and wikipedia
 		// don't clash (e.g. URLs getting doubly munged etc.)
-		$was_array = false;
-		if (is_array($body)) {
-			$was_array = true;
-			$body = join('|||', $body);
-		}
 		$body = wikipedize($body);  
-		if ($was_array) {
-			$body = explode('|||', $body);
-		}
 	
 		// Then translate all the title tag codes.
 		// (this stops preg replace replacing content in the title tags)

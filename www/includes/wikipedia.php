@@ -28,11 +28,12 @@ function lensort($a, $b) {
   return strlen($a) < strlen($b);
 }
 
-$wikipedia_cache = array();
 function wikipedize ($source) {
-	global $wikipedia_cache;
-
-  $temp1 = $source;
+	$was_array = false;
+	if (is_array($source)) {
+		$source = join('|||', $source);
+		$was_array = true;
+	}
 
   # Set up various variables
   $capsword = "[A-Z][a-zA-Z'0-9]*"; # not starting with number, as catches too much
@@ -46,37 +47,29 @@ function wikipedize ($source) {
   # "Amnesty International and Human Rights Watch" you also get both parts
   # separately "Amnesty International" and "Human Rights Watch")
   $frugalproperre = "/\b((?:$endwordre){2,})\b/ms";
-  preg_match_all($greedyproperre, $temp1, $propernounphrases1);
-  preg_match_all($frugalproperre, $temp1, $propernounphrases2);
+  preg_match_all($greedyproperre, $source, $propernounphrases1);
+  preg_match_all($frugalproperre, $source, $propernounphrases2);
 
   # Three Letter Acronyms
-  preg_match_all("/\b([A-Z]{2,})/ms", $temp1, $acronyms);
+  preg_match_all("/\b([A-Z]{2,})/ms", $source, $acronyms);
   
   # We don't want no steenking duplicates
   $phrases = array_unique(array_merge($propernounphrases1[0], $propernounphrases2[0], $acronyms[0]));
   # Sort into order, largest first
   usort($phrases, "lensort");
+  foreach ($phrases as $i => $phrase) {
+    $phrases[$i] = mysql_escape_string(str_replace(' ', '_', trim($phrase)));
+  }
  
   # Open up a db connection, and whittle our list down even further, against
   # the real titles.
   $matched = array();
   $db = new ParlDB;  
-  foreach ($phrases as $phrase) {
-    $phrase = trim($phrase);
-    twfy_debug("WIKIPEDIA", "Trying '$phrase'");
-    $wikistring = str_replace(' ', '_', $phrase);
-
-    if (array_key_exists($wikistring, $wikipedia_cache)) {
-      if (!$wikipedia_cache[$wikistring])
-        continue;
-    } else {
-      $q = $db->query("SELECT title FROM titles WHERE title = '" . mysql_escape_string($wikistring). "';");
-      if ($q->rows <= 0) {
-        $wikipedia_cache[$wikistring] = false;
-        continue;
-      }
-      $wikipedia_cache[$wikistring] = true;
-    }
+  $source = explode('|||', $source);
+  $q = $db->query("SELECT title FROM titles WHERE title IN ('" . join("','", $phrases) . "')");
+  for ($i=0; $i<$q->rows(); $i++) {
+    $wikistring = $q->field($i, 'title');
+    $phrase = str_replace('_', ' ', $wikistring);
 
     # See if already matched a string this one is contained within
     foreach ($matched as $got) {
@@ -87,16 +80,19 @@ function wikipedize ($source) {
     # Go ahead
     twfy_debug("WIKIPEDIA", "Matched '$phrase'");
     # 1 means only replace one match for phrase per paragraph
-    $temp1 = preg_replace ("/{$phrase}/", "<a href=\"http://en.wikipedia.org/wiki/{$wikistring}\">{$phrase}</a>", $temp1, 1);
+    $source = preg_replace ("/{$phrase}/", "<a href=\"http://en.wikipedia.org/wiki/{$wikistring}\">{$phrase}</a>", $source, 1);
     array_push($matched, $phrase);
   }
 
   # clean up links with img tags
-  # $temp1 = antiTagInTag ($temp1);
-  # XXX: This breaks '<phrase class="honfriend">' and so on :-/
-  # So need a way to do this, but that's actually quick
+  foreach ($source as $i => $t) {
+  	$source[$i] = antiTagInTag($t);
+  }
 
-  return $temp1;
+  if (!$was_array)
+    $source = join('|||', $source);
+ 
+  return $source;
 }
 
 #credit: isaac schlueter (lifted from http://uk2.php.net/strip-tags)
