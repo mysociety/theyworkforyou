@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.13 2007-05-21 09:59:08 twfy-live Exp $
+# $Id: xml2db.pl,v 1.14 2007-05-31 17:22:01 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -467,10 +467,29 @@ sub delete_lonely_epobjects()
         return if $c2 == $c1;
         
         print "Fixing up lonely epobjects. Counts: $c1 $c2\n" unless $cronquiet;
-        my $q = $dbh->prepare('delete from epobject where epobject_id not in (select epobject_id from hansard)');
-        my $rows = $q->execute();
+        my $q = $dbh->prepare("select epobject_id from epobject");
+        $q->execute();
+        my $left;
+        while (my @row = $q->fetchrow_array) {
+                $left->{$row[0]} = 1;
+        }
+        $q = $dbh->prepare("select epobject_id from hansard");
+        $q->execute();
+        while (my @row = $q->fetchrow_array) {
+                delete($left->{$row[0]});
+        }
+
+        my @array = keys(%$left);
+        my $rows = @array;
+        print "Lonely epobject count: $rows\n" unless $cronquiet;
+        if ($rows > 0) {
+                my $delids = join(", ", @array);
+                my $qq = $dbh->prepare("delete from epobject where epobject_id in (" . $delids . ")");
+                my $delrows = $qq->execute();
+                $qq->finish();
+                die "deleted " . $delrows . " but thought " . $rows if $delrows != $rows;
+        }
         $q->finish();
-        print "Lonely epobjects deleted: $rows\n" unless $cronquiet;
 }
 
 # Check that there are no extra gids in db that weren't in xml
@@ -521,9 +540,28 @@ sub check_extra_gids
                                         where epobject.epobject_id = $table.$field and epobject.epobject_id = hansard.epobject_id and
                                         hansard.gid = ?");
                                 $epuse_comments->execute($gid);
-                                my @arr = $epuse_comments->fetchrow_array();
+                                my $num_rows = $epuse_comments->fetchrow_array();
                                 $epuse_comments->finish();
-                                if ($arr[0] > 0) {
+                                if ($num_rows > 0) {
+                                        if ($gid =~ /wrans/ && !$cronquiet) {
+                                                my $search_gid = $gid;
+                                                $search_gid =~ s/(\d\d\d\d-\d\d-)\d\d\w(\.\d+\.)/$1%$2/;
+                                                my $daychange = $dbh->prepare('SELECT gid,epobject_id FROM hansard WHERE gid like ?');
+                                                $daychange->execute($search_gid);
+                                                my ($new_gid, $new_epobjectid) = $daychange->fetchrow_array();
+                                                if ($new_epobjectid) {
+                                                        my $hgetid = $dbh->prepare("select epobject_id from hansard where gid = ?");
+                                                        $hgetid->execute($gid);
+                                                        my $old_epobjectid = $hgetid->fetchrow_array();
+                                                        $hgetid->finish();
+                                                        print "POSSIBLE FIX: $gid -> $new_gid, $old_epobjectid -> $new_epobjectid ?\n";
+                                                        my $yes = <STDIN>;
+                                                        if ($yes =~ /^y$/i) {
+                                                                update_eid($table, $field, $old_epobjectid, $new_epobjectid);
+                                                                next;
+                                                        }
+                                                }
+                                        }                                
                                         print "VITAL ERROR! gid $gid needs deleting, has an entry in table $table, but no gid redirect\n";
                                         $vital++;
                                 }
@@ -557,21 +595,21 @@ sub check_extra_gids
 sub delete_redirected_gids {
         my ($date, $grdests) = @_;
         my $q_redirect = $dbh->prepare('SELECT gid_to from gidredirect WHERE gid_from = ?');
+        my $hgetid = $dbh->prepare("select epobject_id from hansard where gid = ?");
         foreach my $from_gid (sort keys %$grdests) {
                 my $to_gid = $grdests->{$from_gid};
                 my $loop;
                 do {
                         $loop = 0;
                         $q_redirect->execute($to_gid);
-                        my @arr = $q_redirect->fetchrow_array();
-                        if ($arr[0]) {
+                        my $lookup = $q_redirect->fetchrow_array();
+                        if ($lookup) {
                                 $loop = 1;
-                                $to_gid = $arr[0];
+                                $to_gid = $lookup;
                         }
                 } while ($loop);
                 $hcheck->execute($to_gid);
-                my @arr = $hcheck->fetchrow_array();
-                my $new_epobjectid = $arr[0];
+                my $new_epobjectid = ($hcheck->fetchrow_array())[0];
                 $hcheck->finish();
                 unless ($new_epobjectid) {
 #                        print "PROBLEM: $from_gid\n";
@@ -591,24 +629,15 @@ sub delete_redirected_gids {
                                 where epobject.epobject_id = $table.$field and epobject.epobject_id = hansard.epobject_id and
                                 hansard.gid = ?");
                         $epuse_comments->execute($from_gid);
-                        my @arr = $epuse_comments->fetchrow_array();
+                        my $num_rows = $epuse_comments->fetchrow_array();
                         $epuse_comments->finish();
-                        my $num_rows = $arr[0];
                         if ($num_rows > 0) {
-                                my $hgetid = $dbh->prepare("select hansard.epobject_id from hansard 
-                                        where hansard.gid = ?");
                                 $hgetid->execute($from_gid);
-                                @arr = $hgetid->fetchrow_array();
+                                my $old_epobjectid = $hgetid->fetchrow_array();
                                 $hgetid->finish();
-                                my $old_epobjectid = $arr[0];
 
                                 print "gid $from_gid has $num_rows " . ($num_rows==1?'entry':'entries') . " in table $table, new gid $to_gid\n" unless $cronquiet;
-                                print "updating epobject id from $old_epobjectid => $new_epobjectid\n" unless $cronquiet;
-
-                                my $epuse_updateid = $dbh->prepare("update $table set $table.$field = ?
-                                        where $table.$field = ?");
-                                $epuse_updateid->execute($new_epobjectid, $old_epobjectid);
-                                $epuse_updateid->finish();
+                                update_eid($table, $field, $old_epobjectid, $new_epobjectid);
                          }
                 }
 
@@ -620,6 +649,30 @@ sub delete_redirected_gids {
                 $hdeletegid->finish();
          }
 }
+
+sub update_eid {
+        my ($table, $field, $old_epobjectid, $new_epobjectid) = @_;
+        print "updating epobject id from $old_epobjectid => $new_epobjectid\n" unless $cronquiet;
+        if ($table eq 'anonvotes') {
+                my $epalready = $dbh->prepare("select epobject_id,yes_votes,no_votes from anonvotes where epobject_id=?");
+                $epalready->execute($new_epobjectid);
+                my @arr = $epalready->fetchrow_array();
+                if ($arr[0]) {
+                        my $epdelete = $dbh->prepare('delete from anonvotes where epobject_id=?');
+                        $epdelete->execute($new_epobjectid);
+                        $epdelete->finish();
+                        my $epuse_updateid = $dbh->prepare("update anonvotes set yes_votes=yes_votes+$arr[1],
+                                no_votes=no_votes+$arr[2], epobject_id=? where epobject_id = ?");
+                        $epuse_updateid->execute($new_epobjectid, $old_epobjectid);
+                        $epuse_updateid->finish();
+                        return;
+                }
+        }
+        my $epuse_updateid = $dbh->prepare("update $table set $field = ? where $field = ?");
+        $epuse_updateid->execute($new_epobjectid, $old_epobjectid);
+        $epuse_updateid->finish();
+}
+
 
 sub db_addpair
 {

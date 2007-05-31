@@ -686,8 +686,16 @@ class HANSARDLIST {
 
 			/* A lot of written answers were moved from 10th to 11th May and 11th May to 12th May.
 			   Deal with the bots who have stored links to those now non-existant written answers. */
-			$itemdata = $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-11c'); if ($itemdata) return $itemdata;
-			$itemdata = $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-12b'); if ($itemdata) return $itemdata;
+			/* 2007-05-31: And then they were moved BACK in the volume edition, ARGH
+			   XXX: Other XML files with "removed" GIDs in are 2004-12-20, 2005-01-19, 2005-01-31,
+			        2005-02-10, 2005-12-19c, 2006-05-18b, 2006-06-19a, 2007-01-25a/c */
+			$itemdata = $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-10c'); if ($itemdata) return $itemdata;
+			$itemdata = $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-11d'); if ($itemdata) return $itemdata;
+			$itemdata = $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-11d'); if ($itemdata) return $itemdata;
+			$itemdata = $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-12c'); if ($itemdata) return $itemdata;
+			$itemdata = $this->check_gid_change($args['gid'], '2006-05-11c', '2006-05-10c'); if ($itemdata) return $itemdata;
+			$itemdata = $this->check_gid_change($args['gid'], '2006-05-12b', '2006-05-11d'); if ($itemdata) return $itemdata;
+
 			$itemdata = $this->check_gid_change($args['gid'], '2007-01-08', '2007-01-05'); if ($itemdata) return $itemdata;
 			$itemdata = $this->check_gid_change($args['gid'], '2007-02-19', '2007-02-16'); if ($itemdata) return $itemdata;
 
