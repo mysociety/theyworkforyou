@@ -102,7 +102,7 @@ if (get_http_var('s') != '' || get_http_var('pid') != '') {
         if (count($speakers)) {
             $speaker_ids = join(',', array_keys($speakers));
             $q = $db->query('SELECT member_id, person_id, title,first_name,last_name,constituency,house,party,
-                                moffice_id, dept, position, from_date, to_date
+                                moffice_id, dept, position, from_date, to_date, left_house
                             FROM member LEFT JOIN moffice ON member.person_id = moffice.person
                             WHERE member_id IN (' . $speaker_ids . ')
                             ' . ($q_house ? " AND house=$q_house" : '') . '
@@ -120,6 +120,7 @@ if (get_http_var('s') != '' || get_http_var('pid') != '') {
                     $pid = $q->field($n, 'person_id');
                     $pids[$mid] = $pid;
                     $houses[$pid] = $house;
+                    $left[$pid] = $q->field($n, 'left_house');
                 }
                 $dept = $q->field($n, 'dept');
                 $posn = $q->field($n, 'position');
@@ -204,13 +205,16 @@ if ($q_house==1) {
             print $count . '</td><td>';
             if ($pid) {
                 if ($houses[$pid]==1) {
-                    print '<span style="color:#009900">&bull;</span>';
+                    print '<span style="color:#009900">&bull;</span> ';
                 } elseif ($houses[$pid]==2) {
-                    print '<span style="color:#990000">&bull;</span>';
+                    print '<span style="color:#990000">&bull;</span> ';
                 }
-                print ' <a href="' . WEBPATH . 'search/?s='.urlencode($searchstring).'&amp;pid=' . $pid;
-                if ($wtt) print '&amp;wtt=2';
-                print '">';
+                if (!$wtt || $left[$pid] == '9999-12-31')
+                    print '<a href="' . WEBPATH . 'search/?s='.urlencode($searchstring).'&amp;pid=' . $pid;
+                if ($wtt && $left[$pid] == '9999-12-31')
+                    print '&amp;wtt=2';
+                if (!$wtt || $left[$pid] == '9999-12-31')
+                    print '">';
             }
             print $names[$pid];
             if ($pid) print '</a>';
