@@ -84,11 +84,6 @@ function wikipedize ($source) {
     array_push($matched, $phrase);
   }
 
-  # clean up links with img tags
-  foreach ($source as $i => $t) {
-  	$source[$i] = antiTagInTag($t);
-  }
-
   if (!$was_array)
     $source = join('|||', $source);
  

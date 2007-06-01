@@ -260,8 +260,6 @@ class GLOSSARY {
 	
 		$findwords = array();
 		$replacewords = array();
-		$this->titlesfind = array();
-		$this->titlesreplace = array();
 		$URL = new URL("glossary");
 		$URL->insert(array("gl" => ""));
 	
@@ -303,13 +301,9 @@ class GLOSSARY {
 				else {
 					$link_url = $URL->generate('url');
 				}
-				$replacewords[] = "<a href=\"$link_url\" title=\"##$glossary_id##\" class=\"glossary\">\\1</a>";
+				$title = htmlentities(trim_characters($term_body, 0, 80));
+				$replacewords[] = "<a href=\"$link_url\" title=\"$title\" class=\"glossary\">\\1</a>";
 			}
-			
-			// Deal with the link titles in a separate process afterwards to avoid recursion.
-			$this->titlesfind[] = "/\#\#$glossary_id\#\#/";
-			// truncate the definition to 80 chars
-			$this->titlesreplace[] = htmlentities(trim_characters($term_body, 0, 80));
 		}
 		// Highlight all occurrences of another glossary term in the definition.
 		$body = preg_replace($findwords, $replacewords, $body);
@@ -331,8 +325,14 @@ class GLOSSARY {
 	}
 	
 	function glossarise_titletags($body) {
-		$body = preg_replace($this->titlesfind, $this->titlesreplace, $body);
-		return ($body);
+		if (is_array($body)) {
+			foreach ($body as $i => $t) {
+				$body[$i] = antiTagInTag($t);
+			}
+		} else {
+			$body = antiTagInTag($body);
+		}
+		return $body;
 	}
 }
 
