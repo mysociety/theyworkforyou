@@ -1503,13 +1503,10 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 			print '.</li>';
 		}
 
-		if (isset($extra_info['writetothem_responsiveness_notes_2005'])) {
-		?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com">WriteToThem.com</a> in 2005: <?=$extra_info['writetothem_responsiveness_notes_2005']?>.</li><?
-		} elseif (isset($extra_info['writetothem_responsiveness_mean_2005'])) {
-			$mean = $extra_info['writetothem_responsiveness_mean_2005'];
-			$extra_info['writetothem_responsiveness_mean_2005'] = $extra_info['writetothem_responsiveness_low_2005'] . ' &ndash; ' . $extra_info['writetothem_responsiveness_high_2005'];
-			$displayed_stuff |= display_stats_line('writetothem_responsiveness_mean_2005', 'Replied within 2 or 3 weeks to <a href="http://www.writetothem.com/stats/2005/mps" title="From WriteToThem.com">', '', '</a> <!-- Mean: ' . $mean . ' --> of messages sent via WriteToThem.com during 2005, according to polling data', '', $extra_info);
-		}
+		$wtt_displayed = display_writetothem_numbers(2006, $extra_info);
+		$displayed_stuff |= $wtt_displayed;
+		if (!$wtt_displayed)
+			$displayed_stuff |= display_writetothem_numbers(2005, $extra_info);
 
 		$after_stuff = ' <small>(From Public Whip)</small>';
 		if ($member['party'] == 'Scottish National Party') {
@@ -2978,8 +2975,13 @@ function display_stats_line($category, $blurb, $type, $inwhat, $afterstuff, $ext
 	return $return;
 }
 function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $extra_info, $minister, $afterstuff) {
-	if ($extra_info[$category]==0 && $category !='public_whip_division_attendance' && $category != 'Lpublic_whip_division_attendance')
-		$blurb = preg_replace('#<a.*?>#', '', $blurb);
+	if ($category == 'wrans_asked_inlastyear' || $category == 'debate_sectionsspoken_inlastyear' || $category =='comments_on_speeches' ||
+		$category == 'Lwrans_asked_inlastyear' || $category == 'Ldebate_sectionsspoken_inlastyear' || $category =='Lcomments_on_speeches') {
+		if ($extra_info[$category]==0) {
+			$blurb = preg_replace('#<a.*?>#', '', $blurb);
+			$inwhat = preg_replace('#<\/a>#', '', $inwhat);
+		}
+	}
 	if ($house==2) $inwhat = str_replace('MP', 'Lord', $inwhat);
 	print '<li>' . $blurb;
 	print '<strong>' . $extra_info[$category];
@@ -3019,5 +3021,26 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 	print ".$afterstuff</li>";
 	return true;
 }
+
+function display_writetothem_numbers($year, $extra_info) {
+	if (isset($extra_info["writetothem_responsiveness_notes_$year"])) {
+	?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com">WriteToThem.com</a> in $year: <?=$extra_info["writetothem_responsiveness_notes_$year"]?>.</li><?
+		return true;
+	} elseif (isset($extra_info["writetothem_responsiveness_mean_$year"])) {
+		$mean = $extra_info["writetothem_responsiveness_mean_$year"];
+
+		$a = $extra_info["writetothem_responsiveness_fuzzy_response_description_$year"];
+		if ($a == 'very low') $a = 'a very low';
+		if ($a == 'low') $a = 'a low';
+		if ($a == 'medium') $a = 'a medium';
+		if ($a == 'high') $a = 'a high';
+		if ($a == 'very high') $a = 'a very high';
+		$extra_info["writetothem_responsiveness_fuzzy_response_description_$year"] = $a;
+
+		return display_stats_line("writetothem_responsiveness_fuzzy_response_description_$year", 'Replied within 2 or 3 weeks to <a href="http://www.writetothem.com/stats/'.$year.'/mps" title="From WriteToThem.com">', "", "</a> <!-- Mean: " . $mean . " --> number of messages sent via WriteToThem.com during $year, according to constituents", "", $extra_info);
+	}
+
+}
+
 
 ?>
