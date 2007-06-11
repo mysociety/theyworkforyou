@@ -3024,7 +3024,7 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 
 function display_writetothem_numbers($year, $extra_info) {
 	if (isset($extra_info["writetothem_responsiveness_notes_$year"])) {
-	?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com">WriteToThem.com</a> in $year: <?=$extra_info["writetothem_responsiveness_notes_$year"]?>.</li><?
+	?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com">WriteToThem.com</a> in <?=$year?>: <?=$extra_info["writetothem_responsiveness_notes_$year"]?>.</li><?
 		return true;
 	} elseif (isset($extra_info["writetothem_responsiveness_mean_$year"])) {
 		$mean = $extra_info["writetothem_responsiveness_mean_$year"];
@@ -3037,7 +3037,7 @@ function display_writetothem_numbers($year, $extra_info) {
 		if ($a == 'very high') $a = 'a very high';
 		$extra_info["writetothem_responsiveness_fuzzy_response_description_$year"] = $a;
 
-		return display_stats_line("writetothem_responsiveness_fuzzy_response_description_$year", 'Replied within 2 or 3 weeks to <a href="http://www.writetothem.com/stats/'.$year.'/mps" title="From WriteToThem.com">', "", "</a> <!-- Mean: " . $mean . " --> number of messages sent via WriteToThem.com during $year, according to constituents", "", $extra_info);
+		return display_stats_line("writetothem_responsiveness_fuzzy_response_description_$year", 'Replied within 2 or 3 weeks to <a href="http://www.writetothem.com/stats/'.$year.'/mps" title="From WriteToThem.com">', "", "</a> <!-- Mean: " . $mean . " --> number of messages sent via WriteToThem.com during ".$year.", according to constituents", "", $extra_info);
 	}
 
 }
