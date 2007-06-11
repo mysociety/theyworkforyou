@@ -686,9 +686,7 @@ class HANSARDLIST {
 
 			/* A lot of written answers were moved from 10th to 11th May and 11th May to 12th May.
 			   Deal with the bots who have stored links to those now non-existant written answers. */
-			/* 2007-05-31: And then they were moved BACK in the volume edition, ARGH
-			   XXX: Other XML files with "removed" GIDs in are 2004-12-20, 2005-01-19, 2005-01-31,
-			        2005-02-10, 2005-12-19c, 2006-05-18b, 2006-06-19a, 2007-01-25a/c */
+			/* 2007-05-31: And then they were moved BACK in the volume edition, ARGH */
 			$itemdata = $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-10c'); if ($itemdata) return $itemdata;
 			$itemdata = $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-11d'); if ($itemdata) return $itemdata;
 			$itemdata = $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-11d'); if ($itemdata) return $itemdata;
@@ -698,6 +696,12 @@ class HANSARDLIST {
 
 			$itemdata = $this->check_gid_change($args['gid'], '2007-01-08', '2007-01-05'); if ($itemdata) return $itemdata;
 			$itemdata = $this->check_gid_change($args['gid'], '2007-02-19', '2007-02-16'); if ($itemdata) return $itemdata;
+
+			/* More movearounds... */
+			$itemdata = $this->check_gid_change($args['gid'], '2005-10-10d', '2005-09-12a'); if ($itemdata) return $itemdata;
+			$itemdata = $this->check_gid_change($args['gid'], '2005-10-14a', '2005-10-13b'); if ($itemdata) return $itemdata;
+			$itemdata = $this->check_gid_change($args['gid'], '2005-10-18b', '2005-10-10e'); if ($itemdata) return $itemdata;
+			$itemdata = $this->check_gid_change($args['gid'], '2005-11-17b', '2005-11-15c'); if ($itemdata) return $itemdata;
 
 			/* Right back when Lords began, we sent out email alerts when they weren't on the site. So this was to work that. */
 			#$q = $this->db->query('SELECT source_url FROM hansard WHERE gid LIKE "uk.org.publicwhip/lords/'.mysql_escape_string($args['gid']).'%"');

@@ -1429,15 +1429,15 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		
 		$searchstring = "speaker:$member[person_id]";
 		global $SEARCHENGINE;
-        	$SEARCHENGINE = new SEARCHENGINE($searchstring); 
-	    	$args = array (
-	    		's' => $searchstring,
-	    		'p' => 1,
-	    		'num' => 3,
-		        'pop' => 1,
+		$SEARCHENGINE = new SEARCHENGINE($searchstring); 
+		$args = array (
+			's' => $searchstring,
+			'p' => 1,
+			'num' => 3,
+		       'pop' => 1,
 			'o' => 'd',
-	    	);
-	        $HANSARDLIST->display('search_min', $args);
+		);
+		$HANSARDLIST->display('search_min', $args);
 	        twfy_debug_timestamp();
 
 		$MOREURL = new URL('search');
@@ -1503,8 +1503,8 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 			print '.</li>';
 		}
 
-		if (isset($extra_info['writetothem_responsiveness_notes'])) {
-		?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com">WriteToThem.com</a> in 2005: <?=$extra_info['writetothem_responsiveness_notes']?>.</li><?
+		if (isset($extra_info['writetothem_responsiveness_notes_2005'])) {
+		?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com">WriteToThem.com</a> in 2005: <?=$extra_info['writetothem_responsiveness_notes_2005']?>.</li><?
 		} elseif (isset($extra_info['writetothem_responsiveness_mean_2005'])) {
 			$mean = $extra_info['writetothem_responsiveness_mean_2005'];
 			$extra_info['writetothem_responsiveness_mean_2005'] = $extra_info['writetothem_responsiveness_low_2005'] . ' &ndash; ' . $extra_info['writetothem_responsiveness_high_2005'];
