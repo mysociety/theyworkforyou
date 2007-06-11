@@ -3024,7 +3024,7 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 
 function display_writetothem_numbers($year, $extra_info) {
 	if (isset($extra_info["writetothem_responsiveness_notes_$year"])) {
-	?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com">WriteToThem.com</a> in <?=$year?>: <?=$extra_info["writetothem_responsiveness_notes_$year"]?>.</li><?
+	?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com/stats/<?=$year?>/mps">WriteToThem.com</a> in <?=$year?>: <?=$extra_info["writetothem_responsiveness_notes_$year"]?>.</li><?
 		return true;
 	} elseif (isset($extra_info["writetothem_responsiveness_mean_$year"])) {
 		$mean = $extra_info["writetothem_responsiveness_mean_$year"];
