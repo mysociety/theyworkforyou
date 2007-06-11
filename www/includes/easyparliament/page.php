@@ -4,6 +4,25 @@ if (defined('OPTION_TRACKING') && OPTION_TRACKING)
 	require_once INCLUDESPATH . '../../../phplib/tracking.php';
 include_once INCLUDESPATH . '../../../phplib/gaze.php';
 
+function score_to_strongly($dmpscore) {
+	$dmpdesc = "unknown about";
+	if ($dmpscore > 0.95 && $dmpscore <= 1.0)
+		$dmpdesc = "very strongly against";
+	elseif ($dmpscore > 0.85)
+		$dmpdesc = "strongly against";
+	elseif ($dmpscore > 0.6)
+		$dmpdesc = "moderately against";
+	elseif ($dmpscore > 0.4)
+		$dmpdesc = "a mixture of for and against";
+	elseif ($dmpscore > 0.15) 
+		$dmpdesc = "moderately for";
+	elseif ($dmpscore > 0.05) 
+		$dmpdesc = "strongly for";
+	elseif ($dmpscore >= 0.0) 
+		$dmpdesc = "very strongly for";
+	return $dmpdesc;
+}
+
 class PAGE {
 
 	// So we can tell from other places whether we need to output the page_start or not.
@@ -974,6 +993,35 @@ pr()//-->
 		global $THEUSER, $DATA, $this_page;
 
 		$title = ucfirst($member['full_name']);
+
+/*		if (isset($extra_info["public_whip_dreammp996_distance"])) {
+			$dmpscore = floatval($extra_info["public_whip_dreammp996_distance"]);
+			$strongly_foi = "voted " . score_to_strongly(1.0 - $dmpscore);
+		}
+		if ($extra_info["public_whip_dreammp996_both_voted"] == 0) {
+			$strongly_foi = "has never voted on";
+		}
+		$this->block_start(array('id'=>'black', 'title'=>"Freedom of Information and Parliament"));
+		print "<p>There is currently a Bill before Parliament which will make Parliament
+			exempt from Freedom of Information requests. This Bill will remove
+			your legal right to see some of the information on this page, notably
+			expenses, replacing it with a weaker promise that could be retracted
+			later.</p>
+
+			<p>Even if this bill is amended to exclude expenses, exemption from the
+			Freedom of Information Act may prevent TheyWorkForYou from adding
+			useful information of new sorts in the future. The Bill is not backed
+			or opposed by a specific party, and TheyWorkForYou remains strictly
+			neutral on all issues that do not affect our ability to serve the
+			public.</p>
+
+			<p><a href=\"somewhere\">Join the Campaign to keep Parliament transparent
+			(external)</a>.</p>";
+
+		print 'For your information, '.$title.' MP <a href="http://www.publicwhip.org.uk/mp.php?mpid='.$member['member_id'].'&amp;dmp=996">'.$strongly_foi.'</a> this Bill.';
+		$this->block_end();
+*/
+
 		foreach ($member['houses'] as $house) {
 			if ($house==2) continue;
 			if (!$member['current_member'][$house]) $title .= ', former';
@@ -1205,21 +1253,8 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 					print "<!-- distance $dreamid: $dmpscore -->";
 					if ($inverse) 
 						$dmpscore = 1.0 - $dmpscore;
-					$dmpdesc = "unknown about";
-					if ($dmpscore > 0.95 && $dmpscore <= 1.0)
-						$dmpdesc = "very strongly against";
-					elseif ($dmpscore > 0.85)
-						$dmpdesc = "strongly against";
-					elseif ($dmpscore > 0.6)
-						$dmpdesc = "moderately against";
-					elseif ($dmpscore > 0.4)
-						$dmpdesc = "a mixture of for and against";
-					elseif ($dmpscore > 0.15) 
-						$dmpdesc = "moderately for";
-					elseif ($dmpscore > 0.05) 
-						$dmpdesc = "strongly for";
-					elseif ($dmpscore >= 0.0) 
-						$dmpdesc = "very strongly for";
+					$dmpdesc = score_to_strongly($dmpscore);
+
 					// How many votes Dream MP and MP both voted (and didn't abstain) in
 					// $extra_info["public_whip_dreammp${dreamid}_both_voted"];
 				}
