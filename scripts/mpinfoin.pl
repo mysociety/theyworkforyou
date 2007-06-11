@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.13 2007-05-28 10:00:25 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.14 2007-06-11 11:57:50 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -86,6 +86,7 @@ if ($action{'links'}) {
 
 if ($action{'wtt'}) {
         $twig->parseurl("http://www.writetothem.com/stats/2005/mps?xml=1");
+        $twig->parseurl("http://www.writetothem.com/stats/2006/mps?xml=1");
 }
 
 if ($action{'pw'}) {
