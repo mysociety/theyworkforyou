@@ -20,7 +20,22 @@ my %skip_these;
 
 $skip_these{'url'}='regexp';
 $skip_these{'quintile'}='regexp';
+$skip_these{'fuzzy'}='regexp';
+$skip_these{'category'}='regexp';
+$skip_these{'date'}='regexp';
+$skip_these{'dreammp'}='regexp';
+$skip_these{'guardian_mp_summary'}='regexp';
+$skip_these{'mp_website'}='regexp';
 $skip_these{'outof'}='regexp';
+$skip_these{'html'}='regexp';
+$skip_these{'constituency'}='regexp';
+$skip_these{'description'}='regexp';
+$skip_these{'party'}='regexp';
+$skip_these{'name'}='regexp';
+$skip_these{'content'}='regexp';
+$skip_these{'wrans_departments'}='regexp';
+$skip_these{'maiden'}='regexp';
+$skip_these{'subjects'}='regexp';
 
 {
 
@@ -33,6 +48,7 @@ sub get_variables {
 	my $member_query= $dbh->prepare("select * from member where left_reason='still_in_office' and house = 1 ");
 	$member_query->execute();
 	my $member_info_query= $dbh->prepare("select * from memberinfo where member_id= ? ");
+	my $person_info_query= $dbh->prepare("select * from personinfo where person_id = ? ");
 
 	while (my $result= $member_query->fetchrow_hashref) {
 		$member->{$result->{'member_id'}}->{'memberdata'}=$result;
@@ -40,11 +56,23 @@ sub get_variables {
 		while (my $m_r= $member_info_query->fetchrow_hashref) {
 			$member->{$result->{'member_id'}}->{'values'}->{$m_r->{'data_key'}}=$m_r->{'data_value'};
 			$memberinfo_keys{$m_r->{'data_key'}}++;
+
+		}
+
+
+		$person_info_query->execute($result->{'person_id'});
+		while (my $m_r= $person_info_query->fetchrow_hashref) {
+			$member->{$result->{'member_id'}}->{'values'}->{$m_r->{'data_key'}}=$m_r->{'data_value'};
+			$memberinfo_keys{$m_r->{'data_key'}}++;
+
 		}
 
 	}
 
 }
+
+
+
 
 sub make_structure_and_output{
 	my $index=0;
@@ -58,13 +86,18 @@ sub make_structure_and_output{
 		foreach my $data_key (keys %{$member->{$mp}->{'values'}}){ 
 			my $skip=0;
 			foreach my $k (keys %skip_these) { $skip=1 if $data_key =~ m#$k#i; }
+			next if ($data_key =~ m#expenses#i and $data_key !~ m#total#i);
 			next if $skip;
 
-			$output->{'points'}->{'point'}[$index]->{'variables'}->{$data_key}= $member->{$mp}->{'values'}->{$data_key};
 
-			if ($member->{$mp}->{'values'}->{$data_key}=~ m#\%#) {
+			if ($member->{$mp}->{'values'}->{$data_key}=~ m#%#) {
 					$varinfo{$data_key}->{'value'}='%';
+					$member->{$mp}->{'values'}->{$data_key} =~ s#%##;
 			}
+			if ($data_key=~ m#expenses# and $data_key !~ m#rank#) {
+					$varinfo{$data_key}->{'value'}='&pound;';
+			}
+			$output->{'points'}->{'point'}[$index]->{'variables'}->{$data_key}= $member->{$mp}->{'values'}->{$data_key};
 		}	
 		$index++;
 	}	
