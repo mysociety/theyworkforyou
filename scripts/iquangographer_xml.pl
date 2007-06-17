@@ -15,7 +15,7 @@ my %memberinfo_keys;
 my $member;
 my $output_xml;
 my %varinfo;
-
+my %variables_max;
 my %skip_these;
 
 $skip_these{'url'}='regexp';
@@ -31,6 +31,7 @@ $skip_these{'html'}='regexp';
 $skip_these{'constituency'}='regexp';
 $skip_these{'description'}='regexp';
 $skip_these{'party'}='regexp';
+$skip_these{'notes'}='regexp';
 $skip_these{'name'}='regexp';
 $skip_these{'content'}='regexp';
 $skip_these{'wrans_departments'}='regexp';
@@ -91,16 +92,35 @@ sub make_structure_and_output{
 
 
 			if ($member->{$mp}->{'values'}->{$data_key}=~ m#%#) {
-					$varinfo{$data_key}->{'value'}='%';
+					$varinfo{$data_key}->{'unit'}='%';
 					$member->{$mp}->{'values'}->{$data_key} =~ s#%##;
+			} elsif ($data_key=~ m#expenses# and $data_key !~ m#rank#) {
+					$varinfo{$data_key}->{'unit'}='&pound;';
 			}
-			if ($data_key=~ m#expenses# and $data_key !~ m#rank#) {
-					$varinfo{$data_key}->{'value'}='&pound;';
-			}
+
 			$output->{'points'}->{'point'}[$index]->{'variables'}->{$data_key}= $member->{$mp}->{'values'}->{$data_key};
+
+			if (not defined $variables_max{$data_key} ){
+				if (not $member->{$mp}->{'values'}->{$data_key} =~ m#[^\.\d \-]#) {
+					$variables_max{$data_key}= $member->{$mp}->{'values'}->{$data_key}
+				}
+			} else {
+				if (not $member->{$mp}->{'values'}->{$data_key} =~ m#[^\.\d \-]#) {
+					if ($variables_max{$data_key} <  $member->{$mp}->{'values'}->{$data_key} ) {
+						#warn "$data_key $variables_max{$data_key} <  $member->{$mp}->{'values'}->{$data_key} "; 
+						$variables_max{$data_key}= $member->{$mp}->{'values'}->{$data_key};
+					}
+				}
+			}
 		}	
 		$index++;
 	}	
+
+
+	foreach my $key (keys %memberinfo_keys) {
+		if ($key =~ m#swing#i) { $varinfo{$key}->{'unit'}='%'; }	
+		if ($key =~ m#expenses#i) { $varinfo{$key}->{'unit'}='&pound;'; }	
+	}
 
 	$index=0;
 
@@ -108,15 +128,14 @@ sub make_structure_and_output{
 	foreach my $key (keys %memberinfo_keys) {
 		my $skip=0;
 		foreach my $k (keys %skip_these) { $skip=1 if $key =~ m#$k#i; }
+		next if ($key=~ m#expenses#i and $key !~ m#total#i);
 		next if $skip;
 		$output->{'variables'}->{'variable'}[$index]->{'name'}= $key;
 		$output->{'variables'}->{'variable'}[$index]->{'title'}= $varinfo{$key}->{'name'} || &make_name($key);
 		$output->{'variables'}->{'variable'}[$index]->{'unit'}= $varinfo{$key}->{'unit'} || '';	
 		$output->{'variables'}->{'variable'}[$index]->{'min'}= 0;
 		
-		my $q= $dbh->prepare("select data_value from memberinfo where data_key=? order by data_value desc limit 1");
-		$q->execute($key);
-		($output->{'variables'}->{'variable'}[$index]->{'max'})= $q->fetchrow_array;
+		$output->{'variables'}->{'variable'}[$index]->{'max'}= $variables_max{$key};
 
 		$index++;
 	}
