@@ -17,28 +17,11 @@ my $output_xml;
 my %varinfo;
 my %variables_max;
 my %skip_these;
+my $sequences;
 
-$skip_these{'url'}='regexp';
-$skip_these{'quintile'}='regexp';
-$skip_these{'fuzzy'}='regexp';
-$skip_these{'category'}='regexp';
-$skip_these{'date'}='regexp';
-$skip_these{'dreammp'}='regexp';
-$skip_these{'guardian_mp_summary'}='regexp';
-$skip_these{'mp_website'}='regexp';
-$skip_these{'outof'}='regexp';
-$skip_these{'html'}='regexp';
-$skip_these{'constituency'}='regexp';
-$skip_these{'description'}='regexp';
-$skip_these{'party'}='regexp';
-$skip_these{'notes'}='regexp';
-$skip_these{'name'}='regexp';
-$skip_these{'content'}='regexp';
-$skip_these{'wrans_departments'}='regexp';
-$skip_these{'maiden'}='regexp';
-$skip_these{'subjects'}='regexp';
 
 {
+	&setup;
 
 	&get_variables();
 	&make_structure_and_output();
@@ -63,8 +46,20 @@ sub get_variables {
 
 		$person_info_query->execute($result->{'person_id'});
 		while (my $m_r= $person_info_query->fetchrow_hashref) {
-			$member->{$result->{'member_id'}}->{'values'}->{$m_r->{'data_key'}}=$m_r->{'data_value'};
-			$memberinfo_keys{$m_r->{'data_key'}}++;
+		
+			if ($m_r->{'data_key'} =~ m#expenses#i) {
+                        	my ($year, $name);
+                        	next if $m_r->{'data_key'} =~ m#outof#i;
+                        	next if $m_r->{'data_key'} =~ m#quintile#i;
+	
+                        	if (($year, $name)= $m_r->{'data_key'}=~ m#expenses(\d+)_(.*)$#) {
+                                	$member->{$result->{'member_id'}}->{'expenses'}->{$name}->{$year}=$m_r->{'data_value'};
+                                	$memberinfo_keys{$name}++;
+                        	}
+			} else {
+				$member->{$result->{'member_id'}}->{'values'}->{$m_r->{'data_key'}}=$m_r->{'data_value'};
+				$memberinfo_keys{$m_r->{'data_key'}}++;
+			}	
 
 		}
 
@@ -78,9 +73,15 @@ sub get_variables {
 sub make_structure_and_output{
 	my $index=0;
 	my $output;	
-	foreach my $mp (sort keys %{$member}) {
+	foreach my $mp (sort {
+				(lc($member->{$a}->{'memberdata'}->{'last_name'}) cmp lc($member->{$b}->{'memberdata'}->{'last_name'})) or
+				(lc($member->{$a}->{'memberdata'}->{'first_name'}) cmp lc($member->{$b}->{'memberdata'}->{'first_name'})) or
+				(lc($member->{$a}->{'memberdata'}->{'constituency'}) cmp lc($member->{$b}->{'memberdata'}->{'constituency'}) )
+			} keys %{$member}) {
+
 		$output->{'points'}->{'point'}[$index]->{'name'}= "$member->{$mp}->{'memberdata'}->{'first_name'} $member->{$mp}->{'memberdata'}->{'last_name'}, $member->{$mp}->{'memberdata'}->{'constituency'}";
 		$output->{'points'}->{'point'}[$index]->{'group'}= $member->{$mp}->{'memberdata'}->{'party'};
+		$output->{'points'}->{'point'}[$index]->{'pointsize'}= 2;
 		$output->{'points'}->{'point'}[$index]->{'colour'}= &get_colour($member->{$mp}->{'memberdata'}->{'party'});
 		$output->{'points'}->{'point'}[$index]->{'link'}= 'http://www.theyworkforyou.com/mp/?m=' . $mp;
 
@@ -112,7 +113,44 @@ sub make_structure_and_output{
 					}
 				}
 			}
-		}	
+		}
+
+		my $sequenceno=0;
+                foreach my $name (keys %{$member->{$mp}->{'expenses'}}){ 
+
+                        next if $name =~ m#outof#i;
+                        next if $name =~ m#quintile#i;
+                        
+                        if ($member->{$mp}->{'expenses'}->{$name}=~ m#%#) {
+                                        $varinfo{$name}->{'unit'}='%';
+                                        $member->{$mp}->{'expenses'}->{$name} =~ s#%##;
+                        } elsif ($name=~ m#expenses# and $name !~ m#rank#) {
+                                        $varinfo{$name}->{'unit'}='&pound;';
+                        }
+
+                        foreach my $year (keys %{$member->{$mp}->{'expenses'}->{$name}} ) {
+                                my $amount= $member->{$mp}->{'expenses'}->{$name}->{$year};     
+
+                                #$output->{'points'}->{'point'}[$index]->{'sequences'}->{'sequence'}[$sequenceno]->{$name}->{'s'.$year}=$year;
+                                $output->{'points'}->{'point'}[$index]->{'sequences'}->{$name}->[0]->{'s'.$year}= $amount;
+
+                                if (not defined $variables_max{$name} ){
+                                        if (not $member->{$mp}->{'expenses'}->{$name}->{$year} =~ m#[^\.\d \-]#) {
+                                                $variables_max{$name}= $member->{$mp}->{'expenses'}->{$name}->{$year};
+                                        }
+                                } else {
+                                        if (not $member->{$mp}->{'expenses'}->{$name}->{$year} =~ m#[^\.\d \-]#) {
+                                                if ($variables_max{$name} <  $member->{$mp}->{'expenses'}->{$name}->{$year} ) {
+                                                        $variables_max{$name}= $member->{$mp}->{'expenses'}->{$name}->{$year};
+                                                }
+                                        }
+                                }
+                                $sequences->{$name}->{$year}=1;
+                        }
+                        $sequenceno++;
+
+                }       
+
 		$index++;
 	}	
 
@@ -128,7 +166,7 @@ sub make_structure_and_output{
 	foreach my $key (keys %memberinfo_keys) {
 		my $skip=0;
 		foreach my $k (keys %skip_these) { $skip=1 if $key =~ m#$k#i; }
-		next if ($key=~ m#expenses#i and $key !~ m#total#i);
+		#next if ($key=~ m#expenses#i and $key !~ m#total#i);
 		next if $skip;
 		$output->{'variables'}->{'variable'}[$index]->{'name'}= $key;
 		$output->{'variables'}->{'variable'}[$index]->{'title'}= $varinfo{$key}->{'name'} || &make_name($key);
@@ -136,6 +174,19 @@ sub make_structure_and_output{
 		$output->{'variables'}->{'variable'}[$index]->{'min'}= 0;
 		
 		$output->{'variables'}->{'variable'}[$index]->{'max'}= $variables_max{$key};
+
+                if (defined $sequences->{$key}) {
+                        my $sequence=0;
+                        next if $key =~ m#outof#i;
+                        next if $key =~ m#quintile#i;
+                        foreach my $v (sort keys %{$sequences->{$key}}) {
+                                $output->{'variables'}->{'variable'}[$index]->{'sequences'}->[0]->{'s'.$v}= $v;
+                        }
+                        unless ($key =~ m#rank#) {
+				$output->{'variables'}->{'variable'}[$index]->{'unit'}= 'years';
+			}
+                        $sequence++;
+                }
 
 		$index++;
 	}
@@ -176,4 +227,39 @@ sub make_name {
 	$name=~ s#public.?whip##i;
 
 	return $name;
+}
+
+
+
+sub setup {
+	$skip_these{'url'}='regexp';
+	$skip_these{'quintile'}='regexp';
+	$skip_these{'fuzzy'}='regexp';
+	$skip_these{'category'}='regexp';
+	$skip_these{'date'}='regexp';
+	$skip_these{'dreammp'}='regexp';
+	$skip_these{'guardian_mp_summary'}='regexp';
+	$skip_these{'mp_website'}='regexp';
+	$skip_these{'outof'}='regexp';
+	$skip_these{'html'}='regexp';
+	$skip_these{'constituency'}='regexp';
+	$skip_these{'description'}='regexp';
+	$skip_these{'party'}='regexp';
+	$skip_these{'notes'}='regexp';
+	$skip_these{'name'}='regexp';
+	$skip_these{'content'}='regexp';
+	$skip_these{'wrans_departments'}='regexp';
+	$skip_these{'maiden'}='regexp';
+	$skip_these{'subjects'}='regexp';
+
+	$varinfo{'col1'}->{'name'}='Additional Costs Allowance';
+	$varinfo{'col2'}->{'name'}='London Supplement';
+	$varinfo{'col3'}->{'name'}='Incidental Expenses Provision';
+	$varinfo{'col4'}->{'name'}='Staffing Allowance';
+	$varinfo{'col5'}->{'name'}="Members' Travel";
+	$varinfo{'col6'}->{'name'}="Members' Staff Travel";
+	$varinfo{'col7'}->{'name'}='Centrally Purchased Stationary';
+	$varinfo{'col7a'}->{'name'}='Stationary: associated postage';
+	$varinfo{'col8'}->{'name'}='Centrally Provided Computer Equipment';
+	$varinfo{'col9'}->{'name'}='Other Costs';
 }
