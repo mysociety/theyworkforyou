@@ -1,6 +1,16 @@
 #!/bin/bash
 set -e
 
+
+if [[ 97 <  ` df -k /usr | perl -e '$/=undef; $a= <STDIN>; $a=~ m#(\d+)\%#; print $1'` ]] ; then
+	echo "  Backup cancelled due to lack of space on cake!";
+	exit 1;
+fi
+
+#echo "wouldn't die"
+#exit 0;
+
+
 # Dumps database for backups
 /usr/local/bin/mysqldump --skip-lock-tables fawkes | bzip2 -c > ~/backup/twfy-all-including-sensitive-data-`date +%F`.sql.bz2
 
@@ -15,8 +25,8 @@ rm firsts/dummy-01.sql.bz2
 #echo firsts
 #ls -1 firsts
 
-# Delete all except 31
-ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | fgrep -v "`ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | sort -n | tail -n 31`" | while read X
+# Delete all except 20
+ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | fgrep -v "`ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | sort -n | tail -n 20`" | while read X
 do
 	#echo "Deleting old backup $X"
 	rm $X
