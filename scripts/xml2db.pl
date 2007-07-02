@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.14 2007-05-31 17:22:01 twfy-live Exp $
+# $Id: xml2db.pl,v 1.15 2007-07-02 10:27:00 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -276,7 +276,7 @@ sub compare_arrays {
         my ($first, $second) = @_;
         return 0 unless @$first == @$second;
         for (my $i = 0; $i < @$first; $i++) {
-                if (defined $first->[$i] or defined$second->[$i]) {
+                if (defined $first->[$i] or defined $second->[$i]) {
                         if (!defined $first->[$i] or !defined $second->[$i]) {
                                 return 0;
                         }
@@ -546,8 +546,8 @@ sub check_extra_gids
                                         if ($gid =~ /wrans/ && !$cronquiet) {
                                                 my $search_gid = $gid;
                                                 $search_gid =~ s/(\d\d\d\d-\d\d-)\d\d\w(\.\d+\.)/$1%$2/;
-                                                my $daychange = $dbh->prepare('SELECT gid,epobject_id FROM hansard WHERE gid like ?');
-                                                $daychange->execute($search_gid);
+                                                my $daychange = $dbh->prepare('SELECT gid,epobject_id FROM hansard WHERE gid like ? AND gid != ?');
+                                                $daychange->execute($search_gid, $gid);
                                                 my ($new_gid, $new_epobjectid) = $daychange->fetchrow_array();
                                                 if ($new_epobjectid) {
                                                         my $hgetid = $dbh->prepare("select epobject_id from hansard where gid = ?");
@@ -717,9 +717,7 @@ sub db_addpair
                         my $delcount = $hdelete->execute($gid, $epid);
                         $hdelete->finish();
                         die "Deleted " . $delcount . " rows when expected to delete one for " . $gid if $delcount != 1;
-                }
-                else
-                {
+                } else {
                         # Check to see if the existing hansard object and new one are the same
                         if (!compare_arrays(\@hvals, $hparams))
                         {

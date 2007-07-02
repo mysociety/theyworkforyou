@@ -80,6 +80,7 @@ sub make_structure_and_output{
 			} keys %{$member}) {
 
 		$output->{'points'}->{'point'}[$index]->{'name'}= "$member->{$mp}->{'memberdata'}->{'first_name'} $member->{$mp}->{'memberdata'}->{'last_name'}, $member->{$mp}->{'memberdata'}->{'constituency'}";
+		$output->{'points'}->{'point'}[$index]->{'for_matching'}= $member->{$mp}->{'memberdata'}->{'constituency'} || '';
 		$output->{'points'}->{'point'}[$index]->{'group'}= $member->{$mp}->{'memberdata'}->{'party'};
 		$output->{'points'}->{'point'}[$index]->{'pointsize'}= 2;
 		$output->{'points'}->{'point'}[$index]->{'colour'}= &get_colour($member->{$mp}->{'memberdata'}->{'party'});

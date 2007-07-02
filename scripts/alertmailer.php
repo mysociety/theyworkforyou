@@ -2,8 +2,12 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.16 2007-05-14 16:47:41 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.17 2007-07-02 10:27:00 twfy-live Exp $
  */
+
+function mlog($message) {
+	print $message;
+}
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
 ini_set('memory_limit', -1);
@@ -15,7 +19,7 @@ $db = new ParlDB;
 # Get current value of latest batch
 $q = $db->query('SELECT max(indexbatch_id) as max_batch_id FROM indexbatch');
 $max_batch_id = $q->field(0, 'max_batch_id');
-print "max_batch_id: " . $max_batch_id . "\n";
+mlog("max_batch_id: " . $max_batch_id . "\n");
 
 # Last sent is timestamp of last alerts gone out.
 # Last batch is the search index batch number last alert went out to.
@@ -24,7 +28,7 @@ $lastupdated = trim($lastsent[0]);
 if (!$lastupdated) $lastupdated = strtotime('00:00 today');
 $lastbatch = trim($lastsent[1]);
 if (!$lastbatch) $lastbatch = 0;
-print "lastupdated: $lastupdated lastbatch: $lastbatch\n";
+mlog("lastupdated: $lastupdated lastbatch: $lastbatch\n");
 
 # Construct query fragment to select search index batches which
 # have been made since last time we ran
@@ -33,7 +37,7 @@ for ($i=$lastbatch + 1; $i <= $max_batch_id; $i++) {
 	$batch_query_fragment .= "batch:$i ";
 }
 $batch_query_fragment = trim($batch_query_fragment);
-print "batch_query_fragment: " . $batch_query_fragment . "\n";
+mlog("batch_query_fragment: " . $batch_query_fragment . "\n");
 
 # For testing purposes, specify nomail on command line to not send out emails
 $nomail = false;
@@ -51,9 +55,9 @@ for ($k=1; $k<$argc; $k++) {
 		$toemail = $m[1];
 }
 
-if ($nomail) print "NOT SENDING EMAIL\n";
+if ($nomail) mlog("NOT SENDING EMAIL\n");
 if (($fromemail && $onlyemail) || ($toemail && $onlyemail)) {
-	print "Can't have both from/to and only!\n";
+	mlog("Can't have both from/to and only!\n");
 	exit;
 }
 
@@ -106,15 +110,15 @@ foreach ($alertdata as $alertitem) {
 			$user_id = 0;
 			$unregistered++;
 		}
-		print "\nEMAIL: $email, uid $user_id; memory usage : ".memory_get_usage()."\n";
+		mlog("\nEMAIL: $email, uid $user_id; memory usage : ".memory_get_usage()."\n");
 	}
 
 	$data = null;
 	if (!isset($results[$criteria_batch])) {
-		print "  ALERT $active/$outof QUERY $queries : Xapian query '$criteria_batch'";
+		mlog("  ALERT $active/$outof QUERY $queries : Xapian query '$criteria_batch'");
 		$start = getmicrotime();
 		$SEARCHENGINE = new SEARCHENGINE($criteria_batch);
-		#print "query_remade: " . $SEARCHENGINE->query_remade() . "\n";
+		#mlog("query_remade: " . $SEARCHENGINE->query_remade() . "\n");
 		$args = array(
 			's' => $criteria_raw, # Note: use raw here for URLs, whereas search engine has batch
 			'threshold' => $lastupdated, # Return everything added since last time this script was run
@@ -126,15 +130,15 @@ foreach ($alertdata as $alertitem) {
 		$data = $DEBATELIST->_get_data_by_search($args);
 		# add to cache (but only for speaker queries, which are commonly repeated)
 		if (preg_match('#^speaker:\d+$#', $criteria_raw, $m)) {
-			print ", caching";
+			mlog(", caching");
 			$results[$criteria_batch] = $data;
 		}
 		#		unset($SEARCHENGINE);
 		$total_results = $data['info']['total_results'];
 		$queries++;
-		print ", hits ".$total_results.", time ".(getmicrotime()-$start)."\n";
+		mlog(", hits ".$total_results.", time ".(getmicrotime()-$start)."\n");
 	} else {
-		print "  ACTION $active/$outof CACHE HIT : Using cached result for '$criteria_batch'\n";
+		mlog("  ACTION $active/$outof CACHE HIT : Using cached result for '$criteria_batch'\n");
 		$data = $results[$criteria_batch];
 	}
 
@@ -149,7 +153,7 @@ foreach ($alertdata as $alertitem) {
 				$o[$major] = '';
 				$k = 3;
 			}
-			#print $row['major'] . " " . $row['gid'] ."\n";
+			#mlog($row['major'] . " " . $row['gid'] ."\n");
 			if ($row['hdate'] < '2006-05-19') continue;
 			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_short[$major] . '/' . mysql_escape_string($row['gid']) . "'");
 			if ($q->rows() > 0) continue;
@@ -189,7 +193,7 @@ foreach ($alertdata as $alertitem) {
 if ($email_text)
 	write_and_send_email($current_email, $user_id, $email_text);
 
-print "\n";
+mlog("\n");
 
 $sss = "Active alerts: $active\nEmail lookups: $registered registered, $unregistered unregistered\nQuery lookups: $queries\nSent emails: $sentemails\n";
 if ($globalsuccess) {
@@ -198,7 +202,7 @@ if ($globalsuccess) {
 	$sss .= 'Something went wrong! Total time: ';
 }
 $sss .= (getmicrotime()-$global_start)."\n\n";
-print $sss;
+mlog($sss);
 if (!$nomail && !$onlyemail) {
 	$fp = fopen('alerts-lastsent', 'w');
 	fwrite($fp, time() . "\n");
@@ -206,7 +210,7 @@ if (!$nomail && !$onlyemail) {
 	fclose($fp);
 	mail(ALERT_STATS_EMAILS, 'Email alert statistics', $sss, 'From: Email Alerts <fawkes@dracos.co.uk>');
 }
-print date('r') . "\n";
+mlog(date('r') . "\n");
 
 function sort_by_stuff($a, $b) {
 	if ($a['major'] > $b['major']) return 1;
@@ -229,22 +233,22 @@ function write_and_send_email($email, $user_id, $data) {
 		$data .= "If you register on the site, you will be able to manage your\nalerts there as well as post comments. :)\n";
 	}
 	$sentemails++;
-	print "SEND $sentemails : Sending email to $email ... ";
+	mlog("SEND $sentemails : Sending email to $email ... ");
 	$d = array('to' => $email, 'template' => 'alert_mailout');
 	$m = array('DATA' => $data);
 	if (!$nomail) {
 		$success = send_template_email($d, $m, true); # true = "Precedence: bulk"
-		print "sent ... ";
+		mlog("sent ... ");
 		# sleep if time between sending mails is less than a certain number of seconds on average
 		if (((time() - $start_time) / $sentemails) < 0.5 ) { # number of seconds per mail not to be quicker than
-			print "pausing ... ";
+			mlog("pausing ... ");
 			sleep(1);
 		}
 	} else {
-		print $data;
+		mlog($data);
 		$success = 1;
 	}
-	print "done\n";
+	mlog("done\n");
 	if (!$success) $globalsuccess = 0;
 }
 
