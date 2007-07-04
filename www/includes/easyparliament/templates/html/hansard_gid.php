@@ -166,7 +166,7 @@ if (isset ($data['rows'])) {
 			
 			
 			// If this item is at a new time, then print the time.
-			if ($row['htime'] != $timetracker && $row['htime'] != "00:00:00") {
+			if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00") {
 				
 				$PAGE->stripe_start('time-'.$style);
 				
@@ -175,7 +175,7 @@ if (isset ($data['rows'])) {
 				$PAGE->stripe_end();
 
 				// Set the timetracker to the current time
-				$timetracker = $row['htime'];
+				$timetracker = substr($row['htime'],0,5);
 
 				$stripecount++;
 				$style = $stripecount % 2 == 0 ? '1' : '2';

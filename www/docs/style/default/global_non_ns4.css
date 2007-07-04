@@ -36,7 +36,7 @@ form {
 	padding: 0;
 	}
 
-a {
+a:link {
 	color: #00b;
 	text-decoration: underline;
 }

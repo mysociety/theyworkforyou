@@ -1101,7 +1101,8 @@ class HANSARDLIST {
 			if ($q->rows() > 1)
 				$PAGE->error_message("Got more than one row getting data for $gid");
 			if ($q->rows() == 0) {
-				$PAGE->error_message("Unexpected missing gid $gid while searching");
+				# This error message is totally spurious, so don't show it
+				# $PAGE->error_message("Unexpected missing gid $gid while searching");
 				continue;
 			}
 		
