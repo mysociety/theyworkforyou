@@ -52,7 +52,7 @@ foreach ($dir as $k=>$bit) {
 ?>
 </ul>
 
-<h4>XML that hasn't loaded into the database</h4>
+<h4>XML that hasn't loaded into the database (only new data, not changes)</h4>
 <?
 if ($notloaded) print "<ul>$notloaded</ul>";
 

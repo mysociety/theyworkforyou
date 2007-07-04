@@ -208,6 +208,16 @@ if ($action ne "check") {
     }
 } else {
     # Look for deleted items, or items we've missed
+    # .. fetch all gids in MySQL
+    my $query = "select gid from hansard";
+    my $q = $dbh->prepare($query);
+    $q->execute();
+    my %mysql_gids;
+    while (my $row = $q->fetchrow_hashref()) {
+        my $gid = $$row{'gid'};
+        $gid =~ s#uk.org.publicwhip/##;
+        $mysql_gids{$gid} = 1;
+    }
     # .. fetch all gids in Xapian
     my %xapian_gids;
     my $allterms = $db->allterms_begin();
@@ -218,16 +228,6 @@ if ($action ne "check") {
             $xapian_gids{$term} = 1;
         }
         $allterms++;
-    }
-    # .. fetch all gids in MySQL
-    my $query = "select gid from hansard";
-    my $q = $dbh->prepare($query);
-    $q->execute();
-    my %mysql_gids;
-    while (my $row = $q->fetchrow_hashref()) {
-        my $gid = $$row{'gid'};
-        $gid =~ s#uk.org.publicwhip/##;
-        $mysql_gids{$gid} = 1;
     }
     # Compare them. 
     # Check for items in Xapian not in MySQL:

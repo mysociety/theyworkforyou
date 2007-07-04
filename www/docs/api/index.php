@@ -120,7 +120,7 @@ if ($q_method = get_http_var('method')) {
 					break;
 				}
 			}
-			if ($match == 1 && !get_http_var('docs')) {
+			if ($match == 1 && get_http_var('output')) {
 				if ($data['required']) {
 					api_error('No parameter provided to function "' .
 					htmlspecialchars($q_method) .
