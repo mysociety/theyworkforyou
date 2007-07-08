@@ -82,8 +82,8 @@ sub make_structure_and_output{
 		$output->{'points'}->{'point'}[$index]->{'name'}= "$member->{$mp}->{'memberdata'}->{'first_name'} $member->{$mp}->{'memberdata'}->{'last_name'}, $member->{$mp}->{'memberdata'}->{'constituency'}";
 		$output->{'points'}->{'point'}[$index]->{'for_matching'}= $member->{$mp}->{'memberdata'}->{'constituency'} || '';
 		$output->{'points'}->{'point'}[$index]->{'group'}= $member->{$mp}->{'memberdata'}->{'party'};
-		$output->{'points'}->{'point'}[$index]->{'pointsize'}= 2;
-		$output->{'points'}->{'point'}[$index]->{'colour'}= &get_colour($member->{$mp}->{'memberdata'}->{'party'});
+		$output->{'points'}->{'point'}[$index]->{'pointsize'}= 3;
+		$output->{'points'}->{'point'}[$index]->{'colour'}= &get_colour($member->{$mp}->{'memberdata'}->{'party'}) || '000000';
 		$output->{'points'}->{'point'}[$index]->{'link'}= 'http://www.theyworkforyou.com/mp/?m=' . $mp;
 
 		foreach my $data_key (keys %{$member->{$mp}->{'values'}}){ 
@@ -184,7 +184,7 @@ sub make_structure_and_output{
                                 $output->{'variables'}->{'variable'}[$index]->{'sequences'}->[0]->{'s'.$v}= $v;
                         }
                         unless ($key =~ m#rank#) {
-				$output->{'variables'}->{'variable'}[$index]->{'unit'}= 'years';
+				$output->{'variables'}->{'variable'}[$index]->{'unit'}= '&pound;';
 			}
                         $sequence++;
                 }
@@ -263,4 +263,15 @@ sub setup {
 	$varinfo{'col7a'}->{'name'}='Stationary: associated postage';
 	$varinfo{'col8'}->{'name'}='Centrally Provided Computer Equipment';
 	$varinfo{'col9'}->{'name'}='Other Costs';
+
+	$varinfo{'col1_rank'}->{'name'}='Additional Costs Allowance (rank)';
+	$varinfo{'col2_rank'}->{'name'}='London Supplement (rank)';
+	$varinfo{'col3_rank'}->{'name'}='Incidental Expenses Provision (rank)';
+	$varinfo{'col4_rank'}->{'name'}='Staffing Allowance (rank)';
+	$varinfo{'col5_rank'}->{'name'}="Members' Travel (rank)";
+	$varinfo{'col6_rank'}->{'name'}="Members' Staff Travel (rank)";
+	$varinfo{'col7_rank'}->{'name'}='Centrally Purchased Stationary (rank)';
+	$varinfo{'col7a_rank'}->{'name'}='Stationary: associated postage (rank)';
+	$varinfo{'col8_rank'}->{'name'}='Centrally Provided Computer Equipment (rank)';
+	$varinfo{'col9_rank'}->{'name'}='Other Costs (rank)';
 }
