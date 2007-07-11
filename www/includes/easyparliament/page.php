@@ -1262,7 +1262,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 					"&pid=" . $member['person_id'] . "&pop=1";
 				?>
 				<li>
-				<strong><?=ucfirst($dmpdesc)?></strong>
+				Voted <strong><?=$dmpdesc?></strong>
 			<?=$desc?>. 
 <small class="unneededprintlinks"> 
 <a href="http://www.publicwhip.org.uk/mp.php?mpid=<?=$member['member_id']?>&amp;dmp=<?=$dreamid?>">votes</a>,
