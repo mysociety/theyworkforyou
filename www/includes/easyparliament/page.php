@@ -1247,13 +1247,13 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		function display_dream_comparison($extra_info, $member, $dreamid, $desc, $inverse, $search) {
 			if (isset($extra_info["public_whip_dreammp${dreamid}_distance"])) {
 				if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 0) {
-					$dmpdesc = 'has never voted on';
+					$dmpdesc = 'Has <strong>never voted</strong> on';
 				} else {
 					$dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
 					print "<!-- distance $dreamid: $dmpscore -->";
 					if ($inverse) 
 						$dmpscore = 1.0 - $dmpscore;
-					$dmpdesc = score_to_strongly($dmpscore);
+					$dmpdesc = 'Voted <strong>' . score_to_strongly($dmpscore) . '</strong>';
 
 					// How many votes Dream MP and MP both voted (and didn't abstain) in
 					// $extra_info["public_whip_dreammp${dreamid}_both_voted"];
@@ -1262,7 +1262,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 					"&pid=" . $member['person_id'] . "&pop=1";
 				?>
 				<li>
-				Voted <strong><?=$dmpdesc?></strong>
+				<?=$dmpdesc?>
 			<?=$desc?>. 
 <small class="unneededprintlinks"> 
 <a href="http://www.publicwhip.org.uk/mp.php?mpid=<?=$member['member_id']?>&amp;dmp=<?=$dreamid?>">votes</a>,
