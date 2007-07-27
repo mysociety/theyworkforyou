@@ -42,19 +42,24 @@ function wikipedize ($source) {
   $endwordre = "(?:$capsword)\s*"; # and, of etc. can't appear at ends
 
   # Match either "Two Endwords" or "Endword and Some Middle Words"
-  $greedyproperre = "/\b($endwordre(?:$middlewordre)*$endwordre)\b/ms";
+  $greedyproperre = "/\b$endwordre(?:$middlewordre)*$endwordre\b/ms";
   # Match without filler words (so if you have a phrase like
   # "Amnesty International and Human Rights Watch" you also get both parts
   # separately "Amnesty International" and "Human Rights Watch")
-  $frugalproperre = "/\b((?:$endwordre){2,})\b/ms";
+  $frugalproperre = "/\b(?:$endwordre){2,}\b/ms";
+
+  # And do a greedy without the first word of a sentence
+  $greedynotfirst = "/\.\s+\S+\s+($endwordre(?:$middlewordre)*$endwordre)\b/ms";
+
   preg_match_all($greedyproperre, $source, $propernounphrases1);
   preg_match_all($frugalproperre, $source, $propernounphrases2);
+  preg_match_all($greedynotfirst, $source, $propernounphrases3);
 
   # Three Letter Acronyms
-  preg_match_all("/\b([A-Z]{2,})/ms", $source, $acronyms);
+  preg_match_all("/\b[A-Z]{2,}/ms", $source, $acronyms);
   
   # We don't want no steenking duplicates
-  $phrases = array_unique(array_merge($propernounphrases1[0], $propernounphrases2[0], $acronyms[0]));
+  $phrases = array_unique(array_merge($propernounphrases1[0], $propernounphrases2[0], $propernounphrases3[1], $acronyms[0]));
   # Sort into order, largest first
   usort($phrases, "lensort");
   foreach ($phrases as $i => $phrase) {

@@ -77,7 +77,9 @@ class PEOPLE {
 			FROM member LEFT OUTER JOIN moffice ON member.person_id = moffice.person AND to_date="9999-12-31"
 			WHERE house=' . $args['house'] . ' AND left_house = (SELECT MAX(left_house) FROM member) ';
 		if (isset($args['order'])) {
-			if ($args['order'] == 'first_name') {
+			if ($args['order'] == 'name') { # Lords
+				$order = 'name';
+			} elseif ($args['order'] == 'first_name') {
 				$order = 'first_name';
 				$sqlorder = 'first_name, last_name';
 			} elseif ($args['order'] == 'constituency') {
@@ -169,7 +171,9 @@ class PEOPLE {
 			return strcmp($a['constituency'], $b['last_name']);
 		if (!$b['last_name'])
 			return strcmp($a['last_name'], $b['constituency']);
-		return strcmp($a['last_name'], $b['last_name']); 
+		if (strcmp($a['last_name'], $b['last_name']))
+			return strcmp($a['last_name'], $b['last_name']); 
+		return strcmp($a['constituency'], $b['constituency']);
 	}
 
 	function listoptions($args) {
