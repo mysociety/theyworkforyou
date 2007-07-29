@@ -9,15 +9,15 @@ cd ~/parldata/dumps
 rm -f all-titles-in-ns0.gz
 rm -f all-titles-in-ns0
 
-DUMPDATE=`fetch -q -o - http://download.wikimedia.org/ | grep "enwiki/" | perl -pi.bak -e "s/.*(\d\d\d\d\d\d\d\d).*/\\\$1/;"`
+DUMPDATE=`fetch -q -o - http://download.wikimedia.org/backup-index.html | grep "enwiki/" | perl -pi.bak -e "s/.*(\d\d\d\d\d\d\d\d).*/\\\$1/;"`
 #echo "Wikipedia dump date $DUMPDATE"
 fetch -q -o all-titles-in-ns0.gz http://download.wikimedia.org/enwiki/$DUMPDATE/enwiki-$DUMPDATE-all-titles-in-ns0.gz
 gunzip all-titles-in-ns0.gz
 echo "load data infile '/home/fawkes/parldata/dumps/all-titles-in-ns0' ignore into table titles;" | mysql
+cd ~/fawkes/scripts
 cat wikipedia-exceptions | mysql
 
 # Compact Xapian database
-cd ~/fawkes/scripts
 ./compactsearchdb
 
 

@@ -5,6 +5,6 @@ delete from titles where title in ('Johnny_Byrne', 'The_Bill', 'John_Turner',
 'James_Hewitt', 'EMI', 'DE', 'MD', 'Neil_Smith', 'John_Cahill',
 'Christopher_Williams', 'Richard_Steele', 'Alex_Fox', 'SEAL',
 'The_Department', 'John_Williams', 'PND', 'Tim_Riley', 'The_Panel',
-'And_I'
+'And_I', 'The_Border'
 );
 
