@@ -139,10 +139,11 @@ if ($q_method = get_http_var('method')) {
 		api_front_page('Unknown function "' . htmlspecialchars($q_method) .
 			'". Possible functions are: ' .
 			join(', ', array_keys($methods)) );
-	}
-	if (get_http_var('docs')) {
-		$explorer = ob_get_clean();
-		api_documentation_front($method, $explorer);
+	} else {
+		if (get_http_var('docs')) {
+			$explorer = ob_get_clean();
+			api_documentation_front($method, $explorer);
+		}
 	}
 } else {
 	api_front_page();

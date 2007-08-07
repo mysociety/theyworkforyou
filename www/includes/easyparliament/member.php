@@ -586,6 +586,7 @@ class MEMBER {
 			'current_member'	=> $this->current_member(),
 			'full_name'		=> $this->full_name(),
 			'the_users_mp'		=> $this->the_users_mp(),
+			'house_disp'		=> $this->house_disp,
 		);
 		
 		$PAGE->display_member($member, $this->extra_info);

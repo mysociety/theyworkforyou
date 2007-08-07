@@ -1473,13 +1473,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		#	$since_text = 'since joining Parliament';
 
 		$MOREURL = new URL('search');
-		if (in_array(1, $member['houses'])) {
-			$section = 'section:debates section:whall';
-		} elseif (in_array(2, $member['houses'])) {
-			$section = 'section:lordsdebates';
-		} elseif (in_array(3, $member['houses'])) {
-			$section = 'section:nidebates';
-		}
+		$section = 'section:debates section:whall section:lordsdebates section:ni';
 		$MOREURL->insert(array('pid'=>$member['person_id'], 's'=>$section, 'pop'=>1));
 		if ($member['party']!='Sinn Fein') {
 			$displayed_stuff |= display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info);
@@ -1523,9 +1517,9 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 			$displayed_stuff = 1;
 			?>
 		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking whenever this <?
-if (in_array(1, $member['houses'])) print 'MP';
-elseif (in_array(2, $member['houses'])) print 'peer';
-elseif (in_array(3, $member['houses'])) print 'MLA'; ?> speaks<?php
+if ($member['house_disp']==1) print 'MP';
+elseif ($member['house_disp']==2) print 'peer';
+elseif ($member['house_disp']==3) print 'MLA'; ?> speaks<?php
 			if ($member['current_member']) {
 				print ' &mdash; <a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'">email me whenever '. $member['full_name']. ' speaks</a>';
 			}
