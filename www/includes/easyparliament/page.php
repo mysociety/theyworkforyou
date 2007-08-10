@@ -205,16 +205,15 @@ class PAGE {
 		}
 
 		?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" >
 	<title><?php echo $title; ?></title>
-	<meta name="description" content="Making parliament easy." />
-	<meta name="keywords" content="Parliament, government, house of commons, house of lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, UK, Britain, British, Welsh, Scottish, Wales, Scotland, <?php echo htmlentities($keywords_title).htmlentities($keywords); ?>" />
-	<link rel="author" title="Send feedback" href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>" />
-	<link rel="home" title="Home" href="http://<?php echo DOMAIN; ?>/" />
+	<meta name="description" content="Making parliament easy." >
+	<meta name="keywords" content="Parliament, government, house of commons, house of lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, UK, Britain, British, Welsh, Scottish, Wales, Scotland, <?php echo htmlentities($keywords_title).htmlentities($keywords); ?>" >
+	<link rel="author" title="Send feedback" href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>" >
+	<link rel="home" title="Home" href="http://<?php echo DOMAIN; ?>/" >
 <?php
 		echo $linkshtml; 
 		
@@ -223,7 +222,7 @@ class PAGE {
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
 			// If this page has an RSS feed set.
 			?>
-	<link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="http://<?php echo DOMAIN . WEBPATH . $rssurl; ?>" />
+	<link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="http://<?php echo DOMAIN . WEBPATH . $rssurl; ?>" >
 <?php
 		}
 				
