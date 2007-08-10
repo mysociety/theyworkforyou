@@ -551,7 +551,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label"><label for="firstname">Your first name:</label></span>
-				<span class="formw"><input type="text" name="firstname" id="firstname" value="<?php if (isset($details["firstname"])) { echo htmlentities($details["firstname"]); } ?>" maxlength="255" size="30" class="form" /></span>
+				<span class="formw"><input type="text" name="firstname" id="firstname" value="<?php if (isset($details["firstname"])) { echo htmlentities($details["firstname"]); } ?>" maxlength="255" size="30" class="form"></span>
 				</div>
 
 <?php
@@ -561,7 +561,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label"><label for="lastname">Your last name:</label></span>
-				<span class="formw"><input type="text" name="lastname" id="lastname" value="<?php if (isset($details["lastname"])) { echo htmlentities($details["lastname"]); } ?>" maxlength="255" size="30" class="form" /></span>
+				<span class="formw"><input type="text" name="lastname" id="lastname" value="<?php if (isset($details["lastname"])) { echo htmlentities($details["lastname"]); } ?>" maxlength="255" size="30" class="form"></span>
 				</div>
 
 <?php
@@ -571,7 +571,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label"><label for="email">Email address:</label></span>
-				<span class="formw"><input type="text" name="email" id="email" value="<?php if (isset($details["email"])) { echo htmlentities($details["email"]); } ?>" maxlength="255" size="30" class="form" /></span>
+				<span class="formw"><input type="text" name="email" id="email" value="<?php if (isset($details["email"])) { echo htmlentities($details["email"]); } ?>" maxlength="255" size="30" class="form"></span>
 				</div>
 
 <?php
@@ -580,7 +580,7 @@ function display_form ( $details = array(), $errors = array() ) {
 		// If not, the user's joining.
 		?>
 				<div class="row">
-				&nbsp;<br /><small>To change <?php echo $who; ?> password enter a new one twice below (otherwise, leave blank).</small>
+				&nbsp;<br><small>To change <?php echo $who; ?> password enter a new one twice below (otherwise, leave blank).</small>
 				</div>
 <?php
 	}
@@ -592,7 +592,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label"><label for="password">Password:</label></span>
-				<span class="formw"><input type="password" name="password" id="password" value="" maxlength="30" size="20" class="form" /> <small>At least six characters</small></span>
+				<span class="formw"><input type="password" name="password" id="password" value="" maxlength="30" size="20" class="form"> <small>At least six characters</small></span>
 				</div>
 
 <?php
@@ -602,11 +602,11 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label"><label for="password2">Repeat password:</label></span>
-				<span class="formw"><input type="password" name="password2" id="password2" value="" maxlength="30" size="20" class="form" /></span>
+				<span class="formw"><input type="password" name="password2" id="password2" value="" maxlength="30" size="20" class="form"></span>
 				</div>
 
 
-				<br style="clear: left;" />&nbsp;<br />
+				<br style="clear: left;">&nbsp;<br>
 <?php
 	if (isset($errors["postcode"])) {
 		$PAGE->error_message($errors["postcode"]);
@@ -614,7 +614,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label"><label for="postcode">Your UK postcode:</label></span>
-				<span class="formw"><input type="postcode" name="postcode" id="postcode" value="<?php if (isset($details["postcode"])) { echo htmlentities($details["postcode"]); } ?>" maxlength="10" size="10" class="form" /> <small>Optional and not public</small></span>
+				<span class="formw"><input type="postcode" name="postcode" id="postcode" value="<?php if (isset($details["postcode"])) { echo htmlentities($details["postcode"]); } ?>" maxlength="10" size="10" class="form"> <small>Optional and not public</small></span>
 				</div>
 
 <?php
@@ -624,13 +624,13 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label"><label for="url">Your website:</label></span>
-				<span class="formw"><input type="url" name="url" id="url" value="<?php if (isset($details['url'])) { echo htmlentities($details['url']); } ?>" maxlength="255" size="20" class="form" /> <small>Optional and public</small></span>
+				<span class="formw"><input type="url" name="url" id="url" value="<?php if (isset($details['url'])) { echo htmlentities($details['url']); } ?>" maxlength="255" size="20" class="form"> <small>Optional and public</small></span>
 				</div>
 
 
 				
 				<div class="row">
-				&nbsp;<br />Let other users see <?php echo $who; ?> email address?
+				&nbsp;<br>Let other users see <?php echo $who; ?> email address?
 				</div>
 
 <?php
@@ -641,25 +641,25 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label">&nbsp;</span>
-				<span class="formw"><input type="radio" name="emailpublic" id="emailpublictrue" value="true" <?php
+				<span class="formw"><input type="radio" name="emailpublic" id="emailpublictrue" value="true"<?php
 	if (isset($details["emailpublic"]) && $details["emailpublic"] == true) {
-		print "checked=\"checked\" ";
+		print " checked";
 	}	
-	?>/> <label for="emailpublictrue">Yes</label><br />
-					<input type="radio" name="emailpublic" id="emailpublicfalse" value="false" <?php
+	?>> <label for="emailpublictrue">Yes</label><br>
+					<input type="radio" name="emailpublic" id="emailpublicfalse" value="false"<?php
 	if (($this_page == "userjoin" && get_http_var("submitted") != "true") 
 		|| 
 		(isset($details["emailpublic"]) && $details["emailpublic"] == false)
 		) {
-		print "checked=\"checked\" ";
+		print " checked";
 	}
-	?>/> <label for="emailpublicfalse">No</label></span>
+	?>> <label for="emailpublicfalse">No</label></span>
 				</div>
 				
 				
 				
 				<div class="row">
-				&nbsp;<br />Do <?php if ($this_page == "otheruseredit") { echo "they"; } else { echo "you"; } ?> wish to receive occasional update emails about TheyWorkForYou.com?
+				&nbsp;<br>Do <?php if ($this_page == "otheruseredit") { echo "they"; } else { echo "you"; } ?> wish to receive occasional update emails about TheyWorkForYou.com?
 				</div>
 
 <?php
@@ -669,41 +669,41 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label">&nbsp;</span>
-				<span class="formw"><input type="radio" name="optin" id="optintrue" value="true" <?php
+				<span class="formw"><input type="radio" name="optin" id="optintrue" value="true"<?php
 	if (isset($details["optin"]) && $details["optin"] == true) {
-		print "checked=\"checked\" ";
+		print " checked";
 	}
-	?>/> <label for="optintrue">Yes</label><br />
-				<input type="radio" name="optin" id="optinfalse" value="false" <?php
+	?>> <label for="optintrue">Yes</label><br>
+				<input type="radio" name="optin" id="optinfalse" value="false"<?php
 	if (($this_page == "userjoin" && get_http_var("submitted") != "true")
 		||
 		(isset($details["optin"]) && $details["optin"] == false)
 		) {
-		print "checked=\"checked\" ";
+		print " checked";
 	}
-	?>/> <label for="optinfalse">No</label></span>
+	?>> <label for="optinfalse">No</label></span>
 				</div>
 
 <?php	if ($this_page == 'userjoin') { ?>
 				<div class="row">
-				&nbsp;<br />Would <?php if ($this_page == "otheruseredit") { echo "they"; } else { echo "you"; } ?> like to receive an email whenever your MP does something in Parliament?
+				&nbsp;<br>Would <?php if ($this_page == "otheruseredit") { echo "they"; } else { echo "you"; } ?> like to receive an email whenever your MP does something in Parliament?
 				</div>
 
 				<div class="row">
 				<span class="label">&nbsp;</span>
-				<span class="formw"><input type="radio" name="mp_alert" id="mp_alerttrue" value="true" <?php
+				<span class="formw"><input type="radio" name="mp_alert" id="mp_alerttrue" value="true"<?php
 	if (isset($details["mp_alert"]) && $details["mp_alert"] == true) {
-		print 'checked="checked" ';
+		print ' checked';
 	}
-	?>/> <label for="mp_alerttrue">Yes</label><br />
-				<input type="radio" name="mp_alert" id="mp_alertfalse" value="false" <?php
+	?>> <label for="mp_alerttrue">Yes</label><br>
+				<input type="radio" name="mp_alert" id="mp_alertfalse" value="false"<?php
 	if (($this_page == "userjoin" && get_http_var("submitted") != "true")
 		||
 		(isset($details["mp_alert"]) && $details["mp_alert"] == false)
 		) {
-		print 'checked="checked" ';
+		print ' checked';
 	}
-	?>/> <label for="mp_alertfalse">No</label></span>
+	?>> <label for="mp_alertfalse">No</label></span>
 				</div>
 <?php	}
 
@@ -722,7 +722,7 @@ function display_form ( $details = array(), $errors = array() ) {
 	foreach ($statuses as $n => $status) {
 		print "\t<option value=\"$status\"";
 		if ($status == $details["status"]) {
-			print " checked=\"checked\"";
+			print " checked";
 		}
 		print ">$status</option>\n";
 	}
@@ -732,20 +732,20 @@ function display_form ( $details = array(), $errors = array() ) {
 
 				<div class="row">
 				<span class="label"><label for="confirmed">Confirmed?</label></span>
-				<span class="formw"><input type="checkbox" name="confirmed[]" id="confirmed" value="true" <?php
+				<span class="formw"><input type="checkbox" name="confirmed[]" id="confirmed" value="true"<?php
 	if (isset($details["confirmed"]) && $details["confirmed"] == true) {
-		print "checked=\"checked\" ";
+		print " checked";
 	}
-	?>/></span>
+	?>></span>
 				</div>
 				
 				<div class="row">
 				<span class="label"><label for="deleted">"Deleted"?</label></span>
-				<span class="formw"><input type="checkbox" name="deleted[]" id="deleted" value="true" <?php
+				<span class="formw"><input type="checkbox" name="deleted[]" id="deleted" value="true"<?php
 	if (isset($details["deleted"]) && $details["deleted"] == true) {
-		print "checked=\"checked\" ";
+		print " checked";
 	}
-	?>/> <small>(No data will actually be deleted.)</small></span>
+	?>> <small>(No data will actually be deleted.)</small></span>
 				</div>
 
 <?php
@@ -762,35 +762,35 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label">&nbsp;</span>
-				<span class="formw">&nbsp;<br /><small>Read our <a href="<?php echo $TERMSURL->generate(); ?>">Terms of Use</a>.</small></span>
+				<span class="formw">&nbsp;<br><small>Read our <a href="<?php echo $TERMSURL->generate(); ?>">Terms of Use</a>.</small></span>
 				</div>
 
 				<div class="row">
 				<span class="label">&nbsp;</span>
-				<span class="formw"><input type="submit" class="submit" value="<?php echo $submittext; ?>" /><!-- this space makes the submit button appear on Mac IE 5! --> </span>
+				<span class="formw"><input type="submit" class="submit" value="<?php echo $submittext; ?>"><!-- this space makes the submit button appear on Mac IE 5! --> </span>
 				</div>
 
-				<input type="hidden" name="submitted" value="true" />
+				<input type="hidden" name="submitted" value="true">
 
 <?php
 	if (get_http_var("ret") != "") {
 		// The user was probably trying to add a writer but is joining first.
 		?>
-				<input type="hidden" name="ret" value="<?php echo htmlentities(get_http_var("ret")); ?>" />
+				<input type="hidden" name="ret" value="<?php echo htmlentities(get_http_var("ret")); ?>">
 <?php
 	}
 
 	if (get_http_var("pg") != "") {
 		// So that we get to the right page.
 		?>
-				<input type="hidden" name="pg" value="<?php echo htmlentities(get_http_var("pg")); ?>" />
+				<input type="hidden" name="pg" value="<?php echo htmlentities(get_http_var("pg")); ?>">
 <?php
 	}
 
 	if ($this_page == "otheruseredit") {
 		// Need to store the id of the user we're editing.
 		?>
-				<input type="hidden" name="u" value="<?php echo htmlentities($details["user_id"]); ?>" />
+				<input type="hidden" name="u" value="<?php echo htmlentities($details["user_id"]); ?>">
 <?php
 	}
 ?>
@@ -998,7 +998,7 @@ function display_user ($user_id="") {
 				$postcode = 'none';
 			}
 			?>
-				<div class="row">&nbsp;<br />
+				<div class="row">&nbsp;<br>
 				<span class="label">UK Postcode</span>
 				<span class="formw"><?php echo htmlentities($postcode); ?> <small>(not public)</small></span>
 				</div>
@@ -1023,7 +1023,7 @@ function display_user ($user_id="") {
 		
 		if (isset($emailpublic)) {
 			?>
-				<div class="row">&nbsp;<br />Let other people see your email address? <strong><?php echo htmlentities($emailpublic); ?></strong></div>
+				<div class="row">&nbsp;<br>Let other people see your email address? <strong><?php echo htmlentities($emailpublic); ?></strong></div>
 
 <?php
 		}
@@ -1055,7 +1055,7 @@ function display_user ($user_id="") {
 			$EDITURL = new URL('useredit');
 			$VIEWURL = new URL('userviewself');
 			?>
-				<p>&nbsp;<br /><a href="<?php echo $EDITURL->generate(); ?>">Edit again</a> or <a href="<?php echo $VIEWURL->generate(); ?>">see how others see you</a>.</p>
+				<p>&nbsp;<br><a href="<?php echo $EDITURL->generate(); ?>">Edit again</a> or <a href="<?php echo $VIEWURL->generate(); ?>">see how others see you</a>.</p>
 <?php
 		}
 		

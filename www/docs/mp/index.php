@@ -386,7 +386,11 @@ function member_redirect(&$MEMBER) {
 	// We come here after creating a MEMBER object by various methods.
 	// Now we redirect to the canonical MP page, with a person_id.
 	if ($MEMBER->person_id()) {
-		header('Location: ' . $MEMBER->url() );
+		$url = $MEMBER->url();
+		if ($this_page == 'c4_mp') {
+			$url = str_replace('mp/', 'mp/c4/', $url);
+		}
+		header('Location: ' . $url );
 		exit;
 	}
 }

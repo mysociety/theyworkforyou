@@ -63,7 +63,7 @@ if (count($data) > 0) {
 		$time = format_time($time, TIMEFORMAT);
 		?>
 		<dt><a href="<?php echo htmlentities($trackback['url']); ?>"><?php echo htmlentities($trackback['title']); ?></a></dt>
-		<dd><?php echo htmlentities($trackback['excerpt']); ?><br />
+		<dd><?php echo htmlentities($trackback['excerpt']); ?><br>
 			<small>At <?php echo htmlentities($trackback['blog_name']); ?> on <?php echo $date . ' ' . $time; ?></small>
 		</dd>
 <?php

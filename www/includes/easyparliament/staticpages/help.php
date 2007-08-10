@@ -10,7 +10,7 @@
 <li><a href="#api">Do you have the data as a spreadsheet file, XML or in an API?</a></li>
 </ul>
 
-<br />
+<br>
 
 <!-- start new faq entry-->
 <dl>

@@ -49,7 +49,7 @@ foreach ($data['data'] as $debate) {
 
 	if (isset($debate['parent'])) {
 		$firstline = '<strong><a href="' . $debate['list_url'] . '">' . $debate['parent']['body'] . '</a></strong>';
-		$secondline = $debateline . "<br />\n\t\t\t\t";
+		$secondline = $debateline . "<br>\n\t\t\t\t";
 	} else {
 		$firstline = $debateline;
 		$secondline = '';

@@ -10,7 +10,7 @@ $URL = new URL('help');
 $helpurl = $URL->generate();
 ?>
 
-<p><a href="https://secure.mysociety.org/donate/"><img src="/images/donate_red_flatL.gif" width="100" height="35" border="0" align="right" hspace="4" vspace="5" /></a>
+<p><a href="https://secure.mysociety.org/donate/"><img src="/images/donate_red_flatL.gif" width="100" height="35" border="0" align="right" hspace="4" vspace="5" alt="Donate"></a>
 <a href="<?php echo $abouturl; ?>" title="link to About Us page">TheyWorkForYou.com</a>
 is a non-partisan website run by a charity which aims to
 make it easy for people to keep tabs on their elected and

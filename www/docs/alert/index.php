@@ -233,7 +233,7 @@ above.</li>
 	?>
 				<div class="row">
 				<span class="label"><label for="email">Your email address:</label></span>
-				<span class="formw"><input type="text" name="email" id="email" value="<?php if (isset($details["email"])) { echo htmlentities($details["email"]); } ?>" maxlength="255" size="30" class="form" /></span>
+				<span class="formw"><input type="text" name="email" id="email" value="<?php if (isset($details["email"])) { echo htmlentities($details["email"]); } ?>" maxlength="255" size="30" class="form"></span>
 				</div>
 	<?php	}
 		if (!get_http_var('only') || !$details['keyword']) {
@@ -269,7 +269,7 @@ above.</li>
 	?>
 				<div class="row"> 
 				<span class="label"><label for="keyword">Word or phrase you wish to receive alerts for:</label></span>
-				<span class="formw"><input type="text" name="keyword" id="keyword" value="<?php if ($details['keyword']) { echo htmlentities($details['keyword']); } ?>" maxlength="255" size="30" class="form" /></span>
+				<span class="formw"><input type="text" name="keyword" id="keyword" value="<?php if ($details['keyword']) { echo htmlentities($details['keyword']); } ?>" maxlength="255" size="30" class="form"></span>
 				</div>
 	<?php	}
 		$submittext = "Request Email Alert";
@@ -277,15 +277,15 @@ above.</li>
 						
 				<div class="row">
 				<span class="label">&nbsp;</span>
-				<span class="formw"><input type="submit" class="submit" value="<?php echo $submittext; ?>" /><!-- this space makes the submit button appear on Mac IE 5! --> </span>
+				<span class="formw"><input type="submit" class="submit" value="<?php echo $submittext; ?>"><!-- this space makes the submit button appear on Mac IE 5! --> </span>
 				</div>
 	<?php	if (!$THEUSER->loggedin()) { ?>
 				<div class="row">
 				If you join or log in, you won't need to confirm your email address for every alert you set.
 				</div>
 	<?php	} ?>
-				<input type="hidden" name="submitted" value="true" />
-				<input type="hidden" name="pg" value="alert" />
+				<input type="hidden" name="submitted" value="true">
+				<input type="hidden" name="pg" value="alert">
 
 	</form>
 	

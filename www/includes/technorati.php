@@ -100,7 +100,7 @@ function doCosmos ($urlstring){
 function start1Element($parser, $tagName, $attrs) {
   global $curTag;
   $curTag .= "^$tagName";
-  // 	echo $counter." ".$curTag."<br/> ";
+  // 	echo $counter." ".$curTag."<br> ";
 }
 
 
@@ -108,7 +108,7 @@ function end1Element($parser, $tagName) {
   global $curTag;
   $caret_pos = strrpos($curTag,'^');
   $curTag = substr($curTag,0,$caret_pos);
-  // 	echo $counter." ".$curTag."<br/> ";
+  // 	echo $counter." ".$curTag."<br> ";
 }
 
 function character1Data($parser, $data) {

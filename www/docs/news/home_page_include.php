@@ -5,8 +5,6 @@ global $all_news;
 // News content is in here
 require_once "editme.php";
 
-print "<p>";
-
 $c = 0;
 foreach ($all_news as $id => $news_row) {
 	if ($c++ == 2) break;
@@ -18,8 +16,6 @@ foreach ($all_news as $id => $news_row) {
 	print " <a href=\"$url\">Read more...</a>";
 	print "</p>";
 }
-
-print "</p>";
 
 ?>
 

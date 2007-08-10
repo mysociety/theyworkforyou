@@ -31,16 +31,16 @@ if (!$sender_name)
 
 if (sizeof($errors)) {
 	print '<p>Please correct the following errors:</p>';
-	print '<ul><li>' . join('</li> <li>', $errors) . '</li></ul><br />';
+	print '<ul><li>' . join('</li> <li>', $errors) . '</li></ul><br>';
 ?>
 <form action="./" method="post">
 <p>
-<label for="recmail">Their email:</label> <input type="text" name="recipient_mail" id="recmail" value="<?=$recipient_email ?>" size="30" />
-<br /><label for="sendmail">Your email:</label> <input type="text" id="sendmail" name="sender_mail" value="<?=$sender_email ?>" size="30" />
-<br /><label for="sendname">Your name:</label> <input type="text" id="sendname" name="sender_name" value="<?=$sender_name ?>" size="30" />
-<input type="hidden" name="pid" value="<?=$pid ?>" />
-<br />(<a href="/privacy/">privacy policy</a>)
-<input type="submit" class="submit" value="Send" /></p>
+<label for="recmail">Their email:</label> <input type="text" name="recipient_mail" id="recmail" value="<?=$recipient_email ?>" size="30">
+<br><label for="sendmail">Your email:</label> <input type="text" id="sendmail" name="sender_mail" value="<?=$sender_email ?>" size="30">
+<br><label for="sendname">Your name:</label> <input type="text" id="sendname" name="sender_name" value="<?=$sender_name ?>" size="30">
+<input type="hidden" name="pid" value="<?=$pid ?>">
+<br>(<a href="/privacy/">privacy policy</a>)
+<input type="submit" class="submit" value="Send"></p>
 </form>
 <?
 } else {

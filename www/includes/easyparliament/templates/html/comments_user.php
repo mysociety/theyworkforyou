@@ -50,8 +50,8 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 		// of comments on this epobject.
 		$plural = $comment['total_comments'] == 1 ? ' comment' : ' comments';
 		
-		echo "\t\t\t\t<p><a href=\"$comment[url]\">$comment[total_comments]$plural</a> to <strong>" . $member_name . $hansardtext . "</strong><br />\n";
-		echo "\t\t\t\t<small>(posted on $date)</small><br />\n";
+		echo "\t\t\t\t<p><a href=\"$comment[url]\">$comment[total_comments]$plural</a> to <strong>" . $member_name . $hansardtext . "</strong><br>\n";
+		echo "\t\t\t\t<small>(posted on $date)</small><br>\n";
 		echo "\t\t\t\t" . prepare_comment_for_display($comment['body']) . "</p>"; ?>
 
 <?php

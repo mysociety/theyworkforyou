@@ -109,8 +109,8 @@ if (get_http_var("submitterm") != '') {
 	
 	$PAGE->glossary_search_form($args);
 
-	print "<p><small>Some examples:<br />";
-	print "An external organisation e.g. &quot;Devon County Council&quot;<br />";
+	print "<p><small>Some examples:<br>";
+	print "An external organisation e.g. &quot;Devon County Council&quot;<br>";
 	print "An external web document e.g. &quot;Criminal Justice Bill 2003&quot;</small></p>";
 	print "<p>Or browse the existing links:</p>";
 
@@ -124,7 +124,7 @@ if (get_http_var("submitterm") != '') {
 	));
 	
 	print "<div class=\"break\">&nbsp;</div>";
-	print "<br />";
+	print "<br>";
 }
 
 $PAGE->stripe_end();

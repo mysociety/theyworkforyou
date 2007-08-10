@@ -801,7 +801,7 @@ function hidden_form_vars ($omit = array()) {
 
 	foreach ($session_vars as $n => $key) {
 		if (!in_array($key, $omit)) {
-			print "<input type=\"hidden\" name=\"$key\" value=\"" . htmlentities(get_http_var($key)) . "\" />\n";
+			print "<input type=\"hidden\" name=\"$key\" value=\"" . htmlentities(get_http_var($key)) . "\">\n";
 		}
 	}
 }
@@ -814,7 +814,7 @@ function hidden_vars ($omit = array()) {
 	
 	foreach ($args as $key => $val) {
 		if (!in_array($key, $omit)) {
-			print "<input type=\"hidden\" name=\"$key\" value=\"" . htmlspecialchars($val) . "\" />\n";
+			print "<input type=\"hidden\" name=\"$key\" value=\"" . htmlspecialchars($val) . "\">\n";
 		}	
 	}
 }
@@ -976,7 +976,7 @@ function major_summary($data) {
 					print $body . '</a>';
 				}
 			}
-			print '</ul>';
+			print '</ul></ul>';
 		}
 	}
 	print '</ul>';

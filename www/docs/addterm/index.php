@@ -120,7 +120,7 @@ if (get_http_var("submitterm") != '') {
 
 			if ($args['count']) {	
 
-				print "<h4>So far so good</h4><p>Just so you know, we found <strong>" . $args['count'] . "</strong> occurences of <strong>" . stripslashes($GLOSSARY->query) . "</strong> in Hansard.<br />Just to make sure that your definition will not appear out of context, please have a look at the <a href=\"#excerpts\">excerpts</a>. If you're happy that your definition will apply to the right thing, then carry on below:</p>";
+				print "<h4>So far so good</h4><p>Just so you know, we found <strong>" . $args['count'] . "</strong> occurences of <strong>" . stripslashes($GLOSSARY->query) . "</strong> in Hansard.<br>Just to make sure that your definition will not appear out of context, please have a look at the <a href=\"#excerpts\">excerpts</a>. If you're happy that your definition will apply to the right thing, then carry on below:</p>";
 
 				print "<a id='definition'></a>";
 				print "<p>Please add your definition below:</p>";
@@ -173,9 +173,9 @@ if (get_http_var("submitterm") != '') {
 	$URL->insert(array("gl" => "7"));
 	$hutton_url = $URL->generate();
 
-	print "<p><small>Some examples:<br />";
-	print "A technical term, or a piece of jargon e.g. <em>&quot;<a href=\"".$earlyday_url."\">Early Day Motion</a>&quot;(671 occurences)</em> or <em>&quot;<a href=\"".$blackrod_url."\">Black Rod</a>&quot;(12 occurences)</em><br />";
-	print "An external organisation e.g. <em>&quot;<a href=\"".$devoncc_url."\">Devon County Council</a>&quot;(80 occurences)</em><br />";
+	print "<p><small>Some examples:<br>";
+	print "A technical term, or a piece of jargon e.g. <em>&quot;<a href=\"".$earlyday_url."\">Early Day Motion</a>&quot;(671 occurences)</em> or <em>&quot;<a href=\"".$blackrod_url."\">Black Rod</a>&quot;(12 occurences)</em><br>";
+	print "An external organisation e.g. <em>&quot;<a href=\"".$devoncc_url."\">Devon County Council</a>&quot;(80 occurences)</em><br>";
 	print "An external web document e.g. <em>&quot;<a href=\"".$hutton_url."\">Hutton Report</a>&quot;(104 occurences)</em></small></p>";
 	print "<p>Or browse the existing entries:</p>";
 

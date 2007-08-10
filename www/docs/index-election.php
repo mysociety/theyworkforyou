@@ -93,7 +93,7 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 	$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode()));
 	$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
 	?>
-	  <p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about how <?php echo $mpname; ?>, your ex-MP, represented you over the last parliament</strong></a><br />
+	  <p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about how <?php echo $mpname; ?>, your ex-MP, represented you over the last parliament</strong></a><br>
 						In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
 <?php
 	
@@ -101,8 +101,8 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 	// User is not logged in and doesn't have a personal postcode set.
 	?>
 						<form action="<?php echo $MPURL->generate(); ?>" method="get">
-    <p><strong>Now that the election has been called, you can use this site to find out what your ex-MP did throughout the last parliament. We have performance stats, speeches, voting records and more...</strong><br />
-						<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text" />&nbsp;&nbsp;<input type="submit" value=" GO " class="submit" /></p>
+    <p><strong>Now that the election has been called, you can use this site to find out what your ex-MP did throughout the last parliament. We have performance stats, speeches, voting records and more...</strong><br>
+						<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" GO " class="submit"></p>
 						</form>
 <?php
 }
@@ -114,8 +114,8 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 	$SEARCHURL = new URL('search');
 	?>
 						<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-						<p><strong>Search everything said in Parliament since 2001, or for an ex-MP or constituency</strong><br />
-						<label for="s">Type what you are looking for:</label>&nbsp; <input type="text" name="s" id="s" size="15" maxlength="100" class="text" />&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit" /></p>
+						<p><strong>Search everything said in Parliament since 2001, or for an ex-MP or constituency</strong><br>
+						<label for="s">Type what you are looking for:</label>&nbsp; <input type="text" name="s" id="s" size="15" maxlength="100" class="text">&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit"></p>
                         <?
                             // Display popular queries
                             global $SEARCHLOG;

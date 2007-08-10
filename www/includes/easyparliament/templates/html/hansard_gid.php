@@ -207,8 +207,8 @@ if (isset ($data['rows'])) {
 				<?php if (get_http_var('partycolours')) { ?>
                 style="border: 3px solid <?php echo party_to_colour($speaker['party']) ?>;"
                 <?php } ?>
-		/><?php } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpg')) { ?>
-		<img src="<?php echo IMAGEPATH . 'mps/' . $speaker['person_id']; ?>.jpg" class="portrait" alt="Photo of <?php echo $speakername; ?>" /><? } ?>
+		><?php } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpg')) { ?>
+		<img src="<?php echo IMAGEPATH . 'mps/' . $speaker['person_id']; ?>.jpg" class="portrait" alt="Photo of <?php echo $speakername; ?>"><? } ?>
                 <strong><?php echo $speakername; ?></strong></a> <small><?php 
 				$desc = '';
 				if (isset($speaker['office'])) {
@@ -336,7 +336,7 @@ if (isset ($data['rows'])) {
 				print '<strong>' . $row['body'] . '</strong>';
 			}
 			if (isset($row['excerpt'])) {
-				print "<br />\n\t\t\t\t\t<span class=\"excerpt-debates\">" . trim_characters($row['excerpt'], 0, 200) . "</span>";
+				print "<br>\n\t\t\t\t\t<span class=\"excerpt-debates\">" . trim_characters($row['excerpt'], 0, 200) . "</span>";
 			}
 		}
 		print '</ul>';
@@ -355,7 +355,7 @@ if ($this_page == 'debates' || $this_page == 'whall' || $this_page == 'lordsdeba
 	// Previous / Index / Next links, if any.
 	
 	$PAGE->stripe_start('foot');
-	?>&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<?php
+	?>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<?php
 	$PAGE->stripe_end(array(
 		array (
 			'type' => 'nextprev'
@@ -440,7 +440,7 @@ function generate_commentteaser (&$row, $major) {
 				$html .= ' <a href="' . $row['commentsurl'] . '#c' . $comment['comment_id'] . '" title="See any comments posted about this">' . $linktext . '</a>';
 			}
 			
-			$html .= '<br /><br />';
+			$html .= '<br><br>';
 		}
 
 		// 'Add a comment' link.
@@ -502,9 +502,9 @@ function generate_votes ($votes, $major, $id, $gid) {
 		$yesplural = $yesvotes == 1 ? 'person thinks' : 'people think';
 		$noplural = $novotes == 1 ? 'person thinks' : 'people think';
 		
-		$html .= '<strong>Does this answer the above question?</strong><br />';
+		$html .= '<strong>Does this answer the above question?</strong><br>';
 		
-		$html .= '<span class="wransvote"><a href="' . $VOTEURL->generate() . '" title="Rate this as answering the question">Yes!</a> ' . $yesvotes . ' ' . $yesplural . ' so!<br />';
+		$html .= '<span class="wransvote"><a href="' . $VOTEURL->generate() . '" title="Rate this as answering the question">Yes!</a> ' . $yesvotes . ' ' . $yesplural . ' so!<br>';
 
 		$VOTEURL->insert(array('v'=>'0'));
 		

@@ -39,7 +39,7 @@ I'm sure there are bugs around the place (<a href="/contact/">do let us know</a>
 I look forward to my return (so don't expect a quick reply to suggestions or
 complaints)! :-)
 
-ATB,<br />
+ATB,<br>
 <a href="http://www.dracos.co.uk/">Matthew Somerville</a>
 EOT
 , "2006-12-11 00:00:00"),

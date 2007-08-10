@@ -164,7 +164,7 @@ class PAGE {
 		if ($this_page != "home") {
 			$URL = new URL('home');
 			
-			$linkshtml = "\t<link rel=\"start\" title=\"Home\" href=\"" . $URL->generate() . "\" />\n";
+			$linkshtml = "\t<link rel=\"start\" title=\"Home\" href=\"" . $URL->generate() . "\">\n";
 		}
 
 
@@ -190,7 +190,7 @@ class PAGE {
 						$linktitle = format_date($nextprev[$type]['hdate'], SHORTDATEFORMAT);
 					}
 
-					$linkshtml .= "\t<link rel=\"$type\" title=\"$linktitle\" href=\"" . $nextprev[$type]['listurl'] . "\" />\n";
+					$linkshtml .= "\t<link rel=\"$type\" title=\"$linktitle\" href=\"" . $nextprev[$type]['listurl'] . "\">\n";
 				}
 			}
 		}
@@ -208,12 +208,12 @@ class PAGE {
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" >
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	<title><?php echo $title; ?></title>
-	<meta name="description" content="Making parliament easy." >
-	<meta name="keywords" content="Parliament, government, house of commons, house of lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, UK, Britain, British, Welsh, Scottish, Wales, Scotland, <?php echo htmlentities($keywords_title).htmlentities($keywords); ?>" >
-	<link rel="author" title="Send feedback" href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>" >
-	<link rel="home" title="Home" href="http://<?php echo DOMAIN; ?>/" >
+	<meta name="description" content="Making parliament easy.">
+	<meta name="keywords" content="Parliament, government, house of commons, house of lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, UK, Britain, British, Welsh, Scottish, Wales, Scotland, <?php echo htmlentities($keywords_title).htmlentities($keywords); ?>">
+	<link rel="author" title="Send feedback" href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">
+	<link rel="home" title="Home" href="http://<?php echo DOMAIN; ?>/">
 <?php
 		echo $linkshtml; 
 		
@@ -222,7 +222,7 @@ class PAGE {
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
 			// If this page has an RSS feed set.
 			?>
-	<link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="http://<?php echo DOMAIN . WEBPATH . $rssurl; ?>" >
+	<link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="http://<?php echo DOMAIN . WEBPATH . $rssurl; ?>">
 <?php
 		}
 				
@@ -278,15 +278,15 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// The title bit of the page, with possible search box.
 		global $this_page;
 		
-		//$img = '<img src="' . IMAGEPATH . 'theyworkforyoucom.gif" width="293" height="28" alt="TheyWorkForYou.com" />';
+		//$img = '<img src="' . IMAGEPATH . 'theyworkforyoucom.gif" width="293" height="28" alt="TheyWorkForYou.com">';
 
-		$img = '<img src="' . IMAGEPATH . 'theyworkforyoucombeta.gif" width="320" height="28" alt="TheyWorkForYou.com beta" />';
+		$img = '<img src="' . IMAGEPATH . 'theyworkforyoucombeta.gif" width="320" height="28" alt="TheyWorkForYou.com beta">';
 		
 		//isn't this very hacky? shouldn't we be cobranding cleverly using METADATA? ( I've repeated this below however -stef"
 		if (get_http_var('c4')) {
-			$img = '<img src="/images/c4banner.gif" alt="TheyWorkForYou.com with Channel 4" />';
+			$img = '<img src="/images/c4banner.gif" alt="TheyWorkForYou.com with Channel 4">';
 		} elseif (get_http_var('c4x')) {
-			$img = '<img src="/images/c4Xbanner.gif" alt="TheyWorkForYou.com with Channel 4" />';
+			$img = '<img src="/images/c4Xbanner.gif" alt="TheyWorkForYou.com with Channel 4">';
 		}
 
 		if ($this_page != 'home') {
@@ -315,7 +315,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			?>
 		<div id="search">
 			<form action="<?php echo $URL->generate(); ?>" method="get">
-			<p>Search <input name="s" size="15" /> <input type="submit" class="submit" value="GO" /></p>
+			<p>Search <input name="s" size="15"> <input type="submit" class="submit" value="GO"></p>
 			</form>
 		</div>
 <?php
@@ -425,7 +425,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			<ul id="site">
 			<li><?php print implode("</li>\n\t\t\t<li>", $top_links); ?></li>
 			</ul>
-			<br />
+			<br>
 		</div>
 		<div id="bottommenu">
 			<ul>
@@ -883,15 +883,13 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			?>
 <script type="text/javascript"><!--
 an=navigator.appName;sr='http://x3.extreme-dm.com/';srw="na";srb="na";d=document;r=41;function pr(n) {
-d.write("<div><img alt=\"\" src=\""+sr+"n\/?tag=fawkes&p=<?php echo $url; ?>&j=y&srw="+srw+"&srb="+srb+"&l="+escape(d.referrer)+"&rs="+r+"\" height=\"1\" width=\"1\"></div>");}//-->
-</script><script type="text/javascript"><!--
-s=screen;srw=s.width;an!="Netscape"?srb=s.colorDepth:srb=s.pixelDepth//-->
-</script><script type="text/javascript"><!--
+d.write("<div><img alt=\"\" src=\""+sr+"n\/?tag=fawkes&p=<?php echo $url; ?>&j=y&srw="+srw+"&srb="+srb+"&l="+escape(d.referrer)+"&rs="+r+"\" height=\"1\" width=\"1\"></"+"div>");}
+s=screen;srw=s.width;an!="Netscape"?srb=s.colorDepth:srb=s.pixelDepth
 pr()//-->
-</script><noscript><div><img alt="" src="http://x3.extreme-dm.com/z/?tag=fawkes&amp;p=<?php echo $url; ?>&amp;j=n" height="1" width="1" /></div></noscript>
+</script><noscript><div><img alt="" src="http://x3.extreme-dm.com/z/?tag=fawkes&amp;p=<?php echo $url; ?>&amp;j=n" height="1" width="1"></div></noscript>
 <?php
 			if (get_http_var('c4') || get_http_var('c4x')) { ?>
-<script type="text/javascript" src="http://www.channel4.com/media/scripts/statstag.js"></script> <!--//end WEB STATS --> <noscript><div style="display:none"><img width="1" height="1" src="http://stats.channel4.com/njs.gif?dcsuri=/nojavascript&amp;WT.js=No" alt="" /></div></noscript>
+<script type="text/javascript" src="http://www.channel4.com/media/scripts/statstag.js"></script> <!--//end WEB STATS --> <noscript><div style="display:none"><img width="1" height="1" src="http://stats.channel4.com/njs.gif?dcsuri=/nojavascript&amp;WT.js=No" alt=""></div></noscript>
 <?			}
 
 			// mySociety tracking, not on staging
@@ -932,7 +930,7 @@ pr()//-->
 		
 		$MPURL = new URL('yourmp');
 		?>
-				<br />
+				<br>
 <?php
 		$this->block_start(array('id'=>'mp', 'title'=>'Find out about your MP'));
 		?>
@@ -951,9 +949,9 @@ pr()//-->
 		?>
 						<p><strong>Enter your UK postcode: </strong>
 
-						<input type="text" name="pc" value="<?php echo htmlentities(get_http_var('pc')); ?>" maxlength="10" size="10" /> <input type="submit" value="GO" class="submit" /> <small>(e.g. BS3 1QP)</small>
+						<input type="text" name="pc" value="<?php echo htmlentities(get_http_var('pc')); ?>" maxlength="10" size="10"> <input type="submit" value="GO" class="submit"> <small>(e.g. BS3 1QP)</small>
 						</p>
-						<input type="hidden" name="ch" value="t" />
+						<input type="hidden" name="ch" value="t">
 						</form>
 <?php	
 		$this->block_end();
@@ -972,7 +970,7 @@ pr()//-->
 						<ul>
 ';
 		if (isset($urls['appearances'])) {
-			$html .= '<li><a href="' . $urls['appearances'] . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="middle" /></a> <a href="' . $urls['appearances'] . '">Recent appearances</a></li>';
+			$html .= '<li><a href="' . $urls['appearances'] . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="middle"></a> <a href="' . $urls['appearances'] . '">Recent appearances</a></li>';
 		}
 		
 		$HELPURL = new URL('help');
@@ -1028,22 +1026,22 @@ pr()//-->
 			if ($house==3) $title .= ' MLA';
 		}
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right" /></a> ' . $title;
+			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
 		}
 		print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
 		$this->block_start(array('id'=>'mp', 'title'=>$title));
 		if (is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $member['person_id'] . '.jpg')) {
 		?>
-						<img src="<?php echo IMAGEPATH;?>mpsL/<?php echo $member['person_id']; ?>.jpg" alt="Photo of <?php echo $member['full_name']; ?>" class="portrait" />
+						<img src="<?php echo IMAGEPATH;?>mpsL/<?php echo $member['person_id']; ?>.jpg" alt="Photo of <?php echo $member['full_name']; ?>" class="portrait">
 		<? } elseif (is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $member['person_id'] . '.jpeg')) {
 		?>
-						<img src="<?php echo IMAGEPATH;?>mpsL/<?php echo $member['person_id']; ?>.jpeg" alt="Photo of <?php echo $member['full_name']; ?>" class="portrait" />
+						<img src="<?php echo IMAGEPATH;?>mpsL/<?php echo $member['person_id']; ?>.jpeg" alt="Photo of <?php echo $member['full_name']; ?>" class="portrait">
 		<? } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $member['person_id'] . '.jpg')) {
 		?>
-						<img src="<?php echo IMAGEPATH;?>mps/<?php echo $member['person_id']; ?>.jpg" alt="Photo of <?php echo $member['full_name']; ?>" height="118" class="portrait" />
+						<img src="<?php echo IMAGEPATH;?>mps/<?php echo $member['person_id']; ?>.jpg" alt="Photo of <?php echo $member['full_name']; ?>" height="118" class="portrait">
 		<? } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $member['person_id'] . '.jpeg')) {
 		?>
-						<img src="<?php echo IMAGEPATH;?>mps/<?php echo $member['person_id']; ?>.jpeg" alt="Photo of <?php echo $member['full_name']; ?>" height="118" class="portrait" />
+						<img src="<?php echo IMAGEPATH;?>mps/<?php echo $member['person_id']; ?>.jpeg" alt="Photo of <?php echo $member['full_name']; ?>" height="118" class="portrait">
 		<? } ?>
 						<ul class="hilites">
 						<?php
@@ -1092,7 +1090,7 @@ pr()//-->
 				}
 			}
 			if ($mins) {
-				print '<li>' . join('<br />', $mins) . '</li>';
+				print '<li>' . join('<br>', $mins) . '</li>';
 			}
 		}
 
@@ -1414,7 +1412,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 	?>		<a name="hansard"></a> <?
 		$title = 'Most recent appearances in parliament';
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right" /></a> ' . $title;
+			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
 		}
 
 		$this->block_start(array('id'=>'hansard', 'title'=>$title));
@@ -1503,7 +1501,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 
 		$after_stuff = ' <small>(From Public Whip)</small>';
 		if ($member['party'] == 'Scottish National Party') {
-			$after_stuff .= '<br /><em>Note SNP MPs do not vote on legislation not affecting Scotland.</em>';
+			$after_stuff .= '<br><em>Note SNP MPs do not vote on legislation not affecting Scotland.</em>';
 		}
 		if ($member['party'] != 'Sinn Fein') {
 			$displayed_stuff |= display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> in parliament', $after_stuff, $extra_info);
@@ -1953,7 +1951,7 @@ elseif ($member['house_disp']==3) print 'MLA'; ?> speaks<?php
     trackback:ping="<?php echo $trackbackdata['pingurl']; ?>"
     dc:identifier="<?php echo $trackbackdata['itemurl']; ?>"
     dc:title="<?php echo str_replace('"', "'", $trackbackdata['title']); ?>"
-    dc:date="<?php echo $trackbackdata['date']; ?>" />
+    dc:date="<?php echo $trackbackdata['date']; ?>">
 </rdf:RDF>
 -->
 <?php
@@ -1978,13 +1976,13 @@ elseif ($member['house_disp']==3) print 'MLA'; ?> speaks<?php
 <div class="mainsearchbox">
 					<form action="<?php echo $URL->generate(); ?>" method="get">
 <?php if (get_http_var('o')) { ?>
-					<input type="hidden" name="o" value="<?php echo htmlentities(get_http_var('o')); ?>" />
+					<input type="hidden" name="o" value="<?php echo htmlentities(get_http_var('o')); ?>">
 <?php }
 	if (get_http_var('house')) { ?>
-					<input type="hidden" name="house" value="<?=htmlentities(get_http_var('house')); ?>" />
+					<input type="hidden" name="house" value="<?=htmlentities(get_http_var('house')); ?>">
 <?php } ?>
-					<input type="text" name="s" value="<?php echo htmlentities($value); ?>" size="20" />
-					<input type="submit" value=" <?=($wtt?'Modify search':'Search') ?> " /><br />
+					<input type="text" name="s" value="<?php echo htmlentities($value); ?>" size="20">
+					<input type="submit" value=" <?=($wtt?'Modify search':'Search') ?> "><br>
 <?
 
 if ($wtt) print '<input type="hidden" name="wtt" value="1">';
@@ -1993,7 +1991,7 @@ if ($wtt) print '<input type="hidden" name="wtt" value="1">';
 <div class="mainsearchbox">
 	<form action="http://www.writetothem.com/lords" method="get">
 	<input type="hidden" name="pid" value="<?=htmlentities(get_http_var('pid')) ?>">
-	<input type="submit" style="font-size: 150%" value=" I want to write to this Lord " /><br />
+	<input type="submit" style="font-size: 150%" value=" I want to write to this Lord "><br>
 <? }
 
 if (!$wtt) { ?>
@@ -2043,7 +2041,7 @@ if (!$wtt) { ?>
                 ?>
                     <p>
                     <input type="radio" name="pid" value="<?php echo htmlentities($person_id) ?>" checked>Search only <?php echo htmlentities($name) ?> 
-                    <input type="radio" name="pid" value="" >Search all speeches
+                    <input type="radio" name="pid" value="">Search all speeches
                     </p>
                 <?
 	    }
@@ -2079,7 +2077,7 @@ if (!$wtt) { ?>
 ?>
 				<div class="row">
 				<span class="label"><label for="email">Email address:</label></span>
-				<span class="formw"><input type="text" name="email" id="email" value="<?php echo htmlentities(get_http_var("email")); ?>" maxlength="100" size="30" class="form" /></span>
+				<span class="formw"><input type="text" name="email" id="email" value="<?php echo htmlentities(get_http_var("email")); ?>" maxlength="100" size="30" class="form"></span>
 				</div>
 
 <?php
@@ -2092,22 +2090,22 @@ if (!$wtt) { ?>
 ?>
 				<div class="row">
 				<span class="label"><label for="password">Password:</label></span>
-				<span class="formw"><input type="password" name="password" id="password" maxlength="30" size="20" class="form" /></span>
+				<span class="formw"><input type="password" name="password" id="password" maxlength="30" size="20" class="form"></span>
 				</div>
 
 				<div class="row">
 				<span class="label">&nbsp;</span>
-				<span class="formw"><input type="checkbox" name="remember" id="remember" value="true" <?php
+				<span class="formw"><input type="checkbox" name="remember" id="remember" value="true"<?php
 		$remember = get_http_var("remember");
 		if (get_http_var("submitted") != "true" || $remember == "true") {
-			print "checked=\"checked\" ";
+			print " checked";
 		}
-		?>/> <label for="remember">Remember login details.*</label></span>
+		?>> <label for="remember">Remember login details.*</label></span>
 				</div>
 
 				<div class="row">
 				<span class="label">&nbsp;</span>
-				<span class="formw"><input type="submit" value="Login" class="submit" /> <small><a href="<?php 
+				<span class="formw"><input type="submit" value="Login" class="submit"> <small><a href="<?php 
 		$URL = new URL("userpassword");
 		$URL->insert(array("email"=>get_http_var("email")));
 		echo $URL->generate(); 
@@ -2118,7 +2116,7 @@ if (!$wtt) { ?>
 				<small></small>
 				</div>
 
-				<input type="hidden" name="submitted" value="true" />
+				<input type="hidden" name="submitted" value="true">
 <?php
 		// I had to havk about with this a bit to cover glossary login.
 		// Glossary returl can't be properly formatted until the "add" form
@@ -2133,7 +2131,7 @@ if (!$wtt) { ?>
 				$returl = $glossary_returl;
 			}
 			?>
-				<input type="hidden" name="ret" value="<?php echo htmlentities($returl); ?>" />
+				<input type="hidden" name="ret" value="<?php echo htmlentities($returl); ?>">
 <?php
 		}
 		?>
@@ -2152,9 +2150,9 @@ if (!$wtt) { ?>
 				<div class="mpsearchbox">
 					<form action="<?php echo $URL->generate(); ?>" method="get">
                     <p>
-                    <input name="s" size="12" /> 
-                    <input type="hidden" name="pid" value="<?=$person_id ?>" />
-                    <input type="submit" class="submit" value="GO" /></p>
+                    <input name="s" size="12"> 
+                    <input type="hidden" name="pid" value="<?=$person_id ?>">
+                    <input type="submit" class="submit" value="GO"></p>
 					</form>
 				</div>
 <?php
@@ -2181,16 +2179,16 @@ if (!$wtt) { ?>
 		else {
 			$URL = new URL('userprompt');
 			$URL->remove(array('g'));
-			$type = "<input type=\"hidden\" name=\"type\" value=\"2\" />";
+			$type = "<input type=\"hidden\" name=\"type\" value=\"2\">";
 		}
 		
 		$add_link = $URL->generate('url');
 		?>
 		<form action="<?php echo $add_link; ?>" method="get">
 		<?php echo $type; ?>
-		<p>Help make TheyWorkForYou.com better by adding a definition:<br />
-		<label for="g"><input type="text" name="g" value="<?php echo $formcontent; ?>" size="45" />
-		<input type="submit" value="Search" class="submit" /></label>
+		<p>Help make TheyWorkForYou.com better by adding a definition:<br>
+		<label for="g"><input type="text" name="g" value="<?php echo $formcontent; ?>" size="45">
+		<input type="submit" value="Search" class="submit"></label>
 		</p>
 		</form>
 <?php
@@ -2206,12 +2204,12 @@ if (!$wtt) { ?>
 		?>
 	<div class="glossaryaddbox">
 		<form action="<?php print $URL->generate(); ?>" method="post">
-		<input type="hidden" name="g" value="<?php echo $args['s']; ?>" />
-		<input type="hidden" name="return_page" value="glossary" />
+		<input type="hidden" name="g" value="<?php echo $args['s']; ?>">
+		<input type="hidden" name="return_page" value="glossary">
 		<label for="definition"><p><textarea name="definition" id="definition" rows="15" cols="55"><?php echo htmlentities($GLOSSARY->current_term['body']); ?></textarea></p>
 		
-		<p><input type="submit" name="previewterm" value="Preview" class="submit" />
-		<input type="submit" name="submitterm" value="Post" class="submit" /></p></label>
+		<p><input type="submit" name="previewterm" value="Preview" class="submit">
+		<input type="submit" name="submitterm" value="Post" class="submit"></p></label>
 		<p><small>Only &lt;b&gt; and &lt;i&gt; tags are allowed. URLs and email addresses will automatically be turned into links.</small></p>
 	</div>
 <?php
@@ -2229,11 +2227,11 @@ if (!$wtt) { ?>
 	<h4>Add an external link for <em><?php echo $args['s']; ?></em></h4>
 	<div class="glossaryaddbox">
 		<form action="<?php print $URL->generate(); ?>" method="post">
-		<input type="hidden" name="g" value="<?php echo $args['s']; ?>" />
-		<input type="hidden" name="return_page" value="glossary" />
-		<label for="definition"><input type="text" name="definition" id="definition" />
+		<input type="hidden" name="g" value="<?php echo $args['s']; ?>">
+		<input type="hidden" name="return_page" value="glossary">
+		<label for="definition"><input type="text" name="definition" id="definition">
 		<p><!-- input type="submit" name="previewterm" value="Preview" class="submit" /-->
-		<input type="submit" name="submitterm" value="Post" class="submit" /></p></label>
+		<input type="submit" name="submitterm" value="Post" class="submit"></p></label>
 		<p><small>Only &lt;b&gt; and &lt;i&gt; tags are allowed. URLs and email addresses will automatically be turned into links.</small></p>
 	</div>
 <?php
@@ -2307,7 +2305,7 @@ if (!$wtt) { ?>
 			$URL = new URL('admin_glossary');
 			$URL->insert(array("delete_confirm" => $term['glossary_id']));
 			$delete_url = $URL->generate();
-			$admin_links = "<br /><small><a href=\"".$delete_url."\">delete<a/></small>";
+			$admin_links = "<br><small><a href=\"".$delete_url."\">delete</a></small>";
 		}
 		else {
 			$admin_links = "";
@@ -2389,7 +2387,7 @@ if (!$wtt) { ?>
 	function glossary_links() {
 		print "<div>";
 		$this->glossary_link();
-		print "<br />";
+		print "<br>";
 		$this->glossary_addterm_link();
 		print "</div>";
 	}
@@ -2547,11 +2545,11 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 		}
 		?></textarea></p>
 
-					<p><input type="submit" value="Preview" class="submit" />
-					<input type="submit" name="submitcomment" value="Post" class="submit" /></p>
-					<input type="hidden" name="epobject_id" value="<?php echo $commentdata['epobject_id']; ?>" />
-					<input type="hidden" name="gid" value="<?php echo $commentdata['gid']; ?>" />
-					<input type="hidden" name="return_page" value="<?php echo $commentdata['return_page']; ?>" />
+					<p><input type="submit" value="Preview" class="submit">
+					<input type="submit" name="submitcomment" value="Post" class="submit"></p>
+					<input type="hidden" name="epobject_id" value="<?php echo $commentdata['epobject_id']; ?>">
+					<input type="hidden" name="gid" value="<?php echo $commentdata['gid']; ?>">
+					<input type="hidden" name="return_page" value="<?php echo $commentdata['return_page']; ?>">
 				</form>
 <?php
 	}
@@ -2570,7 +2568,7 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 		}
 		?>	
 				<div class="comment">
-					<p class="credit"><strong>Comment report</strong><br />
+					<p class="credit"><strong>Comment report</strong><br>
 					<small>Reported by <?php echo $username; ?> on <?php echo $data['reported']; ?></small></p>
 
 					<p><?php echo htmlentities($data['body']); ?></p>
@@ -2578,7 +2576,7 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 <?php
 		if ($data['resolved'] != 'NULL') {
 			?>
-				<p>&nbsp;<br /><em>This report has not been resolved.</em></p>
+				<p>&nbsp;<br><em>This report has not been resolved.</em></p>
 <?php
 		} else {
 			?>

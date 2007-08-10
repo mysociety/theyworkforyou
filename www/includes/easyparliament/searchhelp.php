@@ -3,10 +3,10 @@
 <li>TheyWorkForYou.com Search is case-insensitive, and tries to match all the search terms within a document. </li>
 
 <li>To exclude a word from your search, put a minus ("-") sign in front,
-for example to find documents containing the word "representation" but not the word "taxation":<br />
+for example to find documents containing the word "representation" but not the word "taxation":<br>
 <span class="example-input">representation -taxation</span></li>
 
-<li>To search for an exact phrase, use quotes (""). For example to find only documents contain the exact phrase "Hutton Report":<br />
+<li>To search for an exact phrase, use quotes (""). For example to find only documents contain the exact phrase "Hutton Report":<br>
 <span class="example-input">"hutton report"</span></li>
 
 <li>If the search phrase matches (part of) an MP or Peer's name, their own page will appear as the top result.</li>

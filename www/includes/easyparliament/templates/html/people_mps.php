@@ -112,7 +112,7 @@ function render_mps_row($mp, &$style, $order, $MPURL) {
 				<td class="row-<?php echo $style; ?>"><?php echo $mp['party']; ?></td>
 				<td class="row-<?php echo $style; ?>"><?php echo $mp['constituency']; ?></td>
 				<td class="row-<?php echo $style; ?>"><?php
-	if (is_array($mp['dept'])) print join('<br />', array_map('manymins', $mp['pos'], $mp['dept']));
+	if (is_array($mp['dept'])) print join('<br>', array_map('manymins', $mp['pos'], $mp['dept']));
 	elseif ($mp['dept']) print prettify_office($mp['pos'], $mp['dept']);
 	else print '&nbsp;'
 ?></td>

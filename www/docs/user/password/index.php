@@ -114,15 +114,15 @@ function display_page ($errors=array()) {
 
 <div class="row">
 <div class="left">Email address:</div>
-<div class="right"><input type="text" name="email" value="<?php echo htmlentities(get_http_var("email")); ?>" maxlength="100" size="30" class="form" /></div>
+<div class="right"><input type="text" name="email" value="<?php echo htmlentities(get_http_var("email")); ?>" maxlength="100" size="30" class="form"></div>
 </div>
 
 <div class="row">
 <div class="left">&nbsp;</div>
-<div class="right"><input type="submit" value="Send me a new password" /></div>
+<div class="right"><input type="submit" value="Send me a new password"></div>
 </div>
 
-<input type="hidden" name="submitted" value="true" />
+<input type="hidden" name="submitted" value="true">
 
 </form>
 

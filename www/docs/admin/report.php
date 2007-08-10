@@ -141,11 +141,11 @@ function view ($REPORT, $COMMENT, $FORMURL) {
 	<p><strong>Do you wish to delete the comment?</strong></p>
 	
 	<form action="<?php echo $FORMURL->generate(); ?>" method="post">
-		<p><input type="submit" name="yes" value=" Yes " /> &nbsp;
-		<input type="submit" name="no" value=" No " />
-		<input type="hidden" name="takingaction" value="true" />
-		<input type="hidden" name="rid" value="<?php echo htmlentities($REPORT->report_id()); ?>" />
-		<input type="hidden" name="cid" value="<?php echo htmlentities($REPORT->comment_id()); ?>" /></p>
+		<p><input type="submit" name="yes" value=" Yes "> &nbsp;
+		<input type="submit" name="no" value=" No ">
+		<input type="hidden" name="takingaction" value="true">
+		<input type="hidden" name="rid" value="<?php echo htmlentities($REPORT->report_id()); ?>">
+		<input type="hidden" name="cid" value="<?php echo htmlentities($REPORT->comment_id()); ?>"></p>
 	</form>
 <?php
 }
@@ -182,30 +182,30 @@ function prepare_emails_for_deleting ($REPORT, $COMMENT, $FORMURL) {
 	
 	global $this_page;
 
-#	$commentermail = preg_replace("/\n/", "<br />\n", get_template_contents('comment_deleted') );
+#	$commentermail = preg_replace("/\n/", "<br>\n", get_template_contents('comment_deleted') );
 	$commentermail = preg_replace('/^Subject:.*\n/', '', get_template_contents('comment_deleted') );
-	$reportermail = preg_replace("/\n/", "<br />\n", get_template_contents('report_upheld') );
+	$reportermail = preg_replace("/\n/", "<br>\n", get_template_contents('report_upheld') );
 
 	?>
 		<p><strong>You've chosen to delete this comment.</strong> You can now send an email to both the person who posted the comment, and the person who made the report. Uncheck a box to prevent an email from being sent. The comment will not be deleted until you click the button below.</p>
 
 		<form action="<?php echo $FORMURL->generate(); ?>" method="post">
 			
-			<p><strong><input type="checkbox" name="sendtocommenter" value="true" checked="checked" id="sendtocommenter" /> <label for="sendtocommenter">Send this email to the person who posted the comment:</label></strong></p>
+			<p><strong><input type="checkbox" name="sendtocommenter" value="true" checked id="sendtocommenter"> <label for="sendtocommenter">Send this email to the person who posted the comment:</label></strong></p>
 
 <!--			<p class="email-template"><?php echo $commentermail; ?></p> -->
 			<textarea rows="20" cols="80" name="commentermail"><?php echo $commentermail; ?></textarea>
 
-<!--			<p>Enter a reason to replace {DELETEDREASON}: <input type="text" name="deletedreason" size="40" /></p> -->
+<!--			<p>Enter a reason to replace {DELETEDREASON}: <input type="text" name="deletedreason" size="40"></p> -->
 
-			<p>&nbsp;<br /><strong><input type="checkbox" name="sendtoreporter" value="true" checked="checked" id="sendtoreporter" /> <label for="sendtoreporter">Send this email to the person who made the report:</label></strong></p>
+			<p>&nbsp;<br><strong><input type="checkbox" name="sendtoreporter" value="true" checked id="sendtoreporter"> <label for="sendtoreporter">Send this email to the person who made the report:</label></strong></p>
 
 			<p class="email-template"><?php echo $reportermail; ?></p>
 
-			<p><input type="submit" name="resolve" value=" Delete comment " />
-			<input type="hidden" name="deletecomment" value="true" />
-			<input type="hidden" name="rid" value="<?php echo htmlentities($REPORT->report_id()); ?>" />
-			<input type="hidden" name="cid" value="<?php echo htmlentities($REPORT->comment_id()); ?>" /></p>
+			<p><input type="submit" name="resolve" value=" Delete comment ">
+			<input type="hidden" name="deletecomment" value="true">
+			<input type="hidden" name="rid" value="<?php echo htmlentities($REPORT->report_id()); ?>">
+			<input type="hidden" name="cid" value="<?php echo htmlentities($REPORT->comment_id()); ?>"></p>
 		</form>
 <?php
 
@@ -219,22 +219,22 @@ function prepare_emails_for_not_deleting($REPORT, $COMMENT, $FORMURL) {
 	
 	global $this_page;
 
-	$reportermail = preg_replace("/\n/", "<br />\n", get_template_contents('report_declined') );
+	$reportermail = preg_replace("/\n/", "<br>\n", get_template_contents('report_declined') );
 		
 	?>
 		<p><strong>You have chosen not to delete this comment.</strong> You can now send an email to the person who made the report (uncheck the box to send no email). The report will not be resolved until you click the button below.</p>
 		
 		<form action="<?php echo $FORMURL->generate(); ?>" method="post">
-			<p>&nbsp;<br /><strong><input type="checkbox" name="sendtoreporter" value="true" checked="checked" id="sendtoreporter" /> <label for="sendtoreporter">Send this email to the person who reported the comment:</label></strong></p>
+			<p>&nbsp;<br><strong><input type="checkbox" name="sendtoreporter" value="true" checked id="sendtoreporter"> <label for="sendtoreporter">Send this email to the person who reported the comment:</label></strong></p>
 
 			<p class="email-template"><?php echo $reportermail; ?></p>
 			
-			<p>Enter a reason to replace {REASON}: <input type="text" name="declinedreason" size="40" /></p>
+			<p>Enter a reason to replace {REASON}: <input type="text" name="declinedreason" size="40"></p>
 			
-			<p><input type="submit" name="resolve" value=" Resolve this report " />
-			<input type="hidden" name="deletecomment" value="false" />
-			<input type="hidden" name="rid" value="<?php echo htmlentities($REPORT->report_id()); ?>" />
-			<input type="hidden" name="cid" value="<?php echo htmlentities($REPORT->comment_id()); ?>" /></p>
+			<p><input type="submit" name="resolve" value=" Resolve this report ">
+			<input type="hidden" name="deletecomment" value="false">
+			<input type="hidden" name="rid" value="<?php echo htmlentities($REPORT->report_id()); ?>">
+			<input type="hidden" name="cid" value="<?php echo htmlentities($REPORT->comment_id()); ?>"></p>
 		</form>
 <?php
 }

@@ -36,7 +36,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 			$member = '';
 		}
 		?>
-						<li><p><strong><?php echo $title; ?></strong><br />
+						<li><p><strong><?php echo $title; ?></strong><br>
 							<?php echo $member; ?>&#8220;<?php echo trim_characters($row['body'], 0, 200); ?>&#8221;</p></li>
 <?php
 		

@@ -127,7 +127,7 @@ class SKIN {
 
 		if (isset($skinstyles["global"]) && $skinstyles["global"] != "") {
 			?>
-	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/<?php echo $skinstyles['global']; ?>/global.css" type="text/css" >
+	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/<?php echo $skinstyles['global']; ?>/global.css" type="text/css">
 <?php
 			if (isset($_SERVER['HTTP_USER_AGENT']) && !(ereg("MSIE 4.0", $_SERVER['HTTP_USER_AGENT']))){
 				// Hide this from IE4 and Mac AOL5.
@@ -140,12 +140,12 @@ class SKIN {
 		}
 		if (isset($skinstyles["screen"]) && $skinstyles["screen"] != "") {
 			?>
-	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/<?php echo $skinstyles['screen']; ?>/screen.css" type="text/css" media="screen" >
+	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/<?php echo $skinstyles['screen']; ?>/screen.css" type="text/css" media="screen">
 <?php
 		}
 		if (isset($skinstyles["extra"]) && $skinstyles["extra"] != "") {
 			?>
-	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/<?php echo $skinstyles['extra']; ?>/extra.css" type="text/css" media="screen" >
+	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/<?php echo $skinstyles['extra']; ?>/extra.css" type="text/css" media="screen">
 <?php
 		}
 		if (isset($skinstyles["print"]) && 
@@ -154,13 +154,13 @@ class SKIN {
 		) {
 			// Hide this from IE4 and Mac AOL5.
 			?>
-	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/<?php echo $skinstyles['print']; ?>/print.css" type="text/css" media="print" >
+	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/<?php echo $skinstyles['print']; ?>/print.css" type="text/css" media="print">
 <?php
 		}
 
 		if (get_http_var('c4') || get_http_var('c4x')) {
 			$x = get_http_var('c4x') ? 'X' : ''; ?>
-	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/channel4/global<?=$x ?>.css" type="text/css" >
+	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/channel4/global<?=$x ?>.css" type="text/css">
 <?php
 			if (isset($_SERVER['HTTP_USER_AGENT']) && !(ereg("MSIE 4.0", $_SERVER['HTTP_USER_AGENT']))){
 				// Hide this from IE4 and Mac AOL5.

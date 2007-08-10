@@ -207,7 +207,7 @@ class URL {
 
 		foreach ($this->session_vars as $key => $val) {
 			if (!in_array($key, $dont_keep)) {
-				$html .= '<input type="hidden" name="' . $key . '" value="' . $val . "\" />\n";
+				$html .= '<input type="hidden" name="' . $key . '" value="' . $val . "\">\n";
 
 			}
 		}

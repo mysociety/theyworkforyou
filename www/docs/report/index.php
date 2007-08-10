@@ -113,12 +113,12 @@ function display_form($COMMENT, $errors=array()) {
 	$FORMURL->remove(array('id'));
 
 	?>
-				<br />
+				<br>
 				<form action="<?php echo $FORMURL->generate(); ?>" method="post">
 <?php
 	if ($THEUSER->isloggedin()) {
 		?>
-				<p><br /><strong>From:</strong> <?php echo htmlentities($THEUSER->firstname() . ' ' . $THEUSER->lastname()); ?></p>
+				<p><br><strong>From:</strong> <?php echo htmlentities($THEUSER->firstname() . ' ' . $THEUSER->lastname()); ?></p>
 <?php
 	} else {
 		// Not-logged-in user, so we want their name and email address.
@@ -128,13 +128,13 @@ function display_form($COMMENT, $errors=array()) {
 		?>
 				<div class="row">
 				<span class="label"><label for="firstname">Your first name:</label></span>
-				<span class="formw"><input type="text" name="firstname" id="firstname" value="" maxlength="50" size="30" class="form" /></span>
+				<span class="formw"><input type="text" name="firstname" id="firstname" value="" maxlength="50" size="30" class="form"></span>
 				</div>
 
 				<div class="row">
 				<span class="label"><label for="lastname">Your last name:</label></span>
 
-				<span class="formw"><input type="text" name="lastname" id="lastname" value="" maxlength="50" size="30" class="form" /></span>
+				<span class="formw"><input type="text" name="lastname" id="lastname" value="" maxlength="50" size="30" class="form"></span>
 				</div>
 <?php
 		if (isset($errors['email'])) {
@@ -143,7 +143,7 @@ function display_form($COMMENT, $errors=array()) {
 		?>
 				<div class="row">
 				<span class="label"><label for="email">Email address:</label></span>
-				<span class="formw"><input type="text" name="email" id="email" value="" maxlength="100" size="30" class="form" /></span>
+				<span class="formw"><input type="text" name="email" id="email" value="" maxlength="100" size="30" class="form"></span>
 				</div>
 <?php
 	}
@@ -153,24 +153,24 @@ function display_form($COMMENT, $errors=array()) {
 	}
 	$RULESURL = new URL('houserules');
 	?>
-				<p style="clear: left;"><strong>Why should this comment be deleted?</strong><br />
-				<small>Check our <a href="<?php echo $RULESURL->generate(); ?>">House Rules</a> and tell us why the comment breaks them.</small><br />
+				<p style="clear: left;"><strong>Why should this comment be deleted?</strong><br>
+				<small>Check our <a href="<?php echo $RULESURL->generate(); ?>">House Rules</a> and tell us why the comment breaks them.</small><br>
 				<textarea name="body" rows="10" cols="45"><?php
 	echo htmlentities(get_http_var('body'));
 	?></textarea></p>
 		
 				<div class="row">
 				<span class="label">&nbsp;</span>
-				<span class="formw"><input type="submit" value="Send report" /></span>
+				<span class="formw"><input type="submit" value="Send report"></span>
 				</div>
 				
-				<input type="hidden" name="submitted" value="true" />
-				<input type="hidden" name="id" value="<?php echo htmlentities($COMMENT->comment_id()); ?>" />
+				<input type="hidden" name="submitted" value="true">
+				<input type="hidden" name="id" value="<?php echo htmlentities($COMMENT->comment_id()); ?>">
 <?php
 	if (get_http_var('ret') != '') {
 		// Where the user came from to get here.
 		?>
-				<input type="hidden" name="ret" value="<?php echo htmlentities(get_http_var('ret')); ?>" />
+				<input type="hidden" name="ret" value="<?php echo htmlentities(get_http_var('ret')); ?>">
 <?php
 	}
 	?>

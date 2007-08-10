@@ -63,10 +63,10 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 		$title = $EDITQUEUE->pending[$glossary_id]['title'];
 	}
 	if (get_http_var('wikiguess')) {
-		$checked = "checked=\"checked\" ";
+		$checked = " checked";
 	}
 	else {
-		$checked = "unchecked=\"unchecked\" ";
+		$checked = "";
 	}
 
 	$user_id = $EDITQUEUE->pending[$glossary_id]['user_id'];
@@ -85,9 +85,9 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 	
 	<div class="glossaryaddbox">
 		<form action="<? echo $form_action; ?>" method="post">
-		<input type="hidden" name="modify" value="<?php echo $glossary_id; ?>" />
-		<input type="hidden" name="userid" value="<?php echo $user_id; ?>" />
-		<input type="text" name="g" value="<?php echo $title; ?>" size="80" />
+		<input type="hidden" name="modify" value="<?php echo $glossary_id; ?>">
+		<input type="hidden" name="userid" value="<?php echo $user_id; ?>">
+		<input type="text" name="g" value="<?php echo $title; ?>" size="80">
 		<label for="definition"><p><textarea name="definition" id="definition" rows="10" cols="40"><?php echo htmlentities($body); ?></textarea></p>
 
 	<?
@@ -96,11 +96,11 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 	// We need to work out how best to work this...
 	$wiki_link = "http://en.wikipedia.org/wiki/" . strtr($title, " ", "_");
 ?>
-		<p>Guessing the wikipedia link - give it a go:<br />
+		<p>Guessing the wikipedia link - give it a go:<br>
 		<a href="<?php echo $wiki_link; ?>" target="_blank"><?php echo $wiki_link; ?></a></p>
-		<p>Tick here if it worked <input type="checkbox" name="wikiguess" $checked/></p>
-		<p><input type="submit" name="previewterm" value="Preview" class="submit" />
-		<input type="submit" name="submitterm" value="Post" class="submit" /></p></label>
+		<p>Tick here if it worked <input type="checkbox" name="wikiguess"$checked></p>
+		<p><input type="submit" name="previewterm" value="Preview" class="submit">
+		<input type="submit" name="submitterm" value="Post" class="submit"></p></label>
 	</div>
 
 <?

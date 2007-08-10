@@ -120,7 +120,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 		$date = format_date($date, SHORTDATEFORMAT);
 		$time = format_time($time, TIMEFORMAT);
 		?>
-					<p class="credit"><a href="<?php echo $USERURL->generate(); ?>" title="See information about this user"><strong><?php echo htmlentities($comment['firstname']) .' '. htmlentities($comment['lastname']); ?></strong></a><br />
+					<p class="credit"><a href="<?php echo $USERURL->generate(); ?>" title="See information about this user"><strong><?php echo htmlentities($comment['firstname']) .' '. htmlentities($comment['lastname']); ?></strong></a><br>
 					<small>Posted on <?php echo $date; 
 					
 		if (isset($comment['url'])) {

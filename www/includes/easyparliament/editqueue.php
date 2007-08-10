@@ -286,19 +286,19 @@ class EDITQUEUE {
 			$URL->insert(array('decline' => $editqueue_id));
 			$decline_link = $URL->generate('url');
 			
-			?><div class="pending-item"><label for="<?php echo $editqueue_id; ?>"><input type="checkbox" name="approve[]" value="<?php echo $editqueue_id; ?>" id="<?php echo $editqueue_id; ?>" unchecked="unchecked" /><strong><?php echo $pender['title']; ?></strong></label>
-			<p><?php echo $pender['body']; ?><br />
+			?><div class="pending-item"><label for="<?php echo $editqueue_id; ?>"><input type="checkbox" name="approve[]" value="<?php echo $editqueue_id; ?>" id="<?php echo $editqueue_id; ?>"><strong><?php echo $pender['title']; ?></strong></label>
+			<p><?php echo $pender['body']; ?><br>
 			<small>
 				<a href="<?php echo $approve_link; ?>">approve</a>
 				&nbsp;|&nbsp;
 				<a href="<?php echo $modify_link; ?>">modify</a>
 				&nbsp;|&nbsp;
 				<a href="<?php echo $decline_link; ?>">decline</a>
-				<br />Submitted by: <em><?php echo $pender['firstname']; ?>&nbsp;<?php echo $pender['lastname']; ?></em>
+				<br>Submitted by: <em><?php echo $pender['firstname']; ?>&nbsp;<?php echo $pender['lastname']; ?></em>
 			</small></p></div>
 		<?php
 		}
-		?><input type="submit" value="Approve checked items" />
+		?><input type="submit" value="Approve checked items">
 		</form><?php
 	}
 

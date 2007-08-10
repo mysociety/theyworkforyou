@@ -180,7 +180,7 @@ Output:
 <input id="output_rabx" type="radio" name="output" value="rabx"<? if (get_http_var('output')=='rabx') print ' checked'?>>
 <label for="output_rabx">RABX</label>
 
-<input type="submit" value="Go" />
+<input type="submit" value="Go">
 </p>
 </form>
 <?

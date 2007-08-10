@@ -95,7 +95,7 @@ if (isset ($data)) {
 
 		
 		if (isset($row['excerpt'])) {
-			print "<br />\n\t\t\t\t\t<span class=\"excerpt-debates\">" . trim_characters($row['excerpt'], 0, 200) . "</span>";
+			print "<br>\n\t\t\t\t\t<span class=\"excerpt-debates\">" . trim_characters($row['excerpt'], 0, 200) . "</span>";
 		}
 
 

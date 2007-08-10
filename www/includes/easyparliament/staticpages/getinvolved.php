@@ -4,7 +4,7 @@
 <li><a href="#knowspython">I know python and I can write parsers, can I help you crunch the source data?<a></li>
 </ul>
 
-<br />
+<br>
 
 <!-- start new faq entry-->
 <dl>
