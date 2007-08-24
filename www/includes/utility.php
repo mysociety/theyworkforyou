@@ -546,7 +546,7 @@ function filter_user_input ($text, $filter_type) {
 
 function prepare_comment_for_display ($text) {
 	// Makes any URLs into HTML links.
-	// Turns \n's into <br />
+	// Turns \n's into <br>
 
 	// Encode HTML entities.
 	// Can't do htmlentities() because it'll turn the few tags we allow into &lt;
@@ -558,7 +558,7 @@ function prepare_comment_for_display ($text) {
 		'(strlen(\'$0\')>$link_length) ? \'<a href="$0">\'.substr(\'$0\',0,$link_length)."...</a>" : \'<a href="$0">$0</a>\'',
 		$text);
 	$text = preg_replace("/([\w\.]+)(@)([\w\.\-]+)/i", "<a href=\"mailto:$0\">$0</a>", $text); 
-	$text = nl2br($text);
+	$text = str_replace("\n", "<br>\n", $text);
 	return $text;	
 }
 
