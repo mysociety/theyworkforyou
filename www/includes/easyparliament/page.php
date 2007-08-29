@@ -1696,6 +1696,7 @@ elseif ($member['house_disp']==3) print 'MLA'; ?> speaks<?php
 			$html .= '	<li><a href="' . $links['bbc_profile_url'] . '">General information</a> <small>(From BBC News)</small></li>';
 
 		} 
+		$html .= '	<li><a href="http://catalogue.bbc.co.uk/catalogue/infax/search/' . $member->full_name() . '">TV/radio appearances</a> <small>(From BBC Programme Catalogue)</small></li>';
 
 		
 		$html .= "	</ul>
@@ -1927,6 +1928,8 @@ elseif ($member['house_disp']==3) print 'MLA'; ?> speaks<?php
 				$message .= 'at this time.';
 			}
 		}
+
+		$message .= "<br><br>Would you like to work for the charity that runs this site? <a href=\"http://www.mysociety.org/2007/job-advert/\">Click here</a>.";
 		return $message;
 	}
 
