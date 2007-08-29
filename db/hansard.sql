@@ -62,7 +62,8 @@ CREATE TABLE `hansard` (
   KEY `major` (`major`),
   KEY `htype` (`htype`),
   KEY `majorhdate` (`major`,`hdate`),
-  KEY `modified` (`modified`)
+  KEY `modified` (`modified`),
+  KEY `majorhtypeminor` (`major`,`htype`,`minor`)
 );
 
 CREATE TABLE `member` (
@@ -95,7 +96,7 @@ CREATE TABLE `memberinfo` (
 
 CREATE TABLE `moffice` (
   `moffice_id` int(11) NOT NULL auto_increment,
-  `dept` varchar(100) NOT NULL default '',
+  `dept` varchar(255) NOT NULL default '',
   `position` varchar(200) NOT NULL default '',
   `from_date` date NOT NULL default '1000-01-01',
   `to_date` date NOT NULL default '9999-12-31',
@@ -124,5 +125,29 @@ CREATE TABLE `indexbatch` (
   `indexbatch_id` int(11) NOT NULL auto_increment,
   `created` datetime default NULL,
   PRIMARY KEY  (`indexbatch_id`)
+);
+
+-- For Public Bill Committees originally
+CREATE TABLE bills (
+	id integer not null auto_increment,
+	title varchar(255) not null,
+	url varchar(255) not null,
+	lords boolean not null,
+	session varchar(50) not null,
+	standingprefix varchar(255) not null,
+	primary key (id),
+	key title (title)
+);
+
+CREATE TABLE pbc_members (
+	id integer not null auto_increment,
+	member_id integer not null,
+	chairman boolean not null,
+	bill_id integer not null,
+	sitting varchar(4) not null,
+	attending boolean not null,
+	primary key (id),
+	key member_id (member_id),
+	key bill_id (bill_id)
 );
 

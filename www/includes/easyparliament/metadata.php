@@ -545,6 +545,39 @@ $this->page = array (
 		'url'			=> 'privacy/'
 	),
 
+	/* Public bill committees */
+	'pbc_front' => array (
+		'menu'			=> array (
+			'text'			=> 'Public Bill Committees',
+			'title'			=> "Public Bill Committees (formerly Standing Committees) debates"
+		),
+		'parent'		=> 'hansard',
+		'title'			=> 'Public Bill Committees',
+		'rss'			=> 'pbc/pbc.rss',
+		'url'			=> 'pbc/'
+	),
+	'pbc_session' => array(
+		'title' => 'Session',
+		'url' => 'pbc/',
+		'parent' => 'pbc_front',
+	),
+	'pbc_bill' => array(
+		'title' => '',
+		'url' => 'pbc/',
+		'parent' => 'pbc_front',
+		'session_vars'	=> array ('bill'),
+	),
+	'pbc_clause' => array(
+		'parent'		=> 'pbc_front',
+		'url'			=> 'pbc/',
+		'session_vars'	=> array ('id'),
+	),
+	'pbc_speech' => array(
+		'parent'		=> 'pbc_front',
+		'url'			=> 'pbc/',
+		'session_vars'	=> array ('id'),
+	),
+
 	'raw' => array (
 		'title'			=> 'Raw data',
 		'url'			=> 'raw/'

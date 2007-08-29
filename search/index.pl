@@ -87,13 +87,9 @@ my $db=Search::Xapian::WritableDatabase->new($dbfile, Search::Xapian::DB_CREATE_
 
 if ($action ne "check") {
     # Batch numbers - each new stuff gets a new batch number
-    my $sth = $dbh->prepare("insert into indexbatch (created) values (now())");
-    $sth->execute();
-    $sth = $dbh->prepare("select last_insert_id()");
-    $sth->execute();
-    my @row = $sth->fetchrow_array();
-    my $new_indexbatch = $row[0];
-
+    my $max_indexbatch = $dbh->selectrow_array('select max(indexbatch_id) from indexbatch');
+    my $new_indexbatch = $max_indexbatch + 1;
+    
     # Get data for items to update from MySQL 
     my $query = "select epobject.epobject_id, body, person_id, hdate, gid, major, 
         section_id, subsection_id, party,
@@ -196,6 +192,9 @@ if ($action ne "check") {
         if (!$cronquiet) {
             print "\n";
         }
+
+        # Sotre new batch number
+        $dbh->do("insert into indexbatch (indexbatch_id, created) values (?, now())", {}, $new_indexbatch);
     }
 
     # Write out date we updated to, for 'sincefile' case
@@ -224,7 +223,7 @@ if ($action ne "check") {
     my $alltermsend = $db->allterms_end();
     while ($allterms ne $alltermsend) {
         my $term = "$allterms";
-        if ($term =~ m#(?:wrans|debate|westminhall|wms|lords|ni)/#) {
+        if ($term =~ m#(?:wrans|debate|westminhall|wms|lords|ni|standing)/#) {
             $xapian_gids{$term} = 1;
         }
         $allterms++;

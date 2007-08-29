@@ -49,11 +49,11 @@ Warning: Showing data from the current day is <strong>experimental</strong> and 
 }
 
 if (isset ($data['rows'])) {
-    // For highlighting
-    $SEARCHENGINE = null;
-    if (isset($data['info']['searchstring']) && $data['info']['searchstring'] != '') {
-        $SEARCHENGINE = new SEARCHENGINE($data['info']['searchstring']);
-    }
+	// For highlighting
+	$SEARCHENGINE = null;
+	if (isset($data['info']['searchstring']) && $data['info']['searchstring'] != '') {
+		$SEARCHENGINE = new SEARCHENGINE($data['info']['searchstring']);
+	}
 
 	// Before we print the body text we need to insert glossary links
 	// and highlight search string words.

@@ -446,6 +446,26 @@ class MEMBER {
 		$this->extra_info['reading_age'] = $this->extra_info['reading_year'] + 4;
 		$this->extra_info['reading_age'] .= '&ndash;' . ($this->extra_info['reading_year'] + 5);
 	}
+
+	# Public Bill Committees
+	$q = $this->db->query('select bill_id,session,title,sum(attending) as a,sum(chairman) as c
+		from pbc_members, bills
+		where bill_id = bills.id and member_id = ' . $this->member_id()
+		 . ' group by bill_id');
+	$this->extra_info['pbc'] = array();
+	for ($i=0; $i<$q->rows(); $i++) {
+		$bill_id = $q->field($i, 'bill_id');
+		$c = $this->db->query('select count(*) as c from hansard where major=6 and minor='.$bill_id.' and htype=10');
+		$c = $c->field(0, 'c');
+		$title = $q->field($i, 'title');
+		$attending = $q->field($i, 'a');
+		$chairman = $q->field($i, 'c');
+		$this->extra_info['pbc'][$bill_id] = array(
+			'title' => $title, 'session' => $q->field($i, 'session'),
+			'attending'=>$attending, 'chairman'=>($chairman>0), 'outof' => $c
+		);
+	}
+
     }
 	
 	// Functions for accessing things about this Member.

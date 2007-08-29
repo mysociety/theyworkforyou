@@ -1,6 +1,6 @@
 <?
 // Constants of types used in epobjects and hansard objects
-// $Id: dbtypes.php,v 1.3 2006-12-10 23:35:41 matthew Exp $
+// $Id: dbtypes.php,v 1.4 2007-08-29 13:50:48 twfy-staging Exp $
 
 // The type field in the epobject database table
 /*
@@ -82,6 +82,19 @@ $hansardmajors = array(
 		'page_year'=>'nidebatesyear',
 		'sidebar'=>'nidebates',
 		'sidebar_short'=>'nidebates_short',
+	),
+	6 => array(
+		'type' => 'debate',
+		'title' => 'Public Bill Committees',
+		'singular' => 'clause',
+		'plural' => 'clauses',
+		'page' => 'pbc_speech',
+		'page_all' => 'pbc_clause',
+		'gidvar' => 'id',
+		# Committees never have a view by date/year
+		# 'page_year' => 'pbc_year',
+		'sidebar' => 'pbc',
+		'sidebar_short' => 'pbc_short',
 	),
 );
 $hansardmajors[104] = $hansardmajors[4];

@@ -335,7 +335,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// we're within that section.
 		$items = array (
 			'home' 		=> array ('sitenews', 'comments_recent', 'api_front'),
-			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront', 'nidebatesfront'),
+			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront', 'nidebatesfront', 'pbc_front'),
 			'yourmp'	=> array (),
 			'mps'           => array (),
 			'peers'		=> array (),
@@ -1210,7 +1210,7 @@ pr()//-->
 <? if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_array(2, $member['houses'])) { ?>
 						<li><a href="#votingrecord">Voting record</a></li>
 <?		if (in_array(1, $member['houses'])) { ?>
-						<li><a href="#topics">Topics of interest</a></li>
+						<li><a href="#topics">Committees and topics of interest</a></li>
 <?		} ?>
 <? }
    if (!in_array(1, $member['houses']) || $member['party'] == 'Sinn Fein') { ?>
@@ -1351,7 +1351,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		if (in_array(1, $member['houses'])) {
 
 ?>	<a name="topics"></a>
-		<? $this->block_start(array('id'=>'topics', 'title'=>'Topics of interest')); 
+		<? $this->block_start(array('id'=>'topics', 'title'=>'Committees and topics of interest')); 
 		$topics_block_empty = true;
 
 		// Select committee membership
@@ -1361,12 +1361,12 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 				if ($row['to_date'] == '9999-12-31' && $row['source'] == 'chgpages/selctee') {
 					$m = prettify_office($row['position'], $row['dept']);
 					if ($row['from_date']!='2004-05-28')
-						$m .= ' (since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')';
+						$m .= ' <small>(since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')</small>';
 					$mins[] = $m;
 				}
 			}
 			if ($mins) {
-				print "<p><strong>Select committee membership</strong></p>";
+				print "<h5>Select Committee membership</h5>";
 				print "<ul>";
 				foreach ($mins as $min) {
 					print '<li>' . $min . '</li>';
@@ -1398,8 +1398,24 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 			$WRANSURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
 		?>							<p><small>(based on <a href="<?=$WRANSURL->generate()?>">written questions asked by <?=$member['full_name']?></a> and answered by departments)</small></p><?
 		}
+
+		# Public Bill Committees
+		if (count($extra_info['pbc'])) {
+			$topics_block_empty = false;
+			print '<h5>Public Bill Committees <small>(sittings attended)</small></h5> <ul>';
+			foreach ($extra_info['pbc'] as $bill_id => $arr) {
+				print '<li>';
+				if ($arr['chairman']) print 'Chairman, ';
+				print '<a href="/pbc/' . $arr['session'] . '/' . urlencode($arr['title']) . '">'
+					. $arr['title'] . ' Committee</a> <small>(' . $arr['attending']
+					. ' out of ' . $arr['outof'] . ')</small>';
+			}
+			print '</ul>';
+		}
+		
 		if ($topics_block_empty) {
-			print "<p><em>This MP is not on any select committee and has had no written questions answered for which we know the department or subject.</em></p>";
+			print "<p><em>This MP is not currently on any select or public bill committee
+and has had no written questions answered for which we know the department or subject.</em></p>";
 		}
 		$this->block_end();
 

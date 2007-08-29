@@ -92,6 +92,7 @@ class SEARCHENGINE {
                     elseif ($value == 'wms' || $value == 'statements' || $value == 'statement') $value = 4;
                     elseif ($value == 'lordsdebates' || $value == 'lords') $value = 101;
                     elseif ($value == 'ni') $value = 5;
+                    elseif ($value == 'pbc' || $value == 'standing') $value = 6;
                     $type = "major";
                 }
                 if ($type == "groupby") {

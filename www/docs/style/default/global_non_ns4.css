@@ -839,8 +839,8 @@ ul.jumpers {
 .regmemitem {
 	margin: 0.5em 0;
 	}
-	
-	
+
+
 /**** HOME PAGE ****************************************************************/	
 /* We override the standard block styles for this special home page block.     */
 
@@ -885,4 +885,12 @@ acronym {
 	text-align: center;
 	border: solid 1px #990000;
 	background-color: #ffcccc;
+}
+
+#topics h5 {
+	font-size: 100%;
+	margin: 0.5em 14px 0.5em 0;
+}
+#topics ul {
+	margin-bottom: 1em;
 }

@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteBase /pbc
+
+RewriteRule ^([0-9][0-9][0-9][0-9]-[0-9][0-9])/$     index.php?session=$1   [QSA]
+RewriteRule ^([0-9][0-9][0-9][0-9]-[0-9][0-9])/([^/]*)$     index.php?session=$1&bill=$2   [QSA]
+RewriteRule ^([0-9][0-9][0-9][0-9]-[0-9][0-9])/([^/]*)/(.*)$     index.php?session=$1&bill=$2&id=$3   [QSA]
