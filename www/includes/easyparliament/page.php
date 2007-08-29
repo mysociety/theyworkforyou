@@ -1696,7 +1696,7 @@ elseif ($member['house_disp']==3) print 'MLA'; ?> speaks<?php
 			$html .= '	<li><a href="' . $links['bbc_profile_url'] . '">General information</a> <small>(From BBC News)</small></li>';
 
 		} 
-		$html .= '	<li><a href="http://catalogue.bbc.co.uk/catalogue/infax/search/' . $member->full_name() . '">TV/radio appearances</a> <small>(From BBC Programme Catalogue)</small></li>';
+		$html .= '	<li><a href="http://catalogue.bbc.co.uk/catalogue/infax/search/' . urlencode($member->first_name()) . "%20" . urlencode($member->last_name()) . '">TV/radio appearances</a> <small>(From BBC Programme Catalogue)</small></li>';
 
 		
 		$html .= "	</ul>
