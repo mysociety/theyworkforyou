@@ -7,6 +7,7 @@ function _api_getMembers_output($sql) {
 	$db = new ParlDB;
 	$q = $db->query($sql);
 	$output = array();
+	$last_mod = 0;
 	for ($i=0; $i<$q->rows(); $i++) {
 		$row = array(
 			'member_id' => $q->field($i, 'member_id'),
@@ -19,8 +20,11 @@ function _api_getMembers_output($sql) {
 		if ($q->field($i, 'house') == 1)
 			$row['constituency'] = html_entity_decode($q->field($i, 'constituency'));
 		$output[] = $row;
+		$time = strtotime($q->field($i, 'lastupdate'));
+		if ($time > $last_mod)
+			$last_mod = $time;
 	}
-	api_output($output);
+	api_output($output, $last_mod);
 }
 
 function api_getMembers_party($house, $s) {

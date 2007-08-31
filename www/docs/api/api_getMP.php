@@ -52,6 +52,7 @@ function api_getMP_id($id) {
 		order by left_house desc");
 	if ($q->rows()) {
 		$output = array();
+		$last_mod = 0;
 		/*
 		$MEMBER = new MEMBER(array('person_id'=>$id));
 		$MEMBER->load_extra_info();
@@ -63,8 +64,11 @@ function api_getMP_id($id) {
 		for ($i=0; $i<$q->rows(); $i++) {
 			$out = _api_getMP_row($q->row($i));
 			$output[] = $out;
+			$time = strtotime($q->field($i, 'lastupdate'));
+			if ($time > $last_mod)
+				$last_mod = $time;
 		}
-		api_output($output);
+		api_output($output, $last_mod);
 	} else {
 		api_error('Unknown person ID');
 	}
@@ -79,7 +83,7 @@ function api_getMP_postcode($pc) {
 		} elseif ($constituency) {
 			$person = _api_getMP_constituency($constituency);
 			$output = $person;
-			api_output($output);
+			api_output($output, strtotime($output['lastupdate']));
 		} else {
 			api_error('Unknown postcode');
 		}
@@ -92,7 +96,7 @@ function api_getMP_constituency($constituency) {
 	$person = _api_getMP_constituency($constituency);
 	if ($person) {
 		$output = $person;
-		api_output($output);
+		api_output($output, strtotime($output['lastupdate']));
 	} else {
 		api_error('Unknown constituency, or no MP for that constituency');
 	}

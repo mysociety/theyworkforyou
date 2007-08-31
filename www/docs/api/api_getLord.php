@@ -30,11 +30,15 @@ function api_getLord_id($id) {
 		order by left_house desc");
 	if ($q->rows()) {
 		$output = array();
+		$last_mod = 0;
 		for ($i=0; $i<$q->rows(); $i++) {
 			$out = _api_getLord_row($q->row($i));
 			$output[] = $out;
+			$time = strtotime($q->field($i, 'lastupdate'));
+			if ($time > $last_mod)
+				$last_mod = $time;
 		}
-		api_output($output);
+		api_output($output, $last_mod);
 	} else {
 		api_error('Unknown person ID');
 	}

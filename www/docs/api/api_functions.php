@@ -2,10 +2,10 @@
 
 include_once '../../../../phplib/rabx.php';
 
-function api_output($arr) {
+function api_output($arr, $last_mod=null) {
 	$output = get_http_var('output');
 	if (!get_http_var('docs'))
-		api_header($output);
+		api_header($output, $last_mod);
 	if ($output == 'xml') {
 		$out = '<?xml version="1.0" encoding="iso-8859-1"?>'."\n";
 		$out .= '<twfy>' . api_output_xml($arr) . '</twfy>';
@@ -23,7 +23,7 @@ function api_output($arr) {
 	print $out;
 }
 
-function api_header($o) {
+function api_header($o, $last_mod=null) {
 	if ($o == 'xml') {
 		$type = 'text/xml';
 	} elseif ($o == 'php') {
@@ -33,6 +33,8 @@ function api_header($o) {
 	}
 	#$type = 'text/plain';
 	header("Content-Type: $type; charset=iso-8859-1");
+	if ($last_mod>0)
+		header('Last-Modified: ' . date('r', $last_mod));
 }
 
 function api_error($e) {
