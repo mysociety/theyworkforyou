@@ -1,34 +1,27 @@
 #!/bin/bash
 set -e
 
-
+# Check disk space
 if [[ 97 <  ` df -k /usr | perl -e '$/=undef; $a= <STDIN>; $a=~ m#(\d+)\%#; print $1'` ]] ; then
 	echo "  Backup cancelled due to lack of space on cake!";
 	exit 1;
 fi
 
-#echo "wouldn't die"
-#exit 0;
-
-
-# Dumps database for backups
-/usr/local/bin/mysqldump --skip-lock-tables fawkes | bzip2 -c > ~/backup/twfy-all-including-sensitive-data-`date +%F`.sql.bz2
-
-# As sams suggests, keep whole of last month, and first of month before then
-
+# As sams suggests, keep much of last month, and first of month before then
 cd ~/backup
-
-# Move first of month
+# ... move first of month
 touch dummy-01.sql.bz2
 mv *-01.sql.bz2 firsts
 rm firsts/dummy-01.sql.bz2
-#echo firsts
-#ls -1 firsts
-
-# Delete all except 20
+# ... delete all except 20
 ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | fgrep -v "`ls -1 twfy-all-including-sensitive-data-*.sql.bz2 | sort -n | tail -n 20`" | while read X
 do
 	#echo "Deleting old backup $X"
 	rm $X
 done
+
+# Dumps database for backups (we do this last, so other servers can grab first
+# of the month backup before it moves the next day)
+/usr/local/bin/mysqldump --skip-lock-tables fawkes | bzip2 -c > ~/backup/twfy-all-including-sensitive-data-`date +%F`.sql.bz2
+
 
