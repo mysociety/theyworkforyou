@@ -89,6 +89,7 @@ if (get_http_var('recent')) {
 if (get_http_var('c4')) $this_page = 'c4_mp';
 elseif (get_http_var('c4x')) $this_page = 'c4x_mp';
 elseif (get_http_var('peer')) $this_page = 'peer';
+elseif (get_http_var('royal')) $this_page = 'royal';
 elseif (get_http_var('mla')) $this_page = 'mla';
 else $this_page = 'mp';
 
@@ -298,7 +299,8 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 					$dist = $nearby_consts[$k]['distance'];
 					$out .= '<li><a href="' . WEBPATH . 'mp/?c=' . urlencode($name) . '">';
 					$out .= $nearby_consts[$k]['name'] . '</a>';
-					$out .= ' <small title="Centre to centre">(' . round($dist, 1) . ' km)</small>';
+					$dist_miles = round($dist / 1.609344, 0);
+					$out .= ' <small title="Centre to centre">(' . $dist_miles. ' miles)</small>';
 					$out .= '</li>';
 				}
 				$out .= '</ul>';
