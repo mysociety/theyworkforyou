@@ -90,6 +90,18 @@ $GLOBALS['recessdates'] = array(
 		8=>array('all'=>1),
 		9=>array('all'=>1),
 		10=>array('less'=>8),
+		12=>array('more'=>18),
+	),
+	2008 => array(
+		1=>array('less'=>7),
+		2=>array('between'=>array(7,18)),
+		4=>array('between'=>array(3,21)),
+		5=>array('more'=>22),
+		6=>array('less'=>2),
+		7=>array('more'=>22),
+		8=>array('all'=>1),
+		9=>array('all'=>1),
+		10=>array('less'=>6),
 	),
 );
 
