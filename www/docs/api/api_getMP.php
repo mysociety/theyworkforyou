@@ -16,6 +16,10 @@ function api_getMP_front() {
 <dd>If you know the person ID for the member you want (returned from getMPs or elsewhere), this will return data for that person. <!-- <em>Also returns select committee membership and ministerial positions, past and present.</em> --></dd>
 <dt>always_return (optional)</dt>
 <dd>For the postcode and constituency options, sets whether to always try and return an MP, even if the seat is currently vacant.</dd>
+<!-- 
+<dt>extra (optional)</dt>
+<dd>Returns extra data in one or more categories, separated by commas.</dd>
+-->
 </dl>
 
 <h4>Example Response</h4>

@@ -1,6 +1,6 @@
 RewriteEngine on
 RewriteBase /api/
 RewriteRule ^((get|convert).*)$ index.php?method=$1 [QSA]
-RewriteRule ^docs/$ /api/ [R]
+RewriteRule ^docs/?$ /api/ [R]
 RewriteRule ^docs/(.*)$ index.php?docs=1&method=$1 [QSA]
 

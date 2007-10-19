@@ -26,7 +26,7 @@ $methods = array(
 	),
 	'getMP' => array(
 		'new' => true,
-		'parameters' => array('id', 'constituency', 'postcode', 'always_return'),
+		'parameters' => array('id', 'constituency', 'postcode', 'always_return', 'extra'),
 		'required' => true,
 		'help' => 'Returns main details for an MP'
 	),
@@ -120,7 +120,7 @@ if ($q_method = get_http_var('method')) {
 					break;
 				}
 			}
-			if ($match == 1 && get_http_var('output')) {
+			if ($match == 1 && (get_http_var('output') || !get_http_var('docs'))) {
 				if ($data['required']) {
 					api_error('No parameter provided to function "' .
 					htmlspecialchars($q_method) .
@@ -271,7 +271,8 @@ to discuss things.</p>
 <li><a href="http://www.dracos.co.uk/work/theyworkforyou/api/map/">Map showing location of all 646 constituencies, with no server side code</a> - example code using JavaScript and Google Maps.
 <li><a href="javascript:function foo(r){if(r.twfy.url)window.location=r.twfy.url;};(function(){var s=document.createElement('script');s.setAttribute('src','http://theyworkforyou.com/api/convertURL?callback=foo&url='+encodeURIComponent(window.location));s.setAttribute('type','text/javascript');document.getElementsByTagName('head')[0].appendChild(s);})()">Hansard prettifier</a> - drag this bookmarklet to your bookmarks bar, or bookmark it. Then if you ever find yourself on the official site, clicking this will try and take you to the equivalent page on TheyWorkForYou. (Tested in IE, Firefox, Opera.)</li>
 <li><a href="http://www.dracos.co.uk/work/theyworkforyou/api/fabfarts/">Matthew's MP Fab Farts</a> - every technology has the capacity to be used for fun.
-<li><a href="telnet://seagrass.goatchurch.org.uk:646/">Francis' MP Fight telnet text adventure</a> (and <a href="http://caesious.beasts.org/~chris/scripts/mpfight">Chris' web version</a>) - battle your way to Sedgefield!
+<li><a href="telnet://seagrass.goatchurch.org.uk:646/">Francis' MP Fight telnet text adventure</a> (<s>and <a href="http://caesious.beasts.org/~chris/scripts/mpfight">Chris' web version</a></s>) - battle your way to Sedgefield!
+<li><a href="http://www.straw-dogs.co.uk/10/15/your-mp-google-desktop-gadget/">Your MP - Google Desktop Gadget</a> - with GPL source code
 </ul>
 
 <?

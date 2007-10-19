@@ -76,9 +76,10 @@ CREATE TABLE `member` (
   `entered_house` date NOT NULL default '1000-01-01',
   `left_house` date NOT NULL default '9999-12-31',
   `entered_reason` enum('unknown','general_election','by_election','changed_party','reinstated','appointed','devolution','election') NOT NULL default 'unknown',
-  `left_reason` enum('unknown','still_in_office','general_election','general_election_standing','general_election_not_standing','changed_party','died','declared_void','resigned','disqualified','became_peer','devolution','dissolution') NOT NULL default 'unknown',
+  `left_reason` enum('unknown','still_in_office','general_election','general_election_standing','general_election_not_standing','changed_party','died','declared_void','resigned','disqualified','became_peer','devolution','dissolution', 'retired') NOT NULL default 'unknown',
   `person_id` int(11) NOT NULL default '0',
   `title` varchar(50) NOT NULL default '',
+  `lastupdate` timestamp,
   PRIMARY KEY  (`member_id`),
   UNIQUE KEY `first_name` (`first_name`,`last_name`,`constituency`,`entered_house`,`left_house`),
   KEY `person_id` (`person_id`),
@@ -91,6 +92,7 @@ CREATE TABLE `memberinfo` (
   `member_id` int(11) NOT NULL default '0',
   `data_key` varchar(100) NOT NULL default '',
   `data_value` text NOT NULL,
+  `lastupdate` timestamp,
   KEY `member_id` (`member_id`)
 );
 
@@ -110,6 +112,7 @@ CREATE TABLE `personinfo` (
   `person_id` int(11) NOT NULL default '0',
   `data_key` varchar(100) NOT NULL default '',
   `data_value` text NOT NULL,
+  `lastupdate` timestamp,
   KEY `person_id` (`person_id`)
 );
 
