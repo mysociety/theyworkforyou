@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.14 2007-06-11 11:57:50 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.15 2007-10-19 09:27:29 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -82,6 +82,8 @@ if ($action{'links'}) {
         $twig->parsefile($config::pwmembers . "guardian-links.xml", ErrorContext => 2);
         # TODO: Update websites (esp. with new MPs)
         $twig->parsefile($config::pwmembers . 'websites.xml', ErrorContext => 2);
+        chdir $FindBin::Bin;
+        $twig->parsefile($config::pwmembers . 'lordbiogs.xml', ErrorContext => 2);
 }
 
 if ($action{'wtt'}) {
@@ -121,17 +123,26 @@ if ($action{'rankings'}) {
 # XXX: Will only ever add/update data now - need way to remove without dropping whole table...
 
 # Now we are sure we have all the new data...
-my $memberinfoadd = $dbh->prepare("insert into memberinfo (member_id, data_key, data_value) values (?, ?, ?) on duplicate key update data_value=?");
-my $personinfoadd = $dbh->prepare("insert into personinfo (person_id, data_key, data_value) values (?, ?, ?) on duplicate key update data_value=?");
-my $consinfoadd = $dbh->prepare("insert into consinfo (constituency, data_key, data_value) values (?, ?, ?) on duplicate key update data_value=?");
+my $memberinfocheck  = $dbh->prepare('select data_value from memberinfo where member_id=? and data_key=?');
+my $memberinfoadd    = $dbh->prepare("insert into memberinfo (member_id, data_key, data_value) values (?, ?, ?)");
+my $memberinfoupdate = $dbh->prepare('update memberinfo set data_value=? where member_id=? and data_key=?');
+my $personinfocheck  = $dbh->prepare('select data_value from personinfo where person_id=? and data_key=?');
+my $personinfoadd    = $dbh->prepare("insert into personinfo (person_id, data_key, data_value) values (?, ?, ?)");
+my $personinfoupdate = $dbh->prepare('update personinfo set data_value=? where person_id=? and data_key=?');
+my $consinfoadd      = $dbh->prepare("insert into consinfo (constituency, data_key, data_value) values (?, ?, ?) on duplicate key update data_value=?");
 
 # Write to database - members
 foreach my $mp_id (keys %$memberinfohash) {
         (my $mp_id_num = $mp_id) =~ s#uk.org.publicwhip/(member|lord)/##;
         my $data = $memberinfohash->{$mp_id};
         foreach my $key (keys %$data) {
-                my $value = $data->{$key};
-                $memberinfoadd->execute($mp_id_num, $key, $value, $value);
+                my $new_value = $data->{$key};
+                my $curr_value = $dbh->selectrow_array($memberinfocheck, {}, $mp_id_num, $key);
+                if (!defined $curr_value) {
+                        $memberinfoadd->execute($mp_id_num, $key, $new_value);
+                } elsif ($curr_value ne $new_value) {
+                        $memberinfoupdate->execute($new_value, $mp_id_num, $key);
+                }
         }
 }
 
@@ -140,8 +151,13 @@ foreach my $person_id (keys %$personinfohash) {
         (my $person_id_num = $person_id) =~ s#uk.org.publicwhip/person/##;
         my $data = $personinfohash->{$person_id};
         foreach my $key (keys %$data) {
-                my $value = $data->{$key};
-                $personinfoadd->execute($person_id_num, $key, $value, $value);
+                my $new_value = $data->{$key};
+                my $curr_value = $dbh->selectrow_array($personinfocheck, {}, $person_id_num, $key);
+                if (!defined $curr_value) {
+                        $personinfoadd->execute($person_id_num, $key, $new_value);
+                } elsif ($curr_value ne $new_value) {
+                        $personinfoupdate->execute($new_value, $person_id_num, $key);
+                }
         }
 }
 

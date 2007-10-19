@@ -1067,7 +1067,7 @@ function display_user ($user_id="") {
 			$PAGE->stripe_start();
 			print '<h3>Your email alerts</h3>';
 			$db = new ParlDB;
-			$q = $db->query('SELECT * FROM alerts WHERE email = "' . mysql_escape_string($THEUSER->email()).'" ORDER BY deleted,alert_id');
+			$q = $db->query('SELECT * FROM alerts WHERE email = "' . mysql_escape_string($THEUSER->email()).'" ORDER BY confirmed,deleted,alert_id');
 			$out = '';
 			for ($i=0; $i<$q->rows(); ++$i) {
 				$row = $q->row($i);
@@ -1076,21 +1076,26 @@ function display_user ($user_id="") {
 				foreach ($criteria as $c) {
 					if (preg_match('#^speaker:(\d+)#',$c,$m)) {
 						$MEMBER = new MEMBER(array('person_id'=>$m[1]));
-						$ccc[] = $MEMBER->full_name();
+						$ccc[] = 'spoken by ' . $MEMBER->full_name();
 					} else {
 						$ccc[] = $c;
 					}
 				}
 				$criteria = join(' ',$ccc);
 				$token = $row['alert_id'] . '::' . $row['registrationtoken'];
-				$confirmed = $row['confirmed'] ? 'Yes' : '<a href="/alert/confirm/?t='.$token.'">Confirm</a>';
-				$deleted = $row['deleted'] ? 'Yes - <a href="/alert/undelete/?t='.$token.'">Undelete</a>' : 'No - <a href="/alert/delete/?t='.$token.'">Delete</a>';
-				$out .= '<tr><td>'.$criteria.'</td><td>'.$deleted.'</td><td>'.$confirmed.'</td></tr>';
+				if (!$row['confirmed']) {
+					$action = '<a href="/alert/confirm/?t='.$token.'">Confirm</a>';
+				} elseif ($row['deleted']) {
+					$action = '<form action="/alert/undelete/" method="post"><input type="hidden" name="t" value="'.$token.'"><input type="submit" value="Undelete"></form>';
+				} else {
+					$action = '<form action="/alert/delete/" method="post"><input type="hidden" name="t" value="'.$token.'"><input type="submit" value="Delete"></form>';
+				}
+				$out .= '<tr><td>'.$criteria.'</td><td>'.$action.'</td></tr>';
 			}
 			print '<p>To add a new alert, simply visit an MP or Peer\'s page or conduct a search &#8212; to be given the option of turning them into alerts automatically &#8212; or visit <a href="/alert/">the manual addition page</a>.</p>';
 			if ($out) {
 				print '<p>Here are your email alerts:</p>';
-				print '<table cellpadding="3" cellspacing="0"><tr><th>Criteria</th><th>Deleted?</th><th>Confirmed</th></tr>' . $out . '</table>';
+				print '<table cellpadding="3" cellspacing="0"><tr><th>Criteria</th><th>Action</th></tr>' . $out . '</table>';
 			} else {
 				print '<p>You currently have no email alerts set up.</p>';
 			}

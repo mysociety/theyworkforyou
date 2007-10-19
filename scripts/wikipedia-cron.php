@@ -20,7 +20,7 @@ function contributions($ip) {
 	$fp = fopen($dir . $ip, 'w');
 	fwrite($fp, $file['body']);
 	fclose($fp);
-	preg_match_all('#<li>(.*?) \(<a[^>]*>hist</a>\) \(<a href="(.*?title=(.*?)&.*?oldid=(.*?))"[^>]*>diff</a>\)  <a[^>]*>(.*?)</a>  .*?</li>#', $file['body'], $m, PREG_SET_ORDER);
+	preg_match_all('#<li>(.*?) \(<a[^>]*>hist</a>\) \(<a href="(.*?title=(.*?)&.*?oldid=(.*?))"[^>]*>diff</a>\)  <a[^>]*>(.*?)</a> .*?</li>#', $file['body'], $m, PREG_SET_ORDER);
 	foreach ($m as $row) {
 		# print "$row[3] / $row[4]";
 		$filename = html_entity_decode("$row[3].$row[4]");

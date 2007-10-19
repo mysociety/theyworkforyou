@@ -48,7 +48,7 @@ h3 { margin-top: 1em; }
 
 <?
 $file = file_get_contents("cache/$ip");
-preg_match_all('#<li>.*? \(<a[^>]*>hist</a>\) \(<a href=".*?title=(.*?)&.*?oldid=(.*?)"[^>]*>diff</a>\)  <a[^>]*>(.*?)</a>  .*?</li>#', $file, $m, PREG_SET_ORDER);
+preg_match_all('#<li>.*? \(<a[^>]*>hist</a>\) \(<a href=".*?title=(.*?)&.*?oldid=(.*?)"[^>]*>diff</a>\)  <a[^>]*>(.*?)</a> .*?</li>#', $file, $m, PREG_SET_ORDER);
 foreach ($m as $row) {
 	$file = file_get_contents("cache/$row[1].$row[2]");
 	$file = str_replace(array("\xe2\x86\x90","\xe2\x86\x92"), array('&larr;', '&rarr;'), $file);

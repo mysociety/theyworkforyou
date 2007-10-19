@@ -15,6 +15,7 @@ my $sth = $dbh->prepare("update hansard set htime=? where gid = ?");
 while (<>) {
         next if /^--/;
         my ($gid, $time) = split /\t/;
+        next unless $time;
         $sth->execute($time, "uk.org.publicwhip/debate/$gid");
 }
 

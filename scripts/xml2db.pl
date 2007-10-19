@@ -2,14 +2,14 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.17 2007-08-29 13:50:47 twfy-staging Exp $
+# $Id: xml2db.pl,v 1.18 2007-10-19 09:27:29 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
 # Magic numbers, and other properties of the destination schema
 # are documented here:
-#	http://parl.stand.org.uk/cgi-bin/moin.cgi/DataSchema
-#	
+#        http://parl.stand.org.uk/cgi-bin/moin.cgi/DataSchema
+#        
 # The XML files for Hansard objects come from the Public Whip parser:
 #       http://scm.kforge.net/plugins/scmsvn/cgi-bin/viewcvs.cgi/trunk/parlparse/pyscraper/?root=ukparse
 # And those for MPs are in (semi-)manually updated files here:
@@ -240,7 +240,7 @@ sub process_type {
                         my @stat = stat($sxdir . "changedates.txt");
                         die "couldn't stat[9] $sxdir/changedates.txt" if (!$stat[9]);
                         die "xmaxtime[$i] not initialised" if (!$xmaxtime[$i]);
-                        die "$stat[9] vs $xmaxtime[$i] : changedates.txt time isn't greater or equal than largest file" unless ($stat[9] >= $xmaxtime[$i]);
+                        die "$sxdir : $stat[9] vs $xmaxtime[$i] : changedates.txt time isn't greater or equal than largest file" unless ($stat[9] >= $xmaxtime[$i]);
                         if ($xxmaxtime < $stat[9]) {
                                 $xxmaxtime = $stat[9];
                         }
@@ -553,7 +553,7 @@ sub check_extra_gids
                                 if ($num_rows > 0) {
                                         if ($gid =~ /wrans/ && !$cronquiet) {
                                                 my $search_gid = $gid;
-                                                $search_gid =~ s/(\d\d\d\d-\d\d-)\d\d\w(\.\d+\.)/$1%$2/;
+                                                $search_gid =~ s/(\d\d\d\d-\d)\d-\d\d\w(\.\d+\.)/$1%$2/;
                                                 my $daychange = $dbh->prepare('SELECT gid,epobject_id FROM hansard WHERE gid like ? AND gid != ?');
                                                 $daychange->execute($search_gid, $gid);
                                                 my ($new_gid, $new_epobjectid) = $daychange->fetchrow_array();
@@ -760,10 +760,10 @@ sub db_addpair
         $hcheck->finish();
         $grcheck->finish();
         
-	$epadd->execute(@$epparams);
-	my $epid = last_id();
+        $epadd->execute(@$epparams);
+        my $epid = last_id();
         $epadd->finish();
-	$hadd->execute($epid, @$hparams);
+        $hadd->execute($epid, @$hparams);
         $hadd->finish();
 
         # print "added " . $gid . "\n";
@@ -773,37 +773,33 @@ sub db_addpair
 
 my %member_ids = ();
 # Add member of parliament to database
-sub db_memberadd
-{
+sub db_memberadd {
         my $id = $_[0];
         my $q = $memberexist->execute($id);
         $memberexist->finish();
-        die "More than one existing member of same id " . $id if ($q > 1);
+        die "More than one existing member of same id $id" if $q > 1;
 
-        if ($q == 1)
-        {
+        if ($q == 1) {
                 # Member already exists, check they are the same
                 $q = $membercheck->execute(@_);
                 $membercheck->finish();
-                die "More than one exact matching member id " . $id if ($q > 1);
-                if ($q == 0)
-                {
-                        print "Replacing existing member with new data for " . $id . "\n";
+                if ($q == 0) {
+                        print "Replacing existing member with new data for $id\n";
                         print "This is for your information only, just check it looks OK.\n";
                         print "\n";
                         print Dumper(\@_);
+                        $memberadd->execute(@_);
+                        $memberadd->finish();
                 }
-        }
-        else
-        {
+        } else {
                 print "Adding new member with identifier $id\n";
                 print "This is for your information only, just check it looks OK.\n";
                 print "\n";
                 print Dumper(\@_);
+                $memberadd->execute(@_);
+                $memberadd->finish();
         }
 
- 	$memberadd->execute(@_);
-        $memberadd->finish();
         $member_ids{$id} = 1;
         # print "added member " . $id . "\n";
 }
@@ -811,10 +807,10 @@ sub db_memberadd
 # Autoincrement id of last added item
 sub last_id
 {
-	$lastid->execute();
-	my @arr = $lastid->fetchrow_array();
+        $lastid->execute();
+        my @arr = $lastid->fetchrow_array();
         $lastid->finish();
-	return $arr[0];
+        return $arr[0];
 }
 
 ##########################################################################
@@ -870,6 +866,7 @@ sub add_mps_and_peers {
                 { 'constituency' => \&loadconstituency, 
                   'member' => \&loadmember, 
                   'lord' => \&loadlord, 
+                  'royal' => \&loadroyal, 
                   'member_ni' => \&loadni,
                   'person' => \&loadperson,
                   'moffice' => \&loadmoffice }, 
@@ -880,6 +877,7 @@ sub add_mps_and_peers {
         $twig->parsefile($config::pwmembers . "people.xml");
         $twig->parsefile($config::pwmembers . "all-members.xml");
         $twig->parsefile($config::pwmembers . "peers-ucl.xml");
+        $twig->parsefile($config::pwmembers . "royals.xml");
         $twig->parsefile($config::pwmembers . "ni-members.xml");
         $twig->parsefile($config::pwmembers . "ministers.xml");
         loadmoffices();
@@ -979,16 +977,16 @@ sub loadconstituency
 
 # Add members of parliament (from all-members.xml file)
 sub loadmember {
-	my ($twig, $member) = @_;
+        my ($twig, $member) = @_;
 
-	my $id = $member->att('id');
+        my $id = $member->att('id');
         my $person_id = $membertoperson{$id};
-	$id =~ s:uk.org.publicwhip/member/::;
-	$person_id =~ s:uk.org.publicwhip/person/::;
+        $id =~ s:uk.org.publicwhip/member/::;
+        $person_id =~ s:uk.org.publicwhip/person/::;
 
-	my $house = 1;
-	if ($member->att('house') ne "commons") {
-		die "Unknown house"; 
+        my $house = 1;
+        if ($member->att('house') ne "commons") {
+                die "Unknown house"; 
         }
         
         # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
@@ -996,31 +994,31 @@ sub loadmember {
         # Just done for names (not constituency and party) as they are the
         # only place to have accents, and constituencies have & signs and
         # the postcode search matching system uses them.
-	db_memberadd($id, 
+        db_memberadd($id, 
                 $person_id,
                 $house, 
                 encode_entities_noapos($member->att('title')),
                 encode_entities_noapos($member->att('firstname')), 
                 encode_entities_noapos($member->att('lastname')),
-		encode_entities_noapos($member->att('constituency')), 
+                encode_entities_noapos($member->att('constituency')), 
                 $member->att('party'),
-		$member->att('fromdate'), $member->att('todate'),
-		$member->att('fromwhy'), $member->att('towhy'));
+                $member->att('fromdate'), $member->att('todate'),
+                $member->att('fromwhy'), $member->att('towhy'));
 }
 
 # Add members of parliament (from all-lords*.xml file)
 sub loadlord {
-	my ($twig, $member) = @_;
+        my ($twig, $member) = @_;
 
-	my $id = $member->att('id');
+        my $id = $member->att('id');
         my $person_id = $membertoperson{$id};
-	$id =~ s:uk.org.publicwhip/lord/::;
-	$person_id =~ s:uk.org.publicwhip/person/::;
+        $id =~ s:uk.org.publicwhip/lord/::;
+        $person_id =~ s:uk.org.publicwhip/person/::;
 #        print "$id $person_id ".$member->att('title').' '.$member->att('lordname')."\n"; 
 
         my $house = 2;
         if ($member->att('house') ne "lords") {
-		die "Unknown house"; 
+                die "Unknown house"; 
         }
         
         my $fromdate = $member->att('fromdate');
@@ -1033,7 +1031,7 @@ sub loadlord {
         # Just done for names (not constituency and party) as they are the
         # only place to have accents, and constituencies have & signs and
         # the postcode search matching system uses them.
-	db_memberadd($id,
+        db_memberadd($id,
                 $person_id,
                 $house,
                 encode_entities_noapos($member->att('title')),
@@ -1041,27 +1039,52 @@ sub loadlord {
                 $member->att('lordname'), 
                 encode_entities_noapos($member->att('lordofname')),
                 $affiliation,
-		$fromdate, $member->att('todate'),
-		'', $towhy);
+                $fromdate, $member->att('todate'),
+                '', $towhy);
+}
+
+# Load the Queen
+sub loadroyal {
+        my ($twig, $member) = @_;
+
+        my $id = $member->att('id');
+        my $person_id = $membertoperson{$id};
+        $id =~ s:uk.org.publicwhip/royal/::;
+        $person_id =~ s:uk.org.publicwhip/person/::;
+
+        my $house = 0;
+        my $fromdate = $member->att('fromdate');
+        my $towhy = $member->att('towhy') || '';
+        db_memberadd($id,
+                $person_id,
+                $house,
+                encode_entities_noapos($member->att('title')),
+                encode_entities_noapos($member->att('firstname')), 
+                encode_entities_noapos($member->att('lastname')),
+                '', # No constituency, all land is "held of the Crown"
+                '', # No party, constitutionally
+                $member->att('fromdate'), $member->att('todate'),
+                $member->att('fromwhy'), $member->att('towhy')
+        );
 }
 
 sub loadni {
-	my ($twig, $member) = @_;
-	my $id = $member->att('id');
+        my ($twig, $member) = @_;
+        my $id = $member->att('id');
         my $person_id = $membertoperson{$id};
-	$id =~ s:uk.org.publicwhip/member/::;
-	$person_id =~ s:uk.org.publicwhip/person/::;
+        $id =~ s:uk.org.publicwhip/member/::;
+        $person_id =~ s:uk.org.publicwhip/person/::;
         my $house = 3;
-	db_memberadd($id, 
+        db_memberadd($id, 
                 $person_id,
                 $house, 
                 encode_entities_noapos($member->att('title')),
                 encode_entities_noapos($member->att('firstname')), 
                 encode_entities_noapos($member->att('lastname')),
-		encode_entities_noapos($member->att('constituency')), 
+                encode_entities_noapos($member->att('constituency')), 
                 Encode::encode('iso-8859-1', $member->att('party')),
-		$member->att('fromdate'), $member->att('todate'),
-		$member->att('fromwhy'), $member->att('towhy'));
+                $member->att('fromdate'), $member->att('todate'),
+                $member->att('fromwhy'), $member->att('towhy'));
 }
 
 sub loadperson {
@@ -1171,7 +1194,7 @@ sub add_debates_day
 
 # load <major-heading> tags
 sub load_debate_heading { 
-	my ($speech, $major) = @_;
+        my ($speech, $major) = @_;
         # we merge together the Oral Answers to Questions major heading with the
         # major headings "under" it.
         my $text = strip_string($speech->sprint(1));
@@ -1188,9 +1211,9 @@ sub load_debate_heading {
 
 # load <division> tags
 sub load_debate_division {
-	my ($division, $major) = @_;
-	my $divdate = $division->att('divdate');
-	my $divnumber = $division->att('divnumber');
+        my ($division, $major) = @_;
+        my $divdate = $division->att('divdate');
+        my $divnumber = $division->att('divnumber');
         my $text = 
 "<p class=\"divisionheading\">Division number $divnumber</p>
 <p class=\"divisionbody\"><a href=\"http://www.publicwhip.org.uk/division.php?date=$divdate&amp;number=$divnumber";
@@ -1388,7 +1411,7 @@ sub add_ni_day {
 }
 
 sub load_ni_heading { 
-	my ($speech, $inoralanswers) = @_;
+        my ($speech, $inoralanswers) = @_;
         my $text = strip_string($speech->sprint(1));
         if ($inoralanswers) {
                 $text = "Oral Answers to Questions &#8212; " . fix_case($text);
@@ -1570,12 +1593,12 @@ sub canon_time {
 
 sub do_load_speech
 {
-	my ($speech, $major, $minor, $text) = @_;
+        my ($speech, $major, $minor, $text) = @_;
 
         my $id = $speech->att('id');
 
-	my $len = length($speech->sprint(1));
-	return if ($len == 0);
+        my $len = length($speech->sprint(1));
+        return if ($len == 0);
 
         if (defined $ignorehistorygids{$id}) {
                 # This happens to historical speeches which have already been
@@ -1591,31 +1614,31 @@ sub do_load_speech
         $htime = canon_time($htime) if defined $htime;
 	my $url = $speech->att('url');
 
-	my $type;
-	my $speaker;
+        my $type;
+        my $speaker;
         my $pretext = "";
-	if ($speech->att('speakerid'))
-	{
-		# with speaker
-		$type = 12;
-		$speaker = $speech->att('speakerid');
-		$speaker =~ s:uk.org.publicwhip/(member|lord)/::;
+        if ($speech->att('speakerid'))
+        {
+                # with speaker
+                $type = 12;
+                $speaker = $speech->att('speakerid');
+                $speaker =~ s:uk.org.publicwhip/(member|lord|royal)/::;
                 if ($speaker eq "unknown")
                 {
                         $speaker = 0;
                         $pretext = '<p class="unknownspeaker">' . $speech->att('speakername') . ':</p> ';
                 }
-	}
-	else
-	{
-		# procedural
-		$type = 13;
-		$speaker = 0;
-	}
+        }
+        else
+        {
+                # procedural
+                $type = 13;
+                $speaker = 0;
+        }
 
-	my @epparam = ($pretext . $text);
-	my @hparam = ($id, $type, $speaker, $major, $minor, $currsection, $currsubsection, $hpos, $curdate, $htime, $url);
-	my $epid = db_addpair(\@epparam, \@hparam);
+        my @epparam = ($pretext . $text);
+        my @hparam = ($id, $type, $speaker, $major, $minor, $currsection, $currsubsection, $hpos, $curdate, $htime, $url);
+        my $epid = db_addpair(\@epparam, \@hparam);
 }
 
 sub do_load_heading
@@ -1636,15 +1659,15 @@ sub do_load_heading
         $htime = canon_time($htime) if defined $htime;
 	my $url = $speech->att('url');
 
-	my $type = 10;
-	my $speaker = 0;
+        my $type = 10;
+        my $speaker = 0;
        
-	my @epparam = (fix_case($text));
-	my @hparam = ($speech->att('id'), $type, $speaker, $major, $minor, 0, 0, $hpos, $curdate, $htime, $url);
-	my $epid = db_addpair(\@epparam, \@hparam);
+        my @epparam = (fix_case($text));
+        my @hparam = ($speech->att('id'), $type, $speaker, $major, $minor, 0, 0, $hpos, $curdate, $htime, $url);
+        my $epid = db_addpair(\@epparam, \@hparam);
 
-	$currsubsection = $epid;
-	$currsection = $epid;
+        $currsubsection = $epid;
+        $currsection = $epid;
 }
 
 sub do_load_subheading
@@ -1683,19 +1706,19 @@ sub do_load_subheading
         $htime = canon_time($htime) if defined $htime;
 	my $url = $speech->att('url');
 
-	my $type = 11;
-	my $speaker = 0;
+        my $type = 11;
+        my $speaker = 0;
 
         my @epparam = (fix_case($text));
         my @hparam = ($speech->att('id'), $type, $speaker, $major, $minor, $currsection, 0, $hpos, $curdate, $htime, $url);
-	my $epid = db_addpair(\@epparam, \@hparam);
+        my $epid = db_addpair(\@epparam, \@hparam);
 
-	$currsubsection = $epid;
+        $currsubsection = $epid;
 }
 
 sub do_load_gidredirect
 {
-	my ($gidredirect, $major) = @_;
+        my ($gidredirect, $major) = @_;
 
         my $oldgid = $gidredirect->att('oldgid'); 
         my $newgid = $gidredirect->att('newgid');

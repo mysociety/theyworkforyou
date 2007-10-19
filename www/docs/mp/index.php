@@ -61,6 +61,10 @@ if ($name == 'a j beith') {
 	$name = 'alan beith';
 	$redirect = true;
 }
+if ($name == 'micky brady') {
+	$name = 'mickey brady';
+	$redirect = true;
+}
 
 # Special stuff for Ynys Mon
 if ($cconstituency == 'ynys mon') $cconstituency = "ynys m&ocirc;n"; # Stop infinite loop
@@ -151,9 +155,9 @@ if (is_numeric(get_http_var('m'))) {
 	twfy_debug ('MP', 'Displaying MP by name');
 } elseif ($name) {
 	$MEMBER = new MEMBER(array('name' => $name));
-	if ((($MEMBER->house_disp==1)
+	if (((($MEMBER->house_disp==1)
 	    || ($MEMBER->house_disp==2 && $this_page!='peer'))
-	    && ($MEMBER->valid || !is_array($MEMBER->person_id()))) {
+	    && ($MEMBER->valid || !is_array($MEMBER->person_id()))) || $redirect) {
 		member_redirect($MEMBER);
 	}
 } elseif ($cconstituency) {
