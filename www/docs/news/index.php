@@ -20,6 +20,7 @@ if (preg_match("#/(\d\d\d\d)/(\d\d)/(\d\d)/([a-z0-9_]+)(\.php)?$#", $uri, $match
 		$PAGE->stripe_start();
 		print news_format_body($content);
 		print "<p>Posted on " . format_date(substr($date, 0, 10), LONGDATEFORMAT) . " at " . substr($date, 11);
+		if (isset($news_row[3])) print " by $news_row[3]";
 		print " | <a href=\"" . news_individual_link($date, $title) . "\">Link to this</a>";
 		break;
 	}
@@ -37,6 +38,7 @@ if (preg_match("#/(\d\d\d\d)/(\d\d)/(\d\d)/([a-z0-9_]+)(\.php)?$#", $uri, $match
 		print "<h4>" . $title . "</h4>";
 		print news_format_body($content);
 		print "<p>Posted at " . substr($date, 11);
+		if (isset($news_row[3])) print " by $news_row[3]";
 		print " | <a href=\"" . news_individual_link($date, $title) . "\">Link to this</a>";
 	}
 } else {
@@ -52,6 +54,7 @@ if (preg_match("#/(\d\d\d\d)/(\d\d)/(\d\d)/([a-z0-9_]+)(\.php)?$#", $uri, $match
 		print "<h4>" . $title . "</h4>";
 		print news_format_body($content);
 		print "<p>Posted at " . substr($date, 11);
+		if (isset($news_row[3])) print " by $news_row[3]";
 		print " | <a href=\"" . news_individual_link($date, $title) . "\">Link to this</a>";
 	}
 }

@@ -335,7 +335,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// we're within that section.
 		$items = array (
 			'home' 		=> array ('sitenews', 'comments_recent', 'api_front'),
-			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront', 'nidebatesfront', 'pbc_front'),
+			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront', 'nidebatesfront'),
 			'yourmp'	=> array (),
 			'mps'           => array (),
 			'peers'		=> array (),
@@ -812,7 +812,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		}
 
 		if ($this_page != 'home' && $this_page != 'yourmp' && $this_page != 'mp' && $this_page != 'peer'
-			&& $this_page != 'mla' && $this_page != 'c4_mp' && $this_page != 'c4x_mp') {
+			&& $this_page != 'mla' && $this_page != 'c4_mp' && $this_page != 'c4x_mp' && $this_page != 'royal' && $this_page != 'contact') {
 
 			if ($section_text && $parent_page != 'help_us_out' && $parent_page != 'home') {
 				print "\t\t\t\t<h2>$section_text</h2>\n";
@@ -1047,6 +1047,13 @@ pr()//-->
 						<?php
 		$desc = '';
 		foreach ($member['houses'] as $house) {
+			if ($house==0) {
+				$desc .= '<li><strong>Acceded on ';
+				$desc .= $member['entered_house'][0]['date_pretty'];
+				$desc .= '</strong></li>';
+				$desc .= '<li><strong>Coronated on 2 June 1953</strong></li>';
+				continue;
+			}
 			$party = $member['left_house'][$house]['party'];
 			if ($house==1 && isset($member['entered_house'][2])) continue; # Same info is printed further down
 			$desc .= '<li><strong>';
@@ -1110,7 +1117,11 @@ pr()//-->
 			if ($member['left_house'][1]['reason']) print ' &mdash; ' . $member['left_house'][1]['reason'];
 			print '</li>';
 		} elseif (isset($member['entered_house'][2]['date'])) {
-			print '<li><strong>Became a Lord in ';
+			print '<li><strong>Became a Lord ';
+			if (strlen($member['entered_house'][2]['date_pretty'])==4)
+				print 'in ';
+			else
+				print 'on ';
 			print $member['entered_house'][2]['date_pretty'].'</strong>';
 			if ($member['entered_house'][2]['reason']) print ' &mdash; ' . $member['entered_house'][2]['reason'];
 			print '</li>';
@@ -1125,6 +1136,11 @@ pr()//-->
 			print $member['entered_house'][1]['date_pretty'].'</strong>';
 			if ($member['entered_house'][1]['reason']) print ' &mdash; ' . $member['entered_house'][1]['reason'];
 			print '</li>';
+		}
+		if (isset($extra_info['lordbio'])) {
+			echo '<li><strong>Positions held:</strong> ', $extra_info['lordbio'],
+				' <small>(from <a href="',
+				$extra_info['lordbio_from'], '">Number 10 press release</a>)</small></li>';
 		}
 		if (in_array(2, $member['houses']) && !$member['current_member'][2]) {
 			print '<li><strong>Left Parliament on '.$member['left_house'][2]['date_pretty'].'</strong>';
@@ -1291,7 +1307,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		$got_dream |= display_dream_comparison($extra_info, $member, 219, "the <strong>Iraq war</strong>", true, "iraq");
 		$got_dream |= display_dream_comparison($extra_info, $member, 975, "investigating the <strong>Iraq war</strong>", false, "iraq");
 		$got_dream |= display_dream_comparison($extra_info, $member, 984, "replacing <strong>Trident</strong>", false, "trident");
-		$got_dream |= display_dream_comparison($extra_info, $member, 358, "the <strong>fox hunting ban</strong>", true, "hunting");
+		$got_dream |= display_dream_comparison($extra_info, $member, 358, "the <strong>hunting ban</strong>", true, "hunting");
 		$got_dream |= display_dream_comparison($extra_info, $member, 826, "equal <strong>gay rights</strong>", false, "gay");
 		if (!$got_dream) {
 			print "<li>" . $member['full_name'] . " has not voted enough in this parliament to have any scores.</li>";
@@ -1414,7 +1430,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		}
 		
 		if ($topics_block_empty) {
-			print "<p><em>This MP is not currently on any select or public bill committee
+			print "<p><em>This MP is not currently on any select <-- or public bill --> committee
 and has had no written questions answered for which we know the department or subject.</em></p>";
 		}
 		$this->block_end();
@@ -1529,10 +1545,11 @@ and has had no written questions answered for which we know the department or su
 		if (isset($extra_info['number_of_alerts'])) {
 			$displayed_stuff = 1;
 			?>
-		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking whenever this <?
-if ($member['house_disp']==1) print 'MP';
-elseif ($member['house_disp']==2) print 'peer';
-elseif ($member['house_disp']==3) print 'MLA'; ?> speaks<?php
+		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking whenever <?
+if ($member['house_disp']==1) print 'this MP';
+elseif ($member['house_disp']==2) print 'this peer';
+elseif ($member['house_disp']==3) print 'this MLA';
+elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 			if ($member['current_member']) {
 				print ' &mdash; <a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'">email me whenever '. $member['full_name']. ' speaks</a>';
 			}
@@ -1712,7 +1729,10 @@ elseif ($member['house_disp']==3) print 'MLA'; ?> speaks<?php
 			$html .= '	<li><a href="' . $links['bbc_profile_url'] . '">General information</a> <small>(From BBC News)</small></li>';
 
 		} 
-		$html .= '	<li><a href="http://catalogue.bbc.co.uk/catalogue/infax/search/' . urlencode($member->first_name()) . "%20" . urlencode($member->last_name()) . '">TV/radio appearances</a> <small>(From BBC Programme Catalogue)</small></li>';
+		$bbc_name = urlencode($member->first_name()) . "%20" . urlencode($member->last_name());
+		if ($member->member_id() == -1)
+			$bbc_name = 'Queen Elizabeth';
+		$html .= '	<li><a href="http://catalogue.bbc.co.uk/catalogue/infax/search/' . $bbc_name . '">TV/radio appearances</a> <small>(From BBC Programme Catalogue)</small></li>';
 
 		
 		$html .= "	</ul>
@@ -1945,7 +1965,6 @@ elseif ($member['house_disp']==3) print 'MLA'; ?> speaks<?php
 			}
 		}
 
-		$message .= "<br><br>Would you like to work for the charity that runs this site? <a href=\"http://www.mysociety.org/2007/job-advert/\">Click here</a>.";
 		return $message;
 	}
 
@@ -2533,7 +2552,7 @@ if (!$wtt) { ?>
 			$JOINURL->insert(array('ret'=>$THISPAGEURL->generate().'#addcomment'));
 			
 			?>
-				<p><a href="<?php echo $LOGINURL->generate(); ?>">Log in</a> or <a href="<?php echo $JOINURL->generate(); ?>">join</a> to post a comment.</p>
+				<p><a href="<?php echo $LOGINURL->generate(); ?>">Log in</a> or <a href="<?php echo $JOINURL->generate(); ?>">join</a> to post a public comment.</p>
 <?php
 			return;
 			
@@ -2551,7 +2570,7 @@ if (!$wtt) { ?>
 		$ADDURL = new URL('addcomment');
 		$RULESURL = new URL('houserules');
 		?>
-				<h4>Type your comment</h4>
+				<h4>Type your public comment</h4>
 				<a name="addcomment"></a>
 				
 				<p><small>

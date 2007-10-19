@@ -260,7 +260,7 @@ $this->page = array (
 	),
 
 	'contact' => array (
-		'title'			=> 'Contact us',
+		'title'			=> 'Contact TheyWorkForYou.com',
 		'url'			=> 'contact/'
 	),
 	
@@ -603,6 +603,11 @@ $this->page = array (
 		'parent'		=> 'regmem'
 	),
 	
+	'royal' => array (
+		'title'			=> 'Royal',
+		'url'			=> 'royal/'
+	),
+
 	'search'		=> array (
 		'sidebar'		=> 'search',
 		'track'			=> true,

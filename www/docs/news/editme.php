@@ -4,6 +4,31 @@
 
 $all_news = array(
 
+43 => array('The Queen in Parliament', <<<EOT
+Whilst we cover MPs and Lords, there's always been one other individual who speaks in
+Parliament whom we missed. That anomaly has now been fixed, and so you can now view
+<a href="http://www.theyworkforyou.com/royal/elizabeth_the_second">the Queen's
+page</a> on TheyWorkForYou. :)
+This means you can sign up for an email alert whenever she speaks
+in Parliament, subscribe to the
+<a href="http://www.theyworkforyou.com/rss/mp/13935.rdf">RSS feed</a> of the same,
+or just look at past
+<a href="http://www.theyworkforyou.com/search/?pid=13935&pop=1">prorogation and Queen's speeches</a>
+more easily than anywhere else I've found.
+EOT
+, '2007-09-11 15:34:47', 'Matthew'),
+
+42 => array('Missing confirmation emails', <<<EOT
+Whilst doing some routine maintenance, I spotted that due to a
+server configuration mistake, TheyWorkForYou has been
+failing to send out any confirmation emails since mid-August.
+Very many apologies to anyone affected - emails from the past
+few days have now been sent out, and I've got in touch
+with anyone who signed up in the days prior to
+that to let them know what happened.
+EOT
+, "2007-09-03 17:12:47", 'Matthew'),
+
 41 => array('The Northern Ireland Assembly', <<<EOT
 I'm extremely proud to announce that TheyWorkForYou now covers
 the debates of the Northern Ireland Assembly from its
@@ -42,7 +67,7 @@ complaints)! :-)
 ATB,<br>
 <a href="http://www.dracos.co.uk/">Matthew Somerville</a>
 EOT
-, "2006-12-11 00:00:00"),
+, "2006-12-11 00:00:00", 'Matthew'),
 
 40 => array('TheyWorkForYou API', <<<EOT
 Today, we launched an API (Application Programming Interface) to the
@@ -163,7 +188,7 @@ We're happy to announce that the Channel 4 website is directing people to TheyWo
 
 We've done a special paint job for users coming from the Channel 4 site, just to make them feel welcome. You can see an example <a href="http://www.theyworkforyou.com/mp/c4/paul_keetch/hereford">here</a>.
 
-We'd love to know what you think of this paint job, as we're planning a redesign. As ever, email us at beta@theyworkforyou.com 
+We'd love to know what you think of this paint job, as we're planning a redesign. As ever, <a href="/contact/">get in touch</a>.
 EOT
 , "2005-04-05 22:53:32"),
 
@@ -254,7 +279,7 @@ This is good news for those wanting to keep up to date with issues as they pop u
 
 Next step on search is probably an RSS version of keyword searches. We're still very keen to improve overall relevancy of results - anyone out there fancy lending us a Google Appliance to play with? 
 
-As ever, contact us on beta@theyworkforyou.com if you've got any suggestions how we might improve the site, or if you fancy volunteering. 
+As ever, <a href="/contact/">contact us</a> if you've got any suggestions how we might improve the site, or if you fancy volunteering. 
 EOT
 , "2005-01-25 00:16:09"),
 
@@ -272,7 +297,7 @@ Well, there you go. You live and learn.
 
 Next up: Select Committees, which promise to be an order of magnitude more challenging. We'll keep you posted.
 
-PS We're always on the lookout for new volunteers - email us at beta@theyworkforyou.com if you are keen to help in almost any capacity. 
+PS We're always on the lookout for new volunteers - <a href="/contact/">contact us</a> if you are keen to help in almost any capacity. 
 EOT
 , "2005-01-17 17:44:47"),
 
@@ -329,7 +354,7 @@ password: n0vemb3r (n-zero-vemb-three-r)
 
 (dissemination is fine, but please don't post the link with the login details embedded in the url)
 
-In case you're wondering what we're up to, well, we're just rousing ourselves for another tilt at completing our vision before the next election is called, so if anyone python or php skills and fancies lending a hand, do email us at beta@theyworkforyou.com 
+In case you're wondering what we're up to, well, we're just rousing ourselves for another tilt at completing our vision before the next election is called, so if anyone python or php skills and fancies lending a hand, do <a href="/contact/">contact us</a>.
 EOT
 , "2004-10-01 23:14:13"),
 
@@ -364,7 +389,7 @@ The search engine is our main area of immediate focus - we know we've got months
 
 In the meantime, please enjoy being the first people to scribble in the margins of Hansard. May you be first of many.
 
-Send all bug reports (and feature suggestions) to <a href="mailto:beta@theyworkforyou.com">beta@theyworkforyou.com</a>
+<a href="/contact/">Send all bug reports (and feature suggestions) to us</a>.
 
 Finally, a big 'thank you' to everyone who helped test the site during the private beta phase over the past two weeks. Your feedback has been invaluable. 
 
@@ -381,13 +406,13 @@ We also want to add data from before 2001. And there's always the Lords... We ye
 
 But to do this, we will need to ensure our key developers are kept fed. If you're in a sugar daddy frame of mind, we'd be only too pleased to accept donations. 
 
-Just email us on <a href="mailto:beta-feedback@theyworkforyou.com">beta-feedback@theyworkforyou.com</a>
+Just <a href="/contact/">contact us</a>.
  
 EOT
 , "2004-05-21 22:15:22"),
 
 5 => array("Know someone who'd like this website?", <<<EOT
-If you know someone who would appreciate being a beta tester, please email us their details to <a href="mailto:beta-admin@theyworkforyou.com">beta-admin@theyworkforyou.com</a>
+If you know someone who would appreciate being a beta tester, please <a href="/contact/">contact us</a> with their details.
 
 Many thanks. 
 EOT
@@ -398,7 +423,7 @@ Hello all, and thank you for helping to road test TheyWorkForYou.com. We hope yo
 
 We've just entered our 'closed beta' phase - you'll need a password to access the site until we move into our open beta phase sometime in June.
 
-Please email your feedback on <a href="mailto:beta@theyworkforyou.com">beta@theyworkforyou.com</a>, or you can just add your comments to this blog. 
+Please <a href="/contact/">contact us</a> with your feedback, or you can just add your comments to this blog. 
 
 We want to know everything: what you like, what you hate, what works, what's broken, what could we do better. The lot. Don't hold back.
 

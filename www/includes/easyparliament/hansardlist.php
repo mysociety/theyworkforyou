@@ -1939,6 +1939,8 @@ class HANSARDLIST {
 						$URL = new URL('peer');
 					} elseif ($house==3) {
 						$URL = new URL('mla');
+					} elseif ($house==0) {
+						$URL = new URL('royal');
 					}
 					$URL->insert( array ('m' => $speaker_id) );
 					$speaker = array (

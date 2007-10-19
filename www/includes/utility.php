@@ -97,7 +97,12 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 	$err .= "Message:\t$errmsg\n";
 	$err .= "File:\t\t$filename\n";
 	$err .= "Line:\t\t$linenum\n";
-
+	if (count($_POST)) {
+		$err .= "_POST:";
+		foreach ($_POST as $k => $v) {
+			$err .= "\t\t$k => $v\n";
+		}
+	}
 
 // I'm not sure this bit is actually any use!
 
@@ -851,6 +856,8 @@ function make_member_url($name, $const = '', $house = 1) {
 	$out = urlencode(str_replace($s, $r, $name));
 	if ($const && $house==1)
 		$out .= '/' . urlencode(str_replace($s, $r, strtolower($const)));
+	elseif ($house==0)
+		$out = 'elizabeth_the_second';
 	return $out;
 }
 
@@ -867,6 +874,8 @@ function member_full_name($house, $title, $first_name, $last_name, $constituency
 		$s .= $title;
 		if ($last_name) $s .= ' ' . $last_name;
 		if ($constituency) $s .= ' of ' . $constituency;
+	} elseif ($house == 0) { # Queen
+		$s = "$first_name $last_name";
 	}
 	return $s;
 }

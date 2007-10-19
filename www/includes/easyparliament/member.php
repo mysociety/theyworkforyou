@@ -24,6 +24,7 @@ class MEMBER {
 	
 	// Mapping member table 'house' numbers to text.
 	var $houses_pretty = array(
+		0 => 'Royal Family',
 		1 => 'House of Commons',
 		2 => 'House of Lords',
 		3 => 'Northern Ireland Assembly',
@@ -138,7 +139,7 @@ class MEMBER {
 				);
 			}
 
-			if ( (!$this->house_disp && $house==3) || ($this->house_disp!=2 && $house==2)
+			if ( $house==0 || (!$this->house_disp && $house==3) || ($this->house_disp!=2 && $house==2)
 			    || ((!$this->house_disp || $this->house_disp==3) && $house==1) ) {
 				$this->house_disp = $house;
 				$this->constituency = $const;
@@ -275,6 +276,8 @@ class MEMBER {
 					$const = $normalised;
 				}
 			}
+		} elseif ($this_page == 'royal') {
+			$q .= ' house = 0';
 		}
 
 		if ($const || $this_page=='peer') {
@@ -518,8 +521,9 @@ class MEMBER {
 		}
 	}
 	
-	function left_house($house = 0) {
-		if ($house) return array_key_exists($house, $this->left_house) ? $this->left_house[$house] : null;
+	function left_house($house = null) {
+		if (!is_null($house))
+			return array_key_exists($house, $this->left_house) ? $this->left_house[$house] : null;
 		return $this->left_house;
 	}
 	function left_house_text($left_house) {
@@ -565,7 +569,7 @@ class MEMBER {
 	
 	function current_member($house = 0) {
 		$current = array();
-		for ($h = 1; $h <= count($this->houses_pretty); $h++) {
+		foreach (array_keys($this->houses_pretty) as $h) {
 			$lh = $this->left_house($h);
 			$current[$h] = ($lh['date'] == '9999-12-31');
 		}
@@ -583,6 +587,8 @@ class MEMBER {
 			$URL = new URL('peer');
 		} elseif ($house==3) {
 			$URL = new URL('mla');
+		} elseif ($house==0) {
+			$URL = new URL('royal');
 		}
 		$member_url = make_member_url($this->full_name(true), $this->constituency(), $house);
 		if ($absolute)
