@@ -1,6 +1,6 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.3 2007-01-14 14:18:13 matthew Exp $
+$Id: INSTALL.txt,v 1.4 2007-10-20 21:18:32 matthew Exp $
 
 TODO: Add an explanation of how to set up a virtual host in apache.
 
@@ -14,13 +14,19 @@ php and mysql.
 System Requirements
 ===================
 
-Perl 5.8.1 
-PHP 4.3.3
-Apache 1.3.28
-MySQL 4.1
+* Perl 5.8.1 
 
-Note: it is possible to make the code with 4.0 versions of MySQL, but you have to do some mucking around with character sets.
-The site appears to work on the whole with PHP 5, do let us know if it errors anywhere.
+* PHP 4.3.3
+
+  The site appears to work on the whole with PHP 5, do let us know if it errors
+  anywhere. short_open_tag has to be enabled.
+
+* Apache 1.3.28
+
+* MySQL 4.1
+
+  Note: it is possible to make the code with 4.0 versions of MySQL, but you have
+  to do some mucking around with character sets.
 
 Other sources of help
 =====================
@@ -42,7 +48,7 @@ Installation
 
 NOTE: 
   I assume you will set this up to run as a NAME BASED VIRTUAL
-  HOST. It's quite possible to set it up without using it's own
+  HOST. It's quite possible to set it up without using its own
   virtual host, but I'll not cover that here.
 
 INSTALLATION SECTION 1 -- THE BASICS
@@ -152,8 +158,6 @@ Final notes/known issues
 ========================
 
 1. Features that don't work on development versions.
-
-Due to Movable Type licensing issues the Site News blog is disabled on development versions of the site.
 
 The Postcode lookup service is disabled on development versions. Instead, postcodes are mapped randomly but deterministically to MPs.
 
