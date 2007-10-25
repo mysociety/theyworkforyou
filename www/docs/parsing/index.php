@@ -52,7 +52,9 @@ foreach ($dir as $k=>$bit) {
 ?>
 </ul>
 
-<h4>XML that hasn't loaded into the database (only new data, not changes)</h4>
+<h4>XML that hasn't loaded into the database</h4>
+<p>Note this currently only works for new data - ie. if there's any data at all
+in the database for the date, it won't appear hear</p>
 <?
 if ($notloaded) print "<ul>$notloaded</ul>";
 

@@ -193,7 +193,7 @@ if ($action ne "check") {
             print "\n";
         }
 
-        # Sotre new batch number
+        # Store new batch number
         $dbh->do("insert into indexbatch (indexbatch_id, created) values (?, now())", {}, $new_indexbatch);
     }
 

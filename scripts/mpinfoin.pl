@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.15 2007-10-19 09:27:29 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.16 2007-10-25 20:25:57 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -105,6 +105,7 @@ if ($action{'pw'}) {
 }
 
 if ($action{'expenses'}) {
+        $twig->parsefile($config::pwmembers . "expenses200607.xml", ErrorContext => 2);
         $twig->parsefile($config::pwmembers . "expenses200506.xml", ErrorContext => 2);
         $twig->parsefile($config::pwmembers . "expenses200506former.xml", ErrorContext => 2);
         $twig->parsefile($config::pwmembers . "expenses200405.xml", ErrorContext => 2);
@@ -467,7 +468,17 @@ sub makerankings {
                 }
         }
 
-        for (my $year=2002; $year<=2006; ++$year) {
+        foreach my $mp_id (keys %$personinfohash) {
+                if (defined($personinfohash->{$mp_id}->{'expenses2007_col5a'})) {
+                        my $total = 0;
+                        foreach my $let ('a'..'f') {
+                                $total += $personinfohash->{$mp_id}->{'expenses2007_col5'.$let};
+                        }
+                        $personinfohash->{$mp_id}->{'expenses2007_col5'} = $total;
+                }
+        }
+
+        for (my $year=2002; $year<=2007; ++$year) {
                 foreach my $mp_id (keys %$personinfohash) {
                         if (defined($personinfohash->{$mp_id}->{'expenses'.$year.'_col1'})) {
                                 my $total = 0; my $num;
@@ -498,13 +509,18 @@ sub makerankings {
         enrankify($memberinfohash, "swing_to_lose_seat_today", 0);
         enrankify($personinfohash, "reading_ease", 0);
         enrankify($personinfohash, "reading_year", 0);
-        for (my $year=2002; $year<=2005; ++$year) {
+        for (my $year=2002; $year<=2007; ++$year) {
+                next if $year == 2006;
                 for (my $col=1; $col<=9; ++$col) {
                         enrankify($personinfohash, 'expenses'.$year.'_col'.$col, 0);
                 }
                 enrankify($personinfohash, 'expenses'.$year.'_col7a', 0) if ($year>=2004);
                 enrankify($personinfohash, 'expenses'.$year.'_total', 0);
         }
+        foreach my $let ('a'..'f') {
+                enrankify($personinfohash, 'expenses2007_col5'.$let, 0);
+        }
+
         enrankify($personinfohash, "writetothem_responsiveness_mean_2005", 0);
 }
 

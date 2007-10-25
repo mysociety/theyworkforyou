@@ -1236,7 +1236,7 @@ pr()//-->
 <?php		if (isset($extra_info['register_member_interests_html'])) { ?>
 						<li><a href="#register">Register of Members' Interests</a></li>
 <?php		}
-		if (isset($extra_info['expenses2004_col1'])) { ?>
+		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || isset($extra_info['expenses2007_col1'])) { ?>
  						<li><a href="#expenses">Expenses</a></li>
 <?php		}
 
@@ -1598,14 +1598,18 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 			$this->block_end();
 		}
 
-		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1'])) {
+		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || isset($extra_info['expenses2007_col1'])) {
 ?>
 <a name="expenses"></a>
 <?php
 			$title = 'Expenses';
 			$this->block_start(array('id'=>'expenses', 'title'=>$title));
 			print '<p class="italic">Figures in brackets are ranks. Parliament\'s <a href="http://www.parliament.uk/site_information/allowances.cfm">explanatory notes</a>.</p>';
-			print '<table class="people"><tr><th>Type</th><th>2005/06';
+			print '<table class="people"><tr><th>Type</th><th>2006/07';
+			if (isset($extra_info['expenses2007_col1_rank_outof'])) {
+				print ' (ranking out of ' . $extra_info['expenses2007_col1_rank_outof'] . ')';
+			}
+			print '</th><th>2005/06';
 			if (isset($extra_info['expenses2006_col1_rank_outof'])) {
 				# TODO: Needs to be more complicated, because of General Election
 				print ' (ranking out of ' . $extra_info['expenses2006_col1_rank_outof'] . ')';
@@ -1650,12 +1654,24 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 			print '</tr><tr><th style="text-align: right">Total</th>';
 			$this->expenses_printout('total', $extra_info,1);
 			print '</tr></table>';
+			if (isset($extra_info['expenses2007_col5a'])) {
+				print '<p><a name="travel2007"></a><sup>*</sup> <small>';
+				foreach(array('a'=>'Car','b'=>'3rd party','c'=>'Rail','d'=>'Air','e'=>'Other','f'=>'European') as $let => $desc) {
+					if ($extra_info['expenses2007_col5'.$let] > 0) {
+						print $desc . ' &pound;'.number_format(str_replace(',','',$extra_info['expenses2007_col5'.$let]));
+						if (isset($extra_info['expenses2007_col5'.$let.'_rank']))
+							print ' (' . make_ranking($extra_info['expenses2007_col5'.$let.'_rank']) . ')';
+						print '. ';
+					}
+				}
+				print '</small></p>';
+			}
 			$this->block_end();
 		}
 	}
 	
 	function expenses_printout($col, $extra_info, $style) {
-		for ($ey=2006; $ey>=2002; --$ey) {
+		for ($ey=2007; $ey>=2002; --$ey) {
 			$k = 'expenses' . $ey . '_' . $col;
 			$kr = $k . '_rank';
 			print '<td class="row-'.$style.'">';
@@ -1666,9 +1682,11 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 			} else {
 				print '&nbsp;';
 			}
-			if (isset($extra_info[$kr]) && $extra_info[$k]>0) {
+			if (isset($extra_info[$kr]) && isset($extra_info[$k]) && $extra_info[$k]>0) {
 				print " (" . make_ranking($extra_info[$kr]) . ")";
 			}
+			if ($col=='col5' && $ey==2007)
+				print '<sup><a href="#travel2007">*</a></sup>';
 			print '</td>';
 		}
 	}
