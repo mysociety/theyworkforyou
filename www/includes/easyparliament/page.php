@@ -1551,7 +1551,7 @@ if ($member['house_disp']==1) print 'this MP';
 elseif ($member['house_disp']==2) print 'this peer';
 elseif ($member['house_disp']==3) print 'this MLA';
 elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
-			if ($member['current_member']) {
+			if ($member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein')) {
 				print ' &mdash; <a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'">email me whenever '. $member['full_name']. ' speaks</a>';
 			}
 			print '.</li>';
