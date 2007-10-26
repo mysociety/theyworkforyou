@@ -105,4 +105,16 @@ define('OPTION_TRACKING_URL', 'http://path/to/web/bug');
 // Shared secret to authenticate against the tracking service.
 define('OPTION_TRACKING_SECRET', 'really-secret-value');
 
-?>
+// For linking to HFYMP at points
+// define('OPTION_AUTH_SHARED_SECRET', '');
+// define('OPTION_HEARFROMYOURMP_BASE_URL', '');
+
+// For API getGeometry call.
+// define('OPTION_MAPIT_URL', '');
+
+// For seeing if someone is in New Zealand.
+// define('OPTION_GAZE_URL', '');
+
+// mySociety debug level thing. Probably leave as 0.
+define('OPTION_PHP_DEBUG_LEVEL', 0);
+
