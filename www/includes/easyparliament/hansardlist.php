@@ -678,6 +678,14 @@ class HANSARDLIST {
 			/* Deal with old links to some Lords pages. Somewhere. I can't remember where */
 			$itemdata = $this->check_gid_change($args['gid'], 'a', ''); if ($itemdata) return $itemdata;
 
+			if (substr($args['gid'], -1) == 'L') {
+				$letts = array('a','b','c','d','e');
+				for ($i=0; $i<4; $i++) {
+					$itemdata = $this->check_gid_change($args['gid'], $letts[$i], $letts[$i+1]);
+					if ($itemdata) return $itemdata;
+				}
+			}
+
 			/* A lot of written answers were moved from 10th to 11th May and 11th May to 12th May.
 			   Deal with the bots who have stored links to those now non-existant written answers. */
 			/* 2007-05-31: And then they were moved BACK in the volume edition, ARGH */
@@ -2182,10 +2190,12 @@ class HANSARDLIST {
 				'limit' => 1
 			);
 			$next = $this->_get_hansard_data($input);
-			twfy_debug (get_class($this), 'instead of ' . $args['gid'] . ' moving to ' . $next[0]['gid']);
-			$args['gid'] = $next[0]['gid'];
-			$itemdata = $this->_get_item($args);
-			$itemdata['redirected_gid'] = $args['gid'];
+			if ($next) {
+				twfy_debug (get_class($this), 'instead of ' . $args['gid'] . ' moving to ' . $next[0]['gid']);
+				$args['gid'] = $next[0]['gid'];
+				$itemdata = $this->_get_item($args);
+				$itemdata['redirected_gid'] = $args['gid'];
+			}
 		}
 
 		if ($itemdata) {

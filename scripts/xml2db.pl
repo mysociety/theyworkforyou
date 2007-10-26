@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.18 2007-10-19 09:27:29 twfy-live Exp $
+# $Id: xml2db.pl,v 1.19 2007-10-26 20:47:24 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1114,6 +1114,12 @@ sub add_wrans_day
                                 if ($lordshead==1) {
                                         my $ohgid = $_->att('id');
                                         $ohgid =~ s/\d+\.\d+$//;
+                                        my ($lett) = $ohgid =~ /\d\d\d\d-\d\d-\d\d(.)/;
+                                        for ('a'..$lett) {
+                                                next if $_ eq $lett;
+                                                (my $oldgid = $ohgid) =~ s/$lett\.$/$_\./;
+                                                $hdeletegid->execute($oldgid.'L') unless $tallygidsmode;
+                                        }
                                         my $ohcolnum = $_->att('colnum');
                                         my $ohurl = $_->att('url');
                                         my $overhead = XML::Twig::Elt->new('major-heading',
@@ -1356,6 +1362,12 @@ sub load_lords_wms_speech {
         if (!$overhead && $firsthead) {
                 my $ohgid = $firsthead->att('id');
                 $ohgid =~ s/\d+\.\d+$//;
+                my ($lett) = $ohgid =~ /\d\d\d\d-\d\d-\d\d(.)/;
+                for ('a'..$lett) {
+                        next if $_ eq $lett;
+                        (my $oldgid = $ohgid) =~ s/$lett\.$/$_\./;
+                        $hdeletegid->execute($oldgid.'L') unless $tallygidsmode;
+                }
                 my $ohcolnum = $firsthead->att('colnum');
                 my $ohurl = $firsthead->att('url');
                 $overhead = XML::Twig::Elt->new('major-heading',

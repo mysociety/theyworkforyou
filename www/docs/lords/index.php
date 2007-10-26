@@ -62,7 +62,7 @@ if (get_http_var("d") != "") {
 	if (is_string($result)) {
 		$URL = new URL('lordsdebates');
 		$URL->insert( array('id'=>$result) );
-		header('Location: http://' . DOMAIN . $URL->generate('none'));
+		header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
 		exit;
 	}
 
@@ -116,7 +116,7 @@ if (get_http_var("d") != "") {
 	if (is_string($result)) {
 		$URL = new URL('lordsdebate');
 		$URL->insert( array('gid'=>$result) );
-		header('Location: http://' . DOMAIN . $URL->generate('none'));
+		header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
 		exit;
 	}
 	if ($LORDSDEBATELIST->htype() == '12' || $LORDSDEBATELIST->htype() == '13') {

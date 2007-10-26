@@ -26,7 +26,7 @@ if (get_http_var('id') != '') {
 	if (is_string($result)) {
 		$URL = new URL('debate');
 		$URL->insert( array('id'=>$result) );
-		header('Location: http://' . DOMAIN . $URL->generate('none'));
+		header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
 		exit;
 	}
 

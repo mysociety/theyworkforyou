@@ -56,7 +56,7 @@ if (get_http_var("d") != "") {
 	if (is_string($result)) {
 		$URL = new URL('whall');
 		$URL->insert( array('id'=>$result) );
-		header('Location: http://' . DOMAIN . $URL->generate('none'));
+		header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
 		exit;
 	}
 	
@@ -115,7 +115,7 @@ if (get_http_var("d") != "") {
 	if (is_string($result)) {
 		$URL = new URL('whall');
 		$URL->insert( array('gid'=>$result) );
-		header('Location: http://' . DOMAIN . $URL->generate('none'));
+		header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
 		exit;
 	}
 	if ($WHALLLIST->htype() == '12' || $WHALLLIST->htype() == '13') {
