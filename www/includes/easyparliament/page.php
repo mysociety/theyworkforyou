@@ -1215,7 +1215,7 @@ pr()//-->
 		}
 
 		# If they're currently an MLA, a Lord or a non-Sinn Fein MP
-		if ($member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein')) {
+		if ($member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein')) {
 			print '<li><a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a> (no more than once per day)</li>';
 		}
 
@@ -1551,7 +1551,7 @@ if ($member['house_disp']==1) print 'this MP';
 elseif ($member['house_disp']==2) print 'this peer';
 elseif ($member['house_disp']==3) print 'this MLA';
 elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
-			if ($member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein')) {
+			if ($member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein')) {
 				print ' &mdash; <a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'">email me whenever '. $member['full_name']. ' speaks</a>';
 			}
 			print '.</li>';
@@ -1684,7 +1684,10 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 				print '&nbsp;';
 			}
 			if (isset($extra_info[$kr]) && isset($extra_info[$k]) && $extra_info[$k]>0) {
-				print " (" . make_ranking($extra_info[$kr]) . ")";
+				print ' (';
+				if (isset($extra_info[$kr . '_joint']))
+					print 'joint&nbsp;';
+				print make_ranking($extra_info[$kr]) . ")";
 			}
 			if ($col=='col5' && $ey==2007)
 				print '<sup><a href="#travel2007">*</a></sup>';
@@ -1727,6 +1730,11 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		if(isset($links['diocese_url'])) {
 			$html .= '	<li><a href="' . $links['diocese_url'] . '">Diocese website</a></li>';
 		}
+
+		if (isset($links['journa_list_link'])) {
+			$html .= '	<li><a href="' . $links['journa_list_link'] . '">Newspaper articles written by this MP</a> <small>(From Journa-list)</small></li>';
+
+		} 
 		
 		if (isset($links['guardian_parliament_history'])) {
 			$html .= '	<li><a href="' . $links['guardian_parliament_history'] . '">Parliamentary career</a> <small>(From The Guardian)</small></li>';
