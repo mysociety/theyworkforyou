@@ -1,6 +1,6 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.4 2007-10-20 21:18:32 matthew Exp $
+$Id: INSTALL.txt,v 1.5 2007-11-06 13:30:11 twfy-live Exp $
 
 TODO: Add an explanation of how to set up a virtual host in apache.
 
@@ -19,9 +19,12 @@ System Requirements
 * PHP 4.3.3
 
   The site appears to work on the whole with PHP 5, do let us know if it errors
-  anywhere. short_open_tag has to be enabled.
+  anywhere. short_open_tag has to be enabled. PHP must be configured with curl, 
+  using the '--with-curl' option.
 
 * Apache 1.3.28
+
+  The site also appreas to work on the whole with Apache 2.2
 
 * MySQL 4.1
 

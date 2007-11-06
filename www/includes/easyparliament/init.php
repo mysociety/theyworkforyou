@@ -41,6 +41,8 @@ include_once "config.php";
 include_once (INCLUDESPATH."utility.php");
 twfy_debug_timestamp("after including utility.php");
 
+// Set the default timezone
+if(function_exists('date_default_timezone_set')) date_default_timezone_set(TIMEZONE);
 
 // The error_handler function is in includes/utility.php
 $old_error_handler = set_error_handler("error_handler");

@@ -43,6 +43,9 @@ define ("DEVSITE", true);
 // Add this and a number to the URL (eg '?debug=1') to view debug info.
 define ("DEBUGTAG", 'debug');
 
+// Timezone (only works in PHP5)
+define ("TIMEZONE", "Europe/London");
+
 // *******************************************************************************
 // If you've unpacked the tar file normally, and set the paths correctly above, 
 // you shouldn't change these.
