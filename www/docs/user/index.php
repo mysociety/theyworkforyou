@@ -1082,9 +1082,9 @@ function display_user ($user_id="") {
 					}
 				}
 				$criteria = join(' ',$ccc);
-				$token = $row['alert_id'] . '::' . $row['registrationtoken'];
+				$token = $row['alert_id'] . '-' . $row['registrationtoken'];
 				if (!$row['confirmed']) {
-					$action = '<a href="/alert/confirm/?t='.$token.'">Confirm</a>';
+					$action = '<a href="/A/'.$token.'">Confirm</a>';
 				} elseif ($row['deleted']) {
 					$action = '<form action="/alert/undelete/" method="post"><input type="hidden" name="t" value="'.$token.'"><input type="submit" value="Undelete"></form>';
 				} else {

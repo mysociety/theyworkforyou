@@ -38,6 +38,14 @@ etc.
 
 // CLASS:  ALERT
 
+function alert_details_to_criteria($details) {
+	$criteria = array();
+	if (isset($details['keyword']) && $details['keyword']) $criteria[] = $details['keyword'];
+	if ($details['pid']) $criteria[] = 'speaker:'.$details['pid'];
+	$criteria = join(' ', $criteria);
+	return $criteria;
+}
+
 class ALERT {
 
 	var $alert_id = "";
@@ -129,10 +137,7 @@ class ALERT {
 
 		$alerttime = gmdate("YmdHis");
 
-		$criteria = array();
-		if (isset($details['keyword']) && $details['keyword']) $criteria[] = $details['keyword'];
-		if ($details['pid']) $criteria[] = 'speaker:'.$details['pid'];
-		$criteria = join(' ', $criteria);
+		$criteria = alert_details_to_criteria($details);
 
 		$q = $this->db->query("SELECT * FROM alerts WHERE email='".mysql_escape_string($details['email'])."' AND criteria='".mysql_escape_string($criteria)."' AND confirmed=1");
 		if ($q->rows() > 0) {
@@ -175,7 +180,7 @@ class ALERT {
 			// stuff, just need to match this token.
 
 			$this->registrationtoken = strtr($token, '.', 'X');
-
+	
 			// Add that to the database.
 
 			$r = $this->db->query("UPDATE alerts
@@ -231,15 +236,13 @@ class ALERT {
 			return false;
 		}
 
-		// We prefix the registration token with the alert's id and '::'.
+		// We prefix the registration token with the alert's id and '-'.
 		// Not for any particularly good reason, but we do.
 
-		$urltoken = $this->alert_id . '::' . $this->registrationtoken;
+		$urltoken = $this->alert_id . '-' . $this->registrationtoken;
 
-		$URL = new URL('alertconfirm');
-		$URL->insert( array('t'=>$urltoken) );
-		$confirmurl = 'http://' . DOMAIN . $URL->generate();
-
+		$confirmurl = 'http://' . DOMAIN . '/A/' . $urltoken;
+		
 		// Arrays we need to send a templated email.
 		$data = array (
 			'to' 		=> $details['email'],
@@ -289,7 +292,7 @@ class ALERT {
 		// The alert will be active when scripts run each day to send the actual emails.
 
 		// Split the token into its parts.
-		$token_parts = explode('::', $token);
+		$token_parts = explode('-', $token);
 		if (count($token_parts)!=2)
 			return false;
 		list($alert_id, $registrationtoken) = $token_parts;
@@ -333,7 +336,7 @@ class ALERT {
 		// If all goes well the alert will be flagged as deleted.
 
 		// Split the token into its parts.
-		$bits = explode("::", $token);
+		$bits = explode("-", $token);
 		if (count($bits)<2)
 			return false;
 		list($alert_id, $registrationtoken) = $bits;

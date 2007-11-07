@@ -4,7 +4,7 @@
 // This the page users come to when they click the link in their
 // confirmation email after joining the site.
 
-// What happens? They will come here with t=23::adsf7897fd78d9sfsd
+// What happens? They will come here with t=23-adsf7897fd78d9sfsd
 // where the value of 't' is a form of their registration token.
 // We check this exists in the database and if so we log the user in.
 

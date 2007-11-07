@@ -222,11 +222,12 @@ class USER {
 			// The token will be the first 16 characters of a crypt.
 
 			$token = substr( crypt($details["email"] . microtime()), 12, 16 );
+			
 			// Full stops don't work well at the end of URLs in emails,
 			// so replace them. We won't be doing anything clever with the crypt
 			// stuff, just need to match this token.
+
 			$this->registrationtoken = strtr($token, '.', 'X');
-			
 
 			// Add that to the DB.
 			$r = $this->db->query("UPDATE users
@@ -289,14 +290,12 @@ class USER {
 			return false;
 		}
 
-		// We prefix the registration token with the user's id and '::'.
+		// We prefix the registration token with the user's id and '-'.
 		// Not for any particularly good reason, but we do.
 
-		$urltoken = $this->user_id . '::' . $this->registrationtoken;
+		$urltoken = $this->user_id . '-' . $this->registrationtoken;
 
-		$URL = new URL('userconfirm');
-		$URL->insert( array('t'=>$urltoken) );
-		$confirmurl = 'http://' . DOMAIN . $URL->generate();
+		$confirmurl = 'http://' . DOMAIN . '/U/' . $urltoken;
 
 		// Arrays we need to send a templated email.
 		$data = array (
@@ -1009,7 +1008,7 @@ class THEUSER extends USER {
 		// If all goes well they'll be confirmed and then logged in.
 
 		// Split the token into its parts.
-		list($user_id, $registrationtoken) = explode("::", $token);
+		list($user_id, $registrationtoken) = explode("-", $token);
 
 		if (!is_numeric($user_id) || $registrationtoken == '') {
 			return false;

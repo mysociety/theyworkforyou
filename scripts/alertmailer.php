@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.18 2007-10-25 20:25:57 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.19 2007-11-07 13:57:02 twfy-staging Exp $
  */
 
 function mlog($message) {
@@ -186,7 +186,7 @@ foreach ($alertdata as $alertitem) {
 					$email_text .= $body;
 				}
 			}
-			$email_text .= "To cancel your alert for items " . $desc . ", please use:\nhttp://www.theyworkforyou.com/alert/delete/?t=" . $alertitem['alert_id'] . '::' . $alertitem['registrationtoken'] . "\n\n";
+			$email_text .= "To cancel your alert for items " . $desc . ", please use:\nhttp://www.theyworkforyou.com/D/" . $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'] . "\n\n";
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 // This the page users come to when they undelete an alert
 
-// What happens? They will come here with t=23::adsf7897fd78d9sfsd200501021500
+// What happens? They will come here with t=23-adsf7897fd78d9sfsd200501021500
 // where the value of 't' is a form of their registration token.
 // This token is a salted version of their email address concatenated
 // with the time the alert was created.
