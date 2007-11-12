@@ -2,7 +2,7 @@
 
 function api_getMPInfo_front() {
 ?>
-<p><big>Fetch extra information for a particular MP.</big></p>
+<p><big>Fetch extra information for a particular person.</big></p>
 
 <h4>Arguments</h4>
 <dl>

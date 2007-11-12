@@ -33,7 +33,7 @@ $methods = array(
 	'getMPInfo' => array(
 		'parameters' => array('id'),
 		'required' => true,
-		'help' => 'Returns extra information for an MP'
+		'help' => 'Returns extra information for a person'
 	),
 	'getMPs' => array(
 		'parameters' => array('party', 'date', 'search'),
