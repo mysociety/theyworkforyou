@@ -13,8 +13,8 @@ function api_getHansard_front() {
 <dd>Fetch the data that contain this term.</dd>
 <dt>person</dt>
 <dd>Fetch the data by a particular person ID.</dd>
-<dt>order (optional, when using search or person)</dt>
-<dd><kbd>d</kbd> for date ordering, <kbd>r</kbd> for relevance ordering.</dd>
+<dt>order (optional, when using search or person, defaults to date)</dt>
+<dd><kbd>d</kbd> for date ordering, <kbd>r</kbd> for relevance ordering, <kbd>p</kbd> for use by person.</dd>
 <dt>page (optional, when using search or person)</dt>
 <dd>Page of results to return.</dd>
 <dt>num (optional, when using search or person)</dt>
@@ -58,11 +58,28 @@ function _api_getHansard_search($array) {
 		$search .= " section:" . $type;
 	}
 
+	$o = get_http_var('order');
+	if ($o == 'p') {
+		$data = search_by_usage($search);
+		$out = array();
+		foreach ($data['speakers'] as $pid => $s) {
+			$out[$pid] = array(
+				'house' => $s['house'],
+				'name' => $s['name'],
+				'party' => $s['party'],
+				'count' => $s['count'],
+				'mindate' => substr($s['pmindate'], 0, 7),
+				'maxdate' => substr($s['pmaxdate'], 0, 7),
+			);
+		}
+		api_output($out);
+		return;
+	}
+
 	global $SEARCHENGINE;
         $SEARCHENGINE = new SEARCHENGINE($search); 
 	#        $query_desc_short = $SEARCHENGINE->query_description_short();
     	$pagenum = get_http_var('page');
-        $o = get_http_var('order');
     	$args = array (
     		's' => $search,
     		'p' => $pagenum,

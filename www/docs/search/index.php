@@ -49,123 +49,34 @@ if (get_http_var('s') != '' || get_http_var('pid') != '') {
     global $SEARCHENGINE;
 
     if (get_http_var('o')=='p') {
+        $q_house = '';
+        if (ctype_digit(get_http_var('house')))
+            $q_house = get_http_var('house');
+
+        # Fetch the results
+        $data = search_by_usage($searchstring, $q_house);
+
         $wtt = get_http_var('wtt');
-        $SEARCHENGINE = new SEARCHENGINE($searchstring);
-        $pagetitle = $SEARCHENGINE->query_description_short();
         if ($wtt) {
-            $pagetitle = 'League table of Lords who say ' . $pagetitle;
+            $pagetitle = 'League table of Lords who say ' . $data['pagetitle'];
         } else {
-            $pagetitle = 'Who says ' . $pagetitle . ' the most?';
+            $pagetitle = 'Who says ' . $data['pagetitle'] . ' the most?';
         }
         $DATA->set_page_metadata($this_page, 'title', $pagetitle);
         $PAGE->page_start();
         $PAGE->stripe_start();
     	$PAGE->search_form();
-        $SEARCHENGINE = new SEARCHENGINE($searchstring . ' groupby:speech');
-        $count = $SEARCHENGINE->run_count();
-        if ($count <= 0) {
-            print '<p>There were no results.</p>';
-            $PAGE->page_end();
-            return;
-        }
-        $sort_order = 'date';
-        $SEARCHENGINE->run_search(0, 10000, 'date');
-        $gids = $SEARCHENGINE->get_gids();
-        if (count($gids) <= 0) {
-            print '<p>There were no results.</p>';
+        if (isset($data['error'])) {
+            print '<p>' . $data['error'] . '</p>';
             $PAGE->page_end();
             return;
         }
 
-        $q_house = '';
-        if (ctype_digit(get_http_var('house')))
-            $q_house = get_http_var('house');
-
-        $speakers = array();
-        $big_list = join('","', $gids);
-        $db = new ParlDB;
-        $q = $db->query('SELECT gid,speaker_id,hdate FROM hansard WHERE gid IN ("' . $big_list . '")');
-        print '<!-- Counts: ' . count($gids) . ' vs ' . $q->rows() . ' -->';
-        for ($n=0; $n<$q->rows(); $n++) {
-            $gid = $q->field($n, 'gid');
-            $speaker_id = $q->field($n, 'speaker_id');
-            $hdate = $q->field($n, 'hdate');
-            if (!isset($speakers[$speaker_id])) {
-                $speakers[$speaker_id] = 0;
-                $maxdate[$speaker_id] = '1001-01-01';
-                $mindate[$speaker_id] = '9999-12-31';
-            }
-            $speakers[$speaker_id]++;
-            if ($hdate < $mindate[$speaker_id]) $mindate[$speaker_id] = $hdate;
-            if ($hdate > $maxdate[$speaker_id]) $maxdate[$speaker_id] = $hdate;
-        }
-        if (count($speakers)) {
-            $speaker_ids = join(',', array_keys($speakers));
-            $q = $db->query('SELECT member_id, person_id, title,first_name,last_name,constituency,house,party,
-                                moffice_id, dept, position, from_date, to_date, left_house
-                            FROM member LEFT JOIN moffice ON member.person_id = moffice.person
-                            WHERE member_id IN (' . $speaker_ids . ')
-                            ' . ($q_house ? " AND house=$q_house" : '') . '
-                            ORDER BY left_house DESC');
-            for ($n=0; $n<$q->rows(); $n++) {
-                $mid = $q->field($n, 'member_id');
-                if (!isset($pids[$mid])) {
-                    $title = $q->field($n, 'title');
-                    $first = $q->field($n, 'first_name');
-                    $last = $q->field($n, 'last_name');
-                    $cons = $q->field($n, 'constituency');
-                    $house = $q->field($n, 'house');
-                    $party = $q->field($n, 'party');
-                    $full_name = ucfirst(member_full_name($house, $title, $first, $last, $cons));
-                    $pid = $q->field($n, 'person_id');
-                    $pids[$mid] = $pid;
-                    $houses[$pid] = $house;
-                    $left[$pid] = $q->field($n, 'left_house');
-                }
-                $dept = $q->field($n, 'dept');
-                $posn = $q->field($n, 'position');
-                $moffice_id = $q->field($n, 'moffice_id');
-                if ($dept && $q->field($n, 'to_date') == '9999-12-31')
-                    $office[$pid][$moffice_id] = prettify_office($posn, $dept);
-                # $names[$mid] = '<a href="' . WEBPATH . ($house==1?'mp':'peer') . '/?m=' . $mid . '">' . $full_name . ($house==1?' MP':'') . '</a>';
-                if (!isset($names[$pid])) {
-                    $names[$pid] = $full_name . ($house==1?' MP':'');
-                    $parties[$pid] = $party;
-                }
-            }
-        }
-        $pids[0] = 0;
-        $parties[0] = '';
-        $names[0] = 'Headings, procedural text, etc.';
-        $counts = array();
-        $party_count = array();
-        foreach ($speakers as $speaker_id => $count) {
-            if (!isset($pids[$speaker_id])) continue;
-            $pid = $pids[$speaker_id];
-            if (!isset($counts[$pid])) {
-                $counts[$pid] = 0;
-                $pmaxdate[$pid] = '1001-01-01';
-                $pmindate[$pid] = '9999-12-31';
-            }
-            if (!isset($party_count[$parties[$pid]]))
-                $party_count[$parties[$pid]] = 0;
-            $counts[$pid] += $count;
-            $party_count[$parties[$pid]] += $count;
-            if ($mindate[$speaker_id] < $pmindate[$pid]) $pmindate[$pid] = $mindate[$speaker_id];
-            if ($maxdate[$speaker_id] > $pmaxdate[$pid]) $pmaxdate[$pid] = $maxdate[$speaker_id];
-        }
-        arsort($counts);
-        arsort($party_count);
-        if (!count($counts)) {
-            print '<p>There were no results.</p>';
-            $PAGE->page_end();
-            return;
-        }
-        if (count($gids) == 10000) {
+        if (isset($data['limit_reached'])) {
             print '<p><em>This service runs on a maximum number of 10,000 results, to conserve memory</em></p>';
         }
         print "\n\n<!-- ";
-        foreach ($party_count as $party => $count) {
+        foreach ($data['party_count'] as $party => $count) {
             print "$party:$count<br>";
         }
         print " -->\n\n";
@@ -200,32 +111,36 @@ if ($q_house==1) {
 
 } ?></th><th>Date range</th></tr>
 <?
-        foreach ($counts as $pid => $count) {
+        foreach ($data['speakers'] as $pid => $speaker) {
             print '<tr><td align="center">';
-            print $count . '</td><td>';
+            print $speaker['count'] . '</td><td>';
             if ($pid) {
-                if ($houses[$pid]==1) {
+                $house = $speaker['house'];
+                $left = $speaker['left'];
+                if ($house==1) {
                     print '<span style="color:#009900">&bull;</span> ';
-                } elseif ($houses[$pid]==2) {
+                } elseif ($house==2) {
                     print '<span style="color:#990000">&bull;</span> ';
                 }
-                if (!$wtt || $left[$pid] == '9999-12-31')
+                if (!$wtt || $left == '9999-12-31')
                     print '<a href="' . WEBPATH . 'search/?s='.urlencode($searchstring).'&amp;pid=' . $pid;
-                if ($wtt && $left[$pid] == '9999-12-31')
+                if ($wtt && $left == '9999-12-31')
                     print '&amp;wtt=2';
-                if (!$wtt || $left[$pid] == '9999-12-31')
+                if (!$wtt || $left == '9999-12-31')
                     print '">';
             }
-            print $names[$pid];
+            print $speaker['name'];
             if ($pid) print '</a>';
-            if ($parties[$pid]) print " ($parties[$pid])";
-            if (isset($office[$pid]))
-                print ' - ' . join('; ', $office[$pid]);
+            if ($speaker['party']) print ' (' . $speaker['party'] . ')';
+            if (isset($speaker['office']))
+                print ' - ' . join('; ', $speaker['office']);
             print '</td> <td>';
-            if (format_date($pmindate[$pid], 'M Y') == format_date($pmaxdate[$pid], 'M Y')) {
-                print format_date($pmindate[$pid], 'M Y');
+            $pmindate = $speaker['pmindate'];
+            $pmaxdate = $speaker['pmaxdate'];
+            if (format_date($pmindate, 'M Y') == format_date($pmaxdate, 'M Y')) {
+                print format_date($pmindate, 'M Y');
             } else {
-                print str_replace(' ', '&nbsp;', format_date($pmindate[$pid], 'M Y') . ' &ndash; ' . format_date($pmaxdate[$pid], 'M Y'));
+                print str_replace(' ', '&nbsp;', format_date($pmindate, 'M Y') . ' &ndash; ' . format_date($pmaxdate, 'M Y'));
             }
             print '</td></tr>';
         }
