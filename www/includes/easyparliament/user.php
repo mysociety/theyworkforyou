@@ -1008,7 +1008,9 @@ class THEUSER extends USER {
 		// If all goes well they'll be confirmed and then logged in.
 
 		// Split the token into its parts.
-		list($user_id, $registrationtoken) = explode("-", $token);
+		if (strstr($token, '::')) $arg = '::';
+		if (strstr($token, '-')) $arg = '-';
+		list($user_id, $registrationtoken) = explode($arg, $token);
 
 		if (!is_numeric($user_id) || $registrationtoken == '') {
 			return false;

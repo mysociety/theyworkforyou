@@ -292,7 +292,9 @@ class ALERT {
 		// The alert will be active when scripts run each day to send the actual emails.
 
 		// Split the token into its parts.
-		$token_parts = explode('-', $token);
+		if (strstr($token, '::')) $arg = '::';
+		else $arg = '-';
+		$token_parts = explode($arg, $token);
 		if (count($token_parts)!=2)
 			return false;
 		list($alert_id, $registrationtoken) = $token_parts;
@@ -336,7 +338,9 @@ class ALERT {
 		// If all goes well the alert will be flagged as deleted.
 
 		// Split the token into its parts.
-		$bits = explode("-", $token);
+		if (strstr($token, '::')) $arg = '::';
+		else $arg = '-';
+		$bits = explode($arg, $token);
 		if (count($bits)<2)
 			return false;
 		list($alert_id, $registrationtoken) = $bits;
