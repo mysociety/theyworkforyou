@@ -59,9 +59,9 @@ if (isset($data['years'])) {
 			// If we don't set it, today will be highlighted.
 			if (isset($data['info']['onday'])) {
 				// 'onday' is like 'yyyy-mm-dd'.
-				list($onY, $onM, $onD) = explode('-', $data['info']['onday']);
-				if ($onY == $year && $onM == $month) {
-					$toDay = $onD;
+				$datebits = explode('-', $data['info']['onday']);
+				if (count($datebits)>2 && $datebits[0] == $year && $datebits[1] == $month) {
+					$toDay = $datebits[2];
 				} else {
 					$toDay = '';
 				}

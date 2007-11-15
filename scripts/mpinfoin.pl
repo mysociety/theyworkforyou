@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.16 2007-10-25 20:25:57 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.17 2007-11-15 17:21:26 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -84,6 +84,7 @@ if ($action{'links'}) {
         $twig->parsefile($config::pwmembers . 'websites.xml', ErrorContext => 2);
         chdir $FindBin::Bin;
         $twig->parsefile($config::pwmembers . 'lordbiogs.xml', ErrorContext => 2);
+        $twig->parsefile($config::pwmembers . 'journa-list.xml', ErrorContext => 2);
 }
 
 if ($action{'wtt'}) {
@@ -534,14 +535,14 @@ sub enrankify
         # Extract value of $field for each MP who has it
         my @mps;
         my %mpsvalue;
-        foreach my $mp_id (keys %$hash)
-        {
+        my %valuecount;
+        foreach my $mp_id (keys %$hash) {
                 my $value = $hash->{$mp_id}->{$field};
-                if (defined $value)
-                {
+                if (defined $value) {
                         $value =~ s/%//; # remove % from end
                         push @mps, $mp_id;
                         $mpsvalue{$mp_id} = $value;
+                        $valuecount{$value}++;
                 }
         }
         my @quintile = ();
@@ -567,6 +568,7 @@ sub enrankify
                 $quintile++ if ($activerank>$quintile[$quintile]);
                 #print $field . " " . $mp . " value $activerank of " . $#mps . "\n";
                 $hash->{$mp}->{$field . "_rank"} = $activerank;
+                $hash->{$mp}->{$field . "_rank_joint"} = 1 if $valuecount{$mpsvalue{$mp}} > 1;
                 $hash->{$mp}->{$field . "_rank_outof"} = scalar @mps;
                 $hash->{$mp}->{$field . '_quintile'} = $quintile;
                 $prevvalue = $mpsvalue{$mp};

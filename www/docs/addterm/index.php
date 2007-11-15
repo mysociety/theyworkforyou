@@ -105,8 +105,7 @@ if (get_http_var("submitterm") != '') {
 		print "<p>Or you can browse the whole glossary:</p>";
 		$PAGE->glossary_atoz($GLOSSARY);
 	}
-	// Eek! no results at all? Excellent...
-	else {
+
 		// Ok, so now we can see of the word(s) appear in Hansard at all.
 		// The following query was modified from the hansardlist search.
 		// However, no point checking, if the user can't add terms. 
@@ -142,7 +141,6 @@ if (get_http_var("submitterm") != '') {
 				print "<p><a href=\"#definition\">Back to form</a></p>";
 			}
 		}
-	}
 } else {
 	// We just arrived here empty handed...
 	

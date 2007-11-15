@@ -6,18 +6,20 @@ global $PAGE;
 
 // Contents varies depending on the page we're on...
 
+$args = array();
 if ($this_page == 'lordsdebatesday') {
 	$date = get_http_var('d');
-	list($year, $month, $day) = explode('-', $date);
-	
-	$args = array (
-		'year' => $year,
-		'month' => $month,
-		'onday' => $date
-	);
-	$title = 'Debates this month';
-	
-} else {
+	$datebits = explode('-', $date);
+	if (count($datebits)>2) {
+		$args = array (
+			'year' => $datebits[0],
+			'month' => $datebits[1],
+			'onday' => $date
+		);
+		$title = 'Debates this month';
+	}
+}
+if (!$args) {
 	$args = array (
 		'months' => 1	// How many recent months to show.
 	);
