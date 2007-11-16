@@ -48,7 +48,7 @@ cd ~/fawkes/scripts
 ./xml2db.pl $CRONQUIET --recent --westminhall --quiet
 ./xml2db.pl $CRONQUIET --recent --wms --quiet
 ./xml2db.pl $CRONQUIET --recent --lordsdebates --quiet
-# ./xml2db.pl $CRONQUIET --ni --from=`date +"%Y-%m"`-01 --quiet
+./xml2db.pl $CRONQUIET --recent --ni --quiet
 
 # Update Xapan index
 $VERBOSE && echo "Xapian indexing"
