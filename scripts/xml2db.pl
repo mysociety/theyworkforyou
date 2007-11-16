@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.19 2007-10-26 20:47:24 twfy-live Exp $
+# $Id: xml2db.pl,v 1.20 2007-11-16 16:56:12 twfy-live Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1337,7 +1337,7 @@ sub add_wms_day {
 }
 
 sub is_dupe {
-        return 1 if $_[0] =~ /My (?:right )?(?:hon(\.|ourable) )?(?:and )?(?:noble )?friend .*? (?:has )?(?:today )?(?:(?:made|issued) the following (?:Written )?Ministerial Statement|published a report)/i;
+        return 1 if $_[0] =~ /My (?:right )?(?:hon(\.|ourable) )?(?:and )?(?:noble )?friend\s*.*? (?:has )?(?:today )?(?:(?:made|issued) the following (?:Written )?Ministerial Statement|published a report)/i;
         return 0;
 }
 sub load_wms_speech {
