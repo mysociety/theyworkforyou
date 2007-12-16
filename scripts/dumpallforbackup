@@ -2,7 +2,7 @@
 set -e
 
 # Check disk space
-if [[ 97 <  ` df -k /usr | perl -e '$/=undef; $a= <STDIN>; $a=~ m#(\d+)\%#; print $1'` ]] ; then
+if [[ 94 <  ` df -k /usr | perl -e '$/=undef; $a= <STDIN>; $a=~ m#(\d+)\%#; print $1'` ]] ; then
 	echo "  Backup cancelled due to lack of space on cake!";
 	exit 1;
 fi
