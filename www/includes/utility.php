@@ -496,7 +496,7 @@ function trim_characters ($text, $start, $length) {
 		$text = substr($text, 0, $length - 3); 
 
 		// Word boundary.         
-		if (preg_match ("/(.*)\b.+/", $text, $matches)) {
+		if (preg_match ("/(.*)\s.+/", $text, $matches)) {
 			$text = $matches[1];
 			// Strip spare space at the end.
 			$text = preg_replace ("/\s$/", '', $text);

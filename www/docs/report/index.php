@@ -34,11 +34,15 @@ if (is_numeric(get_http_var('id'))) {
 		if (get_http_var('body') == '') {
 			$errors['body'] = "Please enter a reason why you think this comment is not appropriate.";
 		}
+		if (preg_match('#http://|\[url#', get_http_var('body'))) {
+			$errors['body'] = 'Please do not give any web links in the report body.';
+		}
+
 		if (!$THEUSER->isloggedin()) {
 			if (get_http_var('firstname') == '' || get_http_var('lastname') == '') {
 				$errors['name'] = "Please let us know who you are!";
 			}
-			if (get_http_var('email') == '') {
+			if (get_http_var('em') == '') {
 				$errors['email'] = "Please enter your email address so we can contact you about this report.";
 			}
 		}
@@ -56,7 +60,7 @@ if (is_numeric(get_http_var('id'))) {
 				'body'		=> get_http_var('body'),
 				'firstname'	=> get_http_var('firstname'),
 				'lastname'	=> get_http_var('lastname'),
-				'email'		=> get_http_var('email')
+				'email'		=> get_http_var('em')
 			);
 			
 			$success = $REPORT->create($COMMENT, $reportdata);
@@ -142,8 +146,8 @@ function display_form($COMMENT, $errors=array()) {
 		}
 		?>
 				<div class="row">
-				<span class="label"><label for="email">Email address:</label></span>
-				<span class="formw"><input type="text" name="email" id="email" value="" maxlength="100" size="30" class="form"></span>
+				<span class="label"><label for="em">Email address:</label></span>
+				<span class="formw"><input type="text" name="em" id="em" value="" maxlength="100" size="30" class="form"></span>
 				</div>
 <?php
 	}
