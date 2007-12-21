@@ -2611,7 +2611,12 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 		?></textarea></p>
 
 					<p><input type="submit" value="Preview" class="submit">
-					<input type="submit" name="submitcomment" value="Post" class="submit"></p>
+<?php
+		if (isset($commentdata['body'])) {
+			echo '<input type="submit" name="submitcomment" value="Post" class="submit">';
+		}
+?>
+</p>
 					<input type="hidden" name="epobject_id" value="<?php echo $commentdata['epobject_id']; ?>">
 					<input type="hidden" name="gid" value="<?php echo $commentdata['gid']; ?>">
 					<input type="hidden" name="return_page" value="<?php echo $commentdata['return_page']; ?>">

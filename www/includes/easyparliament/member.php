@@ -687,4 +687,27 @@ function party_to_colour($party) {
     }
 }
 
-?>
+function find_rep_image($pid, $smallonly = false) {
+	$image = null; $sz = null;
+	if (!$smallonly && is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $pid . '.jpg')) {
+		$image = IMAGEPATH . 'mpsL/' . $pid . '.jpg';
+		$sz = 'L';
+	} elseif (!$smallonly && is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $pid . '.jpeg')) {
+		$image = IMAGEPATH . 'mpsL/' . $pid . '.jpeg';
+		$sz = 'L';
+	} elseif (!$smallonly && is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $pid . '.png')) {
+		$image = IMAGEPATH . 'mpsL/' . $pid . '.png';
+		$sz = 'L';
+	} elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $pid . '.jpg')) {
+		$image = IMAGEPATH . 'mps/' . $pid . '.jpg';
+		$sz = 'S';
+	} elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $pid . '.jpeg')) {
+		$image = IMAGEPATH . 'mps/' . $pid . '.jpeg';
+		$sz = 'S';
+	} elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $pid . '.png')) {
+		$image = IMAGEPATH . 'mps/' . $pid . '.png';
+		$sz = 'S';
+	}
+	return array($image, $sz);
+}
+

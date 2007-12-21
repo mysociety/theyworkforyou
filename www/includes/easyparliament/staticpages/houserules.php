@@ -3,7 +3,7 @@
 <dd><p>Please be nice to each other. Please respect MPs and Peers. If you think they have an easy job, you're very, very wrong.</p></dd>
 
 <dt>Please be patient</dt>
-<dd><p>Users of all ages and abilities may be contributing to TheyWorkForYou.com. Also, remember this site is run by volunteers. Please bear with us if we're slow to get back to you.</p></dd>
+<dd><p>Users of all ages and abilities may be contributing to TheyWorkForYou. Also, remember this site is partly run by volunteers, so please bear with us if we&rsquo;re slow to get back to you.</p></dd>
 
 <dt>No disruptive, offensive or abusive behaviour</dt>
 <dd><p>Contributions should be constructive and polite, not mean-spirited or contributed with the intention of causing trouble. </p></dd>
@@ -18,7 +18,7 @@
 <dd><p>At all. Ever. Even subtle stuff.</p></dd>
 
 <dt>Please use your own name if you can</dt>
-<dd><p>We'd prefer you to use your real name, but understand that for some people this won't be an option.</p></dd>
+<dd><p>We'd prefer you to use your real name, but understand that for some people this won't be an option &ndash; the name you choose will be displayed on the site.</p></dd>
 
 <dt>Don't impersonate others</dt>
 <dd><p>They tend to get cross. As do we.</p></dd>

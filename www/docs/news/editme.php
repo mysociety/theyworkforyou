@@ -4,6 +4,15 @@
 
 $all_news = array(
 
+44 => array('Please donate to help us expand TheyWorkForYou', <<<EOT
+We&#8217;ve been working on Public Bill (n&eacute;e Standing) Committees, and some lovely new volunteers have been working their socks off on the Scottish Parliament, to be added to <a href="http://theyworkforyou.com">TheyWorkForYou</a>. Yay!
+
+Unfortunately, the server that TheyWorkForYou sits on is almost full, so we can&#8217;t launch their hard work. Boo!
+
+TheyWorkForYou isn&#8217;t an externally funded project, and we need funding from other sources to keep it growing and improving. So if the season has filled you with generosity of spirit, why not <a href="https://secure.mysociety.org/donate/">drop us a few pennies</a> to pay for some upgrades? Any extra beyond what we need will go into the general pot to keep <a href="http://www.mysociety.org/">mySociety</a> running and the developers from starving.
+EOT
+, '2007-12-21 10:07:35', 'Tom'),
+
 43 => array('The Queen in Parliament', <<<EOT
 Whilst we cover MPs and Lords, there's always been one other individual who speaks in
 Parliament whom we missed. That anomaly has now been fixed, and so you can now view
