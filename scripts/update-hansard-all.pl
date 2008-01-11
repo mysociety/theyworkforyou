@@ -12,7 +12,7 @@ use DBI;
 my $dbh = DBI->connect($config::dsn, $config::user, $config::pass, { RaiseError => 1, PrintError => 0 });
 
 my $sth = $dbh->prepare("update hansard set htime=? where gid = ?");
-for my $file (</home/fawkes/hansard-updates/h*>) {
+for my $file (sort </home/fawkes/hansard-updates/h*>) {
         open FP, $file;
         while (<FP>) {
                 next if /^--/;

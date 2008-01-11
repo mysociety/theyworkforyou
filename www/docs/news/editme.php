@@ -5,7 +5,7 @@
 $all_news = array(
 
 44 => array('Please donate to help us expand TheyWorkForYou', <<<EOT
-We&#8217;ve been working on Public Bill (n&eacute;e Standing) Committees, and some lovely new volunteers have been working their socks off on the Scottish Parliament, to be added to <a href="http://theyworkforyou.com">TheyWorkForYou</a>. Yay!
+We&#8217;ve been working on Public Bill (n&#233;e Standing) Committees, and some lovely new volunteers have been working their socks off on the Scottish Parliament, to be added to <a href="http://theyworkforyou.com">TheyWorkForYou</a>. Yay!
 
 Unfortunately, the server that TheyWorkForYou sits on is almost full, so we can&#8217;t launch their hard work. Boo!
 

@@ -393,7 +393,7 @@ $this->page = array (
 		'parent'		=> 'lordsdebatesfront',
 		'track'			=> true,
 		'url'			=> 'lords/',
-		'session_vars'	=> array ('id'),
+		'session_vars'	=> array ('gid'),
 	),
 	'lordsdebates'  => array (
 		'parent'		=> 'lordsdebatesfront',
@@ -504,7 +504,7 @@ $this->page = array (
 		'parent'		=> 'nidebatesfront',
 		'track'			=> true,
 		'url'			=> 'ni/',
-		'session_vars'	=> array ('id'),
+		'session_vars'	=> array ('gid'),
 	),
 	'nidebates'  => array (
 		'parent'		=> 'nidebatesfront',

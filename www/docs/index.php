@@ -119,7 +119,7 @@ function email_alert_bullet_point() {
 function comment_on_recent_bullet_point() {
 	global $hansardmajors;
 ?>
-	<li><p><strong>Comment on:</strong></p>
+	<li><p><strong>Read and comment on:</strong></p>
 
 <?php 
 	$DEBATELIST = new DEBATELIST; $data[1] = $DEBATELIST->most_recent_day();
