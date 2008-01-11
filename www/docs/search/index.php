@@ -242,7 +242,11 @@ if ($q_house==1) {
 }
 
 $PAGE->stripe_end(array (
-	array (
+	array(
+		'type'		=> 'include',
+		'content'	=> 'search_links'
+	),
+	array(
 		'type'		=> 'include',
 		'content'	=> 'search'
 	)

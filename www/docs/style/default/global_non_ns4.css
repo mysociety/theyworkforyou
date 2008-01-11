@@ -506,6 +506,10 @@ span.wransvote {
 div.sidebar p.comment-teaser {
 	margin: 0 14px 0 10px;
 	}
+
+div.sidebar p.video {
+	margin: 0 14px 0 10px;
+}
 	
 div.sidebar p.nextprev {
 	margin: 0.5em 14px 2em 10px;
@@ -711,6 +715,24 @@ div.pagelinks {
 	margin: 1em 14px 1em 18px;
 	text-align: center;
 	}
+
+#search_links {
+	font-size: 200%;
+	list-style-type:none;
+}
+#search_links li {
+	min-height: 32px;
+	margin-left:0;
+	padding-left:40px;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+}
+#search_links_email {
+	background-image: url(/images/icon-email.png);
+}
+#search_links_rss {
+	background-image: url(/images/icon-rss-32.png);
+}
 
 span.hi {
 	background: #ff3;

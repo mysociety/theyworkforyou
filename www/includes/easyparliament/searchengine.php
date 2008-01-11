@@ -214,7 +214,7 @@ class SEARCHENGINE {
                 $PAGE->error_message("Unknown search prefix '$items[0]' ignored");
             }
         }
-        if (sizeof($speaker)) $description .= ' spoken by ' . join(' or ', $speaker);
+        if (sizeof($speaker)) $description .= ' by ' . join(' or ', $speaker);
         if (sizeof($major)) $description .= ' in ' . join(' or ', $major);
 
         return trim($description);

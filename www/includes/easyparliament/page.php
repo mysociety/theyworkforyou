@@ -1031,21 +1031,14 @@ pr()//-->
 		}
 		print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
 		$this->block_start(array('id'=>'mp', 'title'=>$title));
-		if (is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $member['person_id'] . '.jpg')) {
-		?>
-						<img src="<?php echo IMAGEPATH;?>mpsL/<?php echo $member['person_id']; ?>.jpg" alt="Photo of <?php echo $member['full_name']; ?>" class="portrait">
-		<? } elseif (is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $member['person_id'] . '.jpeg')) {
-		?>
-						<img src="<?php echo IMAGEPATH;?>mpsL/<?php echo $member['person_id']; ?>.jpeg" alt="Photo of <?php echo $member['full_name']; ?>" class="portrait">
-		<? } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $member['person_id'] . '.jpg')) {
-		?>
-						<img src="<?php echo IMAGEPATH;?>mps/<?php echo $member['person_id']; ?>.jpg" alt="Photo of <?php echo $member['full_name']; ?>" height="118" class="portrait">
-		<? } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $member['person_id'] . '.jpeg')) {
-		?>
-						<img src="<?php echo IMAGEPATH;?>mps/<?php echo $member['person_id']; ?>.jpeg" alt="Photo of <?php echo $member['full_name']; ?>" height="118" class="portrait">
-		<? } ?>
-						<ul class="hilites">
-						<?php
+		list($image,$sz) = find_rep_image($member['person_id']);
+		if ($image) {
+			echo '<img class="portrait" alt="Photo of ', $member['full_name'], '" src="', $image, '"';
+			if ($sz=='S') echo ' height="118"';
+			echo '>';
+		}
+
+		echo '<ul class="hilites">';
 		$desc = '';
 		foreach ($member['houses'] as $house) {
 			if ($house==0) {
@@ -2036,94 +2029,72 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		if ($value == '')
 			$value = get_http_var('s');
 
+		echo '<div class="mainsearchbox">';
 		if ($wtt<2) {
-		?>
-<div class="mainsearchbox">
-					<form action="<?php echo $URL->generate(); ?>" method="get">
-<?php if (get_http_var('o')) { ?>
-					<input type="hidden" name="o" value="<?php echo htmlentities(get_http_var('o')); ?>">
-<?php }
-	if (get_http_var('house')) { ?>
-					<input type="hidden" name="house" value="<?=htmlentities(get_http_var('house')); ?>">
-<?php } ?>
-					<input type="text" name="s" value="<?php echo htmlentities($value); ?>" size="20">
-					<input type="submit" value=" <?=($wtt?'Modify search':'Search') ?> "><br>
-<?
+			echo '<form action="', $URL->generate(), '" method="get">';
+			if (get_http_var('o')) {
+				echo '<input type="hidden" name="o" value="', htmlentities(get_http_var('o')), '">';
+			}
+			if (get_http_var('house')) {
+				echo '<input type="hidden" name="house" value="', htmlentities(get_http_var('house')), '">';
+			}
+			echo '<input type="text" name="s" value="', htmlentities($value), '" size="20"> ';
+			echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' "><br>';
+			if ($wtt) print '<input type="hidden" name="wtt" value="1">';
 
-if ($wtt) print '<input type="hidden" name="wtt" value="1">';
-
-} else { ?>
-<div class="mainsearchbox">
+		} else { ?>
 	<form action="http://www.writetothem.com/lords" method="get">
 	<input type="hidden" name="pid" value="<?=htmlentities(get_http_var('pid')) ?>">
 	<input type="submit" style="font-size: 150%" value=" I want to write to this Lord "><br>
-<? }
+<?
+		}
 
-if (!$wtt) { ?>
-<div style='margin-top: 5px'>
-<?php
-     $orderUrl = new URL('search');
-        $ordering = get_http_var('o');
-        if ($ordering!='r' && $ordering!='d' && $ordering != 'p') {
-            $ordering='d';
-        }
+		if (!$wtt) {
+			echo '<div style="margin-top: 5px">';
+			$orderUrl = new URL('search');
+		        $ordering = get_http_var('o');
+		        if ($ordering!='r' && $ordering!='d' && $ordering != 'p') {
+		            $ordering='d';
+		        }
         
-        if ($ordering=='r') {
-            print '<strong>Most relevant results are first</strong>';
-        } else {
-            printf("<a href='%s'>Show most relevant results first</a>", $orderUrl->generate('html', array('o'=>'r')));
-        }
+		        if ($ordering=='r') {
+				print '<strong>Most relevant results are first</strong>';
+		        } else {
+				printf("<a href='%s'>Show most relevant results first</a>", $orderUrl->generate('html', array('o'=>'r')));
+		        }
 
-        print "&nbsp;|&nbsp;";
-        if ($ordering=='d') {
-            print '<strong>Most recent results are first</strong>';
-        } else {
-            printf("<a href='%s'>Show most recent results first</a>", $orderUrl->generate('html', array('o'=>'d')));
-        }
+		        print "&nbsp;|&nbsp;";
+		        if ($ordering=='d') {
+				print '<strong>Most recent results are first</strong>';
+		        } else {
+				printf("<a href='%s'>Show most recent results first</a>", $orderUrl->generate('html', array('o'=>'d')));
+		        }
 
-	print "&nbsp;|&nbsp;";
-	if ($ordering=='p') {
-		print '<strong>Use by person</strong>';
-	} else {
-		printf('<a href="%s">Show use by person</a>', $orderUrl->generate('html', array('o'=>'p')));
-	}
-?>
-</div>
-<?php	$qds = '';
-	if ($SEARCHENGINE) {
-		$qds = $SEARCHENGINE->query_description_short();
-		$plural = 'is';
-		if (strstr($qds, 'phrases') || strstr($qds, 'words') || preg_match('/word.*?phrase/', $qds)) $plural = 'are';
-		$qds .= " $plural mentioned";
-		$qds = preg_replace('#^spoken by (.*?) is mentioned in#', 'something is said by $1 in', $qds);
-		$qds = preg_replace('#spoken by (.*?) is mentioned in#', 'is spoken by $1 in', $qds);
-	}
-        $person_id = get_http_var('pid');
-        if ($person_id != "") {
-            $member = new MEMBER(array('person_id' => $person_id));
-	    if ($member->valid) {
-	            $name = $member->full_name();
+			print "&nbsp;|&nbsp;";
+			if ($ordering=='p') {
+				print '<strong>Use by person</strong>';
+			} else {
+				printf('<a href="%s">Show use by person</a>', $orderUrl->generate('html', array('o'=>'p')));
+			}
+			echo '</div>';
+
+		        $person_id = get_http_var('pid');
+		        if ($person_id != "") {
+				$member = new MEMBER(array('person_id' => $person_id));
+				if ($member->valid) {
+			        	$name = $member->full_name();
                 ?>
                     <p>
                     <input type="radio" name="pid" value="<?php echo htmlentities($person_id) ?>" checked>Search only <?php echo htmlentities($name) ?> 
                     <input type="radio" name="pid" value="">Search all speeches
                     </p>
                 <?
-	    }
-       }
-}
-            ?>
+	    			}
+       			}
+		}
 
-					</form>
-				</div><? if ($SEARCHENGINE && !$wtt) { ?>
-			<div class="stripe-2" align="center" style="margin-bottom: 2em">
-		<a href="<?=WEBPATH ?>alert/?only=1<?=($value?'&amp;keyword='.urlencode($value):'') . ($person_id?'&amp;pid='.urlencode($person_id):'') ?>">Email me when <?=$qds ?></a>
-		</div>
-<?php				}
+		echo '</form> </div>';
 	}
-	
-	
-	
 	
 	function login_form ($errors = array()) {
 		// Used for /user/login/ and /user/prompt/

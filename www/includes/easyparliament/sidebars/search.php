@@ -6,7 +6,7 @@ $this->block_start(array(
 	'title'	=> "Search Tips"
 ));
 
-include  INCLUDESPATH."easyparliament/searchhelp.php";
+include  INCLUDESPATH . 'easyparliament/staticpages/search_help.php';
 
 $this->block_end();
 ?>
