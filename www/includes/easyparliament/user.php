@@ -364,46 +364,20 @@ class USER {
 		if ($this->email_exists($email)) {
 			
 			$this->email = $email;
-
-		// Start password generating stuff from
-		// http://uk2.php.net/manual/en/function.crypt.php
-
-			// $digits = amount of chars the password should have (between 4 and 29)
-			// $c = if true, I,i,L,l will be changed to 1 and O or o will be changed
-			// 		to 0 (Zero) to prevent mistakes by an userinput
-			// $st = string to "U" = upper, "L" = lower, null=casesensitive
-
-			$digits = 6;
-			$c = true;
-			$st = "U";
-
-
-			if(!ereg("^([4-9]|((1|2){1}[0-9]{1}))$",$digits)) {
-				// 4-29 chars allowed
-				$digits=4;
-			}
-
 			for(;;) {
 
 				$pwd=null;
 				$o=null;
 
 				// Generates the password ....
-				for ($x=0; $x < $digits;) {
+				for ($x=0; $x < 6;) {
 					$y = rand(1,1000);
 					if($y>350 && $y<601) $d=chr(rand(48,57));
 					if($y<351) $d=chr(rand(65,90));
 					if($y>600) $d=chr(rand(97,122));
-					if($d!=$o) {
+					if($d!=$o && !preg_match('#[O01lI]#', $d)) {
 						$o=$d; $pwd.=$d; $x++;
 					}
-				}
-
-				// if you want that the user will not be confused by O or 0 ("Oh" or "Null")
-				// or 1 or l ("One" or "L"), set $c=true;
-				if($c) {
-					$pwd=eregi_replace("(l|i)","1",$pwd);
-					$pwd=eregi_replace("(o)","0",$pwd);
 				}
 
 				// If the PW fits your purpose (e.g. this regexpression) return it, else make a new one
@@ -413,8 +387,7 @@ class USER {
 				}
 
 			}
-			if($st=="L") $pwd=strtolower($pwd);
-			if($st=="U") $pwd=strtoupper($pwd);
+			$pwd = strtoupper($pwd);
 
 		// End password generating stuff.
 
