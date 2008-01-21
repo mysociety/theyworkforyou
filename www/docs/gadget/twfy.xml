@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+    <ModulePrefs
+        title="TheyWorkForYou"
+        title_url='http://www.theyworkforyou.com/'
+        description='Information on MPs from TheyWorkForYou.com'
+        author='Matthew Somerville'
+        author_affiliation='mySociety'
+        author_location='UK'
+	author_email='beta@theyworkforyou.com'
+	screenshot='http://www.theyworkforyou.com/gadget/screenshot.png'
+	thumbnail='http://www.theyworkforyou.com/gadget/thumbnail.png'
+	height='300'
+        scrolling='true'>
+	<!-- <Require feature="dynamic-height"/> -->
+        <Require feature="tabs"/>
+        <Require feature="setprefs"/>
+    </ModulePrefs>
+    <UserPref name="pc" display_name="Postcode"/>
+    <UserPref name="num" display_name="Number of results to show" default_value="5" datatype="enum">
+        <EnumValue value="1"/>
+        <EnumValue value="3"/>
+        <EnumValue value="5"/>
+        <EnumValue value="10"/>
+        <EnumValue value="15"/>
+        <EnumValue value="20"/>
+    </UserPref>
+    <UserPref name="pid" datatype="hidden"/>
+    <UserPref name="stored_pc" datatype="hidden"/>
+    <UserPref name="selectedTab" datatype="hidden"/>
+    <Content type="html"><![CDATA[
+
+<script type="text/javascript">
+    var tabs = new _IG_Tabs(__MODULE_ID__);
+    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var num = prefs.getInt('num');
+    var infoDisplayed = 0;
+
+// Helper functions
+
+    // Show a loading icon as a tab's contents
+    function showLoading(id) {
+        var p = document.createElement('p');
+        p.setAttribute('align', 'center');
+        var image = _IG_GetImage('http://www.theyworkforyou.com/gadget/pleasewait.gif');
+        p.appendChild(image);
+        _gel(id).innerHTML = '';
+        _gel(id).appendChild(p);
+    }
+
+    // Basic XML key:value value fetcher
+    function getValue(response, id) {
+        var r = response.getElementsByTagName(id);
+        if (!r || !r.length) return false;
+        return r[0].firstChild.nodeValue;
+    }
+    function getArray(response, id) {
+        var r = response.getElementsByTagName(id);
+        if (!r) return false;
+        return r[0];
+    }
+
+// Main fetching functions
+
+    function fetchPersonID(pc, callback) {
+        _IG_FetchContent('http://www.theyworkforyou.com/gadget/pc.php?pc=' + encodeURIComponent(pc),
+            function(r) {
+                prefs.set('stored_pc', pc);
+                var a = r.split(',');
+                if (a[0] == 'error') {
+                    prefs.set('pid', 0);
+                    tabs.setSelectedTab(1);
+                    _gel('info-tab').innerHTML = '<i>Could not fetch data: ' + a[1] + '</i>';
+                    return;
+                }
+                var pid = a[1];
+                prefs.set('pid', pid);
+                callback();
+            }
+        );
+    }
+
+    function infoTabCallback() {
+        var pc = prefs.getString('pc');
+	if (!pc) {
+	    settingsPage();
+	} else if (prefs.getString('stored_pc') != pc) {
+            showLoading('info-tab');
+            fetchPersonID(pc, fetchInfo);
+        } else if (infoDisplayed) {
+            // _IG_AdjustIFrameHeight();
+            return;
+        } else {
+            fetchInfo();
+        }
+    }
+
+    function fetchInfo() {
+        var pid = prefs.getInt('pid');
+        if (!pid) {
+            if (!_gel('info-tab').innerHTML) {
+                _gel('info-tab').innerHTML = '<i>Could not fetch data; please check your postcode.</i>';
+            }
+            return;
+        }
+        showLoading('info-tab');
+        _IG_FetchXmlContent('http://www.theyworkforyou.com/gadget/dat.php?pid=' + pid, function(response){
+            if (response == null || typeof(response) != 'object' || response.firstChild == null) {
+                _gel('info-tab').innerHTML = '<i>Could not fetch data.</i>';
+                return;
+            }
+            var name     = getValue(response, 'full_name');
+            var party    = getValue(response, 'party');
+            var cons     = getValue(response, 'constituency');
+            var image    = getValue(response, 'image');
+            var majority = getValue(response, 'majority_in_seat');
+            var swing    = getValue(response, 'swing_to_lose_seat_today');
+            var comm     = getArray(response, 'selctee');
+            var pw       = getValue(response, 'pw_data');
+
+            if (image) {
+                image = _IG_GetImage('http://www.theyworkforyou.com' + image);
+                image.setAttribute('align', 'left');
+            }
+
+            var comms = [];
+            if (comm) {
+                comm = comm.getElementsByTagName('match');
+                for (var i=0; i<comm.length; i++) {
+                    comms.push(comm[i].firstChild.nodeValue);
+                }
+            }
+
+	    var html = ['<p><big><strong>', name, ' MP</strong></big><br/>',
+		    party, ', ', cons, '<br/>Majority: ', majority, '. <a href="http://www.theyworkforyou.com/mp/?p=', pid, '" target="_blank">more</a></p>']
+	    // html.push('<p>Majority: ', majority, '</p>') // , ', ', swing, '% swing to lose</p>')
+
+            _gel('recent-header').innerHTML = '';
+            var logo = _IG_GetImage('http://www.theyworkforyou.com/gadget/twfy.png');
+            logo.setAttribute('align', 'right');
+            _gel('recent-header').appendChild(logo);
+            if (image) _gel('recent-header').appendChild(image);
+            _gel('recent-header').innerHTML += html.join('');
+
+            if (comms.length) {
+                html.push('<ul><li>', comms.join('</li> <li>'), '</li></ul>');
+            }
+            if (pw) {
+                html.push('<h3>Voting Record</h3>', pw);
+            }
+            _gel('info-tab').innerHTML = '';
+            _gel('info-tab').appendChild(logo.cloneNode(true));
+            if (image) _gel('info-tab').appendChild(image);
+            _gel('info-tab').innerHTML += html.join('');
+            infoDisplayed = 1;
+            // _IG_AdjustIFrameHeight();
+        });
+    }
+
+    function recentTabCallback() {
+        var pc = prefs.getString('pc');
+	if (!pc) {
+	    settingsPage();
+	} else if (prefs.getString('stored_pc') != pc) {
+            showLoading('recent-things');
+            fetchPersonID(pc, fetchRecent);
+        } else {
+            showLoading('recent-things');
+            fetchRecent();
+        }
+    }
+
+    function fetchRecent() {
+        var pid = prefs.getInt('pid');
+        if (!pid) {
+            tabs.setSelectedTab(1);
+            return;
+        }
+	if (!infoDisplayed) {
+	    fetchInfo();
+	}
+        _IG_FetchFeedAsJSON('http://www.theyworkforyou.com/rss/mp/' + pid + '.rdf', function(response) {
+            if (response == null) {
+                _gel('recent-things').innerHTML = '<i>Could not fetch data</i>';
+                return;
+            }
+            var html = [];
+            for (i=0; i<response.Entry.length; i++) {
+                var summary = response.Entry[i].Summary;
+                var date = response.Entry[i].Date * 1000;
+                date = new Date(date);
+                if (summary.length > 400) {
+                    summary = summary.substr(0, 400) + '...';
+                }
+                html.push('<div><h3><a target="_blank" href="',
+                    response.Entry[i].Link,
+                    '">', response.Entry[i].Title,
+                    '</a> <small>(', date.toLocaleDateString(), ')</small></h3>', summary,
+                    '</div>');
+            }
+            _gel('recent-things').innerHTML = html.join('')
+            }, num, true
+        );
+    }
+
+// Searching
+
+    function searchTabCallback() {
+        _gel('settings').style.display = 'none';
+        if (!_gel('search-results').innerHTML) {
+            // _IG_AdjustIFrameHeight();
+        }
+    }
+
+    function doSearch() {
+        var s = _gel('search').value;
+        showLoading('search-results');
+       _IG_FetchFeedAsJSON('http://www.theyworkforyou.com/search/rss/?s=' + encodeURIComponent(s),
+            function(response) {
+                if (response == null) {
+                    _gel('search-results').innerHTML = '<i>Could not fetch data</i>';
+                    return;
+                }
+                var html = [];
+                if (!response.Entry || response.Entry.length==0) {
+                    _gel('search-results').innerHTML = '<i>No results</i>';
+                    return;
+                }
+                for (i=0; i<response.Entry.length; i++) {
+                        var summary = response.Entry[i].Summary;
+                        if (summary.length > 400) {
+                            summary = summary.substr(0, 400) + '...';
+                        }
+                        html.push('<div><h3><a target="_blank" href="',
+                                response.Entry[i].Link,
+                                '">', response.Entry[i].Title,
+                                '</a></h3>', summary,
+                                '</div>');
+                }
+                _gel('search-results').innerHTML = html.join('')
+            }, num, true
+        );
+    }
+
+    function calendarTabCallback() {
+        _gel('settings').style.display = 'none';
+        showLoading('calendar-tab');
+        _IG_FetchContent('http://www.theyworkforyou.com/gadget/cal.php', function(r) {
+            var logo = _IG_GetImage('http://www.theyworkforyou.com/gadget/twfy.png');
+            logo.setAttribute('align', 'right');
+	    _gel('calendar-tab').innerHTML = '';
+	    _gel('calendar-tab').appendChild(logo);
+	    var html = ['<p>Calendar of recent debates in the House of Commons</p>', r]
+	    _gel('calendar-tab').innerHTML += html.join('');
+        });
+    }
+
+// On load, create the tabs
+
+    function init() {
+        tabs.addTab('Recent appearances', {
+            contentContainer: _gel('recent-tab'),
+            callback: recentTabCallback,
+            tooltip: 'Most recent appearances in Parliament by this MP'
+        });
+        tabs.addTab('Information', {
+            contentContainer: _gel('info-tab'),
+            callback: infoTabCallback,
+            tooltip: 'Basic information on MP'
+        });
+        tabs.addTab('Search', {
+            contentContainer: _gel('search-tab'),
+            callback: searchTabCallback,
+            tooltip: 'Search Hansard back to 2001'
+        });
+	tabs.addTab('Calendar', {
+	    contentContainer: _gel('calendar-tab'),
+	    callback: calendarTabCallback,
+	    tooltip: 'Recent days of debates'
+	});
+    }
+    _IG_RegisterOnloadHandler(init);
+
+    function settingsPage() {
+        _gel('settings').style.display = 'block';
+    }
+    function doPC(t) {
+        var pc = t.pc.value;
+	var num = parseInt(t.num.value);
+	if (!num || !pc) {
+	    alert('Please provide a postcode');
+	    return;
+	}
+        prefs.set('pc', pc);
+	prefs.set('num', num);
+	_gel('settings').style.display = 'none';
+	(tabs.getSelectedTab().getCallback())();
+    }
+
+    function loadDay(d) {
+        showLoading('calendar-tab');
+	_IG_FetchContent('http://www.theyworkforyou.com/gadget/debateday.php?d='
+	    + encodeURIComponent(d), function(r) {
+            var logo = _IG_GetImage('http://www.theyworkforyou.com/gadget/twfy.png');
+            logo.setAttribute('align', 'right');
+	    _gel('calendar-tab').innerHTML = '';
+	    _gel('calendar-tab').appendChild(logo);
+	    var html = ['<a onclick="calendarTabCallback();return false;" href="#">Back to calendar</a>', r]
+	    _gel('calendar-tab').innerHTML += html.join('');
+        });
+	return false;
+    }
+</script>
+
+<style>
+    body {
+        font-size: 83%;
+    }
+    p {
+        margin-top: 0;
+    }
+    form {
+        border-bottom: dotted 1px #cc0000;
+	margin: 0;
+    }
+
+    #recent-things p, #search-results p {
+        margin-top: 0.5em;
+        font-size: 93%;
+    }
+    .tablib_content_container h3 {
+        margin-bottom: 0;
+	margin-top: 0.5em;
+        font-size: 100%;
+    }
+    #recent-things div {
+        border-bottom: dotted 1px #cc0000;
+	padding-bottom: 5px;
+    }
+    #info-tab ul {
+        margin-left: 1.5em;
+        padding-left: 0;
+    }
+
+    .tablib_content_container {
+        padding: 4px;
+    }
+    .tablib_selected {
+        background-color: #4d6c25;
+        border: solid 1px #4d6c25;
+        color: #ffffff;
+    }
+    .tablib_unselected {
+        background-color: #bde190;
+        border: solid 1px #bde190;
+    }
+    .tablib_emptyTab {
+        border-bottom: solid 1px #bde190;
+    }
+    .tablib_spacerTab {
+        border-bottom: solid 1px #bde190;
+    }
+
+    .calendar {
+	margin: 0.5em 0 0 0;
+    }
+    .calendar table {
+	margin: 0 auto;
+	font-size: 100%;
+    }
+	
+    .calendar caption {
+	caption-side: top;
+	text-align: left;
+	padding: 0.2em 0;
+	font-weight: bold;
+    }
+
+    .calendar th, .calendar td {
+	text-align: center;
+	font-weight: normal;
+	padding: 0.2em 0.1em;
+    }
+    .calendar td {
+	padding: 0.2em 0.4em;
+    }
+
+    .calendar .no {
+	color: #cccccc;
+	background-color: #eeeeee;
+    }
+    .calendar td.on {
+	background: #89B84B;
+	color: #fff;
+    }
+    .calendar td.on a {
+	color: #fff;
+    }
+
+    #hansard-day {
+        clear: right;
+        list-style-type: none;
+	margin: 1em 0 1em 0;
+	padding: 0;
+    }
+    #hansard-day ul {
+        list-style-type: none;
+	margin: 0.5em 0 0 1.5em;
+	padding: 0;
+    }
+    #hansard-day li {
+        margin-bottom: 0.5em;
+    }
+</style>
+
+<div id="settings" style="display:none">
+	<form action="http://www.theyworkforyou.com/mp/" method="get" target="_blank"
+		onsubmit="doPC(this); return false;">
+		<p><label for="pc">Enter your UK postcode to learn about your MP and get
+	a constantly updated feed of
+	what they've been talking about in Parliament recently:</label>
+	<input type="text" id="pc" name="pc" value="" size="8" maxlength="10"/></p>
+<p>Number of recent appearances to show:
+	<select name="num">
+		<option>1</option>
+		<option>3</option>
+		<option selected>5</option>
+		<option>10</option>
+		<option>15</option>
+		<option>20</option>
+	</select>
+	<p align="right"><input type="submit" value="Find my MP"/></p>
+    </form>
+</div>
+<div id="info-tab"></div>
+<div id="recent-tab">
+    <div id="recent-header"></div>
+    <div id="recent-things"></div>
+</div>
+<div id="search-tab" style="display:none">
+    <form action="http://www.theyworkforyou.com/search/" method="get"
+        onsubmit="doSearch(); return false;" target="_blank">
+        <p><label for="search">Search UK parliament
+        debates, written answers, and
+        written ministerial statements back
+        to 2001:</label>
+        <input type="text" id="search" name="s" value="" />
+        <input type="submit" value="Search" /></p>
+    </form>
+    <div id="search-results"></div>
+</div>
+<div id="calendar-tab"></div>
+
+    ]]></Content>
+</Module>
