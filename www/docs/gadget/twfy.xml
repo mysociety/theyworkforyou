@@ -33,7 +33,6 @@
 <script type="text/javascript">
     var tabs = new _IG_Tabs(__MODULE_ID__);
     var prefs = new _IG_Prefs(__MODULE_ID__);
-    var num = prefs.getInt('num');
     var infoDisplayed = 0;
 
 // Helper functions
@@ -71,6 +70,7 @@
                     prefs.set('pid', 0);
                     tabs.setSelectedTab(1);
                     _gel('info-tab').innerHTML = '<i>Could not fetch data: ' + a[1] + '</i>';
+                    settingsPage(pc);
                     return;
                 }
                 var pid = a[1];
@@ -101,6 +101,7 @@
             if (!_gel('info-tab').innerHTML) {
                 _gel('info-tab').innerHTML = '<i>Could not fetch data; please check your postcode.</i>';
             }
+	    settingsPage(prefs.getString('stored_pc'));
             return;
         }
         showLoading('info-tab');
@@ -199,7 +200,7 @@
                     '</div>');
             }
             _gel('recent-things').innerHTML = html.join('')
-            }, num, true
+            }, prefs.getInt('num'), true
         );
     }
 
@@ -238,7 +239,7 @@
                                 '</div>');
                 }
                 _gel('search-results').innerHTML = html.join('')
-            }, num, true
+            }, prefs.getInt('num'), true
         );
     }
 
@@ -281,12 +282,13 @@
     }
     _IG_RegisterOnloadHandler(init);
 
-    function settingsPage() {
+    function settingsPage(pc) {
         _gel('settings').style.display = 'block';
+	if (pc) _gel('pc').value = pc;
     }
     function doPC(t) {
         var pc = t.pc.value;
-	var num = parseInt(t.num.value);
+	var num = parseInt(t.num.options[t.num.selectedIndex].text);
 	if (!num || !pc) {
 	    alert('Please provide a postcode');
 	    return;
@@ -420,8 +422,8 @@
 	a constantly updated feed of
 	what they've been talking about in Parliament recently:</label>
 	<input type="text" id="pc" name="pc" value="" size="8" maxlength="10"/></p>
-<p>Number of recent appearances to show:
-	<select name="num">
+<p><label for="num">Number of recent appearances to show:</label>
+	<select name="num" id="num">
 		<option>1</option>
 		<option>3</option>
 		<option selected>5</option>
