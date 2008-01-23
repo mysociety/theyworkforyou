@@ -69,7 +69,7 @@ function _api_cacheCheck($fn, $arg) {
 }
 
 function _api_getGeometry() {
-	if (!defined('OPTION_MAPIT_URL'))
+	if (!defined('OPTION_MAPIT_URL') || !OPTION_MAPIT_URL)
 		return array('data'=>array());
 
 	$areas = _api_cacheCheck('mapit_get_areas_by_type', 'WMC');

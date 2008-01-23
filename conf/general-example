@@ -60,8 +60,8 @@ define ("IMAGEPATH", WEBPATH . "images/");
 // This will be included in data.php. It's an array of page/section metadata.
 define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");
 
-// Search related. If defined will use XAPIAN search instead of mysql search
-//define ("XAPIANDB", "/home/fawkes/searchdb");
+// Search related. If non-empty will use XAPIAN search instead of mysql search
+define ("XAPIANDB", '');
 
 // XML files and other scraped data stored as files
 define ("RAWDATA", "/home/fawkes/pwdata");
@@ -90,8 +90,8 @@ define ("BUGSLIST", CONTACTEMAIL);
 define('ALERT_STATS_EMAILS', CONTACTEMAIL);
 
 // Postcode lookup
-// Not defined on dev copies, causes postcode lookups to be random but deterministic
-//define ("POSTCODE_SEARCH_DOMAIN", "www.somedomain.com");
+// If domain is empty, causes postcode lookups to be random but deterministic
+define ("POSTCODE_SEARCH_DOMAIN", '');
 define ("POSTCODE_SEARCH_PORT", "80");
 define ("POSTCODE_SEARCH_PATH", "somescript.php?postcode=");
 
@@ -113,10 +113,10 @@ define('OPTION_TRACKING_SECRET', 'really-secret-value');
 // define('OPTION_HEARFROMYOURMP_BASE_URL', '');
 
 // For API getGeometry call.
-// define('OPTION_MAPIT_URL', '');
+define('OPTION_MAPIT_URL', '');
 
 // For seeing if someone is in New Zealand.
-// define('OPTION_GAZE_URL', '');
+define('OPTION_GAZE_URL', '');
 
 // mySociety debug level thing. Probably leave as 0.
 define('OPTION_PHP_DEBUG_LEVEL', 0);

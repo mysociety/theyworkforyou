@@ -19,11 +19,11 @@ function postcode_to_constituency($postcode) {
     global $last_postcode;
     global $last_postcode_value;
 
-if(!defined("POSTCODE_SEARCH_DOMAIN")){
-        		return fake_postcode($postcode);
-}
+    if(!defined("POSTCODE_SEARCH_DOMAIN") || !POSTCODE_SEARCH_DOMAIN) {
+        return fake_postcode($postcode);
+    }
 
-	$postcode = canonicalise_postcode($postcode);
+    $postcode = canonicalise_postcode($postcode);
 
     if ($last_postcode == $postcode) {
         twfy_debug ("TIME", "Postcode $postcode looked up last time, is $last_postcode_value .");

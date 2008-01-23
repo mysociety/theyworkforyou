@@ -32,7 +32,7 @@ global $xapiandb;
 class SEARCHENGINE {
 
 	function SEARCHENGINE ($query) {
-        if (!defined('XAPIANDB'))
+        if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
 		$this->query = $query;
@@ -126,7 +126,7 @@ class SEARCHENGINE {
     function query_description_internal($long) {
     	global $PAGE, $hansardmajors;
     	
-        if (!defined('XAPIANDB'))
+        if (!defined('XAPIANDB') || !XAPIANDB)
             return '';
 
         $description = "";
@@ -269,7 +269,7 @@ class SEARCHENGINE {
 
     // Perform partial query to get a count of number of matches
     function run_count () {
-        if (!defined('XAPIANDB'))
+        if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
 		$start = getmicrotime();
