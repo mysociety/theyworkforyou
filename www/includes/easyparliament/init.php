@@ -38,7 +38,7 @@ And now all the files we'll include on every page.
 ********************************************************************************/
 
 chdir(dirname($_SERVER['PWD']));
-include_once "../../../conf/general";
+include_once "../../conf/general";
 include_once (INCLUDESPATH."utility.php");
 twfy_debug_timestamp("after including utility.php");
 
