@@ -1,6 +1,0 @@
-RewriteEngine on
-RewriteBase /news/
-#RewriteRule ^mps/c4/$ mps/?c4=1 [QSA]
-RewriteRule ^archives/(.*)$ index.php/archives/$1 [QSA]
-RewriteRule ^index.rdf$ rdf.php [QSA]
-
