@@ -1,6 +1,6 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.5 2007-11-06 13:30:11 twfy-live Exp $
+$Id: INSTALL.txt,v 1.6 2008-01-23 15:49:02 twfy-staging Exp $
 
 TODO: Add an explanation of how to set up a virtual host in apache.
 
@@ -74,15 +74,15 @@ $ cd db
 $ mysql -u twfy -p twfy < hansard.sql
 $ mysql -u twfy -p twfy < users.sql
 
-5. Configure the config.php file
+5. Configure the configuration file
 
 In directory
-  <theyworkforyou>/www/includes/easyparliament/
+  <theyworkforyou>/conf
 
 You should rename the file:
-  config.php.incvs
+  general-example
 to 
-  config.php
+  general
 
 and then edit the first few lines to be appropriate for your setup.
 

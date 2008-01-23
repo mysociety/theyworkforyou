@@ -1,6 +1,6 @@
 <?php
-// This file config.php.incvs is a template config file.
-// Edit this, and copy it to a file called config.php.
+// This file general-example is a template config file.
+// Edit this, and copy it to a file called general.
 
 // *******************************************************************************
 // MySQL database.

@@ -11,7 +11,7 @@ ini_set('memory_limit', 16*1024*1024);
 
 /********************************************************************************
 Now some constants that are the same for live and dev versions 
-(unlike those variables in includes/easyparliament/config.php)
+(unlike those variables in conf/general)
 ********************************************************************************/
 
 
@@ -37,7 +37,8 @@ define ('POSTCODE_COOKIE', 		'eppc');
 And now all the files we'll include on every page. 
 ********************************************************************************/
 
-include_once "config.php";
+chdir(dirname($_SERVER['PWD']));
+include_once "../../conf/general";
 include_once (INCLUDESPATH."utility.php");
 twfy_debug_timestamp("after including utility.php");
 
