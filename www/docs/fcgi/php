@@ -1,4 +1,3 @@
 #!/bin/sh
-PHP_FCGI_CHILDREN=1 exec /usr/local/bin/php "$@"
-#PHPRC=/usr/local/etc/php-eaccelerator PHP_FCGI_CHILDREN=1 exec /usr/local/bin/php "$@"
-#PHPRC=/usr/local/etc/php-eaccelerator PHP_FCGI_CHILDREN=1 exec strace -f -o /tmp/php-strace.log.$$ /usr/local/bin/php "$@"
+PHP_FCGI_CHILDREN=1 PEAR_EXTENSION_DIR=/usr/local/share/pear exec /usr/local/bin/php "$@"
+#PHPRC=/etc/php4/fcgi exec /software/bin/php4 "$@"
