@@ -1,6 +1,6 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.7 2008-01-24 15:57:30 matthew Exp $
+$Id: INSTALL.txt,v 1.8 2008-01-24 22:11:36 matthew Exp $
 
 TODO: Add an explanation of how to set up a virtual host in apache.
 
@@ -67,12 +67,11 @@ mysqladmin -u root -p create twfy
 
 grant all on twfy.* to twfy@localhost identified by 'mypass';
 
-4. create database schema. The creation scripts are in the 'db'
+4. create database schema. The creation script is in the 'db'
    subdirectory of the theyworkforyou source code package.
 
 $ cd db
-$ mysql -u twfy -p twfy < hansard.sql
-$ mysql -u twfy -p twfy < users.sql
+$ mysql -u twfy -p twfy < schema.sql
 
 5. Configure the configuration file
 
@@ -160,9 +159,9 @@ you need to compile the PHP bindings of Xapian. If you don't have
 Xapian, you will probably get an error like this when you try to do a
 search:
 
-Fatal error: Call to undefined function: new_stem() in
-/var/www/theyworkforyou/www/includes/easyparliament/searchengine.php
-on line 32
+Fatal error: Class 'XapianStem' not found in
+/.../www/includes/easyparliament/searchengine.php
+on line 39
 
 There are some instructions on how to do this here:
   http://lists.tartarus.org/pipermail/xapian-discuss/2004-May/000037.html

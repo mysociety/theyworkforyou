@@ -26,6 +26,7 @@ Example usage:
 */
 
 include_once INCLUDESPATH . 'dbtypes.php';
+include_once '/usr/share/php5/xapian.php';
 
 global $xapiandb;
 
@@ -36,7 +37,7 @@ class SEARCHENGINE {
             return null;
 
 		$this->query = $query;
-        $this->stemmer = new_stem('english');
+        $this->stemmer = new XapianStem('english');
         $this->enquire = null; 
 
         // Any characters other than this are treated as, basically, white space
@@ -232,7 +233,7 @@ class SEARCHENGINE {
 
     // Return stem of a word
     function stem($word) {
-        return stem_stem_word($this->stemmer, strtolower($word));
+        return $this->stemmer->stem_word(strtolower($word));
     }
 
     // Internal use mainly - you probably want query_description.  Converts
@@ -275,28 +276,28 @@ class SEARCHENGINE {
 		$start = getmicrotime();
         global $xapiandb;
         if (!$xapiandb) {
-            $xapiandb = new_database(XAPIANDB);
+            $xapiandb = new XapianDatabase(XAPIANDB);
         }
         if (!$this->enquire) {
-            $this->enquire = new_enquire($xapiandb);
+            $this->enquire = new XapianEnquire($xapiandb);
         }
 
-        $queryparser = new_queryparser();
-        queryparser_set_stemming_strategy($queryparser, QueryParser_STEM_NONE);
-        queryparser_set_default_op($queryparser, Query_OP_AND);
-        queryparser_add_prefix($queryparser, "speaker", "speaker:");
-        queryparser_add_prefix($queryparser, "major", "major:");
-        queryparser_add_prefix($queryparser, 'date', 'date:');
-        queryparser_add_prefix($queryparser, 'batch', 'batch:');
+        $queryparser = new XapianQueryParser();
+        $queryparser->set_stemming_strategy(QueryParser_STEM_NONE);
+        $queryparser->set_default_op(Query_OP_AND);
+        $queryparser->add_prefix("speaker", "speaker:");
+        $queryparser->add_prefix("major", "major:");
+        $queryparser->add_prefix('date', 'date:');
+        $queryparser->add_prefix('batch', 'batch:');
         twfy_debug("SEARCH", "query remade -- ". $this->query_remade());
         // We rebuild (with query_remade) our query and feed that text string to 
         // the query parser.  This is because the error handling in the query parser
         // is a bit knackered, and we want to be sure our highlighting etc. exactly
         // matches. XXX don't need to do this for more recent Xapians
-        $query = queryparser_parse_query($queryparser, $this->query_remade());
-        twfy_debug("SEARCH", "queryparser description -- " . query_get_description($query));
+        $query = $queryparser->parse_query($this->query_remade());
+        twfy_debug("SEARCH", "queryparser description -- " . $query->get_description());
 
-        enquire_set_query($this->enquire, $query);
+        $this->enquire->set_query($query);
 
         // Set collapsing and sorting
         global $PAGE;
@@ -305,16 +306,16 @@ class SEARCHENGINE {
             if ($items[0] == 'groupby') {
                 $collapsed = true;
                 if ($items[1] == 'day') 
-                    enquire_set_collapse_key($this->enquire, 2);
+                    $this->enquire->set_collapse_key(2);
                 else if ($items[1] == 'debate')
-                    enquire_set_collapse_key($this->enquire, 3);
+                    $this->enquire->set_collapse_key(3);
                 else if ($items[1] == 'speech')
                     ; // no collapse key
                 else 
                     $PAGE->error_message("Unknown group by '$items[1]' ignored");
             } elseif ($items[0] == 'bias') {
                 list($weight, $halflife) = explode(":", $items[1]);
-                enquire_set_bias($this->enquire, $weight, intval($halflife));
+                $this->enquire->set_bias($weight, intval($halflife));
             } elseif ($items[0] == 'speaker') {
                 # Don't do any collapsing if we're searching for a person's speeches
                 $collapsed = true;
@@ -322,17 +323,17 @@ class SEARCHENGINE {
         }
         // default to grouping by subdebate, i.e. by page
         if (!$collapsed)
-            enquire_set_collapse_key($this->enquire, 7);
+            $this->enquire->set_collapse_key(7);
         
-        $matches = enquire_get_mset($this->enquire, 0, 500);
+        $matches = $this->enquire->get_mset(0, 500);
         // Take either: 1) the estimate which is sometimes too large or 2) the
         // size which is sometimes too low (it is limited to the 500 in the line
         // above).  We get the exact mset we need later, according to which page
         // we are on.
-        if (mset_size($matches) < 500) {
-            $count = mset_size($matches);
+        if ($matches->size() < 500) {
+            $count = $matches->size();
         } else {
-            $count = mset_get_matches_estimated($matches);
+            $count = $matches->get_matches_estimated();
         }
 		$duration = getmicrotime() - $start;
 		twfy_debug ("SEARCH", "Search count took $duration seconds.");
@@ -346,33 +347,33 @@ class SEARCHENGINE {
         // NOTE: this is to do sort by date
         switch ($sort_order) {
             case 'date':
-                enquire_set_sorting($this->enquire, 0, 1);
+                $this->enquire->set_sorting(0, 1);
                 break;
             case 'created':
-                enquire_set_sorting($this->enquire, 6, 1); 
+                $this->enquire->set_sorting(6, 1); 
             default:
                 //do nothing, default ordering is by relevance
                 break;
         }
-        $matches = enquire_get_mset($this->enquire, $first_result, $results_per_page);
+        $matches = $this->enquire->get_mset($first_result, $results_per_page);
 		$this->gids = array();
         $this->created = array();
 		$this->relevances = array();
-        $iter = mset_begin($matches);
-        $end = mset_end($matches);
-        while (!msetiterator_equals($iter, $end))
+        $iter = $matches->begin();
+        $end = $matches->end();
+        while (!$iter->equals($end))
         {
-            $relevancy =  msetiterator_get_percent($iter);
-            $weight =  msetiterator_get_weight($iter);
-            $doc = msetiterator_get_document($iter);
-            $gid = document_get_data($doc);
+            $relevancy =  $iter->get_percent();
+            $weight =  $iter->get_weight();
+            $doc = $iter->get_document();
+            $gid = $doc->get_data();
             if ($sort_order=='created') {
-                array_push($this->created, document_get_value($doc, 6));
+                array_push($this->created, $doc->get_value(6));
             }
 			twfy_debug("SEARCH", "gid: $gid relevancy: $relevancy% weight: $weight");
 			array_push($this->gids, "uk.org.publicwhip/".$gid);
 			array_push($this->relevances, $relevancy);
-            msetiterator_next($iter);
+            $iter->next();
         }
 		$duration = getmicrotime() - $start;
 		twfy_debug ("SEARCH", "Run search took $duration seconds.");
@@ -500,17 +501,17 @@ class SEARCHENGINE {
 // Instead we are now parsing in PHP, and rebuilding something to feed to 
 // query parser.  Yucky but works.
 
-/*        $querydummy = new_query("dummy");
-        $query1 = new_query("ethiopia");
-        $query2 = new_query("economic");
-        #$query = query_querycombine($querydummy, Query_OP_AND, $query1, $query2);
+/*        $querydummy = new XapianQuery("dummy");
+        $query1 = new XapianQuery("ethiopia");
+        $query2 = new XapianQuery("economic");
+        #$query = $querydummy->querycombine(Query_OP_AND, $query1, $query2);
         $query = new_QueryCombine(Query_OP_AND, $query1, $query2);
 #new_QueryCombine
-#        $query = query_querycombine($query1, Query_OP_OR, $query1, $query2);
+#        $query = $query1->querycombine(Query_OP_OR, $query1, $query2);
 #        foreach ($this->words as $word) {
- #           $query = new_query(Query_OP_OR, $query, new_query($word));
+ #           $query = new XapianQuery(Query_OP_OR, $query, new XapianQuery($word));
   #      }
-        print "description:" . query_get_description($query) . "<br>"; */
+        print "description:" . $query->get_description() . "<br>"; */
 }
 
 global $SEARCHENGINE;
