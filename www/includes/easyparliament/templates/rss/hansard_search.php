@@ -35,7 +35,14 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 <description>
 <?php
 		if (isset($row['speaker']['first_name'])) {
-			echo $row['speaker']['first_name'] . ' ' . $row['speaker']['last_name'] . ": ";
+			$name = $row['speaker']['first_name'] . ' ' . $row['speaker']['last_name'];
+			$name = str_replace(
+				array('&Ouml;', '&uacute;', '&aacute;', '&iacute;', '&ocirc;'),
+				array('&#214;', '&#250;', '&#225;', '&#237;', '&#244;'),
+				$name
+			); # XXX Can't have the entities in XML!
+
+			echo $name . ': ';
 		} 
 		echo str_replace(array('&#8212;', '<span class="hi">', '</span>'), array('-', '<b>', '</b>'), $row['body']) . "</description>\n</item>\n";
 	}
