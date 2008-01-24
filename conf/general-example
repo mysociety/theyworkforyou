@@ -65,6 +65,7 @@ define ("XAPIANDB", '');
 
 // XML files and other scraped data stored as files
 define ("RAWDATA", "/home/fawkes/pwdata");
+define ('PWMEMBERS', '/home/fawkes/parlparse/members');
 
 // Location of the parliamentary recess data file. You can access this remotely 
 // from the main theyworkforyou site if you use
