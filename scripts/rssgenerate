@@ -18,11 +18,6 @@ fi
 
 # Make RSS this takes a while
 cd ~/fawkes/scripts
-./wms2rss.pl > /data/vhost/www.theyworkforyou.com/docs/wms/wms.rss
-./debates2rss.pl > /data/vhost/www.theyworkforyou.com/docs/debates/debates.rss
-./lords2rss.pl > /data/vhost/www.theyworkforyou.com/docs/lords/lords.rss
-./whall2rss.pl > /data/vhost/www.theyworkforyou.com/docs/whall/whall.rss
-./ni2rss.pl > /data/vhost/www.theyworkforyou.com/docs/ni/ni.rss
-./pbc2rss.pl > /data/vhost/www.theyworkforyou.com/docs/pbc/pbc.rss
+./make_rss.pl
 php -q mprss.php
 

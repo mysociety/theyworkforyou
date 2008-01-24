@@ -5,12 +5,17 @@
 
 use warnings;
 use strict;
-use config;
+use FindBin;
+use lib "$FindBin::Bin/../../perllib";
+
+use mySociety::Config;
+mySociety::Config::set_file('../conf/general');
 
 use DBI; 
 use Data::Dumper;
 use XML::Simple;
-my $dbh = DBI->connect($config::dsn, $config::user, $config::pass );
+my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
+my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'));
 my %memberinfo_keys;
 my $member;
 my $output_xml;

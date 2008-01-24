@@ -2,10 +2,16 @@
 
 use warnings;
 use strict;
+use FindBin;
+use lib "$FindBin::Bin/../../perllib";
 use XML::RSS;
-use config;
 use DBI;
-my $dbh = DBI->connect($config::dsn, $config::user, $config::pass );
+use mySociety::Config;
+mySociety::Config::set_file('../conf/general');
+
+my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
+my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'), { RaiseError => 1, PrintError => 0 });
+
 my $Output_Dir= shift || die "usage: $0 output_dir/\n";
 
 my $query= $dbh->prepare("

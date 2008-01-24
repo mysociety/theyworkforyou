@@ -1,6 +1,6 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.6 2008-01-23 15:49:02 twfy-staging Exp $
+$Id: INSTALL.txt,v 1.7 2008-01-24 15:57:30 matthew Exp $
 
 TODO: Add an explanation of how to set up a virtual host in apache.
 
@@ -120,32 +120,20 @@ theyworkforyou.com.
 
 1. Download various data from http://www.theyworkforyou.com/pwdata/
 
-You need to preserve the directory structure which exists under
-pwdata, but you don't need to get *everything*. Most of the useful
-stuff is under scrapedxml, but there are a few other bits needed as
-well. I recommend either using rsync or downloading the zip files
-containing all the data if you want it - for more information, see
-http://ukparse.kforge.net/parlparse/
+You need to preserve the directory structure which exists under pwdata, but you
+don't need to get *everything*. Most of the useful stuff is under scrapedxml.
+You'll also need the members directory in the parlparse folder, which is
+available from http://ukparse.kforge.net/svn/parlparse/ I recommend either
+using rsync or downloading the zip files containing all the data if you want it
+- for more information, see http://ukparse.kforge.net/parlparse/ under "Getting
+the Data".
 
 2. Now you have that data, you are ready to import it into your
    database. You do this using a script called xml2db.pl which is in
-   the "scripts" subdir. But first you must configure the config.pm
-   file.
+   the "scripts" subdir.
 
-3. In the "scripts" subdir, copy config.pm.incvs to config.pm and
-   customise the variables to suit your installation. Note, the
-   $pwmembers variable should point to the 'members' subdir which you
-   fetched above.
-
-# database connection details
-$dsn="DBI:mysql:database=twfy:host=localhost"
-$user="twfy";
-$pass="mypass";
-
-# this is where the XML files come from:
-$pwdata = "/var/www/theyworkforyou/pwdata/";
-# and where all-members.xml is:
-$pwmembers = "/var/www/path-to/parlparse/members/";
+3. Make sure the configuration file has it PWMEMBERS variable
+   pointing to the 'members' subdir which you fetched above.
 
 4. now run xml2db.pl as follows:
 

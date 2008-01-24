@@ -46,6 +46,10 @@ define ("DEBUGTAG", 'debug');
 // Timezone (only works in PHP5)
 define ("TIMEZONE", "Europe/London");
 
+// XML files and other scraped data stored as files
+define ("RAWDATA", "/home/fawkes/pwdata");
+define ('PWMEMBERS', '/home/fawkes/parlparse/members');
+
 // *******************************************************************************
 // If you've unpacked the tar file normally, and set the paths correctly above, 
 // you shouldn't change these.
@@ -62,10 +66,6 @@ define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");
 
 // Search related. If non-empty will use XAPIAN search instead of mysql search
 define ("XAPIANDB", '');
-
-// XML files and other scraped data stored as files
-define ("RAWDATA", "/home/fawkes/pwdata");
-define ('PWMEMBERS', '/home/fawkes/parlparse/members');
 
 // Location of the parliamentary recess data file. You can access this remotely 
 // from the main theyworkforyou site if you use

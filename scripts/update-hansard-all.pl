@@ -5,11 +5,15 @@ use strict;
 use FindBin;
 chdir $FindBin::Bin;
 use lib "$FindBin::Bin";
-use config; # see config.pm.incvs
+use lib "$FindBin::Bin/../../perllib";
+
+use mySociety::Config;
+mySociety::Config::set_file('../conf/general');
 
 use DBI; 
 
-my $dbh = DBI->connect($config::dsn, $config::user, $config::pass, { RaiseError => 1, PrintError => 0 });
+my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
+my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'), { RaiseError => 1, PrintError => 0 });
 
 my $sth = $dbh->prepare("update hansard set htime=? where gid = ?");
 for my $file (sort </home/fawkes/hansard-updates/h*>) {

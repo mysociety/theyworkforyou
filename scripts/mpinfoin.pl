@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.17 2007-11-15 17:21:26 twfy-live Exp $
+# $Id: mpinfoin.pl,v 1.18 2008-01-24 15:57:30 matthew Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -10,7 +10,11 @@ use strict;
 use FindBin;
 chdir $FindBin::Bin;
 use lib "$FindBin::Bin";
-use config; # see config.pm.incvs
+use lib "$FindBin::Bin/../../perllib";
+
+use mySociety::Config;
+mySociety::Config::set_file('../conf/general');
+my $pwmembers = mySociety::Config::get('PWMEMBERS');
 
 use XML::Twig;
 use DBI; 
@@ -53,7 +57,7 @@ my $personinfohash;
 my $consinfohash;
 
 # Find latest register of members interests file
-chdir $config::pwdata;
+chdir mySociety::Config::get('RAWDATA');
 my $regmemfile = "";
 find sub { $regmemfile = $_ if /^regmem.*\.xml$/ and $_ ge $regmemfile}, 'scrapedxml/regmem/';
 
@@ -68,23 +72,23 @@ my $twig = XML::Twig->new(
 
 if ($action{'regmem'}) {
         # TODO: Parse ALL regmem in forwards chronological order, so each MP (even ones left parl) gets their most recent one
-        $twig->parsefile($config::pwdata . "scrapedxml/regmem/$regmemfile", ErrorContext => 2);
+        $twig->parsefile(mySociety::Config::get('RAWDATA') . "scrapedxml/regmem/$regmemfile", ErrorContext => 2);
 }
 
 if ($action{'links'}) {
-        $twig->parsefile($config::pwmembers . "wikipedia-mla.xml", ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . "wikipedia-commons.xml", ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . "wikipedia-lords.xml", ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . "diocese-bishops.xml", ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . "edm-links.xml", ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . "bbc-links.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "wikipedia-mla.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "wikipedia-commons.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "wikipedia-lords.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "diocese-bishops.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "edm-links.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "bbc-links.xml", ErrorContext => 2);
         # TODO: Update Guardian links
-        $twig->parsefile($config::pwmembers . "guardian-links.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "guardian-links.xml", ErrorContext => 2);
         # TODO: Update websites (esp. with new MPs)
-        $twig->parsefile($config::pwmembers . 'websites.xml', ErrorContext => 2);
+        $twig->parsefile($pwmembers . 'websites.xml', ErrorContext => 2);
         chdir $FindBin::Bin;
-        $twig->parsefile($config::pwmembers . 'lordbiogs.xml', ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . 'journa-list.xml', ErrorContext => 2);
+        $twig->parsefile($pwmembers . 'lordbiogs.xml', ErrorContext => 2);
+        $twig->parsefile($pwmembers . 'journa-list.xml', ErrorContext => 2);
 }
 
 if ($action{'wtt'}) {
@@ -106,17 +110,18 @@ if ($action{'pw'}) {
 }
 
 if ($action{'expenses'}) {
-        $twig->parsefile($config::pwmembers . "expenses200607.xml", ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . "expenses200506.xml", ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . "expenses200506former.xml", ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . "expenses200405.xml", ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . "expenses200304.xml", ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . "expenses200203.xml", ErrorContext => 2);
-        $twig->parsefile($config::pwmembers . "expenses200102.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "expenses200607.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "expenses200506.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "expenses200506former.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "expenses200405.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "expenses200304.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "expenses200203.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "expenses200102.xml", ErrorContext => 2);
 }
 
 # Get any data from the database
-my $dbh = DBI->connect($config::dsn, $config::user, $config::pass, { RaiseError => 1, PrintError => 0 });
+my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
+my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'), { RaiseError => 1, PrintError => 0 });
 #DBI->trace(2);
 if ($action{'rankings'}) {
         makerankings($dbh);

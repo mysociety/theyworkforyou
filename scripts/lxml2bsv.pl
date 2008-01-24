@@ -2,14 +2,18 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: lxml2bsv.pl,v 1.1 2006-04-27 14:20:20 twfy-live Exp $
+# $Id: lxml2bsv.pl,v 1.2 2008-01-24 15:57:30 matthew Exp $
 #
 # Creates BSV file of some Lords data
 
 use FindBin;
 chdir $FindBin::Bin;
 use lib "$FindBin::Bin";
-use config; # see config.pm.incvs
+use lib "$FindBin::Bin/../../perllib";
+
+use mySociety::Config;
+mySociety::Config::set_file('../conf/general');
+my $pwmembers = mySociety::Config::get('PWMEMBERS');
 
 use DBI; 
 use XML::Twig;
@@ -26,8 +30,8 @@ my $twig = XML::Twig->new(twig_handlers =>
           'person' => \&loadperson,
           }, 
         output_filter => 'safe' );
-$twig->parsefile($config::pwmembers . "people.xml");
-$twig->parsefile($config::pwmembers . "peers-ucl.xml");
+$twig->parsefile($pwmembers . "people.xml");
+$twig->parsefile($pwmembers . "peers-ucl.xml");
 
 sub loadlord {
 	my ($twig, $member) = @_;
