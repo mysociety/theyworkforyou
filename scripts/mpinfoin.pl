@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.18 2008-01-24 15:57:30 matthew Exp $
+# $Id: mpinfoin.pl,v 1.19 2008-01-25 17:55:41 twfy-staging Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -77,6 +77,7 @@ if ($action{'regmem'}) {
 
 if ($action{'links'}) {
         $twig->parsefile($pwmembers . "wikipedia-mla.xml", ErrorContext => 2);
+        $twig->parsefile($pwmembers . "wikipedia-msp.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "wikipedia-commons.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "wikipedia-lords.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "diocese-bishops.xml", ErrorContext => 2);

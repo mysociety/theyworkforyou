@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.21 2008-01-24 15:57:30 matthew Exp $
+# $Id: xml2db.pl,v 1.22 2008-01-25 17:55:41 twfy-staging Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -46,7 +46,7 @@ use Uncapitalise;
 my $outputfilter = 'safe';
 #DBI->trace(1);
 
-use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall $wms $lordsdebates $ni $members $force $quiet $cronquiet $memtest $standing);
+use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall $wms $lordsdebates $ni $members $force $quiet $cronquiet $memtest $standing $scotland $scotwrans);
 my $result = GetOptions ( "all" => \$all,
                         "recent" => \$recent,
                         "date=s" => \$date,
@@ -58,6 +58,8 @@ my $result = GetOptions ( "all" => \$all,
                         "wms" => \$wms,
                         "lordsdebates" => \$lordsdebates,
                         "ni" => \$ni,
+                        "scotland" => \$scotland,
+                        "scotwrans" => \$scotwrans,
                         "standing" => \$standing,
                         "members" => \$members,
                         "force" => \$force,
@@ -73,7 +75,7 @@ $c++ if $date;
 $c++ if ($datefrom || $dateto);
 $c = 1 if $memtest;
 
-if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$members && !$memtest && !$lordsdebates && !$ni && !$standing))
+if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$members && !$memtest && !$lordsdebates && !$ni && !$standing && !$scotland && !$scotwrans))
 {
 print <<END;
 
@@ -90,6 +92,8 @@ database id.
 --wms - process Written Ministerial Statements (C&L)
 --lordsdebates - process Lords Debates
 --ni - process Northern Ireland Assembly debates
+--scotland  - process Scottish Parliament debates
+--scotwrans - process Scottish Parliament written answers
 --standing - process Public Bill Commitees (Standing Committees as were)
 
 --recent - acts incrementally, using xml2db-lastload files
@@ -139,7 +143,7 @@ use vars qw(%gids %grdests %ignorehistorygids $tallygidsmode $tallygidsmodedummy
 use vars qw(%membertoperson);
 use vars qw($current_file);
 
-use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir $lordswmsdir $lordsdebatesdir $nidir $standingdir);
+use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir $lordswmsdir $lordsdebatesdir $nidir $standingdir $scotlanddir $scotwransdir);
 $debatesdir = $parldata . "scrapedxml/debates/";
 $wransdir = $parldata . "scrapedxml/wrans/";
 $lordswransdir = $parldata . "scrapedxml/lordswrans/";
@@ -148,6 +152,8 @@ $wmsdir = $parldata . "scrapedxml/wms/";
 $lordswmsdir = $parldata . "scrapedxml/lordswms/";
 $lordsdebatesdir = $parldata . "scrapedxml/lordspages/";
 $nidir = $parldata . 'scrapedxml/ni/';
+$scotlanddir = $pwdata . 'scrapedxml/sp/';
+$scotwransdir = $pwdata . 'scrapedxml/sp-written/';
 $standingdir = $parldata . 'scrapedxml/standing/';
 
 my @wrans_major_headings = (
@@ -272,6 +278,8 @@ process_type(["westminster"], [$westminhalldir], \&add_westminhall_day) if ($wes
 process_type(["ministerial", "lordswms"], [$wmsdir, $lordswmsdir], \&add_wms_day) if ($wms);
 process_type(["daylord"], [$lordsdebatesdir], \&add_lordsdebates_day) if ($lordsdebates);
 process_type(['ni'], [$nidir], \&add_ni_day) if ($ni);
+process_type(['sp'], [$scotlanddir], \&add_scotland_day) if $scotland;
+process_type(['spwa'], [$scotwransdir], \&add_scotwrans_day) if $scotwrans;
 process_type(['standing'], [$standingdir], \&add_standing_day) if $standing;
 
 # Process members
@@ -874,6 +882,7 @@ sub add_mps_and_peers {
                   'lord' => \&loadlord, 
                   'royal' => \&loadroyal, 
                   'member_ni' => \&loadni,
+                  'member_sp' => \&loadmsp,
                   'person' => \&loadperson,
                   'moffice' => \&loadmoffice }, 
                 output_filter => $outputfilter );
@@ -886,6 +895,7 @@ sub add_mps_and_peers {
         $twig->parsefile($pwmembers . "peers-ucl.xml");
         $twig->parsefile($pwmembers . "royals.xml");
         $twig->parsefile($pwmembers . "ni-members.xml");
+        $twig->parsefile($pwmembers . "sp-members.xml");
         $twig->parsefile($pwmembers . "ministers.xml");
         loadmoffices();
         check_member_ids();
@@ -1092,6 +1102,27 @@ sub loadni {
                 Encode::encode('iso-8859-1', $member->att('party')),
                 $member->att('fromdate'), $member->att('todate'),
                 $member->att('fromwhy'), $member->att('towhy'));
+}
+
+sub loadmsp {
+        my ($twig, $member) = @_;
+        my $id = $member->att('id');
+        my $person_id = $membertoperson{$id};
+        $id =~ s:uk.org.publicwhip/member/::;
+        $person_id =~ s:uk.org.publicwhip/person/::;
+        my $house = 4;
+        db_memberadd($id, 
+                $person_id,
+                $house, 
+                encode_entities_noapos($member->att('title')),
+                encode_entities_noapos($member->att('firstname')), 
+                encode_entities_noapos($member->att('lastname')),
+                encode_entities_noapos($member->att('constituency')), 
+                Encode::encode('iso-8859-1', $member->att('party')),
+                $member->att('fromdate'), $member->att('todate'),
+                $member->att('fromwhy'), $member->att('towhy'));
+        $dbh->do('replace into personinfo (person_id, data_key, data_value) values (?, ?, ?)', {},
+                $person_id, 'sp_url', $member->att('spurl'));
 }
 
 sub loadperson {
@@ -1437,6 +1468,81 @@ sub load_ni_heading {
         }
         do_load_heading($speech, 5, $text);
         return 0; # Do not chain handlers
+}
+
+##########################################################################
+# Scottish Parliament
+
+sub add_scotland_day {
+        my ($date) = @_;
+        my $twig = XML::Twig->new(twig_handlers => { 
+                'speech'        => sub { do_load_speech($_, 7, 0, $_->sprint(1)) },
+                'minor-heading' => sub { do_load_subheading($_, 7, strip_string($_->sprint(1))) },
+                'major-heading' => sub { do_load_heading($_, 7, strip_string($_->sprint(1))) },
+                'division' => sub { load_scotland_division($_) },
+                }, output_filter => $outputfilter );
+        $curdate = $date;
+
+        # find out what gids there are (using tallygidsmode)
+        $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
+        $tallygidsmode = 1; %gids = (); $tallygidsmodedummycount = 10;
+        parsefile_glob($twig, $config::pwdata . "scrapedxml/sp/sp" . $curdate. "*.xml");
+        # see if there are deleted gids
+        my @gids = keys %gids;
+        check_extra_gids($date, \@gids, "major = 7");
+
+        # make the modifications
+        $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
+        $tallygidsmode = 0; %gids = ();
+        parsefile_glob($twig, $config::pwdata . "scrapedxml/sp/sp" . $curdate. "*.xml");
+
+        undef $twig;
+}
+
+# load <division> tags
+sub load_scotland_division {
+        my ($division) = @_;
+        my $divnumber = $division->att('divnumber') + 1; # Own internal numbering from 0, per day
+        my $text = $division->sprint(1);
+        my %out;
+        while ($text =~ m#<mspname id="uk\.org\.publicwhip/member/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
+                push @{$out{$2}}, '<a href="/msp/?m=' . $1 . '">' . $3 . '</a>';
+        }
+        $text = "<p class='divisionheading'>Division number $divnumber</p> <p class='divisionbody'>";
+        foreach ('for','against','abstentions','spoiled votes') {
+                next unless $out{$_};
+                $text .= "<strong>\u$_:</strong> ";
+                $text .= join(', ', @{$out{$_}});
+                $text .= '<br />';
+        }
+        $text .= '</p>';
+        do_load_speech($division, 7, 0, $text);
+}
+
+sub add_scotwrans_day {
+        my ($date) = @_;
+        my $twig = XML::Twig->new(twig_handlers => { 
+                'ques' => sub { do_load_speech($_, 8, 1, $_->sprint(1)) },
+                'reply' => sub { do_load_speech($_, 8, 2, $_->sprint(1)) },
+                'minor-heading' => sub { do_load_heading($_, 8, strip_string($_->sprint(1))) },
+                #'major-heading' => sub { do_load_heading($_, 8, strip_string($_->sprint(1))) },
+                }, output_filter => $outputfilter );
+        $curdate = $date;
+
+        # find out what gids there are (using tallygidsmode)
+        $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
+        $tallygidsmode = 1; %gids = (); $tallygidsmodedummycount = 10;
+        parsefile_glob($twig, $config::pwdata . "scrapedxml/sp-written/spwa" . $curdate. "*.xml");
+        # see if there are deleted gids
+        my @gids = keys %gids;
+        check_extra_gids($date, \@gids, "major = 8");
+
+        # make the modifications
+        $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
+        $tallygidsmode = 0; %gids = ();
+        parsefile_glob($twig, $config::pwdata . "scrapedxml/sp-written/spwa" . $curdate. "*.xml");
+
+        undef $twig;
 }
 
 ##########################################################################
