@@ -17,7 +17,7 @@ class PEOPLE {
 	function display ($view, $args=array(), $format='html') {
 		global $PAGE;
 	
-		$validviews = array('mps', 'peers', 'mlas');
+		$validviews = array('mps', 'peers', 'mlas', 'msps');
 		
 		if (in_array($view, $validviews)) {
 		
@@ -51,6 +51,11 @@ class PEOPLE {
 		include (INCLUDESPATH."easyparliament/templates/$format/people_$view" . ".php");
 		return true;
 	
+	}
+
+	function _get_data_by_msps($args) {
+		$args['house'] = 4;
+		return $this->_get_data_by_group($args);
 	}
 
 	function _get_data_by_mlas($args) {

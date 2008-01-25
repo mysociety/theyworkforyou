@@ -134,9 +134,11 @@ if (isset($data['years'])) {
 				<tr><?php
 				}
 
-				$recess = recess_prettify($currentDay, $month, $year);
-				if ($data['info']['major'] == 5)
+				if ($data['info']['major'] == 5) # NI
 					$recess = array('');
+				else
+					$recess = recess_prettify($currentDay, $month, $year,
+						($hansardmajors[$data['info']['major']]['location'] == 'Scotland') ? 4 : 1);
 
 				// Is this day actually Today in the real world?
 				// If so, higlight it.

@@ -336,11 +336,12 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// we're within that section.
 		$items = array (
 			'home' 		=> array ('sitenews', 'comments_recent', 'api_front'),
-			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront', 'nidebatesfront'),
+			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront', 'nidebatesfront','spdebatesfront','spwransfront'),
 			'yourmp'	=> array (),
 			'mps'           => array (),
 			'peers'		=> array (),
 			'mlas'          => array (),
+			'msps'          => array (),
 #			'help_us_out'	=> array (), 
 /*			'help_us_out'	=> array ('glossary_addterm'),  */
 			'help'		=> array ()
@@ -812,8 +813,9 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			$page_text = '&nbsp;';
 		}
 
+		# XXX Yucky
 		if ($this_page != 'home' && $this_page != 'yourmp' && $this_page != 'mp' && $this_page != 'peer'
-			&& $this_page != 'mla' && $this_page != 'c4_mp' && $this_page != 'c4x_mp' && $this_page != 'royal' && $this_page != 'contact') {
+			&& $this_page != 'mla' && $this_page != 'c4_mp' && $this_page != 'c4x_mp' && $this_page != 'royal' && $this_page != 'contact' && $this_page != 'msp') {
 
 			if ($section_text && $parent_page != 'help_us_out' && $parent_page != 'home') {
 				print "\t\t\t\t<h2>$section_text</h2>\n";
@@ -1025,6 +1027,7 @@ pr()//-->
 			if (!$member['current_member'][$house]) $title .= ', former';
 			if ($house==1) $title .= ' MP';
 			if ($house==3) $title .= ' MLA';
+			if ($house==4) $title .= ' MSP';
 		}
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
 			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
@@ -1061,10 +1064,11 @@ pr()//-->
 					$desc .= $last['from'] . ' ';
 				}
 			}
-			if ($house==1 || $house==3) {
+			if ($house==1 || $house==3 || $house==4) {
 				$desc .= ' ';
 				if ($house==1) $desc .= 'MP';
 				if ($house==3) $desc .= 'MLA';
+				if ($house==4) $desc .= 'MSP';
 				$desc .= ' for ' . $member['left_house'][$house]['constituency'];
 			}
 			if ($house==2 && $party != 'Bishop') $desc .= ' Peer';
@@ -1150,6 +1154,17 @@ pr()//-->
 		if (in_array(3, $member['houses']) && !$member['current_member'][3]) {
 			print '<li><strong>Left the Assembly on '.$member['left_house'][3]['date_pretty'].'</strong>';
 			if ($member['left_house'][3]['reason']) print ' &mdash; ' . $member['left_house'][3]['reason'];
+			print '</li>';
+		}
+		if (isset($member['entered_house'][4]['date'])) {
+			print '<li><strong>Entered the Scottish Parliament on ';
+			print $member['entered_house'][4]['date_pretty'].'</strong>';
+			if ($member['entered_house'][4]['reason']) print ' &mdash; ' . $member['entered_house'][4]['reason'];
+			print '</li>';
+		}
+		if (in_array(4, $member['houses']) && !$member['current_member'][4]) {
+			print '<li><strong>Left the Scottish Parliament on '.$member['left_house'][4]['date_pretty'].'</strong>';
+			if ($member['left_house'][4]['reason']) print ' &mdash; ' . $member['left_house'][4]['reason'];
 			print '</li>';
 		}
 		if (isset($extra_info['majority_in_seat'])) { 
@@ -1543,6 +1558,7 @@ and has had no written questions answered for which we know the department or su
 if ($member['house_disp']==1) print 'this MP';
 elseif ($member['house_disp']==2) print 'this peer';
 elseif ($member['house_disp']==3) print 'this MLA';
+elseif ($member['house_disp']==4) print 'this MSP';
 elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 			if ($member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein')) {
 				print ' &mdash; <a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'">email me whenever '. $member['full_name']. ' speaks</a>';
@@ -1711,6 +1727,9 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		// BIOGRAPHY.
 		if (isset($links['mp_website'])) {
 			$html .= '<li><a href="' . $links['mp_website'] . '">'. $member->full_name().'\'s personal website</a></li>';
+		}
+		if (isset($links['sp_url'])) {
+			$html .= '<li><a href="' . $links['sp_url'] . '">'. $member->full_name().'\'s page on the Scottish Parliament website</a></li>';
 		}
 
 		if(isset($links['guardian_biography'])) {
@@ -1970,7 +1989,7 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		// Returns a message if parliament is currently in recess.
 		include_once INCLUDESPATH."easyparliament/recess.php";
 		$message = '';
-		list($name, $from, $to) = recess_prettify(date('j'), date('n'), date('Y'));
+		list($name, $from, $to) = recess_prettify(date('j'), date('n'), date('Y'), 1);
 		if ($name) {
 			$message = 'The Houses of Parliament are in their ' . $name . ' ';
 			if ($from && $to) {

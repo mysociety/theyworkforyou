@@ -95,6 +95,7 @@ elseif (get_http_var('c4x')) $this_page = 'c4x_mp';
 elseif (get_http_var('peer')) $this_page = 'peer';
 elseif (get_http_var('royal')) $this_page = 'royal';
 elseif (get_http_var('mla')) $this_page = 'mla';
+elseif (get_http_var('msp')) $this_page = 'msp';
 else $this_page = 'mp';
 
 if (is_numeric(get_http_var('m'))) {

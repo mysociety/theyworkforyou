@@ -26,9 +26,7 @@
 
 twfy_debug("TEMPLATE", "hansard_recent_wrans.php");
 
-?>
-				<dl class="recent-wrans">
-<?php
+echo '<dl class="recent-wrans">';
 
 $count = 0;
 
@@ -39,18 +37,22 @@ foreach ($data['data'] as $wran) {
 	$extrainfo = array();
 	
 	if ($wran['totalcomments'] > 0) {
-		$plural = $wran['totalcomments'] == 1 ? 'comment' : 'comments';
-		$totalcomments = ' <small>(' . $wran['totalcomments'] . ' ' . $plural . ')</small>';
+		$plural = make_plural('comment', $wran['totalcomments']);
+		$totalcomments = '; ' . $wran['totalcomments'] . ' ' . $plural;
 	} else {
 		$totalcomments = '';
 	}
 	
 	$speaker = $wran['child']['speaker'];
-	?>
-				<dt><a name="w<?php echo $count; ?>"></a><strong><a href="<?php echo $wran['list_url']; ?>"><?php echo $wran['parent']['body'] . ': ' . $wran['body']; ?></a></strong> <?php echo format_date($wran['hdate'], LONGDATEFORMAT) . ' ' .$totalcomments; ?></dt>
-				<dd><?php if (sizeof($speaker)) { ?><a href="<?php echo $speaker['url']; ?>"><?php echo member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']); ?></a>: <?php }
-				echo $wran['child']['body']; ?></dd>
-<?php
+	echo '<dt><a name="w', $count, '"></a><strong><a href="', $wran['list_url'], '">';
+	if ($wran['parent']['body']) echo $wran['parent']['body'], ': ';
+	echo $wran['body'], '</a></strong> <small>(', format_date($wran['hdate'], LONGDATEFORMAT),
+		$totalcomments, ')</small></dt><dd>';
+	if (sizeof($speaker)) {
+		echo '<a href="', $speaker['url'], '">', member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']), '</a>: ';
+	}
+	echo $wran['child']['body'];
+	echo '</dd>';
 }
-?>
-				</dl>
+
+echo '</dl>';

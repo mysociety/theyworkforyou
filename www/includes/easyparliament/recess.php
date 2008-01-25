@@ -5,7 +5,8 @@ recess.php 2004-06-05
 francis@flourish.org
 */
 
-$GLOBALS['recessdates'] = array(
+/* UK Parliament */
+$GLOBALS['recessdates'][1] = array(
 	2000 => array(
 		12=>array('more'=>21)
 	),
@@ -105,6 +106,103 @@ $GLOBALS['recessdates'] = array(
 	),
 );
 
+/* Scottish Parliament */
+$GLOBALS['recessdates'][4] = array(
+	1999 => array(
+		7 => array('more' => 2),
+		8 => array('less' => 31),
+		10 => array('between' => array(8,25)),
+		12 => array('more' => 17)
+	),
+	2000 => array(
+		1 => array('less' => 10),
+		4 => array('between' => array(7,25)),
+		7 => array('more' => 7),
+		8 => array('all' => 1),
+		9 => array('less' => 4),
+		10 => array('between' => array(6,23)),
+		12 => array('more' => 20)
+	),
+	2001 => array(
+		1=>array('less'=>8),
+		2=>array('between'=>array(16,26)),
+		4=>array('between'=>array(6,23)),
+		6=>array('more'=>29),
+		7=>array('all'=>1),
+		8=>array('all'=>1),
+		9=>array('less'=>3),
+		10=>array('between'=>array(5,22)),
+		12=>array('more'=>21) ),
+	2002 => array(
+		1=>array('less'=>7),
+		2=>array('between'=>array(15,25)),
+		3=>array('more'=>28),
+		4=>array('less'=>15),
+		7=>array('more'=>10),
+		8=>array('all'=>1),
+		9=>array('less'=>2),
+		10=>array('between'=>array(11,28)),
+		12=>array('more'=>20) ),
+	2003 => array(
+		1=>array('less'=>6),
+		4=>array('between'=>array(0,31)),
+		5=>array('less'=>2),
+		6=>array('more'=>27),
+		7=>array('all'=>1),
+		8=>array('all'=>1),
+		10=>array('between'=>array(10,27)),
+		12=>array('more'=>19)),
+	2004 => array(
+		1=>array('less'=>5),
+		2=>array('between'=>array(13,23)),
+		4=>array('between'=>array(2,19)),
+		6=>array('more'=>25),
+		7=>array('all'=>1),
+		8=>array('less'=>30),
+		10=>array('between'=>array(10,23)),
+		12=>array('more'=>26) ),
+	2005 => array(
+		1=>array('less'=>8),
+		2=>array('between'=>array(11,21)),
+		3=>array('more'=>24),
+		4=>array('less'=>11),
+		7=>array('more'=>1),
+		8=>array('all'=>1),
+		9=>array('less'=>5),
+		10=>array('between'=>array(7,24)),
+		12=>array('more'=>23) ),
+	2006 => array(
+		1=>array('less'=>9),
+		2=>array('between'=>array(10,20)),
+		4=>array('less'=>18),
+		7=>array('more'=>0),
+		8=>array('all'=>1),
+		9=>array('less'=>4),
+		10=>array('between'=>array(6,23)),
+		12=>array('more'=>22),
+	),
+	2007 => array(
+		1=>array('less'=>8),
+		4=>array('more'=>2),
+		6=>array('more'=>29),
+		7=>array('all'=>1),
+		8=>array('all'=>1),
+		9=>array('less'=>3),
+		10=>array('between'=>array(5,22)),
+		12=>array('more'=>21),
+	),
+	2008 => array(
+		1=>array('less'=>5),
+		2=>array('between'=>array(8,18)),
+		3=>array('more'=>28),
+		4=>array('less'=>14),
+		6=>array('more'=>27),
+		7=>array('all'=>1),
+		8=>array('all'=>1),
+		10=>array('between'=>array(10,27)),
+	),
+);
+
 /*
 function currently_in_recess() {
     // Main file which recesswatcher.py overwrites each day
@@ -128,66 +226,110 @@ function currently_in_recess() {
 }
 */
 
-function recess_prettify($currentDay, $month, $year) {
+function recess_prettify($day, $month, $year, $body) {
 	global $recessdates;
+	$dates = $recessdates[$body];
 	$recess = 0; $from = ''; $to = '';
-	if (isset($recessdates[$year][$month]['all'])) {
+	if (isset($dates[$year][$month]['all'])) {
 		$recess = 'Summer Recess';
-		$from = "$year-7-" . $recessdates[$year][7]['more'];
-		if (isset($recessdates[$year][9]['all']))
-			$to = "$year-10-" . $recessdates[$year][10]['less'];
+		if (isset($dates[$year][7]['all'])) {
+			$from = "$year-6-" . $dates[$year][6]['more'];
+		} else {
+			$from = "$year-7-" . $dates[$year][7]['more'];
+		}
+		if (!isset($dates[$year][9]))
+			$to = "$year-08-31";
+		elseif (isset($dates[$year][9]['all']))
+			$to = "$year-10-" . $dates[$year][10]['less'];
 		else
-			$to = "$year-9-" . $recessdates[$year][9]['less'];
+			$to = "$year-9-" . $dates[$year][9]['less'];
 	}
-	if ( (isset($recessdates[$year][$month]['less']) && $currentDay < $recessdates[$year][$month]['less'])
-	|| (isset($recessdates[$year][$month]['more']) && $currentDay > $recessdates[$year][$month]['more'])
-	|| (isset($recessdates[$year][$month]['between']) && $currentDay > $recessdates[$year][$month]['between'][0] && $currentDay < $recessdates[$year][$month]['between'][1])
-	|| (isset($recessdates[$year][$month]['between'][2]) && $currentDay > $recessdates[$year][$month]['between'][2] && $currentDay < $recessdates[$year][$month]['between'][3]) ) {
+	if ( (isset($dates[$year][$month]['less']) && $day < $dates[$year][$month]['less'])
+	|| (isset($dates[$year][$month]['more']) && $day > $dates[$year][$month]['more'])
+	|| (isset($dates[$year][$month]['between']) && $day > $dates[$year][$month]['between'][0] && $day < $dates[$year][$month]['between'][1])
+	|| (isset($dates[$year][$month]['between'][2]) && $day > $dates[$year][$month]['between'][2] && $day < $dates[$year][$month]['between'][3]) ) {
 		switch ($month) {
 			case 1: case 12: $recess = 'Christmas Recess'; break;
-			case 2: $recess = 'Half Term Week'; break;
-			case 3: $recess = 'Easter Recess'; break;
-			case 4: if (isset($recessdates[$year][$month]['more']) && $currentDay > $recessdates[$year][$month]['more']) { $recess = 'Election Recess'; } else { $recess = 'Easter Recess'; } break;
-			case 5: if ($year==2001 || (isset($recessdates[$year][$month]['less']) && $currentDay < $recessdates[$year][$month]['less'])) { $recess = 'Election Recess'; } else { $recess = 'Whit Recess'; } break;
-			case 6: if ($year==2001) { $recess = 'Election Recess'; } else { $recess = 'Whit Recess'; } break;
-			case 7: case 8: $recess = 'Summer Recess'; break;
-			case 9: if (isset($recessdates[$year][$month]['less']) && $currentDay < $recessdates[$year][$month]['less']) { $recess = 'Summer Recess'; } else { $recess = 'Conference Recess'; } break;
-			case 10: $recess = 'Conference Recess'; break;
+			case 2: if ($body==1) $recess = 'Half Term Week';
+				elseif ($body==4) $recess = 'February Recess';
+				break;
+			case 3: if ($body==1) $recess = 'Easter Recess';
+				elseif ($body==4) $recess = 'Spring Recess';
+				break;
+			case 4: if (isset($dates[$year][$month]['more']) && $day > $dates[$year][$month]['more']) {
+					$recess = 'Election Recess';
+				} elseif ($body==4 && $year==2003) {
+					$recess = 'Election Recess';
+				} elseif ($body==1) {
+					$recess = 'Easter Recess';
+				} elseif ($body==4) {
+					$recess = 'Spring Recess';
+				}
+				break;
+			case 5: if ($year==2001 || (isset($dates[$year][$month]['less']) && $day < $dates[$year][$month]['less'])) {
+					$recess = 'Election Recess';
+				} else {
+					$recess = 'Whit Recess';
+				}
+				break;
+			case 6: if ($year==2001) {
+					$recess = 'Election Recess';
+				} elseif ($body==1) {
+					$recess = 'Whit Recess';
+				} elseif ($body==4) {
+					$recess = 'Summer Recess';
+				} else {
+					trigger_error("Argh6");
+				}
+				break;
+			case 7: case 8: $recess = 'Summer Recess';
+				break;
+			case 9: if (isset($dates[$year][$month]['less']) && $day < $dates[$year][$month]['less']) {
+					$recess = 'Summer Recess';
+				} elseif ($body==1) {
+					$recess = 'Conference Recess';
+				} else {
+					trigger_error("Argh9");
+				}
+				break;
+			case 10: if ($body==1) $recess = 'Conference Recess';
+				elseif ($body==4) $recess = 'Autumn Recess';
+				break;
 			default: $recess = 1;
 		}
-		if (isset($recessdates[$year][$month]['less']) && $currentDay < $recessdates[$year][$month]['less']) {
-			$to = "$year-$month-" . $recessdates[$year][$month]['less'];
+		if (isset($dates[$year][$month]['less']) && $day < $dates[$year][$month]['less']) {
+			$to = "$year-$month-" . $dates[$year][$month]['less'];
 			if ($month==1)
-				$from = ($year-1)."-12-" . $recessdates[$year-1][12]['more'];
+				$from = ($year-1)."-12-" . $dates[$year-1][12]['more'];
 			else {
 				for ($newmonth = $month-1; $newmonth>=1; $newmonth--) {
-					if (isset($recessdates[$year][$newmonth]['more'])) {
-						$from = "$year-".($newmonth)."-" . $recessdates[$year][$newmonth]['more'];
+					if (isset($dates[$year][$newmonth]['more'])) {
+						$from = "$year-".($newmonth)."-" . $dates[$year][$newmonth]['more'];
 						break;
 					}
 				}
 			}
 		}
-		if (isset($recessdates[$year][$month]['more']) && $currentDay > $recessdates[$year][$month]['more']) {
-			$from = "$year-$month-" . $recessdates[$year][$month]['more'];
+		if (isset($dates[$year][$month]['more']) && $day > $dates[$year][$month]['more']) {
+			$from = "$year-$month-" . $dates[$year][$month]['more'];
 			if ($month==12)
-				$to = ($year+1)."-01-" . $recessdates[$year+1][1]['less'];
+				$to = ($year+1)."-01-" . $dates[$year+1][1]['less'];
 			else {
 				for ($newmonth = $month+1; $newmonth<=12; $newmonth++) {
-					if (isset($recessdates[$year][$newmonth]['less'])) {
-						$to = "$year-".($newmonth)."-" . $recessdates[$year][$newmonth]['less'];
+					if (isset($dates[$year][$newmonth]['less'])) {
+						$to = "$year-".($newmonth)."-" . $dates[$year][$newmonth]['less'];
 						break;
 					}
 				}
 			}
 		}
-		if (isset($recessdates[$year][$month]['between']) && $currentDay > $recessdates[$year][$month]['between'][0] && $currentDay < $recessdates[$year][$month]['between'][1]) {
-			$from = "$year-$month-" . $recessdates[$year][$month]['between'][0];
-			$to = "$year-$month-" . $recessdates[$year][$month]['between'][1];
+		if (isset($dates[$year][$month]['between']) && $day > $dates[$year][$month]['between'][0] && $day < $dates[$year][$month]['between'][1]) {
+			$from = "$year-$month-" . $dates[$year][$month]['between'][0];
+			$to = "$year-$month-" . $dates[$year][$month]['between'][1];
 		}
-		if (isset($recessdates[$year][$month]['between'][2]) && $currentDay > $recessdates[$year][$month]['between'][2] && $currentDay < $recessdates[$year][$month]['between'][3]) {
-			$from = "$year-$month-" . $recessdates[$year][$month]['between'][2];
-			$to = "$year-$month-" . $recessdates[$year][$month]['between'][3];
+		if (isset($dates[$year][$month]['between'][2]) && $day > $dates[$year][$month]['between'][2] && $day < $dates[$year][$month]['between'][3]) {
+			$from = "$year-$month-" . $dates[$year][$month]['between'][2];
+			$to = "$year-$month-" . $dates[$year][$month]['between'][3];
 		}
 	}
 	return array($recess, $from, $to);

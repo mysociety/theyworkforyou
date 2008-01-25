@@ -28,6 +28,7 @@ class MEMBER {
 		1 => 'House of Commons',
 		2 => 'House of Lords',
 		3 => 'Northern Ireland Assembly',
+		4 => 'Scottish Parliament',
 	);
 	
 	// Mapping member table reasons to text.
@@ -44,7 +45,10 @@ class MEMBER {
 		'reinstated'		=> 'Reinstated',
 		'resigned'		=> 'Resigned',
 		'still_in_office'	=> 'Still in office',
-		'dissolution'		=> 'Dissolved for election'
+		'dissolution'		=> 'Dissolved for election',
+		'regional_election'	=> 'Election', # Scottish Parliament
+		'replaced_in_region'	=> 'Appointed, regional replacement',
+
 	);
 	
 	function MEMBER ($args) {
@@ -139,8 +143,12 @@ class MEMBER {
 				);
 			}
 
-			if ( $house==0 || (!$this->house_disp && $house==3) || ($this->house_disp!=2 && $house==2)
-			    || ((!$this->house_disp || $this->house_disp==3) && $house==1) ) {
+			if ( $house==0 					# The Monarch
+			    || (!$this->house_disp && $house==4)	# MSPs and
+			    || (!$this->house_disp && $house==3)	# MLAs have lowest priority
+			    || ($this->house_disp!=2 && $house==2)	# Lords have highest priority
+			    || ((!$this->house_disp || $this->house_disp==3) && $house==1) # MPs have higher priority than MLAs
+			) {
 				$this->house_disp = $house;
 				$this->constituency = $const;
 				$this->party = $party;
@@ -241,6 +249,20 @@ class MEMBER {
 			$last_name = mysql_escape_string($m[2]);
 			$const = $m[3];
 			$q .= "house = 2 AND title = '$title' AND last_name='$last_name'";
+		} elseif ($this_page=='msp') {
+			$success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
+			if (!$success)
+				$success = preg_match('#^(.*?)() (.*)$#', $name, $m);
+			if (!$success) {
+				$PAGE->error_message('Sorry, that name was not recognised.');
+				return false;
+			}
+			$first_name = mysql_escape_string($m[1]);
+			$middle_name = mysql_escape_string($m[2]);
+			$last_name = mysql_escape_string($m[3]);
+			$q .= "house = 4 AND (";
+			$q .= "(first_name='$first_name $middle_name' AND last_name='$last_name')";
+			$q .= " or (first_name='$first_name' AND last_name='$middle_name $last_name') )";
 		} elseif ($this_page=='mla') {
 			$success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
 			if (!$success)
@@ -587,6 +609,8 @@ class MEMBER {
 			$URL = new URL('peer');
 		} elseif ($house==3) {
 			$URL = new URL('mla');
+		} elseif ($house==4) {
+			$URL = new URL('msp');
 		} elseif ($house==0) {
 			$URL = new URL('royal');
 		}

@@ -864,7 +864,7 @@ function make_member_url($name, $const = '', $house = 1) {
 
 function member_full_name($house, $title, $first_name, $last_name, $constituency) {
 	$s = 'ERROR';
-	if ($house == 1 || $house == 3) {
+	if ($house == 1 || $house == 3 || $house == 4) {
 		$s = $first_name . ' ' . $last_name;
 		if ($title) {
 			$s = $title . ' ' . $s;

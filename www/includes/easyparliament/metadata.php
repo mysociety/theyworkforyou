@@ -345,13 +345,13 @@ $this->page = array (
 			'text'			=> 'Hansard',
 			'title'			=> "House of Commons debates and Written Answers"
 		),
-		'title'			=> 'House of Commons, House of Lords, and Northern Ireland Assembly',
+		'title'			=> 'House of Commons, House of Lords, Northern Ireland Assembly, and the Scottish Parliament',
 		'track'			=> true,
 		'url'			=> 'hansard/'
 	),	
 	'hansard_date' => array (
 		'parent'		=> 'hansard',
-		'title'			=> 'House of Commons, House of Lords, and Northern Ireland Assembly',
+		'title'			=> 'House of Commons, House of Lords, Northern Ireland Assembly, and the Scottish Parliament',
 		'track'			=> true,
 		'url'			=> 'hansard/'
 	),	
@@ -458,6 +458,21 @@ $this->page = array (
 		'title'			=> 'All MLAs',
 		'track'			=> true,
 		'url'			=> 'mlas/'
+	),
+
+	'msp' => array (
+		'title'			=> 'MSP',
+		'track'			=> true,
+		'url'			=> 'msp/'
+	),
+	'msps' => array (
+		 'menu'			=> array (
+			'text'			=> 'All MSPs',
+			'title'			=> "List of all MSPs"
+		),
+		'title'			=> 'All MSPs',
+		'track'			=> true,
+		'url'			=> 'msps/'
 	),
 
 	/* Not 'Your MP', whose name is 'yourmp'... */
@@ -672,6 +687,70 @@ $this->page = array (
 		'url'			=> 'skin/'
 	),
 	
+	/* Scottish Parliament */
+	'spdebate'  => array (
+		'parent'		=> 'spdebatesfront',
+		'track'			=> true,
+		'url'			=> 'sp/',
+		'session_vars'	=> array ('id'),
+	),
+	'spdebates'  => array (
+		'parent'		=> 'spdebatesfront',
+		'track'			=> true,
+		'url'			=> 'sp/',
+		'session_vars'	=> array ('id'),
+	),
+	'spdebatesday' => array (
+		'parent'		=> 'spdebatesfront',
+		'session_vars'	=> array ('d'),
+		'track'			=> true,
+		'url'			=> 'sp/',
+	),			
+	'spdebatesfront' => array (
+		'menu'			=> array (
+			'text'			=> 'Scottish Parliament Debates',
+			'title'			=> "Scottish Parliament debates"
+		),
+		'parent'		=> 'hansard',
+		'title'			=> 'Scottish Parliament debates',
+		'track'			=> true,
+		'rss'			=> 'sp/sp.rss',
+		'url'			=> 'sp/'
+	),
+	'spdebatesyear' => array (
+		'parent'		=> 'spdebatesfront',
+		'title'			=> 'Debates for ',
+		'url'			=> 'sp/'
+	),
+	'spwrans'  => array (
+		'parent'		=> 'spwransfront',
+		'url'			=> 'spwrans/',
+		'session_vars'	=> array ('id')
+	),
+	'spwransday'  => array (
+		'parent'		=> 'spwransfront',
+		'url'			=> 'spwrans/'
+	),
+	'spwransfront'  => array (
+		'menu'			=> array (
+			'text'			=> 'SP written answers',
+			'title'			=> "Written Answers"
+		),
+		'parent'		=> 'hansard',
+		'title'			=> 'Scottish Parliament Written answers',
+		'url'			=> 'spwrans/'
+	),
+	'spwransmp' => array(
+		'parent'		=> 'spwransfront',
+		'title'			=> 'For questions asked by ',
+		'url'			=> 'spwrans/'
+	),
+	'spwransyear' => array (
+		'parent'		=> 'spwransfront',
+		'title'			=> 'Scottish Parliament Written answers for ',
+		'url'			=> 'spwrans/'
+	),
+
 	// The URL 3rd parties need to ping something here.
 	'trackback' => array (
 		'url'			=> 'trackback/'

@@ -1465,7 +1465,7 @@ class HANSARDLIST {
 
 		$YEARURL = new URL($hansardmajors[$this->major]['page_year']);
 			
-		if ($this_page == 'debatesyear' || $this_page == 'wransyear' || $this_page == 'whallyear' || $this_page == 'wmsyear' || $this_page == 'lordsdebatesyear' || $this_page == 'nidebatesyear') {
+		if (substr($this_page, -4) == 'year') {
 			// Only need next/prev on these pages.
 			// Not sure this is the best place for this, but...
 
@@ -1743,7 +1743,7 @@ class HANSARDLIST {
 				}					
 					
 				// Get the user/anon votes items that have them.
-				if ($this->major == 3 && (isset($amount['votes']) && $amount['votes'] == true) && 
+				if (($this->major == 3 || $this->major == 8) && (isset($amount['votes']) && $amount['votes'] == true) && 
 					$item['htype'] == '12') {
 					// Debate speech or written answers (not questions).
 				
@@ -1947,6 +1947,8 @@ class HANSARDLIST {
 						$URL = new URL('peer');
 					} elseif ($house==3) {
 						$URL = new URL('mla');
+					} elseif ($house==4) {
+						$URL = new URL('msp');
 					} elseif ($house==0) {
 						$URL = new URL('royal');
 					}
@@ -2421,6 +2423,32 @@ class NILIST extends DEBATELIST {
 	}
 }
 
+class SPLIST extends DEBATELIST {
+	var $major = 7;
+	var $listpage = 'spdebates';
+	var $commentspage = 'spdebate';
+	function splist() {
+		$this->db = new ParlDB;
+		$this->gidprefix .= 'spor/';
+	}
+}
+
+class SPWRANSLIST extends WRANSLIST {
+	var $major = 8;
+	var $listpage = 'spwrans';
+	var $commentspage = 'spwrans';
+	function spwranslist () {
+		$this->db = new ParlDB;
+		$this->gidprefix .= 'spwa/';
+	}
+	function get_gid_from_spid($spid) {
+		$q = $this->db->query("select gid from hansard where gid like 'uk.org.publicwhip/spwa/%.$spid.h'");
+		$gid = $q->field(0, 'gid');
+		if ($gid) return str_replace('uk.org.publicwhip/spwa/', '', $gid);
+		return null;
+	}
+}
+
 class LORDSDEBATELIST extends DEBATELIST {
 	var $major = 101;
 	var $listpage = 'lordsdebates';
@@ -2746,6 +2774,8 @@ class WRANSLIST extends HANSARDLIST {
 	}
 
 	function _get_data_by_recent_wrans ($args=array()) {
+		global $hansardmajors;
+
 		// $args['days'] is the number of days back to look for biggest debates.
 		// (1 by default)
 		// $args['num'] is the number of links to return (1 by default).
@@ -2774,6 +2804,11 @@ class WRANSLIST extends HANSARDLIST {
 	
 	
 		// Get a random selection of subsections in wrans.
+		if ($hansardmajors[$this->major]['location'] == 'Scotland') {
+			$htype = 'htype = 10 and section_id = 0';
+		} else {
+			$htype = 'htype = 11 and section_id != 0';
+		}
 		$q = $this->db->query("SELECT e.body,
 								h.hdate,
 								h.htype,
@@ -2783,8 +2818,7 @@ class WRANSLIST extends HANSARDLIST {
 								h.epobject_id
 						FROM	hansard h, epobject e
 						WHERE	h.major = '" . $this->major . "'
-						AND		htype = '11'
-						AND		section_id != 0
+						AND		$htype
 						AND		subsection_id = 0
 						AND		$datewhere
 						AND		h.epobject_id = e.epobject_id
@@ -2810,12 +2844,15 @@ class WRANSLIST extends HANSARDLIST {
 			$hdate			= $q->field($row, 'hdate');	
 
 			// Get the parent section for this item.
-			$r = $this->db->query("SELECT e.body
+			$parentbody = '';
+			if ($q->field($row, 'section_id')) {
+				$r = $this->db->query("SELECT e.body
 							FROM	hansard h, epobject e
 							WHERE	h.epobject_id = e.epobject_id
 							AND		h.epobject_id = '" . $q->field($row, 'section_id') . "'
 							");
-			$parentbody = $r->field(0, 'body');
+				$parentbody = $r->field(0, 'body');
+			}
 			
 			// Get the question for this item.
 			$r = $this->db->query("SELECT e.body,

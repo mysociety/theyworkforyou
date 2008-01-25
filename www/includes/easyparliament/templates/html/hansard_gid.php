@@ -90,6 +90,8 @@ if (isset ($data['rows'])) {
 	$timetracker = 0;
 
 	$stripecount = 0; // Used to generate stripes.
+
+	$first_speech_displayed = 0; // We want to know when to insert the javascript that pulls in flash video
 	
 	// We're going to be just cycling through each row of data for this page.
 	// When we get the first section, we put its text in $section_title.
@@ -125,7 +127,7 @@ if (isset ($data['rows'])) {
 					'type' => 'nextprev'
 				)
 			));
-			
+
 			$titles_displayed = true;
 		}
 		
@@ -164,7 +166,18 @@ if (isset ($data['rows'])) {
 			$stripecount++;
 			$style = $stripecount % 2 == 0 ? '1' : '2';
 			
-			
+		        $video_content = '';
+                        if ($data['info']['major'] == 1 && $first_speech_displayed == 0) { # only Commons debates currently
+                                $autostart = get_http_var('autoPlay');
+				$video_content = "<p class='video'><script type=\"text/javascript\" src=\"http://parlvid.mysociety.org/video.cgi?gid=";
+				$video_content .= $row['gid'];
+				if ($autostart == 'true') {
+                                        $video_content .= "&autostart=true";
+                                }
+				$video_content .= "&output=js-full\"></script></p>";
+                                $first_speech_displayed = true;
+                        }
+	
 			// If this item is at a new time, then print the time.
 			if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00") {
 				
@@ -190,7 +203,7 @@ if (isset ($data['rows'])) {
 			$id = 'g' . gid_to_anchor($row['gid']);
 			
 			$PAGE->stripe_start($style, $id);	
-			
+	
 			?>
 				<a name="<?php echo $id; ?>"></a>
 <?php
@@ -200,16 +213,16 @@ if (isset ($data['rows'])) {
 			  
 				$speaker = $row['speaker'];
 				$speakername = ucfirst(member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']));
-				?>
-				<p class="speaker"><a href="<?php echo $speaker['url']; ?>" title="See more information about <?php echo $speakername; ?>">
-<? if (is_file(BASEDIR . IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpeg')) { ?>
-                <img src="<?php echo IMAGEPATH . 'mps/' . $speaker['person_id']; ?>.jpeg" class="portrait" alt="Photo of <?php echo $speakername; ?>" 
-				<?php if (get_http_var('partycolours')) { ?>
-                style="border: 3px solid <?php echo party_to_colour($speaker['party']) ?>;"
-                <?php } ?>
-		><?php } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpg')) { ?>
-		<img src="<?php echo IMAGEPATH . 'mps/' . $speaker['person_id']; ?>.jpg" class="portrait" alt="Photo of <?php echo $speakername; ?>"><? } ?>
-                <strong><?php echo $speakername; ?></strong></a> <small><?php 
+				echo '<p class="speaker"><a href="', $speaker['url'], '" title="See more information about ', $speakername, '">';
+				list($image,$sz) = find_rep_image($speaker['person_id'], true);
+				if ($image) {
+					echo '<img src="', $image, '" class="portrait" alt="Photo of ', $speakername, '"';
+					if (get_http_var('partycolours')) {
+						echo ' style="border: 3px solid ', party_to_colour($speaker['party']), ';"';
+					}
+					echo '>';
+				}
+				echo '<strong>', $speakername, '</strong></a> <small>';
 				$desc = '';
 				if (isset($speaker['office'])) {
 					$desc = $speaker['office'][0]['pretty'];
@@ -228,25 +241,43 @@ if (isset ($data['rows'])) {
 					}
 				}
 				if ($desc) print "($desc)";
-
 				if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
 					?> <a href="<?php echo $row['commentsurl']; ?>" title="Copy this URL to link directly to this piece of text" class="permalink">Link to this</a><?php
 				}
 				if (isset($row['source_url']) && $row['source_url'] != '') {
-					echo ' | <a href="' . $row['source_url'] . '" title="The source of this piece of text">Hansard source</a>';
+					echo ' | <a href="', $row['source_url'], '" title="The source of this piece of text">',
+					    ($hansardmajors[$data['info']['major']]['location']=='Scotland' ? 'Official Report' : 'Hansard'),
+					    ' source</a>';
 				}
 
-				echo "</small></p>\n";
-				
+				if ($data['info']['major'] == 8 && preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $row['gid'], $m)) {
+					# Scottish Wrans only
+					print " | Question $m[1]";
+				}
+
+                                if ($data['info']['major'] == 1) { # Commons debates only
+					?><!-- | <script type="text/javascript" src="http://parlvid.mysociety.org/video.cgi?gid=<?
+					echo $row['gid'];
+				 	?>&output=js-link"></script> --><?
+				}
+				echo "</small>";
 			}
 
 			$body = $row['body'];
+
+			if ($hansardmajors[$data['info']['major']]['location'] == 'Scotland') {
+				$body = preg_replace('# (S\dW-\d+) #', ' <a href="/spwrans/?spid=$1">$1</a> ', $body);
+				$body = preg_replace('#<citation id="uk\.org\.publicwhip/(.*?)/(.*?)">\[(.*?)\]</citation>#e',
+					"'[<a href=\"/' . ('$1'=='spor'?'sp/?g':('$1'=='spwa'?'spwrans/?':'debate/?')) . 'id=$2' . '\">$3</a>]'",
+					$body);
+			}
+
 #			$body = preg_replace('#<phrase class="offrep" id="([^"]*?)/([^"]*?)">#', '<a href="/$1/?id=$2.0">', $body);
 #			$body = str_replace('</phrase>', '</a>', $body);
 			$body = preg_replace('#(<p[^>]*class=".*?)("[^>]*)pwmotiontext="moved"#', '$1 moved$2', $body);
 			$body = str_replace('pwmotiontext="moved"', 'class="moved"', $body);
-			$body = str_replace('<a href', '<a rel="nofollow" href', $body);
-			echo str_replace('</p><p','</p> <p',$body);
+			$body = str_replace('<a href="h', '<a rel="nofollow" href="h', $body); # As even sites in Hansard lapse and become spam-sites
+			echo str_replace('</p><p','</p> <p',$body); # NN4 font size bug
 			
 			context_link($row);
 			
@@ -263,8 +294,11 @@ if (isset ($data['rows'])) {
 			$sidebarhtml .= generate_commentteaser(&$row, $data['info']['major']);
 #			}
 			
-
 			$PAGE->stripe_end(array(
+				array (
+					'type' => 'html',
+					'content' => $video_content
+				),
 				array (
 					'type' => 'html',
 					'content' => $sidebarhtml
@@ -494,7 +528,7 @@ function generate_votes ($votes, $major, $id, $gid) {
 	$VOTEURL = new URL('epvote');
 	$VOTEURL->insert(array('v'=>'1', 'id'=>$id, 'ret'=>$returl));
 
-	if ($major == 3 && ($votelinks_so_far > 0 || preg_match('#r#', $gid) ) ) { # XXX
+	if (($major == 3 || $major == 8) && ($votelinks_so_far > 0 || preg_match('#r#', $gid) ) ) { # XXX
 		// Wrans.
 		$yesvotes = $votes['user']['yes'] + $votes['anon']['yes'];
 		$novotes = $votes['user']['no'] + $votes['anon']['no'];

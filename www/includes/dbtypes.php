@@ -1,6 +1,6 @@
 <?
 // Constants of types used in epobjects and hansard objects
-// $Id: dbtypes.php,v 1.5 2008-01-11 11:04:51 twfy-live Exp $
+// $Id: dbtypes.php,v 1.6 2008-01-25 17:43:27 twfy-staging Exp $
 
 // The type field in the epobject database table
 /*
@@ -22,6 +22,7 @@ $hansardmajors = array(
 		'page_year'=>'debatesyear',
 		'sidebar'=>'hocdebates',
 		'sidebar_short'=>'hocdebates_short',
+		'location' => 'UK',
 	),
 	2 => array(
 		'type'=>'debate',
@@ -34,6 +35,7 @@ $hansardmajors = array(
 		'page_year'=>'whallyear',
 		'sidebar'=>'whalldebates',
 		'sidebar_short'=>'whalldebates_short',
+		'location' => 'UK',
 	),
 	3 => array(
 		'type'=>'other',
@@ -46,6 +48,7 @@ $hansardmajors = array(
 		'page_year'=>'wransyear',
 		'sidebar'=>'wrans',
 		'sidebar_short'=>'wrans_short',
+		'location' => 'UK',
 	),
 	4 => array(
 		'type'=>'other',
@@ -58,6 +61,7 @@ $hansardmajors = array(
 		'page_year'=>'wmsyear',
 		'sidebar'=>'wms',
 		'sidebar_short'=>'wms_short',
+		'location' => 'UK',
 	),
 	101 => array(
 		'type'=>'debate',
@@ -70,6 +74,7 @@ $hansardmajors = array(
 		'page_year'=>'lordsdebatesyear',
 		'sidebar'=>'holdebates',
 		'sidebar_short'=>'holdebates_short',
+		'location' => 'UK',
 	),
 	5 => array(
 		'type'=>'debate',
@@ -82,6 +87,7 @@ $hansardmajors = array(
 		'page_year'=>'nidebatesyear',
 		'sidebar'=>'nidebates',
 		'sidebar_short'=>'nidebates_short',
+		'location' => 'NI',
 	),
 	6 => array(
 		'type' => 'debate',
@@ -95,6 +101,33 @@ $hansardmajors = array(
 		# 'page_year' => 'pbc_year',
 		'sidebar' => 'pbc',
 		'sidebar_short' => 'pbc_short',
+		'location' => 'UK',
+	),
+	7 => array(
+		'type'=>'debate',
+		'title'=>'Scottish Parliament debates',
+		'singular'=>'debate',
+		'plural'=>'debates',
+		'page'=>'spdebates',
+		'page_all'=>'spdebates',
+		'gidvar'=>'gid',
+		'page_year'=>'spdebatesyear',
+		'sidebar'=>'spdebates',
+		'sidebar_short'=>'spdebates_short',
+		'location' => 'Scotland',
+	),
+	8 => array(
+		'type'=>'other',
+		'title'=>"Scottish Parliament written answers",
+		'singular'=>'answer',
+		'plural'=>'answers',
+		'page'=>'spwrans',
+		'page_all'=>'spwrans',
+		'gidvar'=>'id',
+		'page_year'=>'spwransyear',
+		'sidebar'=>'spwrans',
+		'sidebar_short'=>'spwrans_short',
+		'location' => 'Scotland',
 	),
 );
 $hansardmajors[104] = $hansardmajors[4];
