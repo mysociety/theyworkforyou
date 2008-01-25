@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.19 2007-11-07 13:57:02 twfy-staging Exp $
+ * $Id: alertmailer.php,v 1.20 2008-01-25 16:24:14 twfy-live Exp $
  */
 
 function mlog($message) {
@@ -154,7 +154,7 @@ foreach ($alertdata as $alertitem) {
 				$k = 3;
 			}
 			#mlog($row['major'] . " " . $row['gid'] ."\n");
-			if ($row['hdate'] < '2007-09-01') continue;
+			if ($row['hdate'] < '2008-01-14') continue;
 			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_short[$major] . '/' . mysql_escape_string($row['gid']) . "'");
 			if ($q->rows() > 0) continue;
 			--$k;

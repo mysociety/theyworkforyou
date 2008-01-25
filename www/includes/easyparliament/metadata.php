@@ -301,6 +301,12 @@ $this->page = array (
 	'epvote' => array (
 		'url'			=> 'vote/'
 	),
+
+	'gadget' => array(
+		'url'			=> 'gadget/',
+		'title'			=> 'TheyWorkForYou Google gadget',
+	),
+
 	'glossary' => array (
 		'heading'		=> 'Glossary',
 		'parent'		=> 'help_us_out',
