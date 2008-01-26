@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.22 2008-01-25 17:55:41 twfy-staging Exp $
+# $Id: xml2db.pl,v 1.23 2008-01-26 09:34:42 twfy-staging Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -152,8 +152,8 @@ $wmsdir = $parldata . "scrapedxml/wms/";
 $lordswmsdir = $parldata . "scrapedxml/lordswms/";
 $lordsdebatesdir = $parldata . "scrapedxml/lordspages/";
 $nidir = $parldata . 'scrapedxml/ni/';
-$scotlanddir = $pwdata . 'scrapedxml/sp/';
-$scotwransdir = $pwdata . 'scrapedxml/sp-written/';
+$scotlanddir = $parldata . 'scrapedxml/sp/';
+$scotwransdir = $parldata . 'scrapedxml/sp-written/';
 $standingdir = $parldata . 'scrapedxml/standing/';
 
 my @wrans_major_headings = (
@@ -1486,7 +1486,7 @@ sub add_scotland_day {
         # find out what gids there are (using tallygidsmode)
         $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
         $tallygidsmode = 1; %gids = (); $tallygidsmodedummycount = 10;
-        parsefile_glob($twig, $config::pwdata . "scrapedxml/sp/sp" . $curdate. "*.xml");
+        parsefile_glob($twig, $parldata . "scrapedxml/sp/sp" . $curdate. "*.xml");
         # see if there are deleted gids
         my @gids = keys %gids;
         check_extra_gids($date, \@gids, "major = 7");
@@ -1494,7 +1494,7 @@ sub add_scotland_day {
         # make the modifications
         $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
         $tallygidsmode = 0; %gids = ();
-        parsefile_glob($twig, $config::pwdata . "scrapedxml/sp/sp" . $curdate. "*.xml");
+        parsefile_glob($twig, $parldata . "scrapedxml/sp/sp" . $curdate. "*.xml");
 
         undef $twig;
 }
@@ -1532,7 +1532,7 @@ sub add_scotwrans_day {
         # find out what gids there are (using tallygidsmode)
         $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
         $tallygidsmode = 1; %gids = (); $tallygidsmodedummycount = 10;
-        parsefile_glob($twig, $config::pwdata . "scrapedxml/sp-written/spwa" . $curdate. "*.xml");
+        parsefile_glob($twig, $parldata . "scrapedxml/sp-written/spwa" . $curdate. "*.xml");
         # see if there are deleted gids
         my @gids = keys %gids;
         check_extra_gids($date, \@gids, "major = 8");
@@ -1540,7 +1540,7 @@ sub add_scotwrans_day {
         # make the modifications
         $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
         $tallygidsmode = 0; %gids = ();
-        parsefile_glob($twig, $config::pwdata . "scrapedxml/sp-written/spwa" . $curdate. "*.xml");
+        parsefile_glob($twig, $parldata . "scrapedxml/sp-written/spwa" . $curdate. "*.xml");
 
         undef $twig;
 }
