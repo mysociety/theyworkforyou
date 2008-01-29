@@ -283,13 +283,10 @@ above.</li>
 				<div class="row">
 				If you join or log in, you won't need to confirm your email address for every alert you set.
 				</div>
-	<?php	} ?>
-				<input type="hidden" name="submitted" value="true">
-				<input type="hidden" name="pg" value="alert">
-
-	</form>
-	
-	<?php
+	<?php	}
+		if (get_http_var('sign'))
+			echo '<input type="hidden" name="sign" value="' . htmlspecialchars(get_http_var('sign')) . '">';
+		echo '<input type="hidden" name="submitted" value="true"> </form>';
 } 
 
 ?>
