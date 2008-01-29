@@ -286,6 +286,8 @@ above.</li>
 	<?php	}
 		if (get_http_var('sign'))
 			echo '<input type="hidden" name="sign" value="' . htmlspecialchars(get_http_var('sign')) . '">';
+		if (get_http_var('site'))
+			echo '<input type="hidden" name="site" value="' . htmlspecialchars(get_http_var('site')) . '">';
 		echo '<input type="hidden" name="submitted" value="true"> </form>';
 } 
 
