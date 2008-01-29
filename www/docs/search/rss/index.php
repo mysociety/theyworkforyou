@@ -42,6 +42,9 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
 	if (is_numeric($pagenum) && $pagenum > 1) {
 		$pagetitle .= " page $pagenum";
 	}
+    $num = get_http_var('n');
+    if (!is_numeric($num) || $num <= 0)
+        $num = 20;
 	
 	$DATA->set_page_metadata($this_page, 'title', $pagetitle);
 	
@@ -50,6 +53,7 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
 		'p' => $pagenum,
         'pop' => get_http_var('pop'),
         'o' => get_http_var('o'),
+        'num' => $num,
 	);
 	
 	$LIST = new HANSARDLIST();
