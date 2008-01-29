@@ -249,7 +249,9 @@ Our own data - lists of MPs, Lords, constituencies and so on - is available
 under the <a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative
 Commons Attribution-ShareAlike license version 2.5</a>.
 
-<p>Non-commercial use is free, please contact us for commercial use.
+<p>Low volume, non-commercial use of the API service itself is free. Please
+<a href="/contact">contact us</a> for commercial use, or if you are about
+to use the service on a large scale.
 
 <h3>Bindings</h3>
 
