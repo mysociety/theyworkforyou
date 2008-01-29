@@ -84,7 +84,7 @@ function _api_getHansard_search($array) {
     		's' => $search,
     		'p' => $pagenum,
     		'num' => get_http_var('num'),
-		'pop' => get_http_var('pop'),
+		'pop' => 1,
 		'o' => ($o=='d' || $o=='r') ? $o : 'd',
     	);
     	$LIST = new HANSARDLIST();
