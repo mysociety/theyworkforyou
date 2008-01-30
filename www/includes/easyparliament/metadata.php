@@ -171,7 +171,6 @@ $this->page = array (
 			'sidebar'		=> 'alert'
 
 		),
-		'pg'			=> 'alert',
 		'title'			=> 'TheyWorkForYou.com Email Alerts',
 		'url'			=> 'alert/',
 	),		
@@ -216,7 +215,6 @@ $this->page = array (
 	'alertwelcome' => array (
 		'title'			=> 'Email Alerts',
 		'url'			=> 'alert/',
-		'pg'			=> 'alertwelcome'
 	),
 
 // End of ALERTS additions

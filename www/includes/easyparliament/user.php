@@ -941,10 +941,10 @@ class THEUSER extends USER {
 
 		if ($expire == 'never') {
 			header("Location: $returl");
-			header("Set-Cookie: epuser_id=$cookie;expires=".date('r',(time()+60*60*24*365*30)).";domain=".COOKIEDOMAIN.";path=/");
+			setcookie('epuser_id', $cookie, time()+86400*365*20, '/', COOKIEDOMAIN);
 		} else {
 			header("Location: $returl");
-			header("Set-Cookie: epuser_id=$cookie;domain=".COOKIEDOMAIN.";path=/");
+			setcookie('epuser_id', $cookie, 0, '/', COOKIEDOMAIN);
 		}
 	}
 
@@ -965,12 +965,7 @@ class THEUSER extends USER {
 		if (get_cookie_var("epuser_id") != "") {
 			// They're logged in, so set the cookie to empty.
 			header("Location: $returl");
-			header("Set-Cookie: epuser_id=;expires=Friday, 16-Jan-2037 00:00:00 GMT;domain=".COOKIEDOMAIN.";path=/");
-
-	// I have no idea what this is for, so I'm removing it for the moment. Phil.
-	//	} else {
-	//		setcookie("epuser_id","",time()+14400,"/",COOKIEDOMAIN,0);
-	//		setcookie("epid_lastlog","",time()+14400,"/",COOKIEDOMAIN,0);
+			setcookie('epuser_id', '', time() - 86400, '/', COOKIEDOMAIN);
 		}
 	}
 
