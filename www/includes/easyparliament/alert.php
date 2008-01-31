@@ -38,6 +38,37 @@ etc.
 
 // CLASS:  ALERT
 
+function alert_confirmation_advert($details) {
+	global $THEUSER;
+
+	$adverts = array(
+		array('hfymp', '<h2 style="border-top: dotted 1px #999999; padding-top:0.5em; margin-bottom:0">Get email from your MP in the future</h2> <p style="font-size:120%;margin-top:0;">and have a chance to discuss what they say in a public forum [form]Sign up to HearFromYourMP[/form]'),
+		array('fms', '<p>Got a local problem like potholes or flytipping in your street?<br><a href="http://www.fixmystreet.com/">Report it at FixMyStreet</a></p>'),
+		array('gny', '<h2>Are you a member of a local group&hellip;</h2> <p>&hellip;which uses the internet to coordinate itself, such as a neighbourhood watch? If so, please help the charity that runs WriteToThem by <a href="http://www.groupsnearyou.com/">adding some information about it</a> to our new site, GroupsNearYou.</p>'),
+		array('twfy_alerts', ''),
+	);
+
+	if ($THEUSER->isloggedin()) {
+		$advert_shown = crosssell_display_advert('twfy', $details['email'], $THEUSER->firstname() . ' ' . $THEUSER->lastname(), $THEUSER->postcode(), $adverts);
+	} else {
+		$advert_shown = crosssell_display_advert('twfy', $details['email'], '', '', $adverts);
+	}
+	if ($advert_shown == 'other-twfy-alert-type') {
+		if ($details['pid']) {
+			$advert_shown = 'twfy-alert-word';
+?>
+<p>Did you know that TheyWorkForYou can also email you when a certain word or phrases is mentioned in parliament? For example, it could mail you when your town is mentioned, or an issue you care about. Don't rely on the newspapers to keep you informed about your interests - find out what's happening straight from the horse's mouth.
+<a href="/alert/"><strong>Sign up for an email alert</strong></a></p>
+<?		} else {
+			$advert_shown = 'twfy-alert-person';
+?>
+<p>Did you know that TheyWorkForYou can also email you when a certain MP or Lord contributes in parliament? Don't rely on the newspapers to keep you informed about someone you're interested in - find out what's happening straight from the horse's mouth.
+<a href="/alert/"><strong>Sign up for an email alert</strong></a></p>
+<?		}
+	}
+	return $advert_shown;
+}
+
 function alert_details_to_criteria($details) {
 	$criteria = array();
 	if (isset($details['keyword']) && $details['keyword']) $criteria[] = $details['keyword'];

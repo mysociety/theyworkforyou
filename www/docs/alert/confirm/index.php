@@ -60,27 +60,11 @@ function confirm_success ($ALERT) {
 	<ul><?=$criteria?></ul>
 	<p>This is normally the day after, but could conceivably be later due to issues at our or parliament.uk's end.</p>
 <?php
-	if ($THEUSER->isloggedin()) {
-		$extra = crosssell_display_advert('twfy', $email, $THEUSER->firstname() . ' ' . $THEUSER->lastname(), $THEUSER->postcode());
-	} else {
-		$extra = crosssell_display_advert('twfy', $email, '', '');
-	}
-	if ($extra == 'other-twfy-alert-type') {
-		if (strstr($ALERT->criteria(), 'speaker:')) {
-			$extra = 'twfy-alert-word';
-?>		
-<p>Did you know that TheyWorkForYou can also email you when a certain word or phrases is mentioned in parliament? For example, it could mail you when your town is mentioned, or an issue you care about. Don't rely on the newspapers to keep you informed about your interests - find out what's happening straight from the horse's mouth.
-<a href="/alert/"><strong>Sign up for an email alert</strong></a></p>
-<?		} else {
-			$extra = 'twfy-alert-person';
-?>
-<p>Did you know that TheyWorkForYou can also email you when a certain MP or Lord contributes in parliament? Don't rely on the newspapers to keep you informed about someone you're interested in - find out what's happening straight from the horse's mouth.
-<a href="/alert/"><strong>Sign up for an email alert</strong></a></p>
-<?		}
-	}
-	$PAGE->stripe_end();
+
+	$extra = alert_confirmation_advert(array('email'=>$email, 'pid'=>strstr($ALERT->criteria(),'speaker:')));
 	if ($extra)
 		$extra = "advert=$extra";
+	$PAGE->stripe_end();
 	$PAGE->page_end($extra);
 }
 

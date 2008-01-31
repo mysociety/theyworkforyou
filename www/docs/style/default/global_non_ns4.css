@@ -916,3 +916,15 @@ acronym {
 #topics ul {
 	margin-bottom: 1em;
 }
+
+/* Adverts */
+
+#advert_thin {
+	width: 50%;
+	margin: 0 auto;
+	padding-top: 0.5em;
+	border-top: dotted 1px #999999;
+}
+#advert_thin a {
+	font-weight: bold;
+}
