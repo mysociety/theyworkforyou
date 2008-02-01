@@ -44,7 +44,7 @@ function alert_confirmation_advert($details) {
 	$adverts = array(
 		array('hfymp', '<h2 style="border-top: dotted 1px #999999; padding-top:0.5em; margin-bottom:0">Get email from your MP in the future</h2> <p style="font-size:120%;margin-top:0;">and have a chance to discuss what they say in a public forum [form]Sign up to HearFromYourMP[/form]'),
 		array('fms', '<p>Got a local problem like potholes or flytipping in your street?<br><a href="http://www.fixmystreet.com/">Report it at FixMyStreet</a></p>'),
-		array('gny', '<h2>Are you a member of a local group&hellip;</h2> <p>&hellip;which uses the internet to coordinate itself, such as a neighbourhood watch? If so, please help the charity that runs TheyWorkForYou by <a href="http://www.groupsnearyou.com/">adding some information about it</a> to our new site, GroupsNearYou.</p>'),
+		array('gny', '<h2>Are you a member of a local group&hellip;</h2> <p>&hellip;which uses the internet to coordinate itself, such as a neighbourhood watch? If so, please help the charity that runs TheyWorkForYou by <a href="http://www.groupsnearyou.com/add/about/">adding some information about it</a> to our new site, GroupsNearYou.</p>'),
 		array('twfy_alerts', ''),
 	);
 
