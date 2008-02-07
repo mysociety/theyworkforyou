@@ -51,7 +51,7 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
 	$args = array (
 		's' => $searchstring,
 		'p' => $pagenum,
-        'pop' => get_http_var('pop'),
+        'pop' => 1,
         'o' => get_http_var('o'),
         'num' => $num,
 	);
