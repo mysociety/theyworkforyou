@@ -7,7 +7,7 @@
 define ("DB_HOST", "localhost");
 define ("DB_USER", "username");
 define ("DB_PASSWORD", "password");
-define ("DB_NAME", "fawkes");
+define ("DB_NAME", "twfy");
 
 // *******************************************************************************
 // Domains.
@@ -47,8 +47,8 @@ define ("DEBUGTAG", 'debug');
 define ("TIMEZONE", "Europe/London");
 
 // XML files and other scraped data stored as files
-define ("RAWDATA", "/home/fawkes/pwdata");
-define ('PWMEMBERS', '/home/fawkes/parlparse/members');
+define ("RAWDATA", "/home/twfy/pwdata");
+define ('PWMEMBERS', '/home/twfy/parlparse/members');
 
 // *******************************************************************************
 // If you've unpacked the tar file normally, and set the paths correctly above, 

@@ -1,6 +1,8 @@
 <?php
 
-$dir = '/home/fawkes/parldata/scrapedxml/regmem';
+include_once "../../includes/easyparliament/init.php";
+
+$dir = RAWDATA . 'scrapedxml/regmem';
 $dh = opendir($dir);
 $files = array();
 while ($file = readdir($dh)) {
@@ -9,7 +11,6 @@ while ($file = readdir($dh)) {
 }
 rsort($files);
 
-include_once "../../includes/easyparliament/init.php";
 $PAGE->page_start();
 ?>
 <style type="text/css">
