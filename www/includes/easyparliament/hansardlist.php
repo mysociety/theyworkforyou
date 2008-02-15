@@ -78,6 +78,8 @@ class HANSARDLIST {
 	$this->epobjectid_to_gid[ $epobject_id ] => $gid;
 	*/
 	
+	# Similarly, cache bill lookups
+	var $bill_lookup = array();
 	
 	// This is so we can tell what type of thing we're displaying from outside 
 	// the object. eg, so we know if we should be able to post comments to the
@@ -900,7 +902,7 @@ class HANSARDLIST {
 		}
 
 		$q = $this->db->query("SELECT hansard.subsection_id, hansard.section_id,
-					hansard.htype, hansard.gid, hansard.major,
+					hansard.htype, hansard.gid, hansard.major, hansard.minor,
 					hansard.hdate, hansard.htime, hansard.speaker_id,
 					epobject.body, epobject_section.body AS body_section,
 					epobject_subsection.body AS body_subsection,
@@ -928,6 +930,7 @@ class HANSARDLIST {
 					'section_id'	=> $q->field($n, 'section_id'),
 					'htype'		=> $q->field($n, 'htype'),
 					'major'		=> $q->field($n, 'major'),
+					'minor'		=> $q->field($n, 'minor'),
 					'hdate'		=> $q->field($n, 'hdate'),
 					'htime'		=> $q->field($n, 'htime'),
 					'speaker_id'	=> $q->field($n, 'speaker_id'),
@@ -1024,6 +1027,8 @@ class HANSARDLIST {
 		$data['searchdescription'] = $SEARCHENGINE->query_description_long();
 		$count = $SEARCHENGINE->run_count();
 		$data['info']['total_results'] = $count;
+		$data['info']['spelling_correction'] = $SEARCHENGINE->get_spelling_correction();
+
 		// Log this query so we can improve them - if it wasn't a "popular
 		// query" link
 		if (! isset($args['pop']) or $args['pop'] != 1) {
@@ -1077,6 +1082,7 @@ class HANSARDLIST {
 		for ($n=0; $n<count($gids); $n++) {
 			$gid = $gids[$n];
 			$relevancy = $relevances[$n];
+			$collapsed = $SEARCHENGINE->collapsed[$n];
 			if ($sort_order=='created') {
 				$created = substr($createds[$n], 0, strpos($createds[$n], ':'));
 				if ($created<$args['threshold']) {
@@ -1091,7 +1097,7 @@ class HANSARDLIST {
                                     hansard.section_id,
                                     hansard.subsection_id,
                                     hansard.htype,
-                                    hansard.major,
+                                    hansard.major, hansard.minor,
                                     hansard.speaker_id,
 				    hansard.hpos,
                                     epobject.body
@@ -1109,11 +1115,13 @@ class HANSARDLIST {
 			}
 		
 			$itemdata = array();
+			$itemdata['collapsed'] = $collapsed;
 			
 			$itemdata['gid'] 			= fix_gid_from_db( $q->field(0, 'gid') );
 			$itemdata['hdate'] 			= $q->field(0, 'hdate');	
 			$itemdata['htype'] 			= $q->field(0, 'htype');		
 			$itemdata['major'] 			= $q->field(0, 'major');
+			$itemdata['minor'] 			= $q->field(0, 'minor');
 			$itemdata['section_id'] 	= $q->field(0, 'section_id');
 			$itemdata['subsection_id'] 	= $q->field(0, 'subsection_id');
 			$itemdata['relevance'] 		= $relevances[$n];			
@@ -1156,6 +1164,7 @@ class HANSARDLIST {
 			
 			$id_data = array (
 				'major'			=> $itemdata['major'],
+				'minor'			=> $itemdata['minor'],
 				'htype' 		=> $itemdata['htype'],
 				'gid' 			=> $itemdata['gid'],
 				'section_id'	=> $itemdata['section_id'],
@@ -1571,7 +1580,7 @@ class HANSARDLIST {
 		
 		// The fields to fetch from db. 'table' => array ('field1', 'field2').
 		$fieldsarr = array (
-			'hansard' => array ('epobject_id', 'htype', 'gid', 'hpos', 'section_id', 'subsection_id', 'hdate', 'htime', 'source_url', 'major')
+			'hansard' => array ('epobject_id', 'htype', 'gid', 'hpos', 'section_id', 'subsection_id', 'hdate', 'htime', 'source_url', 'major', 'minor')
 		);
 		
 		if (isset($amount['speaker']) && $amount['speaker'] == true) {
@@ -1713,6 +1722,7 @@ class HANSARDLIST {
 				// All the things we need to work out a listurl!
 				$item_data = array (
 					'major'			=> $this->major,
+					'minor' 		=> $item['minor'],
 					'htype' 		=> $item['htype'],
 					'gid' 			=> $item['gid'],
 					'section_id'	=> $item['section_id'],
@@ -1861,7 +1871,8 @@ class HANSARDLIST {
 		if ($id_data['htype'] == '11' || $id_data['htype'] == '10') {
 			if ($this->major == 6) {
 				$id = preg_replace('#^.*?_.*?_#', '', $id_data['gid']);
-				$fragment = $this->url . '/' . $id;
+				global $DATA;
+				$DATA->set_page_metadata('pbc_clause', 'url', $this->url . '/' . $id);
 				$LISTURL->remove(array('id'));
 			} else {
 				$LISTURL->insert( array( 'id' => $id_data['gid'] ) );
@@ -1872,6 +1883,7 @@ class HANSARDLIST {
 			// We use this with the gid of the item itself as an #anchor.
 			
 			$parent_epobject_id = $id_data['subsection_id'];
+			$minor = $id_data['minor'];
 			
 			// Find the gid of this item's (sub)section.
 			$parent_gid = '';
@@ -1901,9 +1913,24 @@ class HANSARDLIST {
 			
 			if ($parent_gid != '') {
 				// We have a gid so add to the URL.
-				$LISTURL->insert( array( 'id' => $parent_gid ) );
+				if ($id_data['major']==6) {
+					if (isset($this->bill_lookup[$minor])) {
+						list($title, $session) = $this->bill_lookup[$minor];
+					} else {
+						$qq = $this->db->query('select title, session from bills where id='.$minor);
+						$title = $qq->field(0, 'title');
+						$session = $qq->field(0, 'session');
+						$this->bill_lookup[$minor] = array($title, $session);
+					}
+					$url = "$session/" . urlencode(str_replace(' ','_',$title));
+					$parent_gid = preg_replace('#^.*?_.*?_#', '', $parent_gid);
+					global $DATA;
+					$DATA->set_page_metadata('pbc_clause', 'url', "pbc/$url/$parent_gid");
+					$LISTURL->remove(array('id'));
+				} else {
+					$LISTURL->insert( array( 'id' => $parent_gid ) );
+				}
 				// Use a truncated form of this item's gid for the anchor.
-				
 				$fragment = '#g' . gid_to_anchor($id_data['gid']);
 			}
 		}
@@ -2495,7 +2522,7 @@ class DEBATELIST extends HANSARDLIST {
 								section_id,
 								htype,
 								gid,
-								major,
+								major, minor,
 								hdate,
 								speaker_id,
 								epobject.body,
@@ -2526,6 +2553,7 @@ class DEBATELIST extends HANSARDLIST {
 					'section_id'	=> $q->field($n, 'section_id'),
 					'htype'			=> $q->field($n, 'htype'),
 					'major'			=> $q->field($n, 'major'),
+					'minor'			=> $q->field($n, 'minor'),
 					'hdate'			=> $q->field($n, 'hdate'),
 					'body'			=> $q->field($n, 'body'),
 					'votes'			=> $q->field($n, 'total_vote')
@@ -2902,6 +2930,7 @@ class StandingCommittee extends DEBATELIST {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'standing/';
 		$this->bill_title = $title;
+		$title = str_replace(' ', '_', $title);
 		$this->url = urlencode($session) . '/' . urlencode($title);
 	}
 
@@ -3011,7 +3040,7 @@ class StandingCommittee extends DEBATELIST {
 		foreach ($bills as $id => $title) {
 			$data[] = array(
 				'title' => $title,
-				'url' => urlencode($title),
+				'url' => urlencode(str_replace(' ', '_', $title)),
 				'contentcount' => isset($counts[$id]) ? $counts[$id] : '???',
 				# 'totalcomments' => isset($comments[$id]) ? $comments[$id] : '???',
 			);
@@ -3055,7 +3084,7 @@ class StandingCommittee extends DEBATELIST {
 			$data[$hdate][] = array(
 				'bill'=> $title,
 				'sitting' => $sitting,
-				'url' => "$session/" . urlencode($title),
+				'url' => "$session/" . urlencode(str_replace(' ','_',$title)),
 			);
 		}
 		return $data;
