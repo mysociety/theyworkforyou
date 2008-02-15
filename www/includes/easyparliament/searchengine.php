@@ -66,7 +66,8 @@ class SEARCHENGINE {
         // Any characters other than this are treated as, basically, white space
         // (apart from quotes and minuses, special case below)
         // The colon is in here for prefixes speaker:10043 and so on.
-        $this->wordchars = "A-Za-z0-9,.;'&:";
+        $this->wordchars = "A-Za-z0-9,.'&:";
+        $this->wordcharsnodigit = "A-Za-z0-9'&:";
 
         // An array of normal words.
         $this->words = array();
@@ -433,7 +434,7 @@ class SEARCHENGINE {
             $body = join('|||', $body);
         }
 
-		$splitextract = preg_split('/(['.$this->wordchars.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
+		$splitextract = preg_split('/([0-9,.]+|['.$this->wordcharsnodigit.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
 		$hlextract = "";
         $stemmed_words = array_map(array($this, 'stem'), $this->words);
 		foreach( $splitextract as $extractword) {
