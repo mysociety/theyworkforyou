@@ -47,7 +47,7 @@ if ($action eq "sincefile") {
     if (-e $lastupdatedfile) {
         # Read unix time from file
         open FH, "<$lastupdatedfile" or die "couldn't open $lastupdatedfile even though it is there";
-        $since_date_condition = " and hansard.modified >= from_unixtime('" . (readline FH) . "')";
+        $since_date_condition = " where hansard.modified >= from_unixtime('" . (readline FH) . "')";
         close FH;
     } else {
         # No file, update everything
@@ -108,13 +108,13 @@ if ($action ne "check") {
 	    left join member on hansard.speaker_id = member.member_id
         left join epobject as section on hansard.section_id = section.epobject_id";
     if ($action eq "lastweek") {
-        $query .= " and hdate > date_sub(curdate(), interval 7 day)";
+        $query .= " where hdate > date_sub(curdate(), interval 7 day)";
     } if ($action eq "lastmonth") {
-        $query .= " and hdate > date_sub(curdate(), interval 1 month)";
+        $query .= " where hdate > date_sub(curdate(), interval 1 month)";
     } elsif ($action eq "sincefile") {
         $query .= $since_date_condition;
     } elsif ($action eq "daterange") {
-        $query .= " and hdate >= '$datefrom' and hdate <= '$dateto'";
+        $query .= " where hdate >= '$datefrom' and hdate <= '$dateto'";
     }
     $query .= ' and major = ' . $section if ($section);
     $query .= ' ORDER BY hdate,major,hpos';
