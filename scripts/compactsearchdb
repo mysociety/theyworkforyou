@@ -1,27 +1,23 @@
-#!/bin/bash
-# compactsearchdb. Compacts the Xapian search database using quartzcompact.
+#! /usr/bin/perl -w
+# compactsearchdb. Compacts the Xapian search database
+#
+# $Id: compactsearchdb,v 1.2 2008-02-15 19:38:53 matthew Exp $
 
-#set -x  # for debugging, prints each line before executing it
-set -e
+use strict;
 
-source /home/fawkes/fawkes/scripts/consts
+use FindBin;
+use File::Path;
+use lib "$FindBin::Bin/../../perllib";
 
-# Make sure only one copy runs at once
-if [ x$LOCKFILE = x ]
-then
-        /home/fawkes/fawkes/scripts/run-with-lockfile -n /home/fawkes/fawkes/scripts/morningupdate-lockfile $0
-        if [ $? = 100 ]
-        then
-                echo "morningupdate or compactsearchdb is already running" 1>&2
-        fi
-        exit $?
-fi
+use mySociety::Config;
+mySociety::Config::set_file('../conf/general');
 
-cd ~
-rm -fr searchdb-compacted
-/usr/local/bin/quartzcompact ~/searchdb/ ~/searchdb-compacted/ >/dev/null
-rm -fr searchdb-previous
-mv searchdb searchdb-previous
-mv searchdb-compacted searchdb
+my $xapian = mySociety::Config::get('XAPIANDB');
 
+chdir $xapian . '/../';
+rmtree('searchdb-compacted');
+system('xapian-compact searchdb/ searchdb-compacted/ >/dev/null');
+rmtree('searchdb-previous');
+rename 'searchdb', 'searchdb-previous';
+rename 'searchdb-compacted', 'searchdb';
 

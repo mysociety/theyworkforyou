@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.24 2008-02-15 17:01:28 matthew Exp $
+# $Id: xml2db.pl,v 1.25 2008-02-15 19:38:53 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -24,6 +24,7 @@ use mySociety::Config;
 mySociety::Config::set_file('../conf/general');
 
 my $parldata = mySociety::Config::get('RAWDATA');
+my $lastupdatedir = mySociety::Config::get('XAPIANDB') . '/../xml2db/';
 
 use DBI; 
 use XML::Twig;
@@ -96,7 +97,7 @@ database id.
 --scotwrans - process Scottish Parliament written answers
 --standing - process Public Bill Commitees (Standing Committees as were)
 
---recent - acts incrementally, using xml2db-lastload files
+--recent - acts incrementally, using -lastload files
 --all - reprocess every single date back in time
 --date=YYYY-MM-DD - reprocess just this date
 --from=YYYY-MM-DD --to=YYYY-MM-DD - reprocess this date range
@@ -191,7 +192,7 @@ sub process_type {
 
         my $process;
         my $xsince = 0;
-        if (open FH, '<' . $xdirs->[0] . 'xml2db-lastload') {
+        if (open FH, '<' . $lastupdatedir . $xnames->[0] . '-lastload') {
                 $xsince = readline FH;
                 close FH;
         }
@@ -263,8 +264,8 @@ sub process_type {
                         # (the rsync from parlparse might have only got one of two files set in 
                         # the same second, and next time it might get the other)
                         #print "$xname since: $xsince new max $xmaxtime from changedates\n";
-                        my $xdir = $xdirs->[0];
-                        open FH, ">${xdir}xml2db-lastload" or die "couldn't open ${xdir}xml2db-lastload for writing";
+                        my $xname = $xnames->[0];
+                        open FH, ">$lastupdatedir$xname-lastload" or die "couldn't open $lastupdatedir$xname-lastload for writing";
                         print FH $xxmaxtime;
                         close FH;
                 }

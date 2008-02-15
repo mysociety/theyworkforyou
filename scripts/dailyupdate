@@ -1,12 +1,25 @@
-#!/bin/bash
+#! /usr/bin/perl -w
 # Jobs that need running daily, that aren't with urgency dependent on new stuff
 # from Hansard
+#
+# $Id: dailyupdate,v 1.2 2008-02-15 19:38:53 matthew Exp $
 
-source ~/fawkes/scripts/consts
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../../perllib";
+
+use mySociety::Config;
+mySociety::Config::set_file('../conf/general');
+
+my $staging = mySociety::Config::get('DEVSITE');
+my $pwmembers = mySociety::Config::get('PWMEMBERS');
 
 # Update MP info from Public Whip, FaxYourMP and other places
-cd ~/parlparse/members
-svn -q update
-cd ~/fawkes/scripts
-./mpinfoin.pl
+unless ($staging) {
+    chdir $pwmembers;
+    system 'svn -q update';
+}
+chdir $FindBin::Bin;
+system './mpinfoin.pl';
 

@@ -1,11 +1,9 @@
 #!/bin/bash
-# Jobs that need running weekly
+# Get new wikipedia titles database
+# Only runs on live site
 #set -x
 
-source ~/fawkes/scripts/consts
-
-# Get new wikipedia titles database
-cd ~/parldata/dumps
+cd /home/twfy-live/parldata/dumps
 rm -f all-titles-in-ns0.gz
 rm -f all-titles-in-ns0
 
@@ -13,13 +11,9 @@ DUMPDATE=`fetch -q -o - http://download.wikimedia.org/backup-index.html | grep "
 #echo "Wikipedia dump date $DUMPDATE"
 fetch -q -o all-titles-in-ns0.gz http://download.wikimedia.org/enwiki/$DUMPDATE/enwiki-$DUMPDATE-all-titles-in-ns0.gz
 gunzip all-titles-in-ns0.gz
-echo "load data infile '/home/fawkes/parldata/dumps/all-titles-in-ns0' ignore into table titles;" | mysql
-cd ~/fawkes/scripts
+echo "load data infile '/home/twfy-live/parldata/dumps/all-titles-in-ns0' ignore into table titles;" | mysql
+cd /data/vhost/www.theyworkforyou.com/mysociety/twfy/scripts
 cat wikipedia-exceptions | mysql
-
-# Compact Xapian database
-./compactsearchdb
-
 
 #Full database:
 #http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2

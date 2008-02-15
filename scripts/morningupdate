@@ -6,7 +6,6 @@
 
 #set -x  # for debugging, prints each line before executing it
 
-source /home/fawkes/fawkes/scripts/consts
 [ -z "$VERBOSE" ] && VERBOSE=false
 
 if $VERBOSE
@@ -21,7 +20,7 @@ fi
 # Make sure only one copy runs at once
 if [ x$LOCKFILE = x ]
 then
-        /home/fawkes/fawkes/scripts/run-with-lockfile -n /home/fawkes/fawkes/scripts/morningupdate-lockfile $0
+        run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/morning-update.lock $0
         if [ $? = 100 ]
         then
                 echo "Another copy of morningupdate or compactsearchdb is already running" 1>&2
@@ -34,7 +33,7 @@ fi
 
 # Get new data -- with the "-a" so we get same timestamps as remote filesystem
 $VERBOSE && echo "Rsyncing new data from parlparse"
-rsync --exclude '.zip' --exclude '.svn' --exclude 'tmp/' --recursive --archive ukparse.kforge.net::parldata /home/fawkes/parldata
+rsync --exclude '.zip' --exclude '.svn' --exclude 'tmp/' --recursive --archive ukparse.kforge.net::parldata /home/twfy-live/parldata
 
 # Load recent new files from XML into the database
 $VERBOSE && echo "Loading into database"
