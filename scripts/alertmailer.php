@@ -2,14 +2,14 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.20 2008-01-25 16:24:14 twfy-live Exp $
+ * $Id: alertmailer.php,v 1.21 2008-02-15 23:29:21 matthew Exp $
  */
 
 function mlog($message) {
 	print $message;
 }
 
-include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
+include_once '../www/includes/easyparliament/init.php';
 ini_set('memory_limit', -1);
 include INCLUDESPATH . 'easyparliament/member.php';
 
@@ -23,7 +23,11 @@ mlog("max_batch_id: " . $max_batch_id . "\n");
 
 # Last sent is timestamp of last alerts gone out.
 # Last batch is the search index batch number last alert went out to.
-$lastsent = file('alerts-lastsent');
+if (is_file('alerts-lastsent'))
+	$lastsent = file('alerts-lastsent');
+else
+	$lastsent = array('', 0);
+
 $lastupdated = trim($lastsent[0]);
 if (!$lastupdated) $lastupdated = strtotime('00:00 today');
 $lastbatch = trim($lastsent[1]);
@@ -54,6 +58,9 @@ for ($k=1; $k<$argc; $k++) {
 	if (preg_match('#^--to=(.*)$#', $argv[$k], $m))
 		$toemail = $m[1];
 }
+
+if (DEVSITE)
+	$nomail = true;
 
 if ($nomail) mlog("NOT SENDING EMAIL\n");
 if (($fromemail && $onlyemail) || ($toemail && $onlyemail)) {

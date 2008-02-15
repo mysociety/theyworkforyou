@@ -18,7 +18,7 @@ $data['info'] = array (
 );
 */
 
-global $PAGE, $this_page, $GLOSSARY;
+global $PAGE, $this_page, $GLOSSARY, $hansardmajors;
 
 twfy_debug("TEMPLATE", "hansard_search.php");
 
@@ -42,30 +42,35 @@ if (isset($info['total_results']) && $info['total_results'] > 0) {
 	print "\t\t\t\t<h3>Results " . number_format($info['first_result']) . '-' . number_format($last_result) . ' of ' . number_format($info['total_results']) . " items " . htmlentities($searchdescription) . "</h3>\n";
 
 } elseif ($info['total_results'] == 0) {
-	?>
-	<h3>Your search for items <?php echo htmlentities($searchdescription); ?> did not match anything in Hansard</h3>
+	echo '<h3>Your search for items ', htmlentities($searchdescription), ' did not match anything in Hansard</h3>';
+}
 
-<?php
+if ($info['spelling_correction']) {
+        $u = new URL('search');
+	$u->insert(array('s' => $info['spelling_correction']));
+    	echo '<p><big>Did you mean: <a href="' . $u->generate(), '">', $info['spelling_correction'] . '</a>?</big></p>';
 }
 
 if (isset ($data['rows']) && count($data['rows']) > 0) {
 
-	?>
-				<dl id="searchresults">
-<?php
+	echo '<dl id="searchresults">';
 	for ($i=0; $i<count($data['rows']); $i++) {
 	
 		$row = $data['rows'][$i];
-		
-		?>
-					<dt><a href="<?php echo $row['listurl']; ?>"><?php
+		echo '<dt><a href="', $row['listurl'], '">';
 		if (isset($row['parent']) && count($row['parent']) > 0) {
 			echo ('<strong>' . $row['parent']['body'] . '</strong>');			
 		}
-		echo ('</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT) . ')</small>');
-		?></dt>
-					<dd><p><?php
-		
+		echo '</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT) . ')';
+		if ($row['collapsed'] && $row['subsection_id']) {
+		    $URL = new URL('search');
+		    $URL->insert(array('s' => $data['info']['s'] . " segment:$row[subsection_id]" ));
+		    echo ' <a href="', $URL->generate(), '">See ', $row['collapsed'],
+		   	' other result', $row['collapsed']>1?'s':'', ' from this ',
+			$hansardmajors[$row['major']]['singular'], '</a>';
+		}
+		echo '</small>';
+		echo '</dt> <dd><p>';
 		if (isset($row['speaker']) && count($row['speaker'])) {
 			$sp = $row['speaker'];
 			echo "<em>" . ucfirst(member_full_name($sp['house'], $sp['title'], $sp['first_name'], $sp['last_name'], $sp['constituency'])) . "</em>: ";
@@ -75,17 +80,10 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 	
 	}
 	
-	?>
-				</dl> <!-- end searchresults -->
-
-<?php 
-
+	echo '</dl> <!-- end searchresults -->';
 	$PAGE->page_links($info);
-	
-	$PAGE->search_form();
+	$PAGE->search_form($data['info']['s']);
 
 }
 // else, no results.
 
-
-?>

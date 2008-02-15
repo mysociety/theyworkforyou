@@ -28,22 +28,45 @@ Example usage:
 include_once INCLUDESPATH . 'dbtypes.php';
 include_once '/usr/share/php5/xapian.php';
 
-global $xapiandb;
-
 class SEARCHENGINE {
 
 	function SEARCHENGINE ($query) {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
+        global $xapiandb;
+        if (!$xapiandb) {
+            $xapiandb = new XapianDatabase(XAPIANDB);
+        }
 		$this->query = $query;
-        $this->stemmer = new XapianStem('english');
-        $this->enquire = null; 
+        if (!isset($this->stemmer)) $this->stemmer = new XapianStem('english');
+        if (!isset($this->enquire)) $this->enquire = new XapianEnquire($xapiandb);
+        if (!isset($this->queryparser)) {
+            $this->queryparser = new XapianQueryParser();
+            $this->datevaluerange = new XapianDateValueRangeProcessor(1);
+            $this->queryparser->set_stemmer($this->stemmer);
+            $this->queryparser->set_stemming_strategy(XapianQueryParser::STEM_SOME);
+            $this->queryparser->set_database($xapiandb);
+            $this->queryparser->set_default_op(Query_OP_AND);
+            $this->queryparser->add_boolean_prefix('speaker', 'S');
+            $this->queryparser->add_boolean_prefix('major', 'M');
+            $this->queryparser->add_boolean_prefix('date', 'D');
+            $this->queryparser->add_boolean_prefix('batch', 'B');
+            $this->queryparser->add_boolean_prefix('segment', 'U');
+            $this->queryparser->add_boolean_prefix('department', 'G');
+            $this->queryparser->add_boolean_prefix('party', 'P');
+            $this->queryparser->add_boolean_prefix('column', 'C');
+            $this->queryparser->add_boolean_prefix('gid', 'Q');
+            $this->queryparser->add_valuerangeprocessor($this->datevaluerange);
+        }
+
+        # Force words to lower case
+        $this->query = preg_replace('#(department|party):.+?\b#ie', 'strtolower("$0")', $this->query);
 
         // Any characters other than this are treated as, basically, white space
         // (apart from quotes and minuses, special case below)
         // The colon is in here for prefixes speaker:10043 and so on.
-        $this->wordchars = "A-Za-z0-9:";
+        $this->wordchars = "A-Za-z0-9,.;'&:";
 
         // An array of normal words.
         $this->words = array();
@@ -53,8 +76,8 @@ class SEARCHENGINE {
         $this->prefixed = array();
         // Words you don't want
         $this->excluded = array();
-        // Stemmed words // doesn't work yet
-        // $this->rough = array();
+        # Date ranges
+        $this->ranges = array();
         
         // Split words up into individual words, and quoted phrases
         preg_match_all('/(' .
@@ -70,6 +93,7 @@ class SEARCHENGINE {
             $all_words = array();
         }
         $in_quote = false;
+        $from = ''; $to = '';
         foreach ($all_words as $word) {
             if ($word == '"') {
                 $in_quote = !$in_quote;
@@ -81,43 +105,77 @@ class SEARCHENGINE {
             if ($word == '') {
                 continue;
             }
- 
+
             if (strpos($word, ':') !== false) {
                 $items = split(":", strtolower($word));
                 $type = $items[0];
-                $value = join(":", array_slice($items,1));
-                if ($type == "section") {
-                    if ($value == "debates" || $value == "debate") $value = 1;
-                    elseif ($value == 'whall' || $value == 'westminster' || $value == 'westminhall') $value = 2;
-                    elseif ($value == "wrans" || $value == "wran") $value = 3;
-                    elseif ($value == 'wms' || $value == 'statements' || $value == 'statement') $value = 4;
-                    elseif ($value == 'lordsdebates' || $value == 'lords') $value = 101;
-                    elseif ($value == 'ni') $value = 5;
-                    elseif ($value == 'pbc' || $value == 'standing') $value = 6;
-                    $type = "major";
+                $value = strtolower(join(":", array_slice($items,1)));
+                if ($type == 'section') {
+                    $newv = $value;
+                    if ($value == 'debates' || $value == 'debate') $newv = 1;
+                    elseif ($value == 'whall' || $value == 'westminster' || $value == 'westminhall') $newv = 2;
+                    elseif ($value == 'wrans' || $value == 'wran') $newv = 3;
+                    elseif ($value == 'wms' || $value == 'statements' || $value == 'statement') $newv = 4;
+                    elseif ($value == 'lordsdebates' || $value == 'lords') $newv = 101;
+                    elseif ($value == 'ni') $newv = 5;
+                    elseif ($value == 'pbc' || $value == 'standing') $newv = 6;
+                    elseif ($value == 'sp') $newv = 7;
+                    elseif ($value == 'spwrans') $newv = 8;
+                    $this->query = str_ireplace("$type:$value", "major:$newv", $this->query);
+                    array_push($this->prefixed, array('major', $newv));
+                } elseif ($type == 'location') {
+                    $values = array();
+                    if ($value == 'uk') $values = array(1,2,3,4,6,101);
+                    elseif ($value == 'ni') $values = array(5);
+                    elseif ($value == 'scotland') $values = array(7,8);
+                    $newv = '';
+                    foreach ($values as $v) {
+                        $newv .= "major:$v ";
+                    }
+                    if ($newv) {
+                        $this->query = str_ireplace("$type:$value", $newv, $this->query);
+                        array_push($this->prefixed, array($type, $value));
+                    }
+                } elseif ($type == 'groupby') {
+                    $newv = $value;
+                    if ($value == 'date' || $value == 'day') $newv = 'day';
+                    if ($value == 'debates' || $value == 'debate') $newv = 'debate';
+                    if ($value == 'speech' || $value == 'speeches') $newv = 'speech';
+                    $this->query = str_ireplace("$type:$value", '', $this->query);
+                    array_push($this->prefixed, array($type, $newv));
+                } elseif ($type == 'from') {
+                    $from = $value;
+                } elseif ($type == 'to') {
+                    $to = $value;
+                } else {
+                    array_push($this->prefixed, array($type, $value));
                 }
-                if ($type == "groupby") {
-                    if ($value == "date" || $value == "day") $value = "day";
-                    if ($value == "debates" || $value == "debate" || $value == "department" || $value == "departments" || $value == "dept") $value = "debate";
-                    if ($value == "speech" || $value == "speeches") $value = "speech";
-                }
-                array_push($this->prefixed, array($type, $value));
             } elseif (strpos($word, '-') !== false) {
                 array_push($this->excluded, str_replace("-", "", strtolower($word)));
-            } /*else if (strpos($word, '~') !== false) {
-                array_push($this->rough, str_replace("~", "", strtolower($word)));
-            } */ elseif ($in_quote) {
+            } elseif ($in_quote) {
                 array_push($this->phrases[count($this->phrases) - 1], strtolower($word));
+            } elseif (strpos($word, '..') !== false) {
+                array_push($this->ranges, $word);
             } else {
                 array_push($this->words, strtolower($word));
             }
         }
+        if ($from && $to) {
+            $this->query = str_ireplace("from:$from", '', $this->query);
+            $this->query = str_ireplace("to:$to", '', $this->query);
+            $this->query .= " $from..$to";
+            array_push($this->ranges, "$from..$to");
+        } elseif ($from) {
+            $this->query = str_ireplace("from:$from", '', $this->query);
+            $this->query .= " $from..".date('Ymd');
+            array_push($this->ranges, "$from..now");
+        } elseif ($to) {
+            $this->query = str_ireplace("to:$to", '', $this->query);
+            $this->query .= " 19990101..$to";
+            array_push($this->ranges, "long ago..$to");
+        }
 
-        twfy_debug("SEARCH", "words: " . var_export($this->words, true));
-        twfy_debug("SEARCH", "phrases: " . var_export($this->phrases, true));
         twfy_debug("SEARCH", "prefixed: " . var_export($this->prefixed, true));
-        twfy_debug("SEARCH", "excluded: " . var_export($this->excluded, true));
-        // twfy_debug("SEARCH", "rough: " . var_export($this->rough, true));
     }
 
     function make_phrase($phrasearray) {
@@ -131,6 +189,8 @@ class SEARCHENGINE {
             return '';
 
         $description = "";
+
+#        return 'Not working currently... ' . $this->query;
 
         if (count($this->words) > 0) {
             if ($long and $description == "") {
@@ -172,15 +232,6 @@ class SEARCHENGINE {
             $description .= " '" . join(' ', $this->excluded) . "'";
         }
 
-/*        if (count($this->rough) > 0) {
-            if ($description == "") {
-                if ($long) {
-                    $description .= " containing ";
-                }
-            }
-            $description .= " roughly words '" . join(' ', $this->rough) . "'";
-        } */
-
         $major = array(); $speaker = array();
         foreach( $this->prefixed as $items ) {
             if ($items[0] == 'speaker') {
@@ -197,24 +248,48 @@ class SEARCHENGINE {
                 if ($items[1] == 'day') {
                     $description .= ' grouped by day';
                 } elseif ($items[1] == 'debate') {
-                    $description .= ' grouped by debate/department';
+                    $description .= ' grouped by debate';
                 } elseif ($items[1] == 'speech') {
                     $description .= ' showing all speeches';
                 } else {
                     $PAGE->error_message("Unknown group by '$items[1]' ignored");
                 }
-            } elseif ($items[0] == "bias") {
-                list($weight, $halflife) = explode(":", $items[1]);
-                $description .= " bias by $weight halflife $halflife seconds";
             } elseif ($items[0] == 'date') {
                 $description .= ' spoken on ' . $items[1];
             } elseif ($items[0] == 'batch') {
                 # silently ignore, as description goes in email alerts
                 #$description .= ' in search batch ' . $items[1];
+            } elseif ($items[0] == 'location') {
+                $description .= ' in the ';
+                if ($items[1] == 'scotland') {
+                    $description .= 'Scottish Parliament';
+                } elseif ($items[1] == 'ni') {
+                    $description .= 'Northern Ireland Assembly';
+                } elseif ($items[1] == 'uk') {
+                    $description .= 'UK Parliament';
+                }
+            } elseif ($items[0] == 'segment') {
+                $description .= ' restricted to a particular segment';
+            } elseif ($items[0] == 'department') {
+                $description .= ' for the ' . $items[1] . ' department';
+            } elseif ($items[0] == 'column') {
+                $description .= ' from column ' . $items[1];
+            } elseif ($items[0] == 'party') {
+                $description .= ' by someone in the ' . $items[1] . ' party';
             } else {
                 $PAGE->error_message("Unknown search prefix '$items[0]' ignored");
             }
         }
+
+        foreach ($this->ranges as $range) {
+            $range = explode('..', $range);
+            $from = format_date(preg_replace('#(\d{4})(\d\d)(\d\d)#', '$1-$2-$3', $range[0]), LONGDATEFORMAT);
+            $to = format_date(preg_replace('#(\d{4})(\d\d)(\d\d)#', '$1-$2-$3', $range[1]), LONGDATEFORMAT);
+            if (!$from) $from = $range[0];
+            if (!$to) $to = $range[1];
+            $description .= " between $from and $to";
+        }
+
         if (sizeof($speaker)) $description .= ' by ' . join(' or ', $speaker);
         if (sizeof($major)) $description .= ' in ' . join(' or ', $major);
 
@@ -233,39 +308,11 @@ class SEARCHENGINE {
 
     // Return stem of a word
     function stem($word) {
-        return $this->stemmer->stem_word(strtolower($word));
+        return $this->stemmer->apply(strtolower($word));
     }
 
-    // Internal use mainly - you probably want query_description.  Converts
-    // parsed form of query that PHP knows into a full textual form again (for
-    // feeding to Xapian's queryparser).
-    function query_remade() {
-        $remade = array();
-        foreach( $this->phrases as $phrase ) {
-            $remade[] = '"' . join(' ', $phrase) . '"';
-        }
-        if ($this->words) {
-            $remade = array_merge($remade, $this->words);
-        }
-
-        $prefixes = array();
-        foreach( $this->prefixed as $items ) {
-            if (!isset($prefixes[$items[0]])) $prefixes[$items[0]] = array();
-            if ($items[0] != 'groupby' && $items[0] != 'bias') {
-                $prefixes[$items[0]][] = $items[0] . ':' . $items[1];
-            }
-        }
-        foreach ($prefixes as $prefix) {
-            if (count($prefix))
-                $remade[] = '(' . join(' OR ', $prefix) . ')';
-        }
-
-        $query = trim(join(' AND ', $remade));
-        if ($this->excluded) {
-            $query .= ' NOT (' . join(' AND ', $this->excluded) . ')';
-        }
-        // $remade .= ' ' . join(' ', array_map(array($this, "stem"), $this->rough));
-        return $query;
+    function get_spelling_correction() {
+        return $this->queryparser->get_corrected_query_string();
     }
 
     // Perform partial query to get a count of number of matches
@@ -274,27 +321,14 @@ class SEARCHENGINE {
             return null;
 
 		$start = getmicrotime();
-        global $xapiandb;
-        if (!$xapiandb) {
-            $xapiandb = new XapianDatabase(XAPIANDB);
-        }
-        if (!$this->enquire) {
-            $this->enquire = new XapianEnquire($xapiandb);
-        }
 
-        $queryparser = new XapianQueryParser();
-        $queryparser->set_stemming_strategy(QueryParser_STEM_NONE);
-        $queryparser->set_default_op(Query_OP_AND);
-        $queryparser->add_prefix("speaker", "speaker:");
-        $queryparser->add_prefix("major", "major:");
-        $queryparser->add_prefix('date', 'date:');
-        $queryparser->add_prefix('batch', 'batch:');
-        twfy_debug("SEARCH", "query remade -- ". $this->query_remade());
-        // We rebuild (with query_remade) our query and feed that text string to 
-        // the query parser.  This is because the error handling in the query parser
-        // is a bit knackered, and we want to be sure our highlighting etc. exactly
-        // matches. XXX don't need to do this for more recent Xapians
-        $query = $queryparser->parse_query($this->query_remade());
+        twfy_debug("SEARCH", "query -- ". $this->query);
+        $query = $this->queryparser->parse_query($this->query,
+            XapianQueryParser::FLAG_BOOLEAN | XapianQueryParser::FLAG_PHRASE |
+            XapianQueryParser::FLAG_LOVEHATE | XapianQueryParser::FLAG_WILDCARD |
+            XapianQueryParser::FLAG_SPELLING_CORRECTION
+        );
+        #print 'DEBUG: ' . $query->get_description();
         twfy_debug("SEARCH", "queryparser description -- " . $query->get_description());
 
         $this->enquire->set_query($query);
@@ -302,28 +336,24 @@ class SEARCHENGINE {
         // Set collapsing and sorting
         global $PAGE;
         $collapsed = false;
+        if (preg_match('#(speaker|segment):\d+#', $this->query)) {
+            $collapsed = true;
+        }
         foreach( $this->prefixed as $items ) {
             if ($items[0] == 'groupby') {
                 $collapsed = true;
-                if ($items[1] == 'day') 
-                    $this->enquire->set_collapse_key(2);
-                else if ($items[1] == 'debate')
-                    $this->enquire->set_collapse_key(3);
-                else if ($items[1] == 'speech')
+                if ($items[1] == 'speech')
                     ; // no collapse key
+                elseif ($items[1] == 'debate')
+                    $this->enquire->set_collapse_key(3);
                 else 
                     $PAGE->error_message("Unknown group by '$items[1]' ignored");
-            } elseif ($items[0] == 'bias') {
-                list($weight, $halflife) = explode(":", $items[1]);
-                $this->enquire->set_bias($weight, intval($halflife));
-            } elseif ($items[0] == 'speaker') {
-                # Don't do any collapsing if we're searching for a person's speeches
-                $collapsed = true;
             }
         }
+
         // default to grouping by subdebate, i.e. by page
         if (!$collapsed)
-            $this->enquire->set_collapse_key(7);
+            $this->enquire->set_collapse_key(3);
         
         $matches = $this->enquire->get_mset(0, 500);
         // Take either: 1) the estimate which is sometimes too large or 2) the
@@ -347,10 +377,10 @@ class SEARCHENGINE {
         // NOTE: this is to do sort by date
         switch ($sort_order) {
             case 'date':
-                $this->enquire->set_sorting(0, 1);
+                $this->enquire->set_sort_by_value(0);
                 break;
             case 'created':
-                $this->enquire->set_sorting(6, 1); 
+                $this->enquire->set_sort_by_value(2); 
             default:
                 //do nothing, default ordering is by relevance
                 break;
@@ -358,20 +388,22 @@ class SEARCHENGINE {
         $matches = $this->enquire->get_mset($first_result, $results_per_page);
 		$this->gids = array();
         $this->created = array();
+        $this->collapsed = array();
 		$this->relevances = array();
         $iter = $matches->begin();
         $end = $matches->end();
-        while (!$iter->equals($end))
-        {
-            $relevancy =  $iter->get_percent();
-            $weight =  $iter->get_weight();
-            $doc = $iter->get_document();
-            $gid = $doc->get_data();
-            if ($sort_order=='created') {
+        while (!$iter->equals($end)) {
+            $relevancy = $iter->get_percent();
+            $weight    = $iter->get_weight();
+            $collapsed = $iter->get_collapse_count();
+            $doc       = $iter->get_document();
+            $gid       = $doc->get_data();
+            if ($sort_order == 'created') {
                 array_push($this->created, $doc->get_value(6));
             }
 			twfy_debug("SEARCH", "gid: $gid relevancy: $relevancy% weight: $weight");
 			array_push($this->gids, "uk.org.publicwhip/".$gid);
+            array_push($this->collapsed, $collapsed);
 			array_push($this->relevances, $relevancy);
             $iter->next();
         }
@@ -395,6 +427,35 @@ class SEARCHENGINE {
         $findwords = array();
         $replacewords = array();
             
+        $was_array = false;
+        if (is_array($body)) {
+            $was_array = true;
+            $body = join('|||', $body);
+        }
+
+		$splitextract = preg_split('/(['.$this->wordchars.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
+		$hlextract = "";
+        $stemmed_words = array_map(array($this, 'stem'), $this->words);
+		foreach( $splitextract as $extractword) {
+			$hl = false;
+			foreach( $stemmed_words as $word ) {
+				if ($word == '') continue;
+				
+				$matchword  = $this->stem($extractword);
+				if ($matchword == $word) {
+					$hl = true;
+					break;
+				}
+			}
+			if ($hl)
+				$hlextract .= "<span class=\"hi\">$extractword</span>";
+			else
+				$hlextract .= $extractword;
+		}
+        $body = preg_replace("#</span>\s+<span class=\"hi\">#", " ", $hlextract);
+
+        /*
+        XXX OLD Way of doing it, doesn't work too well with stemming...
         foreach ($this->words as $word) {
             if (ctype_digit($word)) {
                 array_push($findwords, "/\b($word|" . number_format($word) . ")\b/");
@@ -405,12 +466,14 @@ class SEARCHENGINE {
             //array_push($findwords, "/([^>\.\'])\b(" . $word . ")\b([^<\'])/i");
             //array_push($replacewords, "\\1<span class=\"hi\">\\2</span>\\3");
         }
+        */
+
         foreach( $this->phrases as $phrase ) {
             $phrasematch = join($phrase, '[^'.$this->wordchars.']+');
             array_push($findwords, "/\b($phrasematch)\b/i");
             $replacewords[] = "<span class=\"hi\">\\1</span>";
         }
-            
+
         // Highlight search words.
         $hlbody = preg_replace($findwords, $replacewords, $body);
         // Remove any highlighting within HTML.
@@ -418,6 +481,10 @@ class SEARCHENGINE {
         $hlbody = preg_replace('#<(/?)<span class="hi">a</span>([^>]*?)>#', "<\\1a\\2>", $hlbody); # XXX Horrible hack
         // Collapse duplicates
         $hlbody = preg_replace("#</span>(\W+)<span class=\"hi\">#", "\\1", $hlbody);
+
+        if ($was_array) {
+            $hlbody = explode('|||', $hlbody);
+        }
 
         return $hlbody;
     }
@@ -442,15 +509,13 @@ class SEARCHENGINE {
         }
 
         // only look for earlier words if phrases weren't found
-        if ($pos == -1) 
-        {
+        if ($pos == -1) {
             foreach( $this->words as $word ) {
                 if (ctype_digit($word)) $word = '(?:'.$word.'|'.number_format($word).')';
-                if (preg_match('/([^'.$this->wordchars.']' . $word . '[^'.$this->wordchars. '])/', $lcbody, $matches))
-                {
+                if (preg_match('/([^'.$this->wordchars.']' . $word . '[^'.$this->wordchars. '])/', $lcbody, $matches)) {
                     $wordpos = strpos( $lcbody, $matches[0] );
                     if ($wordpos) {
-                       if ( ($wordpos < $pos) || ($pos==-1) ) {
+                        if ( ($wordpos < $pos) || ($pos==-1) ) {
                             $pos = $wordpos;
                         }
                     }
@@ -458,60 +523,25 @@ class SEARCHENGINE {
             }
         }
 
+        // only look for something containing the word (ie. something stemmed) if no whole word was found
         if ($pos == -1) {
-            $pos = 0;
+            foreach( $this->words as $word ) {
+                if (ctype_digit($word)) $word = '(?:'.$word.'|'.number_format($word).')';
+                if (preg_match('/(' . $word . ')/', $lcbody, $matches)) {
+                    $wordpos = strpos( $lcbody, $matches[0] );
+                    if ($wordpos) {
+                        if ( ($wordpos < $pos) || ($pos==-1) ) {
+                            $pos = $wordpos;
+                        }
+                    }
+                }
+            }
         }
-    
+
+        if ($pos == -1)
+            $pos = 0;
         return $pos;
     }
-
-/*
-    old stemming code (does syntax highlighting with stemming, but does it badly)
-
-			$splitextract = preg_split("/([a-zA-Z]+)/", $extract, -1, PREG_SPLIT_DELIM_CAPTURE);
-			$hlextract = "";
-			foreach( $splitextract as $extractword) {
-				$hl = false;
-				foreach( $searchstring_stemwords as $word ) {
-					if ($word == '') {
-						continue;
-					}
-					
-					$matchword  = $searchengine->stem($extractword);
-					#print "$extractword : $matchword : $word<br>";
-					if ($matchword == $word) {
-						$hl = true;
-						break;
-					}
-				}
-				if ($hl)
-					$hlextract .= "<span class=\"hi\">$extractword</span>";
-				else
-					$hlextract .= $extractword;
-			}
-            $hlextract = preg_replace("#</span>\s+<span class=\"hi\">#", " ", $hlextract);
-
-
-*/
-
-/*    This doesn't work yet as PHP bindings are knackered - the idea is
-    to do all parsing here and replace queryparser, so we can do stuff
-    how we want more.  e.g. sync highlighting with the queries better */
-
-// Instead we are now parsing in PHP, and rebuilding something to feed to 
-// query parser.  Yucky but works.
-
-/*        $querydummy = new XapianQuery("dummy");
-        $query1 = new XapianQuery("ethiopia");
-        $query2 = new XapianQuery("economic");
-        #$query = $querydummy->querycombine(Query_OP_AND, $query1, $query2);
-        $query = new_QueryCombine(Query_OP_AND, $query1, $query2);
-#new_QueryCombine
-#        $query = $query1->querycombine(Query_OP_OR, $query1, $query2);
-#        foreach ($this->words as $word) {
- #           $query = new XapianQuery(Query_OP_OR, $query, new XapianQuery($word));
-  #      }
-        print "description:" . $query->get_description() . "<br>"; */
 }
 
 global $SEARCHENGINE;
