@@ -6,7 +6,7 @@ include_once "../../includes/easyparliament/glossary.php";
 # For displaying Standing Committee debates. I know they're Public Bill
 # Committees now, but I've called them standing committees everywhere
 
-$bill = get_http_var('bill');
+$bill = str_replace('_', ' ', get_http_var('bill'));
 $session = get_http_var('session');
 $id = get_http_var('id');
 
@@ -89,7 +89,7 @@ if ($bill_id && !$id) {
 	$PAGE->stripe_start();
 	?>
 <h4>Most recent Public Bill committee debates</h4>
-<p><a href="2006-07/">See all committees for the current session</a></p>
+<p><a href="2007-08/">See all committees for the current session</a></p>
 <?php
 	
 	$committee->display('recent_debates', array('num'=>20));

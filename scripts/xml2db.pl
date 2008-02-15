@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.23 2008-01-26 09:34:42 twfy-staging Exp $
+# $Id: xml2db.pl,v 1.24 2008-02-15 17:01:28 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1552,7 +1552,7 @@ sub add_bill {
         my ($bill, $url) = @_;
         my $lords = $bill =~ s/\s*\[Lords\]//;
         my $session;
-        if ($url =~ /(\d\d\d\d)(\d\d)/) {
+        if ($url =~ /(\d\d\d\d)-?(\d\d)/) {
                 $session = "$1-$2";
         } else {
                 die "Couldn't get session out of $url, $bill, $date";

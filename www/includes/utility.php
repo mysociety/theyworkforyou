@@ -403,8 +403,8 @@ function relative_time ($datetime) {
 
 function parse_date($date) {
 	$now = time();
-	$date = preg_replace('#\b([a-z]|on|an|of|in|the|year of our lord)\b#i','',$date);
-	$date = preg_replace('#[\x80-\xff]#','',$date);
+	$date = preg_replace('#\b([a-z]|on|an|of|in|the|year of our lord)\b#i', '', trim($date));
+	$date = preg_replace('#[\x80-\xff]#', '', $date);
 	if (!$date)
 		return null;
 
@@ -412,10 +412,10 @@ function parse_date($date) {
 	$day = null;
 	$year = null;
 	$month = null;
-	if (preg_match('#(\d+)/(\d+)/(\d+)#',$date,$m)) {
+	if (preg_match('#^(\d+)/(\d+)/(\d+)$#',$date,$m)) {
 		$day = $m[1]; $month = $m[2]; $year = $m[3];
 		if ($year<100) $year += 2000;
-	} elseif (preg_match('#(\d+)/(\d+)#',$date,$m)) {
+	} elseif (preg_match('#^(\d+)/(\d+)$#',$date,$m)) {
 		$day = $m[1]; $month = $m[2]; $year = date('Y');
 	} elseif (preg_match('#^([0123][0-9])([01][0-9])([0-9][0-9])$#',$date,$m)) {
 		$day = $m[1]; $month = $m[2]; $year = $m[3];

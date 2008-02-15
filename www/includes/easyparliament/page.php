@@ -331,7 +331,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// we're within that section.
 		$items = array (
 			'home' 		=> array ('sitenews', 'comments_recent', 'api_front'),
-			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront', 'nidebatesfront','spdebatesfront','spwransfront'),
+			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront', 'nidebatesfront','spdebatesfront','spwransfront','pbc_front'),
 			'yourmp'	=> array (),
 			'mps'           => array (),
 			'peers'		=> array (),
@@ -2052,7 +2052,7 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 			if (get_http_var('house')) {
 				echo '<input type="hidden" name="house" value="', htmlentities(get_http_var('house')), '">';
 			}
-			echo '<input type="text" name="s" value="', htmlentities($value), '" size="20"> ';
+			echo '<input type="text" name="s" value="', htmlentities($value), '" size="50"> ';
 			echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' "><br>';
 			if ($wtt) print '<input type="hidden" name="wtt" value="1">';
 

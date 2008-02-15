@@ -7,14 +7,14 @@ use strict;
 use Carp;
 use Search::Xapian qw(:standard);
 use HTML::Parser;
+use HTML::Entities;
 use FindBin;
 chdir $FindBin::Bin;
 use lib "$FindBin::Bin/../../perllib";
 use mySociety::Config;
 mySociety::Config::set_file('../conf/general');
 use DBI;
-use POSIX qw(strftime);
-use Data::Dumper;
+#use Data::Dumper;
 #DBI->trace(2);
 
 # Command line parser
@@ -34,7 +34,7 @@ die "As second parameter, specify:
 
 # Open MySQL
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
-$dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'), { RaiseError => 1, PrintError => 0 });
+my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'), { RaiseError => 1, PrintError => 0 });
 
 # Work out when to update from, for "sincefile" case
 my $since_date_condition = "";
@@ -84,22 +84,29 @@ if ($section && $section eq 'cronquiet') {
 }
 
 # Open Xapian database
-#$::Stemmer=new Search::Xapian::Stem('english');
-my $db=Search::Xapian::WritableDatabase->new($dbfile, Search::Xapian::DB_CREATE_OR_OPEN);
+my $stemmer = new Search::Xapian::Stem('english');
+my $db = Search::Xapian::WritableDatabase->new($dbfile, Search::Xapian::DB_CREATE_OR_OPEN);
+my $termgenerator = new Search::Xapian::TermGenerator();
+
+$termgenerator->set_flags(Search::Xapian::FLAG_SPELLING);
+$termgenerator->set_database($db);
+$termgenerator->set_stemmer($stemmer);
+# $termgenerator->set_stopper();
 
 if ($action ne "check") {
     # Batch numbers - each new stuff gets a new batch number
-    my $max_indexbatch = $dbh->selectrow_array('select max(indexbatch_id) from indexbatch');
+    my $max_indexbatch = $dbh->selectrow_array('select max(indexbatch_id) from indexbatch') || 0;
     my $new_indexbatch = $max_indexbatch + 1;
     
     # Get data for items to update from MySQL 
-    my $query = "select epobject.epobject_id, body, person_id, hdate, gid, major, 
-        section_id, subsection_id, party,
+    my $query = "select epobject.epobject_id, epobject.body, section.body as section_body,
+        hdate, gid, major, section_id, subsection_id,
         unix_timestamp(concat(hdate, ' ', if(htime, htime, 0))) as unix_time,
-        unix_timestamp(hansard.created) as created, hpos
-        from epobject, hansard 
+        unix_timestamp(hansard.created) as created, hpos,
+        person_id, member.title, first_name, last_name, constituency, party, house
+        from epobject join hansard on epobject.epobject_id = hansard.epobject_id
 	    left join member on hansard.speaker_id = member.member_id
-	    where epobject.epobject_id = hansard.epobject_id";
+        left join epobject as section on hansard.section_id = section.epobject_id";
     if ($action eq "lastweek") {
         $query .= " and hdate > date_sub(curdate(), interval 7 day)";
     } if ($action eq "lastmonth") {
@@ -115,86 +122,97 @@ if ($action ne "check") {
     $q->execute();
     #print "indexing with Xapian, rows from mysql: " . $q->rows();
 
-    # Loop through all the rows from MySQL
-    my $parser=new HTML::Parser();
-    $parser->handler(text => \&process_text);
+    my $parser = new HTML::Parser();
+    $parser->handler(text => sub {
+        my ($p, $text) = @_;
+        decode_entities($text); # XXX Data in MySQL is HTML encoded
+        $termgenerator->index_text($text);
+    });
+
     croak if !$db;
     my $last_hdate = "";
     my $last_area = "";
     while (my $row = $q->fetchrow_hashref()) {
-        # Process data from MySQL
-        my $gid = $$row{'gid'};
-        $gid =~ s#uk.org.publicwhip/##;
 
-        my $person_id = $$row{'person_id'};
-        if (! defined $person_id) {
-            $person_id = "0";
-        }
-        $person_id = "none" if ($person_id eq "0");
+        my $gid = $$row{'gid'};
+        $gid =~ s#uk\.org\.publicwhip/##;
 
         $gid =~ m#(.*)/#;
-        my $area = $1; # wrans or debate or westminhall or wms
+        my $area = $1; # wrans or debate or westminhall or wms etc.
+        $gid =~ m#.*/.*?\.(\d+)(?:WS)?\.#;
+        my $col = $1 if defined $1;
+        #print "$gid $area $col\n";
         if ($$row{'hdate'} ne $last_hdate || $area ne $last_area) {
             $last_hdate = $$row{'hdate'};
-                $last_area = $area;
+            $last_area = $area;
             if (!$cronquiet) {
                 print "xapian indexing $area $last_hdate\n";
             }
         }
-        #print "$gid $person_id $$row{'major'}\n";
         
-        # Make new post for this item in Xapian
-        $::doc=new Search::Xapian::Document();
-        #print Dumper($row);
-        #print $gid . "\n";
+        my $person_id = $$row{'person_id'};
+        $person_id = "0" unless defined $person_id;
 
-        $::doc->set_data($gid);
-        $::doc->add_term("speaker:" . $person_id);
-        $::doc->add_term("major:" . $$row{'major'});
-        $::doc->add_term("batch:" . $new_indexbatch);
-        # XXX someone requested party here (remember to lowercase it)
-        # (And standardise on something - e.g. MLA party names aren't the
-        # same as MPs; *and* use "P:" rather than "party:" or similar)
-#        my $ddd = $$row{'hdate'};
-#        $ddd =~ s/-//g;
-#        $::doc->add_term('date:' . $ddd);
-        $::doc->add_term($gid);
+        my $subsection_or_id = $$row{'subsection_id'}==0 ? $$row{'epobject_id'} : $$row{'subsection_id'};
 
+        my $date = $$row{'hdate'};
+        $date =~ s/-//g;
 
-        # left pad the unix time stamp with 0's. This field is
-        # intended to be used for ordering search results using
-        # Enquire::set_sorting, which uses lexicographical (string)
-        # ordering and not numeric ordering. Therefore, left padding
-        # ensures the correct ordering ("02" comes before "10" in
-        # lexicographic order, wheras "2" comes after "10")
-        my $leftPaddedUnixTime=sprintf('%010s', $$row{'unix_time'});
-        $::doc->add_value(0, $leftPaddedUnixTime);
-        $::doc->add_value(2, $$row{'hdate'});
-        $::doc->add_value(3, $$row{'section_id'});
-        $::doc->add_value(4, $$row{'subsection_id'});
-        $::doc->add_value(5, lc($$row{'party'}));
-        $::doc->add_value(6, sprintf('%010s', $$row{'created'}) . ':' . sprintf('%05s', $$row{'hpos'}));
-        $::doc->add_value(7, $$row{'section_id'} . ':' . ($$row{'subsection_id'}==0?$$row{'epobject_id'}:$$row{'subsection_id'}));
-        $::n=1;
-        $parser->parse($$row{'body'}); 
+        my $name = '';
+        my $house = $$row{house} || -1;
+        my ($first_name, $last_name, $constituency);
+        if ($house > -1) {
+            $first_name = decode_entities($$row{first_name});
+            $last_name = decode_entities($$row{last_name});
+            $constituency = decode_entities($$row{constituency});
+        }
+        if ($house == 1 || $house == 3 || $house == 4) {
+            $name = "$first_name $last_name";
+            $name = "$$row{title} $name" if $$row{title};
+        } elsif ($house == 2) {
+            $name = '';
+            $name = 'the ' unless $last_name;
+            $name .= $$row{title};
+            $name .= " $last_name" if $last_name;
+            $name .= " of $constituency" if $constituency;
+        } elsif ($house == 0) { # Queen
+            $name = "$first_name $last_name";
+        }
+
+        my $dept = $$row{section_body} || '';
+        $dept =~ s/[^a-z]//gi;
+
+        my $doc = new Search::Xapian::Document();
+        $termgenerator->set_document($doc);
+
+        $doc->set_data($gid);
+
+        $doc->add_term("Q$gid");
+        $doc->add_term("B$new_indexbatch"); # For email alerts
+        $doc->add_term("M$$row{major}");
+        $doc->add_term("P\L$$row{party}") if $$row{party};
+        $doc->add_term("S$person_id");
+        $doc->add_term("U$subsection_or_id"); # For searching within one debate
+        $doc->add_term("D$date");
+        $doc->add_term("G\L$dept") if $$row{major} == 3 || $$row{major} == 4 || $$row{major} == 8;
+        $doc->add_term("C$col") unless $$row{major} == 3 || $$row{major} == 8;
+
+        my $packedUnixTime = pack('N', $$row{'unix_time'});
+        $doc->add_value(0, $packedUnixTime); # For sort by date (although all wrans have same time of 00:00, no?)
+        $doc->add_value(1, $date); # For date range searches
+        $doc->add_value(2, pack('N', $$row{'created'}) . pack('N', $$row{'hpos'})); # For email alerts
+        $doc->add_value(3, $subsection_or_id); # For collapsing on segment
+
+        $parser->parse($$row{'body'});
         $parser->eof();
+        $termgenerator->increase_termpos();
+        $termgenerator->index_text($name) if $name; # Index speaker name too so can search on them and words
 
-        # See if we already have the document in Xapian
-        #print "$gid\n";
-        my $docid = gid_to_docid($gid);
-        if (defined $docid) {
-            $db->replace_document($docid, $::doc);
-            #print '.'; # progress marker (replace)
-        } else {
-            $db->add_document($::doc);
-            #print '+'; # progress marker (append)
-        }
+        $db->replace_document_by_term("Q$gid", $doc);
     }
-    if ($last_hdate ne "") {
-        if (!$cronquiet) {
-            print "\n";
-        }
 
+    if ($last_hdate ne "") {
+        print "\n" unless $cronquiet;
         # Store new batch number
         $dbh->do("insert into indexbatch (indexbatch_id, created) values (?, now())", {}, $new_indexbatch);
     }
@@ -217,15 +235,15 @@ if ($action ne "check") {
     while (my $row = $q->fetchrow_hashref()) {
         my $gid = $$row{'gid'};
         $gid =~ s#uk.org.publicwhip/##;
-        $mysql_gids{$gid} = 1;
+        $mysql_gids{"Q$gid"} = 1;
     }
     # .. fetch all gids in Xapian
     my %xapian_gids;
-    my $allterms = $db->allterms_begin();
-    my $alltermsend = $db->allterms_end();
+    my $allterms = $db->allterms_begin(); # 'Q');
+    my $alltermsend = $db->allterms_end(); # 'Q');
     while ($allterms ne $alltermsend) {
         my $term = "$allterms";
-        if ($term =~ m#(?:wrans|debate|westminhall|wms|lords|ni|standing)/#) {
+        if ($term =~ m#^Q#) { # (?:wrans|debate|westminhall|wms|lords|ni|standing)/#) {
             $xapian_gids{$term} = 1;
         }
         $allterms++;
@@ -235,19 +253,14 @@ if ($action ne "check") {
     foreach my $xapian_gid (keys %xapian_gids) {
         my $in_mysql = $mysql_gids{$xapian_gid};
         if (!$in_mysql) {
-#            print "deleting $xapian_gid from Xapian index\n" unless $cronquiet;
-            my $docid = gid_to_docid($xapian_gid);
-            if (defined $docid) {
-                $db->delete_document($docid);
-            } else {
-                die "Xapian id for $xapian_gid disappeared under my feet\n";
-            }
+            print "deleting $xapian_gid from Xapian index\n" unless $cronquiet;
+            $db->delete_document_by_term($xapian_gid);
         }
     }
     # Check for items in MySQL not in Xapian
     foreach my $mysql_gid (keys %mysql_gids) {
         my $in_xapian = $xapian_gids{$mysql_gid};
-        if (!$in_xapian) { # && $mysql_gid !~ /lords/) {
+        if (!$in_xapian) {
             # This is an internal error (or could happen if the MySQL database
             # updated while Xapian was reindexing, which the normal cron scripts
             # don't do).  Everything should have already been added by now, according
@@ -256,41 +269,3 @@ if ($action ne "check") {
         }
     }
 }
-
-# Does the actual adding (this is a handler for the HTML parser)
-sub process_text {
-    my $p=shift;
-    my $text=shift;
-
-    $text =~ s/&#\d+;/ /g;
-    $text =~ s/(\d),(\d)/$1$2/g;
-    $text =~ s/[^A-Za-z0-9]/ /g;
-    my @words = split /\s+/,$text;
-
-    foreach my $word (@words) {
-        next if $word eq '';
-        next if $word =~ /^\d{1,2}$/;
-        my $lowerword=lc $word;
-        $::doc->add_posting("$lowerword",$::n);
-        #print "added word $lowerword\n";
-        # no stemming now
-        #my $stemword=$::Stemmer->stem_word($lowerword);
-        #$::doc->add_posting("$stemword",$::n);
-        $::n++;
-    }
-}
-
-sub gid_to_docid
-{
-    my $gid = shift;
-    my $post = $db->postlist_begin($gid);
-    my $postend = $db->postlist_end($gid);
-    my $docid = undef;
-    while ($post ne $postend) {
-        die "gid $gid in xapian db twice" if (defined $docid);
-        $docid = $post;
-        $post++;
-    }
-    return $docid;
-}
-
