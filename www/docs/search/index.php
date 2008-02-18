@@ -14,7 +14,7 @@ if ($advphrase = get_http_var('phrase')) {
     $searchstring .= ' "' . $advphrase . '"';
 }
 if ($advexclude = get_http_var('exclude')) {
-    $searchstring .= " -$advexclude";
+    $searchstring .= ' -' . join(' -', preg_split('/\s+/', $advexclude));
 }
 if (get_http_var('from') || get_http_var('to')) {
     $from = parse_date(get_http_var('from'));
@@ -38,7 +38,14 @@ if ($advsection = get_http_var('section')) {
     $searchstring .= " section:$advsection";
 }
 
-if ($searchstring || get_http_var('pid') != '') {
+$this_page = 'search';
+if (get_http_var('adv')) {
+	// Advanced search page
+	$PAGE->page_start();
+	$PAGE->stripe_start();
+    $PAGE->search_form($searchstring);
+    $PAGE->advanced_search_form();
+} elseif ($searchstring || get_http_var('pid') != '') {
 
     if (get_http_var('pid') == 16407) {
         header('Location: /search/?pid=10133');
@@ -47,8 +54,6 @@ if ($searchstring || get_http_var('pid') != '') {
 
 	// We're searching for something.
 	
-	$this_page = 'search';	
-
 	$searchstring = filter_user_input($searchstring, 'strict');
 
     $time = parse_date($searchstring);
@@ -264,10 +269,12 @@ if ($q_house==1) {
     }
 } else {
 	// No search term. Display help.
-	$this_page = 'search_help';
+	#$this_page = 'search_help';
 	$PAGE->page_start();
 	$PAGE->stripe_start();
-	include INCLUDESPATH . 'easyparliament/staticpages/search_help.php';
+    $PAGE->search_form($searchstring);
+    $PAGE->advanced_search_form();
+	#include INCLUDESPATH . 'easyparliament/staticpages/search_help.php';
 }
 
 $PAGE->stripe_end(array (

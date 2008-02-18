@@ -2049,7 +2049,11 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 				echo '<input type="hidden" name="house" value="', htmlentities(get_http_var('house')), '">';
 			}
 			echo '<input type="text" name="s" value="', htmlentities($value), '" size="50"> ';
-			echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' "><br>';
+			echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
+			$URL = new URL('search');
+			$URL->insert(array('adv'=>1));
+			echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">Advanced search</a>';
+			echo '<br>';
 			if ($wtt) print '<input type="hidden" name="wtt" value="1">';
 
 		} else { ?>
@@ -2104,6 +2108,157 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		}
 
 		echo '</form> </div>';
+	}
+	function advanced_search_form() { ?>
+<style type="text/css">
+label { float: left; width: 12em; }
+</style>
+<form action="/search/" method="get">
+<h3>Advanced Search</h3>
+<p><b>Not finished, simply to show the sort of options we now have</b></p>
+<p><label for="s">Words:</label> <input type="text" id="s" name="s" value="<?=htmlspecialchars(get_http_var('s')) ?>" size="50">
+<p><label for="phrase">Exact phrase:</label> <input type="text" id="phrase" name="phrase" value="<?=htmlspecialchars(get_http_var('phrase')) ?>" size="50">
+<p><label for="exclude">Ignore the words:</label> <input type="text" id="exclude" name="exclude" value="<?=htmlspecialchars(get_http_var('exclude')) ?>" size="50">
+<p><label for="from">Date range:</label>
+<input type="text" id="from" name="from" value="<?=htmlspecialchars(get_http_var('from')) ?>" size="22">
+ &ndash; <input type="text" name="to" value="<?=htmlspecialchars(get_http_var('to')) ?>" size="22">
+<small>(to restrict results to between two dates)</small>
+</p>
+<p><label for="department">Department:</label> <select name="department" id="department">
+<option value="">-
+<option>Administration Committee
+<option>Advocate-General
+<option>Advocate-General for Scotland
+<option>Agriculture, Fisheries and Food
+<option>Attorney-General
+<option>Business, Enterprise and Regulatory Reform
+<option>Cabinet Office
+<option>Children, Schools and Families
+<option>Church Commissioners
+<option>Civil Service
+<option>Communities and Local Government
+<option>Constitutional Affairs
+<option>Culture Media and Sport
+<option>Defence
+<option>Deputy Prime Minister
+<option>Duchy of Lancaster
+<option>Education
+<option>Education and Science
+<option>Education and Skills
+<option>Electoral Commission Committee
+<option>Employment
+<option>Energy
+<option>Environment
+<option>Environment Food and Rural Affairs
+<option>European Community
+<option>Foreign and Commonwealth Affairs
+<option>Foreign and Commonwealth Office
+<option>Government Equalities Office
+<option>Health
+<option>Home Department
+<option>House of Commons
+<option>House of Commons Commission
+<option>House of Lords
+<option>Industry
+<option>Innovation, Universities and Skills
+<option>International Development
+<option>Justice
+<option>Leader of the Council
+<option>Leader of the House
+<option>Lord Chancellor
+<option>Minister for Women
+<option>Minister for Women and Equality
+<option>National Finance
+<option>Northern Ireland
+<option>Olympics
+<option>Overseas Development
+<option>Palace of Westminister
+<option>President of the Council
+<option>Prime Minister
+<option>Privy Council
+<option>Public Accounts Commission
+<option>Public Accounts Committee
+<option>Scotland
+<option>Social Services
+<option>Solicitor General
+<option>Solicitor-General
+<option>Trade
+<option>Trade and Industry
+<option>Transport
+<option>Transport, Local Government and the Regions
+<option>Treasury
+<option>Wales
+<option>Women and Equality
+<option>Work and Pensions
+</select>
+<small>(for Written Answers and Written Statements)</small>
+<p><label for="party">Party:</label> <select id="party" name="party">
+<option value="">-
+<option>Alliance
+<option>Bp
+<option>Con
+<option>CWM
+<option>DCWM
+<option>DUP
+<option>Green
+<option>Ind
+<option>Ind Con
+<option>Ind Lab
+<option>Ind UU
+<option>Independent
+<option>Independent Unionist
+<option>Initial Presiding Officer
+<option>Lab
+<option>Lab/Co-op
+<option>LDem
+<option>NIUP
+<option>NIWC
+<option>Other
+<option>PC
+<option>PUP
+<option>Res
+<option>SDLP
+<option>SF
+<option>Sinn F&eacute;in
+<option>SNP
+<option>Speaker
+<option>SPK
+<option>UKIP
+<option>UKUP
+<option>UUAP
+<option>UUP
+<option>XB
+</select>
+<small>(only results from people in the chosen party)</small>
+<p><label for="column">Column:</label>
+<input type="text" id="column" name="column" value="<?=htmlspecialchars(get_http_var('column')) ?>" size="10">
+<small>(the column number in Hansard you are interested in)</small>
+<p><label for="section">Section:</label>
+<select id="section" name="section">
+<option value="">-
+<optgroup label="UK Parliament">
+<option value="uk">All
+<option value="debates">House of Commons debates
+<option value="whall">Westminster Hall debates
+<option value="lords">House of Lords debates
+<option value="wrans">Written answers
+<option value="wms">Written ministerial statements
+<option value="standing">Public Bill Committees
+</optgroup>
+<optgroup label="Northern Ireland Assembly">
+<option value="ni">Debates
+</optgroup>
+<optgroup label="Scottish Parliament">
+<option value="scotland">All
+<option value="sp">Debates
+<option value="spwrans">Written answers
+</optgroup>
+</select>
+<p align="right">
+<input type="submit" value="Search">
+</p>
+</form>
+<?
 	}
 	
 	function login_form ($errors = array()) {
