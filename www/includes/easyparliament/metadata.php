@@ -451,7 +451,7 @@ $this->page = array (
 	'mlas' => array (
 		 'menu'			=> array (
 			'text'			=> 'All MLAs',
-			'title'			=> "List of all MLAs"
+			'title'			=> "List of all Members of the Northern Ireland Assembly (MLAs)"
 		),
 		'title'			=> 'All MLAs',
 		'track'			=> true,
@@ -466,7 +466,7 @@ $this->page = array (
 	'msps' => array (
 		 'menu'			=> array (
 			'text'			=> 'All MSPs',
-			'title'			=> "List of all MSPs"
+			'title'			=> "List of all Members of the Scottish Parliament (MSPs)"
 		),
 		'title'			=> 'All MSPs',
 		'track'			=> true,
@@ -502,7 +502,7 @@ $this->page = array (
 	'mps' => array (
 		 'menu'			=> array (
 			'text'			=> 'All MPs',
-			'title'			=> "List of all MPs"
+			'title'			=> "List of all Members of Parliament (MPs)"
 		),
 		'title'			=> 'All MPs',
 		'track'			=> true,

@@ -801,25 +801,21 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		
 		if ($page_text == $section_text) {
 			// We don't want to print both.
-			$page_text = '&nbsp;';
+			$page_text = '';
 		} elseif ($page_text && !$section_text) {
 			// Bodge for if we have a page_text but no section_text.
 			$section_text = $page_text;
-			$page_text = '&nbsp;';
+			$page_text = '';
 		}
 
 		# XXX Yucky
-		if ($this_page != 'home' && $this_page != 'yourmp' && $this_page != 'mp' && $this_page != 'peer'
-			&& $this_page != 'mla' && $this_page != 'c4_mp' && $this_page != 'c4x_mp' && $this_page != 'royal' && $this_page != 'contact' && $this_page != 'msp') {
-
+		if ($this_page != 'home' && $this_page != 'contact') {
 			if ($section_text && $parent_page != 'help_us_out' && $parent_page != 'home') {
 				print "\t\t\t\t<h2>$section_text</h2>\n";
 			}
-			
 			if ($page_text) {
 				print "\t\t\t\t<h3>$page_text</h3>\n";
 			}
-
 		}
 	
 		// So we don't print the heading twice by accident from $this->stripe_start().
@@ -1506,7 +1502,7 @@ and has had no written questions answered for which we know the department or su
 		#	$since_text = 'since joining Parliament';
 
 		$MOREURL = new URL('search');
-		$section = 'section:debates section:whall section:lordsdebates section:ni';
+		$section = 'section:debates section:whall section:lords section:ni';
 		$MOREURL->insert(array('pid'=>$member['person_id'], 's'=>$section, 'pop'=>1));
 		if ($member['party']!='Sinn Fein') {
 			$displayed_stuff |= display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info);

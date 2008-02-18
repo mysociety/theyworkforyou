@@ -1224,6 +1224,9 @@ class HANSARDLIST {
 					'body' => $body,
 					'listurl' => $listurl
 				);
+				if ($itemdata['htype'] == 11 || $itemdata['htype'] == 10) {
+					$itemdata['body'] = '';
+				}
 			}
 
 			// Add this item's data onto the main array we'll be returning.
