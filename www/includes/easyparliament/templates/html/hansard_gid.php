@@ -143,7 +143,9 @@ if (isset ($data['rows'])) {
 			$stripecount++;
 			$style = $stripecount % 2 == 0 ? '1' : '2';	
 			
-			$PAGE->stripe_start('procedural-'.$style);
+			$id = 'g' . gid_to_anchor($row['gid']);
+			$PAGE->stripe_start('procedural-'.$style, $id);
+			echo '<a name="', $id, '"></a>';
 			
 			echo $row['body'];
 			
