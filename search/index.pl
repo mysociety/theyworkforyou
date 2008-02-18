@@ -19,16 +19,14 @@ use DBI;
 
 # Command line parser
 $|=1;
-my $dbfile=shift;
-die "Specify Xapian database file as first parameter" if !$dbfile;
-my $action=shift;
-die "As second parameter, specify:
+my $dbfile = mySociety::Config::get('XAPIANDB');
+my $action = shift;
+die "As first parameter, specify:
     'all' to (re)index everything (sometimes memory leaks and doesn't work see indexall.sh), or 
     'lastweek' to (re)index just the last week, or 
     'lastmonth' to (re)index just the last month, or 
     'daterange' to (re)index between two dates, specified as next parameters
-    'sincefile' to (re)index updates since a given date (specified in unixtime inside a file as 
-                   the last parameter, the file is updated to now after indexing)
+    'sincefile' to (re)index updates since a given date specified in unixtime inside a file
     'check' to check everything is indexed
 " if !$action or ($action ne "all" and $action ne "lastweek" and $action ne "lastmonth" and $action ne "sincefile" and $action ne "check" and $action ne "daterange");
 
@@ -41,9 +39,7 @@ my $since_date_condition = "";
 my $lastupdatedfile;
 my $now_start_string;
 if ($action eq "sincefile") {
-    $lastupdatedfile=shift;
-    die "As third parameter, specify a file used by this script to store when the last update was" if !$lastupdatedfile;
-
+    $lastupdatedfile = "$dbfile/twfy-lastupdated";
     if (-e $lastupdatedfile) {
         # Read unix time from file
         open FH, "<$lastupdatedfile" or die "couldn't open $lastupdatedfile even though it is there";

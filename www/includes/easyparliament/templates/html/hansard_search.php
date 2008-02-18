@@ -39,10 +39,10 @@ if (isset($info['total_results']) && $info['total_results'] > 0) {
 		$last_result = $info['total_results'];
 	}
 
-	print "\t\t\t\t<h3>Results " . number_format($info['first_result']) . '-' . number_format($last_result) . ' of ' . number_format($info['total_results']) . " items " . htmlentities($searchdescription) . "</h3>\n";
+	print "\t\t\t\t<h3 style='font-weight:normal'>Results <strong>" . number_format($info['first_result']) . '-' . number_format($last_result) . '</strong> of ' . number_format($info['total_results']) . " for <strong>" . htmlentities($searchdescription) . "</strong></h3>\n";
 
 } elseif ($info['total_results'] == 0) {
-	echo '<h3>Your search for items ', htmlentities($searchdescription), ' did not match anything in Hansard</h3>';
+	echo '<h3 style="font-weight:normal">Your search for <strong>', htmlentities($searchdescription), '</strong> did not match anything.</h3>';
 }
 
 if ($info['spelling_correction']) {

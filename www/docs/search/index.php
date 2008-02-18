@@ -8,7 +8,37 @@ include_once INCLUDESPATH."easyparliament/glossary.php";
 // From http://cvs.sourceforge.net/viewcvs.py/publicwhip/publicwhip/website/
 include_once INCLUDESPATH."postcode.inc";
 
-if (get_http_var('s') != '' || get_http_var('pid') != '') {
+$searchstring = trim(get_http_var('s'));
+
+if ($advphrase = get_http_var('phrase')) {
+    $searchstring .= ' "' . $advphrase . '"';
+}
+if ($advexclude = get_http_var('exclude')) {
+    $searchstring .= " -$advexclude";
+}
+if (get_http_var('from') || get_http_var('to')) {
+    $from = parse_date(get_http_var('from'));
+    if ($from) $from = $from['iso'];
+    else $from = '1999-01-01';
+    $to = parse_date(get_http_var('to'));
+    if ($to) $to = $to['iso'];
+    else $to = date('Y-m-d');
+    $searchstring .= " $from..$to";
+}
+if ($advdept = get_http_var('department')) {
+    $searchstring .= ' department:' . preg_replace('#[^a-z]#i', '', $advdept);
+}
+if ($advparty = get_http_var('party')) {
+    $searchstring .= " party:$advparty";
+}
+if ($advcolumn = get_http_var('column')) {
+    $searchstring .= " column:$advcolumn";
+}
+if ($advsection = get_http_var('section')) {
+    $searchstring .= " section:$advsection";
+}
+
+if ($searchstring || get_http_var('pid') != '') {
 
     if (get_http_var('pid') == 16407) {
         header('Location: /search/?pid=10133');
@@ -19,7 +49,6 @@ if (get_http_var('s') != '' || get_http_var('pid') != '') {
 	
 	$this_page = 'search';	
 
-	$searchstring = trim(get_http_var('s'));
 	$searchstring = filter_user_input($searchstring, 'strict');
 
     $time = parse_date($searchstring);
@@ -99,7 +128,7 @@ else { ?>Table includes - <?
 $URL = new URL($this_page);
 $url_l = $URL->generate('html', array('house'=>2));
 $url_c = $URL->generate('html', array('house'=>1));
-$URL->remove('house');
+$URL->remove(array('house'));
 $url_b = $URL->generate();
 if ($q_house==1) {
     print 'MPs | <a href="' . $url_l . '">Lords</a> | <a href="' . $url_b . '">Both</a>';
@@ -202,11 +231,11 @@ if ($q_house==1) {
     		$pagetitle .= " page $pagenum";
     	}
 	
-    	$DATA->set_page_metadata($this_page, 'title', $pagetitle);
+    	#$DATA->set_page_metadata($this_page, 'title', $pagetitle);
 	    $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($searchstring));
     	$PAGE->page_start();
     	$PAGE->stripe_start();
-    	$PAGE->search_form();
+    	$PAGE->search_form($searchstring);
 	
         $o = get_http_var('o');
     	$args = array (
@@ -402,7 +431,9 @@ function find_members ($args) {
 		return false;
 	}
 
-	$searchwords = explode(' ', preg_replace('#[^a-z ]#i', '', $searchstring));
+	$searchstring2 = preg_replace("#[^a-z'& ]#i", '', $searchstring);
+	if (!$searchstring2) return false;
+	$searchwords = explode(' ', $searchstring2);
     foreach ($searchwords as $i=>$searchword) {
         $searchwords[$i] = mysql_real_escape_string(htmlentities($searchword));
         if (!strcasecmp($searchword,'Opik'))
