@@ -34,7 +34,7 @@ class SEARCHENGINE {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
-        global $xapiandb, $PAGE, $hansardmajors;
+        global $xapiandb, $PAGE, $hansardmajors, $parties;
         if (!$xapiandb) {
             $xapiandb = new XapianDatabase(XAPIANDB);
         }
@@ -185,7 +185,7 @@ class SEARCHENGINE {
             $qd = str_replace("($mm)", "($mmn)", $qd);
         }
         # Awesome regexes to get rid of superfluous matching brackets
-        $qd = preg_replace('/( \( ( (?: (?>[^ ()]+) | (?1) ) (?: [ ](?:AND|OR|XOR|NEAR[ ]\d+|PHRASE[ ]\d+)[ ] (?: (?>[^ ()]+) | (?1) ) )*  ) \) ) [ ] FILTER/x', '$2 FILTER', $qd);
+        $qd = preg_replace('/( \( ( (?: (?>[^ ()]+) | (?1) ) (?: [ ](?:AND|OR|XOR|FILTER|NEAR[ ]\d+|PHRASE[ ]\d+)[ ] (?: (?>[^ ()]+) | (?1) ) )*  ) \) ) [ ] (FILTER|AND_NOT)/x', '$2 $3', $qd);
         $qd = preg_replace('/(?:FILTER | 0 [ ] \* ) [ ] ( \( ( (?: (?>[^ ()]+) | (?1) ) (?: [ ](?:AND|OR|XOR)[ ] (?: (?>[^ ()]+) | (?1) ) )*  ) \) )/x', '$2', $qd);
         $qd = preg_replace('/(?:FILTER | 0 [ ] \* ) [ ] ( [^()] )/x', '$1', $qd);
         $qd = str_replace('AND ', '', $qd); # AND is the default
@@ -194,7 +194,7 @@ class SEARCHENGINE {
         $qd = preg_replace('#\bU(\d+)\b#', 'segment:$1', $qd);
         $qd = preg_replace('#\bC(\d+)\b#', 'column:$1', $qd);
         $qd = preg_replace('#\bQ(.*?)\b#', 'gid:$1', $qd);
-        $qd = preg_replace('#\bP(.*?)\b#', 'party:$1', $qd); # XXX Lookup to show full party name
+        $qd = preg_replace('#\bP(.*?)\b#e', '"party:" . (isset($parties[ucfirst("$1")]) ? $parties[ucfirst("$1")] : "$1")', $qd);
         $qd = preg_replace('#\bD(.*?)\b#', 'date:$1', $qd);
         $qd = preg_replace('#\bG(.*?)\b#', 'department:$1', $qd); # XXX Lookup to show proper name of dept
         if (strstr($qd, '(M1 OR M2 OR M3 OR M4 OR M6 OR M101)')) {
@@ -202,7 +202,7 @@ class SEARCHENGINE {
         } elseif (strstr($qd, '(M7 OR M8)')) {
             $qd = str_replace('(M7 OR M8)', 'section:scotland', $qd);
         }
-        $qd = preg_replace('#\bM(\d+)\b#e', '"section:" . (isset($hansardmajors[$1]["title"]) ? $hansardmajors[$1]["title"] : "???")', $qd);
+        $qd = preg_replace('#\bM(\d+)\b#e', '"section:" . (isset($hansardmajors[$1]["title"]) ? $hansardmajors[$1]["title"] : "$1")', $qd);
         # Speakers
         preg_match_all('#S(\d+)#', $qd, $m);
         foreach ($m[1] as $mm) {
