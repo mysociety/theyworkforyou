@@ -1,70 +1,78 @@
-#!/bin/bash
+#!/usr/bin/perl
 # morningupdate.  Called when new data is available from ukparse.
 
 # Call with VERBOSE=true set in the environment for diagnostic messages:
 # VERBOSE=true ./morningupdate
 
-#set -x  # for debugging, prints each line before executing it
+use warnings;
+use strict;
+use FindBin;
+use lib "$FindBin::Bin/../../perllib";
+use mySociety::Config;
+mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
-[ -z "$VERBOSE" ] && VERBOSE=false
+my $path = '/data/vhost/' . mySociety::Config::get('DOMAIN');
+my $staging = mySociety::Config::get('DEVSITE');
 
-if $VERBOSE
-then
-	CRONQUIET=""
-	CRONQUIET_NODASH=""
-else
-	CRONQUIET="--cronquiet"
-	CRONQUIET_NODASH="cronquiet"
-fi
+my $verbose = 0;
+$verbose = 1 if $ENV{VERBOSE};
+
+my $cronquiet = '--cronquiet';
+$cronquiet = '' if $verbose;
 
 # Make sure only one copy runs at once
-if [ x$LOCKFILE = x ]
-then
-        run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/morning-update.lock $0
-        if [ $? = 100 ]
-        then
-                echo "Another copy of morningupdate or compactsearchdb is already running" 1>&2
-        fi
-        exit $?
-fi
+unless ($ENV{LOCKFILE}) {
+        system "run-with-lockfile -n $path/morning-update.lock $0";
+        if ($? >> 8 == 100) {
+                print "Another copy of morningupdate or compactsearchdb is already running\n"
+        }
+        exit $? >> 8;
+}
 
-#echo -n "Start time: "
+#print "Start time: ";
 #date +"%Y-%m-%d %H:%M:%S %Z"
 
-# Get new data -- with the "-a" so we get same timestamps as remote filesystem
-$VERBOSE && echo "Rsyncing new data from parlparse"
-rsync --delete --exclude '.zip' --exclude '.svn' --exclude 'tmp/' --archive ukparse.kforge.net::parldata /home/twfy-live/parldata
+if (!$staging) {
+    # Get new data -- with the "-a" so we get same timestamps as remote filesystem
+    print "Rsyncing new data from parlparse\n" if $verbose;
+    system "rsync --delete --exclude '.zip' --exclude '.svn' --exclude 'tmp/' --archive ukparse.kforge.net::parldata /home/twfy-live/parldata";
+}
 
 # Load recent new files from XML into the database
-$VERBOSE && echo "Loading into database"
-cd ~/fawkes/scripts
-# --cronquiet because we think things are reliable enough we decide we don't
-# want email on success each day just for the database loader
-./xml2db.pl $CRONQUIET --all --members
+print "Loading into database\n" if $verbose;
+chdir $FindBin::Bin;
 # We do these on separate lines, so if one fails, others still run
-./xml2db.pl $CRONQUIET --recent --wrans --quiet
-./xml2db.pl $CRONQUIET --recent --debates --quiet
-./xml2db.pl $CRONQUIET --recent --westminhall --quiet
-./xml2db.pl $CRONQUIET --recent --wms --quiet
-./xml2db.pl $CRONQUIET --recent --lordsdebates --quiet
-./xml2db.pl $CRONQUIET --recent --ni --quiet
+system "./xml2db.pl $cronquiet --all --members";
+system "./xml2db.pl $cronquiet --recent --wrans --quiet";
+system "./xml2db.pl $cronquiet --recent --debates --quiet";
+system "./xml2db.pl $cronquiet --recent --westminhall --quiet";
+system "./xml2db.pl $cronquiet --recent --wms --quiet";
+system "./xml2db.pl $cronquiet --recent --lordsdebates --quiet";
+system "./xml2db.pl $cronquiet --recent --ni --quiet";
 
+$cronquiet = substr($cronquiet, 2);
 # Update Xapan index
-$VERBOSE && echo "Xapian indexing"
-cd ~/fawkes/search
-./index.pl sincefile $CRONQUIET_NODASH
+print "Xapian indexing\n" if $verbose;
+chdir "$FindBin::Bin/../search";
+system "./index.pl sincefile $cronquiet";
 
 # Create new RSS files.
-if $VERBOSE
-then
-	echo "Running rssgenerate"
-	/home/fawkes/fawkes/scripts/rssgenerate
-else
- 	at NOW >/dev/null 2>/dev/null <<EOF
-/home/fawkes/fawkes/scripts/rssgenerate
-EOF
-fi
+if ($verbose) {
+    print "Running rssgenerate\n";
+    system "$path/mysociety/twfy/scripts/rssgenerate";
+} else {
+    # Fork off a child process
+    my $pid = fork;
+    if (not defined $pid) {
+        die "Fork failed";
+    } elsif ($pid == 0) {
+        # Child
+        exec "$path/mysociety/twfy/scripts/rssgenerate";
+    } else {
+        # Parent
+    }
+}
 
-#echo -n "Whole thing done time: "
+#print "Whole thing done time: ";
 #date +"%Y-%m-%d %H:%M:%S"
 
