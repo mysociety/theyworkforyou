@@ -1,5 +1,7 @@
 <?php
 
+# Simple intro to gadget HTML page
+
 $this_page = 'gadget';
 
 include_once "../../includes/easyparliament/init.php";

@@ -1,5 +1,7 @@
 <?
 
+# Given a postcode, return a person ID
+
 include_once 'min-init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 

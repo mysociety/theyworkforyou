@@ -1,5 +1,7 @@
 <?
 
+# Display a calendar month in the Google gadget
+
 include_once '../../includes/easyparliament/init.php';
 $LIST = new DEBATELIST;
 # Guess it should really use a View of none, but this way I get all

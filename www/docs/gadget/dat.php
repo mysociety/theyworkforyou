@@ -1,5 +1,7 @@
 <?
 
+# Compile data for MP page in Google gadget
+
 # XXX Lots here copied from elsewhere... Damn you deadlines.
 
 include_once 'min-init.php';
