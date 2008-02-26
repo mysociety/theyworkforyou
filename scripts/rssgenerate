@@ -1,23 +1,32 @@
-#!/bin/bash
+#!/usr/bin/perl
+# rssgenerate.  Called by morningupdate to generate RSS feeds
+
+use warnings;
+use strict;
+use FindBin;
+use lib "$FindBin::Bin/../../perllib";
+use mySociety::Config;
+mySociety::Config::set_file("$FindBin::Bin/../conf/general");
+
+my $path = '/data/vhost/' . mySociety::Config::get('DOMAIN');
+my $staging = mySociety::Config::get('DEVSITE');
 
 # Make sure only one copy runs at once
-if [ x$LOCKFILE = x ]
-then
-        /home/fawkes/fawkes/scripts/run-with-lockfile -n /home/fawkes/fawkes/scripts/rssgenerate-lockfile $0
-        if [ $? = 100 ]
-        then
-                echo "Another copy of rssgenerate is already running" 1>&2
-        fi
-        exit $?
-fi
+unless ($ENV{LOCKFILE}) {
+    system "run-with-lockfile -n $path/rssgenerate.lock $0";
+    if ($? >> 8 == 100) {
+        print "Another copy of rssgenerate is already running\n"
+    }
+    exit $? >> 8;
+}
 
 # Check Xapian index is correct
 # Far too slow to be run in daily process
-#cd ~/fawkes/search
+#chdir "$FindBin::Bin/../search";
 #./index.pl ~/searchdb/ check $CRONQUIET_NODASH
 
 # Make RSS this takes a while
-cd ~/fawkes/scripts
-./make_rss.pl
-php -q mprss.php
+chdir $FindBin::Bin;
+system "./make_rss.pl";
+system "php -q mprss.php";
 

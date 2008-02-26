@@ -50,7 +50,7 @@ system "./xml2db.pl $cronquiet --recent --wms --quiet";
 system "./xml2db.pl $cronquiet --recent --lordsdebates --quiet";
 system "./xml2db.pl $cronquiet --recent --ni --quiet";
 
-$cronquiet = substr($cronquiet, 2);
+$cronquiet = substr($cronquiet, 2) if $cronquiet;
 # Update Xapan index
 print "Xapian indexing\n" if $verbose;
 chdir "$FindBin::Bin/../search";
