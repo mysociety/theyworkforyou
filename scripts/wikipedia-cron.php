@@ -1,4 +1,4 @@
-#!/usr/local/bin/php -q
+#!/usr/bin/php -q
 <?
 
 # This gets the data for the pages which show who has edited what in Wikipedia

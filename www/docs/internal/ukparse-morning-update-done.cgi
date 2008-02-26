@@ -7,7 +7,7 @@ use lib "$FindBin::Bin/../../../../perllib";
 use mySociety::CGIFast;
 use mySociety::Config;
 
-mySociety::Config::set_file("$FindBin::Bin/../conf/general");
+mySociety::Config::set_file("$FindBin::Bin/../../conf/general");
 
 my $path = '/data/vhost/' . mySociety::Config::get('DOMAIN');
 
