@@ -4,9 +4,13 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.3 2008-02-15 19:38:53 matthew Exp $
+# $Id: crontab.ugly,v 1.4 2008-02-26 15:41:26 matthew Exp $
 
+!!(* if ($user eq 'matthew') { *)!!
+MAILTO=matthew@mysociety.org
+!!(* } else { *)!!
 MAILTO=fawkes@lists.mysociety.org
+!!(* } *)!!
 
 # daily update at night for MP data (regmem, data from Public Whip etc.)
 37 1 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/dailyupdate
