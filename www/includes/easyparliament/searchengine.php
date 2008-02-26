@@ -167,6 +167,7 @@ class SEARCHENGINE {
         # Now parse the parsed query back into a query string, yummy
 
         $qd = $query->get_description();
+        twfy_debug("SEARCH", "queryparser original description -- " . $qd);
         $qd = substr($qd, 14, -1); # Strip Xapian::Query()
         $qd = preg_replace('#:\(.*?\)#', '', $qd); # Don't need pos or weight
         # Date range

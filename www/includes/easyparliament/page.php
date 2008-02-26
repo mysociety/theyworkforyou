@@ -2115,7 +2115,7 @@ label { float: left; width: 12em; }
 </style>
 <form action="/search/" method="get">
 <h3>Advanced Search</h3>
-<p><b>Not finished, simply to show the sort of options we now have</b></p>
+<p><b>Not finished, doesn't populate given a search string; simply to show the sort of options we now have</b></p>
 <p><label for="s">Words:</label> <input type="text" id="s" name="s" value="<?=htmlspecialchars(get_http_var('s')) ?>" size="50">
 <p><label for="phrase">Exact phrase:</label> <input type="text" id="phrase" name="phrase" value="<?=htmlspecialchars(get_http_var('phrase')) ?>" size="50">
 <p><label for="exclude">Ignore the words:</label> <input type="text" id="exclude" name="exclude" value="<?=htmlspecialchars(get_http_var('exclude')) ?>" size="50">
