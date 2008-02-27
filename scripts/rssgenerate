@@ -23,10 +23,10 @@ unless ($ENV{LOCKFILE}) {
 # Check Xapian index is correct
 # Far too slow to be run in daily process
 #chdir "$FindBin::Bin/../search";
-#./index.pl ~/searchdb/ check $CRONQUIET_NODASH
+#./index.pl check $CRONQUIET_NODASH
 
 # Make RSS this takes a while
 chdir $FindBin::Bin;
 system "./make_rss.pl";
-system "php -q mprss.php";
+system "php5 -q mprss.php";
 

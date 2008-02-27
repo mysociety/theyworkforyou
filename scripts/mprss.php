@@ -2,7 +2,7 @@
 
 // Generates the RSS feeds for currently sitting MPs.
 
-include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
+include '../www/includes/easyparliament/init.php';
 include INCLUDESPATH . 'easyparliament/member.php';
 
 // Where all the RSS feeds go.
