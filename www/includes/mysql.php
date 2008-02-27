@@ -311,14 +311,10 @@ Class MySQL {
 
 		if (!$global_connection) {
 			$conn = mysql_connect($db_host, $db_user, $db_pass);
-			if(!$conn) {
-				print ("<p>DB connection attempt failed.</p>");
-				exit;
-			}
-			if(!mysql_select_db($db_name, $conn)) {
-				print ("<p>DB select failed</p>");
-				exit;
-			}
+			if (!$conn)
+				$this->fatal_error('Unfortunately, we could not connect to the database for some reason. Please try again in a few minutes.');
+			if (!mysql_select_db($db_name, $conn))
+				$this->fatal_error('Strangely, the TheyWorkForYou database is missing! Hopefully someone will spot this soon, please try again in a few minutes.');
 			$global_connection = $conn;
 		}
 		$this->conn = $global_connection;
@@ -329,6 +325,18 @@ Class MySQL {
 		return true;
 	}
 	
+	function fatal_error($error) {
+		header('HTTP/1.0 500 Internal Server Error');
+		echo '
+<html><head><title>TheyWorkForYou - Database error</title></head>
+<body>
+<h1><a href="/"><img src="/images/theyworkforyoucombeta.gif" width="320" height="28" alt="TheyWorkForYou"></a></h1>
+<h2>Database error</h2>
+';
+		echo "<p>$error</p>";
+		echo '</body></html>';
+		exit;
+	}
 	
 	function query ($sql) {
 		// Pass it an SQL query and if the query was successful
