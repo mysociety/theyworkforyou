@@ -1202,7 +1202,11 @@ class HANSARDLIST {
 #						$itemdata['parent']['listurl'] = $subsection['listurl'];
 					}
 					if ($itemdata['major'] == 5) {
-						$itemdata['parent']['body'] = 'NIA: ' . $itemdata['parent']['body'];
+						$itemdata['parent']['body'] = 'Northern Ireland Assembly: ' . $itemdata['parent']['body'];
+					} elseif ($itemdata['major'] == 6) {
+						$itemdata['parent']['body'] = 'Public Bill Committee: ' . $itemdata['parent']['body'];
+					} elseif ($itemdata['major'] == 7) {
+						$itemdata['parent']['body'] = 'Scottish Parliament: ' . $itemdata['parent']['body'];
 					}
 
 				} else {

@@ -11,6 +11,9 @@ mySociety::Config::set_file("$FindBin::Bin/../../../conf/general");
 
 my $path = '/data/vhost/' . mySociety::Config::get('DOMAIN');
 
+# Automatically reap the morningupdate children when they finish
+$SIG{CHLD} = 'IGNORE';
+
 while (my $q = new mySociety::CGIFast()) {
     my $pid = fork;
     if (not defined $pid) {
