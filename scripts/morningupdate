@@ -43,13 +43,15 @@ print "Loading into database\n" if $verbose;
 chdir $FindBin::Bin;
 # We do these on separate lines, so if one fails, others still run
 system "./xml2db.pl $cronquiet --all --members";
-system "./xml2db.pl $cronquiet --recent --wrans --quiet";
 system "./xml2db.pl $cronquiet --recent --debates --quiet";
 system "./xml2db.pl $cronquiet --recent --westminhall --quiet";
+system "./xml2db.pl $cronquiet --recent --wrans --quiet";
 system "./xml2db.pl $cronquiet --recent --wms --quiet";
 system "./xml2db.pl $cronquiet --recent --lordsdebates --quiet";
 system "./xml2db.pl $cronquiet --recent --ni --quiet";
 system "./xml2db.pl $cronquiet --recent --standing --quiet";
+system "./xml2db.pl $cronquiet --recent --scotland --quiet";
+system "./xml2db.pl $cronquiet --recent --scotwrans --quiet";
 
 $cronquiet = substr($cronquiet, 2) if $cronquiet;
 # Update Xapan index

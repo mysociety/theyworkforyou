@@ -742,11 +742,6 @@ function send_email ($to, $subject, $message, $bulk = false) {
      "Content-Transfer-Encoding: 8bit\r\n" . 
      ($bulk ? "Precedence: bulk\r\n" : "" ).
      "X-Mailer: PHP/" . phpversion();
-    /* 
-	if ($to != REPORTLIST) {
-  		$headers .= "\r\nBcc: " . BCCADDRESS;
-	}
-     */
 	twfy_debug('EMAIL', "Sending email to $to with subject of '$subject'");
 
 	$success = mail ($to, $subject, $message, $headers);

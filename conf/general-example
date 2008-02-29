@@ -81,14 +81,14 @@ define ("RECESSFILE","http://www.theyworkforyou.com/pwdata/parl-recesses.txt");
 // When a user reports a comment, notification is sent to this address.
 define ("REPORTLIST", CONTACTEMAIL);
 
-// All outgoing emails to users get BCC'd to this address.
-define ("BCCADDRESS", CONTACTEMAIL);
-
 // All error emails go to this address.
 define ("BUGSLIST", CONTACTEMAIL);
 
 // Email addresses that alertmailer.php sends stats to
 define('ALERT_STATS_EMAILS', CONTACTEMAIL);
+
+// Problems with loading in the morning etc.
+define('PROBLEM_EMAIL', CONTACTEMAIL);
 
 // Postcode lookup
 // If domain is empty, causes postcode lookups to be random but deterministic
