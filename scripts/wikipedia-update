@@ -3,15 +3,15 @@
 # Only runs on live site
 #set -x
 
-cd /home/twfy-live/parldata/dumps
+cd /data/vhost/www.theyworkforyou.com/dumps
 rm -f all-titles-in-ns0.gz
 rm -f all-titles-in-ns0
 
-DUMPDATE=`fetch -q -o - http://download.wikimedia.org/backup-index.html | grep "enwiki/" | perl -pi.bak -e "s/.*(\d\d\d\d\d\d\d\d).*/\\\$1/;"`
+DUMPDATE=`wget -q -O - http://download.wikimedia.org/backup-index.html | grep "enwiki/" | perl -pi.bak -e "s/.*(\d\d\d\d\d\d\d\d).*/\\\$1/;"`
 #echo "Wikipedia dump date $DUMPDATE"
-fetch -q -o all-titles-in-ns0.gz http://download.wikimedia.org/enwiki/$DUMPDATE/enwiki-$DUMPDATE-all-titles-in-ns0.gz
+wget -q -O all-titles-in-ns0.gz http://download.wikimedia.org/enwiki/$DUMPDATE/enwiki-$DUMPDATE-all-titles-in-ns0.gz
 gunzip all-titles-in-ns0.gz
-echo "load data infile '/home/twfy-live/parldata/dumps/all-titles-in-ns0' ignore into table titles;" | mysql
+echo "load data infile '/data/vhost/www.theyworkforyou.com/dumps/all-titles-in-ns0' ignore into table titles;" | mysql
 cd /data/vhost/www.theyworkforyou.com/mysociety/twfy/scripts
 cat wikipedia-exceptions | mysql
 
