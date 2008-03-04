@@ -43,7 +43,8 @@ if (get_http_var('welcome') == 't') {
 		} else {
 			// Oops, something must have gone wrong when the user was logged in.
 			// It shouldn't do, but...
-			$PAGE->error_message("Sorry, we couldn't log you in");
+			$PAGE->error_message("Sorry, we couldn't log you in - TheyWorkForYou requires cookies to keep
+you logged in, so please make sure they're enabled for this site.");
 		}
 		
 		$PAGE->stripe_end(array(
