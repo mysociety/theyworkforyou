@@ -310,3 +310,13 @@ CREATE TABLE `uservotes` (
   `vote` tinyint(1) NOT NULL default '0',
   KEY `epobject_id` (`epobject_id`,`vote`)
 );
+
+CREATE TABLE `mentions` (
+  `mention_id` INTEGER NOT NULL auto_increment,
+  `gid` CHAR(100),
+  `type` INTEGER NOT NULL,
+  `date` DATE,
+  `url` VARCHAR(255),
+  `mentioned_gid` CHAR(100),
+  PRIMARY KEY (`mention_id`)
+);

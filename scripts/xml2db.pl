@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.25 2008-02-15 19:38:53 matthew Exp $
+# $Id: xml2db.pl,v 1.26 2008-03-05 16:56:21 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -47,7 +47,7 @@ use Uncapitalise;
 my $outputfilter = 'safe';
 #DBI->trace(1);
 
-use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall $wms $lordsdebates $ni $members $force $quiet $cronquiet $memtest $standing $scotland $scotwrans);
+use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall $wms $lordsdebates $ni $members $force $quiet $cronquiet $memtest $standing $scotland $scotwrans $scotqs);
 my $result = GetOptions ( "all" => \$all,
                         "recent" => \$recent,
                         "date=s" => \$date,
@@ -61,6 +61,7 @@ my $result = GetOptions ( "all" => \$all,
                         "ni" => \$ni,
                         "scotland" => \$scotland,
                         "scotwrans" => \$scotwrans,
+                        "scotqs" => \$scotqs,
                         "standing" => \$standing,
                         "members" => \$members,
                         "force" => \$force,
@@ -76,7 +77,7 @@ $c++ if $date;
 $c++ if ($datefrom || $dateto);
 $c = 1 if $memtest;
 
-if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$members && !$memtest && !$lordsdebates && !$ni && !$standing && !$scotland && !$scotwrans))
+if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$members && !$memtest && !$lordsdebates && !$ni && !$standing && !$scotland && !$scotwrans && !$scotqs))
 {
 print <<END;
 
@@ -95,6 +96,7 @@ database id.
 --ni - process Northern Ireland Assembly debates
 --scotland  - process Scottish Parliament debates
 --scotwrans - process Scottish Parliament written answers
+--scotqs - process mentions of Scottish Parliament question IDs
 --standing - process Public Bill Commitees (Standing Committees as were)
 
 --recent - acts incrementally, using -lastload files
@@ -144,7 +146,7 @@ use vars qw(%gids %grdests %ignorehistorygids $tallygidsmode $tallygidsmodedummy
 use vars qw(%membertoperson);
 use vars qw($current_file);
 
-use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir $lordswmsdir $lordsdebatesdir $nidir $standingdir $scotlanddir $scotwransdir);
+use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir $lordswmsdir $lordsdebatesdir $nidir $standingdir $scotlanddir $scotwransdir $scotqsfile);
 $debatesdir = $parldata . "scrapedxml/debates/";
 $wransdir = $parldata . "scrapedxml/wrans/";
 $lordswransdir = $parldata . "scrapedxml/lordswrans/";
@@ -156,6 +158,7 @@ $nidir = $parldata . 'scrapedxml/ni/';
 $scotlanddir = $parldata . 'scrapedxml/sp/';
 $scotwransdir = $parldata . 'scrapedxml/sp-written/';
 $standingdir = $parldata . 'scrapedxml/standing/';
+$scotqsfile = $parldata . 'scrapedxml/sp-question-mentions.xml';
 
 my @wrans_major_headings = (
 "ADVOCATE-GENERAL", "ADVOCATE GENERAL", "ADVOCATE-GENERAL FOR SCOTLAND", "AGRICULTURE, FISHERIES AND FOOD",
@@ -272,6 +275,19 @@ sub process_type {
         }
 }
 
+# Process a file of "mentions"...
+sub process_mentions {
+    my ($xfilename, $xgidtype) = @_;
+    if ($xgidtype eq "spq") {
+       my $twig = XML::Twig->new(twig_handlers =>
+                                 { 'question' => \&loadspq });
+       $twig->parsefile($xfilename);
+       $twig->dispose();
+    } else {
+       die "Unknown gid type in process_mentions ($xgidtype)"
+    }
+}
+
 # Process main data
 process_type(["debates"], [$debatesdir], \&add_debates_day) if ($debates) ;
 process_type(["answers", "lordswrans"], [$wransdir, $lordswransdir], \&add_wrans_day) if ($wrans);
@@ -282,6 +298,9 @@ process_type(['ni'], [$nidir], \&add_ni_day) if ($ni);
 process_type(['sp'], [$scotlanddir], \&add_scotland_day) if $scotland;
 process_type(['spwa'], [$scotwransdir], \&add_scotwrans_day) if $scotwrans;
 process_type(['standing'], [$standingdir], \&add_standing_day) if $standing;
+
+# Process the question mentions for the Scottish Parliament
+process_mentions($scotqsfile, "spq") if $scotqs;
 
 # Process members
 if ($members) {
@@ -421,6 +440,7 @@ my ($dbh,
         $hadd, $hcheck, $hupdate, $hdelete, $hdeletegid,
         $constituencyadd, $constituencydel, $memberadd, $memberexist, $membercheck, 
         $gradd, $grcheck, $grdeletegid,
+        $scotqadd,
         $lastid);
 
 sub db_connect
@@ -462,6 +482,9 @@ sub db_connect
         $gradd = $dbh->prepare("replace into gidredirect (gid_from, gid_to, hdate, major) values (?,?,?,?)");
         $grcheck = $dbh->prepare("select gid_from, hdate, major from gidredirect where gid_to = ?");
         $grdeletegid = $dbh->prepare("delete from gidredirect where gid_from = ?");
+
+        # scottish question mentions
+        $scotqadd = $dbh->prepare("insert into mentions (gid, type, date, url, mentioned_gid) values (?,?,?,?,?)");
 
         # other queries
         $lastid = $dbh->prepare("select last_insert_id()");
@@ -1702,6 +1725,30 @@ sub load_standing_division {
 ";
         # Standing XML is UTF-8, so transcode
         do_load_speech($division, 6, $id, Encode::encode('iso-8859-1', $text));
+}
+
+sub loadspq {
+    my ($twig, $question) = @_;
+    my %typemap = (
+       'business-today',   1,
+       'business-oral',    2,
+       'business-written', 3,
+       'answer',           4,
+       'holding',          5 );
+    my $gid = $question->att('gid');
+    my @mentions = $question->children();
+    foreach my $mention (@mentions) {
+       my $mentiontype = $typemap{$mention->att('type')};
+       unless ($mentiontype) {
+           die "Unknown mention type ($mentiontype) found.";
+       }
+       my $mentiondate = $mention->att('date');
+       my $mentionurl  = $mention->att('url');
+       my $mentiongid  = $mention->att('spwrans');
+       $scotqadd->execute($gid,$mentiontype,$mentiondate,$mentionurl,$mentiongid);
+       $scotqadd->finish();
+    }
+    $twig->purge();
 }
 
 sub canon_time {
