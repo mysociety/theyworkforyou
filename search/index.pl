@@ -96,7 +96,7 @@ if ($action ne "check") {
     
     # Get data for items to update from MySQL 
     my $query = "select epobject.epobject_id, epobject.body, section.body as section_body,
-        hdate, gid, major, section_id, subsection_id,
+        hdate, gid, major, section_id, subsection_id, colnum,
         unix_timestamp(concat(hdate, ' ', if(htime, htime, 0))) as unix_time,
         unix_timestamp(hansard.created) as created, hpos,
         person_id, member.title, first_name, last_name, constituency, party, house
@@ -135,8 +135,7 @@ if ($action ne "check") {
 
         $gid =~ m#(.*)/#;
         my $area = $1; # wrans or debate or westminhall or wms etc.
-        $gid =~ m#.*/.*?\.(\d+)(?:WS)?\.#;
-        my $col = $1 if defined $1;
+        (my $col = $$row{colnum}) =~ s/[^\d]//g;
         #print "$gid $area $col\n";
         if ($$row{'hdate'} ne $last_hdate || $area ne $last_area) {
             $last_hdate = $$row{'hdate'};
@@ -191,7 +190,7 @@ if ($action ne "check") {
         $doc->add_term("U$subsection_or_id"); # For searching within one debate
         $doc->add_term("D$date");
         $doc->add_term("G\L$dept") if $$row{major} == 3 || $$row{major} == 4 || $$row{major} == 8;
-        $doc->add_term("C$col") unless $$row{major} == 3 || $$row{major} == 8;
+        $doc->add_term("C$col") if $col;
 
         my $packedUnixTime = pack('N', $$row{'unix_time'});
         $doc->add_value(0, $packedUnixTime); # For sort by date (although all wrans have same time of 00:00, no?)

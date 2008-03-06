@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.26 2008-03-05 16:56:21 matthew Exp $
+# $Id: xml2db.pl,v 1.27 2008-03-06 13:16:13 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -456,10 +456,10 @@ sub db_connect
         $epupdate = $dbh->prepare("update epobject set body = ?, modified = NOW() where epobject_id = ?");
 
         # hansard object queries
-        $hadd = $dbh->prepare("insert into hansard (epobject_id, gid, htype, speaker_id, major, minor, section_id, subsection_id, hpos, hdate, htime, source_url, created, modified)
-                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
-        $hcheck = $dbh->prepare("select epobject_id, gid, htype, speaker_id, major, minor, section_id, subsection_id, hpos, hdate, htime, source_url from hansard where gid = ?");
-        $hupdate = $dbh->prepare("update hansard set gid = ?, htype = ?, speaker_id = ?, major = ?, minor = ?, section_id = ?, subsection_id = ?, hpos = ?, hdate = ?, htime = ?, source_url = ?, modified = NOW()
+        $hadd = $dbh->prepare("insert into hansard (epobject_id, gid, colnum, htype, speaker_id, major, minor, section_id, subsection_id, hpos, hdate, htime, source_url, created, modified)
+                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
+        $hcheck = $dbh->prepare("select epobject_id, gid, colnum, htype, speaker_id, major, minor, section_id, subsection_id, hpos, hdate, htime, source_url from hansard where gid = ?");
+        $hupdate = $dbh->prepare("update hansard set gid = ?, colnum = ?, htype = ?, speaker_id = ?, major = ?, minor = ?, section_id = ?, subsection_id = ?, hpos = ?, hdate = ?, htime = ?, source_url = ?, modified = NOW()
                 where epobject_id = ? and gid = ?");
         $hdelete = $dbh->prepare("delete from hansard where gid = ? and epobject_id = ?");
         $hdeletegid = $dbh->prepare("delete from hansard where gid = ?");
@@ -1810,7 +1810,7 @@ sub do_load_speech
         }
 
         my @epparam = ($pretext . $text);
-        my @hparam = ($id, $type, $speaker, $major, $minor, $currsection, $currsubsection, $hpos, $curdate, $htime, $url);
+        my @hparam = ($id, $speech->att('colnum'), $type, $speaker, $major, $minor, $currsection, $currsubsection, $hpos, $curdate, $htime, $url);
         my $epid = db_addpair(\@epparam, \@hparam);
 }
 
@@ -1836,7 +1836,7 @@ sub do_load_heading
         my $speaker = 0;
        
         my @epparam = (fix_case($text));
-        my @hparam = ($speech->att('id'), $type, $speaker, $major, $minor, 0, 0, $hpos, $curdate, $htime, $url);
+        my @hparam = ($speech->att('id'), $speech->att('colnum'), $type, $speaker, $major, $minor, 0, 0, $hpos, $curdate, $htime, $url);
         my $epid = db_addpair(\@epparam, \@hparam);
 
         $currsubsection = $epid;
@@ -1883,7 +1883,7 @@ sub do_load_subheading
         my $speaker = 0;
 
         my @epparam = (fix_case($text));
-        my @hparam = ($speech->att('id'), $type, $speaker, $major, $minor, $currsection, 0, $hpos, $curdate, $htime, $url);
+        my @hparam = ($speech->att('id'), $speech->att('colnum'), $type, $speaker, $major, $minor, $currsection, 0, $hpos, $curdate, $htime, $url);
         my $epid = db_addpair(\@epparam, \@hparam);
 
         $currsubsection = $epid;
