@@ -135,8 +135,6 @@ if ($action ne "check") {
 
         $gid =~ m#(.*)/#;
         my $area = $1; # wrans or debate or westminhall or wms etc.
-        (my $col = $$row{colnum}) =~ s/[^\d]//g;
-        #print "$gid $area $col\n";
         if ($$row{'hdate'} ne $last_hdate || $area ne $last_area) {
             $last_hdate = $$row{'hdate'};
             $last_area = $area;
@@ -190,7 +188,7 @@ if ($action ne "check") {
         $doc->add_term("U$subsection_or_id"); # For searching within one debate
         $doc->add_term("D$date");
         $doc->add_term("G\L$dept") if $$row{major} == 3 || $$row{major} == 4 || $$row{major} == 8;
-        $doc->add_term("C$col") if $col;
+        $doc->add_term("C$$row{colnum}") if $$row{colnum};
 
         my $packedUnixTime = pack('N', $$row{'unix_time'});
         $doc->add_value(0, $packedUnixTime); # For sort by date (although all wrans have same time of 00:00, no?)

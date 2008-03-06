@@ -58,7 +58,7 @@ CREATE TABLE `hansard` (
   `minor` int(11) default NULL,
   `created` datetime default NULL,
   `modified` datetime default NULL,
-  `colnum` varchar(10) default NULL,
+  `colnum` smallint default NULL,
   PRIMARY KEY  (`epobject_id`),
   UNIQUE KEY `gid` (`gid`),
   KEY `epobject_id` (`epobject_id`),

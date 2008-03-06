@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.27 2008-03-06 13:16:13 matthew Exp $
+# $Id: xml2db.pl,v 1.28 2008-03-06 13:35:29 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1769,6 +1769,7 @@ sub do_load_speech
         my ($speech, $major, $minor, $text) = @_;
 
         my $id = $speech->att('id');
+        (my $colnum = $speech->att('colnum')) =~ s/[^\d]//g;
 
         my $len = length($speech->sprint(1));
         return if ($len == 0);
@@ -1810,7 +1811,7 @@ sub do_load_speech
         }
 
         my @epparam = ($pretext . $text);
-        my @hparam = ($id, $speech->att('colnum'), $type, $speaker, $major, $minor, $currsection, $currsubsection, $hpos, $curdate, $htime, $url);
+        my @hparam = ($id, $colnum, $type, $speaker, $major, $minor, $currsection, $currsubsection, $hpos, $curdate, $htime, $url);
         my $epid = db_addpair(\@epparam, \@hparam);
 }
 
@@ -1831,12 +1832,13 @@ sub do_load_heading
 	my $htime = $speech->att('time');
         $htime = canon_time($htime) if defined $htime;
 	my $url = $speech->att('url');
+        (my $colnum = $speech->att('colnum')) =~ s/[^\d]//g;
 
         my $type = 10;
         my $speaker = 0;
        
         my @epparam = (fix_case($text));
-        my @hparam = ($speech->att('id'), $speech->att('colnum'), $type, $speaker, $major, $minor, 0, 0, $hpos, $curdate, $htime, $url);
+        my @hparam = ($speech->att('id'), $colnum, $type, $speaker, $major, $minor, 0, 0, $hpos, $curdate, $htime, $url);
         my $epid = db_addpair(\@epparam, \@hparam);
 
         $currsubsection = $epid;
@@ -1878,12 +1880,13 @@ sub do_load_subheading
 	my $htime = $speech->att('time');
         $htime = canon_time($htime) if defined $htime;
 	my $url = $speech->att('url');
+        (my $colnum = $speech->att('colnum')) =~ s/[^\d]//g;
 
         my $type = 11;
         my $speaker = 0;
 
         my @epparam = (fix_case($text));
-        my @hparam = ($speech->att('id'), $speech->att('colnum'), $type, $speaker, $major, $minor, $currsection, 0, $hpos, $curdate, $htime, $url);
+        my @hparam = ($speech->att('id'), $colnum, $type, $speaker, $major, $minor, $currsection, 0, $hpos, $curdate, $htime, $url);
         my $epid = db_addpair(\@epparam, \@hparam);
 
         $currsubsection = $epid;
