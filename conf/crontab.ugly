@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.5 2008-03-03 13:53:01 matthew Exp $
+# $Id: crontab.ugly,v 1.6 2008-03-07 13:12:55 matthew Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 
@@ -15,7 +15,7 @@ MAILTO=fawkes@lists.mysociety.org
 !!(* } *)!!
 
 # daily update at night for MP data (regmem, data from Public Whip etc.)
-37 1 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/dailyupdate
+37 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/dailyupdate
 
 # Weekly, compact Xapian database
 23 4 * * Sun !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/morning-update.lock /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/compactsearchdb || echo "morningupdate or compactsearchdb is already running"
