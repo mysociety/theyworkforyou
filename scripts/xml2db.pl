@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.28 2008-03-06 13:35:29 matthew Exp $
+# $Id: xml2db.pl,v 1.29 2008-03-07 09:20:46 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1769,7 +1769,8 @@ sub do_load_speech
         my ($speech, $major, $minor, $text) = @_;
 
         my $id = $speech->att('id');
-        (my $colnum = $speech->att('colnum')) =~ s/[^\d]//g;
+        my $colnum = $speech->att('colnum');
+        $colnum =~ s/[^\d]//g if $colnum;
 
         my $len = length($speech->sprint(1));
         return if ($len == 0);
@@ -1832,7 +1833,8 @@ sub do_load_heading
 	my $htime = $speech->att('time');
         $htime = canon_time($htime) if defined $htime;
 	my $url = $speech->att('url');
-        (my $colnum = $speech->att('colnum')) =~ s/[^\d]//g;
+        my $colnum = $speech->att('colnum');
+        $colnum =~ s/[^\d]//g if $colnum;
 
         my $type = 10;
         my $speaker = 0;
@@ -1880,7 +1882,8 @@ sub do_load_subheading
 	my $htime = $speech->att('time');
         $htime = canon_time($htime) if defined $htime;
 	my $url = $speech->att('url');
-        (my $colnum = $speech->att('colnum')) =~ s/[^\d]//g;
+        my $colnum = $speech->att('colnum');
+        $colnum =~ s/[^\d]//g if $colnum;
 
         my $type = 11;
         my $speaker = 0;
