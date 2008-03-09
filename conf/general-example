@@ -12,6 +12,7 @@ define ("DB_NAME", "twfy");
 // *******************************************************************************
 // Domains.
 // Set this to the domain you are hosting on. If you're running locally, this will be "localhost" 
+// You can include a port number by putting ":N" at the end of DOMAIN
 define ("DOMAIN", "www.example.org");
 define ("COOKIEDOMAIN", "www.example.org");
 
@@ -20,7 +21,7 @@ define ("COOKIEDOMAIN", "www.example.org");
 
 define ("CONTACTEMAIL", "you@yourdomain.com");
 
-// File system path to the top directory of this Theyworkforyou installation
+// File system path to the top directory of this Theyworkforyou installation; no trailing slash
 define ("BASEDIR","/home/user/theyworkforyou/docs"); 
 
 // Webserver path to 'top' directory of the site (possibly just "/"). For example,

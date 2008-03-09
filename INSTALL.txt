@@ -1,6 +1,6 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.8 2008-01-24 22:11:36 matthew Exp $
+$Id: INSTALL.txt,v 1.9 2008-03-09 12:41:37 matthew Exp $
 
 TODO: Add an explanation of how to set up a virtual host in apache.
 
@@ -16,11 +16,18 @@ System Requirements
 
 * Perl 5.8.1 
 
-* PHP 4.3.3
+* PHP 5
 
-  The site appears to work on the whole with PHP 5, do let us know if it errors
-  anywhere. short_open_tag has to be enabled. PHP must be configured with curl, 
-  using the '--with-curl' option.
+  short_open_tag has to be enabled, and PHP must be configured with curl, 
+  using the '--with-curl' option. There's actually only one call that's
+  PHP5 specific, it otherwise runs fine in PHP4, but PHP4 will no longer
+  get security updates from 2008-08-08, so might as well specify PHP5 now.
+
+  You should be able to run the site without installing Xapian (the
+  search engine, see below), but the site might error; if this happens
+  to you, contact us so we can make it optional better. If you do have
+  Xapian installed, you'll need to make sure PHP includes the Xapian
+  extension by adding extension=xapian.so to your php.ini file.
 
 * Apache 1.3.28
 
@@ -67,6 +74,9 @@ mysqladmin -u root -p create twfy
 
 grant all on twfy.* to twfy@localhost identified by 'mypass';
 
+(to load the Wikipedia titles, you'll need the FILE privilege too,
+I'm not sure if the above line adds it or not).
+
 4. create database schema. The creation script is in the 'db'
    subdirectory of the theyworkforyou source code package.
 
@@ -84,6 +94,8 @@ to
   general
 
 and then edit the first few lines to be appropriate for your setup.
+Make sure the directories you specify have the trailing "/", unless
+otherwise specified.
 
 6. configure apache:
 
@@ -93,18 +105,22 @@ NameVirtualHost directive is uncommented and says
 NameVirtualHost * 
 
 and then add something like the following, with the paths updated
- for your setup, and restart apache (apachectl restart)
+for your setup, and restart apache (apachectl restart). The Include
+line is to get the site specific commands, like nice rewriting of URLs
+and so on.
 
 <VirtualHost localether>
  ServerAdmin me@example.com
- DocumentRoot /var/www/theyworkforyou/www/docs
+ DocumentRoot /data/vhost/www.theyworkforyou.com/docs
  ServerName twfy.example.com
-  <Directory /var/www/theyworkforyou/www/docs>
+  <Directory /data/vhost/www.theyworkforyou.com/docs>
    Options FollowSymLinks
    AllowOverride All
    Allow from all
    Order allow,deny
   </Directory>
+ 
+ Include /data/vhost/www.theyworkforyou.com/mysociety/twfy/conf/httpd.conf
 
  ErrorLog /var/log/httpd/twfy_error
  CustomLog /var/log/httpd/twfy_access combined

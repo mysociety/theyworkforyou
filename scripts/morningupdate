@@ -11,7 +11,7 @@ use lib "$FindBin::Bin/../../perllib";
 use mySociety::Config;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
-my $path = '/data/vhost/' . mySociety::Config::get('DOMAIN');
+my $path = mySociety::Config::get('BASEDIR') . '/../';
 my $staging = mySociety::Config::get('DEVSITE');
 
 my $verbose = 0;

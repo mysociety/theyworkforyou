@@ -9,7 +9,7 @@ use mySociety::Config;
 
 mySociety::Config::set_file("$FindBin::Bin/../../../conf/general");
 
-my $path = '/data/vhost/' . mySociety::Config::get('DOMAIN');
+my $path = mySociety::Config::get('BASEDIR') . '/../';
 
 # Automatically reap the morningupdate children when they finish
 $SIG{CHLD} = 'IGNORE';
