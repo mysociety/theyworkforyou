@@ -1,7 +1,7 @@
 #! /usr/bin/perl -w
 # compactsearchdb. Compacts the Xapian search database
 #
-# $Id: compactsearchdb,v 1.2 2008-02-15 19:38:53 matthew Exp $
+# $Id: compactsearchdb,v 1.3 2008-03-09 11:58:51 matthew Exp $
 
 use strict;
 
@@ -10,7 +10,7 @@ use File::Path;
 use lib "$FindBin::Bin/../../perllib";
 
 use mySociety::Config;
-mySociety::Config::set_file('../conf/general');
+mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
 my $xapian = mySociety::Config::get('XAPIANDB');
 

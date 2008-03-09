@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.29 2008-03-07 09:20:46 matthew Exp $
+# $Id: xml2db.pl,v 1.30 2008-03-09 11:58:51 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -21,7 +21,7 @@ use lib "$FindBin::Bin";
 use lib "$FindBin::Bin/../../perllib";
 
 use mySociety::Config;
-mySociety::Config::set_file('../conf/general');
+mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
 my $parldata = mySociety::Config::get('RAWDATA');
 my $lastupdatedir = mySociety::Config::get('XAPIANDB') . '/../xml2db/';

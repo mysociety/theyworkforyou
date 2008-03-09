@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.20 2008-02-26 17:27:32 matthew Exp $
+# $Id: mpinfoin.pl,v 1.21 2008-03-09 11:58:51 matthew Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -13,7 +13,7 @@ use lib "$FindBin::Bin";
 use lib "$FindBin::Bin/../../perllib";
 
 use mySociety::Config;
-mySociety::Config::set_file('../conf/general');
+mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
 
 use XML::Twig;

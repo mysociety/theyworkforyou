@@ -11,7 +11,7 @@ use DBI;
 use URI::Escape;
 
 use mySociety::Config;
-mySociety::Config::set_file('../conf/general');
+mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
 my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'), { RaiseError => 1, PrintError => 0 });
