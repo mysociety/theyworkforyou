@@ -1780,6 +1780,7 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		// $message is like the array used in $this->message()
 			
 		if (!$this->page_started()) {
+			header('HTTP/1.0 500 Internal Server Error');
 			$this->page_start();
 		}
 		

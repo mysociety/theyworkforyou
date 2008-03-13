@@ -162,6 +162,7 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 		if (is_object($PAGE)) {
 			$PAGE->error_message($message, $fatal);
 		} else {
+			header('HTTP/1.0 500 Internal Server Error');
 			print "<p>Oops, sorry, an error has occurred!</p>\n";
 		}
 		mail(BUGSLIST, "[TWFYBUG]: $errmsg", $err,

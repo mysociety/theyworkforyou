@@ -326,7 +326,6 @@ Class MySQL {
 	}
 	
 	function fatal_error($error) {
-		header('HTTP/1.0 500 Internal Server Error');
 		echo '
 <html><head><title>TheyWorkForYou - Database error</title></head>
 <body>
