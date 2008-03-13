@@ -1024,8 +1024,20 @@ class HANSARDLIST {
         // Fetch count of number of matches
 		global $SEARCHENGINE;
 	
+		// For Xapian's equivalent of an SQL LIMIT clause.
+		$first_result = ($page-1) * $results_per_page;
+		$data['info']['first_result'] = $first_result + 1; // Take account of LIMIT's 0 base.
+
+		// Get the gids from Xapian
+		$sort_order = 'date';
+		if (isset($args['o'])) {
+			if ($args['o']=='d') $sort_order = 'date';
+			elseif ($args['o']=='c') $sort_order = 'created';
+			elseif ($args['o']=='r') $sort_order = 'relevance';
+		}
+
 		$data['searchdescription'] = $SEARCHENGINE->query_description_long();
-		$count = $SEARCHENGINE->run_count();
+		$count = $SEARCHENGINE->run_count($first_result, $results_per_page, $sort_order);
 		$data['info']['total_results'] = $count;
 		$data['info']['spelling_correction'] = $SEARCHENGINE->get_spelling_correction();
 
@@ -1042,18 +1054,6 @@ class HANSARDLIST {
 		if ($count <= 0) {
 			$data['rows'] = array();
 			return $data;
-		}
-
-		// For Xapian's equivalent of an SQL LIMIT clause.
-		$first_result = ($page-1) * $results_per_page;
-		$data['info']['first_result'] = $first_result + 1; // Take account of LIMIT's 0 base.
-	
-		// Get the gids from Xapian
-		$sort_order = 'date';
-		if (isset($args['o'])) {
-			if ($args['o']=='d') $sort_order = 'date';
-			elseif ($args['o']=='c') $sort_order = 'created';
-			elseif ($args['o']=='r') $sort_order = 'relevance';
 		}
 
 		$SEARCHENGINE->run_search($first_result, $results_per_page, $sort_order);

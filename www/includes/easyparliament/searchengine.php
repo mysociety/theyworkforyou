@@ -214,17 +214,20 @@ class SEARCHENGINE {
         }
 
         # Replace stemmed things with their unstemmed terms from the query
+        $used = array();
         preg_match_all('#Z[a-z]+#', $qd, $m);
         foreach ($m[0] as $mm) {
             $iter = $this->queryparser->unstem_begin($mm);
             $end = $this->queryparser->unstem_end($mm);
-            $tt = array();
             while (!$iter->equals($end)) {
-                $tt[] = $iter->get_term();
+                $tt = $iter->get_term();
+                if (!in_array($tt, $used)) break;
                 $iter->next();
             }
-            $qd = str_replace($mm, join(',',array_unique($tt)), $qd);
+            $used[] = $tt;
+            $qd = preg_replace("#$mm#", $tt, $qd, 1);
         }
+
         # Simplify display of excluded words
         $qd = preg_replace('#AND_NOT ([a-z0-9"]+)#', '-$1', $qd);
         preg_match_all('#AND_NOT \((.*?)\)#', $qd, $m);
@@ -275,11 +278,22 @@ class SEARCHENGINE {
     }
 
     // Perform partial query to get a count of number of matches
-    function run_count () {
+    function run_count($first_result, $results_per_page, $sort_order='relevance') {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
 		$start = getmicrotime();
+
+        switch ($sort_order) {
+            case 'date':
+                $this->enquire->set_sort_by_value(0);
+                break;
+            case 'created':
+                $this->enquire->set_sort_by_value(2); 
+            default:
+                //do nothing, default ordering is by relevance
+                break;
+        }
 
         // Set collapsing and sorting
         global $PAGE;
@@ -303,16 +317,35 @@ class SEARCHENGINE {
         if (!$collapsed)
             $this->enquire->set_collapse_key(3);
         
-        $matches = $this->enquire->get_mset(0, 500);
+        /*
+        XXX Helping to debug possible Xapian bug
+        foreach (array(0, 50, 100, 200, 300, 400, 460) as $fff) {
+            foreach (array(0, 100, 300, 500, 1000) as $cal) {
+                print "get_mset($fff, 20, $cal): ";
+                $m = $this->enquire->get_mset($fff, 20, $cal);
+                print $m->get_matches_estimated(). ' ';
+                print $m->get_matches_lower_bound() . ' ';
+                print $m->get_matches_upper_bound() . "\n";
+            }
+        }
+        */
+
+        #$matches = $this->enquire->get_mset(0, 500);
+        $this->matches = $this->enquire->get_mset($first_result, $results_per_page, 100);
         // Take either: 1) the estimate which is sometimes too large or 2) the
         // size which is sometimes too low (it is limited to the 500 in the line
         // above).  We get the exact mset we need later, according to which page
         // we are on.
-        if ($matches->size() < 500) {
-            $count = $matches->size();
-        } else {
-            $count = $matches->get_matches_estimated();
-        }
+        #if ($matches->size() < 500) {
+            #$count = $matches->size();
+        #} else {
+            $count = $this->matches->get_matches_estimated();
+        #    print "DEBUG bounds: ";
+        #    print $this->matches->get_matches_lower_bound();
+        #    print ' - ';
+        #    print $this->matches->get_matches_upper_bound();
+        #}
+
 		$duration = getmicrotime() - $start;
 		twfy_debug ("SEARCH", "Search count took $duration seconds.");
         return $count;
@@ -322,18 +355,8 @@ class SEARCHENGINE {
     function run_search ($first_result, $results_per_page, $sort_order='relevance') {
 		$start = getmicrotime();
 
-        // NOTE: this is to do sort by date
-        switch ($sort_order) {
-            case 'date':
-                $this->enquire->set_sort_by_value(0);
-                break;
-            case 'created':
-                $this->enquire->set_sort_by_value(2); 
-            default:
-                //do nothing, default ordering is by relevance
-                break;
-        }
-        $matches = $this->enquire->get_mset($first_result, $results_per_page);
+        #$matches = $this->enquire->get_mset($first_result, $results_per_page);
+        $matches = $this->matches;
 		$this->gids = array();
         $this->created = array();
         $this->collapsed = array();
