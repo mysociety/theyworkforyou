@@ -37,7 +37,7 @@ debates_rss(2, 'Westminster Hall debates', 'whall/', 'whall/whall.rss');
 debates_rss(5, 'Northern Ireland Assembly debates', 'ni/', 'ni/ni.rss');
 wms_rss();
 # wrans_rss();
-pbc_rss();
+# pbc_rss();
 
 sub debates_rss {
     my ($major, $title, $url, $file) = @_;

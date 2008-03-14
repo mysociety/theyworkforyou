@@ -20,10 +20,8 @@ if ($message != '') {
 $HANSARDURL = new URL('hansard');
 $MPURL = new URL('yourmp');
 $PAGE->block_start(array ('id'=>'intro', 'title'=>'At TheyWorkForYou.com you can:'));
-?>
-						<ol>
 
-<?php 
+echo '<ol>';
 
 // Find out more about your MP / Find out more about David Howarth, your MP
 function your_mp_bullet_point() {
@@ -73,7 +71,7 @@ function your_mp_bullet_point() {
 // Search / Search for 'mouse'
 function search_bullet_point() {
 	global $SEARCHURL;
-	?> <li> <?php
+	echo ' <li> ';
 	$SEARCHURL = new URL('search');
 	?>
 						<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
@@ -118,10 +116,7 @@ function email_alert_bullet_point() {
 // Comment on (recent debates)
 function comment_on_recent_bullet_point() {
 	global $hansardmajors;
-?>
-	<li><p><strong>Read and comment on:</strong></p>
-
-<?php 
+	echo ' <li><p><strong>Read and comment on:</strong></p> ';
 	$DEBATELIST = new DEBATELIST; $data[1] = $DEBATELIST->most_recent_day();
 	$WRANSLIST = new WRANSLIST; $data[3] = $WRANSLIST->most_recent_day();
 	$WHALLLIST = new WHALLLIST; $data[2] = $WHALLLIST->most_recent_day();
@@ -136,7 +131,7 @@ function comment_on_recent_bullet_point() {
 		}
 	}
 	major_summary($data);
-	?> </li> <?php 
+	echo ' </li> ';
 }
 
 if (get_http_var('keyword')) {
@@ -154,9 +149,7 @@ if (get_http_var('keyword')) {
 	comment_on_recent_bullet_point();
 }
 
-?>
-						</ol>
-<?php
+echo '</ol>';
 $PAGE->block_end();
 
 $includes = array(

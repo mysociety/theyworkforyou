@@ -1,5 +1,7 @@
 <?php
 
+include '../404.php';
+
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 include_once INCLUDESPATH . "easyparliament/member.php";
