@@ -9,7 +9,7 @@ use mySociety::Config;
 
 mySociety::Config::set_file("$FindBin::Bin/../../../conf/general");
 
-my $path = mySociety::Config::get('BASEDIR') . '/../';
+my $path = mySociety::Config::get('BASEDIR') . '/../../scripts/morningupdate';
 
 # Automatically reap the morningupdate children when they finish
 $SIG{CHLD} = 'IGNORE';
@@ -19,7 +19,7 @@ while (my $q = new mySociety::CGIFast()) {
     if (not defined $pid) {
         print "Content-Type: text/plain\r\n\r\nFork failed";
     } elsif ($pid == 0) {
-        exec "$path/mysociety/twfy/scripts/morningupdate";
+        exec $path;
     } else {
         print <<EOF;
 Content-Type: text/plain
