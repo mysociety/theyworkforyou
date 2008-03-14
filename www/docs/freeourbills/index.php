@@ -1,40 +1,60 @@
 <?php
 include_once "../../includes/easyparliament/init.php";
+
+function signup_form() {
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	<title>Free Our Bills! - TheyWorkForYou.com</title>
-	<link rel="stylesheet" href="/style/default/global.css" type="text/css">
-	<style type="text/css">
-		@import url(/style/default/global_non_ns4.css);
-	</style>
-	<link rel="stylesheet" href="/style/default/print.css" type="text/css" media="print">
-</head>
+	<form method="post" action="action.php">
+	<div>
+	<input type="hidden" name="posted" id="posted" value="1" />
+	<table>
+	<tr>
+	<td colspan="2"><strong>
+	This campaign can only succeed if TheyWorkForYou's users sign up and get involved directly. We need you!
+	</strong></td>
+	</tr><tr>
+	<td><b><label for="email">Your email:</label></b></td>
+	<td><input type="text" name="email" id="email" value="" size="30" /></td>
+	</tr><tr>
+	<td><b><label for="postcode">Your postcode:</label></b></td>
+	<td><input type="text" name="postcode" id="postcode" value="" size="10" /></td>
+	</tr>
+	<tr>
+	<td>&nbsp;</td>
+	<td>
+	<input type="submit" class="submit" value="Join up" />
+	</td></tr>
+	</table>
+	</div>
+	</form>
+<?
+}
+?>
 
-<body>
-<div id="container">
-<div id="content">
-<div class="main">
+<?
+$PAGE->page_start();
+$PAGE->stripe_start();
+$PAGE->block_start(array ('id'=>'intro', 'title'=>'We need your help:'));
 
-<p style="text-align: center"><img style="margin: 1em 1em 1em 1em" src="http://www.theyworkforyou.com/images/theyworkforyoucombeta.gif" alt="TheyWorkForYou.com"></p>
+?>
 
+
+<!-- <div style="background-color: #E8FDCB;"> -->
 <h2 style="text-align: center">Free our Bills!</h2>
 
 <p style="text-align: center"><em>The Nice Polite Campaign to Gently Encourage Parliament
-to Publish Bills in a 21st Century Way, Please</em></p>
+<br>to Publish Bills in a 21st Century Way, Please. Now.</em></p>
+<!-- </div> -->
 
 <h3>What the...?</h3>
 
-<p style="text-align: center"><img src="bill2.png" align="right" alt="" hspace="5" vspace="10"></p>
+<p style="text-align: center"><img title="Duck-billed platypus" src="bill3.jpg" align="right" alt="" hspace="5" vspace="10"></p>
 
 <p>Writing, discussing and voting on bills is what 
 we employ our MPs to do. If enough <strong>MPs vote on bills</strong> they become the law,
 meaning you or I can get <strong>locked up</strong> if they pass a bad one. 
 </p>
 
-<p>Bills are, like, <strong>so</strong> much more important than what MPs spend
+<p>Bills are, like, <em>so</em> much more important than what MPs spend
 <strong>on furniture</strong>.</p>
 
 <p>The problem is that the way in which Bills are put out is completely
@@ -42,14 +62,13 @@ meaning you or I can get <strong>locked up</strong> if they pass a bad one.
 knows what the heck people are actually voting for or against. We need to free
 our Bills in order for most people to be able to understand what matters about
 them.
-</p>.
+</p>
 
-<form method="post" action="subscribe">
-<p>Sign up to our <strong>campaign update list</strong>,
-<label for="subv">your email address:</label>
-<input type="text" id="subv" name="subv" value="">
-<input type="submit" name="sub" value="Subscribe">
-</form>
+<h3>We need you!</h3>
+
+<? signup_form() ?>
+
+<p></p>
 
 <h3>"Why?"</h3>
 
@@ -60,23 +79,27 @@ is actually working for you or not. Lots of people seem to like it,
 nearly 2 million came to visit last year. <del>Some of them weren't even
 MPs obsessively checking their own stats.</del>
 
-<p>Unfortunately, we can't just fix up the rubbish format that Parliament
-puts Bills out in [umm, we could, we just don't want to? :) ] - they need to make it better in the first place.
-As a consequence:
+<p>
+It's time for Parliament to improve its act and start publishing these vital
+documents properly in the first place. Quite apart from the fact that we're a
+tiny charity without many resources to fix this information, 
+<em>you're paying</em> for them to produce it in a uselessly old
+fashioned way.  Unless Parliament produces better bills:
 
 <ul>
-<li>We can't give you email alerts to tell you when a bill mentions
+<li style="font-weight: normal">We can't give you <strong>email alerts</strong> to tell you when a bill mentions
 something you might be interested in.
-<li>We can't tell you what amendments your own MP is asking for, or voting on.
-<li>We can't help people who know about bills annotate them to explain
+<li style="font-weight: normal">We can't tell you what <strong>amendments your own MP</strong> is asking for, or voting on.
+<li style="font-weight: normal">We can't help people who know about bills <strong>annotate them</strong> to explain
 what they're really going on about for everyone else.
-<li>We can't build services that would help MPs and their staff notice
-when they were being asked to vote on dumb or dubious things.
-<li>We can't really give a rounded view of how useful your MP is if we
+<li style="font-weight: normal">We can't build services that would help MPs and their staff notice
+when they were being asked to vote on dumb or <strong>dubious things</strong>.
+<li style="font-weight: normal">We can't really give a <strong>rounded view</strong> of how useful your MP is if we
 can't see their involvement with the bill making process.
-<li>We can't do about 12 zillion other things that we're not even bright
+<li style="font-weight: normal">We can't do about <strong>12 zillion</strong> other things that we're not even bright
 enough to think of yet.
 </ul>
+
 <br><!-- yuk -->
 
 <h3>"Why won't Parliament do this?"</h3>
@@ -118,17 +141,12 @@ Can't you campaign about saving puppies or something?"</h3>
 <p>Hey - <strong>you're</strong> the one who just read all the way down to this point.
 Suck it up and sign up, soldier.
 
-<form method="post" action="subscribe">
-<p>Sign up to our <strong>campaign update list</strong>,
-<label for="subv2">your email address:</label>
-<input type="text" id="subv2" name="subv" value="">
-<input type="submit" name="sub" value="Subscribe">
-</form>
+<h3>We need you!</h3>
 
-</div>
-</div>
-</div>
-</body>
+<? signup_form() ?>
 
-</html>
+<? $PAGE->block_end(); ?>
+<? $PAGE->stripe_end(); ?>
+<? $PAGE->page_end (); ?>
+
 
