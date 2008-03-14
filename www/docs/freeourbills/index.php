@@ -3,56 +3,52 @@ include_once "../../includes/easyparliament/init.php";
 
 function signup_form() {
 ?>
-	<form method="post" action="action.php">
-	<div>
-	<input type="hidden" name="posted" id="posted" value="1" />
-	<table>
-	<tr>
-	<td colspan="2"><strong>
-	This campaign can only succeed if TheyWorkForYou's users sign up and get involved directly. We need you!
-	</strong></td>
-	</tr><tr>
-	<td><b><label for="email">Your email:</label></b></td>
-	<td><input type="text" name="email" id="email" value="" size="30" /></td>
-	</tr><tr>
-	<td><b><label for="postcode">Your postcode:</label></b></td>
-	<td><input type="text" name="postcode" id="postcode" value="" size="10" /></td>
-	</tr>
-	<tr>
-	<td>&nbsp;</td>
-	<td>
-	<input type="submit" class="submit" value="Join up" />
-	</td></tr>
-	</table>
-	</div>
-	</form>
+<form method="post" action="action.php">
+<input type="hidden" name="posted" value="1">
+<p><strong>
+This campaign can only succeed if TheyWorkForYou&rsquo;s users sign up and get involved. We need you!
+</strong></p>
+
+<p><label for="email">Your email:</label>
+<input type="text" name="email" id="email" value="" size="30">
+<br><label for="postcode">Your postcode:</label>
+<input type="text" name="postcode" id="postcode" value="" size="10">
+&nbsp; <input type="submit" class="submit" value="Join up">
+</form>
+
 <?
 }
-?>
 
-<?
 $PAGE->page_start();
 $PAGE->stripe_start();
-$PAGE->block_start(array ('id'=>'intro', 'title'=>'We need your help:'));
+#$PAGE->block_start(array ('id'=>'intro', 'title'=>'We need your help:'));
 
 ?>
-
+<style type="text/css">
+div.main p { margin-left: 3em; }
+div.main ul { margin-left: 3em; }
+h2 { text-align: center; }
+label { width: 9em; float: left; }
+p#banner {
+    width:50%; margin:0 auto; text-align: center;
+    font-style: italic;
+}
+</style>
 
 <!-- <div style="background-color: #E8FDCB;"> -->
-<h2 style="text-align: center">Free our Bills!</h2>
+<h2>Free our Bills!</h2>
 
-<p style="text-align: center"><em>The Nice Polite Campaign to Gently Encourage Parliament
-<br>to Publish Bills in a 21st Century Way, Please. Now.</em></p>
+<p id="banner">The Nice Polite Campaign to Gently Encourage
+Parliament to Publish Bills in a 21st Century Way, Please. Now.</p>
 <!-- </div> -->
 
-<h3>What the...?</h3>
+<h3>What the&hellip;?</h3>
 
-<p style="text-align: center"><img title="Duck-billed platypus" src="bill3.jpg" align="right" alt="" hspace="5" vspace="10"></p>
+<p><img title="Duck-billed platypus" src="bill3.jpg" align="right" alt="" hspace="10"></p>
 
-<p>Writing, discussing and voting on bills is what 
-we employ our MPs to do. If enough <strong>MPs vote on bills</strong> they become the law,
-meaning you or I can get <strong>locked up</strong> if they pass a bad one. 
-</p>
+<p>Writing, discussing and voting on bills is what we employ our MPs to do. If
+enough <strong>MPs vote on bills</strong> they become the law, meaning you or I
+can get <strong>locked up</strong> if they pass a bad one.</p>
 
 <p>Bills are, like, <em>so</em> much more important than what MPs spend
 <strong>on furniture</strong>.</p>
@@ -76,33 +72,33 @@ them.
 taking rubbish, broken information from Parliament and fixing it up so
 that it makes a nice, usable site so you can find out whether your MP
 is actually working for you or not. Lots of people seem to like it,
-nearly 2 million came to visit last year. <del>Some of them weren't even
-MPs obsessively checking their own stats.</del>
+nearly 2 million came to visit last year. <!-- Some of them weren't even
+MPs obsessively checking their own stats. -->
 
 <p>
-It's time for Parliament to improve its act and start publishing these vital
-documents properly in the first place. Quite apart from the fact that we're a
+It&rsquo;s time for Parliament to improve its act and start publishing these vital
+documents properly in the first place. Quite apart from the fact that we&rsquo;re a
 tiny charity without many resources to fix this information, 
-<em>you're paying</em> for them to produce it in a uselessly old
+<em>you&rsquo;re paying</em> for them to produce it in a uselessly old
 fashioned way.  Unless Parliament produces better bills:
 
 <ul>
-<li style="font-weight: normal">We can't give you <strong>email alerts</strong> to tell you when a bill mentions
+<li>We can&rsquo;t give you <strong>email alerts</strong> to tell you when a bill mentions
 something you might be interested in.
-<li style="font-weight: normal">We can't tell you what <strong>amendments your own MP</strong> is asking for, or voting on.
-<li style="font-weight: normal">We can't help people who know about bills <strong>annotate them</strong> to explain
-what they're really going on about for everyone else.
-<li style="font-weight: normal">We can't build services that would help MPs and their staff notice
+<li>We can&rsquo;t tell you what <strong>amendments your own MP</strong> is asking for, or voting on.
+<li>We can&rsquo;t help people who know about bills <strong>annotate them</strong> to explain
+what they&rsquo;re really going on about for everyone else.
+<li>We can&rsquo;t build services that would help MPs and their staff notice
 when they were being asked to vote on dumb or <strong>dubious things</strong>.
-<li style="font-weight: normal">We can't really give a <strong>rounded view</strong> of how useful your MP is if we
-can't see their involvement with the bill making process.
-<li style="font-weight: normal">We can't do about <strong>12 zillion</strong> other things that we're not even bright
+<li>We can&rsquo;t really give a <strong>rounded view</strong> of how useful your MP is if we
+can&rsquo;t see their involvement with the bill making process.
+<li>We can&rsquo;t do about <strong>12 zillion</strong> other things that we&rsquo;re not even bright
 enough to think of yet.
 </ul>
 
 <br><!-- yuk -->
 
-<h3>"Why won't Parliament do this?"</h3>
+<h3>"Why won&rsquo;t Parliament do this?"</h3>
 
 <p>We tried, my dears, we really did. We had meetings, and heard
 encouraging words. We wrote a proposal on what they should do,
@@ -112,41 +108,42 @@ who really want Parliament to get better at this stuff
 
 <p>And then we got nowhere.
 
-<p>And you know, we're really not bad at working with bits of government
+<p>And you know, we&rsquo;re really not bad at working with bits of government
 either. But no dice. Nada. Bupkis.
 
-<p>(There's some vague notion that it'll all get done one day, as part of
+<p>(There&rsquo;s some vague notion that it&rsquo;ll all get done one day, as part of
 some miraculous project plan to make everything OK,  but we understand
-'sod off', even when spoken in Whitehall-speak.)
+&lsquo;sod off&rsquo;, even when spoken in Whitehall-speak.)
 
-<h3>"Isn't it really expensive?"</h3>
+<h3>"Isn&rsquo;t it really expensive?"</h3>
 
 <p>No. This needs about &pound;10,000 worth of programming to build a tool to
 convert bills to the right format, and probably a Parliamentary staff
 member putting between 10% and 100% of their day into operating it,
 whilst Parliament is actually in session. They can do what they want
-in the holidays &ndash; we aren't slave drivers. Oh yes, 5,000 people work in
+in the holidays &ndash; we aren&rsquo;t slave drivers. Oh yes, 5,000 people work in
 Parliament too, over 250 in the computers bit, so we really think they
 can afford this.
 
-<h3>"Won't this disrupt the delicate process of writing bills?"</h3>
+<h3>"Won&rsquo;t this disrupt the delicate process of writing bills?"</h3>
 
-<p>Nope, the improved publication we're talking about has nothing to do
-with the actual legal contents of bills. It's about how it gets
-translated into an electronic format once they've finished.
+<p>Nope, the improved publication we&rsquo;re talking about has nothing to do
+with the actual legal contents of bills. It&rsquo;s about how it gets
+translated into an electronic format once they&rsquo;ve finished.
 
-<h3>"Isn't this an embarrassingly obscure thing to be campaigning about?
-Can't you campaign about saving puppies or something?"</h3>
+<h3>"Isn&rsquo;t this an embarrassingly obscure thing to be campaigning about?
+Can&rsquo;t you campaign about saving puppies or something?"</h3>
 
-<p>Hey - <strong>you're</strong> the one who just read all the way down to this point.
+<p>Hey &ndash; <strong>you&rsquo;re</strong> the one who just read all the way down to this point.
 Suck it up and sign up, soldier.
 
 <h3>We need you!</h3>
 
 <? signup_form() ?>
 
-<? $PAGE->block_end(); ?>
-<? $PAGE->stripe_end(); ?>
-<? $PAGE->page_end (); ?>
+<?
+$PAGE->stripe_end();
+$PAGE->page_end ();
+
 
 
