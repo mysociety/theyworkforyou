@@ -353,7 +353,7 @@ function relative_time ($datetime) {
 	}
 
 	$in_seconds = strtotime($datetime);
-	$now = mktime();
+	$now = time();
 
 	$diff 	=  $now - $in_seconds;
 	$months	=  floor($diff/2419200);
