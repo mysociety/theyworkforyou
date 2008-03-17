@@ -58,7 +58,7 @@ CREATE TABLE `hansard` (
   `minor` int(11) default NULL,
   `created` datetime default NULL,
   `modified` datetime default NULL,
-  `colnum` smallint default NULL,
+  `colnum` smallint(6) default NULL,
   PRIMARY KEY  (`epobject_id`),
   UNIQUE KEY `gid` (`gid`),
   KEY `epobject_id` (`epobject_id`),
@@ -66,12 +66,12 @@ CREATE TABLE `hansard` (
   KEY `section_id` (`section_id`),
   KEY `hdate` (`hdate`),
   KEY `speaker_id` (`speaker_id`),
-  KEY `hansard_speaker_id_hdate_hpos` (`speaker_id`,`hdate`,`hpos`),
   KEY `major` (`major`),
   KEY `htype` (`htype`),
   KEY `majorhdate` (`major`,`hdate`),
   KEY `modified` (`modified`),
-  KEY `source_url` (`source_url`)
+  KEY `source_url` (`source_url`),
+  KEY `hansard_speaker_id_hdate_hpos` (`speaker_id`,`hdate`,`hpos`)
 );
 
 CREATE TABLE `member` (
@@ -107,12 +107,12 @@ CREATE TABLE `memberinfo` (
 
 CREATE TABLE `moffice` (
   `moffice_id` int(11) NOT NULL auto_increment,
-  `dept` varchar(100) NOT NULL default '',
+  `dept` varchar(255) NOT NULL default '',
   `position` varchar(200) NOT NULL default '',
   `from_date` date NOT NULL default '1000-01-01',
   `to_date` date NOT NULL default '9999-12-31',
   `person` int(11) default NULL,
-  `source` varchar(255) NOT NULL default '',
+  `source` varchar(255) NOT NULL,
   PRIMARY KEY  (`moffice_id`),
   KEY `person` (`person`)
 );
@@ -143,22 +143,22 @@ CREATE TABLE `indexbatch` (
 -- For Public Bill Committees originally
 CREATE TABLE `bills` (
   `id` int(11) NOT NULL auto_increment,
-  `title` varchar(255) NOT NULL default '',
-  `url` varchar(255) NOT NULL default '',
-  `lords` tinyint(1) NOT NULL default '0',
-  `session` varchar(50) NOT NULL default '',
-  `standingprefix` varchar(255) NOT NULL default '',
+  `title` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `lords` tinyint(1) NOT NULL,
+  `session` varchar(50) NOT NULL,
+  `standingprefix` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `title` (`title`)
 );
 
 CREATE TABLE `pbc_members` (
   `id` int(11) NOT NULL auto_increment,
-  `member_id` int(11) NOT NULL default '0',
-  `chairman` tinyint(1) NOT NULL default '0',
-  `bill_id` int(11) NOT NULL default '0',
-  `sitting` varchar(4) NOT NULL default '',
-  `attending` tinyint(1) NOT NULL default '0',
+  `member_id` int(11) NOT NULL,
+  `chairman` tinyint(1) NOT NULL,
+  `bill_id` int(11) NOT NULL,
+  `sitting` varchar(4) NOT NULL,
+  `attending` tinyint(1) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `member_id` (`member_id`),
   KEY `bill_id` (`bill_id`)
@@ -313,11 +313,11 @@ CREATE TABLE `uservotes` (
 );
 
 CREATE TABLE `mentions` (
-  `mention_id` INTEGER NOT NULL auto_increment,
-  `gid` CHAR(100),
-  `type` INTEGER NOT NULL,
-  `date` DATE,
-  `url` VARCHAR(255),
-  `mentioned_gid` CHAR(100),
+  `mention_id` int(11) NOT NULL auto_increment,
+  `gid` char(100) default NULL,
+  `type` int(11) NOT NULL,
+  `date` date default NULL,
+  `url` varchar(255) default NULL,
+  `mentioned_gid` char(100) default NULL,
   PRIMARY KEY (`mention_id`)
 );
