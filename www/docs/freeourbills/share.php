@@ -4,7 +4,7 @@
 
 function signup_form() {
 ?>
-<form method="post" action="subscribe">
+<form class="free_our_bills_signup" method="post" action="subscribe">
 <input type="hidden" name="posted" value="1">
 <p><strong>
 This campaign can only succeed if TheyWorkForYou&rsquo;s users sign up and get involved. We need you!
@@ -15,9 +15,54 @@ This campaign can only succeed if TheyWorkForYou&rsquo;s users sign up and get i
 <br><label for="postcode">Your postcode:</label>
 <input type="text" name="postcode" id="postcode" value="<?=get_http_var('postcode')?>" size="10">
 &nbsp; <input type="submit" class="submit" value="Join up">
+</p>
 </form>
 
 <?
 }
+
+function freeourbills_styles() {
+?>
+<style type="text/css">
+div.main p { margin-left: 3em; }
+div.main ul { margin-left: 3em;  }
+h2 { text-align: center; }
+h3 { margin-left: 0em; }
+/* div.block div.blockbody p { margin-left: 3em; } */
+label { width: 9em; float: left; }
+p#free_our_bills_banner {
+    width:50%; margin:0 auto; text-align: center;
+    font-style: italic;
+}
+div#intro.block ul.free_our_bill_reasons li {
+    font-weight: normal;
+}
+h4 {
+	background: #C00;
+	color: #fff;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	}
+.free_our_bills_signup {
+    display: table;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    background-color: #b3daff;
+    border: solid 2px #c06db3;
+    padding: 8px;
+}
+#warning {
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+
+</style>
+<?
+}
+
 
 ?>

@@ -7,27 +7,9 @@ $PAGE->page_start();
 $PAGE->stripe_start();
 $PAGE->block_start(array ('id'=>'intro', 'title'=>'We need your help:'));
 
-?>
-<style type="text/css">
-div.main p { margin-left: 3em; }
-div.main ul { margin-left: 3em;  }
-h2 { text-align: center; }
-label { width: 9em; float: left; }
-p#free_our_bills_banner {
-    width:50%; margin:0 auto; text-align: center;
-    font-style: italic;
-}
-div#intro.block ul.free_our_bill_reasons li {
-    font-weight: normal;
-}
-h4 {
-	background: #C00;
-	color: #fff;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-	}
+freeourbills_styles();
 
-</style>
+?>
 
 <h2>Free our Bills!</h2>
 

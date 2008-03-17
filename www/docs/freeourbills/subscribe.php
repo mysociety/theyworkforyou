@@ -1,7 +1,5 @@
 <?
 
-// Copied from ms.org
-
 include_once '../../includes/easyparliament/init.php';
 require_once '../../../../phplib/auth.php';
 require_once "share.php";
@@ -11,6 +9,8 @@ $db = new ParlDB;
 $this_page = 'campaign';
 $PAGE->page_start();
 $PAGE->stripe_start();
+
+freeourbills_styles();
 
 function send_subscribe_email($campaigner, $token) {
     $to = $campaigner;
