@@ -1,46 +1,38 @@
 <?php
 include_once "../../includes/easyparliament/init.php";
+require_once "share.php";
 
-function signup_form() {
-?>
-<form method="post" action="action.php">
-<input type="hidden" name="posted" value="1">
-<p><strong>
-This campaign can only succeed if TheyWorkForYou&rsquo;s users sign up and get involved. We need you!
-</strong></p>
-
-<p><label for="email">Your email:</label>
-<input type="text" name="email" id="email" value="" size="30">
-<br><label for="postcode">Your postcode:</label>
-<input type="text" name="postcode" id="postcode" value="" size="10">
-&nbsp; <input type="submit" class="submit" value="Join up">
-</form>
-
-<?
-}
-
+$this_page = 'campaign';
 $PAGE->page_start();
 $PAGE->stripe_start();
-#$PAGE->block_start(array ('id'=>'intro', 'title'=>'We need your help:'));
+$PAGE->block_start(array ('id'=>'intro', 'title'=>'We need your help:'));
 
 ?>
 <style type="text/css">
 div.main p { margin-left: 3em; }
-div.main ul { margin-left: 3em; }
+div.main ul { margin-left: 3em;  }
 h2 { text-align: center; }
 label { width: 9em; float: left; }
-p#banner {
+p#free_our_bills_banner {
     width:50%; margin:0 auto; text-align: center;
     font-style: italic;
 }
+div#intro.block ul.free_our_bill_reasons li {
+    font-weight: normal;
+}
+h4 {
+	background: #C00;
+	color: #fff;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	}
+
 </style>
 
-<!-- <div style="background-color: #E8FDCB;"> -->
 <h2>Free our Bills!</h2>
 
-<p id="banner">The Nice Polite Campaign to Gently Encourage
+<p id="free_our_bills_banner">The Nice Polite Campaign to Gently Encourage
 Parliament to Publish Bills in a 21st Century Way, Please. Now.</p>
-<!-- </div> -->
 
 <h3>What the&hellip;?</h3>
 
@@ -82,8 +74,8 @@ tiny charity without many resources to fix this information,
 <em>you&rsquo;re paying</em> for them to produce it in a uselessly old
 fashioned way.  Unless Parliament produces better bills:
 
-<ul>
-<li>We can&rsquo;t give you <strong>email alerts</strong> to tell you when a bill mentions
+<ul class="free_our_bill_reasons">
+<li class="free_our_bill_reasons">We can&rsquo;t give you <strong>email alerts</strong> to tell you when a bill mentions
 something you might be interested in.
 <li>We can&rsquo;t tell you what <strong>amendments your own MP</strong> is asking for, or voting on.
 <li>We can&rsquo;t help people who know about bills <strong>annotate them</strong> to explain
@@ -142,6 +134,7 @@ Suck it up and sign up, soldier.
 <? signup_form() ?>
 
 <?
+$PAGE->block_end();
 $PAGE->stripe_end();
 $PAGE->page_end ();
 
