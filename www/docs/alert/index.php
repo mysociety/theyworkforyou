@@ -111,7 +111,6 @@ function add_alert ($details) {
 	$external_auth = auth_verify_with_shared_secret($details['email'], OPTION_AUTH_SHARED_SECRET, get_http_var('sign'));
 	if ($external_auth) {
 		$site = get_http_var('site');
-		if ($site != 'wtt' && $site != 'hfymp') $site = 'unknown';
 		$extra = 'from_' . $site . '=1';
 		$confirm = false;
 	} elseif ($THEUSER->loggedin()) {

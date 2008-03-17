@@ -34,12 +34,17 @@ class SEARCHLOG {
 	}
 
 	function add ($searchlogdata) {
+	
+		$ip = getenv('REMOTE_ADDR');
+		if (preg_match('#66\.249\.(6[4-9]|[78]\d|9[0-5])\.#', $ip)) { # Googlebot
+			return;
+		}
 
         $this->db->query("INSERT INTO search_query_log
             (query_string, page_number, count_hits, ip_address, query_time)
             VALUES ('" . mysql_escape_string($searchlogdata['query']) . "',
             '" . $searchlogdata['page'] . "', '" . $searchlogdata['hits'] . "', 
-            '" . getenv('REMOTE_ADDR') . "', NOW())");
+            '" . $ip . "', NOW())");
 
     }
 
