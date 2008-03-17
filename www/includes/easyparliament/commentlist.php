@@ -181,12 +181,12 @@ class COMMENTLIST {
 								epobject.body,
 								member.first_name, 
 								member.last_name
-						FROM 	comments, hansard, users, epobject
+						FROM 	comments
+							join hansard  on comments.epobject_id = hansard.epobject_id
+							join users    on comments.user_id = users.user_id 
+							join epobject on comments.epobject_id = epobject.epobject_id 
 						LEFT OUTER JOIN member ON hansard.speaker_id = member.member_id 
-						WHERE 	comments.epobject_id = epobject.epobject_id 
-						AND 	comments.epobject_id = hansard.epobject_id 
-						AND 	comments.user_id = users.user_id 
-						AND 	users.user_id='" . addslashes($args['user_id']) . "' 
+						where	users.user_id='" . addslashes($args['user_id']) . "' 
 						AND 	visible='1' 
 						GROUP BY epobject_id
 						ORDER BY posted DESC
