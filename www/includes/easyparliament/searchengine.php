@@ -544,7 +544,7 @@ function search_by_usage($search, $house = 0) {
         $SEARCHENGINE = new SEARCHENGINE($search);
         $data['pagetitle'] = $SEARCHENGINE->query_description_short();
         $SEARCHENGINE = new SEARCHENGINE($search . ' groupby:speech');
-        $count = $SEARCHENGINE->run_count();
+        $count = $SEARCHENGINE->run_count(0, 10000, 'date');
         if ($count <= 0) {
             $data['error'] = 'No results';
             return $data;
