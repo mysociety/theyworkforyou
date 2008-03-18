@@ -331,12 +331,12 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// we're within that section.
 		$items = array (
 			'home' 		=> array ('sitenews', 'comments_recent', 'api_front'),
-			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront', 'nidebatesfront','spdebatesfront','spwransfront','pbc_front'),
+			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront', 'nidebatesfront'), # ,'spdebatesfront','spwransfront','pbc_front'),
 			'yourmp'	=> array (),
 			'mps'           => array (),
 			'peers'		=> array (),
 			'mlas'          => array (),
-			'msps'          => array (),
+#			'msps'          => array (),
 #			'help_us_out'	=> array (), 
 /*			'help_us_out'	=> array ('glossary_addterm'),  */
 			'help'		=> array ()
