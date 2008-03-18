@@ -169,6 +169,7 @@ if (isset ($data['rows'])) {
 			$style = $stripecount % 2 == 0 ? '1' : '2';
 			
 		        $video_content = '';
+			/*
                         if ($data['info']['major'] == 1 && $first_speech_displayed == 0) { # only Commons debates currently
                                 $autostart = get_http_var('autoPlay');
 				$video_content = "<p class='video'><script type=\"text/javascript\" src=\"http://parlvid.mysociety.org/video.cgi?gid=";
@@ -179,6 +180,7 @@ if (isset ($data['rows'])) {
 				$video_content .= "&output=js-full\"></script></p>";
                                 $first_speech_displayed = true;
                         }
+			*/
 	
 			// If this item is at a new time, then print the time.
 			if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00") {
