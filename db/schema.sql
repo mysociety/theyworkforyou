@@ -327,12 +327,14 @@ CREATE TABLE `campaigners` (
   `campaigner_id` mediumint(8) unsigned NOT NULL auto_increment,
   `email` varchar(255) NOT NULL default '',
   `postcode` varchar(255) NOT NULL default '',
+  `constituency` varchar(100) NOT NULL default '',
   `token` varchar(255) NOT NULL default '',
   `confirmed` tinyint(1) NOT NULL default '0',
   `signup_date` datetime NOT NULL,
   PRIMARY KEY  (`campaigner_id`),
   KEY `email` (`email`),
-  KEY `confirmed` (`confirmed`)
+  KEY `confirmed` (`confirmed`),
+  KEY `constituency` (`constituency`)
 );
 
 
