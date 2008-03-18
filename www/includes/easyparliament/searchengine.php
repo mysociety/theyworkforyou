@@ -394,16 +394,21 @@ class SEARCHENGINE {
 
     // Puts HTML highlighting round all the matching words in the text
     function highlight($body) {
+        if (is_array($body)) {
+            foreach ($body as $k => $b) {
+                $body[$k] = $this->highlight_internal($b);
+            }
+            return $body;
+        } else {
+            return $this->highlight_internal($body);
+        }
+    }
+
+    function highlight_internal($body) {
         // Contents will be used in preg_replace() to highlight the search terms.
         $findwords = array();
         $replacewords = array();
             
-        $was_array = false;
-        if (is_array($body)) {
-            $was_array = true;
-            $body = join('|||', $body);
-        }
-
 		$splitextract = preg_split('/([0-9,.]+|['.$this->wordcharsnodigit.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
 		$hlextract = "";
         $stemmed_words = array_map(array($this, 'stem'), $this->words);
@@ -457,10 +462,6 @@ class SEARCHENGINE {
         $hlbody = preg_replace('#<(/?)<span class="hi">a</span>([^>]*?)>#', "<\\1a\\2>", $hlbody); # XXX Horrible hack
         // Collapse duplicates
         $hlbody = preg_replace("#</span>(\W+)<span class=\"hi\">#", "\\1", $hlbody);
-
-        if ($was_array) {
-            $hlbody = explode('|||', $hlbody);
-        }
 
         return $hlbody;
     }
