@@ -631,6 +631,7 @@ $this->page = array (
 		'sidebar'		=> 'search',
 		'track'			=> true,
 		'url'			=> 'search/',
+		'heading'		=> '',
 		'session_vars'	=> array ('s', 'pid', 'o', 'pop')
 	),
 	'search_help'		=> array (

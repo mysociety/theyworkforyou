@@ -230,13 +230,13 @@ if ($q_house==1) {
 
 
         $SEARCHENGINE = new SEARCHENGINE($searchstring); 
-    	$pagetitle = "Search: " . $SEARCHENGINE->query_description_short();
+    	$pagetitle = 'Search for ' . $SEARCHENGINE->query_description_short();
     	$pagenum = get_http_var('p');
     	if (is_numeric($pagenum) && $pagenum > 1) {
-    		$pagetitle .= " page $pagenum";
+    		$pagetitle .= ", page $pagenum";
     	}
 	
-    	#$DATA->set_page_metadata($this_page, 'title', $pagetitle);
+    	$DATA->set_page_metadata($this_page, 'title', $pagetitle);
 	    $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($searchstring));
     	$PAGE->page_start();
     	$PAGE->stripe_start();
