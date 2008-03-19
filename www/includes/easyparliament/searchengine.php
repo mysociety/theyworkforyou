@@ -67,8 +67,8 @@ class SEARCHENGINE {
         // Any characters other than this are treated as, basically, white space
         // (apart from quotes and minuses, special case below)
         // The colon is in here for prefixes speaker:10043 and so on.
-        $this->wordchars = "A-Za-z0-9,.'&:";
-        $this->wordcharsnodigit = "A-Za-z0-9'&";
+        $this->wordchars = "A-Za-z0-9,.'&:_";
+        $this->wordcharsnodigit = "A-Za-z0-9'&_";
 
         // An array of normal words.
         $this->words = array();
@@ -215,7 +215,7 @@ class SEARCHENGINE {
 
         # Replace stemmed things with their unstemmed terms from the query
         $used = array();
-        preg_match_all('#Z[a-z0-9\'&]+#', $qd, $m);
+        preg_match_all('#Z[a-z0-9\'&_]+#', $qd, $m);
         foreach ($m[0] as $mm) {
             $iter = $this->queryparser->unstem_begin($mm);
             $end = $this->queryparser->unstem_end($mm);
