@@ -370,7 +370,7 @@ class SEARCHENGINE {
             $doc       = $iter->get_document();
             $gid       = $doc->get_data();
             if ($sort_order == 'created') {
-                array_push($this->created, $doc->get_value(2));
+                array_push($this->created, join('', unpack('N', $doc->get_value(2)))); # XXX Needs fixing
             }
 			twfy_debug("SEARCH", "gid: $gid relevancy: $relevancy% weight: $weight");
 			array_push($this->gids, "uk.org.publicwhip/".$gid);

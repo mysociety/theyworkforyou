@@ -1084,8 +1084,8 @@ class HANSARDLIST {
 			$relevancy = $relevances[$n];
 			$collapsed = $SEARCHENGINE->collapsed[$n];
 			if ($sort_order=='created') {
-				$created = substr($createds[$n], 0, strpos($createds[$n], ':'));
-				if ($created<$args['threshold']) {
+				#$created = substr($createds[$n], 0, strpos($createds[$n], ':'));
+				if ($createds[$n]<$args['threshold']) {
 					$data['info']['total_results'] = $n;
 					break;
 				}
