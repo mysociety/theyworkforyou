@@ -1,6 +1,9 @@
 <?
 
-include_once '../../includes/easyparliament/init.php';
+# Will need: $MEMBER = new MEMBER(array('constituency' => $constituency));
+
+require_once '../../includes/easyparliament/init.php';
+require_once '../../includes/postcode.inc';
 require_once '../../../../phplib/auth.php';
 require_once "share.php";
 
@@ -75,14 +78,19 @@ if ($errors) {
 
     signup_form();
 } else {
-    $token = auth_random_token();
-    if (send_subscribe_email($email, $token)) {
-        $q = $db->query("INSERT INTO campaigners (email, postcode, token, signup_date) VALUES ('" . mysql_escape_string($email) . "', '".mysql_escape_string($postcode)."', '".$token."', now())");
+    $constituency = postcode_to_constituency($postcode);
+    if ($constituency != "connection_timed_out" && $constituency != "") {
+        $token = auth_random_token();
+        if (send_subscribe_email($email, $token)) {
+        $q = $db->query("INSERT INTO campaigners (email, postcode, token, signup_date, constituency) VALUES ('" . mysql_escape_string($email) . "', '".mysql_escape_string($postcode)."', '".$token."', now(), '".mysql_escape_string($constituency)."')");
 
         print "<p><b>Thanks!</b>  Now check your email. In a few minutes you will
         get a message telling you how to confirm your subscription.</p>";
+       } else {
+           print "<p>There was a problem sending your subscription email, please try again later.</p>";
+       }
    } else {
-   	print "<p>There was a problem signing you up, please try again.</p>";
+        print "<p>There was a problem looking up your postcode, please try again later.</p>";
    }
 }
 
