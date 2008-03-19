@@ -997,7 +997,7 @@ class HANSARDLIST {
 		// Allows us to specify how many results we want
 		// Mainly for glossary term adding
 		if (isset($args['num']) && $args['num']) {
-			$results_per_page = $args['num'];
+			$results_per_page = $args['num']+0;
 		}
 		else {
 			$results_per_page = 20;
