@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.22 2008-03-19 10:22:40 matthew Exp $
+ * $Id: alertmailer.php,v 1.23 2008-03-19 11:12:41 matthew Exp $
  */
 
 function mlog($message) {
@@ -182,10 +182,11 @@ foreach ($alertdata as $alertitem) {
 		if ($any_content) {
 			# Add data to email_text
 			$desc = trim(html_entity_decode($data['searchdescription']));
-			$deschead = ucfirst(str_replace('containing ', '', $desc));
+			$desc = preg_replace('#\(B\d+ OR [^)]*\)\s*#', '', $desc);
+			$desc = trim(preg_replace('#B\d+\s*#', '', $desc));
 			foreach ($o as $major => $body) {
 				if ($body) {
-					$heading = $deschead . ' : ' . $count[$major] . ' ' . $sects[$major] . ($count[$major]!=1?'s':'');
+					$heading = $desc . ' : ' . $count[$major] . ' ' . $sects[$major] . ($count[$major]!=1?'s':'');
 					$email_text .= "$heading\n".str_repeat('=',strlen($heading))."\n\n";
 					if ($count[$major] > 3) {
 						$email_text .= "There are more results than we have shown here. See more:\nhttp://www.theyworkforyou.com/search/?s=".urlencode($criteria_raw)."+section:".$sects_short[$major]."&o=d\n\n";
@@ -193,7 +194,7 @@ foreach ($alertdata as $alertitem) {
 					$email_text .= $body;
 				}
 			}
-			$email_text .= "To cancel your alert for items " . $desc . ", please use:\nhttp://www.theyworkforyou.com/D/" . $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'] . "\n\n";
+			$email_text .= "To cancel your alert for " . $desc . ", please use:\nhttp://www.theyworkforyou.com/D/" . $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'] . "\n\n";
 		}
 	}
 }
