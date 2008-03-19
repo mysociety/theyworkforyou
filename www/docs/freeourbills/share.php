@@ -27,7 +27,7 @@ function freeourbills_styles() {
 div.main p { margin-left: 3em; }
 div.main ul { margin-left: 3em;  }
 h2 { text-align: center; }
-h3 { margin-left: 0em; }
+div#intro.block h3 { margin-left: 0em; }
 /* div.block div.blockbody p { margin-left: 3em; } */
 label { width: 9em; float: left; }
 p#free_our_bills_banner {
@@ -37,7 +37,7 @@ p#free_our_bills_banner {
 div#intro.block ul.free_our_bill_reasons li {
     font-weight: normal;
 }
-h4 {
+div#intro.block h4 {
 	background: #C00;
 	color: #fff;
 	padding-left: 0.5em;

@@ -99,11 +99,22 @@ in the holidays &ndash; we aren&rsquo;t slave drivers. Oh yes, 5,000 people work
 Parliament too, over 250 in the computers bit, so we really think they
 can afford this.
 
+<p>See "<a href="/freeourbills/techy">Details of the technical changes we want Parliament to make to the way it publishes bills</a>" for more.
+
 <h3>"Won&rsquo;t this disrupt the delicate process of writing bills?"</h3>
 
 <p>Nope, the improved publication we&rsquo;re talking about has nothing to do
 with the actual legal contents of bills. It&rsquo;s about how it gets
 translated into an electronic format once they&rsquo;ve finished.
+
+<h3>"What are your real motives? Who does this benefit politically?"</h3>
+
+<p>Dammit, we hoped you wouldn't ask that, and now our secret is blown.
+Obviously this campaign benefits Gordon Brown at the expense of Tony Blair. No,
+wait a minute, that was last year. It definitely gives Hillary the edge over
+Obama though. No, hang on, it isn't partisan at all - that's what I was trying
+to say. mySociety is based on a charity, you see, so even if we wanted to be
+partisan, it'd be against the law.
 
 <h3>"Isn&rsquo;t this an embarrassingly obscure thing to be campaigning about?
 Can&rsquo;t you campaign about saving puppies or something?"</h3>

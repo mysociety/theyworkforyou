@@ -95,7 +95,7 @@ if ($errors) {
 }
 
 ?>
-<p><a href="./">Return to 'Free our Bills' homepage</a>
+<p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
 
 <?php
 
