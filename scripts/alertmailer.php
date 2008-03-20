@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.23 2008-03-19 11:12:41 matthew Exp $
+ * $Id: alertmailer.php,v 1.24 2008-03-20 09:49:20 matthew Exp $
  */
 
 function mlog($message) {
@@ -182,8 +182,7 @@ foreach ($alertdata as $alertitem) {
 		if ($any_content) {
 			# Add data to email_text
 			$desc = trim(html_entity_decode($data['searchdescription']));
-			$desc = preg_replace('#\(B\d+ OR [^)]*\)\s*#', '', $desc);
-			$desc = trim(preg_replace('#B\d+\s*#', '', $desc));
+			$desc = trim(preg_replace('#\(?B\d+( OR B\d+)*\)?\s*#', '', $desc));
 			foreach ($o as $major => $body) {
 				if ($body) {
 					$heading = $desc . ' : ' . $count[$major] . ' ' . $sects[$major] . ($count[$major]!=1?'s':'');
