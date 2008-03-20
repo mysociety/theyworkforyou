@@ -95,6 +95,7 @@ class SEARCHENGINE {
         foreach ($all_words as $word) {
             if ($word == '"') {
                 $in_quote = !$in_quote;
+                if ($in_quote) array_push($this->phrases, array());
                 continue;
             }
             if ($word == '') {
@@ -137,6 +138,7 @@ class SEARCHENGINE {
                 }
             } elseif (strpos($word, '-') !== false) {
             } elseif ($in_quote) {
+                array_push($this->phrases[count($this->phrases) - 1], strtolower($word));
             } elseif (strpos($word, '..') !== false) {
             } elseif ($word == 'OR' || $word == 'AND' || $word == 'XOR' || $word == 'NEAR') {
             } else {
@@ -178,7 +180,7 @@ class SEARCHENGINE {
         preg_match_all('#\(([^(]*? PHRASE [^(]*?)\)#', $qd, $m);
         foreach ($m[1] as $phrase) {
             $phrase_new = preg_replace('# PHRASE \d+#', '', $phrase);
-            $this->phrases[] = preg_split('#\s+#', $phrase_new);
+            #$this->phrases[] = preg_split('#\s+#', $phrase_new);
             $qd = str_replace("($phrase)", '"'.$phrase_new.'"', $qd);
         }
         preg_match_all('#\(([^(]*? NEAR [^(]*?)\)#', $qd, $m);
@@ -250,6 +252,8 @@ class SEARCHENGINE {
         $this->query_desc = trim($qd);
 
         #print 'DEBUG: ' . $query->get_description();
+        twfy_debug("SEARCH", "words: " . var_export($this->words, true));
+        twfy_debug("SEARCH", "phrases: " . var_export($this->phrases, true));
         twfy_debug("SEARCH", "queryparser description -- " . $this->query_desc);
     }
 
