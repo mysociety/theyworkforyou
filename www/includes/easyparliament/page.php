@@ -2251,11 +2251,13 @@ label { float: left; width: 12em; }
 <optgroup label="Northern Ireland Assembly">
 <option value="ni">Debates
 </optgroup>
+<!--
 <optgroup label="Scottish Parliament">
 <option value="scotland">All
 <option value="sp">Debates
 <option value="spwrans">Written answers
 </optgroup>
+-->
 </select>
 <p align="right">
 <input type="submit" value="Search">
