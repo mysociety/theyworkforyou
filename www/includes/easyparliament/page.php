@@ -2028,7 +2028,7 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 <?php
 	}
 
-	function search_form ($value='') {
+	function search_form ($value='', $adv = true) {
 		global $SEARCHENGINE;
 		// Search box on the search page.
 		// If $value is set then it will be displayed in the form.
@@ -2042,6 +2042,16 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		if ($value == '')
 			$value = get_http_var('s');
 
+		$person_name = '';
+		if (preg_match_all('#speaker:(\d+)#', $value, $m) == 1) {
+			$person_id = $m[1][0];
+			$member = new MEMBER(array('person_id' => $person_id));
+			if ($member->valid) {
+				$value = str_replace("speaker:$person_id", '', $value);
+		        	$person_name = $member->full_name();
+	    		}
+       		}
+
 		echo '<div class="mainsearchbox">';
 		if ($wtt<2) {
 			echo '<form action="', $URL->generate(), '" method="get">';
@@ -2053,9 +2063,11 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 			}
 			echo '<input type="text" name="s" value="', htmlentities($value), '" size="50"> ';
 			echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
-			$URL = new URL('search');
-			$URL->insert(array('adv'=>1));
-			echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">Advanced search</a>';
+			if ($adv) {
+				$URL = new URL('search');
+				$URL->insert(array('adv'=>1));
+				echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">Advanced search</a>';
+			}
 			echo '<br>';
 			if ($wtt) print '<input type="hidden" name="wtt" value="1">';
 
@@ -2066,7 +2078,7 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 <?
 		}
 
-		if (!$wtt) {
+		if (!$wtt && $adv && ($value || $person_name)) {
 			echo '<div style="margin-top: 5px">';
 			$orderUrl = new URL('search');
 		        $ordering = get_http_var('o');
@@ -2095,18 +2107,13 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 			}
 			echo '</div>';
 
-		        $person_id = get_http_var('pid');
-		        if ($person_id != "") {
-				$member = new MEMBER(array('person_id' => $person_id));
-				if ($member->valid) {
-			        	$name = $member->full_name();
+			if ($person_name) {
                 ?>
                     <p>
-                    <input type="radio" name="pid" value="<?php echo htmlentities($person_id) ?>" checked>Search only <?php echo htmlentities($name) ?> 
+                    <input type="radio" name="pid" value="<?php echo htmlentities($person_id) ?>" checked>Search only <?php echo htmlentities($person_name) ?> 
                     <input type="radio" name="pid" value="">Search all speeches
                     </p>
                 <?
-	    			}
        			}
 		}
 

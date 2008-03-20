@@ -8,75 +8,27 @@ include_once INCLUDESPATH."easyparliament/glossary.php";
 // From http://cvs.sourceforge.net/viewcvs.py/publicwhip/publicwhip/website/
 include_once INCLUDESPATH."postcode.inc";
 
-$searchstring = trim(get_http_var('s'));
+if (get_http_var('pid') == 16407) {
+    header('Location: /search/?pid=10133');
+    exit;
+}
 
-if ($advphrase = get_http_var('phrase')) {
-    $searchstring .= ' "' . $advphrase . '"';
-}
-if ($advexclude = get_http_var('exclude')) {
-    $searchstring .= ' -' . join(' -', preg_split('/\s+/', $advexclude));
-}
-if (get_http_var('from') || get_http_var('to')) {
-    $from = parse_date(get_http_var('from'));
-    if ($from) $from = $from['iso'];
-    else $from = '1999-01-01';
-    $to = parse_date(get_http_var('to'));
-    if ($to) $to = $to['iso'];
-    else $to = date('Y-m-d');
-    $searchstring .= " $from..$to";
-}
-if ($advdept = get_http_var('department')) {
-    $searchstring .= ' department:' . preg_replace('#[^a-z]#i', '', $advdept);
-}
-if ($advparty = get_http_var('party')) {
-    $searchstring .= " party:$advparty";
-}
-if ($advcolumn = get_http_var('column')) {
-    $searchstring .= " column:$advcolumn";
-}
-if ($advsection = get_http_var('section')) {
-    $searchstring .= " section:$advsection";
-}
+$searchstring = construct_search_string();
 
 $this_page = 'search';
 if (get_http_var('adv')) {
 	// Advanced search page
 	$PAGE->page_start();
 	$PAGE->stripe_start();
-    $PAGE->search_form($searchstring);
+    $PAGE->search_form($searchstring, false);
     $PAGE->advanced_search_form();
-} elseif ($searchstring || get_http_var('pid') != '') {
-
-    if (get_http_var('pid') == 16407) {
-        header('Location: /search/?pid=10133');
-        exit;
-    }
-
+} elseif ($searchstring) {
 	// We're searching for something.
-	
 	$searchstring = filter_user_input($searchstring, 'strict');
-
     $time = parse_date($searchstring);
     if ($time['iso']) {
         header('Location: /hansard/?d=' . $time['iso']);
         exit;
-    }
-
-	$searchspeaker = trim(get_http_var('pid'));
-	if ($searchspeaker) {
-		$searchstring .= ($searchstring?' ':'') . 'speaker:' . $searchspeaker;
-    }
-	$searchmajor = trim(get_http_var('section'));
-	if (!$searchmajor) {
-        // Legacy URLs used maj
-		$searchmajor = trim(get_http_var('maj'));
-	}
-    if ($searchmajor) {
-        $searchstring .= " section:" . $searchmajor;
-    }
-   	$searchgroupby = trim(get_http_var('groupby'));
-    if ($searchgroupby) {
-        $searchstring .= " groupby:" . $searchgroupby;
     }
 
     // We have only one of these, rather than one in HANSARDLIST also
@@ -99,7 +51,7 @@ if (get_http_var('adv')) {
         $DATA->set_page_metadata($this_page, 'title', $pagetitle);
         $PAGE->page_start();
         $PAGE->stripe_start();
-    	$PAGE->search_form();
+    	$PAGE->search_form($searchstring);
         if (isset($data['error'])) {
             print '<p>' . $data['error'] . '</p>';
             $PAGE->page_end();
@@ -186,7 +138,7 @@ if ($q_house==1) {
         $DATA->set_page_metadata($this_page, 'title', $pagetitle);
         $PAGE->page_start();
         $PAGE->stripe_start();
-    	$PAGE->search_form();
+    	$PAGE->search_form($searchstring);
         $SEARCHENGINE = new SEARCHENGINE($searchstring . ' groupby:speech section:debates section:whall');
         $count = $SEARCHENGINE->run_count();
         if ($count <= 0) {
@@ -272,7 +224,7 @@ if ($q_house==1) {
 	#$this_page = 'search_help';
 	$PAGE->page_start();
 	$PAGE->stripe_start();
-    $PAGE->search_form($searchstring);
+    $PAGE->search_form($searchstring, false);
     $PAGE->advanced_search_form();
 	#include INCLUDESPATH . 'easyparliament/staticpages/search_help.php';
 }
@@ -546,5 +498,56 @@ function find_glossary_items($args) {
 	}
 }
 
+function construct_search_string() {
+    $searchstring = trim(get_http_var('s'));
 
-?>
+    # Stuff from advanced search form
+    if ($advphrase = get_http_var('phrase')) {
+        $searchstring .= ' "' . $advphrase . '"';
+    }
+
+    if ($advexclude = get_http_var('exclude')) {
+        $searchstring .= ' -' . join(' -', preg_split('/\s+/', $advexclude));
+    }
+
+    if (get_http_var('from') || get_http_var('to')) {
+        $from = parse_date(get_http_var('from'));
+        if ($from) $from = $from['iso'];
+        else $from = '1999-01-01';
+        $to = parse_date(get_http_var('to'));
+        if ($to) $to = $to['iso'];
+        else $to = date('Y-m-d');
+        $searchstring .= " $from..$to";
+    }
+
+    if ($advdept = get_http_var('department')) {
+        $searchstring .= ' department:' . preg_replace('#[^a-z]#i', '', $advdept);
+    }
+
+    if ($advparty = get_http_var('party')) {
+        $searchstring .= " party:$advparty";
+    }
+
+    if ($advcolumn = get_http_var('column')) {
+        $searchstring .= " column:$advcolumn";
+    }
+
+    $advsection = get_http_var('section');
+    if (!$advsection)
+        $advsection = get_http_var('maj'); # Old URLs had this
+    if ($advsection) {
+        $searchstring .= " section:$advsection";
+    }
+
+    if ($searchgroupby = trim(get_http_var('groupby'))) {
+        $searchstring .= " groupby:$searchgroupby";
+    }
+
+    # Searching from MP pages
+	if ($searchspeaker = trim(get_http_var('pid'))) {
+		$searchstring .= " speaker:$searchspeaker";
+    }
+
+    return $searchstring;
+}
+
