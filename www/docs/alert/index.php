@@ -87,7 +87,7 @@ function check_input ($details) {
 	
 	} 
 	
-	if (!ctype_digit($details['pid']))
+	if ($details['pid'] && !ctype_digit($details['pid']))
 		$errors['pid'] = 'Please choose a valid person';
 #	if (!$details['keyword'])
 #		$errors['keyword'] = 'Please enter a search term';
