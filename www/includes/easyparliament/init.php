@@ -1,19 +1,15 @@
 <?php
 
-
 /********************************************************************************
 First some things to help make our PHP nicer and betterer
 ********************************************************************************/
 
-error_reporting (E_ALL );
-ini_set("magic_quotes_runtime", 0);
-ini_set('memory_limit', 16*1024*1024);
+error_reporting (E_ALL);
 
 /********************************************************************************
 Now some constants that are the same for live and dev versions 
 (unlike those variables in conf/general)
 ********************************************************************************/
-
 
 // In case we need to switch these off globally at some point...
 define ("ALLOWCOMMENTS", true);
@@ -79,4 +75,3 @@ include_once (INCLUDESPATH."easyparliament/alert.php");
 
 twfy_debug_timestamp("at end of init.php");
 
-?>
