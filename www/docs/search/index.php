@@ -59,7 +59,7 @@ if (get_http_var('adv')) {
         }
 
         if (isset($data['limit_reached'])) {
-            print '<p><em>This service runs on a maximum number of 10,000 results, to conserve memory</em></p>';
+            print '<p><em>This service runs on a maximum number of 5,000 results, to conserve memory</em></p>';
         }
         print "\n\n<!-- ";
         foreach ($data['party_count'] as $party => $count) {

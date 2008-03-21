@@ -548,18 +548,18 @@ function search_by_usage($search, $house = 0) {
         $SEARCHENGINE = new SEARCHENGINE($search);
         $data['pagetitle'] = $SEARCHENGINE->query_description_short();
         $SEARCHENGINE = new SEARCHENGINE($search . ' groupby:speech');
-        $count = $SEARCHENGINE->run_count(0, 10000, 'date');
+        $count = $SEARCHENGINE->run_count(0, 5000, 'date');
         if ($count <= 0) {
             $data['error'] = 'No results';
             return $data;
         }
-        $SEARCHENGINE->run_search(0, 10000, 'date');
+        $SEARCHENGINE->run_search(0, 5000, 'date');
         $gids = $SEARCHENGINE->get_gids();
         if (count($gids) <= 0) {
             $data['error'] = 'No results';
             return $data;
         }
-        if (count($gids) == 10000)
+        if (count($gids) == 5000)
             $data['limit_reached'] = true;
 
         # Fetch all the speakers of the results, count them up and get min/max date usage
