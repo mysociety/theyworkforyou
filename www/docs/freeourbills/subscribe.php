@@ -6,6 +6,7 @@ require_once '../../includes/easyparliament/init.php';
 require_once '../../includes/postcode.inc';
 require_once '../../../../phplib/auth.php';
 require_once "share.php";
+require_once "sharethis.php";
 
 $db = new ParlDB;
 
@@ -44,12 +45,18 @@ if ($url_token) {
  	if ($q->rows() > 0) {
 		$q = $db->query('UPDATE campaigners SET confirmed = 1 WHERE token = "' . mysql_escape_string($url_token).'"');
 		?>
-		<p>Thanks for signing up to the campaign!</p>
+		<p class="confirm">Thanks for signing up to the campaign! We'll contact you soon.</p>
+		<p class="confirm">Now invite your friends to sign up too...</p>
+<? 
+$PAGE->block_start(array ('title'=>'Tell your friends about the \'Free our Bills!\' campaign'));
+freeourbills_share_page(); 
+$PAGE->block_end();
+?>
 		<p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
 		<?
 	} else {
 		?>
-		<p>Please check the link that you've copied from your email, it doesn't seem right.</p>
+		<p class="confirm">Please check the link that you've copied from your email, it doesn't seem right.</p>
 		<p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
 		<?
 	}
@@ -84,17 +91,25 @@ if ($errors) {
         if (send_subscribe_email($email, $token)) {
         $q = $db->query("INSERT INTO campaigners (email, postcode, token, signup_date, constituency) VALUES ('" . mysql_escape_string($email) . "', '".mysql_escape_string($postcode)."', '".$token."', now(), '".mysql_escape_string($constituency)."')");
 
-        print "<p><b>Thanks!</b>  Now check your email. In a few minutes you will
+        print "<p class=\"confirm\"><b>Thanks!</b>  Now check your email. In a few minutes you will
         get a message telling you how to confirm your subscription.</p>";
+        print "<p class=\"confirm\">Meanwhile invite you friends to sign up:<p>";
        } else {
-           print "<p>There was a problem sending your subscription email, please try again later.</p>";
+           print "<p class=\"confirm\">There was a problem sending your subscription email, please try again later.</p>";
        }
    } else {
-        print "<p>There was a problem looking up your postcode, please try again later.</p>";
+        print "<p class=\"confirm\">There was a problem looking up your postcode, please try again later.</p>";
    }
 }
 
 ?>
+
+<? 
+$PAGE->block_start(array ('title'=>'Tell your friends about the \'Free our Bills!\' campaign'));
+freeourbills_share_page(); 
+$PAGE->block_end();
+?>
+
 <p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
 
 <?php

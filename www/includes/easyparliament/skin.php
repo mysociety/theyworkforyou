@@ -67,7 +67,8 @@ class SKIN {
 			'global' 	=> 'default',
 			'screen' 	=> '',
 			'print' 	=> 'default',
-			'extra' 	=> ''
+			'extra' 	=> '',
+			'share' 	=> 'default',
 		),
 		// Switch all stylesheets off.
 		'none' => array (
@@ -146,6 +147,11 @@ class SKIN {
 		if (isset($skinstyles["extra"]) && $skinstyles["extra"] != "") {
 			?>
 	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/<?php echo $skinstyles['extra']; ?>/extra.css" type="text/css" media="screen">
+<?php
+		}
+		if (isset($skinstyles["share"]) && $skinstyles["share"] != "") {
+			?>
+	<link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">
 <?php
 		}
 		if (isset($skinstyles["print"]) && 

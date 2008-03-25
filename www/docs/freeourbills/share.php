@@ -58,6 +58,9 @@ div#intro.block h4 {
     margin-top: 1em;
     margin-bottom: 1em;
 }
+.confirm {
+    font-size: 150%;
+}
 
 
 </style>

@@ -1,6 +1,7 @@
 <?php
 include_once "../../includes/easyparliament/init.php";
 require_once "share.php";
+require_once "sharethis.php";
 
 $this_page = 'campaign';
 $PAGE->page_start();
@@ -17,6 +18,40 @@ freeourbills_styles();
 Parliament to Publish Bills in a 21st Century Way, Please. Now.</p>
 
 <h3>What the&hellip;?</h3>
+
+<?php /*
+<!--<script type="text/javascript" src="/jslib/share/share.js"></script>-->
+<script type="text/javascript" src="/freeourbills/jquery.js"></script>
+<script type="text/javascript">
+// Share this related functions
+function share(link) {
+    var form = $('#share_form');
+    if (!form.is(':hidden')) {
+        form.hide();
+        return;
+    }
+    var offset = $(link).offset();
+    form.css('left', offset.left + 'px');
+    form.css('top', (offset.top + link.offsetHeight + 3) + 'px');
+    form.show();
+}
+
+function share_tab(tab) {
+    if (tab == 1) {
+        $('#share_tab2').removeClass();
+        $('#share_tab1').addClass('selected');
+        $('#share_email').hide();
+        $('#share_social').show();
+    } else {
+        $('#share_tab1').removeClass()
+        $('#share_tab2').addClass('selected');
+        $('#share_social').hide();
+        $('#share_email').show();
+    }
+}
+*/ ?>
+
+</script>
 
 <p><img title="Duck-billed platypus" src="bill3.jpg" align="right" alt="" hspace="10"></p>
 
@@ -37,6 +72,7 @@ them.
 <h3>We need you!</h3>
 
 <? signup_form() ?>
+<? freeourbills_sharethis_link(); ?>
 
 <p></p>
 
@@ -124,7 +160,8 @@ Suck it up and sign up, soldier.
 
 <h3>We need you!</h3>
 
-<? signup_form() ?>
+<? signup_form(); ?>
+<? freeourbills_sharethis_link(); ?>
 
 <?
 $PAGE->block_end();
