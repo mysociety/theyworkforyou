@@ -49,9 +49,8 @@ function share_tab(tab) {
         $('#share_email').show();
     }
 }
-*/ ?>
-
 </script>
+*/ ?>
 
 <p><img title="Duck-billed platypus" src="bill3.jpg" align="right" alt="" hspace="10"></p>
 

@@ -59,9 +59,25 @@ div#intro.block h4 {
     margin-top: 1em;
     margin-bottom: 1em;
 }
-.confirm {
+.free_our_bills_confirm {
+    text-align: center;
     font-size: 150%;
 }
+h1.free_our_bills_confirm {
+    text-align: center;
+    font-size: 200%;
+}
+h2.free_our_bills_confirm {
+    text-align: center;
+    font-size: 200%;
+}
+.free_our_bills_thanks {
+    text-align: center;
+    font-size: 175%;
+    font-weight: bold;
+}
+
+
 
 
 </style>
