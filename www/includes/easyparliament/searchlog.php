@@ -69,11 +69,11 @@ class SEARCHLOG {
         $this->SEARCHURL->insert(array('s'=>$query, 'pop'=>1)); 
         $url = $this->SEARCHURL->generate();
 	$htmlescape = 1;
-	if ($pos = strpos($query, ':')) {
-		$qq = $this->db->query('SELECT first_name, last_name FROM member WHERE person_id="'.mysql_escape_string(substr($query, $pos+1)).'" LIMIT 1');
+	if (preg_match('#speaker:(\d+)#', $query, $m)) {
+		$qq = $this->db->query('SELECT first_name, last_name FROM member WHERE person_id="' . $m[1] . '" LIMIT 1');
 		if ($qq->rows()) {
-			$query = $qq->field(0, 'first_name') . ' ' . $qq->field(0, 'last_name');
-			$htmlescape = 0;
+			$query = preg_replace('#speaker:(\d+)#', $qq->field(0, 'first_name') . ' ' . $qq->field(0, 'last_name'), $query);
+			#$htmlescape = 0;
 		}
 	}
         $visible_name = preg_replace('/"/', '', $query);
