@@ -6,8 +6,9 @@ function signup_form() {
 ?>
 <form class="free_our_bills_signup" method="post" action="subscribe">
 <input type="hidden" name="posted" value="1">
+<p><strong>This campaign can only succeed if normal internet users like you lend a hand.</strong></p>
 <p><strong>
-This campaign can only succeed if TheyWorkForYou&rsquo;s users sign up and get involved. We need you!
+Please sign up and we'll send you easy tasks (like emailing your MP, or coming up with some ideas). Together we can improve Parliament!
 </strong></p>
 
 <p><label for="email">Your email:</label>
