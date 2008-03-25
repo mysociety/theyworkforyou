@@ -241,6 +241,11 @@ $this->page = array (
 		'url'			=> 'cards/'
 	),
 
+	'campaign' => array (
+		'title'			=> 'Free Our Bills!',
+		'url'			=> 'freeourbills/'
+	),
+
 	'commentreport' => array (
 		'title'			=> 'Reporting a comment',
 		'url'			=> 'report/',

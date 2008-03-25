@@ -819,7 +819,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 
 		# XXX Yucky
 		if ($this_page != 'home' && $this_page != 'contact') {
-			if ($section_text && $parent_page != 'help_us_out' && $parent_page != 'home') {
+			if ($section_text && $parent_page != 'help_us_out' && $parent_page != 'home' && $this_page != 'campaign') {
 				print "\t\t\t\t<h2>$section_text</h2>\n";
 			}
 			if ($page_text) {
