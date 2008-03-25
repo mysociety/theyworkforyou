@@ -662,14 +662,14 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			</div> <!-- end .main -->
 			<div class="sidebar">
 
-        <? if ($this_page != "campaign") { ?>
+        <? /* if ($this_page != "campaign") { ?>
 			<div class="block">
             <h4>Click on the platypus!</h4>
             <a href="/freeourbills">
             <img title="Duck-billed platypus" src="/freeourbills/bill3.jpg" alt="Free Our Bills!" hspace="10" vspace="10">
             </a>
             </div>
-        <? } ?>
+        <? } */ ?>
 <?php
 		$this->within_stripe_sidebar = true;
 		$extrahtml = '';
