@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.31 2008-03-17 15:40:00 matthew Exp $
+# $Id: xml2db.pl,v 1.32 2008-03-25 12:04:48 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1003,7 +1003,7 @@ sub loadconstituency
         # get lost somewhere between Perl, the database and the browser.
         $constituencyadd->execute(
             $consid,
-            encode_entities($name->att('text')),
+            encode_entities_noapos($name->att('text')),
             $main_name,
             $cons->att('fromdate'),
             $cons->att('todate'),
