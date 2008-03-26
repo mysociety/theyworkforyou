@@ -458,7 +458,7 @@ function strip_tags_tospaces($text) {
     return strip_tags(trim($text)); 
 }
 
-function trim_characters ($text, $start, $length) {
+function trim_characters ($text, $start, $length, $url_length = 60) {
 	// Pass it a string, a numeric start position and a numeric length.
 	// If the start position is > 0, the string will be trimmed to start at the
 	// nearest word boundary after (or at) that position.
@@ -472,7 +472,7 @@ function trim_characters ($text, $start, $length) {
 	
 	// Split long strings up so they don't go too long.
 	// Mainly for URLs which are displayed, but aren't links when trimmed.
-	$text = preg_replace("/(\S{60})/", "\$1 ", $text);
+	$text = preg_replace("/(\S{$url_length})/", "\$1 ", $text);
 
 	// Otherwise the word boundary matching goes odd...
 	$text = preg_replace("/[\n\r]/", " ", $text);

@@ -28,7 +28,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 
 						<li><?php
 		
-		$commenttext = trim_characters($comment['body'], 0, 200);
+		$commenttext = trim_characters($comment['body'], 0, 200, 40);
 		list($date, $time) = explode(' ', $comment['posted']);
 		$date = format_date($date, SHORTDATEFORMAT);
 		$time = format_time($time, TIMEFORMAT);
