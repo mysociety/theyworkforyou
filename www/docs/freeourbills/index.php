@@ -155,7 +155,7 @@ partisan, it'd be against the law.
 Can&rsquo;t you campaign about saving puppies or something?"</h3>
 
 <p>Hey &ndash; <strong>you&rsquo;re</strong> the one who just read all the way down to this point.
-Suck it up and sign up, soldier.
+Suck it and sign up, soldier.
 
 <h3>We need you!</h3>
 
