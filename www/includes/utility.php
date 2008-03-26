@@ -472,7 +472,7 @@ function trim_characters ($text, $start, $length, $url_length = 60) {
 	
 	// Split long strings up so they don't go too long.
 	// Mainly for URLs which are displayed, but aren't links when trimmed.
-	$text = preg_replace("/(\S{$url_length})/", "\$1 ", $text);
+	$text = preg_replace('/(\S{' . $url_length . '})/', "\$1 ", $text);
 
 	// Otherwise the word boundary matching goes odd...
 	$text = preg_replace("/[\n\r]/", " ", $text);
