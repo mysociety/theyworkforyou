@@ -672,9 +672,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 ?>
 			<div class="block">
             <h4>Click on the platypus!</h4>
-            <a href="/freeourbills">
-            <img title="Duck-billed platypus" src="/freeourbills/bill3.jpg" alt="Free Our Bills!" hspace="10" vspace="10">
-            </a>
+            <p align="center"><a href="/freeourbills"><img title="Duck-billed platypus" src="/freeourbills/billsm.png" alt="Free Our Bills!" hspace="10" vspace="10"></a></p>
             </div>
 <?php
 		}
