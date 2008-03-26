@@ -663,18 +663,21 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			<div class="sidebar">
 
         <? 
-            global $already_done_platypus;
-            if ($this_page != "campaign" && !$already_done_platypus) { 
-                $already_done_platypus = 1;
-            ?>
+		global $already_done_platypus;
+		$show_platypus = 1;
+		if ($this_page == 'campaign' || $already_done_platypus || (count($contents)==1 && isset($contents[0]['noplatypus'])))
+			$show_platypus = 0;
+		if ($show_platypus) {
+			$already_done_platypus = 1;
+?>
 			<div class="block">
             <h4>Click on the platypus!</h4>
             <a href="/freeourbills">
             <img title="Duck-billed platypus" src="/freeourbills/bill3.jpg" alt="Free Our Bills!" hspace="10" vspace="10">
             </a>
             </div>
-        <? } ?>
 <?php
+		}
 		$this->within_stripe_sidebar = true;
 		$extrahtml = '';
 		

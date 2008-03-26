@@ -37,6 +37,7 @@ $sidebar = $hansardmajors[$data['info']['major']]['sidebar_short'];
 $PAGE->stripe_end(array(
 	array (
 		'type' =>'include',
+		'noplatypus' => true,
 		'content' => $sidebar
 	)
 ));
@@ -124,6 +125,7 @@ if (isset ($data['rows'])) {
 #			}
 			$PAGE->stripe_end(array(
 				array (
+					'noplatypus' => true,
 					'type' => 'nextprev'
 				)
 			));
@@ -189,7 +191,7 @@ if (isset ($data['rows'])) {
 				
 				echo "\t\t\t\t<p>" . format_time($row['htime'], TIMEFORMAT) . "</p>\n";
 				
-				$PAGE->stripe_end();
+				$PAGE->stripe_end(array(array('noplatypus'=>true)));
 
 				// Set the timetracker to the current time
 				$timetracker = substr($row['htime'],0,5);
