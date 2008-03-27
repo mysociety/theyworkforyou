@@ -66,7 +66,7 @@ define ("IMAGEPATH", WEBPATH . "images/");
 define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");
 
 // Search related. If non-empty will use XAPIAN search instead of mysql search
-define ("XAPIANDB", '');
+define ("XAPIANDB", ''); // a Xapian database is a directory
 
 // Location of the parliamentary recess data file. You can access this remotely 
 // from the main theyworkforyou site if you use
