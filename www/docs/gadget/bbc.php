@@ -35,7 +35,7 @@ if ($action == 'latest') {
 	foreach (array('house', 'first_name', 'last_name', 'title', 'person_id') as $key) {
 		unset($output[$key]);
 	}
-	$output['image'] = 'http://www.theyworkforyou.com' . $output['image'];
+	if (isset($output['image'])) $output['image'] = 'http://www.theyworkforyou.com' . $output['image'];
 	$output['bbc'] = 'http://news.bbc.co.uk/1/shared/mpdb/html/' . $bbc_cons_id . '.stm';
 	$output['link'] = 'http://www.theyworkforyou.com/mp/'
 		. make_member_url(htmlentities($output['full_name']), $cons, 1); # XXX make_member_url needs it encoded!
