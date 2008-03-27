@@ -1,6 +1,6 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.9 2008-03-09 12:41:37 matthew Exp $
+$Id: INSTALL.txt,v 1.10 2008-03-27 23:30:11 francis Exp $
 
 TODO: Add an explanation of how to set up a virtual host in apache.
 
@@ -181,4 +181,10 @@ on line 39
 
 There are some instructions on how to do this here:
   http://lists.tartarus.org/pipermail/xapian-discuss/2004-May/000037.html
+
+You need to run "twfy/search/index.pl sincefile" to create the Xapian index. If
+you get an error like this while doing it, you may have run out of disk space.
+
+DBD::mysql::st execute failed: Incorrect key file for table '/tmp/#sql_b63_0.MYI'; try to repair it at ./index.pl line 118.
+
 
