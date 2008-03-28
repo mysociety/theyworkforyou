@@ -846,9 +846,20 @@ function make_plural($word, $number)
     return $word . "s";
 }
 
+# Can't have the entities in XML so replace all theones we currently have with numerical entities
+# This is yucky. XXX
+function entities_to_numbers($string) {
+	$string = str_replace(
+		array('&Ouml;', '&acirc;', '&uacute;', '&aacute;', '&iacute;', '&ocirc;'),
+		array('&#214;', '&#226;',  '&#250;',   '&#225;',   '&#237;',   '&#244;' ),
+		$string
+	);
+	return $string;
+}
+
 function make_member_url($name, $const = '', $house = 1) {
-	$s = array(' ', '&amp;', '&ocirc;', '&ouml;', '&acirc;', '&iacute;', '&aacute;');
-	$r = array('_', 'and',     'o',       'o',    'a',       'i',        'a' );
+	$s = array(' ', '&amp;', '&ocirc;', '&ouml;', '&acirc;', '&iacute;', '&aacute;', '&uacute;');
+	$r = array('_', 'and',     'o',       'o',    'a',       'i',        'a',        'u',      );
 	$name = preg_replace('#^the #', '', strtolower($name));
 	$out = urlencode(str_replace($s, $r, $name));
 	if ($const && $house==1)

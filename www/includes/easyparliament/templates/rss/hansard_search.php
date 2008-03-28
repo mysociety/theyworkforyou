@@ -32,17 +32,11 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		echo (' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ')');
 ?></title>
 <link>http://www.theyworkforyou.com<?=$row['listurl'] ?></link>
-<description>
-<?php
-		if (isset($row['speaker']['first_name'])) {
-			$name = $row['speaker']['first_name'] . ' ' . $row['speaker']['last_name'];
-			$name = str_replace(
-				array('&Ouml;', '&uacute;', '&aacute;', '&iacute;', '&ocirc;'),
-				array('&#214;', '&#250;', '&#225;', '&#237;', '&#244;'),
-				$name
-			); # XXX Can't have the entities in XML!
-
-			echo $name . ': ';
+<description><?php
+		if (isset($row['speaker']) && count($row['speaker'])) {
+			$sp = $row['speaker'];
+			$name = ucfirst(member_full_name($sp['house'], $sp['title'], $sp['first_name'], $sp['last_name'], $sp['constituency']));
+			echo entities_to_numbers($name) . ': ';
 		} 
 		echo str_replace(array('&#8212;', '<span class="hi">', '</span>'), array('-', '<b>', '</b>'), $row['body']) . "</description>\n</item>\n";
 	}
