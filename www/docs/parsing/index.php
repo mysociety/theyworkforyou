@@ -23,6 +23,15 @@ $q = $db->query('SELECT DISTINCT(hdate) AS hdate, major FROM hansard');
 for ($i=0; $i<$q->rows(); $i++) {
 	$hdates[$q->field($i, 'hdate')][$q->field($i, 'major')] = true;
 }
+
+#$latestv = array();
+#$q = $db->query('SELECT SUBSTRING(gid from 19) AS gid FROM hansard GROUP BY hdate');
+#for ($i=0; $i<$q->rows(); $i++) {
+#	$gid = $q->field($i, 'gid');
+#	preg_match('#^.*?/(\d\d\d\d-\d\d-\d\d)(.)#', $gid, $m);
+#	$latestv[$m[1]] = $m[2];
+#}
+
 foreach ($dir as $k=>$bit) {
 	$out = array();
 	$dh = opendir("$html$bit/");
@@ -31,11 +40,12 @@ foreach ($dir as $k=>$bit) {
 		#if ($bit=='lordspages' && substr($filename,7,4)!='2005') continue;
 		preg_match('#^(.*?)(\d\d\d\d-\d\d-\d\d)(.*?)\.#', $filename, $m);
 		$part = ucfirst($m[1]); $date = $m[2]; $version = $m[3];
+		if (!isset($out[$date])) $out[$date] = array();
 		$stat = stat("$html$bit/$filename");
 		$base = substr($filename, 0, -5);
 		if (!is_file("$xml$bit/$base.xml")) {
 			if ($date>'2001-05-11')
-				$out[$date] = "<li>$date : $part version $version, size $stat[7] bytes, last modified ".date('Y-m-d H:i:s', $stat[9])."</li>\n";
+				$out[$date][] = "<li>$date : $part version $version, size $stat[7] bytes, last modified ".date('Y-m-d H:i:s', $stat[9])."</li>\n";
 		} else {
 			if (!array_key_exists($date, $hdates) || !array_key_exists($majors[$k], $hdates[$date])) {
 				$notloaded .= "<li>$date : $part version $version</li>\n";
@@ -44,8 +54,8 @@ foreach ($dir as $k=>$bit) {
 	}
 	closedir($dh);
 	ksort($out);
-	foreach ($out as $date => $str) {
-		print $str;
+	foreach ($out as $date => $strs) {
+		print join('', $strs);
 	}
 }
 
