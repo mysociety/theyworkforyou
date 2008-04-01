@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.21 2008-03-09 11:58:51 matthew Exp $
+# $Id: mpinfoin.pl,v 1.22 2008-04-01 10:40:00 twfy-live Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -534,50 +534,69 @@ sub makerankings {
 }
 
 # Generate ranks from a data field
-sub enrankify
-{
-        my $hash = shift;
-        my $field = shift;
-        my $backwards = shift;
+sub enrankify {
+        my ($hash, $field, $backwards) = @_;
 
         # Extract value of $field for each MP who has it
-        my @mps;
-        my %mpsvalue;
-        my %valuecount;
+        my (%mpsvalue, %valuecount);
         foreach my $mp_id (keys %$hash) {
                 my $value = $hash->{$mp_id}->{$field};
                 if (defined $value) {
                         $value =~ s/%//; # remove % from end
-                        push @mps, $mp_id;
                         $mpsvalue{$mp_id} = $value;
                         $valuecount{$value}++;
                 }
         }
-        my @quintile = ();
-        for (my $i=1; $i<=5; $i++) {
-                $quintile[$i-1] = (@mps+1) * $i / 5;
-        }
+
+        my $count = scalar keys %mpsvalue;
+        return unless $count;
 
         # Sort, and calculate ranking for
+        my @mps;
         if ($backwards) {
-                @mps = sort { $mpsvalue{$a} <=> $mpsvalue{$b} } @mps;
+                @mps = sort { $mpsvalue{$a} <=> $mpsvalue{$b} } keys %mpsvalue;
         } else {
-                @mps = sort { $mpsvalue{$b} <=> $mpsvalue{$a} } @mps;
+                @mps = sort { $mpsvalue{$b} <=> $mpsvalue{$a} } keys %mpsvalue;
         }
-        my %mpvaluerank;
+
+        my @quintile = ();
+        for (my $i=1; $i<=4; $i++) {
+                my $q = ($count + 1) * $i / 5;
+                #$quintile[$i-1] = $q;
+                $quintile[$i-1] = $mpsvalue{$mps[int($q)]}; # ceil
+        }
+
         my $rank = 0;
         my $activerank = 0;
         my $prevvalue = -1;
-        my $quintile = 0;
-        for my $mp (@mps)
-        {
+        foreach my $mp (@mps) {
                 $rank++;
                 $activerank = $rank if ($mpsvalue{$mp} != $prevvalue);
-                $quintile++ if ($activerank>$quintile[$quintile]);
+                my $quintile;
+                if ($backwards) {
+                        # copy the below if you ever enrankify() something that is backwards
+                } else {
+                        # Ever so slightly biased towards average and above average, I guess
+                        if ($mpsvalue{$mp} <= $quintile[1] && $mpsvalue{$mp} >= $quintile[2]) {
+                                $quintile = 2;
+                        } elsif ($mpsvalue{$mp} <= $quintile[0] && $mpsvalue{$mp} >= $quintile[1]) {
+                                $quintile = 1;
+                        } elsif ($mpsvalue{$mp} <= $quintile[2] && $mpsvalue{$mp} >= $quintile[3]) {
+                                $quintile = 3;
+                        } elsif ($mpsvalue{$mp} >= $quintile[0]) {
+                                $quintile = 0;
+                        } elsif ($mpsvalue{$mp} <= $quintile[3]) {
+                                $quintile = 4;
+                        } else {
+                                die $!;
+                        }
+                }
+                #print "$rank $activerank $mpsvalue{$mp} $quintile\n";
+                #$quintile++ if ($activerank>$quintile[$quintile]);
                 #print $field . " " . $mp . " value $activerank of " . $#mps . "\n";
                 $hash->{$mp}->{$field . "_rank"} = $activerank;
                 $hash->{$mp}->{$field . "_rank_joint"} = 1 if $valuecount{$mpsvalue{$mp}} > 1;
-                $hash->{$mp}->{$field . "_rank_outof"} = scalar @mps;
+                $hash->{$mp}->{$field . "_rank_outof"} = $count;
                 $hash->{$mp}->{$field . '_quintile'} = $quintile;
                 $prevvalue = $mpsvalue{$mp};
         }
