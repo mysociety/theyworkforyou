@@ -314,11 +314,12 @@ CREATE TABLE `uservotes` (
 
 CREATE TABLE `mentions` (
   `mention_id` int(11) NOT NULL auto_increment,
-  `gid` char(100) default NULL,
+  `gid` varchar(100) default NULL,
   `type` int(11) NOT NULL,
   `date` date default NULL,
   `url` varchar(255) default NULL,
-  `mentioned_gid` char(100) default NULL,
+  `mentioned_gid` varchar(100) default NULL,
+  UNIQUE KEY `all_values` (`gid`,`type`,`date`,`url`,`mentioned_gid`),
   PRIMARY KEY (`mention_id`)
 );
 

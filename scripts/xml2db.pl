@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.32 2008-03-25 12:04:48 matthew Exp $
+# $Id: xml2db.pl,v 1.33 2008-04-01 10:31:18 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -47,7 +47,10 @@ use Uncapitalise;
 my $outputfilter = 'safe';
 #DBI->trace(1);
 
-use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall $wms $lordsdebates $ni $members $force $quiet $cronquiet $memtest $standing $scotland $scotwrans $scotqs);
+use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall
+    $wms $lordsdebates $ni $members $force $quiet $cronquiet $memtest $standing
+    $scotland $scotwrans $scotqs %scotqspreloaded
+);
 my $result = GetOptions ( "all" => \$all,
                         "recent" => \$recent,
                         "date=s" => \$date,
@@ -146,7 +149,10 @@ use vars qw(%gids %grdests %ignorehistorygids $tallygidsmode $tallygidsmodedummy
 use vars qw(%membertoperson);
 use vars qw($current_file);
 
-use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir $lordswmsdir $lordsdebatesdir $nidir $standingdir $scotlanddir $scotwransdir $scotqsfile);
+use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir
+    $lordswmsdir $lordsdebatesdir $nidir $standingdir $scotlanddir
+    $scotwransdir $scotqsdir
+);
 $debatesdir = $parldata . "scrapedxml/debates/";
 $wransdir = $parldata . "scrapedxml/wrans/";
 $lordswransdir = $parldata . "scrapedxml/lordswrans/";
@@ -158,7 +164,7 @@ $nidir = $parldata . 'scrapedxml/ni/';
 $scotlanddir = $parldata . 'scrapedxml/sp/';
 $scotwransdir = $parldata . 'scrapedxml/sp-written/';
 $standingdir = $parldata . 'scrapedxml/standing/';
-$scotqsfile = $parldata . 'scrapedxml/sp-question-mentions.xml';
+$scotqsdir = $parldata . 'scrapedxml/sp-questions/';
 
 my @wrans_major_headings = (
 "ADVOCATE-GENERAL", "ADVOCATE GENERAL", "ADVOCATE-GENERAL FOR SCOTLAND", "AGRICULTURE, FISHERIES AND FOOD",
@@ -275,19 +281,6 @@ sub process_type {
         }
 }
 
-# Process a file of "mentions"...
-sub process_mentions {
-    my ($xfilename, $xgidtype) = @_;
-    if ($xgidtype eq "spq") {
-       my $twig = XML::Twig->new(twig_handlers =>
-                                 { 'question' => \&loadspq });
-       $twig->parsefile($xfilename);
-       $twig->dispose();
-    } else {
-       die "Unknown gid type in process_mentions ($xgidtype)"
-    }
-}
-
 # Process main data
 process_type(["debates"], [$debatesdir], \&add_debates_day) if ($debates) ;
 process_type(["answers", "lordswrans"], [$wransdir, $lordswransdir], \&add_wrans_day) if ($wrans);
@@ -300,7 +293,7 @@ process_type(['spwa'], [$scotwransdir], \&add_scotwrans_day) if $scotwrans;
 process_type(['standing'], [$standingdir], \&add_standing_day) if $standing;
 
 # Process the question mentions for the Scottish Parliament
-process_mentions($scotqsfile, "spq") if $scotqs;
+process_mentions('spq', $scotqsdir) if $scotqs;
 
 # Process members
 if ($members) {
@@ -440,7 +433,8 @@ my ($dbh,
         $hadd, $hcheck, $hupdate, $hdelete, $hdeletegid,
         $constituencyadd, $constituencydel, $memberadd, $memberexist, $membercheck, 
         $gradd, $grcheck, $grdeletegid,
-        $scotqadd,
+        $scotqadd, $scotqdelete, $scotqbusinessexist, $scotqholdingexist,
+        $scotqdategidexist, $scotqreferenceexist,
         $lastid);
 
 sub db_connect
@@ -485,12 +479,110 @@ sub db_connect
 
         # scottish question mentions
         $scotqadd = $dbh->prepare("insert into mentions (gid, type, date, url, mentioned_gid) values (?,?,?,?,?)");
+        $scotqbusinessexist = $dbh->prepare("select mention_id from mentions where gid = ? and type = ? and date = ? and url = ?");
+        $scotqholdingexist = $dbh->prepare("select mention_id from mentions where gid = ? and type = ? and date = ?");
+        $scotqdategidexist = $dbh->prepare("select mention_id from mentions where gid = ? and type = ? and date = ? and mentioned_gid = ?");
+        $scotqreferenceexist = $dbh->prepare("select mention_id from mentions where gid = ? and type = ? and mentioned_gid = ?");
+        $scotqdelete = $dbh->prepare("delete from mentions where mention_id = ?");
 
         # other queries
         $lastid = $dbh->prepare("select last_insert_id()");
 
         # Clear any half made previous attempts.
         delete_lonely_epobjects()
+}
+
+# Process a file of "mentions"...
+sub process_mentions {
+        my ($xgidtype,$xdir) = @_;
+
+        # Nasty cut-and-pasting of process_type, more or less:
+
+        if ($xgidtype eq "spq") {
+
+                # Checking one-by-one which rows are already in the DB is
+                # horrendously slow, so we could load in the entire table as
+                # the first thing we do:
+
+                my $preload_table = 1;
+                if ($preload_table) {
+                        %scotqspreloaded = ();
+                        my $scotqsall = $dbh->prepare("select mention_id, gid, type, date, url, mentioned_gid from mentions");
+                        my $rows = $scotqsall->execute();
+                        while (my @row = $scotqsall->fetchrow_array()) {
+                                my $s = join('|', map { defined $_ ? $_ : '' } @row[1..5]);
+                                $scotqspreloaded{$s} = 1;
+                        }
+                }
+
+                my $process;
+                my $xsince = 0;
+                if (open FH, '<' . $lastupdatedir . $xgidtype . '-lastload') {
+                        $xsince = readline FH;
+                        close FH;
+                }
+
+                my $xmaxtime = 0;
+                my $xmaxfile = "";
+
+                # Record which dates have files which have been updated:
+
+                my $xwanted = sub {
+                        my $xfile = $_;
+                        my @stat = stat($xdir . $xfile);
+                        my $use = ($stat[9] >= $xsince);
+                        if (m/^up-to-(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/) {
+                                my $date_part = $1;
+
+                                if ($xmaxtime < $stat[9]) {
+                                        $xmaxfile = $xfile;
+                                        $xmaxtime = $stat[9];
+                                }
+
+                                #print $xfile ." ".($use?"t":"f")." $xsince $stat[9]\n";
+                                if ($all || ($use && $recent) || ($datefrom le $date_part && $date_part le $dateto)) {
+                                        $process->{$date_part} = $xfile;
+                                }
+                        }
+                };
+
+                find({ wanted=>$xwanted, preprocess=>\&revsort }, $xdir);
+
+                # Go through dates, and load each one
+                foreach my $process_date (sort keys %$process) {
+                        my $xfile = $process->{$process_date};
+                        if (!$cronquiet) {
+                                print "db loading $process_date (file: $xfile)\n";
+                        }
+                        my $twig = XML::Twig->new(twig_handlers =>
+                                { 'question' => \&loadspq });
+                        $twig->parsefile($xdir . $xfile);
+                        $twig->dispose();
+                }
+
+                # Store that we've done
+                if ($recent) {
+                        my $xxmaxtime = 0;
+                        # Find last update time
+                        my @stat = stat($xdir . "changedates.txt");
+                        die "couldn't stat[9] $xdir/changedates.txt" if (!$stat[9]);
+                        die "xmaxtime not initialised" if (!$xmaxtime);
+                        die "$xdir : $stat[9] vs $xmaxtime : changedates.txt time isn't greater or equal than largest file" unless ($stat[9] >= $xmaxtime);
+                        if ($xxmaxtime < $stat[9]) {
+                                $xxmaxtime = $stat[9];
+                        }
+                        $xmaxtime = $stat[9];
+
+                        if ($xxmaxtime != $xsince) {
+                                open FH, ">$lastupdatedir$xgidtype-lastload" or die "couldn't open $lastupdatedir$xgidtype-lastload for writing";
+                                print FH $xxmaxtime;
+                                close FH;
+                        }
+                }
+
+        } else {
+                die "Unknown gid type in process_mentions ($xgidtype)"
+        }
 }
 
 sub db_disconnect
@@ -642,6 +734,7 @@ sub delete_redirected_gids {
         my ($date, $grdests) = @_;
         my $q_redirect = $dbh->prepare('SELECT gid_to from gidredirect WHERE gid_from = ?');
         my $hgetid = $dbh->prepare("select epobject_id from hansard where gid = ?");
+        open FP, '>>' . $lastupdatedir . 'deleted-gids';
         foreach my $from_gid (sort keys %$grdests) {
                 my $to_gid = $grdests->{$from_gid};
                 my $loop;
@@ -691,9 +784,11 @@ sub delete_redirected_gids {
                 my $c = $hdeletegid->execute($from_gid);
                 if ($c > 0) {
                         print "deleted $from_gid which is now redirected to $to_gid\n" unless $cronquiet;
+                        print FP "$from_gid\n";
                 }
                 $hdeletegid->finish();
          }
+         close FP;
 }
 
 sub update_eid {
@@ -1728,27 +1823,108 @@ sub load_standing_division {
 }
 
 sub loadspq {
-    my ($twig, $question) = @_;
-    my %typemap = (
-       'business-today',   1,
-       'business-oral',    2,
-       'business-written', 3,
-       'answer',           4,
-       'holding',          5 );
-    my $gid = $question->att('gid');
-    my @mentions = $question->children();
-    foreach my $mention (@mentions) {
-       my $mentiontype = $typemap{$mention->att('type')};
-       unless ($mentiontype) {
-           die "Unknown mention type ($mentiontype) found.";
-       }
-       my $mentiondate = $mention->att('date');
-       my $mentionurl  = $mention->att('url');
-       my $mentiongid  = $mention->att('spwrans');
-       $scotqadd->execute($gid,$mentiontype,$mentiondate,$mentionurl,$mentiongid);
-       $scotqadd->finish();
-    }
-    $twig->purge();
+        my ($twig, $question) = @_;
+        my %typemap = (
+                'business-today', 1,
+                'business-oral', 2,
+                'business-written', 3,
+                'answer', 4,
+                'holding', 5,
+                'oral-asked-in-official-report', 6,
+                'referenced-in-question-text', 7 );
+
+        my $gid = $question->att('gid');
+        if (!$quiet) {
+                print "Scottish Parliament question ID $gid\n";
+        }
+
+        my @mentions = $question->children();
+        foreach my $mention (@mentions) {
+                my $mentiontype = $typemap{$mention->att('type')};
+                my $mentionname = $mention->att('type');
+                unless ($mentiontype) {
+                        die "Unknown mention type ($mentiontype) found.";
+                }
+                my $mentiondate = $mention->att('date');
+                my $doit = (!$mentiondate) || $all || $recent || ($datefrom le $mentiondate && $mentiondate le $dateto);
+                print " ($mentionname) " unless $quiet;
+                if (!$doit) {
+                        print " skipping\n" unless $quiet;
+                        next;
+                }
+                my $mentionurl = $mention->att('url');
+                my $mentiongid;
+                my $rows;
+# Need to pick out a few attributes in some cases:
+                if ($mentiontype == 4) {
+                        $mentiongid = $mention->att('spwrans');
+                } elsif ($mentiontype == 6) {
+                        $mentiongid = $mention->att('orgid');
+                } elsif ($mentiontype == 7) {
+                        $mentiongid = $mention->att('referrer');
+                }
+
+                my $preload_hash_key;
+                if (%scotqspreloaded) {
+                        my @row = ($gid,$mentiontype,$mentiondate,$mentionurl,$mentiongid);
+                        $preload_hash_key = join('|', map { defined $_ ? $_ : '' } @row );
+
+                        if ($scotqspreloaded{$preload_hash_key}) {
+                                $rows = 1;
+                        } else {
+                                $rows = 0;
+                        }
+                } else {
+                        if ($mentiontype >= 1 && $mentiontype <= 3) { # 'business-*'
+                                $rows = $scotqbusinessexist->execute($gid,$mentiontype,$mentiondate,$mentionurl);
+                                if ($rows > 1) {
+                                        die "Multiple rows matched $gid, $mentiontype, $mentiondate, $mentionurl";
+                                }
+                                my @row = $scotqbusinessexist->fetchrow_array();
+                                $scotqbusinessexist->finish();
+                        } elsif ($mentiontype == 4) { # 'answer'
+                                $rows = $scotqdategidexist->execute($gid,$mentiontype,$mentiondate,$mentiongid);
+                                if ($rows > 1) {
+                                        die "Multiple rows matched $gid, $mentiontype, $mentiondate, $mentiongid";
+                                }
+                                my @row = $scotqdategidexist->fetchrow_array();
+                                $scotqdategidexist->finish();
+                        } elsif ($mentiontype == 5) { # 'holding'
+                                $rows = $scotqholdingexist->execute($gid,$mentiontype,$mentiondate);
+                                if ($rows > 1) {
+                                        die "Multiple rows matched $gid, $mentiontype, $mentiondate";
+                                }
+                                my @row = $scotqholdingexist->fetchrow_array();
+                                $scotqholdingexist->finish();
+                        } elsif ($mentiontype == 6) { # 'oral-asked-in-official-report'
+                                $rows = $scotqdategidexist->execute($gid,$mentiontype,$mentiondate,$mentiongid);
+                                if ($rows > 1) {
+                                        die "Multiple rows matched $gid, $mentiontype, $mentiondate, $mentiongid";
+                                }
+                                my @row = $scotqdategidexist->fetchrow_array();
+                                $scotqdategidexist->finish();
+                        } elsif ($mentiontype == 7) { # 'referenced-in-question-text'
+                                $rows = $scotqreferenceexist->execute($gid,$mentiontype,$mentiongid);
+                                if ($rows > 1) {
+                                        die "Multiple rows matched $gid, $mentiontype, $mentiongid";
+                                }
+                                my @row = $scotqreferenceexist->fetchrow_array();
+                                $scotqreferenceexist->finish();
+                        }
+                }
+
+                if( $rows == 1 ) {
+                        if (!$quiet) { print "already present\n"; }
+                } else {
+                        if (!$quiet) { print "inserting\n"; }
+                        $scotqadd->execute($gid,$mentiontype,$mentiondate,$mentionurl,$mentiongid);
+                        $scotqadd->finish();
+                        if (%scotqspreloaded) {
+                                $scotqspreloaded{$preload_hash_key} = 1;
+                        }
+                }
+        }
+        $twig->purge();
 }
 
 sub canon_time {
