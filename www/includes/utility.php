@@ -560,7 +560,7 @@ function prepare_comment_for_display ($text) {
 	$text = htmlentities_notags($text);
 	$link_length = 60;
 	$text = preg_replace(
-		"/((http(s?):\/\/)|(www\.))([a-zA-Z\d\_\.\+\,\;\?\%\~\-\/\#\='\*\$\!\(\)\&]+)([a-zA-Z\d\_\?\%\~\-\/\#\='\*\$\!\&])/e",
+		"/(?<!\")((http(s?):\/\/)|(www\.))([a-zA-Z\d\_\.\+\,\;\?\%\~\-\/\#\='\*\$\!\(\)\&]+)([a-zA-Z\d\_\?\%\~\-\/\#\='\*\$\!\&])/e",
 		'(strlen(\'$0\')>$link_length) ? \'<a href="$0">\'.substr(\'$0\',0,$link_length)."...</a>" : \'<a href="$0" rel="nofollow">$0</a>\'',
 		$text);
 	$text = str_replace('<a href="www', '<a href="http://www', $text);
