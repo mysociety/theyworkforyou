@@ -1241,7 +1241,7 @@ pr()//-->
 						<li><a href="#topics">Committees and topics of interest</a></li>
 <?		} ?>
 <? }
-   if (!in_array(1, $member['houses']) || $member['party'] == 'Sinn Fein') { ?>
+   if (!in_array(1, $member['houses']) || $member['party'] != 'Sinn Fein' || in_array(3, $member['houses'])) { ?>
 						<li><a href="#hansard">Recent appearances</a></li>
 <? } ?>
 						<li><a href="#numbers">Numerology</a></li>
@@ -1452,7 +1452,7 @@ and has had no written questions answered for which we know the department or su
 		}
 	}
 
-	if (!in_array(1, $member['houses']) || $member['party'] != 'Sinn Fein') {
+	if (!in_array(1, $member['houses']) || $member['party'] != 'Sinn Fein' || in_array(3, $member['houses'])) {
 
 
 	?>		<a name="hansard"></a> <?
