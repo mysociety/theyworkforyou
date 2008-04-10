@@ -166,7 +166,7 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 			print "<p>Oops, sorry, an error has occurred!</p>\n";
 		}
 		mail(BUGSLIST, "[TWFYBUG]: $errmsg", $err,
-			"From: Bug <beta@theyworkforyou.com>\n".
+			"From: Bug <" . CONTACTEMAIL . ">\n".
 			"X-Mailer: PHP/" . phpversion()
 		);
 	}	

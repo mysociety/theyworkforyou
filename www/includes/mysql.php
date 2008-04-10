@@ -329,7 +329,7 @@ Class MySQL {
 		echo '
 <html><head><title>TheyWorkForYou - Database error</title></head>
 <body>
-<h1><a href="/"><img src="/images/theyworkforyoucombeta.gif" width="320" height="28" alt="TheyWorkForYou"></a></h1>
+<h1><a href="/"><img src="/images/theyworkforyoucom.gif" width="293" height="28" alt="TheyWorkForYou"></a></h1>
 <h2>Database error</h2>
 ';
 		echo "<p>$error</p>";

@@ -116,7 +116,7 @@ Use TheyWorkForYou as a gateway, rather than a simple place to find a number
 measuring competence.
 
 <p>If you have suggestions for other metrics we could add which would be
-useful, send them to the <a href="mailto:beta&#64;theyworkforyou.com">usual
+useful, send them to the <a href="mailto:team&#64;theyworkforyou.com">usual
 address</a>. We've got a few ideas ourselves, to keep you on your toes.
 
 </dd>
@@ -131,7 +131,7 @@ gives you the power to do almost anything with our data.
 Alternatively, you can <a href="http://ukparse.kforge.net/parlparse">get XML files</a>,
 which can be loaded into many spreadsheets. If you just need a spreadsheet of
 MPs, you'll find one on the right hand side of <a href="/mps">this page</a>. 
-Please <a href="mailto:beta&#64;theyworkforyou.com">mail us</a> if you want help 
+Please <a href="mailto:team&#64;theyworkforyou.com">mail us</a> if you want help 
 working out how to use the data, or want to hire us to make something specific
 for you.
 </dd>

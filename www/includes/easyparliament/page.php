@@ -274,9 +274,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// The title bit of the page, with possible search box.
 		global $this_page;
 		
-		//$img = '<img src="' . IMAGEPATH . 'theyworkforyoucom.gif" width="293" height="28" alt="TheyWorkForYou.com">';
-
-		$img = '<img src="' . IMAGEPATH . 'theyworkforyoucombeta.gif" width="320" height="28" alt="TheyWorkForYou.com beta">';
+		$img = '<img src="' . IMAGEPATH . 'theyworkforyoucom.gif" width="293" height="28" alt="TheyWorkForYou.com">';
 		
 		//isn't this very hacky? shouldn't we be cobranding cleverly using METADATA? ( I've repeated this below however -stef"
 		if (get_http_var('c4')) {
