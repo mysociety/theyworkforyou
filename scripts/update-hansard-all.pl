@@ -19,6 +19,7 @@ my $sth = $dbh->prepare("update hansard set htime=? where gid = ?");
 for my $file (sort </home/twfy-live/hansard-updates/h*>) {
         open FP, $file;
         while (<FP>) {
+                chomp;
                 next if /^--/;
                 my ($gid, $time) = split /\t/;
                 next unless $time;
