@@ -11,7 +11,7 @@
 # Email: matthew@mysociety.org; WWW: http://www.mysociety.org/
 #
 
-my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.2 2008-04-11 23:28:15 matthew Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.3 2008-04-11 23:30:39 matthew Exp $';
 
 use strict;
 require 5.8.0;
@@ -39,7 +39,7 @@ my %data = mySociety::HandleMail::get_message();
 exit(0) if $data{is_bounce_message}; # Drop bounces
 
 my $template = 'reply-autoresponse';
-open FP, "../www/includes/easyparliament/templates/emails/$template" or exit 75;
+open FP, "$FindBin::Bin/../www/includes/easyparliament/templates/emails/$template" or exit 75;
 $template = join('', <FP>);
 close FP;
 
