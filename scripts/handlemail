@@ -11,7 +11,7 @@
 # Email: matthew@mysociety.org; WWW: http://www.mysociety.org/
 #
 
-my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.1 2008-04-11 23:10:14 matthew Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.2 2008-04-11 23:28:15 matthew Exp $';
 
 use strict;
 require 5.8.0;
@@ -40,19 +40,18 @@ exit(0) if $data{is_bounce_message}; # Drop bounces
 
 my $template = 'reply-autoresponse';
 open FP, "../www/includes/easyparliament/templates/emails/$template" or exit 75;
-my $template = join('', <FP>);
+$template = join('', <FP>);
 close FP;
 
 # Send an automatic response to non-bounce messages.
 # We generate this as a bounce.
-my $mail = mySociety::Email::construct_email(
+my $mail = mySociety::Email::construct_email({
     Sender => '<>',
     From => [ mySociety::Config::get('CONTACTEMAIL'), 'TheyWorkForYou' ],
     To => $data{return_path},
     _template_ => $template,
     _parameters_ => { },
-    _body_ => $text
-);
+});
 
 if (mySociety::EmailUtil::EMAIL_SUCCESS
         != mySociety::EmailUtil::send_email($mail, '<>', $data{return_path})) {
