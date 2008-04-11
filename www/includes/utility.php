@@ -736,7 +736,6 @@ function send_email ($to, $subject, $message, $bulk = false, $from = '') {
 
 	$headers = 
 	 "From: TheyWorkForYou <$from>\r\n" .
-     "Reply-To: TheyWorkForYou <$from>\r\n" .
      "Content-Type: text/plain; charset=iso-8859-1\r\n" .
      "Content-Transfer-Encoding: 8bit\r\n" . 
      ($bulk ? "Precedence: bulk\r\n" : "" ).
