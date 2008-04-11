@@ -720,25 +720,23 @@ function send_template_email ($data, $merge, $bulk = false) {
 	$emailtext = preg_replace($search, $replace, $emailtext);
 	
 	// Send it!
-	$success = send_email ($data['to'], $subject, $emailtext, $bulk);
+	$success = send_email ($data['to'], $subject, $emailtext, $bulk, 'twfy-DO-NOT-REPLY@' . EMAILDOMAIN);
 
 	return $success;
 
 }
 
 
-
-function send_email ($to, $subject, $message, $bulk = false) {
+function send_email ($to, $subject, $message, $bulk = false, $from = '') {
 	// Use this rather than PHP's mail() direct, so we can make alterations
 	// easily to all the emails we send out from the site.
-	
 	// eg, we might want to add a .sig to everything here...
-	
-	// Everything is not BCC'd to REPORTLIST (unless it's already going to the list!).
-	
+
+	if (!$from) $from = CONTACTEMAIL;
+
 	$headers = 
-	 "From: TheyWorkForYou.com <" . CONTACTEMAIL . ">\r\n" .
-     "Reply-To: TheyWorkForYou.com <" . CONTACTEMAIL . ">\r\n" .
+	 "From: TheyWorkForYou <$from>\r\n" .
+     "Reply-To: TheyWorkForYou <$from>\r\n" .
      "Content-Type: text/plain; charset=iso-8859-1\r\n" .
      "Content-Transfer-Encoding: 8bit\r\n" . 
      ($bulk ? "Precedence: bulk\r\n" : "" ).
@@ -749,7 +747,6 @@ function send_email ($to, $subject, $message, $bulk = false) {
 
 	return $success;
 }
-
 
 
 ///////////////////////////////

@@ -16,7 +16,7 @@
 
 exit;
 
-my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.1 2008-01-25 19:57:32 twfy-live Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.2 2008-04-11 22:33:16 matthew Exp $';
 
 use strict;
 require 5.8.0;
@@ -26,51 +26,22 @@ use Mail::Address;
 use Mail::Internet;
 use MIME::Parser;
 
-use config;
 use Token;
 
-my @lines = ( );
-my $is_bounce_message = 0;
+use mySociety::HandleMail;
 
-while (defined($_ = STDIN->getline())) {
-    chomp();
-    # Skip any From_ line-- we don't need it. BUT, on some systems (e.g.
-    # FreeBSD with default exim config), there will be no Return-Path in a
-    # message even at final delivery time. So use the insanely ugly
-    # "From MAILER-DAEMON ..." thing to distinguish bounces, if it is present.
-    if (@lines == 0 and m#^From #) {
-        $is_bounce_message = 1 if (m#^From MAILER-DAEMON #);
-    } else {
-        push(@lines, $_);
-    }
-}
-
-exit(1) if (STDIN->error(); # Failed to read message
-
-my $m = new Mail::Internet([@lines]);
-exit(1) unless defined($m); # Unable to parse message
+my %data = mySociety::HandleMail::get_message();
+my @lines = @$data{lines};
+my $is_bounce_message = $data{is_bounce_message};
 
 if (!$is_bounce_message) {
-    # RFC2822: 'The "Return-Path:" header field contains a pair of angle
-    # brackets that enclose an optional addr-spec.'
-    my $return_path = $m->head()->get("Return-Path");
-    if (!defined($return_path)) {
-        exit(0); # No Return-Path; we're screwed. Discard.
-    } elsif ($return_path =~ m#<>#) {
-        $is_bounce_message = 1;
-    } else {
-        exit(1); # Not a bounce message, pass on
-    }
+    # Pass it on to team@
 }
 
 # Now we have a bounce. We need to know the address to which it was sent so
 # that we can distinguish VERP bounces (which must be recorded) from others
 # which we don't care about.
-my $to = $m->head()->get("To");
-exit(0) unless defined($to); # Not a lot we can do without an address to parse.
-
-my ($a) = Mail::Address->parse($to);
-exit(0) unless defined($a); # Couldn't parse first To: address.
+my $a = mySociety::HandleMail::get_bounce_recipient($m);
 
 my $prefix = 'fawkes+alert-';
 my $host = 'cake.ukcod.org.uk';
@@ -87,7 +58,7 @@ exit(0) if ($token eq 'bounce-null' || $token eq 'DO-NOT-REPLY' || $token eq 'do
 my $id = Token::check_token($token);
 exit(0) unless defined($id); # Bad token
 
-my $status = parse_dsn_bounce(\@lines);
+my $status = mySociety::HandleMail::parse_dsn_bounce(\@lines);
 exit(0) unless defined($status); # Could not be parsed as an RFC1892/1894 DSN
 
 # Discard all bounces except permanent failures
@@ -99,39 +70,4 @@ my $dbh = DBI->connect($config::dsn, $config::user, $config::pass, { RaiseError 
 $dbh->do('update alerts set deleted=1 where email = (select email from alerts where alert_id=?)', {}, $id);
 $dbh->disconnect();
 exit(0);
-
-
-# parse_dsn_bounce TEXT
-# Attempt to parse TEXT (scalar or reference to list of lines) as an RFC1894
-# delivery status notification email. On success, return the DSN status string
-# "x.y.z" (class, subject, detail). On failure (when TEXT cannot be parsed)
-# return undef.
-sub parse_dsn_bounce ($) {
-    my $P = new MIME::Parser();
-    $P->output_to_core(1);  # avoid temporary files when we can
-
-    my $ent = $P->parse_data(join("\n", @{$_[0]}) . "\n");
-
-    return undef if (!$ent || !$ent->is_multipart() || lc($ent->mime_type()) ne 'multipart/report');
-    # The second part of the multipart entity should be of type
-    # message/delivery-status.
-    my $status = $ent->parts(1);
-    return undef if (!$status || lc($status->mime_type()) ne 'message/delivery-status');
-
-    # The status is given in an RFC822-format header field within the body of
-    # the delivery status message.
-    my $h = $status->bodyhandle()->open('r');
-
-    my $r;
-    while (defined($_ = $h->getline())) {
-        chomp();
-        if (/^Status:\s+(\d\.\d+\.\d+)\s*$/) {
-            $r = $1;
-            last;
-        }
-    }
-    $h->close();
-
-    return $r;
-}
 
