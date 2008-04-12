@@ -11,7 +11,7 @@
 # Email: matthew@mysociety.org; WWW: http://www.mysociety.org/
 #
 
-my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.3 2008-04-11 23:30:39 matthew Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.4 2008-04-12 11:27:53 matthew Exp $';
 
 use strict;
 require 5.8.0;
@@ -36,14 +36,24 @@ mySociety::SystemMisc::log_to_stderr(0);
 
 my %data = mySociety::HandleMail::get_message();
 
-exit(0) if $data{is_bounce_message}; # Drop bounces
+if ($data{is_bounce_message}) {
+    my $a = mySociety::HandleMail::get_bounce_recipient($data{message});
+    my $token = mySociety::HandleMail::get_token($a,
+        'twfy-', mySociety::Config::get('EMAILDOMAIN')
+    );
+    exit(0) if $token eq 'DO-NOT-REPLY'; # A bounce we don't care about
 
+    # XXX Will have to deal with bounces from email alerts somehow
+    # Deliver locally would be same situation as now.
+    exit(0);
+}
+
+# Not a bounce, send an automatic response
 my $template = 'reply-autoresponse';
 open FP, "$FindBin::Bin/../www/includes/easyparliament/templates/emails/$template" or exit 75;
 $template = join('', <FP>);
 close FP;
 
-# Send an automatic response to non-bounce messages.
 # We generate this as a bounce.
 my $mail = mySociety::Email::construct_email({
     Sender => '<>',
