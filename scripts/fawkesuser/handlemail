@@ -16,7 +16,7 @@
 
 exit;
 
-my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.2 2008-04-11 22:33:16 matthew Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.3 2008-04-12 11:06:12 matthew Exp $';
 
 use strict;
 require 5.8.0;
@@ -31,7 +31,7 @@ use Token;
 use mySociety::HandleMail;
 
 my %data = mySociety::HandleMail::get_message();
-my @lines = @$data{lines};
+my @lines = @{$data{lines}};
 my $is_bounce_message = $data{is_bounce_message};
 
 if (!$is_bounce_message) {
