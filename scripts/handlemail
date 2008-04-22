@@ -11,7 +11,7 @@
 # Email: matthew@mysociety.org; WWW: http://www.mysociety.org/
 #
 
-my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.4 2008-04-12 11:27:53 matthew Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.5 2008-04-22 09:32:29 matthew Exp $';
 
 use strict;
 require 5.8.0;
@@ -20,6 +20,8 @@ require 5.8.0;
 use FindBin;
 use lib "$FindBin::Bin/../perllib";
 use lib "$FindBin::Bin/../../perllib";
+
+use Email::LocalDelivery;
 
 use mySociety::Config;
 BEGIN {
@@ -43,9 +45,12 @@ if ($data{is_bounce_message}) {
     );
     exit(0) if $token eq 'DO-NOT-REPLY'; # A bounce we don't care about
 
-    # XXX Will have to deal with bounces from email alerts somehow
-    # Deliver locally would be same situation as now.
-    exit(0);
+    if ($token eq 'bounce') {
+        my $mail = join("\n", $data{lines});
+        Email::LocalDelivery->deliver($mail, '/var/mail/twfy-live'); # XXX
+    }
+
+    exit(0); # drop all other bounces currently
 }
 
 # Not a bounce, send an automatic response

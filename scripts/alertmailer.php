@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.24 2008-03-20 09:49:20 matthew Exp $
+ * $Id: alertmailer.php,v 1.25 2008-04-22 09:32:29 matthew Exp $
  */
 
 function mlog($message) {
@@ -244,7 +244,7 @@ function write_and_send_email($email, $user_id, $data) {
 	$d = array('to' => $email, 'template' => 'alert_mailout');
 	$m = array('DATA' => $data);
 	if (!$nomail) {
-		$success = send_template_email($d, $m, true); # true = "Precedence: bulk"
+		$success = send_template_email($d, $m, true, true); # true = "Precedence: bulk", want bounces
 		mlog("sent ... ");
 		# sleep if time between sending mails is less than a certain number of seconds on average
 		if (((time() - $start_time) / $sentemails) < 0.5 ) { # number of seconds per mail not to be quicker than

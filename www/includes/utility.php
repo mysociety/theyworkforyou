@@ -637,7 +637,7 @@ function gid_to_anchor ($gid) {
 }
 
 
-function send_template_email ($data, $merge, $bulk = false) {
+function send_template_email ($data, $merge, $bulk = false, $want_bounces = false) {
 	// We should have some email templates in INCLUDESPATH/easyparliament/templates/emails/.
 	
 	// $data is like:
@@ -720,14 +720,14 @@ function send_template_email ($data, $merge, $bulk = false) {
 	$emailtext = preg_replace($search, $replace, $emailtext);
 	
 	// Send it!
-	$success = send_email ($data['to'], $subject, $emailtext, $bulk, 'twfy-DO-NOT-REPLY@' . EMAILDOMAIN);
+	$success = send_email ($data['to'], $subject, $emailtext, $bulk, 'twfy-DO-NOT-REPLY@' . EMAILDOMAIN, $want_bounces);
 
 	return $success;
 
 }
 
 
-function send_email ($to, $subject, $message, $bulk = false, $from = '') {
+function send_email ($to, $subject, $message, $bulk = false, $from = '', $want_bounces = false) {
 	// Use this rather than PHP's mail() direct, so we can make alterations
 	// easily to all the emails we send out from the site.
 	// eg, we might want to add a .sig to everything here...
@@ -742,7 +742,11 @@ function send_email ($to, $subject, $message, $bulk = false, $from = '') {
      "X-Mailer: PHP/" . phpversion();
 	twfy_debug('EMAIL', "Sending email to $to with subject of '$subject'");
 
-	$success = mail ($to, $subject, $message, $headers);
+	if ($want_bounces) {
+		$success = mail ($to, $subject, $message, $headers, '-f twfy-bounce@' . EMAILDOMAIN);
+	} else {
+		$success = mail ($to, $subject, $message, $headers);
+	}
 
 	return $success;
 }
