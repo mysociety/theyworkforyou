@@ -11,7 +11,7 @@
 # Email: matthew@mysociety.org; WWW: http://www.mysociety.org/
 #
 
-my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.5 2008-04-22 09:32:29 matthew Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.6 2008-04-22 09:36:24 matthew Exp $';
 
 use strict;
 require 5.8.0;
@@ -46,8 +46,8 @@ if ($data{is_bounce_message}) {
     exit(0) if $token eq 'DO-NOT-REPLY'; # A bounce we don't care about
 
     if ($token eq 'bounce') {
-        my $mail = join("\n", $data{lines});
-        Email::LocalDelivery->deliver($mail, '/var/mail/twfy-live'); # XXX
+        my $mail = join("\n", @{$data{lines}});
+        Email::LocalDelivery->deliver($mail);
     }
 
     exit(0); # drop all other bounces currently
