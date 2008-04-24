@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.23 2008-04-10 16:14:07 francis Exp $
+# $Id: mpinfoin.pl,v 1.24 2008-04-24 08:51:31 matthew Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -177,7 +177,7 @@ foreach my $constituency (keys %$consinfohash) {
         my $data = $consinfohash->{$constituency};
         foreach my $key (keys %$data) {
                 my $value = $data->{$key};
-                $consinfoadd->execute(encode_entities($constituency), $key, $value, $value);
+                $consinfoadd->execute(encode_entities_noapos($constituency), $key, $value, $value);
         }
 }
 
@@ -601,5 +601,12 @@ sub enrankify {
                 $hash->{$mp}->{$field . '_quintile'} = $quintile;
                 $prevvalue = $mpsvalue{$mp};
         }
+}
+
+sub encode_entities_noapos($) {
+        my $s = shift;
+        encode_entities($s);
+        $s =~ s/&#39;/'/;
+        return $s;
 }
 
