@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.24 2008-04-24 08:51:31 matthew Exp $
+# $Id: mpinfoin.pl,v 1.25 2008-04-24 08:53:44 matthew Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -603,7 +603,7 @@ sub enrankify {
         }
 }
 
-sub encode_entities_noapos($) {
+sub encode_entities_noapos {
         my $s = shift;
         encode_entities($s);
         $s =~ s/&#39;/'/;
