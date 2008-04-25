@@ -210,9 +210,11 @@ if (isset ($data['rows'])) {
 			
 			$PAGE->stripe_start($style, $id);	
 	
-			?>
-				<a name="<?php echo $id; ?>"></a>
-<?php
+			echo '<a name="', $id, '"></a>';
+
+			if (isset($row['mentions'])) {
+				echo get_question_mentions_html($row['mentions']);
+			}
 
 			if (isset($row['speaker']) && count($row['speaker']) > 0) {
 			  // We have a speaker to print.
@@ -232,9 +234,11 @@ if (isset ($data['rows'])) {
 				$desc = '';
 				if (isset($speaker['office'])) {
 					$desc = $speaker['office'][0]['pretty'];
-					if (strpos($desc, 'PPS')!==false) $desc .= ', ';
+					#if (strpos($desc, 'PPS')!==false) $desc .= '; ';
+					$desc .= '; ';
 				}
-				if (!$desc || strpos($desc, 'PPS')!==false) {
+				# Try always showing constituency/party too
+				#if (!$desc || strpos($desc, 'PPS')!==false) {
 					if ($speaker['house'] == 1 && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
 						$desc .= $speaker['constituency'] . ', ';
 					}
@@ -245,7 +249,7 @@ if (isset ($data['rows'])) {
 					if (get_http_var('wordcolours')) {
 						$desc .= '</span>';
 					}
-				}
+				#}
 				if ($desc) print "($desc)";
 				if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
 					?> <a href="<?php echo $row['commentsurl']; ?>" title="Copy this URL to link directly to this piece of text" class="permalink">Link to this</a><?php
@@ -272,7 +276,7 @@ if (isset ($data['rows'])) {
 			$body = $row['body'];
 
 			if ($hansardmajors[$data['info']['major']]['location'] == 'Scotland') {
-				$body = preg_replace('# (S\dW-\d+) #', ' <a href="/spwrans/?spid=$1">$1</a> ', $body);
+				$body = preg_replace('# (S\d[O0WF]-\d+)[, ]#', ' <a href="/spwrans/?spid=$1">$1</a> ', $body);
 				$body = preg_replace('#<citation id="uk\.org\.publicwhip/(.*?)/(.*?)">\[(.*?)\]</citation>#e',
 					"'[<a href=\"/' . ('$1'=='spor'?'sp/?g':('$1'=='spwa'?'spwrans/?':'debate/?')) . 'id=$2' . '\">$3</a>]'",
 					$body);
@@ -571,6 +575,97 @@ function generate_votes ($votes, $major, $id, $gid) {
 	return $html;
 	
 }
+
+function get_question_mentions_html($row_data) {
+	if( count($row_data) == 0 ) {
+		return '';
+	}
+	// Return a DIV with the question mentions data formatted
+	// vaguely sensibly:
+	$result = '<div class="question-mentions">';
+	// $result = $result . "\n<div class=\"question-mentions-heading\">Question History</div>";
+	$nrows = count($row_data);
+	$last_date = NULL;
+	$first_difference_output = TRUE;
+	// Keep the references until after the history that's in a timeline:
+	$references = array();
+	for( $i = 0; $i < $nrows; $i++ ) {
+		$row = $row_data[$i];
+		if( ! $row["date"] ) {
+			// If this mention isn't associated with a date, the difference won't be interesting.
+			$last_date = NULL;
+		}
+		if ($last_date && ($last_date != $row["date"])) {
+			// Calculate how long the gap was in days:
+			$daysdiff = (integer)((strtotime($row["date"]) - strtotime($last_date)) / 86400);
+			$daysstring = ($daysdiff == 1) ? "day" : "days";
+			$further = "";
+			if( $first_difference_output ) {
+				$first_difference_output = FALSE;
+			} else {
+				$further = " a further";
+			}
+			$description = "\n<span class=\"question-mention-gap\">After$further $daysdiff $daysstring:</span><br>";
+			$result = $result . $description;
+		}
+		$reference = FALSE;
+		$inner = "BUG: Unknown mention type $row[type]";
+		$date = format_date($row['date'], SHORTDATEFORMAT);
+		switch ($row["type"]) {
+			case 1:
+				$inner = "Mentioned in <a href=\"$row[url]\">today's business on $date</a>";
+				break;
+			case 2:
+				$inner = "Mentioned in <a href=\"$row[url]\">tabled oral questions on $date</a>";
+				break;
+			case 3:
+				$inner = "Mentioned in <a href=\"$row[url]\">tabled written questions on $date</a>";
+				break;
+			case 4:
+				if( preg_match('/^uk.org.publicwhip\/spq\/(.*)$/',$row['gid'],$m) ) {
+					$URL = new URL("spwrans");
+					$URL->insert( array('spid' => $m[1]) );
+					$relative_url = $URL->generate("none");
+					$inner = "Given a <a href=\"$relative_url\">written answer on $date</a>";
+				}
+				break;
+			case 5:
+				$inner = "Given a holding answer on $date";
+				break;
+			case 6:
+				if( preg_match('/^uk.org.publicwhip\/spor\/(.*)$/',$row['mentioned_gid'],$m) ) {
+					$URL = new URL("spdebates");
+					$URL->insert( array('id' => $m[1]) );
+					$relative_url = $URL->generate("none");
+					$inner = "<a href=\"$relative_url\">Asked in parliament on $date</a>";
+				}
+				break;
+			case 7:
+				if( preg_match('/^uk.org.publicwhip\/spq\/(.*)$/',$row['mentioned_gid'],$m) ) {
+					$referencing_spid = $m[1];
+					$URL = new URL("spwrans");
+					$URL->insert( array('spid' => $referencing_spid) );
+					$relative_url = $URL->generate("none");
+					$inner = "Referenced in <a href=\"$relative_url\">question $referencing_spid</a>";
+					$reference = TRUE;
+				}
+				break;
+		}
+		if( $reference ) {
+			$references[] = "\n<span class=\"question-mention\">" . $inner . "</span><br>";
+		} else {
+			$result = $result . "\n<span class=\"question-mention\">" . $inner . "</span><br>";
+			$last_date = $row["date"];
+		}
+	}
+	$result = $result . "\n<div class=\"question-references\">";
+	foreach ($references as $reference_span) {
+		$result = $result . $reference_span;
+	}
+	$result = $result . "\n</div>";
+	$result = $result . "\n</div>";
+	return $result;
+} 
 
 /*
 
