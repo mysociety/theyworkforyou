@@ -50,7 +50,7 @@ Different sorts of structure are highlighted in different colours, and
 their job is to look carefully through the document to see if the
 parser has correctly identified every heading, subheading, paragraph,
 bill name etc. If they find that the parser has made mistakes they
-edit them directly in the browser using a WSIWYG editor.</p>
+edit them directly in the browser using a WYSIWYG editor.</p>
 
 <p>4. Once they are happy that the bill has been correctly marked up.
 They hit 'save' and a copy is immediately published on the external
