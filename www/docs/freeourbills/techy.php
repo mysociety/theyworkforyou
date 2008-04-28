@@ -90,7 +90,7 @@ deliver in One Day. These people misunderstand the nature of
 specifications in the Internet era.</p>
 
 <p>What is important about this, or indeed any specification is not that
-it is definitely right now and the for rest of eternity, what counts
+it is definitely right now and for the rest of eternity, what counts
 is that it is revised and improved whenever it is discovered to
 contain problems or mistakes. The key word above is initial: the spec
 should evolve as new bills that don't quite fit are thrown at it. As
@@ -100,7 +100,7 @@ hundredth the time of the 'ocean boiling' approach.</p>
 
 <h3>The Correction Software Specification</h3>
 
-<p>The schema is no use on its own. It needs to be build hand in hand
+<p>The schema is no use on its own. It needs to be built hand in hand
 with a parser and a browser based corrections interface.</p>
 
 <h3>We need you!</h3>
