@@ -903,7 +903,8 @@ function prettify_office($pos, $dept) {
 		'Assistant Whip, HM Treasury' => 'Assistant Whip (funded by HM Treasury)',
 	);
 	if ($pos) { # Government post, or Chairman of Select Committee
-		$pretty = "$pos, $dept";
+		$pretty = $pos;
+		if ($dept) $pretty .= ", $dept";
 		if (array_key_exists($pretty, $lookup))
 			$pretty = $lookup[$pretty];
 	} else { # Member of Select Committee
