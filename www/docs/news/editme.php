@@ -4,6 +4,15 @@
 
 $all_news = array(
 
+45 => array('Shadow ministers and spokespersons', <<<EOT
+TheyWorkForYou now includes shadow cabinet positions, shadow ministers and
+spokespersons for the Conservatives, Liberal Democrats, Plaid Cymru and SNP.
+This information is given both on a person's page and within any debates they
+speak in, which could help explain why your local MP is speaking on transport
+or foreign affairs a lot. :)
+EOT
+, '2008-04-30 08:25:00', 'Matthew'),
+
 44 => array('Please donate to help us expand TheyWorkForYou', <<<EOT
 We&#8217;ve been working on Public Bill (n&#233;e Standing) Committees, and some lovely new volunteers have been working their socks off on the Scottish Parliament, to be added to <a href="http://theyworkforyou.com">TheyWorkForYou</a>. Yay!
 
