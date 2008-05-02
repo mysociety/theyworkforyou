@@ -38,30 +38,35 @@ function wikipedize ($source) {
   # Set up various variables
   $capsword = "[A-Z][a-zA-Z'0-9]*"; # not starting with number, as catches too much
   $fillerwords = "of|and|in|on|under|the";
-  $middlewordre = "(?:$capsword|$fillerwords)\s*";
-  $endwordre = "(?:$capsword)\s*"; # and, of etc. can't appear at ends
+  $middlewordre = "(?:$capsword|$fillerwords)";
+  $endwordre = "(?:$capsword)"; # and, of etc. can't appear at ends
 
   # Match either "Two Endwords" or "Endword and Some Middle Words"
-  $greedyproperre = "/\b$endwordre(?:$middlewordre)*$endwordre\b/ms";
+  $phrasewithfiller = "$endwordre(?:\s*$middlewordre)*\s*$endwordre";
+  $greedyproperre = "/\b$phrasewithfiller\b/ms";
+
   # Match without filler words (so if you have a phrase like
   # "Amnesty International and Human Rights Watch" you also get both parts
   # separately "Amnesty International" and "Human Rights Watch")
-  $frugalproperre = "/\b(?:$endwordre){2,}\b/ms";
+  $frugalproperre = "/\b$endwordre(?:\s*$endwordre)+\b/ms";
 
   # And do a greedy without the first word of a sentence
-  $greedynotfirst = "/\.\s+\S+\s+($endwordre(?:$middlewordre)*$endwordre)\b/ms";
+  $greedynotfirst = "/(?:\.|\?|!)\s+\S+\s+($phrasewithfiller)\b/ms";
+
+  # And one for proper nouns in the possessive
+  $greedypossessive = "/\b($phrasewithfiller)'s\b/ms";
 
   preg_match_all($greedyproperre, $source, $propernounphrases1);
   preg_match_all($frugalproperre, $source, $propernounphrases2);
   preg_match_all($greedynotfirst, $source, $propernounphrases3);
+  preg_match_all($greedypossessive, $source, $propernounphrases4);
 
   # Three Letter Acronyms
   preg_match_all("/\b[A-Z]{2,}/ms", $source, $acronyms);
   
   # We don't want no steenking duplicates
-  $phrases = array_unique(array_merge($propernounphrases1[0], $propernounphrases2[0], $propernounphrases3[1], $acronyms[0]));
-  # Sort into order, largest first
-  usort($phrases, "lensort");
+  $phrases = array_unique(array_merge($propernounphrases1[0], $propernounphrases2[0],
+  	$propernounphrases3[1], $propernounphrases4[1], $acronyms[0]));
   foreach ($phrases as $i => $phrase) {
     $phrases[$i] = mysql_escape_string(str_replace(' ', '_', trim($phrase)));
   }
@@ -72,8 +77,15 @@ function wikipedize ($source) {
   $db = new ParlDB;  
   $source = explode('|||', $source);
   $q = $db->query("SELECT title FROM titles WHERE title IN ('" . join("','", $phrases) . "')");
+  $phrases = array();
   for ($i=0; $i<$q->rows(); $i++) {
-    $wikistring = $q->field($i, 'title');
+    $phrases[] = $q->field($i, 'title');
+  }
+
+  # Sort into order, largest first
+  usort($phrases, 'lensort');
+
+  foreach ($phrases as $wikistring) {
     $phrase = str_replace('_', ' ', $wikistring);
 
     # See if already matched a string this one is contained within
@@ -85,7 +97,7 @@ function wikipedize ($source) {
     # Go ahead
     twfy_debug("WIKIPEDIA", "Matched '$phrase'");
     # 1 means only replace one match for phrase per paragraph
-    $source = preg_replace ("/{$phrase}/", "<a href=\"http://en.wikipedia.org/wiki/{$wikistring}\">{$phrase}</a>", $source, 1);
+    $source = preg_replace ("/$phrase/", "<a href='http://en.wikipedia.org/wiki/$wikistring'>$phrase</a>", $source, 1);
     array_push($matched, $phrase);
   }
 
