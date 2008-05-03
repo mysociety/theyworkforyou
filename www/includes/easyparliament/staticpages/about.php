@@ -60,6 +60,10 @@ proper organisation with staff and time.</p>
 alone and voluntarily, perhaps as a nudge to the Scots and the Welsh to come forward and 
 work on their own versions. :)</p>
 
+<p>This approach met with success as ace volunteer <a href="http://longair.net/mark/">Mark
+Longair</a> contributed the parsing code and much front-end code for the Scottish Parliament
+which launched in May 2008. Wales is now all alone...</p>
+
 <h4>Volunteers</h4>
 <p><em>They did all this in their spare time, because they thought it was worth doing.
 And if it's worth doing, you might as well try to do it well. </em></p>

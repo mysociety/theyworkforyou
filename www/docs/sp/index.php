@@ -1,7 +1,5 @@
 <?php
 
-include '../404.php';
-
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
@@ -134,11 +132,11 @@ if (get_http_var("d") != "") {
 		),
 		array (
 			'type' => 'include',
-			'content' => 'calendar_spdebates'
+			'content' => "spdebates"
 		),
 		array (
 			'type' => 'include',
-			'content' => "spdebates"
+			'content' => 'calendar_spdebates'
 		),
 		array (
 			'type' => 'html',

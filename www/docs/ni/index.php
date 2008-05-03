@@ -119,11 +119,11 @@ if (get_http_var("d") != "") {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 	?>
-				<h4>Busiest debates from the most recent week</h4>
+				<h4>Busiest debates from the most recent month</h4>
 <?php
 	
 	$LIST = new NILIST;
-	$LIST->display('biggest_debates', array('days'=>7, 'num'=>20));
+	$LIST->display('biggest_debates', array('days'=>30, 'num'=>20));
 
 	$rssurl = $DATA->page_metadata($this_page, 'rss');
 	$PAGE->stripe_end(array(
@@ -145,7 +145,6 @@ if (get_http_var("d") != "") {
 	));
 	
 }
-
 
 $PAGE->page_end();
 

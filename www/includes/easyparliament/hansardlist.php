@@ -1535,9 +1535,19 @@ class HANSARDLIST {
 		return $data;
 	
 	}
-	
-	
-	
+
+	function _get_mentions($spid) {
+		$result = array();
+		$q = $this->db->query("select gid, type, date, url, mentioned_gid
+			from mentions where gid like 'uk.org.publicwhip/spq/$spid'
+			order by date, type");
+		$nrows = $q->rows();
+		for ($i=0; $i < $nrows; $i++) {
+			$result[$i] = $q->row($i);
+		}
+		return $result; 
+	}
+
 	function _get_hansard_data ($input) {
 		global $hansardmajors;
 		// Generic function for getting hansard data from the DB.
@@ -1661,7 +1671,24 @@ class HANSARDLIST {
 					$item['gid'] = fix_gid_from_db( $item['gid'] );
 				}
 				
-				
+				// Add mentions if (a) it's a question in the written
+				// answer section or (b) it's in the official reports
+				// and the body text ends in a bracketed SPID.
+				if (($this->major && $hansardmajors[$this->major]['page']=='spwrans') && ($item['htype'] == '12' && $item['minor'] == '1')) {
+					// Get out the SPID:
+					if ( preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $item['gid'], $m) ) {
+						$item['mentions'] = $this->_get_mentions($m[1]);
+					}
+				}
+
+				// The second case (b):
+				if (($this->major && $hansardmajors[$this->major]['page']=='spdebates') && isset($item['body'])) {
+					$stripped_body = preg_replace('/<[^>]+>/ms','',$item['body']);
+					if ( preg_match('/\((S\d+\w+-\d+)\)/ms',$stripped_body,$m) ) {
+						$item['mentions'] = $this->_get_mentions($m[1]);
+					}
+				} 
+
 				// Get the number of items within a section or subsection.
 				// It could be that we can do this in the main query?
 				// Not sure.
@@ -1690,8 +1717,7 @@ class HANSARDLIST {
 						$item['contentcount'] = '0';
 					}
 				}
-				
-			
+
 				// Get the body of the first item with the section or 
 				// subsection. This can then be printed as an excerpt
 				// on the daily list pages.
@@ -2005,16 +2031,18 @@ class HANSARDLIST {
 						$speaker['party'] = $parties[$speaker['party']];
 					}
 
-					$q = $this->db->query("SELECT dept, position FROM moffice WHERE person=$speaker[person_id]
+					$q = $this->db->query("SELECT dept, position, source FROM moffice WHERE person=$speaker[person_id]
 								AND to_date>='$hdate' AND from_date<='$hdate'");
 					if ($q->rows() > 0) {
 						for ($row=0; $row<$q->rows(); $row++) {
 							$dept = $q->field($row, 'dept');
 							$pos = $q->field($row, 'position');
+							$source = $q->field($row, 'source');
 							if ($pos && $pos != 'Chairman') {
 								$speaker['office'][] = array(
 									'dept' => $dept,
 									'position' => $pos,
+									'source' => $source,
 									'pretty' => prettify_office($pos, $dept)
 								);
 							}
@@ -2476,6 +2504,16 @@ class SPWRANSLIST extends WRANSLIST {
 		$this->gidprefix .= 'spwa/';
 	}
 	function get_gid_from_spid($spid) {
+		// Fix the common errors of S.0 instead of S.O and leading
+		// zeros in the numbers:
+		$fixed_spid = preg_replace('/(S[0-9]+)0-([0-9]+)/','${1}O-${2}',$spid);
+		$fixed_spid = preg_replace('/(S[0-9]+\w+)-0*([0-9]+)/','${1}-${2}',$fixed_spid);
+		$q = $this->db->query("select mentioned_gid from mentions where gid = 'uk.org.publicwhip/spq/$fixed_spid' and (type = 4 or type = 6)");
+		$gid = $q->field(0, 'mentioned_gid');
+		if ($gid) return $gid;
+		return null;
+	}
+	function old_get_gid_from_spid($spid) { 
 		$q = $this->db->query("select gid from hansard where gid like 'uk.org.publicwhip/spwa/%.$spid.h'");
 		$gid = $q->field(0, 'gid');
 		if ($gid) return str_replace('uk.org.publicwhip/spwa/', '', $gid);

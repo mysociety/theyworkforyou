@@ -14,7 +14,7 @@ $helpurl = $URL->generate();
 <a href="<?php echo $abouturl; ?>" title="link to About Us page">TheyWorkForYou.com</a>
 is a non-partisan website run by a charity which aims to
 make it easy for people to keep tabs on their elected and
-unelected representatives in Parliament, and other assemblies.</p>
+unelected representatives in Parliament and other assemblies.</p>
 
 <?php
 $this->block_end();

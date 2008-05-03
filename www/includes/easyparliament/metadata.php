@@ -72,7 +72,6 @@ $this->page = array (
 		'parent'	=> '',
 		'session_vars' => array('super_debug'),
 		'sitetitle'		=> 'TheyWorkForYou.com',
-		//deprecated   'track'		=> false
 	),
 	
 	
@@ -171,45 +170,37 @@ $this->page = array (
 			'sidebar'		=> 'alert'
 
 		),
-		'title'			=> 'TheyWorkForYou.com Email Alerts',
+		'title'			=> 'TheyWorkForYou Email Alerts',
 		'url'			=> 'alert/',
 	),		
 	'alertconfirm' => array (
-		'track'			=> true,
 		'url'			=> 'alert/confirm/'
 	),
 	'alertconfirmfailed' => array (
 		'title'			=> 'Oops!',
-		'track'			=> true,
 		'url'			=> 'alert/confirm/'
 	),
 	'alertconfirmsucceeded' => array (
 		'title'			=> 'Alert Confirmed!',
-		'track'			=> true,
 		'url'			=> 'alert/confirm/'
 	),
 	'alertdelete' => array (
-		'track'			=> true,
 		'url'			=> 'alert/delete/'
 	),
 	'alertdeletefailed' => array (
 		'title'			=> 'Oops!',
-		'track'			=> true,
 		'url'			=> 'alert/delete/'
 	),
 	'alertdeletesucceeded' => array (
 		'title'			=> 'Alert Deleted!',
-		'track'			=> true,
 		'url'			=> 'alert/delete/'
 	),
 	'alertundeletesucceeded' => array (
 		'title'			=> 'Alert Undeleted!',
-		'track'			=> true,
 		'url'			=> 'alert/undelete/'
 	),
 	'alertundeletefailed' => array (
 		'title'			=> 'Oops!',
-		'track'			=> true,
 		'url'			=> 'alert/undelete/'
 	),
 	'alertwelcome' => array (
@@ -263,36 +254,32 @@ $this->page = array (
 	),
 
 	'contact' => array (
-		'title'			=> 'Contact TheyWorkForYou.com',
+		'title'			=> 'Contact TheyWorkForYou',
 		'url'			=> 'contact/'
 	),
 	
 	'debate'  => array (	
 		'parent'		=> 'debatesfront',
-		'track'			=> true,
 		'url'			=> 'debate/',
 		'session_vars'	=> array ('id'),
 	),
 	'debates'  => array (
 		'parent'		=> 'debatesfront',
-		'track'			=> true,
 		'url'			=> 'debates/',
 		'session_vars'	=> array ('id'),
 	),
 	'debatesday' => array (
 		'parent'		=> 'debatesfront',
 		'session_vars'	=> array ('d'),
-		'track'			=> true,
 		'url'			=> 'debates/',
 	),			
 	'debatesfront' => array (
 		'menu'			=> array (
-			'text'			=> 'Commons Debates',
+			'text'			=> 'Commons debates',
 			'title'			=> "House of Commons debates"
 		),
 		'parent'		=> 'hansard',
 		'title'			=> 'House of Commons debates',
-		'track'			=> true,
 		'rss'			=> 'debates/debates.rss',
 		'url'			=> 'debates/'
 	),
@@ -313,7 +300,6 @@ $this->page = array (
 	'glossary' => array (
 		'heading'		=> 'Glossary',
 		'parent'		=> 'help_us_out',
-		'track'			=> true,
 		'url'			=> 'glossary/'
 	),
 	'glossary_addterm' => array (
@@ -339,23 +325,20 @@ $this->page = array (
 	'glossary_item' => array (
 		'heading'		=> 'Glossary heading',
 		'parent'		=> 'help_us_out',
-		'track'			=> true,
 		'url'			=> 'glossary/',
 		'session_vars'	=> array ('g')
 	),
 	'hansard' => array (
 		'menu'			=> array (
-			'text'			=> 'Hansard',
-			'title'			=> "House of Commons debates and Written Answers"
+			'text'			=> 'UK',
+			'title'			=> "Houses of Parliament debates, Written Answers, Statements, and Westminster Hall debates"
 		),
-		'title'			=> 'House of Commons, House of Lords, Northern Ireland Assembly, and the Scottish Parliament',
-		'track'			=> true,
+		'title'			=> 'House of Commons and House of Lords',
 		'url'			=> 'hansard/'
 	),	
 	'hansard_date' => array (
 		'parent'		=> 'hansard',
 		'title'			=> 'House of Commons, House of Lords, Northern Ireland Assembly, and the Scottish Parliament',
-		'track'			=> true,
 		'url'			=> 'hansard/'
 	),	
 	'help' => array (
@@ -364,7 +347,6 @@ $this->page = array (
 			'title'			=> "Answers to your questions"
 		),
 		'title'			=> 'Help',
-		'track'			=> true,
 		'url'			=> 'help/'
 	),
 	'help_us_out' => array (
@@ -383,7 +365,6 @@ $this->page = array (
 			'title'			=> "The front page of the site"
 		),
 		'title'			=> "Are your MPs and Peers working for you in the UK's Parliament?",
-		'track'			=> true,
 		'rss'			=> 'news/index.rdf',
 		'url'			=> ''
 	),
@@ -400,30 +381,26 @@ $this->page = array (
 
 	'lordsdebate'  => array (
 		'parent'		=> 'lordsdebatesfront',
-		'track'			=> true,
 		'url'			=> 'lords/',
 		'session_vars'	=> array ('gid'),
 	),
 	'lordsdebates'  => array (
 		'parent'		=> 'lordsdebatesfront',
-		'track'			=> true,
 		'url'			=> 'lords/',
 		'session_vars'	=> array ('id'),
 	),
 	'lordsdebatesday' => array (
 		'parent'		=> 'lordsdebatesfront',
 		'session_vars'	=> array ('d'),
-		'track'			=> true,
 		'url'			=> 'lords/',
 	),			
 	'lordsdebatesfront' => array (
 		'menu'			=> array (
-			'text'			=> 'Lords Debates',
+			'text'			=> 'Lords debates',
 			'title'			=> "House of Lords debates"
 		),
 		'parent'		=> 'hansard',
 		'title'			=> 'House of Lords debates',
-		'track'			=> true,
 		'rss'			=> 'lords/lords.rss',
 		'url'			=> 'lords/'
 	),
@@ -435,68 +412,61 @@ $this->page = array (
 
 	'peer' => array (
 		'title'			=> 'Peer',
-		'track'			=> true,
 		'url'			=> 'peer/'
 	),
 	'peers' => array (
 		 'menu'			=> array (
-			'text'			=> 'All Lords',
+			'text'			=> 'Lords',
 			'title'			=> "List of all Lords"
 		),
+		'parent'		=> 'hansard',
 		'title'			=> 'All Lords',
-		'track'			=> true,
 		'url'			=> 'peers/'
 	),
 
 	'mla' => array (
 		'title'			=> 'MLA',
-		'track'			=> true,
 		'url'			=> 'mla/'
 	),
 	'mlas' => array (
-		 'menu'			=> array (
-			'text'			=> 'All MLAs',
+		'parent'		=> 'ni_home',
+		'menu'			=> array (
+			'text'			=> 'MLAs',
 			'title'			=> "List of all Members of the Northern Ireland Assembly (MLAs)"
 		),
 		'title'			=> 'All MLAs',
-		'track'			=> true,
 		'url'			=> 'mlas/'
 	),
 
 	'msp' => array (
 		'title'			=> 'MSP',
-		'track'			=> true,
 		'url'			=> 'msp/'
 	),
 	'msps' => array (
-		 'menu'			=> array (
-			'text'			=> 'All MSPs',
+		'parent'		=> 'sp_home',
+		'menu'			=> array (
+			'text'			=> 'MSPs',
 			'title'			=> "List of all Members of the Scottish Parliament (MSPs)"
 		),
 		'title'			=> 'All MSPs',
-		'track'			=> true,
 		'url'			=> 'msps/'
 	),
 
 	/* Not 'Your MP', whose name is 'yourmp'... */
 	'mp' => array (
 		'title'			=> 'MP',
-		'track'			=> true,
 		'url'			=> 'mp/'
 	),
 	'emailfriend' => array (
 		'title'			=> 'Send this page to a friend',
-		'track'			=> true,
 		'url'			=> 'email/'
 	),
 	'c4_mp' => array (
 		'title'			=> 'MP',
-		'track'			=> true,
 		'url'			=> 'mp/c4/'
 	),
 	'c4x_mp' => array (
 		'title'			=> 'MP',
-		'track'			=> true,
 		'url'			=> 'mp/c4x/'
 	),
 	// The directory MPs' RSS feeds are stored in.
@@ -506,40 +476,45 @@ $this->page = array (
 
 	'mps' => array (
 		 'menu'			=> array (
-			'text'			=> 'All MPs',
+			'text'			=> 'MPs',
 			'title'			=> "List of all Members of Parliament (MPs)"
 		),
+		'parent'		=> 'hansard',
 		'title'			=> 'All MPs',
-		'track'			=> true,
 		'url'			=> 'mps/'
 	),
 	'c4_mps' => array (
 		'title' => 'All MPs',
-		'track' => true,
 		'url' => 'mps/c4/'
 	),
 	'c4x_mps' => array (
 		'title' => 'All MPs',
-		'track' => true,
 		'url' => 'mps/c4x/'
+	),
+
+	/* Northern Ireland Assembly */
+	'ni_home' => array(
+		'menu'			=> array (
+			'text'			=> 'N. Ireland',
+			'title'			=> 'Debates of the Northern Ireland Assembly'
+		),
+		'title'			=> 'Northern Ireland Assembly',
+		'url'			=> 'ni/'
 	),
 
 	'nidebate'  => array (
 		'parent'		=> 'nidebatesfront',
-		'track'			=> true,
 		'url'			=> 'ni/',
 		'session_vars'	=> array ('gid'),
 	),
 	'nidebates'  => array (
 		'parent'		=> 'nidebatesfront',
-		'track'			=> true,
 		'url'			=> 'ni/',
 		'session_vars'	=> array ('id'),
 	),
 	'nidebatesday' => array (
 		'parent'		=> 'nidebatesfront',
 		'session_vars'	=> array ('d'),
-		'track'			=> true,
 		'url'			=> 'ni/',
 	),			
 	'nidebatesfront' => array (
@@ -547,9 +522,8 @@ $this->page = array (
 			'text'			=> 'NIA Debates',
 			'title'			=> "Northern Ireland Assembly debates"
 		),
-		'parent'		=> 'hansard',
+		'parent'		=> 'ni_home',
 		'title'			=> 'Northern Ireland Assembly debates',
-		'track'			=> true,
 		'rss'			=> 'ni/ni.rss',
 		'url'			=> 'ni/'
 	),
@@ -602,6 +576,15 @@ $this->page = array (
 		'session_vars'	=> array ('id'),
 	),
 
+	'people' => array(
+		'menu' => array(
+			'text' => 'People',
+			'title' => '',
+		),
+		'title'			=> 'Representatives',
+		'url'			=> '',
+	),
+
 	'raw' => array (
 		'title'			=> 'Raw data',
 		'url'			=> 'raw/'
@@ -634,7 +617,6 @@ $this->page = array (
 
 	'search'		=> array (
 		'sidebar'		=> 'search',
-		'track'			=> true,
 		'url'			=> 'search/',
 		'heading'		=> '',
 		'session_vars'	=> array ('s', 'pid', 'o', 'pop')
@@ -654,7 +636,6 @@ $this->page = array (
 		'rss'			=> 'news/index.rdf',
 		'sidebar'		=> 'sitenews',
 		'title'			=> 'TheyWorkForYou news',
-		'track'			=> true,
 		'url'			=> 'news/'
 	),
 	'sitenews_archive'		=> array (
@@ -662,7 +643,6 @@ $this->page = array (
 		'rss'			=> 'news/index.rdf',
 		'sidebar'		=> 'sitenews',
 		'title'			=> 'Archive',
-		'track'			=> true,
 		'url'			=> 'news/archives/'
 	),
 	'sitenews_atom' 	=> array (
@@ -677,7 +657,6 @@ $this->page = array (
 		'parent'		=> 'sitenews',
 		'rss'			=> 'news/index.rdf',
 		'sidebar'		=> 'sitenews',
-// deprecated 		'track'			=> true
 	),
 	'sitenews_rss1' 	=> array (
 		'url'			=> 'news/index.rdf'
@@ -692,22 +671,27 @@ $this->page = array (
 	),
 	
 	/* Scottish Parliament */
+	'sp_home' => array(
+		'menu'			=> array (
+			'text'			=> 'Scotland',
+			'title'			=> 'Debates and written answers of the Scottish Parliament'
+		),
+		'title'			=> 'Scottish Parliament',
+		'url'			=> 'scotland/'
+	),
 	'spdebate'  => array (
 		'parent'		=> 'spdebatesfront',
-		'track'			=> true,
 		'url'			=> 'sp/',
 		'session_vars'	=> array ('id'),
 	),
 	'spdebates'  => array (
 		'parent'		=> 'spdebatesfront',
-		'track'			=> true,
 		'url'			=> 'sp/',
 		'session_vars'	=> array ('id'),
 	),
 	'spdebatesday' => array (
 		'parent'		=> 'spdebatesfront',
 		'session_vars'	=> array ('d'),
-		'track'			=> true,
 		'url'			=> 'sp/',
 	),			
 	'spdebatesfront' => array (
@@ -715,9 +699,8 @@ $this->page = array (
 			'text'			=> 'Scottish Parliament Debates',
 			'title'			=> "Scottish Parliament debates"
 		),
-		'parent'		=> 'hansard',
+		'parent'		=> 'sp_home',
 		'title'			=> 'Scottish Parliament debates',
-		'track'			=> true,
 		'rss'			=> 'sp/sp.rss',
 		'url'			=> 'sp/'
 	),
@@ -729,7 +712,7 @@ $this->page = array (
 	'spwrans'  => array (
 		'parent'		=> 'spwransfront',
 		'url'			=> 'spwrans/',
-		'session_vars'	=> array ('id')
+		#'session_vars'	=> array ('id'),
 	),
 	'spwransday'  => array (
 		'parent'		=> 'spwransfront',
@@ -740,7 +723,7 @@ $this->page = array (
 			'text'			=> 'SP written answers',
 			'title'			=> "Written Answers"
 		),
-		'parent'		=> 'hansard',
+		'parent'		=> 'sp_home',
 		'title'			=> 'Scottish Parliament Written answers',
 		'url'			=> 'spwrans/'
 	),
@@ -774,18 +757,15 @@ $this->page = array (
 		'url'			=> 'user/changepc/'
 	),
 	'userconfirm' => array (
-	//deprecated 	'track'			=> true,
 		'url'			=> 'user/confirm/'
 	),
 	'userconfirmed' => array (
 		'sidebar'		=> 'userconfirmed',
-		'title'			=> 'Welcome to TheyWorkForYou.com!',
-	//deprecated 	'track'			=> true,
+		'title'			=> 'Welcome to TheyWorkForYou!',
 		'url'			=> 'user/confirm/'
 	),
 	'userconfirmfailed' => array (
 		'title'			=> 'Oops!',
-	//deprecated 	'track'			=> true,
 		'url'			=> 'user/confirm/'
 	),
 	'useredit' => array (
@@ -799,19 +779,17 @@ $this->page = array (
                 ),
                 'pg'                    => 'join',
                 'sidebar'               => 'userjoin',
-                'title'                 => 'Join TheyWorkForYou.com',
-        //deprecated    'track'                 => true,
+                'title'                 => 'Join TheyWorkForYou',
                 'url'                   => 'user/'
         ),  	
 	'getinvolved' => array (
 		'menu'			=> array (
 			'text'			=> 'Get involved',
-			'title'			=> "Contribute to TheyWorkForYou.com"
+			'title'			=> "Contribute to TheyWorkForYou"
 		),
 		'pg'			=> 'getinvolved',
 		'sidebar'		=> 'userjoin',
-		'title'			=> 'Contribute to TheyWorkForYou.com',
-	//deprecated 	'track'			=> true,
+		'title'			=> 'Contribute to TheyWorkForYou',
 		'url'			=> 'getinvolved/'
 	),		
 	'userlogin' => array (
@@ -821,7 +799,6 @@ $this->page = array (
 		),
 		'sidebar'		=> 'userlogin',
 		'title'			=> 'Log in',
-	//deprecated 	'track'			=> true,
 		'url'			=> 'user/login/'
 	),
 	
@@ -855,6 +832,18 @@ $this->page = array (
 		'title'			=> 'Welcome!',
 		'url'			=> 'user/'
 	),
+
+	/* Welsh Assembly */
+	'wales_home' => array(
+		'menu' => array(
+			'text' => 'Wales',
+			'title' => 'We\'d like to do the Welsh Assembly!',
+		),
+		'title' => 'Welsh Assembly',
+		'url' => 'wales/',
+	),
+
+	/* Westminster Hall */
 	'whall'  => array (	
 		'parent'		=> 'whallfront',
 		'url'			=> 'whall/',
@@ -899,7 +888,7 @@ $this->page = array (
 	'wmsfront' => array (
 		'menu'			=> array (
 			'text'			=> 'Written Ministerial Statements',
-			'title'			=> 'Written Ministerial Statements'
+			'title'			=> ''
 		),
 		'parent'		=> 'hansard',
 		'title'			=> 'Written Ministerial Statements',
@@ -941,11 +930,20 @@ $this->page = array (
 		'url'			=> 'wrans/'
 	),
 
+	'yourreps' => array(
+		'menu' => array(
+			'text' => 'Your representative',
+			'title' => '',
+		),
+		'title' => 'Your representative',
+		'url' => 'your/',
+	),
 	'yourmp' => array (
 		'menu'			=> array (
 			'text'			=> 'Your MP',
 			'title'			=> "Find out about your Member of Parliament"
 		),
+		#'parent'		=> 'yourreps',
 		'sidebar'		=> 'yourmp',
 		'title'			=> 'Your MP',
 		'url'			=> 'mp/'

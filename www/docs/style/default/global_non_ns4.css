@@ -403,7 +403,28 @@ div.main p.indentitalic {
 	color: #4D6C25;
 	}
 
+.question-mentions {
+	font-size: 0.85em;
+	padding: 0.5em;
+	margin: 0.5em;
+	float: right;
+	background-color: #FFFFFF;
+}
 
+.question-mentions-heading {
+	font-size: 0.85em;
+	color: #FF0000;
+	font-style: bold;
+	text-align: center;
+}
+.question-mention-gap {
+	font-size: 0.85em;
+	font-style: italic;
+}
+
+.question-references {
+	margin-top: 0.7em;
+}
 
 /**** BLOCKS *************************************************************************/	
 /* A 'block' is a colored area with a headline, like all those ones on the home page. */

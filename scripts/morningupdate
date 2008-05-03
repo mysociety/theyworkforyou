@@ -49,10 +49,11 @@ system "./xml2db.pl $cronquiet --recent --wrans --quiet";
 system "./xml2db.pl $cronquiet --recent --wms --quiet";
 system "./xml2db.pl $cronquiet --recent --lordsdebates --quiet";
 system "./xml2db.pl $cronquiet --recent --ni --quiet";
-if ($staging) {
-system "./xml2db.pl $cronquiet --recent --standing --quiet";
 system "./xml2db.pl $cronquiet --recent --scotland --quiet";
 system "./xml2db.pl $cronquiet --recent --scotwrans --quiet";
+system "./xml2db.pl $cronquiet --recent --scotqs --quiet";
+if ($staging) {
+    system "./xml2db.pl $cronquiet --recent --standing --quiet";
 }
 
 $cronquiet = substr($cronquiet, 2) if $cronquiet;

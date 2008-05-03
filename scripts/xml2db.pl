@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.33 2008-04-01 10:31:18 matthew Exp $
+# $Id: xml2db.pl,v 1.34 2008-05-03 23:09:32 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -531,7 +531,7 @@ sub process_mentions {
                         my $xfile = $_;
                         my @stat = stat($xdir . $xfile);
                         my $use = ($stat[9] >= $xsince);
-                        if (m/^up-to-(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/) {
+                        if (m/^up-to-(\d{4}-\d\d-\d\d)(.*)\.xml$/) {
                                 my $date_part = $1;
 
                                 if ($xmaxtime < $stat[9]) {
@@ -1014,7 +1014,7 @@ sub add_mps_and_peers {
         $twig->parsefile($pwmembers . "peers-ucl.xml");
         $twig->parsefile($pwmembers . "royals.xml");
         $twig->parsefile($pwmembers . "ni-members.xml");
-        #$twig->parsefile($pwmembers . "sp-members.xml");
+        $twig->parsefile($pwmembers . "sp-members.xml");
         $twig->parsefile($pwmembers . "ministers.xml");
         loadmoffices();
         check_member_ids();

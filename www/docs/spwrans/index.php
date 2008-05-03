@@ -1,7 +1,5 @@
 <?php
 
-include '../404.php';
-
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 include_once INCLUDESPATH . "easyparliament/member.php";
@@ -23,10 +21,23 @@ if (get_http_var('d')) {
 	$SPWRANSLIST = new SPWRANSLIST;
 	$gid = $SPWRANSLIST->get_gid_from_spid($spid);
     	if ($gid) {
-        	$URL = new URL('spwrans');
-		$URL->insert( array('id' => $gid) );
-		header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
-        	exit;
+		if (preg_match('/uk\.org\.publicwhip\/spwa\/(\d{4}-\d\d-\d\d\.(.*))/',$gid,$m)) {
+			$URL = new URL('spwrans');
+			$URL->reset();
+			$URL->insert( array('id' => $m[1]) );
+			$fragment_identifier = '#g' . $m[2];
+			header('Location: http://' . DOMAIN . $URL->generate('none') . $fragment_identifier, true, 303);
+			exit;
+		} elseif (preg_match('/uk\.org\.publicwhip\/spor\/(\d{4}-\d\d-\d\d\.(.*))/',$gid,$m)) {
+			$URL = new URL('spdebates');
+			$URL->reset();
+			$URL->insert( array('id' => $m[1]) );
+			$fragment_identifier = '#g' . $m[2];
+			header('Location: http://' . DOMAIN . $URL->generate('none') . $fragment_identifier, true, 303);
+			exit;
+		} else {
+			$PAGE->error_message ("Strange GID ($gid) for that Scottish Parliament ID.");
+		} 
 	}
 	$PAGE->error_message ("Couldn't match that Scottish Parliament ID to a GID.");
 

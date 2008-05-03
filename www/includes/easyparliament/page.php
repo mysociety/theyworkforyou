@@ -329,12 +329,14 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// we're within that section.
 		$items = array (
 			'home' 		=> array ('sitenews', 'comments_recent', 'api_front'),
-			'hansard' 	=> array ('debatesfront', 'wransfront', 'whallfront', 'wmsfront', 'lordsdebatesfront', 'nidebatesfront'), # ,'spdebatesfront','spwransfront','pbc_front'),
-			'yourmp'	=> array (),
-			'mps'           => array (),
-			'peers'		=> array (),
-			'mlas'          => array (),
-#			'msps'          => array (),
+			'yourmp'	=> array(),
+			'hansard' 	=> array ('mps', 'peers', 'debatesfront', 'lordsdebatesfront', 'wransfront', 'whallfront', 'wmsfront'), # ,'pbc_front'),
+			#'people' 	=> array('mps', 'peers', 'mlas', 'msps'),
+			#'mps'           => array (),
+			#'peers'		=> array (),
+			'sp_home'	=> array('msps', 'spdebatesfront', 'spwransfront'),
+			'ni_home'	=> array('mlas', 'nidebatesfront'),
+			'wales_home'	=> array(),
 #			'help_us_out'	=> array (), 
 /*			'help_us_out'	=> array ('glossary_addterm'),  */
 			'help'		=> array ()
@@ -1980,18 +1982,9 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		}
 		
 		
-		// Now output the HTML!
-		?>
-				<p class="nextprev">
-					<?php print $uplink; ?>
-						
-					<?php print $prevlink; ?>
-						
-					<?php print $nextlink; ?>
-
-				</p>
-<?php		
-					
+		if ($uplink || $prevlink || $nextlink) {
+			echo '<p class="nextprev">', $uplink, ' ', $prevlink, ' ', $nextlink, '</p>';
+		}
 	}
 
 	 
