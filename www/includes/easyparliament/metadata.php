@@ -446,9 +446,9 @@ $this->page = array (
 		'parent'		=> 'sp_home',
 		'menu'			=> array (
 			'text'			=> 'MSPs',
-			'title'			=> "List of all Members of the Scottish Parliament (MSPs)"
+			'title'			=> "List of Members of the Scottish Parliament (MSPs)"
 		),
-		'title'			=> 'All MSPs',
+		'title'			=> 'Current MSPs',
 		'url'			=> 'msps/'
 	),
 

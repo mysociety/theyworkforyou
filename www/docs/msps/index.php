@@ -5,15 +5,12 @@ include_once INCLUDESPATH."easyparliament/people.php";
 
 $this_page = 'msps';
 
-if (get_http_var('f') != 'csv') {
-	$PAGE->page_start();
-	$PAGE->stripe_start();
-	$format = 'html';
-} else {
-	$format = 'csv';
-}
-
 $args = array();
+
+if (get_http_var('all')) {
+	$DATA->set_page_metadata($this_page, 'title', 'All MSPs, including former ones');
+	$args['all'] = true;
+}
 
 if (get_http_var('o') == 'f') {
 	$args['order'] = 'first_name';
@@ -29,12 +26,20 @@ if (get_http_var('o') == 'f') {
 	$args['order'] = 'debates';
 }
 
+if (get_http_var('f') != 'csv') {
+	$PAGE->page_start();
+	$PAGE->stripe_start();
+	$format = 'html';
+} else {
+	$format = 'csv';
+}
+
 $PEOPLE = new PEOPLE;
 $PEOPLE->display('msps', $args, $format);
 
 if (get_http_var('f') != 'csv') {
 	$PAGE->stripe_end(array(
-		array('type'=>'include', 'content'=>'peers'),
+		array('type'=>'include', 'content'=>'msps'),
 		array('type'=>'include', 'content'=>'donate')
 	));
 	$PAGE->page_end();
