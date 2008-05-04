@@ -7,6 +7,13 @@ $this_page = 'mps';
 if (get_http_var('c4')) $this_page = 'c4_mps';
 elseif (get_http_var('c4x')) $this_page = 'c4x_mps';
 
+$args = array();
+
+if (get_http_var('all')) {
+	$DATA->set_page_metadata($this_page, 'title', 'All MPs, including former ones');
+	$args['all'] = true;
+}
+
 if (get_http_var('f') != 'csv') {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
@@ -14,8 +21,6 @@ if (get_http_var('f') != 'csv') {
 } else {
 	$format = 'csv';
 }
-
-$args = array();
 
 if (get_http_var('o') == 'f') {
 	$args['order'] = 'first_name';

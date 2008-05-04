@@ -5,6 +5,13 @@ include_once INCLUDESPATH."easyparliament/people.php";
 
 $this_page = 'peers';
 
+$args = array('order'=>'name');
+
+if (get_http_var('all')) {
+	$DATA->set_page_metadata($this_page, 'title', 'All Peers, including former ones');
+	$args['all'] = true;
+}
+
 if (get_http_var('f') != 'csv') {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
@@ -12,8 +19,6 @@ if (get_http_var('f') != 'csv') {
 } else {
 	$format = 'csv';
 }
-
-$args = array('order'=>'name');
 
 if (get_http_var('o') == 'n') {
 	$args['order'] = 'name';
@@ -30,7 +35,7 @@ $PEOPLE->display('peers', $args, $format);
 
 if (get_http_var('f') != 'csv') {
 	$PAGE->stripe_end(array(
-		array('type'=>'include', 'content'=>'peers'),
+		array('type'=>'include', 'content'=>'people'),
 		array('type'=>'include', 'content'=>'donate')
 	));
 	$PAGE->page_end();

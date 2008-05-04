@@ -39,7 +39,7 @@ $PEOPLE->display('msps', $args, $format);
 
 if (get_http_var('f') != 'csv') {
 	$PAGE->stripe_end(array(
-		array('type'=>'include', 'content'=>'msps'),
+		array('type'=>'include', 'content'=>'people'),
 		array('type'=>'include', 'content'=>'donate')
 	));
 	$PAGE->page_end();
