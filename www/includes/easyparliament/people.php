@@ -226,9 +226,17 @@ class PEOPLE {
 			print ucfirst(member_full_name(3, $row['title'], $row['first_name'], $row['last_name'], $row['constituency']));
 			print '</option>';
 		}
+		print '</optgroup> <optgroup label="MSPs">';
+		$data = $this->_get_data_by_msps($args);
+		foreach ($data['data'] as $row) {
+			print '<option';
+			if (isset($args['pid']) && $args['pid']==$row['person_id']) print ' selected';
+			print ' value="'.$row['person_id'].'">';
+			print ucfirst(member_full_name(4, $row['title'], $row['first_name'], $row['last_name'], $row['constituency']));
+			print '</option>';
+		}
 		print '</optgroup>';
 	}
 
 }
 
-?>

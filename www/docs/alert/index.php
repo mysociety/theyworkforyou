@@ -188,7 +188,7 @@ function display_form ( $details = array(), $errors = array() ) {
 
 <?	if (!get_http_var('only')) { ?>
 <ul>
-<li>To receive an alert <strong>every time a particular MP or Lord appears</strong>,
+<li>To receive an alert <strong>every time a particular person appears</strong>,
 select their name from the drop-down list of MPs and Lords, and
 leave the word/phrase box blank.</li>
 
@@ -198,12 +198,12 @@ the box underneath.  The results are selected using the same rules as for a
 normal search (see the box to the right for help on setting your criteria).</li>
 
 <li>You can also <strong>combine</strong> both types of criteria to be alerted
-<strong>only</strong> when a particular MP or Lord uses the keywords you have defined.
-To do this, select the MP or Lord from the drop-down list <em>and</em> enter the keyword(s) as
+<strong>only</strong> when a particular person uses the keywords you have defined.
+To do this, select the person from the drop-down list <em>and</em> enter the keyword(s) as
 above.</li>
 </ul>
 
-<p>Please note that you should only enter one topic per alert - if you wish to receive alerts on more than one topic, or for more than one MP or Lord, simply fill in this form as many times as you need.</p>
+<p>Please note that you should only enter one topic per alert - if you wish to receive alerts on more than one topic, or for more than one person, simply fill in this form as many times as you need.</p>
 <?	} ?>
 
 	<form method="post" action="<?php echo $ACTIONURL->generate(); ?>">
@@ -224,14 +224,14 @@ above.</li>
 			}
 	?>
 				<div class="row">
-				<span class="label"><label for="pid">MP or Lord you wish to receive alerts for:</label></span>
+				<span class="label"><label for="pid">Person you wish to receive alerts for:</label></span>
 				<span class="formw"><?
 				if (get_http_var('only') && $details['pid']) {
 					$MEMBER = new MEMBER(array('person_id'=>$details['pid']));
 					print $MEMBER->full_name();
 					print '<input type="hidden" name="pid" value="' . htmlspecialchars($details['pid']) . '">';
 				} else { ?><select name="pid">
-				<option value="Any">Any MP/Lord/MLA</option>
+				<option value="Any">Any MP/Lord/MLA/MSP</option>
 				<?php 
 				// Get a list of MPs/Lords for displaying in the form using the PEOPLE class
 				$LIST = new PEOPLE;
