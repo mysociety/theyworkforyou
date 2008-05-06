@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.25 2008-04-22 09:32:29 matthew Exp $
+ * $Id: alertmailer.php,v 1.26 2008-05-06 08:56:58 matthew Exp $
  */
 
 function mlog($message) {
@@ -87,9 +87,9 @@ $alertdata = $alertdata['data'];
 
 $DEBATELIST = new DEBATELIST; # Nothing debate specific, but has to be one of them
 
-$sects = array('', 'Commons debate', 'Westminster Hall debate', 'Written Answer', 'Written Ministerial Statement', 'Northern Ireland Assembly debate');
+$sects = array('', 'Commons debate', 'Westminster Hall debate', 'Written Answer', 'Written Ministerial Statement', 'Northern Ireland Assembly debate', 'Public Bill committee', 'Scottish Parliament debate', 'Scottish Parliament written answer');
 $sects[101] = 'Lords debate';
-$sects_short = array('', 'debate', 'westminhall', 'wrans', 'wms', 'ni');
+$sects_short = array('', 'debate', 'westminhall', 'wrans', 'wms', 'ni', 'pbc', 'sp', 'spwran');
 $sects_short[101] = 'lords';
 $results = array();
 
