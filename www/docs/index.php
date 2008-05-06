@@ -123,6 +123,8 @@ function comment_on_recent_bullet_point() {
 	$WMSLIST = new WMSLIST; $data[4] = $WMSLIST->most_recent_day();
 	$LORDSDEBATELIST = new LORDSDEBATELIST; $data[101] = $LORDSDEBATELIST->most_recent_day();
 	$NILIST = new NILIST; $data[5] = $NILIST->most_recent_day();
+	$SPLIST = new SPLIST; $data[7] = $SPLIST->most_recent_day();
+	#$SPWRANSLIST = new SPWRANSLIST; $data[8] = $SPWRANSLIST->most_recent_day();
 	foreach (array_keys($hansardmajors) as $major) {
 		if (array_key_exists($major, $data)) {
 			unset($data[$major]['listurl']);
