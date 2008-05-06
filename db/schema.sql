@@ -338,6 +338,15 @@ CREATE TABLE `campaigners` (
   KEY `constituency` (`constituency`)
 );
 
+-- who each email has been sent to so far
+create table campaigners_sent_email (
+    campaigner_id int NOT NULL,
+    email_name varchar(100) NOT NULL,
+
+    unique(campaigner_id, email_name)
+);
+
+
 
 
 
