@@ -1,22 +1,22 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -I ../../perllib/ -w
 use strict;
 use lib "loader/";
 
-my $template_name = 'hello.txt';
+my $template_name = 'freeourbills_email_1.txt';
 my $template_file = "../www/includes/easyparliament/templates/emails/$template_name";
 my $test_email = "";
 
 my $type = "all";
 
-#$test_email = 'frabcus@fastmail.fm';
-#$test_email = 'francis@flourish.org';
-#$test_email = 'julian@publicwhip.org.uk';
+$test_email = 'francis@flourish.org';
+$test_email = 'frabcus@fastmail.fm';
 
 my $amount = 1000000;
 
 use DBI;
 use URI::Escape;
 use mySociety::Config;
+use FindBin;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
 my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'), { RaiseError => 1, PrintError => 0 });
@@ -30,7 +30,7 @@ my $already_clause = "
     left join campaigners_sent_email on 
         campaigners_sent_email.campaigner_id = campaigners.campaigner_id 
         and email_name = ?
-    where email_name is null and confirm";
+    where email_name is null and confirmed";
 
 # Create query string
 my $query;
@@ -86,14 +86,10 @@ EOF
             print SENDMAIL $_;
     }
 
-    if ($username) {
-        print SENDMAIL "\nYour user name is $username\n";
-    }
-
     close(SENDMAIL) or die "sendmail didn't close nicely";
 
     $dbh->do("insert into campaigners_sent_email (campaigner_id, email_name)
-            values (?, ?)", $campaigner_id, $template_name);
+            values (?, ?)", {}, $campaigner_id, $template_name);
 
     print "done\n";
 
