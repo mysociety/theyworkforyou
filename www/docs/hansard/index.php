@@ -74,12 +74,12 @@ if (($date = get_http_var('d')) && preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) 
 $this_page = 'hansard';
 $PAGE->page_start();
 // Page title will appear here.
-$PAGE->stripe_start('head-1');
 $message = $PAGE->recess_message();
 if ($message != '') {
+	$PAGE->stripe_start('head-1');
 	print "<p><strong>$message</strong></p>\n";
+	$PAGE->stripe_end();
 }
-$PAGE->stripe_end();
 $PAGE->stripe_start();
 ?>
 				<h3>Busiest House of Commons debates from the most recent week</h3>
