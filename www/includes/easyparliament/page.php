@@ -1217,7 +1217,7 @@ pr()//-->
 						<li><a href="http://www.writetothem.com/"><strong>Send a message to your MP</strong></a> <small>(via WriteToThem.com)</small></li>
 						<li><a href="http://www.hearfromyourmp.com/"><strong>Sign up to <em>HearFromYourMP</em></strong></a> to get messages from your MP</li>
 <?php
-		} elseif ($member['current_member'][3]) {
+		} elseif ($member['current_member'][3] || $member['current_member'][4]) {
 			?>
 						<li><a href="http://www.writetothem.com/"><strong>Send a message to your MLA</strong></a> <small>(via WriteToThem.com)</small></li>
 <?php		} elseif ($member['current_member'][2]) {
@@ -1228,7 +1228,7 @@ pr()//-->
 		}
 
 		# If they're currently an MLA, a Lord or a non-Sinn Fein MP
-		if ($member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein')) {
+		if ($member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein') || $member['current_member'][4]) {
 			print '<li><a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a> (no more than once per day)</li>';
 		}
 
@@ -1571,7 +1571,7 @@ elseif ($member['house_disp']==2) print 'this peer';
 elseif ($member['house_disp']==3) print 'this MLA';
 elseif ($member['house_disp']==4) print 'this MSP';
 elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
-			if ($member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein')) {
+			if ($member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein') || $member['current_member'][4]) {
 				print ' &mdash; <a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'">email me whenever '. $member['full_name']. ' speaks</a>';
 			}
 			print '.</li>';
