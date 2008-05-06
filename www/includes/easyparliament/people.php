@@ -78,7 +78,7 @@ class PEOPLE {
 
 		$order = 'last_name';
 		$sqlorder = 'last_name, first_name';
-		$query = 'SELECT person_id, title, first_name, last_name, constituency, party, dept, position
+		$query = 'SELECT distinct person_id, title, first_name, last_name, constituency, party, dept, position
 			FROM member LEFT OUTER JOIN moffice ON member.person_id = moffice.person AND to_date="9999-12-31"
 			WHERE house=' . $args['house'] . ' ';
 		if (!isset($args['all']))
