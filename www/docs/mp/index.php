@@ -222,6 +222,12 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 		}
 		$subtitle .= ' MLA, '.$MEMBER->constituency();
 	}
+	if ($MEMBER->house(4)) {
+		if (!$MEMBER->current_member(4)) {
+			$subtitle .= ', former';
+		}
+		$subtitle .= ' MSP, '.$MEMBER->constituency();
+	}
 	$DATA->set_page_metadata($this_page, 'subtitle', $subtitle);
 	$DATA->set_page_metadata($this_page, 'heading', '');
 

@@ -4,6 +4,38 @@
 
 $all_news = array(
 
+46 => array('The Scottish Parliament', <<<EOT
+Thanks mainly to our Edinburgh-based volunteer <a
+href="http://longair.net/mark/">Mark Longair</a>, TheyWorkForYou now covers
+Scottish Parliament <a href="/sp/">debates</a> and <a href="/spwrans/">written
+answers</a>, right back to the start of this Parliament in 1999. That means
+that <a href="/msps/">each MSP</a>, just like MPs, Lords, and MLAs, now has
+their own page, linking to speeches and questions they have made. For example,
+here are the current party leaders:
+<a href="/msp/alex_salmond">Alex Salmond</a>,
+<a href="/msp/wendy_alexander">Wendy Alexander</a>,
+<a href="/msp/annabel_goldie">Annabel Goldie</a>,
+<a href="/msp/nicol_stephen">Nicol Stephen</a>, and
+<a href="/msp/robin_harper">Robin Harper</a>.
+
+As with other types of representative, you can subscribe to email alerts or an
+RSS feeds for their latest appearances; or subscribe to an email alert when a
+particular word or phrase is mentioned, either anywhere or just in the Scottish
+Parliament.
+
+To go with this launch of a large amount of new data, we've rejigged the
+site navigation slightly to make it a bit easier to follow. Each body now has
+its own main tab, with links to the sections and representatives under each one
+(so lists of MPs and Lords are now under &ldquo;UK&rdquo;).
+
+Along with improvements to our <a href="/search/">search engine</a>, including
+date range search, spelling correction, departmental search, and more, we're
+launching this now to mark the success in getting endorsements for our <a
+href="/freeourbills/">Free Our Bills campaign</a>, and we'll be rolling out
+more goodies as the campaign goes along.
+EOT
+, '2008-05-06 13:35:28', 'Matthew'),
+
 45 => array('Shadow ministers and spokespersons', <<<EOT
 TheyWorkForYou now includes shadow cabinet positions, shadow ministers and
 spokespersons for the Conservatives, Liberal Democrats, Plaid Cymru and SNP.
