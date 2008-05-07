@@ -160,6 +160,11 @@ $this->page = array (
 		'parent'		=> 'admin',
 		'url'			=> 'admin/trackbacks.php'
 	),
+	'admin_photos' => array (
+		'title'			=> 'Photo upload',
+		'parent'		=> 'admin',
+		'url'			=> 'admin/photos.php',
+	),
 	
 // Added by Richard Allan for email alert functions
 
