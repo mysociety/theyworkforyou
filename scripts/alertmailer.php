@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.26 2008-05-06 08:56:58 matthew Exp $
+ * $Id: alertmailer.php,v 1.27 2008-05-08 16:16:24 matthew Exp $
  */
 
 function mlog($message) {
@@ -48,6 +48,7 @@ $nomail = false;
 $onlyemail = '';
 $fromemail = '';
 $toemail = '';
+$template = 'alert_mailout';
 for ($k=1; $k<$argc; $k++) {
 	if ($argv[$k] == '--nomail')
 		$nomail = true;
@@ -57,6 +58,11 @@ for ($k=1; $k<$argc; $k++) {
 		$fromemail = $m[1];
 	if (preg_match('#^--to=(.*)$#', $argv[$k], $m))
 		$toemail = $m[1];
+	if (preg_match('#^--template=(.*)$#', $argv[$k], $m)) {
+		$template = $m[1];
+		# Tee hee
+		$template = "../../../../../../../../../../home/twfy-live/email-alert-templates/alert_mailout_$template";
+	}
 }
 
 if (DEVSITE)
@@ -106,7 +112,7 @@ foreach ($alertdata as $alertitem) {
 
 	if ($email != $current_email) {
 		if ($email_text)
-			write_and_send_email($current_email, $user_id, $email_text);
+			write_and_send_email($current_email, $user_id, $email_text, $template);
 		$current_email = $email;
 		$email_text = '';
 		$q = $db->query('SELECT user_id FROM users WHERE email = \''.mysql_escape_string($email)."'");
@@ -198,7 +204,7 @@ foreach ($alertdata as $alertitem) {
 	}
 }
 if ($email_text)
-	write_and_send_email($current_email, $user_id, $email_text);
+	write_and_send_email($current_email, $user_id, $email_text, $template);
 
 mlog("\n");
 
@@ -230,7 +236,7 @@ function sort_by_stuff($a, $b) {
 	return ($a['hpos'] > $b['hpos']) ? 1 : -1;
 }
 
-function write_and_send_email($email, $user_id, $data) {
+function write_and_send_email($email, $user_id, $data, $template) {
 	global $globalsuccess, $sentemails, $nomail, $start_time;
 
 	$data .= '===================='."\n\n";
@@ -241,7 +247,7 @@ function write_and_send_email($email, $user_id, $data) {
 	}
 	$sentemails++;
 	mlog("SEND $sentemails : Sending email to $email ... ");
-	$d = array('to' => $email, 'template' => 'alert_mailout');
+	$d = array('to' => $email, 'template' => $template);
 	$m = array('DATA' => $data);
 	if (!$nomail) {
 		$success = send_template_email($d, $m, true, true); # true = "Precedence: bulk", want bounces
