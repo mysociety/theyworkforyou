@@ -77,6 +77,11 @@ function display_form($errors = array()) {
         $out .= '<ul id="error"><li>' . join('</li><li>', $errors) . '</li></ul>';
     }
     $out .= <<<EOF
+<p>Photos are automatically added in CVS and committed. Because of this,
+only use this interface on a development version of the site which is
+in a CVS checkout (francis.theyworkforyou.com or similar). Then deploy
+to the live site.
+</p>
 <form method="post" action="photos.php" enctype="multipart/form-data">
 <div class="row">
 <span class="label"><label for="form_pid">Person:</label></span>
