@@ -30,7 +30,7 @@ print $out;
 
 function submit_photo() {
     $dir = "../images";
-    $pid = get_http_var('pid');
+    $pid = intval(get_http_var('pid'));
     $errors = array();
 
     if (!array_key_exists('photo', $_FILES))
@@ -50,10 +50,18 @@ function submit_photo() {
             array_push($errors, 'Scaling large failed');
         if (!imagick_scale($imageS, 59, 59, true))
             array_push($errors, 'Scaling small failed');
-	    if (!imagick_writeimage($image, "$dir/mpsL/$pid.jpg"))
-            array_push($errors, "Saving to $dir/mpsL/$pid.jpg failed");
-	    if (!imagick_writeimage($imageS, "$dir/mps/$pid.jpg"))
-            array_push($errors, "Saving to $dir/mps/$pid.jpg failed");
+	    if (!imagick_writeimage($image, "$dir/mpsL/$pid.jpeg"))
+            array_push($errors, "Saving to $dir/mpsL/$pid.jpeg failed");
+	    if (!imagick_writeimage($imageS, "$dir/mps/$pid.jpeg"))
+            array_push($errors, "Saving to $dir/mps/$pid.jpeg failed");
+        print "<pre>";
+        chdir("$dir/mpsL");
+        passthru("cvs -Q add $pid.jpeg 2>&1");
+        chdir("../mps");
+        passthru("cvs -Q add $pid.jpeg 2>&1");
+        chdir("../");
+        passthru('cvs -Q commit -m "Photo update from admin web photo upload interface." mpsL mps 2>&1');
+        print "</pre>";
     }
 
     if ($errors)
