@@ -46,9 +46,9 @@ function submit_photo() {
         if (!$image)
             array_push($errors, 'Failed to read image from uploaded file');
 	    $imageS = imagick_clonehandle($image);
-        if (!imagick_scale($image, 118, 118, true))
+        if (!imagick_scale($image, 118, 118, false))
             array_push($errors, 'Scaling large failed');
-        if (!imagick_scale($imageS, 59, 59, true))
+        if (!imagick_scale($imageS, 59, 59, false))
             array_push($errors, 'Scaling small failed');
 	    if (!imagick_writeimage($image, "$dir/mpsL/$pid.jpeg"))
             array_push($errors, "Saving to $dir/mpsL/$pid.jpeg failed");
