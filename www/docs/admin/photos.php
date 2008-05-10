@@ -56,9 +56,9 @@ function submit_photo() {
             array_push($errors, "Saving to $dir/mps/$pid.jpeg failed");
         print "<pre>";
         chdir("$dir/mpsL");
-        passthru("cvs -Q add $pid.jpeg 2>&1");
+        passthru("cvs -Q add -kb $pid.jpeg 2>&1");
         chdir("../mps");
-        passthru("cvs -Q add $pid.jpeg 2>&1");
+        passthru("cvs -Q add -kb $pid.jpeg 2>&1");
         chdir("../");
         passthru('cvs -Q commit -m "Photo update from admin web photo upload interface." mpsL mps 2>&1');
         print "</pre>";
