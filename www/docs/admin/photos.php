@@ -54,14 +54,16 @@ function submit_photo() {
             array_push($errors, "Saving to $dir/mpsL/$pid.jpeg failed");
 	    if (!imagick_writeimage($imageS, "$dir/mps/$pid.jpeg"))
             array_push($errors, "Saving to $dir/mps/$pid.jpeg failed");
-        print "<pre>";
-        chdir("$dir/mpsL");
-        passthru("cvs -Q add -kb $pid.jpeg 2>&1");
-        chdir("../mps");
-        passthru("cvs -Q add -kb $pid.jpeg 2>&1");
-        chdir("../");
-        passthru('cvs -Q commit -m "Photo update from admin web photo upload interface." mpsL mps 2>&1');
-        print "</pre>";
+	if (!$errors) {
+        	print "<pre>";
+	        chdir("$dir/mpsL");
+        	passthru("cvs -Q add -kb $pid.jpeg 2>&1");
+	        chdir("../mps");
+        	passthru("cvs -Q add -kb $pid.jpeg 2>&1");
+	        chdir("../");
+	        passthru('cvs -Q commit -m "Photo update from admin web photo upload interface." mpsL mps 2>&1');
+	        print "</pre>";
+	}
     }
 
     if ($errors)
@@ -88,12 +90,13 @@ to the live site.
 <span class="formw"><select id="form_pid" name="pid"></span>
 EOF;
 
-    $query = 'SELECT person_id, first_name, last_name, constituency, party
+    $query = 'SELECT house, person_id, first_name, last_name, constituency, party
         FROM member
-        WHERE house=1 AND left_house = (SELECT MAX(left_house) FROM member) ';
-    $q = $db->query($query . "ORDER BY first_name, last_name");
+        WHERE house>0 AND left_house = (SELECT MAX(left_house) FROM member) ';
+    $q = $db->query($query . "ORDER BY house, first_name, last_name");
     for ($i=0; $i<$q->rows(); $i++) {
         $p_id = $q->field($i, 'person_id');
+	$house = $q->field($i, 'house');
         $desc = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . ' (' . $q->field($i, 'party') . ')' . ', ' . $q->field($i, 'constituency');
 
         list($dummy, $sz) = find_rep_image($p_id);
@@ -104,7 +107,7 @@ EOF;
         } else {
             $desc .= ' [no photo]';
         }
-	    $out .= '<option value="'.$p_id.'">'.$desc.'</option>' . "\n";
+	    $out .= '<option value="'.$p_id.'">'.$house.' '.$desc.'</option>' . "\n";
     }
 
     $out .= <<<EOF
