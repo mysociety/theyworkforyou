@@ -4,6 +4,7 @@ include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/commentreportlist.php';
 include_once INCLUDESPATH . 'easyparliament/searchengine.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
+include_once INCLUDESPATH . 'easyparliament/people.php';
 
 $this_page = 'admin_photos';
 
@@ -94,10 +95,15 @@ EOF;
         FROM member
         WHERE house>0 AND left_house = (SELECT MAX(left_house) FROM member) ';
     $q = $db->query($query . "ORDER BY house, first_name, last_name");
+
+    $houses = array(1 => 'MP', 'Lord', 'MLA', 'MSP');
+
     for ($i=0; $i<$q->rows(); $i++) {
         $p_id = $q->field($i, 'person_id');
-	$house = $q->field($i, 'house');
-        $desc = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . ' (' . $q->field($i, 'party') . ')' . ', ' . $q->field($i, 'constituency');
+        $house = $q->field($i, 'house');
+        $desc = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . 
+                " " . $houses[$house] . 
+                ' (' . $q->field($i, 'party') . ')' . ', ' . $q->field($i, 'constituency');
 
         list($dummy, $sz) = find_rep_image($p_id);
         if ($sz == 'L') {
@@ -107,7 +113,7 @@ EOF;
         } else {
             $desc .= ' [no photo]';
         }
-	    $out .= '<option value="'.$p_id.'">'.$house.' '.$desc.'</option>' . "\n";
+	    $out .= '<option value="'.$p_id.'">'.$desc.'</option>' . "\n";
     }
 
     $out .= <<<EOF
