@@ -2660,10 +2660,10 @@ Sinn Fein is broken
 		
 			// Generate all the page links.
 			$URL = new URL($this_page);
-			$URL->insert(
-				array('s' => $pagedata['s']),
-				array('wtt' => get_http_var('wtt'))
-			);
+			$URL->insert( array('wtt' => get_http_var('wtt')) );
+			if (isset($pagedata['s']))
+				$URL->insert(array('s' => $pagedata['s']));
+
 			for ($n = $firstpage; $n <= $lastpage; $n++) {
 				
 				if ($n > 1) {
