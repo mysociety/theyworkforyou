@@ -2214,39 +2214,45 @@ label { float: left; width: 12em; }
 <p><label for="party">Party:</label> <select id="party" name="party">
 <option value="">-
 <option>Alliance
-<option>Bp
-<option>Con
-<option>CWM
-<option>DCWM
+<option value="Bp">Bishops
+<option value="CWM,DCWM">Commons Deputy Speakers
+<option value="SPK">Commons Speaker
+<option value="Con">Conservative
+<option value="XB">Crossbench Lords
 <option>DUP
 <option>Green
-<option>Ind
-<option>Ind Con
-<option>Ind Lab
-<option>Ind UU
-<option>Independent
+<option value="Ind,Independent">Independent
+<!--
+All broken
+<option value="Ind Con">Ind Con (Commons)
+<option value="Ind Lan">Ind Lab (Commons)
+<option value="Ind UU">Ind UU (Commons)
 <option>Independent Unionist
-<option>Initial Presiding Officer
-<option>Lab
-<option>Lab/Co-op
-<option>LDem
+<option>Initial Presiding Officer, Scottish Parliament
+-->
+<option value="Lab,Lab/Co-op">Labour
+<option value="LDem">Liberal Democrat
+<option value="Speaker">NI Speaker
 <option>NIUP
 <option>NIWC
-<option>Other
-<option>PC
+<option value="Other">Other (Lords)
+<option value="PC">Plaid Cymru
 <option>PUP
-<option>Res
+<option value="Res">Respect
+<option value="None">Scottish Parliament Speaker
 <option>SDLP
-<option>SF
-<option>Sinn F&eacute;in
+<option>SG
+<!-- 
+Sinn Fein is broken
+<option value="SF,Sinn F&eacute;in">Sinn F&eacute;in
+-->
 <option>SNP
-<option>Speaker
-<option>SPK
+<option>SSCUP
+<option>SSP
 <option>UKIP
 <option>UKUP
 <option>UUAP
 <option>UUP
-<option>XB
 </select>
 <small>(only results from people in the chosen party)</small>
 <p><label for="column">Column:</label>
@@ -2654,7 +2660,10 @@ label { float: left; width: 12em; }
 		
 			// Generate all the page links.
 			$URL = new URL($this_page);
-			$URL->insert(array('wtt'=>get_http_var('wtt')));
+			$URL->insert(
+				array('s' => $pagedata['s']),
+				array('wtt' => get_http_var('wtt'))
+			);
 			for ($n = $firstpage; $n <= $lastpage; $n++) {
 				
 				if ($n > 1) {

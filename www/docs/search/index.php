@@ -525,7 +525,7 @@ function construct_search_string() {
     }
 
     if ($advparty = get_http_var('party')) {
-        $searchstring .= " party:$advparty";
+        $searchstring .= ' party:' . join(' party:', explode(',', $advparty));
     }
 
     if ($advcolumn = get_http_var('column')) {

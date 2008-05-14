@@ -64,7 +64,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		echo '</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT) . ')';
 		if ($row['collapsed'] && $row['subsection_id']) {
 		    $URL = new URL('search');
-		    $URL->insert(array('s' => $data['info']['s'] . " segment:$row[subsection_id]" ));
+		    $URL->insert(array('s' => $info['s'] . " segment:$row[subsection_id]" ));
 		    echo ' <a href="', $URL->generate(), '">See ', $row['collapsed'],
 		   	' other result', $row['collapsed']>1?'s':'', ' from this ',
 			$hansardmajors[$row['major']]['singular'], '</a>';
@@ -82,7 +82,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 	
 	echo '</dl> <!-- end searchresults -->';
 	$PAGE->page_links($info);
-	$PAGE->search_form($data['info']['s']);
+	$PAGE->search_form($info['s']);
 
 }
 // else, no results.
