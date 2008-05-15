@@ -1217,9 +1217,12 @@ pr()//-->
 						<li><a href="http://www.writetothem.com/"><strong>Send a message to your MP</strong></a> <small>(via WriteToThem.com)</small></li>
 						<li><a href="http://www.hearfromyourmp.com/"><strong>Sign up to <em>HearFromYourMP</em></strong></a> to get messages from your MP</li>
 <?php
-		} elseif ($member['current_member'][3] || $member['current_member'][4]) {
+		} elseif ($member['current_member'][3]) {
 			?>
 						<li><a href="http://www.writetothem.com/"><strong>Send a message to your MLA</strong></a> <small>(via WriteToThem.com)</small></li>
+<?php		} elseif ($member['current_member'][4]) {
+			?>
+						<li><a href="http://www.writetothem.com/"><strong>Send a message to your MSP</strong></a> <small>(via WriteToThem.com)</small></li>
 <?php		} elseif ($member['current_member'][2]) {
 			?>
 						<li><a href="http://www.writetothem.com/?person=uk.org.publicwhip/person/<?php echo $member['person_id']; ?>"><strong>Send a message to <?php echo $member['full_name']; ?></strong></a> <small>(via WriteToThem.com)</small></li>
