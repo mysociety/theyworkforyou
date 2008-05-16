@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.6 2008-03-07 13:12:55 matthew Exp $
+# $Id: crontab.ugly,v 1.7 2008-05-16 17:56:49 matthew Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 
@@ -13,6 +13,8 @@ MAILTO=matthew@mysociety.org
 !!(* } else { *)!!
 MAILTO=fawkes@lists.mysociety.org
 !!(* } *)!!
+
+!!(* if (!$staging || $user eq 'matthew') { *)!!
 
 # daily update at night for MP data (regmem, data from Public Whip etc.)
 37 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/dailyupdate
@@ -25,6 +27,8 @@ MAILTO=fawkes@lists.mysociety.org
 
 # Temporary, hopefully, update timestamps from video processing
 15 * * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/update-hansard-all.pl
+
+!!(* } *)!!
 
 !!(* if (!$staging) { *)!!
 
