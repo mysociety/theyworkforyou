@@ -192,7 +192,7 @@ $PAGE->page_start();
 
 $message = array (
 	'title'	=> "Thanks for your vote",
-	'text'	=> ''
+	'text'	=> "Would you like to ask a question like this yourself? Use our <a href=\"http://www.whatdotheyknow.com\">Freedom of Information site</a>."
 );
 
 if (get_http_var('ret') != '') {

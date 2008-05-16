@@ -555,6 +555,8 @@ function generate_votes ($votes, $major, $id, $gid) {
 		
 		$html .= '<a href="' . $VOTEURL->generate() . '" title="Rate this as NOT answering the question">No!</a> ' . $novotes . ' ' . $noplural . ' not!</span>';
 
+        $html .= "<p>Would you like to ask a question like this yourself? Use our <a href=\"http://www.whatdotheyknow.com\">Freedom of Information site</a>.</p>";
+
 	} elseif ($major == 1) {
 		// Debates.
 		
