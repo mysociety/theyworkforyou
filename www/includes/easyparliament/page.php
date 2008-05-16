@@ -1758,7 +1758,7 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		}
 
 		if (isset($links['journa_list_link'])) {
-			$html .= '	<li><a href="' . $links['journa_list_link'] . '">Newspaper articles written by this MP</a> <small>(From Journa-list)</small></li>';
+			$html .= '	<li><a href="' . $links['journa_list_link'] . '">Newspaper articles written by this MP</a> <small>(From Journalisted)</small></li>';
 
 		} 
 		
