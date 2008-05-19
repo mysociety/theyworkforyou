@@ -10,6 +10,8 @@ function api_getMPs_front() {
 <dl>
 <dt>date (optional)</dt>
 <dd>Fetch the list of MPs as it was on this date.</dd>
+<dt>party (optional)</dt>
+<dd>Fetch the list of MPs from the given party.</dd>
 <dt>search (optional)</dt>
 <dd>Fetch the list of MPs that match this search string in their name.</dd>
 </dl>

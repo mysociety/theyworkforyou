@@ -50,6 +50,16 @@ $methods = array(
 		'required' => false,
 		'help' => 'Returns list of Lords',
 	),
+	'getMLAs' => array(
+		'parameters' => array('date', 'party', 'search'),
+		'required' => false,
+		'help' => 'Returns list of MLAs',
+	),
+	'getMSPs' => array(
+		'parameters' => array('date', 'party', 'search'),
+		'required' => false,
+		'help' => 'Returns list of MSPs',
+	),
 	'getGeometry' => array(
 		'new' => true,
 		'parameters' => array('name'),

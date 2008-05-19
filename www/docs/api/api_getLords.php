@@ -10,6 +10,8 @@ function api_getLords_front() {
 <dl>
 <dt>date (optional)</dt>
 <dd>Fetch the list of Lords as it was on this date. <strong>Note our from date is when the Lord is introduced in Parliament.</strong></dd>
+<dt>party (optional)</dt>
+<dd>Fetch the list of Lords from the given party.</dd>
 <dt>search (optional)</dt>
 <dd>Fetch the list of Lords that match this search string in their name.</dd>
 </dl>
