@@ -280,6 +280,7 @@ if (isset ($data['rows'])) {
 				$body = preg_replace('#<citation id="uk\.org\.publicwhip/(.*?)/(.*?)">\[(.*?)\]</citation>#e',
 					"'[<a href=\"/' . ('$1'=='spor'?'sp/?g':('$1'=='spwa'?'spwrans/?':'debate/?')) . 'id=$2' . '\">$3</a>]'",
 					$body);
+				$body = str_replace('href="../../../', 'http://www.scottish.parliament.uk/', $body);
 			}
 
 #			$body = preg_replace('#<phrase class="offrep" id="([^"]*?)/([^"]*?)">#', '<a href="/$1/?id=$2.0">', $body);
