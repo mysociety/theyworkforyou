@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.27 2008-05-08 16:16:24 matthew Exp $
+ * $Id: alertmailer.php,v 1.28 2008-05-20 08:52:01 matthew Exp $
  */
 
 function mlog($message) {
@@ -95,8 +95,10 @@ $DEBATELIST = new DEBATELIST; # Nothing debate specific, but has to be one of th
 
 $sects = array('', 'Commons debate', 'Westminster Hall debate', 'Written Answer', 'Written Ministerial Statement', 'Northern Ireland Assembly debate', 'Public Bill committee', 'Scottish Parliament debate', 'Scottish Parliament written answer');
 $sects[101] = 'Lords debate';
-$sects_short = array('', 'debate', 'westminhall', 'wrans', 'wms', 'ni', 'pbc', 'sp', 'spwran');
-$sects_short[101] = 'lords';
+$sects_gid = array('', 'debate', 'westminhall', 'wrans', 'wms', 'ni', 'pbc', 'sp', 'spwa');
+$sects_gid[101] = 'lords';
+$sects_search = array('', 'debate', 'westminhall', 'wrans', 'wms', 'ni', 'pbc', 'sp', 'spwrans');
+$sects_search[101] = 'lords';
 $results = array();
 
 $outof = count($alertdata);
@@ -168,7 +170,7 @@ foreach ($alertdata as $alertitem) {
 			}
 			#mlog($row['major'] . " " . $row['gid'] ."\n");
 			if ($row['hdate'] < '2008-03-18') continue;
-			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_short[$major] . '/' . mysql_escape_string($row['gid']) . "'");
+			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_gid[$major] . '/' . mysql_escape_string($row['gid']) . "'");
 			if ($q->rows() > 0) continue;
 			--$k;
 			if ($k>=0) {
@@ -194,7 +196,7 @@ foreach ($alertdata as $alertitem) {
 					$heading = $desc . ' : ' . $count[$major] . ' ' . $sects[$major] . ($count[$major]!=1?'s':'');
 					$email_text .= "$heading\n".str_repeat('=',strlen($heading))."\n\n";
 					if ($count[$major] > 3) {
-						$email_text .= "There are more results than we have shown here. See more:\nhttp://www.theyworkforyou.com/search/?s=".urlencode($criteria_raw)."+section:".$sects_short[$major]."&o=d\n\n";
+						$email_text .= "There are more results than we have shown here. See more:\nhttp://www.theyworkforyou.com/search/?s=".urlencode($criteria_raw)."+section:".$sects_search[$major]."&o=d\n\n";
 					}
 					$email_text .= $body;
 				}

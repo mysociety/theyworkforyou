@@ -116,7 +116,7 @@ class SEARCHENGINE {
                     elseif ($value == 'ni' || $value == 'nidebates') $newv = 5;
                     elseif ($value == 'pbc' || $value == 'standing') $newv = 6;
                     elseif ($value == 'sp') $newv = 7;
-                    elseif ($value == 'spwrans') $newv = 8;
+                    elseif ($value == 'spwrans' || $value == 'spwran') $newv = 8;
                     elseif ($value == 'uk') $newv = array(1,2,3,4,6,101);
                     elseif ($value == 'scotland') $newv = array(7,8);
                     if (is_array($newv)) {
