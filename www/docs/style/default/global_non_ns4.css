@@ -123,6 +123,12 @@ div.row span.formw {
 	font-size: 10%; /* Only way to stop space below images in Win IE? */
 	}
 
+#logo {
+	float: right;
+	margin-right: 35%;
+	margin-top: 1em;
+}
+
 #search {
 	position: absolute;
 	top: 0px;

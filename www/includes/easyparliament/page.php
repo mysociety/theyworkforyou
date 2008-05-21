@@ -299,6 +299,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		}
 		?>
 	<div id="banner">
+		<a href="http://www.mysociety.org"><img id="logo" src="http://www.mysociety.org/mysociety_sm.gif"></a>
 		<div id="title">
 			<h1><?php echo $img; ?></h1>
 		</div>
