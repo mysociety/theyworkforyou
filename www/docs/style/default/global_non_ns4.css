@@ -124,9 +124,9 @@ div.row span.formw {
 	}
 
 #logo {
-	float: right;
-	margin-right: 35%;
-	margin-top: 1em;
+	position: absolute;
+	right: 35%;
+	top: 1em;
 }
 
 #search {
