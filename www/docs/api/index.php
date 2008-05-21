@@ -269,6 +269,8 @@ to use the service on a large scale.
 <ul>
 <li><a href="http://codefluency.com/2006/11/21/tfwy-1-0-0-released">Ruby</a> (thanks to Bruce Williams and Martin Owen)</li>
 <li><a href="http://search.cpan.org/~sden/WebService-TWFY-API-0.01/lib/WebService/TWFY/API.pm">Perl</a> (thanks to Spiros Denaxas)</li>
+<li><a href="http://tools.wackomenace.co.uk/twfyapi/">PHP</a> (thanks to Ruben Arakelyan)</li>
+<li><a href="http://tools.wackomenace.co.uk/twfyapi/">ASP.net</a> (thanks to Ruben Arakelyan)</li>
 </ul>
 
 <p>If anyone wishes to write bindings for the API in any language, please
