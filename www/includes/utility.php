@@ -930,44 +930,35 @@ function major_summary($data) {
 	}
 	$printed_majors = array(1, 2, 3, 5, 101, 7); # 8
 	print '<ul id="hansard-day">';
-	while (count($printed_majors)) {
-		if (!array_key_exists($printed_majors[0], $data)) {
-			unset($printed_majors[0]);
-			sort($printed_majors);
+	foreach ($printed_majors as $p_major) {
+		if (!array_key_exists($p_major, $data))
 			continue;
-		}
 		
 		if ($one_date)
 			$date = $data['date'];
 		else 
-			$date = $data[$printed_majors[0]]['hdate'];
-		$q = $db->query('SELECT major, body, gid
-				FROM hansard,epobject
-				WHERE hansard.epobject_id = epobject.epobject_id AND section_id=0
-				AND hdate="'.$date.'"
-				AND major IN (' . join(',',$printed_majors) . ')
-				ORDER BY major, hpos');
-		$current_major = 0;
+			$date = $data[$p_major]['hdate'];
+		$q = $db->query('SELECT body, gid
+				FROM hansard, epobject
+				WHERE hansard.epobject_id = epobject.epobject_id AND section_id = 0
+				AND hdate = "' . $date . '"
+				AND major = ' . $p_major . '
+				ORDER BY hpos');
+		$out = '';
+		$LISTURL = new URL($hansardmajors[$p_major]['page_all']);
 		for ($i = 0; $i < $q->rows(); $i++) {
 			$gid = fix_gid_from_db($q->field($i, 'gid'));
-			$major = $q->field($i, 'major');
 			$body = $q->field($i, 'body');
 			//if (strstr($body, 'Chair]')) continue;
-			if ($major != $current_major) {
-				if ($current_major) print '</ul>';
-				$LISTURL = new URL($hansardmajors[$major]['page_all']);
-				_major_summary_title($major, $data, $LISTURL, $daytext);
-				$current_major = $major;
-				# XXX: Surely a better way of doing this? Oh well
-				unset($printed_majors[array_search($major, $printed_majors)]);
-				sort($printed_majors);
-			}
 			$LISTURL->insert( array( 'id' => $gid ) );
-			print '<li><a href="'.$LISTURL->generate().'">';
-			print $body . '</a>';
+			$out .= '<li><a href="'.$LISTURL->generate().'">';
+			$out .= $body . '</a>';
 		}
-		print '</ul>';
-		if ($one_date) $printed_majors = array();
+		if ($out) {
+			_major_summary_title($p_major, $data, $LISTURL, $daytext);
+			print $out;
+			print '</ul>';
+		}
 	}
 	if (array_key_exists(4, $data)) {
 		if ($one_date)
@@ -1007,8 +998,10 @@ function _major_summary_title($major, $data, $LISTURL, $daytext) {
 	print '<a href="';
 	if (isset($data[$major]['listurl']))
 		print $data[$major]['listurl'];
-	else
+	else {
+		$LISTURL->reset();
 		print $LISTURL->generate();
+	}
 	print '">' . $hansardmajors[$major]['title'] . '</a>';
 	if (isset($daytext[$major])) print ':';
 	print '</strong> <ul>';
