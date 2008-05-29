@@ -1783,10 +1783,13 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 			$html .= '	<li><a href="' . $links['bbc_profile_url'] . '">General information</a> <small>(From BBC News)</small></li>';
 
 		} 
+		/*
+		# BBC Catalogue is offline
 		$bbc_name = urlencode($member->first_name()) . "%20" . urlencode($member->last_name());
 		if ($member->member_id() == -1)
 			$bbc_name = 'Queen Elizabeth';
 		$html .= '	<li><a href="http://catalogue.bbc.co.uk/catalogue/infax/search/' . $bbc_name . '">TV/radio appearances</a> <small>(From BBC Programme Catalogue)</small></li>';
+		*/
 
 		
 		$html .= "	</ul>
