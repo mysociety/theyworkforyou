@@ -353,6 +353,7 @@ CREATE TABLE `video_timestamps` (
   `gid` varchar(100) NOT NULL,
   `user_id` int(11) default NULL,
   `atime` time NOT NULL,
+  `whenstamped` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   KEY `gid` (`gid`),
   KEY `user_id` (`user_id`),
   UNIQUE KEY `gid_user_id` (`gid`, `user_id`)

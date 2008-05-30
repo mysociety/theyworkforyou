@@ -81,6 +81,24 @@ for ($i=0; $i<$q->rows(); $i++) {
 
 ?>
 </ul>
+
+<h3>Latest stamped</h3>
+<ul>
+<?
+
+$q = $db->query('select hansard.gid, body from video_timestamps, hansard, epobject
+	where (user_id != -1 or user_id is null)
+		and video_timestamps.gid = hansard.gid and hansard.subsection_id = epobject.epobject_id
+	order by whenstamped desc limit 5');
+for ($i=0; $i<$q->rows(); $i++) {
+	$gid = $q->field($i, 'gid');
+	$body = $q->field($i, 'body');
+	echo '<li><a href="/debate/?id=' . fix_gid_from_db($gid) . '">' . $body . '</a>';
+}
+
+?>
+</ul>
+
 </div>
 
 <?
