@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+    layout="vertical" verticalAlign="middle"
+    backgroundColor="white"
+    initialize="init();">
+    <!-- creationComplete="creationComplete();" -->
+
+    <mx:Style source="style.css"/>
+
+    <mx:Script><![CDATA[
+
+import mx.events.MetadataEvent;
+import flash.events.TimerEvent;
+import flash.utils.Timer;
+import mx.managers.PopUpManager;
+import flash.external.*;
+
+public function currentTime():int {
+    return int(video.playheadTime);
+}
+
+[Bindable]
+public var videoSource:String;
+[Bindable]
+public var gid:String;
+[Bindable]
+public var stamping:Boolean = false; // If we allow timestamping or just for viewing
+
+private var startAt:int; // If we don't want to start at the beginning of the video
+private var playing:Boolean = false; // Whether the video is playing (keep true when video is paused due to slider dragging)
+
+private function init():void {
+    startAt = int(Application.application.parameters.start);
+    gid = Application.application.parameters.gid;
+    stamping = Application.application.parameters.stamping;
+    videoSource = Application.application.parameters.file;
+    video.addEventListener('metadataReceived', video_onMetaData);
+    ExternalInterface.addCallback('currentTime', currentTime);
+}
+
+public var times:Array = [];
+public var filepositions:Array = [];
+private var firstLoad:Boolean = false;
+
+[Bindable]
+public var _duration:int = 0;
+
+private function video_onMetaData(evt:MetadataEvent):void {
+    _duration = evt.info.duration;
+    debugS("Duration: " + _duration);
+    times = evt.info.keyframes.times;
+    filepositions = evt.info.keyframes.filepositions;
+    if (times && filepositions && startAt>0 && startAt<_duration) {
+        playing = true;
+        firstLoad = true;
+        seek(startAt, true);
+    }
+}
+
+private function video_playheadUpdate():void {
+    var pTime:Date = new Date(video.playheadTime * 1000 || 100);
+    var tTime:Date = new Date(_duration * 1000);
+    time.text = dateFormatter.format(pTime) + " / " + dateFormatter.format(tTime);
+}
+
+private function video_play():void {
+    go.label = 'Now!';
+    go.styleName = 'nowStyle';
+    video.play();
+    playing = true;
+}
+
+private function video_pause():void {
+    reset_big_button();
+    video.pause();
+    playing = false;
+}
+
+private function playPauseButton_click():void {
+    if (video.playing) {
+        video_pause();
+    } else {
+        video_play();
+    }
+}
+
+private function reset_big_button():void {
+    go.label = 'Play';
+    go.styleName = 'goStyle';
+}
+
+private function stopButton_click():void {
+    playing = false;
+    video.stop();
+    if (startAt>0 && startAt<_duration) {
+        seek(startAt, false);
+    } else {
+        videoSource = Application.application.parameters.file + '?start=0';
+    }
+    reset_big_button();
+}
+
+private function goButton_click():void {
+    if (video.playing) {
+        video_pause();
+        debugS('Clicked at ' + String(int(video.playheadTime)) + 's');
+	resultSubmitter.send();
+	var thanksWin:Thanks = PopUpManager.createPopUp(this, Thanks, true) as Thanks;
+	thanksWin['thanksNextButton'].addEventListener('click', submit_next);
+	thanksWin['thanksRandomButton'].addEventListener('click', submit_random);
+	PopUpManager.centerPopUp(thanksWin);
+	go.visible = false;
+    } else {
+        video_play();
+    }
+}
+
+private function submit_next(evt:MouseEvent):void {
+    var url:String = '/video/next.php?gid=' + gid + '&time=' + int(video.playheadTime) + '&action=next';
+    debugS("Moving to " + url)
+    var req:URLRequest = new URLRequest(url);
+    navigateToURL(req, '_self');
+}
+private function submit_random(evt:MouseEvent):void {
+    var url:String = '/video/next.php?gid=' + gid + '&time=' + int(video.playheadTime) + '&action=random';
+    debugS("Moving to " + url)
+    var req:URLRequest = new URLRequest(url);
+    navigateToURL(req, '_self');
+}
+
+private function nearest_keyframe(s:int):int {
+    for (var i:int = 0; i < times.length; i++) {
+        var j:int = i + 1;
+        if ((times[i] <= s) && (times[j] >= s)) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+private function video_thumbRelease():void {
+    seek(scrubBar.value, true);
+}
+
+private function seekBack_click():void {
+    seekBack.enabled = false;
+    debugS("Seeking back to " + String(video.playheadTime-30));
+    seek(video.playheadTime - 30, false);
+    var alarmTimer:Timer = new Timer(1000,1);
+    alarmTimer.addEventListener(TimerEvent.TIMER, onSeekAlarm);
+    alarmTimer.start();
+}
+
+private function seekFwd_click():void {
+    seekFwd.enabled = false;
+    seek(video.playheadTime + 30, false);
+    var alarmTimer:Timer = new Timer(1000,1);
+    alarmTimer.addEventListener(TimerEvent.TIMER, onSeekAlarm);
+    alarmTimer.start();
+}
+
+private function onSeekAlarm(evt:TimerEvent):void {
+    seekBack.enabled = true;
+    seekFwd.enabled = true;
+}
+
+private var _beginning:int = 0;
+
+private function seek(s:int, startImmediately:Boolean):void {
+    if (s >= _beginning && s < _beginning + Math.floor((_duration - _beginning) * (video.bytesLoaded/video.bytesTotal)) - 1) {
+        video.playheadTime = s;
+    } else if (times && filepositions) {
+        var pos:int = nearest_keyframe(s);
+        debugS("Moving to " + s);
+        videoSource = Application.application.parameters.file + '?start=' + filepositions[pos];
+        _beginning = times[pos];
+    }
+    if (firstLoad) {
+        firstLoad = false;
+        var alarmTimer:Timer = new Timer(500,1);
+	alarmTimer.addEventListener(TimerEvent.TIMER, onFirstAlarm);
+	alarmTimer.start();
+    }
+    if (startImmediately || playing) {
+        video_play();
+    }
+}
+
+private function onFirstAlarm(evt:TimerEvent):void {
+    video_pause();
+}
+
+// Roll-over pretty controls
+private function showControls():void { fadeIn.play([controls]); }
+private function hideControls():void { fadeOut.play([controls]); }
+
+// Utility functions
+private function debugS(s:String):void {
+    //debug.text += s + "\n";
+}
+
+]]></mx:Script>
+
+    <mx:Fade id="fadeIn" alphaFrom="0.0" alphaTo="1.0" />
+    <mx:Fade id="fadeOut" alphaFrom="1.0" alphaTo="0.0" />
+    <mx:DateFormatter id="dateFormatter" formatString="JJ:NN:SS" />
+    <mx:HTTPService id="resultSubmitter" url="submit.php" method="GET">
+        <mx:request xmlns="">
+	    <gid>{gid}</gid>
+	    <time>{video.playheadTime}</time>
+	</mx:request>
+    </mx:HTTPService>
+    
+        <mx:Canvas rollOver="showControls()" rollOut="hideControls()">
+            <mx:VideoDisplay id="video" autoPlay="false" width="320" height="180" source="{videoSource}"
+                playheadUpdate="video_playheadUpdate()" />
+	    <mx:VBox id="controls" styleName="controllerStyle" alpha="0.0">
+            <!-- <mx:HBox styleName="controlHboxStyle">
+            </mx:HBox> -->
+        <mx:HBox width="300" styleName="controlHboxStyle">
+	        <mx:HSlider id="scrubBar" width="100%" minimum="0" maximum="{_duration}"
+                    showDataTip="false" value="{video.playheadTime}"
+                    thumbPress="video.pause();" thumbRelease="video_thumbRelease();"/>
+            <!-- <mx:Button styleName="playPauseStyle" toggle="true" selected="{video.playing}"
+                click="playPauseButton_click()" />
+            <mx:Button styleName="stopStyle" click="stopButton_click()" /> -->
+            <!-- <mx:Spacer width="100%" /> -->
+            <mx:Label id="time" styleName="timeWStyle" />
+        </mx:HBox>
+	</mx:VBox>
+
+        </mx:Canvas>
+
+        <mx:HBox width="300">
+            <mx:Button styleName="playPauseStyle" toggle="true" selected="{video.playing}"
+                click="playPauseButton_click()" />
+            <mx:Button styleName="stopStyle" click="stopButton_click()" />
+	    <mx:Button id="seekBack" toolTip="Back 30s" styleName="seekBackStyle" click="seekBack_click()" />
+	    <mx:Button id="seekFwd" toolTip="Forward 30s" styleName="seekFwdStyle" click="seekFwd_click()" />
+            <!-- <mx:Label id="time" styleName="timeStyle" /> -->
+            <!-- <mx:Button label="Play" toggle="true" selected="{video.playing}"
+                click="playPauseButton_click()" />
+            <mx:Button label="Rewind" click="stopButton_click()" /> -->
+            <mx:Spacer width="100%" />
+            <mx:Button id="go" label="Play" styleName="goStyle" click="goButton_click()" visible="{stamping}"/>
+        </mx:HBox>
+
+
+<!--        <mx:ProgressBar width="100%" source="{video}"/> -->
+
+	<!-- <mx:TextArea id="debug" width="320" height="200" />
+	-->
+    
+</mx:Application>

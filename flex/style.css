@@ -1,0 +1,86 @@
+Application {
+    paddingTop: 0;
+    paddingRight: 0;
+    paddingBottom: 0;
+    paddingLeft: 0;
+}
+
+@font-face {
+    src:url("assets/arial.ttf");
+    font-family: Arial;
+}
+
+.timeStyle {
+    color: #000000;
+    font-family: Arial;
+    font-size: 12;
+}
+
+.timeWStyle {
+    color: #FFFFFF;
+    font-family: Arial;
+    font-size: 12;
+}
+
+.playPauseStyle {
+    /* skin: Embed('assets/control_play.png');
+    downSkin: Embed('assets/control_play_blue.png');
+    selectedUpSkin: Embed('assets/control_pause.png');
+    selectedOverSkin: Embed('assets/control_pause.png');
+    selectedDownSkin: Embed('assets/control_pause_blue.png'); */
+    skin: Embed('assets/media-playback-start.png');
+    overSkin: Embed('assets/media-playback-start-over.png');
+    selectedUpSkin: Embed('assets/media-playback-pause.png');
+    selectedOverSkin: Embed('assets/media-playback-pause-over.png');
+}
+
+.stopStyle {
+    /* skin: Embed('assets/control_stop.png');
+    downSkin: Embed('assets/control_stop_blue.png'); */
+    skin: Embed('assets/media-playback-stop.png');
+    overSkin: Embed('assets/media-playback-stop-over.png');
+}
+
+.seekBackStyle {
+    skin: Embed('assets/media-seek-backward.png');
+    overSkin: Embed('assets/media-seek-backward-over.png');
+}
+.seekFwdStyle {
+    skin: Embed('assets/media-seek-forward.png');
+    overSkin: Embed('assets/media-seek-forward-over.png');
+}
+
+.controllerStyle {
+    top: 5;
+    left: 5;
+    right: 5;
+    paddingBottom: 5;
+    paddingLeft: 5;
+    paddingRight: 5;
+    paddingTop: 5;
+    alpha: 0;
+    background-color: #000000;
+    background-alpha: 0.5;
+}
+.controlHboxStyle {
+    paddingBottom: 0;
+    paddingTop: 0;
+    paddingLeft: 0;
+    paddingRight: 0;
+}
+
+.goStyle {
+    borderColor: #009900;
+    color: #009900;
+    textRollOverColor: #009900;
+    fontSize: 18;
+    fillColors: #ffffff,#00ff00;
+    
+}
+.nowStyle {
+    borderColor: #990000;
+    color: #990000;
+    textRollOverColor: #990000;
+    fontSize: 18;
+    fillColors: #ffffff,#ff0000;
+}
