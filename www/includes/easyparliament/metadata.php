@@ -838,6 +838,13 @@ $this->page = array (
 		'url'			=> 'user/'
 	),
 
+	'video_front' => array(
+		'title'			=> 'Video speech matching'
+	),
+	'video_main' => array(
+		'title'			=> 'Video speech matching'
+	),
+
 	/* Welsh Assembly */
 	'wales_home' => array(
 		'menu' => array(

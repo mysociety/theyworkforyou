@@ -59,6 +59,7 @@ CREATE TABLE `hansard` (
   `created` datetime default NULL,
   `modified` datetime default NULL,
   `colnum` smallint(6) default NULL,
+  `video_status` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`epobject_id`),
   UNIQUE KEY `gid` (`gid`),
   KEY `epobject_id` (`epobject_id`),
@@ -71,6 +72,7 @@ CREATE TABLE `hansard` (
   KEY `majorhdate` (`major`,`hdate`),
   KEY `modified` (`modified`),
   KEY `source_url` (`source_url`),
+  KEY `video_status` (`video_status`),
   KEY `hansard_speaker_id_hdate_hpos` (`speaker_id`,`hdate`,`hpos`)
 );
 
@@ -346,7 +348,13 @@ CREATE TABLE `campaigners_sent_email` (
   UNIQUE KEY `campaigner_id` (`campaigner_id`,`email_name`)
 );
 
-
-
-
+/* Video */
+CREATE TABLE `video_timestamps` (
+  `gid` varchar(100) NOT NULL,
+  `user_id` int(11) default NULL,
+  `atime` time NOT NULL,
+  KEY `gid` (`gid`),
+  KEY `user_id` (`user_id`),
+  UNIQUE KEY `gid_user_id` (`gid`, `user_id`)
+);
 

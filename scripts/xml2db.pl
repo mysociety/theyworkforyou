@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.34 2008-05-03 23:09:32 matthew Exp $
+# $Id: xml2db.pl,v 1.35 2008-05-30 17:39:47 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -779,6 +779,12 @@ sub delete_redirected_gids {
                                 update_eid($table, $field, $old_epobjectid, $new_epobjectid);
                          }
                 }
+
+                # Maintain video bits
+                $dbh->do('update video_timestamps set gid=? where gid=?', {}, $to_gid, $from_gid);
+                my $video_update = $dbh->selectrow_array('select video_status from hansard where gid=?', {}, $from_gid);
+                $dbh->do('update hansard set video_status=? where gid=?', {}, $video_update, $to_gid)
+                    if defined $video_update;
 
                 # delete the now obsolete "from record" (which is replaced by its "to record")
                 my $c = $hdeletegid->execute($from_gid);

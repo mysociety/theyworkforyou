@@ -15,12 +15,14 @@ use DBI;
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
 my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'), { RaiseError => 1, PrintError => 0 });
 
-my $sth = $dbh->prepare("update hansard set htime=? where gid = ?");
+my $sthI = $dbh->prepare("replace into video_timestamps (user_id, atime, gid) values (-1, ?, ?)");
+my $sthH = $dbh->prepare('update hansard set video_status = video_status | 2 where gid = ?');
 while (<>) {
         next if /^--/;
         my ($gid, $time) = split /\t/;
         next unless $time;
-        $sth->execute($time, "uk.org.publicwhip/debate/$gid");
+        $sthI->execute($time, "uk.org.publicwhip/debate/$gid");
+        $sthH->execute("uk.org.publicwhip/debate/$gid");
 }
 
 $dbh->disconnect();

@@ -512,6 +512,7 @@ function display_form ( $details = array(), $errors = array() ) {
 	} else {
 		
 		$URL = new URL("userlogin");
+		$URL->insert(array('ret'=>get_http_var('ret')));
 		
 		if (!$THEUSER->isloggedin()) {
 			?>

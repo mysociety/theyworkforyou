@@ -132,7 +132,7 @@ class HANSARDLIST {
 		
 		global $PAGE;
 
-		$validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_min', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates');
+		$validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_min', 'search_video', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates');
 		if (in_array($view, $validviews)) {
 
 			// What function do we call for this view?
@@ -970,6 +970,9 @@ class HANSARDLIST {
 	function _get_data_by_search_min ($args) {
 		return $this->_get_data_by_search($args);
 	}
+	function _get_data_by_search_video ($args) {
+		return $this->_get_data_by_search($args);
+	}
 	function _get_data_by_search ($args) {
 		
 		// Creates a fairly standard $data structure for the search function.
@@ -1597,7 +1600,7 @@ class HANSARDLIST {
 		
 		// The fields to fetch from db. 'table' => array ('field1', 'field2').
 		$fieldsarr = array (
-			'hansard' => array ('epobject_id', 'htype', 'gid', 'hpos', 'section_id', 'subsection_id', 'hdate', 'htime', 'source_url', 'major', 'minor')
+			'hansard' => array ('epobject_id', 'htype', 'gid', 'hpos', 'section_id', 'subsection_id', 'hdate', 'htime', 'source_url', 'major', 'minor', 'video_status')
 		);
 		
 		if (isset($amount['speaker']) && $amount['speaker'] == true) {

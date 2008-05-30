@@ -145,6 +145,12 @@ if (isset ($data['rows'])) {
 			$stripecount++;
 			$style = $stripecount % 2 == 0 ? '1' : '2';	
 			
+			$video_content = '';
+                        if ($first_speech_displayed == 0 && $row['video_status']&4) {
+				$video_content = video_sidebar($row);
+                                $first_speech_displayed = true;
+                        }
+	
 			$id = 'g' . gid_to_anchor($row['gid']);
 			$PAGE->stripe_start('procedural-'.$style, $id);
 			echo '<a name="', $id, '"></a>';
@@ -156,6 +162,10 @@ if (isset ($data['rows'])) {
 			$sidebarhtml = generate_commentteaser(&$row, $data['info']['major']);
 			
 			$PAGE->stripe_end(array(
+				array (
+					'type' => 'html',
+					'content' => $video_content
+				),
 				array (
 					'type' => 'html',
 					'content' => $sidebarhtml
@@ -170,19 +180,11 @@ if (isset ($data['rows'])) {
 			$stripecount++;
 			$style = $stripecount % 2 == 0 ? '1' : '2';
 			
-		        $video_content = '';
-			/*
-                        if ($data['info']['major'] == 1 && $first_speech_displayed == 0) { # only Commons debates currently
-                                $autostart = get_http_var('autoPlay');
-				$video_content = "<p class='video'><script type=\"text/javascript\" src=\"http://parlvid.mysociety.org/video.cgi?gid=";
-				$video_content .= $row['gid'];
-				if ($autostart == 'true') {
-                                        $video_content .= "&autostart=true";
-                                }
-				$video_content .= "&output=js-full\"></script></p>";
+			$video_content = '';
+                        if ($first_speech_displayed == 0 && $row['video_status']&4) {
+				$video_content = video_sidebar($row);
                                 $first_speech_displayed = true;
                         }
-			*/
 	
 			// If this item is at a new time, then print the time.
 			if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00") {
@@ -669,6 +671,17 @@ function get_question_mentions_html($row_data) {
 	$result = $result . "\n</div>";
 	return $result;
 } 
+
+function video_sidebar($row) {
+	include_once INCLUDESPATH . 'easyparliament/video.php';
+	$db = new ParlDB;
+	$vq = $db->query("select atime from video_timestamps where gid='uk.org.publicwhip/debate/$row[gid]' and (user_id!=-1 or user_id is null) limit 1");
+	$time = $vq->field(0, 'atime');
+	$videodb = video_db_connect();
+	$video = video_from_timestamp($videodb, $row['hdate'], $time);
+	$start = $video['offset'];
+	return video_object($video['id'], $start, $row['gid']);
+}
 
 /*
 
