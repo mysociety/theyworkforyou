@@ -92,7 +92,8 @@ if (isset ($data['rows'])) {
 
 	$stripecount = 0; // Used to generate stripes.
 
-	$first_speech_displayed = 0; // We want to know when to insert the javascript that pulls in flash video
+	$first_speech_displayed = 0; // We want to know when to insert the video
+	$first_video_displayed = 0; // or the advert to do the video
 	
 	// We're going to be just cycling through each row of data for this page.
 	// When we get the first section, we put its text in $section_title.
@@ -146,10 +147,14 @@ if (isset ($data['rows'])) {
 			$style = $stripecount % 2 == 0 ? '1' : '2';	
 			
 			$video_content = '';
-                        if ($first_speech_displayed == 0 && $row['video_status']&4) {
+                        if ($first_video_displayed == 0 && $row['video_status']&4) {
 				$video_content = video_sidebar($row);
-                                $first_speech_displayed = true;
+                                $first_video_displayed = true;
                         }
+			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1) {
+				$video_content = video_advert($row);
+                                $first_speech_displayed = true;
+			}
 	
 			$id = 'g' . gid_to_anchor($row['gid']);
 			$PAGE->stripe_start('procedural-'.$style, $id);
@@ -181,10 +186,14 @@ if (isset ($data['rows'])) {
 			$style = $stripecount % 2 == 0 ? '1' : '2';
 			
 			$video_content = '';
-                        if ($first_speech_displayed == 0 && $row['video_status']&4) {
+                        if ($first_video_displayed == 0 && $row['video_status']&4) {
 				$video_content = video_sidebar($row);
-                                $first_speech_displayed = true;
+                                $first_video_displayed = true;
                         }
+			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1) {
+				$video_content = video_advert($row);
+                                $first_speech_displayed = true;
+			}
 	
 			// If this item is at a new time, then print the time.
 			if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00") {
@@ -681,6 +690,17 @@ function video_sidebar($row) {
 	$video = video_from_timestamp($videodb, $row['hdate'], $time);
 	$start = $video['offset'];
 	return video_object($video['id'], $start, $row['gid']);
+}
+
+function video_advert($row) {
+	return '
+<div style="border:solid 1px #9999ff; background-color: #ccccff; padding: 4px; text-align: center;
+background-image: url(\'/images/video-x-generic.png\'); background-repeat: no-repeat; padding-left: 40px;
+background-position: 0 2px; margin-bottom: 1em;">
+Help us <a href="/video/?from=debate&amp;gid=' . $row['gid'] . '">match the video for this speech</a>
+to get the right video playing here
+</div>
+';
 }
 
 /*
