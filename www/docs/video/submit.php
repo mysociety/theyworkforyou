@@ -38,12 +38,13 @@ $new_time = date('H:i:s', $epoch);
 
 if ($THEUSER->isloggedin()) {
 	$user_id = $THEUSER->user_id();
-	$db->query("replace into video_timestamps (gid, user_id, atime) values ('$q_gid', $user_id, '$new_time')");
+	$q = $db->query("replace into video_timestamps (gid, user_id, atime) values ('$q_gid', $user_id, '$new_time')");
 } else {
-	$db->query("insert into video_timestamps (gid, atime) values ('$q_gid', '$new_time')");
+	$q = $db->query("insert into video_timestamps (gid, atime) values ('$q_gid', '$new_time')");
 }
+$new_id = $q->insert_id();
 
 $db->query("update hansard set video_status = video_status | 4 where gid='$q_gid'");
 
-print '<xml><success>OK</success></xml>';
+print "<id>$new_id</id>";
 

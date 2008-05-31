@@ -151,7 +151,7 @@ if (isset ($data['rows'])) {
 				$video_content = video_sidebar($row);
                                 $first_video_displayed = true;
                         }
-			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1) {
+			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !$row['video_status']&4) {
 				$video_content = video_advert($row);
                                 $first_speech_displayed = true;
 			}
@@ -684,7 +684,7 @@ function get_question_mentions_html($row_data) {
 function video_sidebar($row) {
 	include_once INCLUDESPATH . 'easyparliament/video.php';
 	$db = new ParlDB;
-	$vq = $db->query("select atime from video_timestamps where gid='uk.org.publicwhip/debate/$row[gid]' and (user_id!=-1 or user_id is null) limit 1");
+	$vq = $db->query("select atime from video_timestamps where gid='uk.org.publicwhip/debate/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 limit 1");
 	$time = $vq->field(0, 'atime');
 	$videodb = video_db_connect();
 	$video = video_from_timestamp($videodb, $row['hdate'], $time);

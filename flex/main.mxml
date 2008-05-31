@@ -100,14 +100,16 @@ private function stopButton_click():void {
     reset_big_button();
 }
 
+private var thanksWin:Thanks;
 private function goButton_click():void {
     if (video.playing) {
         video_pause();
         debugS('Clicked at ' + String(int(video.playheadTime)) + 's');
 	resultSubmitter.send();
-	var thanksWin:Thanks = PopUpManager.createPopUp(this, Thanks, true) as Thanks;
+	thanksWin = PopUpManager.createPopUp(this, Thanks, true) as Thanks;
 	thanksWin['thanksNextButton'].addEventListener('click', submit_next);
 	thanksWin['thanksRandomButton'].addEventListener('click', submit_random);
+	thanksWin['thanksOopsButton'].addEventListener('click', submit_oops);
 	PopUpManager.centerPopUp(thanksWin);
 	go.visible = false;
     } else {
@@ -126,6 +128,13 @@ private function submit_random(evt:MouseEvent):void {
     debugS("Moving to " + url)
     var req:URLRequest = new URLRequest(url);
     navigateToURL(req, '_self');
+}
+
+private function submit_oops(evt:MouseEvent):void {
+    debugS("Removing just added...");
+    oopsSubmitter.send();
+    go.visible = true;
+    PopUpManager.removePopUp(thanksWin);
 }
 
 private function nearest_keyframe(s:int):int {
@@ -204,10 +213,17 @@ private function debugS(s:String):void {
     <mx:Fade id="fadeIn" alphaFrom="0.0" alphaTo="1.0" />
     <mx:Fade id="fadeOut" alphaFrom="1.0" alphaTo="0.0" />
     <mx:DateFormatter id="dateFormatter" formatString="JJ:NN:SS" />
+
     <mx:HTTPService id="resultSubmitter" url="submit.php" method="GET">
         <mx:request xmlns="">
 	    <gid>{gid}</gid>
 	    <time>{video.playheadTime}</time>
+	</mx:request>
+    </mx:HTTPService>
+    <mx:HTTPService id="oopsSubmitter" url="delete.php" method="GET">
+        <mx:request xmlns="">
+	    <gid>{gid}</gid>
+	    <oops>{resultSubmitter.lastResult.id}</oops>
 	</mx:request>
     </mx:HTTPService>
     

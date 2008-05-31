@@ -19,13 +19,14 @@ private function titleWindow_close(evt:CloseEvent):void {
 ]]>
 </mx:Script>
 
-<mx:Text width="280" id="txt" text="Thanks very much, your timestamp has been fed into our database.
+<mx:Text width="280" id="txt" text="Thanks very much, your timestamp has been fed into our database (if it was wrong, hit Oops).
 If you'd like to do another, please select whether you want to continue from here,
 or move to a random speech?" />
 
 <mx:HBox horizontalAlign="center" width="100%">
     <mx:Button id="thanksNextButton" label="Next"/>
     <mx:Button id="thanksRandomButton" label="Random"/>
+    <mx:Button id="thanksOopsButton" label="Oops"/>
 </mx:HBox>
 
 </mx:TitleWindow>

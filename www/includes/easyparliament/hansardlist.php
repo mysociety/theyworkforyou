@@ -971,6 +971,7 @@ class HANSARDLIST {
 		return $this->_get_data_by_search($args);
 	}
 	function _get_data_by_search_video ($args) {
+		$args['full_text'] = true;
 		return $this->_get_data_by_search($args);
 	}
 	function _get_data_by_search ($args) {

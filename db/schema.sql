@@ -350,10 +350,13 @@ CREATE TABLE `campaigners_sent_email` (
 
 /* Video */
 CREATE TABLE `video_timestamps` (
+  `id` int(11) NOT NULL auto_increment,
   `gid` varchar(100) NOT NULL,
   `user_id` int(11) default NULL,
   `atime` time NOT NULL,
+  `deleted` tinyint(1) NOT NULL default '0',
   `whenstamped` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`id`),
   KEY `gid` (`gid`),
   KEY `user_id` (`user_id`),
   UNIQUE KEY `gid_user_id` (`gid`, `user_id`)
