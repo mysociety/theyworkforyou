@@ -38,7 +38,7 @@ $new_time = date('H:i:s', $epoch);
 
 if ($THEUSER->isloggedin()) {
 	$user_id = $THEUSER->user_id();
-	$q = $db->query("replace into video_timestamps (gid, user_id, atime) values ('$q_gid', $user_id, '$new_time')");
+	$q = $db->query("insert into video_timestamps (gid, user_id, atime) values ('$q_gid', $user_id, '$new_time') on duplicate key update atime=VALUES(atime)");
 } else {
 	$q = $db->query("insert into video_timestamps (gid, atime) values ('$q_gid', '$new_time')");
 }
