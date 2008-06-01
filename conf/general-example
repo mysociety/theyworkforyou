@@ -9,6 +9,12 @@ define ("DB_USER", "username");
 define ("DB_PASSWORD", "password");
 define ("DB_NAME", "twfy");
 
+// Parliamentary video database
+define ('VIDEO_HOST', 'host');
+define ('VIDEO_USER', 'user');
+define ('VIDEO_NAME', 'name');
+define ('VIDEO_PASSWORD', '');
+
 // *******************************************************************************
 // Domains.
 // Set this to the domain you are hosting on. If you're running locally, this will be "localhost" 
