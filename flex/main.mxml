@@ -155,7 +155,7 @@ private function seekBack_click():void {
     seekBack.enabled = false;
     debugS("Seeking back to " + String(video.playheadTime-30));
     if (video.playheadTime < 30) {
-        videoSource = 'http://sponge.ukcod.org.uk:81/' + (Application.application.parameters.file-1) + '.flv';
+        videoSource = 'http://sponge.ukcod.org.uk:81/' + String(int(Application.application.parameters.file)-1) + '.flv';
         return;
     }
     seek(video.playheadTime - 30, false);
@@ -167,7 +167,7 @@ private function seekBack_click():void {
 private function seekFwd_click():void {
     seekFwd.enabled = false;
     if (video.playheadTime + 30 > _duration) {
-        videoSource = 'http://sponge.ukcod.org.uk:81/' + (Application.application.parameters.file+1) + '.flv';
+        videoSource = 'http://sponge.ukcod.org.uk:81/' + String(int(Application.application.parameters.file)+1) + '.flv';
         return;
     }
     seek(video.playheadTime + 30, false);
