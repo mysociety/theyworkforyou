@@ -53,6 +53,7 @@ private function video_onMetaData(evt:MetadataEvent):void {
     if (times && filepositions && startAt>0 && startAt<_duration) {
         playing = true;
         firstLoad = true;
+	video.volume = 0;
         seek(startAt, true);
     }
 }
@@ -207,6 +208,7 @@ private function seek(s:int, startImmediately:Boolean):void {
 
 private function onFirstAlarm(evt:TimerEvent):void {
     video_pause();
+    video.volume = 0.75;
 }
 
 // Roll-over pretty controls
