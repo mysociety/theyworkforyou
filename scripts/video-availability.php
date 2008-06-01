@@ -23,11 +23,11 @@ while ($row = pg_fetch_array($q)) {
     $end_time = date('H:i:s', $end);
     if ($start_date == $end_date) {
         $db->query("update hansard set video_status = video_status | 1
-	    where hdate='$start_date' and htime>='$start_time' and htime<'$end_time'");
+	    where hdate='$start_date' and htime>='$start_time' and htime<'$end_time' and major=1");
     } else {
         $db->query("update hansard set video_status = video_status | 1
-	    where (hdate='$start_date' and htime>='$start_time')
-	       or (hdate='$end_date' and htime<'$end_time')");
+	    where ((hdate='$start_date' and htime>='$start_time')
+	       or (hdate='$end_date' and htime<'$end_time')) and major=1");
     }
 }
 
