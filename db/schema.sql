@@ -348,7 +348,6 @@ CREATE TABLE `campaigners_sent_email` (
   UNIQUE KEY `campaigner_id` (`campaigner_id`,`email_name`)
 );
 
-/* Video */
 CREATE TABLE `video_timestamps` (
   `id` int(11) NOT NULL auto_increment,
   `gid` varchar(100) NOT NULL,
