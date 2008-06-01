@@ -215,7 +215,7 @@ foreach ($gids_previous as $row) {
 }
 
 echo '</ul>';
-echo '<p><a href="<?=$parent_gid?>">View the entire debate</a></p>';
+echo '<p><a href="' . $parent_gid . '">View the entire debate</a></p>';
 echo '</td><td>';
 ?>
 <ol style="font-size:150%; border-bottom: dotted 1px #666666; margin-bottom: 0.5em">
