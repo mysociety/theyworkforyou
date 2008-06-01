@@ -12,6 +12,7 @@ $q_oops = mysql_escape_string($oops);
 
 $db = new ParlDB;
 $db->query("update video_timestamps set deleted=1 where id=$q_oops and gid='$q_gid'");
+$db->query("update hansard set video_status = video_status & 3  where gid='$q_gid'");
 
 print "<status>OK</status>";
 

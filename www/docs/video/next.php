@@ -5,6 +5,7 @@ include_once "../../includes/easyparliament/init.php";
 $gid = get_http_var('gid');
 $time = intval(get_http_var('time'));
 $action = get_http_var('action');
+$pid = intval(get_http_var('pid'));
 
 if ($action == 'next') {
 	$db = new ParlDB;
@@ -19,6 +20,16 @@ if ($action == 'next') {
 		ORDER BY hpos LIMIT 1");
 	$new_gid = fix_gid_from_db($q->field(0, 'gid'));
 	header('Location: /video/?from=next&gid=' . $new_gid . '&start=' . $time);
+	exit;
+} elseif ($action == 'random' && $pid) {
+	$db = new ParlDB;
+	$q = $db->query("select gid from hansard, member
+		where video_status in (1,3) and major=1
+		and (htype=12 or htype=13)
+		and hansard.speaker_id = member.member_id and person_id=$pid
+		ORDER BY RAND() LIMIT 1");
+	$new_gid = fix_gid_from_db($q->field(0, 'gid'));
+	header('Location: /video/?from=random&gid=' . $new_gid);
 	exit;
 } elseif ($action == 'random') {
 	$db = new ParlDB;
