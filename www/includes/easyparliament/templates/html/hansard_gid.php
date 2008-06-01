@@ -689,7 +689,10 @@ function video_sidebar($row) {
 	$videodb = video_db_connect();
 	$video = video_from_timestamp($videodb, $row['hdate'], $time);
 	$start = $video['offset'];
-	return video_object($video['id'], $start, $row['gid']);
+	$out = video_object($video['id'], $start, $row['gid']);
+	$flashvars = 'gid=' . $row['gid'] . '&amp;file=http://sponge.ukcod.org.uk:81/' . $video['id'] . '.flv&amp;start=' . $start;
+	$out .= "<br><b>Embed:</b> <input type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'>\">";
+	return $out;
 }
 
 function video_advert($row) {
