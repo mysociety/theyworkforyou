@@ -33,7 +33,7 @@ private function init():void {
     startAt = int(Application.application.parameters.start);
     gid = Application.application.parameters.gid;
     stamping = Application.application.parameters.stamping;
-    videoSource = Application.application.parameters.file;
+    videoSource = 'http://sponge.ukcod.org.uk:81/' + Application.application.parameters.file + '.flv';
     video.addEventListener('metadataReceived', video_onMetaData);
     ExternalInterface.addCallback('currentTime', currentTime);
 }
@@ -95,7 +95,7 @@ private function stopButton_click():void {
     if (startAt>0 && startAt<_duration) {
         seek(startAt, false);
     } else {
-        videoSource = Application.application.parameters.file + '?start=0';
+        videoSource = 'http://sponge.ukcod.org.uk:81/' + Application.application.parameters.file + '.flv?start=0';
     }
     reset_big_button();
 }
@@ -154,6 +154,10 @@ private function video_thumbRelease():void {
 private function seekBack_click():void {
     seekBack.enabled = false;
     debugS("Seeking back to " + String(video.playheadTime-30));
+    if (video.playheadTime < 30) {
+        videoSource = 'http://sponge.ukcod.org.uk:81/' + (Application.application.parameters.file-1) + '.flv';
+        return;
+    }
     seek(video.playheadTime - 30, false);
     var alarmTimer:Timer = new Timer(1000,1);
     alarmTimer.addEventListener(TimerEvent.TIMER, onSeekAlarm);
@@ -162,6 +166,10 @@ private function seekBack_click():void {
 
 private function seekFwd_click():void {
     seekFwd.enabled = false;
+    if (video.playheadTime + 30 > _duration) {
+        videoSource = 'http://sponge.ukcod.org.uk:81/' + (Application.application.parameters.file+1) + '.flv';
+        return;
+    }
     seek(video.playheadTime + 30, false);
     var alarmTimer:Timer = new Timer(1000,1);
     alarmTimer.addEventListener(TimerEvent.TIMER, onSeekAlarm);
@@ -181,7 +189,7 @@ private function seek(s:int, startImmediately:Boolean):void {
     } else if (times && filepositions) {
         var pos:int = nearest_keyframe(s);
         debugS("Moving to " + s);
-        videoSource = Application.application.parameters.file + '?start=' + filepositions[pos];
+        videoSource = 'http://sponge.ukcod.org.uk:81/' + Application.application.parameters.file + '.flv?start=' + filepositions[pos];
         _beginning = times[pos];
     }
     if (firstLoad) {
