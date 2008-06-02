@@ -190,7 +190,7 @@ if (isset ($data['rows'])) {
 				$video_content = video_sidebar($row);
                                 $first_video_displayed = true;
                         }
-			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1) {
+			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !$row['video_status']&4) {
 				$video_content = video_advert($row);
                                 $first_speech_displayed = true;
 			}
