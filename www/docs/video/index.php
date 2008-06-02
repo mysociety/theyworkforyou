@@ -120,7 +120,8 @@ $gid = "uk.org.publicwhip/debate/$gid";
 
 $q_gid = mysql_escape_string($gid);
 $db = new ParlDB;
-$q = $db->query("select hdate, htime, atime, hpos, video_status, (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid
+$q = $db->query("select hdate, htime, atime, hpos, video_status, (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid,
+    (select body from epobject as e where e.epobject_id=hansard.subsection_id) as parent_body
     from hansard
     left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1 and video_timestamps.deleted = 0
     where hansard.gid='$q_gid'");
@@ -135,6 +136,7 @@ $htime = $q->field(0, 'htime');
 $atime = $q->field(0, 'atime');
 if ($atime) $htime = $atime;
 $parent_gid = str_replace('uk.org.publicwhip/debate/', '/debates/?id=', $q->field(0, 'parent_gid'));
+$parent_body = $q->field(0, 'parent_body');
 
 if (!($video_status&1)) {
 	$PAGE->error_message('That GID does not appear to have any video. Please visit the <a href="/video/">video front page</a>.', true);
@@ -216,6 +218,7 @@ print video_object($video['id'], $start, $gid_safe, 1);
 echo '<div id="quote">';
 echo '<span style="border-bottom: solid 1px #666666;">' . $gid_actual['first_name'] . ' ' . $gid_actual['last_name'] . '</span> ';
 echo $gid_actual['body_first'];
+echo '<p align="right">&mdash; from debate titled &ldquo;<a title="View entire debate" href="' . $parent_gid . '">' . $parent_body . '</a>&rdquo;</p>';
 echo '</div>';
 
 $last_prev = end($gids_previous);
@@ -229,7 +232,6 @@ foreach ($gids_previous as $row) {
 }
 
 echo '</ul>';
-echo '<p><a href="' . $parent_gid . '">View the entire debate</a></p>';
 echo '</td><td>';
 ?>
 <ol style="font-size:150%; border-bottom: dotted 1px #666666; margin-bottom: 0.5em">
