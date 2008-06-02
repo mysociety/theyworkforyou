@@ -41,36 +41,39 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 <p id="attract"><a href="next.php?action=random">Give me a random speech that needs timestamping</a></p>
 
 <div id="top" style="float: left; width: 45%;">
-<h3>Top timestampers</h3>
-<ol>
 <?
 
-$db = new ParlDB;
-$q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c from video_timestamps left join users on video_timestamps.user_id=users.user_id where video_timestamps.deleted=0 group by user_id order by c desc');
-for ($i=0; $i<$q->rows(); $i++) {
-	$name = $q->field($i, 'firstname') . ' ' . $q->field($i, 'lastname');
-	$user_id = $q->field($i, 'user_id');
-	if ($user_id == -1) $name = 'CaptionerBot';
-	if ($user_id == 0) $name = 'Anonymous';
-	$count = $q->field($i, 'c');
-	echo "<li>$name : $count";
-	if ($user_id == -1) {
-		echo ' <small>(initial run program that tries to guess timestamp from captions, wildly variable)</small>';
+function display_league($q = '') {
+	$db = new ParlDB;
+	$q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c from video_timestamps left join users on video_timestamps.user_id=users.user_id where video_timestamps.deleted=0 ' . $q . ' group by user_id order by c desc');
+	$out = '';
+	for ($i=0; $i<$q->rows(); $i++) {
+		$name = $q->field($i, 'firstname') . ' ' . $q->field($i, 'lastname');
+		$user_id = $q->field($i, 'user_id');
+		if ($user_id == -1) continue; # $name = 'CaptionerBot';
+		if ($user_id == 0) $name = 'Anonymous';
+		$count = $q->field($i, 'c');
+		$out .= "<li>$name : $count";
+		#if ($user_id == -1) {
+		#	echo ' <small>(initial run program that tries to guess timestamp from captions, wildly variable)</small>';
+		#}
 	}
+	return $out;
 }
-?>
-</ol>
-</div>
 
-<div style="float: right; width: 50%">
-<h3>Totaliser</h3>
-<ul>
-<?
+$out = display_league('and date(whenstamped)=current_date');
+if ($out) echo "<h3>Top timestampers (today)</h3> <ol>$out</ol>";
+$out = display_league('and date(whenstamped)>current_date-interval 7 day');
+if ($out) echo "<h3>Top timestampers (last week)</h3> <ol>$out</ol>";
+$out = display_league();
+if ($out) echo "<h3>Top timestampers (overall)</h3> <ol>$out</ol>";
+echo '</div> <div style="float: right; width: 50%"><h3>Totaliser</h3> <ul>';
 
 $statuses = array(
 	0 => 'Unchecked video',
 	4 => 'Timestamped by users',
 );
+$db = new ParlDB;
 $q = $db->query('select video_status&4 as checked,count(*) as c from hansard
 	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) group by video_status&4');
 for ($i=0; $i<$q->rows(); $i++) {
