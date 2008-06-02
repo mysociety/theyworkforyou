@@ -10,7 +10,9 @@ $gid = "uk.org.publicwhip/debate/$gid";
 $q_gid = mysql_escape_string($gid);
 
 $db = new ParlDB;
-$q = $db->query("select hdate, htime, atime from hansard left join video_timestamps on hansard.gid=video_timestamps.gid and user_id=-1 where hansard.gid='$q_gid'");
+$q = $db->query("select hdate, htime, atime from hansard
+	left join video_timestamps on hansard.gid=video_timestamps.gid and user_id=-1 and video_timestamps.deleted=0
+	where hansard.gid='$q_gid'");
 $hdate = $q->field(0, 'hdate');
 $htime = $q->field(0, 'htime');
 $atime = $q->field(0, 'atime');

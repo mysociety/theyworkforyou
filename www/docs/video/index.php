@@ -122,7 +122,7 @@ $q_gid = mysql_escape_string($gid);
 $db = new ParlDB;
 $q = $db->query("select hdate, htime, atime, hpos, video_status, (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid
     from hansard
-    left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1
+    left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1 and video_timestamps.deleted = 0
     where hansard.gid='$q_gid'");
 if (!$q->rows()) {
 	$PAGE->error_message('That GID does not appear to exist.', true);
@@ -145,7 +145,7 @@ $q = $db->query("select hansard.gid, body, htype, htime, atime, hpos, first_name
 	from hansard
 		inner join epobject on hansard.epobject_id=epobject.epobject_id
 		left join member on hansard.speaker_id=member.member_id
-                left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1
+                left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1 and video_timestamps.deleted = 0
 	where hpos>=$hpos-$surrounding_speeches and hpos<=$hpos+$surrounding_speeches and hdate='$hdate' and major=1
 	ORDER BY hpos
 ");
