@@ -151,7 +151,7 @@ if (isset ($data['rows'])) {
 				$video_content = video_sidebar($row);
                                 $first_video_displayed = true;
                         }
-			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !$row['video_status']&4) {
+			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&4)) {
 				$video_content = video_advert($row);
                                 $first_speech_displayed = true;
 			}
@@ -190,7 +190,7 @@ if (isset ($data['rows'])) {
 				$video_content = video_sidebar($row);
                                 $first_video_displayed = true;
                         }
-			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !$row['video_status']&4) {
+			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&4)) {
 				$video_content = video_advert($row);
                                 $first_speech_displayed = true;
 			}
@@ -691,7 +691,7 @@ function video_sidebar($row) {
 	$start = $video['offset'];
 	$out = video_object($video['id'], $start, $row['gid']);
 	$flashvars = 'gid=' . $row['gid'] . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
-	$out .= "<br><b>Embed:</b> <input type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'>\">";
+	$out .= "<br><b>Add this video to another site:</b><br><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'>\">";
 	return $out;
 }
 
