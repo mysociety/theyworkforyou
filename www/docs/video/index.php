@@ -136,7 +136,7 @@ $atime = $q->field(0, 'atime');
 if ($atime) $htime = $atime;
 $parent_gid = str_replace('uk.org.publicwhip/debate/', '/debates/?id=', $q->field(0, 'parent_gid'));
 
-if (!$video_status&1) {
+if (!($video_status&1)) {
 	$PAGE->error_message('That GID does not appear to have any video. Please visit the <a href="/video/">video front page</a>.', true);
 	exit;
 }
