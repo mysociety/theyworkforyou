@@ -1236,6 +1236,11 @@ pr()//-->
 			print '<li><a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a> (no more than once per day)</li>';
 		}
 
+		# Video
+		if ($member['current_member'][1]) {
+			echo '<li>Help us add video by <a href="/video/next.php?action=random&amp;pid=' . $member['person_id'] . '"><strong>matching a speech by ' . $member['full_name'] . '</strong></a>';
+		}
+
 		?>
 						</ul>
 						
@@ -2293,6 +2298,12 @@ Sinn Fein is broken
 </optgroup>
 -->
 </select>
+<!-- 
+<p>
+<input type="checkbox" name="video" id="video">
+<label for="video">Search only speeches with video</label>
+</p>
+-->
 <p align="right">
 <input type="submit" value="Search">
 </p>
