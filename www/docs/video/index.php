@@ -76,15 +76,20 @@ $statuses = array(
 $db = new ParlDB;
 $q = $db->query('select video_status&4 as checked,count(*) as c from hansard
 	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) group by video_status&4');
+$totaliser = array();
 for ($i=0; $i<$q->rows(); $i++) {
 	$status = $q->field($i, 'checked');
 	$count = $q->field($i, 'c');
 	echo '<li>';
 	echo $statuses[$status] . ' : ' . $count;
+	$totaliser[$status] = $count;
 }
+$percentage = $totaliser[4] / $totaliser[0] * 100;
 
 ?>
 </ul>
+
+<p align="center"><img width=225 height=125 src="http://chart.apis.google.com/chart?chs=225x125&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?> of speeches have been timestamped"></p>
 
 <h3 style="margin-top:1em">Latest stamped</h3>
 <ul>
