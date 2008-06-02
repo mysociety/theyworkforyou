@@ -117,16 +117,26 @@ $gid = "uk.org.publicwhip/debate/$gid";
 
 $q_gid = mysql_escape_string($gid);
 $db = new ParlDB;
-$q = $db->query("select hdate, htime, atime, hpos, (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid
+$q = $db->query("select hdate, htime, atime, hpos, (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid, video_status
     from hansard
     left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1
     where hansard.gid='$q_gid'");
+if (!$q->rows()) {
+	$PAGE->error_message('That GID does not appear to exist.', true);
+	exit;
+}
+$video_status = $q->field('video_status');
+$hpos = $q->field(0, 'hpos');
 $hdate = $q->field(0, 'hdate');
 $htime = $q->field(0, 'htime');
 $atime = $q->field(0, 'atime');
 if ($atime) $htime = $atime;
-$hpos = $q->field(0, 'hpos');
 $parent_gid = str_replace('uk.org.publicwhip/debate/', '/debates/?id=', $q->field(0, 'parent_gid'));
+
+if (!$video_source&1) {
+	$PAGE->error_message('That GID does not appear to have any video. Please visit the <a href="/video/">video front page</a>.', true);
+	exit;
+}
 
 $q = $db->query("select hansard.gid, body, htype, htime, atime, hpos, first_name, last_name, video_status
 	from hansard
