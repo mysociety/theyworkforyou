@@ -4,6 +4,18 @@
 
 $all_news = array(
 
+47 => array('Video on TheyWorkForYou', <<<EOT
+<p>We&#8217;re very excited to announce that TheyWorkForYou now includes <a href="/video/">video</a> of <a href="/debates/">debates in the House of Commons</a> - but <a href="/video/">we need your help</a> to match up each speech with the video footage.</p>
+
+<p>It&#8217;s really easy to help out.  We&#8217;ve built a <a href="http://www.theyworkforyou.com/video/">really simple, rather addictive system</a> that lets anyone with a few spare minutes match up a randomly-selected speech from Hansard against the correct snippet of video.  You just listen out for a certain speech, and when you hear it you hit the big red &#8216;Now&#8217; button. Your clip will then immediately go live on TheyWorkForYou next to the relevent speech, improving the site for everyone. Yay!</p>
+
+<p>You can start matching up speeches with video snippets right away, but if you take 30 seconds to <a href="http://www.theyworkforyou.com/user/?pg=join&#038;ret=/video/">register a username</a> then we&#8217;ll log every speech that you match up and recognise your contribution on our <a href="http://www.theyworkforyou.com/video/">&#8220;top timestampers&#8221; league table</a>.  We&#8217;ll send out mySociety hoodies to the top timestampers - they&#8217;re reserved exclusively for our volunteers as a badge of honour.</p>
+
+<a href="http://www.mysociety.org/2008/06/01/video-recordings-of-the-house-of-commons-on-theyworkforyoucom/">Etienne's post on the mySociety blog</a>
+has some background information on the project.
+EOT
+, '2008-06-02 18:56:00', 'Matthew'),
+
 46 => array('The Scottish Parliament', <<<EOT
 Thanks mainly to our Edinburgh-based volunteer <a
 href="http://longair.net/mark/">Mark Longair</a>, TheyWorkForYou now covers
