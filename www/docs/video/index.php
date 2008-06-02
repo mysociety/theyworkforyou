@@ -169,7 +169,8 @@ for ($i=0; $i<$q->rows(); $i++) {
 #	$gid_actual['body_first'] = '<p>' . substr(strip_tags($gid_actual['body']), 0, 500) . '...';
 #} else {
 	#$gid_actual['body_first'] = $gid_actual['body'];
-$gid_actual['body_first'] = preg_replace('#^(.{50}[^\s]*)#s', '<strong><big>$1</big></strong>', $gid_actual['body']);
+$gid_actual['body_first'] = preg_replace('#^(<p[^>]*>)([^<]{1,50}[^<\s]*)#s', '$1<strong><big>$2</big></strong>',
+	preg_replace('#</?phrase[^>]*>#', '', $gid_actual['body']));
 #}
 
 $videodb = video_db_connect();
