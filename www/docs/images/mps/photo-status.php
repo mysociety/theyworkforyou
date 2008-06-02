@@ -10,7 +10,7 @@ $query = 'SELECT person_id, first_name, last_name, constituency, party
 	FROM member
 	WHERE house=1 AND left_house = (SELECT MAX(left_house) FROM member) ';
 $q = $db->query($query . "ORDER BY last_name, first_name");
-$out = array('both'=>'', 'small'=>'', 'none'=>'');
+$out = array('both'=>'', 'small'=>'', 'none'=>array());
 for ($i=0; $i<$q->rows(); $i++) {
 	$p_id = $q->field($i, 'person_id');
 	list($dummy, $sz) = find_rep_image($p_id);
@@ -19,11 +19,11 @@ for ($i=0; $i<$q->rows(); $i++) {
 	} elseif ($sz == 'S') {
 		$out['small'] .= $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . ', ';
 	} else {
-		$out['none'] .= '<li>' . $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . ' (' . $q->field($i, 'party') . ')' . ', ' . $q->field($i, 'constituency');
+		array_push($out['none'], '<li>' . $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . ' (' . $q->field($i, 'party') . ')' . ', ' . $q->field($i, 'constituency'));
 	}
 }
-print '<h3>Missing completely</h3> <ul>';
-print $out['none'];
+print '<h3>Missing completely ('.count($out['none']).')</h3> <ul>';
+print join($out['none'], "\n");
 print '</ul>';
 print '<h3>Large and small</h3> <p>';
 print $out['both'];

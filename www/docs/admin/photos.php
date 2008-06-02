@@ -128,6 +128,8 @@ EOF;
     <span class="formw"><input type="submit" name="submit_photo" value="Upload photo"></span>
 </div>
 </form>
+
+<p style="clear:both; margin-top: 3em"><a href="/images/mps/photo-status.php">List MPs without photos</a></p>
 EOF;
     return $out;
 }
