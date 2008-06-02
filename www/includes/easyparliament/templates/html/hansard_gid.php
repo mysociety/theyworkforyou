@@ -685,7 +685,7 @@ function video_sidebar($row) {
 	include_once INCLUDESPATH . 'easyparliament/video.php';
 	$db = new ParlDB;
 	$vq = $db->query("select user_id,atime from video_timestamps where gid='uk.org.publicwhip/debate/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 limit 1");
-	$user_id = $vq->field(0, 'atime'); if (!$user_id) $user_id='*';
+	$user_id = $vq->field(0, 'user_id'); if (!$user_id) $user_id='*';
 	$time = $vq->field(0, 'atime');
 	$videodb = video_db_connect();
 	$video = video_from_timestamp($videodb, $row['hdate'], $time);
@@ -693,7 +693,7 @@ function video_sidebar($row) {
 	$out = video_object($video['id'], $start, $row['gid']);
 	$flashvars = 'gid=' . $row['gid'] . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
 	$out .= "<br><b>Add this video to another site:</b><br><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'>\"><br><small>(copy and paste the above)</small>";
-	$out .= "<p><small>Is this not the right video? <a href='mailto:team&#64;theyworkforyou.com?subject=Incorrect video, id $row[gid];$video[id];$user_id'>Let us know</a></small></p>";
+	$out .= "<p align='right'>Is this not the right video? <a href='mailto:team&#64;theyworkforyou.com?subject=Incorrect video, id $row[gid];$video[id];$user_id'>Let us know</a></p>";
 	return $out;
 }
 
