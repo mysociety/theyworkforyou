@@ -3,20 +3,19 @@
 include_once "../www/includes/easyparliament/init.php";
 include_once INCLUDESPATH . 'easyparliament/video.php';
 
-date_default_timezone_set('Europe/London');
-
 $db = new ParlDB;
 $videodb = video_db_connect();
 $q = pg_query($videodb, "
-    SELECT id, extract(epoch from broadcast_start) as start,
-    extract(epoch from broadcast_end) as end
+    SELECT id, broadcast_start, broadcast_end
     FROM programmes
     WHERE channel_id = 'BBCParl' AND location = 'commons' AND status = 'available' 
     ORDER BY id
 ");
 while ($row = pg_fetch_array($q)) {
-    $start = $row['start'];
-    $end = $row['end'];
+    date_default_timezone_set('GMT');
+    $start = strtotime($row['broadcast_start']);
+    $end = strtotime($row['broadcast_end']);
+    date_default_timezone_set('Europe/London');
     $start_date = date('Y-m-d', $start);
     $start_time = date('H:i:s', $start);
     $end_date = date('Y-m-d', $end);
