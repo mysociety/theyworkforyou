@@ -6,6 +6,7 @@ include_once INCLUDESPATH . 'easyparliament/video.php';
 $from = get_http_var('from');
 $gid = get_http_var('gid');
 $start = intval(get_http_var('start'));
+$file = intval(get_http_var('file'));
 $gid_safe = $gid;
 
 if (!$gid) {
@@ -217,7 +218,8 @@ echo '<table style="margin-left: 1em;margin-top: 1em" border="0" cellspacing="0"
 if (get_http_var('barcamp'))
 	$video['id'] -= 4000;
 
-print video_object($video['id'], $start, $gid_safe, 1);
+if (!$file) $file = $video['id'];
+print video_object($file, $start, $gid_safe, 1);
 
 #echo '<h4>Press &ldquo;Play&rdquo;, then click &ldquo;Now!&rdquo; when you hear:</h4>';
 echo '<div id="quote">';
