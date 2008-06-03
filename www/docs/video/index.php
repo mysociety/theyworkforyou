@@ -210,7 +210,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 		$out .= $statuses[$status] . ': ' . $count;
 		$totaliser[$status] = $count;
 	}
-	$percentage = $totaliser[4] / $totaliser[0] * 100;
+	$percentage = $totaliser[4] / ($totaliser[0]+$totaliser[4]) * 100;
 
 ?>
 <div style="float: right; width: 50%">
@@ -230,7 +230,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 		$out .= $statuses[$status] . ': ' . $count;
 		$totaliser[$status] = $count;
 	}
-	$percentage = $totaliser[4] / $totaliser[0] * 100;
+	$percentage = $totaliser[4] / ($totaliser[0]+$totaliser[4]) * 100;
 
 ?>
 <h3 style="padding-top:0.5em;clear:right">Totaliser for most recent day</h3>
