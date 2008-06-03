@@ -141,7 +141,7 @@ for ($i=0; $i<$q->rows(); $i++) {
 $this_page = 'video_main';
 
 $surrounding_speeches = 3;
-if ($from == 'next') $surrounding_speeches = 2;
+# if ($from == 'next') $surrounding_speeches = 2;
 
 $gid = "uk.org.publicwhip/debate/$gid";
 
@@ -212,9 +212,10 @@ $PAGE->page_start();
 ?>
 
 <style type="text/css">
-ul.otherspeeches {
+ol.otherspeeches {
     margin-top: 1em;
     font-size: 93%;
+    list-style-type: none;
 }
 .unspoken {
     font-style: italic;
@@ -254,9 +255,10 @@ if ($last_prev['htime'] == $gid_actual['htime']) {
 	#echo "<p><small><em>This speech has the same timestamp as the previous speech, so might well be inaccurate.</em></small></p>";
 }
 
-echo '<h3 style="margin-top:1em">The speeches/headings immediately before</h3> <ol class="otherspeeches" start="-' . $surrounding_speeches . '">';
+echo '<h3 style="margin-top:1em">The three speeches/headings immediately before</h3> <ol class="otherspeeches" start="-' . $surrounding_speeches . '">';
+$ccc = $surrounding_speeches;
 foreach ($gids_previous as $row) {
-	disp_speech($row);
+	disp_speech($row, $ccc--);
 }
 
 echo '</ul>';
@@ -314,7 +316,7 @@ echo ' --> <!-- ';
 echo '<h3 style="margin-top:1em">Following speeches/headings</h3> <ol class="otherspeeches">';
 
 foreach ($gids_following as $row) {
-	disp_speech($row);
+	disp_speech($row, 0);
 }
 
 ?>
@@ -327,11 +329,12 @@ echo '</tr></table>';
 
 $PAGE->page_end();
 
-function disp_speech($row) {
+function disp_speech($row, $count) {
 	echo '<li';
 	if ($row['htype']==13) echo ' class="unspoken"';
 	elseif ($row['htype']<12) echo ' class="heading"';
 	echo '>';
+	if ($count) echo "<em>$count earlier:</em> ";
 	if ($row['htype']==12)
 		echo '<span style="border-bottom: solid 1px #666666;">' . $row['first_name'] . ' ' . $row['last_name'] . '</span> ';
 	echo $row['body'];
