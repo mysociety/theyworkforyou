@@ -23,6 +23,10 @@ if (!$hdate || !$htime || !$time)
     exit;
 
 $videodb = video_db_connect();
+if (!$file) {
+	$video = video_from_timestamp($videodb, $hdate, $htime);
+	$file = $video['id'];
+}
 
 $time -= 3; # Let's start a few seconds earlier
 
