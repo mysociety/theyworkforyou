@@ -966,3 +966,42 @@ acronym {
 #advert_thin a {
 	font-weight: bold;
 }
+
+/* Video related */
+
+#video_attract {
+	background-color: #ccccff;
+	text-align: center;
+	padding: 10px;
+	margin-left: 2em;
+	border: solid 2px #9999ff;
+	font-size: 150%;
+	line-height: 1.4;
+}
+
+#video_quote {
+	margin: 1em;
+	border-left: solid 5px #009900;
+	padding-left: 0.5em;
+}
+
+.unspoken { font-style: italic; }
+.heading { font-weight: bold; }
+
+ol.otherspeeches {
+	margin-top: 1em;
+	font-size: 93%;
+	list-style-type: none;
+} 
+
+#video_table {
+	margin-left: 1em;
+	margin-top: 1em;
+}
+#video_table h3 {
+	margin-left: 0;
+}
+
+.video_name { border-bottom: solid 1px #666666; }
+
+

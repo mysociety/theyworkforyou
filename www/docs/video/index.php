@@ -14,126 +14,7 @@ if (!$gid) {
 	$this_page = 'video_front';
 	$PAGE->page_start();
 	$PAGE->stripe_start();
-?>
-
-<style type="text/css">
-#attract {
-	background-color: #ccccff;
-	text-align: center;
-	padding: 10px;
-	margin-left: 2em;
-	border: solid 2px #9999ff;
-	font-size: 150%;
-	line-height: 1.4;
-}
-</style>
-
-<p style="margin-top:1em"><big>TheyWorkForYou has video of the House of Commons from the BBC, and
-the text of Hansard from Parliament. Now we need <strong>your</strong>
-help to match up the two.</big></p>
-
-<p>We've written a little Flash app where you can (hopefully) match up the written speech being displayed to
-what's playing on the video. We'll then store your results and use them to put the video,
-timestamped to the right location, on the relevant page of TheyWorkForYou.</p>
-
-<p>If you're a registered user and logged in,
-your timestampings will appear in our chart below &ndash; there may be prizes for best timestampers&hellip; :)
-Registration is not needed to timestamp videos, but you can <a href="/user/?pg=join&ret=/video/">register here</a> if you want.</p>
-
-<p id="attract"><a href="next.php?action=random">Give me a random speech that needs timestamping</a></p>
-
-<div id="top" style="float: left; width: 45%;">
-<?
-
-function display_league($q = '') {
-	$db = new ParlDB;
-	$q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c from video_timestamps left join users on video_timestamps.user_id=users.user_id where video_timestamps.deleted=0 ' . $q . ' group by user_id order by c desc');
-	$out = '';
-	for ($i=0; $i<$q->rows(); $i++) {
-		$name = $q->field($i, 'firstname') . ' ' . $q->field($i, 'lastname');
-		$user_id = $q->field($i, 'user_id');
-		if ($user_id == -1) continue; # $name = 'CaptionerBot';
-		if ($user_id == 0) $name = 'Anonymous';
-		$count = $q->field($i, 'c');
-		$out .= "<li>$name : $count";
-		#if ($user_id == -1) {
-		#	echo ' <small>(initial run program that tries to guess timestamp from captions, wildly variable)</small>';
-		#}
-	}
-	return $out;
-}
-
-$out = display_league('and date(whenstamped)=current_date');
-if ($out) echo "<h3>Top timestampers (today)</h3> <ol>$out</ol>";
-$out = display_league('and date(whenstamped)>current_date-interval 7 day');
-if ($out) echo "<h3>Top timestampers (last week)</h3> <ol>$out</ol>";
-$out = display_league();
-if ($out) echo "<h3>Top timestampers (overall)</h3> <ol>$out</ol>";
-echo '</div>';
-
-$statuses = array(
-	0 => 'Unstamped',
-	4 => 'Timestamped by users',
-);
-$db = new ParlDB;
-$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
-	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) group by video_status&4');
-$totaliser = array();
-$out = '';
-for ($i=0; $i<$q->rows(); $i++) {
-	$status = $q->field($i, 'checked');
-	$count = $q->field($i, 'c');
-	$out .= '<li>';
-	$out .= $statuses[$status] . ': ' . $count;
-	$totaliser[$status] = $count;
-}
-$percentage = $totaliser[4] / $totaliser[0] * 100;
-
-?>
-<div style="float: right; width: 50%">
-<img align="right" width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?> of speeches have been timestamped">
-<h3>Totaliser</h3>
-<ul><?=$out?></ul>
-
-<?
-$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
-	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) and hdate=(select max(hdate) from hansard where major=1) group by video_status&4');
-$totaliser = array(0=>0, 4=>0);
-$out = '';
-for ($i=0; $i<$q->rows(); $i++) {
-	$status = $q->field($i, 'checked');
-	$count = $q->field($i, 'c');
-	$out .= '<li>';
-	$out .= $statuses[$status] . ': ' . $count;
-	$totaliser[$status] = $count;
-}
-$percentage = $totaliser[4] / $totaliser[0] * 100;
-
-?>
-<h3 style="padding-top:0.5em;clear:right">Totaliser for most recent day</h3>
-<img align="right" width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?> of speeches have been timestamped">
-<ul><?=$out?></ul>
-
-<h3 style="clear:both;margin-top:1em">Latest stamped</h3>
-<ul>
-<?
-
-$q = $db->query('select hansard.gid, body from video_timestamps, hansard, epobject
-	where (user_id != -1 or user_id is null) and video_timestamps.deleted=0
-		and video_timestamps.gid = hansard.gid and hansard.subsection_id = epobject.epobject_id
-	order by whenstamped desc limit 10');
-for ($i=0; $i<$q->rows(); $i++) {
-	$gid = $q->field($i, 'gid');
-	$body = $q->field($i, 'body');
-	echo '<li><a href="/debate/?id=' . fix_gid_from_db($gid) . '">' . $body . '</a>';
-}
-
-?>
-</ul>
-
-</div>
-
-<?
+	video_front_page();
 	$PAGE->stripe_end();
 	$PAGE->page_end();
 	exit;
@@ -146,6 +27,7 @@ $surrounding_speeches = 3;
 
 $gid = "uk.org.publicwhip/debate/$gid";
 
+# Fetch this GID from the database
 $q_gid = mysql_escape_string($gid);
 $db = new ParlDB;
 $q = $db->query("select hdate, htime, atime, hpos, video_status, (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid,
@@ -171,6 +53,7 @@ if (!($video_status&1)) {
 	exit;
 }
 
+# Fetch preceding/following speeches data *
 $q = $db->query("select hansard.gid, body, htype, htime, atime, hpos, first_name, last_name, video_status
 	from hansard
 		inner join epobject on hansard.epobject_id=epobject.epobject_id
@@ -203,111 +86,288 @@ $gid_actual['body_first'] = preg_replace('#^(<p[^>]*>)([^<]{1,50}[^<\s]*)#s', '$
 	preg_replace('#</?phrase[^>]*>#', '', $gid_actual['body']));
 #}
 
+# Work out what video we want, and where in it
 $videodb = video_db_connect();
 $video = video_from_timestamp($videodb, $hdate, $htime);
 
 if (!$start)
     $start = $video['offset'] - 10;
 
-$PAGE->page_start();
-?>
-
-<style type="text/css">
-ol.otherspeeches {
-    margin-top: 1em;
-    font-size: 93%;
-    list-style-type: none;
-}
-.unspoken {
-    font-style: italic;
-}
-.heading {
-    font-weight: bold;
-}
-h2,h3,h4 {
-margin-left:0em;
-}
-#quote {
-    margin: 1em;
-    border-left: solid 5px #009900;
-    padding-left: 0.5em;
-}
-</style>
-
-<?
-
-echo '<table style="margin-left: 1em;margin-top: 1em" border="0" cellspacing="0" cellpadding="5"><tr valign="top"><td width="50%">';
-
 if (get_http_var('barcamp'))
 	$video['id'] -= 4000;
 
 if (!$file) $file = $video['id'];
-print video_object($file, $start, $gid_safe, 1, $pid);
 
-#echo '<h4>Press &ldquo;Play&rdquo;, then click &ldquo;Now!&rdquo; when you hear:</h4>';
-echo '<div id="quote">';
-echo '<span style="border-bottom: solid 1px #666666;">' . $gid_actual['first_name'] . ' ' . $gid_actual['last_name'] . '</span> ';
-echo $gid_actual['body_first'];
-echo '<p align="right">&mdash; from debate titled &ldquo;<a title="View entire debate" href="' . $parent_gid . '">' . $parent_body . '</a>&rdquo;</p>';
-echo '</div>';
+# Start displaying
 
-$last_prev = end($gids_previous);
-if ($last_prev['htime'] == $gid_actual['htime']) {
-	#echo "<p><small><em>This speech has the same timestamp as the previous speech, so might well be inaccurate.</em></small></p>";
-}
-
-echo '<h3 style="margin-top:1em">The three speeches/headings immediately before</h3> <ol class="otherspeeches" start="-' . $surrounding_speeches . '">';
-$ccc = $surrounding_speeches;
-foreach ($gids_previous as $row) {
-	disp_speech($row, $ccc--);
-}
-
-$pid_url = '';
-if ($pid) $pid_url = "&amp;pid=$pid";
-
-echo '</ul>';
-echo '</td><td>';
+/*
+if (get_http_var('adv')) {
+	$PAGE->page_start();
+	echo '<table id="video_table" border="0" cellspacing="0" cellpadding="5"><tr valign="top"><td width="50%">';
+	print video_object($file, $start, $gid_safe, 1, $pid);
+	video_quote($gid_actual, $parent_gid, $parent_body);
+	iframe_search($gid_safe, $file);
+	echo '</td><td>';
+	advanced_hints($gid_safe, $file, $pid);
+	previous_speeches($surrounding_speeches, $gids_previous);
+	echo '</td>';
+	echo '</tr></table>';
+	$PAGE->page_end();
+} else {
+*/
+$PAGE->page_start();
 ?>
-<ol style="font-size:150%; border-bottom: dotted 1px #666666; margin-bottom: 0.5em">
+<script type="text/javascript">
+function hideInstructions() {
+	document.getElementById('advanced_hints').style.display='block';
+	document.getElementById('basic_hints').style.display='none';
+	document.cookie = 'hideVideoInt=1';
+	return false;
+}
+function showInstructions() {
+	document.getElementById('basic_hints').style.display='block';
+	document.getElementById('advanced_hints').style.display='none';
+	document.cookie = 'hideVideoInt=0';
+	return false;
+}
+</script>
+<?
+	echo '<table id="video_table" border="0" cellspacing="0" cellpadding="5"><tr valign="top"><td width="50%">';
+	print video_object($file, $start, $gid_safe, 1, $pid);
+	video_quote($gid_actual, $parent_gid, $parent_body);
+	previous_speeches($surrounding_speeches, $gids_previous);
+	echo '</td><td>';
+	echo '<div id="basic_hints"';
+	if (isset($_COOKIE['hideVideoInt']) && $_COOKIE['hideVideoInt'])
+		echo ' style="display:none"';
+	echo '>';
+	echo '<p style="float: right; border: solid 1px #666666; padding:3px;"><a onclick="return hideInstructions();" href=""><small>Hide instructions</small></a></p>';
+	basic_instructions();
+	basic_hints($gid_safe, $file, $pid);
+	echo '</div>';
+	echo '<div id="advanced_hints"';
+	if (!isset($_COOKIE['hideVideoInt']) || !$_COOKIE['hideVideoInt'])
+		echo ' style="display:none"';
+	echo '>';
+	advanced_hints($gid_safe, $file, $pid);
+	echo '</div>';
+	iframe_search($gid_safe, $file);
+	echo '</td>';
+	echo '</tr></table>';
+	$PAGE->page_end();
+/*
+}
+*/
+
+# ---
+
+function video_front_page() {
+?>
+
+<p style="margin-top:1em"><big>TheyWorkForYou has video of the House of Commons from the BBC, and
+the text of Hansard from Parliament. Now we need <strong>your</strong>
+help to match up the two.</big></p>
+
+<p>We've written a little Flash app where you can (hopefully) match up the written speech being displayed to
+what's playing on the video. We'll then store your results and use them to put the video,
+timestamped to the right location, on the relevant page of TheyWorkForYou.</p>
+
+<p>If you're a registered user and logged in,
+your timestampings will appear in our chart below &ndash; there may be prizes for best timestampers&hellip; :)
+Registration is not needed to timestamp videos, but you can <a href="/user/?pg=join&ret=/video/">register here</a> if you want.</p>
+
+<p id="video_attract"><a href="next.php?action=random">Give me a random speech that needs timestamping</a></p>
+
+<div id="top" style="float: left; width: 45%;">
+<?
+
+	$out = display_league('and date(whenstamped)=current_date');
+	if ($out) echo "<h3>Top timestampers (today)</h3> <ol>$out</ol>";
+	$out = display_league('and date(whenstamped)>current_date-interval 7 day');
+	if ($out) echo "<h3>Top timestampers (last week)</h3> <ol>$out</ol>";
+	$out = display_league();
+	if ($out) echo "<h3>Top timestampers (overall)</h3> <ol>$out</ol>";
+	echo '</div>';
+
+	$statuses = array(
+		0 => 'Unstamped',
+		4 => 'Timestamped by users',
+	);
+	$db = new ParlDB;
+	$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
+	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) group by video_status&4');
+	$totaliser = array();
+	$out = '';
+	for ($i=0; $i<$q->rows(); $i++) {
+		$status = $q->field($i, 'checked');
+		$count = $q->field($i, 'c');
+		$out .= '<li>';
+		$out .= $statuses[$status] . ': ' . $count;
+		$totaliser[$status] = $count;
+	}
+	$percentage = $totaliser[4] / $totaliser[0] * 100;
+
+?>
+<div style="float: right; width: 50%">
+<img align="right" width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?> of speeches have been timestamped">
+<h3>Totaliser</h3>
+<ul><?=$out?></ul>
+
+<?
+	$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
+	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) and hdate=(select max(hdate) from hansard where major=1) group by video_status&4');
+	$totaliser = array(0=>0, 4=>0);
+	$out = '';
+	for ($i=0; $i<$q->rows(); $i++) {
+		$status = $q->field($i, 'checked');
+		$count = $q->field($i, 'c');
+		$out .= '<li>';
+		$out .= $statuses[$status] . ': ' . $count;
+		$totaliser[$status] = $count;
+	}
+	$percentage = $totaliser[4] / $totaliser[0] * 100;
+
+?>
+<h3 style="padding-top:0.5em;clear:right">Totaliser for most recent day</h3>
+<img align="right" width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?> of speeches have been timestamped">
+<ul><?=$out?></ul>
+
+<h3 style="clear:both;margin-top:1em">Latest stamped</h3>
+<ul>
+<?
+
+	$q = $db->query('select hansard.gid, body from video_timestamps, hansard, epobject
+	where (user_id != -1 or user_id is null) and video_timestamps.deleted=0
+		and video_timestamps.gid = hansard.gid and hansard.subsection_id = epobject.epobject_id
+	order by whenstamped desc limit 10');
+	for ($i=0; $i<$q->rows(); $i++) {
+		$gid = $q->field($i, 'gid');
+		$body = $q->field($i, 'body');
+		echo '<li><a href="/debate/?id=' . fix_gid_from_db($gid) . '">' . $body . '</a>';
+	}
+
+	echo '</ul></div>';
+}
+
+function display_league($q = '') {
+	$db = new ParlDB;
+	$q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c from video_timestamps left join users on video_timestamps.user_id=users.user_id where video_timestamps.deleted=0 ' . $q . ' group by user_id order by c desc');
+	$out = '';
+	for ($i=0; $i<$q->rows(); $i++) {
+		$name = $q->field($i, 'firstname') . ' ' . $q->field($i, 'lastname');
+		$user_id = $q->field($i, 'user_id');
+		if ($user_id == -1) continue; # $name = 'CaptionerBot';
+		if ($user_id == 0) $name = 'Anonymous';
+		$count = $q->field($i, 'c');
+		$out .= "<li>$name : $count";
+		#if ($user_id == -1) {
+		#	echo ' <small>(initial run program that tries to guess timestamp from captions, wildly variable)</small>';
+		#}
+	}
+	return $out;
+}
+
+function video_quote($gid_actual, $parent_gid, $parent_body) {
+	#echo '<h4>Press &ldquo;Play&rdquo;, then click &ldquo;Now!&rdquo; when you hear:</h4>';
+	echo '<div id="video_quote">';
+	echo '<span class="video_name">' . $gid_actual['first_name'] . ' ' . $gid_actual['last_name'] . '</span> ';
+	echo $gid_actual['body_first'];
+	echo '<p align="right">&mdash; from debate entitled &ldquo;<a title="View entire debate" href="' . $parent_gid . '">' . $parent_body . '</a>&rdquo;</p>';
+	echo '</div>';
+}
+
+function basic_instructions() {
+?>
+<ol style="font-size: 150%;">
 <li>Have a quick scan of the speech under the video, then press &ldquo;Play&rdquo;.
 <li>When you hear the start of that speech, press &ldquo;Now!&rdquo;.
 <li>The timestamped video will then appear on TheyWorkForYou &ndash; thanks from
 everyone who uses the site :)
 </ol>
 
-<ul style="font-size:150%; border-bottom: dotted 1px #666666; margin-bottom: 0.5em">
-<li>Some videos will be <strong>miles</strong> out &ndash; if you can't
-find the right point, don't worry, just <a href="/video/next.php?action=random"><big>skip this one</big></a>!
-</ul>
+<p style="font-size: 125%; margin: 1em 0; background-color: #ffffcc; padding: 5px;">
+Some videos will be miles out &ndash; if you can't
+find the right point, don't worry, just <a href="/video/next.php?action=random"><strong>try another speech</strong></a>!
+</p>
+<?
+}
+
+function basic_hints($gid_safe, $file, $pid) {
+	global $THEUSER;
+	$pid_url = '';
+	if ($pid) $pid_url = "&amp;pid=$pid";
+?>
 
 <ul>
 <?	if (!$THEUSER->loggedin()) { ?>
 <li><a href="/user/login/?ret=/video/"><strong>Log in</strong></a> if you want to get on the <a href="/video/#top">Top Timestampers league table</a>!
 <?	} ?>
 <li>If the video suddenly <strong>jumps</strong> a couple of hours, or otherwise appears broken, <a href="mailto:team&#64;theyworkforyou.com?subject=Video%20<?=$file?>'%20for%20ID%20'<?=$gid_safe?>'%20broken">let us know</a>.
-<li>If the speech you're after is <strong>beyond the end</strong> of the video,
+<li>If the speech you're looking for is <strong>beyond the end</strong> of the video,
 <a href="/video/?gid=<?=$gid_safe?>&amp;file=<?=$file+1?>&amp;start=1<?=$pid_url?>">move on to the next video chunk</a>.
 <li>Hansard is not a verbatim transcript, so <strong>spoken words might
 differ</strong> slightly from the printed version. And a small note &ndash; if
 the speech you are looking out for is an oral question (questions asked in the
 first hour or so of Monday&ndash;Thursdays in the Commons), then all the MP
 will actually say is their question number, e.g.  &ldquo;Number Two&rdquo;.
+<li>The skip buttons move in 30 second increments (you can go
+back before the start point), and you can access a slider by hovering
+over the video.
 </ul>
 
 <p align="right"><small><b>Credits:</b> Video from <a href='http://www.bbc.co.uk/parliament/'>BBC Parliament</a> and mySociety</small></p>
 
-<h3>Hints and Tips</h3>
-
-<ul>
-<li>Feel free to use the 30 second skip buttons (you can go
-back before the start point), and you can access a slider by hovering
-over the video.
-<li>Use the date-restricted search facility below to help locate the speech currently playing:
-</ul>
-
-<iframe frameborder=0 style="border: dotted 1px black; margin-top:0.5em" name="video_person_search" width="95%" height="400" src="distance.php?gid=<?=$gid_safe?>&amp;file=<?=$file?>"></iframe>
-
 <?
+}
+
+function advanced_hints($gid_safe, $file, $pid) {
+	global $THEUSER;
+	$pid_url = '';
+	if ($pid) $pid_url = "&amp;pid=$pid";
+?>
+
+<p align="center">Actions:
+<a href="/video/next.php?action=random">Skip</a> |
+<?	if (!$THEUSER->loggedin()) { ?>
+<a href="/user/login/?ret=/video/">Log in</a> |
+<?	} ?>
+<a href="mailto:team&#64;theyworkforyou.com?subject=Video%20<?=$file?>'%20for%20ID%20'<?=$gid_safe?>'%20broken">Broken video</a> |
+<a href="/video/?gid=<?=$gid_safe?>&amp;file=<?=$file+1?>&amp;start=1<?=$pid_url?>" title="Loads the next video chunk">Speech past end of video</a>
+</p>
+
+<p align="right"><small><!-- <b>Credits:</b> Video from <a href='http://www.bbc.co.uk/parliament/'>BBC Parliament</a> and mySociety. -->
+<a style=" border: solid 1px #666666; padding:3px;" onclick="return showInstructions();" href="">Show all instructions</a>
+
+</small></p>
+<?
+}
+
+function iframe_search($gid_safe, $file) {
+?>
+<iframe frameborder=0 style="border: dotted 1px black; margin-top:0.5em" name="video_person_search" width="95%" height="400" src="distance.php?gid=<?=$gid_safe?>&amp;file=<?=$file?>"></iframe>
+<?
+}
+
+function previous_speeches($surrounding_speeches, $gids_previous) {
+	echo '<h3 style="margin-top:1em">The three speeches/headings immediately before</h3> <ol class="otherspeeches" start="-' . $surrounding_speeches . '">';
+	$ccc = $surrounding_speeches;
+	foreach ($gids_previous as $row) {
+		disp_speech($row, $ccc--);
+	}
+	echo '</ol>';
+}
+
+function disp_speech($row, $count) {
+	echo '<li';
+	if ($row['htype']==13) echo ' class="unspoken"';
+	elseif ($row['htype']<12) echo ' class="heading"';
+	echo '>';
+	if ($count) echo "<em>$count earlier:</em> ";
+	if ($row['htype']==12)
+		echo '<span class="video_name">' . $row['first_name'] . ' ' . $row['last_name'] . '</span> ';
+	echo $row['body'];
+	echo '</li>';
+}
 
 /*
 echo '<h3>The ';
@@ -325,19 +385,11 @@ foreach ($gids_following as $row) {
 echo '</ul>';
 */
 
-echo '</td>';
-echo '</tr></table>';
-
-$PAGE->page_end();
-
-function disp_speech($row, $count) {
-	echo '<li';
-	if ($row['htype']==13) echo ' class="unspoken"';
-	elseif ($row['htype']<12) echo ' class="heading"';
-	echo '>';
-	if ($count) echo "<em>$count earlier:</em> ";
-	if ($row['htype']==12)
-		echo '<span style="border-bottom: solid 1px #666666;">' . $row['first_name'] . ' ' . $row['last_name'] . '</span> ';
-	echo $row['body'];
-	echo '</li>';
+/*
+$last_prev = end($gids_previous);
+if ($last_prev['htime'] == $gid_actual['htime']) {
+	echo "<p><small><em>This speech has the same timestamp as the previous speech, so might well be inaccurate.</em></small></p>";
 }
+*/
+
+
