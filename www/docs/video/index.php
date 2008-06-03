@@ -250,14 +250,16 @@ everyone who uses the site :)
 
 <ul style="font-size:150%; border-bottom: dotted 1px #666666; margin-bottom: 0.5em">
 <li>Some videos will be <strong>miles</strong> out &ndash; if you can't
-find the right point, don't worry, <a href="/video/next.php?action=random">try another one</a>!
+find the right point, don't worry, just <a href="/video/next.php?action=random"><big>skip this one</big></a>!
 </ul>
 
 <ul>
 <?	if (!$THEUSER->loggedin()) { ?>
-<li><a href="/user/login/?ret=/video/">Log in</a> if you want to get on the <a href="/video/#top">Top Timestampers league table</a>!
+<li><a href="/user/login/?ret=/video/"><strong>Log in</strong></a> if you want to get on the <a href="/video/#top">Top Timestampers league table</a>!
 <?	} ?>
-<li>If the video suddenly jumps a couple of hours, or otherwise appears broken, <a href="mailto:team&#64;theyworkforyou.com?subject=Video%20<?=$video['id']?>'%20for%20ID%20'<?=$gid_safe?>'%20broken">let us know</a>.
+<li>If the video suddenly <strong>jumps</strong> a couple of hours, or otherwise appears broken, <a href="mailto:team&#64;theyworkforyou.com?subject=Video%20<?=$video['id']?>'%20for%20ID%20'<?=$gid_safe?>'%20broken">let us know</a>.
+<li>If the speech you're after is <strong>beyond the end</strong> of the video,
+<a href="/video/?gid=<?=$gid_safe?>&amp;file=<?=$video['id']+1?>&amp;start=1">move on to the next video chunk</a>.
 <li>Hansard is not a verbatim transcript, so <strong>spoken words might
 differ</strong> slightly from the printed version. And a small note &ndash; if
 the speech you are looking out for is an oral question (questions asked in the
@@ -271,9 +273,9 @@ will actually say is their question number, e.g.  &ldquo;Number Two&rdquo;.
 
 <ul>
 <li>Feel free to use the 30 second skip buttons (you can go
-back before the current start point), and you can access a slider by hovering
+back before the start point), and you can access a slider by hovering
 over the video.
-<li>Use the date-restricted search facility below to try and locate the speech currently playing:
+<li>Use the date-restricted search facility below to help locate the speech currently playing:
 </ul>
 
 <iframe frameborder=0 style="border: dotted 1px black; margin-top:0.5em" name="video_person_search" width="95%" height="400" src="distance.php?gid=<?=$gid_safe?>"></iframe>
