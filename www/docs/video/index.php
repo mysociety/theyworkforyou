@@ -132,13 +132,15 @@ function showInstructions() {
 }
 </script>
 <?
+	$hidden_int = (isset($_COOKIE['hideVideoInt']) && $_COOKIE['hideVideoInt']);
 	echo '<table id="video_table" border="0" cellspacing="0" cellpadding="5"><tr valign="top"><td width="50%">';
 	print video_object($file, $start, $gid_safe, 1, $pid);
 	video_quote($gid_actual, $parent_gid, $parent_body);
-	previous_speeches($surrounding_speeches, $gids_previous);
+	if (get_http_var('from') != 'next' || !$hidden_int)
+		previous_speeches($surrounding_speeches, $gids_previous);
 	echo '</td><td>';
 	echo '<div id="basic_hints"';
-	if (isset($_COOKIE['hideVideoInt']) && $_COOKIE['hideVideoInt'])
+	if ($hidden_int)
 		echo ' style="display:none"';
 	echo '>';
 	echo '<p style="float: right; border: solid 1px #666666; padding:3px;"><a onclick="return hideInstructions();" href=""><small>Hide instructions</small></a></p>';
@@ -146,12 +148,15 @@ function showInstructions() {
 	basic_hints($gid_safe, $file, $pid);
 	echo '</div>';
 	echo '<div id="advanced_hints"';
-	if (!isset($_COOKIE['hideVideoInt']) || !$_COOKIE['hideVideoInt'])
+	if (!$hidden_int)
 		echo ' style="display:none"';
 	echo '>';
 	advanced_hints($gid_safe, $file, $pid);
 	echo '</div>';
-	iframe_search($gid_safe, $file);
+	if (get_http_var('from') == 'next' && $hidden_int)
+		previous_speeches($surrounding_speeches, $gids_previous);
+	else
+		iframe_search($gid_safe, $file);
 	echo '</td>';
 	echo '</tr></table>';
 	$PAGE->page_end();
