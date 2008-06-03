@@ -35,11 +35,11 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		echo '&#8220;' . $row['body'] . "&#8221;</dd>\n";
 		echo '<dd><em><small>This speech is ';
 		if ($row['hpos']-$want['hpos']>0) {
-			echo ($row['hpos']-$want['hpos']) . ' ahead';
+			echo ($row['hpos']-$want['hpos']) . ' ahead of';
 		} else {
 			echo ($want['hpos']-$row['hpos']) . ' behind';
 		}
-		echo ' of the one you want &ndash; if you prefer, <a target="_top" onclick="t = parent.document[\'video\'].currentTime(); this.href += t;" href="/video/?gid=' . $row['gid'] . '&amp;file=' . $want['file'] . '&amp;start=">switch to matching this speech instead</a></small></em></dd>';
+		echo ' the one you want &ndash; if you prefer, <a target="_top" onclick="t = parent.document[\'video\'].currentTime(); this.href += t;" href="/video/?gid=' . $row['gid'] . '&amp;file=' . $want['file'] . '&amp;start=">switch to matching this speech instead</a></small></em></dd>';
 	}
 	echo '</dl>';
 } else {
