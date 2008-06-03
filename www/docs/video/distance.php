@@ -3,12 +3,14 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . 'easyparliament/video.php';
 
+$file = intval(get_http_var('file'));
 $gid = get_http_var('gid');
 preg_match('#^(\d\d\d\d)-(\d\d)-(\d\d)#', $gid, $m);
 $gid_date = "$m[1]$m[2]$m[3]";
 
-global $gid_want;
+global $gid_want, $file_want; # It's in the template, yucky, sorry
 $gid_want = $gid;
+$file_want = $file;
 
 if ($at = get_http_var('at')) {
 	$dist = speeches_distance($gid, $at);
@@ -18,11 +20,11 @@ if ($at = get_http_var('at')) {
 	} else {
 		echo (-$dist) . ' speeches/headings behind</strong> the speech you want.';
 	} 
-	echo ' <a target="_top" onclick="t = parent.document[\'video\'].currentTime(); this.href += t;" href="/video/?gid=' . $at . '&amp;start=">Match this speech instead</a></p>';
+	echo ' <a target="_top" onclick="t = parent.document[\'video\'].currentTime(); this.href += t;" href="/video/?gid=' . $at . '&amp;file=' . $file . '&amp;start=">Match this speech instead</a></p>';
 
-	echo search_box();
+	echo search_box($file);
 } elseif ($search = get_http_var('s')) {
-	search_box();
+	search_box($file);
 	day_speeches($search, $gid_date);
 } else { ?>
 <p>If the playing speech appears to be in completely the wrong place,
@@ -31,16 +33,17 @@ to search the day's speeches. Pick the correct speech and we'll tell you how
 many speeches out the video is &ndash; you can then either reposition the video
 or follow the link to switch to matching that speech instead.</p>
 <?
-	search_box();
+	search_box($file);
 }
 
-function search_box() {
+function search_box($file) {
 	global $gid_want;
 ?>
 <form action="distance.php" method="get" target="video_person_search">
 <label for="vid_search">MP name or spoken word(s):</label>
 <input id="vid_search" type="text" name="s" value="">
 <input type="hidden" name="gid" value="<?=$gid_want?>">
+<input type="hidden" name="file" value="<?=$file?>">
 <input type="submit" value="Search">
 </form>
 <?

@@ -299,7 +299,7 @@ over the video.
 <li>Use the date-restricted search facility below to help locate the speech currently playing:
 </ul>
 
-<iframe frameborder=0 style="border: dotted 1px black; margin-top:0.5em" name="video_person_search" width="95%" height="400" src="distance.php?gid=<?=$gid_safe?>"></iframe>
+<iframe frameborder=0 style="border: dotted 1px black; margin-top:0.5em" name="video_person_search" width="95%" height="400" src="distance.php?gid=<?=$gid_safe?>&amp;file=<?=$file?>"></iframe>
 
 <?
 

@@ -3,7 +3,7 @@
  * For displaying day of MP stuff for matching against playing video
  */
  
-global $gid_want; # XXX
+global $gid_want, $file_want; # XXX
 
 twfy_debug("TEMPLATE", "hansard_search_video.php");
 
@@ -29,7 +29,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		} 
 		
 		echo '&#8220;' . $row['body'] . "&#8221;</dd>\n";
-		echo '<dd><a href="distance.php?gid=' . $gid_want . '&amp;at=' . $row['gid'] . '">This speech is playing</a></dd>';
+		echo '<dd><a href="distance.php?gid=' . $gid_want . '&amp;file=' . $file_want . '&amp;at=' . $row['gid'] . '">This speech is playing</a></dd>';
 	}
 	echo '</dl>';
 } else {
