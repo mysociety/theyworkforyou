@@ -7,6 +7,7 @@ $from = get_http_var('from');
 $gid = get_http_var('gid');
 $start = intval(get_http_var('start'));
 $file = intval(get_http_var('file'));
+$pid = intval(get_http_var('pid'));
 $gid_safe = $gid;
 
 if (!$gid) {
@@ -241,7 +242,7 @@ if (get_http_var('barcamp'))
 	$video['id'] -= 4000;
 
 if (!$file) $file = $video['id'];
-print video_object($file, $start, $gid_safe, 1);
+print video_object($file, $start, $gid_safe, 1, $pid);
 
 #echo '<h4>Press &ldquo;Play&rdquo;, then click &ldquo;Now!&rdquo; when you hear:</h4>';
 echo '<div id="quote">';
@@ -305,25 +306,22 @@ over the video.
 
 <?
 
-echo '<!-- <h3>The ';
+/*
+echo '<h3>The ';
 if ($gid_actual['body'] != $gid_actual['body_first']) {
 	echo' whole';
 }
 echo ' speech you\'re looking out for</h3>';
 echo $gid_actual['body'];
 
-echo ' --> <!-- ';
 echo '<h3 style="margin-top:1em">Following speeches/headings</h3> <ol class="otherspeeches">';
 
 foreach ($gids_following as $row) {
 	disp_speech($row, 0);
 }
+echo '</ul>';
+*/
 
-?>
-</ul>
--->
-
-<?
 echo '</td>';
 echo '</tr></table>';
 

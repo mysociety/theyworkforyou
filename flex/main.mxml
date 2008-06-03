@@ -125,7 +125,9 @@ private function submit_next(evt:MouseEvent):void {
     navigateToURL(req, '_self');
 }
 private function submit_random(evt:MouseEvent):void {
-    var url:String = '/video/next.php?gid=' + gid + '&time=' + int(video.playheadTime) + '&action=random';
+    var url:String = '/video/next.php?action=random';
+    var pid:int = int(Application.application.parameters.pid);
+    if (pid > 0) url += '&pid=' + pid;
     debugS("Moving to " + url)
     var req:URLRequest = new URLRequest(url);
     navigateToURL(req, '_self');

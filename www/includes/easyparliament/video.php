@@ -22,8 +22,10 @@ function video_from_timestamp($videodb, $date, $time) {
     return $video;
 }
 
-function video_object($video_id, $start, $gid, $stamping = '') {
-	if ($stamping) $stamping = '&amp;stamping=1';
+function video_object($video_id, $start, $gid, $stamping = '', $pid = 0) {
+	$flashvars = "gid=$gid&amp;file=$video_id&amp;start=$start";
+	if ($stamping) $flashvars .= '&amp;stamping=1';
+	if ($pid) $flashvars .= '&amp;pid=' . $pid;
 /*
 <object width='360' height='300'
 	classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'
@@ -40,10 +42,10 @@ function video_object($video_id, $start, $gid, $stamping = '') {
 	classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'
 	codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0'>
 <param name='movie' value='/video/parlvid.swf'>
-<param name='flashVars' value='gid=$gid&amp;file=$video_id&amp;start=$start$stamping'>
+<param name='flashVars' value='$flashvars'>
 <param name='allowFullScreen' value='true'>
 <param name='allowScriptAccess' value='always'>
-<embed name='video' swliveconnect='true' src='/video/parlvid.swf' width='330' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='gid=$gid&amp;file=$video_id&amp;start=$start$stamping' type='application/x-shockwave-flash' pluginspage='http://www.adobe.com/go/getflashplayer'>
+<embed name='video' swliveconnect='true' src='/video/parlvid.swf' width='330' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars' type='application/x-shockwave-flash' pluginspage='http://www.adobe.com/go/getflashplayer'>
 </object>
 </div>";
     return $out;
