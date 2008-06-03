@@ -22,7 +22,7 @@ while (<>) {
         next if /^--/;
         my ($gid, $time) = split /\t/;
         next unless $time;
-        my $atime = $sthC->selectrow_array("uk.org.publicwhip/debate/$gid");
+        my $atime = $dbh->selectrow_array($sthC, {}, "uk.org.publicwhip/debate/$gid");
         if (!$atime || $atime ne $time) {
                 $sthI->execute($time, "uk.org.publicwhip/debate/$gid");
                 $sthH->execute("uk.org.publicwhip/debate/$gid");
