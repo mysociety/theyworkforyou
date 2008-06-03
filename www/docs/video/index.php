@@ -68,31 +68,52 @@ $out = display_league('and date(whenstamped)>current_date-interval 7 day');
 if ($out) echo "<h3>Top timestampers (last week)</h3> <ol>$out</ol>";
 $out = display_league();
 if ($out) echo "<h3>Top timestampers (overall)</h3> <ol>$out</ol>";
-echo '</div> <div style="float: right; width: 50%"><h3>Totaliser</h3> <ul>';
+echo '</div>';
 
 $statuses = array(
-	0 => 'Unchecked video',
+	0 => 'Unstamped',
 	4 => 'Timestamped by users',
 );
 $db = new ParlDB;
 $q = $db->query('select video_status&4 as checked,count(*) as c from hansard
 	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) group by video_status&4');
 $totaliser = array();
+$out = '';
 for ($i=0; $i<$q->rows(); $i++) {
 	$status = $q->field($i, 'checked');
 	$count = $q->field($i, 'c');
-	echo '<li>';
-	echo $statuses[$status] . ' : ' . $count;
+	$out .= '<li>';
+	$out .= $statuses[$status] . ': ' . $count;
 	$totaliser[$status] = $count;
 }
 $percentage = $totaliser[4] / $totaliser[0] * 100;
 
 ?>
-</ul>
+<div style="float: right; width: 50%">
+<img align="right" width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?> of speeches have been timestamped">
+<h3>Totaliser</h3>
+<ul><?=$out?></ul>
 
-<p align="center"><img width=225 height=125 src="http://chart.apis.google.com/chart?chs=225x125&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?> of speeches have been timestamped"></p>
+<?
+$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
+	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) and hdate=(select max(hdate) from hansard where major=1) group by video_status&4');
+$totaliser = array(0=>0, 4=>0);
+$out = '';
+for ($i=0; $i<$q->rows(); $i++) {
+	$status = $q->field($i, 'checked');
+	$count = $q->field($i, 'c');
+	$out .= '<li>';
+	$out .= $statuses[$status] . ': ' . $count;
+	$totaliser[$status] = $count;
+}
+$percentage = $totaliser[4] / $totaliser[0] * 100;
 
-<h3 style="margin-top:1em">Latest stamped</h3>
+?>
+<h3 style="padding-top:0.5em;clear:right">Totaliser for most recent day</h3>
+<img align="right" width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?> of speeches have been timestamped">
+<ul><?=$out?></ul>
+
+<h3 style="clear:both;margin-top:1em">Latest stamped</h3>
 <ul>
 <?
 
