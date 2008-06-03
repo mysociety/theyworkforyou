@@ -1045,7 +1045,10 @@ pr()//-->
 			echo '<img class="portrait" alt="Photo of ', $member['full_name'], '" src="', $image, '"';
 			if ($sz=='S') echo ' height="118"';
 			echo '>';
-		}
+		} elseif ($house == 1) {
+            // For MPs, prompt for photo
+            echo '<div class="textportrait"><br>We\'re missing a photo!<br><br><a href="mailto:team@theyworkforyou.com">Email us one</a> <small>(that you have copyright of)</small><br><br></div>';
+        }
 
 		echo '<ul class="hilites">';
 		$desc = '';

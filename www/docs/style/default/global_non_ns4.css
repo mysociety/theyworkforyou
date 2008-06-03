@@ -394,6 +394,17 @@ div.main img.portrait {
 	border: none;
 	float: left;
 	}
+div.main .textportrait {
+	float: left;
+	display: block;
+    width: 96px; 
+    min-height: 118px;
+    float: left; 
+	border: 1px solid #BDE190;
+    text-align: center;
+    margin: 0 2em 1em 0;
+}
+
 div.main p.divisionheading {
 	font-weight: bold;
 	color: #000;
