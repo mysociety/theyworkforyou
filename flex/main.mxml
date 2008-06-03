@@ -122,7 +122,7 @@ private function goButton_click():void {
 }
 
 private function submit_next(evt:MouseEvent):void {
-    var url:String = '/video/next.php?gid=' + gid + '&time=' + int(video.playheadTime) + '&action=next';
+    var url:String = '/video/next.php?gid=' + gid + '&file=' + fileID + '&time=' + int(video.playheadTime) + '&action=next';
     debugS("Moving to " + url)
     var req:URLRequest = new URLRequest(url);
     navigateToURL(req, '_self');

@@ -7,6 +7,7 @@ $pid = intval(get_http_var('pid'));
 
 if ($action == 'next') {
 	$gid = get_http_var('gid');
+	$file = intval(get_http_var('file'));
 	$time = intval(get_http_var('time'));
 	$db = new ParlDB;
 	$gid = "uk.org.publicwhip/debate/$gid";
@@ -18,9 +19,17 @@ if ($action == 'next') {
 		where hpos>$hpos and hdate='$hdate' and major=1
 		and (htype=12 or htype=13)
 		ORDER BY hpos LIMIT 1");
-	$new_gid = fix_gid_from_db($q->field(0, 'gid'));
-	header('Location: /video/?from=next&gid=' . $new_gid . '&start=' . $time);
-	exit;
+	if (!$q->rows()) {
+		$PAGE->page_start();
+		$PAGE->stripe_start();
+		print '<p>You appear to have reached the end of the day! Congratulations for getting this far, now
+<a href="/video/">get stuck in somewhere else</a>! :-)</p>';
+		$PAGE->stripe_end();
+		$PAGE->page_end();
+	} else {
+		$new_gid = fix_gid_from_db($q->field(0, 'gid'));
+		header('Location: /video/?from=next&file=' . $file . '&gid=' . $new_gid . '&start=' . $time);
+	}
 } elseif ($action == 'random' && $pid) {
 	$db = new ParlDB;
 	$q = $db->query("select gid from hansard, member
@@ -30,7 +39,6 @@ if ($action == 'next') {
 		ORDER BY RAND() LIMIT 1");
 	$new_gid = fix_gid_from_db($q->field(0, 'gid'));
 	header('Location: /video/?from=random&pid=' . $pid . '&gid=' . $new_gid);
-	exit;
 } elseif ($action == 'random') {
 	$db = new ParlDB;
 	$q = $db->query("select gid from hansard
@@ -39,7 +47,6 @@ if ($action == 'next') {
 		ORDER BY RAND() LIMIT 1");
 	$new_gid = fix_gid_from_db($q->field(0, 'gid'));
 	header('Location: /video/?from=random&gid=' . $new_gid);
-	exit;
 } else {
     # Illegal action
 }
