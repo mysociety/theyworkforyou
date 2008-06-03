@@ -257,9 +257,9 @@ find the right point, don't worry, just <a href="/video/next.php?action=random">
 <?	if (!$THEUSER->loggedin()) { ?>
 <li><a href="/user/login/?ret=/video/"><strong>Log in</strong></a> if you want to get on the <a href="/video/#top">Top Timestampers league table</a>!
 <?	} ?>
-<li>If the video suddenly <strong>jumps</strong> a couple of hours, or otherwise appears broken, <a href="mailto:team&#64;theyworkforyou.com?subject=Video%20<?=$video['id']?>'%20for%20ID%20'<?=$gid_safe?>'%20broken">let us know</a>.
+<li>If the video suddenly <strong>jumps</strong> a couple of hours, or otherwise appears broken, <a href="mailto:team&#64;theyworkforyou.com?subject=Video%20<?=$file?>'%20for%20ID%20'<?=$gid_safe?>'%20broken">let us know</a>.
 <li>If the speech you're after is <strong>beyond the end</strong> of the video,
-<a href="/video/?gid=<?=$gid_safe?>&amp;file=<?=$video['id']+1?>&amp;start=1">move on to the next video chunk</a>.
+<a href="/video/?gid=<?=$gid_safe?>&amp;file=<?=$file+1?>&amp;start=1">move on to the next video chunk</a>.
 <li>Hansard is not a verbatim transcript, so <strong>spoken words might
 differ</strong> slightly from the printed version. And a small note &ndash; if
 the speech you are looking out for is an oral question (questions asked in the
