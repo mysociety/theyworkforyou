@@ -5,6 +5,7 @@ include_once INCLUDESPATH . 'easyparliament/video.php';
 
 $gid = get_http_var('gid');
 $time = intval(get_http_var('time'));
+$file = intval(get_http_var('file'));
 
 $gid = "uk.org.publicwhip/debate/$gid";
 $q_gid = mysql_escape_string($gid);
@@ -22,13 +23,12 @@ if (!$hdate || !$htime || !$time)
     exit;
 
 $videodb = video_db_connect();
-$video = video_from_timestamp($videodb, $hdate, $htime);
 
 $time -= 3; # Let's start a few seconds earlier
 
 $q = pg_query($videodb, "
     SELECT (broadcast_start + '$time seconds'::interval)::time AS new_time
-    FROM programmes WHERE id=$video[id]
+    FROM programmes WHERE id=$file
 ");
 $b_end = pg_fetch_array($q);
 $new_time = $b_end['new_time'];

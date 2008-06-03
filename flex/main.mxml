@@ -231,6 +231,7 @@ private function debugS(s:String):void {
     <mx:HTTPService id="resultSubmitter" url="submit.php" method="GET">
         <mx:request xmlns="">
 	    <gid>{gid}</gid>
+	    <file>{Application.application.parameters.file}</file>
 	    <time>{video.playheadTime}</time>
 	</mx:request>
     </mx:HTTPService>
