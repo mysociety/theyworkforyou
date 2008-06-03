@@ -24,6 +24,8 @@ public var videoSource:String;
 [Bindable]
 public var gid:String;
 [Bindable]
+public var fileID:String;
+[Bindable]
 public var stamping:Boolean = false; // If we allow timestamping or just for viewing
 
 private var startAt:int; // If we don't want to start at the beginning of the video
@@ -32,8 +34,9 @@ private var playing:Boolean = false; // Whether the video is playing (keep true 
 private function init():void {
     startAt = int(Application.application.parameters.start);
     gid = Application.application.parameters.gid;
+    fileID = Application.application.parameters.file;
     stamping = Application.application.parameters.stamping;
-    videoSource = 'http://sponge.ukcod.org.uk:81/' + Application.application.parameters.file + '.flv';
+    videoSource = 'http://sponge.ukcod.org.uk:81/' + fileID + '.flv';
     video.addEventListener('metadataReceived', video_onMetaData);
     ExternalInterface.addCallback('currentTime', currentTime);
 }
@@ -96,7 +99,7 @@ private function stopButton_click():void {
     if (startAt>0 && startAt<_duration) {
         seek(startAt, false);
     } else {
-        videoSource = 'http://sponge.ukcod.org.uk:81/' + Application.application.parameters.file + '.flv?start=0';
+        videoSource = 'http://sponge.ukcod.org.uk:81/' + fileID + '.flv?start=0';
     }
     reset_big_button();
 }
@@ -158,7 +161,7 @@ private function seekBack_click():void {
     seekBack.enabled = false;
     debugS("Seeking back to " + String(video.playheadTime-30));
     if (video.playheadTime < 30) {
-        videoSource = 'http://sponge.ukcod.org.uk:81/' + String(int(Application.application.parameters.file)-1) + '.flv';
+        videoSource = 'http://sponge.ukcod.org.uk:81/' + String(int(fileID)-1) + '.flv';
         return;
     }
     seek(video.playheadTime - 30, false);
@@ -170,7 +173,7 @@ private function seekBack_click():void {
 private function seekFwd_click():void {
     seekFwd.enabled = false;
     if (video.playheadTime + 30 > _duration) {
-        videoSource = 'http://sponge.ukcod.org.uk:81/' + String(int(Application.application.parameters.file)+1) + '.flv';
+        videoSource = 'http://sponge.ukcod.org.uk:81/' + String(int(fileID)+1) + '.flv';
 	_beginning = 0;
 	seek(0, true);
         return;
@@ -194,7 +197,7 @@ private function seek(s:int, startImmediately:Boolean):void {
     } else if (times && filepositions) {
         var pos:int = nearest_keyframe(s);
         debugS("Moving to " + s);
-        videoSource = 'http://sponge.ukcod.org.uk:81/' + Application.application.parameters.file + '.flv?start=' + filepositions[pos];
+        videoSource = 'http://sponge.ukcod.org.uk:81/' + fileID + '.flv?start=' + filepositions[pos];
         _beginning = times[pos];
     }
     if (firstLoad) {
@@ -231,7 +234,7 @@ private function debugS(s:String):void {
     <mx:HTTPService id="resultSubmitter" url="submit.php" method="GET">
         <mx:request xmlns="">
 	    <gid>{gid}</gid>
-	    <file>{Application.application.parameters.file}</file>
+	    <file>{fileID}</file>
 	    <time>{video.playheadTime}</time>
 	</mx:request>
     </mx:HTTPService>
