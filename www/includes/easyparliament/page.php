@@ -1045,7 +1045,7 @@ pr()//-->
 			echo '<img class="portrait" alt="Photo of ', $member['full_name'], '" src="', $image, '"';
 			if ($sz=='S') echo ' height="118"';
 			echo '>';
-		} elseif ($member['current_member'][1] == 1) {
+		} elseif ($member['current_member'][1]) {
             // For MPs, prompt for photo
             echo '<div class="textportrait"><br>We\'re missing a photo!<br><br><a href="mailto:team@theyworkforyou.com">Email us one</a> <small>(that you have copyright of)</small><br><br></div>';
         }
