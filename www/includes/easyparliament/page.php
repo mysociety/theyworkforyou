@@ -1278,6 +1278,7 @@ pr()//-->
 		$this->block_end();
 
 # Big don't-print for SF MPs
+$chairmens_panel = false;
 if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_array(2, $member['houses'])) {
 
 		// Voting Record.
@@ -1400,7 +1401,6 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		$topics_block_empty = true;
 
 		// Select committee membership
-		$chairmens_panel = false;
 		if (array_key_exists('office', $extra_info)) {
 			$mins = array();
 			foreach ($extra_info['office'] as $row) {
