@@ -1,6 +1,7 @@
 <h3>Frequently asked questions</h3>
 
 <ul>
+<li><a href="#use">How do people use TheyWorkForYou?</a></li>
 <li><a href="#missing">Is this the whole of Hansard?</a></li>
 <li><a href="#moderation">How do you moderate comments?</a></li>
 <li><a href="#privacy">What is your privacy policy?</a></li>
@@ -15,6 +16,58 @@
 <br>
 
 <dl>
+
+<dt><a name="use"></a>How do people use TheyWorkForYou?</dt>
+<dd>
+<p>Here are some quotes from our users.</p>
+<p>Jo Brodie, Science Information Officer &amp; Islet Project Coordinator, 
+<a href="http://www.diabetes.org.uk">Diabetes UK</a>:
+</p>
+<blockquote>
+<p>"TheyWorkForYou.com contributes to my 'current awareness' of what is being said
+about diabetes and insulin (access to treatment, statistics etc) and other
+related health topics (for example organ transplantation and stem cell research
+as that's very relevant for diabetes and its complications too). The email
+alerts and RSS feeds mean the information lands rather helpfully in my intray.
+</p>
+
+<p>"The Science Information Team at Diabetes UK occasionally gets asked stats
+questions on the numbers of people with diabetes, or a particular complication
+of diabetes, in a specific location. We don't have access to this sort of data
+but the top statisticians in the Department of Health do, so it's often worth
+our while having a quick search to see if something's been asked and answered.
+</p>
+
+<p>"Even if a question results in "information of that nature is not held
+centrally", that's useful because we can demonstrate that there isn't a good
+answer and this will save the original enquirer spending time on a fruitless
+search.
+</p>
+
+<p>"If information is forthcoming there is often a reference or info about the way
+in which the evidence was collected - if this is publicly available then we can
+use that resource to find other things. (I think this is how I found out about
+the Prescription Pricing Authority which deals with costs of medications - a
+useful resource when someone wants to know the impossible 'how many people use
+insulin?'). So basically it 'begets' further info!
+</p>
+
+<p>"It's a great site - thank you."
+</p>
+
+</blockquote>
+
+<p><a href="http://www.theyworkforyou.com/mp/robert_goodwill/scarborough_and_whitby">Robert Goodwill</a>, MP for Scarborough &amp; Whitby:</p>
+
+<blockquote>"Use the site all the time and print off bits to send to
+constituents.  My local newspapers are registered so they often
+cover my comments in Parliament that I wouldn't even send out as a
+press release."</blockquote>
+
+
+
+</blockquote>
+</dd>
 
 <dt><a name="missing"></a>Is this the whole of Hansard?</dt>
 <dd>
