@@ -1,6 +1,6 @@
 <?
 
-include INCLUDESPATH . 'easyparliament/member.php';
+include_once INCLUDESPATH . 'easyparliament/member.php';
 
 function api_getMP_front() {
 ?>
