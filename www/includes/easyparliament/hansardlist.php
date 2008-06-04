@@ -2266,6 +2266,11 @@ class HANSARDLIST {
 			}
 		}
 
+		# Don't want whole debates on /debate/ page
+	        if ($this_page=='debate' && isset($itemdata['major']) && $itemdata['major']==1 && ($itemdata['htype'] == '10' || $itemdata['htype'] == '11')) {
+			$itemdata['redirected_gid'] = '/debates/?id=' . $args['gid'];
+		}
+
 		if ($itemdata) {
 
 			// So we know something about this item from outside.

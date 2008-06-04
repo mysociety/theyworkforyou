@@ -30,7 +30,8 @@ $gid = "uk.org.publicwhip/debate/$gid";
 # Fetch this GID from the database
 $q_gid = mysql_escape_string($gid);
 $db = new ParlDB;
-$q = $db->query("select hdate, htime, atime, hpos, video_status, (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid,
+$q = $db->query("select hdate, htime, atime, hpos, video_status, subsection_id,
+    (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid,
     (select body from epobject as e where e.epobject_id=hansard.subsection_id) as parent_body
     from hansard
     left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1 and video_timestamps.deleted = 0
@@ -47,6 +48,7 @@ $atime = $q->field(0, 'atime');
 if ($atime) $htime = $atime;
 $parent_gid = str_replace('uk.org.publicwhip/debate/', '/debates/?id=', $q->field(0, 'parent_gid'));
 $parent_body = $q->field(0, 'parent_body');
+$parent_epid = $q->field(0, 'subsection_id');
 
 if (!($video_status&1)) {
 	$PAGE->error_message('That GID does not appear to have any video. Please visit the <a href="/video/">video front page</a>.', true);
@@ -77,6 +79,24 @@ for ($i=0; $i<$q->rows(); $i++) {
 		$gid_actual = $row;
 	}
 }
+
+# Summary of debate
+/*
+$q = $db->query("select hansard.gid, body, htype, hpos, first_name, last_name
+	from hansard
+		inner join epobject on hansard.epobject_id=epobject.epobject_id
+		left join member on hansard.speaker_id=member.member_id
+	where subsection_id = $parent_epid
+	ORDER BY hpos
+");
+$summary = '';
+for ($i=0; $i<$q->rows(); $i++) {
+	$row = $q->row($i);
+	$count = count(explode(' ', $row['body']));
+	$summary .= '<li>';
+$row[first_name] $row[last_name] : $count words";
+}
+*/
 
 #if (strlen(strip_tags($gid_actual['body'])) > 500) {
 #	$gid_actual['body_first'] = '<p>' . substr(strip_tags($gid_actual['body']), 0, 500) . '...';
@@ -138,6 +158,7 @@ function showInstructions() {
 	video_quote($gid_actual, $parent_gid, $parent_body);
 	if (get_http_var('from') != 'next' || !$hidden_int)
 		previous_speeches($surrounding_speeches, $gids_previous);
+	# print $summary;
 	echo '</td><td>';
 	echo '<div id="basic_hints"';
 	if ($hidden_int)

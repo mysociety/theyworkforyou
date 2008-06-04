@@ -24,9 +24,12 @@ if (get_http_var('id') != '') {
 	$result = $DEBATELIST->display('gid', $args);
 	// If it is a redirect, change URL
 	if (is_string($result)) {
-		$URL = new URL('debate');
-		$URL->insert( array('id'=>$result) );
-		header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
+		if (substr($result, 0, 1) != '/') {
+			$URL = new URL('debate');
+			$URL->insert( array('id'=>$result) );
+			$result = $URL->generate('none');
+		}
+		header('Location: http://' . DOMAIN . $result, true, 301);
 		exit;
 	}
 
