@@ -1400,6 +1400,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		$topics_block_empty = true;
 
 		// Select committee membership
+		$chairmens_panel = false;
 		if (array_key_exists('office', $extra_info)) {
 			$mins = array();
 			foreach ($extra_info['office'] as $row) {
@@ -1408,6 +1409,8 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 					if ($row['from_date']!='2004-05-28')
 						$m .= ' <small>(since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')</small>';
 					$mins[] = $m;
+					if ($row['dept'] == "Chairmen's Panel Committee")
+						$chairmens_panel = true;
 				}
 			}
 			if ($mins) {
@@ -1570,6 +1573,9 @@ and has had no written questions answered for which we know the department or su
 		}
 		if ($member['party'] != 'Sinn Fein') {
 			$displayed_stuff |= display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> in parliament', $after_stuff, $extra_info);
+			if ($chairmens_panel) {
+				print '<br><em>Members of the Chairmen\'s Panel act for the Speaker when chairing things such as Public Bill Committees, and as such do not vote on Bills they are involved in chairing.</em>';
+			}
 
 			$displayed_stuff |= display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member['person_id'].'">', 'comment', "</a> on this MP's speeches", '', $extra_info);
 			$displayed_stuff |= display_stats_line('reading_age', 'This MP\'s speeches are understandable to an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
@@ -3197,7 +3203,7 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 			print ' ' . $type . 's';
 		}
 	}
-	print ".$afterstuff</li>";
+	print ".$afterstuff";
 	return true;
 }
 
