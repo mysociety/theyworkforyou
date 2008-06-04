@@ -156,9 +156,17 @@ function showInstructions() {
 	$hidden_int = (isset($_COOKIE['hideVideoInt']) && $_COOKIE['hideVideoInt']);
 	echo '<table id="video_table" border="0" cellspacing="0" cellpadding="5"><tr valign="top"><td width="50%">';
 	if ($gid_actual['video_status']&4) {
-		echo '<p id="video_already">Thanks, but this speech has <strong>already been stamped</strong>
-(probably by someone coming by at random when you\'ve been clicking Next). You
-can <a href="/video/next.php?action=nextneeded&amp;gid=', $gid_safe, '&amp;file=', $file, '&amp;time=', $start,
+		$q = $db->query("select timediff(current_timestamp,max(whenstamped)) as ws from video_timestamps where gid='$q_gid' and (user_id is null or user_id != -1)");
+		$max = $q->field(0, 'ws');
+		echo '<p id="video_already">Thanks, but this speech has <strong>already been stamped</strong>';
+		if ($max < '00:15:00') {
+			echo ' <strong>within the last 15 minutes</strong>, so it\'s possible you and someone
+else are timestamping the same debate at the same time';
+		} elseif ($from == 'next') {
+			echo ' (probably by someone coming by at random when you\'ve been clicking Next)';
+		}
+		echo '. You can <a href="/video/next.php?action=nextneeded&amp;gid=',
+$gid_safe, '&amp;file=', $file, '&amp;time=', $start,
 '">go to the next unstamped speech on this day</a>,
 or <a href="/video/next.php?action=random">get a new unstamped speech at random</a>.</p>';
 	}
