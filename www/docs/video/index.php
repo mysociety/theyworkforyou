@@ -279,7 +279,7 @@ function display_league($limit, $q = '') {
 	$db = new ParlDB;
 	$q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c
 		from video_timestamps left join users on video_timestamps.user_id=users.user_id
-		where video_timestamps.deleted=0 and (user_id is null or user_id!=-1) '
+		where video_timestamps.deleted=0 and (video_timestamps.user_id is null or video_timestamps.user_id!=-1) '
 		. $q . ' group by user_id order by c desc limit ' . $limit);
 	$out = '';
 	for ($i=0; $i<$q->rows(); $i++) {
