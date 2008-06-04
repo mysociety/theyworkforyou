@@ -277,12 +277,15 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 
 function display_league($limit, $q = '') {
 	$db = new ParlDB;
-	$q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c from video_timestamps left join users on video_timestamps.user_id=users.user_id where video_timestamps.deleted=0 ' . $q . ' group by user_id order by c desc limit ' . $limit);
+	$q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c
+		from video_timestamps left join users on video_timestamps.user_id=users.user_id
+		where video_timestamps.deleted=0 and (user_id is null or user_id!=-1) '
+		. $q . ' group by user_id order by c desc limit ' . $limit);
 	$out = '';
 	for ($i=0; $i<$q->rows(); $i++) {
 		$name = $q->field($i, 'firstname') . ' ' . $q->field($i, 'lastname');
 		$user_id = $q->field($i, 'user_id');
-		if ($user_id == -1) continue; # $name = 'CaptionerBot';
+		#if ($user_id == -1) continue; # $name = 'CaptionerBot';
 		if ($user_id == 0) $name = 'Anonymous';
 		$count = $q->field($i, 'c');
 		$out .= "<li>$name : $count";
