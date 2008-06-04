@@ -231,19 +231,17 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 	$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
 	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) group by video_status&4');
 	$totaliser = array();
-	$out = '';
 	for ($i=0; $i<$q->rows(); $i++) {
 		$status = $q->field($i, 'checked');
 		$count = $q->field($i, 'c');
-		$out .= '<li>';
-		$out .= $statuses[$status] . ': ' . $count;
 		$totaliser[$status] = $count;
 	}
-	$percentage = $totaliser[4] / ($totaliser[0]+$totaliser[4]) * 100;
+	$percentage = round($totaliser[4] / ($totaliser[0]+$totaliser[4]) * 10000) / 100;
+	$out = "$totaliser[4] timestamped out of " . ($totaliser[0] + $totaliser[4]) . " ($percentage%)"
 
 ?>
 <div style="float: right; width: 50%">
-<img align="right" width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?> of speeches have been timestamped">
+<img align="right" width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?>% of speeches have been timestamped">
 <h3>Totaliser</h3>
 <ul><?=$out?></ul>
 
@@ -251,19 +249,17 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 	$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
 	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) and hdate=(select max(hdate) from hansard where major=1) group by video_status&4');
 	$totaliser = array(0=>0, 4=>0);
-	$out = '';
 	for ($i=0; $i<$q->rows(); $i++) {
 		$status = $q->field($i, 'checked');
 		$count = $q->field($i, 'c');
-		$out .= '<li>';
-		$out .= $statuses[$status] . ': ' . $count;
 		$totaliser[$status] = $count;
 	}
-	$percentage = $totaliser[4] / ($totaliser[0]+$totaliser[4]) * 100;
+	$percentage = round($totaliser[4] / ($totaliser[0]+$totaliser[4]) * 10000) / 100;
+	$out = "$totaliser[4] timestamped out of " . ($totaliser[0] + $totaliser[4]) . " ($percentage%)"
 
 ?>
 <h3 style="padding-top:0.5em;clear:right">Totaliser for most recent day</h3>
-<img align="right" width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?> of speeches have been timestamped">
+<img align="right" width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?>% of speeches have been timestamped">
 <ul><?=$out?></ul>
 
 <h3 style="clear:both;margin-top:1em">Latest stamped</h3>
