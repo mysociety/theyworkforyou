@@ -53,6 +53,7 @@ if ($order == 'party') {
 ?>
 				<table border="0" cellpadding="4" cellspacing="0" width="90%" class="people">
 				<thead>
+				<th>Photo</th>
 				<th><?php echo $th_name; ?></th>
 				<th><?php echo $th_party; ?></th>
 				<th><?php echo $th_constituency; ?></th>
@@ -104,6 +105,16 @@ function render_mps_row($mp, &$style, $order, $MPURL) {
 #	$MPURL->insert(array('pid'=>$mp['person_id']));
 	?>
 				<tr>
+                <td class="row">
+                <?php
+                list($image,$sz) = find_rep_image($mp['person_id'], true);
+                if ($image) {
+                    echo '<img class="portrait" alt="" src="', $image, '"';
+                    echo '>';
+                } else {
+                }
+                ?>
+                </td>
 				<td class="row-<?php echo $style; ?>"><a href="<?php echo $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1); ?>"><?php echo $name; ?></a></td>
 				<td class="row-<?php echo $style; ?>"><?php echo $mp['party']; ?></td>
 				<td class="row-<?php echo $style; ?>"><?php echo $mp['constituency']; ?></td>

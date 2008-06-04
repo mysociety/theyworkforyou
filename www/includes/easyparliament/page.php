@@ -4,6 +4,7 @@ if (defined('OPTION_TRACKING') && OPTION_TRACKING)
 	require_once INCLUDESPATH . '../../../phplib/tracking.php';
 
 include_once INCLUDESPATH . '../../../phplib/gaze.php';
+include_once INCLUDESPATH . 'easyparliament/member.php';
 
 function score_to_strongly($dmpscore) {
 	$dmpdesc = "unknown about";
