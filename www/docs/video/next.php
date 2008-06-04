@@ -5,7 +5,7 @@ include_once "../../includes/easyparliament/init.php";
 $action = get_http_var('action');
 $pid = intval(get_http_var('pid'));
 
-if ($action == 'next') {
+if ($action == 'next' || $action=='nextneeded') {
 	$gid = get_http_var('gid');
 	$file = intval(get_http_var('file'));
 	$time = intval(get_http_var('time'));
@@ -17,7 +17,8 @@ if ($action == 'next') {
 	$hpos = $q->field(0, 'hpos');
 	$q = $db->query("select gid from hansard
 		where hpos>$hpos and hdate='$hdate' and major=1
-		and (htype=12 or htype=13)
+		and (htype=12 or htype=13) "
+		. ($action=='nextneeded'?'and video_status<4':'') . "
 		ORDER BY hpos LIMIT 1");
 	if (!$q->rows()) {
 		$PAGE->page_start();

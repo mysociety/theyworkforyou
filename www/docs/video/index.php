@@ -112,6 +112,7 @@ $video = video_from_timestamp($videodb, $hdate, $htime);
 
 if (!$start)
     $start = $video['offset'] - 10;
+if ($start < 0) $start = 0;
 
 if (get_http_var('barcamp'))
 	$video['id'] -= 4000;
@@ -154,6 +155,13 @@ function showInstructions() {
 <?
 	$hidden_int = (isset($_COOKIE['hideVideoInt']) && $_COOKIE['hideVideoInt']);
 	echo '<table id="video_table" border="0" cellspacing="0" cellpadding="5"><tr valign="top"><td width="50%">';
+	if ($gid_actual['video_status']&4) {
+		echo '<p id="video_already">Thanks, but this speech has <strong>already been stamped</strong>
+(probably by someone coming by at random when you\'ve been clicking Next). You
+can <a href="/video/next.php?action=nextneeded&amp;gid=', $gid_safe, '&amp;file=', $file, '&amp;time=', $start,
+'">go to the next unstamped speech on this day</a>,
+or <a href="/video/next.php?action=random">get a new unstamped speech at random</a>.</p>';
+	}
 	print video_object($file, $start, $gid_safe, 1, $pid);
 	video_quote($gid_actual, $parent_gid, $parent_body);
 	if (get_http_var('from') != 'next' || !$hidden_int)
@@ -165,7 +173,7 @@ function showInstructions() {
 		echo ' style="display:none"';
 	echo '>';
 	echo '<p style="float: right; border: solid 1px #666666; padding:3px;"><a onclick="return hideInstructions();" href=""><small>Hide instructions</small></a></p>';
-	basic_instructions();
+	basic_instructions($pid);
 	basic_hints($gid_safe, $file, $pid);
 	echo '</div>';
 	echo '<div id="advanced_hints"';
@@ -305,7 +313,9 @@ function video_quote($gid_actual, $parent_gid, $parent_body) {
 	echo '</div>';
 }
 
-function basic_instructions() {
+function basic_instructions($pid) {
+	$pid_url = '';
+	if ($pid) $pid_url = "&amp;pid=$pid";
 ?>
 <ol style="font-size: 150%;">
 <li>Have a quick scan of the speech under the video, then press &ldquo;Play&rdquo;.
@@ -316,7 +326,7 @@ everyone who uses the site :)
 
 <p style="font-size: 125%; margin: 1em 0; background-color: #ffffcc; padding: 5px;">
 Some videos will be miles out &ndash; if you can't
-find the right point, don't worry, just <a href="/video/next.php?action=random"><strong>try another speech</strong></a>!
+find the right point, don't worry, just <a href="/video/next.php?action=random<?=$pid_url?>"><strong>try another speech</strong></a>!
 </p>
 <?
 }
