@@ -282,7 +282,7 @@ if (isset ($data['rows'])) {
 					print " | Question $m[1]";
 				}
 
-                                if ($data['info']['major'] == 1) { # Commons debates only
+                                if ($data['info']['major'] == 1 && $this_page != 'debate') { # Commons debates only
 					if ($row['video_status']&4) {
 						#echo ' | <a onclick="return moveVideo();" href="', $row['commentsurl'], '">Watch this</a>';
 						echo ' | <a href="', $row['commentsurl'], '">Watch this</a>';
