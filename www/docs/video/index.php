@@ -3,6 +3,8 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . 'easyparliament/video.php';
 
+$offset = 10;
+
 $from = get_http_var('from');
 $gid = get_http_var('gid');
 $start = intval(get_http_var('start'));
@@ -63,7 +65,10 @@ $q = $db->query("select atime from video_timestamps, hansard
 	order by hpos desc limit 1");
 if ($q->rows()) {
 	$atime = $q->field(0, 'atime');
-	if ($atime > $htime) $htime = $atime;
+	if ($atime > $htime) {
+		$htime = $atime;
+		$offset = 0;
+	}
 }
 
 # Fetch preceding/following speeches data *
@@ -122,7 +127,7 @@ $videodb = video_db_connect();
 $video = video_from_timestamp($videodb, $hdate, $htime);
 
 if (!$start)
-    $start = $video['offset'] - 10;
+    $start = $video['offset'] - $offset;
 if ($start < 0) $start = 0;
 
 if (get_http_var('barcamp'))
