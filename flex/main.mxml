@@ -19,6 +19,17 @@ public function currentTime():int {
     return int(video.playheadTime);
 }
 
+public function moveVideoExt(moveGID:String):int {
+    for (var i:int = 0; i < allStamps.length; i++) {
+        var stamp:Object = allStamps[i];
+        if (stamp.gid == moveGID) {
+	    seek(stamp.time, true);
+	    return 1;
+	}
+    }
+    return 0;
+}
+
 [Bindable]
 public var videoSource:String;
 [Bindable]
@@ -36,9 +47,24 @@ private function init():void {
     gid = Application.application.parameters.gid;
     fileID = Application.application.parameters.file;
     stamping = Application.application.parameters.stamping;
+
     videoSource = 'http://sponge.ukcod.org.uk:81/' + fileID + '.flv';
     video.addEventListener('metadataReceived', video_onMetaData);
     ExternalInterface.addCallback('currentTime', currentTime);
+    ExternalInterface.addCallback('moveVideo', moveVideoExt);
+    if (!stamping) {
+        stampsSubmitter.send();
+    }
+}
+
+private var allStamps:Array = new Array();
+
+private function stampsArrived():void {
+    var stamps:Object = stampsSubmitter.lastResult.stamps.stamp;
+    for each (var stamp:Object in stamps) {
+        allStamps.push(stamp);
+    }
+    //debugS("nextStamp=" + allStamps[0].time + ' ' + allStamps[0].gid);
 }
 
 public var times:Array = [];
@@ -61,10 +87,28 @@ private function video_onMetaData(evt:MetadataEvent):void {
     }
 }
 
+private var liveGID:String = '';
+
 private function video_playheadUpdate():void {
     var pTime:Date = new Date(video.playheadTime * 1000 || 100);
     var tTime:Date = new Date(_duration * 1000);
     time.text = dateFormatter.format(pTime) + " / " + dateFormatter.format(tTime);
+    if (!stamping) {
+        for (var i:int = 0; i < allStamps.length-1; i++) {
+	    var stamp:Object = allStamps[i];
+	    var stampNext:Object = allStamps[i+1];
+            if (stamp.gid != liveGID && video.playheadTime >= stamp.time && video.playheadTime < stampNext.time) {
+                ExternalInterface.call('updateSpeech', stamp.gid);
+		liveGID = stamp.gid;
+		break;
+	    }
+        }
+	if (video.playheadTime >= allStamps[allStamps.length-1].time) {
+	    var newGID:String = allStamps[allStamps.length-1].gid;
+            ExternalInterface.call('updateSpeech', newGID);
+            liveGID = newGID;
+	}
+    }
 }
 
 private function video_play():void {
@@ -231,17 +275,23 @@ private function debugS(s:String):void {
     <mx:Fade id="fadeOut" alphaFrom="1.0" alphaTo="0.0" />
     <mx:DateFormatter id="dateFormatter" formatString="JJ:NN:SS" />
 
-    <mx:HTTPService id="resultSubmitter" url="submit.php" method="GET">
+    <mx:HTTPService id="resultSubmitter" url="submit.php" method="GET" showBusyCursor="true">
         <mx:request xmlns="">
 	    <gid>{gid}</gid>
 	    <file>{fileID}</file>
 	    <time>{video.playheadTime}</time>
 	</mx:request>
     </mx:HTTPService>
-    <mx:HTTPService id="oopsSubmitter" url="delete.php" method="GET">
+    <mx:HTTPService id="oopsSubmitter" url="delete.php" method="GET" showBusyCursor="true">
         <mx:request xmlns="">
 	    <gid>{gid}</gid>
 	    <oops>{resultSubmitter.lastResult.id}</oops>
+	</mx:request>
+    </mx:HTTPService>
+    <mx:HTTPService id="stampsSubmitter" url="/video/stamps.php" method="GET" result="stampsArrived()">
+        <mx:request xmlns="">
+	    <file>{fileID}</file>
+	    <gid>{gid}</gid>
 	</mx:request>
     </mx:HTTPService>
     

@@ -81,9 +81,14 @@ if (isset ($data['rows'])) {
 		// to avoid words being highlighted within them.
 		$bodies = $GLOSSARY->glossarise_titletags($bodies, 1);
 	}
+
+	$speeches = 0;
 	for ($i=0; $i<count($data['rows']); $i++) {
 		if ($data['rows'][$i]['htype'] == 12)
 			$data['rows'][$i]['body'] = $bodies[$i];
+		if ($data['rows'][$i]['htype'] == 12 || $data['rows'][$i]['htype'] == 13)
+			$speeches++;
+
 	}
 
 	// Stores the current time of items, so we can tell when an item appears
@@ -152,7 +157,7 @@ if (isset ($data['rows'])) {
 	
 			$video_content = '';
                         if ($first_video_displayed == 0 && $row['video_status']&4) {
-				$video_content = video_sidebar($row, $section);
+				$video_content = video_sidebar($row, $section, $speeches);
                                 $first_video_displayed = true;
                         }
 			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&4)) {
@@ -193,7 +198,7 @@ if (isset ($data['rows'])) {
 	
 			$video_content = '';
                         if ($first_video_displayed == 0 && $row['video_status']&4) {
-				$video_content = video_sidebar($row, $section);
+				$video_content = video_sidebar($row, $section, $speeches);
                                 $first_video_displayed = true;
                         }
 			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&4)) {
@@ -284,8 +289,7 @@ if (isset ($data['rows'])) {
 
                                 if ($data['info']['major'] == 1 && $this_page != 'debate') { # Commons debates only
 					if ($row['video_status']&4) {
-						#echo ' | <a onclick="return moveVideo();" href="', $row['commentsurl'], '">Watch this</a>';
-						echo ' | <a href="', $row['commentsurl'], '">Watch this</a>';
+						echo ' | <a onclick="return moveVideo(\'' . $row['gid'] . '\');" href="', $row['commentsurl'], '">Watch this</a>';
 					} elseif (!$video_content && $row['video_status']&1) {
 						echo ' | <a href="/video/?from=debate&amp;gid=', $row['gid'], '">Video match this</a>';
 					}
@@ -421,7 +425,9 @@ if ($this_page == 'debates' || $this_page == 'whall' || $this_page == 'lordsdeba
 	// Previous / Index / Next links, if any.
 	
 	$PAGE->stripe_start('foot');
-	?>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<?php
+	echo '&nbsp;<br>';
+	$PAGE->nextprevlinks();
+	?>&nbsp;<br>&nbsp;<?php
 	$PAGE->stripe_end(array(
 		array (
 			'type' => 'nextprev'
@@ -690,7 +696,7 @@ function get_question_mentions_html($row_data) {
 	return $result;
 } 
 
-function video_sidebar($row, $section) {
+function video_sidebar($row, $section, $count) {
 	include_once INCLUDESPATH . 'easyparliament/video.php';
 	$db = new ParlDB;
 	$vq = $db->query("select id,atime from video_timestamps where gid='uk.org.publicwhip/debate/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 limit 1");
@@ -700,18 +706,22 @@ function video_sidebar($row, $section) {
 	$video = video_from_timestamp($videodb, $row['hdate'], $time);
 	$start = $video['offset'];
 	$out = '';
-	#$out .= '<div id="video_wrap" style="position:fixed;bottom:5px;right:5px;border:solid 1px #666666; background-color: #eeeeee; padding: 4px;"><div style="position:relative">';
-	#if ($row['gid'] != $section['first_gid']) {
-	#	$out .= '<p style="margin:0">This video starts around ' . ($row['hpos']-$section['hpos']) . ' speeches in <a href="#g' . gid_to_anchor($row['gid']) . '">Move there in text</a></p>';
-	#}
+	if ($count > 1) {
+		$out .= '<div id="video_wrap" style="position:fixed;bottom:5px;right:5px;border:solid 1px #666666; background-color: #eeeeee; padding: 4px;"><div style="position:relative">';
+		if ($row['gid'] != $section['first_gid']) {
+			$out .= '<p style="margin:0">This video starts around ' . ($row['hpos']-$section['hpos']) . ' speeches in (<a href="#g' . gid_to_anchor($row['gid']) . '">move there in text</a>)</p>';
+		}
+	}
 	$out .= video_object($video['id'], $start, $row['gid']);
 	$flashvars = 'gid=' . $row['gid'] . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
 	$out .= "<br><b>Add this video to another site:</b><br><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'>\"><br><small>(copy and paste the above)</small>";
 	$out .= "<p style='margin-bottom:0'>Is this not the right video? <a href='mailto:team&#64;theyworkforyou.com?subject=Incorrect%20video,%20id%20$row[gid];$video[id];$ts_id'>Let us know</a></p>";
-	#$out .= '<p style="position:absolute;bottom:0;right:0;margin:0"><a href="" onclick="return showVideo();">Hide</a></p>';
-	#$out .= '</div></div>';
-	#$out .= '<div id="video_show" style="display:none;position:fixed;bottom:5px;right:5px;border:solid 1px #666666; background-color: #eeeeee; padding: 4px;">
-#<p style="margin:0"><a href="" onclick="return hideVideo();">Show video</a></p></div>';
+	if ($count > 1) {
+		$out .= '<p style="position:absolute;bottom:0;right:0;margin:0"><a href="" onclick="return showVideo();">Hide</a></p>';
+		$out .= '</div></div>';
+		$out .= '<div id="video_show" style="display:none;position:fixed;bottom:5px;right:5px;border:solid 1px #666666; background-color: #eeeeee; padding: 4px;">
+<p style="margin:0"><a href="" onclick="return hideVideo();">Show video</a></p></div>';
+	}
 	return $out;
 }
 

@@ -1011,3 +1011,9 @@ ol.otherspeeches {
     text-align: center;
 }
 
+div.vidOn {
+    background-color: #ffff66;
+}
+div.vidOn div.main {
+    background-color: #ffff66;
+}
