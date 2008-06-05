@@ -27,7 +27,7 @@ $surrounding_speeches = 3;
 
 $gid = "uk.org.publicwhip/debate/$gid";
 
-# Fetch this GID from the database
+# Fetch this GID from the database, and captioner bot time if there is one
 $q_gid = mysql_escape_string($gid);
 $db = new ParlDB;
 $q = $db->query("select hdate, htime, atime, hpos, video_status, subsection_id,
@@ -53,6 +53,17 @@ $parent_epid = $q->field(0, 'subsection_id');
 if (!($video_status&1)) {
 	$PAGE->error_message('That GID does not appear to have any video. Please visit the <a href="/video/">video front page</a>.', true);
 	exit;
+}
+
+# See if we can get a more accurate timestamp
+$q = $db->query("select atime from video_timestamps, hansard
+	where video_timestamps.gid = hansard.gid
+		and (user_id is null or user_id != -1) and deleted = 0
+		and hdate='$hdate' and hpos<$hpos
+	order by hpos desc limit 1");
+if ($q->rows()) {
+	$atime = $q->field(0, 'atime');
+	if ($atime > $htime) $htime = $atime;
 }
 
 # Fetch preceding/following speeches data *
