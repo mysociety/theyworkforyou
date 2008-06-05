@@ -255,7 +255,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 
 <?
 	$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
-	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) and hdate=(select max(hdate) from hansard where major=1) group by video_status&4');
+	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) and hdate=(select max(hdate) from hansard where major=1 and htype in (12,13)) group by video_status&4');
 	$totaliser = array(0=>0, 4=>0);
 	for ($i=0; $i<$q->rows(); $i++) {
 		$status = $q->field($i, 'checked');
