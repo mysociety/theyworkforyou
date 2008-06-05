@@ -1103,7 +1103,8 @@ class HANSARDLIST {
                                     hansard.htype,
                                     hansard.major, hansard.minor,
                                     hansard.speaker_id,
-				    hansard.hpos,
+                                    hansard.hpos,
+                                    hansard.video_status,
                                     epobject.body
                             FROM hansard, epobject
                             WHERE hansard.gid = '$gid'
@@ -1131,6 +1132,7 @@ class HANSARDLIST {
 			$itemdata['relevance'] 		= $relevances[$n];			
 			$itemdata['speaker_id'] 	= $q->field(0, 'speaker_id');
 			$itemdata['hpos']		= $q->field(0, 'hpos');
+			$itemdata['video_status']		= $q->field(0, 'video_status');
 
 
 			//////////////////////////

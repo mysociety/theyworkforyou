@@ -39,7 +39,11 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		} else {
 			echo ($want['hpos']-$row['hpos']) . ' behind';
 		}
-		echo ' the one you want &ndash; if you prefer, <a target="_top" onclick="t = parent.document[\'video\'].currentTime(); this.href += t;" href="/video/?gid=' . $row['gid'] . '&amp;file=' . $want['file'] . '&amp;start=">switch to matching this speech instead</a></small></em></dd>';
+		echo ' the one you want &ndash; ';
+        if ($row['video_status']&4)
+            echo ' it has already been matched';
+        else
+            echo ' if you prefer, <a target="_top" onclick="t = parent.document[\'video\'].currentTime(); this.href += t;" href="/video/?gid=' . $row['gid'] . '&amp;file=' . $want['file'] . '&amp;start=">switch to matching this speech instead</a></small></em></dd>';
 	}
 	echo '</dl>';
 } else {
