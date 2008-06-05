@@ -3,7 +3,7 @@
 // Generates the RSS feeds for currently sitting MPs.
 
 include '../www/includes/easyparliament/init.php';
-include INCLUDESPATH . 'easyparliament/member.php';
+include_once INCLUDESPATH . 'easyparliament/member.php';
 
 // Where all the RSS feeds go.
 $rsspath = BASEDIR . '/rss/mp/';

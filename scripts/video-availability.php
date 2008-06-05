@@ -28,6 +28,6 @@ while ($row = pg_fetch_array($q)) {
 	    where ((hdate='$start_date' and htime>='$start_time')
 	       or (hdate='$end_date' and htime<'$end_time')) and major=1");
     }
-    print "$start - $end : " . $qq->affected_rows() . "\n";
+    #print "$start - $end : " . $qq->affected_rows() . "\n";
 }
 

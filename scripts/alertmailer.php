@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.28 2008-05-20 08:52:01 matthew Exp $
+ * $Id: alertmailer.php,v 1.29 2008-06-05 08:30:50 matthew Exp $
  */
 
 function mlog($message) {
@@ -11,7 +11,7 @@ function mlog($message) {
 
 include_once '../www/includes/easyparliament/init.php';
 ini_set('memory_limit', -1);
-include INCLUDESPATH . 'easyparliament/member.php';
+include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $global_start = getmicrotime();
 $db = new ParlDB;
