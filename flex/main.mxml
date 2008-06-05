@@ -201,28 +201,30 @@ private function video_thumbRelease():void {
     seek(scrubBar.value, true);
 }
 
-private function seekBack_click():void {
+private function seekBack_click(offset:int):void {
     seekBack.enabled = false;
-    debugS("Seeking back to " + String(video.playheadTime-30));
-    if (video.playheadTime < 30) {
+    seekBackSm.enabled = false;
+    debugS("Seeking back to " + String(video.playheadTime-offset));
+    if (video.playheadTime < offset) {
         videoSource = 'http://sponge.ukcod.org.uk:81/' + String(int(fileID)-1) + '.flv';
         return;
     }
-    seek(video.playheadTime - 30, false);
+    seek(video.playheadTime - offset, false);
     var alarmTimer:Timer = new Timer(1000,1);
     alarmTimer.addEventListener(TimerEvent.TIMER, onSeekAlarm);
     alarmTimer.start();
 }
 
-private function seekFwd_click():void {
+private function seekFwd_click(offset:int):void {
     seekFwd.enabled = false;
-    if (video.playheadTime + 30 > _duration) {
+    seekFwdSm.enabled = false;
+    if (video.playheadTime + offset > _duration) {
         videoSource = 'http://sponge.ukcod.org.uk:81/' + String(int(fileID)+1) + '.flv';
 	_beginning = 0;
 	seek(0, true);
         return;
     }
-    seek(video.playheadTime + 30, false);
+    seek(video.playheadTime + offset, false);
     var alarmTimer:Timer = new Timer(1000,1);
     alarmTimer.addEventListener(TimerEvent.TIMER, onSeekAlarm);
     alarmTimer.start();
@@ -230,7 +232,9 @@ private function seekFwd_click():void {
 
 private function onSeekAlarm(evt:TimerEvent):void {
     seekBack.enabled = true;
+    seekBackSm.enabled = true;
     seekFwd.enabled = true;
+    seekFwdSm.enabled = true;
 }
 
 private var _beginning:int = 0;
@@ -315,12 +319,14 @@ private function debugS(s:String):void {
 
         </mx:Canvas>
 
-        <mx:HBox width="300">
+        <mx:HBox width="300" verticalAlign="middle" horizontalGap="4">
             <mx:Button styleName="playPauseStyle" toggle="true" selected="{video.playing}"
                 click="playPauseButton_click()" />
             <mx:Button styleName="stopStyle" click="stopButton_click()" />
-	    <mx:Button id="seekBack" toolTip="Back 30s" styleName="seekBackStyle" click="seekBack_click()" />
-	    <mx:Button id="seekFwd" toolTip="Forward 30s" styleName="seekFwdStyle" click="seekFwd_click()" />
+	    <mx:Button id="seekBack" toolTip="Back 30s" styleName="seekBackStyle" click="seekBack_click(30)" />
+	    <mx:Button id="seekBackSm" toolTip="Back 10s" styleName="seekBackSmStyle" click="seekBack_click(10)" />
+	    <mx:Button id="seekFwdSm" toolTip="Forward 10s" styleName="seekFwdSmStyle" click="seekFwd_click(10)" />
+	    <mx:Button id="seekFwd" toolTip="Forward 30s" styleName="seekFwdStyle" click="seekFwd_click(30)" />
             <!-- <mx:Label id="time" styleName="timeStyle" /> -->
             <!-- <mx:Button label="Play" toggle="true" selected="{video.playing}"
                 click="playPauseButton_click()" />
