@@ -25,7 +25,7 @@ $subsection_id = $q->field(0, 'subsection_id');
 $q = $db->query("select video_timestamps.gid,time_to_sec(timediff(atime, '$start')) as timediff
 	from hansard, video_timestamps
 	where hansard.gid = video_timestamps.gid and subsection_id=$subsection_id
-		and (user_id is null or user_id!=-1) order by hpos");
+	and (user_id is null or user_id!=-1) and deleted=0 order by hpos");
 
 header('Content-Type: text/xml');
 
@@ -33,6 +33,7 @@ print '<stamps>';
 for ($i=0; $i<$q->rows(); $i++) {
 	$gid = fix_gid_from_db($q->field($i, 'gid'));
 	$timediff = $q->field($i, 'timediff');
-	print "<stamp><gid>$gid</gid><time>$timediff</time></stamp>\n";
+	if ($timediff>=0)
+		print "<stamp><gid>$gid</gid><time>$timediff</time></stamp>\n";
 }
 print '</stamps>';
