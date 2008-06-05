@@ -29,11 +29,14 @@ $q = $db->query("select video_timestamps.gid,time_to_sec(timediff(atime, '$start
 
 header('Content-Type: text/xml');
 
+$gids = array();
 print '<stamps>';
 for ($i=0; $i<$q->rows(); $i++) {
 	$gid = fix_gid_from_db($q->field($i, 'gid'));
+	if (isset($gids[$gid])) continue;
 	$timediff = $q->field($i, 'timediff');
 	if ($timediff>=0)
 		print "<stamp><gid>$gid</gid><time>$timediff</time></stamp>\n";
+	$gids[$gid] = true;
 }
 print '</stamps>';
