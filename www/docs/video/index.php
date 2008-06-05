@@ -406,7 +406,7 @@ function advanced_hints($gid_safe, $file, $pid) {
 
 function iframe_search($gid_safe, $file) {
 ?>
-<iframe frameborder=0 style="border: dotted 1px black; margin-top:0.5em" name="video_person_search" width="95%" height="400" src="distance.php?gid=<?=$gid_safe?>&amp;file=<?=$file?>"></iframe>
+<iframe frameborder=0 style="border: dotted 1px black; margin-top:0.5em" name="video_person_search" width="95%" height="800" src="distance.php?gid=<?=$gid_safe?>&amp;file=<?=$file?>"></iframe>
 <?
 }
 
