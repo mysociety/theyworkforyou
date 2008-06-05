@@ -167,7 +167,7 @@ function showInstructions() {
 	$hidden_int = (isset($_COOKIE['hideVideoInt']) && $_COOKIE['hideVideoInt']);
 	echo '<table id="video_table" border="0" cellspacing="0" cellpadding="5"><tr valign="top"><td width="50%">';
 	if ($gid_actual['video_status']&4) {
-		$q = $db->query("select timediff(current_timestamp,max(whenstamped)) as ws from video_timestamps where gid='$q_gid' and (user_id is null or user_id != -1)");
+		$q = $db->query("select timediff(current_timestamp,max(whenstamped)) as ws from video_timestamps where gid='$q_gid' and (user_id is null or user_id != -1) and deleted=0");
 		$max = $q->field(0, 'ws');
 		echo '<p id="video_already">Thanks, but this speech has <strong>already been stamped</strong>';
 		if ($max < '00:15:00') {
