@@ -243,7 +243,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 	if ($out) echo "<h3>Top timestampers (today)</h3> <ol>$out</ol>";
 	$out = display_league(20, 'and date(whenstamped)>current_date-interval 7 day');
 	if ($out) echo "<h3>Top timestampers (last week)</h3> <ol>$out</ol>";
-	$out = display_league(50);
+	$out = display_league(500);
 	if ($out) echo "<h3>Top timestampers (overall)</h3> <ol>$out</ol>";
 	echo '</div>';
 
@@ -304,6 +304,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 }
 
 function display_league($limit, $q = '') {
+	global $THEUSER;
 	$db = new ParlDB;
 	$q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c
 		from video_timestamps left join users on video_timestamps.user_id=users.user_id
@@ -316,7 +317,12 @@ function display_league($limit, $q = '') {
 		#if ($user_id == -1) continue; # $name = 'CaptionerBot';
 		if ($user_id == 0) $name = 'Anonymous';
 		$count = $q->field($i, 'c');
-		$out .= "<li>$name : $count";
+		$out .= '<li>';
+		if ($THEUSER->user_id() == $user_id)
+			$out .= '<strong>';
+		$out .= "$name : $count";
+		if ($THEUSER->user_id() == $user_id)
+			$out .= '</strong>';
 		#if ($user_id == -1) {
 		#	echo ' <small>(initial run program that tries to guess timestamp from captions, wildly variable)</small>';
 		#}
