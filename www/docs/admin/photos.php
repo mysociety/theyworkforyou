@@ -21,13 +21,19 @@ $PAGE->stripe_start();
 #);
 #$PAGE->display_table($tabledata);
 
-$out = '';
-if (get_http_var('submit_photo')) {
-    $out = submit_photo();
+if (DEVSITE) {
+    $out = '';
+    if (get_http_var('submit_photo')) {
+        $out = submit_photo();
+    } else {
+        $out = display_form();
+    }
+    print $out;
 } else {
-    $out = display_form();
+    ?><p>You can't upload files on a live site, as it doesn't have permissions
+    to commit to CVS. Please go to one of the staging sites.</p>
+    <?
 }
-print $out;
 
 function submit_photo() {
     $dir = "../images";
