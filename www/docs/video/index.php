@@ -329,7 +329,7 @@ function display_league($limit, $q = '') {
 		if ($THEUSER->user_id() == $user_id) {
 			$rank = $i+1;
 		}
-		if ($i>$limit) continue;
+		if ($i>=$limit) continue;
 		$out .= '<li>';
 		if ($THEUSER->user_id() == $user_id)
 			$out .= '<strong>';

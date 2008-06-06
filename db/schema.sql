@@ -357,6 +357,7 @@ CREATE TABLE `video_timestamps` (
   `whenstamped` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   KEY `gid` (`gid`),
+  KEY `deleted` (`deleted`),
   KEY `user_id` (`user_id`),
   UNIQUE KEY `gid_user_id` (`gid`, `user_id`)
 );
