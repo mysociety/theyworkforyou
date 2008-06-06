@@ -318,7 +318,7 @@ function display_league($limit, $q = '') {
 	$q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c
 		from video_timestamps left join users on video_timestamps.user_id=users.user_id
 		where video_timestamps.deleted=0 and (video_timestamps.user_id is null or video_timestamps.user_id!=-1) '
-		. $q . ' group by user_id order by c desc');
+		. $q . ' group by user_id order by c desc' . ($THEUSER->user_id() ? '' : " limit $limit") );
 	$out = ''; $rank = 0;
 	for ($i=0; $i<$q->rows(); $i++) {
 		$name = $q->field($i, 'firstname') . ' ' . $q->field($i, 'lastname');
