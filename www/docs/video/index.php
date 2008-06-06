@@ -293,7 +293,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 	$q = $db->query('select hansard.gid, body from video_timestamps, hansard, epobject
 	where (user_id != -1 or user_id is null) and video_timestamps.deleted=0
 		and video_timestamps.gid = hansard.gid and hansard.subsection_id = epobject.epobject_id
-	order by whenstamped desc limit 10');
+	order by whenstamped desc limit 20');
 	for ($i=0; $i<$q->rows(); $i++) {
 		$gid = $q->field($i, 'gid');
 		$body = $q->field($i, 'body');
