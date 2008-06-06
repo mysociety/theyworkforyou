@@ -239,12 +239,21 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 <div id="top" style="float: left; width: 45%;">
 <?
 
-	$out = display_league(20, 'and date(whenstamped)=current_date');
-	if ($out) echo "<h3>Top timestampers (today)</h3> <ol>$out</ol>";
-	$out = display_league(20, 'and date(whenstamped)>current_date-interval 7 day');
-	if ($out) echo "<h3>Top timestampers (last week)</h3> <ol>$out</ol>";
-	$out = display_league(500);
-	if ($out) echo "<h3>Top timestampers (overall)</h3> <ol>$out</ol>";
+	list($out_today, $rank_today) = display_league(20, 'and date(whenstamped)=current_date');
+	list($out_week, $rank_week) = display_league(20, 'and date(whenstamped)>current_date-interval 7 day');
+	list($out_overall, $rank_overall) = display_league(100);
+
+	global $THEUSER;
+	if ($THEUSER->user_id() && ($rank_today || $rank_week || $rank_overall)) {
+		echo '<p align="center"><big>You are ';
+		if ($rank_today) echo make_ranking($rank_today), ' today, ';
+		if ($rank_week) echo make_ranking($rank_week), ' last week, ';
+		if ($rank_overall) echo make_ranking($rank_overall), ' overall';
+		echo '</big></p>';
+	}
+	if ($out_today) echo "<h3>Top timestampers (today)</h3> <ol>$out_today</ol>";
+	if ($out_week) echo "<h3>Top timestampers (last week)</h3> <ol>$out_week</ol>";
+	if ($out_overall) echo "<h3>Top timestampers (overall)</h3> <ol>$out_overall</ol>";
 	echo '</div>';
 
 	$statuses = array(
@@ -309,14 +318,18 @@ function display_league($limit, $q = '') {
 	$q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c
 		from video_timestamps left join users on video_timestamps.user_id=users.user_id
 		where video_timestamps.deleted=0 and (video_timestamps.user_id is null or video_timestamps.user_id!=-1) '
-		. $q . ' group by user_id order by c desc limit ' . $limit);
-	$out = '';
+		. $q . ' group by user_id order by c desc');
+	$out = ''; $rank = 0;
 	for ($i=0; $i<$q->rows(); $i++) {
 		$name = $q->field($i, 'firstname') . ' ' . $q->field($i, 'lastname');
 		$user_id = $q->field($i, 'user_id');
 		#if ($user_id == -1) continue; # $name = 'CaptionerBot';
 		if ($user_id == 0) $name = 'Anonymous';
 		$count = $q->field($i, 'c');
+		if ($THEUSER->user_id() == $user_id) {
+			$rank = $i+1;
+		}
+		if ($i>$limit) continue;
 		$out .= '<li>';
 		if ($THEUSER->user_id() == $user_id)
 			$out .= '<strong>';
@@ -327,7 +340,7 @@ function display_league($limit, $q = '') {
 		#	echo ' <small>(initial run program that tries to guess timestamp from captions, wildly variable)</small>';
 		#}
 	}
-	return $out;
+	return array($out, $rank);
 }
 
 function video_quote($gid_actual, $parent_gid, $parent_body) {
