@@ -707,7 +707,7 @@ function video_sidebar($row, $section, $count) {
 	$start = $video['offset'];
 	$out = '';
 	if ($count > 1) {
-		$out .= '<div id="video_wrap" style="position:fixed;bottom:5px;right:5px;border:solid 1px #666666; background-color: #eeeeee; padding: 4px;"><div style="position:relative">';
+		$out .= '<div id="video_wrap"><div style="position:relative">';
 		if ($row['gid'] != $section['first_gid']) {
 			$out .= '<p style="margin:0">This video starts around ' . ($row['hpos']-$section['hpos']) . ' speeches in (<a href="#g' . gid_to_anchor($row['gid']) . '">move there in text</a>)</p>';
 		}

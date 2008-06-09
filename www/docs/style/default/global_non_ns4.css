@@ -1017,3 +1017,13 @@ div.vidOn {
 div.vidOn div.main {
     background-color: #ffff66;
 }
+
+#video_wrap {
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+	border: solid 1px #666666;
+	background-color: #eeeeee;
+	padding: 4px;
+	width: 332px;
+}
