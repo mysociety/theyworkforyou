@@ -24,9 +24,15 @@ public function moveVideoExt(moveGID:String):int {
     for (var i:int = 0; i < allStamps.length; i++) {
         var stamp:Object = allStamps[i];
         if (stamp.gid == moveGID) {
-	    seek(stamp.time, true);
-	    return 1;
-	}
+            if (fileID != stamp.file) {
+                debugS("Changing video to " + stamp.file + " " + stamp.time);
+                change_video(stamp.file, stamp.time);
+                video_play(); // Otherwise the old video continues to play...
+            } else {
+                seek(stamp.time, true, false);
+            }
+            return 1;
+        }
     }
     return 0;
 }
@@ -43,13 +49,17 @@ public var stamping:Boolean = false; // If we allow timestamping or just for vie
 private var startAt:int; // If we don't want to start at the beginning of the video
 private var playing:Boolean = false; // Whether the video is playing (keep true when video is paused due to slider dragging)
 
-private function init():void {
-    startAt = int(Application.application.parameters.start);
-    gid = Application.application.parameters.gid;
-    fileID = Application.application.parameters.file;
-    stamping = Application.application.parameters.stamping;
-
+private function change_video(id:String, time:int):void {
+    startAt = time;
+    fileID = id;
     videoSource = 'http://sponge.ukcod.org.uk:81/' + fileID + '.flv';
+}
+
+private function init():void {
+    gid = Application.application.parameters.gid;
+    stamping = Application.application.parameters.stamping;
+    change_video(Application.application.parameters.file, int(Application.application.parameters.start));
+    
     video.addEventListener('metadataReceived', video_onMetaData);
     ExternalInterface.addCallback('currentTime', currentTime);
     ExternalInterface.addCallback('moveVideo', moveVideoExt);
@@ -70,7 +80,7 @@ private function stampsArrived():void {
 
 public var times:Array = [];
 public var filepositions:Array = [];
-private var firstLoad:Boolean = false;
+private var firstLoad:Boolean = true;
 
 [Bindable]
 public var _duration:int = 0;
@@ -82,9 +92,10 @@ private function video_onMetaData(evt:MetadataEvent):void {
     filepositions = evt.info.keyframes.filepositions;
     if (times && filepositions && startAt>0 && startAt<_duration) {
         playing = true;
-        firstLoad = true;
-	video.volume = 0;
-        seek(startAt, true);
+        if (firstLoad)
+            video.volume = 0;
+        seek(startAt, true, firstLoad);
+        firstLoad = false;
     }
 }
 
@@ -92,27 +103,28 @@ private var liveGID:String = '';
 
 private function video_playheadUpdate():void {
     if (video.playheadTime > 16770) {
-        stopButton_click();
-        Alert.show("Sorry, there is currently a bug going past 4:39:36 on any video.");
+       stopButton_click();
+       Alert.show("Sorry, there is currently a bug going past 4:39:36 on any video.");
+       return;
     }
     var pTime:Date = new Date(video.playheadTime * 1000 || 100);
     var tTime:Date = new Date(_duration * 1000);
     time.text = dateFormatter.format(pTime) + " / " + dateFormatter.format(tTime);
     if (!stamping) {
         for (var i:int = 0; i < allStamps.length-1; i++) {
-	    var stamp:Object = allStamps[i];
-	    var stampNext:Object = allStamps[i+1];
-            if (stamp.gid != liveGID && video.playheadTime >= stamp.time && video.playheadTime < stampNext.time) {
+            var stamp:Object = allStamps[i];
+            var stampNext:Object = allStamps[i+1];
+            if (stamp.gid != liveGID && stamp.file == fileID && video.playheadTime >= stamp.time && video.playheadTime < stampNext.time) {
                 ExternalInterface.call('updateSpeech', stamp.gid);
-		liveGID = stamp.gid;
-		break;
-	    }
+                liveGID = stamp.gid;
+                break;
+            }
         }
-	if (video.playheadTime >= allStamps[allStamps.length-1].time) {
-	    var newGID:String = allStamps[allStamps.length-1].gid;
+        if (video.playheadTime >= allStamps[allStamps.length-1].time) {
+            var newGID:String = allStamps[allStamps.length-1].gid;
             ExternalInterface.call('updateSpeech', newGID);
             liveGID = newGID;
-	}
+        }
     }
 }
 
@@ -146,7 +158,7 @@ private function stopButton_click():void {
     playing = false;
     video.stop();
     if (startAt>0 && startAt<_duration) {
-        seek(startAt, false);
+        seek(startAt, false, false);
     } else {
         videoSource = 'http://sponge.ukcod.org.uk:81/' + fileID + '.flv?start=0';
     }
@@ -158,13 +170,13 @@ private function goButton_click():void {
     if (video.playing) {
         video_pause();
         debugS('Clicked at ' + String(int(video.playheadTime)) + 's');
-	resultSubmitter.send();
-	thanksWin = PopUpManager.createPopUp(this, Thanks, true) as Thanks;
-	thanksWin['thanksNextButton'].addEventListener('click', submit_next);
-	thanksWin['thanksRandomButton'].addEventListener('click', submit_random);
-	thanksWin['thanksOopsButton'].addEventListener('click', submit_oops);
-	PopUpManager.centerPopUp(thanksWin);
-	go.visible = false;
+        resultSubmitter.send();
+        thanksWin = PopUpManager.createPopUp(this, Thanks, true) as Thanks;
+        thanksWin['thanksNextButton'].addEventListener('click', submit_next);
+        thanksWin['thanksRandomButton'].addEventListener('click', submit_random);
+        thanksWin['thanksOopsButton'].addEventListener('click', submit_oops);
+        PopUpManager.centerPopUp(thanksWin);
+        go.visible = false;
     } else {
         video_play();
     }
@@ -203,7 +215,7 @@ private function nearest_keyframe(s:int):int {
 }
 
 private function video_thumbRelease():void {
-    seek(scrubBar.value, true);
+    seek(scrubBar.value, true, false);
 }
 
 private function seekBack_click(offset:int):void {
@@ -211,10 +223,11 @@ private function seekBack_click(offset:int):void {
     seekBackSm.enabled = false;
     debugS("Seeking back to " + String(video.playheadTime-offset));
     if (video.playheadTime < offset) {
-        videoSource = 'http://sponge.ukcod.org.uk:81/' + String(int(fileID)-1) + '.flv';
+        change_video(String(int(fileID)-1), 0);
+	video_play();
         return;
     }
-    seek(video.playheadTime - offset, false);
+    seek(video.playheadTime - offset, false, false);
     var alarmTimer:Timer = new Timer(1000,1);
     alarmTimer.addEventListener(TimerEvent.TIMER, onSeekAlarm);
     alarmTimer.start();
@@ -224,12 +237,11 @@ private function seekFwd_click(offset:int):void {
     seekFwd.enabled = false;
     seekFwdSm.enabled = false;
     if (video.playheadTime + offset > _duration) {
-        videoSource = 'http://sponge.ukcod.org.uk:81/' + String(int(fileID)+1) + '.flv';
-	_beginning = 0;
-	seek(0, true);
+        change_video(String(int(fileID)+1), 0);
+	video_play();
         return;
     }
-    seek(video.playheadTime + offset, false);
+    seek(video.playheadTime + offset, false, false);
     var alarmTimer:Timer = new Timer(1000,1);
     alarmTimer.addEventListener(TimerEvent.TIMER, onSeekAlarm);
     alarmTimer.start();
@@ -244,13 +256,12 @@ private function onSeekAlarm(evt:TimerEvent):void {
 
 private var _beginning:int = 0;
 
-private function seek(s:int, startImmediately:Boolean):void {
+private function seek(s:int, startImmediately:Boolean, veryFirstLoad:Boolean):void {
     if (s >= 16770) {
         stopButton_click();
         Alert.show("Sorry, there is currently a bug going past 4:39:36 on any video.");
-	return;
+        return;
     }
-
     if (s >= _beginning && s < _beginning + Math.floor((_duration - _beginning) * (video.bytesLoaded/video.bytesTotal)) - 1) {
         video.playheadTime = s;
     } else if (times && filepositions) {
@@ -259,11 +270,10 @@ private function seek(s:int, startImmediately:Boolean):void {
         videoSource = 'http://sponge.ukcod.org.uk:81/' + fileID + '.flv?start=' + filepositions[pos];
         _beginning = times[pos];
     }
-    if (firstLoad) {
-        firstLoad = false;
+    if (veryFirstLoad) {
         var alarmTimer:Timer = new Timer(500,1);
-	alarmTimer.addEventListener(TimerEvent.TIMER, onFirstAlarm);
-	alarmTimer.start();
+        alarmTimer.addEventListener(TimerEvent.TIMER, onFirstAlarm);
+        alarmTimer.start();
     }
     if (startImmediately || playing) {
         video_play();
@@ -335,7 +345,7 @@ private function debugS(s:String):void {
                 click="playPauseButton_click()" />
             <mx:Button styleName="stopStyle" click="stopButton_click()" />
 	    <mx:Button id="seekBack" toolTip="Back 30s" styleName="seekBackStyle" click="seekBack_click(30)" />
-	    <mx:Button id="seekBackSm" toolTip="Back 10s" styleName="seekBackSmStyle" click="seekBack_click(10)" />
+	    <mx:Button id="seekBackSm" toolTip="Back c. 15s" styleName="seekBackSmStyle" click="seekBack_click(11)" />
 	    <mx:Button id="seekFwdSm" toolTip="Forward 10s" styleName="seekFwdSmStyle" click="seekFwd_click(10)" />
 	    <mx:Button id="seekFwd" toolTip="Forward 30s" styleName="seekFwdStyle" click="seekFwd_click(30)" />
             <!-- <mx:Label id="time" styleName="timeStyle" /> -->
@@ -344,6 +354,7 @@ private function debugS(s:String):void {
             <mx:Button label="Rewind" click="stopButton_click()" /> -->
             <mx:Spacer width="100%" />
             <mx:Button id="go" label="Play" styleName="goStyle" click="goButton_click()" visible="{stamping}"/>
+            <!-- <mx:Image source="@Embed(source='assets/mysociety_sm.gif')" visible="{!stamping}" width="100" includeInLayout="false" /> -->
         </mx:HBox>
 
 
