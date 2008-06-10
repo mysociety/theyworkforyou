@@ -35,9 +35,9 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		echo '&#8220;' . $row['body'] . "&#8221;</dd>\n";
 		echo '<dd><em><small>This speech is ';
 		if ($row['hpos']-$want['hpos']>0) {
-			echo ($row['hpos']-$want['hpos']) . ' ahead of';
+			echo ($row['hpos']-$want['hpos']) . ' later than';
 		} else {
-			echo ($want['hpos']-$row['hpos']) . ' behind';
+			echo ($want['hpos']-$row['hpos']) . ' earlier than';
 		}
 		echo ' the one you want &ndash; ';
         if ($row['video_status']&4)
