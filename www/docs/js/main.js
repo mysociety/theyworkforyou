@@ -31,12 +31,15 @@ function updateSpeech(gid) {
 		clearGID(lastgid);
 	gid = gid.split('.');
 	gid = 'g' + gid[gid.length-2] + '.' + gid[gid.length-1];
-	document.getElementById(gid).className += ' vidOn';
+	var d = document.getElementById(gid);
+	if (d) d.className += ' vidOn';
 	lastgid = gid;
 }
 
 function clearGID(gid) {
 	gid = document.getElementById(gid);
-	gid.className = gid.className.substring(0, gid.className.length-6);
+	if (gid) {
+		gid.className = gid.className.substring(0, gid.className.length-6);
+	}
 	lastgid = '';
 }

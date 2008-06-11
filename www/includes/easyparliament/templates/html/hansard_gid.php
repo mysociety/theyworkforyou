@@ -165,9 +165,10 @@ if (isset ($data['rows'])) {
                                 $first_speech_displayed = true;
 			}
 
-			$id = 'g' . gid_to_anchor($row['gid']);
+			$id = '';
+			if ($this_page != 'debate') $id = 'g' . gid_to_anchor($row['gid']);
 			$PAGE->stripe_start('procedural-'.$style, $id);
-			echo '<a name="', $id, '"></a>';
+			if ($id) echo '<a name="', $id, '"></a>';
 			
 			echo $row['body'];
 			
@@ -228,11 +229,10 @@ if (isset ($data['rows'])) {
 			}
 			
 			// gid_to_anchor() is in utility.php
-			$id = 'g' . gid_to_anchor($row['gid']);
-			
+			$id = '';
+			if ($this_page != 'debate') $id = 'g' . gid_to_anchor($row['gid']);
 			$PAGE->stripe_start($style, $id);	
-	
-			echo '<a name="', $id, '"></a>';
+			if ($id) echo '<a name="', $id, '"></a>';
 
 			if (isset($row['mentions'])) {
 				echo get_question_mentions_html($row['mentions']);
