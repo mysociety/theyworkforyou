@@ -14,7 +14,7 @@ import flash.events.TimerEvent;
 import flash.utils.Timer;
 import mx.managers.PopUpManager;
 import flash.external.*;
-import mx.controls.Alert;
+//import mx.controls.Alert;
 
 public function currentTime():int {
     return int(video.playheadTime);
@@ -102,11 +102,11 @@ private function video_onMetaData(evt:MetadataEvent):void {
 private var liveGID:String = '';
 
 private function video_playheadUpdate():void {
-    if (video.playheadTime > 16770) {
-       stopButton_click();
-       Alert.show("Sorry, there is currently a bug going past 4:39:36 on any video.");
-       return;
-    }
+    //if (video.playheadTime > 16770) {
+    //   stopButton_click();
+    //   Alert.show("Sorry, there is currently a bug going past 4:39:36 on any video.");
+    //   return;
+    //}
     var pTime:Date = new Date(video.playheadTime * 1000 || 100);
     var tTime:Date = new Date(_duration * 1000);
     time.text = dateFormatter.format(pTime) + " / " + dateFormatter.format(tTime);
@@ -257,11 +257,11 @@ private function onSeekAlarm(evt:TimerEvent):void {
 private var _beginning:int = 0;
 
 private function seek(s:int, startImmediately:Boolean, veryFirstLoad:Boolean):void {
-    if (s >= 16770) {
-        stopButton_click();
-        Alert.show("Sorry, there is currently a bug going past 4:39:36 on any video.");
-        return;
-    }
+    //if (s >= 16770) {
+    //    stopButton_click();
+    //    Alert.show("Sorry, there is currently a bug going past 4:39:36 on any video.");
+    //    return;
+    //}
     if (s >= _beginning && s < _beginning + Math.floor((_duration - _beginning) * (video.bytesLoaded/video.bytesTotal)) - 1) {
         video.playheadTime = s;
     } else if (times && filepositions) {

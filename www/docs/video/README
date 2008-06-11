@@ -1,0 +1,25 @@
+video_status column, hansard table
+==================================
+
+This bitfield documents the status of video with respect to the speech.
+
+Bit 0 = according to the bbcparlvid database and Hansard's timestamp, there is video for this speech.
+Bit 1 = CaptionBot has a timestamp for this speech.
+Bit 2 = Someone has timestamped this speech, yay.
+Bit 3 = There is no video for this speech, no matter what the above lot say.
+
+0,2	No video
+1,3	Video, needs timestamping
+4,6	Impossible (hopefully!)
+5,7	Timestamped by user
+8+	No video available, manual override
+
+video_timestamps table
+======================
+
+user_id is currently -1 for CaptionBot, NULL for anonymous, or the user's user_id.
+(Might change this at some point to be 0 for anonymous to make the queries simpler.)
+
+deleted is set to 1 if the user clicks Oops (or lets us know that the video is wrong).
+If you mark a timestamp as deleted, you'll need to update the video_status column as
+above (generally AND with 11 to remove the setting of bit 2).
