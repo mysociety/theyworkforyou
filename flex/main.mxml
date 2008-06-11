@@ -71,10 +71,10 @@ private function init():void {
 private var allStamps:Array = new Array();
 
 private function stampsArrived():void {
-    var stamps:Object = stampsSubmitter.lastResult.stamps.stamp;
-    for each (var stamp:Object in stamps) {
-        allStamps.push(stamp);
-    }
+    allStamps = stampsSubmitter.lastResult.stamps.stamp.toArray();
+    //for each (var stamp:Object in stamps) {
+    //    allStamps.push(stamp);
+    //}
     //debugS("nextStamp=" + allStamps[0].time + ' ' + allStamps[0].gid);
 }
 
