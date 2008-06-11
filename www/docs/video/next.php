@@ -1,6 +1,7 @@
 <?php
 
 include_once "../../includes/easyparliament/init.php";
+include_once INCLUDESPATH . 'easyparliament/video.php';
 
 $action = get_http_var('action');
 $pid = intval(get_http_var('pid'));
@@ -15,7 +16,7 @@ if ($action == 'next' || $action=='nextneeded') {
 	$q = $db->query("select hdate,hpos from hansard where gid='$q_gid'");
 	$hdate = $q->field(0, 'hdate');
 	$hpos = $q->field(0, 'hpos');
-	$q = $db->query("select gid from hansard
+	$q = $db->query("select gid, hpos from hansard
 		where hpos>$hpos and hdate='$hdate' and major=1
 		and (htype=12 or htype=13) "
 		. ($action=='nextneeded'?'and video_status<4':'') . "
@@ -28,7 +29,21 @@ if ($action == 'next' || $action=='nextneeded') {
 		$PAGE->stripe_end();
 		$PAGE->page_end();
 	} else {
-		$new_gid = fix_gid_from_db($q->field(0, 'gid'));
+		$new_gid = $q->field(0, 'gid');
+		$new_hpos = $q->field(0, 'hpos');
+		if ($action=='nextneeded') {
+			$q = $db->query("select atime from hansard, video_timestamps
+				where hansard.gid = video_timestamps.gid and deleted=0
+					and hpos<$new_hpos and hdate='$hdate' and major=1
+					and (htype=12 or htype=13) and (user_id is null or user_id!=-1)
+				order by hpos desc limit 1");
+			$atime = $q->field(0, 'atime');
+			$videodb = video_db_connect();
+			$video = video_from_timestamp($videodb, $hdate, $atime);
+			$file = $video['id'];
+			$time = $video['offset'];
+		}
+		$new_gid = fix_gid_from_db($new_gid);
 		header('Location: /video/?from=next&file=' . $file . '&gid=' . $new_gid . '&start=' . $time);
 	}
 } elseif ($action == 'random' && $pid) {
