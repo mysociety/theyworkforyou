@@ -160,7 +160,7 @@ if (isset ($data['rows'])) {
 				$video_content = video_sidebar($row, $section, $speeches);
                                 $first_video_displayed = true;
                         }
-			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&4)) {
+			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&12)) {
 				$video_content = video_advert($row);
                                 $first_speech_displayed = true;
 			}
@@ -201,7 +201,7 @@ if (isset ($data['rows'])) {
 				$video_content = video_sidebar($row, $section, $speeches);
                                 $first_video_displayed = true;
                         }
-			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&4)) {
+			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&12)) {
 				$video_content = video_advert($row);
                                 $first_speech_displayed = true;
 			}
@@ -290,7 +290,7 @@ if (isset ($data['rows'])) {
                                 if ($data['info']['major'] == 1 && $this_page != 'debate') { # Commons debates only
 					if ($row['video_status']&4) {
 						echo ' | <a onclick="return moveVideo(\'' . $row['gid'] . '\');" href="', $row['commentsurl'], '">Watch this</a>';
-					} elseif (!$video_content && $row['video_status']&1) {
+					} elseif (!$video_content && $row['video_status']&1 && !($row['video_status']&8)) {
 						echo ' | <a href="/video/?from=debate&amp;gid=', $row['gid'], '">Video match this</a>';
 					}
 				}

@@ -19,7 +19,7 @@ if ($action == 'next' || $action=='nextneeded') {
 	$q = $db->query("select gid, hpos from hansard
 		where hpos>$hpos and hdate='$hdate' and major=1
 		and (htype=12 or htype=13) "
-		. ($action=='nextneeded'?'and video_status<4':'') . "
+		. ($action=='nextneeded'?'and video_status in (1,3)':'') . "
 		ORDER BY hpos LIMIT 1");
 	if (!$q->rows()) {
 		$PAGE->page_start();

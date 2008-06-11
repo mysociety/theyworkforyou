@@ -52,7 +52,7 @@ $parent_gid = str_replace('uk.org.publicwhip/debate/', '/debates/?id=', $q->fiel
 $parent_body = $q->field(0, 'parent_body');
 $parent_epid = $q->field(0, 'subsection_id');
 
-if (!($video_status&1)) {
+if (!($video_status&1) || ($video_status&8)) {
 	$PAGE->error_message('That GID does not appear to have any video. Please visit the <a href="/video/">video front page</a>.', true);
 	exit;
 }
@@ -262,7 +262,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 	);
 	$db = new ParlDB;
 	$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
-	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) group by video_status&4');
+	where major=1 and video_status>0 and video_status<8 and video_status!=2 and htype in (12,13) group by video_status&4');
 	$totaliser = array();
 	for ($i=0; $i<$q->rows(); $i++) {
 		$status = $q->field($i, 'checked');
@@ -280,7 +280,9 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 
 <?
 	$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
-	where major=1 and video_status>0 and video_status!=2 and htype in (12,13) and hdate=(select max(hdate) from hansard where major=1 and htype in (12,13)) group by video_status&4');
+	where major=1 and video_status>0 and video_status<8 and video_status!=2 and htype in (12,13)
+		and hdate=(select max(hdate) from hansard where major=1 and htype in (12,13))
+	group by video_status&4');
 	$totaliser = array(0=>0, 4=>0);
 	for ($i=0; $i<$q->rows(); $i++) {
 		$status = $q->field($i, 'checked');
