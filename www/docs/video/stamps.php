@@ -38,9 +38,10 @@ for ($i=0; $i<$q->rows(); $i++) {
 	if (isset($gids[$gid])) continue;
 	$timetoend = $q->field($i, 'timetoend') - $file_offset;
 	if ($timetoend>0) {
-		$file_offset += timediff($end, $start);
 		$video = video_from_timestamp($videodb, $hdate, $q->field($i, 'atime'));
-		$start = date('H:i:s', strtotime($video['broadcast_start']. ' GMT'));
+		$new_start = date('H:i:s', strtotime($video['broadcast_start']. ' GMT'));
+		$file_offset += timediff($new_start, $start);
+		$start = $new_start;
 		$end = date('H:i:s', strtotime($video['broadcast_end'] . ' GMT'));
 	}
 	$timediff = $q->field($i, 'timediff') - $file_offset;
