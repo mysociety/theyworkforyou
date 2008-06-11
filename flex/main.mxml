@@ -75,7 +75,7 @@ private function stampsArrived():void {
     //for each (var stamp:Object in stamps) {
     //    allStamps.push(stamp);
     //}
-    //debugS("nextStamp=" + allStamps[0].time + ' ' + allStamps[0].gid);
+    debugS("Stamps arrived: " + allStamps.length);
 }
 
 public var times:Array = [];
@@ -120,10 +120,9 @@ private function video_playheadUpdate():void {
                 break;
             }
         }
-        if (video.playheadTime >= allStamps[allStamps.length-1].time) {
-            var newGID:String = allStamps[allStamps.length-1].gid;
-            ExternalInterface.call('updateSpeech', newGID);
-            liveGID = newGID;
+        if (stampNext.gid != liveGID && stampNext.file == fileID && video.playheadTime >= stampNext.time) {
+            ExternalInterface.call('updateSpeech', stampNext.gid);
+            liveGID = stampNext.gid;
         }
     }
 }
