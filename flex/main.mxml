@@ -93,7 +93,7 @@ private function video_onMetaData(evt:MetadataEvent):void {
     if (times && filepositions && startAt>0 && startAt<_duration) {
         playing = true;
         if (firstLoad)
-            video.volume = 0;
+            volumeBar.value = 0;
         seek(startAt, true, firstLoad);
         firstLoad = false;
     }
@@ -213,6 +213,11 @@ private function nearest_keyframe(s:int):int {
     return 0;
 }
 
+private function scrubToolTip(val:String):String {
+    var pTime:Date = new Date(int(val) * 1000 || 100);
+    return dateFormatter.format(pTime);
+}
+
 private function video_thumbRelease():void {
     seek(scrubBar.value, true, false);
 }
@@ -281,12 +286,12 @@ private function seek(s:int, startImmediately:Boolean, veryFirstLoad:Boolean):vo
 
 private function onFirstAlarm(evt:TimerEvent):void {
     video_pause();
-    video.volume = 0.75;
+    volumeBar.value = 0.75;
 }
 
 // Roll-over pretty controls
-private function showControls():void { fadeIn.play([controls]); }
-private function hideControls():void { fadeOut.play([controls]); }
+private function showControls():void { fadeIn.play([controls, volumeBox]); }
+private function hideControls():void { fadeOut.play([controls, volumeBox]); }
 
 // Utility functions
 private function debugS(s:String):void {
@@ -320,14 +325,15 @@ private function debugS(s:String):void {
     </mx:HTTPService>
     
         <mx:Canvas rollOver="showControls()" rollOut="hideControls()">
-            <mx:VideoDisplay id="video" autoPlay="false" width="320" height="180" source="{videoSource}"
+            <mx:VideoDisplay id="video" autoPlay="false" width="320" height="180" source="{videoSource}" volume="{volumeBar.value}"
                 playheadUpdate="video_playheadUpdate()" />
 	    <mx:VBox id="controls" styleName="controllerStyle" alpha="0.0">
             <!-- <mx:HBox styleName="controlHboxStyle">
             </mx:HBox> -->
         <mx:HBox width="300" styleName="controlHboxStyle">
 	        <mx:HSlider id="scrubBar" width="100%" minimum="0" maximum="{_duration}"
-                    showDataTip="false" value="{video.playheadTime}"
+                    value="{video.playheadTime}"
+		    tickInterval="600" dataTipFormatFunction="scrubToolTip"
                     thumbPress="video.pause();" thumbRelease="video_thumbRelease();"/>
             <!-- <mx:Button styleName="playPauseStyle" toggle="true" selected="{video.playing}"
                 click="playPauseButton_click()" />
@@ -336,6 +342,12 @@ private function debugS(s:String):void {
             <mx:Label id="time" styleName="timeWStyle" />
         </mx:HBox>
 	</mx:VBox>
+
+        <mx:HBox id="volumeBox" styleName="volumeStyle" alpha="0.0">
+		<mx:Label styleName="timeWStyle" text="Volume:"/>
+	        <mx:HSlider id="volumeBar" width="120" minimum="0" maximum="1"
+                    showDataTip="false" liveDragging="true"/>
+        </mx:HBox>
 
         </mx:Canvas>
 

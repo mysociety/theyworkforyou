@@ -50,6 +50,23 @@ Application {
     overSkin: Embed('assets/media-seek-forward-over.png');
 }
 
+.seekBackSmStyle {
+    skin: Embed('assets/media-seek-backward-small.png');
+    overSkin: Embed('assets/media-seek-backward-small-over.png');
+}
+.seekFwdSmStyle {
+    skin: Embed('assets/media-seek-forward-small.png');
+    overSkin: Embed('assets/media-seek-forward-small-over.png');
+}
+
+.volumeStyle {
+    bottom: 5;
+    right: 5;
+    alpha: 0;
+    background-color: #000000;
+    background-alpha: 0.5;
+}
+
 .controllerStyle {
     top: 5;
     left: 5;
