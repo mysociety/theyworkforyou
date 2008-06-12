@@ -70,16 +70,22 @@ if (isset ($data['rows'])) {
 	}
 	if (isset($data['info']['glossarise']) && ($data['info']['glossarise'] == 1)) {
 		// And glossary phrases
+		twfy_debug_timestamp('Before glossarise');
 		$bodies = $GLOSSARY->glossarise($bodies, 1);
+		twfy_debug_timestamp('After glossarise');
 	}
 	if ($SEARCHENGINE) {
 		// We have some search terms to highlight.
+		twfy_debug_timestamp('Before highlight');
 		$bodies = $SEARCHENGINE->highlight($bodies);
+		twfy_debug_timestamp('After highlight');
 	}
 	if (isset($data['info']['glossarise']) && ($data['info']['glossarise'] == 1)) {
 		// Now we replace the title attributes for the glossarised links
 		// to avoid words being highlighted within them.
+		twfy_debug_timestamp('Before glossarise_titletags');
 		$bodies = $GLOSSARY->glossarise_titletags($bodies, 1);
+		twfy_debug_timestamp('After glossarise_titletags');
 	}
 
 	$speeches = 0;
