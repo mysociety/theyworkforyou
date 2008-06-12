@@ -93,7 +93,7 @@ private function video_onMetaData(evt:MetadataEvent):void {
     if (times && filepositions && startAt>0 && startAt<_duration) {
         playing = true;
         if (firstLoad)
-            volumeBar.value = 0;
+            video.volume = 0;
         seek(startAt, true, firstLoad);
         firstLoad = false;
     }
@@ -228,7 +228,7 @@ private function seekBack_click(offset:int):void {
     debugS("Seeking back to " + String(video.playheadTime-offset));
     if (video.playheadTime < offset) {
         change_video(String(int(fileID)-1), 0);
-	video_play();
+        video_play();
         return;
     }
     seek(video.playheadTime - offset, false, false);
@@ -242,7 +242,7 @@ private function seekFwd_click(offset:int):void {
     seekFwdSm.enabled = false;
     if (video.playheadTime + offset > _duration) {
         change_video(String(int(fileID)+1), 0);
-	video_play();
+        video_play();
         return;
     }
     seek(video.playheadTime + offset, false, false);
@@ -286,7 +286,7 @@ private function seek(s:int, startImmediately:Boolean, veryFirstLoad:Boolean):vo
 
 private function onFirstAlarm(evt:TimerEvent):void {
     video_pause();
-    volumeBar.value = 0.75;
+    video.volume = 0.75;
 }
 
 // Roll-over pretty controls
@@ -346,7 +346,7 @@ private function debugS(s:String):void {
         <mx:HBox id="volumeBox" styleName="volumeStyle" alpha="0.0">
 		<mx:Label styleName="timeWStyle" text="Volume:"/>
 	        <mx:HSlider id="volumeBar" width="120" minimum="0" maximum="1"
-                    showDataTip="false" liveDragging="true"/>
+                    showDataTip="false" liveDragging="true" value="0.75"/>
         </mx:HBox>
 
         </mx:Canvas>
