@@ -26,7 +26,7 @@ $q = $db->query("select video_timestamps.gid, atime, time_to_sec(timediff(atime,
 		time_to_sec(timediff(atime, '$end')) as timetoend
 	from hansard, video_timestamps
 	where hansard.gid = video_timestamps.gid and subsection_id=$subsection_id
-	and (user_id is null or user_id!=-1) and deleted=0 order by hpos");
+	and (user_id is null or user_id!=-1) and deleted=0 order by atime, hpos");
 
 header('Content-Type: text/xml');
 
