@@ -16,6 +16,8 @@ import mx.managers.PopUpManager;
 import flash.external.*;
 //import mx.controls.Alert;
 
+private var hostname:String = 'sandwich.ukcod.org.uk:81';
+
 public function currentTime():int {
     return int(video.playheadTime);
 }
@@ -52,7 +54,7 @@ private var playing:Boolean = false; // Whether the video is playing (keep true 
 private function change_video(id:String, time:int):void {
     startAt = time;
     fileID = id;
-    videoSource = 'http://sponge.ukcod.org.uk:81/' + fileID + '.flv';
+    videoSource = 'http://' + hostname + '/' + fileID + '.flv';
 }
 
 private function init():void {
@@ -159,7 +161,7 @@ private function stopButton_click():void {
     if (startAt>0 && startAt<_duration) {
         seek(startAt, false, false);
     } else {
-        videoSource = 'http://sponge.ukcod.org.uk:81/' + fileID + '.flv?start=0';
+        videoSource = 'http://' + hostname + '/' + fileID + '.flv?start=0';
     }
     reset_big_button();
 }
@@ -271,7 +273,7 @@ private function seek(s:int, startImmediately:Boolean, veryFirstLoad:Boolean):vo
     } else if (times && filepositions) {
         var pos:int = nearest_keyframe(s);
         debugS("Moving to " + s);
-        videoSource = 'http://sponge.ukcod.org.uk:81/' + fileID + '.flv?start=' + filepositions[pos];
+        videoSource = 'http://' + hostname + '/' + fileID + '.flv?start=' + filepositions[pos];
         _beginning = times[pos];
     }
     if (veryFirstLoad) {
