@@ -78,7 +78,7 @@ $q = $db->query("select hansard.gid, body, htype, htime, atime, hpos, first_name
 		left join member on hansard.speaker_id=member.member_id
                 left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1 and video_timestamps.deleted = 0
 	where hpos>=$hpos-$surrounding_speeches and hpos<=$hpos+$surrounding_speeches and hdate='$hdate' and major=1
-	ORDER BY hpos
+	ORDER BY hpos desc
 ");
 $gids_previous = array();
 $gids_following = array();
@@ -432,10 +432,10 @@ function iframe_search($gid_safe, $file) {
 }
 
 function previous_speeches($surrounding_speeches, $gids_previous) {
-	echo '<h3 style="margin-top:1em">The three speeches/headings immediately before</h3> <ol class="otherspeeches" start="-' . $surrounding_speeches . '">';
-	$ccc = $surrounding_speeches;
+	echo '<h3 style="margin-top:1em">The three speeches/headings immediately before</h3> <ol class="otherspeeches">';
+	$ccc = 1;
 	foreach ($gids_previous as $row) {
-		disp_speech($row, $ccc--);
+		disp_speech($row, $ccc++);
 	}
 	echo '</ol>';
 }
