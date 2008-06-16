@@ -217,7 +217,7 @@ class SEARCHENGINE {
 
         # Replace stemmed things with their unstemmed terms from the query
         $used = array();
-        preg_match_all('#Z[^\s]+#', $qd, $m);
+        preg_match_all('#Z[a-z0-9\'&_\.]+#', $qd, $m);
         foreach ($m[0] as $mm) {
             $iter = $this->queryparser->unstem_begin($mm);
             $end = $this->queryparser->unstem_end($mm);
