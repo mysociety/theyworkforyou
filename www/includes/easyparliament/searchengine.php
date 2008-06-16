@@ -67,8 +67,8 @@ class SEARCHENGINE {
         // Any characters other than this are treated as, basically, white space
         // (apart from quotes and minuses, special case below)
         // The colon is in here for prefixes speaker:10043 and so on.
-        $this->wordchars = "A-Za-z0-9,.'&:_";
-        $this->wordcharsnodigit = "A-Za-z0-9'&_";
+        $this->wordchars = "A-Za-z0-9,.'&:_\xc0-\xff";
+        $this->wordcharsnodigit = "A-Za-z0-9'&_\xc0-\xff";
 
         // An array of normal words.
         $this->words = array();
@@ -217,7 +217,7 @@ class SEARCHENGINE {
 
         # Replace stemmed things with their unstemmed terms from the query
         $used = array();
-        preg_match_all('#Z[a-z0-9\'&_\.]+#', $qd, $m);
+        preg_match_all('#Z[^\s()]+#', $qd, $m);
         foreach ($m[0] as $mm) {
             $iter = $this->queryparser->unstem_begin($mm);
             $end = $this->queryparser->unstem_end($mm);
@@ -249,6 +249,8 @@ class SEARCHENGINE {
                 }
             }
         }
+
+        $qd = iconv('utf-8', 'iso-8859-1', $qd); # Xapian is UTF-8, site is ISO8859-1
         $this->query_desc = trim($qd);
 
         #print 'DEBUG: ' . $query->get_description();
@@ -413,7 +415,7 @@ class SEARCHENGINE {
         $findwords = array();
         $replacewords = array();
             
-		$splitextract = preg_split('/([0-9,.]+|['.$this->wordcharsnodigit.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
+		$splitextract = preg_split('/([0-9,.]+|['.$this->wordcharsnodigit.']+)/', html_entity_decode($body), -1, PREG_SPLIT_DELIM_CAPTURE);
 		$hlextract = "";
         $stemmed_words = array_map(array($this, 'stem'), $this->words);
 		foreach( $splitextract as $extractword) {
@@ -472,7 +474,7 @@ class SEARCHENGINE {
 
     // Find the position of the first of the search words/phrases in $body.
     function position_of_first_word($body) {
-        $lcbody = ' ' . strtolower($body) . ' '; // spaces to make regexp mapping easier
+        $lcbody = ' ' . html_entity_decode(strtolower($body)) . ' '; // spaces to make regexp mapping easier
         $pos = -1;
 
         // look for phrases
