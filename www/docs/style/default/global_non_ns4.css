@@ -993,6 +993,9 @@ ol.otherspeeches {
 	font-size: 93%;
 	list-style-type: none;
 } 
+ol.otherspeeches li {
+	padding: 4px;
+}
 
 #video_table {
 	margin-left: 1em;
