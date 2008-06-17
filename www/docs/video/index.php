@@ -444,6 +444,8 @@ function disp_speech($row, $count) {
 	echo '<li';
 	if ($row['htype']==13) echo ' class="unspoken"';
 	elseif ($row['htype']<12) echo ' class="heading"';
+	if ($count%2) echo ' style="background-color: #F5FDEA;"';
+	else echo ' style="background-color: #E8FDCB;"';
 	echo '>';
 	if ($count) echo "<em>$count earlier:</em> ";
 	if ($row['htype']==12)
