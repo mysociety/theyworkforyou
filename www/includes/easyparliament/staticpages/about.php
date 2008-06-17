@@ -64,7 +64,7 @@ work on their own versions. :)</p>
 Longair</a> contributed the parsing code and much front-end code for the Scottish Parliament
 which launched in May 2008. Wales is now all alone...</p>
 
-<h4>Volunteers</h4>
+<h3>Volunteers</h3>
 <p><em>They did all this in their spare time, because they thought it was worth doing.
 And if it's worth doing, you might as well try to do it well. </em></p>
 
@@ -79,11 +79,13 @@ And if it's worth doing, you might as well try to do it well. </em></p>
 <li>David Heath</li>
 <li>Francis Irving</li>
 <li>Ben Laurie</li>
+<li>Mark Longair</li>
 <li>Tom Loosemore</li>
 <li>Stefan Magdalinski</li>
 <li>Dorian McFarland</li>
 <li>Anno Mitchell</li>
 <li>Danny O'Brien</li>
+<li>Etienne Pollard</li>
 <li>Sam Smith</li>
 <li>Matthew Somerville</li>
 <li>Tom Steinberg</li>
