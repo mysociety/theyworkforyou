@@ -109,7 +109,7 @@ function render_mps_row($mp, &$style, $order, $MPURL) {
                 <?php
                 list($image,$sz) = find_rep_image($mp['person_id'], true);
                 if ($image) {
-                    echo '<img class="portrait" alt="" src="', $image, '"';
+                    echo '<img height="59" class="portrait" alt="" src="', $image, '"';
                     echo '>';
                 } else {
                 }
