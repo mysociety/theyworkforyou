@@ -271,6 +271,7 @@ to use the service on a large scale.
 <li><a href="http://search.cpan.org/~sden/WebService-TWFY-API-0.01/lib/WebService/TWFY/API.pm">Perl</a> (thanks to Spiros Denaxas)</li>
 <li><a href="http://tools.wackomenace.co.uk/twfyapi/">PHP</a> (thanks to Ruben Arakelyan)</li>
 <li><a href="http://tools.wackomenace.co.uk/twfyapi/">ASP.net</a> (thanks to Ruben Arakelyan)</li>
+<li><a href="https://sourceforge.net/projects/twfyjavaapi">Java</a> (thanks to Mitch Kent)</li>
 </ul>
 
 <p>If anyone wishes to write bindings for the API in any language, please
