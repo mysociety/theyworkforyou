@@ -14,6 +14,11 @@ if ($action == 'next' || $action=='nextneeded') {
 	$gid = "uk.org.publicwhip/debate/$gid";
 	$q_gid = mysql_escape_string($gid);
 	$q = $db->query("select hdate,hpos from hansard where gid='$q_gid'");
+	if (!$q->rows()) {
+		# Shouldn't happen, but means a bot has got the URL somehow or similar
+		header('Location: http://www.theyworkforyou.com/video/');
+		exit;
+	}
 	$hdate = $q->field(0, 'hdate');
 	$hpos = $q->field(0, 'hpos');
 	$q = $db->query("select gid, hpos from hansard
@@ -24,8 +29,10 @@ if ($action == 'next' || $action=='nextneeded') {
 	if (!$q->rows()) {
 		$PAGE->page_start();
 		$PAGE->stripe_start();
-		print '<p>You appear to have reached the end of the day! Congratulations for getting this far, now
-<a href="/video/">get stuck in somewhere else</a>! :-)</p>';
+		echo '<p>You appear to have reached the end of the day (or
+everything after where you have just done has already been stamped).
+Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
+;-)</p>';
 		$PAGE->stripe_end();
 		$PAGE->page_end();
 	} else {
@@ -57,12 +64,32 @@ if ($action == 'next' || $action=='nextneeded') {
 	header('Location: /video/?from=random&pid=' . $pid . '&gid=' . $new_gid);
 } elseif ($action == 'random') {
 	$db = new ParlDB;
-	$q = $db->query("select gid from hansard
+	$q = $db->query("select gid, hpos, hdate from hansard
 		where video_status in (1,3) and major=1
 		and (htype=12 or htype=13)
 		ORDER BY RAND() LIMIT 1");
-	$new_gid = fix_gid_from_db($q->field(0, 'gid'));
-	header('Location: /video/?from=random&gid=' . $new_gid);
+	$gid = $q->field(0, 'gid');
+	/*
+	$hpos = $q->field(0, 'hpos');
+	$hdate = $q->field(0, 'hdate');
+	# Look a few speeches back to see if any have been matched
+	# Harder as need to check all since are /not/ done
+	$q = $db->query("select gid from hansard
+		where hpos<$hpos and hpos>=$hpos-5 and major=1 and hdate='$hdate'
+		and htype in (12,13) and video_status in (5,7)
+		order by hpos desc limit 1");
+	if ($q->rows()) {
+		# Take the next speech, presumably needed
+		$hpos = $q->field(0, 'hpos');
+		$q = $db->query("select gid from hansard
+			where hpos>$hpos and major=1 and hdate='$hdate'
+			and htype in (12,13)
+			order by hpos limit 1");
+		$gid = $q->field(0, 'gid');
+	}
+	*/
+	$gid = fix_gid_from_db($gid);
+	header('Location: /video/?from=random&gid=' . $gid);
 } else {
     # Illegal action
 }
