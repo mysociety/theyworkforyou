@@ -46,9 +46,11 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
 				order by hpos desc limit 1");
 			$atime = $q->field(0, 'atime');
 			$videodb = video_db_connect();
-			$video = video_from_timestamp($videodb, $hdate, $atime);
-			$file = $video['id'];
-			$time = $video['offset'];
+			if ($videodb) {
+				$video = video_from_timestamp($videodb, $hdate, $atime);
+				$file = $video['id'];
+				$time = $video['offset'];
+			}
 		}
 		$new_gid = fix_gid_from_db($new_gid);
 		header('Location: /video/?from=next&file=' . $file . '&gid=' . $new_gid . '&start=' . $time);

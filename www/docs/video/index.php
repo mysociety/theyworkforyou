@@ -124,6 +124,10 @@ $gid_actual['body_first'] = preg_replace('#^(<p[^>]*>)([^<]{1,50}[^<\s]*)#s', '$
 
 # Work out what video we want, and where in it
 $videodb = video_db_connect();
+if (!$videodb) {
+	$PAGE->error_message('We appear to be having problems connecting to the database of video timings. Sorry, and please try again later.', true);
+	exit;
+}
 $video = video_from_timestamp($videodb, $hdate, $htime);
 
 if (!$start)

@@ -709,6 +709,7 @@ function video_sidebar($row, $section, $count) {
 	$ts_id = $vq->field(0, 'id'); if (!$ts_id) $ts_id='*';
 	$time = $vq->field(0, 'atime');
 	$videodb = video_db_connect();
+	if (!$videodb) return '';
 	$video = video_from_timestamp($videodb, $row['hdate'], $time);
 	$start = $video['offset'];
 	$out = '';

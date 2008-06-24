@@ -7,6 +7,7 @@ function video_db_connect() {
 }
 
 function video_from_timestamp($videodb, $date, $time) {
+    if (!$videodb) return null;
     date_default_timezone_set('Europe/London');
     $epoch = strtotime("$date $time");
     $timestamp = gmdate('c', $epoch);
