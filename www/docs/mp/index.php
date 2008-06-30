@@ -232,8 +232,9 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	$DATA->set_page_metadata($this_page, 'heading', '');
 
 	// So we can put a link in the <head> in $PAGE->page_start();	
-	$feedurl = $DATA->page_metadata('mp_rss', 'url');
-	$DATA->set_page_metadata($this_page, 'rss', $feedurl . $MEMBER->person_id() . '.rdf');
+	$feedurl = $DATA->page_metadata('mp_rss', 'url') . $MEMBER->person_id() . '.rdf';
+	if (file_exists(BASEDIR . $feedurl))
+		$DATA->set_page_metadata($this_page, 'rss', $feedurl);
 
 	twfy_debug_timestamp("before page_start");
 	$PAGE->page_start();
