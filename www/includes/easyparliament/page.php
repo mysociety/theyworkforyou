@@ -1253,22 +1253,19 @@ pr()//-->
 						
 						
 						<ul class="jumpers">
-<? if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_array(2, $member['houses'])) { ?>
-						<li><a href="#votingrecord">Voting record</a></li>
-<?		if (in_array(1, $member['houses'])) { ?>
-						<li><a href="#topics">Committees and topics of interest</a></li>
-<?		} ?>
-<? }
-   if (!in_array(1, $member['houses']) || $member['party'] != 'Sinn Fein' || in_array(3, $member['houses'])) { ?>
-						<li><a href="#hansard">Recent appearances</a></li>
-<? } ?>
-						<li><a href="#numbers">Numerology</a></li>
-<?php		if (isset($extra_info['register_member_interests_html'])) { ?>
-						<li><a href="#register">Register of Members' Interests</a></li>
-<?php		}
-		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || isset($extra_info['expenses2007_col1'])) { ?>
- 						<li><a href="#expenses">Expenses</a></li>
-<?php		}
+<?
+		if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_array(2, $member['houses'])) {
+			echo '<li><a href="#votingrecord">Voting record</a></li>';
+			if ($member['current_member'][1])
+				echo '<li><a href="#topics">Committees and topics of interest</a></li>';
+		}
+		if (!in_array(1, $member['houses']) || $member['party'] != 'Sinn Fein' || in_array(3, $member['houses']))
+			echo '<li><a href="#hansard">Recent appearances</a></li>';
+		echo '<li><a href="#numbers">Numerology</a></li>';
+		if (isset($extra_info['register_member_interests_html']))
+			echo '<li><a href="#register">Register of Members&rsquo; Interests</a></li>';
+		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || isset($extra_info['expenses2007_col1']))
+			echo '<li><a href="#expenses">Expenses</a></li>';
 
 		if (isset($extra_info['edm_ais_url'])) {
 			?>
@@ -1397,7 +1394,8 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		$this->block_end();
 
 		# Topics of interest only for MPs at the moment
-		if (in_array(1, $member['houses'])) {
+		#if (in_array(1, $member['houses'])) {
+		if ($member['current_member'][1]) {
 
 ?>	<a name="topics"></a>
 		<? $this->block_start(array('id'=>'topics', 'title'=>'Committees and topics of interest')); 
