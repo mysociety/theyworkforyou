@@ -55,6 +55,11 @@ $methods = array(
 		'required' => false,
 		'help' => 'Returns list of MLAs',
 	),
+	'getMSP' => array(
+		'parameters' => array('id', 'constituency', 'postcode'),
+		'required' => true,
+		'help' => 'Returns details for an MSP'
+	),
 	'getMSPs' => array(
 		'parameters' => array('date', 'party', 'search'),
 		'required' => false,
