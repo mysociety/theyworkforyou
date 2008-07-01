@@ -56,8 +56,10 @@ function your_mp_bullet_point() {
 	}
 
 	if ($pc_form) { ?>
-		<form action="<?php echo $MPURL->generate(); ?>" method="get">
-		<p><strong>Find out more about your MP</strong><br>
+		<form action="/postcode/" method="get">
+		<p><strong>Find out more about your <acronym title="Member of Parliament">MP</acronym>/
+		<acronym title="Members of the Scottish Parliament">MSPs</acronym>/
+		<acronym title="Members of the (Northern Irish) Legislative Assembly">MLAs</acronym></strong><br>
 		<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" GO " class="submit"></p>
 		</form>
 	<?php

@@ -227,7 +227,7 @@ class SEARCHENGINE {
                 $iter->next();
             }
             $used[] = $tt;
-            $qd = preg_replace("#$mm#", $tt, $qd, 1);
+            $qd = preg_replace('#' . preg_quote($mm, '#') . '#', $tt, $qd, 1);
         }
 
         # Simplify display of excluded words

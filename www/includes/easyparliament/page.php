@@ -333,27 +333,30 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// Links in the top menu, and the sublinks we see if
 		// we're within that section.
 		$items = array (
-			'home' 		=> array ('sitenews', 'comments_recent', 'api_front'),
-			'yourmp'	=> array(),
-			'hansard' 	=> array ('mps', 'peers', 'debatesfront', 'lordsdebatesfront', 'wransfront', 'whallfront', 'wmsfront'), # ,'pbc_front'),
+			array('home', 'sitenews', 'comments_recent', 'api_front'),
+			array('yourmp'),
+			array('hansard', 'mps', 'peers', 'debatesfront', 'lordsdebatesfront', 'wransfront', 'whallfront', 'wmsfront'), # ,'pbc_front'),
 			#'people' 	=> array('mps', 'peers', 'mlas', 'msps'),
 			#'mps'           => array (),
 			#'peers'		=> array (),
-			'sp_home'	=> array('msps', 'spdebatesfront', 'spwransfront'),
-			'ni_home'	=> array('mlas', 'nidebatesfront'),
-			'wales_home'	=> array(),
+			array('sp_home', 'msps', 'spdebatesfront', 'spwransfront'),
+			array('ni_home', 'mlas', 'nidebatesfront'),
+			array('wales_home'),
 #			'help_us_out'	=> array (), 
 /*			'help_us_out'	=> array ('glossary_addterm'),  */
-			'help'		=> array ()
+			array('help'),
 		);
 		
 		// If the user's postcode is set, then we allow them to view the
 		// bottom menu link to this page...
 		if ($THEUSER->postcode_is_set()) {
-			$items['yourmp'] = array ('yourmp_recent');
+			$items[1][] = 'yourmp_recent';
+			if (postcode_is_scottish($THEUSER->postcode()))
+				array_splice($items, 2, 0, array(array('yourmsp')));
+			elseif (postcode_is_ni($THEUSER->postcode()))
+				array_splice($items, 2, 0, array(array('yourmla')));
 		}
-		
-	
+
 		$top_links = array();
 		$bottom_links = array();
 		
@@ -386,7 +389,8 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			}
 		}
 
-		foreach ($items as $toppage => $bottompages) {
+		foreach ($items as $bottompages) {
+			$toppage = array_shift($bottompages);
 			
 			// Generate the links for the top menu.
 			
@@ -934,25 +938,17 @@ pr()//-->
 	ob_end_flush();
 	}
 
-
-
-	function postcode_form () {
+	function postcode_form() {
 		// Used on the mp (and yourmp) pages.
 		// And the userchangepc page.
 		global $THEUSER;
 		
-		$MPURL = new URL('yourmp');
-		?>
-				<br>
-<?php
-		$this->block_start(array('id'=>'mp', 'title'=>'Find out about your MP'));
-		?>
-						<form action="<?php echo $MPURL->generate(); ?>" method="get">
-<?php
-	if (get_http_var('c4')) print '<input type="hidden" name="c4" value="1">';
-	if (get_http_var('c4x')) print '<input type="hidden" name="c4x" value="1">';
+		echo '<br>';
+		$this->block_start(array('id'=>'mp', 'title'=>'Find out about your MP/MSPs/MLAs'));
+		echo '<form action="/postcode/" method="get">';
+		if (get_http_var('c4')) print '<input type="hidden" name="c4" value="1">';
+		if (get_http_var('c4x')) print '<input type="hidden" name="c4x" value="1">';
 		if ($THEUSER->postcode_is_set()) {
-			
 			$FORGETURL = new URL('userchangepc');
 			$FORGETURL->insert(array('forget'=>'t'));
 			?>
@@ -969,8 +965,6 @@ pr()//-->
 <?php	
 		$this->block_end();
 	}
-	
-	
 
 	function member_rss_block ($urls) {
 		// Returns the html for a person's rss feeds sidebar block.

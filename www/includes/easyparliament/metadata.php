@@ -969,6 +969,26 @@ $this->page = array (
 		'title'			=> "Your MP's recent appearances in parliament",
 		'url'			=> 'mp/?recent=1'
 	),
+	'yourmsp' => array (
+		'menu'			=> array (
+			'text'			=> 'Your MSPs',
+			'title'			=> "Find out about your Members of the Scottish Parliament"
+		),
+		#'parent'		=> 'yourreps',
+		'sidebar'		=> 'yourmsp',
+		'title'			=> 'Your MSPs',
+		'url'			=> 'msp/'
+	),
+	'yourmla' => array (
+		'menu'			=> array (
+			'text'			=> 'Your MLAs',
+			'title'			=> "Find out about your Members of the Legislative Assembly"
+		),
+		#'parent'		=> 'yourreps',
+		'sidebar'		=> 'yourmla',
+		'title'			=> 'Your MLAs',
+		'url'			=> 'mla/'
+	),
 );
 
 

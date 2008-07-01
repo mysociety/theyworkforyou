@@ -73,7 +73,7 @@ function api_getMP_id($id) {
 
 function api_getMP_postcode($pc) {
 	$pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
-	if (is_postcode($pc)) {
+	if (validate_postcode($pc)) {
 		$constituency = postcode_to_constituency($pc);
 		if ($constituency == 'CONNECTION_TIMED_OUT') {
 			api_error('Connection timed out');

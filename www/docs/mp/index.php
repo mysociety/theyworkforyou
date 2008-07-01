@@ -120,7 +120,7 @@ if (is_numeric(get_http_var('m'))) {
 		twfy_debug ('MP', "MP lookup by postcode");
 		$constituency = strtolower(postcode_to_constituency($pc));
 		if ($constituency == "connection_timed_out") {
-			$errors['pc'] = "Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load. Please use the 'All MPs' link above to browse all the MPs.";
+			$errors['pc'] = "Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.";
 		} elseif ($constituency == "") {
 			$errors['pc'] = "Sorry, ".htmlentities($pc) ." isn't a known postcode";
 			twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
@@ -142,6 +142,22 @@ if (is_numeric(get_http_var('m'))) {
 // DOES THE USER HAVE A POSTCODE ALREADY SET?
 // (Either in their logged-in details or in a cookie from a previous search.)
 
+} elseif ($this_page == 'msp' && $THEUSER->postcode_is_set() && $name == '' && $cconstituency == '') {
+	$this_page = 'yourmsp';
+	if (postcode_is_scottish($THEUSER->postcode())) {
+		regional_list($THEUSER->postcode(), 'SPC', 'msp');
+		exit;
+	} else {
+		$PAGE->error_message('Your set postcode is not in Scotland.');
+	}
+} elseif ($this_page == 'mla' && $THEUSER->postcode_is_set() && $name == '' && $cconstituency == '') {
+	$this_page = 'yourmla';
+	if (postcode_is_ni($THEUSER->postcode())) {
+		regional_list($THEUSER->postcode(), 'NIE', 'mla');
+		exit;
+	} else {
+		$PAGE->error_message('Your set postcode is not in Northern Ireland.');
+	}
 } elseif ($THEUSER->postcode_is_set() && $name == '' && $cconstituency == '') {
 	$MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode()));
 	member_redirect($MEMBER);
@@ -162,11 +178,10 @@ if (is_numeric(get_http_var('m'))) {
 		member_redirect($MEMBER);
 	}
 } elseif ($cconstituency) {
-
-if ($cconstituency == 'your &amp; my society') {
-	header('Location: /mp/stom%20teinberg');
-	exit;
-}
+	if ($cconstituency == 'your &amp; my society') {
+		header('Location: /mp/stom%20teinberg');
+		exit;
+	}
 	$MEMBER = new MEMBER(array('constituency' => $cconstituency));
 	member_redirect($MEMBER);
 } else {
@@ -305,20 +320,20 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 		if ($lat && $lon) {
 			$nearby_consts = _api_getConstituencies_latitude($lat, $lon, 300);
 			if ($nearby_consts) {
-				$out = '<ul><!-- '.$lat.','.$lon.' -->';
+				$conlist = '<ul><!-- '.$lat.','.$lon.' -->';
 				for ($k=1; $k<=min(5, count($nearby_consts)-1); $k++) {
 					$name = $nearby_consts[$k]['name'];
 					$dist = $nearby_consts[$k]['distance'];
-					$out .= '<li><a href="' . WEBPATH . 'mp/?c=' . urlencode($name) . '">';
-					$out .= $nearby_consts[$k]['name'] . '</a>';
+					$conlist .= '<li><a href="' . WEBPATH . 'mp/?c=' . urlencode($name) . '">';
+					$conlist .= $nearby_consts[$k]['name'] . '</a>';
 					$dist_miles = round($dist / 1.609344, 0);
-					$out .= ' <small title="Centre to centre">(' . $dist_miles. ' miles)</small>';
-					$out .= '</li>';
+					$conlist .= ' <small title="Centre to centre">(' . $dist_miles. ' miles)</small>';
+					$conlist .= '</li>';
 				}
-				$out .= '</ul>';
+				$conlist .= '</ul>';
 				$sidebars[] = array(
 					'type' => 'html',
-					'content' => '<div class="block"><h4>Nearby constituencies</h4><div class="blockbody">' . $out .' </div></div>'
+					'content' => '<div class="block"><h4>Nearby constituencies</h4><div class="blockbody">' . $conlist . ' </div></div>'
 				);
 			}
 		}
@@ -370,24 +385,14 @@ keeping these sorts of records on you...</p></div></div>'
 	$PAGE->stripe_end($sidebars);
 
 } else {
-	// Something went wrong.
-	
-	/////////////////////////////////////////////////////////
-	// DISPLAY FORM
-
-	
+	// Something went wrong
 	$PAGE->page_start();
-	
 	$PAGE->stripe_start();
-
 	if (isset($errors['pc'])) {
 		$PAGE->error_message($errors['pc']);
 	}
-
 	$PAGE->postcode_form();
-	
 	$PAGE->stripe_end();
-
 }
 
 
@@ -408,4 +413,62 @@ function member_redirect(&$MEMBER) {
 		exit;
 	}
 }
-?>
+
+function regional_list($pc, $area_type, $rep_type) {
+	$constituencies = postcode_to_constituencies($pc);
+	if ($constituencies == 'CONNECTION_TIMED_OUT') {
+		$errors['pc'] = "Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.";
+	} elseif (!$constituencies) {
+		$errors['pc'] = 'Sorry, ' . htmlentities($pc) . ' isn\'t a known postcode';
+	} elseif (!isset($constituencies[$area_type])) {
+		$errors['pc'] = htmlentities($pc) . ' does not appear to be a valid postcode';
+	}
+	global $PAGE;
+	$a = array_values($constituencies);
+	$db = new ParlDB;
+	$q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member 
+		WHERE constituency IN ('" . join("','", $a) . "') 
+		AND left_reason = 'still_in_office'");
+	$mcon = array(); $mreg = array();
+	for ($i=0; $i<$q->rows(); $i++) {
+		$house = $q->field($i, 'house');
+		$pid = $q->field($i, 'person_id');
+		$name = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
+		$cons = $q->field($i, 'constituency');
+		if ($house==1) {
+			continue;
+		} elseif ($house==3) {
+			$mreg[] = $q->row($i);
+		} elseif ($house==4) {
+			if ($cons == $constituencies['SPC']) {
+				$mcon = $q->row($i);
+			} elseif ($cons == $constituencies['SPE']) {
+				$mreg[] = $q->row($i);
+			}
+		} else {
+			$PAGE->error_message('Odd result returned!' . $house);
+			return;
+		}
+	}
+	$PAGE->page_start();
+	$PAGE->stripe_start();
+	if ($rep_type == 'msp') {
+		$out = '<p>You have one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
+		$out .= '<p>Your <strong>constituency MSP</strong> is <a href="/msp/?p=' . $mcon['person_id'] . '">';
+		$out .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, MSP for ' . $mcon['constituency'];
+		$out .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> are:</p>';
+	} else {
+		$out = '<p>You have multiple MLAs (Members of the Legislative Assembly) who represent you in ' . $constituencies['NIE'] . '. They are:</p>';
+	}
+	$out .= '<ul>';
+	foreach($mreg as $reg) {
+		$out .= '<li><a href="/' . $rep_type . '/?p=' . $reg['person_id'] . '">';
+		$out .= $reg['first_name'] . ' ' . $reg['last_name'];
+		$out .= '</a>';
+	}
+	$out .= '</ul>';
+	echo $out;
+	$PAGE->stripe_end();
+	$PAGE->page_end();
+}
+
