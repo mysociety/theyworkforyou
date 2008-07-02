@@ -35,6 +35,12 @@ class SEARCHENGINE {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
+        $this->translation_table = array_flip(get_html_translation_table(HTML_ENTITIES));
+        unset($this->translation_table['&lt;']);
+        unset($this->translation_table['&gt;']);
+        unset($this->translation_table['&amp;']);
+        unset($this->translation_table['&quot;']);
+
         global $xapiandb, $PAGE, $hansardmajors, $parties;
         if (!$xapiandb) {
             $xapiandb = new XapianDatabase(XAPIANDB);
@@ -415,7 +421,8 @@ class SEARCHENGINE {
         $findwords = array();
         $replacewords = array();
             
-		$splitextract = preg_split('/([0-9,.]+|['.$this->wordcharsnodigit.']+)/', html_entity_decode($body), -1, PREG_SPLIT_DELIM_CAPTURE);
+        $body = strtr($body, $this->translation_table); # Does html_entity_decode without the htmlspecialchars
+		$splitextract = preg_split('/([0-9,.]+|['.$this->wordcharsnodigit.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
 		$hlextract = "";
         $stemmed_words = array_map(array($this, 'stem'), $this->words);
 		foreach( $splitextract as $extractword) {
