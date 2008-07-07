@@ -144,8 +144,8 @@ function canonicalise_postcode($pc) {
 }
 
 function postcode_is_scottish($pc) {
-	$prefix = substr(canonicalise_postcode($pc), 0, 2);
-	if (in_array($prefix, array('AB', 'DD', 'DG', 'EH', 'FK', 'G', 'HS', 'IV', 'KA', 'KY', 'ML', 'PA', 'PH', 'TD', 'ZE', 'KW')))
+	preg_match('#^(.*?)\d#', canonicalise_postcode($pc), $m);
+	if (in_array($m[1], array('AB', 'DD', 'DG', 'EH', 'FK', 'G', 'HS', 'IV', 'KA', 'KY', 'ML', 'PA', 'PH', 'TD', 'ZE', 'KW')))
 		return true;
 	return false;
 }

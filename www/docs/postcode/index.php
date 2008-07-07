@@ -87,9 +87,17 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
 			return;
 		}
 	}
+	if (!$mp) {
+		$q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member 
+			WHERE constituency = '$areas[WMC]' ORDER BY left_house DESC LIMIT 1");
+		$mp = $q->row(0);
+		$mp['former'] = true;
+	}
 	$out = '';
 	$out .= '<p>That postcode has multiple results, please pick who you are interested in:</p>';
-	$out .= '<ul><li>Your <strong>MP</strong> (Member of Parliament) is <a href="/mp/?p=' . $mp['person_id'] . '">';
+	$out .= '<ul><li>Your ';
+	if (isset($mp['former'])) $out .= 'former ';
+	$out .= '<strong>MP</strong> (Member of Parliament) is <a href="/mp/?p=' . $mp['person_id'] . '">';
 	$out .= $mp['first_name'] . ' ' . $mp['last_name'] . '</a>, ' . $mp['constituency'] . '</li>';
 	if ($mcon) {
 		$out .= '<li>Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) is <a href="/msp/?p=' . $mcon['person_id'] . '">';
