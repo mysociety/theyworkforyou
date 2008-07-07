@@ -144,9 +144,35 @@ function canonicalise_postcode($pc) {
 }
 
 function postcode_is_scottish($pc) {
-	preg_match('#^(.*?)\d#', canonicalise_postcode($pc), $m);
-	if (in_array($m[1], array('AB', 'DD', 'DG', 'EH', 'FK', 'G', 'HS', 'IV', 'KA', 'KY', 'ML', 'PA', 'PH', 'TD', 'ZE', 'KW')))
+	if (!preg_match('#^([A-Z]{1,2})(\d+) (\d)([A-Z]{2})#', canonicalise_postcode($pc), $m))
+		return false;
+
+	# Check for Scottish postal areas
+	if (in_array($m[1], array('AB', 'DD', 'DG', 'EH', 'FK', 'G', 'HS', 'IV', 'KA', 'KW', 'KY', 'ML', 'PA', 'PH', 'ZE')))
 		return true;
+
+	# Damn postcodes crossing country boundaries
+	if ($m[1]=='TD') {
+		if ($m[2]!=15 && $m[2]!=12 && $m[2]!=9) return true; # TD1-8, 10-11, 13-14 all in Scotland
+		if ($m[2]==9) {
+			if ($m[3]!=0) return true; # TD9 1-9 all in Scotland
+			if (!in_array($m[4], array('TJ','TP','TR','TS','TT','TU','TW'))) return true; # Nearly all of TD9 0 in Scotland
+		}
+		$m[5] = substr($m[4], 0, 1);
+		if ($m[2]==12) { # $m[3] will be 4 currently.
+			if ($m[4]=='XE') return true;
+			if (in_array($m[5], array('A','B','D','E','H','J','L','N','W','Y'))) return true; # These bits of TD12 4 are in Scotland, others (Q, R, S, T, U, X) in England
+		}
+		# TD15 is mostly England
+		if ($m[2]==15) {
+			if ($m[3]!=1) return false; # TD15 2 and 9 are in England
+			if (in_array($m[4], array('SU','SZ','UF','UG','UH','UJ','UL','US','UZ','WY','WZ'))) return true;
+			if ($m[5]=='T') return true; # TD15 1T* in Scotlan
+			if ($m[5]=='X' && $m[4]!='XX') return true; # TD15 1XX in England
+		}
+	}
+
+	# Not in Scotland
 	return false;
 }
 
