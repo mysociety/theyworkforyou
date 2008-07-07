@@ -1143,7 +1143,7 @@ pr()//-->
 			print '</li>';
 		}
 		if (isset($extra_info['lordbio'])) {
-			echo '<li><strong>Positions held:</strong> ', $extra_info['lordbio'],
+			echo '<li><strong>Positions held at time of appointment:</strong> ', $extra_info['lordbio'],
 				' <small>(from <a href="',
 				$extra_info['lordbio_from'], '">Number 10 press release</a>)</small></li>';
 		}
@@ -1288,7 +1288,11 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 					print "<!-- distance $dreamid: $dmpscore -->";
 					if ($inverse) 
 						$dmpscore = 1.0 - $dmpscore;
-					$dmpdesc = 'Voted <strong>' . score_to_strongly($dmpscore) . '</strong>';
+					$english = score_to_strongly($dmpscore);
+					if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 1) {
+						$english = preg_replace('#(very )?(strongly|moderately) #', '', $english);
+					}
+					$dmpdesc = 'Voted <strong>' . $english . '</strong>';
 
 					// How many votes Dream MP and MP both voted (and didn't abstain) in
 					// $extra_info["public_whip_dreammp${dreamid}_both_voted"];
