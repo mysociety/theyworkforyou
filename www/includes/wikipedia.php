@@ -37,7 +37,7 @@ function wikipedize ($source) {
 
   # Set up various variables
   $capsword = "[A-Z][a-zA-Z'0-9]*"; # not starting with number, as catches too much
-  $fillerwords = "of|and|in|on|under|the";
+  $fillerwords = "of|and|in|on|under|the|for";
   $middlewordre = "(?:$capsword|$fillerwords)";
   $endwordre = "(?:$capsword)"; # and, of etc. can't appear at ends
 
