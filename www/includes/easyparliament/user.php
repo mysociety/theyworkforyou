@@ -106,6 +106,7 @@ class USER {
 								url,
 								lastvisit,
 								registrationtime,
+								registrationtoken,
 								registrationip,
 								optin,
 								status,
@@ -127,6 +128,7 @@ class USER {
 			$this->postcode 			= $q->field(0,"postcode");
 			$this->url 					= $q->field(0,"url");
 			$this->lastvisit 			= $q->field(0,"lastvisit");
+			$this->registrationtoken	= $q->field(0, 'registrationtoken');
 			$this->registrationtime 	= $q->field(0,"registrationtime");
 			$this->registrationip		= $q->field(0,"registrationip");
 			$this->optin = $q->field(0,"optin") == 1 ? true : false;
@@ -927,7 +929,7 @@ class THEUSER extends USER {
 			$PAGE->error_message ("This user has been deleted.", true);
 			return;
 		} elseif (!$this->confirmed) {
-			$PAGE->error_message ("this user has not been confirmed yet.", true);
+			$PAGE->error_message ("You have not yet confirmed your account by clicking the link in the confirmation email we sent to you. If you don't have the email, you can <a href='/user/login/?resend=" . $this->user_id() . "'>have it resent</a>. If it still doesn't arrive, get in touch.", true);
 			return;
 		}
 		
