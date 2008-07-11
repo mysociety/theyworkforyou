@@ -69,22 +69,24 @@ if (get_http_var("submitted") == "true") {
 } elseif ($resend = get_http_var('resend')) {
 	$USER = new USER();
 	$USER->init($resend);
-	$details = array(
-		'email' => $USER->email(),
-		'firstname' => $USER->firstname(),
-		'lastname' => $USER->lastname(),
-	);
-	$USER->send_confirmation_email($details);
-	$this_page = 'userwelcome';
-	$PAGE->page_start();
-	$PAGE->stripe_start();
-	$message = array(
-		'title' => "We're nearly done...",
-		'text' => "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address before you can log in. Thanks."
-	);
-	$PAGE->message($message);
-	$PAGE->stripe_end();
-	$PAGE->page_end();
+	if (!$USER->confirmed()) {
+		$details = array(
+			'email' => $USER->email(),
+			'firstname' => $USER->firstname(),
+			'lastname' => $USER->lastname(),
+		);
+		$USER->send_confirmation_email($details);
+		$this_page = 'userwelcome';
+		$PAGE->page_start();
+		$PAGE->stripe_start();
+		$message = array(
+			'title' => "Confirmation email resent",
+			'text' => "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address before you can log in. Thanks."
+		);
+		$PAGE->message($message);
+		$PAGE->stripe_end();
+		$PAGE->page_end();
+	}
 } else {
 	// First time to the page...
 	display_page();
