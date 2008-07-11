@@ -1105,6 +1105,7 @@ class HANSARDLIST {
                                     hansard.speaker_id,
                                     hansard.hpos,
                                     hansard.video_status,
+				    epobject.epobject_id,
                                     epobject.body
                             FROM hansard, epobject
                             WHERE hansard.gid = '$gid'
@@ -1121,53 +1122,23 @@ class HANSARDLIST {
 		
 			$itemdata = array();
 			$itemdata['collapsed'] = $collapsed;
-			
-			$itemdata['gid'] 			= fix_gid_from_db( $q->field(0, 'gid') );
-			$itemdata['hdate'] 			= $q->field(0, 'hdate');	
-			$itemdata['htype'] 			= $q->field(0, 'htype');		
-			$itemdata['major'] 			= $q->field(0, 'major');
-			$itemdata['minor'] 			= $q->field(0, 'minor');
+			$itemdata['gid'] 		= fix_gid_from_db( $q->field(0, 'gid') );
+			$itemdata['hdate'] 		= $q->field(0, 'hdate');	
+			$itemdata['htype'] 		= $q->field(0, 'htype');		
+			$itemdata['major'] 		= $q->field(0, 'major');
+			$itemdata['minor'] 		= $q->field(0, 'minor');
 			$itemdata['section_id'] 	= $q->field(0, 'section_id');
 			$itemdata['subsection_id'] 	= $q->field(0, 'subsection_id');
+			$itemdata['epobject_id'] 	= $q->field(0, 'epobject_id');
 			$itemdata['relevance'] 		= $relevances[$n];			
 			$itemdata['speaker_id'] 	= $q->field(0, 'speaker_id');
 			$itemdata['hpos']		= $q->field(0, 'hpos');
-			$itemdata['video_status']		= $q->field(0, 'video_status');
-
-
-			//////////////////////////
-			// 1. Trim and highlight the body text.
-			
-			$body = $q->field(0, 'body');
-		
-			// We want to trim the body to an extract that is centered
-			// around the position of the first search word.
-			
-			// we don't use strip_tags as it doesn't replace tags with spaces,
-			// which means some words end up stuck together
-			$extract = strip_tags_tospaces($body);
-
-			// $bestpos is the position of the first search word
-			$bestpos = $SEARCHENGINE->position_of_first_word($extract);
-				
-			// Where do we want to extract from the $body to start?
-			$length_of_extract = 400; // characters.
-			$startpos = $bestpos - ($length_of_extract / 2);
-			if ($startpos < 0) {
-				$startpos = 0;
-			}
-			
-			// Trim it to length and position, adding ellipses.
-			$extract = trim_characters ($extract, $startpos, $length_of_extract);
-
-			// Highlight search words 
-			$extract = $SEARCHENGINE->highlight($extract);
-			
-			$itemdata['body'] = $extract;
+			$itemdata['video_status']	= $q->field(0, 'video_status');
+			$itemdata['body'] = $this->prepare_search_result_for_display($q->field(0, 'body'));
 
 			//////////////////////////
 			// 2. Create the URL to link to this bit of text.
-			
+
 			$id_data = array (
 				'major'			=> $itemdata['major'],
 				'minor'			=> $itemdata['minor'],
@@ -1176,26 +1147,21 @@ class HANSARDLIST {
 				'section_id'	=> $itemdata['section_id'],
 				'subsection_id'	=> $itemdata['subsection_id']
 			);
-			
+
 			// We append the query onto the end of the URL as variable 's'
 			// so we can highlight them on the debate/wrans list page.
 			$url_args = array ('s' => $searchstring);
 
 			$itemdata['listurl'] = $this->_get_listurl($id_data, $url_args, $encode);
-			
-			
-			
+
 			//////////////////////////
 			// 3. Get the speaker for this item, if applicable.
-			
 			if ( $itemdata['speaker_id'] != 0) {
 				$itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
 			}
-			
-			
+
 			//////////////////////////
-			// 4. Get data about the parent (sub)section. TODO: CHECK THIS for major==4
-			
+			// 4. Get data about the parent (sub)section.
 			if ($itemdata['major'] && $hansardmajors[$itemdata['major']]['type'] == 'debate') {
 				// Debate
 				if ($itemdata['htype'] != 10) {
@@ -1234,22 +1200,67 @@ class HANSARDLIST {
 					'body' => $body,
 					'listurl' => $listurl
 				);
-				if ($itemdata['htype'] == 11 || $itemdata['htype'] == 10) {
+				if ($itemdata['htype'] == 11) {
+					# Search result was a subsection heading; fetch the first entry
+					# from the wrans/wms to show under the heading
+					$input = array (
+						'amount' => array(
+							'body' => true,
+							'speaker' => true
+						),
+						'where' => array(
+							'hansard.subsection_id=' => $itemdata['epobject_id']
+						),
+						'order' => 'hpos ASC',
+						'limit' => 1
+					);
+					$ddata = $this->_get_hansard_data($input);
+					if (count($ddata)) {
+						$itemdata['body'] = $this->prepare_search_result_for_display($ddata[0]['body']);
+						$itemdata['speaker_id'] = $ddata[0]['speaker_id'];
+						if ($itemdata['speaker_id']) {
+							$itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
+						}
+					}
+				} elseif ($itemdata['htype'] == 10) {
 					$itemdata['body'] = '';
 				}
 			}
 
-			// Add this item's data onto the main array we'll be returning.
 			$rows[] = $itemdata;
-			
 		}
 
 		$data['rows'] = $rows;
-	
 		return $data;
 	}
 	
+	function prepare_search_result_for_display($body) {
+		global $SEARCHENGINE;
+		// We want to trim the body to an extract that is centered
+		// around the position of the first search word.
 
+		// we don't use strip_tags as it doesn't replace tags with spaces,
+		// which means some words end up stuck together
+		$extract = strip_tags_tospaces($body);
+
+		// $bestpos is the position of the first search word
+		$bestpos = $SEARCHENGINE->position_of_first_word($extract);
+				
+		// Where do we want to extract from the $body to start?
+		$length_of_extract = 400; // characters.
+		$startpos = $bestpos - ($length_of_extract / 2);
+		if ($startpos < 0) {
+			$startpos = 0;
+		}
+			
+		// Trim it to length and position, adding ellipses.
+		$extract = trim_characters ($extract, $startpos, $length_of_extract);
+
+		// Highlight search words 
+		$extract = $SEARCHENGINE->highlight($extract);
+
+		return $extract;
+	}
 
 	function _get_data_by_calendar ($args) {
 		// We should have come here via _get_data_by_calendar() in
