@@ -305,6 +305,9 @@ if (isset ($data['rows'])) {
 
 			$body = $row['body'];
 
+			# XXX: Need to cope with links within links a better way/ higher level :-/
+			$body = preg_replace('#<phrase class="honfriend" id="uk.org.publicwhip/member/(\d+)" name="(.*?)">(.*?)</phrase>#e', '\'<a href="/mp/?m=$1" title="Our page on $2">\' . preg_replace("#</?a[^>]*>#", "", \'$3\') . \'</a>\'', $body);
+
 			if ($hansardmajors[$data['info']['major']]['location'] == 'Scotland') {
 				$body = preg_replace('# (S\d[O0WF]-\d+)[, ]#', ' <a href="/spwrans/?spid=$1">$1</a> ', $body);
 				$body = preg_replace('#<citation id="uk\.org\.publicwhip/(.*?)/(.*?)">\[(.*?)\]</citation>#e',
@@ -313,8 +316,8 @@ if (isset ($data['rows'])) {
 				$body = str_replace('href="../../../', 'href="http://www.scottish.parliament.uk/', $body);
 			}
 
-#			$body = preg_replace('#<phrase class="offrep" id="([^"]*?)/([^"]*?)">#', '<a href="/$1/?id=$2.0">', $body);
-#			$body = str_replace('</phrase>', '</a>', $body);
+			$body = preg_replace('#<phrase class="offrep" id="(.*?)/(\d+)-(\d+)-(\d+)\.(.*?)">(.*?)</phrase>#', '<a href="/search/?pop=1&s=date:$2$3$4+column:$5+section:$1">$6</a>', $body);
+
 			$body = preg_replace('#\[Official Report, (.*?); (.*?) (\d+MC)\.\]#', '<big>[This section has been corrected on $1, column $3 &mdash; read correction]</big>', $body);
 			$body = preg_replace('#(<p[^>]*class=".*?)("[^>]*)pwmotiontext="moved"#', '$1 moved$2', $body);
 			$body = str_replace('pwmotiontext="moved"', 'class="moved"', $body);

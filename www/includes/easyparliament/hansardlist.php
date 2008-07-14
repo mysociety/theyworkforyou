@@ -706,6 +706,8 @@ class HANSARDLIST {
 			$itemdata = $this->check_gid_change($args['gid'], '2005-10-14a', '2005-10-13b'); if ($itemdata) return $itemdata;
 			$itemdata = $this->check_gid_change($args['gid'], '2005-10-18b', '2005-10-10e'); if ($itemdata) return $itemdata;
 			$itemdata = $this->check_gid_change($args['gid'], '2005-11-17b', '2005-11-15c'); if ($itemdata) return $itemdata;
+	
+			$itemdata = $this->check_gid_change($args['gid'], '2007-01-08a', '2007-01-08e'); if ($itemdata) return $itemdata;
 
 			/* Right back when Lords began, we sent out email alerts when they weren't on the site. So this was to work that. */
 			#$q = $this->db->query('SELECT source_url FROM hansard WHERE gid LIKE "uk.org.publicwhip/lords/'.mysql_escape_string($args['gid']).'%"');
