@@ -1,2 +1,3 @@
+# Using Flex 3.0.0, from http://www.adobe.com/products/flex/flexdownloads/
 /home/matthew/flex/bin/mxmlc -output=/home/matthew/public_html/parlvid/parlvid.swf -title "TheyWorkForYou video timestamper" -creator "Matthew Somerville" -publisher "mySociety" /home/matthew/flex/twfy_video/main.mxml
 scp /home/matthew/public_html/parlvid/parlvid.swf matthew@sponge.ukcod.org.uk:~/twfy/twfy/www/docs/video/
