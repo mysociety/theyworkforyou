@@ -2685,8 +2685,14 @@ Sinn Fein is broken
 			// Generate all the page links.
 			$URL = new URL($this_page);
 			$URL->insert( array('wtt' => get_http_var('wtt')) );
-			if (isset($pagedata['s']))
-				$URL->insert(array('s' => $pagedata['s']));
+			if (isset($pagedata['s'])) {
+				# XXX: Should be taken out in *one* place, not here + search_form etc.
+				$value = $pagedata['s'];
+				if (preg_match_all('#speaker:(\d+)#', $value, $m) == 1) {
+					$value = str_replace('speaker:' . $m[1][0], '', $value);
+		       		}
+				$URL->insert(array('s' => $value));
+			}
 
 			for ($n = $firstpage; $n <= $lastpage; $n++) {
 				
