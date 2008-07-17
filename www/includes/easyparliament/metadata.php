@@ -628,6 +628,7 @@ $this->page = array (
 	'search'		=> array (
 		'sidebar'		=> 'search',
 		'url'			=> 'search/',
+		'robots'		=> 'noindex, nofollow',
 		'heading'		=> '',
 		'session_vars'	=> array ('s', 'pid', 'o', 'pop')
 	),

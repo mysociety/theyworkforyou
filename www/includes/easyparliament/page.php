@@ -162,13 +162,11 @@ class PAGE {
 			$metadescription = "";
 		}
 
-	
 		if ($this_page != "home") {
 			$URL = new URL('home');
 			
 			$linkshtml = "\t<link rel=\"start\" title=\"Home\" href=\"" . $URL->generate() . "\">\n";
 		}
-
 
 		// Create the next/prev/up links for navigation.
 		// Their data is put in the metadata in hansardlist.php
@@ -206,7 +204,12 @@ class PAGE {
 			$keywords = ",".$DATA->page_metadata($this_page, "keywords");
 		}
 
-		?>
+		$robots = '';
+		if ($robots = $DATA->page_metadata($this_page, 'robots')) {
+			$robots = '<meta name="robots" content="' . $robots . '">';
+		}
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -214,6 +217,7 @@ class PAGE {
 	<title><?php echo $title; ?></title>
 	<meta name="description" content="Making parliament easy.">
 	<meta name="keywords" content="Parliament, government, house of commons, house of lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, UK, Britain, British, Welsh, Scottish, Wales, Scotland, <?php echo htmlentities($keywords_title).htmlentities($keywords); ?>">
+	<?=$robots ?>
 	<link rel="author" title="Send feedback" href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">
 	<link rel="home" title="Home" href="http://<?php echo DOMAIN; ?>/">
 	<script type="text/javascript" src="/js/main.js"></script>
@@ -224,9 +228,7 @@ class PAGE {
 
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
 			// If this page has an RSS feed set.
-			?>
-	<link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="http://<?php echo DOMAIN . WEBPATH . $rssurl; ?>">
-<?php
+			echo '<link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="http://', DOMAIN, WEBPATH, $rssurl, '">';
 		}
 				
 		if (!DEVSITE) {
@@ -240,15 +242,10 @@ _uacct = "UA-660910-1";
 if (typeof urchinTracker == 'function') urchinTracker();
 </script>
 
-<?		} ?>
-
-</head>
-
-<?php
+<?		}
+		echo '</head>';
 	}	
-	
-	
-	
+
 	function page_body () {
 		global $this_page;
 		
