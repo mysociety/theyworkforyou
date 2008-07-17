@@ -16,7 +16,16 @@ for example to find documents containing the word "representation" but not the w
 
 <li>From a person's page, you have the option to search only their speeches. </li>
 
-<li><strong>Advanced Users:</strong> You can perform boolean searches, with brackets, AND, OR, and XOR. There are many prefixes you can use directly instead of the advanced search form, e.g. column:123 or party:Lab.</li>
+<li><strong>Advanced Users:</strong> You can perform boolean searches, with brackets, AND, OR, and XOR. There are many prefixes you can use directly instead of the advanced search form, here's a selection:
+<ul>
+<li>column:123
+<li>party:Lab
+<li>department:Defence
+<li>section:uk section:wms
+<li>date:20080716
+<li>20080101..20080131
+</ul>
+</li>
 
 <?php
 $user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? strtolower( $_SERVER['HTTP_USER_AGENT'] ) : '';
