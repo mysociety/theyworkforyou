@@ -78,7 +78,8 @@ function search_bullet_point() {
 	?>
 						<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
 						<p><strong><label for="s">Search<?=get_http_var("keyword") ? ' Hansard for \'' . htmlspecialchars(get_http_var("keyword")) . '\'' : ''?>:</label></strong>
-					<input type="text" name="s" id="s" size="15" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit"></p>
+					<input type="text" name="s" id="s" size="15" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit">
+<small>(<a href="/search/?adv=1">Advanced Search</a>)</small></p>
                         <?
                             // Display popular queries
                             global $SEARCHLOG;
