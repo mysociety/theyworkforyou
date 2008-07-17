@@ -303,7 +303,9 @@ CREATE TABLE `users` (
   `registrationtoken` varchar(24) NOT NULL default '',
   `confirmed` tinyint(1) NOT NULL default '0',
   `url` varchar(255) NOT NULL default '',
+  `api_key` char(24),
   PRIMARY KEY  (`user_id`),
+  UNIQUE KEY `api_key` (`api_key`),
   KEY `email` (`email`)
 );
 
@@ -360,5 +362,15 @@ CREATE TABLE `video_timestamps` (
   KEY `deleted` (`deleted`),
   KEY `user_id` (`user_id`),
   UNIQUE KEY `gid_user_id` (`gid`, `user_id`)
+);
+
+CREATE TABLE `api_stats` (
+  `id` int(11) NOT NULL auto_increment,
+  `api_key` char(24) NOT NULL,
+  `ip_address` varchar(16) NOT NULL,
+  `query_time` datetime NOT NULL,
+  `query` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `api_key` (`api_key`)
 );
 

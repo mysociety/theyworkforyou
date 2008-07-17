@@ -7,121 +7,24 @@ include_once 'api_functions.php';
 
 # XXX: Need to override error handling! XXX
 
-$methods = array(
-	'convertURL' => array(
-		'parameters' => array('url'),
-		'required' => true,
-		'help' => 'Converts a parliament.uk Hansard URL into a TheyWorkForYou one, if possible',
-	),
-	'getConstituency' => array(
-		'new' => true,
-		'parameters' => array('postcode'),
-		'required' => true,
-		'help' => 'Searches for a constituency',
-	),
-	'getConstituencies' => array(
-		'parameters' => array('date', 'search', 'latitude', 'longitude', 'distance'),
-		'required' => false,
-		'help' => 'Returns list of constituencies',
-	),
-	'getMP' => array(
-		'new' => true,
-		'parameters' => array('id', 'constituency', 'postcode', 'always_return', 'extra'),
-		'required' => true,
-		'help' => 'Returns main details for an MP'
-	),
-	'getMPInfo' => array(
-		'parameters' => array('id'),
-		'required' => true,
-		'help' => 'Returns extra information for a person'
-	),
-	'getMPs' => array(
-		'parameters' => array('party', 'date', 'search'),
-		'required' => false,
-		'help' => 'Returns list of MPs',
-	),
-	'getLord' => array(
-		'parameters' => array('id'),
-		'required' => true,
-		'help' => 'Returns details for a Lord'
-	),
-	'getLords' => array(
-		'parameters' => array('date', 'party', 'search'),
-		'required' => false,
-		'help' => 'Returns list of Lords',
-	),
-	'getMLAs' => array(
-		'parameters' => array('date', 'party', 'search'),
-		'required' => false,
-		'help' => 'Returns list of MLAs',
-	),
-	'getMSP' => array(
-		'parameters' => array('id', 'constituency', 'postcode'),
-		'required' => true,
-		'help' => 'Returns details for an MSP'
-	),
-	'getMSPs' => array(
-		'parameters' => array('date', 'party', 'search'),
-		'required' => false,
-		'help' => 'Returns list of MSPs',
-	),
-	'getGeometry' => array(
-		'new' => true,
-		'parameters' => array('name'),
-		'required' => false,
-		'help' => 'Returns centre, bounding box of constituencies'
-	),
-/*	'getBoundary' => array(
-		'parameters' => array('name'),
-		'required' => true,
-		'help' => 'Returns boundary polygon of constituency'
-	),
-*/
-	'getCommittee' => array(
-		'new' => true,
-		'parameters' => array('name', 'date'),
-		'required' => true,
-		'help' => 'Returns members of Select Committee',
-	),
-	'getDebates' => array(
-		'new' => true,
-		'parameters' => array('type', 'date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
-		'required' => true,
-		'help' => 'Returns Debates (either Commons, Westminhall Hall, or Lords)',
-	),
-	'getWrans' => array(
-		'parameters' => array('date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
-		'required' => true,
-		'help' => 'Returns Written Answers',
-	),
-	'getWMS' => array(
-		'parameters' => array('date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
-		'required' => true,
-		'help' => 'Returns Written Ministerial Statements',
-	),
-	'getHansard' => array(
-		'parameters' => array('search', 'person', 'order', 'page', 'num'),
-		'required' => true,
-		'help' => 'Returns any of the above',
-	),
-	'getComments' => array(
-		'new' => true,
-		'parameters' => array('search', 'page', 'num', 'pid'),
-		'required' => false,
-		'help' => 'Returns comments'
-	),
-	'postComment' => array(
-		'parameters' => array('user_id', 'gid?'),
-		'working' => false,
-		'required' => true,
-		'help' => 'Posts a comment - needs authentication!'
-	),
-);
-
 if ($q_method = get_http_var('method')) {
+	if (get_http_var('docs')) {
+		$key = 'DOCS';
+	} else {
+		if (!get_http_var('key')) {
+			api_error('No API key provided. Please see http://www.theyworkforyou.com/api/key for more information.');
+			exit;
+		}
+		$key = get_http_var('key');
+		if (!api_check_key($key)) {
+			api_error('Invalid API key.');
+			exit;
+		}
+	}
 	$match = 0;
 	foreach ($methods as $method => $data) {
 		if (strtolower($q_method) == strtolower($method)) {
+			api_log_call($key);
 			$match++;
 			if (get_http_var('docs')) {
 				$_GET['verbose'] = 1;
@@ -151,6 +54,7 @@ if ($q_method = get_http_var('method')) {
 		}
 	}
 	if (!$match) {
+		api_log_call($key);
 		api_front_page('Unknown function "' . htmlspecialchars($q_method) .
 			'". Possible functions are: ' .
 			join(', ', array_keys($methods)) );
@@ -228,14 +132,23 @@ function api_front_page($error = '') {
 
 <h3>Overview</h3>
 
-<p>All requests take a number of parameters. <em>output</em> is optional, and defaults to <kbd>js</kbd>.</p>
+<ol style="font-size:130%">
+<li><a href="key">Get an API key</a>.
+<li>All requests are made by GETting a particular URL with a number of parameters. <em>key</em> is required;
+<em>output</em> is optional, and defaults to <kbd>js</kbd>.
+</ol>
 
-<p align="center"><strong>http://www.theyworkforyou.com/api/<em>function</em>?output=<em>output</em>&<em>other_variables</em></strong></p>
+<p align="center"><strong>http://www.theyworkforyou.com/api/<em>function</em>?key=<em>key</em>&amp;output=<em>output</em>&amp;<em>other_variables</em></strong></p>
 
-<p>The current version of the API is <em>1.0.0</em>. If we make changes
-to the API,
-we'll increase the version number and make it an argument so you can still
-use the old version.</p>
+<p id="video_already" style="text-align:left"><em>Current API users</em>: We
+realise the inconvenience of adding a key to an API that previously did not
+require one. However, we feel it is now necessary in order to monitor the
+service for abuse and help with support and maintenance. You will also be
+able to view usage stats of your key.</p>
+
+<p>The current version of the API is <em>1.0.0</em>. If we make changes to the
+API functions, we'll increase the version number and make it an argument so you
+can still use the old version.</p>
 
 <h3>Outputs</h3>
 <p>The <em>output</em> argument can take any of the following values:
@@ -301,38 +214,3 @@ to discuss things.</p>
 	$PAGE->page_end();
 }
 
-function api_sidebar() {
-	global $methods;
-	$sidebar = '<div class="block"><h4>API Functions</h4> <div class="blockbody"><ul>';
-	foreach ($methods as $method => $data){
-		$sidebar .= '<li';
-		if (isset($data['new']))
-			$sidebar .= ' style="border-top: solid 1px #999999;"';
-		$sidebar .= '>';
-		if (!isset($data['working']) || $data['working'])
-			$sidebar .= '<a href="' . WEBPATH . 'api/docs/' . $method . '">';
-		$sidebar .= $method;
-		if (!isset($data['working']) || $data['working'])
-			$sidebar .= '</a>';
-		else
-			$sidebar .= ' - <em>not written yet</em>';
-		#		if ($data['required'])
-		#			$sidebar .= ' (parameter required)';
-		#		else
-		#			$sidebar .= ' (parameter optional)';
-		$sidebar .= '<br>' . $data['help'];
-		#		$sidebar .= '<ul>';
-		#		foreach ($data['parameters'] as $parameter) {
-			#			$sidebar .= '<li>' . $parameter . '</li>';
-			#		}
-			#		$sidebar .= '</ul>';
-		$sidebar .= '</li>';
-	}
-	$sidebar .= '</ul></div></div>';
-	$sidebar = array(
-		'type' => 'html',
-		'content' => $sidebar
-	);
-	return $sidebar;
-}
-?>

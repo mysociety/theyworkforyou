@@ -6,6 +6,7 @@ delete from titles where title in ('Johnny_Byrne', 'The_Bill', 'John_Turner',
 'Christopher_Williams', 'Richard_Steele', 'Alex_Fox', 'SEAL',
 'The_Department', 'John_Williams', 'PND', 'Tim_Riley', 'The_Panel',
 'And_I', 'The_Border', 'Ben_Evans', 'Andrew_Young', 'MATRA', 'GK', 'Re',
-'PDG', 'S2M', 'S3M', 'S1W', 'S2W', 'S3W', 'S2F', 'Phil_Collins'
+'PDG', 'S2M', 'S3M', 'S1W', 'S2W', 'S3W', 'S2F', 'Phil_Collins', 'In_April',
+'The_Government'
 );
 

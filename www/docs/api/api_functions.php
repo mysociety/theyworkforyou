@@ -2,6 +2,178 @@
 
 include_once '../../../../phplib/rabx.php';
 
+# The METHODS
+
+$methods = array(
+	'convertURL' => array(
+		'parameters' => array('url'),
+		'required' => true,
+		'help' => 'Converts a parliament.uk Hansard URL into a TheyWorkForYou one, if possible',
+	),
+	'getConstituency' => array(
+		'new' => true,
+		'parameters' => array('postcode'),
+		'required' => true,
+		'help' => 'Searches for a constituency',
+	),
+	'getConstituencies' => array(
+		'parameters' => array('date', 'search', 'latitude', 'longitude', 'distance'),
+		'required' => false,
+		'help' => 'Returns list of constituencies',
+	),
+	'getMP' => array(
+		'new' => true,
+		'parameters' => array('id', 'constituency', 'postcode', 'always_return', 'extra'),
+		'required' => true,
+		'help' => 'Returns main details for an MP'
+	),
+	'getMPInfo' => array(
+		'parameters' => array('id'),
+		'required' => true,
+		'help' => 'Returns extra information for a person'
+	),
+	'getMPs' => array(
+		'parameters' => array('party', 'date', 'search'),
+		'required' => false,
+		'help' => 'Returns list of MPs',
+	),
+	'getLord' => array(
+		'parameters' => array('id'),
+		'required' => true,
+		'help' => 'Returns details for a Lord'
+	),
+	'getLords' => array(
+		'parameters' => array('date', 'party', 'search'),
+		'required' => false,
+		'help' => 'Returns list of Lords',
+	),
+	'getMLAs' => array(
+		'parameters' => array('date', 'party', 'search'),
+		'required' => false,
+		'help' => 'Returns list of MLAs',
+	),
+	'getMSP' => array(
+		'parameters' => array('id', 'constituency', 'postcode'),
+		'required' => true,
+		'help' => 'Returns details for an MSP'
+	),
+	'getMSPs' => array(
+		'parameters' => array('date', 'party', 'search'),
+		'required' => false,
+		'help' => 'Returns list of MSPs',
+	),
+	'getGeometry' => array(
+		'new' => true,
+		'parameters' => array('name'),
+		'required' => false,
+		'help' => 'Returns centre, bounding box of constituencies'
+	),
+/*	'getBoundary' => array(
+		'parameters' => array('name'),
+		'required' => true,
+		'help' => 'Returns boundary polygon of constituency'
+	),
+*/
+	'getCommittee' => array(
+		'new' => true,
+		'parameters' => array('name', 'date'),
+		'required' => true,
+		'help' => 'Returns members of Select Committee',
+	),
+	'getDebates' => array(
+		'new' => true,
+		'parameters' => array('type', 'date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
+		'required' => true,
+		'help' => 'Returns Debates (either Commons, Westminhall Hall, or Lords)',
+	),
+	'getWrans' => array(
+		'parameters' => array('date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
+		'required' => true,
+		'help' => 'Returns Written Answers',
+	),
+	'getWMS' => array(
+		'parameters' => array('date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
+		'required' => true,
+		'help' => 'Returns Written Ministerial Statements',
+	),
+	'getHansard' => array(
+		'parameters' => array('search', 'person', 'order', 'page', 'num'),
+		'required' => true,
+		'help' => 'Returns any of the above',
+	),
+	'getComments' => array(
+		'new' => true,
+		'parameters' => array('search', 'page', 'num', 'pid'),
+		'required' => false,
+		'help' => 'Returns comments'
+	),
+	'postComment' => array(
+		'parameters' => array('user_id', 'gid?'),
+		'working' => false,
+		'required' => true,
+		'help' => 'Posts a comment - needs authentication!'
+	),
+);
+
+# Key-related functions
+
+function api_log_call($key) {
+	if ($key=='DOCS') return;
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$query = $_SERVER['REQUEST_URI'];
+	$query = preg_replace('#key=[A-Za-z0-9]+&?#', '', $query);
+	$db = new ParlDB;
+	$db->query("INSERT INTO api_stats (api_key, ip_address, query_time, query)
+		VALUES ('$key', '$ip', NOW(), '" . mysql_escape_string($query) . "')");
+}
+
+function api_check_key($key) {
+	$db = new ParlDB;
+	$q = $db->query('SELECT user_id FROM users WHERE api_key="' . mysql_escape_string($key) . '"');
+	if (!$q->rows())
+		return false;
+	return true;
+}
+
+# Front-end sidebar of all methods
+
+function api_sidebar() {
+	global $methods;
+	$sidebar = '<div class="block"><h4>API Functions</h4> <div class="blockbody"><ul>';
+	foreach ($methods as $method => $data){
+		$sidebar .= '<li';
+		if (isset($data['new']))
+			$sidebar .= ' style="border-top: solid 1px #999999;"';
+		$sidebar .= '>';
+		if (!isset($data['working']) || $data['working'])
+			$sidebar .= '<a href="' . WEBPATH . 'api/docs/' . $method . '">';
+		$sidebar .= $method;
+		if (!isset($data['working']) || $data['working'])
+			$sidebar .= '</a>';
+		else
+			$sidebar .= ' - <em>not written yet</em>';
+		#		if ($data['required'])
+		#			$sidebar .= ' (parameter required)';
+		#		else
+		#			$sidebar .= ' (parameter optional)';
+		$sidebar .= '<br>' . $data['help'];
+		#		$sidebar .= '<ul>';
+		#		foreach ($data['parameters'] as $parameter) {
+		#			$sidebar .= '<li>' . $parameter . '</li>';
+		#		}
+		#		$sidebar .= '</ul>';
+		$sidebar .= '</li>';
+	}
+	$sidebar .= '</ul></div></div>';
+	$sidebar = array(
+		'type' => 'html',
+		'content' => $sidebar
+	);
+	return $sidebar;
+}
+
+# Output functions
+
 function api_output($arr, $last_mod=null) {
 	$output = get_http_var('output');
 	if (!get_http_var('docs')) {
@@ -127,6 +299,8 @@ function api_output_js($v, $level=0) {
 	}
 }
 
+# Call an API function
+
 function api_call_user_func_or_error($function, $params, $error, $type) {
 	if (function_exists($function))
 		call_user_func_array($function, $params);
@@ -135,6 +309,8 @@ function api_call_user_func_or_error($function, $params, $error, $type) {
 	else
 		print "<p style='color:#cc0000'>$error</p>";
 }
+
+# Used for testing for conditional responses
 
 $cond_wkday_re = '(Sun|Mon|Tue|Wed|Thu|Fri|Sat)';
 $cond_weekday_re = '(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)';
@@ -188,4 +364,3 @@ function cond_parse_http_date($date) {
 	return gmmktime($H, $M, $S, $m, $d, $Y);
 }
 
-?>

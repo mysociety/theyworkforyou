@@ -231,6 +231,11 @@ $this->page = array (
 		'parent'		=> 'api_front',
 		'url'			=> 'api/'
 	),
+	'api_key'		=> array (
+		'title'			=> 'API Key',
+		'parent'		=> 'api_front',
+		'url'			=> 'api/'
+	),
 
 	'cards' => array (
 		'title'			=> 'MP Stats Cards',
