@@ -4,6 +4,31 @@
 
 $all_news = array(
 
+48 => array('API keys, and improved internal links', <<<EOT
+In order to monitor the service for abuse, help with support and maintenance,
+locate large volume/ commercial users to ask them to contribute to our costs,
+and provide users with usage statistics of their application, we're adding API
+keys to our <a href="http://www.theyworkforyou.com/api/">API</a>. Apologies to
+current API users who will be inconvenienced; the API will allow key-less calls
+for a short time, during which current users can get a key and update their
+code.
+
+In front end news, we now locate whenever an old version of Hansard is
+referenced (which they do by date and column number, e.g. <a
+href="http://www.theyworkforyou.com/search/?pop=1&s=date:20080229+column:1425"><i>Official
+Report</i>, 29 February 2008, column 1425</a>) and turn the citation into a
+link to a search for the speeches in that column on that date. This only really
+became feasible when we moved server, upgraded <a
+href="http://www.xapian.org/">Xapian</a>, and added date and column number
+metadata (among others), allowing much more advanced and focussed searching -
+the <a href="http://www.theyworkforyou.com/search/">advanced search form</a>
+gives some other ideas. Perhaps in future we'll be able to add some
+crowd-sourcing game to match the reference to the exact speech, much like our
+<a href="http://www.theyworkforyou.com/video/">video matching</a> (nearly 80%
+of our archive done!). :)
+EOT
+, '2008-07-18 14:01:00', 'Matthew'),
+
 47 => array('Video on TheyWorkForYou', <<<EOT
 <p>We&#8217;re very excited to announce that TheyWorkForYou now includes <a href="/video/">video</a> of <a href="/debates/">debates in the House of Commons</a> - but <a href="/video/">we need your help</a> to match up each speech with the video footage.</p>
 
