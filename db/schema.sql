@@ -303,7 +303,7 @@ CREATE TABLE `users` (
   `registrationtoken` varchar(24) NOT NULL default '',
   `confirmed` tinyint(1) NOT NULL default '0',
   `url` varchar(255) NOT NULL default '',
-  `api_key` char(24),
+  `api_key` char(24) default NULL,
   PRIMARY KEY  (`user_id`),
   UNIQUE KEY `api_key` (`api_key`),
   KEY `email` (`email`)
