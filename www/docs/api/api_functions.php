@@ -141,7 +141,9 @@ realise the inconvenience of adding a key to an API that previously did not
 require one. However, we feel it is now necessary in order to monitor the
 service for abuse, help with support and maintenance, locate large volume/
 commercial users to ask them to contribute to our costs, and provide you with
-usage statistics.</p>
+usage statistics.<br>
+The API will allow key-less calls for a short time, during
+which you can get a key and update your code.</p>
 <?
 }
 
