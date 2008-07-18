@@ -146,6 +146,10 @@ function api_front_page($error = '') {
 API functions, we'll increase the version number and make it an argument so you
 can still use the old version.</p>
 
+<table>
+<tr valign="top">
+<td width="60%">
+
 <h3>Outputs</h3>
 <p>The <em>output</em> argument can take any of the following values:
 <ul>
@@ -156,6 +160,18 @@ function with the <em>callback</em> variable, and then that function will be
 called with the data as its argument.</li>
 <li><strong>rabx</strong>. "RPC over Anything But XML".</li>
 </ul>
+
+</td><td>
+
+<h3>Errors</h3>
+
+<p>If there's an error, either in the arguments provided or in trying to perform the request,
+this is returned as a top-level error string, ie. in XML it returns
+<code>&lt;twfy&gt;&lt;error&gt;ERROR&lt;/error&gt;&lt;/twfy&gt;</code>;
+in JS <code>{"error":"ERROR"}</code>;
+and in PHP and RABX a serialised array containing one entry with key <code>error</code>.
+
+</td></tr></table>
 
 <h3>Licensing</h3>
 
