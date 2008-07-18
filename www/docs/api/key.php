@@ -10,18 +10,9 @@ $a = auth_ab64_encode(random_bytes(32));
 $this_page = 'api_key';
 $PAGE->page_start();
 $PAGE->stripe_start();
-?>
-<p id="video_already" style="text-align:left"><em>Current API users</em>: We
-realise the inconvenience of adding a key to an API that previously did not
-require one. However, we feel it is now necessary in order to monitor the
-service for abuse and help with support and maintenance. You will also be
-able to view usage stats of your key.</p>
-
-<p>TheyWorkForYou API calls require a key, so that we can monitor usage of the service,
-and provide usage stats to you.
-
-<?
-
+api_key_current_message();
+echo '<p>TheyWorkForYou API calls require a key, so that we can monitor usage
+of the service, and provide usage stats to you.';
 if ($THEUSER->loggedin()) {
 	$db = new ParlDB;
 	$q = $db->query('SELECT api_key FROM users WHERE user_id=' . $THEUSER->user_id());

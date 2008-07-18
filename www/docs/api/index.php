@@ -140,11 +140,7 @@ function api_front_page($error = '') {
 
 <p align="center"><strong>http://www.theyworkforyou.com/api/<em>function</em>?key=<em>key</em>&amp;output=<em>output</em>&amp;<em>other_variables</em></strong></p>
 
-<p id="video_already" style="text-align:left"><em>Current API users</em>: We
-realise the inconvenience of adding a key to an API that previously did not
-require one. However, we feel it is now necessary in order to monitor the
-service for abuse and help with support and maintenance. You will also be
-able to view usage stats of your key.</p>
+<? api_key_current_message(); ?>
 
 <p>The current version of the API is <em>1.0.0</em>. If we make changes to the
 API functions, we'll increase the version number and make it an argument so you
