@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.35 2008-05-30 17:39:47 matthew Exp $
+# $Id: xml2db.pl,v 1.36 2008-07-18 10:35:44 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -884,8 +884,7 @@ sub db_addpair
                                 # They differ - update the existing epobject
                                 die "Sizes incompatible when comparing epobjects (in " . $gid . ")" if $#epvals != $#$epparams;;
                                 if (!$quiet) {
-                                        print "updating epobject epid " . $epid . " for gid " . $gid . ", changing: ";
-                                        print describe_compare_arrays(\@epvals, $epparams) . "\n";
+                                        print "updating epobject epid " . $epid . " for gid " . $gid . "\n";
                                 }
                                 $epupdate->execute(@$epparams, $epid);
                                 $epupdate->finish();
