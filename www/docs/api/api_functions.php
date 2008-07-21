@@ -129,7 +129,7 @@ function api_log_call($key) {
 
 function api_check_key($key) {
 	$db = new ParlDB;
-	$q = $db->query('SELECT user_id FROM users WHERE api_key="' . mysql_escape_string($key) . '"');
+	$q = $db->query('SELECT user_id FROM api_key WHERE api_key="' . mysql_escape_string($key) . '"');
 	if (!$q->rows())
 		return false;
 	return true;
