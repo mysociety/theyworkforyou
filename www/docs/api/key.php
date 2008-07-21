@@ -29,10 +29,10 @@ if ($THEUSER->loggedin()) {
 	foreach ($keys as $keyarr) {
 		list($key, $commercial, $created, $reason) = $keyarr;
 		echo '<li><span style="font-size:200%">' . $key . '</span><br><span style="color: #666666;">';
-		if ($commercial==1) echo 'Commercial key';
+		if ($commercial==1) echo 'Commercial key,';
 		elseif ($commercial==-1) echo 'Key';
-		else echo 'Non-commercial key';
-		echo ', created ', $created; # , ' ', $reason;
+		else echo 'Non-commercial key,';
+		echo ' created ', $created, '; ', $reason;
 		echo '</span><br><em>Usage statistics</em>: ';
 		$q = $db->query('SELECT count(*) as count FROM api_stats WHERE api_key="' . $key . '" AND query_time > NOW() - interval 1 day');
 		$c = $q->field(0, 'count');
