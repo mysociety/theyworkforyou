@@ -364,6 +364,18 @@ CREATE TABLE `video_timestamps` (
   UNIQUE KEY `gid_user_id` (`gid`, `user_id`)
 );
 
+CREATE TABLE `api_key` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` mediumint(9) NOT NULL,
+  `api_key` char(24) NOT NULL,
+  `commercial` tinyint(1) NOT NULL,
+  `created` datetime NOT NULL,
+  `disabled` datetime default NULL,
+  `reason` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `api_key` (`api_key`)
+);
+
 CREATE TABLE `api_stats` (
   `id` int(11) NOT NULL auto_increment,
   `api_key` char(24) NOT NULL,
