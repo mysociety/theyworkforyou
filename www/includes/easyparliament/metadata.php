@@ -232,9 +232,9 @@ $this->page = array (
 		'url'			=> 'api/'
 	),
 	'api_key'		=> array (
-		'title'			=> 'API Key',
+		'title'			=> 'API Keys',
 		'parent'		=> 'api_front',
-		'url'			=> 'api/'
+		'url'			=> 'api/key'
 	),
 
 	'cards' => array (
