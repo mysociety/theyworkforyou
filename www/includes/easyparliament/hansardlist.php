@@ -1616,7 +1616,7 @@ class HANSARDLIST {
 		
 		// The fields to fetch from db. 'table' => array ('field1', 'field2').
 		$fieldsarr = array (
-			'hansard' => array ('epobject_id', 'htype', 'gid', 'hpos', 'section_id', 'subsection_id', 'hdate', 'htime', 'source_url', 'major', 'minor', 'video_status')
+			'hansard' => array ('epobject_id', 'htype', 'gid', 'hpos', 'section_id', 'subsection_id', 'hdate', 'htime', 'source_url', 'major', 'minor', 'video_status', 'colnum')
 		);
 		
 		if (isset($amount['speaker']) && $amount['speaker'] == true) {
