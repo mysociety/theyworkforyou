@@ -278,7 +278,26 @@ if (isset ($data['rows'])) {
 					echo ' <a href="',  $row['commentsurl'], '" title="Copy this URL to link directly to this piece of text" class="permalink">Link to this</a>';
 				}
 				if (isset($row['source_url']) && $row['source_url'] != '') {
-					echo ' | <a href="', $row['source_url'], '" title="The source of this piece of text">',
+					$source_title = '';
+					$major = $data['info']['major'];
+					if ($major==1 || $major==2 || $major==3 || $major==4 || $major==101) {
+						$source_title = 'Citation: ';
+						if ($major==1 || $major==2 || $major==3 || $major==4) {
+							$source_title .= 'HC';
+						} else {
+							$source_title .= 'HL';
+						}
+						$source_title .= ' Deb, ' . format_date($data['info']['date'], LONGDATEFORMAT) . ', c' . $row['colnum'];
+						if ($major==2) {
+							$source_title .= 'WH';
+						} elseif ($major==3) {
+							$source_title .= 'W';
+						} elseif ($major==4) {
+							$source_title .= 'WS';
+						} 
+					}
+					if ($source_title) $source_title = ' title="' . $source_title . '"';
+					echo ' | <a href="', $row['source_url'], '"', $source_title, '>',
 					    ($hansardmajors[$data['info']['major']]['location']=='Scotland' ? 'Official Report' : 'Hansard'),
 					    ' source</a>';
 				}
