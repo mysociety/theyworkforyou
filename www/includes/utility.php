@@ -165,23 +165,16 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 			header('HTTP/1.0 500 Internal Server Error');
 			print "<p>Oops, sorry, an error has occurred!</p>\n";
 		}
-		mail(BUGSLIST, "[TWFYBUG]: $errmsg", $err,
-			"From: Bug <" . CONTACTEMAIL . ">\n".
-			"X-Mailer: PHP/" . phpversion()
-		);
+		if (!($num & E_USER_NOTICE)) {
+			mail(BUGSLIST, "[TWFYBUG]: $errmsg", $err, "From: Bug <" . CONTACTEMAIL . ">\n".  "X-Mailer: PHP/" . phpversion() );
+		}
 	}	
 	
-
 	// Do we need to exit?
-	
 	if ($fatal) {
 		exit(1);
 	}
-
 }
-
-
-
 
 // Replacement for var_dump()
 function vardump($blah) {
