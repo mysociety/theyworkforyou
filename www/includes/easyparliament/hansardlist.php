@@ -2532,7 +2532,7 @@ class SPWRANSLIST extends WRANSLIST {
 		// zeros in the numbers:
 		$fixed_spid = preg_replace('/(S[0-9]+)0-([0-9]+)/','${1}O-${2}',$spid);
 		$fixed_spid = preg_replace('/(S[0-9]+\w+)-0*([0-9]+)/','${1}-${2}',$fixed_spid);
-		$q = $this->db->query("select mentioned_gid from mentions where gid = 'uk.org.publicwhip/spq/$fixed_spid' and (type = 4 or type = 6)");
+		$q = $this->db->query("select mentioned_gid from mentions where gid = 'uk.org.publicwhip/spq/" . mysql_escape_string($fixed_spid) . "' and (type = 4 or type = 6)");
 		$gid = $q->field(0, 'mentioned_gid');
 		if ($gid) return $gid;
 		return null;
