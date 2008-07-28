@@ -20,7 +20,7 @@ if (is_numeric(get_http_var('id'))) {
 
 	if ($COMMENT->exists() == false || !$COMMENT->visible()) {
 		// This comment id didn't exist in the DB.
-		trigger_error("There is no comment with an ID of '" . htmlentities($comment_id) . "'.", E_USER_ERROR);
+		trigger_error("There is no comment with an ID of '" . htmlentities($comment_id) . "'.", E_USER_NOTICE);
 	}
 	
 	// OK, we've got a valid comment ID.
