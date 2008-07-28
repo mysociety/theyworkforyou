@@ -105,8 +105,10 @@ class GLOSSARY {
 			// If we were given a glossary_id, then we need one term in particular,
 			// as well as knowing the next and previous terms for the navigation
 			if (isset($args['glossary_id']) && ($args['glossary_id'] != "")) {
-				$next = 0;
+				$next = 0; $first_term = null;
 				foreach ($this->terms as $term) {
+					if (!$first_term) $first_term = $term;
+					$last_term = $term;
 					if ($next == 1) {
 						$this->next_term = $term;
 						break;
@@ -123,11 +125,11 @@ class GLOSSARY {
 				}
 				// The first term in the list has no previous, so we'll make it the last term
 				if (!isset($this->previous_term)) {
-					$this->previous_term = array_pop($this->terms);
+					$this->previous_term = $last_term;
 				}
 				// and the last has no next, so we'll make it the first
 				if (!isset($this->next_term)) {
-					$this->next_term = array_shift($this->terms);
+					$this->next_term = $first_term;
 				}
 			}
 			
