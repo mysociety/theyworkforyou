@@ -165,7 +165,7 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 			header('HTTP/1.0 500 Internal Server Error');
 			print "<p>Oops, sorry, an error has occurred!</p>\n";
 		}
-		if (!($num & E_USER_NOTICE)) {
+		if (!($errno & E_USER_NOTICE)) {
 			mail(BUGSLIST, "[TWFYBUG]: $errmsg", $err, "From: Bug <" . CONTACTEMAIL . ">\n".  "X-Mailer: PHP/" . phpversion() );
 		}
 	}	
