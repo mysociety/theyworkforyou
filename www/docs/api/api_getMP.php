@@ -38,7 +38,17 @@ function _api_getMP_row($row) {
 		$row['party'] = $parties[$row['party']];
 	list($image,$sz) = find_rep_image($row['person_id']);
 	if ($image) $row['image'] = $image;
-	$row = array_map('html_entity_decode', $row);
+
+	# Ministerialships and Select Committees
+	$db = new ParlDB;
+	$q = $db->query('SELECT * FROM moffice WHERE to_date="9999-12-31" and person=' . $row['person_id'] . ' ORDER BY from_date DESC');
+	for ($i=0; $i<$q->rows(); $i++) {
+		$row['office'][] = $q->row($i);
+	}
+
+	foreach ($row as $k => $r) {
+		if (is_string($r)) $row[$k] = html_entity_decode($r);
+	}
 	return $row;
 }
 

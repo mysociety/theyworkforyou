@@ -324,7 +324,7 @@ class MEMBER {
 			return $person_ids;
 		} elseif ($q->rows > 0) {
 			return $q->field(0, 'person_id');
-		} elseif ($const) {
+		} elseif ($const && $this_page!='peer') {
 			$this->canonical = false;
 			return $this->name_to_person_id($name);
 		} else {
