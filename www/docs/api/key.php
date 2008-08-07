@@ -67,7 +67,9 @@ function create_key($commercial, $reason) {
 	$key = auth_ab64_encode(random_bytes(16));
 	$db = new ParlDB;
 	$db->query('INSERT INTO api_key (user_id, api_key, commercial, created, reason) VALUES
-		(' . $THEUSER->user_id() . ', "' . $key . '", ' . $commercial . ', NOW(), "' . $reason . '")');
+		(' . $THEUSER->user_id() . ', "' . $key . '", '
+		. mysql_escape_string($commercial) . ', NOW(), "'
+		. mysql_escape_string($reason) . '")');
 }
 
 function api_key_form() {
