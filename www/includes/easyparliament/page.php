@@ -1260,7 +1260,7 @@ pr()//-->
 
 		if (isset($extra_info['edm_ais_url'])) {
 			?>
-						<li><a href="<?php echo $extra_info['edm_ais_url']; ?>">Early Day Motions signed by this MP</a> <small>(From edm.ais.co.uk)</small></li>
+						<li><a href="<?php echo $extra_info['edm_ais_url']; ?>">Early Day Motions signed by this MP</a> <small>(From edmi.parliament.uk)</small></li>
 <?php
 		}
 		?>
