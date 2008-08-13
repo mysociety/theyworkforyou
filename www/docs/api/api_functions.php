@@ -28,7 +28,7 @@ $methods = array(
 		'help' => 'Returns main details for an MP'
 	),
 	'getMPInfo' => array(
-		'parameters' => array('id'),
+		'parameters' => array('id', 'fields'),
 		'required' => true,
 		'help' => 'Returns extra information for a person'
 	),

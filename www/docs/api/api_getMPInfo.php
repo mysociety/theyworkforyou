@@ -8,6 +8,8 @@ function api_getMPInfo_front() {
 <dl>
 <dt>id</dt>
 <dd>The person ID.</dd>
+<dt>fields (optional)</dt>
+<dd>Which fields you want to return, comma separated (leave blank for all).</dd>
 </dl>
 
 <h4>Example Response</h4>
@@ -16,6 +18,7 @@ function api_getMPInfo_front() {
 }
 
 function api_getMPinfo_id($id) {
+	$fields = preg_split('#\s*,\s*#', get_http_var('fields'), -1, PREG_SPLIT_NO_EMPTY);
 	$db = new ParlDB;
 	$last_mod = 0;
 	$q = $db->query("select data_key, data_value, lastupdate from personinfo
@@ -23,7 +26,10 @@ function api_getMPinfo_id($id) {
 	if ($q->rows()) {
 		$output = array();
 		for ($i=0; $i<$q->rows(); $i++) {
-			$output[$q->field($i, 'data_key')] = $q->field($i, 'data_value');
+			$data_key = $q->field($i, 'data_key');
+			if (count($fields) && !in_array($data_key, $fields))
+				continue;
+			$output[$data_key] = $q->field($i, 'data_value');
 			$time = strtotime($q->field($i, 'lastupdate'));
 			if ($time > $last_mod)
 				$last_mod = $time;
@@ -34,6 +40,9 @@ function api_getMPinfo_id($id) {
 		if ($q->rows()) {
 			$oldmid = 0; $count = -1;
 			for ($i=0; $i<$q->rows(); $i++) {
+				$data_key = $q->field($i, 'data_key');
+				if (count($fields) && !in_array($data_key, $fields))
+					continue;
 				$mid = $q->field($i, 'member_id');
 				if (!isset($output['by_member_id'])) $output['by_member_id'] = array();
 				if ($oldmid != $mid) {
@@ -41,7 +50,7 @@ function api_getMPinfo_id($id) {
 					$oldmid = $mid;
 					$output['by_member_id'][$count]['member_id'] = $mid;
 				}
-				$output['by_member_id'][$count][$q->field($i, 'data_key')] = $q->field($i, 'data_value');
+				$output['by_member_id'][$count][$data_key] = $q->field($i, 'data_value');
 				$time = strtotime($q->field($i, 'lastupdate'));
 				if ($time > $last_mod)
 					$last_mod = $time;
@@ -54,4 +63,7 @@ function api_getMPinfo_id($id) {
 	}
 }
 
-?>
+function api_getMPinfo_fields($f) {
+	api_error('You must supply a person ID');
+}
+
