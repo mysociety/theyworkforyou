@@ -27,7 +27,7 @@ Example usage:
 
 include_once INCLUDESPATH . 'dbtypes.php';
 if (version_compare(phpversion(), '5.0', '>='))
-    include_once '/usr/share/php5/xapian.php';
+    include_once '/usr/share/php/xapian.php';
 
 class SEARCHENGINE {
 
