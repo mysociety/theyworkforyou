@@ -157,7 +157,7 @@ if (isset ($data['rows'])) {
 			if (!isset($section['first_gid'])) $section['first_gid'] = $row['gid'];
 	
 			$video_content = '';
-                        if ($first_video_displayed == 0 && $row['video_status']&4) {
+                        if ($first_video_displayed == 0 && $row['video_status']&4 && !($row['video_status']&8)) {
 				$video_content = video_sidebar($row, $section, $speeches);
                                 $first_video_displayed = true;
                         }
@@ -199,7 +199,7 @@ if (isset ($data['rows'])) {
 			if (!isset($section['first_gid'])) $section['first_gid'] = $row['gid'];
 	
 			$video_content = '';
-                        if ($first_video_displayed == 0 && $row['video_status']&4) {
+                        if ($first_video_displayed == 0 && $row['video_status']&4 && !($row['video_status']&8)) {
 				$video_content = video_sidebar($row, $section, $speeches);
                                 $first_video_displayed = true;
                         }
