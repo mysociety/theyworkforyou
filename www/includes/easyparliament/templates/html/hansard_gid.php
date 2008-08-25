@@ -320,7 +320,7 @@ if (isset ($data['rows'])) {
 			$body = $row['body'];
 
 			# XXX: Need to cope with links within links a better way/ higher level :-/
-			$body = preg_replace('#<phrase class="honfriend" id="uk.org.publicwhip/member/(\d+)" name="(.*?)">(.*?\s*\((.*?)\))</phrase>#e', '\'<a href="/mp/?m=$1" title="Our page on $2 - \\\'\' . preg_replace("#</?(a|span)[^>]*>#", "", \'$3\') . \'\\\'">\' . preg_replace("#</?a[^>]*>#", "", \'$4\') . \'</a>\'', $body);
+			$body = preg_replace('#<phrase class="honfriend" id="uk.org.publicwhip/member/(\d+)" name="([^"]*?)">(.*?\s*\((.*?)\))</phrase>#e', '\'<a href="/mp/?m=$1" title="Our page on $2 - \\\'\' . preg_replace("#</?(a|span)[^>]*>#", "", \'$3\') . \'\\\'">\' . preg_replace("#</?a[^>]*>#", "", \'$4\') . \'</a>\'', $body);
 
 			if ($hansardmajors[$data['info']['major']]['location'] == 'Scotland') {
 				$body = preg_replace('# (S\d[O0WF]-\d+)[, ]#', ' <a href="/spwrans/?spid=$1">$1</a> ', $body);
