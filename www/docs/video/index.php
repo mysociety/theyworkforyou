@@ -224,6 +224,21 @@ or <a href="/video/next.php?action=random">get a new unstamped speech at random<
 # ---
 
 function video_front_page() {
+	$db = new ParlDB;
+	$statuses = array(
+		0 => 'Unstamped',
+		4 => 'Timestamped by users',
+	);
+	$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
+	where major=1 and video_status>0 and video_status<8 and video_status!=2 and htype in (12,13) group by video_status&4');
+	$totaliser = array(0=>0, 4=>0);
+	for ($i=0; $i<$q->rows(); $i++) {
+		$status = $q->field($i, 'checked');
+		$count = $q->field($i, 'c');
+		$totaliser[$status] = $count;
+	}
+	$percentage = round($totaliser[4] / ($totaliser[0]+$totaliser[4]) * 10000) / 100;
+	$out = "$totaliser[4] timestamped out of " . ($totaliser[0] + $totaliser[4]) . " ($percentage%)"
 ?>
 
 <p style="margin-top:1em"><big>TheyWorkForYou has video of the House of Commons from the BBC, and
@@ -238,7 +253,13 @@ timestamped to the right location, on the relevant page of TheyWorkForYou.</p>
 your timestampings will appear in our chart below &ndash; there may be prizes for best timestampers&hellip; :)
 Registration is not needed to timestamp videos, but you can <a href="/user/?pg=join&ret=/video/">register here</a> if you want.</p>
 
-<p id="video_attract"><a href="next.php?action=random">Give me a random speech that needs timestamping</a></p>
+<p id="video_attract"><?
+	if ($totaliser[0]) {
+		echo '<a href="next.php?action=random">Give me a random speech that needs timestamping</a>';
+	} else {
+		echo 'Wow, everything that can currently be timestamped appears to have been, thanks!';
+	}
+?></p>
 
 <div id="top" style="float: left; width: 45%;">
 <?
@@ -259,23 +280,6 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 	if ($out_week) echo "<h3>Top timestampers (last week)</h3> <ol>$out_week</ol>";
 	if ($out_overall) echo "<h3>Top timestampers (overall)</h3> <ol>$out_overall</ol>";
 	echo '</div>';
-
-	$statuses = array(
-		0 => 'Unstamped',
-		4 => 'Timestamped by users',
-	);
-	$db = new ParlDB;
-	$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
-	where major=1 and video_status>0 and video_status<8 and video_status!=2 and htype in (12,13) group by video_status&4');
-	$totaliser = array();
-	for ($i=0; $i<$q->rows(); $i++) {
-		$status = $q->field($i, 'checked');
-		$count = $q->field($i, 'c');
-		$totaliser[$status] = $count;
-	}
-	$percentage = round($totaliser[4] / ($totaliser[0]+$totaliser[4]) * 10000) / 100;
-	$out = "$totaliser[4] timestamped out of " . ($totaliser[0] + $totaliser[4]) . " ($percentage%)"
-
 ?>
 <div style="float: right; width: 50%">
 <img align="right" width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<?=$percentage?>" alt="<?=$percentage?>% of speeches have been timestamped">
