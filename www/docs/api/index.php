@@ -12,9 +12,8 @@ if ($q_method = get_http_var('method')) {
 		$key = 'DOCS';
 	} else {
 		if (!get_http_var('key')) {
-		# Allow key-less requests for some amount of time
-		#	api_error('No API key provided. Please see http://www.theyworkforyou.com/api/key for more information.');
-		#	exit;
+			api_error('No API key provided. Please see http://www.theyworkforyou.com/api/key for more information.');
+			exit;
 		}
 		$key = get_http_var('key');
 		if ($key && !api_check_key($key)) {
