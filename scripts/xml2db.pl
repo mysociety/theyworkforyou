@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.36 2008-07-18 10:35:44 matthew Exp $
+# $Id: xml2db.pl,v 1.37 2008-09-10 17:45:52 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -736,7 +736,8 @@ sub delete_redirected_gids {
         my $hgetid = $dbh->prepare("select epobject_id from hansard where gid = ?");
         open FP, '>>' . $lastupdatedir . 'deleted-gids';
         foreach my $from_gid (sort keys %$grdests) {
-                my $to_gid = $grdests->{$from_gid};
+                my $to_gid = $grdests->{$from_gid}[0];
+                my $matchtype = $grdests->{$from_gid}[1];
                 my $loop;
                 do {
                         $loop = 0;
@@ -781,7 +782,11 @@ sub delete_redirected_gids {
                 }
 
                 # Maintain video bits
-                $dbh->do('update video_timestamps set gid=? where gid=?', {}, $to_gid, $from_gid);
+                if ($matchtype eq 'missing') {
+                        $dbh->do('update video_timestamps set deleted=2 where gid=?', {}, $from_gid);
+                } else {
+                        $dbh->do('update video_timestamps set gid=? where gid=?', {}, $to_gid, $from_gid);
+                }
                 my $video_update = $dbh->selectrow_array('select video_status from hansard where gid=?', {}, $from_gid);
                 $dbh->do('update hansard set video_status=? where gid=?', {}, $video_update, $to_gid)
                     if defined $video_update;
@@ -2088,11 +2093,11 @@ sub do_load_gidredirect
         $ignorehistorygids{$oldgid} = 1;
 
         if ($tallygidsmode) {
-                if ($matchtype ne 'multiplecover' && defined $gids{$oldgid} && $grdests{$oldgid} ne $newgid) {
+                if ($matchtype ne 'multiplecover' && defined $gids{$oldgid} && $grdests{$oldgid}[0] ne $newgid) {
                         die "Got gid $oldgid twice, with different destinations, in XML file";
                 }
                 $gids{$oldgid} = 1;
-                $grdests{$oldgid} = $newgid;
+                $grdests{$oldgid} = [ $newgid, $matchtype ];
                 return;
         } else {
                 return if ($matchtype eq 'multiplecover' && defined $gids{$oldgid});
