@@ -361,7 +361,6 @@ CREATE TABLE `video_timestamps` (
   KEY `gid` (`gid`),
   KEY `deleted` (`deleted`),
   KEY `user_id` (`user_id`),
-  UNIQUE KEY `gid_user_id` (`gid`, `user_id`)
 );
 
 CREATE TABLE `api_key` (
@@ -373,7 +372,7 @@ CREATE TABLE `api_key` (
   `disabled` datetime default NULL,
   `reason` text NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `api_key` (`api_key`)
+  UNIQUE KEY `api_key` (`api_key`)
 );
 
 CREATE TABLE `api_stats` (
