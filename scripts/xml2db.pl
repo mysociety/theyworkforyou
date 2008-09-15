@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.38 2008-09-15 13:23:34 matthew Exp $
+# $Id: xml2db.pl,v 1.39 2008-09-15 13:29:39 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -785,7 +785,7 @@ sub delete_redirected_gids {
                 if ($matchtype eq 'missing') {
                         $dbh->do('update video_timestamps set deleted=2 where gid=?', {}, $from_gid);
                 } elsif ($matchtype eq 'multiplecover') {
-                        print "Want to update $from_gid to $gid_to but multiplecover so probably already exists... :-/\n";
+                        print "Want to update $from_gid to $to_gid but multiplecover so probably already exists... :-/\n";
                         # $dbh->do('update video_timestamps set deleted=2 where gid=?', {}, $from_gid);
                 } else {
                         $dbh->do('update video_timestamps set gid=? where gid=?', {}, $to_gid, $from_gid);
