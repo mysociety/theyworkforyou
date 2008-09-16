@@ -501,7 +501,7 @@ class MEMBER {
 	function last_name() 		{ return $this->last_name; }
 	function full_name($no_mp_title = false) {
 		$title = $this->title;
-		if ($no_mp_title && $this->house_disp==1)
+		if ($no_mp_title && ($this->house_disp==1 || $this->house_disp==4))
 			$title = '';
 		return member_full_name($this->house_disp, $title, $this->first_name, $this->last_name, $this->constituency);
 	}
