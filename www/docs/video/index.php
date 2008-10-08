@@ -297,8 +297,14 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 		$count = $q->field($i, 'c');
 		$totaliser[$status] = $count;
 	}
-	$percentage = round($totaliser[4] / ($totaliser[0]+$totaliser[4]) * 10000) / 100;
-	$out = "$totaliser[4] timestamped out of " . ($totaliser[0] + $totaliser[4]) . " ($percentage%)"
+	$total_possible = $totaliser[0] + $totaliser[4];
+	if ($total_possible == 0) {
+		$percentage = 0;
+		$out = 'Nothing possible to timestamp on most recent day';
+	} else {
+		$percentage = round($totaliser[4] / $total_possible * 10000) / 100;
+		$out = "$totaliser[4] timestamped out of $total_possible ($percentage%)"
+	}
 
 ?>
 <h3 style="padding-top:0.5em;clear:right">Totaliser for most recent day</h3>
