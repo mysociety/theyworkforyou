@@ -466,7 +466,7 @@ class SEARCHENGINE {
         // Highlight search words.
         $hlbody = preg_replace($findwords, $replacewords, $body);
         // Remove any highlighting within HTML.
-        $hlbody = preg_replace('#<(a|phrase)\s([^>]*?)<span class="hi">(.*?)</span>([^>]*?)">#', "<\\1 \\2\\3\\4\">", $hlbody);
+        $hlbody = preg_replace('#<(a|phrase)\s([^>]*?)<span class="hi">([^<]*?)</span>([^>]*?)">#', "<\\1 \\2\\3\\4\">", $hlbody);
         $hlbody = preg_replace('#<(/?)<span class="hi">a</span>([^>]*?)>#', "<\\1a\\2>", $hlbody); # XXX Horrible hack
         // Collapse duplicates
         $hlbody = preg_replace("#</span>(\W+)<span class=\"hi\">#", "\\1", $hlbody);
