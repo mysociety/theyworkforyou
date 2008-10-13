@@ -163,7 +163,7 @@ if (is_numeric(get_http_var('m'))) {
 	member_redirect($MEMBER);
 } elseif ($name && $cconstituency) {
 	$MEMBER = new MEMBER(array('name'=>$name, 'constituency'=>$cconstituency));
-	if (!$MEMBER->canonical || $redirect) {
+	if (($MEMBER->house_disp==2 && $this_page!='peer') || !$MEMBER->canonical || $redirect) {
 		member_redirect($MEMBER);
 	}
 	if ($MEMBER->the_users_mp) {
