@@ -265,19 +265,20 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 <?
 
 	list($out_today, $rank_today) = display_league(20, 'and date(whenstamped)=current_date');
-	list($out_week, $rank_week) = display_league(20, 'and date(whenstamped)>current_date-interval 7 day');
-	list($out_overall, $rank_overall) = display_league(100);
+	list($out_week, $rank_week) = display_league(20, 'and date(whenstamped)>current_date-interval 28 day');
+	#list($out_overall, $rank_overall) = display_league(100);
+	$out_overall = ''; $rank_overall = 0;
 
 	global $THEUSER;
 	if ($THEUSER->user_id() && ($rank_today || $rank_week || $rank_overall)) {
 		echo '<p align="center"><big>You are ';
 		if ($rank_today) echo make_ranking($rank_today), ' today, ';
-		if ($rank_week) echo make_ranking($rank_week), ' last week, ';
+		if ($rank_week) echo make_ranking($rank_week), ' last 4 weeks, ';
 		if ($rank_overall) echo make_ranking($rank_overall), ' overall';
 		echo '</big></p>';
 	}
 	if ($out_today) echo "<h3>Top timestampers (today)</h3> <ol>$out_today</ol>";
-	if ($out_week) echo "<h3>Top timestampers (last week)</h3> <ol>$out_week</ol>";
+	if ($out_week) echo "<h3>Top timestampers (last 4 weeks)</h3> <ol>$out_week</ol>";
 	if ($out_overall) echo "<h3>Top timestampers (overall)</h3> <ol>$out_overall</ol>";
 	echo '</div>';
 ?>
