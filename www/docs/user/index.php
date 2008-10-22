@@ -881,6 +881,7 @@ function display_user ($user_id="") {
 
 	// SECOND: Get the data for whoever we're going to show.
 	
+	$db = new ParlDB;
 	if ($display == "another user") {
 
 		// Viewing someone else's info.
@@ -904,6 +905,9 @@ function display_user ($user_id="") {
 			// Change the page title to reflect whose info we're viewing.
 			$DATA->set_page_metadata($this_page, "title", "$name");
 			
+			$q = $db->query('select count(*) as c from video_timestamps where deleted=0 and user_id= ' . $THEUSER->user_id());
+			$video = $q->field(0, 'c');
+
 		} else {
 			// This user_id doesn't exist.
 			$display = "none";
@@ -930,6 +934,9 @@ function display_user ($user_id="") {
 			$status			= $THEUSER->status();
 		}
 	
+		$q = $db->query('select count(*) as c from video_timestamps where deleted=0 and user_id= ' . $THEUSER->user_id());
+		$video = $q->field(0, 'c');
+	
 		// Change the page title to make it clear we're viewing THEUSER's
 		// own info. Make them less worried about other people seeing some of the
 		// info that shouldn't be public.
@@ -941,12 +948,8 @@ function display_user ($user_id="") {
 				
 	}
 
-
-
 	// THIRD: Print out what we've got.
-	
 	$PAGE->page_start();
-	
 
 	if ($display != "none") {	
 
@@ -1053,6 +1056,11 @@ function display_user ($user_id="") {
 <?php
 		}
 		
+		if (isset($video)) {
+			echo '<div class="row"><span class="label">Videos timestamped</span>
+				<span class="formw">', $video, '</span></div>';
+		}
+
 		if ($edited && $this_page == 'userviewself') {
 			$EDITURL = new URL('useredit');
 			$VIEWURL = new URL('userviewself');
