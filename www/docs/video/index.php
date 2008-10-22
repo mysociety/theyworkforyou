@@ -265,9 +265,9 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 <?
 
 	list($out_today, $rank_today) = display_league(20, 'and date(whenstamped)=current_date');
-	list($out_week, $rank_week) = display_league(20, 'and date(whenstamped)>current_date-interval 28 day');
-	#list($out_overall, $rank_overall) = display_league(100);
-	$out_overall = ''; $rank_overall = 0;
+	list($out_week, $rank_week) = display_league(40, 'and date(whenstamped)>current_date-interval 28 day');
+	list($out_overall, $rank_overall) = display_league(100);
+	$out_overall = '';
 
 	global $THEUSER;
 	if ($THEUSER->user_id() && ($rank_today || $rank_week || $rank_overall)) {
