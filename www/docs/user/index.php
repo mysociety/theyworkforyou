@@ -905,7 +905,7 @@ function display_user ($user_id="") {
 			// Change the page title to reflect whose info we're viewing.
 			$DATA->set_page_metadata($this_page, "title", "$name");
 			
-			$q = $db->query('select count(*) as c from video_timestamps where deleted=0 and user_id= ' . $THEUSER->user_id());
+			$q = $db->query('select count(*) as c from video_timestamps where deleted=0 and user_id= ' . $USER->user_id());
 			$video = $q->field(0, 'c');
 
 		} else {
