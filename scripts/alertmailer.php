@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.29 2008-06-05 08:30:50 matthew Exp $
+ * $Id: alertmailer.php,v 1.30 2008-10-25 00:47:31 matthew Exp $
  */
 
 function mlog($message) {
@@ -47,6 +47,7 @@ mlog("batch_query_fragment: " . $batch_query_fragment . "\n");
 $nomail = false;
 $onlyemail = '';
 $fromemail = '';
+$fromflag = false;
 $toemail = '';
 $template = 'alert_mailout';
 for ($k=1; $k<$argc; $k++) {
@@ -107,7 +108,8 @@ foreach ($alertdata as $alertitem) {
 	$active++;
 	$email = $alertitem['email'];
 	if ($onlyemail && $email != $onlyemail) continue;
-	if ($fromemail && strtolower($email) <= $fromemail) continue;
+	if ($fromemail && strtolower($email) == $fromemail) $fromflag = true;
+	if ($fromemail && !$fromflag) continue;
 	if ($toemail && strtolower($email) >= $toemail) continue;
 	$criteria_raw = $alertitem['criteria'];
 	$criteria_batch = $criteria_raw . " " . $batch_query_fragment;
@@ -169,7 +171,7 @@ foreach ($alertdata as $alertitem) {
 				$k = 3;
 			}
 			#mlog($row['major'] . " " . $row['gid'] ."\n");
-			if ($row['hdate'] < '2008-03-18') continue;
+			if ($row['hdate'] < '2008-08-18') continue;
 			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_gid[$major] . '/' . mysql_escape_string($row['gid']) . "'");
 			if ($q->rows() > 0) continue;
 			--$k;
