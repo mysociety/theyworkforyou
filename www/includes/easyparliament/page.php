@@ -1080,10 +1080,10 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			$desc .= '<li><strong>';
 			if (!$member['current_member'][$house]) $desc .= 'Former ';
 			$desc .= htmlentities($party);
-			if ($party=='Speaker' || $party=='Deputy-Speaker') {
+			if ($party=='Speaker' || $party=='Deputy Speaker') {
 				$desc .= ', and ';
 				# XXX: Will go horribly wrong if something odd happens
-				if ($party=='Deputy-Speaker') {
+				if ($party=='Deputy Speaker') {
 					$last = end($member['other_parties']);
 					$desc .= $last['from'] . ' ';
 				}
@@ -1099,7 +1099,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			$desc .= '</strong></li>';
 		}
 		print $desc;
-		if ($member['other_parties'] && $member['party'] != 'Speaker' && $member['party']!='Deputy-Speaker') {
+		if ($member['other_parties'] && $member['party'] != 'Speaker' && $member['party']!='Deputy Speaker') {
 			print "<li>Changed party ";
 			foreach ($member['other_parties'] as $r) {
 				$out[] = 'from ' . $r['from'] . ' on ' . format_date($r['date'], SHORTDATEFORMAT);
@@ -1332,7 +1332,10 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 			return false;
 		}
 
-	if (isset($extra_info["public_whip_dreammp230_distance"]) || isset($extra_info["public_whip_dreammp996_distance"])) { # XXX
+	if ($member['party']=='Speaker' || $member['party']=='Deputy Speaker') {
+		if ($member['party']=='Speaker') $art = 'the'; else $art = 'a';
+		echo "<p>As $art $member[party], $member[full_name] cannot vote (except to break a tie).</p>";
+	} elseif (isset($extra_info["public_whip_dreammp230_distance"]) || isset($extra_info["public_whip_dreammp996_distance"])) { # XXX
 		$displayed_stuff = 1; ?>
 
 
@@ -1409,8 +1412,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		$this->block_end();
 
 		# Topics of interest only for MPs at the moment
-		#if (in_array(1, $member['houses'])) {
-		if ($member['current_member'][1]) {
+		if ($member['current_member'][1]) { # in_array(1, $member['houses'])
 
 ?>	<a name="topics"></a>
 		<? $this->block_start(array('id'=>'topics', 'title'=>'Committees and topics of interest')); 
@@ -1586,6 +1588,8 @@ and has had no written questions answered for which we know the department or su
 		$after_stuff = ' <small>(From Public Whip)</small>';
 		if ($member['party'] == 'Scottish National Party') {
 			$after_stuff .= '<br><em>Note SNP MPs do not vote on legislation not affecting Scotland.</em>';
+		} elseif ($member['party']=='Speaker' || $member['party']=='Deputy Speaker') {
+			$after_stuff .= '<br><em>Speakers and deputy speakers cannot vote except to break a tie.</em>';
 		}
 		if ($member['party'] != 'Sinn Fein') {
 			$displayed_stuff |= display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> in parliament', $after_stuff, $extra_info);

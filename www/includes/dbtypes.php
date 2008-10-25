@@ -1,6 +1,6 @@
 <?
 // Constants of types used in epobjects and hansard objects
-// $Id: dbtypes.php,v 1.6 2008-01-25 17:43:27 twfy-staging Exp $
+// $Id: dbtypes.php,v 1.7 2008-10-25 00:45:34 matthew Exp $
 
 // The type field in the epobject database table
 /*
@@ -135,8 +135,8 @@ $hansardmajors[104] = $hansardmajors[4];
 $parties = array (
 	'Bp'    => 'Bishop',
 	'Con'   => 'Conservative',
-	'CWM'   => 'Deputy-Speaker',
-	'DCWM'  => 'Deputy-Speaker',
+	'CWM'   => 'Deputy Speaker',
+	'DCWM'  => 'Deputy Speaker',
 	'Dem'   => 'Liberal Democrat',
 	'DU'    => 'Democratic Unionist',
 	'Ind'   => 'Independent',
