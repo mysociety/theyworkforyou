@@ -1,4 +1,4 @@
-<?php global $SEARCHENGINE; header("Content-Type: text/xml"); print '<?xml version="1.0" encoding="iso-8859-1"?>'; ?>
+<?php global $SEARCHENGINE; header("Content-Type: text/xml; charset=iso-8859-1"); print '<?xml version="1.0" encoding="iso-8859-1"?>'; ?>
 
 <rss version="2.0" xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/">
 <channel>
