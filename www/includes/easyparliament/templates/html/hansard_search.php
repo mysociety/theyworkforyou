@@ -62,6 +62,9 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 			echo ('<strong>' . $row['parent']['body'] . '</strong>');			
 		}
 		echo '</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT) . ')';
+		if ($row['video_status'] == 5 || $row['video_status'] == 7) {
+			echo ' <em>has video</em> ';
+		}
 		if ($row['collapsed'] && $row['subsection_id']) {
 		    $URL = new URL('search');
 		    $URL->insert(array('s' => $info['s'] . " segment:$row[subsection_id]" ));

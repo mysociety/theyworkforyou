@@ -35,8 +35,11 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		if (isset($row['parent']) && count($row['parent']) > 0) {
 			echo ('<strong>' . $row['parent']['body'] . '</strong>');
 		}
-		echo ('</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT));
-		echo ')</small>';
+		echo '</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT) . ')';
+		if ($row['video_status'] == 5 || $row['video_status'] == 7) {
+			echo ' <em>has video</em> ';
+		}
+		echo '</small>';
 		?></dt>
 					<dd><p>&#8220;<?php
 		
