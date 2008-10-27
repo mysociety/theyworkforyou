@@ -1255,7 +1255,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		}
 
 		# Video
-		if ($member['current_member'][1]) {
+		if ($member['current_member'][1] && $member['party'] != 'Sinn Fein') {
 			echo '<li>Help us add video by <a href="/video/next.php?action=random&amp;pid=' . $member['person_id'] . '"><strong>matching a speech by ' . $member['full_name'] . '</strong></a>';
 		}
 
