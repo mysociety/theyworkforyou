@@ -280,7 +280,9 @@ class SEARCHENGINE {
     }
 
     function get_spelling_correction() {
-        return $this->queryparser->get_corrected_query_string();
+         if (!defined('XAPIANDB') || !XAPIANDB)
+            return null;
+            return $this->queryparser->get_corrected_query_string();
     }
 
     // Perform partial query to get a count of number of matches
