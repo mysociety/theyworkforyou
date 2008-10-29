@@ -282,6 +282,7 @@ class SEARCHENGINE {
     function get_spelling_correction() {
          if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
+            
             return $this->queryparser->get_corrected_query_string();
     }
 
