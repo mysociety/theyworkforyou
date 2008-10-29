@@ -1559,11 +1559,14 @@ and has had no written questions answered for which we know the department or su
 
 		$MOREURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
 		// We assume that if they've answered a question, they're a minister
-		$minister = false; $Lminister = false;
+		$minister = 0; $Lminister = false;
 		if (isset($extra_info['wrans_answered_inlastyear']) && $extra_info['wrans_answered_inlastyear'] > 0 && $extra_info['wrans_asked_inlastyear'] == 0)
-			$minister = true;
+			$minister = 1;
 		if (isset($extra_info['Lwrans_answered_inlastyear']) && $extra_info['Lwrans_answered_inlastyear'] > 0 && $extra_info['Lwrans_asked_inlastyear'] == 0)
 			$Lminister = true;
+		if ($member['party']=='Speaker' || $member['party']=='Deputy Speaker') {
+			$minister = 2;
+		}
 		$displayed_stuff |= display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister);
 		}
 
@@ -3199,7 +3202,9 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 	if ($type) print ' ' . make_plural($type, $extra_info[$category]);
 	print '</strong>';
 	print $inwhat;
-	if ($minister)
+	if ($minister===2) {
+		print ' &#8212; Speakers/ deputy speakers do not ask written questions';
+	} elseif ($minister)
 		print ' &#8212; Ministers do not ask written questions';
 	else {
 		$type = ($house==1?'MP':($house==2?'Lord':'MLA'));
