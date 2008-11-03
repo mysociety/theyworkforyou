@@ -10,7 +10,7 @@ function api_getDebates_front() {
 <p>Note you can only supply <strong>one</strong> of the following search terms at present.</p>
 <dl>
 <dt>type (required)</dt>
-<dd>One of "commons", "westminsterhall", or "lords".
+<dd>One of "commons", "westminsterhall", "lords", "scotland", or "northernireland".
 <dt>date</dt>
 <dd>Fetch the debates for this date.</dd>
 <dt>search</dt>
@@ -110,6 +110,12 @@ function api_getDebates_type($t) {
 	} elseif ($t == 'westminsterhall') {
 		$list = 'WHALL';
 		$type = 'whall';
+	} elseif ($t == 'scotland') {
+		$list = 'SP';
+		$type = 'sp';
+	} elseif ($t == 'northernireland') {
+		$list = 'NI';
+		$type = 'ni';
 	} else {
 		api_error('Unknown type');
 		return;
