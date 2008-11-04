@@ -93,6 +93,6 @@ EOF
 
     print "done\n";
 
-    sleep 1; # One second probably enough
+    sleep 0.1; # One second probably enough
 }
 
