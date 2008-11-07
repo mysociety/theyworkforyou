@@ -39,6 +39,7 @@ $tabledata = array (
 	),
 	'rows' => $rows
 );
+
 $PAGE->display_table($tabledata);
 
 

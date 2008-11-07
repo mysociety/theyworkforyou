@@ -165,6 +165,11 @@ $this->page = array (
 		'parent'		=> 'admin',
 		'url'			=> 'admin/photos.php',
 	),
+	'admin_mpurls' => array (
+		'title'			=> 'MP Websites',
+		'parent'		=> 'admin',
+		'url'			=> 'admin/websites.php',
+	),
 	
 // Added by Richard Allan for email alert functions
 

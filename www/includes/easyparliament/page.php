@@ -48,9 +48,7 @@ class PAGE {
 		
 		if (!$this->page_started()) {
 			// Just in case something's already started this page...
-	
 			$parent = $DATA->page_metadata($this_page, "parent");
-
 			if ($parent == 'admin' && ! $THEUSER->is_able_to('viewadminsection')) {
 				// If the user tries to access the admin section when they're not
 				// allowed, then show them nothing.
@@ -3149,7 +3147,7 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
                 'admin_comments','admin_trackbacks', 'admin_searchlogs', 'admin_popularsearches', 'admin_failedsearches',
                 'admin_statistics', 
                 'admin_commentreports', 'admin_glossary', 'admin_glossary_pending', 'admin_badusers',
-                'admin_alerts', 'admin_photos'
+                'admin_alerts', 'admin_photos', 'admin_mpurls'
                 );
 		
 		$links = array();

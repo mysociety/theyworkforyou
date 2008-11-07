@@ -803,6 +803,10 @@ p.email-template {
 	padding: 1em;
 	}
 
+#adminbody form {
+	margin-left: 18px;
+}
+
 /**** GLOSSARY ***********************************************************************/
 
 p.glossary-body {
