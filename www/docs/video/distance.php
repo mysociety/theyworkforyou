@@ -6,6 +6,10 @@ include_once INCLUDESPATH . 'easyparliament/video.php';
 $file = intval(get_http_var('file'));
 $gid = get_http_var('gid');
 preg_match('#^(\d\d\d\d)-(\d\d)-(\d\d)#', $gid, $m);
+if (!$gid || !count($m)) {
+	print '<p>Requires gid</p>';
+	exit;
+}
 $gid_date = "$m[1]$m[2]$m[3]";
 
 global $want; # It's in the template, yucky, sorry
