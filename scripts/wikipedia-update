@@ -13,7 +13,7 @@ wget -q -O all-titles-in-ns0.gz http://download.wikimedia.org/enwiki/$DUMPDATE/e
 gunzip all-titles-in-ns0.gz
 echo "load data infile '/data/vhost/www.theyworkforyou.com/dumps/all-titles-in-ns0' ignore into table titles;" | mysql
 cd /data/vhost/www.theyworkforyou.com/mysociety/twfy/scripts
-cat wikipedia-exceptions | mysql
+cat wikipedia-exceptions | mysql twfy
 
 #Full database:
 #http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
