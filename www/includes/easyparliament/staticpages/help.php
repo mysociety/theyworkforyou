@@ -153,6 +153,16 @@ Additionally, in many votes, MPs and Peers are told how to vote ('whipped') by t
 parties. Since the Whip is secret, we have to assume, <a
 href="http://www.theyworkforyou.com/debate/?id=2005-02-07.1200.2">like the
 Speaker</a>, that all votes are free.  </P>
+
+<p>If you put in some work, we will add new policies to the voting record
+section. You need to research the policy, and make up a list of divisions in
+Parliament relating to it and which way the votes go. You can then 
+<a href="http://www.publicwhip.org.uk/policies.php">enter these into the Public
+Whip site</a>. When you're done, <a href="/contact">contact us</a> to get us
+to add it to TheyWorkForYou. You must also be prepared to maintain this list of
+votes as more related ones are cast in future.
+</p>
+
 </dd>
 
 <dt><a name="numbers"></a>Why should I read in more depth than just the numbers?</dt>
