@@ -1350,7 +1350,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		$got_dream |= display_dream_comparison($extra_info, $member, 367, "introducing <strong>student top-up fees</strong>", true, "top-up fees");
 		if (in_array(1, $member['houses']))
 			$got_dream |= display_dream_comparison($extra_info, $member, 258, "Labour's <strong>anti-terrorism laws</strong>", true, "terrorism");
-		$got_dream |= display_dream_comparison($extra_info, $member, 219, "the <strong>Iraq war</strong>", true, "iraq");
+		$got_dream |= display_dream_comparison($extra_info, $member, 1049, "the <strong>Iraq war</strong>", false, "iraq");
 		$got_dream |= display_dream_comparison($extra_info, $member, 975, "an <strong>investigation</strong> into the Iraq war", false, "iraq");
 		$got_dream |= display_dream_comparison($extra_info, $member, 984, "replacing <strong>Trident</strong>", false, "trident");
 		$got_dream |= display_dream_comparison($extra_info, $member, 358, "the <strong>hunting ban</strong>", true, "hunting");

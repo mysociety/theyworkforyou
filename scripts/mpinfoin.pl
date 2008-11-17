@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.25 2008-04-24 08:53:44 matthew Exp $
+# $Id: mpinfoin.pl,v 1.26 2008-11-17 06:44:49 francis Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -108,7 +108,7 @@ if ($action{'pw'}) {
         # no2id, top-up fees, abolish parliament, no smoking, Parliament FOI,
         # trident
         # TODO: Think about how these (esp no2id) might change now after election
-        foreach my $dreamid (219, 258, 358, 363, 826, 230, 367, 856, 811, 975, 996, 984) {
+        foreach my $dreamid (1049, 258, 358, 363, 826, 230, 367, 856, 811, 975, 996, 984) {
                 $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid");
         }
 }
