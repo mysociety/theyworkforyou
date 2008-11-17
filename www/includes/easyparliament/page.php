@@ -1353,7 +1353,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		$got_dream |= display_dream_comparison($extra_info, $member, 1049, "the <strong>Iraq war</strong>", false, "iraq");
 		$got_dream |= display_dream_comparison($extra_info, $member, 975, "an <strong>investigation</strong> into the Iraq war", false, "iraq");
 		$got_dream |= display_dream_comparison($extra_info, $member, 984, "replacing <strong>Trident</strong>", false, "trident");
-		$got_dream |= display_dream_comparison($extra_info, $member, 358, "the <strong>hunting ban</strong>", true, "hunting");
+		$got_dream |= display_dream_comparison($extra_info, $member, 1050, "the <strong>hunting ban</strong>", false, "hunting");
 		$got_dream |= display_dream_comparison($extra_info, $member, 826, "equal <strong>gay rights</strong>", false, "gay");
 		if (!$got_dream) {
 			print "<li>" . $member['full_name'] . " has not voted enough in this parliament to have any scores.</li>";
