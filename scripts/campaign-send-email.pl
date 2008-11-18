@@ -18,6 +18,7 @@ use Text::CSV;
 use Data::Dumper;
 
 use mySociety::Config;
+use mySociety::Email;
 
 use FindBin;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");
@@ -89,41 +90,43 @@ foreach my $k (keys %$all)
     my $url_postcode = uri_escape($postcode);
     my $mp_name = $consvals->{$constituency}->{name};
 
-    my $to;
-    if ($realname) {
-        $realname =~ s/@/(at)/;
-        $realname =~ s/,/ /;
-        $to = $realname . " <" . $email . ">";
-    } else {
-        $to = $email;
-    }
+    my $to = $email;
 
     print "Sending to $to";
     print "...";
     
-    my $email_contents = "";
-
-    $email_contents .= <<"EOF";
-From: Free Our Bills <team\@theyworkforyou.com>
-To: $to
-EOF
-
     my $template_name = 'freeourbills_email_3_no.txt';
     my $template_file = "../www/includes/easyparliament/templates/emails/$template_name";
     open (TEXT, $template_file) or die "Can't open email template $template_file : $!";
+    my $subject = <TEXT>;
+    chomp $subject;
+    $subject =~ s/^Subject: //;
+    <TEXT>; # blank line after subject;
+    my $template = "";
     while (<TEXT>) {
-            s/\$TOKEN/$token/g;
-            s/\$POSTCODE/$postcode/g;
-            s/\$URL_POSTCODE/$url_postcode/g;
-            s/\$CONSTITUENCY/$constituency/g;
-            s/\$MP_NAME/$mp_name/g;
-            $email_contents .= $_;
+            $template .= $_;
     }
+
+    my $email_contents = mySociety::Email::construct_email({
+            From => ["team\@theyworkforyou.com", "Free Our Bils"],
+            To => [$to],
+            Subject => $subject,
+            _template_ => $template,
+            _parameters_ => {
+                token => $token,
+                postcode => $postcode,
+                url_postcode => $url_postcode,
+                constituency => $constituency,
+                mp_name => $mp_name
+            }
+        });
 
     if (!$consvals->{$constituency}->{signed_2141} &&
     !$consvals->{$constituency}->{modcom} &&
     !$consvals->{$constituency}->{minister}) {
         print " MP $mp_name... ";
+        print $email_contents;
+        exit;
         if (!$dryrun) {
             open(SENDMAIL, "|/usr/lib/sendmail -oi -t") or die "Can't fork for sendmail: $!\n";
             print SENDMAIL $email_contents;
