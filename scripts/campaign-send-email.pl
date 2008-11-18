@@ -5,10 +5,11 @@ use lib "loader/";
 my $mailshot_name = 'email_3';
 my $test_email = "";
 my $type = "all";
-my $dryrun = 1;
+my $dryrun = 0;
 
 $test_email = 'francis@flourish.org';
 $test_email = 'frabcus@fastmail.fm';
+$test_email = 'tom@mysociety.org';
 
 my $amount = 1000000;
 
@@ -85,10 +86,12 @@ foreach my $k (keys %$all)
     my $campaigner_id = $data->{'campaigner_id'};
     my $token = $data->{'token'};
     my $constituency = $data->{'constituency'};
+    $constituency =~ s/&amp;/&/;
     my $postcode = $data->{'postcode'};
     my $realname = undef;
     my $url_postcode = uri_escape($postcode);
     my $mp_name = $consvals->{$constituency}->{name};
+    die "no mp name" if !$mp_name;
 
     my $to = $email;
 
@@ -125,8 +128,6 @@ foreach my $k (keys %$all)
     !$consvals->{$constituency}->{modcom} &&
     !$consvals->{$constituency}->{minister}) {
         print " MP $mp_name... ";
-        print $email_contents;
-        exit;
         if (!$dryrun) {
             open(SENDMAIL, "|/usr/lib/sendmail -oi -t") or die "Can't fork for sendmail: $!\n";
             print SENDMAIL $email_contents;
