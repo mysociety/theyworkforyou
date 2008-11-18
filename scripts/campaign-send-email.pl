@@ -88,7 +88,7 @@ foreach my $k (keys %$all)
     my $token = $data->{'token'};
     my $constituency = $data->{'constituency'};
     $constituency =~ s/&amp;/&/;
-    $constituency =~ s/&ocirc;/\xd4/;
+    $constituency =~ s/&ocirc;/\xf4/;
     my $postcode = $data->{'postcode'};
     my $realname = undef;
     my $url_postcode = uri_escape($postcode);
