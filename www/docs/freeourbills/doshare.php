@@ -8,6 +8,14 @@ require_once "sharethis.php";
 $this_page = 'campaign';
 $PAGE->page_start();
 $PAGE->stripe_start();
+
+if (get_http_var('letterthanks')) {
+    ?>
+        <h2>All done! Your message is on its way now. Thank you.</h2>
+        <p></p>
+    <?
+}
+
 $PAGE->block_start(array ('title'=>'Share the \'Free our Bills!\' campaign'));
 freeourbills_styles();
 
