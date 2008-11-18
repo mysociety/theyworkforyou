@@ -251,6 +251,11 @@ $this->page = array (
 		'title'			=> 'Free Our Bills!',
 		'url'			=> 'freeourbills/'
 	),
+	'campaign_edm' => array (
+		'title'			=> 'Early Day Motion',
+		'parent'		=> 'campaign',
+		'url'			=> 'freeourbills/'
+	),
 
 	'commentreport' => array (
 		'title'			=> 'Reporting a comment',
