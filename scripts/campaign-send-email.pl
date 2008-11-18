@@ -20,6 +20,7 @@ use Data::Dumper;
 
 use mySociety::Config;
 use mySociety::Email;
+use mySociety::EmailUtil;
 
 use FindBin;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");
@@ -101,19 +102,12 @@ foreach my $k (keys %$all)
     my $template_name = 'freeourbills_email_3_no.txt';
     my $template_file = "../www/includes/easyparliament/templates/emails/$template_name";
     open (TEXT, $template_file) or die "Can't open email template $template_file : $!";
-    my $subject = <TEXT>;
-    chomp $subject;
-    $subject =~ s/^Subject: //;
-    <TEXT>; # blank line after subject;
-    my $template = "";
-    while (<TEXT>) {
-            $template .= $_;
-    }
+    my $template = join('', <TEXT>);
+    close TEXT;
 
     my $email_contents = mySociety::Email::construct_email({
-            From => ["team\@theyworkforyou.com", "Free Our Bils"],
-            To => [$to],
-            Subject => $subject,
+            From => [ mySociety::Config::get('CONTACTEMAIL'), "Free Our Bills" ],
+            To => [ $to ],
             _template_ => $template,
             _parameters_ => {
                 token => $token,
@@ -129,9 +123,7 @@ foreach my $k (keys %$all)
     !$consvals->{$constituency}->{minister}) {
         print " MP $mp_name... ";
         if (!$dryrun) {
-            open(SENDMAIL, "|/usr/lib/sendmail -oi -t") or die "Can't fork for sendmail: $!\n";
-            print SENDMAIL $email_contents;
-            close(SENDMAIL) or die "sendmail didn't close nicely";
+            mySociety::EmailUtil::send_email($email_contents, mySociety::Config::get('CONTACTEMAIL'), $to); # XXX Check return value
         } else {
             print "dry run... ";
         }
