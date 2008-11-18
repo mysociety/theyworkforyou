@@ -671,7 +671,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
         <? 
 		global $already_done_platypus;
 		$show_platypus = 1;
-		if ($this_page == 'campaign' || $this_page=='debates' || $this_page=='debate' || $already_done_platypus || (count($contents)==1 && isset($contents[0]['noplatypus'])))
+		if ($this_page == 'search' || $this_page == 'campaign' || $this_page=='debates' || $this_page=='debate' || $already_done_platypus || (count($contents)==1 && isset($contents[0]['noplatypus'])))
 			$show_platypus = 0;
 		if ($show_platypus) {
 			$already_done_platypus = 1;
