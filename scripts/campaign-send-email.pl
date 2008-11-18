@@ -2,7 +2,7 @@
 use strict;
 use lib "loader/";
 
-my $mailshot_name = 'email_3';
+my $mailshot_name = 'email3';
 my $test_email = "";
 my $type = "all";
 my $dryrun = 0;
