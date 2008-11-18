@@ -13,17 +13,28 @@ if (get_http_var('wtt')) {
 EOF;
     } else {
         print <<<EOF
-<p>So, your MP hasn't signed our Free Our Bills EDM yet, eh? Here's some ideas for what to tell your MP.</p>
-<ol>
-<li>The campaign's been endorsed by David Cameron, Nick Clegg, Alex Salmond and a whole bunch of Labour MPs.
-<li>That the campaign isn't just about helping mySociety, it's to help everyone from MP's assistants to newspaper editors. There are many people who'll be able to benefit from better bills.
-<li>The process by which bills are going to be made, and the language in them doesn't have to change one bit. It's all about the way in which it's published when the ink is dry at the end of each day.
-<li>The services that can be built include, but are not limited to: email alerts for keywords in bills, easier searching through and linking to bills and amendments, plus comparisons between versions of bills and tools to make it easier to understand how an amendment or a bill effects other documents, like Acts.
-<li>That the only opposition that has come so far is from unelected officials: they shouldn't be allowed to dicatate how Parliament runs.
-<li>If you're feeling adventurous, you can ask for a meeting with your MP to discuss it. We'll provide some briefing materials if you do go.
-</ol>
+<p>So your MP hasn't signed our Free Our Bills Early Day Motion, EDM
+2141, eh? Here's some ideas for what to include in your email:
 
-<p>Just remember, please don't just cut and paste the above and hit send, do try to put in some words and views of your own - your MP is much more likely to respect your views.</p>
+<ol>
+<li>Please sign EDM 2141.
+<li>Free Our Bills has been endorsed by party leaders David Cameron,
+Nick Clegg and Alex Salmond, and over 100 MPs from all parties have
+signed the EDM so far.
+<li>Freeing our Bills will enable MPs, their assistants and regular
+citizens to more easily find bills, discuss them, compare versions,
+set up email alerts for words and phrases, and see really easily how
+bills and amendments affect each other.
+<li>It won't just be mySociety that builds new tools based on the data:
+media companies and enthusiastic amateurs alike will be able to use
+the data to improve understanding of what's going on in Parliament.
+<li>That the only opposition that has come so far is from
+technologically-challenged unelected officials: they shouldn't be
+allowed to dictate to MPs and the public how Parliament works in the
+Internet age.
+<li>If you're feeling adventurous, you can ask for a meeting with your MP to
+discuss it. We'll provide some briefing materials if you do go.
+</ol>
 EOF;
     }
     exit;
