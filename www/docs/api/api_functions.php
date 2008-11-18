@@ -89,7 +89,7 @@ $methods = array(
 		'new' => true,
 		'parameters' => array('type', 'date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
 		'required' => true,
-		'help' => 'Returns Debates (either Commons, Westminhall Hall, or Lords)',
+		'help' => 'Returns Debates (either Commons, Westminster Hall, or Lords)',
 	),
 	'getWrans' => array(
 		'parameters' => array('date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
