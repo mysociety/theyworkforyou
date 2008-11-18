@@ -34,39 +34,15 @@ function lookup($pc) {
     }
 
     $out = array();
-    foreach ($mp['office'] as $off) {
-        if ($off['dept'] == 'Modernisation of the House of Commons Committee') {
-	    $out['modcom'] = true;
-	}
-	if ($off['source'] == 'chgpages/govposts') {
-	    $out['minister'] = true;
-	}
-	if ($off['source'] == 'chgpages/offoppose') {
-	    $out['tory_minister'] = true;
-	}
-	if ($off['source'] == 'chgpages/libdem') {
-	    $out['ld_minister'] = true;
-	}
-	if ($off['source'] == 'chgpages/privsec') {
-	    $out['pps'] = true;
-	}
-    }
-
-    $member_id = $mp['member_id'];
-    $name = $mp['full_name'];
-
-    $found = false;
-    $mps_signed = file('EDMsigned');
-    foreach ($mps_signed as $mp) {
-    	preg_match('#^(\*|\^)?.*?(\d+)#', $mp, $m);
-	$special = $m[1];
-	$id = $m[2];
-	if ($id == $member_id) {
-	    $found = true;
+    $handle = fopen('/data/vhost/www.theyworkforyou.com/dumps/edm_status.csv', 'r');
+    while (($data = fgetcsv($handle, 1000, ",")) !== false) {
+        list($pid, $name, $party, $const, $signed, $modcom, $minister) = $data;
+	if ($pid == $mp['person_id']) {
+	    $out = array('signed_edm'=>$signed, 'modcom'=>$modcom, 'minister'=>$minister);
 	    break;
 	}
     }
+    fclose($handle);
 
-    $out['signed_edm'] = $found;
     return $out;
 }
