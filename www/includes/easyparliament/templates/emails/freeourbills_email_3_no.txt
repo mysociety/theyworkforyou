@@ -9,14 +9,14 @@ Motion number 2141, asking the House of Commons to get off
 its arse and start publishing bills in a manner suitable
 for the 21st century.
 
-The bad news it that as of today YOUR MP, <?=$values['mp_name']?>, 
+The bad news is that as of last night YOUR MP, <?=$values['mp_name']?>, 
 hasn't signed yet! Please ask them to sign by dropping them
 a mail via the following link:
 
 http://freeourbills.writetothem.com/?cocode=email_3&pc=<?=$values['url_postcode']?>
 
 We need as many MPs to sign this motion as possible so that the
-house authorities who don't understand why this campaign could
+House authorities who don't understand why this campaign could
 possibly matter are forced to look at the issue seriously.
 
 We've written some hot tips to help you persuade your MP to
