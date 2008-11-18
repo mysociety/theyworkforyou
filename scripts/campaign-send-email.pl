@@ -123,7 +123,8 @@ foreach my $k (keys %$all)
     !$consvals->{$constituency}->{minister}) {
         print " MP $mp_name... ";
         if (!$dryrun) {
-            mySociety::EmailUtil::send_email($email_contents, mySociety::Config::get('CONTACTEMAIL'), $to); # XXX Check return value
+            my $ret = mySociety::EmailUtil::send_email($email_contents, mySociety::Config::get('CONTACTEMAIL'), $to);
+            die "failed to send email: $ret\n" if $ret != 0;
         } else {
             print "dry run... ";
         }
