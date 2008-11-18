@@ -92,7 +92,7 @@ foreach my $k (keys %$all)
     my $realname = undef;
     my $url_postcode = uri_escape($postcode);
     my $mp_name = $consvals->{$constituency}->{name};
-    die "no mp name" if !$mp_name;
+    die "no mp name for $constituency" if !$mp_name;
 
     my $to = $email;
 
