@@ -31,7 +31,7 @@ my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Confi
 # Read in the dump file of EDM signature etc.
 my $consvals = {};
 my $csv = Text::CSV_XS->new ({ binary  => 1 });
-open (CSV, "<", "../../../dumps/EDMsigned.csv") or die $!;
+open (CSV, "<", "../../../dumps/edm_status.csv") or die $!;
 while (<CSV>) {
     if ($csv->parse($_)) {
         my ($pid,$name,$party,$constituency,$signed_2141,$modcom,$minister) = $csv->fields();
