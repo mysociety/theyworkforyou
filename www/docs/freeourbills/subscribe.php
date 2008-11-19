@@ -42,6 +42,7 @@ if (!$email) {
     $errors[] = 'Please enter a valid e-mail address';
 }
 $postcode = trim(get_http_var('postcode'));
+$postcode = preg_replace('#[^A-Z0-9]#i', '', $postcode);
 if (!$postcode) {
     $errors[] = 'Please enter your postcode';
 } elseif (!validate_postcode($postcode)) {
