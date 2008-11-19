@@ -58,15 +58,20 @@ function share_tab(tab) {
 enough <strong>MPs vote on bills</strong> they become the law, meaning you or I
 can get <strong>locked up</strong> if they pass a bad one.</p>
 
-<p>Bills are, like, <em>so</em> much more important than what MPs spend
-<strong>on furniture</strong>.</p>
+<p>What a Bill contains is hugely more important than what an MP says, how they look,
+or what expenses they claim.</p>
 
-<p>The problem is that the way in which Bills are put out is completely
-<strong>incompatible with the Internet</strong> era, so nobody out there ever
-knows what the heck people are actually voting for or against. We need to free
-our Bills in order for most people to be able to understand what matters about
-them.
-</p>
+<p>The problem, to put it simply, is that the way in which Bills are currently
+published out is completely <strong>incompatible with the Internet</strong> era. As a
+consequence far fewer people than should ever get to find out what a Bill says
+before it becomes law and binds us all. Bills are currently buried within the
+Parliamentary website, published in a hopelessly old fashioned way that makes
+them difficult to find, difficult to read and impossible to do anything clever
+with.</p>
+
+<p>Update! Our supporters have been asking MPs to sign an Early Day Motion to
+support the campaign, and over 100 MPs have signed up so far. Sign up to our
+campaign and we'll tell you whether your MP has signed.</p>
 
 <h3>We need you!</h3>
 
@@ -115,14 +120,11 @@ explaining the merits. We wore suits and polished our shoes and used
 long words to make them feel comfortable. We met lots of nice people
 who really want Parliament to get better at this stuff
 
-<p>And then we got nowhere.
-
-<p>And you know, we&rsquo;re really not bad at working with bits of government
-either. But no dice. Nada. Bupkis.
-
-<p>(There&rsquo;s some vague notion that it&rsquo;ll all get done one day, as part of
-some miraculous project plan to make everything OK,  but we understand
-&lsquo;sod off&rsquo;, even when spoken in Whitehall-speak.)
+<p>And then we got nowhere. It turns out that some unelected officials thought
+that our proposal was a &ldquo;real turkey&rdquo;, and called even the idea of
+signing up for email alerts &ldquo;na&iuml;ve&rdquo;. Those are the same email
+alerts (73,000 and counting) that people sign up for every day on
+TheyWorkForYou.
 
 <h3>"Isn&rsquo;t it really expensive?"</h3>
 
@@ -147,9 +149,10 @@ translated into an electronic format once they&rsquo;ve finished.
 <p>Dammit, we hoped you wouldn't ask that, and now our secret is blown.
 Obviously this campaign benefits Gordon Brown at the expense of Tony Blair. No,
 wait a minute, that was last year. It definitely gives Hillary the edge over
-Obama though. No, hang on, it isn't partisan at all - that's what I was trying
-to say. mySociety is based on a charity, you see, so even if we wanted to be
-partisan, it'd be against the law.
+Obama though. No, hang on, that's over too. Actually, it isn't partisan at all
+- that's what I was trying to say. mySociety is based on a charity, you see, so
+even if we wanted to be partisan, it'd be against the law. And if you're still
+suspicious you'll see that MPs from almost all parties have signed our EDM.
 
 <h3>"Isn&rsquo;t this an embarrassingly obscure thing to be campaigning about?
 Can&rsquo;t you campaign about saving puppies or something?"</h3>
