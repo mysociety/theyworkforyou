@@ -331,6 +331,7 @@ if (isset ($data['rows'])) {
 			}
 
 			$body = preg_replace('#<phrase class="offrep" id="(.*?)/(\d+)-(\d+)-(\d+)\.(.*?)">(.*?)</phrase>#e', '\'<a href="/search/?pop=1&s=date:$2$3$4+column:$5+section:$1">\' . str_replace("Official Report", "Hansard", \'$6\') . \'</a>\'', $body);
+			#$body = preg_replace('#<phrase class="offrep" id="((.*?)/(\d+)-(\d+)-(\d+)\.(.*?))">(.*?)</phrase>#e', "\"<a href='/search/?pop=1&amp;s=date:$3$4$5+column:$6+section:$2&amp;match=$1'>\" . str_replace('Official Report', 'Hansard', '$7') . '</a>'", $body);
 
 			$body = preg_replace('#\[Official Report, (.*?); (.*?) (\d+MC)\.\]#', '<big>[This section has been corrected on $1, column $3 &mdash; read correction]</big>', $body);
 			$body = preg_replace('#(<p[^>]*class="[^"]*?)("[^>]*)pwmotiontext="moved"#', '$1 moved$2', $body);
@@ -738,7 +739,7 @@ function video_sidebar($row, $section, $count) {
 	}
 	$out .= video_object($video['id'], $start, $row['gid']);
 	$flashvars = 'gid=' . $row['gid'] . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
-	$out .= "<br><b>Add this video to another site:</b><br><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'>\"><br><small>(copy and paste the above)</small>";
+	$out .= "<br><b>Add this video to another site:</b><br><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'></embed>\"><br><small>(copy and paste the above)</small>";
 	$out .= "<p style='margin-bottom:0'>Is this not the right video? <a href='mailto:team&#64;theyworkforyou.com?subject=Incorrect%20video,%20id%20$row[gid];$video[id];$ts_id'>Let us know</a></p>";
 	if ($count > 1) {
 		$out .= '<p style="position:absolute;bottom:0;right:0;margin:0"><a href="" onclick="return showVideo();">Hide</a></p>';

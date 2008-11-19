@@ -46,7 +46,7 @@ function video_object($video_id, $start, $gid, $stamping = '', $pid = 0) {
 <param name='flashVars' value='$flashvars'>
 <param name='allowFullScreen' value='true'>
 <param name='allowScriptAccess' value='always'>
-<embed name='video' swliveconnect='true' src='/video/parlvid.swf' width='330' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars' type='application/x-shockwave-flash' pluginspage='http://www.adobe.com/go/getflashplayer'>
+<embed name='video' swliveconnect='true' src='/video/parlvid.swf' width='330' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars' type='application/x-shockwave-flash' pluginspage='http://www.adobe.com/go/getflashplayer'></embed>
 </object>
 </div>";
     return $out;
