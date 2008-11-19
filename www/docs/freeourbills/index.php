@@ -69,7 +69,7 @@ Parliamentary website, published in a hopelessly old fashioned way that makes
 them difficult to find, difficult to read and impossible to do anything clever
 with.</p>
 
-<p>Update! Our supporters have been asking MPs to sign an Early Day Motion to
+<p><strong>Update!</strong> Our supporters have been asking MPs to sign an Early Day Motion to
 support the campaign, and over 100 MPs have signed up so far. Sign up to our
 campaign and we'll tell you whether your MP has signed.</p>
 
