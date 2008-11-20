@@ -2716,7 +2716,9 @@ Sinn Fein is broken
 				# XXX: Should be taken out in *one* place, not here + search_form etc.
 				$value = $pagedata['s'];
 				if (preg_match_all('#speaker:(\d+)#', $value, $m) == 1) {
-					$value = str_replace('speaker:' . $m[1][0], '', $value);
+					$person_id = $m[1][0];
+					$value = str_replace('speaker:' . $person_id, '', $value);
+					$URL->insert(array('pid' => $person_id));
 		       		}
 				$URL->insert(array('s' => $value));
 			}
