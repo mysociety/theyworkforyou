@@ -4,14 +4,14 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.10 2008-11-19 17:08:25 matthew Exp $
+# $Id: crontab.ugly,v 1.11 2008-11-24 10:26:21 francis Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 
 !!(* if ($user eq 'matthew') { *)!!
 MAILTO=matthew@mysociety.org
 !!(* } else { *)!!
-MAILTO=fawkes@lists.mysociety.org
+MAILTO=team@theyworkforyou.com
 !!(* } *)!!
 
 !!(* if (!$staging || $user eq 'matthew') { *)!!
