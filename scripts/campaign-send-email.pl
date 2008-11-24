@@ -2,7 +2,7 @@
 use strict;
 use lib "loader/";
 
-my $mailshot_name = 'email3';
+my $mailshot_name = 'dummy';
 my $test_email = "";
 my $type = "all";
 my $dryrun = 0;
@@ -97,8 +97,7 @@ foreach my $k (keys %$all)
 
     my $to = $email;
 
-    print "Sending to $to";
-    print "...";
+    print "Sending to $to...";
     
     my $template_name = 'freeourbills_email_3_no.txt';
     my $template_file = "../www/includes/easyparliament/templates/emails/$template_name";
@@ -118,6 +117,12 @@ foreach my $k (keys %$all)
                 mp_name => $mp_name
             }
         });
+
+    # for just printing members
+    #if ($consvals->{$constituency}->{modcom}) {
+    #    print "modcom\t$email\t$mp_name\t$constituency\n";
+    #}
+    #next;
 
     if (!$consvals->{$constituency}->{signed_2141} &&
     !$consvals->{$constituency}->{modcom} &&
