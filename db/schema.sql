@@ -360,7 +360,7 @@ CREATE TABLE `video_timestamps` (
   PRIMARY KEY  (`id`),
   KEY `gid` (`gid`),
   KEY `deleted` (`deleted`),
-  KEY `user_id` (`user_id`),
+  KEY `user_id` (`user_id`)
 );
 
 CREATE TABLE `api_key` (
