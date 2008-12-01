@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.11 2008-11-24 10:26:21 francis Exp $
+# $Id: crontab.ugly,v 1.12 2008-12-01 17:23:54 matthew Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 
@@ -39,7 +39,7 @@ MAILTO=team@theyworkforyou.com
 # political IP addresses, only on live site
 4 0-23/2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/wikipedia-cron.php
 
-0 8 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/edm_status.pl > /data/vhost/!!(*= $vhost *)!!/dumps/edm_status.csv
+#0 8 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/edm_status.pl > /data/vhost/!!(*= $vhost *)!!/dumps/edm_status.csv
 
 !!(* } *)!!
 
