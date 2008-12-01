@@ -54,6 +54,14 @@ sub get_edm_by_num {
     my $mech = WWW::Mechanize->new;
     $mech->agent_alias('Windows Mozilla');
 
+    $mech->get('http://edmi.parliament.uk/EDMi/Default.aspx');
+    $mech->submit_form(
+        form_name => 'Form1',
+        button => '_MenuCtrl:_GoTo',
+        fields => {
+            '_MenuCtrl:ddlSession' => 891,
+        },
+    );
     $mech->get('http://edmi.parliament.uk/EDMi/Search.aspx');
     $mech->submit_form(
         form_name => 'Form1',
