@@ -16,7 +16,7 @@ function video_from_timestamp($videodb, $date, $time) {
 	extract('epoch' from '$timestamp' - broadcast_start) as offset
 	FROM programmes
 	WHERE broadcast_start <= '$timestamp' AND broadcast_end > '$timestamp'
-		AND channel_id = 'BBCParl' AND location = 'commons'
+		AND channel_id = 'BBCParl'
 		AND status = 'available'
 ");
     $video = pg_fetch_array($q);
