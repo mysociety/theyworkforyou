@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.31 2008-11-17 07:57:39 francis Exp $
+# $Id: mpinfoin.pl,v 1.32 2008-12-03 12:43:26 matthew Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -389,11 +389,11 @@ sub makerankings {
                 $tth = $dbh->prepare("select count(*) from moffice where person=? and source='chgpages/selctee' and to_date='9999-12-31'");
                 $tth->execute($person_id);
                 my $selctees = ($tth->fetchrow_array())[0];
-                $personinfohash->{$person_fullid}->{'select_committees'} = $selctees if ($selctees);
+                $personinfohash->{$person_fullid}->{'select_committees'} = $selctees;
                 $tth = $dbh->prepare("select count(*) from moffice where person=? and source='chgpages/selctee' and to_date='9999-12-31' and position='Chairman'");
                 $tth->execute($person_id);
                 $selctees = ($tth->fetchrow_array())[0];
-                $personinfohash->{$person_fullid}->{'select_committees_chair'} = $selctees if $selctees;
+                $personinfohash->{$person_fullid}->{'select_committees_chair'} = $selctees;
         }
 
         # Consolidate wrans departments and subjects, to pick top 5
