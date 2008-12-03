@@ -5,7 +5,7 @@ include_once '../../includes/postcode.inc';
 include_once 'api_functions.php';
 include_once '../../../../phplib/auth.php';
 
-$a = auth_ab64_encode(random_bytes(32));
+$a = auth_ab64_encode(urandom_bytes(32));
 
 $this_page = 'api_key';
 $PAGE->page_start();
@@ -64,7 +64,7 @@ $PAGE->page_end();
 
 function create_key($commercial, $reason) {
 	global $THEUSER;
-	$key = auth_ab64_encode(random_bytes(16));
+	$key = auth_ab64_encode(urandom_bytes(16));
 	$db = new ParlDB;
 	$db->query('INSERT INTO api_key (user_id, api_key, commercial, created, reason) VALUES
 		(' . $THEUSER->user_id() . ', "' . $key . '", '
