@@ -274,9 +274,11 @@ class MEMBER {
 			$first_name = mysql_escape_string($m[1]);
 			$middle_name = mysql_escape_string($m[2]);
 			$last_name = mysql_escape_string($m[3]);
-			$q .= "house = 3 AND (";
-			$q .= "(first_name='$first_name $middle_name' AND last_name='$last_name')";
-			$q .= " or (first_name='$first_name' AND last_name='$middle_name $last_name') )";
+			$q .= "house = 3 AND (
+	(first_name='$first_name $middle_name' AND last_name='$last_name')
+	or (first_name='$first_name' AND last_name='$middle_name $last_name')
+	or (title='$first_name' AND first_name='$middle_name' AND last_name='$last_name')
+)";
 		} elseif (strstr($this_page, 'mp')) {
 			$success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
 			if (!$success)

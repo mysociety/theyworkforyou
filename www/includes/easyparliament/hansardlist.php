@@ -1924,7 +1924,7 @@ class HANSARDLIST {
 			if ($this->major == 6) {
 				$id = preg_replace('#^.*?_.*?_#', '', $id_data['gid']);
 				global $DATA;
-				$DATA->set_page_metadata('pbc_clause', 'url', $this->url . '/' . $id);
+				$DATA->set_page_metadata('pbc_clause', 'url', 'pbc/' . $this->url . '/' . $id);
 				$LISTURL->remove(array('id'));
 			} else {
 				$LISTURL->insert( array( 'id' => $id_data['gid'] ) );

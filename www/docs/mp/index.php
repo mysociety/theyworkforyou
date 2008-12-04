@@ -177,6 +177,9 @@ if (is_numeric(get_http_var('m'))) {
 	    && ($MEMBER->valid || !is_array($MEMBER->person_id()))) || $redirect) {
 		member_redirect($MEMBER);
 	}
+	if (preg_match('#^(mr|mrs|ms)#', $name)) {
+		member_redirect($MEMBER);
+	}
 } elseif ($cconstituency) {
 	if ($cconstituency == 'your &amp; my society') {
 		header('Location: /mp/stom%20teinberg');
