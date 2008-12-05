@@ -148,8 +148,13 @@ function postcode_is_scottish($pc) {
 		return false;
 
 	# Check for Scottish postal areas
-	if (in_array($m[1], array('AB', 'DD', 'DG', 'EH', 'FK', 'G', 'HS', 'IV', 'KA', 'KW', 'KY', 'ML', 'PA', 'PH', 'ZE')))
+	if (in_array($m[1], array('AB', 'DD', 'EH', 'FK', 'G', 'HS', 'IV', 'KA', 'KW', 'KY', 'ML', 'PA', 'PH', 'ZE')))
 		return true;
+
+	if ($m[1]=='DG') {
+		if ($m[2]==16 && $m[3]==5 && in_array($m[4], array('HT','HU','HZ','JA','JB'))) return false; # A few postcodes in England
+		return true;
+	}
 
 	# Damn postcodes crossing country boundaries
 	if ($m[1]=='TD') {
