@@ -10,6 +10,9 @@ $this_page = 'admin_mpurls';
 
 $db = new ParlDB;
 
+$scriptpath = '../../../scripts';
+
+
 $PAGE->page_start();
 $PAGE->stripe_start();
 
@@ -25,25 +28,13 @@ if (get_http_var('editperson')) {
     $out .= list_members();
 }
 
+$subnav = subnav();
+
 print '<div id="adminbody">';
+print $subnav;
 print $out;
 print '</div>';
 
-
-function subnav() {
-    
-}
-
-function update_url() {
-    global $db; 
-    $personid = get_http_var('editperson');
-    $q = $db->query("UPDATE personinfo SET data_value = '".mysql_real_escape_string(get_http_var('url'))."' 
-    WHERE data_key = 'mp_website' AND personinfo.person_id = '".mysql_real_escape_string($personid)."';");
-    if ($q->success()) {
-        $out = '<p id="warning">Update Successful</p>';
-    }
-    return $out;
-}
 
 function edit_member_form() {
     global $db; 
@@ -93,6 +84,40 @@ function list_members() {
 EOF;
     return $out;
 }
+
+function update_url() {
+    global $db; 
+    global $scriptpath; 
+    $out = '';
+    $sysretval = 0;
+    $personid = get_http_var('editperson');
+    $q = $db->query("UPDATE personinfo SET data_value = '".mysql_real_escape_string(get_http_var('url'))."' 
+    WHERE data_key = 'mp_website' AND personinfo.person_id = '".mysql_real_escape_string($personid)."';");
+    if ($q->success()) {
+        $sysrettxt = system($scriptpath . "/db2xml.pl --update_person --personid=$personid --debug", $sysretval);
+        #print $sysrettxt;
+        # ../../../scripts/db2xml.pl  --update_person --personid=10001
+    }
+    if ($sysretval) {
+        $out = '<p id="warning">Update Successful</p>';
+    }
+    return $out;
+}
+
+function subnav() {
+    $rettext = '';
+    $subnav = array(
+        'List Websites' => '/admin/websites.php',
+    );
+    
+    $rettext .= '<div id="subnav_websites">';
+    foreach ($subnav as $label => $path) {
+        $rettext .=  '<a href="'. $path . '">'. $label .'</a>';
+    }
+    $rettext .=  '</div>';
+    return $rettext;
+}
+
 
 $menu = $PAGE->admin_menu();
 

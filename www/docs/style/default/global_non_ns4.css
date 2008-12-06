@@ -807,6 +807,26 @@ p.email-template {
 	margin-left: 18px;
 }
 
+#subnav_websites
+{
+	margin-left: 18px;
+	margin-top: 18px;
+	margin-bottom: 8px;
+	border-bottom: #4D6C25;
+	border-width: 0 0 1px 0;
+	border-style: none none solid none;
+	height: 1.4em;
+}
+
+#subnav_websites a {
+	background: #4D6C25;
+	color: #FFFFFF;
+	padding: 0.2em;
+	margin-right: 0.2em;
+	margin-top: 0.2em;
+	margin-bottom: 0px;
+}
+
 /**** GLOSSARY ***********************************************************************/
 
 p.glossary-body {
