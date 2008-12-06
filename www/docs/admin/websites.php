@@ -94,7 +94,7 @@ function update_url() {
     $q = $db->query("UPDATE personinfo SET data_value = '".mysql_real_escape_string(get_http_var('url'))."' 
     WHERE data_key = 'mp_website' AND personinfo.person_id = '".mysql_real_escape_string($personid)."';");
     if ($q->success()) {
-        $sysrettxt = system($scriptpath . "/db2xml.pl --update_person --personid=$personid --debug", $sysretval);
+        $sysrettxt = system($scriptpath . "/db2xml.pl --update_person --personid=" . escapeshellarg($personid) . " --debug", $sysretval);
         #print $sysrettxt;
         # ../../../scripts/db2xml.pl  --update_person --personid=10001
     }
