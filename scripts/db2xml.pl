@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: db2xml.pl,v 1.1 2008-12-06 14:07:06 angie Exp $
+# $Id: db2xml.pl,v 1.2 2008-12-08 21:08:14 angie Exp $
 #
 # compares DB content to XML data and updates xml
 # 
@@ -72,7 +72,9 @@ sub update_person {
     my $twig = new XML::Twig(
         twig_handlers => {
         'personinfo' => \&xml_load_person,
-    }, output_filter => 'safe');
+    }, output_filter => 'safe',
+        pretty_print => 'record',
+    );
     
     my $twigfile = ($pwmembers . "websites.xml");
     $twig->parsefile($twigfile);
