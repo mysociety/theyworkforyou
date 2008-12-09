@@ -2,7 +2,7 @@
 # Jobs that need running daily, that aren't with urgency dependent on new stuff
 # from Hansard
 #
-# $Id: dailyupdate,v 1.3 2008-02-27 12:12:17 matthew Exp $
+# $Id: dailyupdate,v 1.4 2008-12-09 16:52:47 angie Exp $
 
 use strict;
 
@@ -22,4 +22,9 @@ unless ($staging) {
 }
 chdir $FindBin::Bin;
 system './mpinfoin.pl';
+
+unless ($staging) {
+    chdir $pwmembers;
+    system 'svn commit -m "apply updates from twfy"';
+}
 
