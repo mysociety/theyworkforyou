@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: db2xml.pl,v 1.2 2008-12-08 21:08:14 angie Exp $
+# $Id: db2xml.pl,v 1.3 2008-12-09 16:13:17 angie Exp $
 #
 # compares DB content to XML data and updates xml
 # 
@@ -84,6 +84,10 @@ sub update_person {
         open( FH, ">$twigfile") or die "cannot open $twigfile: $!";
         $twig->print( \*FH);
     }
+    
+    # should we read the file back in here to make sure it's really OK, 
+    # or do we trust this code and XML::Twig?
+    
     return 1;
 
 }
