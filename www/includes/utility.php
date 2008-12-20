@@ -730,6 +730,7 @@ function send_email ($to, $subject, $message, $bulk = false, $from = '', $want_b
 	$headers = 
 	 "From: TheyWorkForYou <$from>\r\n" .
      "Content-Type: text/plain; charset=iso-8859-1\r\n" .
+     "MIME-Version: 1.0\r\n" .
      "Content-Transfer-Encoding: 8bit\r\n" . 
      ($bulk ? "Precedence: bulk\r\n" : "" ).
      "X-Mailer: PHP/" . phpversion();
