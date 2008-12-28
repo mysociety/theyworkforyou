@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: db2xml.pl,v 1.3 2008-12-09 16:13:17 angie Exp $
+# $Id: db2xml.pl,v 1.4 2008-12-28 18:57:49 angie Exp $
 #
 # compares DB content to XML data and updates xml
 # 
@@ -120,7 +120,7 @@ sub xml_load_person {
 sub db_load_person {
     my $person_db_vals = {};
     $passer->{'person_db_vals'} = {};
-    my $get_person_sql = qq[SELECT member.person_id, house, title, first_name, last_name, constituency, data_value AS mp_website FROM personinfo JOIN member ON member.person_id =  personinfo.person_id WHERE data_key = 'mp_website' AND member.person_id = ] . $dbh->quote($personid);
+    my $get_person_sql = qq[SELECT member.person_id, house, title, first_name, last_name, constituency, data_value AS mp_website FROM personinfo LEFT JOIN member ON member.person_id =  personinfo.person_id WHERE data_key = 'mp_website' AND member.person_id = ] . $dbh->quote($personid);
     my $sth = $dbh->prepare($get_person_sql);
 	$sth->execute();
 		while (my $ref = $sth->fetchrow_hashref()) {

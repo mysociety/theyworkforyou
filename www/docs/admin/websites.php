@@ -17,7 +17,7 @@ $PAGE->page_start();
 $PAGE->stripe_start();
 
 $out = '';
-if (get_http_var('editperson') && get_http_var('url')) {
+if (get_http_var('editperson') && get_http_var('action') === 'SaveURL') {
     $out = update_url();
 }
 
@@ -40,8 +40,8 @@ function edit_member_form() {
     global $db; 
     $personid = get_http_var('editperson');
     $q = $db->query("SELECT member.person_id, house, title, first_name, last_name, constituency, data_value AS mp_website 
-    FROM personinfo JOIN member ON member.person_id = personinfo.person_id WHERE data_key = 'mp_website'
-    AND member.person_id = '" . mysql_real_escape_string($personid)."';");
+    FROM member LEFT JOIN personinfo ON member.person_id = personinfo.person_id AND  data_key = 'mp_website'
+    WHERE member.person_id = '" . mysql_real_escape_string($personid)."';");
 
     for ($row = 0; $row < $q->rows(); $row++) {    
 
@@ -50,9 +50,10 @@ function edit_member_form() {
         $out = "<h3>Edit MP:" .  $mpname  . " </h3>\n";
 
         $out .= '<form action="websites.php?editperson=' . $q->field($row, 'person_id') . '" method="post">';
+        $out .= '<input name="action" type="hidden" value="SaveURL"/>';
         $out .= '<label for="url">Url:</label>';
         $out .= '<span class="formw"><input name="url" type="text"  size="60" value="' . $q->field($row, 'mp_website') . '" /></span>' . "\n";
-        $out .= '<span class="formw"><input name="action" type="submit" value="Save URL"/></span>';
+        $out .= '<span class="formw"><input name="btnaction" type="submit" value="Save URL"/></span>';
         $out .= '</form>';
     }
     return $out;
@@ -60,17 +61,21 @@ function edit_member_form() {
 
 function list_members() {
     global $db; 
-    $out = "<h2>MP's Websites</h2>\n";
-    #$errors = array();
-    #array_push($errors, 'Not got the photo.');
-    $q = $db->query("SELECT member.person_id, house, title, first_name, last_name, constituency, data_value AS mp_website FROM personinfo JOIN member ON member.person_id = personinfo.person_id WHERE data_key = 'mp_website';");
+    $out = "<h2>MP's Websites</h2>\n";    
+    # this returns everyone so possibly over the top maybe limit to member.house = '1'
+    $q = $db->query("SELECT member.person_id, house, title, first_name, last_name, constituency, data_value, data_key FROM member 
+    LEFT JOIN personinfo ON member.person_id = personinfo.person_id AND personinfo.data_key = 'mp_website' GROUP BY member.person_id ORDER BY last_name;");
         
         for ($row = 0; $row < $q->rows(); $row++) {
         $out .= '<p>';
         $mpname = member_full_name($q->field($row, 'house'), $q->field($row, 'title'), $q->field($row, 'first_name'), $q->field($row, 'last_name'), $q->field($row, 'constituency'));
+        $mp_website = '';
+        if ($q->field($row, 'data_key') == 'mp_website') {
+            $mp_website = $q->field($row, 'data_value');
+        }
         #$mpname = $q->field($row, 'title') . ' ' . $q->field($row, 'first_name')  . ' ' .  $q->field($row, 'last_name') . ' (' . $q->field($row, 'constituency') . ')';
         $out .= '' . $mpname . '<br />';
-        $out .= '' . $q->field($row, 'mp_website');
+        $out .= '' . $mp_website;
         $out .= ' (<a href="websites.php?editperson=' . $q->field($row, 'person_id') . '" class="">Edit</a>) ';
         $out .= "</p>\n";
             
@@ -91,8 +96,13 @@ function update_url() {
     $out = '';
     $sysretval = 0;
     $personid = get_http_var('editperson');
-    $q = $db->query("UPDATE personinfo SET data_value = '".mysql_real_escape_string(get_http_var('url'))."' 
-    WHERE data_key = 'mp_website' AND personinfo.person_id = '".mysql_real_escape_string($personid)."';");
+    
+    $q  = $db->query("DELETE FROM personinfo WHERE data_key = 'mp_website' AND personinfo.person_id = '".mysql_real_escape_string($personid)."';");
+
+    if ($q->success()) {
+        $q = $db->query("INSERT INTO personinfo (data_key, person_id, data_value) VALUES ('mp_website', '" . mysql_real_escape_string($personid) . "', '" . mysql_real_escape_string(get_http_var('url')). "');");
+    }    
+
     if ($q->success()) {
         exec($scriptpath . "/db2xml.pl --update_person --personid=" . escapeshellarg($personid) . " --debug", $exec_output);
         $out = '<p id="warning">';
