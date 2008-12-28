@@ -74,9 +74,9 @@ function list_members() {
             $mp_website = $q->field($row, 'data_value');
         }
         #$mpname = $q->field($row, 'title') . ' ' . $q->field($row, 'first_name')  . ' ' .  $q->field($row, 'last_name') . ' (' . $q->field($row, 'constituency') . ')';
-        $out .= '' . $mpname . '<br />';
-        $out .= '' . $mp_website;
-        $out .= ' (<a href="websites.php?editperson=' . $q->field($row, 'person_id') . '" class="">Edit</a>) ';
+        $out .= ' (<a href="websites.php?editperson=' . $q->field($row, 'person_id') . '" class="">Edit Website</a>) ';
+        $out .= '' . $mpname;
+        $out .= '<br />' . $mp_website;
         $out .= "</p>\n";
             
             #print $q->field($row, 'mp_website') . " for " . $q->field($row, 'first_name');
