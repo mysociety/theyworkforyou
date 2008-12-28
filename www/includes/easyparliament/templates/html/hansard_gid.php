@@ -723,7 +723,7 @@ function get_question_mentions_html($row_data) {
 function video_sidebar($row, $section, $count) {
 	include_once INCLUDESPATH . 'easyparliament/video.php';
 	$db = new ParlDB;
-	$vq = $db->query("select id,atime from video_timestamps where gid='uk.org.publicwhip/debate/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 limit 1");
+	$vq = $db->query("select id,atime from video_timestamps where gid='uk.org.publicwhip/debate/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 order by (user_id is null) limit 1");
 	$ts_id = $vq->field(0, 'id'); if (!$ts_id) $ts_id='*';
 	$time = $vq->field(0, 'atime');
 	$videodb = video_db_connect();
