@@ -73,15 +73,11 @@ function list_members() {
         if ($q->field($row, 'data_key') == 'mp_website') {
             $mp_website = $q->field($row, 'data_value');
         }
-        #$mpname = $q->field($row, 'title') . ' ' . $q->field($row, 'first_name')  . ' ' .  $q->field($row, 'last_name') . ' (' . $q->field($row, 'constituency') . ')';
         $out .= ' <small>[<a href="websites.php?editperson=' . $q->field($row, 'person_id') . '">Edit URL</a>]</small>';
         $out .= '' . $mpname;
         $out .= '<br />' . $mp_website;
         $out .= "</p>\n";
             
-            #print $q->field($row, 'mp_website') . " for " . $q->field($row, 'first_name');
-	    #	    if ($q->field($row, 'count') > 1)
-	    #	    	$this->extra_info[$q->field($row, 'data_key').'_joint'] = true;
         }
     
     $out .= <<<EOF

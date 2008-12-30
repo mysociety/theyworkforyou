@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: db2xml.pl,v 1.4 2008-12-28 18:57:49 angie Exp $
+# $Id: db2xml.pl,v 1.5 2008-12-30 18:42:55 angie Exp $
 #
 # compares DB content to XML data and updates xml
 # 
@@ -64,20 +64,36 @@ sub update_person {
         die "couldn't load person";
         #$passer->{'person_db_vals'} now holds mps vals
     }
+    #unless ($passer->{'person_db_vals'}->{'mp_website'}) {
+    #    die "no url for person in database to update";
+    #}
+    $passer->{'person_in_file'} = 0;
 
-    unless ($passer->{'person_db_vals'}->{'mp_website'}) {
-        die "no url for person in database to update";
-    }
-    
     my $twig = new XML::Twig(
         twig_handlers => {
         'personinfo' => \&xml_load_person,
     }, output_filter => 'safe',
         pretty_print => 'record',
     );
-    
+
     my $twigfile = ($pwmembers . "websites.xml");
     $twig->parsefile($twigfile);
+    my $root = $twig->root ; 
+
+    # the person may not have a record in the file at all yet
+    unless ($passer->{'person_in_file'}) {
+        my $newid = 'uk.org.publicwhip/person/' . $personid;
+        my $elt= XML::Twig::Elt->new( personinfo => {
+            'id' => $newid,
+            'mp_website' => $passer->{'person_db_vals'}->{'mp_website'}
+        }); 
+        $elt->paste($root);
+        $passer->{'file_updated'} = $pwmembers . "websites.xml";
+        print "added person. ";
+  #'<personinfo id="uk.org.publicwhip/person/11225" mp_website="http://www.sionsimonmp.org/"/>'
+
+    }
+    
     
     if ($passer->{'file_updated'} eq $twigfile) {
         print "writing out $twigfile" if $debug;
@@ -101,9 +117,14 @@ sub xml_load_person {
     if ($personinfo_id && $personinfo_id =~ m#uk.org.publicwhip/person/(\d+)$#) {
         $pid = $1;
         if ($pid == $personid) {
+        $passer->{'person_in_file'} = 1;
             if ($mp->att('mp_website') eq $passer->{'person_db_vals'}->{'mp_website'}) {
                 print "XML and DB already match, no update needed \n" if $debug;
                 return 1;
+            }
+            unless ($passer->{'person_db_vals'}->{'mp_website'}) {
+                # deleting record
+                $mp->delete;
             }
             my $updated = $mp->set_att( mp_website => $passer->{'person_db_vals'}->{'mp_website'});
             if ($mp->att('mp_website') eq $passer->{'person_db_vals'}->{'mp_website'}) {
