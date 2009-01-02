@@ -120,7 +120,7 @@ Output:
 }
 
 function api_front_page($error = '') {
-	global $PAGE, $methods, $this_page;
+	global $PAGE, $methods, $this_page, $THEUSER;
 	$this_page = 'api_front';
 	$PAGE->page_start();
 	$PAGE->stripe_start();
@@ -133,7 +133,12 @@ function api_front_page($error = '') {
 <h3>Overview</h3>
 
 <ol style="font-size:130%">
-<li><a href="key">Get an API key</a>.
+<li>
+<? if ($THEUSER->loggedin()) { ?>
+<a href="key">Get an API key (or view stats of existing keys)</a>.
+<? } else { ?>
+<a href="key">Get an API key</a>.
+<? } ?>
 <li>All requests are made by GETting a particular URL with a number of parameters. <em>key</em> is required;
 <em>output</em> is optional, and defaults to <kbd>js</kbd>.
 </ol>
