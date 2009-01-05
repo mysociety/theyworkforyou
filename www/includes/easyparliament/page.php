@@ -1778,9 +1778,17 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		}
 
 		// BIOGRAPHY.
+		global $THEUSER;
 		if (isset($links['mp_website'])) {
-			$html .= '<li><a href="' . $links['mp_website'] . '">'. $member->full_name().'\'s personal website</a></li>';
+			$html .= '<li><a href="' . $links['mp_website'] . '">'. $member->full_name().'\'s personal website</a>';
+			if ($THEUSER->is_able_to('viewadminsection')) {
+				$html .= ' [<a href="/admin/websites.php?editperson=' .$member->person_id() . '">Edit</a>]';
+			}
+			$html .= '</li>';
+		} elseif ($THEUSER->is_able_to('viewadminsection')) {
+			 $html .= '<li>[<a href="/admin/websites.php?editperson=' . $member->person_id() . '">Add personal website</a>]</li>';
 		}
+
 		if (isset($links['sp_url'])) {
 			$html .= '<li><a href="' . $links['sp_url'] . '">'. $member->full_name().'\'s page on the Scottish Parliament website</a></li>';
 		}
