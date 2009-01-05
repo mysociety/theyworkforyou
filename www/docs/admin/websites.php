@@ -73,7 +73,7 @@ function list_members() {
         if ($q->field($row, 'data_key') == 'mp_website') {
             $mp_website = $q->field($row, 'data_value');
         }
-        $out .= ' <small>[<a href="websites.php?editperson=' . $q->field($row, 'person_id') . '" alt="Change Url for ' . $mpname . '" title="Change URL ' . $mp_website . '">Edit URL</a>]</small>';
+        $out .= ' <small>[<a href="websites.php?editperson=' . $q->field($row, 'person_id') . '" title="Change URL ' . $mp_website . '">Edit URL</a>]</small>';
         $out .= ' ' . $mpname;
         if ($q->field($row, 'constituency')) {
             $out .= ' (' . $q->field($row, 'constituency') . ')';        
