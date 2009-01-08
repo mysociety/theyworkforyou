@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.41 2008-10-25 00:47:31 matthew Exp $
+# $Id: xml2db.pl,v 1.42 2009-01-08 12:15:14 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1814,7 +1814,7 @@ sub load_standing_division {
         my $ayes = $division->att('ayes');
         my $noes = $division->att('noes');
         my @names = $division->descendants('mpname');
-        my %out = ();
+        my %out = ( aye => '', no => '' );
         foreach (@names) {
                 my $id = $_->att('memberid');
                 $id =~ s/.*\///;
