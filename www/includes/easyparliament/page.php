@@ -2321,7 +2321,7 @@ Sinn Fein is broken
 <option value="lords">House of Lords debates
 <option value="wrans">Written answers
 <option value="wms">Written ministerial statements
-<!-- <option value="standing">Public Bill Committees -->
+<option value="standing">Public Bill Committees
 </optgroup>
 <optgroup label="Northern Ireland Assembly">
 <option value="ni">Debates

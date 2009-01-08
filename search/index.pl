@@ -95,6 +95,7 @@ if ($action ne "check") {
     my $new_indexbatch = $max_indexbatch + 1;
     
     # Get data for items to update from MySQL 
+    # XXX unix_time is broken if htime>'23:59:59' (on long sittings)
     my $query = "select epobject.epobject_id, epobject.body, section.body as section_body,
         hdate, gid, major, section_id, subsection_id, colnum,
         unix_timestamp(concat(hdate, ' ', if(htime, htime, 0))) as unix_time,

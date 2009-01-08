@@ -688,7 +688,7 @@ function display_form ( $details = array(), $errors = array() ) {
 <?php	if ($this_page == 'userjoin') { ?>
 				<div class="row">
 				&nbsp;<br>Would <?php if ($this_page == "otheruseredit") { echo "they"; } else { echo "you"; } ?> like to receive an email whenever your MP does something in Parliament?
-	<br /><small>&nbsp;&nbsp;(if you're already getting email alerts to your address, don't worry about this)</small>
+	<br><small>&nbsp;&nbsp;(if you're already getting email alerts to your address, don't worry about this)</small>
 				</div>
 
 				<div class="row">
