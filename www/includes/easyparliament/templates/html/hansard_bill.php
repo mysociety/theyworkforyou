@@ -103,16 +103,19 @@ else {
 $list = '';
 if (isset($data['info']['committee'])) {
 	$outof = $data['info']['committee']['sittings'];
-	$list = '<div class="block"> <h4>Committee Membership and attendance <small>(out of '
-		. $outof . ')</small></h4> <h5>Chair';
-	if (count($data['info']['committee']['chairmen'])>1) $list .= 'men';
-	else $list .= 'man';
-	$list .= '</h5> <ul>';
-	foreach ($data['info']['committee']['chairmen'] as $id => $member) {
-		$list .= '<li><a href="/mp/?m=' . $id . '">' . $member['name'] . '</a>';
-		$list .= ' <small>('.$member['attending'].')</small>';
+	$list = '<div class="block"> <h4>Committee Membership and attendance <small>(out of ' . $outof . ')</small></h4>';
+	if (isset($data['info']['committee']['chairmen'])) {
+		$list .= '<h5>Chair';
+		if (count($data['info']['committee']['chairmen'])>1) $list .= 'men';
+		else $list .= 'man';
+		$list .= '</h5> <ul>';
+		foreach ($data['info']['committee']['chairmen'] as $id => $member) {
+			$list .= '<li><a href="/mp/?m=' . $id . '">' . $member['name'] . '</a>';
+			$list .= ' <small>('.$member['attending'].')</small>';
+		}
+		$list .= '</ul>';
 	}
-	$list .= '</ul> <h5>Members</h5> <ul>';
+	$list .= '<h5>Members</h5> <ul>';
 	foreach ($data['info']['committee']['members'] as $id => $member) {
 		$list .= '<li><a href="/mp/?m=' . $id . '">' . $member['name'] . '</a>';
 		$list .= ' <small>('.$member['attending'].')</small>';
