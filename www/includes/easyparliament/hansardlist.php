@@ -1792,7 +1792,7 @@ class HANSARDLIST {
 						# Another hack...
 						$COMMENTSURL->remove(array('id'));
 						$id = preg_replace('#^.*?_.*?_#', '', $item['gid']);
-						$fragment = $this->url . '/' . $id;
+						$fragment = $this->url . $id;
 						$item['commentsurl'] = $COMMENTSURL->generate() . $fragment;
 					} else {
 						if ($getvar == 'gid') {
@@ -1923,7 +1923,7 @@ class HANSARDLIST {
 			if ($this->major == 6) {
 				$id = preg_replace('#^.*?_.*?_#', '', $id_data['gid']);
 				global $DATA;
-				$DATA->set_page_metadata('pbc_clause', 'url', 'pbc/' . $this->url . '/' . $id);
+				$DATA->set_page_metadata('pbc_clause', 'url', 'pbc/' . $this->url . $id);
 				$LISTURL->remove(array('id'));
 			} else {
 				$LISTURL->insert( array( 'id' => $id_data['gid'] ) );
@@ -2999,7 +2999,7 @@ class StandingCommittee extends DEBATELIST {
 		$this->gidprefix .= 'standing/';
 		$this->bill_title = $title;
 		$title = str_replace(' ', '_', $title);
-		$this->url = urlencode($session) . '/' . urlencode($title);
+		$this->url = urlencode($session) . '/' . urlencode($title) . '/';
 	}
 
 	function _get_committee($bill_id) {
@@ -3049,7 +3049,10 @@ class StandingCommittee extends DEBATELIST {
 		if (count($sections) > 0) {
 			$data['rows'] = array();
 			for ($n=0; $n<count($sections); $n++) {
-				$sectionrow = $this->_get_section($sections[$n]);
+				$sectionrow = $sections[$n];
+				list($sitting, $part) = $this->_get_sitting($sectionrow['gid']);
+				$sectionrow['sitting'] = $sitting;
+				$sectionrow['part'] = $part;
 				$input = array (
 					'amount' => array (
 						'body' => true,
@@ -3057,9 +3060,9 @@ class StandingCommittee extends DEBATELIST {
 						'excerpt' => true
 					),
 					'where' => array (
-						'section_id='	=> $sections[$n]['epobject_id'],
-						'htype='		=> '11',
-						'major='		=> $this->major
+						'section_id='	=> $sectionrow['epobject_id'],
+						'htype='	=> '11',
+						'major='	=> $this->major
 					),
 					'order' => 'hpos'
 				);
@@ -3083,6 +3086,9 @@ class StandingCommittee extends DEBATELIST {
 		$bills = array();
 		for ($i=0; $i<$q->rows(); $i++) {
 			$bills[$q->field($i, 'id')] = $q->field($i, 'title');
+		}
+		if (!count($bills)) {
+			return array();
 		}
 		$q = $this->db->query('select minor,count(*) as c from hansard where major=6 and htype=12
 			and minor in (' . join(',', array_keys($bills)) . ')
@@ -3108,7 +3114,7 @@ class StandingCommittee extends DEBATELIST {
 		foreach ($bills as $id => $title) {
 			$data[] = array(
 				'title' => $title,
-				'url' => urlencode(str_replace(' ', '_', $title)),
+				'url' => urlencode(str_replace(' ', '_', $title)) . '/',
 				'contentcount' => isset($counts[$id]) ? $counts[$id] : '???',
 				# 'totalcomments' => isset($comments[$id]) ? $comments[$id] : '???',
 			);
@@ -3146,17 +3152,23 @@ class StandingCommittee extends DEBATELIST {
 			$qq = $this->db->query('select title, session from bills where id='.$minor);
 			$title = $qq->field(0, 'title');
 			$session = $qq->field(0, 'session');
-			preg_match('#_(\d\d)-(\d)_#', $gid, $m);
-			$sitting = make_ranking($m[1]+0) . ' sitting';
-			if ($m[2]>0) $sitting .= ", part $m[2]";
+			list($sitting, $part) = $this->_get_sitting($gid);
+			$sitting_txt = make_ranking($sitting) . ' sitting';
+			if ($part>0) $sitting .= ", part $part";
 			$data[$hdate][] = array(
 				'bill'=> $title,
-				'sitting' => $sitting,
-				'url' => "$session/" . urlencode(str_replace(' ','_',$title)),
+				'sitting' => $sitting_txt,
+				'url' => "$session/" . urlencode(str_replace(' ','_',$title)) . '/#sitting' . $sitting,
 			);
 		}
 		return $data;
 	}
+
+	# Given a GID, parse out the sitting number and optional part from it
+	function _get_sitting($gid) {
+		if (preg_match('#_(\d\d)-(\d)_#', $gid, $m))
+			return array($m[1]+0, $m[2]);
+		return array(0, 0);
+	}
 }
 
-?>

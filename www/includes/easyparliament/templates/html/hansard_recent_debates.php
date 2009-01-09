@@ -21,7 +21,7 @@ foreach ($data as $date => $arr) {
 	*/
 	print '<li><strong>' . $date . '</strong> <ul>';
 	foreach ($arr as $debate) {
-		print '<li><a href="' . $debate['url'] . '">' . $debate['bill'] . '</a>, '.$debate['sitting'];
+		echo '<li><a href="', $debate['url'], '">', $debate['bill'], ', ', $debate['sitting'], '</a>';
 	}
 	print '</ul>';
 }

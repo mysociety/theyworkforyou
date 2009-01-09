@@ -24,6 +24,7 @@ if ($bill && $session) {
 $committee = new StandingCommittee($session, $bill);
 
 if ($bill_id && !$id) {
+	# Display the page for a particular bill
 	$this_page = 'pbc_bill';
 	$args = array (
 		'id' => $bill_id,
@@ -32,6 +33,7 @@ if ($bill_id && !$id) {
 	);
 	$committee->display('bill', $args);
 } elseif ($bill_id && $id) {
+	# Display the debate for a particular clause
 	$this_page = 'pbc_clause';
 	$args = array (
 		'gid' => $standingprefix . $id,
@@ -76,7 +78,13 @@ if ($bill_id && !$id) {
 			$PAGE->stripe_end();
 		}
 	}
+} elseif ($bill && !$bill_id && $session) {
+	# Illegal bill title, redirect to session page
+	$URL = new URL('pbc_session');
+	header('Location: ' . $URL->generate() . urlencode($session));
+	exit;
 } elseif ($session) {
+	# Display the bills for a particular session
 	$this_page = 'pbc_session';
 	$DATA->set_page_metadata($this_page, 'title', "Session $session");
 	$args = array (
@@ -84,6 +92,7 @@ if ($bill_id && !$id) {
 	);
 	$committee->display('session', $args);
 } else {
+	# Front page, display the most recent data
 	$this_page = "pbc_front";
 	$PAGE->page_start();
 	$PAGE->stripe_start();
@@ -92,7 +101,7 @@ if ($bill_id && !$id) {
 <p><a href="2007-08/">See all committees for the current session</a></p>
 <?php
 	
-	$committee->display('recent_debates', array('num'=>20));
+	$committee->display( 'recent_debates', array( 'num' => 50 ) );
 	$rssurl = $DATA->page_metadata($this_page, 'rss');
 	$PAGE->stripe_end(array(
 		array (

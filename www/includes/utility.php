@@ -817,6 +817,8 @@ function hidden_vars ($omit = array()) {
 
 function make_ranking($rank)
 {
+    $rank = $rank + 0;
+
     # 11th, 12th, 13th use "th" not "st", "nd", "rd"
     if (floor(($rank % 100) / 10) == 1)
         return $rank . "th"; 
