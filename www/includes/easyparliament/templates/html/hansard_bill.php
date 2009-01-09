@@ -101,7 +101,7 @@ else {
 }
 
 $list = '';
-if (isset($data['info']['committee'])) {
+if (isset($data['info']['committee']) && isset($data['info']['committee']['members'])) {
 	$outof = $data['info']['committee']['sittings'];
 	$list = '<div class="block"> <h4>Committee Membership and attendance <small>(out of ' . $outof . ')</small></h4>';
 	if (isset($data['info']['committee']['chairmen'])) {
@@ -116,13 +116,9 @@ if (isset($data['info']['committee'])) {
 		$list .= '</ul>';
 	}
 	$list .= '<h5>Members</h5> <ul>';
-	if (isset($data['info']['committee']['members'])) {
-		foreach ($data['info']['committee']['members'] as $id => $member) {
-			$list .= '<li><a href="/mp/?m=' . $id . '">' . $member['name'] . '</a>';
-			$list .= ' <small>('.$member['attending'].')</small>';
-		}
-	} else {
-		$list .= '<li>No members (presumably a failure in our parsing)</li>';
+	foreach ($data['info']['committee']['members'] as $id => $member) {
+		$list .= '<li><a href="/mp/?m=' . $id . '">' . $member['name'] . '</a>';
+		$list .= ' <small>('.$member['attending'].')</small>';
 	}
 	$list .= '</ul>
 <p>[ Committee memberships can change partway through. ]</p>
