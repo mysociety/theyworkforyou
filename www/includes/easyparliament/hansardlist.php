@@ -490,17 +490,16 @@ class HANSARDLIST {
 			}
 		}
 
-		
-		$URL = new URL($this->listpage);
-		
 		if ($this->major == 6) {
-			$URL->remove(array('id'));
+			$URL = new URL('pbc_bill');
+			$URL->remove(array('bill'));
 			$nextprevdata['up'] = array(
 				'body'	=> htmlspecialchars($this->bill_title),
 				'title'	=> '',
 				'url'	=> $URL->generate() . $this->url,
 			);
 		} elseif ($itemdata['htype'] == '10' || $itemdata['htype'] == '11') {
+			$URL = new URL($this->listpage);
 			// Create URL for this (sub)section's date.
 			$URL->insert(array('d' => $itemdata['hdate']));
 			$URL->remove(array('id'));
@@ -1965,7 +1964,7 @@ class HANSARDLIST {
 			
 			if ($parent_gid != '') {
 				// We have a gid so add to the URL.
-				if ($id_data['major']==6) {
+				if ($id_data['major'] == 6) {
 					if (isset($this->bill_lookup[$minor])) {
 						list($title, $session) = $this->bill_lookup[$minor];
 					} else {
