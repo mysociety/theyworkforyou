@@ -1480,7 +1480,7 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		}
 		
 		if ($topics_block_empty) {
-			print "<p><em>This MP is not currently on any select <!-- or public bill --> committee
+			print "<p><em>This MP is not currently on any select or public bill committee
 and has had no written questions answered for which we know the department or subject.</em></p>";
 		}
 		$this->block_end();
