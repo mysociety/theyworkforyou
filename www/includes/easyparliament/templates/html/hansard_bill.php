@@ -116,9 +116,13 @@ if (isset($data['info']['committee'])) {
 		$list .= '</ul>';
 	}
 	$list .= '<h5>Members</h5> <ul>';
-	foreach ($data['info']['committee']['members'] as $id => $member) {
-		$list .= '<li><a href="/mp/?m=' . $id . '">' . $member['name'] . '</a>';
-		$list .= ' <small>('.$member['attending'].')</small>';
+	if (isset($data['info']['committee']['members'])) {
+		foreach ($data['info']['committee']['members'] as $id => $member) {
+			$list .= '<li><a href="/mp/?m=' . $id . '">' . $member['name'] . '</a>';
+			$list .= ' <small>('.$member['attending'].')</small>';
+		}
+	} else {
+		$list .= '<li>No members (presumably a failure in our parsing)</li>';
 	}
 	$list .= '</ul>
 <p>[ Committee memberships can change partway through. ]</p>
