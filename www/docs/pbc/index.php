@@ -51,6 +51,15 @@ if ($bill_id && !$id) {
 		$args['person_id'] = $mmm[1];
 
 	$result = $committee->display('gid', $args);
+	# If it is a redirect, change URL. Magically (as in I can't remember
+	# quite why), pbc_clause will contain the new URL without any change...
+	if (is_string($result)) {
+		$URL = new URL('pbc_clause');
+		$URL->remove(array('id'));
+		header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
+		exit;
+	}
+
 	/* This section below is shared between here and everywhere else - factor it out! */
 	if ($committee->htype() == '12' || $committee->htype() == '13') {
 		$PAGE->stripe_start('side', 'comments');

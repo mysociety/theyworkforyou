@@ -2406,6 +2406,7 @@ class HANSARDLIST {
 						'order' => 'hpos'
 					);
 					$data['subrows'] = $this->_get_hansard_data($input);
+					# If there's only one subheading, and nothing in the heading, redirect to it immediaetly
 					if (count($data['subrows']) == 1) {
 						return array('info' => array('redirected_gid' => $data['subrows'][0]['gid']));
 					}
