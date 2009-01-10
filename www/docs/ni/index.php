@@ -48,24 +48,17 @@ if (get_http_var("d") != "") {
 } elseif (get_http_var('y') != '') {
 	
 	$this_page = 'nidebatesyear';
-
 	if (is_numeric(get_http_var('y'))) {
 		$pagetitle = $DATA->page_metadata($this_page, 'title');
 		$DATA->set_page_metadata($this_page, 'title', $pagetitle.' '.get_http_var('y'));
 	}
-	
 	$PAGE->page_start();
-
 	$PAGE->stripe_start();
-
 	$args = array (
 		'year' => get_http_var('y')
 	);
-
 	$LIST = new NILIST;
-	
 	$LIST->display('calendar', $args);
-	
 	$PAGE->stripe_end(array(
 		array (
 			'type' => 'nextprev'
@@ -78,7 +71,18 @@ if (get_http_var("d") != "") {
 	
 } elseif (get_http_var('gid') != '') {
 	$this_page = 'nidebate';
-	$args = array('gid' => get_http_var('gid') );
+	$args = array(
+		'gid' => get_http_var('gid'),
+		's' => get_http_var('s'),	// Search terms to be highlighted.
+		'member_id' => get_http_var('m'),	// Member's speeches to be highlighted.
+		'glossarise' => 1	// Glossary is on by default
+	);
+	if (preg_match('/speaker:(\d+)/', get_http_var('s'), $mmm))
+		$args['person_id'] = $mmm[1];
+
+	$args['sort'] = "regexp_replace";
+	$GLOSSARY = new GLOSSARY($args);
+
 	$NILIST = new NILIST;
 	$result = $NILIST->display('gid', $args);
 	// If it is a redirect, change URL
