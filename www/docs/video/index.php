@@ -32,7 +32,7 @@ $gid = "uk.org.publicwhip/$gid";
 # Fetch this GID from the database, and captioner bot time if there is one
 $q_gid = mysql_escape_string($gid);
 $db = new ParlDB;
-$q = $db->query("select hdate, htime, adate, atime, hpos, video_status, subsection_id,
+$q = $db->query("select hdate, htime, adate, atime, hpos, video_status, subsection_id, major,
     (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid,
     (select body from epobject as e where e.epobject_id=hansard.subsection_id) as parent_body
     from hansard
@@ -43,6 +43,7 @@ if (!$q->rows()) {
 	exit;
 }
 $video_status = $q->field(0, 'video_status');
+$major = $q->field(0, 'major');
 $hpos = $q->field(0, 'hpos');
 $hdate = $q->field(0, 'hdate');
 $htime = $q->field(0, 'htime');
@@ -64,7 +65,7 @@ if (!($video_status&1) || ($video_status&8)) {
 $q = $db->query("select adate,atime from video_timestamps, hansard
 	where video_timestamps.gid = hansard.gid
 		and (user_id is null or user_id != -1) and deleted = 0
-		and hdate='$hdate' and hpos<$hpos
+		and hdate='$hdate' and hpos<$hpos and major=$major
 	order by hpos desc limit 1");
 if ($q->rows()) {
 	$adate = $q->field(0, 'adate');
@@ -81,7 +82,7 @@ $q = $db->query("select hansard.gid, body, htype, htime, adate, atime, hpos, fir
 		inner join epobject on hansard.epobject_id=epobject.epobject_id
 		left join member on hansard.speaker_id=member.member_id
                 left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1 and video_timestamps.deleted = 0
-	where hpos>=$hpos-$surrounding_speeches and hpos<=$hpos+$surrounding_speeches and hdate='$hdate' and major=1
+	where hpos>=$hpos-$surrounding_speeches and hpos<=$hpos+$surrounding_speeches and hdate='$hdate' and major=$major
 	ORDER BY hpos desc
 ");
 $gids_previous = array();
