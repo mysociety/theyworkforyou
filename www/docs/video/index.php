@@ -32,7 +32,7 @@ $gid = "uk.org.publicwhip/debate/$gid";
 # Fetch this GID from the database, and captioner bot time if there is one
 $q_gid = mysql_escape_string($gid);
 $db = new ParlDB;
-$q = $db->query("select hdate, htime, atime, hpos, video_status, subsection_id,
+$q = $db->query("select hdate, htime, adate, atime, hpos, video_status, subsection_id,
     (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid,
     (select body from epobject as e where e.epobject_id=hansard.subsection_id) as parent_body
     from hansard
@@ -48,6 +48,7 @@ $hdate = $q->field(0, 'hdate');
 $htime = $q->field(0, 'htime');
 $atime = $q->field(0, 'atime');
 if ($atime) $htime = $atime;
+if ($adate) $hdate = $adate;
 $parent_gid = str_replace('uk.org.publicwhip/debate/', '/debates/?id=', $q->field(0, 'parent_gid'));
 $parent_body = $q->field(0, 'parent_body');
 $parent_epid = $q->field(0, 'subsection_id');
@@ -58,12 +59,13 @@ if (!($video_status&1) || ($video_status&8)) {
 }
 
 # See if we can get a more accurate timestamp
-$q = $db->query("select atime from video_timestamps, hansard
+$q = $db->query("select adate,atime from video_timestamps, hansard
 	where video_timestamps.gid = hansard.gid
 		and (user_id is null or user_id != -1) and deleted = 0
 		and hdate='$hdate' and hpos<$hpos
 	order by hpos desc limit 1");
 if ($q->rows()) {
+	$adate = $q->field(0, 'adate');
 	$atime = $q->field(0, 'atime');
 	if ($atime > $htime) {
 		$htime = $atime;
@@ -72,7 +74,7 @@ if ($q->rows()) {
 }
 
 # Fetch preceding/following speeches data *
-$q = $db->query("select hansard.gid, body, htype, htime, atime, hpos, first_name, last_name, video_status
+$q = $db->query("select hansard.gid, body, htype, htime, adate, atime, hpos, first_name, last_name, video_status
 	from hansard
 		inner join epobject on hansard.epobject_id=epobject.epobject_id
 		left join member on hansard.speaker_id=member.member_id
@@ -85,6 +87,7 @@ $gids_following = array();
 $gid_actual = array();
 for ($i=0; $i<$q->rows(); $i++) {
 	$row = $q->row($i);
+	if ($row['adate']) $row['hdate'] = $row['adate'];
 	if ($row['atime']) $row['htime'] = $row['atime'];
 	if ($row['hpos'] < $hpos) {
 		$gids_previous[] = $row;

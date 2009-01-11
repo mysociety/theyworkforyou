@@ -39,15 +39,16 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
 		$new_gid = $q->field(0, 'gid');
 		$new_hpos = $q->field(0, 'hpos');
 		if ($action=='nextneeded') {
-			$q = $db->query("select atime from hansard, video_timestamps
+			$q = $db->query("select adate, atime from hansard, video_timestamps
 				where hansard.gid = video_timestamps.gid and deleted=0
 					and hpos<$new_hpos and hdate='$hdate' and major=1
 					and (htype=12 or htype=13) and (user_id is null or user_id!=-1)
 				order by hpos desc limit 1");
+			$adate = $q->field(0, 'adate');
 			$atime = $q->field(0, 'atime');
 			$videodb = video_db_connect();
 			if ($videodb) {
-				$video = video_from_timestamp($videodb, $hdate, $atime);
+				$video = video_from_timestamp($videodb, $adate, $atime);
 				$file = $video['id'];
 				$time = $video['offset'];
 			}

@@ -63,10 +63,10 @@ if (isset ($data['rows'])) {
 	foreach ($data['rows'] as $row) {
 		$bodies[] = $row['body'];
 	}
-	if (isset($data['info']['glossarise']) && ($data['info']['glossarise'] == 1)) {
+	if (isset($data['info']['glossarise']) && $data['info']['glossarise']) {
 		// And glossary phrases
 		twfy_debug_timestamp('Before glossarise');
-		$bodies = $GLOSSARY->glossarise($bodies, 1);
+		$bodies = $GLOSSARY->glossarise($bodies, $data['info']['glossarise']);
 		twfy_debug_timestamp('After glossarise');
 	}
 	if ($SEARCHENGINE) {
@@ -723,12 +723,13 @@ function get_question_mentions_html($row_data) {
 function video_sidebar($row, $section, $count) {
 	include_once INCLUDESPATH . 'easyparliament/video.php';
 	$db = new ParlDB;
-	$vq = $db->query("select id,atime from video_timestamps where gid='uk.org.publicwhip/debate/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 order by (user_id is null) limit 1");
+	$vq = $db->query("select id,adate,atime from video_timestamps where gid='uk.org.publicwhip/debate/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 order by (user_id is null) limit 1");
 	$ts_id = $vq->field(0, 'id'); if (!$ts_id) $ts_id='*';
+	$adate = $vq->field(0, 'adate');
 	$time = $vq->field(0, 'atime');
 	$videodb = video_db_connect();
 	if (!$videodb) return '';
-	$video = video_from_timestamp($videodb, $row['hdate'], $time);
+	$video = video_from_timestamp($videodb, $adate, $time);
 	$start = $video['offset'];
 	$out = '';
 	if ($count > 1) {

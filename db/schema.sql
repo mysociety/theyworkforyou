@@ -354,6 +354,7 @@ CREATE TABLE `video_timestamps` (
   `id` int(11) NOT NULL auto_increment,
   `gid` varchar(100) NOT NULL,
   `user_id` int(11) default NULL,
+  `adate` date NOT NULL default '0000-00-00',
   `atime` time NOT NULL,
   `deleted` tinyint(1) NOT NULL default '0',
   `whenstamped` timestamp NOT NULL default CURRENT_TIMESTAMP,
