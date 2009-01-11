@@ -158,11 +158,11 @@ if (isset ($data['rows'])) {
 	
 			$video_content = '';
                         if ($first_video_displayed == 0 && $row['video_status']&4 && !($row['video_status']&8)) {
-				$video_content = video_sidebar($row, $section, $speeches);
+				$video_content = video_sidebar($row, $section, $speeches, $data['info']['major']);
                                 $first_video_displayed = true;
                         }
 			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&12)) {
-				$video_content = video_advert($row);
+				$video_content = video_advert($row, $data['info']['major']);
                                 $first_speech_displayed = true;
 			}
 
@@ -200,11 +200,11 @@ if (isset ($data['rows'])) {
 	
 			$video_content = '';
                         if ($first_video_displayed == 0 && $row['video_status']&4 && !($row['video_status']&8)) {
-				$video_content = video_sidebar($row, $section, $speeches);
+				$video_content = video_sidebar($row, $section, $speeches, $data['info']['major']);
                                 $first_video_displayed = true;
                         }
 			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&12)) {
-				$video_content = video_advert($row);
+				$video_content = video_advert($row, $data['info']['major']);
                                 $first_speech_displayed = true;
 			}
 	
@@ -311,7 +311,8 @@ if (isset ($data['rows'])) {
 					if ($row['video_status']&4) {
 						echo ' | <a onclick="return moveVideo(\'' . $row['gid'] . '\');" href="', $row['commentsurl'], '">Watch this</a>';
 					} elseif (!$video_content && $row['video_status']&1 && !($row['video_status']&8)) {
-						echo ' | <a href="/video/?from=debate&amp;gid=', $row['gid'], '">Video match this</a>';
+						$gid_type = $data['info']['major'] == 1 ? 'debate' : 'lords';
+						echo ' | <a href="/video/?from=debate&amp;gid=', $gid_type, '/', $row['gid'], '">Video match this</a>';
 					}
 				}
 				echo "</small>";
@@ -720,10 +721,15 @@ function get_question_mentions_html($row_data) {
 	return $result;
 } 
 
-function video_sidebar($row, $section, $count) {
+function video_sidebar($row, $section, $count, $major) {
 	include_once INCLUDESPATH . 'easyparliament/video.php';
 	$db = new ParlDB;
-	$vq = $db->query("select id,adate,atime from video_timestamps where gid='uk.org.publicwhip/debate/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 order by (user_id is null) limit 1");
+	if ($major == 1) {
+		$gid_type = 'debate';
+	} elseif ($major == 101) {
+		$gid_type = 'lords';
+	}
+	$vq = $db->query("select id,adate,atime from video_timestamps where gid='uk.org.publicwhip/$gid_type/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 order by (user_id is null) limit 1");
 	$ts_id = $vq->field(0, 'id'); if (!$ts_id) $ts_id='*';
 	$adate = $vq->field(0, 'adate');
 	$time = $vq->field(0, 'atime');
@@ -738,8 +744,8 @@ function video_sidebar($row, $section, $count) {
 			$out .= '<p style="margin:0">This video starts around ' . ($row['hpos']-$section['hpos']) . ' speeches in (<a href="#g' . gid_to_anchor($row['gid']) . '">move there in text</a>)</p>';
 		}
 	}
-	$out .= video_object($video['id'], $start, $row['gid']);
-	$flashvars = 'gid=' . $row['gid'] . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
+	$out .= video_object($video['id'], $start, "$gid_type/$row[gid]");
+	$flashvars = 'gid=' . "$gid_type/$row[gid]" . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
 	$out .= "<br><b>Add this video to another site:</b><br><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'></embed>\"><br><small>(copy and paste the above)</small>";
 	$out .= "<p style='margin-bottom:0'>Is this not the right video? <a href='mailto:team&#64;theyworkforyou.com?subject=Incorrect%20video,%20id%20$row[gid];$video[id];$ts_id'>Let us know</a></p>";
 	if ($count > 1) {
@@ -751,12 +757,17 @@ function video_sidebar($row, $section, $count) {
 	return $out;
 }
 
-function video_advert($row) {
+function video_advert($row, $major) {
+	if ($major == 1) {
+		$gid_type = 'debate';
+	} elseif ($major == 101) {
+		$gid_type = 'lords';
+	}
 	return '
 <div style="border:solid 1px #9999ff; background-color: #ccccff; padding: 4px; text-align: center;
 background-image: url(\'/images/video-x-generic.png\'); background-repeat: no-repeat; padding-left: 40px;
 background-position: 0 2px; margin-bottom: 1em;">
-Help us <a href="/video/?from=debate&amp;gid=' . $row['gid'] . '">match the video for this speech</a>
+Help us <a href="/video/?from=debate&amp;gid=' . $gid_type . '/' . $row['gid'] . '">match the video for this speech</a>
 to get the right video playing here
 </div>
 ';

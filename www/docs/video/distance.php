@@ -5,12 +5,13 @@ include_once INCLUDESPATH . 'easyparliament/video.php';
 
 $file = intval(get_http_var('file'));
 $gid = get_http_var('gid');
-preg_match('#^(\d\d\d\d)-(\d\d)-(\d\d)#', $gid, $m);
+preg_match('#^([a-z]+)/(\d\d\d\d)-(\d\d)-(\d\d)#', $gid, $m);
 if (!$gid || !count($m)) {
 	print '<p>Requires gid</p>';
 	exit;
 }
-$gid_date = "$m[1]$m[2]$m[3]";
+$gid_type = $m[1];
+$gid_date = "$m[2]$m[3]$m[4]";
 
 global $want; # It's in the template, yucky, sorry
 $want['gid'] = $gid;
@@ -18,7 +19,7 @@ $want['file'] = $file;
 
 if ($search = get_http_var('s')) {
 	search_box($file);
-	day_speeches($search, $gid_date);
+	day_speeches($search, $gid_type, $gid_date);
 } else { ?>
 <p>If the playing speech appears to be in completely the wrong place,
 enter the speaking MP's name and/or something they're saying in this search box
@@ -42,14 +43,14 @@ function search_box($file) {
 <?
 }
 
-function day_speeches($search, $date) {
-	$search = "$search date:$date section:debates groupby:speech";
+function day_speeches($search, $type, $date) {
+	$search = "$search date:$date section:$type groupby:speech";
 
 	global $SEARCHENGINE, $want;
 	$SEARCHENGINE = new SEARCHENGINE($search);
 
 	$db = new ParlDB;
-	$q_gid = mysql_escape_string('uk.org.publicwhip/debate/' . $want['gid']);
+	$q_gid = mysql_escape_string('uk.org.publicwhip/' . $want['gid']);
 	$q = $db->query("select hpos from hansard where gid='$q_gid'");
 	$want['hpos'] = $q->field(0, 'hpos');
 

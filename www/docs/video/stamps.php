@@ -7,7 +7,7 @@ date_default_timezone_set('Europe/London');
 $videodb = video_db_connect();
 
 $gid = get_http_var('gid');
-$q_gid = mysql_escape_string("uk.org.publicwhip/debate/$gid");
+$q_gid = mysql_escape_string("uk.org.publicwhip/$gid");
 
 $db = new ParlDB;
 $q = $db->query("select subsection_id,adate,atime from hansard, video_timestamps
@@ -34,7 +34,7 @@ $gids = array();
 $file_offset = 0;
 print '<stamps>';
 for ($i=0; $i<$q->rows(); $i++) {
-	$gid = fix_gid_from_db($q->field($i, 'gid'));
+	$gid = str_replace('uk.org.publicwhip/', '', $q->field($i, 'gid'));
 	if (isset($gids[$gid])) continue;
 	$timetoend = $q->field($i, 'timetoend') - $file_offset;
 	if ($timetoend>0) {

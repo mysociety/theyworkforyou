@@ -8,7 +8,7 @@ $oops = get_http_var('oops');
 
 if (!$oops || !$gid) exit;
 
-$gid = "uk.org.publicwhip/debate/$gid";
+$gid = "uk.org.publicwhip/$gid";
 $q_gid = mysql_escape_string($gid);
 $q_oops = mysql_escape_string($oops);
 

@@ -7,7 +7,7 @@ $gid = get_http_var('gid');
 $time = intval(get_http_var('time'));
 $file = intval(get_http_var('file'));
 
-$gid = "uk.org.publicwhip/debate/$gid";
+$gid = "uk.org.publicwhip/$gid";
 $q_gid = mysql_escape_string($gid);
 
 $db = new ParlDB;

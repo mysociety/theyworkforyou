@@ -27,7 +27,7 @@ $this_page = 'video_main';
 $surrounding_speeches = 3;
 # if ($from == 'next') $surrounding_speeches = 2;
 
-$gid = "uk.org.publicwhip/debate/$gid";
+$gid = "uk.org.publicwhip/$gid";
 
 # Fetch this GID from the database, and captioner bot time if there is one
 $q_gid = mysql_escape_string($gid);
@@ -47,9 +47,11 @@ $hpos = $q->field(0, 'hpos');
 $hdate = $q->field(0, 'hdate');
 $htime = $q->field(0, 'htime');
 $atime = $q->field(0, 'atime');
+$adate = $q->field(0, 'adate');
 if ($atime) $htime = $atime;
 if ($adate) $hdate = $adate;
 $parent_gid = str_replace('uk.org.publicwhip/debate/', '/debates/?id=', $q->field(0, 'parent_gid'));
+$parent_gid = str_replace('uk.org.publicwhip/lords/', '/lords/?gid=', $parent_gid);
 $parent_body = $q->field(0, 'parent_body');
 $parent_epid = $q->field(0, 'subsection_id');
 
@@ -319,14 +321,19 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 <ul>
 <?
 
-	$q = $db->query('select hansard.gid, body from video_timestamps, hansard, epobject
+	$q = $db->query('select hansard.gid, body, major from video_timestamps, hansard, epobject
 	where (user_id != -1 or user_id is null) and video_timestamps.deleted=0
 		and video_timestamps.gid = hansard.gid and hansard.subsection_id = epobject.epobject_id
 	order by whenstamped desc limit 20');
 	for ($i=0; $i<$q->rows(); $i++) {
 		$gid = $q->field($i, 'gid');
 		$body = $q->field($i, 'body');
-		echo '<li><a href="/debate/?id=' . fix_gid_from_db($gid) . '">' . $body . '</a>';
+		if ($q->field($i, 'major') == 101) {
+			$url = '/lords/?gid=';
+		} else {
+			$url = '/debate/?id=';
+		}
+		echo '<li><a href="', $url, fix_gid_from_db($gid) . '">' . $body . '</a>';
 	}
 
 	echo '</ul></div>';

@@ -11,7 +11,7 @@ if ($action == 'next' || $action=='nextneeded') {
 	$file = intval(get_http_var('file'));
 	$time = intval(get_http_var('time'));
 	$db = new ParlDB;
-	$gid = "uk.org.publicwhip/debate/$gid";
+	$gid = "uk.org.publicwhip/$gid";
 	$q_gid = mysql_escape_string($gid);
 	$q = $db->query("select hdate,hpos from hansard where gid='$q_gid'");
 	if (!$q->rows()) {
@@ -53,7 +53,7 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
 				$time = $video['offset'];
 			}
 		}
-		$new_gid = fix_gid_from_db($new_gid);
+		$new_gid = fix_gid_but_leave_section($new_gid);
 		header('Location: /video/?from=next&file=' . $file . '&gid=' . $new_gid . '&start=' . $time);
 	}
 } elseif ($action == 'random' && $pid) {
@@ -63,7 +63,7 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
 		and (htype=12 or htype=13)
 		and hansard.speaker_id = member.member_id and person_id=$pid
 		ORDER BY RAND() LIMIT 1");
-	$new_gid = fix_gid_from_db($q->field(0, 'gid'));
+	$new_gid = fix_gid_but_leave_section($q->field(0, 'gid'));
 	header('Location: /video/?from=random&pid=' . $pid . '&gid=' . $new_gid);
 } elseif ($action == 'random') {
 	$db = new ParlDB;
@@ -91,8 +91,12 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
 		$gid = $q->field(0, 'gid');
 	}
 	*/
-	$gid = fix_gid_from_db($gid);
+	$gid = fix_gid_but_leave_section($gid);
 	header('Location: /video/?from=random&gid=' . $gid);
 } else {
     # Illegal action
+}
+
+function fix_gid_but_leave_section($gid) {
+	return str_replace('uk.org.publicwhip/', '', $gid);
 }
