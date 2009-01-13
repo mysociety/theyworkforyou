@@ -1112,7 +1112,11 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			foreach ($extra_info['office'] as $row) {
 				if ($row['to_date'] == '9999-12-31' && $row['source'] != 'chgpages/selctee') {
 					$m = prettify_office($row['position'], $row['dept']);
-					$m .= ' (since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')';
+					if ($member['party'] == 'Liberal Democrat') { # XXX
+						$m .= ' (' . format_date($row['from_date'], SHORTDATEFORMAT) . ' - <a href="/help/#libdem_shadows_unknown">unknown</a>)';
+					} else {
+						$m .= ' (since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')';
+					}
 					$mins[] = $m;
 				}
 			}
