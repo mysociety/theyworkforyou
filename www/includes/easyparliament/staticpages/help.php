@@ -223,7 +223,8 @@ of the Liberal Democrat site changes &ndash; or the Liberal Democrats can
 provide us with a URL containing a machine-readable file of all their
 cabinet/team positions that is kept up to date, which we can then simply read
 and merge into our site every day (our preferred option!). Their site appears
-to have a database backend, so they should be able to do this quite easily.
+to have a database backend, so they should be able to do this quite easily &ndash;
+we've emailed them to ask. :)
 
 Until then, apologies for any inconvenience caused.</p>
 
