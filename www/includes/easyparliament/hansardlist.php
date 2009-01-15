@@ -2051,7 +2051,7 @@ class HANSARDLIST {
 
 					$q = $this->db->query("SELECT dept, position, source FROM moffice WHERE person=$speaker[person_id]
 								AND to_date>='$hdate' AND from_date<='$hdate'");
-					if ($q->rows() > 0 && ($speaker['party']!='Liberal Democrat' || $hdate<'2009-01-09')) {
+					if ($q->rows() > 0) {
 						for ($row=0; $row<$q->rows(); $row++) {
 							$dept = $q->field($row, 'dept');
 							$pos = $q->field($row, 'position');

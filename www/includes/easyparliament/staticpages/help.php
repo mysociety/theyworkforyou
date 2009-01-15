@@ -202,34 +202,6 @@ address</a>. We've got a few ideas ourselves, to keep you on your toes.
 
 <!-- end old faq entry -->
 
-<dt><a name="libdem_shadows_unknown"></a>Why are the Liberal Democrat shadow ministerial positions out of date?</dt>
-<dd>
-<p>TheyWorkForYou gets its ministerial/party position information, as with much else, by
-scraping various pages on the official parliament.uk site.  Since the 9th of
-January 2009, the <a
-href="http://www.parliament.uk/directories/hciolists/libdems.cfm">page on the
-Liberal Democrat Shadow Cabinet and Team</a> links to a <a
-href="http://www.libdems.org.uk/people?by=Shadow+Minister">section of the
-Liberal Democrat site</a> instead of listing all the positions itself (our scraper
-didn't use the Cabinet summary at the top as all cabinet positions were
-duplicated in the full list underneath). This means our scraper can no longer
-find and work out the information, and so we do not know the current Liberal
-Democrat team.</p>
-
-<p>In order to fix this, we would either need to write a brand new scraper solely to
-fetch and parse this information from the Liberal Democrat site &ndash; not a
-trivial task, and one that leads to yet more maintenance every time the format
-of the Liberal Democrat site changes &ndash; or the Liberal Democrats can
-provide us with a URL containing a machine-readable file of all their
-cabinet/team positions that is kept up to date, which we can then simply read
-and merge into our site every day (our preferred option!). Their site appears
-to have a database backend, so they should be able to do this quite easily &ndash;
-we've emailed them to ask. :)
-
-Until then, apologies for any inconvenience caused.</p>
-
-</dd>
-
 <!-- start new faq entry-->
 <dt><a name="api"></a>Do you have the data as a spreadsheet file, XML or in an API?</dt>
 <dd>

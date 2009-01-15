@@ -134,9 +134,11 @@ function api_log_call($key) {
 
 function api_check_key($key) {
 	$db = new ParlDB;
-	$q = $db->query('SELECT user_id FROM api_key WHERE api_key="' . mysql_escape_string($key) . '"');
+	$q = $db->query('SELECT user_id, disabled FROM api_key WHERE api_key="' . mysql_escape_string($key) . '"');
 	if (!$q->rows())
 		return false;
+	if ($q->field(0, 'disabled'))
+		return 'disabled';
 	return true;
 }
 

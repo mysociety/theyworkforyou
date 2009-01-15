@@ -11,13 +11,17 @@ if ($q_method = get_http_var('method')) {
 	if (get_http_var('docs')) {
 		$key = 'DOCS';
 	} else {
-		if (!get_http_var('key')) {
+		$key = get_http_var('key');
+		if (!$key) {
 			api_error('No API key provided. Please see http://www.theyworkforyou.com/api/key for more information.');
 			exit;
 		}
-		$key = get_http_var('key');
-		if ($key && !api_check_key($key)) {
+		$check = api_check_key($key);
+		if (!$check) {
 			api_error('Invalid API key.');
+			exit;
+		} elseif ($check == 'disabled') {
+			api_error('Your API key has been disabled.');
 			exit;
 		}
 	}
