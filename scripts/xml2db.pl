@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.42 2009-01-08 12:15:14 matthew Exp $
+# $Id: xml2db.pl,v 1.43 2009-01-16 09:39:51 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1405,7 +1405,7 @@ sub add_lordsdebates_day
         my $twig = XML::Twig->new(twig_handlers => { 
                 'speech' => sub { do_load_speech($_, 101, 0, $_->sprint(1)) },
                 'minor-heading' => sub { do_load_subheading($_, 101, strip_string($_->sprint(1))) },
-#                'major-heading' => \&load_debate_heading,
+                'major-heading' => sub { do_load_heading($_, 101, strip_string($_->sprint(1))) },
                 'division' => sub { load_debate_division($_, 101) },
                 'gidredirect' => sub { do_load_gidredirect($_, 101) },
                 }, output_filter => $outputfilter );
