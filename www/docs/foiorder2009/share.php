@@ -1,6 +1,6 @@
 <?php
 
-$noevery = true;
+$notevery = true;
 
 include_once "../../includes/easyparliament/init.php";
 #require_once "sharethis.php";

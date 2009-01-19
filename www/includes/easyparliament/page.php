@@ -244,11 +244,11 @@ if (!isset($notevery)) {
 ?>
 
 $(function(){
-	//if (!$.cookie('seen_foi')) {
+	if (!$.cookie('seen_foi')) {
 		window.setTimeout(function(){
 			$('#everypage').slideDown('slow');
 		}, 1000);
-	//}
+	}
 });
 
 <? } ?>
