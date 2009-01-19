@@ -720,10 +720,10 @@ echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi\', 1, { expir
 	    <!--
             <h4>Click on the platypus!</h4>
             <p align="center"><a href="/freeourbills"><img title="Duck-billed platypus" src="/freeourbills/billsm.png" alt="Free Our Bills!" hspace="10" vspace="10"></a></p>
-            </div>
 	    -->
             <h4>Save Parliamentary transparency</h4>
             <p style="text-align:center;font-size: 150%"><strong><a href="/foiorder2009/">Urgent: we need your help!</a></strong></p>
+            </div>
 
 <?php
 		}
@@ -1796,7 +1796,7 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 					print 'joint&nbsp;';
 				print make_ranking($extra_info[$kr]) . ")";
 			}
-			if ($col=='col5' && $ey==2007 && isset($extra_info['expenses2007_col5a'])) {
+			if ($col=='col5' && $ey==2007 && isset($extra_info['expenses2007_col5a']))
 				print '<sup><a href="#travel2007">*</a></sup>';
 			print '</td>';
 		}
