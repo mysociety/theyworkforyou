@@ -247,6 +247,10 @@ $this->page = array (
 		'url'			=> 'cards/'
 	),
 
+	'campaign_foi' => array (
+		'title'			=> 'Freedom of Information (Parliament) Order 2009',
+		'url'			=> 'foiorder2009/'
+	),
 	'campaign' => array (
 		'title'			=> 'Free Our Bills!',
 		'url'			=> 'freeourbills/'
