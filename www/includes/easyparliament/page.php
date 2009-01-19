@@ -237,7 +237,7 @@ class PAGE {
 ?>
 
 <!--[if LT IE 7]>
-<style type="text/css">@import url("/ie6.css");</style>
+<style type="text/css">@import url("/style/ie6.css");</style>
 <![endif]-->
 <script type="text/javascript">
 document.write('<style type="text/css">.jshide { display: none; }</' + 'style>');
