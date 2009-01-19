@@ -1048,11 +1048,12 @@ ol.otherspeeches li {
     z-index: 100; /* So on top */
     max-height: 95%; overflow: auto; /* So on e.g. 800x600 scrollbar appears */
 }
-#everypage h2 {
+#everypage h2, #everypage h3, #foi2009 h2, #foi2009 h3 {
 	margin: 0.5em 0;
 }
-#everypage h3 {
-	margin: 0.5em 0;
+
+div#intro.block #foi2009 li {
+	font-weight: normal;
 }
 
 div.vidOn {
