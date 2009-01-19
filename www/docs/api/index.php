@@ -20,7 +20,7 @@ if ($q_method = get_http_var('method')) {
 		if (!$check) {
 			api_error('Invalid API key.');
 			exit;
-		} elseif ($check == 'disabled') {
+		} elseif ($check === 'disabled') {
 			api_error('Your API key has been disabled.');
 			exit;
 		}

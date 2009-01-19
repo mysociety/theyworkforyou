@@ -25,6 +25,7 @@ against the measure.
 <li>Blog about it, call a local newspaper (<a href="http://news.mysociety.org/">find one</a>), text, email, and instant
 message your friends to let them know that about this campaign.
 </ul>
+</form>
 
 <p>Read <a href="http://www.mysociety.org/2009/01/17/6-days-to-stop-mps-concealing-their-expenses/">more detail about mySociety&rsquo;s thoughts on this issue</a>.
 ';

@@ -235,8 +235,12 @@ class PAGE {
 		}
 				
 ?>
+
+<!--[if LT IE 7]>
+<style type="text/css">@import url("/ie6.css");</style>
+<![endif]-->
 <script type="text/javascript">
-document.write('<style type="text/css">.jshide { display: none; }</style>');
+document.write('<style type="text/css">.jshide { display: none; }</' + 'style>');
 
 <?
 global $notevery;
@@ -294,7 +298,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 include INCLUDESPATH . '../docs/foiorder2009/fns.php';
 echo '<div id="everypage" class="jshide">
 <p style="float:right"><a href="#top" onclick="$.cookie(\'seen_foi\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
-<h2>DENIED</h2>
+<h2>DENIED &ndash; <small>an important message from TheyWorkForYou</small></h2>
 <p>Sorry to interrupt, but <strong>democracy needs your help</strong>!';
 echo $foi2009_message;
 echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
@@ -713,9 +717,14 @@ echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi\', 1, { expir
 			$already_done_platypus = 1;
 ?>
 			<div class="block">
+	    <!--
             <h4>Click on the platypus!</h4>
             <p align="center"><a href="/freeourbills"><img title="Duck-billed platypus" src="/freeourbills/billsm.png" alt="Free Our Bills!" hspace="10" vspace="10"></a></p>
             </div>
+	    -->
+            <h4>Save Parliamentary transparency</h4>
+            <p style="text-align:center;font-size: 150%"><strong><a href="/foiorder2009/">Urgent: we need your help!</a></strong></p>
+
 <?php
 		}
 		$this->within_stripe_sidebar = true;
