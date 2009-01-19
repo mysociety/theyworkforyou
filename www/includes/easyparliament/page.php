@@ -1787,7 +1787,7 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 					print 'joint&nbsp;';
 				print make_ranking($extra_info[$kr]) . ")";
 			}
-			if ($col=='col5' && $ey==2007)
+			if ($col=='col5' && $ey==2007 && isset($extra_info['expenses2007_col5a'])) {
 				print '<sup><a href="#travel2007">*</a></sup>';
 			print '</td>';
 		}
