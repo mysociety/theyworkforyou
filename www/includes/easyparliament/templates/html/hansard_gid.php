@@ -601,11 +601,11 @@ function generate_votes ($votes, $major, $id, $gid) {
 		
 		$html .= '<strong>Does this answer the above question?</strong><br>';
 		
-		$html .= '<span class="wransvote"><a href="' . $VOTEURL->generate() . '" title="Rate this as answering the question">Yes!</a> ' . $yesvotes . ' ' . $yesplural . ' so!<br>';
+		$html .= '<span class="wransvote"><a rel="nofollow" href="' . $VOTEURL->generate() . '" title="Rate this as answering the question">Yes!</a> ' . $yesvotes . ' ' . $yesplural . ' so!<br>';
 
 		$VOTEURL->insert(array('v'=>'0'));
 		
-		$html .= '<a href="' . $VOTEURL->generate() . '" title="Rate this as NOT answering the question">No!</a> ' . $novotes . ' ' . $noplural . ' not!</span>';
+		$html .= '<a rel="nofollow" href="' . $VOTEURL->generate() . '" title="Rate this as NOT answering the question">No!</a> ' . $novotes . ' ' . $noplural . ' not!</span>';
 
         $html .= "<p>Would you like to <strong>ask a question like this yourself</strong>? Use our <a href=\"http://www.whatdotheyknow.com\">Freedom of Information site</a>.</p>";
 
