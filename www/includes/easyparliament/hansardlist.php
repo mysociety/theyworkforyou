@@ -2056,6 +2056,7 @@ class HANSARDLIST {
 							$dept = $q->field($row, 'dept');
 							$pos = $q->field($row, 'position');
 							$source = $q->field($row, 'source');
+							if ($source == 'chgpages/libdem' && $hdate > '2009-01-15') continue;
 							if ($pos && $pos != 'Chairman') {
 								$speaker['office'][] = array(
 									'dept' => $dept,

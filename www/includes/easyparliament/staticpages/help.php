@@ -202,6 +202,35 @@ address</a>. We've got a few ideas ourselves, to keep you on your toes.
 
 <!-- end old faq entry -->
 
+<dt><a name="pps_unknown"></a>Why are the PPS positions out of date?</dt>
+<dd>
+<p>TheyWorkForYou gets its ministerial information, as with much else, by
+scraping various pages on the official parliament.uk site. Since the 16th of
+January 2008, the <a
+href="http://www.parliament.uk/directories/hciolists/Pps.cfm">page on
+Parliamentary Private Secretaries</a>, that until that date listed them all,
+simply says they do not maintain such a list. This means our scraper can no
+longer find and work out the information, and so we do not know the current
+PPSes.</p>
+
+<p>This is obviously disappointing, but without a central list of Parliamentary
+Private Secretaries, there doesn't appear to be a lot we can do. Apologies for
+any inconvenience caused.</p>
+
+<!--
+<p>In order to fix this, we would either need to find a new source of information
+and write a brand new parser solely for that &ndash; not a trivial task, and
+one that leads to yet more maintenance every time the format changes &ndash; or
+we need Parliament or the Government to provide us with a URL containing a
+machine-readable file of all the PPSes that is kept up to date, which we can
+then simply read and merge into our site every day (our preferred option!).
+-->
+
+
+<p>
+</p>
+</dd>
+
 <!-- start new faq entry-->
 <dt><a name="api"></a>Do you have the data as a spreadsheet file, XML or in an API?</dt>
 <dd>
