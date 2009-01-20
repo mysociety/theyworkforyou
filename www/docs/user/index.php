@@ -760,7 +760,7 @@ function display_form ( $details = array(), $errors = array() ) {
 		$submittext = "Join TheyWorkForYou.com";
 	}
 	
-	$TERMSURL = new URL('disclaimer');
+	$TERMSURL = new URL('houserules');
 ?>
 				<div class="row">
 				<span class="label">&nbsp;</span>
