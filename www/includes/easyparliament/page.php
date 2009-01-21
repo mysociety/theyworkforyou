@@ -240,8 +240,6 @@ class PAGE {
 <style type="text/css">@import url("/style/ie6.css");</style>
 <![endif]-->
 <script type="text/javascript">
-document.write('<style type="text/css">.jshide { display: none; }</' + 'style>');
-
 <?
 global $notevery;
 if (!isset($notevery)) {
@@ -296,7 +294,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 
 # XXX
 include INCLUDESPATH . '../docs/foiorder2009/fns.php';
-echo '<div id="everypage" class="jshide">
+echo '<div id="everypage" style="display:none">
 <p style="float:right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
 <h2>Blimey. It looks like the Internets won &ndash; <small>a message from TheyWorkForYou</small></h2>
 <p>Sorry to interrupt, but we thought you&rsquo;d like to know that <strong>you won</strong>!';
