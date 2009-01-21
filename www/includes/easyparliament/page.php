@@ -248,7 +248,7 @@ if (!isset($notevery)) {
 ?>
 
 $(function(){
-	if (!$.cookie('seen_foi')) {
+	if (!$.cookie('seen_foi2')) {
 		window.setTimeout(function(){
 			$('#everypage').slideDown('slow');
 		}, 1000);
@@ -297,11 +297,11 @@ if (typeof urchinTracker == 'function') urchinTracker();
 # XXX
 include INCLUDESPATH . '../docs/foiorder2009/fns.php';
 echo '<div id="everypage" class="jshide">
-<p style="float:right"><a href="#top" onclick="$.cookie(\'seen_foi\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
+<p style="float:right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
 <h2>DENIED &ndash; <small>an important message from TheyWorkForYou</small></h2>
 <p>Sorry to interrupt, but <strong>democracy needs your help</strong>!';
 echo $foi2009_message;
-echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
+echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
 </div>';
 # XXX
 
