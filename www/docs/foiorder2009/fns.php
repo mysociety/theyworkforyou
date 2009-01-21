@@ -17,11 +17,11 @@ it appears that the vote has been cancelled &ndash;
 <a href="http://www.timesonline.co.uk/tol/news/politics/article5559704.ece">Times</a>,
 <a href="http://news.bbc.co.uk/1/hi/uk_politics/7842402.stm">BBC</a>.
 
-<p>In yesterday&rsquo;s inauguration speech, President Obama said: <em>&ldquo;And
+<p>As President Obama said in his inauguration speech: <em>&ldquo;And
 those of us who manage the public&rsquo;s dollars will be held to account &ndash; to
 spend wisely, reform bad habits, and do our business in the light of day &ndash;
 because only then can we restore the vital trust between a people and their
-government.&rdquo;</em>
+government.&rdquo;</em></p>
 
-<p>Read <a href="http://www.mysociety.org/2009/01/21/blimey-it-looks-like-the-internets-won/">our victory blog post</a>.
+<p>Read <a href="http://www.mysociety.org/2009/01/21/blimey-it-looks-like-the-internets-won/">our victory blog post</a>. :-)
 ';
