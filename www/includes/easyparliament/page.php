@@ -298,8 +298,8 @@ if (typeof urchinTracker == 'function') urchinTracker();
 include INCLUDESPATH . '../docs/foiorder2009/fns.php';
 echo '<div id="everypage" class="jshide">
 <p style="float:right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
-<h2>DENIED &ndash; <small>an important message from TheyWorkForYou</small></h2>
-<p>Sorry to interrupt, but <strong>democracy needs your help</strong>!';
+<h2>Blimey. It looks like the Internets won &ndash; <small>a message from TheyWorkForYou</small></h2>
+<p>Sorry to interrupt, but we thought you&rsquo;d like to know that <strong>you won</strong>!';
 echo $foi2009_message;
 echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
 </div>';
@@ -717,12 +717,8 @@ echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expi
 			$already_done_platypus = 1;
 ?>
 			<div class="block">
-	    <!--
             <h4>Click on the platypus!</h4>
             <p align="center"><a href="/freeourbills"><img title="Duck-billed platypus" src="/freeourbills/billsm.png" alt="Free Our Bills!" hspace="10" vspace="10"></a></p>
-	    -->
-            <h4>Save Parliamentary transparency</h4>
-            <p style="text-align:center;font-size: 150%"><strong><a href="/foiorder2009/">Urgent: we need your help!</a></strong></p>
             </div>
 
 <?php
