@@ -18,7 +18,8 @@ the public's dollars will be held to account - to spend wisely, reform bad
 habits, and do our business in the light of day - because only then can we
 restore the vital trust between a people and their government."
 
-Read <a href="http://www.mysociety.org/2009/01/21/blimey-it-looks-like-the-internets-won/">our victory mySociety blog post</a>. :-) 
+Read <a href="http://www.mysociety.org/2009/01/21/blimey-it-looks-like-the-internets-won/">our victory mySociety blog post</a>,
+and do join our mailing list. :-) 
 EOT
 , '2009-01-21 15:30:00', 'Matthew'),
 

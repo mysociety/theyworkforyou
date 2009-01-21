@@ -23,5 +23,12 @@ spend wisely, reform bad habits, and do our business in the light of day &ndash;
 because only then can we restore the vital trust between a people and their
 government.&rdquo;</em></p>
 
+<form method=post action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
+<p>
+<label for="txtEmail">Sign up for our news mailing list, enter your email:</label>
+<input type="text" name="email" value="">
+<input type="Submit" name="email-button" value="Add">
+</form>
+
 <p>Read <a href="http://www.mysociety.org/2009/01/21/blimey-it-looks-like-the-internets-won/">our victory blog post</a>. :-)
 ';
