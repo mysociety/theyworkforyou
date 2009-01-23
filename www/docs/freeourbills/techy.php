@@ -62,7 +62,8 @@ Amendments and explanatory notes will be processed in a similar way.
 </p>
 
 <p>Once we've done that, mySociety (and anyone else) will be able to
-build sites a bit like this rough-sketch demo, only much better.</p>
+build sites a bit like this 
+<a href="http://bitter.ukcod.org.uk/~matthew/bills/">rough-sketch demo</a>, only much better.</p>
 
 <h3>The Data Schema</h3>
 
