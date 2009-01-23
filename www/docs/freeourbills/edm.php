@@ -17,7 +17,7 @@ EOF;
 2141, eh? Here's some ideas for what to include in your email:
 
 <ol>
-<li>Please sign EDM 2141.
+<li>Please sign EDM 221.
 <li>Free Our Bills has been endorsed by party leaders David Cameron,
 Nick Clegg and Alex Salmond, and over 100 MPs from all parties have
 signed the EDM so far.
