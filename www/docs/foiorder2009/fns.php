@@ -3,7 +3,7 @@
 $foi2009_message = '
 <p>On the 16th of May 2008 the High Court ruled that MPs&rsquo; expenses must be published under the Freedom of Information Act.
 
-<p>Tomorrow, MPs were going to vote on changing the law to keep their expenses secret after all,
+<p>Last Thursday, MPs were going to vote on changing the law to keep their expenses secret after all,
 just before publication was due and after spending nearly a million of your pounds and seven months
 compiling the data.
 
@@ -23,12 +23,7 @@ spend wisely, reform bad habits, and do our business in the light of day &ndash;
 because only then can we restore the vital trust between a people and their
 government.&rdquo;</em></p>
 
-<form method=post action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
-<p>
-<label for="txtEmail">Sign up for our news mailing list, enter your email:</label>
-<input type="text" name="email" value="">
-<input type="Submit" name="email-button" value="Add">
-</form>
+<p>mySociety is a non-partisan, non-profit. If you like our services and are pleased with how the campaign went this week, please <a href="http://www.pledgebank.com/supportmysociety">read our pledge</a> and support us.</p>
 
 <p>Read <a href="http://www.mysociety.org/2009/01/21/blimey-it-looks-like-the-internets-won/">our victory blog post</a>. :-)
 ';
