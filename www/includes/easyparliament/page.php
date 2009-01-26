@@ -239,8 +239,9 @@ class PAGE {
 <!--[if LT IE 7]>
 <style type="text/css">@import url("/style/ie6.css");</style>
 <![endif]-->
-<script type="text/javascript">
 <?
+/*
+<script type="text/javascript">
 global $notevery;
 if (!isset($notevery)) {
 ?>
@@ -253,10 +254,11 @@ $(function(){
 	}
 });
 
-<? } ?>
+<? }
 
 </script>
-<?
+*/
+
 		if (!DEVSITE) {
 		?>
 
@@ -292,16 +294,15 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			}
 		}
 
-# XXX
-include INCLUDESPATH . '../docs/foiorder2009/fns.php';
-echo '<div id="everypage" style="display:none">
-<p style="float:right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
-<h2>Blimey. It looks like the Internets won &ndash; <small>a message from TheyWorkForYou</small></h2>
-<p>Sorry to interrupt, but we thought you&rsquo;d like to know that <strong>you won</strong>!';
-echo $foi2009_message;
-echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
-</div>';
-# XXX
+# # 2009-01 interstitial
+# include INCLUDESPATH . '../docs/foiorder2009/fns.php';
+# echo '<div id="everypage" style="display:none">
+# <p style="float:right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
+# <h2>Blimey. It looks like the Internets won &ndash; <small>a message from TheyWorkForYou</small></h2>
+# <p>Sorry to interrupt, but we thought you&rsquo;d like to know that <strong>you won</strong>!';
+# echo $foi2009_message;
+# echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
+# </div>';
 
 		$this->title_bar();
 		$this->menu();
