@@ -1117,6 +1117,11 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			if ($house==1 && isset($member['entered_house'][2])) continue; # Same info is printed further down
 			$desc .= '<li><strong>';
 			if (!$member['current_member'][$house]) $desc .= 'Former ';
+			$party_br = '';
+			if (preg_match('#^(.*?)\s*\((.*?)\)$#', $party, $m)) {
+				$party_br = $m[2];
+				$party = $m[1];
+			}
 			$desc .= htmlentities($party);
 			if ($party=='Speaker' || $party=='Deputy Speaker') {
 				$desc .= ', and ';
@@ -1131,6 +1136,9 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 				if ($house==1) $desc .= 'MP';
 				if ($house==3) $desc .= 'MLA';
 				if ($house==4) $desc .= 'MSP';
+				if ($party_br) {
+					$desc .= " ($party_br)";
+				}
 				$desc .= ' for ' . $member['left_house'][$house]['constituency'];
 			}
 			if ($house==2 && $party != 'Bishop') $desc .= ' Peer';

@@ -226,9 +226,22 @@ machine-readable file of all the PPSes that is kept up to date, which we can
 then simply read and merge into our site every day (our preferred option!).
 -->
 
+</dd>
 
-<p>
+<dt><a name="independent"></a>What is an Independent, or Independent &lt;party&gt; MP?</dt>
+<dd>
+
+<p>If an MP is a member of a local, perhaps one-issue, party, or is not a
+member of any political party, TheyWorkForYou lists them as Independent, e.g.
+<a href="/mp/richard_taylor/wyre_forest">Richard Taylor</a> or
+<a href="/mp/robert_wareing/liverpool,_west_derby">Robert Wareing</a>.
+If an MP does not take the party whip, but is a member of that party, we list them as either
+Independent followed by the party name, e.g. <a href="/mp/clare_short/birmingham,_ladywood">Clare Short</a>,
+or as an Independent MP with their party name in brackets afterwards, e.g.
+<a href="/mp/bob_spink/castle_point">Bob Spink</a>, depending upon their own designation
+within Parliament.
 </p>
+
 </dd>
 
 <!-- start new faq entry-->
