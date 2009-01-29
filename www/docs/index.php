@@ -60,7 +60,7 @@ function your_mp_bullet_point() {
 		<p><strong>Find out more about your <acronym title="Member of Parliament">MP</acronym>/
 		<acronym title="Members of the Scottish Parliament">MSPs</acronym>/
 		<acronym title="Members of the (Northern Irish) Legislative Assembly">MLAs</acronym></strong><br>
-		<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" GO " class="submit"></p>
+		<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
 		</form>
 	<?php
 		if (!defined("POSTCODE_SEARCH_DOMAIN") || !POSTCODE_SEARCH_DOMAIN) {
@@ -77,8 +77,8 @@ function search_bullet_point() {
 	$SEARCHURL = new URL('search');
 	?>
 						<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-						<p><strong><label for="s">Search<?=get_http_var("keyword") ? ' Hansard for \'' . htmlspecialchars(get_http_var("keyword")) . '\'' : ''?>:</label></strong>
-					<input type="text" name="s" id="s" size="15" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit">
+						<p><label for="s"><strong>Search</strong> (e.g. for a word, phrase, or person):</label>
+					<input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;<input type="submit" value="Search" class="submit">
 <small>(<a href="/search/?adv=1">Advanced Search</a>)</small></p>
                         <?
                             // Display popular queries
@@ -103,6 +103,12 @@ function search_bullet_point() {
                         ?>
 						</form>
 						</li>
+
+</li>
+<li>
+<p><strong>View lists</strong> of all <a href="/mps/"><strong>MPs</strong></a>, <a href="/msps/"><strong>MSPs</strong></a>, or <a href="/mlas/"><strong>MLAs</strong></a>.</p>
+</li>
+
 <?php
 }
 
