@@ -106,7 +106,7 @@ function search_bullet_point() {
 
 </li>
 <li>
-<p><strong>View lists</strong> of all <a href="/mps/"><strong>MPs</strong></a>, <a href="/msps/"><strong>MSPs</strong></a>, or <a href="/mlas/"><strong>MLAs</strong></a>.</p>
+<p><strong>View lists</strong> of all <a href="/mps/"><strong>MPs</strong></a>, <a href="/peers/">Lords</a>, <a href="/msps/"><strong>MSPs</strong></a>, or <a href="/mlas/"><strong>MLAs</strong></a>.</p>
 </li>
 
 <?php
