@@ -104,6 +104,17 @@ $GLOBALS['recessdates'][1] = array(
 		9=>array('all'=>1),
 		10=>array('less'=>6),
 	),
+	2009 => array(
+		1=>array('less'=>12),
+		2=>array('between'=>array(12,23)),
+		4=>array('between'=>array(2,20)),
+		5=>array('more'=>21),
+		6=>array('less'=>1),
+		7=>array('more'=>21),
+		8=>array('all'=>1),
+		9=>array('all'=>1),
+		10=>array('less'=>12),
+	),
 );
 
 /* Scottish Parliament */
