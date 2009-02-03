@@ -103,6 +103,7 @@ $GLOBALS['recessdates'][1] = array(
 		8=>array('all'=>1),
 		9=>array('all'=>1),
 		10=>array('less'=>6),
+		12=>array('more'=>18),
 	),
 	2009 => array(
 		1=>array('less'=>12),
