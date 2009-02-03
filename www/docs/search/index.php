@@ -390,7 +390,7 @@ function find_members ($args) {
 		return false;
 	}
 
-	$searchstring2 = preg_replace("#[^a-z'& ]#i", '', $searchstring);
+	$searchstring2 = preg_replace("#[^0-9a-z'& ]#i", '', $searchstring);
 	if (!$searchstring2) return false;
 	$searchwords = explode(' ', $searchstring2);
     foreach ($searchwords as $i=>$searchword) {
