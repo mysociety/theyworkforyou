@@ -107,7 +107,7 @@ if ($bill_id && !$id) {
 	$PAGE->stripe_start();
 	?>
 <h4>Most recent Public Bill committee debates</h4>
-<p><a href="2007-08/">See all committees for the current session</a></p>
+<p><a href="2008-09/">See all committees for the current session</a></p>
 <?php
 	
 	$committee->display( 'recent_debates', array( 'num' => 50 ) );
