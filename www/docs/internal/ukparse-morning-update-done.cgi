@@ -6,6 +6,8 @@ use lib "$FindBin::Bin/../../../../perllib";
 
 use mySociety::CGIFast;
 use mySociety::Config;
+use mySociety::EmailUtil;
+use mySociety::Email;
 
 mySociety::Config::set_file("$FindBin::Bin/../../../conf/general");
 
@@ -19,7 +21,17 @@ while (my $q = new mySociety::CGIFast()) {
     if (not defined $pid) {
         print "Content-Type: text/plain\r\n\r\nFork failed";
     } elsif ($pid == 0) {
-        exec $path;
+        my $errors = `$path`;
+        if ($errors) {
+            my $email = mySociety::Config::get('CONTACTEMAIL');
+            my $body = mySociety::Email::construct_email({
+                _body_ => $errors,
+                Subject => 'TheyWorkForYou daily import failure',
+                From => [ $email, 'TheyWorkForYou' ],
+                To => $email,
+            });
+            mySociety::EmailUtil::send_email($body, $email, $email);
+        }
     } else {
         print <<EOF;
 Content-Type: text/plain
