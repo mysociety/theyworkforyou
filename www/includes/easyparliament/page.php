@@ -6,25 +6,6 @@ if (defined('OPTION_TRACKING') && OPTION_TRACKING)
 include_once INCLUDESPATH . '../../../phplib/gaze.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
-function score_to_strongly($dmpscore) {
-	$dmpdesc = "unknown about";
-	if ($dmpscore > 0.95 && $dmpscore <= 1.0)
-		$dmpdesc = "very strongly against";
-	elseif ($dmpscore > 0.85)
-		$dmpdesc = "strongly against";
-	elseif ($dmpscore > 0.6)
-		$dmpdesc = "moderately against";
-	elseif ($dmpscore > 0.4)
-		$dmpdesc = "a mixture of for and against";
-	elseif ($dmpscore > 0.15) 
-		$dmpdesc = "moderately for";
-	elseif ($dmpscore > 0.05) 
-		$dmpdesc = "strongly for";
-	elseif ($dmpscore >= 0.0) 
-		$dmpdesc = "very strongly for";
-	return $dmpdesc;
-}
-
 class PAGE {
 
 	// So we can tell from other places whether we need to output the page_start or not.

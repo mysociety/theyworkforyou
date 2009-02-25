@@ -350,8 +350,8 @@ class MEMBER {
 	
 
     // Grabs extra information (e.g. external links) from the database
-    function load_extra_info()
-    {
+    # DISPLAY is whether it's to be displayed on MP page.
+    function load_extra_info($display = false) {
 
 	$q = $this->db->query('SELECT * FROM moffice WHERE person=' .
 		mysql_escape_string($this->person_id) . ' ORDER BY from_date DESC');
@@ -395,38 +395,29 @@ class MEMBER {
         // Info specific to constituency (e.g. election results page on Guardian website)
 	if ($this->house(1)) {
 
-        $q = $this->db->query("SELECT	data_key,
-                                data_value
-                        FROM 	consinfo
-                        WHERE	constituency = '" . mysql_escape_string($this->constituency) . "'
-                        ");
-        for ($row = 0; $row < $q->rows(); $row++)
-        {
-            $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
-        }
+        	$q = $this->db->query("SELECT data_key, data_value FROM consinfo
+			WHERE constituency = '" . mysql_escape_string($this->constituency) . "'");
+		for ($row = 0; $row < $q->rows(); $row++) {
+			$this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
+		}
 
-        if (array_key_exists('guardian_mp_summary', $this->extra_info))
-        {
-            $guardian_url = $this->extra_info['guardian_mp_summary'];
-            $this->extra_info['guardian_register_member_interests'] = 
-                    str_replace("/person/", "/person/parliamentrmi/", $guardian_url);
-            $this->extra_info['guardian_parliament_history'] = 
-                    str_replace("/person/", "/person/parliament/", $guardian_url);
-            $this->extra_info['guardian_biography'] = 
-                    $guardian_url;
-#                    str_replace("/person/", "/person/biography/", $guardian_url);
-            $this->extra_info['guardian_candidacies'] = 
-                    str_replace("/person/", "/person/candidacies/", $guardian_url);
-            $this->extra_info['guardian_howtheyvoted'] = 
-                    str_replace("/person/", "/person/howtheyvoted/", $guardian_url);
-            $this->extra_info['guardian_contactdetails'] = 
-                    str_replace("/person/", "/person/contactdetails/", $guardian_url);
-        }
-
+		if (array_key_exists('guardian_mp_summary', $this->extra_info)) {
+			$guardian_url = $this->extra_info['guardian_mp_summary'];
+			$this->extra_info['guardian_register_member_interests'] = 
+				str_replace("/person/", "/person/parliamentrmi/", $guardian_url);
+			$this->extra_info['guardian_parliament_history'] = 
+				str_replace("/person/", "/person/parliament/", $guardian_url);
+			$this->extra_info['guardian_biography'] = $guardian_url; # str_replace("/person/", "/person/biography/", $guardian_url);
+			$this->extra_info['guardian_candidacies'] = 
+				str_replace("/person/", "/person/candidacies/", $guardian_url);
+			$this->extra_info['guardian_howtheyvoted'] = 
+				str_replace("/person/", "/person/howtheyvoted/", $guardian_url);
+			$this->extra_info['guardian_contactdetails'] = 
+				str_replace("/person/", "/person/contactdetails/", $guardian_url);
+		}
 	}
 
-        if (array_key_exists('public_whip_rebellions', $this->extra_info))
-        {
+        if (array_key_exists('public_whip_rebellions', $this->extra_info)) {
             $rebellions = $this->extra_info['public_whip_rebellions'];
             $rebel_desc = "<unknown>";
             if ($rebellions == 0)
@@ -452,10 +443,8 @@ class MEMBER {
 		$this->extra_info['Lpublic_whip_division_attendance'] = $this->extra_info['public_whip_division_attendance'];
 		unset($this->extra_info['public_whip_division_attendance']);
 	}
-	
 
-        if (array_key_exists('register_member_interests_html', $this->extra_info) && ($this->extra_info['register_member_interests_html'] != ''))
-        {
+        if ($display && array_key_exists('register_member_interests_html', $this->extra_info) && ($this->extra_info['register_member_interests_html'] != '')) {
         	$args = array (
         		"sort" => "regexp_replace"
         	);

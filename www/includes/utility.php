@@ -1002,4 +1002,23 @@ function _major_summary_title($major, $data, $LISTURL, $daytext) {
 	if (isset($daytext[$major])) print ':';
 	print '</strong> <ul>';
 }
-?>
+
+function score_to_strongly($dmpscore) {
+	$dmpdesc = "unknown about";
+	if ($dmpscore > 0.95 && $dmpscore <= 1.0)
+		$dmpdesc = "very strongly against";
+	elseif ($dmpscore > 0.85)
+		$dmpdesc = "strongly against";
+	elseif ($dmpscore > 0.6)
+		$dmpdesc = "moderately against";
+	elseif ($dmpscore > 0.4)
+		$dmpdesc = "a mixture of for and against";
+	elseif ($dmpscore > 0.15)
+		$dmpdesc = "moderately for";
+	elseif ($dmpscore > 0.05)
+		$dmpdesc = "strongly for";
+	elseif ($dmpscore >= 0.0)
+		$dmpdesc = "very strongly for";
+	return $dmpdesc;
+}
+

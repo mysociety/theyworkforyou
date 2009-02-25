@@ -2,6 +2,7 @@
 
 error_reporting (E_ALL);
 
+define ("LONGDATEFORMAT", 		"j F Y"); 	// 31 December 2003
 include_once "../../../conf/general";
 include_once (INCLUDESPATH."utility.php");
 include_once (INCLUDESPATH."mysql.php");

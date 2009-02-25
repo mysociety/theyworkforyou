@@ -222,7 +222,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 } elseif (isset($MEMBER) && $MEMBER->person_id()) {
 	
 	twfy_debug_timestamp("before load_extra_info");
-	$MEMBER->load_extra_info();
+	$MEMBER->load_extra_info(true);
 	twfy_debug_timestamp("after load_extra_info");
 	
 	$member_name = ucfirst($MEMBER->full_name());
