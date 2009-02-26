@@ -37,7 +37,7 @@
 <component-definition
 	name="register-of-members-interests"
 	path="mp/rmi/{key}"
-	display-name="MP register of members' interest">
+	display-name="MP register of members' interest"/>
 </components>
 
 </microapp>
