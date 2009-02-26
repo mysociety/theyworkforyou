@@ -19,7 +19,7 @@ if (get_http_var("d") != "") {
 		'gid' => get_http_var('id'),
 		's'	=> get_http_var('s'),	// Search terms to be highlighted.
 		'member_id' => get_http_var('m'),	// Member's speeches to be highlighted.
-		'glossarise' => 1	// Glossary is on by default
+		'glossarise' => 2	// Glossary is on by default
 	);
 
 	if (preg_match('/speaker:(\d+)/', get_http_var('s'), $mmm))
@@ -75,7 +75,7 @@ if (get_http_var("d") != "") {
 		'gid' => get_http_var('gid'),
 		's' => get_http_var('s'),	// Search terms to be highlighted.
 		'member_id' => get_http_var('m'),	// Member's speeches to be highlighted.
-		'glossarise' => 1	// Glossary is on by default
+		'glossarise' => 2	// Glossary is on by default
 	);
 	if (preg_match('/speaker:(\d+)/', get_http_var('s'), $mmm))
 		$args['person_id'] = $mmm[1];

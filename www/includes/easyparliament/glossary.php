@@ -23,6 +23,7 @@ As they are being approved/declined they can be modified (spelling etc...).
 // This handles basic insertion and approval functions for all epobjects
 include_once INCLUDESPATH."easyparliament/editqueue.php";
 include_once INCLUDESPATH."easyparliament/searchengine.php";
+include_once INCLUDESPATH."url.php";
 include_once INCLUDESPATH."wikipedia.php";
 
 class GLOSSARY {
@@ -311,6 +312,10 @@ class GLOSSARY {
 		$body = preg_replace($findwords, $replacewords, $body);
 		if (isset($this->glossary_id))
 			$body = preg_replace("/(?<![>\.\'\/])\b(" . $this->terms[$this->glossary_id]['title'] . ")\b(?![<\'])/i", '<strong>\\1</strong>', $body, 1);
+
+		# XXX This means NI page, so replace MLA names
+		if ($tokenize == 2) {
+		}
 
 		// Replace any phrases in wikipedia
 		// TODO: Merge this code into above, so our gloss and wikipedia
