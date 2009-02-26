@@ -7,7 +7,7 @@
 	guardian-template="[template]"
 	display-name="Register of members' interests"/>
 <resource-definition
-	name="voting-record" 
+	name="voting-record"
 	path="mp/voting-record/{key}"
 	guardian-template="[template]"
 	display-name="Voting Record"/>
