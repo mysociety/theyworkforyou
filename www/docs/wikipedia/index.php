@@ -24,7 +24,7 @@ So we can see that someone within Parliament keeps removing nasty truths from An
 and that someone in CCHQ has done similar for Oliver Letwin. We can see small, nice edits, and
 we can see that someone on an idle Friday early lunch decided to just vandalize Andy Murray's page.
 If you know any more IP addresses for political organisations we could add, do <a href="mailto:beta&#64;theyworkforyou.com">let us know at the usual address</a>.</p>
-<p>And we haven't even touched on people <a href="http://www.masonskill.co.uk/">sending emails from a Parliament computer winding up a Freemason conspiracy theorist</a>...</p>
+<p>And we haven't even touched on people sending emails from a Parliament computer winding up a Freemason conspiracy theorist&hellip;</p>
 <p align="center"><?
 $out = array();
 foreach ($site as $k => $v) {

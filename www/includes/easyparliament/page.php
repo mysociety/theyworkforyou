@@ -1695,101 +1695,16 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		}
 
 		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || isset($extra_info['expenses2007_col1'])) {
+			include_once INCLUDESPATH . 'easyparliament/expenses.php';
 ?>
 <a name="expenses"></a>
 <?php
 			$title = 'Expenses';
 			$this->block_start(array('id'=>'expenses', 'title'=>$title));
-			print '<p class="italic">Figures in brackets are ranks. Parliament\'s <a href="http://www.parliament.uk/site_information/allowances.cfm">explanatory notes</a>.</p>';
-			print '<table class="people"><tr><th>Type</th><th>2006/07';
-			if (isset($extra_info['expenses2007_col1_rank_outof'])) {
-				print ' (ranking out of ' . $extra_info['expenses2007_col1_rank_outof'] . ')';
-			}
-			print '</th><th>2005/06';
-			if (isset($extra_info['expenses2006_col1_rank_outof'])) {
-				# TODO: Needs to be more complicated, because of General Election
-				print ' (ranking out of ' . $extra_info['expenses2006_col1_rank_outof'] . ')';
-			}
-			print '</th><th>2004/05';
-			if (isset($extra_info['expenses2005_col1_rank_outof'])) {
-				print ' (ranking out of ' . $extra_info['expenses2005_col1_rank_outof'] . ')';
-			}
-			print '</th><th>2003/04';
-			if (isset($extra_info['expenses2004_col1_rank_outof'])) {
-				print ' (ranking out of&nbsp;'.$extra_info['expenses2004_col1_rank_outof'].')';
-			}
-			print '</th><th>2002/03';
-			if (isset($extra_info['expenses2003_col1_rank_outof'])) {
-				print ' (ranking out of&nbsp;'.$extra_info['expenses2003_col1_rank_outof'].')';
-			}
-			print '</th><th>2001/02';
-			if (isset($extra_info['expenses2002_col1_rank_outof'])) {
-				print ' (ranking out of&nbsp;'.$extra_info['expenses2002_col1_rank_outof'].')';
-			}
-			print '</th></tr>';
-			print '<tr><td class="row-1">Additional Costs Allowance</td>';
-			$this->expenses_printout('col1', $extra_info,1);
-			print '</tr><tr><td class="row-2">London Supplement</td>';
-			$this->expenses_printout('col2', $extra_info,2);
-			print '</tr><tr><td class="row-1">Incidental Expenses Provision</td>';
-			$this->expenses_printout('col3', $extra_info,1);
-			print '</tr><tr><td class="row-2">Staffing Allowance</td>';
-			$this->expenses_printout('col4', $extra_info,2);
-			print '</tr><tr><td class="row-1">Members\' Travel</td>';
-			$this->expenses_printout('col5', $extra_info,1);
-			print '</tr><tr><td class="row-2">Members\' Staff Travel</td>';
-			$this->expenses_printout('col6', $extra_info,2);
-			print '</tr><tr><td class="row-1">Centrally Purchased Stationery</td>';
-			$this->expenses_printout('col7', $extra_info,1);
-			print '</tr><tr><td class="row-2">Stationery: Associated Postage Costs</td>';
-			$this->expenses_printout('col7a', $extra_info,2);
-			print '</tr><tr><td class="row-1">Centrally Provided Computer Equipment</td>';
-			$this->expenses_printout('col8', $extra_info,1);
-			print '</tr><tr><td class="row-2">Other Costs</td>';
-			$this->expenses_printout('col9', $extra_info,2);
-			print '</tr><tr><th style="text-align: right">Total</th>';
-			$this->expenses_printout('total', $extra_info,1);
-			print '</tr></table>';
-			if (isset($extra_info['expenses2007_col5a'])) {
-				print '<p><a name="travel2007"></a><sup>*</sup> <small>';
-				foreach(array('a'=>'Car','b'=>'3rd party','c'=>'Rail','d'=>'Air','e'=>'Other','f'=>'European') as $let => $desc) {
-					if ($extra_info['expenses2007_col5'.$let] > 0) {
-						print $desc . ' &pound;'.number_format(str_replace(',','',$extra_info['expenses2007_col5'.$let]));
-						if (isset($extra_info['expenses2007_col5'.$let.'_rank']))
-							print ' (' . make_ranking($extra_info['expenses2007_col5'.$let.'_rank']) . ')';
-						print '. ';
-					}
-				}
-				print '</small></p>';
-			}
+			expenses_display_table($extra_info);
 			$this->block_end();
 		}
 	}
-	
-	function expenses_printout($col, $extra_info, $style) {
-		for ($ey=2007; $ey>=2002; --$ey) {
-			$k = 'expenses' . $ey . '_' . $col;
-			$kr = $k . '_rank';
-			print '<td class="row-'.$style.'">';
-			if (isset($extra_info[$k])) {
-				print '&pound;'.number_format(str_replace(',','',$extra_info[$k]));
-			} elseif ($col=='col7a') {
-				print 'N/A';
-			} else {
-				print '&nbsp;';
-			}
-			if (isset($extra_info[$kr]) && isset($extra_info[$k]) && $extra_info[$k]>0) {
-				print ' (';
-				if (isset($extra_info[$kr . '_joint']))
-					print 'joint&nbsp;';
-				print make_ranking($extra_info[$kr]) . ")";
-			}
-			if ($col=='col5' && $ey==2007 && isset($extra_info['expenses2007_col5a']))
-				print '<sup><a href="#travel2007">*</a></sup>';
-			print '</td>';
-		}
-	}
-	
 	
 	function generate_member_links ($member, $links) {
 		// Receives its data from $MEMBER->display_links;

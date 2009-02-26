@@ -150,7 +150,7 @@ class HANSARDLIST {
 		}
 
 		// Set the values of this page's headings depending on the data we've fetched.
-		if (isset($data['info'])) {
+		if (isset($PAGE) && isset($data['info'])) {
 			$PAGE->set_hansard_headings($data['info']);
 		}
 		
