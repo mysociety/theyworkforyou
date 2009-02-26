@@ -1,0 +1,43 @@
+<microapp name="they-work-for-you" provider="mySociety">
+
+<resources>
+<resource-definition
+	name="register-of-members-interests"
+	path="mp/rmi/{key}"
+	guardian-template="[template]"
+	display-name="Register of members' interests"/>
+<resource-definition
+	name="voting-record" 
+	path="mp/voting-record/{key}"
+	guardian-template="[template]"
+	display-name="Voting Record"/>
+</resources>
+
+<components>
+<component-definition
+	name="mp-voting-record"
+	path="mp/voting-record/{key}"
+	display-name="MP Voting record"/>
+<component-definition
+	name="mp-key-facts"
+	path="mp/key-facts/{key}"
+	display-name="MP key facts"/>
+<component-definition
+	name="mp-recent-speeches"
+	path="mp/recent-speeches/{key}"
+	display-name="MP recent speeches"/>
+<component-definition
+	name="mp-parliamentary-jobs"
+	path="mp/parliamentary-jobs/{key}"
+	display-name="MP parliamentary jobs"/>
+<component-definition
+	name="mp-expenses"
+	path="mp/expenses/{key}"
+	display-name="MP expenses"/>
+<component-definition
+	name="register-of-members-interests"
+	path="mp/rmi/{key}"
+	display-name="MP register of members' interest">
+</components>
+
+</microapp>
