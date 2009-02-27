@@ -2,78 +2,62 @@
 # Expenses related functions
 
 function expenses_display_table($extra_info) {
-	echo '<p class="italic">Figures in brackets are ranks. Parliament\'s <a href="http://www.parliament.uk/site_information/allowances.cfm">explanatory notes</a>.</p>';
-	echo '<table class="people"><tr><th>Type</th><th>2006/07';
-	if (isset($extra_info['expenses2007_col1_rank_outof'])) {
-		echo ' (ranking out of ' . $extra_info['expenses2007_col1_rank_outof'] . ')';
+	$out = '<p class="italic">Figures in brackets are ranks. Parliament\'s <a href="http://www.parliament.uk/site_information/allowances.cfm">explanatory notes</a>.</p>';
+	$out .= '<table class="people"><tr><th>Type';
+	# TODO: Needs to be more complicated at 2005/06, because of General Election
+	for ($y=7; $y>=2; $y--) {
+		$out .= '</th><th>200' . ($y-1) . '/0' . $y;
+		if (isset($extra_info["expenses200{$y}_col1_rank_outof"])) {
+			$out .= ' (ranking out of&nbsp;' . $extra_info["expenses200{$y}_col1_rank_outof"] . ')';
+		}
 	}
-	echo '</th><th>2005/06';
-	if (isset($extra_info['expenses2006_col1_rank_outof'])) {
-		# TODO: Needs to be more complicated, because of General Election
-		echo ' (ranking out of ' . $extra_info['expenses2006_col1_rank_outof'] . ')';
-	}
-	echo '</th><th>2004/05';
-	if (isset($extra_info['expenses2005_col1_rank_outof'])) {
-		echo ' (ranking out of ' . $extra_info['expenses2005_col1_rank_outof'] . ')';
-	}
-	echo '</th><th>2003/04';
-	if (isset($extra_info['expenses2004_col1_rank_outof'])) {
-		echo ' (ranking out of&nbsp;'.$extra_info['expenses2004_col1_rank_outof'].')';
-	}
-	echo '</th><th>2002/03';
-	if (isset($extra_info['expenses2003_col1_rank_outof'])) {
-		echo ' (ranking out of&nbsp;'.$extra_info['expenses2003_col1_rank_outof'].')';
-	}
-	echo '</th><th>2001/02';
-	if (isset($extra_info['expenses2002_col1_rank_outof'])) {
-		echo ' (ranking out of&nbsp;'.$extra_info['expenses2002_col1_rank_outof'].')';
-	}
-	echo '</th></tr>';
-	echo '<tr><td class="row-1">Additional Costs Allowance</td>';
-	expenses_row('col1', $extra_info,1);
-	echo '</tr><tr><td class="row-2">London Supplement</td>';
-	expenses_row('col2', $extra_info,2);
-	echo '</tr><tr><td class="row-1">Incidental Expenses Provision</td>';
-	expenses_row('col3', $extra_info,1);
-	echo '</tr><tr><td class="row-2">Staffing Allowance</td>';
-	expenses_row('col4', $extra_info,2);
-	echo '</tr><tr><td class="row-1">Members\' Travel</td>';
-	expenses_row('col5', $extra_info,1);
-	echo '</tr><tr><td class="row-2">Members\' Staff Travel</td>';
-	expenses_row('col6', $extra_info,2);
-	echo '</tr><tr><td class="row-1">Centrally Purchased Stationery</td>';
-	expenses_row('col7', $extra_info,1);
-	echo '</tr><tr><td class="row-2">Stationery: Associated Postage Costs</td>';
-	expenses_row('col7a', $extra_info,2);
-	echo '</tr><tr><td class="row-1">Centrally Provided Computer Equipment</td>';
-	expenses_row('col8', $extra_info,1);
-	echo '</tr><tr><td class="row-2">Other Costs</td>';
-	expenses_row('col9', $extra_info,2);
-	echo '</tr><tr><th style="text-align: right">Total</th>';
-	expenses_row('total', $extra_info,1);
-	echo '</tr></table>';
+	$out .= '</th></tr>';
+	$out .= '<tr><td class="row-1">Additional Costs Allowance</td>';
+	$out .= expenses_row('col1', $extra_info,1);
+	$out .= '</tr><tr><td class="row-2">London Supplement</td>';
+	$out .= expenses_row('col2', $extra_info,2);
+	$out .= '</tr><tr><td class="row-1">Incidental Expenses Provision</td>';
+	$out .= expenses_row('col3', $extra_info,1);
+	$out .= '</tr><tr><td class="row-2">Staffing Allowance</td>';
+	$out .= expenses_row('col4', $extra_info,2);
+	$out .= '</tr><tr><td class="row-1">Members\' Travel</td>';
+	$out .= expenses_row('col5', $extra_info,1);
+	$out .= '</tr><tr><td class="row-2">Members\' Staff Travel</td>';
+	$out .= expenses_row('col6', $extra_info,2);
+	$out .= '</tr><tr><td class="row-1">Centrally Purchased Stationery</td>';
+	$out .= expenses_row('col7', $extra_info,1);
+	$out .= '</tr><tr><td class="row-2">Stationery: Associated Postage Costs</td>';
+	$out .= expenses_row('col7a', $extra_info,2);
+	$out .= '</tr><tr><td class="row-1">Centrally Provided Computer Equipment</td>';
+	$out .= expenses_row('col8', $extra_info,1);
+	$out .= '</tr><tr><td class="row-2">Other Costs</td>';
+	$out .= expenses_row('col9', $extra_info,2);
+	$out .= '</tr><tr><th style="text-align: right">Total</th>';
+	$out .= expenses_row('total', $extra_info,1);
+	$out .= '</tr></table>';
 	if (isset($extra_info['expenses2007_col5a'])) {
-		echo '<p><a name="travel2007"></a><sup>*</sup> <small>';
+		$out .= '<p><a name="travel2007"></a><sup>*</sup> <small>';
 		foreach(array('a'=>'Car','b'=>'3rd party','c'=>'Rail','d'=>'Air','e'=>'Other','f'=>'European') as $let => $desc) {
 			if ($extra_info['expenses2007_col5'.$let] > 0) {
-				echo $desc . ' &pound;'.number_format(str_replace(',','',$extra_info['expenses2007_col5'.$let]));
+				$out .= $desc . ' &pound;'.number_format(str_replace(',','',$extra_info['expenses2007_col5'.$let]));
 				if (isset($extra_info['expenses2007_col5'.$let.'_rank']))
-					echo ' (' . make_ranking($extra_info['expenses2007_col5'.$let.'_rank']) . ')';
-				echo '. ';
+					$out .= ' (' . make_ranking($extra_info['expenses2007_col5'.$let.'_rank']) . ')';
+				$out .= '. ';
 			}
 		}
-		echo '</small></p>';
+		$out .= '</small></p>';
 	}
+	return $out;
 }
 
 function expenses_row($col, $extra_info, $style) {
+	$out = '';
 	for ($ey=2007; $ey>=2002; --$ey) {
 		list($amount, $rank, $extra) = expenses_item($ey, $col, $extra_info);
 		if (!$amount) $amount = '&nbsp;';
-		echo '<td class="row-'.$style.'">';
-		echo $amount, $rank, $extra;
-		echo '</td>';
+		$out .= "<td class='row-$style'>$amount$rank$extra</td>\n";
 	}
+	return $out;
 }
 
 function expenses_item($ey, $col, $extra_info) {

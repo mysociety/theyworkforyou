@@ -1701,7 +1701,7 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 <?php
 			$title = 'Expenses';
 			$this->block_start(array('id'=>'expenses', 'title'=>$title));
-			expenses_display_table($extra_info);
+			echo expenses_display_table($extra_info);
 			$this->block_end();
 		}
 	}

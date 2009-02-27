@@ -25,7 +25,7 @@ switch ($action) {
 	case 'expenses-resource':
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
 		$title = "Allowances: " . $member->full_name();
-		output_resource($title, expenses_display_table($member->extra_info)); # XXX This is currently broken
+		output_resource($title, expenses_display_table($member->extra_info));
 		break;
 
 	# Components
