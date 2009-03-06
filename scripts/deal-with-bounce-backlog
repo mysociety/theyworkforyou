@@ -1,0 +1,127 @@
+#!/usr/bin/perl -w
+#
+# deal-with-bounce-backlog:
+#
+# Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
+# Email: matthew@mysociety.org; WWW: http://www.mysociety.org/
+#
+
+my $rcsid = ''; $rcsid .= '$Id: deal-with-bounce-backlog,v 1.1 2009-03-06 15:14:17 matthew Exp $';
+
+use strict;
+require 5.8.0;
+
+# Horrible boilerplate to set up appropriate library paths.
+use FindBin;
+use lib "$FindBin::Bin/../perllib";
+use lib "$FindBin::Bin/../../perllib";
+
+use mySociety::HandleMail;
+
+my %to_delete;
+
+open(FP, shift) or die $!;
+open(OUT, '>NewInbox') or die $!;
+my @lines = ();
+my $is_bounce_message = 0;
+my $line;
+my $from_line;
+while ($line = <FP>) {
+    chomp $line;
+    # Start of new message
+    if ($line =~ /^From /) {
+        if (@lines) {
+            my $delete  = examine(\@lines, $is_bounce_message);
+	    unless ($delete) {
+	        print OUT "$from_line\n";
+	        print OUT join("\n", @lines) . "\n";
+	    }
+	}
+        @lines = ();
+	$from_line = $line;
+        $is_bounce_message = 0;
+        $is_bounce_message = 1 if $line =~ /^From MAILER-DAEMON /;
+    } else {
+        push @lines, $line;
+    }
+}
+close FP;
+my $delete = examine(\@lines, $is_bounce_message) if @lines;
+unless ($delete) {
+    print OUT "$from_line\n";
+    print OUT join("\n", @lines) . "\n";
+}
+
+foreach (keys %to_delete) {
+    s/'//g;
+    print "update alerts set deleted=1 where email='$_'; -- $to_delete{$_} bounces\n";
+}
+
+# ---
+
+sub examine {
+    my ($lines, $is_bounce_message) = @_;
+    my $m = new Mail::Internet([ @$lines ]);
+    die "Could not parse message!" unless defined $m;
+    my $mail = join("\n", @$lines);
+
+    if (!$is_bounce_message) {
+        # RFC2822: 'The "Return-Path:" header field contains a pair of angle
+        # brackets that enclose an optional addr-spec.'
+        my $return_path = $m->head()->get("Return-Path");
+        if (!defined($return_path)) {
+            # No Return-Path; we're screwed.
+	    die "No return path for message!";
+        } elsif ($return_path =~ m#<>#) {
+            $is_bounce_message = 1;
+        } else {
+            # This is not a bounce message.
+	    return 0;
+        }
+    }
+
+    # All bounces in the folder are to twfy-bounce
+    my $from = mySociety::HandleMail::get_bounce_from($m);
+    return unless $from;
+
+    if ($mail =~ /Remote host said: 550 (.*?)\.\.\. No such user/) {
+        $to_delete{$1}++;
+	return 1;
+    }
+
+    # SMTP level bounce
+    if ($from->address() =~ /sponge\.ukcod\.org\.uk/) {
+        if ($mail =~ /SMTP error from remote mail server after RCPT TO:<(.*?)>:\s+host [^ ]* \[[^ ]*\]:(.*?)\n(.+?)\n/) {
+	    my $to = $1; my $expl1 = $2 || ''; my $expl = $3;
+	    if ($expl =~ m{see http://www.cam.ac.uk/cs/email/bounce.html}
+		|| ($to =~ /hotmail|msn|live/i && $expl =~ /mailbox unavailable/)
+		|| ($to =~ /ntlworld/i && $expl1 =~ /invalid recipient/i)
+		|| ($to =~ /tesco/i && $expl1 =~ /invalid recipient/i)
+		|| $expl1 =~ /no such user|user unknown|unrouteable address/i
+		|| $expl =~ /invalid recipient|unknown user|user unknown|does not exist|no such user|mailbox is inactive|mailbox disabled|invalid address|email address for typos|unable to validate recipient|address rejected|no mailbox here by that name|recipient unknown|no such recipient/i
+	) {
+		$to_delete{$to}++;
+		return 1;
+	    }
+	    print "3 Need to decide what to do about $to $expl1 $expl\n";
+            return 0;
+	} elsif ($mail =~ /SMTP error from remote mail server after RCPT TO:<(.*?)>:\s+host [^ ]* \[[^ ]*\]:(.*?)\n/) {
+	    my $to = $1; my $expl = $2;
+	    if ($expl =~ /no such mailbox|no such user|user (is )?unknown|unknown user|never logged onto their free AIM|mailbox is disabled|mailbox disabled|no such recipient|unrouteable address|invalid recipient|does not exist|not a valid mailbox|no such address|unknown liverpool.ac.uk user/i
+	    ) {
+		$to_delete{$to}++;
+		return 1;
+	    }
+	    print "2 Need to decide what to do about $to $expl\n";
+            return 0;
+	}
+    }
+
+    my ($status, $recip) = mySociety::HandleMail::parse_dsn_bounce($lines);
+    if (defined($status) && $recip && ($status eq '5.5.0' || $status eq '5.1.1')) {
+        $to_delete{$recip}++;
+        return 1;
+    }
+
+    return 0;
+}
