@@ -1501,7 +1501,11 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		# Public Bill Committees
 		if (count($extra_info['pbc'])) {
 			$topics_block_empty = false;
-			print '<h5>Public Bill Committees <small>(sittings attended)</small></h5> <ul>';
+			print '<h5>Public Bill Committees <small>(sittings attended)</small></h5>';
+			if ($member['party'] == 'Scottish National Party') {
+				echo '<p><em>SNP MPs only attend sittings where the legislation pertains to Scotland.</em></p>';
+			}
+			echo '<ul>';
 			foreach ($extra_info['pbc'] as $bill_id => $arr) {
 				print '<li>';
 				if ($arr['chairman']) print 'Chairman, ';
