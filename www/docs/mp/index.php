@@ -412,7 +412,7 @@ function member_redirect(&$MEMBER) {
 		if ($this_page == 'c4_mp') {
 			$url = str_replace('mp/', 'mp/c4/', $url);
 		}
-		header('Location: ' . $url );
+		header('Location: ' . $url, true, 301 );
 		exit;
 	}
 }
