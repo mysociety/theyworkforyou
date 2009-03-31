@@ -1,7 +1,7 @@
 <?php
 
 function video_db_connect() {
-    $connstr = 'host='.BBC_DB_HOST.' port='.BBC_DB_PORT.' dbname='.BBC_DB_NAME.' user='.BBC_DB_USER.' password='.BBC_DB_PASS;
+    $connstr = 'host='.OPTION_BBC_DB_HOST.' port='.OPTION_BBC_DB_PORT.' dbname='.OPTION_BBC_DB_NAME.' user='.OPTION_BBC_DB_USER.' password='.OPTION_BBC_DB_PASS;
     $videodb = pg_connect($connstr);
     return $videodb;
 }
