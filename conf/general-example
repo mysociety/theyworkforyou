@@ -11,9 +11,10 @@ define ("DB_NAME", "twfy");
 
 // Parliamentary video database
 define ('BBC_DB_HOST', 'host');
+define ('BBC_DB_PORT', 'port');
 define ('BBC_DB_USER', 'user');
 define ('BBC_DB_NAME', 'name');
-define ('BBC_DB_PASSWORD', '');
+define ('BBC_DB_PASS', '');
 
 // *******************************************************************************
 // Domains.
