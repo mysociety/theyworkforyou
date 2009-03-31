@@ -10,10 +10,10 @@ define ("DB_PASSWORD", "password");
 define ("DB_NAME", "twfy");
 
 // Parliamentary video database
-define ('VIDEO_HOST', 'host');
-define ('VIDEO_USER', 'user');
-define ('VIDEO_NAME', 'name');
-define ('VIDEO_PASSWORD', '');
+define ('BBC_DB_HOST', 'host');
+define ('BBC_DB_USER', 'user');
+define ('BBC_DB_NAME', 'name');
+define ('BBC_DB_PASSWORD', '');
 
 // *******************************************************************************
 // Domains.
