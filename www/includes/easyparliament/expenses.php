@@ -140,6 +140,7 @@ function expenses_mostrecent($extra_info) {
     		$out .= ' (ranking out of ' . $extra_info['expenses'.$ey.'_col1_rank_outof'] . ')';
     	}
     	break;
+    }
   }
   if ($year == '')
     return 'No expense information.';
