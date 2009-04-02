@@ -1306,7 +1306,8 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		echo '<li><a href="#numbers">Numerology</a></li>';
 		if (isset($extra_info['register_member_interests_html']))
 			echo '<li><a href="#register">Register of Members&rsquo; Interests</a></li>';
-		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || isset($extra_info['expenses2007_col1']))
+		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || 
+isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1']))
 			echo '<li><a href="#expenses">Expenses</a></li>';
 
 		if (isset($extra_info['edm_ais_url'])) {
@@ -1698,7 +1699,8 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 			$this->block_end();
 		}
 
-		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || isset($extra_info['expenses2007_col1'])) {
+		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || 
+isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'])) {
 			include_once INCLUDESPATH . 'easyparliament/expenses.php';
 ?>
 <a name="expenses"></a>
