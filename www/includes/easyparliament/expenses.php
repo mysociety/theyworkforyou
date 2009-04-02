@@ -6,7 +6,8 @@ function expenses_display_table($extra_info) {
 	$out .= '<table class="people"><tr><th>Type';
 	# TODO: Needs to be more complicated at 2005/06, because of General Election
 	for ($y=8; $y>=2; $y--) {
-		$out .= '</th><th>200' . ($y-1) . '/0' . $y;
+		$out .= '</th><th>';
+		$out .= year_string($y);
 		if (isset($extra_info["expenses200{$y}_col1_rank_outof"])) {
 			$out .= ' (ranking out of&nbsp;' . $extra_info["expenses200{$y}_col1_rank_outof"] . ')';
 		}
@@ -124,11 +125,24 @@ function expenses_item($ey, $col, $extra_info) {
 	return array($amount, $rank, $extra);
 }
 
+function year_string($year){
+  return '200' . ($year-1) . '/0' . $year;
+}
+
 function expenses_mostrecent($extra_info) {
-	$out = '<h2>2007/08';
-	if (isset($extra_info['expenses2008_col1_rank_outof'])) {
-		$out .= ' (ranking out of ' . $extra_info['expenses2008_col1_rank_outof'] . ')';
-	}
+  $out = '<h2>';
+  $year = '';
+  for ($ey=2008; $ey>=2002; --$ey) {
+    if (isset($extra_info['expenses'.$ey.'_col1'])){
+      $out .= year_string($ey-2000);
+      $year = $ey;
+      if (isset($extra_info['expenses'.$ey.'_col1_rank_outof'])) {
+    		$out .= ' (ranking out of ' . $extra_info['expenses'.$ey.'_col1_rank_outof'] . ')';
+    	}
+    	break;
+  }
+  if ($year == '')
+    return 'No expense information.';
 	$out .= '</h2>';
 	$cols = array();
 	for ($i=1; $i<=11; $i++) {
@@ -136,13 +150,13 @@ function expenses_mostrecent($extra_info) {
 		elseif ($i==8) $r = 'col7a';
 		elseif ($i==9 || $i==10) $r = 'col' . ($i - 1);
 		else $r = "col$i";
-		$row = expenses_item(2008, $r, $extra_info);
+		$row = expenses_item($year, $r, $extra_info);
 		$cols[$r] = "$row[0]$row[1]";
 	}
 	$other_cols = array('spouse_travel_a', 'family_travel_a', 'comms_allowance');
 	foreach($other_cols as $col){
 		$r = 'col' . $col;
-		$row = expenses_item(2008, $r, $extra_info);
+		$row = expenses_item($year, $r, $extra_info);
 		$cols[$r] = "$row[0]$row[1]";
 	}
 	$out .= '<ul>';
@@ -154,7 +168,7 @@ function expenses_mostrecent($extra_info) {
 	$out .= '<li>Members\' Travel ' . $cols['col5'];
 	$out .= '<li>Members\' Staff Travel ' . $cols['col6'];
 	$out .= '<li>Members\' Spouse Travel ' . $cols['colspouse_travel_a'];
-        $out .= '<li>Members\' Family Travel ' . $cols['colfamily_travel_a'];
+  $out .= '<li>Members\' Family Travel ' . $cols['colfamily_travel_a'];
 	$out .= '<li>Centrally Purchased Stationery ' . $cols['col7'];
 	$out .= '<li>Stationery: Associated Postage Costs ' . $cols['col7a'];
 	$out .= '<li>Centrally Provided Computer Equipment ' . $cols['col8'];
