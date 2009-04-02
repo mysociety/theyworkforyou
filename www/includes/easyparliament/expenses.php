@@ -48,11 +48,10 @@ function expenses_display_table($extra_info) {
 		foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'Misc') as $let => $desc){
 			$travel_field = $extra_info['expenses2008_colmp_reg_travel_'.$let];
 			if ($travel_field > 0){
-                                if ($regular_travel_header == FALSE)
-					$out .= 'Regular journeys between home/constituency/Westminster: ';
+        if ($regular_travel_header == FALSE)
+			    $out .= 'Regular journeys between home/constituency/Westminster: ';
 				$regular_travel_header = TRUE;
-				$out .= $desc . ' 
-&pound;'.number_format(str_replace(',','',$travel_field));
+				$out .= $desc . ' &pound;'.number_format(str_replace(',','',$travel_field));
 				if (isset($extra_info['expenses2008_colmp_reg_travel_'.$let.'_rank']))
 					$out .= ' (' . make_ranking($extra_info['expenses2008_colmp_reg_travel_'.$let.'_rank']) . ')';
 				$out .= '. ';
@@ -60,19 +59,18 @@ function expenses_display_table($extra_info) {
 		}
                
 		$other_travel_header = FALSE;
-                foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'European') as $let => $desc){
-                        $travel_field = $extra_info['expenses2008_colmp_other_travel_'.$let];
-                        if ($travel_field > 0){
-                                if ($other_travel_header == FALSE)
+    foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'European') as $let => $desc){
+      $travel_field = $extra_info['expenses2008_colmp_other_travel_'.$let];
+      if ($travel_field > 0){
+        if ($other_travel_header == FALSE)
 					$out .= 'Other: ';
 				$other_travel_header = TRUE;
-                                $out .= $desc . '
-&pound;'.number_format(str_replace(',','',$travel_field));
-                                if (isset($extra_info['expenses2008_colmp_other_travel_'.$let.'_rank']))
-                                        $out .= ' (' . make_ranking($extra_info['expenses2008_colmp_other_travel_'.$let.'_rank']) . ')';
-                                $out .= '. ';
-                        }
-                }
+        $out .= $desc . ' &pound;'.number_format(str_replace(',','',$travel_field));
+        if (isset($extra_info['expenses2008_colmp_other_travel_'.$let.'_rank']))
+          $out .= ' (' . make_ranking($extra_info['expenses2008_colmp_other_travel_'.$let.'_rank']) . ')';
+        $out .= '. ';
+      }
+    }
 		$out .= '</small></p>';
 	}
 	
