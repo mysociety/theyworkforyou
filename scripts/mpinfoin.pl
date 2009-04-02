@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.32 2008-12-03 12:43:26 matthew Exp $
+# $Id: mpinfoin.pl,v 1.33 2009-04-02 08:00:36 louise Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -114,6 +114,7 @@ if ($action{'pw'}) {
 }
 
 if ($action{'expenses'}) {
+        $twig->parsefile($pwmembers . "expenses200708.xml", ErrorContext => 2);        
         $twig->parsefile($pwmembers . "expenses200607.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "expenses200506.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "expenses200506former.xml", ErrorContext => 2);
@@ -504,7 +505,22 @@ sub makerankings {
                         }
                 }
         }
-
+        
+         foreach my $mp_id (keys %$personinfohash) {
+                if (defined($personinfohash->{$mp_id}->{'expenses2008_colmp_reg_travel_a'})) {
+                        
+                        my $total = 0;
+                        foreach my $let ('a'..'d') {
+                                $total += $personinfohash->{$mp_id}->{'expenses2008_colmp_reg_travel_'.$let};
+                                $total += $personinfohash->{$mp_id}->{'expenses2008_colmp_other_travel_'.$let};
+                        }
+                        $personinfohash->{$mp_id}->{'expenses2008_col5'} = $total;
+                        $personinfohash->{$mp_id}->{'expenses2008_col6'} = $personinfohash->{$mp_id}->{'expenses2008_colemployee_travel_a'};                  
+                        $personinfohash->{$mp_id}->{'expenses2008_total'} = $personinfohash->{$mp_id}->{'expenses2008_coltotal_inc_travel'};
+                }
+        }
+        
+        
         enrankify($personinfohash, "debate_sectionsspoken_inlastyear", 0);
         enrankify($personinfohash, "comments_on_speeches", 0);
         enrankify($personinfohash, "wrans_asked_inlastyear", 0);
@@ -519,7 +535,7 @@ sub makerankings {
         enrankify($memberinfohash, "swing_to_lose_seat_today", 0);
         enrankify($personinfohash, "reading_ease", 0);
         enrankify($personinfohash, "reading_year", 0);
-        for (my $year=2002; $year<=2007; ++$year) {
+        for (my $year=2002; $year<=2008; ++$year) {
                 next if $year == 2006;
                 for (my $col=1; $col<=9; ++$col) {
                         enrankify($personinfohash, 'expenses'.$year.'_col'.$col, 0);
@@ -530,6 +546,16 @@ sub makerankings {
         foreach my $let ('a'..'f') {
                 enrankify($personinfohash, 'expenses2007_col5'.$let, 0);
         }
+        
+        foreach my $let ('a'..'d'){
+                enrankify($personinfohash, 'expenses2008_colmp_reg_travel_'.$let, 0);
+                enrankify($personinfohash, 'expenses2008_colmp_other_travel_'.$let, 0);
+        }
+        enrankify($personinfohash, 'expenses2008_colcomms_allowance', 0);
+        enrankify($personinfohash, 'expenses2008_colspouse_travel_a', 0);
+        enrankify($personinfohash, 'expenses2008_colfamily_travel_a', 0);
+        enrankify($personinfohash, 'expenses2008_coltotal_exc_travel', 0);
+        enrankify($personinfohash, 'expenses2008_coltotal_travel', 0);
 
         enrankify($personinfohash, "writetothem_responsiveness_mean_2005", 0);
 }
