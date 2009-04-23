@@ -272,6 +272,8 @@ if (typeof urchinTracker == 'function') urchinTracker();
 				print '<p id="video_already"><strong>New!</strong> You\'re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
 			} elseif ($country == 'AU' || get_http_var('au')) {
 				print '<p id="video_already"><strong>New!</strong> You\'re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under</p>';
+			} elseif ($country == 'IE' || get_http_var('ie')) {
+				print '<p id="video_already"><strong>New!</strong> Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
 			}
 		}
 
