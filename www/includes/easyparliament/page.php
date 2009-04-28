@@ -189,6 +189,10 @@ class PAGE {
 		}
 
 		header('Content-Type: text/html; charset=iso-8859-1');
+        if ($this_page == 'home') {
+            header('Vary: Cookie, Accept-Encoding, Accept-Language, X-GeoIP-Country');
+            header('Cache-Control: max-age=600');
+        }
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
