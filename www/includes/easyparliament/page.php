@@ -190,7 +190,7 @@ class PAGE {
 
 		header('Content-Type: text/html; charset=iso-8859-1');
         if ($this_page == 'home') {
-            header('Vary: Cookie, Accept-Encoding, Accept-Language, X-GeoIP-Country');
+            header('Vary: Cookie, X-GeoIP-Country');
             header('Cache-Control: max-age=600');
         }
 
