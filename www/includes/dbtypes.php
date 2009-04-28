@@ -1,6 +1,6 @@
 <?
 // Constants of types used in epobjects and hansard objects
-// $Id: dbtypes.php,v 1.7 2008-10-25 00:45:34 matthew Exp $
+// $Id: dbtypes.php,v 1.8 2009-04-28 13:13:04 matthew Exp $
 
 // The type field in the epobject database table
 /*
@@ -37,6 +37,7 @@ $hansardmajors = array(
 		'sidebar_short'=>'whalldebates_short',
 		'location' => 'UK',
 	),
+	# Written answers have minor 1 for question, 2 for answer
 	3 => array(
 		'type'=>'other',
 		'title'=>"Written Answers",
@@ -161,14 +162,10 @@ $parties = array (
 /*
 // The htype field in the hansard database table
 $hansardtypes = array (
-	10 => 'Debate section',
-	11 => 'Debate subsection',
-	12 => 'Debate speech',
-	13 => 'Debate procedural',
-
-	60 => 'Written answer',
-	61 => 'Wrans question',
-	62 => 'Wrans reply',	
+	10 => 'Section heading',
+	11 => 'Subsection heading',
+	12 => 'Speech/ question/ answer with speaker ID',
+	13 => 'Same without a speaker ID (so procedural)',
 );
 
 // The edit_type field in the editqueue table
@@ -177,4 +174,3 @@ $edit_types = array (
 	2 => "glossary_modify"
 );
 */
-?>
