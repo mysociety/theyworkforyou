@@ -278,9 +278,9 @@ if (typeof urchinTracker == 'function') urchinTracker();
 				print '<p id="video_already"><strong>New!</strong> You\'re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under</p>';
 			} elseif ($country == 'IE' || get_http_var('ie')) {
 				print '<p id="video_already"><strong>New!</strong> Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
-			} else {
+			} /* else {
 				print '<p id="video_already"><strong>Mirror readers!</strong> <a href="http://www.writetothem.com/?a=westminstermp">Click here to write to your MP</a></p>';
-            }
+            } */
 		}
 
 # # 2009-01 interstitial
