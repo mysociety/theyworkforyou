@@ -11,7 +11,7 @@
 # Email: matthew@mysociety.org; WWW: http://www.mysociety.org/
 #
 
-my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.6 2008-04-22 09:36:24 matthew Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.7 2009-04-29 12:46:38 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -43,6 +43,8 @@ if ($data{is_bounce_message}) {
     my $token = mySociety::HandleMail::get_token($a,
         'twfy-', mySociety::Config::get('EMAILDOMAIN')
     );
+    exit(0) unless $token ;
+    
     exit(0) if $token eq 'DO-NOT-REPLY'; # A bounce we don't care about
 
     if ($token eq 'bounce') {
