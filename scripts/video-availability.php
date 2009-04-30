@@ -8,7 +8,7 @@ $videodb = video_db_connect();
 $q = pg_query($videodb, "
     SELECT id, broadcast_start, broadcast_end
     FROM programmes
-    WHERE channel_id = 'BBCParl' AND location = 'commons' AND status = 'available' 
+    WHERE channel_id = 'BBCParl' AND status = 'available' 
     ORDER BY id
 ");
 while ($row = pg_fetch_array($q)) {
