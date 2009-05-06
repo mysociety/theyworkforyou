@@ -1,0 +1,81 @@
+#!/usr/bin/perl -w -I../../perllib
+#
+# test-run:
+# Test harness for TheyWorkForYou
+# 
+# Requires:
+# * ../conf/general file set up for  and matching the below requirements
+# * a database with name ending "_testharness"; this script will drop and remake the
+#   database, so make sure it is never used for anything important
+# * email addresses (email_n below) configured to pipe to ./test-mailin with fast
+#   local delivery.
+# Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
+# Email: louise@mysociety.org; WWW: http://www.mysociety.org/
+
+my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.1 2009-05-06 18:18:45 louise Exp $';
+
+use strict;
+require 5.8.0;
+
+use Getopt::Long;
+use FindBin;
+use lib "$FindBin::Bin/../perllib";
+use lib "$FindBin::Bin/../../perllib";
+use Carp qw(verbose);
+BEGIN {
+    use mySociety::Config;
+    mySociety::Config::set_file('../conf/general');
+}
+
+use mySociety::WebTestHarness;
+
+sub help {
+print <<END
+
+Usage: test-run [OPTION]
+
+Options are
+    --verbose=n   Choose 0 (no progress), 1 (basic actions), 2 (full debug)
+
+END
+}
+# Parse command line
+our $verbose = 0; # currently 3 levels: 0, 1 and 2
+our $help;
+
+if (!GetOptions(
+        'verbose=i' =>  \$verbose,
+        'help' =>               \$help,
+    )) {
+    help();
+    exit(1);
+}
+if ($help) {
+    help();
+    exit(0);
+}
+#----------------------------------
+# Configure test harness class
+print "Set up web test harness...\n" if $verbose > 0;
+our $wth = new mySociety::WebTestHarness();
+our $base_url = mySociety::Config::get('DOMAIN');
+our $email_domain = mySociety::Config::get('EMAILDOMAIN');
+
+# $wth->database_connect('');
+# $wth->database_drop_reload('../db/schema.sql');
+# $wth->database_cycle_sequences(200);
+$wth->email_setup({ eveld_bin => undef,
+                    log_mailbox => "log_mailbox" });
+#----------------------------------
+sub email_n { my $n = shift; return "twfy-testharness+$n\@$email_domain"; }
+#----------------------------------
+sub do_frontpage_test(){
+
+    $wth->browser_get($base_url);
+    $wth->browser_check_contents("At TheyWorkForYou.com you can:");
+
+}                    
+#----------------------------------
+# Test front page exists
+print "Testing  front page...\n" if $verbose > 0;
+do_frontpage_test();
