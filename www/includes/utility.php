@@ -5,6 +5,8 @@ General utility functions v1.1 (well, it was).
 
 */
 
+include_once INCLUDESPATH . '../../../phplib/email.php';
+
 function twfy_debug ($header, $text="") {
 	// Pass it a brief header word and some debug text and it'll be output.
 
@@ -719,6 +721,13 @@ function send_template_email ($data, $merge, $bulk = false, $want_bounces = fals
 
 }
 
+/* verp_envelope_sender RECIPIENT
+ * Construct a VERP envelope sender for an email to RECIPIENT
+ */
+function twfy_verp_envelope_sender($recipient){
+    $envelope_sender = verp_envelope_sender($recipient, 'twfy', EMAILDOMAIN);
+    return $envelope_sender;
+}
 
 function send_email ($to, $subject, $message, $bulk = false, $from = '', $want_bounces = false) {
 	// Use this rather than PHP's mail() direct, so we can make alterations
