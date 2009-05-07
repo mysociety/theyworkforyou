@@ -1,2 +1,4 @@
 libemail-localdelivery-perl
 php5-xapian 
+libmailtools-perl
+libmime-perl
