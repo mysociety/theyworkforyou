@@ -12,7 +12,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.3 2009-05-07 14:07:08 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.4 2009-05-07 15:07:15 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -81,14 +81,13 @@ sub signup_for_alert($$){
     $wth->browser_check_contents("Request a TheyWorkForYou.com Email Alert");
   
     $wth->browser_submit_form(form_number => 2,
-                              fields => { freq => "3650", 
-                              keyword => $test_alert,
-                              email => $email},);
+                              fields => { keyword => $test_alert,
+                                          email => $email},);
     $wth->browser_check_contents("We're nearly done...");
 
     my $confirmation_email = $wth->email_get_containing('%To: ' . $email . '%');
     die "TWFY email alert confirmation link not found\n" if ($confirmation_email !~ m#^\s+(http://.*$)#m);
-    $wth->email_check_url($confirmation_url);
+    my $confirmation_url = $1;
     print "Confirmation URL: " . $confirmation_url . "\n" if $verbose > 1;
     $wth->browser_get($confirmation_url);
     $wth->browser_check_contents("Your alert has been confirmed."); 
@@ -97,4 +96,5 @@ sub signup_for_alert($$){
 # Test front page exists
 print "Testing  front page...\n" if $verbose > 0;
 do_frontpage_test();
+signup_for_alert(email_n(0), 'Test Signup');
 print "Everything completed...\n" if $verbose > 0;
