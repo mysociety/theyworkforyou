@@ -15,7 +15,7 @@ use DBI;
 use Data::Dumper;
 use XML::Simple;
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
-my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'));
+my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASS'));
 my %memberinfo_keys;
 my $member;
 my $output_xml;

@@ -13,7 +13,7 @@ mySociety::Config::set_file('../conf/general');
 use DBI; 
 
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
-my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'), { RaiseError => 1, PrintError => 0 });
+my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASS'), { RaiseError => 1, PrintError => 0 });
 
 my $sthC = $dbh->prepare("select atime from video_timestamps where user_id=-1 and gid=?");
 my $sthI = $dbh->prepare("insert into video_timestamps (user_id, atime, gid) values (-1, ?, ?) on duplicate key update atime=VALUES(atime)");

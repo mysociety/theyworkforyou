@@ -9,7 +9,7 @@ Somewhere (probably in includes/easyparliament/init.php) there should be somethi
 
 	Class ParlDB extends MySQL {
 		function ParlDB () {
-			$this->init (DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+			$this->init (DB_HOST, DB_USER, DB_PASS, DB_NAME);
 		}
 	}
 

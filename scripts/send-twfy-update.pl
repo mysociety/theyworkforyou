@@ -2,7 +2,7 @@
 #
 # Script to send email update to opted-in users
 # 
-# $Id: send-twfy-update.pl,v 1.1 2008-11-18 13:08:32 matthew Exp $
+# $Id: send-twfy-update.pl,v 1.2 2009-05-07 09:31:48 louise Exp $
 
 use strict;
 
@@ -17,7 +17,7 @@ mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
 my $dsn = "DBI:mysql:" . mySociety::Config::get('DB_NAME') . ':' . mySociety::Config::get('DB_HOST');
 
-my $dbh = DBI->connect ($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASSWORD'), { RaiseError => 1});
+my $dbh = DBI->connect ($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASS'), { RaiseError => 1});
 
 my $sth = $dbh->prepare ("SELECT firstname,lastname,email from users where optin='1' and deleted='0' and confirmed='1'");
 $sth->execute();

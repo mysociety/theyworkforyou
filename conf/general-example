@@ -6,7 +6,7 @@
 // MySQL database.
 define ("DB_HOST", "localhost");
 define ("DB_USER", "username");
-define ("DB_PASSWORD", "password");
+define ("DB_PASS", "password");
 define ("DB_NAME", "twfy");
 
 // Parliamentary video database
@@ -58,6 +58,9 @@ define ("TIMEZONE", "Europe/London");
 // XML files and other scraped data stored as files
 define ("RAWDATA", "/home/twfy/pwdata");
 define ('PWMEMBERS', '/home/twfy/parlparse/members');
+
+// Prefix for files logging incoming mail
+define ("OPTION_MAIL_LOG_PREFIX", '/var/mail/twfy-');
 
 // *******************************************************************************
 // If you've unpacked the tar file normally, and set the paths correctly above, 
