@@ -12,7 +12,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.4 2009-05-07 15:07:15 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.5 2009-05-07 15:34:25 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -77,6 +77,9 @@ sub do_frontpage_test(){
 sub signup_for_alert($$){
     
     my ($email, $test_alert) = @_;
+
+    my $alert_command = 'php5 ./alertmailer.php --nomail 2>&1';
+
     $wth->browser_get($base_url . "/alert/");
     $wth->browser_check_contents("Request a TheyWorkForYou.com Email Alert");
   
@@ -85,12 +88,21 @@ sub signup_for_alert($$){
                                           email => $email},);
     $wth->browser_check_contents("We're nearly done...");
 
+    # Shouldn't consider sending an email alert yet
+    my $alerts_output = `$alert_command`;
+    die 'Active email alert for unconfirmed user' if ($alerts_output =~ /$test_alert/);
+
     my $confirmation_email = $wth->email_get_containing('%To: ' . $email . '%');
     die "TWFY email alert confirmation link not found\n" if ($confirmation_email !~ m#^\s+(http://.*$)#m);
     my $confirmation_url = $1;
     print "Confirmation URL: " . $confirmation_url . "\n" if $verbose > 1;
     $wth->browser_get($confirmation_url);
     $wth->browser_check_contents("Your alert has been confirmed."); 
+    
+    # Now should consider the alert
+    $alerts_output = `$alert_command`;
+    die 'No active email alert for confirmed user' unless ($alerts_output =~ /$test_alert/);
+    
 }   
 #----------------------------------
 # Test front page exists
