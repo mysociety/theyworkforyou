@@ -12,7 +12,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.1 2009-05-06 18:18:45 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.2 2009-05-07 13:35:49 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -26,7 +26,7 @@ BEGIN {
     use mySociety::Config;
     mySociety::Config::set_file('../conf/general');
 }
-
+ 
 use mySociety::WebTestHarness;
 
 sub help {
@@ -58,12 +58,10 @@ if ($help) {
 # Configure test harness class
 print "Set up web test harness...\n" if $verbose > 0;
 our $wth = new mySociety::WebTestHarness();
-our $base_url = mySociety::Config::get('DOMAIN');
+our $base_url = 'http://' . mySociety::Config::get('DOMAIN');
 our $email_domain = mySociety::Config::get('EMAILDOMAIN');
-
-# $wth->database_connect('');
-# $wth->database_drop_reload('../db/schema.sql');
-# $wth->database_cycle_sequences(200);
+$wth->database_connect('');
+$wth->database_drop_reload('../db/schema.sql');
 $wth->email_setup({ eveld_bin => undef,
                     log_mailbox => "log_mailbox" });
 #----------------------------------
@@ -79,3 +77,4 @@ sub do_frontpage_test(){
 # Test front page exists
 print "Testing  front page...\n" if $verbose > 0;
 do_frontpage_test();
+print "Everything completed...\n" if $verbose > 0;
