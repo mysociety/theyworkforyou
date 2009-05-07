@@ -12,7 +12,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.5 2009-05-07 15:34:25 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.6 2009-05-07 16:01:32 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -60,26 +60,62 @@ print "Set up web test harness...\n" if $verbose > 0;
 our $wth = new mySociety::WebTestHarness();
 our $base_url = 'http://' . mySociety::Config::get('DOMAIN');
 our $email_domain = mySociety::Config::get('EMAILDOMAIN');
+our $alert_command = 'php5 ./alertmailer.php --nomail 2>&1';
+our $alerts_ok = 'Everything went swimmingly';
 $wth->database_connect('');
 $wth->database_drop_reload('../db/schema.sql');
 $wth->email_setup({ eveld_bin => undef,
                     log_mailbox => "log_mailbox" });
+
 #----------------------------------
 sub email_n { my $n = shift; return "twfy-testharness+$n\@$email_domain"; }
 #----------------------------------
-sub do_frontpage_test(){
+# Send one mail to bounce handling script
+sub call_handlemail($) {
+    my $content = shift;
+    my ($rd, $wr);
+    $rd = new IO::Handle();
+    $wr = new IO::Handle();
+    my $p = new IO::Pipe($rd, $wr);
+    my ($p2, $pid) = mySociety::TempFiles::pipe_via("./handlemail", $wr);
+ 
+    $p2->print($content);
+    $p2->close(); 
+    waitpid($pid, 0);
+}
+#----------------------------------
+sub check_mail_log($$){
+   
+    my ($mail_log, $expected_contents) = @_;
+    open FILE, "<", mySociety::Config::get('MAIL_LOG_PREFIX') . $mail_log;
+    my @lines = ();
+    my $line;
+    while ($line = <FILE>) {
+        chomp $line;
+        push @lines, $line;
+    }
+    my $found_contents = join("\n", @lines);
+    $expected_contents = join("\n", split("\n", $expected_contents));
+    die 'Expected mail not found in ' . $mail_log if ($expected_contents ne $found_contents);
+}
+#----------------------------------
+sub clear_mail_log($){
+    my ($log) = @_;
+    system("> " . mySociety::Config::get('MAIL_LOG_PREFIX') . $log);
+}
+#----------------------------------
+sub expect_mail_outcome($$){
+    my ($mail_log, $mail) = @_;
+    clear_mail_log($mail_log);
+    call_handlemail($mail);
+    check_mail_log($mail_log, $mail);
 
-    $wth->browser_get($base_url);
-    $wth->browser_check_contents("At TheyWorkForYou.com you can:");
-
-}                 
+}
 #----------------------------------
 sub signup_for_alert($$){
     
     my ($email, $test_alert) = @_;
-
-    my $alert_command = 'php5 ./alertmailer.php --nomail 2>&1';
-
+    
     $wth->browser_get($base_url . "/alert/");
     $wth->browser_check_contents("Request a TheyWorkForYou.com Email Alert");
   
@@ -91,6 +127,7 @@ sub signup_for_alert($$){
     # Shouldn't consider sending an email alert yet
     my $alerts_output = `$alert_command`;
     die 'Active email alert for unconfirmed user' if ($alerts_output =~ /$test_alert/);
+    die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
 
     my $confirmation_email = $wth->email_get_containing('%To: ' . $email . '%');
     die "TWFY email alert confirmation link not found\n" if ($confirmation_email !~ m#^\s+(http://.*$)#m);
@@ -102,11 +139,80 @@ sub signup_for_alert($$){
     # Now should consider the alert
     $alerts_output = `$alert_command`;
     die 'No active email alert for confirmed user' unless ($alerts_output =~ /$test_alert/);
+    die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
     
 }   
+
 #----------------------------------
+sub do_alert_signup_test(){
+    
+    signup_for_alert(email_n(0), 'Test basic signup');
+    
+}
+#----------------------------------
+sub do_frontpage_test(){
+
+    $wth->browser_get($base_url);
+    $wth->browser_check_contents("At TheyWorkForYou.com you can:");
+
+}                 
+#----------------------------------
+sub do_non_bounce_reply_without_verp_test(){
+    
+    my $responded_alert = 'Being responsive';
+    my $email = email_n(1);
+    signup_for_alert($email, $responded_alert);
+    my $non_bounce_email = 'Return-path: <' . email_n(1) . '>
+    Envelope-to: twfy-testharness@balti.ukcod.org.uk
+    Delivery-date: Thu, 02 Apr 2009 16:22:51 +0100
+    Date: Thu, 02 Apr 2009 16:22:39 +0100 (BST)
+    From: ' . email_n(1) . '
+    Subject: Wow!
+    In-reply-to: <E1LpOkV-0005gP-A4@sponge.ukcod.org.uk>
+    To: twfy-bounce@theyworkforyou.com
+    Message-id: <0KHH0020JC1RBO20@anon.ac.uk>
+    Auto-submitted: auto-replied
+    MIME-version: 1.0
+    Content-type: TEXT/PLAIN; CHARSET=UTF-8
+    Content-transfer-encoding: 7BIT
+    References: <E1LpOkV-0005gP-A4@sponge.ukcod.org.uk>
+    X-UKC-SpamScore: /
+    X-UKC-SpamCheck: NO,
+    	*  0.0 UNPARSEABLE_RELAY Informational: message has unparseable relay lines
+    Status: O
+    Content-Length: 124
+    Lines: 5
+
+    Thanks for the alert!
+
+    Me
+    ';
+
+    call_handlemail($non_bounce_email);
+    
+    # Should get an automated response
+    my $automated_email = $wth->email_get_containing('%To: ' . $email . '%');
+    die "Alert reply autoresponse not found\n" if ($automated_email !~ m#This is an automatic response to your email#m);
+    
+    # Alert should still be in the set considered for emails
+    my $alerts_output = `$alert_command`;
+    die 'No active email alert for confirmed user after non bounce reply' unless ($alerts_output =~ /$responded_alert/);
+    die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
+    
+}
+#----------------------------------
+
 # Test front page exists
-print "Testing  front page...\n" if $verbose > 0;
+print "Testing front page...\n" if $verbose > 0;
 do_frontpage_test();
-signup_for_alert(email_n(0), 'Test Signup');
+# Test signing up for an email alert
+print "Testing alert signup...\n" if $verbose > 0;
+do_alert_signup_test();
+
+# Test the handling of a non-bounce reply to an alert - should get an automated response
+print "Testing non-bounce reply gets automated response...\n" if $verbose > 0; 
+do_non_bounce_reply_without_verp_test();
+
+print "Checking no emails left at end...\n" if $verbose > 0;
+$wth->email_check_none_left();
 print "Everything completed...\n" if $verbose > 0;
