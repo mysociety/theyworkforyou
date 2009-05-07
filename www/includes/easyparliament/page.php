@@ -270,7 +270,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		twfy_debug ("PAGE", "This page: $this_page");
 		
 		print "\t<a name=\"top\"></a>\n\n";
-		if (defined('OPTION_GAZE_URL') && OPTION_GAZE_URL) {
+		if (defined('OPTION_GAZE_URL') && OPTION_GAZE_URL && 1==0) {
 			$country = gaze_get_country_from_ip($_SERVER["REMOTE_ADDR"]);
 			if ($country == 'NZ' || get_http_var('nz')) {
 				print '<p id="video_already"><strong>New!</strong> You\'re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
