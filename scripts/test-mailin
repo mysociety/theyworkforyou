@@ -1,0 +1,37 @@
+#!/usr/bin/perl -w -I../../perllib
+#
+# test-mailin:
+# Receives incoming mail for the test harness, and stores it in the database
+# for the test harness to access.
+# 
+# Hook this up with something like this in /etc/aliases...
+#   twfy-testharness: "| /home/francis/devel/mysociety/twfy/scripts/test-mailin"
+# ... or some other appropriate way.
+#
+# Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
+# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+#
+
+# Horrible boilerplate to set up appropriate library paths.
+use FindBin;
+use lib "$FindBin::Bin/../perllib";
+use lib "$FindBin::Bin/../../perllib";
+chdir $FindBin::Bin;
+
+use File::Slurp;
+
+use mySociety::SystemMisc qw(print_log);
+mySociety::SystemMisc::log_to_stderr(0);
+
+use mySociety::Config;
+mySociety::Config::set_file('../conf/general');
+use mySociety::WebTestHarness;
+
+print_log('notice', "started");
+our $wth = new mySociety::WebTestHarness();
+$wth->database_connect('');
+print_log('notice', "reading mail from STDIN");
+my $slurped = read_file(\*STDIN);
+print_log('notice', "calling email_incoming");
+$wth->email_incoming($slurped);
+print_log('notice', "done");
