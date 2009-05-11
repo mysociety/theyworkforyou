@@ -5,7 +5,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org
 #
-# $Id: TWFYMail.pm,v 1.1 2009-05-11 09:10:13 louise Exp $
+# $Id: TWFYMail.pm,v 1.2 2009-05-11 11:45:51 louise Exp $
 #
 
 package TWFYMail;
@@ -36,7 +36,7 @@ Get the bounced address from a VERP address created with verp_envelope_sender
 =cut
 sub get_bounced_address($){
     my ($address) = @_;
-    my $prefix = 'twfy-';
+    my $prefix = 'twfy';
     my $domain =  mySociety::Config::get('EMAILDOMAIN');
     my $bounced_address =  mySociety::HandleMail::get_bounced_address($address, $prefix, $domain);
     return $bounced_address;
@@ -62,7 +62,8 @@ log the email in the DATA hash as having been deleted.
 sub mark_deleted($$$){
     my ($recipient, $data, $bounced_address) = @_;
     my $email = $bounced_address || $recipient;
-    if ($email){
+
+    if ($email && mySociety::EmailUtil::is_valid_email($email)){
         my $dsn = "DBI:mysql:" . mySociety::Config::get('DB_NAME') . ':' . mySociety::Config::get('DB_HOST');
         my $dbh = DBI->connect ($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASS'), { RaiseError => 1});
         $dbh->do('update alerts set deleted=1 where email = ?', {}, $email);

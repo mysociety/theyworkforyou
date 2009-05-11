@@ -11,7 +11,7 @@
 # Email: matthew@mysociety.org; WWW: http://www.mysociety.org/
 #
 
-my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.8 2009-05-11 10:24:33 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.9 2009-05-11 11:45:51 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -31,6 +31,7 @@ use mySociety::Email;
 use mySociety::EmailUtil;
 use mySociety::HandleMail;
 use mySociety::SystemMisc;
+use TWFYMail;
 
 # Don't print diagnostics to standard error, as this can result in bounce
 # messages being generated (only in response to non-bounce input, obviously).
@@ -41,15 +42,14 @@ my %data = mySociety::HandleMail::get_message();
 if ($data{is_bounce_message}) {
     my $bounce_recipient = mySociety::HandleMail::get_bounce_recipient($data{message});
     my $token = mySociety::HandleMail::get_token($bounce_recipient,
-        'twfy-', mySociety::Config::get('EMAILDOMAIN')
+        'twfy', mySociety::Config::get('EMAILDOMAIN')
     );
     exit(0) unless $token ;
-    
-    exit(0) if $token eq 'DO-NOT-REPLY'; # A bounce we don't care about
+    exit(0) if $token eq '-DO-NOT-REPLY'; # A bounce we don't care about
 
     if ($bounce_recipient){
         # try and get the address if the mail was sent with VERP
-        $bounced_address = get_bounced_address($bounce_recipient);
+        my $bounced_address = TWFYMail::get_bounced_address($bounce_recipient);
         TWFYMail::handle_bounce(\%data, $bounced_address);
     }
 
