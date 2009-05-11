@@ -746,7 +746,8 @@ function send_email ($to, $subject, $message, $bulk = false, $from = '', $want_b
 	twfy_debug('EMAIL', "Sending email to $to with subject of '$subject'");
 
 	if ($want_bounces) {
-		$success = mail ($to, $subject, $message, $headers, '-f twfy-bounce@' . EMAILDOMAIN);
+	  $envelope_sender = twfy_verp_envelope_sender($to);
+		$success = mail ($to, $subject, $message, $headers, '-f ' . $envelope_sender);
 	} else {
 		$success = mail ($to, $subject, $message, $headers);
 	}
