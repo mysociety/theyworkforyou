@@ -1,0 +1,64 @@
+#!/usr/bin/perl -w
+#
+# process-mailbox
+# Handle a backlog of bounced messages in a mailbox file.
+#
+#
+# Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
+# Email: louise@mysociety.org; WWW: http://www.mysociety.org/
+use strict;
+require 5.8.0;
+
+# Horrible boilerplate to set up appropriate library paths.
+use FindBin;
+use lib "$FindBin::Bin/../perllib";
+use lib "$FindBin::Bin/../../perllib";
+use mySociety::HandleMail;
+use TWFYMail;
+use Getopt::Long;
+
+our $verbose = 0; 
+
+
+my $help;
+
+sub help{
+print <<END
+
+Usage: deal-with-bounce-backlog [OPTION] MAILBOX_PATH
+
+Options are
+    --verbose=n   Choose 0 (no output), 1 (debugging output)
+    -- help
+END
+}
+
+if (!GetOptions(
+        'verbose=i' =>  \$verbose,
+        'help' =>               \$help,
+      
+    )) {
+    help();
+    exit(1);
+}
+if ($help) {
+    help();
+    exit(0);
+}
+
+my $mailbox = shift;
+if (!$mailbox){
+    help();
+    exit(0);
+}
+my @emails = mySociety::HandleMail::process_mailbox($mailbox, $verbose);
+
+my $to_process = scalar(@emails);
+my $i= 0;
+for my $ref (@emails){
+    my %data = %$ref;
+    $i++;
+    print '.' if $verbose;
+    TWFYMail::handle_incoming(\%data);
+}
+print "done\n" if $verbose;
