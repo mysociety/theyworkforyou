@@ -12,7 +12,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.7 2009-05-11 10:24:33 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.8 2009-05-11 11:43:50 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -28,6 +28,7 @@ BEGIN {
 }
  
 use mySociety::WebTestHarness;
+use mySociety::HandleMail;
 
 sub help {
 print <<END
@@ -153,7 +154,7 @@ Delivery-date: Fri, 03 Apr 2009 00:48:02 +0100
 Date: Fri, 3 Apr 2009 10:47:58 +1100
 From: Mail Delivery Subsystem <MAILER-DAEMON@tpgi.com.au>
 Message-Id: <200904022347.n32NC8SF011703@oberon.tpg.com.au>
-To: <twfy-bounce@theyworkforyou.com>
+To: <twfy-bounce@' . $email_domain . '>
 MIME-Version: 1.0
 Content-Type: multipart/report; report-type=delivery-status;
 	boundary="n32NC8SF011703.1238716078/oberon.tpg.com.au"
@@ -195,7 +196,7 @@ Last-Attempt-Date: Fri, 3 Apr 2009 10:47:58 +1100
 --n32NC8SF011703.1238716078/oberon.tpg.com.au
 Content-Type: text/rfc822-headers
 
-Return-Path: <twfy-bounce@theyworkforyou.com>
+Return-Path: <twfy-bounce@' . $email_domain . '>
 X-TPG-Antivirus: Passed
 X-TPG-DNSBL: Passed
 To: ' . $email . '
@@ -223,7 +224,7 @@ Delivery-date: Fri, 03 Apr 2009 09:52:08 +0100
 X-Failed-Recipients: ' . $email . '
 Auto-Submitted: auto-replied
 From: Mail Delivery System <Mailer-Daemon@sponge.ukcod.org.uk>
-To: twfy-bounce@theyworkforyou.com
+To: twfy-bounce@' . $email_domain . '
 Subject: Mail delivery failed: returning message to sender
 Message-Id: <E1Lpf8C-0006hf-8O@sponge.ukcod.org.uk>
 Date: Fri, 03 Apr 2009 09:52:08 +0100
@@ -243,7 +244,7 @@ recipients. This is a permanent error. The following address(es) failed:
 
 ------ This is a copy of the message, including all the headers. ------
 
-Return-path: <twfy-bounce@theyworkforyou.com>
+Return-path: <twfy-bounce@' . $email_domain . '>
 To: ' . $email . '
 Subject: Your TheyWorkForYou email alert
 From: TheyWorkForYou <twfy-DO-NOT-REPLY@theyworkforyou.com>
@@ -267,7 +268,7 @@ sub unparsable_bounce_mail($){
 Envelope-to: twfy-live@sponge.ukcod.org.uk
 Delivery-date: Fri, 03 Apr 2009 10:36:16 +0100
 	Fri, 03 Apr 2009 11:36:05 +0200
-To: <twfy-bounce@theyworkforyou.com>
+To: <twfy-bounce@' . $email_domain . '>
 From: Anon <' . $email . '>
 Subject: Thank you for your e mail
 Date: Fri, 03 Apr 2009 11:36:05 +0200
@@ -296,7 +297,7 @@ Date: Thu, 02 Apr 2009 16:22:39 +0100 (BST)
 From: ' . $email . '
 Subject: Wow!
 In-reply-to: <E1LpOkV-0005gP-A4@sponge.ukcod.org.uk>
-To: twfy-bounce@theyworkforyou.com
+To: twfy-bounce@' . $email_domain . '
 Message-id: <0KHH0020JC1RBO20@anon.ac.uk>
 MIME-version: 1.0
 Content-type: TEXT/PLAIN; CHARSET=UTF-8
@@ -312,7 +313,7 @@ Lines: 5
 Thanks for the alert!
 
 Me
-'
+';
     return $non_bounce_reply_mail;
 }
 #----------------------------------
@@ -325,7 +326,7 @@ Delivery-date: Thu, 02 Apr 2009 15:06:03 +0100
 Date: Thu, 2 Apr 2009 10:05:49 -0400
 From: Mail Delivery Subsystem <MAILER-DAEMON@aol.com>
 Message-Id: <200904021405.n32E5e8a001645@rly-da04.mx.aol.com>
-To: <twfy-bounce@theyworkforyou.com>
+To: <twfy-bounce@' . $email_domain . '>
 MIME-Version: 1.0
 Content-Type: multipart/report; report-type=delivery-status;
 	boundary="n32E5e8a001645.1238681149/rly-da04.mx.aol.com"
@@ -476,7 +477,7 @@ Message content
 
 --9B095B5ADSN=_01C979B73CB9E88400052D1BSDCBHD01.dti.loc--';
 
-    return $permaent_dsn_bounce;
+    return $permanent_dsn_bounce;
 }
 #----------------------------------
 sub do_alert_signup_test(){
@@ -496,12 +497,12 @@ sub do_permanent_dsn_bounce_without_verp_test(){
     my $bounced_alert = 'Getting a DSN bounce';
     my $email = email_n(2);
     signup_for_alert($email, $bounced_alert);
-    my $permanent_dsn_bounce = permanent_dsn_bounce_mail($email, 'twfy-bounce@theyworkforyou.com');
+    my $permanent_dsn_bounce = permanent_dsn_bounce_mail($email, 'twfy-bounce@' . $email_domain);
 
     expect_mail_outcome('deleted', $permanent_dsn_bounce);
 
     # Alert should no longer be in the set considered for emails
-    $alerts_output = `$alert_command`;
+    my $alerts_output = `$alert_command`;
     die 'Active email alert for deleted user' if ($alerts_output =~ /$bounced_alert/);
     die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
 }       
@@ -515,7 +516,7 @@ sub do_transient_dsn_bounce_without_verp_test(){
     expect_mail_outcome('ignored', $transient_dsn_bounce);
 
     # Alert should still be in the set considered for emails
-    $alerts_output = `$alert_command`;
+    my $alerts_output = `$alert_command`;
     die 'No active email alert for confirmed user after transient bounce' unless ($alerts_output =~ /$bounced_alert/);
     die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
 }
@@ -525,12 +526,12 @@ sub do_permanent_dsn_bounce_without_verp_no_email_test(){
     my $bounced_alert = 'Permanent DSN bounce no email';
     my $email = email_n(4);
     signup_for_alert($email, $bounced_alert);
-    my $bounced_email = permanent_dsn_bounce_mail('anon', 'twfy-bounce@theyworkforyou.com');
+    my $bounced_email = permanent_dsn_bounce_mail('anon', 'twfy-bounce@' . $email_domain);
     
     expect_mail_outcome('unparsed', $bounced_email);
 
     # Alert should still be in the set considered for emails
-    $alerts_output = `$alert_command`;
+    my $alerts_output = `$alert_command`;
     die 'No active email alert for confirmed user after permanent bounce where email cannot be parsed' unless ($alerts_output =~ /$bounced_alert/);
     die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
 }
@@ -545,7 +546,7 @@ sub do_unparsable_bounce_without_verp_test(){
     expect_mail_outcome('unparsed', $bounced_email);
     
     # Alert should still be in the set considered for emails
-    $alerts_output = `$alert_command`;
+    my $alerts_output = `$alert_command`;
     die 'No active email alert for confirmed user after unparsed bounce' unless ($alerts_output =~ /$bounced_alert/);
     die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
     
@@ -560,7 +561,7 @@ sub do_permanent_bounce_without_verp_test(){
     
     expect_mail_outcome('deleted', $bounced_email);
     # Alert should no longer be in the set considered for emails
-    $alerts_output = `$alert_command`;
+    my $alerts_output = `$alert_command`;
     die 'Active email alert for deleted user' if ($alerts_output =~ /$bounced_alert/);
     die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
 }
@@ -574,7 +575,7 @@ sub do_transient_bounce_without_verp_test(){
     expect_mail_outcome('ignored', $transient_non_dsn_bounce);
 
     # Alert should still be in the set considered for emails
-    $alerts_output = `$alert_command`;
+    my $alerts_output = `$alert_command`;
     die 'No active email alert for confirmed user after transient bounce' unless ($alerts_output =~ /$bounced_alert/);
     die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
 }
@@ -583,12 +584,11 @@ sub do_verp_bounce_test(){
     my $bounced_alert = 'Permanent DSN bounce no email with VERP';
     my $email = email_n(8);
     signup_for_alert($email, $bounced_alert);
-    my $verp_envelope_sender = mySociety::HandleMail($email, 'twfy', $email_domain);
+    my $verp_envelope_sender = mySociety::HandleMail::verp_envelope_sender($email, 'twfy', $email_domain);
     my $bounced_email = permanent_dsn_bounce_mail('anon', $verp_envelope_sender);
-    
     expect_mail_outcome('deleted', $bounced_email);
     # Alert should no longer be in the set considered for emails
-    $alerts_output = `$alert_command`;
+    my $alerts_output = `$alert_command`;
     die 'Active email alert for deleted user' if ($alerts_output =~ /$bounced_alert/);
     die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
 }
