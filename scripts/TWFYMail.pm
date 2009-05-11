@@ -5,7 +5,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org
 #
-# $Id: TWFYMail.pm,v 1.2 2009-05-11 11:45:51 louise Exp $
+# $Id: TWFYMail.pm,v 1.3 2009-05-11 13:08:10 louise Exp $
 #
 
 package TWFYMail;
@@ -19,6 +19,7 @@ use FindBin;
 use lib "$FindBin::Bin/../perllib";
 use lib "$FindBin::Bin/../../perllib";
 use mySociety::Config;
+use mySociety::EmailUtil;
 
 BEGIN {
     mySociety::Config::set_file("$FindBin::Bin/../conf/general");
