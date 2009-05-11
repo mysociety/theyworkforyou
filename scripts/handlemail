@@ -11,13 +11,14 @@
 # Email: matthew@mysociety.org; WWW: http://www.mysociety.org/
 #
 
-my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.9 2009-05-11 11:45:51 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlemail,v 1.10 2009-05-11 13:37:57 louise Exp $';
 
 use strict;
 require 5.8.0;
 
 # Horrible boilerplate to set up appropriate library paths.
 use FindBin;
+use lib "$FindBin::Bin";
 use lib "$FindBin::Bin/../perllib";
 use lib "$FindBin::Bin/../../perllib";
 
