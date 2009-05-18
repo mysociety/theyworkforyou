@@ -8,7 +8,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.2 2009-05-18 15:21:10 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.3 2009-05-18 16:58:19 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -28,26 +28,25 @@ BEGIN {
 mySociety::SystemMisc::log_to_stderr(0);
 #----------------------
 sub unsubscribe($){
-    my @lines = @_;
+    my ($original_message) = @_;
     my $twfy_unsub_pattern = 'http://'. mySociety::Config::get('DOMAIN') . '/D/\S+';
     my $unsublink;
-    foreach my $line (@lines) {
-        if ($line =~  /$twfy_unsub_pattern/){
-            $unsublink = $1;
-            my $m = WWW::Mechanize->new();
-            $m->get($unsublink);   
-        }
-    }   
+    if ($original_message =~ m#($twfy_unsub_pattern)$#m){
+        $unsublink = $1;
+        my $m = new WWW::Mechanize;
+        $m->get($unsublink);   
+    }
+  
 }
 #----------------------
 my %data = mySociety::HandleMail::get_message();
-my @lines = $data{lines};
-my $r = mySociety::HandleMail::parse_arf_mail(\@lines);
+my $lines = $data{lines};
+my $r = mySociety::HandleMail::parse_arf_mail($lines);
 if (defined($r)){
     my %attributes = %{$r};
-    if ($attributes{feedback_type} == 'abuse'){
-        my @message_lines = @{$attributes{original_message}};
-        unsubscribe(@message_lines);
+    if ($attributes{feedback_type} eq 'abuse'){
+        my $original_message = $attributes{original_message};
+        unsubscribe($original_message);
     }
 }
 exit(0);
