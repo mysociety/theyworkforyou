@@ -12,7 +12,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.8 2009-05-11 11:43:50 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.9 2009-05-18 14:34:55 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -71,14 +71,19 @@ $wth->email_setup({ eveld_bin => undef,
 #----------------------------------
 sub email_n { my $n = shift; return "twfy-testharness+$n\@$email_domain"; }
 #----------------------------------
-# Send one mail to bounce handling script
+# Send one mail to a mail handling script
 sub call_handlemail($) {
     my $content = shift;
+    call_handler($content, 'handlemail');
+}
+#----------------------------------
+sub call_handler($$){
+    my ($content, $handler = @_;
     my ($rd, $wr);
     $rd = new IO::Handle();
     $wr = new IO::Handle();
     my $p = new IO::Pipe($rd, $wr);
-    my ($p2, $pid) = mySociety::TempFiles::pipe_via("./handlemail", $wr);
+    my ($p2, $pid) = mySociety::TempFiles::pipe_via("./$handler", $wr);
  
     $p2->print($content);
     $p2->close(); 
@@ -142,6 +147,7 @@ sub signup_for_alert($$){
     die 'No active email alert for confirmed user' unless ($alerts_output =~ /$test_alert/);
     die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
     
+    return $confirmation_url;
     
 }  
 #--------------------------------
@@ -480,6 +486,84 @@ Message content
     return $permanent_dsn_bounce;
 }
 #----------------------------------
+sub arf_mail($$){
+    my ($email, $token) = @_;
+    my $arf_mail = "Content-Type: message/rfc822
+    Content-Disposition: inline
+
+    Return-Path: <twfy-bounce@theyworkforyou.com>
+    Received: from rly-mf05.mx.aol.com (rly-mf05.mail.aol.com [172.20.29.175]) by air-mf04.mail.aol.com (v123.4) with ESMTP id MAILINMF043-9614a040b1c5f; Fri, 08 May 2009 06:36:23 -0400
+    Received: from sponge.ukcod.org.uk (sponge.ukcod.org.uk [82.111.230.211]) by rly-mf05.mx.aol.com (v123.4) with ESMTP id MAILRELAYINMF057-9614a040b1c5f; Fri, 08 May 2009 06:36:13 -0400
+    Received: from twfy-live by sponge.ukcod.org.uk with local (Exim 4.63)
+    	(envelope-from <twfy-bounce@theyworkforyou.com>)
+    	id 1M2NR6-0002oC-IW
+    	for redacted; Fri, 08 May 2009 11:36:12 +0100
+    To: redacted@aol.com
+    Subject: Your TheyWorkForYou email alert
+    From: TheyWorkForYou <twfy-DO-NOT-REPLY@theyworkforyou.com>
+    Content-Type: text/plain; charset=iso-8859-1
+    MIME-Version: 1.0
+    Content-Transfer-Encoding: 8bit
+    Precedence: bulk
+    X-Mailer: PHP/5.2.0-8+etch15
+    Message-Id: <E1M2NR6-0002oC-IW@sponge.ukcod.org.uk>
+    Date: Fri, 08 May 2009 11:36:12 +0100
+    X-AOL-IP: 82.111.230.211
+
+
+    speaker:Julia Goldsworthy : 2 Written Answers
+    =============================================
+
+    Written Answers - Work and Pensions: Council Tax Benefit (7 May 2009)
+    http://www.theyworkforyou.com/wrans/?id=2009-05-07a.273284.h&s=speaker%3A11581#g273284.q0
+    Julia Goldsworthy: To ask the Secretary of State for Work and Pensions
+    if he will estimate the expenditure required from the public purse to
+    raise personal allowances for council tax benefit to £193 per week for
+    all households, excluding households with a couple where one or both are
+    aged 65 years or over, in circumstances where the current level of
+    capital allowance is  (a) maintained and  (b) abolished;...
+
+    Written Answers - Work and Pensions: Council Tax Benefit (7 May 2009)
+    http://www.theyworkforyou.com/wrans/?id=2009-05-07a.268179.h&s=speaker%3A11581#g268179.q0
+    Julia Goldsworthy: To ask the Secretary of State for Work and Pensions
+    what the effect on the public purse would be of increasing personal
+    allowances for the purposes of calculating council tax benefits to £193
+    per week for  (a) a single person aged 60 to 64 years,  (b) a couple,
+    one or both of whom is aged 60 to 65 years,  (c) a single person aged
+    under 25 years,  (d) a single person aged 25 to 60 years...
+
+    To cancel your alert for speaker:Julia Goldsworthy, please use:
+    http://www.theyworkforyou.com/D/'. $token .'
+
+    ====================
+
+    If you register on the site, you will be able to manage your
+    alerts there as well as post comments. :)
+
+
+    If clicking any of these links doesn't work, you may have
+    to copy and then paste them into the 'Location' or
+    'Address' box of your web browser, and then press 'enter'
+    or 'return' on your keyboard.
+
+    Best wishes,
+    TheyWorkForYou.com
+
+    ------------------------------------------------------------
+
+    TheyWorkForYou email alerts need love and support to look
+    after. Please set up a monthly donation, especially if you
+    rely on them for work:
+            http://www.mysociety.org/donate/
+
+    ------------------------------------------------------------
+
+
+
+    ";
+    return $arf_mail;
+}
+#----------------------------------
 sub do_alert_signup_test(){
     
     signup_for_alert(email_n(0), 'Test basic signup');
@@ -613,6 +697,26 @@ sub do_non_bounce_reply_without_verp_test(){
     
 }
 #----------------------------------
+sub do_arf_test(){
+    my $arfed_alert = 'Getting an ARF from AOL';
+    my $email = email_n(9);
+    my $confirmation_url = signup_for_alert($email, $arfed_alert);
+    my $arf_mail;
+    if ($confirmation_url =~ /\/D\/(\S+)/){
+        my $token = $1;
+        $arf_mail = arf_mail($email, $token);
+    }else{
+        die "Couldn't get token from confirmation email for ARF test";
+    }
+
+    call_handler($arf_mail, 'handlearfmail');
+    # Alert should no longer be in the set considered for emails
+    my $alerts_output = `$alert_command`;
+
+    die 'Active email alert for deleted user after ARF mail' if ($alerts_output =~ /$arfed_alert/);
+    die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
+}
+#----------------------------------
 
 # Test front page exists
 print "Testing front page...\n" if $verbose > 0;
@@ -652,6 +756,10 @@ do_transient_bounce_without_verp_test();
 # Test the end-to-end VERP bounce process
 print "Testing that VERP bounces get parsed successfully...\n" if $verbose > 0;
 do_verp_bounce_test();
+
+# Test the handling of AOL Abuse Reporting Format mails
+print "Testing that Abuse Report Mails for alerts result in alert deletion...\n" if $verbose > 0;
+do_arf_test();
 
 print "Checking no emails left at end...\n" if $verbose > 0;
 $wth->email_check_none_left();
