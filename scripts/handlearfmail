@@ -8,13 +8,14 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.1 2009-05-18 14:34:55 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.2 2009-05-18 15:21:10 louise Exp $';
 
 use strict;
 require 5.8.0;
 
 # Horrible boilerplate to set up appropriate library paths.
 use FindBin;
+use lib "$FindBin::Bin/../../perllib";
 use lib "$FindBin::Bin/../perllib";
 use mySociety::HandleMail;
 use WWW::Mechanize;
@@ -28,9 +29,9 @@ mySociety::SystemMisc::log_to_stderr(0);
 #----------------------
 sub unsubscribe($){
     my @lines = @_;
-    my $twfy_unsub_pattern = "http://". mySociety::Config::get('DOMAIN') . "/D/\S+";
-    my $unsublink
-    foreach (@lines as $line){
+    my $twfy_unsub_pattern = 'http://'. mySociety::Config::get('DOMAIN') . '/D/\S+';
+    my $unsublink;
+    foreach my $line (@lines) {
         if ($line =~  /$twfy_unsub_pattern/){
             $unsublink = $1;
             my $m = WWW::Mechanize->new();
@@ -41,7 +42,6 @@ sub unsubscribe($){
 #----------------------
 my %data = mySociety::HandleMail::get_message();
 my @lines = $data{lines};
-
 my $r = mySociety::HandleMail::parse_arf_mail(\@lines);
 if (defined($r)){
     my %attributes = %{$r};
@@ -50,5 +50,4 @@ if (defined($r)){
         unsubscribe(@message_lines);
     }
 }
-my %attributes = %{$r};
 exit(0);
