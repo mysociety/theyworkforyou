@@ -12,7 +12,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.13 2009-05-18 15:16:25 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.14 2009-05-18 15:34:45 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -602,6 +602,7 @@ rely on them for work:
 
 
 
+--boundary-1138-29572-2659438-16788--
     !;
     return $arf_mail;
 }
