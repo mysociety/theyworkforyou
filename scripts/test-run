@@ -12,7 +12,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.9 2009-05-18 14:34:55 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.10 2009-05-18 15:02:52 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -78,7 +78,7 @@ sub call_handlemail($) {
 }
 #----------------------------------
 sub call_handler($$){
-    my ($content, $handler = @_;
+    my ($content, $handler) = @_;
     my ($rd, $wr);
     $rd = new IO::Handle();
     $wr = new IO::Handle();
@@ -146,7 +146,6 @@ sub signup_for_alert($$){
     $alerts_output = `$alert_command`;
     die 'No active email alert for confirmed user' unless ($alerts_output =~ /$test_alert/);
     die 'There was a problem sending alerts' unless ($alerts_output =~ /$alerts_ok/);
-    
     return $confirmation_url;
     
 }  
@@ -488,7 +487,50 @@ Message content
 #----------------------------------
 sub arf_mail($$){
     my ($email, $token) = @_;
-    my $arf_mail = "Content-Type: message/rfc822
+    my $arf_mail = q[Return-Path: <scomp@aol.net>
+To: mysociety@ukcod.org.uk
+From: scomp@aol.net
+Date: Sun, 17 May 2009 15:12:21 EDT
+Subject: Email Feedback Report for IP 82.111.230.211
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=feedback-report; boundary="boundary-1138-29572-2659438-16788"
+X-AOL-INRLY: sponge.ukcod.org.uk [82.111.230.211] scmp-m44
+X-Loop: scomp
+X-AOL-IP: 172.21.139.222
+Message-ID: <200905171512.7d674a106199ee@omr-d22.mx.aol.com>
+
+--boundary-1138-29572-2659438-16788
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+
+This is an email abuse report for an email message with the message-id of E1M2NR6-0002oC-IW@sponge.ukcod.org.uk received from IP address 82.111.230.211 on Fri, 08 May 2009 06:36:13 -0400
+
+For information, please review the top portion of the following page:
+http://postmaster.aol.com/tools/fbl.html
+
+For information about AOL E-mail guidelines, please see
+http://postmaster.aol.com/guidelines/
+
+If you would like to cancel or change the configuration for your FBL please use the tool located at: 
+http://postmaster.aol.com/waters/fbl_change_form.html
+
+
+--boundary-1138-29572-2659438-16788
+Content-Disposition: inline
+Content-Type: message/feedback-report
+
+Feedback-Type: abuse
+User-Agent: AOL SComp
+Version: 0.1
+Received-Date: Fri, 08 May 2009 06:36:13 -0400
+Source-IP: 82.111.230.211
+Reported-Domain: sponge.ukcod.org.uk
+Redacted-Address: redacted
+Redacted-Address: redacted@
+
+
+--boundary-1138-29572-2659438-16788
+Content-Type: message/rfc822
     Content-Disposition: inline
 
     Return-Path: <twfy-bounce@theyworkforyou.com>
@@ -533,7 +575,7 @@ sub arf_mail($$){
     under 25 years,  (d) a single person aged 25 to 60 years...
 
     To cancel your alert for speaker:Julia Goldsworthy, please use:
-    http://www.theyworkforyou.com/D/'. $token .'
+    http://www.theyworkforyou.com/D/]. $token . q[
 
     ====================
 
@@ -560,7 +602,7 @@ sub arf_mail($$){
 
 
 
-    ";
+    ];
     return $arf_mail;
 }
 #----------------------------------
@@ -702,7 +744,7 @@ sub do_arf_test(){
     my $email = email_n(9);
     my $confirmation_url = signup_for_alert($email, $arfed_alert);
     my $arf_mail;
-    if ($confirmation_url =~ /\/D\/(\S+)/){
+    if ($confirmation_url =~ /\/A\/(\S+)/){
         my $token = $1;
         $arf_mail = arf_mail($email, $token);
     }else{
