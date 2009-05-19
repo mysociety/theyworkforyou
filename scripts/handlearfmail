@@ -8,7 +8,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.6 2009-05-19 11:08:39 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.7 2009-05-19 11:13:30 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -19,6 +19,7 @@ use lib "$FindBin::Bin/../../perllib";
 use lib "$FindBin::Bin/../perllib";
 use mySociety::HandleMail;
 use WWW::Mechanize;
+use Error qw(:try);
 use mySociety::Config;
 BEGIN {
     mySociety::Config::set_file("$FindBin::Bin/../conf/general");
