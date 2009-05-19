@@ -8,7 +8,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.3 2009-05-18 16:58:19 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.4 2009-05-19 08:10:13 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -35,8 +35,9 @@ sub unsubscribe($){
         $unsublink = $1;
         my $m = new WWW::Mechanize;
         $m->get($unsublink);   
+    }else{
+        print_log('err', "Couldn't find unsubscribe link in Abuse Report mail\n");
     }
-  
 }
 #----------------------
 my %data = mySociety::HandleMail::get_message();
@@ -47,6 +48,6 @@ if (defined($r)){
     if ($attributes{feedback_type} eq 'abuse'){
         my $original_message = $attributes{original_message};
         unsubscribe($original_message);
-    }
+    }   
 }
 exit(0);
