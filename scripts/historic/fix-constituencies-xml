@@ -1,0 +1,84 @@
+#!/usr/bin/python
+
+import xml.sax, os, cgi
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings' 
+from app.models import Constituency# , ConstituencyAlias
+from constituencies import consList
+
+class Cons(object):
+	def __init__(self, c, id, from_date, to_date):
+		# Manual overrides for Western Isles and Eastwood - as was
+		if id == 'uk.org.publicwhip/cons/632': from_date = 1918
+		if id == 'uk.org.publicwhip/cons/204': from_date = 1983
+		self.hansard_id = c.id
+		self.id = id
+		self.from_date = from_date
+		self.to_date = to_date
+		if id in consList.considtonames:
+			self.names = consList.considtonames[id]
+		else:
+			if c.area_type == 'county':
+				c.name = 'County %s' % c.name
+			elif c.area_type == 'borough':
+				c.name = '%s Borough' % c.name
+			self.names = [ c.name ]
+		#for alias in c.aliases:
+		#	self.names.append(alias.alias)
+
+constituencies = {}
+for c in Constituency.objects.all():
+	constituencies[c.id] = c
+	#constituencies[c.id].aliases = []
+
+# Ignore aliases for now - mostly county names anyway
+#for c in ConstituencyAlias.objects.all():
+#	constituencies[c.constituency.id].aliases.append(c)
+
+# Highest number currently in constituencies.xml is 715
+parlparse_id = 716
+out = {}
+for c in constituencies.values():
+	if c.end_year is None: c.end_year = 9999
+
+	if c.start_year == 2005:
+		id = consList.find(c.name, '2005-05-05')
+		id2 = None
+	elif c.end_year > 1997:
+		id = consList.find(c.name, '1998-01-01')
+		id2 = consList.find(c.name, '2006-01-01')
+	else:
+		id = id2 = None
+
+	if c.start_year == 2005:	from_date = '2005-05-05'
+	elif c.start_year == 1997:	from_date = '1997-05-01'
+	else:				from_date = c.start_year
+	if c.end_year == 9999:		to_date = '9999-12-31'
+	elif c.end_year == 2005:	to_date = '2005-05-04'
+	else:				to_date = c.end_year
+
+	if id and id2 and id != id2: # Scottish consituencies that kept name pre/post 2005
+		out[id] = Cons(c, id, from_date, '2005-05-04')
+		out[id2] = Cons(c, id2, '2005-05-05', to_date)
+	elif id:
+		out[id] = Cons(c, id, from_date, to_date)
+	elif c.end_year > 1997:
+		raise Exception, '%s - All 1997+ constituencies should already be present in XML!' % c
+	else:
+		id = 'uk.org.publicwhip/cons/%s' % parlparse_id
+		parlparse_id += 1
+		out[id] = Cons(c, id, c.start_year, c.end_year)
+
+def id_compare(x, y):
+	x = int(x.replace('uk.org.publicwhip/cons/', ''))
+	y = int(y.replace('uk.org.publicwhip/cons/', ''))
+	return x-y
+
+print '<?xml version="1.0" encoding="ISO-8859-1"?>'
+print '<publicwhip>'
+for consid in sorted(out.keys(), id_compare):
+	data = out[consid]
+	print '  <constituency hansard_id="%s" id="%s" fromdate="%s" todate="%s">' % (data.hansard_id, data.id, data.from_date, data.to_date)
+	for name in data.names:
+		print '    <name text="%s"/>' % cgi.escape(name.encode('iso-8859-1'))
+	print '  </constituency>'
+print '</publicwhip>'

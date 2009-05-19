@@ -1,0 +1,118 @@
+#!/usr/bin/python
+
+import sys, os, datetime, cgi
+sys.path.append('../../../../parlparse/pyscraper')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings' 
+from resolvemembernames import memberList
+from app.models import Person, Election, CommonsMembership, Contribution, Constituency
+from constituencies import consList
+
+# Global ID number one higher than current XML maximum
+parlparse_id = 2039
+
+class Member(object):
+	def __init__(self, id, membership, start_date, end_date, start_reason, end_reason, party='unknown'):
+		self.id = id
+		self.membership = membership
+		self.start_date = start_date
+		self.end_date = end_date
+		self.start_reason = start_reason
+		self.end_reason = end_reason
+		self.party = party
+
+def output_member_xml(member):
+	membership = member.membership
+	person = membership.person
+	constituency = cgi.escape(consList.canonical(membership.constituency.full_name(), member.start_date))
+	print '<member'
+	print '    id="%s" house="commons"' % member.id
+	if membership.id or person.id or membership.constituency.id:
+		print '    hansard_id="%s" hansard_person_id="%s" hansard_cons_id="%s"' % (membership.id, person.id, membership.constituency.id)
+	print ('    title="%s" firstname="%s" lastname="%s"' % (person.honorific, person.firstname, person.lastname)).encode('iso-8859-1')
+	print ('    constituency="%s" party="%s"' % (constituency, member.party)).encode('iso-8859-1')
+	print '    fromdate="%s" todate="%s" fromwhy="%s" towhy="%s"' % (member.start_date, member.end_date, member.start_reason, member.end_reason)
+	print '/>'
+
+# Couple of Margarets who changed their name
+margaret_beckett = Person.objects.get(firstname='Margaret', lastname='Jackson')
+margaret_ewing = Person.objects.get(firstname='Margaret', lastname='Bain')
+
+# Read in the current XML data
+out = {}
+for id, m in memberList.members.items():
+	p = Person(honorific=m['title'], firstname=m['firstname'], lastname=m['lastname'])
+	c = Constituency(name=m['constituency'])
+	cm = CommonsMembership(person=p, constituency=c)
+	out[id] = Member(id, cm, m['fromdate'], m['todate'], m['fromwhy'], m['towhy'], m['party'])
+
+# Update with historic data
+elections = Election.objects.filter(date__lt='2005-01-01')
+for m in CommonsMembership.objects.all().order_by('person__id', 'start_date'):
+	start_date = None
+	end_date = None
+	for election in elections:
+		if m.start_date > election.dissolution_date or (m.end_date and m.end_date <= election.date):
+			continue
+
+		# Okay, so this electoral period covers some of the membership
+		if not start_date:
+			start_date = m.start_date
+			if election.date > datetime.date(1802, 07, 05) and election.date > m.start_date:
+				start_reason = 'general_election_probably' # The start date was during a dissolution
+			elif m.start_date == election.date:
+				start_reason = 'general_election' # Starting at an election
+			else:
+				start_reason = 'unknown' # Anything else e.g. by-election
+		else:
+			start_date = election.date
+			start_reason = 'general_election'
+
+ 		if m.end_date and m.end_date < election.dissolution_date:
+			end_date = m.end_date
+			if m.end_date == m.person.date_of_death:
+				end_reason = 'died'
+			else:
+				end_reason = 'unknown'
+		else:
+			end_date = election.dissolution_date
+			end_reason = 'general_election'
+
+		if m.person == margaret_beckett and start_date >= datetime.date(1979, 1, 1):
+			m.person.lastname = 'Beckett'
+		if m.person == margaret_ewing and start_date >= datetime.date(1983, 1, 1):
+			m.person.lastname = 'Ewing'
+
+		if m.estimated_start_date:
+			start_date = start_date.year
+		if m.estimated_end_date:
+			end_date = end_date.year
+
+		name_for_parlparse = str(m.person).decode('utf-8')
+		#print name_for_parlparse, m.constituency.name, str(start_date), end_date
+		id, dummy, dummy2 = memberList.matchfullnamecons(name_for_parlparse, m.constituency.name, str(start_date), False)
+		if id:
+			start_date = out[id].start_date
+			end_date = out[id].end_date
+			start_reason = out[id].start_reason
+			end_reason = out[id].end_reason
+			out[id].membership.person.id = m.person.id
+			out[id].membership.person.honorific = m.person.honorific
+			m.person = out[id].membership.person
+			out[id] = Member(id, m, start_date, end_date, start_reason, end_reason, memberList.members[id]['party'])
+		elif (isinstance(start_date, int) and start_date>1997) or (isinstance(start_date, datetime.date) and start_date >= datetime.date(1997, 4, 8)):
+			raise Exception, '%s (%s-%s): All 1997+ memberships should already be in XML file' % (m, start_date, end_date)
+		else:
+			id = 'uk.org.publicwhip/member/%s' % parlparse_id
+			parlparse_id += 1
+			out[id] = Member(id, m, start_date, end_date, start_reason, end_reason)
+
+def id_compare(x, y):
+	x = int(x.replace('uk.org.publicwhip/member/', ''))
+	y = int(y.replace('uk.org.publicwhip/member/', ''))
+	return x-y
+
+print '<?xml version="1.0" encoding="ISO-8859-1"?>'
+print '<publicwhip>'
+for id in sorted(out.keys(), id_compare):
+	output_member_xml(out[id])
+print '</publicwhip>'
