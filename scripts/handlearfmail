@@ -8,7 +8,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.5 2009-05-19 09:49:22 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.6 2009-05-19 11:08:39 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -44,11 +44,17 @@ sub unsubscribe($){
 my %data = mySociety::HandleMail::get_message();
 my $lines = $data{lines};
 my $r = mySociety::HandleMail::parse_arf_mail($lines);
-if (defined($r)){
-    my %attributes = %{$r};
-    if ($attributes{feedback_type} eq 'abuse'){
-        my $original_message = $attributes{original_message};
-        unsubscribe($original_message);
-    }   
+try{
+    if (defined($r)){
+        my %attributes = %{$r};
+        if ($attributes{feedback_type} eq 'abuse'){
+            my $original_message = $attributes{original_message};
+            unsubscribe($original_message);
+        }   
+    }
+}catch Error with{
+    my $E = shift;
+    print_log('err', 'handlearfmail' . $E->text() . "\n");
+}finally{
+    exit(0);
 }
-exit(0);
