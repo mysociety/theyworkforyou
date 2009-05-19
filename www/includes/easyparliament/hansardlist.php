@@ -3006,9 +3006,10 @@ class StandingCommittee extends DEBATELIST {
 
 	function _get_committee($bill_id) {
 		include_once INCLUDESPATH."easyparliament/member.php";
-		$q = $this->db->query('select count(*) as c from hansard where major=6 and minor=' .
-			mysql_escape_string($bill_id) . ' and htype=10');
-		$sittings = $q->field(0, 'c');
+		#$q = $this->db->query('select count(*) as c from hansard where major=6 and minor=' .
+		#	mysql_escape_string($bill_id) . ' and htype=10');
+		#$sittings = $q->field(0, 'c');
+		$sittings = 'n/a';
 		$q = $this->db->query('select member_id,sum(attending) as attending, sum(chairman) as chairman
 			from pbc_members where bill_id=' . mysql_escape_string($bill_id)
 			. ' group by member_id');
