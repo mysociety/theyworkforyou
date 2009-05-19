@@ -8,7 +8,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.4 2009-05-19 08:10:13 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.5 2009-05-19 09:49:22 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -31,6 +31,7 @@ sub unsubscribe($){
     my ($original_message) = @_;
     my $twfy_unsub_pattern = 'http://'. mySociety::Config::get('DOMAIN') . '/D/\S+';
     my $unsublink;
+    return unless $original_message =~ /Subject: Your TheyWorkForYou email alert/;
     if ($original_message =~ m#($twfy_unsub_pattern)$#m){
         $unsublink = $1;
         my $m = new WWW::Mechanize;
