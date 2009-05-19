@@ -8,7 +8,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.8 2009-05-19 11:25:41 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.9 2009-05-19 11:45:15 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -20,6 +20,7 @@ use lib "$FindBin::Bin/../perllib";
 use mySociety::HandleMail;
 use WWW::Mechanize;
 use Error qw(:try);
+use mySociety::SystemMisc qw(print_log);
 use mySociety::Config;
 BEGIN {
     mySociety::Config::set_file("$FindBin::Bin/../conf/general");
@@ -38,7 +39,7 @@ sub unsubscribe($){
         my $m = new WWW::Mechanize;
         $m->get($unsublink);   
     }else{
-        print_log('err', "Couldn't find unsubscribe link in Abuse Report mail\n");
+        throw Error::Simple("Couldn't find unsubscribe link in Abuse Report mail");
     }
 }
 #----------------------
@@ -52,10 +53,10 @@ try{
             my $original_message = $attributes{original_message};
             unsubscribe($original_message);
         }   
-    }
-}catch Error with{
+    } 
+}catch Error::Simple with{
     my $E = shift;
-    print_log('err', 'handlearfmail' . $E->text() . "\n");
+    print_log('err', $E->text() . "\n");
 }finally{
     exit(0);
 };
