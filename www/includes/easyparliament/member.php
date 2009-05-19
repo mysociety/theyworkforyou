@@ -528,6 +528,8 @@ class MEMBER {
 		list($year, $month, $day) = explode('-', $entered_house);
 		if ($month==1 && $day==1 && $this->house(2)) {
 			return $year;
+		} elseif ($month==0 && $day==0) {
+			return $year;
 		} elseif (checkdate($month, $day, $year) && $year != '9999') {
 			return format_date($entered_house, LONGDATEFORMAT); 
 		} else {
@@ -545,6 +547,8 @@ class MEMBER {
 		list($year, $month, $day) = explode('-', $left_house);
 		if (checkdate($month, $day, $year) && $year != '9999') {
 			return format_date($left_house, LONGDATEFORMAT); 
+		} elseif ($month==0 && $day==0) {
+			return $year;
 		} else {
 			return "n/a";
 		}

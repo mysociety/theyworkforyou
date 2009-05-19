@@ -305,13 +305,24 @@ function format_timestamp ($timestamp, $format) {
 }
 
 
+$format_date_months = array('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+$format_date_months_short = array('', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+
 function format_date ($date, $format) {
+	global $format_date_months, $format_date_months_short;
 	// Pass it a date (YYYY-MM-DD) and a
 	// PHP date format string (eg, "Y-m-d H:i:s")
 	// and it returns a nicely formatted string according to requirements.
 
 	if (preg_match("/^(\d\d\d\d)-(\d\d?)-(\d\d?)$/", $date, $matches)) {
 		list($string, $year, $month, $day) = $matches;
+		if ($year < 1902) { # gmdate fns only go back to Dec. 1901
+			if ($format == SHORTDATEFORMAT) {
+				return ($day+0) . ' ' . $format_date_months_short[$month+0] . " $year";
+			} else {
+				return ($day+0) . ' ' . $format_date_months[$month+0] . " $year";
+			}
+		}
 	
 		return gmdate ($format, gmmktime(0, 0, 0, $month, $day, $year));
 	} else {

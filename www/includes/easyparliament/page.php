@@ -1111,7 +1111,8 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 				$party_br = $m[2];
 				$party = $m[1];
 			}
-			$desc .= htmlentities($party);
+			if ($party != 'unknown')
+				$desc .= htmlentities($party);
 			if ($party=='Speaker' || $party=='Deputy Speaker') {
 				$desc .= ', and ';
 				# XXX: Will go horribly wrong if something odd happens
@@ -1187,7 +1188,12 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			if ($member['entered_house'][2]['reason']) print ' &mdash; ' . $member['entered_house'][2]['reason'];
 			print '</li>';
 		} elseif (in_array(1, $member['houses']) && !$member['current_member'][1]) {
-			print '<li><strong>Left Parliament on '.$member['left_house'][1]['date_pretty'].'</strong>';
+			print '<li><strong>Left Parliament ';
+			if (strlen($member['left_house'][1]['date_pretty'])==4)
+				print 'in ';
+			else
+				print 'on ';
+			echo $member['left_house'][1]['date_pretty'].'</strong>';
 			if ($member['left_house'][1]['reason']) print ' &mdash; ' . $member['left_house'][1]['reason'];
 			print '</li>';
 		}
