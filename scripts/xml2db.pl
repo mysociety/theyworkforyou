@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.44 2009-05-07 09:31:48 louise Exp $
+# $Id: xml2db.pl,v 1.45 2009-05-19 22:20:04 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1135,6 +1135,11 @@ sub loadmember {
                 die "Unknown house"; 
         }
         
+        my $fromdate = $member->att('fromdate');
+        $fromdate .= '-00-00' if length($fromdate) == 4;
+        my $todate = $member->att('todate');
+        $todate .= '-00-00' if length($todate) == 4;
+
         # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
         # get lost somewhere between Perl, the database and the browser.
         # Just done for names (not constituency and party) as they are the
@@ -1148,7 +1153,7 @@ sub loadmember {
                 encode_entities_noapos($member->att('lastname')),
                 encode_entities_noapos($member->att('constituency')), 
                 $member->att('party'),
-                $member->att('fromdate'), $member->att('todate'),
+                $fromdate, $todate,
                 $member->att('fromwhy'), $member->att('towhy'));
 }
 
