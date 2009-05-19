@@ -8,7 +8,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.7 2009-05-19 11:13:30 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.8 2009-05-19 11:25:41 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -58,4 +58,4 @@ try{
     print_log('err', 'handlearfmail' . $E->text() . "\n");
 }finally{
     exit(0);
-}
+};
