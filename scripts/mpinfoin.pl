@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.35 2009-05-20 13:06:58 louise Exp $
+# $Id: mpinfoin.pl,v 1.36 2009-05-20 13:25:26 louise Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -105,7 +105,7 @@ if ($action{'wtt'}) {
 
 
 if ($action{'speaker_candidates'}) {
-        $twig->parseurl($pwmembers . 'speaker-candidates.xml', ErrorContext => 2);
+        $twig->parsefile($pwmembers . 'speaker-candidates.xml', ErrorContext => 2);
 }
 
 
