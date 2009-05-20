@@ -1070,7 +1070,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		$this->block_end();
 */
 
-    if ($extra_info["is_speaker_candidate"] == 1) {
+    if (isset($extra_info["is_speaker_candidate"]) && $extra_info["is_speaker_candidate"] == 1) {
       $this->block_start(array('id'=>'black', 'title'=>"IMPORTANT: This MP is a Candidate for Speaker."));
       print "<p>This candidate has not yet signed up to the following  &#8216;mySociety
              Transparency Principles&#8217;.</p>
