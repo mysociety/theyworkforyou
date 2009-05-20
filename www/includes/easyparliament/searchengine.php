@@ -211,13 +211,6 @@ class SEARCHENGINE {
             $qd = str_replace('(M7 OR M8)', 'section:scotland', $qd);
         }
         $qd = preg_replace('#\bM(\d+)\b#e', '"section:" . (isset($hansardmajors[$1]["title"]) ? $hansardmajors[$1]["title"] : "$1")', $qd);
-        # Speakers
-        preg_match_all('#S(\d+)#', $qd, $m);
-        foreach ($m[1] as $mm) {
-                $member = new MEMBER(array('person_id' => $mm));
-                $name = $member->full_name();
-                $qd = str_replace("S$mm", "speaker:$name", $qd);
-        }
 
         # Replace stemmed things with their unstemmed terms from the query
         $used = array();
@@ -232,6 +225,14 @@ class SEARCHENGINE {
             }
             $used[] = $tt;
             $qd = preg_replace('#' . preg_quote($mm, '#') . '#', $tt, $qd, 1);
+        }
+
+        # Speakers
+        preg_match_all('#S(\d+)#', $qd, $m);
+        foreach ($m[1] as $mm) {
+                $member = new MEMBER(array('person_id' => $mm));
+                $name = $member->full_name();
+                $qd = str_replace("S$mm", "speaker:$name", $qd);
         }
 
         # Simplify display of excluded words
