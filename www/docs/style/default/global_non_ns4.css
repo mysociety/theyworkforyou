@@ -1038,6 +1038,15 @@ ol.otherspeeches li {
     text-align: center;
 }
 
+#campaign_block {
+    background-color: #ffff99;
+    border: solid 2px #ff9900;
+    padding: 4px;
+}
+#campaign_block h4 {
+    background-color: #ffcc00;
+}
+
 #everypage {
     background-color: #ffcc99;
     border: solid 2px #ff6600; border-top: none; /* No top border, so looks like coming out of top */

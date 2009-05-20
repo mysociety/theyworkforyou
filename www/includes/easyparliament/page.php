@@ -270,7 +270,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		twfy_debug ("PAGE", "This page: $this_page");
 		
 		print "\t<a name=\"top\"></a>\n\n";
-		if (defined('OPTION_GAZE_URL') && OPTION_GAZE_URL && 1==0) {
+		if (defined('OPTION_GAZE_URL') && OPTION_GAZE_URL) {
 			$country = gaze_get_country_from_ip($_SERVER["REMOTE_ADDR"]);
 			if ($country == 'NZ' || get_http_var('nz')) {
 				print '<p id="video_already"><strong>New!</strong> You\'re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
@@ -1071,29 +1071,42 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 */
 
     if (isset($extra_info["is_speaker_candidate"]) && $extra_info["is_speaker_candidate"] == 1) {
-      $this->block_start(array('id'=>'black', 'title'=>"IMPORTANT: This MP is a Candidate for Speaker."));
-      print "<p>This candidate has not yet signed up to the following  &#8216;mySociety
-             Transparency Principles&#8217;.</p>
-             <p>These principles are:</p>
-             <ol>
-                  <li>Voters have the right to know in detail about the money that is
-                      spent to support MPs and run Parliament, and in similar detail how the
-                      decisions to spend that money are settled upon.</li>
-                  <li>Bills being considered will be published online in a much better
-                      way than they are now, as the Free Our Bills campaign has been suggesting for some time.</li>
-                  <li>The Internet is not a threat to a renewal in our democracy, it is
-                      one of its best hopes. Parliament should employ a senior officer with
-                      direct working experience of the power of the Internet who reports
-                      directly to the Speaker, and who will help Parliament adapt to a new
-                      era of transparency and effectiveness.</li>
-             </ol>
-             <p>We have asked this Candidate to sign up to these principles, and we
-              will update this information when and if they reply.</p>
-             <p>We also encourage you to check the detailed voting record of this
-              candidate on transparency and accountability issues: these are more
-              important than the words they use in the weeks ahead.</p>
-             <p>Lastly, we ask you to write to your own constituency MP to ask this
-              candidate to sign up to the three principles detailed above.</p>";
+      $this->block_start(array('id'=>'campaign_block', 'title'=>"IMPORTANT: We believe " . $member['full_name'] . " MP may become a Candidate for Speaker. You can help!"));
+      print "
+            <p>The <strong>new Speaker</strong> will be extremely important in making Parliament more
+            transparent, so that sites like this one can help people like you understand
+            more about <strong>what your MP is doing</strong>. You can help make sure that all the
+            candidates understand that they must be a strong, Internet-savvy proponents of
+            a better, more accountable era of democracy.</p>
+
+            <p>mySociety is asking likely candidates for the post of Speaker to endorse the
+            following principles. We emailed " . $member['full_name'] . " MP to ask them 0 days ago. They have not
+            yet endorsed them.</p>
+
+            <p><strong>The three principles are:</strong></p>
+
+            <ol>
+
+               <li> Voters have the right to know in <strong>detail about the money</strong> that is spent to
+            support MPs and run Parliament, and in similar detail how the decisions to
+            spend that money are settled upon. </li>
+
+               <li> Bills being considered must be published online in a much better way than
+            they are now, as the <strong>Free Our Bills</strong> campaign has been suggesting for some time. </li>
+
+               <li> The Internet is not a threat to a renewal in our democracy, it is one of
+            its best hopes. Parliament should appoint a senior officer with direct working
+            experience of the <strong>power of the Internet</strong> who reports directly to the Speaker,
+            and who will help Parliament adapt to a new era of transparency and
+            effectiveness. </li>
+
+            </ol>
+
+            <p><strong>ACT NOW!</strong> Please <a href='http://www.writetothem.com/?a=westminstermp'>write to your own constituency MP</a> 
+            to ask them to ask " . $member['full_name'] . " MP to sign up to the three
+            principles detailed above.</p>
+              
+        ";
 
       $this->block_end();
     }
