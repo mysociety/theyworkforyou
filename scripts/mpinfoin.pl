@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.34 2009-05-07 09:31:48 louise Exp $
+# $Id: mpinfoin.pl,v 1.35 2009-05-20 13:06:58 louise Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -37,9 +37,11 @@ foreach (@ARGV) {
                 $action{'wtt'} = 1;
         } elsif ($_ eq 'rankings') {
                 $action{'rankings'} = 1;
+        }elsif ($_ eq 'speaker_candidates') {
+                $action{'speaker_candidates'} = 1;
         } else {
-                print "Action '$_' not known\n";
-                exit(0);
+        print "Action '$_' not known\n";
+        exit(0);
         }
 }
 if (scalar(@ARGV) == 0) {
@@ -49,6 +51,7 @@ if (scalar(@ARGV) == 0) {
         $action{'links'} = 1;
         $action{'wtt'} = 1;
         $action{'rankings'} = 1;
+        $action{'speaker_candidates'} = 1;
 }
 
 # Fat old hashes intotwixt all the XML is loaded and colated before being squirted to the DB
@@ -99,6 +102,12 @@ if ($action{'wtt'}) {
         $twig->parseurl("http://www.writetothem.com/stats/2006/mps?xml=1");
         $twig->parseurl("http://www.writetothem.com/stats/2007/mps?xml=1");
 }
+
+
+if ($action{'speaker_candidates'}) {
+        $twig->parseurl($pwmembers . 'speaker-candidates.xml', ErrorContext => 2);
+}
+
 
 if ($action{'pw'}) {
         $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml"); # i love twig
