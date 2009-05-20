@@ -1070,6 +1070,34 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		$this->block_end();
 */
 
+    if ($extra_info["is_speaker_candidate"] == 1) {
+      $this->block_start(array('id'=>'black', 'title'=>"IMPORTANT: This MP is a Candidate for Speaker."));
+      print "<p>This candidate has not yet signed up to the following  &#8216;mySociety
+             Transparency Principles&#8217;.</p>
+             <p>These principles are:</p>
+             <ol>
+                  <li>Voters have the right to know in detail about the money that is
+                      spent to support MPs and run Parliament, and in similar detail how the
+                      decisions to spend that money are settled upon.</li>
+                  <li>Bills being considered will be published online in a much better
+                      way than they are now, as the Free Our Bills campaign has been suggesting for some time.</li>
+                  <li>The Internet is not a threat to a renewal in our democracy, it is
+                      one of its best hopes. Parliament should employ a senior officer with
+                      direct working experience of the power of the Internet who reports
+                      directly to the Speaker, and who will help Parliament adapt to a new
+                      era of transparency and effectiveness.</li>
+             </ol>
+             <p>We have asked this Candidate to sign up to these principles, and we
+              will update this information when and if they reply.</p>
+             <p>We also encourage you to check the detailed voting record of this
+              candidate on transparency and accountability issues: these are more
+              important than the words they use in the weeks ahead.</p>
+             <p>Lastly, we ask you to write to your own constituency MP to ask this
+              candidate to sign up to the three principles detailed above.</p>";
+
+      $this->block_end();
+    }
+    
 		foreach ($member['houses'] as $house) {
 			if ($house==2) continue;
 			if (!$member['current_member'][$house]) $title .= ', former';
