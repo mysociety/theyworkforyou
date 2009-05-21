@@ -1047,6 +1047,10 @@ ol.otherspeeches li {
     background-color: #ffcc00;
 }
 
+div#speaker_candidate_response {
+  font-style: italic;
+}
+
 #everypage {
     background-color: #ffcc99;
     border: solid 2px #ff6600; border-top: none; /* No top border, so looks like coming out of top */
