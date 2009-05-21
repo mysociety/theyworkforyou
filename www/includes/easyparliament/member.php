@@ -120,12 +120,8 @@ class MEMBER {
 			$entered_reason	= $q->field($row, 'entered_reason');
 			$left_reason	= $q->field($row, 'left_reason');
 
-			$entered_time = strtotime($entered_house);
-			$left_time = strtotime($left_house); if ($left_time === -1) $left_time = false;
-
-			if (!isset($this->entered_house[$house]) || $entered_time < $this->entered_house[$house]['time']) {
+			if (!isset($this->entered_house[$house]) || $entered_house < $this->entered_house[$house]['date']) {
 				$this->entered_house[$house] = array(
-					'time' => $entered_time,
 					'date' => $entered_house,
 					'date_pretty' => $this->entered_house_text($entered_house),
 					'reason' => $this->entered_reason_text($entered_reason),
@@ -134,7 +130,6 @@ class MEMBER {
 
 			if (!isset($this->left_house[$house])) {
 				$this->left_house[$house] = array(
-					'time' => $left_time,
 					'date' => $left_house,
 					'date_pretty' => $this->left_house_text($left_house),
 					'reason' => $this->left_reason_text($left_reason),
