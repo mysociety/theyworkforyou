@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.36 2009-05-20 13:25:26 louise Exp $
+# $Id: mpinfoin.pl,v 1.37 2009-05-21 13:41:24 louise Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -70,6 +70,7 @@ my $twig = XML::Twig->new(
                 'memberinfo' => \&loadmemberinfo,
                 'personinfo' => \&loadpersoninfo,
                 'consinfo' => \&loadconsinfo,
+                'speakercandidateinfo' => \&loadspeakercandidateinfo,
                 'regmem' => \&loadregmeminfo
         }, output_filter => 'safe' );
 
@@ -218,7 +219,27 @@ sub loadpersoninfo
                 my $value = $personinfo->att($attname);
                 $personinfohash->{$id}->{$attname} = $value;
         }
+
 }
+
+# Handler for loading data pertaining to a speaker candidate
+sub loadspeakercandidateinfo
+{ 
+	my ($twig, $speakerinfo) = @_;
+	my $id = $speakerinfo->att('id');
+        foreach my $attname ($speakerinfo->att_names())
+        {
+                next if $attname eq "id";
+                my $value = $speakerinfo->att($attname);
+                $personinfohash->{$id}->{$attname} = $value;
+        }
+        my $speaker_candidate_response = $speakerinfo->first_child('speakercandidateresponse')
+        if ($speaker_candidate_response){
+            $personinfohash->{$id}->{'speaker_candidate_response'} = $speaker_candidate_response->sprint(1);
+        }
+
+}
+
 
 # Handler for loading data pertaining to a canonical constituency name
 sub loadconsinfo
