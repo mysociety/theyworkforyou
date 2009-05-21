@@ -1021,7 +1021,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 						<ul>
 ';
 		if (isset($urls['appearances'])) {
-			$html .= '<li><a href="' . $urls['appearances'] . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="middle"></a> <a href="' . $urls['appearances'] . '">Recent appearances</a></li>';
+			$html .= '<li><a href="' . $urls['appearances'] . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="middle"></a> <a href="' . $urls['appearances'] . '">Most recent appearances</a></li>';
 		}
 		
 		$HELPURL = new URL('help');
@@ -1140,9 +1140,9 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			if ($sz=='S') echo ' height="118"';
 			echo '>';
 		} elseif ($member['current_member'][1]) {
-            // For MPs, prompt for photo
-            echo '<div class="textportrait"><br>We\'re missing a photo!<br><br><a href="mailto:team@theyworkforyou.com">Email us one</a> <small>(that you have copyright of)</small><br><br></div>';
-        }
+			// For MPs, prompt for photo
+			echo '<div class="textportrait"><br>We\'re missing a photo!<br><br><a href="mailto:team@theyworkforyou.com">Email us one</a> <small>(that you have copyright of)</small><br><br></div>';
+		}
 
 		echo '<ul class="hilites">';
 		$desc = '';
@@ -1239,7 +1239,26 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			print $member['entered_house'][2]['date_pretty'].'</strong>';
 			if ($member['entered_house'][2]['reason']) print ' &mdash; ' . $member['entered_house'][2]['reason'];
 			print '</li>';
-		} elseif (in_array(1, $member['houses']) && !$member['current_member'][1]) {
+		}
+		if (in_array(2, $member['houses']) && !$member['current_member'][2]) {
+			print '<li><strong>Left Parliament on '.$member['left_house'][2]['date_pretty'].'</strong>';
+			if ($member['left_house'][2]['reason']) print ' &mdash; ' . $member['left_house'][2]['reason'];
+			print '</li>';
+		}
+
+		if (isset($extra_info['lordbio'])) {
+			echo '<li><strong>Positions held at time of appointment:</strong> ', $extra_info['lordbio'],
+				' <small>(from <a href="',
+				$extra_info['lordbio_from'], '">Number 10 press release</a>)</small></li>';
+		}
+
+		if (isset($member['entered_house'][1]['date'])) {
+			print '<li><strong>Entered Parliament on ';
+			print $member['entered_house'][1]['date_pretty'].'</strong>';
+			if ($member['entered_house'][1]['reason']) print ' &mdash; ' . $member['entered_house'][1]['reason'];
+			print '</li>';
+		}
+		if (in_array(1, $member['houses']) && !$member['current_member'][1] && !isset($member['entered_house'][2])) {
 			print '<li><strong>Left Parliament ';
 			if (strlen($member['left_house'][1]['date_pretty'])==4)
 				print 'in ';
@@ -1250,22 +1269,6 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			print '</li>';
 		}
 
-		if (isset($member['entered_house'][1]['date'])) {
-			print '<li><strong>Entered Parliament on ';
-			print $member['entered_house'][1]['date_pretty'].'</strong>';
-			if ($member['entered_house'][1]['reason']) print ' &mdash; ' . $member['entered_house'][1]['reason'];
-			print '</li>';
-		}
-		if (isset($extra_info['lordbio'])) {
-			echo '<li><strong>Positions held at time of appointment:</strong> ', $extra_info['lordbio'],
-				' <small>(from <a href="',
-				$extra_info['lordbio_from'], '">Number 10 press release</a>)</small></li>';
-		}
-		if (in_array(2, $member['houses']) && !$member['current_member'][2]) {
-			print '<li><strong>Left Parliament on '.$member['left_house'][2]['date_pretty'].'</strong>';
-			if ($member['left_house'][2]['reason']) print ' &mdash; ' . $member['left_house'][2]['reason'];
-			print '</li>';
-		}
 		if (isset($member['entered_house'][3]['date'])) {
 			print '<li><strong>Entered the Assembly on ';
 			print $member['entered_house'][3]['date_pretty'].'</strong>';
@@ -1368,7 +1371,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 				echo '<li><a href="#topics">Committees and topics of interest</a></li>';
 		}
 		if (!in_array(1, $member['houses']) || $member['party'] != 'Sinn Fein' || in_array(3, $member['houses']))
-			echo '<li><a href="#hansard">Recent appearances</a></li>';
+			echo '<li><a href="#hansard">Most recent appearances</a></li>';
 		echo '<li><a href="#numbers">Numerology</a></li>';
 		if (isset($extra_info['register_member_interests_html']))
 			echo '<li><a href="#register">Register of Members&rsquo; Interests</a></li>';
