@@ -1091,7 +1091,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
             a better, more accountable era of democracy.</p>
 
             <p>mySociety is asking likely candidates for the post of Speaker to endorse the
-            following principles. We emailed " . $member['full_name'] . " MP to ask them " . $days_since_string . ". They have not
+            following principles. We contacted " . $member['full_name'] . " MP to ask them " . $days_since_string . ". They have not
             yet endorsed them.</p>
 
             <p><strong>The three principles are:</strong></p>
