@@ -1070,7 +1070,15 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		$this->block_end();
 */
 
+    
     if (isset($extra_info["is_speaker_candidate"]) && $extra_info["is_speaker_candidate"] == 1) {
+      $contact_date_midnight = 1242864000;
+      $days_since_contact = (time() - $contact_date_midnight) / 86400;
+      if ($days_since_contact > 0){
+        $days_since_string = $days_since_contact . 'days ago';
+      }else{
+        $days_since_string = 'today';
+      }
       $this->block_start(array('id'=>'campaign_block', 'title'=>"IMPORTANT: We believe " . $member['full_name'] . " MP may become a Candidate for Speaker. You can help!"));
       print "
             <p>The <strong>new Speaker</strong> will be extremely important in making Parliament more
@@ -1080,7 +1088,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
             a better, more accountable era of democracy.</p>
 
             <p>mySociety is asking likely candidates for the post of Speaker to endorse the
-            following principles. We emailed " . $member['full_name'] . " MP to ask them 0 days ago. They have not
+            following principles. We emailed " . $member['full_name'] . " MP to ask them " . $days_since_string . ". They have not
             yet endorsed them.</p>
 
             <p><strong>The three principles are:</strong></p>
