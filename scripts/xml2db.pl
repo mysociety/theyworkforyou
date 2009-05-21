@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.45 2009-05-19 22:20:04 matthew Exp $
+# $Id: xml2db.pl,v 1.46 2009-05-21 09:08:51 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -1005,30 +1005,51 @@ sub memory_test
 
 sub add_mps_and_peers {
         $dbh->do("delete from moffice");
-        my $twig = XML::Twig->new(twig_handlers => 
-                { 'constituency' => \&loadconstituency, 
-                  'member' => \&loadmember, 
-                  'lord' => \&loadlord, 
-                  'royal' => \&loadroyal, 
-                  'member_ni' => \&loadni,
-                  'member_sp' => \&loadmsp,
-                  'person' => \&loadperson,
-                  'moffice' => \&loadmoffice }, 
-                output_filter => $outputfilter );
         $constituencydel->execute(); 
         $constituencydel->finish();
         my $pwmembers = mySociety::Config::get('PWMEMBERS');
+        my $twig = XML::Twig->new(twig_handlers => 
+                { 'constituency' => \&loadconstituency }, 
+                output_filter => $outputfilter );
         $twig->parsefile($pwmembers . "constituencies.xml");
+        undef $twig;
+        $twig = XML::Twig->new(twig_handlers => 
+                { 'person' => \&loadperson },
+                output_filter => $outputfilter );
         $twig->parsefile($pwmembers . "people.xml");
+        undef $twig;
+        $twig = XML::Twig->new(twig_handlers => 
+                { 'member' => \&loadmember },
+                output_filter => $outputfilter );
         $twig->parsefile($pwmembers . "all-members.xml");
+        undef $twig;
+        $twig = XML::Twig->new(twig_handlers => 
+                { 'lord' => \&loadlord },
+                output_filter => $outputfilter );
         $twig->parsefile($pwmembers . "peers-ucl.xml");
+        undef $twig;
+        $twig = XML::Twig->new(twig_handlers => 
+                { 'royal' => \&loadroyal },
+                output_filter => $outputfilter );
         $twig->parsefile($pwmembers . "royals.xml");
+        undef $twig;
+        $twig = XML::Twig->new(twig_handlers => 
+                { 'member_ni' => \&loadni },
+                output_filter => $outputfilter );
         $twig->parsefile($pwmembers . "ni-members.xml");
+        undef $twig;
+        $twig = XML::Twig->new(twig_handlers => 
+                { 'member_sp' => \&loadmsp },
+                output_filter => $outputfilter );
         $twig->parsefile($pwmembers . "sp-members.xml");
+        undef $twig;
+        $twig = XML::Twig->new(twig_handlers => 
+                { 'moffice' => \&loadmoffice }, 
+                output_filter => $outputfilter );
         $twig->parsefile($pwmembers . "ministers.xml");
+        undef $twig;
         loadmoffices();
         check_member_ids();
-        undef $twig;
 }
 
 sub check_member_ids {
@@ -1155,6 +1176,8 @@ sub loadmember {
                 $member->att('party'),
                 $fromdate, $todate,
                 $member->att('fromwhy'), $member->att('towhy'));
+
+        $twig->purge;
 }
 
 # Add members of parliament (from all-lords*.xml file)
