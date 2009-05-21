@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.37 2009-05-21 13:41:24 louise Exp $
+# $Id: mpinfoin.pl,v 1.38 2009-05-21 13:45:32 louise Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -235,7 +235,7 @@ sub loadspeakercandidateinfo
         }
         my $speaker_candidate_response = $speakerinfo->first_child('speakercandidateresponse')
         if ($speaker_candidate_response){
-            $personinfohash->{$id}->{'speaker_candidate_response'} = $speaker_candidate_response->sprint(1);
+            $personinfohash->{$id}->{'speaker_candidate_response'} = $speaker_candidate_response->xml_string();
         }
 
 }
