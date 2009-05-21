@@ -1070,12 +1070,15 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		$this->block_end();
 */
 
-    
-    if (isset($extra_info["is_speaker_candidate"]) && $extra_info["is_speaker_candidate"] == 1) {
-      $contact_date_midnight = 1242864000;
-      $days_since_contact = (time() - $contact_date_midnight) / 86400;
-      if ($days_since_contact > 0){
-        $days_since_string = $days_since_contact . 'days ago';
+    if (isset($extra_info["is_speaker_candidate"]) && $extra_info["is_speaker_candidate"] == 1  && isset($extra_info["speaker_candidate_contacted_on"])) {
+      $contact_date_string = $extra_info["speaker_candidate_contacted_on"];
+      
+      $contact_date_midnight = strtotime($contact_date_string);
+      $days_since_contact = floor((time() - $contact_date_midnight) / 86400);
+      if ($days_since_contact == 1){
+        $days_since_string = $days_since_contact . ' day ago';
+      }elseif($days_since_contact > 1){
+        $days_since_string = $days_since_contact . ' days ago';
       }else{
         $days_since_string = 'today';
       }
