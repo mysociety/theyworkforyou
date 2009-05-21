@@ -1092,6 +1092,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 
             <p>mySociety is asking likely candidates for the post of Speaker to endorse the
             following principles." ;
+     
       print "<p><strong>The three principles are:</strong></p>
 
             <ol>
@@ -1111,19 +1112,19 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 
             </ol>
 
-            <p> We contacted " . $member['full_name'] . " MP to ask them " . $days_since_string . ".";
-      if (isset($extra_info["speaker_candidate_response"])){
-           print "</p><p><strong>Their response:</strong></p><blockquote><div id='speaker_candidate_response'>";
-           print $extra_info["speaker_candidate_response"];
-           print "</div></blockquote>";
-      }else{
-      	   print "They have not yet endorsed them.</p>";
-      }
-     if (isset($extra_info["has_endorsed_speaker_principles"]) && $extra_info["has_endorsed_speaker_principles"] == 1){
-           $speaker_target = 'all candidates for Speaker';
-     }else{
-           $speaker_target =  $member['full_name'] . " MP";
-      }
+            <p> We contacted " . $member['full_name'] . " MP to ask them " . $days_since_string . ". ";
+    if (isset($extra_info["speaker_candidate_response"])){
+         print "</p><p><strong>Their response:</strong></p><blockquote><div id='speaker_candidate_response'>";
+         print $extra_info["speaker_candidate_response"];
+         print "</div></blockquote>";
+    }else{
+    	   print "They have not yet endorsed them.</p>";
+    }
+    if (isset($extra_info["has_endorsed_speaker_principles"]) && $extra_info["has_endorsed_speaker_principles"] == 1){
+         $speaker_target = 'all candidates for Speaker';
+    }else{
+         $speaker_target =  $member['full_name'] . " MP";
+    }
       print " <p><strong>ACT NOW!</strong> Please <a href='http://www.writetothem.com/?a=westminstermp'>write to your own constituency MP</a>
             to ask them to ask " . $speaker_target . " to sign up to the three
             principles detailed above.</p>";
