@@ -1250,7 +1250,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			print '</li>';
 		}
 
-		if (isset($member['entered_house'][1]['date']) && $member['entered_house'][1]['date'] != '1997-05-01') {
+		if (isset($member['entered_house'][1]['date'])) {
 			print '<li><strong>Entered Parliament on ';
 			print $member['entered_house'][1]['date_pretty'].'</strong>';
 			if ($member['entered_house'][1]['reason']) print ' &mdash; ' . $member['entered_house'][1]['reason'];

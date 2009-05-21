@@ -642,7 +642,7 @@ class MEMBER {
 		$previous_people = '';
 		$entered_house = $this->entered_house(1);
 		if (is_null($entered_house)) return '';
-		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=1 AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house < "' . $entered_house['date'] . '"');
+		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=1 AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house < "' . $entered_house['date'] . '" ORDER BY entered_house DESC');
 		for ($r = 0; $r < $q->rows(); $r++) {
 			$pid = $q->field($r, 'person_id');
 			$name = $q->field($r, 'first_name') . ' ' . $q->field($r, 'last_name');
@@ -660,7 +660,7 @@ class MEMBER {
 		$future_people = '';
 		$entered_house = $this->entered_house(1);
 		if (is_null($entered_house)) return '';
-		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=1 AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house > "' . $entered_house['date'] . '"');
+		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=1 AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house > "' . $entered_house['date'] . '" ORDER BY entered_house');
 		if ($this->person_id() == 10218) return;
 		for ($r = 0; $r < $q->rows(); $r++) {
 			$pid = $q->field($r, 'person_id');
