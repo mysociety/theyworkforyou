@@ -1134,13 +1134,13 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
             </ol>";
 
     if (isset($extra_info["speaker_candidate_response"]) && $extra_info["speaker_candidate_response"]){
-         print "</p><p><strong><big>Update: " . $member['full_name'] . " MP replied $reply_time. " . $extra_info["speaker_candidate_response_summary"] . "</big></strong> Here's the reply in full: </p>";
+         print "</p><p><strong><big>Update: " . $member['full_name'] . " MP replied $reply_time. " . $extra_info["speaker_candidate_response_summary"] . " Here's the reply in full: </big></strong></p>";
          print "<blockquote><div id='speaker_candidate_response'>";
          print $extra_info["speaker_candidate_response"];
          print "</div></blockquote>";
     }else{
-         print "<p> We contacted " . $member['full_name'] . " MP to ask them " . $days_since_string . ". ";
-    	 print "They have not yet endorsed them.</p>";
+         print "<p> We contacted " . $member['full_name'] . " MP to ask for an endorsement " . $days_since_string . ". ";
+    	 print "They have not yet replied.</p>";
     }
     if (isset($extra_info["has_endorsed_speaker_principles"]) && $extra_info["has_endorsed_speaker_principles"] == 1){
          $speaker_target = 'all candidates for Speaker';
