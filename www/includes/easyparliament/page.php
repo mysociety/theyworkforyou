@@ -1071,8 +1071,9 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 */
 
     if (isset($extra_info["is_speaker_candidate"]) && $extra_info["is_speaker_candidate"] == 1  && isset($extra_info["speaker_candidate_contacted_on"])) {
-      $contact_date_string = $extra_info["speaker_candidate_contacted_on"];
       
+      // days since originaly contacted
+      $contact_date_string = $extra_info["speaker_candidate_contacted_on"];
       $contact_date_midnight = strtotime($contact_date_string);
       $days_since_contact = floor((time() - $contact_date_midnight) / 86400);
       if ($days_since_contact == 1){
@@ -1082,13 +1083,33 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
       }else{
         $days_since_string = 'today';
       }
+
+      $reply_time = "*unknown*";
+      if (isset($extra_info["speaker_candidate_replied_on"])) {
+         $reply_date_string = $extra_info["speaker_candidate_replied_on"];
+         $reply_date_midnight = strtotime($reply_date_string);
+         $days_for_reply = floor(($reply_date_midnight - $contact_date_midnight) / 86400);
+         if ($days_for_reply == 0) {
+            $reply_time = "in less than 24 hours";
+         }elseif($days_for_reply == 1) {
+            $reply_time = "in 1 day";
+         }else{
+            $reply_time = "in $days_for_reply days";
+         }
+      }
+
       $this->block_start(array('id'=>'campaign_block', 'title'=>"IMPORTANT: We believe " . $member['full_name'] . " MP may become a Candidate for Speaker. You can help!"));
       print "
             <p>The <strong>new Speaker</strong> will be extremely important in making Parliament more
             transparent, so that sites like this one can help people like you understand
-            more about <strong>what your MP is doing</strong>. You can help make sure that all the
-            candidates understand that they must be a strong, Internet-savvy proponents of
-            a better, more accountable era of democracy.</p>
+            more about <strong>what your MP is doing</strong>.";
+      if (!isset($extra_info["speaker_candidate_response"])){
+          print "
+                You can help make sure that all the candidates understand that they
+                must be a strong, Internet-savvy proponents of a better, more
+                accountable era of democracy.";
+      }
+      print "</p>
 
             <p>mySociety is asking likely candidates for the post of Speaker to endorse the
             following principles." ;
@@ -1110,15 +1131,16 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
             and who will help Parliament adapt to a new era of transparency and
             effectiveness. </li>
 
-            </ol>
+            </ol>";
 
-            <p> We contacted " . $member['full_name'] . " MP to ask them " . $days_since_string . ". ";
-    if (isset($extra_info["speaker_candidate_response"])){
-         print "</p><p><strong>Their response:</strong></p><blockquote><div id='speaker_candidate_response'>";
+    if (isset($extra_info["speaker_candidate_response"]) && $extra_info["speaker_candidate_response"]){
+         print "</p><p><strong><big>Update: " . $member['full_name'] . " MP replied $reply_time. " . $extra_info["speaker_candidate_response_summary"] . "</big></strong> Here's the reply in full: </p>";
+         print "<blockquote><div id='speaker_candidate_response'>";
          print $extra_info["speaker_candidate_response"];
          print "</div></blockquote>";
     }else{
-    	   print "They have not yet endorsed them.</p>";
+         print "<p> We contacted " . $member['full_name'] . " MP to ask them " . $days_since_string . ". ";
+    	 print "They have not yet endorsed them.</p>";
     }
     if (isset($extra_info["has_endorsed_speaker_principles"]) && $extra_info["has_endorsed_speaker_principles"] == 1){
          $speaker_target = 'all candidates for Speaker';
