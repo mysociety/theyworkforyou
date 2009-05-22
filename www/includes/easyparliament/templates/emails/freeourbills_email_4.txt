@@ -27,7 +27,9 @@ TheyWorkForYou, of late.
 *You can make the difference!*
 
 *Please write to your MP right now*
-    http://www.writetothem.com/?pc=<?=$values['url_postcode']?>&a=westminstermp
+
+http://www.writetothem.com/?pc=<?=$values['url_postcode']?>&a=westminstermp
+
 Tell them (politely, as always) that they should *only* vote for a candidate
 who has gone on the record as endorsing the principles found here.
 
@@ -38,7 +40,9 @@ do today that you'd like to be able to (alerts, comparisons, annotations etc
 etc).
 
 You can do it! Follow this link to write to your own MP.
-    http://www.writetothem.com/?pc=<?=$values['url_postcode']?>&a=westminstermp
+
+http://www.writetothem.com/?pc=<?=$values['url_postcode']?>&a=westminstermp
+
 Please do let us know what your MP says back to you about it, too.
 
 many thanks,
