@@ -2,14 +2,14 @@
 use strict;
 use lib "loader/";
 
-my $mailshot_name = 'dummy';
+my $mailshot_name = 'freeourbills_email_4.txt';
 my $test_email = "";
 my $type = "all";
-my $dryrun = 0;
+my $dryrun = 1;
 
 $test_email = 'francis@flourish.org';
-$test_email = 'frabcus@fastmail.fm';
 $test_email = 'tom@mysociety.org';
+$test_email = 'frabcus@fastmail.fm';
 
 my $amount = 1000000;
 
@@ -99,7 +99,7 @@ foreach my $k (keys %$all)
 
     print "Sending to $to...";
     
-    my $template_name = 'freeourbills_email_3_no.txt';
+    my $template_name = $mailshot_name;
     my $template_file = "../www/includes/easyparliament/templates/emails/$template_name";
     open (TEXT, $template_file) or die "Can't open email template $template_file : $!";
     my $template = join('', <TEXT>);
@@ -124,9 +124,9 @@ foreach my $k (keys %$all)
     #}
     #next;
 
-    if (!$consvals->{$constituency}->{signed_2141} &&
-    !$consvals->{$constituency}->{modcom} &&
-    !$consvals->{$constituency}->{minister}) {
+#    if (!$consvals->{$constituency}->{signed_2141} &&
+#    !$consvals->{$constituency}->{modcom} &&
+#    !$consvals->{$constituency}->{minister}) {
         print " MP $mp_name... ";
         if (!$dryrun) {
             my $ret = mySociety::EmailUtil::send_email($email_contents, mySociety::Config::get('CONTACTEMAIL'), $to);
@@ -134,13 +134,13 @@ foreach my $k (keys %$all)
         } else {
             print "dry run... ";
         }
-    } else {
-        print " NOT!!!";
-        print " signed_2141" if $consvals->{$constituency}->{signed_2141};
-        print " modcom" if $consvals->{$constituency}->{modcom};
-        print " minister" if $consvals->{$constituency}->{minister};
-        print " MP $mp_name... ";
-    }
+#    } else {
+#        print " NOT!!!";
+#        print " signed_2141" if $consvals->{$constituency}->{signed_2141};
+#        print " modcom" if $consvals->{$constituency}->{modcom};
+#        print " minister" if $consvals->{$constituency}->{minister};
+#        print " MP $mp_name... ";
+#    }
 
     if (!$dryrun) {
         $dbh->do("insert into campaigners_sent_email (campaigner_id, email_name)
