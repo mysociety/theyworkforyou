@@ -1,0 +1,46 @@
+Subject: Free Our Bills Action Email: Please Write To Your MP about the new Speaker
+
+Hello Free Our Bills Supporters,
+
+You might have noticed that despite 140 MPs signing up to our campaign, and
+over 4000 people joining our list that Free Our Bills hasn't yet succeeded
+in getting Parliament to publish Bills in a 21st century manner.
+
+However, if you were watching the news really carefully recently, you might
+have spotted a few changes happening in Westminster :)
+
+As a consequence, we've now written to most of the MPs who are most likely to
+stand for election as the new Speaker of the House of Commons to ask them to
+endorse three principles that we think are super important:
+
+http://bit.ly/NewSpeaker
+
+The second of these principles is endorsement of Free Our Bills. Which is
+going to be important, because we know the new Speaker's going to face some
+real obstructions to reform <http://tinyurl.com/pllj6k>. The first possible
+candidate has already written back to say they're broadly supportive: we'll be
+putting all responses on the MP's own page on TheyWorkForYou.com.  And,
+funnily, a *lot* of people seem to have been studying their MPs on
+TheyWorkForYou, of late.
+
+
+*You can make the difference!*
+
+*Please write to your MP right now*
+    http://www.writetothem.com/?pc=<?=$values['url_postcode']?>&a=westminstermp
+Tell them (politely, as always) that they should *only* vote for a candidate
+who has gone on the record as endorsing the principles found here.
+
+http://bit.ly/NewSpeaker
+
+Let them know why better bills matter to you in particular, and what you can't
+do today that you'd like to be able to (alerts, comparisons, annotations etc
+etc).
+
+You can do it! Follow this link to write to your own MP.
+    http://www.writetothem.com/?pc=<?=$values['url_postcode']?>&a=westminstermp
+Please do let us know what your MP says back to you about it, too.
+
+many thanks,
+
+Tom
