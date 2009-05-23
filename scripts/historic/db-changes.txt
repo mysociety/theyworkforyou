@@ -1,0 +1,37 @@
+Changes to commons_memberships
+==============================
+13459	Should be in Lindsey (876), not N Lincs (878)
+13460	Should be deleted
+
+mysql> update commons_memberships set constituency_id =792 where constituency_id=423 and start_date<'1918-01-01';
+mysql> update commons_memberships set constituency_id=747 where constituency_id=1479 and start_date<'1918-01-01';
+
+mysql> update commons_memberships set constituency_id =1878 where constituency_id=675 and end_date>'1900-01-01';
+mysql> update commons_memberships set end_date='1885-11-18' where id=9817;
+mysql> update commons_memberships set end_date='1885-11-18' where id=13815;
+mysql> insert into commons_memberships (person_id,constituency_id,start_date,end_date,estimated_start_date,estimated_end_date,data_source_id) values (2967,1722,'1974-02-28', '1983-05-13', 0, 0, 3);
+mysql> update commons_memberships set end_date='1974-02-08' where id=12537;
+mysql> insert into commons_memberships (created_at,updated_at,person_id,constituency_id,start_date,end_date,estimated_start_date,estimated_end_date,data_source_id) values (now(),now(),5366,1820,'1974-02-28', '1979-04-07', 0, 0, 3);
+mysql> update commons_memberships set end_date='1974-02-08' where id=12563;
+mysql> insert into commons_memberships (created_at,updated_at,person_id,constituency_id,start_date,end_date,estimated_start_date,estimated_end_date,data_source_id) values (now(),now(),6494,1419,'1918-12-14', '1922-11-15', 0, 0, 3);
+mysql> update commons_memberships set end_date='1918-11-25' where id=12751;
+mysql> insert into commons_memberships (created_at,updated_at,person_id,constituency_id,start_date,end_date,estimated_start_date,estimated_end_date,data_source_id) values (now(),now(),3830,431,'1950-02-23', '1951-10-25', 0, 0, 3);
+mysql> update commons_memberships set end_date='1950-02-03' where id=3713;
+
+mysql> update constituencies set start_year=1801 where name='Belfast';
+
+mysql> update commons_memberships set constituency_id = 606 where constituency_id=616 and start_date <'1983-01-01';
+
+mysql> update constituencies set start_year=1265 where id=792; -- name is Newcastle upon Tyne
+
+mysql> insert into commons_memberships (created_at,updated_at,person_id,constituency_id,start_date,end_date,estimated_start_date,estimated_end_date,data_source_id) values (now(),now(),5782,1714,'1950-02-23', '1955-05-06', 0, 0, 3);
+mysql> update commons_memberships set end_date ='1950-02-03',constituency_id=1572 where id=12664;
+
+mysql> update constituencies set start_year=1910 where name='Tonbridge';
+
+mysql> update commons_memberships set constituency_id=1532 where constituency_id=1687 and start_date<'1950-01-01';
+mysql> update commons_memberships set constituency_id=1898 where constituency_id=1712 and start_date<'1950-01-01';
+mysql> update commons_memberships set constituency_id=1586 where constituency_id=600 and start_date<'1983-01-01';
+
+mysql> delete from commons_memberships where id in (13157,13160,13165,13163, 8511,1194,4037,10925,3977,8025); -- cons ID 747
+mysql> delete from commons_memberships where id in (1356,1078,9508,6122,10973,3464,11409,5781,5454,5455,2900,3017,2875); -- cons ID 792
