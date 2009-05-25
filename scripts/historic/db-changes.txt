@@ -35,3 +35,95 @@ mysql> update commons_memberships set constituency_id=1586 where constituency_id
 
 mysql> delete from commons_memberships where id in (13157,13160,13165,13163, 8511,1194,4037,10925,3977,8025); -- cons ID 747
 mysql> delete from commons_memberships where id in (1356,1078,9508,6122,10973,3464,11409,5781,5454,5455,2900,3017,2875); -- cons ID 792
+
+-- 2009-05-25
+
+-- Sir Alexander Brown was not in Wellington (Somerset) (only Wellington (Shropshire))
+mysql> delete from commons_memberships where person_id=1931 and constituency_id=674;
+
+-- Sir Angus Holden was not in Bradford Central (only East)
+mysql> delete from commons_memberships where person_id=2287 and constituency_id=1124;
+
+-- Sir Balthazar Foster was not in Chesterfield (only Chester)
+mysql> delete from commons_memberships where person_id=1801 and constituency_id=144;
+
+-- Mr Naoroji not in Finsbury (only Finsbury Central)
+mysql> delete from commons_memberships where person_id=2650 and constituency_id=725;
+-- And Martin Archer-Shee was Finsbury Central 1910-1918, not Finsbury
+mysql> update commons_memberships set constituency_id=1074 where id=609;                           
+
+-- Lord Burhley not in South Northamptonshire, only in North
+mysql> delete from commons_memberships where person_id =8986 and constituency_id=886;
+
+-- Charles Fenwick listed twice in Wansbeck
+mysql> delete from commons_memberships where id=13798;
+
+-- Sir Charles Hobhouse wasn't Bristol East (1892-1895)
+mysql> delete from commons_memberships where id=6142;
+
+-- Sir Matthew Ridley dupe.
+mysql> delete from commons_memberships where id =11410;   
+
+-- Thomas Hodges dupe.
+mysql> delete from commons_memberships where id=6158;
+
+-- James Balfour dupe
+mysql> delete from commons_memberships where id=850;
+
+-- John Hogdson duplicate entry
+mysql> delete from commons_memberships where id=6121;
+
+-- Bunbury not in Carlow Borough, only County
+mysql> delete from commons_memberships where person_id=3390 and constituency_id=675;
+
+-- Samuel Dickson not in Limerick City
+mysql> delete from commons_memberships where id=3452;
+
+-- Lord Otho Fitzgerald not in Kilkenny
+mysql> delete from commons_memberships where person_id =1606 and constituency_id=1047;
+
+-- Edinburgh mistakes
+mysql> delete from commons_memberships where person_id =6696 and constituency_id=659; -- Lieut-General Sir John Dalrymple not in Edinburgh
+mysql> delete from commons_memberships where constituency_id=659 and person_id=3521; -- George Clerk
+
+-- Berwickshire mistakes
+mysql> delete from commons_memberships where constituency_id = 975 and person_id in (2085,3836,1302);
+
+-- Alfred Seymour in Totnes twice
+mysql> delete from commons_memberships where id=13787; 
+
+-- Cork mistakes
+mysql> delete from commons_memberships where id in (973,7964,3295);
+
+-- Carlow mistakes
+mysql> delete from commons_memberships where id in (1875,8433,7108);
+
+-- Radnor mistakes
+mysql> update constituencies set start_year = 1542 where id=935;
+mysql> update commons_memberships set constituency_id=935 where id=13656; -- Radnor not Radnorshire
+mysql> delete from commons_memberships where id in (13657,13658,13659,13660,13661); -- Incorrect dupes
+mysql> update commons_memberships set start_date = '1828-01-01', estimated_start_date=1 where id=7831; -- Wrong start date
+
+-- Sligo mistakes, remove some Coopers who are in borough but should only be in county
+mysql> delete from commons_memberships where id in (2788,2789,2786,2787);
+
+-- Wexford mistakes
+mysql> delete from commons_memberships where id in (5716,5712,1529);
+
+-- Antrim Mid mistakes
+mysql> delete from commons_memberships where id in (8757,8546);
+
+-- Henry Mulholland duplicate
+mysql> delete from commons_memberships where person_id =2639;
+
+-- Londonderry mistakes
+mysql> update commons_memberships set constituency_id=1051 where constituency_id=1309 and person_id=6543;
+mysql> update commons_memberships set constituency_id=1051 where constituency_id=1309 and person_id=6836;
+mysql> delete from commons_memberships where id in (6040,3254);
+
+-- Sir John Hanmer dupe
+mysql> delete from commons_memberships where person_id=2216 and constituency_id=942;
+
+-- Sir John Esmonde dupe
+mysql> delete from commons_memberships where id=4069;
+

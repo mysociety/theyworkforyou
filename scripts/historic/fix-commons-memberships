@@ -1,20 +1,19 @@
 #!/usr/bin/python
 
-import sys, os#, datetime, cgi
-sys.path.append('../../../../parlparse/pyscraper')
+import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings' 
-#from resolvemembernames import memberList
-from app.models import Person, Election, CommonsMembership, Contribution, Constituency
-#from constituencies import consList
+from app.models import CommonsMembership, Constituency
 
 for m in CommonsMembership.objects.all().order_by('person__id', 'start_date'):
 	m_start = str(m.start_date)
 	m_end = str(m.end_date)
 	cons_start = '%s-01-01' % m.constituency.start_year
 	cons_end = '%s-12-31' % m.constituency.end_year
-	if m_end < cons_start:
-		print 'Membership is %s to %s, but constituency is %s to %s' % (m.start_date, m.end_date, m.constituency.start_year, m.constituency.end_year)
+	if m_end <= cons_start or m_start >= cons_end:
+		print 'Membership #%s is %s to %s, but constituency is %s to %s' % (m.id, m.start_date, m.end_date, m.constituency.start_year, m.constituency.end_year)
 		#print Constituency.objects.filter(name=m.constituency.name)
 	elif m_start < cons_start:
 		print "%s : Commons membership starts before constituency does" % m
+	elif m_end > cons_end:
+		print "%s : Commons membership ends after constituency does" % m
 	# 7 after cases fixed manually

@@ -1,0 +1,26 @@
+#!/usr/bin/python
+
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings' 
+from app.models import Person, CommonsMembership
+
+people = {}
+for m in CommonsMembership.objects.all().order_by('person__id', 'start_date'):
+    people.setdefault(m.person_id, []).append(m)
+
+out = []
+for id, dates in people.items():
+    for d in dates:
+        for d2 in dates:
+            if d.estimated_end_date and d.end_date.year == d2.start_date.year:
+                continue
+            if d.id != d2.id and d.start_date <= d2.start_date and d2.start_date < d.end_date:
+                overlap = (d.end_date - d2.start_date).days
+                if overlap > 2200:
+                    p = Person.objects.get(id=id)
+                    out.append((overlap, p, d, d2))
+
+out.sort()
+for o in out:
+    overlap, p, d, d2 = o
+    print '%s\t%s\t%s - %s\t%s - %s\t%s / %s' % (overlap, p, str(d.start_date), str(d.end_date), str(d2.start_date), str(d2.end_date), d.constituency, d2.constituency)
