@@ -1,12 +1,10 @@
 Subject: Your TheyWorkForYou email alert
 ---------------------------------------------------------------
-
 NEW! TheyWorkForYou is looking for 250 Patrons to help us
 keep track of MPs.
-
-http://www.pledgebank.com/twfypatrons
-
+                    http://www.pledgebank.com/twfypatrons
 ---------------------------------------------------------------
+
 {DATA}
 
 If clicking any of these links doesn't work, you may have
@@ -25,7 +23,6 @@ rely on them for work:
         http://www.mysociety.org/donate/
 
 ------------------------------------------------------------
-PLUS: You can help make sure the new Speaker is of the 
-TheyWorkForYou generation
 
-http://tinyurl.com/ocp24l
+PLUS: You can help make sure the new Speaker is of the 
+TheyWorkForYou generation: http://tinyurl.com/ocp24l
