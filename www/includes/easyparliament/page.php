@@ -1070,8 +1070,14 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		$this->block_end();
 */
 
-    if (isset($extra_info["is_speaker_candidate"]) && $extra_info["is_speaker_candidate"] == 1  && isset($extra_info["speaker_candidate_contacted_on"])) {
-      
+    if ( (isset($extra_info["is_speaker_candidate"]) && $extra_info["is_speaker_candidate"] == 1  && isset($extra_info["speaker_candidate_contacted_on"]))
+        || (isset($extra_info['speaker_candidate_response']) && $extra_info['speaker_candidate_response']) ) {
+
+	$just_response = false;
+        if ($extra_info['is_speaker_candidate'] == 0) {
+		$just_response = true;
+	}
+
       // days since originaly contacted
       $contact_date_string = $extra_info["speaker_candidate_contacted_on"];
       $contact_date_midnight = strtotime($contact_date_string);
@@ -1098,7 +1104,13 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
          }
       }
 
-      $this->block_start(array('id'=>'campaign_block', 'title'=>"IMPORTANT: We believe " . $member['full_name'] . " MP may become a Candidate for Speaker. You can help!"));
+      if ($just_response) {
+         $spk_cand_title = $member['full_name'] . ' endorses our Speaker principles';
+      } else {
+         $spk_cand_title = 'IMPORTANT: We believe ' . $member['full_name'] . ' MP may become a Candidate for Speaker. You can help!';
+      }
+      $this->block_start(array('id'=>'campaign_block', 'title' => $spk_cand_title));
+
       print "
             <p>The <strong>new Speaker</strong> will be extremely important in making Parliament more
             transparent, so that sites like this one can help people like you understand
