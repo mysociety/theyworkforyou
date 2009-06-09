@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.46 2009-05-21 09:08:51 matthew Exp $
+# $Id: xml2db.pl,v 1.47 2009-06-09 23:18:24 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -2001,7 +2001,7 @@ sub do_load_speech
 	$hpos++;
 	my $htime = $speech->att('time');
         $htime = canon_time($htime) if defined $htime;
-	my $url = $speech->att('url');
+	my $url = $speech->att('url') || '';
 
         my $type;
         my $speaker;
@@ -2046,7 +2046,7 @@ sub do_load_heading
 	$hpos++;
 	my $htime = $speech->att('time');
         $htime = canon_time($htime) if defined $htime;
-	my $url = $speech->att('url');
+	my $url = $speech->att('url') || '';
         my $colnum = $speech->att('colnum');
         $colnum =~ s/[^\d]//g if $colnum;
 
@@ -2095,7 +2095,7 @@ sub do_load_subheading
 	$hpos++;
 	my $htime = $speech->att('time');
         $htime = canon_time($htime) if defined $htime;
-	my $url = $speech->att('url');
+	my $url = $speech->att('url') || '';
         my $colnum = $speech->att('colnum');
         $colnum =~ s/[^\d]//g if $colnum;
 
