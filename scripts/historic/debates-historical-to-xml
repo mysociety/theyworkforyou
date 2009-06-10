@@ -1,0 +1,144 @@
+#!/usr/bin/python
+
+import sys, os, re
+sys.path.append('../../../../parlparse/pyscraper')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings' 
+from resolvemembernames import memberList
+from app.models import Contribution, Section, Election
+
+id_colnum = 0
+id_part = 0
+def next_id(col):
+    global id_colnum, id_part
+    if col is None or col == id_colnum:
+        id_part += 1
+    else:
+        id_colnum = col
+        id_part = 0
+    id = '%s.%s' % (id_colnum, id_part)
+    return id
+
+# Quick simpler copy of the ruby
+def format_text(text):
+    text = text.strip()
+    text = re.sub('\A((?:<[^>]+>)?):\s*', r'\1', text)
+    text = text.replace(':<quote>','<quote>').replace('<quote>"','<quote>').replace('"</quote>','</quote>')
+    text = re.sub('<col>\d+</col>', '', text)
+    text = re.sub('<image[^>]*></image>', '', text)
+    text = re.sub('<image[^>]*>', '', text)
+    text = text.replace('<ob></ob>', '<span class="obscured">[...]</span>')
+    text = re.sub('<lb/>\s*', '<br/>\n', text)
+    text = text.replace('<quote>', '<q>').replace('</quote>', '</q>')
+    text = re.sub('&([^#])', r'&amp;\1', text) # Oddly, seem to be some unescaped
+    return text
+
+def output_day(date, sections):
+    if os.path.exists('debates/debates%sa.xml' % date):
+        return
+    fp = open('debates/debates%sa.xml.new' % date, 'w')
+    fp.write('<?xml version="1.0" encoding="ISO-8859-1"?>\n')
+    fp.write('<publicwhip scrapeversion="a" latest="yes">\n')
+    time = ''
+    for section in sections:
+        tag = section.major and 'major' or 'minor'
+        id = 'uk.org.publicwhip/debate/' + str(date) + 'a.' + next_id(section.start_column)
+        title = re.sub('&([^#])', r'&amp;\1', section.title)
+        fp.write('<%s-heading id="%s" colnum="%s">%s</%s-heading>\n' % (tag, id, section.start_column, title, tag))
+        speeches = Contribution.objects.filter(section=section)
+        for speech in speeches:
+            # Deal with time first
+            if speech.type == 'TimeContribution':
+                time = speech.time
+                continue
+            m = re.match('(\d+)[:.](\d+) *([ap])m(?i)', speech.text)
+            if speech.type == 'ProceduralContribution' and m:
+                hour = ('0' + m.group(1))[-2:]
+                min = ('0' + m.group(2))[-2:]
+                if m.group(3).lower()=='a' and hour=='12':
+                    time = '00:%s:00' % min
+                elif m.group(3).lower()=='a' or hour=='12':
+                    time = '%s:%s:00' % (hour, min)
+                else:
+                    time = '%s:%s:00' % (int(hour)+12, min)
+                continue
+            # TODO Factor out the "house met at" code from filterdebatesections.py to get initial timestamps
+
+            # Metadata
+            if speech.column_range:
+                start_column = speech.column_range.split(',')[0]
+            else:
+                start_column = None
+            id = 'uk.org.publicwhip/debate/' + str(date) + 'a.' + next_id(start_column)
+            fp.write('<speech hansard_id="%s" id="%s"' % (speech.id, id))
+            if speech.commons_membership:
+                parlparse_id = memberList.matchhistoric(speech.commons_membership_id, str(date))
+                fp.write(' hansard_membership_id="%s" speakerid="%s" speakername="%s"' % (speech.commons_membership_id, parlparse_id, speech.member_name))
+            elif speech.member_name:
+                fp.write(' speakerid="unknown" speakername="%s"' % speech.member_name)
+            fp.write(' colnum="%s" time="%s">\n' % (start_column and start_column or '', time))
+
+            # The actual speech
+            if speech.procedural_note:
+                speech.text = speech.procedural_note + speech.text
+            text = format_text(speech.text).encode('iso-8859-1', 'xmlcharrefreplace')
+            if speech.type == 'MemberContribution' or speech.type == 'ProceduralContribution':
+                fp.write('<p>' + text + '</p>')
+            elif speech.type == 'QuoteContribution':
+                fp.write('<q>' + text + '</q>')
+            elif speech.type == 'TableContribution':
+                fp.write('<div class="table">\n' + text + '</div>\n')
+            elif speech.type == 'UnparsedDivisionPlaceholder':
+                fp.write('<div class="unparsed_division">\n' + text + '</div>\n')
+            elif speech.type == 'DivisionPlaceholder':
+                fp.write('<div class="division">\n' + text + '</div>\n')
+            else:
+                fp.write(text)
+            fp.write('\n</speech>\n')
+    fp.write('</publicwhip>')
+    fp.close()
+    os.rename('debates/debates%sa.xml.new' % date, 'debates/debates%sa.xml' % date)
+
+# Create the 1987-2001 parliaments
+start_date = Election.objects.get(date='1987-06-11').date
+end_date = Election.objects.get(date='1997-05-01').dissolution_date
+old_date = None
+orders_section = None
+data = []
+for section in Section.objects.filter(date__gte=election.date, date__lte=end_date).order_by('date','id'):
+    id = section.id
+    date = section.date
+    if os.path.exists('debates/debates%sa.xml' % date):
+        continue
+    if date != old_date:
+        if data:
+            print "Outputting %s..." % old_date
+            output_day(old_date, data)
+            data = []
+        old_date = date
+    title = section.title
+    parent = section.parent_section_id and section.parent_section or None
+    if section.type == 'Debates':
+        day_section = section
+    elif section.type == 'OralQuestions':
+        pass
+    elif re.match('(?i)Orders of the Day', section.title):
+        orders_section = section
+        pass
+    elif section.type == 'OralQuestionsSection' or parent == day_section or parent == orders_section:
+        if section.type == 'OralQuestionsSection':
+            section.title = 'Oral Answers to Questions &#8212; %s' % section.title
+        elif parent == orders_section:
+            section.title = 'Orders of the Day &#8212; %s' % section.title
+        section.major = True
+        major_heading = section
+        data.append(section)
+    elif section.type == 'OralQuestionSection' or parent == major_heading:
+        section.major = False
+        data.append(section)
+    else: # TheyWorkForYou only has major or minor headings
+        section.major = False
+        data.append(section)
+if data:
+    print "Outputting %s..." % old_date
+    output_day(old_date, data)
+

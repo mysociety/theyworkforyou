@@ -116,7 +116,7 @@ class Section(models.Model):
 	title = models.TextField(null=True)
 	start_column = models.CharField(max_length=255, null=True)
 	sitting_id = models.IntegerField(null=True)
-	parent_section_id = models.ForeignKey('self')
+	parent_section = models.ForeignKey('self')
 	slug = models.CharField(max_length=255, null=True)
 	end_column = models.CharField(max_length=255, null=True)
 	date = models.DateField(null=True)
@@ -125,7 +125,10 @@ class Section(models.Model):
 		db_table = 'sections'
 
 	def __unicode__(self):
-		return self.title
+		title = self.title or ''
+		if self.parent_section_id:
+			return u'Section #%s on %s, %s "%s" (parent %s)' % (self.id, self.date, self.type, title, self.parent_section)
+		return u'Section #%s on %s, %s "%s"' % (self.id, self.date, self.type, title)
 
 class Contribution(models.Model):
 	type = models.CharField(max_length=255, null=True)
@@ -153,6 +156,7 @@ class Contribution(models.Model):
 
 	class Meta:
 		db_table = 'contributions'
+        ordering = ('id',)
 
 	def __unicode__(self):
 		return u'%s by %s (%d)' % (self.type, self.member_name, self.id)
