@@ -263,7 +263,8 @@ if (isset ($data['rows'])) {
 				# Try always showing constituency/party too
 				#if (!$desc || strpos($desc, 'PPS')!==false) {
 					if ($speaker['house'] == 1 && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
-						$desc .= $speaker['constituency'] . ', ';
+						$desc .= $speaker['constituency'];
+						if ($speaker['party']) $desc .= ', ';
 					}
 					if (get_http_var('wordcolours')) {
 						$desc .= '<span style="color: '.party_to_colour($speaker['party']).'">';
