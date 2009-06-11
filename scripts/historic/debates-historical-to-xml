@@ -46,6 +46,9 @@ def output_day(date, sections):
         fp.write('<%s-heading id="%s" colnum="%s">%s</%s-heading>\n' % (tag, id, section.start_column, title, tag))
         speeches = Contribution.objects.filter(section=section)
         for speech in speeches:
+            if speech.text is None:
+                continue
+
             # Deal with time first
             if speech.type == 'TimeContribution':
                 time = speech.time
@@ -72,7 +75,7 @@ def output_day(date, sections):
             fp.write('<speech hansard_id="%s" id="%s"' % (speech.id, id))
             if speech.commons_membership:
                 parlparse_id = memberList.matchhistoric(speech.commons_membership_id, str(date))
-                fp.write(' hansard_membership_id="%s" speakerid="%s" speakername="%s"' % (speech.commons_membership_id, parlparse_id, speech.member_name))
+                fp.write(' hansard_membership_id="%s" speakerid="%s" speakername="%s"' % (speech.commons_membership_id, parlparse_id, speech.member_name.encode('ascii', 'xmlcharrefreplace')))
             elif speech.member_name:
                 fp.write(' speakerid="unknown" speakername="%s"' % speech.member_name)
             fp.write(' colnum="%s" time="%s">\n' % (start_column and start_column or '', time))
@@ -99,16 +102,14 @@ def output_day(date, sections):
     os.rename('debates/debates%sa.xml.new' % date, 'debates/debates%sa.xml' % date)
 
 # Create the 1987-2001 parliaments
-start_date = Election.objects.get(date='1987-06-11').date
+start_date = Election.objects.get(date='1979-05-03').date
 end_date = Election.objects.get(date='1997-05-01').dissolution_date
 old_date = None
 orders_section = None
 data = []
-for section in Section.objects.filter(date__gte=election.date, date__lte=end_date).order_by('date','id'):
+for section in Section.objects.filter(date__gte=start_date, date__lte=end_date).order_by('date','id'):
     id = section.id
     date = section.date
-    if os.path.exists('debates/debates%sa.xml' % date):
-        continue
     if date != old_date:
         if data:
             print "Outputting %s..." % old_date
