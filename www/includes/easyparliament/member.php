@@ -670,13 +670,13 @@ class MEMBER {
 # from http://news.bbc.co.uk/nol/shared/bsp/hi/vote2004/css/styles.css
 global $party_colours;
 $party_colours = array(
-    "Con" => "#333399",
+    "Conservative" => "#333399",
     "DU" => "#cc6666",
     "Ind" => "#eeeeee",
     "Ind Con" => "#ddddee",
     "Ind Lab" => "#eedddd",
     "Ind UU" => "#ccddee",
-    "Lab" => "#cc0000",
+    "Labour" => "#cc0000",
     "Lab/Co-op" => "#cc0000",
     "LDem" => "#f1cc0a", #"#ff9900", 
     "PC" => "#33CC33",
@@ -702,7 +702,7 @@ function party_to_colour($party) {
     }
 }
 
-function find_rep_image($pid, $smallonly = false) {
+function find_rep_image($pid, $smallonly = false, $substitute_missing = false) {
 	$image = null; $sz = null;
 	if (!$smallonly && is_file(BASEDIR . '/images/mpsL/' . $pid . '.jpeg')) {
 		$image = IMAGEPATH . 'mpsL/' . $pid . '.jpeg';
@@ -723,6 +723,23 @@ function find_rep_image($pid, $smallonly = false) {
 		$image = IMAGEPATH . 'mps/' . $pid . '.png';
 		$sz = 'S';
 	}
+	
+	//if no image, use a dummy one
+	if(!isset($image) && isset($substitute_missing)){
+	    if($smallonly){
+	        if($substitute_missing == "lord"){
+	            $image = IMAGEPATH . "/unknownlord.png";
+            }else{
+                $image = IMAGEPATH . "/unknownperson.png";                
+            }
+        }else{
+	        if($substitute_missing == "lord"){
+	            $image = IMAGEPATH . "/unknownlord_large.png";
+            }else{
+                $image = IMAGEPATH . "/unknownperson_large.png";                
+            }
+        }
+    }
 	return array($image, $sz);
 }
 

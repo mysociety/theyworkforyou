@@ -263,7 +263,9 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	twfy_debug_timestamp("after stripe start");
 	
 	twfy_debug_timestamp("before display of MP");
+
 	$MEMBER->display();
+
 	twfy_debug_timestamp("after display of MP");
 	
 	// SIDEBAR.
@@ -272,7 +274,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	$linkshtml = $PAGE->generate_member_links($MEMBER, $MEMBER->extra_info());
 	
 	$sidebars = array(
-		array('type'=>'include', 'content' => 'donate'),
+/*		array('type'=>'include', 'content' => 'donate'),*/
 /*		array (
 			'type'		=> 'include',
 			'content'	=> 'mp_email_friend'

@@ -12,7 +12,7 @@
 <?php
 
 if (isset($data['comments']) && count($data['comments']) > 0) {
-	print '<h3>Comments matching ' . $data['search'] . "</h3>\n<ul>";
+	print '<h3>Annotations matching ' . $data['search'] . "</h3>\n<ul>";
 	foreach ($data['comments'] as $n => $comment) {
 		$commenttext = trim_characters($comment['body'], 0, 200);
 		list($date, $time) = explode(' ', $comment['posted']);

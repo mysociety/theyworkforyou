@@ -11,19 +11,19 @@ $order = $data['info']['order'];
 $URL = new URL($this_page);
 
 if ($order == 'first_name') {
-	$th_name = 'First';
+	$th_first_name = 'First name';
 } else {
 	$URL->insert(array('o'=>'f'));
-	$th_name = '<a href="'. $URL->generate() .'">First</a>';
+	$th_first_name = '<a href="'. $URL->generate() .'">First name</a>';
 }
-$th_name .= ' &amp; ';
+
 if ($order == 'last_name') {
-	$th_name .= 'last';
+	$th_last_name = 'Last name';
 } else {
 	$URL->insert(array('o'=>'l'));
-	$th_name .= '<a href="' . $URL->generate() . '">Last</a>';
+	$th_last_name = '<a href="' . $URL->generate() . '">Last name</a>';
 }
-$th_name .= ' name';
+
 $URL->insert(array('o'=>'p'));
 $th_party = '<a href="' . $URL->generate() . '">Party</a>';
 $URL->insert(array('o'=>'c'));
@@ -36,11 +36,28 @@ if ($order == 'party') {
 }
 
 ?>
-<table border="0" cellpadding="4" cellspacing="0" width="90%" class="people">
+<div class="sort">
+    Sort by:
+    <ul>
+        <li><?php echo $th_last_name; ?> |</li>                
+        <li><?php echo $th_first_name; ?> |</li>
+        <li><?php echo $th_party; ?></li>
+        <?php	if ($order == 'expenses') { ?>
+        	<li>2004 Expenses Grand Total</li>
+        <?php	} elseif ($order == 'debates') { ?>
+        	<li>Debates spoken in the last year</li>
+        <?php	} elseif ($order == 'safety') { ?>
+        	<li>Swing to lose seat (%)</li>
+        <?php	}
+        ?>
+    </ul>
+</div>
+
+<table class="people">
 <thead>
-<th><?php echo $th_name; ?></th>
-<th><?php echo $th_party; ?></th>
-<th><?php echo $th_constituency; ?></th>
+<th colspan="2">Name</th>
+<th>Party</th>
+<th>Constituency</th>
 </thead>
 <tbody>
 <?php
@@ -60,6 +77,15 @@ function render_mps_row($mp, &$style, $order, $MPURL) {
 	$name = member_full_name(4, $mp['title'], $mp['first_name'], $mp['last_name'], $mp['constituency']);
 	?>
 <tr>
+    <td class="row">
+    <?php
+    list($image,$sz) = find_rep_image($mp['person_id'], true);
+    if ($image) {
+        echo '<a href="' . $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1) . '" class="speakerimage"><img height="59" class="portrait" alt="" src="', $image, '"';
+        echo '></a>';
+    }
+    ?>
+    </td>
 <td class="row-<?php echo $style; ?>"><a href="<?php
 	echo $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 4);
 ?>"><?php echo $name; ?></a></td>

@@ -50,7 +50,7 @@ class COMMENTLIST {
 		//	'ep' is all the comments attached to an epobject.
 		//	'user' is all the comments written by a user.
 		//	'recent' is the most recent comments.
-		
+
 		// $args is an associative array of stuff like
 		//	'epobject_id' => '37'
 		// Where 'epobject_id' is an epobject_id.

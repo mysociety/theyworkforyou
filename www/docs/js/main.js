@@ -43,3 +43,25 @@ function clearGID(gid) {
 	}
 	lastgid = '';
 }
+
+
+function toggleVisible (sId) {
+    if (document.getElementById(sId).style.display == 'none'){
+        document.getElementById(sId).style.display = 'block';
+    }else{
+        document.getElementById(sId).style.display = 'none';
+    }
+}
+
+function showPersonLinks(sId){
+    //change class of image
+    $('#speakerimage_' + sId).addClass("hover");
+    
+    //show links
+    $('#personinfo_' + sId).show();
+    $('#personinfo_' + sId).mouseleave(function (){
+        $('#personinfo_' + sId).hide();
+        $('#speakerimage_' + sId).removeClass("hover");
+    });
+    
+}

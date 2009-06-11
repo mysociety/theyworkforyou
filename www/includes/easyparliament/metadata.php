@@ -278,7 +278,7 @@ $this->page = array (
 	),
 
 	'contact' => array (
-		'title'			=> 'Contact TheyWorkForYou',
+		'title'			=> 'Contact',
 		'url'			=> 'contact/'
 	),
 	
@@ -354,7 +354,7 @@ $this->page = array (
 	),
 	'hansard' => array (
 		'menu'			=> array (
-			'text'			=> 'UK',
+			'text'			=> 'UK Parliament',
 			'title'			=> "Houses of Parliament debates, Written Answers, Statements, and Westminster Hall debates"
 		),
 		'title'			=> 'House of Commons and House of Lords',
@@ -366,10 +366,6 @@ $this->page = array (
 		'url'			=> 'hansard/'
 	),	
 	'help' => array (
-		'menu'			=> array (
-			'text'			=> 'Help',
-			'title'			=> "Answers to your questions"
-		),
 		'title'			=> 'Help',
 		'url'			=> 'help/'
 	),
@@ -384,10 +380,6 @@ $this->page = array (
 		'sidebar'		=> 'glossary_add'
 	),
 	'home' => array (
-		'menu'			=> array (
-			'text'			=> 'Home',
-			'title'			=> "The front page of the site"
-		),
 		'title'			=> "Are your MPs and Peers working for you in the UK's Parliament?",
 		'rss'			=> 'news/index.rdf',
 		'url'			=> ''
@@ -402,7 +394,46 @@ $this->page = array (
 		'heading'		=> 'How to link to us',
 		'url'			=> 'help/linktous/'
 	),
-
+	'api' => array (
+		'title'			=> 'API',
+		'heading'		=> 'API',
+		'url'			=> 'api/'
+	),
+    'data' => array (
+    	'title'			=> 'Raw Data',
+    	'heading'		=> 'Raw data (XML)',
+    	'url'			=> 'http://ukparse.kforge.net/parlparse'
+    ),
+    'devmailinglist' => array (
+    	'title'			=> 'Developer mailing list',
+    	'heading'		=> 'Developer mailing list',
+    	'url'			=> 'https://secure.mysociety.org/admin/lists/mailman/listinfo'
+    ),        
+    'code' => array (
+    	'title'			=> 'Source code',
+    	'heading'		=> 'Source code',
+    	'url'			=> 'https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy'
+    ),    
+    'irc' => array (
+    	'title'			=> 'IRC chat channel',
+    	'heading'		=> 'IRC chat channel',
+    	'url'			=> 'http://www.irc.mysociety.org'
+    ),
+    'newzealand' => array (
+    	'title'			=> 'New Zealand',
+    	'heading'		=> 'They Work For You - New Zealand',
+    	'url'			=> '    http://www.theyworkforyou.co.nz'
+    ),    
+    'australia' => array (
+    	'title'			=> 'Australia',
+    	'heading'		=> 'Open Australia',
+    	'url'			=> 'http://www.openaustralia.org'
+    ),
+    'ireland' => array (
+    	'title'			=> 'Ireland',
+    	'heading'		=> 'TheyWorkForYou for the Houses of the Oireachtas',
+    	'url'			=> 'http://www.kildarestreet.com/'
+    ),    
 	'lordsdebate'  => array (
 		'parent'		=> 'lordsdebatesfront',
 		'url'			=> 'lords/',
@@ -447,7 +478,15 @@ $this->page = array (
 		'title'			=> 'All Lords',
 		'url'			=> 'peers/'
 	),
-
+'overview' => array (
+	 'menu'			=> array (
+		'text'			=> 'Overview',
+		'title'			=> "Overview of the UK Parliament"
+	),
+	'parent'		=> 'hansard',
+	'title'			=> 'Overview of the UK Parliament',
+	'url'			=> 'hansard/'
+),
 	'mla' => array (
 		'title'			=> 'MLA',
 		'url'			=> 'mla/'
@@ -497,16 +536,15 @@ $this->page = array (
 	'mp_rss' => array (
 		'url'			=> 'rss/mp/'
 	),
-
-	'mps' => array (
-		 'menu'			=> array (
-			'text'			=> 'MPs',
-			'title'			=> "List of all Members of Parliament (MPs)"
-		),
-		'parent'		=> 'hansard',
-		'title'			=> 'All MPs',
-		'url'			=> 'mps/'
-	),
+    'mps' => array (
+    	 'menu'			=> array (
+    		'text'			=> 'MPs',
+    		'title'			=> "List of all Members of Parliament (MPs)"
+    	),
+    	'parent'		=> 'hansard',
+    	'title'			=> 'All Members of Parliament',
+    	'url'			=> 'mps/'
+    ),
 	'c4_mps' => array (
 		'title' => 'All MPs',
 		'url' => 'mps/c4/'
@@ -519,13 +557,21 @@ $this->page = array (
 	/* Northern Ireland Assembly */
 	'ni_home' => array(
 		'menu'			=> array (
-			'text'			=> 'N. Ireland',
-			'title'			=> 'Debates of the Northern Ireland Assembly'
+			'text'			=> 'Northern Ireland Assembly',
+			'title'			=> 'Full authority over <em>transferred matters</em>, which include agriculture, education, employment, the environment and health'
 		),
 		'title'			=> 'Northern Ireland Assembly',
 		'url'			=> 'ni/'
 	),
-
+    'nioverview' => array (
+    	'parent'		=> 'ni_home',
+    	'menu'			=> array (
+    		'text'			=> 'Overview',
+    		'title'			=> "Overview of the Northern Ireland Assembly"
+    	),
+    	'title'			=> 'Overview of the Northern Ireland Assembly',
+    	'url'			=> 'ni/'
+    ),
 	'nidebate'  => array (
 		'parent'		=> 'nidebatesfront',
 		'url'			=> 'ni/',
@@ -698,12 +744,21 @@ $this->page = array (
 	/* Scottish Parliament */
 	'sp_home' => array(
 		'menu'			=> array (
-			'text'			=> 'Scotland',
-			'title'			=> 'Debates and written answers of the Scottish Parliament'
+			'text'			=> 'Scottish Parliament',
+			'title'			=> 'Scottish education, health, agriculture, justice, prisons and other devolved areas. Some tax-varying powers'
 		),
 		'title'			=> 'Scottish Parliament',
 		'url'			=> 'scotland/'
 	),
+    'spoverview' => array (
+    	'parent'		=> 'sp_home',
+    	'menu'			=> array (
+    		'text'			=> 'Overview',
+    		'title'			=> "Overview of the Scottish Parliament"
+    	),
+    	'title'			=> 'Overview of the Scottish Parliament',
+    	'url'			=> 'scotland/'
+    ),	
 	'spdebate'  => array (
 		'parent'		=> 'spdebatesfront',
 		'url'			=> 'sp/',
@@ -729,6 +784,7 @@ $this->page = array (
 		'rss'			=> 'sp/sp.rss',
 		'url'			=> 'sp/'
 	),
+
 	'spdebatesyear' => array (
 		'parent'		=> 'spdebatesfront',
 		'title'			=> 'Debates for ',
@@ -799,7 +855,7 @@ $this->page = array (
 		'url'			=> 'user/'
 	),'userjoin' => array (
                 'menu'                  => array (
-                        'text'                  => 'Join',
+                        'text'                  => 'Join to comment',
                         'title'                 => "Joining is free and allows you to post comments"
                 ),
                 'pg'                    => 'join',
@@ -819,18 +875,18 @@ $this->page = array (
 	),		
 	'userlogin' => array (
 		'menu'			=> array (
-			'text'			=> 'Log in',
-			'title'			=> "If you've already joined, log in to post comments"
+			'text'			=> 'Sign in',
+			'title'			=> "If you've already joined , log in to post comments"
 		),
 		'sidebar'		=> 'userlogin',
 		'title'			=> 'Log in',
 		'url'			=> 'user/login/'
 	),
-	
+
 	'userlogout' => array (
 		'menu'			=> array (
-			'text'			=> 'Log out',
-			'title'			=> "Log out"
+			'text'			=> 'Sign out',
+			'title'			=> "Sign out"
 		),
 		'url'			=> 'user/logout/'
 	),		
@@ -839,7 +895,7 @@ $this->page = array (
 		'url'			=> 'user/password/'
 	),
 	'userprompt' => array (
-		'title'			=> 'Please log in',
+		'title'			=> 'Please sign in',
 		'url'			=> 'user/prompt/'
 	),
 	'userview' => array (
@@ -868,8 +924,8 @@ $this->page = array (
 	/* Welsh Assembly */
 	'wales_home' => array(
 		'menu' => array(
-			'text' => 'Wales',
-			'title' => 'We\'d like to do the Welsh Assembly!',
+			'text' => 'Welsh Assembly',
+			'title' => 'Welsh economic development, transport, finance, local government, health, housing, the Welsh Language and other devolved areas',
 		),
 		'title' => 'Welsh Assembly',
 		'url' => 'wales/',
@@ -971,11 +1027,6 @@ $this->page = array (
 		'url' => 'your/',
 	),
 	'yourmp' => array (
-		'menu'			=> array (
-			'text'			=> 'Your MP',
-			'title'			=> "Find out about your Member of Parliament"
-		),
-		#'parent'		=> 'yourreps',
 		'sidebar'		=> 'yourmp',
 		'title'			=> 'Your MP',
 		'url'			=> 'mp/'

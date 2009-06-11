@@ -540,21 +540,19 @@ function filter_user_input ($text, $filter_type) {
 		
 	} else {
 		// Comment.
-		// Only allowing <b> and <i> tags.
+		// Only allowing <em>, <b> and <a> tags.
 		$filter->allowed = array (
+			'a' => array('href'),
 			'strong' => array(),
-			'em' => array(),
+			'em' => array()
 		);
 	}
 	
 	$text = $filter->go($text);
 
-
 	return $text;
 
 }
-
-
 
 function prepare_comment_for_display ($text) {
 	// Makes any URLs into HTML links.
@@ -564,6 +562,7 @@ function prepare_comment_for_display ($text) {
 	// Can't do htmlentities() because it'll turn the few tags we allow into &lt;
 	// Must go before the URL stuff.
 	$text = htmlentities_notags($text);
+
 	$link_length = 60;
 	$text = preg_replace(
 		"/(?<!\")((http(s?):\/\/)|(www\.))([a-zA-Z\d\_\.\+\,\;\?\%\~\-\/\#\='\*\$\!\(\)\&]+)([a-zA-Z\d\_\?\%\~\-\/\#\='\*\$\!\&])/e",
@@ -572,6 +571,7 @@ function prepare_comment_for_display ($text) {
 	$text = str_replace('<a href="www', '<a href="http://www', $text);
 	$text = preg_replace("/([\w\.]+)(@)([\w\.\-]+)/i", "<a href=\"mailto:$0\">$0</a>", $text); 
 	$text = str_replace("\n", "<br>\n", $text);
+
 	return $text;	
 }
 
@@ -930,12 +930,21 @@ function prettify_office($pos, $dept) {
 	return $pretty;
 }
 
-function major_summary($data) {
+function major_summary($data, $echo = true) {
 	global $hansardmajors;
+	$html = '';
 	$db = new ParlDB;
 	$one_date = false;
+	
+	//if no printed majors passed, default to all
+	if(!isset($printed_majors)){
+	    $printed_majors = array(1, 2, 3, 5, 101, 7); # 8
+	}
+	
+	// single date?
 	if (isset($data['date'])) $one_date = true;
 
+    //work out the date text to be displaid
 	$daytext = array();
 	if (!$one_date) {
 		$todaystime = gmmktime(0, 0, 0, date('m'), date('d'), date('Y'));
@@ -945,8 +954,8 @@ function major_summary($data) {
 			else $daytext[$major] = "The most recent ";
 		}
 	}
-	$printed_majors = array(1, 2, 3, 5, 101, 7); # 8
-	print '<ul id="hansard-day">';
+
+    //build html
 	foreach ($printed_majors as $p_major) {
 		if (!array_key_exists($p_major, $data))
 			continue;
@@ -972,9 +981,10 @@ function major_summary($data) {
 			$out .= $body . '</a>';
 		}
 		if ($out) {
-			_major_summary_title($p_major, $data, $LISTURL, $daytext);
-			print $out;
-			print '</ul>';
+			$html .= _major_summary_title($p_major, $data, $LISTURL, $daytext);
+	        $html .= '<ul class="hansard-day">';			
+			$html .= $out;
+			$html .= '</ul>';
 		}
 	}
 	if (array_key_exists(4, $data)) {
@@ -987,41 +997,57 @@ function major_summary($data) {
 				ORDER BY major, hpos');
 		if ($q->rows()) {
 			$LISTURL = new URL($hansardmajors[4]['page_all']);
-			_major_summary_title(4, $data, $LISTURL, $daytext);
+			$html .= _major_summary_title(4, $data, $LISTURL, $daytext);
+			$html .= "<ul>";
 			$current_sid = 0;
 			for ($i = 0; $i < $q->rows(); $i++) {
 				$gid = fix_gid_from_db($q->field($i, 'gid'));
 				$body = $q->field($i, 'body');
 				$section_id = $q->field($i, 'section_id');
 				if (!$section_id) {
-					if ($current_sid++) print '</ul>';
-					print '<li>' . $body . '<ul>';
-		
+					if ($current_sid++){ 
+					    $html .= '</ul>';
+					}
+					$html .= '<li>' . $body . '<ul>';
+
 				} else {
 					$LISTURL->insert( array( 'id' => $gid ) );
-					print '<li><a href="'.$LISTURL->generate().'">';
-					print $body . '</a>';
+					$html .= '<li><a href="'.$LISTURL->generate().'">';
+					$html .= $body . '</a>';
 				}
 			}
-			print '</ul></ul>';
+			$html .= '</ul>';
 		}
 	}
-	print '</ul>';
+	$html .= '</ul>';
+	
+	if($echo){
+	    print $html;
+	}else{
+	    return $html;
+    }
 }
+
 function _major_summary_title($major, $data, $LISTURL, $daytext) {
 	global $hansardmajors;
-	print '<li><strong>';
-	if (isset($daytext[$major])) print $daytext[$major] . ' ';
-	print '<a href="';
+	
+	$return = '<h4>';
+	if (isset($daytext[$major])){
+	 $return .= $daytext[$major] . ' ';
+	}
+	
+	$return .= '<a href="';
 	if (isset($data[$major]['listurl']))
-		print $data[$major]['listurl'];
+		$return .= $data[$major]['listurl'];
 	else {
 		$LISTURL->reset();
-		print $LISTURL->generate();
+		$return .= $LISTURL->generate();
 	}
-	print '">' . $hansardmajors[$major]['title'] . '</a>';
-	if (isset($daytext[$major])) print ':';
-	print '</strong> <ul>';
+	$return .= '">' . $hansardmajors[$major]['title'] . '</a>';
+	if (isset($daytext[$major])) $return;
+	$return .= '</h4>';
+	
+	return $return;
 }
 
 function score_to_strongly($dmpscore) {
@@ -1043,3 +1069,12 @@ function score_to_strongly($dmpscore) {
 	return $dmpdesc;
 }
 
+function valid_url($url) {
+	$return = false;
+	if(preg_match("/^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(:(\d+))?/i", $url)){
+		$return = true;
+	}
+	return $return;
+}
+
+?>

@@ -43,8 +43,7 @@ $PEOPLE->display('mps', $args, $format);
 
 if (get_http_var('f') != 'csv') {
 	$PAGE->stripe_end(array(
-		array('type'=>'include', 'content'=>'people'),
-		array('type'=>'include', 'content'=>'donate')
+		array('type'=>'include', 'content'=>'people')
 	));
 	$PAGE->page_end();
 }

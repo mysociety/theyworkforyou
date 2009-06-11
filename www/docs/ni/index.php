@@ -122,6 +122,7 @@ if (get_http_var("d") != "") {
 	$this_page = "nidebatesfront";
 	$PAGE->page_start();
 	$PAGE->stripe_start();
+
 	?>
 				<h4>Busiest debates from the most recent month</h4>
 <?php

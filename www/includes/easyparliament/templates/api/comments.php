@@ -42,13 +42,13 @@ if (isset($data['comments'][0]['preview']) && $data['comments'][0]['preview'] ==
 	$subheading = 'Your comment would look like this:';
 
 } elseif ($this_page == 'addcomment') {
-	$subheading = 'Previous comments';
+	$subheading = 'Previous annotations';
 
 } elseif ($this_page == 'commentreport' || $this_page == 'admin_commentreport') {
 	$subheading = "";
 	
 } else {
-	$subheading = 'Comments';
+	$subheading = 'Annotations';
 }
 
 

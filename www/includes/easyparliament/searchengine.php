@@ -26,13 +26,15 @@ Example usage:
 */
 
 include_once INCLUDESPATH . 'dbtypes.php';
-if (version_compare(phpversion(), '5.0', '>=')){
+
+if (XAPIANDB != ''  && version_compare(phpversion(), '5.0', '>=')){
     if (file_exists('/usr/share/php/xapian.php')){
         include_once '/usr/share/php/xapian.php';
     }else{
         twfy_debug('SEARCH', '/usr/share/php/xapian.php does not exist');
     }
 }
+
 class SEARCHENGINE {
 
 	function SEARCHENGINE ($query) {

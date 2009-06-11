@@ -70,7 +70,7 @@ class HANSARDLIST {
 		"url"			=> "/member/?id=$speaker_id"
 	);
 	*/
-	
+
 	// This will be used to cache mappings from epobject_id to gid,
 	// so we don't have to continually fetch the same data in get_hansard_data().
 	var $epobjectid_to_gid = array ();
@@ -102,7 +102,6 @@ class HANSARDLIST {
 	// don't need to call it and it's lengthy query again.
 	var $most_recent_day;
 
-
 	function HANSARDLIST () {
 		$this->db = new ParlDB;
 	}
@@ -110,6 +109,7 @@ class HANSARDLIST {
 	
 	
 	function display ($view, $args=array(), $format='html') {
+
 		// $view is what we're viewing by:
 		// 	'gid' is the gid of a hansard object,
 		//	'date' is all items on a date,
@@ -160,7 +160,7 @@ class HANSARDLIST {
 		}
 		
 		$return = $this->render($view, $data, $format);
-		
+
 		return $return;
 	}
 	

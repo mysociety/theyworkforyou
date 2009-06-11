@@ -61,7 +61,7 @@ v1.2	2003-11-16
 class SKIN {
 
 	var $skin = 'default';
-	
+
 	var $skins = array (
 		'default' => array (
 			'global' 	=> 'default',
@@ -88,7 +88,6 @@ class SKIN {
 		} else {
 			$this->set_skin ( get_cookie_var("skin") );
 		}	
-	
 	}
 	
 	

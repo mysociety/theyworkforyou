@@ -25,7 +25,7 @@ $order = $data['info']['order'];
 
 $URL = new URL($this_page);
 
-if ($order == 'last_name') {
+if ($order == 'name') {
 	$th_name = 'Name';
 } else {
 	$URL->insert(array('o'=>'n'));
@@ -38,9 +38,24 @@ if ($order == 'party')
 	$th_party = 'Party';
 
 ?>
-				<table border="0" cellpadding="4" cellspacing="0" width="90%" class="people">
+                <div class="sort">
+                    Sort by:
+                    <ul>
+                        <li><?php echo $th_name; ?> |</li>
+                        <li><?php echo $th_party; ?></li>
+                        <?php	if ($order == 'expenses') { ?>
+                        	<li>2004 Expenses Grand Total</li>
+                        <?php	} elseif ($order == 'debates') { ?>
+                        	<li>Debates spoken in the last year</li>
+                        <?php	} elseif ($order == 'safety') { ?>
+                        	<li>Swing to lose seat (%)</li>
+                        <?php	}
+                        ?>
+                    </ul>
+                </div>
+				<table class="people">
 				<thead>
-				<th><?php echo $th_name; ?></th>
+				<th colspan="2"><?php echo $th_name; ?></th>
 				<th><?php echo $th_party; ?></th>
 				<th>Ministerialship</th>
 <?php if ($order == 'debates') { ?>
@@ -80,7 +95,16 @@ function render_peers_row($peer, &$style, $order, $URL) {
 	
 #	$MPURL->insert(array('pid'=>$peer['person_id']));
 	?>
-				<tr>
+			<tr>
+                <td class="row">
+                <?php
+                list($image,$sz) = find_rep_image($peer['person_id'], true, 'lord');
+                if ($image) {
+                    echo '<a href="' . $URL->generate().make_member_url($name, 1) . '" class="speakerimage"><img height="59" class="portrait" alt="" src="', $image, '"';
+                    echo '></a>';
+                }
+                ?>
+                </td>				    
 				<td class="row-<?php echo $style; ?>"><a href="<?php echo $URL->generate().make_member_url($name, null, 2); ?>"><?php echo ucfirst($name); ?></a></td>
 				<td class="row-<?php echo $style; ?>"><?php echo $party; ?></td>
 				<td class="row-<?php echo $style; ?>"><?php
@@ -93,7 +117,7 @@ function render_peers_row($peer, &$style, $order, $URL) {
 				<td class="row-<?php echo $style; ?>"><?php echo number_format($peer['data_value']); ?></td>
 <?php } ?>
 
-				</tr>
+			</tr>
 <?php
 
 }

@@ -30,8 +30,8 @@ if ($type == 2) {
 	
 } else {
 	// Comment.
-	$message = "Sorry, you must be logged in to post a comment.";
-	$message2 = "You'll be able to post your comment straight after.";
+	$message = "Sorry, you must be logged in to add an annotation.";
+	$message2 = "You'll be able to post your annotation straight after.";
 	$anchor = '#addcomment';
 }
 

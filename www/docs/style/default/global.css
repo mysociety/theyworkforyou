@@ -3,6 +3,7 @@ body {
 	font-family: Verdana, Arial, Geneva, Sans-serif;
 	margin: 0;
 	padding: 0;
+	color:#111;
 	}
 
 a img {
@@ -10,8 +11,9 @@ a img {
 	}
 
 /* For NS4 */	
-h2, h3, h4, h5, p, th, td, caption {
-	font-family: Verdana, Arial, Geneva, Sans-serif;
+h2, h3, h4, h5, th, caption {
+	font-family: Helvetica, Arial; font-weight:bold; padding:0.4em 0 0.2em 0; line-height:1.3em;
+	margin: 0 14px 0 18px;
 }
 
 
@@ -19,15 +21,13 @@ h2, h3, h4, h5, p, th, td, caption {
 /**** We keep these all together so it's easy to compare and change */
 
 body {
-	font-size: 80%;
+	font-size: 13px;
 	}
 	
-h2,
-h4 {
+h2, h4, h3 {
 	font-size: 1.4em;
 	}
 
-h3,
 h5 {
 	font-size: 1.2em;
 	}
@@ -45,6 +45,7 @@ small,
 .sidebar h5,
 .sidebar p,
 .sidebar li,
+.sidebar cite,
 div.calendar caption,
 div.calendar th,
 div.calendar td,
@@ -54,11 +55,6 @@ div.main table td {
 	font-size: 0.85em;
 	}
 	
-#topmenu,
-#bottommenu {
-	font-size: 12px;
-	}
-
 /* Changes for the front page intro block. */
 
 div#intro h4,

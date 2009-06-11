@@ -84,7 +84,7 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 	
 	// (We don't allow the user to search for a postcode if they
 	// already have one set in their prefs.)
-	
+
 	if ($THEUSER->isloggedin()) {
 		$CHANGEURL = new URL('useredit');
 	} else {
@@ -108,7 +108,7 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 }
 ?>
 						</li>
-						
+
 						<li>
 <?php
 	$SEARCHURL = new URL('search');

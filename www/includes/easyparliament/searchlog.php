@@ -49,18 +49,35 @@ class SEARCHLOG {
     }
 
     // Select popular queries
-    function popular_recent ($count) {
+    function popular_recent ($count, $max_chars = null) {
 
         $q =  $this->db->query("SELECT *, count(*) AS c FROM search_query_log 
                 WHERE count_hits != 0 AND query_string != 'twat'
 	       AND query_string != 'suffragettes'	
                 AND query_time > date_sub(NOW(), INTERVAL 1 DAY) 
                 GROUP BY query_string ORDER BY c desc LIMIT $count;");
-
+                
         $popular_searches = array();
         for ($row=0; $row<$q->rows(); $row++) {
             array_push($popular_searches, $this->_db_row_to_array($q, $row));
         }
+
+        //maximum number of chars?
+        if(isset($max_chars) && $max_chars > 0){
+            $lentotal = 0;
+            $correct_amount = array();
+            // Select a number of queries that will fit in the space
+            foreach ($popular_searches as $popular_search) {
+                $len = strlen($popular_search['visible_name']);
+                if ($lentotal + $len > $max_chars) {
+                    continue;
+                }
+                $lentotal += $len;
+                array_push($correct_amount);
+            }
+            $popular_searches = $correct_amount;
+        }
+        
         return $popular_searches;
     }
 

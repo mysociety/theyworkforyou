@@ -9,7 +9,7 @@
 // The array $data will be packed full of luverly stuff about hansard objects.
 // See the bottom of this document for information about its structure and contents...
 
-global $PAGE, $this_page, $GLOSSARY, $hansardmajors;
+global $PAGE, $this_page, $GLOSSARY, $hansardmajors, $DATA;
 
 include_once INCLUDESPATH."easyparliament/searchengine.php";
 include_once INCLUDESPATH."easyparliament/member.php";
@@ -29,8 +29,9 @@ if (!isset($data['info'])) {
 }
 
 $PAGE->page_start();
-
-$PAGE->stripe_start('head-1');
+$PAGE->supress_heading = true;
+/*
+$PAGE->stripe_start('head-1', '');
 
 $sidebar = $hansardmajors[$data['info']['major']]['sidebar_short'];
 
@@ -41,7 +42,7 @@ $PAGE->stripe_end(array(
 		'content' => $sidebar
 	)
 ));
-
+*/
 if ($data['info']['date'] == date('Y-m-d')) { ?>
 <div style="padding: 4px; margin: 1em; color: #000000; background-color: #ffeeee; border: solid 2px #ff0000;">
 Warning: Showing data from the current day is <strong>experimental</strong> and may not work correctly.
@@ -120,16 +121,41 @@ if (isset ($data['rows'])) {
 		// DISPLAY SECTION AND SUBSECTION HEADINGS.
 		if (!$titles_displayed && $row['htype'] != '10' && $row['htype'] != '11') {
 			// Output the titles we've got so far.
+
+			$PAGE->stripe_start('head-1');
 			
-			$PAGE->stripe_start('head-2');
+			//get section text (e.g. house of commons debate)
+		    $parent_page = $DATA->page_metadata($this_page, 'parent');			
+			$section_text = $DATA->page_metadata($parent_page, 'title');		    
+			
+			//work out the time the debate started
+            $has_start_time = false;
+            if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00") {
+                $has_start_time = true;
+        		$timetracker = substr($row['htime'],0,5); // Set the timetracker to the current time
+            }
+
 			?>
-				<h4><?php echo $section['title']; ?></h4>
-				<h5><?php echo $subsection_title; ?></h5>
+			    <?php if($subsection_title != '' && $subsection_title != "&nbsp;"){ ?>
+    				<h2><?php echo $subsection_title; ?></h2>			
+    				<h3><?php echo $section['title']; ?></h3>
+    			<?php } else { ?>			
+    				<h2><?php echo $section['title']; ?></h2>    			    
+    			<?php } ?>    			    
+				<h4>
+				    <?php echo $section_text . ", "  .format_date($row['hdate'], LONGDATEFORMAT); ?><?php if ($has_start_time){ ?>, 
+				        <abbr class="datetime" title="<?php echo $row['hdate'] . $row['htime'] ?>">
+				            <?php echo format_time($row['htime'], TIMEFORMAT); ?>
+				        </abbr>
+				    <?php } ?>    
+				</h4>				
 <?php
 #			$body = technorati_pretty();
 #			if ($body) {
 #				print '<div class="blockbody">' . $body . '</div>';
 #			}
+
+            // Stripe end
 			$PAGE->stripe_end(array(
 				array (
 					'noplatypus' => true,
@@ -173,9 +199,10 @@ if (isset ($data['rows'])) {
 			
 			echo $row['body'];
 			
-			context_link($row);
-			
-			$sidebarhtml = generate_commentteaser(&$row, $data['info']['major']);
+			context_link($row);			
+			$action_links = array(array("link" => $row['commentsurl'], "title" => "Link to this", "text" => "Link to this", "class"=>"link"));
+
+			$sidebarhtml = generate_commentteaser(&$row, $data['info']['major'], $action_links);
 			
 			$PAGE->stripe_end(array(
 				array (
@@ -209,21 +236,20 @@ if (isset ($data['rows'])) {
 			}
 	
 			// If this item is at a new time, then print the time.
-			if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00") {
-				
-				$PAGE->stripe_start('time-'.$style);
-				
-				echo "\t\t\t\t<p>" . format_time($row['htime'], TIMEFORMAT) . "</p>\n";
-				
-				$PAGE->stripe_end(array(array('noplatypus'=>true)));
+			if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00" && $stripecount != 1) {
+                $style = $stripecount++;
+				$PAGE->stripe_start('time');
+
+				echo "\t\t\t\t" . '<abbr class="datetime" title="' . $row['hdate'] . $row['htime'] . '">' . format_time($row['htime'], TIMEFORMAT) . "</abbr>\n";
 
 				// Set the timetracker to the current time
 				$timetracker = substr($row['htime'],0,5);
 
 				$stripecount++;
 				$style = $stripecount % 2 == 0 ? '1' : '2';
+				$PAGE->stripe_end();				
 			}
-	
+
 
 			if (isset($row['speaker']) && ( (isset($row['speaker']['member_id']) && isset($data['info']['member_id']) && $row['speaker']['member_id'] == $data['info']['member_id']) || (isset($row['speaker']['person_id']) && isset($data['info']['person_id']) && $row['speaker']['person_id'] == $data['info']['person_id']) ) ) {
 				$style .= '-on';
@@ -232,7 +258,8 @@ if (isset ($data['rows'])) {
 			// gid_to_anchor() is in utility.php
 			$id = '';
 			if ($this_page != 'debate') $id = 'g' . gid_to_anchor($row['gid']);
-			$PAGE->stripe_start($style, $id);	
+
+			$PAGE->stripe_start($style, $id, "speech ");
 			if ($id) echo '<a name="', $id, '"></a>';
 
 			if (isset($row['mentions'])) {
@@ -240,19 +267,41 @@ if (isset ($data['rows'])) {
 			}
 
 			if (isset($row['speaker']) && count($row['speaker']) > 0) {
+			    
 			  // We have a speaker to print.
-			  
 				$speaker = $row['speaker'];
 				$speakername = ucfirst(member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']));
-				echo '<p class="speaker"><a href="', $speaker['url'], '" title="See more information about ', $speakername, '">';
-				list($image,$sz) = find_rep_image($speaker['person_id'], true);
-				if ($image) {
-					echo '<img src="', $image, '" class="portrait" alt="Photo of ', $speakername, '"';
-					if (get_http_var('partycolours')) {
-						echo ' style="border: 3px solid ', party_to_colour($speaker['party']), ';"';
-					}
-					echo '>';
+
+				//speaker photo
+				$missing_photo_type = 'general';
+				if($data['info']['major'] == 101){
+				    $missing_photo_type = "lord";
+			    }
+				list($image,$sz) = find_rep_image($speaker['person_id'], true, $missing_photo_type);				
+
+				echo '<a class="speakerimage" id="speakerimage_' . $row['epobject_id'] . '" href="', $speaker['url'], '" title="See more information about ', $speakername, '" onmouseover="showPersonLinks(' . $row['epobject_id'] . ')" >';
+				echo '<span><img src="', $image, '" class="portrait" alt="Photo of ', $speakername, '"';
+				/*
+				if (get_http_var('partycolours')) {
+					echo ' style="border: 3px solid ', party_to_colour($speaker['party']), ';"';
 				}
+				*/
+				echo '></span></a>';
+
+				//speaker links
+				echo '<div class="personinfo" id="personinfo_' . $row['epobject_id']  . '"><ul>';
+				echo '<li><a href="/alert/?only=1&pid=' . $speaker['person_id'] . '">Email me when ' . $speakername .  ' speaks</a></li>';
+				if($data['info']['major'] == 101 || $data['info']['major'] == 1){
+				    echo '<li><a href="' . $speaker['url'] . '#votingrecord">View voting record</a></li>';												    
+			    }
+				echo '<li><a href="' . $speaker['url'] . '#hansard">Most recent apperances</a></li>';				
+				echo '<li><a href="' . $speaker['url'] . '#numbers">Numerology</a></li>';								
+				echo '<li><strong><a href="' . $speaker['url'] . '">Full profile ...</a></strong></li>';												
+				echo '</ul></div>';
+									
+				// print the speaker name and details
+				echo '<p class="speaker ' . strtolower($speaker['party']) . '"><a href="', $speaker['url'], '" title="See more information about ', $speakername, '">';
+
 				echo '<strong>', $speakername, '</strong></a> <small>';
 				$desc = '';
 				if (isset($speaker['office'])) {
@@ -260,6 +309,7 @@ if (isset ($data['rows'])) {
 					#if (strpos($desc, 'PPS')!==false) $desc .= '; ';
 					$desc .= '; ';
 				}
+				
 				# Try always showing constituency/party too
 				#if (!$desc || strpos($desc, 'PPS')!==false) {
 					if ($speaker['house'] == 1 && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
@@ -274,10 +324,28 @@ if (isset ($data['rows'])) {
 						$desc .= '</span>';
 					}
 				#}
-				if ($desc) print "($desc)";
-				if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
-					echo ' <a href="',  $row['commentsurl'], '" title="Copy this URL to link directly to this piece of text" class="permalink">Link to this</a>';
+				
+				// show the question number (Scottish Written Answers only)
+				if ($data['info']['major'] == 8 && preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $row['gid'], $m)) {
+					# Scottish Wrans only
+					print " | Question $m[1]";
 				}
+				
+				//print $desc
+				if ($desc) print "($desc)";
+				echo "</small>";
+								
+                //Build up action links (link, source, watch etc)
+                $action_links = array();
+                
+                // link
+				if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
+				    
+                    $action_links["link"] = array("link" => $row['commentsurl'], "title" => "Link to this", "text" => "Link to this", "class"=>"link");
+					
+				}
+				
+				//source
 				if (isset($row['source_url']) && $row['source_url'] != '') {
 					$source_title = '';
 					$major = $data['info']['major'];
@@ -297,26 +365,27 @@ if (isset ($data['rows'])) {
 							$source_title .= 'WS';
 						} 
 					}
-					if ($source_title) $source_title = ' title="' . $source_title . '"';
-					echo ' | <a href="', $row['source_url'], '"', $source_title, '>',
-					    ($hansardmajors[$data['info']['major']]['location']=='Scotland' ? 'Official Report' : 'Hansard'),
-					    ' source</a>';
+
+                    $text = "Hansard source";
+				    if ($hansardmajors[$data['info']['major']]['location']=='Scotland'){        
+				        $text = 'Official Report source';
+				    }
+				    
+                    $action_links["source"] = array("link" => $row['source_url'], "title" => $source_title, "text" => $text, "class"=>"source");
 				}
 
-				if ($data['info']['major'] == 8 && preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $row['gid'], $m)) {
-					# Scottish Wrans only
-					print " | Question $m[1]";
-				}
-
-                                if ($data['info']['major'] == 1 && $this_page != 'debate') { # Commons debates only
+                //video
+                if ($data['info']['major'] == 1 && $this_page != 'debate') { # Commons debates only
 					if ($row['video_status']&4) {
-						echo ' | <a onclick="return moveVideo(\'debate/' . $row['gid'] . '\');" href="', $row['commentsurl'], '">Watch this</a>';
+						
+						 $action_links["video"] = array("link" => $row['commentsurl'], "title" => "Watch this", "text" => "Watch this", "class"=>"watch", "onclick" => "return moveVideo(\'debate/" . $row['gid'] . "\');");
+						 
 					} elseif (!$video_content && $row['video_status']&1 && !($row['video_status']&8)) {
 						$gid_type = $data['info']['major'] == 1 ? 'debate' : 'lords';
-						echo ' | <a href="/video/?from=debate&amp;gid=', $gid_type, '/', $row['gid'], '">Video match this</a>';
+
+				        $action_links["video"] = array("link" => "/video/?from=debate&amp;gid=" . $gid_type . '/' . $row['gid'], "title" => "Video match this", "class" =>"timestamp", "text" => "Video match this");
 					}
 				}
-				echo "</small>";
 			}
 
 			$body = $row['body'];
@@ -353,7 +422,7 @@ if (isset ($data['rows'])) {
 # Do the logic for this in the function; plus why shouldn't
 # you be able to comment on speeches with unknown speakers?
 #			if (($hansardmajors[$data['info']['major']]['type'] == 'debate') && isset($row['speaker']) && count($row['speaker']) > 0) {
-			$sidebarhtml .= generate_commentteaser(&$row, $data['info']['major']);
+			$sidebarhtml .= generate_commentteaser(&$row, $data['info']['major'], $action_links);
 #			}
 			
 			$PAGE->stripe_end(array(
@@ -451,8 +520,8 @@ if ($this_page == 'debates' || $this_page == 'whall' || $this_page == 'lordsdeba
 	// Previous / Index / Next links, if any.
 	
 	$PAGE->stripe_start('foot');
-	echo '&nbsp;<br>';
-	$PAGE->nextprevlinks();
+	echo '&nbsp;<br/>';
+//	$PAGE->nextprevlinks();
 	?>&nbsp;<br>&nbsp;<?php
 	$PAGE->stripe_end(array(
 		array (
@@ -482,7 +551,7 @@ function context_link (&$row) {
 
 
 //$totalcomments, $comment, $commenturl
-function generate_commentteaser (&$row, $major) {
+function generate_commentteaser (&$row, $major, $action_links) {
 	// Returns HTML for the one fragment of comment and link for the sidebar.
 	// $totalcomments is the number of comments this item has on it.
 	// $comment is an array like:
@@ -502,6 +571,36 @@ function generate_commentteaser (&$row, $major) {
 	
 	if ($hansardmajors[$major]['type'] == 'debate' && $hansardmajors[$major]['page_all']==$this_page) {
 
+        //Action links
+        if(isset($action_links)){
+            $html .= '<ul>';
+                foreach ($action_links as $action_link) {
+                    $html .= '<li>';
+                    $html .= '<a href="' . $action_link['link'] . '" title="' . $action_link['title'] . '"' . 'class="' . $action_link['class'] . '"';
+                    if(isset($action_link['onclick'])){
+                        $html .= ' onclick="' . $action_link['onclick']  . '"';
+                    }
+                    $html .= '>';
+                    $html .= $action_link["text"];                                    
+                    $html .= '</a>';                    
+                    $html .= '</li>';                
+                }
+            $html .= '</ul>';        
+        }
+//		$html .= ' <a href="' .  $row['commentsurl'] . '" title="Copy this URL to link directly to this piece of text" class="permalink">Link to this</a>';
+		
+		// Build the 'Add an annotation' link.
+		if (!$THEUSER->isloggedin()) {
+			$URL = new URL('userprompt');
+			$URL->insert(array('ret'=>$row['commentsurl']));
+			$commentsurl = $URL->generate();
+		} else {
+			$commentsurl = $row['commentsurl'];
+		}
+		
+		$html .= '<div class="add"><a class="annotate" href="' . $commentsurl . '#addcomment" title="Annotate this speech">Add an annotation</a> <small>(e.g. more info, blog post or wikipedia article)</small></div>';
+		
+		//Add existing annotations
 		if ($row['totalcomments'] > 0) {
 			$comment = $row['comment'];
 			
@@ -516,7 +615,7 @@ function generate_commentteaser (&$row, $major) {
 
 				if ($row['totalcomments'] > 1) {
 					$morecount = $row['totalcomments'] - 1;
-					$plural = $morecount == 1 ? 'comment' : 'comments';
+					$plural = $morecount == 1 ? 'annotation' : 'annotations';
 					$linktext = "Read $morecount more $plural";
 				}
 				
@@ -525,34 +624,23 @@ function generate_commentteaser (&$row, $major) {
 				$commentbody = htmlentities(trim_characters($comment['body'], 0, $targetsize, 1000));
 				if ($row['totalcomments'] > 1) {
 					$morecount = $row['totalcomments'] - 1;
-					$plural = $morecount == 1 ? 'comment' : 'comments';
+					$plural = $morecount == 1 ? 'annotation' : 'annotations';
 					$linktext = "Continue reading (and $morecount more $plural)";
 				} else {
 					$linktext = 'Continue reading';
 				}
 			}
-		
-			$html = '<em>' . htmlentities($comment['username']) . '</em>: ' . prepare_comment_for_display($commentbody);
+
+			$html .= '<blockquote><p>' . prepare_comment_for_display($commentbody) . '</p><cite>Submitted by ' . htmlentities($comment['username']) . '</cite></small></blockquote>' ;
 			
 			if (isset($linktext)) {
-				$html .= ' <a href="' . $row['commentsurl'] . '#c' . $comment['comment_id'] . '" title="See any comments posted about this">' . $linktext . '</a>';
+				$html .= ' <a class="morecomments" href="' . $row['commentsurl'] . '#c' . $comment['comment_id'] . '" title="See any comments posted about this">' . $linktext . '</a>';
 			}
 			
-			$html .= '<br><br>';
 		}
 
-		// 'Add a comment' link.
-		if (!$THEUSER->isloggedin()) {
-			$URL = new URL('userprompt');
-			$URL->insert(array('ret'=>$row['commentsurl']));
-			$commentsurl = $URL->generate();
-		} else {
-			$commentsurl = $row['commentsurl'];
-		}
-		
-		$html .= '<a href="' . $commentsurl . '#addcomment" title="Comment on this"><strong>Add your comment</strong></a>';
 
-		$html = "\t\t\t\t" . '<p class="comment-teaser">' . $html . "</p>\n";
+		$html = "\t\t\t\t" . '<div class="comment-teaser">' . $html . "</div>\n";
 	}
 	
 	return $html;
@@ -602,11 +690,11 @@ function generate_votes ($votes, $major, $id, $gid) {
 		
 		$html .= '<strong>Does this answer the above question?</strong><br>';
 		
-		$html .= '<span class="wransvote"><a rel="nofollow" href="' . $VOTEURL->generate() . '" title="Rate this as answering the question">Yes!</a> ' . $yesvotes . ' ' . $yesplural . ' so!<br>';
+		$html .= '<span class="wransvote"><a class="linkbutton" rel="nofollow" href="' . $VOTEURL->generate() . '" title="Rate this as answering the question">Yes!</a> ' . $yesvotes . ' ' . $yesplural . ' so!<br>';
 
 		$VOTEURL->insert(array('v'=>'0'));
 		
-		$html .= '<a rel="nofollow" href="' . $VOTEURL->generate() . '" title="Rate this as NOT answering the question">No!</a> ' . $novotes . ' ' . $noplural . ' not!</span>';
+		$html .= '<a class="linkbutton" rel="nofollow" href="' . $VOTEURL->generate() . '" title="Rate this as NOT answering the question">No!</a> ' . $novotes . ' ' . $noplural . ' not!</span>';
 
         $html .= "<p>Would you like to <strong>ask a question like this yourself</strong>? Use our <a href=\"http://www.whatdotheyknow.com\">Freedom of Information site</a>.</p>";
 

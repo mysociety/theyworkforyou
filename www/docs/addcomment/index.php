@@ -53,9 +53,10 @@ if (get_http_var("submitcomment") != '') {
 
 	if (is_numeric(get_http_var('epobject_id'))) {
 		
+		
+		//remove any unwanted tags
 		$body = get_http_var('body');
 		$body = filter_user_input($body, 'comment'); // In init.php
-
 	
 		// Preview the comment.
 		// Mock up a data array for the comment listing template.
@@ -76,7 +77,6 @@ if (get_http_var("submitcomment") != '') {
 			
 	
 		// Show the populated comment form.
-		
 		$commendata = array (
 			'epobject_id' => get_http_var('epobject_id'),
 			'gid' => get_http_var('gid'),

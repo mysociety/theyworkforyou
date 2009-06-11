@@ -11,7 +11,7 @@ class PAGE {
 	// So we can tell from other places whether we need to output the page_start or not.
 	// Use the page_started() function to do this.
 	var $page_start_done = false;
-	
+	var $supress_heading = false;
 	var $heading_displayed = false;
 	
 	// We want to know where we are with the stripes, the main structural elements
@@ -20,9 +20,9 @@ class PAGE {
 	// Changed in $this->stripe_start().
 	var $within_stripe_main = false;
 	var $within_stripe_sidebar = false;
-		
 	
 	function page_start () {
+
 	  ob_start();
 	  set_time_limit(0);
 		global $DATA, $this_page, $THEUSER;
@@ -39,7 +39,7 @@ class PAGE {
 					
 					$LOGINURL = new URL('userlogin');
 					$LOGINURL->insert(array('ret' => $THISPAGE->generate('none') ));
-				
+
 					$text = "<a href=\"" . $LOGINURL->generate() . "\">You'd better log in!</a>";
 				} else {
 					$text = "That's all folks!";
@@ -58,7 +58,7 @@ class PAGE {
 				$this->page_end();
 				exit;
 			}
-			
+
 			$this->page_header();
 			$this->page_body();
 			$this->content_start();
@@ -205,10 +205,11 @@ class PAGE {
 	<?=$robots ?>
 	<link rel="author" title="Send feedback" href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">
 	<link rel="home" title="Home" href="http://<?php echo DOMAIN; ?>/">
-	<script type="text/javascript" src="/js/main.js"></script>
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="/jslib/share/share.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>	
+	<script type="text/javascript" src="/js/bar.js"></script>	
 <?php
 		echo $linkshtml; 
 		
@@ -293,42 +294,55 @@ if (typeof urchinTracker == 'function') urchinTracker();
 # echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
 # </div>';
 
+		$this->mysociety_bar();
 		$this->title_bar();
 		$this->menu();
 	}
 	
-	
+	//render the little mysociety crossell
+	function mysociety_bar () {
+		global $this_page;
+		?>
+		
+		    <div id="mysociety_bar">
+		        <ul>
+		            <li id="logo">
+		                <a href="http://www.mysociety.org"><span>mySociety</span></a>
+		            </li>
+		            <li>
+		                <a href="http://www.mysociety.org/donate/?cs=1" title="Like this website? Dontate to help keep it running.">Donate</a>
+		            </li>
+		            <li id="moresites">
+		                <a id="moresiteslink" href="http://www.mysociety.org/projects/?cs=1" title="Donate to UK Citizens Online Democracy, mySociety's parent charity.">More</a>
+		            </li>
+		            <li >
+                        <noscript>
+
+                            <a href="http://www.mysociety.org/projects/?cs=1" title="View all mySociety's projects">More mySociety projects...</a>&nbsp;&nbsp;
+                            <a href="https://secure.mysociety.org/admin/lists/mailman/listinfo/news?cs=1" title="mySociety newsletter - about once a month">mySociety newsletter</a>                
+                        </noscript>		              
+		            </li>
+		        </ul>
+		    </div>
+		
+		<?php	    
+    }
 	
 	function title_bar () {
 		// The title bit of the page, with possible search box.
 		global $this_page;
 		
-		$img = '<img src="' . IMAGEPATH . 'theyworkforyoucom.gif" width="293" height="28" alt="TheyWorkForYou.com">';
-		
-		//isn't this very hacky? shouldn't we be cobranding cleverly using METADATA? ( I've repeated this below however -stef"
-		if (get_http_var('c4')) {
-			$img = '<img src="/images/c4banner.gif" alt="TheyWorkForYou.com with Channel 4">';
-		} elseif (get_http_var('c4x')) {
-			$img = '<img src="/images/c4Xbanner.gif" alt="TheyWorkForYou.com with Channel 4">';
-		}
+		$img = '<img src="' . IMAGEPATH . 'logo.png" width="591" height="105" alt="TheyWorkForYou.com">';
 
 		if ($this_page != 'home') {
-			if (get_http_var('c4')) {
-				$HOMEURL = 'http://www.channel4.com/news/microsites/E/election2005/';
-				$HOMETITLE = 'To Channel 4\'s main election site';
-			} elseif (get_http_var('c4x')) {
-				$HOMEURL = 'http://www.channel4.com/life/microsites/E/elexion/';
-				$HOMETITLE = 'To Channel 4\'s main election site';
-			} else {
-				$HOMEURL = new URL('home');
-				$HOMEURL = $HOMEURL->generate();
-				$HOMETITLE = 'To the front page of the site';
-			}
+			$HOMEURL = new URL('home');
+			$HOMEURL = $HOMEURL->generate();
+			$HOMETITLE = 'To the front page of the site';
 			$img = '<a href="' . $HOMEURL . '" title="' . $HOMETITLE . '">' . $img . '</a>';
 		}
 		?>
 	<div id="banner">
-		<a href="http://www.mysociety.org"><img id="logo" alt="Visit mySociety.org" src="http://www.mysociety.org/mysociety_sm.gif"></a>
+
 		<div id="title">
 			<h1><?php echo $img; ?></h1>
 		</div>
@@ -339,8 +353,19 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			?>
 		<div id="search">
 			<form action="<?php echo $URL->generate(); ?>" method="get">
-			<p>Search <input name="s" size="15"> <input type="submit" class="submit" value="GO"></p>
+			   <label for="searchbox">Search</label><input id="searchbox" name="s" size="15"> <input type="submit" class="submit" value="GO">
 			</form>
+			<ul>
+			    <li>
+			        e.g. a <em>word</em>, <em>phrase</em> or <em>person</em>
+			    </li>
+			    <li>
+			        |
+			    </li>
+			    <li>
+			        <a href="/search/?adv=1">Advanced search</a>			        
+			    </li>			    
+		    </ul>
 		</div>
 <?php
 	#		}
@@ -349,29 +374,27 @@ if (typeof urchinTracker == 'function') urchinTracker();
 <?php	
 	}
 	
-	
-	
 	function menu () {
 		global $this_page, $DATA, $THEUSER;
-	
+
 		// Page names mapping to those in metadata.php.
 		// Links in the top menu, and the sublinks we see if
 		// we're within that section.
 		$items = array (
 			array('home', 'sitenews', 'comments_recent', 'api_front'),
 			array('yourmp'),
-			array('hansard', 'mps', 'peers', 'debatesfront', 'lordsdebatesfront', 'wransfront', 'whallfront', 'wmsfront'), # ,'pbc_front'),
+			array('hansard', 'overview', 'mps', 'peers', 'debatesfront', 'lordsdebatesfront', 'wransfront', 'whallfront', 'wmsfront'), # ,'pbc_front'),
 			#'people' 	=> array('mps', 'peers', 'mlas', 'msps'),
 			#'mps'           => array (),
 			#'peers'		=> array (),
-			array('sp_home', 'msps', 'spdebatesfront', 'spwransfront'),
-			array('ni_home', 'mlas', 'nidebatesfront'),
+			array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
+			array('ni_home', 'nioverview', 'mlas', 'nidebatesfront'),
 			array('wales_home'),
 #			'help_us_out'	=> array (), 
 /*			'help_us_out'	=> array ('glossary_addterm'),  */
 			array('help'),
 		);
-		
+
 		// If the user's postcode is set, then we allow them to view the
 		// bottom menu link to this page...
 		if ($THEUSER->postcode_is_set()) {
@@ -397,6 +420,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			$bottom_hilite = '';
 		
 		} else {
+		    
 			// Does this page's parent have a parent?
 			$parents_parent = $DATA->page_metadata($this_parent, 'parent');
 
@@ -414,28 +438,34 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			}
 		}
 
+        //get ths selected top link
+        $selected_top_link = $DATA->page_metadata($top_hilite, 'menu');
+
+        //get the top and bottom links
 		foreach ($items as $bottompages) {
 			$toppage = array_shift($bottompages);
 			
 			// Generate the links for the top menu.
 			
 			// What gets displayed for this page.
-			$menudata = $DATA->page_metadata($toppage, 'menu');
-			$text = $menudata['text'];
-			$title = $menudata['title'];
-			
-			// Where we're linking to.
-			$URL = new URL($toppage);			
-			
-			$class = $toppage == $top_hilite ? ' class="on"' : '';
+			$menudata = $DATA->page_metadata($toppage, 'menu');			
+			if($menudata){
+    			$text = $menudata['text'];
+    			$title = $menudata['title'];
 
-			$top_links[] = '<a href="' . $URL->generate() . '" title="' . $title . '"' . $class . '>' . $text . '</a>';
-
+                //get link and description for the menu ans add it to the array
+    			$class = $toppage == $top_hilite ? ' class="on"' : '';            
+    			$URL = new URL($toppage);			            
+    			$top_link = array("link" => '<a href="' . $URL->generate() . '" title="' . $title . '"' . $class . '>' . $text . '</a>', 
+    			    "title" => $title);
+                array_push($top_links, $top_link);
+            }
+            
 			if ($toppage == $top_hilite) {
+ 
 				// This top menu link is highlighted, so generate its bottom menu.
-				
 				foreach ($bottompages as $bottompage) {
-					$menudata = $DATA->page_metadata($bottompage, 'menu');
+					$menudata = $DATA->page_metadata($bottompage, 'menu');					
 					$text = $menudata['text'];
 					$title = $menudata['title'];
 					// Where we're linking to.
@@ -444,18 +474,22 @@ if (typeof urchinTracker == 'function') urchinTracker();
 					$bottom_links[] = '<a href="' . $URL->generate() . '" title="' . $title . '"' . $class . '>' . $text . '</a>';
 				}
 			}
-
 		}
 		?>
 	<div id="menu">
 		<div id="topmenu">
+		    <a id="topmenuselected" href="javascript:toggleVisible('site');"><?php echo $selected_top_link['text']; ?></a>
 <?php
 			$user_bottom_links = $this->user_bar($top_hilite, $bottom_hilite);
 			if ($user_bottom_links) $bottom_links = $user_bottom_links;
 			?>
-			<ul id="site">
-			<li><?php print implode("</li>\n\t\t\t<li>", $top_links); ?></li>
-			</ul>
+    			<dl id="site">
+    			    <?php foreach ($top_links as $top_link) {?>
+            			<dt><?php print $top_link['link']; ?></dt>
+            			<dd><?php print $top_link['title']; ?></dd>
+    			    <?php } ?>
+    			</dl>
+
 			<br>
 		</div>
 		<div id="bottommenu">
@@ -464,8 +498,8 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			</ul>
 		</div>
 	</div> <!-- end #menu -->
-	
-<?php
+
+<?php 
 	}
 
 
@@ -473,18 +507,19 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// Called from menu(), but separated out here for clarity.
 		// Does just the bit of the menu related to login/join/etc.
 		global $this_page, $DATA, $THEUSER;
-
 		$bottom_links = array();
 
 		// We may want to send the user back to this current page after they've
 		// joined, logged out or logged in. So we put the URL in $returl.
 		$URL = new URL($this_page);
 		$returl = $URL->generate();
-		
+
+		/*
 			// The 'get involved' link.
 			$menudata 	= $DATA->page_metadata('getinvolved', 'menu');
 			$getinvolvedtitle	= $menudata['title'];
 			$getinvolvedtext 	= $menudata['text'];
+
 			
 			$GETINVURL 	= new URL('getinvolved');
 			if ($this_page != 'getinvolved') {
@@ -502,6 +537,9 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			} else {
 				$getinvolvedclass = ' class="on"';
 			}
+		*/
+		
+		//user logged in
 		if ($THEUSER->isloggedin()) {
 		
 			// The 'Edit details' link.
@@ -541,22 +579,22 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			$username = $THEUSER->firstname() . ' ' . $THEUSER->lastname();
 
 		?>
+		    
 			<ul id="user">
 			<li><a href="<?php echo $LOGOUTURL->generate(); ?>" title="<?php echo $logouttitle; ?>"<?php echo $logoutclass; ?>><?php echo $logouttext; ?></a></li>
 			<li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo $edittext; ?></a></li>
 			<li><span class="name"><?php echo htmlentities($username); ?></span></li>
-<!--			<li><a href="<?php echo $GETINVURL->generate(); ?>" title="<?php echo $getinvolvedtitle; ?>"<?php echo $getinvolvedclass; ?>><?php echo $getinvolvedtext; ?></a></li> -->
 			</ul>
 <?php
 
 		} else {
-			// User logged out.
+		// User not logged in
 
 			// The 'Join' link.
 			$menudata 	= $DATA->page_metadata('userjoin', 'menu');
 			$jointext 	= $menudata['text'];
 			$jointitle 	= $menudata['title'];
-			
+
 			$JOINURL 	= new URL('userjoin');
 			if ($this_page != 'userjoin') {
 				if ($this_page != 'userlogout' && $this_page != 'userlogin') {
@@ -596,7 +634,6 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			<ul id="user">
 			<li><a href="<?php echo $LOGINURL->generate(); ?>" title="<?php echo $logintitle; ?>"<?php echo $loginclass; ?>><?php echo $logintext; ?></a></li>
 			<li><a href="<?php echo $JOINURL->generate(); ?>" title="<?php echo $jointitle; ?>"<?php echo $joinclass; ?>><?php echo $jointext; ?></a></li>
-<!--			<li><a href="<?php echo $GETINVURL->generate(); ?>" title="<?php echo $getinvolvedtitle; ?>"<?php echo $getinvolvedclass; ?>><?php echo $getinvolvedtext; ?></a></li> -->
 			</ul>
 <?php
 		}
@@ -615,8 +652,9 @@ if (typeof urchinTracker == 'function') urchinTracker();
 	}
 
 
-	function stripe_start ($type='side', $id='') {
+	function stripe_start ($type='side', $id='', $extra_class = '') {
 		// $type is one of:
+		//	'full' - a full width div
 		// 	'side' - a white stripe with a coloured sidebar.
 		//           (Has extra padding at the bottom, often used for whole pages.)
 		//  'head-1' - used for the page title headings in hansard.
@@ -627,7 +665,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		//	'foot' - For the bottom stripe on hansard debates/wrans listings.
 		// $id is the value of an id for this div (if blank, not used).
 		?>
-		<div class="stripe-<?php echo $type; ?>"<?php
+		<div class="stripe-<?php echo $type; ?><?php if ($extra_class != '') echo ' ' . $extra_class; ?>"<?php
 		if ($id != '') {
 			print ' id="' . $id . '"';
 		}
@@ -638,7 +676,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// On most, uncomplicated pages, the first stripe on a page will include
 		// the page heading. So, if we haven't already printed a heading on this
 		// page, we do it now...
-		if (!$this->heading_displayed()) {
+		if (!$this->heading_displayed() && $this->supress_heading != true) {
 			$this->heading();
 		}
 	}
@@ -697,20 +735,6 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			<div class="sidebar">
 
         <? 
-		global $already_done_platypus;
-		$show_platypus = 1;
-		if ($this_page == 'search' || $this_page == 'campaign' || $this_page=='debates' || $this_page=='debate' || $already_done_platypus || (count($contents)==1 && isset($contents[0]['noplatypus'])))
-			$show_platypus = 0;
-		if ($show_platypus) {
-			$already_done_platypus = 1;
-?>
-			<div class="block">
-            <h4>Click on the platypus!</h4>
-            <p align="center"><a href="/freeourbills"><img title="Duck-billed platypus" src="/freeourbills/billsm.png" alt="Free Our Bills!" hspace="10" vspace="10"></a></p>
-            </div>
-
-<?php
-		}
 		$this->within_stripe_sidebar = true;
 		$extrahtml = '';
 		
@@ -821,7 +845,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// A page's parent can have a 'title' and a 'heading'.
 		// The 'title' is always used to create the <title></title>.
 		// If we have a 'heading' however, we'll use that here, on the page, instead.
-		
+
 		$parent_page = $DATA->page_metadata($this_page, 'parent');
 	
 		if ($parent_page != '') {
@@ -860,13 +884,13 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		# XXX Yucky
 		if ($this_page != 'home' && $this_page != 'contact') {
 			if ($section_text && $parent_page != 'help_us_out' && $parent_page != 'home' && $this_page != 'campaign') {
-				print "\t\t\t\t<h2>$section_text</h2>\n";
+				print "\t\t\t\t<h2>$page_text</h2>\n";
 			}
 			if ($page_text) {
-				print "\t\t\t\t<h3>$page_text</h3>\n";
+				print "\t\t\t\t<h3>$section_text</h3>\n";
 			}
 		}
-	
+
 		// So we don't print the heading twice by accident from $this->stripe_start().
 		$this->heading_displayed = true;
 	}
@@ -878,44 +902,117 @@ if (typeof urchinTracker == 'function') urchinTracker();
 	function content_end () {
 		global $DATA, $this_page;
 		
-		$pages = array ('about', 'contact', 'linktous', 'houserules');
-		
-		foreach ($pages as $page) {
-			$URL = new URL($page);
-			$title = $DATA->page_metadata($page, 'title');
-			
-			if ($page == $this_page) {
-				$links[] = $title;
-			} else {
-				$links[] = '<a href="' . $URL->generate() . '">' . $title . '</a>';
-			}
-		}
-		$links[] = '<a href="' . WEBPATH . 'api/">API</a> / <a href="http://ukparse.kforge.net/parlparse">XML</a>';
-		$links[] = '<a href="https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy">Source code</a>';
+		$about_links = $this->get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'contact'));
+        $assembly_links = $this->get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home'));		
+        $international_links = $this->get_menu_links(array ('newzealand', 'australia', 'ireland'));
+        $tech_links = $this->get_menu_links(array ('code', 'api', 'data', 'devmailinglist', 'irc'));
+
+/*
+		$about_links[] = '<a href="' . WEBPATH . 'api/">API</a> / <a href="http://ukparse.kforge.net/parlparse">XML</a>';
+		$about_links[] = '<a href="https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy">Source code</a>';
 
 		$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? strtolower( $_SERVER['HTTP_USER_AGENT'] ) : '';
 		if (stristr($user_agent, 'Firefox/'))
-			$links[] = '<a href="http://mycroft.mozdev.org/download.html?name=theyworkforyou">Add search to Firefox</a>';
+			$about_links[] = '<a href="http://mycroft.mozdev.org/download.html?name=theyworkforyou">Add search to Firefox</a>';
+
+*/			
 		?>
 	
 		<div id="footer">
-			<p><?php
-		print implode(' &nbsp;&nbsp;&nbsp; ', $links);
-		?></p>
-			
+			<dl>
+			    <dt>About: </dt>
+			    <dd>
+			        <ul>
+        			    <?php
+        			        foreach ($about_links as $about_link) {
+        			            echo '<li>' . $about_link . '</li>';
+        			        }
+                        ?>
+                    </ul>
+                </dd>
+			    <dt>Parliaments &amp; assemblies: </dt>
+			    <dd>
+			        <ul>
+        			    <?php
+        			        foreach ($assembly_links as $assembly_link) {
+        			            echo '<li>' . $assembly_link . '</li>';
+        			        }
+                        ?>
+                    </ul>
+                </dd>
+			    <dt>International projects: </dt>
+			    <dd>
+			        <ul>
+        			    <?php
+        			        foreach ($international_links as $international_link) {
+        			            echo '<li>' . $international_link . '</li>';
+        			        }
+                        ?>
+                    </ul>
+                </dd>                
+                <dt>Technical: </dt>
+			    <dd>
+			        <ul>
+        			    <?php
+        			        foreach ($tech_links as $tech_link) {
+        			            echo '<li>' . $tech_link . '</li>';
+        			        }
+                        ?>
+                    </ul>
+                </dd>
+		  </dl>
+		  <div>
+		      <h5>Donate</h5>
+		      <p>
+		          This website is run by <a href="#">mySociety</a> a registered charity. If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
+		      </p>
+		      <h5>Signup to our newsletter</h5>
+		      <form method="get" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
+		          <input type="text" name="email"/>
+		          <input type="submit" value="Go"/>
+		      </form>
+		      <p>
+		          Approximately once a month, spam free
+		      </p>
+		  </div>
+          <br class="clear"/>
 		</div>
 
 	</div> <!-- end #content -->
 <?php
 
 	}
-	
-	
+
+    //get <a> links for a particular set of pages defined in metadata.php
+	function get_menu_links ($pages){
+		global $DATA, $this_page;
+		$links = array();
+		
+		foreach ($pages as $page) {
+
+            //get meta data
+			$title = $DATA->page_metadata($page, 'title');
+			$url = $DATA->page_metadata($page, 'url');
+			
+			//check for external vs internal menu links
+			if(!valid_url($url)){
+			    $URL = new URL($page);
+			    $url = $URL->generate();
+	        }
+	        
+			//make the link
+			if ($page == $this_page) {
+				$links[] = $title;
+			} else {
+				$links[] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+			}
+		}
+
+		return $links;
+    }
 	
 	function page_footer ($extra = null) {
 		global $DATA, $this_page;
-
-
 
 		// This makes the tracker appear on all sections, but only actually on theyworkforyou.com
 				//if ($DATA->page_metadata($this_page, 'track') ) {
@@ -931,9 +1028,6 @@ s=screen;srw=s.width;an!="Netscape"?srb=s.colorDepth:srb=s.pixelDepth
 pr()//-->
 </script><noscript><div><img alt="" src="http://x3.extreme-dm.com/z/?tag=fawkes&amp;p=<?php echo $url; ?>&amp;j=n" height="1" width="1"></div></noscript>
 <?php
-			if (get_http_var('c4') || get_http_var('c4x')) { ?>
-<script type="text/javascript" src="http://www.channel4.com/media/scripts/statstag.js"></script> <!--//end WEB STATS --> <noscript><div style="display:none"><img width="1" height="1" src="http://stats.channel4.com/njs.gif?dcsuri=/nojavascript&amp;WT.js=No" alt=""></div></noscript>
-<?			}
 
 			// mySociety tracking, not on staging
 			if (defined('OPTION_TRACKING') && OPTION_TRACKING) {
@@ -975,7 +1069,9 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 <noscript><img src="http://piwik.mysociety.org/piwik.php?i=1" width=1 height=1 style="border:0" alt=""></noscript>
 <!-- /Piwik -->
 <? } ?>
-
+<script type="text/javascript" charset="utf-8">
+    barSetup();
+</script>
 </body>
 </html>
 <?php
@@ -1164,7 +1260,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
             principles detailed above.</p>";
       $this->block_end();
     }
-    
+
 		foreach ($member['houses'] as $house) {
 			if ($house==2) continue;
 			if (!$member['current_member'][$house]) $title .= ', former';
@@ -1176,19 +1272,21 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
 		}
 		print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
-		$this->block_start(array('id'=>'mp', 'title'=>$title));
-		list($image,$sz) = find_rep_image($member['person_id']);
+
+		list($image,$sz) = find_rep_image($member['person_id'], false, true);
 		if ($image) {
+		    echo '<p class="person">';
 			echo '<img class="portrait" alt="Photo of ', $member['full_name'], '" src="', $image, '"';
 			if ($sz=='S') echo ' height="118"';
-			echo '>';
+			echo '></p>';
 		} elseif ($member['current_member'][1]) {
 			// For MPs, prompt for photo
 			echo '<div class="textportrait"><br>We\'re missing a photo!<br><br><a href="mailto:team@theyworkforyou.com">Email us one</a> <small>(that you have copyright of)</small><br><br></div>';
 		}
-
-		echo '<ul class="hilites">';
+        
+        //work out person's description
 		$desc = '';
+		$last_item = end($member['houses']);
 		foreach ($member['houses'] as $house) {
 			if ($house==0) {
 				$desc .= '<li><strong>Acceded on ';
@@ -1199,7 +1297,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			}
 			$party = $member['left_house'][$house]['party'];
 			if ($house==1 && isset($member['entered_house'][2])) continue; # Same info is printed further down
-			$desc .= '<li><strong>';
+
 			if (!$member['current_member'][$house]) $desc .= 'Former ';
 			$party_br = '';
 			if (preg_match('#^(.*?)\s*\((.*?)\)$#', $party, $m)) {
@@ -1215,7 +1313,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 					$last = end($member['other_parties']);
 					$desc .= $last['from'] . ' ';
 				}
-			}
+			}			
 			if ($house==1 || $house==3 || $house==4) {
 				$desc .= ' ';
 				if ($house==1) $desc .= 'MP';
@@ -1224,18 +1322,28 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 				if ($party_br) {
 					$desc .= " ($party_br)";
 				}
+
 				$desc .= ' for ' . $member['left_house'][$house]['constituency'];
 			}
 			if ($house==2 && $party != 'Bishop') $desc .= ' Peer';
-			$desc .= '</strong></li>';
+			
+			if($house != $last_item){
+			    $desc .= ', ';
+		    }
 		}
-		print $desc;
+
+        //headings
+        echo '<h2>' . $member['full_name'] . '</h2>';
+        echo '<h3>' . $desc . '</h3>';
+
+		echo '<ul class="hilites">';		
 		if ($member['other_parties'] && $member['party'] != 'Speaker' && $member['party']!='Deputy Speaker') {
 			print "<li>Changed party ";
 			foreach ($member['other_parties'] as $r) {
 				$out[] = 'from ' . $r['from'] . ' on ' . format_date($r['date'], SHORTDATEFORMAT);
 			}
 			print join('; ', $out);
+			
 			print '</li>';
 		}
 
@@ -1367,7 +1475,9 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		if ($member['party'] == 'Sinn Fein' && in_array(1, $member['houses'])) {
 			print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
 		}
-					
+		print "</ul>";
+		print '<br class="clear"/>';
+		print "<ul class=\"hilites\">";		
 		if ($member['the_users_mp'] == true) {
 			$pc = $THEUSER->postcode();
 			?>
@@ -1406,7 +1516,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 						</ul>
 						
 						
-						<ul class="jumpers">
+						<ul class="jumpers hilites">
 <?
 		if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_array(2, $member['houses'])) {
 			echo '<li><a href="#votingrecord">Voting record</a></li>';
@@ -1430,7 +1540,6 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 		?>
 						</ul>
 <?php
-		$this->block_end();
 
 # Big don't-print for SF MPs
 $chairmens_panel = false;
@@ -1438,7 +1547,8 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 
 		// Voting Record.
 		?> <a name="votingrecord"></a> <?php
-		$this->block_start(array('id'=>'votingrecord', 'title'=>'Voting record (from PublicWhip)'));
+		//$this->block_start(array('id'=>'votingrecord', 'title'=>'Voting record (from PublicWhip)'));
+		print '<h4>Voting record (from PublicWhip)</h4>';
 		$displayed_stuff = 0;
 		function display_dream_comparison($extra_info, $member, $dreamid, $desc, $inverse, $search) {
 			if (isset($extra_info["public_whip_dreammp${dreamid}_distance"])) {
@@ -1555,13 +1665,14 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 		if (!$displayed_stuff) {
 			print '<p>No data to display yet.</p>';
 		}
-		$this->block_end();
+
 
 		# Topics of interest only for MPs at the moment
 		if ($member['current_member'][1]) { # in_array(1, $member['houses'])
 
 ?>	<a name="topics"></a>
-		<? $this->block_start(array('id'=>'topics', 'title'=>'Committees and topics of interest')); 
+    <h4>Committees and topics of interest</h4>
+		<?
 		$topics_block_empty = true;
 
 		// Select committee membership
@@ -1633,7 +1744,6 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 			print "<p><em>This MP is not currently on any select or public bill committee
 and has had no written questions answered for which we know the department or subject.</em></p>";
 		}
-		$this->block_end();
 
 		}
 	}
@@ -1646,8 +1756,9 @@ and has had no written questions answered for which we know the department or su
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
 			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
 		}
-
-		$this->block_start(array('id'=>'hansard', 'title'=>$title));
+        
+        print "<h4>{$title}</h4>";
+		//$this->block_start(array('id'=>'hansard', 'title'=>$title));
 		// This is really far from ideal - I don't really want $PAGE to know
 		// anything about HANSARDLIST / DEBATELIST / WRANSLIST.
 		// But doing this any other way is going to be a lot more work for little 
@@ -1683,12 +1794,13 @@ and has had no written questions answered for which we know the department or su
 <?php
 		}
 		
-		$this->block_end();
+	//	$this->block_end();
 
 } # End Sinn Fein
 
 		?> <a name="numbers"></a> <?php
-		$this->block_start(array('id'=>'numbers', 'title'=>'Numerology'));
+		//$this->block_start(array('id'=>'numbers', 'title'=>'Numerology'));
+		print "<h4>Numerology</h4>";
 		$displayed_stuff = 0;
 		?>
 		<p><em>Please note that numbers do not measure quality. 
@@ -1786,7 +1898,7 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 		if (!$displayed_stuff) {
 			print '<p>No data to display yet.</p>';
 		}
-		$this->block_end();
+		//$this->block_end();
 
 		if (isset($extra_info['register_member_interests_html'])) {
 ?>				
@@ -1822,6 +1934,7 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 			echo expenses_display_table($extra_info);
 			$this->block_end();
 		}
+
 	}
 	
 	function generate_member_links ($member, $links) {
@@ -2062,9 +2175,9 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 		if (isset($nextprev['prev'])) {
 
 			$prev = $nextprev['prev'];
-			
+
 			if (isset($prev['url'])) {	
-				$prevlink = '<a href="' . $prev['url'] . '" title="' . $prev['title'] . '">&laquo; ' . $prev['body'] . '</a>';
+				$prevlink = '<a href="' . $prev['url'] . '" title="' . $prev['title'] . '" class="linkbutton">&laquo; ' . $prev['body'] . '</a>';
 		
 			} else {
 				$prevlink = '&laquo; ' . $prev['body'];
@@ -2090,7 +2203,7 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 			$next = $nextprev['next'];
 			
 			if (isset($next['url'])) {
-				$nextlink = '<a href="' .  $next['url'] . '" title="' . $next['title'] . '">' . $next['body'] . ' &raquo;</a>';
+				$nextlink = '<a href="' .  $next['url'] . '" title="' . $next['title'] . '" class="linkbutton">' . $next['body'] . ' &raquo;</a>';
 			} else {
 				$nextlink = $next['body'] . ' &raquo;';
 			}
@@ -2102,7 +2215,7 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 		
 		
 		if ($uplink || $prevlink || $nextlink) {
-			echo '<p class="nextprev">', $uplink, ' ', $prevlink, ' ', $nextlink, '</p>';
+			echo '<p class="nextprev">', $uplink, ' ', $nextlink, ' ', $prevlink, '</p><br class="clear"/>';
 		}
 	}
 
@@ -2163,6 +2276,7 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 		// Otherwise the value of 's' in the URL will be displayed.
 
 		$wtt = get_http_var('wtt');
+		$advanced = get_http_var('adv');
 
 		$URL = new URL('search');
 		$URL->reset(); // no need to pass any query params as a form action. They are not used.
@@ -2182,23 +2296,24 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 
 		echo '<div class="mainsearchbox">';
 		if ($wtt<2) {
-			echo '<form action="', $URL->generate(), '" method="get">';
-			if (get_http_var('o')) {
-				echo '<input type="hidden" name="o" value="', htmlentities(get_http_var('o')), '">';
-			}
-			if (get_http_var('house')) {
-				echo '<input type="hidden" name="house" value="', htmlentities(get_http_var('house')), '">';
-			}
-			echo '<input type="text" name="s" value="', htmlentities($value), '" size="50"> ';
-			echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
-			if ($adv) {
-				$URL = new URL('search');
-				$URL->insert(array('adv'=>1));
-				echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">Advanced search</a>';
-			}
-			echo '<br>';
-			if ($wtt) print '<input type="hidden" name="wtt" value="1">';
-
+            if(!isset($advanced) && $advanced != true){		    
+    			echo '<form action="', $URL->generate(), '" method="get">';
+    			if (get_http_var('o')) {
+    				echo '<input type="hidden" name="o" value="', htmlentities(get_http_var('o')), '">';
+    			}
+    			if (get_http_var('house')) {
+    				echo '<input type="hidden" name="house" value="', htmlentities(get_http_var('house')), '">';
+    			}
+    			echo '<input type="text" name="s" value="', htmlentities($value), '" size="50"> ';
+    			echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
+    			if ($adv) {
+    				$URL = new URL('search');
+    				$URL->insert(array('adv'=>1));
+    				echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">Advanced search</a>';
+    			}
+    			echo '<br>';
+    			if ($wtt) print '<input type="hidden" name="wtt" value="1">';
+            }
 		} else { ?>
 	<form action="http://www.writetothem.com/lords" method="get">
 	<input type="hidden" name="pid" value="<?=htmlentities(get_http_var('pid')) ?>">
@@ -2252,8 +2367,7 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 label { float: left; width: 12em; }
 </style>
 <form action="/search/" method="get">
-<h3>Advanced Search</h3>
-<p><em>This is a new experimental feature &ndash; it should work, but do let us know if something odd happens.</em></p>
+<h2>Advanced Search</h2>
 <p><label for="s">Words:</label> <input type="text" id="s" name="s" value="<?=htmlspecialchars(get_http_var('s')) ?>" size="50">
 <p><label for="phrase">Exact phrase:</label> <input type="text" id="phrase" name="phrase" value="<?=htmlspecialchars(get_http_var('phrase')) ?>" size="50">
 <p><label for="exclude">Ignore the words:</label> <input type="text" id="exclude" name="exclude" value="<?=htmlspecialchars(get_http_var('exclude')) ?>" size="50">
@@ -2644,7 +2758,6 @@ Sinn Fein is broken
 		?>
 						</ul>
 					</div>
-					<div class="break">&nbsp;</div>
 		<?php
 	}
 
@@ -2883,7 +2996,7 @@ Sinn Fein is broken
 			$JOINURL->insert(array('ret'=>$THISPAGEURL->generate().'#addcomment'));
 			
 			?>
-				<p><a href="<?php echo $LOGINURL->generate(); ?>">Log in</a> or <a href="<?php echo $JOINURL->generate(); ?>">join</a> to post a public comment.</p>
+				<p><a href="<?php echo $LOGINURL->generate(); ?>">Log in</a> or <a href="<?php echo $JOINURL->generate(); ?>">join</a> to post a public annotation.</p>
 <?php
 			return;
 			
@@ -2891,7 +3004,7 @@ Sinn Fein is broken
 			// The user is logged in but not allowed to post a comment.
 
 			?>
-				<p>You are not allowed to post comments.</p>
+				<p>You are not allowed to post annotations.</p>
 <?php
 			return;
 		}
@@ -2901,11 +3014,11 @@ Sinn Fein is broken
 		$ADDURL = new URL('addcomment');
 		$RULESURL = new URL('houserules');
 		?>
-				<h4>Type your public comment</h4>
+				<h4>Type your annotation</h4>
 				<a name="addcomment"></a>
 				
 				<p><small>
-Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rules</strong></a> before posting your first comment.</small></p>
+Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rules</strong></a> before posting your first annotation.</small></p>
 
 				<form action="<?php echo $ADDURL->generate(); ?>" method="post">
 					<p><textarea name="body" rows="15" cols="55"><?php

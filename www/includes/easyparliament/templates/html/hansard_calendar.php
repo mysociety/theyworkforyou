@@ -91,7 +91,7 @@ if (isset($data['years'])) {
 			// Create the table tag opener and day headers
 				?>
 				<div class="calendar">
-				<table border="0">
+				<table>
 				<caption><?php echo "$monthName $year"; ?></caption>
 				<thead>
 				<tr><?php
@@ -126,9 +126,9 @@ if (isset($data['years'])) {
 			while ($currentDay <= $numberDays) {
 			
 				// Seventh column (Sunday) reached. Start a new row.
-				
+
 				if ($dayOfWeek == 7) {
-				
+
 					$dayOfWeek = 0;
 					?></tr>
 				<tr><?php
@@ -163,7 +163,7 @@ if (isset($data['years'])) {
 					$date = sprintf("%04d-%02d-%02d", $year, $month, $currentDay);
 					
 					if ($currentDay == $toDay) {
-						print $currentDay . '</td>';
+						print '<span>' . $currentDay . '</span></td>';
 					} else {
 						$DAYURL->insert(array('d'=>$date));
 						print "<a href=\"" . $DAYURL->generate() . "\">$currentDay</a></td>";
@@ -173,9 +173,8 @@ if (isset($data['years'])) {
 				
 				} else {
 				
-					print "$currentDay</td>";
-				}
-				
+						print '<span>' . $currentDay . '</span></td>';
+				}				
 				// Increment counters
 				
 				$currentDay++;

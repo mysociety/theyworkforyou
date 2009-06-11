@@ -48,7 +48,7 @@ if (isset($data['comments'][0]['preview']) && $data['comments'][0]['preview'] ==
 	$subheading = "";
 	
 } else {
-	$subheading = 'Comments';
+	$subheading = 'Annotations';
 }
 
 

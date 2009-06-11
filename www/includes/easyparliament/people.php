@@ -48,6 +48,7 @@ class PEOPLE {
 			return $data;
 		}
 		
+		//This should really be a single template? (rjp)
 		include (INCLUDESPATH."easyparliament/templates/$format/people_$view" . ".php");
 		return true;
 	

@@ -31,6 +31,7 @@ if (get_http_var("d") != "") {
 	}
 	
 } elseif (get_http_var('id') != "") {
+
 	// We have an id so show that item.
 	// Could be a section id (so we get a list of all the subsections in it),
 	// or a subsection id (so we'd get the whole debate),
@@ -59,8 +60,9 @@ if (get_http_var("d") != "") {
 
 	
 	$LIST = new DEBATELIST;
-	
+
 	$result = $LIST->display('gid', $args);
+		
 	// If it is a redirect, change URL
 	if (is_string($result)) {
 		$URL = new URL('debates');
@@ -126,7 +128,7 @@ if (get_http_var("d") != "") {
 
 	$PAGE->stripe_start();
 	?>
-				<h4>Busiest debates from the most recent week</h4>
+	<h4>Busiest debates from the most recent week</h4>
 <?php
 	
 	$DEBATELIST = new DEBATELIST;
