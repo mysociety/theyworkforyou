@@ -114,7 +114,7 @@ ul#user {width: 25em;}
 
 /* end hack */
 #bottommenu a.on {color:#4d6c25; padding:0.5em 0.8em 0.8em 0.8em; position:relative;
-        background:#fff url(../../images/tabshadow.png) right top no-repeat; top:-0.35em;}
+        background:#fff url(../../images/tabshadow.png) right top no-repeat; top:-0.34em;}
 #bottommenu a:hover {color:#4d6c25;}
 
 
@@ -668,7 +668,7 @@ div.sidebar div.comment-teaser ul {padding:0 0 0.5em 0; margin:0;}
 div.sidebar div.comment-teaser ul li {display:inline;padding:0; margin:0; padding-right:1.3em;font-size:1em;}
 
 /* Link buttons */
-#content a.linkbutton {background:#fecc60 url(../../images/linkbutton.png) bottom left repeat-x; padding:1em; color:#fff; font-weight:bold; text-decoration:none; border:dotted 1px #DCAD38;}
+#content a.linkbutton {background:#826b32 url(../../images/linkbutton.png) bottom right repeat-x; padding:0.5em 1em; color:#fff; font-weight:bold; text-decoration:none; border:solid 1px #826b32;}
 
 /* MP pages */
 div.main p.person {float:left; background:url(../../images/photobacklarge.png) no-repeat; width:115px; height:151px; position:relative;margin: 0.3em 1em 1em 18px;}
@@ -685,11 +685,12 @@ a.speakerimage {display:block; float:left;background: url(../../images/photoback
         
 /* Blocks */
 div.block {margin: 0 14px 1.5em 18px; padding: 0; border-bottom: 4px dotted #bcbcbc;}
-div.block h4 {margin: 0;padding: 0.15em 0.7em 0.3em 0.7em;color: #000;}
-div.block div.blockbody {padding: 1em;}
+div.block h4 {margin:0; padding:0.6em;color: #000;}
+div.block div.blockbody {padding: 0 1em 1em 1em;}
 div.block div.blockbody p,
-div.block div.blockbody ul {margin-left: 0;margin-right: 0;}
-div#help.block {border:solid 5px #ffffaa!important; background:#ffffe9;}
+div.block div.blockbody ul {margin-left: 0;margin-right: 0;padding:0;}
+div#help.block {border-top:solid 10px #bf523d!important; background:#fff7f6 url(../../images/help.png) no-repeat 1em 10px; border-bottom:none;}
+div#help.block h4 {padding-left:3.3em;color:#8b311f;padding-top:14px;}
 
 
 /* People lists */
