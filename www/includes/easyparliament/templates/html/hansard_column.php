@@ -20,7 +20,7 @@ if (isset ($data)) {
 
 	$prevlevel = '';
 
-	print "\t\t\t\t<ul id=\"hansard-day\">\n";
+	print "\t\t\t\t<ul id=\"hansard-day\" class=\"hansard-day\">\n";
 
 	// Cycle through each row...
 	for ($i=0; $i<count($data); $i++) {

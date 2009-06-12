@@ -29,7 +29,7 @@ if ($this_page == 'debatesday') {
 	$title = 'Recent debates';
 }
 
-$PAGE->block_start(array('title'=>$title));
+$PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 
 
 $LIST = new DEBATELIST;

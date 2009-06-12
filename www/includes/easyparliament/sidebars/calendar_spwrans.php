@@ -29,7 +29,7 @@ if ($this_page == 'wransday') {
 	$title = 'Recent written answers';
 }
 
-$PAGE->block_start(array('title'=>$title));
+$PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 
 
 $LIST = new SPWRANSLIST;

@@ -29,7 +29,7 @@ if ($this_page == 'whallday') {
 	$title = 'Recent Westminster Hall debates';
 }
 
-$PAGE->block_start(array('title'=>$title));
+$PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 
 
 $LIST = new WHALLLIST;

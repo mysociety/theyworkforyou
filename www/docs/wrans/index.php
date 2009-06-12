@@ -162,7 +162,7 @@ if (get_http_var("d") != "") {
 
 	$PAGE->stripe_start();
 	?>
-				<h3>Some recent written answers</h3>
+	<h3>Some recent written answers</h3>
 <?php
 	
 	$WRANSLIST = new WRANSLIST;

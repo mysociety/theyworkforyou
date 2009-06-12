@@ -18,7 +18,7 @@ if (!count($data)) {
 	echo '<p>Nothing to display.</p>';
 }
 
-print "\t\t\t\t<ul class=\"hansard-day\">\n";
+print "\t\t\t\t<ul class=\"hansard-day\" class=\"hansard-day\">\n";
 foreach ($data as $row) {
 
 	// Cycle through each row...

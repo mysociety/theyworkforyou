@@ -24,7 +24,7 @@ if ($this_page == 'nidebatesday') {
 	$title = 'Recent debates';
 }
 
-$PAGE->block_start(array('title'=>$title));
+$PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 
 $LIST = new NILIST;
 

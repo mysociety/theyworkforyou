@@ -26,7 +26,7 @@ if (!$args) {
 	$title = 'Recent debates';
 }
 
-$PAGE->block_start(array('title'=>$title));
+$PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 
 $LIST = new LORDSDEBATELIST;
 

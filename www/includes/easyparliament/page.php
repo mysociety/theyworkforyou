@@ -478,7 +478,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		?>
 	<div id="menu">
 		<div id="topmenu">
-		    <a id="topmenuselected" href="javascript:toggleVisible('site');"><?php echo $selected_top_link['text']; ?></a>
+		    <a id="topmenuselected" href="#" onclick="toggleVisible('site');"><?php echo $selected_top_link['text']; ?></a>
 <?php
 			$user_bottom_links = $this->user_bar($top_hilite, $bottom_hilite);
 			if ($user_bottom_links) $bottom_links = $user_bottom_links;
@@ -798,7 +798,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		//	'url'	=> '/help/#debates' 	[if present, will be wrapped round 'title']
 		//	'body'	=> false	[If not present, assumed true. If false, no 'blockbody' div]
 		// Both items are optional (although it'll look odd without a title).
-		
+
 		$this->blockbody_open = false;
 		
 		if (isset($data['id']) && $data['id'] != '') {

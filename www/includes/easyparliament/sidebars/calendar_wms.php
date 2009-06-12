@@ -29,7 +29,7 @@ if ($this_page == 'wmsday') {
 	$title = 'Recent Written Ministerial Statements';
 }
 
-$PAGE->block_start(array('title'=>$title));
+$PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 $LIST = new WMSLIST;
 $LIST->display('calendar', $args);
 $PAGE->block_end();

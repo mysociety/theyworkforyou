@@ -46,10 +46,11 @@ function clearGID(gid) {
 
 
 function toggleVisible (sId) {
-    if (document.getElementById(sId).style.display == 'none'){
-        document.getElementById(sId).style.display = 'block';
-    }else{
+
+    if (document.getElementById(sId).style.display == 'block'){
         document.getElementById(sId).style.display = 'none';
+    }else{
+        document.getElementById(sId).style.display = 'block';
     }
 }
 
