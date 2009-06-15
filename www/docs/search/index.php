@@ -413,7 +413,7 @@ function find_members ($args) {
 	$q = $db->query("SELECT person_id,
                             title, first_name, last_name,
 							constituency, party,
-                            left_house, house
+                            entered_house, left_house, house
 					FROM 	member
 					WHERE	($where)
 					ORDER BY last_name, first_name, person_id, entered_house desc
@@ -425,9 +425,13 @@ function find_members ($args) {
 		$URL2 = new URL('peer');
 		$members = array();
 		
-        $last_pid = -1;
+        $last_pid = null;
+        $entered_house = '';
 		for ($n=0; $n<$q->rows(); $n++) {
             if ($q->field($n, 'person_id') != $last_pid) {
+                # First, stick the oldest entered house from last PID on to its end!
+                if ($entered_house)
+                    $members[count($members)-1][1] = format_date($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
                 $last_pid = $q->field($n, 'person_id');
                 if ($q->field($n, 'left_house') != '9999-12-31') {
                     $former = 'formerly ';
@@ -447,18 +451,30 @@ function find_members ($args) {
                 $party = $q->field($n, 'party');
                 if (isset($parties[$party]))
                     $party = $parties[$party];
-                $s .= $party . ')';
+                if ($party)
+                    $s .= $party . ', ';
+                $s2 = ' &ndash; ' . format_date($q->field($n, 'left_house'), SHORTDATEFORMAT);
+                $s3 = ')';
 		        $MOREURL = new URL('search');
                 $MOREURL->insert( array('pid'=>$last_pid, 'pop'=>1, 's'=>null) );
-                $s .= ' - <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
-                $members[] = $s;
+                $s3 .= ' &ndash; <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
+                $members[] = array($s, $s2, $s3);
             }
+            $entered_house = $q->field($n, 'entered_house');
 		}
+        if ($entered_house)
+            $members[count($members)-1][1] = format_date($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
 		?>
 <div id="people_results">
 	<h3>People matching '<?php echo htmlentities($searchstring); ?>'</h3> 
 	<ul>
-	<li><?php print implode("</li>\n\t<li>", $members); ?></li>
+<?
+foreach ($members as $member) {
+    echo '<li>';
+    echo $member[0] . $member[1] . $member[2];
+    echo "</li>\n";
+}
+?>
 	</ul>
 </div>
 <?php	
