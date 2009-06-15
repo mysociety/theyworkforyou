@@ -368,7 +368,7 @@ $this->page = array (
 			'title'			=> "Houses of Parliament debates, Written Answers, Statements, and Westminster Hall debates"
 		),
 		'title'			=> 'House of Commons and House of Lords',
-		'url'			=> '/'
+		'url'			=> ''
 	),	
 	'hansard_date' => array (
 		'parent'		=> 'hansard',
@@ -1054,6 +1054,10 @@ $this->page = array (
 		'url' => 'your/',
 	),
 	'yourmp' => array (
+		'menu'			=> array (
+			'text'			=> 'Your MP',
+			'title'			=> "Find out about your Member of Parliament"
+		),
 		'sidebar'		=> 'yourmp',
 		'title'			=> 'Your MP',
 		'url'			=> 'mp/',

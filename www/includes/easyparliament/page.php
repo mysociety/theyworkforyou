@@ -381,22 +381,12 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// Links in the top menu, and the sublinks we see if
 		// we're within that section.
 		$items = array (
-			array('home', 'sitenews', 'comments_recent', 'api_front'),
+			array('home'),
 			array('hansard', 'overview', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front'),
 			array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
 			array('ni_home', 'nioverview', 'mlas', 'nidebatesfront'),
 			array('wales_home'),
 		);
-
-		// If the user's postcode is set, then we allow them to view the
-		// bottom menu link to this page...
-		if ($THEUSER->postcode_is_set()) {
-			$items[1][] = 'yourmp_recent';
-			if (postcode_is_scottish($THEUSER->postcode()))
-				array_splice($items, 2, 0, array(array('yourmsp')));
-			elseif (postcode_is_ni($THEUSER->postcode()))
-				array_splice($items, 2, 0, array(array('yourmla')));
-		}
 
 		$top_links = array();
 		$bottom_links = array();
@@ -446,6 +436,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			$menudata = $DATA->page_metadata($toppage, 'menu');			
     			$text = $menudata['text'];
     			$title = $menudata['title'];
+			if (!$title) continue;
 
                 //get link and description for the menu ans add it to the array
     			$class = $toppage == $top_hilite ? ' class="on"' : '';            
@@ -540,7 +531,6 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			<li><a href="<?php echo $LOGOUTURL->generate(); ?>" title="<?php echo $logouttitle; ?>"<?php echo $logoutclass; ?>><?php echo $logouttext; ?></a></li>
 			<li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo $edittext; ?></a></li>
 			<li><span class="name"><?php echo htmlentities($username); ?></span></li>
-			</ul>
 <?php
 
 		} else {
@@ -590,9 +580,24 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			<ul id="user">
 			<li><a href="<?php echo $LOGINURL->generate(); ?>" title="<?php echo $logintitle; ?>"<?php echo $loginclass; ?>><?php echo $logintext; ?></a></li>
 			<li><a href="<?php echo $JOINURL->generate(); ?>" title="<?php echo $jointitle; ?>"<?php echo $joinclass; ?>><?php echo $jointext; ?></a></li>
-			</ul>
 <?php
 		}
+
+		// If the user's postcode is set, then we add a link to Your MP etc.
+		if ($THEUSER->postcode_is_set()) {
+			$items = array('yourmp');
+			if (postcode_is_scottish($THEUSER->postcode()))
+				$items[] = 'yourmsp';
+			elseif (postcode_is_ni($THEUSER->postcode()))
+				$items[] = 'yourmla';
+			foreach ($items as $item) {
+				$menudata 	= $DATA->page_metadata($item, 'menu');
+				$logintext 	= $menudata['text'];
+				$logintitle	= $menudata['title'];
+				echo '<li><a href="">' . $logintext . '</a></li>';
+			}
+		}
+		echo '</ul>';
 	}
 
 
