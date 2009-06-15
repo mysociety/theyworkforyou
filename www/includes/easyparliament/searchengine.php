@@ -207,10 +207,10 @@ class SEARCHENGINE {
         $qd = preg_replace('#\bP(.*?)\b#e', '"party:" . (isset($parties[ucfirst("$1")]) ? $parties[ucfirst("$1")] : "$1")', $qd);
         $qd = preg_replace('#\bD(.*?)\b#', 'date:$1', $qd);
         $qd = preg_replace('#\bG(.*?)\b#', 'department:$1', $qd); # XXX Lookup to show proper name of dept
-        if (strstr($qd, '(M1 OR M2 OR M3 OR M4 OR M6 OR M101)')) {
-            $qd = str_replace('(M1 OR M2 OR M3 OR M4 OR M6 OR M101)', 'section:uk', $qd);
-        } elseif (strstr($qd, '(M7 OR M8)')) {
-            $qd = str_replace('(M7 OR M8)', 'section:scotland', $qd);
+        if (strstr($qd, 'M1 OR M2 OR M3 OR M4 OR M6 OR M101')) {
+            $qd = str_replace('M1 OR M2 OR M3 OR M4 OR M6 OR M101', 'section:uk', $qd);
+        } elseif (strstr($qd, 'M7 OR M8')) {
+            $qd = str_replace('M7 OR M8', 'section:scotland', $qd);
         }
         $qd = preg_replace('#\bM(\d+)\b#e', '"section:" . (isset($hansardmajors[$1]["title"]) ? $hansardmajors[$1]["title"] : "$1")', $qd);
 

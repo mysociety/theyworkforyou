@@ -391,7 +391,8 @@ function find_members ($args) {
 		return false;
 	}
 
-	$searchstring2 = preg_replace("#[^0-9a-z'& ]#i", '', $searchstring);
+    $searchstring = trim(preg_replace('#[a-z]+:[a-z0-9]+#', '', $searchstring));
+	$searchstring2 = trim(preg_replace("#[^0-9a-z'& ]#i", '', $searchstring));
 	if (!$searchstring2) return false;
 	$searchwords = explode(' ', $searchstring2);
     foreach ($searchwords as $i=>$searchword) {
@@ -469,8 +470,8 @@ function find_members ($args) {
             $members[count($members)-1][1] = format_date($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
 		?>
 <div id="people_results">
-	<h3>People matching '<?php echo htmlentities($searchstring); ?>'</h3> 
-	<ul>
+	<h3>People matching &lsquo;<?php echo htmlentities($searchstring); ?>&rsquo;</h3> 
+	<ul class="hilites">
 <?
 foreach ($members as $member) {
     echo '<li>';
