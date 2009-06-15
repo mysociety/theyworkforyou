@@ -466,6 +466,7 @@ $this->page = array (
 	),
 
 	'peer' => array (
+		'parent'		=> 'peers',
 		'title'			=> 'Peer',
 		'url'			=> 'peer/'
 	),
@@ -488,6 +489,7 @@ $this->page = array (
 	'url'			=> 'hansard/'
 ),
 	'mla' => array (
+		'parent'		=> 'mlas',	    
 		'title'			=> 'MLA',
 		'url'			=> 'mla/'
 	),
@@ -500,11 +502,6 @@ $this->page = array (
 		'title'			=> 'All MLAs',
 		'url'			=> 'mlas/'
 	),
-
-	'msp' => array (
-		'title'			=> 'MSP',
-		'url'			=> 'msp/'
-	),
 	'msps' => array (
 		'parent'		=> 'sp_home',
 		'menu'			=> array (
@@ -514,9 +511,14 @@ $this->page = array (
 		'title'			=> 'Current MSPs',
 		'url'			=> 'msps/'
 	),
-
+    'msp' => array (
+    	'parent'		=> 'msps',	    
+    	'title'			=> 'MSP',
+    	'url'			=> 'msp/'
+    ),
 	/* Not 'Your MP', whose name is 'yourmp'... */
 	'mp' => array (
+		'parent'			=> 'mps',
 		'title'			=> 'MP',
 		'url'			=> 'mp/'
 	),
