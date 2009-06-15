@@ -120,25 +120,20 @@ if (get_http_var("d") != "") {
 	));
 	
 } else {
-	// No date or debate id. Show recent years with debates on.
+	// No date or debate id. Show some recent debates
 
-	$this_page = "debatesfront";
-	
+	$this_page = "alldebatesfront";
 	$PAGE->page_start();
-
 	$PAGE->stripe_start();
-	?>
+?>
 	<h4>Busiest debates from the most recent week</h4>
 <?php
 	
 	$DEBATELIST = new DEBATELIST;
-	$DEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>20));
+	$DEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>10));
 
 	$rssurl = $DATA->page_metadata($this_page, 'rss');
 	$PAGE->stripe_end(array(
-		array (
-			'type' => 'nextprev'
-		),
 		array (
 			'type' => 'include',
 			'content' => 'calendar_hocdebates'
@@ -157,11 +152,68 @@ if (get_http_var("d") != "") {
 		)
 	));
 	
+	$this_page = "whallfront";
+	$PAGE->page_start();
+	$PAGE->stripe_start();
+?>
+	<h4>Busiest Westminster Hall debates from the most recent week</h4>
+<?php
+	
+	$WHALLLIST = new WHALLLIST;
+	$WHALLLIST->display('biggest_debates', array('days'=>7, 'num'=>20));
+
+	$rssurl = $DATA->page_metadata($this_page, 'rss');
+	$PAGE->stripe_end(array(
+		array (
+			'type' => 'include',
+			'content' => 'calendar_whalldebates'
+		),
+		array (
+			'type' => 'include',
+			'content' => "whalldebates"
+		),
+		array (
+			'type' => 'html',
+			'content' => '<div class="block">
+<h4>RSS feed</h4>
+<p><a href="' . WEBPATH . $rssurl . '"><img alt="RSS feed" border="0" align="middle" src="http://www.theyworkforyou.com/images/rss.gif"></a>
+<a href="' . WEBPATH . $rssurl . '">RSS feed of most recent debates</a></p>
+</div>'
+		)
+	));
+
+	$this_page = "lordsdebatesfront";
+	$PAGE->page_start();
+	$PAGE->stripe_start();
+?>
+	<h4>Busiest debates from the most recent week</h4>
+<?php
+	
+	$LORDSDEBATELIST = new LORDSDEBATELIST;
+	$LORDSDEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>20));
+
+	$rssurl = $DATA->page_metadata($this_page, 'rss');
+	$PAGE->stripe_end(array(
+		array (
+			'type' => 'nextprev'
+		),
+		array (
+			'type' => 'include',
+			'content' => 'calendar_holdebates'
+		),
+		array (
+			'type' => 'include',
+			'content' => "holdebates"
+		),
+		array (
+			'type' => 'html',
+			'content' => '<div class="block"><h4><a href="/' . $rssurl . '">RSS feed of most recent debates</a></h4></div>'
+		)
+	));
+	
+	
 }
 
-
 $PAGE->page_end();
-
 twfy_debug_timestamp("page end");
 
-?>
