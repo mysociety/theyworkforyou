@@ -99,7 +99,8 @@ ul#user {width: 25em;}
         width:20em; padding:1em 0 1em 0; margin:0; display:none;}
 #topmenu a {color:#fff; font-weight:normal;}
 #topmenu #topmenuselected {display:block;position:absolute; right:1.5em; top:0.5em; 
-    font-size:1.2em;  background: url(../../images/parliamentarrow.png) right 5px no-repeat!important;display:block;padding-right:25px;background:none;}
+    font-size:1.2em;  background: url(../../images/parliamentarrow.png) right 6px no-repeat!important;display:block;padding-right:21px;background:none;}
+#topmenu #topmenuselected small {font-size:0.7em; padding-left:0.8em;}    
 #topmenu #topmenuselected, #topmenu #topmenuselected:hover {color:#fff; font-weight:normal;}
 #topmenu dt {font-size:1.2em; padding:0 1.2em 0 1.2em;margin:0;}
 #topmenu dd {color:#fff; font-size:0.8em; padding:0.5em 2em 0 2em;}

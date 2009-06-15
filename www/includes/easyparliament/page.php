@@ -478,7 +478,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		?>
 	<div id="menu">
 		<div id="topmenu">
-		    <a id="topmenuselected" href="#" onclick="toggleVisible('site');"><?php echo $selected_top_link['text']; ?></a>
+		    <a id="topmenuselected" href="#" onclick="toggleVisible('site');"><?php echo $selected_top_link['text']; ?><small>(change)</small></a>
 <?php
 			$user_bottom_links = $this->user_bar($top_hilite, $bottom_hilite);
 			if ($user_bottom_links) $bottom_links = $user_bottom_links;
