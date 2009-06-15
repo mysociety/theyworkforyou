@@ -495,8 +495,9 @@ $this->page = array (
 		'title'			=> "Overview of the UK Parliament"
 	),
 	'parent'		=> 'hansard',
-	'title'			=> 'Overview of the UK Parliament',
-	'url'			=> 'hansard/'
+	'title'			=> "Are your MPs and Peers working for you in the UK's Parliament?",
+	'rss'			=> 'news/index.rdf',
+	'url'			=> ''
 ),
 	'mla' => array (
 		'parent'		=> 'mlas',
