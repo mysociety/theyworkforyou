@@ -156,7 +156,11 @@ class URL {
 		$url_args = array ();
 		
 		foreach (array_merge($this->session_vars, $overrideVars) as $key => $var) {
-			if ($var != null)
+			if (is_array($var)) {
+				foreach ($var as $v) {
+					$url_args[] = "$key=" . urlencode(stripslashes($v));
+				}
+			} elseif ($var != null)
 				$url_args[] = "$key=" . urlencode(stripslashes($var));
 		}
 		

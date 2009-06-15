@@ -1041,8 +1041,8 @@ $this->page = array (
 			'title'			=> '',
 		),
 		'parent'		=> 'hansard',
-		'title'			=> 'Written answers',
-		'url'			=> 'wrans/'
+		'title'			=> 'Written answers and statements',
+		'url'			=> 'written-answers-and-statements/'
 	),
 
 	'yourreps' => array(

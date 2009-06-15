@@ -503,7 +503,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// We may want to send the user back to this current page after they've
 		// joined, logged out or logged in. So we put the URL in $returl.
 		$URL = new URL($this_page);
-		$returl = $URL->generate();
+		$returl = $URL->generate('none');
 
 		//user logged in
 		if ($THEUSER->isloggedin()) {
@@ -838,10 +838,10 @@ if (typeof urchinTracker == 'function') urchinTracker();
 
 		# XXX Yucky
 		if ($this_page != 'home' && $this_page != 'contact') {
-			if ($section_text && $parent_page != 'help_us_out' && $parent_page != 'home' && $this_page != 'campaign') {
+			if ($page_text) {
 				print "\t\t\t\t<h2>$page_text</h2>\n";
 			}
-			if ($page_text) {
+			if ($section_text && $parent_page != 'help_us_out' && $parent_page != 'home' && $this_page != 'campaign') {
 				print "\t\t\t\t<h3>$section_text</h3>\n";
 			}
 		}

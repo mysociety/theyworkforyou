@@ -551,7 +551,9 @@ function construct_search_string() {
     $advsection = get_http_var('section');
     if (!$advsection)
         $advsection = get_http_var('maj'); # Old URLs had this
-    if ($advsection) {
+    if (is_array($advsection)) {
+        $searchstring .= ' section:' . join(' section:', $advsection);
+    } elseif ($advsection) {
         $searchstring .= " section:$advsection";
     }
 
