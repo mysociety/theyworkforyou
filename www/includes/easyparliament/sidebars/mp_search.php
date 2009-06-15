@@ -12,9 +12,8 @@ global $MEMBER;
 		<p>
     		<input name="s" size="24" maxlength="200">
     		<input type="submit" class="submit" value="GO">
-    		<input type="hidden" class="section" value="uk">    		
 		</p>
-		<small>e.g. <a href="/search/?s=David+Cameron&section=uk">David Cameron</a> or <a href="/search/?s=Tony+Benn&section=uk">Tony Benn</a></small>
+		<small>e.g. <a href="/search/?s=David+Cameron">David Cameron</a> or <a href="/search/?s=Tony+Benn">Tony Benn</a></small>
 		</form>
 	</div>
 

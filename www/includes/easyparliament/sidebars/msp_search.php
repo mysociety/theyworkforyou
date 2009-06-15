@@ -11,10 +11,9 @@ global $MEMBER;
 		<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
 		<p>
     		<input name="s" size="24" maxlength="200">
-    		<input type="submit" class="submit" value="GO">
-    		<input type="hidden" class="section" value="scotland">    		
+    		<input type="submit" class="submit" value="GO">		
 		</p>
-		<small>e.g. <a href="/search/?s=Alex+Salmond&section=scotland">Alex Salmond</a> or <a href="/search/?s=Donald+Dewar&section=scotland">Donald Dewar</a></small>
+		<small>e.g. <a href="/search/?s=Alex+Salmond">Alex Salmond</a> or <a href="/search/?s=Donald+Dewar">Donald Dewar</a></small>
 		</form>
 	</div>
 

@@ -12,7 +12,6 @@ global $MEMBER;
 		<p>
     		<input name="s" size="24" maxlength="200">
     		<input type="submit" class="submit" value="GO">
-    		<input type="hidden" class="section" value="ni">
 		</p>
 		</form>
 	</div>
