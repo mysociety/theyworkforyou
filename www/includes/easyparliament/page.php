@@ -594,7 +594,8 @@ if (typeof urchinTracker == 'function') urchinTracker();
 				$menudata 	= $DATA->page_metadata($item, 'menu');
 				$logintext 	= $menudata['text'];
 				$logintitle	= $menudata['title'];
-				echo '<li><a href="">' . $logintext . '</a></li>';
+				$URL = new URL($item);
+				echo '<li><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
 			}
 		}
 		echo '</ul>';
