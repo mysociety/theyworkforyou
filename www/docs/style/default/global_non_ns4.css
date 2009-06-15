@@ -682,7 +682,7 @@ div.main .textportrait {float: left; display: block; width: 96px;
         min-height: 118px; float: left;  border: 1px solid #BDE190; text-align: center;margin: 0 2em 1em 0;}
 
 ul.hilites {list-style-type: none;}
-ul.hilites li {padding-left:0;margin-left:0;}
+ul.hilites li {padding-left:25px;margin-left:0; background:url(../../images/bulletlarge.png) no-repeat left 2px;padding-bottom:0.3em;}
 
 /* Photos */
 a.speakerimage {display:block; float:left;background: url(../../images/photobacksmall.png) no-repeat; background-position:0 0;width:64px; height:68px; padding-top:13px;text-align:center; position:relative;z-index:50;}
