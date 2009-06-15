@@ -835,11 +835,11 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		
 		if ($page_text == $section_text) {
 			// We don't want to print both.
-			$page_text = '';
-		} elseif ($page_text && !$section_text) {
+			$section_text = '';
+		} elseif (!$page_text && $section_text) {
 			// Bodge for if we have a page_text but no section_text.
-			$section_text = $page_text;
-			$page_text = '';
+			$section_text = '';
+			$page_text = $section_text;
 		}
 
 		# XXX Yucky
