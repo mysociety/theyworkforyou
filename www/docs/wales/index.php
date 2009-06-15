@@ -2,7 +2,7 @@
 
 include_once "../../includes/easyparliament/init.php";
 
-$this_page = 'wales_home';
+$this_page = 'wales_overview';
 
 $PAGE->page_start();
 $PAGE->stripe_start();

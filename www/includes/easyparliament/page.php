@@ -382,17 +382,10 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// we're within that section.
 		$items = array (
 			array('home', 'sitenews', 'comments_recent', 'api_front'),
-			array('yourmp'),
-			array('hansard', 'overview', 'mps', 'peers', 'debatesfront', 'lordsdebatesfront', 'wransfront', 'whallfront', 'wmsfront'), # ,'pbc_front'),
-			#'people' 	=> array('mps', 'peers', 'mlas', 'msps'),
-			#'mps'           => array (),
-			#'peers'		=> array (),
+			array('hansard', 'overview', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front'),
 			array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
 			array('ni_home', 'nioverview', 'mlas', 'nidebatesfront'),
 			array('wales_home'),
-#			'help_us_out'	=> array (), 
-/*			'help_us_out'	=> array ('glossary_addterm'),  */
-			array('help'),
 		);
 
 		// If the user's postcode is set, then we allow them to view the
@@ -419,6 +412,8 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			$top_hilite = $this_page;
 			$bottom_hilite = '';
 		
+			$selected_top_link = $DATA->page_metadata('hansard', 'menu');
+
 		} else {
 		    
 			// Does this page's parent have a parent?
@@ -436,10 +431,10 @@ if (typeof urchinTracker == 'function') urchinTracker();
 				$top_hilite = $parents_parent;
 				$bottom_hilite = $this_parent;
 			}
-		}
 
-        //get ths selected top link
-        $selected_top_link = $DATA->page_metadata($top_hilite, 'menu');
+			$selected_top_link = $DATA->page_metadata($top_hilite, 'menu');
+
+		}
 
         //get the top and bottom links
 		foreach ($items as $bottompages) {
@@ -449,7 +444,6 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			
 			// What gets displayed for this page.
 			$menudata = $DATA->page_metadata($toppage, 'menu');			
-			if($menudata){
     			$text = $menudata['text'];
     			$title = $menudata['title'];
 
@@ -459,7 +453,6 @@ if (typeof urchinTracker == 'function') urchinTracker();
     			$top_link = array("link" => '<a href="' . $URL->generate() . '" title="' . $title . '"' . $class . '>' . $text . '</a>', 
     			    "title" => $title);
                 array_push($top_links, $top_link);
-            }
             
 			if ($toppage == $top_hilite) {
  
@@ -480,8 +473,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		<div id="topmenu">
 		    <a id="topmenuselected" href="#" onclick="toggleVisible('site');"><?php echo $selected_top_link['text']; ?><small>(change)</small></a>
 <?php
-			$user_bottom_links = $this->user_bar($top_hilite, $bottom_hilite);
-			if ($user_bottom_links) $bottom_links = $user_bottom_links;
+			$this->user_bar($top_hilite, $bottom_hilite);
 			?>
     			<dl id="site">
     			    <?php foreach ($top_links as $top_link) {?>
@@ -507,38 +499,12 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// Called from menu(), but separated out here for clarity.
 		// Does just the bit of the menu related to login/join/etc.
 		global $this_page, $DATA, $THEUSER;
-		$bottom_links = array();
 
 		// We may want to send the user back to this current page after they've
 		// joined, logged out or logged in. So we put the URL in $returl.
 		$URL = new URL($this_page);
 		$returl = $URL->generate();
 
-		/*
-			// The 'get involved' link.
-			$menudata 	= $DATA->page_metadata('getinvolved', 'menu');
-			$getinvolvedtitle	= $menudata['title'];
-			$getinvolvedtext 	= $menudata['text'];
-
-			
-			$GETINVURL 	= new URL('getinvolved');
-			if ($this_page != 'getinvolved') {
-				//if ($this_page != "userlogout" && 
-				//	$this_page != "userpassword" && 
-				//	$this_page != 'userjoin') {
-					// We don't do this on the logout page, because then the user
-					// will return straight to the logout page and be logged out
-					// immediately!
-					// And it's also silly if we're sent back to Change Password.
-					// And the join page.
-				//	$LOGINURL->insert(array("ret"=>$returl));
-				//}
-				$getinvolvedclass = '';
-			} else {
-				$getinvolvedclass = ' class="on"';
-			}
-		*/
-		
 		//user logged in
 		if ($THEUSER->isloggedin()) {
 		
@@ -549,16 +515,6 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			$EDITURL 	= new URL('userviewself');
 			if ($this_page == 'userviewself' || $this_page == 'useredit' || $top_hilite == 'userviewself') {
 				$editclass = ' class="on"';
-				$bottompages = array();
-				foreach ($bottompages as $bottompage) {
-					$menudata = $DATA->page_metadata($bottompage, 'menu');
-					$text = $menudata['text'];
-					$title = $menudata['title'];
-					// Where we're linking to.
-					$URL = new URL($bottompage);	
-					$class = $bottompage == $bottom_hilite ? ' class="on"' : '';
-					$bottom_links[] = '<a href="' . $URL->generate() . '" title="' . $title . '"' . $class . '>' . $text . '</a>';
-				}
 			} else {
 				$editclass = '';
 			}
@@ -637,7 +593,6 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			</ul>
 <?php
 		}
-		return $bottom_links;
 	}
 
 

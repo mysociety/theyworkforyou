@@ -5,7 +5,7 @@ include_once "../../includes/easyparliament/init.php";
 $number_of_debates_to_show = 6;
 $number_of_wrans_to_show = 5;
 
-$this_page = 'sp_home';
+$this_page = 'spoverview';
 $PAGE->page_start();
 // Page title will appear here.
 $PAGE->stripe_start();

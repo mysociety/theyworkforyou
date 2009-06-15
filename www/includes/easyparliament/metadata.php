@@ -297,10 +297,20 @@ $this->page = array (
 		'session_vars'	=> array ('d'),
 		'url'			=> 'debates/',
 	),			
+	'alldebatesfront' => array (
+		'menu'			=> array (
+			'text'			=> 'Debates',
+			'title'			=> "Debates in the House of Commons, Westminster Hall, and the House of Lords"
+		),
+		'parent'		=> 'hansard',
+		'title'			=> 'House of Commons debates',
+		'rss'			=> 'debates/debates.rss',
+		'url'			=> 'debates/'
+	),
 	'debatesfront' => array (
 		'menu'			=> array (
 			'text'			=> 'Commons debates',
-			'title'			=> "House of Commons debates"
+			'title'			=> "Debates in the House of Commons, Westminster Hall, and the House of Lords"
 		),
 		'parent'		=> 'hansard',
 		'title'			=> 'House of Commons debates',
@@ -591,7 +601,7 @@ $this->page = array (
 	),			
 	'nidebatesfront' => array (
 		'menu'			=> array (
-			'text'			=> 'NIA Debates',
+			'text'			=> 'Debates',
 			'title'			=> "Northern Ireland Assembly debates"
 		),
 		'parent'		=> 'ni_home',
@@ -618,7 +628,7 @@ $this->page = array (
 	/* Public bill committees */
 	'pbc_front' => array (
 		'menu'			=> array (
-			'text'			=> 'Public Bill Committees',
+			'text'			=> 'Bill Committees',
 			'title'			=> "Public Bill Committees (formerly Standing Committees) debates"
 		),
 		'parent'		=> 'hansard',
@@ -778,8 +788,8 @@ $this->page = array (
 	),			
 	'spdebatesfront' => array (
 		'menu'			=> array (
-			'text'			=> 'Scottish Parliament Debates',
-			'title'			=> "Scottish Parliament debates"
+			'text'			=> 'Debates',
+			'title'			=> ''
 		),
 		'parent'		=> 'sp_home',
 		'title'			=> 'Scottish Parliament debates',
@@ -803,8 +813,8 @@ $this->page = array (
 	),
 	'spwransfront'  => array (
 		'menu'			=> array (
-			'text'			=> 'SP written answers',
-			'title'			=> "Written Answers"
+			'text'			=> 'Written Answers',
+			'title'			=> ''
 		),
 		'parent'		=> 'sp_home',
 		'title'			=> 'Scottish Parliament Written answers',
@@ -857,8 +867,8 @@ $this->page = array (
 		'url'			=> 'user/'
 	),'userjoin' => array (
                 'menu'                  => array (
-                        'text'                  => 'Join to comment',
-                        'title'                 => "Joining is free and allows you to post comments"
+                        'text'                  => 'Join',
+                        'title'                 => "Joining is free and allows you to annotate speeches"
                 ),
                 'pg'                    => 'join',
                 'sidebar'               => 'userjoin',
@@ -931,6 +941,11 @@ $this->page = array (
 		),
 		'title' => 'Welsh Assembly',
 		'url' => 'wales/',
+	),
+	'wales_overview' => array(
+		'title' => 'Welsh Assembly',
+		'url' => 'wales/',
+		'parent' => 'wales_home',
 	),
 
 	/* Westminster Hall */
@@ -1020,6 +1035,16 @@ $this->page = array (
 		'url'			=> 'wrans/'
 	),
 
+	'wranswmsfront'  => array (
+		'menu'			=> array (
+			'text'			=> 'Written Answers and Statements',
+			'title'			=> '',
+		),
+		'parent'		=> 'hansard',
+		'title'			=> 'Written answers',
+		'url'			=> 'wrans/'
+	),
+
 	'yourreps' => array(
 		'menu' => array(
 			'text' => 'Your representative',
@@ -1031,7 +1056,8 @@ $this->page = array (
 	'yourmp' => array (
 		'sidebar'		=> 'yourmp',
 		'title'			=> 'Your MP',
-		'url'			=> 'mp/'
+		'url'			=> 'mp/',
+		'parent' => 'hansard',
 	),
 	'yourmp_recent' => array (
 		'menu'			=> array (

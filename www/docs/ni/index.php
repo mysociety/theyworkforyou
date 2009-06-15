@@ -119,7 +119,7 @@ if (get_http_var("d") != "") {
 		}
 	}
 } else {
-	$this_page = "nidebatesfront";
+	$this_page = "nioverview";
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 
