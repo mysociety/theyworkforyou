@@ -688,19 +688,19 @@ a.speakerimage {display:block; float:left;background: url(../../images/photoback
 
         
 /* Blocks */
-div.block {margin: 0 0 1.5em 0; padding: 0; border-top: 10px solid #dfdfdf;background:#fafafa;}
+div.block {margin: 0 0 1.5em 18px; padding: 0; border-top: 10px solid #dfdfdf;background:#fafafa;}
 div.block h4 {margin:0; padding:0.6em;color: #000;}
 div.block div.blockbody {padding: 0 0.6em 1em 0.6em;}
 div.block div.blockbody p,
 div.block div.blockbody ul {margin-left: 0;margin-right: 0;padding:0;}
-div#help.block {border-top:solid 10px #bf523d!important; background:#fff7f6 url(../../images/help.png) no-repeat 8px 10px; border-bottom:none; margin-left:0;}
+div#help.block {border-top:solid 10px #bf523d!important; background:#fff7f6 url(../../images/help.png) no-repeat 8px 10px; border-bottom:none;}
 div#help.block h4 {padding-left:40px;color:#8b311f;padding-top:14px;}
 div#calendar.block {background:none;border:none;}
 #calendar.block h4 {padding-left:0;display:none;}
 div#calendar.block div.blockbody {padding: 0;}
 
 /* People lists */
-div.main  table.people {font-size:1.1em; margin-right:0!important; width:100%;}
+div.main  table.people {font-size:1.1em; margin-right:0!important; width:98%;}
 div.main table.people th {text-align: left;border-top: solid 1px #d7d4d4; border-bottom: solid 1px #d7d4d4; 
         color:#808080;}
 div.main  table.people td, div.main  table.people th {border-bottom: solid 1px #d7d4d4; padding:8px 8px 8px 4px; vertical-align:top;}

@@ -55,8 +55,8 @@ if ($order == 'party')
                 </div>
 				<table class="people">
 				<thead>
-				<th colspan="2"><?php echo $th_name; ?></th>
-				<th><?php echo $th_party; ?></th>
+				<th colspan="2">Name</th>
+				<th>party</th>
 				<th>Ministerialship</th>
 <?php if ($order == 'debates') { ?>
 				<th>Debates spoken in the last year</th>
