@@ -368,7 +368,7 @@ $this->page = array (
 			'title'			=> "Houses of Parliament debates, Written Answers, Statements, and Westminster Hall debates"
 		),
 		'title'			=> 'House of Commons and House of Lords',
-		'url'			=> 'hansard/'
+		'url'			=> '/'
 	),	
 	'hansard_date' => array (
 		'parent'		=> 'hansard',

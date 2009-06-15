@@ -1,183 +1,245 @@
 <?php
 
-$this_page = "home";
-
 include_once "../includes/easyparliament/init.php";
-include_once "../includes/easyparliament/member.php";
 
-$PAGE->page_start();
+$number_of_debates_to_show = 6;
+$number_of_wrans_to_show = 5;
 
-$PAGE->stripe_start();
-
-$message = $PAGE->recess_message();
-if ($message != '') {
-	print '<p id="warning">' . $message . '</p>';
+if (($date = get_http_var('d')) && preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
+	$this_page = 'hansard_date';
+	$PAGE->set_hansard_headings(array('date'=>$date));
+	$URL = new URL($this_page);
+	$db = new ParlDB;
+	$q = $db->query("SELECT MIN(hdate) AS hdate FROM hansard WHERE hdate > '$date'");
+	if ($q->rows() > 0 && $q->field(0, 'hdate') != NULL) {
+		$URL->insert( array( 'd'=>$q->field(0, 'hdate') ) );
+		$title = format_date($q->field(0, 'hdate'), SHORTDATEFORMAT);
+		$nextprevdata['next'] = array (
+			'hdate'         => $q->field(0, 'hdate'),
+			'url'           => $URL->generate(),
+			'body'          => 'Next day',
+			'title'         => $title
+		);
+	}
+	$q = $db->query("SELECT MAX(hdate) AS hdate FROM hansard WHERE hdate < '$date'");
+	if ($q->rows() > 0 && $q->field(0, 'hdate') != NULL) {
+		$URL->insert( array( 'd'=>$q->field(0, 'hdate') ) );
+		$title = format_date($q->field(0, 'hdate'), SHORTDATEFORMAT);
+		$nextprevdata['prev'] = array (
+			'hdate'         => $q->field(0, 'hdate'),
+			'url'           => $URL->generate(),
+			'body'          => 'Previous day',
+			'title'         => $title
+		);
+	}
+	#	$year = substr($date, 0, 4);
+	#	$URL = new URL($hansardmajors[1]['page_year']);
+	#	$URL->insert(array('y'=>$year));
+	#	$nextprevdata['up'] = array (
+		#		'body'  => "All of $year",
+		#		'title' => '',
+		#		'url'   => $URL->generate()
+		#	);
+	$DATA->set_page_metadata($this_page, 'nextprev', $nextprevdata);
+	$PAGE->page_start();
+	$PAGE->stripe_start();
+	include_once INCLUDESPATH . 'easyparliament/recess.php';
+	$time = strtotime($date);
+	$dayofweek = date('w', $time);
+	$recess = recess_prettify(date('j', $time), date('n', $time), date('Y', $time), 1);
+	if ($recess[0]) {
+		print '<p>The Houses of Parliament are in their ' . $recess[0] . ' at this time.</p>';
+	} elseif ($dayofweek == 0 || $dayofweek == 6) {
+		print '<p>The Houses of Parliament do not meet at weekends.</p>';
+	} else {
+		$data = array(
+			'date' => $date
+		);
+		foreach (array_keys($hansardmajors) as $major) {
+			$URL = new URL($hansardmajors[$major]['page_all']);
+			$URL->insert(array('d'=>$date));
+			$data[$major] = array('listurl'=>$URL->generate());
+		}
+		major_summary($data);
+	}
+	$PAGE->stripe_end(array(
+		array (
+			'type' 	=> 'nextprev'
+		),
+	));
+	$PAGE->page_end();
+	exit;
 }
 
-///////////////////////////////////////////////////////////////////////////
-//  SEARCH AND RECENT HANSARD
+    //set page name (selects relivant bottom menu item)
+    $this_page = 'overview';
 
-$HANSARDURL = new URL('hansard');
-$MPURL = new URL('yourmp');
-$PAGE->block_start(array ('id'=>'intro', 'title'=>'At TheyWorkForYou.com you can:'));
-
-echo '<ol>';
-
-// Find out more about your MP / Find out more about David Howarth, your MP
-function your_mp_bullet_point() {
-	global $THEUSER, $MPURL;
-	print "<li>";
-	$pc_form = true;
-	if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
-		// User is logged in and has a postcode, or not logged in with a cookied postcode.
-		
-		// (We don't allow the user to search for a postcode if they
-		// already have one set in their prefs.)
-		
-		$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode()));
-		if ($MEMBER->valid) {
-			$pc_form = false;
-			if ($THEUSER->isloggedin()) {
-				$CHANGEURL = new URL('useredit');
-			} else {
-				$CHANGEURL = new URL('userchangepc');
-			}
-			$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
-			$former = "";
-			$left_house = $MEMBER->left_house();
-			if ($left_house[1]['date'] != '9999-12-31') {
-				$former = 'former';
-			}
+    //output header
+    $PAGE->page_start();
+    $PAGE->supress_heading = true;
+    $PAGE->stripe_start("full", '');
 ?>
-	<p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br>
-	In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
+<!-- Welcome -->
+<div class="attention">
+    <h2>
+        Welcome to They Work For You for the UK Parliament.
+        <br/>
+        Find out what your MP is doing in your name, read debates and signup for email alerts.
+    </h2>
+</div>
+
+<!-- Actions -->
+<div class="col3">
+    <!-- Search / alerts -->
+    <div>
+        <h3>Search or create an alert</h3>
+        <?php
+        	global $SEARCHURL;
+        	global $SEARCHLOG;
+        	$SEARCHURL = new URL('search');
+            $popular_searches = $SEARCHLOG->popular_recent(10);
+        ?>
+        <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
+            <p>
+                <label for="s"><strong>Search</strong> (e.g. for a word, phrase, or person):</label>
+                <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
+                <input type="submit" value="Search" class="submit">
+                <small>(<a href="/search/?adv=1">Advanced Search</a>)</small>
+            </p>
+            <?php if (count($popular_searches) > 0) { ?>
+                <p>
+                    Popular searches today: 
+                    <?php foreach ($popular_searches as $popular_search) { ?>
+                        <a href="<?php echo $popular_search['url']?>"><?php echo $popular_search['display']?></a>
+                    <?php } ?>
+                </p>
+            <?php } ?>
+        </form>
+    </div>
+    <div>
+        <h3>Busy debates</h3>        
+        <?php
+            $DEBATELIST = new DEBATELIST;
+            $DEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>$number_of_debates_to_show));
+        ?>
+    </div>
+    <div>
+        <h3>Your MP</h3>
+        <?php
+        
+        	global $THEUSER, $MPURL;
+
+        	$pc_form = true;
+        	if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
+        		// User is logged in and has a postcode, or not logged in with a cookied postcode.
+
+        		// (We don't allow the user to search for a postcode if they
+        		// already have one set in their prefs.)
+
+        		$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode()));
+        		if ($MEMBER->valid) {
+        			$pc_form = false;
+        			if ($THEUSER->isloggedin()) {
+        				$CHANGEURL = new URL('useredit');
+        			} else {
+        				$CHANGEURL = new URL('userchangepc');
+        			}
+        			$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
+        			$former = "";
+        			$left_house = $MEMBER->left_house();
+        			if ($left_house[1]['date'] != '9999-12-31') {
+        				$former = 'former';
+        			}
+        ?>
+        	<p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br>
+        	In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
+        <?php
+        		}
+        	}
+
+        	if ($pc_form) { ?>
+        		<form action="/postcode/" method="get">
+        		<p><strong>Find out more about your <acronym title="Member of Parliament">MP</acronym>/
+        		<acronym title="Members of the Scottish Parliament">MSPs</acronym>/
+        		<acronym title="Members of the (Northern Irish) Legislative Assembly">MLAs</acronym></strong><br>
+        		<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
+        		</form>
+        	<?php
+        		if (!defined("POSTCODE_SEARCH_DOMAIN") || !POSTCODE_SEARCH_DOMAIN) {
+        			print '<p align="right"><em>Postcodes are being mapped to a random MP</em></p>';
+        		}
+        	}
+        	print "</li>";
+        
+        
+        ?>
+    </div>
+</div>
+
 <?php
-		}
-	}
+    $PAGE->stripe_end();
+    $PAGE->stripe_start("full", '', true);    
+?>
 
-	if ($pc_form) { ?>
-		<form action="/postcode/" method="get">
-		<p><strong>Find out more about your <acronym title="Member of Parliament">MP</acronym>/
-		<acronym title="Members of the Scottish Parliament">MSPs</acronym>/
-		<acronym title="Members of the (Northern Irish) Legislative Assembly">MLAs</acronym></strong><br>
-		<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
-		</form>
-	<?php
-		if (!defined("POSTCODE_SEARCH_DOMAIN") || !POSTCODE_SEARCH_DOMAIN) {
-			print '<p align="right"><em>Postcodes are being mapped to a random MP</em></p>';
-		}
-	}
-	print "</li>";
-}
+<!-- Latest in parliament -->
+<div class="latest col3">
+    <h3>Recently in the UK Parliament</h3>
+    <div>
+        <?php
+    
+            //Latest activity (column 1)
+            $DEBATELIST = new DEBATELIST; 
+            $LORDSDEBATELIST = new LORDSDEBATELIST;
 
-// Search / Search for 'mouse'
-function search_bullet_point() {
-	global $SEARCHURL;
-	echo ' <li> ';
-	$SEARCHURL = new URL('search');
-	?>
-						<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-						<p><label for="s"><strong>Search</strong> (e.g. for a word, phrase, or person):</label>
-					<input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;<input type="submit" value="Search" class="submit">
-<small>(<a href="/search/?adv=1">Advanced Search</a>)</small></p>
-                        <?
-                            // Display popular queries
-                            global $SEARCHLOG;
-                            $popular_searches = $SEARCHLOG->popular_recent(10);
-                            if (count($popular_searches) > 0) {
-                                ?> <p>Popular searches today: <?
-                                $lentotal = 0;
-                                $correct_amount = array();
-                                // Select a number of queries that will fit in the space
-                                foreach ($popular_searches as $popular_search) {
-                                    $len = strlen($popular_search['visible_name']);
-                                    if ($lentotal + $len > 32) {
-                                        continue;
-                                    }
-                                    $lentotal += $len;
-                                    array_push($correct_amount, $popular_search['display']);
-                                }
-                                print implode(", ", $correct_amount);
-                                ?> </p> <?
-                            }
-                        ?>
-						</form>
-						</li>
+            $last_dates = array(); // holds the most recent data there is data for, indexed by type    
+            $last_dates[1] = $DEBATELIST->most_recent_day();    
+            $last_dates[101] = $LORDSDEBATELIST->most_recent_day();
 
-</li>
-<li>
-<p><strong>View lists</strong> of all <a href="/mps/"><strong>MPs</strong></a>, <a href="/peers/"><strong>Lords</strong></a>, <a href="/msps/"><strong>MSPs</strong></a>, or <a href="/mlas/"><strong>MLAs</strong></a>.</p>
-</li>
-
+            //get html
+            $latest_html = major_summary($last_dates, false);
+            echo $latest_html;
+        ?>
+    </div>
+    <div>
+        <?php
+            //Latest activity (column 2)  
+            $WHALLLIST = new WHALLLIST;                   
+            $WMSLIST = new WMSLIST; 
+            $last_dates = array();
+            $last_dates[4] = $WMSLIST->most_recent_day();       
+            $last_dates[2] = $WHALLLIST->most_recent_day();                     
+            
+            //get html
+            $latest_html = major_summary($last_dates, false);
+            echo $latest_html;        
+        ?>
+    </div>
+    <div>
+        <?php    
+            //Latest activity (column 3)
+            $WRANSLIST = new WRANSLIST;    
+            $last_dates = array();
+            $last_dates[3] = $WRANSLIST->most_recent_day();        
+    
+            /*
+            	foreach (array_keys($hansardmajors) as $major) {
+            		if (array_key_exists($major, $data)) {
+            			unset($data[$major]['listurl']);
+            			if (count($data[$major]) == 0) 
+            				unset($data[$major]);
+            		}
+            	}
+        	*/
+            //get debates html
+            $latest_html = major_summary($last_dates, false);
+            echo $latest_html;
+        ?>    
+    </div>
+    <br class="clear" />
+</div>
 <?php
-}
 
-// Sign up to be emailed when something relevant to you happens in Parliament 
-// Sign up to be emailed when 'mouse' is mentioned in Parliament
-function email_alert_bullet_point() {
-	if (get_http_var("keyword")) { ?>
-		<li><p><a href="/alert?keyword=<?=htmlspecialchars(get_http_var('keyword'))?>&only=1"><strong>Sign up to be emailed when '<?=htmlspecialchars(get_http_var('keyword'))?>' is mentioned in Parliament</strong></a></p></li>
-	<? } else { ?>
-		<li><p><a href="/alert/"><strong>Sign up to be emailed when something relevant to you happens in Parliament</strong></a></p></li>
-	<? } 
-} 
-
-// Comment on (recent debates)
-function comment_on_recent_bullet_point() {
-	global $hansardmajors;
-	echo ' <li><p><strong>Read and comment on:</strong></p> ';
-	$DEBATELIST = new DEBATELIST; $data[1] = $DEBATELIST->most_recent_day();
-	$WRANSLIST = new WRANSLIST; $data[3] = $WRANSLIST->most_recent_day();
-	$WHALLLIST = new WHALLLIST; $data[2] = $WHALLLIST->most_recent_day();
-	$WMSLIST = new WMSLIST; $data[4] = $WMSLIST->most_recent_day();
-	$LORDSDEBATELIST = new LORDSDEBATELIST; $data[101] = $LORDSDEBATELIST->most_recent_day();
-	$NILIST = new NILIST; $data[5] = $NILIST->most_recent_day();
-	$SPLIST = new SPLIST; $data[7] = $SPLIST->most_recent_day();
-	#$SPWRANSLIST = new SPWRANSLIST; $data[8] = $SPWRANSLIST->most_recent_day();
-	foreach (array_keys($hansardmajors) as $major) {
-		if (array_key_exists($major, $data)) {
-			unset($data[$major]['listurl']);
-			if (count($data[$major]) == 0) 
-				unset($data[$major]);
-		}
-	}
-	major_summary($data);
-	echo ' </li> ';
-}
-
-if (get_http_var('keyword')) {
-	// This is for links from Google adverts, where we want to
-	// promote the features relating to their original search higher
-	// than "your MP"
-	search_bullet_point(); 
-	email_alert_bullet_point();
-	your_mp_bullet_point();
-	comment_on_recent_bullet_point();
-} else {
-	your_mp_bullet_point();
-	search_bullet_point(); 
-	email_alert_bullet_point();
-	comment_on_recent_bullet_point();
-}
-
-echo '</ol>';
-$PAGE->block_end();
-
-$includes = array(
-	array (
-		'type' => 'include',
-		'content' => 'whatisthissite'
-	),
-	array (
-		'type' => 'include',
-		'content' => 'sitenews_recent'
-	),
-	array(
-		'type' => 'include',
-		'content' => 'comments_recent',
-	)
-);
-$PAGE->stripe_end($includes);
+$PAGE->stripe_end();
 $PAGE->page_end();
-
+?>        
 ?>
