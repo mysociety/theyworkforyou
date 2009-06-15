@@ -83,7 +83,7 @@ if (($date = get_http_var('d')) && preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) 
 <div class="attention">
     <h2>
         Welcome to They Work For You for the UK Parliament.
-        <br/>
+        <br>
         Find out what your MP is doing in your name, read debates and signup for email alerts.
     </h2>
 </div>
@@ -127,7 +127,8 @@ if (($date = get_http_var('d')) && preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) 
         <h3>Your MP</h3>
         <?php
         
-        	global $THEUSER, $MPURL;
+		$MPURL = new URL('yourmp');
+        	global $THEUSER;
 
         	$pc_form = true;
         	if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
@@ -235,11 +236,10 @@ if (($date = get_http_var('d')) && preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) 
             echo $latest_html;
         ?>    
     </div>
-    <br class="clear" />
+    <br class="clear">
 </div>
 <?php
 
 $PAGE->stripe_end();
 $PAGE->page_end();
-?>        
-?>
+
