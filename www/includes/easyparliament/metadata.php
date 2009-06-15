@@ -303,7 +303,7 @@ $this->page = array (
 			'title'			=> "Debates in the House of Commons, Westminster Hall, and the House of Lords"
 		),
 		'parent'		=> 'hansard',
-		'title'			=> 'House of Commons debates',
+		'title'			=> 'UK Parliament Debates',
 		'rss'			=> 'debates/debates.rss',
 		'url'			=> 'debates/'
 	),
@@ -367,7 +367,7 @@ $this->page = array (
 			'text'			=> 'UK Parliament',
 			'title'			=> "Houses of Parliament debates, Written Answers, Statements, and Westminster Hall debates"
 		),
-		'title'			=> 'House of Commons and House of Lords',
+		'title'			=> '',
 		'url'			=> ''
 	),	
 	'hansard_date' => array (
@@ -1061,7 +1061,7 @@ $this->page = array (
 		'sidebar'		=> 'yourmp',
 		'title'			=> 'Your MP',
 		'url'			=> 'mp/',
-		'parent' => 'hansard',
+		'parent'			=> 'mps',
 	),
 	'yourmp_recent' => array (
 		'menu'			=> array (
