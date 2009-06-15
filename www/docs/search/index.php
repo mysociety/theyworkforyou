@@ -453,7 +453,9 @@ function find_members ($args) {
                     $party = $parties[$party];
                 if ($party)
                     $s .= $party . ', ';
-                $s2 = ' &ndash; ' . format_date($q->field($n, 'left_house'), SHORTDATEFORMAT);
+                $s2 = ' &ndash; ';
+                if ($q->field($n, 'left_house') != '9999-12-31')
+                   $s2 .= format_date($q->field($n, 'left_house'), SHORTDATEFORMAT);
                 $s3 = ')';
 		        $MOREURL = new URL('search');
                 $MOREURL->insert( array('pid'=>$last_pid, 'pop'=>1, 's'=>null) );
