@@ -499,7 +499,7 @@ $this->page = array (
 	'url'			=> 'hansard/'
 ),
 	'mla' => array (
-		'parent'		=> 'mlas',	    
+		'parent'		=> 'mlas',
 		'title'			=> 'MLA',
 		'url'			=> 'mla/'
 	),

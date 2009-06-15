@@ -2251,7 +2251,7 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 
 		echo '<div class="mainsearchbox">';
 		if ($wtt<2) {
-            if(!isset($advanced) && $advanced != true){		    
+            if(!isset($advanced) || $advanced != true){		    
     			echo '<form action="', $URL->generate(), '" method="get">';
     			if (get_http_var('o')) {
     				echo '<input type="hidden" name="o" value="', htmlentities(get_http_var('o')), '">';
