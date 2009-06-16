@@ -2293,6 +2293,7 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
     			echo '<input type="text" name="s" value="', htmlentities($value), '" size="50"> ';
     			echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
     			$URL = new URL('search');
+			$URL->insert(array('adv' => 1));
     			echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">More options</a>';
     			echo '<br>';
     			if ($wtt) print '<input type="hidden" name="wtt" value="1">';

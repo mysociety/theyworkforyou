@@ -24,7 +24,8 @@ if (get_http_var('adv')) {
 } elseif ($searchstring) {
 	// We're searching for something.
 	$searchstring = filter_user_input($searchstring, 'strict');
-    $time = parse_date($searchstring);
+    $searchstring2 = trim(preg_replace('#[a-z]+:[a-z0-9]+#', '', $searchstring));
+    $time = parse_date($searchstring2);
     if ($time['iso']) {
         header('Location: /hansard/?d=' . $time['iso']);
         exit;
@@ -232,6 +233,10 @@ $PAGE->stripe_end(array (
 	array(
 		'type'		=> 'include',
 		'content'	=> 'search_links'
+	),
+	array(
+		'type'		=> 'include',
+		'content'	=> 'search_filters'
 	),
 	array(
 		'type'		=> 'include',
@@ -531,7 +536,7 @@ function construct_search_string() {
     if (get_http_var('from') || get_http_var('to')) {
         $from = parse_date(get_http_var('from'));
         if ($from) $from = $from['iso'];
-        else $from = '1999-01-01';
+        else $from = '1979-01-01';
         $to = parse_date(get_http_var('to'));
         if ($to) $to = $to['iso'];
         else $to = date('Y-m-d');
