@@ -20,7 +20,6 @@ if (get_http_var('adv')) {
 	// Advanced search page
 	$PAGE->page_start();
 	$PAGE->stripe_start();
-    $PAGE->search_form($searchstring, false);
     $PAGE->advanced_search_form();
 } elseif ($searchstring) {
 	// We're searching for something.
@@ -225,7 +224,6 @@ if ($q_house==1) {
 	#$this_page = 'search_help';
 	$PAGE->page_start();
 	$PAGE->stripe_start();
-    $PAGE->search_form($searchstring, false);
     $PAGE->advanced_search_form();
 	#include INCLUDESPATH . 'easyparliament/staticpages/search_help.php';
 }

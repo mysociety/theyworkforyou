@@ -330,7 +330,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 	
 	function title_bar () {
 		// The title bit of the page, with possible search box.
-		global $this_page;
+		global $this_page, $DATA;
 		
 		$img = '<img src="' . IMAGEPATH . 'logo.png" width="591" height="105" alt="TheyWorkForYou.com">';
 
@@ -340,6 +340,25 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			$HOMETITLE = 'To the front page of the site';
 			$img = '<a href="' . $HOMEURL . '" title="' . $HOMETITLE . '">' . $img . '</a>';
 		}
+
+		# As in menu(), we work out what section of the site we're in
+		$this_parent = $DATA->page_metadata($this_page, 'parent');
+		if (!$this_parent) {
+			$top_hilite = $this_page;
+		} else {
+			$parents_parent = $DATA->page_metadata($this_parent, 'parent');
+			$top_hilite = $parents_parent ? $parents_parent : $this_parent;
+		}
+		if ($top_hilite == 'hansard') {
+			$section = 'uk';
+		} elseif ($top_hilite == 'ni_home') {
+			$section = 'ni';
+		} elseif ($top_hilite == 'sp_home') {
+			$section = 'scotland';
+		} else {
+			$section = '';
+		}
+
 		?>
 	<div id="banner">
 
@@ -353,7 +372,9 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			?>
 		<div id="search">
 			<form action="<?php echo $URL->generate(); ?>" method="get">
-			   <label for="searchbox">Search</label><input id="searchbox" name="s" size="15"> <input type="submit" class="submit" value="GO">
+			   <label for="searchbox">Search</label><input id="searchbox" name="s" size="15">
+			   <input type="submit" class="submit" value="Go">
+			   <input type="hidden" name="section" value="<?=$section?>">
 			</form>
 			<ul>
 			    <li>
@@ -363,7 +384,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			        |
 			    </li>
 			    <li>
-			        <a href="/search/?adv=1">Advanced search</a>			        
+			        <a href="/search/">More options</a>
 			    </li>			    
 		    </ul>
 		</div>
@@ -2236,14 +2257,13 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 <?php
 	}
 
-	function search_form ($value='', $adv = true) {
+	function search_form ($value='') {
 		global $SEARCHENGINE;
 		// Search box on the search page.
 		// If $value is set then it will be displayed in the form.
 		// Otherwise the value of 's' in the URL will be displayed.
 
 		$wtt = get_http_var('wtt');
-		$advanced = get_http_var('adv');
 
 		$URL = new URL('search');
 		$URL->reset(); // no need to pass any query params as a form action. They are not used.
@@ -2263,7 +2283,6 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 
 		echo '<div class="mainsearchbox">';
 		if ($wtt<2) {
-            if(!isset($advanced) || $advanced != true){		    
     			echo '<form action="', $URL->generate(), '" method="get">';
     			if (get_http_var('o')) {
     				echo '<input type="hidden" name="o" value="', htmlentities(get_http_var('o')), '">';
@@ -2273,14 +2292,10 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
     			}
     			echo '<input type="text" name="s" value="', htmlentities($value), '" size="50"> ';
     			echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
-    			if ($adv) {
-    				$URL = new URL('search');
-    				$URL->insert(array('adv'=>1));
-    				echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">Advanced search</a>';
-    			}
+    			$URL = new URL('search');
+    			echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">More options</a>';
     			echo '<br>';
     			if ($wtt) print '<input type="hidden" name="wtt" value="1">';
-            }
 		} else { ?>
 	<form action="http://www.writetothem.com/lords" method="get">
 	<input type="hidden" name="pid" value="<?=htmlentities(get_http_var('pid')) ?>">
@@ -2288,7 +2303,7 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 <?
 		}
 
-		if (!$wtt && $adv && ($value || $person_name)) {
+		if (!$wtt && ($value || $person_name)) {
 			echo '<div style="margin-top: 5px">';
 			$orderUrl = new URL('search');
 		        $ordering = get_http_var('o');
@@ -2329,21 +2344,44 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 
 		echo '</form> </div>';
 	}
+
 	function advanced_search_form() { ?>
+
 <style type="text/css">
-label { float: left; width: 12em; }
+label { float: left; width: 10em; }
+#search-form div {
+	margin-left: 18px;
+}
+#search-form div.help {
+	margin-left: 13em;
+	margin-bottom: 1em;
+}
 </style>
-<form action="/search/" method="get">
+
 <h2>Advanced Search</h2>
-<p><label for="s">Words:</label> <input type="text" id="s" name="s" value="<?=htmlspecialchars(get_http_var('s')) ?>" size="50">
-<p><label for="phrase">Exact phrase:</label> <input type="text" id="phrase" name="phrase" value="<?=htmlspecialchars(get_http_var('phrase')) ?>" size="50">
-<p><label for="exclude">Ignore the words:</label> <input type="text" id="exclude" name="exclude" value="<?=htmlspecialchars(get_http_var('exclude')) ?>" size="50">
-<p><label for="from">Date range:</label>
-<input type="text" id="from" name="from" value="<?=htmlspecialchars(get_http_var('from')) ?>" size="22">
- &ndash; <input type="text" name="to" value="<?=htmlspecialchars(get_http_var('to')) ?>" size="22">
-<small>(to restrict results to between two dates)</small>
-</p>
-<p><label for="department">Department:</label> <select name="department" id="department">
+
+<form action="/search/" method="get" id="search-form">
+
+<div><label for="s">Search:</label> <input type="text" id="s" name="s" value="<?=htmlspecialchars(get_http_var('s')) ?>" size="60"></div>
+<div class="help">
+Enter what you&rsquo;re looking for here. See the help to the right for how
+to search for "exact phrases", -exclude -words, or perform NEARby OR boolean searches.
+</div>
+
+<h3>Filters</h3>
+
+<div><label for="from">Date range:</label>
+From <input type="text" id="from" name="from" value="<?=htmlspecialchars(get_http_var('from')) ?>" size="22">
+ to <input type="text" name="to" value="<?=htmlspecialchars(get_http_var('to')) ?>" size="22">
+</div>
+<div class="help">
+You can give a start date, an end date, or both, to restrict results to a
+particular date range; a missing end date implies the current date, a missing start date
+implies the oldest date we have in the system. Dates can be entered in any format you wish, e.g.
+&ldquo;3rd March 2007&rdquo; or &ldquo;17/10/1989&rdquo;.
+</div>
+
+<div><label for="department">Department:</label> <select name="department" id="department">
 <option value="">-
 <option>Administration Committee
 <option>Advocate-General
@@ -2410,8 +2448,13 @@ label { float: left; width: 12em; }
 <option>Women and Equality
 <option>Work and Pensions
 </select>
-<small>(for Written Answers and Written Statements)</small>
-<p><label for="party">Party:</label> <select id="party" name="party">
+</div>
+<div class="help">
+This will restrict results to those UK Parliament written answers and statements from the chosen department.
+<small>The department list might be slightly out of date.</small>
+</div>
+
+<div><label for="party">Party:</label> <select id="party" name="party">
 <option value="">-
 <option>Alliance
 <option value="Bp">Bishops
@@ -2454,11 +2497,13 @@ Sinn Fein is broken
 <option>UUAP
 <option>UUP
 </select>
-<small>(only results from people in the chosen party)</small>
-<p><label for="column">Column:</label>
-<input type="text" id="column" name="column" value="<?=htmlspecialchars(get_http_var('column')) ?>" size="10">
-<small>(the column number in Hansard you are interested in)</small>
-<p><label for="section">Section:</label>
+</div>
+<div class="help">
+Restricts results to the chosen party
+<br><small>(there is currently a bug with some parties, such as Sinn F&eacute;in)</small>.
+</div>
+
+<div><label for="section">Section:</label>
 <select id="section" name="section">
 <option value="">-
 <optgroup label="UK Parliament">
@@ -2486,12 +2531,21 @@ Sinn Fein is broken
 </optgroup>
 -->
 </select>
-<!-- 
-<p>
-<input type="checkbox" name="video" id="video">
-<label for="video">Search only speeches with video</label>
-</p>
--->
+</div>
+<div class="help">
+Restrict results to a particular parliament or assembly that we cover (e.g. the
+Scottish Parliament), or a particular type of data within an institution, such
+as Commons Written Answers.
+</div>
+
+<div><label for="column">Column:</label>
+<input type="text" id="column" name="column" value="<?=htmlspecialchars(get_http_var('column')) ?>" size="10">
+</div>
+<div class="help">
+If you know the actual column number in Hansard you are interested in (perhaps you&rsquo;re looking up a paper
+reference), you can restrict results to that.
+</div>
+
 <p align="right">
 <input type="submit" value="Search">
 </p>
