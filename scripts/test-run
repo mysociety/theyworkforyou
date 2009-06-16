@@ -12,7 +12,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.14 2009-05-18 15:34:45 louise Exp $';
+my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.15 2009-06-16 09:12:09 matthew Exp $';
 
 use strict;
 require 5.8.0;
@@ -580,7 +580,7 @@ To cancel your alert for speaker:Julia Goldsworthy, please use:
 ====================
 
 If you register on the site, you will be able to manage your
-alerts there as well as post comments. :)
+alerts there as well as write annotations. :)
 
 
 If clicking any of these links doesn't work, you may have

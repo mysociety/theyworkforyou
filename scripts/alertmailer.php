@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.32 2009-01-27 11:48:12 matthew Exp $
+ * $Id: alertmailer.php,v 1.33 2009-06-16 09:12:09 matthew Exp $
  */
 
 function mlog($message) {
@@ -247,7 +247,7 @@ function write_and_send_email($email, $user_id, $data, $template) {
 	if ($user_id) {
 		$data .= "As a registered user, visit http://www.theyworkforyou.com/user/\nto manage your alerts.\n";
 	} else {
-		$data .= "If you register on the site, you will be able to manage your\nalerts there as well as post comments. :)\n";
+		$data .= "If you register on the site, you will be able to manage your\nalerts there as well as write annotations. :)\n";
 	}
 	$sentemails++;
 	mlog("SEND $sentemails : Sending email to $email ... ");

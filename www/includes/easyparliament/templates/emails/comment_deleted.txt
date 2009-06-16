@@ -1,11 +1,11 @@
-Subject:One of your comments has been deleted
+Subject:One of your annotations has been deleted
 Hi {FIRSTNAME},
 
 Thanks for taking the time to contribute to TheyWorkForYou.com. 
 
-Unfortunately, another user has indicated that the comment copied at the bottom of this email might be in breach of the House Rules listed here http://www.theyworkforyou.com/houserules/ 
+Unfortunately, another user has indicated that the annotation copied at the bottom of this email might be in breach of the House Rules listed here http://www.theyworkforyou.com/houserules/ 
 
-We have removed your comment from TheyWorkForYou.com for the following reason: 
+We have removed your annotation from TheyWorkForYou for the following reason: 
 
 {DELETEDREASON}.
 
@@ -16,9 +16,9 @@ Best wishes,
 - The TheyWorkForYou.com Volunteers
 
 
-PS  If you're still in the mood, we'd be delighted if you wanted to redraft your comment so it meets our House Rules. Just visit this address
+PS  If you're still in the mood, we'd be delighted if you wanted to redraft your annotation so it meets our House Rules. Just visit this address
 {ADDCOMMENTURL} 
 
-Your original comment:
+Your original annotation:
 
 {COMMENTBODY}

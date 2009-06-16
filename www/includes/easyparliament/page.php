@@ -1823,7 +1823,7 @@ and has had no written questions answered for which we know the department or su
 				print '<br><em>Members of the Chairmen\'s Panel act for the Speaker when chairing things such as Public Bill Committees, and as such do not vote on Bills they are involved in chairing.</em>';
 			}
 
-			$displayed_stuff |= display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member['person_id'].'">', 'comment', "</a> on this MP's speeches", '', $extra_info);
+			$displayed_stuff |= display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member['person_id'].'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info);
 			$displayed_stuff |= display_stats_line('reading_age', 'This MP\'s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
 		}
 		
@@ -3016,7 +3016,7 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 		}
 		?>	
 				<div class="comment">
-					<p class="credit"><strong>Comment report</strong><br>
+					<p class="credit"><strong>Annotation report</strong><br>
 					<small>Reported by <?php echo $username; ?> on <?php echo $data['reported']; ?></small></p>
 
 					<p><?php echo htmlentities($data['body']); ?></p>
@@ -3045,7 +3045,7 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 		if (count($data) > 0) {
 		
 			?>
-			<h3>Reported comments</h3>
+			<h3>Reported annotations</h3>
 <?php
 			// Put the data in an array which we then display using $PAGE->display_table().
 			$tabledata['header'] = array(
@@ -3089,7 +3089,7 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 			
 		} else {
 		
-			print "<p>There are no outstanding comment reports.</p>\n";
+			print "<p>There are no outstanding annotation reports.</p>\n";
 		}
 	
 	}

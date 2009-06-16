@@ -2,7 +2,7 @@
 /* 
  * Name: alertgonemps.php
  * Description: Mailer for those whose MP has gone
- * $Id: alertgonemps.php,v 1.1 2006-04-27 14:20:20 twfy-live Exp $
+ * $Id: alertgonemps.php,v 1.2 2009-06-16 09:12:09 matthew Exp $
  */
 
 ini_set('memory_limit', -1);
@@ -80,7 +80,7 @@ function write_and_send_email($email, $user_id, $data) {
 	if ($user_id) {
 		$data = "As a registered user, visit http://www.theyworkforyou.com/user/\nto manage your alerts.\n\n" . $data;
 	} else {
-		$data = "If you register on the site, you will be able to manage your\nalerts there as well as post comments. :)\n\n" . $data;
+		$data = "If you register on the site, you will be able to manage your\nalerts there as well as annotate speeches. :)\n\n" . $data;
 	}
 	$out .= "SEND: Sending email to $email\n";
 	print "SEND: Sending email to $email\n";

@@ -20,7 +20,7 @@ if (is_numeric(get_http_var('id'))) {
 
 	if ($COMMENT->exists() == false || !$COMMENT->visible()) {
 		// This comment id didn't exist in the DB.
-		trigger_error("There is no comment with an ID of '" . htmlentities($comment_id) . "'.", E_USER_NOTICE);
+		trigger_error("There is no annotation with an ID of '" . htmlentities($comment_id) . "'.", E_USER_NOTICE);
 	}
 	
 	// OK, we've got a valid comment ID.
@@ -32,7 +32,7 @@ if (is_numeric(get_http_var('id'))) {
 		$errors = array();
 		
 		if (get_http_var('body') == '') {
-			$errors['body'] = "Please enter a reason why you think this comment is not appropriate.";
+			$errors['body'] = "Please enter a reason why you think this annotation is not appropriate.";
 		}
 		if (preg_match('#http://|\[url#', get_http_var('body'))) {
 			$errors['body'] = 'Please do not give any web links in the report body.';
@@ -67,7 +67,7 @@ if (is_numeric(get_http_var('id'))) {
 		
 			if ($success) {
 					?>
-	<p><strong>The comment has been reported</strong> and a moderator will look into it as soon as possible. You should receive an email shortly confirming your report. Thanks for taking the time let us know about this.</p>
+	<p><strong>The annotation has been reported</strong> and a moderator will look into it as soon as possible. You should receive an email shortly confirming your report. Thanks for taking the time let us know about this.</p>
 <?php
 				if (!$THEUSER->isloggedin()) {
 					$LOGINURL = new URL('userlogin');
@@ -94,7 +94,7 @@ if (is_numeric(get_http_var('id'))) {
 
 
 } else {
-	$PAGE->error_message("We need the ID of a comment before it can be reported.");	
+	$PAGE->error_message("We need the ID of a annotation before it can be reported.");	
 }
 
 
@@ -103,7 +103,7 @@ function display_form($COMMENT, $errors=array()) {
 	global $this_page, $THEUSER, $PAGE;
 	
 	?>
-				<p>Here's the comment you're reporting. Please enter a brief reason why you think it should be deleted in the form beneath. Thanks for your help!</p>
+				<p>Here's the annotation you're reporting. Please enter a brief reason why you think it should be deleted in the form beneath. Thanks for your help!</p>
 <?php
 
 	// First display the comment.
@@ -157,8 +157,8 @@ function display_form($COMMENT, $errors=array()) {
 	}
 	$RULESURL = new URL('houserules');
 	?>
-				<p style="clear: left;"><strong>Why should this comment be deleted?</strong><br>
-				<small>Check our <a href="<?php echo $RULESURL->generate(); ?>">House Rules</a> and tell us why the comment breaks them.</small><br>
+				<p style="clear: left;"><strong>Why should this annotation be deleted?</strong><br>
+				<small>Check our <a href="<?php echo $RULESURL->generate(); ?>">House Rules</a> and tell us why the annotation breaks them.</small><br>
 				<textarea name="body" rows="10" cols="45"><?php
 	echo htmlentities(get_http_var('body'));
 	?></textarea></p>

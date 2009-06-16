@@ -35,7 +35,7 @@ if (get_http_var('welcome') == 't') {
 
 	<p><strong>TheyWorkForYou.com</strong> helps make sense of this vital democratic resource and, crucially, allows you to scribble all over the margins.</p>
 
-	<p>Feel free to use it to keep an eye on <strong>your MP</strong>, Peers, add <strong>comments</strong> next to speeches, or help others by contributing your own <strong>links</strong>.</p>
+	<p>Feel free to use it to keep an eye on <strong>your MP</strong>, Peers, add <strong>annotations</strong> next to speeches, or help others by contributing your own <strong>links</strong>.</p>
 
 	<p>Do <a href="mailto:<?php echo CONTACTEMAIL; ?>">let us know</a> if you find a bug, or have a suggestion.</p>
 	

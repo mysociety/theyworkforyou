@@ -1,5 +1,5 @@
 <?php
-// This sidebar is on the individual debate and wrans pages, by the comment input.
+// This sidebar is on the individual debate and wrans pages, by the annotation input.
 
 $URL = new URL('houserules');
 $rulesurl = $URL->generate();

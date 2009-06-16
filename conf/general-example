@@ -94,7 +94,7 @@ define ("RECESSFILE","http://www.theyworkforyou.com/pwdata/parl-recesses.txt");
 
 define('OPTION_SMTP_SMARTHOST', 'localhost');
 
-// When a user reports a comment, notification is sent to this address.
+// When a user reports an annotation, notification is sent to this address.
 define ("REPORTLIST", CONTACTEMAIL);
 
 // All error emails go to this address.

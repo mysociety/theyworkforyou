@@ -1,9 +1,9 @@
-Subject: Sorry, but we're not going to remove the comment you reported to us
+Subject: Sorry, but we're not going to remove the annotation you reported to us
 Hi {FIRSTNAME},
 
-Thanks for reporting this comment at TheyWorkForYou.com, which you felt was in breach of our House Rules: {COMMENTURL}
+Thanks for reporting this annotation at TheyWorkForYou, which you felt was in breach of our House Rules: {COMMENTURL}
 
-We appreciate you taking the time to contact us. However, in this instance we've decided not to remove this comment because {REASON}.
+We appreciate you taking the time to contact us. However, in this instance we've decided not to remove this annotation because {REASON}.
 
 Our House Rules are published here: http://www.theyworkforyou.com/houserules/ 
 

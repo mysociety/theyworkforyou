@@ -24,7 +24,7 @@ What is TheyWorkForYou.com anyway?
 
 Everything MPs say in the UK's House of Commons is recorded in a document
 called Hansard.  TheyWorkForYou.com helps make sense of this vital democratic
-resource and, crucially, allows you to add your own comments and links to the
+resource and, crucially, allows you to add your own annotations and links to the
 official transcripts of Parliament.
 
 How on earth do I use this code?

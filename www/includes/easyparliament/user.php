@@ -894,7 +894,7 @@ class THEUSER extends USER {
 
 		} else {
 			// Failed.
-			return array ("invalidemail"=>"There is no user registered with an email of " . htmlentities($email) . '. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave comments.');
+			return array ("invalidemail"=>"There is no user registered with an email of " . htmlentities($email) . '. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave annotations.');
 		}
 
 	}
