@@ -87,9 +87,9 @@ a:hover {text-decoration:underline;}
 
 #menu {position: relative;width: 100%;background-color: #e8fdcb;border-top: 1px solid #fff;font-size:1.1em;}
 #menu a {font-weight:normal;}
-#menu li {margin: 0 0 0.5em 1.2em;}
+#menu li {margin: 0.1em 0 0.4em 1.2em;}
 #user li {display:block; float:left; padding-top:0.7em; color:white;}
-/*ul#user .name {display: block; margin: 3px 5px 0 0;}*/
+#user li.divider a {border-left:solid 1px #fff; padding-left:1.1em;}
 
 /* Top menu */
 

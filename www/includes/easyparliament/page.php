@@ -584,6 +584,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		}
 
 		// If the user's postcode is set, then we add a link to Your MP etc.
+		$divider = true;
 		if ($THEUSER->postcode_is_set()) {
 			$items = array('yourmp');
 			if (postcode_is_scottish($THEUSER->postcode()))
@@ -595,7 +596,12 @@ if (typeof urchinTracker == 'function') urchinTracker();
 				$logintext 	= $menudata['text'];
 				$logintitle	= $menudata['title'];
 				$URL = new URL($item);
-				echo '<li><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
+				if($divider){
+				    echo '<li class="divider"><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';				    
+			    }else{
+				    echo '<li><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';			        
+		        }
+				$divider = false;
 			}
 		}
 		echo '</ul>';

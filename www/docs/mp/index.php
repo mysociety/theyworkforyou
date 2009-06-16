@@ -382,7 +382,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	}
 */
 	$sidebars[] = array('type'=>'html',
-		'content' => '<div class="block"><h4>Journalist?</h4>
+		'content' => '<div class="block"><h4>Note for journalists</h4>
 <div class="blockbody"><p>Please feel free to use the data
 on this page, but if you do you must cite TheyWorkForYou.com in the
 body of your articles as the source of any analysis or
