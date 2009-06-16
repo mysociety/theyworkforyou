@@ -21,6 +21,12 @@ if (get_http_var('adv')) {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
     $PAGE->advanced_search_form();
+    $PAGE->stripe_end(array(
+	    array(
+		    'type'		=> 'include',
+		    'content'	=> 'search'
+	    )
+    ));
 } elseif ($searchstring) {
 	// We're searching for something.
 	$searchstring = filter_user_input($searchstring, 'strict');
@@ -220,29 +226,34 @@ if ($q_house==1) {
             #        find_comments($args);
     	}
     }
+    $PAGE->stripe_end(array (
+        array(
+            'type'		=> 'include',
+            'content'	=> 'search_links'
+        ),
+        array(
+            'type'		=> 'include',
+            'content'	=> 'search_filters'
+        ),
+        array(
+            'type'		=> 'include',
+            'content'	=> 'search'
+        )
+    ));
 } else {
 	// No search term. Display help.
 	#$this_page = 'search_help';
 	$PAGE->page_start();
 	$PAGE->stripe_start();
     $PAGE->advanced_search_form();
-	#include INCLUDESPATH . 'easyparliament/staticpages/search_help.php';
+    $PAGE->stripe_end(array(
+	    array(
+		    'type'		=> 'include',
+		    'content'	=> 'search'
+	    )
+    ));
 }
 
-$PAGE->stripe_end(array (
-	array(
-		'type'		=> 'include',
-		'content'	=> 'search_links'
-	),
-	array(
-		'type'		=> 'include',
-		'content'	=> 'search_filters'
-	),
-	array(
-		'type'		=> 'include',
-		'content'	=> 'search'
-	)
-));
 $PAGE->page_end();
 
 function find_comments($args) {
