@@ -1,5 +1,17 @@
 <?php
 
+function optgroups($data, $current) {
+	foreach ($data as $key => $values) {
+		echo '<optgroup label="', $key, '">';
+		foreach ($values as $k => $v) {
+			echo '<option';
+			if ($current == $k) echo ' selected';
+			echo ' value="', $k, '">', $v;
+		}
+ 		echo "</optgroup>\n";
+	}
+}
+
 global $searchstring;
 
 # XXX If you use a prefix and go to More options ,it doesn't fill the boxes. Need to factor out
@@ -16,14 +28,14 @@ if (preg_match('#\s*([0-9/.-]*)\.\.([0-9/.-]*)#', $filter_ss, $m)) {
 $section = get_http_var('section');
 if (preg_match('#\s*section:([a-z]*)#', $filter_ss, $m)) {
 	$section = $m[1];
-	$filter_ss = preg_replace("#section:$section#", '', $filter_ss);
+	$filter_ss = preg_replace("#\s*section:$section#", '', $filter_ss);
 }
 
 $this->block_start(array( 'title' => "Filtering your results"));
 
 ?>
 <form method="get" action="/search/">
-<input type="hidden" name="s" value="<?=$searchstring?>">
+<input type="hidden" name="s" value="<?=$filter_ss ?>">
 
 <ul>
 
@@ -41,24 +53,27 @@ $this->block_start(array( 'title' => "Filtering your results"));
  <label for="section">Section:</label>
  <select id="section" name="section">
  <option value="">Any
- <optgroup label="UK Parliament">
- <option value="uk">All
- <option value="debates">House of Commons debates
- <option value="whall">Westminster Hall debates
- <option value="lords">House of Lords debates
- <option value="wrans">Written answers
- <option value="wms">Written ministerial statements
- <option value="standing">Public Bill Committees
- </optgroup>
- <optgroup label="Northern Ireland Assembly">
- <option value="ni">Debates
- </optgroup>
-
- <optgroup label="Scottish Parliament">
- <option value="scotland">All
- <option value="sp">Debates
- <option value="spwrans">Written answers
- </optgroup>
+<?
+ optgroups(array(
+ 	'UK Parliament' => array(
+		'uk' => 'All UK',
+		'debates' => 'House of Commons debates',
+		'whall' => 'Westminster Hall debates',
+		'lords' => 'House of Lords debates',
+		'wrans' => 'Written answers',
+		'wms' => 'Written ministerial statements',
+		'standing' => 'Bill Committees',
+	),
+	'Northern Ireland Assembly' => array(
+		'ni' => 'Debates',
+	),
+	'Scottish Parliament' => array(
+		'scotland' => 'All Scotland',
+		'sp' => 'Debates',
+		'spwrans' => 'Written answers',
+	),
+ ), $section);
+ ?>
  </select>
  <div class="help">
  Restrict results to a particular parliament or assembly that we cover (e.g. the
