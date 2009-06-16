@@ -885,7 +885,7 @@ $this->page = array (
 		'sidebar'		=> 'userjoin',
 		'title'			=> 'Contribute to TheyWorkForYou',
 		'url'			=> 'getinvolved/'
-	),		
+	),
 	'userlogin' => array (
 		'menu'			=> array (
 			'text'			=> 'Sign in',

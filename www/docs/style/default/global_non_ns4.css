@@ -60,6 +60,8 @@ a:link {color: #2680c6;text-decoration: none;font-weight:bold;}
 a:visited {color: #4b85b2;text-decoration: none;font-weight:bold;}
 a:hover {text-decoration:underline;}
 
+/* Hide */
+.hide {display:none;}
 
 /* Main Structural Blocks */
 
@@ -186,7 +188,7 @@ div.sidebar p {line-height: 1.3em;margin-top: 0.5em;margin-bottom: 1em;}
 div.sidebar p.vote {margin: 0.2em 14px 0 10px;}
 div.sidebar p.vote a {padding:0.2em;}
 div.sidebar ul {margin-top: 0.5em;list-style-type:none; }
-div.sidebar ul li {background:url(../../images/bulletsmall.png) no-repeat 1px 3px; padding-left:18px;}
+div.sidebar ul li {background:url(../../images/bulletsmall.png) no-repeat 1px 3px; padding-left:18px;padding-bottom:0.3em;}
 div.sidebar p.video {margin: 0 14px 0 10px;}
 div.sidebar p.nextprev {margin: 0.5em 14px 2em 10px;height:4.5em;
     padding-top:1em;position:relative;float:right;}
@@ -384,7 +386,7 @@ div.pagelinks {margin: 1em 14px 1em 18px;text-align: center;}
 span.hi {background: #ff3;}
 a span.hi {text-decoration: underline;}
 	
-span.example-input {display: block;background: #eee; margin: 0.2em 0;padding: 2px; 
+span.example-input {display: block;background: #eee; margin: 0.7em 0 0.4em 0;padding: 2px; 
 	border-top: 1px solid #666; border-left: 1px solid #666;}
 	
 
@@ -686,7 +688,7 @@ ul.hilites li {padding-left:25px;margin-left:0; background:url(../../images/bull
 /* Photos */
 a.speakerimage {display:block; float:left;background: url(../../images/photobacksmall.png) no-repeat; background-position:0 0;width:64px; height:68px; padding-top:13px;text-align:center; position:relative;z-index:50;}
 
-        
+
 /* Blocks */
 div.block {margin: 0 0 1.5em 18px; padding: 0; border-top: 10px solid #dfdfdf;background:#fafafa;}
 div.block h4 {margin:0; padding:0.6em;color: #000;}
@@ -694,6 +696,8 @@ div.block div.blockbody {padding: 0 0.6em 1em 0.6em;}
 div.block div.blockbody p,
 div.block div.blockbody ul {margin-left: 0;margin-right: 0;padding:0;}
 div#help.block {border-top:solid 10px #bf523d!important; background:#fff7f6 url(../../images/help.png) no-repeat 8px 10px; border-bottom:none;}
+div#help.block ul li {background:none; padding-left:0;}
+div#help.block ul li ul li {list-style-type:circle; margin-left:2em;}
 div#help.block h4 {padding-left:40px;color:#8b311f;padding-top:14px;}
 div#calendar.block {background:none;border:none;}
 #calendar.block h4 {padding-left:0;display:none;}
@@ -711,3 +715,13 @@ div.sort {font-size:0.8em; padding:1em 0 0.5em 18px; color:#808080;text-align:ri
 div.sort ul,
 div.sort ul li {display:inline;margin:0; padding:0; font-weight:bold;}
 div.sort ul {padding-left:0.5em;}
+
+
+/* Advanced search */
+#search-form #s {font-size:1.6em; width:100%;}
+#search-form label {float: left; width: 10em; color:#4D6C25; font-weight:bold;}
+#search-form div {margin-left: 18px;}
+#search-form div.help {padding:0.4em 0 1em 11em;margin:0 0 1em 18px;
+        font-size:0.9em; color:#5f5f5f;}
+#search-form #term-search div.help {padding-left:0;margin-left:0;margin-bottom:0;}
+#search-form h3 {border-bottom:solid 1px #ccc;margin-bottom:1em;margin-right:0;}

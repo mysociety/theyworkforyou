@@ -2346,42 +2346,33 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 	}
 
 	function advanced_search_form() { ?>
-
-<style type="text/css">
-label { float: left; width: 10em; }
-#search-form div {
-	margin-left: 18px;
-}
-#search-form div.help {
-	margin-left: 13em;
-	margin-bottom: 1em;
-}
-</style>
-
-<h2>Advanced Search</h2>
+	    
+<h2>Search</h2>
 
 <form action="/search/" method="get" id="search-form">
 
-<div><label for="s">Search:</label> <input type="text" id="s" name="s" value="<?=htmlspecialchars(get_http_var('s')) ?>" size="60"></div>
-<div class="help">
-Enter what you&rsquo;re looking for here. See the help to the right for how
-to search for "exact phrases", -exclude -words, or perform NEARby OR boolean searches.
+<div id="term-search">
+    <label for="s" class="hide">Search</label> <input type="text" id="s" name="s" value="<?=htmlspecialchars(get_http_var('s')) ?>">
+    <div class="help">
+    Enter what you&rsquo;re looking for here. See the help to the right for how
+    to search for <strong>"exact phrases"</strong>, <strong>-exclude -words</strong>, or perform <strong>NEARby OR boolean</strong> searches.
+    </div>
 </div>
 
 <h3>Filters</h3>
 
-<div><label for="from">Date range:</label>
+<div><label for="from">Date range</label>
 From <input type="text" id="from" name="from" value="<?=htmlspecialchars(get_http_var('from')) ?>" size="22">
  to <input type="text" name="to" value="<?=htmlspecialchars(get_http_var('to')) ?>" size="22">
 </div>
 <div class="help">
-You can give a start date, an end date, or both, to restrict results to a
+You can give a <strong>start date, an end date, or both</strong>, to restrict results to a
 particular date range; a missing end date implies the current date, a missing start date
-implies the oldest date we have in the system. Dates can be entered in any format you wish, e.g.
-&ldquo;3rd March 2007&rdquo; or &ldquo;17/10/1989&rdquo;.
+implies the oldest date we have in the system. Dates can be entered in any format you wish, <strong>e.g.
+&ldquo;3rd March 2007&rdquo; or &ldquo;17/10/1989&rdquo;</strong>.
 </div>
 
-<div><label for="department">Department:</label> <select name="department" id="department">
+<div><label for="department">Department</label> <select name="department" id="department">
 <option value="">-
 <option>Administration Committee
 <option>Advocate-General
@@ -2454,7 +2445,7 @@ This will restrict results to those UK Parliament written answers and statements
 <small>The department list might be slightly out of date.</small>
 </div>
 
-<div><label for="party">Party:</label> <select id="party" name="party">
+<div><label for="party">Party</label> <select id="party" name="party">
 <option value="">-
 <option>Alliance
 <option value="Bp">Bishops
@@ -2503,7 +2494,7 @@ Restricts results to the chosen party
 <br><small>(there is currently a bug with some parties, such as Sinn F&eacute;in)</small>.
 </div>
 
-<div><label for="section">Section:</label>
+<div><label for="section">Section</label>
 <select id="section" name="section">
 <option value="">-
 <optgroup label="UK Parliament">
@@ -2538,7 +2529,7 @@ Scottish Parliament), or a particular type of data within an institution, such
 as Commons Written Answers.
 </div>
 
-<div><label for="column">Column:</label>
+<div><label for="column">Column</label>
 <input type="text" id="column" name="column" value="<?=htmlspecialchars(get_http_var('column')) ?>" size="10">
 </div>
 <div class="help">
