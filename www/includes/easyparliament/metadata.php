@@ -281,7 +281,10 @@ $this->page = array (
 		'title'			=> 'Contact',
 		'url'			=> 'contact/'
 	),
-	
+	'news' => array(
+	    'title' => 'News',
+	    'url' => 'http://www.mysociety.org/category/projects/theyworkforyou/'
+	),
 	'debate'  => array (	
 		'parent'		=> 'debatesfront',
 		'url'			=> 'debate/',
@@ -875,7 +878,7 @@ $this->page = array (
                 'sidebar'               => 'userjoin',
                 'title'                 => 'Join TheyWorkForYou',
                 'url'                   => 'user/'
-        ),  	
+        ),
 	'getinvolved' => array (
 		'menu'			=> array (
 			'text'			=> 'Get involved',

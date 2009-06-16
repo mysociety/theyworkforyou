@@ -888,86 +888,8 @@ if (typeof urchinTracker == 'function') urchinTracker();
 	
 
 	function content_end () {
-		global $DATA, $this_page;
-		
-		$about_links = $this->get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'contact'));
-        $assembly_links = $this->get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home'));		
-        $international_links = $this->get_menu_links(array ('newzealand', 'australia', 'ireland'));
-        $tech_links = $this->get_menu_links(array ('code', 'api', 'data', 'devmailinglist', 'irc'));
 
-/*
-		$about_links[] = '<a href="' . WEBPATH . 'api/">API</a> / <a href="http://ukparse.kforge.net/parlparse">XML</a>';
-		$about_links[] = '<a href="https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy">Source code</a>';
-
-		$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? strtolower( $_SERVER['HTTP_USER_AGENT'] ) : '';
-		if (stristr($user_agent, 'Firefox/'))
-			$about_links[] = '<a href="http://mycroft.mozdev.org/download.html?name=theyworkforyou">Add search to Firefox</a>';
-
-*/			
-		?>
-	
-		<div id="footer">
-			<dl>
-			    <dt>About: </dt>
-			    <dd>
-			        <ul>
-        			    <?php
-        			        foreach ($about_links as $about_link) {
-        			            echo '<li>' . $about_link . '</li>';
-        			        }
-                        ?>
-                    </ul>
-                </dd>
-			    <dt>Parliaments &amp; assemblies: </dt>
-			    <dd>
-			        <ul>
-        			    <?php
-        			        foreach ($assembly_links as $assembly_link) {
-        			            echo '<li>' . $assembly_link . '</li>';
-        			        }
-                        ?>
-                    </ul>
-                </dd>
-			    <dt>International projects: </dt>
-			    <dd>
-			        <ul>
-        			    <?php
-        			        foreach ($international_links as $international_link) {
-        			            echo '<li>' . $international_link . '</li>';
-        			        }
-                        ?>
-                    </ul>
-                </dd>                
-                <dt>Technical: </dt>
-			    <dd>
-			        <ul>
-        			    <?php
-        			        foreach ($tech_links as $tech_link) {
-        			            echo '<li>' . $tech_link . '</li>';
-        			        }
-                        ?>
-                    </ul>
-                </dd>
-		  </dl>
-		  <div>
-		      <h5>Donate</h5>
-		      <p>
-		          This website is run by <a href="#">mySociety</a> a registered charity. If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
-		      </p>
-		      <h5>Signup to our newsletter</h5>
-		      <form method="get" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
-		          <input type="text" name="email"/>
-		          <input type="submit" value="Go"/>
-		      </form>
-		      <p>
-		          Approximately once a month, spam free
-		      </p>
-		  </div>
-          <br class="clear"/>
-		</div>
-
-	</div> <!-- end #content -->
-<?php
+	    print "</div> <!-- end #content -->";
 
 	}
 
@@ -998,10 +920,88 @@ if (typeof urchinTracker == 'function') urchinTracker();
 
 		return $links;
     }
-	
+
 	function page_footer ($extra = null) {
 		global $DATA, $this_page;
 
+        		global $DATA, $this_page;
+
+        		$about_links = $this->get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact'));
+                $assembly_links = $this->get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home'));		
+                $international_links = $this->get_menu_links(array ('newzealand', 'australia', 'ireland'));
+                $tech_links = $this->get_menu_links(array ('code', 'api', 'data', 'devmailinglist', 'irc'));
+
+        /*
+        		$about_links[] = '<a href="' . WEBPATH . 'api/">API</a> / <a href="http://ukparse.kforge.net/parlparse">XML</a>';
+        		$about_links[] = '<a href="https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy">Source code</a>';
+
+        		$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? strtolower( $_SERVER['HTTP_USER_AGENT'] ) : '';
+        		if (stristr($user_agent, 'Firefox/'))
+        			$about_links[] = '<a href="http://mycroft.mozdev.org/download.html?name=theyworkforyou">Add search to Firefox</a>';
+
+        */			
+        		?>
+
+        		<div id="footer">
+        			<dl>
+        			    <dt>About: </dt>
+        			    <dd>
+        			        <ul>
+                			    <?php
+                			        foreach ($about_links as $about_link) {
+                			            echo '<li>' . $about_link . '</li>';
+                			        }
+                                ?>
+                            </ul>
+                        </dd>
+        			    <dt>Parliaments &amp; assemblies: </dt>
+        			    <dd>
+        			        <ul>
+                			    <?php
+                			        foreach ($assembly_links as $assembly_link) {
+                			            echo '<li>' . $assembly_link . '</li>';
+                			        }
+                                ?>
+                            </ul>
+                        </dd>
+        			    <dt>International projects: </dt>
+        			    <dd>
+        			        <ul>
+                			    <?php
+                			        foreach ($international_links as $international_link) {
+                			            echo '<li>' . $international_link . '</li>';
+                			        }
+                                ?>
+                            </ul>
+                        </dd>                
+                        <dt>Technical: </dt>
+        			    <dd>
+        			        <ul>
+                			    <?php
+                			        foreach ($tech_links as $tech_link) {
+                			            echo '<li>' . $tech_link . '</li>';
+                			        }
+                                ?>
+                            </ul>
+                        </dd>
+        		  </dl>
+        		  <div>
+        		      <h5>Donate</h5>
+        		      <p>
+        		          This website is run by <a href="#">mySociety</a> a registered charity. If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
+        		      </p>
+        		      <h5>Signup to our newsletter</h5>
+        		      <form method="get" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
+        		          <input type="text" name="email"/>
+        		          <input type="submit" value="Go"/>
+        		      </form>
+        		      <p>
+        		          Approximately once a month, spam free
+        		      </p>
+        		  </div>
+                  <br class="clear"/>
+        		</div>
+        <?php
 		// This makes the tracker appear on all sections, but only actually on theyworkforyou.com
 				//if ($DATA->page_metadata($this_page, 'track') ) {
 		if (substr(DOMAIN, -18) == "theyworkforyou.com" && substr(DOMAIN, 0, 7)!= "staging")  {
