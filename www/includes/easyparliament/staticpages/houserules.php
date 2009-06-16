@@ -12,7 +12,7 @@
 <dd><p>Unlawful, harassing, defamatory, abusive, threatening, harmful, obscene, profane, sexually oriented, racially offensive or otherwise objectionable material is not acceptable. </p></dd>
 
 <dt>No spamming or off-topic material</dt>
-<dd><p>We don't allow the submission of the same or very similar contributions many times. Please don't re-submit your comment to more than one discussion.</p></dd>
+<dd><p>We don't allow the submission of the same or very similar contributions many times. Please don't re-submit your annotation to more than one discussion.</p></dd>
 
 <dt>No advertising</dt>
 <dd><p>At all. Ever. Even subtle stuff.</p></dd>
@@ -26,7 +26,7 @@
 <dt>Please don’t link to websites you wouldn't want your granny to visit</dt>
 <dd><p>No porn, no snuff, no filez etc.</p></dd>
 
-<dt>Deliberate misuse of the "report this comment" complaints system is not permitted</dt>
+<dt>Deliberate misuse of the "report this annotation" complaints system is not permitted</dt>
 <dd><p>If you persist in doing this action may be taken against your account. It's bad form.</p></dd>
 
 <dt>Break these House Rules once, and we'll let you off with a warning.</dt>

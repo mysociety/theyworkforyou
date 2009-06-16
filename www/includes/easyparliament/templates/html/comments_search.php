@@ -19,7 +19,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 		$date = format_date($date, SHORTDATEFORMAT);
 		$time = format_time($time, TIMEFORMAT);
 		$count = $n+1;
-		?><li><p><a name="c<?php echo $count; ?>"></a><strong><?php echo htmlentities($comment['firstname'] . ' ' . $comment['lastname']); ?>:</strong> <?php echo $commenttext; ?> <small>(<?php echo relative_time($comment['posted']); ?>)</small> <a href="<?php echo $comment['url']; ?>">Read comment</a></p></li>
+		?><li><p><a name="c<?php echo $count; ?>"></a><strong><?php echo htmlentities($comment['firstname'] . ' ' . $comment['lastname']); ?>:</strong> <?php echo $commenttext; ?> <small>(<?php echo relative_time($comment['posted']); ?>)</small> <a href="<?php echo $comment['url']; ?>">Read annotation</a></p></li>
 <?php
 	}
 	print '</ul>';

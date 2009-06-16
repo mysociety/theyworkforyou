@@ -41,7 +41,7 @@ foreach ($data['data'] as $debate) {
 	$extrainfo[] = $debate['contentcount'] . ' ' . $plural;
 	
 	if ($debate['totalcomments'] > 0) {
-		$plural = $debate['totalcomments'] == 1 ? 'comment' : 'comments';
+		$plural = $debate['totalcomments'] == 1 ? 'annotation' : 'annotations';
 		$extrainfo[] = $debate['totalcomments'] . ' ' . $plural;
 	}
 	

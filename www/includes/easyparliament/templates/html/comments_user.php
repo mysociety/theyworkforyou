@@ -18,7 +18,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 	$PAGE->stripe_start();
 	
 	?>
-				<h4>Most recent comments</h4>
+				<h4>Most recent annotations</h4>
 <?php
 	$PAGE->page_links($data);
 	$PAGE->stripe_end();
@@ -48,7 +48,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 		
 		// We're grouping things by epobject_id, so we're going to display the number
 		// of comments on this epobject.
-		$plural = $comment['total_comments'] == 1 ? ' comment' : ' comments';
+		$plural = $comment['total_comments'] == 1 ? ' annotation' : ' annotations';
 		
 		echo "\t\t\t\t<p><a href=\"$comment[url]\">$comment[total_comments]$plural</a> to <strong>" . $member_name . $hansardtext . "</strong><br>\n";
 		echo "\t\t\t\t<small>(posted on $date)</small><br>\n";
@@ -65,7 +65,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 
 	$PAGE->stripe_start();
 	?>
-	<p>This user hasn't posted any comments.</p>
+	<p>This user hasn't posted any annotations.</p>
 <?php
 	$PAGE->stripe_end();
 }

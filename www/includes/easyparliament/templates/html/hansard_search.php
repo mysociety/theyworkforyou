@@ -51,6 +51,12 @@ if ($info['spelling_correction']) {
     	echo '<p><big>Did you mean: <a href="' . $u->generate(), '">', $info['spelling_correction'] . '</a>?</big></p>';
 }
 
+if ($match = get_http_var('match')) {
+	echo '<p><big>Hansard only refers to previous answers/statements by column number, so we don&rsquo;t know exactly what
+was being referred to. Help us out by picking the right result and clicking &ldquo;This is the correct match&rdquo; next to it.
+You&rsquo;ll be taken back to the page you came from, but hopefully then the link will go directly to the section you want.</big></p>';
+}
+
 if (isset ($data['rows']) && count($data['rows']) > 0) {
 
 	echo '<dl id="searchresults">';
@@ -73,6 +79,9 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 			$hansardmajors[$row['major']]['singular'], '</a>';
 		}
 		echo '</small>';
+		if ($match = get_http_var('match')) {
+			echo ' &ndash; <a href="/search/record.php?result=', $row['gid'] , '&amp;match=', htmlspecialchars($match), '">This is the correct match</a>';
+		}
 		echo '</dt> <dd><p>';
 		if (isset($row['speaker']) && count($row['speaker'])) {
 			$sp = $row['speaker'];

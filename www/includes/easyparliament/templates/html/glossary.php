@@ -39,10 +39,10 @@ global $PAGE, $DATA, $this_page, $THEUSER;
 
 if (isset($data['comments'][0]['preview']) && $data['comments'][0]['preview'] == true) {
 	// If we're just previewing a comment, we passed in 'preview' => true.
-	$subheading = 'Your comment would look like this:';
+	$subheading = 'Your annotation would look like this:';
 
 } elseif ($this_page == 'addcomment') {
-	$subheading = 'Previous comments';
+	$subheading = 'Previous annotations';
 
 } elseif ($this_page == 'commentreport' || $this_page == 'admin_commentreport') {
 	$subheading = "";
@@ -100,7 +100,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 <?php
 		if (isset($comment['url'])) {
 			?>
-		<a href="<?php echo $comment['url']; ?>" title="Link to this comment"><?php echo $time; ?></a>
+		<a href="<?php echo $comment['url']; ?>" title="Link to this annotation"><?php echo $time; ?></a>
 <?php
 		} else {
 			// There won't be a URL when we're just previewing a comment.
@@ -124,12 +124,12 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 			));
 			
 			?><br>
-		<a href="<?php echo $URL->generate(); ?>" title="Notify moderators that this comment needs editing or deleting">Report this comment</a>
+		<a href="<?php echo $URL->generate(); ?>" title="Notify moderators that this annotation needs editing or deleting">Report this annotation</a>
 <?php
 
 		} elseif ($comment['modflagged']) {
 			?><br>
-		This comment has been reported
+		This annotation has been reported
 <?php
 		}
 		
@@ -147,7 +147,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 } else {
 
 	?>
-	<p>No comments</p>
+	<p>No annotations</p>
 <?php
 }
 ?>

@@ -39,10 +39,10 @@ global $PAGE, $DATA, $this_page, $THEUSER;
 
 if (isset($data['comments'][0]['preview']) && $data['comments'][0]['preview'] == true) {
 	// If we're just previewing a comment, we passed in 'preview' => true.
-	$subheading = 'Your comment would look like this:';
+	$subheading = 'Your annotation would look like this:';
 
 } elseif ($this_page == 'addcomment') {
-	$subheading = 'Previous comments';
+	$subheading = 'Previous annotations';
 
 } elseif ($this_page == 'commentreport' || $this_page == 'admin_commentreport') {
 	$subheading = "";
@@ -103,10 +103,10 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 				'ret' 	=> $comment['url']
 			));
 			
-			$reporthtml = '(<a href="' . $URL->generate() . '" title="Notify moderators that this comment should be deleted">Report this comment</a>)';
+			$reporthtml = '(<a href="' . $URL->generate() . '" title="Notify moderators that this annotation should be deleted">Report this annotation</a>)';
 
 		} elseif ($comment['modflagged']) {
-			$reporthtml = '(This comment has been reported to moderators)';
+			$reporthtml = '(This annotation has been reported to moderators)';
 		} else {
 			// When previewing a comment...
 			$reporthtml = '';
@@ -126,7 +126,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 					<small>Posted on <?php echo $date; 
 					
 		if (isset($comment['url'])) {
-			print ' <a href="' . $comment['url'] . '" title="Link to this comment">' . $time . '</a>';
+			print ' <a href="' . $comment['url'] . '" title="Link to this annotation">' . $time . '</a>';
 
 		} else {
 			// There won't be a URL when we're just previewing a comment.
@@ -142,7 +142,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 			$body = prepare_comment_for_display($comment['body']); // In utility.php
 			echo "<p class=\"comment\">$body</p>\n";
 		} else {
-			print '<p class="comment"><em>This comment has been deleted</em></p>'."\n";
+			print '<p class="comment"><em>This annotation has been removed</em></p>'."\n";
 		}
 		
 		?>
@@ -155,7 +155,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 
 	?>
 				<div class="comment">
-					<p>No comments</p>
+					<p>No annotations</p>
 				</div>
 <?php
 }

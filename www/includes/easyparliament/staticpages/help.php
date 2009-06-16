@@ -3,7 +3,7 @@
 <ul>
 <li><a href="#use">How do people use TheyWorkForYou?</a></li>
 <li><a href="#missing">Is this the whole of Hansard?</a></li>
-<li><a href="#moderation">How do you moderate comments?</a></li>
+<li><a href="#moderation">How do you moderate annotations?</a></li>
 <li><a href="#privacy">What is your privacy policy?</a></li>
 <li><a href="#cookie">What is your cookie policy?</a></li>
 <li><a href="#extreme">What's that weird 'extreme tracker' and 'urchin' javascript I spy in your page source?</a></li>
@@ -89,22 +89,22 @@ parliament website">UK Parliament</a> site, and you might be able to find what
 you want.</p>
 </dd>
 
-<dt><a name="moderation"></a>How do you moderate comments?</dt>
+<dt><a name="moderation"></a>How do you moderate annotations?</dt>
 <dd>
 <p>Ideally, we won't. If everyone keeps to the <a
 href="http://www.theyworkforyou.com/houserules/" title="link to House
 Rules">House Rules</a>, that is. But we're not naive enough to think that life
 online is that simple. TheyWorkForYou.com operates a 'reactive moderation'
-policy. We will only check whether a comment breaches our House Rules if
-someone lets us know of their concerns via the 'Report this Comment' link,
-which can be found next to every comment. If we decide that the comment has
+policy. We will only check whether an annotation breaches our House Rules if
+someone lets us know of their concerns via the Report link,
+which can be found next to every annotation. If we decide that the annotation has
 breached our House Rules, we will delete it and let the original author know
 via email. We will also give them opportunity to rephrase and resubmit their
-orginal comment. If we deem the comment to be legit, we'll leave it up, and
+orginal annotation. If we deem the annotation to be legit, we'll leave it up, and
 email the complainant to let them know why. We will do our utmost to respond to
-reports of potential breaches of our House Rules within forty-eight hours, but
-please bear in mind that this service is run by volunteers, and sometimes it
-might take us slightly longer.</p> </dd>
+reports of potential breaches of our House Rules as soon as we can, but
+please bear in mind that this service is run by a tiny charity and some volunteers.
+</p> </dd>
 <!-- end old faq entry -->
 
 

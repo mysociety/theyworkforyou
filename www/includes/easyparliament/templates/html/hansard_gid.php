@@ -490,7 +490,7 @@ if (isset ($data['rows'])) {
 					$moreinfo[] = $row['contentcount'] . " $plural";
 				}
 				if ($row['totalcomments'] > 0) {
-					$plural = $row['totalcomments'] == 1 ? 'comment' : 'comments';
+					$plural = $row['totalcomments'] == 1 ? 'annotation' : 'annotations';
 					$moreinfo[] = $row['totalcomments'] . " $plural";
 				}
 				if (count($moreinfo) > 0) {
@@ -634,7 +634,7 @@ function generate_commentteaser (&$row, $major, $action_links) {
 			$html .= '<blockquote><p>' . prepare_comment_for_display($commentbody) . '</p><cite>Submitted by ' . htmlentities($comment['username']) . '</cite></small></blockquote>' ;
 			
 			if (isset($linktext)) {
-				$html .= ' <a class="morecomments" href="' . $row['commentsurl'] . '#c' . $comment['comment_id'] . '" title="See any comments posted about this">' . $linktext . '</a>';
+				$html .= ' <a class="morecomments" href="' . $row['commentsurl'] . '#c' . $comment['comment_id'] . '" title="See any annotations posted about this">' . $linktext . '</a>';
 			}
 			
 		}

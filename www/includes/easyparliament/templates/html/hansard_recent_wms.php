@@ -39,7 +39,7 @@ foreach ($data['data'] as $wran) {
 	$extrainfo = array();
 	
 	if ($wran['totalcomments'] > 0) {
-		$plural = $wran['totalcomments'] == 1 ? 'comment' : 'comments';
+		$plural = $wran['totalcomments'] == 1 ? 'annotation' : 'annotations';
 		$totalcomments = ' <small>(' . $wran['totalcomments'] . ' ' . $plural . ')</small>';
 	} else {
 		$totalcomments = '';

@@ -60,7 +60,7 @@ if (isset ($data['rows'])) {
 			$plural = $row['contentcount'] == 1 ? 'speech' : 'speeches';
 			$moreinfo[] = $row['contentcount'] . " $plural";
 			if ($row['totalcomments'] > 0) {
-				$plural = $row['totalcomments'] == 1 ? 'comment' : 'comments';
+				$plural = $row['totalcomments'] == 1 ? 'annotation' : 'annotations';
 				$moreinfo[] = $row['totalcomments'] . " $plural";
 			}
 			if (count($moreinfo) > 0) {

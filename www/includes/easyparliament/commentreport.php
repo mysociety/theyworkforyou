@@ -337,7 +337,7 @@ class COMMENTREPORT {
 				return false;
 			}
 		} else {
-			$PAGE->error_message ("You are not authorised to delete comments.");
+			$PAGE->error_message ("You are not authorised to delete annotations.");
 			return false;
 		}
 	}

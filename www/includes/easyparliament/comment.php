@@ -112,14 +112,14 @@ class COMMENT {
 		global $THEUSER, $PAGE;
 		
 		if ($this->comments_enabled() == false) {
-			$PAGE->error_message("Sorry, the posting of comments has been temporarily disabled.");
+			$PAGE->error_message("Sorry, the posting of annotations has been temporarily disabled.");
 			return;
 		}
 
 		if (!$THEUSER->is_able_to('addcomment')) {
 			$message = 	array (
 				'title' => 'Sorry',
-				'text' => 'You are not allowed to post comments.'
+				'text' => 'You are not allowed to post annotations.'
 			);
 			$PAGE->error_message($message);
 			return false;
@@ -137,7 +137,7 @@ class COMMENT {
 		if ($data['body'] == '') {
 			$message = array (
 				'title' => 'Whoops!',
-				'text' => "You haven't entered a comment!."
+				'text' => "You haven't entered an annotation!"
 			);
 			$PAGE->error_message($message);
 			return false;
@@ -260,7 +260,7 @@ class COMMENT {
 		} else {
 			$message = array (
 				'title' => 'Sorry',
-				'text' => "We couldn't update the comment's modflag."
+				'text' => "We couldn't update the annotation's modflag."
 			);
 			$PAGE->error_message($message);
 			return false;
@@ -283,7 +283,7 @@ class COMMENT {
 			} else {
 				$message = array (
 					'title' => 'Sorry',
-					'text' => "We were unable to delete the comment."
+					'text' => "We were unable to delete the annotation."
 				);
 				$PAGE->error_message($message);
 				return false;
@@ -292,7 +292,7 @@ class COMMENT {
 		} else {
 			$message = array (
 				'title' => 'Sorry',
-				'text' => "You are not authorised to delete comments."
+				'text' => "You are not authorised to delete annotations."
 			);
 			$PAGE->error_message($message);
 			return false;
