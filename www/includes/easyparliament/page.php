@@ -2373,6 +2373,13 @@ implies the oldest date we have in the system. Dates can be entered in any forma
 &ldquo;3rd March 2007&rdquo; or &ldquo;17/10/1989&rdquo;</strong>.
 </div>
 
+<div><label for="person">Person</label>
+<input type="text" id="person" name="person" value="<?=htmlspecialchars(get_http_var('person')) ?>" size="40">
+</div>
+<div class="help">
+Enter a name here to restrict results to contributions only by that person.
+</div>
+
 <div><label for="department">Department</label> <select name="department" id="department">
 <option value="">-
 <option>Administration Committee

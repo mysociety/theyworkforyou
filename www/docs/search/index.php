@@ -214,7 +214,7 @@ if ($q_house==1) {
 
         if ($args['s']) {
             $db = $LIST->db;
-    	    find_members($args);
+    	    find_members($args['s']);
         }
 
         $LIST->display('search', $args);
@@ -392,24 +392,13 @@ function find_users ($args) {
 
 }
 
-function find_members ($args) {
-	// Maybe there'll be a better place to put this at some point...
-	global $PAGE, $db, $parties;
+function member_db_lookup($searchstring) {
+	global $db;
 	
-	if ($args['s'] != '') {
-		// $args['s'] should have been tidied up by the time we get here.
-		// eg, by doing filter_user_input($s, 'strict');
-		$searchstring = $args['s'];
-	} else {
-		$PAGE->error_message("No search string");
-		return false;
-	}
-
-    $searchstring = trim(preg_replace('#[a-z]+:[a-z0-9]+#', '', $searchstring));
-	$searchstring2 = trim(preg_replace("#[^0-9a-z'& ]#i", '', $searchstring));
-	if (!$searchstring2) return false;
-	$searchwords = explode(' ', $searchstring2);
-    foreach ($searchwords as $i=>$searchword) {
+	$searchstring = trim(preg_replace("#[^0-9a-z'& ]#i", '', $searchstring));
+	if (!$searchstring) return false;
+	$searchwords = explode(' ', $searchstring);
+    foreach ($searchwords as $i => $searchword) {
         $searchwords[$i] = mysql_real_escape_string(htmlentities($searchword));
         if (!strcasecmp($searchword,'Opik'))
             $searchwords[$i] = '&Ouml;pik';
@@ -434,6 +423,21 @@ function find_members ($args) {
 					WHERE	($where)
 					ORDER BY last_name, first_name, person_id, entered_house desc
 					");
+    return $q;
+}
+
+function find_members ($searchstring) {
+	// Maybe there'll be a better place to put this at some point...
+	global $PAGE, $parties;
+	
+	if (!$searchstring) {
+		$PAGE->error_message("No search string");
+		return false;
+	}
+
+    $searchstring = trim(preg_replace('#[a-z]+:[a-z0-9]+#', '', $searchstring));
+    $q = member_db_lookup($searchstring);
+	if (!$q) return false;
 
 	if ($q->rows() > 0) {
 	
@@ -472,10 +476,9 @@ function find_members ($args) {
                 $s2 = ' &ndash; ';
                 if ($q->field($n, 'left_house') != '9999-12-31')
                    $s2 .= format_date($q->field($n, 'left_house'), SHORTDATEFORMAT);
-                $s3 = ')';
 		        $MOREURL = new URL('search');
                 $MOREURL->insert( array('pid'=>$last_pid, 'pop'=>1, 's'=>null) );
-                $s3 .= ' &ndash; <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
+                $s3 = ') &ndash; <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
                 $members[] = array($s, $s2, $s3);
             }
             $entered_house = $q->field($n, 'entered_house');
@@ -583,6 +586,18 @@ function construct_search_string() {
 	if ($searchspeaker = trim(get_http_var('pid'))) {
 		$searchstring .= " speaker:$searchspeaker";
     }
+
+    # Searching from MP pages
+	#if ($searchspeaker = trim(get_http_var('person'))) {
+    #    $q = member_db_lookup($searchspeaker);
+    #    $pids = array();
+    #    for ($i=0; $i<$q->rows(); $i++) {
+    #        $pids[$q->field($i, 'person_id')] = true;
+    #    }
+    #    $pids = array_keys($pids);
+    #    if ($pids)
+    #        $searchstring .= ' speaker:' . join(' speaker:', $pids);
+    #}
 
     return $searchstring;
 }
