@@ -516,7 +516,7 @@ function display_form ( $details = array(), $errors = array() ) {
 		
 		if (!$THEUSER->isloggedin()) {
 			?>
-				<p>Already joined? <a href="<?php echo $URL->generate(); ?>">Then log in!</a></p>
+				<p>Already joined? <a href="<?php echo $URL->generate(); ?>">Then sign in!</a></p>
 <?php
 		}
 	}

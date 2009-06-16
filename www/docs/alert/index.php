@@ -263,7 +263,7 @@ above.</li>
 				</div>
 	<?php	if (!$THEUSER->loggedin()) { ?>
 				<div class="row">
-				If you join or log in, you won't need to confirm your email address for every alert you set.
+				If you join or Sign in, you won't need to confirm your email address for every alert you set.
 				</div>
 	<?php	}
 		if (get_http_var('sign'))

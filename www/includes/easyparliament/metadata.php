@@ -889,10 +889,10 @@ $this->page = array (
 	'userlogin' => array (
 		'menu'			=> array (
 			'text'			=> 'Sign in',
-			'title'			=> "If you've already joined , log in to post comments"
+			'title'			=> "If you've already joined , sign in to add annotations"
 		),
 		'sidebar'		=> 'userlogin',
-		'title'			=> 'Log in',
+		'title'			=> 'Sign in',
 		'url'			=> 'user/login/'
 	),
 

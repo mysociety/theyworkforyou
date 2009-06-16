@@ -122,7 +122,7 @@ please bear in mind that this service is run by a tiny charity and some voluntee
 <!-- start new faq entry-->
 <dt><a name="cookie"></a>What is your cookie policy?</dt>
 <dd>
-<p>We use cookies to save you from having to repeatedly log in to the site, and also to remember your postcode. The site will work with cookies disabled, but it won't be as good. </p>
+<p>We use cookies to save you from having to repeatedly sign in to the site, and also to remember your postcode. The site will work with cookies disabled, but it won't be as good. </p>
 </dd>
 <!-- end old faq entry -->
 

@@ -40,7 +40,7 @@ class PAGE {
 					$LOGINURL = new URL('userlogin');
 					$LOGINURL->insert(array('ret' => $THISPAGE->generate('none') ));
 
-					$text = "<a href=\"" . $LOGINURL->generate() . "\">You'd better log in!</a>";
+					$text = "<a href=\"" . $LOGINURL->generate() . "\">You'd better sign in!</a>";
 				} else {
 					$text = "That's all folks!";
 				}
@@ -2963,7 +2963,7 @@ Sinn Fein is broken
 			$JOINURL->insert(array('ret'=>$THISPAGEURL->generate().'#addcomment'));
 			
 			?>
-				<p><a href="<?php echo $LOGINURL->generate(); ?>">Log in</a> or <a href="<?php echo $JOINURL->generate(); ?>">join</a> to post a public annotation.</p>
+				<p><a href="<?php echo $LOGINURL->generate(); ?>">Sign in</a> or <a href="<?php echo $JOINURL->generate(); ?>">join</a> to post a public annotation.</p>
 <?php
 			return;
 			

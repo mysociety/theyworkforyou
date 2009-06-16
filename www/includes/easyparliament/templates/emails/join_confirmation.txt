@@ -3,7 +3,7 @@ Hi {FIRSTNAME},
 
 Welcome to TheyWorkForYou.com, the website which lets you scribble all over the margins of Hansard.
 
-Before you can log in and add annotations, we need you to confirm your registration by clicking on the link below:
+Before you can sign in and add annotations, we need you to confirm your registration by clicking on the link below:
 
 {CONFIRMURL}
 

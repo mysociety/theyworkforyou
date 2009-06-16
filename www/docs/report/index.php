@@ -73,7 +73,7 @@ if (is_numeric(get_http_var('id'))) {
 					$LOGINURL = new URL('userlogin');
 					$JOINURL = new URL('userjoin');
 					?>
-	<p>By the way, if you <a href="<?php echo $LOGINURL->generate(); ?>">log in</a> before you make a report in future, you won't have to enter your name and email address each time!  (You'll need to <a href="<?php $JOINURL->generate(); ?>">join</a> if you haven't already.)</p>
+	<p>By the way, if you <a href="<?php echo $LOGINURL->generate(); ?>">sign in</a> before you make a report in future, you won't have to enter your name and email address each time!  (You'll need to <a href="<?php $JOINURL->generate(); ?>">join</a> if you haven't already.)</p>
 <?php
 				}
 				if (get_http_var('ret') != '') {

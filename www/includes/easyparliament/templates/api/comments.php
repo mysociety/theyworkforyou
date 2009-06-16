@@ -152,7 +152,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 
 	?>
 				<div class="comment">
-					<p>No comments</p>
+					<p>No annotations</p>
 				</div>
 <?php
 }

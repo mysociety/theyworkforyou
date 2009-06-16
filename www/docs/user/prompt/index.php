@@ -52,7 +52,7 @@ $PAGE->stripe_start();
 
 <p>If you're not yet a member, then <a href="<?php echo $joinurl; ?>"><strong>join now</strong></a>.</p>
 
-<p>Otherwise, please log in... <?php echo $message2; ?></p>
+<p>Otherwise, please sign in... <?php echo $message2; ?></p>
 
 <?php
 
