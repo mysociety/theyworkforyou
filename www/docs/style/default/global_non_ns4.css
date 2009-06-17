@@ -126,7 +126,7 @@ a:hover {text-decoration:underline;}
 
 /* Footer */
 #footer {padding: 0.7em 0 0.5em 1em;background:#5f5f5f; font-size:0.9em;
-        border-top:solid 2px #666;color:#fff;}
+        border-top:solid 2px #666;color:#fff; height:1%;}
 #footer a:link, #footer a:hover, #footer a:visited {color:#fff; font-weight:normal; text-decoration:underline;}
 #footer dl {width:65%; float:left; position:relative;}
 #footer dt {float:left; width:30%; color:#fff;clear:left;font-weight:bold;}
@@ -204,6 +204,7 @@ span.wransvote {line-height: 2.2em;}
 .next {display: block;float: right;margin-left:2em;}
 
 /* Homepages */
+div.welcome_actions {height:1%;}
 div.welcome_actions div {background:url(../../images/white.png); float:left; width:46%; margin:2%;
         min-height:12em;}
 div.welcome_actions div h3 {color:#000;}
