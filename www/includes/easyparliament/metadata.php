@@ -371,7 +371,7 @@ $this->page = array (
 	'hansard' => array (
 		'menu'			=> array (
 			'text'			=> 'UK Parliament',
-			'title'			=> "Houses of Parliament debates, Written Answers, Statements, and Westminster Hall debates"
+			'title'			=> "Houses of Parliament debates, Written Answers, Statements, Westminster Hall debates, and Bill Committees"
 		),
 		'title'			=> '',
 		'url'			=> ''
