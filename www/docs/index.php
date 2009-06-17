@@ -17,9 +17,8 @@ $PAGE->stripe_start("full", '');
 <!-- Welcome -->
 <div class="attention">
     <h2>
-        Welcome to They Work For You for the UK Parliament.
-        <br>
-        Find out what your MP is doing in your name, read debates and signup for email alerts.
+        Welcome to TheyWorkForYou for the UK Parliament.
+        <br>Find out what your MP is doing in your name, read debates and sign up for email alerts.
     </h2>
 </div>
 

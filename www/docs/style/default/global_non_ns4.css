@@ -177,7 +177,7 @@ div.stripe-procedural-2 p {margin-bottom: 0.5em;}
 /* Question mentions */
 
 .question-mentions {font-size: 0.85em;padding: 0.5em;margin: 0.5em;float: right;background-color: #FFFFFF;}
-.question-mentions-heading {font-size: 0.85em;color: #FF0000;font-style: bold;text-align: center;}
+.question-mentions-heading {font-size: 0.85em;color: #FF0000;font-weight: bold;text-align: center;}
 .question-mention-gap {font-size: 0.85em;font-style: italic;}
 .question-references {margin-top: 0.7em;}
 
