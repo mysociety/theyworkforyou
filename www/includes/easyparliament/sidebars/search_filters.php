@@ -31,6 +31,11 @@ if (preg_match('#\s*section:([a-z]*)#', $filter_ss, $m)) {
 	$filter_ss = preg_replace("#\s*section:$section#", '', $filter_ss);
 }
 
+$person = trim(get_http_var('person'));
+if ($person) {
+	$filter_ss = preg_replace('#\s*speaker:[0-9]*#', '', $filter_ss);
+}
+
 $this->block_start(array( 'title' => "Filtering your results"));
 
 ?>
@@ -48,6 +53,13 @@ $this->block_start(array( 'title' => "Filtering your results"));
  implies the oldest date we have in the system. Dates can be entered in any format you wish, <strong>e.g.
  &ldquo;3rd March 2007&rdquo; or &ldquo;17/10/1989&rdquo;</strong>.
  </div>
+
+<li>
+<label for="person">Person:</label>
+<input type="text" name="person" value="<?=$person?>" size="25">
+<div class="help">
+Enter a name here to restrict results to contributions only by that person. 
+</div>
 
 <li>
  <label for="section">Section:</label>

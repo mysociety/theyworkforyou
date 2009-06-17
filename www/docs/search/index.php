@@ -213,7 +213,6 @@ if ($q_house==1) {
     	$LIST = new HANSARDLIST();
 
         if ($args['s']) {
-            $db = $LIST->db;
     	    find_members($args['s']);
         }
 
@@ -257,14 +256,13 @@ if ($q_house==1) {
 $PAGE->page_end();
 
 function find_comments($args) {
-	global $PAGE, $db;
     $commentlist = new COMMENTLIST;    
     $commentlist->display('search', $args);
 }
 
 function find_constituency ($args) {
 	// We see if the user is searching for a postcode or constituency.
-	global $PAGE, $db;
+	global $PAGE;
 
 	if ($args['s'] != '') {
         $searchterm = $args['s'];
@@ -295,6 +293,7 @@ function find_constituency ($args) {
                     (select name from constituency where cons_id = o.cons_id and main_name) as name 
                 from constituency AS o where name like '%" . mysql_escape_string($try) . "%'
                 and from_date <= date(now()) and date(now()) <= to_date";
+            $db = new ParlDB;
             $q = $db->query($query);
             for ($n=0; $n<$q->rows(); $n++) {
                 $constituencies[] = $q->field($n, 'name');
@@ -342,7 +341,7 @@ function find_constituency ($args) {
 
 function find_users ($args) {
 	// Maybe there'll be a better place to put this at some point...
-	global $PAGE, $db;
+	global $PAGE;
 
 	if ($args['s'] != '') {
 		// $args['s'] should have been tidied up by the time we get here.
@@ -363,6 +362,7 @@ function find_users ($args) {
 		$where = "(firstname LIKE '%" . addslashes($searchwords[0]) . "%' AND lastname LIKE '%" . addslashes($searchwords[1]) . "%')";
 	}
 
+    $db = new ParlDB;
 	$q = $db->query("SELECT user_id,
 							firstname,
 							lastname
@@ -393,8 +393,6 @@ function find_users ($args) {
 }
 
 function member_db_lookup($searchstring) {
-	global $db;
-	
 	$searchstring = trim(preg_replace("#[^0-9a-z'& ]#i", '', $searchstring));
 	if (!$searchstring) return false;
 	$searchwords = explode(' ', $searchstring);
@@ -415,6 +413,7 @@ function member_db_lookup($searchstring) {
         $where .= " OR (first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1].' '.$searchwords[2] . "%')";
     }
 
+    $db = new ParlDB;
 	$q = $db->query("SELECT person_id,
                             title, first_name, last_name,
 							constituency, party,
@@ -588,16 +587,16 @@ function construct_search_string() {
     }
 
     # Searching from MP pages
-	#if ($searchspeaker = trim(get_http_var('person'))) {
-    #    $q = member_db_lookup($searchspeaker);
-    #    $pids = array();
-    #    for ($i=0; $i<$q->rows(); $i++) {
-    #        $pids[$q->field($i, 'person_id')] = true;
-    #    }
-    #    $pids = array_keys($pids);
-    #    if ($pids)
-    #        $searchstring .= ' speaker:' . join(' speaker:', $pids);
-    #}
+	if ($searchspeaker = trim(get_http_var('person'))) {
+        $q = member_db_lookup($searchspeaker);
+        $pids = array();
+        for ($i=0; $i<$q->rows(); $i++) {
+            $pids[$q->field($i, 'person_id')] = true;
+        }
+        $pids = array_keys($pids);
+        if ($pids)
+            $searchstring .= ' speaker:' . join(' speaker:', $pids);
+    }
 
     return $searchstring;
 }
