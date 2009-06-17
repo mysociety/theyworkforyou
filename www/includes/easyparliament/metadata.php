@@ -84,7 +84,10 @@ $this->page = array (
 		'title'			=> 'About us',
 		'url'			=> 'about/'
 	),
-
+    'parliaments' => array (
+    	'title' 	=> 'Parliaments and assemblies',
+    	'url'       => 'parliaments/'
+    ),
 	'addcomment'  => array (
 		'url'			=> 'addcomment/',
 	),
@@ -372,7 +375,7 @@ $this->page = array (
 		),
 		'title'			=> '',
 		'url'			=> ''
-	),	
+	),
 	'hansard_date' => array (
 		'parent'		=> 'hansard',
 		'title'			=> 'House of Commons, House of Lords, Northern Ireland Assembly, and the Scottish Parliament',
@@ -393,7 +396,7 @@ $this->page = array (
 		'sidebar'		=> 'glossary_add'
 	),
 	'home' => array (
-		'title'			=> "Are your MPs and Peers working for you in the UK's Parliament?",
+		'title'			=> "UK Parliament",
 		'rss'			=> 'news/index.rdf',
 		'url'			=> ''
 	),

@@ -332,7 +332,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// The title bit of the page, with possible search box.
 		global $this_page, $DATA;
 		
-		$img = '<img src="' . IMAGEPATH . 'logo.png" width="425" height="81" alt="TheyWorkForYou.com">';
+		$img = '<img src="' . IMAGEPATH . 'logo.png" width="416" height="70" alt="TheyWorkForYou.com">';
 
 		if ($this_page != 'home') {
 			$HOMEURL = new URL('home');
@@ -483,7 +483,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		?>
 	<div id="menu">
 		<div id="topmenu">
-		    <a id="topmenuselected" href="#" onclick="toggleVisible('site');"><?php echo $selected_top_link['text']; ?><small>(change)</small></a>
+		    <a id="topmenuselected" href="/parliaments/" onclick="toggleVisible('site');return false;"><?php echo $selected_top_link['text']; ?><small>(change)</small></a>
 <?php
 			$this->user_bar($top_hilite, $bottom_hilite);
 			?>

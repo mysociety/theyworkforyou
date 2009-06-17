@@ -126,7 +126,7 @@ if (get_http_var("d") != "") {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 ?>
-	<h4>Busiest debates from the most recent week</h4>
+	<h4>Recent House of Commons debates</h4>
 <?php
 	
 	$DEBATELIST = new DEBATELIST;
@@ -156,7 +156,7 @@ if (get_http_var("d") != "") {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 ?>
-	<h4>Busiest Westminster Hall debates from the most recent week</h4>
+	<h4>Recent Westminster Hall debates</h4>
 <?php
 	
 	$WHALLLIST = new WHALLLIST;
@@ -186,7 +186,7 @@ if (get_http_var("d") != "") {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 ?>
-	<h4>Busiest debates from the most recent week</h4>
+	<h4>Recent House of Lords debates</h4>
 <?php
 	
 	$LORDSDEBATELIST = new LORDSDEBATELIST;
