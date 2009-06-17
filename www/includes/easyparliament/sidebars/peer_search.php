@@ -13,7 +13,7 @@ global $MEMBER;
     		<input name="s" size="24" maxlength="200">
     		<input type="submit" class="submit" value="GO"> 		
 		</p>
-		<small>e.g. <a href="/search/?s=Lord+Mandelson">Lord Mandelson</a> or <a href="/search/?s=Lord+Ashcroft">Lord Ashcroft</a></small>
+		<small>e.g. <a href="/search/?s=Mandelson">Mandelson</a> or <a href="/search/?s=Ashcroft">Ashcroft</a></small>
 		</form>
 	</div>
 
