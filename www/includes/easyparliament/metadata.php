@@ -585,8 +585,8 @@ $this->page = array (
     'nioverview' => array (
     	'parent'		=> 'ni_home',
     	'menu'			=> array (
-    		'text'			=> 'Overview',
-    		'title'			=> "Overview of the Northern Ireland Assembly"
+    		'text'			=> 'Debates',
+    		'title'			=> "Overview of the Northern Ireland Assembly debates"
     	),
     	'title'			=> 'Overview of the Northern Ireland Assembly',
     	'url'			=> 'ni/'

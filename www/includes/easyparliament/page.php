@@ -408,7 +408,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			array('home'),
 			array('hansard', 'overview', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front'),
 			array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
-			array('ni_home', 'nioverview', 'mlas', 'nidebatesfront'),
+			array('ni_home', 'nioverview', 'mlas'),
 			array('wales_home'),
 		);
 

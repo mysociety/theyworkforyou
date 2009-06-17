@@ -39,7 +39,7 @@ $this->block_start(array( 'title' => "Filtering your results"));
 
 <ul>
 
-<li><label for="from">Date range:</label>
+<li><label for="from">Date range:</label><br>
 <input type="text" id="from" name="from" value="<?=$from?>" size="15">
  to <input type="text" name="to" value="<?=$to?>" size="15">
  <div class="help">
