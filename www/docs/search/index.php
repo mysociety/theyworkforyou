@@ -395,7 +395,7 @@ function find_users ($args) {
 function member_db_lookup($searchstring) {
 	$searchstring = trim(preg_replace("#[^0-9a-z'& ]#i", '', $searchstring));
 	if (!$searchstring) return false;
-	$searchwords = explode(' ', $searchstring);
+	$searchwords = explode(' ', $searchstring, 3);
     foreach ($searchwords as $i => $searchword) {
         $searchwords[$i] = mysql_real_escape_string(htmlentities($searchword));
         if (!strcasecmp($searchword,'Opik'))
@@ -408,9 +408,13 @@ function member_db_lookup($searchstring) {
 		// And here we're assuming the user's put the names in the right order.
 		$where = "(first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
         $where .= " OR (first_name LIKE '%" . $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[0] . "%')";
+		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
 	} else {
+        $searchwords[2] = str_replace('of ', '', $searchwords[2]);
 		$where = "(first_name LIKE '%" . $searchwords[0].' '.$searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
         $where .= " OR (first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1].' '.$searchwords[2] . "%')";
+		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND first_name LIKE '%". $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
+		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%". $searchwords[1] . "%' AND constituency LIKE '%" . $searchwords[2] . "%')";
     }
 
     $db = new ParlDB;
