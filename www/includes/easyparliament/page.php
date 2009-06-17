@@ -332,7 +332,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// The title bit of the page, with possible search box.
 		global $this_page, $DATA;
 		
-		$img = '<img src="' . IMAGEPATH . 'logo.png" width="591" height="105" alt="TheyWorkForYou.com">';
+		$img = '<img src="' . IMAGEPATH . 'logo.png" width="425" height="81" alt="TheyWorkForYou.com">';
 
 		if ($this_page != 'home') {
 			$HOMEURL = new URL('home');
@@ -1249,19 +1249,36 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
       $this->block_end();
     }
 
+
+        $is_lord = false;
+		foreach ($member['houses'] as $house) {
+			if ($house==2) $is_lord = true; continue;
+			if (!$member['current_member'][$house]) $title .= ', former';
+			if ($house==1) $title .= ' MP';
+			if ($house==3) $title .= ' MLA';
+			if ($house==4) $title .= ' MSP';
+		}
+		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
+			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
+		}
+
+
 		print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
 
-		$lord_default = isset($member['entered_house'][2]) ? 'lord' : 'other';
-		list($image,$sz) = find_rep_image($member['person_id'], false, $lord_default);
-		if ($image) {
-		    echo '<p class="person">';
-			echo '<img class="portrait" alt="Photo of ', $member['full_name'], '" src="', $image, '"';
-			if ($sz=='S') echo ' height="118"';
-			echo '></p>';
-		} elseif ($member['current_member'][1]) {
-			// For MPs, prompt for photo
-			echo '<div class="textportrait"><br>We\'re missing a photo!<br><br><a href="mailto:team@theyworkforyou.com">Email us one</a> <small>(that you have copyright of)</small><br><br></div>';
-		}
+
+        //get the correct image (with special case for lords)
+        if($is_lord){
+		    list($image,$sz) = find_rep_image($member['person_id'], false, 'lord');
+		}else{
+		    list($image,$sz) = find_rep_image($member['person_id'], false, true);		    
+	    }
+	    
+	    //show image	    
+	    echo '<p class="person">';
+		echo '<img class="portrait" alt="Photo of ', $member['full_name'], '" src="', $image, '"';
+		if ($sz=='S') echo ' height="118"';
+		echo '></p>';
+
         
         //work out person's description
 		$desc = '';
@@ -1315,6 +1332,8 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
         echo '<h2>' . $member['full_name'] . '</h2>';
         echo '<h3>' . $desc . '</h3>';
 
+
+        //History
 		echo '<ul class="hilites">';		
 		if ($member['other_parties'] && $member['party'] != 'Speaker' && $member['party']!='Deputy Speaker') {
 			print "<li>Changed party ";
@@ -1344,7 +1363,19 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 				print '<li>' . join('<br>', $mins) . '</li>';
 			}
 		}
+        echo '<br class="clear">';
+		//if dummy image, show message asking for a photo
+		if(!exists_rep_image($member['person_id'])){
 
+			// For MPs, prompt for photo
+			echo '<p class="missingphoto">';
+			if($member['current_member_anywhere']){
+			    echo 'Help, we\'re missing a photo of ' . $member['full_name'] . '! If you are ' . $member['full_name'] . ', or have a photo of them (that you have copyright of) <a href="mailto:team@theyworkforyou.com">please email it to us</a>.';
+			}else{
+			    echo 'Help, we\'re missing a photo of ' . $member['full_name'] . '! If have a photo of them (that you have copyright of), or can locate a copyright free photo of them <a href="mailto:team@theyworkforyou.com">please email it to us</a>.';			    
+		    }
+		    echo '</p>';
+		}
 		if (isset($member['left_house'][1]) && isset($member['entered_house'][2])) {
 			print '<li><strong>Entered the House of Lords ';
 			if (strlen($member['entered_house'][2]['date_pretty'])==4)
@@ -1449,13 +1480,15 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 <?php 
 			} ?></li>
 <?php 
-		} 
-		
+		}
+
 		if ($member['party'] == 'Sinn Fein' && in_array(1, $member['houses'])) {
 			print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
 		}
 		print "</ul>";
 		print '<br class="clear"/>';
+
+		
 		print "<ul class=\"hilites\">";		
 		if ($member['the_users_mp'] == true) {
 			$pc = $THEUSER->postcode();

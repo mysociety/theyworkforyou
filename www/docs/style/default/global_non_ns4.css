@@ -67,15 +67,17 @@ a:hover {text-decoration:underline;}
 
 #container {margin: 0 auto 0 auto;padding: 0;}
 #content {clear: both;width: 100%;font-size:1.1em;min-height:10em;}
-#banner {position: relative;margin: 0;padding: 0;height:8em;}
-#title {padding: 15px 14px 16px 18px;line-height: 0;font-size: 10%; /* Only way to stop space below images in Win IE? */}
+#banner {position: relative;margin: 0;padding: 0;height:7em;}
+#title {padding: 20px 14px 16px 25px;line-height: 0;font-size: 10%; /* Only way to stop space below images in Win IE? */}
 
 
 /* Warnings */
+
 #warning {font-size: larger;font-weight: bold;text-align: center;
     border: solid 1px #990000;background-color: #ffcccc;}
 
 /* Search */
+
 #search {position: absolute;top: 0px;right: 0px;width: 60%;height: 68px;padding: 0;
         z-index: 0;text-align:right;}
 #search	small {padding-right:5em;}
@@ -201,6 +203,12 @@ span.wransvote {line-height: 2.2em;}
 .prev {display: block;float: right;}
 .next {display: block;float: right;margin-left:2em;}
 
+/* Homepages */
+div.welcome_actions div {background:url(../../images/white.png); float:left; width:46%; margin:2%;
+        min-height:12em;}
+div.welcome_actions div h3 {color:#000;}
+div.welcome_actions #welcome_search  input.text {font-size:1.3em; width:85%;}
+div#welcome_uk.welcome_actions {background:url(../../images/commons.png) no-repeat 50% bottom ;position:relative;}
 
 	
 
@@ -679,8 +687,7 @@ div.sidebar div.comment-teaser ul li {display:inline;padding:0; margin:0; paddin
 /* MP pages */
 div.main p.person {float:left; background:url(../../images/photobacklarge.png) no-repeat; width:115px; height:151px; position:relative;margin: 0.3em 1em 1em 18px;}
 div.main p.person img.portrait {position:absolute; top:20px; left:7px; border:none;}
-div.main .textportrait {float: left; display: block; width: 96px;  
-        min-height: 118px; float: left;  border: 1px solid #BDE190; text-align: center;margin: 0 2em 1em 0;}
+div.main .missingphoto {background:#ffffaa; padding:0.5em 1em; font-size:0.8em;margin:0; position:relative; top:-1.5em;}
 
 ul.hilites {list-style-type: none;}
 ul.hilites li {padding-left:25px;margin-left:0; background:url(../../images/bulletlarge.png) no-repeat left 2px;padding-bottom:0.3em;}

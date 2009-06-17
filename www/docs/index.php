@@ -24,10 +24,9 @@ $PAGE->stripe_start("full", '');
 </div>
 
 <!-- Actions -->
-<div class="col3">
+<div id="welcome_uk" class="welcome_actions">
     <!-- Search / alerts -->
-    <div>
-        <h3>Search or create an alert</h3>
+    <div id="welcome_search">
         <?php
         	global $SEARCHURL;
         	global $SEARCHLOG;
@@ -35,11 +34,12 @@ $PAGE->stripe_start("full", '');
             $popular_searches = $SEARCHLOG->popular_recent(10);
         ?>
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
+            <h3><label for="s">Search or create an alert</label></h3>            
             <p>
-                <label for="s"><strong>Search</strong> (e.g. for a word, phrase, or person):</label>
                 <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
-                <input type="submit" value="Search" class="submit">
-                <small>(<a href="/search/?adv=1">Advanced Search</a>)</small>
+                <input type="submit" value="Go" class="submit">
+                <br>
+                <small>e.g. <em>word</em>, <em>phrase</em>, or <em>person</em> | <a href="/search/?adv=1">More options</a></small>
             </p>
             <?php if (count($popular_searches) > 0) { ?>
                 <p>
@@ -103,6 +103,7 @@ $PAGE->stripe_start("full", '');
         
         ?>
     </div>
+    <br class="clear">
 </div>
 
 <?php

@@ -537,6 +537,7 @@ class MEMBER {
 			return array_key_exists($house, $this->left_house) ? $this->left_house[$house] : null;
 		return $this->left_house;
 	}
+	
 	function left_house_text($left_house) {
 		if (!$left_house) return '';
 		list($year, $month, $day) = explode('-', $left_house);
@@ -627,6 +628,7 @@ class MEMBER {
 			'current_member'	=> $this->current_member(),
 			'full_name'		=> $this->full_name(),
 			'the_users_mp'		=> $this->the_users_mp(),
+			'current_member_anywhere'   => $this->current_member_anywhere(),
 			'house_disp'		=> $this->house_disp,
 		);
 		
@@ -665,6 +667,18 @@ class MEMBER {
 		return $future_people;
 	}
 
+ 
+    function current_member_anywhere(){
+        $is_current = false;
+	    $current_memberships = $this->current_member();
+	    foreach ($current_memberships as $current_memberships) {
+    	    if($current_memberships === true){
+	            $is_current = true;
+            }
+	    }
+	    
+	    return $is_current;   
+    }
 }
 
 # from http://news.bbc.co.uk/nol/shared/bsp/hi/vote2004/css/styles.css
@@ -702,6 +716,11 @@ function party_to_colour($party) {
     }
 }
 
+function exists_rep_image($pid){
+    $image = find_rep_image($pid, false, false);
+    return $image[1] !== null;
+}
+
 function find_rep_image($pid, $smallonly = false, $substitute_missing = false) {
 	$image = null; $sz = null;
 	if (!$smallonly && is_file(BASEDIR . '/images/mpsL/' . $pid . '.jpeg')) {
@@ -725,21 +744,21 @@ function find_rep_image($pid, $smallonly = false, $substitute_missing = false) {
 	}
 	
 	//if no image, use a dummy one
-	if (!$image && $substitute_missing) {
-	    if ($smallonly) {
-	        if ($substitute_missing == "lord") {
-	            $image = IMAGEPATH . "unknownlord.png";
-                } else {
-                    $image = IMAGEPATH . "unknownperson.png";                
-                }
-            } else {
-	        if ($substitute_missing == "lord") {
-	            $image = IMAGEPATH . "unknownlord_large.png";
-                } else {
-                    $image = IMAGEPATH . "unknownperson_large.png";                
-                }
+	if(!isset($image) && isset($substitute_missing)){
+	    if($smallonly){
+	        if($substitute_missing === "lord"){
+	            $image = IMAGEPATH . "/unknownlord.png";
+            }else{
+                $image = IMAGEPATH . "/unknownperson.png";                
+            }
+        }else{ 
+	        if($substitute_missing === "lord"){
+	            $image = IMAGEPATH . "/unknownlord_large.png";
+            }else{
+                $image = IMAGEPATH . "/unknownperson_large.png";                
+
             }
         }
+    }
 	return array($image, $sz);
 }
-
