@@ -25,13 +25,12 @@ $PAGE->stripe_end(array(
 <h4>Search written answers and statements</h4>
 <div class="blockbody">
 <form action="/search/" method="get">
-<p align="center"><input type="text" name="s" value="" size="40">
+<p><input type="text" name="s" value="" size="40"> <input type="submit" value="Go">
 <br><input type="checkbox" name="section[]" value="wrans" checked id="section_wrans">
 <label for="section_wrans">Written answers</label>
 <input type="checkbox" name="section[]" value="wms" checked id="section_wms">
 <label for="section_wms">Written ministerial statements</label>
 </p>
-<p align="right"><input type="submit" value="Search"></p>
 </form>
 </div>
 </div>

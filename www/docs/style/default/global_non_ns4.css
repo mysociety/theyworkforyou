@@ -115,7 +115,7 @@ a:hover {text-decoration:underline;}
     border-top:solid 1px #cdcdcd;background:url(../../images/greybar.png) repeat-x bottom left;}
 #bottommenu li {position:relative; float: left; height:1.6em;margin-top:0.3em;	padding: 0;list-style-type: none;}
 #bottommenu li a {position: relative; display: block; margin: 0; padding: 3px 10px;
-    color: #000; text-decoration:none; top:-1px;}
+    color: #000; text-decoration:none;}
 
 /* end hack */
 #bottommenu a.on {color:#4d6c25; padding:0.5em 0.8em 0.8em 0.8em; position:relative;

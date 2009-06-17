@@ -455,7 +455,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			$toppage = array_shift($bottompages);
 			
 			// Generate the links for the top menu.
-			
+
 			// What gets displayed for this page.
 			$menudata = $DATA->page_metadata($toppage, 'menu');			
     			$text = $menudata['text'];

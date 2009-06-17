@@ -120,10 +120,9 @@ if ($bill_id && !$id) {
 <h4>Search bill committees</h4>
 <div class="blockbody">
 <form action="/search/" method="get">
-<p align="center"><input type="text" name="s" value="" size="40">
+<p><input type="text" name="s" value="" size="40"> <input type="submit" value="Go">
 <input type="hidden" name="section" value="pbc">
 </p>
-<p align="right"><input type="submit" value="Search"></p>
 </form>
 </div>
 </div>

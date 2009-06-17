@@ -142,7 +142,7 @@ if (get_http_var("d") != "") {
 <h4>Search debates</h4>
 <div class="blockbody">
 <form action="/search/" method="get">
-<p align="center"><input type="text" name="s" value="" size="40">
+<p><input type="text" name="s" value="" size="40"> <input type="submit" value="Go">
 <br><input type="checkbox" name="section[]" value="debates" checked id="section_commons">
 <label for="section_commons">Commons</label>
 <input type="checkbox" name="section[]" value="whall" checked id="section_whall">
@@ -150,7 +150,6 @@ if (get_http_var("d") != "") {
 <input type="checkbox" name="section[]" value="lords" checked id="section_lords">
 <label for="section_lords">Lords</label>
 </p>
-<p align="right"><input type="submit" value="Search"></p>
 </form>
 </div>
 </div>
