@@ -1124,7 +1124,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 	function display_member($member, $extra_info) {
 		global $THEUSER, $DATA, $this_page;
 
-		$title = ucfirst($member['full_name']);
+		#$title = ucfirst($member['full_name']);
 
 /*		if (isset($extra_info["public_whip_dreammp996_distance"])) {
 			$dmpscore = floatval($extra_info["public_whip_dreammp996_distance"]);
@@ -1249,19 +1249,10 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
       $this->block_end();
     }
 
-		foreach ($member['houses'] as $house) {
-			if ($house==2) continue;
-			if (!$member['current_member'][$house]) $title .= ', former';
-			if ($house==1) $title .= ' MP';
-			if ($house==3) $title .= ' MLA';
-			if ($house==4) $title .= ' MSP';
-		}
-		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
-		}
 		print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
 
-		list($image,$sz) = find_rep_image($member['person_id'], false, true);
+		$lord_default = isset($member['entered_house'][2]) ? 'lord' : 'other';
+		list($image,$sz) = find_rep_image($member['person_id'], false, $lord_default);
 		if ($image) {
 		    echo '<p class="person">';
 			echo '<img class="portrait" alt="Photo of ', $member['full_name'], '" src="', $image, '"';
