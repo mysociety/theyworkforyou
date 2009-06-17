@@ -5,25 +5,18 @@ $this_page = "parliaments";
 include_once "../../includes/easyparliament/init.php";
 
 $PAGE->page_start();
-
 $PAGE->stripe_start();
+echo '<dl>';
+foreach (array('hansard', 'sp_home', 'ni_home', 'wales_home') as $page) {
+	$menu = $DATA->page_metadata($page, 'menu');
+	$title = $menu['text'];
+	$text = $menu['title'];
+	$URL = new URL($page);
+	$url = $URL->generate();
+	echo "<dt><a href='$url'>$title</a></dt><dd>$text</dd>\n";
+}
+echo '</ul>';
 
-$assembly_links = $PAGE->get_menu_links(array ('home', 'sp_home', 'ni_home', 'wales_home'));		
-
-?>
-
-<ul>
-    <?php
-        foreach ($assembly_links as $assembly_link) {
-            echo '<li>' . $assembly_link . '</li>';
-        }
-    ?>
-</ul>
-
-<?php
 $PAGE->stripe_end();
-
 $PAGE->page_end();
 
-
-?>

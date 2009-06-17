@@ -423,7 +423,7 @@ $this->page = array (
     'devmailinglist' => array (
     	'title'			=> 'Developer mailing list',
     	'heading'		=> 'Developer mailing list',
-    	'url'			=> 'https://secure.mysociety.org/admin/lists/mailman/listinfo'
+    	'url'			=> 'https://secure.mysociety.org/admin/lists/mailman/listinfo/developers-public'
     ),        
     'code' => array (
     	'title'			=> 'Source code',
@@ -433,17 +433,17 @@ $this->page = array (
     'irc' => array (
     	'title'			=> 'IRC chat channel',
     	'heading'		=> 'IRC chat channel',
-    	'url'			=> 'http://www.irc.mysociety.org'
+    	'url'			=> 'http://www.irc.mysociety.org/'
     ),
     'newzealand' => array (
     	'title'			=> 'New Zealand',
     	'heading'		=> 'They Work For You - New Zealand',
-    	'url'			=> '    http://www.theyworkforyou.co.nz'
+    	'url'			=> 'http://www.theyworkforyou.co.nz/'
     ),    
     'australia' => array (
     	'title'			=> 'Australia',
     	'heading'		=> 'Open Australia',
-    	'url'			=> 'http://www.openaustralia.org'
+    	'url'			=> 'http://www.openaustralia.org/'
     ),
     'ireland' => array (
     	'title'			=> 'Ireland',

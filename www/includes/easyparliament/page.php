@@ -988,15 +988,16 @@ if (typeof urchinTracker == 'function') urchinTracker();
         		  <div>
         		      <h5>Donate</h5>
         		      <p>
-        		          This website is run by <a href="#">mySociety</a> a registered charity. If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
+        		          This website is run by <a href="http://www.mysociety.org/">mySociety</a>, a registered charity.
+				  If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
         		      </p>
-        		      <h5>Signup to our newsletter</h5>
+        		      <h5>Sign up to our newsletter</h5>
         		      <form method="get" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
-        		          <input type="text" name="email"/>
-        		          <input type="submit" value="Go"/>
+        		          <input type="text" name="email">
+        		          <input type="submit" value="Join">
         		      </form>
         		      <p>
-        		          Approximately once a month, spam free
+        		          Approximately once a month, spam free.
         		      </p>
         		  </div>
                   <br class="clear"/>
