@@ -113,6 +113,22 @@ if ($bill_id && !$id) {
 	$committee->display( 'recent_debates', array( 'num' => 50 ) );
 	$rssurl = $DATA->page_metadata($this_page, 'rss');
 	$PAGE->stripe_end(array(
+		array(
+			'type' => 'html',
+			'content' => '
+<div class="block">
+<h4>Search bill committees</h4>
+<div class="blockbody">
+<form action="/search/" method="get">
+<p align="center"><input type="text" name="s" value="" size="40">
+<input type="hidden" name="section" value="pbc">
+</p>
+<p align="right"><input type="submit" value="Search"></p>
+</form>
+</div>
+</div>
+',
+	),
 		array (
 			'type' => 'include',
 			'content' => "pbc"

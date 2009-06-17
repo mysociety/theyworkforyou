@@ -674,7 +674,7 @@ div.sidebar div.comment-teaser div.add {padding-bottom:1em;}
 div.sidebar div.comment-teaser a.link { background:url(../../images/link.png) no-repeat 0 50%; padding-left:16px;}
 div.sidebar div.comment-teaser a.watch { background:url(../../images/watch.png) no-repeat 0 50%; padding-left:16px;}
 div.sidebar div.comment-teaser a.source { background:url(../../images/source.png) no-repeat 0 50%; padding-left:16px;}
-div.sidebar div.comment-teaser a.timestamp { background:#f14242 url(../../images/timestamp.png) no-repeat 5px 50%; 
+div.sidebar div.comment-teaser a.timestamp { background:#a14242 url(../../images/timestamp.png) no-repeat 5px 50%; 
     padding-left:24px; padding-right:8px;color:white;}
 div.sidebar div.comment-teaser a.annotate { background:url(../../images/annotate.png) no-repeat 0 50%; padding-left:16px;}
 

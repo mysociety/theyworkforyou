@@ -134,6 +134,28 @@ if (get_http_var("d") != "") {
 
 	$rssurl = $DATA->page_metadata($this_page, 'rss');
 	$PAGE->stripe_end(array(
+		# XXX When this is three columns, not one, put this search at the top spanning...
+		array(
+			'type' => 'html',
+			'content' => '
+<div class="block">
+<h4>Search debates</h4>
+<div class="blockbody">
+<form action="/search/" method="get">
+<p align="center"><input type="text" name="s" value="" size="40">
+<br><input type="checkbox" name="section[]" value="debates" checked id="section_commons">
+<label for="section_commons">Commons</label>
+<input type="checkbox" name="section[]" value="whall" checked id="section_whall">
+<label for="section_whall">Westminster Hall</label>
+<input type="checkbox" name="section[]" value="lords" checked id="section_lords">
+<label for="section_lords">Lords</label>
+</p>
+<p align="right"><input type="submit" value="Search"></p>
+</form>
+</div>
+</div>
+',
+	),
 		array (
 			'type' => 'include',
 			'content' => 'calendar_hocdebates'
@@ -160,7 +182,7 @@ if (get_http_var("d") != "") {
 <?php
 	
 	$WHALLLIST = new WHALLLIST;
-	$WHALLLIST->display('biggest_debates', array('days'=>7, 'num'=>20));
+	$WHALLLIST->display('biggest_debates', array('days'=>7, 'num'=>10));
 
 	$rssurl = $DATA->page_metadata($this_page, 'rss');
 	$PAGE->stripe_end(array(
@@ -190,7 +212,7 @@ if (get_http_var("d") != "") {
 <?php
 	
 	$LORDSDEBATELIST = new LORDSDEBATELIST;
-	$LORDSDEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>20));
+	$LORDSDEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>10));
 
 	$rssurl = $DATA->page_metadata($this_page, 'rss');
 	$PAGE->stripe_end(array(

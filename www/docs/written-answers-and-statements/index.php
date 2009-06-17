@@ -9,16 +9,8 @@ include_once INCLUDESPATH . "easyparliament/member.php";
 $this_page = 'wranswmsfront';
 $PAGE->page_start();
 
-?>
-
-<form action="/search/" method="get">
-<p align="center">Search these: <input type="text" name="s" value="" size="50">
-<br><input type="checkbox" name="section[]" value="wrans" checked> Written answers
-<input type="checkbox" name="section[]" value="wms" checked> Written ministerial statements
-<input type="submit" value="Search">
-</form>
-
-<?
+# XXX Search box currently in the stripe below should, when wrans and wms are
+# two columns, be moved up here spanning across the two columns.
 
 echo '<div id="written-answers>';
 $PAGE->stripe_start();
@@ -26,13 +18,32 @@ echo '<h3>Some recent written answers</h3>';
 $WRANSLIST = new WRANSLIST;
 $WRANSLIST->display('recent_wrans', array('days'=>7, 'num'=>5));
 $PAGE->stripe_end(array(
+	array(
+		'type' => 'html',
+		'content' => '
+<div class="block">
+<h4>Search written answers and statements</h4>
+<div class="blockbody">
+<form action="/search/" method="get">
+<p align="center"><input type="text" name="s" value="" size="40">
+<br><input type="checkbox" name="section[]" value="wrans" checked id="section_wrans">
+<label for="section_wrans">Written answers</label>
+<input type="checkbox" name="section[]" value="wms" checked id="section_wms">
+<label for="section_wms">Written ministerial statements</label>
+</p>
+<p align="right"><input type="submit" value="Search"></p>
+</form>
+</div>
+</div>
+',
+	),
 	array (
 		'type' => 'nextprev'
 	),
 	array (
 		'type' => 'include',
 		'content' => 'calendar_wrans'
-),
+	),
 		array (
 		'type' => 'include',
 		'content' => "wrans"

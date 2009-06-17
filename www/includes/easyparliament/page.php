@@ -341,6 +341,9 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			$img = '<a href="' . $HOMEURL . '" title="' . $HOMETITLE . '">' . $img . '</a>';
 		}
 
+/*
+XXX: Confusing, I don't like it, we have the filter now, so don't have this for the moment.
+
 		# As in menu(), we work out what section of the site we're in
 		$this_parent = $DATA->page_metadata($this_page, 'parent');
 		if (!$this_parent) {
@@ -358,7 +361,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		} else {
 			$section = '';
 		}
-
+*/
 		?>
 	<div id="banner">
 
@@ -374,7 +377,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			<form action="<?php echo $URL->generate(); ?>" method="get">
 			   <label for="searchbox">Search</label><input id="searchbox" name="s" size="15">
 			   <input type="submit" class="submit" value="Go">
-			   <input type="hidden" name="section" value="<?=$section?>">
+			   <? /* <input type="hidden" name="section" value="<?=$section?>"> */ ?>
 			</form>
 			<ul>
 			    <li>
