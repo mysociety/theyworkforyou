@@ -23,7 +23,15 @@ twfy_debug("TEMPLATE", "rss/hansard_search.php");
 if (isset ($data['rows']) && count($data['rows']) > 0) {
 	for ($i=0; $i<count($data['rows']); $i++) {
 		$row = $data['rows'][$i];
-		?>
+
+		$hdate = format_date($row['hdate'], 'D, d M Y');
+		if ($row['htime'] != NULL) {
+			$htime = format_time($row['htime'], 'H:i:s');
+		} else {
+			$htime = '00:00:00';
+		}
+		$date = "$hdate $htime +0000";
+?>
 <item>
 <title><?
 		if (isset($row['parent']) && count($row['parent']) > 0) {
@@ -32,6 +40,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		echo (' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ')');
 ?></title>
 <link>http://www.theyworkforyou.com<?=$row['listurl'] ?></link>
+<pubDate><?=$date ?></pubDate>
 <description><?php
 		if (isset($row['speaker']) && count($row['speaker'])) {
 			$sp = $row['speaker'];

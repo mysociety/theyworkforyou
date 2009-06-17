@@ -1099,6 +1099,7 @@ class HANSARDLIST {
 			// Get the data for the gid from the database
 			$q = $this->db->query("SELECT hansard.gid,
                                     hansard.hdate,
+                                    hansard.htime,
                                     hansard.section_id,
                                     hansard.subsection_id,
                                     hansard.htype,
@@ -1125,6 +1126,7 @@ class HANSARDLIST {
 			$itemdata['collapsed'] = $collapsed;
 			$itemdata['gid'] 		= fix_gid_from_db( $q->field(0, 'gid') );
 			$itemdata['hdate'] 		= $q->field(0, 'hdate');	
+			$itemdata['htime'] 		= $q->field(0, 'htime');	
 			$itemdata['htype'] 		= $q->field(0, 'htype');		
 			$itemdata['major'] 		= $q->field(0, 'major');
 			$itemdata['minor'] 		= $q->field(0, 'minor');
