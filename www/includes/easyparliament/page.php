@@ -1039,12 +1039,7 @@ pr()//-->
 			twfy_debug ('TIME', "Total system time: $duration microseconds.");
 		}
 		
-?>
-<br class="clear"/>
-</div> <!-- end #footer -->
-</div> <!-- end #container -->
-
-<? if (DOMAIN == 'www.theyworkforyou.com') { ?>
+		if (DOMAIN == 'www.theyworkforyou.com') { ?>
 <!-- Piwik -->
 <script type="text/javascript">
 var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.mysociety.org/" : "http://piwik.mysociety.org/");
@@ -1060,14 +1055,21 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 </script>
 <noscript><img src="http://piwik.mysociety.org/piwik.php?i=1" width=1 height=1 style="border:0" alt=""></noscript>
 <!-- /Piwik -->
-<? } ?>
+<?
+		}
+?>
+
+<br class="clear"/>
+</div> <!-- end #footer -->
+</div> <!-- end #container -->
+
 <script type="text/javascript" charset="utf-8">
     barSetup();
 </script>
 </body>
 </html>
 <?php
-	ob_end_flush();
+		ob_end_flush();
 	}
 
 	function postcode_form() {
