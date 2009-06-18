@@ -1262,9 +1262,9 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			if ($house==3) $title .= ' MLA';
 			if ($house==4) $title .= ' MSP';
 		}
-		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
-		}
+		#if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
+		#	$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
+		#}
 
 
 		print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
