@@ -200,7 +200,7 @@ if (is_numeric(get_http_var('m'))) {
 
 if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	$PAGE->page_start();
-	$PAGE->stripe_start();
+	$PAGE->stripe_start('side');
 	print '<p>That name is not unique. Please select from the following:</p><ul>';
 	$cs = $MEMBER->constituency();
 	$c = 0;
@@ -259,7 +259,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	twfy_debug_timestamp("after page_start");
 
 	twfy_debug_timestamp("before stripe start");
-	$PAGE->stripe_start();
+	$PAGE->stripe_start('side', 'person_page');
 	twfy_debug_timestamp("after stripe start");
 	
 	twfy_debug_timestamp("before display of MP");
