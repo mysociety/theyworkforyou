@@ -980,7 +980,7 @@ $this->page = array (
 		'title'			=> 'Westminster Hall debates',
 		'rss'			=> 'whall/whall.rss',
 		'url'			=> 'whall/'
-	),
+	), 
 	'whallyear' => array (
 		'parent'		=> 'whallfront',
 		'title'			=> 'Westminster Hall debates for ',
@@ -988,7 +988,7 @@ $this->page = array (
 	),
 
 	'wms' => array (
-		'parent'		=> 'wmsfront',
+		'parent'		=> 'wranswmsfront',
 		'url'			=> 'wms/',
 		'session_vars'	=> array('id')
 	),
@@ -1002,7 +1002,7 @@ $this->page = array (
 			'text'			=> 'Written Ministerial Statements',
 			'title'			=> ''
 		),
-		'parent'		=> 'hansard',
+		'parent'		=> 'wranswmsfront',
 		'title'			=> 'Written Ministerial Statements',
 		'rss'			=> 'wms/wms.rss',
 		'url'			=> 'wms/'
@@ -1014,7 +1014,7 @@ $this->page = array (
 	),
 
 	'wrans'  => array (
-		'parent'		=> 'wransfront',
+		'parent'		=> 'wranswmsfront',
 		'url'			=> 'wrans/',
 		'session_vars'	=> array ('id')
 	),
@@ -1027,7 +1027,7 @@ $this->page = array (
 			'text'			=> 'Written Answers',
 			'title'			=> "Written Answers"
 		),
-		'parent'		=> 'hansard',
+		'parent'		=> 'wranswmsfront',
 		'title'			=> 'Written answers',
 		'url'			=> 'wrans/'
 	),
