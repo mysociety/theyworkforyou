@@ -1770,7 +1770,7 @@ and has had no written questions answered for which we know the department or su
 
 
 	?>		<a name="hansard"></a> <?
-		$title = 'Most recent appearances in parliament';
+		$title = 'Most recent appearances';
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
 			$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
 		}
@@ -1852,7 +1852,7 @@ and has had no written questions answered for which we know the department or su
 
 		if (isset($extra_info['select_committees'])) {
 			print "<li>Is a member of <strong>$extra_info[select_committees]</strong> select committee";
-			if ($extra_info['select_committees'] > 1)
+			if ($extra_info['select_committees'] != 1)
 				print "s";
 			if (isset($extra_info['select_committees_chair']))
 				print " ($extra_info[select_committees_chair] as chair)";
