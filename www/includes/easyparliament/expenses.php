@@ -3,8 +3,8 @@
 
 function expenses_display_table($extra_info) {
 	$out = '<p class="italic">Figures in brackets are ranks. Parliament\'s <a href="http://www.parliament.uk/mpslordsandoffices/finances.cfm">explanatory notes</a>.';
-	if (isset($extra_info['expenses_url'])) {
-		$out .= '<a href="' . $extra_info['expenses_url'] . '">2004/05 &ndash; 2007/08 receipts</a>.';
+	if (isset($extra_info['expenses_url']))
+		$out .= ' Read <a href="' . $extra_info['expenses_url'] . '">2004/05 &ndash; 2007/08 receipts</a>.';
 	$out .= "</p>\n";
 	$out .= '<table class="people"><tr><th>Type';
 	# TODO: Needs to be more complicated at 2005/06, because of General Election
