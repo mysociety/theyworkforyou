@@ -1003,22 +1003,20 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
         		          Approximately once a month, spam free.
         		      </p>
         		  </div>
-                  <br class="clear"/>
-        		</div>
         <?php
 		// This makes the tracker appear on all sections, but only actually on theyworkforyou.com
 				//if ($DATA->page_metadata($this_page, 'track') ) {
-		if (substr(DOMAIN, -18) == "theyworkforyou.com" && substr(DOMAIN, 0, 7)!= "staging")  {
+		if (DOMAIN == 'www.theyworkforyou.com') {
 					// We want to track this page.
 			// Kind of fake URLs needed for the tracker.
 			$url = urlencode('http://' . DOMAIN . '/' . $this_page);
 			?>
 <script type="text/javascript"><!--
 an=navigator.appName;sr='http://x3.extreme-dm.com/';srw="na";srb="na";d=document;r=41;function pr(n) {
-d.write("<div><img alt=\"\" src=\""+sr+"n\/?tag=fawkes&p=<?php echo $url; ?>&j=y&srw="+srw+"&srb="+srb+"&l="+escape(d.referrer)+"&rs="+r+"\" height=\"1\" width=\"1\"></"+"div>");}
+d.write("<img alt='' src=\""+sr+"n\/?tag=fawkes&p=<?php echo $url; ?>&j=y&srw="+srw+"&srb="+srb+"&l="+escape(d.referrer)+"&rs="+r+"\" height='1' width='1'>");}
 s=screen;srw=s.width;an!="Netscape"?srb=s.colorDepth:srb=s.pixelDepth
 pr()//-->
-</script><noscript><div><img alt="" src="http://x3.extreme-dm.com/z/?tag=fawkes&amp;p=<?php echo $url; ?>&amp;j=n" height="1" width="1"></div></noscript>
+</script><noscript><img alt="" src="http://x3.extreme-dm.com/z/?tag=fawkes&amp;p=<?php echo $url; ?>&amp;j=n" height="1" width="1"></noscript>
 <?php
 
 			// mySociety tracking, not on staging
@@ -1041,7 +1039,9 @@ pr()//-->
 			twfy_debug ('TIME', "Total system time: $duration microseconds.");
 		}
 		
-		?>
+?>
+<br class="clear"/>
+</div> <!-- end #footer -->
 </div> <!-- end #container -->
 
 <? if (DOMAIN == 'www.theyworkforyou.com') { ?>
