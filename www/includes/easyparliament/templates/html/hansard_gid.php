@@ -266,6 +266,9 @@ if (isset ($data['rows'])) {
 				echo get_question_mentions_html($row['mentions']);
 			}
 
+            // Used for action links (link, source, watch etc)
+            $action_links = array();
+                
 			if (isset($row['speaker']) && count($row['speaker']) > 0) {
 			    
 			  // We have a speaker to print.
@@ -335,9 +338,6 @@ if (isset ($data['rows'])) {
 				if ($desc) print "($desc)";
 				echo "</small>";
 								
-                //Build up action links (link, source, watch etc)
-                $action_links = array();
-                
                 // link
 				if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
 				    
