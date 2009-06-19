@@ -50,7 +50,7 @@ div.main p.divisionheading {font-weight: bold;color: #000;}
 	
 div.main p.indent,
 div.main p.indentitalic,
-div.main p.numindent {margin-left: 4em;padding-left:1em;font-style: italic;border-left:solid 3px #ccc;padding-bottom:1em;margin-bottom:1em;}
+div.main p.numindent {margin-left: 4em;padding-left:1em;font-style: italic;border-left:solid 3px #ccc;padding-bottom:0em;margin-bottom:1em;}
 	
 div.main p.italic,
 div.main p.indentitalic {font-style: italic;color: #4D6C25;}
@@ -194,7 +194,7 @@ div.sidebar {float: right;width: 34%;padding: 2em 0 0 0;margin: 0;background: tr
 div.sidebar p {line-height: 1.3em;margin-top: 0.5em;margin-bottom: 1em;}
 div.sidebar p.vote {margin: 0.2em 14px 0 10px;}
 div.sidebar p.vote a {padding:0.2em;}
-div.sidebar ul {margin-top: 0.5em;list-style-type:none; }
+div.sidebar ul {margin-top: 0.5em;list-style-type:none; line-height: 1.3em; }
 div.sidebar ul li {background:url(../../images/bulletsmall.png) no-repeat 1px 3px; padding-left:18px;padding-bottom:0.3em;}
 div.sidebar p.video {margin: 0 14px 0 10px;}
 div.sidebar p.nextprev {margin: 0.5em 14px 2em 10px;height:4.5em;
@@ -647,7 +647,7 @@ div.speech a.speakerimage img {margin:0 auto; text-align:center; display:block;
 
 div.personinfo {display: none; position:absolute; background:#fff url(../../images/annotation.png) bottom right; z-index:40;
     left:13px; top:10px;padding:1em 2em 1em 85px; font-size:0.8em; border-top:solid 5px #fff; border-left:solid 5px #fff;}
-.stripe-2 div.personinfo, .stripe-procedural-2 div.personinfo {border-top:solid 5px #f6f6f6; border-left:solid 5px #f6f6f6;}
+.stripe-2 div.personinfo, .stripe-procedural-2 div.personinfo {border-top:solid 5px #f2f2f2; border-left:solid 5px #f2f2f2;}
     
 div.personinfo ul {margin:0; padding:0;}    
 div.personinfo ul li {margin:0; padding:0 0 0.3em 0; list-style-type:none;}
@@ -663,7 +663,7 @@ div.stripe-1-on p.speaker a.permalink, div.stripe-2-on p.speaker a.permalink {co
 
 /* Stripes */
 div.stripe-1, div.stripe-1-on, div.stripe-procedural-1 {clear:left; background: #fff url(../../images/minorshadow.png) repeat-x 0 0;}
-div.stripe-2, div.stripe-2-on, div.stripe-procedural-2 {background:#f6f6f6 url(../../images/minorshadow.png) repeat-x 0 0;; clear:left;}
+div.stripe-2, div.stripe-2-on, div.stripe-procedural-2 {background:#f2f2f2 url(../../images/minorshadow.png) repeat-x 0 0;; clear:left;}
 
 div.stripe-time {padding:0.2em 18px; background:#808080; height:1em;}
 div.stripe-time .sidebar {display:none;}

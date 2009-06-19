@@ -583,7 +583,7 @@ function generate_commentteaser (&$row, $major, $action_links) {
                     $html .= '>';
                     $html .= $action_link["text"];                                    
                     $html .= '</a>';                    
-                    $html .= '</li>';                
+                    $html .= "</li>\n";
                 }
             $html .= '</ul>';        
         }
