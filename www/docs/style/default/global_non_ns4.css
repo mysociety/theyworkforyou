@@ -102,9 +102,14 @@ a:hover {text-decoration:underline;}
         width:20em; padding:1em 0 1em 0; margin:0; display:none;}
 #topmenu a {color:#fff; font-weight:normal;}
 #topmenu #topmenuselected {display:block;position:absolute; right:1.5em; top:0.5em; 
-    font-size:1.2em;  background: url(../../images/parliamentarrow.png) right 6px no-repeat!important;display:block;padding-right:21px;background:none;}
-#topmenu #topmenuselected small {font-size:0.7em; padding-left:0.8em;}    
-#topmenu #topmenuselected, #topmenu #topmenuselected:hover {color:#fff; font-weight:normal;}
+    font-size:1.2em; }
+#topmenu #topmenuselected small {font-size:0.7em; }    
+
+#topmenu #topmenu-change {
+	background: url(../../images/parliamentarrow.png) right 6px no-repeat;
+	padding-right: 21px; padding-left: 0.2em;
+}
+
 #topmenu dt {font-size:1.2em; padding:0 1.2em 0 1.2em;margin:0;}
 #topmenu dd {color:#fff; font-size:0.8em; padding:0.5em 2em 0 2em;}
 

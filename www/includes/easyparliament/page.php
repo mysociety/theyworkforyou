@@ -427,6 +427,8 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			$bottom_hilite = '';
 		
 			$selected_top_link = $DATA->page_metadata('hansard', 'menu');
+			$url = new URL('hansard');
+			$selected_top_link['link'] = $url->generate();
 
 		} else {
 		    
@@ -447,6 +449,8 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			}
 
 			$selected_top_link = $DATA->page_metadata($top_hilite, 'menu');
+			$url = new URL($top_hilite);
+			$selected_top_link['link'] = $url->generate();
 
 		}
 
@@ -486,7 +490,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		?>
 	<div id="menu">
 		<div id="topmenu">
-		    <a id="topmenuselected" href="/parliaments/" onclick="toggleVisible('site');return false;"><?php echo $selected_top_link['text']; ?><small>(change)</small></a>
+		    <div id="topmenuselected"><a href="<?=$selected_top_link['link']?>"><?=$selected_top_link['text'] ?></a> <a id="topmenu-change" href="/parliaments/" onclick="toggleVisible('site');return false;"><small>(change)</small></a></div>
 <?php
 			$this->user_bar($top_hilite, $bottom_hilite);
 			?>
