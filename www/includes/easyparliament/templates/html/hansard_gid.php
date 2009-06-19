@@ -372,7 +372,7 @@ if (isset ($data['rows'])) {
 				        $text = 'Official Report source';
 				    }
 				    
-                    $action_links["source"] = array("link" => $row['source_url'], "title" => $source_title, "text" => $text, "class"=>"source");
+                    $action_links["source"] = array("link" => $row['source_url'], "after" => $source_title, "text" => $text, "class"=>"source");
 				}
 
                 //video
@@ -575,13 +575,19 @@ function generate_commentteaser (&$row, $major, $action_links) {
         $html .= '<ul>';
             foreach ($action_links as $action_link) {
                 $html .= '<li>';
-                $html .= '<a href="' . $action_link['link'] . '" title="' . $action_link['title'] . '"' . 'class="' . $action_link['class'] . '"';
-                if(isset($action_link['onclick'])){
+                $html .= '<a href="' . $action_link['link'] . '" class="' . $action_link['class'] . '"';
+				if (isset($action_link['title'])) {
+					$html .= ' title="' . $action_link['title'] . '"';
+				}
+                if (isset($action_link['onclick'])) {
                     $html .= ' onclick="' . $action_link['onclick']  . '"';
                 }
                 $html .= '>';
                 $html .= $action_link["text"];                                    
-                $html .= '</a>';                    
+                $html .= '</a>';
+				if (isset($action_link['after'])) {
+				    $html .= ' (' . $action_link['after'] . ')';
+				}
                 $html .= "</li>\n";
             }
         $html .= '</ul>';        
