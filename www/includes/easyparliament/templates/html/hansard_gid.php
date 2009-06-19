@@ -328,14 +328,15 @@ if (isset ($data['rows'])) {
 					}
 				#}
 				
+				//print $desc
+				if ($desc) print "($desc)";
+
 				// show the question number (Scottish Written Answers only)
 				if ($data['info']['major'] == 8 && preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $row['gid'], $m)) {
 					# Scottish Wrans only
 					print " | Question $m[1]";
 				}
 				
-				//print $desc
-				if ($desc) print "($desc)";
 				echo "</small>";
 								
                 // link
@@ -569,24 +570,25 @@ function generate_commentteaser (&$row, $major, $action_links) {
 	
 	$html = '';
 	
+        //Action links
+    if (isset($action_links)) {
+        $html .= '<ul>';
+            foreach ($action_links as $action_link) {
+                $html .= '<li>';
+                $html .= '<a href="' . $action_link['link'] . '" title="' . $action_link['title'] . '"' . 'class="' . $action_link['class'] . '"';
+                if(isset($action_link['onclick'])){
+                    $html .= ' onclick="' . $action_link['onclick']  . '"';
+                }
+                $html .= '>';
+                $html .= $action_link["text"];                                    
+                $html .= '</a>';                    
+                $html .= "</li>\n";
+            }
+        $html .= '</ul>';        
+    }
+
 	if ($hansardmajors[$major]['type'] == 'debate' && $hansardmajors[$major]['page_all']==$this_page) {
 
-        //Action links
-        if(isset($action_links)){
-            $html .= '<ul>';
-                foreach ($action_links as $action_link) {
-                    $html .= '<li>';
-                    $html .= '<a href="' . $action_link['link'] . '" title="' . $action_link['title'] . '"' . 'class="' . $action_link['class'] . '"';
-                    if(isset($action_link['onclick'])){
-                        $html .= ' onclick="' . $action_link['onclick']  . '"';
-                    }
-                    $html .= '>';
-                    $html .= $action_link["text"];                                    
-                    $html .= '</a>';                    
-                    $html .= "</li>\n";
-                }
-            $html .= '</ul>';        
-        }
 //		$html .= ' <a href="' .  $row['commentsurl'] . '" title="Copy this URL to link directly to this piece of text" class="permalink">Link to this</a>';
 		
 		// Build the 'Add an annotation' link.
