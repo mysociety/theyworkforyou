@@ -449,6 +449,10 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			}
 
 			$selected_top_link = $DATA->page_metadata($top_hilite, 'menu');
+			if (!$selected_top_link) {
+				# Just in case something's gone wrong
+				$selected_top_link = $DATA->page_metadata('hansard', 'menu');
+			}
 			$url = new URL($top_hilite);
 			$selected_top_link['link'] = $url->generate();
 
