@@ -37,7 +37,7 @@ debates_rss(2, 'Westminster Hall debates', 'whall/', 'whall/whall.rss');
 debates_rss(5, 'Northern Ireland Assembly debates', 'ni/', 'ni/ni.rss');
 wms_rss();
 # wrans_rss();
-# pbc_rss();
+pbc_rss();
 
 sub debates_rss {
     my ($major, $title, $url, $file) = @_;
@@ -163,9 +163,9 @@ sub pbc_rss {
         order by hdate desc limit 20');
     my $rss = new XML::RSS (version => '1.0');
     $rss->channel(
-        title => "Public Bill Committee debates",
+        title => "Bill Committee debates",
         link => "http://www.theyworkforyou.com/pbc/",
-        description => "Public Bill Committee debates via TheyWorkForYou.com- http://www.theyworkforyou.com/ .",
+        description => "Bill Committee debates via TheyWorkForYou - http://www.theyworkforyou.com/",
         dc => $dc,
         syn => $syn,
     );
