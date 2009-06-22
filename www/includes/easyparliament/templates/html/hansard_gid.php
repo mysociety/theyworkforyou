@@ -262,10 +262,6 @@ if (isset ($data['rows'])) {
 			$PAGE->stripe_start($style, $id, "speech ");
 			if ($id) echo '<a name="', $id, '"></a>';
 
-			if (isset($row['mentions'])) {
-				echo get_question_mentions_html($row['mentions']);
-			}
-
             // Used for action links (link, source, watch etc)
             $action_links = array();
                 
@@ -338,54 +334,48 @@ if (isset ($data['rows'])) {
 				}
 				
 				echo "</small>";
-								
-                // link
-				if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
-				    
-                    $action_links["link"] = array("link" => $row['commentsurl'], "title" => "Link to this", "text" => "Link to this", "class"=>"link");
-					
-				}
+			}
+
+            // link
+			if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
+                $action_links["link"] = array("link" => $row['commentsurl'], "title" => "Link to this", "text" => "Link to this", "class"=>"link");
+			}
 				
-				//source
-				if (isset($row['source_url']) && $row['source_url'] != '') {
-					$source_title = '';
-					$major = $data['info']['major'];
-					if ($major==1 || $major==2 || $major==3 || $major==4 || $major==101) {
-						$source_title = 'Citation: ';
-						if ($major==1 || $major==2 || $major==3 || $major==4) {
-							$source_title .= 'HC';
-						} else {
-							$source_title .= 'HL';
-						}
-						$source_title .= ' Deb, ' . format_date($data['info']['date'], LONGDATEFORMAT) . ', c' . $row['colnum'];
-						if ($major==2) {
-							$source_title .= 'WH';
-						} elseif ($major==3) {
-							$source_title .= 'W';
-						} elseif ($major==4) {
-							$source_title .= 'WS';
-						} 
+			//source
+			if (isset($row['source_url']) && $row['source_url'] != '') {
+				$source_title = '';
+				$major = $data['info']['major'];
+				if ($major==1 || $major==2 || $major==3 || $major==4 || $major==101) {
+					$source_title = 'Citation: ';
+					if ($major==1 || $major==2 || $major==3 || $major==4) {
+						$source_title .= 'HC';
+					} else {
+						$source_title .= 'HL';
 					}
-
-                    $text = "Hansard source";
-				    if ($hansardmajors[$data['info']['major']]['location']=='Scotland'){        
-				        $text = 'Official Report source';
-				    }
-				    
-                    $action_links["source"] = array("link" => $row['source_url'], "after" => $source_title, "text" => $text, "class"=>"source");
+					$source_title .= ' Deb, ' . format_date($data['info']['date'], LONGDATEFORMAT) . ', c' . $row['colnum'];
+					if ($major==2) {
+						$source_title .= 'WH';
+					} elseif ($major==3) {
+						$source_title .= 'W';
+					} elseif ($major==4) {
+						$source_title .= 'WS';
+					} 
 				}
 
-                //video
-                if ($data['info']['major'] == 1 && $this_page != 'debate') { # Commons debates only
-					if ($row['video_status']&4) {
-						
-						 $action_links["video"] = array("link" => $row['commentsurl'], "title" => "Watch this", "text" => "Watch this", "class"=>"watch", "onclick" => "return moveVideo(\'debate/" . $row['gid'] . "\');");
-						 
-					} elseif (!$video_content && $row['video_status']&1 && !($row['video_status']&8)) {
-						$gid_type = $data['info']['major'] == 1 ? 'debate' : 'lords';
+                $text = "Hansard source";
+				if ($hansardmajors[$data['info']['major']]['location']=='Scotland'){        
+				    $text = 'Official Report source';
+				}
+                $action_links["source"] = array("link" => $row['source_url'], "after" => $source_title, "text" => $text, "class"=>"source");
+			}
 
-				        $action_links["video"] = array("link" => "/video/?from=debate&amp;gid=" . $gid_type . '/' . $row['gid'], "title" => "Video match this", "class" =>"timestamp", "text" => "Video match this");
-					}
+            //video
+            if ($data['info']['major'] == 1 && $this_page != 'debate') { # Commons debates only
+				if ($row['video_status']&4) {
+					$action_links["video"] = array("link" => $row['commentsurl'], "title" => "Watch this", "text" => "Watch this", "class"=>"watch", "onclick" => "return moveVideo(\'debate/" . $row['gid'] . "\');");
+				} elseif (!$video_content && $row['video_status']&1 && !($row['video_status']&8)) {
+					$gid_type = $data['info']['major'] == 1 ? 'debate' : 'lords';
+				    $action_links["video"] = array("link" => "/video/?from=debate&amp;gid=" . $gid_type . '/' . $row['gid'], "title" => "Video match this", "class" =>"timestamp", "text" => "Video match this");
 				}
 			}
 
@@ -414,7 +404,6 @@ if (isset ($data['rows'])) {
 			context_link($row);
 			
 			$sidebarhtml = '';
-			$extrahtml = '';
 			
 			if (isset($row['votes']) && (!strstr($row['gid'], 'q'))) {
 				$sidebarhtml .= generate_votes ( $row['votes'], $row['major'], $row['epobject_id'], $row['gid'] );
@@ -426,6 +415,10 @@ if (isset ($data['rows'])) {
 			$sidebarhtml .= generate_commentteaser(&$row, $data['info']['major'], $action_links);
 #			}
 			
+			if (isset($row['mentions'])) {
+				$sidebarhtml .= get_question_mentions_html($row['mentions']);
+			}
+
 			$PAGE->stripe_end(array(
 				array (
 					'type' => 'html',
@@ -435,10 +428,6 @@ if (isset ($data['rows'])) {
 					'type' => 'html',
 					'content' => $sidebarhtml
 				),
-				array (
-					'type' => 'extrahtml',
-					'content' => $extrahtml
-				)
 			));
 			
 				
@@ -574,6 +563,10 @@ function generate_commentteaser (&$row, $major, $action_links) {
     if (isset($action_links)) {
         $html .= '<ul>';
             foreach ($action_links as $action_link) {
+				if (!is_array($action_link)) {
+					$html .= $action_link;
+					continue;
+				}
                 $html .= '<li>';
                 $html .= '<a href="' . $action_link['link'] . '" class="' . $action_link['class'] . '"';
 				if (isset($action_link['title'])) {
@@ -585,7 +578,7 @@ function generate_commentteaser (&$row, $major, $action_links) {
                 $html .= '>';
                 $html .= $action_link["text"];                                    
                 $html .= '</a>';
-				if (isset($action_link['after'])) {
+				if (isset($action_link['after']) && $action_link['after']) {
 				    $html .= ' (' . $action_link['after'] . ')';
 				}
                 $html .= "</li>\n";
@@ -648,8 +641,8 @@ function generate_commentteaser (&$row, $major, $action_links) {
 		}
 
 
-		$html = "\t\t\t\t" . '<div class="comment-teaser">' . $html . "</div>\n";
 	}
+	$html = "\t\t\t\t" . '<div class="comment-teaser">' . $html . "</div>\n";
 	
 	return $html;
 }
@@ -731,10 +724,7 @@ function get_question_mentions_html($row_data) {
 	if( count($row_data) == 0 ) {
 		return '';
 	}
-	// Return a DIV with the question mentions data formatted
-	// vaguely sensibly:
-	$result = '<div class="question-mentions">';
-	// $result = $result . "\n<div class=\"question-mentions-heading\">Question History</div>";
+	$result = '<ul class="question-mentions">';
 	$nrows = count($row_data);
 	$last_date = NULL;
 	$first_difference_output = TRUE;
@@ -746,6 +736,7 @@ function get_question_mentions_html($row_data) {
 			// If this mention isn't associated with a date, the difference won't be interesting.
 			$last_date = NULL;
 		}
+		$description = '';
 		if ($last_date && ($last_date != $row["date"])) {
 			// Calculate how long the gap was in days:
 			$daysdiff = (integer)((strtotime($row["date"]) - strtotime($last_date)) / 86400);
@@ -756,8 +747,7 @@ function get_question_mentions_html($row_data) {
 			} else {
 				$further = " a further";
 			}
-			$description = "\n<span class=\"question-mention-gap\">After$further $daysdiff $daysstring:</span><br>";
-			$result = $result . $description;
+			$description = "\n<span class=\"question-mention-gap\">After$further $daysdiff $daysstring,</span> ";
 		}
 		$reference = FALSE;
 		$inner = "BUG: Unknown mention type $row[type]";
@@ -803,18 +793,16 @@ function get_question_mentions_html($row_data) {
 				break;
 		}
 		if( $reference ) {
-			$references[] = "\n<span class=\"question-mention\">" . $inner . "</span><br>";
+			$references[] = "\n<li>$inner.";
 		} else {
-			$result = $result . "\n<span class=\"question-mention\">" . $inner . "</span><br>";
+			$result .= "\n<li>$description$inner.</span>";
 			$last_date = $row["date"];
 		}
 	}
-	$result = $result . "\n<div class=\"question-references\">";
 	foreach ($references as $reference_span) {
-		$result = $result . $reference_span;
+		$result .= $reference_span;
 	}
-	$result = $result . "\n</div>";
-	$result = $result . "\n</div>";
+	$result .= '</ul>';
 	return $result;
 } 
 
