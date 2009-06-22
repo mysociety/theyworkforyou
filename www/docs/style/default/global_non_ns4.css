@@ -654,12 +654,11 @@ div.personinfo ul li {margin:0; padding:0 0 0.3em 0; list-style-type:none;}
 div.personinfo ul li a {font-weight:normal;}
 div.personinfo ul li strong a {font-weight:bold;}
 
-/*
+
+/* Unknown speakers */
 div.main p.speaker, div.main p.unknownspeaker {margin-bottom: 0;}
 div.main p.unknownspeaker {font-weight: bold;}
 div.stripe-1-on p.speaker a, div.stripe-2-on p.speaker a {color: #B82E00;}
-div.stripe-1-on p.speaker a.permalink, div.stripe-2-on p.speaker a.permalink {color: #000;}
-*/
 
 /* Stripes */
 div.stripe-1, div.stripe-1-on, div.stripe-procedural-1 {clear:left; background: #fff url(../../images/minorshadow.png) repeat-x 0 0;}

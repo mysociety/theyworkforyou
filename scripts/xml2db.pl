@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.48 2009-06-10 17:34:50 matthew Exp $
+# $Id: xml2db.pl,v 1.49 2009-06-22 10:51:17 richard Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -2018,7 +2018,7 @@ sub do_load_speech
                 if ($speaker eq "unknown")
                 {
                         $speaker = 0;
-                        $pretext = '<p class="unknownspeaker">' . $speech->att('speakername') . ':</p> ';
+                        $pretext = '<p class="unknownspeaker" title="Unknown speaker">' . $speech->att('speakername') . ':</p> ';
                 }
         }
         else
