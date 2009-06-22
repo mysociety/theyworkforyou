@@ -21,7 +21,7 @@ h2, h3, h4, h5, th, caption {
 /**** We keep these all together so it's easy to compare and change */
 
 body {
-	font-size: 13px;
+	font-size: 0.8125em;
 	}
 	
 h2, h4, h3 {
