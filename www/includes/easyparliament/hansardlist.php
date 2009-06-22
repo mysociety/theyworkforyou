@@ -354,7 +354,7 @@ class HANSARDLIST {
 
 		if ($itemdata['htype'] == '10' || $itemdata['htype'] == '11') {
 			// Debate subsection or section - get the next one.
-			if ($hansardmajors[$itemdata['major']]['type'] == 'other') {
+			if ($hansardmajors[$itemdata['major']]['type'] == 'other' && $hansardmajors[$itemdata['major']]['location'] == 'UK') {
 				$where = 'htype = 11';
 			} else {
 				$where = "(htype = 10 OR htype = 11)";
