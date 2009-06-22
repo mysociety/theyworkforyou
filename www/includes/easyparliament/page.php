@@ -418,9 +418,9 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		// We work out which of the items in the top and bottom menus
 		// are highlighted - $top_hilite and $bottom_hilite respectively.
 		
-		$this_parent = $DATA->page_metadata($this_page, 'parent');
+		$parent = $DATA->page_metadata($this_page, 'parent');
 		
-		if ($this_parent == '') {
+		if (!$parent) {
 			// This page is probably one of the ones in the top men.
 			// So hilite it and no bottom menu hilites.
 			$top_hilite = $this_page;
@@ -431,21 +431,24 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			$selected_top_link['link'] = $url->generate();
 
 		} else {
-		    
-			// Does this page's parent have a parent?
-			$parents_parent = $DATA->page_metadata($this_parent, 'parent');
 
-			if ($parents_parent == '') {
+			$parents = array($parent);
+			$p = $parent;
+			while ($p) {
+				$p = $DATA->page_metadata($p, 'parent');
+				if ($p) $parents[] = $p;
+			}
+
+			$top_hilite = array_pop($parents);
+			if (!$parents) {
 				// No grandparent - this page's parent is in the top menu.
 				// We're on one of the pages linked to by the bottom menu.
 				// So hilite it and its parent.
-				$top_hilite = $this_parent;
 				$bottom_hilite = $this_page;
 			} else {
 				// This page is not in either menu. So hilite its parent
 				// (in the bottom menu) and its grandparent (in the top).
-				$top_hilite = $parents_parent;
-				$bottom_hilite = $this_parent;
+				$bottom_hilite = array_pop($parents);
 			}
 
 			$selected_top_link = $DATA->page_metadata($top_hilite, 'menu');
@@ -496,7 +499,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		<div id="topmenu">
 		    <div id="topmenuselected"><a href="<?=$selected_top_link['link']?>"><?=$selected_top_link['text'] ?></a> <a id="topmenu-change" href="/parliaments/" onclick="toggleVisible('site');return false;"><small>(change)</small></a></div>
 <?php
-			$this->user_bar($top_hilite, $bottom_hilite);
+			$this->user_bar($top_hilite);
 			?>
     			<dl id="site">
     			    <?php foreach ($top_links as $top_link) {?>
@@ -518,7 +521,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 	}
 
 
-	function user_bar ($top_hilite='', $bottom_hilite='') {
+	function user_bar ($top_hilite='') {
 		// Called from menu(), but separated out here for clarity.
 		// Does just the bit of the menu related to login/join/etc.
 		global $this_page, $DATA, $THEUSER;

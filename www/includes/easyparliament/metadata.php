@@ -316,9 +316,9 @@ $this->page = array (
 	'debatesfront' => array (
 		'menu'			=> array (
 			'text'			=> 'Commons debates',
-			'title'			=> "Debates in the House of Commons, Westminster Hall, and the House of Lords"
+			'title'			=> "Debates in the House of Commons"
 		),
-		'parent'		=> 'hansard',
+		'parent'		=> 'alldebatesfront',
 		'title'			=> 'House of Commons debates',
 		'rss'			=> 'debates/debates.rss',
 		'url'			=> 'debates/'
@@ -470,7 +470,7 @@ $this->page = array (
 			'text'			=> 'Lords debates',
 			'title'			=> "House of Lords debates"
 		),
-		'parent'		=> 'hansard',
+		'parent'		=> 'alldebatesfront',
 		'title'			=> 'House of Lords debates',
 		'rss'			=> 'lords/lords.rss',
 		'url'			=> 'lords/'
@@ -976,7 +976,7 @@ $this->page = array (
 			'text'			=> 'Westminster Hall',
 			'title'			=> "Westminster Hall debates"
 		),
-		'parent'		=> 'hansard',
+		'parent'		=> 'alldebatesfront',
 		'title'			=> 'Westminster Hall debates',
 		'rss'			=> 'whall/whall.rss',
 		'url'			=> 'whall/'
