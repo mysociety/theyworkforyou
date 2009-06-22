@@ -1930,7 +1930,7 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 ?>				
 <a name="register"></a>
 <?php
-			$this->block_start(array('id'=>'register', 'title'=>"Register of Members' Interests"));
+			print "<h4>Register of Members' Interests</h4>";
 
 			if ($extra_info['register_member_interests_html'] != '') {
 				echo $extra_info['register_member_interests_html'];
@@ -1946,7 +1946,6 @@ elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
 			echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/061106/memi01.htm">More about the Register</a>';
 			echo '</p>';
 			print '<p><strong><a href="' . WEBPATH . 'regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
-			$this->block_end();
 		}
 
 		if (isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || 
@@ -1956,9 +1955,8 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 <a name="expenses"></a>
 <?php
 			$title = 'Expenses';
-			$this->block_start(array('id'=>'expenses', 'title'=>$title));
+			print "<h4>" . $title . "</h4>";
 			echo expenses_display_table($extra_info);
-			$this->block_end();
 		}
 
 	}

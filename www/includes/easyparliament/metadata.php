@@ -957,7 +957,7 @@ $this->page = array (
 
 	/* Westminster Hall */
 	'whall'  => array (	
-		'parent'		=> 'whallfront',
+		'parent'		=> 'alldebatesfront',
 		'url'			=> 'whall/',
 		'session_vars'	=> array ('id'),
 	),
