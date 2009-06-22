@@ -67,9 +67,6 @@ if (!sizeof($errors) && ( (get_http_var('submitted') && ($details['keyword'] || 
 
 
 function check_input ($details) {
-	
-	global $ALERT, $this_page;
-	
 	$errors = array();
 
 	// Check each of the things the user has input.
@@ -78,13 +75,11 @@ function check_input ($details) {
 	// error messages when we show the form again.
 	
 	// Check email address is valid and unique.
-	if ($details["email"] == "") {
+	if (!$details['email']) {
 		$errors["email"] = "Please enter your email address";
-	
 	} elseif (!validate_email($details["email"])) {
 		// validate_email() is in includes/utilities.php
 		$errors["email"] = "Please enter a valid email address";
-	
 	} 
 	
 	if ($details['pid'] && !ctype_digit($details['pid']))
@@ -94,6 +89,11 @@ function check_input ($details) {
 
 	if ((get_http_var('submitted') || get_http_var('only')) && !$details['pid'] && !$details['keyword'])
 		$errors['keyword'] = 'Please choose a person and/or enter a keyword';
+
+	if (strpos($details['keyword'], '..')) {
+		$errors['keyword'] = 'You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!';
+	}
+
 	// Send the array of any errors back...
 	return $errors;
 }
