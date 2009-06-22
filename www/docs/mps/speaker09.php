@@ -54,7 +54,10 @@ for ($i=0; $i<$q->rows(); $i++) {
 }
 
 $pids_str = join(',', $pids);
-$q = $db->query("select person_id, data_value from personinfo where person_id in ($pids_str) and data_key = 'speaker_candidate_response_summary' order by person_id");
+$q = $db->query("select personinfo.person_id, data_value, last_name from personinfo, member
+	where personinfo.person_id=member.person_id and personinfo.person_id in ($pids_str)
+	and data_key = 'speaker_candidate_response_summary'
+	order by last_name");
 echo '<table>';
 $oldpid = null;
 for ($i=0; $i<$q->rows(); $i++) {
