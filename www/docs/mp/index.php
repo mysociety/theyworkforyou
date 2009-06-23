@@ -363,7 +363,10 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 				$mins .= 'to ';
 				if ($row['source'] == 'chgpages/privsec' && $row['to_date'] == '2005-11-10')
 					$mins .= 'before ';
-				$mins .= format_date($row['to_date'], SHORTDATEFORMAT);
+				if ($row['source'] == 'chgpages/privsec' && $row['to_date'] == '2009-01-16')
+					$mins .= '<a href="/help/#pps_unknown">unknown</a>';
+				else
+					$mins .= format_date($row['to_date'], SHORTDATEFORMAT);
 				$mins .= ')</li>';
 			}
 		}
