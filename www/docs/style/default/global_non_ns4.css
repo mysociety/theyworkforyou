@@ -475,15 +475,13 @@ div#emailfriend.block h4 {
 ul.jumpers {
 	clear: left;
 	}
-	
-.regmemcategory {
-	font-weight: bold;
-	}
-.regmemitem {
-	margin: 0.5em 0;
-	}
-
 */
+	
+/* Register of members interests */
+.regmemcategory {font-weight: bold;}
+.regmemitem {margin: 0.5em 0;}
+
+
 
 
 /**** HOME PAGE ****************************************************************/	
