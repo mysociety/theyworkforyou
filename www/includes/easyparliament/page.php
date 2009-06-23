@@ -1209,17 +1209,13 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
          $spk_cand_title = $member['full_name'] . ' endorses our Speaker principles';
       } else {
         if (isset($extra_info["speaker_candidate_elected"]) && $extra_info["speaker_candidate_elected"] == 1){
-          $spk_cand_title = $member['full_name'] . ' elected Speaker. Here\'s what he endorsed.';
+          $spk_cand_title = 'LATEST: ' . $member['full_name'] . ' elected Speaker. Here\'s what he endorsed:';
         }else{
          $spk_cand_title = 'IMPORTANT: We believe ' . $member['full_name'] . ' MP may become a Candidate for Speaker. You can help!';
         }
       }
       $this->block_start(array('id'=>'campaign_block', 'title' => $spk_cand_title));
 
-      print "
-            <p>The <strong>new Speaker</strong> will be extremely important in making Parliament more
-            transparent, so that sites like this one can help people like you understand
-            more about <strong>what your MP is doing</strong>.";
       if (!isset($extra_info["speaker_candidate_response"])){
           print "
                 You can help make sure that all the candidates understand that they
@@ -1228,7 +1224,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
       }
       print "</p>
 
-            <p>mySociety is asking likely candidates for the post of Speaker to endorse the
+            <p>mySociety asked likely candidates for the post of Speaker to endorse the
             following principles." ;
      
       print "<p><strong>The three principles are:</strong></p>
@@ -1259,14 +1255,6 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
          print "<p> We contacted " . $member['full_name'] . " MP to ask for an endorsement " . $days_since_string . ". ";
     	 print "They have not yet replied.</p>";
     }
-    if (isset($extra_info["has_endorsed_speaker_principles"]) && $extra_info["has_endorsed_speaker_principles"] == 1){
-         $speaker_target = 'all candidates for Speaker';
-    }else{
-         $speaker_target =  $member['full_name'] . " MP";
-    }
-      print " <p><strong>ACT NOW!</strong> Please <a href='http://www.writetothem.com/?a=westminstermp'>write to your own constituency MP</a>
-            to ask them to ask " . $speaker_target . " to sign up to the three
-            principles detailed above.</p>";
       $this->block_end();
     }
 
