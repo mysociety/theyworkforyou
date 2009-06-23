@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.40 2009-05-22 10:56:49 francis Exp $
+# $Id: mpinfoin.pl,v 1.41 2009-06-23 16:07:33 matthew Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -300,7 +300,7 @@ sub makerankings {
                 where person_id in ";
         my $sth = $dbh->prepare($query .
                 #"( 10001 )");
-                    '(select person_id from member where house=1 AND curdate() <= left_house) order by member_id');
+                    '(select person_id from member where house=1 AND curdate() <= left_house) order by person_id, entered_house');
         $sth->execute();
         if ($sth->rows == 0) {
                 $sth = $dbh->prepare($query .
@@ -321,7 +321,7 @@ sub makerankings {
                 my $fullid = "uk.org.publicwhip/member/$mp_id";
                 my $person_fullid = "uk.org.publicwhip/person/$person_id";
 
-                if ($entered_house eq '2005-05-05' && !$first_member{$person_id}) {
+                if (!$first_member{$person_id}) {
                         my $q = $dbh->prepare('select gid from hansard where major=1 and speaker_id=? order by hdate,hpos limit 1');
                         $q->execute($mp_id);
                         if ($q->rows > 0) {
