@@ -1606,7 +1606,9 @@ if ((in_array(1, $member['houses']) && $member['party']!='Sinn Fein') || in_arra
 	if ($member['party']=='Speaker' || $member['party']=='Deputy Speaker') {
 		if ($member['party']=='Speaker') $art = 'the'; else $art = 'a';
 		echo "<p>As $art $member[party], $member[full_name] cannot vote (except to break a tie).</p>";
-	} elseif (isset($extra_info["public_whip_dreammp230_distance"]) || isset($extra_info["public_whip_dreammp996_distance"])) { # XXX
+	}
+
+	if (isset($extra_info["public_whip_dreammp230_distance"]) || isset($extra_info["public_whip_dreammp996_distance"])) { # XXX
 		$displayed_stuff = 1; ?>
 
 
