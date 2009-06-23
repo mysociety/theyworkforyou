@@ -1255,6 +1255,14 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
          print "<p> We contacted " . $member['full_name'] . " MP to ask for an endorsement " . $days_since_string . ". ";
     	 print "They have not yet replied.</p>";
     }
+    if (isset($extra_info["has_endorsed_speaker_principles"]) && $extra_info["has_endorsed_speaker_principles"] == 1){
+         $speaker_target = 'all candidates for Speaker';
+    }else{
+         $speaker_target =  $member['full_name'] . " MP";
+    }
+      print " <p><strong>ACT NOW!</strong> Please <a href='http://www.writetothem.com/?a=westminstermp'>write to your own constituency MP</a>
+            to ask them to ask " . $speaker_target . " to sign up to the three
+            principles detailed above.</p>";
       $this->block_end();
     }
 
