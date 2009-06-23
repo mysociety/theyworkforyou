@@ -12,7 +12,7 @@ form {margin: 0;padding: 0;}
 input.submit {font-weight: bold;color: #333;}
 acronym {border-bottom: dotted 1px black;}
 
-p {margin: 0 0 0 0;padding: 0 0 1em 0;line-height: 2em;}
+p {margin: 0 0 0 0;padding: 0 0 1em 0;line-height: 1.5em;}
 p.moved {color: #4D6C25;}
 
 table { border-collapse:collapse;}
@@ -478,8 +478,8 @@ ul.jumpers {
 */
 	
 /* Register of members interests */
-.regmemcategory {font-weight: bold;}
-.regmemitem {margin: 0.5em 0;}
+.regmemcategory {font-weight: bold; margin: 0 14px 0 18px; }
+.regmemitem {margin: 0.5em 14px 0.5em 18px; }
 
 
 
@@ -534,8 +534,8 @@ ul#dreamcomparisons {
 #advert_thin {width: 50%;margin: 0 auto;padding-top: 0.5em;border-top: dotted 1px #999999;}
 #advert_thin a {font-weight: bold;}
 
-#campaign_block {background-color: #ffff99;border: solid 2px #ff9900;padding: 4px;}
-#campaign_block h4 {background-color: #ffcc00;}
+#campaign_block {background-color: #ffff99;border: solid 2px #ff9900;}
+div#person_page .main #campaign_block h4 {background-color: #ffcc00; margin-top:0; border-top: none; }
 
 div#speaker_candidate_response {font-style: italic;}
 

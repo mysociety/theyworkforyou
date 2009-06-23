@@ -1,12 +1,9 @@
 Subject: Your TheyWorkForYou email alert
 -------------------------------------------------------------------
-Today is the day that MPs vote for a new Speaker. mySociety asked
-the candidates to endorse 3 principles - more than half did, but
-some didn't bother writing back. You can read all their different
-responses linked from this page:
-    http://www.theyworkforyou.com/mps/speaker09
-You have just a few hours to write to or phone your MP to tell them
-what sort of candidate you expect them to vote for.
+John Bercow has been elected as the 157th Speaker of the House of
+Commons. He was "happy to endorse" the 3 principles that we asked
+candidates about:
+    http://www.theyworkforyou.com/mp/john_bercow/buckingham
 -------------------------------------------------------------------
 
 {DATA}
