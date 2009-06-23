@@ -14,7 +14,7 @@ $PAGE->stripe_start();
 Parliament more transparent, so that sites like this one can help people like
 you understand more about <strong>what your MP is doing</strong>.</p>
 
-<p>mySociety is asking likely candidates for the post of Speaker to endorse the
+<p>mySociety asked likely candidates for the post of Speaker to endorse the
 following principles.</p>
      
 <p><strong>The three principles are:</strong></p>
@@ -39,13 +39,13 @@ and effectiveness. </li>
 
 <h2>Summary of responses</h2>
 
-<p>Follow the MP link to read their response, if we have one.</p>
+<p>These are the responses from all the MPs we contacted. Follow the MP link to read their response, if we have one.</p>
 
 <?
 
 $q = $db->query("select personinfo.person_id, first_name, last_name from personinfo, member
 	where personinfo.person_id=member.person_id and left_house='9999-12-31'
-	and data_key='is_speaker_candidate' and data_value=1");
+	and data_key='speaker_candidate_contacted_on'");
 $pids = array();
 for ($i=0; $i<$q->rows(); $i++) {
 	$pid = $q->field($i, 'person_id');
@@ -54,24 +54,35 @@ for ($i=0; $i<$q->rows(); $i++) {
 }
 
 $pids_str = join(',', $pids);
-$q = $db->query("select personinfo.person_id, data_value, last_name from personinfo, member
+$q = $db->query("select personinfo.person_id, data_value, data_key, last_name from personinfo, member
 	where personinfo.person_id=member.person_id and left_house='9999-12-31'
-	and personinfo.person_id in ($pids_str) and data_key = 'speaker_candidate_response_summary'
-	order by last_name");
+	and personinfo.person_id in ($pids_str) and data_key in ('speaker_candidate_response_summary', 'is_speaker_candidate')
+	order by last_name asc, data_key desc");
 echo '<table>';
 $oldpid = null;
 for ($i=0; $i<$q->rows(); $i++) {
 	$pid = $q->field($i, 'person_id');
 	$value = $q->field($i, 'data_value');
+	$key = $q->field($i, 'data_key');
 	if ($pid != $oldpid) {
 		if ($oldpid) print "</tr>\n";
 		print '<tr><th align="left"><a href="' . $member[$pid]->url() . '">' . $member[$pid]->full_name() . '</a></th>';
 		$oldpid = $pid;
 	}
-	if ($value)
-		echo "<td>$value</td>";
-	else
-		echo "<td>No response</td>";
+	if ($key == 'speaker_candidate_response_summary'){
+		if ($value){
+			$value = rtrim($value);
+			$value = rtrim($value, ".");
+			echo "<td>$value ";
+		}else{
+			echo "<td>No response ";
+		}
+	}else{
+		if ($value)
+ 			echo "(and <strong>was</strong> a candidate for speaker).</td>";
+		else 
+			echo "(but <strong>was not</strong> a candidate for speaker).</td>";
+	}
 }
 
 echo '</tr></table>';
