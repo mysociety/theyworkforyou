@@ -2,7 +2,7 @@
 /* 
  * Name: alertmailer.php
  * Description: Mailer for email alerts
- * $Id: alertmailer.php,v 1.33 2009-06-16 09:12:09 matthew Exp $
+ * $Id: alertmailer.php,v 1.34 2009-06-23 10:11:10 matthew Exp $
  */
 
 function mlog($message) {
@@ -112,6 +112,9 @@ foreach ($alertdata as $alertitem) {
 	if ($fromemail && !$fromflag) continue;
 	if ($toemail && strtolower($email) >= $toemail) continue;
 	$criteria_raw = $alertitem['criteria'];
+	if (preg_match('#\bOR\b#', $criteria_raw)) {
+		$criteria_raw = "($criteria_raw)";
+	}
 	$criteria_batch = $criteria_raw . " " . $batch_query_fragment;
 
 	if ($email != $current_email) {
