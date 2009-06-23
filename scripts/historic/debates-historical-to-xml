@@ -72,7 +72,7 @@ def output_day(date, sections):
             else:
                 start_column = None
             id = 'uk.org.publicwhip/debate/' + str(date) + 'a.' + next_id(start_column)
-            fp.write('<speech hansard_id="%s" id="%s"' % (speech.id, id))
+            fp.write('<speech id="%s"' % id)
             if speech.commons_membership:
                 parlparse_id = memberList.matchhistoric(speech.commons_membership_id, str(date))
                 fp.write(' hansard_membership_id="%s" speakerid="%s" speakername="%s"' % (speech.commons_membership_id, parlparse_id, speech.member_name.encode('ascii', 'xmlcharrefreplace')))
@@ -101,9 +101,9 @@ def output_day(date, sections):
     fp.close()
     os.rename('debates/debates%sa.xml.new' % date, 'debates/debates%sa.xml' % date)
 
-# Create the 1987-2001 parliaments
-start_date = Election.objects.get(date='1979-05-03').date
-end_date = Election.objects.get(date='1997-05-01').dissolution_date
+# Create the 1935-1945 parliaments
+start_date = Election.objects.get(date='1935-11-14').date
+end_date = Election.objects.get(date='1945-07-05').dissolution_date
 old_date = None
 orders_section = None
 data = []
@@ -143,3 +143,5 @@ if data:
     print "Outputting %s..." % old_date
     output_day(old_date, data)
 
+# Finally, check all the generated XML is valid
+os.system('xmllint --noout debates/d*')
