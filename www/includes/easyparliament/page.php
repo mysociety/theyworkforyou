@@ -1179,7 +1179,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		$just_response = true;
 	}
 
-      // days since originaly contacted
+      // days since originally contacted
       $contact_date_string = $extra_info["speaker_candidate_contacted_on"];
       $contact_date_midnight = strtotime($contact_date_string);
       $days_since_contact = floor((time() - $contact_date_midnight) / 86400);
@@ -1208,7 +1208,11 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
       if ($just_response) {
          $spk_cand_title = $member['full_name'] . ' endorses our Speaker principles';
       } else {
+        if (isset($extra_info["speaker_candidate_elected"]) && $extra_info["speaker_candidate_elected"] == 1){
+          $spk_cand_title = $member['full_name'] . ' elected Speaker. Here\'s what he endorsed.';
+        }else{
          $spk_cand_title = 'IMPORTANT: We believe ' . $member['full_name'] . ' MP may become a Candidate for Speaker. You can help!';
+        }
       }
       $this->block_start(array('id'=>'campaign_block', 'title' => $spk_cand_title));
 
