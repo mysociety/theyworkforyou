@@ -2,7 +2,7 @@
 # Expenses related functions
 
 function expenses_display_table($extra_info) {
-	$out = '<p class="italic">Figures in brackets are ranks. Parliament\'s <a href="http://www.parliament.uk/mpslordsandoffices/finances.cfm">explanatory notes</a>.';
+	$out = '<p class="italic">Figures in brackets are ranks. Data from parliament.uk (<a href="http://www.parliament.uk/mpslordsandoffices/finances.cfm">source</a>).';
 	if (isset($extra_info['expenses_url']))
 		$out .= ' Read <a href="' . $extra_info['expenses_url'] . '">2004/05 &ndash; 2007/08 receipts</a>.';
 	$out .= "</p>\n";
