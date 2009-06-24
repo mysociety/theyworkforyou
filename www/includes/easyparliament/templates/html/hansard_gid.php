@@ -412,7 +412,7 @@ if (isset ($data['rows'])) {
 # Do the logic for this in the function; plus why shouldn't
 # you be able to comment on speeches with unknown speakers?
 #			if (($hansardmajors[$data['info']['major']]['type'] == 'debate') && isset($row['speaker']) && count($row['speaker']) > 0) {
-			$sidebarhtml = "";//.= generate_commentteaser(&$row, $data['info']['major'], $action_links);
+			$sidebarhtml .= generate_commentteaser(&$row, $data['info']['major'], $action_links);
 #			}
 			
 			if (isset($row['mentions'])) {
