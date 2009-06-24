@@ -402,7 +402,7 @@ if (isset ($data['rows'])) {
 			echo str_replace('</p><p','</p> <p',$body); # NN4 font size bug
 			
 			context_link($row);
-			
+
 			$sidebarhtml = '';
 			
 			if (isset($row['votes']) && (!strstr($row['gid'], 'q'))) {
