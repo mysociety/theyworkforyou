@@ -190,8 +190,6 @@ div.stripe-procedural-2 p {margin-bottom: 0.5em;}
 
 div.sidebar {float: right;width: 34%;padding: 2em 0 0 0;margin: 0;background: transparent;}
 div.sidebar p {line-height: 1.3em;margin-top: 0.5em;margin-bottom: 1em;}
-div.sidebar p.vote {margin: 0.2em 14px 0 10px;}
-div.sidebar p.vote a {padding:0.2em;}
 div.sidebar ul {margin-top: 0.5em;list-style-type:none; line-height: 1.3em; }
 div.sidebar ul li {background:url(../../images/bulletsmall.png) no-repeat 1px 3px; padding-left:18px;padding-bottom:0.3em;}
 div.sidebar p.video {margin: 0 14px 0 10px;}
@@ -200,7 +198,11 @@ div.sidebar p.nextprev {margin: 0.5em 14px 2em 10px;height:4.5em;
 div.sidebar div.calendar {float: none;margin: 0.5em 0 0.5em 0;height: auto;padding:0 18px 0 0;}
 div.sidebar div.calendar table {width:100%;}
 
+/* User votes */
 span.wransvote {line-height: 2.2em;}
+
+div.sidebar p.vote {margin: 0.2em 0 0 10px; border-top:solid 1px #808080; border-bottom:solid 1px #808080;}
+div.sidebar p.vote a {padding:0.2em;}
 
 .up {display: block!important;font-weight: bold;margin-bottom: 0.5em;position:absolute;width:100%;bottom:0;left:0;text-align:center;}
 .prev {display: block;float: right;}
@@ -666,8 +668,7 @@ div.stripe-time abbr.datetime {color:#fff; font-size:0.8em;}
 
 /* Annotations */
 div.sidebar div.comment-teaser {font-size:0.9em;padding:0 2em 0 0;}
-div.sidebar div.comment-teaser blockquote {padding:0.5em 0.5em 0.5em 0.5em; margin:0 0 1em 0; font-family:monospace, courier; background:url(../../images/annotation.png) bottom right no-repeat; border-top:solid 1px #efefef;
-        border-left:solid 1px #efefef;}
+div.sidebar div.comment-teaser blockquote {padding:0.5em 0.5em 0.5em 0.5em; margin:0 0 1em 0; font-family:monospace, courier; background:url(../../images/annotation.png) bottom right no-repeat; border-top:solid 1px #efefef;border-left:solid 1px #efefef; font-size:1.2em;word-wrap:break-word;}
 div.sidebar div.comment-teaser blockquote p {background: url(../../images/staple.png) no-repeat 2px -1px; padding:18px 16px 0 16px;}
 div.sidebar div.comment-teaser blockquote cite {text-align:right;display:block; padding:1em;}
 
@@ -704,10 +705,17 @@ div.block h4 {margin:0; padding:0.6em;color: #000;}
 div.block div.blockbody {padding: 0 0.6em 1em 0.6em;}
 div.block div.blockbody p,
 div.block div.blockbody ul {margin-left: 0;margin-right: 0;padding:0;}
+
 div#help.block {border-top:solid 10px #bf523d!important; background:#fff7f6 url(../../images/help.png) no-repeat 8px 10px; border-bottom:none;}
 div#help.block ul li {background:none; padding-left:0;}
 div#help.block ul li ul li {list-style-type:circle; margin-left:2em;}
 div#help.block h4 {padding-left:40px;color:#8b311f;padding-top:14px;}
+
+div.question.block {border-top:solid 10px #bf523d!important; background:#fff7f6 url(../../images/help.png) no-repeat 8px 10px; border-bottom:none;}
+div.question.block ul li {background:none; padding-left:0;}
+div.question.block ul li ul li {list-style-type:circle; margin-left:2em;}
+div.question.block h4 {padding-left:40px;color:#8b311f;padding-top:14px;}
+
 div#calendar.block {background:none;border:none;}
 #calendar.block h4 {padding-left:0;display:none;}
 div#calendar.block div.blockbody {padding: 0;}

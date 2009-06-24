@@ -689,7 +689,7 @@ function generate_votes ($votes, $major, $id, $gid) {
 		$yesplural = $yesvotes == 1 ? 'person thinks' : 'people think';
 		$noplural = $novotes == 1 ? 'person thinks' : 'people think';
 		
-		$html .= '<strong>Does this answer the above question?</strong><br>';
+		$html .= '<h4>Does this answer the above question?</h4>';
 		
 		$html .= '<span class="wransvote"><a class="linkbutton" rel="nofollow" href="' . $VOTEURL->generate() . '" title="Rate this as answering the question">Yes!</a> ' . $yesvotes . ' ' . $yesplural . ' so!<br>';
 
@@ -704,7 +704,7 @@ function generate_votes ($votes, $major, $id, $gid) {
 		
 		/*
 		We aren't putting Interesting? buttons in for now...
-		
+
 		$VOTEURL->insert(array('v'=>'1'));
 		$totalvotes = $votes['user']['yes'] + $votes['anon']['yes'];
 		$plural = $totalvotes == 1 ? 'person thinks' : 'people think';
@@ -715,7 +715,7 @@ function generate_votes ($votes, $major, $id, $gid) {
 	}
 
 	$votelinks_so_far++;
-	$html = "\t\t\t\t<p class=\"vote\">$html</p>\n";
+	$html = "\t\t\t\t<div class=\"block question\">$html</p>\n";
 	return $html;
 	
 }

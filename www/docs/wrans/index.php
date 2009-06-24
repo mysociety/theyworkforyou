@@ -91,6 +91,7 @@ if (get_http_var("d") != "") {
 				'content' 	=> 'comment'
 			)
 		);
+
 		$PAGE->stripe_end($sidebar);
 	} else {
 		$PAGE->stripe_end();
