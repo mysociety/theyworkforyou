@@ -919,7 +919,7 @@ function prettify_office($pos, $dept) {
 		"Treasurer of Her Majesty's Household, HM Household"
 			=> "Deputy Chief Whip (technically Treasurer of Her Majesty's Household)",
 		'Comptroller, HM Household' => 'Government Whip (technically Comptroller, HM Household)',
-		'Vice Chamberlain, HM Treasury' => 'Government Whip (technically Vice Chamberlain, HM Treasury)',
+		'Vice Chamberlain, HM Household' => 'Government Whip (technically Vice Chamberlain, HM Household)',
 		'Lords Commissioner, HM Treasury' => 'Government Whip (technically a Lords Commissioner, HM Treasury)',
 		'Assistant Whip, HM Treasury' => 'Assistant Whip (funded by HM Treasury)',
 	);
