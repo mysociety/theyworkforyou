@@ -412,7 +412,7 @@ if (isset ($data['rows'])) {
 # Do the logic for this in the function; plus why shouldn't
 # you be able to comment on speeches with unknown speakers?
 #			if (($hansardmajors[$data['info']['major']]['type'] == 'debate') && isset($row['speaker']) && count($row['speaker']) > 0) {
-			$sidebarhtml .= generate_commentteaser(&$row, $data['info']['major'], $action_links);
+			$sidebarhtml = "";//.= generate_commentteaser(&$row, $data['info']['major'], $action_links);
 #			}
 			
 			if (isset($row['mentions'])) {
@@ -674,7 +674,7 @@ function generate_votes ($votes, $major, $id, $gid) {
 	
 	// What we return.
 	$html = '';
-	
+
 	$URL = new URL($this_page);
 	$returl = $URL->generate();
 	
@@ -691,13 +691,13 @@ function generate_votes ($votes, $major, $id, $gid) {
 		
 		$html .= '<h4>Does this answer the above question?</h4>';
 		
-		$html .= '<span class="wransvote"><a class="linkbutton" rel="nofollow" href="' . $VOTEURL->generate() . '" title="Rate this as answering the question">Yes!</a> ' . $yesvotes . ' ' . $yesplural . ' so!<br>';
+		$html .= '<div class="blockbody"><span class="wransvote"><a rel="nofollow" href="' . $VOTEURL->generate() . '" title="Rate this as answering the question">Yes!</a> ' . $yesvotes . ' ' . $yesplural . ' so!<br>';
 
 		$VOTEURL->insert(array('v'=>'0'));
 		
-		$html .= '<a class="linkbutton" rel="nofollow" href="' . $VOTEURL->generate() . '" title="Rate this as NOT answering the question">No!</a> ' . $novotes . ' ' . $noplural . ' not!</span>';
+		$html .= '<a rel="nofollow" href="' . $VOTEURL->generate() . '" title="Rate this as NOT answering the question">No!</a> ' . $novotes . ' ' . $noplural . ' not!</span>';
 
-        $html .= "<p>Would you like to <strong>ask a question like this yourself</strong>? Use our <a href=\"http://www.whatdotheyknow.com\">Freedom of Information site</a>.</p>";
+        $html .= "<p>Would you like to <strong>ask a question like this yourself</strong>? Use our <a href=\"http://www.whatdotheyknow.com\">Freedom of Information site</a>.</p></div>";
 
 	} elseif ($major == 1) {
 		// Debates.
@@ -715,7 +715,7 @@ function generate_votes ($votes, $major, $id, $gid) {
 	}
 
 	$votelinks_so_far++;
-	$html = "\t\t\t\t<div class=\"block question\">$html</p>\n";
+	$html = "\t\t\t\t<div class=\"block question\">$html</div>\n";
 	return $html;
 	
 }
