@@ -21,8 +21,13 @@ $methods = array(
 		'required' => false,
 		'help' => 'Returns list of constituencies',
 	),
-	'getMP' => array(
+	'getPerson' => array(
 		'new' => true,
+		'parameters' => array('id'),
+		'required' => true,
+		'help' => 'Returns main details for a person'
+	),
+	'getMP' => array(
 		'parameters' => array('id', 'constituency', 'postcode', 'always_return', 'extra'),
 		'required' => true,
 		'help' => 'Returns main details for an MP'
