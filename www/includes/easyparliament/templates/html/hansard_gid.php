@@ -622,7 +622,7 @@ function generate_commentteaser (&$row, $major, $action_links) {
 				
 			} else {
 				// This comment needs trimming.
-				$commentbody = htmlentities(trim_characters($comment['body'], 0, $targetsize, 1000));
+				$commentbody = trim_characters($comment['body'], 0, $targetsize, 1000);
 				if ($row['totalcomments'] > 1) {
 					$morecount = $row['totalcomments'] - 1;
 					$plural = $morecount == 1 ? 'annotation' : 'annotations';
