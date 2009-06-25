@@ -53,7 +53,7 @@ class SEARCHLOG {
 
         $q =  $this->db->query("SELECT *, count(*) AS c FROM search_query_log 
                 WHERE count_hits != 0 AND query_string != 'twat'
-	       AND query_string != 'suffragettes'	
+	       AND query_string != 'suffragettes' AND page_number=1
                 AND query_time > date_sub(NOW(), INTERVAL 1 DAY) 
                 GROUP BY query_string ORDER BY c desc LIMIT $count;");
                 
