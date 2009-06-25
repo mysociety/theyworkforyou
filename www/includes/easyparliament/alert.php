@@ -14,14 +14,15 @@ The ALERT class allows us to fetch and alter data about any email alert.
 Functions here:
 
 ALERT
-	fetch($confirmed, $deleted)		Fetch all alert data from DB.
-	listalerts()					Lists all live alerts
-	add($details, $confirmation_email)	Add a new alert to the DB.
-	send_confirmation_email($details)	Done after add()ing the alert.
-	email_exists($email)			Checks if an alert exists with a certain email address.
-	confirm($token)				Confirm a new alert in the DB
-	delete($token)				Remove an existing alert from the DB
-	id_exists()				Checks if an alert_id is valid.
+	fetch_between($confirmed, $deleted, $start_date, $end_date)	Fetch summary data on alerts created between the dates.
+	fetch($confirmed, $deleted)					Fetch all alert data from DB.
+	listalerts()							Lists all live alerts
+	add($details, $confirmation_email)				Add a new alert to the DB.
+	send_confirmation_email($details)				Done after add()ing the alert.
+	email_exists($email)						Checks if an alert exists with a certain email address.
+	confirm($token)							Confirm a new alert in the DB
+	delete($token)							Remove an existing alert from the DB
+	id_exists()							Checks if an alert_id is valid.
 	
 	Accessor functions for each object variable (eg, alert_id()  ).
 
@@ -70,6 +71,7 @@ function alert_confirmation_advert($details) {
 	return $advert_shown;
 }
 
+	
 function alert_details_to_criteria($details) {
 	$criteria = array();
 	if (isset($details['keyword']) && $details['keyword']) $criteria[] = $details['keyword'];
@@ -89,6 +91,32 @@ class ALERT {
 	function ALERT () {
 		$this->db = new ParlDB;
 	}
+
+// FUNCTION: fetch_between
+
+	function fetch_between ($confirmed, $deleted, $start_date, $end_date) {
+	  // Return summary data on all the alerts that were created between $start_date 
+	  // and $end_date (inclusive) and whose confirmed and deleted values match the booleans
+	  // passed in $confirmed and $deleted
+	  	$q = $this->db->query("SELECT   criteria, count(*) as cnt
+	        	               FROM     alerts
+	                	       WHERE    confirmed = ". $confirmed .
+	          	             " AND      deleted = " . $deleted . 
+	                	     " AND      created >= '" . $start_date .
+	                            "' AND      created <= '" . $end_date .
+	                   	    "' GROUP BY criteria" );
+		
+		$data = array();
+
+    		for ($row=0; $row<$q->rows(); $row++) {
+   	 		$contents = array('criteria' => $q->field($row, 'criteria'), 'count' => $q->field($row, 'cnt'));
+			$data[] = $contents;
+    		}
+    		$data = array ('alerts' => $data);
+
+    		return $data;
+	}
+
 
 // FUNCTION: fetch
 
