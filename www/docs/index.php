@@ -44,7 +44,7 @@ $PAGE->stripe_start("full", '');
                 <p>
                     Popular searches today: 
                     <?php foreach ($popular_searches as $popular_search) { ?>
-                        <a href="<?php echo $popular_search['url']?>"><?php echo htmlspecialchars($popular_search['display'])?></a>
+                        <a href="<?php echo $popular_search['url']?>"><?php echo $popular_search['display']?></a>
                     <?php } ?>
                 </p>
             <?php } ?>
