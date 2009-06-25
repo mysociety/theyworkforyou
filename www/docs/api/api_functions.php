@@ -118,13 +118,13 @@ $methods = array(
 		'required' => true,
 		'help' => 'Posts a comment - needs authentication!'
 	),
-  'getAlerts' => array(
-    'parameters' => array('start_date', 'end_date'),
-    'working' => true,
-    'required' => true,
-    'superuser' => true,
-    'help' => 'Returns a summary of email alert subscriptions created between two dates'
-  ),
+	'getAlerts' => array(
+   		'parameters' => array('start_date', 'end_date'),
+    		'working' => true,
+  		'required' => true,
+    		'superuser' => true,
+    		'help' => 'Returns a summary of email alert subscriptions created between two dates'
+  	),
 );
 
 # Key-related functions
@@ -141,10 +141,10 @@ function api_log_call($key) {
 
 function api_is_superuser_key($key){
   $db = new ParlDB;
-  $q = $db->query('SELECT user_id, status 
-	                 FROM   api_key, users 
-	                 WHERE  users.user_id = api_key.user_id
-	                 AND    api_key="' . mysql_escape_string($key) . '"');
+  $q = $db->query('SELECT api_key.user_id, users.status 
+	           FROM   api_key, users 
+	           WHERE  users.user_id = api_key.user_id
+	           AND    api_key.api_key="' . mysql_escape_string($key) . '"');
   if (!$q->rows())
     return false;
   if ($q->field(0, 'status') == 'Superuser')
