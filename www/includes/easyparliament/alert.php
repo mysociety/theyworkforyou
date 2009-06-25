@@ -14,6 +14,7 @@ The ALERT class allows us to fetch and alter data about any email alert.
 Functions here:
 
 ALERT
+
 	fetch_between($confirmed, $deleted, $start_date, $end_date)	Fetch summary data on alerts created between the dates.
 	fetch($confirmed, $deleted)					Fetch all alert data from DB.
 	listalerts()							Lists all live alerts
@@ -84,9 +85,9 @@ class ALERT {
 
 	var $alert_id = "";
 	var $email = "";
-	var $criteria = "";		// Sets the terms that are used to prdduce the search results.
+	var $criteria = "";		// Sets the terms that are used to produce the search results.
 	var $deleted = "";		// Flag set when user requests deletion of alert.
-	var $confirmed = "";		// boolean - Has the user confirmed via email?
+	var $confirmed = "";  // boolean - Has the user confirmed via email?
 
 	function ALERT () {
 		$this->db = new ParlDB;
@@ -99,22 +100,19 @@ class ALERT {
 	  // and $end_date (inclusive) and whose confirmed and deleted values match the booleans
 	  // passed in $confirmed and $deleted
 	  	$q = $this->db->query("SELECT   criteria, count(*) as cnt
-	        	               FROM     alerts
-	                	       WHERE    confirmed = ". $confirmed .
+                             FROM     alerts
+	                	         WHERE    confirmed = ". $confirmed .
 	          	             " AND      deleted = " . $deleted . 
-	                	     " AND      created >= '" . $start_date .
-	                            "' AND      created <= '" . $end_date .
-	                   	    "' GROUP BY criteria" );
-		
+	                	       " AND      created >= '" .  mysql_escape_string($start_date) . "'" .
+	                         " AND      created <= '" .  mysql_escape_string($end_date) . "'" .
+	                   	     " GROUP BY criteria" );
 		$data = array();
-
-    		for ($row=0; $row<$q->rows(); $row++) {
-   	 		$contents = array('criteria' => $q->field($row, 'criteria'), 'count' => $q->field($row, 'cnt'));
-			$data[] = $contents;
-    		}
-    		$data = array ('alerts' => $data);
-
-    		return $data;
+    for ($row=0; $row<$q->rows(); $row++) {
+   	  $contents = array('criteria' => $q->field($row, 'criteria'), 'count' => $q->field($row, 'cnt'));
+		  $data[] = $contents;
+    }
+    $data = array ('alerts' => $data);
+    return $data;
 	}
 
 
