@@ -1,9 +1,9 @@
 <?php
 /*
  * SimpleTest tests for the functions in utility.php
- * $Id: utility_test.php,v 1.2 2009-05-06 13:56:30 louise Exp $
+ * $Id: utility_test.php,v 1.3 2009-06-25 12:23:58 louise Exp $
  */
-error_reporting (E_ERR);
+error_reporting (E_ALL);
 ini_set("display_errors", 1);
 include_once dirname(__FILE__) . '/../../../conf/general'; 
 include_once '../utility.php';
