@@ -118,6 +118,13 @@ $methods = array(
 		'required' => true,
 		'help' => 'Posts a comment - needs authentication!'
 	),
+  'getAlerts' => array(
+    'parameters' => array('start_date', 'end_date'),
+    'working' => true,
+    'required' => true,
+    'superuser' => true,
+    'help' => 'Returns a summary of email alert subscriptions created between two dates'
+  ),
 );
 
 # Key-related functions
@@ -130,6 +137,20 @@ function api_log_call($key) {
 	$db = new ParlDB;
 	$db->query("INSERT INTO api_stats (api_key, ip_address, query_time, query)
 		VALUES ('$key', '$ip', NOW(), '" . mysql_escape_string($query) . "')");
+}
+
+function api_is_superuser_key($key){
+  $db = new ParlDB;
+  $q = $db->query('SELECT user_id, status 
+	                 FROM   api_key, users 
+	                 WHERE  users.user_id = api_key.user_id
+	                 AND    api_key="' . mysql_escape_string($key) . '"');
+  if (!$q->rows())
+    return false;
+  if ($q->field(0, 'status') == 'Superuser')
+    return true;
+  else
+    return false;
 }
 
 function api_check_key($key) {
@@ -158,6 +179,9 @@ function api_sidebar() {
 	global $methods;
 	$sidebar = '<div class="block"><h4>API Functions</h4> <div class="blockbody"><ul>';
 	foreach ($methods as $method => $data){
+    if (isset($data['superuser']) && $data['superuser']){
+		  continue;
+		}
 		$sidebar .= '<li';
 		if (isset($data['new']))
 			$sidebar .= ' style="border-top: solid 1px #999999;"';

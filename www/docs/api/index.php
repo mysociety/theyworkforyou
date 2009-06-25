@@ -28,6 +28,18 @@ if ($q_method = get_http_var('method')) {
 	$match = 0;
 	foreach ($methods as $method => $data) {
 		if (strtolower($q_method) == strtolower($method)) {
+      if (isset($data['superuser']) && $data['superuser']){
+        $super_check = api_is_superuser_key($key);
+        if (!$super_check) {
+    			if (get_http_var('docs')) {
+    			  api_front_page();
+    			}else{
+    			  api_error('Invalid API key.');
+    			  exit;
+  			  }
+    		}
+      }
+    
 			api_log_call($key);
 			$match++;
 			if (get_http_var('docs')) {
