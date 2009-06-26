@@ -568,8 +568,16 @@ function construct_search_string() {
         $searchstring .= ' party:' . join(' party:', explode(',', $advparty));
     }
 
-    if ($advcolumn = get_http_var('column')) {
-        $searchstring .= " column:$advcolumn";
+    if ($column = trim(get_http_var('column'))) {
+        if (preg_match('#^(\d+)W$#', $column, $m)) {
+            $searchstring .= " column:$m[1] section:wrans";
+        } elseif (preg_match('#^(\d+)WH$#', $column, $m)) {
+            $searchstring .= " column:$m[1] section:whall";
+        } elseif (preg_match('#^(\d+)WS$#', $column, $m)) {
+            $searchstring .= " column:$m[1] section:wms";
+        } elseif (preg_match('#^\d+$#', $column)) {
+            $searchstring .= " column:$column";
+        }
     }
 
     $advsection = get_http_var('section');
