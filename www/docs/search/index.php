@@ -553,7 +553,7 @@ function construct_search_string() {
     if (get_http_var('from') || get_http_var('to')) {
         $from = parse_date(get_http_var('from'));
         if ($from) $from = $from['iso'];
-        else $from = '1979-01-01';
+        else $from = '1935-10-01';
         $to = parse_date(get_http_var('to'));
         if ($to) $to = $to['iso'];
         else $to = date('Y-m-d');
