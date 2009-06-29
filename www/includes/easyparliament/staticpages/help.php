@@ -72,21 +72,21 @@ press release."</blockquote>
 <dt><a name="missing"></a>Is this the whole of Hansard?</dt>
 <dd>
 <p>TheyWorkForYou currently contains:</p>
-<ul><li>all debates, written answers, and written ministerial statements in the
-House of Commons Hansard back to the General Election of June 2001;
-<li>the same for the House of Lords Hansard (so as yet no
-Grand Committees) back to around November 1999;
+<ul>
+<li>Hansard Commons debates back to the General Election of <strong>1935</strong>;
+<li>Hansard Commons written answers and written ministerial statements 
+back to the General Election of June 2001;
+<li>Hansard House of Lords Hansard (except Grand Committees) back to around November 1999;
 <li>everything in the various Northern Ireland (Transitional) Assembly debates. 
-<li>everything in the Scottish Parliament official report. (check with Mark!)
+<li>everything in the Scottish Parliament official report.
 </ul>
 
 <p>But this is by no means everything. Think of what we've done thus far as a
-mere taster of what could be possible.  In the future we plan to incorporate
-the gems to be found in Parliamentary Committees, where many MPs and Peers do
-good solid unheralded work improving legislation. If you want the complete,
-definitive record, go to the <a href="http://www.parliament.uk/" title="Link to
-parliament website">UK Parliament</a> site, and you might be able to find what
-you want.</p>
+mere taster of what could be possible.  In the future we&rsquo;d like to
+do things such as future business, more coverage of Bills, and so on.
+If you want the complete, definitive record, go to the <a
+href="http://www.parliament.uk/" title="Link to parliament website">UK
+Parliament</a> site, and you might be able to find what you want.</p>
 </dd>
 
 <dt><a name="moderation"></a>How do you moderate annotations?</dt>
@@ -236,10 +236,7 @@ member of any political party, TheyWorkForYou lists them as Independent, e.g.
 <a href="/mp/richard_taylor/wyre_forest">Richard Taylor</a> or
 <a href="/mp/robert_wareing/liverpool,_west_derby">Robert Wareing</a>.
 If an MP does not take the party whip, but is a member of that party, we list them as either
-Independent followed by the party name, e.g. <a href="/mp/clare_short/birmingham,_ladywood">Clare Short</a>,
-or as an Independent MP with their party name in brackets afterwards, e.g.
-<a href="/mp/bob_spink/castle_point">Bob Spink</a>, depending upon their own designation
-within Parliament.
+Independent followed by the party name, e.g. <a href="/mp/clare_short/birmingham,_ladywood">Clare Short</a>.
 </p>
 
 </dd>
