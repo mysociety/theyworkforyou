@@ -922,6 +922,7 @@ function prettify_office($pos, $dept) {
 		'Vice Chamberlain, HM Household' => 'Government Whip (technically Vice Chamberlain, HM Household)',
 		'Lords Commissioner, HM Treasury' => 'Government Whip (technically a Lords Commissioner, HM Treasury)',
 		'Assistant Whip, HM Treasury' => 'Assistant Whip (funded by HM Treasury)',
+		'Lords in Waiting, HM Household' => 'Government Whip (technically a Lord in Waiting, HM Household)',
 	);
 	if ($pos) { # Government post, or Chairman of Select Committee
 		$pretty = $pos;
