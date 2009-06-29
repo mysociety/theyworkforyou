@@ -1,11 +1,4 @@
 Subject: Your TheyWorkForYou email alert
--------------------------------------------------------------------
-TheyWorkForYou email alerts need love and support to look
-after. Please consider joining our search for 250 Patrons
-to help us continue and expand:
-        http://www.pledgebank.com/twfypatrons
--------------------------------------------------------------------
-
 {DATA}
 
 If clicking any of these links doesn't work, you may have
@@ -15,4 +8,11 @@ or 'return' on your keyboard.
 
 Best wishes,
 TheyWorkForYou.com
+
+-------------------------------------------------------------------
+TheyWorkForYou email alerts need love and support to look
+after. Please consider joining our search for 250 Patrons
+to help us continue and expand:
+        http://www.pledgebank.com/twfypatrons
+-------------------------------------------------------------------
 
