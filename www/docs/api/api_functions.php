@@ -113,7 +113,7 @@ $methods = array(
 	),
 	'getComments' => array(
 		'new' => true,
-		'parameters' => array('search', 'page', 'num', 'pid'),
+		'parameters' => array('search', 'page', 'num', 'pid', 'start_date', 'end_date'),
 		'required' => false,
 		'help' => 'Returns comments'
 	),
