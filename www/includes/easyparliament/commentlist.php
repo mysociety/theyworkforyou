@@ -330,8 +330,8 @@ class COMMENTLIST {
     	$data = array();
     	$where = array(
   			'visible=' => '1',
-  			'posted>=' => $args['start_date'],
-  			'posted<=' => $args['end_date']
+  			'date(posted)>=' => $args['start_date'],
+  			'date(posted)<=' => $args['end_date']
   		);
   		$input = array (
   			'amount' => array (
