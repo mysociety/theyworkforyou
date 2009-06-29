@@ -121,9 +121,9 @@ function expenses_item($ey, $col, $extra_info) {
 		$rank .= make_ranking($extra_info[$kr]) . ")";
 	}
 	$extra = '';
-	if ($col=='col5' && $ey==2007 && isset($extra_info['expenses2007_col5a']))
+	if ($col=='col5' && $ey==2007 && isset($extra_info['expenses2007_col5a']) && $extra_info['expenses2007_col5'] > 0)
 		$extra = '<sup><a href="#travel2007">**</a></sup>';
-	if ($col=='col5' && $ey==2008 && isset($extra_info['expenses2008_colmp_reg_travel_a']))
+	if ($col=='col5' && $ey==2008 && isset($extra_info['expenses2008_colmp_reg_travel_a']) && $extra_info['expenses2008_col5'] > 0)
 		$extra = '<sup><a href="#travel2008">*</a></sup>';
 	return array($amount, $rank, $extra);
 }
