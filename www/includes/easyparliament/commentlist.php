@@ -61,7 +61,7 @@ class COMMENTLIST {
 
 		// $format is the format the data should be rendered in.
 		
-		if ($view == 'ep' || $view == 'user' || $view == 'recent' || $view == 'search') {
+		if ($view == 'ep' || $view == 'user' || $view == 'recent' || $view == 'search' || $view == 'dates') {
 			// What function do we call for this view?
 			$function = '_get_data_by_'.$view;
 			// Get all the dta that's to be rendered.
