@@ -27,7 +27,7 @@ function api_getComments_front() {
 <?
 }
 
-function api_getComments_startdate($start_date) {
+function api_getComments_start_date($start_date) {
     	$args = array (
     		'start_date' => $start_date,
     		'end_date' => get_http_var('end_date')
