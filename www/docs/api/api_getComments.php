@@ -8,8 +8,8 @@ function api_getComments_front() {
 
 <h4>Arguments</h4>
 <dl>
-<dt>date (optional)</dt>
-<dd>Fetch the comments for this date.</dd>
+<dt>start_date, end_date (optional)</dt>
+<dd>Fetch the comments between two dates (inclusive).</dd>
 <dt>search (optional)</dt>
 <dd>Fetch the comments that contain this term.</dd>
 <dt>user_id (optional)</dt>
@@ -26,6 +26,16 @@ function api_getComments_front() {
 
 <?
 }
+
+function api_getComments_startdate($start_date) {
+    	$args = array (
+    		'start_date' => $start_date,
+    		'end_date' => get_http_var('end_date')
+    	);
+	$commentlist = new COMMENTLIST;    
+	$commentlist->display('dates', $args, 'api');
+}
+
 
 function api_getComments_search($s) {
     	$args = array (

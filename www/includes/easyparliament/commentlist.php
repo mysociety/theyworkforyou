@@ -75,7 +75,7 @@ class COMMENTLIST {
 		
 		if ($view == 'user') {
 			$template = 'comments_user';
-		} elseif ($view == 'recent') {
+		} elseif ($view == 'recent' or $view == 'dates') {
 			$template = 'comments_recent';
 		} elseif ($view == 'search') {
 			$template = 'comments_search';
@@ -323,6 +323,27 @@ class COMMENTLIST {
 		return $data;
 	}
 
+  function _get_data_by_dates($args){
+    // $args should contain start_date and end_date
+    
+    	twfy_debug (get_class($this), "getting data by recent");
+    	$data = array();
+    	$where = array(
+  			'visible=' => '1',
+  			'posted>=' => $args['start_date'],
+  			'posted<=' => $args['end_date']
+  		);
+  		$input = array (
+  			'amount' => array (
+  				'user' => true
+  			),
+  			'where'  => $where,
+  			'order'  => 'posted DESC'
+  		);
+    	$commentsdata = $this->_get_comment_data($input);
+    	$data['comments'] = $commentsdata;
+    	return $data;
+  }
 
 	function _get_data_by_search ($args) {
 		// $args should contain 'num', indicating how many to get.
