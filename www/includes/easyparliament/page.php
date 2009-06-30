@@ -2042,12 +2042,12 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 	}
 	
 	
-	function error_message ($message, $fatal = false) {	
+	function error_message ($message, $fatal = false, $status = 500) {
 		// If $fatal is true, we exit the page right here.
 		// $message is like the array used in $this->message()
 			
 		if (!$this->page_started()) {
-			header('HTTP/1.0 500 Internal Server Error');
+			header("HTTP/1.0 $status Internal Server Error");
 			$this->page_start();
 		}
 		
