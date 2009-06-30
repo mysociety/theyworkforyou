@@ -4,7 +4,8 @@ h1 {margin: 0;padding: 0;display: inline;
 	font-size: 1px;position:relative;top:-30px;left:-12px;}
 h2 , h2 a:link, h2 a:visited {color: #111;font-size:1.9em;text-decoration:none;}
 h3, h3 a:link, h3 a:visited {color: #5c4610;text-decoration:none;}
-h4, h4 a:link, h4 a:visited{color: #4D6C25;text-decoration:none;}
+h4 { color: #4D6C25; }
+h4 a:link, h4 a:visited { color: #4D6C25; text-decoration:underline; }
 
 /* Generic elements  */	
 

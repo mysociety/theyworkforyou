@@ -954,8 +954,8 @@ function major_summary($data, $echo = true) {
 	if (!$one_date) {
 		$todaystime = gmmktime(0, 0, 0, date('m'), date('d'), date('Y'));
 		foreach ($data as $major => $array) {
-			if ($todaystime - $array['timestamp'] == 86400) $daytext[$major] = "Yesterday's";
-			elseif ($todaystime - $array['timestamp'] <= (6 * 86400)) $daytext[$major] = gmdate('l', $array['timestamp']) . "'s";
+			if ($todaystime - $array['timestamp'] == 86400) $daytext[$major] = "Yesterday&rsquo;s";
+			elseif ($todaystime - $array['timestamp'] <= (6 * 86400)) $daytext[$major] = gmdate('l', $array['timestamp']) . "&rsquo;s";
 			else $daytext[$major] = "The most recent ";
 		}
 	}
