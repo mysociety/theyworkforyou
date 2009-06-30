@@ -52,8 +52,6 @@ function share_tab(tab) {
 </script>
 */ ?>
 
-<p><img title="Duck-billed platypus" src="bill3.jpg" align="right" alt="" hspace="10"></p>
-
 <p>Writing, discussing and voting on bills is what we employ our MPs to do. If
 enough <strong>MPs vote on bills</strong> they become the law, meaning you or I
 can get <strong>locked up</strong> if they pass a bad one.</p>
@@ -167,8 +165,10 @@ Suck it and sign up, soldier.
 
 <?
 $PAGE->block_end();
-$PAGE->stripe_end();
+$PAGE->stripe_end(array(array(
+	'type' => 'html',
+	'content' => '<p align="center"><img title="Duck-billed platypus" src="bill3.jpg" alt="" hspace="10"></p>'
+)));
 $PAGE->page_end ();
-
 
 

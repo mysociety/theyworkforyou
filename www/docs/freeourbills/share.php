@@ -37,6 +37,9 @@ p#free_our_bills_banner {
 div#intro.block ul.free_our_bill_reasons li {
     font-weight: normal;
 }
+div#intro.block {
+	border-top: none;
+}
 div#intro.block h4 {
 	background: #C00;
 	color: #fff;

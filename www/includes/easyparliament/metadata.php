@@ -255,7 +255,7 @@ $this->page = array (
 		'url'			=> 'foiorder2009/'
 	),
 	'campaign' => array (
-		'title'			=> 'Free Our Bills!',
+		'title'			=> '', #Free Our Bills!',
 		'url'			=> 'freeourbills/'
 	),
 	'campaign_edm' => array (
