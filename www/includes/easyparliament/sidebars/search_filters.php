@@ -40,13 +40,13 @@ $this->block_start(array( 'title' => "Filtering your results"));
 
 ?>
 <form method="get" action="/search/">
-<input type="hidden" name="s" value="<?=$filter_ss ?>">
+<input type="hidden" name="s" value="<?=htmlspecialchars($filter_ss) ?>">
 
 <ul>
 
 <li><label for="from">Date range:</label><br>
-<input type="text" id="from" name="from" value="<?=$from?>" size="15">
- to <input type="text" name="to" value="<?=$to?>" size="15">
+<input type="text" id="from" name="from" value="<?=htmlspecialchars($from)?>" size="15">
+ to <input type="text" name="to" value="<?=htmlspecialchars($to)?>" size="15">
  <div class="help">
  You can give a <strong>start date, an end date, or both</strong>, to restrict results to a
  particular date range; a missing end date implies the current date, a missing start date
@@ -56,7 +56,7 @@ $this->block_start(array( 'title' => "Filtering your results"));
 
 <li>
 <label for="person">Person:</label>
-<input type="text" name="person" value="<?=$person?>" size="25">
+<input type="text" name="person" value="<?=htmlspecialchars($person)?>" size="25">
 <div class="help">
 Enter a name here to restrict results to contributions only by that person. 
 </div>
