@@ -16,10 +16,16 @@ if (get_http_var('pid') == 16407) {
 $searchstring = construct_search_string();
 
 $this_page = 'search';
-if (get_http_var('adv')) {
-	// Advanced search page
+
+$warning = '';
+if (preg_match('#^\s*[^\s]+\.\.[^\s]+\s*$#', $searchstring)) {
+    $warning = 'You cannot search for just a date range, please select some other criteria as well.';
+}
+
+if (get_http_var('adv') || $warning) {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
+    if ($warning) echo "<p id='warning'>$warning</p>";
     $PAGE->advanced_search_form();
     $PAGE->stripe_end(array(
 	    array(
@@ -610,6 +616,6 @@ function construct_search_string() {
             $searchstring .= ' speaker:' . join(' speaker:', $pids);
     }
 
-    return $searchstring;
+    return trim($searchstring);
 }
 
