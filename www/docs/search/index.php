@@ -21,6 +21,9 @@ $warning = '';
 if (preg_match('#^\s*[^\s]+\.\.[^\s]+\s*$#', $searchstring)) {
     $warning = 'You cannot search for just a date range, please select some other criteria as well.';
 }
+if (preg_match('#\.\..*?\.\.#', $searchstring)) {
+    $warning = 'You cannot search for more than one date range.';
+}
 
 if (get_http_var('adv') || $warning) {
 	$PAGE->page_start();
