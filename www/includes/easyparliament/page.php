@@ -2336,6 +2336,7 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 		if (!$wtt && ($value || $person_name)) {
 			echo '<div style="margin-top: 5px">';
 			$orderUrl = new URL('search');
+			$orderUrl->insert(array('s'=>$value)); # Need the parsed value
 		        $ordering = get_http_var('o');
 		        if ($ordering!='r' && $ordering!='d' && $ordering != 'p') {
 		            $ordering='d';
