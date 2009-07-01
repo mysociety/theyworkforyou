@@ -709,7 +709,7 @@ $this->page = array (
 		'url'			=> 'search/',
 		'robots'		=> 'noindex, nofollow',
 		'heading'		=> '',
-		'session_vars'	=> array ('s', 'pid', 'o', 'pop', 'phrase', 'exclude', 'from', 'to', 'department', 'party', 'column', 'section', 'groupby')
+		'session_vars'	=> array ('s', 'pid', 'o', 'pop')
 	),
 	'search_help'		=> array (
 		'sidebar'		=> 'search',
