@@ -6,11 +6,13 @@ require_once "sharethis.php";
 $this_page = 'campaign';
 $PAGE->page_start();
 $PAGE->stripe_start();
-$PAGE->block_start(array ('id'=>'intro', 'title'=>'We need your help:'));
-
 freeourbills_styles();
 
+# $PAGE->block_start(array ('id'=>'intro', 'title'=>'We need your help:'));
+
 ?>
+
+<p id="fob_help">We need your help:</p>
 
 <h2>Free our Bills!</h2>
 
@@ -18,39 +20,6 @@ freeourbills_styles();
 Parliament to Publish Bills in a 21st Century Way, Please. Now.</p>
 
 <h3>What the&hellip;?</h3>
-
-<?php /*
-<!--<script type="text/javascript" src="/jslib/share/share.js"></script>-->
-<script type="text/javascript" src="/freeourbills/jquery.js"></script>
-<script type="text/javascript">
-// Share this related functions
-function share(link) {
-    var form = $('#share_form');
-    if (!form.is(':hidden')) {
-        form.hide();
-        return;
-    }
-    var offset = $(link).offset();
-    form.css('left', offset.left + 'px');
-    form.css('top', (offset.top + link.offsetHeight + 3) + 'px');
-    form.show();
-}
-
-function share_tab(tab) {
-    if (tab == 1) {
-        $('#share_tab2').removeClass();
-        $('#share_tab1').addClass('selected');
-        $('#share_email').hide();
-        $('#share_social').show();
-    } else {
-        $('#share_tab1').removeClass()
-        $('#share_tab2').addClass('selected');
-        $('#share_social').hide();
-        $('#share_email').show();
-    }
-}
-</script>
-*/ ?>
 
 <p>Writing, discussing and voting on bills is what we employ our MPs to do. If
 enough <strong>MPs vote on bills</strong> they become the law, meaning you or I
@@ -61,7 +30,7 @@ or what expenses they claim.</p>
 
 <p>The problem, to put it simply, is that the way in which Bills are currently
 published out is completely <strong>incompatible with the Internet</strong> era. As a
-consequence far fewer people than should ever get to find out what a Bill says
+consequence few people ever get to find out what a Bill says
 before it becomes law and binds us all. Bills are currently buried within the
 Parliamentary website, published in a hopelessly old fashioned way that makes
 them difficult to find, difficult to read and impossible to do anything clever
@@ -78,7 +47,7 @@ campaign and we'll tell you whether your MP has signed.</p>
 
 <p></p>
 
-<h3>"Why?"</h3>
+<h3>Why?</h3>
 
 <p>Being the people who run TheyWorkForYou we spend lots of our time
 taking rubbish, broken information from Parliament and fixing it up so
@@ -95,21 +64,20 @@ tiny charity without many resources to fix this information,
 fashioned way.  Unless Parliament produces better bills:
 
 <ul class="free_our_bill_reasons">
-<li class="free_our_bill_reasons">We can&rsquo;t give you <strong>email alerts</strong> to tell you when a bill mentions
+<li>You can&rsquo;t get an <strong>email alert</strong> to tell you when a bill mentions
 something you might be interested in.
-<li>We can&rsquo;t tell you what <strong>amendments your own MP</strong> is asking for, or voting on.
-<li>We can&rsquo;t help people who know about bills <strong>annotate them</strong> to explain
+<li>You can&rsquo;t find out what <strong>amendments your own MP</strong> is asking for, or voting on.
+<li>You can&rsquo;t learn, or help other people learn, about the process by <strong>annotating them</strong> to explain
 what they&rsquo;re really going on about for everyone else.
-<li>We can&rsquo;t build services that would help MPs and their staff notice
+<li>MPs and their staff can&rsquo;t receive services that would help them notice
 when they were being asked to vote on dumb or <strong>dubious things</strong>.
-<li>We can&rsquo;t really give a <strong>rounded view</strong> of how useful your MP is if we
+<li>You can&rsquo;t get a <strong>rounded view</strong> of how useful your MP is if you
 can&rsquo;t see their involvement with the bill making process.
-<li>We can&rsquo;t do about <strong>12 zillion</strong> other things that we&rsquo;re not even bright
+<li>And about <strong>12 zillion</strong> other things that we&rsquo;re not even bright
 enough to think of yet.
 </ul>
 
-<br><!-- yuk -->
-
+<!-- 
 <h3>"Why won&rsquo;t Parliament do this?"</h3>
 
 <p>We tried, my dears, we really did. We had meetings, and heard
@@ -132,17 +100,18 @@ member putting between 10% and 100% of their day into operating it,
 whilst Parliament is actually in session. They can do what they want
 in the holidays &ndash; we aren&rsquo;t slave drivers. Oh yes, 5,000 people work in
 Parliament too, over 250 in the computers bit, so we really think they
-can afford this.
+can afford this. -->
 
-<p>See "<a href="/freeourbills/techy">Details of the technical changes we want Parliament to make to the way it publishes bills</a>" for more.
+<p>Read our <a href="/freeourbills/techy">details of the technical changes we
+want Parliament to make to the way it publishes bills</a> for more.
 
-<h3>"Won&rsquo;t this disrupt the delicate process of writing bills?"</h3>
+<h3>Won&rsquo;t this disrupt the delicate process of writing bills?</h3>
 
 <p>Nope, the improved publication we&rsquo;re talking about has nothing to do
 with the actual legal contents of bills. It&rsquo;s about how it gets
 translated into an electronic format once they&rsquo;ve finished.
 
-<h3>"What are your real motives? Who does this benefit politically?"</h3>
+<h3>What are your real motives? Who does this benefit politically?</h3>
 
 <p>Dammit, we hoped you wouldn't ask that, and now our secret is blown.
 Obviously this campaign benefits Gordon Brown at the expense of Tony Blair. No,
@@ -150,13 +119,14 @@ wait a minute, that was last year. It definitely gives Hillary the edge over
 Obama though. No, hang on, that's over too. Actually, it isn't partisan at all
 - that's what I was trying to say. mySociety is based on a charity, you see, so
 even if we wanted to be partisan, it'd be against the law. And if you're still
-suspicious you'll see that MPs from almost all parties have signed our EDM.
+suspicious you'll see that MPs from almost all parties have signed our
+<a href="http://edmi.parliament.uk/EDMi/EDMDetails.aspx?EDMID=36490">EDM</a>.
 
-<h3>"Isn&rsquo;t this an embarrassingly obscure thing to be campaigning about?
-Can&rsquo;t you campaign about saving puppies or something?"</h3>
+<h3>Isn&rsquo;t this an embarrassingly obscure thing to be campaigning about?
+Can&rsquo;t you campaign about saving puppies or something?</h3>
 
 <p>Hey &ndash; <strong>you&rsquo;re</strong> the one who just read all the way down to this point.
-Suck it and sign up, soldier.
+Suck it up and sign up, soldier.
 
 <h3>We need you!</h3>
 
@@ -164,7 +134,6 @@ Suck it and sign up, soldier.
 <? freeourbills_sharethis_link(); ?>
 
 <?
-$PAGE->block_end();
 $PAGE->stripe_end(array(array(
 	'type' => 'html',
 	'content' => '<p align="center"><img title="Duck-billed platypus" src="bill3.jpg" alt="" hspace="10"></p>'

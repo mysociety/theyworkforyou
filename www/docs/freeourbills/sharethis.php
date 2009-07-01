@@ -55,11 +55,11 @@ function freeourbills_share_page() {
 }
 
 function freeourbills_sharethis_link() {
-    print '<a href="/freeourbills/doshare"';
+    print '<p><a href="/freeourbills/doshare"';
     #print 'onclick="share(this); return false;"';
     print ' title="' .
         _('E-mail this, post to del.icio.us, etc.'). '" class="share_link" rel="nofollow">'.
-        _('Share this'). '</a>';
+        _('Share this'). '</a></p>';
     #freeourbills_share_form();
 }
 

@@ -34,21 +34,25 @@ p#free_our_bills_banner {
     width:50%; margin:0 auto; text-align: center;
     font-style: italic;
 }
-div#intro.block ul.free_our_bill_reasons li {
-    font-weight: normal;
+ul.free_our_bill_reasons {
+	list-style-type: disc;
 }
-div#intro.block {
-	border-top: none;
-}
-div#intro.block h4 {
+
+p#fob_help {
+	font-weight: bold;
 	background: #C00;
 	color: #fff;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-	}
+	padding: 0.5em;
+	margin-bottom: 0;
+	margin-left: 0;
+}
+
+div.main .free_our_bills_signup p {
+	margin-left: 0;
+}
 .free_our_bills_signup {
     display: table;
-    margin-left: 1em;
+    margin-left: 3em;
     margin-right: 1em;
     margin-bottom: 1em;
     background-color: #b3daff;

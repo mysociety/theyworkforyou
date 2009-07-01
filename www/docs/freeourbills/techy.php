@@ -5,8 +5,6 @@ require_once "share.php";
 $this_page = 'campaign';
 $PAGE->page_start();
 $PAGE->stripe_start();
-#$PAGE->block_start(array ('id'=>'intro', 'title'=>'We need your help:'));
-
 freeourbills_styles();
 
 ?>
@@ -16,61 +14,73 @@ freeourbills_styles();
 <p id="free_our_bills_banner">The Nice Polite Campaign to Gently Encourage
 Parliament to Publish Bills in a 21st Century Way, Please. Now.</p>
 
-<p></p>
-
 <h3>Details of the technical changes we want Parliament to make to the way
 it publishes bills.</h3>
 
-<h3>Background</h3>
+<p>We would like Bills, and bill-related data, to be published in a structured
+machine-readable way, as soon as is possible after the data has been generated.
+
+<ol>
+<li><a href="#1">How are bills published online at the moment?</a>
+<li><a href="#2">What are the problems with the current system?</a>
+<li><a href="#3">What are the solutions that "Free Our Bills" proposes?</a>
+<li><a href="#4">What things could any programmer do if these changes were made?</a>
+</ol>
+
+<h3><a name="1"></a>How are bills published online at the moment?</h3>
 
 <p>As bills are written they go through various stages. Towards the very
 end of the process, they are dumped out in a format that is sent to
 the printers, and which is converted to HTML so that it can be put up
-on the Parliamentary website.</p>
+on the Parliamentary website. Daily amendment lists, or proceedings of
+Public Bill Committees and the like, are treated similarly. This is
+a very complicated process with lots of input from many different places.</p>
 
-<p>We don't want to change anything about this process at all - we don't
-want to disturb the hard working people who have this important job.
-We just want the following to happen:</p>
+<p>Currently, <a href="http://services.parliament.uk/bills/">http://services.parliament.uk/bills/</a>
+is Parliament's main page for bills, with the
+<a href="http://services.parliament.uk/bills/2008-09/health.html">Health Bill</a> as an example bill
+&ndash; click the Show links to see how much information there is generated about
+this bill alone.
 
-<p>1. At the stage where the completed bill text is finished and ready
-for printing, an electronic copy of each bill or list of amendments
-needs to be copied onto a new, external server (external so that this
-entire project has no implications for network security). It should be
-possible to do this using a one or two line script running on a
-parliamentary server.</p>
+<h3><a name="2"></a>What are the problems with the current system?</h3>
 
-<p>2. A different script on the external server attempts to parse the
-bills to mark them up with a basic structure (see below for more
-details)</p>
+<p>This is easily illustrated with an example. As of writing, the Health Bill has
+just finished its Committee stage; here is <a href="http://www.publications.parliament.uk/pa/cm200809/cmbills/097/09097.i-iii.html">the Bill as introduced to the House of Commons</a>. Now here is
+<a href="http://www.publications.parliament.uk/pa/cm200809/cmbills/097/amend/pbc0970615m.63-69.html">the list of amendments for 16th June</a>, the first day the Committee met.
+As a first question, can you tell me what Clause 2 would look like if all Stephen O'Brien's
+amendments were accepted? Or what Sandra Gidley's Clause 2 amendment does?
+The 
+<a href="http://www.publications.parliament.uk/pa/cm200809/cmpublic/health/090616/am/90616s01.htm">proceedings of the first meeting</a> are elsewhere, as is the <a href="http://www.publications.parliament.uk/pa/cm200809/cmbills/097/pro0971606p.1-6.html">summary of proceedings</a> &ndash; can you tell me what Clause 2 looked like
+given the proceedings as to which amendments were made or withdrawn?
 
-<p>3. A parliamentary official gets notified by email that there is a new
-bill that needs checking. They click on the link in their email
-client, which loads straight into a page containing the new bill.
-Different sorts of structure are highlighted in different colours, and
-their job is to look carefully through the document to see if the
-parser has correctly identified every heading, subheading, paragraph,
-bill name etc. If they find that the parser has made mistakes they
-edit them directly in the browser using a WYSIWYG editor.</p>
+<h3><a name="3"></a>What are the solutions that "Free Our Bills" proposes?</h3>
 
-<p>4. Once they are happy that the bill has been correctly marked up.
-They hit 'save' and a copy is immediately published on the external
-server, ready for third parties to re-use in whatever way they want.</p>
+<p>In an ideal world, we would like Bills (and related instruments such as amendment
+lists and Public Bill Committee debates) to be published in a structured data
+format, with all relevant metadata, as soon as is possible. This doesn't just
+mean "publishing bills online" as is currently done &ndash; it means publishing
+them online in such a way that each bit can be referred to and, more
+importantly, contains the data necessary to join things up &ndash; e.g. when an
+amendment paper says a particular amendment is going to change from halfway
+through line 15 to line 18 of page 3, that amendment has its own ID,
+and contains the means to point out what ID or IDs in the Bill are going to be
+changed by this amendment. When a Public Bill committee votes on a particular
+clause of a Bill, that reference is linked to the ID, so it can be
+cross-referenced to what is being voted on. This would be of use not just to
+the public, but to MPs, drafters, and everyone involved in the process.
 
-<p>In this whole process the text of the bill is never touched or
-changed: there are no issues here about changing the meaning of bills.
-Amendments and explanatory notes will be processed in a similar way.
-</p>
+<p>As an alternative, weaker, solution, you could bolt something on to the
+current process, whereby just before the current bill or amendment text is
+to be published on the web, it is passed through to a parser which tries to
+extract as much structure as it can automatically, and then be passed on to
+a human for checking and adding anything that it could not cope with.
 
-<p>Once we've done that, mySociety (and anyone else) will be able to
-build sites a bit like this 
-<a href="http://bitter.ukcod.org.uk/~matthew/bills/read-diff">rough-sketch demo</a>, only much better.</p>
-
-<h3>The Data Schema</h3>
+<h4>The Data Schema</h4>
 
 <p>We propose an initial XML structure for parsing bills, amendments
 and explanatory notes that has only a fistful of types, such as:</p>
 
-<ul>
+<ul class="free_our_bill_reasons">
 <li> Bill name </li>
 <li> Title page rubrik </li>
 <li> Date of publication </li>
@@ -99,16 +109,36 @@ long as the spec is evolved in a sensible, open way, and published for
 all to read and use, it will do its job admirably, and do it in a
 hundredth the time of the 'ocean boiling' approach.</p>
 
-<h3>The Correction Software Specification</h3>
 
-<p>The schema is no use on its own. It needs to be built hand in hand
-with a parser and a browser based corrections interface.</p>
+<h3><a name="4"></a>What things could any programmer do if these changes were made?</h3>
+
+<p>Here are just a few things we&rsquo;ve thought of &ndash; but it is the <em>structured</em>
+nature of the data that is important, not what uses the data could possibly be put to.
+
+<ul class="free_our_bill_reasons">
+<li>You can&rsquo;t get an <strong>email alert</strong> to tell you when a bill mentions
+something you might be interested in.
+<li>You can&rsquo;t find out what <strong>amendments your own MP</strong> is asking for, or voting on.
+<li>You can&rsquo;t learn, or help other people learn, about the process by <strong>annotating them</strong> to explain
+what they&rsquo;re really going on about for everyone else.
+<li>MPs and their staff can&rsquo;t receive services that would help them notice
+when they were being asked to vote on dumb or <strong>dubious things</strong>.
+<!-- <li>You can&rsquo;t get a <strong>rounded view</strong> of how useful your MP is if you
+can&rsquo;t see their involvement with the bill making process. -->
+<li>And about <strong>12 zillion</strong> other things that we&rsquo;re not even bright
+enough to think of yet.
+</ul>
+
+<p>Here is something that was thrown together quite quickly. It's nothing more than the start of
+the beginning of an idea of a
+<a href="http://bitter.ukcod.org.uk/~matthew/bills/read-diff">rough-sketch demo</a>.</p>
+
 
 <h3>We need you!</h3>
 
 <? signup_form() ?>
 
-<p><a href="/freeourbills">To 'Free our Bills' homepage</a>
+<p><a href="/freeourbills">Free our Bills home</a>
 
 <?
 #$PAGE->block_end();
