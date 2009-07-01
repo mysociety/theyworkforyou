@@ -77,7 +77,7 @@ a human for checking and adding anything that it could not cope with.
 
 <h4>The Data Schema</h4>
 
-<p>We propose an initial XML structure for parsing bills, amendments
+<p>We propose an initial structure for bills, amendments
 and explanatory notes that has only a fistful of types, such as:</p>
 
 <ul class="free_our_bill_reasons">
@@ -131,7 +131,9 @@ enough to think of yet.
 
 <p>Here is something that was thrown together quite quickly. It's nothing more than the start of
 the beginning of an idea of a
-<a href="http://bitter.ukcod.org.uk/~matthew/bills/read-diff">rough-sketch demo</a>.</p>
+<a href="http://bitter.ukcod.org.uk/~matthew/bills/read-diff">rough-sketch demo</a>, and in no
+way should any of its content be taken as what we would like Parliament to do, only the possibility
+of what could be done with more structured data.</p>
 
 
 <h3>We need you!</h3>
