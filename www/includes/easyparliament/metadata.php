@@ -561,7 +561,7 @@ $this->page = array (
     		'title'			=> "List of all Members of Parliament (MPs)"
     	),
     	'parent'		=> 'hansard',
-    	'title'			=> 'All Members of Parliament',
+    	'title'			=> '',
     	'url'			=> 'mps/'
     ),
 	'c4_mps' => array (

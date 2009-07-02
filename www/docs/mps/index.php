@@ -9,9 +9,14 @@ elseif (get_http_var('c4x')) $this_page = 'c4x_mps';
 
 $args = array();
 
-if (get_http_var('all')) {
-	$DATA->set_page_metadata($this_page, 'title', 'All MPs, including former ones');
-	$args['all'] = true;
+if ($date = get_http_var('date')) {
+	$date = parse_date($date);
+	if ($date) {
+		$DATA->set_page_metadata($this_page, 'title', 'MPs, as on ' . format_date($date['iso'], LONGDATEFORMAT));
+		$args['date'] = $date['iso'];
+	}
+} else {
+	$DATA->set_page_metadata($this_page, 'title', 'All current Members of Parliament');
 }
 
 if (get_http_var('f') != 'csv') {

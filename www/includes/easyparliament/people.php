@@ -82,7 +82,9 @@ class PEOPLE {
 		$query = 'SELECT distinct person_id, title, first_name, last_name, constituency, party, dept, position
 			FROM member LEFT OUTER JOIN moffice ON member.person_id = moffice.person AND to_date="9999-12-31"
 			WHERE house=' . $args['house'] . ' ';
-		if (!isset($args['all']))
+		if (isset($args['date']))
+			$query .= 'AND entered_house <= date("' . $args['date'] . '") AND date("' . $args['date'] . '") <= left_house ';
+		elseif (!isset($args['all']) || $args['house'] == 1)
 			$query .= 'AND left_house = (SELECT MAX(left_house) FROM member) ';
 		if (isset($args['order'])) {
 			if ($args['order'] == 'name') { # Lords
