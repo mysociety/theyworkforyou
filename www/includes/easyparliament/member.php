@@ -13,6 +13,7 @@ class MEMBER {
 	var $constituency; 
 	var $party;
 	var $other_parties;
+	var $other_constituencies;
 	var $houses = array();
 	var $entered_house = array();
 	var $left_house = array();
@@ -160,6 +161,10 @@ class MEMBER {
 					'from' => $this->party_text($q->field($row, 'party')),
 					'date' => $q->field($row, 'left_house')
 				);
+			}
+
+			if ($const != $this->constituency) {
+				$this->other_constituencies[$const] = true;
 			}
 		}
 
@@ -622,6 +627,7 @@ class MEMBER {
 			'constituency' 		=> $this->constituency(),
 			'party'			=> $this->party_text(),
 			'other_parties'		=> $this->other_parties,
+			'other_constituencies'	=> $this->other_constituencies,
 			'houses'		=> $this->houses(),
 			'entered_house'		=> $this->entered_house(),
 			'left_house'		=> $this->left_house(),

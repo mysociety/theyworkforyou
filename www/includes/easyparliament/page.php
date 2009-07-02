@@ -1344,6 +1344,11 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 
         //History
 		echo '<ul class="hilites">';		
+		if ($member['other_constituencies']) {
+			print "<li>Also represented " . join('; ', array_keys($member['other_constituencies']));
+			print '</li>';
+		}
+
 		if ($member['other_parties'] && $member['party'] != 'Speaker' && $member['party']!='Deputy Speaker') {
 			print "<li>Changed party ";
 			foreach ($member['other_parties'] as $r) {
