@@ -16,8 +16,9 @@ Welsh Assembly, as we do with the
 currently have the time or resources ourselves &mdash; in fact,
 both those assemblies were mainly done by volunteers.</p>
 
-<p>If you're interested in volunteering to help out, please get
-in touch!</p>
+<p>If you're interested in volunteering to help out, please
+<a href="https://secure.mysociety.org/admin/lists/mailman/listinfo/theyworkforyou-wales">join
+the mailing list</a>.</p>
 
 <p>Visit <a href="http://www.assemblywales.org/">the official Welsh Assembly website</a>.</p>
 
