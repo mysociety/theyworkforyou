@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.42 2009-06-29 12:04:02 matthew Exp $
+# $Id: mpinfoin.pl,v 1.43 2009-07-14 14:51:09 matthew Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -24,6 +24,7 @@ use Data::Dumper;
 use Syllable;
 
 my %action;
+my $verbose;
 foreach (@ARGV) {
         if ($_ eq 'publicwhip') {
                 $action{'pw'} = 1;
@@ -37,11 +38,13 @@ foreach (@ARGV) {
                 $action{'wtt'} = 1;
         } elsif ($_ eq 'rankings') {
                 $action{'rankings'} = 1;
-        }elsif ($_ eq 'speaker_candidates') {
+        } elsif ($_ eq 'speaker_candidates') {
                 $action{'speaker_candidates'} = 1;
+        } elsif ($_ eq 'verbose') {
+                $verbose = 1;
         } else {
-        print "Action '$_' not known\n";
-        exit(0);
+                print "Action '$_' not known\n";
+                exit(0);
         }
 }
 if (scalar(@ARGV) == 0) {
@@ -76,30 +79,47 @@ my $twig = XML::Twig->new(
 
 if ($action{'regmem'}) {
         # TODO: Parse ALL regmem in forwards chronological order, so each MP (even ones left parl) gets their most recent one
+        print "Parsing register of members' interests\n" if $verbose;
         $twig->parsefile(mySociety::Config::get('RAWDATA') . "scrapedxml/regmem/$regmemfile", ErrorContext => 2);
 }
 
 if ($action{'links'}) {
+        print "Parsing links\n" if $verbose;
+        print "  MLA Wikipedia\n" if $verbose;
         $twig->parsefile($pwmembers . "wikipedia-mla.xml", ErrorContext => 2);
+        print "  MSP \"\n" if $verbose;
         $twig->parsefile($pwmembers . "wikipedia-msp.xml", ErrorContext => 2);
+        print "  MP \"\n" if $verbose;
         $twig->parsefile($pwmembers . "wikipedia-commons.xml", ErrorContext => 2);
+        print "  Lords \"\n" if $verbose;
         $twig->parsefile($pwmembers . "wikipedia-lords.xml", ErrorContext => 2);
+        print "  Bishops\n" if $verbose;
         $twig->parsefile($pwmembers . "diocese-bishops.xml", ErrorContext => 2);
+        print "  EDMs\n" if $verbose;
         $twig->parsefile($pwmembers . "edm-links.xml", ErrorContext => 2);
+        print "  BBC\n" if $verbose;
         $twig->parsefile($pwmembers . "bbc-links.xml", ErrorContext => 2);
+        print "  BBC IDs\n" if $verbose;
         $twig->parsefile($pwmembers . "bbc-constituency-ids.xml", ErrorContext => 2);
+        print "  dates of birth\n" if $verbose;
         $twig->parsefile($pwmembers . "dates-of-birth.xml", ErrorContext => 2);
         # TODO: Update Guardian links
+        print "  Guardian\n" if $verbose;
         $twig->parsefile($pwmembers . "guardian-links.xml", ErrorContext => 2);
         # TODO: Update websites (esp. with new MPs)
+        print "  Personal websites\n" if $verbose;
         $twig->parsefile($pwmembers . 'websites.xml', ErrorContext => 2);
+        print "  MSP websites\n" if $verbose;
         $twig->parsefile($pwmembers . 'websites-sp.xml', ErrorContext => 2);
         chdir $FindBin::Bin;
+        print "  Lords biographies\n" if $verbose;
         $twig->parsefile($pwmembers . 'lordbiogs.xml', ErrorContext => 2);
+        print "  Journalisted\n" if $verbose;
         $twig->parsefile($pwmembers . 'journa-list.xml', ErrorContext => 2);
 }
 
 if ($action{'wtt'}) {
+        print "Parsing WTT stats\n" if $verbose;
         $twig->parseurl("http://www.writetothem.com/stats/2005/mps?xml=1");
         $twig->parseurl("http://www.writetothem.com/stats/2006/mps?xml=1");
         $twig->parseurl("http://www.writetothem.com/stats/2007/mps?xml=1");
@@ -107,11 +127,13 @@ if ($action{'wtt'}) {
 
 
 if ($action{'speaker_candidates'}) {
+        print "Parsing speaker candidates\n" if $verbose;
         $twig->parsefile($pwmembers . 'speaker-candidates.xml', ErrorContext => 2);
 }
 
 
 if ($action{'pw'}) {
+        print "Parsing Public Whip attendance and policies\n" if $verbose;
         $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml"); # i love twig
         $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords"); # i love twig
         # TODO: Add smoking, parliamentary scrutiny
@@ -125,6 +147,7 @@ if ($action{'pw'}) {
 }
 
 if ($action{'expenses'}) {
+        print "Parsing expenses\n" if $verbose;
         $twig->parsefile($pwmembers . "expenses200708.xml", ErrorContext => 2);        
         $twig->parsefile($pwmembers . "expenses200607.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "expenses200506.xml", ErrorContext => 2);
@@ -140,6 +163,7 @@ my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . 
 my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASS'), { RaiseError => 1, PrintError => 0 });
 #DBI->trace(2);
 if ($action{'rankings'}) {
+        print "Making rankings\n" if $verbose;
         makerankings($dbh);
 }
 
@@ -199,8 +223,8 @@ foreach my $constituency (keys %$consinfohash) {
 # Handler for loading data pertaining to a member id
 sub loadmemberinfo
 { 
-	my ($twig, $memberinfo) = @_;
-	my $id = $memberinfo->att('id');
+        my ($twig, $memberinfo) = @_;
+        my $id = $memberinfo->att('id');
         foreach my $attname ($memberinfo->att_names())
         {
                 next if $attname eq "id";
@@ -212,8 +236,8 @@ sub loadmemberinfo
 # Handler for loading data pertaining to a person id
 sub loadpersoninfo
 { 
-	my ($twig, $personinfo) = @_;
-	my $id = $personinfo->att('id');
+        my ($twig, $personinfo) = @_;
+        my $id = $personinfo->att('id');
         foreach my $attname ($personinfo->att_names())
         {
                 next if $attname eq "id";
@@ -226,8 +250,8 @@ sub loadpersoninfo
 # Handler for loading data pertaining to a speaker candidate
 sub loadspeakercandidateinfo
 { 
-	my ($twig, $speakerinfo) = @_;
-	my $id = $speakerinfo->att('id');
+        my ($twig, $speakerinfo) = @_;
+        my $id = $speakerinfo->att('id');
         foreach my $attname ($speakerinfo->att_names())
         {
                 next if $attname eq "id";
@@ -250,8 +274,8 @@ sub loadspeakercandidateinfo
 # Handler for loading data pertaining to a canonical constituency name
 sub loadconsinfo
 { 
-	my ($twig, $consinfo) = @_;
-	my $id = $consinfo->att('canonical');
+        my ($twig, $consinfo) = @_;
+        my $id = $consinfo->att('canonical');
         foreach my $attname ($consinfo->att_names())
         {
                 next if $attname eq "canonical";
@@ -264,13 +288,13 @@ sub loadconsinfo
 # Handler for loading register of members interests
 sub loadregmeminfo
 {
-	my ($twig, $regmem) = @_;
-	my $id = $regmem->att('personid');
+        my ($twig, $regmem) = @_;
+        my $id = $regmem->att('personid');
 
         my $htmlcontent = "";
 
-	for (my $category = $regmem->first_child('category'); $category; 
-		$category = $category->next_sibling('category'))
+        for (my $category = $regmem->first_child('category'); $category; 
+                $category = $category->next_sibling('category'))
         {
                 $htmlcontent .= '<div class="regmemcategory">';
                 $htmlcontent .= $category->att("type") . ". " . $category->att("name");
