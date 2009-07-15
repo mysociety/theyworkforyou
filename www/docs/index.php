@@ -15,7 +15,7 @@ $PAGE->stripe_start("full", '');
 
 ?>
 <!-- Welcome -->
-<div class="attention">
+<div class="attention welcome">
     <h2>
         Welcome to TheyWorkForYou for the UK Parliament.
         <br>Find out what your MP is doing in your name, read debates and sign up for email alerts.
@@ -109,6 +109,13 @@ $PAGE->stripe_start("full", '');
     $PAGE->stripe_end();
     $PAGE->stripe_start("full", '', true);    
 ?>
+
+<!-- Campaign -->
+<div class="campaign">
+    <p>
+        TheyWorkForYou needs your help <span class="chev"><span class="hide">-</span></span> <a href="http://www.pledgebank.com/twfypatrons">Become a patron, donate &pound;5 a month ...</a>
+    </p>
+</div>
 
 <!-- Latest in parliament -->
 <div class="latest col3">

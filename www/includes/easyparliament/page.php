@@ -303,8 +303,11 @@ if (typeof urchinTracker == 'function') urchinTracker();
 	function mysociety_bar () {
 		global $this_page;
 		?>
-		
 		    <div id="mysociety_bar">
+		    <?php global $this_page;?>
+		    <?php if ($this_page != 'overview') { ?>
+	            <div id="headercampaign"><p><a href="http://www.pledgebank.com/twfypatrons">Become a They Work For You Patron ...</p></a></div>				        
+	        <?php } ?>
 		        <ul>
 		            <li id="logo">
 		                <a href="http://www.mysociety.org"><span>mySociety</span></a>
@@ -364,7 +367,6 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 */
 		?>
 	<div id="banner">
-
 		<div id="title">
 			<h1><?php echo $img; ?></h1>
 		</div>
@@ -709,6 +711,9 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 				array (
 					'type'	=> 'nextprev'
 				),
+    			array (
+    				'type'	=> 'none'
+    			),				
 				array (
 					'extrahtml' => '<a href="blah">Source</a>'
 				)
@@ -734,7 +739,6 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		$this->within_stripe_main = false;
 		?>
 			</div> <!-- end .main -->
-			<div class="sidebar">
 
         <? 
 		$this->within_stripe_sidebar = true;
@@ -743,6 +747,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		if (count($contents) == 0) {
 			print "\t\t\t&nbsp;\n";
 		} else {
+			print '<div class="sidebar">';
 			foreach ($contents as $hash) {
 				if (isset($hash['type'])) {
 					if ($hash['type'] == 'include') {

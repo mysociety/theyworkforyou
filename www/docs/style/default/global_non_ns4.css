@@ -1,8 +1,8 @@
 
 /* Headings */
 h1 {margin: 0;padding: 0;display: inline;
-	font-size: 1px;position:relative;top:-30px;left:-12px;}
-h2 , h2 a:link, h2 a:visited {color: #111;font-size:1.9em;text-decoration:none;}
+	font-size: 1px;position:relative;top:-25px;left:-12px;}
+h2 , h2 a:link, h2 a:visited {color: #111;text-decoration:none;padding-top:1em;font-size:1.8em;}
 h3, h3 a:link, h3 a:visited {color: #5c4610;text-decoration:none;}
 h4 { color: #4D6C25; }
 h4 a:link, h4 a:visited { color: #4D6C25; text-decoration:underline; }
@@ -33,7 +33,8 @@ div.row {clear: both;margin: 0 14px 0 18px;padding-top: 0.5em;}
 div.row span.label {display: block;float: left;width: 10.5em;font-weight: bold;}
 div.row span.formw {display: block;float: left;width: 25em;text-align: left;}
 
-div.attention {text-align:center; padding:2em 0;}
+div.attention {text-align:center; padding:1.5em 0;}
+div.attention.welcome h2 {font-size:1.3em; padding-top:0.5em;}
 
 div.main p,
 div.main ul,
@@ -79,7 +80,7 @@ a:hover {text-decoration:underline;}
 
 /* Search */
 
-#search {position: absolute;top: 0px;right: 0px;width: 60%;height: 68px;padding: 0;
+#search {position: absolute;top:-1em;right: 0px;width: 60%;height: 68px;padding: 0;
         z-index: 0;text-align:right;}
 #search	small {padding-right:5em;}
 #search #searchbox {width:50%; font-size:1.4em;}
@@ -209,13 +210,22 @@ div.sidebar p.vote a {padding:0.2em;}
 .prev {display: block;float: right;}
 .next {display: block;float: right;margin-left:2em;}
 
+
 /* Homepages */
+
 div.welcome_actions {height:1%;}
 div.welcome_actions div {background:url(../../images/white.png); float:left; width:46%; margin:2%;
         min-height:12em;}
 div.welcome_actions div h3 {color:#000;}
 div.welcome_actions #welcome_search  input.text {font-size:1.3em; width:85%;}
-div#welcome_uk.welcome_actions {background:#88A465  ;position:relative;}
+div#welcome_uk.welcome_actions {background:#88A465 url(../../images/westminster.jpg) 50% 10%; position:relative;}
+
+
+/* Front campaign */
+
+div.campaign {background:#ffffd7 url(../../images/campaign.png) bottom right no-repeat; margin:0 16px 0.7em 16px;padding:16px; font-weight:bold; color:#555; position:relative; font-size:1.3em;}
+div.campaign p {padding:0 0 0 22px; margin:0; background:url(../../images/pin.png) no-repeat left 60%;}
+div.campaign span.chev {padding-left:25px; background:url(../../images/chev.png) no-repeat 0 4px; padding-right:16px;}
 
 	
 
@@ -593,12 +603,18 @@ div.vidOn div.main {background-color: #ffff66;}
 
 
 /* mySociety bar */
+    
+#mysociety_bar #headercampaign {padding:5px 16px 5px 8px; font-size:0.8em; position:absolute; top:6px; left:16px;
+    background:#ffffd7 url(../../images/campaign.png) bottom right no-repeat;}
 
-#mysociety_bar {color:#a4a4a4; text-transform:uppercase;height:2.5em; font-size:0.9em; line-height:1.2em;}
-#mysociety_bar a {color:#a4a4a4;}
+#mysociety_bar #headercampaign p {padding:0 0 0 22px; margin:0; background:url(../../images/pin.png) no-repeat left 60%;}
+
+#mysociety_bar #headercampaign a {font-weight:bold!important; position:relative; top:-1px;}
+#mysociety_bar {color:#a4a4a4; height:3.3em; }
+#mysociety_bar ul a {color:#8f8f8f;}
 #mysociety_bar ul {list-style-type:none; position:absolute; top:0; right:0;
-    margin:0; padding:0.4em 0 0 82px;}
-#mysociety_bar ul li {display:block;margin:0;float:left; border-left:solid 1px #a4a4a4;
+    margin:0; padding:0.4em 0 0 82px;text-transform:uppercase;font-size:0.9em; line-height:1.2em;}
+#mysociety_bar ul li {display:block;margin:0;float:left; border-left:solid 1px #8f8f8f;
     padding:0 0.8em 0 0.8em;}
 
 #mysociety_bar #logo {width:75px; height:21px; background: url(../../images/mysociety_small.png) no-repeat 0 0; position:absolute; top:0.4em; left:0; border-left:none; padding:0;}
@@ -707,10 +723,10 @@ div.block div.blockbody {padding: 0 0.6em 1em 0.6em;}
 div.block div.blockbody p,
 div.block div.blockbody ul {margin-left: 0;margin-right: 0;padding:0;}
 
-div#help.block {border-top:solid 10px #bf523d!important; background:#fff7f6 url(../../images/help.png) no-repeat 8px 10px; border-bottom:none;}
+div#help.block {border-top:solid 10px #990100!important; background:#fff7f6 url(../../images/help.png) no-repeat 8px 10px; border-bottom:none;}
 div#help.block ul li {background:none; padding-left:0;}
 div#help.block ul li ul li {list-style-type:circle; margin-left:2em;}
-div#help.block h4 {padding-left:40px;color:#8b311f;padding-top:14px;}
+div#help.block h4 {padding-left:40px;color:#990100;padding-top:14px;}
 
 div.question.block {border-top:solid 10px #bf523d!important; background:#fff7f6 url(../../images/help.png) no-repeat 8px 10px; border-bottom:none;}
 div.question.block ul li {background:none; padding-left:0;}
@@ -743,3 +759,7 @@ div.sort ul {padding-left:0.5em;}
         font-size:0.9em; color:#5f5f5f;}
 #search-form #term-search div.help {padding-left:0;margin-left:0;margin-bottom:0;}
 #search-form h3 {border-bottom:solid 1px #ccc;margin-bottom:1em;margin-right:0;}
+
+
+/* highlight*/
+span.highlight {background:#ffffd7; padding: 0 1em;}
