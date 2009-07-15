@@ -219,6 +219,8 @@ div.welcome_actions div {background:url(../../images/white.png); float:left; wid
 div.welcome_actions div h3 {color:#000;}
 div.welcome_actions #welcome_search  input.text {font-size:1.3em; width:85%;}
 div#welcome_uk.welcome_actions {background:#88A465 url(../../images/westminster.jpg) 50% 10%; position:relative;}
+div.welcome_actions small#attribution {position:absolute; bottom:5px; left:20px; font-size:0.6em;}
+div.welcome_actions small#attribution a {color:#fff; font-weight:normal;}
 
 
 /* Front campaign */
