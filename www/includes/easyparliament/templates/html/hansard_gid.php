@@ -399,7 +399,7 @@ if (isset ($data['rows'])) {
 			$body = preg_replace('#(<p[^>]*class="[^"]*?)("[^>]*)pwmotiontext="moved"#', '$1 moved$2', $body);
 			$body = str_replace('pwmotiontext="moved"', 'class="moved"', $body);
 			$body = str_replace('<a href="h', '<a rel="nofollow" href="h', $body); # As even sites in Hansard lapse and become spam-sites
-			echo str_replace('</p><p','</p> <p',$body); # NN4 font size bug
+			echo str_replace(array('<br/>', '</p><p'), array('</p> <p>', '</p> <p'), $body); # NN4 font size bug
 			
 			context_link($row);
 
