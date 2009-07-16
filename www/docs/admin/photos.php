@@ -97,19 +97,22 @@ to the live site.
 <span class="formw"><select id="form_pid" name="pid"></span>
 EOF;
 
-    $query = 'SELECT house, person_id, first_name, last_name, constituency, party
+    $query = 'SELECT house, person_id, title, first_name, last_name, constituency, party
         FROM member
-        WHERE house>0 AND left_house = (SELECT MAX(left_house) FROM member) ';
-    $q = $db->query($query . "ORDER BY house, first_name, last_name");
+        WHERE house>0 GROUP by person_id
+        ORDER BY house, last_name, first_name
+	';
+    $q = $db->query($query);
 
     $houses = array(1 => 'MP', 'Lord', 'MLA', 'MSP');
 
     for ($i=0; $i<$q->rows(); $i++) {
         $p_id = $q->field($i, 'person_id');
         $house = $q->field($i, 'house');
-        $desc = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . 
-                " " . $houses[$house] . 
-                ' (' . $q->field($i, 'party') . ')' . ', ' . $q->field($i, 'constituency');
+        $desc = $q->field($i, 'last_name') . ', ' . $q->field($i, 'title') . ' ' . $q->field($i, 'first_name') .
+                " " . $houses[$house];
+	if ($q->field($i, 'party')) $desc .= ' (' . $q->field($i, 'party') . ')';
+	$desc .= ', ' . $q->field($i, 'constituency');
 
         list($dummy, $sz) = find_rep_image($p_id);
         if ($sz == 'L') {

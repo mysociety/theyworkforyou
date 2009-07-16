@@ -6,6 +6,7 @@ General utility functions v1.1 (well, it was).
 */
 
 include_once INCLUDESPATH . '../../../phplib/email.php';
+include_once INCLUDESPATH . '../../../phplib/datetime.php';
 
 function twfy_debug ($header, $text="") {
 	// Pass it a brief header word and some debug text and it'll be output.
@@ -409,51 +410,7 @@ function relative_time ($datetime) {
 }
 
 function parse_date($date) {
-	$now = time();
-	$date = preg_replace('#\b([a-z]|on|an|of|in|the|year of our lord)\b#i', '', trim($date));
-	$date = preg_replace('#[\x80-\xff]#', '', $date);
-	if (!$date)
-		return null;
-
-	$epoch = 0;
-	$day = null;
-	$year = null;
-	$month = null;
-	if (preg_match('#^(\d+)/(\d+)/(\d+)$#',$date,$m)) {
-		$day = $m[1]; $month = $m[2]; $year = $m[3];
-		if ($year<100) $year += 2000;
-	} elseif (preg_match('#^(\d+)/(\d+)$#',$date,$m)) {
-		$day = $m[1]; $month = $m[2]; $year = date('Y');
-	} elseif (preg_match('#^([0123][0-9])([01][0-9])([0-9][0-9])$#',$date,$m)) {
-		$day = $m[1]; $month = $m[2]; $year = $m[3];
-	} else {
-		$dayofweek = date('w'); # 0 Sunday, 6 Saturday
-		if (preg_match('#next\s+(sun|sunday|mon|monday|tue|tues|tuesday|wed|wednes|wednesday|thu|thur|thurs|thursday|fri|friday|sat|saturday)\b#i',$date,$m)) {
-			$date = preg_replace('#next#i','this',$date);
-			if ($dayofweek == 5) {
-				$now = strtotime('3 days', $now);
-			} elseif ($dayofweek == 4) {
-				$now = strtotime('4 days', $now);
-			} else {
-				$now = strtotime('5 days', $now);
-			}
-		}
-		$t = strtotime($date,$now);
-		if ($t !== false) {
-			$day = date('d',$t); $month = date('m',$t); $year = date('Y',$t); $epoch = $t;
-			if ("$day$month$year"==date('dmY')) {
-				$epoch = 0; $day = 0; $month = 0; $year = 0;
-			}
-		}
-	}
-	if (!$epoch && $day && $month && $year) {
-		$t = mktime(0,0,0,$month,$day,$year);
-		$day = date('d',$t); $month = date('m',$t); $year = date('Y',$t); $epoch = $t;
-	}
-
-	if ($epoch == 0)
-		return null;
-	return array('iso'=>"$year-$month-$day", 'epoch'=>$epoch, 'day'=>$day, 'month'=>$month, 'year'=>$year);
+	return datetime_parse_local_date($date, time(), 'en', 'gb');
 }
 
 /* strip_tags_tospaces TEXT
