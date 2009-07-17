@@ -304,8 +304,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		global $this_page;
 		?>
 		    <div id="mysociety_bar">
-		    <?php global $this_page;?>
-		    <?php if ($this_page != 'overview') { ?>
+		    <?php if (1==0 && $this_page != 'overview') { ?>
 	            <div id="headercampaign"><p><a href="http://www.pledgebank.com/twfypatrons">Become a They Work For You Patron ...</p></a></div>				        
 	        <?php } ?>
 		        <ul>
@@ -739,6 +738,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		$this->within_stripe_main = false;
 		?>
 			</div> <!-- end .main -->
+			<div class="sidebar">
 
         <? 
 		$this->within_stripe_sidebar = true;
@@ -747,7 +747,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		if (count($contents) == 0) {
 			print "\t\t\t&nbsp;\n";
 		} else {
-			print '<div class="sidebar">';
+			#print '<div class="sidebar">';
 			foreach ($contents as $hash) {
 				if (isset($hash['type'])) {
 					if ($hash['type'] == 'include') {
