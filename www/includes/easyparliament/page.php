@@ -3078,7 +3078,9 @@ reference), you can restrict results to that.
 				<a name="addcomment"></a>
 				
 				<p><small>
-Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rules</strong></a> before posting your first annotation.</small></p>
+Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rules</strong></a> before posting an annotation.
+Annotations should be information that adds value to the contribution, not opinion, rants, or messages to a politician.
+</small></p>
 
 				<form action="<?php echo $ADDURL->generate(); ?>" method="post">
 					<p><textarea name="body" rows="15" cols="55"><?php
