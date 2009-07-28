@@ -1870,13 +1870,17 @@ and has had no written questions answered for which we know the department or su
 			print '.</li>';
 		}
 
-		$wtt_displayed = display_writetothem_numbers(2007, $extra_info);
+		$wtt_displayed = display_writetothem_numbers(2008, $extra_info);
 		$displayed_stuff |= $wtt_displayed;
 		if (!$wtt_displayed) {
-            $wtt_displayed = display_writetothem_numbers(2006, $extra_info);
+            $wtt_displayed = display_writetothem_numbers(2007, $extra_info);
             $displayed_stuff |= $wtt_displayed;
-            if (!$wtt_displayed)
-                $displayed_stuff |= display_writetothem_numbers(2005, $extra_info);
+            if (!$wtt_displayed) {
+                $wtt_displayed = display_writetothem_numbers(2006, $extra_info);
+                $displayed_stuff |= $wtt_displayed;
+                if (!$wtt_displayed)
+                    $displayed_stuff |= display_writetothem_numbers(2005, $extra_info);
+            }
         }
 
 		$after_stuff = ' <small>(From Public Whip)</small>';
