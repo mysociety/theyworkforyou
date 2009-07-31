@@ -29,6 +29,9 @@ official transcripts of Parliament.
 
 How on earth do I use this code?
 
-Probably best that you ask on the mySociety developers-public email list.
+See INSTALL.txt for installation questions.
+
+Probably best that you ask questions on the mySociety developers-public email list.
 https://secure.mysociety.org/admin/lists/mailman/listinfo/developers-public
+
 
