@@ -2,3 +2,8 @@ libemail-localdelivery-perl
 php5-xapian 
 libmailtools-perl
 libmime-perl
+liberror-perl 
+libxml-twig-perl
+php5-cli
+php5-mysql 
+php5-curl
