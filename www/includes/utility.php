@@ -906,12 +906,21 @@ function major_summary($data, $echo = true) {
 	// single date?
 	if (isset($data['date'])) $one_date = true;
 
+    // remove empty entries, so they don't produce errors
+    foreach (array_keys($hansardmajors) as $major) {
+        if (array_key_exists($major, $data)) {
+            if (count($data[$major]) == 0) 
+                unset($data[$major]);
+        }
+    }
+
     //work out the date text to be displaid
 	$daytext = array();
 	if (!$one_date) {
 		$todaystime = gmmktime(0, 0, 0, date('m'), date('d'), date('Y'));
 		foreach ($data as $major => $array) {
-			if ($todaystime - $array['timestamp'] == 86400) $daytext[$major] = "Yesterday&rsquo;s";
+            if (!in_array('timestamp', $array)) $daytext[$major] = "The most recent ";
+            elseif ($todaystime - $array['timestamp'] == 86400) $daytext[$major] = "Yesterday&rsquo;s";
 			elseif ($todaystime - $array['timestamp'] <= (6 * 86400)) $daytext[$major] = gmdate('l', $array['timestamp']) . "&rsquo;s";
 			else $daytext[$major] = "The most recent ";
 		}
