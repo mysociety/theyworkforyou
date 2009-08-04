@@ -1,6 +1,6 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.13 2009-08-04 09:13:10 francis Exp $
+$Id: INSTALL.txt,v 1.14 2009-08-04 14:12:27 francis Exp $
 
 
 Introduction
@@ -19,8 +19,17 @@ System Requirements
 
   short_open_tag has to be enabled, and PHP must be configured with curl, 
   using the '--with-curl' option. There's actually only one call that's
-  PHP5 specific, it otherwise runs fine in PHP4, but PHP4 will no longer
-  get security updates from 2008-08-08, so might as well specify PHP5 now.
+  PHP5 specific, it otherwise runs fine in PHP4, but PHP4 has not had
+  security updates since 2008-08-08, so use PHP5 now.
+
+* Apache 1.3.28 or 2.2.23
+
+* MySQL 4.1 or 5.0
+
+  Note: it is possible to make the code with 4.0 versions of MySQL, but you have
+  to do some mucking around with character sets.
+
+* Xapian
 
   You should be able to run the site without installing Xapian (the
   search engine, see below), but the site might error; if this happens
@@ -28,14 +37,10 @@ System Requirements
   Xapian installed, you'll need to make sure PHP includes the Xapian
   extension by adding extension=xapian.so to your php.ini file.
 
-* Apache 1.3.28
+* Other libraries and modules.
 
-  The site also appreas to work on the whole with Apache 2.2
-
-* MySQL 4.1
-
-  Note: it is possible to make the code with 4.0 versions of MySQL, but you have
-  to do some mucking around with character sets.
+  You will also need a few other library packages. There is a list, given as
+  the names of Debian packages, in twfy/conf/packages.
 
 Other sources of help
 =====================
@@ -151,7 +156,7 @@ the Data".
 
 4. now run xml2db.pl as follows:
 
-$ ./xml2db.pl --wrans --debates --members --all
+$ ./xml2db.pl --wrans --debates --members --lords --all
 
 That will process all written answers, debates and members. Running
 the script with no args gives usage.
