@@ -1,8 +1,7 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.12 2009-06-11 16:00:52 richard Exp $
+$Id: INSTALL.txt,v 1.13 2009-08-04 09:13:10 francis Exp $
 
-TODO: Add an explanation of how to set up a virtual host in apache.
 
 Introduction
 ============
@@ -138,7 +137,7 @@ theyworkforyou.com.
 You need to preserve the directory structure which exists under pwdata, but you
 don't need to get *everything*. Most of the useful stuff is under scrapedxml.
 You'll also need the members directory in the parlparse folder, which is
-available from http://ukparse.kforge.net/svn/parlparse/ I recommend either
+Available from http://ukparse.kforge.net/svn/parlparse/ I recommend either
 using rsync or downloading the zip files containing all the data if you want it
 - for more information, see http://ukparse.kforge.net/parlparse/ under "Getting
 the Data".
