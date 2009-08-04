@@ -102,7 +102,7 @@ $PAGE->stripe_start("full", '');
         
         ?>
     </div>
-    <small id="attribution"><a href="http://www.flickr.com/photos/wallyg/301339551/">(cc) image by wallyg</a></small>
+
     <br class="clear">
 </div>
 

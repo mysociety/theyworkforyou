@@ -334,7 +334,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// The title bit of the page, with possible search box.
 		global $this_page, $DATA;
 		
-		$img = '<img src="' . IMAGEPATH . 'logo.png" width="416" height="70" alt="TheyWorkForYou.com">';
+		$img = '<img src="' . IMAGEPATH . 'logo.png" width="423" height="80" alt="TheyWorkForYou.com">';
 
 		if ($this_page != 'home') {
 			$HOMEURL = new URL('home');
