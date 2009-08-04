@@ -1,6 +1,6 @@
 TheyWorkForYou.com Installation Instructions 
 ============================================
-$Id: INSTALL.txt,v 1.14 2009-08-04 14:12:27 francis Exp $
+$Id: INSTALL.txt,v 1.15 2009-08-04 14:48:49 francis Exp $
 
 
 Introduction
@@ -173,17 +173,17 @@ The Postcode lookup service is disabled on development versions. Instead, postco
 
 2. Search engine:
 
-the search engine relies uses Xapian (http://www.xapian.org/), which
-is a search toolkit written in C++. In order to use the search system,
-you need to compile the PHP bindings of Xapian. If you don't have
-Xapian, you will probably get an error like this when you try to do a
-search:
+The search engine relies uses Xapian (http://www.xapian.org/), which
+is a search toolkit written in C++. In order to use the search system, you need
+to either install the PHP bindings of Xapian from a package, or compile them
+yourself. If you don't have Xapian, you will probably get an error like this
+when you try to do a search:
 
 Fatal error: Class 'XapianStem' not found in
 /.../www/includes/easyparliament/searchengine.php
 on line 39
 
-There are some instructions on how to do this here:
+There are some old instructions on compiling Xapian for PHP here:
   http://lists.tartarus.org/pipermail/xapian-discuss/2004-May/000037.html
 
 You need to run "twfy/search/index.pl sincefile" to create the Xapian index. If
