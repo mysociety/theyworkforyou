@@ -727,12 +727,6 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		global $DATA, $this_page;
 
 		$this->within_stripe_main = false;
-
-		if ($extra == 'FULL') {
-			echo '</div></div> <!-- end .main .stripe -->';
-			return;
-		}
-
 		?>
 			</div> <!-- end .main -->
 			<div class="sidebar">

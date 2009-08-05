@@ -156,6 +156,7 @@ div.stripe-head-2 {margin: 0;padding: 0;}
 
 div.main {float: left; width: 65%; margin: 0; padding: 0;position:relative;}
 div.stripe-full div.main {width:100%;}
+div.stripe-full div.sidebar { display: none; }
 div.col3 div {width:33%; float:left;}
 
 

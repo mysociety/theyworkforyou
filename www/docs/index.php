@@ -106,7 +106,7 @@ $PAGE->stripe_start("full");
 </div>
 
 <?php
-    $PAGE->stripe_end(array(), 'FULL');
+    $PAGE->stripe_end();
     $PAGE->stripe_start("full");
 ?>
 
@@ -171,7 +171,7 @@ $PAGE->stripe_start("full");
             echo $latest_html;
         ?>    
     </div>
-    <br class="clear">
+    <br class="clear">&nbsp;
 </div>
 <?php
 
