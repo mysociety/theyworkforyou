@@ -34,7 +34,7 @@ $PAGE->stripe_start("full");
             $popular_searches = $SEARCHLOG->popular_recent(10);
         ?>
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-            <h3><label for="s">Search,  create an alert or RSS feed:</label></h3>            
+            <h3><label for="s">Search,  create an alert or RSS feed</label></h3>            
             <p>
                 <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
                 <input type="submit" value="Go" class="submit">
