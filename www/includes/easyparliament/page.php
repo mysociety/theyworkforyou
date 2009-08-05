@@ -219,34 +219,9 @@ class PAGE {
 			// If this page has an RSS feed set.
 			echo '<link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="http://', DOMAIN, WEBPATH, $rssurl, '">';
 		}
-				
-?>
-
-<!--[if LT IE 7]>
-<style type="text/css">@import url("/style/ie6.css");</style>
-<![endif]-->
-<?
-/*
-<script type="text/javascript">
-global $notevery;
-if (!isset($notevery)) {
-?>
-
-$(function(){
-	if (!$.cookie('seen_foi2')) {
-		window.setTimeout(function(){
-			$('#everypage').slideDown('slow');
-		}, 1000);
-	}
-});
-
-<? }
-
-</script>
-*/
 
 		if (!DEVSITE) {
-		?>
+?>
 
 <script src="http://www.google-analytics.com/urchin.js"
 type="text/javascript">
@@ -644,14 +619,30 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 	}
 
 
+	// Where the actual meat of the page begins, after the title and menu.
 	function content_start () {
-		global $DATA, $this_page;
-		
-		// Where the actual meat of the page begins, after the title and menu.
-		?>
-	<div id="content">
-
-<?php			
+		global $this_page;
+		echo '<div id="content">';
+		return; # Not doing survey yet
+		if (in_array($this_page, array('survey', 'overview'))) {
+			return;
+		}
+		$show_survey_qn = 0;
+		if (isset($_COOKIE['survey'])) {
+			$show_survey_qn = $_COOKIE['survey'];
+		} else {
+			$rand = rand(1, 100);
+			if ($rand >= 1) {
+				$show_survey_qn = 1;
+			}
+			setcookie('survey', $show_survey_qn, time()+60*60*24*365, '/');
+		}
+		if ($show_survey_qn) {
+			echo '
+<div id="survey_teaser">Did you find what you were looking for?
+<br><a href="/survey/?answer=yes">Yes</a> | <a href="/survey/?answer=no">No</a>
+</div>';
+		}
 	}
 
 
@@ -736,6 +727,12 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		global $DATA, $this_page;
 
 		$this->within_stripe_main = false;
+
+		if ($extra == 'FULL') {
+			echo '</div></div> <!-- end .main .stripe -->';
+			return;
+		}
+
 		?>
 			</div> <!-- end .main -->
 			<div class="sidebar">

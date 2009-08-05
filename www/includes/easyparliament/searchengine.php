@@ -212,7 +212,7 @@ class SEARCHENGINE {
         } elseif (strstr($qd, 'M7 OR M8')) {
             $qd = str_replace('M7 OR M8', 'section:scotland', $qd);
         }
-        $qd = preg_replace('#\bM(\d+)\b#e', '"section:" . (isset($hansardmajors[$1]["title"]) ? $hansardmajors[$1]["title"] : "$1")', $qd);
+        $qd = preg_replace('#\bM(\d+)\b#e', '"in the \'" . (isset($hansardmajors[$1]["title"]) ? $hansardmajors[$1]["title"] . "\'" : "$1")', $qd);
 
         # Replace stemmed things with their unstemmed terms from the query
         $used = array();

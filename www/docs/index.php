@@ -11,16 +11,17 @@ $this_page = 'overview';
 //output header
 $PAGE->page_start();
 $PAGE->supress_heading = true;
-$PAGE->stripe_start("full", '');
+$PAGE->stripe_start("full");
 
 ?>
 <!-- Welcome -->
-<div class="attention welcome">
+<!-- <div class="attention welcome">
     <h2>
         Welcome to TheyWorkForYou for the UK Parliament.
         <br>Find out what your MP is doing in your name, read debates and sign up for email alerts.
     </h2>
 </div>
+-->
 
 <!-- Actions -->
 <div id="welcome_uk" class="welcome_actions">
@@ -33,7 +34,7 @@ $PAGE->stripe_start("full", '');
             $popular_searches = $SEARCHLOG->popular_recent(10);
         ?>
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-            <h3><label for="s">Search or create an alert</label></h3>            
+            <h3><label for="s">Search,  create an alert or RSS feed:</label></h3>            
             <p>
                 <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
                 <input type="submit" value="Go" class="submit">
@@ -51,7 +52,7 @@ $PAGE->stripe_start("full", '');
         </form>
     </div>
     <div>
-        <h3>Your MP</h3>
+        <h3>Your representative</h3>
         <?php
         
 		$MPURL = new URL('yourmp');
@@ -79,7 +80,7 @@ $PAGE->stripe_start("full", '');
         				$former = 'former';
         			}
         ?> 
-        	<p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br>
+        	<p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br>
         	In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
         <?php
         		}
@@ -87,7 +88,7 @@ $PAGE->stripe_start("full", '');
 
         	if ($pc_form) { ?>
         		<form action="/postcode/" method="get">
-        		<p><strong>Find out more about your <acronym title="Member of Parliament">MP</acronym>/
+        		<p><strong>Find out about your <acronym title="Member of Parliament">MP</acronym>/
         		<acronym title="Members of the Scottish Parliament">MSPs</acronym>/
         		<acronym title="Members of the (Northern Irish) Legislative Assembly">MLAs</acronym></strong><br>
         		<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
@@ -97,9 +98,7 @@ $PAGE->stripe_start("full", '');
         			print '<p align="right"><em>Postcodes are being mapped to a random MP</em></p>';
         		}
         	}
-        	print "</li>";
-        
-        
+        	echo '<p>Read debates they&rsquo;ve taken part in, see how they voted, sign up for an email alert, and more.</p>';
         ?>
     </div>
 
@@ -107,8 +106,8 @@ $PAGE->stripe_start("full", '');
 </div>
 
 <?php
-    $PAGE->stripe_end();
-    $PAGE->stripe_start("full", '', true);    
+    $PAGE->stripe_end(array(), 'FULL');
+    $PAGE->stripe_start("full");
 ?>
 
 <!-- Campaign -->
