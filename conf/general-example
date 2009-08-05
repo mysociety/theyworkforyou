@@ -138,3 +138,6 @@ define('OPTION_GAZE_URL', '');
 // mySociety debug level thing. Probably leave as 0.
 define('OPTION_PHP_DEBUG_LEVEL', 0);
 
+define('OPTION_SURVEY_URL', '');
+define('OPTION_SURVEY_SECRET', '');
+

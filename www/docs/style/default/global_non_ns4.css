@@ -214,7 +214,7 @@ div.sidebar p.vote a {padding:0.2em;}
 
 /* Homepages */
 
-div.welcome_actions {height:1%; margin-top: 1em; }
+div.welcome_actions {height:1%; margin-top: 2em; margin-bottom: 1em; }
 div.welcome_actions div {background:url(../../images/white.png); float:left; width:46%; margin:2%;
         min-height:12em;}
 div.welcome_actions div h3 {color:#000;}
