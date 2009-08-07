@@ -30,7 +30,7 @@ class PAGE {
 		if (!$this->page_started()) {
 			// Just in case something's already started this page...
 			$parent = $DATA->page_metadata($this_page, "parent");
-			if ($parent == 'admin' && ! $THEUSER->is_able_to('viewadminsection')) {
+			if ($parent == 'admin' && (!$THEUSER->isloggedin() || !$THEUSER->is_able_to('viewadminsection'))) {
 				// If the user tries to access the admin section when they're not
 				// allowed, then show them nothing.
 			
@@ -637,7 +637,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			}
 			setcookie('survey', $show_survey_qn, time()+60*60*24*365, '/');
 		}
-		if ($show_survey_qn) {
+		if ($show_survey_qn == 1) {
 			echo '
 <div id="survey_teaser">Did you find what you were looking for?
 <br><a href="/survey/?answer=yes">Yes</a> | <a href="/survey/?answer=no">No</a>
