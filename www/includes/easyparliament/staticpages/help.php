@@ -74,11 +74,13 @@ press release."</blockquote>
 <p>TheyWorkForYou currently contains:</p>
 <ul>
 <li>Hansard Commons debates back to the General Election of <strong>1935</strong>;
+<li>knowledge of MPs back to <strong>1806</strong> or thereabouts;
 <li>Hansard Commons written answers and written ministerial statements 
 back to the General Election of June 2001;
 <li>Hansard House of Lords Hansard (except Grand Committees) back to around November 1999;
-<li>everything in the various Northern Ireland (Transitional) Assembly debates. 
-<li>everything in the Scottish Parliament official report.
+<li>knowledge of Lords back to the House of Lords Act 1999;
+<li>everything in the various Northern Ireland (Transitional) Assembly debates, and all MLAs; 
+<li>everything in the Scottish Parliament official report, and all MSPs.
 </ul>
 
 <p>But this is by no means everything. Think of what we've done thus far as a
