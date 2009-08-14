@@ -1990,6 +1990,10 @@ isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1'
 			 $html .= '<li>[<a href="/admin/websites.php?editperson=' . $member->person_id() . '">Add personal website</a>]</li>';
 		}
 
+		if (isset($links['twitter_username'])) {
+			$html .= '<li><a href="http://twitter.com/' . $links['twitter_username'] . '">'. $member->full_name().'&rsquo;s Twitter feed</a></li>';
+		}
+
 		if (isset($links['sp_url'])) {
 			$html .= '<li><a href="' . $links['sp_url'] . '">'. $member->full_name().'\'s page on the Scottish Parliament website</a></li>';
 		}
