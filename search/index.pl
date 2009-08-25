@@ -231,6 +231,7 @@ if ($action ne "check" && $action ne 'checkfull') {
     open FP, $lastupdatedir . 'deleted-gids' or exit;
     while (<FP>) {
         chomp;
+        s#uk.org.publicwhip/#Q#;
         print "deleting $_ from Xapian index\n" unless $cronquiet;
         $db->delete_document_by_term($_);
     }
