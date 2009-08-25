@@ -27,8 +27,9 @@ die "As first parameter, specify:
     'lastmonth' to (re)index just the last month, or 
     'daterange' to (re)index between two dates, specified as next parameters
     'sincefile' to (re)index updates since a given date specified in unixtime inside a file
-    'check' to check everything is indexed
-" if !$action or ($action ne "all" and $action ne "lastweek" and $action ne "lastmonth" and $action ne "sincefile" and $action ne "check" and $action ne "daterange");
+    'check' to use xml2db's list of removed GIDs to remove things from Xapian
+    'checkfull' to check everything is indexed by fetching entire dbs and comparing
+" if !$action or ($action ne "all" and $action ne "lastweek" and $action ne "lastmonth" and $action ne "sincefile" and $action ne "check" and $action ne 'checkfull' and $action ne "daterange");
 
 # Open MySQL
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
@@ -89,13 +90,16 @@ $termgenerator->set_database($db);
 $termgenerator->set_stemmer($stemmer);
 # $termgenerator->set_stopper();
 
-if ($action ne "check") {
+if ($action ne "check" && $action ne 'checkfull') {
     # Batch numbers - each new stuff gets a new batch number
     my $max_indexbatch = $dbh->selectrow_array('select max(indexbatch_id) from indexbatch') || 0;
     my $new_indexbatch = $max_indexbatch + 1;
     
     # Get data for items to update from MySQL 
     # XXX unix_time is broken if htime>'23:59:59' (on long sittings)
+    # Replace bit of query with
+    # hdate, htime, gid, major, section_id, subsection_id, colnum,
+
     my $query = "select epobject.epobject_id, epobject.body, section.body as section_body,
         hdate, gid, major, section_id, subsection_id, colnum,
         unix_timestamp(concat(hdate, ' ', if(htime, htime, 0))) as unix_time,
@@ -193,6 +197,9 @@ if ($action ne "check") {
 
         my $packedUnixTime = pack('N', $$row{'unix_time'});
         $doc->add_value(0, $packedUnixTime); # For sort by date (although all wrans have same time of 00:00, no?)
+#        (my $htime = $$row{htime}) =~ s/[^0-9]//g;
+#        my $datetimenum = "$date$htime";
+#        $doc->add_value(0, Search::Xapian::sortable_serialise($datetimenum+0)); # For sort by date (although all wrans have same time of 00:00, no?)
         $doc->add_value(1, $date); # For date range searches
         $doc->add_value(2, pack('N', $$row{'created'}) . pack('N', $$row{'hpos'})); # For email alerts
         $doc->add_value(3, $subsection_or_id); # For collapsing on segment
@@ -219,7 +226,18 @@ if ($action ne "check") {
         close FH;
         rename "$lastupdatedfile.tmp", $lastupdatedfile;
     }
-} else {
+} elsif ($action eq 'check') {
+    my $lastupdatedir = "$dbfile/../xml2db/";
+    open FP, $lastupdatedir . 'deleted-gids' or exit;
+    while (<FP>) {
+        chomp;
+        print "deleting $_ from Xapian index\n" unless $cronquiet;
+        $db->delete_document_by_term($_);
+    }
+    # Wipe the file.
+    open FP, '>' . $lastupdatedir . 'deleted-gids';
+    close FP;
+} elsif ($action eq 'checkfull') {
     # Look for deleted items, or items we've missed
     # .. fetch all gids in MySQL
     my $query = "select gid from hansard";
