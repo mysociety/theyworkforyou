@@ -223,12 +223,12 @@ if ($q_house==1) {
 
         if ($args['s']) {
     	    find_members($args['s']);
+            find_constituency($args);
         }
 
         $LIST->display('search', $args);
 	
         if ($args['s']) {
-            find_constituency($args);
             #        find_users($args);
         	find_glossary_items($args);
             #        find_comments($args);
