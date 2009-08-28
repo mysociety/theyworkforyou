@@ -14,6 +14,7 @@ if (get_http_var('pid') == 16407) {
 }
 
 $searchstring = construct_search_string();
+twfy_debug('SEARCH', $searchstring);
 
 $this_page = 'search';
 
