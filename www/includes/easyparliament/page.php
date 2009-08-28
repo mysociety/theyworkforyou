@@ -632,15 +632,16 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			$show_survey_qn = $_COOKIE['survey'];
 		} else {
 			$rand = rand(1, 100);
-			if ($rand >= 1) {
+			if ($rand <= 100) { # XXX <= 5
 				$show_survey_qn = 1;
 			}
 			setcookie('survey', $show_survey_qn, time()+60*60*24*365, '/');
 		}
-		if ($show_survey_qn == 1) {
+		if ($show_survey_qn == '1') {
 			echo '
 <div id="survey_teaser">Did you find what you were looking for?
 <br><a href="/survey/?answer=yes">Yes</a> | <a href="/survey/?answer=no">No</a>
+<small>| <a href="/survey/?ignore=1">Close</a></small>
 </div>';
 		}
 	}

@@ -6,7 +6,7 @@
  * Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
  * Email: matthew@mysociety.org. WWW: http://www.mysociety.org
  *
- * $Id: done.php,v 1.1 2009-08-05 18:14:04 matthew Exp $
+ * $Id: done.php,v 1.2 2009-08-28 10:05:37 matthew Exp $
  * 
  */
 
@@ -20,12 +20,8 @@ $PAGE->page_start();
 
 <div id="survey">
 
-<p>Thanks for that &ndash; the statistics should help us convince politicians that
-they could do more on the Web to encourage greater participation in the
-democratic process.
-</p>
-
-<p>If you've got any questions, feel free to <a href="/contact/">contact us</a>.</p>
+<p>Thanks very much for your input.
+If you've got any questions, feel free to <a href="/contact/">contact us</a>.</p>
 
 </div>
 

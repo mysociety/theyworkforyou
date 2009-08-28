@@ -6,7 +6,7 @@
  * Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
  * Email: matthew@mysociety.org. WWW: http://www.mysociety.org
  *
- * $Id: index.php,v 1.1 2009-08-05 18:14:04 matthew Exp $
+ * $Id: index.php,v 1.2 2009-08-28 10:05:37 matthew Exp $
  * 
  */
 
@@ -17,6 +17,15 @@ $this_page = 'survey';
 $PAGE->page_start();
 
 $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+
+if (get_http_var('ignore')) { # non-JS clicking of Close survey teaser
+	setcookie('survey', '1b', time()+60*60*24*365, '/');
+	if (!$referer)
+		$referer = '/';
+	header('Location: ' . $referer);
+	exit;
+}
+
 $find = get_http_var('answer');
 if ($find != 'yes' && $find != 'no') {
 	$PAGE->error_message('Illegal answer provided', true);
@@ -34,11 +43,26 @@ if ($show_survey_qn == 2) {
 	exit;
 }
 
-# setcookie('survey', 2, time()+60*60*24*365, '/');
+setcookie('survey', 2, time()+60*60*24*365, '/');
 
 $user_code = bin2hex(urandom_bytes(16));
 $auth_signature = auth_sign_with_shared_secret($user_code, OPTION_SURVEY_SECRET);
 
+if ($find == 'yes') { ?>
+<div style="margin:1em; border: solid 2px #cc9933; background-color: #ffffcc; padding: 4px; font-size:larger;">
+Glad we could help you!
+Maybe you could help us by answering some questions in our user survey which will contribute to make TheyWorkForYou even better &ndash; five minutes should be enough.
+If not, thanks anyway<? if ($referer) print ', <a href="' . $referer . '">return to where you were</a>'; ?>.
+</div>
+<? } else { ?>
+<div style="margin:1em; padding: 4px; border: solid 2px #cc9933; background-color: #ffffcc; font-size:larger;">
+We&rsquo;re sorry to hear that.
+Maybe you could help us make TheyWorkForYou better by answering some questions in our user survey &ndash;
+five minutes should be enough.
+If not, thanks anyway<? if ($referer) print ', <a href="' . $referer . '">return to where you were</a>'; ?>.
+</div>
+<?
+}
 ?>
 
 <h2> TheyWorkForYou&rsquo;s quick and painless user survey </h2>
