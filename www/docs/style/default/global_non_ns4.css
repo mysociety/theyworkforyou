@@ -25,7 +25,7 @@ ol li {margin-left: 1.5em;}
 dt {margin-left: 0;font-weight: bold;}
 dd {margin: 0 0 1.5em 0;}
 
-br.clear {clear:both;}
+.clear { clear:both; }
 
 div.break {clear: both;height: 0;font-size: 1px;background: #fff;}
 div.row {clear: both;margin: 0 14px 0 18px;padding-top: 0.5em;}
@@ -722,7 +722,7 @@ div.sidebar div.comment-teaser ul li {display:inline;padding:0; margin:0; paddin
 div#person_page .main h4 {padding-top:1em; margin-top:2em; border-top:dotted 1px #808080;}
 div.main p.person {float:left; background:url(../../images/photobacklarge.png) no-repeat; width:115px; height:151px; position:relative;margin: 0.3em 1em 1em 18px;}
 div.main p.person img.portrait {position:absolute; top:20px; left:7px; border:none;}
-div.main .missingphoto {background:#ffffaa; padding:0.5em 1em; font-size:0.8em;margin:0; position:relative; top:-1.5em;}
+div.main .missingphoto {background:#ffffaa; padding:0.5em 1em; font-size:0.8em;margin:0; z-index: -1; }
 
 ul.hilites {list-style-type: none;}
 ul.hilites li {padding-left:25px;margin-left:0; background:url(../../images/bulletlarge.png) no-repeat left 2px;padding-bottom:0.3em;}
