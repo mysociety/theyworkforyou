@@ -14,7 +14,7 @@ api_key_current_message();
 echo '<p>TheyWorkForYou API calls require a key, so that we can monitor usage
 of the service, and provide usage stats to you.';
 if ($THEUSER->loggedin()) {
-	if (get_http_var('create_key') && get_http_var('commercial') && get_http_var('reason')) {
+	if (get_http_var('create_key') && get_http_var('reason')) {
 		create_key(get_http_var('commercial'), get_http_var('reason'));
 	}
 	$db = new ParlDB;
@@ -66,6 +66,7 @@ function create_key($commercial, $reason) {
 	global $THEUSER;
 	$key = auth_ab64_encode(urandom_bytes(16));
 	$db = new ParlDB;
+	if ($commercial=='') $commercial = 0;
 	$db->query('INSERT INTO api_key (user_id, api_key, commercial, created, reason) VALUES
 		(' . $THEUSER->user_id() . ', "' . $key . '", '
 		. mysql_escape_string($commercial) . ', NOW(), "'
