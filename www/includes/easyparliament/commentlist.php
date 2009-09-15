@@ -154,7 +154,7 @@ class COMMENTLIST {
 			$num = 10;
 		}
 
-		if (isset($args['page']) && is_numeric($args['page'])) {
+		if (isset($args['page']) && is_numeric($args['page']) && $args['page']>1) {
 			$page = $args['page'];
 		} else {
 			$page = 1;
