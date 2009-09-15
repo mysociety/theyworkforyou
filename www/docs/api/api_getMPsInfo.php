@@ -17,7 +17,7 @@ function api_getMPsInfo_front() {
 <?	
 }
 
-function api_getMPsInfo_id($ids) {
+function _api_getMPsInfo_id($ids) {
 	$fields = preg_split('#\s*,\s*#', get_http_var('fields'), -1, PREG_SPLIT_NO_EMPTY);
 	$ids = preg_split('#\s*,\s*#', $ids, -1, PREG_SPLIT_NO_EMPTY);
 	$safe_ids = array(0);
@@ -46,7 +46,6 @@ function api_getMPsInfo_id($ids) {
 			where memberinfo.member_id=member.member_id and person_id in (" . $ids . ")
 			order by person_id,member_id");
 		if ($q->rows()) {
-			$oldmid = 0; $count = -1;
 			for ($i=0; $i<$q->rows(); $i++) {
 				$data_key = $q->field($i, 'data_key');
 				if (count($fields) && !in_array($data_key, $fields))
@@ -54,19 +53,24 @@ function api_getMPsInfo_id($ids) {
 				$mid = $q->field($i, 'member_id');
 				$pid = $q->field($i, 'person_id');
 				if (!isset($output[$pid]['by_member_id'])) $output[$pid]['by_member_id'] = array();
-				if ($oldmid != $mid) {
-					$count++;
-					$oldmid = $mid;
-					$output[$pid]['by_member_id'][$count]['member_id'] = $mid;
-				}
-				$output[$pid]['by_member_id'][$count][$data_key] = $q->field($i, 'data_value');
+				if (!isset($output[$pid]['by_member_id'][$mid])) $output[$pid]['by_member_id'][$mid] = array();
+				$output[$pid]['by_member_id'][$mid][$data_key] = $q->field($i, 'data_value');
 				$time = strtotime($q->field($i, 'lastupdate'));
 				if ($time > $last_mod)
 					$last_mod = $time;
 			}
 		}
 		ksort($output);
-		api_output($output, $last_mod);
+		return array($output, $last_mod);
+	} else {
+		return null;
+	}
+}
+
+function api_getMPsInfo_id($ids) {
+	$output = _api_getMPsInfo_id($ids);
+	if ($output) {
+		api_output($output[0], $output[1]);
 	} else {
 		api_error('Unknown person ID');
 	}

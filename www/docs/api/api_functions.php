@@ -300,9 +300,10 @@ function api_output_xml($v, $k=null) {
 		}
 		$out = '';
 		foreach ($v as $k => $vv) {
-			$out .= "<$k>";
+			$out .= is_numeric($k) ? "<match><id>$k</id>" : "<$k>";
 			$out .= api_output_xml($vv, $k);
-		        $out .= "</$k>$verbose";
+		        $out .= is_numeric($k) ? '</match>' : "</$k>";
+			$out .= $verbose;
 		}
 		return $out;
 	} else {

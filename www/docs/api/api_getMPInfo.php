@@ -1,5 +1,7 @@
 <?
 
+include_once 'api_getMPsInfo.php';
+
 function api_getMPInfo_front() {
 ?>
 <p><big>Fetch extra information for a particular person.</big></p>
@@ -18,46 +20,14 @@ function api_getMPInfo_front() {
 }
 
 function api_getMPinfo_id($id) {
-	$fields = preg_split('#\s*,\s*#', get_http_var('fields'), -1, PREG_SPLIT_NO_EMPTY);
-	$db = new ParlDB;
-	$last_mod = 0;
-	$q = $db->query("select data_key, data_value, lastupdate from personinfo
-		where person_id = '" . mysql_escape_string($id) . "'");
-	if ($q->rows()) {
-		$output = array();
-		for ($i=0; $i<$q->rows(); $i++) {
-			$data_key = $q->field($i, 'data_key');
-			if (count($fields) && !in_array($data_key, $fields))
-				continue;
-			$output[$data_key] = $q->field($i, 'data_value');
-			$time = strtotime($q->field($i, 'lastupdate'));
-			if ($time > $last_mod)
-				$last_mod = $time;
-		}
-		$q = $db->query("select * from memberinfo
-			where member_id in (select member_id from member where person_id = '" . mysql_escape_string($id) . "')
-			order by member_id");
-		if ($q->rows()) {
-			$oldmid = 0; $count = -1;
-			for ($i=0; $i<$q->rows(); $i++) {
-				$data_key = $q->field($i, 'data_key');
-				if (count($fields) && !in_array($data_key, $fields))
-					continue;
-				$mid = $q->field($i, 'member_id');
-				if (!isset($output['by_member_id'])) $output['by_member_id'] = array();
-				if ($oldmid != $mid) {
-					$count++;
-					$oldmid = $mid;
-					$output['by_member_id'][$count]['member_id'] = $mid;
-				}
-				$output['by_member_id'][$count][$data_key] = $q->field($i, 'data_value');
-				$time = strtotime($q->field($i, 'lastupdate'));
-				if ($time > $last_mod)
-					$last_mod = $time;
-			}
-		}
-		ksort($output);
-		api_output($output, $last_mod);
+	if (!ctype_digit($id)) {
+		api_error('Unknown person ID');
+		return;
+	}
+
+	$output = _api_getMPsInfo_id($id);
+	if ($output) {
+		api_output($output[0][$id], $output[1]);
 	} else {
 		api_error('Unknown person ID');
 	}
