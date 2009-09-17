@@ -257,7 +257,7 @@ class SEARCHENGINE {
             }
         }
 
-        $qd = iconv('utf-8', 'iso-8859-1', $qd); # Xapian is UTF-8, site is ISO8859-1
+        $qd = iconv('utf-8', 'iso-8859-1//TRANSLIT', $qd); # Xapian is UTF-8, site is ISO8859-1
         $this->query_desc = trim($qd);
 
         #print 'DEBUG: ' . $query->get_description();
