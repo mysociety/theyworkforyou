@@ -146,6 +146,7 @@ CREATE TABLE `bills` (
   `id` int(11) NOT NULL auto_increment,
   `title` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
+  `type` enum('unknown','government','consolidation','pmb-ballot','pmb-tenminute','pmb-presentation','pmb-lords','private','hybrid') NOT NULL default 'unknown',
   `lords` tinyint(1) NOT NULL,
   `session` varchar(50) NOT NULL,
   `standingprefix` varchar(255) NOT NULL,
@@ -383,5 +384,11 @@ CREATE TABLE `api_stats` (
   `query` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `api_key` (`api_key`)
+);
+
+CREATE TABLE `survey` (
+  `shown` int(11) NOT NULL default '0',
+  `yes` int(11) NOT NULL default '0',
+  `no` int(11) NOT NULL default '0'
 );
 

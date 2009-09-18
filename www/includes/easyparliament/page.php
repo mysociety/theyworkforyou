@@ -623,7 +623,6 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 	function content_start () {
 		global $this_page;
 		echo '<div id="content">';
-		return; # Not doing survey yet
 		if (in_array($this_page, array('survey', 'overview'))) {
 			return;
 		}
@@ -634,6 +633,8 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			$rand = rand(1, 100);
 			if ($rand <= 100) { # XXX <= 5
 				$show_survey_qn = 1;
+				$db = new ParlDB;
+				$db->query('update survey set shown = shown + 1');
 			}
 			setcookie('survey', $show_survey_qn, time()+60*60*24*365, '/');
 		}

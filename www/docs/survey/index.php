@@ -6,7 +6,7 @@
  * Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
  * Email: matthew@mysociety.org. WWW: http://www.mysociety.org
  *
- * $Id: index.php,v 1.2 2009-08-28 10:05:37 matthew Exp $
+ * $Id: index.php,v 1.3 2009-09-18 10:37:25 matthew Exp $
  * 
  */
 
@@ -43,7 +43,11 @@ if ($show_survey_qn == 2) {
 	exit;
 }
 
-setcookie('survey', 2, time()+60*60*24*365, '/');
+setcookie('survey', '1b', time()+60*60*24*365, '/');
+if ($show_survey_qn == 1) {
+	$db = new ParlDB;
+	$db->query("UPDATE survey SET $find = $find + 1");
+}
 
 $user_code = bin2hex(urandom_bytes(16));
 $auth_signature = auth_sign_with_shared_secret($user_code, OPTION_SURVEY_SECRET);
@@ -52,14 +56,14 @@ if ($find == 'yes') { ?>
 <div style="margin:1em; border: solid 2px #cc9933; background-color: #ffffcc; padding: 4px; font-size:larger;">
 Glad we could help you!
 Maybe you could help us by answering some questions in our user survey which will contribute to make TheyWorkForYou even better &ndash; five minutes should be enough.
-If not, thanks anyway<? if ($referer) print ', <a href="' . $referer . '">return to where you were</a>'; ?>.
+If you don&rsquo;t want to participate, thanks anyway<? if ($referer) print ', <a href="' . $referer . '">return to where you were</a>'; ?>.
 </div>
 <? } else { ?>
 <div style="margin:1em; padding: 4px; border: solid 2px #cc9933; background-color: #ffffcc; font-size:larger;">
 We&rsquo;re sorry to hear that.
 Maybe you could help us make TheyWorkForYou better by answering some questions in our user survey &ndash;
 five minutes should be enough.
-If not, thanks anyway<? if ($referer) print ', <a href="' . $referer . '">return to where you were</a>'; ?>.
+If you don&rsquo;t want to participate, thanks anyway<? if ($referer) print ', <a href="' . $referer . '">return to where you were</a>'; ?>.
 </div>
 <?
 }
@@ -180,7 +184,7 @@ Before you used TheyWorkForYou did you ever look up information on what your rep
 <tr class="alt">
 	<td class="us_label">
 	Are you a registered user of TheyWorkForYou? <small>
-		(This means do you have a log-in that allows you to add annotations or contribute to the glossary?)
+		(This means do you have a log-in that allows you to add annotations?)
 	</small>
 </td>
 	<td class="us_formelement">
@@ -245,129 +249,7 @@ Before you used TheyWorkForYou did you ever look up information on what your rep
 </label>
 <br></td>
 </tr>
-<tr>
-	<td class="us_label">
-	How often do you use the following features offered by TheyWorkForYou?
-</td>
-	<td class="us_formelement"><table style="text-align:center;table-layout:fixed">
-		<tr>
-			<th style="text-align:left;" scope="col">
-				feature
-			</th>
-			<th style="width:10%" scope="col">
-				never
-			</th>
-			<th style="width:10%" scope="col">
-				rarely
-			</th>
-			<th style="width:10%" scope="col">
-				sometimes
-			</th>
-			<th style="width:10%" scope="col">
-				regulary
-			</th>
-			<th style="width:10%" scope="col">
-				don't know this feature
-			</th>
-		</tr>
-		<tr class="alt">
-			<td style="text-align:left;">access a page about a Member of Parliament in Westminster</td>
-			<td><input type="radio" name="feature_MP" value="0"></td>
-			<td><input type="radio" name="feature_MP" value="1"></td>
-			<td><input type="radio" name="feature_MP" value="2"></td>
-			<td><input type="radio" name="feature_MP" value="3"></td>
-			<td><input type="radio" name="feature_MP" value="99"></td>
-		</tr>
-		<tr>
-			<td style="text-align:left;">access a page about a Lord in Westminster</td>
-			<td><input type="radio" name="feature_Lord" value="0"></td>
-			<td><input type="radio" name="feature_Lord" value="1"></td>
-			<td><input type="radio" name="feature_Lord" value="2"></td>
-			<td><input type="radio" name="feature_Lord" value="3"></td>
-			<td><input type="radio" name="feature_Lord" value="99"></td>
-		</tr>
-		<tr class="alt">
-			<td style="text-align:left;">access a page about a Member of the Scottish Parliament</td>
-			<td><input type="radio" name="feature_MSP" value="0"></td>
-			<td><input type="radio" name="feature_MSP" value="1"></td>
-			<td><input type="radio" name="feature_MSP" value="2"></td>
-			<td><input type="radio" name="feature_MSP" value="3"></td>
-			<td><input type="radio" name="feature_MSP" value="99"></td>
-		</tr>
-		<tr>
-			<td style="text-align:left;">access a page about a Member of the Northern Ireland Assembly</td>
-			<td><input type="radio" name="feature_MLA" value="0"></td>
-			<td><input type="radio" name="feature_MLA" value="1"></td>
-			<td><input type="radio" name="feature_MLA" value="2"></td>
-			<td><input type="radio" name="feature_MLA" value="3"></td>
-			<td><input type="radio" name="feature_MLA" value="99"></td>
-		</tr>
-		<tr class="alt">
-			<td style="text-align:left;">access a page about a debate in House of Commons</td>
-			<td><input type="radio" name="feature_debateHOC" value="0"></td>
-			<td><input type="radio" name="feature_debateHOC" value="1"></td>
-			<td><input type="radio" name="feature_debateHOC" value="2"></td>
-			<td><input type="radio" name="feature_debateHOC" value="3"></td>
-			<td><input type="radio" name="feature_debateHOC" value="99"></td>
-		</tr>
-		<tr>
-			<td style="text-align:left;">access a page about a debate in House of Lords</td>
-			<td><input type="radio" name="feature_debateHOL" value="0"></td>
-			<td><input type="radio" name="feature_debateHOL" value="1"></td>
-			<td><input type="radio" name="feature_debateHOL" value="2"></td>
-			<td><input type="radio" name="feature_debateHOL" value="3"></td>
-			<td><input type="radio" name="feature_debateHOL" value="99"></td>
-		</tr>
-		<tr class="alt">
-			<td style="text-align:left;">access a page about a debate in Scottish Parliament</td>
-			<td><input type="radio" name="feature_debateScotland" value="0"></td>
-			<td><input type="radio" name="feature_debateScotland" value="1"></td>
-			<td><input type="radio" name="feature_debateScotland" value="2"></td>
-			<td><input type="radio" name="feature_debateScotland" value="3"></td>
-			<td><input type="radio" name="feature_debateScotland" value="99"></td>
-		</tr>
-		<tr>
-			<td style="text-align:left;">access a page about a debate in Northern Ireland Assembly </td>
-			<td><input type="radio" name="feature_debateNI" value="0"></td>
-			<td><input type="radio" name="feature_debateNI" value="1"></td>
-			<td><input type="radio" name="feature_debateNI" value="2"></td>
-			<td><input type="radio" name="feature_debateNI" value="3"></td>
-			<td><input type="radio" name="feature_debateNI" value="99"></td>
-		</tr>
-		<tr class="alt">
-			<td style="text-align:left;">commenting on debates</td>
-			<td><input type="radio" name="feature_comment" value="0"></td>
-			<td><input type="radio" name="feature_comment" value="1"></td>
-			<td><input type="radio" name="feature_comment" value="2"></td>
-			<td><input type="radio" name="feature_comment" value="3"></td>
-			<td><input type="radio" name="feature_comment" value="99"></td>
-		</tr>
-		<tr>
-			<td style="text-align:left;">tracking of politicians by email or by RSS feed</td>
-			<td><input type="radio" name="feature_trackMP" value="0"></td>
-			<td><input type="radio" name="feature_trackMP" value="1"></td>
-			<td><input type="radio" name="feature_trackMP" value="2"></td>
-			<td><input type="radio" name="feature_trackMP" value="3"></td>
-			<td><input type="radio" name="feature_trackMP" value="99"></td>
-		</tr>
-		<tr class="alt">
-			<td style="text-align:left;">tracking of debates or issues by email or by RSS feed</td>
-			<td><input type="radio" name="feature_trackdebates" value="0"></td>
-			<td><input type="radio" name="feature_trackdebates" value="1"></td>
-			<td><input type="radio" name="feature_trackdebates" value="2"></td>
-			<td><input type="radio" name="feature_trackdebates" value="3"></td>
-			<td><input type="radio" name="feature_trackdebates" value="99"></td>
-		</tr>
-		<tr>
-			<td style="text-align:left;">watching video of parliamentary debates</td>
-			<td><input type="radio" name="feature_video" value="0"></td>
-			<td><input type="radio" name="feature_video" value="1"></td>
-			<td><input type="radio" name="feature_video" value="2"></td>
-			<td><input type="radio" name="feature_video" value="3"></td>
-			<td><input type="radio" name="feature_video" value="99"></td>
-		</tr>
-	</table></td>
-</tr>
+<tr><td>&nbsp;</td></tr>
 <tr class="alt">
 	<td class="us_label">
 	Is there any feature that you would like to see on the site for which you would be willing to donate some money so that it can be developed?
