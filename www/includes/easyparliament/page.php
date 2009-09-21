@@ -631,7 +631,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			$show_survey_qn = $_COOKIE['survey'];
 		} else {
 			$rand = rand(1, 100);
-			if ($rand <= 100) { # XXX <= 5
+			if ($rand <= 5) {
 				$show_survey_qn = 1;
 				$db = new ParlDB;
 				$db->query('update survey set shown = shown + 1');
