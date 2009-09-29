@@ -627,14 +627,14 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			return;
 		}
 		$show_survey_qn = 0;
+		$first_survey = 0;
 		if (isset($_COOKIE['survey'])) {
 			$show_survey_qn = $_COOKIE['survey'];
 		} else {
 			$rand = rand(1, 100);
-			if ($rand <= 5) {
+			if ($rand <= 10) {
 				$show_survey_qn = 1;
-				$db = new ParlDB;
-				$db->query('update survey set shown = shown + 1');
+				$first_survey = 1;
 			}
 			setcookie('survey', $show_survey_qn, time()+60*60*24*365, '/');
 		}
@@ -644,6 +644,9 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 <br><a href="/survey/?answer=yes">Yes</a> | <a href="/survey/?answer=no">No</a>
 <small>| <a href="/survey/?ignore=1">Close</a></small>
 </div>';
+		}
+		if ($first_survey == '1') {
+			echo '<div id="first_survey"></div>';
 		}
 	}
 
