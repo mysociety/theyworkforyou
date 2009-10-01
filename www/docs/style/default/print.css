@@ -21,7 +21,8 @@ div.calendar a {
 	
 div.main {
 	width: 100%;
-	}
+	float: none;
+}
 
 div.stripe-side,
 div.stripe-head-1,
@@ -81,5 +82,5 @@ span.hi {
 }
 
 div#survey_teaser {
-	display: none;
+	display: none !important;
 }
