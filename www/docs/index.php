@@ -113,7 +113,8 @@ $PAGE->stripe_start("full");
 <!-- Campaign -->
 <div class="campaign">
     <p>
-        TheyWorkForYou needs your help <span class="chev"><span class="hide">-</span></span> <a href="http://www.pledgebank.com/twfypatrons">Become a patron, donate &pound;5 a month ...</a>
+        Become a TheyWorkForYou volunteer in your constituency <span class="chev"><span class="hide">-</span></span>
+	<a href="http://www.democracyclub.org.uk/">Join DemocracyClub</a>
     </p>
 </div>
 
