@@ -27,7 +27,11 @@ function api_getMPinfo_id($id) {
 
 	$output = _api_getMPsInfo_id($id);
 	if ($output) {
-		api_output($output[0][$id], $output[1]);
+        if ($output[0]) {
+		    api_output($output[0][$id], $output[1]);
+        } else {
+            api_error('Unknown field');
+        }
 	} else {
 		api_error('Unknown person ID');
 	}
