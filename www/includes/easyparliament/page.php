@@ -1192,9 +1192,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			$html .= '	<li><a href="' . $links['diocese_url'] . '">Diocese website</a></li>';
 		}
 
-		if (isset($links['edm_ais_url'])) {
-			$html .= '<li><a href="' . $links['edm_ais_url'] . '">Early Day Motions signed by this MP</a> <small>(From edmi.parliament.uk)</small></li>';
-		}
+        $html .= '<li><a href="http://www.edms.org.uk/mps/' . $member->person_id() . '">Early Day Motions signed by this MP</a> <small>(From edms.org.uk)</small></li>';
 
 		if (isset($links['journa_list_link'])) {
 			$html .= '	<li><a href="' . $links['journa_list_link'] . '">Newspaper articles written by this MP</a> <small>(From Journalisted)</small></li>';
