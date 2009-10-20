@@ -632,7 +632,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			$show_survey_qn = $_COOKIE['survey'];
 		} else {
 			$rand = rand(1, 100);
-			if ($rand <= 10) {
+			if ($rand <= 20) {
 				$show_survey_qn = 1;
 				$first_survey = 1;
 			}
