@@ -191,7 +191,8 @@ if ($action ne "check" && $action ne 'checkfull') {
         $doc->add_term("C$$row{colnum}") if $$row{colnum};
 
         # For sort by date (although all wrans have same time of 00:00, no?)
-        (my $htime = $$row{htime}) =~ s/[^0-9]//g;
+        my $htime = $$row{htime} || 0;
+        $htime =~ s/[^0-9]//g;
         $doc->add_value(0, pack('N', $date+0) . pack('N', $htime+0));
         # XXX lenny Search::Xapian doesn't have sortable_serialise
         #my $datetimenum = "$date$htime";
