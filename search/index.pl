@@ -96,13 +96,8 @@ if ($action ne "check" && $action ne 'checkfull') {
     my $new_indexbatch = $max_indexbatch + 1;
     
     # Get data for items to update from MySQL 
-    # XXX unix_time is broken if htime>'23:59:59' (on long sittings)
-    # Replace bit of query with
-    # hdate, htime, gid, major, section_id, subsection_id, colnum,
-
     my $query = "select epobject.epobject_id, epobject.body, section.body as section_body,
-        hdate, gid, major, section_id, subsection_id, colnum,
-        unix_timestamp(concat(hdate, ' ', if(htime, htime, 0))) as unix_time,
+        hdate, htime, gid, major, section_id, subsection_id, colnum,
         unix_timestamp(hansard.created) as created, hpos,
         person_id, member.title, first_name, last_name, constituency, party, house
         from epobject join hansard on epobject.epobject_id = hansard.epobject_id
@@ -195,11 +190,12 @@ if ($action ne "check" && $action ne 'checkfull') {
         $doc->add_term("G\L$dept") if $$row{major} == 3 || $$row{major} == 4 || $$row{major} == 8;
         $doc->add_term("C$$row{colnum}") if $$row{colnum};
 
-        my $packedUnixTime = pack('N', $$row{'unix_time'});
-        $doc->add_value(0, $packedUnixTime); # For sort by date (although all wrans have same time of 00:00, no?)
-#        (my $htime = $$row{htime}) =~ s/[^0-9]//g;
-#        my $datetimenum = "$date$htime";
-#        $doc->add_value(0, Search::Xapian::sortable_serialise($datetimenum+0)); # For sort by date (although all wrans have same time of 00:00, no?)
+        # For sort by date (although all wrans have same time of 00:00, no?)
+        (my $htime = $$row{htime}) =~ s/[^0-9]//g;
+        $doc->add_value(0, pack('N', $date+0) . pack('N', $htime+0));
+        # XXX lenny Search::Xapian doesn't have sortable_serialise
+        #my $datetimenum = "$date$htime";
+        #$doc->add_value(0, Search::Xapian::sortable_serialise($datetimenum+0));
         $doc->add_value(1, $date); # For date range searches
         $doc->add_value(2, pack('N', $$row{'created'}) . pack('N', $$row{'hpos'})); # For email alerts
         $doc->add_value(3, $subsection_or_id); # For collapsing on segment
