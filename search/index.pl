@@ -241,6 +241,7 @@ if ($action ne "check" && $action ne 'checkfull') {
 
     # Check for items in Xapian not in MySQL:
     my $q = $dbh->prepare('select gid from hansard where gid=?');
+    my %xapian_gids;
     my $allterms = $db->allterms_begin();
     my $alltermsend = $db->allterms_end();
     while ($allterms ne $alltermsend) {
@@ -253,6 +254,7 @@ if ($action ne "check" && $action ne 'checkfull') {
                 print "  deleting $term from Xapian index\n" unless $cronquiet;
 #                $db->delete_document_by_term($term);
             }
+            $xapian_gids{$term} = 1;
         }
         $allterms++;
     }
@@ -264,7 +266,7 @@ if ($action ne "check" && $action ne 'checkfull') {
         while (my $row = $q->fetchrow_hashref()) {
             my $gid = $$row{'gid'};
             $gid =~ s#uk.org.publicwhip/#Q#;
-            my $in_xapian = $db->get_termfreq($gid);
+            my $in_xapian = $xapian_gids{$gid};
             print "Checking $gid $in_xapian\n";
             if (!$in_xapian) {
                 # This is an internal error (or could happen if the MySQL database
