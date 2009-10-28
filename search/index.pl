@@ -238,45 +238,41 @@ if ($action ne "check" && $action ne 'checkfull') {
     close FP;
 } elsif ($action eq 'checkfull') {
     # Look for deleted items, or items we've missed
-    # .. fetch all gids in MySQL
-    my $query = "select gid from hansard";
-    my $q = $dbh->prepare($query);
-    $q->execute();
-    my %mysql_gids;
-    while (my $row = $q->fetchrow_hashref()) {
-        my $gid = $$row{'gid'};
-        $gid =~ s#uk.org.publicwhip/##;
-        $mysql_gids{"Q$gid"} = 1;
-    }
-    # .. fetch all gids in Xapian
-    my %xapian_gids;
-    my $allterms = $db->allterms_begin(); # 'Q');
-    my $alltermsend = $db->allterms_end(); # 'Q');
+
+    # Check for items in Xapian not in MySQL:
+    my $q = $dbh->prepare('select gid from hansard where gid=?');
+    my $allterms = $db->allterms_begin();
+    my $alltermsend = $db->allterms_end();
     while ($allterms ne $alltermsend) {
         my $term = "$allterms";
-        if ($term =~ m#^Q#) { # (?:wrans|debate|westminhall|wms|lords|ni|standing)/#) {
-            $xapian_gids{$term} = 1;
+        if ($term =~ m#^Q#) {
+            print "Checking $term...\n";
+            $q->execute('uk.org.publicwhip/' . substr($term, 1));
+            my $exists = $q->fetchrow_arrayref();
+            unless ($exists) {
+                print "  deleting $xapian_gid from Xapian index\n" unless $cronquiet;
+#                $db->delete_document_by_term($xapian_gid);
+            }
         }
         $allterms++;
     }
-    # Compare them. 
-    # Check for items in Xapian not in MySQL:
-    foreach my $xapian_gid (keys %xapian_gids) {
-        my $in_mysql = $mysql_gids{$xapian_gid};
-        if (!$in_mysql) {
-            print "deleting $xapian_gid from Xapian index\n" unless $cronquiet;
-            $db->delete_document_by_term($xapian_gid);
-        }
-    }
+
     # Check for items in MySQL not in Xapian
-    foreach my $mysql_gid (keys %mysql_gids) {
-        my $in_xapian = $xapian_gids{$mysql_gid};
-        if (!$in_xapian) {
-            # This is an internal error (or could happen if the MySQL database
-            # updated while Xapian was reindexing, which the normal cron scripts
-            # don't do).  Everything should have already been added by now, according
-            # to the last modified logic above.
-            print "added $mysql_gid -- needs adding to Xapian indexing, but it should have been already by this point\n";
+    my $q = $dbh->prepare('select gid from hansard where year(hdate)=?');
+    for ($year = 1900; $year <= 2100; $year++) {
+        $q->execute($year);
+        while (my $row = $q->fetchrow_hashref()) {
+            my $gid = $$row{'gid'};
+            $gid =~ s#uk.org.publicwhip/#Q#;
+            my $in_xapian = $db->get_termfreq($gid);
+            print "Checking $gid $in_xapian\n";
+            if (!$in_xapian) {
+                # This is an internal error (or could happen if the MySQL database
+                # updated while Xapian was reindexing, which the normal cron scripts
+                # don't do).  Everything should have already been added by now, according
+                # to the last modified logic above.
+                print "  added $mysql_gid -- needs adding to Xapian indexing, but it should have been already by this point\n";
+            }
         }
     }
 }
