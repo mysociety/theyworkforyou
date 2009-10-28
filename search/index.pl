@@ -258,8 +258,8 @@ if ($action ne "check" && $action ne 'checkfull') {
     }
 
     # Check for items in MySQL not in Xapian
-    my $q = $dbh->prepare('select gid from hansard where year(hdate)=?');
-    for ($year = 1900; $year <= 2100; $year++) {
+    $q = $dbh->prepare('select gid from hansard where year(hdate)=?');
+    for (my $year = 1900; $year <= 2100; $year++) {
         $q->execute($year);
         while (my $row = $q->fetchrow_hashref()) {
             my $gid = $$row{'gid'};
@@ -271,7 +271,7 @@ if ($action ne "check" && $action ne 'checkfull') {
                 # updated while Xapian was reindexing, which the normal cron scripts
                 # don't do).  Everything should have already been added by now, according
                 # to the last modified logic above.
-                print "  added $mysql_gid -- needs adding to Xapian indexing, but it should have been already by this point\n";
+                print "  added $gid -- needs adding to Xapian indexing, but it should have been already by this point\n";
             }
         }
     }
