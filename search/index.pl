@@ -250,8 +250,8 @@ if ($action ne "check" && $action ne 'checkfull') {
             $q->execute('uk.org.publicwhip/' . substr($term, 1));
             my $exists = $q->fetchrow_arrayref();
             unless ($exists) {
-                print "  deleting $xapian_gid from Xapian index\n" unless $cronquiet;
-#                $db->delete_document_by_term($xapian_gid);
+                print "  deleting $term from Xapian index\n" unless $cronquiet;
+#                $db->delete_document_by_term($term);
             }
         }
         $allterms++;
