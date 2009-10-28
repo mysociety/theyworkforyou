@@ -1,11 +1,12 @@
 #! /usr/bin/perl -w
 # compactsearchdb. Compacts the Xapian search database
 #
-# $Id: compactsearchdb,v 1.5 2009-10-26 13:29:09 matthew Exp $
+# $Id: compactsearchdb,v 1.6 2009-10-28 10:33:00 matthew Exp $
 
 use strict;
 
 use FindBin;
+use File::Copy;
 use File::Path;
 use lib "$FindBin::Bin/../../perllib";
 
@@ -14,10 +15,10 @@ mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
 my $xapian = mySociety::Config::get('XAPIANDB');
 
-rmtree("$xapian-compacted");
+rmtree("$xapian-compacted"); # This should never be present anyway.
+rmtree("$xapian-previous"); # Remove old backup.
 system("xapian-compact $xapian/ $xapian-compacted/ >/dev/null");
-rmtree("$xapian-previous");
 rename $xapian, "$xapian-previous";
 rename "$xapian-compacted", $xapian;
-rename "$xapian-previous/twfy-lastupdated", "$xapian/twfy-lastupdated";
+copy "$xapian-previous/twfy-lastupdated", "$xapian/twfy-lastupdated";
 
