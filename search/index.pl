@@ -247,7 +247,6 @@ if ($action ne "check" && $action ne 'checkfull') {
     while ($allterms ne $alltermsend) {
         my $term = "$allterms";
         if ($term =~ m#^Q#) {
-            print "Checking $term...\n";
             $q->execute('uk.org.publicwhip/' . substr($term, 1));
             my $exists = $q->fetchrow_arrayref();
             unless ($exists) {
@@ -267,7 +266,6 @@ if ($action ne "check" && $action ne 'checkfull') {
             my $gid = $$row{'gid'};
             $gid =~ s#uk.org.publicwhip/#Q#;
             my $in_xapian = $xapian_gids{$gid};
-            print "Checking $gid $in_xapian\n";
             if (!$in_xapian) {
                 # This is an internal error (or could happen if the MySQL database
                 # updated while Xapian was reindexing, which the normal cron scripts
