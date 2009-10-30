@@ -57,6 +57,11 @@ $methods = array(
 		'required' => false,
 		'help' => 'Returns list of Lords',
 	),
+	'getMLA' => array(
+		'parameters' => array('id', 'constituency', 'postcode'),
+		'required' => true,
+		'help' => 'Returns details for an MLA'
+	),
 	'getMLAs' => array(
 		'parameters' => array('date', 'party', 'search'),
 		'required' => false,

@@ -4,6 +4,7 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once 'api_getMP.php';
 include_once 'api_getLord.php';
 include_once 'api_getMSP.php';
+include_once 'api_getMLA.php';
 function api_getPerson_front() {
 ?>
 <p><big>Fetch a particular person.</big></p>
@@ -31,10 +32,6 @@ function _api_getPerson_row($row, $has_party=FALSE){
 		if (is_string($r)) $row[$k] = html_entity_decode($r);
 	}
 	return $row;
-}
-
-function _api_getMLA_row($row) {
-  return _api_getPerson_row($row, $has_party=TRUE);
 }
 
 function _api_getRoyal_row($row) {
