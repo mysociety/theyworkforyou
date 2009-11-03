@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: xml2db.pl,v 1.50 2009-06-22 11:58:20 matthew Exp $
+# $Id: xml2db.pl,v 1.51 2009-11-03 08:39:41 matthew Exp $
 #
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
@@ -752,7 +752,7 @@ sub delete_redirected_gids {
                 my $new_epobjectid = ($hcheck->fetchrow_array())[0];
                 $hcheck->finish();
                 unless ($new_epobjectid) {
-                        print "PROBLEM: $from_gid\n";
+                        #print "PROBLEM: $from_gid\n";
                         next;
                 }
 
