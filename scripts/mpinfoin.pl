@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.45 2009-08-14 10:08:41 matthew Exp $
+# $Id: mpinfoin.pl,v 1.46 2009-11-05 10:09:07 matthew Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -112,7 +112,7 @@ if ($action{'links'}) {
         print "  MSP websites\n" if $verbose;
         $twig->parsefile($pwmembers . 'websites-sp.xml', ErrorContext => 2);
         print "  MSP Twitter username\n" if $verbose;
-        $twig->parsefile($pwmembers . 'twitter-sp.xml', ErrorContext => 2);
+        $twig->parsefile($pwmembers . 'twitter.xml', ErrorContext => 2);
         chdir $FindBin::Bin;
         print "  Lords biographies\n" if $verbose;
         $twig->parsefile($pwmembers . 'lordbiogs.xml', ErrorContext => 2);
