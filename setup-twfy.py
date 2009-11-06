@@ -1,5 +1,65 @@
 #!/usr/bin/python2.5
 
+# This script takes requires a more-or-less basic lenny UML root
+# filesystem image and sets up TWFY on it.
+#
+# The customizations that were needed above a basic lenny
+# installation are:
+#
+#   /etc/network/interfaces:
+#     - e.g. adding something like:
+#         auto eth0
+#         iface eth0 inet static
+#           address 192.168.2.253
+#           netmask 255.255.255.0
+#           gateway 192.168.2.254
+#       to set up the TUN/TAP networking
+#
+#   /etc/resolv.conf:
+#     - Set up with your nameservers
+#
+#   /etc/fstab:
+#     - As usual for UML, you need to mount the kernel
+#       modules, so add a line like:
+#
+#   Adding the SSH public keys for alice and root to their
+#   authorized_keys files.
+#
+#   /etc/apache2/sites-available/twfy
+#
+#     - This will be a2ensite-ed later, but should look something
+#       like:
+#
+#         <VirtualHost *:81>
+#                 ServerAdmin mark-twfyuml@longair.net
+#                 DocumentRoot /home/alice/mysociety/twfy/www/docs
+#                 <Directory /home/alice/mysociety/twfy/www/docs/>
+#                         Options FollowSymLinks
+#                         AllowOverride All
+#                         allow from all
+#                         Order allow,deny
+#                 </Directory>
+#                 ErrorLog /var/log/apache2/error.log
+#                 LogLevel warn
+#                 CustomLog /var/log/apache2/access.log combined
+#                 Include /home/alice/mysociety/twfy/conf/httpd.conf
+#         </VirtualHost>
+#
+#   /etc/apache2/ports.conf
+#
+#     - Add these lines:
+#         NameVirtualHost *:81
+#         Listen 81
+#
+#   Install the right set of packages.
+#
+# Ideally in the future it would be nice to be able to generate
+# the inital image completely from the Debian debootstrap system
+# and making these modifications by hand.  This means that you
+# don't have to distribute a 1GiB UML root filesystem image.  It
+# will also make it easier to run the same script to set up on
+# an Amazon EC2 instance.
+
 from common import *
 from subprocess import call, check_call, Popen
 import time
