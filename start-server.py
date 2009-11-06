@@ -3,15 +3,13 @@
 import sys
 import os
 from subprocess import call, check_call
-
+from common import *
 from optparse import OptionParser
 
 parser = OptionParser(usage="Usage: %prog [OPTIONS]")
 parser.add_option('-s', '--single', dest="single", action="store_true",
                   default=False, help="boot into single user mode")
 options,args = parser.parse_args()
-
-guest_ip = "192.168.2.198"
 
 cwd = os.path.realpath(".")
 
@@ -34,8 +32,8 @@ if 0 != group_test:
 command = [ "linux" ]
 if options.single:
     command.append("single")
-command += [ "ubda=uml-rootfs-2006-02-02",
-             "eth0=tuntap,,,"+guest_ip,
+command += [ "ubda=uml-rootfs-test",
+             "eth0=tuntap,,,"+configuration['TAP_DEVICE_IP'],
              "mem=256M"]
 
 call(command)
