@@ -1,0 +1,3 @@
+[submodule "cutycapt"]
+	path = cutycapt
+	url = git://crumble.dyndns.org/git/cutycapt
