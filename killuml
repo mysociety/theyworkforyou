@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Try to kill off locally running UML program
+
+UMLMATCH=linux-2006-01
+
+if ! pkill -0 -U $USER $UMLMATCH; then
+	echo "No UML processes (matching '$UMLMATCH') are running."
+	exit 1
+fi
+
+for signalname in TERM INT HUP KILL
+do
+	echo -n "Trying to kill locally running UML machines with SIG${signalname}..."
+	pkill -${signalname} -U $USER $UMLMATCH
+	sleep 5
+	if pkill -0 -U $USER $UMLMATCH
+	then
+		echo " failed."
+	else
+		echo " succeeded!"
+		exit 0
+	fi
+done
+
