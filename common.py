@@ -1,5 +1,6 @@
 from subprocess import call, check_call
 import re
+import time
 
 configuration = {}
 fp = open("conf")
@@ -23,10 +24,11 @@ for k in required_configuration_keys:
 
 def ssh(command,user="alice"):
     full_command = [ "ssh",
-                     "-i",
-                     "id_dsa."+user,
+                     "-i", "id_dsa."+user,
+                     "-o", "StrictHostKeyChecking=no",
                      user+"@"+configuration['UML_SERVER_IP'],
                      command ]
+    print "Going to run: "+"#".join(full_command)+"\r"
     return call(full_command)
 
 def scp(source,destination,user="alice"):
@@ -47,4 +49,44 @@ def render_page(page_path,output_image_filename):
                 "--out="+output_image_filename])
 
 def path_exists_in_uml(filename):
-    return 0 == ssh("test -e "+shellquote(filename))
+    return 0 == ssh("test -e "+shellquote(filename),user="root")
+
+def user_exists(username):
+    return 0 == ssh("id "+username,user="root")
+
+def untemplate(template_file,output_filename):
+    fp = open(template_file)
+    template_text = fp.read()
+    fp.close()
+    for k in configuration.keys():
+        r = re.compile('%'+re.escape(k)+'%')
+        template_text = r.sub(configuration[k],template_text)
+    fp = open(output_filename,"w")
+    fp.write(template_text)
+    fp.close()
+
+def web_server_working():
+    return 0 == call(["curl",
+                      "-s",
+                      "-f",
+                      "http://"+configuration['UML_SERVER_IP'],
+                      "-o",
+                      "/dev/null"])
+
+def process_alive(pid):
+    return 0 == call(["kill","-0",str(pid)])
+
+def wait_for_web_server_or_exit(pid):
+    interval_seconds = 1
+    while True:
+        still_alive = process_alive(pid)
+        up = web_server_working()
+        if not process_alive:
+            print "Process "+str(pid)+" died"
+            return False
+        else:
+            if up:
+                return True
+            else:
+                time.sleep(interval_seconds)
+                continue
