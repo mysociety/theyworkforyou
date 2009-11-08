@@ -1,0 +1,11 @@
+# Used by ifup(8) and ifdown(8). See the interfaces(5) manpage or
+# /usr/share/doc/ifupdown/examples for more information.
+
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+  address %GUEST_IP%
+  netmask %GUEST_NETMASK%
+  gateway %GUEST_GATEWAY%
