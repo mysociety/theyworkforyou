@@ -33,6 +33,9 @@ command = [ "linux" ]
 if options.single:
     command.append("single")
 command += [ "ubda=uml-rootfs-test",
+             "con=null",
+             "ssl=null",
+             "con0=fd:0,fd:1",
              "eth0=tuntap,,,"+configuration['TAP_DEVICE_IP'],
              "mem=256M"]
 
