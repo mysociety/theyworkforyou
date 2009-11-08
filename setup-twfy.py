@@ -3,7 +3,9 @@
 # This script takes requires a more-or-less basic lenny UML root
 # filesystem image and sets up TWFY on it.  To create a suitable UML
 # root image, run the "create-rootfs.py" script to create an image
-# called uml-rootfs-pristine.
+# called uml-rootfs-pristine, for example with:
+#
+#   sudo ./create-rootfs.py 1200 uml-rootfs-pristine tmp mark:mark
 
 from common import *
 from subprocess import call, check_call, Popen
