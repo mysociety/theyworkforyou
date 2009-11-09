@@ -33,6 +33,7 @@ command = [ "linux" ]
 if options.single:
     command.append("single")
 command += [ "ubda=uml-rootfs-test",
+             "umid=TWFY",
              "con=null",
              "ssl=null",
              "con0=fd:0,fd:1",
