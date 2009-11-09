@@ -162,9 +162,61 @@ result = scp("general","/home/alice/mysociety/twfy/conf")
 if result != 0:
     raise Exception, "Failed to scp the general configuration file"
 
+# Create a world-writable directory for coverage data:
+coverage_directory = "/home/alice/twfy-coverage/"
+if not path_exists_in_uml(coverage_directory):
+    result = ssh("mkdir -m 0777 "+coverage_directory)
+    if result != 0:
+        raise Exception, "Failed to create coverage data directory"
+
+# Remove any old data from that directory:
+result = ssh("rm -f "+coverage_directory+"/*")
+if result != 0:
+    raise Exception, "Failed to clean the coverage data directory"
+
+# Copy over the instrument.php file:
+result = scp("instrument.php",
+             "/home/alice/mysociety/twfy/www/includes/instrument.php")
+if result != 0:
+    raise Exception, "Failed to copy over the instrument.php file"
+
+instrument_script = "/usr/local/bin/add-php-instrumentation.py"
+
+# Copy over the script to add instrumentation file:
+result = scp("add-php-instrumentation.py",
+             instrument_script,
+             user="root")
+if result != 0:
+    raise Exception, "Failed to copy over the add-php-instrumentation.py file"
+
+# Make it executable:
+result = ssh("chmod a+rx "+instrument_script,user="root")
+if result != 0:
+    raise Exception, "Failed to make the add-php-instrumentation.py file executable"
+
+# Add the instrumentation:
+ssh_result = ssh(instrument_script+" /home/alice/mysociety/twfy/www/",capture=True)
+if ssh_result.return_value != 0:
+    raise Exception, "Instrumenting the TWFY PHP code failed."
+
+instrumented_files = re.split('\s+',ssh_result.stdout_data)
+print "File list:"
+for i in instrumented_files:
+    print "  "+i
+
+result = ssh("cd ~/mysociety/ && git checkout -b instrumented")
+if result != 0:
+    raise Exception, "Failed to create a new branch for the instrumented version"
+
+result = ssh("cd ~/mysociety/twfy/www && git add includes/instrument.php "+" ".join(instrumented_files))
+if result != 0:
+    raise Exception, "Failed to add the instrumented files to the index"
+
+result = ssh("cd ~/mysociety/ && git commit -m 'An instrumented version of the TWFY code'")
+if result != 0:
+    raise Exception, "Creating a new commit failed."
+
 # Copy over some data:
-
-
 
 
 # Set up the Apache virtual host:
