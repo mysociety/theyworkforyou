@@ -1,6 +1,7 @@
 from subprocess import call, check_call, Popen, PIPE
 import re
 import time
+import os
 
 configuration = {}
 fp = open("conf")
@@ -114,3 +115,76 @@ def wait_for_web_server_or_exit(pid):
             else:
                 time.sleep(interval_seconds)
                 continue
+
+TEST_UNKNOWN = -1
+TEST_SSH     =  0
+TEST_HTTP    =  1
+
+test_type_to_str = { -1 : "TEST_UNKNOWN",
+                      0 : "TEST_SSH",
+                      1 : "TEST_HTTP" }
+
+class Test:
+    last_test_number = -1
+    def __init__(self,output_directory):
+        self.output_directory = output_directory
+        Test.last_test_number += 1
+        self.test_number = Test.last_test_number
+        self.test_short_name = "unknown"
+        self.test_name = "[Default Test Name]"
+        self.failure_message = "[Failed]"
+        self.test_type = TEST_UNKNOWN
+        self.exit_on_fail = True
+        self.ignore_failure = False
+    def get_id_and_short_name(self):
+        return "%04d-%s" % (self.test_number,self.test_short_name)
+    def previous_output_directory(self):
+        parent, directory_name = os.path.split(self.output_directory)
+        directories = os.listdir(parent)
+        iso_8601_re = re.compile('^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d$')
+        directories = [ x for x in directories if iso_8601_re.search(x) ]
+        if len(directories) < 1:
+            raise Exception, "No matching directories found in: "+parent
+        i = directories.index(directory_name)
+        if i < 1:
+            return None
+        return os.path.join(parent,directories[i-1])
+    def set_test_output_directory(self):
+        o = self.output_directory
+        o += "/"+self.get_id_and_short_name()
+        self.test_output_directory = o
+        call(["mkdir",self.test_output_directory])
+    def __str__(self):
+        result = "Test ("+test_type_to_str[self.test_type]+")\n"
+        result += "  test_number: "+str(self.test_number)+"\n"
+        result += "  test_short_name: "+self.test_short_name+"\n"
+        result += "  test_name: "+self.test_name
+        if self.test_output_directory:
+            result += "\n  test_output_directory: "+self.test_output_directory
+        return result
+    def run(self):
+        if not self.test_output_directory:
+            raise Exception, "No test output directory set for: "+str(self)
+        fp = open(self.test_output_directory+"/info","w")
+        fp.write(str(self))
+        fp.close()
+        pass
+
+class SSHTest(Test):
+    def __init__(self,output_directory,ssh_command):
+        Test.__init__(self,output_directory)
+        self.test_type = TEST_SSH
+        self.ssh_command = ssh_command
+    def run(self):
+        Test.run(self)
+        pass
+
+class HTTPTest(Test):
+    def __init__(self,output_directory,page):
+        Test.__init__(self,output_directory)
+        self.test_type = TEST_HTTP
+        self.page = page+"?test-id="+self.get_id_and_short_name()
+    def run(self):
+        Test.run(self)
+        save_page(self.page,self.test_output_directory+"/page.html")
+        render_page(self.page,self.test_output_directory+"/page.png")
