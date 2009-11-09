@@ -67,6 +67,11 @@ def render_page(page_path,output_image_filename):
                 "--url=http://"+configuration['UML_SERVER_IP']+":81"+page_path,
                 "--out="+output_image_filename])
 
+def save_page(page_path,output_html_filename):
+    check_call(['curl',
+                '-o',output_html_filename,
+                "http://"+configuration['UML_SERVER_IP']+":81"+page_path])
+
 def path_exists_in_uml(filename):
     return 0 == ssh("test -e "+shellquote(filename),user="root")
 
