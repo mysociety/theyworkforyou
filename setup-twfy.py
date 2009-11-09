@@ -21,6 +21,10 @@ parser.add_option('-o', '--output-directory', dest="output_directory",
                   help="override the default test output directory (./output/[TIMESTAMP]/)")
 options,args = parser.parse_args()
 
+if len(args) != 0:
+    parser.print_help()
+    sys.exit(1)
+
 # git_url = None
 git_url = "git://crumble.dyndns.org/git/mysociety"
 
