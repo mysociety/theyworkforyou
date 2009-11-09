@@ -9,7 +9,7 @@
   */
 
 function save_code_coverage () {
-    $coverage_directory = "/tmp/twfy-coverage/";
+    $coverage_directory = "/home/alice/twfy-coverage/";
     if (!file_exists($coverage_directory)) {
         mkdir($coverage_directory,0777,TRUE);
     }
