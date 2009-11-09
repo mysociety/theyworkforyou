@@ -25,6 +25,9 @@ if len(args) != 0:
     parser.print_help()
     sys.exit(1)
 
+# FIXME: check that there isn't already a UML machine running; that
+# can get confusing...
+
 # git_url = None
 git_url = "git://crumble.dyndns.org/git/mysociety"
 
