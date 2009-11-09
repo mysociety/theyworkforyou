@@ -177,12 +177,6 @@ result = ssh("rm -f "+coverage_directory+"/*")
 if result != 0:
     raise Exception, "Failed to clean the coverage data directory"
 
-# Copy over the instrument.php file:
-result = scp("instrument.php",
-             "/home/alice/mysociety/twfy/www/includes/instrument.php")
-if result != 0:
-    raise Exception, "Failed to copy over the instrument.php file"
-
 instrument_script = "/usr/local/bin/add-php-instrumentation.py"
 
 # Copy over the script to add instrumentation file:
@@ -207,9 +201,23 @@ print "File list:"
 for i in instrumented_files:
     print "  "+i
 
+result = ssh("cd ~/mysociety/ && git checkout -f master")
+if result != 0:
+    raise Exception, "Couldn't switch to branch master"
+
+# Remove any old branch called instrumented, since we might be running
+# with an old image where such was created:
+result = ssh("cd ~/mysociety/ && git branch -D instrumented")
+
 result = ssh("cd ~/mysociety/ && git checkout -b instrumented")
 if result != 0:
     raise Exception, "Failed to create a new branch for the instrumented version"
+
+# Copy over the instrument.php file:
+result = scp("instrument.php",
+             "/home/alice/mysociety/twfy/www/includes/instrument.php")
+if result != 0:
+    raise Exception, "Failed to copy over the instrument.php file"
 
 result = ssh("cd ~/mysociety/twfy/www && git add includes/instrument.php "+" ".join(instrumented_files))
 if result != 0:
