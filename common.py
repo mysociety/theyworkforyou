@@ -28,13 +28,21 @@ class SSHResult:
         self.stdout_data = stdout_data
         self.stderr_data = stderr_data
 
+def trim_string(s):
+    max_length = 160
+    elision_marker = " [...]"
+    if len(s) > max_length:
+        return s[0:(max_length-len(elision_marker))]+elision_marker
+    else:
+        return s
+
 def ssh(command,user="alice",capture=False):
     full_command = [ "ssh",
                      "-i", "id_dsa."+user,
                      "-o", "StrictHostKeyChecking=no",
                      user+"@"+configuration['UML_SERVER_IP'],
                      command ]
-    print "Going to run: "+"#".join(full_command)+"\r"
+    print trim_string("Going to run: "+"#".join(full_command)+"\r")
     if capture:
         p = Popen(full_command, stdout=PIPE, stderr=PIPE)
         captured_stdout, captured_stderr = p.communicate(None)
