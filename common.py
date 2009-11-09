@@ -1,4 +1,4 @@
-from subprocess import call, check_call
+from subprocess import call, check_call, Popen, PIPE
 import re
 import time
 
@@ -22,14 +22,25 @@ for k in required_configuration_keys:
     if k not in configuration:
         raise Exception, "You must define %s in 'conf'" % (k,)
 
-def ssh(command,user="alice"):
+class SSHResult:
+    def __init__(self,return_value,stdout_data,stderr_data):
+        self.return_value = return_value
+        self.stdout_data = stdout_data
+        self.stderr_data = stderr_data
+
+def ssh(command,user="alice",capture=False):
     full_command = [ "ssh",
                      "-i", "id_dsa."+user,
                      "-o", "StrictHostKeyChecking=no",
                      user+"@"+configuration['UML_SERVER_IP'],
                      command ]
     print "Going to run: "+"#".join(full_command)+"\r"
-    return call(full_command)
+    if capture:
+        p = Popen(full_command, stdout=PIPE, stderr=PIPE)
+        captured_stdout, captured_stderr = p.communicate(None)
+        return SSHResult(p.returncode, captured_stdout, captured_stderr)
+    else:
+        return call(full_command)
 
 def scp(source,destination,user="alice"):
     full_command = [ "scp",
