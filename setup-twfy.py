@@ -14,6 +14,8 @@ import re
 import sys
 from optparse import OptionParser
 
+all_tests = []
+
 parser = OptionParser(usage="Usage: %prog [OPTIONS]")
 parser.add_option('-r', '--reuse-image', dest="reuse", action="store_true",
                   default=False, help="resuse the root fs image instead of starting anew")
@@ -259,3 +261,12 @@ if result != 0:
     raise Exception, "Failed to restart Apache on the UML machine."
 
 # Start the tests:
+
+h = HTTPTest(output_directory,"/mps/")
+h.test_name = "Fetching basic MPs page"
+h.test_short_name = "basic-MPs"
+h.failure_message = "Fetching the basic MPs page failed"
+h.set_test_output_directory()
+h.run()
+
+all_tests.append(h)
