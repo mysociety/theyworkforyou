@@ -36,7 +36,7 @@ def trim_string(s):
     else:
         return s
 
-def ssh(command,user="alice",capture=False):
+def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=None):
     full_command = [ "ssh",
                      "-i", "id_dsa."+user,
                      "-o", "StrictHostKeyChecking=no",
@@ -44,7 +44,14 @@ def ssh(command,user="alice",capture=False):
                      command ]
     print trim_string("Going to run: "+"#".join(full_command)+"\r")
     if capture:
-        p = Popen(full_command, stdout=PIPE, stderr=PIPE)
+        oo = PIPE
+        oe = PIPE
+        if stdout_filename:
+            oo = open(stdout_filename,"w")
+        if stderr_filename:
+            oe = open(stderr_filename,"w")
+        p = Popen(full_command, stdout=oo, stderr=oe)
+        # captured_* will be None if a *_filename was specified
         captured_stdout, captured_stderr = p.communicate(None)
         return SSHResult(p.returncode, captured_stdout, captured_stderr)
     else:
