@@ -37,7 +37,7 @@ command += [ "ubda=uml-rootfs-test",
              "con=null",
              "ssl=null",
              "con0=fd:0,fd:1",
-             "eth0=tuntap,,,"+configuration['TAP_DEVICE_IP'],
+             "eth0=tuntap,,,"+configuration['GUEST_GATEWAY'],
              "mem=256M"]
 
 call(command)

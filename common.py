@@ -15,7 +15,6 @@ required_configuration_keys = [ 'UML_SERVER_IP',
                                 'GUEST_GATEWAY',
                                 'GUEST_NETMASK',
                                 'GUEST_NAMESERVER',
-                                'TAP_DEVICE_IP',
                                 'MYSQL_ROOT_PASSWORD',
                                 'MYSQL_TWFY_PASSWORD' ]
 
