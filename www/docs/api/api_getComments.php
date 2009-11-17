@@ -12,8 +12,6 @@ function api_getComments_front() {
 <dd>Fetch the comments between two dates (inclusive).</dd>
 <dt>search (optional)</dt>
 <dd>Fetch the comments that contain this term.</dd>
-<dt>user_id (optional)</dt>
-<dd>Fetch the comments by a particular user ID.</dd>
 <dt>pid</dt>
 <dd>Fetch the comments made on a particular person ID (MP/Lord).</dd>
 <dt>page (optional)</dt>
