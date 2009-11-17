@@ -57,8 +57,8 @@ define ("DEBUGTAG", 'debug');
 define ("TIMEZONE", "Europe/London");
 
 // XML files and other scraped data stored as files
-define ("RAWDATA", "/home/alice/parldata");
-define ('PWMEMBERS', '/home/alice/parlparse/members');
+define ("RAWDATA", "/home/alice/parldata/");
+define ('PWMEMBERS', '/home/alice/parlparse/members/');
 
 // Prefix for files logging incoming mail
 define ("OPTION_MAIL_LOG_PREFIX", '/var/mail/twfy-');
