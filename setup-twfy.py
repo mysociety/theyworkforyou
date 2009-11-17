@@ -111,7 +111,7 @@ result = ssh("/usr/sbin/locale-gen",user="root")
 if result != 0:
     raise Exception, "Running locale-gen failed"
 
-result = ssh("DEBIAN_FRONTEND=noninteractive apt-get install --yes mysql-server php5-curl php5-mysql php5-xdebug subversion rsync python2.5-minimal",user="root")
+result = ssh("DEBIAN_FRONTEND=noninteractive apt-get install --yes mysql-server php5-curl php5-mysql php5-xdebug subversion rsync python2.5-minimal libxml-twig-perl php5-cli",user="root")
 if result != 0:
     raise Exception, "Installing additional packages failed"
 
