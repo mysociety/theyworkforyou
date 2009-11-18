@@ -23,10 +23,17 @@ for k in required_configuration_keys:
         raise Exception, "You must define %s in 'conf'" % (k,)
 
 class SSHResult:
-    def __init__(self,return_value,stdout_data,stderr_data):
+    def __init__(self,
+                 return_value,
+                 stdout_data,
+                 stderr_data,
+                 stdout_filename=None,
+                 stderr_filename=None):
         self.return_value = return_value
         self.stdout_data = stdout_data
         self.stderr_data = stderr_data
+        self.stdout_filename = stdout_filename
+        self.stderr_filename = stderr_filename
 
 def trim_string(s):
     max_length = 160
@@ -53,6 +60,10 @@ def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=
         p = Popen(full_command, stdout=oo, stderr=oe)
         # captured_* will be None if a *_filename was specified
         captured_stdout, captured_stderr = p.communicate(None)
+        if stdout_filename:
+            oo.close()
+        if stderr_filename:
+            oe.close()
         return SSHResult(p.returncode, captured_stdout, captured_stderr)
     else:
         return call(full_command)
@@ -130,18 +141,21 @@ test_type_to_str = { -1 : "TEST_UNKNOWN",
                       0 : "TEST_SSH",
                       1 : "TEST_HTTP" }
 
+all_tests = []
+
 class Test:
     last_test_number = -1
-    def __init__(self,output_directory):
+    def __init__(self,output_directory,test_name="Unknown test",test_short_name="unknown"):
         self.output_directory = output_directory
         Test.last_test_number += 1
         self.test_number = Test.last_test_number
-        self.test_short_name = "unknown"
-        self.test_name = "[Default Test Name]"
-        self.failure_message = "[Failed]"
+        self.test_short_name = test_short_name
+        self.test_name = test_name
+        self.failure_message = self.test_name + " failed"
         self.test_type = TEST_UNKNOWN
         self.exit_on_fail = True
         self.ignore_failure = False
+        self.set_test_output_directory()
     def get_id_and_short_name(self):
         return "%04d-%s" % (self.test_number,self.test_short_name)
     def previous_output_directory(self):
@@ -156,8 +170,7 @@ class Test:
             return None
         return os.path.join(parent,directories[i-1])
     def set_test_output_directory(self):
-        o = self.output_directory
-        o += "/"+self.get_id_and_short_name()
+        o = os.path.join(self.output_directory,self.get_id_and_short_name())
         self.test_output_directory = o
         call(["mkdir",self.test_output_directory])
     def __str__(self):
@@ -171,26 +184,55 @@ class Test:
     def run(self):
         if not self.test_output_directory:
             raise Exception, "No test output directory set for: "+str(self)
-        fp = open(self.test_output_directory+"/info","w")
+        fp = open(os.path.join(self.test_output_directory,"info"),"w")
         fp.write(str(self))
         fp.close()
         pass
 
 class SSHTest(Test):
-    def __init__(self,output_directory,ssh_command):
-        Test.__init__(self,output_directory)
+    def __init__(self,output_directory,ssh_command,user="alice",test_name="Unknown test",test_short_name="unknown"):
+        Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_SSH
         self.ssh_command = ssh_command
+        self.user = user
+        self.stdout_filename = os.path.join(self.test_output_directory,"stdout")
+        self.stderr_filename = os.path.join(self.test_output_directory,"stderr")
     def run(self):
         Test.run(self)
-        pass
+        result = ssh(self.ssh_command,
+                     self.user,
+                     capture=True,
+                     stdout_filename=self.stdout_filename,
+                     stderr_filename=self.stderr_filename)
+        fp = open(os.path.join(self.test_output_directory,"result"),"w")
+        fp.write(str(result.return_value))
+        fp.close()
+    def __str__(self):
+        s = Test.__str__(self)
+        s += "\n  ssh_command: "+str(self.ssh_command)
+        return s
+
+def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown test",test_short_name="unknown"):
+    s = SSHTest(output_directory,ssh_command,user=user,test_name=test_name,test_short_name=test_short_name)
+    all_tests.append(s)
+    s.run()
 
 class HTTPTest(Test):
-    def __init__(self,output_directory,page):
-        Test.__init__(self,output_directory)
+    def __init__(self,output_directory,page,test_name="Unknown test",test_short_name="unknown"):
+        Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_HTTP
         self.page = page+"?test-id="+self.get_id_and_short_name()
     def run(self):
         Test.run(self)
         save_page(self.page,self.test_output_directory+"/page.html")
         render_page(self.page,self.test_output_directory+"/page.png")
+    def __str__(self):
+        s = Test.__str__(self)
+        s += "\n  page: "+str(self.page)
+        return s
+
+def run_http_test(output_directory,page,test_name="Unknown test",test_short_name="unknown"):
+    print "Got test_name: "+test_name
+    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name)
+    all_tests.append(h)
+    h.run()

@@ -14,8 +14,6 @@ import re
 import sys
 from optparse import OptionParser
 
-all_tests = []
-
 parser = OptionParser(usage="Usage: %prog [OPTIONS]")
 parser.add_option('-r', '--reuse-image', dest="reuse", action="store_true",
                   default=False, help="resuse the root fs image instead of starting anew")
@@ -258,15 +256,29 @@ if result != 0:
 # Restart Apache on the server:
 result = ssh("/etc/init.d/apache2 reload",user="root")
 if result != 0:
-    raise Exception, "Failed to restart Apache on the UML machine."
+    raise Exception, "Failed to restart Apache on the UML machine"
 
-# Start the tests:
+# Check out parlparse:
+result = ssh("svn co http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse")
+if result != 0:
+    raise Exception, "Checking out parlparse failed"
 
-h = HTTPTest(output_directory,"/mps/")
-h.test_name = "Fetching basic MPs page"
-h.test_short_name = "basic-MPs"
-h.failure_message = "Fetching the basic MPs page failed"
-h.set_test_output_directory()
-h.run()
+# Import the member data:
+run_ssh_test(output_directory,
+             "cd /home/alice/mysociety/twfy/scripts && ./xml2db.pl --members --all",
+             test_name="Importing the member data",
+             test_short_name="import-member-data")
 
-all_tests.append(h)
+run_http_test(output_directory,
+              "/msps/",
+              test_name="Fetching basic MSPs page",
+              test_short_name="basic-MSPs")
+
+run_http_test(output_directory,
+              "/mp/gordon_brown/kirkcaldy_and_cowdenbeath",
+              test_name="Fetching Gordon Brown's page",
+              test_short_name="gordon-brown")
+
+for t in all_tests:
+    print "=============="
+    print str(t)
