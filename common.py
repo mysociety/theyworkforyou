@@ -76,6 +76,16 @@ def scp(source,destination,user="alice"):
                      user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
     return call(full_command)
 
+def rsync_from_guest(source,destination,user="alice"):
+    full_command = [ "rsync",
+                     "-avz",
+                     "-e",
+                     "ssh -l "+user+" -i id_dsa."+user,
+                     user+"@"+configuration['UML_SERVER_IP']+":"+source,
+                     destination ]
+    print "##".join(full_command)
+    return call(full_command)
+
 # From http://stackoverflow.com/questions/35817/whats-the-best-way-to-escape-os-system-calls-in-python
 def shellquote(s):
     return "'" + s.replace("'", "'\\''") + "'"
