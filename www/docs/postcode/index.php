@@ -61,19 +61,26 @@ $PAGE->page_end();
 
 function pick_multiple($pc, $areas, $area_type, $rep_type) {
 	global $PAGE;
-	$a = array_values($areas);
 	$db = new ParlDB;
+
+	$q = $db->query("SELECT person_id, first_name, last_name, constituency, left_house FROM member 
+		WHERE constituency = '" . mysql_escape_string($areas['WMC']) . "'
+		AND house = 1 ORDER BY left_house DESC LIMIT 1");
+	$mp = array();
+	if ($q->rows()) {
+		$mp = $q->row(0);
+		if ($mp['left_house'] != '9999-12-31') $mp['former'] = true;
+	}
+
+	$a = array_values($areas);
 	$q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member 
 		WHERE constituency IN ('" . join("','", $a) . "') 
 		AND left_reason = 'still_in_office'");
-	$mp = array(); $mcon = array(); $mreg = array();
+	$mcon = array(); $mreg = array();
 	for ($i=0; $i<$q->rows(); $i++) {
 		$house = $q->field($i, 'house');
-		$pid = $q->field($i, 'person_id');
-		$name = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
 		$cons = $q->field($i, 'constituency');
 		if ($house==1) {
-			$mp = $q->row($i);
 		} elseif ($house==3) {
 			$mreg[] = $q->row($i);
 		} elseif ($house==4) {
@@ -87,12 +94,7 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
 			return;
 		}
 	}
-	if (!$mp) {
-		$q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member 
-			WHERE constituency = '$areas[WMC]' ORDER BY left_house DESC LIMIT 1");
-		$mp = $q->row(0);
-		$mp['former'] = true;
-	}
+
 	$out = '';
 	$out .= '<p>That postcode has multiple results, please pick who you are interested in:</p>';
 	$out .= '<ul><li>Your ';
