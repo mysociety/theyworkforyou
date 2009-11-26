@@ -417,8 +417,7 @@ if (isset($extra_info["public_whip_dreammp230_distance"]) || isset($extra_info["
 	$got_dream |= display_dream_comparison($extra_info, $member, 975, "an <strong>investigation</strong> into the Iraq war", false, "iraq");
 	$got_dream |= display_dream_comparison($extra_info, $member, 984, "replacing <strong>Trident</strong>", false, "trident");
 	$got_dream |= display_dream_comparison($extra_info, $member, 1050, "the <strong>hunting ban</strong>", false, "hunting");
-	if (in_array(1, $member['houses']))
-	    $got_dream |= display_dream_comparison($extra_info, $member, 826, "equal <strong>gay rights</strong>", false, "gay");
+	$got_dream |= display_dream_comparison($extra_info, $member, 826, "equal <strong>gay rights</strong>", false, "gay");
         $got_dream |= display_dream_comparison($extra_info, $member, 1030, "laws to <strong>stop climate change</strong>", false, "climate change");
 
 	if (!$got_dream) {
