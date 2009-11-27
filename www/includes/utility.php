@@ -885,7 +885,7 @@ function prettify_office($pos, $dept) {
 	);
 	if ($pos) { # Government post, or Chairman of Select Committee
 		$pretty = $pos;
-		if ($dept) $pretty .= ", $dept";
+		if ($dept && $dept != 'No Department') $pretty .= ", $dept";
 		if (array_key_exists($pretty, $lookup))
 			$pretty = $lookup[$pretty];
 	} else { # Member of Select Committee
