@@ -62,9 +62,10 @@ work on their own versions. :)</p>
 
 <p>This approach met with success as ace volunteer <a href="http://longair.net/mark/">Mark
 Longair</a> contributed the parsing code and much front-end code for the Scottish Parliament
-which launched in May 2008. Wales is now all alone...</p>
+which launched in May 2008. Wales is now all alone&hellip;</p>
 
 <h3>Volunteers</h3>
+
 <p><em>They did all this in their spare time, because they thought it was worth doing.
 And if it's worth doing, you might as well try to do it well. </em></p>
 
@@ -79,13 +80,11 @@ And if it's worth doing, you might as well try to do it well. </em></p>
 <li>David Heath</li>
 <li>Francis Irving</li>
 <li>Ben Laurie</li>
-<li>Mark Longair</li>
 <li>Tom Loosemore</li>
 <li>Stefan Magdalinski</li>
 <li>Dorian McFarland</li>
 <li>Anno Mitchell</li>
 <li>Danny O'Brien</li>
-<li>Etienne Pollard</li>
 <li>Sam Smith</li>
 <li>Matthew Somerville</li>
 <li>Tom Steinberg</li>
@@ -93,3 +92,12 @@ And if it's worth doing, you might as well try to do it well. </em></p>
 <li>Julian Todd</li>
 <li>Denise Wilton</li>
 </ul>
+
+<p>Since the site launched, a variety of people have contributed to the running
+of the site, both paid and voluntarily. Mark Longair added the Scottish
+Parliament, and Matthew Somerville added the Northern Ireland Assembly. Etienne
+Pollard did much of the work to get BBC Parliament video downloaded and
+chunked. Richard Pope made the current design, and Joe Lanman contributed the
+red Parliament logo. Louise Crow, Francis Irving, Duncan Parkes, and others
+have fixed bugs, get the parser running, and so on.</p>
+
