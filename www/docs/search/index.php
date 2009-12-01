@@ -217,7 +217,7 @@ if ($q_house==1) {
     		'p' => $pagenum,
     		'num' => get_http_var('num'),
             'pop' => get_http_var('pop'),
-            'o' => ($o=='d' || $o=='r') ? $o : 'd',
+            'o' => ($o=='d' || $o=='r' || $o=='o') ? $o : 'd',
     	);
 	
     	$LIST = new HANSARDLIST();

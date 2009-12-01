@@ -302,7 +302,11 @@ class SEARCHENGINE {
 
         switch ($sort_order) {
             case 'date':
-                $this->enquire->set_sort_by_value(0);
+            case 'newest':
+                $this->enquire->set_sort_by_value(0, false);
+                break;
+            case 'oldest':
+                $this->enquire->set_sort_by_value(0, true);
                 break;
             case 'created':
                 $this->enquire->set_sort_by_value(2); 

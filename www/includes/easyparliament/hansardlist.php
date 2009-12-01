@@ -1036,7 +1036,8 @@ class HANSARDLIST {
 		// Get the gids from Xapian
 		$sort_order = 'date';
 		if (isset($args['o'])) {
-			if ($args['o']=='d') $sort_order = 'date';
+			if ($args['o']=='d') $sort_order = 'newest';
+			if ($args['o']=='o') $sort_order = 'oldest';
 			elseif ($args['o']=='c') $sort_order = 'created';
 			elseif ($args['o']=='r') $sort_order = 'relevance';
 		}

@@ -540,8 +540,8 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		    
 			<ul id="user">
 			<li><a href="<?php echo $LOGOUTURL->generate(); ?>" title="<?php echo $logouttitle; ?>"<?php echo $logoutclass; ?>><?php echo $logouttext; ?></a></li>
-			<li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo $edittext; ?></a></li>
-			<li><span class="name"><?php echo htmlentities($username); ?></span></li>
+			<li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo $edittext; ?>
+			<?php echo htmlentities($username); ?></a></li>
 <?php
 
 		} else {
@@ -1532,21 +1532,24 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 			$orderUrl = new URL('search');
 			$orderUrl->insert(array('s'=>$value)); # Need the parsed value
 		        $ordering = get_http_var('o');
-		        if ($ordering!='r' && $ordering!='d' && $ordering != 'p') {
-		            $ordering='d';
+		        if ($ordering != 'r' && $ordering != 'd' && $ordering != 'p' && $ordering != 'o') {
+		            $ordering = 'd';
 		        }
         
 		        if ($ordering=='r') {
-				print '<strong>Most relevant results are first</strong>';
+				print '<strong>Sorted by relevance</strong>';
 		        } else {
-				printf("<a href='%s'>Show most relevant results first</a>", $orderUrl->generate('html', array('o'=>'r')));
+				printf("<a href='%s'>Sort by relevance</a>", $orderUrl->generate('html', array('o'=>'r')));
 		        }
 
 		        print "&nbsp;|&nbsp;";
 		        if ($ordering=='d') {
-				print '<strong>Most recent results are first</strong>';
+				print '<strong>Sorted by date: newest</strong> / <a href="' . $orderUrl->generate('html', array('o'=>'o')) . '">oldest</a>';
+		        } elseif ($ordering=='o') {
+				print '<strong>Sorted by date:</strong> <a href="' . $orderUrl->generate('html', array('o'=>'d')) . '">newest</a> / <strong>oldest</strong>';
 		        } else {
-				printf("<a href='%s'>Show most recent results first</a>", $orderUrl->generate('html', array('o'=>'d')));
+				printf("Sort by date: <a href='%s'>newest</a> / <a href='%s'>oldest</a>",
+                    $orderUrl->generate('html', array('o'=>'d')), $orderUrl->generate('html', array('o'=>'o')));
 		        }
 
 			print "&nbsp;|&nbsp;";
