@@ -171,9 +171,9 @@ function postcode_is_scottish($pc) {
 		# TD15 is mostly England
 		if ($m[2]==15) {
 			if ($m[3]!=1) return false; # TD15 2 and 9 are in England
-			if (in_array($m[4], array('SU','SZ','UF','UG','UH','UJ','UL','US','UZ','WY','WZ'))) return true;
-			if ($m[5]=='T') return true; # TD15 1T* in Scotlan
-			if ($m[5]=='X' && $m[4]!='XX') return true; # TD15 1XX in England
+			if (in_array($m[4], array('BT','SU','SZ','UF','UG','UH','UJ','UL','US','UZ','WY','WZ'))) return true;
+			if ($m[5]=='T' && $m[4]!='TA' && $m[4]!='TB') return true; # Most of TD15 1T* in Scotland
+			if ($m[5]=='X' && $m[4]!='XX') return true; # TD15 1XX in England, rest of TD15 1X* in Scotland
 		}
 	}
 
