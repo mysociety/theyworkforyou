@@ -540,8 +540,8 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		    
 			<ul id="user">
 			<li><a href="<?php echo $LOGOUTURL->generate(); ?>" title="<?php echo $logouttitle; ?>"<?php echo $logoutclass; ?>><?php echo $logouttext; ?></a></li>
-			<li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo $edittext; ?>
-			<?php echo htmlentities($username); ?></a></li>
+			<li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo $edittext; ?></a></li>
+            <li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo htmlentities($username); ?></a></li>
 <?php
 
 		} else {
