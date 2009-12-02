@@ -259,13 +259,14 @@ class Test:
         pass
 
 class SSHTest(Test):
-    def __init__(self,output_directory,ssh_command,user="alice",test_name="Unknown test",test_short_name="unknown"):
+    def __init__(self,output_directory,ssh_command,user="alice",test_name="Unknown test",test_short_name="unknown",browser=None):
         Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_SSH
         self.ssh_command = ssh_command
         self.user = user
         self.stdout_filename = os.path.join(self.test_output_directory,"stdout")
         self.stderr_filename = os.path.join(self.test_output_directory,"stderr")
+        self.browser = browser
     def run(self):
         Test.run(self)
         result = ssh(self.ssh_command,
@@ -281,8 +282,8 @@ class SSHTest(Test):
         s += "\n  ssh_command: "+str(self.ssh_command)
         return s
 
-def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown test",test_short_name="unknown"):
-    s = SSHTest(output_directory,ssh_command,user=user,test_name=test_name,test_short_name=test_short_name)
+def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown test",test_short_name="unknown",browser=None):
+    s = SSHTest(output_directory,ssh_command,user=user,test_name=test_name,test_short_name=test_short_name,browser=browser)
     all_tests.append(s)
     s.run()
 
