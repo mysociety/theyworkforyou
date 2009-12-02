@@ -13,6 +13,9 @@ import time
 import re
 import sys
 from optparse import OptionParser
+from BeautifulSoup import BeautifulSoup
+from browser import fake_browser
+import cgi
 
 parser = OptionParser(usage="Usage: %prog [OPTIONS]")
 parser.add_option('-r', '--reuse-image', dest="reuse", action="store_true",
