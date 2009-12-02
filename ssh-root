@@ -1,3 +1,6 @@
 #!/bin/sh
 
-exec ssh -i id_dsa.root root@192.168.2.253 "$@"
+# We might want to run this from a different directory:
+D="$(dirname $(readlink -nf "$0"))"
+
+exec ssh -i "$D/id_dsa.root" root@192.168.2.253 "$@"
