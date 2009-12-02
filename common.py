@@ -143,10 +143,17 @@ def render_page(page_path,output_image_filename):
                 "--plugins=off",
                 "--out="+output_image_filename])
 
-def save_page(page_path,output_html_filename):
-    check_call(['curl',
-                '-o',output_html_filename,
-                "http://"+configuration['UML_SERVER_IP']+":81"+page_path])
+def save_page(page_path,output_html_filename,url_opener=None):
+    url = "http://"+configuration['UML_SERVER_IP']+":81"+page_path
+    if url_opener:
+        r = opener.open(url)
+        html = r.read()
+        r.close()
+        fp = open(output_filename, 'w')
+        fp.write(html)
+        fp.close()
+    else:
+        check_call(['curl','-o',output_html_filename,url])
 
 def path_exists_in_uml(filename):
     return 0 == ssh("test -e "+shellquote(filename),user="root")
