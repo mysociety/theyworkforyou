@@ -76,6 +76,13 @@ def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=
     else:
         return call(full_command)
 
+def pgpw(user):
+    secret_file = "/etc/mysociety/postgres_secret"
+    if not path_exists_in_uml(secret_file):
+        raise Exception, "Can't call pgpw before #{secret_file} exists"
+    r = ssh("/data/mysociety/bin/pgpw "+shellquote(user),capture=True)
+    return r.stdout_data.strip()
+
 def scp(source,destination,user="alice",verbose=True):
     full_command = [ "scp",
                      "-i",
