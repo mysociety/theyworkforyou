@@ -189,12 +189,6 @@ if 0 != ssh("( cd /data/mysociety && git checkout -f master )",user="root"):
 if 0 != ssh("( cd /data/mysociety && git reset --hard master )",user="root"):
     raise Exception, "Checking out the master branch in the UML machine failed"
 
-if 0 != scp("data-servers-serverclass","/data/servers/serverclass",user="root"):
-    raise Exception, "Copying over the serverclass file failed"
-
-if 0 != scp("vhosts.pl","/data/servers/vhosts.pl",user="root"):
-    raise Exception, "Copying over the /data/servers/vhosts.pl file failed"
-
 # Link the mysociety binary into the PATH:
 if 0 != ssh("ln -sf /data/mysociety/bin/mysociety /usr/local/bin/mysociety",user="root"):
     raise Exception, "Creating a link to the mysociety script failed"
@@ -202,18 +196,7 @@ if 0 != ssh("ln -sf /data/mysociety/bin/mysociety /usr/local/bin/mysociety",user
 if 0 != ssh("touch /root/.cvspass",user="root"):
     raise Exception, "Touching /root/.cvspass failed"
 
-# Create the general configuration file from a template:
-untemplate("data-servers-machines-sandbox.pl.template","data-servers-machines-sandbox.pl")
-
-# Copy over the general configuration file:
-result = scp("data-servers-machines-sandbox.pl",
-             "/data/servers/machines/sandbox.pl",
-             user="root")
-if result != 0:
-    raise Exception, "Failed to scp the machine configuration to /data/servers/machines/sandbox.pl"
-
-if 0 != scp("etc-apache2-conf.d-mysociety","/etc/apache2/conf.d/mysociety",user="root"):
-    raise Exception, "Copying over the /etc/apache2/conf.d/mysociety failed"
+untemplate_and_scp("files-for-uml-deploy")
 
 # It seems to some part of deploy expects to write to
 # /etc/apache/virtualhosts.d, but that is just a symlink to
@@ -232,23 +215,10 @@ result = ssh("ln -sf /etc/apache2/virtualhosts.d /etc/apache/virtualhosts.d",use
 if result != 0:
     raise Exception, "Linking the legacy /etc/apache/virtualhosts.d directory to the real one failed"
 
-if 0 != scp("data-servers-vhosts-single-vhost.conf.ugly",
-            "/data/servers/vhosts/single-vhost.conf.ugly",
-            user="root"):
-    raise Exception, "Copying over a simplified /data/servers/vhosts/single-vhost.conf.ugly failed"
-
 # Set an arbitrary /etc/mysociety/postgres_secret so we
 # don't get errors from pgpw:
 if 0 != ssh("echo voilvOvijil4>/etc/mysociety/postgres_secret",user="root"):
     raise Exception, "Setting /etc/mysociety/postgres_secret failed"
-
-# Create the general configuration file from a template:
-untemplate("general.template","general")
-
-# Copy over the general configuration file:
-result = scp("general","/data/servers/vhosts/twfy_conf_general.ugly",user="root")
-if result != 0:
-    raise Exception, "Failed to scp the general configuration file"
 
 # root needs to be able to ssh to localhost without a passphrase:
 if not path_exists_in_uml("/root/.ssh/id_dsa"):
