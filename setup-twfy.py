@@ -215,6 +215,10 @@ result = ssh("chmod a+rx "+instrument_script,user="root")
 if result != 0:
     raise Exception, "Failed to make the add-php-instrumentation.py file executable"
 
+result = ssh("cd ~/mysociety/ && git checkout -f master")
+if result != 0:
+    raise Exception, "Couldn't switch to branch master"
+
 # Add the instrumentation:
 ssh_result = ssh(instrument_script+" /home/alice/mysociety/twfy/www/",capture=True)
 if ssh_result.return_value != 0:
@@ -224,10 +228,6 @@ instrumented_files = re.split('[\r\n]+',ssh_result.stdout_data)
 print "File list:"
 for i in instrumented_files:
     print "  "+i
-
-result = ssh("cd ~/mysociety/ && git checkout -f master")
-if result != 0:
-    raise Exception, "Couldn't switch to branch master"
 
 # Remove any old branch called instrumented, since we might be running
 # with an old image where such was created:
