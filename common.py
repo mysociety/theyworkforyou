@@ -292,10 +292,15 @@ class HTTPTest(Test):
         Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_HTTP
         self.page = page+"?test-id="+self.get_id_and_short_name()
+        self.full_image_filename = None
+        self.thumbnail_image_filename = None
     def run(self):
         Test.run(self)
-        save_page(self.page,self.test_output_directory+"/page.html")
-        render_page(self.page,self.test_output_directory+"/page.png")
+        save_page(self.page,os.path.join(self.test_output_directory,"page.html"))
+        self.full_image_filename = os.path.join(self.test_output_directory,"page.png")
+        render_page(self.page,self.full_image_filename)
+        if os.path.exists(self.full_image_filename):
+            self.thumbnail_image_filename = generate_thumbnail_version(self.full_image_filename)
     def __str__(self):
         s = Test.__str__(self)
         s += "\n  page: "+str(self.page)
