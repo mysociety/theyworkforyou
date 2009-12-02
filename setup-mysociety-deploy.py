@@ -123,35 +123,13 @@ result = ssh("apt-get clean",user="root")
 if result != 0:
     raise Exception, "Removing dowloaded packages failed"
 
-# Create /data/servers/ if it doesn't already exist:
-result = ssh("mkdir -p /data/servers/",user="root")
-if result != 0:
-    raise Exception, "Ensuring that /data/servers/ exists failed"
-
-# Create /data/servers/archetypes/uml/ if it doesn't already exist:
-result = ssh("mkdir -p /data/servers/archetypes/uml/",user="root")
-if result != 0:
-    raise Exception, "Ensuring that /data/servers/archetypes/uml/ exists failed"
-
-# Create /data/servers/machines/ if it doesn't already exist:
-result = ssh("mkdir -p /data/servers/machines/",user="root")
-if result != 0:
-    raise Exception, "Ensuring that /data/servers/machines/ exists failed"
-
-# Create /data/servers/vhosts/ if it doesn't already exist:
-result = ssh("mkdir -p /data/servers/vhosts/",user="root")
-if result != 0:
-    raise Exception, "Ensuring that /data/servers/vhosts/ exists failed"
-
-# Create /data/servers/state/ if it doesn't already exist:
-result = ssh("mkdir -p /data/servers/state/",user="root")
-if result != 0:
-    raise Exception, "Ensuring that /data/servers/state/ exists failed"
-
-# Create /etc/mysociety/packages.d/ if it doesn't already exist:
-result = ssh("mkdir -p /etc/mysociety/packages.d/",user="root")
-if result != 0:
-    raise Exception, "Ensuring that /etc/mysociety/packages.d/ exists failed"
+directories_to_create = [ "/data/servers/",
+                          "/data/servers/archetypes/uml/",
+                          "/data/servers/machines/",
+                          "/data/servers/vhosts/",
+                          "/data/servers/state/",
+                          "/etc/mysociety/packages.d/",
+                          "/etc/apache2/virtualhosts.d/" ]
 
 # Create /etc/apache2/virtualhosts.d/ if it doesn't already exist:
 result = ssh("mkdir -p /etc/apache2/virtualhosts.d/",user="root")
