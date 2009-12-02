@@ -28,10 +28,6 @@ if len(args) != 0:
     parser.print_help()
     sys.exit(1)
 
-initial_mysql_root_password = ""
-if False:
-    initial_mysql_root_password += " --password="+configuration['MYSQL_ROOT_PASSWORD']
-
 # We switch UML machines frequently, so remove the host key for the
 # UML machine's IP address.
 check_call(["ssh-keygen","-R",configuration['UML_SERVER_IP']])
@@ -237,28 +233,35 @@ if 0 != ssh("ssh -i /root/.ssh/id_dsa -o StrictHostKeyChecking=no root@localhost
 
 # At least set up the mysql root password and twfy database:
 
+mysql_root_password = pgpw("root")
+mysql_twfy_password = pgpw("twfy")
+
+if 0 != ssh("mysqladmin -u root password "+shellquote(mysql_root_password),
+            user="root"):
+    raise Exception, "Setting the MySQL root password failed"
+
+mysql_root_password_option = " --password="+shellquote(mysql_root_password)
+
 # In case the database already exists, drop it:
 ssh("mysqladmin -f -u root"+
-    initial_mysql_root_password+
+    mysql_root_password_option+
     " drop twfy",user="root")
 
 # Create the database:
-result = ssh("mysqladmin -u root"+
-             initial_mysql_root_password+
-             " create twfy",user="root")
-if result != 0:
+if 0 != ssh("mysqladmin -u root"+
+             mysql_root_password_option+
+             " create twfy",user="root"):
     raise Exception, "Creating the twfy database failed"
 
 # Grant all permissions to a 'twfy' user on that database:
-result = ssh("echo \"GRANT ALL ON twfy.* TO twfy@localhost IDENTIFIED BY '"+
-             configuration['MYSQL_TWFY_PASSWORD']+"'\" | "+
-             "mysql -u root"+initial_mysql_root_password,user="root")
-if result != 0:
+if 0 != ssh("echo \"GRANT ALL ON twfy.* TO twfy@localhost IDENTIFIED BY '"+
+             mysql_twfy_password+"'\" | "+
+             "mysql -u root"+mysql_root_password_option,user="root"):
     raise Exception, "Failed to GRANT ALL on twfy to the twfy MySQL user"
 
 if 0 != ssh("( echo '[client]'; "+
             "echo 'password="+
-            configuration['MYSQL_TWFY_PASSWORD']+
+            mysql_twfy_password+
             "' ) > /home/alice/.my.cnf"):
     raise Exception, "Creating alice's ~/.my.cnf failed"
 
@@ -285,21 +288,19 @@ if not path_exists_in_uml("/home/alice/mysociety"):
 
 # In case the database already exists, drop it:
 ssh("mysqladmin -f -u root"+
-    initial_mysql_root_password+
+    mysql_root_password_option+
     " drop twfy",user="root")
 
 # Create the database:
-result = ssh("mysqladmin -u root"+
-             initial_mysql_root_password+
-             " create twfy",user="root")
-if result != 0:
+if 0 != ssh("mysqladmin -u root"+
+             mysql_root_password_option+
+             " create twfy",user="root"):
     raise Exception, "Creating the twfy database failed"
 
 # Grant all permissions to a 'twfy' user on that database:
-result = ssh("echo \"GRANT ALL ON twfy.* TO twfy@localhost IDENTIFIED BY '"+
+if 0 != ssh("echo \"GRANT ALL ON twfy.* TO twfy@localhost IDENTIFIED BY '"+
              configuration['MYSQL_TWFY_PASSWORD']+"'\" | "+
-             "mysql -u root"+initial_mysql_root_password)
-if result != 0:
+             "mysql -u root"+mysql_root_password_option)
     raise Exception, "Failed to GRANT ALL on twfy to the twfy MySQL user"
 
 # Create the database schema:

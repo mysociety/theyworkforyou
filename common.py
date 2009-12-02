@@ -15,9 +15,7 @@ required_configuration_keys = [ 'UML_SERVER_IP',
                                 'GUEST_IP',
                                 'GUEST_GATEWAY',
                                 'GUEST_NETMASK',
-                                'GUEST_NAMESERVER',
-                                'MYSQL_ROOT_PASSWORD',
-                                'MYSQL_TWFY_PASSWORD' ]
+                                'GUEST_NAMESERVER' ]
 
 for k in required_configuration_keys:
     if k not in configuration:
