@@ -69,16 +69,26 @@ if False:
 # UML machine's IP address.
 check_call(["ssh-keygen","-R",configuration['UML_SERVER_IP']])
 
-uml_stdout = open(output_directory+"/uml.stdout","w")
-uml_stderr = open(output_directory+"/uml.stderr","w")
+# Check if the UML machine is already running:
 
-popen_object = Popen("./start-server.py",
-                     stdout=uml_stdout,
-                     stderr=uml_stderr)
+p = Popen("echo version|uml_mconsole TWFY", stdout=PIPE, shell=True)
+console_version = p.communicate()[0]
+uml_already_running = re.search('^.TWFY. OK',console_version)
 
-wait_for_web_server_or_exit(popen_object.pid)
-
-check_call(["stty","sane"])
+if uml_already_running:
+    print "UML machine is already running, not starting a new one."
+    if not web_server_working():
+        print "... but the web server doesn't seem to be up."
+        sys.exit(1)
+else:
+    print "UML machine was not running, starting one up."
+    uml_stdout = open(output_directory+"/uml.stdout","w")
+    uml_stderr = open(output_directory+"/uml.stderr","w")
+    popen_object = Popen("./start-server.py",
+                         stdout=uml_stdout,
+                         stderr=uml_stderr)
+    wait_for_web_server_or_exit(popen_object.pid)
+    check_call(["stty","sane"])
 
 if not user_exists("alice"):
     print "==  Going to try to call adduser"
