@@ -116,9 +116,31 @@ def rsync_to_guest(source,destination,user="alice",exclude_git=False,delete=Fals
 def shellquote(s):
     return "'" + s.replace("'", "'\\''") + "'"
 
+def thumbnail_image_filename(original_image_filename):
+    result = re.sub('^(.*)\.([^\.]+)$','\\1-thumbnail.\\2',original_image_filename)
+    if result == original_image_filename:
+        return None
+    else:
+        return result
+
+def generate_thumbnail_version(original_image_filename):
+    thumbnail_filename = thumbnail_image_filename(original_image_filename)
+    if not thumbnail_filename:
+        raise Exception, "Failed to generate a name for the thumbnail from '%s'" % (original_image_filename,)
+    check_call(["convert",
+                "-crop",
+                "800x800+0+0",
+                "-resize",
+                "200x200",
+                original_image_filename,
+                thumbnail_filename])
+    return thumbnail_filename
+
 def render_page(page_path,output_image_filename):
     check_call(["./cutycapt/CutyCapt/CutyCapt",
                 "--url=http://"+configuration['UML_SERVER_IP']+":81"+page_path,
+                "--javascript=off",
+                "--plugins=off",
                 "--out="+output_image_filename])
 
 def save_page(page_path,output_html_filename):
