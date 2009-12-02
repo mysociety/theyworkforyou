@@ -67,60 +67,49 @@ else:
 
 if not user_exists("alice"):
     print "==  Going to try to call adduser"
-    result = ssh("adduser --disabled-password --gecos 'An Example User' alice",user="root")
-    if result != 0:
+    if 0 != ssh("adduser --disabled-password --gecos 'An Example User' alice",user="root"):
         raise Exception, "Failed to create the user alice"
 
 alice_ssh_directory = "/home/alice/.ssh"
 
 print "==  Going to test for alice's ssh directory"
 if not path_exists_in_uml(alice_ssh_directory):
-    result = ssh("mkdir -m 0700 "+alice_ssh_directory,user="root")
-    if result != 0:
+    if 0 != ssh("mkdir -m 0700 "+alice_ssh_directory,user="root"):
         raise Exception, "Failed to create alice's ssh directory"
     result = ssh("chown alice.alice "+alice_ssh_directory,user="root")
 
 alice_authorized_keys = alice_ssh_directory + "/authorized_keys"
 
 if not path_exists_in_uml(alice_authorized_keys):
-    result = scp("id_dsa.alice.pub",alice_authorized_keys,user="root")
-    if result != 0:
+    if 0 != scp("id_dsa.alice.pub",alice_authorized_keys,user="root"):
         raise Exception, "Failed to copy over alice's public key"
-    result = ssh("chown alice.alice "+alice_authorized_keys,user="root")
-    if result != 0:
+    if 0 != ssh("chown alice.alice "+alice_authorized_keys,user="root"):
         raise Exception, "Failed to chown alice's authorized_keys file"
 
 start_all_coverage = uml_date()
 
-result = ssh("( echo; echo 'deb http://debian.mysociety.org lenny main'; echo 'deb-src http://debian.mysociety.org lenny main' ) >> /etc/apt/sources.list",user="root")
-if 0 != result:
+if 0 != ssh("( echo; echo 'deb http://debian.mysociety.org lenny main'; echo 'deb-src http://debian.mysociety.org lenny main' ) >> /etc/apt/sources.list",user="root"):
     raise Exception, "Adding the mysociety repository to /etc/apt/sources.list failed"
 
 # Now install some extra packages that we'll need:
-result = ssh("apt-get update",user="root")
-if result != 0:
+if 0 != ssh("apt-get update",user="root"):
     raise Exception, "Updating the package information failed"
 
-result = ssh("DEBIAN_FRONTEND=noninteractive apt-get install --yes locales",user="root")
-if result != 0:
+if 0 != ssh("DEBIAN_FRONTEND=noninteractive apt-get install --yes locales",user="root"):
     raise Exception, "Installing additional packages failed"
 
 print "==  Checking if we need to generate a UTF-8 locale"
 if 0 != ssh("locale -a | egrep -i en_gb.utf-?8",user="root"):
     # The we should generate a UTF-8 locale:
-    result = ssh("echo 'en_GB.UTF-8 UTF-8' > /etc/locale.gen",user="root")
-    if result != 0:
+    if 0 != ssh("echo 'en_GB.UTF-8 UTF-8' > /etc/locale.gen",user="root"):
         raise Exception, "Overwriting /etc/locale.gen failed"
-    result = ssh("/usr/sbin/locale-gen",user="root")
-    if result != 0:
+    if 0 != ssh("/usr/sbin/locale-gen",user="root"):
         raise Exception, "Running locale-gen failed"
 
-result = ssh("DEBIAN_FRONTEND=noninteractive apt-get install --force-yes --yes mysql-server php5-curl php5-mysql php5-xdebug subversion rsync python2.5-minimal libxml-twig-perl php5-cli libfile-slurp-perl libunix-mknod-perl dpkg-dev libemail-localdelivery-perl php5-xapian libmime-perl",user="root")
-if result != 0:
+if 0 != ssh("DEBIAN_FRONTEND=noninteractive apt-get install --force-yes --yes mysql-server php5-curl php5-mysql php5-xdebug subversion rsync python2.5-minimal libxml-twig-perl php5-cli libfile-slurp-perl libunix-mknod-perl dpkg-dev libemail-localdelivery-perl php5-xapian libmime-perl",user="root"):
     raise Exception, "Installing additional packages failed"
 
-result = ssh("apt-get clean",user="root")
-if result != 0:
+if 0 != ssh("apt-get clean",user="root"):
     raise Exception, "Removing dowloaded packages failed"
 
 directories_to_create = [ "/data/servers/",
@@ -131,10 +120,10 @@ directories_to_create = [ "/data/servers/",
                           "/etc/mysociety/packages.d/",
                           "/etc/apache2/virtualhosts.d/" ]
 
-# Create /etc/apache2/virtualhosts.d/ if it doesn't already exist:
-result = ssh("mkdir -p /etc/apache2/virtualhosts.d/",user="root")
-if result != 0:
-    raise Exception, "Ensuring that /etc/apache2/virtualhosts.d/ exists failed"
+# Create /data/servers/ if it doesn't already exist:
+if 0 != ssh("mkdir -p "+" ".join(directories_to_create),
+             user="root"):
+    raise Exception, "Ensuring that required directories exist failed"
 
 # If the mysociety repository doesn't exist, create it:
 if not path_exists_in_uml("/data/mysociety/"):
@@ -179,15 +168,13 @@ untemplate_and_scp("files-for-uml-deploy")
 # create something similar:
 
 # Create /etc/apache/ if it doesn't already exist:
-result = ssh("mkdir -p /etc/apache/",user="root")
-if result != 0:
+if 0 != ssh("mkdir -p /etc/apache/",user="root"):
     raise Exception, "Ensuring that /etc/apache/ exists failed"
 
 if 0 != ssh("rm -f /etc/apache/virtualhosts.d",user="root"):
     raise Exception, "Failed to remove the old /etc/apache/virtualhosts.d symlink"
 
-result = ssh("ln -sf /etc/apache2/virtualhosts.d /etc/apache/virtualhosts.d",user="root")
-if result != 0:
+if 0 != ssh("ln -sf /etc/apache2/virtualhosts.d /etc/apache/virtualhosts.d",user="root"):
     raise Exception, "Linking the legacy /etc/apache/virtualhosts.d directory to the real one failed"
 
 # Set an arbitrary /etc/mysociety/postgres_secret so we
@@ -293,38 +280,32 @@ run_ssh_test(output_directory,
 untemplate("general.template","general")
 
 # Copy over the general configuration file:
-result = scp("general","/home/alice/mysociety/twfy/conf")
-if result != 0:
+if 0 != scp("general","/home/alice/mysociety/twfy/conf"):
     raise Exception, "Failed to scp the general configuration file"
 
 # Create a world-writable directory for coverage data:
 coverage_directory = "/home/alice/twfy-coverage/"
 if not path_exists_in_uml(coverage_directory):
-    result = ssh("mkdir -m 0777 "+coverage_directory)
-    if result != 0:
+    if 0 != ssh("mkdir -m 0777 "+coverage_directory):
         raise Exception, "Failed to create coverage data directory"
 
 # Remove any old data from that directory:
-result = ssh("rm -f "+coverage_directory+"/*")
-if result != 0:
+if 0 != ssh("rm -f "+coverage_directory+"/*"):
     raise Exception, "Failed to clean the coverage data directory"
 
 instrument_script = "/usr/local/bin/add-php-instrumentation.py"
 
 # Copy over the script to add instrumentation file:
-result = scp("add-php-instrumentation.py",
+if 0 != scp("add-php-instrumentation.py",
              instrument_script,
-             user="root")
-if result != 0:
+             user="root"):
     raise Exception, "Failed to copy over the add-php-instrumentation.py file"
 
 # Make it executable:
-result = ssh("chmod a+rx "+instrument_script,user="root")
-if result != 0:
+if 0 != ssh("chmod a+rx "+instrument_script,user="root"):
     raise Exception, "Failed to make the add-php-instrumentation.py file executable"
 
-result = ssh("cd ~/mysociety/ && git checkout -f master")
-if result != 0:
+if 0 != ssh("cd ~/mysociety/ && git checkout -f master"):
     raise Exception, "Couldn't switch to branch master"
 
 # Add the instrumentation:
@@ -341,35 +322,29 @@ for i in instrumented_files:
 # with an old image where such was created:
 result = ssh("cd ~/mysociety/ && git branch -D instrumented")
 
-result = ssh("cd ~/mysociety/ && git checkout -b instrumented")
-if result != 0:
+if 0 != ssh("cd ~/mysociety/ && git checkout -b instrumented"):
     raise Exception, "Failed to create a new branch for the instrumented version"
 
 # Copy over the instrument.php file:
-result = scp("instrument.php",
-             "/home/alice/mysociety/twfy/www/includes/instrument.php")
-if result != 0:
+if 0 != scp("instrument.php",
+             "/home/alice/mysociety/twfy/www/includes/instrument.php"):
     raise Exception, "Failed to copy over the instrument.php file"
 
-result = ssh("cd ~/mysociety/twfy/www && git add includes/instrument.php "+" ".join(instrumented_files))
-if result != 0:
+if 0 != ssh("cd ~/mysociety/twfy/www && git add includes/instrument.php "+" ".join(instrumented_files)):
     raise Exception, "Failed to add the instrumented files to the index"
 
-result = ssh("cd ~/mysociety/ && git commit -m 'An instrumented version of the TWFY code'")
-if result != 0:
+if 0 != ssh("cd ~/mysociety/ && git commit -m 'An instrumented version of the TWFY code'"):
     raise Exception, "Creating a new commit failed."
 
 # Set up the Apache virtual host:
-result = scp("etc-apache2-sites-available-twfy",
-             "/etc/apache2/sites-available/twfy",
-             user="root")
-if result != 0:
+if 0 != scp("etc-apache2-sites-available-twfy",
+            "/etc/apache2/sites-available/twfy",
+            user="root"):
     raise Exception, "Failed to copy over the VirtualHost configuration"
 
-result = scp("etc-apache2-ports-conf",
+if 0 != scp("etc-apache2-ports-conf",
              "/etc/apache2/ports.conf",
-             user="root")
-if result != 0:
+             user="root"):
     raise Exception, "Failed to copy over the ports.conf file"
 
 # Run a2enmod:
