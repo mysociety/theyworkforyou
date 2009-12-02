@@ -193,6 +193,7 @@ if 0 != ssh("( cd /data/mysociety && git reset --hard master )",user="root"):
 if 0 != ssh("ln -sf /data/mysociety/bin/mysociety /usr/local/bin/mysociety",user="root"):
     raise Exception, "Creating a link to the mysociety script failed"
 
+# Prevent a series of warnings about creating /root/.cvspass:
 if 0 != ssh("touch /root/.cvspass",user="root"):
     raise Exception, "Touching /root/.cvspass failed"
 
