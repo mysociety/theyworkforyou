@@ -75,21 +75,40 @@ def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=
     else:
         return call(full_command)
 
-def scp(source,destination,user="alice"):
+def scp(source,destination,user="alice",verbose=True):
     full_command = [ "scp",
                      "-i",
                      "id_dsa."+user,
                      source,
                      user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
+    if verbose:
+        print trim_string("Going to run: "+"#".join(full_command)+"\r")
     return call(full_command)
 
-def rsync_from_guest(source,destination,user="alice"):
+def rsync_from_guest(source,destination,user="alice",exclude_git=False):
     full_command = [ "rsync",
-                     "-avz",
-                     "-e",
-                     "ssh -l "+user+" -i id_dsa."+user,
-                     user+"@"+configuration['UML_SERVER_IP']+":"+source,
-                     destination ]
+                     "-av" ]
+    if exclude_git:
+        full_command.append("--exclude=.git")
+    full_command += [ "-e",
+                      "ssh -l "+user+" -i id_dsa."+user,
+                      user+"@"+configuration['UML_SERVER_IP']+":"+source,
+                      destination ]
+    print "##".join(full_command)
+    return call(full_command)
+
+# FIXME: untested
+def rsync_to_guest(source,destination,user="alice",exclude_git=False,delete=False):
+    full_command = [ "rsync",
+                     "-av" ]
+    if exclude_git:
+        full_command.append("--exclude=.git")
+    if delete:
+        full_command.append("--delete")
+    full_command += [ "-e",
+                      "ssh -l "+user+" -i id_dsa."+user,
+                      source,
+                      user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
     print "##".join(full_command)
     return call(full_command)
 
