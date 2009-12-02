@@ -31,13 +31,23 @@ if len(args) != 0:
 # git_url = None
 git_url = "git://crumble.dyndns.org/git/mysociety"
 
+link_command = None
+
 if options.output_directory:
     output_directory = options.output_directory
 else:
     iso_time = time.strftime("%Y-%m-%dT%H:%M:%S",time.gmtime())
     output_directory = "output/%s/" % (iso_time,)
+    latest_symlink = "output/latest"
+    if os.path.exists(latest_symlink):
+        call(["rm",latest_symlink])
+    link_command = ["ln","-s",iso_time,latest_symlink]
 
 check_call(["mkdir","-p",output_directory])
+
+if link_command:
+    print "Calling "+" ".join(link_command)
+    call(link_command)
 
 # Restart from standard root filesystem, perhaps generated from
 # create-rootfs.py:
