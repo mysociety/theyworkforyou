@@ -196,7 +196,7 @@ def untemplate_and_scp(source_directory,user="root"):
                 relative_filename_to_scp = os.path.join(root+"/",filename_to_scp)
                 untemplate(relative_path_template,relative_filename_to_scp)
             # Make sure the directory exists:
-            destination = "/" + re.sub('^'+re.escape(source_directory),'',relative_filename_to_scp)
+            destination = re.sub('^'+re.escape(source_directory),'',relative_filename_to_scp)
             destination_directory = os.path.dirname(destination)
             ssh("mkdir -p "+shellquote(destination_directory),user=user)
             scp(relative_filename_to_scp,destination_directory,user=user)
