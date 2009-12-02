@@ -251,9 +251,6 @@ result = ssh("cd ~/mysociety/ && git commit -m 'An instrumented version of the T
 if result != 0:
     raise Exception, "Creating a new commit failed."
 
-# Copy over some data:
-
-
 # Set up the Apache virtual host:
 result = scp("etc-apache2-sites-available-twfy",
              "/etc/apache2/sites-available/twfy",
