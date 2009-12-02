@@ -2,6 +2,7 @@ from subprocess import call, check_call, Popen, PIPE
 import re
 import time
 import os
+import cgi
 
 configuration = {}
 fp = open("conf")
@@ -308,6 +309,140 @@ class HTTPTest(Test):
 
 def run_http_test(output_directory,page,test_name="Unknown test",test_short_name="unknown"):
     print "Got test_name: "+test_name
+    date_start = uml_date()
     h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name)
     all_tests.append(h)
     h.run()
+    date_end = uml_date()
+    coverage_data = coverage_data_between(date_start,date_end)
+    coverage_output_filename = os.path.join(h.test_output_directory,"coverage")
+    fp = open(coverage_output_filename,"w")
+    fp.write(coverage_data)
+    fp.close()
+
+def coverage_data_between(date_start,date_end):
+    coverage_files = coverage_filenames_between(date_start,date_end)
+    ssh_command = "cd /home/alice/twfy-coverage/ && "
+    ssh_command += "cat '"+("' '".join(coverage_files))+"' | "
+    ssh_command += "egrep -v /home/alice/twfy-coverage | "
+    ssh_command += "sed 's,/home/alice/mysociety/,,'"
+    return ssh(ssh_command,capture=True).stdout_data
+
+def coverage_filenames_between(date_start,date_end):
+    coverage_files = sorted(ssh("ls -1 /home/alice/twfy-coverage/",capture=True).stdout_data.strip().split("\n"))
+    return [ x for x in coverage_files if x >= date_start and x <= date_end ]
+
+def uses_to_colour(uses):
+    if uses == -2:
+        return "#555555"
+    elif uses == -1:
+        return "#f37c7c"
+    elif uses > 0:
+        return "#8df37c"
+    elif uses == -9:
+        return "#f4ff78"
+    else:
+        raise Exception, "Unknown number of uses: "+str(uses)
+
+def generate_coverage(coverage_data_file,output_directory,original_source_directory):
+    files_to_coverage = {}
+    fp = open(coverage_data_file)
+    current_filename = None
+    for line in fp:
+        line = line.rstrip()
+        line_data_match = re.search('^  (\d+): ([-\d]+)$',line)
+        if line_data_match:
+            line_number = int(line_data_match.group(1),10)
+            uses = int(line_data_match.group(2),10)
+            lines_to_uses = files_to_coverage[current_filename]
+            if lines_to_uses.has_key(line_number):
+                old_uses = lines_to_uses[line_number]
+                if old_uses > 0 and uses > 0:
+                    lines_to_uses[line_number] += uses
+                elif (old_uses == -1 and uses > 0):
+                    lines_to_uses[line_number] = uses
+                elif (old_uses > 0 and uses == -1):
+                    pass
+                elif old_uses == uses:
+                    # That's as expected...
+                    pass
+                else:
+                    raise Exception, "Conflicting information for line %d in %s, old value was %d while new value is %d" % (line_number,current_filename,old_uses,uses)
+            else:
+                lines_to_uses[line_number] = uses
+        elif re.search('^\s*$',line): # Ignore any accidental empty lines
+            pass
+        else:
+            current_filename = re.search('^\s*(.*)',line).group(1)
+            files_to_coverage.setdefault(current_filename,{})
+    filenames_with_coverage_data = files_to_coverage.keys()
+    filename_to_percent_coverage = {}
+    for filename in filenames_with_coverage_data:
+        unused_lines = 0
+        used_lines = 0
+        print "======"
+        print "Filename is: "+filename
+        print str(files_to_coverage[filename])
+        lines_to_uses = files_to_coverage[filename]
+        # So filename is: twfy/www/includes/easyparliament/init.php
+        original_filename = os.path.join(original_source_directory,filename)
+        output_filename = os.path.join(output_directory,filename+".html")
+        output_filename_dirname = os.path.split(output_filename)[0]
+        if not os.path.exists(output_filename_dirname):
+            os.makedirs(output_filename_dirname)
+        ofp = open(output_filename,"w")
+        ofp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head>
+<title>Coverage data for %s</title>
+</head>
+<body style="background-color: #ffffff">
+<table border=0>
+<tr><td style="background-color: %s; color: #000000;">A line which was executed</td></tr>
+<tr><td style="background-color: %s; color: #000000;">A line which was not executed</td></tr>
+<tr><td style="background-color: %s; color: #000000;">Dead code (could never be executed)</td></tr>
+<tr><td style="background-color: %s; color: #000000;">FIXME: Lines with no executable code (e.g. comments)</td></tr>
+</table>
+<hr>
+<pre>
+''' % (cgi.escape(filename),uses_to_colour(1),uses_to_colour(-1),uses_to_colour(-2),uses_to_colour(-9)))
+        line_number = 1
+        ifp = open(original_filename)
+        for line in ifp:
+            line = line.rstrip()
+            uses = -9
+            colour = "#cccccc"
+            if line_number in lines_to_uses:
+                uses = lines_to_uses[line_number]
+            if uses == -1:
+                unused_lines += 1
+            elif uses > 0:
+                used_lines += 1
+            colour = uses_to_colour(uses)
+            line_number_string = "%4d (%2d)" % (line_number,uses)
+            ofp.write("<span style=\"background-color: %s; color: #000000; width: 100%%\"><strong>%s</strong> | %s</span>\n" % (colour,line_number_string,cgi.escape(line)))
+            line_number += 1
+        ofp.write("</pre>\n</body>\n</html>\n")
+        ofp.close()
+        percent_coverage = (100 * used_lines) / float(used_lines + unused_lines)
+        filename_to_percent_coverage[filename] = percent_coverage
+    fp.close()
+    # Now output an index page:
+    index_filename = os.path.join(output_directory,"coverage.html")
+    fp = open(index_filename,"w")
+    fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head>
+<title>Coverage Data Index</title>
+</head>
+<body style="background-color: #ffffff">
+<table border=0>
+''')
+    filenames = filename_to_percent_coverage.keys()
+    filenames.sort()
+    for filename in filenames:
+        url = filename + ".html"
+        coverage = filename_to_percent_coverage[filename]
+        fp.write("<tr><td><tt><a href=\"%s\">%s</a></tt></td><td>%3d%%</td></tr>\n" % (url,filename,int(coverage)))
+    fp.write('''</table>
+</body>
+</html>''')
+    fp.close()
