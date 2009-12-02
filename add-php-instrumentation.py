@@ -36,7 +36,7 @@ for (dirpath, dirnames, filenames) in os.walk("."):
         if not os.path.exists(backup):
             check_call(["cp",full_relative_filename,backup])
         # Copy the file, but if it looks like a standard PHP file
-        # insert the instrumentation line as thesecond line.
+        # insert the instrumentation line as the second line.
         fp = open(backup)
         ofp = open(full_relative_filename,"w")
         file_rewritten = False
