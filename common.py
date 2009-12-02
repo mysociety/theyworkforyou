@@ -49,13 +49,14 @@ def trim_string(s):
     else:
         return s
 
-def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=None):
+def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=None,verbose=True):
     full_command = [ "ssh",
                      "-i", "id_dsa."+user,
                      "-o", "StrictHostKeyChecking=no",
                      user+"@"+configuration['UML_SERVER_IP'],
                      command ]
-    print trim_string("Going to run: "+"#".join(full_command)+"\r")
+    if verbose:
+        print trim_string("Going to run: "+"#".join(full_command)+"\r")
     if capture:
         oo = PIPE
         oe = PIPE
