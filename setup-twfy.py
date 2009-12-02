@@ -174,11 +174,12 @@ if result != 0:
     raise Exception, "Failed to GRANT ALL on twfy to the twfy MySQL user"
 
 # Create the database schema:
-result = ssh("mysql -u twfy --password="+
+run_ssh_test(output_directory,
+             "mysql -u twfy --password="+
              configuration['MYSQL_TWFY_PASSWORD']+
-             " twfy < /home/alice/mysociety/twfy/db/schema.sql")
-if result != 0:
-    raise Exception, "Failed to create the database schema"
+             " twfy < /home/alice/mysociety/twfy/db/schema.sql",
+             test_name="Creating the TWFY database schema",
+             test_short_name="create-schema")
 
 # Create the general configuration file from a template:
 untemplate("general.template","general")
@@ -267,24 +268,31 @@ if result != 0:
     raise Exception, "Failed to copy over the ports.conf file"
 
 # Run a2enmod:
-result = ssh("a2enmod rewrite",user="root")
-if result != 0:
-    raise Exception, "Enabling the rewrite module failed"
+run_ssh_test(output_directory,
+             "a2enmod rewrite",
+             user="root",
+             test_name="Enabling mod_rewrite",
+             test_short_name="mod-rewrite")
 
 # Run a2ensite:
-result = ssh("a2ensite twfy",user="root")
-if result != 0:
-    raise Exception, "Making the site available failed"
+run_ssh_test(output_directory,
+             "a2ensite twfy",
+             user="root",
+             test_name="Enabling the TWFY virtual host",
+             test_short_name="a2ensite-twfy")
 
 # Restart Apache on the server:
-result = ssh("/etc/init.d/apache2 reload",user="root")
-if result != 0:
-    raise Exception, "Failed to restart Apache on the UML machine"
+run_ssh_test(output_directory,
+             "/etc/init.d/apache2 reload",
+             user="root",
+             test_name="Restarting Apache",
+             test_short_name="restart-apache")
 
 # Check out parlparse:
-result = ssh("svn co http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse")
-if result != 0:
-    raise Exception, "Checking out parlparse failed"
+run_ssh_test(output_directory,
+             "svn co http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse",
+             test_name="Checking out parlparse from svn",
+             test_short_name="svn-co-parlparse")
 
 # Import the member data:
 run_ssh_test(output_directory,
