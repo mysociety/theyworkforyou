@@ -109,6 +109,10 @@ def save_page(page_path,output_html_filename):
 def path_exists_in_uml(filename):
     return 0 == ssh("test -e "+shellquote(filename),user="root")
 
+def uml_date():
+    r = ssh("date +'%Y-%m-%dT%H:%M:%S%z'",capture=True,verbose=False)
+    return r.stdout_data.strip()
+
 def user_exists(username):
     return 0 == ssh("id "+username,user="root")
 
