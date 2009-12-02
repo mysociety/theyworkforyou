@@ -22,6 +22,12 @@ for k in required_configuration_keys:
     if k not in configuration:
         raise Exception, "You must define %s in 'conf'" % (k,)
 
+def file_to_string(filename):
+    fp = open(filename)
+    data = fp.read()
+    fp.close()
+    return data
+
 class SSHResult:
     def __init__(self,
                  return_value,
