@@ -220,7 +220,7 @@ ssh_result = ssh(instrument_script+" /home/alice/mysociety/twfy/www/",capture=Tr
 if ssh_result.return_value != 0:
     raise Exception, "Instrumenting the TWFY PHP code failed."
 
-instrumented_files = re.split('\s+',ssh_result.stdout_data)
+instrumented_files = re.split('[\r\n]+',ssh_result.stdout_data)
 print "File list:"
 for i in instrumented_files:
     print "  "+i
