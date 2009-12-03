@@ -201,9 +201,12 @@ if 0 != ssh("ssh -i /root/.ssh/id_dsa -o StrictHostKeyChecking=no root@localhost
 mysql_root_password = pgpw("root")
 mysql_twfy_password = pgpw("twfy")
 
-if 0 != ssh("mysqladmin -u root password "+shellquote(mysql_root_password),
-            user="root"):
-    raise Exception, "Setting the MySQL root password failed"
+# Check if it's already set:
+if 0 != ssh("echo 'show databases;' | mysql -u root --password="+shellquote(mysql_root_password)):
+    # Otherwise, maybe this is the first run - try to set it:
+    if 0 != ssh("mysqladmin -u root password "+shellquote(mysql_root_password),
+                user="root"):
+        raise Exception, "Setting the MySQL root password failed"
 
 mysql_root_password_option = " --password="+shellquote(mysql_root_password)
 
