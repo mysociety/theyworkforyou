@@ -268,7 +268,7 @@ if 0 != ssh("mysqladmin -u root"+
 # Grant all permissions to a 'twfy' user on that database:
 if 0 != ssh("echo \"GRANT ALL ON twfy.* TO twfy@localhost IDENTIFIED BY '"+
              configuration['MYSQL_TWFY_PASSWORD']+"'\" | "+
-             "mysql -u root"+mysql_root_password_option)
+             "mysql -u root"+mysql_root_password_option):
     raise Exception, "Failed to GRANT ALL on twfy to the twfy MySQL user"
 
 # Create the database schema:
