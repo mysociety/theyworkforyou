@@ -130,7 +130,7 @@ if not path_exists_in_uml("/data/mysociety/"):
     if 0 != ssh("mkdir -p /data/mysociety/",user="root"):
         raise Exception, "Creating the directory /data/mysociety/ failed"
     if 0 != ssh("( cd /data/mysociety/ && git init )",user="root"):
-        raise Exception, "Initializinig the git repository in /data/mysociety failed"
+        raise Exception, "Initializing the git repository in /data/mysociety failed"
 
 existing_environment = os.environ
 
