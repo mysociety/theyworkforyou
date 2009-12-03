@@ -8,3 +8,5 @@ debian
 /files-for-uml/etc/hosts
 /files-for-uml-deploy/data/servers/machines/sandbox.pl
 /files-for-uml-deploy/etc/hosts
+/uml.stdout
+/uml.stderr
