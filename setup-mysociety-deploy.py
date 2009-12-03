@@ -233,8 +233,11 @@ if 0 != ssh("( echo '[client]'; "+
             "' ) > /home/alice/.my.cnf"):
     raise Exception, "Creating alice's ~/.my.cnf failed"
 
-
-
+if 0 != ssh("( echo '[client]'; "+
+            "echo 'password="+
+            mysql_root_password+
+            "' ) > /root/.my.cnf",user="root"):
+    raise Exception, "Creating root's ~/.my.cnf failed"
 
 
 
