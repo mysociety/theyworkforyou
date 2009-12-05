@@ -49,28 +49,29 @@ function submit_photo() {
     else {
         $tmp_name = $_FILES['photo']['tmp_name'];
 
-        $image = imagick_readimage($tmp_name);
+        $image = new Imagick();
+        $image->readImage($tmp_name);
         if (!$image)
             array_push($errors, 'Failed to read image from uploaded file');
-	    $imageS = imagick_clonehandle($image);
-        if (!imagick_scale($image, 118, 118, false))
+            $imageS = $image->clone();
+        if (!$image->scaleImage(0, 118))
             array_push($errors, 'Scaling large failed');
-        if (!imagick_scale($imageS, 59, 59, false))
+        if (!$imageS->scaleImage(0, 59))
             array_push($errors, 'Scaling small failed');
-	    if (!imagick_writeimage($image, "$dir/mpsL/$pid.jpeg"))
+        if (!$image->writeImage("$dir/mpsL/$pid.jpeg"))
             array_push($errors, "Saving to $dir/mpsL/$pid.jpeg failed");
-	    if (!imagick_writeimage($imageS, "$dir/mps/$pid.jpeg"))
+        if (!$imageS->writeImage("$dir/mps/$pid.jpeg"))
             array_push($errors, "Saving to $dir/mps/$pid.jpeg failed");
-	if (!$errors) {
-        	print "<pre>";
-	        chdir("$dir/mpsL");
-        	passthru("cvs -Q add -kb $pid.jpeg 2>&1");
-	        chdir("../mps");
-        	passthru("cvs -Q add -kb $pid.jpeg 2>&1");
-	        chdir("../");
-	        passthru('cvs -Q commit -m "Photo update from admin web photo upload interface." mpsL mps 2>&1');
-	        print "</pre>";
-	}
+        if (!$errors) {
+            print "<pre>";
+            chdir("$dir/mpsL");
+            passthru("cvs -Q add -kb $pid.jpeg 2>&1");
+            chdir("../mps");
+            passthru("cvs -Q add -kb $pid.jpeg 2>&1");
+            chdir("../");
+            passthru('cvs -Q commit -m "Photo update from admin web photo upload interface." mpsL mps 2>&1');
+            print "</pre>";
+        }
     }
 
     if ($errors)
@@ -101,7 +102,7 @@ EOF;
         FROM member
         WHERE house>0 GROUP by person_id
         ORDER BY house, last_name, first_name
-	';
+    ';
     $q = $db->query($query);
 
     $houses = array(1 => 'MP', 'Lord', 'MLA', 'MSP');
@@ -111,8 +112,8 @@ EOF;
         $house = $q->field($i, 'house');
         $desc = $q->field($i, 'last_name') . ', ' . $q->field($i, 'title') . ' ' . $q->field($i, 'first_name') .
                 " " . $houses[$house];
-	if ($q->field($i, 'party')) $desc .= ' (' . $q->field($i, 'party') . ')';
-	$desc .= ', ' . $q->field($i, 'constituency');
+        if ($q->field($i, 'party')) $desc .= ' (' . $q->field($i, 'party') . ')';
+        $desc .= ', ' . $q->field($i, 'constituency');
 
         list($dummy, $sz) = find_rep_image($p_id);
         if ($sz == 'L') {
@@ -122,7 +123,7 @@ EOF;
         } else {
             $desc .= ' [no photo]';
         }
-	    $out .= '<option value="'.$p_id.'">'.$desc.'</option>' . "\n";
+        $out .= '<option value="'.$p_id.'">'.$desc.'</option>' . "\n";
     }
 
     $out .= <<<EOF

@@ -98,6 +98,8 @@ of the site, both paid and voluntarily. Mark Longair added the Scottish
 Parliament, and Matthew Somerville added the Northern Ireland Assembly. Etienne
 Pollard did much of the work to get BBC Parliament video downloaded and
 chunked. Richard Pope made the current design, and Joe Lanman contributed the
-red Parliament logo. Louise Crow, Francis Irving, Duncan Parkes, and others
-have fixed bugs, get the parser running, and so on.</p>
+red Parliament logo. Deborah Kerr uploads photos of 19th century MPs as people
+send them in, along with other user support. Louise Crow, Francis Irving,
+Duncan Parkes, and others have fixed bugs, get the parser running, and so
+on.</p>
 
