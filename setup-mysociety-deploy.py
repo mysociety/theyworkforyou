@@ -106,7 +106,7 @@ if 0 != ssh("locale -a | egrep -i en_gb.utf-?8",user="root"):
     if 0 != ssh("/usr/sbin/locale-gen",user="root"):
         raise Exception, "Running locale-gen failed"
 
-if 0 != ssh("DEBIAN_FRONTEND=noninteractive apt-get install --force-yes --yes mysql-server php5-curl php5-mysql php5-xdebug subversion rsync python2.5-minimal libxml-twig-perl php5-cli libfile-slurp-perl libunix-mknod-perl dpkg-dev libemail-localdelivery-perl php5-xapian libmime-perl postgresql-8.3 postgresql-client-8.3",user="root"):
+if 0 != ssh("DEBIAN_FRONTEND=noninteractive apt-get install --force-yes --yes mysql-server php5-curl php5-mysql php5-xdebug subversion rsync python2.5-minimal libxml-twig-perl php5-cli libfile-slurp-perl libunix-mknod-perl dpkg-dev libemail-localdelivery-perl php5-xapian libmime-perl postgresql-8.3 postgresql-client-8.3 libdbd-pg-perl",user="root"):
     raise Exception, "Installing additional packages failed"
 
 if 0 != ssh("apt-get clean",user="root"):
