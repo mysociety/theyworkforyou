@@ -243,6 +243,16 @@ if 0 != ssh("( echo '[client]'; "+
 # if 0 != ssh("/data/mysociety/bin/mysociety-create-databases",user="root"):
 #     raise Exception, "Creating the databases with mysociety-create-databases failed"
 
+# Get the schema files:
+ssh_result = ssh("/usr/local/bin/find-schema-files theyworkforyou.sandbox",capture=True)
+if ssh_result.return_value != 0:
+    raise Exception, "Finding the database schemas failed"
+
+schemas = re.split('[\r\n]+',ssh_result.stdout_data)
+
+for schema_file in schemas:
+    if len(schema_file.strip()) > 0:
+        ssh("( cd /data/mysociety && mysql twfy -u twfy < "+schema_file+" )")
 
 sys.exit(1)
 
