@@ -68,7 +68,7 @@ else:
 if not user_exists("alice"):
     print "==  Going to try to call adduser"
     if 0 != ssh("adduser --disabled-password --gecos 'An Example User' alice",user="root"):
-        raise Exception, "Failed to create the user alice"
+        raise Exception, "Creating the user alice failed"
 
 alice_ssh_directory = "/home/alice/.ssh"
 
