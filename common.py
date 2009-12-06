@@ -206,6 +206,33 @@ def untemplate_and_scp(source_directory,user="root"):
             ssh("mkdir -p "+shellquote(destination_directory),user=user)
             scp(relative_filename_to_scp,destination_directory,user=user)
 
+def untemplate_and_rsync(source_directory,user="root"):
+    t = '\.template$'
+    for root, subfolders, basenames in os.walk(source_directory):
+        # Ignore any generated files:
+        generated = [ re.sub(t,'',x) for x in basenames if re.search(t,x) ]
+        for g in generated:
+            if g in basenames:
+                del basenames[basenames.index(g)]
+        for file in basenames:
+            filename_to_scp = file
+            relative_filename_to_scp = os.path.join(root,filename_to_scp)
+            if re.search(t,file):
+                filename_to_scp = re.sub(t,'',file)
+                path_template_a = subfolders + [ file ]
+                path_generated_a = subfolders + [ filename_to_scp ]
+                relative_path_template = os.path.join(root+"/",file)
+                relative_filename_to_scp = os.path.join(root+"/",filename_to_scp)
+                untemplate(relative_path_template,relative_filename_to_scp)
+            # Make sure the directory exists:
+            destination = re.sub('^'+re.escape(source_directory),'',relative_filename_to_scp)
+            destination_directory = os.path.dirname(destination)
+            return rsync_to_guest(re.sub('([^/])$','\\1/',source_directory),
+                                  '/',
+                                  user="root",
+                                  exclude_git=False,
+                                  delete=False)
+
 def web_server_working():
     return 0 == call(["curl",
                       "-s",
