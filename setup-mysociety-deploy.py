@@ -286,6 +286,27 @@ for line in re.split('[\r\n]+',ssh_result.stdout_data):
             if 0 != ssh("adduser --disabled-password --gecos 'Email User From vhosts.pl' "+username,user="root"):
                 raise Exception, "Creating the user "+username+" failed"
 
+# Run a2enmod:
+run_ssh_test(output_directory,
+             "a2enmod rewrite",
+             user="root",
+             test_name="Enabling mod_rewrite",
+             test_short_name="mod-rewrite")
+
+# Run a2enmod:
+run_ssh_test(output_directory,
+             "a2enmod suexec",
+             user="root",
+             test_name="Enabling mod_suexec",
+             test_short_name="mod-suexec")
+
+# Run a2enmod:
+run_ssh_test(output_directory,
+             "a2enmod actions",
+             user="root",
+             test_name="Enabling mod_actions",
+             test_short_name="mod-actions")
+
 # Now call the standard(ish) deploy scripts:
 
 if 0 != ssh("mysociety -u config --no-check-existing",user="root"):
