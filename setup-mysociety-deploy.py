@@ -239,6 +239,9 @@ if 0 != ssh("( echo '[client]'; "+
             "' ) > /root/.my.cnf",user="root"):
     raise Exception, "Creating root's ~/.my.cnf failed"
 
+# # Call the mysociety-create-databases script to create the appropriate databases:
+# if 0 != ssh("/data/mysociety/bin/mysociety-create-databases",user="root"):
+#     raise Exception, "Creating the databases with mysociety-create-databases failed"
 
 
 sys.exit(1)
