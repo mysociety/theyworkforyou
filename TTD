@@ -1,2 +1,8 @@
+  mysociety -u config --no-check-existing
+
+  mysociety-create-databases
+
+  mysociety -u vhost theyworkforyou.sandbox
+
 Why isn't deploy creating the DB by the time
 mysociety-schema-compare is run?
