@@ -20,13 +20,31 @@ import cgi
 parser = OptionParser(usage="Usage: %prog [OPTIONS]")
 parser.add_option('-r', '--reuse-image', dest="reuse", action="store_true",
                   default=False, help="resuse the root fs image instead of starting anew")
-# parser.add_option('-o', '--output-directory', dest="output_directory",
-#                   help="override the default test output directory (./output/[TIMESTAMP]/)")
+parser.add_option('-o', '--output-directory', dest="output_directory",
+                  help="override the default test output directory (./output/[TIMESTAMP]/)")
 options,args = parser.parse_args()
 
 if len(args) != 0:
     parser.print_help()
     sys.exit(1)
+
+link_command = None
+
+if options.output_directory:
+    output_directory = options.output_directory
+else:
+    iso_time = time.strftime("%Y-%m-%dT%H:%M:%S",time.gmtime())
+    output_directory = "output/%s/" % (iso_time,)
+    latest_symlink = "output/latest"
+    if os.path.exists(latest_symlink):
+        call(["rm",latest_symlink])
+    link_command = ["ln","-s",iso_time,latest_symlink]
+
+check_call(["mkdir","-p",output_directory])
+
+if link_command:
+    print "Calling "+" ".join(link_command)
+    call(link_command)
 
 # We switch UML machines frequently, so remove the host key for the
 # UML machine's IP address.
