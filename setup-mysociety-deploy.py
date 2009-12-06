@@ -267,6 +267,20 @@ for line in re.split('[\r\n]+',ssh_result.stdout_data):
             print "==  Going to try to call adduser for "+username
             if 0 != ssh("adduser --disabled-password --gecos 'Email User From vhosts.pl' "+username,user="root"):
                 raise Exception, "Creating the user "+username+" failed"
+
+# Now call the standard(ish) deploy scripts:
+
+if 0 != ssh("mysociety -u config --no-check-existing",user="root"):
+    raise Exception, "Running mysociety config failed"
+
+if 0 != ssh("mysociety -u vhost theyworkforyou.sandbox",user="root"):
+    raise Exception, "Running mysociety -u deploy theyworkforyou.sandbox failed"
+
+
+
+
+
+
 sys.exit(1)
 
 # Checkout the mysociety module from mySociety CVS into alice's home
