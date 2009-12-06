@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $vhosts_file = '/data/servers/vhosts.pl';
+
+require $vhosts_file;
+
+our ($vhosts, $sites);
+
+if ($#ARGV != 0) {
+    print STDERR "Usage: create-tables-for-vhost <VHOST>\n";
+    print STDERR "e.g. create-tables-for-vhost theyworkforyou.sandbox\n";
+    exit;
+}
+
+my $vhost = $ARGV[0];
+my $vhost_conf = $vhosts->{$vhost};
+die "The vhost '$vhost' was not found in $vhosts_file" unless $vhost_conf;
+
+my $site = $vhost_conf->{'site'};
+die "The site for vhost '$vhost' was not found in $vhosts_file" unless $site;
+my $site_conf = $sites->{$site};
+
+# foreach my $k (keys %$site_conf) {
+#     $vhost_conf->{$k};
+#     $site_conf->{$k};
+#     print "in vhosts: $k => $vhost_conf->{$k}\n";
+#     print "in site: $k => $site_conf->{$k}\n";
+# }
+
+my $schemas_array_ref = $site_conf->{'mysql_schemas'};
+for my $schema_file (@$schemas_array_ref) {
+    print "$schema_file\n";
+}
