@@ -106,8 +106,8 @@ if not path_exists_in_uml(alice_authorized_keys):
 
 start_all_coverage = uml_date()
 
-if 0 != ssh("( echo; echo 'deb http://debian.mysociety.org lenny main'; echo 'deb-src http://debian.mysociety.org lenny main' ) >> /etc/apt/sources.list",user="root"):
-    raise Exception, "Adding the mysociety repository to /etc/apt/sources.list failed"
+if 0 != scp("files-for-uml-deploy/etc/apt/sources.list","/etc/apt/sources.list",user="root"):
+        raise Exception, "Copying over the new /etc/apt/sources.list failed"
 
 # Now install some extra packages that we'll need:
 if 0 != ssh("apt-get update",user="root"):
