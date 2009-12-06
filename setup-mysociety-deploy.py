@@ -254,6 +254,19 @@ for schema_file in schemas:
     if len(schema_file.strip()) > 0:
         ssh("( cd /data/mysociety && mysql twfy -u twfy < "+schema_file+" )")
 
+# Get the email users:
+ssh_result = ssh("/usr/local/bin/find-email-users theyworkforyou.sandbox",capture=True)
+if ssh_result.return_value != 0:
+    raise Exception, "Finding the database schemas failed"
+
+for line in re.split('[\r\n]+',ssh_result.stdout_data):
+    m = re.search("^([^:]+): (.*)$",line)
+    if m:
+        username = m.group(1)
+        if not user_exists(username):
+            print "==  Going to try to call adduser for "+username
+            if 0 != ssh("adduser --disabled-password --gecos 'Email User From vhosts.pl' "+username,user="root"):
+                raise Exception, "Creating the user "+username+" failed"
 sys.exit(1)
 
 # Checkout the mysociety module from mySociety CVS into alice's home
