@@ -1,6 +1,7 @@
 from subprocess import call, check_call, Popen, PIPE
 import re
 import time
+import sys
 import os
 import cgi
 
@@ -21,11 +22,9 @@ for k in required_configuration_keys:
     if k not in configuration:
         raise Exception, "You must define %s in 'conf'" % (k,)
 
-def file_to_string(filename):
-    fp = open(filename)
-    data = fp.read()
-    fp.close()
-    return data
+# From http://stackoverflow.com/questions/35817/whats-the-best-way-to-escape-os-system-calls-in-python
+def shellquote(s):
+    return "'" + s.replace("'", "'\\''") + "'"
 
 class SSHResult:
     def __init__(self,
@@ -74,12 +73,23 @@ def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=
     else:
         return call(full_command)
 
+def path_exists_in_uml(filename):
+    return 0 == ssh("test -e "+shellquote(filename),user="root")
+
 def pgpw(user):
     secret_file = "/etc/mysociety/postgres_secret"
     if not path_exists_in_uml(secret_file):
         raise Exception, "Can't call pgpw before #{secret_file} exists"
     r = ssh("/data/mysociety/bin/pgpw "+shellquote(user),capture=True)
     return r.stdout_data.strip()
+
+configuration['MYSQL_TWFY_PASSWORD'] = pgpw('twfy')
+
+def file_to_string(filename):
+    fp = open(filename)
+    data = fp.read()
+    fp.close()
+    return data
 
 def scp(source,destination,user="alice",verbose=True):
     full_command = [ "scp",
@@ -117,10 +127,6 @@ def rsync_to_guest(source,destination,user="alice",exclude_git=False,delete=Fals
                       user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
     print "##".join(full_command)
     return call(full_command)
-
-# From http://stackoverflow.com/questions/35817/whats-the-best-way-to-escape-os-system-calls-in-python
-def shellquote(s):
-    return "'" + s.replace("'", "'\\''") + "'"
 
 def thumbnail_image_filename(original_image_filename):
     result = re.sub('^(.*)\.([^\.]+)$','\\1-thumbnail.\\2',original_image_filename)
@@ -160,9 +166,6 @@ def save_page(page_path,output_html_filename,url_opener=None):
         fp.close()
     else:
         check_call(['curl','-o',output_html_filename,url])
-
-def path_exists_in_uml(filename):
-    return 0 == ssh("test -e "+shellquote(filename),user="root")
 
 def uml_date():
     r = ssh("date +'%Y-%m-%dT%H:%M:%S%z'",capture=True,verbose=False)
