@@ -168,6 +168,10 @@ def uml_date():
     r = ssh("date +'%Y-%m-%dT%H:%M:%S%z'",capture=True,verbose=False)
     return r.stdout_data.strip()
 
+def uml_realpath(path):
+    r = ssh("readlink -f "+shellquote(path),capture=True,user="root")
+    return r.stdout_data.strip()
+
 def user_exists(username):
     return 0 == ssh("id "+username,user="root")
 
