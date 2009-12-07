@@ -231,11 +231,11 @@ def untemplate_and_rsync(source_directory,user="root"):
             # Make sure the directory exists:
             destination = re.sub('^'+re.escape(source_directory),'',relative_filename_to_scp)
             destination_directory = os.path.dirname(destination)
-            return rsync_to_guest(re.sub('([^/])$','\\1/',source_directory),
-                                  '/',
-                                  user="root",
-                                  exclude_git=False,
-                                  delete=False)
+    return rsync_to_guest(re.sub('([^/])$','\\1/',source_directory),
+                          '/',
+                          user="root",
+                          exclude_git=False,
+                          delete=False)
 
 def web_server_working():
     return 0 == call(["curl",
