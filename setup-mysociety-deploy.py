@@ -155,12 +155,19 @@ if 0 != ssh("apt-get clean",user="root"):
     raise Exception, "Removing dowloaded packages failed"
 
 directories_to_create = [ "/data/servers/",
+                          "/data/vhost/",
                           "/data/servers/archetypes/uml/",
                           "/data/servers/machines/",
                           "/data/servers/vhosts/",
                           "/data/servers/state/",
                           "/etc/mysociety/packages.d/",
                           "/etc/apache2/virtualhosts.d/" ]
+
+if uml_realpath("/var/www") != "/data/vhost":
+    if 0 != ssh("mv /var/www /var/www.old",user="root"):
+        raise Exception, "Moving the old /var/www out of the way failed"
+    if 0 != ssh("ln -sf /data/vhost /var/www",user="root"):
+        raise Exception, "Linking /data/vhost to /var/www failed"
 
 # Create /data/servers/ if it doesn't already exist:
 if 0 != ssh("mkdir -p "+" ".join(directories_to_create),
