@@ -209,7 +209,7 @@ if 0 != ssh("ln -sf /data/mysociety/bin/mysociety /usr/local/bin/mysociety",user
 if 0 != ssh("touch /root/.cvspass",user="root"):
     raise Exception, "Touching /root/.cvspass failed"
 
-untemplate_and_scp("files-for-uml-deploy")
+untemplate_and_rsync("files-for-uml-deploy")
 
 # It seems to some part of deploy expects to write to
 # /etc/apache/virtualhosts.d, but that is just a symlink to
