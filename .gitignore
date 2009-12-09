@@ -9,6 +9,6 @@ debian
 /files-for-uml/etc/hosts
 /files-for-uml-deploy/data/servers/machines/sandbox.pl
 /files-for-uml-deploy/etc/hosts
-/files-for-uml-deploy/data/servers/vhosts/twfy_conf_general.ugly.template
+/files-for-uml-deploy/data/servers/vhosts/twfy_conf_general.ugly
 /uml.stdout
 /uml.stderr
