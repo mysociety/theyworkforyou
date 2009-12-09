@@ -106,7 +106,7 @@ def scp(source,destination,user="alice",verbose=True):
 
 def rsync_from_guest(source,destination,user="alice",exclude_git=False):
     full_command = [ "rsync",
-                     "-av" ]
+                     "-rlv" ]
     if exclude_git:
         full_command.append("--exclude=.git")
     full_command += [ "-e",
@@ -119,7 +119,7 @@ def rsync_from_guest(source,destination,user="alice",exclude_git=False):
 # FIXME: untested
 def rsync_to_guest(source,destination,user="alice",exclude_git=False,delete=False):
     full_command = [ "rsync",
-                     "-av" ]
+                     "-rlv" ]
     if exclude_git:
         full_command.append("--exclude=.git")
     if delete:
