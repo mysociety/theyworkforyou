@@ -5,7 +5,7 @@
 # root image, run the "create-rootfs.py" script to create an image
 # called uml-rootfs-pristine, for example with:
 #
-#   sudo ./create-rootfs.py 1600 uml-rootfs-pristine tmp mark:mark
+#   sudo ./create-rootfs.py 2000 uml-rootfs-pristine tmp mark:mark
 
 from common import *
 from subprocess import call, check_call, Popen
