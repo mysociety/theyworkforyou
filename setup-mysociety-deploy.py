@@ -355,6 +355,30 @@ if 0 != ssh("mysociety -u vhost theyworkforyou.sandbox",user="root"):
 
 
 
+
+
+# Check out parlparse:
+run_ssh_test(output_directory,
+             "svn co http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse",
+             test_name="Checking out parlparse from svn",
+             test_short_name="svn-co-parlparse")
+
+run_ssh_test(output_directory,
+             "rsync -rlpz ukparse.kforge.net::parldata --exclude-from=rsync-excludes parldata",
+             test_name="Fetching parldata with rsync",
+             test_short_name="rsync-fetch-parldata")
+
+# Import the member data:
+run_ssh_test(output_directory,
+             "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --members --wrans --debates --members --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing --from=2009-07-01 --to=2009-12-31",
+             test_name="Importing the member data",
+             test_short_name="import-member-data")
+
+
+
+
+
+
 sys.exit(1)
 
 # Checkout the mysociety module from mySociety CVS into alice's home
@@ -488,18 +512,14 @@ run_ssh_test(output_directory,
              test_name="Restarting Apache",
              test_short_name="restart-apache")
 
-# Check out parlparse:
-run_ssh_test(output_directory,
-             "svn co http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse",
-             test_name="Checking out parlparse from svn",
-             test_short_name="svn-co-parlparse")
 
-# Import the member data:
-if False:
-    run_ssh_test(output_directory,
-                 "cd /home/alice/mysociety/twfy/scripts && ./xml2db.pl --members --all",
-                 test_name="Importing the member data",
-                 test_short_name="import-member-data")
+
+
+
+
+
+
+
 
 run_http_test(output_directory,
               "/msps/",
