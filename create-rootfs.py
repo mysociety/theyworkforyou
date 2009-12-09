@@ -48,7 +48,7 @@ check_call(["mke2fs","-F",image_filename])
 check_call(["tune2fs","-j",image_filename])
 check_call(["mount","-o","loop",image_filename,mount_point])
 check_call(["debootstrap",
-            "--include=apache2-mpm-prefork,openssh-server,git-core,cvs,emacs22-nox,vim,less",
+            "--include=apache2-mpm-prefork,openssh-server,git-core,cvs,emacs22-nox,vim,less,postgresql-8.3",
             "lenny",
             mount_point,
             "http://ftp.uk.debian.org/debian"])
