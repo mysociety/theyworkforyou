@@ -1,6 +1,7 @@
 *~
 *.pyc
 output
+backup
 general
 uml-rootfs-*
 debian
