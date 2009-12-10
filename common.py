@@ -77,13 +77,14 @@ def path_exists_in_uml(filename):
     return 0 == ssh("test -e "+shellquote(filename),user="root")
 
 def pgpw(user):
+    if not web_server_working():
+        raise Exception, "Can't call pgpw() until the UML machine is up"
     secret_file = "/etc/mysociety/postgres_secret"
     if not path_exists_in_uml(secret_file):
         raise Exception, "Can't call pgpw before #{secret_file} exists"
     r = ssh("/data/mysociety/bin/pgpw "+shellquote(user),capture=True)
     return r.stdout_data.strip()
 
-configuration['MYSQL_TWFY_PASSWORD'] = pgpw('twfy')
 
 def file_to_string(filename):
     fp = open(filename)
