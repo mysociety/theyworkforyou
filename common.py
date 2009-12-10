@@ -85,6 +85,8 @@ def pgpw(user):
     r = ssh("/data/mysociety/bin/pgpw "+shellquote(user),capture=True)
     return r.stdout_data.strip()
 
+def remove_host_keys():
+    check_call(["ssh-keygen","-R",configuration['UML_SERVER_IP']])
 
 def file_to_string(filename):
     fp = open(filename)
