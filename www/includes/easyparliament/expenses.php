@@ -4,7 +4,7 @@
 function expenses_display_table($extra_info) {
 	$out = '<p class="italic">Figures in brackets are ranks. Data from parliament.uk (<a href="http://www.parliament.uk/mpslordsandoffices/finances.cfm">source</a>).';
 	if (isset($extra_info['expenses_url']))
-		$out .= ' Read <a href="' . $extra_info['expenses_url'] . '">2004/05 &ndash; 2007/08 receipts</a>.';
+		$out .= ' Read <a href="' . $extra_info['expenses_url'] . '">2004/05 &ndash; 2008/09 and 1st quarter 2009/10 receipts</a>.';
 	$out .= "</p>\n";
 	$out .= '<table class="people"><tr><th>Type';
 	# TODO: Needs to be more complicated at 2005/06, because of General Election
