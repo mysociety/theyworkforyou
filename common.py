@@ -6,21 +6,27 @@ import os
 import cgi
 
 configuration = {}
-fp = open("conf")
-for line in fp:
-    m = re.search("^\s*([^=\s]+)\s*=\s*(\S+)",line)
-    if m:
-        configuration[m.group(1)]=m.group(2)
 
-required_configuration_keys = [ 'UML_SERVER_IP',
-                                'GUEST_IP',
-                                'GUEST_GATEWAY',
-                                'GUEST_NETMASK',
-                                'GUEST_NAMESERVER' ]
+def setup_configuration():
+    fp = open("conf")
+    for line in fp:
+        m = re.search("^\s*([^=\s]+)\s*=\s*(\S+)",line)
+        if m:
+            configuration[m.group(1)]=m.group(2)
 
-for k in required_configuration_keys:
-    if k not in configuration:
-        raise Exception, "You must define %s in 'conf'" % (k,)
+    required_configuration_keys = [ 'UML_SERVER_IP',
+                                    'GUEST_IP',
+                                    'GUEST_GATEWAY',
+                                    'GUEST_NETMASK',
+                                    'GUEST_NAMESERVER' ]
+
+    for k in required_configuration_keys:
+        if k not in configuration:
+            raise Exception, "You must define %s in 'conf'" % (k,)
+
+def add_passwords_to_configuration():
+    configuration['MYSQL_TWFY_PASSWORD'] = pgpw('twfy')
+    configuration['MYSQL_ROOT_PASSWORD'] = pgpw('twfy')
 
 # From http://stackoverflow.com/questions/35817/whats-the-best-way-to-escape-os-system-calls-in-python
 def shellquote(s):

@@ -9,6 +9,8 @@ import grp
 
 from common import *
 
+setup_configuration()
+
 def usage_and_exit():
     print "Usage: ./create-rootfs [SIZE-IN-MiB] [FILENAME] [MOUNT-POINT] [USER]:[GROUP]"
     sys.exit(1)

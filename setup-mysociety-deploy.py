@@ -17,6 +17,8 @@ from BeautifulSoup import BeautifulSoup
 from browser import fake_browser
 import cgi
 
+setup_configuration()
+
 parser = OptionParser(usage="Usage: %prog [OPTIONS]")
 parser.add_option('-r', '--reuse-image', dest="reuse", action="store_true",
                   default=False, help="resuse the root fs image instead of starting anew")
@@ -209,8 +211,6 @@ if 0 != ssh("ln -sf /data/mysociety/bin/mysociety /usr/local/bin/mysociety",user
 if 0 != ssh("touch /root/.cvspass",user="root"):
     raise Exception, "Touching /root/.cvspass failed"
 
-untemplate_and_rsync("files-for-uml-deploy")
-
 # It seems to some part of deploy expects to write to
 # /etc/apache/virtualhosts.d, but that is just a symlink to
 # /etc/apache2/virtualhosts.d/ on the mysociety servers so
@@ -242,6 +242,10 @@ ssh("ssh-keygen -R localhost",user="root")
 ssh("ssh-keygen -R 127.0.0.1",user="root")
 if 0 != ssh("ssh -i /root/.ssh/id_dsa -o StrictHostKeyChecking=no root@localhost date",user="root"):
     raise Exception, "Getting the right host key in root's known_hosts files failed"
+
+add_passwords_to_configuration()
+
+untemplate_and_rsync("files-for-uml-deploy")
 
 # ------------------------------------------------------------------------
 
