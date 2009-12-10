@@ -50,7 +50,7 @@ if link_command:
 
 # We switch UML machines frequently, so remove the host key for the
 # UML machine's IP address.
-check_call(["ssh-keygen","-R",configuration['UML_SERVER_IP']])
+remove_host_keys()
 
 # Check if the UML machine is already running:
 
