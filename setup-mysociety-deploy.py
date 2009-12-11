@@ -193,7 +193,7 @@ check_call(["git",
             "--git-dir=mysociety/.git/",
             "push",
             "--force",
-            "ssh://root@192.168.2.253/data/mysociety/",
+            "ssh://root@"+configuration['UML_SERVER_IP']+"/data/mysociety/",
             "HEAD:master"],
            env=git_root_environment)
 

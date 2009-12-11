@@ -2,5 +2,6 @@
 
 # We might want to run this from a different directory:
 D="$(dirname $(readlink -nf "$0"))"
+. "$D/conf"
 
-exec ssh -i "$D/id_dsa.root" root@192.168.2.253 "$@"
+exec ssh -i "$D/id_dsa.root" root@$UML_SERVER_IP "$@"
