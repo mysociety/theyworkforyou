@@ -10,9 +10,14 @@ configuration = {}
 def setup_configuration():
     fp = open("conf")
     for line in fp:
-        m = re.search("^\s*([^=\s]+)\s*=\s*(\S+)",line)
+        if re.search('^\s*(#|$)',line):
+            # A comment or an empty line..
+            continue
+        m = re.search("^\s*([^=\s]+)=(\S.*?)\s$",line)
         if m:
             configuration[m.group(1)]=m.group(2)
+        else:
+            raise Exception, "There was a malformed line in 'conf': "+line
 
     required_configuration_keys = [ 'UML_SERVER_IP',
                                     'GUEST_IP',
