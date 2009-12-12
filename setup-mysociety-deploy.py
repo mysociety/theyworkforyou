@@ -82,8 +82,17 @@ else:
     popen_object = Popen("./start-server.py",
                          stdout=uml_stdout,
                          stderr=uml_stderr)
-    wait_for_web_server_or_exit(popen_object.pid)
+    up = wait_for_web_server(popen_object)
     check_call(["stty","sane"])
+    if not up:
+        print "Failed to start the UML machine:"
+        uml_stdout.close()
+        uml_stderr.close()
+        print "Standard output was:"
+        call("cat uml.stdout",shell=True)
+        print "Standard error was:"
+        call("cat uml.stderr",shell=True)
+        sys.exit(1)
 
 if not user_exists("alice"):
     print "==  Going to try to call adduser"

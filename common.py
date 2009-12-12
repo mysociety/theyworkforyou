@@ -262,23 +262,21 @@ def web_server_working():
                       "-o",
                       "/dev/null"])
 
-def process_alive(pid):
-    return 0 == call(["kill","-0",str(pid)])
-
-def wait_for_web_server_or_exit(pid):
+def wait_for_web_server(popen_object):
     interval_seconds = 1
     while True:
-        still_alive = process_alive(pid)
+        still_alive = (None == popen_object.poll())
         up = web_server_working()
-        if not process_alive:
-            print "Process "+str(pid)+" died"
-            return False
-        else:
+        if still_alive:
             if up:
                 return True
             else:
                 time.sleep(interval_seconds)
                 continue
+        else:
+            popen_object.wait()
+            print "Process "+str(popen_object.pid)+" died, returncode: "+str(popen_object.returncode)
+            return False
 
 TEST_UNKNOWN = -1
 TEST_SSH     =  0
