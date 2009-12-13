@@ -433,14 +433,14 @@ if 0 != rsync_to_guest("parldata/","/home/alice/parldata/",delete=True):
 # Import the member data:
 
 run_ssh_test(output_directory,
-             "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --members --all",
+             "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --members --from=2009-10-01 --to=2009-10-31",
              test_name="Importing the member data",
              test_short_name="import-member-data")
 
 # Import the rest of the data:
 
 run_ssh_test(output_directory,
-             "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --wrans --debates --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing --all",
+             "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --wrans --debates --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing  --from=2009-10-01 --to=2009-10-31",
              test_name="Importing the rest of the data",
              test_short_name="import-remaining-data")
 
