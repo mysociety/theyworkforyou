@@ -12,3 +12,4 @@ debian
 /files-for-uml-deploy/data/servers/vhosts/twfy_conf_general.ugly
 /uml.stdout
 /uml.stderr
+id_dsa.*
