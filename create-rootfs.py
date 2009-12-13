@@ -10,7 +10,7 @@ from stat import *
 
 from common import *
 
-check_dependencies()
+check_dependencies(check_group=False)
 
 setup_configuration()
 
