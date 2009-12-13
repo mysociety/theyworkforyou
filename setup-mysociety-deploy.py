@@ -117,6 +117,17 @@ if not path_exists_in_uml(alice_authorized_keys):
     if 0 != ssh("chown alice.alice "+alice_authorized_keys,user="root"):
         raise Exception, "Failed to chown alice's authorized_keys file"
 
+# Now that we have ssh authentication set up for both "alice" and
+# "root", disable their passwords so we can only log in with ssh and
+# public key authentication.  (This sets the encrypted password field
+# to '!' in /etc/shadow.)
+
+if 0 != ssh("passwd -l root",user="root"):
+    raise Exception, "Locking root's password failed"
+
+if 0 != ssh("passwd -l alice",user="root"):
+    raise Exception, "Locking alice's password failed"
+
 start_all_coverage = uml_date()
 
 if 0 != scp("files-for-uml-deploy/etc/apt/sources.list","/etc/apt/sources.list",user="root"):
