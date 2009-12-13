@@ -34,6 +34,13 @@ def check_dependencies():
         print "(See the output of 'id' or 'groups'.)"
         print "Add the user to the group with: adduser <user> <group>"
         sys.exit(1)
+    # Check that the required ssh keypairs exist:
+    for user in [ "alice", "root" ]:
+        private = "id_dsa.%s"%(user,)
+        public = "id_dsa.%s.pub"%(user,)
+        if not (os.path.exists(private) and os.path.exists(public)):
+            print "Both '"+private+"' and '"+public+"' must exist; generating them:"
+            check_call(["ssh-keygen","-t","dsa","-N","","-f",private])
 
 def setup_configuration():
     fp = open("conf")
