@@ -12,7 +12,12 @@ def check_dependencies():
                           "make",
                           "debootstrap",
                           "user-mode-linux",
-                          "qt4-qmake" ]
+                          "uml-utilities",
+                          "git-core",
+                          "qt4-qmake",
+                          "openssh-client",
+                          "curl",
+                          "e2fsprogs" ]
     package_list = Popen(["dpkg","-l"],stdout=PIPE).communicate()[0]
     for p in required_packages:
         succeeded = True
