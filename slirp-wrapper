@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec slirp-fullbolt -S "redir tcp 8042 80" "redir tcp 2242 22"
