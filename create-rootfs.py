@@ -6,6 +6,7 @@ import sys
 from subprocess import check_call, Popen
 import pwd
 import grp
+from stat import *
 
 from common import *
 
@@ -24,6 +25,16 @@ size_in_mib = int(sys.argv[1],10)
 image_filename = sys.argv[2]
 mount_point = sys.argv[3]
 user_and_group = sys.argv[4]
+
+if not os.path.exists(mount_point):
+    print "The mount point '"+mount_point+"' does not exist"
+    sys.exit(1)
+if not S_ISDIR(os.stat(mount_point)[ST_MODE]):
+    print "The mount point '"+mount_point+"' must be a directory"
+    sys.exit(1)
+if not len(os.listdir(mount_point)) == 0:
+    print "The mount point directory '"+mount_point+"' is not empty"
+    sys.exit(1)
 
 m = re.search('^([a-zA-Z0-9]+):([a-zA-Z0-9]+)$',user_and_group)
 if not m:
