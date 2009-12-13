@@ -1,0 +1,2711 @@
+<?xml version="1.0" encoding="utf-8"?>
+<publicwhip>
+
+<member_ni
+	id="uk.org.publicwhip/member/90001"
+	url="http://www.niassembly.gov.uk/members/biogs/gadams.htm"
+	title="Mr" firstname="Gerry" lastname="Adams"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90002"
+	url="http://www.niassembly.gov.uk/members/biogs/iadamson.htm"
+	title="Dr" firstname="Ian" lastname="Adamson"
+	constituency="Belfast East" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90003"
+	url="http://www.niassembly.gov.uk/members/biogs/fagnew.htm"
+	title="Mr" firstname="Fraser" lastname="Agnew"
+	constituency="Belfast North" party="Independent"
+	fromdate="1998-06-25" todate="1998-09-21"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90004"
+	url="http://www.niassembly.gov.uk/members/biogs/fagnew.htm"
+	title="Mr" firstname="Fraser" lastname="Agnew"
+	constituency="Belfast North" party="UUAP"
+	fromdate="1998-09-21" todate="2003-04-28"
+	fromwhy="changed_party" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90005"
+	url="http://www.niassembly.gov.uk/members/biogs/lordalderdice.htm"
+	title="Lord" firstname="" lastname="Alderdice"
+	constituency="Belfast East" party="Alliance"
+	fromdate="1998-06-25" todate="1998-06-30"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90006"
+	url="http://www.niassembly.gov.uk/members/biogs/lordalderdice.htm"
+	title="Lord" firstname="" lastname="Alderdice"
+	constituency="Belfast East" party="Initial Presiding Officer"
+	fromdate="1998-07-01" todate="1999-11-30"
+	fromwhy="changed_party" towhy="devolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90007"
+	url="http://www.niassembly.gov.uk/members/biogs/parmitage.htm"
+	title="Ms" firstname="Pauline" lastname="Armitage"
+	constituency="East Londonderry" party="UUP"
+	fromdate="1998-06-25" todate="2001-11-09"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90008"
+	url="http://www.niassembly.gov.uk/members/biogs/parmitage.htm"
+	title="Ms" firstname="Pauline" lastname="Armitage"
+	constituency="East Londonderry" party="Independent"
+	fromdate="2001-11-09" todate="2003-04-28"
+	fromwhy="changed_party" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90009"
+	url="http://www.niassembly.gov.uk/members/biogs/warmstrong.htm"
+	title="Mr" firstname="Billy" lastname="Armstrong"
+	constituency="Mid Ulster" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90010"
+	url="http://www.niassembly.gov.uk/members/biogs/aattwood.htm"
+	title="Mr" firstname="Alex" lastname="Attwood"
+	constituency="Belfast West" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90011"
+	url="http://www.niassembly.gov.uk/members/biogs/rbeggs.htm"
+	title="Mr" firstname="Roy" lastname="Beggs"
+	constituency="East Antrim" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90012"
+	url="http://www.niassembly.gov.uk/members/biogs/wbell.htm"
+	title="Mr" firstname="Billy" lastname="Bell"
+	constituency="Lagan Valley" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90013"
+	url="http://www.niassembly.gov.uk/members/biogs/ebell.htm"
+	title="Mrs" firstname="Eileen" lastname="Bell"
+	constituency="North Down" party="Alliance"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90014"
+	url="http://www.niassembly.gov.uk/members/biogs/pberry.htm"
+	title="Mr" firstname="Paul" lastname="Berry"
+	constituency="Newry &amp; Armagh" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90015"
+	url="http://www.niassembly.gov.uk/members/biogs/ebirnie.htm"
+	title="Dr" firstname="Esmond" lastname="Birnie"
+	constituency="Belfast South" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90016"
+	url="http://www.niassembly.gov.uk/members/biogs/nboyd.htm"
+	title="Mr" firstname="Norman" lastname="Boyd"
+	constituency="South Antrim" party="UKUP"
+	fromdate="1998-06-25" todate="1999-01-15"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90017"
+	url="http://www.niassembly.gov.uk/members/biogs/nboyd.htm"
+	title="Mr" firstname="Norman" lastname="Boyd"
+	constituency="South Antrim" party="NIUP"
+	fromdate="1999-01-15" todate="2003-04-28"
+	fromwhy="changed_party" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90018"
+	url="http://www.niassembly.gov.uk/members/biogs/pjbradley.htm"
+	title="Mr" firstname="P J" lastname="Bradley"
+	constituency="South Down" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90019"
+	url="http://www.niassembly.gov.uk/members/biogs/jbyrne.htm"
+	title="Mr" firstname="Joe" lastname="Byrne"
+	constituency="West Tyrone" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90020"
+	url="http://www.niassembly.gov.uk/members/biogs/gcampbell.htm"
+	title="Mr" firstname="Gregory" lastname="Campbell"
+	constituency="East Londonderry" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90021"
+	url="http://www.niassembly.gov.uk/members/biogs/mcarrick.htm"
+	title="Mr" firstname="Mervyn" lastname="Carrick"
+	constituency="Upper Bann" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90022"
+	url="http://www.niassembly.gov.uk/members/biogs/jcarson.htm"
+	title="Mrs" firstname="Joan" lastname="Carson"
+	constituency="Fermanagh &amp; South Tyrone" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90023"
+	url="http://www.niassembly.gov.uk/members/biogs/sclose.htm"
+	title="Mr" firstname="Seamus" lastname="Close"
+	constituency="Lagan Valley" party="Alliance"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90024"
+	url="http://www.niassembly.gov.uk/members/biogs/wclyde.htm"
+	title="Mr" firstname="Wilson" lastname="Clyde"
+	constituency="South Antrim" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90025"
+	url="http://www.niassembly.gov.uk/members/biogs/fcobain.htm"
+	title="Mr" firstname="Fred" lastname="Cobain"
+	constituency="Belfast North" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90026"
+	url="http://www.niassembly.gov.uk/members/biogs/rcoulter.htm"
+	title="Rev" firstname="Robert" lastname="Coulter"
+	constituency="North Antrim" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90027"
+	url="http://www.niassembly.gov.uk/members/biogs/acourtney.htm"
+	title="Mr" firstname="John" lastname="Hume"
+	constituency="Foyle" party="SDLP"
+	fromdate="1998-06-25" todate="2000-12-01"
+	fromwhy="general_election" towhy="resigned"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90028"
+	url="http://www.niassembly.gov.uk/members/biogs/acourtney.htm"
+	title="Mrs" firstname="Annie" lastname="Courtney"
+	constituency="Foyle" party="SDLP"
+	fromdate="2000-12-05" todate="2003-04-01"
+	fromwhy="appointed" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90029"
+	url="http://www.niassembly.gov.uk/members/biogs/acourtney.htm"
+	title="Mrs" firstname="Annie" lastname="Courtney"
+	constituency="Foyle" party="Independent"
+	fromdate="2003-04-01" todate="2003-04-28"
+	fromwhy="changed_party" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90030"
+	url="http://www.niassembly.gov.uk/members/biogs/mcoyle.htm"
+	title="Mr" firstname="Arthur" lastname="Doherty"
+	constituency="East Londonderry" party="SDLP"
+	fromdate="1998-06-25" todate="2002-09-01"
+	fromwhy="general_election" towhy="resigned"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90031"
+	url="http://www.niassembly.gov.uk/members/biogs/mcoyle.htm"
+	title="Mr" firstname="Michael" lastname="Coyle"
+	constituency="East Londonderry" party="SDLP"
+	fromdate="2002-09-01" todate="2003-04-28"
+	fromwhy="appointed" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90032"
+	url="http://www.niassembly.gov.uk/members/biogs/jdallat.htm"
+	title="Mr" firstname="John" lastname="Dallat"
+	constituency="East Londonderry" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90033"
+	url="http://www.niassembly.gov.uk/members/biogs/dshipleydalton.htm"
+	title="Mr" firstname="Duncan" lastname="Dalton"
+	constituency="South Antrim" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90034"
+	url="http://www.niassembly.gov.uk/members/biogs/idavis.htm"
+	title="Mr" firstname="Ivan" lastname="Davis"
+	constituency="Lagan Valley" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90035"
+	url="http://www.niassembly.gov.uk/members/biogs/bdebrun.htm"
+	title="Ms" firstname="Bairbre" lastname="de Brún"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90036"
+	url="http://www.niassembly.gov.uk/members/biogs/ndodds.htm"
+	title="Mr" firstname="Nigel" lastname="Dodds"
+	constituency="Belfast North" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90037"
+	url="http://www.niassembly.gov.uk/members/biogs/pdoherty.htm"
+	title="Mr" firstname="Pat" lastname="Doherty"
+	constituency="West Tyrone" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90038"
+	url="http://www.niassembly.gov.uk/members/biogs/bdouglas.htm"
+	title="Mr" firstname="Boyd" lastname="Douglas"
+	constituency="East Londonderry" party="Independent"
+	fromdate="1998-06-25" todate="1998-09-21"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90039"
+	url="http://www.niassembly.gov.uk/members/biogs/bdouglas.htm"
+	title="Mr" firstname="Boyd" lastname="Douglas"
+	constituency="East Londonderry" party="UUAP"
+	fromdate="1998-09-21" todate="2003-04-28"
+	fromwhy="changed_party" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90040"
+	url="http://www.niassembly.gov.uk/members/biogs/mdurkan.htm"
+	title="Mr" firstname="Mark" lastname="Durkan"
+	constituency="Foyle" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90041"
+	url="http://www.niassembly.gov.uk/members/biogs/rempey.htm"
+	title="Sir" firstname="Reg" lastname="Empey"
+	constituency="Belfast East" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90042"
+	url="http://www.niassembly.gov.uk/members/biogs/dervine.htm"
+	title="Mr" firstname="David" lastname="Ervine"
+	constituency="Belfast East" party="PUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90043"
+	url="http://www.niassembly.gov.uk/members/biogs/sfarren.htm"
+	title="Dr" firstname="Sean" lastname="Farren"
+	constituency="North Antrim" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90044"
+	url="http://www.niassembly.gov.uk/members/biogs/jfee.htm"
+	title="Mr" firstname="John" lastname="Fee"
+	constituency="Newry &amp; Armagh" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90045"
+	url="http://www.niassembly.gov.uk/members/biogs/dford.htm"
+	title="Mr" firstname="David" lastname="Ford"
+	constituency="South Antrim" party="Alliance"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90046"
+	url="http://www.niassembly.gov.uk/members/biogs/sfoster.htm"
+	title="Mr" firstname="Sam" lastname="Foster"
+	constituency="Fermanagh &amp; South Tyrone" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90047"
+	url="http://www.niassembly.gov.uk/members/biogs/tgallagher.htm"
+	title="Mr" firstname="Tommy" lastname="Gallagher"
+	constituency="Fermanagh &amp; South Tyrone" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90048"
+	url="http://www.niassembly.gov.uk/members/biogs/ogibson.htm"
+	title="Mr" firstname="Oliver" lastname="Gibson"
+	constituency="West Tyrone" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90049"
+	url="http://www.niassembly.gov.uk/members/biogs/mgildernew.htm"
+	title="Ms" firstname="Michelle" lastname="Gildernew"
+	constituency="Fermanagh &amp; South Tyrone" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90050"
+	url="http://www.niassembly.gov.uk/members/biogs/jgorman.htm"
+	title="Sir" firstname="John" lastname="Gorman"
+	constituency="North Down" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90051"
+	url="http://www.niassembly.gov.uk/members/biogs/thamilton.htm"
+	title="Mr" firstname="Tom" lastname="Benson"
+	constituency="Strangford" party="UUP"
+	fromdate="1998-06-25" todate="2000-12-24"
+	fromwhy="general_election" towhy="died"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90052"
+	url="http://www.niassembly.gov.uk/members/biogs/thamilton.htm"
+	title="Mr" firstname="Tom" lastname="Hamilton"
+	constituency="Strangford" party="UUP"
+	fromdate="2001-01-17" todate="2003-04-28"
+	fromwhy="appointed" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90053"
+	url="http://www.niassembly.gov.uk/members/biogs/channa.htm"
+	title="Ms" firstname="Carmel" lastname="Hanna"
+	constituency="Belfast South" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90054"
+	url="http://www.niassembly.gov.uk/members/biogs/dhaughey.htm"
+	title="Mr" firstname="Denis" lastname="Haughey"
+	constituency="Mid Ulster" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90055"
+	url="http://www.niassembly.gov.uk/members/biogs/whay.htm"
+	title="Mr" firstname="William" lastname="Hay"
+	constituency="Foyle" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90056"
+	url="http://www.niassembly.gov.uk/members/biogs/jhendron.htm"
+	title="Dr" firstname="Joe" lastname="Hendron"
+	constituency="Belfast West" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90057"
+	url="http://www.niassembly.gov.uk/members/biogs/dhilditch.htm"
+	title="Mr" firstname="David" lastname="Hilditch"
+	constituency="East Antrim" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90058"
+	url="http://www.niassembly.gov.uk/members/biogs/dhussey.htm"
+	title="Mr" firstname="Derek" lastname="Hussey"
+	constituency="West Tyrone" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90059"
+	url="http://www.niassembly.gov.uk/members/biogs/bhutchinson.htm"
+	title="Mr" firstname="Billy" lastname="Hutchinson"
+	constituency="Belfast North" party="PUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90060"
+	url="http://www.niassembly.gov.uk/members/biogs/rhutchinson.htm"
+	title="Mr" firstname="Roger" lastname="Hutchinson"
+	constituency="East Antrim" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90061"
+	url="http://www.niassembly.gov.uk/members/biogs/gkane.htm"
+	title="Mr" firstname="Gardiner" lastname="Kane"
+	constituency="North Antrim" party="DUP"
+	fromdate="1998-06-25" todate="2002-11-11"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90062"
+	url="http://www.niassembly.gov.uk/members/biogs/gkane.htm"
+	title="Mr" firstname="Gardiner" lastname="Kane"
+	constituency="North Antrim" party="Independent"
+	fromdate="2002-11-11" todate="2003-04-28"
+	fromwhy="changed_party" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90063"
+	url="http://www.niassembly.gov.uk/members/biogs/gkelly.htm"
+	title="Mr" firstname="Gerry" lastname="Kelly"
+	constituency="Belfast North" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90064"
+	url="http://www.niassembly.gov.uk/members/biogs/jkelly.htm"
+	title="Mr" firstname="John" lastname="Kelly"
+	constituency="Mid Ulster" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90065"
+	url="http://www.niassembly.gov.uk/members/biogs/dkennedy.htm"
+	title="Mr" firstname="Danny" lastname="Kennedy"
+	constituency="Newry &amp; Armagh" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90066"
+	url="http://www.niassembly.gov.uk/members/biogs/jleslie.htm"
+	title="Mr" firstname="James" lastname="Leslie"
+	constituency="North Antrim" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90067"
+	url="http://www.niassembly.gov.uk/members/biogs/plewsley.htm"
+	title="Ms" firstname="Patricia" lastname="Lewsley"
+	constituency="Lagan Valley" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90068"
+	url="http://www.niassembly.gov.uk/members/biogs/amaginness.htm"
+	title="Mr" firstname="Alban" lastname="Maginness"
+	constituency="Belfast North" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90069"
+	url="http://www.niassembly.gov.uk/members/biogs/smallon.htm"
+	title="Mr" firstname="Seamus" lastname="Mallon"
+	constituency="Newry &amp; Armagh" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90070"
+	url="http://www.niassembly.gov.uk/members/biogs/amaskey.htm"
+	title="Mr" firstname="Alex" lastname="Maskey"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90071"
+	url="http://www.niassembly.gov.uk/members/biogs/kmccarthy.htm"
+	title="Mr" firstname="Kieran" lastname="McCarthy"
+	constituency="Strangford" party="Alliance"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90072"
+	url="http://www.niassembly.gov.uk/members/biogs/rmccartney.htm"
+	title="Mr" firstname="Robert" lastname="McCartney"
+	constituency="North Down" party="UKUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90073"
+	url="http://www.niassembly.gov.uk/members/biogs/dmcclarty.htm"
+	title="Mr" firstname="David" lastname="McClarty"
+	constituency="East Londonderry" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90074"
+	url="http://www.niassembly.gov.uk/members/biogs/wmccrea.htm"
+	title="Rev" firstname="William" lastname="McCrea"
+	constituency="Mid Ulster" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90075"
+	url="http://www.niassembly.gov.uk/members/biogs/dmccleland.htm"
+	title="Mr" firstname="Donovan" lastname="McClelland"
+	constituency="South Antrim" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90076"
+	url="http://www.niassembly.gov.uk/members/biogs/amcdonnell.htm"
+	title="Dr" firstname="Alasdair" lastname="McDonnell"
+	constituency="Belfast South" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90077"
+	url="http://www.niassembly.gov.uk/members/biogs/bmcelduff.htm"
+	title="Mr" firstname="Barry" lastname="McElduff"
+	constituency="West Tyrone" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90078"
+	url="http://www.niassembly.gov.uk/members/biogs/amcfarland.htm"
+	title="Mr" firstname="Alan" lastname="McFarland"
+	constituency="North Down" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90079"
+	url="http://www.niassembly.gov.uk/members/biogs/mmcgimpsey.htm"
+	title="Mr" firstname="Michael" lastname="McGimpsey"
+	constituency="Belfast South" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90080"
+	url="http://www.niassembly.gov.uk/members/biogs/emcgrady.htm"
+	title="Mr" firstname="Eddie" lastname="McGrady"
+	constituency="South Down" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90081"
+	url="http://www.niassembly.gov.uk/members/biogs/mmcguinness.htm"
+	title="Mr" firstname="Martin" lastname="McGuinness"
+	constituency="Mid Ulster" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90082"
+	url="http://www.niassembly.gov.uk/members/biogs/gmchugh.htm"
+	title="Mr" firstname="Gerry" lastname="McHugh"
+	constituency="Fermanagh &amp; South Tyrone" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90083"
+	url="http://www.niassembly.gov.uk/members/biogs/mmclaughlin.htm"
+	title="Mr" firstname="Mitchel" lastname="McLaughlin"
+	constituency="Foyle" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90084"
+	url="http://www.niassembly.gov.uk/members/biogs/emcmenamin.htm"
+	title="Mr" firstname="Eugene" lastname="McMenamin"
+	constituency="West Tyrone" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90085"
+	url="http://www.niassembly.gov.uk/members/biogs/pmcnamee.htm"
+	title="Mr" firstname="Pat" lastname="McNamee"
+	constituency="Newry &amp; Armagh" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90086"
+	url="http://www.niassembly.gov.uk/members/biogs/mmcwilliams.htm"
+	title="Prof" firstname="Monica" lastname="McWilliams"
+	constituency="Belfast South" party="NIWC"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90087"
+	url="http://www.niassembly.gov.uk/members/biogs/fmolloy.htm"
+	title="Mr" firstname="Francie" lastname="Molloy"
+	constituency="Mid Ulster" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90088"
+	url="http://www.niassembly.gov.uk/members/biogs/cmurphy.htm"
+	title="Mr" firstname="Conor" lastname="Murphy"
+	constituency="Newry &amp; Armagh" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90089"
+	url="http://www.niassembly.gov.uk/members/biogs/mmurphy.htm"
+	title="Mr" firstname="Mick" lastname="Murphy"
+	constituency="South Down" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90090"
+	url="http://www.niassembly.gov.uk/members/biogs/jmorrice.htm"
+	title="Ms" firstname="Jane" lastname="Morrice"
+	constituency="North Down" party="NIWC"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90091"
+	url="http://www.niassembly.gov.uk/members/biogs/mmorrow.htm"
+	title="Mr" firstname="Maurice" lastname="Morrow"
+	constituency="Fermanagh &amp; South Tyrone" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90092"
+	url="http://www.niassembly.gov.uk/members/biogs/sneeson.htm"
+	title="Mr" firstname="Sean" lastname="Neeson"
+	constituency="East Antrim" party="Alliance"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90093"
+	url="http://www.niassembly.gov.uk/members/biogs/mnelis.htm"
+	title="Ms" firstname="Mary" lastname="Nelis"
+	constituency="Foyle" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90094"
+	url="http://www.niassembly.gov.uk/members/biogs/dnesbitt.htm"
+	title="Mr" firstname="Dermot" lastname="Nesbitt"
+	constituency="South Down" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90095"
+	url="http://www.niassembly.gov.uk/members/biogs/doconnori.htm"
+	title="Mr" firstname="Danny" lastname="O'Connor"
+	constituency="East Antrim" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90096"
+	url="http://www.niassembly.gov.uk/members/biogs/dohagan.htm"
+	title="Dr" firstname="Dara" lastname="O'Hagan"
+	constituency="Upper Bann" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90097"
+	url="http://www.niassembly.gov.uk/members/biogs/eoneill.htm"
+	title="Mr" firstname="Eamonn" lastname="ONeill"
+	constituency="South Down" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90098"
+	url="http://www.niassembly.gov.uk/members/biogs/ipaisley.htm"
+	title="Rev Dr" firstname="Ian" lastname="Paisley"
+	constituency="North Antrim" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90099"
+	url="http://www.niassembly.gov.uk/members/biogs/ipaisleyjnr.htm"
+	title="Mr" firstname="Ian" lastname="Paisley Jnr"
+	constituency="North Antrim" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90100"
+	url="http://www.niassembly.gov.uk/members/biogs/epoots.htm"
+	title="Mr" firstname="Edwin" lastname="Poots"
+	constituency="Lagan Valley" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90101"
+	url="http://www.niassembly.gov.uk/members/biogs/sramsey.htm"
+	title="Ms" firstname="Sue" lastname="Ramsey"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90102"
+	url="http://www.niassembly.gov.uk/members/biogs/irobinson.htm"
+	title="Mrs" firstname="Iris" lastname="Robinson"
+	constituency="Strangford" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90103"
+	url="http://www.niassembly.gov.uk/members/biogs/krobinson.htm"
+	title="Mr" firstname="Ken" lastname="Robinson"
+	constituency="East Antrim" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90104"
+	url="http://www.niassembly.gov.uk/members/biogs/mrobinson.htm"
+	title="Mr" firstname="Mark" lastname="Robinson"
+	constituency="Belfast South" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90105"
+	url="http://www.niassembly.gov.uk/members/biogs/probinson.htm"
+	title="Mr" firstname="Peter" lastname="Robinson"
+	constituency="Belfast East" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90106"
+	url="http://www.niassembly.gov.uk/members/biogs/proche.htm"
+	title="Mr" firstname="Patrick" lastname="Roche"
+	constituency="Lagan Valley" party="UKUP"
+	fromdate="1998-06-25" todate="1999-01-15"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90107"
+	url="http://www.niassembly.gov.uk/members/biogs/proche.htm"
+	title="Mr" firstname="Patrick" lastname="Roche"
+	constituency="Lagan Valley" party="NIUP"
+	fromdate="1999-01-15" todate="2003-04-28"
+	fromwhy="changed_party" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90108"
+	url="http://www.niassembly.gov.uk/members/biogs/brodgers.htm"
+	title="Ms" firstname="Brid" lastname="Rodgers"
+	constituency="Upper Bann" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90109"
+	url="http://www.niassembly.gov.uk/members/biogs/gsavage.htm"
+	title="Mr" firstname="George" lastname="Savage"
+	constituency="Upper Bann" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90110"
+	url="http://www.niassembly.gov.uk/members/biogs/jshannon.htm"
+	title="Mr" firstname="Jim" lastname="Shannon"
+	constituency="Strangford" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90111"
+	url="http://www.niassembly.gov.uk/members/biogs/jtaylor.htm"
+	title="" firstname="John" lastname="Taylor"
+	constituency="Strangford" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90112"
+	url="http://www.niassembly.gov.uk/members/biogs/jtierney.htm"
+	title="Mr" firstname="John" lastname="Tierney"
+	constituency="Foyle" party="SDLP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90113"
+	url="http://www.niassembly.gov.uk/members/biogs/dtrimble.htm"
+	title="Rt Hon" firstname="David" lastname="Trimble"
+	constituency="Upper Bann" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90114"
+	url="http://www.niassembly.gov.uk/members/biogs/dwatson.htm"
+	title="Mr" firstname="Denis" lastname="Watson"
+	constituency="Upper Bann" party="Independent"
+	fromdate="1998-06-25" todate="1998-09-21"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90115"
+	url="http://www.niassembly.gov.uk/members/biogs/dwatson.htm"
+	title="Mr" firstname="Denis" lastname="Watson"
+	constituency="Upper Bann" party="UUAP"
+	fromdate="1998-09-21" todate="2003-04-28"
+	fromwhy="changed_party" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90116"
+	url="http://www.niassembly.gov.uk/members/biogs/pweir.htm"
+	title="Mr" firstname="Peter" lastname="Weir"
+	constituency="North Down" party="UUP"
+	fromdate="1998-06-25" todate="2001-11-09"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90117"
+	url="http://www.niassembly.gov.uk/members/biogs/pweir.htm"
+	title="Mr" firstname="Peter" lastname="Weir"
+	constituency="North Down" party="Independent"
+	fromdate="2001-11-09" todate="2002-04-30"
+	fromwhy="changed_party" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90118"
+	url="http://www.niassembly.gov.uk/members/biogs/pweir.htm"
+	title="Mr" firstname="Peter" lastname="Weir"
+	constituency="North Down" party="DUP"
+	fromdate="2002-04-30" todate="2003-04-28"
+	fromwhy="changed_party" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90119"
+	url="http://www.niassembly.gov.uk/members/biogs/jwells.htm"
+	title="Mr" firstname="Jim" lastname="Wells"
+	constituency="South Down" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90120"
+	url="http://www.niassembly.gov.uk/members/biogs/cwilson.htm"
+	title="Mr" firstname="Cedric" lastname="Wilson"
+	constituency="Strangford" party="UKUP"
+	fromdate="1998-06-25" todate="1999-01-15"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90121"
+	url="http://www.niassembly.gov.uk/members/biogs/cwilson.htm"
+	title="Mr" firstname="Cedric" lastname="Wilson"
+	constituency="Strangford" party="NIUP"
+	fromdate="1999-01-15" todate="2003-04-28"
+	fromwhy="changed_party" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90122"
+	url="http://www.niassembly.gov.uk/members/biogs/jwilson.htm"
+	title="Mr" firstname="Jim" lastname="Wilson"
+	constituency="South Antrim" party="UUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90123"
+	url="http://www.niassembly.gov.uk/members/biogs/swilson.htm"
+	title="Mr" firstname="Sammy" lastname="Wilson"
+	constituency="Belfast East" party="DUP"
+	fromdate="1998-06-25" todate="2003-04-28"
+	fromwhy="general_election" towhy="general_election"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90124"
+	title="" firstname="Gerry" lastname="Adams"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90125"
+	title="" firstname="Billy" lastname="Armstrong"
+	constituency="Mid Ulster" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90126"
+	url="http://www.niassembly.gov.uk/members/biogs_03/attwood_a.htm"
+	title="" firstname="Alex" lastname="Attwood"
+	constituency="Belfast West" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90127"
+	url="http://www.niassembly.gov.uk/members/biogs_03/beare_n.htm"
+	title="" firstname="Norah" lastname="Beare"
+	constituency="Lagan Valley" party="UUP"
+	fromdate="2003-11-26" todate="2003-12-18"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90128"
+	url="http://www.niassembly.gov.uk/members/biogs_03/beare_n.htm"
+	title="" firstname="Norah" lastname="Beare"
+	constituency="Lagan Valley" party="Independent Unionist"
+	fromdate="2003-12-18" todate="2004-01-15"
+	fromwhy="changed_party" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90129"
+	url="http://www.niassembly.gov.uk/members/biogs_03/beare_n.htm"
+	title="" firstname="Norah" lastname="Beare"
+	constituency="Lagan Valley" party="DUP"
+	fromdate="2004-01-15" todate="2007-01-30"
+	fromwhy="changed_party" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90130"
+	url="http://www.niassembly.gov.uk/members/biogs_03/beggs_r.htm"
+	title="" firstname="Roy" lastname="Beggs"
+	constituency="East Antrim" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90131"
+	url="http://www.niassembly.gov.uk/members/biogs_03/bell_b.htm"
+	title="" firstname="Billy" lastname="Bell"
+	constituency="Lagan Valley" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90132"
+	title="" firstname="Eileen" lastname="Bell"
+	constituency="North Down" party="Alliance"
+	fromdate="2003-11-26" todate="2006-05-09"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90133"
+	title="" firstname="Paul" lastname="Berry"
+	constituency="Newry &amp; Armagh" party="DUP"
+	fromdate="2003-11-26" todate="2006-02-20"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90134"
+	title="" firstname="Paul" lastname="Berry"
+	constituency="Newry &amp; Armagh" party="Independent"
+	fromdate="2006-02-21" todate="2007-01-30"
+	fromwhy="changed_party" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90135"
+	url="http://www.niassembly.gov.uk/members/biogs_03/birnie_e.htm"
+	title="" firstname="Esmond" lastname="Birnie"
+	constituency="Belfast South" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90136"
+	title="" firstname="Dominic" lastname="Bradley"
+	constituency="Newry &amp; Armagh" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90137"
+	url="http://www.niassembly.gov.uk/members/biogs_03/bradley_m.htm"
+	title="" firstname="Mary" lastname="Bradley"
+	constituency="Foyle" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90138"
+	url="http://www.niassembly.gov.uk/members/biogs_03/bradley_pj.htm"
+	title="" firstname="P J" lastname="Bradley"
+	constituency="South Down" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90139"
+	title="" firstname="Francie" lastname="Brolly"
+	constituency="East Londonderry" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90140"
+	url="http://www.niassembly.gov.uk/members/biogs_03/buchanan_t.htm"
+	title="" firstname="Thomas" lastname="Buchanan"
+	constituency="West Tyrone" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90141"
+	url="http://www.niassembly.gov.uk/members/biogs_03/burns_t.htm"
+	title="" firstname="Thomas" lastname="Burns"
+	constituency="South Antrim" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90142"
+	title="" firstname="David" lastname="Burnside"
+	constituency="South Antrim" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90143"
+	url="http://www.niassembly.gov.uk/members/biogs_03/campbell_g.htm"
+	title="" firstname="Gregory" lastname="Campbell"
+	constituency="East Londonderry" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90144"
+	title="" firstname="Willie" lastname="Clarke"
+	constituency="South Down" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90145"
+	url="http://www.niassembly.gov.uk/members/biogs_03/close_s.htm"
+	title="" firstname="Seamus" lastname="Close"
+	constituency="Lagan Valley" party="Alliance"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90146"
+	title="" firstname="Wilson" lastname="Clyde"
+	constituency="South Antrim" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90147"
+	url="http://www.niassembly.gov.uk/members/biogs_03/cobain_f.htm"
+	title="" firstname="Fred" lastname="Cobain"
+	constituency="Belfast North" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90148"
+	url="http://www.niassembly.gov.uk/members/biogs_03/copeland_m.htm"
+	title="" firstname="Michael" lastname="Copeland"
+	constituency="Belfast East" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90149"
+	title="" firstname="Robert" lastname="Coulter"
+	constituency="North Antrim" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90150"
+	url="http://www.niassembly.gov.uk/members/biogs_03/cree_l.htm"
+	title="" firstname="Leslie" lastname="Cree"
+	constituency="North Down" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90151"
+	url="http://www.niassembly.gov.uk/members/biogs_03/dallat_j.htm"
+	title="" firstname="John" lastname="Dallat"
+	constituency="East Londonderry" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90152"
+	url="http://www.niassembly.gov.uk/members/biogs_03/dawson_g.htm"
+	title="" firstname="George" lastname="Dawson"
+	constituency="East Antrim" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90153"
+	url="http://www.niassembly.gov.uk/members/biogs_03/Deeny_k.htm"
+	title="" firstname="Kieran" lastname="Deeny"
+	constituency="West Tyrone" party="Independent"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90154"
+	title="" firstname="Diane" lastname="Dodds"
+	constituency="Belfast West" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90155"
+	url="http://www.niassembly.gov.uk/members/biogs_03/dodds_n.htm"
+	title="" firstname="Nigel" lastname="Dodds"
+	constituency="Belfast North" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90156"
+	title="" firstname="Pat" lastname="Doherty"
+	constituency="West Tyrone" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90157"
+	url="http://www.niassembly.gov.uk/members/biogs_03/donaldson_j.htm"
+	title="" firstname="Jeffrey M" lastname="Donaldson"
+	constituency="Lagan Valley" party="UUP"
+	fromdate="2003-11-26" todate="2003-12-18"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90158"
+	url="http://www.niassembly.gov.uk/members/biogs_03/donaldson_j.htm"
+	title="" firstname="Jeffrey M" lastname="Donaldson"
+	constituency="Lagan Valley" party="Independent Unionist"
+	fromdate="2003-12-18" todate="2004-01-15"
+	fromwhy="changed_party" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90159"
+	url="http://www.niassembly.gov.uk/members/biogs_03/donaldson_j.htm"
+	title="" firstname="Jeffrey M" lastname="Donaldson"
+	constituency="Lagan Valley" party="DUP"
+	fromdate="2004-01-15" todate="2007-01-30"
+	fromwhy="changed_party" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90160"
+	title="" firstname="Geraldine" lastname="Dougan"
+	constituency="Mid Ulster" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-14"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90161"
+	url="http://www.niassembly.gov.uk/members/biogs_03/durkan_m.htm"
+	title="" firstname="Mark" lastname="Durkan"
+	constituency="Foyle" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90162"
+	title="" firstname="Alex" lastname="Easton"
+	constituency="North Down" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90163"
+	url="http://www.niassembly.gov.uk/members/biogs_03/elliot_t.htm"
+	title="" firstname="Tom" lastname="Elliott"
+	constituency="Fermanagh &amp; South Tyrone" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90164"
+	url="http://www.niassembly.gov.uk/members/biogs_03/empey_r.htm"
+	title="" firstname="Reg" lastname="Empey"
+	constituency="Belfast East" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90165"
+	url="http://www.niassembly.gov.uk/members/biogs_03/ennis_g.htm"
+	title="" firstname="George" lastname="Ennis"
+	constituency="Strangford" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90166"
+	url="http://www.niassembly.gov.uk/members/biogs_03/ervine_d.htm"
+	title="" firstname="David" lastname="Ervine"
+	constituency="Belfast East" party="PUP"
+	fromdate="2003-11-26" todate="2007-01-08"
+	fromwhy="general_election" towhy="died"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90167"
+	title="" firstname="Sean" lastname="Farren"
+	constituency="North Antrim" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90168"
+	title="" firstname="Michael" lastname="Ferguson"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2006-09-25"
+	fromwhy="general_election" towhy="died"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90169"
+	url="http://www.niassembly.gov.uk/members/biogs_03/ford_d.htm"
+	title="" firstname="David" lastname="Ford"
+	constituency="South Antrim" party="Alliance"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90170"
+	title="" firstname="Arlene" lastname="Foster"
+	constituency="Fermanagh &amp; South Tyrone" party="UUP"
+	fromdate="2003-11-26" todate="2003-12-18"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90171"
+	title="" firstname="Arlene" lastname="Foster"
+	constituency="Fermanagh &amp; South Tyrone" party="Independent Unionist"
+	fromdate="2003-12-18" todate="2004-01-15"
+	fromwhy="changed_party" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90172"
+	title="" firstname="Arlene" lastname="Foster"
+	constituency="Fermanagh &amp; South Tyrone" party="DUP"
+	fromdate="2004-01-15" todate="2007-01-30"
+	fromwhy="changed_party" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90173"
+	url="http://www.niassembly.gov.uk/members/biogs_03/gallagher_t.htm"
+	title="" firstname="Tommy" lastname="Gallagher"
+	constituency="Fermanagh &amp; South Tyrone" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90174"
+	url="http://www.niassembly.gov.uk/members/biogs_03/gardiner_s.htm"
+	title="" firstname="Samuel" lastname="Gardiner"
+	constituency="Upper Bann" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90175"
+	title="" firstname="Michelle" lastname="Gildernew"
+	constituency="Fermanagh &amp; South Tyrone" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90176"
+	title="" firstname="Paul" lastname="Girvan"
+	constituency="South Antrim" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90177"
+	url="http://www.niassembly.gov.uk/members/biogs_03/hanna_c.htm"
+	title="" firstname="Carmel" lastname="Hanna"
+	constituency="Belfast South" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90178"
+	title="" firstname="William" lastname="Hay"
+	constituency="Foyle" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90179"
+	url="http://www.niassembly.gov.uk/members/biogs_03/hilditch_d.htm"
+	title="" firstname="David" lastname="Hilditch"
+	constituency="East Antrim" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90180"
+	title="" firstname="Norman" lastname="Hillis"
+	constituency="East Londonderry" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90181"
+	url="http://www.niassembly.gov.uk/members/biogs_03/hussey_d.htm"
+	title="" firstname="Derek" lastname="Hussey"
+	constituency="West Tyrone" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90182"
+	url="http://www.niassembly.gov.uk/members/biogs_03/hyland_d.htm"
+	title="" firstname="Davy" lastname="Hyland"
+	constituency="Newry &amp; Armagh" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2006-12-18"
+	fromwhy="general_election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90183"
+	url="http://www.niassembly.gov.uk/members/biogs_03/kelly_d.htm"
+	title="" firstname="Dolores" lastname="Kelly"
+	constituency="Upper Bann" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90184"
+	url="http://www.niassembly.gov.uk/members/biogs_03/kelly_g.htm"
+	title="" firstname="Gerry" lastname="Kelly"
+	constituency="Belfast North" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90185"
+	url="http://www.niassembly.gov.uk/members/biogs_03/kennedy_d.htm"
+	title="" firstname="Danny" lastname="Kennedy"
+	constituency="Newry &amp; Armagh" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90186"
+	title="" firstname="John" lastname="Taylor"
+	constituency="Strangford" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90187"
+	url="http://www.niassembly.gov.uk/members/biogs_03/lewsley_p.htm"
+	title="" firstname="Patricia" lastname="Lewsley"
+	constituency="Lagan Valley" party="SDLP"
+	fromdate="2003-11-26" todate="2006-12-19"
+	fromwhy="general_election" towhy="resigned"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90188"
+	url="http://www.niassembly.gov.uk/members/biogs_03/long_n.htm"
+	title="" firstname="Naomi" lastname="Long"
+	constituency="Belfast East" party="Alliance"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90189"
+	url="http://www.niassembly.gov.uk/members/biogs_03/maginness_a.htm"
+	title="" firstname="Alban" lastname="Maginness"
+	constituency="Belfast North" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90190"
+	title="" firstname="Alex" lastname="Maskey"
+	constituency="Belfast South" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90191"
+	title="" firstname="Fra" lastname="McCann"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90192"
+	url="http://www.niassembly.gov.uk/members/biogs_03/mccarthy_k.htm"
+	title="" firstname="Kieran" lastname="McCarthy"
+	constituency="Strangford" party="Alliance"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90193"
+	title="" firstname="Mary" lastname="Nelis"
+	constituency="Foyle" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2004-07-14"
+	fromwhy="general_election" towhy="resigned"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90194"
+	title="" firstname="Raymond" lastname="McCartney"
+	constituency="Foyle" party="Sinn Féin"
+	fromdate="2004-07-15" todate="2007-01-30"
+	fromwhy="appointed" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90195"
+	title="" firstname="Robert" lastname="McCartney"
+	constituency="North Down" party="UKUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90196"
+	title="" firstname="Nelson" lastname="McCausland"
+	constituency="Belfast North" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90197"
+	url="http://www.niassembly.gov.uk/members/biogs_03/mcclarty_d.htm"
+	title="" firstname="David" lastname="McClarty"
+	constituency="East Londonderry" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90198"
+	url="http://www.niassembly.gov.uk/members/biogs_03/mccrea_w.htm"
+	title="" firstname="William" lastname="McCrea"
+	constituency="Mid Ulster" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90199"
+	url="http://www.niassembly.gov.uk/members/biogs_03/mcdonnell_a.htm"
+	title="" firstname="Alasdair" lastname="McDonnell"
+	constituency="Belfast South" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90200"
+	title="" firstname="Barry" lastname="McElduff"
+	constituency="West Tyrone" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90201"
+	url="http://www.niassembly.gov.uk/members/biogs_03/mcfarland_a.htm"
+	title="" firstname="Alan" lastname="McFarland"
+	constituency="North Down" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90202"
+	title="" firstname="Michael" lastname="McGimpsey"
+	constituency="Belfast South" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90203"
+	title="" firstname="Patsy" lastname="McGlone"
+	constituency="Mid Ulster" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90204"
+	url="http://www.niassembly.gov.uk/members/biogs_03/mcguigan_p.htm"
+	title="" firstname="Philip" lastname="McGuigan"
+	constituency="North Antrim" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90205"
+	url="http://www.niassembly.gov.uk/members/biogs_03/mcguinness_m.htm"
+	title="" firstname="Martin" lastname="McGuinness"
+	constituency="Mid Ulster" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90206"
+	title="" firstname="Mitchel" lastname="McLaughlin"
+	constituency="Foyle" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90207"
+	url="http://www.niassembly.gov.uk/members/biogs_03/mcmenamin_e.htm"
+	title="" firstname="Eugene" lastname="McMenamin"
+	constituency="West Tyrone" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90208"
+	title="" firstname="David" lastname="McNarry"
+	constituency="Strangford" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90209"
+	url="http://www.niassembly.gov.uk/members/biogs_03/molloy_f.htm"
+	title="" firstname="Francie" lastname="Molloy"
+	constituency="Mid Ulster" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90210"
+	title="Lord" firstname="" lastname="Morrow"
+	constituency="Fermanagh &amp; South Tyrone" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90211"
+	url="http://www.niassembly.gov.uk/members/biogs_03/moutray_s.htm"
+	title="" firstname="Stephen" lastname="Moutray"
+	constituency="Upper Bann" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90212"
+	url="http://www.niassembly.gov.uk/members/biogs_03/murphy_c.htm"
+	title="" firstname="Conor" lastname="Murphy"
+	constituency="Newry &amp; Armagh" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90213"
+	url="http://www.niassembly.gov.uk/members/biogs_03/neeson_s.htm"
+	title="" firstname="Sean" lastname="Neeson"
+	constituency="East Antrim" party="Alliance"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90214"
+	title="" firstname="Dermot" lastname="Nesbitt"
+	constituency="South Down" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90215"
+	title="" firstname="Robin" lastname="Newton"
+	constituency="Belfast East" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90216"
+	url="http://www.niassembly.gov.uk/members/biogs_03/odowd_j.htm"
+	title="" firstname="John" lastname="O'Dowd"
+	constituency="Upper Bann" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90217"
+	title="" firstname="Patricia" lastname="O'Rawe"
+	constituency="Newry &amp; Armagh" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90218"
+	title="" firstname="Tom" lastname="O'Reilly"
+	constituency="Fermanagh &amp; South Tyrone" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90219"
+	title="" firstname="Ian" lastname="Paisley"
+	constituency="North Antrim" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90220"
+	url="http://www.niassembly.gov.uk/members/biogs_03/paisleyjnr_i.htm"
+	title="" firstname="Ian" lastname="Paisley Jnr"
+	constituency="North Antrim" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90221"
+	url="http://www.niassembly.gov.uk/members/biogs_03/poots_e.htm"
+	title="" firstname="Edwin" lastname="Poots"
+	constituency="Lagan Valley" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90222"
+	url="http://www.niassembly.gov.uk/members/biogs_03/ramsey_p.htm"
+	title="" firstname="Pat" lastname="Ramsey"
+	constituency="Foyle" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90223"
+	title="" firstname="Bairbre" lastname="de Brún"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2004-10-27"
+	fromwhy="general_election" towhy="resigned"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90224"
+	title="" firstname="Sue" lastname="Ramsey"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="2004-11-29" todate="2007-01-30"
+	fromwhy="appointed" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90225"
+	url="http://www.niassembly.gov.uk/members/biogs_03/ritchie_m.htm"
+	title="" firstname="Margaret" lastname="Ritchie"
+	constituency="South Down" party="SDLP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90226"
+	url="http://www.niassembly.gov.uk/members/biogs_03/robinson_g.htm"
+	title="" firstname="George" lastname="Robinson"
+	constituency="East Londonderry" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90227"
+	url="http://www.niassembly.gov.uk/members/biogs_03/robinson_i.htm"
+	title="" firstname="Iris" lastname="Robinson"
+	constituency="Strangford" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90228"
+	url="http://www.niassembly.gov.uk/members/biogs_03/robinson_k.htm"
+	title="" firstname="Ken" lastname="Robinson"
+	constituency="East Antrim" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90229"
+	title="" firstname="Mark" lastname="Robinson"
+	constituency="Belfast South" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90230"
+	title="" firstname="Peter" lastname="Robinson"
+	constituency="Belfast East" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90231"
+	url="http://www.niassembly.gov.uk/members/biogs_03/ruane_c.htm"
+	title="" firstname="Caitriona" lastname="Ruane"
+	constituency="South Down" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90232"
+	url="http://www.niassembly.gov.uk/members/biogs_03/shannon_j.htm"
+	title="" firstname="Jim" lastname="Shannon"
+	constituency="Strangford" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90233"
+	title="" firstname="David" lastname="Simpson"
+	constituency="Upper Bann" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90234"
+	title="" firstname="Kathy" lastname="Stanton"
+	constituency="Belfast North" party="Sinn Féin"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90235"
+	url="http://www.niassembly.gov.uk/members/biogs_03/storey_m.htm"
+	title="" firstname="Mervyn" lastname="Storey"
+	constituency="North Antrim" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90236"
+	url="http://www.niassembly.gov.uk/members/biogs_03/trimble_d.htm"
+	title="Rt Hon" firstname="David" lastname="Trimble"
+	constituency="Upper Bann" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90237"
+	url="http://www.niassembly.gov.uk/members/biogs_03/weir_p.htm"
+	title="" firstname="Peter" lastname="Weir"
+	constituency="North Down" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90238"
+	url="http://www.niassembly.gov.uk/members/biogs_03/wells_j.htm"
+	title="" firstname="Jim" lastname="Wells"
+	constituency="South Down" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90239"
+	url="http://www.niassembly.gov.uk/members/biogs_03/wilson_jim.htm"
+	title="" firstname="Jim" lastname="Wilson"
+	constituency="South Antrim" party="UUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90240"
+	url="http://www.niassembly.gov.uk/members/biogs_03/wilson_s.htm"
+	title="" firstname="Sammy" lastname="Wilson"
+	constituency="East Antrim" party="DUP"
+	fromdate="2003-11-26" todate="2007-01-30"
+	fromwhy="general_election" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90241"
+	title="" firstname="Eileen" lastname="Bell"
+	constituency="North Down" party="Speaker"
+	fromdate="2006-05-09" todate="2007-05-08"
+	fromwhy="changed_party" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90242"
+	url="http://www.niassembly.gov.uk/members/biogs/lordalderdice.htm"
+	title="Lord" firstname="" lastname="Alderdice"
+	constituency="Belfast East" party="Speaker"
+	fromdate="1999-12-01" todate="2003-04-28"
+	fromwhy="devolution" towhy="general_election"
+/>
+<member_ni
+    id="uk.org.publicwhip/member/90243"
+    title="" firstname="Marietta" lastname="Farrell"
+    constituency="Lagan Valley" party="SDLP"
+    fromdate="2007-01-09" todate="2007-01-30"
+    fromwhy="appointed" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90244"
+	title="" firstname="Geraldine" lastname="Dougan"
+	constituency="Mid Ulster" party="Independent"
+	fromdate="2007-01-15" todate="2007-01-30"
+	fromwhy="changed_party" towhy="dissolution"
+/>
+<member_ni
+    id="uk.org.publicwhip/member/90245"
+    title="Ms" firstname="Dawn" lastname="Purvis"
+    constituency="Belfast East" party="PUP"
+    fromdate="2007-01-24" todate="2007-01-30"
+    fromwhy="appointed" towhy="dissolution"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90246"
+	url="http://www.niassembly.gov.uk/members/biogs_03/hyland_d.htm"
+	title="" firstname="Davy" lastname="Hyland"
+	constituency="Newry &amp; Armagh" party="Independent"
+	fromdate="2006-12-19" todate="2007-01-30"
+	fromwhy="changed_party" towhy="dissolution"
+/>
+
+<member_ni
+	id="uk.org.publicwhip/member/90247"
+	title="" firstname="Gerry" lastname="Adams"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90248"
+	title="" firstname="Martina" lastname="Anderson"
+	constituency="Foyle" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90249"
+	title="" firstname="Billy" lastname="Armstrong"
+	constituency="Mid Ulster" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90250"
+	title="" firstname="Alex" lastname="Attwood"
+	constituency="Belfast West" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90251"
+	title="" firstname="Cathal" lastname="Boylan"
+	constituency="Newry &amp; Armagh" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90252"
+	title="" firstname="Dominic" lastname="Bradley"
+	constituency="Newry &amp; Armagh" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90253"
+	title="" firstname="P J" lastname="Bradley"
+	constituency="South Down" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90254"
+	title="" firstname="Mickey" lastname="Brady"
+	constituency="Newry &amp; Armagh" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90255"
+	title="" firstname="Allan" lastname="Bresland"
+	constituency="West Tyrone" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90256"
+	title="" firstname="Francie" lastname="Brolly"
+	constituency="East Londonderry" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90257"
+	title="" firstname="Wallace" lastname="Browne"
+	constituency="Belfast East" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90258"
+	title="" firstname="Thomas" lastname="Buchanan"
+	constituency="West Tyrone" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90259"
+	title="" firstname="Thomas" lastname="Burns"
+	constituency="South Antrim" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90260"
+	title="" firstname="David" lastname="Burnside"
+	constituency="South Antrim" party="UUP"
+	fromdate="2007-03-09" todate="2009-06-01"
+	fromwhy="election" towhy="resigned"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90261"
+	title="" firstname="Paul" lastname="Butler"
+	constituency="Lagan Valley" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90262"
+	title="" firstname="Gregory" lastname="Campbell"
+	constituency="East Londonderry" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90263"
+	title="" firstname="Willie" lastname="Clarke"
+	constituency="South Down" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90264"
+	title="" firstname="Trevor" lastname="Clarke"
+	constituency="South Antrim" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90265"
+	title="" firstname="Fred" lastname="Cobain"
+	constituency="Belfast North" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90266"
+	title="" firstname="Robert" lastname="Coulter"
+	constituency="North Antrim" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90267"
+	title="" firstname="Jonathan" lastname="Craig"
+	constituency="Lagan Valley" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90268"
+	title="" firstname="Leslie" lastname="Cree"
+	constituency="North Down" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90269"
+	title="" firstname="John" lastname="Dallat"
+	constituency="East Londonderry" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90270"
+	title="" firstname="George" lastname="Dawson"
+	constituency="East Antrim" party="DUP"
+	fromdate="2007-03-09" todate="2007-05-07"
+	fromwhy="election" towhy="died"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90271"
+	title="" firstname="Kieran" lastname="Deeny"
+	constituency="West Tyrone" party="Independent"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90272"
+	title="" firstname="Nigel" lastname="Dodds"
+	constituency="Belfast North" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90273"
+	title="" firstname="Pat" lastname="Doherty"
+	constituency="West Tyrone" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90274"
+	title="" firstname="Jeffrey M" lastname="Donaldson"
+	constituency="Lagan Valley" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90275"
+	title="" firstname="Mark" lastname="Durkan"
+	constituency="Foyle" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90276"
+	title="" firstname="Alex" lastname="Easton"
+	constituency="North Down" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90277"
+	title="" firstname="Tom" lastname="Elliott"
+	constituency="Fermanagh &amp; South Tyrone" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90278"
+	title="" firstname="Reg" lastname="Empey"
+	constituency="Belfast East" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90279"
+	title="" firstname="Stephen" lastname="Farry"
+	constituency="North Down" party="Alliance"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90280"
+	title="" firstname="David" lastname="Ford"
+	constituency="South Antrim" party="Alliance"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90281"
+	title="" firstname="Arlene" lastname="Foster"
+	constituency="Fermanagh &amp; South Tyrone" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90282"
+	title="" firstname="Tommy" lastname="Gallagher"
+	constituency="Fermanagh &amp; South Tyrone" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90283"
+	title="" firstname="Samuel" lastname="Gardiner"
+	constituency="Upper Bann" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90284"
+	title="" firstname="Michelle" lastname="Gildernew"
+	constituency="Fermanagh &amp; South Tyrone" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90285"
+	title="" firstname="Simon" lastname="Hamilton"
+	constituency="Strangford" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90286"
+	title="" firstname="Carmel" lastname="Hanna"
+	constituency="Belfast South" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90287"
+	title="" firstname="William" lastname="Hay"
+	constituency="Foyle" party="DUP"
+	fromdate="2007-03-09" todate="2007-05-08"
+	fromwhy="election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90288"
+	title="" firstname="David" lastname="Hilditch"
+	constituency="East Antrim" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90289"
+	title="" firstname="William" lastname="Irwin"
+	constituency="Newry &amp; Armagh" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90290"
+	title="" firstname="Dolores" lastname="Kelly"
+	constituency="Upper Bann" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90291"
+	title="" firstname="Gerry" lastname="Kelly"
+	constituency="Belfast North" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90292"
+	title="" firstname="Danny" lastname="Kennedy"
+	constituency="Newry &amp; Armagh" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90293"
+	title="" firstname="Anna" lastname="Lo"
+	constituency="Belfast South" party="Alliance"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90294"
+	title="" firstname="Naomi" lastname="Long"
+	constituency="Belfast East" party="Alliance"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90295"
+	title="" firstname="Trevor" lastname="Lunn"
+	constituency="Lagan Valley" party="Alliance"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90296"
+	title="" firstname="Alban" lastname="Maginness"
+	constituency="Belfast North" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90297"
+	title="" firstname="Alex" lastname="Maskey"
+	constituency="Belfast South" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90298"
+	title="" firstname="Paul" lastname="Maskey"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90299"
+	title="" firstname="John" lastname="McCallister"
+	constituency="South Down" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90300"
+	title="" firstname="Fra" lastname="McCann"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90301"
+	title="" firstname="Jennifer" lastname="McCann"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90302"
+	title="" firstname="Kieran" lastname="McCarthy"
+	constituency="Strangford" party="Alliance"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90303"
+	title="" firstname="Nelson" lastname="McCausland"
+	constituency="Belfast North" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90304"
+	title="" firstname="David" lastname="McClarty"
+	constituency="East Londonderry" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90305"
+	title="" firstname="Basil" lastname="McCrea"
+	constituency="Lagan Valley" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90306"
+	title="" firstname="Ian" lastname="McCrea"
+	constituency="Mid Ulster" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90307"
+	title="" firstname="William" lastname="McCrea"
+	constituency="South Antrim" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90308"
+	title="" firstname="Alasdair" lastname="McDonnell"
+	constituency="Belfast South" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90309"
+	title="" firstname="Barry" lastname="McElduff"
+	constituency="West Tyrone" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90310"
+	title="" firstname="Alan" lastname="McFarland"
+	constituency="North Down" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90311"
+	title="" firstname="Claire" lastname="McGill"
+	constituency="West Tyrone" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90312"
+	title="" firstname="Michael" lastname="McGimpsey"
+	constituency="Belfast South" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90313"
+	title="" firstname="Patsy" lastname="McGlone"
+	constituency="Mid Ulster" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90314"
+	title="" firstname="Martin" lastname="McGuinness"
+	constituency="Mid Ulster" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90315"
+	title="" firstname="Gerry" lastname="McHugh"
+	constituency="Fermanagh &amp; South Tyrone" party="Sinn Féin"
+	fromdate="2007-03-09" todate="2007-12-03"
+	fromwhy="election" towhy="changed_party"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90316"
+	title="" firstname="Michelle" lastname="McIlveen"
+	constituency="Strangford" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90317"
+	title="" firstname="Daithí" lastname="McKay"
+	constituency="North Antrim" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90318"
+	title="" firstname="Mitchel" lastname="McLaughlin"
+	constituency="South Antrim" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90319"
+	title="" firstname="David" lastname="McNarry"
+	constituency="Strangford" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90320"
+	title="" firstname="Adrian" lastname="McQuillan"
+	constituency="East Londonderry" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90321"
+	title="" firstname="Francie" lastname="Molloy"
+	constituency="Mid Ulster" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90322"
+	title="Lord" firstname="" lastname="Morrow"
+	constituency="Fermanagh &amp; South Tyrone" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90323"
+	title="" firstname="Stephen" lastname="Moutray"
+	constituency="Upper Bann" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90324"
+	title="" firstname="Conor" lastname="Murphy"
+	constituency="Newry &amp; Armagh" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90325"
+	title="" firstname="Sean" lastname="Neeson"
+	constituency="East Antrim" party="Alliance"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90326"
+	title="" firstname="Robin" lastname="Newton"
+	constituency="Belfast East" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90327"
+	title="" firstname="Carál" lastname="Ní Chuilín"
+	constituency="Belfast North" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90328"
+	title="" firstname="John" lastname="O'Dowd"
+	constituency="Upper Bann" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90329"
+	title="" firstname="Declan" lastname="O'Loan"
+	constituency="North Antrim" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90330"
+	title="" firstname="Michelle" lastname="O'Neill"
+	constituency="Mid Ulster" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90331"
+	title="" firstname="Ian" lastname="Paisley"
+	constituency="North Antrim" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90332"
+	title="" firstname="Ian" lastname="Paisley Jnr"
+	constituency="North Antrim" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90333"
+	title="" firstname="Edwin" lastname="Poots"
+	constituency="Lagan Valley" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90334"
+	title="" firstname="Dawn" lastname="Purvis"
+	constituency="Belfast East" party="PUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90335"
+	title="" firstname="Sue" lastname="Ramsey"
+	constituency="Belfast West" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90336"
+	title="" firstname="Margaret" lastname="Ritchie"
+	constituency="South Down" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90337"
+	title="" firstname="George" lastname="Robinson"
+	constituency="East Londonderry" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90338"
+	title="" firstname="Iris" lastname="Robinson"
+	constituency="Strangford" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90339"
+	title="" firstname="Peter" lastname="Robinson"
+	constituency="Belfast East" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90340"
+	title="" firstname="Caitriona" lastname="Ruane"
+	constituency="South Down" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90341"
+	title="" firstname="George" lastname="Savage"
+	constituency="Upper Bann" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90342"
+	title="" firstname="Jim" lastname="Shannon"
+	constituency="Strangford" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90343"
+	title="" firstname="David" lastname="Simpson"
+	constituency="Upper Bann" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90344"
+	title="" firstname="Jimmy" lastname="Spratt"
+	constituency="Belfast South" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90345"
+	title="" firstname="Mervyn" lastname="Storey"
+	constituency="North Antrim" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90346"
+	title="" firstname="Peter" lastname="Weir"
+	constituency="North Down" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90347"
+	title="" firstname="Jim" lastname="Wells"
+	constituency="South Down" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90348"
+	title="" firstname="Brian" lastname="Wilson"
+	constituency="North Down" party="Green"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90349"
+	title="" firstname="Sammy" lastname="Wilson"
+	constituency="East Antrim" party="DUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90350"
+	title="" firstname="Roy" lastname="Beggs"
+	constituency="East Antrim" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90351"
+	title="" firstname="Ken" lastname="Robinson"
+	constituency="East Antrim" party="UUP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90352"
+	title="" firstname="Raymond" lastname="McCartney"
+	constituency="Foyle" party="Sinn Féin"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90353"
+	title="" firstname="Pat" lastname="Ramsey"
+	constituency="Foyle" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+<member_ni
+	id="uk.org.publicwhip/member/90354"
+	title="" firstname="Mary" lastname="Bradley"
+	constituency="Foyle" party="SDLP"
+	fromdate="2007-03-09" todate="9999-12-31"
+	fromwhy="election" towhy="still_in_office"
+/>
+
+<member_ni
+	id="uk.org.publicwhip/member/90355"
+	title="" firstname="William" lastname="Hay"
+	constituency="Foyle" party="Speaker"
+	fromdate="2007-05-08" todate="9999-12-31"
+	fromwhy="changed_party" towhy="still_in_office"
+/>
+
+<member_ni
+	id="uk.org.publicwhip/member/90356"
+	title="" firstname="Alastair" lastname="Ross"
+	constituency="East Antrim" party="DUP"
+	fromdate="2007-05-14" todate="9999-12-31"
+	fromwhy="appointed" towhy="still_in_office"
+/>
+
+<member_ni
+	id="uk.org.publicwhip/member/90357"
+	title="" firstname="Gerry" lastname="McHugh"
+	constituency="Fermanagh &amp; South Tyrone" party="Independent"
+	fromdate="2007-12-03" todate="9999-12-31"
+	fromwhy="changed_party" towhy="still_in_office"
+/>
+
+<member_ni
+	id="uk.org.publicwhip/member/90358"
+	title="" firstname="Danny" lastname="Kinahan"
+	constituency="South Antrim" party="UUP"
+	fromdate="2009-06-09" todate="9999-12-31"
+	fromwhy="appointed" towhy="still_in_office"
+/>
+
+</publicwhip>
+

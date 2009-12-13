@@ -1,0 +1,38 @@
+#!/bin/bash
+#set -x  # for debugging, prints each line before executing it
+
+# Morning update.  Fresh with your coffee at 8am, Parliament online (usually)
+# update their site.  At 8:05, we update from them.
+
+# Can take one argument --patchtool.  This is for interactive use, it
+# will pass the switch on to lazyrunall.py, and you will be prompted
+# with an editor to pre-patch errors in Hansard.
+
+# Actually, now days you probably want to call "quickupdate" for this
+
+[ $# -gt 1 ] && { echo "Too many arguments"; exit 1; }
+[ $# -eq 1 -a "$1" != "--patchtool" ] && { echo "--patchtool is only valid argument"; exit 1; }
+
+source ~/parlparse/scripts/consts
+
+#echo -n "Start time: "
+#date +"%Y-%m-%d %H:%M:%S %Z"
+
+# Run scraper
+cd ~/parlparse/scripts
+RET=0
+./updatedaterange-scrape $DAILY_FROMDATE $DAILY_FROMDATE $DAILY_TODATE $1 || RET=1
+./updatedaterange-parse $DAILY_FROMDATE $DAILY_FROMDATE $DAILY_TODATE $1 || RET=1
+# echo "FAI final error is $RET"
+
+./other-sites-update $RET
+
+# Commit changes
+cd ~/parlparse
+svn -q commit -m "Daily work autocommit"
+cd ~/parldata
+svn -q commit -m "Daily work autocommit"
+
+#echo -n "Whole thing done time: "
+#date +"%Y-%m-%d %H:%M:%S"
+

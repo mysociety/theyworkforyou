@@ -1,0 +1,24 @@
+# Constants for bash scripts
+
+# Immediate, do just last 1 week
+NOW_FROMDATE=`perl -MPOSIX -e 'print strftime("%Y-%m-%d",localtime(time() - (7 * 24 * 60 * 60)));'`
+NOW_TODATE=`date +%Y-%m-%d`
+
+# Daily, do just last 4 weeks
+DAILY_FROMDATE=`perl -MPOSIX -e 'print strftime("%Y-%m-%d",localtime(time() - (28 * 24 * 60 * 60)));'`
+DAILY_TODATE=`date +%Y-%m-%d`
+
+# Weekly, do to start of 2001 parliament
+WEEKLY_FROMDATE=2001-06-01
+WEEKLY_TODATE=`date +%Y-%m-%d`
+
+# Lords weekly, back as far as we've got lords stuff
+LORDS_WEEKLY_FROMDATE=1999-11-12
+
+PWDATA=$HOME/parldata
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin
+
+# needed for correct group permissions
+umask 002
+

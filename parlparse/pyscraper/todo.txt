@@ -1,0 +1,2 @@
+WriteCleanText - make it so there is only one copy
+

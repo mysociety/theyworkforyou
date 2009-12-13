@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Scraping between two dates
+
+FROMDATE=$1
+LORDFROMDATE=$2
+TODATE=$3
+RET=0
+# $4 is extra flags to pass through
+# echo "updatedaterange from $1/$2 to $3"
+
+# Run XML-generating scraper from Public Whip, getting new files from network
+cd ~/parlparse/pyscraper
+./lazyrunall.py $4 --quietc --from=$FROMDATE --to=$TODATE scrape debates wrans westminhall wms ni || RET=1
+./lazyrunall.py $4 --quietc --from=$FROMDATE --to=$TODATE scrape standing || RET=1
+./lazyrunall.py $4 --from=$LORDFROMDATE --to=$TODATE scrape lords || RET=1
+
+# XXX Should vary based upon weekly/daily-ness; and be more attuned than a year
+cd ~/parlparse/pyscraper/sp
+./get-official-reports.py --quiet
+./get-written-answers.py --quiet
+./get-business-bulletins.py --quiet
+
+# Return error code
+exit $RET

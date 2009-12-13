@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<publicwhip>
+<consinfo canonical="Aberavon" bbc_constituency_id="1" />
+<consinfo canonical="Aldershot" bbc_constituency_id="7" />
+<consinfo canonical="Aldridge-Brownhills" bbc_constituency_id="8" />
+<consinfo canonical="Altrincham &amp; Sale West" bbc_constituency_id="9" />
+<consinfo canonical="Alyn &amp; Deeside" bbc_constituency_id="10" />
+<consinfo canonical="Amber Valley" bbc_constituency_id="11" />
+<consinfo canonical="East Antrim" bbc_constituency_id="13" />
+<consinfo canonical="North Antrim" bbc_constituency_id="14" />
+<consinfo canonical="South Antrim" bbc_constituency_id="15" />
+<consinfo canonical="Arundel &amp; South Downs" bbc_constituency_id="17" />
+<consinfo canonical="Ashfield" bbc_constituency_id="18" />
+<consinfo canonical="Ashford" bbc_constituency_id="19" />
+<consinfo canonical="Ashton-under-Lyne" bbc_constituency_id="20" />
+<consinfo canonical="Aylesbury" bbc_constituency_id="21" />
+<consinfo canonical="Banbury" bbc_constituency_id="23" />
+<consinfo canonical="Barking" bbc_constituency_id="25" />
+<consinfo canonical="Barnsley Central" bbc_constituency_id="26" />
+<consinfo canonical="Barnsley East &amp; Mexborough" bbc_constituency_id="27" />
+<consinfo canonical="Barnsley West &amp; Penistone" bbc_constituency_id="28" />
+<consinfo canonical="Barrow &amp; Furness" bbc_constituency_id="29" />
+<consinfo canonical="Basildon" bbc_constituency_id="30" />
+<consinfo canonical="Basingstoke" bbc_constituency_id="31" />
+<consinfo canonical="Bassetlaw" bbc_constituency_id="32" />
+<consinfo canonical="Bath" bbc_constituency_id="33" />
+<consinfo canonical="Batley &amp; Spen" bbc_constituency_id="34" />
+<consinfo canonical="Battersea" bbc_constituency_id="35" />
+<consinfo canonical="Beaconsfield" bbc_constituency_id="36" />
+<consinfo canonical="Beckenham" bbc_constituency_id="37" />
+<consinfo canonical="Bedford" bbc_constituency_id="38" />
+<consinfo canonical="Mid Bedfordshire" bbc_constituency_id="39" />
+<consinfo canonical="North East Bedfordshire" bbc_constituency_id="40" />
+<consinfo canonical="South West Bedfordshire" bbc_constituency_id="41" />
+<consinfo canonical="Belfast East" bbc_constituency_id="42" />
+<consinfo canonical="Belfast North" bbc_constituency_id="43" />
+<consinfo canonical="Belfast South" bbc_constituency_id="44" />
+<consinfo canonical="Belfast West" bbc_constituency_id="45" />
+<consinfo canonical="Berwick-upon-Tweed" bbc_constituency_id="46" />
+<consinfo canonical="Bethnal Green &amp; Bow" bbc_constituency_id="47" />
+<consinfo canonical="Beverley &amp; Holderness" bbc_constituency_id="48" />
+<consinfo canonical="Bexhill &amp; Battle" bbc_constituency_id="49" />
+<consinfo canonical="Bexleyheath &amp; Crayford" bbc_constituency_id="50" />
+<consinfo canonical="Billericay" bbc_constituency_id="51" />
+<consinfo canonical="Birkenhead" bbc_constituency_id="52" />
+<consinfo canonical="Birmingham, Edgbaston" bbc_constituency_id="53" />
+<consinfo canonical="Birmingham, Erdington" bbc_constituency_id="54" />
+<consinfo canonical="Birmingham, Hall Green" bbc_constituency_id="55" />
+<consinfo canonical="Birmingham, Hodge Hill" bbc_constituency_id="56" />
+<consinfo canonical="Birmingham, Ladywood" bbc_constituency_id="57" />
+<consinfo canonical="Birmingham, Northfield" bbc_constituency_id="58" />
+<consinfo canonical="Birmingham, Perry Barr" bbc_constituency_id="59" />
+<consinfo canonical="Birmingham, Selly Oak" bbc_constituency_id="60" />
+<consinfo canonical="Birmingham, Sparkbrook &amp; Small Heath" bbc_constituency_id="61" />
+<consinfo canonical="Birmingham, Yardley" bbc_constituency_id="62" />
+<consinfo canonical="Bishop Auckland" bbc_constituency_id="63" />
+<consinfo canonical="Blaby" bbc_constituency_id="64" />
+<consinfo canonical="Blackburn" bbc_constituency_id="65" />
+<consinfo canonical="Blackpool North &amp; Fleetwood" bbc_constituency_id="66" />
+<consinfo canonical="Blackpool South" bbc_constituency_id="67" />
+<consinfo canonical="Blaenau Gwent" bbc_constituency_id="68" />
+<consinfo canonical="Blaydon" bbc_constituency_id="69" />
+<consinfo canonical="Blyth Valley" bbc_constituency_id="70" />
+<consinfo canonical="Bognor Regis &amp; Littlehampton" bbc_constituency_id="71" />
+<consinfo canonical="Bolsover" bbc_constituency_id="72" />
+<consinfo canonical="Bolton North East" bbc_constituency_id="73" />
+<consinfo canonical="Bolton South East" bbc_constituency_id="74" />
+<consinfo canonical="Bolton West" bbc_constituency_id="75" />
+<consinfo canonical="Bootle" bbc_constituency_id="76" />
+<consinfo canonical="Boston &amp; Skegness" bbc_constituency_id="77" />
+<consinfo canonical="Bosworth" bbc_constituency_id="78" />
+<consinfo canonical="Bournemouth East" bbc_constituency_id="79" />
+<consinfo canonical="Bournemouth West" bbc_constituency_id="80" />
+<consinfo canonical="Bracknell" bbc_constituency_id="81" />
+<consinfo canonical="Bradford North" bbc_constituency_id="82" />
+<consinfo canonical="Bradford South" bbc_constituency_id="83" />
+<consinfo canonical="Bradford West" bbc_constituency_id="84" />
+<consinfo canonical="Braintree" bbc_constituency_id="85" />
+<consinfo canonical="Brecon &amp; Radnorshire" bbc_constituency_id="86" />
+<consinfo canonical="Brent East" bbc_constituency_id="87" />
+<consinfo canonical="Brent North" bbc_constituency_id="88" />
+<consinfo canonical="Brent South" bbc_constituency_id="89" />
+<consinfo canonical="Brentford &amp; Isleworth" bbc_constituency_id="90" />
+<consinfo canonical="Brentwood &amp; Ongar" bbc_constituency_id="91" />
+<consinfo canonical="Bridgend" bbc_constituency_id="92" />
+<consinfo canonical="Bridgwater" bbc_constituency_id="93" />
+<consinfo canonical="Brigg &amp; Goole" bbc_constituency_id="94" />
+<consinfo canonical="Brighton, Kemptown" bbc_constituency_id="95" />
+<consinfo canonical="Brighton, Pavilion" bbc_constituency_id="96" />
+<consinfo canonical="Bristol East" bbc_constituency_id="97" />
+<consinfo canonical="Bristol North West" bbc_constituency_id="98" />
+<consinfo canonical="Bristol South" bbc_constituency_id="99" />
+<consinfo canonical="Bristol West" bbc_constituency_id="100" />
+<consinfo canonical="Bromley &amp; Chislehurst" bbc_constituency_id="101" />
+<consinfo canonical="Bromsgrove" bbc_constituency_id="102" />
+<consinfo canonical="Broxbourne" bbc_constituency_id="103" />
+<consinfo canonical="Broxtowe" bbc_constituency_id="104" />
+<consinfo canonical="Buckingham" bbc_constituency_id="105" />
+<consinfo canonical="Burnley" bbc_constituency_id="106" />
+<consinfo canonical="Burton" bbc_constituency_id="107" />
+<consinfo canonical="Bury North" bbc_constituency_id="108" />
+<consinfo canonical="Bury South" bbc_constituency_id="109" />
+<consinfo canonical="Bury St Edmunds" bbc_constituency_id="110" />
+<consinfo canonical="Caernarfon" bbc_constituency_id="111" />
+<consinfo canonical="Caerphilly" bbc_constituency_id="112" />
+<consinfo canonical="Calder Valley" bbc_constituency_id="114" />
+<consinfo canonical="Camberwell &amp; Peckham" bbc_constituency_id="115" />
+<consinfo canonical="Cambridge" bbc_constituency_id="116" />
+<consinfo canonical="North East Cambridgeshire" bbc_constituency_id="117" />
+<consinfo canonical="North West Cambridgeshire" bbc_constituency_id="118" />
+<consinfo canonical="South Cambridgeshire" bbc_constituency_id="119" />
+<consinfo canonical="South East Cambridgeshire" bbc_constituency_id="120" />
+<consinfo canonical="Cannock Chase" bbc_constituency_id="121" />
+<consinfo canonical="Canterbury" bbc_constituency_id="122" />
+<consinfo canonical="Cardiff Central" bbc_constituency_id="123" />
+<consinfo canonical="Cardiff North" bbc_constituency_id="124" />
+<consinfo canonical="Cardiff South &amp; Penarth" bbc_constituency_id="125" />
+<consinfo canonical="Cardiff West" bbc_constituency_id="126" />
+<consinfo canonical="Carlisle" bbc_constituency_id="127" />
+<consinfo canonical="Carmarthen East &amp; Dinefwr" bbc_constituency_id="128" />
+<consinfo canonical="Carmarthen West &amp; South Pembrokeshire" bbc_constituency_id="129" />
+<consinfo canonical="Carshalton &amp; Wallington" bbc_constituency_id="131" />
+<consinfo canonical="Castle Point" bbc_constituency_id="132" />
+<consinfo canonical="Ceredigion" bbc_constituency_id="133" />
+<consinfo canonical="Charnwood" bbc_constituency_id="134" />
+<consinfo canonical="Chatham &amp; Aylesford" bbc_constituency_id="135" />
+<consinfo canonical="Cheadle" bbc_constituency_id="136" />
+<consinfo canonical="West Chelmsford" bbc_constituency_id="137" />
+<consinfo canonical="Cheltenham" bbc_constituency_id="138" />
+<consinfo canonical="Chesham &amp; Amersham" bbc_constituency_id="139" />
+<consinfo canonical="Chester, City of" bbc_constituency_id="140" />
+<consinfo canonical="Chesterfield" bbc_constituency_id="141" />
+<consinfo canonical="Chichester" bbc_constituency_id="142" />
+<consinfo canonical="Chingford &amp; Woodford Green" bbc_constituency_id="143" />
+<consinfo canonical="Chipping Barnet" bbc_constituency_id="144" />
+<consinfo canonical="Chorley" bbc_constituency_id="145" />
+<consinfo canonical="Christchurch" bbc_constituency_id="146" />
+<consinfo canonical="Cities of London &amp; Westminster" bbc_constituency_id="147" />
+<consinfo canonical="Cleethorpes" bbc_constituency_id="148" />
+<consinfo canonical="Clwyd South" bbc_constituency_id="149" />
+<consinfo canonical="Clwyd West" bbc_constituency_id="150" />
+<consinfo canonical="Colchester" bbc_constituency_id="154" />
+<consinfo canonical="Colne Valley" bbc_constituency_id="155" />
+<consinfo canonical="Congleton" bbc_constituency_id="156" />
+<consinfo canonical="Conwy" bbc_constituency_id="157" />
+<consinfo canonical="Copeland" bbc_constituency_id="158" />
+<consinfo canonical="Corby" bbc_constituency_id="159" />
+<consinfo canonical="North Cornwall" bbc_constituency_id="160" />
+<consinfo canonical="South East Cornwall" bbc_constituency_id="161" />
+<consinfo canonical="Cotswold" bbc_constituency_id="162" />
+<consinfo canonical="Coventry North East" bbc_constituency_id="163" />
+<consinfo canonical="Coventry North West" bbc_constituency_id="164" />
+<consinfo canonical="Coventry South" bbc_constituency_id="165" />
+<consinfo canonical="Crawley" bbc_constituency_id="166" />
+<consinfo canonical="Crewe &amp; Nantwich" bbc_constituency_id="167" />
+<consinfo canonical="Crosby" bbc_constituency_id="168" />
+<consinfo canonical="Croydon Central" bbc_constituency_id="169" />
+<consinfo canonical="Croydon North" bbc_constituency_id="170" />
+<consinfo canonical="Croydon South" bbc_constituency_id="171" />
+<consinfo canonical="Cynon Valley" bbc_constituency_id="175" />
+<consinfo canonical="Dagenham" bbc_constituency_id="176" />
+<consinfo canonical="Darlington" bbc_constituency_id="177" />
+<consinfo canonical="Dartford" bbc_constituency_id="178" />
+<consinfo canonical="Daventry" bbc_constituency_id="179" />
+<consinfo canonical="Delyn" bbc_constituency_id="180" />
+<consinfo canonical="Denton &amp; Reddish" bbc_constituency_id="181" />
+<consinfo canonical="Derby North" bbc_constituency_id="182" />
+<consinfo canonical="Derby South" bbc_constituency_id="183" />
+<consinfo canonical="North East Derbyshire" bbc_constituency_id="184" />
+<consinfo canonical="South Derbyshire" bbc_constituency_id="185" />
+<consinfo canonical="West Derbyshire" bbc_constituency_id="186" />
+<consinfo canonical="Devizes" bbc_constituency_id="187" />
+<consinfo canonical="East Devon" bbc_constituency_id="188" />
+<consinfo canonical="North Devon" bbc_constituency_id="189" />
+<consinfo canonical="South West Devon" bbc_constituency_id="190" />
+<consinfo canonical="Torridge &amp; West Devon" bbc_constituency_id="191" />
+<consinfo canonical="Dewsbury" bbc_constituency_id="192" />
+<consinfo canonical="Don Valley" bbc_constituency_id="193" />
+<consinfo canonical="Doncaster Central" bbc_constituency_id="194" />
+<consinfo canonical="Doncaster North" bbc_constituency_id="195" />
+<consinfo canonical="Mid Dorset &amp; North Poole" bbc_constituency_id="196" />
+<consinfo canonical="North Dorset" bbc_constituency_id="197" />
+<consinfo canonical="South Dorset" bbc_constituency_id="198" />
+<consinfo canonical="West Dorset" bbc_constituency_id="199" />
+<consinfo canonical="Dover" bbc_constituency_id="200" />
+<consinfo canonical="North Down" bbc_constituency_id="201" />
+<consinfo canonical="South Down" bbc_constituency_id="202" />
+<consinfo canonical="Dudley North" bbc_constituency_id="203" />
+<consinfo canonical="Dudley South" bbc_constituency_id="204" />
+<consinfo canonical="Dulwich &amp; West Norwood" bbc_constituency_id="205" />
+<consinfo canonical="North Durham" bbc_constituency_id="212" />
+<consinfo canonical="North West Durham" bbc_constituency_id="213" />
+<consinfo canonical="Durham, City of" bbc_constituency_id="214" />
+<consinfo canonical="Ealing, Acton &amp; Shepherd's Bush" bbc_constituency_id="215" />
+<consinfo canonical="Ealing North" bbc_constituency_id="216" />
+<consinfo canonical="Ealing, Southall" bbc_constituency_id="217" />
+<consinfo canonical="Easington" bbc_constituency_id="218" />
+<consinfo canonical="East Ham" bbc_constituency_id="219" />
+<consinfo canonical="Eastbourne" bbc_constituency_id="222" />
+<consinfo canonical="Eastleigh" bbc_constituency_id="223" />
+<consinfo canonical="Eccles" bbc_constituency_id="225" />
+<consinfo canonical="Eddisbury" bbc_constituency_id="226" />
+<consinfo canonical="Edmonton" bbc_constituency_id="233" />
+<consinfo canonical="Ellesmere Port &amp; Neston" bbc_constituency_id="234" />
+<consinfo canonical="Elmet" bbc_constituency_id="235" />
+<consinfo canonical="Eltham" bbc_constituency_id="236" />
+<consinfo canonical="Enfield North" bbc_constituency_id="237" />
+<consinfo canonical="Enfield, Southgate" bbc_constituency_id="238" />
+<consinfo canonical="Epping Forest" bbc_constituency_id="239" />
+<consinfo canonical="Epsom &amp; Ewell" bbc_constituency_id="240" />
+<consinfo canonical="Erewash" bbc_constituency_id="241" />
+<consinfo canonical="Erith &amp; Thamesmead" bbc_constituency_id="242" />
+<consinfo canonical="Esher &amp; Walton" bbc_constituency_id="243" />
+<consinfo canonical="North Essex" bbc_constituency_id="244" />
+<consinfo canonical="Exeter" bbc_constituency_id="245" />
+<consinfo canonical="Falmouth &amp; Camborne" bbc_constituency_id="248" />
+<consinfo canonical="Fareham" bbc_constituency_id="249" />
+<consinfo canonical="Faversham &amp; Mid Kent" bbc_constituency_id="250" />
+<consinfo canonical="Feltham &amp; Heston" bbc_constituency_id="251" />
+<consinfo canonical="Fermanagh &amp; South Tyrone" bbc_constituency_id="252" />
+<consinfo canonical="Finchley &amp; Golders Green" bbc_constituency_id="255" />
+<consinfo canonical="Folkestone &amp; Hythe" bbc_constituency_id="256" />
+<consinfo canonical="Forest of Dean" bbc_constituency_id="257" />
+<consinfo canonical="Foyle" bbc_constituency_id="258" />
+<consinfo canonical="Fylde" bbc_constituency_id="259" />
+<consinfo canonical="Gainsborough" bbc_constituency_id="260" />
+<consinfo canonical="Gateshead East &amp; Washington West" bbc_constituency_id="262" />
+<consinfo canonical="Gedling" bbc_constituency_id="263" />
+<consinfo canonical="Gillingham" bbc_constituency_id="264" />
+<consinfo canonical="Gloucester" bbc_constituency_id="275" />
+<consinfo canonical="Gosport" bbc_constituency_id="277" />
+<consinfo canonical="Gower" bbc_constituency_id="278" />
+<consinfo canonical="Grantham &amp; Stamford" bbc_constituency_id="279" />
+<consinfo canonical="Gravesham" bbc_constituency_id="280" />
+<consinfo canonical="Great Grimsby" bbc_constituency_id="281" />
+<consinfo canonical="Great Yarmouth" bbc_constituency_id="282" />
+<consinfo canonical="Greenwich &amp; Woolwich" bbc_constituency_id="284" />
+<consinfo canonical="Guildford" bbc_constituency_id="285" />
+<consinfo canonical="Hackney North &amp; Stoke Newington" bbc_constituency_id="286" />
+<consinfo canonical="Hackney South &amp; Shoreditch" bbc_constituency_id="287" />
+<consinfo canonical="Halesowen &amp; Rowley Regis" bbc_constituency_id="288" />
+<consinfo canonical="Halifax" bbc_constituency_id="289" />
+<consinfo canonical="Haltemprice &amp; Howden" bbc_constituency_id="290" />
+<consinfo canonical="Halton" bbc_constituency_id="291" />
+<consinfo canonical="Hammersmith &amp; Fulham" bbc_constituency_id="294" />
+<consinfo canonical="East Hampshire" bbc_constituency_id="295" />
+<consinfo canonical="North East Hampshire" bbc_constituency_id="296" />
+<consinfo canonical="North West Hampshire" bbc_constituency_id="297" />
+<consinfo canonical="Hampstead &amp; Highgate" bbc_constituency_id="298" />
+<consinfo canonical="Harborough" bbc_constituency_id="299" />
+<consinfo canonical="Harlow" bbc_constituency_id="300" />
+<consinfo canonical="Harrogate &amp; Knaresborough" bbc_constituency_id="301" />
+<consinfo canonical="Harrow East" bbc_constituency_id="302" />
+<consinfo canonical="Harrow West" bbc_constituency_id="303" />
+<consinfo canonical="Hartlepool" bbc_constituency_id="304" />
+<consinfo canonical="Harwich" bbc_constituency_id="305" />
+<consinfo canonical="Hastings &amp; Rye" bbc_constituency_id="306" />
+<consinfo canonical="Havant" bbc_constituency_id="307" />
+<consinfo canonical="Hayes &amp; Harlington" bbc_constituency_id="308" />
+<consinfo canonical="Hazel Grove" bbc_constituency_id="309" />
+<consinfo canonical="Hemel Hempstead" bbc_constituency_id="310" />
+<consinfo canonical="Hemsworth" bbc_constituency_id="311" />
+<consinfo canonical="Hendon" bbc_constituency_id="312" />
+<consinfo canonical="Henley" bbc_constituency_id="313" />
+<consinfo canonical="Hereford" bbc_constituency_id="314" />
+<consinfo canonical="Hertford &amp; Stortford" bbc_constituency_id="315" />
+<consinfo canonical="North East Hertfordshire" bbc_constituency_id="316" />
+<consinfo canonical="South West Hertfordshire" bbc_constituency_id="317" />
+<consinfo canonical="Hertsmere" bbc_constituency_id="318" />
+<consinfo canonical="Hexham" bbc_constituency_id="319" />
+<consinfo canonical="Heywood &amp; Middleton" bbc_constituency_id="320" />
+<consinfo canonical="High Peak" bbc_constituency_id="321" />
+<consinfo canonical="Hitchin &amp; Harpenden" bbc_constituency_id="322" />
+<consinfo canonical="Holborn &amp; St Pancras" bbc_constituency_id="323" />
+<consinfo canonical="Hornchurch" bbc_constituency_id="324" />
+<consinfo canonical="Hornsey &amp; Wood Green" bbc_constituency_id="325" />
+<consinfo canonical="Horsham" bbc_constituency_id="326" />
+<consinfo canonical="Houghton &amp; Washington East" bbc_constituency_id="327" />
+<consinfo canonical="Hove" bbc_constituency_id="328" />
+<consinfo canonical="Huddersfield" bbc_constituency_id="329" />
+<consinfo canonical="Kingston upon Hull East" bbc_constituency_id="330" />
+<consinfo canonical="Kingston upon Hull North" bbc_constituency_id="331" />
+<consinfo canonical="Kingston upon Hull West &amp; Hessle" bbc_constituency_id="332" />
+<consinfo canonical="Huntingdon" bbc_constituency_id="333" />
+<consinfo canonical="Hyndburn" bbc_constituency_id="334" />
+<consinfo canonical="Ilford North" bbc_constituency_id="335" />
+<consinfo canonical="Ilford South" bbc_constituency_id="336" />
+<consinfo canonical="Ipswich" bbc_constituency_id="338" />
+<consinfo canonical="Isle of Wight" bbc_constituency_id="339" />
+<consinfo canonical="Islington North" bbc_constituency_id="340" />
+<consinfo canonical="Islington South &amp; Finsbury" bbc_constituency_id="341" />
+<consinfo canonical="Islwyn" bbc_constituency_id="342" />
+<consinfo canonical="Jarrow" bbc_constituency_id="343" />
+<consinfo canonical="Keighley" bbc_constituency_id="344" />
+<consinfo canonical="Kensington &amp; Chelsea" bbc_constituency_id="345" />
+<consinfo canonical="Kettering" bbc_constituency_id="346" />
+<consinfo canonical="Kingston &amp; Surbiton" bbc_constituency_id="348" />
+<consinfo canonical="Kingswood" bbc_constituency_id="349" />
+<consinfo canonical="Knowsley North &amp; Sefton East" bbc_constituency_id="351" />
+<consinfo canonical="Knowsley South" bbc_constituency_id="352" />
+<consinfo canonical="Lagan Valley" bbc_constituency_id="353" />
+<consinfo canonical="West Lancashire" bbc_constituency_id="354" />
+<consinfo canonical="Lancaster &amp; Wyre" bbc_constituency_id="355" />
+<consinfo canonical="Leeds Central" bbc_constituency_id="356" />
+<consinfo canonical="Leeds East" bbc_constituency_id="357" />
+<consinfo canonical="Leeds North East" bbc_constituency_id="358" />
+<consinfo canonical="Leeds North West" bbc_constituency_id="359" />
+<consinfo canonical="Leeds West" bbc_constituency_id="360" />
+<consinfo canonical="Leicester East" bbc_constituency_id="361" />
+<consinfo canonical="Leicester South" bbc_constituency_id="362" />
+<consinfo canonical="Leicester West" bbc_constituency_id="363" />
+<consinfo canonical="North West Leicestershire" bbc_constituency_id="364" />
+<consinfo canonical="Leigh" bbc_constituency_id="365" />
+<consinfo canonical="Leominster" bbc_constituency_id="366" />
+<consinfo canonical="Lewes" bbc_constituency_id="367" />
+<consinfo canonical="Lewisham, Deptford" bbc_constituency_id="368" />
+<consinfo canonical="Lewisham East" bbc_constituency_id="369" />
+<consinfo canonical="Lewisham West" bbc_constituency_id="370" />
+<consinfo canonical="Leyton &amp; Wanstead" bbc_constituency_id="371" />
+<consinfo canonical="Lichfield" bbc_constituency_id="372" />
+<consinfo canonical="Lincoln" bbc_constituency_id="373" />
+<consinfo canonical="Liverpool, Garston" bbc_constituency_id="375" />
+<consinfo canonical="Liverpool, Riverside" bbc_constituency_id="376" />
+<consinfo canonical="Liverpool, Walton" bbc_constituency_id="377" />
+<consinfo canonical="Liverpool, Wavertree" bbc_constituency_id="378" />
+<consinfo canonical="Liverpool, West Derby" bbc_constituency_id="379" />
+<consinfo canonical="Llanelli" bbc_constituency_id="381" />
+<consinfo canonical="East Londonderry" bbc_constituency_id="382" />
+<consinfo canonical="Loughborough" bbc_constituency_id="383" />
+<consinfo canonical="Louth &amp; Horncastle" bbc_constituency_id="384" />
+<consinfo canonical="Ludlow" bbc_constituency_id="385" />
+<consinfo canonical="Luton North" bbc_constituency_id="386" />
+<consinfo canonical="Luton South" bbc_constituency_id="387" />
+<consinfo canonical="Macclesfield" bbc_constituency_id="388" />
+<consinfo canonical="Maidenhead" bbc_constituency_id="389" />
+<consinfo canonical="Maidstone &amp; The Weald" bbc_constituency_id="390" />
+<consinfo canonical="Makerfield" bbc_constituency_id="391" />
+<consinfo canonical="Maldon &amp; East Chelmsford" bbc_constituency_id="392" />
+<consinfo canonical="Manchester, Blackley" bbc_constituency_id="393" />
+<consinfo canonical="Manchester Central" bbc_constituency_id="394" />
+<consinfo canonical="Manchester, Gorton" bbc_constituency_id="395" />
+<consinfo canonical="Manchester, Withington" bbc_constituency_id="396" />
+<consinfo canonical="Mansfield" bbc_constituency_id="397" />
+<consinfo canonical="Medway" bbc_constituency_id="398" />
+<consinfo canonical="Meirionnydd Nant Conwy" bbc_constituency_id="399" />
+<consinfo canonical="Meriden" bbc_constituency_id="400" />
+<consinfo canonical="Merthyr Tydfil &amp; Rhymney" bbc_constituency_id="401" />
+<consinfo canonical="Middlesbrough" bbc_constituency_id="402" />
+<consinfo canonical="Middlesbrough South &amp; East Cleveland" bbc_constituency_id="403" />
+<consinfo canonical="North East Milton Keynes" bbc_constituency_id="405" />
+<consinfo canonical="Milton Keynes South West" bbc_constituency_id="406" />
+<consinfo canonical="Mitcham &amp; Morden" bbc_constituency_id="407" />
+<consinfo canonical="Mole Valley" bbc_constituency_id="408" />
+<consinfo canonical="Monmouth" bbc_constituency_id="409" />
+<consinfo canonical="Montgomeryshire" bbc_constituency_id="410" />
+<consinfo canonical="Morecambe &amp; Lunesdale" bbc_constituency_id="412" />
+<consinfo canonical="Morley &amp; Rothwell" bbc_constituency_id="413" />
+<consinfo canonical="Neath" bbc_constituency_id="415" />
+<consinfo canonical="New Forest East" bbc_constituency_id="416" />
+<consinfo canonical="New Forest West" bbc_constituency_id="417" />
+<consinfo canonical="Newark" bbc_constituency_id="418" />
+<consinfo canonical="Newbury" bbc_constituency_id="419" />
+<consinfo canonical="Newcastle-under-Lyme" bbc_constituency_id="420" />
+<consinfo canonical="Newcastle upon Tyne Central" bbc_constituency_id="421" />
+<consinfo canonical="Newcastle upon Tyne East &amp; Wallsend" bbc_constituency_id="422" />
+<consinfo canonical="Newcastle upon Tyne North" bbc_constituency_id="423" />
+<consinfo canonical="Newport East" bbc_constituency_id="424" />
+<consinfo canonical="Newport West" bbc_constituency_id="425" />
+<consinfo canonical="Newry &amp; Armagh" bbc_constituency_id="426" />
+<consinfo canonical="Mid Norfolk" bbc_constituency_id="427" />
+<consinfo canonical="North Norfolk" bbc_constituency_id="428" />
+<consinfo canonical="North West Norfolk" bbc_constituency_id="429" />
+<consinfo canonical="South Norfolk" bbc_constituency_id="430" />
+<consinfo canonical="South West Norfolk" bbc_constituency_id="431" />
+<consinfo canonical="Normanton" bbc_constituency_id="432" />
+<consinfo canonical="Northampton North" bbc_constituency_id="433" />
+<consinfo canonical="Northampton South" bbc_constituency_id="434" />
+<consinfo canonical="Northavon" bbc_constituency_id="435" />
+<consinfo canonical="Norwich North" bbc_constituency_id="436" />
+<consinfo canonical="Norwich South" bbc_constituency_id="437" />
+<consinfo canonical="Nottingham East" bbc_constituency_id="438" />
+<consinfo canonical="Nottingham North" bbc_constituency_id="439" />
+<consinfo canonical="Nottingham South" bbc_constituency_id="440" />
+<consinfo canonical="Nuneaton" bbc_constituency_id="441" />
+<consinfo canonical="Ogmore" bbc_constituency_id="443" />
+<consinfo canonical="Old Bexley &amp; Sidcup" bbc_constituency_id="444" />
+<consinfo canonical="Oldham East &amp; Saddleworth" bbc_constituency_id="445" />
+<consinfo canonical="Oldham West &amp; Royton" bbc_constituency_id="446" />
+<consinfo canonical="Orpington" bbc_constituency_id="448" />
+<consinfo canonical="Oxford East" bbc_constituency_id="449" />
+<consinfo canonical="Oxford West &amp; Abingdon" bbc_constituency_id="450" />
+<consinfo canonical="Pendle" bbc_constituency_id="453" />
+<consinfo canonical="Penrith &amp; The Border" bbc_constituency_id="454" />
+<consinfo canonical="Peterborough" bbc_constituency_id="456" />
+<consinfo canonical="Plymouth, Devonport" bbc_constituency_id="457" />
+<consinfo canonical="Plymouth, Sutton" bbc_constituency_id="458" />
+<consinfo canonical="Pontefract &amp; Castleford" bbc_constituency_id="459" />
+<consinfo canonical="Pontypridd" bbc_constituency_id="460" />
+<consinfo canonical="Poole" bbc_constituency_id="461" />
+<consinfo canonical="Poplar &amp; Canning Town" bbc_constituency_id="462" />
+<consinfo canonical="Portsmouth North" bbc_constituency_id="463" />
+<consinfo canonical="Portsmouth South" bbc_constituency_id="464" />
+<consinfo canonical="Preseli Pembrokeshire" bbc_constituency_id="465" />
+<consinfo canonical="Preston" bbc_constituency_id="466" />
+<consinfo canonical="Pudsey" bbc_constituency_id="467" />
+<consinfo canonical="Putney" bbc_constituency_id="468" />
+<consinfo canonical="Rayleigh" bbc_constituency_id="469" />
+<consinfo canonical="Reading East" bbc_constituency_id="470" />
+<consinfo canonical="Reading West" bbc_constituency_id="471" />
+<consinfo canonical="Redcar" bbc_constituency_id="472" />
+<consinfo canonical="Redditch" bbc_constituency_id="473" />
+<consinfo canonical="Regent's Park &amp; Kensington North" bbc_constituency_id="474" />
+<consinfo canonical="Reigate" bbc_constituency_id="475" />
+<consinfo canonical="Rhondda" bbc_constituency_id="477" />
+<consinfo canonical="South Ribble" bbc_constituency_id="478" />
+<consinfo canonical="Ribble Valley" bbc_constituency_id="479" />
+<consinfo canonical="Richmond (Yorks)" bbc_constituency_id="480" />
+<consinfo canonical="Richmond Park" bbc_constituency_id="481" />
+<consinfo canonical="Rochdale" bbc_constituency_id="482" />
+<consinfo canonical="Rochford &amp; Southend East" bbc_constituency_id="483" />
+<consinfo canonical="Romford" bbc_constituency_id="484" />
+<consinfo canonical="Romsey" bbc_constituency_id="485" />
+<consinfo canonical="Rossendale &amp; Darwen" bbc_constituency_id="487" />
+<consinfo canonical="Rother Valley" bbc_constituency_id="488" />
+<consinfo canonical="Rotherham" bbc_constituency_id="489" />
+<consinfo canonical="Rugby &amp; Kenilworth" bbc_constituency_id="491" />
+<consinfo canonical="Ruislip - Northwood" bbc_constituency_id="492" />
+<consinfo canonical="Runnymede &amp; Weybridge" bbc_constituency_id="493" />
+<consinfo canonical="Rushcliffe" bbc_constituency_id="494" />
+<consinfo canonical="Rutland &amp; Melton" bbc_constituency_id="495" />
+<consinfo canonical="Ryedale" bbc_constituency_id="496" />
+<consinfo canonical="Saffron Walden" bbc_constituency_id="497" />
+<consinfo canonical="St Albans" bbc_constituency_id="498" />
+<consinfo canonical="St Helens North" bbc_constituency_id="499" />
+<consinfo canonical="St Helens South" bbc_constituency_id="500" />
+<consinfo canonical="St Ives" bbc_constituency_id="501" />
+<consinfo canonical="Salford" bbc_constituency_id="502" />
+<consinfo canonical="Salisbury" bbc_constituency_id="503" />
+<consinfo canonical="Scarborough &amp; Whitby" bbc_constituency_id="504" />
+<consinfo canonical="Scunthorpe" bbc_constituency_id="505" />
+<consinfo canonical="Sedgefield" bbc_constituency_id="506" />
+<consinfo canonical="Selby" bbc_constituency_id="507" />
+<consinfo canonical="Sevenoaks" bbc_constituency_id="508" />
+<consinfo canonical="Sheffield, Attercliffe" bbc_constituency_id="509" />
+<consinfo canonical="Sheffield, Brightside" bbc_constituency_id="510" />
+<consinfo canonical="Sheffield Central" bbc_constituency_id="511" />
+<consinfo canonical="Sheffield, Hallam" bbc_constituency_id="512" />
+<consinfo canonical="Sheffield, Heeley" bbc_constituency_id="513" />
+<consinfo canonical="Sheffield, Hillsborough" bbc_constituency_id="514" />
+<consinfo canonical="Sherwood" bbc_constituency_id="515" />
+<consinfo canonical="Shipley" bbc_constituency_id="516" />
+<consinfo canonical="Shrewsbury &amp; Atcham" bbc_constituency_id="517" />
+<consinfo canonical="North Shropshire" bbc_constituency_id="518" />
+<consinfo canonical="Sittingbourne &amp; Sheppey" bbc_constituency_id="519" />
+<consinfo canonical="Skipton &amp; Ripon" bbc_constituency_id="520" />
+<consinfo canonical="Sleaford &amp; North Hykeham" bbc_constituency_id="521" />
+<consinfo canonical="Slough" bbc_constituency_id="522" />
+<consinfo canonical="Solihull" bbc_constituency_id="523" />
+<consinfo canonical="Somerton &amp; Frome" bbc_constituency_id="524" />
+<consinfo canonical="South Holland &amp; The Deepings" bbc_constituency_id="525" />
+<consinfo canonical="South Shields" bbc_constituency_id="526" />
+<consinfo canonical="Southampton, Itchen" bbc_constituency_id="527" />
+<consinfo canonical="Southampton, Test" bbc_constituency_id="528" />
+<consinfo canonical="Southend West" bbc_constituency_id="529" />
+<consinfo canonical="Southport" bbc_constituency_id="530" />
+<consinfo canonical="North Southwark &amp; Bermondsey" bbc_constituency_id="531" />
+<consinfo canonical="Spelthorne" bbc_constituency_id="532" />
+<consinfo canonical="Stafford" bbc_constituency_id="533" />
+<consinfo canonical="Staffordshire Moorlands" bbc_constituency_id="534" />
+<consinfo canonical="South Staffordshire" bbc_constituency_id="535" />
+<consinfo canonical="Stalybridge &amp; Hyde" bbc_constituency_id="536" />
+<consinfo canonical="Stevenage" bbc_constituency_id="537" />
+<consinfo canonical="Stockport" bbc_constituency_id="539" />
+<consinfo canonical="Stockton North" bbc_constituency_id="540" />
+<consinfo canonical="Stockton South" bbc_constituency_id="541" />
+<consinfo canonical="Stoke-on-Trent Central" bbc_constituency_id="542" />
+<consinfo canonical="Stoke-on-Trent North" bbc_constituency_id="543" />
+<consinfo canonical="Stoke-on-Trent South" bbc_constituency_id="544" />
+<consinfo canonical="Stone" bbc_constituency_id="545" />
+<consinfo canonical="Stourbridge" bbc_constituency_id="546" />
+<consinfo canonical="Strangford" bbc_constituency_id="547" />
+<consinfo canonical="Stratford-on-Avon" bbc_constituency_id="548" />
+<consinfo canonical="Streatham" bbc_constituency_id="550" />
+<consinfo canonical="Stretford &amp; Urmston" bbc_constituency_id="551" />
+<consinfo canonical="Stroud" bbc_constituency_id="552" />
+<consinfo canonical="Central Suffolk &amp; North Ipswich" bbc_constituency_id="553" />
+<consinfo canonical="Suffolk Coastal" bbc_constituency_id="554" />
+<consinfo canonical="South Suffolk" bbc_constituency_id="555" />
+<consinfo canonical="West Suffolk" bbc_constituency_id="556" />
+<consinfo canonical="Sunderland North" bbc_constituency_id="557" />
+<consinfo canonical="Sunderland South" bbc_constituency_id="558" />
+<consinfo canonical="East Surrey" bbc_constituency_id="559" />
+<consinfo canonical="Surrey Heath" bbc_constituency_id="560" />
+<consinfo canonical="South West Surrey" bbc_constituency_id="561" />
+<consinfo canonical="Mid Sussex" bbc_constituency_id="562" />
+<consinfo canonical="Sutton &amp; Cheam" bbc_constituency_id="563" />
+<consinfo canonical="Sutton Coldfield" bbc_constituency_id="564" />
+<consinfo canonical="Swansea East" bbc_constituency_id="565" />
+<consinfo canonical="Swansea West" bbc_constituency_id="566" />
+<consinfo canonical="North Swindon" bbc_constituency_id="567" />
+<consinfo canonical="South Swindon" bbc_constituency_id="568" />
+<consinfo canonical="Tamworth" bbc_constituency_id="569" />
+<consinfo canonical="Tatton" bbc_constituency_id="570" />
+<consinfo canonical="Taunton" bbc_constituency_id="571" />
+<consinfo canonical="Teignbridge" bbc_constituency_id="573" />
+<consinfo canonical="Telford" bbc_constituency_id="574" />
+<consinfo canonical="Tewkesbury" bbc_constituency_id="575" />
+<consinfo canonical="North Thanet" bbc_constituency_id="576" />
+<consinfo canonical="South Thanet" bbc_constituency_id="577" />
+<consinfo canonical="Thurrock" bbc_constituency_id="578" />
+<consinfo canonical="Tiverton &amp; Honiton" bbc_constituency_id="579" />
+<consinfo canonical="Tonbridge &amp; Malling" bbc_constituency_id="580" />
+<consinfo canonical="Tooting" bbc_constituency_id="581" />
+<consinfo canonical="Torbay" bbc_constituency_id="582" />
+<consinfo canonical="Torfaen" bbc_constituency_id="583" />
+<consinfo canonical="Totnes" bbc_constituency_id="584" />
+<consinfo canonical="Tottenham" bbc_constituency_id="585" />
+<consinfo canonical="Truro &amp; St Austell" bbc_constituency_id="586" />
+<consinfo canonical="Tunbridge Wells" bbc_constituency_id="587" />
+<consinfo canonical="Twickenham" bbc_constituency_id="589" />
+<consinfo canonical="Tyne Bridge" bbc_constituency_id="590" />
+<consinfo canonical="Tynemouth" bbc_constituency_id="591" />
+<consinfo canonical="North Tyneside" bbc_constituency_id="592" />
+<consinfo canonical="West Tyrone" bbc_constituency_id="593" />
+<consinfo canonical="Mid Ulster" bbc_constituency_id="594" />
+<consinfo canonical="Upminster" bbc_constituency_id="595" />
+<consinfo canonical="Upper Bann" bbc_constituency_id="596" />
+<consinfo canonical="Uxbridge" bbc_constituency_id="597" />
+<consinfo canonical="Vale of Clwyd" bbc_constituency_id="598" />
+<consinfo canonical="Vale of Glamorgan" bbc_constituency_id="599" />
+<consinfo canonical="Vale of York" bbc_constituency_id="600" />
+<consinfo canonical="Vauxhall" bbc_constituency_id="601" />
+<consinfo canonical="Wakefield" bbc_constituency_id="602" />
+<consinfo canonical="Wallasey" bbc_constituency_id="603" />
+<consinfo canonical="Walsall North" bbc_constituency_id="604" />
+<consinfo canonical="Walsall South" bbc_constituency_id="605" />
+<consinfo canonical="Walthamstow" bbc_constituency_id="606" />
+<consinfo canonical="Wansbeck" bbc_constituency_id="607" />
+<consinfo canonical="Wansdyke" bbc_constituency_id="608" />
+<consinfo canonical="Wantage" bbc_constituency_id="609" />
+<consinfo canonical="Warley" bbc_constituency_id="610" />
+<consinfo canonical="Warrington North" bbc_constituency_id="611" />
+<consinfo canonical="Warrington South" bbc_constituency_id="612" />
+<consinfo canonical="Warwick &amp; Leamington" bbc_constituency_id="613" />
+<consinfo canonical="North Warwickshire" bbc_constituency_id="614" />
+<consinfo canonical="Watford" bbc_constituency_id="615" />
+<consinfo canonical="Waveney" bbc_constituency_id="616" />
+<consinfo canonical="Wealden" bbc_constituency_id="617" />
+<consinfo canonical="Weaver Vale" bbc_constituency_id="618" />
+<consinfo canonical="Wellingborough" bbc_constituency_id="619" />
+<consinfo canonical="Wells" bbc_constituency_id="620" />
+<consinfo canonical="Welwyn Hatfield" bbc_constituency_id="621" />
+<consinfo canonical="Wentworth" bbc_constituency_id="622" />
+<consinfo canonical="West Bromwich East" bbc_constituency_id="623" />
+<consinfo canonical="West Bromwich West" bbc_constituency_id="624" />
+<consinfo canonical="West Ham" bbc_constituency_id="625" />
+<consinfo canonical="Westbury" bbc_constituency_id="626" />
+<consinfo canonical="Westmorland &amp; Lonsdale" bbc_constituency_id="628" />
+<consinfo canonical="Weston-Super-Mare" bbc_constituency_id="629" />
+<consinfo canonical="Wigan" bbc_constituency_id="630" />
+<consinfo canonical="North Wiltshire" bbc_constituency_id="631" />
+<consinfo canonical="Wimbledon" bbc_constituency_id="632" />
+<consinfo canonical="Winchester" bbc_constituency_id="633" />
+<consinfo canonical="Windsor" bbc_constituency_id="634" />
+<consinfo canonical="Wirral South" bbc_constituency_id="635" />
+<consinfo canonical="Wirral West" bbc_constituency_id="636" />
+<consinfo canonical="Witney" bbc_constituency_id="637" />
+<consinfo canonical="Woking" bbc_constituency_id="638" />
+<consinfo canonical="Wokingham" bbc_constituency_id="639" />
+<consinfo canonical="Wolverhampton North East" bbc_constituency_id="640" />
+<consinfo canonical="Wolverhampton South East" bbc_constituency_id="641" />
+<consinfo canonical="Wolverhampton South West" bbc_constituency_id="642" />
+<consinfo canonical="Woodspring" bbc_constituency_id="643" />
+<consinfo canonical="Worcester" bbc_constituency_id="644" />
+<consinfo canonical="Mid Worcestershire" bbc_constituency_id="645" />
+<consinfo canonical="West Worcestershire" bbc_constituency_id="646" />
+<consinfo canonical="Workington" bbc_constituency_id="647" />
+<consinfo canonical="Worsley" bbc_constituency_id="648" />
+<consinfo canonical="East Worthing &amp; Shoreham" bbc_constituency_id="649" />
+<consinfo canonical="Worthing West" bbc_constituency_id="650" />
+<consinfo canonical="Wrekin, The" bbc_constituency_id="651" />
+<consinfo canonical="Wrexham" bbc_constituency_id="652" />
+<consinfo canonical="Wycombe" bbc_constituency_id="653" />
+<consinfo canonical="Wyre Forest" bbc_constituency_id="654" />
+<consinfo canonical="Wythenshawe &amp; Sale East" bbc_constituency_id="655" />
+<consinfo canonical="Yeovil" bbc_constituency_id="656" />
+<consinfo canonical="Ynys Môn" bbc_constituency_id="657" />
+<consinfo canonical="York, City of" bbc_constituency_id="658" />
+<consinfo canonical="East Yorkshire" bbc_constituency_id="659" />
+<consinfo canonical="Aberdeen North" bbc_constituency_id="670" />
+<consinfo canonical="Aberdeen South" bbc_constituency_id="671" />
+<consinfo canonical="Aberdeenshire West &amp; Kincardine" bbc_constituency_id="672" />
+<consinfo canonical="Airdrie &amp; Shotts" bbc_constituency_id="673" />
+<consinfo canonical="Angus" bbc_constituency_id="674" />
+<consinfo canonical="Argyll &amp; Bute" bbc_constituency_id="675" />
+<consinfo canonical="Ayr, Carrick &amp; Cumnock" bbc_constituency_id="676" />
+<consinfo canonical="Ayrshire Central" bbc_constituency_id="677" />
+<consinfo canonical="Ayrshire North &amp; Arran" bbc_constituency_id="678" />
+<consinfo canonical="Banff &amp; Buchan" bbc_constituency_id="679" />
+<consinfo canonical="Berwickshire, Roxburgh &amp; Selkirk" bbc_constituency_id="680" />
+<consinfo canonical="Caithness, Sutherland &amp; Easter Ross" bbc_constituency_id="681" />
+<consinfo canonical="Coatbridge, Chryston &amp; Bellshill" bbc_constituency_id="682" />
+<consinfo canonical="Cumbernauld, Kilsyth &amp; Kirkintilloch East" bbc_constituency_id="683" />
+<consinfo canonical="Dumfries &amp; Galloway" bbc_constituency_id="684" />
+<consinfo canonical="Dumfriesshire, Clydesdale &amp; Tweeddale" bbc_constituency_id="685" />
+<consinfo canonical="East Dunbartonshire" bbc_constituency_id="686" />
+<consinfo canonical="West Dunbartonshire" bbc_constituency_id="687" />
+<consinfo canonical="Dundee East" bbc_constituency_id="688" />
+<consinfo canonical="Dundee West" bbc_constituency_id="689" />
+<consinfo canonical="Dunfermline &amp; Fife West" bbc_constituency_id="690" />
+<consinfo canonical="East Kilbride, Strathaven &amp; Lesmahagow" bbc_constituency_id="691" />
+<consinfo canonical="East Lothian" bbc_constituency_id="692" />
+<consinfo canonical="Edinburgh East" bbc_constituency_id="693" />
+<consinfo canonical="Edinburgh North &amp; Leith" bbc_constituency_id="694" />
+<consinfo canonical="Edinburgh South" bbc_constituency_id="695" />
+<consinfo canonical="Edinburgh South West" bbc_constituency_id="696" />
+<consinfo canonical="Edinburgh West" bbc_constituency_id="697" />
+<consinfo canonical="Falkirk" bbc_constituency_id="698" />
+<consinfo canonical="Fife North East" bbc_constituency_id="699" />
+<consinfo canonical="Glasgow Central" bbc_constituency_id="700" />
+<consinfo canonical="Glasgow East" bbc_constituency_id="701" />
+<consinfo canonical="Glasgow North" bbc_constituency_id="702" />
+<consinfo canonical="Glasgow North East" bbc_constituency_id="703" />
+<consinfo canonical="Glasgow North West" bbc_constituency_id="704" />
+<consinfo canonical="Glasgow South" bbc_constituency_id="705" />
+<consinfo canonical="Glasgow South West" bbc_constituency_id="706" />
+<consinfo canonical="Glenrothes" bbc_constituency_id="707" />
+<consinfo canonical="Gordon" bbc_constituency_id="708" />
+<consinfo canonical="Inverclyde" bbc_constituency_id="709" />
+<consinfo canonical="Inverness, Nairn, Badenoch &amp; Strathspey" bbc_constituency_id="710" />
+<consinfo canonical="Kilmarnock &amp; Loudoun" bbc_constituency_id="711" />
+<consinfo canonical="Kirkcaldy &amp; Cowdenbeath" bbc_constituency_id="712" />
+<consinfo canonical="Lanark &amp; Hamilton East" bbc_constituency_id="713" />
+<consinfo canonical="Linlithgow &amp; Falkirk East" bbc_constituency_id="714" />
+<consinfo canonical="Livingston" bbc_constituency_id="715" />
+<consinfo canonical="Midlothian" bbc_constituency_id="716" />
+<consinfo canonical="Moray" bbc_constituency_id="717" />
+<consinfo canonical="Motherwell &amp; Wishaw" bbc_constituency_id="718" />
+<consinfo canonical="Na h-Eileanan an Iar" bbc_constituency_id="719" />
+<consinfo canonical="Ochil &amp; Perthshire South" bbc_constituency_id="720" />
+<consinfo canonical="Orkney &amp; Shetland" bbc_constituency_id="721" />
+<consinfo canonical="Paisley &amp; Renfrewshire North" bbc_constituency_id="722" />
+<consinfo canonical="Paisley &amp; Renfrewshire South" bbc_constituency_id="723" />
+<consinfo canonical="Perth &amp; Perthshire North" bbc_constituency_id="724" />
+<consinfo canonical="Renfrewshire East" bbc_constituency_id="725" />
+<consinfo canonical="Ross, Skye &amp; Lochaber" bbc_constituency_id="726" />
+<consinfo canonical="Rutherglen &amp; Hamilton West" bbc_constituency_id="727" />
+<consinfo canonical="Stirling" bbc_constituency_id="728" />
+</publicwhip>
+

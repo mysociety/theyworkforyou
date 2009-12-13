@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<publicwhip>
+
+<!-- 
+
+Alternative names for members of the House of Lords.
+Each entry represents an alternative.  There is one type of entry:
+
+1. fullname - the alternate text is another form of the full name, or any
+complete name used in sources (such as the office held).
+
+A date range can also be specified, for which the alias is valid.
+
+-->
+
+<!-- Offices (only those that are needed) -->
+<alias fullname="Baroness Hayman" alternate="Lord Speaker" from="2006-07-04" />
+
+<!-- Misspellings -->
+<alias fullname="Bishop of Southwell and Nottingham" alternate="Bishop of Southwell" from="2005-07-01" />
+<alias fullname="Bishop of Southwell and Nottingham" alternate="Bishop Southwell" from="2005-07-01" />
+<alias fullname="Lord Hunt of Kings Heath" alternate="Lord Hunt of King's Heath" />
+<alias fullname="Baroness Hogg" alternate="Viscountess Hailsham" />
+<alias fullname="Lord Rotherwick" alternate="Lord Rotherick" />
+<alias fullname="Lord Wallace of Saltaire" alternate="Lord Wallace of Saltire" />
+<alias fullname="Lord Phillips of Sudbury" alternate="Lord Philips of Sudbury" />
+<alias fullname="Baroness Miller of Chilthorne Domer" alternate="Baroness Miller of Chiltern Domer" />
+
+<!-- offopp, don't give full name, tut tut -->
+<alias fullname="Lord Hodgson of Astley Abbotts" alternate="Lord Hodgson" />
+<alias fullname="Lord Hodgson of Astley Abbotts" alternate="Lord Hodgson of Astley Abbots" />
+<alias fullname="Baroness Anelay of St Johns" alternate="Baroness Anelay" />
+<alias fullname="Lord McColl of Dulwich" alternate="Lord McColl" />
+<alias fullname="Lord Cope of Berkeley" alternate="Lord Cope" />
+<alias fullname="Lord Howell of Guildford" alternate="Lord Howell" />
+<alias fullname="Baroness Bonham-Carter of Yarnbury" alternate="Baroness Bonham-Carter" />
+<alias fullname="Baroness Garden of Frognal" alternate="Baroness Garden" />
+<alias fullname="Baroness Falkner of Margravine" alternate="Baroness Falkener of Margravine" />
+
+<!-- offopp, give too much -->
+<alias fullname="Baroness Neville-Jones" alternate="Baroness Neville-Jones of Hutton Roof" />
+<alias fullname="Baroness Warsi" alternate="Baroness Warsi of Dewsbury" />
+<alias fullname="Lord Dholakia" alternate="Lord Dholakia of Waltham" />
+<alias fullname="Lord Dholakia" alternate="Lord Dholakia of Waltham Brooks" />
+<alias fullname="Lord McNally" alternate="Lord McNally of Blackpool" />
+<alias fullname="Lord Tyler" alternate="Lord Tyler of Linkinhorne" />
+<alias fullname="Lord Dykes" alternate="Lord Dykes of Harrow Weald" />
+<alias fullname="Baroness Northover" alternate="Baroness Northover of Cissbury" />
+<alias fullname="Lord Clement-Jones" alternate="Lord Clement-Jones of Clapham" />
+<alias fullname="Baroness Walmsley" alternate="Baroness Walmsley of West Derby" />
+<alias fullname="Lord Cotter" alternate="Lord Cotter of Congresbury" />
+<alias fullname="Baroness Barker" alternate="Baroness Barker of Anagach" />
+<alias fullname="Lord Teverson" alternate="Lord Teverson of Tregony" />
+<alias fullname="Lord Greaves" alternate="Lord Greaves of Pendle" />
+<alias fullname="Baroness Tonge" alternate="Baroness Tonge of Kew" />
+<alias fullname="Baroness Hamwee" alternate="Baroness Hamwee of Richmond upon Thames" />
+<alias fullname="Lord Burnett" alternate="Lord Burnett of Whitchurch" />
+<alias fullname="Lord Razzall" alternate="Lord Razzall of Mortlake" />
+<alias fullname="Lord Sharman" alternate="Lord  Sharman of Redlynch" />
+<alias fullname="Lord Bradshaw" alternate="Lord  Bradshaw of Wallingford" />
+<alias fullname="Lord Newby" alternate="Lord Newby of Rothwell" />
+
+<alias fullname="Lord Mandelson" alternate="Lord Mandelson of Foy and Hartlepool" />
+
+<!-- offopp, before she was ennobled -->
+<alias fullname="Baroness Neville-Jones" alternate="Dame Pauline Neville-Jones" />
+
+<!--
+From an old file somewhere:
+<lordalias alternate="Lord De Mauley" fullname="Lord de Mauley"/>
+<lordalias alternate="Lady Darcy de Knayth" fullname="Baroness Darcy de Knayth"/>
+<lordalias alternate="Viscountess Eccles" fullname="Baroness Eccles of Moulton"/>
+-->
+
+</publicwhip>
+

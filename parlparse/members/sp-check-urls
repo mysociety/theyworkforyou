@@ -1,0 +1,4 @@
+#!/bin/bash
+
+for i in `egrep spurl= sp-members.xml | sed 's/^.*="\(.*\)" */\1/'`; do wget -q --spider "$i" || echo "Couldn't fetch ${i}"; done
+

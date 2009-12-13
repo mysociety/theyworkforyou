@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e
+# set -x # debug
+
+# Change watcher, loads pages often and if they have changed either
+# emails someone, or keeps a copy of # each version.
+
+source ~/parlparse/scripts/consts
+
+# Add any new files
+cd ~/parldata/cmpages/chgpages
+svn -q add */*.html 2>&1 | grep -v "is already under version control" && echo -n
+
+# Check for updates to minister pages etc.
+cd ~/parlparse/pyscraper
+./lazyrunall.py scrape chgpages
+
+# Regenerate minister pages file
+./lazyrunall.py parse chgpages
+cd ../members
+svn -q update all-members.xml # Be sure to have latest list of all members!
+svn -q update peers-ucl.xml
+svn -q update ni-members.xml
+./personsets.py
+svn -q update ministers.xml # merge any changes anyone else made
+svn -q update people.xml # merge any changes anyone else made
+svn -q commit -m "Auto ministers update commit by scripts/changewatcher" people.xml
+svn -q commit -m "Auto ministers update commit by scripts/changewatcher"  ministers.xml
+

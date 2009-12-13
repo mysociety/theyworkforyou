@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ "$1" == "0" ]
+then
+    RET=0
+    #echo "FAI error check: total successs!"
+else
+    RET=1
+    #echo "FAI error check: some failure"
+fi
+
+# Tell TheyWorkForYou to update
+PRODSCRIPT=ukparse-morning-update-done.cgi
+# cake is down
+# snarf -q http://cake.ukcod.org.uk/~fawkes/$PRODSCRIPT/$RET - > /dev/null &
+
+# And new TheyWorkForYou
+snarf -q http://sponge.theyworkforyou.com/internal/$PRODSCRIPT/$RET - > /dev/null &
+
+# Update division archive for Public Whip to feed from
+`dirname $0`/divisionextractor.pl
+
+# tell Public Whip to update
+PRODSCRIPT=ukparse-morning-update-done.cgi
+snarf -q http://www.publicwhip.org.uk/$PRODSCRIPT - > /dev/null &
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<publicwhip>
+
+<alias fullname=" Alderdice" alternate="The Initial Presiding Officer" from="1998-07-01" to="1999-11-30"/>
+<alias fullname="Eileen Bell" alternate="Madam Speaker" from="2006-05-09" to="2007-05-08" />
+<alias fullname="William Hay" alternate="Speaker" from="2007-05-08" />
+
+<alias fullname="David Trimble" alternate="The First Minister" from="1998-07-01" to="2001-07-01"/>
+<alias fullname="Reg Empey" alternate="The First Minister" from="2001-07-01" to="2001-11-01"/>
+<alias fullname="David Trimble" alternate="The First Minister" from="2001-11-01" to="2002-10-14"/>
+<alias fullname="Ian Paisley" alternate="The First Minister" from="2007-05-08" to="2008-06-05" />
+<alias fullname="Peter Robinson" alternate="The First Minister" from="2008-06-05" />
+
+<alias fullname="Seamus Mallon" alternate="The Deputy First Minister" from="1998-07-01" to="1999-07-15"/>
+<alias fullname="Seamus Mallon" alternate="The Deputy First Minister" from="1999-11-29" to="2001-11-06"/>
+<alias fullname="Mark Durkan" alternate="The Deputy First Minister" from="2001-11-06" to="2002-10-14"/>
+<alias fullname="Martin McGuinness" alternate="The deputy First Minister" from="2007-05-08"/>
+
+<alias lastname="Maginness" alternate="Magennis"/>
+<alias lastname="McIlveen" alternate="Mcllveen"/>
+<alias lastname="Elliott" alternate="Elliot"/>
+<alias lastname="de Brún" alternate="De Brún"/>
+<alias lastname="de Brún" alternate="de Brun"/>
+<alias fullname="Seamus Mallon" alternate="Séamus Mallon"/>
+
+<alias fullname="John Taylor" alternate="Kilclooney" from="2001-07-17"/>
+
+<alias lastname="Ní Chuilín" alternate="N&amp;iacute; Chuil&amp;iacute;n" />
+<alias lastname="Ní Chuilín" alternate="Ni Chuil&amp;iacute;n" />
+
+<!-- wikipedia -->
+<alias fullname="Ian Paisley Jnr" alternate="Ian Paisley Jr"/>
+<alias lastname="Paisley Jnr" alternate="Paisley Junior"/>
+<alias fullname="Mickey Brady" alternate="Micky Brady"/>
+<alias fullname="Francie Brolly" alternate="Francis Brolly"/>
+<alias fullname="Roy Beggs" alternate="Roy Beggs Jr"/>
+<alias fullname="Samuel Gardiner" alternate="Sam Gardiner"/>
+<alias fullname="P J Bradley" alternate="P. J. Bradley"/>
+<alias fullname=" Morrow" alternate="Maurice Morrow"/>
+<alias fullname="Alastair Ross" alternate="Alastair Ian Ross"/>
+</publicwhip>
+

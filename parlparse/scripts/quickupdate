@@ -1,0 +1,66 @@
+#!/usr/bin/python
+#
+# Thrown together
+# Currently only rescrapes/parses missing UK and NI from preivous day
+
+import datetime, os, commands
+
+base = '/home/parlparse/'
+base_html = base + 'parldata/cmpages/'
+base_xml = base + 'parldata/scrapedxml/'
+base_scraper = base + 'parlparse/pyscraper/'
+
+min = { 'debates': 'debates/debates', 'wms': 'wms/ministerial', 'wrans': 'wrans/answers', 'lords': 'lordspages/daylord' }
+dirs = [ min.copy() for x in range(5) ]
+for x in (0,1):
+    dirs[x]['ni'] = 'ni/ni'
+for x in (1,2,3):
+    dirs[x]['westminhall'] = 'westminhall/westminster'
+
+suffixes = { 'ni': '' }
+
+def run_command(dir, cmd):
+    #print 'Running', cmd
+    if dir: print 'cd %s%s' % (base_scraper, dir)
+    #os.chdir(base_scraper + dir)
+    print cmd
+    #status, output = commands.getstatusoutput(cmd)
+    #print 'Exit status =', status
+    #print 'Output', output
+
+today = datetime.date.today()
+wday = today.weekday()
+
+if wday == 0: # Monday
+    dirs = dirs[4]
+    yesterday = (today - datetime.timedelta(days=3)).isoformat()
+elif wday == 1 or wday == 2 or wday == 3 or wday == 4: # Tuesday to Friday
+    dirs = dirs[wday-1]
+    yesterday = (today - datetime.timedelta(days=1)).isoformat()
+
+rescrape = []
+for type, dir in dirs.items():
+    suffix = suffixes[type] if type in suffixes else 'a'
+    file = base_html + dir + yesterday + suffix + '.html'
+    if not os.path.exists(file):
+        rescrape.append(type)
+
+reparse = []
+for type, dir in dirs.items():
+    suffix = suffixes[type] if type in suffixes else 'a'
+    file = base_xml + dir + yesterday + suffix + '.xml'
+    if not os.path.exists(file):
+        reparse.append(type)
+
+# Scrape
+if rescrape:
+    run_command('', 'lazyrunall.py --date=' + yesterday + ' scrape ' + ' '.join(rescrape))
+
+# Parse
+if reparse:
+    run_command('', 'lazyrunall.py --date=' + yesterday + ' parse ' + ' '.join(reparse) + ' --patchtool')
+run_command('standing/', './parse.py --patchtool')
+
+print '# Parse/fix any older things from the cron email now'
+
+run_command('', 'other-sites-update 0')

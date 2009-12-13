@@ -1,0 +1,381 @@
+<!-- $Id: index.html 1961 2007-03-05 09:49:13Z ukparsebot $ -->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Parliament Parser (parlparse)</title>
+<title><?=$title?></title>
+<style type="text/css"><!--
+body {background-color: #ffffff;  color: #000000; }
+body,  td,  th,  h1,  h2 { font-family: sans-serif; }
+a:link {text-decoration: none; }
+a:visited {text-decoration: none; }
+a:active {text-decoration: underline; }
+a:hover {text-decoration: underline; }
+table {border-collapse: collapse; }
+h1 {font-size: 166%; }
+h2 {font-size: 133%; }
+h1, h2 { border-bottom: dotted 1px #999999; }
+p {text-align: left; }
+p.snippet { 
+    font-family: monospace;
+    background: #dcdcdc;
+    padding: 1em;
+    margin: 0.5em;
+    white-space: pre;
+}
+.floatright {
+    float: right;
+}
+.acrosspage {
+    clear: both;
+}
+p.description {
+}
+#content {
+    max-width: 60em;
+    margin: 0 5em 0 5em;
+}
+//--></style>
+</head>
+
+<body>
+
+<div id="content">
+
+<h1>Parliament Parser (parlparse)</h1>
+
+<p><strong>What can I find here?</strong> Structured versions
+of publicly available data from the UK parliament, and the source code that
+was used to generate the data.  This is the engine of clever stuff
+which runs <a href="http://www.theyworkforyou.com">TheyWorkForYou.com</a>
+and <a href="http://www.publicwhip.org.uk">The Public Whip</a>. You might
+find the <a href="http://www.theyworkforyou.com/api">TheyWorkForYou API</a>
+easier to use.
+
+<p><strong>What's all this 'ukparse' stuff?</strong> Parliament Parser is the only
+part of a potentially larger United Kingdom Parser project.  If you make any
+other screen scrapers of UK institutions we're happy to provide hosting.
+
+<p><strong>Who do I talk to?</strong>
+Contact Francis Irving, <a
+href="mailto:francis@flourish.org">francis@flourish.org</a>, with any
+questions.   Or join the <a href="https://lists.sourceforge.net/lists/listinfo/publicwhip-playing">publicwhip-playing email list</a>, and say hello don't be shy.
+
+<h2>Members of Parliament</h2>
+
+<p>Structured data about Members of Parliament.  These are all XML files, open
+them in any text editor, XML viewer or some spreadsheets.  In the files there
+are comments with more information.  Data for MPs is for the 1997, 2001 and 2005 parliaments.
+Data for Lords goes back to the major reform in 1999.
+
+<p class="snippet floatright"><font color="#008b8b">&lt;</font><font color="#008b8b">member</font>
+<font color="#008b8b">        </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/1656&quot;</font>
+<font color="#008b8b">        </font><font color="#2e8b57"><b>house</b></font>=<font color="#ff00ff">&quot;commons&quot;</font>
+<font color="#008b8b">        </font><font color="#2e8b57"><b>title</b></font>=<font color="#ff00ff">&quot;&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>firstname</b></font>=<font color="#ff00ff">&quot;Emily&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>lastname</b></font>=<font color="#ff00ff">&quot;Thornberry&quot;</font><font color="#008b8b"> </font>
+<font color="#008b8b">        </font><font color="#2e8b57"><b>constituency</b></font>=<font color="#ff00ff">&quot;Islington South </font><font color="#2e8b57"><b>&amp;</b></font><font color="#a52a2a"><b>amp</b></font><font color="#2e8b57"><b>;</b></font><font color="#ff00ff"> Finsbury&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>party</b></font>=<font color="#ff00ff">&quot;Lab&quot;</font>
+<font color="#008b8b">        </font><font color="#2e8b57"><b>fromdate</b></font>=<font color="#ff00ff">&quot;2005-05-05&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>todate</b></font>=<font color="#ff00ff">&quot;9999-12-31&quot;</font><font color="#008b8b"> </font>
+<font color="#008b8b">        </font><font color="#2e8b57"><b>fromwhy</b></font>=<font color="#ff00ff">&quot;general_election&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>towhy</b></font>=<font color="#ff00ff">&quot;still_in_office&quot;</font>
+<font color="#008b8b">    /&gt;</font>
+</p>
+
+<p class="snippet floatright"><font color="#008b8b">&lt;</font><font color="#008b8b">lord</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/lord/100633&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>house</b></font>=<font color="#ff00ff">&quot;lords&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>forenames</b></font>=<font color="#ff00ff">&quot;Margaret&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>forenames_full</b></font>=<font color="#ff00ff">&quot;Margaret Hilda&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>title</b></font>=<font color="#ff00ff">&quot;Baroness&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>lordname</b></font>=<font color="#ff00ff">&quot;Thatcher&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>lordofname</b></font>=<font color="#ff00ff">&quot;&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>lordofname_full</b></font>=<font color="#ff00ff">&quot;Kesteven&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>county</b></font>=<font color="#ff00ff">&quot;the County of Lincolnshire&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>peeragetype</b></font>=<font color="#ff00ff">&quot;L&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>affiliation</b></font>=<font color="#ff00ff">&quot;Con&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>fromdate</b></font>=<font color="#ff00ff">&quot;1992&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>todate</b></font>=<font color="#ff00ff">&quot;9999-12-31&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>ex_MP</b></font>=<font color="#ff00ff">&quot;yes&quot;</font>
+<font color="#008b8b">/&gt;</font>
+</p>
+
+<p class="description"><a href="/svn/parlparse/members/all-members.xml">all-members.xml</a>,
+<a href="/svn/parlparse/members/peers-ucl.xml">peers-ucl.xml</a> 
+- list of all MPs and list of all Lords.
+Includes their name and party.  For MPs, also their constituency, and for
+Lords, also their peerage type and their county. There is a unique identifier
+for each entry.  Each entry is a continuous period of holding office, loyal to
+the same party.  An MP who was in two parliaments, or in one parliament then
+later became a Lord, will appear twice.  An MP who also changed party will
+appear three times.  Dates of deaths, byelections and party changes or whip
+revocations are recorded.</p>
+
+<p class="snippet floatright"><font color="#008b8b">&lt;</font><font color="#008b8b">person</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/person/10597&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>latestname</b></font>=<font color="#ff00ff">&quot;Paddy Tipping&quot;</font><font color="#008b8b">&gt;</font>
+    <font color="#008b8b">&lt;</font><font color="#008b8b">office</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/1282&quot;</font><font color="#008b8b">/&gt;</font>
+    <font color="#008b8b">&lt;</font><font color="#008b8b">office</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/1815&quot;</font><font color="#008b8b">/&gt;</font>
+    <font color="#008b8b">&lt;</font><font color="#008b8b">office</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/597&quot;</font><font color="#008b8b">/&gt;</font>
+    <font color="#008b8b">&lt;</font><font color="#008b8b">office</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/moffice/226&quot;</font><font color="#008b8b">/&gt;</font>
+<font color="#008b8b">&lt;/person&gt;</font>
+</p>
+
+<p class="description"><a href="rest.cgi">rest.cgi</a> - a programmer's interface for matching names. This uses the all-members.xml, member-aliases.xml and constituencies.xml to match MP names.
+
+<p class="description"><a href="/svn/parlparse/members/people.xml">people.xml</a> - 
+links together groups of MPs from all-members.xml and Lords from peers-ucl.xml
+who are the same real world person. Usually this is because they have the same
+name and are in the same constituency.  Sometimes someone changes constituency
+between two parliaments, such as Shaun Woodward (Witney) and Shaun Woodward (St
+Helens South).  This file records that they are the same person.  Also includes
+offices from ministers.xml which were held by that person.</p>
+
+<p class="snippet floatright"><font color="#008b8b">&lt;</font><font color="#008b8b">moffice</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/moffice/327&quot;</font><font color="#008b8b"> </font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>name</b></font>=<font color="#ff00ff">&quot;Ivor Caplin&quot;</font><font color="#008b8b"> </font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>matchid</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/784&quot;</font><font color="#008b8b"> </font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>dept</b></font>=<font color="#ff00ff">&quot;HM Treasury&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>position</b></font>=<font color="#ff00ff">&quot;Assistant Whip&quot;</font><font color="#008b8b"> </font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>fromdate</b></font>=<font color="#ff00ff">&quot;2001-06-12&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>todate</b></font>=<font color="#ff00ff">&quot;2003-06-13&quot;</font><font color="#008b8b"> </font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>source</b></font>=<font color="#ff00ff">&quot;newlabministers2003-10-15&quot;</font><font color="#008b8b">&gt;</font>
+<font color="#008b8b">&lt;/moffice&gt;</font>
+</p>
+
+<p><a href="/svn/parlparse/members/ministers.xml">ministers.xml</a> - contains ministerial 
+positions and the department they were in.  Each one has a date
+range, the MP or Lord became a minister at some time on the start day, and
+stopped being one at some time on the end day.  The matchid field is one
+sample MP or Lord office which that person also held.  Alternatively, use
+the people.xml file to find out which person held the ministerial post.
+</p>
+
+<p class="snippet floatright"><font color="#008b8b">&lt;</font><font color="#008b8b">alias</font><font color="#008b8b"> </font><font color="#2e8b57"><b>fullname</b></font>=<font color="#ff00ff">&quot;Andrew Bennett&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>alternate</b></font>=<font color="#ff00ff">&quot;Andrew F Bennett&quot;</font><font color="#008b8b"> /&gt;</font>
+<font color="#008b8b">&lt;</font><font color="#008b8b">alias</font><font color="#008b8b"> </font><font color="#2e8b57"><b>lastname</b></font>=<font color="#ff00ff">&quot;MacKay&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>alternate</b></font>=<font color="#ff00ff">&quot;Mackay&quot;</font><font color="#008b8b"> /&gt;</font>
+<font color="#008b8b">&lt;</font><font color="#008b8b">alias</font><font color="#008b8b"> </font><font color="#2e8b57"><b>constituency</b></font>=<font color="#ff00ff">&quot;Worcester&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>alternate</b></font>=<font color="#ff00ff">&quot;Michael John Foster&quot;</font><font color="#008b8b"> /&gt;</font>
+<font color="#008b8b">&lt;</font><font color="#008b8b">alias</font><font color="#008b8b"> </font><font color="#2e8b57"><b>fullname</b></font>=<font color="#ff00ff">&quot;Tony Wright&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>alternate</b></font>=<font color="#ff00ff">&quot;Anthony Wright&quot;</font><font color="#008b8b"> /&gt;</font>
+</p>
+
+<p><a href="/svn/parlparse/members/member-aliases.xml">member-aliases.xml</a> - list of
+alternative names for MPs.  Includes abbreviations, misspellings and name
+changes due to marriage.  Either canonical names from the all-members.xml file
+above are given, or the constituency or surname where appropriate.
+</p>
+
+<p class="snippet floatright"><font color="#008b8b">&lt;</font><font color="#008b8b">constituency</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/cons/212&quot;</font><font color="#008b8b"> </font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>fromdate</b></font>=<font color="#ff00ff">&quot;1000-01-01&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>todate</b></font>=<font color="#ff00ff">&quot;2005-05-04&quot;</font><font color="#008b8b">&gt;</font>
+    <font color="#008b8b">&lt;</font><font color="#008b8b">name</font><font color="#008b8b"> </font><font color="#2e8b57"><b>text</b></font>=<font color="#ff00ff">&quot;Edinburgh, Pentlands&quot;</font><font color="#008b8b">/&gt;</font>
+    <font color="#008b8b">&lt;</font><font color="#008b8b">name</font><font color="#008b8b"> </font><font color="#2e8b57"><b>text</b></font>=<font color="#ff00ff">&quot;Edinburgh Pentlands&quot;</font><font color="#008b8b">/&gt;</font>
+<font color="#008b8b">&lt;/constituency&gt;</font>
+</p>
+
+<p><a href="/svn/parlparse/members/constituencies.xml">constituencies.xml</a> -
+list of Parliamentary constituencies.  Includes alternative spellings of each
+constituency.  When boundaries change, a new identifier is given to the
+constituency even if it has the same name.  They are also ranged with dates
+when they were in effect.
+</p>
+
+<p>
+<a href="/svn/parlparse/members/websites.xml">websites.xml</a>,
+<a href="/svn/parlparse/members/guardian-links.xml">guardian-links.xml</a>,
+<a href="/svn/parlparse/members/bbc-links.xml">bbc-links.xml</a>,
+<a href="/svn/parlparse/members/edm-links.xml">edm-links.xml</a>,
+<a href="/svn/parlparse/members/wikipedia-commons.xml">wikipedia-commons.xml</a>,
+<a href="/svn/parlparse/members/wikipedia-lords.xml">wikipedia-lords.xml</a>
+- various links to external websites which have information about MPs and
+Lords, including biographies on Wikipedia, and each MPs own website.  
+Indexed by MP or Lord identifier.
+
+<p class="snippet acrosspage"><font color="#008b8b">&lt;</font><font color="#008b8b">personinfo</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/person/10197&quot;</font> <font color="#2e8b57"><b>mp_website</b></font>=<font color="#ff00ff">&quot;<A HREF="http://www.frankfield.com">http://www.frankfield.com</a>&quot;</font><font color="#008b8b"> /&gt;</font>
+
+<font color="#008b8b">&lt;</font><font color="#008b8b">personinfo</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/person/10006&quot;</font><font color="#008b8b"> </font><font color="#2e8b57">
+    <b>guardian_mp_summary</b></font>=<font color="#ff00ff">&quot;<A HREF="http://politics.guardian.co.uk/person/0,,-35,00.html">http://politics.guardian.co.uk/person/0,,-35,00.html</A>&quot;</font><font color="#008b8b"> /&gt;</font>
+<font color="#008b8b">&lt;</font><font color="#008b8b">consinfo</font><font color="#008b8b"> </font><font color="#2e8b57"><b>canonical</b></font>=<font color="#ff00ff">&quot;East Surrey&quot;</font><font color="#008b8b"> </font><font color="#2e8b57">
+    <b>guardian_election_results</b></font>=<font color="#ff00ff">&quot;<A HREF="http://politics.guardian.co.uk/hoc/constituency/0,,-906,00.html">http://politics.guardian.co.uk/hoc/constituency/0,,-906,00.html</A>&quot;</font><font color="#008b8b"> /&gt;</font>
+<font color="#008b8b">&lt;</font><font color="#008b8b">memberinfo</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/692&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>swing_to_lose_seat</b></font>=<font color="#ff00ff">&quot;14.0&quot;</font><font color="#008b8b"> /&gt;</font>
+<font color="#008b8b">&lt;</font><font color="#008b8b">memberinfo</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/692&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>majority_in_seat</b></font>=<font color="#ff00ff">&quot;13203&quot;</font><font color="#008b8b"> /&gt;</font>
+
+<font color="#008b8b">&lt;</font><font color="#008b8b">memberinfo</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/1224&quot;</font><font color="#008b8b"> </font><font color="#2e8b57">
+    <b>bbc_profile_url</b></font>=<font color="#ff00ff">&quot;<A HREF="http://news.bbc.co.uk/1/shared/mpdb/html/55.stm">http://news.bbc.co.uk/1/shared/mpdb/html/55.stm</A>&quot;</font><font color="#008b8b"> /&gt;</font>
+
+<font color="#008b8b">&lt;</font><font color="#008b8b">memberinfo</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/687&quot;</font><font color="#008b8b"> </font><font color="#2e8b57">
+    <b>edm_ais_url</b></font>=<font color="#ff00ff">&quot;<A HREF="http://edm.ais.co.uk/weblink/html/member.html/mem=AbbottSlAsHcOdEsTrInGDiane">http://edm.ais.co.uk/weblink/html/member.html/mem=AbbottSlAsHcOdEsTrInGDiane</a>&quot;</font><font color="#008b8b"> /&gt;</font>
+
+<font color="#008b8b">&lt;</font><font color="#008b8b">memberinfo</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/lord/100007&quot;</font><font color="#008b8b"> </font><font color="#2e8b57">
+    <b>wikipedia_url</b></font>=<font color="#ff00ff">&quot;<A HREF="http://en.wikipedia.org/wiki/John_Alderdice%2C_Baron_Alderdice&quot;">http://en.wikipedia.org/wiki/John_Alderdice%2C_Baron_Alderdice&quot;</A></font><font color="#008b8b"> /&gt;</font>
+</p>
+
+<a href="http://ukparse.kforge.net/parldata/scrapedxml/regmem">Register of
+Members Interests</a> - MPs declare conflicts of interest, and 
+sources of their income.  Separate XML file for each release of the
+register.
+
+<p class="snippet acrosspage"><font color="#008b8b">&lt;</font><font color="#008b8b">regmem</font><font color="#008b8b"> </font><font color="#2e8b57"><b>personid</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/person/10029&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>memberid</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/719&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>membername</b></font>=<font color="#ff00ff">&quot;Hugh Bayley&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>date</b></font>=<font color="#ff00ff">&quot;2005-04-11&quot;</font><font color="#008b8b">&gt;</font>
+    <font color="#008b8b">&lt;</font><font color="#008b8b">category</font><font color="#008b8b"> </font><font color="#2e8b57"><b>type</b></font>=<font color="#ff00ff">&quot;4&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>name</b></font>=<font color="#ff00ff">&quot;Sponsorship or financial or material support&quot;</font><font color="#008b8b">&gt;</font>
+        <font color="#008b8b">&lt;</font><font color="#008b8b">item</font><font color="#008b8b">&gt;</font>I sponsor a parliamentary pass for a research assistant paid by
+        the Royal African Society to enable her to work in support of the
+        Africa All-Party Parliamentary Group, which I chair.<font color="#008b8b">&lt;/item&gt;</font>
+    <font color="#008b8b">&lt;/category&gt;</font>
+<font color="#008b8b">&lt;/regmem&gt;</font>
+</p>
+
+<p><a href="/svn/parlparse/members/expenses200304.xml">expenses200304.xml</a>,
+<a href="/svn/parlparse/members/expenses200304.xml">expenses200203.xml</a>,
+<a href="/svn/parlparse/members/expenses200304.xml">expenses200102.xml</a>
+- how much each MP claimed as expenses from parliament for travel and so on.
+
+<p><strong>voting record</strong> - 
+attendance, rebellion rate and individual votes in divisions are <a
+href="http://publicwhip.owl/project/data.php">available from the Public Whip
+project</a>.
+
+<h2>Hansard Reports</h2>
+
+<p><a href="http://ukparse.kforge.net/parldata/scrapedxml/debates">Debates (Commons)</a>,
+<a href="http://ukparse.kforge.net/parldata/scrapedxml/lordspages">Debates (Lords)</a>,
+<a href="http://ukparse.kforge.net/parldata/scrapedxml/westminhall">Westminster Hall</a> -
+XML files containing Debates in the main chambers and in Westminster Hall from the
+start of the 2001 parliament (Commons) or 1999 reform (Lords).  Speeches and the speaker are labelled with
+unique identifiers, as are divisions and how each MP or Lord voted.  
+
+<p class="snippet acrosspage"><font color="#008b8b">&lt;</font><font color="#008b8b">speech</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/debate/2003-06-26.1219.2&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>speakerid</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/931&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>speakername</b></font>=<font color="#ff00ff">&quot;Peter Hain&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>colnum</b></font>=<font color="#ff00ff">&quot;1219&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>time</b></font>=<font color="#ff00ff">&quot;12:32:00&quot;</font><font color="#008b8b"> </font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>url</b></font>=<font color="#ff00ff">&quot;<A HREF="http://www.publications.parliament.uk/pa/cm200203/cmhansrd/vo030626/debtext/30626-10.htm#30626-10_spnew16">http://www.publications.parliament.uk/pa/cm200203/
+    cmhansrd/vo030626/debtext/30626-10.htm#30626-10_spnew16</a>&quot;</font><font color="#008b8b">&gt;</font>
+<font color="#008b8b">&lt;</font><font color="#008b8b">p</font><font color="#008b8b">&gt;</font>I am a Cabinet Minister and I support the Government's policies. He can ask
+me another question along those lines next time, and continue to do so.<font color="#008b8b">&lt;/p&gt;</font>
+<font color="#008b8b">&lt;/speech&gt;</font>
+
+<font color="#008b8b">&lt;</font><font color="#008b8b">major-heading</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/debate/2003-06-26.1220.0&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>nospeaker</b></font>=<font color="#ff00ff">&quot;true&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>colnum</b></font>=<font color="#ff00ff">&quot;1220&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>time</b></font>=<font color="#ff00ff">&quot;12:32:00&quot;</font><font color="#008b8b"> </font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>url</b></font>=<font color="#ff00ff">&quot;<A HREF="http://www.publications.parliament.uk/pa/cm200203/cmhansrd/vo030626/debtext/30626-10.htm#30626-10_head0">http://www.publications.parliament.uk/pa/cm200203/
+    cmhansrd/vo030626/debtext/30626-10.htm#30626-10_head0</a>&quot;</font><font color="#008b8b">&gt;</font>
+CAP Reform
+<font color="#008b8b">&lt;/major-heading&gt;</font>
+</p>
+
+<p>
+<a href="http://ukparse.kforge.net/parldata/scrapedxml/wrans">Written Answers (Commons)</a>,
+<a href="http://ukparse.kforge.net/parldata/scrapedxml/lordswrans">Written Answers (Lords)</a> -
+XML files containing Written Answers to questions MPs and Lords have asked ministers.
+Data from the start of the 2001 parliament (Commons) or 1999 reform (Lords).  Questions and replies are clearly
+distinguished, and speakers labelled with their unique identifier.
+
+<p class="snippet acrosspage"><font color="#008b8b">&lt;</font><font color="#008b8b">minor-heading</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/wrans/2005-06-29.7913.h&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>oldstyleid</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/wrans/2005-06-29.1624W.6&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>nospeaker</b></font>=<font color="#ff00ff">&quot;True&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>colnum</b></font>=<font color="#ff00ff">&quot;1624W&quot;</font><font color="#008b8b">  </font><font color="#2e8b57"><b>url</b></font>=<font color="#ff00ff">&quot;<A HREF="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm050629/text/50629w24.htm#50629w24.html_wqn8">http://www.publications.parliament.uk/pa/cm200506/
+    cmhansrd/cm050629/text/50629w24.htm#50629w24.html_wqn8</a>&quot;</font><font color="#008b8b">&gt;</font>
+New Schools
+<font color="#008b8b">&lt;/minor-heading&gt;</font>
+
+<font color="#008b8b">&lt;</font><font color="#008b8b">ques</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/wrans/2005-06-29.7913.q0&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>oldstyleid</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/wrans/2005-06-29.1624W.7&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>speakerid</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/1642&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>speakername</b></font>=<font color="#ff00ff">&quot;Francis Maude&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>colnum</b></font>=<font color="#ff00ff">&quot;1624W&quot;</font><font color="#008b8b">  </font><font color="#2e8b57"><b>url</b></font>=<font color="#ff00ff">&quot;<A HREF="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm050629/text/50629w24.htm#50629w24.html_wqn8">http://www.publications.parliament.uk/pa/cm200506/
+    cmhansrd/cm050629/text/50629w24.htm#50629w24.html_wqn8</a>&quot;</font><font color="#008b8b">&gt;</font>
+<font color="#008b8b">&lt;</font><font color="#008b8b">p</font><font color="#008b8b"> </font><font color="#2e8b57"><b>qnum</b></font>=<font color="#ff00ff">&quot;7913&quot;</font><font color="#008b8b">&gt;</font>To ask the Secretary of State for Education and Skills how many
+new <font color="#008b8b">&lt;</font><font color="#008b8b">i</font><font color="#008b8b">&gt;</font>(a)<font color="#008b8b">&lt;/i&gt;</font> primary and <font color="#008b8b">&lt;</font><font color="#008b8b">i</font><font color="#008b8b">&gt;</font>(b)<font color="#008b8b">&lt;/i&gt;</font> secondary schools were built in each
+English county in each of the last eight years.<font color="#008b8b">&lt;/p&gt;</font>
+<font color="#008b8b">&lt;/ques&gt;</font>
+
+<font color="#008b8b">&lt;</font><font color="#008b8b">reply</font><font color="#008b8b"> </font><font color="#2e8b57"><b>id</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/wrans/2005-06-29.7913.r0&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>oldstyleid</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/wrans/2005-06-29.1624W.8&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>speakerid</b></font>=<font color="#ff00ff">&quot;uk.org.publicwhip/member/1776&quot;</font><font color="#008b8b"> </font><font color="#2e8b57"><b>speakername</b></font>=<font color="#ff00ff">&quot;Jacqui Smith&quot;</font>
+<font color="#008b8b">    </font><font color="#2e8b57"><b>colnum</b></font>=<font color="#ff00ff">&quot;1624W&quot;</font><font color="#008b8b">  </font><font color="#2e8b57"><b>url</b></font>=<font color="#ff00ff">&quot;<A HREF="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm050629/text/50629w24.htm#50629w24.html_spnew8">http://www.publications.parliament.uk/pa/cm200506/
+    cmhansrd/cm050629/text/50629w24.htm#50629w24.html_spnew8</a>&quot;</font><font color="#008b8b">&gt;</font>
+<font color="#008b8b">&lt;</font><font color="#008b8b">p</font><font color="#008b8b">&gt;</font>The construction of new schools is decided upon by each local authority in
+accordance with its asset management plan. Figures on how many new <font color="#008b8b">&lt;</font><font color="#008b8b">i</font><font color="#008b8b">&gt;</font>(a)<font color="#008b8b">&lt;/i&gt;</font>
+primary and <font color="#008b8b">&lt;</font><font color="#008b8b">i</font><font color="#008b8b">&gt;</font>(b)<font color="#008b8b">&lt;/i&gt;</font> secondary schools were built in each English county in
+each of the last eight years are not held centrally.<font color="#008b8b">&lt;/p&gt;</font>
+<font color="#008b8b">&lt;/reply&gt;</font>
+
+</p>
+
+<p>
+<a href="http://ukparse.kforge.net/parldata/scrapedxml/wms">Written Ministerial Statements (Commons)</a>,
+<a href="http://ukparse.kforge.net/parldata/scrapedxml/lordswms">Written Ministerial Statements (Lords)</a> - 
+XML files containing statements which ministers made to the houses in writing.
+These are a bit like press releases, but in parliamentary language.
+
+<h2>Getting the Data</h2>
+
+<p><strong>Web browser:</strong> 
+Follow the links to the files above.  Or <a
+href="http://ukparse.kforge.net/parldata/">browse all the parlparse data</a>,
+or get <a href="http://ukparse.kforge.net/parldatazips">zip files</a>.
+Data about members of parliament is stored in source control, so you <a
+href="http://ukparse.kforge.net/svn/parlparse/members/"> browse it in a
+slightly different place</a>.
+
+<p><strong>Rsync:</strong> You can access all these files using 
+anonymous <a href="http://samba.anu.edu.au/rsync/">rsync</a>.
+This is useful if you want to update every day to have the latest files, but
+only want to download the new or changed ones.  Type
+the following to get a directory listing of the data:
+<blockquote><tt>rsync ukparse.kforge.net::parldata/</tt></blockquote>
+<p>You probably want the scrapedxml folder.  Specify the following
+switches, to avoid syncing Subversion control and temporary files
+files: <tt>--exclude '.svn' --exclude 'tmp/'</tt> (the former
+are very large). See the rsync documentation for more information on
+how to synchronise your local directory
+with a remote one.
+
+<p>The member data is available by rsync here.
+
+<blockquote><tt>rsync ukparse.kforge.net::svn/parlparse/members/</tt></blockquote>
+
+
+<h2>Running the Parser</h2>
+
+<p>Python code downloads data from the UK parliament website, stores it as an
+HTML file for each day, and parses those files into XML files.  To
+run this parser yourself, you'll need the following...
+
+<p><strong>Parser source code</strong> - You can <a
+href="http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse">browse this URL</a>,
+if you're just curious.  Available by subversion from <a
+href="http://www.knowledgeforge.net/project/ukparse/">ukparse's KnowledgeForge project</a> like
+this from the command line.
+
+<blockquote><tt>svn co http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse</tt></blockquote>
+
+On Windows, use <a href="http://tortoisesvn.tigris.org/">TortoiseSVN</a> and the same URL.
+
+<p><strong>Python</strong> - Under Windows download <a
+href="http://www.python.org/download/">Python 2.4</a>.  Unix-based operating
+systems probably have Python already installed, but you may need to
+upgrade to Python 2.4.  You also need the <a
+href="http://www.egenix.com/files/python/mxDateTime.html">mxDateTime</a> module
+by eGenix, go to downloads on that page.  Under Debian this is in the package
+python2.4-egenix-mxdatetime.
+
+<p><strong>Patch and Diff</strong> -
+The parser has a preprocessor which applies patches to Hansard to fix
+uncommon errors.  This is done using the tools "patch" and "diff",
+which will be installed by default if you are using Unix.  On Windows
+you can download them from
+<a href="http://unxutils.sourceforge.net/">GNU utilities for win32</a>.
+
+<p><strong>Instructions</strong> - Use the command line and change to the
+<i>pyscraper</i> directory.  The script called <i>lazyrunall.py</i> in there
+does all of the screen scraping from Hansard.  Run it with no parameters to
+find out its syntax.  Then do something like this, include a date limit as the
+parser gives errors if you go too far back.
+
+<p><tt>./lazyrunall.py --from 2001-06-01 scrape parse
+debates wrans</tt>
+
+<p>That will screen scrape back to the start of the 2001 parliament,
+writing the files in parldata/cmpages.  Then it will parse these
+files into XML files and put them in parldata/scrapedxml.  On Unix
+the parldata folder is in your home directory, on Windows it will
+be in the same folder as the publicwhip folder which contains
+the source code.
+
+<p>The command above will gather both debates and written answers (wrans).
+You can run a command again and it will lazily make only those files which
+weren't downloaded/parsed last time.  When you are done, you should have
+lots of XML files in the parldata/scrapedxml/debates folder.
+
+<p><strong>What to fix</strong> - Ask us for help or ideas if you're extending or
+improving the parser. Send us patches for even tiny changes you make to get it
+running on your machine.  There's lots of stuff left to do.  
+
+</div>
+
+</body>
+
+</html>
