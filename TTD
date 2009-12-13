@@ -1,8 +1,28 @@
-  mysociety -u config --no-check-existing
+Things To Do
+~~~~~~~~~~~~
 
-  mysociety-create-databases
+- Initial configuration:
 
-  mysociety -u vhost theyworkforyou.sandbox
+    Check that conf has been created and set to some sensible value
+    *before* creating rootfs.
 
-Why isn't deploy creating the DB by the time
-mysociety-schema-compare is run?
+- Setting up TUN/TAP IP addresses with DHCP:
+
+    This should be possible, but nothing I've tried works.  It's
+    probably a case where I need to ask advice.
+
+- Should add an option to "mysociety vhost" to allow deployment of a
+  specific version of the site.
+
+- Use the 'git-safe-to-merge' script before deploying or updating.
+
+- At the moment we're not using the packages files from the
+  archetypes.  I don't think that necessarily makes sense in this
+  situation.  We can't get them without access to the private CVS.
+  (The lists are actually build-dependencies, and there's no system
+  for automatically installing from them as well.  It could just do
+  apt-get build-dep.)
+
+- Add back the instrumentation.
+
+- Shrink the image as much as possible (e.g. zerofree?)
