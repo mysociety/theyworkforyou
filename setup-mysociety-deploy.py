@@ -409,29 +409,30 @@ if 0 != ssh("mysociety -u config --no-check-existing",user="root"):
 if 0 != ssh("mysociety -u vhost theyworkforyou.sandbox",user="root"):
     raise Exception, "Running mysociety -u deploy theyworkforyou.sandbox failed"
 
+# rsync over some data:
 
+if 0 != rsync_to_guest("parlparse/","/home/alice/parlparse/",delete=True):
+    raise Exception, "Syncing over parlparse failed"
 
-
-
-
-
-
-# Check out parlparse:
-run_ssh_test(output_directory,
-             "svn co http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse",
-             test_name="Checking out parlparse from svn",
-             test_short_name="svn-co-parlparse")
-
-run_ssh_test(output_directory,
-             "rsync -rlpz ukparse.kforge.net::parldata --exclude-from=rsync-excludes parldata",
-             test_name="Fetching parldata with rsync",
-             test_short_name="rsync-fetch-parldata")
+if 0 != rsync_to_guest("parldata/","/home/alice/parldata/",delete=True):
+    raise Exception, "Syncing over parldata failed"
 
 # Import the member data:
+
 run_ssh_test(output_directory,
-             "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --members --wrans --debates --members --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing --from=2009-07-01 --to=2009-12-31",
+             "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --members --all",
              test_name="Importing the member data",
              test_short_name="import-member-data")
+
+# Import the rest of the data:
+
+run_ssh_test(output_directory,
+             "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --wrans --debates --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing --all",
+             test_name="Importing the rest of the data",
+             test_short_name="import-remaining-data")
+
+
+
 
 
 
