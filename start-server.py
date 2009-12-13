@@ -6,6 +6,8 @@ from subprocess import call, check_call
 from common import *
 from optparse import OptionParser
 
+check_dependencies()
+
 setup_configuration()
 
 parser = OptionParser(usage="Usage: %prog [OPTIONS]")

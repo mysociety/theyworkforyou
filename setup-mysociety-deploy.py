@@ -17,6 +17,8 @@ from BeautifulSoup import BeautifulSoup
 from browser import fake_browser
 import cgi
 
+check_dependencies()
+
 setup_configuration()
 
 parser = OptionParser(usage="Usage: %prog [OPTIONS]")

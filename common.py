@@ -7,6 +7,29 @@ import cgi
 
 configuration = {}
 
+def check_dependencies():
+    required_packages = [ "libqt4-dev",
+                          "make",
+                          "debootstrap",
+                          "user-mode-linux",
+                          "qt4-qmake" ]
+    package_list = Popen(["dpkg","-l"],stdout=PIPE).communicate()[0]
+    for p in required_packages:
+        succeeded = True
+        if not re.search('(?ms)(^|\n)(ii\s+'+p+'\s+[^\n]+)\n',package_list):
+            print "The package '"+p+"' doesn't seem to be installed"
+            succeeded = False
+        if not succeeded:
+            sys.exit(1)
+    # Make sure that CutyCapt is built:
+    check_call("make")
+    # Make sure that the current user is in the uml-net group:
+    if not re.search('\(uml-net\)',(Popen(["id"],stdout=PIPE).communicate()[0])):
+        print "The current user is not in the group 'uml-net'"
+        print "(See the output of 'id' or 'groups'.)"
+        print "Add the user to the group with: adduser <user> <group>"
+        sys.exit(1)
+
 def setup_configuration():
     fp = open("conf")
     for line in fp:

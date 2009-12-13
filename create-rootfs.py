@@ -9,6 +9,8 @@ import grp
 
 from common import *
 
+check_dependencies()
+
 setup_configuration()
 
 def usage_and_exit():
