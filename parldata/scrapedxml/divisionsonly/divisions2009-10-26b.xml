@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE publicwhip [
+<!ENTITY ndash "&#8211;">
+<!ENTITY mdash "&#8212;">
+<!ENTITY iexcl "&#161;">
+<!ENTITY divide "&#247;">
+<!ENTITY euro "&#8364;">
+<!ENTITY trade "&#8482;">
+<!ENTITY bull "&#8226;">
+<!ENTITY lsquo "&#8216;">
+<!ENTITY rsquo "&#8217;">
+<!ENTITY sbquo "&#8218;">
+<!ENTITY ldquo "&#8220;">
+<!ENTITY rdquo "&#8221;">
+<!ENTITY bdquo "&#8222;">
+<!ENTITY dagger "&#8224;">
+
+<!ENTITY Ouml "&#214;">
+<!ENTITY agrave "&#224;">
+<!ENTITY aacute "&#225;">
+<!ENTITY acirc "&#226;">
+<!ENTITY atilde "&#227;">
+<!ENTITY auml "&#228;">
+<!ENTITY ccedil "&#231;">
+<!ENTITY egrave "&#232;">
+<!ENTITY eacute "&#233;">
+<!ENTITY ecirc "&#234;">
+<!ENTITY euml "&#235;">
+<!ENTITY iacute "&#237;">
+<!ENTITY icirc "&#238;">
+<!ENTITY iuml "&#239;">
+<!ENTITY ntilde "&#241;">
+<!ENTITY nbsp "&#160;">
+<!ENTITY oacute "&#243;">
+<!ENTITY ocirc "&#244;">
+<!ENTITY ouml "&#246;">
+<!ENTITY oslash "&#248;">
+<!ENTITY uacute "&#250;">
+<!ENTITY uuml "&#252;">
+<!ENTITY thorn "&#254;">
+
+<!ENTITY pound "&#163;">
+<!ENTITY sect "&#167;">
+<!ENTITY copy "&#169;">
+<!ENTITY reg "&#174;">
+<!ENTITY deg "&#176;">
+<!ENTITY plusmn "&#177;">
+<!ENTITY sup2 "&#178;">
+<!ENTITY micro "&#181;">
+<!ENTITY para "&#182;">
+<!ENTITY middot "&#183;">
+<!ENTITY ordm "&#186;">
+<!ENTITY frac14 "&#188;">
+<!ENTITY frac12 "&#189;">
+<!ENTITY frac34 "&#190;">
+<!ENTITY oelig "&#339;">
+<!ENTITY aelig "&#230;">
+]>
+<publicwhip latest="yes" scrapeversion="b">
+  <major-heading colnum="1" id="uk.org.publicwhip/debate/2009-10-26b.1.0" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0001.htm#09102612000008">
+	BUSINESS BEFORE QUESTIONS
+</major-heading>
+  <minor-heading colnum="1" id="uk.org.publicwhip/debate/2009-10-26b.1.1" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0001.htm#09102612000022">
+	Committee of Selection
+</minor-heading>
+  <oral-heading colnum="1" id="uk.org.publicwhip/debate/2009-10-26b.1.3" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0001.htm#09102612000005">
+	ORAL ANSWERS TO QUESTIONS
+</oral-heading>
+  <major-heading colnum="1" id="uk.org.publicwhip/debate/2009-10-26b.1.4" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0001.htm#91026-0001.htm_dpthd0">
+	HOME DEPARTMENT
+</major-heading>
+  <minor-heading colnum="1" id="uk.org.publicwhip/debate/2009-10-26b.1.6" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0001.htm#09102612000033">
+	Animals (Scientific Procedures) Act
+</minor-heading>
+  <minor-heading colnum="3" id="uk.org.publicwhip/debate/2009-10-26b.3.1" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0001.htm#09102612000034">
+	Tasers
+</minor-heading>
+  <minor-heading colnum="4" id="uk.org.publicwhip/debate/2009-10-26b.4.3" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0001.htm#09102612000035">
+	Crime Reduction Grants
+</minor-heading>
+  <minor-heading colnum="5" id="uk.org.publicwhip/debate/2009-10-26b.5.4" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0001.htm#09102612000036">
+	Work Visas
+</minor-heading>
+  <minor-heading colnum="7" id="uk.org.publicwhip/debate/2009-10-26b.7.4" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0001.htm#09102612000037">
+	Prevent
+</minor-heading>
+  <minor-heading colnum="10" id="uk.org.publicwhip/debate/2009-10-26b.10.1" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0002.htm#09102612000038">
+	Policing
+</minor-heading>
+  <minor-heading colnum="11" id="uk.org.publicwhip/debate/2009-10-26b.11.4" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0002.htm#09102612000039">
+	Antisocial Behaviour
+</minor-heading>
+  <minor-heading colnum="12" id="uk.org.publicwhip/debate/2009-10-26b.12.2" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0002.htm#09102612000040">
+	Asylum Applications
+</minor-heading>
+  <minor-heading colnum="14" id="uk.org.publicwhip/debate/2009-10-26b.14.0" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0003.htm#09102612000041">
+	Antisocial Behaviour Orders
+</minor-heading>
+  <minor-heading colnum="15" id="uk.org.publicwhip/debate/2009-10-26b.15.1" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0003.htm#09102612000042">
+	Youth Offending (Wirral)
+</minor-heading>
+  <minor-heading colnum="15" id="uk.org.publicwhip/debate/2009-10-26b.15.6" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0003.htm#09102612000043">
+	Police Patrols
+</minor-heading>
+  <minor-heading colnum="16" id="uk.org.publicwhip/debate/2009-10-26b.16.1" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0003.htm#09102612000044">
+	Police Officers/PCSOs (Bassetlaw)
+</minor-heading>
+  <minor-heading colnum="16" id="uk.org.publicwhip/debate/2009-10-26b.16.6" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0003.htm#09102612000045">
+	Prisoner Release (Terrorism Offences)
+</minor-heading>
+  <minor-heading colnum="17" id="uk.org.publicwhip/debate/2009-10-26b.17.1" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0003.htm#09102612000046">
+	Topical Questions
+</minor-heading>
+  <minor-heading colnum="23" id="uk.org.publicwhip/debate/2009-10-26b.23.0" nospeaker="true" time="14:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0004.htm#09102612000003">
+	Territorial Army
+</minor-heading>
+  <minor-heading colnum="30" id="uk.org.publicwhip/debate/2009-10-26b.30.0" nospeaker="true" time="015:32:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0005.htm#09102612000002">
+	Marine and Coastal Access Bill  [ Lords ] (Programme) (No. 2)
+</minor-heading>
+  <speech colnum="30" id="uk.org.publicwhip/debate/2009-10-26b.30.3" speakerid="uk.org.publicwhip/member/1750" speakername="Huw Irranca-Davies" time="015:53:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0005.htm#09102612000639">
+    <p class="" pid="b.30.3/2" pwmotiontext="yes">I beg to move,</p>
+    <p class="indent" pid="b.30.3/3" pwmotiontext="yes">That the Order of <phrase class="date" code="2009-06-23">23 June 2009</phrase> (Marine and Coastal Access Bill [<i> Lords</i>] (Programme) be varied as follows:</p>
+    <table>
+      <tbody>
+        <tr pid="b.30.3/10"> <td colspan="2"><i> First Day</i></td> </tr>
+        <tr pid="b.30.3/11"> <td><i> Proceedings</i></td> <td><i> Time for Conclusion of Proceedings</i></td> </tr>
+        <tr pid="b.30.3/12"> <td>New Clauses, amendments to Clauses, new Schedules and amendments to Schedules elating to Part 6; new Clauses, amendments to Clauses, new Schedules and amendments to Schedules relating to Part 9; new Clauses, amendments to Clauses, new Schedules and amendments to Schedules relating to Part 5; new Clauses, amendments to Clauses, new Schedules and amendments to Schedules relating to Part 7; new Clauses, amendments to Clauses, new Schedules and amendments to Schedules relating to Part 8.</td> <td>The moment of interruption.</td> </tr>
+      </tbody>
+    </table>
+    <table>
+      <tbody>
+        <tr pid="b.30.3/17"> <td colspan="2"><i> Second Day</i></td> </tr>
+        <tr pid="b.30.3/18"> <td><i> Proceedings</i></td> <td><i> Time for conclusion of proceedings</i></td> </tr>
+        <tr pid="b.30.3/19"> <td>New Clauses, amendments to Clauses, new Schedules and amendments to Schedules relating to Part 1; New Clauses, amendments to Clauses, new Schedules and amendments to Schedules relating to Part 2; New Clauses, amendments to Clauses, new Schedules and amendments to Schedules relating to Part 3; New Clauses, amendments to Clauses, new Schedules and amendments to Schedules relating to Part 4; remaining new Clauses and new Schedules; remaining proceedings on consideration.</td> <td>6.00 pm</td> </tr>
+      </tbody>
+    </table>
+  </speech>
+  <minor-heading colnum="32" id="uk.org.publicwhip/debate/2009-10-26b.32.0" nospeaker="true" time="015:53:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0005.htm#09102612000001">
+	Marine and Coastal Access Bill  [Lords]
+	 &#8212; 
+	[ist allocated day]
+</minor-heading>
+  <minor-heading colnum="32" id="uk.org.publicwhip/debate/2009-10-26b.32.2" nospeaker="true" time="015:53:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0005.htm#09102612000013">
+	New Clause 2
+	 &#8212; 
+	Power to enter into agreements with eligible bodies
+</minor-heading>
+  <speech colnum="32" id="uk.org.publicwhip/debate/2009-10-26b.32.4" speakerid="uk.org.publicwhip/member/1750" speakername="Huw Irranca-Davies" speakeroffice="The Parliamentary Under-Secretary of State for Environment, Food and Rural Affairs" time="015:55:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0005.htm#09102612000641">
+    <p class="" pid="b.32.4/1" pwmotiontext="yes">I beg to move, That the clause be read a Second time.</p>
+  </speech>
+  <minor-heading colnum="45" id="uk.org.publicwhip/debate/2009-10-26b.45.2" nospeaker="true" time="016:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0007.htm#09102612000014">
+	New Clause 3
+	 &#8212; 
+	Eligible bodies
+</minor-heading>
+  <minor-heading colnum="46" id="uk.org.publicwhip/debate/2009-10-26b.46.0" nospeaker="true" time="016:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0007.htm#09102612000015">
+	New Clause 4
+	 &#8212; 
+	Variation, review and cancellation of agreements under section [Power to enter into agreements with eligible bodies]
+</minor-heading>
+  <minor-heading colnum="46" id="uk.org.publicwhip/debate/2009-10-26b.46.2" nospeaker="true" time="016:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0007.htm#09102612000016">
+	New Clause 5
+	 &#8212; 
+	Agreements under section [Power to enter into agreements with eligible bodies]: particular powers
+</minor-heading>
+  <minor-heading colnum="47" id="uk.org.publicwhip/debate/2009-10-26b.47.0" nospeaker="true" time="016:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0008.htm#09102612000017">
+	New Clause 6
+	 &#8212; 
+	Supplementary provisions with respect to agreements under section [Power to enter into agreements with eligible bodies]
+</minor-heading>
+  <minor-heading colnum="47" id="uk.org.publicwhip/debate/2009-10-26b.47.2" nospeaker="true" time="016:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0008.htm#09102612000018">
+	Clause 160
+	 &#8212; 
+	Byelaws: procedure
+</minor-heading>
+  <minor-heading colnum="47" id="uk.org.publicwhip/debate/2009-10-26b.47.4" nospeaker="true" time="016:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0008.htm#09102612000019">
+	Clause 166
+	 &#8212; 
+	Powers of IFC officers
+</minor-heading>
+  <minor-heading colnum="48" id="uk.org.publicwhip/debate/2009-10-26b.48.0" nospeaker="true" time="016:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0008.htm#09102612000020">
+	Clause 181
+	 &#8212; 
+	Interpretation of this Chapter
+</minor-heading>
+  <minor-heading colnum="48" id="uk.org.publicwhip/debate/2009-10-26b.48.2" nospeaker="true" time="016:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0008.htm#09102612000021">
+	Clause 291
+	 &#8212; 
+	The coastal access duty
+</minor-heading>
+  <speech colnum="48" id="uk.org.publicwhip/debate/2009-10-26b.48.3" speakerid="uk.org.publicwhip/member/1727" speakername="Richard Benyon" time="016:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0008.htm#09102612000677">
+    <p class="" pid="b.48.3/1" pwmotiontext="yes">I beg to move amendment 35, page 187, line 28, leave out 'is' and insert 'may be'.</p>
+  </speech>
+  <minor-heading colnum="79" id="uk.org.publicwhip/debate/2009-10-26b.79.0" nospeaker="true" time="018:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0013.htm#09102630000001">
+	New Clause 8
+	 &#8212; 
+	MCZs: duty to manage and mitigate impacts upon existing activities
+</minor-heading>
+  <speech colnum="79" id="uk.org.publicwhip/debate/2009-10-26b.79.2" speakerid="uk.org.publicwhip/member/1600" speakername="Austin Mitchell" time="018:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0013.htm#09102630000051">
+    <p class="" pid="b.79.2/1" pwmotiontext="yes">I beg to move, That the clause be read a Second time.</p>
+  </speech>
+  <speech colnum="94" id="uk.org.publicwhip/debate/2009-10-26b.94.0" speakerid="uk.org.publicwhip/member/1801" speakername="Andrew George" time="020:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0015.htm#09102637000064">
+    <p class="" pid="b.94.0/1" pwmotiontext="yes">I beg to move amendments 18, 23 and 42-</p>
+  </speech>
+  <minor-heading colnum="117" id="uk.org.publicwhip/debate/2009-10-26b.117.3" nospeaker="true" time="021:15:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0019.htm#0910271000001">
+	Clause 117
+	 &#8212; 
+	Grounds for designation of MCZs
+</minor-heading>
+  <speech colnum="117" id="uk.org.publicwhip/debate/2009-10-26b.117.4" speakerid="uk.org.publicwhip/member/1963" speakername="Katy Clark" time="021:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0019.htm#0910271000060">
+    <p class="" pid="b.117.4/1" pwmotiontext="yes">I beg to move amendment 3, page 78, line 32, at end insert-</p>
+    <p class="" pid="b.117.4/2" pwmotiontext="yes">'(d) the marine ecosystem as a whole.'.</p>
+  </speech>
+  <speech colnum="125" id="uk.org.publicwhip/debate/2009-10-26b.125.4" nospeaker="true" time="021:45:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0020.htm#0910278000557">
+    <p pid="b.125.4/1" pwmotiontext="yes"><i> The House divided:</i> Ayes 158, Noes 246.</p>
+  </speech>
+  <division colnum="125" divdate="2009-10-26" divnumber="230" id="uk.org.publicwhip/debate/2009-10-26b.125.5" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0020.htm#0910278000552">
+    <divisioncount ayes="158" noes="246" tellerayes="2" tellernoes="2"/>
+    <mplist vote="aye">
+      <mpname id="uk.org.publicwhip/member/1929" vote="aye">Afriyie, Adam</mpname>
+      <mpname id="uk.org.publicwhip/member/1829" vote="aye">Amess, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1537" vote="aye">Ancram, rh Mr. Michael</mpname>
+      <mpname id="uk.org.publicwhip/member/1612" vote="aye">Arbuthnot, rh Mr. James</mpname>
+      <mpname id="uk.org.publicwhip/member/1635" vote="aye">Atkinson, Mr. Peter</mpname>
+      <mpname id="uk.org.publicwhip/member/1382" vote="aye">Baldry, Tony</mpname>
+      <mpname id="uk.org.publicwhip/member/1409" vote="aye">Baron, Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/1404" vote="aye">Beith, rh Sir Alan</mpname>
+      <mpname id="uk.org.publicwhip/member/1737" vote="aye">Bellingham, Mr. Henry</mpname>
+      <mpname id="uk.org.publicwhip/member/1727" vote="aye">Benyon, Mr. Richard</mpname>
+      <mpname id="uk.org.publicwhip/member/1742" vote="aye">Binley, Mr. Brian</mpname>
+      <mpname id="uk.org.publicwhip/member/1778" vote="aye">Blunt, Mr. Crispin</mpname>
+      <mpname id="uk.org.publicwhip/member/1915" vote="aye">Bone, Mr. Peter</mpname>
+      <mpname id="uk.org.publicwhip/member/1529" vote="aye">Boswell, Mr. Tim</mpname>
+      <mpname id="uk.org.publicwhip/member/1945" vote="aye">Bottomley, Peter</mpname>
+      <mpname id="uk.org.publicwhip/member/1479" vote="aye">Brazier, Mr. Julian</mpname>
+      <mpname id="uk.org.publicwhip/member/1640" vote="aye">Brokenshire, James</mpname>
+      <mpname id="uk.org.publicwhip/member/1546" vote="aye">Brooke, Annette</mpname>
+      <mpname id="uk.org.publicwhip/member/1876" vote="aye">Browning, Angela</mpname>
+      <mpname id="uk.org.publicwhip/member/1398" vote="aye">Burt, Alistair</mpname>
+      <mpname id="uk.org.publicwhip/member/1438" vote="aye">Butterfill, Sir John</mpname>
+      <mpname id="uk.org.publicwhip/member/1693" vote="aye">Campbell, Mr. Gregory</mpname>
+      <mpname id="uk.org.publicwhip/member/1844" vote="aye">Cash, Mr. William</mpname>
+      <mpname id="uk.org.publicwhip/member/1884" vote="aye">Clark, Greg</mpname>
+      <mpname id="uk.org.publicwhip/member/1963" vote="aye">Clark, Ms Katy</mpname>
+      <mpname id="uk.org.publicwhip/member/2028" vote="aye">Conway, Derek</mpname>
+      <mpname id="uk.org.publicwhip/member/1655" vote="aye">Corbyn, Jeremy</mpname>
+      <mpname id="uk.org.publicwhip/member/2022" vote="aye">Davies, Mr. Dai</mpname>
+      <mpname id="uk.org.publicwhip/member/1719" vote="aye">Davies, David T.C.  (Monmouth)</mpname>
+      <mpname id="uk.org.publicwhip/member/1816" vote="aye">Davies, Philip</mpname>
+      <mpname id="uk.org.publicwhip/member/2034" vote="aye">Davis, rh David</mpname>
+      <mpname id="uk.org.publicwhip/member/1649" vote="aye">Djanogly, Mr. Jonathan</mpname>
+      <mpname id="uk.org.publicwhip/member/1850" vote="aye">Drew, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1785" vote="aye">Duddridge, James</mpname>
+      <mpname id="uk.org.publicwhip/member/1696" vote="aye">Dunne, Mr. Philip</mpname>
+      <mpname id="uk.org.publicwhip/member/1685" vote="aye">Fabricant, Michael</mpname>
+      <mpname id="uk.org.publicwhip/member/1808" vote="aye">Fallon, Mr. Michael</mpname>
+      <mpname id="uk.org.publicwhip/member/1923" vote="aye">Farron, Tim</mpname>
+      <mpname id="uk.org.publicwhip/member/1615" vote="aye">Garnier, Mr. Edward</mpname>
+      <mpname id="uk.org.publicwhip/member/1633" vote="aye">Gauke, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1801" vote="aye">George, Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/1902" vote="aye">Gerrard, Mr. Neil</mpname>
+      <mpname id="uk.org.publicwhip/member/1804" vote="aye">Goodwill, Mr. Robert</mpname>
+      <mpname id="uk.org.publicwhip/member/1926" vote="aye">Gray, Mr. James</mpname>
+      <mpname id="uk.org.publicwhip/member/1379" vote="aye">Green, Damian</mpname>
+      <mpname id="uk.org.publicwhip/member/1771" vote="aye">Greening, Justine</mpname>
+      <mpname id="uk.org.publicwhip/member/1796" vote="aye">Greenway, Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/1394" vote="aye">Grieve, Mr. Dominic</mpname>
+      <mpname id="uk.org.publicwhip/member/1852" vote="aye">Gummer, rh Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/1793" vote="aye">Hammond, Mr. Philip</mpname>
+      <mpname id="uk.org.publicwhip/member/1927" vote="aye">Hammond, Stephen</mpname>
+      <mpname id="uk.org.publicwhip/member/1588" vote="aye">Harper, Mr. Mark</mpname>
+      <mpname id="uk.org.publicwhip/member/1825" vote="aye">Hayes, Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/1632" vote="aye">Heald, Mr. Oliver</mpname>
+      <mpname id="uk.org.publicwhip/member/1824" vote="aye">Heath, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1916" vote="aye">Heathcoat-Amory, rh Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1420" vote="aye">Hemming, John</mpname>
+      <mpname id="uk.org.publicwhip/member/1377" vote="aye">Herbert, Nick</mpname>
+      <mpname id="uk.org.publicwhip/member/1599" vote="aye">Holloway, Mr. Adam</mpname>
+      <mpname id="uk.org.publicwhip/member/1497" vote="aye">Holmes, Paul</mpname>
+      <mpname id="uk.org.publicwhip/member/1494" vote="aye">Horwood, Martin</mpname>
+      <mpname id="uk.org.publicwhip/member/1587" vote="aye">Howard, rh Mr. Michael</mpname>
+      <mpname id="uk.org.publicwhip/member/1369" vote="aye">Howarth, Mr. Gerald</mpname>
+      <mpname id="uk.org.publicwhip/member/2033" vote="aye">Howell, John</mpname>
+      <mpname id="uk.org.publicwhip/member/1565" vote="aye">Huhne, Chris</mpname>
+      <mpname id="uk.org.publicwhip/member/1859" vote="aye">Hunt, Mr. Jeremy</mpname>
+      <mpname id="uk.org.publicwhip/member/1792" vote="aye">Hurd, Mr. Nick</mpname>
+      <mpname id="uk.org.publicwhip/member/1759" vote="aye">Jackson, Mr. Stewart</mpname>
+      <mpname id="uk.org.publicwhip/member/1579" vote="aye">Jenkin, Mr. Bernard</mpname>
+      <mpname id="uk.org.publicwhip/member/1506" vote="aye">Jones, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1418" vote="aye">Jones, Lynne</mpname>
+      <mpname id="uk.org.publicwhip/member/1817" vote="aye">Kawczynski, Daniel</mpname>
+      <mpname id="uk.org.publicwhip/member/1803" vote="aye">Key, Robert</mpname>
+      <mpname id="uk.org.publicwhip/member/1460" vote="aye">Kirkbride, Miss Julie</mpname>
+      <mpname id="uk.org.publicwhip/member/1954" vote="aye">Knight, rh Mr. Greg</mpname>
+      <mpname id="uk.org.publicwhip/member/1783" vote="aye">Kramer, Susan</mpname>
+      <mpname id="uk.org.publicwhip/member/1395" vote="aye">Lait, Mrs. Jacqui</mpname>
+      <mpname id="uk.org.publicwhip/member/1715" vote="aye">Lancaster, Mr. Mark</mpname>
+      <mpname id="uk.org.publicwhip/member/1707" vote="aye">Leech, Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/1549" vote="aye">Letwin, rh Mr. Oliver</mpname>
+      <mpname id="uk.org.publicwhip/member/1724" vote="aye">Lewis, Dr. Julian</mpname>
+      <mpname id="uk.org.publicwhip/member/1451" vote="aye">Liddell-Grainger, Mr. Ian</mpname>
+      <mpname id="uk.org.publicwhip/member/1381" vote="aye">Lidington, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1638" vote="aye">Lilley, rh Mr. Peter</mpname>
+      <mpname id="uk.org.publicwhip/member/1944" vote="aye">Loughton, Tim</mpname>
+      <mpname id="uk.org.publicwhip/member/1439" vote="aye">Mackay, rh Mr. Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/1798" vote="aye">Main, Anne</mpname>
+      <mpname id="uk.org.publicwhip/member/1933" vote="aye">Malins, Mr. Humfrey</mpname>
+      <mpname id="uk.org.publicwhip/member/1847" vote="aye">Maples, Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/1709" vote="aye">Marshall-Andrews, Mr. Robert</mpname>
+      <mpname id="uk.org.publicwhip/member/1700" vote="aye">May, rh Mrs. Theresa</mpname>
+      <mpname id="uk.org.publicwhip/member/1624" vote="aye">McDonnell, John</mpname>
+      <mpname id="uk.org.publicwhip/member/1896" vote="aye">McIntosh, Miss Anne</mpname>
+      <mpname id="uk.org.publicwhip/member/1536" vote="aye">McLoughlin, rh Mr. Patrick</mpname>
+      <mpname id="uk.org.publicwhip/member/1726" vote="aye">Mercer, Patrick</mpname>
+      <mpname id="uk.org.publicwhip/member/1389" vote="aye">Miller, Mrs. Maria</mpname>
+      <mpname id="uk.org.publicwhip/member/1603" vote="aye">Milton, Anne</mpname>
+      <mpname id="uk.org.publicwhip/member/1862" vote="aye">Mitchell, Mr. Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/1672" vote="aye">Mulholland, Greg</mpname>
+      <mpname id="uk.org.publicwhip/member/1970" vote="aye">Mundell, David</mpname>
+      <mpname id="uk.org.publicwhip/member/1922" vote="aye">Murrison, Dr. Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/2023" vote="aye">Neill, Robert</mpname>
+      <mpname id="uk.org.publicwhip/member/1720" vote="aye">&#214;pik, Lembit</mpname>
+      <mpname id="uk.org.publicwhip/member/1524" vote="aye">Ottaway, Richard</mpname>
+      <mpname id="uk.org.publicwhip/member/1477" vote="aye">Paice, Mr. James</mpname>
+      <mpname id="uk.org.publicwhip/member/1818" vote="aye">Paterson, Mr. Owen</mpname>
+      <mpname id="uk.org.publicwhip/member/2036" vote="aye">Pelling, Mr. Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/1924" vote="aye">Penrose, John</mpname>
+      <mpname id="uk.org.publicwhip/member/1631" vote="aye">Prisk, Mr. Mark</mpname>
+      <mpname id="uk.org.publicwhip/member/1946" vote="aye">Pritchard, Mark</mpname>
+      <mpname id="uk.org.publicwhip/member/1893" vote="aye">Randall, Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/1960" vote="aye">Reid, Mr. Alan</mpname>
+      <mpname id="uk.org.publicwhip/member/1607" vote="aye">Riordan, Mrs. Linda</mpname>
+      <mpname id="uk.org.publicwhip/member/1422" vote="aye">Robathan, Mr. Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/1583" vote="aye">Robertson, Hugh</mpname>
+      <mpname id="uk.org.publicwhip/member/1872" vote="aye">Robertson, Mr. Laurence</mpname>
+      <mpname id="uk.org.publicwhip/member/1513" vote="aye">Rogerson, Dan</mpname>
+      <mpname id="uk.org.publicwhip/member/1786" vote="aye">Rosindell, Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/1784" vote="aye">Rowen, Paul</mpname>
+      <mpname id="uk.org.publicwhip/member/1468" vote="aye">Ruffley, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1507" vote="aye">Russell, Bob</mpname>
+      <mpname id="uk.org.publicwhip/member/1879" vote="aye">Sanders, Mr. Adrian</mpname>
+      <mpname id="uk.org.publicwhip/member/1399" vote="aye">Selous, Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/1917" vote="aye">Shapps, Grant</mpname>
+      <mpname id="uk.org.publicwhip/member/1435" vote="aye">Simmonds, Mark</mpname>
+      <mpname id="uk.org.publicwhip/member/1735" vote="aye">Simpson, Mr. Keith</mpname>
+      <mpname id="uk.org.publicwhip/member/40032" vote="aye">Smith, Chloe</mpname>
+      <mpname id="uk.org.publicwhip/member/1957" vote="aye">Smith, Sir Robert</mpname>
+      <mpname id="uk.org.publicwhip/member/1854" vote="aye">Spring, Mr. Richard</mpname>
+      <mpname id="uk.org.publicwhip/member/1540" vote="aye">Streeter, Mr. Gary</mpname>
+      <mpname id="uk.org.publicwhip/member/1725" vote="aye">Swayne, Mr. Desmond</mpname>
+      <mpname id="uk.org.publicwhip/member/1764" vote="aye">Syms, Mr. Robert</mpname>
+      <mpname id="uk.org.publicwhip/member/1677" vote="aye">Taylor, David</mpname>
+      <mpname id="uk.org.publicwhip/member/1949" vote="aye">Taylor, Dr. Richard</mpname>
+      <mpname id="uk.org.publicwhip/member/1445" vote="aye">Teather, Sarah</mpname>
+      <mpname id="uk.org.publicwhip/member/1966" vote="aye">Thurso, John</mpname>
+      <mpname id="uk.org.publicwhip/member/2032" vote="aye">Timpson, Mr. Edward</mpname>
+      <mpname id="uk.org.publicwhip/member/1770" vote="aye">Truswell, Mr. Paul</mpname>
+      <mpname id="uk.org.publicwhip/member/1905" vote="aye">Vaizey, Mr. Edward</mpname>
+      <mpname id="uk.org.publicwhip/member/1475" vote="aye">Vara, Mr. Shailesh</mpname>
+      <mpname id="uk.org.publicwhip/member/1596" vote="aye">Viggers, Sir Peter</mpname>
+      <mpname id="uk.org.publicwhip/member/1500" vote="aye">Villiers, Mrs. Theresa</mpname>
+      <mpname id="uk.org.publicwhip/member/1461" vote="aye">Walker, Mr. Charles</mpname>
+      <mpname id="uk.org.publicwhip/member/1668" vote="aye">Wallace, Mr. Ben</mpname>
+      <mpname id="uk.org.publicwhip/member/1842" vote="aye">Walley, Joan</mpname>
+      <mpname id="uk.org.publicwhip/member/1564" vote="aye">Waterson, Mr. Nigel</mpname>
+      <mpname id="uk.org.publicwhip/member/1891" vote="aye">Watkinson, Angela</mpname>
+      <mpname id="uk.org.publicwhip/member/1703" vote="aye">Whittingdale, Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/1701" vote="aye">Widdecombe, rh Miss Ann</mpname>
+      <mpname id="uk.org.publicwhip/member/1679" vote="aye">Wiggin, Bill</mpname>
+      <mpname id="uk.org.publicwhip/member/1623" vote="aye">Willetts, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1489" vote="aye">Williams, Mark</mpname>
+      <mpname id="uk.org.publicwhip/member/1773" vote="aye">Wilson, Mr. Rob</mpname>
+      <mpname id="uk.org.publicwhip/member/1509" vote="aye">Winterton, Ann</mpname>
+      <mpname id="uk.org.publicwhip/member/1699" vote="aye">Winterton, Sir Nicholas</mpname>
+      <mpname id="uk.org.publicwhip/member/1791" vote="aye">Wright, Jeremy</mpname>
+      <mpname id="uk.org.publicwhip/member/1853" vote="aye">Yeo, Mr. Tim</mpname>
+      <mpname id="uk.org.publicwhip/member/1870" vote="aye">Younger-Ross, Richard</mpname>
+      <mpname id="uk.org.publicwhip/member/1661" teller="yes" vote="aye">Mr. Philip Hollobone</mpname>
+      <mpname id="uk.org.publicwhip/member/1406" teller="yes" vote="aye">Mr. Graham Stuart</mpname>
+    </mplist>
+    <mplist vote="no">
+      <mpname id="uk.org.publicwhip/member/1604" vote="no">Abbott, Ms Diane</mpname>
+      <mpname id="uk.org.publicwhip/member/1486" vote="no">Ainger, Nick</mpname>
+      <mpname id="uk.org.publicwhip/member/1747" vote="no">Allen, Mr. Graham</mpname>
+      <mpname id="uk.org.publicwhip/member/1427" vote="no">Anderson, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1788" vote="no">Anderson, Janet</mpname>
+      <mpname id="uk.org.publicwhip/member/1557" vote="no">Armstrong, rh Hilary</mpname>
+      <mpname id="uk.org.publicwhip/member/1834" vote="no">Atkins, Charlotte</mpname>
+      <mpname id="uk.org.publicwhip/member/1577" vote="no">Austin, John</mpname>
+      <mpname id="uk.org.publicwhip/member/1920" vote="no">Bailey, Mr. Adrian</mpname>
+      <mpname id="uk.org.publicwhip/member/1775" vote="no">Baird, Vera</mpname>
+      <mpname id="uk.org.publicwhip/member/2005" vote="no">Banks, Gordon</mpname>
+      <mpname id="uk.org.publicwhip/member/1644" vote="no">Barlow, Ms Celia</mpname>
+      <mpname id="uk.org.publicwhip/member/1789" vote="no">Barron, rh Mr. Kevin</mpname>
+      <mpname id="uk.org.publicwhip/member/1533" vote="no">Beckett, rh Margaret</mpname>
+      <mpname id="uk.org.publicwhip/member/1669" vote="no">Benn, rh Hilary</mpname>
+      <mpname id="uk.org.publicwhip/member/1434" vote="no">Benton, Mr. Joe</mpname>
+      <mpname id="uk.org.publicwhip/member/1663" vote="no">Berry, Roger</mpname>
+      <mpname id="uk.org.publicwhip/member/1809" vote="no">Betts, Mr. Clive</mpname>
+      <mpname id="uk.org.publicwhip/member/1576" vote="no">Blackman, Liz</mpname>
+      <mpname id="uk.org.publicwhip/member/1558" vote="no">Blackman-Woods, Dr. Roberta</mpname>
+      <mpname id="uk.org.publicwhip/member/1802" vote="no">Blears, rh Hazel</mpname>
+      <mpname id="uk.org.publicwhip/member/1912" vote="no">Blizzard, Mr. Bob</mpname>
+      <mpname id="uk.org.publicwhip/member/1780" vote="no">Borrow, Mr. David S.</mpname>
+      <mpname id="uk.org.publicwhip/member/1483" vote="no">Brennan, Kevin</mpname>
+      <mpname id="uk.org.publicwhip/member/1921" vote="no">Brown, Lyn</mpname>
+      <mpname id="uk.org.publicwhip/member/1730" vote="no">Brown, rh Mr. Nicholas</mpname>
+      <mpname id="uk.org.publicwhip/member/1969" vote="no">Brown, Mr. Russell</mpname>
+      <mpname id="uk.org.publicwhip/member/1777" vote="no">Buck, Ms Karen</mpname>
+      <mpname id="uk.org.publicwhip/member/1570" vote="no">Burgon, Colin</mpname>
+      <mpname id="uk.org.publicwhip/member/1678" vote="no">Burnham, rh Andy</mpname>
+      <mpname id="uk.org.publicwhip/member/1447" vote="no">Butler, Ms Dawn</mpname>
+      <mpname id="uk.org.publicwhip/member/1414" vote="no">Byrne, rh Mr. Liam</mpname>
+      <mpname id="uk.org.publicwhip/member/1811" vote="no">Caborn, rh Mr. Richard</mpname>
+      <mpname id="uk.org.publicwhip/member/1994" vote="no">Cairns, David</mpname>
+      <mpname id="uk.org.publicwhip/member/1887" vote="no">Campbell, Mr. Alan</mpname>
+      <mpname id="uk.org.publicwhip/member/1597" vote="no">Caton, Mr. Martin</mpname>
+      <mpname id="uk.org.publicwhip/member/1452" vote="no">Cawsey, Mr. Ian</mpname>
+      <mpname id="uk.org.publicwhip/member/1930" vote="no">Chapman, Ben</mpname>
+      <mpname id="uk.org.publicwhip/member/1466" vote="no">Chaytor, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1386" vote="no">Clapham, Mr. Michael</mpname>
+      <mpname id="uk.org.publicwhip/member/1594" vote="no">Clark, Paul</mpname>
+      <mpname id="uk.org.publicwhip/member/1745" vote="no">Clarke, rh Mr. Charles</mpname>
+      <mpname id="uk.org.publicwhip/member/1967" vote="no">Clarke, rh Mr. Tom</mpname>
+      <mpname id="uk.org.publicwhip/member/1886" vote="no">Clelland, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1525" vote="no">Clwyd, rh Ann</mpname>
+      <mpname id="uk.org.publicwhip/member/1593" vote="no">Coaker, Mr. Vernon</mpname>
+      <mpname id="uk.org.publicwhip/member/1838" vote="no">Coffey, Ann</mpname>
+      <mpname id="uk.org.publicwhip/member/1999" vote="no">Connarty, Michael</mpname>
+      <mpname id="uk.org.publicwhip/member/1839" vote="no">Cook, Frank</mpname>
+      <mpname id="uk.org.publicwhip/member/1762" vote="no">Cooper, rh Yvette</mpname>
+      <mpname id="uk.org.publicwhip/member/1729" vote="no">Cousins, Jim</mpname>
+      <mpname id="uk.org.publicwhip/member/1431" vote="no">Crausby, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1898" vote="no">Creagh, Mary</mpname>
+      <mpname id="uk.org.publicwhip/member/1526" vote="no">Cruddas, Jon</mpname>
+      <mpname id="uk.org.publicwhip/member/1659" vote="no">Cryer, Mrs. Ann</mpname>
+      <mpname id="uk.org.publicwhip/member/1562" vote="no">Cummings, John</mpname>
+      <mpname id="uk.org.publicwhip/member/1518" vote="no">Cunningham, Mr. Jim</mpname>
+      <mpname id="uk.org.publicwhip/member/1942" vote="no">Cunningham, Tony</mpname>
+      <mpname id="uk.org.publicwhip/member/1470" vote="no">David, Mr. Wayne</mpname>
+      <mpname id="uk.org.publicwhip/member/1465" vote="no">Dean, Mrs. Janet</mpname>
+      <mpname id="uk.org.publicwhip/member/1827" vote="no">Denham, rh Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/1595" vote="no">Dhanda, Mr. Parmjit</mpname>
+      <mpname id="uk.org.publicwhip/member/1628" vote="no">Dismore, Mr. Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/1636" vote="no">Dobbin, Jim</mpname>
+      <mpname id="uk.org.publicwhip/member/1639" vote="no">Dobson, rh Frank</mpname>
+      <mpname id="uk.org.publicwhip/member/1962" vote="no">Donohoe, Mr. Brian H.</mpname>
+      <mpname id="uk.org.publicwhip/member/1955" vote="no">Doran, Mr. Frank</mpname>
+      <mpname id="uk.org.publicwhip/member/1899" vote="no">Eagle, Angela</mpname>
+      <mpname id="uk.org.publicwhip/member/1687" vote="no">Eagle, Maria</mpname>
+      <mpname id="uk.org.publicwhip/member/1571" vote="no">Efford, Clive</mpname>
+      <mpname id="uk.org.publicwhip/member/1688" vote="no">Ellman, Mrs. Louise</mpname>
+      <mpname id="uk.org.publicwhip/member/1534" vote="no">Engel, Natascha</mpname>
+      <mpname id="uk.org.publicwhip/member/1385" vote="no">Ennis, Jeff</mpname>
+      <mpname id="uk.org.publicwhip/member/1855" vote="no">Etherington, Bill</mpname>
+      <mpname id="uk.org.publicwhip/member/1728" vote="no">Farrelly, Paul</mpname>
+      <mpname id="uk.org.publicwhip/member/1765" vote="no">Fitzpatrick, Jim</mpname>
+      <mpname id="uk.org.publicwhip/member/1843" vote="no">Flello, Mr. Robert</mpname>
+      <mpname id="uk.org.publicwhip/member/1543" vote="no">Flint, rh Caroline</mpname>
+      <mpname id="uk.org.publicwhip/member/1733" vote="no">Flynn, Paul</mpname>
+      <mpname id="uk.org.publicwhip/member/1837" vote="no">Follett, Barbara</mpname>
+      <mpname id="uk.org.publicwhip/member/1939" vote="no">Foster, Mr. Michael  (Worcester)</mpname>
+      <mpname id="uk.org.publicwhip/member/1368" vote="no">Francis, Dr. Hywel</mpname>
+      <mpname id="uk.org.publicwhip/member/1901" vote="no">George, rh Mr. Bruce</mpname>
+      <mpname id="uk.org.publicwhip/member/1761" vote="no">Gilroy, Linda</mpname>
+      <mpname id="uk.org.publicwhip/member/1421" vote="no">Goodman, Helen</mpname>
+      <mpname id="uk.org.publicwhip/member/1980" vote="no">Griffiths, Nigel</mpname>
+      <mpname id="uk.org.publicwhip/member/1531" vote="no">Gwynne, Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/1723" vote="no">Hain, rh Mr. Peter</mpname>
+      <mpname id="uk.org.publicwhip/member/1914" vote="no">Hall, Mr. Mike</mpname>
+      <mpname id="uk.org.publicwhip/member/1396" vote="no">Hall, Patrick</mpname>
+      <mpname id="uk.org.publicwhip/member/2001" vote="no">Hamilton, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1530" vote="no">Hanson, rh Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1472" vote="no">Harman, rh Ms Harriet</mpname>
+      <mpname id="uk.org.publicwhip/member/1990" vote="no">Harris, Mr. Tom</mpname>
+      <mpname id="uk.org.publicwhip/member/1712" vote="no">Havard, Mr. Dai</mpname>
+      <mpname id="uk.org.publicwhip/member/1918" vote="no">Healey, rh John</mpname>
+      <mpname id="uk.org.publicwhip/member/1731" vote="no">Henderson, Mr. Doug</mpname>
+      <mpname id="uk.org.publicwhip/member/1746" vote="no">Heppell, Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/1931" vote="no">Hesford, Stephen</mpname>
+      <mpname id="uk.org.publicwhip/member/1676" vote="no">Hewitt, rh Ms Patricia</mpname>
+      <mpname id="uk.org.publicwhip/member/1380" vote="no">Heyes, David</mpname>
+      <mpname id="uk.org.publicwhip/member/1848" vote="no">Hill, rh Keith</mpname>
+      <mpname id="uk.org.publicwhip/member/1592" vote="no">Hodgson, Mrs. Sharon</mpname>
+      <mpname id="uk.org.publicwhip/member/1378" vote="no">Hoon, rh Mr. Geoffrey</mpname>
+      <mpname id="uk.org.publicwhip/member/1512" vote="no">Hope, Phil</mpname>
+      <mpname id="uk.org.publicwhip/member/1664" vote="no">Howarth, rh Mr. George</mpname>
+      <mpname id="uk.org.publicwhip/member/1763" vote="no">Howells, rh Dr. Kim</mpname>
+      <mpname id="uk.org.publicwhip/member/1501" vote="no">Hoyle, Mr. Lindsay</mpname>
+      <mpname id="uk.org.publicwhip/member/1424" vote="no">Humble, Mrs. Joan</mpname>
+      <mpname id="uk.org.publicwhip/member/1432" vote="no">Iddon, Dr. Brian</mpname>
+      <mpname id="uk.org.publicwhip/member/1976" vote="no">Ingram, rh Mr. Adam</mpname>
+      <mpname id="uk.org.publicwhip/member/1750" vote="no">Irranca-Davies, Huw</mpname>
+      <mpname id="uk.org.publicwhip/member/1863" vote="no">James, Mrs. Si&#226;n C.</mpname>
+      <mpname id="uk.org.publicwhip/member/1867" vote="no">Jenkins, Mr. Brian</mpname>
+      <mpname id="uk.org.publicwhip/member/1648" vote="no">Johnson, rh Alan</mpname>
+      <mpname id="uk.org.publicwhip/member/1647" vote="no">Johnson, Ms Diana R.</mpname>
+      <mpname id="uk.org.publicwhip/member/1556" vote="no">Jones, Mr. Kevan</mpname>
+      <mpname id="uk.org.publicwhip/member/1505" vote="no">Jones, Mr. Martyn</mpname>
+      <mpname id="uk.org.publicwhip/member/1555" vote="no">Jowell, rh Tessa</mpname>
+      <mpname id="uk.org.publicwhip/member/1983" vote="no">Joyce, Mr. Eric</mpname>
+      <mpname id="uk.org.publicwhip/member/1706" vote="no">Kaufman, rh Sir Gerald</mpname>
+      <mpname id="uk.org.publicwhip/member/1741" vote="no">Keeble, Ms Sally</mpname>
+      <mpname id="uk.org.publicwhip/member/1943" vote="no">Keeley, Barbara</mpname>
+      <mpname id="uk.org.publicwhip/member/1584" vote="no">Keen, Alan</mpname>
+      <mpname id="uk.org.publicwhip/member/1448" vote="no">Keen, Ann</mpname>
+      <mpname id="uk.org.publicwhip/member/1643" vote="no">Kemp, Mr. Fraser</mpname>
+      <mpname id="uk.org.publicwhip/member/1878" vote="no">Khan, rh Mr. Sadiq</mpname>
+      <mpname id="uk.org.publicwhip/member/1833" vote="no">Kidney, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1689" vote="no">Kilfoyle, Mr. Peter</mpname>
+      <mpname id="uk.org.publicwhip/member/1548" vote="no">Knight, rh Jim</mpname>
+      <mpname id="uk.org.publicwhip/member/1714" vote="no">Kumar, Dr. Ashok</mpname>
+      <mpname id="uk.org.publicwhip/member/1874" vote="no">Ladyman, Dr. Stephen</mpname>
+      <mpname id="uk.org.publicwhip/member/1882" vote="no">Lammy, rh Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1532" vote="no">Laxton, Mr. Bob</mpname>
+      <mpname id="uk.org.publicwhip/member/1979" vote="no">Lazarowicz, Mark</mpname>
+      <mpname id="uk.org.publicwhip/member/1454" vote="no">Lepper, David</mpname>
+      <mpname id="uk.org.publicwhip/member/1467" vote="no">Lewis, Mr. Ivan</mpname>
+      <mpname id="uk.org.publicwhip/member/1393" vote="no">Linton, Martin</mpname>
+      <mpname id="uk.org.publicwhip/member/1705" vote="no">Lloyd, Tony</mpname>
+      <mpname id="uk.org.publicwhip/member/1947" vote="no">Lucas, Ian</mpname>
+      <mpname id="uk.org.publicwhip/member/2004" vote="no">MacNeil, Mr. Angus</mpname>
+      <mpname id="uk.org.publicwhip/member/1542" vote="no">Malik, Mr. Shahid</mpname>
+      <mpname id="uk.org.publicwhip/member/1373" vote="no">Mallaber, Judy</mpname>
+      <mpname id="uk.org.publicwhip/member/1390" vote="no">Mann, John</mpname>
+      <mpname id="uk.org.publicwhip/member/1937" vote="no">Marris, Rob</mpname>
+      <mpname id="uk.org.publicwhip/member/1425" vote="no">Marsden, Mr. Gordon</mpname>
+      <mpname id="uk.org.publicwhip/member/1484" vote="no">Martlew, Mr. Eric</mpname>
+      <mpname id="uk.org.publicwhip/member/2012" vote="no">McAvoy, rh Mr. Thomas</mpname>
+      <mpname id="uk.org.publicwhip/member/1471" vote="no">McCafferty, Chris</mpname>
+      <mpname id="uk.org.publicwhip/member/1455" vote="no">McCarthy, Kerry</mpname>
+      <mpname id="uk.org.publicwhip/member/1766" vote="no">McCarthy-Fry, Sarah</mpname>
+      <mpname id="uk.org.publicwhip/member/1717" vote="no">McDonagh, Siobhain</mpname>
+      <mpname id="uk.org.publicwhip/member/1936" vote="no">McFadden, rh Mr. Pat</mpname>
+      <mpname id="uk.org.publicwhip/member/1972" vote="no">McFall, rh John</mpname>
+      <mpname id="uk.org.publicwhip/member/1974" vote="no">McGovern, Mr. Jim</mpname>
+      <mpname id="uk.org.publicwhip/member/1504" vote="no">McIsaac, Shona</mpname>
+      <mpname id="uk.org.publicwhip/member/1987" vote="no">McKechin, Ann</mpname>
+      <mpname id="uk.org.publicwhip/member/1968" vote="no">McKenna, Rosemary</mpname>
+      <mpname id="uk.org.publicwhip/member/1708" vote="no">Meale, Mr. Alan</mpname>
+      <mpname id="uk.org.publicwhip/member/1686" vote="no">Merron, Gillian</mpname>
+      <mpname id="uk.org.publicwhip/member/1482" vote="no">Michael, rh Alun</mpname>
+      <mpname id="uk.org.publicwhip/member/1545" vote="no">Miliband, rh Edward</mpname>
+      <mpname id="uk.org.publicwhip/member/1569" vote="no">Miller, Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/1977" vote="no">Moffat, Anne</mpname>
+      <mpname id="uk.org.publicwhip/member/1519" vote="no">Moffatt, Laura</mpname>
+      <mpname id="uk.org.publicwhip/member/1653" vote="no">Mole, Chris</mpname>
+      <mpname id="uk.org.publicwhip/member/1450" vote="no">Moon, Mrs. Madeleine</mpname>
+      <mpname id="uk.org.publicwhip/member/1732" vote="no">Morden, Jessica</mpname>
+      <mpname id="uk.org.publicwhip/member/1481" vote="no">Morgan, Julie</mpname>
+      <mpname id="uk.org.publicwhip/member/1805" vote="no">Morley, rh Mr. Elliot</mpname>
+      <mpname id="uk.org.publicwhip/member/1670" vote="no">Mudie, Mr. George</mpname>
+      <mpname id="uk.org.publicwhip/member/1856" vote="no">Mullin, Mr. Chris</mpname>
+      <mpname id="uk.org.publicwhip/member/1813" vote="no">Munn, Meg</mpname>
+      <mpname id="uk.org.publicwhip/member/1880" vote="no">Murphy, rh Mr. Paul</mpname>
+      <mpname id="uk.org.publicwhip/member/1456" vote="no">Naysmith, Dr. Doug</mpname>
+      <mpname id="uk.org.publicwhip/member/1904" vote="no">Norris, Dan</mpname>
+      <mpname id="uk.org.publicwhip/member/1910" vote="no">O'Brien, rh Mr. Mike</mpname>
+      <mpname id="uk.org.publicwhip/member/1665" vote="no">O'Hara, Mr. Edward</mpname>
+      <mpname id="uk.org.publicwhip/member/1952" vote="no">Owen, Albert</mpname>
+      <mpname id="uk.org.publicwhip/member/1462" vote="no">Palmer, Dr. Nick</mpname>
+      <mpname id="uk.org.publicwhip/member/1554" vote="no">Pearson, Ian</mpname>
+      <mpname id="uk.org.publicwhip/member/1909" vote="no">Plaskitt, Mr. James</mpname>
+      <mpname id="uk.org.publicwhip/member/1560" vote="no">Pound, Stephen</mpname>
+      <mpname id="uk.org.publicwhip/member/1682" vote="no">Prentice, Bridget</mpname>
+      <mpname id="uk.org.publicwhip/member/1646" vote="no">Prescott, rh Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/1457" vote="no">Primarolo, rh Dawn</mpname>
+      <mpname id="uk.org.publicwhip/member/1550" vote="no">Prosser, Gwyn</mpname>
+      <mpname id="uk.org.publicwhip/member/1935" vote="no">Purchase, Mr. Ken</mpname>
+      <mpname id="uk.org.publicwhip/member/1616" vote="no">Rammell, Bill</mpname>
+      <mpname id="uk.org.publicwhip/member/1602" vote="no">Raynsford, rh Mr. Nick</mpname>
+      <mpname id="uk.org.publicwhip/member/1694" vote="no">Reed, Mr. Andy</mpname>
+      <mpname id="uk.org.publicwhip/member/1958" vote="no">Reid, rh John</mpname>
+      <mpname id="uk.org.publicwhip/member/2002" vote="no">Robertson, Angus</mpname>
+      <mpname id="uk.org.publicwhip/member/1989" vote="no">Robertson, John</mpname>
+      <mpname id="uk.org.publicwhip/member/1517" vote="no">Robinson, Mr. Geoffrey</mpname>
+      <mpname id="uk.org.publicwhip/member/1440" vote="no">Rooney, Mr. Terry</mpname>
+      <mpname id="uk.org.publicwhip/member/2037" vote="no">Roy, Lindsay</mpname>
+      <mpname id="uk.org.publicwhip/member/1894" vote="no">Ruane, Chris</mpname>
+      <mpname id="uk.org.publicwhip/member/1681" vote="no">Ruddock, Joan</mpname>
+      <mpname id="uk.org.publicwhip/member/1496" vote="no">Russell, Christine</mpname>
+      <mpname id="uk.org.publicwhip/member/1572" vote="no">Ryan, rh Joan</mpname>
+      <mpname id="uk.org.publicwhip/member/1491" vote="no">Shaw, Jonathan</mpname>
+      <mpname id="uk.org.publicwhip/member/2007" vote="no">Sheridan, Jim</mpname>
+      <mpname id="uk.org.publicwhip/member/1412" vote="no">Simon, Mr. Si&#244;n</mpname>
+      <mpname id="uk.org.publicwhip/member/1430" vote="no">Skinner, Mr. Dennis</mpname>
+      <mpname id="uk.org.publicwhip/member/1559" vote="no">Slaughter, Mr. Andy</mpname>
+      <mpname id="uk.org.publicwhip/member/1755" vote="no">Smith, rh Mr. Andrew</mpname>
+      <mpname id="uk.org.publicwhip/member/1814" vote="no">Smith, Ms Angela C.  (Sheffield, Hillsborough)</mpname>
+      <mpname id="uk.org.publicwhip/member/1388" vote="no">Smith, rh Angela E.  (Basildon)</mpname>
+      <mpname id="uk.org.publicwhip/member/1721" vote="no">Smith, Geraldine</mpname>
+      <mpname id="uk.org.publicwhip/member/1776" vote="no">Smith, rh Jacqui</mpname>
+      <mpname id="uk.org.publicwhip/member/1866" vote="no">Snelgrove, Anne</mpname>
+      <mpname id="uk.org.publicwhip/member/1908" vote="no">Southworth, Helen</mpname>
+      <mpname id="uk.org.publicwhip/member/1906" vote="no">Spellar, rh Mr. John</mpname>
+      <mpname id="uk.org.publicwhip/member/2038" vote="no">Spink, Bob</mpname>
+      <mpname id="uk.org.publicwhip/member/1716" vote="no">Starkey, Dr. Phyllis</mpname>
+      <mpname id="uk.org.publicwhip/member/1566" vote="no">Stewart, Ian</mpname>
+      <mpname id="uk.org.publicwhip/member/1423" vote="no">Straw, rh Mr. Jack</mpname>
+      <mpname id="uk.org.publicwhip/member/1441" vote="no">Sutcliffe, Mr. Gerry</mpname>
+      <mpname id="uk.org.publicwhip/member/1372" vote="no">Tami, Mark</mpname>
+      <mpname id="uk.org.publicwhip/member/1619" vote="no">Thomas, Mr. Gareth</mpname>
+      <mpname id="uk.org.publicwhip/member/1656" vote="no">Thornberry, Emily</mpname>
+      <mpname id="uk.org.publicwhip/member/1563" vote="no">Timms, rh Mr. Stephen</mpname>
+      <mpname id="uk.org.publicwhip/member/1815" vote="no">Tipping, Paddy</mpname>
+      <mpname id="uk.org.publicwhip/member/1535" vote="no">Todd, Mr. Mark</mpname>
+      <mpname id="uk.org.publicwhip/member/1657" vote="no">Touhig, rh Mr. Don</mpname>
+      <mpname id="uk.org.publicwhip/member/1627" vote="no">Trickett, Jon</mpname>
+      <mpname id="uk.org.publicwhip/member/1453" vote="no">Turner, Dr. Desmond</mpname>
+      <mpname id="uk.org.publicwhip/member/1609" vote="no">Twigg, Derek</mpname>
+      <mpname id="uk.org.publicwhip/member/1464" vote="no">Ussher, Kitty</mpname>
+      <mpname id="uk.org.publicwhip/member/1586" vote="no">Vis, Dr. Rudi</mpname>
+      <mpname id="uk.org.publicwhip/member/1845" vote="no">Waltho, Lynda</mpname>
+      <mpname id="uk.org.publicwhip/member/1911" vote="no">Ward, Claire</mpname>
+      <mpname id="uk.org.publicwhip/member/1919" vote="no">Watson, Mr. Tom</mpname>
+      <mpname id="uk.org.publicwhip/member/1799" vote="no">Watts, Mr. Dave</mpname>
+      <mpname id="uk.org.publicwhip/member/1523" vote="no">Wicks, rh Malcolm</mpname>
+      <mpname id="uk.org.publicwhip/member/1510" vote="no">Williams, Mrs. Betty</mpname>
+      <mpname id="uk.org.publicwhip/member/1865" vote="no">Wills, rh Mr. Michael</mpname>
+      <mpname id="uk.org.publicwhip/member/2026" vote="no">Wilson, Phil</mpname>
+      <mpname id="uk.org.publicwhip/member/1900" vote="no">Winnick, Mr. David</mpname>
+      <mpname id="uk.org.publicwhip/member/1544" vote="no">Winterton, rh Ms Rosie</mpname>
+      <mpname id="uk.org.publicwhip/member/2009" vote="no">Wishart, Pete</mpname>
+      <mpname id="uk.org.publicwhip/member/1752" vote="no">Woolas, Mr. Phil</mpname>
+      <mpname id="uk.org.publicwhip/member/1871" vote="no">Wright, David</mpname>
+      <mpname id="uk.org.publicwhip/member/1478" vote="no">Wright, Dr. Tony</mpname>
+      <mpname id="uk.org.publicwhip/member/1819" vote="no">Wyatt, Derek</mpname>
+      <mpname id="uk.org.publicwhip/member/1907" teller="yes" vote="no">Helen Jones</mpname>
+      <mpname id="uk.org.publicwhip/member/1413" teller="yes" vote="no">Steve McCabe</mpname>
+    </mplist>
+  </division>
+  <minor-heading colnum="128" id="uk.org.publicwhip/debate/2009-10-26b.128.0" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000010">
+	Clause 141
+	 &#8212; 
+	Exceptions to offences under section 139 or 140
+</minor-heading>
+  <minor-heading colnum="128" id="uk.org.publicwhip/debate/2009-10-26b.128.2" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000011">
+	Schedule 13
+	 &#8212; 
+	Marine boundaries of SSSIs and national nature reserves
+</minor-heading>
+  <minor-heading colnum="129" id="uk.org.publicwhip/debate/2009-10-26b.129.0" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000012">
+	Schedule 16
+	 &#8212; 
+	Migratory and freshwater fish: consequential and supplementary amendments
+</minor-heading>
+  <minor-heading colnum="129" id="uk.org.publicwhip/debate/2009-10-26b.129.2" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000001">
+	Business without Debate
+</minor-heading>
+  <major-heading colnum="129" id="uk.org.publicwhip/debate/2009-10-26b.129.3" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000003">
+	DELEGATED LEGISLATION
+</major-heading>
+  <minor-heading colnum="129" id="uk.org.publicwhip/debate/2009-10-26b.129.5" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000013">
+	Environmental Protection
+</minor-heading>
+  <minor-heading colnum="129" id="uk.org.publicwhip/debate/2009-10-26b.129.7" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000014">
+	Northern Ireland
+</minor-heading>
+  <minor-heading colnum="129" id="uk.org.publicwhip/debate/2009-10-26b.129.9" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000015">
+	Northern Ireland
+</minor-heading>
+  <major-heading colnum="129" id="uk.org.publicwhip/debate/2009-10-26b.129.11" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000004">
+	DELEGATED LEGISLATION
+</major-heading>
+  <major-heading colnum="130" id="uk.org.publicwhip/debate/2009-10-26b.130.0" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000005">
+	SITTINGS OF THE HOUSE
+</major-heading>
+  <major-heading colnum="130" id="uk.org.publicwhip/debate/2009-10-26b.130.2" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000006">
+	REGIONAL SELECT COMMITTEE (WEST MIDLANDS)
+</major-heading>
+  <major-heading colnum="130" id="uk.org.publicwhip/debate/2009-10-26b.130.5" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000007">
+	REGIONAL SELECT COMMITTEE (YORKSHIRE AND THE HUMBER)
+</major-heading>
+  <major-heading colnum="130" id="uk.org.publicwhip/debate/2009-10-26b.130.8" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000008">
+	REGIONAL SELECT COMMITTEE (SOUTH WEST)
+</major-heading>
+  <major-heading colnum="130" id="uk.org.publicwhip/debate/2009-10-26b.130.11" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000009">
+	PUBLIC ACCOUNTS
+</major-heading>
+  <major-heading colnum="131" id="uk.org.publicwhip/debate/2009-10-26b.131.0" nospeaker="true" time="022:00:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091026/debtext/91026-0021.htm#0910278000002">
+	TERRITORIAL ARMY
+</major-heading>
+</publicwhip>

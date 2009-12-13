@@ -1,0 +1,2893 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE publicwhip [
+
+<!ENTITY pound   "&#163;">
+<!ENTITY euro    "&#8364;">
+
+<!ENTITY agrave  "&#224;">
+<!ENTITY aacute  "&#225;">
+<!ENTITY egrave  "&#232;">
+<!ENTITY eacute  "&#233;">
+<!ENTITY ecirc   "&#234;">
+<!ENTITY iacute  "&#237;">
+<!ENTITY ograve  "&#242;">
+<!ENTITY oacute  "&#243;">
+<!ENTITY uacute  "&#250;">
+<!ENTITY Aacute  "&#193;">
+<!ENTITY Eacute  "&#201;">
+<!ENTITY Iacute  "&#205;">
+<!ENTITY Oacute  "&#211;">
+<!ENTITY Uacute  "&#218;">
+<!ENTITY Uuml    "&#220;">
+<!ENTITY auml    "&#228;">
+<!ENTITY euml    "&#235;">
+<!ENTITY iuml    "&#239;">
+<!ENTITY ouml    "&#246;">
+<!ENTITY uuml    "&#252;">
+<!ENTITY fnof    "&#402;">
+<!ENTITY aelig   "&#230;">
+<!ENTITY dagger  "&#8224;">
+<!ENTITY reg     "&#174;">
+<!ENTITY nbsp    "&#160;">
+<!ENTITY shy     "&#173;">
+<!ENTITY deg     "&#176;">
+<!ENTITY middot  "&#183;">
+<!ENTITY ordm    "&#186;">
+<!ENTITY ndash   "&#8211;">
+<!ENTITY mdash   "&#8212;">
+<!ENTITY lsquo   "&#8216;">
+<!ENTITY rsquo   "&#8217;">
+<!ENTITY ldquo   "&#8220;">
+<!ENTITY rdquo   "&#8221;">
+<!ENTITY hellip  "&#8230;">
+<!ENTITY bull    "&#8226;">
+
+<!ENTITY acirc   "&#226;">
+<!ENTITY Agrave  "&#192;">
+<!ENTITY Aring   "&#197;">
+<!ENTITY aring   "&#229;">
+<!ENTITY atilde  "&#227;">
+<!ENTITY Ccedil  "&#199;">
+<!ENTITY ccedil  "&#231;">
+<!ENTITY Egrave  "&#200;">
+<!ENTITY Icirc   "&#206;">
+<!ENTITY icirc   "&#238;">
+<!ENTITY Igrave  "&#204;">
+<!ENTITY igrave  "&#236;">
+<!ENTITY ntilde  "&#241;">
+<!ENTITY ocirc   "&#244;">
+<!ENTITY oelig   "&#339;">
+<!ENTITY Ograve  "&#210;">
+<!ENTITY Oslash  "&#216;">
+<!ENTITY oslash  "&#248;">
+<!ENTITY Scaron  "&#352;">
+<!ENTITY scaron  "&#353;">
+<!ENTITY sup1    "&#185;">
+<!ENTITY sup2    "&#178;">
+<!ENTITY sup3    "&#179;">
+<!ENTITY ugrave  "&#249;">
+<!ENTITY ucirc   "&#251;">
+<!ENTITY Ugrave  "&#217;">
+<!ENTITY yacute  "&#253;">
+<!ENTITY frac12  "&#189;">
+<!ENTITY micro   "&#181;">
+<!ENTITY sbquo   "&#8218;">
+<!ENTITY trade   "&#8482;">
+<!ENTITY Dagger  "&#8225;">
+<!ENTITY radic   "&#8730;">
+]>
+
+<publicwhip>
+
+<source url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm"/>
+
+<major-heading id="uk.org.publicwhip/spwa/2009-10-27.0.mh" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm">Written Answers Tuesday 27 October 2009</major-heading>
+
+<major-heading id="uk.org.publicwhip/spwa/2009-10-27.1.mh" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm">Scottish Executive</major-heading>
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27924.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">Alcohol Misuse</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27924.q0" speakerid="uk.org.publicwhip/member/80280" speakername="Bill Aitken (Glasgow) (Con)" spid="S3W-27924" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">
+
+  <p>To ask the Scottish Executive what the basis was of the decision to provide the University of Sheffield with figures on alcohol consumption from 2003.</p>
+
+</ques>
+
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27992.q1" speakerid="uk.org.publicwhip/member/80291" speakername="Robert Brown (Glasgow) (LD)" spid="S3W-27992" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">
+
+  <p>To ask the Scottish Executive for what reason consumption data from the Scottish Health Survey 2003, rather than the recently published 2008 survey, was used in the University of Sheffield appraisal of alcohol minimum pricing and off-trade discount bans in Scotland.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27992.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">
+
+  <p>The report <em>Model-Based Appraisal of Alcohol Minimum Pricing and Off-Licensed Trade Discount Bans in Scotland</em> (Bib. number 49447) provides an estimate of the potential impact of minimum pricing and a discount ban using the best data available at the time the research was carried out. In the case of alcohol consumption figures, this was data from the Scottish Health Survey 2003 and the Scottish Schools Adolescent Lifestyle and Substance Use Survey 2006.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27925.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">Alcohol Misuse</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27925.q0" speakerid="uk.org.publicwhip/member/80280" speakername="Bill Aitken (Glasgow) (Con)" spid="S3W-27925" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">
+
+  <p>To ask the Scottish Executive whether it is concerned that the data on consumption of alcohol contained in the report, <em>Independent Review of the Effects of Alcohol Pricing and Promotion</em> , by the University of Sheffield is five years out of date and does not take into account the improving trends on consumption contained in the 2008 Scottish Health Survey.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27925.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">
+
+  <p>The report <em>Model-Based Appraisal of Alcohol Minimum Pricing and Off-Licensed Trade Discount Bans in Scotland</em> (Bib. number 49447) provides an estimate of the potential impact of minimum pricing and a discount ban using the best data available at the time the research was carried out. In the case of alcohol consumption figures, this was data from the Scottish Health Survey 2003 and the Scottish Schools Adolescent Lifestyle and Substance Use Survey 2006.</p>
+
+  <p>The Scottish Health Survey 2008 suggested a reduction in men&rsquo;s average weekly unit consumption since 2003 but the decline for women was not significant. Levels of daily consumption were very similar in 2003 and 2008, while the percentage identified as potential problem drinkers increased since 2003. The report concluded that further years of data are required before firm conclusions can be reached on weekly and daily drinking trends.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27926.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">Alcohol Misuse</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27926.q0" speakerid="uk.org.publicwhip/member/80280" speakername="Bill Aitken (Glasgow) (Con)" spid="S3W-27926" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">
+
+  <p>To ask the Scottish Executive whether it will request that the University of Sheffield recast its main assumptions in its report, <em>Independent Review of the Effects of Alcohol Pricing and Promotion</em> , based on the newly available data.</p>
+
+</ques>
+
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27993.q1" speakerid="uk.org.publicwhip/member/80291" speakername="Robert Brown (Glasgow) (LD)" spid="S3W-27993" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">
+
+  <p>To ask the Scottish Executive what consideration it has given to the impact that the most recent consumption figures, showing that the proportion of men and women drinking over the weekly recommended limit has declined since 2003, would have on the minimum pricing modelling used in the University of Sheffield appraisal of alcohol minimum pricing and off-trade discount bans in Scotland.</p>
+
+</ques>
+
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27994.q2" speakerid="uk.org.publicwhip/member/80291" speakername="Robert Brown (Glasgow) (LD)" spid="S3W-27994" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">
+
+  <p>To ask the Scottish Executive, following publication of the Scottish Health Survey 2008, showing that between 2003 and 2008 the proportion of men and women drinking over the weekly recommended limit declined from 34 to 30% and 23 to 20% respectively, whether it considers that the use of these data in the University of Sheffield appraisal would have impacted on its results.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27994.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#1">
+
+  <p>The Scottish Health Survey 2008 suggested a reduction in men&rsquo;s average weekly unit consumption since 2003 but the decline for women was not significant. Levels of daily consumption were very similar in 2003 and 2008, while the percentage identified as potential problem drinkers increased since 2003. The report concluded that further years of data are required before firm conclusions can be reached on weekly and daily drinking trends. Given the similarities in the 2003 and 2008 consumption estimates, re-running the model with 2008 survey data is unlikely to have a significant effect on the modelling results but we are considering this matter further.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27944.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#2">Council Tax</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27944.q0" speakerid="uk.org.publicwhip/member/80338" speakername="Johann Lamont (Glasgow Pollok) (Lab)" spid="S3W-27944" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#2">
+
+  <p>To ask the Scottish Executive how many people in Glasgow living in a household with an annual income of under &pound;16,000 were affected by the freeze on council tax.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27944.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#2">
+
+  <p>Everyone in Scotland who pays council tax benefits from the freeze on council tax.</p>
+
+  <p>Detailed information is not held centrally on the numbers and incomes of people in households who pay council tax by area. However, based on information from the Scottish House Condition Survey 2007, it is possible to estimate that there were between 224,000 and 240,000 people in Glasgow living in a household with an annual income of under &pound;16,000 where at least one person in the household is eligible for council tax, is not exempt and does not receive full council tax benefit.</p>
+
+  <p>This is between 85.0% and 91.5% of people in Glasgow living in a household with an annual income of under &pound;16,000.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27947.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#2">Council Tax</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27947.q0" speakerid="uk.org.publicwhip/member/80338" speakername="Johann Lamont (Glasgow Pollok) (Lab)" spid="S3W-27947" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#2">
+
+  <p>To ask the Scottish Executive how many people in Glasgow living in a household with an annual income of under &pound;23,000 were affected by the freeze on council tax.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27947.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#2">
+
+  <p>Everyone in Scotland who pays council tax benefits from the freeze on council tax.</p>
+
+  <p>Detailed information is not held centrally on the numbers and incomes of people in households who pay council tax by area. However, based on information from the Scottish House Condition Survey 2007, it is possible to estimate that there were between 311,000 and 329,000 people in Glasgow living in a household with an annual income of under &pound;23,000, where at least one person in the household is eligible for council tax, is not exempt and does not receive full council tax benefit.</p>
+
+  <p>This is between 86.1 percent and 91.5 percent of people in Glasgow living in a household with an annual income of under &pound;23,000.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27876.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27876.q0" speakerid="uk.org.publicwhip/member/80290" speakername="Gavin Brown (Lothians) (Con)" spid="S3W-27876" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive how many incidents of shoplifting were recorded in 2008-09, broken down by local authority area.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27876.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>The information requested is given in table 1 of <em>Police Recorded Crime - Additional tables (1) following the publication of Recorded Crime in Scotland, 2008-09, </em> published by the Scottish Government in October 2009, a copy of which is available in the Scottish Parliament Information Centre (Bib. number 49472).</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27877.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27877.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27877" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , how many crimes of handling an offensive weapon were recorded by the police in 2008-09, broken down by local authority area.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27877.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>The information requested is given in table 2 of <em>Police Recorded Crime - Additional tables (1) following the publication of Recorded Crime in Scotland, 2008-09, </em> published by the Scottish Government in October 2009, a copy of which is available in the Scottish Parliament Information Centre (Bib. number 49472).</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27882.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27882.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27882" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , what assessment it has made of the 24% increase in illegal cultivation of drugs offences and what action it will take.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27882.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>This category of crime includes production, manufacture and cultivation of drugs. While the total number of crimes in this category has increased it represents a small (1.4%) proportion of all drugs crimes.</p>
+
+  <p>Serious organised crime groups are heavily involved in the production and cultivation of drugs including &quot;cannabis farming&quot; operations. To combat cannabis cultivation, the police have instigated &quot;Operation League&quot;, an intelligence and enforcement operation involving all police forces in Scotland, the Scottish Crime and Drug Enforcement Agency, the Serious Organised Crime Agency and HM Revenue and Customs. Since Operation League&rsquo;s commencement, over 111,000 cannabis plants with a value of &pound;34.2 million have been seized.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27883.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27883.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27883" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , whether the increase by 24% to 609 offences of illegal cultivation of drugs represents an all-time high.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27883.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>These figures relate to the production, manufacture or cultivation of drugs.</p>
+
+  <p>The significant increase coincides with &quot;Operation League&quot;, an intelligence and enforcement operation to combat cannabis cultivation, involving all police forces in Scotland, the Scottish Crime and Drug Enforcement Agency, the Serious Organised Crime Agency and HM Revenue and Customs. Since its commencement, over 111,000 cannabis plants with a value of &pound;34.2 million have been seized.</p>
+
+  <p>Given police numbers are at a record high, it is possible for more attention and resources to be devoted to tackling crime in Scotland, including a number of highly successful police operations throughout Scotland targeting drug dealers.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27884.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27884.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27884" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , how many of the offences of illegal cultivation of drugs were recorded in each police force area.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27884.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>The information requested is given in table 4 of the following publication, <em>Police Recorded Crime in Scotland</em> - <em>Additional tables (1)</em> <em>following the publication of Recorded Crime in Scotland, 2008-09,</em> a copy of which is available in the Scottish Parliament&rsquo;s Information Centre (Bib. number 49472).</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27885.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27885.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27885" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , what assessment it has made of the number of illegal importation of drugs offences compared with 2007-08 and what action it will take.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27885.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>This figure has remained constant for the last three years and remains significantly lower than its peak in 2005-06.</p>
+
+  <p>Law enforcement agencies will continue to work together, with the support of the Serious Organised Crime Taskforce, to tackle serious organised crime in all its forms.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27886.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27886.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27886" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , what assessment it has made of the 4% increase in (a) possession of drugs with intent to supply and (b) possession of drugs offences and what action it will take.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27886.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>The level of crime recorded in these categories has been relatively stable for a number of years, subject to some fluctuation year-on-year.</p>
+
+  <p>We are committed to tackling drug use and drug crime. Enforcement action has seen unprecedented successes, with last year the Scottish Crime and Drug Enforcement Agency seizing a record amount of Class A drugs.</p>
+
+  <p>Enforcement is one element of our comprehensive drug strategy, <em>The Road to Recovery</em>, which is available at <a href="http://www.scotland.gov.uk/Publications/2008/05/22161610/0" target="_blank">http://www.scotland.gov.uk/Publications/2008/05/22161610/0</a>.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27887.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27887.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27887" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , what assessment it has made of the 8% increase in the drug, other offences and money laundering category and what action it will take.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27887.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>The category of offence which accounts for the increase is that of non-money laundering offences described as &quot;Drugs, other offences&quot;. While there has been an increase, the total number of such offences remains small, less than 1% of total drugs offences.</p>
+
+  <p>We are committed to tackling drug use and drug crime. Enforcement action has seen unprecedented successes, with last year the Scottish Crime and Drug Enforcement Agency seizing a record amount of Class A drugs.</p>
+
+  <p>Enforcement is one element of our comprehensive drug strategy, <em>The Road to Recovery</em>, which is available at <a href="http://www.scotland.gov.uk/Publications/2008/05/22161610/0" target="_blank">http://www.scotland.gov.uk/Publications/2008/05/22161610/0</a>.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27888.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27888.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27888" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , how many drug crimes were recorded, broken down by (a) crime category as set out in Table A5 and (b) police force area.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27888.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>The information requested is given in Table 4 of <em>Police Recorded Crime - Additional tables (1) following the publication of Recorded Crime in Scotland, 2008-09, </em> published by the Scottish Government in October 2009, a copy of which is available in the Scottish Parliament&rsquo;s Information Centre (Bib. number 49472).</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27889.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27889.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27889" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , what assessment it has made of the 3% increase in non-sexual crimes of violence in Grampian and what action it will take.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27889.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>Grampian police are committed to tackling violent crime and are undertaking a number of targeted initiatives to address violence throughout the force area. For example, through the &quot;Unight Aberdeen&quot; initiative they are working in partnership with city nightclubs and entertainment venues to tackle evening economy crime, and in particular violence. During the recent national anti-violence campaign, a range of activities were undertaken from the display of anti-violence messages in nightclubs and on public screens, through to the innovative use of police bail conditions in Aberdeenshire to prevent offenders at the traditional games and shows attending other similar events.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27890.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27890.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27890" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , what assessment it has made of the housebreaking rate in Aberdeen City compared with the Scotland-wide average and what action it will take.</p>
+
+</ques>
+
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27891.q1" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27891" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> and the statistic that Aberdeen City had the highest rate of housebreaking incidents per 10,000 population in Scotland, what targeted action it will take in Aberdeen.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27891.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>Over the last five years, there has been a decrease in the number of domestic housebreaking crimes recorded by the police per 10,000 population for Scotland. There has also been a general decrease in the number of domestic housebreaking crimes recorded by the police per 10,000 population in Aberdeen City over this period. In 2005-06, the rate for Aberdeen City was almost two and a half times the Scottish average but the latest figures for 2008-09 show that the rate stands at just over twice the Scottish average.</p>
+
+  <p>Domestic housebreaking has been a priority for Grampian police force for a number of years and this type of crime received significant focus of resources, with significant reductions being achieved. Additionally, funded by the Scottish Government, the Scottish Business Crime Centre runs a number of retail and acquisitive crime initiatives, including the Scottish Safer Areas Initiative and the Retailers Against Crime Initiative.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27892.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27892.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27892" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , how many housebreaking incidents there were in Aberdeen City in each of the last 10 years, also expressed per 10,000 of population.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27892.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>The information requested in given in the following table:</p>
+
+  <p>Crimes of Housebreaking<sup>1</sup> Recorded by the Police in Aberdeen City, 1999-2000 to 2008-09</p>
+
+  <p><table width="75%" border="BORDER" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="23%" valign="bottom"> </td>
+<td width="30%" align="center" valign="middle">Crimes of Housebreaking</td>
+<td width="47%" align="center" valign="middle">Crimes of Housebreaking per 10,000 population</td>
+</tr>
+<tr>
+<td width="23%" valign="top">1999-2000</td>
+<td width="30%" align="right" valign="bottom">4,349</td>
+<td width="47%" align="right" valign="bottom">203</td>
+</tr>
+<tr>
+<td width="23%" valign="bottom">2000-01</td>
+<td width="30%" align="right" valign="bottom">5,035</td>
+<td width="47%" align="right" valign="bottom">236</td>
+</tr>
+<tr>
+<td width="23%" valign="bottom">2001-02</td>
+<td width="30%" align="right" valign="bottom">3,983</td>
+<td width="47%" align="right" valign="bottom">188</td>
+</tr>
+<tr>
+<td width="23%" valign="bottom">2002-03</td>
+<td width="30%" align="right" valign="bottom">3,503</td>
+<td width="47%" align="right" valign="bottom">167</td>
+</tr>
+<tr>
+<td width="23%" valign="bottom">2003-04</td>
+<td width="30%" align="right" valign="bottom">3,076</td>
+<td width="47%" align="right" valign="bottom">148</td>
+</tr>
+<tr>
+<td width="23%" valign="bottom">2004-05</td>
+<td width="30%" align="right" valign="bottom">2,674</td>
+<td width="47%" align="right" valign="bottom">130</td>
+</tr>
+<tr>
+<td width="23%" valign="bottom">2005-06</td>
+<td width="30%" align="right" valign="bottom">2,687</td>
+<td width="47%" align="right" valign="bottom">130</td>
+</tr>
+<tr>
+<td width="23%" valign="bottom">2006-07</td>
+<td width="30%" align="right" valign="bottom">2,166</td>
+<td width="47%" align="right" valign="bottom">105</td>
+</tr>
+<tr>
+<td width="23%" valign="bottom">2007-08</td>
+<td width="30%" align="right" valign="bottom">1,867</td>
+<td width="47%" align="right" valign="bottom">89</td>
+</tr>
+<tr>
+<td width="23%" valign="bottom">2008-09</td>
+<td width="30%" align="right" valign="bottom">1,956</td>
+<td width="47%" align="right" valign="bottom">93</td>
+</tr>
+</table></p>
+
+  <p>Source: Scottish Government Justice Analytical Services.</p>
+
+  <p>Note: 1. Housebreaking includes theft by housebreaking, housebreaking with intent to steal, attempted housebreaking with intent to enter and steal, for domestic property (dwelling and non-dwelling) and other premises.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27893.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27893.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27893" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , what assessment it has made of the 36% increase in racially aggravated offences in Grampian; whether this represents an all-time high, and what action it will take.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27893.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>Sections 50A(1)(a) and 50A(1)(b) of the Criminal Law (Consolidation)(Scotland) Act 1995 introduced two new offences of racially aggravated harassment and racially aggravated conduct. These sections of the act came into force on 30 September 1998.</p>
+
+  <p>The number of racially aggravated harassment and racially aggravated conduct offences (554) recorded by Grampian police in 2008-09 is the highest figure recorded, based on information available from Grampian police force following the introduction of this legislation.</p>
+
+  <p>The Scottish Government is committed to tackling racist crime and racism more broadly in Scotland. Police and other organisations are working hard to build networks and provide reassurance and advice to ethnic minority communities. That has led to greater awareness within these organisations and within communities of racist crimes, and an increased willingness to report these incidents by the public.</p>
+
+  <p>We are aware that Grampian Police have identified that throughout 2008-09 improvements have been made to reporting and recording practices, to ensure all incidents are captured and shared with partners, such as Grampian Racial Equality Council (GREC).</p>
+
+  <p>We will shortly be launching another phase of the One Scotland anti-racism campaign which seeks to tackle racist attitudes at a national level. 29 October will see a Rock Against Racism event take place in Aberdeen. This event and the publicity around it seek to take the anti-racism message to a younger audience. In addition, we are providing support to a number of organisations across Scotland working with ethnic minority communities to encourage integration and improve community cohesion. Two projects, Grampian Racial Equality Council (GREC) and Minority Ethnic Aberdeen Limited (MEAL) are working specifically on this issue in the Aberdeen area.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27894.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27894.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27894" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , what assessment it has made of the increase in crimes of dishonesty, including a 9% increase in theft by opening a lockfast place and a 10% increase in shoplifting, and what action it will take.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27894.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>Through the National Community Safety Strategic Group which I chair, we are working closely with the Association of Chief Police Officers in Scotland, the Scottish Business Crime Centre, and other partners to deliver a co-ordinated response to this issue.</p>
+
+  <p>There are a number of factors that may influence the level of acquisitive crime. It may be committed for monetary gain and therefore a loss of income or economic opportunity through unemployment could make these crimes more attractive to some individuals. However, other factors can also explain changes in crime.</p>
+
+  <p>Funded by the Scottish Government, the Scottish Business Crime Centre runs a number of retail and acquisitive crime initiatives, including the Scottish Safer Areas Initiative and the Retailers Against Crime Initiative.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27895.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27895.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27895" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , what assessment it has made of the lack of a significant percentage reduction in recorded crimes for handling an offensive weapon and what action it will take over the next year.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27895.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>The percentage change in handling offensive weapons is influenced by a range of factors, including the extent of targeted action by police. For example, in 2008-09, police in Scotland stopped and searched around 257,000 people, supporting the Violence Reduction Unit&rsquo;s on-going anti-violence campaign.</p>
+
+  <p>Such proactive action may mean the reduction in handling offensive weapons is not greater because the police are catching more criminals. We will continue to take action to reduce crime related to offensive weapons. For example, we will invest at least &pound;13 million through to 2011 in youth diversionary activities to keep young people out of trouble and away from knives.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27896.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27896.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27896" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , how many crimes were recorded by the police in (a) Aberdeen City and (b) Aberdeenshire local authority areas, broken down by crime group as set out in table 1.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27896.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>The following table provides information on the number of crimes recorded by Grampian police, by local authority, in 2008-09:</p>
+
+  <p>Crimes Recorded by Grampian Police, by Local Authority, 2008-09</p>
+
+  <p><table width="100%" border="BORDER" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="41%" align="center" valign="bottom">Crime Group</td>
+<td width="16%" align="center" valign="bottom">Aberdeen City</td>
+<td width="16%" align="center" valign="bottom">Aberdeenshire</td>
+<td width="8%" align="center" valign="bottom">Moray</td>
+<td width="18%" align="center" valign="bottom">Grampian Police Force Area</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Total crimes</td>
+<td width="16%" align="right" valign="bottom">21,413</td>
+<td width="16%" align="right" valign="bottom">8,729</td>
+<td width="8%" align="right" valign="bottom">4,830</td>
+<td width="18%" align="right" valign="bottom">34,972</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Non-sexual crimes of violence</td>
+<td width="16%" align="right" valign="bottom">533</td>
+<td width="16%" align="right" valign="bottom">206</td>
+<td width="8%" align="right" valign="bottom">130</td>
+<td width="18%" align="right" valign="bottom">869</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Serious assault etc<sup>1</sup></td>
+<td width="16%" align="right" valign="bottom">260</td>
+<td width="16%" align="right" valign="bottom">107</td>
+<td width="8%" align="right" valign="bottom">76</td>
+<td width="18%" align="right" valign="bottom">443</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Robbery</td>
+<td width="16%" align="right" valign="bottom">145</td>
+<td width="16%" align="right" valign="bottom">20</td>
+<td width="8%" align="right" valign="bottom">12</td>
+<td width="18%" align="right" valign="bottom">177</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Other </td>
+<td width="16%" align="right" valign="bottom">128</td>
+<td width="16%" align="right" valign="bottom">79</td>
+<td width="8%" align="right" valign="bottom">42</td>
+<td width="18%" align="right" valign="bottom">249</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Crimes of Indecency</td>
+<td width="16%" align="right" valign="bottom">563</td>
+<td width="16%" align="right" valign="bottom">227</td>
+<td width="8%" align="right" valign="bottom">188</td>
+<td width="18%" align="right" valign="bottom">978</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Rape and Attempted Rape</td>
+<td width="16%" align="right" valign="bottom">55</td>
+<td width="16%" align="right" valign="bottom">31</td>
+<td width="8%" align="right" valign="bottom">25</td>
+<td width="18%" align="right" valign="bottom">111</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Indecent Assault</td>
+<td width="16%" align="right" valign="bottom">83</td>
+<td width="16%" align="right" valign="bottom">46</td>
+<td width="8%" align="right" valign="bottom">45</td>
+<td width="18%" align="right" valign="bottom">174</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Lewd and indecent behaviour</td>
+<td width="16%" align="right" valign="bottom">97</td>
+<td width="16%" align="right" valign="bottom">111</td>
+<td width="8%" align="right" valign="bottom">82</td>
+<td width="18%" align="right" valign="bottom">290</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Other </td>
+<td width="16%" align="right" valign="bottom">328</td>
+<td width="16%" align="right" valign="bottom">39</td>
+<td width="8%" align="right" valign="bottom">36</td>
+<td width="18%" align="right" valign="bottom">403</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Crimes of Dishonesty</td>
+<td width="16%" align="right" valign="bottom">11,533</td>
+<td width="16%" align="right" valign="bottom">3,554</td>
+<td width="8%" align="right" valign="bottom">1,984</td>
+<td width="18%" align="right" valign="bottom">17,071</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Housebreaking<sup>2</sup></td>
+<td width="16%" align="right" valign="bottom">1,956</td>
+<td width="16%" align="right" valign="bottom">525</td>
+<td width="8%" align="right" valign="bottom">262</td>
+<td width="18%" align="right" valign="bottom">2,743</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Theft by opening a lockfast place (OLP)</td>
+<td width="16%" align="right" valign="bottom">529</td>
+<td width="16%" align="right" valign="bottom">190</td>
+<td width="8%" align="right" valign="bottom">67</td>
+<td width="18%" align="right" valign="bottom">786</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Theft from a motor vehicle</td>
+<td width="16%" align="right" valign="bottom">987</td>
+<td width="16%" align="right" valign="bottom">159</td>
+<td width="8%" align="right" valign="bottom">56</td>
+<td width="18%" align="right" valign="bottom">1,202</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Theft of a motor vehicle</td>
+<td width="16%" align="right" valign="bottom">728</td>
+<td width="16%" align="right" valign="bottom">224</td>
+<td width="8%" align="right" valign="bottom">113</td>
+<td width="18%" align="right" valign="bottom">1,065</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Shoplifting</td>
+<td width="16%" align="right" valign="bottom">2,646</td>
+<td width="16%" align="right" valign="bottom">564</td>
+<td width="8%" align="right" valign="bottom">327</td>
+<td width="18%" align="right" valign="bottom">3,537</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Other theft</td>
+<td width="16%" align="right" valign="bottom">3,794</td>
+<td width="16%" align="right" valign="bottom">1,592</td>
+<td width="8%" align="right" valign="bottom">933</td>
+<td width="18%" align="right" valign="bottom">6,319</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Fraud</td>
+<td width="16%" align="right" valign="bottom">434</td>
+<td width="16%" align="right" valign="bottom">167</td>
+<td width="8%" align="right" valign="bottom">114</td>
+<td width="18%" align="right" valign="bottom">715</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Other </td>
+<td width="16%" align="right" valign="bottom">459</td>
+<td width="16%" align="right" valign="bottom">133</td>
+<td width="8%" align="right" valign="bottom">112</td>
+<td width="18%" align="right" valign="bottom">704</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Fire-raising, vandalism etc.</td>
+<td width="16%" align="right" valign="bottom">4,714</td>
+<td width="16%" align="right" valign="bottom">3,195</td>
+<td width="8%" align="right" valign="bottom">1,641</td>
+<td width="18%" align="right" valign="bottom">9,550</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Fire-raising</td>
+<td width="16%" align="right" valign="bottom">180</td>
+<td width="16%" align="right" valign="bottom">141</td>
+<td width="8%" align="right" valign="bottom">64</td>
+<td width="18%" align="right" valign="bottom">385</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Vandalism etc.</td>
+<td width="16%" align="right" valign="bottom">4,534</td>
+<td width="16%" align="right" valign="bottom">3,054</td>
+<td width="8%" align="right" valign="bottom">1,577</td>
+<td width="18%" align="right" valign="bottom">9,165</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Other crimes</td>
+<td width="16%" align="right" valign="bottom">4,070</td>
+<td width="16%" align="right" valign="bottom">1,547</td>
+<td width="8%" align="right" valign="bottom">887</td>
+<td width="18%" align="right" valign="bottom">6,504</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Crimes against public justice</td>
+<td width="16%" align="right" valign="bottom">1,382</td>
+<td width="16%" align="right" valign="bottom">563</td>
+<td width="8%" align="right" valign="bottom">463</td>
+<td width="18%" align="right" valign="bottom">2,408</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Handling an offensive weapon</td>
+<td width="16%" align="right" valign="bottom">351</td>
+<td width="16%" align="right" valign="bottom">167</td>
+<td width="8%" align="right" valign="bottom">72</td>
+<td width="18%" align="right" valign="bottom">590</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Drugs</td>
+<td width="16%" align="right" valign="bottom">2,333</td>
+<td width="16%" align="right" valign="bottom">812</td>
+<td width="8%" align="right" valign="bottom">352</td>
+<td width="18%" align="right" valign="bottom">3,497</td>
+</tr>
+<tr>
+<td width="41%" valign="top">Other</td>
+<td width="16%" align="right" valign="bottom">4</td>
+<td width="16%" align="right" valign="bottom">5</td>
+<td width="8%" align="right" valign="bottom">0</td>
+<td width="18%" align="right" valign="bottom">9</td>
+</tr>
+</table></p>
+
+  <p>Source: Scottish Government Justice Analytical Services.</p>
+
+  <p>Notes:</p>
+
+  <p>1. Includes murder, attempted murder, culpable homicide and serious assault.</p>
+
+  <p>2. Includes dwellings, non-dwellings and other premises.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27897.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27897.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-27897" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive, further to the publication of <em>Recorded Crime in Scotland, 2008-09</em> , how many offences were recorded by the police in (a) Aberdeen City and (b) Aberdeenshire local authority areas, broken down by offence group as set out in table 2.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27897.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>The following table provides information on the number of offences recorded by Grampian police, by local authority, in 2008-09.</p>
+
+  <p>Offences Recorded by Grampian Police, by Local Authority, 2008-09</p>
+
+  <p><table width="100%" border="BORDER" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="37%" align="center" valign="bottom">Offence Group</td>
+<td width="13%" align="center" valign="middle">Aberdeen City</td>
+<td width="19%" align="center" valign="middle">Aberdeenshire</td>
+<td width="10%" align="center" valign="middle">Moray</td>
+<td width="21%" align="center" valign="middle">Grampian Police Force Area</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Total offences</td>
+<td width="13%" align="right" valign="middle">25,842</td>
+<td width="19%" align="right" valign="middle">22,468</td>
+<td width="10%" align="right" valign="middle">6,754</td>
+<td width="21%" align="right" valign="middle">55,064</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Miscellaneous offences</td>
+<td width="13%" align="right" valign="middle">11,276</td>
+<td width="19%" align="right" valign="middle">5,482</td>
+<td width="10%" align="right" valign="middle">3,568</td>
+<td width="21%" align="right" valign="middle">20,326</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Minor Assault</td>
+<td width="13%" align="right" valign="middle">4,105</td>
+<td width="19%" align="right" valign="middle">2,125</td>
+<td width="10%" align="right" valign="middle">1,306</td>
+<td width="21%" align="right" valign="middle">7,536</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Breach of the peace</td>
+<td width="13%" align="right" valign="middle">4,724</td>
+<td width="19%" align="right" valign="middle">2,282</td>
+<td width="10%" align="right" valign="middle">1,694</td>
+<td width="21%" align="right" valign="middle">8,700</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Drunkenness</td>
+<td width="13%" align="right" valign="middle">104</td>
+<td width="19%" align="right" valign="middle">55</td>
+<td width="10%" align="right" valign="middle">94</td>
+<td width="21%" align="right" valign="middle">253</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Other </td>
+<td width="13%" align="right" valign="middle">2,343</td>
+<td width="19%" align="right" valign="middle">1,020</td>
+<td width="10%" align="right" valign="middle">474</td>
+<td width="21%" align="right" valign="middle">3,837</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Motor vehicle offences</td>
+<td width="13%" align="right" valign="middle">14,566</td>
+<td width="19%" align="right" valign="middle">16,986</td>
+<td width="10%" align="right" valign="middle">3,186</td>
+<td width="21%" align="right" valign="middle">34,738</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Dangerous and careless driving</td>
+<td width="13%" align="right" valign="middle">1,155</td>
+<td width="19%" align="right" valign="middle">1,068</td>
+<td width="10%" align="right" valign="middle">418</td>
+<td width="21%" align="right" valign="middle">2,641</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Drunk driving</td>
+<td width="13%" align="right" valign="middle">492</td>
+<td width="19%" align="right" valign="middle">457</td>
+<td width="10%" align="right" valign="middle">157</td>
+<td width="21%" align="right" valign="middle">1,106</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Speeding</td>
+<td width="13%" align="right" valign="middle">4,406</td>
+<td width="19%" align="right" valign="middle">7,850</td>
+<td width="10%" align="right" valign="middle">389</td>
+<td width="21%" align="right" valign="middle">12,645</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Unlawful use of vehicle</td>
+<td width="13%" align="right" valign="middle">3,656</td>
+<td width="19%" align="right" valign="middle">2,746</td>
+<td width="10%" align="right" valign="middle">758</td>
+<td width="21%" align="right" valign="middle">7,160</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Vehicle defect offences</td>
+<td width="13%" align="right" valign="middle">440</td>
+<td width="19%" align="right" valign="middle">728</td>
+<td width="10%" align="right" valign="middle">174</td>
+<td width="21%" align="right" valign="middle">1,342</td>
+</tr>
+<tr>
+<td width="37%" valign="middle">Other </td>
+<td width="13%" align="right" valign="middle">4,417</td>
+<td width="19%" align="right" valign="middle">4,137</td>
+<td width="10%" align="right" valign="middle">1,290</td>
+<td width="21%" align="right" valign="middle">9,844</td>
+</tr>
+</table></p>
+
+  <p>Source: Scottish Government Justice Analytical Services</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28048.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">Crime</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28048.q0" speakerid="uk.org.publicwhip/member/80290" speakername="Gavin Brown (Lothians) (Con)" spid="S3W-28048" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>To ask the Scottish Executive how many people were convicted in relation to the 2,720 cases of housebreaking recorded in Edinburgh between April 2008 and March 2009.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28048.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#3">
+
+  <p>Information on convictions in 2008-09 is not yet available. The data on court proceedings is planned for release in February 2010. Please refer to tables 2 and 4 in the <em>2007-08 Criminal Proceedings in Scottish Courts</em> statistical bulletin for the latest available data on persons with a charge proved for housebreaking:</p>
+
+  <p><a href="http://www.scotland.gov.uk/Publications/2009/04/27103325/0" target="_blank">http://www.scotland.gov.uk/Publications/2009/04/27103325/0</a>.</p>
+
+  <p>The 2,720 cases of housebreaking referred to in the question are the number of crimes recorded by the police. The statistics dealing with recorded crime and court proceedings are not directly comparable as a person may be proceeded against for more than one crime involving more than one victim. The crime recorded by the police may be altered in the course of judicial proceedings. Also, a crime may be recorded by the police in one year and court proceedings concluded in a subsequent year. Crimes committed by children aged under 16 are also generally dealt with through the children&rsquo;s hearings system rather than the courts.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27767.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#4">Crofting</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27767.q0" speakerid="uk.org.publicwhip/member/80368" speakername="John Farquhar Munro (Ross, Skye and Inverness West) (LD)" spid="S3W-27767" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#4" holdingdate="2009-10-26">
+
+  <p>To ask the Scottish Executive, further to the answer to question S3W-27018 by Roseanna Cunningham on 24 September 2009, when the ring-fencing for the (a) Crofting Counties Agricultural and (b) Croft House Grant Scheme was removed.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27767.r0" speakerid="uk.org.publicwhip/member/80301" speakername="Roseanna Cunningham" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#4">
+
+  <p>The Crofting Counties Agricultural Grants Scheme and the Croft House Grant Schemes have never been ring-fenced.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27768.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#4">Crofting</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27768.q0" speakerid="uk.org.publicwhip/member/80368" speakername="John Farquhar Munro (Ross, Skye and Inverness West) (LD)" spid="S3W-27768" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#4" holdingdate="2009-10-26">
+
+  <p>To ask the Scottish Executive in what way crofting will benefit from the &pound;5.4 million paid by Highlands and Islands Enterprise for Beechwood Farm, formerly used as a bull stud.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27768.r0" speakerid="uk.org.publicwhip/member/80301" speakername="Roseanna Cunningham" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#4">
+
+  <p>The receipt for the sale of Beechwood Farm to Highlands and Islands Enterprise was &pound;3.15 million, as notified to Parliament in the answer to question S3W-17877 on 27 November 2008. All answers to written parliamentary questions are available on the Parliament&rsquo;s website, the search facility for which can be found at:</p>
+
+  <p><a href="../../../Apps2/Business/PQA/Default.aspx">http://www.scottish.parliament.uk/Apps2/Business/PQA/Default.aspx</a></p>
+
+  <p>The receipt was received over two financial year periods, with the second tranche of &pound;2.15 million being received in the current financial year. The Scottish Government has not yet determined the use to which this resource will be put.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27995.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#5">Culture</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27995.q0" speakerid="uk.org.publicwhip/member/80362" speakername="Pauline McNeill (Glasgow Kelvin) (Lab)" spid="S3W-27995" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#5">
+
+  <p>To ask the Scottish Executive whether there are plans to alter the distribution of funding for the Youth Music Initiative from the Scottish Arts Council to local authorities and, if so, what conditions will be attached in single outcome agreements to the use of these funds by local authorities.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27995.r0" speakerid="uk.org.publicwhip/member/80381" speakername="Michael Russell" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#5">
+
+  <p>There are currently no such plans. Funding for the Youth Music Initiative is to remain with the Scottish Arts Council in 2010-11 and pass to Creative Scotland once established. We will look with Creative Scotland and COSLA at the longer term options for funding distribution and how they can maintain successful outcomes from the initiative.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28047.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#6">Domestic Abuse</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28047.q0" speakerid="uk.org.publicwhip/member/80290" speakername="Gavin Brown (Lothians) (Con)" spid="S3W-28047" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#6">
+
+  <p>To ask the Scottish Executive what disposals were issued to people convicted in cases involving domestic abuse in the Lothian and Borders police force area in each of the last three years.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28047.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#6">
+
+  <p>The available information is given in the following table.</p>
+
+  <p>Persons Convicted for an Offence with a Domestic Aggravator Recorded<sup>1</sup>, in Lothian and Borders Police Force Area, 2005-06 to 2007-08</p>
+
+  <p><table width="75%" border="BORDER" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="46%" height="17" align="center" valign="bottom">Main Result of Proceedings</td>
+<td width="19%" height="17" align="center" valign="bottom">2005-06</td>
+<td width="19%" height="17" align="center" valign="bottom">2006-07</td>
+<td width="17%" height="17" align="center" valign="bottom">2007-08</td>
+</tr>
+<tr>
+<td width="46%" valign="bottom" height="17">Custody</td>
+<td width="19%" height="17" align="right" valign="bottom">46</td>
+<td width="19%" height="17" align="right" valign="bottom">63</td>
+<td width="17%" height="17" align="right" valign="bottom">64</td>
+</tr>
+<tr>
+<td width="46%" valign="bottom" height="17">Community sentence</td>
+<td width="19%" height="17" align="right" valign="bottom">92</td>
+<td width="19%" height="17" align="right" valign="bottom">108</td>
+<td width="17%" height="17" align="right" valign="bottom">109</td>
+</tr>
+<tr>
+<td width="46%" valign="bottom" height="17">Monetary</td>
+<td width="19%" height="17" align="right" valign="bottom">278</td>
+<td width="19%" height="17" align="right" valign="bottom">314</td>
+<td width="17%" height="17" align="right" valign="bottom">282</td>
+</tr>
+<tr>
+<td width="46%" valign="bottom" height="17">Admonished<sup>2</sup></td>
+<td width="19%" height="17" align="right" valign="bottom">125</td>
+<td width="19%" height="17" align="right" valign="bottom">170</td>
+<td width="17%" height="17" align="right" valign="bottom">169</td>
+</tr>
+<tr>
+<td width="46%" valign="bottom" height="19">Other<sup>3</sup></td>
+<td width="19%" height="19" align="right" valign="bottom">12</td>
+<td width="19%" height="19" align="right" valign="bottom">11</td>
+<td width="17%" height="19" align="right" valign="bottom">11</td>
+</tr>
+<tr>
+<td width="46%" valign="bottom" height="17">All</td>
+<td width="19%" height="17" align="right" valign="bottom">553</td>
+<td width="19%" height="17" align="right" valign="bottom">666</td>
+<td width="17%" height="17" align="right" valign="bottom">635</td>
+</tr>
+</table></p>
+
+  <p>Notes:</p>
+
+  <p>1. The recording of aggravators has improved with time therefore caution is needed when comparing changes over time. 2005-06 is the first year where it has been considered that the use and recording of domestic abuse aggravator codes from the Scottish Government Court Proceedings Database has been of sufficient coverage to be used.</p>
+
+  <p>2. An admonishment is a court disposal given after an offender has been found guilty. The offence is recorded as a conviction and the court warns the offender of the consequences of their future conduct, but no other penalty is imposed.</p>
+
+  <p>3. Includes absolute discharge, remit to children&rsquo;s hearing, caution, no order made.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28023.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#7">Education</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28023.q0" speakerid="uk.org.publicwhip/member/80338" speakername="Johann Lamont (Glasgow Pollok) (Lab)" spid="S3W-28023" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#7">
+
+  <p>To ask the Scottish Executive whether credit unions will be represented on the body devising the delivery plan for financial education in the classroom.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28023.r0" speakerid="uk.org.publicwhip/member/80330" speakername="Fiona Hyslop" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#7">
+
+  <p>I can confirm that representatives of the credit union movement will be invited to sit on the short-life working group on financial education being established by Learning and Teaching Scotland.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27840.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#8">Employment</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27840.q0" speakerid="uk.org.publicwhip/member/80288" speakername="Ted Brocklebank (Mid Scotland and Fife) (Con)" spid="S3W-27840" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#8">
+
+  <p>To ask the Scottish Executive for what reason the Cadet Vocational Qualification Organisation is not yet an accredited delivery organisation in Scotland, which would enable young people in the voluntary sector to access the qualifications it offers.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27840.r0" speakerid="uk.org.publicwhip/member/80330" speakername="Fiona Hyslop" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#8">
+
+  <p>The Cadet Vocational Qualification Organisation is responsible for achieving any accreditation and I understand that they are in discussion with Skills Development Scotland about becoming a branded learning centre. This will allow them to gain ILA Scotland approved provider status. I understand this process takes around six months to complete.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27873.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#9">Finance</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27873.q0" speakerid="uk.org.publicwhip/member/80283" speakername="Jackie Baillie (Dumbarton) (Lab)" spid="S3W-27873" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#9">
+
+  <p>To ask the Scottish Executive what the provisional and outturn variances were for departmental expenditure limits (DEL) and other accounts outside DEL, in relation to allocation and consolidated accounts for 2006-07 and 2007-08.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27873.r0" speakerid="uk.org.publicwhip/member/80397" speakername="John Swinney" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#9">
+
+  <p>The relevant provisional and final budget variances for DEL and Other accounts outside DEL in 2006-07 and 2007-08, as reported in the Scottish Government Consolidated Accounts, are as follows:</p>
+
+  <p><table width="75%" border="1" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="36%" align="center" valign="top"> </td>
+<td width="34%" align="center" valign="top">Provisional</td>
+<td width="30%" align="center" valign="top">Final</td>
+</tr>
+<tr>
+<td width="36%" align="center" valign="top">2006-07</td>
+<td width="34%" align="center" valign="top">(&pound;000)</td>
+<td width="30%" align="center" valign="top">(&pound;000)</td>
+</tr>
+<tr>
+<td width="36%" valign="top">Departmental Expenditure Limit (DEL)</td>
+<td width="34%" align="right" valign="top">186</td>
+<td width="30%" align="right" valign="top">187</td>
+</tr>
+<tr>
+<td width="36%" valign="top">Other Accounts including Annual Managed Expenditure (AME) and Other (ODEL)</td>
+<td width="34%" align="right" valign="top">56</td>
+<td width="30%" align="right" valign="top">69</td>
+</tr>
+<tr>
+<td width="36%" valign="top">Total</td>
+<td width="34%" align="right" valign="top">242</td>
+<td width="30%" align="right" valign="top">256</td>
+</tr>
+<tr>
+<td width="36%" valign="top">2007-08</td>
+<td width="34%" align="right" valign="top"> </td>
+<td width="30%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="36%" valign="top">Departmental Expenditure Limit (DEL)</td>
+<td width="34%" align="right" valign="top">63</td>
+<td width="30%" align="right" valign="top">103</td>
+</tr>
+<tr>
+<td width="36%" valign="top">Other Accounts including Annual Managed Expenditure (AME) and Other (ODEL)</td>
+<td width="34%" align="right" valign="top">153</td>
+<td width="30%" align="right" valign="top">172</td>
+</tr>
+<tr>
+<td width="36%" valign="top">Total</td>
+<td width="34%" align="right" valign="top">216</td>
+<td width="30%" align="right" valign="top">275</td>
+</tr>
+</table></p>
+
+  <p>The variances between the provisional and final out-turn in the Consolidated Accounts was mainly due to additional National Insurance Contributions income. From the SBR 2008-09 we have no longer showed NIC as income bringing the presentation of the accounts and budget into line.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28133.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#10">Flood Prevention</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28133.q0" speakerid="uk.org.publicwhip/member/80375" speakername="Peter Peacock (Highlands and Islands) (Lab)" spid="S3W-28133" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#10">
+
+  <p>To ask the Scottish Executive who serves on the COSLA and Scottish Executive group looking at funding for flood protection schemes and the distribution of future funds to local authorities; when that group will report and to whom, and whether its report will be made public.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28133.r0" speakerid="uk.org.publicwhip/member/80397" speakername="John Swinney" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#10">
+
+  <p>The joint distribution review group comprised officials from both the Scottish Government and COSLA. The report has been completed and passed to Scottish Government ministers and the COSLA leadership for consideration. Any agreed recommendations of the report will be published in due course, and implemented in time for the next three year local government finance settlement commencing 2011-12.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28017.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#11">Food Standards Agency</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28017.q0" speakerid="uk.org.publicwhip/member/80314" speakername="Rob Gibson (Highlands and Islands) (SNP)" spid="S3W-28017" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#11">
+
+  <p>To ask the Scottish Executive whether it considers &pound;750,000 spent by the Food Standards Agency on consumer engagement on GM foods to be a good use of public money.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28017.r0" speakerid="uk.org.publicwhip/member/80301" speakername="Roseanna Cunningham" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#11">
+
+  <p>The Food Standards Agency (FSA) has advised me that their department has been asked by the UK Government to carry out a programme of consumer engagement on GM food. The FSA informs me that this programme is at the initial stages of development and a budget has still to be finalised. I will consider any Scottish implications when more detailed proposals have been provided.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28020.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#11">Food Standards Agency</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28020.q0" speakerid="uk.org.publicwhip/member/80314" speakername="Rob Gibson (Highlands and Islands) (SNP)" spid="S3W-28020" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#11">
+
+  <p>To ask the Scottish Executive whether it is aware how often the head of the GM section of the Food Standards Agency and the head of abc, the umbrella group for the agricultural biotechnology industry, met in 2008 and have met in 2009.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28020.r0" speakerid="uk.org.publicwhip/member/80301" speakername="Roseanna Cunningham" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#11">
+
+  <p>: The Food Standards Agency informs me that officials meet with abc on average every six months.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28021.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#11">Food Standards Agency</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28021.q0" speakerid="uk.org.publicwhip/member/80314" speakername="Rob Gibson (Highlands and Islands) (SNP)" spid="S3W-28021" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#11">
+
+  <p>To ask the Scottish Executive whether it is able to provide details of any meetings between the head of the GM section of the Food Standards Agency and the head of abc, the umbrella group for the agricultural biotechnology industry, in 2008 and 2009.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28021.r0" speakerid="uk.org.publicwhip/member/80301" speakername="Roseanna Cunningham" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#11">
+
+  <p>The Food Standards Agency (FSA) informs me that the last meeting with the abc was on 18 September 2009, and was attended by the Head of the Novel Foods, Additives and Supplements Division and one other member of the division. Items discussed at the last meeting were: FSA public engagement work; progress on dossiers at the European Commission Standing Committee; progress on discussions about a technical solution to the adventitious presence of genetically modified organisms in commodity crops and next steps in relation to European Food Safety Authority guidance on genetically modified organisms.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28093.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#12">Forestry</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28093.q0" speakerid="uk.org.publicwhip/member/80368" speakername="John Farquhar Munro (Ross, Skye and Inverness West) (LD)" spid="S3W-28093" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#12">
+
+  <p>To ask the Scottish Executive for what reasons the Inverinate and Dorusduain Forests are being put up for sale by the Forestry Commission Scotland and whether the local community has been asked if it would like to purchase the forests for community use.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28093.r0" speakerid="uk.org.publicwhip/member/80301" speakername="Roseanna Cunningham" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#12">
+
+  <p>The woodlands at Inverinate and Dorusduain were identified for disposal as part of Forestry Commission Scotland&rsquo;s repositioning programme, whereby land of relatively low public benefit is sold to provide funds for the creation of woodlands with high public benefit.</p>
+
+  <p>Forestry Commission Scotland wrote to Loch Duich Community Council on 25 March 2009, asking the council if it wished to express an interest in either of the sites, under the National Forest Land Scheme. No interest was registered.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27850.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27850.q0" speakerid="uk.org.publicwhip/member/80322" speakername="Rhoda Grant (Highlands and Islands) (Lab)" spid="S3W-27850" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive what the level of funding was in (a) 1999-00, (b) 2000-01, (c) 2001-02, (d) 2002-03, (e) 2003-04, (f) 2004-05, (g) 2005-06, (h) 2006-07 and (i) 2007-08 for affordable housing projects in the Highlands and Islands region.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27850.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>Nearly &pound;260 million of grant funding from the Affordable Housing Investment Programme has been invested in the four Local Authorities in the Highlands and Islands, namely Highland Council, Orkney Island Council, Shetland Islands Council and Comhairle nan Eilean Siar during the period 1 April 1999 to 31 March 2008. A breakdown of this investment is shown in the following table.</p>
+
+  <p><table width="50%" border="1" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="48%" align="center" valign="top">Year</td>
+<td width="52%" align="center" valign="top">Spend (&pound; million)</td>
+</tr>
+<tr>
+<td width="48%" valign="top">1999-2000</td>
+<td width="52%" align="right" valign="top">10.157</td>
+</tr>
+<tr>
+<td width="48%" valign="top">2000-01</td>
+<td width="52%" align="right" valign="top">11.037</td>
+</tr>
+<tr>
+<td width="48%" valign="top">2001-02</td>
+<td width="52%" align="right" valign="top">13.864</td>
+</tr>
+<tr>
+<td width="48%" valign="top">2002-03</td>
+<td width="52%" align="right" valign="top">15.815</td>
+</tr>
+<tr>
+<td width="48%" valign="top">2003-04</td>
+<td width="52%" align="right" valign="top">21.002</td>
+</tr>
+<tr>
+<td width="48%" valign="top">2004-05</td>
+<td width="52%" align="right" valign="top">27.388</td>
+</tr>
+<tr>
+<td width="48%" valign="top">2005-06</td>
+<td width="52%" align="right" valign="top">44.060</td>
+</tr>
+<tr>
+<td width="48%" valign="top">2006-07</td>
+<td width="52%" align="right" valign="top">58.300</td>
+</tr>
+<tr>
+<td width="48%" valign="top">2007-08</td>
+<td width="52%" align="right" valign="top">58.235</td>
+</tr>
+<tr>
+<td width="48%" valign="top">Total</td>
+<td width="52%" align="right" valign="top">259.858</td>
+</tr>
+</table></p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27851.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27851.q0" speakerid="uk.org.publicwhip/member/80322" speakername="Rhoda Grant (Highlands and Islands) (Lab)" spid="S3W-27851" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive, further to the answer to question S3W-27284 by Alex Neil on 23 September 2009, when it expects to make a decision on the future of the Open Market Shared Equity Pilot scheme.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27851.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>The Scottish Government committed to a one year temporary expansion of the Open Market Shared Equity Pilot scheme and this is being successfully delivered. We plan to carry out an independent evaluation of the Low-cost Initiative for First Time Buyers (LIFT) shared equity schemes next year in order to inform the schemes&rsquo; long-term future. In the meantime, we are currently reviewing the relative balance of support for the LIFT schemes in the planning of the 2010-11 Affordable Housing Investment Programme.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27852.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27852.q0" speakerid="uk.org.publicwhip/member/80322" speakername="Rhoda Grant (Highlands and Islands) (Lab)" spid="S3W-27852" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive what the take-up rate was for (a) new supply shared equity or shared ownership homes, (b) open market shared equity homes and (c) rural home ownership grants in the Highlands and Islands region under the (i) Homestake Open Market Pilot and (ii) Low-cost Initiative for First-Time Buyers scheme.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27852.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>The following table shows the number of unit approvals in a financial year for (a) new supply shared or shared ownership (b) open market shared equity and (c) rural home ownership grants in the Highlands and Islands since 1992-93.</p>
+
+  <p><table width="100%" border="1" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="23%" align="center" valign="top">Year</td>
+<td width="25%" align="center" valign="top">Shared Ownership/Shared Equity</td>
+<td width="27%" align="center" valign="top">Rural Home Ownership Grant</td>
+<td width="25%" align="center" valign="top">Open Market Shared Equity</td>
+</tr>
+<tr>
+<td width="23%" valign="top">1992-93</td>
+<td width="25%" align="right" valign="top">179</td>
+<td width="27%" align="right" valign="top"> </td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">1993-94</td>
+<td width="25%" align="right" valign="top">95</td>
+<td width="27%" align="right" valign="top"> </td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">1994-95</td>
+<td width="25%" align="right" valign="top">83</td>
+<td width="27%" align="right" valign="top">37</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">1995-96</td>
+<td width="25%" align="right" valign="top">140</td>
+<td width="27%" align="right" valign="top">46</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">1996-97</td>
+<td width="25%" align="right" valign="top">38</td>
+<td width="27%" align="right" valign="top">39</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">1997-98</td>
+<td width="25%" align="right" valign="top">49</td>
+<td width="27%" align="right" valign="top">35</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">1998-99</td>
+<td width="25%" align="right" valign="top">55</td>
+<td width="27%" align="right" valign="top">33</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">1999-2000</td>
+<td width="25%" align="right" valign="top">26</td>
+<td width="27%" align="right" valign="top">39</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">2000-01</td>
+<td width="25%" align="right" valign="top">3</td>
+<td width="27%" align="right" valign="top">43</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">2001-02</td>
+<td width="25%" align="right" valign="top">4</td>
+<td width="27%" align="right" valign="top">45</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">2002-03</td>
+<td width="25%" align="right" valign="top">4</td>
+<td width="27%" align="right" valign="top">57</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">2003-04</td>
+<td width="25%" align="right" valign="top">79</td>
+<td width="27%" align="right" valign="top">68</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">2004-05</td>
+<td width="25%" align="right" valign="top">60</td>
+<td width="27%" align="right" valign="top">85</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">2005-06<sup>1</sup></td>
+<td width="25%" align="right" valign="top">199</td>
+<td width="27%" align="right" valign="top">74</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">2006-07</td>
+<td width="25%" align="right" valign="top">199</td>
+<td width="27%" align="right" valign="top">75</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">2007-08<sup>2</sup></td>
+<td width="25%" align="right" valign="top">207</td>
+<td width="27%" align="right" valign="top">59</td>
+<td width="25%" align="right" valign="top"> </td>
+</tr>
+<tr>
+<td width="23%" valign="top">2008-09</td>
+<td width="25%" align="right" valign="top">149</td>
+<td width="27%" align="right" valign="top">38</td>
+<td width="25%" align="right" valign="top">35</td>
+</tr>
+<tr>
+<td width="23%" valign="top">Total</td>
+<td width="25%" align="right" valign="top">1,565</td>
+<td width="27%" align="right" valign="top">773</td>
+<td width="25%" align="right" valign="top">35</td>
+</tr>
+</table></p>
+
+  <p>Notes:</p>
+
+  <p>1. A shared equity mechanism (called Homestake) was introduced this year. The figures from this date onwards include both shared ownership and shared equity approvals.</p>
+
+  <p>2. The shared equity mechanism is renamed to New Supply Shared Equity as part of the Scottish Government&rsquo;s Low Cost Initiative for first time buyers (LIFT).</p>
+
+  <p>The data in this table is from Housing Investment Division Management reports. The official statistics on the Affordable Housing Investment Programme, and on other housing statistics, can be found at the housing statistics for Scotland web pages at:</p>
+
+  <p><a href="http://www.scotland.gov.uk/Topics/Statistics/Browse/Housing-Regeneration/HSfS/KeyInfo" target="_blank">http://www.scotland.gov.uk/Topics/Statistics/Browse/Housing-Regeneration/HSfS/KeyInfo</a>.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27853.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27853.q0" speakerid="uk.org.publicwhip/member/80322" speakername="Rhoda Grant (Highlands and Islands) (Lab)" spid="S3W-27853" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive for what reason no council houses in the Highlands and Islands parliamentary constituencies (a) were completed in 2007-08 and (b) are anticipated to be completed in 2009-10.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27853.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>Local authorities provide statistical returns to the Scottish Government on a quarterly basis. The returns from 2007-08 show that there were no council house completions.</p>
+
+  <p>The statistical returns for 2009-10, from local authorities, will provide details of projects where local authorities are building new homes without grant from Scottish Government. The returns received to date indicate that there have been no council house completions during 2009-10.</p>
+
+  <p>New council homes in the Highlands and Islands parliamentary constituencies, funded by the Scottish Government through the kick start initiative, are not due to complete until after 2009-10.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27854.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27854.q0" speakerid="uk.org.publicwhip/member/80322" speakername="Rhoda Grant (Highlands and Islands) (Lab)" spid="S3W-27854" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive for what reason no new supply shared equity houses in Orkney (a) were completed in (i) 2007-08 and (ii) 2008-09 and (b) are estimated to be completed in 2009-10.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27854.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>New supply shared equity is one mechanism available to support first-time buyers. Housing completions in Orkney in 2007-08, 2008-09 and 2009-10 reflect the strategic priorities of the local authority, as set out in its Local Housing Strategy. This saw investment targeted in alternative grants to support first-time buyers.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27855.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27855.q0" speakerid="uk.org.publicwhip/member/80322" speakername="Rhoda Grant (Highlands and Islands) (Lab)" spid="S3W-27855" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive for what reason no new supply shared equity houses in Shetland (a) were completed in 2007-08 and (b) are estimated to be completed in 2009-10.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27855.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>New supply shared equity is one mechanism available to support first-time buyers. Housing completions in Shetland in 2007-08 and 2009-10 reflect the strategic priorities of the local authority, as set out in its Local Housing Strategy. This saw investment targeted in alternative grants to support first-time buyers.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27856.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27856.q0" speakerid="uk.org.publicwhip/member/80322" speakername="Rhoda Grant (Highlands and Islands) (Lab)" spid="S3W-27856" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive for what reason there were no new supply shared equity completions in the Western Isles in (a) 2007-08 and (b) 2008-09.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27856.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>New supply shared equity is one mechanism available to support first-time buyers. Housing completions in the Western Isles in 2007-08 and 2008-09 reflect the strategic priorities of the local authority, as set out in its Local Housing Strategy. This saw investment targeted in alternative grants to support first-time buyers.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27858.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27858.q0" speakerid="uk.org.publicwhip/member/80322" speakername="Rhoda Grant (Highlands and Islands) (Lab)" spid="S3W-27858" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive for what reason there were no actual sales under the Open Market Shared Equity Scheme in (a) Orkney, (b) Shetland, (c) the Western Isles and (d) Argyll and Bute in 2008-09.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27858.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>There were no sales under the Open Market Shared Equity Scheme in Orkney, Shetland, the Western Isles and Argyll and Bute in 2008-09 as these areas were not included in the pilot at that time.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27932.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27932.q0" speakerid="uk.org.publicwhip/member/80405" speakername="John Wilson (Central Scotland) (SNP)" spid="S3W-27932" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive what the management costs per housing unit are for (a) housing associations and (b) local authorities.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27932.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>(a) The latest available data are for 2007-08. During this year, management and maintenance administration costs per housing unit for registered social landlords were &pound;988.</p>
+
+  <p>(b) The latest available data are for 2008-09. During this year, supervision and management costs per housing unit in the local authority sector were &pound;719. These data are available on the Scottish Government website at:</p>
+
+  <p><a href="http://www.scotland.gov.uk/Topics/Statistics/Browse/Housing-Regeneration/HSfS/HRATables" target="_blank">http://www.scotland.gov.uk/Topics/Statistics/Browse/Housing-Regeneration/HSfS/HRATables</a>.</p>
+
+  <p>Registered social landlords and local authorities report their financial information in different returns to the Scottish Housing Regulator and the Scottish Government respectively, and accounting practices differ between the two sectors. Thus, while the figures reported above are closely related, they may not be directly comparable.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27933.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27933.q0" speakerid="uk.org.publicwhip/member/80405" speakername="John Wilson (Central Scotland) (SNP)" spid="S3W-27933" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive what the management costs are per housing unit as a percentage of rental income for (a) housing associations and (b) local authorities.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27933.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>(a) The latest available data are for 2007-08. During this year, management and maintenance administration costs as a percentage of gross rent receivable for registered social landlords were 36%.</p>
+
+  <p>(b) The latest available data are for 2008-09. During this year, supervision and management costs as a percentage of gross rent from houses for local authorities were 27%. These data are available on the Scottish Government website at:</p>
+
+  <p><a href="http://www.scotland.gov.uk/Topics/Statistics/Browse/Housing-Regeneration/HSfS/HRATables" target="_blank">http://www.scotland.gov.uk/Topics/Statistics/Browse/Housing-Regeneration/HSfS/HRATables</a>.</p>
+
+  <p>Registered social landlords and local authorities report their financial information in different returns to the Scottish Housing Regulator and the Scottish Government respectively, and accounting practices differ between the two sectors. Thus, while the figures reported above are closely related, they may not be directly comparable.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27934.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27934.q0" speakerid="uk.org.publicwhip/member/80405" speakername="John Wilson (Central Scotland) (SNP)" spid="S3W-27934" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive what the average rental cost is per housing unit for (a) housing associations and (b) local authorities.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27934.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>(a) In 2008-2009, the average weekly rent for Registered Social Landlords was &pound;57.76. The data are available on the Scottish Housing Regulator&rsquo;s website at:</p>
+
+  <p><a href="http://www.scottishhousingregulator.gov.uk/stellent/groups/public/documents/webpages/shr_statisticstables2008-09.hcsp#TopOfPage" target="_blank">http://www.scottishhousingregulator.gov.uk/stellent/groups/public/documents/webpages/shr_statisticstables2008-09.hcsp#TopOfPage</a>.</p>
+
+  <p>(b) In 2008-2009, the average weekly rent for local authorities was &pound;50.36. The data are available from the Scottish Government website at:</p>
+
+  <p><a href="http://www.scotland.gov.uk/Topics/Statistics/Browse/Housing-Regeneration/HSfS/HRA2008-09" target="_blank">http://www.scotland.gov.uk/Topics/Statistics/Browse/Housing-Regeneration/HSfS/HRA2008-09</a>.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28126.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28126.q0" speakerid="uk.org.publicwhip/member/80367" speakername="Mary Mulligan (Linlithgow) (Lab)" spid="S3W-28126" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>To ask the Scottish Executive what housing rents are being charged by each housing association and local authority.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28126.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#13">
+
+  <p>Statistics on average Registered Social Landlord (RSL) rents are published by the Scottish Housing Regulator at:</p>
+
+  <p><a href="http://www.scottishhousingregulator.gov.uk/stellent/groups/public/documents/webpages/shr_statisticstables2008-09.hcsp#TopOfPage" target="_blank">http://www.scottishhousingregulator.gov.uk/stellent/groups/public/documents/webpages/shr_statisticstables2008-09.hcsp#TopOfPage</a>.</p>
+
+  <p>Statistics on average local authority rents are published on the Housing Statistics for Scotland website at:</p>
+
+  <p><a href="http://www.scotland.gov.uk/Topics/Statistics/Browse/Housing-Regeneration/HSfS/HRA2008-09" target="_blank">http://www.scotland.gov.uk/Topics/Statistics/Browse/Housing-Regeneration/HSfS/HRA2008-09</a>.</p>
+
+  <p>Average weekly rents for 2008-09, broken down by local authority area, for local authorities and Registered Social Landlords (secure rents) are shown in the following table:</p>
+
+  <p><table width="100%" border="1" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="38%" align="center" valign="top">Local Authority Area</td>
+<td width="31%" align="center" valign="top">LocalAuthorities</td>
+<td width="31%" align="center" valign="top">RegisteredSocial Landlords</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Scotland</td>
+<td width="31%" align="right" valign="top">50.36</td>
+<td width="31%" align="right" valign="top">57.89</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Aberdeen City</td>
+<td width="31%" align="right" valign="top">53.83</td>
+<td width="31%" align="right" valign="top">57.58</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Aberdeenshire</td>
+<td width="31%" align="right" valign="top">48.89</td>
+<td width="31%" align="right" valign="top">56.58</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Angus</td>
+<td width="31%" align="right" valign="top">44.02</td>
+<td width="31%" align="right" valign="top">54.27</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Argyll and Bute</td>
+<td width="31%" align="right" valign="top">na</td>
+<td width="31%" align="right" valign="top">52.99</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Clackmannanshire</td>
+<td width="31%" align="right" valign="top">47.34</td>
+<td width="31%" align="right" valign="top">57.12</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Dumfries and Galloway</td>
+<td width="31%" align="right" valign="top">na</td>
+<td width="31%" align="right" valign="top">55.18</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Dundee City</td>
+<td width="31%" align="right" valign="top">52.33</td>
+<td width="31%" align="right" valign="top">56.73</td>
+</tr>
+<tr>
+<td width="38%" valign="top">East Ayrshire</td>
+<td width="31%" align="right" valign="top">48.41</td>
+<td width="31%" align="right" valign="top">63.10</td>
+</tr>
+<tr>
+<td width="38%" valign="top">East Dunbartonshire</td>
+<td width="31%" align="right" valign="top">53.14</td>
+<td width="31%" align="right" valign="top">57.64</td>
+</tr>
+<tr>
+<td width="38%" valign="top">East Lothian</td>
+<td width="31%" align="right" valign="top">40.38</td>
+<td width="31%" align="right" valign="top">60.23</td>
+</tr>
+<tr>
+<td width="38%" valign="top">East Renfrewshire</td>
+<td width="31%" align="right" valign="top">47.96</td>
+<td width="31%" align="right" valign="top">63.24</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Edinburgh, City of</td>
+<td width="31%" align="right" valign="top">60.16</td>
+<td width="31%" align="right" valign="top">59.26</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Eilean Siar</td>
+<td width="31%" align="right" valign="top">na</td>
+<td width="31%" align="right" valign="top">54.49</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Falkirk</td>
+<td width="31%" align="right" valign="top">48.33</td>
+<td width="31%" align="right" valign="top">52.67</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Fife</td>
+<td width="31%" align="right" valign="top">48.42</td>
+<td width="31%" align="right" valign="top">56.38</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Glasgow City</td>
+<td width="31%" align="right" valign="top">na</td>
+<td width="31%" align="right" valign="top">59.35</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Highland</td>
+<td width="31%" align="right" valign="top">56.75</td>
+<td width="31%" align="right" valign="top">56.81</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Inverclyde</td>
+<td width="31%" align="right" valign="top">na</td>
+<td width="31%" align="right" valign="top">60.41</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Midlothian</td>
+<td width="31%" align="right" valign="top">42.41</td>
+<td width="31%" align="right" valign="top">60.43</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Moray</td>
+<td width="31%" align="right" valign="top">38.99</td>
+<td width="31%" align="right" valign="top">56.15</td>
+</tr>
+<tr>
+<td width="38%" valign="top">North Ayrshire</td>
+<td width="31%" align="right" valign="top">50.90</td>
+<td width="31%" align="right" valign="top">58.28</td>
+</tr>
+<tr>
+<td width="38%" valign="top">North Lanarkshire</td>
+<td width="31%" align="right" valign="top">48.88</td>
+<td width="31%" align="right" valign="top">58.72</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Orkney Islands</td>
+<td width="31%" align="right" valign="top">40.91</td>
+<td width="31%" align="right" valign="top">55.45</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Perth and Kinross</td>
+<td width="31%" align="right" valign="top">46.72</td>
+<td width="31%" align="right" valign="top">53.04</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Renfrewshire</td>
+<td width="31%" align="right" valign="top">55.45</td>
+<td width="31%" align="right" valign="top">58.10</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Scottish Borders</td>
+<td width="31%" align="right" valign="top">na</td>
+<td width="31%" align="right" valign="top">51.94</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Shetland Islands</td>
+<td width="31%" align="right" valign="top">54.93</td>
+<td width="31%" align="right" valign="top">60.42</td>
+</tr>
+<tr>
+<td width="38%" valign="top">South Ayrshire</td>
+<td width="31%" align="right" valign="top">49.48</td>
+<td width="31%" align="right" valign="top">62.06</td>
+</tr>
+<tr>
+<td width="38%" valign="top">South Lanarkshire</td>
+<td width="31%" align="right" valign="top">54.65</td>
+<td width="31%" align="right" valign="top">59.46</td>
+</tr>
+<tr>
+<td width="38%" valign="top">Stirling</td>
+<td width="31%" align="right" valign="top">51.09</td>
+<td width="31%" align="right" valign="top">56.76</td>
+</tr>
+<tr>
+<td width="38%" valign="top">West Dunbartonshire</td>
+<td width="31%" align="right" valign="top">47.67</td>
+<td width="31%" align="right" valign="top">55.01</td>
+</tr>
+<tr>
+<td width="38%" valign="top">West Lothian</td>
+<td width="31%" align="right" valign="top">52.33</td>
+<td width="31%" align="right" valign="top">56.98</td>
+</tr>
+</table></p>
+
+  <p>Sources: Local authority data is from Housing Revenue Account returns to the Scottish Government and RSL average weekly secure rents are from the Scottish Housing Regulator; Annual Performance and Statistical Returns 2008-09.</p>
+
+  <p>Note: values of &quot;na&quot; are for local authorities that have transferred their stock to housing associations.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27985.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#14">Human Rights</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27985.q0" speakerid="uk.org.publicwhip/member/80280" speakername="Bill Aitken (Glasgow) (Con)" spid="S3W-27985" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#14">
+
+  <p>To ask the Scottish Executive how many human rights cases are pending against the Scottish Prison Service, broken down by type of claim.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27985.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#14">
+
+  <p>I have asked Mike Ewart, Chief Executive of the Scottish Prison Service, to respond. His response is as follows:</p>
+
+  <p>As at 21 October 2009, the following human rights cases are pending against the Scottish Prison Service:</p>
+
+  <p>Slopping out &ndash; 2,165,</p>
+
+  <p>Segregation &ndash; 11,</p>
+
+  <p>Lawfulness of pre-recorded message and breach of European Convention of Human Rights (ECHR) Article 8 &ndash; one,</p>
+
+  <p>Duty of Care and breach of ECHR Article 2 &ndash; one.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27986.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#14">Human Rights</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27986.q0" speakerid="uk.org.publicwhip/member/80280" speakername="Bill Aitken (Glasgow) (Con)" spid="S3W-27986" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#14">
+
+  <p>To ask the Scottish Executive how much it has set aside to settle human rights cases.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27986.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#14">
+
+  <p>I have asked Mike Ewart, Chief Executive of the Scottish Prison Service, to respond. His response is as follows:</p>
+
+  <p>The <em>Scottish Prison Service Annual Report and Accounts 2008-09</em> shows provision at 31 March 2009 of &pound;64.15 million for prisoner compensation and related costs. Approximately &pound;50.9 million of this relates to potential human rights claims for compensation.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27941.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#15">Income</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27941.q0" speakerid="uk.org.publicwhip/member/80338" speakername="Johann Lamont (Glasgow Pollok) (Lab)" spid="S3W-27941" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#15">
+
+  <p>To ask the Scottish Executive how many people in Glasgow live in a household with an annual income of under &pound;16,000.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27941.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#15">
+
+  <p>Using the Scottish Household Survey, we estimate that during 2007-08 in Glasgow, 270,000 people (46% of the population) lived in households with net incomes below &pound;16,000.</p>
+
+  <p>The Scottish Household Survey defines household income as the combined income of the highest income householder and his/her partner.</p>
+
+  <p>This definition is not directly comparable with the main UK and Scottish Government income estimates which come from the Family Resources Survey. Family Resources Survey estimates are not available at local authority level.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27945.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#15">Income</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27945.q0" speakerid="uk.org.publicwhip/member/80338" speakername="Johann Lamont (Glasgow Pollok) (Lab)" spid="S3W-27945" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#15">
+
+  <p>To ask the Scottish Executive how many people in Glasgow live in a household with an annual income of under &pound;23,000.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27945.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#15">
+
+  <p>Using the Scottish Household Survey, we estimate that during 2007-08 in Glasgow, 380,000 people (65% of the population) lived in households with net incomes below &pound;23,000.</p>
+
+  <p>The Scottish Household Survey defines household income as the combined income of the highest income householder and his/her partner.</p>
+
+  <p>This definition is not directly comparable with the main UK and Scottish Government income estimates which come from the Family Resources Survey. Family Resources Survey estimates are not available at local authority level.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28046.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#16">Justice</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28046.q0" speakerid="uk.org.publicwhip/member/80290" speakername="Gavin Brown (Lothians) (Con)" spid="S3W-28046" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#16">
+
+  <p>To ask the Scottish Executive how many children under 16 have been charged by police in the Lothians region in each of the last three years, broken down by age (a) five and under, (b) 6 to 10 and (c) 11 to 15.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28046.r0" speakerid="uk.org.publicwhip/member/80306" speakername="Fergus Ewing" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#16">
+
+  <p>This information is not held centrally.</p>
+
+  <p>The Scottish Government does not centrally hold information relating to the age of perpetrators of crime. For information, the majority of charges against under 16&rsquo;s are dealt with by the Children&rsquo;s Reporter.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28036.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28036.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28036" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive whether it is committed to maintaining the 1,000 extra police officers recruited since May 2007.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28036.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>Yes. This is a priority for this government and I announced on 1 September that we now have 17,278 police officers in Scotland, which is 1,044 higher than at May 2007. The Scottish Government is directly paying for the recruitment, training and salary of 801 officers recruited since May 2007 and we are committed to meeting the costs of an additional 201 officers in 2010-11.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28038.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28038.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28038" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive how many of the additional police officers recruited since May 2007 are engaged in community policing, broken down by police force.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28038.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>There are currently 1,044 more officers in our communities than at May 2007. The deployment of these officers is an operational matter for chief constables but it is long-standing practice that all new recruits gain operation policing experience. The majority of these officers will therefore be allocated to frontline duties in our communities.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28039.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28039.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28039" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive what actions it has taken to address the absence of a commonly agreed definition of and inconsistencies in approach to community policing across Scotland as highlighted in the Justice Committee&rsquo;s <em>Report on Inquiry into Community Policing</em> .</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28039.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>Following the Scottish Government&rsquo;s work with police forces, police authority convenors and other key policing stakeholders on the development of the Community Policing Engagement Principles, I wrote to chief constables and convenors earlier this year to encourage the development of community policing engagement standards across all force areas. Work is ongoing across the country to develop these standards.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28040.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28040.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28040" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive what progress it has made on implementing each of the recommendations in the Justice Committee&rsquo;s <em>Report on Inquiry into Community Policing</em> .</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28040.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>The development of the Community Policing Engagement Principles by the Scottish Government, and subsequent work being taken forward locally by police forces and police authorities to develop their own community policing engagement standards, takes full account of the recommendations of the Justice Committee.</p>
+
+  <p>In particular, the committee recognised the importance of ensuring that the Scottish Government met its pledge to deliver 1,000 additional officers over the life of this Parliament. In fact, we passed this milestone in June 2009, nearly two years early.</p>
+
+  <p>We have also given police authorities sufficient resources to maintain police numbers. Funding for police forces is at its highest ever level, &pound;1.115 billion in 2009-10, which will help to ensure that local communities continue to grow safer and stronger.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28041.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28041.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28041" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive how many police forces follow the approach to community policing taken by Strathclyde Police.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28041.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>Each chief constable, working with local police authorities, is using their policing capacity and additional resources to best deliver the type of frontline policing that their communities want.</p>
+
+  <p>The report of the Justice Committee&rsquo;s <em>Inquiry into Community Policing</em> acknowledged that &quot;a one size fits all model for community policing was not advantageous&quot; and that &quot;forces must be able to have flexibility to tailor their particular definition to their geography and populations.&quot; It is not, therefore, helpful to assess how one force model is or is not applied in another force area.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28042.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28042.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28042" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive how it defines community policing.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28042.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>Community policing refers to the way in which policing takes place in our communities. This is at the heart of the government&rsquo;s commitment to strengthening operational policing in our communities.</p>
+
+  <p>The Community Policing Engagement Principles set out a template for police forces to describe how they engage with their communities at a local level.</p>
+
+  <p>Community policing directly contributes to the outcomes we seek in relation to people living their lives free of crime and in having strong, resilient and supportive communities where people take responsibility for their own actions and how they affect others.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28043.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28043.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28043" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive whether it considers that all police forces attach sufficient priority to community policing and, if not, what action it will take.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28043.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>The Scottish Government worked with police and stakeholders to develop and disseminate the Scottish Community Policing Engagement Principles earlier this year. This work, taken alongside the continuing high priority attached by Scottish Police Forces to ensuring that police officers work within communities to reduce crime and reassure the public, is having a considerable impact in making our communities safer and stronger.</p>
+
+  <p>Importantly, the Scottish Government has provided resources which are delivering record numbers of police officers in Scotland &ndash; already over 1,000 more than in March 2007.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28146.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28146.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28146" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive how many of the police officers recruited since May 2007 have been funded from (a) core police grant, (b) local authority funding and (c) Scottish Government funding, broken down by (i) police force and (ii) local authority area.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28146.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>Police authority budgets are comprised of funding from constituent local authorities and police grant from the Scottish Government. It is not possible to separate funding of police officer recruitment between these two funding mechanisms. The Scottish Government pledged to fund the recruitment of 1,000 additional officers over the current Parliamentary term and details of the number of additional officers funded by the Scottish Government, along with those funded by police authorities, are shown in the following table. As police officers are appointed to police forces and their deployment is an operational matter for chief constables, it is not possible to show their deployment by local authority area.</p>
+
+  <p>Police Officers Recruited and Trained From May 2007 to October 2009</p>
+
+  <p><table width="100%" border="1" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="28%" align="center" valign="bottom">Police Force</td>
+<td width="25%" align="center" valign="bottom">Funded by Police Authorities</td>
+<td width="25%" align="center" valign="bottom">Funded by the Scottish Government</td>
+<td width="23%" align="center" valign="bottom">Total</td>
+</tr>
+<tr>
+<td width="28%" valign="top">Central Scotland Police</td>
+<td width="25%" align="right" valign="top">61</td>
+<td width="25%" align="right" valign="top">39</td>
+<td width="23%" align="right" valign="top">100</td>
+</tr>
+<tr>
+<td width="28%" valign="top">Dumfries and Galloway Constabulary</td>
+<td width="25%" align="right" valign="top">43</td>
+<td width="25%" align="right" valign="top">23</td>
+<td width="23%" align="right" valign="top">66</td>
+</tr>
+<tr>
+<td width="28%" valign="top">Fife Constabulary</td>
+<td width="25%" align="right" valign="top">66</td>
+<td width="25%" align="right" valign="top">48</td>
+<td width="23%" align="right" valign="top">114</td>
+</tr>
+<tr>
+<td width="28%" valign="top">Grampian Police</td>
+<td width="25%" align="right" valign="top">235</td>
+<td width="25%" align="right" valign="top">78</td>
+<td width="23%" align="right" valign="top">313</td>
+</tr>
+<tr>
+<td width="28%" valign="top">Lothian and Borders Police</td>
+<td width="25%" align="right" valign="top">363</td>
+<td width="25%" align="right" valign="top">144</td>
+<td width="23%" align="right" valign="top">507</td>
+</tr>
+<tr>
+<td width="28%" valign="top">Northern Constabulary</td>
+<td width="25%" align="right" valign="top">121</td>
+<td width="25%" align="right" valign="top">43</td>
+<td width="23%" align="right" valign="top">164</td>
+</tr>
+<tr>
+<td width="28%" valign="top">Strathclyde Police</td>
+<td width="25%" align="right" valign="top">1,186</td>
+<td width="25%" align="right" valign="top">366</td>
+<td width="23%" align="right" valign="top">1,552</td>
+</tr>
+<tr>
+<td width="28%" valign="top">Tayside Police</td>
+<td width="25%" align="right" valign="top">89</td>
+<td width="25%" align="right" valign="top">60</td>
+<td width="23%" align="right" valign="top">149</td>
+</tr>
+<tr>
+<td width="28%" valign="top">Total</td>
+<td width="25%" align="right" valign="top">2,164</td>
+<td width="25%" align="right" valign="top">801</td>
+<td width="23%" align="right" valign="top">2,965</td>
+</tr>
+</table></p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28155.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28155.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28155" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive what assessment it has made of the comment of the Chief Constable of Strathclyde Police to the Justice Committee on 6 October 2009 that maintaining police officer numbers at current levels would result in support staff redundancies ( <em>Official Report</em> c. 2270).</p>
+
+</ques>
+
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28156.q1" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28156" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive what its position is on the comments of the Chief Constable of Strathclyde Police to the Justice Committee on 6 October 2009 in relation to possible staff redundancies that &quot;I am afraid that I take a fairly clear position on that. The public want to see police officers; therefore, we would turn first to the police support staff for voluntary redundancies&quot; ( <em>Official Report</em> c. 2271).</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28156.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>The composition of police force staff is an operational matter for chief constables. This government supports the efforts of the chief constables across Scotland to ensure that as many officers as possible are deployed on frontline policing in our communities. We are providing record funding for policing and we are committed to providing 1,000 extra officers in our communities by 2011.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28157.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28157.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28157" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive what its position is on the comments of the Chief Constable of Strathclyde Police to the Justice Committee on 6 October 2009 in relation to possible staff redundancies that &quot;at some point, if we could not balance the books, we would have to consider compulsory redundancies. I would look to shrink the police staff numbers before I shrunk police officer numbers&quot; ( <em>Official Report</em> c. 2271) and those of Dave Watson of Unison that the focus on police numbers is the wrong one ( <em>Official Report</em> c. 2283).</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28157.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>The composition of police staff is an operational matter for chief constables. This government is providing specific funding directly to police authorities to deliver on our commitment to providing an additional 1,000 police officers in our communities by 2011. This commitment has been supported across Parliament and was a recommendation by the Justice Committee in its enquiry into community policing:</p>
+
+  <p><a href="../../../s3/committees/justice/reports-08/jur08-18.htm#25">http://www.scottish.parliament.uk/s3/committees/justice/reports-08/jur08-18.htm#25</a>.</p>
+
+  <p>We are also committed to ensuring that we have a modern and efficient police service in Scotland, which includes the use of civilian members of staff where that makes operational sense.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28158.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28158.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28158" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive whether it considers that any reduction in police staff numbers as described by the Chief Constable of Strathclyde Police to the Justice Committee on 6 October 2009 would impact on the roles carried out by police officers and is likely to negatively impact on the length of time that officers can dedicate to frontline policing ( <em>Official Report </em> c. 2271) .</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28158.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>This government is providing specific funding directly to police authorities to deliver on our commitment to providing an additional 1,000 police officers in our communities by 2011. There is therefore no question of this commitment having a negative impact on the efficiency of police support services.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28159.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">Police</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28159.q0" speakerid="uk.org.publicwhip/member/80284" speakername="Richard Baker (North East Scotland) (Lab)" spid="S3W-28159" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>To ask the Scottish Executive what its position is on the comments of Calum Steele of the Scottish Police Federation to the Justice Committee on 6 October 2009 that &quot;the fundamental duty of any Government must be the safety and security of the public. My fairly simple position is that cuts in funding are simply wrong&quot; ( <em>Official Report</em> c. 2284).</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28159.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#17">
+
+  <p>For 2010-11, we are faced with a &pound;500 million cut in planned expenditure imposed on Scotland by the UK Government, and accelerated capital expenditure. However, despite this pressure we are providing an increase of 3.1% in police grant, which is &pound;586.7 million in 2010-11 and providing direct funding for the 1,000 extra police officers in our communities. In addition, from 2010-11 the liability for police pensions will transfer from police authorities to the Scottish Government. The Scottish Government has not therefore reduced the funding it provides for the police in Scotland.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27943.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#18">Prescription Charges</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27943.q0" speakerid="uk.org.publicwhip/member/80338" speakername="Johann Lamont (Glasgow Pollok) (Lab)" spid="S3W-27943" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#18">
+
+  <p>To ask the Scottish Executive how many people in Glasgow living in a household with an annual income of under &pound;16,000 were affected by the extension of free prescriptions.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27943.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#18">
+
+  <p>Using Scottish Household Survey figures, we estimate that 100,000 (38%) of the people in Glasgow living in households with net incomes below &pound;16,000 will be affected by the reduction and abolition of prescription charges when they collect their prescriptions.</p>
+
+  <p>This estimate is based on the number of people in this income band who are currently not eligible for free prescriptions because they are:</p>
+
+  <p>Between 16 and 60-years-old and,</p>
+
+  <p>not in full-time education and,</p>
+
+  <p>living in a household where the highest income householder (or his/her partner) does not receive Income Support, Income-based Job Seekers&rsquo; Allowance or Pension Credit.</p>
+
+  <p>This estimate does not take into account groups that are eligible for free prescriptions and that could not be identified in the Scottish Household Survey. These groups include:</p>
+
+  <p>People with low incomes receiving certain combinations of child and working tax credits</p>
+
+  <p>Pregnant women, or recent mothers, with exemption certificates</p>
+
+  <p>People with certain medical conditions</p>
+
+  <p>NHS in-patients</p>
+
+  <p>Some war pensioners.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27946.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#18">Prescription Charges</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27946.q0" speakerid="uk.org.publicwhip/member/80338" speakername="Johann Lamont (Glasgow Pollok) (Lab)" spid="S3W-27946" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#18">
+
+  <p>To ask the Scottish Executive how many children in Glasgow living in a household with an annual income of under &pound;23,000 were affected by the extension of free prescriptions.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27946.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#18">
+
+  <p>Children are already entitled to free prescriptions and so are not affected by our policy to abolish prescription charges.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28085.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#19">Prison Service</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28085.q0" speakerid="uk.org.publicwhip/member/80386" speakername="Dr Richard Simpson (Mid Scotland and Fife) (Lab)" spid="S3W-28085" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#19">
+
+  <p>To ask the Scottish Executive how many foreign nationals are in custody in Scottish prisons, also broken down by gender and country of origin.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28085.r0" speakerid="uk.org.publicwhip/member/80341" speakername="Kenny MacAskill" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#19">
+
+  <p>I have asked Mike Ewart, Chief Executive of the Scottish Prison Service, to respond. His response is as follows:</p>
+
+  <p><table width="50%" border="BORDER" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="59%" valign="top"> </td>
+<td width="24%" align="center" valign="top">Female</td>
+<td width="17%" align="center" valign="top">Male</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Albanian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">4</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Algerian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">2</td>
+</tr>
+<tr>
+<td width="59%" valign="top">American</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff">1</td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Australian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Bangladeshi</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">7</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Belgian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Bolivian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff">1</td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff"> </td>
+</tr>
+<tr>
+<td width="59%" valign="top">Bosnian Serb</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Brazilian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Canadian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">2</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Chinese</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff">10</td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">78</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Colombian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Dutch</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">2</td>
+</tr>
+<tr>
+<td width="59%" valign="top">French</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">German</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">4</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Greek</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Indian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">6</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Iranian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Iraqi</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">4</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Italian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">3</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Jamaican</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">2</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Mexican</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">New Zealander</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Other African</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff">3</td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">38</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Other Asian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">5</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Other Commonwealth</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff">1</td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">12</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Other European</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff">2</td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">23</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Other South American</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff">1</td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">4</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Pakistani</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff">1</td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">8</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Palestinian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">1</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Polish</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">30</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Portuguese</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">2</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Russian</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff">1</td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">4</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Southern African</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff">1</td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">5</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Southern Irish</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">4</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Spanish</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">3</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Turkish</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">3</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Undetermined</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff">1</td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">30</td>
+</tr>
+<tr>
+<td width="59%" valign="top">Vietnamese</td>
+<td width="24%" align="right" valign="top" bgcolor="#ffffff"> </td>
+<td width="17%" align="right" valign="top" bgcolor="#ffffff">6</td>
+</tr>
+</table></p>
+
+  <p>The table gives a breakdown of all foreign nationals currently held in Scottish prisons broken down by nationality and gender.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27954.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#20">Procurement</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27954.q0" speakerid="uk.org.publicwhip/member/80334" speakername="James Kelly (Glasgow Rutherglen) (Lab)" spid="S3W-27954" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#20">
+
+  <p>To ask the Scottish Executive what percentage of invoices from suppliers was paid by directorates supporting its Wealthier and Fairer strategic directive within 10 days of receipt in June 2009.</p>
+
+</ques>
+
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27955.q1" speakerid="uk.org.publicwhip/member/80334" speakername="James Kelly (Glasgow Rutherglen) (Lab)" spid="S3W-27955" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#20">
+
+  <p>To ask the Scottish Executive what percentage of invoices from suppliers was paid by directorates supporting its Healthier strategic objective within 10 days of receipt in June 2009.</p>
+
+</ques>
+
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27956.q2" speakerid="uk.org.publicwhip/member/80334" speakername="James Kelly (Glasgow Rutherglen) (Lab)" spid="S3W-27956" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#20">
+
+  <p>To ask the Scottish Executive what percentage of invoices from suppliers was paid by directorates supporting its Safer and Stronger strategic objective within 10 days of receipt in June 2009.</p>
+
+</ques>
+
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27957.q3" speakerid="uk.org.publicwhip/member/80334" speakername="James Kelly (Glasgow Rutherglen) (Lab)" spid="S3W-27957" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#20">
+
+  <p>To ask the Scottish Executive what percentage of invoices from suppliers was paid by directorates supporting its Smarter strategic objective within 10 days of receipt in June 2009.</p>
+
+</ques>
+
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27958.q4" speakerid="uk.org.publicwhip/member/80334" speakername="James Kelly (Glasgow Rutherglen) (Lab)" spid="S3W-27958" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#20">
+
+  <p>To ask the Scottish Executive what percentage of invoices from suppliers was paid by directorates supporting its Greener strategic objective within 10 days of receipt in June 2009.</p>
+
+</ques>
+
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27959.q5" speakerid="uk.org.publicwhip/member/80334" speakername="James Kelly (Glasgow Rutherglen) (Lab)" spid="S3W-27959" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#20">
+
+  <p>To ask the Scottish Executive what percentage of invoices from suppliers was paid by directorates under Services and Groups listed on its website within 10 days of receipt in June 2009.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27959.r0" speakerid="uk.org.publicwhip/member/80397" speakername="John Swinney" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#20">
+
+  <p>The Scottish Government is committed to helping businesses by paying invoices early and aspires to making payments within 10 working days. The Scottish Government systems report on the basis of the senior management structure:</p>
+
+  <p><a href="http://www.scotland.gov.uk/Resource/Doc/923/0052945.pdf" target="_blank">http://www.scotland.gov.uk/Resource/Doc/923/0052945.pdf</a>.</p>
+
+  <p>Relevant analysis for June 2009 is provided in the following table:</p>
+
+  <p><table width="50%" border="BORDER" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr align="center">
+<td width="90%" valign="bottom">Director General (DG) Responsibilities</td>
+<td width="10%" valign="bottom">%</td>
+</tr>
+<tr>
+<td width="90%" valign="bottom">Economy and Chief Economic Advisor</td>
+<td width="10%" align="right" valign="bottom">84</td>
+</tr>
+<tr>
+<td width="90%" valign="bottom">Education</td>
+<td width="10%" align="right" valign="bottom">89</td>
+</tr>
+<tr>
+<td width="90%" valign="bottom">Environment</td>
+<td width="10%" align="right" valign="bottom">89</td>
+</tr>
+<tr>
+<td width="90%" valign="bottom">Finance and Corporate Services</td>
+<td width="10%" align="right" valign="bottom">92</td>
+</tr>
+<tr>
+<td width="90%" valign="bottom">Health and Chief Executive NHS Scotland</td>
+<td width="10%" align="right" valign="bottom">82</td>
+</tr>
+<tr>
+<td width="90%" valign="bottom">Justice and Communities</td>
+<td width="10%" align="right" valign="bottom">83</td>
+</tr>
+<tr>
+<td width="90%" valign="bottom">Strategy and Ministerial Support</td>
+<td width="10%" align="right" valign="bottom">71</td>
+</tr>
+<tr>
+<td width="90%" valign="bottom">Total DG Responsibilities</td>
+<td width="10%" align="right" valign="bottom">87</td>
+</tr>
+</table></p>
+
+  <p>The Scottish Government payment performance includes directorates, executive agencies and other bodies who use our financial systems. For the month of June 2009, the overall payment performance was 91%. There has been a further improvement since June, with 95% of all transactions being paid within 10 working days for the months of August and September 2009.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27942.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#21">School Meals</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27942.q0" speakerid="uk.org.publicwhip/member/80338" speakername="Johann Lamont (Glasgow Pollok) (Lab)" spid="S3W-27942" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#21">
+
+  <p>To ask the Scottish Executive how many children in Glasgow living in a household with an annual income of under &pound;16,000 were affected by the extension of free school meals.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27942.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#21">
+
+  <p>Information on the number of children living in a household with an annual income of under &pound;16,000 affected by the extension of free school meals is not held centrally.</p>
+
+  <p>The extension to free school meals extends eligibility to households in receipt of both maximum child tax credit and maximum working tax credit and income under &pound;6,420 (as assessed by HMRC in 09-10). Using 2007-08 data provided by the Department for Work and Pensions (DWP) it is estimated that there are approximately 6,500 pupils in Glasgow who will benefit from this extended entitlement to free school lunches. It should be stressed that this an estimate and is thus subject to some uncertainty.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27836.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#22">Schools</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27836.q0" speakerid="uk.org.publicwhip/member/80369" speakername="Elaine Murray (Dumfries) (Lab)" spid="S3W-27836" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#22">
+
+  <p>To ask the Scottish Executive which primary school in Dumfries and Galloway was rebuilt or substantially refurbished in 2008-09, as stated in Table 4 of the School Estate Statistics 2009.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27836.r0" speakerid="uk.org.publicwhip/member/80289" speakername="Keith Brown" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#22">
+
+  <p>The primary school in Dumfries and Galloway rebuilt or substantially refurbished in 2008-09, as stated in Table 4 of the School Estate Statistics 2009, was Kelloholm School.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27837.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#22">Schools</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27837.q0" speakerid="uk.org.publicwhip/member/80369" speakername="Elaine Murray (Dumfries) (Lab)" spid="S3W-27837" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#22">
+
+  <p>To ask the Scottish Executive which secondary schools in Dumfries and Galloway were rebuilt or substantially refurbished in 2008-09, as stated in Table 4 of the School Estate Statistics 2009.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27837.r0" speakerid="uk.org.publicwhip/member/80289" speakername="Keith Brown" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#22">
+
+  <p>The secondary schools in Dumfries and Galloway rebuilt or substantially refurbished in 2008-09, as stated in Table 4 of the School Estate Statistics 2009 were Annan Academy, Douglas Ewart High School and Sanquhar Academy.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28022.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#23">Scottish Government Funding</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28022.q0" speakerid="uk.org.publicwhip/member/80338" speakername="Johann Lamont (Glasgow Pollok) (Lab)" spid="S3W-28022" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#23">
+
+  <p>To ask the Scottish Executive how much funding was allocated to the Children&rsquo;s Services Women&rsquo;s Aid Fund in (a) 2005-06, (b) 2006-07, (c) 2007-08 and (d) 2008-09.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28022.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#23">
+
+  <p>Funding was allocated as follows to the Children&rsquo;s Services Women&rsquo;s Aid Fund: &pound;3,000,123 in 2006-2007; &pound;3,202,585 in 2007-2008, and &pound;3,800,845 in 2008-2009.</p>
+
+  <p>There was no funding in 2005-06 as the fund was only established from 2006-07.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27820.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#24">Voluntary Sector</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27820.q0" speakerid="uk.org.publicwhip/member/80402" speakername="Sandra White (Glasgow) (SNP)" spid="S3W-27820" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#24">
+
+  <p>To ask the Scottish Executive how many, and which, voluntary sector organisations have had grants recalled by the Equality Unit since 2003 due to a failure to meet grant criteria and what the amount was in each case.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27820.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#24">
+
+  <p>We are unable to answer this question in full because the information requested could only be obtained at disproportionate cost.</p>
+
+  <p>We provide funding for a number of projects for more than one year and allocate funding for each of the years of the grant. It is expected that allocations will be used in the financial year for which they are given. Where funds are not fully utilised in that financial year, the funding needs to be adjusted or reprofiled to take account of the underspend.</p>
+
+  <p>The table below lists projects where there was an underspend in 2008-09 and grants were adjusted accordingly.</p>
+
+  <p><table width="75%" border="1" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="55%" align="center" valign="top">Voluntary Sector Organisations</td>
+<td width="45%" align="center" valign="top">Underspend</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Barnardo&rsquo;s Scotland</td>
+<td width="45%" align="right" valign="top">&pound;447</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Dumfries and Galloway CAB</td>
+<td width="45%" align="right" valign="top">&pound;4,000</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Greater Pollock Integration Network</td>
+<td width="45%" align="right" valign="top">&pound;5,500</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Maryhill Citizens Advice Bureau</td>
+<td width="45%" align="right" valign="top">&pound;4,669</td>
+</tr>
+<tr>
+<td width="55%" valign="top">MECOPP</td>
+<td width="45%" align="right" valign="top">&pound;1,500</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Scottish Alliance of Racial Equality Councils (SAREC)</td>
+<td width="45%" align="right" valign="top">&pound;2,164</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Scottish Islamic Foundation</td>
+<td width="45%" align="right" valign="top">&pound;131,246</td>
+</tr>
+<tr>
+<td width="55%" valign="top">West Scotland Race Equality Council</td>
+<td width="45%" align="right" valign="top">&pound;12,943</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Young Scot</td>
+<td width="45%" align="right" valign="top">&pound;14,573</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Glasgow Women&rsquo;s Library</td>
+<td width="45%" align="right" valign="top">&pound;4,000</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Scottish Women&rsquo;s Convention</td>
+<td width="45%" align="right" valign="top">&pound;9,916</td>
+</tr>
+<tr>
+<td width="55%" valign="top">WEA Women Onto Work</td>
+<td width="45%" align="right" valign="top">&pound;11,092</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Argyll &amp; Bute Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;606</td>
+</tr>
+<tr>
+<td width="55%" valign="top">AWAZ FM </td>
+<td width="45%" align="right" valign="top">&pound;11,583</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Borders Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;374</td>
+</tr>
+<tr>
+<td width="55%" valign="top">British Red Cross</td>
+<td width="45%" align="right" valign="top">&pound;132</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Caithness &amp; Sutherland Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;16,033</td>
+</tr>
+<tr>
+<td width="55%" valign="top">City of Edinburgh Council</td>
+<td width="45%" align="right" valign="top">&pound;34,612</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Dumfries &amp; Galloway Domestic Abuse</td>
+<td width="45%" align="right" valign="top">&pound;13,339</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Dumfries &amp; Stewart Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;2,641</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Dundee City Council</td>
+<td width="45%" align="right" valign="top">&pound;15,942</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Dundee Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;6</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Dunfermline Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;4,197</td>
+</tr>
+<tr>
+<td width="55%" valign="top">East Kilbride Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;1,109</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Fife - Fife Council</td>
+<td width="45%" align="right" valign="top">&pound;621</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Fife DASAP</td>
+<td width="45%" align="right" valign="top">&pound;61,691</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Forth Valley - Falkirk Council</td>
+<td width="45%" align="right" valign="top">&pound;5,263</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Glasgow Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;10,293</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Grampian - Grampian Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;4,181</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Hematt Gryffe Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;2,213</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Lanarkshire - North Lanarkshire Council</td>
+<td width="45%" align="right" valign="top">&pound;6,600</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Moray Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;3,429</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Perth &amp; Kinross Domestic Abuse Forum</td>
+<td width="45%" align="right" valign="top">&pound;1,614</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Perth &amp; Kinross Women&rsquo;s Rape &amp; Sexual Abuse Centre</td>
+<td width="45%" align="right" valign="top">&pound;25,325</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Perthshire Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;8,790</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Rape Crisis Scotland</td>
+<td width="45%" align="right" valign="top">&pound;16,974</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Ross-shire Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;17,737</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Sacro</td>
+<td width="45%" align="right" valign="top">&pound;5,363</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Scottish Domestic Abuse Helpline</td>
+<td width="45%" align="right" valign="top">&pound;3,573</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Shakti Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;13,520</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Shetland - Shetland Islands Council</td>
+<td width="45%" align="right" valign="top">&pound;1,574</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Stirling Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;4,946</td>
+</tr>
+<tr>
+<td width="55%" valign="top">West Dunbartonshire Council</td>
+<td width="45%" align="right" valign="top">&pound;26,589</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Western Isles Women&rsquo;s Aid</td>
+<td width="45%" align="right" valign="top">&pound;7,026</td>
+</tr>
+<tr>
+<td width="55%" valign="top">Zero Tolerance</td>
+<td width="45%" align="right" valign="top">&pound;6,094</td>
+</tr>
+</table></p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-27821.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#24">Voluntary Sector</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-27821.q0" speakerid="uk.org.publicwhip/member/80402" speakername="Sandra White (Glasgow) (SNP)" spid="S3W-27821" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#24">
+
+  <p>To ask the Scottish Executive how many, and which, voluntary sector organisations have been allowed to carry grants forward to future financial years or had them reprofiled to that effect by the Equality Unit since 2003 and what the amount was in each case.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-27821.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#24">
+
+  <p>We are unable to answer this question in full because the information requested could only be obtained at disproportionate cost.</p>
+
+  <p>We provide funding for a number of projects for more than one year and allocate funding for each of the years of the grant. It is expected that allocations will be used in the financial year for which they are given. Where funds are not fully utilised in that financial year, the funding needs to be adjusted or reprofiled to take account of the underspend.</p>
+
+  <p>The table below lists projects where there was an underspend in 2008-09 and grants were reprofiled accordingly.</p>
+
+  <p><table width="50%" border="1" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="57%" align="center" valign="top">Voluntary Sector Organisation</td>
+<td width="43%" align="center" valign="top">Amount Reprofiled</td>
+</tr>
+<tr>
+<td width="57%" valign="top">Dundee Citizens Advice Centre</td>
+<td width="43%" align="right" valign="top">&pound;5,884</td>
+</tr>
+<tr>
+<td width="57%" valign="top">Greater Pollock Integration Network</td>
+<td width="43%" align="right" valign="top">&pound;2,500</td>
+</tr>
+<tr>
+<td width="57%" valign="top">Inverness Citizens Advice Bureau</td>
+<td width="43%" align="right" valign="top">&pound;3,612</td>
+</tr>
+<tr>
+<td width="57%" valign="top">Scottish Alliance of Racial Equality Councils (SAREC)</td>
+<td width="43%" align="right" valign="top">&pound;5,500</td>
+</tr>
+<tr>
+<td width="57%" valign="top">Scottish Islamic Foundation</td>
+<td width="43%" align="right" valign="top">&pound;7,000</td>
+</tr>
+<tr>
+<td width="57%" valign="top">West Scotland Race Equality Council</td>
+<td width="43%" align="right" valign="top">&pound;4,287</td>
+</tr>
+<tr>
+<td width="57%" valign="top">Young Scot</td>
+<td width="43%" align="right" valign="top">&pound;6,000</td>
+</tr>
+<tr>
+<td width="57%" valign="top">WEA Women Onto Work</td>
+<td width="43%" align="right" valign="top">&pound;3,200</td>
+</tr>
+<tr>
+<td width="57%" valign="top">Deaf Blind Scotland</td>
+<td width="43%" align="right" valign="top">&pound;20,000</td>
+</tr>
+</table></p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-27.S3W-28148.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#25">Waste Management</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-27.S3W-28148.q0" speakerid="uk.org.publicwhip/member/80324" speakername="Robin Harper (Lothians) (Green)" spid="S3W-28148" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#25">
+
+  <p>To ask the Scottish Executive whether the Scottish Environment Protection Agency has recently issued guidance to the demolition industry or landfill operators to ensure that construction waste containing special or hazardous materials, such as plastic foam insulation containing ozone-depleting substances from steel-clad buildings, is disposed off correctly.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-27.S3W-28148.r0" speakerid="uk.org.publicwhip/member/80301" speakername="Roseanna Cunningham" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1027.htm#25">
+
+  <p>The Scottish Environment Protection Agency (SEPA) published guidance in July 2008 on the current legal requirements for the disposal of ozone-depleting substances (ODS) material.</p>
+
+  <p>This can be found at :</p>
+
+  <p><a href="http://www.sepa.org.uk/waste/waste_regulation/idoc.ashx?docid=bbd86b60-2ff6-47cd-85da-f23fdac3bc2f&amp;version=-1" target="_blank">http://www.sepa.org.uk/waste/waste_regulation/idoc.ashx?docid=bbd86b60-2ff6-47cd-85da-f23fdac3bc2f&amp;version=-1</a>.</p>
+
+  <p>I understand that SEPA have also written to the National Federation of Demolition Contractors to highlight that this guidance is available and to ensure that it is suitable for the needs of the industry.</p>
+
+</reply>
+</publicwhip>

@@ -1,0 +1,5 @@
+The parldata has a very reduced set of data - just one week from 2009:
+
+We keep 2009-10-26 to 2009-10-31 (inclusive) except in the case of
+ni, where we use 2009-10-12 to 2009-10-17, otherwise there'd be no
+data there.

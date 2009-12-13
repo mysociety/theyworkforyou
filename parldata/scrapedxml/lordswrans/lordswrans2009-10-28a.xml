@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<!DOCTYPE publicwhip
+[
+<!ENTITY ndash   "&#8211;">
+<!ENTITY mdash   "&#8212;">
+<!ENTITY iexcl   "&#161;">
+<!ENTITY divide  "&#247;">
+<!ENTITY euro    "&#8364;">
+<!ENTITY trade   "&#8482;">
+<!ENTITY bull    "&#8226;">
+<!ENTITY lsquo   "&#8216;">
+<!ENTITY rsquo   "&#8217;">
+<!ENTITY sbquo   "&#8218;">
+<!ENTITY ldquo   "&#8220;">
+<!ENTITY rdquo   "&#8221;">
+<!ENTITY bdquo   "&#8222;">
+<!ENTITY dagger  "&#8224;">
+
+<!ENTITY Ouml   "&#214;" >
+<!ENTITY agrave "&#224;" >
+<!ENTITY aacute "&#225;" >
+<!ENTITY acirc  "&#226;" >
+<!ENTITY atilde "&#227;" >
+<!ENTITY auml   "&#228;" >
+<!ENTITY ccedil "&#231;" >
+<!ENTITY egrave "&#232;" >
+<!ENTITY eacute "&#233;" >
+<!ENTITY ecirc  "&#234;" >
+<!ENTITY euml   "&#235;" >
+<!ENTITY iacute "&#237;" >
+<!ENTITY icirc  "&#238;" >
+<!ENTITY iuml	"&#239;" >
+<!ENTITY ntilde "&#241;" >
+<!ENTITY nbsp   "&#160;" >
+<!ENTITY oacute "&#243;" >
+<!ENTITY ocirc  "&#244;" >
+<!ENTITY ouml   "&#246;" >
+<!ENTITY oslash "&#248;" >
+<!ENTITY uacute "&#250;" >
+<!ENTITY uuml   "&#252;" >
+<!ENTITY thorn  "&#254;" >
+
+<!ENTITY pound  "&#163;" >
+<!ENTITY sect   "&#167;" >
+<!ENTITY copy   "&#169;" >
+<!ENTITY reg    "&#174;" >
+<!ENTITY deg    "&#176;" >
+<!ENTITY plusmn "&#177;" >
+<!ENTITY sup2   "&#178;" >
+<!ENTITY micro  "&#181;" >
+<!ENTITY para   "&#182;" >
+<!ENTITY middot "&#183;" >
+<!ENTITY ordm   "&#186;" >
+<!ENTITY frac14 "&#188;" >
+<!ENTITY frac12 "&#189;" >
+<!ENTITY frac34 "&#190;" >
+<!ENTITY oelig "&#339;" >
+<!ENTITY aelig  "&#230;" >
+
+]>
+
+<publicwhip scrapeversion="a" latest="yes">
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.145.0" nospeaker="true" colnum="145"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000413">
+	Africa and Asia: Consular Services
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.145.1" speakerid="uk.org.publicwhip/lord/100855" speakername="Lord Jones of Cheltenham" colon=":" colnum="145"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000413">
+	<p pid="a.145.1/1" qnum="HL5658">To ask Her Majesty's Government what changes are planned to consular services in countries in (a) Africa, and (b) Asia; and when those changes will be implemented.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.145.2" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="145"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000003">
+	<p pid="a.145.2/1">The Foreign and Commonwealth Office (FCO)'s Passport Network Rationalisation Project was set up in May 2008 to deliver a more streamlined and efficient passport operation for British nationals abroad, to achieve immediate financial benefits to the FCO and to establish a sustainable operating platform for the future. In their 2006 report on consular services the National Audit Office and Public Accounts Committee recommended limiting passport production to fewer locations to increase security and reduce expenditure on new passport issuing systems and processes.</p>
+	<p pid="a.145.2/2">As part of this global initiative to rationalise passport services and reduce administration costs while ensuring that the quality of service to customers remains high we have rationalised our passport network in Southern Africa. Since July 2009, our High Commission in Pretoria has been issuing passports for British nationals in Angola, Botswana, Lesotho, Madagascar, Malawi, Mauritius, Namibia, South Africa, Swaziland, Zambia and Zimbabwe. In the majority of cases, passport applicants send their applications direct to our High Commission in Pretoria where the application is processed and returned via a courier company. As part of the Passport Network Rationalisation Project, we will be looking to create regional processing centres in other parts of Africa and in Asia in due course.</p>
+	<p pid="a.145.2/3">In both Asia and Africa we will continue to provide consular assistance to British nationals who face difficulties overseas, including the provision of emergency travel documentation. This continues to be a high priority for the FCO.</p>
+	<p pid="a.145.2/4">More generally, the distribution of consular resources is always subject to review in the light of changes in demand and financial constraints. However, we have no current plans to reduce our network of consular offices in Africa or Asia. Our longer term consular objectives will be set out in our 2010-13 strategy due to be published next year.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.145.3" nospeaker="true" colnum="145"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000414">
+	Agriculture: Higher Level Stewardship Scheme
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.145.4" speakerid="uk.org.publicwhip/lord/100255" speakername="Lord Greaves" colon=":" colnum="145"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000414">
+	<p pid="a.145.4/1" qnum="HL5790">To ask Her Majesty's Government to what extent higher-level stewardship schemes in relevant areas must or may require the maintenance or enhancement of public access to access land.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.146.0" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="146"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000007">
+	<p pid="a.146.0/1">It is a requirement of environmental stewardship, a voluntary scheme, that all agreement holders must maintain public rights of way on their land and abide by relevant legislation. In addition, the higher level strand of environmental stewardship makes available a range of options for the provision of new permissive, linear, open and educational access. These options will be targeted according to local needs. No payments are made to provide open access on land designated as open access land under the Countryside and Rights of Way Act 2000. However, the scheme makes funding available for access on this land by users other than those on foot, for instance horse riders and the less mobile, and for providing links to areas of open access land where this land might be otherwise inaccessible.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.146.1" nospeaker="true" colnum="146"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000415">
+	Air Quality
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.146.2" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="146"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000415">
+	<p pid="a.146.2/1" qnum="HL5755">To ask Her Majesty's Government whether they will produce estimates of deaths in 2009 due to poor air quality during summer smog episodes, as they did for 2003 and 2006.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.146.3" speakerid="uk.org.publicwhip/lord/100640" speakername="Baroness Thornton" colon=":" colnum="146"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000008">
+	<p pid="a.146.3/1">Estimates were done in 2003 and 2006 because there were major heat waves and associated large increases in air pollution in each of these years. These calculations are not routinely done in ordinary summers, so are not available for 2009.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.146.4" nospeaker="true" inserted-heading="true" colnum="146"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000416">
+	Air Quality
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.146.5" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="146"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000416">
+	<p pid="a.146.5/1" qnum="HL5814">To ask Her Majesty's Government on what dates in 2009 a Government minister has met the Mayor of London, Boris Johnson, or his representatives, to discuss air quality related matters; and who was present at each meeting.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.146.6" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="146"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000009">
+	<p pid="a.146.6/1">There have been two meetings this year so far. The first, between Lord Hunt and the mayor on <phrase class="date" code="2009-01-22">22 January</phrase>; the second, between Jim Fitzpatrick and the Mayor on <phrase class="date" code="2009-08-03">3 August</phrase>. Officials from Defra and the GLA were present at both meetings.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.146.7" nospeaker="true" inserted-heading="true" colnum="146"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000417">
+	Air Quality
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.146.8" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="146"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000417">
+	<p pid="a.146.8/1" qnum="HL5815">To ask Her Majesty's Government what new measures to improve air quality in Greater London have been agreed between the Government and the Mayor of London, Boris Johnson, in 2009; by how much each new measure agreed is expected to improve air quality; and in which year it is expected to do so.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.146.9" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="146"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000010">
+	<p pid="a.146.9/1">Defra has not agreed new measures with the mayor but are pleased to see the publication of his draft air quality strategy. We are in discussion with the Greater London Authority to review the measures proposed in the draft.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.147.0" nospeaker="true" inserted-heading="true" colnum="147"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000418">
+	Air Quality
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.147.1" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="147"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000418">
+	<p pid="a.147.1/1" qnum="HL5816">To ask Her Majesty's Government what consideration they have given to issuing legal directions to the Mayor of London, Boris Johnson, to improve air quality in London under the Air Quality Standards Regulations 2007 or other legal instruments.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.147.2" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="147"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000011">
+	<p pid="a.147.2/1">Powers of direction exist, which are contained in Section 363 of the Greater London Authority Act 1999, and allow Ministers to reverse a mayoral decision where policies for the devolved Government clash with national decision-making. The Secretary of State also has powers under Section 30 of the Air Quality Standards Regulations 2007, which allow him to direct the Mayor of London and the boroughs for the purposes of meeting the ambient air quality directive's air quality limit values in London.</p>
+	<p pid="a.147.2/2">The Government, however, would prefer to make progress through dialogue. To this end, we are working closely with the Greater London Authority to review the measures contained in the mayor's air quality strategy.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.147.3" nospeaker="true" inserted-heading="true" colnum="147"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000419">
+	Air Quality
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.147.4" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="147"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000419">
+	<p pid="a.147.4/1" qnum="HL5859">To ask Her Majesty's Government when they expect to put the new European Union directive for ambient air quality and cleaner air for Europe into legal effect in the United Kingdom; and how they intend to transpose it.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.147.5" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="147"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000013">
+	<p pid="a.147.5/1">Directive 2008/501EC on ambient air quality and cleaner air for Europe must be transposed into national legislation by <phrase class="date" code="2010-06-10">10 June 2010</phrase>.</p>
+	<p pid="a.147.5/2">Within the UK, air quality is a devolved matter. Defra is working with the devolved Administrations in Scotland, Wales and Northern Ireland, and with the Government of Gibraltar, to meet the transposition deadline.</p>
+	<p pid="a.147.5/3">We expect to consult shortly on draft regulations to transpose the directive in England. The devolved Administrations will be carrying out similar consultations in their respective countries.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.147.6" nospeaker="true" colnum="147"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000420">
+	Bats
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.147.7" speakerid="uk.org.publicwhip/lord/100416" speakername="Lord Marlesford" colon=":" colnum="147"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000420">
+	<p pid="a.147.7/1" qnum="HL5867">To ask Her Majesty's Government further to the Written Answer by Lord Adonis on 5 October (<I>WA 392</I>), which Government department paid the &pound;300,000 for the construction of two bridges for bats over the Dobwalls bypass in Cornwall; and what cost-benefit analysis was made of that project before it was undertaken.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.147.8" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="147"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000016">
+	<p pid="a.147.8/1">The Highways Agency paid for the two bat bridges over Dobwalls bypass as they are legally bound to protect endangered species such as bats.</p>
+	<p pid="a.147.8/2">Dobwalls bypass was subject to the department's normal cost benefit analyses at various stages throughout its design, preparation and construction. The benefit-cost ratio indicates that the project is high value for money.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.148.0" nospeaker="true" colnum="148"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000421">
+	Botswana: Clean Coal Technology
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.148.1" speakerid="uk.org.publicwhip/lord/100855" speakername="Lord Jones of Cheltenham" colon=":" colnum="148"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000421">
+	<p pid="a.148.1/1" qnum="HL5810">To ask Her Majesty's Government whether, in order to minimise greenhouse gas emissions, they will assist the Government of Botswana with clean coal technology expertise in its plan to become a net exporter of energy throughout southern Africa by exploiting the country's reserves of coal and coal methane gas.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.148.2" speakerid="uk.org.publicwhip/lord/100314" speakername="Lord Hunt of Kings Heath" colon=":" colnum="148"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000018">
+	<p pid="a.148.2/1">Carbon capture and storage (CCS) has the potential to offer the only serious means of substantially reducing CO2 emissions from fossil fuel power and industrial sources.</p>
+	<p pid="a.148.2/2">This is why the UK Government have supported capacity building efforts in developing countries that will continue to rely on significant reserves of fossil fuels to meet their energy needs. These countries include China, India, Indonesia and South Africa. We are not at this stage looking to extend our support to Botswana, but hope it is able to draw on the expertise that is being built through the recently opened South Africa CCS Centre, to which the UK Government have contributed funding.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.148.3" nospeaker="true" colnum="148"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000422">
+	British Overseas Territories
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.148.4" speakerid="uk.org.publicwhip/lord/100855" speakername="Lord Jones of Cheltenham" colon=":" colnum="148"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000422">
+	<p pid="a.148.4/1" qnum="HL5612">To ask Her Majesty's Government what rules and limitations they apply to British Overseas Territories wishing to borrow money to stimulate their domestic economies.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.148.5" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="148"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000020">
+	<p pid="a.148.5/1">The Overseas Territories are responsible for their own public finances. The Foreign and Commonwealth Office does not accept any legal liability for borrowing undertaken by the Overseas Territories. However, we continue to seek involvement in Overseas Territories Governments' borrowing decisions in order to ensure the good governance of the territories. Explicit permission is required for borrowing when certain public finance guidelines have been breached. These guidelines relate to levels of debt and cash reserves.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.148.6" nospeaker="true" colnum="148"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000423">
+	Broadcasting: Equality
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.148.7" speakerid="uk.org.publicwhip/lord/100476" speakername="Lord Ouseley" colon=":" colnum="148"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000423">
+	<p pid="a.148.7/1" qnum="HL5875">To ask Her Majesty's Government what consideration they gave to the exclusion of the BBC from complying with the equality duties in the Race Relations Act 1976 and the Equality Act 2006.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.149.0" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="149"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000021">
+	<p pid="a.149.0/1">In Government's opinion the output of the public sector broadcasters is not a public function and is therefore not subject to the equality duties in the Race Relations Act 1976 or the Sex Discrimination Act 1976, as amended by the Equality Act 2006.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.149.1" nospeaker="true" inserted-heading="true" colnum="149"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000424">
+	Broadcasting: Equality
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.149.2" speakerid="uk.org.publicwhip/lord/100476" speakername="Lord Ouseley" colon=":" colnum="149"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000424">
+	<p pid="a.149.2/1" qnum="HL5876">To ask Her Majesty's Government what consideration the Government Equalities Office took account of in excluding broadcasters from having to comply with the new single equality duty in respect of their broadcasting functions.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.149.3" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="149"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000022">
+	<p pid="a.149.3/1">In the Government's opinion, the output of the public sector broadcasters is not a public function.</p>
+	<p pid="a.149.3/2">In the interests of clarity we will ensure that the equality duty will not apply to the public sector broadcasters in respect of their broadcasting functions. It is long-standing government policy to respect the editorial independence of the broadcasters.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.149.4" nospeaker="true" colnum="149"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000425">
+	Buses
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.149.5" speakerid="uk.org.publicwhip/lord/100930" speakername="Lord Bradley" colon=":" colnum="149"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000425">
+	<p pid="a.149.5/1" qnum="HL5873">To ask Her Majesty's Government when Greater Manchester Integrated Transport Authority will have the powers under the Local Transport Act 2008 to introduce quality bus contracts.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.149.6" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="149"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000024">
+	<p pid="a.149.6/1">I refer my noble friend to the Answer given by Lord Faulkner of Worcester on <phrase class="date" code="2009-10-21">21 October 2009</phrase> (<phrase class="offrep" id="debates/2009-10-21.704"><I>Official Report</I>, col. 704</phrase>).</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.149.7" nospeaker="true" colnum="149"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000426">
+	Courts: Magistracy
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.149.8" speakerid="uk.org.publicwhip/lord/100616" speakername="Lord Stoddart of Swindon" colon=":" colnum="149"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000426">
+	<p pid="a.149.8/1" qnum="HL5709">To ask Her Majesty's Government further to the Written Statement by Lord Bach on 13 October (<I>WS 21&mdash;22</I>) concerning the possible closure of magistrates' courts, whether it is their long-term aim to abolish local magistrates' courts and the magistracy.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.149.9" speakerid="uk.org.publicwhip/lord/100030" speakername="Lord Bach" colon=":" colnum="149"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000025">
+	<p pid="a.149.9/1">The Government are committed to ensuring that everyone has access to justice and that justice is provided locally. We need to ensure that we have a modern court estate that is properly aligned to where services are needed, that the estate is efficiently utilised and that courts have the necessary facilities for victims and witnesses and to allow proper access for court users with disabilities.</p>
+	<p pid="a.149.9/2">The Written Statement I made on <phrase class="date" code="2009-10-13">13 October</phrase> was to announce consultations on the proposal to close 20 magistrates' courts that are underused and in many cases do not have adequate facilities for victims and witnesses; in addition a number of the buildings do not allow adequate access for disabled court users.</p>
+	<p pid="a.149.9/3">The Government have no ambition to abolish local magistrates' courts or the magistracy.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.150.0" nospeaker="true" colnum="150"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000427">
+	Cyprus: Property
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.150.1" speakerid="uk.org.publicwhip/lord/100435" speakername="Lord Monson" colon=":" colnum="150"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000427">
+	<p pid="a.150.1/1" qnum="HL5902">To ask Her Majesty's Government what assessment they have made of the government of Northern Cyprus having paid &pound;32 million compensation to Greek Cypriots for their abandoned property in the North, whereas the government of Cyprus has paid no compensation to Turkish Cypriots for their abandoned property in the south which has since been compulsorily acquired; and what representations they have made to the government of Cyprus to pay reciprocal compensation in order to help reconciliation between the communities.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.150.2" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="150"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000028">
+	<p pid="a.150.2/1">The Government have not made any assessment on representations to the Government of Cyprus about this matter, and maintain that only a comprehensive Cyprus settlement can fully address the complicated issue of property.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.150.3" nospeaker="true" colnum="150"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000428">
+	Embryology
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.150.4" speakerid="uk.org.publicwhip/lord/100012" speakername="Lord Alton of Liverpool" colon=":" colnum="150"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000428">
+	<p pid="a.150.4/1" qnum="HL5715">To ask Her Majesty's Government further to the Written Answer by Lord Darzi of Denham on 8 May 2008 (<I>WA 89&mdash;90</I>), what information is provided to women who provide eggs that will be used in cloning research regarding the purposes of the research (as distinct from risks of ovarian hyperstimulation); whether specific consent is always obtained for that purpose; and whether the same information regarding the use to which donated cells may be put is always provided to those who donate tissue for research that may subsequently be used for cloning by nuclear transfer.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.150.5" speakerid="uk.org.publicwhip/lord/100640" speakername="Baroness Thornton" colon=":" colnum="150"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000029">
+	<p pid="a.150.5/1">It is a requirement of the Human Fertilisation and Embryology Act 1990 (as amended) that consent be obtained from gamete (egg and sperm) or cell donors before their egg, sperm or other cell may be used to create an embryo.</p>
+	<p pid="a.150.5/2">The Human Fertilisation and Embryology Authority (HFEA) sets minimum standards in the licence conditions R19 and R20 within Guidance Note 22 of the Code of Practice (8th ed.) with regard to the information which must be provided prior to consent being given. Compliance is monitored as part of the HFEA's regular, ongoing monitoring of clinics.</p>
+	<p pid="a.150.5/3">The Human Tissue Authority also sets out good practice in obtaining consent for the storage and use of human tissue for research purposes&mdash;including guidance on the provision of appropriate information&mdash;in its Code of Practice on Consent.</p>
+	<p pid="a.150.5/4">The actual information provided to individuals donating eggs or cells for research purposes varies according to the individual research project concerned.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.151.0" nospeaker="true" inserted-heading="true" colnum="151"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000429">
+	Embryology
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.151.1" speakerid="uk.org.publicwhip/lord/100012" speakername="Lord Alton of Liverpool" colon=":" colnum="151"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000429">
+	<p pid="a.151.1/1" qnum="HL5716">To ask Her Majesty's Government further to the remarks by Baroness Royall of Blaisdon on 21 January 2008 (<I>Official Report</I>, House of Lords, col. 46&mdash;47), what steps have been taken by UK Biobank to re-consent its participants regarding the creation of cloned human embryos and human admixed embryos where it is not considered by the UK Biobank Ethics and Governance Council to be clearly ruled out in the broad consent model; and what information is provided to UK Biobank participants regarding the potential use of their donated tissue to create cloned human embryos and human admixed embryos.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.151.2" speakerid="uk.org.publicwhip/lord/100640" speakername="Baroness Thornton" colon=":" colnum="151"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0001.htm#09102846000033">
+	<p pid="a.151.2/1">UK Biobank has not received and does not at present expect to receive any application to use the samples it holds for the purpose of creating cloned human embryos or human admix embryos.</p>
+	<p pid="a.151.2/2">UK Biobank participants provide blood and urine samples for long-term storage and analysis. They give their consent for analyses of their data and samples that will meet the goals of UK Biobank to improve the health of future generations. A robust system is in place to ensure that the resource is used only for its stated goals and only in ways that meet with the consent given by participants.</p>
+	<p pid="a.151.2/3">The UK Biobank ethics and governance framework requires further consent to be sought for any proposed activities that do not fall within the scope of consent previously given.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.151.3" nospeaker="true" inserted-heading="true" colnum="151"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000430">
+	Embryology
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.151.4" speakerid="uk.org.publicwhip/lord/100012" speakername="Lord Alton of Liverpool" colon=":" colnum="151"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000430">
+	<p pid="a.151.4/1" qnum="HL5765">To ask Her Majesty's Government whether they propose to make it a requirement of allowing research on embryonic stem cells that the specific consent of the donor has been given; and whether they will prevent the use of previously donated cells where there is good reason to believe that the donor would have specifically objected to their use in embryonic stem cell research.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.151.5" speakerid="uk.org.publicwhip/lord/100640" speakername="Baroness Thornton" colon=":" colnum="151"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000036">
+	<p pid="a.151.5/1">It is a requirement of the Human Fertilisation and Embryology Act 1990 (as amended) that effective consent be obtained from gamete (sperm and egg) or cell donors before their egg, sperm or other cell may be used to create an embryo, including for use in research. This includes cells donated before the Human Fertilisation and Embryology Act 2008 came into force, except where those cells are considered to be qualifying cells under paragraph 20 of Schedule 3 to the Human Fertilisation and Embryology Act 2008. Cells may only be considered to be a qualifying cells if, among other considerations, the researcher does not have reason to believe that the donor of the cells would have objected to the use of their cells to bring about the creation of an embryo or human admixed embryo.</p>
+	<p pid="a.151.5/2">Any research project licensed by the Human Fertilisation and Embryology Authority (HFEA) and involving human embryonic stem cells needs to comply with the consent requirements set out in licence condition R20 within Guidance Note 22 of the HFEA Code of Practice (8th ed.)</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.152.0" nospeaker="true" colnum="152"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000431">
+	Energy
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.152.1" speakerid="uk.org.publicwhip/lord/100843" speakername="Lord Kirkwood of Kirkhope" colon=":" colnum="152"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000431">
+	<p pid="a.152.1/1" qnum="HL5695">To ask Her Majesty's Government what further measures they plan to direct investment in capacity towards non-fossil-fuel generation.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.152.2" speakerid="uk.org.publicwhip/lord/100314" speakername="Lord Hunt of Kings Heath" colon=":" colnum="152"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000038">
+	<p pid="a.152.2/1">I refer the noble Lord to my Answer of <phrase class="date" code="2009-10-21">21 October 2009</phrase> in which I set out how the Government seek to maintain the right conditions for investment in low-carbon power generation.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.152.3" nospeaker="true" colnum="152"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000432">
+	Energy: Efficiency
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.152.4" speakerid="uk.org.publicwhip/lord/100843" speakername="Lord Kirkwood of Kirkhope" colon=":" colnum="152"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000432">
+	<p pid="a.152.4/1" qnum="HL5694">To ask Her Majesty's Government what further measures they propose to install insulation and micro generation of energy in schools and hospitals.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.152.5" speakerid="uk.org.publicwhip/lord/100314" speakername="Lord Hunt of Kings Heath" colon=":" colnum="152"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000039">
+	<p pid="a.152.5/1">The Low Carbon Buildings Programme (LCBP) is the Government's &pound;131 million capital grant programme offering capital funds for small-scale onsite energy technologies to householders, public, community and not-for-profit sectors. The grant funding requires that provision is made for suitable insulation measures.</p>
+	<p pid="a.152.5/2">To date, LCBP has committed &pound;21.13 million to 1,082 school projects, &pound;0.41 million to 9 hospital projects and &pound;0.17 million to six healthcare centres.</p>
+	<p pid="a.152.5/3">The programme will run until March 2010 for electrical microgeneration and March 2011 for thermal microgeneration to coincide with the introduction of FITs and RHIs.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.152.6" nospeaker="true" colnum="152"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000433">
+	Energy: Gas Storage
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.152.7" speakerid="uk.org.publicwhip/lord/100489" speakername="Lord Patten" colon=":" colnum="152"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000433">
+	<p pid="a.152.7/1" qnum="HL5727">To ask Her Majesty's Government further to the Written Answer by Lord Hunt of Kings Heath on 5 October (<I>WA 483</I>), whether they have estimates of the cost per mile of constructing cross-channel power cables; and, if so, what they estimate the cost to be.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.152.8" speakerid="uk.org.publicwhip/lord/100314" speakername="Lord Hunt of Kings Heath" colon=":" colnum="152"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000042">
+	<p pid="a.152.8/1">The Government do not have such estimates as the construction of new cross-channel power cables is a commercial matter for potential project developers.</p>
+	<p pid="a.152.8/2">Costs are likely to vary considerably according to the route taken and the technology used.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.153.0" nospeaker="true" colnum="153"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000434">
+	Energy: Prices
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.153.1" speakerid="uk.org.publicwhip/lord/100908" speakername="Lord Taylor of Holbeach" colon=":" colnum="153"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000434">
+	<p pid="a.153.1/1" qnum="HL5738">To ask Her Majesty's Government whether they will ask Ofgem to promote the development of charging systems that provide an allowance of electricity or gas at a lower price than supplies above that level.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.153.2" speakerid="uk.org.publicwhip/lord/100314" speakername="Lord Hunt of Kings Heath" colon=":" colnum="153"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000044">
+	<p pid="a.153.2/1">The Government and Ofgem continue to consider and to promote various means of incentivising energy efficiency, including by charging systems. However, it is important to avoid mandating systems which would penalise vulnerable people who may be obliged to use higher levels of energy because of physical needs, or because of housing with relatively poor energy efficiency. Ofgem's recent discussion paper considers these issues: <I>Can E</I><I>nergy </I><I>C</I><I>harge</I><I>s </I><I>E</I><I>ncourage </I><I>E</I><I>nergy </I><I>E</I><I>fficiency?</I> <a href="http://www.ofgem.gov.uk/Sustainability/Documents1/Final%20discussion%20paper%2022%20July.pdf">http://www.ofgem.gov.uk/Sustainability/Documents1/Final%20discussion%20paper%2022%20July.pdf</a>.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.153.3" nospeaker="true" colnum="153"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000435">
+	Energy: Severn Barrage
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.153.4" speakerid="uk.org.publicwhip/lord/100933" speakername="Lord Rowe-Beddoe" colon=":" colnum="153"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000435">
+	<p pid="a.153.4/1" qnum="HL5798">To ask Her Majesty's Government with regard to their commitment to ensuring security of energy supply in the United Kingdom, what is the status of the outstanding consultation process on the construction of a Severn barrage.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.153.5" speakerid="uk.org.publicwhip/lord/100314" speakername="Lord Hunt of Kings Heath" colon=":" colnum="153"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000045">
+	<p pid="a.153.5/1">The Government are currently carrying out a feasibility study to decide, in the context of the UK energy and climate change goals and the alternative options for achieving these, whether Government could support a Severn tidal scheme and if so on what terms. A first public consultation was held between January and April this year to gather views on the scope of the study and which schemes under consideration should be taken forward for high-level analysis. The Government response to the consultation was published on <phrase class="date" code="2009-07-15">15 July 2009</phrase>. It confirmed that high-level analysis of the impact of five shortlisted schemes will be carried out, and announced funding to aid the development of three other tidal power schemes using embryonic technologies.</p>
+	<p pid="a.153.5/2">A second public consultation is expected to be held in 2010 before a final decision is taken by Ministers. This decision will assess the relative costs, risks, impacts and benefits of a Severn tidal scheme compared to the other options available for meeting the UK's energy challenges, including security of supply.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.154.0" nospeaker="true" colnum="154"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000436">
+	Energy: Tidal Generation
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.154.1" speakerid="uk.org.publicwhip/lord/100099" speakername="The Earl of Caithness" colon=":" colnum="154"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000436">
+	<p pid="a.154.1/1" qnum="HL5751">To ask Her Majesty's Government what recent discussions they have had with the Crown Estate regarding the current round of licensing of the Pentland Firth for tidal energy; and why the results of the licensing round have been delayed until February 2010.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.154.2" speakerid="uk.org.publicwhip/lord/100314" speakername="Lord Hunt of Kings Heath" colon=":" colnum="154"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000047">
+	<p pid="a.154.2/1">The officials in the department are in regular contact with the Crown Estate on issues relating to marine energy and the Crown Estate is participating in the development of the marine action plan which the Government announced as part of the UK renewable energy strategy.</p>
+	<p pid="a.154.2/2">It is for the Crown Estate to decide when it announces the results of the Pentland Firth licensing round, taking into account progress of negotiations with prospective developers prior to award of agreement to lease. I understand that the Earl of Caithness has been advised by the Crown Estate that its programme is on schedule to deliver 700 MW of energy by 2020.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.154.3" nospeaker="true" colnum="154"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000437">
+	Energy: Wind Turbines
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.154.4" speakerid="uk.org.publicwhip/lord/100908" speakername="Lord Taylor of Holbeach" colon=":" colnum="154"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000437">
+	<p pid="a.154.4/1" qnum="HL5833">To ask Her Majesty's Government how many hours of down-time has been incurred for all mechanical, electrical or systems failures for each of the wind turbines in the installation at Rye in Sussex over the past six months.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.154.5" speakerid="uk.org.publicwhip/lord/100314" speakername="Lord Hunt of Kings Heath" colon=":" colnum="154"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000049">
+	<p pid="a.154.5/1">I believe that the noble Lord is asking about the Little Cheyne Court wind farm.</p>
+	<p pid="a.154.5/2">The department does not retain records of downtime incurred for mechanical, electrical or systems failures at Little Cheyne Court or any other wind farm. I suggest that in this case the noble Lord contacts the developer, npower renewables.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.154.6" nospeaker="true" colnum="154"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000438">
+	Equality
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.154.7" speakerid="uk.org.publicwhip/lord/100476" speakername="Lord Ouseley" colon=":" colnum="154"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000438">
+	<p pid="a.154.7/1" qnum="HL5680">To ask Her Majesty's Government how they intend to respond to reports of increased levels of homophobic attacks and abuse of lesbian, gay, bisexual and transgender people.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.154.8" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="154"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000051">
+	<p pid="a.154.8/1">Homophobic and transphobic hate crime can ruin people's lives, and the Government are determined to tackle it in all its forms. We face particular problems of underreporting for all kinds of hate crime. As we become more successful in giving victims the confidence to report these crimes, for example through funding third party reporting projects, we anticipate an increase in the number of hate crimes reported.</p>
+	<p pid="a.154.8/2">Last month the Government published a cross-government hate crime action plan. This sets out our strategic vision for preventing and tackling all hate crime, including homophobic and transphobic hate crime. A number of actions seek to improve support for victims, bring more perpetrators to justice, increase our evidence base and address the underreporting of hate crime. It also commits the Home Office to deliver a guidance document on crime and disorder reduction partnerships to support them in tackling hate crime at the local level.</p>
+	<p pid="a.154.8/3">The Equality Bill supports the action plan by introducing a public sector equality duty which means public sector bodies, including the police, will have to think about making their services accessible to and appropriate for everyone, regardless of sexual orientation or trans status. This might mean finding ways of making it easier for lesbian, gay, bisexual and transsexual people to report hate crime.</p>
+	<p pid="a.154.8/4">We are currently in the process of legislation to make incitement to hatred on the grounds of sexual orientation a crime.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.155.0" nospeaker="true" colnum="155"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000439">
+	EU: Diplomatic Service
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.155.1" speakerid="uk.org.publicwhip/lord/100629" speakername="Lord Tebbit" colon=":" colnum="155"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000439">
+	<p pid="a.155.1/1" qnum="HL5870">To ask Her Majesty's Government what they expect to be the order of precedence on diplomatic occasions involving the European President and heads of state of European Union member states.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.155.2" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="155"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000055">
+	<p pid="a.155.2/1">The post of European President does not exist at present and nor would it be created by the Lisbon treaty. The post of President of the European Council, which is currently held by the Head of State or Government of a member state on a six-monthly rotating basis would become a permanent position should the Lisbon treaty be ratified by all member states. The diplomatic precedence of the Presidents of the European Council, Commission and Parliament is below that of Heads of State or Government of member states.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.155.3" nospeaker="true" colnum="155"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000440">
+	Government Initiatives: Advertising
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.155.4" speakerid="uk.org.publicwhip/lord/100469" speakername="Lord Oakeshott of Seagrove Bay" colon=":" colnum="155"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000440">
+	<p pid="a.155.4/1" qnum="HL5322">To ask Her Majesty's Government which initiatives of the Attorney General's Office or its agencies have been advertised in each of the past five years; how much was spent in each case; and which were carried out via the Central Office of Information.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.156.0" speakerid="uk.org.publicwhip/lord/100574" speakername="Baroness Scotland of Asthal" colon=":" colnum="156"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000056">
+	<p pid="a.156.0/1">Neither the Attorney-General's Office nor the National Fraud Authority has incurred such costs in the past five years.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.156.1" nospeaker="true" colnum="156"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000441">
+	Health: Heart and Lung Disease
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.156.2" speakerid="uk.org.publicwhip/lord/100855" speakername="Lord Jones of Cheltenham" colon=":" colnum="156"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000441">
+	<p pid="a.156.2/1" qnum="HL5806">To ask Her Majesty's Government how many cases of sudden arrhythmic death syndrome and flash pulmonary oedema have been diagnosed in each of the last five years for which figures are available.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.156.3" speakerid="uk.org.publicwhip/lord/100640" speakername="Baroness Thornton" colon=":" colnum="156"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000057">
+	<p pid="a.156.3/1">The information requested is not held centrally.</p>
+	<p pid="a.156.3/2">It is estimated that there are 500-600 unexplained sudden cardiac deaths each year. Most sudden cardiac deaths in people under 30 years old are caused by inherited cardiomyopathies and arrhythmias, with the majority having a genetic basis.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.156.4" nospeaker="true" colnum="156"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000442">
+	Ireland: Schools
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.156.5" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="156"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000442">
+	<p pid="a.156.5/1" qnum="HL5884">To ask Her Majesty's Government what representations they have made to the Government of the Republic of Ireland concerning that government's decision to cut the funding to Protestant schools in the Republic of Ireland; and, if they have not made representations, whether they intend to.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.156.6" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="156"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000059">
+	<p pid="a.156.6/1">The Government have not made and have no intention of making representations to the Irish Government on this issue. Funding for Protestant schools in Ireland is a matter for the Irish Government.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.156.7" nospeaker="true" colnum="156"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000443">
+	Kenya
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.156.8" speakerid="uk.org.publicwhip/lord/100569" speakername="The Earl of Sandwich" colon=":" colnum="156"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000443">
+	<p pid="a.156.8/1" qnum="HL5848">To ask Her Majesty's Government whether they have considered ways, alongside other aid donors, of strengthening the effectiveness of the Parliament of Zimbabwe through such channels as the United Kingdom parliament, the Commonwealth Parliamentary Association and the Westminster Foundation for Democracy.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.156.9" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="156"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000060">
+	<p pid="a.156.9/1">The Zimbabwean Parliament has an important role to play in promoting reform. Within the last year, the Zimbabwe All-Party Parliamentary Group (APPG) has facilitated visits to Parliament by Zimbabwean Ministers, Senators and MPs. The chairman of the Zimbabwe APPG, my honourable friend Kate Hoey, visited the Zimbabwean Parliament as the guest of Speaker Moyo in May 2009. In November 2008, the Overseas Office of the House of Commons arranged for Speaker Moyo and his personal assistant to be guests of the Speaker at Westminster. They also benefited from training at the National School of Government. Speaker Moyo's staff hope to undertake further training there in 2010. The UK branch of the Commonwealth Parliamentary Association has also invited Zimbabwean MPs to a series of parliamentary-related events. We will continue to work with independent organisations such as these to assist the Zimbabwean Parliament and promote good governance.</p>
+	<p pid="a.156.9/2">In the mean time, and alongside the international community, we are also working directly with the Inclusive Government to look at ways in which we can support key priorities which will deliver much needed reform and improvements to the well-being of ordinary Zimbabweans. This is likely to include support to the constitutional review process, in particular ensuring parliamentary and civil society oversight and accountability. We stand ready to broaden our engagement and support as we see evidence of commitment to reform by the Inclusive Government.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.157.0" nospeaker="true" colnum="157"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000444">
+	Marine Environment: Gibraltar
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.157.1" speakerid="uk.org.publicwhip/lord/100345" speakername="Lord Kilclooney" colon=":" colnum="157"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000444">
+	<p pid="a.157.1/1" qnum="HL5788">To ask Her Majesty's Government whether the European Union contacted the United Kingdom prior to its decisions to designate Gibraltar territorial waters as a Spanish protected location under European Union nature laws; whether the United Kingdom Permanent Representation made any representations prior to the European Union decisions; whether this European Union decision caused any problems in Gibraltar waters; and whether Spain advised the United Kingdom that it was making the application to the European Union.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.157.2" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="157"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0002.htm#09102846000062">
+	<p pid="a.157.2/1">The European Commission consulted member states bilaterally in 2008 on the draft updated Community list of Sites of Community Interest (SCI) put forward by each state. The UK therefore discussed only its own sites (including two in Gibraltar) with the Commission. The UK was not made aware of the existence of the proposed Spanish site, 'Estrecho Oriental', which wholly encompasses the existing UK listed site 'Southern Waters of Gibraltar' in British Gibraltar Territorial Waters (BGTW), until the complete list of sites across the EU was published in the Official Journal in February 2009.</p>
+	<p pid="a.157.2/2">Spain did not advise the UK that it was making the application to list the site Estrecho Oriental. This contrasts with the situation when the UK first listed its own sites in BGTW in 2006 and, at the request of the Commission, notified Spain in advance of doing so.</p>
+	<p pid="a.157.2/3">As the UK was not made aware that the Spanish site Estrecho Oriental encompassed BGTW until the complete list was published, the UK was not in a position to make any representations before the decision was taken. We have since made representations to both the European Commission and Spain on this matter and have placed on record that the UK does not recognise the validity of the Spanish listing.</p>
+	<p pid="a.157.2/4">The decision has not caused any practical problems in Gibraltar waters. However we are concerned that Spain should seek to have an area of BGTW listed and that this listing should have been approved. Under the habitats directive Spain has obligations to establish management priorities for its SCIs but cannot give full effect to these obligations for this particular site as it overlaps BGTW. The UK is the only state competent to propose an SCI within BGTW. The Government of Gibraltar have commenced an action against the European Commission in the European Court of First Instance seeking annulment of the offending parts of the relevant listing. The UK has been granted permission to intervene in support of this action.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.158.0" nospeaker="true" colnum="158"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000445">
+	Nature Conservation: Wild Flowers
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.158.1" speakerid="uk.org.publicwhip/lord/100855" speakername="Lord Jones of Cheltenham" colon=":" colnum="158"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000445">
+	<p pid="a.158.1/1" qnum="HL5744">To ask Her Majesty's Government what is their assessment of the issues contained in Plantlife's document The Ghost Orchid Declaration&mdash;Saving the UK's wild flowers today; and what measures they will put in place to address those issues.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.158.2" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="158"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000066">
+	<p pid="a.158.2/1">Plantlife's report is a useful contribution to the debate on future priorities but there is more positive work under way, both on plant conservation and research, than Plantlife acknowledges. Measures to conserve and restore biodiversity, including wildflowers, are underway in all four countries of the UK, under our strategic framework, <I>Conserving B</I><I>iodiversity&mdash;the UK</I><I> A</I><I>pproach</I>. They include protecting the best sites for wildlife, taking targeted action for priority species and habitats, embedding biodiversity into policy, engaging people, developing the evidence base, and influencing and implementing international agreements. Conservation is a devolved matter, and is being taken forward under separate biodiversity and environmental strategies in England, Scotland, Wales and Northern Ireland.</p>
+	<p pid="a.158.2/2">On protecting the best wildlife sites, 88.9 per cent of SSSI land in England is now in target condition. The December 2010 target of 95 per cent remains challenging but achievable. As part of Natural England (NE)'s new notification strategy, regional teams will look closely at site boundaries, amending them where necessary, while specialists will consider any gaps in coverage. Agri-environment schemes in each part of the UK complement our designated sites and represent a major delivery mechanism for conservation. In England, environmental stewardship makes an important contribution to the conservation of wild plants by targeting vulnerable species and habitats, and provides a range of wider options for grassland, field margins, hedgerows and ditches which help increase plant diversity in general. Data from Plantlife and the Botanical Society of the British Isles are being used to improve the targeting of these options.</p>
+	<p pid="a.158.2/3">On targeted action for priority species, NE, as lead delivery body for the England biodiversity strategy, is working with Plantlife and other partners to identify priority areas for the conservation of priority species and habitats. NE currently provides &pound;119,000 annually to Plantlife's action for plants in England project and an additional &pound;163,000 through the Countdown 2010 Fund. The Forestry Commission also has a range of programmes in place which will directly contribute to increasing the level of activity called for by Plantlife in woods and forests.</p>
+	<p pid="a.158.2/4">On research, the Countryside Survey, conducted in 2007, was a major Government-funded survey of botanical diversity at a cost of about &pound;9 million. This unique survey enables us to measure and understand the status and changes in plant diversity, probably in greater detail than is available for any other country in the world. The Joint Nature Conservation Committee (JNCC) has a long-standing contract with the Biological Records Centre under which half of the work is explicitly on plant groups. JNCC also provides staff resources for work on plants and fungi, particularly in support of the global strategy for plant conservation and in supporting data collation and publication on the national biodiversity network.</p>
+	<p pid="a.158.2/5">Defra also provides the Royal Botanic Gardens, Kew with an annual operating grant in aid of &pound;17.6 million together with a variable capital amount which was set at &pound;8.75 million in 2008-09 and &pound;10.9 million in 2009-10. Kew plays a major domestic and international role in plant conservation, supporting the study and conservation of both the plant and the fungal kingdoms with basic taxonomy, collections, horticultural and scientific expertise, the ex-situ collections in the millennium seed bank, ground-breaking work developing techniques for ex-situ conservation, identifying protected plants in international trade, and its important work on education, training and public awareness.</p>
+	<p pid="a.158.2/6">Helping plants and other biodiversity to adapt and become more resilient to climate change remains one of our biggest challenges and that is why my right honourable friend the Secretary of State for Environment, Food and Rural Affairs recently announced a review of England's wildlife and ecological network. This will look at what benefits can be gained by connecting sites both within designated areas and outside them.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.159.0" nospeaker="true" colnum="159"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000446">
+	Northern Ireland Human Rights Commission
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.159.1" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="159"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000446">
+	<p pid="a.159.1/1" qnum="HL5402">To ask Her Majesty's Government further to the Written Answer by Baroness Royall of Blaisdon on 16 July (<I>WA 262</I>), whether they will place in the Library of the House all correspondence between the Northern Ireland Office and the Northern Ireland Human Rights Commission in November 2008.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.160.0" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="160"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000072">
+	<p pid="a.160.0/1">The Northern Ireland Office holds two pieces of written correspondence for this period from the department to the Northern Ireland Human Rights Commission, one at ministerial level and one at official level, both dated <phrase class="date" code="2008-11-10">10 November 2008</phrase>. Copies of these letters have been placed in the Library of the House.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.160.1" nospeaker="true" colnum="160"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000447">
+	Pakistan: Visit of Shahid Malik MP
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.160.2" speakerid="uk.org.publicwhip/lord/100961" speakername="Baroness Warsi" colon=":" colnum="160"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000447">
+	<p pid="a.160.2/1" qnum="HL5409">To ask Her Majesty's Government whether Shahid Malik MP's August 2009 visit to Pakistan, including his meeting with Prime Minister Syed Yousuf Raza Gilani, was in his official capacity as Parliamentary Under-Secretary of State for Communities and Local Government.</p>
+	<p pid="a.160.2/2" qnum="HL5410">To ask Her Majesty's Government with reference to paragraph 10.4 of the Ministerial Code, whether the travel expenses incurred in relation to the August 2009 visit to Pakistan by the Parliamentary Under-Secretary of State for Communities and Local Government, Shahid Malik MP, were paid for, in whole or in part, out of public funds; and whether any free travel was accepted.</p>
+	<p pid="a.160.2/3" qnum="HL5411">To ask Her Majesty's Government whether the Foreign and Commonwealth Office (a) was informed of, and (b) approved, the August 2009 visit to Pakistan by the Parliamentary Under-Secretary of State for Communities and Local Government, Shahid Malik MP, including his meeting with the Prime Minister of Pakistan, prior to the visit taking place.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.160.3" speakerid="uk.org.publicwhip/lord/100802" speakername="Lord McKenzie of Luton" colon=":" colnum="160"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000073">
+	<p pid="a.160.3/1">I refer the noble Baroness to the Answer given in the other place by my honourable friend the Parliamentary Under-Secretary of State for Communities and Local Government (Shahid Malik) to <phrase class="honfriend" id="uk.org.publicwhip/member/2023" name="Bob Neill">the honourable Member for Bromley and Chistlehurst (Bob Neill)</phrase> on <phrase class="date" code="2009-10-27">27 October 2009</phrase> (Question 290657).</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.160.4" nospeaker="true" colnum="160"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000448">
+	Pensioners: Personal Allowances
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.160.5" speakerid="uk.org.publicwhip/lord/100469" speakername="Lord Oakeshott of Seagrove Bay" colon=":" colnum="160"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000448">
+	<p pid="a.160.5/1" qnum="HL5631">To ask Her Majesty's Government what is the most recent estimate of the cost of raising pensioners' personal allowances by &pound;2,000 for each of the next five years.</p>
+	<p pid="a.160.5/2" qnum="HL5632">To ask Her Majesty's Government what is the most recent estimate of the total financial effects by income decile of raising pensioners' personal allowances by &pound;2,000.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.160.6" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="160"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000074">
+	<p pid="a.160.6/1">The approximate cost of increasing age-related personal allowances for people aged 65 and over by &pound;2,000 for 2010-11 and applying statutory uprating in subsequent years can be extrapolated from table 1.6 <I>Direct </I><I>E</I><I>ffects of </I><I>I</I><I>llustrative </I><I>T</I><I>ax </I><I>C</I><I>hanges</I>, available at <a href="http://www.hmrc.gov.uk/stats/tax_expenditures/table1-6.xls">http://www.hmrc.gov.uk/stats/tax_expenditures/table1-6.xls</a>.</p>
+	<p pid="a.160.6/2">The estimates in the table are based on the Budget 2009 forecast and the relevant section is shown below.</p>
+	<p pid="a.160.6/3">Extract from table 1.6 Direct effects of illustrative tax changes</p>
+	<table>
+		<tbody>
+			<tr pid="a.160.6/6"> <td></td> <td></td> <td></td> <td>&pound; million cost/yield</td> </tr>
+			<tr pid="a.160.6/7"> <td></td> <td>2009-10</td> <td>2010-11</td> <td>2011-12</td> </tr>
+			<tr pid="a.160.6/8"> <td>Income tax</td> <td></td> <td></td> <td></td> </tr>
+			<tr pid="a.160.6/9"> <td>Allowances and reliefs</td> <td></td> <td></td> <td></td> </tr>
+			<tr pid="a.160.6/10"> <td>Change age-related personal allowances by &pound;100</td> <td>65</td> <td>75</td> <td>80</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.160.6/13">Information on the income tax effect for 2010-11 by income decile of all people aged 65 and over is shown in the table below. No one aged 65 and over with income below the current levels of age-related personal allowances, or above the income level at which the age-related allowances are reduced to the basic personal allowance for those aged below 65, would benefit.</p>
+	<table>
+		<tbody>
+			<tr pid="a.160.6/16"> <td>Decile</td> <td>Mean (&pound;)</td> </tr>
+			<tr pid="a.160.6/17"> <td>Bottom</td> <td>0</td> </tr>
+			<tr pid="a.160.6/18"> <td>2<sup>nd</sup></td> <td>0</td> </tr>
+			<tr pid="a.160.6/19"> <td>3<sup>rd</sup></td> <td>0</td> </tr>
+			<tr pid="a.160.6/20"> <td>4<sup>th</sup></td> <td>0</td> </tr>
+			<tr pid="a.160.6/21"> <td>5<sup>th</sup></td> <td>0</td> </tr>
+			<tr pid="a.160.6/22"> <td>6<sup>th</sup></td> <td>5</td> </tr>
+			<tr pid="a.160.6/23"> <td>7<sup>th</sup></td> <td>260</td> </tr>
+			<tr pid="a.160.6/24"> <td>8<sup>th</sup></td> <td>385</td> </tr>
+			<tr pid="a.160.6/25"> <td>9<sup>th</sup></td> <td>400</td> </tr>
+			<tr pid="a.160.6/26"> <td>Top</td> <td>200</td> </tr>
+		</tbody>
+	</table>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.161.0" nospeaker="true" colnum="161"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000449">
+	Pensions
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.161.1" speakerid="uk.org.publicwhip/lord/100908" speakername="Lord Taylor of Holbeach" colon=":" colnum="161"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000449">
+	<p pid="a.161.1/1" qnum="HL5832">To ask Her Majesty's Government further to the British Waterways Report and Accounts for 2008&mdash;09, why pension costs rose by &pound;2.5 million and on average &pound;1,250 per employee from 2007&mdash;08 to 2008&mdash;09, when the average salary rose by less than this.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.161.2" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="161"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000104">
+	<p pid="a.161.2/1">The pension cost in British Waterways' Accounts for 2008-09 is made up of:</p>
+	<p pid="a.161.2/2">current service cost (cost of accrual of new benefit and expenses);interest cost (the cost of having one less year until the liabilities fall due);expected return on assets (the return on the fund assets over the year based on the expected rate of return at the start of the year for each type of asset held); andpast service cost (cost of providing benefits not previously funded for, such as augmentations)</p>
+	<p pid="a.161.2/3">The main reason for the increase in 2008-09 was the increase in the interest cost though pension costs will be volatile each year, because they are based on market indices at the date of calculation.</p>
+	<p pid="a.161.2/4">Salaries are only used in the calculation of the current service cost, which actually went down over the year. Therefore, the change does not directly relate to the salary change over the year, but rather the method of valuing the benefits on the accounting basis.</p>
+	<p pid="a.161.2/5">As a result of the triennial valuation carried out as at March 2007, the pension fund contribution rates as a percentage of salary were increased from July 2008 as follows:</p>
+	<table>
+		<tbody>
+			<tr pid="a.161.2/8"> <td></td> <td>Old rate</td> <td>New rate</td> </tr>
+			<tr pid="a.161.2/9"> <td>Employer</td> <td>12%</td> <td>14%</td> </tr>
+			<tr pid="a.161.2/10"> <td>Employee</td> <td>5.7%</td> <td>7%</td> </tr>
+		</tbody>
+	</table>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.162.0" nospeaker="true" colnum="162"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000450">
+	Police: Northern Ireland
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.162.1" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="162"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000450">
+	<p pid="a.162.1/1" qnum="HL5800">To ask Her Majesty's Government how many extra posts were created in the Public Prosecution Service for Northern Ireland as a consequence of the Criminal Justice Review's recommendations; how many required legal qualification and how many were administrative; and what are the latest annual costs for these posts.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.162.2" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="162"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000114">
+	<p pid="a.162.2/1">This is an operational matter for the Director of Public Prosecutions. I have asked him to reply directly to the noble Lord, and will arrange for a copy of the letter to be placed in the Library of the House.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.162.3" nospeaker="true" inserted-heading="true" colnum="162"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000451">
+	Police: Northern Ireland
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.162.4" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="162"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000451">
+	<p pid="a.162.4/1" qnum="HL5801">To ask Her Majesty's Government how many posts requiring legal qualification and how many administrative posts in the Public Prosecution Service for Northern Ireland (PPSNI) are estimated to be no longer needed when reporting arrangements in the PPSNI are duly simplified on the police being given responsibility for taking decisions in a range of summary cases, as announced on 6 October.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.162.5" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="162"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000115">
+	<p pid="a.162.5/1">This is an operational matter for the Director of Public Prosecutions. I have asked him to reply directly to the noble Lord, and will arrange for a copy of the letter to be placed in the Library of the House.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.162.6" nospeaker="true" colnum="162"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000452">
+	Political Honours Scrutiny Committee
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.162.7" speakerid="uk.org.publicwhip/lord/100416" speakername="Lord Marlesford" colon=":" colnum="162"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000452">
+	<p pid="a.162.7/1" qnum="HL5868">To ask Her Majesty's Government when the Political Honours Scrutiny Committee was set up; when it was disbanded; and which committee now carries out its functions.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.162.8" speakerid="uk.org.publicwhip/lord/100152" speakername="Baroness Crawley" colon=":" colnum="162"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000116">
+	<p pid="a.162.8/1">The Political Honours Scrutiny Committee (PHSC) was established in 1923.</p>
+	<p pid="a.162.8/2">The PHSC was abolished in 2005, following the recommendation by Public Administration Select Committee (PASC) in its July 2004 report <I>A Matter of Honour: Reforming the Honours System</I> (HC 212-I). Future arrangements for the scrutiny of honours were set out in the Government reply <I>Reform of the Honours Syste</I><I>m</I> (Cm 6479) and in <I>Propriety and Honours and Propriety and Peerages</I> (Cm 7374), the Government's response to the PASC fourth report of the Session 2005-06 and second report of the Session 2007-08.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.163.0" nospeaker="true" colnum="163"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000453">
+	Pollution: Airborne Particles
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.163.1" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="163"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000453">
+	<p pid="a.163.1/1" qnum="HL5756">To ask Her Majesty's Government what percentage estimates the Committee on the Medical Effects of Air Pollutants has given for each 10 micrograms per cubic metre reduction in exposure to fine particulate matter (PM2.5) for (a) all-cause mortality, (b) cardiopulmonary mortality, and (c) lung cancer mortality; and in which years since 1995 these estimates were given.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.163.2" speakerid="uk.org.publicwhip/lord/100640" speakername="Baroness Thornton" colon=":" colnum="163"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000118">
+	<p pid="a.163.2/1">The Committee on the Medical Effects of Air Pollutants (COMEAP) first addressed this question in 1998. The committee concluded then that there were insufficient United Kingdom data to allow acceptably accurate quantification of these effects.</p>
+	<p pid="a.163.2/2">In the light of new evidence, COMEAP returned to this question in 2001. The committee published a <I>Statement on </I><I>L</I><I>ong-term </I><I>E</I><I>ffects of </I><I>P</I><I>articles on </I><I>M</I><I>ortality</I><sup>1</sup> in which it concluded that effects on all-cause mortality were &quot;more likely than not&quot;. A number of coefficients were considered but deemed less likely than a coefficient of 1 per cent. per 10 micrograms per cubic metre reduction in exposure to fine particulate matter (PM2.5).</p>
+	<p pid="a.163.2/3">This year in the report entitled <I>Long-term </I><I>E</I><I>xposure to </I><I>A</I><I>ir </I><I>P</I><I>ollution: </I><I>Effect on M</I><I>ortality</I><sup>2</sup> the committee has updated its estimate and recommends a coefficient of 6 per cent per 10 micrograms per cubic metre reduction in exposure to fine particulate matter (PM2.5). Coefficients have also been recommended for cardiopulmonary mortality, 9 per cent and lung cancer mortality, 8 per cent.</p>
+	<p pid="a.163.2/4" class="indent">Notes:</p>
+	<p pid="a.163.2/5" class="indent">1 <a href="http://www.advisorybodies.doh.gov.uk/comeap/">http://www.advisorybodies.doh.gov.uk/comeap/</a> statementsreports/longtermeffects.pdf</p>
+	<p pid="a.163.2/6" class="indent">2. <a href="http://www.advisorybodies.doh.gov.uk/comeap/">http://www.advisorybodies.doh.gov.uk/comeap/</a> finallongtermeffectsmort2009.htm</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.163.3" nospeaker="true" inserted-heading="true" colnum="163"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000454">
+	Pollution: Airborne Particles
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.163.4" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="163"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0003.htm#09102846000454">
+	<p pid="a.163.4/1" qnum="HL5775">To ask Her Majesty's Government along which sections of the six kilometres of roads in Greater London referred to in the Government's time extension notification to the European Union for particulate matter they expect European Union limit values for particulate matter (PM10) not to be achieved by 2011.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.163.5" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="163"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000121">
+	<p pid="a.163.5/1">The Government's time extension notification to the European Union for particulate matter identified that approximately 6 kilometres of road length within central London would remain at risk of breaching the relevant limit values in 2011. This road length represents 0.3 per cent of the London road length assessed, and is well within the uncertainties of the model. The specific sections modelled were Marylebone Road (between the junction of Eversholt Road and Gloucester Place); along Park Lane, Hyde Park Corner and Grosvenor Place; Old Street Roundabout; and along the Embankment between London Bridge and Waterloo Bridge.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.164.0" nospeaker="true" inserted-heading="true" colnum="164"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000455">
+	Pollution: Airborne Particles
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.164.1" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="164"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000455">
+	<p pid="a.164.1/1" qnum="HL5776">To ask Her Majesty's Government what was the quantified impact of each named measure or effect estimated in mid-2008 and January 2009 to reduce the length of road in Greater London exceeding European Union limit values for particulate matter in 2011 from some 40 kilometres to some six kilometres.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.164.2" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="164"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000122">
+	<p pid="a.164.2/1">Details of impact quantification can be found in the UK's notification to the European Commission to secure additional time to meet the limit values for PM10 for eight UK zones/agglomerations in accordance with Council Directive 2008/50/EC on ambient air quality, and in the Greater London Authority report on measures to reduce particulate matter concentrations in London. See links below:</p>
+	<p pid="a.164.2/2"><a href="http://www.defra.gov.uk/environment/quality/air/airquality/eu-int/eu-directives/airqual-directives/notification.htm">www.defra.gov.uk/environment/quality/air/airquality/eu-int/eu-directives/airqual-directives/notification.htm</a>.</p>
+	<p pid="a.164.2/3"><a href="http://www.london.gov.uk/mayor/environment/air_quality/docs/evidence-28Nov08.pdf">www.london.gov.uk/mayor/environment/air_quality/docs/evidence-28Nov08.pdf</a>.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.164.3" nospeaker="true" inserted-heading="true" colnum="164"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000456">
+	Pollution: Airborne Particles
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.164.4" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="164"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000456">
+	<p pid="a.164.4/1" qnum="HL5811">To ask Her Majesty's Government what will be the impact on inequality in Greater London if the Government obtain a time extension until 2011 to comply fully with European Union limit values for particulate matter (PM10).</p>
+	<p pid="a.164.4/2" qnum="HL5812">To ask Her Majesty's Government whether they will continue to seek a time extension to comply fully with European Union limit values for particulate matter irrespective of the impact on inequality in Greater London.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.164.5" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="164"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000125">
+	<p pid="a.164.5/1">A time extension notification in relation to the attainment date for particulate matter limit values was submitted to the European Commission in April following public consultation (<a href="http://www.defra">http://www.defra</a>. gov.uk/environment/quality/air/airquality/eu-int/eu-directives/airqual-directives/notification.htm). It is currently subject to assessment by the Commission</p>
+	<p pid="a.164.5/2">The consultation impact assessment (<a href="http://www.defra">http://www.defra</a>. gov.uk/corporate/consult/air-quality/index.htm) includes consideration of inequality issues. This and the subsequent racial equality impact assessment set out the analysis informing the decision to submit this notification.</p>
+	<p pid="a.164.5/3">Government are continuing their efforts to improve UK air quality and are working with the mayor and the Greater London Authority to take forward measures in his draft air quality strategy for London, to ensure air quality limits are met in London.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.165.0" nospeaker="true" colnum="165"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000457">
+	Prisoners: Escape
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.165.1" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="165"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000457">
+	<p pid="a.165.1/1" qnum="HL5804">To ask Her Majesty's Government why the Crown Prosecution Service decided not to prosecute or seek the extradition of Pearse McAuley and Nessan Quinlivan on the charge of escaping from lawful custody at Brixton Prison in 1991; what were the statements made by ministers in respect of terrorists on the run that precluded their prosecution on terrorist charges; and what is now the Crown Prosecution Service's accepted length of time since criminal acts were alleged to have occurred after which a prosecution would no longer be proceeded with.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.165.2" speakerid="uk.org.publicwhip/lord/100574" speakername="Baroness Scotland of Asthal" colon=":" colnum="165"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000128">
+	<p pid="a.165.2/1">The Crown Prosecution Service (CPS) decided that there was no longer a realistic prospect of a conviction in this case. The decision not to continue with the prosecution and extradition was made for a number of reasons, including the availability or otherwise of key exhibits, the length of time since the acts took place, and statements made by ministers following the talks at Weston Park in 2001. There is no &quot;accepted length of time&quot; after which a prosecution cannot be proceeded with. Each case is considered entirely on its own merits and the circumstances of the reason for and length of the delay will be considered in each case before a final decision is made.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.165.3" nospeaker="true" colnum="165"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000458">
+	Risk and Regulation Advisory Council
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.165.4" speakerid="uk.org.publicwhip/lord/100443" speakername="Lord Morris of Aberavon" colon=":" colnum="165"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000458">
+	<p pid="a.165.4/1" qnum="HL5766">To ask Her Majesty's Government what is the role of the Risk and Regulation Advisory Council; how often it meets; whether it publishes an annual report; and what is the annual cost of its activities.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.165.5" speakerid="uk.org.publicwhip/lord/100986" speakername="Lord Davies of Abersoch" colon=":" colnum="165"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000129">
+	<p pid="a.165.5/1">The Risk and Regulation Advisory Council (RRAC) was set up by the Prime Minister in January 2008 as a time-limited ad hoc advisory body to work with Government and stakeholders across society to develop a better understanding of public risk and how policy-makers and others should best respond to it. The council completed its work programme in April 2009.</p>
+	<p pid="a.165.5/2">Meetings were held monthly during the RRAC's period of operation. The council met formally 11 times in 2008 and six times in 2009. In addition council members led a significant number of other events and meetings.</p>
+	<p pid="a.165.5/3">The RRAC did not publish an annual report. After completing its work programme, the council published its main report to Government in May 2009, together with four accompanying guides and tools for policy-makers and others. Separate reports have since been published on some particular areas of the council's work, and the academic research which underpinned the council's operational programme will be published shortly. All of the RRAC's publications are available via the delivery partners section of the BIS departmental website at <a href="http://www.berr.gov.uk/deliverypartners/list/rrac/index.html">http://www.berr.gov.uk/deliverypartners/list/rrac/index.html</a>.</p>
+	<p pid="a.165.5/4">The costs of the RRAC's work programme have been:</p>
+	<p pid="a.165.5/5">2007-08&mdash;&pound;91,000 from the BERR Strategic Policy Analysis research budget plus staffing costs: one full time SCS economist payband 1 (&pound;56,100-&pound;116,000 pa) from January to March 2008; and2008-09&mdash;&pound;444,000 from the budget allocated to RRAC (including salaries) and &pound;79,000 from the BERR Strategic Policy Analysis research budget.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.166.0" nospeaker="true" colnum="166"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000459">
+	Smoking
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.166.1" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="166"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000459">
+	<p pid="a.166.1/1" qnum="HL5760">To ask Her Majesty's Government what percentage of people smoked in the United Kingdom in each of the past 10 years.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.166.2" speakerid="uk.org.publicwhip/lord/100640" speakername="Baroness Thornton" colon=":" colnum="166"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000133">
+	<p pid="a.166.2/1">The information is not available in the format requested.</p>
+	<p pid="a.166.2/2">The information on the proportion of adults who are smokers in Great Britain is available in the <I>Smoking and D</I><I>rinking among </I><I>A</I><I>dults 2007</I> publication from the General Household Survey, 2007 series. This publication has been placed in the Library and is available at <a href="http://www.statistics.gov.uk/downloads/theme_compendia/GHS07/GHSSmokingandDrinkingAmongAdults2007.pdf">www.statistics.gov.uk/downloads/theme_compendia/GHS07/GHSSmokingandDrinkingAmongAdults2007.pdf</a></p>
+	<p pid="a.166.2/3">The most recent information on the proportion of adult smokers is from 2007. Table 1.1, p17 of the report includes information on the proportion of smokers between 1998 and 2007.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.166.3" nospeaker="true" colnum="166"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000460">
+	Tax Credits
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.166.4" speakerid="uk.org.publicwhip/lord/100476" speakername="Lord Ouseley" colon=":" colnum="166"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000460">
+	<p pid="a.166.4/1" qnum="HL5796">To ask Her Majesty's Government whether they will extend free school meals to families on working tax credit to ensure that they stay in work as opposed to claiming benefits.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.166.5" speakerid="uk.org.publicwhip/lord/100797" speakername="Baroness Morgan of Drefelin" colon=":" colnum="166"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000136">
+	<p pid="a.166.5/1">We have no plans to extend free school meals to families on working tax credit.</p>
+	<p pid="a.166.5/2">However, we are currently running a two-year pilot in three local authorities in deprived areas to test different approaches to free school meals. Wolverhampton is extending the free school meal eligibility rules to include pupils whose parents receive working tax credit and have an annual income of up to &pound;16,040. Durham and Newham are piloting free school lunches to all primary pupils. We want to learn the lessons of those pilots before making decisions on any national extension.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.167.0" nospeaker="true" colnum="167"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000461">
+	Taxation: Income Tax
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.167.1" speakerid="uk.org.publicwhip/lord/100469" speakername="Lord Oakeshott of Seagrove Bay" colon=":" colnum="167"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000461">
+	<p pid="a.167.1/1" qnum="HL5633">To ask Her Majesty's Government what is the most recent estimate of the cost of abolishing income tax on savings for all basic rate taxpayers for each of the next five years.</p>
+	<p pid="a.167.1/2" qnum="HL5634">To ask Her Majesty's Government what is the most recent estimate of the total financial effects by income decile of abolishing income tax on savings for all basic rate taxpayers for each of the next five years.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.167.2" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="167"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000138">
+	<p pid="a.167.2/1">The estimated cost of reducing to zero the starting and basic rates of tax on income from savings is given in the table below. These estimates are based on the Budget 2009 forecast of which 2013-14 is the final year, and assume that taxpayers with incomes above the higher rate threshold continue to pay higher or additional rate tax on savings income, but are not subject to basic or starting rate income tax on savings income.</p>
+	<table>
+		<tbody>
+			<tr pid="a.167.2/4"> <td></td> <td></td> <td></td> <td></td> <td>&pound; million</td> </tr>
+			<tr pid="a.167.2/5"> <td></td> <td>2010-11</td> <td>2011-12</td> <td>2012-13</td> <td>2013-14</td> </tr>
+			<tr pid="a.167.2/6"> <td>Cost of zero starting and basic income tax rates on savings income</td> <td>1,600</td> <td>2,550</td> <td>3,100</td> <td>3,550</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.167.2/9">These estimates show the decrease in total tax liability for each year, rather than the impact on receipts which depends on how such a change would be implemented. The figures exclude any estimate of behavioural response.</p>
+	<p pid="a.167.2/10">Information on the income tax effects by income decile of taxpayers is shown in the tables below; this excluded non-taxpayers for which information is not readily available.</p>
+	<table>
+		<tbody>
+			<tr pid="a.167.2/13"> <td></td> <td colspan="4">Average income tax effect per person (&pound;)</td> </tr>
+			<tr pid="a.167.2/14"> <td>Decile</td> <td>2010-11</td> <td>2011-12</td> <td>2012-13</td> <td>2013-14</td> </tr>
+			<tr pid="a.167.2/15"> <td>Bottom</td> <td>25</td> <td>30</td> <td>35</td> <td>35</td> </tr>
+			<tr pid="a.167.2/16"> <td>2nd</td> <td>30</td> <td>45</td> <td>50</td> <td>55</td> </tr>
+			<tr pid="a.167.2/17"> <td>3rd</td> <td>40</td> <td>55</td> <td>60</td> <td>70</td> </tr>
+			<tr pid="a.167.2/18"> <td>4th</td> <td>45</td> <td>60</td> <td>70</td> <td>80</td> </tr>
+			<tr pid="a.167.2/19"> <td>5th</td> <td>50</td> <td>75</td> <td>90</td> <td>100</td> </tr>
+			<tr pid="a.167.2/20"> <td>6th</td> <td>55</td> <td>85</td> <td>100</td> <td>110</td> </tr>
+			<tr pid="a.167.2/21"> <td>7th</td> <td>65</td> <td>105</td> <td>125</td> <td>140</td> </tr>
+			<tr pid="a.167.2/22"> <td>8th</td> <td>80</td> <td>120</td> <td>150</td> <td>165</td> </tr>
+			<tr pid="a.167.2/23"> <td>9th</td> <td>95</td> <td>145</td> <td>180</td> <td>200</td> </tr>
+			<tr pid="a.167.2/24"> <td>Top</td> <td>65</td> <td>105</td> <td>135</td> <td>155</td> </tr>
+		</tbody>
+	</table>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.168.0" nospeaker="true" inserted-heading="true" colnum="168"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000462">
+	Taxation: Income Tax
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.168.1" speakerid="uk.org.publicwhip/lord/100930" speakername="Lord Bradley" colon=":" colnum="168"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000462">
+	<p pid="a.168.1/1" qnum="HL5874">To ask Her Majesty's Government how much additional income a person with an annual gross income of (a) &pound;20,000, (b) &pound;50,000, (c) &pound;70,000, (d) &pound;100,000, and (e) &pound;150,000 would receive if the income tax threshold was raised to &pound;10,000 per annum.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.168.2" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="168"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000196">
+	<p pid="a.168.2/1">If the income tax threshold was raised to &pound;10,000 for 2009-10 the increase in income after tax is shown in the table below.</p>
+	<table>
+		<tbody>
+			<tr pid="a.168.2/4"> <td>Gross Income (&pound;)</td> <td>2009-10</td> </tr>
+			<tr pid="a.168.2/5"> <td>a) &pound;20,000</td> <td>&pound;705</td> </tr>
+			<tr pid="a.168.2/6"> <td>b) &pound;50,000</td> <td>&pound;1,410</td> </tr>
+			<tr pid="a.168.2/7"> <td>c) &pound;70,000</td> <td>&pound;1,410</td> </tr>
+			<tr pid="a.168.2/8"> <td>d) &pound;100,000</td> <td>&pound;1,410</td> </tr>
+			<tr pid="a.168.2/9"> <td>e) &pound;150,000</td> <td>&pound;1,410</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.168.2/12">This assumes gross income is comprised solely of earnings, and the individual is less than 65 years old with no other income tax deductions. In addition, the upper earnings limit (UEL) and upper profits limit (UPL) are assumed to remain unchanged.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.168.3" nospeaker="true" colnum="168"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000463">
+	Turkmenistan
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.168.4" speakerid="uk.org.publicwhip/lord/100675" speakername="Viscount Waverley" colon=":" colnum="168"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000463">
+	<p pid="a.168.4/1" qnum="HL5783">To ask Her Majesty's Government what assessment they have made of the recent request for commencement of British Council services in Turkmenistan; and what they are doing to meet demand.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.168.5" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="168"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0004.htm#09102846000208">
+	<p pid="a.168.5/1">The British Council has delivered regional programmes and supported a range of educational activities in partnership with other international organisations such as the UN Educational, Scientific and Cultural Organisation (UNESCO) and the UN Children's Fund (UNICEF) in Turkmenistan through their Uzbekistan office despite not having a physical presence in the country.</p>
+	<p pid="a.168.5/2">The British Council is currently in discussions with the Foreign and Commonwealth Office to organise a visit to Ashgabat in order to explore areas in which they can develop English language programmes and English language examination opportunities within the country.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-28a.168.6" nospeaker="true" colnum="168"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0005.htm#09102846000464">
+	Vehicles: Electric Power
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-28a.168.7" speakerid="uk.org.publicwhip/lord/100908" speakername="Lord Taylor of Holbeach" colon=":" colnum="168"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0005.htm#09102846000464">
+	<p pid="a.168.7/1" qnum="HL5737">To ask Her Majesty's Government how the approach of electric cars will be signalled to other road users, particularly in rural areas to pedestrians, cyclists and horse riders.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-28a.169.0" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="169"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91028w0005.htm#09102846000210">
+	<p pid="a.169.0/1">The Government welcome technologies which reduce traffic noise, in view of the adverse impact noise can have on health and quality of life. However, we are aware of concerns that have recently been raised regarding the potential risk of very quiet vehicles. Discussions between the Government, the Guide Dogs for the Blind Association and Imperial College, regarding the potential danger to visually impaired people, concluded that there were insufficient data available at the time to determine whether a safety problem existed in practice. The Government will soon be starting a research project to determine the extent of any problem and inform future policy on this subject.</p>
+	<p pid="a.169.0/2">The findings may be of relevance to pedestrians, cyclists, and horse riders in rural areas. However, on higher speed, non-urban, roads electric cars will be more audible by their tyre noise. Sighted road users have a duty of care to themselves and other road users to ensure they are visually aware of other traffic.</p>
+</reply>
+</publicwhip>
+

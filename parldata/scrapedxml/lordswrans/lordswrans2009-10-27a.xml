@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<!DOCTYPE publicwhip
+[
+<!ENTITY ndash   "&#8211;">
+<!ENTITY mdash   "&#8212;">
+<!ENTITY iexcl   "&#161;">
+<!ENTITY divide  "&#247;">
+<!ENTITY euro    "&#8364;">
+<!ENTITY trade   "&#8482;">
+<!ENTITY bull    "&#8226;">
+<!ENTITY lsquo   "&#8216;">
+<!ENTITY rsquo   "&#8217;">
+<!ENTITY sbquo   "&#8218;">
+<!ENTITY ldquo   "&#8220;">
+<!ENTITY rdquo   "&#8221;">
+<!ENTITY bdquo   "&#8222;">
+<!ENTITY dagger  "&#8224;">
+
+<!ENTITY Ouml   "&#214;" >
+<!ENTITY agrave "&#224;" >
+<!ENTITY aacute "&#225;" >
+<!ENTITY acirc  "&#226;" >
+<!ENTITY atilde "&#227;" >
+<!ENTITY auml   "&#228;" >
+<!ENTITY ccedil "&#231;" >
+<!ENTITY egrave "&#232;" >
+<!ENTITY eacute "&#233;" >
+<!ENTITY ecirc  "&#234;" >
+<!ENTITY euml   "&#235;" >
+<!ENTITY iacute "&#237;" >
+<!ENTITY icirc  "&#238;" >
+<!ENTITY iuml	"&#239;" >
+<!ENTITY ntilde "&#241;" >
+<!ENTITY nbsp   "&#160;" >
+<!ENTITY oacute "&#243;" >
+<!ENTITY ocirc  "&#244;" >
+<!ENTITY ouml   "&#246;" >
+<!ENTITY oslash "&#248;" >
+<!ENTITY uacute "&#250;" >
+<!ENTITY uuml   "&#252;" >
+<!ENTITY thorn  "&#254;" >
+
+<!ENTITY pound  "&#163;" >
+<!ENTITY sect   "&#167;" >
+<!ENTITY copy   "&#169;" >
+<!ENTITY reg    "&#174;" >
+<!ENTITY deg    "&#176;" >
+<!ENTITY plusmn "&#177;" >
+<!ENTITY sup2   "&#178;" >
+<!ENTITY micro  "&#181;" >
+<!ENTITY para   "&#182;" >
+<!ENTITY middot "&#183;" >
+<!ENTITY ordm   "&#186;" >
+<!ENTITY frac14 "&#188;" >
+<!ENTITY frac12 "&#189;" >
+<!ENTITY frac34 "&#190;" >
+<!ENTITY oelig "&#339;" >
+<!ENTITY aelig  "&#230;" >
+
+]>
+
+<publicwhip scrapeversion="a" latest="yes">
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.115.0" nospeaker="true" colnum="115"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0001.htm#09102779001455">
+	Air Quality
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.115.1" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="115"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0001.htm#09102779001455">
+	<p pid="a.115.1/1" qnum="HL5754">To ask Her Majesty's Government how each of the air quality alert bandings recommended by the Committee on the Medical Effects of Air Pollutants for each air pollutant equate to (a) equivalent maximum exposure levels currently recommended by the World Health Organisation, and (b) the relevant European Union limit values for ambient air quality.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.115.2" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="115"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0001.htm#09102779000003">
+	<p pid="a.115.2/1">The UK Air Pollution Index (API) is currently under review by the Committee on the Medical Effects of Air Pollutants (COMEAP). The outcome of the review is expected in June 2010.</p>
+	<p pid="a.115.2/2">The tables below show the following:</p>
+	<p pid="a.115.2/3">table 1 details the boundaries between index points for each pollutant (Ozone, NO2 (nitrogen dioxide), SO2 (sulphur dioxide), CO (carbon monoxide) and PM10 (particulate matter)) for the current COMEAP bandings system;table 2 details the UK API health descriptors for people who are sensitive to air pollution;table 3 details the maximum exposure levels recommended by the World Health Organisation (WHO); andtable 4 details the EU limit values for air pollution.</p>
+	<p pid="a.115.2/4">Please note that the averaging times are different for the data in tables 1, 3, and 4 and are, therefore, not directly comparable.</p>
+	<table>
+		<tbody>
+			<tr pid="a.115.2/7"> <td colspan="12"><I>Table 1: Boundaries between index points for each pollutant</I></td> </tr>
+			<tr pid="a.115.2/8"> <td>Band</td> <td>Index</td> <td>Ozone</td> <td></td> <td>Nitrogen Dioxide</td> <td></td> <td>Sulphur dioxide</td> <td></td> <td>Carbon Monoxide</td> <td></td> <td>PM10 Particles</td> <td></td> </tr>
+			<tr pid="a.115.2/9"> <td></td> <td></td> <td>Running 8 hourly or hourly mean*</td> <td></td> <td>Hourly mean</td> <td></td> <td>15 minute mean</td> <td></td> <td>Running 8 hourly mean</td> <td></td> <td>Running 24 hour mean</td> <td></td> </tr>
+			<tr pid="a.115.2/10"> <td></td> <td></td> <td>micro- pm<sup>-3</sup></td> <td>ppb</td> <td>micro- pm<sup>-3</sup></td> <td>ppb</td> <td>micro- pm<sup>-3</sup></td> <td>ppb</td> <td>mgm<sup>-3</sup></td> <td>ppm</td> <td>micro- pm<sup>-3</sup>(Grav. Equiv.)</td> <td>micro- pm<sup>-3</sup><sup></sup>(Ref.Equiv.)</td> </tr>
+			<tr pid="a.115.2/11"> <td>Low</td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+			<tr pid="a.115.2/12"> <td></td> <td>1</td> <td>0-33</td> <td>0-16</td> <td>0-95</td> <td>0-49</td> <td>0-88</td> <td>0-32</td> <td>0-3.8</td> <td>0.0-3.2</td> <td>0-21</td> <td>0-19</td> </tr>
+			<tr pid="a.115.2/13"> <td></td> <td>2</td> <td>34-65</td> <td>17-32</td> <td>96-190</td> <td>50-99</td> <td>89-176</td> <td>33-66</td> <td>3.9-7.6</td> <td>3.3-6.6</td> <td>22-42</td> <td>20-40</td> </tr>
+			<tr pid="a.115.2/14"> <td></td> <td>3</td> <td>66-99</td> <td>33-49</td> <td>191-286</td> <td>100-149</td> <td>177-265</td> <td>67-99</td> <td>7.7-11.5</td> <td>6.7-9.9</td> <td>43-64</td> <td>41-62</td> </tr>
+			<tr pid="a.115.2/15"> <td>Moderate</td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+			<tr pid="a.115.2/16"> <td></td> <td>4</td> <td>100-125</td> <td>50-62</td> <td>287-381</td> <td>150-199</td> <td>266-354</td> <td>100-132</td> <td>11.6-13.4</td> <td>10.0-11.5</td> <td>65-74</td> <td>63-72</td> </tr>
+			<tr pid="a.115.2/17"> <td></td> <td>5</td> <td>126-153</td> <td>63-76</td> <td>382-477</td> <td>200-249</td> <td>355-442</td> <td>133-166</td> <td>13.5-15.4</td> <td>11.6-13.2</td> <td>75-86</td> <td>73-84</td> </tr>
+			<tr pid="a.115.2/18"> <td></td> <td>6</td> <td>154-179</td> <td>77-89</td> <td>478-572</td> <td>250-299</td> <td>443-531</td> <td>167-199</td> <td>15.5-17.3</td> <td>13.3-14.9</td> <td>87-96</td> <td>85-94</td> </tr>
+			<tr pid="a.115.2/19"> <td>High</td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+			<tr pid="a.115.2/20"> <td></td> <td>7</td> <td>180-239</td> <td>90-119</td> <td>573-635</td> <td>300-332</td> <td>532-708</td> <td>200-266</td> <td>17.4-19.2</td> <td>15.0-16.5</td> <td>97-107</td> <td>95-105</td> </tr>
+			<tr pid="a.115.2/21"> <td></td> <td>8</td> <td>240-299</td> <td>120-149</td> <td>636-700</td> <td>333-366</td> <td>709-886</td> <td>267-332</td> <td>19.3-21.2</td> <td>16.6-18.2</td> <td>108-118</td> <td>106-116</td> </tr>
+			<tr pid="a.115.2/22"> <td></td> <td>9</td> <td>300-359</td> <td>150-179</td> <td>701-763</td> <td>367-399</td> <td>887-1063</td> <td>333-399</td> <td>21.3-23.1</td> <td>18.3-19.9</td> <td>119-129</td> <td>117-127</td> </tr>
+			<tr pid="a.115.2/23"> <td>Very High</td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+			<tr pid="a.115.2/24"> <td></td> <td>10</td> <td>360 or more</td> <td>180 or more</td> <td>764 or more</td> <td>400 or more</td> <td>1064 or more</td> <td>400 or more</td> <td>23.2 or more</td> <td>20 or more</td> <td>130 or more</td> <td>128 or more</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.115.2/27" class="indent">* For ozone, the maximum of the eight-hourly and hourly mean is used to calculate the index value.</p>
+	<table>
+		<tbody>
+			<tr pid="a.115.2/30"> <td colspan="3"><I>Table 2: The UK Air Pollution Index health descriptors for people who are sensitive to air pollution</I></td> </tr>
+			<tr pid="a.115.2/31"> <td>Banding</td> <td>Index</td> <td>Health Descriptor</td> </tr>
+			<tr pid="a.115.2/32"> <td>Low</td> <td>1, 2, or 3</td> <td>Effects are unlikely to be noticed even by individuals who know they are sensitive to air pollutants</td> </tr>
+			<tr pid="a.115.2/33"> <td>Moderate</td> <td>4, 5, or 6</td> <td>Mild effects, unlikely to require action, may be noticed among sensitive individuals.</td> </tr>
+			<tr pid="a.115.2/34"> <td>High</td> <td>7, 8, or 9</td> <td>Significant effects may be noticed by sensitive individuals and action to avoid or reduce these effects may be needed (eg, reducing exposure by spending less time in polluted areas outdoors). Asthmatics will find that their &quot;reliever&quot; inhaler is likely to reverse the effects on the lung.</td> </tr>
+			<tr pid="a.115.2/35"> <td>Very High</td> <td>10</td> <td>The effects on sensitive individuals described for &quot;High&quot; levels of pollution may worsen.</td> </tr>
+		</tbody>
+	</table>
+	<table>
+		<tbody>
+			<tr pid="a.115.2/40"> <td colspan="5"><I>Table 3: The maximum exposure levels recommended by the World Health Organisation (WHO)</I></td> </tr>
+			<tr pid="a.115.2/41"> <td>Ozone</td> <td>Nitrogen Dioxide</td> <td>Sulphur Dioxide</td> <td>Carbon Monoxide</td> <td>PM10 Particles</td> </tr>
+			<tr pid="a.115.2/42"> <td>Running 8-hourly or hourly mean</td> <td>hourly mean</td> <td>15-minute mean</td> <td>Running 8- hourly mean</td> <td>Running 24- hour mean</td> </tr>
+			<tr pid="a.115.2/43"> <td>120 micro-pm<sup>-3</sup></td> <td>200 micro-pm<sup>-3</sup></td> <td>No data available for this averaging time. WHO recommends a guideline of 500micro-pm<sup>-3</sup> for an averaging time of 10 minutes.</td> <td>10mgm<sup>-3</sup></td> <td>The available information for short and long- term exposure to PM10 and PM2.5 does not allow a judgment to be made regarding concentrations below which no effects would be expected.</td> </tr>
+		</tbody>
+	</table>
+	<table>
+		<tbody>
+			<tr pid="a.115.2/48"> <td colspan="5"><I>Table 4 EU limit values: Source of data <a href="http://ec.europa.eu/environment/air/quality/standards.htm">http://ec.europa.eu/environment/air/quality/standards.htm</a></I></td> </tr>
+			<tr pid="a.115.2/49"> <td>Pollutant</td> <td>Concentration</td> <td>Averaging period</td> <td>Legal nature</td> <td>Permitted exceedences each year</td> </tr>
+			<tr pid="a.115.2/50"> <td>Sulphur dioxide (SO2)</td> <td>350 microgrammes/m<sup>3</sup></td> <td>1 hour</td> <td>Limit value enters into force 1.1.2005</td> <td>24</td> </tr>
+			<tr pid="a.115.2/51"> <td></td> <td>125 microgrammes/m<sup>3</sup></td> <td>24 hours</td> <td>Limit value enters into force 1.1.2005</td> <td>3</td> </tr>
+			<tr pid="a.115.2/52"> <td>Nitrogen Dioxide (NO2)</td> <td>200 microgrammes/m<sup>3</sup></td> <td>1 hour</td> <td>Limit value enters into force 1.1.2010</td> <td>18</td> </tr>
+			<tr pid="a.115.2/53"> <td></td> <td>40 microgrammes/m<sup>3</sup></td> <td>1 year</td> <td>Limit value enters into force 1.1.2010*</td> <td>n/a</td> </tr>
+			<tr pid="a.115.2/54"> <td>PM10</td> <td>50 microgrammes/<sup>3</sup></td> <td>24 hours</td> <td>Limit value enters into force 1.1.2005<sup>**</sup></td> <td>35</td> </tr>
+			<tr pid="a.115.2/55"> <td></td> <td>40 microgrammes/m<sup>3</sup></td> <td>1 year</td> <td>Limit value enters into force 1.1.2005<sup>**</sup></td> <td>n/a</td> </tr>
+			<tr pid="a.115.2/56"> <td>Carbon monoxide (CO)</td> <td>10mg/m<sup>3</sup></td> <td>Maximum daily 8-hour mean</td> <td>Limit value enters into force 1.1.2005</td> <td>n/a</td> </tr>
+			<tr pid="a.115.2/57"> <td>Ozone</td> <td>120microgrammes/m<sup>3</sup></td> <td>Maximum daily 8-hour mean</td> <td>Target value enters into force 1.1.2010</td> <td>25 days averaged over 3 years</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.115.2/60" class="indent">*Under the new directive the member state can apply for an extension of up to five years (ie, maximum up to 2015) in a specific zone. Request is subject to assessment by the Commission. In such cases within the time extension period the limit value applies at the level of the limit value + maximum margin of tolerance (48pg/m<sup>3</sup> for annual NO2 limit value).</p>
+	<p pid="a.115.2/61" class="indent">**Under the new directive the member state can apply for an extension until three years after the date of entry into force of the new directive (ie, May 2011) in a specific zone. Request is subject to assessment by the Commission. In such cases within the time extension period the limit value applies at the level of the limit value + maximum margin of tolerance (35 days at 75 microgrammes/m<sup>3</sup> for daily PM10 limit value, 48 microgrammes/m<sup>3</sup> for annual PM10 limit value).</p>
+	<p pid="a.115.2/62" class="indent">Under EU law a limit value is legally binding from the date it enters into force subject to any exceedances permitted by the legislation. A target value is to be attained as far as possible by the attainment date and so is less strict than a limit value.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.118.0" nospeaker="true" inserted-heading="true" colnum="118"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0001.htm#09102779001456">
+	Air Quality
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.118.1" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="118"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0001.htm#09102779001456">
+	<p pid="a.118.1/1" qnum="HL5777">To ask Her Majesty's Government what short-term action plans to improve air quality have been produced and implemented in Greater London.</p>
+	<p pid="a.118.1/2" qnum="HL5778">To ask Her Majesty's Government what steps they have taken to ensure in Greater London that European Union limit values for air quality once attained are not then exceeded.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.118.2" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="118"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0001.htm#09102779000179">
+	<p pid="a.118.2/1">The Greater London Authority (GLA) provides for the Mayor to prepare an air quality strategy for Greater London. This is in accordance with the Section 80 of the Environment Act 1995, national air quality strategy, prepared and published by the Secretary of State. The Greater London strategy covers the implementation of the policies contained in the national strategy, and for the achievement of the air quality standards and objectives prescribed in regulations made under Section 87(2)(a) and (b) of the Environmental Act. No short-term action plans have been produced or implemented in Greater London.</p>
+	<p pid="a.118.2/2">The GLA is responsible for the implementation of measures for the achievement of air quality standards within Greater London. The Government would expect this to include consideration of any necessary steps to ensure air quality standards are not exceeded following attainment.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.118.3" nospeaker="true" colnum="118"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001457">
+	Airports: Gatwick
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.118.4" speakerid="uk.org.publicwhip/lord/100855" speakername="Lord Jones of Cheltenham" colon=":" colnum="118"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001457">
+	<p pid="a.118.4/1" qnum="HL5908">To ask Her Majesty's Government whether they will permit the construction of a second runway at Gatwick Airport.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.118.5" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="118"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000181">
+	<p pid="a.118.5/1">The Government's policy in respect of Gatwick airport remains as set out in the 2003 <I>Future of Air Transport</I> White Paper. The Government would not support the construction of a second runway there before 2019; and would only support it after 2019 under certain narrowly defined circumstances.</p>
+	<p pid="a.118.5/2">The 2003 White Paper sets out a policy framework to guide decisions on future planning applications. Under the terms of the Planning Act 2008, a decision on any planning application for a second runway at Gatwick would be likely to be a matter for the newly established Infrastructure Planning Commission.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.119.0" nospeaker="true" colnum="119"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001458">
+	Armed Forces: Accommodation
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.119.1" speakerid="uk.org.publicwhip/lord/100584" speakername="Baroness Sharples" colon=":" colnum="119"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001458">
+	<p pid="a.119.1/1" qnum="HL5841">To ask Her Majesty's Government whether armed services accommodation has been upgraded where necessary.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.119.2" speakerid="uk.org.publicwhip/lord/100844" speakername="Baroness Taylor of Bolton" colon=":" colnum="119"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000183">
+	<p pid="a.119.2/1">The provision of good quality living accommodation for both married and single service personnel continues to be a top departmental priority. Decades of underfunding means that the standard of service accommodation has lagged behind the expectations of our people. Some housing stock is old.</p>
+	<p pid="a.119.2/2">Investment over the past seven years has begun to correct this, but there is much more to be done. The department plans to spend some &pound;3 billion in accommodation investment programmes over the next decade. Secured and planned funding levels for accommodation are at their highest levels for decades.</p>
+	<p pid="a.119.2/3">Since 2001, over &pound;200 million has been spent upgrading some 14,000 service family accommodation (SFA) properties to the top standard for condition.</p>
+	<p pid="a.119.2/4">In addition, since 2003, some 35,000 new or improved single living accommodation bed-spaces have been delivered as part of a &pound;1.4 billion programme that will see a further 21,000 delivered by 2013.</p>
+	<p pid="a.119.2/5">More remains to be done, but progress is being made and over 90 per cent of SFA is now at the two highest standards for condition. Our aim is to ensure that by March 2013 very little, if any, of the occupied SFA estate should be below standard 2 for condition.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.119.3" nospeaker="true" colnum="119"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001459">
+	Armed Forces: Aircraft Carriers
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.119.4" speakerid="uk.org.publicwhip/lord/100026" speakername="Lord Astor of Hever" colon=":" colnum="119"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001459">
+	<p pid="a.119.4/1" qnum="HL5886">To ask Her Majesty's Government how long they envisage that the new aircraft carriers will be able to remain at sea between refits.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.119.5" speakerid="uk.org.publicwhip/lord/100844" speakername="Baroness Taylor of Bolton" colon=":" colnum="119"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000188">
+	<p pid="a.119.5/1">The Queen Elizabeth (QE) class in-service support solution is still being developed. Traditional refits will not be undertaken; instead, each ship will undergo an upkeep period approximately every six years.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.119.6" nospeaker="true" inserted-heading="true" colnum="119"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001460">
+	Armed Forces: Aircraft Carriers
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.119.7" speakerid="uk.org.publicwhip/lord/100026" speakername="Lord Astor of Hever" colon=":" colnum="119"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001460">
+	<p pid="a.119.7/1" qnum="HL5887">To ask Her Majesty's Government how long they expect refits of the new aircraft carriers will take.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.119.8" speakerid="uk.org.publicwhip/lord/100844" speakername="Baroness Taylor of Bolton" colon=":" colnum="119"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000189">
+	<p pid="a.119.8/1">The Queen Elizabeth (QE) class in-service support solution is still being developed, which will include the upkeep cycle. At this stage, it is anticipated that an upkeep period for a QE class carrier will take less time than refits for the current CVS class, which is approximately 18 months.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.120.0" nospeaker="true" inserted-heading="true" colnum="120"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001461">
+	Armed Forces: Aircraft Carriers
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.120.1" speakerid="uk.org.publicwhip/lord/100026" speakername="Lord Astor of Hever" colon=":" colnum="120"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001461">
+	<p pid="a.120.1/1" qnum="HL5889">To ask Her Majesty's Government how much has been spent on the new aircraft carrier project.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.120.2" speakerid="uk.org.publicwhip/lord/100844" speakername="Baroness Taylor of Bolton" colon=":" colnum="120"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000190">
+	<p pid="a.120.2/1">Subject to cost certificate agreement by the MoD's Cost Analysis &amp; Assurance Service (CAAS), around &pound;852 million (CDEL, outturn) has been spent on the QE class to the end of September 2009. The contract for the manufacture of both carriers was signed in July 2008, and the Aircraft Carrier Alliance has already placed &pound;l.1 billion of supply contracts. We are committed to realising the benefits the carriers will bring and achieving value for money from the programme.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.120.3" nospeaker="true" colnum="120"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001462">
+	Banks: Shareholders
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.120.4" speakerid="uk.org.publicwhip/lord/100541" speakername="Lord Roberts of Conwy" colon=":" colnum="120"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001462">
+	<p pid="a.120.4/1" qnum="HL5820">To ask Her Majesty's Government whether they will ensure that ordinary shareholders in banks where the taxpayer has a substantial interest are given a return on their investment to restore confidence in such banks as proper places in which to invest in future.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.120.5" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="120"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000191">
+	<p pid="a.120.5/1">The actions taken by the Government for the banking sector have been designed to ensure that financial stability is maintained and that confidence is restored to the financial system, while properly safeguarding the interests of taxpayers.</p>
+	<p pid="a.120.5/2">At the same time, the Government have been careful, in all cases, to respect the proper rights of shareholders. Shareholders formally approved the stakes that the Government took in the Royal Bank of Scotland and Lloyds Banking Group. The participation of those banks in the asset protection scheme will similarly be subject to shareholder approval. And in other interventions such as Northern Rock and Bradford &amp; Bingley, we have put in place a mechanism that will see former shareholders receive proper compensation for their shares&mdash;as assessed by an independent valuer.</p>
+	<p pid="a.120.5/3">The Government will continue to give proper regard to the rights of shareholders. Indeed, shareholders now have a statutory right to independently assessed compensation if the Government should intervene using any of the special resolution powers available under the Banking Act 2009.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.120.6" nospeaker="true" colnum="120"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001463">
+	Carbons Emissions: Railways
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.120.7" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="120"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001463">
+	<p pid="a.120.7/1" qnum="HL5838">To ask Her Majesty's Government what information they use to assess the carbon dioxide emissions of the railway system in comparison to the same volume of traffic on a motorway.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.120.8" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="120"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000194">
+	<p pid="a.120.8/1">The Department for Transport uses a timetable-based environmental model to estimate the carbon dioxide emissions of rail services. The model has been calibrated using industry data on rail diesel and electricity consumption.</p>
+	<p pid="a.120.8/2">Road transport carbon dioxide emissions are estimated using the department's national transport model. The model uses projections of GDP, population, employment, oil prices and vehicle efficiency to produce estimates of key road traffic metrics, including total vehicle kilometres driven and carbon emissions.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.121.0" nospeaker="true" colnum="121"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001464">
+	Children: Poverty
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.121.1" speakerid="uk.org.publicwhip/lord/100476" speakername="Lord Ouseley" colon=":" colnum="121"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001464">
+	<p pid="a.121.1/1" qnum="HL5675">To ask Her Majesty's Government what assessment they have made of the implications for children's well-being and quality of life if both parents have low-paid jobs and long working hours in order to increase their earnings and help the Government to meet their child poverty targets.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.121.2" speakerid="uk.org.publicwhip/lord/100797" speakername="Baroness Morgan of Drefelin" colon=":" colnum="121"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000196">
+	<p pid="a.121.2/1">Child and family well-being and quality of life are at the heart of the Government's child poverty strategy. The Government have taken measures to promote parental employment as the best route out of poverty, because there is clear evidence that moving into and progressing in work offers benefits to parents and children alike, including but not restricted to, additional income from earnings&mdash;a child's risk of poverty is 61 per cent in a workless household and reduces to 15 per cent if at least one parent is working. Work is also associated with wider benefits, for example in terms of health, well-being and autonomy, aspirations and self-esteem. The introduction of the national minimum wage, as well as working tax credits, has ensured that the minimum income guarantee has increased by almost 30 per cent since April 1999 in real terms. Also Train to Gain, the Government's flagship training service for employers, has enabled employees to develop their skills, which will help them to progress in work.</p>
+	<p pid="a.121.2/2">The Government's position is that it aims to help parents into work, and acquire the skills and training they need for well-paid jobs that support children and families, whilst also ensuring that work is family-friendly so that parents can combine employment and parental responsibilities.</p>
+	<p pid="a.121.2/3">To support families, the Government have taken action to increase and extend maternity leave and pay, and introduce paid paternity leave. A new right to request flexible working for those with parental responsibility for children under 16 (or 18, if disabled) has been introduced to help parents combine work and family responsibilities.</p>
+	<p pid="a.121.2/4">The Government have also taken substantial steps to support parents in work by increasing the number of childcare places that are available&mdash;at March 2009, the stock of registered childcare places stood at over 1.5 million places (more than double the 1997 level). Over &pound;25 billion has been invested on early years and childcare in England since 1997, and there are over 3,000 Sure Start Children's Centres now open, providing integrated early years' services (including childcare) to over 2.4 million young children under 5 and their families.</p>
+	<p pid="a.121.2/5">These and other measures put in place by the Government have lifted 500,000 children out of poverty since 1997. However, 2.9 million children remain in poverty, 1.5 million of which live in households with at least one person working. The Government are looking at ways to reduce in-work poverty by helping parents move into higher paid work, through skills and training for individuals and promoting the uptake of skills by employers, and also by promoting the availability of high-quality, affordable childcare. Increased working hours can help lift children out of poverty&mdash;either by the primary earner increasing hours from part-time to full-time hours, or with the introduction of a second earner into the household. However, the Government's approach is to support and incentivise parents into work, whilst respecting family preferences.</p>
+	<p pid="a.121.2/6">By promoting flexible, family-friendly work opportunities and putting in place sufficient, high-quality childcare that supports children's development, we are helping parents make an informed choice about their working arrangements.</p>
+	<p pid="a.121.2/7">The Government introduced the Child Poverty Bill into Parliament in June which will enshrine in law the commitment to eradicate child poverty by 2020. The Bill will ensure that all levels of government, now and in the future, play a role in tackling child poverty. The Bill also requires the Government to prepare a strategy, to be refreshed every three years, which will set out the policies that will be put in place to meet the child poverty targets. The issue of tackling in-work poverty whilst maintaining a high quality of life for the child and the family will be addressed in the strategy.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.122.0" nospeaker="true" colnum="122"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001465">
+	Council Tax
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.122.1" speakerid="uk.org.publicwhip/lord/100469" speakername="Lord Oakeshott of Seagrove Bay" colon=":" colnum="122"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001465">
+	<p pid="a.122.1/1" qnum="HL5610">To ask Her Majesty's Government what is the most recent estimate of the costs of requiring councils to freeze council tax for two years and making up the difference in revenue to councils in a higher block grant.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.122.2" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="122"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000203">
+	<p pid="a.122.2/1">Since each local authority determines the level of council tax at the time of setting its own budget, it is not possible to make an accurate estimate of the difference that would arise from a decision by LAs to freeze council tax.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.122.3" nospeaker="true" colnum="122"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001466">
+	Criminal Records Bureau
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.122.4" speakerid="uk.org.publicwhip/lord/100949" speakername="Baroness Coussins" colon=":" colnum="122"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001466">
+	<p pid="a.122.4/1" qnum="HL5720">To ask Her Majesty's Government what impact the requirement for Criminal Records Bureau checks is having on school trips abroad and exchanges for the purpose of modern foreign language education.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.122.5" speakerid="uk.org.publicwhip/lord/100797" speakername="Baroness Morgan of Drefelin" colon=":" colnum="122"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000204">
+	<p pid="a.122.5/1">The department does not collect data on the number or purpose of school trips abroad or exchanges undertaken by schools. School staff accompanying pupils on school trips abroad will have had Criminal Records Bureau checks as part of the recruitment process for their employment and do not have to have further checks before taking part in such activity. The department's strong recommendation relating to volunteers who are in unsupervised contact with children, including those accompanying pupils on school trips, and new host families who provide care for students from overseas should be CRB checked. We cannot impose this requirement on host families in other countries who provide care for British children. However schools should satisfy themselves that adequate safeguarding arrangements have been put in place to protect children. Under the new vetting and barring scheme those who provide care and accommodation for children under 18 for reward or by arrangement made outside the family will be engaged in &quot;regulated activity&quot;, and this is made clear in interim guidance the Government issued on <phrase class="date" code="2009-10-12">12 October 2009</phrase> about the new scheme.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.123.0" nospeaker="true" colnum="123"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001467">
+	Cyprus
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.123.1" speakerid="uk.org.publicwhip/lord/100345" speakername="Lord Kilclooney" colon=":" colnum="123"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001467">
+	<p pid="a.123.1/1" qnum="HL5789">To ask Her Majesty's Government whether they have reviewed an application from the Greek Cypriot authorities to construct a solid waste management plant at Ormidhia within the Sovereign Base Area (SBA); in what way the SBA will consult local residents; and whether the decision to agree such a request will be made by the SBA authorities or by Her Majesty's Government.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.123.2" speakerid="uk.org.publicwhip/lord/100844" speakername="Baroness Taylor of Bolton" colon=":" colnum="123"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000205">
+	<p pid="a.123.2/1">The Sovereign Base Areas (SBA) Administration has received a request from the Republic of Cyprus Government to build a waste management transfer station in Ormidhia. This request is supported by the elected community council of Ormidhia. The project is now being subjected to planning approval processes, which include formal consultation with local residents. The decision on whether to agree this request will be taken by the administrator of the SBA once the process has been completed.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.124.0" nospeaker="true" colnum="124"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001468">
+	Elections: Local Government
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.124.1" speakerid="uk.org.publicwhip/lord/100255" speakername="Lord Greaves" colon=":" colnum="124"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001468">
+	<p pid="a.124.1/1" qnum="HL5791">To ask Her Majesty's Government what proportion of the votes cast at each of the mayoral elections this year were not counted in the second round due to (1) no second preference being expressed, (2) first and second preferences being given to the same candidate, and (3) second preference being given to a candidate eliminated after the first round.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.124.2" speakerid="uk.org.publicwhip/lord/100802" speakername="Lord McKenzie of Luton" colon=":" colnum="124"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000206">
+	<p pid="a.124.2/1">This information is not held centrally.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.124.3" nospeaker="true" colnum="124"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001469">
+	Embryology
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.124.4" speakerid="uk.org.publicwhip/lord/100012" speakername="Lord Alton of Liverpool" colon=":" colnum="124"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779001469">
+	<p pid="a.124.4/1" qnum="HL5712">To ask Her Majesty's Government further to the Written Answers by Lord Darzi of Denham on 16 October 2008 (<I>WA 67&mdash;68</I>) and Lord Drayson on 5 May 2009 (<I>WA 95&mdash;96</I>), what advances have been made in improving the efficiency of somatic cell nuclear transfer with human oocytes, where those advances have been published; and how many fresh or failed-to-fertilise human oocytes have been used in research to pursue such advances since research licence R0152 was originally granted by the Human Fertilisation and Embryology Authority.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.124.5" speakerid="uk.org.publicwhip/lord/100640" speakername="Baroness Thornton" colon=":" colnum="124"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0002.htm#09102779000207">
+	<p pid="a.124.5/1">In deciding whether to grant or renew licences for research in this area, the Human Fertilisation and Embryology Authority (HFEA) determines whether the proposed research and the use of embryos is both necessary and desirable. The proposed techniques to be used to perform somatic cell nuclear transfer, and any relevant publications referred to by peer reviewers, may form part of this consideration.</p>
+	<p pid="a.124.5/2">The HFEA has provided the following data on the use of fresh and failed-to-fertilise eggs in research under licence R0152:</p>
+	<table>
+		<tbody>
+			<tr pid="a.124.5/5"> <td>Period (inspection report date)</td> <td>Fresh eggs used</td> <td>Failed-to-fertilise eggs used</td> </tr>
+			<tr pid="a.124.5/6"> <td>1 January 2007 to 31 December 2007 (May 2008)</td> <td>19</td> <td>56</td> </tr>
+			<tr pid="a.124.5/7"> <td>30 April 2006 to 30 April 2007 (July 2007)</td> <td>9</td> <td>26</td> </tr>
+			<tr pid="a.124.5/8"> <td>30 April 2005 to 30 April 2006 (July 2007)</td> <td>66</td> <td>593</td> </tr>
+			<tr pid="a.124.5/9"> <td>11 August 2004 to 3 July 2005 (July 2005)</td> <td colspan="2">36 (total figure)</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.124.5/12">In deciding whether to grant licences for research in this area, the HFEA ascertains whether the embryo research is both desirable and necessary at the time the assessment is made. Any application for a licence renewal involves a check on whether the particular proposed use of embryos still fulfils these criteria. This is also part of the assessment made by HFEA peer reviewers.</p>
+	<p pid="a.124.5/13">Records of publications in this area are not collected centrally by the department or the HFEA.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.124.6" nospeaker="true" colnum="124"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779001470">
+	Energy: Tidal Generation
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.124.7" speakerid="uk.org.publicwhip/lord/100321" speakername="Lord Hylton" colon=":" colnum="124"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779001470">
+	<p pid="a.124.7/1" qnum="HL5696">To ask Her Majesty's Government what role the Infrastructure Planning Commission will have in assessing and discovering ways of using the tides for electricity generation, particularly in the Severn river and estuary and in south Wales.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.125.0" speakerid="uk.org.publicwhip/lord/100802" speakername="Lord McKenzie of Luton" colon=":" colnum="125"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779000222">
+	<p pid="a.125.0/1">The Infrastructure Planning Commission will not have a role in discovering ways of using the tides for electricity generation. From <phrase class="date" code="2010-03-01">1 March 2010</phrase> our intention is that, for the energy and transport sectors, it will consider applications for development consent for nationally significant infrastructure projects and, where a relevant national policy statement is in place, determine them. An offshore generating station in England or Wales will require development consent where it is expected to have a generating capacity of more than 100 megawatts.</p>
+	<p pid="a.125.0/2">The Severn tidal power feasibility study is looking at whether the Government could support a tidal power project in the Severn and the most appropriate consenting route. We expect to consult on the results of the study in 2010.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.125.1" nospeaker="true" colnum="125"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779001471">
+	Energy: Wind Generation
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.125.2" speakerid="uk.org.publicwhip/lord/100656" speakername="Lord Vinson" colon=":" colnum="125"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779001471">
+	<p pid="a.125.2/1" qnum="HL5523">To ask Her Majesty's Government what assessment they have made of whether the conferences and briefings given by the British Wind Energy Association to local authorities are compatible with the Nolan report recommendations that planners should be impartial and seen to be impartial.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.125.3" speakerid="uk.org.publicwhip/lord/100802" speakername="Lord McKenzie of Luton" colon=":" colnum="125"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779000224">
+	<p pid="a.125.3/1">We would expect local authorities in England to be guided by the advice issued by the Local Government Association in May 2009. The guidance from the LGA is intended to avoid bias or the perception of bias in decisions on planning applications while reflecting local authorities' roles as place shapers. The guidance therefore recognises councillors' ability to participate in discussions prior to the receipt of a planning application on behalf of their communities and engage in spatial planning policy formulation. Planning elsewhere in the UK is a matter for the devolved Administrations.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.125.4" nospeaker="true" colnum="125"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779001472">
+	Government Initiatives: Advertising
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.125.5" speakerid="uk.org.publicwhip/lord/100915" speakername="Baroness Thomas of Winchester" colon=":" colnum="125"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779001472">
+	<p pid="a.125.5/1" qnum="HL5334">To ask Her Majesty's Government which initiatives of the Ministry of Justice or its agencies (and its predecessors) have been advertised in each of the past five years; how much was spent in each case; and which were carried out via the Central Office of Information.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.125.6" speakerid="uk.org.publicwhip/lord/100030" speakername="Lord Bach" colon=":" colnum="125"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779000225">
+	<p pid="a.125.6/1">The Ministry of Justice was formed in May 2007 to take forward the work of the Department for Constitutional Affairs together with significant additional responsibilities transferring from the Home Office. These included the National Offender Management Service, which covers the Prison Service and probation service and the Office for Criminal Justice Reform. The figures below therefore relate to the Department for Constitutional Affairs where the financial years fall prior to 2007-08 and the Ministry of Justice on or after the 2007-08 year.</p>
+	<p pid="a.125.6/2">The nature of the Ministry of Justice's activities is such that it does not engage in significant levels of advertising on initiatives. More than 95 per cent of departmental advertising spend is on recruitment, mainly by human resources (HQ and NOMS). To provide information for individual recruitment advertising campaigns would incur disproportionate cost.</p>
+	<p pid="a.125.6/3"><I>National Offender Management Service (NOMS)</I></p>
+	<p pid="a.125.6/4">NOMS, which has responsibility for the prison and probation systems, has spent the following non-recruitment-related amounts on advertising, external publicity and broadcasting. Amounts relating to specific advertising initiatives cannot be separately quantified.</p>
+	<table>
+		<tbody>
+			<tr pid="a.125.6/7"> <td>Year</td> <td>Advertising Expenditure (&pound;'000s)</td> </tr>
+			<tr pid="a.125.6/8"> <td>2004-05<sup>*</sup></td> <td>0</td> </tr>
+			<tr pid="a.125.6/9"> <td>2005-06<sup>*</sup></td> <td>36</td> </tr>
+			<tr pid="a.125.6/10"> <td>2006-07<sup>*</sup></td> <td>17</td> </tr>
+			<tr pid="a.125.6/11"> <td>2007-08<sup>*</sup></td> <td>31</td> </tr>
+			<tr pid="a.125.6/12"> <td>2008-09<sup>**</sup></td> <td>281</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.125.6/15" class="indent">*The figure for 2008-09 is for NOMS HQ and HMPS but excludes the 42 local probation boards and trusts within NOMS as this information is held locally and could only be collated at disproportionate cost. The figures obtained for the financial years 2004-05 to 2007-08 are for HM Prison Service (HMPS) agency only. They exclude NOMS HQ (previously a directorate within the parent department, the Home Office) and the National Probation Service (NPS), which are now part of the NOMS agency.</p>
+	<p pid="a.125.6/16" class="indent">** The 2008-09 figures are therefore not comparable to previous years. It would be disproportionate cost to obtain figures for both NOMS and the NPS for 2004-05 to 2007-08. Furthermore, it would incur disproportionate cost to investigate what advertising initiatives make up the figures in the above table.</p>
+	<p pid="a.125.6/17">The expenditure on recruitment for the NOMS agency in 2008-09 is &pound;3,409,968, mainly on recruitment of prison officers. This figure may include other recruitment expenditure not considered to be publicity and advertising. Work to split out publicity and advertising spend from the total recruitment amount would incur disproportionate cost.</p>
+	<p pid="a.125.6/18">The stated figure for NOMS excludes expenditure by the 42 local probation boards and trusts whose records are held locally and could only be collated at disproportionate cost. A one-off exercise undertaken in 2007-08 found that expenditure on advertising and promotion by local probation boards and trusts was &pound;58,264. There are no current plans to repeat this information-gathering exercise for 2008-09.</p>
+	<p pid="a.125.6/19"><I>Headquarters and other agencies</I></p>
+	<p pid="a.125.6/20">For the rest of the department, the ministry's central accounting records do not distinguish different types of advertising expenditure. To determine what expenditure relates to requires retrieval and examination of individual invoices and records held locally across the organisation.</p>
+	<p pid="a.125.6/21">Advertising, publicity and communications expenditure over the last five years is set out below with some of the expenditure for advertising in recruitment. However, not all the expenditure on recruitment advertising is included since it is not separately quantifiable from the accounts. The Criminal Justice Group, which is part of the ministry's headquarters, was formed from various Home Office functions transferred to the ministry in April 2007. It is not possible to extract historical information for the Criminal Justice Group from the Home Office's records prior to 2008-09, meaning that the figures for headquarters below are not directly comparable between the financial years<sup>***</sup>.</p>
+	<table>
+		<tbody>
+			<tr pid="a.125.6/24"> <td>Year</td> <td>HQ<sup>*</sup> (&pound;'000s)</td> <td>HM Courts Service (&pound;'000s)</td> <td>Tribunals Service ('000s)</td> <td>Office of the Public Guardian<sup>**</sup> (1000s)</td> </tr>
+			<tr pid="a.125.6/25"> <td>2004-05</td> <td>2,470</td> <td>65</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.125.6/26"> <td>2005-06</td> <td>4,023</td> <td>1,049</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.125.6/27"> <td>2006-07</td> <td>692</td> <td>450</td> <td>33</td> <td>0</td> </tr>
+			<tr pid="a.125.6/28"> <td>2007-08</td> <td>610</td> <td>270</td> <td>127</td> <td>14</td> </tr>
+			<tr pid="a.125.6/29"> <td>2008-09* **</td> <td>1,976</td> <td>486</td> <td>41</td> <td>39</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.125.6/32" class="indent">* For 2008-09 and 2007-08, headquarters relates to the Ministry of Justice. Prior to 2007-08, headquarters relates to the Department for Constitutional Affairs.</p>
+	<p pid="a.125.6/33" class="indent">** The Office of the Public Guardian was established from <phrase class="date" code="2007-10-01">1 October 2007</phrase>. Its predecessor body was the Public Guardianship Office.</p>
+	<p pid="a.125.6/34">Business groups have identified the expenditure on specific advertising initiatives detailed below. These figures have already been accounted for in the figures within the table above.</p>
+	<p pid="a.125.6/35"><I>Democracy, Constitution and Law (DCL)</I></p>
+	<p pid="a.125.6/36">Total advertising expenditure for all years from 2004-05 to 2008-09 is &pound;573,564 on the following initiatives:</p>
+	<p pid="a.125.6/37">Law Commission;Information Commissioner's Office;Elections and Democracy; andInformation Policy.</p>
+	<p pid="a.125.6/38">It would incur disproportionate cost to split the expenditure between the four categories.</p>
+	<p pid="a.125.6/39"><I>Criminal Justice Group (CJG)</I></p>
+	<p pid="a.125.6/40">The two main advertising initiatives which are continuing are:</p>
+	<p pid="a.125.6/41">Victims Support; and</p>
+	<p pid="a.125.6/42">Intimidated Witness.</p>
+	<p pid="a.125.6/43">The advertising expenditure for these two initiatives is not separately identifiable from the rest of the publicity and advertising expenditure of the CJG and it would be at disproportionate cost to undertake this exercise.</p>
+	<p pid="a.125.6/44"><I>Access to Justice</I></p>
+	<p pid="a.125.6/45">The vast majority of advertising expenditure was incurred by HM Courts Service (an agency of Access to Justice) for the Operation Payback initiative. The costs incurred are as follows:</p>
+	<p pid="a.125.6/46">2005-06: &pound;252,000;</p>
+	<p pid="a.125.6/47">2006-07: &pound;21,000 via the Central Office of Information; and</p>
+	<p pid="a.125.6/48">2007-08: &pound;2,110.</p>
+	<p pid="a.125.6/49"><I>Tribunals Service</I></p>
+	<p pid="a.125.6/50">2007-08: &pound;204 was spent on the launch of the Welsh Language Scheme.</p>
+	<p pid="a.125.6/51"><I>Central Office of Information</I></p>
+	<p pid="a.125.6/52">The ministry's accounting records identify all amounts paid to the Central Office of Information (COI). They do not, however, separately identify those amounts relating to advertising initiatives and it would be at disproportionate cost to investigate.</p>
+	<p pid="a.125.6/53">The Office of the Public Guardian has incurred no expenditure with the COI.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.128.0" nospeaker="true" colnum="128"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779001473">
+	Great Scotland Yard
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.128.1" speakerid="uk.org.publicwhip/lord/100489" speakername="Lord Patten" colon=":" colnum="128"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779001473">
+	<p pid="a.128.1/1" qnum="HL5728">To ask Her Majesty's Government further to the Written Answer by Lord Hunt of Kings Heath on 5 October (<I>WA 484</I>), when they intend to restore 3&mdash;5 Great Scotland Yard so that it is fit for occupation; and how much they expect that work to cost.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.128.2" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="128"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779000288">
+	<p pid="a.128.2/1">In view of the current state of repair and structural integrity of 3-5 Great Scotland Yard, the Crown Estate, which owns the building, believes that occupation could only be achieved through a redevelopment.</p>
+	<p pid="a.128.2/2">However, given the current state of the property market, the potential end use of a redevelopment, the options for financing it and the associated costs all remain currently under review and cannot be quantified at present.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.128.3" nospeaker="true" colnum="128"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779001474">
+	Higher Education: Staff
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.128.4" speakerid="uk.org.publicwhip/lord/100338" speakername="Lord Jones" colon=":" colnum="128"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779001474">
+	<p pid="a.128.4/1" qnum="HL5620">To ask Her Majesty's Government how many (a) full-time, and (b) part-time students are educated in colleges of education.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.128.5" speakerid="uk.org.publicwhip/lord/100821" speakername="Lord Young of Norwood Green" colon=":" colnum="128"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0003.htm#09102779000290">
+	<p pid="a.128.5/1">Table 1 shows the number of Learning and Skills Council (LSC) funded learners educated at a college by mode of attendance, in 2007-08, the latest year for which we have full-year information. These figures do not include privately funded learners who are attending a further education college.</p>
+	<table>
+		<tbody>
+			<tr pid="a.128.5/4"> <td colspan="2"><I>Table 1: LSC-funded Learners educated at a college by Mode of Attendance, 2007-08</I></td> </tr>
+			<tr pid="a.128.5/5"> <td></td> <td>2007-08</td> </tr>
+			<tr pid="a.128.5/6"> <td>Further Education</td> <td></td> </tr>
+			<tr pid="a.128.5/7"> <td>Full-Time Full Year</td> <td>806,900</td> </tr>
+			<tr pid="a.128.5/8"> <td>Full-Time Part Year</td> <td>120,000</td> </tr>
+			<tr pid="a.128.5/9"> <td>Part-Time Part Year</td> <td>1,537,100</td> </tr>
+			<tr pid="a.128.5/10"> <td>Total learners at FE Providers</td> <td>2,464,100</td> </tr>
+			<tr pid="a.128.5/11"> <td>Work-Based Learning</td> <td>115,500</td> </tr>
+			<tr pid="a.128.5/12"> <td>Adult Safeguarded Learning</td> <td>48,200</td> </tr>
+			<tr pid="a.128.5/13"> <td>Train to Gain</td> <td>208,500</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.128.5/16" class="indent"><I>Source:</I> FE, Work-Based Learning and ASL Individualised Learner Records</p>
+	<p pid="a.128.5/17" class="indent"><I>Notes</I></p>
+	<p pid="a.128.5/18" class="indent">1) Figures have been rounded to the nearest hundred.</p>
+	<p pid="a.128.5/19" class="indent">2) Further education provision includes general further education colleges including tertiary, sixth form colleges, special colleges&mdash;agricultural and horticultural colleges and art and design colleges, specialist colleges and external institutions.</p>
+	<p pid="a.128.5/20" class="indent">3) Part-time part year includes part-time distance learning, open learning, e-learning and evening learning.</p>
+	<p pid="a.128.5/21" class="indent">4) FE students classified for statistical purposes as full-time are defined as those enrolled on programmes of at least 450 guided learning hours per year, or for at least 150 guided learning hours per tri-annual period or more than 16 guided learning hours per week for shorter courses. Full-time students who enrol on a programme of at least 450 guided learning hours per year are classified as full-time full-year. This includes those students who withdraw from the programme during the year and actually attend for less than 450 guided learning hours. Also counted as full-time full-year are students who enrol on programmes of less than 450 guided learning hours but stay longer than expected and actually attend for more than 450 guided learning hours. Full-time students who are not classified as full-time full-year are classified as other full-time. All other students are classified as part-time.</p>
+	<p pid="a.128.5/22">Table 2 shows the number of enrolments to Higher Education courses at Higher Education Institutions and Further Education Colleges in England in 2007/08.</p>
+	<table>
+		<tbody>
+			<tr pid="a.128.5/25"> <td colspan="4"><I>Table 2: Higher Education Enrolments by Mode of Study English Higher Education Institutions and Further Education Colleges Academic Year 2007-08</I></td> </tr>
+			<tr pid="a.128.5/26"> <td></td> <td>Full-time</td> <td>Part-time</td> <td>All modes</td> </tr>
+			<tr pid="a.128.5/27"> <td>Total Higher Education Institutions</td> <td>1,218,820</td> <td>703,365</td> <td>1,922,185</td> </tr>
+			<tr pid="a.128.5/28"> <td>of which</td> <td></td> <td></td> <td></td> </tr>
+			<tr pid="a.128.5/29"> <td>Pre 1992 Universities</td> <td>566,765</td> <td>359,805</td> <td>926,565</td> </tr>
+			<tr pid="a.128.5/30"> <td>Post 1992 Universities</td> <td>562,860</td> <td>302,725</td> <td>865,585</td> </tr>
+			<tr pid="a.128.5/31"> <td>HE Colleges</td> <td>88,285</td> <td>40,765</td> <td>129,045</td> </tr>
+			<tr pid="a.128.5/32"> <td>Independent <sup>(2)</sup></td> <td>910</td> <td>75</td> <td>985</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.128.5/35" class="indent"><I>Source:</I> Higher Education Statistics Agency (HESA).</p>
+	<p pid="a.128.5/36" class="indent"><I>Notes:</I> Higher education institution figures are based on a HESA standard registration population and have been rounded to the nearest five so components may not sum to totals.</p>
+	<p pid="a.128.5/37" class="indent">1) Covers enrolments of all domiciles to all levels of study.</p>
+	<p pid="a.128.5/38" class="indent">2) Covers only the University of Buckingham.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.129.0" nospeaker="true" colnum="129"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001475">
+	House of Lords: Recycling
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.129.1" speakerid="uk.org.publicwhip/lord/100866" speakername="Lord Smith of Finsbury" colon=":" colnum="129"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001475">
+	<p pid="a.129.1/1" qnum="HL5895">To ask the Chairman of Committees what arrangements have been made for the subsequent re-use or recycling of computer and other electronic equipment no longer required by Members or staff of the House.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.129.2" speakerid="uk.org.publicwhip/lord/100067" speakername="Lord Brabazon of Tara" colon=":" colnum="129"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779000328">
+	<p pid="a.129.2/1">Since December 2005, redundant IT equipment in this House has been donated to charity and, after refurbishment, sent for reuse to countries in Africa. Items not sent to Africa are resold and the proceeds put towards the cost of distributing the donated equipment. Damaged items are recycled and the waste is, where possible, reclaimed and resold.</p>
+	<p pid="a.129.2/2">Other electrical waste is sent for recycling. In 2008-09, the Parliamentary Estates Directorate disposed of approximately 2 tonnes of electrical waste, including batteries, refrigerators, air conditioning units, televisions, lamps, fans, kettles, vacuum cleaners, irons, dishwashers, microwaves, electric fires and telephones.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.130.0" nospeaker="true" colnum="130"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001476">
+	Housing
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.130.1" speakerid="uk.org.publicwhip/lord/100476" speakername="Lord Ouseley" colon=":" colnum="130"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001476">
+	<p pid="a.130.1/1" qnum="HL5603">To ask Her Majesty's Government what the shortfall in the supply of housing in England will be by the end of 2010; and what are the implications for waiting lists, overcrowding and homelessness.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.130.2" speakerid="uk.org.publicwhip/lord/100802" speakername="Lord McKenzie of Luton" colon=":" colnum="130"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779000330">
+	<p pid="a.130.2/1">Waiting lists, overcrowding and homelessness are indicators of housing need and the department does not produce estimates of the shortfall in housing supply relative to need.</p>
+	<p pid="a.130.2/2">However, CLG has commissioned a housing need analytical model from Heriot-Watt University which will improve our understanding of the impact of housing supply on housing need going forward. It is hoped this will be available to the department by the end of the year.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.130.3" nospeaker="true" inserted-heading="true" colnum="130"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001477">
+	Housing
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.130.4" speakerid="uk.org.publicwhip/lord/100476" speakername="Lord Ouseley" colon=":" colnum="130"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001477">
+	<p pid="a.130.4/1" qnum="HL5604">To ask Her Majesty's Government what are the estimated number of children living in overcrowded housing conditions (a) currently, (b) forecast for 2010, and (c) forecast for 2011.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.130.5" speakerid="uk.org.publicwhip/lord/100802" speakername="Lord McKenzie of Luton" colon=":" colnum="130"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779000332">
+	<p pid="a.130.5/1">The latest estimate is published in <I>Housing Statistics</I><I>, Live T</I><I>able 813</I><I>, Number of Children in Poor H</I><I>ousing</I> (DSO 2.9), which can be downloaded from the CLG website at <a href="http://www">http://www</a>. communities.gov.uk/documents/housing/xls/table813.xls. This estimate is based on data from the Survey of English Housing.</p>
+	<p pid="a.130.5/2">Overcrowding is defined according to the bedroom standard.</p>
+	<p pid="a.130.5/3">Forecasts for 2010 and 2011 are not available.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.130.6" nospeaker="true" colnum="130"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001478">
+	Housing: Mortgages
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.130.7" speakerid="uk.org.publicwhip/lord/100435" speakername="Lord Monson" colon=":" colnum="130"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001478">
+	<p pid="a.130.7/1" qnum="HL5665">To ask Her Majesty's Government what percentage of the adult population of the United Kingdom lives in (a) mortgaged owner-occupied property, (b) unencumbered owner-occupied property, and (c) rented or free accommodation.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.130.8" speakerid="uk.org.publicwhip/lord/100802" speakername="Lord McKenzie of Luton" colon=":" colnum="130"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779000335">
+	<p pid="a.130.8/1">It is estimated that of the adult (aged 18 or over) population resident in private households in England: 40.7 per cent lives in mortgaged owner-occupied property; 30.2 per cent lives in property which is owned outright; and 29.1 per cent lives in property which is rented or free. This excludes those living in institutional establishments.</p>
+	<p pid="a.130.8/2">These estimates are based on data from the ONS Spring 2008 Labour Force Survey.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.131.0" nospeaker="true" colnum="131"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001479">
+	Housing: Supporting People Programme
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.131.1" speakerid="uk.org.publicwhip/lord/100321" speakername="Lord Hylton" colon=":" colnum="131"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001479">
+	<p pid="a.131.1/1" qnum="HL5733">To ask Her Majesty's Government whether they will ring-fence funding for the supporting people programme, in the light of the conclusion in the report by Capgemini to Communities and Local Government about the programme's net financial benefit.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.131.2" speakerid="uk.org.publicwhip/lord/100802" speakername="Lord McKenzie of Luton" colon=":" colnum="131"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779000337">
+	<p pid="a.131.2/1">The supporting people programme is an invest-to-save budget. The Capgemini report findings showed that the best overall estimate of net financial benefits from the supporting people programme is &pound;3.41 billion per annum for the client groups considered against an overall investment of &pound;1.61 billion. The removal of the ring-fence provides local authorities with more freedom and flexibilities to work with partners to deliver innovative and holistic services to meet the needs of the vulnerable clients in their area, and supports the mainstreaming of housing-related support services within local authority service provision.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.131.3" nospeaker="true" colnum="131"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001480">
+	Legislation
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.131.4" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="131"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001480">
+	<p pid="a.131.4/1" qnum="HL5752">To ask Her Majesty's Government whether a minister has had to approve formally each new piece of environmental legislation; and, if so, what form have such statements of approval usually taken in each of the past five years.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.131.5" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="131"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779000338">
+	<p pid="a.131.5/1">All proposals for legislation are approved by Ministers before being submitted to Parliament. All Bills sponsored by Defra are approved by Defra Ministers before introduction to Parliament and all Defra-sponsored secondary legislation is signed by Ministers personally. These practices have been adhered to throughout the past five years.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.131.6" nospeaker="true" colnum="131"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001481">
+	Licensing: Alcohol Consumption
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.131.7" speakerid="uk.org.publicwhip/lord/100855" speakername="Lord Jones of Cheltenham" colon=":" colnum="131"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001481">
+	<p pid="a.131.7/1" qnum="HL5663">To ask Her Majesty's Government how many 24-hour opening licences have been granted in each region of England and Wales since changes to licensing arrangements relating to establishments serving alcoholic drinks came into effect.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.132.0" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="132"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779000339">
+	<p pid="a.132.0/1">The <I>Alcohol Entertainment and Late Night Refreshment Licensing Bulletin</I>, which can be found on the internet at <a href="http://www.culture">http://www.culture</a>. gov. uk/images/research/AE-Statistics-bulletin-2008.pdf, reports the total number of 24-hour alcohol licences in force as at <phrase class="date" code="2008-03-31">31 March 2008</phrase>:</p>
+	<table>
+		<tbody>
+			<tr pid="a.132.0/4"> <td>South West</td> <td>1,666</td> </tr>
+			<tr pid="a.132.0/5"> <td>East of England</td> <td>383</td> </tr>
+			<tr pid="a.132.0/6"> <td>South East</td> <td>882</td> </tr>
+			<tr pid="a.132.0/7"> <td>West Midlands</td> <td>343</td> </tr>
+			<tr pid="a.132.0/8"> <td>North West</td> <td>1,352</td> </tr>
+			<tr pid="a.132.0/9"> <td>North East</td> <td>149</td> </tr>
+			<tr pid="a.132.0/10"> <td>London</td> <td>673</td> </tr>
+			<tr pid="a.132.0/11"> <td>East Midlands</td> <td>277</td> </tr>
+			<tr pid="a.132.0/12"> <td>Yorkshire and the Humber</td> <td>417</td> </tr>
+			<tr pid="a.132.0/13"> <td>Wales</td> <td>196</td> </tr>
+			<tr pid="a.132.0/14"> <td>England and Wales</td> <td>6,338</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.132.0/17">Data for the period from <phrase class="date" code="2008-04-01">1 April 2008</phrase> to <phrase class="date" code="2009-03-31">31 March 2009</phrase> will be available in the near future and I will write to the noble Lord, placing copies of my letter in the Libraries of both Houses.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.132.1" nospeaker="true" colnum="132"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001482">
+	Parliamentary Commissioner for Administration
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.132.2" speakerid="uk.org.publicwhip/lord/100367" speakername="Lord Lester of Herne Hill" colon=":" colnum="132"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001482">
+	<p pid="a.132.2/1" qnum="HL4634">To ask Her Majesty's Government whether they intend to introduce legislation enabling members of the public to have direct access to the Parliamentary Commissioner for Administration, as well as through their Member of Parliament, in complaining of maladministration.</p>
+	<p pid="a.132.2/2" qnum="HL5817">To ask Her Majesty's Government when they will answer Question HL4634, tabled by Lord Lester of Herne Hill on 25 June about whether they will introduce legislation enabling members of the public to have direct access to the Parliamentary Commissioner for Administration, as well as through their Member of Parliament, in complaining of maladministration; and what is the reason for the delay.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.132.3" speakerid="uk.org.publicwhip/lord/100152" speakername="Baroness Crawley" colon=":" colnum="132"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779000363">
+	<p pid="a.132.3/1">The Government value the role and work of the Parliamentary Ombudsman. They also believe that Members of Parliament have an important role to play in assisting constituents with concerns about their dealings with government departments and public bodies. The policy is kept under review, but the position remains as set in the Parliamentary Commissioner Act 1967.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.132.4" nospeaker="true" colnum="132"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001483">
+	Pollution: Airborne Particles
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.132.5" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="132"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779001483">
+	<p pid="a.132.5/1" qnum="HL5688">To ask Her Majesty's Government what percentage of the population in each local authority in Greater London is estimated to have been living in an area that (a) breached one or more European Union limit values for particulate matter (PM10) in 2008, and (b) is expected to breach one or more European Union limit values for nitrogen dioxide (NO2) in 2010.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.133.0" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="133"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0004.htm#09102779000364">
+	<p pid="a.133.0/1">Data commissioned by the Greater London Authority are available for 2006 and 2010, and are provided in the form of number of people exposed to 1) Concentrations of NO2 above 40 microgrammes/m<sup>3</sup> in 2010&mdash;based on three different modelled met years, 2) Concentrations of NO2 above 60 microgrammes/m<sup>3</sup> (as an approximation for an exceedence of hourly limit value) in 2010 based on 3 different met years and 3) Concentrations of PM10 above 40 microgrammes/m<sup>3</sup> in 2006 and 2010 based on 2003 met year.<sup>1</sup></p>
+	<table>
+		<tbody>
+			<tr pid="a.133.0/4"> <td colspan="10"><I>Table 5 Population exposure (number of people) for NO2 (&gt;40 microgrammes/m<sup>-3</sup>) for the year 2010 for different met years (2003, 2004 and 2006)</I></td> </tr>
+			<tr pid="a.133.0/5"> <td>Borough Name</td> <td>2003 Total</td> <td>Younger</td> <td>Older</td> <td>2004 Total</td> <td>Younger</td> <td>Older</td> <td>2006 Total</td> <td>Younger</td> <td>Older</td> </tr>
+			<tr pid="a.133.0/6"> <td>Barking and Dagenham</td> <td>515</td> <td>168</td> <td>47</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/7"> <td>Barnet</td> <td>8,379</td> <td>2,155</td> <td>1,067</td> <td>557</td> <td>137</td> <td>69</td> <td>1,141</td> <td>287</td> <td>144</td> </tr>
+			<tr pid="a.133.0/8"> <td>Bexley</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/9"> <td>Brent</td> <td>51,332</td> <td>13,043</td> <td>5,490</td> <td>10,642</td> <td>2,642</td> <td>1,176</td> <td>19,800</td> <td>4,862</td> <td>2,171</td> </tr>
+			<tr pid="a.133.0/10"> <td>Bromley</td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+			<tr pid="a.133.0/11"> <td>Camden</td> <td>161,514</td> <td>33,425</td> <td>15,022</td> <td>68,952</td> <td>13,932</td> <td>6,021</td> <td>93,742</td> <td>19,249</td> <td>8,343</td> </tr>
+			<tr pid="a.133.0/12"> <td>City of London</td> <td>9,445</td> <td>1263</td> <td>1,067</td> <td>6,365</td> <td>851</td> <td>719</td> <td>6,617</td> <td>885</td> <td>748</td> </tr>
+			<tr pid="a.133.0/13"> <td>Croydon</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/14"> <td>Ealing</td> <td>52,940</td> <td>12,836</td> <td>5,649</td> <td>18,762</td> <td>4,374</td> <td>1,967</td> <td>31,587</td> <td>7,740</td> <td>3,307</td> </tr>
+			<tr pid="a.133.0/15"> <td>Enfield</td> <td>4,693</td> <td>1,480</td> <td>485</td> <td>1,358</td> <td>436</td> <td>136</td> <td>2,045</td> <td>657</td> <td>209</td> </tr>
+			<tr pid="a.133.0/16"> <td>Greenwich</td> <td>6,319</td> <td>1,262</td> <td>672</td> <td>2,288</td> <td>480</td> <td>247</td> <td>3,814</td> <td>759</td> <td>407</td> </tr>
+			<tr pid="a.133.0/17"> <td>Hackney</td> <td>62,003</td> <td>14,980</td> <td>5,133</td> <td>14,466</td> <td>3,622</td> <td>1,167</td> <td>22,419</td> <td>5,553</td> <td>1,839</td> </tr>
+			<tr pid="a.133.0/18"> <td>Hammersmith and Fulham</td> <td>65,400</td> <td>13,177</td> <td>5,998</td> <td>19,238</td> <td>3,917</td> <td>1,764</td> <td>30,825</td> <td>6,315</td> <td>2,857</td> </tr>
+			<tr pid="a.133.0/19"> <td>Haringey</td> <td>15,997</td> <td>3,547</td> <td>1,415</td> <td>1,834</td> <td>383</td> <td>158</td> <td>4,460</td> <td>915</td> <td>414</td> </tr>
+			<tr pid="a.133.0/20"> <td>Harrow</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/21"> <td>Havering</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/22"> <td>Hillingdon</td> <td>12,839</td> <td>3,334</td> <td>1323</td> <td>1,292</td> <td>3.34</td> <td>131</td> <td>5,881</td> <td>1,508</td> <td>632</td> </tr>
+			<tr pid="a.133.0/23"> <td>Hounslow</td> <td>9,118</td> <td>2,033</td> <td>874</td> <td>841</td> <td>228</td> <td>76</td> <td>2,797</td> <td>633</td> <td>266</td> </tr>
+			<tr pid="a.133.0/24"> <td>Islington</td> <td>106,317</td> <td>21,087</td> <td>9219</td> <td>23,346</td> <td>4,366</td> <td>2,041</td> <td>39,420</td> <td>7,526</td> <td>3,426</td> </tr>
+			<tr pid="a.133.0/25"> <td>Kensington and Chelsea</td> <td>152,776</td> <td>27,500</td> <td>17222</td> <td>54,292</td> <td>9,753</td> <td>6,191</td> <td>85,325</td> <td>15,364</td> <td>9,631</td> </tr>
+			<tr pid="a.133.0/26"> <td>Kingston upon Thames</td> <td>206</td> <td>43</td> <td>30</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/27"> <td>Lambeth</td> <td>62,558</td> <td>14,102</td> <td>5017</td> <td>17,873</td> <td>3,914</td> <td>1,488</td> <td>30,772</td> <td>6,815</td> <td>2,543</td> </tr>
+			<tr pid="a.133.0/28"> <td>Lewisham</td> <td>9,116</td> <td>2,130</td> <td>645</td> <td>2,058</td> <td>459</td> <td>160</td> <td>4,689</td> <td>1,039</td> <td>340</td> </tr>
+			<tr pid="a.133.0/29"> <td>Merton</td> <td>844</td> <td>137</td> <td>84</td> <td>0</td> <td>0</td> <td>0</td> <td>526</td> <td>85</td> <td>52</td> </tr>
+			<tr pid="a.133.0/30"> <td>Newham</td> <td>8,272</td> <td>2,436</td> <td>611</td> <td>1,713</td> <td>479</td> <td>116</td> <td>4,350</td> <td>1,235</td> <td>327</td> </tr>
+			<tr pid="a.133.0/31"> <td>Redbridge</td> <td>2,668</td> <td>569</td> <td>394</td> <td>967</td> <td>183</td> <td>162</td> <td>1,244</td> <td>254</td> <td>193</td> </tr>
+			<tr pid="a.133.0/32"> <td>Richmond upon Thames</td> <td>571</td> <td>146</td> <td>61</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/33"> <td>Southwark</td> <td>90,616</td> <td>20,913</td> <td>7,899</td> <td>43,124</td> <td>9,697</td> <td>3,703</td> <td>59,957</td> <td>13,649</td> <td>5,199</td> </tr>
+			<tr pid="a.133.0/34"> <td>Sutton</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/35"> <td>Tower hamlets</td> <td>75,229</td> <td>18,783</td> <td>5,764</td> <td>28,760</td> <td>6,946</td> <td>2,110</td> <td>4,0206</td> <td>9,971</td> <td>3,012</td> </tr>
+			<tr pid="a.133.0/36"> <td>Waltham Forest</td> <td>5,577</td> <td>1,516</td> <td>458</td> <td>1,367</td> <td>356</td> <td>132</td> <td>2,342</td> <td>612</td> <td>203</td> </tr>
+			<tr pid="a.133.0/37"> <td>Wandsworth</td> <td>34,139</td> <td>6,389</td> <td>2,481</td> <td>7,597</td> <td>1,490</td> <td>550</td> <td>12,944</td> <td>2,521</td> <td>918</td> </tr>
+			<tr pid="a.133.0/38"> <td>Westminster</td> <td>204,308</td> <td>33,043</td> <td>2,1561</td> <td>126,877</td> <td>19,460</td> <td>13,175</td> <td>149,016</td> <td>23,356</td> <td>15,535</td> </tr>
+			<tr pid="a.133.0/39"> <td>GLA Total</td> <td>1213,688</td> <td>251,496</td> <td>115,687</td> <td>454,569</td> <td>88,439</td> <td>43,458</td> <td>655,922</td> <td>131,790</td> <td>62,717</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.133.0/42" class="indent">1 Data taken from Draft Document: London Atmospheric Emissions Inventory 2006, Air Pollution Modelling for 2006 and 2010.</p>
+	<table>
+		<tbody>
+			<tr pid="a.133.0/45"> <td colspan="10"><I>Table 7 Population exposure (number of people) for NO2 (&gt;60 microgrammes/m<sup>-3</sup>) for the year 2010 for different met years (2003, 2004 and 2006)</I></td> </tr>
+			<tr pid="a.133.0/46"> <td>Borough Name</td> <td>2003 Total</td> <td>Younger</td> <td>Older</td> <td>2004 total</td> <td>Younger</td> <td>Older</td> <td>2006 total</td> <td>Younger</td> <td>Older</td> </tr>
+			<tr pid="a.133.0/47"> <td>Westminster</td> <td>600</td> <td>62</td> <td>62</td> <td>0</td> <td>0</td> <td>0</td> <td>400</td> <td>40</td> <td>42</td> </tr>
+		</tbody>
+	</table>
+	<table>
+		<tbody>
+			<tr pid="a.133.0/52"> <td colspan="7"><I>Table 8 Population exposure for PM10 exceedence (&gt; 40 microgrammes/m<sup>-3</sup>) for the years 2006 and 2010 (met 2003)</I></td> </tr>
+			<tr pid="a.133.0/53"> <td>Borough Name</td> <td>2006 total</td> <td>Younger</td> <td>Older</td> <td>2010 total</td> <td>Younger</td> <td>Older</td> </tr>
+			<tr pid="a.133.0/54"> <td>Barking and Dagenham</td> <td>167,660</td> <td>47,557</td> <td>21,592</td> <td>200</td> <td>56</td> <td>23</td> </tr>
+			<tr pid="a.133.0/55"> <td>Barnet</td> <td>324,254</td> <td>80,841</td> <td>43,071</td> <td>856</td> <td>207</td> <td>110</td> </tr>
+			<tr pid="a.133.0/56"> <td>Bexley</td> <td>211,842</td> <td>53,114</td> <td>32,480</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/57"> <td>Brent</td> <td>274,718</td> <td>68,594</td> <td>32,577</td> <td>3,731</td> <td>1,041</td> <td>424</td> </tr>
+			<tr pid="a.133.0/58"> <td>Bromley</td> <td>203,015</td> <td>47,229</td> <td>30,987</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/59"> <td>Camden</td> <td>203,884</td> <td>41,163</td> <td>20,132</td> <td>37,031</td> <td>7,632</td> <td>3,276</td> </tr>
+			<tr pid="a.133.0/60"> <td>City of London</td> <td>8,869</td> <td>1,094</td> <td>1,006</td> <td>2,780</td> <td>372</td> <td>314</td> </tr>
+			<tr pid="a.133.0/61"> <td>Croydon</td> <td>277,422</td> <td>70,914</td> <td>33,858</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/62"> <td>Ealing</td> <td>310,996</td> <td>76,484</td> <td>35,495</td> <td>7,617</td> <td>1,746</td> <td>826</td> </tr>
+			<tr pid="a.133.0/63"> <td>Enfield</td> <td>287,834</td> <td>74,656</td> <td>37,016</td> <td>2,589</td> <td>862</td> <td>249</td> </tr>
+			<tr pid="a.133.0/64"> <td>Greenwich</td> <td>231,009</td> <td>60,745</td> <td>27,339</td> <td>2,581</td> <td>513</td> <td>253</td> </tr>
+			<tr pid="a.133.0/65"> <td>Hackney</td> <td>218,127</td> <td>59,432</td> <td>18,685</td> <td>6,813</td> <td>1,764</td> <td>605</td> </tr>
+			<tr pid="a.133.0/66"> <td>Hammersmith and Fulham</td> <td>176,180</td> <td>34,803</td> <td>16,942</td> <td>10,924</td> <td>2,205</td> <td>1,016</td> </tr>
+			<tr pid="a.133.0/67"> <td>Haringey</td> <td>230,818</td> <td>56,692</td> <td>20,456</td> <td>865</td> <td>214</td> <td>87</td> </tr>
+			<tr pid="a.133.0/68"> <td>Harrow</td> <td>215,216</td> <td>52,000</td> <td>29,392</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/69"> <td>Havering</td> <td>94,963</td> <td>22,669</td> <td>14,465</td> <td>290</td> <td>68</td> <td>47</td> </tr>
+			<tr pid="a.133.0/70"> <td>Hillingdon</td> <td>234,105</td> <td>60,662</td> <td>30,577</td> <td>608</td> <td>166</td> <td>58</td> </tr>
+			<tr pid="a.133.0/71"> <td>Hounslow</td> <td>222,604</td> <td>56,941</td> <td>24,256</td> <td>1,946</td> <td>461</td> <td>177</td> </tr>
+			<tr pid="a.133.0/72"> <td>Islington</td> <td>189,295</td> <td>40,035</td> <td>16,989</td> <td>5,487</td> <td>1,041</td> <td>483</td> </tr>
+			<tr pid="a.133.0/73"> <td>Kensington and Chelsea</td> <td>166,582</td> <td>30,076</td> <td>19,579</td> <td>15,458</td> <td>2,638</td> <td>1,724</td> </tr>
+			<tr pid="a.133.0/74"> <td>Kingston upon Thames</td> <td>152,464</td> <td>35,435</td> <td>18,467</td> <td>206</td> <td>43</td> <td>30</td> </tr>
+			<tr pid="a.133.0/75"> <td>Lambeth</td> <td>28,6612</td> <td>65,172</td> <td>23,999</td> <td>3,721</td> <td>773</td> <td>321</td> </tr>
+			<tr pid="a.133.0/76"> <td>Lewisham</td> <td>264,092</td> <td>64,353</td> <td>25,055</td> <td>2,025</td> <td>446</td> <td>154</td> </tr>
+			<tr pid="a.133.0/77"> <td>Merton</td> <td>195,210</td> <td>46,500</td> <td>23,854</td> <td>264</td> <td>43</td> <td>26</td> </tr>
+			<tr pid="a.133.0/78"> <td>Newham</td> <td>259,841</td> <td>77,626</td> <td>20,659</td> <td>2,434</td> <td>684</td> <td>188</td> </tr>
+			<tr pid="a.133.0/79"> <td>Redbridge</td> <td>245,947</td> <td>63,986</td> <td>31,733</td> <td>1,351</td> <td>251</td> <td>229</td> </tr>
+			<tr pid="a.133.0/80"> <td>Richmond upon Thames</td> <td>182,317</td> <td>42,347</td> <td>22,161</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/81"> <td>Southwark</td> <td>267,708</td> <td>64,096</td> <td>25,447</td> <td>9,843</td> <td>2,162</td> <td>842</td> </tr>
+			<tr pid="a.133.0/82"> <td>Sutton</td> <td>181,114</td> <td>44,730</td> <td>24,541</td> <td>0</td> <td>0</td> <td>0</td> </tr>
+			<tr pid="a.133.0/83"> <td>Tower Hamlets</td> <td>221,520</td> <td>57,565</td> <td>18,149</td> <td>17,316</td> <td>4,128</td> <td>1,248</td> </tr>
+			<tr pid="a.133.0/84"> <td>Waltham Forest</td> <td>223,508</td> <td>60,272</td> <td>24,946</td> <td>3,416</td> <td>901</td> <td>297</td> </tr>
+			<tr pid="a.133.0/85"> <td>Wandsworth</td> <td>283,359</td> <td>54,556</td> <td>25,894</td> <td>4,336</td> <td>828</td> <td>320</td> </tr>
+			<tr pid="a.133.0/86"> <td>Westminster</td> <td>210,858</td> <td>34,206</td> <td>23,754</td> <td>58,367</td> <td>8,453</td> <td>5,989</td> </tr>
+			<tr pid="a.133.0/87"> <td>GLA Total</td> <td>7,223,943</td> <td>1746,546</td> <td>815,554</td> <td>203,055</td> <td>39,697</td> <td>19,316</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.133.0/90">Total population figures by borough are as follows:</p>
+	<table>
+		<tbody>
+			<tr pid="a.133.0/93"> <td colspan="7"><I>Table 3 Number of people by borough for total, younger (under 20), and older population (ages 65+)</I></td> </tr>
+			<tr pid="a.133.0/94"> <td>Borough Name</td> <td>2006 total</td> <td>Younger</td> <td>Older</td> <td>2010 total</td> <td>Younger</td> <td>Older</td> </tr>
+			<tr pid="a.133.0/95"> <td>Barking and Dagenham</td> <td>169,443</td> <td>48,051</td> <td>21,841</td> <td>175,643</td> <td>51,825</td> <td>208,88</td> </tr>
+			<tr pid="a.133.0/96"> <td>Barnet</td> <td>324,597</td> <td>80,920</td> <td>43,123</td> <td>333,176</td> <td>84,746</td> <td>42,764</td> </tr>
+			<tr pid="a.133.0/97"> <td>Bexley</td> <td>218,418</td> <td>54,766</td> <td>33,499</td> <td>218,971</td> <td>54,114</td> <td>33,109</td> </tr>
+			<tr pid="a.133.0/98"> <td>Brent</td> <td>274,718</td> <td>68,594</td> <td>32,577</td> <td>285,069</td> <td>71,872</td> <td>34,226</td> </tr>
+			<tr pid="a.133.0/99"> <td>Bromley</td> <td>300,069</td> <td>71,298</td> <td>47,680</td> <td>304,317</td> <td>71,624</td> <td>47,886</td> </tr>
+			<tr pid="a.133.0/100"> <td>Camden</td> <td>203,884</td> <td>41,163</td> <td>20,132</td> <td>210,192</td> <td>42,929</td> <td>19,983</td> </tr>
+			<tr pid="a.133.0/101"> <td>City of London</td> <td>8,869</td> <td>1094</td> <td>1,006</td> <td>9,445</td> <td>1,263</td> <td>1,067</td> </tr>
+			<tr pid="a.133.0/102"> <td>Croydon</td> <td>335,244</td> <td>88,059</td> <td>42,462</td> <td>344,189</td> <td>90,123</td> <td>43,905</td> </tr>
+			<tr pid="a.133.0/103"> <td>Ealing</td> <td>310,996</td> <td>76,484</td> <td>35,495</td> <td>322,399</td> <td>80,210</td> <td>36,223</td> </tr>
+			<tr pid="a.133.0/104"> <td>Enfield</td> <td>288,502</td> <td>74,816</td> <td>37,126</td> <td>292,950</td> <td>77,668</td> <td>37,480</td> </tr>
+			<tr pid="a.133.0/105"> <td>Greenwich</td> <td>231,009</td> <td>60,745</td> <td>27,339</td> <td>247,243</td> <td>66,108</td> <td>27,403</td> </tr>
+			<tr pid="a.133.0/106"> <td>Hackney</td> <td>218,127</td> <td>59,432</td> <td>18,685</td> <td>230,456</td> <td>61,246</td> <td>18,548</td> </tr>
+			<tr pid="a.133.0/107"> <td>Hammersmith and Fulham</td> <td>176,180</td> <td>34,803</td> <td>16,942</td> <td>183,295</td> <td>36,585</td> <td>16,899</td> </tr>
+			<tr pid="a.133.0/108"> <td>Haringey</td> <td>230,818</td> <td>56,692</td> <td>20,456</td> <td>240,566</td> <td>58,896</td> <td>24,281</td> </tr>
+			<tr pid="a.133.0/109"> <td>Harrow</td> <td>216,475</td> <td>52,281</td> <td>29,618</td> <td>224,008</td> <td>53,255</td> <td>29,506</td> </tr>
+			<tr pid="a.133.0/110"> <td>Havering</td> <td>228,708</td> <td>54,251</td> <td>37,637</td> <td>233,004</td> <td>53,645</td> <td>37,149</td> </tr>
+			<tr pid="a.133.0/111"> <td>Hillingdon</td> <td>248,914</td> <td>63,959</td> <td>33,035</td> <td>254,773</td> <td>65,604</td> <td>32,960</td> </tr>
+			<tr pid="a.133.0/112"> <td>Hounslow</td> <td>222,974</td> <td>57,016</td> <td>24,291</td> <td>235,915</td> <td>615,005</td> <td>24,836</td> </tr>
+			<tr pid="a.133.0/113"> <td>Islington</td> <td>189,295</td> <td>40,035</td> <td>16,989</td> <td>202,771</td> <td>41,312</td> <td>17,400</td> </tr>
+			<tr pid="a.133.0/114"> <td>Kensington and Chelsea</td> <td>166,755</td> <td>30,102</td> <td>19,608</td> <td>173,890</td> <td>31,543</td> <td>19,942</td> </tr>
+			<tr pid="a.133.0/115"> <td>Kingston upon Thames</td> <td>152,464</td> <td>35,435</td> <td>18,467</td> <td>155,759</td> <td>36,877</td> <td>18,457</td> </tr>
+			<tr pid="a.133.0/116"> <td>Lambeth</td> <td>286,612</td> <td>65,172</td> <td>23,999</td> <td>295,981</td> <td>67,089</td> <td>23,687</td> </tr>
+			<tr pid="a.133.0/117"> <td>Lewisham</td> <td>264,092</td> <td>64,353</td> <td>25,055</td> <td>272,458</td> <td>67,077</td> <td>24,034</td> </tr>
+			<tr pid="a.133.0/118"> <td>Merton</td> <td>195,210</td> <td>46,500</td> <td>23,854</td> <td>200,166</td> <td>49,150</td> <td>23,744</td> </tr>
+			<tr pid="a.133.0/119"> <td>Newham</td> <td>259,841</td> <td>77,626</td> <td>20,659</td> <td>284,711</td> <td>82,436</td> <td>20,423</td> </tr>
+			<tr pid="a.133.0/120"> <td>Redbridge</td> <td>248,703</td> <td>64,681</td> <td>32,212</td> <td>257,028</td> <td>67,702</td> <td>32,501</td> </tr>
+			<tr pid="a.133.0/121"> <td>Richmond upon Thames</td> <td>182,317</td> <td>42,347</td> <td>22,161</td> <td>187,603</td> <td>45,280</td> <td>22,324</td> </tr>
+			<tr pid="a.133.0/122"> <td>Southwark</td> <td>267,708</td> <td>64,096</td> <td>25,447</td> <td>282,924</td> <td>68,075</td> <td>24,960</td> </tr>
+			<tr pid="a.133.0/123"> <td>Sutton</td> <td>183,145</td> <td>45,304</td> <td>24,800</td> <td>185,921</td> <td>45,918</td> <td>24,896</td> </tr>
+			<tr pid="a.133.0/124"> <td>Tower Hamlets</td> <td>221,520</td> <td>57,565</td> <td>18,149</td> <td>246,669</td> <td>60,444</td> <td>17,914</td> </tr>
+			<tr pid="a.133.0/125"> <td>Waltham Forest</td> <td>223,508</td> <td>60,272</td> <td>24,946</td> <td>229,379</td> <td>63,399</td> <td>25,098</td> </tr>
+			<tr pid="a.133.0/126"> <td>Wandsworth</td> <td>283,359</td> <td>54,556</td> <td>25,894</td> <td>293,494</td> <td>58,681</td> <td>24,280</td> </tr>
+			<tr pid="a.133.0/127"> <td>Westminster</td> <td>210,858</td> <td>34,206</td> <td>23,754</td> <td>217,847</td> <td>35,805</td> <td>23,090</td> </tr>
+			<tr pid="a.133.0/128"> <td>GLA</td> <td>7,543,333</td> <td>1,822,673</td> <td>868,937</td> <td>7,832,212</td> <td>1,903,505</td> <td>8,678,65</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.133.0/131">Information regarding the exposure of London's population to air pollution is also contained within the technical annexes of the Mayor's draft air quality strategy.</p>
+	<p pid="a.133.0/132"><a href="http://www.london/gov.uk/mayor/environment/air_quality/docs/AQS09-technical-annex.pdf">http://www.london/gov.uk/mayor/environment/air_quality/docs/AQS09-technical-annex.pdf</a>.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.138.0" nospeaker="true" inserted-heading="true" colnum="138"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001484">
+	Pollution: Airborne Particles
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.138.1" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="138"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001484">
+	<p pid="a.138.1/1" qnum="HL5689">To ask Her Majesty's Government what harmful air pollutants are likely to be present in ambient air when concentrations of nitrogen dioxide (NO2) are high; and in what proportions.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.138.2" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="138"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001185">
+	<p pid="a.138.2/1">Nitrogen dioxide (NO2) arises directly and indirectly from combustion processes. Concentrations are generally highest close to their emission sources, primarily road transport followed by the power generation industry and other industrial and commercial sector sources.</p>
+	<p pid="a.138.2/2">The nature of the combustion process and fuel used will determine the presence of other pollutants, such as particulate matter, polycyclic aromatic hydrocarbons, benzene, carbon monoxide and sulphur dioxide. It is not possible to define the proportions that these pollutants may be present in at any particular location at any one time. Proportions will vary with time, the distance from sources, meteorology, and chemistry depending on the type of combustion process and emissions released.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.138.3" nospeaker="true" colnum="138"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001485">
+	Premature Deaths
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.138.4" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="138"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001485">
+	<p pid="a.138.4/1" qnum="HL5773">To ask Her Majesty's Government what is the total number of life years lost in England and Wales in each of 2005, 2006, 2007 and 2008 for those dying prematurely for each of: (a) short-, medium- or long-term exposure to particulate matter (PM10); (b) alcohol abuse; (c) drug abuse; (d) road traffic accidents; (e) obesity; and (f) smoking.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.138.5" speakerid="uk.org.publicwhip/lord/100152" speakername="Baroness Crawley" colon=":" colnum="138"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001187">
+	<p pid="a.138.5/1">The information requested falls within the responsibility of the UK Statistics Authority. I have asked the authority to reply.</p>
+	<p pid="a.138.5/2"><I>Letter from Jil Matheson, National Statistician, to Lord Berkeley, dated October 2009.</I></p>
+	<p pid="a.138.5/3">As National Statistician, I have been asked to reply to your recent Parliamentary Question asking what is the total number of life years lost in England and Wales in each of 2005, 2006, 2007 and 2008 for those dying prematurely of: (a) short-, medium- or long-term exposure to particulate matter (PM10), (b) alcohol abuse, (c) drug abuse, (d) road traffic accidents, (e) obesity, and (f) smoking. (HL5773)</p>
+	<p pid="a.138.5/4">The accurate reporting of deaths by specific causes depends on the complete recording of all relevant causes of death by medical practitioners and coroners. Medical practitioners are required to complete the Medical Certificate of Cause of Death (MCCD) to the best of their knowledge and belief. Internationally accepted guidance from the World Health Organisation requires only those conditions that contributed directly to death to be recorded. The MCCD is not designed to collect information on risk factors or exposures related to the development of disease, such as exposure to particulate matter or smoking behaviour. It is therefore not possible to provide answers to parts (a) or (f) of the question above, based on information collected at death registration.</p>
+	<p pid="a.138.5/5">Calculations done for the review of the Air Quality Strategy<sup>1</sup> estimated that, if all man-made fine particulate matter (PM2.5) present in the UK in 2005 were removed for the lifetime of people born in 2005, the average life-expectancy per person would be 7-8 months greater than if the level of man-made PM2.5 had remained at 2005 levels for a lifetime. This calculation represents the effect of long-term exposure to fine particles. A similar calculation has not been done for PM10 since the evidence that it is a good metric for representing the effect of long-term exposure is much weaker<sup>2</sup> than for PM2.5.</p>
+	<p pid="a.138.5/6">Studies of short-term exposure to PM10 do suggest a link with increased mortality but the studies do not give direct information on the life lost per person. It is thought that those affected are already seriously ill but that many of the deaths are brought forward by several months rather than just days or weeks. There are too few studies of the effects of medium term exposure for calculations such as those above to be made. All information on the estimated impact of particulate matter on life expectancy and mortality has been provided by the Health Protection Agency (HPA). Neither ONS nor the HPA are aware of comparable figures to those provided above for 2006-08.</p>
+	<p pid="a.138.5/7">ONS publishes annual figures on the number of years of life lost due to a selection of specific causes of death<sup>3</sup> , including land transport accidents. Table 1 below presents figures for years of life lost due to land transport accidents, including the number of deaths, mean age at death and years of total life (to age 75) lost, by sex, for 2005 to 2007 (the latest year available). Figures are not readily available for years of life lost due to alcohol abuse, drug abuse or obesity.</p>
+	<p pid="a.138.5/8">Figures are available for the number of premature deaths, defined as deaths under the age of 75, for (i) deaths with an alcohol-related cause, (ii) drug misuse deaths, where the underlying cause was drug poisoning and where any drug controlled under the Misuse of Drugs Act 1971 was mentioned on the death certificate, and (iii) deaths with obesity as the underlying cause of death, for England and Wales, for 2005 to 2008 (the latest year available), and are provided in Table 2 below. These figures are presented to offer some information on the scale of premature deaths from these conditions, in England and Wales.</p>
+	<p pid="a.138.5/9">The figures provided in Table 2 relating to obesity reflect the number of deaths certified as due to obesity conditions. However, these figures are likely to underestimate the actual number of deaths in which this factor is involved since obesity may play an important role in deaths due to other conditions such as heart disease or diabetes, but it is rarely recorded on the death certificate.</p>
+	<p pid="a.138.5/10" class="indent"><sup>1</sup> <a href="http://www.defra.gov.uk/environment/quality/air/airquality/publications/stratreview-analysis/index.htm">http://www.defra.gov.uk/environment/quality/air/airquality/publications/stratreview-analysis/index.htm</a></p>
+	<p pid="a.138.5/11" class="indent"><sup>2</sup> <a href="http://www.advisorybodies.doh.gov.uk/comeap/pdfs/finallong">http://www.advisorybodies.doh.gov.uk/comeap/pdfs/finallong</a> termeffectsmort2009report.pdf</p>
+	<p pid="a.138.5/12" class="indent"><sup>3</sup> Latest figures available are for 2007, in the &quot;Mortality statistics: Deaths registered in 2007&quot; publication, available from: <a href="http://www.statistics.gov.uk/statbase/product.asp?vlnk=15096">http://www.statistics.gov.uk/statbase/product.asp?vlnk=15096</a>.</p>
+	<table>
+		<tbody>
+			<tr pid="a.138.5/15"> <td colspan="5"><I>Table 1. Years of life lost due to land transport accidents: numbers of deaths, mean age at death and years of total life (to age 75) lost, by sex, 2005-07<sup>1,2,3,4</sup></I></td> </tr>
+			<tr pid="a.138.5/16"> <td>Year</td> <td>Sex</td> <td>Deaths</td> <td>Mean age at death</td> <td>Total life (to age 75) years lost</td> </tr>
+			<tr pid="a.138.5/17"> <td>2005</td> <td>Male</td> <td>2,023</td> <td>40</td> <td>72,000</td> </tr>
+			<tr pid="a.138.5/18"> <td></td> <td>Female</td> <td>674</td> <td>49</td> <td>19,000</td> </tr>
+			<tr pid="a.138.5/19"> <td>2006</td> <td>Male</td> <td>2,256</td> <td>39</td> <td>82,000</td> </tr>
+			<tr pid="a.138.5/20"> <td></td> <td>Female</td> <td>734</td> <td>48</td> <td>21,000</td> </tr>
+			<tr pid="a.138.5/21"> <td>2007</td> <td>Male</td> <td>2,191</td> <td>40</td> <td>77,000</td> </tr>
+			<tr pid="a.138.5/22"> <td></td> <td>Female</td> <td>728</td> <td>50</td> <td>19,000</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.138.5/25" class="indent"><sup>1</sup> Figures for England and Wales include deaths of non-residents.</p>
+	<p pid="a.138.5/26" class="indent"><sup>2</sup> Figures for 2005 are for deaths occurring in 2005. Figures for 2006 and 2007 are for deaths registered in each of these years.</p>
+	<p pid="a.138.5/27" class="indent"><sup>3</sup> Cause of death was defined using the International Classification of Diseases, Tenth Revision (ICD-10) codes V01 to V89, which includes deaths from all transport accidents with the exception of water, air and space, other and unspecified transport accidents.</p>
+	<p pid="a.138.5/28" class="indent"><sup>4</sup> Figures for years of life lost are extracted from the 'Mortality Statistics' publications for 2005 (Series DH1 no. 38), 2006 (DR_06) and 2007 (DR_07). Of the causes of death mentioned in the question, figures are only available where the underlying cause of death was a land transport accident.</p>
+	<table>
+		<tbody>
+			<tr pid="a.138.5/31"> <td colspan="5"><I>Table 2. Number of deaths from alcohol-related conditions, drug misuse, land transport accidents and obesity, England and Wales, 2005-08<sup>1,2,3,4,5,6</sup></I></td> </tr>
+			<tr pid="a.138.5/32"> <td></td> <td></td> <td></td> <td></td> <td>Persons</td> </tr>
+			<tr pid="a.138.5/33"> <td>Underlying cause of death</td> <td>2005</td> <td>2006</td> <td>2007</td> <td>2008</td> </tr>
+			<tr pid="a.138.5/34"> <td>Alcohol-related conditions</td> <td>5,928</td> <td>6,288</td> <td>6,369</td> <td>6,655</td> </tr>
+			<tr pid="a.138.5/35"> <td>Drug misuse</td> <td>1,573</td> <td>1,531</td> <td>1,575</td> <td>1,703</td> </tr>
+			<tr pid="a.138.5/36"> <td>Land transport accident</td> <td>2,606</td> <td>2,610</td> <td>2,511</td> <td>2,256</td> </tr>
+			<tr pid="a.138.5/37"> <td>Obesity</td> <td>200</td> <td>228</td> <td>219</td> <td>298</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.138.5/40" class="indent"><sup>1</sup> Figures for England and Wales include deaths of non-residents.</p>
+	<p pid="a.138.5/41" class="indent"><sup>2</sup> Figures are for deaths registered in each calendar year.</p>
+	<p pid="a.138.5/42" class="indent"><sup>3</sup> Alcohol-related deaths were defined using the International Classification of Diseases, Tenth Revision (ICD-10) codes shown in Box 1 below.</p>
+	<p pid="a.138.5/43" class="indent"><sup>4</sup> Drug misuse deaths were defined using the International Classification of Diseases, Tenth Revision (ICD-10) codes shown in Box 2 below and where a drug controlled under the Misuse of Drugs Act 1971 was mentioned on the death certificate.</p>
+	<p pid="a.138.5/44" class="indent"><sup>5</sup> Cause of death was defined using the International Classification of Diseases, Tenth Revision (ICD-10) codes V01 to V89, which includes deaths from all transport accidents with the exception of water, air and space, other and unspecified transport accidents.</p>
+	<p pid="a.138.5/45" class="indent"><sup>6</sup> Cause of death was defined using the International Classification of Diseases, Tenth Revision (ICD-10) code E66 (obesity).</p>
+	<table>
+		<tbody>
+			<tr pid="a.138.5/48"> <td colspan="2"><I>Box 1. Alcohol-related causes of death&mdash;International Classification of Diseases, Tenth Revision (ICD-10)</I></td> </tr>
+			<tr pid="a.138.5/49"> <td>Cause of death description</td> <td>ICD-10 code(s)</td> </tr>
+			<tr pid="a.138.5/50"> <td>Mental and behavioural disorders due to use of alcohol</td> <td>F10</td> </tr>
+			<tr pid="a.138.5/51"> <td>Degeneration of nervous system due to alcohol</td> <td>G31.2</td> </tr>
+			<tr pid="a.138.5/52"> <td>Alcoholic polyneuropathy</td> <td>G62.1</td> </tr>
+			<tr pid="a.138.5/53"> <td>Alcoholic cardiomyopathy</td> <td>I42.6</td> </tr>
+			<tr pid="a.138.5/54"> <td>Alcoholic gastritis</td> <td>K29.2</td> </tr>
+			<tr pid="a.138.5/55"> <td>Alcoholic liver disease</td> <td>K70</td> </tr>
+			<tr pid="a.138.5/56"> <td>Chronic hepatitis, not elsewhere classified</td> <td>K73</td> </tr>
+			<tr pid="a.138.5/57"> <td>Fibrosis and cirrhosis of liver (excl. biliary cirrhosis)</td> <td>K74 (excl. K74.3-K74.5)</td> </tr>
+			<tr pid="a.138.5/58"> <td>Alcohol induced chronic pancreatitis</td> <td>K86.0</td> </tr>
+			<tr pid="a.138.5/59"> <td>Accidental poisoning by and exposure to alcohol</td> <td>X45</td> </tr>
+			<tr pid="a.138.5/60"> <td>Intentional self-poisoning by and exposure to alcohol</td> <td>X65</td> </tr>
+			<tr pid="a.138.5/61"> <td>Poisoning by and exposure to alcohol, undetermined intent</td> <td>Y15</td> </tr>
+		</tbody>
+	</table>
+	<table>
+		<tbody>
+			<tr pid="a.138.5/66"> <td colspan="2"><I>Box 2. International Classification of Diseases, Tenth Revision (ICD-10) codes used to define drug-related poisoning deaths by underlying cause</I></td> </tr>
+			<tr pid="a.138.5/67"> <td>Cause of death description</td> <td>ICD-10 Code(s)</td> </tr>
+			<tr pid="a.138.5/68"> <td>Mental and behavioural disorders due to drug use (excluding alcohol and tobacco)</td> <td>F11&mdash;F16, F18&mdash;F19</td> </tr>
+			<tr pid="a.138.5/69"> <td>Accidental poisoning by drugs, medicaments and biological substances</td> <td>X40&mdash;X44</td> </tr>
+			<tr pid="a.138.5/70"> <td>Intentional self-poisoning by drugs, medicaments and biological substances</td> <td>X60&mdash;X64</td> </tr>
+			<tr pid="a.138.5/71"> <td>Assault by drugs, medicaments and biological substances</td> <td>X85</td> </tr>
+			<tr pid="a.138.5/72"> <td>Poisoning by drugs, medicaments and biological substances, undetermined intent</td> <td>Y10&mdash;Y14</td> </tr>
+		</tbody>
+	</table>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.141.0" nospeaker="true" colnum="141"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001486">
+	Public Services: Staff
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.141.1" speakerid="uk.org.publicwhip/lord/100603" speakername="Lord Smith of Leigh" colon=":" colnum="141"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001486">
+	<p pid="a.141.1/1" qnum="HL5700">To ask Her Majesty's Government what assessment they have made of the efficacy, level of value for money and effects on the time of staff of local public services of comprehensive area assessments in the current economic circumstances.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.141.2" speakerid="uk.org.publicwhip/lord/100802" speakername="Lord McKenzie of Luton" colon=":" colnum="141"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001278">
+	<p pid="a.141.2/1">It is too early to have made any in-depth assessment of the new comprehensive area assessment (CAA), since it was only introduced on <phrase class="date" code="2009-04-01">1 April 2009</phrase>. The first CAA reports are expected to be published on <phrase class="date" code="2009-12-10">10 December 2009</phrase>.</p>
+	<p pid="a.141.2/2">The Audit Commission, on behalf of the joint inspectorates responsible for CAA, has commissioned an independent evaluation of CAA. The report on the first phase of the evaluation is expected to be completed by the spring so that it can inform the second year of the assessment.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.141.3" nospeaker="true" colnum="141"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001487">
+	Questions for Written Answer
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.141.4" speakerid="uk.org.publicwhip/lord/100339" speakername="Lord Jopling" colon=":" colnum="141"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001487">
+	<p pid="a.141.4/1" qnum="HL5650">To ask Her Majesty's Government whether the Prime Minister has been informed of the fact that the Cabinet Office has not answered Lord Lester of Herne Hill's Question for Written Answer of 25 June (HL4634) by 12 October, in spite of the target of two weeks.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.141.5" speakerid="uk.org.publicwhip/lord/100152" speakername="Baroness Crawley" colon=":" colnum="141"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001280">
+	<p pid="a.141.5/1">A reply has been issued today.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.141.6" nospeaker="true" colnum="141"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001488">
+	Retirement Age
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.141.7" speakerid="uk.org.publicwhip/lord/100476" speakername="Lord Ouseley" colon=":" colnum="141"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001488">
+	<p pid="a.141.7/1" qnum="HL5682">To ask Her Majesty's Government whether they intend to abolish the default retirement age; and, if so, when.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.141.8" speakerid="uk.org.publicwhip/lord/100821" speakername="Lord Young of Norwood Green" colon=":" colnum="141"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0007.htm#09102779001281">
+	<p pid="a.141.8/1">When the Government introduced the default retirement age in 2006, a commitment was made to review it in 2011. Subsequently, it was announced in <I>Building a Society for All Ages</I> in July this year that the Government would bring forward the review to 2010. It is important that it is based on robust evidence, which we are now in the process of gathering and we have issued a call for stakeholders to submit evidence to inform the review.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.142.0" nospeaker="true" colnum="142"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001489">
+	Safeguarding Children
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.142.1" speakerid="uk.org.publicwhip/lord/100255" speakername="Lord Greaves" colon=":" colnum="142"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001489">
+	<p pid="a.142.1/1" qnum="HL5597">To ask Her Majesty's Government whether Peers visiting schools as part of the Peers in Schools programme or otherwise will have to register with the Vetting and Barring Scheme run by the Independent Safeguarding Authority.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.142.2" speakerid="uk.org.publicwhip/lord/100797" speakername="Baroness Morgan of Drefelin" colon=":" colnum="142"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001282">
+	<p pid="a.142.2/1">My right honourable friend the Secretary of State has written to all honourable Members of Parliament to clarify the circumstances under which the scheme would require an honourable Member to register. This would depend on the nature of the activity to be undertaken. A copy of his letter dated <phrase class="date" code="2009-07-31">31 July 2009</phrase> has been placed in the House Libraries.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.142.3" nospeaker="true" colnum="142"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001490">
+	Sustainable Communities Act
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.142.4" speakerid="uk.org.publicwhip/lord/100255" speakername="Lord Greaves" colon=":" colnum="142"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001490">
+	<p pid="a.142.4/1" qnum="HL5598">To ask Her Majesty's Government when they plan to announce the results of the first batch of approvals for local authority bids under the Sustainable Communities Act 2007.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.142.5" speakerid="uk.org.publicwhip/lord/100802" speakername="Lord McKenzie of Luton" colon=":" colnum="142"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001283">
+	<p pid="a.142.5/1">The Secretary of State will publish his decision, the reasons for it and a statement of the action he proposes to take with a view to the implementation of shortlisted local authority proposals made under the Sustainable Communities Act 2007. The timing of the Secretary of State's decision will be determined by the number and complexity of proposals shortlisted by the selector and must follow the submission of the shortlist by the selector to the Secretary of State.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.142.6" nospeaker="true" colnum="142"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001491">
+	Swine Flu: Air Traffic Controllers
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.142.7" speakerid="uk.org.publicwhip/lord/100603" speakername="Lord Smith of Leigh" colon=":" colnum="142"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001491">
+	<p pid="a.142.7/1" qnum="HL5699">To ask Her Majesty's Government whether Air Traffic Control staff are considered critical workers and accordingly will be offered anti-swine-flu treatment.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.142.8" speakerid="uk.org.publicwhip/lord/100640" speakername="Baroness Thornton" colon=":" colnum="142"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001284">
+	<p pid="a.142.8/1">We are not prioritising the distribution of antivirals, such as Tamiflu, to professional groups or particular sections of society. We have sufficient stocks of antivirals for anyone reporting symptoms to receive treatment following an assessment through the National Pandemic Flu Service, or general practitioner practices if they have underlying health conditions.</p>
+	<p pid="a.142.8/2">Air traffic control staff do not, as a group, meet current criteria for eligibility for the swine flu vaccination campaign although individual members of staff may fall within one or more of the high-risk priority groups in line with Joint Committee on Vaccination and Immunisation (JCVI) advice. The use of the vaccine in the wider healthy population will depend on the evolution of the pandemic as well as new and emerging clinical data on the use of the vaccine. This will be kept under review by JCVI.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.143.0" nospeaker="true" colnum="143"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001492">
+	Tax Credits
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.143.1" speakerid="uk.org.publicwhip/lord/100469" speakername="Lord Oakeshott of Seagrove Bay" colon=":" colnum="143"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001492">
+	<p pid="a.143.1/1" qnum="HL5611">To ask Her Majesty's Government what is the most recent estimate of the costs of increasing the couple element in tax credits to ensure that couples do not face a disadvantage when compared to lone parents for each of the next five years.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.143.2" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="143"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001286">
+	<p pid="a.143.2/1">Tax credits treat couple and lone parent households equally, and are not designed to favour any particular arrangement. Levels of financial support are determined by need, and are based on the number of children in the family and the household's income. Indicative costs of changes to certain rates and thresholds in tax credits were most recently published in November 2008 in table 4 of <I>Tax ready reckoner and tax reliefs</I>, available at <a href="http://www.hm-treasury.gov.uk/d/pbr08_tax">http://www.hm-treasury.gov.uk/d/pbr08_tax</a> readyreckoner_287.pdf.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.143.3" nospeaker="true" colnum="143"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001493">
+	Taxation: Personal Allowance
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.143.4" speakerid="uk.org.publicwhip/lord/100469" speakername="Lord Oakeshott of Seagrove Bay" colon=":" colnum="143"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001493">
+	<p pid="a.143.4/1" qnum="HL5607">To ask Her Majesty's Government what is the most recent estimate of the costs of making the personal allowance transferable between couples for each of the next five years.</p>
+	<p pid="a.143.4/2" qnum="HL5608">To ask Her Majesty's Government what is the most recent estimate of the total financial effect on (a) married couples with children, and (b) married couples without children of making the personal allowance transferable for each of the next five years.</p>
+	<p pid="a.143.4/3" qnum="HL5609">To ask Her Majesty's Government what is the most recent estimate of the proportion of individuals who are married who would benefit from a transferable personal tax allowance for each of the next five years.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.143.5" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="143"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001287">
+	<p pid="a.143.5/1">Due to the complex nature of these Questions the following estimates should be treated with caution. These estimates exclude any behavioural response to the change, which could be significant given the magnitude of the change.</p>
+	<p pid="a.143.5/2">The estimated cost of allowing personal tax allowances to be transferred between married couples and civil partners would be &pound;4.9 billion for 2009-10 and would benefit around 41 per cent of married couples and civil partnerships. Married couples with children will be better off by around &pound;290 per year on average. Those without children will be better off by around &pound;150 per year on average.</p>
+	<p pid="a.143.5/3">These estimates have been calculated using HM Treasury's tax and benefit micro-simulation model using Family Resources Survey 2007-08 data.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.144.0" nospeaker="true" colnum="144"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001494">
+	United Nations Children's Fund
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.144.1" speakerid="uk.org.publicwhip/lord/100427" speakername="Baroness Miller of Chilthorne Domer" colon=":" colnum="144"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001494">
+	<p pid="a.144.1/1" qnum="HL4852">To ask Her Majesty's Government when they will publish their new Institutional Strategy with the United Nations Children's Fund for 2009-2012, following the public consultation which ended in January.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.144.2" speakerid="uk.org.publicwhip/lord/100072" speakername="Lord Brett" colon=":" colnum="144"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001290">
+	<p pid="a.144.2/1">The United Kingdom's Institutional Strategy (IS) with the United Nations Children's Fund (UNICEF) 2009-11 has recently been agreed and finalised. The new IS is available on the Department for International Development's website at <a href="http://www.dfid.gov.uk">www.dfid.gov.uk</a> and will be placed in the Libraries of the House.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-27a.144.3" nospeaker="true" colnum="144"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001495">
+	Working Time Directive
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-27a.144.4" speakerid="uk.org.publicwhip/lord/100476" speakername="Lord Ouseley" colon=":" colnum="144"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001495">
+	<p pid="a.144.4/1" qnum="HL5671">To ask Her Majesty's Government what assessment they have made of the likelihood of imminent agreement on reform of the European Union working time directive and a phased removal of the opt-out provision applicable across the United Kingdom.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-27a.144.5" speakerid="uk.org.publicwhip/lord/100821" speakername="Lord Young of Norwood Green" colon=":" colnum="144"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91027w0008.htm#09102779001291">
+	<p pid="a.144.5/1">Negotiations on revisions to the working time directive collapsed after conciliation failed on <phrase class="date" code="2009-04-27">27 April</phrase> this year. This meant that we were successful in retaining the opt-out as the proposal to amend the directive was withdrawn and with it any suggestion of phasing it out.</p>
+	<p pid="a.144.5/2">It is now for the Commission to decide how they wish to proceed. Several member states are keen to see a solution to specific problems caused by ECJ judgments on the treatment of on-call time and compensatory rest, and we would be happy to engage on negotiations on these issues. But 15 member states use the opt-out and we will strongly oppose any future proposal that draws into question the freedom of member states and individuals to use the opt-out. We have made this very clear to the Commission and other member states.</p>
+</reply>
+</publicwhip>
+
