@@ -63,11 +63,10 @@ def run_main_tests(output_directory):
     fp = open(report_index_filename,"w")
 
     # Generate complete coverage report:
-
-    coverage_report_directory = "coverage-report"
+    coverage_report_leafname = "coverage-report"
     generate_coverage("/data/vhost/theyworkforyou.sandbox/mysociety/",
                       output_filename_all_coverage,
-                      os.path.join(output_directory,coverage_report_directory),
+                      os.path.join(output_directory,coverage_report_leafname),
                       used_source_directory)
 
     fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -79,7 +78,7 @@ def run_main_tests(output_directory):
 </head>
 <body style="background-color: #ffffff">
 <h2>They Work For You Test Reports</h2>
-<p><a href="coverage-report/coverage.html">Code coverage report for all tests.</a>
+<p><a href="%s/coverage.html">Code coverage report for all tests.</a>
 </p>
 ''' % (standard_css(),coverage_report_leafname))
 
@@ -101,7 +100,7 @@ def run_main_tests(output_directory):
         if t.test_type == TEST_HTTP:
             # Generate coverage information:
             coverage_data_file = os.path.join(t.test_output_directory,"coverage")
-            coverage_report_directory = os.path.join(t.test_output_directory,"coverage-report")
+            coverage_report_directory = os.path.join(t.test_output_directory,coverage_report_leafname)
             print "Using parameters:"
             print "coverage_data_file: "+coverage_data_file
             print "coverage_report_directory: "+coverage_report_directory
@@ -111,7 +110,7 @@ def run_main_tests(output_directory):
                               coverage_data_file,
                               coverage_report_directory,
                               used_source_directory)
-            relative_url = os.path.join(t.get_id_and_short_name(),"report.html")
+            relative_url = os.path.join(os.path.join(t.get_id_and_short_name(),coverage_report_leafname),"coverage.html")
             fp.write("<p><a href=\"%s\">Code coverage for this test.</a></p>\n" % (relative_url,))
             if t.full_image_filename:
                 # fp.write("<div style=\"float: right\">")
