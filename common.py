@@ -411,6 +411,7 @@ def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown te
     s = SSHTest(output_directory,ssh_command,user=user,test_name=test_name,test_short_name=test_short_name,browser=browser)
     all_tests.append(s)
     s.run()
+    return s
 
 class HTTPTest(Test):
     def __init__(self,output_directory,page,test_name="Unknown test",test_short_name="unknown"):
@@ -443,6 +444,7 @@ def run_http_test(output_directory,page,test_name="Unknown test",test_short_name
     fp = open(coverage_output_filename,"w")
     fp.write(coverage_data)
     fp.close()
+    return h
 
 def coverage_data_between(date_start,date_end):
     coverage_files = coverage_filenames_between(date_start,date_end)
