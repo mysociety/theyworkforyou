@@ -119,7 +119,7 @@ def run_main_tests(output_directory):
             background_colour = failed_colour
 
         fp.write("<div class=\"test\" style=\"background-color: %s\">\n"%(background_colour,))
-        fp.write("<h3>%s</h3>\n" % (t.test_name,))
+        fp.write("<h3>%s</h3>\n" % (t.test_name.encode('UTF-8'),))
         fp.write("<h4>%s</h4>\n" % (t.get_id_and_short_name(),))
         fp.write("<pre>\n")
         fp.write(cgi.escape(file_to_string(os.path.join(t.test_output_directory,"info"))))

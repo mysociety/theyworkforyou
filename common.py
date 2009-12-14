@@ -390,7 +390,7 @@ class Test:
         result = "Test ("+test_type_to_str[self.test_type]+")\n"
         result += "  test_number: "+str(self.test_number)+"\n"
         result += "  test_short_name: "+self.test_short_name+"\n"
-        result += "  test_name: "+self.test_name
+        result += "  test_name: "+self.test_name.encode('UTF-8')
         if self.test_output_directory:
             result += "\n  test_output_directory: "+self.test_output_directory
         return result
