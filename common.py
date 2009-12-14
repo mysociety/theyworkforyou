@@ -469,8 +469,8 @@ class HTTPTest(Test):
         fp = open(page_filename)
         html = fp.read()
         fp.close()
-        soup = BeautifulSoup(html)
-        body = soup.find('body')
+        self.soup = BeautifulSoup(html)
+        body = self.soup.find('body')
         if body:
             self.parsing_succeeded = True
         else:
