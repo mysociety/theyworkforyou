@@ -287,7 +287,7 @@ def untemplate_and_rsync(source_directory,user="root"):
             # Make sure the directory exists:
             destination = re.sub('^'+re.escape(source_directory),'',relative_filename_to_scp)
             destination_directory = os.path.dirname(destination)
-    return rsync_to_guest(re.sub('([^/])$','\\1/',source_directory),
+    return rsync_to_guest(ensure_slash(source_directory),
                           '/',
                           user="root",
                           exclude_git=False,
@@ -468,7 +468,24 @@ def uses_to_colour(uses):
     else:
         raise Exception, "Unknown number of uses: "+str(uses)
 
-def generate_coverage(coverage_data_file,output_directory,original_source_directory):
+def ensure_slash(path):
+    return re.sub('([^/])$','\\1/',path)
+
+# This is a bit of a mess now.  The parameters should look a bit like this:
+#
+#   uml_prefix_to_strip "/data/vhost/theyworkforyou.sandbox/mysociety/"
+#     (That's the bit to strip off the start of filenames in the coverage file.)
+#
+#   coverage_data_file "output/2009-12-13T22:42:48/coverage"
+#
+#   output_directory "output/2009-12-13T22:42:48/coverage-report"
+#
+#   original_source_directory "output/2009-12-13T22:42:48/mysociety"
+#     (This is the directory that we've copied the instrumented source code to.)
+
+def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,original_source_directory):
+    output_directory = ensure_slash(output_directory)
+    uml_prefix_re = re.compile(re.escape(uml_prefix_to_strip))
     files_to_coverage = {}
     fp = open(coverage_data_file)
     current_filename = None
@@ -498,17 +515,18 @@ def generate_coverage(coverage_data_file,output_directory,original_source_direct
             pass
         else:
             current_filename = re.search('^\s*(.*)',line).group(1)
+            current_filename = uml_prefix_re.sub('',current_filename)
             files_to_coverage.setdefault(current_filename,{})
     filenames_with_coverage_data = files_to_coverage.keys()
     filename_to_percent_coverage = {}
     for filename in filenames_with_coverage_data:
+        filename = uml_prefix_re.sub('',filename)
         unused_lines = 0
         used_lines = 0
         print "======"
         print "Filename is: "+filename
         print str(files_to_coverage[filename])
         lines_to_uses = files_to_coverage[filename]
-        # So filename is: twfy/www/includes/easyparliament/init.php
         original_filename = os.path.join(original_source_directory,filename)
         output_filename = os.path.join(output_directory,filename+".html")
         output_filename_dirname = os.path.split(output_filename)[0]
