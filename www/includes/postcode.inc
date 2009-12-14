@@ -33,6 +33,11 @@ function postcode_to_constituency($postcode) {
 
 function postcode_to_constituencies($postcode) {
     global $last_postcode, $last_postcode_value;
+    if(!defined("POSTCODE_SEARCH_DOMAIN") || !POSTCODE_SEARCH_DOMAIN) {
+         $ret = array();
+         $ret['WMC'] = fake_postcode($postcode);
+         return $ret;
+    }
     $postcode = canonicalise_postcode($postcode);
     if ($last_postcode == $postcode) {
         twfy_debug ("TIME", "Postcode $postcode looked up last time, is $last_postcode_value .");
