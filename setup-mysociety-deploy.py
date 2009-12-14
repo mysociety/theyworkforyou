@@ -291,7 +291,7 @@ if 0 != ssh("ln -sf /etc/apache2/virtualhosts.d /etc/apache/virtualhosts.d",user
 
 # Set an arbitrary /etc/mysociety/postgres_secret so we
 # don't get errors from pgpw:
-if 0 != ssh("echo voilvOvijil4>/etc/mysociety/postgres_secret",user="root"):
+if 0 != ssh("echo voilvOvijil4 > /etc/mysociety/postgres_secret",user="root"):
     raise Exception, "Setting /etc/mysociety/postgres_secret failed"
 
 # root needs to be able to ssh to localhost without a passphrase:
