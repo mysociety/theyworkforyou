@@ -320,10 +320,12 @@ def wait_for_web_server(popen_object):
 TEST_UNKNOWN = -1
 TEST_SSH     =  0
 TEST_HTTP    =  1
+TEST_PAGE    =  2
 
 test_type_to_str = { -1 : "TEST_UNKNOWN",
                       0 : "TEST_SSH",
-                      1 : "TEST_HTTP" }
+                      1 : "TEST_HTTP",
+                      2 : "TEST_PAGE" }
 
 all_tests = []
 
@@ -430,6 +432,19 @@ class HTTPTest(Test):
     def __str__(self):
         s = Test.__str__(self)
         s += "\n  page: "+str(self.page)
+        return s
+
+# A page test is dependent on the result of previous HTTPTest - it
+# analyses those results:
+
+class PageTest(Test):
+    def __init__(self,output_directory,http_test,test_name="Unknown test",test_short_name="unknown"):
+        Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
+        self.test_type = TEST_PAGE
+        self.http_test = http_test
+    def __str__(self):
+        s = Test.__str__(self)
+        s += "FIXME: make this string representation more helpful"
         return s
 
 def run_http_test(output_directory,page,test_name="Unknown test",test_short_name="unknown"):
