@@ -554,9 +554,6 @@ def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,or
         filename = uml_prefix_re.sub('',filename)
         unused_lines = 0
         used_lines = 0
-        print "======"
-        print "Filename is: "+filename
-        print str(files_to_coverage[filename])
         lines_to_uses = files_to_coverage[filename]
         original_filename = os.path.join(original_source_directory,filename)
         output_filename = os.path.join(output_directory,filename+".html")
