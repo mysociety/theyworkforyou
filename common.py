@@ -528,6 +528,7 @@ def standard_css():
 
 def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,original_source_directory):
     output_directory = ensure_slash(output_directory)
+    check_call(["mkdir","-p",output_directory])
     uml_prefix_re = re.compile(re.escape(uml_prefix_to_strip))
     files_to_coverage = {}
     fp = open(coverage_data_file)
