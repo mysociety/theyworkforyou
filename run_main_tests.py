@@ -22,6 +22,11 @@ def run_main_tests(output_directory):
     # Look for class="error"
     # Look for failures to parse with BeautifulSoup
 
+    run_http_test(output_directory,
+                  "/mps/",
+                  test_name="Fetching basic MPs page",
+                  test_short_name="basic-MPs",
+                  render=False) # render fails on a page this size...
 
     run_http_test(output_directory,
                   "/msps/",
