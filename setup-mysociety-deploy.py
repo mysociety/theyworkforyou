@@ -516,23 +516,10 @@ if not path_exists_in_uml(coverage_directory):
 if 0 != ssh("rm -f "+coverage_directory+"/*"):
     raise Exception, "Failed to clean the coverage data directory"
 
-instrument_script = "/usr/local/bin/add-php-instrumentation.py"
-
-# Copy over the script to add instrumentation file:
-if 0 != scp("add-php-instrumentation.py",
-             instrument_script,
-             user="root"):
-    raise Exception, "Failed to copy over the add-php-instrumentation.py file"
-
-# Make it executable:
-if 0 != ssh("chmod a+rx "+instrument_script,user="root"):
-    raise Exception, "Failed to make the add-php-instrumentation.py file executable"
-
-if 0 != ssh("cd ~/mysociety/ && git checkout -f master"):
-    raise Exception, "Couldn't switch to branch master"
+www_directory = "/data/vhost/theyworkforyou.sandbox/mysociety/twfy/www/"
 
 # Add the instrumentation:
-ssh_result = ssh(instrument_script+" /home/alice/mysociety/twfy/www/",capture=True)
+ssh_result = ssh("add-php-instrumentation.py "+www_directory,capture=True)
 if ssh_result.return_value != 0:
     raise Exception, "Instrumenting the TWFY PHP code failed."
 
@@ -541,16 +528,9 @@ print "File list:"
 for i in instrumented_files:
     print "  "+i
 
-# Remove any old branch called instrumented, since we might be running
-# with an old image where such was created:
-result = ssh("cd ~/mysociety/ && git branch -D instrumented")
-
-if 0 != ssh("cd ~/mysociety/ && git checkout -b instrumented"):
-    raise Exception, "Failed to create a new branch for the instrumented version"
-
 # Copy over the instrument.php file:
 if 0 != scp("instrument.php",
-             "/home/alice/mysociety/twfy/www/includes/instrument.php"):
+             www_directory+"/includes/"):
     raise Exception, "Failed to copy over the instrument.php file"
 
 if 0 != ssh("cd ~/mysociety/twfy/www && git add includes/instrument.php "+" ".join(instrumented_files)):
