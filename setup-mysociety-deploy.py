@@ -37,18 +37,9 @@ link_command = None
 if options.output_directory:
     output_directory = options.output_directory
 else:
-    iso_time = time.strftime("%Y-%m-%dT%H:%M:%S",time.gmtime())
-    output_directory = "output/%s/" % (iso_time,)
-    latest_symlink = "output/latest"
-    if os.path.exists(latest_symlink):
-        call(["rm",latest_symlink])
-    link_command = ["ln","-s",iso_time,latest_symlink]
+    output_directory = create_output_directory()
 
 check_call(["mkdir","-p",output_directory])
-
-if link_command:
-    print "Calling "+" ".join(link_command)
-    call(link_command)
 
 # We switch UML machines frequently, so remove the host key for the
 # UML machine's IP address.
