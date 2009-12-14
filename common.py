@@ -433,12 +433,13 @@ def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown te
     return s
 
 class HTTPTest(Test):
-    def __init__(self,output_directory,page,test_name="Unknown test",test_short_name="unknown"):
+    def __init__(self,output_directory,page,test_name="Unknown test",test_short_name="unknown",render=True):
         Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_HTTP
         self.page = page+"?test-id="+self.get_id_and_short_name()
         self.full_image_filename = None
         self.thumbnail_image_filename = None
+        self.render = render
     def run(self):
         Test.run(self)
         save_page(self.page,os.path.join(self.test_output_directory,"page.html"))
@@ -464,10 +465,10 @@ class PageTest(Test):
         s += "FIXME: make this string representation more helpful"
         return s
 
-def run_http_test(output_directory,page,test_name="Unknown test",test_short_name="unknown"):
+def run_http_test(output_directory,page,test_name="Unknown test",test_short_name="unknown",render=True):
     print "Got test_name: "+test_name
     date_start = uml_date()
-    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name)
+    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render)
     all_tests.append(h)
     h.run()
     date_end = uml_date()
