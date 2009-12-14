@@ -400,7 +400,8 @@ class Test:
         fp = open(os.path.join(self.test_output_directory,"info"),"w")
         fp.write(str(self))
         fp.close()
-        pass
+    def succeeded(self):
+        raise Exception, "BUG: No default implementation for succeeded()"
 
 class SSHTest(Test):
     def __init__(self,output_directory,ssh_command,user="alice",test_name="Unknown test",test_short_name="unknown",browser=None):
@@ -413,11 +414,11 @@ class SSHTest(Test):
         self.browser = browser
     def run(self):
         Test.run(self)
-        result = ssh(self.ssh_command,
-                     self.user,
-                     capture=True,
-                     stdout_filename=self.stdout_filename,
-                     stderr_filename=self.stderr_filename)
+        self.result = ssh(self.ssh_command,
+                          self.user,
+                          capture=True,
+                          stdout_filename=self.stdout_filename,
+                          stderr_filename=self.stderr_filename)
         fp = open(os.path.join(self.test_output_directory,"result"),"w")
         fp.write(str(result.return_value))
         fp.close()
@@ -425,6 +426,8 @@ class SSHTest(Test):
         s = Test.__str__(self)
         s += "\n  ssh_command: "+str(self.ssh_command)
         return s
+    def succeeded(self):
+        return self.result.return_value == 0
 
 def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown test",test_short_name="unknown",browser=None):
     s = SSHTest(output_directory,ssh_command,user=user,test_name=test_name,test_short_name=test_short_name,browser=browser)
@@ -439,7 +442,12 @@ class HTTPTest(Test):
         self.page = page+"?test-id="+self.get_id_and_short_name()
         self.full_image_filename = None
         self.thumbnail_image_filename = None
+        self.fetch_succeeded = False
+        self.render_succeeded = False
+        self.parsing_succeeded = False
+        self.no_error_check_succeeded = False
         self.render = render
+        self.error_message = ""
     def run(self):
         Test.run(self)
         save_page(self.page,os.path.join(self.test_output_directory,"page.html"))
