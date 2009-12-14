@@ -475,7 +475,8 @@ class HTTPTest(Test):
             self.parsing_succeeded = True
         else:
             return
-       # FIXME: check for any elements with CSS class "error", set self.no_error_check_succeeded
+        if not self.soup.findAll(attrs={"class":"error"}):
+            self.no_error_check_succeeded = True
     def succeeded(self):
         return self.fetch_succeeded and (self.render_succeeded or not self.render) and self.parsing_succeeded and self.no_error_check_succeeded
     def __str__(self):
