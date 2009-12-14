@@ -18,15 +18,33 @@ def run_main_tests(output_directory):
 
     # Fetch the main page:
 
+    mps_test = run_http_test(output_directory,
+                             "/mps/",
+                             test_name="Fetching basic MPs page",
+                             test_short_name="basic-MPs",
+                             render=False) # render fails on a page this size...
 
-    # Look for class="error"
-    # Look for failures to parse with BeautifulSoup
+    # This uses the result of the previous test to check that Diane
+    # Abbot (the first MP in this data set) is in the list.
 
-    run_http_test(output_directory,
-                  "/mps/",
-                  test_name="Fetching basic MPs page",
-                  test_short_name="basic-MPs",
-                  render=False) # render fails on a page this size...
+    run_page_test(output_directory,
+                  mps_test,
+                  lambda t: 1 == len(t.soup.findAll( lambda tag: tag.name == "a" and tag.string and tag.string == "Diane Abbott" )),
+                  test_name="Diane Abbott in MPs page",
+                  test_short_name="mps-contains-diane-abbott")
+
+    # As a slightly different example of doing the same thing, define
+    # a function instead of using nested lambdas:
+
+    def link_from_mp_name(http_test,name):
+        all_tags = http_test.soup.findAll( lambda tag: tag.name == "a" and tag.string and tag.string == name)
+        return 1 == len(all_tags)
+
+    run_page_test(output_directory,
+                  mps_test,
+                  lambda t: link_from_mp_name(t,"Richard Younger-Ross"),
+                  test_name="Richard Younger-Ross in MPs page",
+                  test_short_name="mps-contains-richard-younger-ross")
 
     run_http_test(output_directory,
                   "/msps/",
