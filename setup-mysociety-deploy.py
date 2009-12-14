@@ -16,6 +16,7 @@ from optparse import OptionParser
 from BeautifulSoup import BeautifulSoup
 from browser import fake_browser
 import cgi
+from run_main_tests import run_main_tests
 
 check_dependencies()
 
@@ -118,8 +119,6 @@ if 0 != ssh("passwd -l root",user="root"):
 
 if 0 != ssh("passwd -l alice",user="root"):
     raise Exception, "Locking alice's password failed"
-
-start_all_coverage = uml_date()
 
 if 0 != scp("files-for-uml-deploy/etc/apt/sources.list","/etc/apt/sources.list",user="root"):
         raise Exception, "Copying over the new /etc/apt/sources.list failed"
@@ -450,61 +449,7 @@ run_ssh_test(output_directory,
              test_name="Importing the rest of the data",
              test_short_name="import-remaining-data")
 
-
-
-
-
-
-
-
-
-sys.exit(1)
-
-# Checkout the mysociety module from mySociety CVS into alice's home
-# directory, or if we've specified a git_url, use that instead:
-if not path_exists_in_uml("/home/alice/mysociety"):
-    if git_url:
-        # If there's a local copy of the repository, just clone that:
-        if path_exists_in_uml("/home/alice/mysociety.git/"):
-            result = ssh("git clone /home/alice/mysociety.git/ /home/alice/mysociety")
-        else:
-            result = ssh("git clone git://crumble.dyndns.org/git/mysociety")
-    else:
-        result = ssh("cvs -d :pserver:anonymous@cvs.mysociety.org:/repos co mysociety")
-    if result != 0:
-        raise Exception, "Checking out the mysociety module from version control failed"
-
-# In case the database already exists, drop it:
-ssh("mysqladmin -f -u root"+
-    mysql_root_password_option+
-    " drop twfy",user="root")
-
-# Create the database:
-if 0 != ssh("mysqladmin -u root"+
-             mysql_root_password_option+
-             " create twfy",user="root"):
-    raise Exception, "Creating the twfy database failed"
-
-# Grant all permissions to a 'twfy' user on that database:
-if 0 != ssh("echo \"GRANT ALL ON twfy.* TO twfy@localhost IDENTIFIED BY '"+
-             configuration['MYSQL_TWFY_PASSWORD']+"'\" | "+
-             "mysql -u root"+mysql_root_password_option):
-    raise Exception, "Failed to GRANT ALL on twfy to the twfy MySQL user"
-
-# Create the database schema:
-run_ssh_test(output_directory,
-             "mysql -u twfy --password="+
-             configuration['MYSQL_TWFY_PASSWORD']+
-             " twfy < /home/alice/mysociety/twfy/db/schema.sql",
-             test_name="Creating the TWFY database schema",
-             test_short_name="create-schema")
-
-# Create the general configuration file from a template:
-untemplate("general.template","general")
-
-# Copy over the general configuration file:
-if 0 != scp("general","/home/alice/mysociety/twfy/conf"):
-    raise Exception, "Failed to scp the general configuration file"
+# ========================================================================
 
 # Create a world-writable directory for coverage data:
 coverage_directory = "/home/alice/twfy-coverage/"
@@ -533,152 +478,7 @@ if 0 != scp("instrument.php",
              www_directory+"/includes/"):
     raise Exception, "Failed to copy over the instrument.php file"
 
-if 0 != ssh("cd ~/mysociety/twfy/www && git add includes/instrument.php "+" ".join(instrumented_files)):
-    raise Exception, "Failed to add the instrumented files to the index"
+# ========================================================================
+# Now some more usual tests:
 
-if 0 != ssh("cd ~/mysociety/ && git commit -m 'An instrumented version of the TWFY code'"):
-    raise Exception, "Creating a new commit failed."
-
-# Set up the Apache virtual host:
-if 0 != scp("etc-apache2-sites-available-twfy",
-            "/etc/apache2/sites-available/twfy",
-            user="root"):
-    raise Exception, "Failed to copy over the VirtualHost configuration"
-
-if 0 != scp("etc-apache2-ports-conf",
-             "/etc/apache2/ports.conf",
-             user="root"):
-    raise Exception, "Failed to copy over the ports.conf file"
-
-# Run a2enmod:
-run_ssh_test(output_directory,
-             "a2enmod rewrite",
-             user="root",
-             test_name="Enabling mod_rewrite",
-             test_short_name="mod-rewrite")
-
-# Run a2ensite:
-run_ssh_test(output_directory,
-             "a2ensite twfy",
-             user="root",
-             test_name="Enabling the TWFY virtual host",
-             test_short_name="a2ensite-twfy")
-
-# Restart Apache on the server:
-run_ssh_test(output_directory,
-             "/etc/init.d/apache2 reload",
-             user="root",
-             test_name="Restarting Apache",
-             test_short_name="restart-apache")
-
-
-
-
-
-
-
-
-
-
-run_http_test(output_directory,
-              "/msps/",
-              test_name="Fetching basic MSPs page",
-              test_short_name="basic-MSPs")
-
-run_http_test(output_directory,
-              "/mp/gordon_brown/kirkcaldy_and_cowdenbeath",
-              test_name="Fetching Gordon Brown's page",
-              test_short_name="gordon-brown")
-
-
-
-end_all_coverage = uml_date()
-
-output_filename_all_coverage = os.path.join(output_directory,"coverage")
-
-coverage_data = coverage_data_between(start_all_coverage,end_all_coverage)
-fp = open(output_filename_all_coverage,"w")
-fp.write(coverage_data)
-fp.close()
-
-used_source_directory = os.path.join(output_directory,"mysociety")
-
-check_call(["mkdir","-p",used_source_directory])
-
-rsync_from_guest("/home/alice/mysociety/twfy/",
-                 os.path.join(used_source_directory,"twfy"),
-                 user="alice")
-
-rsync_from_guest("/home/alice/mysociety/phplib/",
-                 os.path.join(used_source_directory,"phplib"),
-                 user="alice")
-
-# fake_browser
-
-report_index_filename = os.path.join(output_directory,"report.html")
-fp = open(report_index_filename,"w")
-
-# Generate complete coverage report:
-
-coverage_report_directory = "coverage-report"
-generate_coverage(output_filename_all_coverage,
-                  os.path.join(output_directory,coverage_report_directory),
-                  used_source_directory)
-
-fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<head>
-<title>They Work For You Test Reports</title>
-</head>
-<body style="background-color: #ffffff">
-<h2>They Work For You Test Reports</h2>
-<p><a href="coverage-report/coverage.html">Code coverage report for all tests.</a>
-</p>
-
-''')
-
-for t in all_tests:
-    print "=============="
-    print str(t)
-
-    passed_colour = "#96ff81"
-    failed_colour = "#ff8181"
-
-    background_colour = passed_colour
-
-    fp.write("<div style=\"border-width=1px; background-color: %s\">\n"%(passed_colour,))
-    fp.write("<h3>%s</h3>\n" % (t.test_name,))
-    fp.write("<h4>%s</h4>\n" % (t.get_id_and_short_name(),))
-    fp.write("<pre\n>")
-    fp.write(cgi.escape(file_to_string(os.path.join(t.test_output_directory,"info"))))
-    fp.write("</pre>\n")
-    if t.test_type == TEST_HTTP:
-        # Generate coverage information:
-        coverage_data_file = os.path.join(t.test_output_directory,"coverage")
-        coverage_report_directory = os.path.join(t.test_output_directory,"coverage-report")
-        print "Using parameters:"
-        print "coverage_data_file: "+coverage_data_file
-        print "coverage_report_directory: "+coverage_report_directory
-        print "used_source_directory: "+used_source_directory
-        generate_coverage(coverage_data_file,
-                          coverage_report_directory,
-                          used_source_directory)
-        fp.write("<p><a href=\"%s\">Code coverage for this test.</a></p>\n" % (coverage_report_directory+"report.html",))
-        if t.full_image_filename:
-            # fp.write("<div style=\"float: right\">")
-            fp.write("<div>")
-            relative_full_image_filename = re.sub(re.escape(output_directory),'',t.full_image_filename)
-            relative_thumbnail_image_filename = re.sub(re.escape(output_directory),'',t.thumbnail_image_filename)
-            fp.write("<a href=\"%s\"><img src=\"%s\"></a>" % (relative_full_image_filename,relative_thumbnail_image_filename))
-            fp.write("</div>")
-    elif t.test_type == TEST_SSH:
-        for s in ("stdout","stderr"):
-            fp.write("<h4>%s</h4>" % (s,))
-            fp.write("<div style=\"background-color: #bfbfbf\"><pre>")
-            fp.write(cgi.escape(file_to_string(os.path.join(t.test_output_directory,s))))
-            fp.write("</pre></div>")
-    fp.write("</div>\n")
-
-fp.write('''</table>
-</body>
-</html>''')
-fp.close()
+run_main_tests(output_directory)
