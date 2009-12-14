@@ -112,7 +112,7 @@ def run_main_tests(output_directory):
                               used_source_directory)
             relative_url = os.path.join(os.path.join(t.get_id_and_short_name(),coverage_report_leafname),"coverage.html")
             fp.write("<p><a href=\"%s\">Code coverage for this test.</a></p>\n" % (relative_url,))
-            if t.full_image_filename:
+            if t.render and t.full_image_filename:
                 # fp.write("<div style=\"float: right\">")
                 fp.write("<div>")
                 relative_full_image_filename = re.sub(re.escape(output_directory),'',t.full_image_filename)

@@ -440,6 +440,7 @@ class HTTPTest(Test):
         Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_HTTP
         self.page = page+"?test-id="+self.get_id_and_short_name()
+        self.soup = None
         self.full_image_filename = None
         self.thumbnail_image_filename = None
         self.fetch_succeeded = False
@@ -450,11 +451,33 @@ class HTTPTest(Test):
         self.error_message = ""
     def run(self):
         Test.run(self)
-        save_page(self.page,os.path.join(self.test_output_directory,"page.html"))
-        self.full_image_filename = os.path.join(self.test_output_directory,"page.png")
-        render_page(self.page,self.full_image_filename)
-        if os.path.exists(self.full_image_filename):
-            self.thumbnail_image_filename = generate_thumbnail_version(self.full_image_filename)
+        page_filename = os.path.join(self.test_output_directory,"page.html")
+        self.fetch_succeeded = save_page(self.page,page_filename)
+        print "Result from save_page was: "+str(self.fetch_succeeded)
+        if not self.fetch_succeeded:
+            return
+        if self.render:
+            self.full_image_filename = os.path.join(self.test_output_directory,"page.png")
+            # FIXME: can't trust the return code from CutyCapt yet
+            render_page(self.page,self.full_image_filename)
+            self.render_succeeded = os.path.exists(self.full_image_filename) and (os.stat(self.full_image_filename).st_size > 0)
+            if self.render_succeeded:
+                self.thumbnail_image_filename = generate_thumbnail_version(self.full_image_filename)
+        else:
+            self.render_succeeded = True
+        # Now try to parse the output with BeautifulSoup:
+        fp = open(page_filename)
+        html = fp.read()
+        fp.close()
+        soup = BeautifulSoup(html)
+        body = soup.find('body')
+        if body:
+            self.parsing_succeeded = True
+        else:
+            return
+       # FIXME: check for any elements with CSS class "error", set self.no_error_check_succeeded
+    def succeeded(self):
+        return self.fetch_succeeded and (self.render_succeeded or not self.render) and self.parsing_succeeded and self.no_error_check_succeeded
     def __str__(self):
         s = Test.__str__(self)
         s += "\n  page: "+str(self.page)
