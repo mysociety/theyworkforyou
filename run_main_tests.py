@@ -94,9 +94,12 @@ def run_main_tests(output_directory):
         passed_colour = "#96ff81"
         failed_colour = "#ff8181"
 
-        background_colour = passed_colour
+        if t.succeeded():
+            background_colour = passed_colour
+        else:
+            background_colour = failed_colour
 
-        fp.write("<div class=\"test\" style=\"background-color: %s\">\n"%(passed_colour,))
+        fp.write("<div class=\"test\" style=\"background-color: %s\">\n"%(background_colour,))
         fp.write("<h3>%s</h3>\n" % (t.test_name,))
         fp.write("<h4>%s</h4>\n" % (t.get_id_and_short_name(),))
         fp.write("<pre>\n")
