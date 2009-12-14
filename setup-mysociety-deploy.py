@@ -366,9 +366,15 @@ if ssh_result.return_value != 0:
 
 schemas = re.split('[\r\n]+',ssh_result.stdout_data)
 
+i = 0
 for schema_file in schemas:
     if len(schema_file.strip()) > 0:
-        ssh("( cd /data/mysociety && mysql twfy -u twfy < "+schema_file+" )")
+        run_ssh_test(output_directory,
+                     "( cd /data/mysociety && mysql twfy -u twfy < "+schema_file+" )",
+                     user="alice",
+                     test_name="Creating tables from schema "+schema_file,
+                     test_short_name="create-tables-"+str(i))
+        i += 1
 
 # Get the email users:
 ssh_result = ssh("/usr/local/bin/find-email-users theyworkforyou.sandbox",capture=True)
@@ -381,8 +387,11 @@ for line in re.split('[\r\n]+',ssh_result.stdout_data):
         username = m.group(1)
         if not user_exists(username):
             print "==  Going to try to call adduser for "+username
-            if 0 != ssh("adduser --disabled-password --gecos 'Email User From vhosts.pl' "+username,user="root"):
-                raise Exception, "Creating the user "+username+" failed"
+            run_ssh_test(output_directory,
+                         "adduser --disabled-password --gecos 'Email User From vhosts.pl' "+username,
+                         user="root",
+                         test_name="Creating user: "+username,
+                         test_short_name="create-user-"+username)
 
 # Run a2enmod:
 run_ssh_test(output_directory,
@@ -407,11 +416,17 @@ run_ssh_test(output_directory,
 
 # Now call the standard(ish) deploy scripts:
 
-if 0 != ssh("mysociety -u config --no-check-existing",user="root"):
-    raise Exception, "Running mysociety config failed"
+run_ssh_test(output_directory,
+             "mysociety -u config --no-check-existing",
+             user="root",
+             test_name="Running mysociety config",
+             test_short_name="mysociety-config")
 
-if 0 != ssh("mysociety -u vhost theyworkforyou.sandbox",user="root"):
-    raise Exception, "Running mysociety -u deploy theyworkforyou.sandbox failed"
+run_ssh_test(output_directory,
+             "mysociety -u vhost theyworkforyou.sandbox",
+             user="root",
+             test_name="Running mysociety -u deploy theyworkforyou.sandbox",
+             test_short_name="mysociety-vhost")
 
 # rsync over some data:
 
