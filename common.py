@@ -471,6 +471,20 @@ def uses_to_colour(uses):
 def ensure_slash(path):
     return re.sub('([^/])$','\\1/',path)
 
+def standard_css():
+    return '''
+.test {
+  padding: 5px;
+  margin: 5px;
+  border-width: 1px
+}
+.stdout_stderr {
+  padding: 5px;
+  margin: 5px;
+  background-color: #bfbfbf
+}
+'''
+
 # This is a bit of a mess now.  The parameters should look a bit like this:
 #
 #   uml_prefix_to_strip "/data/vhost/theyworkforyou.sandbox/mysociety/"
@@ -536,6 +550,9 @@ def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,or
         ofp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <head>
 <title>Coverage data for %s</title>
+<style type="text/css">
+%s
+</style>
 </head>
 <body style="background-color: #ffffff">
 <table border=0>
@@ -546,7 +563,7 @@ def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,or
 </table>
 <hr>
 <pre>
-''' % (cgi.escape(filename),uses_to_colour(1),uses_to_colour(-1),uses_to_colour(-2),uses_to_colour(-9)))
+''' % (cgi.escape(filename),standard_css(),uses_to_colour(1),uses_to_colour(-1),uses_to_colour(-2),uses_to_colour(-9)))
         line_number = 1
         ifp = open(original_filename)
         for line in ifp:
@@ -574,10 +591,13 @@ def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,or
     fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <head>
 <title>Coverage Data Index</title>
+<style>
+%s
+</style>
 </head>
 <body style="background-color: #ffffff">
 <table border=0>
-''')
+'''%(standard_css(),))
     filenames = filename_to_percent_coverage.keys()
     filenames.sort()
     for filename in filenames:
