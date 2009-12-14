@@ -73,7 +73,7 @@ def run_main_tests(output_directory):
     fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <head>
 <title>They Work For You Test Reports</title>
-<style>
+<style type="text/css">
 %s
 </style>
 </head>
@@ -81,7 +81,7 @@ def run_main_tests(output_directory):
 <h2>They Work For You Test Reports</h2>
 <p><a href="coverage-report/coverage.html">Code coverage report for all tests.</a>
 </p>
-''' % (standard_css(),))
+''' % (standard_css(),coverage_report_leafname))
 
     for t in all_tests:
         print "=============="
