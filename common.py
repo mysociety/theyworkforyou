@@ -670,6 +670,7 @@ def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,or
     fp = open(index_filename,"w")
     fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <title>Coverage Data Index</title>
 <style type="text/css">
 %s
