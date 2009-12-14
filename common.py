@@ -160,9 +160,12 @@ def scp(source,destination,user="alice",verbose=True):
         print trim_string("Going to run: "+"#".join(full_command)+"\r")
     return call(full_command)
 
-def rsync_from_guest(source,destination,user="alice",exclude_git=False):
+def rsync_from_guest(source,destination,user="alice",exclude_git=False,verbose=True):
+    parameters = "-rl"
+    if verbose:
+        parameters += "v"
     full_command = [ "rsync",
-                     "-rlv" ]
+                     parameters ]
     if exclude_git:
         full_command.append("--exclude=.git")
     full_command += [ "-e",
@@ -173,9 +176,12 @@ def rsync_from_guest(source,destination,user="alice",exclude_git=False):
     return call(full_command)
 
 # FIXME: untested
-def rsync_to_guest(source,destination,user="alice",exclude_git=False,delete=False):
+def rsync_to_guest(source,destination,user="alice",exclude_git=False,delete=False,verbose=True):
+    parameters = "-rl"
+    if verbose:
+        parameters += "v"
     full_command = [ "rsync",
-                     "-rlv" ]
+                     parameters ]
     if exclude_git:
         full_command.append("--exclude=.git")
     if delete:

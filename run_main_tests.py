@@ -51,11 +51,13 @@ def run_main_tests(output_directory):
 
     rsync_from_guest("/data/vhost/theyworkforyou.sandbox/mysociety/twfy/",
                      os.path.join(used_source_directory,"twfy"),
-                     user="alice")
+                     user="alice",
+                     verbose=False)
 
     rsync_from_guest("/data/vhost/theyworkforyou.sandbox/mysociety/phplib/",
                      os.path.join(used_source_directory,"phplib"),
-                     user="alice")
+                     user="alice",
+                     verbose=False)
 
     report_index_filename = os.path.join(output_directory,"report.html")
     fp = open(report_index_filename,"w")
