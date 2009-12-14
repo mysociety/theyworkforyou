@@ -4,7 +4,7 @@ import time
 import sys
 import os
 import cgi
-from BeautifulSoup import BeautifulSoup
+from BeautifulSoup import BeautifulSoup, NavigableString, Comment,Tag
 
 configuration = {}
 
@@ -688,3 +688,31 @@ def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,or
 </body>
 </html>''')
     fp.close()
+
+# The method that should be in BeautifulSoup:
+
+def non_tag_data_in(o):
+    if o.__class__ == NavigableString:
+        return re.sub('(?ms)[\r\n]',' ',o)
+    elif o.__class__ == Tag:
+        if o.name == 'script':
+            return ''
+        else:
+            return ''.join( map( lambda x: non_tag_data_in(x) , o.contents ) )
+    elif o.__class__ == Comment:
+        return ''
+    else:
+        # Hope it's a string or something else concatenatable...
+        return o
+
+def tag_text_is(tag,text):
+    # Turn the text into a regular expression which doesn't care about
+    # whitespace or case:
+    re_pattern = "^"+re.sub('\s+','\s+',text.strip())+"$"
+    r = re.compile(re_pattern,re.IGNORECASE|re.MULTILINE|re.DOTALL)
+    n = non_tag_data_in(tag).strip()
+    print "Comparing pattern: "+r.pattern
+    print "             with: "+n
+    result = r.match(non_tag_data_in(tag).strip())
+    print "Result was: "+str(result)
+    return result
