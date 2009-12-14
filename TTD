@@ -26,3 +26,5 @@ Things To Do
 - Add back the instrumentation.
 
 - Shrink the image as much as possible (e.g. zerofree?)
+
+- Switch to using port-based virtual hosts
