@@ -4,10 +4,14 @@ import time
 import sys
 import os
 import cgi
+from BeautifulSoup import BeautifulSoup
 
 configuration = {}
 
 def check_dependencies(check_group=True,user_and_group=None):
+    # Of course, you won't get to this if the python dependencies
+    # aren't there, but keep this list as accurate as possible
+    # anyway...
     required_packages = [ "libqt4-dev",
                           "make",
                           "debootstrap",
@@ -17,7 +21,9 @@ def check_dependencies(check_group=True,user_and_group=None):
                           "qt4-qmake",
                           "openssh-client",
                           "curl",
-                          "e2fsprogs" ]
+                          "e2fsprogs",
+                          "python2.5-minimal",
+                          "python-beautifulsoup" ]
     package_list = Popen(["dpkg","-l"],stdout=PIPE).communicate()[0]
     for p in required_packages:
         succeeded = True
