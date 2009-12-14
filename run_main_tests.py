@@ -18,6 +18,42 @@ def run_main_tests(output_directory):
 
     # Fetch the main page:
 
+    main_page_test = run_http_test(output_directory,
+                                   "/",
+                                   test_name="Fetching main page",
+                                   test_short_name="basic-main-page")
+
+    def recent_event(http_test,header,item):
+        # We want to check that the list on the front page has links
+        # to the recent debates.  First fine a matching <h4>
+        soup = http_test.soup
+        h = soup.find( lambda x: x.name == 'h4' and tag_text_is(x,header) )
+        if not h:
+            return False
+        ul = h.nextSibling
+        if not (ul.name == 'ul'):
+            return False
+        for li in ul.contents:
+            if not (li and li.name == 'li'):
+                continue
+            if tag_text_is(li,item):
+                return True
+        return False
+
+    items_to_find = [ ("The most recent Commons debates", "Business Before Questions"),
+                      ("The most recent Lords debates", "Africa: Water Shortages &#8212; Question") ]
+
+    i = 0
+    for duple in items_to_find:
+        run_page_test(output_directory,
+                      main_page_test,
+                      lambda t: recent_event(t,duple[0],duple[1]),
+                      test_name="Checking that '"+duple[0]+"' contains '"+duple[1]+"'",
+                      test_short_name="main-page-recent-item-"+str(i))
+        i += 1
+
+    # ------------------------------------------------------------------------
+
     mps_test = run_http_test(output_directory,
                              "/mps/",
                              test_name="Fetching basic MPs page",
@@ -46,10 +82,60 @@ def run_main_tests(output_directory):
                   test_name="Richard Younger-Ross in MPs page",
                   test_short_name="mps-contains-richard-younger-ross")
 
-    run_http_test(output_directory,
-                  "/msps/",
-                  test_name="Fetching basic MSPs page",
-                  test_short_name="basic-MSPs")
+    # ------------------------------------------------------------------------
+
+    msps_test = run_http_test(output_directory,
+                              "/msps/",
+                              test_name="Fetching basic MSPs page",
+                              test_short_name="basic-MSPs")
+
+    run_page_test(output_directory,
+                  msps_test,
+                  lambda t: link_from_mp_name(t,"Brian Adam"),
+                  test_name="Brian Adam in MSPs page",
+                  test_short_name="msps-contains-brian-adam")
+
+    run_page_test(output_directory,
+                  msps_test,
+                  lambda t: link_from_mp_name(t,"John Wilson"),
+                  test_name="John Wilson in MSPs page",
+                  test_short_name="msps-contains-john-wilson")
+
+    # ------------------------------------------------------------------------
+
+    mlas_test = run_http_test(output_directory,
+                              "/mlas/",
+                              test_name="Fetching basic MLAs page",
+                              test_short_name="basic-MLAs")
+
+    run_page_test(output_directory,
+                  mlas_test,
+                  lambda t: link_from_mp_name(t,"Gerry Adams"),
+                  test_name="Gerry Adams in MLAs page",
+                  test_short_name="msps-contains-gerry-adams")
+
+    run_page_test(output_directory,
+                  mlas_test,
+                  lambda t: link_from_mp_name(t,"Sammy Wilson"),
+                  test_name="Sammy Wilson in MLAs page",
+                  test_short_name="msps-contains-sammy-wilson")
+
+    # ------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+    # ------------------------------------------------------------------------
+
+    # Find a representative based on postcode:
+
+
+
+    # ------------------------------------------------------------------------
 
     run_http_test(output_directory,
                   "/mp/gordon_brown/kirkcaldy_and_cowdenbeath",
