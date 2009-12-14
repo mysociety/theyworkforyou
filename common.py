@@ -7,7 +7,7 @@ import cgi
 
 configuration = {}
 
-def check_dependencies(check_group=True):
+def check_dependencies(check_group=True,user_and_group=None):
     required_packages = [ "libqt4-dev",
                           "make",
                           "debootstrap",
@@ -40,7 +40,11 @@ def check_dependencies(check_group=True):
         public = "id_dsa.%s.pub"%(user,)
         if not (os.path.exists(private) and os.path.exists(public)):
             print "Both '"+private+"' and '"+public+"' must exist; generating them:"
-            check_call(["ssh-keygen","-t","dsa","-N","","-f",private])
+            command = [ "ssh-keygen", "-t", "dsa", "-f", private, "-N", "" ]
+            check_call(command)
+            if user_and_group:
+                check_call(["chown",user_and_group,private])
+                check_call(["chown",user_and_group,public])
 
 def setup_configuration():
     fp = open("conf")

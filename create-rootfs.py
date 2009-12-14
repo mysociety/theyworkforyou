@@ -10,10 +10,6 @@ from stat import *
 
 from common import *
 
-check_dependencies(check_group=False)
-
-setup_configuration()
-
 def usage_and_exit():
     print "Usage: ./create-rootfs [SIZE-IN-MiB] [FILENAME] [MOUNT-POINT] [USER]:[GROUP]"
     sys.exit(1)
@@ -43,6 +39,10 @@ if not m:
 
 username = m.group(1)
 groupname = m.group(2)
+
+check_dependencies(check_group=False,user_and_group=user_and_group)
+
+setup_configuration()
 
 # These throw exceptions if either is unknown:
 u = pwd.getpwnam(username)
