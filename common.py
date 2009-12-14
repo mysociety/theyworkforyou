@@ -203,13 +203,13 @@ def generate_thumbnail_version(original_image_filename):
 
 def render_page(page_path,output_image_filename):
     check_call(["./cutycapt/CutyCapt/CutyCapt",
-                "--url=http://"+configuration['UML_SERVER_IP']+":81"+page_path,
+                "--url=http://"+configuration['UML_SERVER_IP']+page_path,
                 "--javascript=off",
                 "--plugins=off",
                 "--out="+output_image_filename])
 
 def save_page(page_path,output_html_filename,url_opener=None):
-    url = "http://"+configuration['UML_SERVER_IP']+":81"+page_path
+    url = "http://"+configuration['UML_SERVER_IP']+page_path
     if url_opener:
         r = opener.open(url)
         html = r.read()
