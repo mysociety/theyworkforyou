@@ -223,14 +223,19 @@ def render_page(page_path,output_image_filename):
 def save_page(page_path,output_html_filename,url_opener=None):
     url = "http://"+configuration['UML_SERVER_IP']+page_path
     if url_opener:
-        r = opener.open(url)
-        html = r.read()
-        r.close()
-        fp = open(output_filename, 'w')
-        fp.write(html)
-        fp.close()
+        try:
+            r = opener.open(url)
+            html = r.read()
+            r.close()
+            fp = open(output_filename, 'w')
+            fp.write(html)
+            fp.close()
+            info = r.info()
+        except URLError, e:
+            return False
+        return True
     else:
-        check_call(['curl','-o',output_html_filename,url])
+        return 0 == call(['curl','-o',output_html_filename,url])
 
 def uml_date():
     r = ssh("date +'%Y-%m-%dT%H:%M:%S%z'",capture=True,verbose=False)
