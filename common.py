@@ -214,11 +214,11 @@ def generate_thumbnail_version(original_image_filename):
     return thumbnail_filename
 
 def render_page(page_path,output_image_filename):
-    check_call(["./cutycapt/CutyCapt/CutyCapt",
-                "--url=http://"+configuration['UML_SERVER_IP']+page_path,
-                "--javascript=off",
-                "--plugins=off",
-                "--out="+output_image_filename])
+    return 0 == call(["./cutycapt/CutyCapt/CutyCapt",
+                      "--url=http://"+configuration['UML_SERVER_IP']+page_path,
+                      "--javascript=off",
+                      "--plugins=off",
+                      "--out="+output_image_filename])
 
 def save_page(page_path,output_html_filename,url_opener=None):
     url = "http://"+configuration['UML_SERVER_IP']+page_path
