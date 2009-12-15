@@ -3,15 +3,17 @@ import os
 from subprocess import call, check_call
 from common import *
 
-TEST_UNKNOWN = -1
-TEST_SSH     =  0
-TEST_HTTP    =  1
-TEST_PAGE    =  2
+TEST_UNKNOWN   = -1
+TEST_SSH       =  0
+TEST_HTTP      =  1
+TEST_PAGE      =  2
+TEST_COOKIE    =  3
 
 test_type_to_str = { -1 : "TEST_UNKNOWN",
                       0 : "TEST_SSH",
                       1 : "TEST_HTTP",
-                      2 : "TEST_PAGE" }
+                      2 : "TEST_PAGE",
+                      3 : "TEST_COOKIE" }
 
 all_tests = []
 
@@ -71,6 +73,30 @@ class Test:
         fp.close()
     def succeeded(self):
         raise Exception, "BUG: No default implementation for succeeded()"
+
+class CookieTest(Test):
+    def __init__(self,output_directory,cj,test_function,test_name="Unknown cookie test",test_short_name="unknown-cookie"):
+        Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
+        self.test_type = TEST_COOKIE
+        self.test_function = test_function
+        self.cj = cj
+        self.test_succeeded = False
+    def __str__(self):
+        s = Test.__str__(self)
+        s += "\nTesting current cookies"
+        return s
+    def run(self):
+        Test.run(self)
+        self.test_succeeded = self.test_function(self.cj)
+    def succeeded(self):
+        return self.test_succeeded
+
+def run_cookie_test(output_directory,cj,test_function,test_name="Unknown cookie test",test_short_name="unknown-cookie-test"):
+    p = CookieTest(output_directory,cj,test_function,test_name=test_name,test_short_name=test_short_name)
+    all_tests.append(p)
+    p.run()
+    return p
+
 
 class SSHTest(Test):
     def __init__(self,output_directory,ssh_command,user="alice",test_name="Unknown test",test_short_name="unknown",browser=None):
