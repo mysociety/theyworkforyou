@@ -1,6 +1,14 @@
 Things To Do
 ~~~~~~~~~~~~
 
+- Try some cookie-based tests
+
+- Add error text which could be reported with failures
+
+- Make the report prettier:
+    Report overall statistics at the top
+    Better CSS
+
 - Initial configuration:
 
     Check that conf has been created and set to some sensible value
@@ -22,8 +30,6 @@ Things To Do
   (The lists are actually build-dependencies, and there's no system
   for automatically installing from them as well.  It could just do
   apt-get build-dep.)
-
-- Add back the instrumentation.
 
 - Shrink the image as much as possible (e.g. zerofree?)
 
