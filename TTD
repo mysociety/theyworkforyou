@@ -5,6 +5,8 @@ Things To Do
 
 - Add error text which could be reported with failures
 
+- Show which lines are used in which test
+
 - Make the report prettier:
     Report overall statistics at the top
     Better CSS
