@@ -99,7 +99,7 @@ def run_cookie_test(output_directory,cj,test_function,test_name="Unknown cookie 
 
 
 class SSHTest(Test):
-    def __init__(self,output_directory,ssh_command,user="alice",test_name="Unknown test",test_short_name="unknown",browser=None):
+    def __init__(self,output_directory,ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh"):
         Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_SSH
         self.ssh_command = ssh_command
@@ -124,7 +124,7 @@ class SSHTest(Test):
     def succeeded(self):
         return self.result.return_value == 0
 
-def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh-test",browser=None):
+def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh-test"):
     s = SSHTest(output_directory,ssh_command,user=user,test_name=test_name,test_short_name=test_short_name,browser=browser)
     all_tests.append(s)
     s.run()
@@ -187,7 +187,7 @@ class HTTPTest(Test):
 # analyses those results:
 
 class PageTest(Test):
-    def __init__(self,output_directory,http_test,test_function,test_name="Unknown test",test_short_name="unknown"):
+    def __init__(self,output_directory,http_test,test_function,test_name="Unknown page test",test_short_name="unknown-page"):
         Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_PAGE
         self.http_test = http_test
@@ -200,12 +200,10 @@ class PageTest(Test):
     def run(self):
         Test.run(self)
         self.test_succeeded = self.test_function(self.http_test)
-        print "Got self.test_succeeded: "+str(self.test_succeeded)
     def succeeded(self):
-        print "Succeeded called..."
         return self.test_succeeded
 
-def run_page_test(output_directory,http_test,test_function,test_name="Unknown page test",test_short_name="unknown-page-test"):
+def run_page_test(output_directory,http_test,test_function,test_name="Unknown page test",test_short_name="unknown-page"):
     p = PageTest(output_directory,http_test,test_function,test_name=test_name,test_short_name=test_short_name)
     all_tests.append(p)
     p.run()
