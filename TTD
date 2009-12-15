@@ -1,7 +1,11 @@
 Things To Do
 ~~~~~~~~~~~~
 
+- commit changes to deploy mechanism to CVS
+
 - Try some cookie-based tests
+
+- Set up an alert, and generate email
 
 - Add error text which could be reported with failures
 
@@ -10,6 +14,8 @@ Things To Do
 - Make the report prettier:
     Report overall statistics at the top
     Better CSS
+
+- Generate the test div from a method of Test
 
 - Initial configuration:
 
