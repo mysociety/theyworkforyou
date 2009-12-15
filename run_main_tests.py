@@ -208,8 +208,33 @@ def run_main_tests(output_directory):
                                  test_short_name="spwrans",
                                  append_id=False)
 
+    def check_speaker_and_speech_tag(expected_name, got_name, expected_speech, got_speech_tag):
+        if not expected_name == got_name:
+            print "Speaker name didn't match:"
+            print "Expected '"+expected_name+"', but got '"+got_name+"'"
+            return False
+        if not tag_text_is(got_speech_tag,expected_speech):
+            print "Text didn't match..."
+            return False
+        return True
+
     def check_written_answer(t,q_name,q_text,a_name,a_text):
-        return False
+        labour_speakers = t.soup.findAll(attrs={'class':'speaker labour'})
+        snp_speakers = t.soup.findAll(attrs={'class':'speaker scottish national party'})
+        if not 1 == len(labour_speakers):
+            print "Couldn't find the unique question, should be from a Labour speaker"
+            return False
+        speaker = labour_speakers[0]
+        speaker_name = speaker.contents[0].contents[0].string
+        question_tag = next_tag(speaker)
+        if not check_speaker_and_speech_tag(q_name,speaker_name,q_text,question_tag):
+            return False
+        speaker = snp_speakers[0]
+        speaker_name = speaker.contents[0].contents[0].string
+        question_tag = next_tag(speaker)
+        if not check_speaker_and_speech_tag(a_name,speaker_name,a_text,question_tag):
+            return False
+        return True
 
     run_page_test(output_directory,
                   spwrans_test,
