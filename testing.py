@@ -105,7 +105,7 @@ def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown SS
     return s
 
 class HTTPTest(Test):
-    def __init__(self,output_directory,page,test_name="Unknown test",test_short_name="unknown",render=True,append_id=True):
+    def __init__(self,output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,append_id=True,browser=None):
         Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_HTTP
         self.page = page
@@ -120,16 +120,18 @@ class HTTPTest(Test):
         self.no_error_check_succeeded = False
         self.render = render
         self.error_message = ""
+        self.browser = browser
     def run(self):
         Test.run(self)
         page_filename = os.path.join(self.test_output_directory,"page.html")
-        self.fetch_succeeded = save_page(self.page,page_filename)
+        self.fetch_succeeded = save_page(self.page,page_filename,url_opener=self.browser)
         print "Result from save_page was: "+str(self.fetch_succeeded)
         if not self.fetch_succeeded:
             return
         if self.render:
             self.full_image_filename = os.path.join(self.test_output_directory,"page.png")
             # FIXME: can't trust the return code from CutyCapt yet
+            # FIXME: also send cookies, if 'browser' is used
             render_page(self.page,self.full_image_filename)
             self.render_succeeded = os.path.exists(self.full_image_filename) and (os.stat(self.full_image_filename).st_size > 0)
             if self.render_succeeded:
@@ -183,10 +185,10 @@ def run_page_test(output_directory,http_test,test_function,test_name="Unknown pa
     p.run()
     return p
 
-def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http-test",render=True,append_id=True):
+def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,append_id=True,browser=None):
     print "Got test_name: "+test_name
     date_start = uml_date()
-    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render,append_id=append_id)
+    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render,append_id=append_id,browser=browser)
     all_tests.append(h)
     h.run()
     date_end = uml_date()
