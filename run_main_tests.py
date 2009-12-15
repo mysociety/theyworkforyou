@@ -8,7 +8,7 @@ import re
 import sys
 from optparse import OptionParser
 from BeautifulSoup import BeautifulSoup
-from browser import fake_browser
+from browser import *
 import cgi
 
 def run_main_tests(output_directory):
