@@ -436,10 +436,12 @@ def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown SS
     return s
 
 class HTTPTest(Test):
-    def __init__(self,output_directory,page,test_name="Unknown test",test_short_name="unknown",render=True):
+    def __init__(self,output_directory,page,test_name="Unknown test",test_short_name="unknown",render=True,append_id=True):
         Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_HTTP
-        self.page = page+"?test-id="+self.get_id_and_short_name()
+        self.page = page
+        if append_id:
+            self.page += "?test-id="+self.get_id_and_short_name()
         self.soup = None
         self.full_image_filename = None
         self.thumbnail_image_filename = None
@@ -512,10 +514,10 @@ def run_page_test(output_directory,http_test,test_function,test_name="Unknown pa
     p.run()
     return p
 
-def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http-test",render=True):
+def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http-test",render=True,append_id=True):
     print "Got test_name: "+test_name
     date_start = uml_date()
-    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render)
+    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render,append_id=append_id)
     all_tests.append(h)
     h.run()
     date_end = uml_date()
