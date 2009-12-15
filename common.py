@@ -717,3 +717,20 @@ def tag_text_is(tag,text):
     result = r.match(non_tag_data_in(tag).strip())
     print "Result was: "+str(result)
     return result
+
+# Like BeautifulSoup's next and nextSibling, but only goes to tag
+# elements:
+def next_tag(tag,sibling=True):
+    if sibling:
+        current_tag = tag.nextSibling
+    else:
+        current_tag = tag.next
+    while True:
+        if current_tag.__class__ == Tag:
+            return current_tag
+        elif not current_tag:
+            return None
+        if sibling:
+            current_tag = current_tag.nextSibling
+        else:
+            current_tag = current_tag.next

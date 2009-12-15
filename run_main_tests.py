@@ -30,7 +30,7 @@ def run_main_tests(output_directory):
         h = soup.find( lambda x: x.name == 'h4' and tag_text_is(x,header) )
         if not h:
             return False
-        ul = h.nextSibling
+        ul = next_tag(h)
         if not (ul.name == 'ul'):
             return False
         for li in ul.contents:
