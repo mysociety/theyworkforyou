@@ -11,11 +11,58 @@ from BeautifulSoup import BeautifulSoup
 from browser import *
 import cgi
 
+
+
 def run_main_tests(output_directory):
     check_dependencies()
     setup_configuration()
 
     start_all_coverage = uml_date()
+
+    # FIXME: move all these to after the non-cookie tests...
+
+    cj, browser = create_cookiejar_and_browser()
+    postcode_test = run_http_test(output_directory,
+                                  "/postcode/?pc=EH8+9NB",
+                                  test_name="Testing postcode lookup",
+                                  test_short_name="postcode",
+                                  append_id=False,
+                                  browser=browser)
+
+    def cookie_jar_has(cj,k,v=None):
+        for c in cj:
+            if c.name == k:
+                if v:
+                    return c.value
+                else:
+                    return True
+        return False
+
+    run_cookie_test(output_directory,
+                    cj,
+                    lambda cj: cookie_jar_has(cj,'eppc','EH89NB'),
+                    test_name="Setting postcode cookie",
+                    test_short_name="postcode-cookie-set")
+
+
+    # FIXME: now check that the text on the main page has changes
+
+    # FIXME: "click" forget this postcode, check it's disappeared
+
+    # FIXME: try "change the postcode"
+
+
+    # FIXME: create a new browser and try making an account:
+
+    # FIXME: Try searching...
+
+    # FIXME: Try adding an email alerts
+
+    # FIXME: provoke the "send alerts" code
+
+    # FIXME: check that an email has been received
+
+    # ------------------------------------------------------------------------
 
     # Fetch the main page:
 
