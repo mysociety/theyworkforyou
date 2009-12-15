@@ -711,7 +711,7 @@ def non_tag_data_in(o):
 def tag_text_is(tag,text):
     # Turn the text into a regular expression which doesn't care about
     # whitespace or case:
-    re_pattern = "^"+re.sub('\s+','\s+',text.strip())+"$"
+    re_pattern = "^"+re.sub('(\\\\ )+','\s+',re.escape(text.strip()))+"$"
     r = re.compile(re_pattern,re.IGNORECASE|re.MULTILINE|re.DOTALL)
     n = non_tag_data_in(tag).strip()
     print "Comparing pattern: "+r.pattern
