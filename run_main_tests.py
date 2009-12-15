@@ -1,6 +1,7 @@
 #!/usr/bin/python2.5
 
 from common import *
+from testing import *
 from subprocess import call, check_call, Popen
 import time
 import re
