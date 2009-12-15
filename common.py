@@ -5,6 +5,7 @@ import sys
 import os
 import cgi
 from BeautifulSoup import BeautifulSoup, NavigableString, Comment,Tag
+import urllib2
 
 configuration = {}
 
@@ -224,14 +225,13 @@ def save_page(page_path,output_html_filename,url_opener=None):
     url = "http://"+configuration['UML_SERVER_IP']+page_path
     if url_opener:
         try:
-            r = opener.open(url)
+            r = url_opener.open(url)
             html = r.read()
             r.close()
-            fp = open(output_filename, 'w')
+            fp = open(output_html_filename, 'w')
             fp.write(html)
             fp.close()
-            info = r.info()
-        except URLError, e:
+        except urllib2.URLError, e:
             return False
         return True
     else:
