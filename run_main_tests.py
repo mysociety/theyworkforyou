@@ -41,7 +41,10 @@ def run_main_tests(output_directory):
         return False
 
     items_to_find = [ ("The most recent Commons debates", "Business Before Questions"),
-                      ("The most recent Lords debates", "Africa: Water Shortages &#8212; Question") ]
+                      ("The most recent Lords debates", "Africa: Water Shortages &#8212; Question"),
+                      ("The most recent Westminster Hall debates", "[Sir Nicholas Winterton in the Chair] &#8212; Oil and Gas"),
+                      ("The most recent Written Answers","Work and Pensions"),
+                      ("The most recent Written Ministerial Statements", "House of LordsEU: Justice and Home Affairs CouncilGlobal Entrepreneurship WeekLondon Underground") ]
 
     i = 0
     for duple in items_to_find:
@@ -51,6 +54,80 @@ def run_main_tests(output_directory):
                       test_name="Checking that '"+duple[0]+"' contains '"+duple[1]+"'",
                       test_short_name="main-page-recent-item-"+str(i))
         i += 1
+
+    # ------------------------------------------------------------------------
+
+    def busiest_debate(http_test,header,text):
+        soup = http_test.soup
+        h = soup.find( lambda x: (x.name == 'h3' or x.name == 'h4') and tag_text_is(x,header) )
+        if not h:
+            print "Failed to find header with text '"+header+"'"
+            return False
+        ns = next_tag(next_tag(h,sibling=False),sibling=False)
+        print "Next tag is:"
+        print ns.prettify()
+        return tag_text_is(ns,text)
+
+    main_scotland_page_test = run_http_test(output_directory,
+                                            "/scotland/",
+                                            test_name="Fetching main page for Scotland",
+                                            test_short_name="basic-main-scotland-page")
+
+    header = "Busiest Scottish Parliament debates from the most recent week"
+    text = 'Scottish Economy (103 speeches)'
+
+    run_page_test(output_directory,
+                  main_scotland_page_test,
+                  lambda t: busiest_debate(t,header,text),
+                  test_name="Checking that first item in '"+header+"' is '"+text+"'",
+                  test_short_name="main-scotland-page-busiest-0")
+
+    def any_answer(http_test,header):
+        soup = http_test.soup
+        h = soup.find( lambda x: x.name == 'h3' and tag_text_is(x,header) )
+        if not h:
+            print "Failed to find header with text '"+header+"'"
+            return False
+        ns = next_tag(next_tag(h,sibling=False),sibling=False)
+        stringified = non_tag_data_in(ns)
+        return re.search('\(2[0-9]\s+October\s+2009\)',stringified)
+
+    header = "Some recent written answers"
+
+    run_page_test(output_directory,
+                  main_scotland_page_test,
+                  lambda t: any_answer(t,header),
+                  test_name="Checking that there's some random answer under '"+header+"'",
+                  test_short_name="main-scotland-page-any-written")
+
+    # ------------------------------------------------------------------------
+
+    main_ni_page_test = run_http_test(output_directory,
+                                            "/ni/",
+                                            test_name="Fetching main page for Northern Ireland",
+                                            test_short_name="basic-main-ni-page")
+
+    header = "Busiest debates from the most recent month"
+    text = u"Private Members&#8217; Business"
+
+    run_page_test(output_directory,
+                  main_ni_page_test,
+                  lambda t: busiest_debate(t,header,text),
+                  test_name="Checking that first item in '"+header+"' is '"+text+"'",
+                  test_short_name="main-ni-page-busiest-0")
+
+    # ------------------------------------------------------------------------
+
+    main_wales_page_test = run_http_test(output_directory,
+                                            "/wales/",
+                                            test_name="Fetching main page for wales",
+                                            test_short_name="basic-main-wales-page")
+
+    run_page_test(output_directory,
+                  main_wales_page_test,
+                  lambda t: t.soup.find( lambda x: x.name == 'h3' and tag_text_is(x,"We need you!") ),
+                  test_name="Checking that the Wales page still asks for help",
+                  test_short_name="main-wales-page-undone")
 
     # ------------------------------------------------------------------------
 
@@ -122,8 +199,26 @@ def run_main_tests(output_directory):
 
     # ------------------------------------------------------------------------
 
+    # Check a written answer from Scotland:
 
+    spwrans_test = run_http_test(output_directory,
+                                 "/spwrans/?id=2009-10-26.S3W-27797.h",
+                                 test_name="Testing Scottish written answer",
+                                 test_short_name="spwrans",
+                                 append_id=False)
 
+    def check_written_answer(t,q_name,q_text,a_name,a_text):
+        return False
+
+    run_page_test(output_directory,
+                  spwrans_test,
+                  lambda t: check_written_answer(t,
+                                                 "Sarah Boyack",
+                                                 "To ask the Scottish Executive how many properties it has disposed of in the last two years to which section 68 of the Climate Change (Scotland) Act 2009 could have been applied.",
+                                                 "John Swinney",
+                                                 "No core Scottish Government-owned buildings, to which section 68 of the Climate Change (Scotland) Act 2009 could have been applied, have been sold by the Scottish Government in the last two years."),
+                  test_name="Checking text of Scottish Written Answer",
+                  test_short_name="spwrans-content")
 
 
 
@@ -133,7 +228,17 @@ def run_main_tests(output_directory):
 
     # Find a representative based on postcode:
 
+    postcode_test = run_http_test(output_directory,
+                                  "/postcode/?pc=EH8+9NB",
+                                  test_name="Testing postcode lookup",
+                                  test_short_name="postcode",
+                                  append_id=False)
 
+    run_page_test(output_directory,
+                  postcode_test,
+                  lambda t: t.soup.find( lambda x: x.name == 'h2' and x.string and x.string == "Denis Murphy" ),
+                  test_name="Looking for valid postcode result",
+                  test_short_name="postcode-result")
 
     # ------------------------------------------------------------------------
 
