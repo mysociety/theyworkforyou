@@ -235,7 +235,7 @@ def save_page(page_path,output_html_filename,url_opener=None):
             return False
         return True
     else:
-        return 0 == call(['curl','-o',output_html_filename,url])
+        return 0 == call(['curl','--location','-o',output_html_filename,url])
 
 def uml_date():
     r = ssh("date +'%Y-%m-%dT%H:%M:%S%z'",capture=True,verbose=False)
