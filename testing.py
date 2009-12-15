@@ -167,7 +167,7 @@ class PageTest(Test):
         self.test_succeeded = False
     def __str__(self):
         s = Test.__str__(self)
-        s += "\nFIXME: make this string representation more helpful"
+        s += "\nTesting the content resulting from "+str(self.http_test)
         return s
     def run(self):
         Test.run(self)
