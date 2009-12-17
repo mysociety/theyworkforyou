@@ -1,6 +1,8 @@
 Things To Do
 ~~~~~~~~~~~~
 
+- validate HTML
+
 - commit changes to deploy mechanism to CVS
 
 - Try some cookie-based tests
@@ -16,6 +18,8 @@ Things To Do
     Better CSS
 
 - Generate the test div from a method of Test
+
+- Trick CutyCapt into sending cookies
 
 - Initial configuration:
 
