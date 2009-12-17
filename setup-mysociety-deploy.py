@@ -8,6 +8,7 @@
 #   sudo ./create-rootfs.py 2000 uml-rootfs-pristine tmp mark:mark
 
 from common import *
+from testing import *
 from subprocess import call, check_call, Popen
 import time
 import re
