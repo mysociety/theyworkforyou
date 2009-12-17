@@ -53,6 +53,16 @@ def check_dependencies(check_group=True,user_and_group=None):
                 check_call(["chown",user_and_group,private])
                 check_call(["chown",user_and_group,public])
 
+def create_output_directory():
+    iso_time = time.strftime("%Y-%m-%dT%H:%M:%S",time.gmtime())
+    output_directory = "output/%s/" % (iso_time,)
+    latest_symlink = "output/latest"
+    if os.path.exists(latest_symlink):
+        call(["rm",latest_symlink])
+    check_call(["mkdir","-p",output_directory])
+    check_call(["ln","-s",iso_time,latest_symlink])
+    return output_directory
+
 def setup_configuration():
     fp = open("conf")
     for line in fp:

@@ -17,16 +17,6 @@ test_type_to_str = { -1 : "TEST_UNKNOWN",
 
 all_tests = []
 
-def create_output_directory():
-    iso_time = time.strftime("%Y-%m-%dT%H:%M:%S",time.gmtime())
-    output_directory = "output/%s/" % (iso_time,)
-    latest_symlink = "output/latest"
-    if os.path.exists(latest_symlink):
-        call(["rm",latest_symlink])
-    check_call(["mkdir","-p",output_directory])
-    check_call(["ln","-s",iso_time,latest_symlink])
-    return output_directory
-
 class Test:
     last_test_number = -1
     def __init__(self,output_directory,test_name="Unknown test",test_short_name="unknown"):
