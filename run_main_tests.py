@@ -50,12 +50,67 @@ def run_main_tests(output_directory):
                                    test_short_name="basic-main-page-with-postcode",
                                    browser=browser)
 
-    # Check results...
+    def local_mp_link(http_test,mp_name):
+        soup = http_test.soup
+        links = links = soup.findAll( lambda x: (x.name == 'a' and ('href','/mp/') in x.attrs  ) )
+        for e in links:
+            if re.search(re.escape(mp_name),non_tag_data_in(e)):
+                return True
+        return False
 
-    # FIXME: "click" forget this postcode, check it's disappeared
+    run_page_test(output_directory,
+                  main_page_test,
+                  lambda t: local_mp_link(t,"Denis Murphy"),
+                  test_name="Checking local MP appears on main page",
+                  test_short_name="main-page-has-local-MP")
 
-    # FIXME: try "change the postcode"
+    change_page_test = run_http_test(output_directory,
+                                   "/user/changepc/",
+                                   test_name="Getting change postcode page",
+                                   test_short_name="getting-change-postcode-page",
+                                   browser=browser)
 
+    def change_postcode_form(http_test, old_postcode):
+        form = http_test.soup.find( lambda x: x.name == 'form' and ('action','/postcode/') in x.attrs )
+        if not form:
+            return False
+        return re.search('Your current postcode: '+old_postcode,non_tag_data_in(form))
+
+    run_page_test(output_directory,
+                  change_page_test,
+                  lambda t: change_postcode_form(change_page_test,'EH89NB'),
+                  test_name="Checking change postcode prompt appears",
+                  test_short_name="change-postcode-prompt")
+
+    run_page_test(output_directory,
+                  change_page_test,
+                  lambda t: t.soup.find( lambda x: x.name == 'a' and ('href','/user/changepc/?forget=t') in x.attrs ),
+                  test_name="Checking forget postcode prompt appears",
+                  test_short_name="change-forget-postcode-prompt")
+
+    change_postcode_test = run_http_test(output_directory,
+                                         "/postcode/?pc=CB2%202RP&submit=GO",
+                                         test_name="Changing postcode",
+                                         test_short_name="change-postcode",
+                                         browser=browser)
+
+    run_page_test(output_directory,
+                  change_postcode_test,
+                  lambda t: t.soup.find(lambda x: x.name == 'h2' and x.string == 'Bridget Prentice'),
+                  test_name="Postcode changed successfully",
+                  test_short_name="postcode-changed")
+
+    forget_postcode_test = run_http_test(output_directory,
+                                         "/user/changepc/?forget=t",
+                                         test_name="Forgetting postcode",
+                                         test_short_name="forgetting-postcode",
+                                         browser=browser)
+
+    run_page_test(output_directory,
+                  forget_postcode_test,
+                  lambda t: t.soup.find(lambda x: x.name == 'strong' and tag_text_is(x,"Enter your UK postcode:")),
+                  test_name="Prompting for postcode after forgetting",
+                  test_short_name="postcode-forgotten-prompt")
 
     # FIXME: create a new browser and try making an account:
 
