@@ -161,6 +161,13 @@ class HTTPTest(Test):
         print "Result from save_page was: "+str(self.fetch_succeeded)
         if not self.fetch_succeeded:
             return
+        # Try to validate the HTML:
+        vfp = open(os.path.join(self.test_output_directory,"validator-output"),"w")
+        self.validate_result = call(["validate",page_filename],stdout=vfp)
+        vfp.close()
+        vfp = open(os.path.join(self.test_output_directory,"validator-result"),"w")
+        vfp.write(str(self.validate_result))
+        vfp.close()
         if self.render:
             self.full_image_filename = os.path.join(self.test_output_directory,"page.png")
             # FIXME: can't trust the return code from CutyCapt yet
