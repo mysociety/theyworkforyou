@@ -529,9 +529,9 @@ if ($this_page == 'debates' || $this_page == 'whall' || $this_page == 'lordsdeba
 
 
 function context_link (&$row) {
-	global $this_page;
+	global $this_page, $hansardmajors;
 	
-	if ($this_page == 'debate') {
+	if ($hansardmajors[$row['major']]['type'] == 'debate' && $hansardmajors[$row['major']]['page']==$this_page) {
 		if ($row['htype'] == '12') {
 			$thing = 'speech';
 		} elseif ($row['htype'] == '13') {
