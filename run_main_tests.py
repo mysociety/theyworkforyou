@@ -328,10 +328,10 @@ def run_main_tests(output_directory):
 
     output_filename_all_coverage = os.path.join(output_directory,"coverage")
 
-    coverage_data = coverage_data_between(start_all_coverage,end_all_coverage)
-    fp = open(output_filename_all_coverage,"w")
-    fp.write(coverage_data)
-    fp.close()
+    copied_coverage = os.path.join(output_directory,"complete-coverage")
+    rsync_from_guest("/home/alice/twfy-coverage/",copied_coverage)
+
+    local_coverage_data_between(copied_coverage,start_all_coverage,end_all_coverage,output_filename_all_coverage)
 
     used_source_directory = os.path.join(output_directory,"mysociety")
 
@@ -393,6 +393,7 @@ def run_main_tests(output_directory):
             # Generate coverage information:
             coverage_data_file = os.path.join(t.test_output_directory,"coverage")
             coverage_report_directory = os.path.join(t.test_output_directory,coverage_report_leafname)
+            local_coverage_data_between(copied_coverage,t.start_time,t.end_time,coverage_data_file)
             print "Using parameters:"
             print "coverage_data_file: "+coverage_data_file
             print "coverage_report_directory: "+coverage_report_directory

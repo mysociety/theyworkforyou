@@ -30,6 +30,20 @@ class Test:
         self.exit_on_fail = True
         self.ignore_failure = False
         self.set_test_output_directory()
+    def record_time(self,date_and_time,start=True):
+        if start:
+            self.start_time = date_and_time
+            prefix = "start"
+        else:
+            self.end_time = date_and_time
+            prefix = "end"
+        fp = open(os.path.join(self.test_output_directory,prefix+"_time"),"w")
+        fp.write(str(date_and_time))
+        fp.close()
+    def record_start_time(self,date_and_time):
+        self.record_time(date_and_time,start=True)
+    def record_end_time(self,date_and_time):
+        self.record_time(date_and_time,start=False)
     def get_id_and_short_name(self):
         return "%04d-%s" % (self.test_number,self.test_short_name)
     def previous_output_directory(self):
@@ -55,6 +69,10 @@ class Test:
         if self.test_output_directory:
             result += "\n  test_output_directory: "+self.test_output_directory
         return result
+    def run_timed(self):
+        self.record_start_time(uml_date())
+        self.run()
+        self.record_end_time(uml_date())
     def run(self):
         if not self.test_output_directory:
             raise Exception, "No test output directory set for: "+str(self)
@@ -200,29 +218,25 @@ def run_page_test(output_directory,http_test,test_function,test_name="Unknown pa
 
 def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,append_id=True,browser=None):
     print "Got test_name: "+test_name
-    date_start = uml_date()
     h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render,append_id=append_id,browser=browser)
     all_tests.append(h)
-    h.run()
-    date_end = uml_date()
-    coverage_data = coverage_data_between(date_start,date_end)
-    coverage_output_filename = os.path.join(h.test_output_directory,"coverage")
-    fp = open(coverage_output_filename,"w")
-    fp.write(coverage_data)
-    fp.close()
+    h.run_timed()
     return h
 
-def coverage_data_between(date_start,date_end):
-    coverage_files = coverage_filenames_between(date_start,date_end)
-    ssh_command = "cd /home/alice/twfy-coverage/ && "
-    ssh_command += "cat '"+("' '".join(coverage_files))+"' | "
-    ssh_command += "egrep -v /home/alice/twfy-coverage | "
-    ssh_command += "sed 's,/home/alice/mysociety/,,'"
-    return ssh(ssh_command,capture=True).stdout_data
-
-def coverage_filenames_between(date_start,date_end):
-    coverage_files = sorted(ssh("ls -1 /home/alice/twfy-coverage/",capture=True).stdout_data.strip().split("\n"))
-    return [ x for x in coverage_files if x >= date_start and x <= date_end ]
+def local_coverage_data_between(directory,date_start,date_end,output):
+    coverage_files = os.listdir(directory)
+    in_range_coverage_files = [ os.path.join(directory,x) for x in coverage_files if x >= date_start and x <= date_end ]
+    ofp = open(output,"w")
+    for i in in_range_coverage_files:
+        fp = open(i)
+        first_line = True
+        for line in fp:
+            if first_line:
+                first_line = False
+                continue
+            else:
+                ofp.write(line)
+    ofp.close()
 
 def uses_to_colour(uses):
     if uses == -2:
