@@ -104,7 +104,7 @@ class SSHTest(Test):
                           stdout_filename=self.stdout_filename,
                           stderr_filename=self.stderr_filename)
         fp = open(os.path.join(self.test_output_directory,"result"),"w")
-        fp.write(str(result.return_value))
+        fp.write(str(self.result.return_value))
         fp.close()
     def __str__(self):
         s = Test.__str__(self)
