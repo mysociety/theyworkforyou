@@ -406,7 +406,6 @@ def run_main_tests(output_directory):
     fp = open(report_index_filename,"w")
 
     # Generate complete coverage report:
-    coverage_report_leafname = "coverage-report"
     generate_coverage("/data/vhost/theyworkforyou.sandbox/mysociety/",
                       output_filename_all_coverage,
                       os.path.join(output_directory,coverage_report_leafname),
@@ -429,55 +428,9 @@ def run_main_tests(output_directory):
     for t in all_tests:
         print "=============="
         print str(t)
+        t.output_html(fp,copied_coverage,used_source_directory)
 
-        passed_colour = "#96ff81"
-        failed_colour = "#ff8181"
-
-        if t.succeeded():
-            background_colour = passed_colour
-        else:
-            background_colour = failed_colour
-
-        fp.write("<div class=\"test\" style=\"background-color: %s\">\n"%(background_colour,))
-        fp.write("<h3>%s</h3>\n" % (t.test_name.encode('UTF-8'),))
-        fp.write("<h4>%s</h4>\n" % (t.get_id_and_short_name(),))
-        fp.write("<pre>\n")
-        fp.write(cgi.escape(file_to_string(os.path.join(t.test_output_directory,"info"))))
-        fp.write("</pre>\n")
-        if t.test_type == TEST_HTTP:
-            # Generate coverage information:
-            coverage_data_file = os.path.join(t.test_output_directory,"coverage")
-            coverage_report_directory = os.path.join(t.test_output_directory,coverage_report_leafname)
-            local_coverage_data_between(copied_coverage,t.start_time,t.end_time,coverage_data_file)
-            print "Using parameters:"
-            print "coverage_data_file: "+coverage_data_file
-            print "coverage_report_directory: "+coverage_report_directory
-            print "used_source_directory: "+used_source_directory
-            print "t.test_output_directory is: "+t.test_output_directory
-            generate_coverage("/data/vhost/theyworkforyou.sandbox/mysociety/",
-                              coverage_data_file,
-                              coverage_report_directory,
-                              used_source_directory)
-            relative_url = os.path.join(os.path.join(t.get_id_and_short_name(),coverage_report_leafname),"coverage.html")
-            fp.write("<p><a href=\"%s\">Code coverage for this test.</a></p>\n" % (relative_url,))
-            if t.render and t.full_image_filename:
-                # fp.write("<div style=\"float: right\">")
-                fp.write("<div>")
-                relative_full_image_filename = re.sub(re.escape(output_directory),'',t.full_image_filename)
-                relative_thumbnail_image_filename = re.sub(re.escape(output_directory),'',t.thumbnail_image_filename)
-                fp.write("<a href=\"%s\"><img src=\"%s\"></a>" % (relative_full_image_filename,relative_thumbnail_image_filename))
-                fp.write("</div>")
-        elif t.test_type == TEST_SSH:
-            for s in ("stdout","stderr"):
-                fp.write("<h4>%s</h4>" % (s,))
-                fp.write("<div class=\"stdout_stderr\"><pre>")
-                fp.write(cgi.escape(file_to_string(os.path.join(t.test_output_directory,s))))
-                fp.write("</pre></div>")
-        fp.write("</div>\n")
-
-    fp.write('''</table>
-</body>
-</html>''')
+    fp.write('''</body></html>''')
     fp.close()
 
 if __name__ == '__main__':

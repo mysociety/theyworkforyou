@@ -81,6 +81,23 @@ class Test:
         fp.close()
     def succeeded(self):
         raise Exception, "BUG: No default implementation for succeeded()"
+    def output_included_html(self,fp,copied_coverage,used_source_directory):
+        pass
+    def output_html(self,fp,copied_coverage,used_source_directory):
+        passed_colour = "#96ff81"
+        failed_colour = "#ff8181"
+        if self.succeeded():
+            background_colour = passed_colour
+        else:
+            background_colour = failed_colour
+        fp.write("<div class=\"test\" style=\"background-color: %s\">\n"%(background_colour,))
+        fp.write("<h3>%s</h3>\n" % (self.test_name.encode('UTF-8'),))
+        fp.write("<h4>%s</h4>\n" % (self.get_id_and_short_name(),))
+        fp.write("<pre>\n")
+        fp.write(cgi.escape(file_to_string(os.path.join(self.test_output_directory,"info"))))
+        fp.write("</pre>\n")
+        self.output_included_html(fp,copied_coverage,used_source_directory)
+        fp.write("</div>\n")
 
 class CookieTest(Test):
     def __init__(self,output_directory,cj,test_function,test_name="Unknown cookie test",test_short_name="unknown-cookie"):
@@ -130,6 +147,12 @@ class SSHTest(Test):
         return s
     def succeeded(self):
         return self.result.return_value == 0
+    def output_included_html(self,fp,copied_coverage,used_source_directory):
+        for s in ("stdout","stderr"):
+            fp.write("<h4>%s</h4>" % (s,))
+            fp.write("<div class=\"stdout_stderr\"><pre>")
+            fp.write(cgi.escape(file_to_string(os.path.join(self.test_output_directory,s))))
+            fp.write("</pre></div>")
 
 def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh-test"):
     s = SSHTest(output_directory,ssh_command,user=user,test_name=test_name,test_short_name=test_short_name)
@@ -196,6 +219,25 @@ class HTTPTest(Test):
         s = Test.__str__(self)
         s += "\n  page: "+str(self.page)
         return s
+    def output_included_html(self,fp,copied_coverage,used_source_directory):
+        # Generate coverage information:
+        coverage_data_file = os.path.join(self.test_output_directory,"coverage")
+        coverage_report_directory = os.path.join(self.test_output_directory,coverage_report_leafname)
+        local_coverage_data_between(copied_coverage,self.start_time,self.end_time,coverage_data_file)
+        generate_coverage("/data/vhost/theyworkforyou.sandbox/mysociety/",
+                          coverage_data_file,
+                          coverage_report_directory,
+                          used_source_directory)
+        relative_url = os.path.join(os.path.join(self.get_id_and_short_name(),coverage_report_leafname),"coverage.html")
+        fp.write("<p><a href=\"%s\">Code coverage for this test.</a></p>\n" % (relative_url,))
+        if self.render and self.full_image_filename:
+            # fp.write("<div style=\"float: right\">")
+            fp.write("<div>")
+            output_directory = os.path.split(self.test_output_directory)[0] + "/"
+            relative_full_image_filename = re.sub(re.escape(output_directory),'',self.full_image_filename)
+            relative_thumbnail_image_filename = re.sub(re.escape(output_directory),'',self.thumbnail_image_filename)
+            fp.write("<a href=\"%s\"><img src=\"%s\"></a>" % (relative_full_image_filename,relative_thumbnail_image_filename))
+            fp.write("</div>")
 
 # A page test is dependent on the result of previous HTTPTest - it
 # analyses those results:
@@ -229,6 +271,8 @@ def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short
     all_tests.append(h)
     h.run_timed()
     return h
+
+coverage_report_leafname = "coverage-report"
 
 def local_coverage_data_between(directory,date_start,date_end,output):
     coverage_files = os.listdir(directory)
