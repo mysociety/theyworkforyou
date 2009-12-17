@@ -53,6 +53,9 @@ def check_dependencies(check_group=True,user_and_group=None):
                 check_call(["chown",user_and_group,private])
                 check_call(["chown",user_and_group,public])
 
+def ensure_slash(path):
+    return re.sub('([^/])$','\\1/',path)
+
 def create_output_directory():
     iso_time = time.strftime("%Y-%m-%dT%H:%M:%S",time.gmtime())
     output_directory = "output/%s/" % (iso_time,)

@@ -237,9 +237,6 @@ def uses_to_colour(uses):
     else:
         raise Exception, "Unknown number of uses: "+str(uses)
 
-def ensure_slash(path):
-    return re.sub('([^/])$','\\1/',path)
-
 def standard_css():
     return '''
 .test {
