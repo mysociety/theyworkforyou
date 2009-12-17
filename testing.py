@@ -266,7 +266,6 @@ def run_page_test(output_directory,http_test,test_function,test_name="Unknown pa
     return p
 
 def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,append_id=True,browser=None):
-    print "Got test_name: "+test_name
     h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render,append_id=append_id,browser=browser)
     all_tests.append(h)
     h.run_timed()
@@ -460,10 +459,10 @@ def tag_text_is(tag,text):
     re_pattern = "^"+re.sub('(\\\\ )+','\s+',re.escape(text.strip()))+"$"
     r = re.compile(re_pattern,re.IGNORECASE|re.MULTILINE|re.DOTALL)
     n = non_tag_data_in(tag).strip()
-    print "Comparing pattern: "+r.pattern
-    print "             with: "+n
+    # print "Comparing pattern: "+r.pattern
+    # print "             with: "+n
     result = r.match(non_tag_data_in(tag).strip())
-    print "Result was: "+str(result)
+    # print "Result was: "+str(result)
     return result
 
 # Like BeautifulSoup's next and nextSibling, but only goes to tag
