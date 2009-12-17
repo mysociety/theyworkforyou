@@ -11,8 +11,6 @@ from BeautifulSoup import BeautifulSoup
 from browser import *
 import cgi
 
-
-
 def run_main_tests(output_directory):
     check_dependencies()
     setup_configuration()
@@ -44,8 +42,15 @@ def run_main_tests(output_directory):
                     test_name="Setting postcode cookie",
                     test_short_name="postcode-cookie-set")
 
-
     # FIXME: now check that the text on the main page has changes
+
+    main_page_test = run_http_test(output_directory,
+                                   "/",
+                                   test_name="Fetching main page again",
+                                   test_short_name="basic-main-page-with-postcode",
+                                   browser=browser)
+
+    # Check results...
 
     # FIXME: "click" forget this postcode, check it's disappeared
 
@@ -292,10 +297,6 @@ def run_main_tests(output_directory):
                                                  "No core Scottish Government-owned buildings, to which section 68 of the Climate Change (Scotland) Act 2009 could have been applied, have been sold by the Scottish Government in the last two years."),
                   test_name="Checking text of Scottish Written Answer",
                   test_short_name="spwrans-content")
-
-
-
-
 
     # ------------------------------------------------------------------------
 
