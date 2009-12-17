@@ -96,7 +96,6 @@ class SSHTest(Test):
         self.user = user
         self.stdout_filename = os.path.join(self.test_output_directory,"stdout")
         self.stderr_filename = os.path.join(self.test_output_directory,"stderr")
-        self.browser = browser
     def run(self):
         Test.run(self)
         self.result = ssh(self.ssh_command,
@@ -115,7 +114,7 @@ class SSHTest(Test):
         return self.result.return_value == 0
 
 def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh-test"):
-    s = SSHTest(output_directory,ssh_command,user=user,test_name=test_name,test_short_name=test_short_name,browser=browser)
+    s = SSHTest(output_directory,ssh_command,user=user,test_name=test_name,test_short_name=test_short_name)
     all_tests.append(s)
     s.run()
     return s

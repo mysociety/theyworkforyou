@@ -14,7 +14,6 @@ import re
 import sys
 from optparse import OptionParser
 from BeautifulSoup import BeautifulSoup
-from browser import fake_browser
 import cgi
 from run_main_tests import run_main_tests
 
