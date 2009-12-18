@@ -11,7 +11,7 @@ from BeautifulSoup import BeautifulSoup
 from browser import *
 import cgi
 
-def run_main_tests(output_directory):
+def run_main_tests(top_level_output_directory):
     check_dependencies()
     setup_configuration()
 
@@ -20,7 +20,7 @@ def run_main_tests(output_directory):
     # FIXME: move all these to after the non-cookie tests...
 
     cj, browser = create_cookiejar_and_browser()
-    postcode_test = run_http_test(output_directory,
+    postcode_test = run_http_test(top_level_output_directory,
                                   "/postcode/?pc=EH8+9NB",
                                   test_name="Testing postcode lookup",
                                   test_short_name="postcode",
@@ -36,7 +36,7 @@ def run_main_tests(output_directory):
                     return True
         return False
 
-    run_cookie_test(output_directory,
+    run_cookie_test(top_level_output_directory,
                     cj,
                     lambda cj: cookie_jar_has(cj,'eppc','EH89NB'),
                     test_name="Setting postcode cookie",
@@ -44,7 +44,7 @@ def run_main_tests(output_directory):
 
     # FIXME: now check that the text on the main page has changes
 
-    main_page_test = run_http_test(output_directory,
+    main_page_test = run_http_test(top_level_output_directory,
                                    "/",
                                    test_name="Fetching main page again",
                                    test_short_name="basic-main-page-with-postcode",
@@ -58,13 +58,13 @@ def run_main_tests(output_directory):
                 return True
         return False
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   main_page_test,
                   lambda t: local_mp_link(t,"Denis Murphy"),
                   test_name="Checking local MP appears on main page",
                   test_short_name="main-page-has-local-MP")
 
-    change_page_test = run_http_test(output_directory,
+    change_page_test = run_http_test(top_level_output_directory,
                                    "/user/changepc/",
                                    test_name="Getting change postcode page",
                                    test_short_name="getting-change-postcode-page",
@@ -76,37 +76,37 @@ def run_main_tests(output_directory):
             return False
         return re.search('Your current postcode: '+old_postcode,non_tag_data_in(form))
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   change_page_test,
                   lambda t: change_postcode_form(change_page_test,'EH89NB'),
                   test_name="Checking change postcode prompt appears",
                   test_short_name="change-postcode-prompt")
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   change_page_test,
                   lambda t: t.soup.find( lambda x: x.name == 'a' and ('href','/user/changepc/?forget=t') in x.attrs ),
                   test_name="Checking forget postcode prompt appears",
                   test_short_name="change-forget-postcode-prompt")
 
-    change_postcode_test = run_http_test(output_directory,
+    change_postcode_test = run_http_test(top_level_output_directory,
                                          "/postcode/?pc=CB2%202RP&submit=GO",
                                          test_name="Changing postcode",
                                          test_short_name="change-postcode",
                                          browser=browser)
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   change_postcode_test,
                   lambda t: t.soup.find(lambda x: x.name == 'h2' and x.string == 'Bridget Prentice'),
                   test_name="Postcode changed successfully",
                   test_short_name="postcode-changed")
 
-    forget_postcode_test = run_http_test(output_directory,
+    forget_postcode_test = run_http_test(top_level_output_directory,
                                          "/user/changepc/?forget=t",
                                          test_name="Forgetting postcode",
                                          test_short_name="forgetting-postcode",
                                          browser=browser)
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   forget_postcode_test,
                   lambda t: t.soup.find(lambda x: x.name == 'strong' and tag_text_is(x,"Enter your UK postcode:")),
                   test_name="Prompting for postcode after forgetting",
@@ -126,7 +126,7 @@ def run_main_tests(output_directory):
 
     # Fetch the main page:
 
-    main_page_test = run_http_test(output_directory,
+    main_page_test = run_http_test(top_level_output_directory,
                                    "/",
                                    test_name="Fetching main page",
                                    test_short_name="basic-main-page")
@@ -156,7 +156,7 @@ def run_main_tests(output_directory):
 
     i = 0
     for duple in items_to_find:
-        run_page_test(output_directory,
+        run_page_test(top_level_output_directory,
                       main_page_test,
                       lambda t: recent_event(t,duple[0],duple[1]),
                       test_name="Checking that '"+duple[0]+"' contains '"+duple[1]+"'",
@@ -176,7 +176,7 @@ def run_main_tests(output_directory):
         print ns.prettify()
         return tag_text_is(ns,text)
 
-    main_scotland_page_test = run_http_test(output_directory,
+    main_scotland_page_test = run_http_test(top_level_output_directory,
                                             "/scotland/",
                                             test_name="Fetching main page for Scotland",
                                             test_short_name="basic-main-scotland-page")
@@ -184,7 +184,7 @@ def run_main_tests(output_directory):
     header = "Busiest Scottish Parliament debates from the most recent week"
     text = 'Scottish Economy (103 speeches)'
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   main_scotland_page_test,
                   lambda t: busiest_debate(t,header,text),
                   test_name="Checking that first item in '"+header+"' is '"+text+"'",
@@ -202,7 +202,7 @@ def run_main_tests(output_directory):
 
     header = "Some recent written answers"
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   main_scotland_page_test,
                   lambda t: any_answer(t,header),
                   test_name="Checking that there's some random answer under '"+header+"'",
@@ -210,7 +210,7 @@ def run_main_tests(output_directory):
 
     # ------------------------------------------------------------------------
 
-    main_ni_page_test = run_http_test(output_directory,
+    main_ni_page_test = run_http_test(top_level_output_directory,
                                             "/ni/",
                                             test_name="Fetching main page for Northern Ireland",
                                             test_short_name="basic-main-ni-page")
@@ -218,7 +218,7 @@ def run_main_tests(output_directory):
     header = "Busiest debates from the most recent month"
     text = u"Private Members&#8217; Business"
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   main_ni_page_test,
                   lambda t: busiest_debate(t,header,text),
                   test_name="Checking that first item in '"+header+"' is '"+text+"'",
@@ -226,12 +226,12 @@ def run_main_tests(output_directory):
 
     # ------------------------------------------------------------------------
 
-    main_wales_page_test = run_http_test(output_directory,
+    main_wales_page_test = run_http_test(top_level_output_directory,
                                             "/wales/",
                                             test_name="Fetching main page for wales",
                                             test_short_name="basic-main-wales-page")
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   main_wales_page_test,
                   lambda t: t.soup.find( lambda x: x.name == 'h3' and tag_text_is(x,"We need you!") ),
                   test_name="Checking that the Wales page still asks for help",
@@ -239,7 +239,7 @@ def run_main_tests(output_directory):
 
     # ------------------------------------------------------------------------
 
-    mps_test = run_http_test(output_directory,
+    mps_test = run_http_test(top_level_output_directory,
                              "/mps/",
                              test_name="Fetching basic MPs page",
                              test_short_name="basic-MPs",
@@ -248,7 +248,7 @@ def run_main_tests(output_directory):
     # This uses the result of the previous test to check that Diane
     # Abbot (the first MP in this data set) is in the list.
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   mps_test,
                   lambda t: 1 == len(t.soup.findAll( lambda tag: tag.name == "a" and tag.string and tag.string == "Diane Abbott" )),
                   test_name="Diane Abbott in MPs page",
@@ -261,7 +261,7 @@ def run_main_tests(output_directory):
         all_tags = http_test.soup.findAll( lambda tag: tag.name == "a" and tag.string and tag.string == name)
         return 1 == len(all_tags)
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   mps_test,
                   lambda t: link_from_mp_name(t,"Richard Younger-Ross"),
                   test_name="Richard Younger-Ross in MPs page",
@@ -269,18 +269,18 @@ def run_main_tests(output_directory):
 
     # ------------------------------------------------------------------------
 
-    msps_test = run_http_test(output_directory,
+    msps_test = run_http_test(top_level_output_directory,
                               "/msps/",
                               test_name="Fetching basic MSPs page",
                               test_short_name="basic-MSPs")
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   msps_test,
                   lambda t: link_from_mp_name(t,"Brian Adam"),
                   test_name="Brian Adam in MSPs page",
                   test_short_name="msps-contains-brian-adam")
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   msps_test,
                   lambda t: link_from_mp_name(t,"John Wilson"),
                   test_name="John Wilson in MSPs page",
@@ -288,18 +288,18 @@ def run_main_tests(output_directory):
 
     # ------------------------------------------------------------------------
 
-    mlas_test = run_http_test(output_directory,
+    mlas_test = run_http_test(top_level_output_directory,
                               "/mlas/",
                               test_name="Fetching basic MLAs page",
                               test_short_name="basic-MLAs")
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   mlas_test,
                   lambda t: link_from_mp_name(t,"Gerry Adams"),
                   test_name="Gerry Adams in MLAs page",
                   test_short_name="msps-contains-gerry-adams")
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   mlas_test,
                   lambda t: link_from_mp_name(t,"Sammy Wilson"),
                   test_name="Sammy Wilson in MLAs page",
@@ -309,7 +309,7 @@ def run_main_tests(output_directory):
 
     # Check a written answer from Scotland:
 
-    spwrans_test = run_http_test(output_directory,
+    spwrans_test = run_http_test(top_level_output_directory,
                                  "/spwrans/?id=2009-10-26.S3W-27797.h",
                                  test_name="Testing Scottish written answer",
                                  test_short_name="spwrans",
@@ -343,7 +343,7 @@ def run_main_tests(output_directory):
             return False
         return True
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   spwrans_test,
                   lambda t: check_written_answer(t,
                                                  "Sarah Boyack",
@@ -357,13 +357,13 @@ def run_main_tests(output_directory):
 
     # Find a representative based on postcode:
 
-    postcode_test = run_http_test(output_directory,
+    postcode_test = run_http_test(top_level_output_directory,
                                   "/postcode/?pc=EH8+9NB",
                                   test_name="Testing postcode lookup",
                                   test_short_name="postcode",
                                   append_id=False)
 
-    run_page_test(output_directory,
+    run_page_test(top_level_output_directory,
                   postcode_test,
                   lambda t: t.soup.find( lambda x: x.name == 'h2' and x.string and x.string == "Denis Murphy" ),
                   test_name="Looking for valid postcode result",
@@ -371,7 +371,7 @@ def run_main_tests(output_directory):
 
     # ------------------------------------------------------------------------
 
-    run_http_test(output_directory,
+    run_http_test(top_level_output_directory,
                   "/mp/gordon_brown/kirkcaldy_and_cowdenbeath",
                   test_name="Fetching Gordon Brown's page",
                   test_short_name="gordon-brown")
@@ -381,14 +381,14 @@ def run_main_tests(output_directory):
     # ========================================================================
     # Generate the coverage report:
 
-    output_filename_all_coverage = os.path.join(output_directory,"coverage")
+    output_filename_all_coverage = os.path.join(top_level_output_directory,"coverage")
 
-    copied_coverage = os.path.join(output_directory,"complete-coverage")
+    copied_coverage = os.path.join(top_level_output_directory,"complete-coverage")
     rsync_from_guest("/home/alice/twfy-coverage/",copied_coverage)
 
     local_coverage_data_between(copied_coverage,start_all_coverage,end_all_coverage,output_filename_all_coverage)
 
-    used_source_directory = os.path.join(output_directory,"mysociety")
+    used_source_directory = os.path.join(top_level_output_directory,"mysociety")
 
     check_call(["mkdir","-p",used_source_directory])
 
@@ -402,28 +402,44 @@ def run_main_tests(output_directory):
                      user="alice",
                      verbose=False)
 
-    report_index_filename = os.path.join(output_directory,"report.html")
+    # Output some CSS:
+    fp = open(os.path.join(top_level_output_directory,"report.css"),"w")
+    fp.write('''/* Basic CSS for test reports: */
+
+.test {
+  padding: 5px;
+  margin: 5px;
+  border-width: 1px
+}
+.stdout_stderr {
+  padding: 5px;
+  margin: 5px;
+  background-color: #bfbfbf
+}
+''')
+
+    report_index_filename = os.path.join(top_level_output_directory,"report.html")
     fp = open(report_index_filename,"w")
 
     # Generate complete coverage report:
-    generate_coverage("/data/vhost/theyworkforyou.sandbox/mysociety/",
+    generate_coverage(top_level_output_directory,
+                      "/data/vhost/theyworkforyou.sandbox/mysociety/",
                       output_filename_all_coverage,
-                      os.path.join(output_directory,coverage_report_leafname),
+                      os.path.join(top_level_output_directory,coverage_report_leafname),
                       used_source_directory)
 
     fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <head>
 <title>They Work For You Test Reports</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<style type="text/css">
-%s
-</style>
+<link rel="stylesheet" type="text/css" href="%s" title="Basic CSS">
 </head>
 <body style="background-color: #ffffff">
 <h2>They Work For You Test Reports</h2>
 <p><a href="%s/coverage.html">Code coverage report for all tests.</a>
 </p>
-''' % (standard_css(),coverage_report_leafname))
+''' % (relative_css_path(top_level_output_directory,report_index_filename),
+       coverage_report_leafname))
 
     for t in all_tests:
         print "=============="

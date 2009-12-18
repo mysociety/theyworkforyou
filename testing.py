@@ -17,10 +17,20 @@ test_type_to_str = { -1 : "TEST_UNKNOWN",
 
 all_tests = []
 
+def relative_css_path(output_directory,current_html_filename):
+    print "relative_css_path('"+output_directory+"','"+current_html_filename+"') called..."
+    to_strip = ensure_slash(output_directory)
+    after_stripping = re.sub(re.escape(to_strip),'',current_html_filename)
+    dirname = os.path.dirname(after_stripping)
+    if len(dirname) > 0:
+        return re.sub('[^/]+','..',dirname) + '/report.css'
+    else:
+        return 'report.css'
+
 class Test:
     last_test_number = -1
-    def __init__(self,output_directory,test_name="Unknown test",test_short_name="unknown"):
-        self.output_directory = output_directory
+    def __init__(self,top_level_output_directory,test_name="Unknown test",test_short_name="unknown"):
+        self.top_level_output_directory = top_level_output_directory
         Test.last_test_number += 1
         self.test_number = Test.last_test_number
         self.test_short_name = test_short_name
@@ -47,7 +57,7 @@ class Test:
     def get_id_and_short_name(self):
         return "%04d-%s" % (self.test_number,self.test_short_name)
     def previous_output_directory(self):
-        parent, directory_name = os.path.split(self.output_directory)
+        parent, directory_name = os.path.split(self.top_level_output_directory)
         directories = os.listdir(parent)
         iso_8601_re = re.compile('^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d$')
         directories = [ x for x in directories if iso_8601_re.search(x) ]
@@ -58,7 +68,7 @@ class Test:
             return None
         return os.path.join(parent,directories[i-1])
     def set_test_output_directory(self):
-        o = os.path.join(self.output_directory,self.get_id_and_short_name())
+        o = os.path.join(self.top_level_output_directory,self.get_id_and_short_name())
         self.test_output_directory = o
         call(["mkdir",self.test_output_directory])
     def __str__(self):
@@ -224,7 +234,8 @@ class HTTPTest(Test):
         coverage_data_file = os.path.join(self.test_output_directory,"coverage")
         coverage_report_directory = os.path.join(self.test_output_directory,coverage_report_leafname)
         local_coverage_data_between(copied_coverage,self.start_time,self.end_time,coverage_data_file)
-        generate_coverage("/data/vhost/theyworkforyou.sandbox/mysociety/",
+        generate_coverage(self.top_level_output_directory,
+                          "/data/vhost/theyworkforyou.sandbox/mysociety/",
                           coverage_data_file,
                           coverage_report_directory,
                           used_source_directory)
@@ -300,35 +311,23 @@ def uses_to_colour(uses):
     else:
         raise Exception, "Unknown number of uses: "+str(uses)
 
-def standard_css():
-    return '''
-.test {
-  padding: 5px;
-  margin: 5px;
-  border-width: 1px
-}
-.stdout_stderr {
-  padding: 5px;
-  margin: 5px;
-  background-color: #bfbfbf
-}
-'''
-
 # This is a bit of a mess now.  The parameters should look a bit like this:
+#
+#   top_level_output_directory "output/2009-12-13T22:42:48"
 #
 #   uml_prefix_to_strip "/data/vhost/theyworkforyou.sandbox/mysociety/"
 #     (That's the bit to strip off the start of filenames in the coverage file.)
 #
 #   coverage_data_file "output/2009-12-13T22:42:48/coverage"
 #
-#   output_directory "output/2009-12-13T22:42:48/coverage-report"
+#   coverage_output_directory "output/2009-12-13T22:42:48/coverage-report"
 #
 #   original_source_directory "output/2009-12-13T22:42:48/mysociety"
 #     (This is the directory that we've copied the instrumented source code to.)
 
-def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,original_source_directory):
-    output_directory = ensure_slash(output_directory)
-    check_call(["mkdir","-p",output_directory])
+def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_data_file,coverage_output_directory,original_source_directory):
+    coverage_output_directory = ensure_slash(coverage_output_directory)
+    check_call(["mkdir","-p",coverage_output_directory])
     uml_prefix_re = re.compile(re.escape(uml_prefix_to_strip))
     files_to_coverage = {}
     fp = open(coverage_data_file)
@@ -369,7 +368,7 @@ def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,or
         used_lines = 0
         lines_to_uses = files_to_coverage[filename]
         original_filename = os.path.join(original_source_directory,filename)
-        output_filename = os.path.join(output_directory,filename+".html")
+        output_filename = os.path.join(coverage_output_directory,filename+".html")
         output_filename_dirname = os.path.split(output_filename)[0]
         if not os.path.exists(output_filename_dirname):
             os.makedirs(output_filename_dirname)
@@ -377,9 +376,7 @@ def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,or
         ofp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <head>
 <title>Coverage data for %s</title>
-<style type="text/css">
-%s
-</style>
+<link rel="stylesheet" type="text/css" href="%s" title="Basic CSS">
 </head>
 <body style="background-color: #ffffff">
 <table border=0>
@@ -390,7 +387,12 @@ def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,or
 </table>
 <hr>
 <pre>
-''' % (cgi.escape(filename),standard_css(),uses_to_colour(1),uses_to_colour(-1),uses_to_colour(-2),uses_to_colour(-9)))
+''' % (cgi.escape(filename),
+       relative_css_path(top_level_output_directory,output_filename),
+       uses_to_colour(1),
+       uses_to_colour(-1),
+       uses_to_colour(-2),
+       uses_to_colour(-9)))
         line_number = 1
         ifp = open(original_filename)
         for line in ifp:
@@ -413,19 +415,17 @@ def generate_coverage(uml_prefix_to_strip,coverage_data_file,output_directory,or
         filename_to_percent_coverage[filename] = percent_coverage
     fp.close()
     # Now output an index page:
-    index_filename = os.path.join(output_directory,"coverage.html")
+    index_filename = os.path.join(coverage_output_directory,"coverage.html")
     fp = open(index_filename,"w")
     fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <head>
+<link rel="stylesheet" type="text/css" href="%s" title="Basic CSS">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <title>Coverage Data Index</title>
-<style type="text/css">
-%s
-</style>
 </head>
 <body style="background-color: #ffffff">
 <table border=0>
-'''%(standard_css(),))
+'''%(relative_css_path(top_level_output_directory,index_filename),))
     filenames = filename_to_percent_coverage.keys()
     filenames.sort()
     for filename in filenames:
