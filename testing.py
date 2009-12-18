@@ -301,15 +301,53 @@ def local_coverage_data_between(directory,date_start,date_end,output):
 
 def uses_to_colour(uses):
     if uses == -2:
-        return "#555555"
+        return ( "not_executed", "#555555" )
     elif uses == -1:
-        return "#f37c7c"
+        return ( "dead_code", "#f37c7c" )
     elif uses > 0:
-        return "#8df37c"
+        return ( "executed", "#8df37c" )
     elif uses == -9:
-        return "#f4ff78"
+        return ( "comments", "#f4ff78" )
     else:
         raise Exception, "Unknown number of uses: "+str(uses)
+
+def write_css_file(css_filename):
+    fp = open( css_filename,"w")
+    fp.write('''/* Basic CSS for test reports: */
+
+.test {
+  padding: 5px;
+  margin: 5px;
+  border-width: 1px
+}
+.stdout_stderr {
+  padding: 5px;
+  margin: 5px;
+  background-color: #bfbfbf
+}
+
+.coverage_key {
+  color: #000000
+}
+.coverage_line {
+  color: #000000;
+  width: 100%%
+}
+
+.coverage_line_%s {
+  background-color: %s
+}
+.coverage_line_%s {
+  background-color: %s
+}
+.coverage_line_%s {
+  background-color: %s
+}
+.coverage_line_%s {
+  background-color: %s
+}
+
+''' % (uses_to_colour(-2) + uses_to_colour(-1) + uses_to_colour(1) + uses_to_colour(-9)))
 
 # This is a bit of a mess now.  The parameters should look a bit like this:
 #
@@ -380,19 +418,15 @@ def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_da
 </head>
 <body style="background-color: #ffffff">
 <table border=0>
-<tr><td style="background-color: %s; color: #000000;">A line which was executed</td></tr>
-<tr><td style="background-color: %s; color: #000000;">A line which was not executed</td></tr>
-<tr><td style="background-color: %s; color: #000000;">Dead code (could never be executed)</td></tr>
-<tr><td style="background-color: %s; color: #000000;">FIXME: Lines with no executable code (e.g. comments)</td></tr>
+<tr><td class="coverage_key coverage_line_executed">A line which was executed</td></tr>
+<tr><td class="coverage_key coverage_line_not_executed">A line which was not executed</td></tr>
+<tr><td class="coverage_key coverage_line_dead_code">Dead code (could never be executed)</td></tr>
+<tr><td class="coverage_key coverage_line_comments">Lines with no executable code (e.g. comments)</td></tr>
 </table>
 <hr>
 <pre>
 ''' % (cgi.escape(filename),
-       relative_css_path(top_level_output_directory,output_filename),
-       uses_to_colour(1),
-       uses_to_colour(-1),
-       uses_to_colour(-2),
-       uses_to_colour(-9)))
+       relative_css_path(top_level_output_directory,output_filename)))
         line_number = 1
         ifp = open(original_filename)
         for line in ifp:
@@ -405,9 +439,9 @@ def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_da
                 unused_lines += 1
             elif uses > 0:
                 used_lines += 1
-            colour = uses_to_colour(uses)
+            class_extension = uses_to_colour(uses)[0]
             line_number_string = "%4d (%2d)" % (line_number,uses)
-            ofp.write("<span style=\"background-color: %s; color: #000000; width: 100%%\"><strong>%s</strong> | %s</span>\n" % (colour,line_number_string,cgi.escape(line)))
+            ofp.write("<span class=\"coverage_line coverage_line_%s\"><strong>%s</strong> | %s</span>\n" % (class_extension,line_number_string,cgi.escape(line)))
             line_number += 1
         ofp.write("</pre>\n</body>\n</html>\n")
         ofp.close()

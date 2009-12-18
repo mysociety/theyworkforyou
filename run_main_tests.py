@@ -403,20 +403,7 @@ def run_main_tests(top_level_output_directory):
                      verbose=False)
 
     # Output some CSS:
-    fp = open(os.path.join(top_level_output_directory,"report.css"),"w")
-    fp.write('''/* Basic CSS for test reports: */
-
-.test {
-  padding: 5px;
-  margin: 5px;
-  border-width: 1px
-}
-.stdout_stderr {
-  padding: 5px;
-  margin: 5px;
-  background-color: #bfbfbf
-}
-''')
+    write_css_file(os.path.join(top_level_output_directory,"report.css"))
 
     report_index_filename = os.path.join(top_level_output_directory,"report.html")
     fp = open(report_index_filename,"w")
