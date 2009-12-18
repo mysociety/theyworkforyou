@@ -18,7 +18,6 @@ test_type_to_str = { -1 : "TEST_UNKNOWN",
 all_tests = []
 
 def relative_css_path(output_directory,current_html_filename):
-    print "relative_css_path('"+output_directory+"','"+current_html_filename+"') called..."
     to_strip = ensure_slash(output_directory)
     after_stripping = re.sub(re.escape(to_strip),'',current_html_filename)
     dirname = os.path.dirname(after_stripping)
