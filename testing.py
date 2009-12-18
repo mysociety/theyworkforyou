@@ -93,13 +93,11 @@ class Test:
     def output_included_html(self,fp,copied_coverage,used_source_directory):
         pass
     def output_html(self,fp,copied_coverage,used_source_directory):
-        passed_colour = "#96ff81"
-        failed_colour = "#ff8181"
         if self.succeeded():
-            background_colour = passed_colour
+            success_class = "passed"
         else:
-            background_colour = failed_colour
-        fp.write("<div class=\"test\" style=\"background-color: %s\">\n"%(background_colour,))
+            success_class = "failed"
+        fp.write("<div class=\"test %s\"\">\n"%(success_class,))
         fp.write("<h3>%s</h3>\n" % (self.test_name.encode('UTF-8'),))
         fp.write("<h4>%s</h4>\n" % (self.get_id_and_short_name(),))
         fp.write("<pre>\n")
@@ -319,6 +317,17 @@ def write_css_file(css_filename):
   margin: 5px;
   border-width: 1px
 }
+
+.passed {
+  /* background-color: #96ff18 */
+  background-color: #b7ffb5
+}
+
+.failed {
+  /* background-color: #ff8181 */
+  background-color: #ff9393
+}
+
 .stdout_stderr {
   padding: 5px;
   margin: 5px;
