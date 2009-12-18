@@ -245,7 +245,18 @@ class HTTPTest(Test):
             relative_full_image_filename = re.sub(re.escape(output_directory),'',self.full_image_filename)
             relative_thumbnail_image_filename = re.sub(re.escape(output_directory),'',self.thumbnail_image_filename)
             fp.write("<a href=\"%s\"><img src=\"%s\"></a>" % (relative_full_image_filename,relative_thumbnail_image_filename))
-            fp.write("</div>")
+            fp.write("</div>\n")
+        fp.write("<div class=\"validation\">\n")
+        if self.validate_result == 0:
+            success_class = "passed"
+        else:
+            success_class = "failed"
+        fp.write("<pre class=\"validation-report %s\">\n"%(success_class,))
+        vfp = open(os.path.join(self.test_output_directory,"validator-output"))
+        fp.write(cgi.escape(vfp.read()))
+        vfp.close()
+        fp.write("\n</pre>\n")
+        fp.write("</div>\n")
 
 # A page test is dependent on the result of previous HTTPTest - it
 # analyses those results:
