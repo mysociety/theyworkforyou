@@ -89,7 +89,7 @@ class Test:
         fp.write(str(self))
         fp.close()
     def succeeded(self):
-        raise Exception, "BUG: No default implementation for succeeded()"
+        raise Exception, "BUG: There's no default implementation for succeeded()"
     def output_included_html(self,fp,copied_coverage,used_source_directory):
         pass
     def output_html(self,fp,copied_coverage,used_source_directory):
