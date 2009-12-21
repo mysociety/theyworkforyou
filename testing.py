@@ -326,6 +326,10 @@ def write_css_file(css_filename):
     fp = open( css_filename,"w")
     fp.write('''/* Basic CSS for test reports: */
 
+table.source {
+  border-collapse: collapse
+}
+
 .test {
   padding: 5px;
   margin: 5px;
@@ -361,11 +365,17 @@ td.file-information, td.file-no-information {
 }
 
 .coverage_key {
-  color: #000000
+  color: #000000;
+  padding: 3px
 }
 .coverage_line {
   color: #000000;
-  width: 100%%
+  font-family: monospace
+}
+.coverage_line_number {
+  font-family: monospace;
+  padding-left: 5px;
+  padding-right: 5px
 }
 
 .coverage_line_%s {
@@ -462,9 +472,10 @@ def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_da
 <tr><td class="coverage_key coverage_line_not_executed">A line which was not executed</td></tr>
 <tr><td class="coverage_key coverage_line_dead_code">Dead code (could never be executed)</td></tr>
 <tr><td class="coverage_key coverage_line_comments">Lines with no executable code (e.g. comments)</td></tr>
+<tr><td class="coverage_key coverage_line_no_information">No information available</td></tr>
 </table>
 <hr>
-<table border="0">
+<table border="0" class="source">
 ''' % (cgi.escape(filename),
        relative_css_path(top_level_output_directory,output_filename)))
         line_number = 1
@@ -484,10 +495,11 @@ def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_da
             elif uses > 0:
                 used_lines += 1
             class_extension = uses_to_colour(uses)[0]
-            line_number_string = "%4d (%2d)" % (line_number,uses)
-            ofp.write("<span class=\"coverage_line coverage_line_%s\"><strong>%s</strong> | %s</span>\n" % (class_extension,line_number_string,cgi.escape(line)))
+            line_number_string = "%4d" % (line_number)
+            line_number_string = re.sub(' ','&nbsp;',line_number_string)
+            ofp.write("<tr><td class=\"coverage_line_number\"><strong>%s</strong></td><td class=\"coverage_line coverage_line_%s\">%s</td></tr>\n" % (line_number_string,class_extension,cgi.escape(line)))
             line_number += 1
-        ofp.write("</pre>\n</body>\n</html>\n")
+        ofp.write("</table>\n</body>\n</html>\n")
         ofp.close()
         possible_lines = used_lines + unused_lines
         if possible_lines > 0:
@@ -514,7 +526,7 @@ def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_da
 <body style="background-color: #ffffff">
 <p><a href="coverage-filename.html">Sorted by filename</a> |
    <a href="coverage-coverage.html">Sorted by percent coverage</a></p>
-<p>Files which were instrumented but not loaded or used have a <span style="file-no-information">darker background</span></a></p>
+<p>Files which were instrumented but not loaded or used have a <span class="file-no-information">darker background</span></a></p>
 <table border=0>
 '''%(relative_css_path(top_level_output_directory,output_filename),sort_method))
         for filename in filenames:
