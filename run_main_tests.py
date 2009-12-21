@@ -40,8 +40,6 @@ def run_main_tests(top_level_output_directory):
 
     instrumented_files = add_instrumentation("/data/vhost/theyworkforyou.sandbox/mysociety/twfy/www/")
     instrumented_files = [ "twfy/www/"+x for x in instrumented_files ]
-    for i in instrumented_files:
-        print "  Instrumented: "+i
 
     setup_coverage_directory()
 
