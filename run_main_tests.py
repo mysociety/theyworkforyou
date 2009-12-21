@@ -54,7 +54,6 @@ def run_main_tests(top_level_output_directory):
                                   "/postcode/?pc=EH8+9NB",
                                   test_name="Testing postcode lookup",
                                   test_short_name="postcode",
-                                  append_id=False,
                                   browser=browser)
 
     def cookie_jar_has(cj,k,v=None):
@@ -342,8 +341,7 @@ def run_main_tests(top_level_output_directory):
     spwrans_test = run_http_test(top_level_output_directory,
                                  "/spwrans/?id=2009-10-26.S3W-27797.h",
                                  test_name="Testing Scottish written answer",
-                                 test_short_name="spwrans",
-                                 append_id=False)
+                                 test_short_name="spwrans")
 
     def check_speaker_and_speech_tag(expected_name, got_name, expected_speech, got_speech_tag):
         if not expected_name == got_name:
@@ -390,8 +388,7 @@ def run_main_tests(top_level_output_directory):
     postcode_test = run_http_test(top_level_output_directory,
                                   "/postcode/?pc=EH8+9NB",
                                   test_name="Testing postcode lookup",
-                                  test_short_name="postcode",
-                                  append_id=False)
+                                  test_short_name="postcode")
 
     run_page_test(top_level_output_directory,
                   postcode_test,

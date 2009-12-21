@@ -168,12 +168,10 @@ def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown SS
     return s
 
 class HTTPTest(Test):
-    def __init__(self,output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,append_id=True,browser=None):
+    def __init__(self,output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None):
         Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_HTTP
         self.page = page
-        if append_id:
-            self.page += "?test-id="+self.get_id_and_short_name()
         self.soup = None
         self.full_image_filename = None
         self.thumbnail_image_filename = None
@@ -285,8 +283,8 @@ def run_page_test(output_directory,http_test,test_function,test_name="Unknown pa
     p.run()
     return p
 
-def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,append_id=True,browser=None):
-    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render,append_id=append_id,browser=browser)
+def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None):
+    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render,browser=browser)
     all_tests.append(h)
     h.run_timed()
     return h
