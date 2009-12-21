@@ -186,7 +186,6 @@ class HTTPTest(Test):
         Test.run(self)
         page_filename = os.path.join(self.test_output_directory,"page.html")
         self.fetch_succeeded = save_page(self.page,page_filename,url_opener=self.browser)
-        print "Result from save_page was: "+str(self.fetch_succeeded)
         if not self.fetch_succeeded:
             return
         # Try to validate the HTML:
