@@ -451,35 +451,6 @@ run_ssh_test(output_directory,
              test_short_name="import-remaining-data")
 
 # ========================================================================
-
-# Create a world-writable directory for coverage data:
-coverage_directory = "/home/alice/twfy-coverage/"
-if not path_exists_in_uml(coverage_directory):
-    if 0 != ssh("mkdir -m 0777 "+coverage_directory):
-        raise Exception, "Failed to create coverage data directory"
-
-# Remove any old data from that directory:
-if 0 != ssh("rm -f "+coverage_directory+"/*"):
-    raise Exception, "Failed to clean the coverage data directory"
-
-www_directory = "/data/vhost/theyworkforyou.sandbox/mysociety/twfy/www/"
-
-# Add the instrumentation:
-ssh_result = ssh("add-php-instrumentation.py "+www_directory,capture=True)
-if ssh_result.return_value != 0:
-    raise Exception, "Instrumenting the TWFY PHP code failed."
-
-instrumented_files = re.split('[\r\n]+',ssh_result.stdout_data)
-print "File list:"
-for i in instrumented_files:
-    print "  "+i
-
-# Copy over the instrument.php file:
-if 0 != scp("instrument.php",
-             www_directory+"/includes/"):
-    raise Exception, "Failed to copy over the instrument.php file"
-
-# ========================================================================
 # Now some more usual tests:
 
 run_main_tests(output_directory)

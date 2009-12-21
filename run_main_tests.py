@@ -11,9 +11,38 @@ from BeautifulSoup import BeautifulSoup
 from browser import *
 import cgi
 
+def add_instrumentation(www_directory):
+    # Add the instrumentation:
+    ssh_result = ssh("add-php-instrumentation.py "+www_directory,capture=True)
+    if ssh_result.return_value != 0:
+        raise Exception, "Instrumenting the TWFY PHP code failed."
+    instrumented_files = re.split('[\r\n]+',ssh_result.stdout_data)
+    # Copy over the instrument.php file:
+    if 0 != scp("instrument.php",
+                 www_directory+"/includes/"):
+        raise Exception, "Failed to copy over the instrument.php file"
+    return [ x for x in instrumented_files if len(x.strip()) > 0 ]
+
+def setup_coverage_directory():
+    # Create a world-writable directory for coverage data:
+    coverage_directory = "/home/alice/twfy-coverage/"
+    if not path_exists_in_uml(coverage_directory):
+        if 0 != ssh("mkdir -m 0777 "+coverage_directory):
+            raise Exception, "Failed to create coverage data directory"
+    # Remove any old data from that directory:
+    if 0 != ssh("rm -f "+coverage_directory+"/*"):
+        raise Exception, "Failed to clean the coverage data directory"
+
 def run_main_tests(top_level_output_directory):
     check_dependencies()
     setup_configuration()
+
+    instrumented_files = add_instrumentation("/data/vhost/theyworkforyou.sandbox/mysociety/twfy/www/")
+    instrumented_files = [ "twfy/www/"+x for x in instrumented_files ]
+    for i in instrumented_files:
+        print "  Instrumented: "+i
+
+    setup_coverage_directory()
 
     start_all_coverage = uml_date()
 
