@@ -83,7 +83,8 @@ def setup_configuration():
                                     'GUEST_IP',
                                     'GUEST_GATEWAY',
                                     'GUEST_NETMASK',
-                                    'GUEST_NAMESERVER' ]
+                                    'GUEST_NAMESERVER',
+                                    'UML_SERVER_HOSTNAME']
 
     for k in required_configuration_keys:
         if k not in configuration:
@@ -230,13 +231,13 @@ def generate_thumbnail_version(original_image_filename):
 
 def render_page(page_path,output_image_filename):
     return 0 == call(["./cutycapt/CutyCapt/CutyCapt",
-                      "--url=http://"+configuration['UML_SERVER_IP']+page_path,
+                      "--url=http://"+configuration['UML_SERVER_HOSTNAME']+page_path,
                       "--javascript=off",
                       "--plugins=off",
                       "--out="+output_image_filename])
 
 def save_page(page_path,output_html_filename,url_opener=None):
-    url = "http://"+configuration['UML_SERVER_IP']+page_path
+    url = "http://"+configuration['UML_SERVER_HOSTNAME']+page_path
     if url_opener:
         try:
             r = url_opener.open(url)
