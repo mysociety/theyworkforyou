@@ -415,6 +415,18 @@ def run_main_tests(top_level_output_directory):
                       os.path.join(top_level_output_directory,coverage_report_leafname),
                       used_source_directory)
 
+    total_number_of_tests = len(all_tests)
+    successes = 0
+    validations_failed = 0
+    failed_tests = []
+    for t in all_tests:
+        if t.succeeded():
+            successes += 1
+        else:
+            failed_tests.append(t)
+        if t.test_type == TEST_HTTP and t.validate_result != 0:
+            validations_failed += 1
+
     fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <head>
 <title>They Work For You Test Reports</title>
@@ -427,6 +439,18 @@ def run_main_tests(top_level_output_directory):
 </p>
 ''' % (relative_css_path(top_level_output_directory,report_index_filename),
        coverage_report_leafname))
+
+    if successes == total_number_of_tests:
+        fp.write("<p>All tests passed!</p>\n")
+    else:
+        fp.write("<p>%d out of %s tests passed</p>\n")
+        fp.write("<ul>\n")
+        for f in failed_tests:
+            fp.write("  <li><a href=\"#%s\">%s</a></li>\n" % (f.test_short_name,f.test_name))
+        fp.write("</ul>\n")
+
+    if validations_failed > 0:
+        fp.write("<p>%d HTML validations failed</p>"%(validations_failed,))
 
     for t in all_tests:
         print "=============="

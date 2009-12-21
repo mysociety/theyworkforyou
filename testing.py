@@ -97,7 +97,7 @@ class Test:
             success_class = "passed"
         else:
             success_class = "failed"
-        fp.write("<div class=\"test %s\"\">\n"%(success_class,))
+        fp.write("<div class=\"test %s\" id=\"\%s\">\n"%(success_class,self.test_short_name))
         fp.write("<h3>%s</h3>\n" % (self.test_name.encode('UTF-8'),))
         fp.write("<h4>%s</h4>\n" % (self.get_id_and_short_name(),))
         fp.write("<pre>\n")
