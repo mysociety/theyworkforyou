@@ -573,15 +573,19 @@ def non_tag_data_in(o):
         # Hope it's a string or something else concatenatable...
         return o
 
-def tag_text_is(tag,text):
+def tag_text_is(tag,text,substring=False):
     # Turn the text into a regular expression which doesn't care about
     # whitespace or case:
-    re_pattern = "^"+re.sub('(\\\\ )+','\s+',re.escape(text.strip()))+"$"
+    inner_pattern = re.sub('(\\\\ )+','\s+',re.escape(text.strip()))
+    if substring:
+        re_pattern = inner_pattern
+    else:
+        re_pattern = "^"+inner_pattern+"$"
     r = re.compile(re_pattern,re.IGNORECASE|re.MULTILINE|re.DOTALL)
     n = non_tag_data_in(tag).strip()
     # print "Comparing pattern: "+r.pattern
     # print "             with: "+n
-    result = r.match(non_tag_data_in(tag).strip())
+    result = r.search(n)
     # print "Result was: "+str(result)
     return result
 
