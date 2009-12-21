@@ -443,6 +443,17 @@ def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_da
         else:
             current_filename = re.search('^\s*(.*)',line).group(1)
             current_filename = uml_prefix_re.sub('',current_filename)
+            # Sometimes we end up with extraneous characters on the end of
+            # the filename.  According to:
+            # http://developer.spikesource.com/forums/viewtopic.php?p=1262&sid=7e3b220705b71caa81223f2e01c41212#1262
+            # ... this happens when code is dynamically evaluated,
+            # e.g. with "eval, create_function or preg_replace with the /e
+            # option".  The case I've come across is the preg_replace with
+            # #...#e in twfy/www/includes/easyparliament/templates/html/hansard_gid.php
+            if re.search('\(',current_filename):
+                print "Stripping suspicious characters from filename: '"+current_filename+"'"
+                current_filename = re.sub('\(.*$','',current_filename)
+                print "It's now: '"+current_filename+"'"
             files_to_coverage.setdefault(current_filename,{})
     filenames_with_coverage_data = files_to_coverage.keys()
     filename_to_percent_coverage = {}
