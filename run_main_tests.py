@@ -401,6 +401,76 @@ def run_main_tests(top_level_output_directory):
                   test_name="Fetching Gordon Brown's page",
                   test_short_name="gordon-brown")
 
+    def tag_has_speech_class(x):
+        for t in x.attrs:
+            if t[0] == 'class' and re.search('(^| )speech($| )',t[1]):
+                return True
+        return False
+
+    def check_debate_has_speech(http_test,author,speech_text_substring):
+        speeches = http_test.soup.findAll(lambda x: x.name == "div" and tag_has_speech_class(x))
+        for s in speeches:
+            if s.find(lambda x: x.name == 'a' and tag_text_is(x,author)):
+               for main in s.findAll(lambda x: x.name == 'div' and ('class','main') in x.attrs):
+                   if tag_text_is(main,speech_text_substring,substring=True):
+                       return True
+        return False
+
+    ni_debate_test = run_http_test(top_level_output_directory,
+                                   "/ni/?id=2009-10-13.5.13",
+                                   test_short_name="debate-ni",
+                                   test_name="Fetching a Northern Ireland Assembly debate page")
+
+    run_page_test(top_level_output_directory,
+                  ni_debate_test,
+                  lambda t: check_debate_has_speech(t,'Margaret Ritchie','energy efficiency is but one element in the alleviation of fuel poverty'),
+                  test_name="Checking speech appears in NI debate",
+                  test_short_name="debate-ni-has-speech")
+
+    commons_debate_test = run_http_test(top_level_output_directory,
+                                        "/debates/?id=2009-10-29a.548.0",
+                                        test_short_name="debate-commons",
+                                        test_name="Fetching a Commons debate page")
+
+    run_page_test(top_level_output_directory,
+                  commons_debate_test,
+                  lambda t: check_debate_has_speech(t,'David Taylor','common areas where consumers potentially are not getting'),
+                  test_name="Checking speech appears in Commons debate",
+                  test_short_name="debate-commons-has-speech")
+
+    lords_debate_test = run_http_test(top_level_output_directory,
+                                      "/lords/?id=2009-10-27a.1100.6",
+                                      test_short_name="debate-lords",
+                                      test_name="Fetching a Lords debate page")
+
+    run_page_test(top_level_output_directory,
+                  lords_debate_test,
+                  lambda t: check_debate_has_speech(t,'Baroness Thornton','concerned about the health information on labels on alcoholic drinks'),
+                  test_name="Checking speech appears in Lords debate",
+                  test_short_name="debate-lords-has-speech")
+
+    whall_debate_test = run_http_test(top_level_output_directory,
+                                      "/whall/?id=2009-10-27a.47.0",
+                                      test_short_name="debate-whall",
+                                      test_name="Fetching a Westminster Hall debate page")
+
+    run_page_test(top_level_output_directory,
+                  whall_debate_test,
+                  lambda t: check_debate_has_speech(t,'Chris Mole','undermine the basic affordability of the dualling of the line'),
+                  test_name="Checking speech appears in Westminster Hall debate",
+                  test_short_name="debate-whall-has-speech")
+
+    scotland_debate_test = run_http_test(top_level_output_directory,
+                                         "/sp/?id=2009-10-28.20531.0",
+                                         test_short_name="debate-scotland",
+                                         test_name="Fetching a Scottish Parliament debate page")
+
+    run_page_test(top_level_output_directory,
+                  scotland_debate_test,
+                  lambda t: check_debate_has_speech(t,'Fiona Hyslop','have focused in particular on lower-income families'),
+                  test_name="Checking speech appears in Scottish Parliament debate",
+                  test_short_name="debate-scotland-has-speech")
+
     end_all_coverage = uml_date()
 
     # ========================================================================
