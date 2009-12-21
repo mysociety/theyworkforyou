@@ -34,6 +34,7 @@ def setup_coverage_directory():
         raise Exception, "Failed to clean the coverage data directory"
 
 def run_main_tests(top_level_output_directory):
+
     check_dependencies()
     setup_configuration()
 
@@ -442,7 +443,8 @@ def run_main_tests(top_level_output_directory):
                       "/data/vhost/theyworkforyou.sandbox/mysociety/",
                       output_filename_all_coverage,
                       os.path.join(top_level_output_directory,coverage_report_leafname),
-                      used_source_directory)
+                      used_source_directory,
+                      instrumented_files)
 
     total_number_of_tests = len(all_tests)
     successes = 0
@@ -464,7 +466,7 @@ def run_main_tests(top_level_output_directory):
 </head>
 <body style="background-color: #ffffff">
 <h2>They Work For You Test Reports</h2>
-<p><a href="%s/coverage.html">Code coverage report for all tests.</a>
+<p><a href="%s/coverage-coverage.html">Code coverage report for all tests.</a>
 </p>
 ''' % (relative_css_path(top_level_output_directory,report_index_filename),
        coverage_report_leafname))
@@ -484,6 +486,8 @@ def run_main_tests(top_level_output_directory):
     for t in all_tests:
         print "=============="
         print str(t)
+        if t.test_type == TEST_HTTP:
+            t.output_coverage(copied_coverage,used_source_directory,instrumented_files)
         t.output_html(fp,copied_coverage,used_source_directory)
 
     fp.write('''</body></html>''')

@@ -226,8 +226,7 @@ class HTTPTest(Test):
         s = Test.__str__(self)
         s += "\n  page: "+str(self.page)
         return s
-    def output_included_html(self,fp,copied_coverage,used_source_directory):
-        # Generate coverage information:
+    def output_coverage(self,copied_coverage,used_source_directory,instrumented_files):
         coverage_data_file = os.path.join(self.test_output_directory,"coverage")
         coverage_report_directory = os.path.join(self.test_output_directory,coverage_report_leafname)
         local_coverage_data_between(copied_coverage,self.start_time,self.end_time,coverage_data_file)
@@ -235,8 +234,10 @@ class HTTPTest(Test):
                           "/data/vhost/theyworkforyou.sandbox/mysociety/",
                           coverage_data_file,
                           coverage_report_directory,
-                          used_source_directory)
-        relative_url = os.path.join(os.path.join(self.get_id_and_short_name(),coverage_report_leafname),"coverage.html")
+                          used_source_directory,
+                          instrumented_files)
+    def output_included_html(self,fp,copied_coverage,used_source_directory):
+        relative_url = os.path.join(os.path.join(self.get_id_and_short_name(),coverage_report_leafname),"coverage-coverage.html")
         fp.write("<p><a href=\"%s\">Code coverage for this test.</a></p>\n" % (relative_url,))
         if self.render and self.full_image_filename:
             # fp.write("<div style=\"float: right\">")
@@ -316,6 +317,8 @@ def uses_to_colour(uses):
         return ( "executed", "#8df37c" )
     elif uses == -9:
         return ( "comments", "#f4ff78" )
+    elif uses == -8:
+        return ( "no_information", "#cccccc" )
     else:
         raise Exception, "Unknown number of uses: "+str(uses)
 
@@ -345,6 +348,18 @@ def write_css_file(css_filename):
   background-color: #bfbfbf
 }
 
+.file-no-information {
+  background-color: #cccccc
+}
+
+.file-information {
+  background-color: #ffffff
+}
+
+td.file-information, td.file-no-information {
+  padding-left: 25px
+}
+
 .coverage_key {
   color: #000000
 }
@@ -365,8 +380,11 @@ def write_css_file(css_filename):
 .coverage_line_%s {
   background-color: %s
 }
+.coverage_line_%s {
+  background-color: %s
+}
 
-''' % (uses_to_colour(-2) + uses_to_colour(-1) + uses_to_colour(1) + uses_to_colour(-9)))
+''' % (uses_to_colour(-2) + uses_to_colour(-1) + uses_to_colour(1) + uses_to_colour(-9) + uses_to_colour(-8)))
 
 # This is a bit of a mess now.  The parameters should look a bit like this:
 #
@@ -382,11 +400,13 @@ def write_css_file(css_filename):
 #   original_source_directory "output/2009-12-13T22:42:48/mysociety"
 #     (This is the directory that we've copied the instrumented source code to.)
 
-def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_data_file,coverage_output_directory,original_source_directory):
+def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_data_file,coverage_output_directory,original_source_directory,instrumented_files):
     coverage_output_directory = ensure_slash(coverage_output_directory)
     check_call(["mkdir","-p",coverage_output_directory])
     uml_prefix_re = re.compile(re.escape(uml_prefix_to_strip))
     files_to_coverage = {}
+    for i in instrumented_files:
+        files_to_coverage[i] = {}
     fp = open(coverage_data_file)
     current_filename = None
     for line in fp:
@@ -444,15 +464,19 @@ def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_da
 <tr><td class="coverage_key coverage_line_comments">Lines with no executable code (e.g. comments)</td></tr>
 </table>
 <hr>
-<pre>
+<table border="0">
 ''' % (cgi.escape(filename),
        relative_css_path(top_level_output_directory,output_filename)))
         line_number = 1
         ifp = open(original_filename)
         for line in ifp:
             line = line.rstrip()
-            uses = -9
-            colour = "#cccccc"
+            if len(lines_to_uses) == 0:
+                # Then we have no information at all about the file:
+                uses = -8
+            else:
+                # Then we have some information, so the default is to be a comment:
+                uses = -9
             if line_number in lines_to_uses:
                 uses = lines_to_uses[line_number]
             if uses == -1:
@@ -465,31 +489,53 @@ def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_da
             line_number += 1
         ofp.write("</pre>\n</body>\n</html>\n")
         ofp.close()
-        percent_coverage = (100 * used_lines) / float(used_lines + unused_lines)
+        possible_lines = used_lines + unused_lines
+        if possible_lines > 0:
+            percent_coverage = (100 * used_lines) / float(possible_lines)
+        else:
+            percent_coverage = 0
         filename_to_percent_coverage[filename] = percent_coverage
     fp.close()
+
+    filenames = filename_to_percent_coverage.keys()
+    filenames.sort()
+    filenames_by_coverage = sorted(filenames,key=lambda x: (-filename_to_percent_coverage[x],x))
+
     # Now output an index page:
-    index_filename = os.path.join(coverage_output_directory,"coverage.html")
-    fp = open(index_filename,"w")
-    fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    def output_coverage_index(coverage_output_directory,filenames,files_to_coverage,sort_method):
+        output_filename = os.path.join(coverage_output_directory,"coverage-"+sort_method+".html")
+        fp = open(output_filename,"w")
+        fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <head>
 <link rel="stylesheet" type="text/css" href="%s" title="Basic CSS">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<title>Coverage Data Index</title>
+<title>Coverage Data Index (sorted by %s)</title>
 </head>
 <body style="background-color: #ffffff">
+<p><a href="coverage-filename.html">Sorted by filename</a> |
+   <a href="coverage-coverage.html">Sorted by percent coverage</a></p>
+<p>Files which were instrumented but not loaded or used have a <span style="file-no-information">darker background</span></a></p>
 <table border=0>
-'''%(relative_css_path(top_level_output_directory,index_filename),))
-    filenames = filename_to_percent_coverage.keys()
-    filenames.sort()
-    for filename in filenames:
-        url = filename + ".html"
-        coverage = filename_to_percent_coverage[filename]
-        fp.write("<tr><td><tt><a href=\"%s\">%s</a></tt></td><td>%3d%%</td></tr>\n" % (url,filename,int(coverage)))
-    fp.write('''</table>
+'''%(relative_css_path(top_level_output_directory,output_filename),sort_method))
+        for filename in filenames:
+            url = filename + ".html"
+            coverage = filename_to_percent_coverage[filename]
+            cell_class = "file-information"
+            if len(files_to_coverage[filename]) == 0:
+                cell_class = "file-no-information"
+            fp.write("<tr><td class=\"%s\"><tt><a href=\"%s\">%s</a></tt></td><td>%3d%%</td></tr>\n" % (cell_class,url,filename,int(coverage)))
+        fp.write('''</table>
 </body>
 </html>''')
-    fp.close()
+        fp.close()
+    output_coverage_index(coverage_output_directory,
+                          filenames,
+                          files_to_coverage,
+                          "filename")
+    output_coverage_index(coverage_output_directory,
+                          filenames_by_coverage,
+                          files_to_coverage,
+                          "coverage")
 
 # The method that should be in BeautifulSoup:
 
