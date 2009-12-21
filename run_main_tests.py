@@ -498,7 +498,7 @@ if __name__ == '__main__':
     if options.output_directory:
         output_directory = options.output_directory
     else:
-        output_directory = create_output_directory() 
+        output_directory = create_output_directory()
 
     check_call(["mkdir","-p",output_directory])
 
