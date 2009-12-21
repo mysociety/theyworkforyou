@@ -469,10 +469,10 @@ def run_main_tests(top_level_output_directory):
     if successes == total_number_of_tests:
         fp.write("<p>All tests passed!</p>\n")
     else:
-        fp.write("<p>%d out of %s tests passed</p>\n")
+        fp.write("<p>%d out of %d tests passed</p>\n"%(successes,total_number_of_tests))
         fp.write("<ul>\n")
         for f in failed_tests:
-            fp.write("  <li><a href=\"#%s\">%s</a></li>\n" % (f.test_short_name,f.test_name))
+            fp.write("  <li><a href=\"#%s\">%s</a></li>\n" % (f.get_id_and_short_name(),f.test_name))
         fp.write("</ul>\n")
 
     if validations_failed > 0:
