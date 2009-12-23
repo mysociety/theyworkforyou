@@ -212,7 +212,8 @@ Commons Attribution-ShareAlike license version 2.5</a>.
 
 <p>Low volume, non-commercial use of the API service itself is free. Please
 <a href="/contact">contact us</a> for commercial use, or if you are about
-to use the service on a large scale.
+to use the service on a large scale. Please credit TheyWorkForYou if you
+use the API.
 
 <h3>Bindings</h3>
 
