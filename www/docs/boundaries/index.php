@@ -6,8 +6,8 @@ include_once '../../../../phplib/mapit.php';
 
 $PAGE->page_start();
 ?>
-<h2>General election constituency boundaries (NI being done overnight)</h2>
-<div style="margin-left:18px; margin-right:14px; overflow: auto;">
+<h2>General election constituency boundaries</h2>
+<div style="margin-top: 14px; margin-left:18px; margin-right:14px; overflow: auto;">
 <?
 
 function create_map_filename($c) {
@@ -63,8 +63,7 @@ if ($pc) {
     if (isset($new)) {
         print '<li>At the next election, you will be in the <strong>' . $new . '</strong> constituency.';
     } else {
-        print '<li>We cannot look up the constituency for the next election for some reason.
-If you have entered a Northern Irish postcode, that data should be added overnight.';
+        print '<li>We cannot look up the constituency for the next election for some reason, sorry.';
     }
 
     echo '</ul>';
