@@ -777,3 +777,46 @@ div.sort ul {padding-left:0.5em;}
 
 /* highlight*/
 span.highlight {background:#ffffd7; padding: 0 1em;}
+
+/* Boundaries stuff */
+#boundaries {
+    margin-top: 14px;
+    margin-left: 18px;
+    margin-right: 14px;
+    overflow: auto;
+}
+#boundaries #maps {
+    float: right;
+    width: 400px;
+    padding-left: 1em;
+    background-color: #ffffff;
+}
+#boundaries #maps h3 {
+    margin: 0;
+}
+#boundaries #maps .desc {
+    padding-bottom: 0;
+}
+#boundaries #maps .footer {
+    clear: both;
+}
+#boundaries .results {
+    font-size: 150%;
+    list-style-type: disc;
+    margin-left: 1em;
+}
+#boundaries .picture {
+    text-align: center;
+    float: right;
+    padding-left: 1em;
+    background-color: #ffffff;
+    padding-bottom: 0.em;
+    width: 358px;
+}
+#boundaries .intro {
+    padding-top: 1em;
+    border-top: solid 1px #666666;
+}
+#boundaries form {
+    margin-left: 3em;
+}

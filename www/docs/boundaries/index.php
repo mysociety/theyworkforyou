@@ -7,7 +7,7 @@ include_once '../../../../phplib/mapit.php';
 $PAGE->page_start();
 ?>
 <h2>General election constituency boundaries</h2>
-<div style="margin-top: 14px; margin-left:18px; margin-right:14px; overflow: auto;">
+<div id="boundaries">
 <?
 
 function create_map_filename($c) {
@@ -39,24 +39,24 @@ if ($pc) {
     $MEMBER = new MEMBER(array('constituency' => $current));
 ?>
 
-<div style="float:right;width:420px; padding-left: 1em; background-color: #ffffff;">
-<h3 style="margin:0">Maps</h3>
-<p style='padding-bottom:0'>Current constituency of <?=$current_disp?>:</p>
+<div id="maps">
+<h3>Maps</h3>
+<p class="desc">Current constituency of <?=$current_disp?>:</p>
 <p><img src='http://matthew.theyworkforyou.com/boundaries/maps_now/<?=$map_url_current?>.png' alt='Map showing boundary of the <?=$current_disp?> constituency' width=400 height=400>
 <?
     if (isset($new_info) && $new_info['country'] == 'N') {
         print '<p><em>There is no map showing the new constituency boundary for Northern Irish constituencies.</em></p>';
     } elseif (isset($new)) {
-        print "<p style='padding-bottom:0'>$new constituency at next election:</p>";
+        print "<p class='desc'>$new constituency at next election:</p>";
         print "<p><img src='http://matthew.theyworkforyou.com/boundaries/maps_next/$map_url_new.png' alt='Map showing boundary of the $new constituency' width=400 height=400>";
     }
 ?>
 
-<p style="clear:both"><small>Images produced from the Ordnance Survey <a href="http://www.election-maps.co.uk/" rel="nofollow">election-maps</a> service. Images reproduced with permission of <a href="http://www.ordnancesurvey.co.uk/" rel="nofollow">Ordnance Survey</a> and <a href="http://www.lpsni.gov.uk/" rel="nofollow">Land and Property Services</a>.</small></p>
+<p class="footer"><small>Images produced from the Ordnance Survey <a href="http://www.election-maps.co.uk/" rel="nofollow">election-maps</a> service. Images reproduced with permission of <a href="http://www.ordnancesurvey.co.uk/" rel="nofollow">Ordnance Survey</a> and <a href="http://www.lpsni.gov.uk/" rel="nofollow">Land and Property Services</a>.</small></p>
 
 </div>
 
-<ul style="margin-left:1em; list-style-type: disc; font-size: 150%;">
+<ul class="results">
 
 <li>You are currently in the <strong><?=$current_disp?></strong> constituency; your MP is <a href='<?=$MEMBER->url()?>'><?=$MEMBER->full_name()?></a>.</p>
 <?
@@ -72,16 +72,24 @@ if ($pc) {
         print '<p>The constituency may have kept the same name but altered its boundaries &ndash; do check the maps on the right.</p>';
     }
 }
+
+if (!$pc) { ?>
+<div class="picture">
+<a href="http://www.flickr.com/photos/markybon/138214000/" title="Boundaries by MarkyBon, on Flickr"><img src="http://farm1.static.flickr.com/51/138214000_80327fe675.jpg" width="358" height="500" alt="Boundaries"></a>
+<br><small>Boundaries by MarkyBon</small>
+</div>
+<?
+}
 ?>
 
-<p style="padding-top:1em; border-top: solid 1px #666666;">Constituency
+<p class="intro">Constituency
 boundaries are <strong>changing</strong> at the next general election in
 England, Wales, and Northern Ireland. Enter your postcode here to find out
 what constituency you are currently in, and what constituency you will
 be voting in at the election, along with maps of before and after.
 </p>
 
-<form method="get" style="margin-left: 3em">
+<form method="get">
 <p><label for="pc">Enter your UK postcode:</label>
 <input type="text" id="pc" name="pc" value="<?=htmlspecialchars($pc)?>" size="7">
 <input type="submit" value="Look up">
