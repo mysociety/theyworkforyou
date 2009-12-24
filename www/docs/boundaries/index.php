@@ -44,11 +44,15 @@ if ($pc) {
 <p class="desc">Current constituency of <?=$current_disp?>:</p>
 <p><img src='http://matthew.theyworkforyou.com/boundaries/maps_now/<?=$map_url_current?>.png' alt='Map showing boundary of the <?=$current_disp?> constituency' width=400 height=400>
 <?
-    if (isset($new_info) && $new_info['country'] == 'N') {
-        print '<p><em>There is no map showing the new constituency boundary for Northern Irish constituencies.</em></p>';
-    } elseif (isset($new)) {
-        print "<p class='desc'>$new constituency at next election:</p>";
-        print "<p><img src='http://matthew.theyworkforyou.com/boundaries/maps_next/$map_url_new.png' alt='Map showing boundary of the $new constituency' width=400 height=400>";
+    if (isset($new_info)) {
+        if ($new_info['country'] == 'N') {
+            print '<p><em>There is no map showing the new constituency boundary for Northern Irish constituencies.</em></p>';
+        } elseif ($new_info['country'] == 'S') {
+            print '<p><em>There are no boundary changes in Scotland for this election.</em></p>';
+        } else {
+            print "<p class='desc'>$new constituency at next election:</p>";
+            print "<p><img src='http://matthew.theyworkforyou.com/boundaries/maps_next/$map_url_new.png' alt='Map showing boundary of the $new constituency' width=400 height=400>";
+        }
     }
 ?>
 
@@ -60,7 +64,9 @@ if ($pc) {
 
 <li>You are currently in the <strong><?=$current_disp?></strong> constituency; your MP is <a href='<?=$MEMBER->url()?>'><?=$MEMBER->full_name()?></a>.</p>
 <?
-    if (isset($new)) {
+    if (isset($new) && $new_info['country']=='S') {
+        print '<li>Scotland does not have any boundary changes, so you will remain in this constituency.';
+    } elseif (isset($new)) {
         print '<li>At the next election, you will be in the <strong>' . $new . '</strong> constituency.';
     } else {
         print '<li>We cannot look up the constituency for the next election for some reason, sorry.';
@@ -68,7 +74,7 @@ if ($pc) {
 
     echo '</ul>';
 
-    if (isset($new) && $current_disp == $new && $new_info['country']!='N') {
+    if (isset($new) && $current_disp == $new && $new_info['country']!='S') {
         print '<p>The constituency may have kept the same name but altered its boundaries &ndash; do check the maps on the right.</p>';
     }
 }
