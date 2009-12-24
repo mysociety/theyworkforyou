@@ -245,6 +245,11 @@ $this->page = array (
 		'url'			=> 'api/key'
 	),
 
+    'boundaries' => array(
+        'title' => 'Constituency boundaries',
+        'url' => 'boundaries/',
+    ),
+
 	'cards' => array (
 		'title'			=> 'MP Stats Cards',
 		'url'			=> 'cards/'
@@ -872,7 +877,8 @@ $this->page = array (
 		'pg'			=> 'edit',
 		'title'			=> 'Edit your details',
 		'url'			=> 'user/'
-	),'userjoin' => array (
+	),
+    'userjoin' => array (
                 'menu'                  => array (
                         'text'                  => 'Join',
                         'title'                 => "Joining is free and allows you to annotate speeches"

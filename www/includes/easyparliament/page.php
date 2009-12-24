@@ -916,7 +916,12 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		foreach ($pages as $page) {
 
             //get meta data
-			$title = $DATA->page_metadata($page, 'title');
+			$menu = $DATA->page_metadata($page, 'menu');
+            if ($menu) {
+			    $title = $menu['text'];
+            } else {
+			    $title = $DATA->page_metadata($page, 'title');
+            }
 			$url = $DATA->page_metadata($page, 'url');
 			
 			//check for external vs internal menu links
@@ -929,7 +934,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			if ($page == $this_page) {
 				$links[] = $title;
 			} else {
-				$links[] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+				$links[] = '<a href="' . $url . '">' . $title . '</a>';
 			}
 		}
 
@@ -942,7 +947,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
         		global $DATA, $this_page;
 
         		$about_links = $this->get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact'));
-                $assembly_links = $this->get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home'));		
+                $assembly_links = $this->get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home', 'boundaries'));
                 $international_links = $this->get_menu_links(array ('newzealand', 'australia', 'ireland'));
                 $tech_links = $this->get_menu_links(array ('code', 'api', 'data', 'devmailinglist', 'irc'));
 

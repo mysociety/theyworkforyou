@@ -1,8 +1,8 @@
 <?php
 
+$this_page = 'boundaries';
 include_once "../../includes/easyparliament/init.php";
 include_once '../../../../phplib/mapit.php';
-
 
 $PAGE->page_start();
 ?>
