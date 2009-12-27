@@ -222,9 +222,6 @@ function person_enter_leave_facts($member, $extra_info) {
 		if ($member['entered_house'][1]['reason']) print ' &mdash; ' . $member['entered_house'][1]['reason'];
 		print '</li>';
 	}
-    if (isset($extra_info['standing_down']) && $extra_info['standing_down']) {
-        print '<li><strong>Standing down</strong> at the next election</li>';
-    }
 	if (in_array(1, $member['houses']) && !$member['current_member'][1] && !isset($member['entered_house'][2])) {
 		print '<li><strong>Left Parliament ';
 		if (strlen($member['left_house'][1]['date_pretty'])==4)
@@ -234,6 +231,8 @@ function person_enter_leave_facts($member, $extra_info) {
 		echo $member['left_house'][1]['date_pretty'].'</strong>';
 		if ($member['left_house'][1]['reason']) print ' &mdash; ' . $member['left_house'][1]['reason'];
 		print '</li>';
+	} elseif (isset($extra_info['standing_down']) && $extra_info['standing_down']) {
+		print '<li><strong>Standing down</strong> at the next election</li>';
 	}
 
 	if (isset($member['entered_house'][3]['date'])) {
