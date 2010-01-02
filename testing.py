@@ -303,7 +303,7 @@ class PageTest(Test):
 def run_page_test(output_directory,http_test,test_function,test_name="Unknown page test",test_short_name="unknown-page"):
     p = PageTest(output_directory,http_test,test_function,test_name=test_name,test_short_name=test_short_name)
     all_tests.append(p)
-    p.run()
+    p.page_test_result = p.run()
     return p
 
 def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None):
