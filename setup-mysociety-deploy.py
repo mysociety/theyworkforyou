@@ -394,7 +394,7 @@ try:
     # Get the email users:
     ssh_result = ssh("/usr/local/bin/find-email-users theyworkforyou.sandbox",capture=True)
     if ssh_result.return_value != 0:
-        raise Exception, "Finding the database schemas failed"
+        raise Exception, "Finding the email users failed"
 
     for line in re.split('[\r\n]+',ssh_result.stdout_data):
         m = re.search("^([^:]+): (.*)$",line)
