@@ -310,6 +310,14 @@ add_passwords_to_configuration()
 
 untemplate_and_rsync("files-for-uml-deploy")
 
+# Restart exim after updating its config:
+
+if 0 != ssh("update-exim4.conf",user="root"):
+    raise Exception, "Updating the exim configuration failed"
+
+if 0 != ssh("/etc/init.d/exim4 restart",user="root"):
+    raise Exception, "Restarting exim4 failed"
+
 # ------------------------------------------------------------------------
 
 # At least set up the mysql root password and twfy database:
