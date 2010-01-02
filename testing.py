@@ -188,7 +188,7 @@ def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown SS
     return s
 
 class HTTPTest(Test):
-    def __init__(self,output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None):
+    def __init__(self,output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None,check_for_error_element=True):
         Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_HTTP
         self.page = page
@@ -200,6 +200,7 @@ class HTTPTest(Test):
         self.parsing_succeeded = False
         self.no_error_check_succeeded = False
         self.render = render
+        self.check_for_error_element = check_for_error_element
         self.error_message = ""
         self.browser = browser
     def run(self):
@@ -239,7 +240,9 @@ class HTTPTest(Test):
         else:
             print >> sys.stderr, "Parsing with BeautifulSoup failed"
             return
-        if not self.soup.findAll(attrs={"class":"error"}):
+        if self.check_for_error_element and self.soup.findAll(attrs={"class":"error"}):
+            print >> sys.stderr, "Page contained an element with class=\"error\""
+        else:
             self.no_error_check_succeeded = True
     def succeeded(self):
         return self.fetch_succeeded and (self.render_succeeded or not self.render) and self.parsing_succeeded and self.no_error_check_succeeded
@@ -306,8 +309,8 @@ def run_page_test(output_directory,http_test,test_function,test_name="Unknown pa
     p.page_test_result = p.run()
     return p
 
-def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None):
-    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render,browser=browser)
+def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None,check_for_error_element=True):
+    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render,browser=browser,check_for_error_element=check_for_error_element)
     all_tests.append(h)
     h.run_timed()
     return h
