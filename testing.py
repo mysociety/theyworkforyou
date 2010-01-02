@@ -421,6 +421,18 @@ td.file-information, td.file-no-information {
 
 ''' % (uses_to_colour(-2) + uses_to_colour(-1) + uses_to_colour(1) + uses_to_colour(-9) + uses_to_colour(-8)))
 
+def create_output_directory():
+    iso_time = time.strftime("%Y-%m-%dT%H:%M:%S",time.gmtime())
+    output_directory = "output/%s/" % (iso_time,)
+    latest_symlink = "output/latest"
+    if os.path.exists(latest_symlink):
+        call(["rm",latest_symlink])
+    check_call(["mkdir","-p",output_directory])
+    check_call(["ln","-s",iso_time,latest_symlink])
+    # Output the CSS:
+    write_css_file(os.path.join(output_directory,"report.css"))
+    return output_directory
+
 # This is a bit of a mess now.  The parameters should look a bit like this:
 #
 #   top_level_output_directory "output/2009-12-13T22:42:48"
@@ -664,9 +676,6 @@ def output_report(top_level_output_directory,instrumented_files=None):
                      os.path.join(used_source_directory,"phplib"),
                      user="alice",
                      verbose=False)
-
-    # Output some CSS:
-    write_css_file(os.path.join(top_level_output_directory,"report.css"))
 
     report_index_filename = os.path.join(top_level_output_directory,"report.html")
     fp = open(report_index_filename,"w")
