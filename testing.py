@@ -325,11 +325,15 @@ class HTTPTest(Test):
             success_class = "passed"
         else:
             success_class = "failed"
-        fp.write("<pre class=\"validation-report %s\">\n"%(success_class,))
-        vfp = open(os.path.join(self.test_output_directory,"validator-output"))
-        fp.write(cgi.escape(vfp.read()))
-        vfp.close()
-        fp.write("\n</pre>\n")
+        if self.validate_result != -999:
+            fp.write("<pre class=\"validation-report %s\">\n"%(success_class,))
+            vfp = open(os.path.join(self.test_output_directory,"validator-output"))
+            for line in vfp:
+                escaped_line = cgi.escape(line)
+                escaped_line = re.sub('^.*page\\.html:(\d+)(.*)$','<a href="%s/page-source.html#\\1">\\1</a>\\2'%(self.get_id_and_short_name(),),escaped_line)
+                fp.write(escaped_line)
+            vfp.close()
+            fp.write("\n</pre>\n")
         fp.write("</div>\n")
 
 # A page test is dependent on the result of previous HTTPTest - it
