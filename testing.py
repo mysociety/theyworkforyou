@@ -203,11 +203,62 @@ class HTTPTest(Test):
         self.check_for_error_element = check_for_error_element
         self.error_message = ""
         self.browser = browser
+        self.validate_result = -999
     def run(self):
         Test.run(self)
         page_filename = os.path.join(self.test_output_directory,"page.html")
         self.fetch_succeeded = save_page(self.page,page_filename,url_opener=self.browser)
-        if not self.fetch_succeeded:
+        if self.fetch_succeeded:
+            source_filename = os.path.join(self.test_output_directory,"page-source.html")
+            fp = open(source_filename,"w")
+            fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>HTML source for %s</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="%s" title="Basic CSS">
+<script type="text/javascript">
+  function next(elem) {
+      do {
+          elem = elem.nextSibling;
+      } while (elem && elem.nodeType != 1);
+      return elem;
+  }
+  function load() {
+    var url = location.href;
+    var hash_index = url.indexOf("#");
+    if( hash_index >= 0 ) {
+        var anchor_string = url.substring(hash_index+1);
+        cell = document.getElementById(anchor_string);
+        if( cell ) {
+            next_cell = next(cell);
+            if( next_cell ) {
+                next_cell.bgColor = "#ff9393";
+            }
+        }
+    }
+  }
+</script>
+</head>
+<body style="background-color: #ffffff" onload="load()">
+<table border="0" class="source">
+''' % (cgi.escape(self.page),relative_css_path(self.top_level_output_directory,source_filename)))
+            fph = open(page_filename)
+            line_number = 1
+            for line in fph:
+                line_number_string = "%4d" % (line_number)
+                line_number_string = re.sub(' ','&nbsp;',line_number_string)
+                fp.write("<tr><td id=\"%d\" class=\"coverage_line_number\"><strong>%s</strong></td>"%(line_number,line_number_string))
+                fp.write("<td class=\"coverage_line\">%s</td></tr>"%(re.sub(' ','&nbsp;',cgi.escape(line)),))
+                line_number += 1
+            fph.close()
+            fp.write('''
+</table>
+</body>
+</html>
+''')
+            fp.close()
+        else:
             print >> sys.stderr, "Fetching the page failed"
             return
         # Try to validate the HTML:
@@ -419,6 +470,10 @@ td.file-information, td.file-no-information {
   background-color: %s
 }
 
+.validation {
+  margin-left: 15px;
+  margin-right: 15px
+}
 ''' % (uses_to_colour(-2) + uses_to_colour(-1) + uses_to_colour(1) + uses_to_colour(-9) + uses_to_colour(-8)))
 
 def create_output_directory():
