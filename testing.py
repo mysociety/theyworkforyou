@@ -262,12 +262,9 @@ class HTTPTest(Test):
             print >> sys.stderr, "Fetching the page failed"
             return
         # Try to validate the HTML:
-        vfp = open(os.path.join(self.test_output_directory,"validator-output"),"w")
-        self.validate_result = call(["validate",page_filename],stdout=vfp)
-        vfp.close()
-        vfp = open(os.path.join(self.test_output_directory,"validator-result"),"w")
-        vfp.write(str(self.validate_result))
-        vfp.close()
+        format_string = "onsgmls -s -E0 -c /etc/sgml/sgml-data.cat %s 2> %s"
+        validator_output_filename = os.path.join(self.test_output_directory,"validator-output")
+        self.validate_result = call(format_string%(page_filename,validator_output_filename),shell=True)
         if self.render:
             self.full_image_filename = os.path.join(self.test_output_directory,"page.png")
             # FIXME: can't trust the return code from CutyCapt yet
