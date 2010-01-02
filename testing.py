@@ -184,7 +184,7 @@ class SSHTest(Test):
 def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh-test"):
     s = SSHTest(output_directory,ssh_command,user=user,test_name=test_name,test_short_name=test_short_name)
     all_tests.append(s)
-    s.run()
+    s.run_timed()
     return s
 
 class HTTPTest(Test):
