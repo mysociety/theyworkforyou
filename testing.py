@@ -261,6 +261,7 @@ class HTTPTest(Test):
                           used_source_directory,
                           instrumented_files)
     def output_included_html(self,fp,copied_coverage,used_source_directory):
+        fp.write("<p><a href=\"%s\">Link to dumped page</a></p>"%(os.path.join(self.get_id_and_short_name(),"page.html"),))
         relative_url = os.path.join(os.path.join(self.get_id_and_short_name(),coverage_report_leafname),"coverage-coverage.html")
         fp.write("<p><a href=\"%s\">Code coverage for this test.</a></p>\n" % (relative_url,))
         if self.render and self.full_image_filename:
