@@ -6,6 +6,7 @@ import os
 import cgi
 from BeautifulSoup import BeautifulSoup, NavigableString, Comment,Tag
 import urllib2
+from urllib import urlencode
 
 configuration = {}
 
@@ -236,7 +237,7 @@ def render_page(page_path,output_image_filename):
                       "--plugins=off",
                       "--out="+output_image_filename])
 
-def save_page(page_path,output_html_filename,url_opener=None):
+def save_page(page_path,output_html_filename,url_opener=None,post_parameters=None):
     url = "http://"+configuration['UML_SERVER_HOSTNAME']+page_path
     if url_opener:
         try:
@@ -247,10 +248,15 @@ def save_page(page_path,output_html_filename,url_opener=None):
             fp.write(html)
             fp.close()
         except urllib2.URLError, e:
+            print >> sys.stderr, "Got an error when fetcing the page with urllib2: "+str(e)
             return False
         return True
     else:
-        return 0 == call(['curl','--location','-s','-o',output_html_filename,url])
+        if post_parameters:
+            raise Exception, "POST requests with curl not yet supported..."
+        else:
+            return 0 == call(['curl','--location','-s','-o',output_html_filename,url])
+
 
 def uml_date():
     r = ssh("date +'%Y-%m-%dT%H:%M:%S%z'",capture=True,verbose=False)
