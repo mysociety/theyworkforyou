@@ -207,6 +207,7 @@ class HTTPTest(Test):
         page_filename = os.path.join(self.test_output_directory,"page.html")
         self.fetch_succeeded = save_page(self.page,page_filename,url_opener=self.browser)
         if not self.fetch_succeeded:
+            print >> sys.stderr, "Fetching the page failed"
             return
         # Try to validate the HTML:
         vfp = open(os.path.join(self.test_output_directory,"validator-output"),"w")
@@ -223,6 +224,8 @@ class HTTPTest(Test):
             self.render_succeeded = os.path.exists(self.full_image_filename) and (os.stat(self.full_image_filename).st_size > 0)
             if self.render_succeeded:
                 self.thumbnail_image_filename = generate_thumbnail_version(self.full_image_filename)
+            else:
+                print >> sys.stderr, "Rendering an image of the file failed"
         else:
             self.render_succeeded = True
         # Now try to parse the output with BeautifulSoup:
@@ -234,6 +237,7 @@ class HTTPTest(Test):
         if body:
             self.parsing_succeeded = True
         else:
+            print >> sys.stderr, "Parsing with BeautifulSoup failed"
             return
         if not self.soup.findAll(attrs={"class":"error"}):
             self.no_error_check_succeeded = True
