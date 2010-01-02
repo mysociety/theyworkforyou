@@ -54,6 +54,94 @@ def run_main_tests(top_level_output_directory):
     # FIXME: move all these to after the non-cookie tests...
 
     cj, browser = create_cookiejar_and_browser()
+    search_hewitt_test = run_http_test(top_level_output_directory,
+                                       "/search/?s=patricia+hewitt",
+                                       test_name="Searching for Patricia Hewitt's page",
+                                       test_short_name="search-hewitt",
+                                       browser=browser)
+
+    def find_people_in_search_results(t):
+        pr = t.soup.find( lambda x: x.name == 'div' and ('id','people_results') in x.attrs )
+        if not pr:
+            return []
+        results = []
+        for link in pr.findAll('a'):
+            for t in link.attrs:
+                if t[0] == 'href' and not re.search('^/search.*pop',t[1]):
+                        results.append((t[0],t[1],non_tag_data_in(link)))
+        return results
+
+    run_page_test(top_level_output_directory,
+                  search_hewitt_test,
+                  lambda t: [ x for x in find_people_in_search_results(t) if x[2] == 'Patricia Hewitt' ],
+                  test_name="Finding Patricia Hewitt in the search results page",
+                  test_short_name="search-results-hewitt")
+
+    hewitt_page_test = run_http_test(top_level_output_directory,
+                                     "/mp/patricia_hewitt/leicester_west",
+                                     test_name="Fetching Patricia Hewitt's page",
+                                     test_short_name="fetching-hewitt-page",
+                                     browser=browser)
+
+    def link_to_email_alert(t):
+        return t.soup.find( lambda x: x.name == 'a' and tag_text_is(x,'Email me whenever',substring=True) )
+
+    alert_link_test = run_page_test(top_level_output_directory,
+                                    hewitt_page_test,
+                                    lambda t: link_to_email_alert(t),
+                                    test_name="Finding email alert link",
+                                    test_short_name="find-email-alert-link")
+
+    def find_alert_form(t):
+        return t.soup.find( lambda x: x.name == 'form' and (('action','/alert/') in x.attrs) and (('method','post') in x.attrs) )
+
+    def find_hidden_input(t,name,value):
+        for i in t.soup.find( lambda x: x.name == 'input' and (('type','hidden') in x.attrs) ):
+            for t in x.attrs:
+                if t[0] == 'name' and t[1] == name:
+                    if ('value',value) in x.attrs:
+                        return i
+        return None
+
+    if alert_link_test.succeeded():
+
+        follow_alert_link = alert_link_test.test_succeeded['href']
+
+        follow_alert_link_test = run_http_test(top_level_output_directory,
+                                               follow_alert_link,
+                                               test_name="Following email alert link",
+                                               test_short_name="follow-email-alert-link",
+                                               check_for_error_element=False)
+
+        find_alert_form_test = run_page_test(top_level_output_directory,
+                                             follow_alert_link_test,
+                                             find_alert_form,
+                                             test_name='Finding alert form',
+                                             test_short_name='find-alert-form')
+
+        expected_pid = '10278'
+
+        person_id_hidden_test = run_page_test(top_level_output_directory,
+                                              follow_alert_link_test,
+                                              lambda t: find_hidden_input(t,'pid',expected_pid),
+                                              test_name='Checking for correct pid for Patricia Hewitt',
+                                              test_short_name='pid-in-alert-form')
+
+        form_tag = find_alert_form_test.test_succeeded
+        if form_tag:
+
+            random_email_address = generate_email_address()
+
+            post_parameters = {}
+            post_parameters['email'] = random_email_address
+            post_parameters['pid'] = expected_pid
+            post_parameters['submitted'] = 'true'
+
+            print form_tag.prettify()
+            # run_http_test(top_level_output_directory,
+
+
+    cj, browser = create_cookiejar_and_browser()
     postcode_test = run_http_test(top_level_output_directory,
                                   "/postcode/?pc=EH8+9NB",
                                   test_name="Testing postcode lookup",
