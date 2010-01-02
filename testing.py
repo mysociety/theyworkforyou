@@ -262,7 +262,7 @@ class HTTPTest(Test):
             print >> sys.stderr, "Fetching the page failed"
             return
         # Try to validate the HTML:
-        format_string = "onsgmls -s -E0 -c /etc/sgml/sgml-data.cat %s 2> %s"
+        format_string = "onsgmls -s -E0 /usr/share/sgml/html/dtd/4.01/HTML4.decl %s 2> %s"
         validator_output_filename = os.path.join(self.test_output_directory,"validator-output")
         self.validate_result = call(format_string%(page_filename,validator_output_filename),shell=True)
         if self.render:

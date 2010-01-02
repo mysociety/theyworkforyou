@@ -26,7 +26,9 @@ def check_dependencies(check_group=True,user_and_group=None):
                           "e2fsprogs",
                           "python2.5-minimal",
                           "python-beautifulsoup",
-                          "wdg-html-validator" ]
+                          "wdg-html-validator",
+                          "sgml-data",
+                          "opensp" ]
     package_list = Popen(["dpkg","-l"],stdout=PIPE).communicate()[0]
     for p in required_packages:
         succeeded = True
