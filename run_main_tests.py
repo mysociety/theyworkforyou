@@ -15,6 +15,8 @@ def add_instrumentation(www_directory):
     # Add the instrumentation:
     ssh_result = ssh("add-php-instrumentation.py "+www_directory,capture=True)
     if ssh_result.return_value != 0:
+        print "stdout:\n"+ssh_result.stdout_data
+        print "stderr:\n"+ssh_result.stderr_data
         raise Exception, "Instrumenting the TWFY PHP code failed."
     instrumented_files = re.split('[\r\n]+',ssh_result.stdout_data)
     # Copy over the instrument.php file:
