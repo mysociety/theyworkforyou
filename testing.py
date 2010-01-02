@@ -2,20 +2,26 @@ import time
 import os
 from subprocess import call, check_call
 from common import *
+import traceback
 
 TEST_UNKNOWN   = -1
 TEST_SSH       =  0
 TEST_HTTP      =  1
 TEST_PAGE      =  2
 TEST_COOKIE    =  3
+TEST_FAILED    =  4
 
 test_type_to_str = { -1 : "TEST_UNKNOWN",
                       0 : "TEST_SSH",
                       1 : "TEST_HTTP",
                       2 : "TEST_PAGE",
-                      3 : "TEST_COOKIE" }
+                      3 : "TEST_COOKIE",
+                      4 : "TEST_FAILED" }
 
 all_tests = []
+
+start_all_coverage = None
+end_all_coverage = None
 
 def relative_css_path(output_directory,current_html_filename):
     to_strip = ensure_slash(output_directory)
@@ -129,6 +135,20 @@ def run_cookie_test(output_directory,cj,test_function,test_name="Unknown cookie 
     p.run()
     return p
 
+# Use this to add a report of an Exception thrown during execution of the tests:
+class FailedTest(Test):
+    def __init__(self,output_directory,exception_tuple,test_name="Exception thrown during tests",test_short_name="exception"):
+        Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
+        self.test_type = TEST_FAILED
+        self.exception_tuple = exception_tuple
+    def succeeded(self):
+        return False
+    def output_included_html(self,fp,copied_coverage,used_source_directory):
+        fp.write("<pre>\n")
+        lines = traceback.format_exception(*self.exception_tuple)
+        for line in lines:
+            fp.write(cgi.escape(line))
+        fp.write("</pre>\n")
 
 class SSHTest(Test):
     def __init__(self,output_directory,ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh"):
@@ -605,3 +625,95 @@ def next_tag(tag,sibling=True):
             current_tag = current_tag.nextSibling
         else:
             current_tag = current_tag.next
+
+def handle_exception(output_directory,exception_tuple):
+    ft = FailedTest(output_directory,exception_tuple)
+    ft.run()
+    all_tests.append(ft)
+
+def output_report(top_level_output_directory,instrumented_files=None):
+
+    output_filename_all_coverage = os.path.join(top_level_output_directory,"coverage")
+
+    copied_coverage = os.path.join(top_level_output_directory,"complete-coverage")
+    rsync_from_guest("/home/alice/twfy-coverage/",copied_coverage)
+
+    local_coverage_data_between(copied_coverage,start_all_coverage,end_all_coverage,output_filename_all_coverage)
+
+    used_source_directory = os.path.join(top_level_output_directory,"mysociety")
+
+    check_call(["mkdir","-p",used_source_directory])
+
+    rsync_from_guest("/data/vhost/theyworkforyou.sandbox/mysociety/twfy/",
+                     os.path.join(used_source_directory,"twfy"),
+                     user="alice",
+                     verbose=False)
+
+    rsync_from_guest("/data/vhost/theyworkforyou.sandbox/mysociety/phplib/",
+                     os.path.join(used_source_directory,"phplib"),
+                     user="alice",
+                     verbose=False)
+
+    # Output some CSS:
+    write_css_file(os.path.join(top_level_output_directory,"report.css"))
+
+    report_index_filename = os.path.join(top_level_output_directory,"report.html")
+    fp = open(report_index_filename,"w")
+
+    if instrumented_files:
+        # Generate complete coverage report:
+        generate_coverage(top_level_output_directory,
+                          "/data/vhost/theyworkforyou.sandbox/mysociety/",
+                          output_filename_all_coverage,
+                          os.path.join(top_level_output_directory,coverage_report_leafname),
+                          used_source_directory,
+                          instrumented_files)
+
+    total_number_of_tests = len(all_tests)
+    successes = 0
+    validations_failed = 0
+    failed_tests = []
+    for t in all_tests:
+        if t.succeeded():
+            successes += 1
+        else:
+            failed_tests.append(t)
+        if t.test_type == TEST_HTTP and t.validate_result != 0:
+            validations_failed += 1
+
+    fp.write('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head>
+<title>They Work For You Test Reports</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="%s" title="Basic CSS">
+</head>
+<body style="background-color: #ffffff">
+<h2>They Work For You Test Reports</h2>
+''' % (relative_css_path(top_level_output_directory,report_index_filename),))
+    if instrumented_files:
+        fp.write('''
+<p><a href="%s/coverage-coverage.html">Code coverage report for all tests.</a>
+</p>
+''' % (coverage_report_leafname,))
+
+    if successes == total_number_of_tests:
+        fp.write("<p>All tests passed!</p>\n")
+    else:
+        fp.write("<p>%d out of %d tests passed</p>\n"%(successes,total_number_of_tests))
+        fp.write("<ul>\n")
+        for f in failed_tests:
+            fp.write("  <li><a href=\"#%s\">%s</a></li>\n" % (f.get_id_and_short_name(),f.test_name))
+        fp.write("</ul>\n")
+
+    if validations_failed > 0:
+        fp.write("<p>%d HTML validations failed</p>"%(validations_failed,))
+
+    for t in all_tests:
+        print "=============="
+        print str(t)
+        if t.test_type == TEST_HTTP and instrumented_files:
+            t.output_coverage(copied_coverage,used_source_directory,instrumented_files)
+        t.output_html(fp,copied_coverage,used_source_directory)
+
+    fp.write('''</body></html>''')
+    fp.close()

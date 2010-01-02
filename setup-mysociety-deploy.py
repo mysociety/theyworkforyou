@@ -355,102 +355,114 @@ if 0 != ssh("( echo '[client]'; "+
             "' ) > /root/.my.cnf",user="root"):
     raise Exception, "Creating root's ~/.my.cnf failed"
 
-# # Call the mysociety-create-databases script to create the appropriate databases:
-# if 0 != ssh("/data/mysociety/bin/mysociety-create-databases",user="root"):
-#     raise Exception, "Creating the databases with mysociety-create-databases failed"
+# From this point on, if an exception is thrown, make that into a failed test:
 
-# Get the schema files:
-ssh_result = ssh("/usr/local/bin/find-schema-files theyworkforyou.sandbox",capture=True)
-if ssh_result.return_value != 0:
-    raise Exception, "Finding the database schemas failed"
+start_all_coverage = uml_date()
+ssh("mkdir -p /home/alice/twfy-coverage/")
 
-schemas = re.split('[\r\n]+',ssh_result.stdout_data)
+try:
 
-i = 0
-for schema_file in schemas:
-    if len(schema_file.strip()) > 0:
-        run_ssh_test(output_directory,
-                     "( cd /data/mysociety && mysql twfy -u twfy < "+schema_file+" )",
-                     user="alice",
-                     test_name="Creating tables from schema "+schema_file,
-                     test_short_name="create-tables-"+str(i))
-        i += 1
+    # # Call the mysociety-create-databases script to create the appropriate databases:
+    # if 0 != ssh("/data/mysociety/bin/mysociety-create-databases",user="root"):
+    #     raise Exception, "Creating the databases with mysociety-create-databases failed"
 
-# Get the email users:
-ssh_result = ssh("/usr/local/bin/find-email-users theyworkforyou.sandbox",capture=True)
-if ssh_result.return_value != 0:
-    raise Exception, "Finding the database schemas failed"
+    # Get the schema files:
+    ssh_result = ssh("/usr/local/bin/find-schema-files theyworkforyou.sandbox",capture=True)
+    if ssh_result.return_value != 0:
+        raise Exception, "Finding the database schemas failed"
 
-for line in re.split('[\r\n]+',ssh_result.stdout_data):
-    m = re.search("^([^:]+): (.*)$",line)
-    if m:
-        username = m.group(1)
-        if not user_exists(username):
-            print "==  Going to try to call adduser for "+username
+    schemas = re.split('[\r\n]+',ssh_result.stdout_data)
+
+    i = 0
+    for schema_file in schemas:
+        if len(schema_file.strip()) > 0:
             run_ssh_test(output_directory,
-                         "adduser --disabled-password --gecos 'Email User From vhosts.pl' "+username,
-                         user="root",
-                         test_name="Creating user: "+username,
-                         test_short_name="create-user-"+username)
+                         "( cd /data/mysociety && mysql twfy -u twfy < "+schema_file+" )",
+                         user="alice",
+                         test_name="Creating tables from schema "+schema_file,
+                         test_short_name="create-tables-"+str(i))
+            i += 1
 
-# Run a2enmod:
-run_ssh_test(output_directory,
-             "a2enmod rewrite",
-             user="root",
-             test_name="Enabling mod_rewrite",
-             test_short_name="mod-rewrite")
+    # Get the email users:
+    ssh_result = ssh("/usr/local/bin/find-email-users theyworkforyou.sandbox",capture=True)
+    if ssh_result.return_value != 0:
+        raise Exception, "Finding the database schemas failed"
 
-# Run a2enmod:
-run_ssh_test(output_directory,
-             "a2enmod suexec",
-             user="root",
-             test_name="Enabling mod_suexec",
-             test_short_name="mod-suexec")
+    for line in re.split('[\r\n]+',ssh_result.stdout_data):
+        m = re.search("^([^:]+): (.*)$",line)
+        if m:
+            username = m.group(1)
+            if not user_exists(username):
+                print "==  Going to try to call adduser for "+username
+                run_ssh_test(output_directory,
+                             "adduser --disabled-password --gecos 'Email User From vhosts.pl' "+username,
+                             user="root",
+                             test_name="Creating user: "+username,
+                             test_short_name="create-user-"+username)
 
-# Run a2enmod:
-run_ssh_test(output_directory,
-             "a2enmod actions",
-             user="root",
-             test_name="Enabling mod_actions",
-             test_short_name="mod-actions")
+    # Run a2enmod:
+    run_ssh_test(output_directory,
+                 "a2enmod rewrite",
+                 user="root",
+                 test_name="Enabling mod_rewrite",
+                 test_short_name="mod-rewrite")
 
-# Now call the standard(ish) deploy scripts:
+    # Run a2enmod:
+    run_ssh_test(output_directory,
+                 "a2enmod suexec",
+                 user="root",
+                 test_name="Enabling mod_suexec",
+                 test_short_name="mod-suexec")
 
-run_ssh_test(output_directory,
-             "mysociety -u config --no-check-existing",
-             user="root",
-             test_name="Running mysociety config",
-             test_short_name="mysociety-config")
+    # Run a2enmod:
+    run_ssh_test(output_directory,
+                 "a2enmod actions",
+                 user="root",
+                 test_name="Enabling mod_actions",
+                 test_short_name="mod-actions")
 
-run_ssh_test(output_directory,
-             "mysociety -u vhost theyworkforyou.sandbox",
-             user="root",
-             test_name="Running mysociety -u deploy theyworkforyou.sandbox",
-             test_short_name="mysociety-vhost")
+    # Now call the standard(ish) deploy scripts:
 
-# rsync over some data:
+    run_ssh_test(output_directory,
+                 "mysociety -u config --no-check-existing",
+                 user="root",
+                 test_name="Running mysociety config",
+                 test_short_name="mysociety-config")
 
-if 0 != rsync_to_guest("parlparse/","/home/alice/parlparse/",delete=True):
-    raise Exception, "Syncing over parlparse failed"
+    run_ssh_test(output_directory,
+                 "mysociety -u vhost theyworkforyou.sandbox",
+                 user="root",
+                 test_name="Running mysociety -u deploy theyworkforyou.sandbox",
+                 test_short_name="mysociety-vhost")
 
-if 0 != rsync_to_guest("parldata/","/home/alice/parldata/",delete=True):
-    raise Exception, "Syncing over parldata failed"
+    # rsync over some data:
 
-# Import the member data:
+    if 0 != rsync_to_guest("parlparse/","/home/alice/parlparse/",delete=True):
+        raise Exception, "Syncing over parlparse failed"
 
-run_ssh_test(output_directory,
-             "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --members --from=2009-10-01 --to=2009-10-31",
-             test_name="Importing the member data",
-             test_short_name="import-member-data")
+    if 0 != rsync_to_guest("parldata/","/home/alice/parldata/",delete=True):
+        raise Exception, "Syncing over parldata failed"
 
-# Import the rest of the data:
+    # Import the member data:
 
-run_ssh_test(output_directory,
-             "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --wrans --debates --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing  --from=2009-10-01 --to=2009-10-31",
-             test_name="Importing the rest of the data",
-             test_short_name="import-remaining-data")
+    run_ssh_test(output_directory,
+                 "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --members --from=2009-10-01 --to=2009-10-31",
+                 test_name="Importing the member data",
+                 test_short_name="import-member-data")
 
-# ========================================================================
-# Now some more usual tests:
+    # Import the rest of the data:
 
-run_main_tests(output_directory)
+    run_ssh_test(output_directory,
+                 "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --wrans --debates --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing  --from=2009-10-01 --to=2009-10-31",
+                 test_name="Importing the rest of the data",
+                 test_short_name="import-remaining-data")
+
+    # ========================================================================
+    # Now some more usual tests:
+
+    run_main_tests(output_directory)
+
+except:
+    handle_exception(output_directory,sys.exc_info())
+
+output_report(output_directory)
