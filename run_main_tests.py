@@ -62,13 +62,21 @@ def run_main_tests(top_level_output_directory):
 
     def find_people_in_search_results(test,old_test):
         pr = old_test.soup.find( lambda x: x.name == 'div' and ('id','people_results') in x.attrs )
+        test.log("Got people_people results div:\n"+pr.prettify())
         if not pr:
+            test.log('Failed to find a div with id="people_results"')
             return []
         results = []
-        for link in pr.findAll('a'):
+        all_links = pr.findAll('a')
+        test.log("  all_links of length "+str(len(all_links)))
+        for link in all_links:
+            test.log("  link has attributes: "+str(link.attrs))
             for t in link.attrs:
+                test.log("    attribute pair: "+str(t))
                 if t[0] == 'href' and not re.search('^/search.*pop',t[1]):
-                        results.append((t[0],t[1],non_tag_data_in(link)))
+                    tag_contents = non_tag_data_in(link)
+                    test.log('Found "'+tag_contents+'"')
+                    results.append((t[0],t[1],tag_contents))
         return results
 
     run_page_test(top_level_output_directory,
@@ -97,10 +105,14 @@ def run_main_tests(top_level_output_directory):
 
     def find_hidden_input(t,o,name,value):
         for i in o.soup.find( lambda x: x.name == 'input' and (('type','hidden') in x.attrs) ):
+            t.log("found hidden input element:\n"+i.prettify())
             for tuple in x.attrs:
                 if tuple[0] == 'name' and tuple[1] == name:
+                    t.log(" ... with the right name ("+name+")")
                     if ('value',value) in x.attrs:
                         return i
+                    else:
+                        t.log(" ... but no value attribute set to: "+str(value))
         return None
 
     if alert_link_test.succeeded():
@@ -174,7 +186,9 @@ def run_main_tests(top_level_output_directory):
     def local_mp_link(current_test,http_test,mp_name):
         links = http_test.soup.findAll( lambda x: (x.name == 'a' and ('href','/mp/') in x.attrs  ) )
         for e in links:
+            current_test.log("Looking at link:\n"+e.prettify())
             if re.search(re.escape(mp_name),non_tag_data_in(e)):
+                current_test.log("... found name: '"+mp_name+"'")
                 return True
         return False
 
@@ -257,14 +271,19 @@ def run_main_tests(top_level_output_directory):
         # to the recent debates.  First fine a matching <h4>
         h = http_test.soup.find( lambda x: x.name == 'h4' and tag_text_is(x,header) )
         if not h:
+            current_test.log("The header '"+header+"' at level h4 was not found")
             return False
+        current_test.log("Found the header: '"+header+"'")
         ul = next_tag(h)
         if not (ul.name == 'ul'):
+            current_test.log("The next tag was not <ul>")
             return False
         for li in ul.contents:
             if not (li and li.name == 'li'):
                 continue
+            current_test.log("Looking at list item: "+li.prettify())
             if tag_text_is(li,item):
+                current_test.log("That's it.")
                 return True
         return False
 
@@ -288,11 +307,10 @@ def run_main_tests(top_level_output_directory):
     def busiest_debate(current_test,http_test,header,text):
         h = http_test.soup.find( lambda x: (x.name == 'h3' or x.name == 'h4') and tag_text_is(x,header) )
         if not h:
-            print "Failed to find header with text '"+header+"'"
+            current_test.log("Failed to find header with text '"+header+"'")
             return False
         ns = next_tag(next_tag(h,sibling=False),sibling=False)
-        print "Next tag is:"
-        print ns.prettify()
+        current_test.log("The tag after the tag after this was:\n"+ns.prettify())
         return tag_text_is(ns,text)
 
     main_scotland_page_test = run_http_test(top_level_output_directory,
@@ -312,10 +330,12 @@ def run_main_tests(top_level_output_directory):
     def any_answer(current_test,http_test,header):
         h = http_test.soup.find( lambda x: x.name == 'h3' and tag_text_is(x,header) )
         if not h:
-            print "Failed to find header with text '"+header+"'"
+            current_test.log("Failed to find header with text '"+header+"'")
             return False
         ns = next_tag(next_tag(h,sibling=False),sibling=False)
+        current_test.log("The tag after the tag after this is:\n"+ns.prettify())
         stringified = non_tag_data_in(ns)
+        current_test.log("... which, stringified, is: "+stringified)
         return re.search('\(2[0-9]\s+October\s+2009\)',stringified)
 
     header = "Some recent written answers"
@@ -377,6 +397,7 @@ def run_main_tests(top_level_output_directory):
 
     def link_from_mp_name(current_test,http_test,name):
         all_tags = http_test.soup.findAll( lambda tag: tag.name == "a" and tag.string and tag.string == name)
+        current_test.log("All the tags with the matching name are: "+str(all_tags))
         return 1 == len(all_tags)
 
     run_page_test(top_level_output_directory,
@@ -434,19 +455,25 @@ def run_main_tests(top_level_output_directory):
 
     def check_speaker_and_speech_tag(current_test,expected_name, got_name, expected_speech, got_speech_tag):
         if not expected_name == got_name:
-            print "Speaker name didn't match:"
-            print "Expected '"+expected_name+"', but got '"+got_name+"'"
+            current_test.log("Speaker name didn't match:")
+            current_test.log("Expected '"+expected_name+"', but got '"+got_name+"'")
             return False
         if not tag_text_is(got_speech_tag,expected_speech):
-            print "Text didn't match..."
+            current_test.log("Text didn't match...")
             return False
         return True
 
     def check_written_answer(t,o,q_name,q_text,a_name,a_text):
         labour_speakers = o.soup.findAll(attrs={'class':'speaker labour'})
+        t.log("Found these Labour speakers:")
+        for l in labour_speakers:
+            t.log("  "+l.prettify())
         snp_speakers = o.soup.findAll(attrs={'class':'speaker scottish national party'})
+        t.log("Found these SNP speakers:")
+        for s in snp_speakers:
+            t.log("  "+s.prettify())
         if not 1 == len(labour_speakers):
-            print "Couldn't find the unique question, should be from a Labour speaker"
+            t.log("Couldn't find the unique question, should be from a Labour speaker")
             return False
         speaker = labour_speakers[0]
         speaker_name = speaker.contents[0].contents[0].string
@@ -500,11 +527,13 @@ def run_main_tests(top_level_output_directory):
 
     def check_debate_has_speech(current_test,http_test,author,speech_text_substring):
         speeches = http_test.soup.findAll(lambda x: x.name == "div" and tag_has_speech_class(x))
+        current_test.log("Found "+str(len(speeches))+" speeches")
         for s in speeches:
             if s.find(lambda x: x.name == 'a' and tag_text_is(x,author)):
                 current_test.log("Found a link tag with text matching: "+author)
                 for main in s.findAll(lambda x: x.name == 'div' and ('class','main') in x.attrs):
                     if tag_text_is(main,speech_text_substring,substring=True):
+                        current_test.log("Found the text in the main div inside that speech")
                         return True
         return False
 
