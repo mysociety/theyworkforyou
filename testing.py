@@ -276,6 +276,7 @@ class HTTPTest(Test):
             for line in fph:
                 line_number_string = "%4d" % (line_number)
                 line_number_string = re.sub(' ','&nbsp;',line_number_string)
+                line_number_string = re.sub('\t','&nbsp;'*8,line_number_string)
                 fp.write("<tr><td id=\"%d\" class=\"coverage_line_number\"><strong>%s</strong></td>"%(line_number,line_number_string))
                 fp.write("<td class=\"coverage_line\">%s</td></tr>"%(re.sub(' ','&nbsp;',cgi.escape(line)),))
                 line_number += 1
