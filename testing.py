@@ -45,6 +45,7 @@ class Test:
         self.exit_on_fail = True
         self.ignore_failure = False
         self.set_test_output_directory()
+        self.log_filename = os.path.join(self.test_output_directory,"log")
     def record_time(self,date_and_time,start=True):
         if start:
             self.start_time = date_and_time
@@ -54,6 +55,12 @@ class Test:
             prefix = "end"
         fp = open(os.path.join(self.test_output_directory,prefix+"_time"),"w")
         fp.write(str(date_and_time))
+        fp.close()
+    def log(self,message):
+        print "Logging to "+self.log_filename
+        fp = open(self.log_filename,"a")
+        fp.write(message)
+        fp.write("\n")
         fp.close()
     def record_start_time(self,date_and_time):
         self.record_time(date_and_time,start=True)
@@ -109,6 +116,19 @@ class Test:
         fp.write("<pre>\n")
         fp.write(cgi.escape(file_to_string(os.path.join(self.test_output_directory,"info"))))
         fp.write("</pre>\n")
+        log_filename = os.path.join(self.test_output_directory,"log")
+        relative_log_filename = os.path.join(self.get_id_and_short_name(),"log")
+        print "log_filename: "+log_filename
+        print "relative_log_filename: "+relative_log_filename
+        if os.path.exists(log_filename):
+            if self.succeeded():
+                fp.write('<p><a href="%s">Test log output</a></p>'%(relative_log_filename,))
+            else:
+                fp.write('<h4>Test log output:</h4>')
+                fp.write('<pre>')
+                for line in open(log_filename):
+                    fp.write(cgi.escape(line))
+                fp.write('</pre>')
         self.output_included_html(fp,copied_coverage,used_source_directory)
         fp.write("</div>\n")
 
