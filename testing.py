@@ -191,11 +191,22 @@ class SSHTest(Test):
         return s
     def succeeded(self):
         return self.result.return_value == 0
+    def output_abbreviated(self,fp,relative_filename,absolute_filename):
+        max_lines_output = 100
+        lines_output = 0
+        for line in open(absolute_filename):
+            if lines_output > max_lines_output:
+                fp.write('[Output truncated: <a href="'+relative_filename+'">complete version</a>]')
+                break
+            fp.write(cgi.escape(line))
+            lines_output += 1
     def output_included_html(self,fp,copied_coverage,used_source_directory):
         for s in ("stdout","stderr"):
             fp.write("<h4>%s</h4>" % (s,))
             fp.write("<div class=\"stdout_stderr\"><pre>")
-            fp.write(cgi.escape(file_to_string(os.path.join(self.test_output_directory,s))))
+            self.output_abbreviated(fp,
+                                    os.path.join(self.get_id_and_short_name(),s),
+                                    os.path.join(self.test_output_directory,s))
             fp.write("</pre></div>")
 
 def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh-test"):
