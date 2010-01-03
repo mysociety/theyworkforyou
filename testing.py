@@ -110,7 +110,7 @@ class Test:
         else:
             success_class = "failed"
         fp.write("<div class=\"test %s\" id=\"%s\">\n"%(success_class,self.get_id_and_short_name()))
-        fp.write("<h3>%s</h3>\n" % (self.test_name.encode('UTF-8'),))
+        fp.write("<h3>%s ... %s</h3>\n" % (self.test_name.encode('UTF-8'),success_class))
         fp.write("<h4>%s</h4>\n" % (self.get_id_and_short_name(),))
         fp.write("<pre>\n")
         fp.write(cgi.escape(file_to_string(os.path.join(self.test_output_directory,"info"))))
