@@ -381,7 +381,7 @@ class PageTest(Test):
         return s
     def run(self):
         Test.run(self)
-        self.test_succeeded = self.test_function(self.http_test)
+        self.test_succeeded = self.test_function(self,self.http_test)
     def succeeded(self):
         return self.test_succeeded
 
