@@ -57,7 +57,6 @@ class Test:
         fp.write(str(date_and_time))
         fp.close()
     def log(self,message):
-        print "Logging to "+self.log_filename
         fp = open(self.log_filename,"a")
         fp.write(message)
         fp.write("\n")
@@ -118,8 +117,6 @@ class Test:
         fp.write("</pre>\n")
         log_filename = os.path.join(self.test_output_directory,"log")
         relative_log_filename = os.path.join(self.get_id_and_short_name(),"log")
-        print "log_filename: "+log_filename
-        print "relative_log_filename: "+relative_log_filename
         if os.path.exists(log_filename):
             if self.succeeded():
                 fp.write('<p><a href="%s">Test log output</a></p>'%(relative_log_filename,))
