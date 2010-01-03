@@ -427,7 +427,8 @@ table.source {
 .test {
   padding: 5px;
   margin: 5px;
-  border-width: 1px
+  border-width: 1px;
+  padding-left: 15px
 }
 
 .passed {
@@ -465,6 +466,9 @@ td.file-information, td.file-no-information {
 .coverage_line {
   color: #000000;
   font-family: monospace
+}
+td.coverage_line {
+  white-space: nowrap;
 }
 .coverage_line_number {
   font-family: monospace;
