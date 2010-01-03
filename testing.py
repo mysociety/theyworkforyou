@@ -475,6 +475,11 @@ td.file-information, td.file-no-information {
   margin-left: 15px;
   margin-right: 15px
 }
+
+.validation-report {
+  padding: 10px
+}
+
 ''' % (uses_to_colour(-2) + uses_to_colour(-1) + uses_to_colour(1) + uses_to_colour(-9) + uses_to_colour(-8)))
 
 def create_output_directory():
