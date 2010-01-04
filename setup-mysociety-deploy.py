@@ -40,8 +40,6 @@ if options.output_directory:
 else:
     output_directory = create_output_directory()
 
-check_call(["mkdir","-p",output_directory])
-
 # We switch UML machines frequently, so remove the host key for the
 # UML machine's IP address.
 remove_host_keys()

@@ -555,8 +555,6 @@ if __name__ == '__main__':
     else:
         output_directory = create_output_directory()
 
-    check_call(["mkdir","-p",output_directory])
-
     try:
         run_main_tests()
     except:
