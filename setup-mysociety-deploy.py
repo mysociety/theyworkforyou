@@ -384,8 +384,7 @@ try:
     i = 0
     for schema_file in schemas:
         if len(schema_file.strip()) > 0:
-            run_ssh_test(output_directory,
-                         "( cd /data/mysociety && mysql twfy -u twfy < "+schema_file+" )",
+            run_ssh_test("( cd /data/mysociety && mysql twfy -u twfy < "+schema_file+" )",
                          user="alice",
                          test_name="Creating tables from schema "+schema_file,
                          test_short_name="create-tables-"+str(i))
@@ -402,43 +401,37 @@ try:
             username = m.group(1)
             if not user_exists(username):
                 print "==  Going to try to call adduser for "+username
-                run_ssh_test(output_directory,
-                             "adduser --disabled-password --gecos 'Email User From vhosts.pl' "+username,
+                run_ssh_test("adduser --disabled-password --gecos 'Email User From vhosts.pl' "+username,
                              user="root",
                              test_name="Creating user: "+username,
                              test_short_name="create-user-"+username)
 
     # Run a2enmod:
-    run_ssh_test(output_directory,
-                 "a2enmod rewrite",
+    run_ssh_test("a2enmod rewrite",
                  user="root",
                  test_name="Enabling mod_rewrite",
                  test_short_name="mod-rewrite")
 
     # Run a2enmod:
-    run_ssh_test(output_directory,
-                 "a2enmod suexec",
+    run_ssh_test("a2enmod suexec",
                  user="root",
                  test_name="Enabling mod_suexec",
                  test_short_name="mod-suexec")
 
     # Run a2enmod:
-    run_ssh_test(output_directory,
-                 "a2enmod actions",
+    run_ssh_test("a2enmod actions",
                  user="root",
                  test_name="Enabling mod_actions",
                  test_short_name="mod-actions")
 
     # Now call the standard(ish) deploy scripts:
 
-    run_ssh_test(output_directory,
-                 "mysociety -u config --no-check-existing",
+    run_ssh_test("mysociety -u config --no-check-existing",
                  user="root",
                  test_name="Running mysociety config",
                  test_short_name="mysociety-config")
 
-    run_ssh_test(output_directory,
-                 "mysociety -u vhost theyworkforyou.sandbox",
+    run_ssh_test("mysociety -u vhost theyworkforyou.sandbox",
                  user="root",
                  test_name="Running mysociety -u deploy theyworkforyou.sandbox",
                  test_short_name="mysociety-vhost")
@@ -453,24 +446,22 @@ try:
 
     # Import the member data:
 
-    run_ssh_test(output_directory,
-                 "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --members --from=2009-10-01 --to=2009-10-31",
+    run_ssh_test("cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --members --from=2009-10-01 --to=2009-10-31",
                  test_name="Importing the member data",
                  test_short_name="import-member-data")
 
     # Import the rest of the data:
 
-    run_ssh_test(output_directory,
-                 "cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --wrans --debates --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing  --from=2009-10-01 --to=2009-10-31",
+    run_ssh_test("cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --wrans --debates --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing  --from=2009-10-01 --to=2009-10-31",
                  test_name="Importing the rest of the data",
                  test_short_name="import-remaining-data")
 
     # ========================================================================
     # Now some more usual tests:
 
-    run_main_tests(output_directory)
+    run_main_tests()
 
 except:
-    handle_exception(output_directory,sys.exc_info())
+    handle_exception(sys.exc_info())
 
-output_report(output_directory)
+output_report()

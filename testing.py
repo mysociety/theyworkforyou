@@ -33,9 +33,9 @@ def relative_css_path(output_directory,current_html_filename):
         return 'report.css'
 
 class Test:
+    top_level_output_directory = None
     last_test_number = -1
-    def __init__(self,top_level_output_directory,test_name="Unknown test",test_short_name="unknown"):
-        self.top_level_output_directory = top_level_output_directory
+    def __init__(self,test_name="Unknown test",test_short_name="unknown"):
         Test.last_test_number += 1
         self.test_number = Test.last_test_number
         self.test_short_name = test_short_name
@@ -68,7 +68,7 @@ class Test:
     def get_id_and_short_name(self):
         return "%04d-%s" % (self.test_number,self.test_short_name)
     def previous_output_directory(self):
-        parent, directory_name = os.path.split(self.top_level_output_directory)
+        parent, directory_name = os.path.split(Test.top_level_output_directory)
         directories = os.listdir(parent)
         iso_8601_re = re.compile('^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d$')
         directories = [ x for x in directories if iso_8601_re.search(x) ]
@@ -79,7 +79,7 @@ class Test:
             return None
         return os.path.join(parent,directories[i-1])
     def set_test_output_directory(self):
-        o = os.path.join(self.top_level_output_directory,self.get_id_and_short_name())
+        o = os.path.join(Test.top_level_output_directory,self.get_id_and_short_name())
         self.test_output_directory = o
         call(["mkdir",self.test_output_directory])
     def __str__(self):
@@ -130,8 +130,8 @@ class Test:
         fp.write("</div>\n")
 
 class CookieTest(Test):
-    def __init__(self,output_directory,cj,test_function,test_name="Unknown cookie test",test_short_name="unknown-cookie"):
-        Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
+    def __init__(self,cj,test_function,test_name="Unknown cookie test",test_short_name="unknown-cookie"):
+        Test.__init__(self,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_COOKIE
         self.test_function = test_function
         self.cj = cj
@@ -146,16 +146,16 @@ class CookieTest(Test):
     def succeeded(self):
         return self.test_succeeded
 
-def run_cookie_test(output_directory,cj,test_function,test_name="Unknown cookie test",test_short_name="unknown-cookie-test"):
-    p = CookieTest(output_directory,cj,test_function,test_name=test_name,test_short_name=test_short_name)
+def run_cookie_test(cj,test_function,test_name="Unknown cookie test",test_short_name="unknown-cookie-test"):
+    p = CookieTest(cj,test_function,test_name=test_name,test_short_name=test_short_name)
     all_tests.append(p)
     p.run()
     return p
 
 # Use this to add a report of an Exception thrown during execution of the tests:
 class FailedTest(Test):
-    def __init__(self,output_directory,exception_tuple,test_name="Exception thrown during tests",test_short_name="exception"):
-        Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
+    def __init__(self,exception_tuple,test_name="Exception thrown during tests",test_short_name="exception"):
+        Test.__init__(self,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_FAILED
         self.exception_tuple = exception_tuple
     def succeeded(self):
@@ -168,8 +168,8 @@ class FailedTest(Test):
         fp.write("</pre>\n")
 
 class SSHTest(Test):
-    def __init__(self,output_directory,ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh"):
-        Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
+    def __init__(self,ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh"):
+        Test.__init__(self,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_SSH
         self.ssh_command = ssh_command
         self.user = user
@@ -209,15 +209,15 @@ class SSHTest(Test):
                                     os.path.join(self.test_output_directory,s))
             fp.write("</pre></div>")
 
-def run_ssh_test(output_directory,ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh-test"):
-    s = SSHTest(output_directory,ssh_command,user=user,test_name=test_name,test_short_name=test_short_name)
+def run_ssh_test(ssh_command,user="alice",test_name="Unknown SSH test",test_short_name="unknown-ssh-test"):
+    s = SSHTest(ssh_command,user=user,test_name=test_name,test_short_name=test_short_name)
     all_tests.append(s)
     s.run_timed()
     return s
 
 class HTTPTest(Test):
-    def __init__(self,output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None,check_for_error_element=True):
-        Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
+    def __init__(self,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None,check_for_error_element=True):
+        Test.__init__(self,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_HTTP
         self.page = page
         self.soup = None
@@ -270,7 +270,7 @@ class HTTPTest(Test):
 </head>
 <body style="background-color: #ffffff" onload="load()">
 <table border="0" class="source">
-''' % (cgi.escape(self.page),relative_css_path(self.top_level_output_directory,source_filename)))
+''' % (cgi.escape(self.page),relative_css_path(Test.top_level_output_directory,source_filename)))
             fph = open(page_filename)
             line_number = 1
             for line in fph:
@@ -331,8 +331,7 @@ class HTTPTest(Test):
         coverage_data_file = os.path.join(self.test_output_directory,"coverage")
         coverage_report_directory = os.path.join(self.test_output_directory,coverage_report_leafname)
         local_coverage_data_between(copied_coverage,self.start_time,self.end_time,coverage_data_file)
-        generate_coverage(self.top_level_output_directory,
-                          "/data/vhost/theyworkforyou.sandbox/mysociety/",
+        generate_coverage("/data/vhost/theyworkforyou.sandbox/mysociety/",
                           coverage_data_file,
                           coverage_report_directory,
                           used_source_directory,
@@ -369,8 +368,8 @@ class HTTPTest(Test):
 # analyses those results:
 
 class PageTest(Test):
-    def __init__(self,output_directory,http_test,test_function,test_name="Unknown page test",test_short_name="unknown-page"):
-        Test.__init__(self,output_directory,test_name=test_name,test_short_name=test_short_name)
+    def __init__(self,http_test,test_function,test_name="Unknown page test",test_short_name="unknown-page"):
+        Test.__init__(self,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_PAGE
         self.http_test = http_test
         self.test_function = test_function
@@ -385,14 +384,14 @@ class PageTest(Test):
     def succeeded(self):
         return self.test_succeeded
 
-def run_page_test(output_directory,http_test,test_function,test_name="Unknown page test",test_short_name="unknown-page"):
-    p = PageTest(output_directory,http_test,test_function,test_name=test_name,test_short_name=test_short_name)
+def run_page_test(http_test,test_function,test_name="Unknown page test",test_short_name="unknown-page"):
+    p = PageTest(http_test,test_function,test_name=test_name,test_short_name=test_short_name)
     all_tests.append(p)
     p.page_test_result = p.run()
     return p
 
-def run_http_test(output_directory,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None,check_for_error_element=True):
-    h = HTTPTest(output_directory,page,test_name=test_name,test_short_name=test_short_name,render=render,browser=browser,check_for_error_element=check_for_error_element)
+def run_http_test(page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None,check_for_error_element=True):
+    h = HTTPTest(page,test_name=test_name,test_short_name=test_short_name,render=render,browser=browser,check_for_error_element=check_for_error_element)
     all_tests.append(h)
     h.run_timed()
     return h
@@ -516,6 +515,8 @@ td.coverage_line {
 ''' % (uses_to_colour(-2) + uses_to_colour(-1) + uses_to_colour(1) + uses_to_colour(-9) + uses_to_colour(-8)))
 
 def create_output_directory():
+    if Test.top_level_output_directory:
+        raise Exception, "Test.top_level_output_directory was already set"
     iso_time = time.strftime("%Y-%m-%dT%H:%M:%S",time.gmtime())
     output_directory = "output/%s/" % (iso_time,)
     latest_symlink = "output/latest"
@@ -525,6 +526,7 @@ def create_output_directory():
     check_call(["ln","-s",iso_time,latest_symlink])
     # Output the CSS:
     write_css_file(os.path.join(output_directory,"report.css"))
+    Test.top_level_output_directory = output_directory
     return output_directory
 
 # This is a bit of a mess now.  The parameters should look a bit like this:
@@ -541,7 +543,8 @@ def create_output_directory():
 #   original_source_directory "output/2009-12-13T22:42:48/mysociety"
 #     (This is the directory that we've copied the instrumented source code to.)
 
-def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_data_file,coverage_output_directory,original_source_directory,instrumented_files):
+def generate_coverage(uml_prefix_to_strip,coverage_data_file,coverage_output_directory,original_source_directory,instrumented_files):
+    print "instrumented_files is: "+str(instrumented_files)
     coverage_output_directory = ensure_slash(coverage_output_directory)
     check_call(["mkdir","-p",coverage_output_directory])
     uml_prefix_re = re.compile(re.escape(uml_prefix_to_strip))
@@ -619,7 +622,7 @@ def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_da
 <hr>
 <table border="0" class="source">
 ''' % (cgi.escape(filename),
-       relative_css_path(top_level_output_directory,output_filename)))
+       relative_css_path(Test.top_level_output_directory,output_filename)))
         line_number = 1
         ifp = open(original_filename)
         for line in ifp:
@@ -670,7 +673,7 @@ def generate_coverage(top_level_output_directory,uml_prefix_to_strip,coverage_da
    <a href="coverage-coverage.html">Sorted by percent coverage</a></p>
 <p>Files which were instrumented but not loaded or used have a <span class="file-no-information">darker background</span></a></p>
 <table border=0>
-'''%(relative_css_path(top_level_output_directory,output_filename),sort_method))
+'''%(relative_css_path(Test.top_level_output_directory,output_filename),sort_method))
         for filename in filenames:
             url = filename + ".html"
             coverage = filename_to_percent_coverage[filename]
@@ -743,21 +746,21 @@ def next_tag(tag,sibling=True):
 def generate_email_address():
     return "alice-"+os.urandom(4).encode("hex")+"@localhost"
 
-def handle_exception(output_directory,exception_tuple):
-    ft = FailedTest(output_directory,exception_tuple)
+def handle_exception(exception_tuple):
+    ft = FailedTest(exception_tuple)
     ft.run()
     all_tests.append(ft)
 
-def output_report(top_level_output_directory,instrumented_files=None):
+def output_report(instrumented_files=None):
 
-    output_filename_all_coverage = os.path.join(top_level_output_directory,"coverage")
+    output_filename_all_coverage = os.path.join(Test.top_level_output_directory,"coverage")
 
-    copied_coverage = os.path.join(top_level_output_directory,"complete-coverage")
+    copied_coverage = os.path.join(Test.top_level_output_directory,"complete-coverage")
     rsync_from_guest("/home/alice/twfy-coverage/",copied_coverage)
 
     local_coverage_data_between(copied_coverage,start_all_coverage,end_all_coverage,output_filename_all_coverage)
 
-    used_source_directory = os.path.join(top_level_output_directory,"mysociety")
+    used_source_directory = os.path.join(Test.top_level_output_directory,"mysociety")
 
     check_call(["mkdir","-p",used_source_directory])
 
@@ -771,15 +774,14 @@ def output_report(top_level_output_directory,instrumented_files=None):
                      user="alice",
                      verbose=False)
 
-    report_index_filename = os.path.join(top_level_output_directory,"report.html")
+    report_index_filename = os.path.join(Test.top_level_output_directory,"report.html")
     fp = open(report_index_filename,"w")
 
     if instrumented_files:
         # Generate complete coverage report:
-        generate_coverage(top_level_output_directory,
-                          "/data/vhost/theyworkforyou.sandbox/mysociety/",
+        generate_coverage("/data/vhost/theyworkforyou.sandbox/mysociety/",
                           output_filename_all_coverage,
-                          os.path.join(top_level_output_directory,coverage_report_leafname),
+                          os.path.join(Test.top_level_output_directory,coverage_report_leafname),
                           used_source_directory,
                           instrumented_files)
 
@@ -803,7 +805,7 @@ def output_report(top_level_output_directory,instrumented_files=None):
 </head>
 <body style="background-color: #ffffff">
 <h2>They Work For You Test Reports</h2>
-''' % (relative_css_path(top_level_output_directory,report_index_filename),))
+''' % (relative_css_path(Test.top_level_output_directory,report_index_filename),))
     if instrumented_files:
         fp.write('''
 <p><a href="%s/coverage-coverage.html">Code coverage report for all tests.</a>
