@@ -233,7 +233,11 @@ def save_page(page_path,output_html_filename,url_opener=None,post_parameters=Non
     url = "http://"+configuration['UML_SERVER_HOSTNAME']+page_path
     if url_opener:
         try:
-            r = url_opener.open(url)
+            if post_parameters:
+                data = urlencode(post_parameters)
+                r = url_opener.open(url,data)
+            else:
+                r = url_opener.open(url)
             html = r.read()
             r.close()
             fp = open(output_html_filename, 'w')

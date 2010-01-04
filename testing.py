@@ -216,7 +216,7 @@ def run_ssh_test(ssh_command,user="alice",test_name="Unknown SSH test",test_shor
     return s
 
 class HTTPTest(Test):
-    def __init__(self,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None,check_for_error_element=True):
+    def __init__(self,page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None,check_for_error_element=True,post_parameters=None):
         Test.__init__(self,test_name=test_name,test_short_name=test_short_name)
         self.test_type = TEST_HTTP
         self.page = page
@@ -232,10 +232,14 @@ class HTTPTest(Test):
         self.error_message = ""
         self.browser = browser
         self.validate_result = -999
+        self.post_parameters = post_parameters
     def run(self):
         Test.run(self)
         page_filename = os.path.join(self.test_output_directory,"page.html")
-        self.fetch_succeeded = save_page(self.page,page_filename,url_opener=self.browser)
+        self.fetch_succeeded = save_page(self.page,
+                                         page_filename,
+                                         url_opener=self.browser,
+                                         post_parameters=self.post_parameters)
         if self.fetch_succeeded:
             source_filename = os.path.join(self.test_output_directory,"page-source.html")
             fp = open(source_filename,"w")
@@ -390,8 +394,8 @@ def run_page_test(http_test,test_function,test_name="Unknown page test",test_sho
     p.page_test_result = p.run()
     return p
 
-def run_http_test(page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None,check_for_error_element=True):
-    h = HTTPTest(page,test_name=test_name,test_short_name=test_short_name,render=render,browser=browser,check_for_error_element=check_for_error_element)
+def run_http_test(page,test_name="Unknown HTTP test",test_short_name="unknown-http",render=True,browser=None,check_for_error_element=True,post_parameters=None):
+    h = HTTPTest(page,test_name=test_name,test_short_name=test_short_name,render=render,browser=browser,check_for_error_element=check_for_error_element,post_parameters=post_parameters)
     all_tests.append(h)
     h.run_timed()
     return h
