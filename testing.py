@@ -744,7 +744,7 @@ def next_tag(tag,sibling=True):
             current_tag = current_tag.next
 
 def generate_email_address():
-    return "alice-"+os.urandom(4).encode("hex")+"@localhost"
+    return "alice-"+os.urandom(4).encode("hex")+"@localhost.localdomain"
 
 def handle_exception(exception_tuple):
     ft = FailedTest(exception_tuple)
