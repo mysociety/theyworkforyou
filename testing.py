@@ -20,9 +20,6 @@ test_type_to_str = { -1 : "TEST_UNKNOWN",
 
 all_tests = []
 
-start_all_coverage = None
-end_all_coverage = None
-
 def relative_css_path(output_directory,current_html_filename):
     to_strip = ensure_slash(output_directory)
     after_stripping = re.sub(re.escape(to_strip),'',current_html_filename)
@@ -35,6 +32,9 @@ def relative_css_path(output_directory,current_html_filename):
 class Test:
     top_level_output_directory = None
     last_test_number = -1
+    instrumented_files = None
+    start_all_coverage = None
+    end_all_coverage = None
     def __init__(self,test_name="Unknown test",test_short_name="unknown"):
         Test.last_test_number += 1
         self.test_number = Test.last_test_number
@@ -46,6 +46,8 @@ class Test:
         self.ignore_failure = False
         self.set_test_output_directory()
         self.log_filename = os.path.join(self.test_output_directory,"log")
+        self.start_time = None
+        self.end_time = None
     def record_time(self,date_and_time,start=True):
         if start:
             self.start_time = date_and_time
@@ -92,8 +94,10 @@ class Test:
         return result
     def run_timed(self):
         self.record_start_time(uml_date())
-        self.run()
-        self.record_end_time(uml_date())
+        try:
+            self.run()
+        finally:
+            self.record_end_time(uml_date())
     def run(self):
         if not self.test_output_directory:
             raise Exception, "No test output directory set for: "+str(self)
@@ -600,6 +604,9 @@ def generate_coverage(uml_prefix_to_strip,coverage_data_file,coverage_output_dir
     filename_to_percent_coverage = {}
     for filename in filenames_with_coverage_data:
         filename = uml_prefix_re.sub('',filename)
+        if re.search('^/',filename):
+            print "Ignoring absolute path in coverage: "+filename
+            continue
         unused_lines = 0
         used_lines = 0
         lines_to_uses = files_to_coverage[filename]
@@ -762,7 +769,10 @@ def output_report(instrumented_files=None):
     copied_coverage = os.path.join(Test.top_level_output_directory,"complete-coverage")
     rsync_from_guest("/home/alice/twfy-coverage/",copied_coverage)
 
-    local_coverage_data_between(copied_coverage,start_all_coverage,end_all_coverage,output_filename_all_coverage)
+    local_coverage_data_between(copied_coverage,
+                                Test.start_all_coverage,
+                                Test.end_all_coverage,
+                                output_filename_all_coverage)
 
     used_source_directory = os.path.join(Test.top_level_output_directory,"mysociety")
 

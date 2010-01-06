@@ -23,7 +23,7 @@ def add_instrumentation(www_directory):
     if 0 != scp("instrument.php",
                  www_directory+"/includes/"):
         raise Exception, "Failed to copy over the instrument.php file"
-    return [ x for x in instrumented_files if len(x.strip()) > 0 ]
+    return [ "twfy/www/"+x for x in instrumented_files if len(x.strip()) > 0 ]
 
 def setup_coverage_directory():
     # Create a world-writable directory for coverage data:
@@ -37,41 +37,38 @@ def setup_coverage_directory():
 
 def run_main_tests():
 
-    global start_all_coverage
-    global end_all_coverage
+    try:
 
-    check_dependencies()
-    setup_configuration()
+        check_dependencies()
+        setup_configuration()
 
-    instrumented_files = add_instrumentation("/data/vhost/theyworkforyou.sandbox/mysociety/twfy/www/")
-    instrumented_files = [ "twfy/www/"+x for x in instrumented_files ]
+        Test.instrumented_files = add_instrumentation("/data/vhost/theyworkforyou.sandbox/mysociety/twfy/www/")
 
-    setup_coverage_directory()
+        setup_coverage_directory()
 
-    if not start_all_coverage:
-        start_all_coverage = uml_date()
+        if not Test.start_all_coverage:
+            Test.start_all_coverage = uml_date()
 
-    sys.path.append('tests')
-    test_basenames = [ re.sub('\\.py','',t) for t in os.listdir('tests') if re.search('\\.py$',t) ]
+        sys.path.append('tests')
+        test_basenames = [ re.sub('\\.py','',t) for t in os.listdir('tests') if re.search('\\.py$',t) ]
 
-    for t in sorted(test_basenames):
-        __import__(t)
+        for t in sorted(test_basenames):
+            __import__(t)
 
-    # More tests to write:
+        # More tests to write:
 
-    # FIXME: create a new browser and try making an account:
+        # FIXME: create a new browser and try making an account:
 
-    # FIXME: Try searching...
+        # FIXME: Try searching...
 
-    # FIXME: Try adding an email alerts
+        # FIXME: Try adding an email alerts
 
-    # FIXME: provoke the "send alerts" code
+        # FIXME: provoke the "send alerts" code
 
-    # FIXME: check that an email has been received
+        # FIXME: check that an email has been received
 
-    end_all_coverage = uml_date()
-
-    output_report(instrumented_files=instrumented_files)
+    finally:
+        Test.end_all_coverage = uml_date()
 
 if __name__ == '__main__':
     parser = OptionParser(usage="Usage: %prog [OPTIONS]")
@@ -88,7 +85,4 @@ if __name__ == '__main__':
     except:
         handle_exception(sys.exc_info())
 
-    if not end_all_coverage:
-        end_all_coverage = uml_date()
-
-    output_report()
+    output_report(instrumented_files=Test.instrumented_files)

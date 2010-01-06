@@ -462,4 +462,4 @@ try:
 except:
     handle_exception(sys.exc_info())
 
-output_report()
+output_report(instrumented_files=Test.instrumented_files)
