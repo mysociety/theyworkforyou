@@ -7,6 +7,7 @@ import cgi
 from BeautifulSoup import BeautifulSoup, NavigableString, Comment,Tag
 import urllib2
 from urllib import urlencode
+from urlparse import urlparse
 
 configuration = {}
 
@@ -229,15 +230,20 @@ def render_page(page_path,output_image_filename):
                       "--plugins=off",
                       "--out="+output_image_filename])
 
-def save_page(page_path,output_html_filename,url_opener=None,post_parameters=None):
-    url = "http://"+configuration['UML_SERVER_HOSTNAME']+page_path
+def save_page(url,output_html_filename,url_opener=None,post_parameters=None):
+    url_tuple = urlparse(url)
+    if url_tuple[0]:
+        # Then it's a full URL:
+        full_url = url
+    else:
+        full_url = "http://"+configuration['UML_SERVER_HOSTNAME']+url
     if url_opener:
         try:
             if post_parameters:
                 data = urlencode(post_parameters)
-                r = url_opener.open(url,data)
+                r = url_opener.open(full_url,data)
             else:
-                r = url_opener.open(url)
+                r = url_opener.open(full_url)
             html = r.read()
             r.close()
             fp = open(output_html_filename, 'w')
@@ -251,7 +257,7 @@ def save_page(page_path,output_html_filename,url_opener=None,post_parameters=Non
         if post_parameters:
             raise Exception, "POST requests with curl not yet supported..."
         else:
-            return 0 == call(['curl','--location','-s','-o',output_html_filename,url])
+            return 0 == call(['curl','--location','-s','-o',output_html_filename,full_url])
 
 
 def uml_date():
