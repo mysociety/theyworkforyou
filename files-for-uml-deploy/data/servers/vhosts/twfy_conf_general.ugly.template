@@ -21,13 +21,13 @@ define ('OPTION_BBC_DB_PASS', '');
 // Domains.
 // Set this to the domain you are hosting on. If you're running locally, this will be "localhost" 
 // You can include a port number by putting ":N" at the end of DOMAIN
-define ("DOMAIN", "%UML_SERVER_IP%");
-define ("COOKIEDOMAIN", "%UML_SERVER_IP%");
+define ("DOMAIN", "%UML_SERVER_HOSTNAME%");
+define ("COOKIEDOMAIN", "%UML_SERVER_HOSTNAME%");
 
 // General 'Contact us' type email address. Point this at a real address if you 
 // want the site generated email to come to you. Can be overridden for other mails below.
 
-define ('EMAILDOMAIN', '%UML_SERVER_IP%');
+define ('EMAILDOMAIN', '%UML_SERVER_HOSTNAME%');
 define ("CONTACTEMAIL", "mark-twfyuml@longair.net");
 
 // File system path to the top directory of this Theyworkforyou installation; no trailing slash
