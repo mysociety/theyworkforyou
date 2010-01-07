@@ -1,0 +1,651 @@
+Name	Country
+Aberavon	W
+Aberconwy	W
+Aberdeen North	S
+Aberdeen South	S
+Airdrie and Shotts	S
+Aldershot	E
+Aldridge-Brownhills	E
+Altrincham and Sale West	E
+Alyn and Deeside	W
+Amber Valley	E
+Angus	S
+Arfon	W
+Argyll and Bute	S
+Arundel and South Downs	E
+Ashfield	E
+Ashford	E
+Ashton-under-Lyne	E
+Aylesbury	E
+Ayr, Carrick and Cumnock	S
+Banbury	E
+Banff and Buchan	S
+Barking	E
+Barnsley Central	E
+Barnsley East	E
+Barrow and Furness	E
+Basildon and Billericay	E
+Basingstoke	E
+Bassetlaw	E
+Bath	E
+Batley and Spen	E
+Battersea	E
+Beaconsfield	E
+Beckenham	E
+Bedford	E
+Belfast East	N
+Belfast North	N
+Belfast South	N
+Belfast West	N
+Bermondsey and Old Southwark	E
+Berwickshire, Roxburgh and Selkirk	S
+Berwick-upon-Tweed	E
+Bethnal Green and Bow	E
+Beverley and Holderness	E
+Bexhill and Battle	E
+Bexleyheath and Crayford	E
+Birkenhead	E
+Birmingham, Edgbaston	E
+Birmingham, Erdington	E
+Birmingham, Hall Green	E
+Birmingham, Hodge Hill	E
+Birmingham, Ladywood	E
+Birmingham, Northfield	E
+Birmingham, Perry Barr	E
+Birmingham, Selly Oak	E
+Birmingham, Yardley	E
+Bishop Auckland	E
+Blackburn	E
+Blackley and Broughton	E
+Blackpool North and Cleveleys	E
+Blackpool South	E
+Blaenau Gwent	W
+Blaydon	E
+Blyth Valley	E
+Bognor Regis and Littlehampton	E
+Bolsover	E
+Bolton North East	E
+Bolton South East	E
+Bolton West	E
+Bootle	E
+Boston and Skegness	E
+Bosworth	E
+Bournemouth East	E
+Bournemouth West	E
+Bracknell	E
+Bradford East	E
+Bradford South	E
+Bradford West	E
+Braintree	E
+Brecon and Radnorshire	W
+Brent Central	E
+Brentford and Isleworth	E
+Brent North	E
+Brentwood and Ongar	E
+Bridgend	W
+Bridgwater and West Somerset	E
+Brigg and Goole	E
+Brighton, Kemptown	E
+Brighton, Pavilion	E
+Bristol East	E
+Bristol North West	E
+Bristol South	E
+Bristol West	E
+Broadland	E
+Bromley and Chislehurst	E
+Bromsgrove	E
+Broxbourne	E
+Broxtowe	E
+Buckingham	E
+Burnley	E
+Burton	E
+Bury North	E
+Bury South	E
+Bury St Edmunds	E
+Caerphilly	W
+Caithness, Sutherland and Easter Ross	S
+Calder Valley	E
+Camberwell and Peckham	E
+Camborne and Redruth	E
+Cambridge	E
+Cannock Chase	E
+Canterbury	E
+Cardiff Central	W
+Cardiff North	W
+Cardiff South and Penarth	W
+Cardiff West	W
+Carlisle	E
+Carmarthen East and Dinefwr	W
+Carmarthen West and South Pembrokeshire	W
+Carshalton and Wallington	E
+Castle Point	E
+Central Ayrshire	S
+Central Devon	E
+Central Suffolk and North Ipswich	E
+Ceredigion	W
+Charnwood	E
+Chatham and Aylesford	E
+Cheadle	E
+Chelmsford	E
+Chelsea and Fulham	E
+Cheltenham	E
+Chesham and Amersham	E
+Chesterfield	E
+Chichester	E
+Chingford and Woodford Green	E
+Chippenham	E
+Chipping Barnet	E
+Chorley	E
+Christchurch	E
+Cities of London and Westminster	E
+City of Chester	E
+City of Durham	E
+Clacton	E
+Cleethorpes	E
+Clwyd South	W
+Clwyd West	W
+Coatbridge, Chryston and Bellshill	S
+Colchester	E
+Colne Valley	E
+Congleton	E
+Copeland	E
+Corby	E
+Coventry North East	E
+Coventry North West	E
+Coventry South	E
+Crawley	E
+Crewe and Nantwich	E
+Croydon Central	E
+Croydon North	E
+Croydon South	E
+Cumbernauld, Kilsyth and Kirkintilloch East	S
+Cynon Valley	W
+Dagenham and Rainham	E
+Darlington	E
+Dartford	E
+Daventry	E
+Delyn	W
+Denton and Reddish	E
+Derby North	E
+Derbyshire Dales	E
+Derby South	E
+Devizes	E
+Dewsbury	E
+Doncaster Central	E
+Doncaster North	E
+Don Valley	E
+Dover	E
+Dudley North	E
+Dudley South	E
+Dulwich and West Norwood	E
+Dumfries and Galloway	S
+Dumfriesshire, Clydesdale and Tweeddale	S
+Dundee East	S
+Dundee West	S
+Dunfermline and West Fife	S
+Dwyfor Meirionnydd	W
+Ealing Central and Acton	E
+Ealing North	E
+Ealing, Southall	E
+Easington	E
+East Antrim	N
+Eastbourne	E
+East Devon	E
+East Dunbartonshire	S
+East Ham	E
+East Hampshire	E
+East Kilbride, Strathaven and Lesmahagow	S
+Eastleigh	E
+East Londonderry	N
+East Lothian	S
+East Renfrewshire	S
+East Surrey	E
+East Worthing and Shoreham	E
+East Yorkshire	E
+Eddisbury	E
+Edinburgh East	S
+Edinburgh North and Leith	S
+Edinburgh South	S
+Edinburgh South West	S
+Edinburgh West	S
+Edmonton	E
+Ellesmere Port and Neston	E
+Elmet and Rothwell	E
+Eltham	E
+Enfield North	E
+Enfield, Southgate	E
+Epping Forest	E
+Epsom and Ewell	E
+Erewash	E
+Erith and Thamesmead	E
+Esher and Walton	E
+Exeter	E
+Falkirk	S
+Fareham	E
+Faversham and Mid Kent	E
+Feltham and Heston	E
+Fermanagh & South Tyrone	N
+Filton and Bradley Stoke	E
+Finchley and Golders Green	E
+Folkestone and Hythe	E
+Forest of Dean	E
+Foyle	N
+Fylde	E
+Gainsborough	E
+Garston and Halewood	E
+Gateshead	E
+Gedling	E
+Gillingham and Rainham	E
+Glasgow Central	S
+Glasgow East	S
+Glasgow North	S
+Glasgow North East	S
+Glasgow North West	S
+Glasgow South	S
+Glasgow South West	S
+Glenrothes	S
+Gloucester	E
+Gordon	S
+Gosport	E
+Gower	W
+Grantham and Stamford	E
+Gravesham	E
+Great Grimsby	E
+Great Yarmouth	E
+Greenwich and Woolwich	E
+Guildford	E
+Hackney North and Stoke Newington	E
+Hackney South and Shoreditch	E
+Halesowen and Rowley Regis	E
+Halifax	E
+Haltemprice and Howden	E
+Halton	E
+Hammersmith	E
+Hampstead and Kilburn	E
+Harborough	E
+Harlow	E
+Harrogate and Knaresborough	E
+Harrow East	E
+Harrow West	E
+Hartlepool	E
+Harwich and North Essex	E
+Hastings and Rye	E
+Havant	E
+Hayes and Harlington	E
+Hazel Grove	E
+Hemel Hempstead	E
+Hemsworth	E
+Hendon	E
+Henley	E
+Hereford and South Herefordshire	E
+Hertford and Stortford	E
+Hertsmere	E
+Hexham	E
+Heywood and Middleton	E
+High Peak	E
+Hitchin and Harpenden	E
+Holborn and St Pancras	E
+Hornchurch and Upminster	E
+Hornsey and Wood Green	E
+Horsham	E
+Houghton and Sunderland South	E
+Hove	E
+Huddersfield	E
+Huntingdon	E
+Hyndburn	E
+Ilford North	E
+Ilford South	E
+Inverclyde	S
+Inverness, Nairn, Badenoch and Strathspey	S
+Ipswich	E
+Isle of Wight	E
+Islington North	E
+Islington South and Finsbury	E
+Islwyn	W
+Jarrow	E
+Keighley	E
+Kenilworth and Southam	E
+Kensington	E
+Kettering	E
+Kilmarnock and Loudoun	S
+Kingston and Surbiton	E
+Kingston upon Hull East	E
+Kingston upon Hull North	E
+Kingston upon Hull West and Hessle	E
+Kingswood	E
+Kirkcaldy and Cowdenbeath	S
+Knowsley	E
+Lagan Valley	N
+Lanark and Hamilton East	S
+Lancaster and Fleetwood	E
+Leeds Central	E
+Leeds East	E
+Leeds North East	E
+Leeds North West	E
+Leeds West	E
+Leicester East	E
+Leicester South	E
+Leicester West	E
+Leigh	E
+Lewes	E
+Lewisham, Deptford	E
+Lewisham East	E
+Lewisham West and Penge	E
+Leyton and Wanstead	E
+Lichfield	E
+Lincoln	E
+Linlithgow and East Falkirk	S
+Liverpool, Riverside	E
+Liverpool, Walton	E
+Liverpool, Wavertree	E
+Liverpool, West Derby	E
+Livingston	S
+Llanelli	W
+Loughborough	E
+Louth and Horncastle	E
+Ludlow	E
+Luton North	E
+Luton South	E
+Macclesfield	E
+Maidenhead	E
+Maidstone and The Weald	E
+Makerfield	E
+Maldon	E
+Manchester Central	E
+Manchester, Gorton	E
+Manchester, Withington	E
+Mansfield	E
+Meon Valley	E
+Meriden	E
+Merthyr Tydfil and Rhymney	W
+Mid Bedfordshire	E
+Mid Derbyshire	E
+Middlesbrough	E
+Middlesbrough South and East Cleveland	E
+Mid Dorset and North Poole	E
+Midlothian	S
+Mid Norfolk	E
+Mid Sussex	E
+Mid Ulster	N
+Mid Worcestershire	E
+Milton Keynes North	E
+Milton Keynes South	E
+Mitcham and Morden	E
+Mole Valley	E
+Monmouth	W
+Montgomeryshire	W
+Moray	S
+Morecambe and Lunesdale	E
+Morley and Outwood	E
+Motherwell and Wishaw	S
+Na h-Eileanan an Iar	S
+Neath	W
+Newark	E
+Newbury	E
+Newcastle-under-Lyme	E
+Newcastle upon Tyne Central	E
+Newcastle upon Tyne East	E
+Newcastle upon Tyne North	E
+New Forest East	E
+New Forest West	E
+Newport East	W
+Newport West	W
+Newry & Armagh	N
+Newton Abbot	E
+Normanton, Pontefract and Castleford	E
+Northampton North	E
+Northampton South	E
+North Antrim	N
+North Ayrshire and Arran	S
+North Cornwall	E
+North Devon	E
+North Dorset	E
+North Down	N
+North Durham	E
+North East Bedfordshire	E
+North East Cambridgeshire	E
+North East Derbyshire	E
+North East Fife	S
+North East Hampshire	E
+North East Hertfordshire	E
+North East Somerset	E
+North Herefordshire	E
+North Norfolk	E
+North Shropshire	E
+North Somerset	E
+North Swindon	E
+North Thanet	E
+North Tyneside	E
+North Warwickshire	E
+North West Cambridgeshire	E
+North West Durham	E
+North West Hampshire	E
+North West Leicestershire	E
+North West Norfolk	E
+North Wiltshire	E
+Norwich North	E
+Norwich South	E
+Nottingham East	E
+Nottingham North	E
+Nottingham South	E
+Nuneaton	E
+Ochil and South Perthshire	S
+Ogmore	W
+Old Bexley and Sidcup	E
+Oldham East and Saddleworth	E
+Oldham West and Royton	E
+Orkney and Shetland	S
+Orpington	E
+Oxford East	E
+Oxford West and Abingdon	E
+Paisley and Renfrewshire North	S
+Paisley and Renfrewshire South	S
+Pendle	E
+Penistone and Stocksbridge	E
+Penrith and The Border	E
+Perth and North Perthshire	S
+Peterborough	E
+Plymouth, Moor View	E
+Plymouth, Sutton and Devonport	E
+Pontypridd	W
+Poole	E
+Poplar and Limehouse	E
+Portsmouth North	E
+Portsmouth South	E
+Preseli Pembrokeshire	W
+Preston	E
+Pudsey	E
+Putney	E
+Rayleigh and Wickford	E
+Reading East	E
+Reading West	E
+Redcar	E
+Redditch	E
+Reigate	E
+Rhondda	W
+Ribble Valley	E
+Richmond Park	E
+Richmond (Yorks)	E
+Rochdale	E
+Rochester and Strood	E
+Rochford and Southend East	E
+Romford	E
+Romsey and Southampton North	E
+Rossendale and Darwen	E
+Ross, Skye and Lochaber	S
+Rotherham	E
+Rother Valley	E
+Rugby	E
+Ruislip, Northwood and Pinner	E
+Runnymede and Weybridge	E
+Rushcliffe	E
+Rutherglen and Hamilton West	S
+Rutland and Melton	E
+Saffron Walden	E
+Salford and Eccles	E
+Salisbury	E
+Scarborough and Whitby	E
+Scunthorpe	E
+Sedgefield	E
+Sefton Central	E
+Selby and Ainsty	E
+Sevenoaks	E
+Sheffield, Brightside and Hillsborough	E
+Sheffield Central	E
+Sheffield, Hallam	E
+Sheffield, Heeley	E
+Sheffield South East	E
+Sherwood	E
+Shipley	E
+Shrewsbury and Atcham	E
+Sittingbourne and Sheppey	E
+Skipton and Ripon	E
+Sleaford and North Hykeham	E
+Slough	E
+Solihull	E
+Somerton and Frome	E
+Southampton, Itchen	E
+Southampton, Test	E
+South Antrim	N
+South Basildon and East Thurrock	E
+South Cambridgeshire	E
+South Derbyshire	E
+South Dorset	E
+South Down	N
+South East Cambridgeshire	E
+South East Cornwall	E
+Southend West	E
+South Holland and The Deepings	E
+South Leicestershire	E
+South Norfolk	E
+South Northamptonshire	E
+Southport	E
+South Ribble	E
+South Shields	E
+South Staffordshire	E
+South Suffolk	E
+South Swindon	E
+South Thanet	E
+South West Bedfordshire	E
+South West Devon	E
+South West Hertfordshire	E
+South West Norfolk	E
+South West Surrey	E
+South West Wiltshire	E
+Spelthorne	E
+Stafford	E
+Staffordshire Moorlands	E
+St Albans	E
+Stalybridge and Hyde	E
+St Austell and Newquay	E
+Stevenage	E
+St Helens North	E
+St Helens South and Whiston	E
+Stirling	S
+St Ives	E
+Stockport	E
+Stockton North	E
+Stockton South	E
+Stoke-on-Trent Central	E
+Stoke-on-Trent North	E
+Stoke-on-Trent South	E
+Stone	E
+Stourbridge	E
+Strangford	N
+Stratford-on-Avon	E
+Streatham	E
+Stretford and Urmston	E
+Stroud	E
+Suffolk Coastal	E
+Sunderland Central	E
+Surrey Heath	E
+Sutton and Cheam	E
+Sutton Coldfield	E
+Swansea East	W
+Swansea West	W
+Tamworth	E
+Tatton	E
+Taunton Deane	E
+Telford	E
+Tewkesbury	E
+The Cotswolds	E
+The Wrekin	E
+Thirsk and Malton	E
+Thornbury and Yate	E
+Thurrock	E
+Tiverton and Honiton	E
+Tonbridge and Malling	E
+Tooting	E
+Torbay	E
+Torfaen	W
+Torridge and West Devon	E
+Totnes	E
+Tottenham	E
+Truro and Falmouth	E
+Tunbridge Wells	E
+Twickenham	E
+Tynemouth	E
+Upper Bann	N
+Uxbridge and South Ruislip	E
+Vale of Clwyd	W
+Vale of Glamorgan	W
+Vauxhall	E
+Wakefield	E
+Wallasey	E
+Walsall North	E
+Walsall South	E
+Walthamstow	E
+Wansbeck	E
+Wantage	E
+Warley	E
+Warrington North	E
+Warrington South	E
+Warwick and Leamington	E
+Washington and Sunderland West	E
+Watford	E
+Waveney	E
+Wealden	E
+Weaver Vale	E
+Wellingborough	E
+Wells	E
+Welwyn Hatfield	E
+Wentworth and Dearne	E
+West Aberdeenshire and Kincardine	S
+West Bromwich East	E
+West Bromwich West	E
+West Dorset	E
+West Dunbartonshire	S
+West Ham	E
+West Lancashire	E
+Westminster North	E
+Westmorland and Lonsdale	E
+Weston-Super-Mare	E
+West Suffolk	E
+West Tyrone	N
+West Worcestershire	E
+Wigan	E
+Wimbledon	E
+Winchester	E
+Windsor	E
+Wirral South	E
+Wirral West	E
+Witham	E
+Witney	E
+Woking	E
+Wokingham	E
+Wolverhampton North East	E
+Wolverhampton South East	E
+Wolverhampton South West	E
+Worcester	E
+Workington	E
+Worsley and Eccles South	E
+Worthing West	E
+Wrexham	W
+Wycombe	E
+Wyre and Preston North	E
+Wyre Forest	E
+Wythenshawe and Sale East	E
+Yeovil	E
+Ynys Mon	W
+York Central	E
+York Outer	E
