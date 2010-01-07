@@ -70,6 +70,8 @@ if (get_http_var("submitterm") != '') {
 	} else {
 		$PAGE->error_message("Sorry, there was an error and we were unable to add your Glossary item.");
 	}
+	$PAGE->stripe_end();
+	
 } elseif (get_http_var("previewterm") != '') {
 // We're previewing a Glossary definition.
 
@@ -141,6 +143,9 @@ if (get_http_var("submitterm") != '') {
 				print "<p><a href=\"#definition\">Back to form</a></p>";
 			}
 		}
+
+	$PAGE->stripe_end();
+	
 } else {
 	// We just arrived here empty handed...
 	
@@ -191,6 +196,3 @@ if (get_http_var("submitterm") != '') {
 
 $PAGE->page_end();
 
-
-
-?>
