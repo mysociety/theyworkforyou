@@ -1204,20 +1204,8 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 
 		} 
 		
-		if (isset($links['guardian_parliament_history'])) {
-			$html .= '	<li><a href="' . $links['guardian_parliament_history'] . '">Parliamentary career</a> <small>(From The Guardian)</small></li>';
-		}
-
 		if (isset($links['guardian_election_results'])) {
 			$html .= '	<li><a href="' . $links['guardian_election_results'] . '">Election results for ' . $member->constituency() . '</a> <small>(From The Guardian)</small></li>';
-		}
-
-		if (isset($links['guardian_candidacies'])) {
-			$html .= '	<li><a href="' . $links['guardian_candidacies'] . '">Previous candidacies</a> <small>(From The Guardian)</small></li>';
-		}
-
-		if (isset($links['guardian_contactdetails'])) {
-			$html .= '	<li><a href="' . $links['guardian_contactdetails'] . '">Contact details</a> <small>(From The Guardian)</small></li>';
 		}
 
 		if (isset($links['bbc_profile_url'])) {
