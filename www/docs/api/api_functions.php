@@ -79,7 +79,7 @@ $methods = array(
 	),
 	'getGeometry' => array(
 		'new' => true,
-		'parameters' => array('name'),
+		'parameters' => array('name', 'future'),
 		'required' => false,
 		'help' => 'Returns centre, bounding box of constituencies'
 	),

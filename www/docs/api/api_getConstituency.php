@@ -10,7 +10,7 @@ function api_getConstituency_front() {
 <dl>
 <dt>postcode</dt>
 <dd>Fetch the constituency for a given postcode.</dd>
-<dt>future</dt>
+<dt>future (optional)</dt>
 <dd>If set to anything, return the name of the constituency this postcode will be in
 at the next election (<a href="/boundaries/new-constituencies.tsv">list as TSV file</a>).
 This is a temporary feature before the 2010 general election.</dd>
