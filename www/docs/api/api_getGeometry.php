@@ -94,7 +94,9 @@ function _api_getGeometry() {
 	foreach (array_keys($areas_info) as $area_id) {
 		$names[$area_id] = $areas_info[$area_id]['name'];
 	}
-	$names = normalise_constituency_names($names);
+	if (!get_http_var('future')) {
+	    $names = normalise_constituency_names($names);
+    }
 	foreach (array_keys($areas_info) as $area_id) {
 		$out = array();
 		$name = $names[$area_id];
