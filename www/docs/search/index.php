@@ -329,7 +329,7 @@ function find_constituency ($args) {
             }
             ?></h3>
             
-            <p><a href="<?php echo $URL->generate(); ?>"><strong><?php echo htmlentities($MEMBER->first_name()) . ' ' . htmlentities($MEMBER->last_name()); ?></strong></a> (<?php echo $MEMBER->party(); ?>)</p>
+            <p><a href="<?php echo $URL->generate(); ?>"><strong><?php echo $MEMBER->full_name(); ?></strong></a> (<?php echo $MEMBER->party(); ?>)</p>
     <?php
         }
 
@@ -341,8 +341,8 @@ function find_constituency ($args) {
             if ($MEMBER->valid) {
                 $URL->insert(array('m'=>$MEMBER->member_id()));
             }
-            print '<li><a href="'.$URL->generate().'"><strong>'.htmlentities($MEMBER->first_name()).' ' .
-                htmlentities($MEMBER->last_name()).'</strong></a> (' . preg_replace("#$searchterm#i", '<span class="hi">$0</span>', $constituency) .
+            print '<li><a href="'.$URL->generate().'"><strong>' . $MEMBER->full_name() .
+                '</strong></a> (' . preg_replace("#$searchterm#i", '<span class="hi">$0</span>', $constituency) .
                 ', '.$MEMBER->party().')</li>';
         }
         print '</ul>';
@@ -471,15 +471,14 @@ function find_members ($searchstring) {
                 } else {
                     $former = '';
                 }
+                $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'first_name'), $q->field($n, 'last_name'), $q->field($n, 'constituency') );
                 if ($q->field($n, 'house') == 1) {
                     $URL1->insert(array('pid'=>$last_pid));
                     $s = '<a href="' . $URL1->generate() . '"><strong>';
-                    $s .= $q->field($n, 'first_name') . ' ' . $q->field($n, 'last_name') . '</strong></a> (' . $former . $q->field($n, 'constituency') . ', ';
+                    $s .= $name . '</strong></a> (' . $former . $q->field($n, 'constituency') . ', ';
                 } else {
                     $URL2->insert(array('pid'=>$last_pid));
-                    $s = '<a href="' . $URL2->generate() . '"><strong>';
-                    $s .= member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'first_name'), $q->field($n, 'last_name'), $q->field($n, 'constituency') );
-                    $s .= '</strong></a> (';
+                    $s = '<a href="' . $URL2->generate() . '"><strong>' . $name . '</strong></a> (';
                 }
                 $party = $q->field($n, 'party');
                 if (isset($parties[$party]))
