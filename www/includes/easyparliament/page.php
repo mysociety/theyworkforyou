@@ -287,7 +287,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		                <a href="http://www.mysociety.org"><span>mySociety</span></a>
 		            </li>
 		            <li>
-		                <a href="http://www.mysociety.org/donate/?cs=1" title="Like this website? Dontate to help keep it running.">Donate</a>
+		                <a href="http://www.mysociety.org/donate/?cs=1" title="Like this website? Donate to help keep it running.">Donate</a>
 		            </li>
 		            <li id="moresites">
 		                <a id="moresiteslink" href="http://www.mysociety.org/projects/?cs=1" title="Donate to UK Citizens Online Democracy, mySociety's parent charity.">More</a>
