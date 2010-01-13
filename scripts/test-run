@@ -12,7 +12,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
-my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.15 2009-06-16 09:12:09 matthew Exp $';
+my $rcsid = ''; $rcsid .= '$Id: test-run,v 1.16 2010-01-13 10:51:03 louise Exp $';
 
 use strict;
 require 5.8.0;
@@ -616,7 +616,7 @@ sub do_alert_signup_test(){
 sub do_frontpage_test(){
 
     $wth->browser_get($base_url);
-    $wth->browser_check_contents("At TheyWorkForYou.com you can:");
+    $wth->browser_check_contents("Recently in the UK Parliament");
 
 } 
 #----------------------------------
