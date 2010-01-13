@@ -9,7 +9,7 @@ function api_getConstituency_front() {
 <h4>Arguments</h4>
 <dl>
 <dt>postcode</dt>
-<dd>Fetch the constituency for a given postcode.</dd>
+<dd>Fetch the constituency with associated information for a given postcode.</dd>
 <dt>future (optional)</dt>
 <dd>If set to anything, return the name of the constituency this postcode will be in
 at the next election (<a href="/boundaries/new-constituencies.tsv">list as TSV file</a>).
@@ -49,8 +49,18 @@ function api_getconstituency_postcode($pc) {
 		if ($constituency == 'CONNECTION_TIMED_OUT') {
 			api_error('Connection timed out');
 		} elseif ($constituency) {
-			$output['name'] = html_entity_decode($constituency);
-			api_output($output);
+                    $db = new ParlDB;
+                    $q = $db->query("select constituency, data_key, data_value from consinfo
+                                     where constituency = '" . mysql_escape_string($constituency) . "'");
+                    if ($q->rows()) {
+                        for ($i=0; $i<$q->rows(); $i++) {
+                            $data_key = $q->field($i, 'data_key');
+                            $output[$data_key] = $q->field($i, 'data_value');
+                        }
+                        ksort($output);
+		    }
+                    $output['name'] = html_entity_decode($constituency);
+		    api_output($output);
 		} else {
 			api_error('Unknown postcode');
 		}
