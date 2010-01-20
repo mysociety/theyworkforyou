@@ -6,7 +6,7 @@
  * Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
  * Email: matthew@mysociety.org. WWW: http://www.mysociety.org
  *
- * $Id: index.php,v 1.3 2009-09-18 10:37:25 matthew Exp $
+ * $Id: index.php,v 1.4 2010-01-20 10:48:58 matthew Exp $
  * 
  */
 
@@ -449,13 +449,13 @@ Before you used TheyWorkForYou did you ever look up information on what your rep
 </td>
 	<td><select name="income" >
 <option selected="selected" value="please select what applies to you">please select what applies to you</option>
-<option value="1">up to	£12,500 per year</option>
-<option value="2">£12,501 to £25,000 per year</option>
-<option value="3">£25,001 to £37,500 per year</option>
-<option value="4">£37,501 to £50,000 per year</option>
-<option value="5">£50,001 to £75,000 per year</option>
-<option value="6">£75,001 to £100,000 per year</option>
-<option value="7">more than £100,000 per year</option>
+<option value="1">up to	&pound;12,500 per year</option>
+<option value="2">&pound;12,501 to &pound;25,000 per year</option>
+<option value="3">&pound;25,001 to &pound;37,500 per year</option>
+<option value="4">&pound;37,501 to &pound;50,000 per year</option>
+<option value="5">&pound;50,001 to &pound;75,000 per year</option>
+<option value="6">&pound;75,001 to &pound;100,000 per year</option>
+<option value="7">more than &pound;100,000 per year</option>
 <option value="95">don't want to answer</option>
 </select></td>
 </tr>
