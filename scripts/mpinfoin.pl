@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.47 2009-12-03 14:55:34 matthew Exp $
+# $Id: mpinfoin.pl,v 1.48 2010-01-20 18:47:28 matthew Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -687,7 +687,7 @@ sub enrankify {
                 #$quintile++ if ($activerank>$quintile[$quintile]);
                 #print $field . " " . $mp . " value $activerank of " . $#mps . "\n";
                 $hash->{$mp}->{$field . "_rank"} = $activerank;
-                $hash->{$mp}->{$field . "_rank_joint"} = 1 if $valuecount{$mpsvalue{$mp}} > 1;
+                $hash->{$mp}->{$field . "_rank_joint"} = $valuecount{$mpsvalue{$mp}} if $valuecount{$mpsvalue{$mp}} > 1;
                 $hash->{$mp}->{$field . "_rank_outof"} = $count;
                 $hash->{$mp}->{$field . '_quintile'} = $quintile;
                 $prevvalue = $mpsvalue{$mp};
