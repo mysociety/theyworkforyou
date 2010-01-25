@@ -65,7 +65,9 @@ function person_history($p) {
 				$PAGE->stripe_start();
 				print $link;
 				?>
-<p>This page shows how <a href="/mp/?p=<?=$p ?>"><?=$name ?></a>'s entry in the Register of Members' Interests has changed over time, starting at the most recent and working back to the earliest we have managed to parse.</p>
+<p>This page shows how <a href="/mp/?p=<?=$p ?>"><?=$name ?></a>'s entry in the Register of Members' Interests has changed over time, starting at the most recent and working back to the earliest we have managed to parse.
+Please be aware that changes in typography/styling at the source might mean something is marked as changed (ie. removed and added) when it hasn't; sorry about that, but we do our best with the source material.
+</p>
 <table id="regmem">
 <tr><th width="50%">Removed</th><th width="50%">Added</th></tr>
 <?
