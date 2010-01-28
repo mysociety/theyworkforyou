@@ -8,9 +8,8 @@ define ("DB_HOST", "localhost");
 define ("DB_USER", "username");
 define ("DB_PASS", "password");
 define ("DB_NAME", "twfy");
-define ("DB_TYPE", "mysql");
 
-// Parliamentary video database
+// Parliamentary video database (we use PostgreSQL for this)
 define ('OPTION_BBC_DB_HOST', 'host');
 define ('OPTION_BBC_DB_PORT', 'port');
 define ('OPTION_BBC_DB_USER', 'user');
