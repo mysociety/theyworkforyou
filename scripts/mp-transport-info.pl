@@ -20,8 +20,8 @@ boat boats ferry ferries port ports
 my $words = join('|', @words);
 
 # Get any data from the database
-my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('OPTION_TWFY_DB_NAME'). ':host=' . mySociety::Config::get('OPTION_TWFY_DB_HOST');
-my $dbh = DBI->connect($dsn, mySociety::Config::get('OPTION_TWFY_DB_USER'), mySociety::Config::get('OPTION_TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
+my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
 
 my %out = ();
 my %consts = ();

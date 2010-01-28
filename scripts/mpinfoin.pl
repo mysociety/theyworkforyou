@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: mpinfoin.pl,v 1.49 2010-01-28 00:08:26 francis Exp $
+# $Id: mpinfoin.pl,v 1.50 2010-01-28 09:21:17 matthew Exp $
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -164,8 +164,8 @@ if ($action{'expenses'}) {
 }
 
 # Get any data from the database
-my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('OPTION_TWFY_DB_NAME'). ':host=' . mySociety::Config::get('OPTION_TWFY_DB_HOST');
-my $dbh = DBI->connect($dsn, mySociety::Config::get('OPTION_TWFY_DB_USER'), mySociety::Config::get('OPTION_TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
+my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
 #DBI->trace(2);
 if ($action{'rankings'}) {
         print "Making rankings\n" if $verbose;

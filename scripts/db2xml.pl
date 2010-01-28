@@ -2,7 +2,7 @@
 # vim:sw=8:ts=8:et:nowrap
 use strict;
 
-# $Id: db2xml.pl,v 1.7 2010-01-28 00:08:26 francis Exp $
+# $Id: db2xml.pl,v 1.8 2010-01-28 09:21:17 matthew Exp $
 #
 # compares DB content to XML data and updates xml
 # 
@@ -45,8 +45,8 @@ my $result = GetOptions (
 #my $pwmembers = mySociety::Config::get('PWMEMBERS');
 #$members_xml_file = $pwmembers . 'all-members.xml';
 
-my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('OPTION_TWFY_DB_NAME'). ':host=' . mySociety::Config::get('OPTION_TWFY_DB_HOST');
-$dbh = DBI->connect($dsn, mySociety::Config::get('OPTION_TWFY_DB_USER'), mySociety::Config::get('OPTION_TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
+$dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
 
 
 if ($update_person && $personid) {
