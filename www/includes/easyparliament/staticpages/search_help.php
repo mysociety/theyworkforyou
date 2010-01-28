@@ -6,7 +6,8 @@
 speeches made by that person, or that mention that person.</li>
 
 <li>To search for an exact phrase, use quotes (""). For example to find only documents contain the exact phrase "Hutton Report":<br>
-<span class="example-input">"hutton report"</span></li>
+<span class="example-input">"hutton report"</span>
+Also put a word in quotes if you don't want to perform stemming (where e.g. searching for the singular of a word also tries to search for the plural).</li>
 
 <li>To exclude a word from your search, put a minus ("-") sign in front,
 for example to find documents containing the word "representation" but not the word "taxation":<br>
