@@ -13,8 +13,8 @@ use URI::Escape;
 use mySociety::Config;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
-my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
-my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASS'), { RaiseError => 1, PrintError => 0 });
+my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('OPTION_TWFY_DB_NAME'). ':host=' . mySociety::Config::get('OPTION_TWFY_DB_HOST');
+my $dbh = DBI->connect($dsn, mySociety::Config::get('OPTION_TWFY_DB_USER'), mySociety::Config::get('OPTION_TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
 
 my $dc = {
     subject => '',

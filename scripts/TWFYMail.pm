@@ -5,7 +5,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org
 #
-# $Id: TWFYMail.pm,v 1.3 2009-05-11 13:08:10 louise Exp $
+# $Id: TWFYMail.pm,v 1.4 2010-01-28 00:08:26 francis Exp $
 #
 
 package TWFYMail;
@@ -65,8 +65,8 @@ sub mark_deleted($$$){
     my $email = $bounced_address || $recipient;
 
     if ($email && mySociety::EmailUtil::is_valid_email($email)){
-        my $dsn = "DBI:mysql:" . mySociety::Config::get('DB_NAME') . ':' . mySociety::Config::get('DB_HOST');
-        my $dbh = DBI->connect ($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASS'), { RaiseError => 1});
+        my $dsn = "DBI:mysql:" . mySociety::Config::get('OPTION_TWFY_DB_NAME') . ':' . mySociety::Config::get('OPTION_TWFY_DB_HOST');
+        my $dbh = DBI->connect ($dsn, mySociety::Config::get('OPTION_TWFY_DB_USER'), mySociety::Config::get('OPTION_TWFY_DB_PASS'), { RaiseError => 1});
         $dbh->do('update alerts set deleted=1 where email = ?', {}, $email);
         mark_as('deleted', $data);
     }else{

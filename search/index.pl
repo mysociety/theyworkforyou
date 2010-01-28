@@ -32,8 +32,8 @@ die "As first parameter, specify:
 " if !$action or ($action ne "all" and $action ne "lastweek" and $action ne "lastmonth" and $action ne "sincefile" and $action ne "check" and $action ne 'checkfull' and $action ne "daterange");
 
 # Open MySQL
-my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('DB_NAME'). ':host=' . mySociety::Config::get('DB_HOST');
-my $dbh = DBI->connect($dsn, mySociety::Config::get('DB_USER'), mySociety::Config::get('DB_PASS'), { RaiseError => 1, PrintError => 0 });
+my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('OPTION_TWFY_DB_NAME'). ':host=' . mySociety::Config::get('OPTION_TWFY_DB_HOST');
+my $dbh = DBI->connect($dsn, mySociety::Config::get('OPTION_TWFY_DB_USER'), mySociety::Config::get('OPTION_TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
 
 # Work out when to update from, for "sincefile" case
 my $since_date_condition = "";

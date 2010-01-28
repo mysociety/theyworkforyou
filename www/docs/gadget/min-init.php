@@ -11,7 +11,7 @@ include_once (INCLUDESPATH."mysql.php");
 
 Class ParlDB extends MySQL {
 	function ParlDB () {
-		$this->init (DB_HOST, DB_USER, DB_PASS, DB_NAME);
+		$this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
 	}
 }
 

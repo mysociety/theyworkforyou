@@ -17,9 +17,9 @@ DUMPDATE=`wget -q -O - http://download.wikimedia.org/backup-index.html | grep "e
 #echo "Wikipedia dump date $DUMPDATE"
 wget -q -O all-titles-in-ns0.gz http://download.wikimedia.org/enwiki/$DUMPDATE/enwiki-$DUMPDATE-all-titles-in-ns0.gz
 gunzip all-titles-in-ns0.gz
-echo "load data concurrent local infile '/data/vhost/www.theyworkforyou.com/dumps/all-titles-in-ns0' ignore into table titles;" | mysql $DB_NAME -h $DB_HOST
+echo "load data concurrent local infile '/data/vhost/www.theyworkforyou.com/dumps/all-titles-in-ns0' ignore into table titles;" | mysql $OPTION_TWFY_DB_NAME -h $OPTION_TWFY_DB_HOST
 cd /data/vhost/www.theyworkforyou.com/mysociety/twfy/scripts
-cat wikipedia-exceptions | mysql $DB_NAME -h $DB_HOST
+cat wikipedia-exceptions | mysql $OPTION_TWFY_DB_NAME -h $OPTION_TWFY_DB_HOST
 
 #Full database:
 #http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
