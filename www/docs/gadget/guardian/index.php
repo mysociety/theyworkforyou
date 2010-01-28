@@ -11,7 +11,7 @@ if (!$pid) output_error('<error>No ID</error>');
 $member = load_member($pid);
 
 twfy_debug_timestamp();
-
+$resources_path = "/gadget/guardian/resources/";
 switch ($action) {
 	# Resources
 	case 'rmi-resource':
@@ -62,7 +62,9 @@ switch ($action) {
 	case 'expenses-component':
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
 		echo expenses_mostrecent($member->extra_info);
-		echo '<p><a href="{microapp-link:resource:mp-expenses:key:[aristotle_id]}">More expenses</a></p>';
+		echo "<p><a 
+href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/expenses/$member->person_id}\">More 
+expenses</a></p>";
 		break;
 	case 'rmi-component':
 		$rmi = $member->extra_info['register_member_interests_html'];
@@ -77,7 +79,9 @@ switch ($action) {
 		}
 		echo $rmi;
 		if ($show_more) {
-			echo '<p><a href="{microapp-link:resource:register-of-members-interests:key:[aristotle_id]}">More from the register</a></p>';
+			echo "<p><a 
+href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->person_id}\">More from 
+the register</a></p>";
 		}
 		break;
 	default:
