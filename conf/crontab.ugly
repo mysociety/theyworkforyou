@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.12 2008-12-01 17:23:54 matthew Exp $
+# $Id: crontab.ugly,v 1.13 2010-01-29 20:11:48 matthew Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 
@@ -21,12 +21,8 @@ MAILTO=team@theyworkforyou.com
 
 # Weekly, compact Xapian database
 23 4 * * Sun !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/morning-update.lock /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/compactsearchdb || echo "morningupdate or compactsearchdb is already running"
-
-# daily backup
-# 30 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/dumpallforbackup
-
-# Temporary, hopefully, update timestamps from video processing
-# 15 * * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/scripts/update-hansard-all.pl
+# And remove any things in the index that are no longer present
+0 23 * * Sat !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/twfy/search/index.pl check
 
 !!(* } *)!!
 
