@@ -345,7 +345,7 @@ if (isset ($data['rows'])) {
 			if (isset($row['source_url']) && $row['source_url'] != '') {
 				$source_title = '';
 				$major = $data['info']['major'];
-				if ($major==1 || $major==2 || $major==3 || $major==4 || $major==101) {
+				if ($major==1 || $major==2 || (($major==3 || $major==4) && isset($row['speaker'])) || $major==101) {
 					$source_title = 'Citation: ';
 					if ($major==1 || $major==2) {
 						$source_title .= 'HC';
