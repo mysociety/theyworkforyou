@@ -347,8 +347,14 @@ if (isset ($data['rows'])) {
 				$major = $data['info']['major'];
 				if ($major==1 || $major==2 || $major==3 || $major==4 || $major==101) {
 					$source_title = 'Citation: ';
-					if ($major==1 || $major==2 || $major==3 || $major==4) {
+					if ($major==1 || $major==2) {
 						$source_title .= 'HC';
+					} elseif ($major==3 || $major==4) {
+						if ($row['speaker']['house']==1) {
+						    $source_title .= 'HC';
+						} else {
+						    $source_title .= 'HL';
+						}
 					} else {
 						$source_title .= 'HL';
 					}
