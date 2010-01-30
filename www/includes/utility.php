@@ -141,7 +141,7 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 
 	// Finally, display errors and stuff...
 
-	if (DEVSITE) {
+	if (DEVSITE || get_http_var(DEBUGTAG)) {
 		// On a devsite we just display the problem.
 		$message = array(
 			'title' => "Error",
