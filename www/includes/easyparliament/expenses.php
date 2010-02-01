@@ -118,7 +118,10 @@ function expenses_item($ey, $col, $extra_info) {
 		$rank = ' (';
 		if (isset($extra_info[$kr . '_joint']))
 			$rank .= 'joint&nbsp;';
-		$rank .= make_ranking($extra_info[$kr]) . ")";
+		$rank .= make_ranking($extra_info[$kr]);
+		if (isset($extra_info[$kr . '_joint']))
+			$rank .= ' with ' . $extra_info[$kr . '_joint'] . ' others';
+		$rank .= ')';
 	}
 	$extra = '';
 	if ($col=='col5' && $ey==2007 && isset($extra_info['expenses2007_col5a']) && $extra_info['expenses2007_col5'] > 0)
