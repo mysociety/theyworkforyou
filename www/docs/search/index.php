@@ -403,7 +403,7 @@ function find_users ($args) {
 }
 
 function member_db_lookup($searchstring) {
-	$searchstring = trim(preg_replace("#[^0-9a-z'& ]#i", '', $searchstring));
+	$searchstring = trim(preg_replace("#[^0-9a-z'& -]#i", '', $searchstring));
 	if (!$searchstring) return false;
 	$searchwords = explode(' ', $searchstring, 3);
     foreach ($searchwords as $i => $searchword) {
