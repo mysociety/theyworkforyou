@@ -119,8 +119,10 @@ function expenses_item($ey, $col, $extra_info) {
 		if (isset($extra_info[$kr . '_joint']))
 			$rank .= 'joint&nbsp;';
 		$rank .= make_ranking($extra_info[$kr]);
-		if (isset($extra_info[$kr . '_joint']))
-			$rank .= ' with ' . ($extra_info[$kr . '_joint']-1) . ' others';
+		if (isset($extra_info[$kr . '_joint'])) {
+			$others = $extra_info[$kr . '_joint'] - 1;
+			$rank .= ' with ' . $others . ' other' . ($others==1 ? '' : 's');
+		}
 		$rank .= ')';
 	}
 	$extra = '';
