@@ -1,4 +1,4 @@
-#!/usr/bin/perl -I ../../perllib/ -w
+#!/usr/bin/perl -I ../commonlib/perllib/ -w
 use strict;
 use lib "loader/";
 

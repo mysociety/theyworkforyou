@@ -10,7 +10,7 @@ use strict;
 use FindBin;
 chdir $FindBin::Bin;
 use lib "$FindBin::Bin";
-use lib "$FindBin::Bin/../../perllib";
+use lib "$FindBin::Bin/../commonlib/perllib";
 
 use mySociety::Config;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");

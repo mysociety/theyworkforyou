@@ -12,7 +12,7 @@ use DBI;
 use FindBin;
 chdir $FindBin::Bin;
 use lib $FindBin::Bin;
-use lib "../../perllib";
+use lib "../commonlib/perllib";
 use config; # see config.pm.incvs
 use mySociety::Config;
 use mySociety::Email;

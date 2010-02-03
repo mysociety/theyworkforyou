@@ -8,7 +8,7 @@ use strict;
 use FindBin;
 use File::Copy;
 use File::Path;
-use lib "$FindBin::Bin/../../perllib";
+use lib "$FindBin::Bin/../commonlib/perllib";
 
 use mySociety::Config;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");

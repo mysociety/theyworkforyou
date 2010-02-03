@@ -17,7 +17,7 @@ require 5.8.0;
 use DBI; 
 use FindBin;
 use lib "$FindBin::Bin/../perllib";
-use lib "$FindBin::Bin/../../perllib";
+use lib "$FindBin::Bin/../commonlib/perllib";
 use mySociety::Config;
 use mySociety::EmailUtil;
 

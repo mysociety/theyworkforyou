@@ -8,7 +8,7 @@ use strict;
 
 use DBI;
 use FindBin;
-use lib '../../perllib';
+use lib '../commonlib/perllib';
 use mySociety::Config;
 use mySociety::Email;
 use mySociety::EmailUtil;

@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w -I../../perllib
+#!/usr/bin/perl -w -I../commonlib/perllib
 
 use strict;
 use DBI;

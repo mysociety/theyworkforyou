@@ -4,7 +4,7 @@ use warnings;
 use strict;
 use FindBin;
 use lib "$FindBin::Bin";
-use lib "$FindBin::Bin/../../perllib";
+use lib "$FindBin::Bin/../commonlib/perllib";
 
 use XML::RSS;
 use DBI;
