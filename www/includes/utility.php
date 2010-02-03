@@ -834,10 +834,11 @@ function entities_to_numbers($string) {
 }
 
 function make_member_url($name, $const = '', $house = 1) {
-	$s = array(' ', '&amp;', '&ocirc;', '&ouml;', '&acirc;', '&iacute;', '&aacute;', '&uacute;', '&eacute;');
-	$r = array('_', 'and',     'o',       'o',    'a',       'i',        'a',        'u',        'e',      );
+	$s  = array(' ', '&amp;', '&ocirc;', '&ouml;', '&acirc;', '&iacute;', '&aacute;', '&uacute;', '&eacute;');
+	$s2 = array(" ", "&amp;", "\xf4",    "\xf6",   "\xe2",    "\xed",     "\xe1",     "\xfa",     "\xe9");
+	$r  = array('_', 'and',     'o',       'o',    'a',       'i',        'a',        'u',        'e',      );
 	$name = preg_replace('#^the #', '', strtolower($name));
-	$out = urlencode(str_replace($s, $r, $name));
+	$out = urlencode(str_replace($s2, $r, str_replace($s, $r, $name)));
 	if ($const && $house==1)
 		$out .= '/' . urlencode(str_replace($s, $r, strtolower($const)));
 	elseif ($house==0)
