@@ -1,0 +1,80 @@
+#mysociety #expenses-brief {
+   font-size: 12px; 
+}
+
+#mysociety #expenses-brief .overall-ranking {
+    float: right;
+}
+
+#mysociety #expenses-brief h2#expenses-years {
+    font-size: 12px;
+    border: 0;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+#mysociety #expenses-brief #expenses-header {
+    font-family: georgia,serif;
+    border: 0;
+    border-top: 10px solid #d61d00; 
+    background-color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 5px 0 10px 0 ;	
+}
+
+#mysociety #expenses-brief #rank-header {
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    margin-bottom: 0;
+    background-color: #d3d3d3;
+    padding: 0 5px 5px 5px;
+    overflow: hidden;
+}
+
+#mysociety #expenses-brief ul {
+   margin-top: 0;
+   padding-left: 0;
+   list-style-type: none;
+   margin-bottom: 5px;
+}
+
+#mysociety #expenses-brief li:first-child {
+   border-top: 0;
+}
+
+#mysociety #expenses-brief li.even {
+    background-color: #d3d3d3;
+}
+
+#mysociety #expenses-brief li {
+    overflow: hidden;
+    padding: 5px 5px 5px 5px;
+    text-indent: 0;
+    background-image: none;
+    clear: both;
+    font-size: 12px;
+}
+
+#mysociety #expenses-brief li#total {
+    border-top: 1px solid #000000;
+}
+
+#mysociety span.expenses-raw {
+    float: left;
+}
+
+#mysociety #total {
+    font-weight: bold;
+}
+    
+#mysociety span.expenses-rank {
+    float: right;
+    font-weight: normal;
+}
+
+#mysociety p#expenses-more {
+    border-bottom: 1px dotted #d3d3d3;
+    padding-bottom: 5px;
+    margin-bottom: 5px !important;
+}
