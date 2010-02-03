@@ -1,19 +1,20 @@
-#mysociety #expenses-brief {
+.mysociety #expenses-brief {
    font-size: 12px; 
 }
 
-#mysociety #expenses-brief .overall-ranking {
+.mysociety #expenses-brief .overall-ranking {
     float: right;
 }
 
-#mysociety #expenses-brief h2#expenses-years {
+.mysociety #expenses-brief div#rank-header h2#expenses-years {
     font-size: 12px;
     border: 0;
     margin-bottom: 2px;
     margin-top: 2px;
 }
 
-#mysociety #expenses-brief #expenses-header {
+.mysociety #expenses-brief #expenses-header,
+.mysociety #rmi-brief #rmi-header {
     font-family: georgia,serif;
     border: 0;
     border-top: 10px solid #d61d00; 
@@ -23,7 +24,7 @@
     padding: 5px 0 10px 0 ;	
 }
 
-#mysociety #expenses-brief #rank-header {
+.mysociety #expenses-brief #rank-header {
     border-top: 1px solid #000000;
     border-bottom: 1px solid #000000;
     margin-bottom: 0;
@@ -32,22 +33,23 @@
     overflow: hidden;
 }
 
-#mysociety #expenses-brief ul {
+.mysociety #expenses-brief ul#expenses-list {
    margin-top: 0;
    padding-left: 0;
    list-style-type: none;
    margin-bottom: 5px;
 }
 
-#mysociety #expenses-brief li:first-child {
+.mysociety #expenses-brief ul li:first-child {
    border-top: 0;
 }
 
-#mysociety #expenses-brief li.even {
+.mysociety #expenses-brief ul li.even {
     background-color: #d3d3d3;
 }
 
-#mysociety #expenses-brief li {
+.mysociety #expenses-brief li.even, 
+.mysociety #expenses-brief li.odd {
     overflow: hidden;
     padding: 5px 5px 5px 5px;
     text-indent: 0;
@@ -56,25 +58,53 @@
     font-size: 12px;
 }
 
-#mysociety #expenses-brief li#total {
+.mysociety #expenses-brief li#total {
     border-top: 1px solid #000000;
 }
 
-#mysociety span.expenses-raw {
+.mysociety span.expenses-raw {
     float: left;
 }
 
-#mysociety #total {
+.mysociety #total {
     font-weight: bold;
 }
     
-#mysociety span.expenses-rank {
+.mysociety span.expenses-rank {
     float: right;
     font-weight: normal;
 }
 
-#mysociety p#expenses-more {
+.mysociety p.more {
+    margin-top: 5px;
     border-bottom: 1px dotted #d3d3d3;
     padding-bottom: 5px;
     margin-bottom: 5px !important;
+}
+
+
+.mysociety #rmi-brief {
+   font-size: 12px; 
+}
+
+.mysociety .regmemcategory {
+   border-top: 1px solid #000000;
+   border-bottom: 1px dotted #d3d3d3;
+   padding: 3px 0 5px 0;
+}
+
+.mysociety .regmemitem {
+    text-indent	: 20px;
+    margin-top: 3px;
+    background-image: url(http://louise.theyworkforyou.com/gadget/guardian/icon_bullet.gif);
+    background-position: 0 3px;
+}
+
+.mysociety #rmi-brief p.more {
+    padding-top: 5px; 
+    border-top: 1px dotted #d3d3d3;
+}
+
+.mysociety .mysociety-footer img {
+    padding-top: 5px;
 }

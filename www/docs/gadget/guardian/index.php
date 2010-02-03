@@ -15,8 +15,10 @@ $resources_path = "/gadget/guardian/resources/";
 switch ($action) {
 	# Resources
 	case 'rmi-resource':
-		$title = "Register of Members' Interests: " . $member->full_name();
-		output_resource($title, $member->extra_info['register_member_interests_html']);
+                $title = "Register of Members' Interests: " . $member->full_name(); 
+                $body = "<h2>$title<h2>";
+                $body .= $member->extra_info['register_member_interests_html'];
+		output_resource($title, $body);
 		break;
 	case 'voting-record-resource':
 		$title = "Voting record: " . $member->full_name();
@@ -62,16 +64,14 @@ switch ($action) {
 	case 'expenses-component':
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
                 $body = expenses_mostrecent($member->extra_info, $gadget=true);
-		$body .= "<p id=\"expenses-more\"><a 
+		$body .= "<p class=\"more\"><a 
 href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/expenses/$member->person_id}\">More 
 expenses</a></p>";
                 $body .= '<div class="mysociety-footer">Powered by <img src="http://' . DOMAIN . '/gadget/guardian/mysociety.gif" alt="mySociety"></div>';
-                $outer_div_id = 'expenses-brief';
-                output_component($body, $outer_div_id);                
+                output_component($body, 'expenses-brief');                
 		break;
 	case 'rmi-component':
 		$rmi = $member->extra_info['register_member_interests_html'];
-		$show_more = false;
 		if (preg_match('#(<div class="regmemcategory">.*?<div class="regmemcategory">.*?)<div class="regmemcategory"#s', $rmi, $m)) {
 			$rmi = $m[1];
 			$show_more = true;
@@ -80,11 +80,15 @@ expenses</a></p>";
 			$rmi = $m[1];
 			$show_more = true;
 		}
-		echo $rmi;
+                $body = "<div id=\"rmi-header\">Extract from the register of members' interests</div>";	
+                $body .= $rmi;
 		if ($show_more) {
-			echo "<p><a 
+			$body .= "<p class=\"more\"><a 
 href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->person_id}\">Full members' interests</a></p>";
 		}
+                $body .= '<div class="mysociety-footer">Powered by <img src="http://' . DOMAIN .
+'/gadget/guardian/mysociety.gif" alt="mySociety"></div>';
+                output_component($body, 'rmi-brief');
 		break;
 	default:
 		output_error('Unknown action');
@@ -110,7 +114,7 @@ function output_component($body, $outer_div_id) {
         echo "
 <style type=\"text/css\">@import \"http://" . DOMAIN . "/gadget/guardian/core.css\";</style>
 <!--{microapp-css:/gadget/guardian/core.css}--> 
-<div id=\"mysociety\">
+<div class=\"mysociety\">
     <div id=\"$outer_div_id\">
         $body
     </div>
@@ -124,10 +128,12 @@ function output_resource($title, $body) {
   <title>$title | Politics | The Guardian
   </title>
 <style type=\"text/css\">@import \"/gadget/guardian/core.css\";</style>
-<!--{xmicroapp-css:/gadget/guardian/core.css}-->
+<!--{microapp-css:/gadget/guardian/core.css}-->
 </head>
 <body>
+<div class=\"mysociety\">
 $body
+</div>
 </body>
 </html>
 ";
