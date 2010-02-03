@@ -61,10 +61,13 @@ switch ($action) {
 		break;
 	case 'expenses-component':
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
-		echo expenses_mostrecent($member->extra_info);
-		echo "<p><a 
+                $body = expenses_mostrecent($member->extra_info);
+		$body .= "<p id=\"expenses-more\"><a 
 href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/expenses/$member->person_id}\">More 
 expenses</a></p>";
+                $body .= '<div class="mysociety-footer">Powered by <img src="http://' . DOMAIN . '/gadget/guardian/mysociety.gif" alt="mySociety"></div>';
+                $outer_div_id = 'expenses-brief';
+                output_component($body, $outer_div_id);                
 		break;
 	case 'rmi-component':
 		$rmi = $member->extra_info['register_member_interests_html'];
@@ -80,8 +83,7 @@ expenses</a></p>";
 		echo $rmi;
 		if ($show_more) {
 			echo "<p><a 
-href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->person_id}\">More from 
-the register</a></p>";
+href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->person_id}\">Full members' interests</a></p>";
 		}
 		break;
 	default:
@@ -104,9 +106,26 @@ function output_error($str) {
 	exit;
 }
 
+function output_component($body, $outer_div_id) {
+        echo "
+<style type=\"text/css\">@import \"http://" . DOMAIN . "/gadget/guardian/core.css\";</style>
+<!--{microapp-css:/gadget/guardian/core.css}--> 
+<div id=\"mysociety\">
+    <div id=\"$outer_div_id\">
+        $body
+    </div>
+</div>
+";
+}
+
 function output_resource($title, $body) {
 	echo "<html>
-<head><title>$title | Politics | The Guardian</title></head>
+<head>
+  <title>$title | Politics | The Guardian
+  </title>
+<style type=\"text/css\">@import \"/gadget/guardian/core.css\";</style>
+<!--{xmicroapp-css:/gadget/guardian/core.css}-->
+</head>
 <body>
 $body
 </body>
