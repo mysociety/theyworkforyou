@@ -433,7 +433,7 @@ $this->page = array (
     'code' => array (
     	'title'			=> 'Source code',
     	'heading'		=> 'Source code',
-    	'url'			=> 'https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy'
+    	'url'			=> 'http://github.com/mysociety/theyworkforyou'
     ),    
     'irc' => array (
     	'title'			=> 'IRC chat channel',

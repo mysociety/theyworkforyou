@@ -21,7 +21,7 @@ wider work for mySociety. However, things are still added voluntarily by anyone 
 used under licence.
 
 <p>If you're technically minded, we make all the
-<a href="https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy">TheyWorkForYou source code</a>
+<a href="http://github.com/mysociety/theyworkforyou">TheyWorkForYou source code</a>
 freely available. Do let us know if you want to help!
 </p>
 

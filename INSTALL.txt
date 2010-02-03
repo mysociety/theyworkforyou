@@ -68,7 +68,7 @@ NOTE:
 INSTALLATION SECTION 1 -- THE BASICS
 ====================================
 1. Download the latest version of the TheyWorkForYou code from:
-   https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy
+   http://github.com/mysociety/theyworkforyou
 
 2. create a new mysql database:
 

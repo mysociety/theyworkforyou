@@ -953,7 +953,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 
         /*
         		$about_links[] = '<a href="' . WEBPATH . 'api/">API</a> / <a href="http://ukparse.kforge.net/parlparse">XML</a>';
-        		$about_links[] = '<a href="https://secure.mysociety.org/cvstrac/dir?d=mysociety/twfy">Source code</a>';
+        		$about_links[] = '<a href="http://github.com/mysociety/theyworkforyou">Source code</a>';
 
         		$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? strtolower( $_SERVER['HTTP_USER_AGENT'] ) : '';
         		if (stristr($user_agent, 'Firefox/'))
