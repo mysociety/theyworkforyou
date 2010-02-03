@@ -922,6 +922,8 @@ sub db_memberadd {
         $memberexist->finish();
         die "More than one existing member of same id $id" if $q > 1;
 
+        $_[4] = Encode::encode('iso-8859-1', $_[4]);
+        $_[5] = Encode::encode('iso-8859-1', $_[5]);
         if ($q == 1) {
                 # Member already exists, check they are the same
                 $q = $membercheck->execute(@_);
@@ -1164,11 +1166,6 @@ sub loadmember {
         my $party = $member->att('party');
         $party = '' if $party eq 'unknown';
 
-        # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
-        # get lost somewhere between Perl, the database and the browser.
-        # Just done for names (not constituency and party) as they are the
-        # only place to have accents, and constituencies have & signs and
-        # the postcode search matching system uses them.
         db_memberadd($id, 
                 $person_id,
                 $house, 
@@ -1203,11 +1200,6 @@ sub loadlord {
         $fromdate = '0000-00-00' unless $fromdate;
         my $affiliation = $member->att('affiliation') || '';
         my $towhy = $member->att('towhy') || '';
-        # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
-        # get lost somewhere between Perl, the database and the browser.
-        # Just done for names (not constituency and party) as they are the
-        # only place to have accents, and constituencies have & signs and
-        # the postcode search matching system uses them.
         db_memberadd($id,
                 $person_id,
                 $house,
