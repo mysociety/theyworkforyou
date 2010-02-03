@@ -51,12 +51,16 @@ if ($cconstituency == 'mysociety test constituency') {
 
 # Special case names
 $redirect = false;
-if ($name == 'sion simon') $name = "si&ocirc;n simon";
-if ($name == 'sian james') $name = "si&acirc;n james";
-if ($name == 'lembit opik') $name = "lembit &ouml;pik";
-if ($name == 'bairbre de brun') $name = "bairbre de br&uacute;n";
-if ($name == 'daithi mckay') $name = 'daith&iacute; mckay';
-if ($name == 'caral ni chuilin') $name = 'car&aacute;l n&iacute; chuil&iacute;n';
+if ($name == 'sion simon') $name = "si\xf4n simon";
+if ($name == 'sian james') $name = "si\xe2n james";
+if ($name == 'lembit opik') $name = "lembit \xf6pik";
+if ($name == 'bairbre de brun') $name = "bairbre de br\xfan";
+if ($name == 'daithi mckay') $name = "daith\xed mckay";
+if ($name == 'caral ni chuilin') $name = "car\xe1l n\xed chuil\xedn";
+if ($name == 'caledon du pre') $name = "caledon du pr\xe9";
+if ($name == 'sean etchingham') $name = "se\xe1n etchingham";
+if ($name == 'john tinne') $name = "john tinn\xe9";
+if ($name == 'renee short') $name = "ren\xe9e short";
 if ($name == 'a j beith') {
 	$name = 'alan beith';
 	$redirect = true;

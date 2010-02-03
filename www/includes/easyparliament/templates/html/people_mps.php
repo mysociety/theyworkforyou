@@ -88,21 +88,8 @@ if ($order == 'party') {
 $MPURL = new URL(str_replace('s', '', $this_page));
 $style = '2';
 
-$opik = array();
-
 foreach ($data['data'] as $pid => $mp) {
-
-	// Lembit Opik is special
-	if ($mp['last_name']=='&Ouml;pik') {
-		$opik = $mp;
-		continue;
-	}
-	if ($opik && strcmp('Opik', $mp['last_name'])<0) {
-		render_mps_row($opik, $style, $order, $MPURL);
-		$opik = array();
-	}
 	render_mps_row($mp, $style, $order, $MPURL);
-
 }
 ?>
 				</tbody>

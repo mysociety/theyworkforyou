@@ -403,13 +403,10 @@ function find_users ($args) {
 }
 
 function member_db_lookup($searchstring) {
-	$searchstring = trim(preg_replace("#[^0-9a-z'& -]#i", '', $searchstring));
 	if (!$searchstring) return false;
 	$searchwords = explode(' ', $searchstring, 3);
     foreach ($searchwords as $i => $searchword) {
         $searchwords[$i] = mysql_real_escape_string(htmlentities($searchword));
-        if (!strcasecmp($searchword,'Opik'))
-            $searchwords[$i] = '&Ouml;pik';
     }
 	if (count($searchwords) == 1) {
 		$where = "first_name LIKE '%" . $searchwords[0] . "%' OR last_name LIKE '%" . $searchwords[0] . "%'";

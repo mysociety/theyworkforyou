@@ -826,16 +826,16 @@ function make_plural($word, $number)
 # This is yucky. XXX
 function entities_to_numbers($string) {
 	$string = str_replace(
-		array('&Ouml;', '&acirc;', '&uacute;', '&aacute;', '&iacute;', '&ocirc;'),
-		array('&#214;', '&#226;',  '&#250;',   '&#225;',   '&#237;',   '&#244;' ),
+		array('&Ouml;', '&acirc;', '&uacute;', '&aacute;', '&iacute;', '&ocirc;', '&eacute;'),
+		array('&#214;', '&#226;',  '&#250;',   '&#225;',   '&#237;',   '&#244;',  '&#233;'  ),
 		$string
 	);
 	return $string;
 }
 
 function make_member_url($name, $const = '', $house = 1) {
-	$s = array(' ', '&amp;', '&ocirc;', '&ouml;', '&acirc;', '&iacute;', '&aacute;', '&uacute;');
-	$r = array('_', 'and',     'o',       'o',    'a',       'i',        'a',        'u',      );
+	$s = array(' ', '&amp;', '&ocirc;', '&ouml;', '&acirc;', '&iacute;', '&aacute;', '&uacute;', '&eacute;');
+	$r = array('_', 'and',     'o',       'o',    'a',       'i',        'a',        'u',        'e',      );
 	$name = preg_replace('#^the #', '', strtolower($name));
 	$out = urlencode(str_replace($s, $r, $name));
 	if ($const && $house==1)
