@@ -129,7 +129,12 @@ function render_mps_row($mp, &$style, $order, $MPURL) {
                 }
                 ?>
                 </td>
-				<td class="row-<?php echo $style; ?>"><a href="<?php echo $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1); ?>"><?php echo $name; ?></a></td>
+				<td class="row-<?php echo $style; ?>"><a href="<?php echo $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1); ?>"><?php echo $name; ?></a>
+<?
+if (isset($mp['standing_down'])) {
+    print '<br><em>Standing down</em>';
+}
+?></td>
 				<td class="row-<?php echo $style; ?>"><?php echo $mp['party']; ?></td>
 				<td class="row-<?php echo $style; ?>"><?php echo $mp['constituency']; ?></td>
 				<td class="row-<?php echo $style; ?>"><?php

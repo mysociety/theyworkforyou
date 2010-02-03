@@ -176,7 +176,7 @@ function expenses_mostrecent($extra_info, $gadget=false) {
 		$row = expenses_item($year, $r, $extra_info, $gadget);
 		$cols[$r] = "<span class=\"expenses-raw\">$row[0]</span><span class=\"expenses-rank\">$row[1]</span>";
 	}
-	$out .= '<ul>';
+	$out .= '<ul id="expenses-list">';
 	$out .= '<li class="odd">Additional Costs Allowance <div class="expense-value">' . $cols['col1'] . '</div>';
 	$out .= '<li class="even">London Supplement <div class="expense-value">' . $cols['col2'] . '</div>';
 	$out .= '<li class="odd">Incidental Expenses Provision <div class="expense-value">' . $cols['col3'] . '</div>';

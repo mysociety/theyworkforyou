@@ -77,59 +77,58 @@ class PEOPLE {
 	function _get_data_by_group($args) {
 		// $args can have an optional 'order' element.
 
+        $use_standing_down = ($args['house'] == 1 && !isset($args['date']));
+        $use_extracol = (isset($args['order']) && in_array($args['order'], array('expenses', 'debates', 'safety')));
+        $use_personinfo = ($use_standing_down || $use_extracol);
+
+        # Defaults
 		$order = 'last_name';
 		$sqlorder = 'last_name, first_name';
-		$query = 'SELECT distinct person_id, title, first_name, last_name, constituency, party, dept, position
-			FROM member LEFT OUTER JOIN moffice ON member.person_id = moffice.person ';
+
+		$query = 'SELECT distinct member.person_id, title, first_name, last_name, constituency, party, dept, position ';
+        if ($use_standing_down) {
+            $query .= ', data_value ';
+            $personinfo_key = 'standing_down';
+        } elseif ($use_extracol) {
+            $query .= ', data_value ';
+			$order = $args['order'];
+			$sqlorder = 'data_value+0 DESC, last_name, first_name';
+            unset($args['date']);
+            $key_lookup = array(
+                'expenses' => 'expenses2004_total',
+                'debates' => 'debate_sectionsspoken_inlastyear',
+                'safety' => 'swing_to_lose_seat_today',
+            );
+            $personinfo_key = $key_lookup[$order];
+        }
+        $query .= 'FROM member LEFT OUTER JOIN moffice ON member.person_id = moffice.person ';
 		if (isset($args['date']))
 			$query .= 'AND from_date <= date("' . $args['date'] . '") AND date("' . $args['date'] . '") <= to_date ';
 		else
 			$query .= 'AND to_date="9999-12-31" ';
+        if ($use_personinfo) {
+            $query .= 'LEFT OUTER JOIN personinfo ON member.person_id = personinfo.person_id AND data_key="' . $personinfo_key . '" ';
+        }
 		$query .= 'WHERE house=' . $args['house'] . ' ';
 		if (isset($args['date']))
 			$query .= 'AND entered_house <= date("' . $args['date'] . '") AND date("' . $args['date'] . '") <= left_house ';
 		elseif (!isset($args['all']) || $args['house'] == 1)
 			$query .= 'AND left_house = (SELECT MAX(left_house) FROM member) ';
+
 		if (isset($args['order'])) {
-			if ($args['order'] == 'name') { # Lords
-				$order = 'name';
-			} elseif ($args['order'] == 'first_name') {
-				$order = 'first_name';
+            $order = $args['order'];
+			if ($args['order'] == 'first_name') {
 				$sqlorder = 'first_name, last_name';
 			} elseif ($args['order'] == 'constituency') {
-				$order = 'constituency';
 				$sqlorder = 'constituency';
 			} elseif ($args['order'] == 'party') {
-				$order = 'party';
 				$sqlorder = 'party, last_name, first_name, constituency';
-			} elseif ($args['order'] == 'expenses') {
-				$order = 'expenses';
-				$sqlorder = 'data_value+0 DESC, last_name, first_name';
-				$query = 'SELECT member.person_id, title, first_name, last_name, constituency, party, dept, position, data_value
-					FROM member LEFT OUTER JOIN moffice ON member.person_id=moffice.person AND to_date="9999-12-31", personinfo
-					WHERE member.person_id = personinfo.person_id AND house=1 AND left_house = (SELECT MAX(left_house) FROM member)
-					AND data_key="expenses2004_total" ';
-			} elseif ($args['order'] == 'debates') {
-				$order = 'debates';
-				$sqlorder = 'data_value+0 DESC, last_name, first_name';
-				$query = 'SELECT member.person_id, title, first_name, last_name, constituency, party, dept, position, data_value
-					FROM member LEFT OUTER JOIN moffice ON member.person_id=moffice.person AND to_date="9999-12-31", personinfo
-					WHERE member.person_id = personinfo.person_id AND house=1 AND left_house = (SELECT MAX(left_house) FROM member)
-					AND data_key="debate_sectionsspoken_inlastyear" ';
-			} elseif ($args['order'] == 'safety') {
-				$order = 'safety';
-				$sqlorder = 'data_value+0 DESC, last_name, first_name';
-				$query = 'SELECT member.person_id, title, first_name, last_name, constituency, party, dept, position, data_value
-					FROM member LEFT OUTER JOIN moffice ON member.person_id=moffice.person AND to_date="9999-12-31", memberinfo
-					WHERE member.member_id = memberinfo.member_id AND house=1 AND left_house = (SELECT MAX(left_house) FROM member)
-					AND data_key="swing_to_lose_seat_today" ';
 			}
 		}
-		
+
 		$q = $this->db->query($query . "ORDER BY $sqlorder");
 	
 		$data = array();
-		
 		for ($row=0; $row<$q->rows(); $row++) {
 			$p_id = $q->field($row, 'person_id');
 			$dept = $q->field($row, 'dept');
@@ -148,7 +147,9 @@ class PEOPLE {
 					'dept'		=> $dept,
 					'pos'		=> $pos
 				);
-				if ($order=='expenses' || $order=='debates' || $order=='safety') {
+				if ($use_standing_down) {
+					$narray['standing_down'] = $q->field($row, 'data_value');
+				} elseif ($use_extracol) {
 					$narray['data_value'] = $q->field($row, 'data_value');
 				}
 

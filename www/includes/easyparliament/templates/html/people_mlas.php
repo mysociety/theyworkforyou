@@ -24,7 +24,6 @@ if ($order == 'last_name') {
 	$th_last_name = '<a href="' . $URL->generate() . '">Last name</a>';
 }
 
-
 $URL->insert(array('o'=>'p'));
 $th_party = '<a href="' . $URL->generate() . '">Party</a>';
 $URL->insert(array('o'=>'c'));
@@ -43,14 +42,6 @@ if ($order == 'party') {
         <li><?php echo $th_last_name; ?> |</li>                
         <li><?php echo $th_first_name; ?> |</li>
         <li><?php echo $th_party; ?></li>
-        <?php	if ($order == 'expenses') { ?>
-        	<li>2004 Expenses Grand Total</li>
-        <?php	} elseif ($order == 'debates') { ?>
-        	<li>Debates spoken in the last year</li>
-        <?php	} elseif ($order == 'safety') { ?>
-        	<li>Swing to lose seat (%)</li>
-        <?php	}
-        ?>
     </ul>
 </div>
 <table class="people">
