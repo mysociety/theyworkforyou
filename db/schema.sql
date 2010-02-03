@@ -79,7 +79,7 @@ CREATE TABLE `hansard` (
 CREATE TABLE `member` (
   `member_id` int(11) NOT NULL default '0',
   `house` int(11) default NULL,
-  `first_name` varchar(100) collate latin1_spanish_ci default NULL,
+  `first_name` varchar(100) collate latin1_spanish_ci NOT NULL default '',
   `last_name` varchar(255) collate latin1_spanish_ci NOT NULL default '',
   `constituency` varchar(100) collate latin1_spanish_ci NOT NULL default '',
   `party` varchar(100) collate latin1_spanish_ci NOT NULL default '',
