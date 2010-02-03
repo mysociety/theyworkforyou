@@ -20,7 +20,7 @@ foreach ($data['data'] as $n => $msp) {
 
 function render_msps_row($msp, $order) {
 	global $parties;
-	$con = html_entity_decode($msp['constituency']);
+	$con = $msp['constituency'];
 	if (strstr($con, ',')) $con = "\"$con\"";
 	$name = member_full_name(4, $msp['title'], $msp['first_name'], $msp['last_name'], $msp['constituency']);
 	if (strstr($name, ',')) $name = "\"$name\"";

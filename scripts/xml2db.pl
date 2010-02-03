@@ -924,6 +924,7 @@ sub db_memberadd {
 
         $_[4] = Encode::encode('iso-8859-1', $_[4]);
         $_[5] = Encode::encode('iso-8859-1', $_[5]);
+        $_[6] = Encode::encode('iso-8859-1', $_[6]);
         if ($q == 1) {
                 # Member already exists, check they are the same
                 $q = $membercheck->execute(@_);
@@ -1131,7 +1132,7 @@ sub loadconstituency
         # get lost somewhere between Perl, the database and the browser.
         $constituencyadd->execute(
             $consid,
-            encode_entities_noapos($name->att('text')),
+            $name->att('text'),
             $main_name,
             $cons->att('fromdate'),
             $cons->att('todate'),
@@ -1172,7 +1173,7 @@ sub loadmember {
                 $member->att('title'),
                 $member->att('firstname'),
                 $member->att('lastname'),
-                encode_entities_noapos($member->att('constituency')), 
+                $member->att('constituency'),
                 $party,
                 $fromdate, $todate,
                 $member->att('fromwhy'), $member->att('towhy'));
@@ -1206,7 +1207,7 @@ sub loadlord {
                 $member->att('title'),
                 $member->att('forenames'),
                 $member->att('lordname'), 
-                encode_entities_noapos($member->att('lordofname')),
+                $member->att('lordofname'),
                 $affiliation,
                 $fromdate, $member->att('todate'),
                 '', $towhy);
@@ -1250,7 +1251,7 @@ sub loadni {
                 $member->att('title'),
                 $member->att('firstname'),
                 $member->att('lastname'),
-                encode_entities_noapos($member->att('constituency')), 
+                $member->att('constituency'),
                 Encode::encode('iso-8859-1', $member->att('party')),
                 $member->att('fromdate'), $member->att('todate'),
                 $member->att('fromwhy'), $member->att('towhy'));
@@ -1269,7 +1270,7 @@ sub loadmsp {
                 $member->att('title'),
                 $member->att('firstname'),
                 $member->att('lastname'),
-                encode_entities_noapos($member->att('constituency')), 
+                $member->att('constituency'),
                 Encode::encode('iso-8859-1', $member->att('party')),
                 $member->att('fromdate'), $member->att('todate'),
                 $member->att('fromwhy'), $member->att('towhy'));

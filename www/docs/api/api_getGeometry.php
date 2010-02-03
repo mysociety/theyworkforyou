@@ -59,7 +59,7 @@ function api_getGeometry_name($name) {
 }
 function _api_getGeometry_name($name) {
 	$geometry = _api_getGeometry();
-	$name = html_entity_decode(normalise_constituency_name($name)); # XXX
+	$name = normalise_constituency_name($name);
 	$out = array();
 	foreach ($geometry['data'] as $n => $data) {
 		if ($n == $name)

@@ -202,7 +202,7 @@ class MEMBER {
 		}
 
 		if ($constituency == 'Orkney ') {
-			$constituency = 'Orkney &amp; Shetland';
+			$constituency = 'Orkney & Shetland';
 		}
 
 		$normalised = normalise_constituency_name($constituency);
@@ -219,7 +219,7 @@ class MEMBER {
 			if ($q->rows > 0) {
 				return $q->field(0, 'person_id');
 			} else {
-				$PAGE->error_message("Sorry, there is no current member for the '" . htmlentities(html_entity_decode($constituency)) . "' constituency.");
+				$PAGE->error_message("Sorry, there is no current member for the '" . htmlentities($constituency) . "' constituency.");
 				return false;
 			}
 		}

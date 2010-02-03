@@ -4,9 +4,8 @@
 function normalise_constituency_name($name) {
     $db = new ParlDB;
 
-    // Use &amp; everywhere, as in DB
+    // In case we still have an &amp; lying around
     $name = str_replace("&amp;", "&", $name);
-    $name = str_replace("&", "&amp;", $name);
 
     $query = "select cons_id from constituency where name like '" . mysql_real_escape_string($name) . "' and from_date <= date(now()) and date(now()) <= to_date";
     $q1 = $db->query($query);
@@ -32,8 +31,8 @@ function normalise_constituency_names($names) {
 		and date(now()) <= constituency.to_date');
 	$lookup = array();
 	for ($i=0; $i<$q->rows(); $i++) {
-		$name = html_entity_decode($q->field($i, 'name'));
-		$canonical = html_entity_decode($q->field($i, 'canonical_name'));
+		$name = $q->field($i, 'name');
+		$canonical = $q->field($i, 'canonical_name');
 		$lookup[$name] = $canonical;
 	}
 	$output = array();

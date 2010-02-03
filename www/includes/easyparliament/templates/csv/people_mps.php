@@ -22,7 +22,7 @@ foreach ($data['data'] as $n => $mp) {
 
 function render_mps_row($mp, $order) {
 	global $parties;
-	$con = html_entity_decode($mp['constituency']);
+	$con = $mp['constituency'];
 	if (strstr($con, ',')) $con = "\"$con\"";
 	print $mp['person_id'] . ',';
 	print $mp['first_name'] . ',' . $mp['last_name'] . ',';

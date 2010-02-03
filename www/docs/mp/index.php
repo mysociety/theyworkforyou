@@ -43,7 +43,7 @@ $errors = array();
 // need to detect these.
 $pid = get_http_var('pid') != '' ? get_http_var('pid') : get_http_var('p');
 $name = strtolower(str_replace(array('_'), array(' '), get_http_var('n')));
-$cconstituency = strtolower(str_replace(array('_','.',' and '), array(' ','&amp;',' &amp; '), get_http_var('c'))); # *** postcode functions use global $constituency!!! ***
+$cconstituency = strtolower(str_replace(array('_','.',' and '), array(' ','&',' & '), get_http_var('c'))); # *** postcode functions use global $constituency!!! ***
 if ($cconstituency == 'mysociety test constituency') {
 	header("Location: stom.html");
 	exit;
@@ -71,10 +71,10 @@ if ($name == 'micky brady') {
 }
 
 # Special stuff for Ynys Mon
-if ($cconstituency == 'ynys mon') $cconstituency = "ynys m&ocirc;n"; # Stop infinite loop
+if ($cconstituency == 'ynys mon') $cconstituency = "ynys m\xf4n";
 # And cope with Unicode URL
 if (preg_match("#^ynys m\xc3\xb4n#i", $cconstituency))
-	$cconstituency = "ynys m&ocirc;n";
+	$cconstituency = "ynys m\xf4n";
 
 // Redirect for MP recent appearanecs
 if (get_http_var('recent')) {
@@ -185,7 +185,7 @@ if (is_numeric(get_http_var('m'))) {
 		member_redirect($MEMBER);
 	}
 } elseif ($cconstituency) {
-	if ($cconstituency == 'your &amp; my society') {
+	if ($cconstituency == 'your & my society') {
 		header('Location: /mp/stom%20teinberg');
 		exit;
 	}

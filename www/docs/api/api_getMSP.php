@@ -81,7 +81,7 @@ function _api_getMSP_constituency($constituencies) {
 	foreach ($constituencies as $constituency) {
 		if ($constituency == '') continue;
 		if ($constituency == 'Orkney ')
-			$constituency = 'Orkney &amp; Shetland';
+			$constituency = 'Orkney & Shetland';
 		$cons[] = mysql_real_escape_string($constituency);
 	}
 

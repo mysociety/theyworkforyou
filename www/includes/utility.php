@@ -840,7 +840,7 @@ function make_member_url($name, $const = '', $house = 1) {
 	$name = preg_replace('#^the #', '', strtolower($name));
 	$out = urlencode(str_replace($s2, $r, str_replace($s, $r, $name)));
 	if ($const && $house==1)
-		$out .= '/' . urlencode(str_replace($s, $r, strtolower($const)));
+		$out .= '/' . urlencode(str_replace($s2, $r, str_replace($s, $r, strtolower($const))));
 	elseif ($house==0)
 		$out = 'elizabeth_the_second';
 	return $out;

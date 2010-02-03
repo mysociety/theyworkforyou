@@ -157,7 +157,7 @@ if ($action ne "check" && $action ne 'checkfull') {
         if ($house > -1) {
             $first_name = $$row{first_name};
             $last_name = $$row{last_name};
-            $constituency = decode_entities($$row{constituency});
+            $constituency = $$row{constituency};
         }
         if ($house == 1 || $house == 3 || $house == 4) {
             $name = "$first_name $last_name";
