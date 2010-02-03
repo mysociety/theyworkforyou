@@ -46,9 +46,11 @@ if ($order == 'party') {
 </div>
 <table class="people">
 <thead>
+<tr>
 <th colspan="2">Name</th>
 <th>Party</th>
 <th>Constituency</th>
+</tr>
 </thead>
 <tbody>
 <?php

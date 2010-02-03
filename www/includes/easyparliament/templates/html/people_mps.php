@@ -69,6 +69,7 @@ if ($order == 'party') {
 				</div>
 				<table class="people">
 				<thead>
+                <tr>
 				    <th colspan="2">Name</th>
 				    <th>Party</th>
 				    <th>Constituency</th>
@@ -81,6 +82,7 @@ if ($order == 'party') {
                     	<th>Swing to lose seat (%)</th>
                     <?php	}
                     ?>
+                </tr>
 				</thead>
 				<tbody>
 <?php
