@@ -30,7 +30,7 @@
 
 include_once "../../../includes/easyparliament/init.php";
 include_once "../../../includes/easyparliament/member.php";
-include_once INCLUDESPATH . '../../../phplib/crosssell.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/crosssell.php';
 
 // Instantiate an instance of ALERT
 

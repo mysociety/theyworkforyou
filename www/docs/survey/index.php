@@ -11,8 +11,8 @@
  */
 
 include_once "../../includes/easyparliament/init.php";
-require_once "../../../../phplib/random.php";
-require_once "../../../../phplib/auth.php";
+require_once "../../../commonlib/phplib/random.php";
+require_once "../../../commonlib/phplib/auth.php";
 $this_page = 'survey';
 $PAGE->page_start();
 

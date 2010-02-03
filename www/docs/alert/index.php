@@ -23,8 +23,8 @@ set_criteria()	Sets search criteria from information in MP and Keyword fields.
 include_once "../../includes/easyparliament/init.php";
 include_once "../../includes/easyparliament/people.php";
 include_once "../../includes/easyparliament/member.php";
-include_once INCLUDESPATH . '../../../phplib/auth.php';
-include_once INCLUDESPATH . '../../../phplib/crosssell.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/auth.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/crosssell.php';
 
 $this_page = "alert";
 

@@ -5,8 +5,8 @@ General utility functions v1.1 (well, it was).
 
 */
 
-include_once INCLUDESPATH . '../../../phplib/email.php';
-include_once INCLUDESPATH . '../../../phplib/datetime.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/email.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/datetime.php';
 
 function twfy_debug ($header, $text="") {
 	// Pass it a brief header word and some debug text and it'll be output.
