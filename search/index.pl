@@ -10,7 +10,7 @@ use HTML::Parser;
 use HTML::Entities;
 use FindBin;
 chdir $FindBin::Bin;
-use lib "$FindBin::Bin/../../perllib";
+use lib "$FindBin::Bin/../commonlib/perllib";
 use mySociety::Config;
 mySociety::Config::set_file('../conf/general');
 use DBI;

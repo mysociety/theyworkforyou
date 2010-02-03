@@ -2,7 +2,7 @@
 
 use strict;
 use FindBin;
-use lib "$FindBin::Bin/../../../../perllib";
+use lib "$FindBin::Bin/../../../commonlib/perllib";
 
 use mySociety::CGIFast;
 use mySociety::Config;
