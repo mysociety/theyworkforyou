@@ -26,8 +26,6 @@ if (get_http_var('o') == 'n') {
 	$args['order'] = 'party';
 } elseif (get_http_var('o') == 'c') {
 	$args['order'] = 'constituency';
-} elseif (get_http_var('o') == 'd') {
-	$args['order'] = 'debates';
 }
 
 $PEOPLE = new PEOPLE;

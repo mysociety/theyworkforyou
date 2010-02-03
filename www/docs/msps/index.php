@@ -20,10 +20,6 @@ if (get_http_var('o') == 'f') {
 	$args['order'] = 'constituency';
 } elseif (get_http_var('o') == 'p') {
 	$args['order'] = 'party';
-} elseif (get_http_var('o') == 'e') {
-	$args['order'] = 'expenses';
-} elseif (get_http_var('o') == 'd') {
-	$args['order'] = 'debates';
 }
 
 if (get_http_var('f') != 'csv') {

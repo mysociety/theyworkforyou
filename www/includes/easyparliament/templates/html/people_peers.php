@@ -43,14 +43,6 @@ if ($order == 'party')
                     <ul>
                         <li><?php echo $th_name; ?> |</li>
                         <li><?php echo $th_party; ?></li>
-                        <?php	if ($order == 'expenses') { ?>
-                        	<li>2004 Expenses Grand Total</li>
-                        <?php	} elseif ($order == 'debates') { ?>
-                        	<li>Debates spoken in the last year</li>
-                        <?php	} elseif ($order == 'safety') { ?>
-                        	<li>Swing to lose seat (%)</li>
-                        <?php	}
-                        ?>
                     </ul>
                 </div>
 				<table class="people">
@@ -58,9 +50,6 @@ if ($order == 'party')
 				<th colspan="2">Name</th>
 				<th>party</th>
 				<th>Ministerialship</th>
-<?php if ($order == 'debates') { ?>
-				<th>Debates spoken in the last year</th>
-<?php } ?>
 				</thead>
 				<tbody>
 <?php
@@ -113,13 +102,8 @@ function render_peers_row($peer, &$style, $order, $URL) {
 	else print '&nbsp;'
 ?></td>
 
-<?php	if ($order == 'debates') { ?>
-				<td class="row-<?php echo $style; ?>"><?php echo number_format($peer['data_value']); ?></td>
-<?php } ?>
-
 			</tr>
 <?php
 
 }
 
-?>
