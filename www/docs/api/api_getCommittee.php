@@ -46,7 +46,6 @@ function api_getCommittee_front() {
 function api_getCommittee_name($name) {
 	$db = new ParlDB;
 
-	$name = htmlspecialchars($name); # Names in the database have & as &amp;...
 	$name = preg_replace('#\s+Committee#', '', $name);
 
 	$date = parse_date(get_http_var('date'));
@@ -60,7 +59,7 @@ function api_getCommittee_name($name) {
 		# More than one committee matches
 		for ($i=0; $i<$q->rows(); $i++) {
 			$output['committees'][] = array(
-				'name' => html_entity_decode($q->field($i, 'dept'))
+				'name' => $q->field($i, 'dept')
 			);
 		}
 		api_output($output);
@@ -73,7 +72,7 @@ function api_getCommittee_name($name) {
 			and entered_house <= " . $date . ' and ' . $date . ' <= left_house');
 		if ($q->rows()) {
 			$output = array();
-			$output['committee'] = html_entity_decode($q->field(0, 'dept'));
+			$output['committee'] = $q->field(0, 'dept');
 			for ($i=0; $i<$q->rows(); $i++) {
 				$member = array(
 'person_id' => $q->field($i, 'person'),

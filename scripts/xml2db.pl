@@ -31,7 +31,6 @@ use XML::Twig;
 use File::Find;
 use Getopt::Long;
 use Data::Dumper;
-use HTML::Entities;
 
 use Uncapitalise;
 
@@ -42,8 +41,7 @@ use Uncapitalise;
 
 # output_filter 'safe' uses entities &#nnnn; to encode characters, this is
 # the easiest/most reliable way to get the encodings correct for content
-# output with Twig's ->sprint (attributes are different, see use of
-# encode_entities in the member stuff below)
+# output with Twig's ->sprint (content, rather than attributes)
 my $outputfilter = 'safe';
 #DBI->trace(1);
 
@@ -1110,9 +1108,7 @@ sub loadmoffice {
     return if ($pos eq 'PPS (Rt Hon Peter Hain, Secretary of State)' && $dept eq 'Northern Ireland Office' && $person == 10518);
     return if ($pos eq 'PPS (Rt Hon Peter Hain, Secretary of State)' && $dept eq 'Office of the Secretary of State for Wales' && $person == 10458);
 
-        # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
-        # get lost somewhere between Perl, the database and the browser.
-        push @moffices, [$mofficeid, encode_entities_noapos($dept), encode_entities_noapos($pos), $moff->att('fromdate'),
+        push @moffices, [$mofficeid, $dept, $pos, $moff->att('fromdate'),
                 $moff->att('todate'), $person, $moff->att('source') ];
 }
 
@@ -2131,13 +2127,6 @@ sub do_load_gidredirect
  
         $gradd->execute($oldgid, $newgid, $curdate, $major);
         $gradd->finish();
-}
-
-sub encode_entities_noapos($) {
-        my $s = shift;
-        encode_entities($s);
-        $s =~ s/&#39;/'/;
-        return $s;
 }
 
 # TODO
