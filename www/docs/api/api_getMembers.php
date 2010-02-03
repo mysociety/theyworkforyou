@@ -33,15 +33,15 @@ function api_getMembers_party($house, $s) {
 	if (isset($canon_to_short[ucwords($s)]))
 	    $s = $canon_to_short[ucwords($s)];
 	_api_getMembers_output('select * from member
-		where house = ' . mysql_escape_string($house) . '
-		and party like "%' . mysql_escape_string($s) .
+		where house = ' . mysql_real_escape_string($house) . '
+		and party like "%' . mysql_real_escape_string($s) .
 		'%" and entered_house <= date(now()) and date(now()) <= left_house');
 }
 
 function api_getMembers_search($house, $s) {
-	$sq = mysql_escape_string($s);
+	$sq = mysql_real_escape_string($s);
 	_api_getMembers_output('select * from member
-		where house = ' . mysql_escape_string($house) . "
+		where house = ' . mysql_real_escape_string($house) . "
 		and (first_name like '%$sq%'
 		or last_name like '%$sq%'
 		or concat(first_name,' ',last_name) like '%$sq%'"
@@ -58,7 +58,7 @@ function api_getMembers_date($house, $date) {
 }
 
 function api_getMembers($house, $date = 'now()') {
-	_api_getMembers_output('select * from member where house=' . mysql_escape_string($house) .
+	_api_getMembers_output('select * from member where house=' . mysql_real_escape_string($house) .
 		' AND entered_house <= date('.$date.') and date('.$date.') <= left_house');
 }
 

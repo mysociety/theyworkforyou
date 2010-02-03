@@ -39,7 +39,7 @@ function _api_getMLA_row($row) {
 function api_getMLA_id($id) {
 	$db = new ParlDB;
 	$q = $db->query("select * from member
-		where house=3 and person_id = '" . mysql_escape_string($id) . "'
+		where house=3 and person_id = '" . mysql_real_escape_string($id) . "'
 		order by left_house desc");
 	if ($q->rows()) {
 		_api_getMLA_output($q);
@@ -80,7 +80,7 @@ function _api_getMLA_constituency($constituencies) {
 	$cons = array();
 	foreach ($constituencies as $constituency) {
 		if ($constituency == '') continue;
-		$cons[] = mysql_escape_string($constituency);
+		$cons[] = mysql_real_escape_string($constituency);
 	}
 
 

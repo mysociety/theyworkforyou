@@ -21,7 +21,7 @@ else {
 	$authed = auth_verify_with_shared_secret($email, OPTION_AUTH_SHARED_SECRET, $sign);
 	if ($authed) {
 		$db = new ParlDB;
-		$email = mysql_escape_string($email);
+		$email = mysql_real_escape_string($email);
 		$q = $db->query('select alert_id from alerts where email="' . $email . '" and criteria="speaker:' . $pid . '" and confirmed and not deleted');
 		$already_signed = $q->rows();
 		if ($already_signed)

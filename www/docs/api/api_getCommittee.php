@@ -53,7 +53,7 @@ function api_getCommittee_name($name) {
 	if ($date) $date = '"' . $date['iso'] . '"';
 	else $date = 'date(now())';
 	$q = $db->query("select distinct(dept) from moffice
-		where dept like '%" . mysql_escape_string($name) . "%Committee'
+		where dept like '%" . mysql_real_escape_string($name) . "%Committee'
 		and from_date <= " . $date . ' and '
 		. $date . ' <= to_date');
 	if ($q->rows() > 1) {
@@ -68,7 +68,7 @@ function api_getCommittee_name($name) {
 		# One committee
 		$q = $db->query("select * from moffice,member
 			where moffice.person = member.person_id
-			and dept like '%" . mysql_escape_string($name) . "%Committee'
+			and dept like '%" . mysql_real_escape_string($name) . "%Committee'
 			and from_date <= " . $date . ' and ' . $date . " <= to_date
 			and entered_house <= " . $date . ' and ' . $date . ' <= left_house');
 		if ($q->rows()) {

@@ -30,7 +30,7 @@ $surrounding_speeches = 3;
 $gid = "uk.org.publicwhip/$gid";
 
 # Fetch this GID from the database, and captioner bot time if there is one
-$q_gid = mysql_escape_string($gid);
+$q_gid = mysql_real_escape_string($gid);
 $db = new ParlDB;
 $q = $db->query("select hdate, htime, adate, atime, hpos, video_status, subsection_id, major,
     (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid,

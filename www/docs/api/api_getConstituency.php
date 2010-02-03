@@ -51,7 +51,7 @@ function api_getconstituency_postcode($pc) {
 		} elseif ($constituency) {
                     $db = new ParlDB;
                     $q = $db->query("select constituency, data_key, data_value from consinfo
-                                     where constituency = '" . mysql_escape_string($constituency) . "'");
+                                     where constituency = '" . mysql_real_escape_string($constituency) . "'");
                     if ($q->rows()) {
                         for ($i=0; $i<$q->rows(); $i++) {
                             $data_key = $q->field($i, 'data_key');

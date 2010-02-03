@@ -301,7 +301,7 @@ function find_constituency ($args) {
 		} else {
             $query = "select distinct
                     (select name from constituency where cons_id = o.cons_id and main_name) as name 
-                from constituency AS o where name like '%" . mysql_escape_string($try) . "%'
+                from constituency AS o where name like '%" . mysql_real_escape_string($try) . "%'
                 and from_date <= date(now()) and date(now()) <= to_date";
             $db = new ParlDB;
             $q = $db->query($query);
@@ -406,7 +406,7 @@ function member_db_lookup($searchstring) {
 	if (!$searchstring) return false;
 	$searchwords = explode(' ', $searchstring, 3);
     foreach ($searchwords as $i => $searchword) {
-        $searchwords[$i] = mysql_real_escape_string(htmlentities($searchword));
+        $searchwords[$i] = mysql_real_escape_string($searchword);
     }
 	if (count($searchwords) == 1) {
 		$where = "first_name LIKE '%" . $searchwords[0] . "%' OR last_name LIKE '%" . $searchwords[0] . "%'";

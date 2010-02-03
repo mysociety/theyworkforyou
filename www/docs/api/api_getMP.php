@@ -65,7 +65,7 @@ function _api_getMP_row($row) {
 function api_getMP_id($id) {
 	$db = new ParlDB;
 	$q = $db->query("select * from member
-		where house=1 and person_id = '" . mysql_escape_string($id) . "'
+		where house=1 and person_id = '" . mysql_real_escape_string($id) . "'
 		order by left_house desc");
 	if ($q->rows()) {
 		$output = array();
@@ -134,14 +134,14 @@ function _api_getMP_constituency($constituency) {
 	if ($normalised) $constituency = $normalised;
 
 	$q = $db->query("SELECT * FROM member
-		WHERE constituency = '" . mysql_escape_string($constituency) . "'
+		WHERE constituency = '" . mysql_real_escape_string($constituency) . "'
 		AND left_reason = 'still_in_office' AND house=1");
 	if ($q->rows > 0)
 		return _api_getMP_row($q->row(0));
 
 	if (get_http_var('always_return')) {
 		$q = $db->query("SELECT * FROM member
-			WHERE house=1 AND constituency = '".mysql_escape_string($constituency)."'
+			WHERE house=1 AND constituency = '".mysql_real_escape_string($constituency)."'
 			ORDER BY left_house DESC LIMIT 1");
 		if ($q->rows > 0)
 			return _api_getMP_row($q->row(0));

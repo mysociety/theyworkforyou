@@ -13,8 +13,8 @@ $id = get_http_var('id');
 $bill_id = null;
 if ($bill && $session) {
 	$db = new ParlDB;
-	$q = $db->query('select id,standingprefix from bills where title="' . mysql_escape_string($bill) . '"
-		and session = "'.mysql_escape_string($session).'"');
+	$q = $db->query('select id,standingprefix from bills where title="' . mysql_real_escape_string($bill) . '"
+		and session = "'.mysql_real_escape_string($session).'"');
 	if ($q->rows()) {
 		$bill_id = $q->field(0, 'id');
 		$standingprefix = $q->field(0, 'standingprefix');

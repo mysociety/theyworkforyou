@@ -68,7 +68,7 @@ function wikipedize ($source) {
   $phrases = array_unique(array_merge($propernounphrases1[0], $propernounphrases2[0],
   	$propernounphrases3[1], $propernounphrases4[1], $acronyms[0]));
   foreach ($phrases as $i => $phrase) {
-    $phrases[$i] = mysql_escape_string(str_replace(' ', '_', trim($phrase)));
+    $phrases[$i] = mysql_real_escape_string(str_replace(' ', '_', trim($phrase)));
   }
  
   # Open up a db connection, and whittle our list down even further, against

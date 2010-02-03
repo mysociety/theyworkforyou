@@ -41,7 +41,7 @@ function _api_getRoyal_row($row) {
 function api_getPerson_id($id) {
 	$db = new ParlDB;
 	$q = $db->query("select * from member
-		where person_id = '" . mysql_escape_string($id) . "'
+		where person_id = '" . mysql_real_escape_string($id) . "'
 		order by left_house desc");
 	if ($q->rows()) {
 		$output = array();
