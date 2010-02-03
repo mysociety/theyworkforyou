@@ -1076,7 +1076,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		}
 ?>
 
-<br class="clear"/>
+<br class="clear">
 </div> <!-- end #footer -->
 </div> <!-- end #container -->
 
@@ -1419,7 +1419,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		
 		
 		if ($uplink || $prevlink || $nextlink) {
-			echo '<p class="nextprev">', $uplink, ' ', $nextlink, ' ', $prevlink, '</p><br class="clear"/>';
+			echo '<p class="nextprev">', $uplink, ' ', $nextlink, ' ', $prevlink, '</p><br class="clear">';
 		}
 	}
 

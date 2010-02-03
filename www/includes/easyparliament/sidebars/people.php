@@ -33,7 +33,7 @@ if ($this_page == 'mps') {
 <li><a href="?date=1945-07-05">MPs at 1945 general election</a></li>
 <li><a href="?date=1935-11-14">MPs at 1935 general election</a></li>
 <li>
-<form method="get">
+<form method="get" action="/mps/">
 Earlier/ other date:
 <input type="text" name="date" value="">
 <input type="submit" value="Go">

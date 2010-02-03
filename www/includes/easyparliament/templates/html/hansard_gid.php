@@ -523,7 +523,7 @@ if ($this_page == 'debates' || $this_page == 'whall' || $this_page == 'lordsdeba
 	// Previous / Index / Next links, if any.
 	
 	$PAGE->stripe_start('foot');
-	echo '&nbsp;<br/>';
+	echo '&nbsp;<br>';
 //	$PAGE->nextprevlinks();
 	?>&nbsp;<br>&nbsp;<?php
 	$PAGE->stripe_end(array(

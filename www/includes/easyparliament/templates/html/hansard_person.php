@@ -35,7 +35,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		
 		$text .= '</small>';
 		
-		$text = "\t\t\t\t<p>$text<br />\n\t\t\t\t&#8220;" . trim_characters($row['body'], 0, 200) . "&#8221;</p>\n";
+		$text = "\t\t\t\t<p>$text<br>\n\t\t\t\t&#8220;" . trim_characters($row['body'], 0, 200) . "&#8221;</p>\n";
 		
 		print $text;
 	}

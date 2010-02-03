@@ -52,7 +52,7 @@ echo '<ul class="hilites clear">';
 		print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
 	}
 print "</ul>";
-print '<br class="clear"/>';
+print '<br class="clear">';
 
 person_user_actions($member);
 person_internal_links($member, $extra_info);
