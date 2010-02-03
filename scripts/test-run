@@ -19,7 +19,7 @@ require 5.8.0;
 
 use Getopt::Long;
 use FindBin;
-use lib "$FindBin::Bin/../perllib";
+use lib "$FindBin::Bin/commonlib/perllib";
 use lib "$FindBin::Bin/../commonlib/perllib";
 use Carp qw(verbose);
 BEGIN {
