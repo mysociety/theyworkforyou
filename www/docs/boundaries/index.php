@@ -12,8 +12,8 @@ $PAGE->page_start();
 
 function create_map_filename($c) {
     $c = str_replace(array(',', '(', ')', "'"), '', $c);
-    $c = str_replace('&amp;', 'and', $c);
-    $c = str_replace('&ocirc;', 'o', $c);
+    $c = str_replace('&', 'and', $c);
+    $c = str_replace("\xf4", 'o', $c);
     $c = rawurlencode(strtolower($c));
     return $c;
 }
@@ -21,7 +21,7 @@ function create_map_filename($c) {
 $pc = get_http_var('pc');
 if ($pc) {
     $current = postcode_to_constituency($pc);
-    $current_disp = str_replace('&amp;', 'and', $current);
+    $current_disp = str_replace('&', 'and', $current);
 	if ($current == "connection_timed_out") {
 	    print "Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.";
 	} elseif ($current == "") {
