@@ -916,31 +916,32 @@ my %member_ids = ();
 # Add member of parliament to database
 sub db_memberadd {
         my $id = $_[0];
+        my @params = @_;
         my $q = $memberexist->execute($id);
         $memberexist->finish();
         die "More than one existing member of same id $id" if $q > 1;
 
-        $_[4] = Encode::encode('iso-8859-1', $_[4]);
-        $_[5] = Encode::encode('iso-8859-1', $_[5]);
-        $_[6] = Encode::encode('iso-8859-1', $_[6]);
+        $params[4] = Encode::encode('iso-8859-1', $params[4]);
+        $params[5] = Encode::encode('iso-8859-1', $params[5]);
+        $params[6] = Encode::encode('iso-8859-1', $params[6]);
         if ($q == 1) {
                 # Member already exists, check they are the same
-                $q = $membercheck->execute(@_);
+                $q = $membercheck->execute(@params);
                 $membercheck->finish();
                 if ($q == 0) {
                         print "Replacing existing member with new data for $id\n";
                         print "This is for your information only, just check it looks OK.\n";
                         print "\n";
-                        print Dumper(\@_);
-                        $memberadd->execute(@_);
+                        print Dumper(\@params);
+                        $memberadd->execute(@params);
                         $memberadd->finish();
                 }
         } else {
                 print "Adding new member with identifier $id\n";
                 print "This is for your information only, just check it looks OK.\n";
                 print "\n";
-                print Dumper(\@_);
-                $memberadd->execute(@_);
+                print Dumper(\@params);
+                $memberadd->execute(@params);
                 $memberadd->finish();
         }
 
