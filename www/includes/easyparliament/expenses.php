@@ -8,7 +8,7 @@ function expenses_display_table($extra_info, $gadget=false) {
 	$out .= "</p>\n";
 	$out .= '<table class="people"><tr><th>Type';
 	# TODO: Needs to be more complicated at 2005/06, because of General Election
-	for ($y=8; $y>=2; $y--) {
+	for ($y=9; $y>=2; $y--) {
 		$out .= '</th><th>';
 		$out .= year_string($y);
 		if (isset($extra_info["expenses200{$y}_col1_rank_outof"])) {
@@ -16,13 +16,13 @@ function expenses_display_table($extra_info, $gadget=false) {
 		}
 	}
 	$out .= '</th></tr>';
-	$out .= '<tr><td class="row-1">Additional Costs Allowance</td>';
+	$out .= '<tr><td class="row-1">Staying away from main home</td>';
 	$out .= expenses_row('col1', $extra_info,1, $gadget);
-	$out .= '</tr><tr><td class="row-2">London Supplement</td>';
+	$out .= '</tr><tr><td class="row-2">London costs</td>';
 	$out .= expenses_row('col2', $extra_info,2, $gadget);
-	$out .= '</tr><tr><td class="row-1">Incidental Expenses Provision</td>';
+	$out .= '</tr><tr><td class="row-1">Office running costs</td>';
 	$out .= expenses_row('col3', $extra_info,1, $gadget);
-	$out .= '</tr><tr><td class="row-2">Staffing Allowance</td>';
+	$out .= '</tr><tr><td class="row-2">Staffing costs</td>';
 	$out .= expenses_row('col4', $extra_info,2, $gadget);
 	$out .= '</tr><tr><td class="row-1">Communications Allowance</td>';
 	$out .= expenses_row('colcomms_allowance', $extra_info,1, $gadget);
@@ -47,37 +47,12 @@ function expenses_display_table($extra_info, $gadget=false) {
 	$out .= '</tr></table>';
 	
 	if (isset($extra_info['expenses2008_colmp_reg_travel_a']) and $extra_info['expenses2008_col5'] > 0){
-		$out .= '<p><a name="travel2008"></a><sup>*</sup> <small>';
-		$regular_travel_header = FALSE;
-		foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'Misc') as $let => $desc){
-			$travel_field = $extra_info['expenses2008_colmp_reg_travel_'.$let];
-			if ($travel_field > 0){
-        if ($regular_travel_header == FALSE)
-			    $out .= 'Regular journeys between home/constituency/Westminster: ';
-				$regular_travel_header = TRUE;
-				$out .= $desc . ' &pound;'.number_format(str_replace(',','',$travel_field));
-				if (isset($extra_info['expenses2008_colmp_reg_travel_'.$let.'_rank']))
-					$out .= ' (' . make_ranking($extra_info['expenses2008_colmp_reg_travel_'.$let.'_rank']) . ')';
-				$out .= '. ';
-			}
-		}
-               
-		$other_travel_header = FALSE;
-    foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'European') as $let => $desc){
-      $travel_field = $extra_info['expenses2008_colmp_other_travel_'.$let];
-      if ($travel_field > 0){
-        if ($other_travel_header == FALSE)
-					$out .= 'Other: ';
-				$other_travel_header = TRUE;
-        $out .= $desc . ' &pound;'.number_format(str_replace(',','',$travel_field));
-        if (isset($extra_info['expenses2008_colmp_other_travel_'.$let.'_rank']))
-          $out .= ' (' . make_ranking($extra_info['expenses2008_colmp_other_travel_'.$let.'_rank']) . ')';
-        $out .= '. ';
-      }
+        $out .= expenses_extra_travel($extra_info, 2008);
     }
-		$out .= '</small></p>';
-	}
-	
+	if (isset($extra_info['expenses2009_colmp_reg_travel_a']) and $extra_info['expenses2009_col5'] > 0){
+        $out .= expenses_extra_travel($extra_info, 2009);
+    }
+
 	if (isset($extra_info['expenses2007_col5a']) and $extra_info['expenses2007_col5'] > 0) {
 		$out .= '<p><a name="travel2007"></a><sup>**</sup> <small>';
 		foreach(array('a'=>'Car','b'=>'3rd party','c'=>'Rail','d'=>'Air','e'=>'Other','f'=>'European') as $let => $desc) {
@@ -138,6 +113,39 @@ function expenses_item($ey, $col, $extra_info, $gadget) {
 	return array($amount, $rank, $extra);
 }
 
+function expenses_extra_travel($extra_info, $year) {
+    $out .= '<p><a name="travel' . $year . '"></a><sup>*</sup> <small>';
+    $regular_travel_header = FALSE;
+    foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'Misc') as $let => $desc){
+        $travel_field = $extra_info['expenses' . $year . '_colmp_reg_travel_'.$let];
+        if ($travel_field > 0){
+            if ($regular_travel_header == FALSE)
+                $out .= 'Regular journeys between home/constituency/Westminster: ';
+            $regular_travel_header = TRUE;
+            $out .= $desc . ' &pound;'.number_format(str_replace(',','',$travel_field));
+            if (isset($extra_info['expenses' . $year . '_colmp_reg_travel_'.$let.'_rank']))
+                $out .= ' (' . make_ranking($extra_info['expenses' . $year . '_colmp_reg_travel_'.$let.'_rank']) . ')';
+            $out .= '. ';
+        }
+    }
+               
+    $other_travel_header = FALSE;
+    foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'European') as $let => $desc){
+        $travel_field = $extra_info['expenses' . $year . '_colmp_other_travel_'.$let];
+        if ($travel_field > 0){
+            if ($other_travel_header == FALSE)
+                $out .= 'Other: ';
+            $other_travel_header = TRUE;
+            $out .= $desc . ' &pound;'.number_format(str_replace(',','',$travel_field));
+            if (isset($extra_info['expenses' . $year . '_colmp_other_travel_'.$let.'_rank']))
+                $out .= ' (' . make_ranking($extra_info['expenses' . $year . '_colmp_other_travel_'.$let.'_rank']) . ')';
+            $out .= '. ';
+        }
+    }
+    $out .= '</small></p>';
+    return $out;
+}
+
 function year_string($year){
   return '200' . ($year-1) . '/0' . $year;
 }
@@ -145,7 +153,7 @@ function year_string($year){
 function expenses_mostrecent($extra_info, $gadget=false) {
   $out = '<div id="expenses-header"> Expenses ';
   $year = '';
-  for ($ey=2008; $ey>=2002; --$ey) {
+  for ($ey=2009; $ey>=2002; --$ey) {
     if (isset($extra_info['expenses'.$ey.'_col1'])){
       $out .= year_string($ey-2000);
       $out .= '</div>';
