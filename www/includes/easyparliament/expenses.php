@@ -114,7 +114,7 @@ function expenses_item($ey, $col, $extra_info, $gadget) {
 }
 
 function expenses_extra_travel($extra_info, $year) {
-    $out .= '<p><a name="travel' . $year . '"></a><sup>*</sup> <small>';
+    $out = '<p><a name="travel' . $year . '"></a><sup>*</sup> <small>';
     $regular_travel_header = FALSE;
     foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'Misc') as $let => $desc){
         $travel_field = $extra_info['expenses' . $year . '_colmp_reg_travel_'.$let];
