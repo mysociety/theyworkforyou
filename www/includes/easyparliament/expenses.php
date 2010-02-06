@@ -83,7 +83,7 @@ function expenses_row($col, $extra_info, $style, $gadget) {
 
 function expenses_item($ey, $col, $extra_info, $gadget) {
     if ($col=='col7' && $ey==2009) {
-        $col=='colstationery';
+        $col = 'colstationery';
     }
 	$k = 'expenses' . $ey . '_' . $col;
 	$kr = $k . '_rank';
