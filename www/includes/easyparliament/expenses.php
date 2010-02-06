@@ -74,7 +74,7 @@ function expenses_row($col, $extra_info, $style, $gadget) {
 		list($amount, $rank, $extra) = expenses_item($ey, $col, $extra_info, $gadget);
 		if (!$amount) $amount = '&nbsp;';
         $rowspan = '';
-        if ($col=='col7' && $ey==2009) $rowspan = " rowspan='2'";
+        if ($col=='col7' && $ey==2009) $rowspan = " rowspan='2' style='vertical-align: middle'";
         if ($col=='col7a' && $ey==2009) continue;
 		$out .= "<td class='row-$style'$rowspan>$amount$rank$extra</td>\n";
 	}
