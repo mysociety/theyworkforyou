@@ -54,7 +54,7 @@ function expenses_display_table($extra_info, $gadget=false) {
     }
 
 	if (isset($extra_info['expenses2007_col5a']) and $extra_info['expenses2007_col5'] > 0) {
-		$out .= '<p><a name="travel2007"></a><sup>**</sup> <small>';
+		$out .= '<p><a name="travel2007"></a><sup>1</sup> <small>';
 		foreach(array('a'=>'Car','b'=>'3rd party','c'=>'Rail','d'=>'Air','e'=>'Other','f'=>'European') as $let => $desc) {
 			if ($extra_info['expenses2007_col5'.$let] > 0) {
 				$out .= $desc . ' &pound;'.number_format(str_replace(',','',$extra_info['expenses2007_col5'.$let]));
@@ -79,6 +79,9 @@ function expenses_row($col, $extra_info, $style, $gadget) {
 }
 
 function expenses_item($ey, $col, $extra_info, $gadget) {
+    if ($col=='col7' && $ey==2009) {
+        $col=='col_stationery';
+    }
 	$k = 'expenses' . $ey . '_' . $col;
 	$kr = $k . '_rank';
 	if (isset($extra_info[$k])) {
@@ -107,14 +110,16 @@ function expenses_item($ey, $col, $extra_info, $gadget) {
 	}
 	$extra = '';
 	if ($col=='col5' && $ey==2007 && isset($extra_info['expenses2007_col5a']) && $extra_info['expenses2007_col5'] > 0)
-		$extra = '<sup><a href="#travel2007">**</a></sup>';
+		$extra = '<sup><a href="#travel2007">1</a></sup>';
 	if ($col=='col5' && $ey==2008 && isset($extra_info['expenses2008_colmp_reg_travel_a']) && $extra_info['expenses2008_col5'] > 0)
-		$extra = '<sup><a href="#travel2008">*</a></sup>';
+		$extra = '<sup><a href="#travel2008">2</a></sup>';
+	if ($col=='col5' && $ey==2009 && isset($extra_info['expenses2009_colmp_reg_travel_a']) && $extra_info['expenses2009_col5'] > 0)
+		$extra = '<sup><a href="#travel2009">3</a></sup>';
 	return array($amount, $rank, $extra);
 }
 
 function expenses_extra_travel($extra_info, $year) {
-    $out = '<p><a name="travel' . $year . '"></a><sup>*</sup> <small>';
+    $out = '<p><a name="travel' . $year . '"></a><sup>' . ($year-2006) . '</sup> <small>';
     $regular_travel_header = FALSE;
     foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'Misc') as $let => $desc){
         $travel_field = $extra_info['expenses' . $year . '_colmp_reg_travel_'.$let];
