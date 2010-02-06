@@ -584,7 +584,8 @@ sub makerankings {
                         }
                         $personinfohash->{$mp_id}->{$prefix . '_col5'} = $total;
                         $personinfohash->{$mp_id}->{$prefix . '_col6'} = $personinfohash->{$mp_id}->{$prefix . '_colemployee_travel_a'};                  
-                        $personinfohash->{$mp_id}->{$prefix . '_total'} = $personinfohash->{$mp_id}->{$prefix . '_coltotal_inc_travel'};
+                        $personinfohash->{$mp_id}->{$prefix . '_total'} = $personinfohash->{$mp_id}->{$prefix . '_coltotal_inc_travel'}
+                            if $personinfohash->{$mp_id}->{$prefix . '_coltotal_inc_travel'};
                 }
             }
         }
