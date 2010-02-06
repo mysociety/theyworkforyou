@@ -73,14 +73,17 @@ function expenses_row($col, $extra_info, $style, $gadget) {
 	for ($ey=2009; $ey>=2002; --$ey) {
 		list($amount, $rank, $extra) = expenses_item($ey, $col, $extra_info, $gadget);
 		if (!$amount) $amount = '&nbsp;';
-		$out .= "<td class='row-$style'>$amount$rank$extra</td>\n";
+        $rowspan = '';
+        if ($col=='col7' && $ey==2009) $rowspan = " rowspan='2'";
+        if ($col=='col7a' && $ey==2009) continue;
+		$out .= "<td class='row-$style'$rowspan>$amount$rank$extra</td>\n";
 	}
 	return $out;
 }
 
 function expenses_item($ey, $col, $extra_info, $gadget) {
     if ($col=='col7' && $ey==2009) {
-        $col=='col_stationery';
+        $col=='colstationery';
     }
 	$k = 'expenses' . $ey . '_' . $col;
 	$kr = $k . '_rank';
