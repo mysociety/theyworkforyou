@@ -70,7 +70,7 @@ function expenses_display_table($extra_info, $gadget=false) {
 
 function expenses_row($col, $extra_info, $style, $gadget) {
 	$out = '';
-	for ($ey=2008; $ey>=2002; --$ey) {
+	for ($ey=2009; $ey>=2002; --$ey) {
 		list($amount, $rank, $extra) = expenses_item($ey, $col, $extra_info, $gadget);
 		if (!$amount) $amount = '&nbsp;';
 		$out .= "<td class='row-$style'>$amount$rank$extra</td>\n";
