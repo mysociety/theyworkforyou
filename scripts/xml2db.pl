@@ -1125,11 +1125,9 @@ sub loadconstituency
     for (my $name = $cons->first_child('name'); $name;
         $name = $name->next_sibling('name')) {
 
-        # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters         
-        # get lost somewhere between Perl, the database and the browser.
         $constituencyadd->execute(
             $consid,
-            $name->att('text'),
+            Encode::encode('iso-8859-1', $name->att('text')),
             $main_name,
             $cons->att('fromdate'),
             $cons->att('todate'),
