@@ -54,6 +54,7 @@
     padding: 5px 5px 5px 5px;
     text-indent: 0;
     background-image: none;
+    background-repeat: no-repeat;
     clear: both;
     font-size: 12px;
 }
@@ -97,6 +98,7 @@
     text-indent	: 20px;
     margin-top: 3px;
     background-image: url(http://louise.theyworkforyou.com/gadget/guardian/icon_bullet.gif);
+    background-repeat: no-repeat;
     background-position: 0 3px;
 }
 
@@ -105,6 +107,55 @@
     border-top: 1px dotted #d3d3d3;
 }
 
+
 .mysociety .mysociety-footer img {
     padding-top: 5px;
+}
+
+.mysociety #rmi-full .mysociety-footer {
+    position: relative;
+    padding-top: 4px;
+}
+
+.mysociety #rmi-full .mysociety-footer span {
+    vertical-align: top;
+}
+
+.mysociety #rmi-full .mysociety-footer img {
+    padding-top: 0;
+    margin-left: 5px;
+}
+
+.mysociety #rmi-full h2 {
+    font-size: 14px;
+    font-weight: bold;
+    border-top: 10px solid #d61d00;
+    padding: 4px 0 6px 0;
+    font-family: georgia,serif;
+}
+
+.mysociety #rmi-full .regmemitem {
+    line-height: 1.357;
+    background-position: 2px 2px;
+    text-indent: 18px;
+}
+
+.mysociety #rmi-full {
+    font-size: 12px;
+}
+
+.mysociety #rmi-full .regmemcategory {
+    margin-top: 20px;
+    padding-bottom: 10px;  
+}
+
+.mysociety #rmi-full i {
+    font-style: normal;
+}
+
+.mysociety #rmi-full .rmi-lastupdate {
+    margin-top: 20px;
+    border-top: 1px solid #000000;
+    padding: 5px 0 20px 0;
+    border-bottom: 1px dotted #d3d3d3;
 }

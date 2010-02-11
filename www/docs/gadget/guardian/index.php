@@ -15,19 +15,26 @@ $resources_path = "/gadget/guardian/resources/";
 switch ($action) {
 	# Resources
 	case 'rmi-resource':
-                $title = "Register of Members' Interests: " . $member->full_name(); 
-                $body = "<h2>$title<h2>";
+                $title = "Extract from the register of members' interests"; 
+                $body = "<h2>$title</h2>";
                 $body .= $member->extra_info['register_member_interests_html'];
-		output_resource($title, $body);
+		if (isset($member->extra_info['register_member_interests_date'])) {
+		    $body .= '<div class="rmi-lastupdate">Register last updated: ';
+		    $body .= format_date($member->extra_info['register_member_interests_date'], SHORTDATEFORMAT);
+		    $body .= '. </div>';
+	        }
+                $body .= '<div class="mysociety-footer"><span>Powered by </span><img src="http://' . DOMAIN .
+'/gadget/guardian/mysociety.gif" alt="mySociety"></div>';
+		output_resource($title, $body, 'rmi-full') ;
 		break;
 	case 'voting-record-resource':
 		$title = "Voting record: " . $member->full_name();
-		output_resource($title, 'Not done yet');
+		output_resource($title, 'Not done yet', 'voting-full');
 		break;
 	case 'expenses-resource':
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
 		$title = "Allowances: " . $member->full_name();
-		output_resource($title, expenses_display_table($member->extra_info, $gadget=true));
+		output_resource($title, expenses_display_table($member->extra_info, $gadget=true), 'expenses-full');
 		break;
 
 	# Components
@@ -122,17 +129,20 @@ function output_component($body, $outer_div_id) {
 ";
 }
 
-function output_resource($title, $body) {
+function output_resource($title, $body, $outer_div_id) {
 	echo "<html>
 <head>
   <title>$title | Politics | The Guardian
   </title>
-<style type=\"text/css\">@import \"/gadget/guardian/core.css\";</style>
+<style type=\"text/css\">@import \"http://" . DOMAIN . "/gadget/guardian/core.css\";</style>
 <!--{microapp-css:/gadget/guardian/core.css}-->
 </head>
 <body>
+<style type=\"text/css\">@import \"http://" . DOMAIN . "/gadget/guardian/core.css\";</style>
 <div class=\"mysociety\">
-$body
+    <div id=\"$outer_div_id\">
+         $body
+    </div>
 </div>
 </body>
 </html>
