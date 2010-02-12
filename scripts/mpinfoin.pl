@@ -162,7 +162,7 @@ if ($action{'expenses'}) {
         $twig->parsefile($pwmembers . "expenses200304.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "expenses200203.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "expenses200102.xml", ErrorContext => 2);
-        makerankings_expenses($dbh);
+        makerankings_expenses();
 }
 
 # Get any data from the database
@@ -564,8 +564,6 @@ sub makerankings {
 }
 
 sub makerankings_expenses {
-        my $dbh = shift;
-
         foreach my $mp_id (keys %$personinfohash) {
                 if (defined($personinfohash->{$mp_id}->{'expenses2007_col5a'})) {
                         my $total = 0;
