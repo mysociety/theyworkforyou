@@ -162,6 +162,7 @@ if ($action{'expenses'}) {
         $twig->parsefile($pwmembers . "expenses200304.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "expenses200203.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "expenses200102.xml", ErrorContext => 2);
+        makerankings_expenses($dbh);
 }
 
 # Get any data from the database
@@ -544,6 +545,26 @@ sub makerankings {
                         }
                 }
         }
+        
+        enrankify($personinfohash, "debate_sectionsspoken_inlastyear", 0);
+        enrankify($personinfohash, "comments_on_speeches", 0);
+        enrankify($personinfohash, "wrans_asked_inlastyear", 0);
+        enrankify($personinfohash, "Ldebate_sectionsspoken_inlastyear", 0);
+        enrankify($personinfohash, "Lcomments_on_speeches", 0);
+        enrankify($personinfohash, "Lwrans_asked_inlastyear", 0);
+        enrankify($personinfohash, "three_word_alliterations", 0);
+        enrankify($personinfohash, "ending_with_a_preposition", 0);
+        enrankify($personinfohash, "only_asked_why", 0);
+        enrankify($personinfohash, "Lthree_word_alliterations", 0);
+        enrankify($personinfohash, "Lending_with_a_preposition", 0);
+        enrankify($memberinfohash, "swing_to_lose_seat_today", 0);
+        enrankify($personinfohash, "reading_ease", 0);
+        enrankify($personinfohash, "reading_year", 0);
+        enrankify($personinfohash, "writetothem_responsiveness_mean_2005", 0);
+}
+
+sub makerankings_expenses {
+        my $dbh = shift;
 
         foreach my $mp_id (keys %$personinfohash) {
                 if (defined($personinfohash->{$mp_id}->{'expenses2007_col5a'})) {
@@ -572,7 +593,7 @@ sub makerankings {
                 }
         }
         
-         foreach my $mp_id (keys %$personinfohash) {
+        foreach my $mp_id (keys %$personinfohash) {
             for (my $year=2008; $year<=2009; $year++) {
                 my $prefix = "expenses$year";
                 if (defined($personinfohash->{$mp_id}->{$prefix . '_colmp_reg_travel_a'})) {
@@ -590,21 +611,6 @@ sub makerankings {
             }
         }
         
-        
-        enrankify($personinfohash, "debate_sectionsspoken_inlastyear", 0);
-        enrankify($personinfohash, "comments_on_speeches", 0);
-        enrankify($personinfohash, "wrans_asked_inlastyear", 0);
-        enrankify($personinfohash, "Ldebate_sectionsspoken_inlastyear", 0);
-        enrankify($personinfohash, "Lcomments_on_speeches", 0);
-        enrankify($personinfohash, "Lwrans_asked_inlastyear", 0);
-        enrankify($personinfohash, "three_word_alliterations", 0);
-        enrankify($personinfohash, "ending_with_a_preposition", 0);
-        enrankify($personinfohash, "only_asked_why", 0);
-        enrankify($personinfohash, "Lthree_word_alliterations", 0);
-        enrankify($personinfohash, "Lending_with_a_preposition", 0);
-        enrankify($memberinfohash, "swing_to_lose_seat_today", 0);
-        enrankify($personinfohash, "reading_ease", 0);
-        enrankify($personinfohash, "reading_year", 0);
         for (my $year=2002; $year<=2009; ++$year) {
                 next if $year == 2006;
                 for (my $col=1; $col<=9; ++$col) {
@@ -631,8 +637,6 @@ sub makerankings {
             enrankify($personinfohash, 'expenses' . $year . '_coltotal_travel', 0);
         }
         enrankify($personinfohash, 'expenses2009_colstationery', 0);
-
-        enrankify($personinfohash, "writetothem_responsiveness_mean_2005", 0);
 }
 
 # Generate ranks from a data field
