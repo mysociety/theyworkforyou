@@ -25,8 +25,8 @@
 }
 
 .mysociety #expenses-brief #rank-header {
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #999999;
     margin-bottom: 0;
     background-color: #d3d3d3;
     padding: 0 5px 5px 5px;
@@ -45,11 +45,15 @@
 }
 
 .mysociety #expenses-brief ul li.even {
-    background-color: #d3d3d3;
+    background-color: #F5F5F5;
 }
 
-.mysociety #expenses-brief li.even, 
-.mysociety #expenses-brief li.odd {
+.mysociety #expenses-brief ul li.odd { 
+    background-color: #EDEDED;
+}                                                                           
+
+.mysociety #expenses-brief li.odd, 
+.mysociety #expenses-brief li.even {
     overflow: hidden;
     padding: 5px 5px 5px 5px;
     text-indent: 0;
@@ -60,7 +64,7 @@
 }
 
 .mysociety #expenses-brief li#total {
-    border-top: 1px solid #000000;
+    border-top: 1px solid #999999;
 }
 
 .mysociety span.expenses-raw {
@@ -78,7 +82,7 @@
 
 .mysociety p.more {
     margin-top: 5px;
-    border-bottom: 1px dotted #d3d3d3;
+    border-bottom: 1px dotted #999999;
     padding-bottom: 5px;
     margin-bottom: 5px !important;
 }
@@ -89,8 +93,8 @@
 }
 
 .mysociety .regmemcategory {
-   border-top: 1px solid #000000;
-   border-bottom: 1px dotted #d3d3d3;
+   border-top: 1px solid #999999;
+   border-bottom: 1px dotted #999999;
    padding: 3px 0 5px 0;
 }
 
@@ -104,7 +108,7 @@
 
 .mysociety #rmi-brief p.more {
     padding-top: 5px; 
-    border-top: 1px dotted #d3d3d3;
+    border-top: 1px dotted #999999;
 }
 
 
@@ -157,5 +161,81 @@
     margin-top: 20px;
     border-top: 1px solid #000000;
     padding: 5px 0 20px 0;
-    border-bottom: 1px dotted #d3d3d3;
+    border-bottom: 1px dotted #999999;
 }
+
+.mysociety #expenses-full table {
+    border-bottom: 1px solid #999999; 
+    margin-bottom: 3px;
+}
+
+.mysociety #expenses-full th {
+    border: 1px solid #999999;
+    padding: 3px;
+    background-color: #D3D3D3;
+    text-align: left;
+}
+
+.mysociety #expenses-full td {
+    border-left: 1px solid #999999;
+    border-right: 1px solid #999999;
+    padding: 3px; 
+}
+
+.mysociety #expenses-full th {
+    vertical-align: top;
+}
+
+.mysociety #expenses-full th.left {
+    text-align: left;
+}
+
+.mysociety #expenses-full td.row-1 {
+    background-color: #F5F5F5;
+}
+
+.mysociety #expenses-full td.row-2 {
+    background-color: #EDEDED;
+}
+
+.mysociety #expenses-full td.left,
+.mysociety #expenses-full th.left {
+    border-left: 0;
+}
+
+.mysociety #expenses-full td.right,  
+.mysociety #expenses-full th.right {
+    border-right: 0;
+}
+    
+.mysociety #expenses-full .overall-ranking {
+   display: block;
+}
+
+.mysociety #expenses-full td .rank {
+   display: block;
+}
+
+.mysociety #expenses-full th.total { 
+    background-color: #F3F3F3;
+    border-top: 0;
+    font-weight: normal;
+    
+} 
+ 
+.mysociety #expenses-full .expenses-note-link { 
+    display: inline; 
+}
+
+.mysociety #expenses-full .extra-travel-info,
+.mysociety #expenses-full .extra-travel-info small,
+.mysociety #expenses-full .extra-info {
+   font-size: 11px; 
+   margin-bottom: 3px;
+} 
+
+.mysociety #expenses-full .extra-info {
+     border-top: 1px solid #BEBEBE;
+     margin-top: 3px;
+}
+

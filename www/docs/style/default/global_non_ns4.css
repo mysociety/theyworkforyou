@@ -499,7 +499,6 @@ ul.jumpers {
 
 
 
-
 /**** HOME PAGE ****************************************************************/	
 /* We override the standard block styles for this special home page block.     */
 /*
@@ -758,6 +757,7 @@ div.main table.people th {text-align: left;border-top: solid 1px #d7d4d4; border
         color:#808080;}
 div.main  table.people td, div.main  table.people th {border-bottom: solid 1px #d7d4d4; padding:8px 8px 8px 4px; vertical-align:top;}
 div.main  table.people a.speakerimage {left:-4px;}
+div.main  table.people th.total {text-align: right;}
 
 /* Sorting */
 div.sort {font-size:0.8em; padding:1em 0 0.5em 18px; color:#808080;text-align:right;}
