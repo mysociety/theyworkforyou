@@ -9,7 +9,7 @@ function expenses_display_table($extra_info, $gadget=false) {
 	     	$out .= ' Read <a href="' . $extra_info['expenses_url'] . '">2004/05 &ndash; 2008/09 and 1st quarter 2009/10 receipts</a>.';
 	     $out .= "</p>\n";
         }         
-	$out .= '<table class="people"><tr><th class="left">Type';
+	$out .= '<table class="people"><tr><th colspan="9" class="main-header left right">Expenses</th></tr><tr><th class="left">Type';
 	# TODO: Needs to be more complicated at 2005/06, because of General Election
 	for ($y=9; $y>=2; $y--) {
                 $class = '';
@@ -86,12 +86,15 @@ function expenses_display_table($extra_info, $gadget=false) {
 function expenses_row($col, $extra_info, $style, $gadget) {
 	$out = '';
 	for ($ey=2009; $ey>=2002; --$ey) {
+           $extra_class = '';
 	   list($amount, $rank, $extra) = expenses_item($ey, $col, $extra_info, $gadget);
 	   if (!$amount) $amount = '&nbsp;';
            $rowspan = '';
-           if ($col=='col7' && $ey==2009) $rowspan = " rowspan='2' style='vertical-align: middle'";
+           if ($col=='col7' && $ey==2009) {
+               $rowspan = " rowspan='2' style='vertical-align: middle'";
+               $extra_class = 'aggregate-value';
+           } 
            if ($col=='col7a' && $ey==2009) continue;
-           $extra_class = '';
            if ($ey == 2002) $extra_class = 'right'; 
            $out .= "<td class='row-$style $extra_class'$rowspan>$amount$rank$extra</td>\n";
 	}

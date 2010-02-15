@@ -169,6 +169,13 @@
     margin-bottom: 3px;
 }
 
+.mysociety #expenses-full th.main-header {
+    font-family: georgia,serif;
+    font-size: 16px;
+    padding: 8px 0 15px 0;
+    border-top: 1px solid #D61D00;   
+} 
+
 .mysociety #expenses-full th {
     border: 1px solid #999999;
     padding: 3px;
@@ -196,6 +203,10 @@
 
 .mysociety #expenses-full td.row-2 {
     background-color: #EDEDED;
+}
+
+.mysociety #expenses-full td.aggregate-value {
+    background-color: #F0F0F0;
 }
 
 .mysociety #expenses-full td.left,
