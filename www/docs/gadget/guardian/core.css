@@ -1,3 +1,5 @@
+/* Expenses Component */
+
 .mysociety #expenses-brief {
    font-size: 12px; 
 }
@@ -87,6 +89,7 @@
     margin-bottom: 5px !important;
 }
 
+/* Register of Members' Interests Component */
 
 .mysociety #rmi-brief {
    font-size: 12px; 
@@ -115,6 +118,8 @@
 .mysociety .mysociety-footer img {
     padding-top: 5px;
 }
+
+/* Register of Members' Interests Resource */ 
 
 .mysociety #rmi-full .mysociety-footer {
     position: relative;
@@ -163,6 +168,15 @@
     padding: 5px 0 20px 0;
     border-bottom: 1px dotted #999999;
 }
+
+/* Expenses resource */
+
+.mysociety #expenses-full h2 {
+    font-weight: bold;
+    font-size: 14px;
+    border-top: 10px solid #d61d00;
+    padding: 4px 0 6px;
+} 
 
 .mysociety #expenses-full table {
     border-bottom: 1px solid #999999; 
@@ -217,8 +231,9 @@
 .mysociety #expenses-full td.right,  
 .mysociety #expenses-full th.right {
     border-right: 0;
+    text-align: left;
 }
-    
+
 .mysociety #expenses-full .overall-ranking {
    display: block;
 }
@@ -228,7 +243,7 @@
 }
 
 .mysociety #expenses-full th.total { 
-    background-color: #F3F3F3;
+    background-color: #EDEDED;
     border-top: 0;
     font-weight: normal;
     
@@ -250,3 +265,28 @@
      margin-top: 3px;
 }
 
+.mysociety #expenses-full .people {
+    width: 460px;
+    clear: both;
+}
+ 
+.mysociety #expenses-full .people th {
+    width: 60px;
+}
+
+.mysociety #expenses-full .other-expenses-links {
+    display: block;
+    width: 460px; 
+}
+
+.mysociety #expenses-full .earlier-expenses-link {
+    float: right;
+ margin-bottom: 8px;
+    margin-top: 4px;
+}
+
+.mysociety #expenses-full .later-expenses-link {
+    float: left;
+    margin-bottom: 8px;
+    margin-top: 4px; 
+}

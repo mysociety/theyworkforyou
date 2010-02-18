@@ -1,19 +1,49 @@
 <?
 # Expenses related functions
 
-function expenses_display_table($extra_info, $gadget=false) {
-        if (! $gadget) {
+function expenses_display_table($extra_info, $gadget=false, $start_year=9) {
+        $out = '';
+        $latest_year = 9; 
+        $earliest_year = 2;
+        if ($start_year > $latest_year or $start_year < $earliest_year) {
+             $start_year = 9;
+        }
+        $end_year = $earliest_year;        
+        if ($gadget) {
+             $out .= "<h2>Expenses</h2>";
+             $end_year = $start_year - 2;
+             $out .= '<div class="other-expenses-links">';
+             $out .= '<div class="earlier-expenses-link">';
+             if ($end_year > $earliest_year) {
+                  $next_year = 2000 + $end_year - 1;
+                  $out .= "<p><a href=\"?start_year=$next_year\">See earlier
+expenses</a></p>";
+             } else {
+                  $end_year = 2;
+             }
+             $out .= '</div>';
+
+             $out .= '<div class="later-expenses-link">';
+             if ($start_year < $latest_year) { 
+                  $previous_year = 2000 + $start_year + 3;
+                  $out .= "<p><a href=\"?start_year=$previous_year\">See later 
+expenses</a></p>";
+             }
+             $out .= '</div>';
+             $out .= '</div>';   
+        } else {
 	     $out = '<p class="italic">Figures in brackets are ranks.';
              $out .= 'Data from parliament.uk (<a href="http://www.parliament.uk/mpslordsandoffices/finances.cfm">source</a>).';
 	     if (isset($extra_info['expenses_url']))
 	     	$out .= ' Read <a href="' . $extra_info['expenses_url'] . '">2004/05 &ndash; 2008/09 and 1st quarter 2009/10 receipts</a>.';
 	     $out .= "</p>\n";
         }         
-	$out .= '<table class="people"><tr><th colspan="9" class="main-header left right">Expenses</th></tr><tr><th class="left">Type';
+        $out .= '<table class="people"><tr><th 
+class="left">Type';
 	# TODO: Needs to be more complicated at 2005/06, because of General Election
-	for ($y=9; $y>=2; $y--) {
+	for ($y=$start_year; $y>=$end_year; $y--) {
                 $class = '';
-                if ($y == 2) $class = "class='right'";
+                if ($y == $end_year) $class = "class='right'";
 		$out .= "</th><th $class>";
 		$out .= year_string($y);
 		if (isset($extra_info["expenses200{$y}_col1_rank_outof"])) {
@@ -22,44 +52,47 @@ function expenses_display_table($extra_info, $gadget=false) {
 	}
 	$out .= '</th></tr>';
 	$out .= '<tr><td class="row-1 left">Staying away from main home</td>';
-	$out .= expenses_row('col1', $extra_info,1, $gadget);
+	$out .= expenses_row('col1', $extra_info,1, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-2 left">London costs</td>';
-	$out .= expenses_row('col2', $extra_info,2, $gadget);
+	$out .= expenses_row('col2', $extra_info,2, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-1 left">Office running costs</td>';
-	$out .= expenses_row('col3', $extra_info,1, $gadget);
+	$out .= expenses_row('col3', $extra_info,1, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-2 left" >Staffing costs</td>';
-	$out .= expenses_row('col4', $extra_info,2, $gadget);
+	$out .= expenses_row('col4', $extra_info,2, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-1 left">Communications Allowance</td>';
-	$out .= expenses_row('colcomms_allowance', $extra_info,1, $gadget);
+	$out .= expenses_row('colcomms_allowance', $extra_info,1, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-2 left">Members\' Travel</td>';
-	$out .= expenses_row('col5', $extra_info,2, $gadget);
+	$out .= expenses_row('col5', $extra_info,2, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-1 left">Members\' Staff Travel</td>';
-	$out .= expenses_row('col6', $extra_info,1, $gadget);
+	$out .= expenses_row('col6', $extra_info,1, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-2 left">Members\' Spouse Travel</td>';
-	$out .= expenses_row('colspouse_travel_a', $extra_info,2, $gadget);
+	$out .= expenses_row('colspouse_travel_a', $extra_info,2, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-1 left">Members\' Family Travel</td>';
-	$out .= expenses_row('colfamily_travel_a', $extra_info,1, $gadget);
+	$out .= expenses_row('colfamily_travel_a', $extra_info,1, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-2 left">Centrally Purchased Stationery</td>';
-	$out .= expenses_row('col7', $extra_info,2, $gadget);
+	$out .= expenses_row('col7', $extra_info,2, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-1 left">Stationery: Associated Postage Costs</td>';
-	$out .= expenses_row('col7a', $extra_info,1, $gadget);
+	$out .= expenses_row('col7a', $extra_info,1, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-2 left">Centrally Provided Computer Equipment</td>';
-	$out .= expenses_row('col8', $extra_info,2, $gadget);
+	$out .= expenses_row('col8', $extra_info,2, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-1 left">Other Costs</td>';
-	$out .= expenses_row('col9', $extra_info,1, $gadget);
+	$out .= expenses_row('col9', $extra_info,1, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><th class="left total">Total</th>';
-	$out .= expenses_row('total', $extra_info,2, $gadget);
+	$out .= expenses_row('total', $extra_info,2, $gadget, $start_year, $end_year);
 	$out .= '</tr></table>';
-	
-        if (isset($extra_info['expenses2009_colmp_reg_travel_a']) and $extra_info['expenses2009_col5'] > 0){
+
+        if (isset($extra_info['expenses2009_colmp_reg_travel_a']) and $extra_info['expenses2009_col5'] > 0 and $start_year 
+>= 9 and $end_year <= 9){
             $out .= expenses_extra_travel($extra_info, 2009);
         }
 
-        if (isset($extra_info['expenses2008_colmp_reg_travel_a']) and $extra_info['expenses2008_col5'] > 0){
+        if (isset($extra_info['expenses2008_colmp_reg_travel_a']) and $extra_info['expenses2008_col5'] > 0 and $start_year >= 
+8 and $end_year <= 8) {
             $out .= expenses_extra_travel($extra_info, 2008);
         }
 
-	if (isset($extra_info['expenses2007_col5a']) and $extra_info['expenses2007_col5'] > 0) {
+	if (isset($extra_info['expenses2007_col5a']) and $extra_info['expenses2007_col5'] > 0 and $start_year >= 7 and 
+$end_year <= 7) {
 		$out .= '<p class="extra-travel-info"><a name="travel2007"></a><sup>3</sup> <small>';
 		foreach(array('a'=>'Car','b'=>'3rd party','c'=>'Rail','d'=>'Air','e'=>'Other','f'=>'European') as $let => $desc) {
 			if ($extra_info['expenses2007_col5'.$let] > 0) {
@@ -83,9 +116,11 @@ function expenses_display_table($extra_info, $gadget=false) {
 
 }
 
-function expenses_row($col, $extra_info, $style, $gadget) {
+function expenses_row($col, $extra_info, $style, $gadget, $start_year, $end_year) {
 	$out = '';
-	for ($ey=2009; $ey>=2002; --$ey) {
+        $start_year = 2000 + (int) $start_year;
+        $end_year = 2000 + (int) $end_year; 
+	for ($ey=$start_year; $ey>=$end_year; --$ey) {
            $extra_class = '';
 	   list($amount, $rank, $extra) = expenses_item($ey, $col, $extra_info, $gadget);
 	   if (!$amount) $amount = '&nbsp;';
@@ -95,7 +130,7 @@ function expenses_row($col, $extra_info, $style, $gadget) {
                $extra_class = 'aggregate-value';
            } 
            if ($col=='col7a' && $ey==2009) continue;
-           if ($ey == 2002) $extra_class = 'right'; 
+           if ($ey == $end_year) $extra_class = 'right'; 
            $out .= "<td class='row-$style $extra_class'$rowspan>$amount$rank$extra</td>\n";
 	}
 	return $out;

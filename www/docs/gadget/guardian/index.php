@@ -32,9 +32,18 @@ switch ($action) {
 		output_resource($title, 'Not done yet', 'voting-full');
 		break;
 	case 'expenses-resource':
+                $start_year = get_http_var('start_year');
+                if (! preg_match('/^20\d\d$/', $start_year) ){
+                    $start_year = null;
+                } 
+                if (empty($start_year)) {
+                    $start_year = '2009';
+                }
+                $int_start_year = intval($start_year) - 2000; 
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
 		$title = "Allowances: " . $member->full_name();
-		output_resource($title, expenses_display_table($member->extra_info, $gadget=true), 'expenses-full');
+		output_resource($title, expenses_display_table($member->extra_info, $gadget=true, $int_start_year), 
+'expenses-full');
 		break;
 
 	# Components
@@ -63,7 +72,8 @@ switch ($action) {
 		);
 		$HANSARDLIST->display('search_min', $args);
 	        twfy_debug_timestamp();
-		echo '<p><a href="http://www.theyworkforyou.com/search/?pid=', $member->person_id(), '">More speeches from ', $member->full_name(), '</a></p>';
+		echo '<p><a href="http://www.theyworkforyou.com/search/?pid=', $member->guardian_aristotle_id(), '">More 
+speeches from ', $member->full_name(), '</a></p>';
 		break;
 	case 'parliamentary-jobs-component':
 		echo 'To do';
@@ -72,12 +82,13 @@ switch ($action) {
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
                 $body = expenses_mostrecent($member->extra_info, $gadget=true);
 		$body .= "<p class=\"more\"><a 
-href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/expenses/$member->person_id}\">More 
+href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/expenses/$member->guardian_aristotle_id}\">More 
 expenses</a></p>";
                 $body .= '<div class="mysociety-footer">Powered by <img src="http://' . DOMAIN . '/gadget/guardian/mysociety.gif" alt="mySociety"></div>';
                 output_component($body, 'expenses-brief');                
 		break;
 	case 'rmi-component':
+                $show_more = false;
 		$rmi = $member->extra_info['register_member_interests_html'];
 		if (preg_match('#(<div class="regmemcategory">.*?<div class="regmemcategory">.*?)<div class="regmemcategory"#s', $rmi, $m)) {
 			$rmi = $m[1];
@@ -91,7 +102,8 @@ expenses</a></p>";
                 $body .= $rmi;
 		if ($show_more) {
 			$body .= "<p class=\"more\"><a 
-href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->person_id}\">Full members' interests</a></p>";
+href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->guardian_aristotle_id}\">Full members' 
+interests</a></p>";
 		}
                 $body .= '<div class="mysociety-footer">Powered by <img src="http://' . DOMAIN .
 '/gadget/guardian/mysociety.gif" alt="mySociety"></div>';
@@ -106,7 +118,7 @@ twfy_debug_timestamp();
 # ---
 
 function load_member($pid) {
-	$member = new MEMBER(array('person_id' => $pid));
+	$member = new MEMBER(array('guardian_aristotle_id' => $pid));
 	if (!$member->valid) output_error('Unknown ID');
 	$member->load_extra_info();
 	return $member;

@@ -7,6 +7,7 @@ class MEMBER {
 
 	var $member_id;
 	var $person_id;
+        var $guardian_aristotle_id;
 	var $first_name;
 	var $title;
 	var $last_name;
@@ -77,7 +78,10 @@ class MEMBER {
 			$person_id = $this->postcode_to_person_id($args['postcode']);
 		} elseif (isset($args['person_id']) && is_numeric($args['person_id'])) {
 			$person_id = $args['person_id'];	
-		}
+		} elseif (isset($args['guardian_aristotle_id']) && is_numeric($args['guardian_aristotle_id'])) {
+                        $this->guardian_aristotle_id = $args['guardian_aristotle_id'];	
+                        $person_id = $this->guardian_aristotle_id_to_person_id(); 
+  	        }
 		
 		if (!$person_id) {
 			$this->valid = false;
@@ -334,6 +338,19 @@ class MEMBER {
 			return false;
 		}
 	}
+
+        function guardian_aristotle_id_to_person_id () {
+             $q = $this->db->query("SELECT person_id
+                                    FROM 	personinfo 
+                                    WHERE	data_key = 'guardian_aristotle_id'
+                                    AND data_value = '" . mysql_real_escape_string($this->guardian_aristotle_id) . "'
+                                   ");
+             if ($q->rows > 0) {
+                  return $q->field(0, 'person_id');
+             } else {
+                  return false;
+             }
+        }
 
 	function set_users_mp () {
 		// Is this MP THEUSER's MP?
