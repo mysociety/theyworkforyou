@@ -266,22 +266,22 @@
 }
 
 .mysociety #expenses-full .people {
-    width: 460px;
+    width: 440px;
     clear: both;
 }
  
 .mysociety #expenses-full .people th {
-    width: 60px;
+    width: 52px;
 }
 
 .mysociety #expenses-full .other-expenses-links {
     display: block;
-    width: 460px; 
+    width: 440px; 
 }
 
 .mysociety #expenses-full .earlier-expenses-link {
     float: right;
- margin-bottom: 8px;
+    margin-bottom: 8px;
     margin-top: 4px;
 }
 
