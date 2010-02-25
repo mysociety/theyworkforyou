@@ -255,7 +255,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			} elseif ($country == 'IE' || get_http_var('ie')) {
 				print '<p id="video_already">Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
 			} else {
-				print '<p id="video_already" style="text-align:left"><strong>Hello new visitors:</strong> <a href="http://www.democracyclub.org.uk/">Join Democracy Club to help make this the most accountable general election ever!</a></p>';
+				print '<p id="video_already" style="text-align:left"><strong>Tonight:</strong> Come to one of our <a href="http://maps.google.com/maps/ms?ie=UTF8&hl=en&msa=0&msid=115970034959401285048.00047ff9558f7d3d0c00f&ll=53.891391,-0.461426&spn=7.022129,19.248047&z=6">face-to-face events</a> this evening, across the UK.</p>';
             }
 		}
 
