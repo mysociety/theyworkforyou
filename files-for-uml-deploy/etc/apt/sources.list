@@ -1,5 +1,5 @@
 deb http://ftp.de.debian.org/debian/ lenny main non-free
 deb-src http://ftp.de.debian.org/debian/ lenny main non-free
 
-deb http://debian.mysociety.org lenny main
-deb-src http://debian.mysociety.org lenny main
+# deb http://debian.mysociety.org lenny main
+# deb-src http://debian.mysociety.org lenny main
