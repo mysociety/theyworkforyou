@@ -1,5 +1,6 @@
 from browser import *
 from testing import *
+import time
 
 cj, browser = create_cookiejar_and_browser()
 search_hewitt_test = run_http_test("/search/?s=patricia+hewitt",
@@ -48,15 +49,17 @@ def find_alert_form(t,o):
     return o.soup.find( lambda x: x.name == 'form' and (('action','/alert/') in x.attrs) and (('method','post') in x.attrs) )
 
 def find_hidden_input(t,o,name,value):
-    for i in o.soup.find( lambda x: x.name == 'input' and (('type','hidden') in x.attrs) ):
-        t.log("found hidden input element:\n"+i.prettify())
-        for tuple in x.attrs:
-            if tuple[0] == 'name' and tuple[1] == name:
-                t.log(" ... with the right name ("+name+")")
-                if ('value',value) in x.attrs:
-                    return i
-                else:
-                    t.log(" ... but no value attribute set to: "+str(value))
+    for i in o.soup.findAll( lambda x: x.name == 'input' and (('type','hidden') in x.attrs) ):
+        t.log("Found hidden input element:\n"+i.prettify())
+        t.log("  Attributes are: "+str(i.attrs))
+        t.log("  Looking for name '"+name+"' => '"+value+"'")
+        if ('name',name) in i.attrs:
+            t.log("  ... with the right name ("+name+")")
+            if ('value',value) in i.attrs:
+                t.log("  And the right value ("+value+")")
+                return i
+            else:
+                t.log("  ... but no value attribute set to: "+str(value))
     return None
 
 if alert_link_test.succeeded():
@@ -66,7 +69,8 @@ if alert_link_test.succeeded():
     follow_alert_link_test = run_http_test(follow_alert_link,
                                            test_name="Following email alert link",
                                            test_short_name="follow-email-alert-link",
-                                           check_for_error_element=False)
+                                           check_for_error_element=False,
+                                           browser=browser)
 
     find_alert_form_test = run_page_test(follow_alert_link_test,
                                          find_alert_form,
@@ -80,6 +84,14 @@ if alert_link_test.succeeded():
                                           test_name='Checking for correct pid for Patricia Hewitt',
                                           test_short_name='pid-in-alert-form')
 
+    def get_selected_option(current_test,old_test,form_element):
+        start = old_test.soup
+        if form_element:
+            start = form_element
+        option = start.find(lambda x: x.name == 'option' and ('selected','') in x.attrs)
+        t.log("Got option: "+str(option))
+        return False
+
     form_tag = find_alert_form_test.test_succeeded
     if form_tag:
 
@@ -88,7 +100,45 @@ if alert_link_test.succeeded():
         post_parameters = {}
         post_parameters['email'] = random_email_address
         post_parameters['pid'] = expected_pid
+        post_parameters['submit'] = 'Request Email Alert'
         post_parameters['submitted'] = 'true'
 
-        print form_tag.prettify()
-        # run_http_test(
+        first_alert_stage = run_http_test("/alert/",
+                                          post_parameters=post_parameters,
+                                          test_name='Posting alert form',
+                                          test_short_name='create-alert',
+                                          browser=browser,
+                                          render=False)
+
+        pre_confirmation_test = run_page_test(first_alert_stage,
+                                              lambda t,o: tag_text_is(o.soup.body,"We're nearly done",substring=True),
+                                              test_name="Looking for the \"We're nearly done\" message",
+                                              test_short_name='nearly-done')
+
+        # Wait a second for the email to be delivered locally (should be ample):
+        time.sleep(1)
+
+        confirmation_link_test = run_ssh_test("/usr/local/bin/find-last-email.py "+
+                                              random_email_address+
+                                              " 'http://.*/A/[^ $]*'",
+                                              test_name="Finding the confirmation link in alice's email",
+                                              test_short_name="find-confirmation-link")
+
+        if confirmation_link_test.succeeded():
+            link_to_follow = confirmation_link_test.get_stdout().strip()
+
+            # Now 'follow' that link:
+            confirmed_page_test = run_http_test(link_to_follow,
+                                                test_name="Confirming email address",
+                                                test_short_name="confirm-email-address",
+                                                browser=browser,
+                                                render=False)
+
+
+
+#        run_ssh_test()
+
+#        run_page_test(first_alert_stage,
+#                      lambda t,o: get_selected_option(t,o,next_form_tag),
+#                      test_name='Finding the selected option in the form',
+#                      test_short_name='finding-selected-option')
