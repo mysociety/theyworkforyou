@@ -195,6 +195,10 @@ class SSHTest(Test):
         return s
     def succeeded(self):
         return self.result.return_value == 0
+    def get_stdout(self):
+        return file_to_string(self.stdout_filename)
+    def get_stderr(self):
+        return file_to_string(self.stderr_filename)
     def output_abbreviated(self,fp,relative_filename,absolute_filename):
         max_lines_output = 100
         lines_output = 0
