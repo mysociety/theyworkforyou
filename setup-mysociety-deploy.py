@@ -422,6 +422,12 @@ try:
                  test_name="Enabling mod_actions",
                  test_short_name="mod-actions")
 
+    # Run a2enmod:
+    run_ssh_test("a2enmod headers",
+                 user="root",
+                 test_name="Enabling mod_headers",
+                 test_short_name="mod-headers")
+
     # Now call the standard(ish) deploy scripts:
 
     run_ssh_test("mysociety -u config --no-check-existing",
