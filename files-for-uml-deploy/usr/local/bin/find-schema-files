@@ -30,6 +30,5 @@ my $site_conf = $sites->{$site};
 # }
 
 my $schemas_array_ref = $site_conf->{'mysql_schemas'};
-for my $schema_file (@$schemas_array_ref) {
-    print "$schema_file\n";
-}
+
+print $schemas_array_ref->{'TWFY'} . "\n";
