@@ -113,10 +113,32 @@ def trim_string(s):
     else:
         return s
 
+def ssh_start_control_master(user="alice"):
+    full_command = [ "ssh",
+                     "-i", "id_dsa."+user,
+                     "-o", "StrictHostKeyChecking=no",
+                     "-o", "ControlMaster=yes",
+                     "-o", "ControlPath=ssh-"+user+".control",
+                     "-N",
+                     "-f",
+                     user+"@"+configuration['UML_SERVER_IP'] ]
+    check_call(full_command)
+
+def ssh_stop_control_master(user="alice"):
+    full_command = [ "ssh",
+                     "-i", "id_dsa."+user,
+                     "-o", "StrictHostKeyChecking=no",
+                     "-o", "ControlPath=ssh-"+user+".control",
+                     "-O", "exit",
+                     user+"@"+configuration['UML_SERVER_IP'] ]
+    if 0 != call(full_command):
+        print "Warning: stopping SSH ControlMaster for user %s failed" % (user,)
+
 def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=None,verbose=True):
     full_command = [ "ssh",
                      "-i", "id_dsa."+user,
                      "-o", "StrictHostKeyChecking=no",
+                     "-o", "ControlPath=ssh-"+user+".control",
                      user+"@"+configuration['UML_SERVER_IP'],
                      command ]
     if verbose:
