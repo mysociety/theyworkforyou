@@ -44,3 +44,6 @@ Things To Do
 - Shrink the image as much as possible (e.g. zerofree?)
 
 - Switch to using port-based virtual hosts
+
+- It's rubbish to use all that CPU on opening and closing SSH
+  sessions, instead should just keep one session open
