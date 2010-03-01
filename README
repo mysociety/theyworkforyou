@@ -1,1 +1,14 @@
-FIXME: write a sensible REDME here
+Before you run any scripts, you must do at least do the following:
+
+ - Pick IP addresses on your local network for your UML machine
+   and its gateway.
+
+ - Specify those addresses in the 'conf' file in this directory.
+
+ - Add the hostname 'theyworkforyou.sandbox' to /etc/hosts.  This
+   should correspond to UML_SERVER_IP in the 'conf' file.
+
+FIXME: check all those things in the scripts before startup -
+even create-rootfs.py needs the network setup correctly, so that
+it can set values in /etc/network/interfaces
+
