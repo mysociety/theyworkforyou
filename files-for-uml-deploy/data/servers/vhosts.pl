@@ -139,16 +139,16 @@
 
 $sites->{theyworkforyou} = {
     user => 'alice',
-    web_dir => 'twfy/www/docs', 
+    web_dir => 'www/docs',
     internal_access_only => 'internal',
-    cvs_dirs => ['twfy', 'phplib', 'perllib', 'jslib', 'shlib'], cvs_user => 'anon',
-    conf_dir => 'twfy/conf',
-    exec_extras => [
-        'mkdir -p ../searchdb ../xml2db ../dumps twfy/www/docs/api/cache',
-    ],
-    mysql_schemas => [ 'twfy/db/schema.sql' ],
+    git_repository => 'theyworkforyou', git_user => 'anon',
+    conf_dir => 'conf',
+    exec_extras => { user => [
+        'mkdir -p ../searchdb ../xml2db ../dumps www/docs/api/cache',
+    ] },
+    mysql_schemas => { 'TWFY' => 'db/schema.sql' },
     stats => 1,
-    test_script => 'twfy/scripts/test-run',
+    test_script => 'scripts/test-run',
 };
 
 #############################################################################
@@ -165,9 +165,9 @@ $vhosts = {
         redirects => [ ],
         crontab => 1,
         exec_extras => [
-            'touch twfy/www/docs/google77287ac10bb8023f.html' # for Google webmaster tools
+            'touch www/docs/google77287ac10bb8023f.html' # for Google webmaster tools
         ],
-        databases => [ 'bbcparlvid' ],
+        databases => [ 'bbcparlvid', 'twfy' ],
         email => { 'twfy-live' => 'twfy/scripts/handlemail', 
                    'twfy-abuse' => 'twfy/scripts/handlearfmail' }
     },
