@@ -4,11 +4,10 @@
 
 // *******************************************************************************
 // MySQL database.
-define ("DB_HOST", "localhost");
-define ("DB_USER", "twfy");
-define ("DB_PASS", "%MYSQL_TWFY_PASSWORD%");
-define ("DB_NAME", "twfy");
-define ("DB_TYPE", "mysql");
+define ("OPTION_TWFY_DB_HOST", "localhost");
+define ("OPTION_TWFY_DB_USER", "twfy");
+define ("OPTION_TWFY_DB_PASS", "%MYSQL_TWFY_PASSWORD%");
+define ("OPTION_TWFY_DB_NAME", "twfy");
 
 // Parliamentary video database
 define ('OPTION_BBC_DB_HOST', 'host');
