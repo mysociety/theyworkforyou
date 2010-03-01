@@ -233,45 +233,24 @@ if uml_realpath("/var/www") != "/data/vhost":
     if 0 != ssh("ln -sf /data/vhost /var/www",user="root"):
         raise Exception, "Linking /data/vhost to /var/www failed"
 
+# Prevent a series of warnings about creating /root/.cvspass:
+if 0 != ssh("touch /root/.cvspass",user="root"):
+    raise Exception, "Touching /root/.cvspass failed"
+
 # Create /data/servers/ if it doesn't already exist:
 if 0 != ssh("mkdir -p "+" ".join(directories_to_create),
              user="root"):
     raise Exception, "Ensuring that required directories exist failed"
 
-# If the mysociety repository doesn't exist, create it:
-if not path_exists_in_uml("/data/mysociety/"):
-    if 0 != ssh("mkdir -p /data/mysociety/",user="root"):
-        raise Exception, "Creating the directory /data/mysociety/ failed"
-    if 0 != ssh("( cd /data/mysociety/ && git init )",user="root"):
-        raise Exception, "Initializing the git repository in /data/mysociety failed"
+require_cvs_subdirectories = ( 'mysociety/bin', 'mysociety/shlib', 'mysociety/perllib' )
 
-existing_environment = os.environ
-
-git_root_environment = existing_environment.copy()
-git_root_environment["GIT_SSH"] = "./git-ssh-root"
-
-# Pushing the current mysociety module's version over the to UML machine:
-check_call(["git",
-            "--git-dir=mysociety/.git/",
-            "push",
-            "--force",
-            "ssh://root@"+configuration['UML_SERVER_IP']+"/data/mysociety/",
-            "HEAD:master"],
-           env=git_root_environment)
-
-if 0 != ssh("( cd /data/mysociety && git checkout -f master )",user="root"):
-    raise Exception, "Checking out the master branch in the UML machine failed"
-
-if 0 != ssh("( cd /data/mysociety && git reset --hard master )",user="root"):
-    raise Exception, "Checking out the master branch in the UML machine failed"
+for s in require_cvs_subdirectories:
+    if 0 != ssh("cd /data && cvs -d :pserver:anonymous@cvs.mysociety.org:/repos co "+s,user="root"):
+        raise Exception, "Checkout out of %s from CVS failed" % (s,)
 
 # Link the mysociety binary into the PATH:
 if 0 != ssh("ln -sf /data/mysociety/bin/mysociety /usr/local/bin/mysociety",user="root"):
     raise Exception, "Creating a link to the mysociety script failed"
-
-# Prevent a series of warnings about creating /root/.cvspass:
-if 0 != ssh("touch /root/.cvspass",user="root"):
-    raise Exception, "Touching /root/.cvspass failed"
 
 # It seems to some part of deploy expects to write to
 # /etc/apache/virtualhosts.d, but that is just a symlink to
