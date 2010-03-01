@@ -48,7 +48,7 @@ define ("WEBPATH", "/");
 // Put variables that are consistent across development and live servers in init.php.
 
 // If true, php errors will be displayed, not emailed to the bugs list.
-define ("DEVSITE", true);
+define ("DEVSITE", false);
 
 // Add this and a number to the URL (eg '?debug=1') to view debug info.
 define ("DEBUGTAG", 'debug');
@@ -79,7 +79,7 @@ define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");
 
 // Location of the directory that is the Xapian search database.
 // If non-empty will use XAPIAN search instead of mysql search
-define ("XAPIANDB", '');
+define ("XAPIANDB", '/data/vhost/theyworkforyou.sandbox/searchdb');
 
 // Location of the parliamentary recess data file. You can access this remotely 
 // from the main theyworkforyou site if you use
