@@ -416,12 +416,12 @@ try:
 
     run_ssh_test("mysociety -u config --no-check-existing",
                  user="root",
-                 test_name="Running mysociety config",
+                 test_name="Running mysociety -u config --no-check-existing",
                  test_short_name="mysociety-config")
 
     run_ssh_test("mysociety -u vhost theyworkforyou.sandbox",
                  user="root",
-                 test_name="Running mysociety -u deploy theyworkforyou.sandbox",
+                 test_name="Running mysociety -u vhost theyworkforyou.sandbox",
                  test_short_name="mysociety-vhost")
 
     # rsync over some data:
