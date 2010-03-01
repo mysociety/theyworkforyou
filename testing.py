@@ -395,6 +395,8 @@ class PageTest(Test):
         self.test_succeeded = self.test_function(self,self.http_test)
     def succeeded(self):
         return self.test_succeeded
+    def output_included_html(self,fp,copied_coverage,used_source_directory):
+        fp.write("<p><a href=\""+self.http_test.get_id_and_short_name()+"/page.html\">Dumped page under examination</a></p>\n")
 
 def run_page_test(http_test,test_function,test_name="Unknown page test",test_short_name="unknown-page"):
     p = PageTest(http_test,test_function,test_name=test_name,test_short_name=test_short_name)
