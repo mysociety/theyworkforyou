@@ -300,6 +300,10 @@ if not path_exists_in_uml("/root/.ssh/id_dsa"):
     if 0 != ssh("cat /root/.ssh/id_dsa.pub >> /root/.ssh/authorized_keys",user="root"):
         raise Exception, "Adding ssh public key for root to its own authorized_key file failed"
 
+if not path_exists_in_uml("/etc/hosts"):
+    if 0 != ssh("echo 127.0.0.1 localhost >> /etc/hosts",user="root"):
+        raise Exception, "Creating a simple /etc/hosts failed"
+
 ssh("ssh-keygen -R localhost",user="root")
 ssh("ssh-keygen -R 127.0.0.1",user="root")
 if 0 != ssh("ssh -i /root/.ssh/id_dsa -o StrictHostKeyChecking=no root@localhost date",user="root"):
