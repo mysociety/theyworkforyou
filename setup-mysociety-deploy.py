@@ -89,7 +89,6 @@ else:
 # Set up both SSH ControlMasters, so we don't have to keep reopening SSH session:
 
 ssh_start_control_master("root")
-ssh_start_control_master("alice")
 
 try:
 
@@ -124,6 +123,8 @@ try:
 
     if 0 != ssh("passwd -l alice",user="root"):
         raise Exception, "Locking alice's password failed"
+
+    ssh_start_control_master("alice")
 
     if 0 != scp("files-for-uml-deploy/etc/apt/sources.list","/etc/apt/sources.list",user="root"):
             raise Exception, "Copying over the new /etc/apt/sources.list failed"
