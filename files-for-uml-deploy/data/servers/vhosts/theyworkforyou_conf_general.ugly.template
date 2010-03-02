@@ -78,7 +78,7 @@ define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");
 
 // Location of the directory that is the Xapian search database.
 // If non-empty will use XAPIAN search instead of mysql search
-define ("XAPIANDB", '/data/vhost/theyworkforyou.sandbox/searchdb');
+define ("XAPIANDB", '/data/vhost/%UML_SERVER_HOSTNAME%/searchdb');
 
 // Location of the parliamentary recess data file. You can access this remotely 
 // from the main theyworkforyou site if you use

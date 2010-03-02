@@ -361,7 +361,7 @@ try:
     try:
 
         # Get the email users:
-        ssh_result = ssh("/usr/local/bin/find-email-users theyworkforyou.sandbox",capture=True)
+        ssh_result = ssh("/usr/local/bin/find-email-users "+configuration['UML_SERVER_HOSTNAME'],capture=True)
         if ssh_result.return_value != 0:
             raise Exception, "Finding the email users failed"
 
@@ -413,9 +413,9 @@ try:
                      test_name="Running mysociety -u config --no-check-existing",
                      test_short_name="mysociety-config")
 
-        run_ssh_test("mysociety -u vhost theyworkforyou.sandbox",
+        run_ssh_test("mysociety -u vhost "+configuration['UML_SERVER_HOSTNAME'],
                      user="root",
-                     test_name="Running mysociety -u vhost theyworkforyou.sandbox",
+                     test_name="Running mysociety -u vhost "+configuration['UML_SERVER_HOSTNAME'],
                      test_short_name="mysociety-vhost")
 
         # # Call the mysociety-create-databases script to create the appropriate databases:
@@ -423,7 +423,7 @@ try:
         #     raise Exception, "Creating the databases with mysociety-create-databases failed"
 
         # Get the schema files:
-        ssh_result = ssh("/usr/local/bin/find-schema-files theyworkforyou.sandbox",capture=True)
+        ssh_result = ssh("/usr/local/bin/find-schema-files "+configuration['UML_SERVER_HOSTNAME'],capture=True)
         if ssh_result.return_value != 0:
             raise Exception, "Finding the database schemas failed"
 
