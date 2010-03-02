@@ -761,18 +761,18 @@ function find_rep_image($pid, $smallonly = false, $substitute_missing = false) {
 	}
 	
 	//if no image, use a dummy one
-	if(!isset($image) && isset($substitute_missing)){
+	if (!$image && $substitute_missing) {
 	    if($smallonly){
 	        if($substitute_missing === "lord"){
-	            $image = IMAGEPATH . "/unknownlord.png";
+	            $image = IMAGEPATH . "unknownlord.png";
             }else{
-                $image = IMAGEPATH . "/unknownperson.png";                
+                $image = IMAGEPATH . "unknownperson.png";                
             }
         }else{ 
 	        if($substitute_missing === "lord"){
-	            $image = IMAGEPATH . "/unknownlord_large.png";
+	            $image = IMAGEPATH . "unknownlord_large.png";
             }else{
-                $image = IMAGEPATH . "/unknownperson_large.png";                
+                $image = IMAGEPATH . "unknownperson_large.png";                
 
             }
         }

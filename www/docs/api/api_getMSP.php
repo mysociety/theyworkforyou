@@ -1,6 +1,7 @@
 <?
 
 include_once INCLUDESPATH . 'easyparliament/member.php';
+include_once 'api_getPerson.php';
 
 function api_getMSP_front() {
 ?>
@@ -24,25 +25,13 @@ function api_getMSP_front() {
 <?	
 }
 
-function _api_getMSP_row($row) {
-	global $parties;
-	$row['full_name'] = member_full_name($row['house'], $row['title'], $row['first_name'],
-		$row['last_name'], $row['constituency']);
-	if (isset($parties[$row['party']]))
-		$row['party'] = $parties[$row['party']];
-	list($image,$sz) = find_rep_image($row['person_id']);
-	if ($image) $row['image'] = $image;
-	$row = array_map('html_entity_decode', $row);
-	return $row;
-}
-
 function api_getMSP_id($id) {
 	$db = new ParlDB;
 	$q = $db->query("select * from member
 		where house=4 and person_id = '" . mysql_real_escape_string($id) . "'
 		order by left_house desc");
 	if ($q->rows()) {
-		_api_getMSP_output($q);
+		_api_getPerson_output($q);
 	} else {
 		api_error('Unknown person ID');
 	}
@@ -90,22 +79,10 @@ function _api_getMSP_constituency($constituencies) {
 		WHERE constituency in ('" . join("','", $cons) . "')
 		AND left_reason = 'still_in_office' AND house=4");
 	if ($q->rows > 0) {
-		_api_getMSP_output($q);
+		_api_getPerson_output($q);
 		return true;
 	}
 
 	return false;
 }
 
-function _api_getMSP_output($q) {
-	$output = array();
-	$last_mod = 0;
-	for ($i=0; $i<$q->rows(); $i++) {
-		$out = _api_getMSP_row($q->row($i));
-		$output[] = $out;
-		$time = strtotime($q->field($i, 'lastupdate'));
-		if ($time > $last_mod)
-			$last_mod = $time;
-	}
-	api_output($output, $last_mod);
-}
