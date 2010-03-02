@@ -47,7 +47,11 @@ Things To Do
   generates lots of files for every test.  (The rewriting of path
   names, etc. is also rather brittle.)
 
-- When "mysociety vhost" deployment fails, it seems that Apache is
-  sometimes not restarted correctly - if one restarts manually
-  afterwards, then you get the "This site is down for maintenance" as
-  expected.
+- Factor out the uses of
+  /data/vhost/theyworkforyou.sandbox/theyworkforyou/www/ into a
+  php_source variable
+
+- Replace remaining occurences of (git grep) theyworkforyou.sandbox
+  with the configured value
+
+- Leading whitespace is lost in coverage reports
