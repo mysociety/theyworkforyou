@@ -241,7 +241,7 @@ def rsync_from_guest(source,destination,user="alice",exclude_git=False,verbose=T
     if exclude_git:
         full_command.append("--exclude=.git")
     full_command += [ "-e",
-                      "ssh -l "+user+" -i id_dsa."+user,
+                      "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user),
                       user+"@"+configuration['UML_SERVER_IP']+":"+source,
                       destination ]
     print "##".join(full_command)
@@ -259,7 +259,7 @@ def rsync_to_guest(source,destination,user="alice",exclude_git=False,delete=Fals
     if delete:
         full_command.append("--delete")
     full_command += [ "-e",
-                      "ssh -l "+user+" -i id_dsa."+user,
+                      "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user),
                       source,
                       user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
     if verbose:
