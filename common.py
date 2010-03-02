@@ -180,7 +180,7 @@ def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=
                      user+"@"+configuration['UML_SERVER_IP'],
                      command ]
     if verbose:
-        print trim_string("Going to run: "+"#".join(full_command)+"\r")
+        print trim_string("Running: "+" ".join(full_command)+"\r")
     if capture:
         oo = PIPE
         oe = PIPE
@@ -227,7 +227,7 @@ def scp(source,destination,user="alice",verbose=True):
                      source,
                      user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
     if verbose:
-        print trim_string("Going to run: "+"#".join(full_command)+"\r")
+        print trim_string("Running: "+"#".join(full_command)+"\r")
     return call(full_command)
 
 def rsync_from_guest(source,destination,user="alice",exclude_git=False,verbose=True):
