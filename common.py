@@ -144,10 +144,9 @@ def ssh_start_control_master(user="alice"):
                      "-f",
                      user+"@"+configuration['UML_SERVER_IP'] ]
     if 0 == call(full_command):
-        created_ssh_control_files.append(control_file)
+        created_ssh_control_files.append((user,control_file))
     else:
         raise Exception, "Creating the SSH ControlMaster with filename %s failed - perhaps another test session is running?" % (control_file,)
-    check_call(full_command)
 
 def ssh_check_control_master(user="alice"):
     full_command = [ "ssh",
@@ -159,18 +158,13 @@ def ssh_check_control_master(user="alice"):
     return 0 == call(full_command)
 
 def ssh_stop_all_control_masters():
-    for f in created_ssh_control_files:
-        ssh_stop_control_master(file=f)
+    for user,file in created_ssh_control_files:
+        ssh_stop_control_master(user)
 
-def ssh_stop_control_master(user="alice",file=None):
-    if file:
-        control_file = file
-    else:
-        control_file = user_to_control_file(user)
+def ssh_stop_control_master(user):
     full_command = [ "ssh",
-                     "-i", "id_dsa."+user,
                      "-o", "StrictHostKeyChecking=no",
-                     "-o", "ControlPath="+control_file,
+                     "-o", "ControlPath="+user_to_control_file(user),
                      "-O", "exit",
                      user+"@"+configuration['UML_SERVER_IP'] ]
     if 0 != call(full_command):
