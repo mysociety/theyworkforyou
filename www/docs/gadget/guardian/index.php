@@ -133,7 +133,7 @@ function output_component($body, $outer_div_id) {
         echo "
 <style type=\"text/css\">@import \"http://" . DOMAIN . "/gadget/guardian/core.css\";</style>
 <!--{microapp-css:/gadget/guardian/core.css}--> 
-<div class=\"mysociety\">
+<div class=\"mysociety component\">
     <div id=\"$outer_div_id\">
         $body
     </div>
