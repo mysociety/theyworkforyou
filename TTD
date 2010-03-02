@@ -1,13 +1,7 @@
 Things To Do
 ~~~~~~~~~~~~
 
-- commit changes to deploy mechanism to CVS
-
-- Try some cookie-based tests
-
-- Set up an alert, and generate email
-
-- Add error text which could be reported with failures
+- Generate alert email
 
 - Show which lines are used in which test
 
@@ -30,9 +24,8 @@ Things To Do
     probably a case where I need to ask advice.
 
 - Should add an option to "mysociety vhost" to allow deployment of a
-  specific version of the site.
-
-- Use the 'git-safe-to-merge' script before deploying or updating.
+  specific version of the site.  (Update: this should now work by
+  specifying a particular ref in vhosts.pl.)
 
 - At the moment we're not using the packages files from the
   archetypes.  I don't think that necessarily makes sense in this
@@ -44,6 +37,3 @@ Things To Do
 - Shrink the image as much as possible (e.g. zerofree?)
 
 - Switch to using port-based virtual hosts
-
-- It's rubbish to use all that CPU on opening and closing SSH
-  sessions, instead should just keep one session open
