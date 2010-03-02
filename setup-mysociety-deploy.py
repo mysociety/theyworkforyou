@@ -440,11 +440,14 @@ try:
 
         # rsync over some data:
 
-        if 0 != rsync_to_guest("parlparse/","/home/alice/parlparse/",delete=True):
-            raise Exception, "Syncing over parlparse failed"
-
         if 0 != rsync_to_guest("parldata/","/home/alice/parldata/",delete=True):
             raise Exception, "Syncing over parldata failed"
+
+        # Check out parlparse, which contains the member data:
+        if not path_exists_in_uml("/home/alice/parlparse"):
+            run_ssh_test("svn co http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse",
+                         test_name="Checkout out parlparse from ukparse",
+                         test_short_name="parlparse-checkout")
 
         # Import the member data:
 

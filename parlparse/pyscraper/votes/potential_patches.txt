@@ -1,7 +1,0 @@
-2001-10-17:
-<p><p> not <p></p> before Westminster Hall number, and then <br> instead of </p><p> after "minutes of..."
-
-signature at the end (for deputy speaker) has umatched <b> tag and a <br> instead of a </p>
-
-2004-11-18:
-Prayers is not paragraphed.
