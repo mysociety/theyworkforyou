@@ -38,7 +38,7 @@ The important scripts are:
       These helper scripts will use ssh to log you into the UML
       machine as either root or the test user (alice)
 
-  ./shutdown-uml
+  ./stop-server
 
       This script will shut down the UML machine cleanly.
 
