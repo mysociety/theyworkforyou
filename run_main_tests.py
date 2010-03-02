@@ -45,15 +45,6 @@ def run_main_tests():
 
     try:
 
-        check_dependencies()
-        setup_configuration()
-
-        print "Now, deployed_repository_path is: "+configuration['DEPLOYED_PATH']
-        print "Now, configuration['UML_SERVER_IP'] is: "+configuration['UML_SERVER_IP']
-
-        ssh_start_control_master("alice")
-        ssh_start_control_master("root")
-
         Test.instrumented_files = add_instrumentation(configuration['DEPLOYED_PATH']+"/www/")
 
         setup_coverage_directory()
@@ -95,7 +86,18 @@ if __name__ == '__main__':
     try:
 
         try:
+
+            check_dependencies()
+            setup_configuration()
+
+            print "Now, deployed_repository_path is: "+configuration['DEPLOYED_PATH']
+            print "Now, configuration['UML_SERVER_IP'] is: "+configuration['UML_SERVER_IP']
+
+            ssh_start_control_master("alice")
+            ssh_start_control_master("root")
+
             run_main_tests()
+
         except:
             handle_exception(sys.exc_info())
 
