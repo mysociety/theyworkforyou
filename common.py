@@ -136,7 +136,6 @@ def ssh_stop_control_master(user="alice"):
 
 def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=None,verbose=True):
     full_command = [ "ssh",
-                     "-i", "id_dsa."+user,
                      "-o", "StrictHostKeyChecking=no",
                      "-o", "ControlPath=ssh-"+user+".control",
                      user+"@"+configuration['UML_SERVER_IP'],
