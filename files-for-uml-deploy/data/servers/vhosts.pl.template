@@ -158,7 +158,7 @@ $sites->{theyworkforyou} = {
 # other fields override fields in $sites
 
 $vhosts = {
-    'theyworkforyou.sandbox' => {
+    '%UML_SERVER_HOSTNAME%' => {
         site => 'theyworkforyou', staging => 1,
         servers => [ 'sandbox' ],
         aliases => [ ],
