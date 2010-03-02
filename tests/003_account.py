@@ -65,7 +65,7 @@ def wrong_password_message(t,o):
         t.log('Failed to find a paragraph with class="error"')
         return False
     t.log("Got an error paragraph:\n"+p.prettify())
-    if not tag_text_is(p,'Your passwords did not match'):
+    if not tag_text_is(p,'Your passwords did not match',substring=True):
         t.log('Failed to find the "Your passwords did not match" error')
         return False
     return True
