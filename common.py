@@ -183,8 +183,8 @@ def file_to_string(filename):
 
 def scp(source,destination,user="alice",verbose=True):
     full_command = [ "scp",
-                     "-i",
-                     "id_dsa."+user,
+                     "-o", "StrictHostKeyChecking=no",
+                     "-o", "ControlPath=ssh-"+user+".control",
                      source,
                      user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
     if verbose:
