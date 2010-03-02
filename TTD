@@ -13,11 +13,6 @@ Things To Do
 
 - Trick CutyCapt into sending cookies
 
-- Initial configuration:
-
-    Check that conf has been created and set to some sensible value
-    *before* creating rootfs.
-
 - Setting up TUN/TAP IP addresses with DHCP:
 
     This should be possible, but nothing I've tried works.  It's
@@ -36,7 +31,8 @@ Things To Do
 
 - Shrink the image as much as possible (e.g. zerofree?)
 
-- Switch to using port-based virtual hosts
+- Switch to using port-based virtual hosts, to avoid having to set
+  the hostname in /etc/hosts
 
 - Detecting when the UML machine is "up" on startup is done by making
   requests to the web server.  However, you can leave the web server
@@ -46,10 +42,6 @@ Things To Do
 - Generating the coverage reports is hacky at the moment, and
   generates lots of files for every test.  (The rewriting of path
   names, etc. is also rather brittle.)
-
-- Factor out the uses of
-  /data/vhost/theyworkforyou.sandbox/theyworkforyou/www/ into a
-  php_source variable
 
 - Replace remaining occurences of (git grep) theyworkforyou.sandbox
   with the configured value
