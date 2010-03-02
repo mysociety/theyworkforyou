@@ -43,7 +43,4 @@ Things To Do
   generates lots of files for every test.  (The rewriting of path
   names, etc. is also rather brittle.)
 
-- Replace remaining occurences of (git grep) theyworkforyou.sandbox
-  with the configured value
-
 - Leading whitespace is lost in coverage reports
