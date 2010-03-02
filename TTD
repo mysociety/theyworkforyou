@@ -46,3 +46,8 @@ Things To Do
 - Generating the coverage reports is hacky at the moment, and
   generates lots of files for every test.  (The rewriting of path
   names, etc. is also rather brittle.)
+
+- When "mysociety vhost" deployment fails, it seems that Apache is
+  sometimes not restarted correctly - if one restarts manually
+  afterwards, then you get the "This site is down for maintenance" as
+  expected.
