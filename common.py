@@ -67,7 +67,7 @@ def setup_configuration():
         if re.search('^\s*(#|$)',line):
             # A comment or an empty line..
             continue
-        m = re.search("^\s*([^=\s]+)=(\S.*?)\s$",line)
+        m = re.search("^\s*([^=\s]+)=(\S.*?)\s*$",line)
         if m:
             configuration[m.group(1)]=m.group(2)
         else:
