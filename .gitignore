@@ -13,3 +13,4 @@ debian
 /uml.stdout
 /uml.stderr
 id_dsa.*
+/conf
