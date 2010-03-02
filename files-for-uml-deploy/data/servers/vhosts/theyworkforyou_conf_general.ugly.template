@@ -30,7 +30,7 @@ define ('EMAILDOMAIN', '%UML_SERVER_HOSTNAME%');
 define ("CONTACTEMAIL", "mark-twfyuml@longair.net");
 
 // File system path to the top directory of this Theyworkforyou installation; no trailing slash
-define ("BASEDIR","/data/vhost/theyworkforyou.sandbox/mysociety/twfy/www/docs");
+define ("BASEDIR","/data/vhost/theyworkforyou.sandbox/docs");
 
 // Webserver path to 'top' directory of the site (possibly just "/"). For example,
 // if the site is at 'http://www.yourdomain.com/public/theyworkforyou', 

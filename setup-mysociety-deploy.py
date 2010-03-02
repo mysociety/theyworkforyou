@@ -374,7 +374,7 @@ try:
         i = 0
         for schema_file in schemas:
             if len(schema_file.strip()) > 0:
-                run_ssh_test("( cd /data/mysociety && mysql twfy -u twfy < "+schema_file+" )",
+                run_ssh_test("( cd /data/vhost/theyworkforyou.sandbox/theyworkforyou/ && mysql twfy -u twfy < "+schema_file+" )",
                              user="alice",
                              test_name="Creating tables from schema "+schema_file,
                              test_short_name="create-tables-"+str(i))
@@ -442,13 +442,13 @@ try:
 
         # Import the member data:
 
-        run_ssh_test("cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --members --from=2009-10-01 --to=2009-10-31",
+        run_ssh_test("cd /data/vhost/theyworkforyou.sandbox/theyworkforyou/scripts/ && ./xml2db.pl --members --from=2009-10-01 --to=2009-10-31",
                      test_name="Importing the member data",
                      test_short_name="import-member-data")
 
         # Import the rest of the data:
 
-        run_ssh_test("cd /data/vhost/theyworkforyou.sandbox/mysociety/twfy/scripts && ./xml2db.pl --wrans --debates --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing  --from=2009-10-01 --to=2009-10-31",
+        run_ssh_test("cd /data/vhost/theyworkforyou.sandbox/theyworkforyou/scripts/ && ./xml2db.pl --wrans --debates --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing  --from=2009-10-01 --to=2009-10-31",
                      test_name="Importing the rest of the data",
                      test_short_name="import-remaining-data")
 

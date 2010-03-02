@@ -42,7 +42,7 @@ def run_main_tests():
         check_dependencies()
         setup_configuration()
 
-        Test.instrumented_files = add_instrumentation("/data/vhost/theyworkforyou.sandbox/mysociety/twfy/www/")
+        Test.instrumented_files = add_instrumentation("/data/vhost/theyworkforyou.sandbox/theyworkforyou/www/")
 
         setup_coverage_directory()
 
