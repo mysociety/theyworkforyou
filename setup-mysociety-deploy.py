@@ -360,26 +360,6 @@ try:
 
     try:
 
-        # # Call the mysociety-create-databases script to create the appropriate databases:
-        # if 0 != ssh("/data/mysociety/bin/mysociety-create-databases",user="root"):
-        #     raise Exception, "Creating the databases with mysociety-create-databases failed"
-
-        # Get the schema files:
-        ssh_result = ssh("/usr/local/bin/find-schema-files theyworkforyou.sandbox",capture=True)
-        if ssh_result.return_value != 0:
-            raise Exception, "Finding the database schemas failed"
-
-        schemas = re.split('[\r\n]+',ssh_result.stdout_data)
-
-        i = 0
-        for schema_file in schemas:
-            if len(schema_file.strip()) > 0:
-                run_ssh_test("( cd /data/vhost/theyworkforyou.sandbox/theyworkforyou/ && mysql twfy -u twfy < "+schema_file+" )",
-                             user="alice",
-                             test_name="Creating tables from schema "+schema_file,
-                             test_short_name="create-tables-"+str(i))
-                i += 1
-
         # Get the email users:
         ssh_result = ssh("/usr/local/bin/find-email-users theyworkforyou.sandbox",capture=True)
         if ssh_result.return_value != 0:
@@ -437,6 +417,26 @@ try:
                      user="root",
                      test_name="Running mysociety -u vhost theyworkforyou.sandbox",
                      test_short_name="mysociety-vhost")
+
+        # # Call the mysociety-create-databases script to create the appropriate databases:
+        # if 0 != ssh("/data/mysociety/bin/mysociety-create-databases",user="root"):
+        #     raise Exception, "Creating the databases with mysociety-create-databases failed"
+
+        # Get the schema files:
+        ssh_result = ssh("/usr/local/bin/find-schema-files theyworkforyou.sandbox",capture=True)
+        if ssh_result.return_value != 0:
+            raise Exception, "Finding the database schemas failed"
+
+        schemas = re.split('[\r\n]+',ssh_result.stdout_data)
+
+        i = 0
+        for schema_file in schemas:
+            if len(schema_file.strip()) > 0:
+                run_ssh_test("( cd /data/vhost/theyworkforyou.sandbox/theyworkforyou/ && mysql twfy -u twfy < "+schema_file+" )",
+                             user="alice",
+                             test_name="Creating tables from schema "+schema_file,
+                             test_short_name="create-tables-"+str(i))
+                i += 1
 
         # rsync over some data:
 
