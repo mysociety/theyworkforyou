@@ -37,3 +37,12 @@ Things To Do
 - Shrink the image as much as possible (e.g. zerofree?)
 
 - Switch to using port-based virtual hosts
+
+- Detecting when the UML machine is "up" on startup is done by making
+  requests to the web server.  However, you can leave the web server
+  in a broken state on previous run - it might be better to try
+  repeated ssh("date",user="root") invocations.
+
+- Generating the coverage reports is hacky at the moment, and
+  generates lots of files for every test.  (The rewriting of path
+  names, etc. is also rather brittle.)
