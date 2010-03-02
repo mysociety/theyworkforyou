@@ -9,6 +9,7 @@ from BeautifulSoup import BeautifulSoup, NavigableString, Comment,Tag
 import urllib2
 from urllib import urlencode
 from urlparse import urlparse
+from terminal_size import cached_terminal_size
 
 configuration = {}
 
@@ -120,10 +121,9 @@ class SSHResult:
         self.stdout_filename = stdout_filename
         self.stderr_filename = stderr_filename
 
-def trim_string(s):
-    max_length = 160
+def trim_string(s,max_length=-1):
     elision_marker = " [...]"
-    if len(s) > max_length:
+    if max_length >= 0 and len(s) > max_length:
         return s[0:(max_length-len(elision_marker))]+elision_marker
     else:
         return s
@@ -179,7 +179,8 @@ def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=
                      user+"@"+configuration['UML_SERVER_IP'],
                      command ]
     if verbose:
-        print trim_string("Running: "+" ".join(full_command)+"\r")
+        tw, th = cached_terminal_size()
+        print trim_string("Running: ssh [...] "+command+"\r",tw)
     if capture:
         oo = PIPE
         oe = PIPE
@@ -226,7 +227,8 @@ def scp(source,destination,user="alice",verbose=True):
                      source,
                      user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
     if verbose:
-        print trim_string("Running: "+"#".join(full_command)+"\r")
+        tw, th = cached_terminal_size()
+        print trim_string("Running: scp [...] "+source+" -> [UML]:"+destination,tw)
     return call(full_command)
 
 def rsync_from_guest(source,destination,user="alice",exclude_git=False,verbose=True):
@@ -259,7 +261,8 @@ def rsync_to_guest(source,destination,user="alice",exclude_git=False,delete=Fals
                       "ssh -l "+user+" -i id_dsa."+user,
                       source,
                       user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
-    print "##".join(full_command)
+    if verbose:
+        print "Running rsync [...] "+source+" [UML]:"+destination
     return call(full_command)
 
 def thumbnail_image_filename(original_image_filename):
