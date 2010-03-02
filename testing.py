@@ -343,7 +343,7 @@ class HTTPTest(Test):
         coverage_data_file = os.path.join(self.test_output_directory,"coverage")
         coverage_report_directory = os.path.join(self.test_output_directory,coverage_report_leafname)
         local_coverage_data_between(copied_coverage,self.start_time,self.end_time,coverage_data_file)
-        generate_coverage("/data/vhost/theyworkforyou.sandbox/theyworkforyou/www/",
+        generate_coverage(configuration['DEPLOYED_PATH']+"/www/",
                           coverage_data_file,
                           coverage_report_directory,
                           used_source_directory,
@@ -784,7 +784,7 @@ def output_report(instrumented_files=None):
 
     check_call(["mkdir","-p",used_source_directory])
 
-    rsync_from_guest("/data/vhost/theyworkforyou.sandbox/theyworkforyou/www/",
+    rsync_from_guest(configuration['DEPLOYED_PATH']+"/www/",
                      used_source_directory,
                      user="alice",
                      verbose=False)
@@ -794,7 +794,7 @@ def output_report(instrumented_files=None):
 
     if instrumented_files:
         # Generate complete coverage report:
-        generate_coverage("/data/vhost/theyworkforyou.sandbox/theyworkforyou/www/",
+        generate_coverage(configuration['DEPLOYED_PATH']+"/www/",
                           output_filename_all_coverage,
                           os.path.join(Test.top_level_output_directory,coverage_report_leafname),
                           used_source_directory,
