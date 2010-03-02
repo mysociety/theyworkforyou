@@ -10,6 +10,9 @@ search_hewitt_test = run_http_test("/search/?s=patricia+hewitt",
 
 def find_people_in_search_results(test,old_test):
     pr = old_test.soup.find( lambda x: x.name == 'div' and ('id','people_results') in x.attrs )
+    if not pr:
+        test.log('Failed to find a div with id="people_results"')
+        return []
     test.log("Got people_people results div:\n"+pr.prettify())
     if not pr:
         test.log('Failed to find a div with id="people_results"')
