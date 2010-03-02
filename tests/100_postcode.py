@@ -50,7 +50,7 @@ change_page_test = run_http_test("/user/changepc/",
 def change_postcode_form(current_test, http_test, old_postcode):
     form = http_test.soup.find( lambda x: x.name == 'form' and ('action','/postcode/') in x.attrs )
     if not form:
-        test.log("Failed to find the form with action '/postcode/'")
+        current_test.log("Failed to find the form with action '/postcode/'")
         return False
     return re.search('Your current postcode: '+old_postcode,non_tag_data_in(form))
 
