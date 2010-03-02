@@ -18,11 +18,17 @@ def add_instrumentation(www_directory):
         print "stdout:\n"+ssh_result.stdout_data
         print "stderr:\n"+ssh_result.stderr_data
         raise Exception, "Instrumenting the TWFY PHP code failed."
+    # Save a list of the instrumented files:
     instrumented_files = re.split('[\r\n]+',ssh_result.stdout_data)
     # Copy over the instrument.php file:
     if 0 != scp("instrument.php",
                  www_directory+"/includes/"):
         raise Exception, "Failed to copy over the instrument.php file"
+    if 0 != ssh("cd "+www_directory+" && git add includes/instrument.php"):
+        raise Exception, "Failed to 'git add' the instrument.php file"
+    # Now commit those changes:
+    if 0 != ssh("cd "+www_directory+" && git commit -a -m 'Add instrumentation to every PHP file'"):
+        raise Exception, "Failed to commit the addition of instrumentation"
     return [ x for x in instrumented_files if len(x.strip()) > 0 ]
 
 def setup_coverage_directory():
