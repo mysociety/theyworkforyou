@@ -179,6 +179,7 @@ class SSHTest(Test):
         self.user = user
         self.stdout_filename = os.path.join(self.test_output_directory,"stdout")
         self.stderr_filename = os.path.join(self.test_output_directory,"stderr")
+        self.result = None
     def run(self):
         Test.run(self)
         self.result = ssh(self.ssh_command,
