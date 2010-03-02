@@ -1,6 +1,3 @@
 [submodule "cutycapt"]
 	path = cutycapt
 	url = git://crumble.dyndns.org/git/cutycapt
-[submodule "mysociety"]
-	path = mysociety
-	url = ssh://mark@cake.ukcod.org.uk/data/git/public/mysociety
