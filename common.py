@@ -226,7 +226,7 @@ def file_to_string(filename):
 def scp(source,destination,user="alice",verbose=True):
     full_command = [ "scp",
                      "-o", "StrictHostKeyChecking=no",
-                     "-o", "ControlPath=ssh-"+user+".control",
+                     "-o", "ControlPath="+user_to_control_file(user),
                      source,
                      user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
     if verbose:
