@@ -420,6 +420,12 @@ try:
                      test_name="Enabling mod_headers",
                      test_short_name="mod-headers")
 
+        # Restart apache:
+        run_ssh_test("/etc/init.d/apache2 restart",
+                     user="root",
+                     test_name="Restarting apache",
+                     test_short_name="apache-restart")
+
         # Now call the standard(ish) deploy scripts:
 
         run_ssh_test("mysociety -u config --no-check-existing",
