@@ -221,11 +221,12 @@ def file_to_string(filename):
     return data
 
 def scp(source,destination,user="alice",verbose=True):
+    full_destination = user+"@"+configuration['UML_SERVER_IP']+":"+destination
     full_command = [ "scp",
                      "-o", "StrictHostKeyChecking=no",
                      "-o", "ControlPath="+user_to_control_file(user),
                      source,
-                     user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
+                     full_destination ]
     if verbose:
         tw, th = cached_terminal_size()
         print trim_string("Running: scp [...] "+source+" -> [UML]:"+destination,tw)
