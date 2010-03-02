@@ -42,6 +42,9 @@ def run_main_tests():
         check_dependencies()
         setup_configuration()
 
+        ssh_start_control_master("alice")
+        ssh_start_control_master("root")
+
         Test.instrumented_files = add_instrumentation("/data/vhost/theyworkforyou.sandbox/theyworkforyou/www/")
 
         setup_coverage_directory()
@@ -81,8 +84,13 @@ if __name__ == '__main__':
         output_directory = create_output_directory()
 
     try:
-        run_main_tests()
-    except:
-        handle_exception(sys.exc_info())
 
-    output_report(instrumented_files=Test.instrumented_files)
+        try:
+            run_main_tests()
+        except:
+            handle_exception(sys.exc_info())
+
+        output_report(instrumented_files=Test.instrumented_files)
+
+    finally:
+        ssh_stop_all_control_masters()
