@@ -343,7 +343,7 @@ class HTTPTest(Test):
         coverage_data_file = os.path.join(self.test_output_directory,"coverage")
         coverage_report_directory = os.path.join(self.test_output_directory,coverage_report_leafname)
         local_coverage_data_between(copied_coverage,self.start_time,self.end_time,coverage_data_file)
-        generate_coverage("/data/vhost/theyworkforyou.sandbox/mysociety/",
+        generate_coverage("/data/vhost/theyworkforyou.sandbox/theyworkforyou/www/",
                           coverage_data_file,
                           coverage_report_directory,
                           used_source_directory,
@@ -780,17 +780,12 @@ def output_report(instrumented_files=None):
                                 Test.end_all_coverage,
                                 output_filename_all_coverage)
 
-    used_source_directory = os.path.join(Test.top_level_output_directory,"mysociety")
+    used_source_directory = os.path.join(Test.top_level_output_directory,"theyworkforyou-www")
 
     check_call(["mkdir","-p",used_source_directory])
 
-    rsync_from_guest("/data/vhost/theyworkforyou.sandbox/mysociety/twfy/",
-                     os.path.join(used_source_directory,"twfy"),
-                     user="alice",
-                     verbose=False)
-
-    rsync_from_guest("/data/vhost/theyworkforyou.sandbox/mysociety/phplib/",
-                     os.path.join(used_source_directory,"phplib"),
+    rsync_from_guest("/data/vhost/theyworkforyou.sandbox/theyworkforyou/www/",
+                     used_source_directory,
                      user="alice",
                      verbose=False)
 
@@ -799,7 +794,7 @@ def output_report(instrumented_files=None):
 
     if instrumented_files:
         # Generate complete coverage report:
-        generate_coverage("/data/vhost/theyworkforyou.sandbox/mysociety/",
+        generate_coverage("/data/vhost/theyworkforyou.sandbox/theyworkforyou/www/",
                           output_filename_all_coverage,
                           os.path.join(Test.top_level_output_directory,coverage_report_leafname),
                           used_source_directory,

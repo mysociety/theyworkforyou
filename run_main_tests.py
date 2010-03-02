@@ -23,7 +23,7 @@ def add_instrumentation(www_directory):
     if 0 != scp("instrument.php",
                  www_directory+"/includes/"):
         raise Exception, "Failed to copy over the instrument.php file"
-    return [ "twfy/www/"+x for x in instrumented_files if len(x.strip()) > 0 ]
+    return [ x for x in instrumented_files if len(x.strip()) > 0 ]
 
 def setup_coverage_directory():
     # Create a world-writable directory for coverage data:
