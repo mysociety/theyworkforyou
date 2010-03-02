@@ -463,5 +463,4 @@ try:
     output_report(instrumented_files=Test.instrumented_files)
 
 finally:
-    ssh_stop_control_master("alice")
-    ssh_stop_control_master("root")
+    ssh_stop_all_control_masters()

@@ -123,22 +123,51 @@ def trim_string(s):
     else:
         return s
 
+created_ssh_control_files = []
+
+def user_to_control_file(user):
+    return "ssh-"+user+".control"
+
 def ssh_start_control_master(user="alice"):
+    control_file = user_to_control_file(user)
+    if ssh_check_control_master():
+        raise Exception, "There is already a running SSH control master at %s - another test session is running or exited uncleanly"
     full_command = [ "ssh",
                      "-i", "id_dsa."+user,
                      "-o", "StrictHostKeyChecking=no",
                      "-o", "ControlMaster=yes",
-                     "-o", "ControlPath=ssh-"+user+".control",
+                     "-o", "ControlPath="+control_file,
                      "-N",
                      "-f",
                      user+"@"+configuration['UML_SERVER_IP'] ]
+    if 0 == call(full_command):
+        created_ssh_control_files.append(control_file)
+    else:
+        raise Exception, "Creating the SSH ControlMaster with filename %s failed - perhaps another test session is running?" % (control_file,)
     check_call(full_command)
 
-def ssh_stop_control_master(user="alice"):
+def ssh_check_control_master(user="alice"):
     full_command = [ "ssh",
                      "-i", "id_dsa."+user,
                      "-o", "StrictHostKeyChecking=no",
-                     "-o", "ControlPath=ssh-"+user+".control",
+                     "-o", "ControlPath="+user_to_control_file(user),
+                     "-O", "check",
+                     user+"@"+configuration['UML_SERVER_IP'] ]
+    return 0 == call(full_command)
+
+def ssh_stop_all_control_masters():
+    for f in created_ssh_control_files:
+        ssh_stop_control_master(file=f)
+
+def ssh_stop_control_master(user="alice",file=None):
+    if file:
+        control_file = file
+    else:
+        control_file = user_to_control_file(user)
+    full_command = [ "ssh",
+                     "-i", "id_dsa."+user,
+                     "-o", "StrictHostKeyChecking=no",
+                     "-o", "ControlPath="+control_file,
                      "-O", "exit",
                      user+"@"+configuration['UML_SERVER_IP'] ]
     if 0 != call(full_command):
@@ -147,7 +176,7 @@ def ssh_stop_control_master(user="alice"):
 def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=None,verbose=True):
     full_command = [ "ssh",
                      "-o", "StrictHostKeyChecking=no",
-                     "-o", "ControlPath=ssh-"+user+".control",
+                     "-o", "ControlPath="+user_to_control_file(user),
                      user+"@"+configuration['UML_SERVER_IP'],
                      command ]
     if verbose:
