@@ -130,7 +130,7 @@ def user_to_control_file(user):
 
 def ssh_start_control_master(user="alice"):
     control_file = user_to_control_file(user)
-    if ssh_check_control_master():
+    if ssh_check_control_master(user):
         raise Exception, "There is already a running SSH control master at %s - another test session is running or exited uncleanly"
     full_command = [ "ssh",
                      "-i", "id_dsa."+user,
