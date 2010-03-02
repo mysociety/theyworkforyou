@@ -4,6 +4,7 @@ import time
 import sys
 import os
 import cgi
+import errno
 from BeautifulSoup import BeautifulSoup, NavigableString, Comment,Tag
 import urllib2
 from urllib import urlencode
@@ -62,10 +63,19 @@ def ensure_slash(path):
     return re.sub('([^/])$','\\1/',path)
 
 def setup_configuration():
-    fp = open("conf")
+    try:
+        fp = open("conf")
+    except IOError, e:
+        if e.errno == errno.ENOENT:
+            print >> sys.stderr, "You must create the file 'conf' describing your network setup."
+            print >> sys.stderr, "(There is an example in 'conf.example' with some comments.)"
+            sys.exit(2)
+        raise
     for line in fp:
-        if re.search('^\s*(#|$)',line):
-            # A comment or an empty line..
+        # Strip out comments:
+        line = re.sub('#.*','',line)
+        # Check for empty lines:
+        if re.search('^\s*$',line):
             continue
         m = re.search("^\s*([^=\s]+)=(\S.*?)\s*$",line)
         if m:
