@@ -129,7 +129,7 @@ def trim_string(s):
 created_ssh_control_files = []
 
 def user_to_control_file(user):
-    return "ssh-"+user+".control"
+    return "/tmp/uml-ssh-"+user+"-%h-%p-%r.control"
 
 def ssh_start_control_master(user="alice"):
     control_file = user_to_control_file(user)
