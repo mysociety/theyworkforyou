@@ -63,6 +63,9 @@ def ensure_slash(path):
     return re.sub('([^/])$','\\1/',path)
 
 def setup_configuration():
+
+    global configuration
+
     try:
         fp = open("conf")
     except IOError, e:
