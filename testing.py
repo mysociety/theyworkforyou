@@ -548,7 +548,7 @@ def create_output_directory():
 #
 #   top_level_output_directory "output/2009-12-13T22:42:48"
 #
-#   uml_prefix_to_strip "/data/vhost/theyworkforyou.sandbox/mysociety/"
+#   uml_prefix_to_strip "/data/vhost/theyworkforyou.sandbox/theyworkforyou/www/"
 #     (That's the bit to strip off the start of filenames in the coverage file.)
 #
 #   coverage_data_file "output/2009-12-13T22:42:48/coverage"
