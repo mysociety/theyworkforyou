@@ -5,6 +5,7 @@ import sys
 import os
 import cgi
 import errno
+import socket
 from BeautifulSoup import BeautifulSoup, NavigableString, Comment,Tag
 import urllib2
 from urllib import urlencode
@@ -97,6 +98,15 @@ def setup_configuration():
     for k in required_configuration_keys:
         if k not in configuration:
             raise Exception, "You must define %s in 'conf'" % (k,)
+
+    # Check that UML_SERVER_HOSTNAME resolves to UML_SERVER_IP:
+    try:
+        ip = socket.gethostbyname(configuration['UML_SERVER_HOSTNAME'])
+    except:
+        raise Exception, "Resolving the hostname '"+configuration['UML_SERVER_HOSTNAME']+"' failed"
+
+    if not ip == configuration['UML_SERVER_IP']:
+        raise Exception, "The hostname '"+configuration['UML_SERVER_HOSTNAME']+"' should resolve to UML_SERVER_IP ("+configuration['UML_SERVER_IP']+"), not "+ip
 
     configuration['DEPLOYED_PATH'] = "/data/vhost/"+configuration['UML_SERVER_HOSTNAME']+"/theyworkforyou"
 
