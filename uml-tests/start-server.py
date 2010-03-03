@@ -22,7 +22,8 @@ cwd = os.path.realpath(".")
 command = [ "linux" ]
 if options.single:
     command.append("single")
-command += [ "ubda=uml-rootfs-test",
+command += [ "mem=256M",
+             "ubda=uml-rootfs-test",
              "umid=TWFY",
              "con=null",
              "ssl=null",
@@ -31,7 +32,6 @@ command += [ "ubda=uml-rootfs-test",
 if options.xterm:
     command.append("con1=xterm")
 
-command += [ "eth0=tuntap,,,"+configuration['GUEST_GATEWAY'],
-             "mem=256M"]
+command.append("eth0=tuntap,,,"+configuration['GUEST_GATEWAY'])
 
 call(command)
