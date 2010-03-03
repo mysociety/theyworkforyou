@@ -13,6 +13,8 @@ setup_configuration()
 parser = OptionParser(usage="Usage: %prog [OPTIONS]")
 parser.add_option('-s', '--single', dest="single", action="store_true",
                   default=False, help="boot into single user mode")
+parser.add_option('-x', '--xterm', dest="xterm", action="store_true",
+                  default=False, help="create a terminal on an xterm as well")
 options,args = parser.parse_args()
 
 cwd = os.path.realpath(".")
@@ -24,8 +26,12 @@ command += [ "ubda=uml-rootfs-test",
              "umid=TWFY",
              "con=null",
              "ssl=null",
-             "con0=fd:0,fd:1",
-             "eth0=tuntap,,,"+configuration['GUEST_GATEWAY'],
+             "con0=fd:0,fd:1" ]
+
+if options.xterm:
+    command.append("con1=xterm")
+
+command += [ "eth0=tuntap,,,"+configuration['GUEST_GATEWAY'],
              "mem=256M"]
 
 call(command)
