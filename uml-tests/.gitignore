@@ -1,10 +1,9 @@
 *~
 *.pyc
-output
+/output
 backup
 general
-uml-rootfs-*
-debian
+/uml-rootfs-*
 /files-for-uml/data/servers/machines/sandbox.pl
 /files-for-uml/etc/hosts
 /files-for-uml-deploy/data/servers/machines/sandbox.pl
@@ -14,5 +13,5 @@ debian
 /files-for-uml-deploy/data/servers/vhosts/theyworkforyou_conf_general.ugly
 /uml.stdout
 /uml.stderr
-id_dsa.*
+/id_dsa.*
 /conf
