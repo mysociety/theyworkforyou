@@ -44,3 +44,5 @@ Things To Do
   names, etc. is also rather brittle.)
 
 - Leading whitespace is lost in coverage reports
+
+- UML_SERVER_IP and GUEST_IP should be the same configuration option
