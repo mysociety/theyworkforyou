@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<!DOCTYPE publicwhip
+[
+<!ENTITY ndash   "&#8211;">
+<!ENTITY mdash   "&#8212;">
+<!ENTITY iexcl   "&#161;">
+<!ENTITY divide  "&#247;">
+<!ENTITY euro    "&#8364;">
+<!ENTITY trade   "&#8482;">
+<!ENTITY bull    "&#8226;">
+<!ENTITY lsquo   "&#8216;">
+<!ENTITY rsquo   "&#8217;">
+<!ENTITY sbquo   "&#8218;">
+<!ENTITY ldquo   "&#8220;">
+<!ENTITY rdquo   "&#8221;">
+<!ENTITY bdquo   "&#8222;">
+<!ENTITY dagger  "&#8224;">
+
+<!ENTITY Ouml   "&#214;" >
+<!ENTITY agrave "&#224;" >
+<!ENTITY aacute "&#225;" >
+<!ENTITY acirc  "&#226;" >
+<!ENTITY atilde "&#227;" >
+<!ENTITY auml   "&#228;" >
+<!ENTITY ccedil "&#231;" >
+<!ENTITY egrave "&#232;" >
+<!ENTITY eacute "&#233;" >
+<!ENTITY ecirc  "&#234;" >
+<!ENTITY euml   "&#235;" >
+<!ENTITY iacute "&#237;" >
+<!ENTITY icirc  "&#238;" >
+<!ENTITY iuml	"&#239;" >
+<!ENTITY ntilde "&#241;" >
+<!ENTITY nbsp   "&#160;" >
+<!ENTITY oacute "&#243;" >
+<!ENTITY ocirc  "&#244;" >
+<!ENTITY ouml   "&#246;" >
+<!ENTITY oslash "&#248;" >
+<!ENTITY uacute "&#250;" >
+<!ENTITY uuml   "&#252;" >
+<!ENTITY thorn  "&#254;" >
+
+<!ENTITY pound  "&#163;" >
+<!ENTITY sect   "&#167;" >
+<!ENTITY copy   "&#169;" >
+<!ENTITY reg    "&#174;" >
+<!ENTITY deg    "&#176;" >
+<!ENTITY plusmn "&#177;" >
+<!ENTITY sup2   "&#178;" >
+<!ENTITY micro  "&#181;" >
+<!ENTITY para   "&#182;" >
+<!ENTITY middot "&#183;" >
+<!ENTITY ordm   "&#186;" >
+<!ENTITY frac14 "&#188;" >
+<!ENTITY frac12 "&#189;" >
+<!ENTITY frac34 "&#190;" >
+<!ENTITY oelig "&#339;" >
+<!ENTITY aelig  "&#230;" >
+
+]>
+
+<publicwhip scrapeversion="a" latest="yes">
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.101.0" nospeaker="true" colnum="101"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000216">
+	Armed Forces: Unmanned Aircraft
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.101.1" speakerid="uk.org.publicwhip/lord/100861" speakername="Lord Moonie" colon=":" colnum="101"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000216">
+	<p pid="a.101.1/1" qnum="HL5669">To ask Her Majesty's Government what consideration has been given to equipping the Watchkeeper unmanned aircraft with lightweight munitions in addition to or in place of sensor packages.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.101.2" speakerid="uk.org.publicwhip/lord/100844" speakername="Baroness Taylor of Bolton" colon=":" colnum="101"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000003">
+	<p pid="a.101.2/1">The Ministry of Defence keeps its capability requirements under constant review. We are currently conducting analysis to investigate the contribution that an armed Watchkeeper unmanned aerial vehicle system could make in current and future operations as part of its routine capability planning process.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.101.3" nospeaker="true" colnum="101"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000217">
+	Aviation: Flight Paths
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.101.4" speakerid="uk.org.publicwhip/lord/100933" speakername="Lord Rowe-Beddoe" colon=":" colnum="101"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000217">
+	<p pid="a.101.4/1" qnum="HL5799">To ask Her Majesty's Government further to the answer by Lord Adonis on 19 October (<I>Official Report</I>, House of Lords, cols. 436-38), what other world capitals, of a similar or greater density and quantity of population to London, have flight paths for arriving aircraft at their principal airport passing over their centre or legislative buildings.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.101.5" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="101"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000004">
+	<p pid="a.101.5/1">This information is not held by Her Majesty's Government. UK airspace planning and regulation is a matter for the independent Civil Aviation Authority (CAA). In discharging its duties, the CAA approves only flight profiles that are safe and which conform to internationally agreed International Civil Aviation Organisation (ICAO) requirements as well as national regulations. Inevitably, this results in some over-flight of built up areas by flights servicing UK airports. Aircraft operators&mdash;subject to any safety and airspace constraints&mdash;are actively encouraged to follow a continuous descent procedure (CDA) for arrivals into UK airports. CDA has been endorsed by both Government and industry as a key noise mitigation method for arriving aircraft.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.101.6" nospeaker="true" colnum="101"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000218">
+	Department for Business, Innovation and Skills: Staff
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.101.7" speakerid="uk.org.publicwhip/lord/100964" speakername="Baroness Garden of Frognal" colon=":" colnum="101"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000218">
+	<p pid="a.101.7/1" qnum="HL5628">To ask Her Majesty's Government how many officials work in the Universities and Skills Directorate of the Department for Business, Innovation and Skills.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.102.0" speakerid="uk.org.publicwhip/lord/100821" speakername="Lord Young of Norwood Green" colon=":" colnum="102"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000005">
+	<p pid="a.102.0/1">441 staff based on headcount and 418.4 based on full-time equivalents work in Universities and Skills Group, organised into six directorates covering higher education, financial support for learners, graduate opportunities, further education, skills funding agency transition and skills.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.102.1" nospeaker="true" colnum="102"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000219">
+	Department for Transport: Staff
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.102.2" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="102"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000219">
+	<p pid="a.102.2/1" qnum="HL5593">To ask Her Majesty's Government how many staff in the Department for Transport's Lights, Navigation and Ports Safety Branch are partly or wholly funded by the General Lighthouse Fund.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.102.3" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="102"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000006">
+	<p pid="a.102.3/1">In the 2008-09 financial year, the General Lighthouse Fund provided &pound;98,000 for the activities discharged by five departmental members of staff who spent a proportion of their time in support of the fund, as well as a full-time General Lighthouse Fund accountant.</p>
+	<p pid="a.102.3/2">In accordance with Section 211(2)(c) of the Merchant Shipping Act 1995, any expenses incurred by the Secretary of State in connection with the administration of the General Lighthouse Fund are paid out of the fund itself.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.102.4" nospeaker="true" colnum="102"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000220">
+	Disabled People: Parking
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.102.5" speakerid="uk.org.publicwhip/lord/100623" speakername="Lord Swinfen" colon=":" colnum="102"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000220">
+	<p pid="a.102.5/1" qnum="HL5651">To ask Her Majesty's Government what plans they have to put the holder's photograph on disabled parking permits.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.102.6" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="102"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000008">
+	<p pid="a.102.6/1">The Disabled Persons (Badges for Motor Vehicles) (England) Regulations 2000 require a photograph of the badge holder to be placed on the reverse side of a blue badge. This is in accordance with an EU recommendation (98/376/EC) on parking cards for disabled people.</p>
+	<p pid="a.102.6/2">As part of the comprehensive blue badge reform strategy that was published in October 2008, we have committed to redesigning the blue badge to make it harder to copy and to forge. We are currently carrying out research into options and plan to consult in summer 2010.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.102.7" nospeaker="true" colnum="102"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000221">
+	Equality Bill
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.102.8" speakerid="uk.org.publicwhip/lord/100476" speakername="Lord Ouseley" colon=":" colnum="102"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000221">
+	<p pid="a.102.8/1" qnum="HL5679">To ask Her Majesty's Government what representations they have received from members of the public and organisations representing the interests of lesbian, gay, bisexual and transgender people about the Equality Bill not providing them with protection against harassment, though it does protect against harassment on the grounds of race, gender and disability; and how they intend to respond.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.103.0" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="103"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000010">
+	<p pid="a.103.0/1">We considered carefully the arguments and evidence provided in response to our public consultation on our proposals for the Equality Bill for extending protection against harassment and set out our assessment of these in the government response to that consultation published in July 2008.</p>
+	<p pid="a.103.0/2">Since then we have continued to engage with interested parties and to consider any further evidence they may supply. To date none of this information has presented a convincing case that additional protection is needed.</p>
+	<p pid="a.103.0/3">In particular Stonewall, the Employment and Diversity Forum and Citizens Advice have put forward examples to illustrate why they believe that specific protection against harassment should be extended in the Bill. Officials have met these organisations to discuss the arguments presented and the dialogue between them is ongoing.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.103.1" nospeaker="true" colnum="103"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000222">
+	EU: Expenditure
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.103.2" speakerid="uk.org.publicwhip/lord/100616" speakername="Lord Stoddart of Swindon" colon=":" colnum="103"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000222">
+	<p pid="a.103.2/1" qnum="HL5554">To ask Her Majesty's Government what action they will take to ensure that the European Union fulfils its promise to review all expenditure in return for a cut in the United Kingdom's rebate.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.103.3" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="103"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000013">
+	<p pid="a.103.3/1">Her Majesty's Government remain committed to far-reaching reform of the EU budget, which will refocus it on jobs and growth, tackling climate change, and ensuring security, stability and poverty reduction.</p>
+	<p pid="a.103.3/2">The Government's framework for European Union budget review is published in Box 2.1 (page 8) of the July 2009 European Community Finances White Paper (Cm 7640).</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.103.4" nospeaker="true" colnum="103"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000223">
+	EU: Treaties
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.103.5" speakerid="uk.org.publicwhip/lord/100616" speakername="Lord Stoddart of Swindon" colon=":" colnum="103"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000223">
+	<p pid="a.103.5/1" qnum="HL5711">To ask Her Majesty's Government following any coming into force of the Lisbon treaty, by what means Parliament will ratify international treaties negotiated by the European Union.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.103.6" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="103"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000015">
+	<p pid="a.103.6/1">The entry into force of the Lisbon treaty will not alter the existing procedures for parliamentary scrutiny of international agreements. Mixed agreements, to which both the EU and member states are party, are subject to the same parliamentary procedures as any other international agreement entered into by the UK.</p>
+	<p pid="a.103.6/2">Treaties concluded by the EU alone are subject to the scrutiny procedures applicable to EU legislation.</p>
+	<p pid="a.103.6/3">Once the Lisbon Treaty is in force, the EU (Amendment) Act provides that any treaties which amend the EU founding treaties in future can be ratified by the UK only if approved by Act of Parliament.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.104.0" nospeaker="true" colnum="104"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000224">
+	Falkland Islands
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.104.1" speakerid="uk.org.publicwhip/lord/100855" speakername="Lord Jones of Cheltenham" colon=":" colnum="104"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000224">
+	<p pid="a.104.1/1" qnum="HL5748">To ask Her Majesty's Government what lessons they have learned from the recent humanitarian visit of Argentine next of kin to the Falkland Islands.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.104.2" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="104"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000018">
+	<p pid="a.104.2/1">The Governments of the UK, Falkland Islands and Argentina worked together to ensure the success of these visits, under the formula on sovereignty in the UK-Argentina joint statement of <phrase class="date" code="1999-07-14">14 July 1999</phrase>. We have always supported the humanitarian aims of these visits, and thus were determined to overcome any logistical barriers. We are pleased that those aims were achieved.</p>
+	<p pid="a.104.2/2">Argentine next of kin are free to visit the Darwin cemetery and memorial whenever they so wish, either by using the regular scheduled LAN airlines flights or on the cruise ships that regularly visit the islands. Many have already taken advantage of this, with around 3,500 Argentine visitors last year. The Falkland Islands Government have also looked favourably upon the idea of further specific next of kin visits in March 2010.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.104.3" nospeaker="true" colnum="104"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000225">
+	Government Initiatives: Advertising
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.104.4" speakerid="uk.org.publicwhip/lord/100915" speakername="Baroness Thomas of Winchester" colon=":" colnum="104"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000225">
+	<p pid="a.104.4/1" qnum="HL5334">To ask Her Majesty's Government which initiatives of the Ministry of Justice or its agencies (and its predecessors) have been advertised in each of the past five years; how much was spent in each case; and which were carried out via the Central Office of Information.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.104.5" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="104"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000020">
+	<p pid="a.104.5/1">The Department for Transport uses a timetable-based environmental model to estimate the carbon dioxide emissions of rail services. The model has been calibrated using industry data on rail diesel and electricity consumption.</p>
+	<p pid="a.104.5/2">Road transport carbon dioxide emissions are estimated using the department's national transport model. The model uses projections of GDP, population, employment, oil prices and vehicle efficiency to produce estimates of key road traffic metrics, including total vehicle kilometres driven and carbon emissions.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.104.6" nospeaker="true" colnum="104"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000226">
+	Human Rights
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.104.7" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="104"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000226">
+	<p pid="a.104.7/1" qnum="HL5586">To ask Her Majesty's Government further to the Written Answer by Baroness Kinnock of Holyhead on 12 October (<I>WA 10</I>), whether their foreign policy towards the Republic of Ireland takes account of the Irish policy of only allowing those who have an Irish language qualification to live in selected parts of the country.</p>
+	<p pid="a.104.7/2" qnum="HL5587">To ask Her Majesty's Government further to the Written Answer by Baroness Kinnock of Holyhead on 12 October (<I>WA 10</I>), whether their foreign policy towards the Republic of Ireland takes account of the Irish policy of requiring applicants for government jobs to have an Irish language qualification.</p>
+	<p pid="a.104.7/3" qnum="HL5588">To ask Her Majesty's Government further to the Written Answer by Baroness Kinnock of Holyhead on 12 October (<I>WA 10</I>), whether their foreign policy towards the Republic of Ireland takes account of the proposed Irish policy of removing funding from Protestant schools.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.105.0" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="105"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000022">
+	<p pid="a.105.0/1">The Government have no reason to believe that the Irish Government are acting in a discriminatory manner towards its citizens in any of these fields.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.105.1" nospeaker="true" colnum="105"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000227">
+	National Identity Register
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.105.2" speakerid="uk.org.publicwhip/lord/100321" speakername="Lord Hylton" colon=":" colnum="105"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000227">
+	<p pid="a.105.2/1" qnum="HL5511">To ask Her Majesty's Government who has access to the national identity register; and for what purposes.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.105.3" speakerid="uk.org.publicwhip/lord/100956" speakername="Lord West of Spithead" colon=":" colnum="105"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000023">
+	<p pid="a.105.3/1">The Identity Cards Act 2006 sets out the legal basis for the provision of information, such as a person's name or address, from the national identity register. This may either be, with the consent of the individual, to approved organisations to assist in verifying an individual's identity or else, without consent, but only where it is in the public interest to public sector organisations listed on the face of the Act or in regulations approved by Parliament under the Act.</p>
+	<p pid="a.105.3/2">In addition, there will be a limited number of personnel involved in the management of the national identity register who will need access to it, but any such access will be carefully regulated and audited.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.105.4" nospeaker="true" colnum="105"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000228">
+	Police: Northern Ireland
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.105.5" speakerid="uk.org.publicwhip/lord/100410" speakername="Lord Maginnis of Drumglass" colon=":" colnum="105"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000228">
+	<p pid="a.105.5/1" qnum="HL5574">To ask Her Majesty's Government whether, in light of the level of public confidence in policing in Northern Ireland, the Secretary of State for Northern Ireland will increase the frequency with which he publicly responds on policing and justice matters in Northern Ireland, rather than relying on comments by the chief constable of the Police Service of Northern Ireland.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.106.0" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="106"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000025">
+	<p pid="a.106.0/1">In responding to questions about policing in Northern Ireland, the Secretary of State gives answers in respect of policing policy and other areas which are his responsibility. The chief constable is asked to reply to questions about operational matters, which are his responsibility.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.106.1" nospeaker="true" inserted-heading="true" colnum="106"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000229">
+	Police: Northern Ireland
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.106.2" speakerid="uk.org.publicwhip/lord/100410" speakername="Lord Maginnis of Drumglass" colon=":" colnum="106"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000229">
+	<p pid="a.106.2/1" qnum="HL5577">To ask Her Majesty's Government whether the Northern Ireland Office overruled a decision not to award a contract to a paramilitary-linked firm for work on police stations in Northern Ireland, as suggested by Sir Hugh Orde in the Sunday World on 26 July.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.106.3" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="106"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000026">
+	<p pid="a.106.3/1">We are not aware of any decision or direction by the Northern Ireland Office that overruled a decision by the PSNI not to award a contract in the way described.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.106.4" nospeaker="true" inserted-heading="true" colnum="106"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000230">
+	Police: Northern Ireland
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.106.5" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="106"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000230">
+	<p pid="a.106.5/1" qnum="HL5763">To ask Her Majesty's Government further to the Written Answer by Baroness Kinnock of Holyhead on 12 October (<I>WA 10</I>), whether their foreign policy to the Republic of Ireland takes into account the recruitment of protestant officers to the Irish Police Force.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.106.6" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="106"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000027">
+	<p pid="a.106.6/1">The recruitment of officers to the Irish Police Force is a matter for the Irish Government.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.106.7" nospeaker="true" colnum="106"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000231">
+	Privy Council
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.106.8" speakerid="uk.org.publicwhip/lord/100416" speakername="Lord Marlesford" colon=":" colnum="106"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000231">
+	<p pid="a.106.8/1" qnum="HL5865">To ask Her Majesty's Government what are the qualifications for appointment to the Privy Council; who has been appointed since May 2007; and what were the particular qualifications for each appointment.</p>
+	<p pid="a.106.8/2" qnum="HL5866">To ask Her Majesty's Government what arrangements are in place for independent scrutiny of the integrity and suitability of persons nominated for membership of the Privy Council.</p>
+	<p pid="a.106.8/3" qnum="HL5869">To ask Her Majesty's Government which members of the Privy Council have resigned during the past 30 years; and in what circumstances resignation from the Privy Council is required.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.106.9" speakerid="uk.org.publicwhip/lord/100981" speakername="Lord Mandelson" colon=":" colnum="106"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000028">
+	<p pid="a.106.9/1">Appointments to the Privy Council are made by the Queen on the recommendation of the Prime Minister. Recommendations are made on the basis that the individual concerned is involved in affairs of state or has a close and confidential relationship with the Crown. In practice, this means those who have obtained high office or senior positions in the executive, legislative or the judicial branches of the state either in this country or in one of the countries of which the Queen is head of state. It follows therefore, that most new privy counsellors are serving Ministers, senior parliamentarians or judges. By virtue of the office held, it is not considered necessary to hold details of privy counsellors' qualifications separately. Similarly, there is no independent scrutiny of Privy Council appointees. The only members of the Privy Council who play any active part in the policy work of the council or attend meetings are those who are serving government Ministers. Like all senior parliamentarians, they are directly accountable to Parliament for all their actions.</p>
+	<p pid="a.106.9/2">The only privy counsellor to have resigned from the council during the past 30 years is Jonathan Aitken, who resigned in June 1997 following his abandoned libel action against the<I> Guardian</I> newspaper and Granada Television. The enforced removal of a privy counsellor from membership of the Privy Council has not occurred since 1921, when Sir Edgar Speyer was struck off for collaborating with the Germans during the First World War. Enforced removal would be a matter for the sovereign, acting on the advice of Ministers.</p>
+	<p pid="a.106.9/3">A list of privy counsellors appointed since May 2007 will be deposited in the Library of the House. A full list of all privy counsellors is available on the Privy Council website at <a href="http://www.pco.gov.uk/output/Page76.asp">www.pco.gov.uk/output/Page76.asp</a>.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.107.0" nospeaker="true" colnum="107"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000232">
+	Railways: Diesel Vehicles
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.107.1" speakerid="uk.org.publicwhip/lord/100068" speakername="Lord Bradshaw" colon=":" colnum="107"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000232">
+	<p pid="a.107.1/1" qnum="HL5927">To ask Her Majesty's Government further to the Written Answer by Lord Adonis on 5 October (<I>WA 477&mdash;8</I>), whether there will be sufficient diesel trains to serve those lines which will not be electrified by 2025; and how many trains will be required for that purpose.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.107.2" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="107"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0001.htm#09102629000031">
+	<p pid="a.107.2/1">There will be sufficient trains to serve those lines which will not be electrified by 2025. As announced in the rail electrification document of July 2009 there will now be less need for diesel trains and a greater requirement for electric trains. It was also announced that the Government would publish a new rolling stock plan taking account of the changed circumstances and setting out a revised strategy in the autumn.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.107.3" nospeaker="true" colnum="107"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000233">
+	Railways: Income
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.107.4" speakerid="uk.org.publicwhip/lord/100616" speakername="Lord Stoddart of Swindon" colon=":" colnum="107"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000233">
+	<p pid="a.107.4/1" qnum="HL5635">To ask Her Majesty's Government what is the present and projected future income from URENCO, the Tote, the Channel Tunnel Rail Link and the Dartford crossing; what is their calculation of the amount they would receive from the sales of those assets after the payment of fees and other costs of such sales; and what would be the likely saving on interest payments on the national debt arising from those sales, assuming a long-term interest rate of four per cent.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.108.0" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="108"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000032">
+	<p pid="a.108.0/1">Historic financial information for Urenco, the Tote, and HS1 is available in their annually published report and accounts, which can be found on their websites or at Companies House. Income from the Dartford crossing user charges is available in the Department for Transport annual report and resource accounts, available on the department's website.</p>
+	<p pid="a.108.0/2">The Government do not publish forecast financial data for the companies that they own. Nor do they publicly state the value expected to be received from an asset that may be for sale, as it could have a negative impact on the proceeds received.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.108.1" nospeaker="true" colnum="108"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000234">
+	Schools: Primary Curriculum
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.108.2" speakerid="uk.org.publicwhip/lord/100949" speakername="Baroness Coussins" colon=":" colnum="108"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000234">
+	<p pid="a.108.2/1" qnum="HL5721">To ask Her Majesty's Government in the light of the recommendations made by Sir Jim Rose in his review of the primary curriculum, what level of funding is available for the workforce development programme in support of language learning for the current year; and what funding was available in each of the last five years.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.108.3" speakerid="uk.org.publicwhip/lord/100797" speakername="Baroness Morgan of Drefelin" colon=":" colnum="108"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000034">
+	<p pid="a.108.3/1">The level of funding this year and in the past five years is set out in the table below. We have given increased funding through local authorities via the Standards Fund to support the teaching of languages in primary schools&mdash;&pound;32.5 million in 2009-10. Schools can use this for a variety of purposes, including paying for in-service training for teachers and teaching assistants.</p>
+	<p pid="a.108.3/2">In addition, the Government have provided funding to the Training and Development Agency for Schools for a primary initial teacher training (ITT) course in a languages specialism and, more recently, for additional training routes to increase the language qualification levels of the primary workforce; to CILT, the National Centre for Languages, to run training courses for local authority staff and schools on practical classroom activities, teaching practice and methodology; and to the British Council to run the Primary Teacher Project, through which primary teachers undertake a two week programme of language tuition through a partner school in Europe, to develop their confidence and linguistic competence.</p>
+	<table>
+		<tbody>
+			<tr pid="a.108.3/5"> <td></td> <td>Standards Fund</td> <td>TDA Primary ITT course in a languages specialism</td> <td>TDA additional training routes</td> <td>CILT training courses</td> <td>British Council2 week primary teacher project</td> </tr>
+			<tr pid="a.108.3/6"> <td>2009-10</td> <td>&pound;32,500,000</td> <td>1,550,000</td> <td>124,735</td> <td>1,154,279</td> <td>287,970</td> </tr>
+			<tr pid="a.108.3/7"> <td>2008-09</td> <td>&pound;32,500,000</td> <td>1,334,460</td> <td>160,800 (first year)</td> <td>1,776,000</td> <td>272,742</td> </tr>
+			<tr pid="a.108.3/8"> <td>2007-08</td> <td>&pound;27,500,000</td> <td>1,528,762</td> <td></td> <td>1,385,720</td> <td>255,000</td> </tr>
+			<tr pid="a.108.3/9"> <td>2006-07</td> <td>&pound;21,986,000</td> <td>&pound;1,221,449</td> <td></td> <td>1,682,300</td> <td>345,590 (first year ran from Jan 06 to Mar 07)</td> </tr>
+			<tr pid="a.108.3/10"> <td>2005-06</td> <td>4,992,000 (first year)</td> <td>&pound;914,880</td> <td></td> <td>450,000</td> <td></td> </tr>
+			<tr pid="a.108.3/11"> <td>2004-05</td> <td></td> <td>&pound;547,000</td> <td></td> <td>350,000</td> <td></td> </tr>
+		</tbody>
+	</table>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.109.0" nospeaker="true" colnum="109"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000235">
+	Shipping: Ferry Operators
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.109.1" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="109"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000235">
+	<p pid="a.109.1/1" qnum="HL5645">To ask Her Majesty's Government further to the Written Answer by Lord Adonis on 7 July (<I>WA 147</I>) concerning the Maritime and Coastguard Agency and the Rathlin Ferry, what documentation the agency examined when it issued the short-term passenger certificate for the MV &quot;Canna&quot; on 12 September 2008; why the certificate was issued; and what period it covered.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.109.2" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="109"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000065">
+	<p pid="a.109.2/1">Marine surveyors from the Maritime and Coastguard Agency (MCA) examined the international safety management (ISM) code safety management certificate (SMC), ISM document of compliance (DOC), UK load line (UKLL) certificate and DOC dangerous goods (DG) certificate during the inspection carried out on <phrase class="date" code="2008-09-12">12 September 2008</phrase> on the MV &quot;Canna&quot;. The MV &quot;Canna's&quot; previous passenger certificate was also examined prior to issuing the new short-term passenger certificate. However, the administrative error (as set out in my Answer of <phrase class="date" code="2009-06-17">17 June</phrase> (<phrase class="offrep" id="wrans/2009-06-17.216"><I>Official Report</I>, cols. WA 216-17</phrase>) was. not detected on <phrase class="date" code="2009-09-12">12 September</phrase>.</p>
+	<p pid="a.109.2/2">The short-term passenger certificate for the MV &quot;Canna&quot; was issued on <phrase class="date" code="2008-09-12">12 September 2008</phrase> because the MV &quot;Canna's&quot; operator was unable to arrange the passenger vessel's annual survey before <phrase class="date" code="2009-09-18">18 September</phrase>; the date which the operator and the MCA surveyor both incorrectly believed was the end of the annual survey range date for the MV &quot;Canna&quot;.</p>
+	<p pid="a.109.2/3">The new short-term passenger certificate covered the period <phrase class="date" code="2009-09-12">12 September</phrase> to <phrase class="date" code="2008-10-12">12 October 2008</phrase>.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.109.3" nospeaker="true" colnum="109"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000236">
+	Shipping: Pollution
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.109.4" speakerid="uk.org.publicwhip/lord/100139" speakername="Lord Condon" colon=":" colnum="109"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000236">
+	<p pid="a.109.4/1" qnum="HL5636">To ask Her Majesty's Government what is their response to the finding of the Government of Denmark's Environmental Agency research published in 2009 that the health risks of shipping pollution have been underestimated.</p>
+	<p pid="a.109.4/2" qnum="HL5637">To ask Her Majesty's Government whether they will consider funding or supporting comprehensive research on the effects on United Kingdom coastal communities of shipping pollution, in view of international opinion about health risks from pollution from shipping emissions being underestimated.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.110.0" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="110"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000068">
+	<p pid="a.110.0/1">While we have not seen the Government of Denmark's Environmental Agency research, the impact on human health of pollutant emissions from shipping has been the subject of other studies in recent years, and both the distance which such emissions can travel and the harmful effects of these emissions are well known.</p>
+	<p pid="a.110.0/2">Moreover, the Government already undertake a significant amount of research into airborne pollutants from both shipping and other sources, including research undertaken in the production of the national air emissions inventory and the research which the Maritime and Coastguard Agency commissioned this year on the impacts of the revised annexe VI of the MARPOL convention.</p>
+	<p pid="a.110.0/3">The Government are therefore not convinced of the need for additional extensive research on this issue.</p>
+	<p pid="a.110.0/4">The Government have taken, and are continuing to take, action to address pollutant emissions from ships, both in the International Maritime Organization (where we played a prominent role in the revision of annexe VI to the MARPOL convention which will significantly reduce pollutant emissions from ships and improve air quality in our coastal regions) and in the European Union (where we are currently implementing Directive 2005/33/EC on the sulphur content of marine fuels).</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.110.1" nospeaker="true" colnum="110"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000237">
+	St Andrews Agreement
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.110.2" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="110"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000237">
+	<p pid="a.110.2/1" qnum="HL5589">To ask Her Majesty's Government what were the limited number of outstanding issues which remained to be resolved, referred to in paragraph two of the St Andrews agreement of 2006.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.110.3" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="110"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000072">
+	<p pid="a.110.3/1">As stated at paragraph 2 of the St Andrews agreement, the issues which required resolution at St Andrews included support for and the devolution of policing and criminal justice, changes to the operation of the Good Friday agreement institutions and certain other matters raised by the parties or flowing from the preparation for government committee. These included issues relating to human rights, equality and victims and the financial package for the newly restored executive.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.110.4" nospeaker="true" inserted-heading="true" colnum="110"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000238">
+	St Andrews Agreement
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.110.5" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="110"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000238">
+	<p pid="a.110.5/1" qnum="HL5647">To ask Her Majesty's Government what was agreed as part of the St Andrews agreement of 2006 about the creation of a motorway between the border and Londonderry; and what part the Government of Ireland will play in that arrangement.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.110.6" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="110"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000073">
+	<p pid="a.110.6/1">The St Andrews agreement did not contain any agreement about such a motorway.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.111.0" nospeaker="true" colnum="111"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000239">
+	Turks and Caicos Islands
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.111.1" speakerid="uk.org.publicwhip/lord/100855" speakername="Lord Jones of Cheltenham" colon=":" colnum="111"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000239">
+	<p pid="a.111.1/1" qnum="HL5616">To ask Her Majesty's Government what is the current status of direct rule in the Turks and Caicos Islands; and whether any charges have been brought against those mentioned in Sir Robin Auld's report into irregularities on the islands.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.111.2" speakerid="uk.org.publicwhip/lord/100994" speakername="Baroness Kinnock of Holyhead" colon=":" colnum="111"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000074">
+	<p pid="a.111.2/1">I refer the noble Lord to the Written Ministerial Statement made by my honourable friend the Parliamentary Under-Secretary of State for Foreign and Commonwealth Affairs, Chris Bryant, on <phrase class="date" code="2009-10-12">12 October 2009</phrase> (<phrase class="offrep" id="wms/2009-10-12.14"><I>Official Report</I>, col. WS 14</phrase>).</p>
+	<p pid="a.111.2/2">The special investigation and prosecution team have presented their initial scoping project to the governor. No charges have yet been brought against any individuals mentioned in the commission of inquiry's report.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.111.3" nospeaker="true" colnum="111"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000240">
+	Ulster-Scots
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.111.4" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="111"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000240">
+	<p pid="a.111.4/1" qnum="HL5706">To ask Her Majesty's Government further to the Written Answer by Baroness Royall of Blaisdon on 13 October (<I>WA 24</I>) which said there is no board-level champion for the Ulster Scots community in the Northern Ireland Office, whether they will consider appointing such a champion.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.111.5" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="111"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000076">
+	<p pid="a.111.5/1">I have nothing further to add to my previous Answer of <phrase class="date" code="2009-10-13">13 October 2009</phrase> (<phrase class="offrep" id="wrans/2009-10-13.24"><I>Official Report</I>, col. WA 24</phrase>).</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.111.6" nospeaker="true" colnum="111"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000241">
+	Vehicles: Carbon Emissions
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.111.7" speakerid="uk.org.publicwhip/lord/100843" speakername="Lord Kirkwood of Kirkhope" colon=":" colnum="111"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000241">
+	<p pid="a.111.7/1" qnum="HL5642">To ask Her Majesty's Government what further plans they have to provide financial incentives to meet European Union targets for new car emissions by 2015.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.111.8" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="111"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000077">
+	<p pid="a.111.8/1">The EU New Car CO2 regulation, adopted in April 2009, sets sales-weighted, fleet average CO2 targets for car manufacturers at the EU level. The regulation requires manufacturers failing to meet their targets to pay an excess emissions premium, which is designed financially to incentivise compliance.</p>
+	<p pid="a.111.8/2">Although not directly targeted at meeting the EU targets, the Government are taking a range of actions to support car makers, consumers and other parties in making the transition to a lower-emitting future, which will help the targets to be met. In February 2009 the Government launched the &pound;2.3 billion automotive assistance programme, with the development of green technologies to reduce CO2 emissions as one eligibility criterion. We have made &pound;140 million available for research, development and demonstration of new lower-emitting technologies and vehicles, through the Technology Strategy Board's low carbon vehicle innovation platform.</p>
+	<p pid="a.111.8/3">The Government will shortly announce details of how the &pound;230 million consumer incentive to reduce the up-front cost of purchasing an electric or plug-in hybrid will operate. Consumers are also encouraged to purchase low-emitting vehicles through the taxation system, notably through the structures of VED, company car tax and enhanced capital allowances.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.112.0" nospeaker="true" inserted-heading="true" colnum="112"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000242">
+	Vehicles: Carbon Emissions
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.112.1" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="112"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000242">
+	<p pid="a.112.1/1" qnum="HL5655">To ask Her Majesty's Government further to the Written Answer by the then Minister of State at the Department for Transport, Stephen Ladyman, on 25 June 2007 (<I>Official Report</I>, House of Commons, 522&mdash;3W), what are the current emissions figures for diesel and petrol engines.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.112.2" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="112"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000080">
+	<p pid="a.112.2/1">The Written Answer of <phrase class="date" code="2007-06-25">25 June 2007</phrase> gave air quality and carbon dioxide emissions expressed as fleet average emissions in grams per kilometre, broken down by vehicle type. The Department for Transport does not hold an updated version of this information using the latest modelling assumptions.</p>
+	<p pid="a.112.2/2">However, an emissions factor demonstration tool, enabling users to produce similar estimates, was published as part of research on updating vehicle emissions inventory modelling assumptions, on <phrase class="date" code="2009-06-29">29 June 2009</phrase>. This is available on the department's website at <a href="http://www.dft.gov.uk/pgr/roads/environment/emissions/">http://www.dft.gov.uk/pgr/roads/environment/emissions/</a>.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.112.3" nospeaker="true" inserted-heading="true" colnum="112"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000243">
+	Vehicles: Carbon Emissions
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.112.4" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="112"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000243">
+	<p pid="a.112.4/1" qnum="HL5656">To ask Her Majesty's Government whether they will introduce air pollution scores and greenhouse gas scores for vehicles sold in the United Kingdom similar to the United States Environmental Protection Agency's green vehicle guide; and, if so, when.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.112.5" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="112"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000082">
+	<p pid="a.112.5/1">New cars are already labelled with a user-friendly, colour-coded, CO2 emissions rating in most new car showrooms. The system used by the United States Environmental Protection Agency would not be appropriate for use in the United Kingdom where, in contrast to the more complex arrangements in the United States, legislation imposes the same air pollutant emission standards on all cars using a given fuel type.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.112.6" nospeaker="true" inserted-heading="true" colnum="112"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000244">
+	Vehicles: Carbon Emissions
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.112.7" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="112"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000244">
+	<p pid="a.112.7/1" qnum="HL5657">To ask Her Majesty's Government further to the Written Answer by the then Minister of State at the Department for Transport, Stephen Ladyman, on 25 June 2007 (<I>Official Report</I>, House of Commons, 522&mdash;3W), what are the current average emissions figures for new vehicles on sale in England and Wales.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.112.8" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="112"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000083">
+	<p pid="a.112.8/1">For new passenger cars sold in the UK in 2008 the average CO2 emissions were 158g/km. This breaks down into an average of 160g/km for petrol cars and 157g/km for diesel cars (reflecting the fact that, counteracting their higher efficiency, average diesel cars are larger than average petrol cars).</p>
+	<p pid="a.112.8/2">Registration weighted fleet average figures for air quality emissions are not available and, unlike CO2 emissions, it is not possible to produce meaningful averages from type approval data.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.113.0" nospeaker="true" colnum="113"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000245">
+	Vehicles: Electric Power
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.113.1" speakerid="uk.org.publicwhip/lord/100843" speakername="Lord Kirkwood of Kirkhope" colon=":" colnum="113"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000245">
+	<p pid="a.113.1/1" qnum="HL5643">To ask Her Majesty's Government what plans they have to promote the use of electric vehicles.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.113.2" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="113"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000085">
+	<p pid="a.113.2/1">The new cross-Whitehall office for low emission vehicles (OLEV) has been established to promote the uptake and delivery of ultra-low carbon vehicles (such as plug-in hybrid and electric cars) into the UK transport mix.</p>
+	<p pid="a.113.2/2">&pound;230 million will be available between 2011 and 2014 to create a consumer incentive scheme to reduce the cost of electric and plug-in hybrid cars by between &pound;2,000 and &pound;5,000.</p>
+	<p pid="a.113.2/3">Up to &pound;30 million will be available for the plugged in places infrastructure framework to help regional consortia of cities, private businesses and utility companies install electric vehicle charging infrastructure to help create a UK network of electric car cities.</p>
+	<p pid="a.113.2/4">The Government have also provided more than &pound;140 million for research, development and demonstration of low carbon vehicles through the Technology Strategy Board's low carbon vehicle innovation platform and the Department for Transports low carbon vehicle public procurement programme.</p>
+	<p pid="a.113.2/5">Separately to this, electric vehicles (EVs) are also generously supported through the taxation systems: owners of EVs are exempt from paying vehicle excise duty and fuel duty, businesses which purchase electric and low carbon cars can claim enhanced capital allowances and people who use electric cars as their company car pay the lowest rate of benefit in kind.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-26a.114.0" nospeaker="true" inserted-heading="true" colnum="114"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000246">
+	Vehicles: Electric Power
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-26a.114.1" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="114"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000246">
+	<p pid="a.114.1/1" qnum="HL5758">To ask Her Majesty's Government what encouragement they will give to those who use electric road transport instead of oil-based vehicles.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-26a.114.2" speakerid="uk.org.publicwhip/lord/100839" speakername="Lord Adonis" colon=":" colnum="114"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026w0002.htm#09102629000090">
+	<p pid="a.114.2/1">The new cross-Whitehall Office for low emission vehicles (OLEV) has been established to promote the uptake and delivery of ultra-low carbon vehicles (such as plug-in hybrid and electric cars) into the UK transport mix.</p>
+	<p pid="a.114.2/2">&pound;230 million will be available between 2011 and 2014 to create a consumer incentive scheme to reduce the cost of electric and plug-in hybrid cars by between &pound;2,000 and &pound;5,000.</p>
+	<p pid="a.114.2/3">Up to &pound;30 million will be available for the plugged in places infrastructure framework to help regional consortia of cities, private businesses and utility companies install electric vehicle charging infrastructure to help create a UK network of electric car cities.</p>
+	<p pid="a.114.2/4">Separately to this, electric vehicles (EVs) are also generously supported through the taxation systems: owners of EVs are exempt from paying vehicle excise duty and fuel duty, businesses which purchase electric and low carbon cars can claim enhanced capital allowances and people who use electric cars as their company car pay the lowest rate of benefit in kind.</p>
+</reply>
+</publicwhip>
+

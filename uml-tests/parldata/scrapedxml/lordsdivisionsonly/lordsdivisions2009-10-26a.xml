@@ -1,0 +1,1254 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE publicwhip [
+<!ENTITY ndash "&#8211;">
+<!ENTITY mdash "&#8212;">
+<!ENTITY iexcl "&#161;">
+<!ENTITY divide "&#247;">
+<!ENTITY euro "&#8364;">
+<!ENTITY trade "&#8482;">
+<!ENTITY bull "&#8226;">
+<!ENTITY lsquo "&#8216;">
+<!ENTITY rsquo "&#8217;">
+<!ENTITY sbquo "&#8218;">
+<!ENTITY ldquo "&#8220;">
+<!ENTITY rdquo "&#8221;">
+<!ENTITY bdquo "&#8222;">
+<!ENTITY dagger "&#8224;">
+
+<!ENTITY Ouml "&#214;">
+<!ENTITY agrave "&#224;">
+<!ENTITY aacute "&#225;">
+<!ENTITY acirc "&#226;">
+<!ENTITY atilde "&#227;">
+<!ENTITY auml "&#228;">
+<!ENTITY ccedil "&#231;">
+<!ENTITY egrave "&#232;">
+<!ENTITY eacute "&#233;">
+<!ENTITY ecirc "&#234;">
+<!ENTITY euml "&#235;">
+<!ENTITY iacute "&#237;">
+<!ENTITY icirc "&#238;">
+<!ENTITY iuml "&#239;">
+<!ENTITY ntilde "&#241;">
+<!ENTITY nbsp "&#160;">
+<!ENTITY oacute "&#243;">
+<!ENTITY ocirc "&#244;">
+<!ENTITY ouml "&#246;">
+<!ENTITY oslash "&#248;">
+<!ENTITY uacute "&#250;">
+<!ENTITY uuml "&#252;">
+<!ENTITY thorn "&#254;">
+
+<!ENTITY pound "&#163;">
+<!ENTITY sect "&#167;">
+<!ENTITY copy "&#169;">
+<!ENTITY reg "&#174;">
+<!ENTITY deg "&#176;">
+<!ENTITY plusmn "&#177;">
+<!ENTITY sup2 "&#178;">
+<!ENTITY micro "&#181;">
+<!ENTITY para "&#182;">
+<!ENTITY middot "&#183;">
+<!ENTITY ordm "&#186;">
+<!ENTITY frac14 "&#188;">
+<!ENTITY frac12 "&#189;">
+<!ENTITY frac34 "&#190;">
+<!ENTITY oelig "&#339;">
+<!ENTITY aelig "&#230;">
+]>
+<publicwhip latest="yes" scrapeversion="a">
+  <major-heading colnum="971" id="uk.org.publicwhip/lords/2009-10-26a.971.0" nospeaker="true" time="014:30:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0001.htm#09102610000775">
+	Commonwealth: Privy Council
+	 &#8212; 
+	<i>Question</i></major-heading>
+  <major-heading colnum="973" id="uk.org.publicwhip/lords/2009-10-26a.973.8" nospeaker="true" time="014:36:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0001.htm#09102610000776">
+	Health: Tuberculosis
+	 &#8212; 
+	<i>Question</i></major-heading>
+  <major-heading colnum="976" id="uk.org.publicwhip/lords/2009-10-26a.976.0" nospeaker="true" time="014:44:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0001.htm#09102610000777">
+	Economy
+	 &#8212; 
+	<i>Question</i></major-heading>
+  <major-heading colnum="978" id="uk.org.publicwhip/lords/2009-10-26a.978.2" nospeaker="true" time="014:52:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0002.htm#09102610000778">
+	Families: Bullying
+	 &#8212; 
+	<i>Question</i></major-heading>
+  <major-heading colnum="980" id="uk.org.publicwhip/lords/2009-10-26a.980.4" nospeaker="true" time="015:00:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0002.htm#09102610000779">
+	Welsh Ministers (Transfer of Functions) (No. 2) Order 2009
+</major-heading>
+  <major-heading colnum="980" id="uk.org.publicwhip/lords/2009-10-26a.980.5" nospeaker="true" time="015:00:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0002.htm#09102610000780">
+	Government of Wales Act 2006 (Consequential Modifications, Transitional Provisions and Saving) Order 2009
+</major-heading>
+  <major-heading colnum="980" id="uk.org.publicwhip/lords/2009-10-26a.980.6" nospeaker="true" time="015:00:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0002.htm#09102610000781">
+	Groundwater (England and Wales) Regulations 2009
+</major-heading>
+  <speech colnum="980" id="uk.org.publicwhip/lords/2009-10-26a.980.7" nospeaker="true" time="015:00:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0002.htm#09102610000781">
+    <p pid="a.980.7/1" pwmotiontext="unrecognized">
+      <a href="http://pubs1.tso.parliament.uk/pa/jt200809/jtselect/jtstatin/91/9102.htm">14 Report Joint Committee Statutory Instruments</a>
+    </p>
+    <p pid="a.980.7/2" pwmotiontext="unrecognized">
+      <a href="www.parliament.uk">22 Report Joint Committee Statutory Instruments</a>
+    </p>
+  </speech>
+  <minor-heading colnum="980" id="uk.org.publicwhip/lords/2009-10-26a.980.8" nospeaker="true" time="015:00:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0002.htm">
+    <i>Motion to Approve</i>
+  </minor-heading>
+  <speech colnum="980" id="uk.org.publicwhip/lords/2009-10-26a.980.9" nospeaker="true" time="015:00:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0002.htm">
+    <p class="italic" pid="a.980.9/1" pwmotiontext="unrecognized"> Moved By Lord Davies of Oldham</p>
+    <p class="indent" pid="a.980.9/2" pwmotiontext="unrecognized">That the draft Orders and Regulations laid before the House on <phrase class="date" code="2009-06-16">16 June</phrase> and <phrase class="date" code="2009-07-20">20 July</phrase> be approved. <I>14th and 2</I><I>2nd Report</I><I>s</I><I> from the Joint Committee on Statutory Instruments</I>, <I>c</I>onsidered in Grand Committee on <phrase class="date" code="2009-10-21">21 October</phrase><I>.</I></p>
+    <p class="italic" pid="a.980.9/3" pwmotiontext="unrecognized">Motion agreed.</p>
+  </speech>
+  <major-heading colnum="981" id="uk.org.publicwhip/lords/2009-10-26a.981.0" nospeaker="true" time="015:07:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0002.htm#09102610000783">
+	Coroners and Justice Bill
+</major-heading>
+  <speech colnum="981" id="uk.org.publicwhip/lords/2009-10-26a.981.1" nospeaker="true" time="015:07:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0002.htm#09102610000783">
+    <p pid="a.981.1/1" pwmotiontext="unrecognized">
+      <a href="http://services.parliament.uk/bills/2008-09/coronersandjustice.html">Main Bill Page</a>
+    </p>
+    <p pid="a.981.1/2" pwmotiontext="unrecognized">
+      <a href="http://services.parliament.uk/bills/2008-09/coronersandjustice.html">Copy of the Bill</a>
+    </p>
+    <p pid="a.981.1/3" pwmotiontext="unrecognized">
+      <a href="http://www.publications.parliament.uk/pa/ld200809/ldbills/033/en/index_033.htm">Explanatory notes</a>
+    </p>
+    <p pid="a.981.1/4" pwmotiontext="unrecognized">
+      <a href="www.parliament.uk">Main Bill Page</a>
+    </p>
+    <p pid="a.981.1/5" pwmotiontext="unrecognized">
+      <a href="http://services.parliament.uk/bills/2008-09/coronersandjustice.html">Main Bill Page</a>
+    </p>
+  </speech>
+  <minor-heading colnum="981" id="uk.org.publicwhip/lords/2009-10-26a.981.2" nospeaker="true" time="015:07:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0002.htm">
+    <i>Report (2nd Day)</i>
+  </minor-heading>
+  <speech colnum="981" id="uk.org.publicwhip/lords/2009-10-26a.981.3" nospeaker="true" time="015:07:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0002.htm">
+    <p class="italic" pid="a.981.3/1" pwmotiontext="unrecognized">Amendment 37</p>
+    <p class="italic" pid="a.981.3/2" pwmotiontext="unrecognized"> Moved by Lord Redesdale</p>
+    <p pid="a.981.3/3" pwmotiontext="unrecognized"><b>37:</b> After Clause 27, insert the following new Clause&#8212;</p>
+    <p pid="a.981.3/4" pwmotiontext="quot">"Amendment of Treasure Act 1996</p>
+    <p pid="a.981.3/5" pwmotiontext="unrecognized">After section 8 of the Treasure Act 1996 (c. 24) (duty of finder to notify coroner) insert&#8212;</p>
+    <p pid="a.981.3/6" pwmotiontext="quot">"8A Duty to notify coroner of acquisition of certain objects</p>
+    <p pid="a.981.3/7" pwmotiontext="lines">(1) A person who&#8212;</p>
+    <p pid="a.981.3/8" pwmotiontext="lines">(a) acquires property in an object, and</p>
+    <p pid="a.981.3/9" pwmotiontext="lines">(b) believes or has reasonable grounds for believing&#8212;</p>
+    <p pid="a.981.3/10" pwmotiontext="lines">(i) that the object is treasure, and</p>
+    <p pid="a.981.3/11" pwmotiontext="lines">(ii) that notification in respect of the object has not been given under section 8(1) of this subsection,</p>
+    <p pid="a.981.3/12" pwmotiontext="quot">must notify the Coroner for Treasure before the end of the notice period.</p>
+    <p pid="a.981.3/13" pwmotiontext="lines">(2) The notice period is fourteen days beginning with&#8212;</p>
+    <p pid="a.981.3/14" pwmotiontext="lines">(a) the day after he acquires property in the object; or</p>
+    <p pid="a.981.3/15" pwmotiontext="lines">(b) if later, the day on which he first believes or has reason to believe&#8212;</p>
+    <p pid="a.981.3/16" pwmotiontext="lines">(i) that the object is treasure; and</p>
+    <p pid="a.981.3/17" pwmotiontext="lines">(ii) that notification in respect of the object has not been given under section 8(1) or subsection (1) of this section.</p>
+    <p pid="a.981.3/18" pwmotiontext="lines">(3) Any person who fails to comply with subsection (1) is guilty of an offence if&#8212;</p>
+    <p pid="a.981.3/19" pwmotiontext="lines">(a) notification in respect of the object has not been given under section 8(1) or subsection (1) of this section; and</p>
+    <p pid="a.981.3/20" pwmotiontext="lines">(b) there has been no investigation in relation to the object.</p>
+    <p pid="a.981.3/21" pwmotiontext="lines">(4) Any person guilty of an offence under this section is liable on summary conviction to&#8212;</p>
+    <p pid="a.981.3/22" pwmotiontext="lines">(a) imprisonment for a term not exceeding the relevant maximum;</p>
+    <p pid="a.981.3/23" pwmotiontext="lines">(b) a fine or an amount not exceeding level 5 on the standard scale; or</p>
+    <p pid="a.981.3/24" pwmotiontext="lines">(c) both.</p>
+    <p pid="a.981.3/25" pwmotiontext="lines">(5) In proceedings for an offence under this section, it is a defence for the defendant to show he had, and has continued to have, a reasonable excuse for failing to notify the Coroner for Treasure.</p>
+    <p pid="a.981.3/26" pwmotiontext="lines">(6) If the office of Coroner for Treasure is vacant, notification under subsection (1) must be given to the Chief Coroner.</p>
+    <p pid="a.981.3/27" pwmotiontext="lines">(7) In determining for the purposes of this section whether a person has acquired property in an object, section 4 is to be disregarded.</p>
+    <p pid="a.981.3/28" pwmotiontext="lines">(8) In this section "investigation" means an investigation under section (Investigations concerning treasure) of the Coroners and Justice Act 2009.""</p>
+  </speech>
+  <division colnum="1003" divdate="2009-10-26" divnumber="1" id="uk.org.publicwhip/lords/2009-10-26a.1003.2" nospeaker="true" time="016:33:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0005.htm#09102610000794">
+    <divisioncount content="153" not-content="127"/>
+    <lordlist vote="content">
+      <lord id="uk.org.publicwhip/lord/100004" vote="content">Addington, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100007" vote="content">Alderdice, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100010" vote="content">Allenby of Megiddo, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100016" vote="content">Anelay of St Johns, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100020" vote="content">Arran, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100026" vote="content">Astor of Hever, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100032" vote="content">Baker of Dorking, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100036" vote="content">Barker, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100976" vote="content">Bates, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100810" vote="content">Bonham-Carter of Yarnbury, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100068" vote="content">Bradshaw, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100082" vote="content">Brooke of Sutton Mandeville, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100936" vote="content">Butler-Sloss, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100102" vote="content">Campbell of Alloway, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100950" vote="content">Campbell of Surbiton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100107" vote="content">Carlile of Berriew, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100948" teller="yes" vote="content">Cathcart, E. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100125" vote="content">Chorley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100138" vote="content">Colwyn, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100143" vote="content">Cope of Berkeley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100148" vote="content">Craig of Radley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100149" vote="content">Craigavon, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100153" vote="content">Crickhowell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100836" vote="content">De Mauley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100939" vote="content">Dear, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100170" vote="content">Denham, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100173" vote="content">Dholakia, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100176" vote="content">Dixon-Smith, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100827" vote="content">D'Souza, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100804" vote="content">Dykes, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100185" vote="content">Eames, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100188" vote="content">Eden of Winton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100192" vote="content">Elliott of Morpeth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100193" vote="content">Elton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100195" vote="content">Emerton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100205" vote="content">Falkland, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100782" vote="content">Falkner of Margravine, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100208" vote="content">Fearn, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100213" vote="content">Finlay of Llandaff, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100218" teller="yes" vote="content">Fookes, B. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100219" vote="content">Forsyth of Drumlean, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100222" vote="content">Fowler, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100224" vote="content">Freeman, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100992" vote="content">Freud, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100964" vote="content">Garden of Frognal, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100229" vote="content">Gardner of Parkes, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100232" vote="content">Geddes, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100240" vote="content">Glenarthur, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100241" vote="content">Glentoran, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100246" vote="content">Goodhart, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100871" vote="content">Goodlad, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100258" vote="content">Greengross, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100259" vote="content">Greenway, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100268" vote="content">Hamwee, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100269" vote="content">Hanham, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100270" vote="content">Hannay of Chiswick, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100278" vote="content">Harris of Richmond, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100286" vote="content">Henley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100305" vote="content">Howe, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100307" vote="content">Howe of Idlicote, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100316" vote="content">Hunt of Wirral, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100321" vote="content">Hylton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100932" vote="content">James of Blackheath, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100941" vote="content">Jay of Ewelme, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100334" vote="content">Jenkin of Roding, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100855" vote="content">Jones of Cheltenham, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100339" vote="content">Jopling, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100843" vote="content">Kirkwood of Kirkhope, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100355" vote="content">Knight of Collingtree, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100358" vote="content">Laird, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100360" vote="content">Lamont of Lerwick, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100363" vote="content">Lang of Monkton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100911" vote="content">Lee of Trafford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100367" vote="content">Lester of Herne Hill, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100375" vote="content">Listowel, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100377" vote="content">Liverpool, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100385" vote="content">Lucas, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100386" vote="content">Luce, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100388" vote="content">Luke, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100389" vote="content">Lyell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100390" vote="content">McAlpine of West Green, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100394" vote="content">McColl of Dulwich, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100396" vote="content">Macfarlane of Bearsden, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100408" vote="content">McNally, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100975" vote="content">Manningham-Buller, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100414" vote="content">Mar, C.</lord>
+      <lord id="uk.org.publicwhip/lord/100415" vote="content">Mar and Kellie, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100416" vote="content">Marlesford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100423" vote="content">Mayhew of Twysden, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100427" vote="content">Miller of Chilthorne Domer, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100435" vote="content">Monson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100436" vote="content">Montagu of Beaulieu, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100437" vote="content">Montrose, D.</lord>
+      <lord id="uk.org.publicwhip/lord/100787" vote="content">Morris of Bolton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100922" vote="content">Morrow, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100791" vote="content">Murphy, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100800" vote="content">Neuberger, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100962" vote="content">Neville-Jones, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100453" vote="content">Newby, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100455" vote="content">Newton of Braintree, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100457" vote="content">Nicholson of Winterbourne, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100460" vote="content">Noakes, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100470" vote="content">O'Cathain, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100473" vote="content">Onslow, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100984" vote="content">Pannick, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100489" vote="content">Patten, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100494" vote="content">Perry of Southwark, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100510" vote="content">Powell of Bayswater, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100840" vote="content">Ramsbotham, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100521" vote="content">Rawlings, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100527" vote="content">Redesdale, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100532" vote="content">Rennard, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100541" vote="content">Roberts of Conwy, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100545" vote="content">Rodgers of Quarry Bank, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100546" vote="content">Rogan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100933" vote="content">Rowe-Beddoe, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100566" vote="content">Saltoun of Abernethy, Ly.</lord>
+      <lord id="uk.org.publicwhip/lord/100576" vote="content">Scott of Needham Market, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100577" vote="content">Seccombe, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100578" vote="content">Selborne, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100583" vote="content">Sharp of Guildford, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100584" vote="content">Sharples, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100585" vote="content">Shaw of Northstead, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100856" vote="content">Shephard of Northwold, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100592" vote="content">Shutt of Greetland, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100597" vote="content">Skelmersdale, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100601" vote="content">Smith of Clifton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100610" vote="content">Stern, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100613" vote="content">Stewartby, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100616" vote="content">Stoddart of Swindon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100621" vote="content">Strathclyde, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100623" vote="content">Swinfen, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100908" vote="content">Taylor of Holbeach, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100629" vote="content">Tebbit, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100632" vote="content">Tenby, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100920" vote="content">Teverson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100634" vote="content">Thomas of Gresford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100638" vote="content">Thomas of Walliswood, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100915" vote="content">Thomas of Winchester, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100641" vote="content">Tombs, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100644" vote="content">Tordoff, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100645" vote="content">Trefgarne, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100647" vote="content">Trumpington, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100649" vote="content">Tugendhat, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100653" vote="content">Ullswater, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100917" vote="content">Verma, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100660" vote="content">Wakeham, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100666" vote="content">Wallace of Saltaire, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100667" vote="content">Walmsley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100668" vote="content">Walpole, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100671" vote="content">Warnock, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100689" vote="content">Williamson of Horton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100808" vote="content">Young of Hornsey, B.</lord>
+    </lordlist>
+    <lordlist vote="not-content">
+      <lord id="uk.org.publicwhip/lord/100003" vote="not-content">Acton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100839" vote="not-content">Adonis, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100006" vote="not-content">Ahmed, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100869" vote="not-content">Anderson of Swansea, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100015" vote="not-content">Andrews, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100017" vote="not-content">Archer of Sandwell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100030" vote="not-content">Bach, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100038" teller="yes" vote="not-content">Bassam of Brighton, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100042" vote="not-content">Berkeley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100043" vote="not-content">Bernstein of Craigweil, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100954" vote="not-content">Bew, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100047" vote="not-content">Billingham, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100860" vote="not-content">Bilston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100059" vote="not-content">Blood, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100062" vote="not-content">Boothroyd, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100063" vote="not-content">Borrie, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100930" vote="not-content">Bradley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100072" vote="not-content">Brett, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100807" vote="not-content">Broers, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100081" vote="not-content">Brooke of Alverthorpe, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100084" vote="not-content">Brookman, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100085" vote="not-content">Brooks of Tremorfa, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100128" vote="not-content">Clark of Windermere, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100129" vote="not-content">Clarke of Hampstead, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100131" vote="not-content">Clinton-Davis, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100139" vote="not-content">Condon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100144" vote="not-content">Corbett of Castle Vale, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100152" vote="not-content">Crawley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100986" vote="not-content">Davies of Abersoch, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100164" teller="yes" vote="not-content">Davies of Oldham, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100166" vote="not-content">Dean of Thornton-le-Fylde, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100172" vote="not-content">Desai, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100180" vote="not-content">Dubs, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100189" vote="not-content">Elder, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100190" vote="not-content">Elis-Thomas, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100194" vote="not-content">Elystan-Morgan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100198" vote="not-content">Evans of Parkside, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100200" vote="not-content">Evans of Watford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100204" vote="not-content">Falkender, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100206" vote="not-content">Farrington of Ribbleton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100207" vote="not-content">Faulkner of Worcester, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100212" vote="not-content">Filkin, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100852" vote="not-content">Foulkes of Cumnock, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100226" vote="not-content">Fyfe of Fairfield, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100227" vote="not-content">Gale, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100231" vote="not-content">Gavron, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100792" vote="not-content">Giddens, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100249" vote="not-content">Goudie, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100250" vote="not-content">Gould of Potternewton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100252" vote="not-content">Graham of Edmonton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100257" vote="not-content">Greenfield, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100811" vote="not-content">Griffiths of Burry Port, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100275" vote="not-content">Harris of Haringey, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100279" vote="not-content">Harrison, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100785" vote="not-content">Hart of Chilton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100280" vote="not-content">Haskel, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100906" vote="not-content">Haskins, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100805" vote="not-content">Haworth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100783" vote="not-content">Henig, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100291" vote="not-content">Hilton of Eggardon, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100298" vote="not-content">Hollis of Heigham, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100304" vote="not-content">Howarth of Breckland, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100848" vote="not-content">Howarth of Newport, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100309" vote="not-content">Howells of St. Davids, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100312" vote="not-content">Hughes of Woodside, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100313" vote="not-content">Hunt of Chesterton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100314" vote="not-content">Hunt of Kings Heath, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100331" vote="not-content">Jay of Paddington, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100338" vote="not-content">Jones, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100929" vote="not-content">Jones of Whitchurch, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100341" vote="not-content">Judd, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100834" vote="not-content">Kinnock, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100374" vote="not-content">Lipsey, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100395" vote="not-content">Macdonald of Tradeston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100400" vote="not-content">McIntosh of Hudnall, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100404" vote="not-content">Mackenzie of Framwellgate, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100802" vote="not-content">McKenzie of Luton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100421" vote="not-content">Massey of Darwen, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100799" vote="not-content">Maxton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100432" vote="not-content">Mitchell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100441" vote="not-content">Morgan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100797" vote="not-content">Morgan of Drefelin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100443" vote="not-content">Morris of Aberavon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100914" vote="not-content">Morris of Handsworth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100444" vote="not-content">Morris of Manchester, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100847" vote="not-content">Morris of Yardley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100472" vote="not-content">O'Neill of Bengarve, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100476" vote="not-content">Ouseley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100483" vote="not-content">Parekh, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100488" vote="not-content">Patel of Blackburn, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100926" vote="not-content">Patel of Bradford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100490" vote="not-content">Paul, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100493" vote="not-content">Pendry, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100496" vote="not-content">Peston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100503" vote="not-content">Pitkeathley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100798" vote="not-content">Prosser, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100913" vote="not-content">Quin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100530" vote="not-content">Rendell of Babergh, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100536" vote="not-content">Richard, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100790" vote="not-content">Rosser, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100809" vote="not-content">Rowlands, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100828" vote="not-content">Royall of Blaisdon, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100571" vote="not-content">Sawyer, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100581" vote="not-content">Sewel, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100588" vote="not-content">Sheldon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100593" vote="not-content">Simon, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100793" vote="not-content">Snape, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100619" vote="not-content">Strabolgi, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100624" vote="not-content">Symons of Vernham Dean, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100625" vote="not-content">Tanlaw, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100844" vote="not-content">Taylor of Bolton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100631" vote="not-content">Temple-Morris, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100640" vote="not-content">Thornton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100642" vote="not-content">Tomlinson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100812" vote="not-content">Tunnicliffe, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100651" vote="not-content">Turner of Camden, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100789" vote="not-content">Wall of New Barnet, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100672" vote="not-content">Warwick of Undercliffe, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100675" vote="not-content">Waverley, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100942" vote="not-content">Wedderburn of Charlton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100956" vote="not-content">West of Spithead, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100680" vote="not-content">Whitaker, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100681" vote="not-content">Whitty, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100685" vote="not-content">Wilkins, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100687" vote="not-content">Williams of Elvel, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100692" vote="not-content">Wilson of Tillyorn, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100821" vote="not-content">Young of Norwood Green, L.</lord>
+    </lordlist>
+  </division>
+  <speech colnum="1005" id="uk.org.publicwhip/lords/2009-10-26a.1005.0" nospeaker="true" time="016:33:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0005.htm#09102610000794">
+    <p class="italic" pid="a.1005.0/1" pwmotiontext="unrecognized">Amendment 45</p>
+    <p class="italic" pid="a.1005.0/2" pwmotiontext="unrecognized"> Moved by Lord Bach</p>
+    <p pid="a.1005.0/3" pwmotiontext="unrecognized"><b>45:</b> Schedule 8, page 141, line 6, at end insert&#8212;</p>
+    <p pid="a.1005.0/4" pwmotiontext="quot">"A reference in paragraph 5 or 6 to paying expenses incurred by a person ("P") includes a reference to indemnifying P in respect of&#8212;</p>
+    <p pid="a.1005.0/5" pwmotiontext="lines">(a) costs that P reasonably incurs in or in connection with proceedings in respect of things done or omitted in the exercise (or purported exercise) by P of duties under this Part;</p>
+    <p pid="a.1005.0/6" pwmotiontext="lines">(b) costs that P reasonably incurs in taking steps to dispute claims that might be made in such proceedings;</p>
+    <p pid="a.1005.0/7" pwmotiontext="lines">(c) damages awarded against P, or costs ordered to be paid by P, in such proceedings;</p>
+    <p pid="a.1005.0/8" pwmotiontext="lines">(d) sums payable by P in connection with a reasonable settlement of such proceedings or of claims that might be made in such proceedings."</p>
+    <p class="italic" pid="a.1005.0/9" pwmotiontext="unrecognized">Amendment 45 agreed.</p>
+    <p pid="a.1005.0/10" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 32 : Reports and advice to the Lord Chancellor from the Chief Coroner</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1005.0/11" pwmotiontext="unrecognized">Amendments 46 to 48 not moved.</p>
+    <p class="italic" pid="a.1005.0/12" pwmotiontext="unrecognized">Amendment 49</p>
+    <p class="italic" pid="a.1005.0/13" pwmotiontext="unrecognized"> Moved by Lord Bach</p>
+    <p pid="a.1005.0/14" pwmotiontext="unrecognized"><b>49:</b> After Clause 33, insert the following new Clause&#8212;</p>
+    <p pid="a.1005.0/15" pwmotiontext="quot">"Medical Adviser and Deputy Medical Advisers to the Chief Coroner</p>
+    <p pid="a.1005.0/16" pwmotiontext="unrecognized">Schedule (Medical Adviser and Deputy Medical Advisers to the Chief Coroner) makes provision about the appointment etc of the Medical Adviser to the Chief Coroner and Deputy Medical Advisers to the Chief Coroner."</p>
+    <p class="italic" pid="a.1005.0/17" pwmotiontext="unrecognized">Amendment 49 agreed.</p>
+    <p pid="a.1005.0/18" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 35 : Appeals to the Chief Coroner</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1005.0/19" pwmotiontext="unrecognized">Amendment 50 not moved.</p>
+    <p class="italic" pid="a.1005.0/20" pwmotiontext="unrecognized">Amendment 51</p>
+    <p class="italic" pid="a.1005.0/21" pwmotiontext="unrecognized"> Moved by Lord Bach</p>
+    <p pid="a.1005.0/22" pwmotiontext="unrecognized"><b>51:</b> Before Schedule 9, insert the following new Schedule&#8212;</p>
+    <p pid="a.1005.0/23" pwmotiontext="quot">"Medical adviser and Deputy medical advisers to the Chief CoronerAppointment and functions of Medical Adviser to the Chief Coroner</p>
+    <p pid="a.1005.0/24" pwmotiontext="lines">1 The Lord Chancellor may appoint a person as Medical Adviser to the Chief Coroner ("the Medical Adviser") to provide advice and assistance to the Chief Coroner as to medical matters in relation to the coroner system.</p>
+    <p pid="a.1005.0/25" pwmotiontext="unrecognized">Appointment and functions of Deputy Medical Advisers to the Chief Coroner</p>
+    <p pid="a.1005.0/26" pwmotiontext="lines">2 (1) The Lord Chancellor may appoint however many Deputy Medical Advisers to the Chief Coroner ("Deputy Medical Advisers") the Lord Chancellor thinks appropriate.</p>
+    <p pid="a.1005.0/27" pwmotiontext="lines">(2) A Deputy Medical Adviser may perform any functions of the Medical Adviser&#8212;</p>
+    <p pid="a.1005.0/28" pwmotiontext="lines">(a) during a period when the Medical Adviser is absent or unavailable;</p>
+    <p pid="a.1005.0/29" pwmotiontext="lines">(b) during a vacancy in the office of Medical Adviser;</p>
+    <p pid="a.1005.0/30" pwmotiontext="lines">(c) at any other time, with the consent of the Medical Adviser.</p>
+    <p pid="a.1005.0/31" pwmotiontext="unrecognized">Qualification for appointment</p>
+    <p pid="a.1005.0/32" pwmotiontext="lines">3 A person may be appointed as the Medical Adviser or as a Deputy Medical Adviser only if, at the time of the appointment, he or she&#8212;</p>
+    <p pid="a.1005.0/33" pwmotiontext="lines">(a) is a registered medical practitioner and has been throughout the previous 5 years, and</p>
+    <p pid="a.1005.0/34" pwmotiontext="lines">(b) practises as such or has done within the previous 5 years.</p>
+    <p pid="a.1005.0/35" pwmotiontext="unrecognized">Consultation before making appointment</p>
+    <p pid="a.1005.0/36" pwmotiontext="lines">4 Before appointing a person as the Medical Adviser or as a Deputy Medical Adviser, the Lord Chancellor must consult&#8212;</p>
+    <p pid="a.1005.0/37" pwmotiontext="lines">(a) the Chief Coroner, and</p>
+    <p pid="a.1005.0/38" pwmotiontext="lines">(b) the Welsh Ministers.</p>
+    <p pid="a.1005.0/39" pwmotiontext="unrecognized">Terms and conditions of appointment</p>
+    <p pid="a.1005.0/40" pwmotiontext="lines">5 The appointment of a person as the Medical Adviser or as a Deputy Medical Adviser is to be on whatever terms and conditions the Lord Chancellor thinks appropriate.</p>
+    <p pid="a.1005.0/41" pwmotiontext="unrecognized">Remuneration, allowances and expenses</p>
+    <p pid="a.1005.0/42" pwmotiontext="lines">6 (1) The Lord Chancellor may pay to the Medical Adviser&#8212;</p>
+    <p pid="a.1005.0/43" pwmotiontext="lines">(a) amounts determined by the Lord Chancellor by way of remuneration or allowances;</p>
+    <p pid="a.1005.0/44" pwmotiontext="lines">(b) amounts determined by the Lord Chancellor towards expenses incurred in performing functions as such.</p>
+    <p pid="a.1005.0/45" pwmotiontext="lines">(2) The Lord Chancellor may pay to a Deputy Medical Adviser&#8212;</p>
+    <p pid="a.1005.0/46" pwmotiontext="lines">(a) amounts determined by the Lord Chancellor by way of remuneration or allowances;</p>
+    <p pid="a.1005.0/47" pwmotiontext="lines">(b) amounts determined by the Lord Chancellor towards expenses incurred by that Deputy Medical Adviser in performing functions as such."</p>
+    <p class="italic" pid="a.1005.0/48" pwmotiontext="unrecognized">Amendment 51 agreed.</p>
+    <p pid="a.1005.0/49" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 39 : Treasure regulations</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1005.0/50" pwmotiontext="unrecognized">Amendments 52 and 53 not moved.</p>
+    <p pid="a.1005.0/51" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 42 : "Interested person"</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1005.0/52" pwmotiontext="unrecognized">Amendment 54</p>
+    <p class="italic" pid="a.1005.0/53" pwmotiontext="unrecognized"> Moved by Lord Alderdice</p>
+    <p pid="a.1005.0/54" pwmotiontext="unrecognized"><b>54:</b> Clause 42, page 23, line 15, at end insert&#8212;</p>
+    <p pid="a.1005.0/55" pwmotiontext="quot">"( ) In circumstances where an interested person willing to represent the interests of the deceased does not exist, a coroner may recognise as an interested person an organisation or person who would be otherwise recognised as an interested party for the purposes of judicial review proceedings."</p>
+  </speech>
+  <division colnum="1028" divdate="2009-10-26" divnumber="2" id="uk.org.publicwhip/lords/2009-10-26a.1028.0" nospeaker="true" time="018:17:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0009.htm#09102616000358">
+    <divisioncount content="113" not-content="155"/>
+    <lordlist vote="content">
+      <lord id="uk.org.publicwhip/lord/100004" teller="yes" vote="content">Addington, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100007" vote="content">Alderdice, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100036" vote="content">Barker, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100954" vote="content">Bew, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100810" vote="content">Bonham-Carter of Yarnbury, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100068" vote="content">Bradshaw, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100071" vote="content">Brennan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100807" vote="content">Broers, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100936" vote="content">Butler-Sloss, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100822" vote="content">Cameron of Dillington, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100950" vote="content">Campbell of Surbiton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100107" vote="content">Carlile of Berriew, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100850" vote="content">Chidgey, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100125" vote="content">Chorley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100130" vote="content">Clement-Jones, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100131" vote="content">Clinton-Davis, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100133" vote="content">Cobbold, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100139" vote="content">Condon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100907" vote="content">Cotter, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100148" vote="content">Craig of Radley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100149" vote="content">Craigavon, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100939" vote="content">Dear, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100827" vote="content">D'Souza, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100804" vote="content">Dykes, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100837" vote="content">Eccles, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100193" vote="content">Elton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100194" vote="content">Elystan-Morgan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100195" vote="content">Emerton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100197" vote="content">Erroll, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100205" vote="content">Falkland, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100782" vote="content">Falkner of Margravine, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100208" vote="content">Fearn, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100213" vote="content">Finlay of Llandaff, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100219" vote="content">Forsyth of Drumlean, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100964" vote="content">Garden of Frognal, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100246" vote="content">Goodhart, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100258" vote="content">Greengross, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100268" vote="content">Hamwee, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100270" vote="content">Hannay of Chiswick, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100278" vote="content">Harris of Richmond, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100906" vote="content">Haskins, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100307" vote="content">Howe of Idlicote, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100321" vote="content">Hylton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100932" vote="content">James of Blackheath, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100941" vote="content">Jay of Ewelme, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100855" vote="content">Jones of Cheltenham, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100344" vote="content">Kennedy of The Shaws, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100843" vote="content">Kirkwood of Kirkhope, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100911" vote="content">Lee of Trafford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100367" vote="content">Lester of Herne Hill, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100375" vote="content">Listowel, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100379" teller="yes" vote="content">Lloyd of Berwick, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100928" vote="content">Low of Dalston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100386" vote="content">Luce, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100398" vote="content">MacGregor of Pulham Market, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100407" vote="content">Maclennan of Rogart, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100408" vote="content">McNally, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100409" vote="content">Maddock, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100975" vote="content">Manningham-Buller, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100414" vote="content">Mar, C.</lord>
+      <lord id="uk.org.publicwhip/lord/100415" vote="content">Mar and Kellie, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100416" vote="content">Marlesford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100419" vote="content">Masham of Ilton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100423" vote="content">Mayhew of Twysden, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100940" vote="content">Meacher, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100427" vote="content">Miller of Chilthorne Domer, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100435" vote="content">Monson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100854" vote="content">Montgomery of Alamein, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100861" vote="content">Moonie, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100443" vote="content">Morris of Aberavon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100791" vote="content">Murphy, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100452" vote="content">Neill of Bladen, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100800" vote="content">Neuberger, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100453" vote="content">Newby, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100455" vote="content">Newton of Braintree, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100457" vote="content">Nicholson of Winterbourne, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100469" vote="content">Oakeshott of Seagrove Bay, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100472" vote="content">O'Neill of Bengarve, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100473" vote="content">Onslow, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100984" vote="content">Pannick, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100511" vote="content">Prashar, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100840" vote="content">Ramsbotham, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100524" vote="content">Razzall, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100532" vote="content">Rennard, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100938" vote="content">Ripon and Leeds, Bp.</lord>
+      <lord id="uk.org.publicwhip/lord/100545" vote="content">Rodgers of Quarry Bank, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100556" vote="content">Ryder of Wensum, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100566" vote="content">Saltoun of Abernethy, Ly.</lord>
+      <lord id="uk.org.publicwhip/lord/100576" vote="content">Scott of Needham Market, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100583" vote="content">Sharp of Guildford, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100592" vote="content">Shutt of Greetland, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100598" vote="content">Skidelsky, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100599" vote="content">Slim, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100601" vote="content">Smith of Clifton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100610" vote="content">Stern, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100613" vote="content">Stewartby, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100616" vote="content">Stoddart of Swindon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100626" vote="content">Taverne, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100920" vote="content">Teverson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100634" vote="content">Thomas of Gresford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100638" vote="content">Thomas of Walliswood, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100915" vote="content">Thomas of Winchester, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100644" vote="content">Tordoff, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100649" vote="content">Tugendhat, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100666" vote="content">Wallace of Saltaire, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100667" vote="content">Walmsley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100668" vote="content">Walpole, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100671" vote="content">Warnock, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100675" vote="content">Waverley, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100689" vote="content">Williamson of Horton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100692" vote="content">Wilson of Tillyorn, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100698" vote="content">Woolf, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100808" vote="content">Young of Hornsey, B.</lord>
+    </lordlist>
+    <lordlist vote="not-content">
+      <lord id="uk.org.publicwhip/lord/100003" vote="not-content">Acton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100867" vote="not-content">Adams of Craigielea, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100839" vote="not-content">Adonis, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100006" vote="not-content">Ahmed, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100011" vote="not-content">Alli, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100869" vote="not-content">Anderson of Swansea, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100015" vote="not-content">Andrews, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100016" vote="not-content">Anelay of St Johns, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100017" vote="not-content">Archer of Sandwell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100026" vote="not-content">Astor of Hever, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100030" vote="not-content">Bach, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100038" teller="yes" vote="not-content">Bassam of Brighton, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100976" vote="not-content">Bates, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100042" vote="not-content">Berkeley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100043" vote="not-content">Bernstein of Craigweil, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100781" vote="not-content">Bhattacharyya, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100047" vote="not-content">Billingham, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100860" vote="not-content">Bilston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100059" vote="not-content">Blood, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100063" vote="not-content">Borrie, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100943" vote="not-content">Boyd of Duncansby, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100930" vote="not-content">Bradley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100072" vote="not-content">Brett, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100081" vote="not-content">Brooke of Alverthorpe, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100084" vote="not-content">Brookman, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100934" vote="not-content">Browne of Belmont, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100104" vote="not-content">Campbell-Savours, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100128" vote="not-content">Clark of Windermere, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100138" vote="not-content">Colwyn, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100143" vote="not-content">Cope of Berkeley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100144" vote="not-content">Corbett of Castle Vale, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100152" vote="not-content">Crawley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100873" vote="not-content">Cunningham of Felling, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100164" teller="yes" vote="not-content">Davies of Oldham, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100836" vote="not-content">De Mauley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100172" vote="not-content">Desai, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100176" vote="not-content">Dixon-Smith, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100180" vote="not-content">Dubs, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100189" vote="not-content">Elder, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100198" vote="not-content">Evans of Parkside, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100203" vote="not-content">Falconer of Thoroton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100206" vote="not-content">Farrington of Ribbleton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100207" vote="not-content">Faulkner of Worcester, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100212" vote="not-content">Filkin, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100218" vote="not-content">Fookes, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100852" vote="not-content">Foulkes of Cumnock, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100226" vote="not-content">Fyfe of Fairfield, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100227" vote="not-content">Gale, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100229" vote="not-content">Gardner of Parkes, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100230" vote="not-content">Garel-Jones, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100231" vote="not-content">Gavron, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100792" vote="not-content">Giddens, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100249" vote="not-content">Goudie, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100250" vote="not-content">Gould of Potternewton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100252" vote="not-content">Graham of Edmonton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100811" vote="not-content">Griffiths of Burry Port, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100263" vote="not-content">Griffiths of Fforestfach, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100269" vote="not-content">Hanham, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100275" vote="not-content">Harris of Haringey, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100785" vote="not-content">Hart of Chilton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100805" vote="not-content">Haworth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100783" vote="not-content">Henig, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100286" vote="not-content">Henley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100291" vote="not-content">Hilton of Eggardon, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100298" vote="not-content">Hollis of Heigham, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100848" vote="not-content">Howarth of Newport, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100305" vote="not-content">Howe, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100308" vote="not-content">Howell of Guildford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100309" vote="not-content">Howells of St. Davids, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100312" vote="not-content">Hughes of Woodside, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100313" vote="not-content">Hunt of Chesterton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100314" vote="not-content">Hunt of Kings Heath, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100316" vote="not-content">Hunt of Wirral, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100331" vote="not-content">Jay of Paddington, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100338" vote="not-content">Jones, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100929" vote="not-content">Jones of Whitchurch, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100340" vote="not-content">Jordan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100341" vote="not-content">Judd, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100345" vote="not-content">Kilclooney, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100834" vote="not-content">Kinnock, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100994" vote="not-content">Kinnock of Holyhead, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100355" vote="not-content">Knight of Collingtree, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100366" vote="not-content">Lea of Crondall, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100374" vote="not-content">Lipsey, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100388" vote="not-content">Luke, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100394" vote="not-content">McColl of Dulwich, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100395" vote="not-content">Macdonald of Tradeston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100400" vote="not-content">McIntosh of Hudnall, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100404" vote="not-content">Mackenzie of Framwellgate, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100802" vote="not-content">McKenzie of Luton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100410" vote="not-content">Maginnis of Drumglass, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100997" vote="not-content">Martin of Springburn, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100421" vote="not-content">Massey of Darwen, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100799" vote="not-content">Maxton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100432" vote="not-content">Mitchell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100437" vote="not-content">Montrose, D.</lord>
+      <lord id="uk.org.publicwhip/lord/100441" vote="not-content">Morgan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100797" vote="not-content">Morgan of Drefelin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100787" vote="not-content">Morris of Bolton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100914" vote="not-content">Morris of Handsworth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100962" vote="not-content">Neville-Jones, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100460" vote="not-content">Noakes, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100845" vote="not-content">O'Neill of Clackmannan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100476" vote="not-content">Ouseley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100926" vote="not-content">Patel of Bradford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100489" vote="not-content">Patten, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100493" vote="not-content">Pendry, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100494" vote="not-content">Perry of Southwark, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100496" vote="not-content">Peston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100503" vote="not-content">Pitkeathley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100508" vote="not-content">Ponsonby of Shulbrede, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100510" vote="not-content">Powell of Bayswater, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100798" vote="not-content">Prosser, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100913" vote="not-content">Quin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100518" vote="not-content">Radice, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100519" vote="not-content">Ramsay of Cartvale, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100521" vote="not-content">Rawlings, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100530" vote="not-content">Rendell of Babergh, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100546" vote="not-content">Rogan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100549" vote="not-content">Rooker, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100790" vote="not-content">Rosser, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100809" vote="not-content">Rowlands, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100828" vote="not-content">Royall of Blaisdon, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100577" vote="not-content">Seccombe, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100580" vote="not-content">Selsdon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100581" vote="not-content">Sewel, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100585" vote="not-content">Shaw of Northstead, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100588" vote="not-content">Sheldon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100593" vote="not-content">Simon, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100602" vote="not-content">Smith of Gilmorehill, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100793" vote="not-content">Snape, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100865" vote="not-content">Soley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100621" vote="not-content">Strathclyde, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100623" vote="not-content">Swinfen, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100624" vote="not-content">Symons of Vernham Dean, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100844" vote="not-content">Taylor of Bolton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100908" vote="not-content">Taylor of Holbeach, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100629" vote="not-content">Tebbit, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100640" vote="not-content">Thornton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100641" vote="not-content">Tombs, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100642" vote="not-content">Tomlinson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100817" vote="not-content">Triesman, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100647" vote="not-content">Trumpington, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100812" vote="not-content">Tunnicliffe, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100651" vote="not-content">Turner of Camden, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100652" vote="not-content">Uddin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100660" vote="not-content">Wakeham, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100789" vote="not-content">Wall of New Barnet, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100672" vote="not-content">Warwick of Undercliffe, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100942" vote="not-content">Wedderburn of Charlton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100956" vote="not-content">West of Spithead, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100680" vote="not-content">Whitaker, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100684" vote="not-content">Wilcox, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100687" vote="not-content">Williams of Elvel, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100821" vote="not-content">Young of Norwood Green, L.</lord>
+    </lordlist>
+  </division>
+  <speech colnum="1029" id="uk.org.publicwhip/lords/2009-10-26a.1029.0" nospeaker="true" time="018:17:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0009.htm#09102616000358">
+    <p pid="a.1029.0/1" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 46 : Persons suffering from diminished responsibility (England and Wales)</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1029.0/2" pwmotiontext="unrecognized">Amendment 57</p>
+    <p class="italic" pid="a.1029.0/3" pwmotiontext="unrecognized"> Moved by Lord Hunt of Wirral</p>
+    <p pid="a.1029.0/4" pwmotiontext="unrecognized"><b>57:</b> Clause 46, page 27, line 28, at end insert&#8212;</p>
+    <p pid="a.1029.0/5" pwmotiontext="quot">"(1ZA) A person ("D") who kills or is party to the killing of another is not to be convicted of murder if D was under the age of eighteen and his developmental immaturity&#8212;</p>
+    <p pid="a.1029.0/6" pwmotiontext="lines">(a) substantially impaired D's ability to do one or more of the things mentioned in subsection (1A), and</p>
+    <p pid="a.1029.0/7" pwmotiontext="lines">(b) provides an explanation for D's acts and omissions in doing or being a party to the killing."</p>
+  </speech>
+  <division colnum="1042" divdate="2009-10-26" divnumber="3" id="uk.org.publicwhip/lords/2009-10-26a.1042.2" nospeaker="true" time="019:23:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0011.htm#09102624000264">
+    <divisioncount content="69" not-content="118"/>
+    <lordlist vote="content">
+      <lord id="uk.org.publicwhip/lord/100004" vote="content">Addington, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100007" vote="content">Alderdice, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100036" vote="content">Barker, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100068" vote="content">Bradshaw, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100936" vote="content">Butler-Sloss, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100822" vote="content">Cameron of Dillington, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100950" vote="content">Campbell of Surbiton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100107" vote="content">Carlile of Berriew, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100971" vote="content">Chichester, Bp.</lord>
+      <lord id="uk.org.publicwhip/lord/100850" vote="content">Chidgey, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100130" vote="content">Clement-Jones, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100133" vote="content">Cobbold, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100148" vote="content">Craig of Radley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100827" vote="content">D'Souza, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100804" vote="content">Dykes, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100197" vote="content">Erroll, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100205" vote="content">Falkland, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100782" vote="content">Falkner of Margravine, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100208" vote="content">Fearn, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100964" vote="content">Garden of Frognal, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100246" vote="content">Goodhart, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100258" vote="content">Greengross, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100268" vote="content">Hamwee, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100278" vote="content">Harris of Richmond, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100906" vote="content">Haskins, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100321" vote="content">Hylton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100941" vote="content">Jay of Ewelme, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100344" vote="content">Kennedy of The Shaws, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100843" vote="content">Kirkwood of Kirkhope, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100364" vote="content">Lawson of Blaby, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100911" vote="content">Lee of Trafford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100367" vote="content">Lester of Herne Hill, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100375" vote="content">Listowel, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100379" teller="yes" vote="content">Lloyd of Berwick, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100928" vote="content">Low of Dalston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100408" vote="content">McNally, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100409" vote="content">Maddock, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100415" vote="content">Mar and Kellie, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100940" vote="content">Meacher, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100427" vote="content">Miller of Chilthorne Domer, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100791" vote="content">Murphy, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100452" vote="content">Neill of Bladen, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100800" vote="content">Neuberger, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100457" vote="content">Nicholson of Winterbourne, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100469" vote="content">Oakeshott of Seagrove Bay, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100472" vote="content">O'Neill of Bengarve, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100984" vote="content">Pannick, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100510" vote="content">Powell of Bayswater, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100527" vote="content">Redesdale, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100532" vote="content">Rennard, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100545" vote="content">Rodgers of Quarry Bank, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100576" vote="content">Scott of Needham Market, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100583" vote="content">Sharp of Guildford, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100592" teller="yes" vote="content">Shutt of Greetland, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100601" vote="content">Smith of Clifton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100610" vote="content">Stern, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100616" vote="content">Stoddart of Swindon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100626" vote="content">Taverne, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100920" vote="content">Teverson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100634" vote="content">Thomas of Gresford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100638" vote="content">Thomas of Walliswood, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100915" vote="content">Thomas of Winchester, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100846" vote="content">Tyler, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100666" vote="content">Wallace of Saltaire, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100667" vote="content">Walmsley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100668" vote="content">Walpole, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100675" vote="content">Waverley, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100689" vote="content">Williamson of Horton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100808" vote="content">Young of Hornsey, B.</lord>
+    </lordlist>
+    <lordlist vote="not-content">
+      <lord id="uk.org.publicwhip/lord/100003" vote="not-content">Acton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100867" vote="not-content">Adams of Craigielea, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100839" vote="not-content">Adonis, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100011" vote="not-content">Alli, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100869" vote="not-content">Anderson of Swansea, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100015" vote="not-content">Andrews, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100017" vote="not-content">Archer of Sandwell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100030" vote="not-content">Bach, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100038" vote="not-content">Bassam of Brighton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100043" vote="not-content">Bernstein of Craigweil, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100954" vote="not-content">Bew, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100860" vote="not-content">Bilston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100052" vote="not-content">Blackstone, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100059" vote="not-content">Blood, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100063" vote="not-content">Borrie, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100943" vote="not-content">Boyd of Duncansby, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100930" vote="not-content">Bradley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100072" vote="not-content">Brett, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100081" vote="not-content">Brooke of Alverthorpe, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100084" vote="not-content">Brookman, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100934" vote="not-content">Browne of Belmont, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100104" vote="not-content">Campbell-Savours, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100786" vote="not-content">Carter of Coles, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100128" vote="not-content">Clark of Windermere, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100131" vote="not-content">Clinton-Davis, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100144" vote="not-content">Corbett of Castle Vale, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100152" vote="not-content">Crawley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100873" vote="not-content">Cunningham of Felling, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100163" vote="not-content">Davies of Coity, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100164" teller="yes" vote="not-content">Davies of Oldham, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100939" vote="not-content">Dear, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100172" vote="not-content">Desai, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100180" vote="not-content">Dubs, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100189" vote="not-content">Elder, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100194" vote="not-content">Elystan-Morgan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100195" vote="not-content">Emerton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100198" vote="not-content">Evans of Parkside, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100203" vote="not-content">Falconer of Thoroton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100206" vote="not-content">Farrington of Ribbleton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100207" vote="not-content">Faulkner of Worcester, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100212" vote="not-content">Filkin, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100213" vote="not-content">Finlay of Llandaff, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100852" vote="not-content">Foulkes of Cumnock, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100226" vote="not-content">Fyfe of Fairfield, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100227" vote="not-content">Gale, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100792" vote="not-content">Giddens, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100249" vote="not-content">Goudie, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100250" vote="not-content">Gould of Potternewton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100252" vote="not-content">Graham of Edmonton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100270" vote="not-content">Hannay of Chiswick, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100275" vote="not-content">Harris of Haringey, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100785" vote="not-content">Hart of Chilton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100805" vote="not-content">Haworth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100783" vote="not-content">Henig, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100291" vote="not-content">Hilton of Eggardon, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100298" vote="not-content">Hollis of Heigham, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100848" vote="not-content">Howarth of Newport, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100309" vote="not-content">Howells of St. Davids, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100311" vote="not-content">Hoyle, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100314" vote="not-content">Hunt of Kings Heath, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100331" vote="not-content">Jay of Paddington, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100338" vote="not-content">Jones, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100929" vote="not-content">Jones of Whitchurch, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100340" vote="not-content">Jordan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100341" vote="not-content">Judd, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100345" vote="not-content">Kilclooney, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100834" vote="not-content">Kinnock, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100994" vote="not-content">Kinnock of Holyhead, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100366" vote="not-content">Lea of Crondall, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100395" vote="not-content">Macdonald of Tradeston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100400" vote="not-content">McIntosh of Hudnall, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100404" vote="not-content">Mackenzie of Framwellgate, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100802" vote="not-content">McKenzie of Luton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100981" vote="not-content">Mandelson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100419" vote="not-content">Masham of Ilton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100421" vote="not-content">Massey of Darwen, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100799" vote="not-content">Maxton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100432" vote="not-content">Mitchell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100861" vote="not-content">Moonie, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100441" vote="not-content">Morgan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100797" vote="not-content">Morgan of Drefelin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100914" vote="not-content">Morris of Handsworth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100847" vote="not-content">Morris of Yardley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100922" vote="not-content">Morrow, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100845" vote="not-content">O'Neill of Clackmannan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100476" vote="not-content">Ouseley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100926" vote="not-content">Patel of Bradford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100493" vote="not-content">Pendry, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100503" vote="not-content">Pitkeathley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100508" vote="not-content">Ponsonby of Shulbrede, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100798" vote="not-content">Prosser, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100913" vote="not-content">Quin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100518" vote="not-content">Radice, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100519" vote="not-content">Ramsay of Cartvale, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100530" vote="not-content">Rendell of Babergh, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100938" vote="not-content">Ripon and Leeds, Bp.</lord>
+      <lord id="uk.org.publicwhip/lord/100546" vote="not-content">Rogan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100790" vote="not-content">Rosser, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100809" vote="not-content">Rowlands, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100828" vote="not-content">Royall of Blaisdon, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100581" vote="not-content">Sewel, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100593" vote="not-content">Simon, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100602" vote="not-content">Smith of Gilmorehill, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100793" vote="not-content">Snape, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100865" vote="not-content">Soley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100624" vote="not-content">Symons of Vernham Dean, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100844" vote="not-content">Taylor of Bolton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100640" vote="not-content">Thornton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100642" vote="not-content">Tomlinson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100817" vote="not-content">Triesman, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100812" teller="yes" vote="not-content">Tunnicliffe, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100652" vote="not-content">Uddin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100789" vote="not-content">Wall of New Barnet, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100956" vote="not-content">West of Spithead, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100685" vote="not-content">Wilkins, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100695" vote="not-content">Winston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100821" vote="not-content">Young of Norwood Green, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100704" vote="not-content">Young of Old Scone, B.</lord>
+    </lordlist>
+  </division>
+  <speech colnum="1043" id="uk.org.publicwhip/lords/2009-10-26a.1043.0" nospeaker="true" time="019:23:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0011.htm#09102624000264">
+    <p class="italic" pid="a.1043.0/1" pwmotiontext="unrecognized">Consideration on Report adjourned until not before 8.34 pm.</p>
+  </speech>
+  <major-heading colnum="1043" id="uk.org.publicwhip/lords/2009-10-26a.1043.1" nospeaker="true" time="019:23:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0011.htm#09102636000111">
+	Autism
+	 &#8212; 
+	<i>Question</i></major-heading>
+  <major-heading colnum="1059" id="uk.org.publicwhip/lords/2009-10-26a.1059.0" nospeaker="true" time="020:20:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0013.htm#09102638000295">
+	Coroners and Justice Bill
+</major-heading>
+  <speech colnum="1059" id="uk.org.publicwhip/lords/2009-10-26a.1059.1" nospeaker="true" time="020:20:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0013.htm#09102638000295">
+    <p pid="a.1059.1/1" pwmotiontext="unrecognized">
+      <a href="http://services.parliament.uk/bills/2008-09/coronersandjustice.html">Main Bill Page</a>
+    </p>
+    <p pid="a.1059.1/2" pwmotiontext="unrecognized">
+      <a href="http://www.publications.parliament.uk/pa/ld200809/ldbills/069/2009069.pdf">Copy of the Bill</a>
+    </p>
+    <p pid="a.1059.1/3" pwmotiontext="unrecognized">
+      <a href="http://www.publications.parliament.uk/pa/ld200809/ldbills/033/en/index_033.htm">Explanatory notes</a>
+    </p>
+    <p pid="a.1059.1/4" pwmotiontext="unrecognized">
+      <a href="http://www.publications.parliament.uk/pa/ld200809/ldbills/033/amend/ml033-viii.htmhttp://www.publications.parliament.uk/pa/ld200809/ldbills/033/amend/ml033-viii.htm">Amendments</a>
+    </p>
+  </speech>
+  <minor-heading colnum="1059" id="uk.org.publicwhip/lords/2009-10-26a.1059.2" nospeaker="true" time="020:20:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0013.htm">
+    <i>Report (2nd Day) (Continued)</i>
+  </minor-heading>
+  <speech colnum="1059" id="uk.org.publicwhip/lords/2009-10-26a.1059.3" nospeaker="true" time="020:20:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0013.htm">
+    <p pid="a.1059.3/1" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 49 : Meaning of "qualifying trigger"</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1059.3/2" pwmotiontext="unrecognized">Amendments 61A to 61C not moved.</p>
+    <p class="italic" pid="a.1059.3/3" pwmotiontext="unrecognized">Amendment 62</p>
+    <p class="italic" pid="a.1059.3/4" pwmotiontext="unrecognized"> Moved by Lord Thomas of Gresford</p>
+    <p pid="a.1059.3/5" pwmotiontext="unrecognized"><b>62:</b> Clause 49, page 29, line 32, leave out paragraph (c)</p>
+  </speech>
+  <division colnum="1063" divdate="2009-10-26" divnumber="4" id="uk.org.publicwhip/lords/2009-10-26a.1063.0" nospeaker="true" time="020:51:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0013.htm#09102638000299">
+    <divisioncount content="99" not-content="84"/>
+    <lordlist vote="content">
+      <lord id="uk.org.publicwhip/lord/100004" vote="content">Addington, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100007" vote="content">Alderdice, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100016" vote="content">Anelay of St Johns, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100026" vote="content">Astor of Hever, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100036" vote="content">Barker, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100976" vote="content">Bates, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100954" vote="content">Bew, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100862" vote="content">Bottomley of Nettlestone, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100074" vote="content">Bridgeman, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100934" vote="content">Browne of Belmont, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100936" vote="content">Butler-Sloss, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100822" vote="content">Cameron of Dillington, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100950" vote="content">Campbell of Surbiton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100107" vote="content">Carlile of Berriew, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100971" vote="content">Chichester, Bp.</lord>
+      <lord id="uk.org.publicwhip/lord/100850" vote="content">Chidgey, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100130" vote="content">Clement-Jones, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100133" vote="content">Cobbold, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100907" vote="content">Cotter, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100149" vote="content">Craigavon, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100836" vote="content">De Mauley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100170" vote="content">Denham, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100827" vote="content">D'Souza, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100804" vote="content">Dykes, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100194" vote="content">Elystan-Morgan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100195" vote="content">Emerton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100782" vote="content">Falkner of Margravine, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100208" vote="content">Fearn, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100218" vote="content">Fookes, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100224" vote="content">Freeman, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100964" vote="content">Garden of Frognal, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100229" vote="content">Gardner of Parkes, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100230" vote="content">Garel-Jones, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100232" vote="content">Geddes, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100240" vote="content">Glenarthur, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100241" vote="content">Glentoran, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100246" vote="content">Goodhart, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100268" vote="content">Hamwee, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100270" vote="content">Hannay of Chiswick, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100286" vote="content">Henley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100306" vote="content">Howe of Aberavon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100307" vote="content">Howe of Idlicote, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100316" vote="content">Hunt of Wirral, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100321" vote="content">Hylton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100941" vote="content">Jay of Ewelme, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100345" vote="content">Kilclooney, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100843" vote="content">Kirkwood of Kirkhope, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100355" vote="content">Knight of Collingtree, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100911" vote="content">Lee of Trafford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100367" vote="content">Lester of Herne Hill, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100372" vote="content">Lindsay, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100377" vote="content">Liverpool, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100378" vote="content">Livsey of Talgarth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100379" vote="content">Lloyd of Berwick, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100928" vote="content">Low of Dalston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100388" vote="content">Luke, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100389" vote="content">Lyell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100394" vote="content">McColl of Dulwich, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100408" vote="content">McNally, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100409" vote="content">Maddock, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100413" vote="content">Mancroft, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100415" vote="content">Mar and Kellie, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100419" vote="content">Masham of Ilton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100423" vote="content">Mayhew of Twysden, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100940" vote="content">Meacher, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100427" vote="content">Miller of Chilthorne Domer, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100437" vote="content">Montrose, D.</lord>
+      <lord id="uk.org.publicwhip/lord/100441" vote="content">Morgan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100787" teller="yes" vote="content">Morris of Bolton, B. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100922" vote="content">Morrow, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100791" vote="content">Murphy, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100452" vote="content">Neill of Bladen, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100457" vote="content">Nicholson of Winterbourne, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100464" vote="content">Northbrook, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100469" vote="content">Oakeshott of Seagrove Bay, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100470" vote="content">O'Cathain, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100984" vote="content">Pannick, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100489" vote="content">Patten, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100938" vote="content">Ripon and Leeds, Bp.</lord>
+      <lord id="uk.org.publicwhip/lord/100577" vote="content">Seccombe, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100583" vote="content">Sharp of Guildford, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100921" vote="content">Sheikh, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100591" vote="content">Shrewsbury, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100592" teller="yes" vote="content">Shutt of Greetland, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100601" vote="content">Smith of Clifton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100613" vote="content">Stewartby, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100908" vote="content">Taylor of Holbeach, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100629" vote="content">Tebbit, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100920" vote="content">Teverson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100634" vote="content">Thomas of Gresford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100638" vote="content">Thomas of Walliswood, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100915" vote="content">Thomas of Winchester, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100846" vote="content">Tyler, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100653" vote="content">Ullswater, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100666" vote="content">Wallace of Saltaire, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100667" vote="content">Walmsley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100668" vote="content">Walpole, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100689" vote="content">Williamson of Horton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100808" vote="content">Young of Hornsey, B.</lord>
+    </lordlist>
+    <lordlist vote="not-content">
+      <lord id="uk.org.publicwhip/lord/100867" vote="not-content">Adams of Craigielea, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100015" vote="not-content">Andrews, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100017" vote="not-content">Archer of Sandwell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100030" vote="not-content">Bach, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100043" vote="not-content">Bernstein of Craigweil, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100860" vote="not-content">Bilston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100052" vote="not-content">Blackstone, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100063" vote="not-content">Borrie, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100943" vote="not-content">Boyd of Duncansby, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100930" vote="not-content">Bradley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100072" vote="not-content">Brett, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100084" vote="not-content">Brookman, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100104" vote="not-content">Campbell-Savours, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100786" vote="not-content">Carter of Coles, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100128" vote="not-content">Clark of Windermere, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100152" vote="not-content">Crawley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100873" vote="not-content">Cunningham of Felling, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100163" vote="not-content">Davies of Coity, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100164" teller="yes" vote="not-content">Davies of Oldham, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100172" vote="not-content">Desai, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100178" vote="not-content">Donoughue, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100180" vote="not-content">Dubs, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100189" vote="not-content">Elder, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100198" vote="not-content">Evans of Parkside, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100203" vote="not-content">Falconer of Thoroton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100206" vote="not-content">Farrington of Ribbleton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100207" vote="not-content">Faulkner of Worcester, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100213" vote="not-content">Finlay of Llandaff, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100852" vote="not-content">Foulkes of Cumnock, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100227" vote="not-content">Gale, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100792" vote="not-content">Giddens, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100236" vote="not-content">Gilbert, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100250" vote="not-content">Gould of Potternewton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100785" vote="not-content">Hart of Chilton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100906" vote="not-content">Haskins, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100805" vote="not-content">Haworth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100783" vote="not-content">Henig, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100291" vote="not-content">Hilton of Eggardon, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100298" vote="not-content">Hollis of Heigham, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100848" vote="not-content">Howarth of Newport, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100311" vote="not-content">Hoyle, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100314" vote="not-content">Hunt of Kings Heath, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100331" vote="not-content">Jay of Paddington, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100338" vote="not-content">Jones, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100929" vote="not-content">Jones of Whitchurch, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100340" vote="not-content">Jordan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100834" vote="not-content">Kinnock, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100994" vote="not-content">Kinnock of Holyhead, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100366" vote="not-content">Lea of Crondall, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100395" vote="not-content">Macdonald of Tradeston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100400" vote="not-content">McIntosh of Hudnall, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100404" vote="not-content">Mackenzie of Framwellgate, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100802" vote="not-content">McKenzie of Luton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100981" vote="not-content">Mandelson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100421" vote="not-content">Massey of Darwen, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100799" vote="not-content">Maxton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100432" vote="not-content">Mitchell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100861" vote="not-content">Moonie, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100797" vote="not-content">Morgan of Drefelin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100914" vote="not-content">Morris of Handsworth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100847" vote="not-content">Morris of Yardley, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100845" vote="not-content">O'Neill of Clackmannan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100926" vote="not-content">Patel of Bradford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100493" vote="not-content">Pendry, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100798" vote="not-content">Prosser, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100913" vote="not-content">Quin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100518" vote="not-content">Radice, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100790" vote="not-content">Rosser, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100809" vote="not-content">Rowlands, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100828" vote="not-content">Royall of Blaisdon, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100581" vote="not-content">Sewel, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100593" vote="not-content">Simon, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100793" vote="not-content">Snape, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100865" vote="not-content">Soley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100624" vote="not-content">Symons of Vernham Dean, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100640" vote="not-content">Thornton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100812" teller="yes" vote="not-content">Tunnicliffe, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100652" vote="not-content">Uddin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100789" vote="not-content">Wall of New Barnet, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100672" vote="not-content">Warwick of Undercliffe, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100956" vote="not-content">West of Spithead, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100685" vote="not-content">Wilkins, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100821" vote="not-content">Young of Norwood Green, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100704" vote="not-content">Young of Old Scone, B.</lord>
+    </lordlist>
+  </division>
+  <speech colnum="1064" id="uk.org.publicwhip/lords/2009-10-26a.1064.0" nospeaker="true" time="020:51:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0014.htm#09102638000299">
+    <p class="italic" pid="a.1064.0/1" pwmotiontext="unrecognized">Amendment 63 not moved.</p>
+    <p pid="a.1064.0/2" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 50 : Abolition of common law defence of provocation</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1064.0/3" pwmotiontext="unrecognized">Amendment 64 not moved.</p>
+    <p class="italic" pid="a.1064.0/4" pwmotiontext="unrecognized">Amendment 65</p>
+    <p class="italic" pid="a.1064.0/5" pwmotiontext="unrecognized"> Moved by Lord Carlile of Berriew</p>
+    <p pid="a.1064.0/6" pwmotiontext="unrecognized"><b>65:</b> After Clause 55, insert the following new Clause&#8212;</p>
+    <p pid="a.1064.0/7" pwmotiontext="quot">"Extension of extra-territorial application</p>
+    <p pid="a.1064.0/8" pwmotiontext="lines">(1) Part 5 of the International Criminal Court Act 2001 (c. 17) (offences under domestic law) is amended as follows.</p>
+    <p pid="a.1064.0/9" pwmotiontext="lines">(2) In sections 51(2)(b), 52(4)(b) and 54(4)(b) (application to acts committed outside the United Kingdom) for "or a person subject to UK service jurisdiction" in each place that it occurs substitute ", a person subject to UK service jurisdiction or any other person (whatever that person's nationality) who is subsequently present in the United Kingdom".</p>
+    <p pid="a.1064.0/10" pwmotiontext="lines">(3) In sections 58(2)(b), 59(4)(b) and 61(4)(b) (application to acts committed outside the United Kingdom) for "or a United Kingdom resident" in each place that it occurs substitute ", a United Kingdom resident or any other person (whatever that person's nationality) who is subsequently present in the United Kingdom".</p>
+    <p pid="a.1064.0/11" pwmotiontext="lines">(4) After section 68 insert&#8212;</p>
+    <p pid="a.1064.0/12" pwmotiontext="quot">"68A Proceedings against persons subsequently present within the jurisdiction</p>
+    <p pid="a.1064.0/13" pwmotiontext="lines">(1) This section applies in relation to a person who commits acts outside the United Kingdom at a time when that person is not a United Kingdom national, a United Kingdom resident or a person subject to UK service jurisdiction and who is subsequently present in the United Kingdom.</p>
+    <p pid="a.1064.0/14" pwmotiontext="lines">(2) Proceedings may be brought against such a person in England and Wales or Northern Ireland for a substantive offence under this Part if&#8212;</p>
+    <p pid="a.1064.0/15" pwmotiontext="lines">(a) that person is present in the United Kingdom at the time the proceedings are brought, and</p>
+    <p pid="a.1064.0/16" pwmotiontext="lines">(b) the acts in respect of which the proceedings are brought would have constituted that offence if they had been committed in that part of the United Kingdom.</p>
+    <p pid="a.1064.0/17" pwmotiontext="lines">(3) Proceedings may be brought against such a person in England and Wales or Northern Ireland for an offence ancillary to a substantive offence under this Part (or what would be such a substantive offence if committed in that part of the United Kingdom) if&#8212;</p>
+    <p pid="a.1064.0/18" pwmotiontext="lines">(a) that person is present in the United Kingdom at the time the proceedings are brought, and</p>
+    <p pid="a.1064.0/19" pwmotiontext="lines">(b) the acts in respect of which the proceedings are brought would have constituted that offence if they had been committed in that part of the United Kingdom.</p>
+    <p pid="a.1064.0/20" pwmotiontext="lines">(4) In this section a "substantive offence" means an offence other than an ancillary offence.</p>
+    <p pid="a.1064.0/21" pwmotiontext="lines">(5) Nothing in this section shall be read as restricting the operation of any other provision of this Part.""</p>
+  </speech>
+  <speech colnum="1088" id="uk.org.publicwhip/lords/2009-10-26a.1088.1" nospeaker="true" time="022:30:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91026-0017.htm#09102645000066">
+    <p class="italic" pid="a.1088.1/1" pwmotiontext="adjourned">House adjourned at 10.43 pm.</p>
+  </speech>
+</publicwhip>

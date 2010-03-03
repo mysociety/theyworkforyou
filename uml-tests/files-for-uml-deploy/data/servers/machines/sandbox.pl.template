@@ -1,0 +1,27 @@
+# This is a minimal configuration file, just to keep "mysociety config"
+# happy:
+
+$hostnumber = 999;
+
+$hostname = 'sandbox';
+$domainname = 'fakedomain';
+
+$fqdn = "$hostname.$domainname";
+
+$debian_version = "lenny";
+
+$central_server = "0";
+
+# The UML machine shouldn't be trying to sync passwords:
+# $password_server = "";
+
+$nameserver = "0";
+
+# Network configuration:
+$external_ip_addr = "%UML_SERVER_IP%";
+$external_netmask = "%GUEST_NETMASK%";
+$default_gateway = "%GUEST_GATEWAY%";
+
+# There's no internal interface for the UML machine:
+# $internal_ip_addr = "192.168.2.20";
+# $internal_netmask = "255.255.255.0";
