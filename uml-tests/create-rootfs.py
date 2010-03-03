@@ -81,10 +81,7 @@ deb-src http://ftp.de.debian.org/debian/ lenny main''')
 fp.close()
 
 untemplate("etc-network-interfaces.template",mount_point+"/etc/network/interfaces")
-
-fp = open(mount_point+"/etc/resolv.conf","w")
-fp.write("nameserver "+configuration['GUEST_NAMESERVER'])
-fp.close()
+untemplate("etc-resolv.conf.template",mount_point+"/etc/resolv.conf")
 
 fp = open(mount_point+"/etc/hostname","w")
 fp.write("sandbox")

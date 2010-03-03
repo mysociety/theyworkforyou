@@ -118,8 +118,8 @@ try:
     # public key authentication.  (This sets the encrypted password field
     # to '!' in /etc/shadow.)
 
-    if 0 != ssh("passwd -l root",user="root"):
-        raise Exception, "Locking root's password failed"
+    # if 0 != ssh("passwd -l root",user="root"):
+    #     raise Exception, "Locking root's password failed"
 
     if 0 != ssh("passwd -l alice",user="root"):
         raise Exception, "Locking alice's password failed"

@@ -4,4 +4,4 @@
 D="$(dirname $(readlink -nf "$0"))"
 . "$D/conf"
 
-exec ssh -i "$D/id_dsa.root" root@$UML_SERVER_IP "$@"
+exec ssh -p 2242 -i "$D/id_dsa.root" root@$UML_SERVER_IP "$@"

@@ -1,0 +1,19 @@
+# UML_SERVER_IP should be an unused IP address on your local network;
+# the UML machine will appear to have this address:
+UML_SERVER_IP=127.0.1.1
+# UML_SERVER_HOSTNAME is the hostname for your UML machine.  (There
+# must be an entry in /etc/hosts that maps this hostname
+# UML_SERVER_IP.)
+UML_SERVER_HOSTNAME=theyworkforyou.sandbox
+# GUEST_IP is typically set to the same as UML_SERVER_IP
+GUEST_IP=127.0.1.1
+# GUEST_GATEWAY is the IP address that the UML machine will use as a
+# router - to avoid confusion, this should also be an unused address
+# on your local network, although it will not be visible except from
+# the UML machine.
+GUEST_GATEWAY=10.69.24
+# GUEST_NETMASK should be the same as the netmask for your local
+# server.
+GUEST_NETMASK=255.255.255.192
+# GUEST_NAMESERVER should be the IP address of a working nameserver.
+GUEST_NAMESERVER=192.168.22.22

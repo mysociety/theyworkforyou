@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec slirp -S "host addr 172.19.9.118" "redir 8042 80" "redir 2242 22" "$@"

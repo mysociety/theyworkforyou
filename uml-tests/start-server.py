@@ -17,6 +17,8 @@ parser.add_option('-x', '--xterm', dest="xterm", action="store_true",
                   default=False, help="create a terminal on an xterm as well")
 options,args = parser.parse_args()
 
+use_slirp = True
+
 cwd = os.path.realpath(".")
 
 command = [ "linux" ]
@@ -32,6 +34,10 @@ command += [ "mem=256M",
 if options.xterm:
     command.append("con1=xterm")
 
-command.append("eth0=tuntap,,,"+configuration['GUEST_GATEWAY'])
+if use_slirp:
+    # command.append("eth0=slirp,,/usr/bin/slirp-fullbolt")
+    command.append("eth0=slirp,,./slirp-wrapper")
+else:
+    command.append("eth0=tuntap,,,"+configuration['GUEST_GATEWAY'])
 
 call(command)
