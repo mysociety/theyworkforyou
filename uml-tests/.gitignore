@@ -1,6 +1,7 @@
 *~
 *.pyc
 /output
+/tmp
 backup
 general
 /uml-rootfs-*
