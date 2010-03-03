@@ -24,6 +24,7 @@ user_and_group = sys.argv[4]
 
 if not os.path.exists(mount_point):
     print "The mount point '"+mount_point+"' does not exist"
+    print "You may need to do: mkdir "+shellquote(mount_point)
     sys.exit(1)
 if not S_ISDIR(os.stat(mount_point)[ST_MODE]):
     print "The mount point '"+mount_point+"' must be a directory"
