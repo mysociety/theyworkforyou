@@ -1,3 +1,6 @@
 [submodule "commonlib"]
 	path = commonlib
 	url = git://git.mysociety.org/commonlib
+[submodule "uml-tests/cutycapt"]
+	path = uml-tests/cutycapt
+	url = git://github.com/mhl/cutycapt.git

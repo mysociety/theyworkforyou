@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE publicwhip [
+<!ENTITY ndash "&#8211;">
+<!ENTITY mdash "&#8212;">
+<!ENTITY iexcl "&#161;">
+<!ENTITY divide "&#247;">
+<!ENTITY euro "&#8364;">
+<!ENTITY trade "&#8482;">
+<!ENTITY bull "&#8226;">
+<!ENTITY lsquo "&#8216;">
+<!ENTITY rsquo "&#8217;">
+<!ENTITY sbquo "&#8218;">
+<!ENTITY ldquo "&#8220;">
+<!ENTITY rdquo "&#8221;">
+<!ENTITY bdquo "&#8222;">
+<!ENTITY dagger "&#8224;">
+
+<!ENTITY Ouml "&#214;">
+<!ENTITY agrave "&#224;">
+<!ENTITY aacute "&#225;">
+<!ENTITY acirc "&#226;">
+<!ENTITY atilde "&#227;">
+<!ENTITY auml "&#228;">
+<!ENTITY ccedil "&#231;">
+<!ENTITY egrave "&#232;">
+<!ENTITY eacute "&#233;">
+<!ENTITY ecirc "&#234;">
+<!ENTITY euml "&#235;">
+<!ENTITY iacute "&#237;">
+<!ENTITY icirc "&#238;">
+<!ENTITY iuml "&#239;">
+<!ENTITY ntilde "&#241;">
+<!ENTITY nbsp "&#160;">
+<!ENTITY oacute "&#243;">
+<!ENTITY ocirc "&#244;">
+<!ENTITY ouml "&#246;">
+<!ENTITY oslash "&#248;">
+<!ENTITY uacute "&#250;">
+<!ENTITY uuml "&#252;">
+<!ENTITY thorn "&#254;">
+
+<!ENTITY pound "&#163;">
+<!ENTITY sect "&#167;">
+<!ENTITY copy "&#169;">
+<!ENTITY reg "&#174;">
+<!ENTITY deg "&#176;">
+<!ENTITY plusmn "&#177;">
+<!ENTITY sup2 "&#178;">
+<!ENTITY micro "&#181;">
+<!ENTITY para "&#182;">
+<!ENTITY middot "&#183;">
+<!ENTITY ordm "&#186;">
+<!ENTITY frac14 "&#188;">
+<!ENTITY frac12 "&#189;">
+<!ENTITY frac34 "&#190;">
+<!ENTITY oelig "&#339;">
+<!ENTITY aelig "&#230;">
+]>
+<publicwhip latest="yes" scrapeversion="a">
+  <major-heading colnum="1265" id="uk.org.publicwhip/lords/2009-10-29a.1265.0" nospeaker="true" time="011:00:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0001.htm#09102929000685">
+	Government: Debts
+	 &#8212; 
+	<i>Question</i></major-heading>
+  <major-heading colnum="1267" id="uk.org.publicwhip/lords/2009-10-29a.1267.4" nospeaker="true" time="011:06:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0001.htm#09102929000686">
+	Africa: Water Shortages
+	 &#8212; 
+	<i>Question</i></major-heading>
+  <major-heading colnum="1270" id="uk.org.publicwhip/lords/2009-10-29a.1270.5" nospeaker="true" time="011:14:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0001.htm#09102929000687">
+	Northern Ireland: Cross-Border Police Co-operation
+	 &#8212; 
+	<i>Question</i></major-heading>
+  <major-heading colnum="1272" id="uk.org.publicwhip/lords/2009-10-29a.1272.3" nospeaker="true" time="011:22:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm#09102929000688">
+	Territorial Army
+	 &#8212; 
+	<i>Question</i></major-heading>
+  <speech colnum="1272" id="uk.org.publicwhip/lords/2009-10-29a.1272.4" nospeaker="true" time="011:22:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm">
+    <p class="italic" pid="a.1272.4/1" pwmotiontext="unrecognized"> Tabled By Lord Astor of Hever</p>
+    <p class="indent" pid="a.1272.4/2" pwmotiontext="unrecognized">To ask Her Majesty's Government what will be the consequences for Her Majesty's Armed Forces of the reduction in training of the Territorial Army.</p>
+  </speech>
+  <major-heading colnum="1275" id="uk.org.publicwhip/lords/2009-10-29a.1275.5" nospeaker="true" time="011:28:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm#09102929000689">
+	House of Lords: Code of Conduct
+	 &#8212; 
+	<i>Announcement</i></major-heading>
+  <major-heading colnum="1277" id="uk.org.publicwhip/lords/2009-10-29a.1277.2" nospeaker="true" time="011:37:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm#09102929000690">
+	Beverley Freemen Bill [HL]
+</major-heading>
+  <major-heading colnum="1277" id="uk.org.publicwhip/lords/2009-10-29a.1277.3" nospeaker="true" time="011:37:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm#09102929000691">
+	London Local Authorities Bill [HL]
+</major-heading>
+  <major-heading colnum="1277" id="uk.org.publicwhip/lords/2009-10-29a.1277.4" nospeaker="true" time="011:37:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm#09102929000692">
+	London Local Authorities and Transport for London (No. 2) Bill [HL]
+</major-heading>
+  <major-heading colnum="1277" id="uk.org.publicwhip/lords/2009-10-29a.1277.5" nospeaker="true" time="011:37:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm#09102929000693">
+	Transport for London (Supplemental Toll Provisions) Bill [HL]
+	 &#8212; 
+	<i>Carryover Motions</i></major-heading>
+  <speech colnum="1277" id="uk.org.publicwhip/lords/2009-10-29a.1277.6" nospeaker="true" time="011:37:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm">
+    <p class="italic" pid="a.1277.6/1" pwmotiontext="unrecognized"> Moved By The Deputy Chairman of Committees (Baroness Fookes)</p>
+    <p pid="a.1277.6/2" pwmotiontext="unrecognized">
+      <I>Beverley Freem</I>
+      <I>e</I>
+      <I>n Bill [HL]</I>
+    </p>
+    <p class="indent" pid="a.1277.6/3" pwmotiontext="unrecognized">That this House resolves that the promoters of the Beverley Freemen Bill [HL] which was originally introduced in this House on <phrase class="date" code="2009-01-22">22 January 2009</phrase> should have leave to suspend any further proceedings on the bill in order to proceed with it, if they think fit, in the next session of Parliament according to the provisions of Private Business Standing Order 150A (<I>Suspension of bills</I>).</p>
+    <p pid="a.1277.6/4" pwmotiontext="unrecognized">
+      <I>London Local Authorities Bill [HL]</I>
+    </p>
+    <p class="indent" pid="a.1277.6/5" pwmotiontext="unrecognized">That this House resolves that the promoters of the London Local Authorities Bill [HL] which was originally introduced in this House on <phrase class="date" code="2008-01-22">22 January 2008</phrase> should have leave to suspend any further proceedings on the bill in order to proceed with it, if they think fit, in the next session of Parliament according to the provisions of Private Business Standing Order 150A (<I>Suspension of bills</I>).</p>
+    <p pid="a.1277.6/6" pwmotiontext="unrecognized">
+      <I>London Local Authorities and Transport for London (No. 2) Bill [HL]</I>
+    </p>
+    <p class="indent" pid="a.1277.6/7" pwmotiontext="unrecognized">That this House resolves that the promoters of the London Local Authorities and Transport for London (No. 2) Bill [HL] which was originally introduced in this House on <phrase class="date" code="2008-01-22">22 January 2008</phrase> should have leave to suspend any further proceedings on the bill in order to proceed with it, if they think fit, in the next session of Parliament according to the provisions of Private Business Standing Order 150A (<I>Suspension of bills</I>).</p>
+    <p pid="a.1277.6/8" pwmotiontext="unrecognized">
+      <I>Transport for London (Supplemental Toll Provisions) Bill [HL]</I>
+    </p>
+    <p class="indent" pid="a.1277.6/9" pwmotiontext="unrecognized">That this House resolves that the promoters of the Transport for London (Supplemental Toll Provisions) Bill [HL] which was originally introduced in this House on <phrase class="date" code="2007-01-22">22 January 2007</phrase> should have leave to suspend any further proceedings on the bill in order to proceed with it, if they think fit, in the next session of Parliament according to the provisions of Private Business Standing Order 150A (<I>Suspension of bills</I>).</p>
+    <p class="italic" pid="a.1277.6/10" pwmotiontext="unrecognized">Motions agreed.</p>
+  </speech>
+  <major-heading colnum="1278" id="uk.org.publicwhip/lords/2009-10-29a.1278.0" nospeaker="true" time="011:44:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm#09102929000694">
+	Driving Instruction (Suspension and Exemption Powers) Bill
+	 &#8212; 
+	<i>Third Reading</i></major-heading>
+  <speech colnum="1278" id="uk.org.publicwhip/lords/2009-10-29a.1278.1" nospeaker="true" time="011:44:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm">
+    <p class="italic" pid="a.1278.1/1" pwmotiontext="unrecognized">Bill passed.</p>
+  </speech>
+  <major-heading colnum="1278" id="uk.org.publicwhip/lords/2009-10-29a.1278.2" nospeaker="true" time="011:44:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm#09102929000695">
+	Coroners and Justice Bill
+</major-heading>
+  <speech colnum="1278" id="uk.org.publicwhip/lords/2009-10-29a.1278.3" nospeaker="true" time="011:44:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0002.htm#09102929000695">
+    <p pid="a.1278.3/1" pwmotiontext="unrecognized">
+      <a href="http://services.parliament.uk/bills/2008-09/coronersandjustice.html">Main Bill Page</a>
+    </p>
+    <p pid="a.1278.3/2" pwmotiontext="unrecognized">
+      <a href="http://www.publications.parliament.uk/pa/ld200809/ldbills/069/2009069.pdf">Copy of the Bill</a>
+    </p>
+    <p pid="a.1278.3/3" pwmotiontext="unrecognized">
+      <a href="http://www.publications.parliament.uk/pa/ld200809/ldbills/033/en/index_033.htm">Explanatory notes</a>
+    </p>
+    <p pid="a.1278.3/4" pwmotiontext="unrecognized">
+      <a href="http://www.publications.parliament.uk/pa/ld200809/ldbills/069/amend/ml069-iv.htm">Amendments</a>
+    </p>
+  </speech>
+  <minor-heading colnum="1278" id="uk.org.publicwhip/lords/2009-10-29a.1278.4" nospeaker="true" time="011:44:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0003.htm">
+    <i>Report (4th Day)</i>
+  </minor-heading>
+  <speech colnum="1278" id="uk.org.publicwhip/lords/2009-10-29a.1278.5" nospeaker="true" time="011:44:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0003.htm">
+    <p class="italic" pid="a.1278.5/1" pwmotiontext="unrecognized">Amendment 96</p>
+    <p class="italic" pid="a.1278.5/2" pwmotiontext="unrecognized"> Moved by Lord Bach</p>
+    <p pid="a.1278.5/3" pwmotiontext="unrecognized"><b>96:</b> After Clause 143, insert the following new Clause&#8212;</p>
+    <p pid="a.1278.5/4" pwmotiontext="quot">"Damages-based agreements</p>
+    <p pid="a.1278.5/5" pwmotiontext="lines">(1) The Courts and Legal Services Act 1990 (c. 41) is amended as follows.</p>
+    <p pid="a.1278.5/6" pwmotiontext="lines">(2) After section 58A insert&#8212;</p>
+    <p pid="a.1278.5/7" pwmotiontext="quot">"58AA Damages-based agreements</p>
+    <p pid="a.1278.5/8" pwmotiontext="lines">(1) A damages-based agreement which satisfies the conditions in subsection (3) is not unenforceable by reason only of its being a damages-based agreement; but any other damages-based agreement is unenforceable.</p>
+    <p pid="a.1278.5/9" pwmotiontext="lines">(2) For the purposes of this section, a "damages-based agreement" is an agreement between a person providing advocacy services, litigation services or claims management services and the recipient of those services which provides that&#8212;</p>
+    <p pid="a.1278.5/10" pwmotiontext="lines">(a) the recipient is to make a payment to the person providing the services if the recipient obtains a specified financial benefit in connection with the matter in relation to which the services are provided, and</p>
+    <p pid="a.1278.5/11" pwmotiontext="lines">(b) the amount of that payment is to be determined by reference to the amount of the financial benefit obtained.</p>
+    <p pid="a.1278.5/12" pwmotiontext="lines">(3) The agreement&#8212;</p>
+    <p pid="a.1278.5/13" pwmotiontext="lines">(a) must relate to proceedings or a claim of a prescribed description;</p>
+    <p pid="a.1278.5/14" pwmotiontext="lines">(b) must not relate to proceedings in a relevant court;</p>
+    <p pid="a.1278.5/15" pwmotiontext="lines">(c) must not provide for a payment above a prescribed amount or for a payment above an amount calculated in a prescribed manner;</p>
+    <p pid="a.1278.5/16" pwmotiontext="lines">(d) must comply with such other requirements as to its terms and conditions as are prescribed;</p>
+    <p pid="a.1278.5/17" pwmotiontext="lines">(e) must be made only after the person providing services under the agreement has provided prescribed information; and</p>
+    <p pid="a.1278.5/18" pwmotiontext="lines">(f) must be in writing.</p>
+    <p pid="a.1278.5/19" pwmotiontext="lines">(4) A description of proceedings prescribed under subsection (3)(a) must not include proceedings that are&#8212;</p>
+    <p pid="a.1278.5/20" pwmotiontext="lines">(a) criminal proceedings; or</p>
+    <p pid="a.1278.5/21" pwmotiontext="lines">(b) family proceedings (within the meaning given by section 58A(2)).</p>
+    <p pid="a.1278.5/22" pwmotiontext="lines">(5) For the purposes of subsection (3)(b) an agreement is not to be treated as relating to proceedings in a relevant court if the services to be provided under the agreement are services that are to be provided only in contemplation of such proceedings before they are commenced.</p>
+    <p pid="a.1278.5/23" pwmotiontext="lines">(6) Regulations under subsection (3) are to be made by the Lord Chancellor and may make different provision in relation to different descriptions of damages-based agreements.</p>
+    <p pid="a.1278.5/24" pwmotiontext="lines">(7) Before making regulations under subsection (3) the Lord Chancellor must consult&#8212;</p>
+    <p pid="a.1278.5/25" pwmotiontext="lines">(a) the designated judges,</p>
+    <p pid="a.1278.5/26" pwmotiontext="lines">(b) the General Council of the Bar,</p>
+    <p pid="a.1278.5/27" pwmotiontext="lines">(c) the Law Society, and</p>
+    <p pid="a.1278.5/28" pwmotiontext="lines">(d) such other bodies as the Lord Chancellor considers appropriate.</p>
+    <p pid="a.1278.5/29" pwmotiontext="lines">(8) In this section&#8212;</p>
+    <p pid="a.1278.5/30" pwmotiontext="quot">"claim" and "claims management services" have the same meaning as in Part 2 of the Compensation Act 2006 (see section 4(2) of that Act);</p>
+    <p pid="a.1278.5/31" pwmotiontext="quot">"payment" includes a transfer of assets and any other transfer of money's worth (and the reference in subsection (3)(d) to a payment above a prescribed amount, or above an amount calculated in a prescribed manner, is to be construed accordingly);</p>
+    <p pid="a.1278.5/32" pwmotiontext="quot">"proceedings" includes any sort of proceedings for resolving disputes (and not just proceedings in a court), whether commenced or contemplated;</p>
+    <p pid="a.1278.5/33" pwmotiontext="quot">"relevant court" means&#8212;</p>
+    <p pid="a.1278.5/34" pwmotiontext="lines">(a) a magistrates' court;</p>
+    <p pid="a.1278.5/35" pwmotiontext="lines">(b) a county court;</p>
+    <p pid="a.1278.5/36" pwmotiontext="lines">(c) the High Court;</p>
+    <p pid="a.1278.5/37" pwmotiontext="lines">(d) the Court of Appeal;</p>
+    <p pid="a.1278.5/38" pwmotiontext="lines">(e) the Supreme Court.</p>
+    <p pid="a.1278.5/39" pwmotiontext="lines">(9) In this section references to "advocacy services" or "litigation services" include a reference to services that it would be reasonable to expect a person who is acting (or contemplating acting) for another in relation to proceedings that do not take place in a court, to provide.</p>
+    <p pid="a.1278.5/40" pwmotiontext="lines">(10) Nothing in this section applies to an agreement entered into before the coming into force of the first regulations made under subsection (3)."</p>
+    <p pid="a.1278.5/41" pwmotiontext="lines">(3) In section 120(4) (regulations and orders) after "58(4)," insert "58AA"."</p>
+  </speech>
+  <division colnum="1298" divdate="2009-10-29" divnumber="1" id="uk.org.publicwhip/lords/2009-10-29a.1298.0" nospeaker="true" time="013:07:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0005.htm#09102929000703">
+    <divisioncount content="56" not-content="74"/>
+    <lordlist vote="content">
+      <lord id="uk.org.publicwhip/lord/100004" vote="content">Addington, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100025" vote="content">Astor, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100044" vote="content">Best, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100810" vote="content">Bonham-Carter of Yarnbury, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100063" vote="content">Borrie, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100068" vote="content">Bradshaw, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100909" vote="content">Burnett, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100850" vote="content">Chidgey, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100125" vote="content">Chorley, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100130" vote="content">Clement-Jones, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100907" vote="content">Cotter, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100173" vote="content">Dholakia, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100827" vote="content">D'Souza, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100199" vote="content">Evans of Temple Guiting, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100205" vote="content">Falkland, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100782" vote="content">Falkner of Margravine, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100964" vote="content">Garden of Frognal, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100246" vote="content">Goodhart, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100258" vote="content">Greengross, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100268" vote="content">Hamwee, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100278" vote="content">Harris of Richmond, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100307" vote="content">Howe of Idlicote, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100321" vote="content">Hylton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100843" vote="content">Kirkwood of Kirkhope, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100911" teller="yes" vote="content">Lee of Trafford, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100367" vote="content">Lester of Herne Hill, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100370" vote="content">Lewis of Newnham, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100375" vote="content">Listowel, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100405" vote="content">Mackie of Benshie, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100408" vote="content">McNally, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100425" vote="content">Methuen, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100427" vote="content">Miller of Chilthorne Domer, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100800" vote="content">Neuberger, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100455" vote="content">Newton of Braintree, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100467" vote="content">Northover, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100468" vote="content">Norton of Louth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100840" vote="content">Ramsbotham, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100524" vote="content">Razzall, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100527" vote="content">Redesdale, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100532" vote="content">Rennard, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100794" teller="yes" vote="content">Roberts of Llandudno, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100566" vote="content">Saltoun of Abernethy, Ly.</lord>
+      <lord id="uk.org.publicwhip/lord/100569" vote="content">Sandwich, E.</lord>
+      <lord id="uk.org.publicwhip/lord/100576" vote="content">Scott of Needham Market, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100583" vote="content">Sharp of Guildford, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100592" vote="content">Shutt of Greetland, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100601" vote="content">Smith of Clifton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100608" vote="content">Steel of Aikwood, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100610" vote="content">Stern, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100920" vote="content">Teverson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100634" vote="content">Thomas of Gresford, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100638" vote="content">Thomas of Walliswood, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100915" vote="content">Thomas of Winchester, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100846" vote="content">Tyler, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100666" vote="content">Wallace of Saltaire, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100667" vote="content">Walmsley, B.</lord>
+    </lordlist>
+    <lordlist vote="not-content">
+      <lord id="uk.org.publicwhip/lord/100867" vote="not-content">Adams of Craigielea, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100006" vote="not-content">Ahmed, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100869" vote="not-content">Anderson of Swansea, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100017" vote="not-content">Archer of Sandwell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100030" vote="not-content">Bach, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100043" vote="not-content">Bernstein of Craigweil, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100781" vote="not-content">Bhattacharyya, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100860" vote="not-content">Bilston, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100943" vote="not-content">Boyd of Duncansby, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100072" vote="not-content">Brett, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100081" vote="not-content">Brooke of Alverthorpe, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100084" vote="not-content">Brookman, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100104" vote="not-content">Campbell-Savours, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100131" vote="not-content">Clinton-Davis, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100136" vote="not-content">Cohen of Pimlico, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100137" vote="not-content">Colville of Culross, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100144" vote="not-content">Corbett of Castle Vale, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100164" teller="yes" vote="not-content">Davies of Oldham, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100166" vote="not-content">Dean of Thornton-le-Fylde, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100170" vote="not-content">Denham, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100172" vote="not-content">Desai, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100178" vote="not-content">Donoughue, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100180" vote="not-content">Dubs, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100206" vote="not-content">Farrington of Ribbleton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100207" vote="not-content">Faulkner of Worcester, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100212" vote="not-content">Filkin, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100925" vote="not-content">Ford, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100227" vote="not-content">Gale, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100231" vote="not-content">Gavron, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100792" vote="not-content">Giddens, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100252" vote="not-content">Graham of Edmonton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100264" vote="not-content">Grocott, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100280" vote="not-content">Haskel, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100805" vote="not-content">Haworth, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100291" vote="not-content">Hilton of Eggardon, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100311" vote="not-content">Hoyle, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100312" vote="not-content">Hughes of Woodside, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100331" vote="not-content">Jay of Paddington, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100341" vote="not-content">Judd, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100350" vote="not-content">King of West Bromwich, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100834" vote="not-content">Kinnock, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100994" vote="not-content">Kinnock of Holyhead, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100366" vote="not-content">Lea of Crondall, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100374" vote="not-content">Lipsey, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100803" vote="not-content">McDonagh, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100403" vote="not-content">MacKenzie of Culkein, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100404" vote="not-content">Mackenzie of Framwellgate, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100802" vote="not-content">McKenzie of Luton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100419" vote="not-content">Masham of Ilton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100953" vote="not-content">Mawson, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100799" vote="not-content">Maxton, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100432" vote="not-content">Mitchell, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100797" vote="not-content">Morgan of Drefelin, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100443" vote="not-content">Morris of Aberavon, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100444" vote="not-content">Morris of Manchester, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100845" vote="not-content">O'Neill of Clackmannan, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100798" vote="not-content">Prosser, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100519" vote="not-content">Ramsay of Cartvale, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100536" vote="not-content">Richard, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100938" vote="not-content">Ripon and Leeds, Bp.</lord>
+      <lord id="uk.org.publicwhip/lord/100549" vote="not-content">Rooker, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100809" vote="not-content">Rowlands, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100828" vote="not-content">Royall of Blaisdon, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100571" vote="not-content">Sawyer, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100593" vote="not-content">Simon, V.</lord>
+      <lord id="uk.org.publicwhip/lord/100619" vote="not-content">Strabolgi, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100624" vote="not-content">Symons of Vernham Dean, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100844" vote="not-content">Taylor of Bolton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100631" vote="not-content">Temple-Morris, L.</lord>
+      <lord id="uk.org.publicwhip/lord/100640" vote="not-content">Thornton, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100812" teller="yes" vote="not-content">Tunnicliffe, L. [Teller]</lord>
+      <lord id="uk.org.publicwhip/lord/100651" vote="not-content">Turner of Camden, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100672" vote="not-content">Warwick of Undercliffe, B.</lord>
+      <lord id="uk.org.publicwhip/lord/100685" vote="not-content">Wilkins, B.</lord>
+    </lordlist>
+  </division>
+  <speech colnum="1299" id="uk.org.publicwhip/lords/2009-10-29a.1299.0" nospeaker="true" time="013:07:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0005.htm#09102929000703">
+    <p pid="a.1299.0/1" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 145 : Qualifying offenders</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/2" pwmotiontext="unrecognized">Amendment 98 not moved.</p>
+    <p pid="a.1299.0/3" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 146 : Qualifying offenders: service offences</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/4" pwmotiontext="unrecognized">Amendment 99 not moved.</p>
+    <p pid="a.1299.0/5" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 147 : Qualifying offenders: supplementary</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/6" pwmotiontext="unrecognized">Amendment 100 not moved.</p>
+    <p pid="a.1299.0/7" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 148 : Relevant offences</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/8" pwmotiontext="unrecognized">Amendments 101 to 103</p>
+    <p class="italic" pid="a.1299.0/9" pwmotiontext="unrecognized"> Moved by Lord Tunnicliffe</p>
+    <p pid="a.1299.0/10" pwmotiontext="unrecognized"><b>101:</b> Clause 148, page 95, line 2, leave out subsection (1) and insert&#8212;</p>
+    <p pid="a.1299.0/11" pwmotiontext="quot">"(1) In this Part "relevant offence", in relation to a person ("P"), means&#8212;</p>
+    <p pid="a.1299.0/12" pwmotiontext="lines">(a) a serious offence by reason of which P is a qualifying offender,</p>
+    <p pid="a.1299.0/13" pwmotiontext="lines">(b) a serious offence which was taken into consideration by a court in determining the sentence imposed on P for an offence by reason of which P is a qualifying offender, or</p>
+    <p pid="a.1299.0/14" pwmotiontext="lines">(c) a serious offence committed by another person which is associated with&#8212;</p>
+    <p pid="a.1299.0/15" pwmotiontext="lines">(i) an offence by reason of which P is a qualifying offender, or</p>
+    <p pid="a.1299.0/16" pwmotiontext="lines">(ii) an offence which was taken into consideration by a court in determining the sentence imposed on P for such an offence.</p>
+    <p pid="a.1299.0/17" pwmotiontext="lines">(1A) For this purpose an offence is "serious" if&#8212;</p>
+    <p pid="a.1299.0/18" pwmotiontext="lines">(a) in the case of an offence under the law of England and Wales, it is an indictable offence,</p>
+    <p pid="a.1299.0/19" pwmotiontext="lines">(b) in the case of an offence under the law of Scotland, it is an offence triable on indictment (whether or not it is exclusively so triable),</p>
+    <p pid="a.1299.0/20" pwmotiontext="lines">(c) in the case of an offence under the law of Northern Ireland, it is an offence which, if committed by an adult, is punishable on conviction on indictment (whether only on conviction on indictment or either on conviction on indictment or on summary conviction),</p>
+    <p pid="a.1299.0/21" pwmotiontext="lines">(d) in the case of a foreign offence, the act constituting the offence&#8212;</p>
+    <p pid="a.1299.0/22" pwmotiontext="lines">(i) at the time it was done, would have constituted an offence within paragraph (a), (b) or (c) if it had been done in any part of the United Kingdom, and</p>
+    <p pid="a.1299.0/23" pwmotiontext="lines">(ii) would also constitute such an offence if it were done in any part of the United Kingdom at the time the application for an exploitation proceeds order is made in respect of it."</p>
+    <p pid="a.1299.0/24" pwmotiontext="unrecognized"><b>102:</b> Clause 148, page 95, line 33, at end insert&#8212;</p>
+    <p pid="a.1299.0/25" pwmotiontext="quot">"(4A) Subsection (1A) does not apply in relation to a UK service offence or a foreign service offence, and for the purposes of subsection (1) such an offence is "serious" if&#8212;</p>
+    <p pid="a.1299.0/26" pwmotiontext="lines">(a) in the case of a UK service offence&#8212;</p>
+    <p pid="a.1299.0/27" pwmotiontext="lines">(i) the act constituting the offence is a serious offence within subsection (1A)(a),</p>
+    <p pid="a.1299.0/28" pwmotiontext="lines">(ii) the act constituting the offence, if done in England and Wales, would be a serious offence within subsection (1A)(a), or</p>
+    <p pid="a.1299.0/29" pwmotiontext="lines">(iii) the offence is within subsection (4B);</p>
+    <p pid="a.1299.0/30" pwmotiontext="lines">(b) in the case of a foreign service offence, the act constituting the offence&#8212;</p>
+    <p pid="a.1299.0/31" pwmotiontext="lines">(i) at the time it was done, would have constituted a serious offence within subsection (1A) or an offence within subsection (4B) if it had been done in any part of the United Kingdom by a member of Her Majesty's forces, and</p>
+    <p pid="a.1299.0/32" pwmotiontext="lines">(ii) would also constitute such an offence if it were done in any part of the United Kingdom by a member of Her Majesty's forces at the time the application for an exploitation proceeds order is made in respect of it.</p>
+    <p pid="a.1299.0/33" pwmotiontext="lines">(4B) An offence is within this subsection if it is an offence under&#8212;</p>
+    <p pid="a.1299.0/34" pwmotiontext="lines">(a) section 24(1) of the AA 1955 or of the AFA 1955, section 2(1) of the NDA 1957 or section 2(1) of the AFA 2006 (misconduct on operations),</p>
+    <p pid="a.1299.0/35" pwmotiontext="lines">(b) section 25 of the AA 1955 or of the AFA 1955, section 3 of the NDA 1957 or section 1 of the AFA 2006 (assisting an enemy),</p>
+    <p pid="a.1299.0/36" pwmotiontext="lines">(c) section 26(1) of the AA 1955 or of the AFA 1955, section 4(1) of the NDA 1957 or section 3 of the AFA 2006 (obstructing operations),</p>
+    <p pid="a.1299.0/37" pwmotiontext="lines">(d) section 30(a) or (b) of the AA 1955 or of the AFA 1955, section 5(a) or (b) of the NDA 1957 or section 4(1) or (2) of the AFA 2006 (looting),</p>
+    <p pid="a.1299.0/38" pwmotiontext="lines">(e) section 31 of the AA 1955 or of the AFA 1955, section 9 of the NDA 1957 or section 6 of the AFA 2006 (mutiny), or</p>
+    <p pid="a.1299.0/39" pwmotiontext="lines">(f) section 32 of the AA 1955 or of the AFA 1955, section 10 of the NDA 1957 or section 7 of the AFA 2006 (failure to suppress mutiny)."</p>
+    <p pid="a.1299.0/40" pwmotiontext="unrecognized"><b>103:</b> Clause 148, page 95, line 40, leave out subsection (6) and insert&#8212;</p>
+    <p pid="a.1299.0/41" pwmotiontext="quot">"( ) In this section&#8212;</p>
+    <p pid="a.1299.0/42" pwmotiontext="quot">"AA 1955" means the Army Act 1955 (3 &amp; 4 Eliz. 2 c. 18);</p>
+    <p pid="a.1299.0/43" pwmotiontext="quot">"act" includes a failure to act (and references to the doing of an act are to be read accordingly);</p>
+    <p pid="a.1299.0/44" pwmotiontext="quot">"AFA 1955" means the Air Force Act 1955 (3 &amp; 4 Eliz. 2 c. 19);</p>
+    <p pid="a.1299.0/45" pwmotiontext="quot">"AFA 2006" means the Armed Forces Act 2006 (c. 52);</p>
+    <p pid="a.1299.0/46" pwmotiontext="quot">"foreign offence" has the same meaning as in section 145;</p>
+    <p pid="a.1299.0/47" pwmotiontext="quot">"foreign service offence", "Her Majesty's services" and "UK service offence" have the same meaning as in section 146;</p>
+    <p pid="a.1299.0/48" pwmotiontext="quot">"NDA 1957" means the Naval Discipline Act 1957 (c. 53)."</p>
+    <p class="italic" pid="a.1299.0/49" pwmotiontext="unrecognized">Amendments 101 to 103 agreed.</p>
+    <p class="italic" pid="a.1299.0/50" pwmotiontext="unrecognized">Amendment 104 not moved.</p>
+    <p pid="a.1299.0/51" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 149 : Deriving a benefit</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/52" pwmotiontext="unrecognized">Amendment 105 not moved.</p>
+    <p pid="a.1299.0/53" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 150 : Applications</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/54" pwmotiontext="unrecognized">Amendment 106 not moved.</p>
+    <p pid="a.1299.0/55" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 151 : Determination of applications</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/56" pwmotiontext="unrecognized">Amendment 106A not moved.</p>
+    <p class="italic" pid="a.1299.0/57" pwmotiontext="unrecognized">Amendment 107</p>
+    <p class="italic" pid="a.1299.0/58" pwmotiontext="unrecognized"> Moved by Lord Tunnicliffe</p>
+    <p pid="a.1299.0/59" pwmotiontext="unrecognized"><b>107:</b> Clause 151, page 97, line 22, leave out from "offence" to "is" in line 23 and insert "or the family of the victim"</p>
+    <p class="italic" pid="a.1299.0/60" pwmotiontext="unrecognized">Amendment 107 agreed.</p>
+    <p class="italic" pid="a.1299.0/61" pwmotiontext="unrecognized">Amendments 107A and 108 not moved.</p>
+    <p pid="a.1299.0/62" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 152 : Limits on recoverable amount</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/63" pwmotiontext="unrecognized">Amendment 109 not moved.</p>
+    <p pid="a.1299.0/64" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 153 : The available amount</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/65" pwmotiontext="unrecognized">Amendment 110 not moved.</p>
+    <p pid="a.1299.0/66" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 154 : Property</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/67" pwmotiontext="unrecognized">Amendment 111 not moved.</p>
+    <p pid="a.1299.0/68" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 155 : Effect of conviction being quashed etc</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/69" pwmotiontext="unrecognized">Amendment 112</p>
+    <p class="italic" pid="a.1299.0/70" pwmotiontext="unrecognized"> Moved by Lord Bach</p>
+    <p pid="a.1299.0/71" pwmotiontext="unrecognized"><b>112:</b> Clause 155, page 100, line 12, leave out paragraphs (a) and (b) and insert&#8212;</p>
+    <p pid="a.1299.0/72" pwmotiontext="quot">"(a) the relevant offence is within paragraph (a) of section 148(1) and the respondent's conviction for it is subsequently quashed, or</p>
+    <p pid="a.1299.0/73" pwmotiontext="lines">(b) the relevant offence is within paragraph (b) or (c) of that section and the respondent's conviction for the offence (or, if more than one, all of the offences) by virtue of which the relevant offence is within either of those paragraphs is (or are) subsequently quashed."</p>
+    <p class="italic" pid="a.1299.0/74" pwmotiontext="unrecognized">Amendment 112 agreed.</p>
+    <p class="italic" pid="a.1299.0/75" pwmotiontext="unrecognized">Amendment 113 not moved.</p>
+    <p pid="a.1299.0/76" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 156 : Powers of court on repeat applications</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/77" pwmotiontext="unrecognized">Amendment 114 not moved.</p>
+    <p pid="a.1299.0/78" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 157 : Additional proceeds reporting orders</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/79" pwmotiontext="unrecognized">Amendment 115 not moved.</p>
+    <p pid="a.1299.0/80" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 158 : Exploitation proceeds investigations</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/81" pwmotiontext="unrecognized">Amendment 116 not moved.</p>
+    <p pid="a.1299.0/82" pwmotiontext="unrecognized">
+      <b>
+        <i>Clause 159 : Functions of Serious Organised Crime Agency</i>
+      </b>
+    </p>
+    <p class="italic" pid="a.1299.0/83" pwmotiontext="unrecognized">Amendment 117 not moved.</p>
+    <p class="italic" pid="a.1299.0/84" pwmotiontext="unrecognized">Amendment 117A</p>
+    <p class="italic" pid="a.1299.0/85" pwmotiontext="unrecognized"> Moved by Baroness Miller of Chilthorne Domer</p>
+    <p pid="a.1299.0/86" pwmotiontext="unrecognized"><b>117A:</b> After Clause 164, insert the following new Clause&#8212;</p>
+    <p pid="a.1299.0/87" pwmotiontext="quot">"Police retention of photographs</p>
+    <p pid="a.1299.0/88" pwmotiontext="quot">"(1) The Secretary of State must, as soon as possible and not later than three months after Royal Assent, amend Code D made under section 67(3) of the Police and Criminal Evidence Act 1984 (c. 60) (codes of practices&#8212;supplementary) as follows.</p>
+    <p pid="a.1299.0/89" pwmotiontext="lines">(2) After article 3.3 insert&#8212;</p>
+    <p pid="a.1299.0/90" pwmotiontext="quot">"3.4(a) Where an officer takes a photograph or photographs of an individual who has not been arrested, those photographs must be destroyed as soon as possible, but at the latest within 14 days of the day on which the photograph was taken.</p>
+    <p pid="a.1299.0/91" pwmotiontext="unrecognized">3.4(b) Where an officer takes a photograph or photographs of an individual who has been arrested but not charged with any criminal activity, those photographs must be destroyed as soon as possible after the decision has been taken not to charge the individual, but at the latest within 14 days of the day on which that decision was taken.</p>
+    <p pid="a.1299.0/92" pwmotiontext="unrecognized">3.4(c) This subsection applies to, but is not limited to, evidence gathered by Forward Intelligence Teams and other evidence gathering operations.""</p>
+  </speech>
+  <major-heading colnum="1316" id="uk.org.publicwhip/lords/2009-10-29a.1316.0" nospeaker="true" time="013:30:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0008.htm#09102945000118">
+	Education (Special Educational Needs Co-ordinators) (England) (Amendment) Regulations 2009
+	 &#8212; 
+	<i>Motion to Resolve</i></major-heading>
+  <speech colnum="1316" id="uk.org.publicwhip/lords/2009-10-29a.1316.1" nospeaker="true" time="013:30:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0008.htm">
+    <p class="italic" pid="a.1316.1/1" pwmotiontext="unrecognized"> Moved By Baroness Verma</p>
+    <p class="indent" pid="a.1316.1/2" pwmotiontext="unrecognized">That this House calls upon Her Majesty's Government to withdraw the Education (Special Educational Needs Co-ordinators) (England) (Amendment) Regulations 2009 (SI 2009/1387) and to replace them with regulations that leave more responsibility with schools and headteachers.</p>
+    <p class="indent" pid="a.1316.1/3" pwmotiontext="unrecognized">
+      <I>Relevant document: 22nd Report from the Merits Committee</I>
+      <I>.</I>
+    </p>
+  </speech>
+  <major-heading colnum="1323" id="uk.org.publicwhip/lords/2009-10-29a.1323.0" nospeaker="true" time="014:00:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0009.htm#09102929000696">
+	Health: Medicines
+	 &#8212; 
+	<i>Question for Short Debate</i></major-heading>
+  <speech colnum="1323" id="uk.org.publicwhip/lords/2009-10-29a.1323.1" nospeaker="true" time="014:00:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0009.htm">
+    <p class="italic" pid="a.1323.1/1" pwmotiontext="unrecognized"> Tabled By Earl Howe</p>
+    <p class="indent" pid="a.1323.1/2" pwmotiontext="unrecognized">To ask Her Majesty's Government what steps they are taking regarding the consistency of decision-making processes between primary care trusts in determining the off-label use of medicines in near-label conditions.</p>
+  </speech>
+  <speech colnum="1328" id="uk.org.publicwhip/lords/2009-10-29a.1328.1" nospeaker="true" time="014:34:00" url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029-0010.htm#09102929000250">
+    <p class="italic" pid="a.1328.1/1" pwmotiontext="adjourned">House adjourned at 2.45 pm.</p>
+  </speech>
+</publicwhip>

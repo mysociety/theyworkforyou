@@ -1,0 +1,27 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $vhosts_file = '/data/servers/vhosts.pl';
+
+require $vhosts_file;
+
+our ($vhosts, $sites);
+
+if ($#ARGV != 0) {
+    print STDERR "Usage: create-tables-for-vhost <VHOST>\n";
+    print STDERR "e.g. create-tables-for-vhost theyworkforyou.sandbox\n";
+    exit;
+}
+
+my $vhost = $ARGV[0];
+my $vhost_conf = $vhosts->{$vhost};
+die "The vhost '$vhost' was not found in $vhosts_file" unless $vhost_conf;
+
+my $email_hash_ref = $vhost_conf->{'email'};
+
+foreach my $k (keys %$email_hash_ref) {
+   my $script = $email_hash_ref->{$k};
+   print "$k: $script\n";
+}
+

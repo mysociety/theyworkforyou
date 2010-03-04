@@ -1,0 +1,1290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE publicwhip [
+
+<!ENTITY pound   "&#163;">
+<!ENTITY euro    "&#8364;">
+
+<!ENTITY agrave  "&#224;">
+<!ENTITY aacute  "&#225;">
+<!ENTITY egrave  "&#232;">
+<!ENTITY eacute  "&#233;">
+<!ENTITY ecirc   "&#234;">
+<!ENTITY iacute  "&#237;">
+<!ENTITY ograve  "&#242;">
+<!ENTITY oacute  "&#243;">
+<!ENTITY uacute  "&#250;">
+<!ENTITY Aacute  "&#193;">
+<!ENTITY Eacute  "&#201;">
+<!ENTITY Iacute  "&#205;">
+<!ENTITY Oacute  "&#211;">
+<!ENTITY Uacute  "&#218;">
+<!ENTITY Uuml    "&#220;">
+<!ENTITY auml    "&#228;">
+<!ENTITY euml    "&#235;">
+<!ENTITY iuml    "&#239;">
+<!ENTITY ouml    "&#246;">
+<!ENTITY uuml    "&#252;">
+<!ENTITY fnof    "&#402;">
+<!ENTITY aelig   "&#230;">
+<!ENTITY dagger  "&#8224;">
+<!ENTITY reg     "&#174;">
+<!ENTITY nbsp    "&#160;">
+<!ENTITY shy     "&#173;">
+<!ENTITY deg     "&#176;">
+<!ENTITY middot  "&#183;">
+<!ENTITY ordm    "&#186;">
+<!ENTITY ndash   "&#8211;">
+<!ENTITY mdash   "&#8212;">
+<!ENTITY lsquo   "&#8216;">
+<!ENTITY rsquo   "&#8217;">
+<!ENTITY ldquo   "&#8220;">
+<!ENTITY rdquo   "&#8221;">
+<!ENTITY hellip  "&#8230;">
+<!ENTITY bull    "&#8226;">
+
+<!ENTITY acirc   "&#226;">
+<!ENTITY Agrave  "&#192;">
+<!ENTITY Aring   "&#197;">
+<!ENTITY aring   "&#229;">
+<!ENTITY atilde  "&#227;">
+<!ENTITY Ccedil  "&#199;">
+<!ENTITY ccedil  "&#231;">
+<!ENTITY Egrave  "&#200;">
+<!ENTITY Icirc   "&#206;">
+<!ENTITY icirc   "&#238;">
+<!ENTITY Igrave  "&#204;">
+<!ENTITY igrave  "&#236;">
+<!ENTITY ntilde  "&#241;">
+<!ENTITY ocirc   "&#244;">
+<!ENTITY oelig   "&#339;">
+<!ENTITY Ograve  "&#210;">
+<!ENTITY Oslash  "&#216;">
+<!ENTITY oslash  "&#248;">
+<!ENTITY Scaron  "&#352;">
+<!ENTITY scaron  "&#353;">
+<!ENTITY sup1    "&#185;">
+<!ENTITY sup2    "&#178;">
+<!ENTITY sup3    "&#179;">
+<!ENTITY ugrave  "&#249;">
+<!ENTITY ucirc   "&#251;">
+<!ENTITY Ugrave  "&#217;">
+<!ENTITY yacute  "&#253;">
+<!ENTITY frac12  "&#189;">
+<!ENTITY micro   "&#181;">
+<!ENTITY sbquo   "&#8218;">
+<!ENTITY trade   "&#8482;">
+<!ENTITY Dagger  "&#8225;">
+<!ENTITY radic   "&#8730;">
+]>
+
+<publicwhip>
+
+<source url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm"/>
+
+<major-heading id="uk.org.publicwhip/spwa/2009-10-30.0.mh" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm">Written Answers Friday 30 October 2009</major-heading>
+
+<major-heading id="uk.org.publicwhip/spwa/2009-10-30.1.mh" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm">Scottish Executive</major-heading>
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28117.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">Bridges</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28117.q0" speakerid="uk.org.publicwhip/member/80394" speakername="David Stewart (Highlands and Islands) (Lab)" spid="S3W-28117" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>To ask the Scottish Executive what the terms of reference are for the Scotland Transerv report regarding congestion on the Kessock Bridge.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28117.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>The brief for the report is to find the most appropriate design solution that creates sufficient reserve capacity at Longman roundabout to reduce the morning and afternoon peak hour traffic queuing.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28118.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">Bridges</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28118.q0" speakerid="uk.org.publicwhip/member/80394" speakername="David Stewart (Highlands and Islands) (Lab)" spid="S3W-28118" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>To ask the Scottish Executive whether provisional financial resources have been set aside to take account of any work identified in the Scotland Transerv report regarding congestion on the Kessock Bridge.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28118.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>Any measures identified in the Longman roundabout capacity improvement study will be costed and prioritised with other minor improvement schemes across the trunk road network.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28119.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">Bridges</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28119.q0" speakerid="uk.org.publicwhip/member/80394" speakername="David Stewart (Highlands and Islands) (Lab)" spid="S3W-28119" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>To ask the Scottish Executive whether it plans to resurface the Kessock Bridge before 2012 and, if so, when it will appoint the contractor; when the work will start; when the work will conclude, and whether it anticipates that the work will involve the closure of one or two lanes on the bridge for north and southbound traffic.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28119.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>Resurfacing works are planned to start in March 2011 at the earliest, however this depends on a number of technical and financial factors. The works will require phased closure of one of the two carriageways of the bridge throughout the contract, with one traffic lane open in each direction on the opposite carriageway.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28120.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">Bridges</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28120.q0" speakerid="uk.org.publicwhip/member/80394" speakername="David Stewart (Highlands and Islands) (Lab)" spid="S3W-28120" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>To ask the Scottish Executive what duration it anticipates for lane closures on the Kessock Bridge during any resurfacing work.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28120.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>It is currently anticipated that the works will require contraflow on the bridge for a period of five to six months. During the works, contraflow will initially operate on one side of the bridge and then switch to the opposite side.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28121.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">Bridges</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28121.q0" speakerid="uk.org.publicwhip/member/80394" speakername="David Stewart (Highlands and Islands) (Lab)" spid="S3W-28121" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>To ask the Scottish Executive whether a park-and-ride scheme will be put in place in North Kessock prior to any major roadworks taking place on the Kessock Bridge.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28121.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>A number of measures to reduce delays during the works, including public transport initiatives, a park-and-ride scheme, car sharing and ferries are being considered, and our operating company, Scotland TranServ, is in consultation with the Highland Council about the viability of a temporary park-and-ride scheme.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28122.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">Bridges</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28122.q0" speakerid="uk.org.publicwhip/member/80394" speakername="David Stewart (Highlands and Islands) (Lab)" spid="S3W-28122" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>To ask the Scottish Executive whether a ferry service for cars and pedestrians will be reintroduced from North Kessock to South Kessock prior to or during any major roadworks taking place on the Kessock Bridge.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28122.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>A number of measures to reduce delays during the works, including public transport initiatives, a park-and-ride scheme, car sharing and ferries are being considered. The viability of introducing a passenger ferry service is one of the measures being assessed.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28123.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">Bridges</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28123.q0" speakerid="uk.org.publicwhip/member/80394" speakername="David Stewart (Highlands and Islands) (Lab)" spid="S3W-28123" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>To ask the Scottish Executive what assessment has been made of the impact of rerouting traffic from the Kessock Bridge onto the old A9 through Clachnaharry and Beauly on congestion in Inverness and the communities along the old A9 route.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28123.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>During the resurfacing works, traffic flow will be restricted to one lane in each direction on the Kessock Bridge. Traffic modelling exercises have been carried out to assess the impact of the works on both the trunk road and local roads network. Workshops have also been held with the Highland Council to review the impact on the local roads network. Traffic will not be signed to follow the old A9 (A862), however some traffic is expected to divert along this route.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28124.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">Bridges</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28124.q0" speakerid="uk.org.publicwhip/member/80394" speakername="David Stewart (Highlands and Islands) (Lab)" spid="S3W-28124" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>To ask the Scottish Executive what provision has been made for access to the Kessock Bridge for emergency services during any period of resurfacing.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28124.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>Initial consultation has been carried out with the emergency services, including the police, ambulance and fire services and RNLI, and all will be consulted extensively during the scheme design process. Provision will be made to allow access through the works for emergency services at all times.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28125.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">Bridges</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28125.q0" speakerid="uk.org.publicwhip/member/80394" speakername="David Stewart (Highlands and Islands) (Lab)" spid="S3W-28125" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>To ask the Scottish Executive whether any resurfacing of the Kessock Bridge will be programmed to take place during a summer period.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28125.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#1">
+
+  <p>Yes. The resurfacing work cannot take place during the winter. The bridge is very exposed and some of the operations required, including bridge deck waterproofing and surfacing, cannot be carried out at low temperatures, in wet conditions or during high winds. It is therefore necessary to carry out the work between March and October to minimise the probability of excessive weather delays. Consultation on mitigation measures to reduce disruption is already underway with the Highland Council and other stakeholders.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28070.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#2">Credit Unions</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28070.q0" speakerid="uk.org.publicwhip/member/80360" speakername="Stuart McMillan (West of Scotland) (SNP)" spid="S3W-28070" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#2">
+
+  <p>To ask the Scottish Executive what it is doing to support credit unions that are allegedly paying &pound;1,500 a year in interest as a result of the bail-out of financial institutions.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28070.r0" speakerid="uk.org.publicwhip/member/80397" speakername="John Swinney" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#2">
+
+  <p>The Financial Services Compensation Scheme (FSCS) is the UK&rsquo;s statutory fund of last resort for customers of financial services firms, banks and building societies, and credit unions. The FSCS is an independent body, set up under the Financial Services and Markets Act 2000. If a financial services firm is unable, or likely to be unable, to pay claims against it, the FSCS can pay compensation to consumers. This means that credit unions enjoy exactly the same protection as banks and building societies.</p>
+
+  <p>In order to benefit from the &quot;safety net&quot; provided by the FSCS, all financial services firms and credit unions must pay a levy. There is a limit to the amount that FSCS can levy and it is proportionate to the size and nature of the individual financial institution or credit union.</p>
+
+  <p>Credit unions have an important role to play in addressing financial exclusion. Without the protection offered by the FSCS, should a credit union fail, its members would suffer disproportionately from the loss of their savings.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28196.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#3">Employment</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28196.q0" speakerid="uk.org.publicwhip/member/80290" speakername="Gavin Brown (Lothians) (Con)" spid="S3W-28196" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#3">
+
+  <p>To ask the Scottish Executive what percentage of people registered unemployed were aged (a) 16 to 24, (b) 25 to 34, (c) 35 to 44, (d) 45 to 54 and (e) over 55 in each of the last five years, broken down by parliamentary constituency.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28196.r0" speakerid="uk.org.publicwhip/member/80397" speakername="John Swinney" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#3">
+
+  <p>The official source for statistics on people who are registered unemployed is the claimant count, which details the number of people who are claiming Jobseeker&rsquo;s Allowance. I have placed tables in the Scottish Parliament Information Centre (Bib. number 49478) showing, for each parliamentary constituency, what percentage of people in the claimant count were aged (a) 16 to 24, (b) 25 to 34, (c) 35 to 44, (d) 45 to 54 and (e) over 55 for the periods October 2004 to September 2005 to October 2008 to September 2009.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28290.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#4">Energy Efficiency</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28290.q0" speakerid="uk.org.publicwhip/member/80332" speakername="Cathy Jamieson (Carrick, Cumnock and Doon Valley) (Lab)" spid="S3W-28290" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#4">
+
+  <p>To ask the Scottish Executive what discussions it has had with utility companies regarding increasing the provision of thermal insulation in domestic homes.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28290.r0" speakerid="uk.org.publicwhip/member/80347" speakername="Jim Mather" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#4">
+
+  <p>The Scottish Government is working closely with energy utilities through our Carbon Emissions Reduction Target (CERT) Strategy steering group to boost investment in thermal insulation in Scottish homes. In offering their support for our <em>Securing Our Share: A CERT Strategy for Scotland,</em> energy utilities are committed to maximising their CERT offerings in Scotland.</p>
+
+  <p>More specifically, the Scottish Government is driving greater CERT uptake through our partnerships and regular meetings with the energy utilities in providing CERT funded home insulation through the Home Insulation Scheme and Energy Assistance Package.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28107.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#5">Enterprise</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28107.q0" speakerid="uk.org.publicwhip/member/80342" speakername="Lewis Macdonald (Aberdeen Central) (Lab)" spid="S3W-28107" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#5">
+
+  <p>To ask the Scottish Executive, further to the answer to question S3W-27617 by Jim Mather on 6 October 2009, how many responses it received to the public consultation on the draft guidelines for the Saltire Prize.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28107.r0" speakerid="uk.org.publicwhip/member/80347" speakername="Jim Mather" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#5">
+
+  <p>There were 21 responses to the public consultation on the draft guidelines for the Saltire Prize.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28108.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#5">Enterprise</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28108.q0" speakerid="uk.org.publicwhip/member/80342" speakername="Lewis Macdonald (Aberdeen Central) (Lab)" spid="S3W-28108" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#5">
+
+  <p>To ask the Scottish Executive, further to the answer to question S3W-27616 by Jim Mather on 6 October 2009, whether it will publish details of the registrations of interest for the Saltire Prize competition and, if so, when.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28108.r0" speakerid="uk.org.publicwhip/member/80347" speakername="Jim Mather" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#5">
+
+  <p>As no agreement has been made with Saltire Prize Registrants to release information, the Scottish Government will not be publishing details of the registrations of interest received for the Saltire Prize. There could be potential to breach commercial confidentiality. However, details of the teams that make formal applications to participate in the competition will be published on the Saltire Prize website. Application packs for entry will be finalised by the end of 2009.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28065.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#6">Ferry Services</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28065.q0" speakerid="uk.org.publicwhip/member/80350" speakername="Liam McArthur (Orkney) (LD)" spid="S3W-28065" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#6">
+
+  <p>To ask the Scottish Executive, further to the answer to question S3W-27342 by Stewart Stevenson on 2 October 2009, whether it will list the combined weight of freight and freight vehicles or trailers carried and the metres of deck space allocated to them on each route operated by (a) Calmac Ferries Limited, (b) Cowal Ferries Limited and (c) NorthLink Ferries Limited in each of the last 10 years for which records are available.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28065.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#6">
+
+  <p>Further to the answer to question S3W-27342 on 2 October 2009, only part of the information requested is available. Although each company monitors the overall weight of freight vehicles and trailers for loading and space allocation purposes, this data is not retained for record keeping purposes. However, deck space data is available showing the lane meterage used by commercial vehicles on the Gourock-Dunoon route (as currently operated by Cowal Ferries Ltd), on the Clyde and Hebrides ferry network (as currently operated by CalMac Ferries Ltd) and on the Northern Isles ferry network (as currently operated by NorthLink Ferries Ltd). Please note that we do not hold comparable data for the Northern Isles prior to 2003.</p>
+
+  <p>The carrying statistics are available from the Scottish Parliament&rsquo;s Information Centre (Bib. number 49477).</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28077.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#7">Health</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28077.q0" speakerid="uk.org.publicwhip/member/80283" speakername="Jackie Baillie (Dumbarton) (Lab)" spid="S3W-28077" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#7">
+
+  <p>To ask the Scottish Executive what experts have been appointed to assist the Vale of Leven Hospital Inquiry.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28077.r0" speakerid="uk.org.publicwhip/member/80396" speakername="Nicola Sturgeon" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#7">
+
+  <p>The inquiry Chairman, Lord MacLean, has not yet decided which witnesses, expert or otherwise, will be called upon to assist the inquiry. Lord MacLean has, however, appointed two assessors as identified on the inquiry&rsquo;s website <a href="http://www.valeoflevenhospitalinquiry.org" target="_blank">www.valeoflevenhospitalinquiry.org</a> .</p>
+
+  <p>Dr Geoff Ridgway OBE is a retired consultant in Clinical Microbiology at University College London Hospitals. His career encompassed the diagnosis and management of infectious diseases, with a special interest in genitor-urinary bacterial infections. Other research interests included hospital infection control and sterilization and disinfection technology.</p>
+
+  <p>Mrs Mary Waddell OBE recently retired as Director of Nursing, eastern board, Northern Ireland. Mrs Waddell has held positions of Nursing Officer, Clinical Nurse Teacher and Director of Nursing at the Mater Hospital, Belfast prior to her appointment as Director of Nursing at the eastern health and social services board in April 1990, until her retirement in May 2009.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28092.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#8">Housing</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28092.q0" speakerid="uk.org.publicwhip/member/80290" speakername="Gavin Brown (Lothians) (Con)" spid="S3W-28092" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#8">
+
+  <p>To ask the Scottish Executive what the level of funding was in (a) 1999-00, (b) 2000-01, (c) 2001-02, (d) 2002-03, (e) 2003-04, (f) 2004-05, (g) 2005-06, (h) 2006-07 and (i) 2007-08 for affordable housing projects in the Lothians region, broken down by local authority area.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28092.r0" speakerid="uk.org.publicwhip/member/80370" speakername="Alex Neil" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#8">
+
+  <p>The level of Affordable Housing Investment Programme funding spent on affordable housing projects in the Lothians region, broken down by local authority area for the years identified, is as indicated in the following tables. The figures contained in the tables are actual expenditure and will differ from the funding allocated at the commencement of each individual financial year.</p>
+
+  <p>Since 2005, the Scottish Government has, in addition to the figures shown, provided funding through the demand-led Low-Cost Initiative for First-Time Buyers (LIFT) scheme for both Open Market and New Supply Shared Equity purchases.</p>
+
+  <p><table width="100%" border="BORDER" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="25%" align="center" valign="bottom">(&pound; Million)</td>
+<td width="18%" align="center" valign="bottom">1999-2000</td>
+<td width="14%" align="center" valign="bottom">2000-01</td>
+<td width="14%" align="center" valign="bottom">2001-02</td>
+<td width="14%" align="center" valign="bottom">2002-03</td>
+<td width="14%" align="center" valign="bottom">2003-04</td>
+</tr>
+<tr>
+<td width="25%" valign="top">East Lothian</td>
+<td width="18%" align="right" valign="top">1.618</td>
+<td width="14%" align="right" valign="top">0.953</td>
+<td width="14%" align="right" valign="top">0.714</td>
+<td width="14%" align="right" valign="bottom">1.167</td>
+<td width="14%" align="right" valign="bottom">1.759</td>
+</tr>
+<tr>
+<td width="25%" valign="top">Midlothian</td>
+<td width="18%" align="right" valign="top">0.529</td>
+<td width="14%" align="right" valign="top">0.676</td>
+<td width="14%" align="right" valign="top">0.942</td>
+<td width="14%" align="right" valign="bottom">1.601</td>
+<td width="14%" align="right" valign="bottom">0.841</td>
+</tr>
+<tr>
+<td width="25%" valign="top">West Lothian</td>
+<td width="18%" align="right" valign="top">3.652</td>
+<td width="14%" align="right" valign="top">3.634</td>
+<td width="14%" align="right" valign="top">2.377</td>
+<td width="14%" align="right" valign="bottom">2.805</td>
+<td width="14%" align="right" valign="bottom">6.123</td>
+</tr>
+<tr>
+<td width="25%" valign="top">City of Edinburgh</td>
+<td width="18%" align="right" valign="top">18.156</td>
+<td width="14%" align="right" valign="top">17.480</td>
+<td width="14%" align="right" valign="top">14.026</td>
+<td width="14%" align="right" valign="top">15.476</td>
+<td width="14%" align="right" valign="top">17.463</td>
+</tr>
+<tr>
+<td width="25%" valign="top">Total</td>
+<td width="18%" align="right" valign="top">23.955</td>
+<td width="14%" align="right" valign="top">22.743</td>
+<td width="14%" align="right" valign="top">18.059</td>
+<td width="14%" align="right" valign="top">21.049</td>
+<td width="14%" align="right" valign="top">26.186</td>
+</tr>
+</table></p>
+
+  <p><table width="100%" border="BORDER" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="25%" align="center" valign="bottom">(&pound; Million)</td>
+<td width="18%" align="center" valign="bottom">2004-05</td>
+<td width="15%" align="center" valign="bottom">2005-06</td>
+<td width="14%" align="center" valign="bottom">2006-07</td>
+<td width="28%" align="center" valign="bottom">2007-08</td>
+</tr>
+<tr>
+<td width="25%" valign="top">East Lothian</td>
+<td width="18%" align="right" valign="bottom">1.883</td>
+<td width="15%" align="right" valign="bottom">3.198</td>
+<td width="14%" align="right" valign="bottom">4.440</td>
+<td width="28%" align="right" valign="bottom">4.836</td>
+</tr>
+<tr>
+<td width="25%" valign="top">Midlothian</td>
+<td width="18%" align="right" valign="bottom">0.896</td>
+<td width="15%" align="right" valign="bottom">4.925</td>
+<td width="14%" align="right" valign="bottom">2.786</td>
+<td width="28%" align="right" valign="bottom">6.568</td>
+</tr>
+<tr>
+<td width="25%" valign="top">West Lothian</td>
+<td width="18%" align="right" valign="bottom">7.882</td>
+<td width="15%" align="right" valign="bottom">6.148</td>
+<td width="14%" align="right" valign="bottom">10.706</td>
+<td width="28%" align="right" valign="bottom">4.413</td>
+</tr>
+<tr>
+<td width="25%" valign="top">City of Edinburgh</td>
+<td width="18%" align="right" valign="top">17.860</td>
+<td width="15%" align="right" valign="top">34.801</td>
+<td width="14%" align="right" valign="top">39.206</td>
+<td width="28%" align="right" valign="top">38.601</td>
+</tr>
+<tr>
+<td width="25%" valign="top">Total</td>
+<td width="18%" align="right" valign="top">28.521</td>
+<td width="15%" align="right" valign="top">49.072</td>
+<td width="14%" align="right" valign="top">57.138</td>
+<td width="28%" align="right" valign="top">54.418</td>
+</tr>
+</table></p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28383.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#9">Land</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28383.q0" speakerid="uk.org.publicwhip/member/80294" speakername="Aileen Campbell (South of Scotland) (SNP)" spid="S3W-28383" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#9">
+
+  <p>To ask the Scottish Executive what authorities have responsibility for maintaining records of common land.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28383.r0" speakerid="uk.org.publicwhip/member/80397" speakername="John Swinney" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#9">
+
+  <p>The information requested is not held centrally. All moveable and heritable common good assets which are the property of the local authority are accountable within the audited accounts of each local authority. Local authority accounts are subject to annual audits by Audit Scotland and these are accessible by law to any member of the public.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28384.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#9">Land</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28384.q0" speakerid="uk.org.publicwhip/member/80294" speakername="Aileen Campbell (South of Scotland) (SNP)" spid="S3W-28384" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#9">
+
+  <p>To ask the Scottish Executive what support is available to help local communities identify and develop areas of common land.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28384.r0" speakerid="uk.org.publicwhip/member/80397" speakername="John Swinney" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#9">
+
+  <p>Common good land and assets are the responsibility of local authorities and it is up to them how to involve local communities in the management of these areas.</p>
+
+  <p>There is a statutory duty on councils to have regard to the interests of the area in which the common good formerly related. Under the principles of best value they are also required to demonstrate responsiveness to the needs of communities. How these obligations are fulfilled is a matter for local authorities to decide.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28385.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#9">Land</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28385.q0" speakerid="uk.org.publicwhip/member/80294" speakername="Aileen Campbell (South of Scotland) (SNP)" spid="S3W-28385" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#9">
+
+  <p>To ask the Scottish Executive what rights and responsibilities are attached to common land.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28385.r0" speakerid="uk.org.publicwhip/member/80397" speakername="John Swinney" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#9">
+
+  <p>The Local Government (Scotland) Act 1973 makes it clear that local authorities are the stewards of common good land and assets. Most common good assets are held in perpetuity meaning they cannot be disposed of. In many cases a specific deed of trust, or conditions of bequest, will exist for land or assets, and if so, then a council is bound by them.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-27964.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#10">School Transport</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-27964.q0" speakerid="uk.org.publicwhip/member/80363" speakername="Des McNulty (Clydebank and Milngavie) (Lab)" spid="S3W-27964" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#10">
+
+  <p>To ask the Scottish Executive, further to the answer to question S3W-25448 by Stewart Stevenson on 6 August 2009, whether it is concerned that school travel co-ordinator posts are decreasing and that the number of schools that each co-ordinator is responsible for is increasing.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-27964.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#10">
+
+  <p>As I said in my previous answer, it is entirely for each local authority to set its own priorities, allocate funding and deliver active travel outcomes as agreed in their single outcome agreements.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-27965.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#10">School Transport</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-27965.q0" speakerid="uk.org.publicwhip/member/80363" speakername="Des McNulty (Clydebank and Milngavie) (Lab)" spid="S3W-27965" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#10">
+
+  <p>To ask the Scottish Executive what it is doing to ensure that local authorities employ measures to encourage active travel to and from school, such as school travel co-ordinators.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-27965.r0" speakerid="uk.org.publicwhip/member/80393" speakername="Stewart Stevenson" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#10">
+
+  <p>The ring-fenced grant for school travel co-ordinator posts was rolled up into the local authority grant settlement in 2008-09.</p>
+
+  <p>The Scottish Government continues to provide local authorities with &pound;9.09 million per year for Cycling, Walking and Safer Streets projects which they can supplement if they wish to. Also, this year we will provide &pound;3.165 million to Sustrans and Cycling Scotland to deliver projects that will, for example, provide cycle racks and promote cycle training in schools, and other resources that tackle the school run, such as Walk to School Week material.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-27951.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#11">Schools</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-27951.q0" speakerid="uk.org.publicwhip/member/80327" speakername="Hugh Henry (Paisley South) (Lab)" spid="S3W-27951" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#11">
+
+  <p>To ask the Scottish Executive, further to the answer to the first supplementary to question S3F-1930 by Nicola Sturgeon on 1 October 2009 ( <em>Official Report</em> c. 20201), whether it will list the 150 school projects that have been completed since the current administration took office.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-27951.r0" speakerid="uk.org.publicwhip/member/80289" speakername="Keith Brown" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#11">
+
+  <p>The 152 school rebuilding or refurbishment projects which were completed between May 2007 and December 2008 are as follows:</p>
+
+  <p><table width="100%" border="BORDER" cellpadding="2" cellspacing="0" bordercolor="#CCCCCC">
+<tr>
+<td width="24%" align="center" valign="top">Local Authority</td>
+<td width="43%" align="center" valign="top">School</td>
+<td width="33%" align="center" valign="top">Date Opened or Completed</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="4">Aberdeenshire</td>
+<td width="43%" valign="bottom">Auchnagatt Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Balmedie Primary</td>
+<td width="33%" valign="bottom">June 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Kemnay Academy</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Kinnelar Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="7">Angus</td>
+<td width="43%" valign="bottom">Burnside Primary</td>
+<td width="33%" valign="bottom">February 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Newtyle Primary</td>
+<td width="33%" valign="bottom">February 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Strathmore Primary</td>
+<td width="33%" valign="bottom">January 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Whitehills Primary</td>
+<td width="33%" valign="bottom">February 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Woodlands Primary</td>
+<td width="33%" valign="bottom">November 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Carlogie Primary </td>
+<td width="33%" valign="bottom">December 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Inverbrothock Primary</td>
+<td width="33%" valign="bottom">July 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="9">Argyll and Bute</td>
+<td width="43%" valign="bottom">Dunoon Grammar</td>
+<td width="33%" valign="bottom">September 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Gigha Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Hermitage Academy</td>
+<td width="33%" valign="bottom">September 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Drummore Learning Centre</td>
+<td width="33%" valign="bottom">September 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Whitegates Learning Centre</td>
+<td width="33%" valign="bottom">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Lochgilphead Primary</td>
+<td width="33%" valign="bottom">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Lochgilphead High</td>
+<td width="33%" valign="bottom">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Rockfield Primary</td>
+<td width="33%" valign="bottom">September 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Columba&rsquo;s Primary</td>
+<td width="33%" valign="bottom">September 2007</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="5">Dundee City</td>
+<td width="43%" valign="bottom">Claypotts Castle Primary</td>
+<td width="33%" valign="bottom">May 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Craigowl Primary</td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Grove Academy</td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Downfield Primary</td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Andrew&rsquo;s RC Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="9">East Ayrshire</td>
+<td width="43%" valign="bottom">Dunlop Primary</td>
+<td width="33%" valign="bottom">December 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Mauchline Primary</td>
+<td width="33%" valign="bottom">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Shortlees Primary</td>
+<td width="33%" valign="bottom">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Annanhill Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Galston Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Grange Academy</td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Park School (Special)</td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Andrew&rsquo;s Primary </td>
+<td width="33%" valign="bottom">April 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Joseph&rsquo;s Academy</td>
+<td width="33%" valign="bottom">April 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="4">East Lothian</td>
+<td width="43%" valign="bottom">Longniddry Primary</td>
+<td width="33%" valign="bottom">June 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Prestonpans Primary</td>
+<td width="33%" valign="bottom">June 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Ross High ASN Unit</td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Sanderson&rsquo;s Wynd Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="8">Edinburgh, City </td>
+<td width="43%" valign="bottom">Canal View Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Currie Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Gorgie Mills (Special)</td>
+<td width="33%" valign="bottom">February 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Pentland Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Bonaly Primary </td>
+<td width="33%" valign="bottom">November 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Niddrie Mill Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Francis Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Woodlands School (Special)</td>
+<td width="33%" valign="bottom">June 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="2">Falkirk</td>
+<td width="43%" valign="bottom">Maddiston Primary </td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Wallacestone Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="6">Fife</td>
+<td width="43%" valign="bottom">Buckhaven High</td>
+<td width="33%" valign="bottom">September 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Duloch Park Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Greyfriars Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Lochgelly High</td>
+<td width="33%" valign="bottom">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Andrew&rsquo;s High</td>
+<td width="33%" valign="bottom">December 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Woodmill High</td>
+<td width="33%" valign="bottom">January 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="7">Glasgow City</td>
+<td width="43%" valign="bottom">John Paul II Primary</td>
+<td width="33%" valign="bottom">June 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Ashpark Primary </td>
+<td width="33%" valign="bottom">December 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Oakwood Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Our Lady of Peace Primary </td>
+<td width="33%" valign="bottom">May 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Bernard&rsquo;s Primary </td>
+<td width="33%" valign="bottom">November 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Constantine&rsquo;s Primary RC</td>
+<td width="33%" valign="bottom">November 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Fillan&rsquo;s Primary </td>
+<td width="33%" valign="bottom">April 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="10">Highland</td>
+<td width="43%" valign="bottom">Bunsgoil Ghaidhlig Inbhir Nis Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Cawdor Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Inshes Primary </td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Raasay Primary</td>
+<td width="33%" valign="bottom">January 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Dingwall Academy</td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Drummond School (Special)</td>
+<td width="33%" valign="bottom">May 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Kinlochleven High </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Kinlochleven Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Millburn Academy</td>
+<td width="33%" valign="bottom">November 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Portree High </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="3">Inverclyde</td>
+<td width="43%" valign="bottom">Inverkip Primary</td>
+<td width="33%" valign="bottom">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Newark Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Wemyss Bay Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="8">Midlothian</td>
+<td width="43%" valign="bottom">Gorebridge Primary</td>
+<td width="33%" valign="bottom">July 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Lawfield Primary</td>
+<td width="33%" valign="bottom">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Loanhead Primary</td>
+<td width="33%" valign="bottom">July 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Moorfoot Primary</td>
+<td width="33%" valign="bottom">July 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Margaret&rsquo;s Primary</td>
+<td width="33%" valign="bottom">July 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Stobhill Primary</td>
+<td width="33%" valign="bottom">July 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Strathesk Primary</td>
+<td width="33%" valign="bottom">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Tynewater Primary</td>
+<td width="33%" valign="bottom">July 2007</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="6">North Ayrshire</td>
+<td width="43%" valign="bottom">Ardrossan Academy</td>
+<td width="33%" valign="bottom">June 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Irvine Royal Academy</td>
+<td width="33%" valign="bottom">June 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Stanley Primary</td>
+<td width="33%" valign="bottom">September 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Matthew&rsquo;s High</td>
+<td width="33%" valign="top">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Greenwood Academy</td>
+<td width="33%" valign="top">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Arran High</td>
+<td width="33%" valign="top">January 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="12">North Lanarkshire</td>
+<td width="43%" valign="bottom">Bargeddie Primary</td>
+<td width="33%" valign="bottom">December 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Cambusnethan Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Eastfield Primary</td>
+<td width="33%" valign="bottom">November 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Our Lady&rsquo;s High, Cumbernauld</td>
+<td width="33%" valign="bottom">October 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Ignatius&rsquo; Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Kevin&rsquo;s Primary</td>
+<td width="33%" valign="bottom">December 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Patrick&rsquo;s Primary, Kilsyth</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Stepps Primary</td>
+<td width="33%" valign="bottom">November 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Wishaw Academy</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Clarkston Primary </td>
+<td width="33%" valign="bottom">October 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Coatbridge High </td>
+<td width="33%" valign="bottom">October 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Aidan&rsquo;s High </td>
+<td width="33%" valign="bottom">June 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="2">Perth and Kinross</td>
+<td width="43%" valign="bottom">Dunning Primary</td>
+<td width="33%" valign="bottom">October 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Fairview (Special)</td>
+<td width="33%" valign="bottom">April 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="9">Renfrewshire</td>
+<td width="43%" valign="bottom">Bushes Primary</td>
+<td width="33%" valign="bottom">April 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Cochrane Castle Primary</td>
+<td width="33%" valign="bottom">May 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Fordbank Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Glencoats Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Gryffe High</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Linwood High </td>
+<td width="33%" valign="bottom">January 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St David&rsquo;s Primary</td>
+<td width="33%" valign="bottom">May 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Woodlands Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Castlehead High</td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="3">Scottish Borders</td>
+<td width="43%" valign="bottom">Heriot Primary </td>
+<td width="33%" valign="bottom">November 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Priorsford Primary </td>
+<td width="33%" valign="bottom">March 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Denholm Primary</td>
+<td width="33%" valign="bottom">October 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="6">South Ayrshire</td>
+<td width="43%" valign="middle">Kyle Academy </td>
+<td width="33%" valign="bottom">February 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Alloway Primary </td>
+<td width="33%" valign="bottom">April 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Barassie Primary </td>
+<td width="33%" valign="bottom">April 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Belmont Academy</td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Monkton Primary </td>
+<td width="33%" valign="bottom">April 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Prestwick Academy</td>
+<td width="33%" valign="bottom">October 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="20">South Lanarkshire</td>
+<td width="43%" valign="bottom">Calderglen High</td>
+<td width="33%" valign="bottom">February 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Calderside Academy</td>
+<td width="33%" valign="bottom">January 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Carluke Primary</td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Carluke High </td>
+<td width="33%" valign="bottom">November 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Crosshouse Primary</td>
+<td width="33%" valign="bottom">January 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Duncanrig Secondary </td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Hareleeshill Primary</td>
+<td width="33%" valign="bottom">November 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Holy Cross High </td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Lesmahagow High </td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Sanderson High (Special)</td>
+<td width="33%" valign="bottom">February 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Andrew&rsquo;s and St Bride&rsquo;s High </td>
+<td width="33%" valign="bottom">August 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St John&rsquo;s Primary, Hamilton</td>
+<td width="33%" valign="bottom">January 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Wester Overton Primary</td>
+<td width="33%" valign="bottom">February 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Blacklaw Primary </td>
+<td width="33%" valign="bottom">May 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Cathkin High </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Craigbank Primary </td>
+<td width="33%" valign="bottom">May 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">John Ogilvie High </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Our Lady and St Anne&rsquo;s Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Rutherglen High (Special)</td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Blane&rsquo;s Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="top" rowspan="11">Stirling</td>
+<td width="43%" valign="bottom">Castleview School (Special)</td>
+<td width="33%" valign="bottom">January 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Dunblane High</td>
+<td width="33%" valign="bottom">November 2007</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Raploch Primary</td>
+<td width="33%" valign="bottom">January 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Our Lady&rsquo;s Primary</td>
+<td width="33%" valign="bottom">January 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Stirling High</td>
+<td width="33%" valign="bottom">February 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Aberfoyle Primary </td>
+<td width="33%" valign="bottom">October 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Braehead Primary </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Bridge of Allan Primary</td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">McLaren High </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">St Modan&rsquo;s High </td>
+<td width="33%" valign="bottom">August 2008</td>
+</tr>
+<tr>
+<td width="43%" valign="bottom">Wallace High</td>
+<td width="33%" valign="bottom">February 2008</td>
+</tr>
+<tr>
+<td width="24%" valign="bottom">West Lothian</td>
+<td width="43%" valign="middle">Linlithgow Academy</td>
+<td width="33%" valign="bottom">October 2008</td>
+</tr>
+</table></p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-27952.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#11">Schools</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-27952.q0" speakerid="uk.org.publicwhip/member/80327" speakername="Hugh Henry (Paisley South) (Lab)" spid="S3W-27952" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#11">
+
+  <p>To ask the Scottish Executive, further to the answer to the first supplementary to question S3F-1930 by Nicola Sturgeon on 1 October 2009 ( <em>Official Report</em> c. 20201), whether it will list the further 100 school projects that will be finished by the end of the current parliamentary session.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-27952.r0" speakerid="uk.org.publicwhip/member/80289" speakername="Keith Brown" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#11">
+
+  <p>In addition to the 152 school rebuilding or refurbishment projects completed between May 2007 and December 2008, as listed in response to S3W-27951 on 30 October 2009, a further 84 projects were completed by August 2009. We expect that the cumulative total will comfortably reach 250 by the end of the current parliamentary session.</p>
+
+  <p>All answers to written parliamentary questions are available on the Parliament&rsquo;s website, the search facility for which can be found at <a href="../../../Apps2/Business/PQA/Default.aspx">http://www.scottish.parliament.uk/Apps2/Business/PQA/Default.aspx</a>.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-27977.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#11">Schools</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-27977.q0" speakerid="uk.org.publicwhip/member/80308" speakername="Patricia Ferguson (Glasgow Maryhill) (Lab)" spid="S3W-27977" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#11">
+
+  <p>To ask the Scottish Executive how many pupils in the City of Glasgow it has since May 2007 lifted out of schools that were in a poor or bad condition and how this has been achieved, broken down by school.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-27977.r0" speakerid="uk.org.publicwhip/member/80330" speakername="Fiona Hyslop" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#11">
+
+  <p>Glasgow City Council are responsible for assessing and reporting the condition of their schools. Since May 2007, the number of pupils in the City of Glasgow lifted out of schools that were in a poor or bad condition and were subsequently recorded as good or satisfactory condition in the School Estate Statistics 2009, is 3,654.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28139.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#12">Scottish Enterprise</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28139.q0" speakerid="uk.org.publicwhip/member/80404" speakername="David Whitton (Strathkelvin and Bearsden) (Lab)" spid="S3W-28139" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#12">
+
+  <p>To ask the Scottish Executive how many applicants there were for the recently filled post of chief executive of Scottish Enterprise; how many were internal candidates, and how many were from abroad.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28139.r0" speakerid="uk.org.publicwhip/member/80347" speakername="Jim Mather" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#12">
+
+  <p>Recruitment is a matter for Scottish Enterprise in line with Scottish Government&rsquo;s guidance on <em>Appointment and Remuneration of Chief Executives. </em> I have asked the Scottish Enterprise Chairman to write to you in this regard.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28140.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#12">Scottish Enterprise</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28140.q0" speakerid="uk.org.publicwhip/member/80404" speakername="David Whitton (Strathkelvin and Bearsden) (Lab)" spid="S3W-28140" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#12">
+
+  <p>To ask the Scottish Executive who decided on the details of the remuneration package for the post of chief executive of Scottish Enterprise.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28140.r0" speakerid="uk.org.publicwhip/member/80347" speakername="Jim Mather" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#12">
+
+  <p>Under the Enterprise and New Towns Act, ministers must be consulted on remuneration for the chief executive. In considering remuneration, ministers took into account the Scottish Government&rsquo;s <em>Public Sector Pay Policy for Senior Appointments,</em> together with advice from the Scottish Government&rsquo;s Remuneration Group.</p>
+
+</reply>
+
+
+<minor-heading id="uk.org.publicwhip/spwa/2009-10-30.S3W-28142.h" nospeaker="True" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#12">Scottish Enterprise</minor-heading>
+
+<ques id="uk.org.publicwhip/spwa/2009-10-30.S3W-28142.q0" speakerid="uk.org.publicwhip/member/80404" speakername="David Whitton (Strathkelvin and Bearsden) (Lab)" spid="S3W-28142" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#12">
+
+  <p>To ask the Scottish Executive whether consideration was given to reducing the salary level for the post of chief executive of Scottish Enterprise, given that the remit of the agency has changed and staff numbers reduced.</p>
+
+</ques>
+
+
+<reply id="uk.org.publicwhip/spwa/2009-10-30.S3W-28142.r0" speakerid="uk.org.publicwhip/member/80347" speakername="Jim Mather" url="http://www.scottish.parliament.uk/business/pqa/wa-09/wa1030.htm#12">
+
+  <p>The remuneration package was set at the beginning of the recruitment process by Scottish Enterprise in consultation with Scottish ministers. The package was established using the Scottish Government&rsquo;s <em>Public Sector Pay Policy for Senior Appointments</em> .</p>
+
+  <p>This was arrived at taking account of a Hay Group job size evaluation completed in October 2008. That independent, market-facing review considered the chief executive role as it is now, after the implementation of the enterprise network reforms announced in September 2007.</p>
+
+</reply>
+</publicwhip>

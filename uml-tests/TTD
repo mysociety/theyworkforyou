@@ -1,0 +1,48 @@
+Things To Do
+~~~~~~~~~~~~
+
+- Generate alert email
+
+- Show which lines are used in which test
+
+- Make the report prettier:
+    Report overall statistics at the top
+    Better CSS
+
+- Generate the test div from a method of Test
+
+- Trick CutyCapt into sending cookies
+
+- Setting up TUN/TAP IP addresses with DHCP:
+
+    This should be possible, but nothing I've tried works.  It's
+    probably a case where I need to ask advice.
+
+- Should add an option to "mysociety vhost" to allow deployment of a
+  specific version of the site.  (Update: this should now work by
+  specifying a particular ref in vhosts.pl.)
+
+- At the moment we're not using the packages files from the
+  archetypes.  I don't think that necessarily makes sense in this
+  situation.  We can't get them without access to the private CVS.
+  (The lists are actually build-dependencies, and there's no system
+  for automatically installing from them as well.  It could just do
+  apt-get build-dep.)
+
+- Shrink the image as much as possible (e.g. zerofree?)
+
+- Switch to using port-based virtual hosts, to avoid having to set
+  the hostname in /etc/hosts
+
+- Detecting when the UML machine is "up" on startup is done by making
+  requests to the web server.  However, you can leave the web server
+  in a broken state on previous run - it might be better to try
+  repeated ssh("date",user="root") invocations.
+
+- Generating the coverage reports is hacky at the moment, and
+  generates lots of files for every test.  (The rewriting of path
+  names, etc. is also rather brittle.)
+
+- Leading whitespace is lost in coverage reports
+
+- UML_SERVER_IP and GUEST_IP should be the same configuration option
