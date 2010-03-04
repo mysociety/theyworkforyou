@@ -121,6 +121,19 @@
 
 /* Register of Members' Interests Resource */ 
 
+.mysociety #rmi-full h1 {
+    font-family: georgia,serif;
+    font-size: 26px;
+    font-weight: normal;
+
+}
+
+.mysociety #rmi-full h1 span{
+    color: #999999;
+    display: block;
+}
+
+
 .mysociety #rmi-full .mysociety-footer {
     position: relative;
     padding-top: 4px;
@@ -170,6 +183,18 @@
 }
 
 /* Expenses resource */
+
+.mysociety #expenses-full h1 {
+    font-family: georgia,serif;
+    font-size: 26px;
+    font-weight: normal;
+
+}
+
+.mysociety #expenses-full h1 span{
+    color: #999999;
+    display: block;
+}
 
 .mysociety #expenses-full h2 {
     font-weight: bold;

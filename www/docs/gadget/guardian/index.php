@@ -16,7 +16,8 @@ switch ($action) {
 	# Resources
 	case 'rmi-resource':
                 $title = "Extract from the register of members' interests"; 
-                $body = "<h2>$title</h2>";
+                $body = "<h1>" . $member->full_name() . ": <span>Members' Interests</span></h1>";
+                $body .= "<h2>$title</h2>";
                 $body .= $member->extra_info['register_member_interests_html'];
 		if (isset($member->extra_info['register_member_interests_date'])) {
 		    $body .= '<div class="rmi-lastupdate">Register last updated: ';
@@ -42,8 +43,9 @@ switch ($action) {
                 $int_start_year = intval($start_year) - 2000; 
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
 		$title = "Allowances: " . $member->full_name();
-		output_resource($title, expenses_display_table($member->extra_info, $gadget=true, $int_start_year), 
-'expenses-full');
+                $body = "<h1>" . $member->full_name() . ": <span>Expenses</span></h1>";
+		$body .= expenses_display_table($member->extra_info, $gadget=true, $int_start_year);
+                output_resource($title, $body, 'expenses-full');
 		break;
 
 	# Components
@@ -124,7 +126,8 @@ function load_member($pid) {
 	return $member;
 }
 
-function output_error($str) {
+function output_error($str, $status_code = "404 Not Found") {
+        header("HTTP/1.0 $status_code");
 	echo '<error>', $str, '</error>';
 	exit;
 }
