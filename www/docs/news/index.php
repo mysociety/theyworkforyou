@@ -24,6 +24,10 @@ if (preg_match("#/(\d\d\d\d)/(\d\d)/(\d\d)/([a-z0-9_]+)(\.php)?$#", $uri, $match
 		print " | <a href=\"" . news_individual_link($date, $title) . "\">Link to this</a>";
 		break;
 	}
+	if (!$PAGE->page_started()) {
+		$PAGE->page_start();
+		$PAGE->stripe_start();
+	}
 } elseif (preg_match("#/(\d\d\d\d)/(\d\d)/?(index.php)?$#", $uri, $matches)) {
 	// Month index
 	list($all, $year, $month) = $matches;
