@@ -65,6 +65,8 @@ class MEMBER {
 		
 		global $PAGE, $this_page;
 		
+        $house = isset($args['house']) ? $args['house'] : null;
+
 		$this->db = new ParlDB;
 		$person_id = '';	
 		if (isset($args['member_id']) && is_numeric($args['member_id'])) {
@@ -73,9 +75,9 @@ class MEMBER {
 			$con = isset($args['constituency']) ? $args['constituency'] : '';
 			$person_id = $this->name_to_person_id($args['name'], $con);
 		} elseif (isset($args['constituency'])) {
-			$person_id = $this->constituency_to_person_id($args['constituency']);
+			$person_id = $this->constituency_to_person_id($args['constituency'], $house);
 		} elseif (isset($args['postcode'])) {
-			$person_id = $this->postcode_to_person_id($args['postcode']);
+			$person_id = $this->postcode_to_person_id($args['postcode'], $house);
 		} elseif (isset($args['person_id']) && is_numeric($args['person_id'])) {
 			$person_id = $args['person_id'];	
 		} elseif (isset($args['guardian_aristotle_id']) && is_numeric($args['guardian_aristotle_id'])) {
@@ -192,13 +194,13 @@ class MEMBER {
 		}	
 	}
 	
-	function postcode_to_person_id ($postcode) {
+	function postcode_to_person_id ($postcode, $house=null) {
 		twfy_debug ('MP', "postcode_to_person_id converting postcode to person");
 		$constituency = strtolower(postcode_to_constituency($postcode));
-		return $this->constituency_to_person_id($constituency);
+		return $this->constituency_to_person_id($constituency, $house);
 	}
 	
-	function constituency_to_person_id ($constituency) {
+	function constituency_to_person_id ($constituency, $house=null) {
 		global $PAGE;
 		if ($constituency == '') {
 			$PAGE->error_message("Sorry, no constituency was found.");
@@ -214,12 +216,13 @@ class MEMBER {
 
 	        $q = $this->db->query("SELECT person_id FROM member 
 					WHERE constituency = '" . mysql_real_escape_string($constituency) . "' 
-					AND left_reason = 'still_in_office'");
+					AND left_reason = 'still_in_office'" . ($house ? ' AND house='.mysql_real_escape_string($house) : ''));
 
 		if ($q->rows > 0) {
 			return $q->field(0, 'person_id');
 		} else {
-			$q = $this->db->query("SELECT person_id FROM member WHERE constituency = '".mysql_real_escape_string($constituency)."' ORDER BY left_house DESC LIMIT 1");
+			$q = $this->db->query("SELECT person_id FROM member WHERE constituency = '".mysql_real_escape_string($constituency) . "'"
+                . ($house ? ' AND house='.mysql_real_escape_string($house) : '') . ' ORDER BY left_house DESC LIMIT 1');
 			if ($q->rows > 0) {
 				return $q->field(0, 'person_id');
 			} else {
