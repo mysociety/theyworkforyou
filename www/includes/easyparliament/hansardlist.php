@@ -1514,7 +1514,8 @@ class HANSARDLIST {
 				$YEARURL->insert(array('y'=> $firstyear-1));
 				
 				$nextprev['prev'] = array (
-					'body' => $firstyear - 1,
+					'body' => 'Previous year',
+					'title' => $firstyear - 1,
 					'url' => $YEARURL->generate()				
 				);
 			
