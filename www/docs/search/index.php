@@ -322,7 +322,7 @@ function find_constituency ($args) {
         $URL = new URL('mp');
         if ($MEMBER->valid) {
             $URL->insert(array('m'=>$MEMBER->member_id()));
-            print '<h3>MP for ' . preg_replace("#$searchterm#i", '<span class="hi">$0</span>', $constituency);
+            print '<h3>MP for ' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency);
             if ($validpostcode) {
                 // Display the postcode the user searched for.
                 print ' (' . htmlentities(strtoupper($args['s'])) . ')';
@@ -342,7 +342,7 @@ function find_constituency ($args) {
                 $URL->insert(array('m'=>$MEMBER->member_id()));
             }
             print '<li><a href="'.$URL->generate().'"><strong>' . $MEMBER->full_name() .
-                '</strong></a> (' . preg_replace("#$searchterm#i", '<span class="hi">$0</span>', $constituency) .
+                '</strong></a> (' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency) .
                 ', '.$MEMBER->party().')</li>';
         }
         print '</ul>';
