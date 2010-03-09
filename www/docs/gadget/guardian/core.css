@@ -119,6 +119,10 @@
     padding-top: 5px;
 }
 
+.mysociety .mysociety-footer a {
+   
+}
+
 /* Register of Members' Interests Resource */ 
 
 .mysociety #rmi-full h1 {
@@ -147,6 +151,15 @@
     padding-top: 0;
     margin-left: 5px;
 }
+
+.mysociety #rmi-full .mysociety-footer a.mysociety-footer-image-link:focus, 
+.mysociety #rmi-full .mysociety-footer a.mysociety-footer-image-link:active {
+    background-color: #ffffff; 
+}
+
+.mysociety .mysociety-footer a:hover {
+    text-decoration: none;
+} 
 
 .mysociety #rmi-full h2 {
     font-size: 14px;

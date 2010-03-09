@@ -24,8 +24,7 @@ switch ($action) {
 		    $body .= format_date($member->extra_info['register_member_interests_date'], SHORTDATEFORMAT);
 		    $body .= '. </div>';
 	        }
-                $body .= '<div class="mysociety-footer"><span>Powered by </span><img src="http://' . DOMAIN .
-'/gadget/guardian/mysociety.gif" alt="mySociety"></div>';
+                $body .= mysociety_footer();
 		output_resource($title, $body, 'rmi-full') ;
 		break;
 	case 'voting-record-resource':
@@ -86,7 +85,7 @@ speeches from ', $member->full_name(), '</a></p>';
 		$body .= "<p class=\"more\"><a 
 href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/expenses/$member->guardian_aristotle_id}\">More 
 expenses</a></p>";
-                $body .= '<div class="mysociety-footer">Powered by <img src="http://' . DOMAIN . '/gadget/guardian/mysociety.gif" alt="mySociety"></div>';
+                $body .= mysociety_footer();
                 output_component($body, 'expenses-brief');                
 		break;
 	case 'rmi-component':
@@ -107,8 +106,7 @@ expenses</a></p>";
 href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->guardian_aristotle_id}\">Full members' 
 interests</a></p>";
 		}
-                $body .= '<div class="mysociety-footer">Powered by <img src="http://' . DOMAIN .
-'/gadget/guardian/mysociety.gif" alt="mySociety"></div>';
+                $body .= mysociety_footer();
                 output_component($body, 'rmi-brief');
 		break;
 	default:
@@ -125,6 +123,15 @@ function load_member($pid) {
 	$member->load_extra_info();
 	return $member;
 }
+
+function mysociety_footer(){
+        return '<div class="mysociety-footer"><span><a href="http://mysociety.org">Powered by 
+</a></span><a class="mysociety-footer-image-link" href="http://mysociety.org"><img src="http://' . 
+DOMAIN . 
+'/gadget/guardian/mysociety.gif" 
+alt="mySociety"></a></div>';
+}
+
 
 function output_error($str, $status_code = "404 Not Found") {
         header("HTTP/1.0 $status_code");
