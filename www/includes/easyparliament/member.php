@@ -423,12 +423,14 @@ class MEMBER {
 
 		if (array_key_exists('guardian_mp_summary', $this->extra_info)) {
 			$guardian_url = $this->extra_info['guardian_mp_summary'];
-			$this->extra_info['guardian_register_member_interests'] = 
-				str_replace("/person/", "/person/parliamentrmi/", $guardian_url);
-			$this->extra_info['guardian_biography'] = $guardian_url; # str_replace("/person/", "/person/biography/", $guardian_url);
-			$this->extra_info['guardian_howtheyvoted'] = 
-				str_replace("/person/", "/person/howtheyvoted/", $guardian_url);
+			$this->extra_info['guardian_biography'] = $guardian_url; 
 		}
+                if (array_key_exists('guardian_aristotle_id', $this->extra_info)) {
+                       $politics_base_url = 'http://politics.guardian.co.uk/person/';
+                       $aristotle_id = $this->extra_info['guardian_aristotle_id'];
+                       $this->extra_info['guardian_howtheyvoted'] =
+                                $politics_base_url . "howtheyvoted/0,,-$aristotle_id,00.html";	
+                } 
 	}
 
         if (array_key_exists('public_whip_rebellions', $this->extra_info)) {
