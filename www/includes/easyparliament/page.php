@@ -109,7 +109,7 @@ class PAGE {
 		$sitetitle = $DATA->page_metadata($this_page, "sitetitle");
 		$keywords_title = '';
 		
-		if ($this_page == 'home') {
+		if ($this_page == 'overview') {
 			$title = $sitetitle . ': ' . $DATA->page_metadata($this_page, "title");
 		
 		} else {
@@ -124,7 +124,8 @@ class PAGE {
 
 			$parent_page = $DATA->page_metadata($this_page, 'parent');
 			if ($parent_title = $DATA->page_metadata($parent_page, 'title')) {
-				$title .= ": $parent_title";
+				if ($title) $title .= ': ';
+				$title .= $parent_title;
 			}
 
 			if ($title == '') {
@@ -1146,88 +1147,6 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 	function display_member($member, $extra_info) {
 		include_once INCLUDESPATH . 'easyparliament/templates/html/person.php';
 	}
-	
-	function generate_member_links ($member, $links) {
-		// Receives its data from $MEMBER->display_links;
-		// This returns HTML, rather than outputting it.
-		// Why? Because we need this to be in the sidebar, and 
-		// we can't call the MEMBER object from the sidebar includes
-		// to get the links. So we call this function from the mp
-		// page and pass the HTML through to stripe_end(). Better than nothing.
-
-		// Bah, can't use $this->block_start() for this, as we're returning HTML...
-		$html = '<div class="block">
-				<h4>More useful links for this person</h4>
-				<div class="blockbody">
-				<ul' . (get_http_var('c4')?' style="list-style-type:none;"':''). '>';
-
-		if (isset($links['maiden_speech'])) {
-			$maiden_speech = fix_gid_from_db($links['maiden_speech']);
-			$html .= '<li><a href="' . WEBPATH . 'debate/?id=' . $maiden_speech . '">Maiden speech</a></li>';
-		}
-
-		// BIOGRAPHY.
-		global $THEUSER;
-		if (isset($links['mp_website'])) {
-			$html .= '<li><a href="' . $links['mp_website'] . '">'. $member->full_name().'\'s personal website</a>';
-			if ($THEUSER->is_able_to('viewadminsection')) {
-				$html .= ' [<a href="/admin/websites.php?editperson=' .$member->person_id() . '">Edit</a>]';
-			}
-			$html .= '</li>';
-		} elseif ($THEUSER->is_able_to('viewadminsection')) {
-			 $html .= '<li>[<a href="/admin/websites.php?editperson=' . $member->person_id() . '">Add personal website</a>]</li>';
-		}
-
-		if (isset($links['twitter_username'])) {
-			$html .= '<li><a href="http://twitter.com/' . $links['twitter_username'] . '">'. $member->full_name().'&rsquo;s Twitter feed</a></li>';
-		}
-
-		if (isset($links['sp_url'])) {
-			$html .= '<li><a href="' . $links['sp_url'] . '">'. $member->full_name().'\'s page on the Scottish Parliament website</a></li>';
-		}
-
-		if(isset($links['guardian_biography'])) {
-			$html .= '	<li><a href="' . $links['guardian_biography'] . '">Biography</a> <small>(From The Guardian)</small></li>';
-		}
-		if(isset($links['wikipedia_url'])) {
-			$html .= '	<li><a href="' . $links['wikipedia_url'] . '">Biography</a> <small>(From Wikipedia)</small></li>';
-		}
-		
-		if(isset($links['diocese_url'])) {
-			$html .= '	<li><a href="' . $links['diocese_url'] . '">Diocese website</a></li>';
-		}
-
-        $html .= '<li><a href="http://www.edms.org.uk/mps/' . $member->person_id() . '">Early Day Motions signed by this MP</a> <small>(From edms.org.uk)</small></li>';
-
-		if (isset($links['journa_list_link'])) {
-			$html .= '	<li><a href="' . $links['journa_list_link'] . '">Newspaper articles written by this MP</a> <small>(From Journalisted)</small></li>';
-
-		} 
-		
-		if (isset($links['guardian_election_results'])) {
-			$html .= '	<li><a href="' . $links['guardian_election_results'] . '">Election results for ' . $member->constituency() . '</a> <small>(From The Guardian)</small></li>';
-		}
-
-		if (isset($links['bbc_profile_url'])) {
-			$html .= '	<li><a href="' . $links['bbc_profile_url'] . '">General information</a> <small>(From BBC News)</small></li>';
-
-		} 
-		/*
-		# BBC Catalogue is offline
-		$bbc_name = urlencode($member->first_name()) . "%20" . urlencode($member->last_name());
-		if ($member->member_id() == -1)
-			$bbc_name = 'Queen Elizabeth';
-		$html .= '	<li><a href="http://catalogue.bbc.co.uk/catalogue/infax/search/' . $bbc_name . '">TV/radio appearances</a> <small>(From BBC Programme Catalogue)</small></li>';
-		*/
-
-		
-		$html .= "	</ul>
-					</div>
-				</div> <!-- end block -->
-";
-		return $html;
-	}
-	
 	
 	function error_message ($message, $fatal = false, $status = 500) {
 		// If $fatal is true, we exit the page right here.

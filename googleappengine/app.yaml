@@ -1,0 +1,17 @@
+application: theyworkforyouapi
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /remote
+  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
+  login: admin
+- url: /stats.*
+  script: $PYTHON_LIB/google/appengine/ext/appstats/ui.py
+- url: /favicon.ico
+  static_files: favicon.ico
+  upload: favicon.ico
+- url: /.*
+  script: api.py
+
