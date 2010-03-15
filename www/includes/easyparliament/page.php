@@ -109,7 +109,7 @@ class PAGE {
 		$sitetitle = $DATA->page_metadata($this_page, "sitetitle");
 		$keywords_title = '';
 		
-		if ($this_page == 'home') {
+		if ($this_page == 'overview') {
 			$title = $sitetitle . ': ' . $DATA->page_metadata($this_page, "title");
 		
 		} else {
@@ -124,7 +124,8 @@ class PAGE {
 
 			$parent_page = $DATA->page_metadata($this_page, 'parent');
 			if ($parent_title = $DATA->page_metadata($parent_page, 'title')) {
-				$title .= ": $parent_title";
+				if ($title) $title .= ': ';
+				$title .= $parent_title;
 			}
 
 			if ($title == '') {
