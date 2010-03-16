@@ -1,4 +1,4 @@
-import cgi
+import cgi, re
 from django.utils import simplejson
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
@@ -50,7 +50,10 @@ def api_output(self, data):
     """Output an API response, depending upon format. JSON done here as it's easy."""
     if self.request.get('format') == 'js':
         self.response.headers['Content-Type'] = 'text/javascript'
-        self.response.out.write(simplejson.dumps(data))
+        json = simplejson.dumps(data)
+        if re.match('[A-Za-z0-9._[\]]+$', self.request.get('callback')):
+            json = '%s(%s)' % (self.request.get('callback'), json)
+        self.response.out.write(json)
     else:
         api_output_xml(self, data)
 
