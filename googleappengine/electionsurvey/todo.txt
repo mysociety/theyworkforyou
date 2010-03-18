@@ -14,8 +14,6 @@ Ask Edmund about candidate identifiers for deleted / renamed candidates
 Do this next
 ============
 
-Make a very simple holding page, saying this is where election stuff will sit
-Use TheyWorkForYou branding and logo for it
 Check that can deploy that Django 1.1 code to GAE
 
 Set it up to work on election.theyworkforyou.com
