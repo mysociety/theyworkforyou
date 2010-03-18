@@ -24,7 +24,8 @@ Load in every candidate from YourNextMP, and add them to local data store
 Create a random token for each candidate to use to authenticate them
 Make front page say how many candidates are known about
 
-Make admin interface work, and sort out its authentication when deployed
+Make sure can see data in the admin console, and sort out its authentication
+when deployed
 
 In DemocracyClub, add very short API which sends list of refined issues
 Load in list of refined issues 
