@@ -10,6 +10,9 @@ When can a candidate edit their answers?
 
 Ask Edmund about candidate identifiers for deleted / renamed candidates
 
+Should people be able to share their answers? Embed their results in their
+blog or similar
+
 
 Do this next
 ============
@@ -33,6 +36,19 @@ Make form / template to display candidate survey questions
 Store the results of the survey in a new model table and thank them
 
 Code to email survey to each candidate (a few at a time, via admin interface)
+
+Write voter quiz:
+    - with postcode form
+    - asking voters the same questions as candidates
+Display comparison pages
+
+Add options to share on most popular social networking sites
+
+Import voting record from Public Whip for the national issues which are linked to divisions
+Display that in results of quiz
+
+
+
 
 
 
