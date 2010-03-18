@@ -1,0 +1,39 @@
+Policy questions
+================
+
+Ask Tom what form token is going to need for postal
+
+Will it be multiple pages? Does it need a save as you're going along? Maybe
+free text separate page to main survey?
+
+When can a candidate edit their answers?
+
+Ask Edmund about candidate identifiers for deleted / renamed candidates
+
+
+Do this next
+============
+
+Make a very simple holding page, saying this is where election stuff will sit
+Use TheyWorkForYou branding and logo for it
+Check that can deploy that Django 1.1 code to GAE
+
+Set it up to work on election.theyworkforyou.com
+
+Load in every candidate from YourNextMP, and add them to local data store
+Create a random token for each candidate to use to authenticate them
+Make front page say how many candidates are known about
+
+Make admin interface work, and sort out its authentication when deployed
+
+In DemocracyClub, add very short API which sends list of refined issues
+Load in list of refined issues 
+
+Make form / template to display candidate survey questions
+    (don't bother with fancy free text, or I don't like this question stuff)
+Store the results of the survey in a new model table and thank them
+
+Code to email survey to each candidate (a few at a time, via admin interface)
+
+
+
