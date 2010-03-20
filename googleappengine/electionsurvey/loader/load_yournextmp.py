@@ -18,7 +18,7 @@ import django.utils.simplejson as json
 URL="http://localhost:8080/remote_api"
 EMAIL="a@b.c"
 JSON_FILE="very-short-sample.json"
-JSON_FILE="yournextmp_export_2010-02-23.json"
+#JSON_FILE="yournextmp_export_2010-02-23.json"
 
 def upload_model(data, tmp_csvfile, row_names, model, bulkloader):
     # Create CSV file for feeding to GAE bulk uploader

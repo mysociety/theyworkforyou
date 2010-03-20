@@ -6,7 +6,7 @@ from google.appengine.tools import bulkloader
 
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
-from models import Candidacy
+from models import Candidacy, Seat, Candidate
 
 def int_or_null(x):
     if (x == "null" or x == "None" or x == ""):
@@ -19,8 +19,8 @@ class CandidacyLoader(bulkloader.Loader):
         bulkloader.Loader.__init__(self, 'Candidacy',
                                    [
                                     ('id', int),
-                                    ('seat_id', int),
-                                    ('candidate_id', int),
+                                    ('seat_id', lambda x: Seat.get_by_id(int(x))),
+                                    ('candidate_id', lambda x: Candidate.get_by_id(int(x))),
                                     ('created', lambda x: datetime.datetime.strptime(x, "%Y-%m-%dT%H:%M:%S")),
                                     ('updated', lambda x: datetime.datetime.strptime(x, "%Y-%m-%dT%H:%M:%S")),
                                    ])
