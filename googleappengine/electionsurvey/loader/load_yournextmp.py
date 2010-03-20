@@ -1,12 +1,11 @@
 #!/usr/bin/python2.5
 #
 # yournextmp_load.py:
-# Loads data from YourNextMP into GAE
+# Loads data from YourNextMP into GAE. Call this script as main.
 #
 # Copyright (c) 2010 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-
 
 import sys
 import csv
@@ -40,9 +39,9 @@ content = open(JSON_FILE).read()
 ynmp = json.loads(content)
 
 # Convert to CSV file and feed to GAE
-#upload_model(ynmp["Party"], "party.csv", ("id", "name", "code", "image_id", "created", "updated"), "Party", "party_loader.py")
-#upload_model(ynmp["Candidate"], "candidate.csv", ("id", "name", "code", "email", "party_id", "image_id", "created", "updated"), "Candidate", "candidate_loader.py")
-#upload_model(ynmp["Seat"], "seat.csv", ("id", "name", "code", "created", "updated"), "Seat", "seat_loader.py")
+upload_model(ynmp["Party"], "party.csv", ("id", "name", "code", "image_id", "created", "updated"), "Party", "party_loader.py")
+upload_model(ynmp["Candidate"], "candidate.csv", ("id", "name", "code", "email", "party_id", "image_id", "created", "updated"), "Candidate", "candidate_loader.py")
+upload_model(ynmp["Seat"], "seat.csv", ("id", "name", "code", "created", "updated"), "Seat", "seat_loader.py")
 upload_model(ynmp["Candidacy"], "candidacy.csv", ("id", "seat_id", "candidate_id", "created", "updated"), "Candidacy", "candidacy_loader.py")
 
 

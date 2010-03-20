@@ -22,7 +22,7 @@ class CandidateLoader(bulkloader.Loader):
                                     ('name', lambda x: x.decode('utf-8')),
                                     ('code', str),
                                     ('email', str),
-                                    ('seat_id', int_or_null),
+                                    ('party_id', int_or_null),
                                     ('image_id', int_or_null),
                                     ('created', lambda x: datetime.datetime.strptime(x, "%Y-%m-%dT%H:%M:%S")),
                                     ('updated', lambda x: datetime.datetime.strptime(x, "%Y-%m-%dT%H:%M:%S")),
