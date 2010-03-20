@@ -40,7 +40,8 @@ content = open(JSON_FILE).read()
 ynmp = json.loads(content)
 
 # Convert to CSV file and feed to GAE
-upload_model(ynmp["Candidate"], "candidate.csv", ("id", "name", "code", "email", "party_id", "image_id", "created", "updated"), "Candidate", "candidate_loader.py")
+upload_model(ynmp["Seat"], "seat.csv", ("id", "name", "code", "created", "updated"), "Seat", "seat_loader.py")
+#upload_model(ynmp["Candidate"], "candidate.csv", ("id", "name", "code", "email", "party_id", "image_id", "created", "updated"), "Candidate", "candidate_loader.py")
 #upload_model(ynmp["Party"], "party.csv", ("id", "name", "code", "image_id", "created", "updated"), "Party", "party_loader.py")
 
 
