@@ -19,8 +19,8 @@ class CandidacyLoader(bulkloader.Loader):
         bulkloader.Loader.__init__(self, 'Candidacy',
                                    [
                                     ('id', int),
-                                    ('seat_id', lambda x: Seat.get_by_id(int(x))),
-                                    ('candidate_id', lambda x: Candidate.get_by_id(int(x))),
+                                    ('seat', lambda x: Seat.get_by_id(int(x))),
+                                    ('candidate', lambda x: Candidate.get_by_id(int(x))),
                                     ('created', lambda x: datetime.datetime.strptime(x, "%Y-%m-%dT%H:%M:%S")),
                                     ('updated', lambda x: datetime.datetime.strptime(x, "%Y-%m-%dT%H:%M:%S")),
                                    ])

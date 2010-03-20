@@ -16,7 +16,8 @@ import django.utils.simplejson as json
 
 # Parameters
 URL="http://localhost:8080/remote_api"
-EMAIL="a@b.c"
+#URL="http://theyworkforyouelection.appspot.com/remote_api"
+EMAIL="francis@flourish.org"
 JSON_FILE="very-short-sample.json"
 #JSON_FILE="yournextmp_export_2010-02-23.json"
 

@@ -25,7 +25,7 @@ class Candidate(db.Model):
     code = db.StringProperty()
 
     email = db.StringProperty()
-    party_id = db.ReferenceProperty(Party)
+    party = db.ReferenceProperty(Party)
     image_id = db.IntegerProperty()
 
     created = db.DateTimeProperty()
@@ -44,8 +44,8 @@ class Seat(db.Model):
 class Candidacy(db.Model):
     id = db.IntegerProperty()
 
-    seat_id = db.ReferenceProperty(Seat)
-    candidate_id = db.ReferenceProperty(Candidate)
+    seat = db.ReferenceProperty(Seat)
+    candidate = db.ReferenceProperty(Candidate)
 
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
