@@ -1,0 +1,45 @@
+{
+   "Candidate" : {
+      "3596" : {
+         "name" : "Gareth Allen",
+         "phone" : null,
+         "created" : "2010-02-07T00:25:50",
+         "email" : null,
+         "party_id" : "1301",
+         "image_id" : null,
+         "fax" : null,
+         "id" : "3596",
+         "updated" : "2010-02-07T00:25:50",
+         "address" : null,
+         "code" : "gareth_allen"
+      }
+   },
+   "Candidacy" : {
+      "1005" : {
+         "created" : "2010-02-07T00:25:50",
+         "seat_id" : "613",
+         "id" : "1005",
+         "updated" : "2010-02-07T00:25:50",
+         "candidate_id" : "3596"
+      }
+   },
+   "Seat" : {
+      "613" : {
+         "created" : "2010-02-06T23:52:20",
+         "name" : "Normanton, Pontefract and Castleford",
+         "updated" : "2010-02-06T23:52:20",
+         "id" : "613",
+         "code" : "normanton_pontefract_and_castleford"
+      }
+   },
+   "Party" : {
+      "1301" : {
+         "created" : "2010-02-06T23:53:01",
+         "image_id" : null,
+         "name" : "Independent",
+         "updated" : "2010-02-06T23:53:01",
+         "id" : "1301",
+         "code" : "independent"
+      }
+    }
+}

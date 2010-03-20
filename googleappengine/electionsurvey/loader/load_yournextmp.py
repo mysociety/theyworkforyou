@@ -18,7 +18,7 @@ import django.utils.simplejson as json
 # Parameters
 URL="http://localhost:8080/remote_api"
 EMAIL="a@b.c"
-JSON_FILE="moo.json"
+JSON_FILE="very-short-sample.json"
 JSON_FILE="yournextmp_export_2010-02-23.json"
 
 def upload_model(data, tmp_csvfile, row_names, model, bulkloader):
@@ -40,9 +40,10 @@ content = open(JSON_FILE).read()
 ynmp = json.loads(content)
 
 # Convert to CSV file and feed to GAE
-upload_model(ynmp["Seat"], "seat.csv", ("id", "name", "code", "created", "updated"), "Seat", "seat_loader.py")
-#upload_model(ynmp["Candidate"], "candidate.csv", ("id", "name", "code", "email", "party_id", "image_id", "created", "updated"), "Candidate", "candidate_loader.py")
 #upload_model(ynmp["Party"], "party.csv", ("id", "name", "code", "image_id", "created", "updated"), "Party", "party_loader.py")
+#upload_model(ynmp["Candidate"], "candidate.csv", ("id", "name", "code", "email", "party_id", "image_id", "created", "updated"), "Candidate", "candidate_loader.py")
+#upload_model(ynmp["Seat"], "seat.csv", ("id", "name", "code", "created", "updated"), "Seat", "seat_loader.py")
+upload_model(ynmp["Candidacy"], "candidacy.csv", ("id", "seat_id", "candidate_id", "created", "updated"), "Candidacy", "candidacy_loader.py")
 
 
 
