@@ -9,7 +9,7 @@ import models
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', direct_to_template, kwargs={'template':'index.html'}, name="index"),
+    url(r'^$', views.index),
 
     # url(r'^fooble$', views.fooble),
 

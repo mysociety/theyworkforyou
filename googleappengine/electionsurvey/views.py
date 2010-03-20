@@ -7,9 +7,10 @@
 #
 
 from google.appengine.api import urlfetch
+from django.shortcuts import render_to_response, get_object_or_404#
 
-def fooble(request):
-    return render_to_response('mouse.html', {})
+def index(request):
+    return render_to_response('index.html', {})
 
 
 
