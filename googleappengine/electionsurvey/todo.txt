@@ -1,14 +1,15 @@
 Policy questions
 ================
 
+Ask Edmund about candidate identifiers for deleted / renamed candidates
+
 Ask Tom what form token is going to need for postal
+Who exactly will get postal version?
 
 Will it be multiple pages? Does it need a save as you're going along? Maybe
 free text separate page to main survey?
 
 When can a candidate edit their answers?
-
-Ask Edmund about candidate identifiers for deleted / renamed candidates
 
 Should people be able to share their answers? Embed their results in their
 blog or similar
@@ -16,10 +17,6 @@ blog or similar
 
 Do this next
 ============
-
-Check that can deploy that Django 1.1 code to GAE
-
-Set it up to work on election.theyworkforyou.com
 
 Load in every candidate from YourNextMP, and add them to local data store
 Create a random token for each candidate to use to authenticate them
@@ -43,6 +40,9 @@ Write voter quiz:
 Display comparison pages
 
 Add options to share on most popular social networking sites
+
+Show candidates which haven't answered yet
+Mechanism to hassle them to answer
 
 Import voting record from Public Whip for the national issues which are linked to divisions
 Display that in results of quiz
