@@ -31,7 +31,7 @@ def upload_model(data, tmp_csvfile, row_names, model, bulkloader):
         writer.writerow(row)
     f.close()
     # Feed it to the uploader
-    cmd = '''bulkloader.py --log_file=/tmp/bulkloader-yournextmp-log --db_filename=skip --config_file=%s --url=%s --kind=Party --filename=%s --app_id=theyworkforyouelection --email="%s"''' % (bulkloader, URL, tmp_csvfile, EMAIL)
+    cmd = '''bulkloader.py --log_file=/tmp/bulkloader-yournextmp-log --db_filename=skip --config_file=%s --url=%s --kind=%s --filename=%s --app_id=theyworkforyouelection --email="%s"''' % (bulkloader, URL, model, tmp_csvfile, EMAIL)
     print cmd
     os.system(cmd)
 
@@ -40,7 +40,8 @@ content = open(JSON_FILE).read()
 ynmp = json.loads(content)
 
 # Convert to CSV file and feed to GAE
-upload_model(ynmp["Party"], "party.csv", ("id", "name", "code", "image_id", "created", "updated"), "Party", "party_loader.py")
+upload_model(ynmp["Candidate"], "candidate.csv", ("id", "name", "code", "email", "party_id", "image_id", "created", "updated"), "Candidate", "candidate_loader.py")
+#upload_model(ynmp["Party"], "party.csv", ("id", "name", "code", "image_id", "created", "updated"), "Party", "party_loader.py")
 
 
 
