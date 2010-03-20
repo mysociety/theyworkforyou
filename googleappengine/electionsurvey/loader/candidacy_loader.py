@@ -3,6 +3,7 @@ import sys
 
 from google.appengine.ext import db
 from google.appengine.tools import bulkloader
+from google.appengine.api.datastore_types import Key
 
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
@@ -19,8 +20,8 @@ class CandidacyLoader(bulkloader.Loader):
         bulkloader.Loader.__init__(self, 'Candidacy',
                                    [
                                     ('id', int),
-                                    ('seat', lambda x: Seat.get_by_id(int(x))),
-                                    ('candidate', lambda x: Candidate.get_by_id(int(x))),
+                                    ('seat', lambda x: Key.from_path('Seat', x)),
+                                    ('candidate', lambda x: Key.from_path('Candidate', x)),
                                     ('created', lambda x: datetime.datetime.strptime(x, "%Y-%m-%dT%H:%M:%S")),
                                     ('updated', lambda x: datetime.datetime.strptime(x, "%Y-%m-%dT%H:%M:%S")),
                                    ])
