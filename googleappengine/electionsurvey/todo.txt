@@ -19,6 +19,7 @@ Do this next
 ============
 
 Create a random token for each candidate to use to authenticate them
+Cope with reloading when there are deleted and renamed candidates
 
 In DemocracyClub, add very short API which sends list of refined issues
 Load in list of refined issues 
