@@ -23,15 +23,15 @@ JSON_FILE="yournextmp_export_2010-02-23.json"
 
 def upload_model(data, tmp_csvfile, row_names, model, bulkloader):
     # Create CSV file for feeding to GAE bulk uploader
-    writer = csv.writer(open(tmp_csvfile, "wb"))
+    f = open(tmp_csvfile, "wb")
+    writer = csv.writer(f)
     for k, v in data.iteritems():
         row = [v[x] for x in row_names]
         row = [x and x.encode('utf-8') or None for x in row]
         writer.writerow(row)
-    writer.flush()
-    #writer.close()
+    f.close()
     # Feed it to the uploader
-    cmd = '''bulkloader.py --log_file=/tmp/bulkloader-yournextmp-log --db_filename=/tmp/bulkloader-yournextmp-progress --config_file=%s --url=%s --kind=Party --filename=%s --app_id=theyworkforyouelection --email="%s"''' % (bulkloader, URL, tmp_csvfile, EMAIL)
+    cmd = '''bulkloader.py --log_file=/tmp/bulkloader-yournextmp-log --db_filename=skip --config_file=%s --url=%s --kind=Party --filename=%s --app_id=theyworkforyouelection --email="%s"''' % (bulkloader, URL, tmp_csvfile, EMAIL)
     print cmd
     os.system(cmd)
 
