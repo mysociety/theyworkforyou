@@ -8,8 +8,6 @@
 
 from google.appengine.api import urlfetch
 
-import django.utils.simplejson as json
-
 def fooble(request):
     return render_to_response('mouse.html', {})
 

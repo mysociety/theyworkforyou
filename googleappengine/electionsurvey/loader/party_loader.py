@@ -5,10 +5,11 @@ from google.appengine.ext import db
 from google.appengine.tools import bulkloader
 
 sys.path.insert(0, '.')
+sys.path.insert(0, '..')
 from models import Party
 
 def int_or_null(x):
-    if (x == "null" or x == "None"):
+    if (x == "null" or x == "None" or x == ""):
         return None
     return int(x)
 
@@ -18,7 +19,7 @@ class PartyLoader(bulkloader.Loader):
         bulkloader.Loader.__init__(self, 'Party',
                                    [
                                     ('id', int),
-                                    ('name', str),
+                                    ('name', lambda x: x.decode('utf-8')),
                                     ('code', str),
                                     ('image_id', int_or_null),
                                     ('created', lambda x: datetime.datetime.strptime(x, "%Y-%m-%dT%H:%M:%S")),
