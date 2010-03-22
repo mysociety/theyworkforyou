@@ -18,15 +18,17 @@ blog or similar
 Do this next
 ============
 
-Create a random token for each candidate to use to authenticate them
-Cope with reloading when there are deleted and renamed candidates
-
-In DemocracyClub, add very short API which sends list of refined issues
-Load in list of refined issues 
+* Cope with reloading when there are deleted and renamed candidates
 
 Make form / template to display candidate survey questions
     (don't bother with fancy free text, or I don't like this question stuff)
 Store the results of the survey in a new model table and thank them
+
+Create a random token for each candidate to use to authenticate them
+* http://www.crockford.com/wrmg/base32.html
+* https://gist.github.com/9f77007e269fcb0b1182
+* rate limit number of tries http://github.com/simonw/ratelimitcache
+Record who clicks through to the token
 
 Code to email survey to each candidate (a few at a time, via admin interface)
 
