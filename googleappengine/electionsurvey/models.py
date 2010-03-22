@@ -8,6 +8,8 @@
 
 from google.appengine.ext import db
 
+# Candidate from YourMP
+
 class Party(db.Model):
     id = db.IntegerProperty()
     name = db.StringProperty()
@@ -49,5 +51,18 @@ class Candidacy(db.Model):
 
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
-    
+
+
+# Local issue data from DemocracyClub    
+
+class RefinedIssue(db.Model):
+    id = db.IntegerProperty()
+
+    question = db.StringProperty()
+    reference_url = db.StringProperty()
+
+    seat = db.ReferenceProperty(Seat)
+
+    created = db.DateTimeProperty()
+    updated = db.DateTimeProperty()
 
