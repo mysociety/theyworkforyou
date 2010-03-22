@@ -52,6 +52,9 @@ class Candidacy(db.Model):
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
 
+    # used in URL of survey
+    survey_token = db.StringProperty()
+
 
 # Local issue data from DemocracyClub    
 
