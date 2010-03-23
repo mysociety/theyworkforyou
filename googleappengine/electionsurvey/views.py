@@ -21,10 +21,16 @@ from models import Seat, RefinedIssue, Candidacy
 def index(request):
     return render_to_response('index.html', {})
 
+def _save_form_array(issue_forms):
+    for form in issue_forms:
+        form.save()
+
+# Survey a candidate
 def survey_candidacy(request):
     seat = Seat.get_by_key_name("613") 
     candidacy = Candidacy.get_by_key_name("1005")
 
+    # Construct array of forms containing all local issues
     issues_for_seat = seat.refinedissue_set.fetch(1000)
     issue_forms = []
     valid = True
@@ -33,16 +39,16 @@ def survey_candidacy(request):
         valid = valid and form.is_valid()
         issue_forms.append(form)
 
+    # Save the answers to all questions in a transaction 
     if request.POST and valid:
-        # XXX save data
-        for form in issue_forms:
-            form.save()
+        db.run_in_transaction(_save_form_array, issue_forms)
         return HttpResponseRedirect('/survey_candidacy_thanks') # Redirect after POST
 
     return render_to_response('survey_candidacy.html', {
        'issue_forms': issue_forms,
     })
 
+# Candidate has finished survey
 def survey_candidacy_thanks(request):
     return render_to_response('survey_candidacy_thanks.html', {})
 
