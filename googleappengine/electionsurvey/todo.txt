@@ -18,10 +18,9 @@ blog or similar
 Do this next
 ============
 
-* Cope with reloading when there are deleted and renamed candidates
+XXX Cope with reloading when there are deleted and renamed candidates
 
-Store the results of the survey in a new model table and thank them
-Make the form look prettier
+XXX Make the form look prettier
 
 Create a random token for each candidate to use to authenticate them
 * http://www.crockford.com/wrmg/base32.html
