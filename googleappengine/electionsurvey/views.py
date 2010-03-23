@@ -27,11 +27,10 @@ def _save_form_array(issue_forms):
 
 # Survey a candidate
 def survey_candidacy(request):
-    seat = Seat.get_by_key_name("613") 
     candidacy = Candidacy.get_by_key_name("1005")
 
     # Construct array of forms containing all local issues
-    issues_for_seat = seat.refinedissue_set.fetch(1000)
+    issues_for_seat = candidacy.seat.refinedissue_set.fetch(1000)
     issue_forms = []
     valid = True
     for issue in issues_for_seat:
