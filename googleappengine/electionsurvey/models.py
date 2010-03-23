@@ -69,3 +69,16 @@ class RefinedIssue(db.Model):
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
 
+
+# Candidate survey response model
+class SurveyResponse(db.Model):
+    candidacy = db.ReferenceProperty(Candidacy, required=True)
+    refined_issue = db.ReferenceProperty(RefinedIssue, required=True)
+
+    # 0 = strongly disagree, 100 = strongly agree
+    agreement = db.RatingProperty(required=True)
+
+
+
+
+

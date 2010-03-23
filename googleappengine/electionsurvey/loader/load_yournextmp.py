@@ -18,7 +18,7 @@ import django.utils.simplejson as json
 URL="http://localhost:8080/remote_api"
 #URL="http://theyworkforyouelection.appspot.com/remote_api"
 EMAIL="francis@flourish.org"
-JSON_FILE="very-short-sample.json"
+JSON_FILE="very-short-candidates-sample.json"
 #JSON_FILE="yournextmp_export_2010-02-23.json"
 
 def upload_model(data, tmp_csvfile, row_names, model, bulkloader):
