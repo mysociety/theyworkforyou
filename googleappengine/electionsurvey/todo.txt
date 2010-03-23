@@ -20,9 +20,8 @@ Do this next
 
 * Cope with reloading when there are deleted and renamed candidates
 
-Make form / template to display candidate survey questions
-    (don't bother with fancy free text, or I don't like this question stuff)
 Store the results of the survey in a new model table and thank them
+Make the form look prettier
 
 Create a random token for each candidate to use to authenticate them
 * http://www.crockford.com/wrmg/base32.html

@@ -72,6 +72,10 @@ class RefinedIssue(db.Model):
 
 # Candidate survey response model
 class SurveyResponse(db.Model):
+    def __init__(self, *args, **kwargs):
+        kwargs['key_name'] = "%s-%s" % (kwargs['candidacy'].name(), kwargs['refined_issue'].name())
+        super(SurveyResponse, self).__init__(*args, **kwargs)
+
     candidacy = db.ReferenceProperty(Candidacy, required=True)
     refined_issue = db.ReferenceProperty(RefinedIssue, required=True)
 

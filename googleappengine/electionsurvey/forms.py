@@ -8,12 +8,23 @@
 
 from django import forms
 
+from models import SurveyResponse
+
 class LocalIssueQuestionForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        issue = kwargs.pop('issue')
-        kwargs['prefix'] = 'issue-%d' % issue.id
+        self.refined_issue = kwargs.pop('refined_issue')
+        self.candidacy = kwargs.pop('candidacy')
+        kwargs['prefix'] = 'issue-%d' % self.refined_issue.id
         super(LocalIssueQuestionForm, self).__init__(*args, **kwargs)
-        self.fields['agreement'].label = issue.question
+        self.fields['agreement'].label = self.refined_issue.question
+    
+    def save(self):
+        survey_response = SurveyResponse(
+            agreement = int(self.cleaned_data['agreement']),
+            refined_issue = self.refined_issue.key(),
+            candidacy = self.candidacy.key()
+        )
+        survey_response.put()
 
     # 0 = strongly disagree, 100 = strongly agree
     agreement = forms.ChoiceField(
