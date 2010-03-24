@@ -44,28 +44,31 @@ def _check_auth(request):
 
 # Survey a candidate
 def survey_candidacy(request):
-    # check they have the token
+    # Check they have the token
     response = _check_auth(request)
     if not isinstance(response, Candidacy):
         return response
     candidacy = response
+
+    # Have they tried to post an answer?
+    submitted = request.POST and 'questions_submitted' in request.POST
 
     # Construct array of forms containing all local issues
     issues_for_seat = candidacy.seat.refinedissue_set.fetch(1000)
     issue_forms = []
     valid = True
     for issue in issues_for_seat:
-        form = forms.LocalIssueQuestionForm(request.POST or None, refined_issue=issue, candidacy=candidacy)
+        form = forms.LocalIssueQuestionForm(submitted and request.POST or None, refined_issue=issue, candidacy=candidacy)
         valid = valid and form.is_valid()
         issue_forms.append(form)
 
     # Save the answers to all questions in a transaction 
-    if request.POST and valid:
+    if submitted and valid:
         db.run_in_transaction(_save_form_array, issue_forms)
         return HttpResponseRedirect('/survey/thanks') # Redirect after POST
 
     return render_to_response('survey_candidacy_questions.html', {
-       'issue_forms': issue_forms,
+        'issue_forms': issue_forms, 'token': candidacy.survey_token
     })
 
 # Candidate has finished survey

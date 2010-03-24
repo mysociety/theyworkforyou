@@ -22,7 +22,7 @@ XXX Cope with reloading when there are deleted and renamed candidates
 
 XXX Make the form look prettier
 
-Record who enters the token
+Record when token entered
 * rate limit number of tries http://github.com/simonw/ratelimitcache
 
 Code to email survey to each candidate (a few at a time, via admin interface)

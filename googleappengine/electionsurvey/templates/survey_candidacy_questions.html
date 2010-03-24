@@ -9,23 +9,9 @@
 {{ form.errors }}
 <p>{{ form }}</p>
 {% endfor %}
-<input type="submit" value="Go go Gadget form">
+<input type="hidden" name="token" value="{{ token }}" > 
+<input type="hidden" name="questions_submitted" value="1" > 
+<input type="submit" value="Submit survey">
 </form>
-
-<!--
-{% if form %}
-    <form action="" method="post" id="add_issue">
-         <div class="fieldWrapper">
-            {{ form.agreement.errors }}
-            <label for="id_agreement">
-                Some voters in {{ constituency.name }} think that...
-            </label>
-            <input id="id_agreement" name="agreement" maxlength="200" type="text" class="sample">
-        </div>
-        <input type="submit" value="Save" id="id_save" /> <span class="quiet" id="id_guide">(enter an idea first)</span>
-    </form>
-{% endif %}
--->
-
 
 {% endblock %}
