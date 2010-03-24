@@ -26,9 +26,10 @@ Read token from URL as well
 
 Backup, automated to our usual place
 
-Give candidate something to do after they have completed the survey.
 Add link to candidate survey from front page of election.theyworkforyou.com for now
 
+
+What should it do if they've already filled in the survey?
 
 Write voter quiz:
     - with postcode form
