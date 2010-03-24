@@ -285,7 +285,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 	        <?php } ?>
 		        <ul>
 		            <li id="logo">
-		                <a href="http://www.mysociety.org"><span>mySociety</span></a>
+		                <a href="http://www.mysociety.org/"><img src="/images/mysociety_small.png" alt="mySociety" width="72" height="16"></a>
 		            </li>
 		            <li>
 		                <a href="http://www.mysociety.org/donate/?cs=1" title="Like this website? Donate to help keep it running.">Donate</a>
