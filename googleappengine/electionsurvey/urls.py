@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
+from django.http import HttpResponseRedirect
 
 import views
 import models
@@ -13,6 +14,8 @@ urlpatterns = patterns('',
 
     url(r'^survey$', views.survey_candidacy),
     url(r'^survey/thanks$', views.survey_candidacy_thanks),
+
+    url(r'^survey/$', lambda response: HttpResponseRedirect('/survey')),
 
     # url(r'^fooble$', views.fooble),
 
