@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/87/trunk/appengine_django/db
+END
+base.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/65/trunk/appengine_django/db/base.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2/trunk/appengine_django/db/__init__.py
+END
+creation.py
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/87/trunk/appengine_django/db/creation.py
+END

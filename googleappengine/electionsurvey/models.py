@@ -8,12 +8,19 @@
 
 from google.appengine.ext import db
 
+# XXX should this be using appengine_django.models.BaseModel ?
+import appengine_django.models
+# Causes error in appengine_django/models.py on this line:
+#       self.app_label = model_module.__name__.split('.')[-2]
+# Due to us not having app name in the model module name. Which we don't have
+# because GAE didn't seem to like it.
+
 import random
 import re
 
 # Candidate from YourMP
 
-class Party(db.Model):
+class Party(appengine_django.models.BaseModel):
     id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
@@ -24,7 +31,7 @@ class Party(db.Model):
     updated = db.DateTimeProperty()
 
 
-class Candidate(db.Model):
+class Candidate(appengine_django.models.BaseModel):
     id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
@@ -37,7 +44,7 @@ class Candidate(db.Model):
     updated = db.DateTimeProperty()
 
 
-class Seat(db.Model):
+class Seat(appengine_django.models.BaseModel):
     id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
@@ -47,7 +54,7 @@ class Seat(db.Model):
 
 
 digits = "0123456789abcdefghjkmnpqrstvwxyz"
-class Candidacy(db.Model):
+class Candidacy(appengine_django.models.BaseModel):
     id = db.IntegerProperty()
 
     seat = db.ReferenceProperty(Seat)
@@ -85,7 +92,7 @@ class Candidacy(db.Model):
 
 # Local issue data from DemocracyClub    
 
-class RefinedIssue(db.Model):
+class RefinedIssue(appengine_django.models.BaseModel):
     id = db.IntegerProperty()
 
     question = db.StringProperty()
@@ -98,7 +105,7 @@ class RefinedIssue(db.Model):
 
 
 # Candidate survey response model
-class SurveyResponse(db.Model):
+class SurveyResponse(appengine_django.models.BaseModel):
     def __init__(self, *args, **kwargs):
         kwargs['key_name'] = "%s-%s" % (kwargs['candidacy'].name(), kwargs['refined_issue'].name())
         super(SurveyResponse, self).__init__(*args, **kwargs)
