@@ -27,7 +27,7 @@ def index(request):
     return render_to_response('index.html', {})
 
 # Authenticate a candidate
-def survey_candidacy_auth(request):
+def _check_auth(request):
     form = forms.AuthCandidacyForm(request.POST or None)
 
     if not request.POST:
@@ -38,16 +38,17 @@ def survey_candidacy_auth(request):
     
     if not candidacy:
         # XXX add error message
-        return render_to_response('survey_candidacy_auth.html', { 'form': form })
+        return render_to_response('survey_candidacy_auth.html', { 'form': form, 'error': True })
 
-    return HttpResponseRedirect('/survey/questions') # Redirect after POST
-
+    return candidacy
 
 # Survey a candidate
-def survey_candidacy_questions(request):
-    raise Exception("check token here too")
-
-    candidacy = Candidacy.get_by_key_name("1005")
+def survey_candidacy(request):
+    # check they have the token
+    response = _check_auth(request)
+    if not isinstance(response, Candidacy):
+        return response
+    candidacy = response
 
     # Construct array of forms containing all local issues
     issues_for_seat = candidacy.seat.refinedissue_set.fetch(1000)

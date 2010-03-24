@@ -4,26 +4,19 @@
 
 <h2>Please enter your candidate code</h2>
 
+{% if error %}
+<div id="error">
+    Sorry, we couldn't find that code. Please check it carefully and try again.
+    It doesn't matter if you type the letters in upper or lower case, or put in
+    extra spaces or punctuation.
+</div>
+{% endif %}
+
 <form method="post">
 {{ form.errors }}
 {{ form.token }}
 <input type="submit" value="Submit">
 </form>
-
-<!--
-{% if form %}
-    <form action="" method="post" id="add_issue">
-         <div class="fieldWrapper">
-            {{ form.agreement.errors }}
-            <label for="id_agreement">
-                Some voters in {{ constituency.name }} think that...
-            </label>
-            <input id="id_agreement" name="agreement" maxlength="200" type="text" class="sample">
-        </div>
-        <input type="submit" value="Save" id="id_save" /> <span class="quiet" id="id_guide">(enter an idea first)</span>
-    </form>
-{% endif %}
--->
 
 
 {% endblock %}
