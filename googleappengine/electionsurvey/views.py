@@ -77,7 +77,9 @@ def survey_candidacy(request):
         return HttpResponseRedirect('/survey/thanks') # Redirect after POST
 
     return render_to_response('survey_candidacy_questions.html', {
-        'issue_forms': issue_forms, 'token': candidacy.survey_token
+        'issue_forms': issue_forms,
+        'unfinished': submitted and not valid,
+        'token': candidacy.survey_token,
     })
 
 # Candidate has finished survey

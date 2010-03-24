@@ -1,0 +1,26 @@
+label {
+    cursor: pointer;
+    cursor: hand;
+}
+
+h2 {
+    padding-top: 0;
+}
+
+#error {
+    color: #990000;
+}
+
+#topmenu {
+    height: 2px;
+}
+
+form#survey ul {
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+}
+
+form#survey li {
+    display: inline;
+}
+

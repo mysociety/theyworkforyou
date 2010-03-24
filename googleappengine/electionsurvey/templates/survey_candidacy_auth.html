@@ -2,27 +2,23 @@
 
 {% block content %}
 
-<div class="stripe-side"> 
-<div class="main"> 
-
 <h2>Please enter your candidate code</h2>
 
 {% if error %}
-<div id="error">
+<p id="error">
     Sorry, we couldn't find that code. Please check it carefully and try again.
     It doesn't matter if you type the letters in upper or lower case, or put in
     extra spaces or punctuation.
-</div>
+</p>
+{% else %}
+<p>Your unique code was provided to you by email, fax, or letter.
+</p>
 {% endif %}
 
-<form method="post" action="/survey"
-{{ form.errors }}
-{{ form.token }}
+<form method="post" action="/survey">
+<p>{{ form.token }}
 <input type="hidden" name="auth_submitted" value="1" > 
 <input type="submit" value="Submit">
 </form>
-
-</div>
-</div>
 
 {% endblock %}

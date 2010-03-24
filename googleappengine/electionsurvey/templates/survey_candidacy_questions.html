@@ -4,14 +4,19 @@
 
 <h2>Survey candidates</h2>
 
-<form method="post" action="/survey">
+{% if unfinished %}
+<p class="error">Please finish answering the questions.</p>
+{% endif %}
+
+<form method="post" action="/survey" id="survey">
+<ul>
 {% for form in issue_forms %}
-{{ form.errors }}
-<p>{{ form }}</p>
+<li{% if form.agreement.errors %} class="error"{% endif %}>{{ form.agreement.label_tag }} {{ form.agreement }}
 {% endfor %}
+</ul>
 <input type="hidden" name="token" value="{{ token }}" > 
 <input type="hidden" name="questions_submitted" value="1" > 
-<input type="submit" value="Submit survey">
+<p><input type="submit" value="Submit survey"></p>
 </form>
 
 {% endblock %}
