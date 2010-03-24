@@ -497,7 +497,15 @@ ul.jumpers {
 .regmemcategory {font-weight: bold; margin: 0 14px 0 18px; }
 .regmemitem {margin: 0.5em 14px 0.5em 18px; }
 
+#dreamcomparisons li {
+    border-bottom: dotted 1px #cccccc;
+    clear: both;
+    overflow: hidden;
+}
 
+#dreamcomparisons small {
+    float: right;
+}
 
 /**** HOME PAGE ****************************************************************/	
 /* We override the standard block styles for this special home page block.     */

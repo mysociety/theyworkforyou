@@ -146,7 +146,8 @@ if ($action{'pw'}) {
         # no2id, top-up fees, abolish parliament, no smoking, Parliament FOI,
         # trident, climate change bill
         # TODO: Think about how these (esp no2id) might change now after election
-        foreach my $dreamid (1049, 1053, 1050, 363, 826, 1051, 1052, 856, 811, 975, 996, 984, 1030) {
+        foreach my $dreamid (1049, 1053, 1050, 363, 826, 1051, 1052, 856, 811, 975, 996, 984, 1030,
+            837, 1071, 1074, 1077, 1079, 1080) {
                 $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid");
         }
 }
