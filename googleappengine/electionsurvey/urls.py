@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^survey$', views.survey_candidacy),
     url(r'^survey/thanks$', views.survey_candidacy_thanks),
 
-    url(r'^survey/$', lambda response: HttpResponseRedirect('/survey')),
+    url(r'^survey/$', lambda r: HttpResponseRedirect('/survey')),
 
     # url(r'^fooble$', views.fooble),
 
