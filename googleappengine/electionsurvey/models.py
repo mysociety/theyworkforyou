@@ -8,8 +8,8 @@
 
 from google.appengine.ext import db
 
-# XXX should this be using appengine_django.models.BaseModel ?
-import appengine_django.models
+# XXX should this be using db.Model ?
+# import appengine_django.models
 # Causes error in appengine_django/models.py on this line:
 #       self.app_label = model_module.__name__.split('.')[-2]
 # Due to us not having app name in the model module name. Which we don't have
@@ -20,7 +20,7 @@ import re
 
 # Candidate from YourMP
 
-class Party(appengine_django.models.BaseModel):
+class Party(db.Model):
     id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
@@ -31,7 +31,7 @@ class Party(appengine_django.models.BaseModel):
     updated = db.DateTimeProperty()
 
 
-class Candidate(appengine_django.models.BaseModel):
+class Candidate(db.Model):
     id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
@@ -44,7 +44,7 @@ class Candidate(appengine_django.models.BaseModel):
     updated = db.DateTimeProperty()
 
 
-class Seat(appengine_django.models.BaseModel):
+class Seat(db.Model):
     id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
@@ -54,7 +54,7 @@ class Seat(appengine_django.models.BaseModel):
 
 
 digits = "0123456789abcdefghjkmnpqrstvwxyz"
-class Candidacy(appengine_django.models.BaseModel):
+class Candidacy(db.Model):
     id = db.IntegerProperty()
 
     seat = db.ReferenceProperty(Seat)
@@ -92,7 +92,7 @@ class Candidacy(appengine_django.models.BaseModel):
 
 # Local issue data from DemocracyClub    
 
-class RefinedIssue(appengine_django.models.BaseModel):
+class RefinedIssue(db.Model):
     id = db.IntegerProperty()
 
     question = db.StringProperty()
@@ -105,7 +105,7 @@ class RefinedIssue(appengine_django.models.BaseModel):
 
 
 # Candidate survey response model
-class SurveyResponse(appengine_django.models.BaseModel):
+class SurveyResponse(db.Model):
     def __init__(self, *args, **kwargs):
         kwargs['key_name'] = "%s-%s" % (kwargs['candidacy'].name(), kwargs['refined_issue'].name())
         super(SurveyResponse, self).__init__(*args, **kwargs)
