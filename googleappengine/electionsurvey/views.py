@@ -71,7 +71,9 @@ def survey_candidacy(request):
     if submitted and valid:
         db.run_in_transaction(forms._form_array_save, issue_forms)
         candidacy.log('Survey form completed successfully')
-        return HttpResponseRedirect('/survey/thanks') # Redirect after POST
+        return render_to_response('survey_candidacy_thanks.html', { 'candidate' : candidacy.candidate })
+
+    # Otherwise log if they submitted an incomplete form
     if submitted and not valid:
         amount_done = forms._form_array_amount_done(issue_forms)
         amount_max = len(issue_forms)
@@ -85,11 +87,6 @@ def survey_candidacy(request):
         'candidate' : candidacy.candidate,
         'seat' : candidacy.seat
     })
-
-# Candidate has finished survey
-def survey_candidacy_thanks(request):
-    return render_to_response('survey_candidacy_thanks.html', {})
-
 
 # Administrator functions
 def admin(request):
