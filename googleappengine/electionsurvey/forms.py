@@ -42,10 +42,10 @@ class LocalIssueQuestionForm(forms.Form):
         widget=forms.widgets.RadioSelect(),
         required=True,
         choices=[
-            (0, 'Strongly disagree'),
-            (25, 'Disagree'),
-            (75, 'Agree'),
             (100, 'Strongly agree'),
+            (75, 'Agree'),
+            (25, 'Disagree'),
+            (0, 'Strongly disagree'),
         ]
     )
 

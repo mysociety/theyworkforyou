@@ -20,7 +20,6 @@ Do this next
 
 Do a basic reload of data and make sure all the keys are sticky
 XXX Cope with reloading when there are deleted and renamed candidates
-XXX Make the form look prettier
 
 Code to email survey to each candidate (a few at a time, via admin interface)
 Read token from URL as well
