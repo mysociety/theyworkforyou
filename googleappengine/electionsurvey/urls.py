@@ -11,8 +11,8 @@ import models
 urlpatterns = patterns('',
     url(r'^$', views.index),
 
-    url(r'^survey_candidacy$', views.survey_candidacy),
-    url(r'^survey_candidacy_thanks$', views.survey_candidacy_thanks),
+    url(r'^survey$', views.survey_candidacy),
+    url(r'^survey/thanks$', views.survey_candidacy_thanks),
 
     # url(r'^fooble$', views.fooble),
 
