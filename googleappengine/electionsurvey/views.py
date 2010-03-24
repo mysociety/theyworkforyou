@@ -34,9 +34,9 @@ def survey_candidacy_auth(request):
         return render_to_response('survey_candidacy_auth.html', { 'form': form })
 
     token = request.POST['token']
-    founds = db.Query(Candidacy).filter('survey_token =', token).fetch(1000)
+    candidacy = Candidacy.find_by_token(token)
     
-    if len(founds) == 0:
+    if not candidacy:
         # XXX add error message
         return render_to_response('survey_candidacy_auth.html', { 'form': form })
 

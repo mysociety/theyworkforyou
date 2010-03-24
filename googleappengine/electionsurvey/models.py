@@ -9,6 +9,7 @@
 from google.appengine.ext import db
 
 import random
+import re
 
 # Candidate from YourMP
 
@@ -68,6 +69,18 @@ class Candidacy(db.Model):
         self.survey_token = enc
         self.save()
 
+    @staticmethod
+    def find_by_token(token): 
+        # don't be too picky about what other characters they type in
+        token = token.lower()
+        token = re.sub("[^a-z0-9]", "", token)
+
+        # find the candidacy
+        founds = db.Query(Candidacy).filter('survey_token =', token).fetch(1000)
+        if len(founds) == 0:
+            return False
+        assert len(founds) == 1
+        return founds[0]
 
 # Local issue data from DemocracyClub    
 
