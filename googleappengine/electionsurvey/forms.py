@@ -49,3 +49,16 @@ class LocalIssueQuestionForm(forms.Form):
         ]
     )
 
+def _form_array_save(issue_forms):
+    for form in issue_forms:
+        form.save()
+
+def _form_array_amount_done(issue_forms):
+    c = 0
+    for form in issue_forms:
+        if not form.errors:
+            c += 1
+    return c
+
+
+

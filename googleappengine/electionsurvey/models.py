@@ -17,6 +17,7 @@ from google.appengine.ext import db
 
 import random
 import re
+import datetime
 
 # Candidate from YourMP
 
@@ -63,7 +64,7 @@ class Candidacy(db.Model):
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
 
-    # used in URL of survey
+    # Tokens, used in URL of survey
     survey_token = db.StringProperty()
     survey_token_use_count = db.IntegerProperty()
 
@@ -75,6 +76,7 @@ class Candidacy(db.Model):
             enc = digits[mod] + enc
         enc = digits[i] + enc
         self.survey_token = enc
+        self.log('Generated survey token %s' % self.survey_token)
         self.save()
 
     @staticmethod
@@ -89,6 +91,13 @@ class Candidacy(db.Model):
             return False
         assert len(founds) == 1
         return founds[0]
+
+    # Audit log of what has happened to candidate
+    audit_log = db.StringListProperty()
+    # ... log does save also
+    def log(self, message):
+        self.audit_log.append(datetime.datetime.now().isoformat() + " " + message)
+        self.save()
 
 # Local issue data from DemocracyClub    
 

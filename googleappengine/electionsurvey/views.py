@@ -20,10 +20,6 @@ import forms
 
 from models import Seat, RefinedIssue, Candidacy
 
-def _save_form_array(issue_forms):
-    for form in issue_forms:
-        form.save()
-
 # Front page of election site
 def index(request):
     return render_to_response('index.html', {})
@@ -46,7 +42,7 @@ def _check_auth(request):
         if not candidacy.survey_token_use_count:
             candidacy.survey_token_use_count = 0
         candidacy.survey_token_use_count += 1
-        candidacy.save()
+        candidacy.log('Survey token authenticated from IP %s' % request.META['REMOTE_ADDR'])
 
     return candidacy
 
@@ -73,8 +69,13 @@ def survey_candidacy(request):
 
     # Save the answers to all questions in a transaction 
     if submitted and valid:
-        db.run_in_transaction(_save_form_array, issue_forms)
+        db.run_in_transaction(forms._form_array_save, issue_forms)
+        candidacy.log('Survey form completed successfully')
         return HttpResponseRedirect('/survey/thanks') # Redirect after POST
+    if submitted and not valid:
+        amount_done = forms._form_array_amount_done(issue_forms)
+        amount_max = len(issue_forms)
+        candidacy.log('Survey form submitted incomplete, %d/%d questions answered' % (amount_done, amount_max))
 
     return render_to_response('survey_candidacy_questions.html', {
         'issue_forms': issue_forms,
