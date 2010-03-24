@@ -6,11 +6,10 @@
 
 {% if unfinished %}
     <p class="error">Please finish answering the questions.</p>
-{% endif %}
-
+{% else %}
 <p>
-    Hello, {{ candidate.name }}. Please carefully state your views on 
-    the national and local issues below. 
+    Hello, {{ candidate.name }}. Please carefully state your views on the
+    national and local issues below. 
 </p>
 
 <p>
@@ -18,6 +17,7 @@
     up to the Election, and if you become an MP they will
     become a record of your views on TheyWorkForYou.com.
 </p>
+{% endif %}
 
 <form method="post" action="/survey" id="survey">
     <h3>Local issues for {{ seat.name }}</h3>
