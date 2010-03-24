@@ -2,16 +2,15 @@
 
 {% block content %}
 
-<h2>Please enter your candidate code</h2>
+<h2>TheyWorkForYou PPC survey</h3>
+
+<h3>Please enter your candidate code</h3>
 
 {% if error %}
 <p id="error">
     Sorry, we couldn't find that code. Please check it carefully and try again.
     It doesn't matter if you type the letters in upper or lower case, or put in
     extra spaces or punctuation.
-</p>
-{% else %}
-<p>Your unique code was provided to you by email, fax, or letter.
 </p>
 {% endif %}
 
@@ -20,5 +19,11 @@
 <input type="hidden" name="auth_submitted" value="1" > 
 <input type="submit" value="Submit">
 </form>
+
+{% if not error %}
+<p>Your unique code was provided to you by email, fax, or letter. 
+<br>It consists of 8 letters and numbers. e.g. 6gxthqv4
+</p>
+{% endif %}
 
 {% endblock %}

@@ -19,17 +19,15 @@ Do this next
 ============
 
 Do a basic reload of data and make sure all the keys are sticky
-
 XXX Cope with reloading when there are deleted and renamed candidates
-
 XXX Make the form look prettier
 
-Sort out URLs on TheyWorkForYou.com, probably with redirect
-Add link to candidate survey from front page of election.theyworkforyou.com for now
 Code to email survey to each candidate (a few at a time, via admin interface)
 Read token from URL as well
 
 Backup, automated to our usual place
+
+Add link to candidate survey from front page of election.theyworkforyou.com for now
 
 
 Write voter quiz:

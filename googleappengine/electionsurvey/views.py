@@ -80,11 +80,21 @@ def survey_candidacy(request):
         'issue_forms': issue_forms,
         'unfinished': submitted and not valid,
         'token': candidacy.survey_token,
+        'candidacy' : candidacy,
+        'candidate' : candidacy.candidate,
+        'seat' : candidacy.seat
     })
 
 # Candidate has finished survey
 def survey_candidacy_thanks(request):
     return render_to_response('survey_candidacy_thanks.html', {})
+
+
+# Administrator functions
+def admin(request):
+    pass
+
+
 
 
 

@@ -2,21 +2,36 @@
 
 {% block content %}
 
-<h2>Survey candidates</h2>
+<h2>TheyWorkForYou PPC survey</h2>
 
 {% if unfinished %}
-<p class="error">Please finish answering the questions.</p>
+    <p class="error">Please finish answering the questions.</p>
 {% endif %}
 
+<p>
+    Hello, {{ candidate.name }}. Please carefully state your views on 
+    the national and local issues below. 
+</p>
+
+<p>
+    Your responses will be used by voters in the run
+    up to the Election, and if you become an MP they will
+    become a record of your views on TheyWorkForYou.com.
+</p>
+
 <form method="post" action="/survey" id="survey">
-<ul>
-{% for form in issue_forms %}
-<li{% if form.agreement.errors %} class="error"{% endif %}>{{ form.agreement.label_tag }} {{ form.agreement }}
-{% endfor %}
-</ul>
-<input type="hidden" name="token" value="{{ token }}" > 
-<input type="hidden" name="questions_submitted" value="1" > 
-<p><input type="submit" value="Submit survey"></p>
+    <h3>Local issues for {{ seat.name }}</h3>
+    </p>
+        <ul>
+            {% for form in issue_forms %}
+            <li{% if form.agreement.errors %} class="error"{% endif %}>{{ form.agreement.label_tag }} {{ form.agreement }}
+            {% endfor %}
+        </ul>
+    </h3>
+    <input type="hidden" name="token" value="{{ token }}" > 
+    <input type="hidden" name="questions_submitted" value="1" > 
+
+    <p><input type="submit" value="Submit survey"></p>
 </form>
 
 {% endblock %}
