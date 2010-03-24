@@ -2,6 +2,9 @@
 
 {% block content %}
 
+<div class="stripe-side"> 
+<div class="main"> 
+
 <h2>Please enter your candidate code</h2>
 
 {% if error %}
@@ -12,12 +15,14 @@
 </div>
 {% endif %}
 
-<form method="post">
+<form method="post" action="/survey"
 {{ form.errors }}
 {{ form.token }}
 <input type="hidden" name="auth_submitted" value="1" > 
 <input type="submit" value="Submit">
 </form>
 
+</div>
+</div>
 
 {% endblock %}
