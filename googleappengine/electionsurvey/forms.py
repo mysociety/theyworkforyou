@@ -12,6 +12,10 @@ from django import forms
 
 from models import SurveyResponse
 
+# Authenticate candidate
+class AuthCandidacyForm(forms.Form):
+    token = forms.CharField() 
+
 # One question in the candidate survey
 class LocalIssueQuestionForm(forms.Form):
     # Constructor needs to know which candidacy and issue this is for

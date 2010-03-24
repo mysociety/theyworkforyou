@@ -18,15 +18,35 @@ import forms
 
 from models import Seat, RefinedIssue, Candidacy
 
-def index(request):
-    return render_to_response('index.html', {})
-
 def _save_form_array(issue_forms):
     for form in issue_forms:
         form.save()
 
+# Front page of election site
+def index(request):
+    return render_to_response('index.html', {})
+
+# Authenticate a candidate
+def survey_candidacy_auth(request):
+    form = forms.AuthCandidacyForm(request.POST or None)
+
+    if not request.POST:
+        return render_to_response('survey_candidacy_auth.html', { 'form': form })
+
+    token = request.POST['token']
+    founds = db.Query(Candidacy).filter('survey_token =', token).fetch(1000)
+    
+    if len(founds) == 0:
+        # XXX add error message
+        return render_to_response('survey_candidacy_auth.html', { 'form': form })
+
+    return HttpResponseRedirect('/survey/questions') # Redirect after POST
+
+
 # Survey a candidate
-def survey_candidacy(request):
+def survey_candidacy_questions(request):
+    raise Exception("check token here too")
+
     candidacy = Candidacy.get_by_key_name("1005")
 
     # Construct array of forms containing all local issues
@@ -41,9 +61,9 @@ def survey_candidacy(request):
     # Save the answers to all questions in a transaction 
     if request.POST and valid:
         db.run_in_transaction(_save_form_array, issue_forms)
-        return HttpResponseRedirect('/survey_candidacy_thanks') # Redirect after POST
+        return HttpResponseRedirect('/survey/thanks') # Redirect after POST
 
-    return render_to_response('survey_candidacy.html', {
+    return render_to_response('survey_candidacy_questions.html', {
        'issue_forms': issue_forms,
     })
 
