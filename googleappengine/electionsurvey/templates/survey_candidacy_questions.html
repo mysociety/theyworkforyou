@@ -19,9 +19,8 @@
 </p>
 {% endif %}
 
-<form method="post" action="/survey" id="survey">
+<form method="post" action="/survey" id="electionsurvey">
     <h3>Local issues for {{ seat.name }}</h3>
-    </p>
         <ul>
             {% for form in issue_forms %}
             <li{% if form.agreement.errors %} class="error"{% endif %}>{{ form.agreement.label_tag }} {{ form.agreement }}

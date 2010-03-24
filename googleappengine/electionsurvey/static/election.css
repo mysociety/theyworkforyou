@@ -15,12 +15,12 @@ h2 {
     height: 2px;
 }
 
-form#survey ul {
+form#electionsurvey ul {
     margin-top: 0.5em;
     margin-bottom: 2em;
 }
 
-form#survey li {
+form#electionsurvey li {
     display: inline;
 }
 
