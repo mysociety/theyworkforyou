@@ -89,3 +89,5 @@ TEMPLATE_DIRS = (
     ROOT_PATH + '/templates',
 )
 
+CACHE_BACKEND = 'memcached://'
+

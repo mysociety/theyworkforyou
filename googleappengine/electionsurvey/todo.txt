@@ -18,6 +18,7 @@ blog or similar
 Do this next
 ============
 
+Do a basic reload of data and make sure all the keys are sticky
 XXX Cope with reloading when there are deleted and renamed candidates
 
 XXX Make the form look prettier

@@ -14,6 +14,8 @@ from django.forms.formsets import formset_factory
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 
+from ratelimitcache import ratelimit
+
 import forms
 
 from models import Seat, RefinedIssue, Candidacy
@@ -49,6 +51,7 @@ def _check_auth(request):
     return candidacy
 
 # Survey a candidate
+@ratelimit(minutes = 2, requests = 40) # stop brute-forcing of token 
 def survey_candidacy(request):
     # Check they have the token
     response = _check_auth(request)
