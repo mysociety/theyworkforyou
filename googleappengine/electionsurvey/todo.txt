@@ -22,11 +22,9 @@ XXX Cope with reloading when there are deleted and renamed candidates
 
 XXX Make the form look prettier
 
-Create a random token for each candidate to use to authenticate them
-* http://www.crockford.com/wrmg/base32.html
-* https://gist.github.com/9f77007e269fcb0b1182
+Form to ask user for the token
+Record who enters the token
 * rate limit number of tries http://github.com/simonw/ratelimitcache
-Record who clicks through to the token
 
 Code to email survey to each candidate (a few at a time, via admin interface)
 

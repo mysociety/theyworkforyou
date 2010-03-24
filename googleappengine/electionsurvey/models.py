@@ -8,6 +8,8 @@
 
 from google.appengine.ext import db
 
+import random
+
 # Candidate from YourMP
 
 class Party(db.Model):
@@ -43,6 +45,7 @@ class Seat(db.Model):
     updated = db.DateTimeProperty()
 
 
+digits = "0123456789abcdefghjkmnpqrstvwxyz"
 class Candidacy(db.Model):
     id = db.IntegerProperty()
 
@@ -54,6 +57,16 @@ class Candidacy(db.Model):
 
     # used in URL of survey
     survey_token = db.StringProperty()
+
+    def generate_survey_token(self):
+        i = random.getrandbits(40) # 8 characters of 5 bits each
+        enc = ''
+        while i>=32:
+            i, mod = divmod(i,32)
+            enc = digits[mod] + enc
+        enc = digits[i] + enc
+        self.survey_token = enc
+        self.save()
 
 
 # Local issue data from DemocracyClub    
