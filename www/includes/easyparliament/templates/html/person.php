@@ -409,7 +409,7 @@ function person_voting_record($member, $extra_info) {
 			array(1052, "introducing <strong>student top-up fees</strong>"),
 			array(1053, "Labour's <strong>anti-terrorism laws</strong>", true),
 			array(1049, "the <strong>Iraq war</strong>"),
-			array(975, "an <strong>investigation</strong> into the Iraq war"),
+			# array(975, "an <strong>investigation</strong> into the Iraq war"), XXX See code below
 			array(984, "replacing <strong>Trident</strong>"),
 			array(1050, "the <strong>hunting ban</strong>"),
 			array(826, "equal <strong>gay rights</strong>"),
@@ -425,13 +425,18 @@ function person_voting_record($member, $extra_info) {
         );
         shuffle($policies);
 
+        $joined = array(
+            1079 => array(837, "a <strong>wholly elected</strong> House of Lords"),
+            1049 => array(975, "an <strong>investigation</strong> into the Iraq war"),
+        );
+
 		$got_dream = false;
         foreach ($policies as $policy) {
             if (isset($policy[2]) && $policy[2] && !in_array(1, $member['houses']))
                 continue;
 		    $got_dream |= display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
-            if ($policy[0] == 1079) { # Keep two Lords policies together, special case
-			    $policy = array(837, "a <strong>wholly elected</strong> House of Lords");
+            if (isset($joined[$policy[0]])) {
+			    $policy = $joined[$policy[0]];
 		        $got_dream |= display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
             }
         }
