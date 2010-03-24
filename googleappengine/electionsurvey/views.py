@@ -40,6 +40,12 @@ def _check_auth(request):
         # XXX add error message
         return render_to_response('survey_candidacy_auth.html', { 'form': form, 'error': True })
 
+    if 'auth_submitted' in request.POST:
+        if not candidacy.survey_token_use_count:
+            candidacy.survey_token_use_count = 0
+        candidacy.survey_token_use_count += 1
+        candidacy.save()
+
     return candidacy
 
 # Survey a candidate
