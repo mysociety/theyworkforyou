@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^$', views.index),
 
     url(r'^survey$', views.survey_candidacy),
+    url(r'^survey/(?P<token>.+)$', views.survey_candidacy),
 
     url(r'^survey/$', lambda r: HttpResponsePermanentRedirect('/survey')),
 

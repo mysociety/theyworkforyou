@@ -22,14 +22,14 @@ Do a basic reload of data and make sure all the keys are sticky
 XXX Cope with reloading when there are deleted and renamed candidates
 
 Code to email survey to each candidate (a few at a time, via admin interface)
-Read token from URL as well
 
 Backup, automated to our usual place
 
+Add code for national questions
+
 Add link to candidate survey from front page of election.theyworkforyou.com for now
-
-
 What should it do if they've already filled in the survey?
+
 
 Write voter quiz:
     - with postcode form

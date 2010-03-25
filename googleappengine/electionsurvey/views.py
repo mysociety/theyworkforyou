@@ -25,45 +25,49 @@ def index(request):
     return render_to_response('index.html', {})
 
 # Authenticate a candidate
-def _check_auth(request):
-    form = forms.AuthCandidacyForm(request.POST or None)
+def _check_auth(post, ip_address):
+    form = forms.AuthCandidacyForm(post or None)
 
-    if not request.POST:
+    if not post:
         return render_to_response('survey_candidacy_auth.html', { 'form': form })
 
-    token = request.POST['token']
+    token = post['token']
     candidacy = Candidacy.find_by_token(token)
     
     if not candidacy:
         # XXX add error message
         return render_to_response('survey_candidacy_auth.html', { 'form': form, 'error': True })
 
-    if 'auth_submitted' in request.POST:
+    if 'auth_submitted' in post:
         if not candidacy.survey_token_use_count:
             candidacy.survey_token_use_count = 0
         candidacy.survey_token_use_count += 1
-        candidacy.log('Survey token authenticated from IP %s' % request.META['REMOTE_ADDR'])
+        candidacy.log('Survey token authenticated from IP %s' % ip_address)
 
     return candidacy
 
 # Survey a candidate
 @ratelimit(minutes = 2, requests = 40) # stop brute-forcing of token 
-def survey_candidacy(request):
+def survey_candidacy(request, token = None):
+    post = request.POST or {}
+    if token:
+        post['token'] = token
+
     # Check they have the token
-    response = _check_auth(request)
+    response = _check_auth(post, request.META['REMOTE_ADDR'])
     if not isinstance(response, Candidacy):
         return response
     candidacy = response
 
     # Have they tried to post an answer?
-    submitted = request.POST and 'questions_submitted' in request.POST
+    submitted = 'questions_submitted' in post
 
     # Construct array of forms containing all local issues
     issues_for_seat = candidacy.seat.refinedissue_set.fetch(1000)
     issue_forms = []
     valid = True
     for issue in issues_for_seat:
-        form = forms.LocalIssueQuestionForm(submitted and request.POST or None, refined_issue=issue, candidacy=candidacy)
+        form = forms.LocalIssueQuestionForm(submitted and post or None, refined_issue=issue, candidacy=candidacy)
         valid = valid and form.is_valid()
         issue_forms.append(form)
 
