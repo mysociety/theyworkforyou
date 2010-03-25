@@ -19,6 +19,8 @@ Do this next
 ============
 
 Do a basic reload of data and make sure all the keys are sticky
+Make sure that if two items from different models have same import keys they
+    definitely don't overwrite each other
 XXX Cope with reloading when there are deleted and renamed candidates
 
 Low level code to email survey to a candidate 

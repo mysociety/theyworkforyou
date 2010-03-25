@@ -77,6 +77,8 @@ class Candidacy(db.Model):
     # Tokens, used in URL of survey
     survey_token = db.StringProperty()
     survey_token_use_count = db.IntegerProperty()
+    survey_invite_emailed = db.BooleanProperty(default = False)
+    survey_filled_in = db.BooleanProperty(default = False)
 
     def generate_survey_token(self):
         i = random.getrandbits(40) # 8 characters of 5 bits each

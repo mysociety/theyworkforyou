@@ -76,6 +76,7 @@ def survey_candidacy(request, token = None):
     # Save the answers to all questions in a transaction 
     if submitted and valid:
         db.run_in_transaction(forms._form_array_save, issue_forms)
+        candidacy.survey_filled_in = True
         candidacy.log('Survey form completed successfully')
         return render_to_response('survey_candidacy_thanks.html', { 'candidate' : candidacy.candidate })
 
@@ -136,6 +137,8 @@ on behalf of the voters of %s constituency
     """ % (candidacy.candidate.name, url, candidacy.seat.name)
 
     message.send()
+
+    candidacy.survey_invite_emailed = True
     candidacy.log("Sent survey invite email")
 
     return HttpResponse("Survey invitation sent to candidate")
