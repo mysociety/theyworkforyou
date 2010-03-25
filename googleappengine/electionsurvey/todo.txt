@@ -18,12 +18,13 @@ blog or similar
 Do this next
 ============
 
+Somehow get stack trace of failing task queue call
+
 Do a basic reload of data and make sure all the keys are sticky
 Make sure that if two items from different models have same import keys they
     definitely don't overwrite each other
-XXX Cope with reloading when there are deleted and renamed candidates
-
-Admin interface to trigger the email survey with sets of candidates
+Cope with reloading when there are deleted and renamed candidates / issues
+Check counts of things in live datastore are right
 
 Backup, automated to our usual place
 
