@@ -21,7 +21,8 @@ Do this next
 Do a basic reload of data and make sure all the keys are sticky
 XXX Cope with reloading when there are deleted and renamed candidates
 
-Code to email survey to each candidate (a few at a time, via admin interface)
+Low level code to email survey to a candidate 
+Admin interface to trigger the email survey with sets of candidates
 
 Backup, automated to our usual place
 
