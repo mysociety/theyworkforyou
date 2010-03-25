@@ -13,6 +13,9 @@ from google.appengine.api.datastore_types import Key
 from google.appengine.ext import db
 from google.appengine.api import mail
 
+# XXX remember to migrate this when the API becomes stable
+from google.appengine.api.labs import taskqueue
+
 from django.forms.formsets import formset_factory
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
@@ -154,9 +157,40 @@ on behalf of the voters of %s constituency
 # Administrator functions
 def admin(request):
     form = forms.EmailSurveyToCandidacies(request.POST or None)
+    dry_run = False
+    candidacies = None
+
+    # Send to people
+    if request.POST and 'email_survey_submitted' in request.POST:
+        if form.is_valid():
+            seat_id = form.cleaned_data['constituency']
+            already_emailed = form.cleaned_data['already_emailed']
+
+            candidacies = db.Query(Candidacy)
+            if seat_id != 'all':
+                seat = Seat.get_by_key_name(seat_id) 
+                candidacies.filter("seat = ", seat.key())
+            if already_emailed != 'either':
+                if already_emailed == 'false':
+                    candidacies.filter("survey_invite_emailed = ", False)
+                elif already_emailed == 'true':
+                    candidacies.filter("survey_invite_emailed = ", True)
+                else:
+                    raise Exception("Unknown value for already_emailed")
+
+            if 'dry_run' in request.POST:
+                dry_run = True
+            elif 'submit' in request.POST:
+                for candidacy in candidacies:
+                    if candidacy.candidate.validated_email():
+                        taskqueue.add(url='/task/invite_candidacy_survey/' + str(candidacy.id))
+            else:
+                raise Exception("Needs to either be dry_run or submit")
 
     return render_to_response('admin_index.html', {
-        'form' : form
+        'form' : form, 
+        'candidacies' : candidacies,
+        'dry_run' : dry_run
     })
 
 

@@ -1,4 +1,4 @@
-{% extends 'admin.html' %}
+{% extends 'admin_base.html' %}
 
 {% block content %}
 
@@ -9,8 +9,33 @@
 <form method="post" action="/admin/">
     {{ form.errors }}
     {{ form.as_p }}
-    <input type="submit" value="Submit">
     <input type="hidden" name="email_survey_submitted" value="1" > 
+    <input type="submit" value="Dry run" name="dry_run">
+    <input type="submit" value="Submit" name="submit">
 </form>
+
+{% if candidacies %}
+    {% if dry_run %}
+        <h3>Will try to send invite to {{ candidacies.count }} candidates:</h3>
+    {% else %}
+        <h3>Invite sending tasks queued for  {{ candidacies.count }} candidates:</h3>
+    {% endif %}
+    <p>
+        {% for candidacy in candidacies %}
+            {{ candidacy.candidate.name }} ({{ candidacy.seat.name }}) 
+            {% if candidacy.candidate.validated_email %} 
+                {{ candidacy.candidate.email }}
+            {% else %}
+                <strong>no valid email</strong> 
+                {% if dry_run %}
+                    (so won't actually send, or mark as sent)
+                {% else %}
+                    (so not actually queued)
+                {% endif %}
+            {% endif %}
+            <br>
+        {% endfor %}
+    </p>
+{% endif %}
 
 {% endblock %}

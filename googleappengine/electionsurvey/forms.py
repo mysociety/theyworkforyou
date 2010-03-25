@@ -63,15 +63,15 @@ def _form_array_amount_done(issue_forms):
 # Admin interface for sending survey by email to candidates
 class EmailSurveyToCandidacies(forms.Form):
     seats = list(db.Query(Seat))
-    constituency_choices = [("all", "All constituencies")] + [ (s.id, s.name) for s in seats]
+    constituency_choices = [("all", "Any constituencies")] + [ (s.id, s.name) for s in seats]
     constituency = forms.ChoiceField(
             required=True, choices=constituency_choices, label="Constituency:", help_text="(Only send to candidates standing in this constituency)"
     )
 
     already_emailed_choices = [
             ("false", "Only candidates not yet emailed"),
-            ("true", "Only candidates which have already been emailed"),
-            ("either", "All candidates")
+            ("true", "Only candidates who have already been emailed"),
+            ("either", "Whether or not they've already been emailed")
     ]
     already_emailed = forms.ChoiceField(
             required=True, choices=already_emailed_choices, label="Already emailed:", help_text=""
