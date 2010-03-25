@@ -8,6 +8,8 @@
 
 from google.appengine.ext import db
 
+import django.forms
+
 # XXX should this be using db.Model ?
 # import appengine_django.models
 # Causes error in appengine_django/models.py on this line:
@@ -44,7 +46,15 @@ class Candidate(db.Model):
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
 
-
+    # Validators
+    def validated_email(self):
+        email = self.email.strip()
+        try:
+            django.forms.EmailField().clean(email)
+            return email
+        except django.forms.ValidationError:
+            return None
+ 
 class Seat(db.Model):
     id = db.IntegerProperty()
     name = db.StringProperty()
@@ -98,6 +108,8 @@ class Candidacy(db.Model):
     def log(self, message):
         self.audit_log.append(datetime.datetime.now().isoformat() + " " + message)
         self.save()
+
+           
 
 # Local issue data from DemocracyClub    
 

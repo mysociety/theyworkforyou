@@ -6,18 +6,21 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
 
+import email.utils
+
 from google.appengine.api import urlfetch
 from google.appengine.api.datastore_types import Key
 from google.appengine.ext import db
+from google.appengine.api import mail
 
 from django.forms.formsets import formset_factory
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.conf import settings
 
 from ratelimitcache import ratelimit
 
 import forms
-
 from models import Seat, RefinedIssue, Candidacy
 
 # Front page of election site
@@ -35,7 +38,6 @@ def _check_auth(post, ip_address):
     candidacy = Candidacy.find_by_token(token)
     
     if not candidacy:
-        # XXX add error message
         return render_to_response('survey_candidacy_auth.html', { 'form': form, 'error': True })
 
     if 'auth_submitted' in post:
@@ -93,8 +95,53 @@ def survey_candidacy(request, token = None):
     })
 
 # Administrator functions
-def admin(request):
-    pass
+
+# Cron job / task to email a candidate a survey
+def admin_invite_candidacy_survey(request):
+    candidacy = Candidacy.get_by_key_name("-12")
+
+    # Get email and name
+    to_email = candidacy.candidate.validated_email()
+    if not to_email:
+        candidacy.log("Abandoned sending survey invite email as email address invalid")
+        return HttpResponse("Failed, email address invalid")
+    to_name = candidacy.candidate.name
+
+    # Generate candidate auth login URL
+    if not candidacy.survey_token:
+        candidacy.generate_survey_token()
+    url = settings.EMAIL_URL_PREFIX + "/survey/" + candidacy.survey_token
+
+    message = mail.EmailMessage()
+    message.sender = settings.TEAM_FROM_EMAIL
+    message.subject = "Help your future constituents know your views"
+    message.to = email.utils.formataddr((to_name, to_email))
+    message.body = """Hi %s,
+
+TheyWorkForYou is inviting all PPCs to tell their voters
+their views on important national and local issues.
+
+Click this link, it should only take you a few minutes.
+
+%s
+
+Millions of people use TheyWorkForYou to find out about their MP
+every year. Your answers will be used by voters in your constituency
+in the run up to the election, and if you become an MP they will appear 
+on your record on TheyWorkForYou.
+
+TheyWorkForYou team
+on behalf of the voters of %s constituency
+
+    """ % (candidacy.candidate.name, url, candidacy.seat.name)
+
+    message.send()
+    candidacy.log("Sent survey invite email")
+
+    return HttpResponse("Survey invitation sent to candidate")
+
+
+
 
 
 

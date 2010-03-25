@@ -1,17 +1,17 @@
 {
    "Candidate" : {
       "-2" : {
-         "name" : "Max Cobb",
+         "name" : "Stilton Mouse",
          "phone" : null,
          "created" : "2010-02-07T00:25:50",
-         "email" : null,
+         "email" : "frabcus@fastmail.fm",
          "party_id" : "-32",
          "image_id" : null,
          "fax" : null,
          "id" : "-2",
          "updated" : "2010-02-07T00:25:50",
          "address" : null,
-         "code" : "max_cobb"
+         "code" : "stilton_mouse"
       }
    },
    "Candidacy" : {
