@@ -98,8 +98,8 @@ def survey_candidacy(request, token = None):
 # Administrator functions
 
 # Cron job / task to email a candidate a survey
-def admin_invite_candidacy_survey(request):
-    candidacy = Candidacy.get_by_key_name("-12")
+def admin_invite_candidacy_survey(request, candidacy_id):
+    candidacy = Candidacy.get_by_key_name(candidacy_id)
 
     # Get email and name
     to_email = candidacy.candidate.validated_email()
@@ -136,12 +136,21 @@ on behalf of the voters of %s constituency
 
     """ % (candidacy.candidate.name, url, candidacy.seat.name)
 
+    candidate_name = "candidate <strong>%s</strong> in seat <strong>%s</strong>.</p>" % (candidacy.candidate.name, candidacy.seat.name)
+    if not request.POST:
+        # only actually do it for POST requests
+        text = "<p>If that had been a POST request, would have sent survey email to %s" % candidate_name
+        text += "<pre>%s</pre>" % str(message.body)
+        return HttpResponse(text)
+
     message.send()
 
     candidacy.survey_invite_emailed = True
     candidacy.log("Sent survey invite email")
 
-    return HttpResponse("Survey invitation sent to candidate")
+    text = "</p>Survey invitation sent to %s</p>" % candidate_name
+    text += "<pre>%s</pre>" % str(message.body)
+    return HttpResponse(text)
 
 
 
