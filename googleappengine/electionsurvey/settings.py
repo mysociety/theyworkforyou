@@ -91,3 +91,8 @@ TEMPLATE_DIRS = (
 
 CACHE_BACKEND = 'memcached://'
 
+try:
+    from local_settings import *
+except ImportError:
+    pass
+
