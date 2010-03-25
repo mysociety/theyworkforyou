@@ -1,44 +1,44 @@
 {
    "Candidate" : {
-      "3596" : {
-         "name" : "Gareth Allen",
+      "-2" : {
+         "name" : "Max Cobb",
          "phone" : null,
          "created" : "2010-02-07T00:25:50",
          "email" : null,
-         "party_id" : "1301",
+         "party_id" : "-32",
          "image_id" : null,
          "fax" : null,
-         "id" : "3596",
+         "id" : "-2",
          "updated" : "2010-02-07T00:25:50",
          "address" : null,
-         "code" : "gareth_allen"
+         "code" : "max_cobb"
       }
    },
    "Candidacy" : {
-      "1005" : {
+      "-12" : {
          "created" : "2010-02-07T00:25:50",
-         "seat_id" : "613",
-         "id" : "1005",
+         "seat_id" : "-22",
+         "id" : "-12",
          "updated" : "2010-02-07T00:25:50",
-         "candidate_id" : "3596"
+         "candidate_id" : "-2"
       }
    },
    "Seat" : {
-      "613" : {
+      "-22" : {
          "created" : "2010-02-06T23:52:20",
-         "name" : "Normanton, Pontefract and Castleford",
+         "name" : "Felpersham Outer",
          "updated" : "2010-02-06T23:52:20",
-         "id" : "613",
-         "code" : "normanton_pontefract_and_castleford"
+         "id" : "-22",
+         "code" : "felpersham_outer"
       }
    },
    "Party" : {
-      "1301" : {
+      "-32" : {
          "created" : "2010-02-06T23:53:01",
          "image_id" : null,
          "name" : "Independent",
          "updated" : "2010-02-06T23:53:01",
-         "id" : "1301",
+         "id" : "-32",
          "code" : "independent"
       }
     }
