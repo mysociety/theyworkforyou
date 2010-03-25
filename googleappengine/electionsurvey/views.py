@@ -95,10 +95,8 @@ def survey_candidacy(request, token = None):
         'seat' : candidacy.seat
     })
 
-# Administrator functions
-
 # Cron job / task to email a candidate a survey
-def admin_invite_candidacy_survey(request, candidacy_id):
+def task_invite_candidacy_survey(request, candidacy_id):
     candidacy = Candidacy.get_by_key_name(candidacy_id)
 
     # Get email and name
@@ -153,6 +151,9 @@ on behalf of the voters of %s constituency
     return HttpResponse(text)
 
 
+# Administrator functions
+def admin():
+    pass
 
 
 
