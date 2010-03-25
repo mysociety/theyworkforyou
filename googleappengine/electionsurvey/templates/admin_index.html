@@ -1,0 +1,16 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+
+<h2>Email survey invitations to candidates</h2>
+
+<p>Select the candidates to send to.</P>
+
+<form method="post" action="/admin/">
+    {{ form.errors }}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+    <input type="hidden" name="email_survey_submitted" value="1" > 
+</form>
+
+{% endblock %}

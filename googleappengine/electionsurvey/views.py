@@ -152,8 +152,12 @@ on behalf of the voters of %s constituency
 
 
 # Administrator functions
-def admin():
-    pass
+def admin(request):
+    form = forms.EmailSurveyToCandidacies(request.POST or None)
+
+    return render_to_response('admin_index.html', {
+        'form' : form
+    })
 
 
 

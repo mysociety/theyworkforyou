@@ -17,7 +17,7 @@ urlpatterns = patterns('',
 
     url(r'^survey/$', lambda r: HttpResponsePermanentRedirect('/survey')),
 
-    url(r'^admin', views.admin),
+    url(r'^admin/?$', views.admin),
 
     url(r'^task/invite_candidacy_survey/(?P<candidacy_id>[\d-]+)$', views.task_invite_candidacy_survey),
 
