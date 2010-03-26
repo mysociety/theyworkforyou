@@ -3,9 +3,6 @@ Policy questions
 
 Ask Edmund about candidate identifiers for deleted / renamed candidates
 
-Ask Tom what form token is going to need for postal
-Who exactly will get postal version?
-
 Will it be multiple pages? Does it need a save as you're going along? Maybe
 free text separate page to main survey?
 
@@ -32,6 +29,14 @@ Add code for national questions
 
 Add link to candidate survey from front page of election.theyworkforyou.com for now
 What should it do if they've already filled in the survey?
+
+Make it autosave, probably using:
+    * Get whole state of form http://api.jquery.com/serialize/
+    * Hook whenever a widget changes in form
+    * Submit to server into special autosave database field holding query string
+    * Show floating flash to make it clear it is doing that / change text
+    * Recover it later
+With an "I'm done" button
 
 
 Write voter quiz:
