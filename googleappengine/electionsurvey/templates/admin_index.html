@@ -16,7 +16,7 @@
 
 {% if candidacies %}
     {% if dry_run %}
-        <h3>Will try to send invite to {{ candidacies.count }} candidates:</h3>
+        <h3>Dry run, real run would send invite to {{ candidacies.count }} candidates:</h3>
     {% else %}
         <h3>Invite sending tasks queued for  {{ candidacies.count }} candidates:</h3>
     {% endif %}
