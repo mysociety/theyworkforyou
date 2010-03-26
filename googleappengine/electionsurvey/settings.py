@@ -78,7 +78,8 @@ INSTALLED_APPS = (
     # 'django.contrib.contenttypes',
     # 'django.contrib.sessions',
     # 'django.contrib.sites',
-    'appengine_django'
+    'appengine_django',
+    'gaebar'
 )
 
 ROOT_PATH = os.path.dirname(__file__)
@@ -94,8 +95,21 @@ CACHE_BACKEND = 'memcached://'
 TEAM_FROM_EMAIL = "TheyWorkForYou <election@theyworkforyou.com>"
 EMAIL_URL_PREFIX = "http://election.theyworkforyou.com"
 
-try:
-    from local_settings import *
-except ImportError:
-    pass
+
+GAEBAR_MODELS = (
+     (
+          'gaebar.models',
+          (u'Party', u'Candidate', u'Seat', u'Candidacy', u'RefinedIssue', u'SurveyResponse')
+     ),
+)
+GAEBAR_LOCAL_URL = 'http://localhost:8080'
+# Set this in local_settings.py
+# GAEBAR_SECRET_KEY = 'change_this_to_something_random'
+GAEBAR_SERVERS = {
+  u'Live': u'http://election.theyworkforyou.com', 
+  u'Local Test': u'http://localhost:8080',
+}
+
+# Copy local_settings.py-ingit to local_settings.py and edit it
+from local_settings import *
 

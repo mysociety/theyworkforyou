@@ -21,6 +21,8 @@ urlpatterns = patterns('',
 
     url(r'^task/invite_candidacy_survey/(?P<candidacy_id>[\d-]+)$', views.task_invite_candidacy_survey),
 
+    url(r'^gaebar/', include('gaebar.urls')),
+
     # url(r'^fooble$', views.fooble),
 
     # Example:

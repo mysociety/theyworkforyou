@@ -19,6 +19,22 @@ handlers:
   script: main.py
   login: admin
 
+- url: /gaebar/static
+  static_dir: gaebar/static
+
 - url: /.*
   script: main.py
+
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?.*\.bak$
+- ^gaebar/backups/.*
 

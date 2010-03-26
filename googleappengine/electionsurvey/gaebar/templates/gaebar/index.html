@@ -1,0 +1,176 @@
+{% extends "gaebar/base.html" %}
+
+{% block head %}
+	<link rel="stylesheet" href="static/gaebar.css" type="text/css">
+
+	<script type="text/javascript" src="static/jquery-1.2.6.min.js"></script>
+	<script type="text/javascript" src="static/jquery.progressbar.min.js"></script>
+	
+	<script type="text/javascript" src="static/gaebar.js"></script>
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+
+			{% if complete %}
+				showDialog("#backupCompleteDialog");
+			{% endif %}
+
+			{% if nodata %}
+				showDialog("#noDataInBackupDialog");
+			{% endif %}
+		
+			gaebar_init();
+		});
+	
+	</script>
+{% endblock %}
+
+{% block content %}
+	<div id="header">
+		<h1>Gaebar: Google App Engine Backup And Restore</h1>
+	
+		<p id="copyright"><strong>Powered by magical Django ponies and brought to you by the color pink.</strong> Created with &hearts; by <a href="http://www.aralbalkan.com" title="Aral Balkan">Aral Balkan</a>. A Naklab&trade; production sponsored by the <a href="http://www.headconference.com" title="Head web conference: virtual, interactive, affordable, and green.">&lt;head&gt; web conference</a>. &copy; 2008, 2009 Aral Balkan. <a href="http://www.gnu.org/licenses/gpl-3.0.txt">Released under GNU GPL 3</a>.</p>
+	</div>
+
+	<img src="static/gplv3-127x51.png" width="127" height="51" alt="Gaebar is released under the GNU GPL v3 license." id="GPL">
+
+	<div id="backup" class="controls">
+		{% if running_on_local_server %}
+			<h2>Backup unavailable</h2> as you're running on the local development server.
+		{% else %}
+			<h2>Backup</h2>	the <strong>{{current_host}}</strong> server.
+			<button id="startBackupButton">Backup!</button>		
+		{% endif %}
+	</div>
+		
+	<div id="restore" class="controls">
+		{% if no_backups %}
+			The are currently no backups to <h2>restore</h2>.
+		{% else %}
+
+			<h2>Restore</h2> the backup created on 
+
+			<select id="restoreSelect">
+				{% for folder in folder_info %}
+					<option value="{{folder.name}}">{{folder.pretty_name}}</option>
+				{% endfor %}
+			</select>
+				
+			to the {{current_host}} server.
+		
+			<button id="startRestoreButton">Restore!</button>
+		
+		{% endif %}
+	</div>
+
+	<div id="backupDialog" class="dialog">
+		<h1>Backup in progress <img id="spinner" src="static/ajax-loader.gif" width="35" height="35" alt="Loading..."></h1>
+		
+		<h2>Progress details:</h2>
+
+		<ul>
+			<li>Models backed up: <span id="numModelsRemaining"></span>  <span class="progressBar" id="backupStatus">0%</span></li>
+			<li>Current model: <span id="currentModel"></span></li>
+			<li>Current model row: <span id="currentIndex"></span></li>
+			<li>Total rows backed up: <span id="numRows"></span></li>
+			<li>Code shards used: <span id="numCodeShards"></span></li>
+			<li>Last update: <span id="lastUpdate"></span></li>
+			<li>Last key: <span id="lastKey"></span></li>
+		</ul>
+
+		<h2>General details:</h2>
+
+		<ul>
+			<li>Backup started at: <span id="createdAt"></li>
+			<li>Backup key: <span id="backupKey"></span></li>
+			<li>Models being backed up: <textarea id="allModels"></textarea></li>
+		</ul>
+		
+		<textarea id="debug"></textarea>
+		
+		<div class="controlsCentered">
+			<button id="cancelBackupButton">Cancel backup</a>
+		</div>
+	</div>
+	
+	<div id="confirmCancelDialog" class="dialog">
+		<h1>Cancel the backup?</h1>
+		<p>You have indicated that you want to cancel the backup. Are you sure that this is what you want to do?</p>
+		<div class="controlsCentered">
+			<button id="yes">Yes, cancel it!</button>
+			<button id="no">No, keep going!</button>
+		</div>
+	</div>
+	
+	<div id="localServerDialog" class="dialog">
+		<h1>Downloading backup to local server...</h1>
+		<p>The backup is now being downloaded to your local server. Please be patient as this will take a while...</p>
+		<div class="controlsCentered">
+			<button id="cancel">Cancel</button>
+		</div>
+	</div>
+
+	<div id="modalShade"></div>
+	
+	<img id="pinkGae" src="static/pink-gae.png" width="142" height="105" alt="Pink Google App Engine">
+	
+	<div id="restoreDialog" class="dialog">
+		<h1>Restore in progress <img id="spinner" src="static/ajax-loader.gif" width="35" height="35" alt="Restoring..."></h1>
+		
+		<h2>Progress details:</h2>
+		
+		<ul>
+			<li>Current model: <span id="lastModelRestored"></span></li>
+			<li>Current shard: <span id="restoreCurrentShard"></span> of <span id="restoreNumberOfShards"></span></li>
+			<li><span class="progressBar" id="restoreStatus">0%</span></li>			
+			<li>Last row updated: <span id="lastRowRestored"></span> of <span id="restoreNumberOfRows"></span></li>
+		</ul>
+
+		<h2>General details:</h2>
+
+		<ul>
+			<li>Restoring backup created on <span id="restoreBackupStartedAt"></span></li>
+			<li>Models being restored: <textarea id="restoreAllModels"></textarea></li>
+		</ul>
+		
+		<div class="controlsCentered">
+			<button id="cancelRestoreButton">Cancel restore</a>
+		</div>
+	</div>
+	
+	<div id="confirmCancelRestoreDialog" class="dialog">
+		<h1>Cancel the restore?</h1>
+		<p>Cancelling a restore will leave your datastore in a corrupted state. Are you sure that this is what you want to do?</p>
+		<div class="controlsCentered">
+			<button id="yes2">Yes, cancel it!</button>
+			<button id="no2">No, keep going!</button>
+		</div>
+	</div>
+
+	<div id="restoreCompleteDialog" class="dialog">
+		<h1>Restore complete!</h1>
+		<p>Your backup has successfully been restored.</p>
+		<div class="controlsCentered">
+			<button id="restoreCompleteDialogOKButton">OK</button>
+		</div>
+	</div>
+
+	<div id="backupCompleteDialog" class="dialog">
+		<h1>Backup complete!</h1>
+		<p>Your backup was successfully completed and downloaded to your local development server. You can find the source files under the <strong>gaebar/backups/</strong> folder.</p>
+		<div class="controlsCentered">
+			<button id="backupCompleteDialogOKButton">OK</button>
+		</div>
+	</div>
+
+	<div id="noDataInBackupDialog" class="dialog">
+		<h1>Datastore is empty</h1>
+		<p><strong>There is nothing to back up as the datastore on the {{current_host}} server is empty.</strong> A new backup set will not be created or downloaded to your local development server.</p>
+		<div class="controlsCentered">
+			<button id="noDataInBackupDialogOKButton">OK</button>
+		</div>
+	</div>
+	
+	<div id="auth">{{auth}}</div>
+
+{% endblock %}

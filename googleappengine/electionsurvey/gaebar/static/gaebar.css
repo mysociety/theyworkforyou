@@ -1,0 +1,255 @@
+body {
+	background-image: url(magic-pony-django-wallpaper.png);
+	background-position: -150 -200;
+}
+
+#header {
+	position:absolute;
+	left:280px;
+	top:10px;
+	width:34em;
+}
+
+h1 {
+	color:#52056B;
+	font-size:142%;
+	font-family: Arial, "MS Trebuchet", sans-serif;
+}
+
+a {
+	color:#52056B;
+	text-decoration: none;
+}
+
+textarea {
+	height:43px;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#pinkGae {
+	position:absolute;
+	left:.50em;
+	bottom:7.75em;
+}
+
+#GPL {
+	position:absolute;
+	left:43em;
+	top:3.75em;
+	z-index:-1;
+}
+
+#copyright {
+	font-size:60%;
+	margin-right:14em;
+	margin-left:2em;
+}
+
+
+h2 {
+	font-size:200%;
+	font-weight: normal;
+	display:inline;
+}
+
+.controls, .controlsCentered {
+	margin-top:1em;
+	padding:.5em;
+	/*background-color: #ccc;*/
+	background-image: url(transparent-gray.png);
+	background-repeat: repeat;
+	text-align:left;
+	border: 1px solid white;
+}	
+
+.controlsCentered {
+	text-align:center;
+	border:none;
+	background-image:none;
+	background-color:#ffc2e7;
+}
+
+#backup {
+	position:absolute;
+	bottom:5em;
+	left:1em;
+	right:1em;
+}
+
+#restore {
+	position:absolute;
+	bottom:1em;
+	left:1em;
+	right:1em;
+}
+
+/* Modal dialogs */
+
+#modalShade {
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	background:#000000;
+	border:1px solid #cecece;
+	z-index:1;
+	opacity:0.7;
+}
+
+#backupDialog {
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	width:600px;
+	height:495px;
+	background:#FFFFFF;
+	border:2px solid #cecece;
+	z-index:2;
+	padding:1em;
+}
+
+#restoreDialog {
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	width:600px;
+	height:377px;
+	background:#FFFFFF;
+	border:2px solid #cecece;
+	z-index:2;
+	padding:1em;
+}
+
+#confirmCancelDialog {
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	height:110px;
+	width:350px;
+	background:#FFFFFF;
+	border:2px solid #cecece;
+	z-index:4;
+	padding:12px;
+	font-size:13px;
+}
+
+#confirmCancelRestoreDialog {
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	height:110px;
+	width:350px;
+	background:#FFFFFF;
+	border:2px solid #cecece;
+	z-index:4;
+	padding:12px;
+	font-size:13px;
+}
+
+#restoreCompleteDialog {
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	height:105px;
+	width:350px;
+	background:#FFFFFF;
+	border:2px solid #cecece;
+	z-index:5;
+	padding:12px;
+	font-size:13px;
+}
+
+#backupCompleteDialog {
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	height:130px;
+	width:350px;
+	background:#FFFFFF;
+	border:2px solid #cecece;
+	z-index:5;
+	padding:12px;
+	font-size:13px;
+}
+
+#noDataInBackupDialog {
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	height:130px;
+	width:350px;
+	background:#FFFFFF;
+	border:2px solid #cecece;
+	z-index:3;
+	padding:12px;
+	font-size:13px;
+}
+
+#downloadDialog {
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	height:80px;
+	width:400px;
+	background:#FFFFFF;
+	border:2px solid #cecece;
+	z-index:3;
+	padding:12px;
+	font-size:13px;
+}
+
+#localServerDialog {
+	display:none;
+	position:fixed;
+	_position:absolute; /* hack for internet explorer 6*/
+	height:110px;
+	width:400px;
+	background:#FFFFFF;
+	border:2px solid #cecece;
+	z-index:3;
+	padding:12px;
+	font-size:13px;	
+}
+
+#confirmCancelDialog .controls {
+	
+}
+
+.dialog h1 {
+	font-size:125%;
+	color:white;
+	border-bottom:1px solid #999;
+	background-color: #953bac;
+	padding:.5em;
+	margin-bottom:1em;
+	margin-top:-.9em;
+	margin-left:-.9em;
+	margin-right:-.9em;
+}
+
+.dialog h2 {
+	font-size:120%;
+	font-weight: bold;
+}
+
+#spinner {
+	position:absolute;
+	top:5px;
+	right:5px;
+}
+
+#restoreAllModels, #allModels {
+	width:100%;
+}
+
+
+#debug {
+	width:100%;
+}
+

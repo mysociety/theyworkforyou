@@ -1,0 +1,3 @@
+backups
+*.pyc
+.DS_Store
