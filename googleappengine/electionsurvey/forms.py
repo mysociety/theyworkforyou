@@ -60,9 +60,10 @@ def _form_array_amount_done(issue_forms):
             c += 1
     return c
 
-# Admin interface for sending survey by email to candidates
+# Admin form for sending survey by email to candidates
 class EmailSurveyToCandidacies(forms.Form):
     seats = list(db.Query(Seat))
+    seats.sort(cmp=lambda x, y: cmp(x.name, y.name))
     constituency_choices = [("all", "Any constituencies")] + [ (s.id, s.name) for s in seats]
     constituency = forms.ChoiceField(
             required=True, choices=constituency_choices, label="Constituency:", help_text="(Only send to candidates standing in this constituency)"
