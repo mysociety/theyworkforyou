@@ -15,14 +15,14 @@ blog or similar
 Do this next
 ============
 
-Somehow get stack trace of failing task queue call
+Get the large number of tasks to work
 Maybe add a countdown to each task, so they are spread out explicitly
-Task queue is not idempotent, be sure you don't send multiple mails
 
 Do a basic reload of data and make sure all the keys are sticky
 Make sure that if two items from different models have same import keys they
     definitely don't overwrite each other
 Cope with reloading when there are deleted and renamed candidates / issues
+Get latest data from YourNextMP's new JSON
 Check counts of things in live datastore are right
 
 Backup, automated to our usual place

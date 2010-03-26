@@ -101,12 +101,14 @@ def survey_candidacy(request, token = None):
 # Task to email a candidate a survey
 def task_invite_candidacy_survey(request, candidacy_id):
     candidacy = Candidacy.get_by_key_name(candidacy_id)
+    if candidacy.survey_invite_emailed:
+        return HttpResponse("Given up, already emailed")
 
     # Get email and name
     to_email = candidacy.candidate.validated_email()
     if not to_email:
         candidacy.log("Abandoned sending survey invite email as email address invalid")
-        return HttpResponse("Failed, email address invalid")
+        return HttpResponse("Given up, email address invalid")
     to_name = candidacy.candidate.name
 
     # Generate candidate auth login URL
@@ -164,19 +166,13 @@ def admin(request):
     if request.POST and 'email_survey_submitted' in request.POST:
         if form.is_valid():
             seat_id = form.cleaned_data['constituency']
-            already_emailed = form.cleaned_data['already_emailed']
 
             candidacies = db.Query(Candidacy)
             if seat_id != 'all':
                 seat = Seat.get_by_key_name(seat_id) 
                 candidacies.filter("seat = ", seat.key())
-            if already_emailed != 'either':
-                if already_emailed == 'false':
-                    candidacies.filter("survey_invite_emailed = ", False)
-                elif already_emailed == 'true':
-                    candidacies.filter("survey_invite_emailed = ", True)
-                else:
-                    raise Exception("Unknown value for already_emailed")
+
+            candidacies.filter("survey_invite_emailed = ", False)
 
             if 'dry_run' in request.POST:
                 dry_run = True

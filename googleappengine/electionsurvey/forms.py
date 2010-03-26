@@ -69,13 +69,16 @@ class EmailSurveyToCandidacies(forms.Form):
             required=True, choices=constituency_choices, label="Constituency:", help_text="(Only send to candidates standing in this constituency)"
     )
 
-    already_emailed_choices = [
-            ("false", "Only candidates not yet emailed"),
-            ("true", "Only candidates who have already been emailed"),
-            ("either", "Whether or not they've already been emailed")
-    ]
-    already_emailed = forms.ChoiceField(
-            required=True, choices=already_emailed_choices, label="Already emailed:", help_text=""
-    )
+    # This abandoned (now only emails candidates not yet emailed for
+    # idempotency of email task). Code here to make it easier to add another
+    # similar option
+    #already_emailed_choices = [
+    #        ("false", "Only candidates not yet emailed"),
+    #        ("true", "Only candidates who have already been emailed"),
+    #        ("either", "Whether or not they've already been emailed")
+    #]
+    #already_emailed = forms.ChoiceField(
+    #        required=True, choices=already_emailed_choices, label="Already emailed:", help_text=""
+    #)
 
 
