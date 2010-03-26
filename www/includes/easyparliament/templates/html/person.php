@@ -162,20 +162,13 @@ function person_offices($extra_info) {
 }
 
 function person_ask_for_picture($member) {
-	echo '<p class="missingphoto">';
-	if ($member['current_member_anywhere']) {
-		echo 'We&rsquo;re missing a photo of ' .
-$member['full_name'] . '. If you are ' . $member['full_name'] . ', or have a
-photo of them <em>that you have copyright of</em>,
-<a href="mailto:' . CONTACTEMAIL . '">please email it to us</a>.';
-	} else {
-		echo 'We&rsquo;re missing a photo of ' .
-$member['full_name'] . '. If you have a photo <em>that you have copyright
-of</em>, or can locate a <em>copyright free</em> photo of them <a
-href="mailto:' . CONTACTEMAIL . '">please email it to us</a>.';
-	}
-	echo ' Please do not email us about copyrighted photos
-elsewhere on the internet; we can&rsquo;t use them.</p>';
+	echo '<p class="missingphoto">
+We&rsquo;re missing a photo of ' .  $member['full_name'] . '. If you have a
+photo <em>that you can release under a Creative Commons Attribution-ShareAlike
+license</em> or can locate a <em>copyright free</em> photo,
+<a href="mailto:' . CONTACTEMAIL . '">please email it to us</a>. Please do not
+email us about copyrighted photos elsewhere on the internet; we can&rsquo;t use
+them.</p>';
 }
 
 function person_enter_leave_facts($member, $extra_info) {
