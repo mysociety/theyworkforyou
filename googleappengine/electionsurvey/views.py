@@ -140,12 +140,6 @@ on behalf of the voters of %s constituency
     """ % (candidacy.candidate.name, url, candidacy.seat.name)
 
     candidate_name = "candidate <strong>%s</strong> in seat <strong>%s</strong>.</p>" % (candidacy.candidate.name, candidacy.seat.name)
-#    if not request.POST:
-#        # only actually do it for POST requests
-#        text = "<p>If that had been a POST request, would have sent survey email to %s" % candidate_name
-#        text += "<pre>%s</pre>" % str(message.body)
-#        return HttpResponse(text)
-
     message.send()
 
     candidacy.survey_invite_emailed = True
