@@ -15,7 +15,6 @@ blog or similar
 Do this next
 ============
 
-Get the large number of tasks to work
 Maybe add a countdown to each task, so they are spread out explicitly
 
 Do a basic reload of data and make sure all the keys are sticky

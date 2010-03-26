@@ -174,9 +174,11 @@ def admin(request):
             if 'dry_run' in request.POST:
                 dry_run = True
             elif 'submit' in request.POST:
+                c = 0
                 for candidacy in candidacies:
                     if candidacy.candidate.validated_email():
-                        taskqueue.add(url='/task/invite_candidacy_survey/' + str(candidacy.id))
+                        c += 1
+                        taskqueue.add(url='/task/invite_candidacy_survey/' + str(candidacy.id), countdown=c)
             else:
                 raise Exception("Needs to either be dry_run or submit")
 
