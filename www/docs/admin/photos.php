@@ -65,6 +65,7 @@ function submit_photo() {
         if (!$errors) {
             print "<pre>";
             chdir($dir);
+            passthru('git pull');
             passthru("git add mpsL/$pid.jpeg");
             passthru("git add mps/$pid.jpeg");
             passthru('git commit -m "Photo update from admin web photo upload interface."');
