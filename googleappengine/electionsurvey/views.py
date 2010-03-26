@@ -160,6 +160,7 @@ def admin(request):
     if request.POST and 'email_survey_submitted' in request.POST:
         if form.is_valid():
             seat_id = form.cleaned_data['constituency']
+            limit = form.cleaned_data['limit']
 
             candidacies = db.Query(Candidacy)
             if seat_id != 'all':
@@ -167,6 +168,8 @@ def admin(request):
                 candidacies.filter("seat = ", seat.key())
 
             candidacies.filter("survey_invite_emailed = ", False)
+
+            candidacies = candidacies.fetch(limit)
 
             if 'dry_run' in request.POST:
                 dry_run = True
@@ -180,6 +183,7 @@ def admin(request):
     return render_to_response('admin_index.html', {
         'form' : form, 
         'candidacies' : candidacies,
+        'candidacies_len' : candidacies and len(candidacies),
         'dry_run' : dry_run
     })
 

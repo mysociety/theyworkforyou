@@ -69,6 +69,9 @@ class EmailSurveyToCandidacies(forms.Form):
             required=True, choices=constituency_choices, label="Constituency:", help_text="(Only send to candidates standing in this constituency)"
     )
 
+    limit = forms.IntegerField(required=True, initial=1,
+        help_text="(At most send to this many candidates)")
+
     # This abandoned (now only emails candidates not yet emailed for
     # idempotency of email task). Code here to make it easier to add another
     # similar option
