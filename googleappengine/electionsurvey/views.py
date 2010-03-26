@@ -98,7 +98,7 @@ def survey_candidacy(request, token = None):
         'seat' : candidacy.seat
     })
 
-# Cron job / task to email a candidate a survey
+# Task to email a candidate a survey
 def task_invite_candidacy_survey(request, candidacy_id):
     candidacy = Candidacy.get_by_key_name(candidacy_id)
 
@@ -138,11 +138,11 @@ on behalf of the voters of %s constituency
     """ % (candidacy.candidate.name, url, candidacy.seat.name)
 
     candidate_name = "candidate <strong>%s</strong> in seat <strong>%s</strong>.</p>" % (candidacy.candidate.name, candidacy.seat.name)
-    if not request.POST:
-        # only actually do it for POST requests
-        text = "<p>If that had been a POST request, would have sent survey email to %s" % candidate_name
-        text += "<pre>%s</pre>" % str(message.body)
-        return HttpResponse(text)
+#    if not request.POST:
+#        # only actually do it for POST requests
+#        text = "<p>If that had been a POST request, would have sent survey email to %s" % candidate_name
+#        text += "<pre>%s</pre>" % str(message.body)
+#        return HttpResponse(text)
 
     message.send()
 

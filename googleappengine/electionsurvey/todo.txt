@@ -16,6 +16,8 @@ Do this next
 ============
 
 Somehow get stack trace of failing task queue call
+Maybe add a countdown to each task, so they are spread out explicitly
+Task queue is not idempotent, be sure you don't send multiple mails
 
 Do a basic reload of data and make sure all the keys are sticky
 Make sure that if two items from different models have same import keys they
