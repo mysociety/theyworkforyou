@@ -91,7 +91,7 @@ TEMPLATE_DIRS = (
 
 CACHE_BACKEND = 'memcached://'
 
-TEAM_FROM_EMAIL = "TheyWorkForYou <team@theyworkforyou.com>"
+TEAM_FROM_EMAIL = "TheyWorkForYou <election@theyworkforyou.com>"
 EMAIL_URL_PREFIX = "http://election.theyworkforyou.com"
 
 try:
