@@ -15,8 +15,6 @@ blog or similar
 Do this next
 ============
 
-Maybe add a countdown to each task, so they are spread out explicitly
-
 Do a basic reload of data and make sure all the keys are sticky
 Make sure that if two items from different models have same import keys they
     definitely don't overwrite each other
