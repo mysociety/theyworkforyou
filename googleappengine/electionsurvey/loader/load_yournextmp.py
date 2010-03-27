@@ -31,7 +31,7 @@ def upload_model(data, tmp_csvfile, row_names, model, bulkloader):
         writer.writerow(row)
     f.close()
     # Feed it to the uploader
-    cmd = '''bulkloader.py --log_file=/tmp/bulkloader-yournextmp-log --db_filename=skip --config_file=%s --url=%s --kind=%s --filename=%s --app_id=theyworkforyouelection --email="%s"''' % (bulkloader, URL, model, tmp_csvfile, EMAIL)
+    cmd = '''appcfg.py upload_data --log_file=/tmp/bulkloader-yournextmp-log --db_filename=skip --config_file=%s --url=%s --kind=%s --filename=%s --app_id=theyworkforyouelection --email="%s"''' % (bulkloader, URL, model, tmp_csvfile, EMAIL)
     print cmd
     os.system(cmd)
 
