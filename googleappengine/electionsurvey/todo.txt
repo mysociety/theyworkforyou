@@ -15,9 +15,6 @@ blog or similar
 Do this next
 ============
 
-Backup, automated to our usual place
-    Test backup
-
 Do a basic reload of data and make sure all the keys are sticky
 Make sure that if two items from different models have same import keys they
     definitely don't overwrite each other
@@ -37,6 +34,8 @@ Make it autosave, probably using:
     * Show floating flash to make it clear it is doing that / change text
     * Recover it later
 With an "I'm done" button
+
+Make sure backup is working
 
 
 Write voter quiz:
