@@ -19,8 +19,10 @@ BACKUP_FILE="/data/backups/dailydb/theyworkforyouelection.googleappengine.sqlite
 # Feed it to the uploader
 os.chdir('/') # put temporary files here
 cmd = '''bulkloader.py --dump --log_file=/tmp/bulkloader-backup-log --db_filename=skip --url=%s --filename=%s --app_id=theyworkforyouelection --email="%s"''' % (URL, BACKUP_FILE, EMAIL)
-os.system(cmd)
+if os.system(cmd) != 0:
+    raise Exception("Failed to call bulkloader.py")
 
 # Compress it
-os.system("gzip --force " + BACKUP_FILE)
+if os.system("gzip --force " + BACKUP_FILE) != 0:
+    raise Exception("Failed to call gzip --force")
 
