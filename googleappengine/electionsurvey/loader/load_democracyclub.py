@@ -22,6 +22,6 @@ CSV_FILE="very-short-refined-issues.csv"
 #CSV_FILE="/home/francis/Desktop/refined_local_issues.csv"
 
 # Feed it to the uploader
-cmd = '''appcfg.py upload_data --log_file=/tmp/bulkloader-democracyclub-log --db_filename=skip --config_file=%s --url=%s --kind=%s --filename=%s --email="%s" ../''' % ("refined_issue_loader.py", URL, "RefinedIssue", CSV_FILE, EMAIL)
-print cmd
+cmd = '''python2.5 ../google_appengine/appcfg.py upload_data --log_file=/tmp/bulkloader-democracyclub-log --db_filename=skip --config_file=%s --url=%s --kind=%s --filename=%s --email="%s" ../''' % ("refined_issue_loader.py", URL, "RefinedIssue", CSV_FILE, EMAIL)
+#print cmd
 os.system(cmd)

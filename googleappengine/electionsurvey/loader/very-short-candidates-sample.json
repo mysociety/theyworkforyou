@@ -24,11 +24,11 @@
       }
    },
    "Seat" : {
-      "-22" : {
+      "-2" : {
          "created" : "2010-02-06T23:52:20",
          "name" : "Felpersham Outer",
          "updated" : "2010-02-06T23:52:20",
-         "id" : "-22",
+         "id" : "-2",
          "code" : "felpersham_outer"
       }
    },

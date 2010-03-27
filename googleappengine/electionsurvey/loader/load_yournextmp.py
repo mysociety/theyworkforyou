@@ -15,8 +15,8 @@ sys.path.append("../")
 import django.utils.simplejson as json
 
 # Parameters
-#URL="http://localhost:8080/remote_api"
-URL="http://theyworkforyouelection.appspot.com/remote_api"
+URL="http://localhost:8080/remote_api"
+#URL="http://theyworkforyouelection.appspot.com/remote_api"
 EMAIL="francis@flourish.org"
 JSON_FILE="very-short-candidates-sample.json"
 #JSON_FILE="yournextmp_export_2010-02-23.json"
@@ -31,8 +31,8 @@ def upload_model(data, tmp_csvfile, row_names, model, bulkloader):
         writer.writerow(row)
     f.close()
     # Feed it to the uploader
-    cmd = '''appcfg.py upload_data --log_file=/tmp/bulkloader-yournextmp-log --db_filename=skip --config_file=%s --url=%s --kind=%s --filename=%s --email="%s" ../''' % (bulkloader, URL, model, tmp_csvfile, EMAIL)
-    print cmd
+    cmd = '''python2.5 ../google_appengine/appcfg.py upload_data --log_file=/tmp/bulkloader-yournextmp-log --db_filename=skip --config_file=%s --url=%s --kind=%s --filename=%s --email="%s" ../''' % (bulkloader, URL, model, tmp_csvfile, EMAIL)
+    #print cmd
     os.system(cmd)
 
 # Load in JSON file from YNMP
