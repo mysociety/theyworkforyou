@@ -11,9 +11,6 @@ import sys
 import csv
 import os
 
-sys.path.append("../")
-import django.utils.simplejson as json
-
 # Parameters
 URL="http://theyworkforyouelection.appspot.com/remote_api"
 EMAIL="election@theyworkforyou.com"
