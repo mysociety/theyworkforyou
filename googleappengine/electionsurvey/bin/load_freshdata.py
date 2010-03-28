@@ -23,8 +23,8 @@ from google.appengine.api.datastore_types import Key
 from models import Party, Candidate, Seat, Candidacy, RefinedIssue
 
 # Parameters
-HOST="localhost:8080"
-#HOST="election.theyworkforyou.com"
+#HOST="localhost:8080"
+HOST="election.theyworkforyou.com"
 EMAIL="francis@flourish.org"
 YOURNEXTMP_JSON_FILE="very-short-candidates-sample.json"
 #YOURNEXTMP_JSON_FILE="yournextmp_export_2010-02-23.json"

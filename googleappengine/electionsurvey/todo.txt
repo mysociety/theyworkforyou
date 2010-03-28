@@ -6,6 +6,8 @@ Check Edmund doesn't edit candidate names and keep the same candidate id
 Should people be able to share their answers? Embed their results in their
 blog or similar
 
+Do we want to give the reference_url links on the survey?
+
 
 Do this next
 ============
@@ -17,11 +19,12 @@ Note if an email address has changed (so can resend survey)
 Does bulk load deleted match fail due to too long?
 Get latest data from YourNextMP's new JSON
     http://www.yournextmp.com/data/YOURNEXTMP_API_KEY/latest/json_main
+Fix character encoding bug in refined_csv in DemocacyClub code
 Get latest issue data from DemocacyClub
     http://www.democracyclub.org.uk/issues/refined_csv
 
-Post emails from offline script straight into task queue
-Make sure queries specify deleted = False for candidacies
+survey_token_use_count not incremented for get requests from email
+
 Make sure set ETA:
     http://osdir.com/ml/GoogleAppEngine/2009-10/msg00974.html
 
