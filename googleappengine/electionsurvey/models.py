@@ -129,6 +129,7 @@ class RefinedIssue(db.Model):
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
 
+    deleted = db.BooleanProperty(default = False)
 
 # Candidate survey response model
 class SurveyResponse(db.Model):

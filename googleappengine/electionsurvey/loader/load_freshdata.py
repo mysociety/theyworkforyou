@@ -171,19 +171,28 @@ put_in_batches(candidacies_by_key.values())
 for key_name, candidacy in to_be_marked_deleted.iteritems():
     log("Marking deleted " + candidacy.seat.name + " " + candidacy.candidate.name)
     candidacy.deleted = True
-    candidacy.save()
 log("Putting marked deleted candidacies")
 put_in_batches(to_be_marked_deleted.values())
 
 ######################################################################
 # Load from DemocracyClub
 
+# Get list of existing refined issues in remote datastore, so can track what to delete
+log("Getting list of refined issues")
+refined_issues = RefinedIssue.all().filter("deleted =", False)
+to_be_marked_deleted = {}
+for refined_issue in refined_issues:
+    key_name = refined_issue.key().name()
+    log("Marking before have refined issue key " + key_name)
+    to_be_marked_deleted[key_name] = refined_issue
+
+# Load in CSV file and create/update all the issues
 reader = csv.reader(open(DEMOCRACYCLUB_LOCAL_ISSUE_CSV_FILE, "rb"))
-local_issues_by_key = {}
+refined_issues_by_key = {}
 for row in reader:
     (democlub_id, question, reference_url, seat_name, created, updated) = row
     key_name = democlub_id
-    local_issue = RefinedIssue(
+    refined_issue = RefinedIssue(
         democlub_id = int(democlub_id),
         question = question,
         reference_url = reference_url,
@@ -192,10 +201,21 @@ for row in reader:
         updated = convdate(updated),
         key_name = key_name
     )
-    log("Storing local issue for " + seat_name + ": " + local_issue.question)
-    local_issues_by_key[key_name] = local_issue
-log("Putting all local issues")
-put_in_batches(local_issues_by_key.values())
+    log("Storing local issue for " + seat_name + ": " + refined_issue.question)
+    refined_issues_by_key[key_name] = refined_issue
+
+    # record we still have this issue
+    if key_name in to_be_marked_deleted:
+        del to_be_marked_deleted[key_name]
+log("Putting all refined issues")
+put_in_batches(refined_issues_by_key.values())
+
+# See which refined issues are left, i.e. are deleted
+for key_name, refined_issue in to_be_marked_deleted.iteritems():
+    log("Marking deleted issue for " + refined_issue.seat.name + ":" + refined_issue.question)
+    refined_issue.deleted = True
+log("Putting marked deleted refined issues")
+put_in_batches(to_be_marked_deleted.values())
 
 
 

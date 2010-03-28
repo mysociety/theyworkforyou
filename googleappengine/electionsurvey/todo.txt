@@ -3,8 +3,6 @@ Policy questions
 
 Check Edmund doesn't edit candidate names and keep the same candidate id
 
-When can a candidate edit their answers?
-
 Should people be able to share their answers? Embed their results in their
 blog or similar
 
@@ -12,10 +10,13 @@ blog or similar
 Do this next
 ============
 
-Cope with reloading when there are deleted and renamed issues
+Use only deleted issues on form
+Think about what to do regarding deleted issues, and issues whose questions change
+   if the survey has already been sent
 
 Note if an email address has changed (so can resend survey)
 
+Does bulk load deleted match fail?
 Get latest data from YourNextMP's new JSON
     http://www.yournextmp.com/data/YOURNEXTMP_API_KEY/latest/json_main
 Get latest issue data from DemocacyClub
@@ -29,6 +30,7 @@ Make sure set ETA:
 Add code for national questions
 
 What should it do if they've already filled in the survey?
+    - can edit their answers and resubmit, until a deadline?
 
 Make it autosave, probably using:
     * Get whole state of form http://api.jquery.com/serialize/
