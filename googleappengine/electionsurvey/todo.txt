@@ -10,13 +10,11 @@ blog or similar
 Do this next
 ============
 
-Use only deleted issues on form
 Think about what to do regarding deleted issues, and issues whose questions change
    if the survey has already been sent
-
 Note if an email address has changed (so can resend survey)
 
-Does bulk load deleted match fail?
+Does bulk load deleted match fail due to too long?
 Get latest data from YourNextMP's new JSON
     http://www.yournextmp.com/data/YOURNEXTMP_API_KEY/latest/json_main
 Get latest issue data from DemocacyClub
