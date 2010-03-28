@@ -24,7 +24,7 @@ import datetime
 # Candidate from YourMP
 
 class Party(db.Model):
-    id = db.IntegerProperty()
+    ynmp_id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
 
@@ -35,7 +35,7 @@ class Party(db.Model):
 
 
 class Candidate(db.Model):
-    id = db.IntegerProperty()
+    ynmp_id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
 
@@ -56,7 +56,7 @@ class Candidate(db.Model):
             return None
  
 class Seat(db.Model):
-    id = db.IntegerProperty()
+    ynmp_id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
 
@@ -66,7 +66,7 @@ class Seat(db.Model):
 
 digits = "0123456789abcdefghjkmnpqrstvwxyz"
 class Candidacy(db.Model):
-    id = db.IntegerProperty()
+    ynmp_id = db.IntegerProperty()
 
     seat = db.ReferenceProperty(Seat)
     candidate = db.ReferenceProperty(Candidate)
@@ -74,12 +74,16 @@ class Candidacy(db.Model):
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
 
-    # Tokens, used in URL of survey
+    deleted = False
+
     survey_token = db.StringProperty()
     survey_token_use_count = db.IntegerProperty()
     survey_invite_emailed = db.BooleanProperty(default = False)
     survey_filled_in = db.BooleanProperty(default = False)
 
+    audit_log = db.StringListProperty()
+
+    # Tokens are used in URL of survey / for user to enter from paper letter
     def generate_survey_token(self):
         i = random.getrandbits(40) # 8 characters of 5 bits each
         enc = ''
@@ -104,9 +108,8 @@ class Candidacy(db.Model):
         assert len(founds) == 1
         return founds[0]
 
-    # Audit log of what has happened to candidate
-    audit_log = db.StringListProperty()
-    # ... log does save also
+    # Audit log of what has happened to candidate.
+    # Note: The log function does a save too
     def log(self, message):
         self.audit_log.append(datetime.datetime.now().isoformat() + " " + message)
         self.save()

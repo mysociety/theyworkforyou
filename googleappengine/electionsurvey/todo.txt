@@ -15,10 +15,13 @@ blog or similar
 Do this next
 ============
 
-When reloading data don't wipe over other fields :(
-Cope with reloading when there are deleted and renamed candidates / issues
+Cope with reloading when there are deleted and renamed candidates 
+Cope with reloading when there are deleted and renamed issues
 Get latest data from YourNextMP's new JSON
 Check counts of things in live datastore are right
+Note if an email address has changed (so can resend survey)
+
+Post emails from offline script?
 
 Add code for national questions
 
