@@ -23,7 +23,7 @@ Get latest issue data from DemocacyClub
     http://www.democracyclub.org.uk/issues/refined_csv
 
 Post emails from offline script straight into task queue
-Make sure queries specify deleted = False
+Make sure queries specify deleted = False for candidacies
 Make sure set ETA:
     http://osdir.com/ml/GoogleAppEngine/2009-10/msg00974.html
 

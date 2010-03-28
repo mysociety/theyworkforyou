@@ -68,7 +68,7 @@ def survey_candidacy(request, token = None):
     submitted = 'questions_submitted' in post
 
     # Construct array of forms containing all local issues
-    issues_for_seat = candidacy.seat.refinedissue_set.fetch(1000)
+    issues_for_seat = candidacy.seat.refinedissue_set.filter("deleted =", False).fetch(1000)
     issue_forms = []
     valid = True
     for issue in issues_for_seat:
@@ -99,8 +99,8 @@ def survey_candidacy(request, token = None):
     })
 
 # Task to email a candidate a survey
-def task_invite_candidacy_survey(request, candidacy_id):
-    candidacy = Candidacy.get_by_key_name(candidacy_id)
+def task_invite_candidacy_survey(request, candidacy_key_name):
+    candidacy = Candidacy.get_by_key_name(candidacy_key_name)
     if candidacy.survey_invite_emailed:
         return HttpResponse("Given up, already emailed")
 
@@ -159,12 +159,12 @@ def admin(request):
     # Send to people
     if request.POST and 'email_survey_submitted' in request.POST:
         if form.is_valid():
-            seat_id = form.cleaned_data['constituency']
+            seat_key_name = form.cleaned_data['constituency']
             limit = form.cleaned_data['limit']
 
             candidacies = db.Query(Candidacy)
-            if seat_id != 'all':
-                seat = Seat.get_by_key_name(seat_id) 
+            if seat_key_name != 'all':
+                seat = Seat.get_by_key_name(seat_key_name) 
                 candidacies.filter("seat = ", seat.key())
 
             candidacies.filter("survey_invite_emailed = ", False)
@@ -178,7 +178,7 @@ def admin(request):
                 for candidacy in candidacies:
                     if candidacy.candidate.validated_email():
                         c += 1
-                        taskqueue.add(url='/task/invite_candidacy_survey/' + str(candidacy.id), countdown=c)
+                        taskqueue.add(url='/task/invite_candidacy_survey/' + str(candidacy.key().name()), countdown=c)
             else:
                 raise Exception("Needs to either be dry_run or submit")
 

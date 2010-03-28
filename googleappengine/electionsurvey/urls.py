@@ -19,7 +19,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/?$', views.admin),
 
-    url(r'^task/invite_candidacy_survey/(?P<candidacy_id>[\d-]+)$', views.task_invite_candidacy_survey),
+    url(r'^task/invite_candidacy_survey/(?P<candidacy_key_name>[\d-]+)$', views.task_invite_candidacy_survey),
 
     # url(r'^fooble$', views.fooble),
 

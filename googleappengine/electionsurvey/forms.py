@@ -23,7 +23,7 @@ class LocalIssueQuestionForm(forms.Form):
         self.refined_issue = kwargs.pop('refined_issue')
         self.candidacy = kwargs.pop('candidacy')
 
-        kwargs['prefix'] = 'issue-%d' % self.refined_issue.id
+        kwargs['prefix'] = 'issue-%s' % self.refined_issue.key().name()
         super(LocalIssueQuestionForm, self).__init__(*args, **kwargs)
         self.fields['agreement'].label = self.refined_issue.question
     
