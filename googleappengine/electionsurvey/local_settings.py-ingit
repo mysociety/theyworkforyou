@@ -1,0 +1,5 @@
+# Copy this file to localsettings.py and edit it
+
+# Get one of these here: http://www.yournextmp.com/data
+YOURNEXTMP_API_TOKEN=xxxxxxxxxxxxxxxxx
+

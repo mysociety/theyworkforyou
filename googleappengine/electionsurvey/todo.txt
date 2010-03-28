@@ -1,10 +1,7 @@
 Policy questions
 ================
 
-Ask Edmund about candidate identifiers for deleted / renamed candidates
-
-Will it be multiple pages? Does it need a save as you're going along? Maybe
-free text separate page to main survey?
+Check Edmund doesn't edit candidate names and keep the same candidate id
 
 When can a candidate edit their answers?
 
@@ -18,6 +15,8 @@ Do this next
 Cope with reloading when there are deleted and renamed candidates 
 Cope with reloading when there are deleted and renamed issues
 Get latest data from YourNextMP's new JSON
+Get latest issue data from DemocacyClub
+    http://www.democracyclub.org.uk/issues/refined_csv
 Check counts of things in live datastore are right
 Note if an email address has changed (so can resend survey)
 
