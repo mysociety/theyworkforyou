@@ -60,28 +60,3 @@ def _form_array_amount_done(issue_forms):
             c += 1
     return c
 
-# Admin form for sending survey by email to candidates
-class EmailSurveyToCandidacies(forms.Form):
-    seats = list(db.Query(Seat))
-    seats.sort(cmp=lambda x, y: cmp(x.name, y.name))
-    constituency_choices = [("all", "Any constituencies")] + [ (s.key().name(), s.name) for s in seats]
-    constituency = forms.ChoiceField(
-            required=True, choices=constituency_choices, label="Constituency:", help_text="(Only send to candidates standing in this constituency)"
-    )
-
-    limit = forms.IntegerField(required=True, initial=1,
-        help_text="(At most send to this many candidates)")
-
-    # This abandoned (now only emails candidates not yet emailed for
-    # idempotency of email task). Code here to make it easier to add another
-    # similar option
-    #already_emailed_choices = [
-    #        ("false", "Only candidates not yet emailed"),
-    #        ("true", "Only candidates who have already been emailed"),
-    #        ("either", "Whether or not they've already been emailed")
-    #]
-    #already_emailed = forms.ChoiceField(
-    #        required=True, choices=already_emailed_choices, label="Already emailed:", help_text=""
-    #)
-
-

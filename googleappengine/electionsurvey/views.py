@@ -152,42 +152,7 @@ on behalf of the voters of %s constituency
 
 # Administrator functions
 def admin(request):
-    form = forms.EmailSurveyToCandidacies(request.POST or None)
-    dry_run = False
-    candidacies = None
-
-    # Send to people
-    if request.POST and 'email_survey_submitted' in request.POST:
-        if form.is_valid():
-            seat_key_name = form.cleaned_data['constituency']
-            limit = form.cleaned_data['limit']
-
-            candidacies = db.Query(Candidacy)
-            if seat_key_name != 'all':
-                seat = Seat.get_by_key_name(seat_key_name) 
-                candidacies.filter("seat = ", seat.key())
-
-            candidacies.filter("survey_invite_emailed = ", False)
-
-            candidacies = candidacies.fetch(limit)
-
-            if 'dry_run' in request.POST:
-                dry_run = True
-            elif 'submit' in request.POST:
-                c = 0
-                for candidacy in candidacies:
-                    if candidacy.candidate.validated_email():
-                        c += 1
-                        taskqueue.add(url='/task/invite_candidacy_survey/' + str(candidacy.key().name()), countdown=c)
-            else:
-                raise Exception("Needs to either be dry_run or submit")
-
-    return render_to_response('admin_index.html', {
-        'form' : form, 
-        'candidacies' : candidacies,
-        'candidacies_len' : candidacies and len(candidacies),
-        'dry_run' : dry_run
-    })
+    return render_to_response('admin_index.html', { })
 
 
 
