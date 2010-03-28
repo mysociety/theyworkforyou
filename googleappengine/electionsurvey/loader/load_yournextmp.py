@@ -22,8 +22,8 @@ from google.appengine.api.datastore_types import Key
 from models import Party, Candidate, Seat, Candidacy
 
 # Parameters
-#HOST="localhost:8080"
-HOST="election.theyworkforyou.com"
+HOST="localhost:8080"
+#HOST="election.theyworkforyou.com"
 EMAIL="francis@flourish.org"
 #JSON_FILE="very-short-candidates-sample.json"
 JSON_FILE="yournextmp_export_2010-02-23.json"
@@ -46,7 +46,7 @@ def put_in_batches(models, limit = 500):
     c = 0
     while len(models) > 0:
         put_models = models[0:limit]
-        log("db.put batch " + str(c) + ", size " + str(len(put_models)))
+        log("    db.put batch " + str(c) + ", size " + str(len(put_models)))
         db.put(put_models)
         models = models[limit:]
         c += 1
@@ -124,13 +124,13 @@ log("Putting all seats")
 put_in_batches(seats_by_key.values())
 
 # Get list of existing candiacies in remote datastore
-#log("Getting list of Candidacies")
-#candidacies = Candidacy.all()
-#candidacies_by_key = {}
-#for candidacy in candidacies:
-#    key_name = candidacy.key().name()
-#    log("Marking before have candidacy key " + key_name)
-#    candidacies_by_key[key_name] = candidacy
+log("Getting list of Candidacies")
+candidacies = Candidacy.all().filter("deleted =", False)
+to_be_marked_deleted = {}
+for candidacy in candidacies:
+    key_name = candidacy.key().name()
+    log("Marking before have candidacy key " + key_name)
+    to_be_marked_deleted[key_name] = candidacy
 
 # Loop through new dump of candidacies from YourNextMP, adding new ones
 candidacies_by_key = {}
@@ -148,18 +148,20 @@ for candidacy_id, candidacy_data in ynmp["Candidacy"].iteritems():
     candidacy.deleted = False
     log("Storing candidacy " + candidacy.seat.name + " " + candidacy.candidate.name)
     candidacies_by_key[key_name] = candidacy
+
+    # record we still have this candidacy
+    if key_name in to_be_marked_deleted:
+        del to_be_marked_deleted[key_name]
 log("Putting all candidacies")
 put_in_batches(candidacies_by_key.values())
 
-    # record we still have this candidacy
-#    if key_name in candidacies_by_key:
-#        del candidacies_by_key[key_name]
-
 # See which candidacies are left, i.e. are deleted
-#for key_name, candidacy in candidacies_by_key.iteritems():
-#    print "Marking deleted: ", candidacy.seat.name, candidacy.candidate.name
-#    candidacy.deleted = True
-#    candidacy.save()
+for key_name, candidacy in to_be_marked_deleted.iteritems():
+    log("Marking deleted " + candidacy.seat.name + " " + candidacy.candidate.name)
+    candidacy.deleted = True
+    candidacy.save()
+log("Putting marked deleted candidacies")
+put_in_batches(to_be_marked_deleted.values())
 
 sys.exit()
 

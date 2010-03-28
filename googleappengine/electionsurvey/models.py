@@ -74,7 +74,7 @@ class Candidacy(db.Model):
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
 
-    deleted = False
+    deleted = db.BooleanProperty(default = False)
 
     survey_token = db.StringProperty()
     survey_token_use_count = db.IntegerProperty()
