@@ -119,7 +119,7 @@ class Candidacy(db.Model):
 # Local issue data from DemocracyClub    
 
 class RefinedIssue(db.Model):
-    id = db.IntegerProperty()
+    democlub_id = db.IntegerProperty()
 
     question = db.StringProperty()
     reference_url = db.StringProperty()

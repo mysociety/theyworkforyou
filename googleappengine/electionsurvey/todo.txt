@@ -12,15 +12,21 @@ blog or similar
 Do this next
 ============
 
-Cope with reloading when there are deleted and renamed candidates 
+Rewrite issue loader to work 
 Cope with reloading when there are deleted and renamed issues
-Get latest data from YourNextMP's new JSON
-Get latest issue data from DemocacyClub
-    http://www.democracyclub.org.uk/issues/refined_csv
-Check counts of things in live datastore are right
+
+Cope with reloading when there are deleted and renamed candidates 
+Make
 Note if an email address has changed (so can resend survey)
 
-Post emails from offline script?
+Get latest data from YourNextMP's new JSON
+    http://www.yournextmp.com/data/YOURNEXTMP_API_KEY/latest/json_main
+Get latest issue data from DemocacyClub
+    http://www.democracyclub.org.uk/issues/refined_csv
+
+Post emails from offline script straight into task queue
+Make sure set ETA:
+    http://osdir.com/ml/GoogleAppEngine/2009-10/msg00974.html
 
 Add code for national questions
 

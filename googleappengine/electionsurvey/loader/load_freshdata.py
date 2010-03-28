@@ -1,7 +1,8 @@
 #!/usr/bin/python2.5
 #
-# load_yournextmp.py:
-# Loads data from YourNextMP into GAE. Call this script as main.
+# load_freshdata.py:
+# Loads data from YourNextMP and DemocracyClub into GAE. Call this script as
+# main.
 #
 # Copyright (c) 2010 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
@@ -19,14 +20,15 @@ from google.appengine.ext import db
 from google.appengine.ext.remote_api import remote_api_stub
 from google.appengine.api.datastore_types import Key
 
-from models import Party, Candidate, Seat, Candidacy
+from models import Party, Candidate, Seat, Candidacy, RefinedIssue
 
 # Parameters
-#HOST="localhost:8080"
-HOST="election.theyworkforyou.com"
+HOST="localhost:8080"
+#HOST="election.theyworkforyou.com"
 EMAIL="francis@flourish.org"
-JSON_FILE="very-short-candidates-sample.json"
-#JSON_FILE="yournextmp_export_2010-02-23.json"
+YOURNEXTMP_JSON_FILE="very-short-candidates-sample.json"
+#YOURNEXTMP_JSON_FILE="yournextmp_export_2010-02-23.json"
+DEMOCRACYCLUB_LOCAL_ISSUE_CSV_FILE="very-short-refined-issues.csv"
 
 ######################################################################
 # Helpers
@@ -38,6 +40,13 @@ def int_or_null(i):
     if i is None:
         return i
     return int(i)
+
+def find_seat(x):
+    seats = list(db.Query(Seat).filter('name =', x))
+    if len(seats) == 0:
+        raise Exception("Could not find seat: " + x)
+    assert len(seats) == 1
+    return seats[0]
 
 def log(msg):
     print datetime.datetime.now(), msg
@@ -61,8 +70,11 @@ def auth_func():
 remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api', auth_func, servername=HOST)
 log("Connected to " + HOST)
 
+######################################################################
+# Load from YourNextMP
+
 # Load in JSON file from YNMP
-content = open(JSON_FILE).read()
+content = open(YOURNEXTMP_JSON_FILE).read()
 ynmp = json.loads(content)
 
 # Put parties in datastore - don't worry about deleted ones, they just
@@ -163,10 +175,28 @@ for key_name, candidacy in to_be_marked_deleted.iteritems():
 log("Putting marked deleted candidacies")
 put_in_batches(to_be_marked_deleted.values())
 
-sys.exit()
+######################################################################
+# Load from DemocracyClub
 
-# Convert to CSV file and feed to GAE
-upload_model(ynmp["Candidacy"], "candidacy.csv", ("id", "seat_id", "candidate_id", "created", "updated"), "Candidacy", "candidacy_loader.py")
+reader = csv.reader(open(DEMOCRACYCLUB_LOCAL_ISSUE_CSV_FILE, "rb"))
+local_issues_by_key = {}
+for row in reader:
+    (democlub_id, question, reference_url, seat_name, created, updated) = row
+    key_name = democlub_id
+    local_issue = RefinedIssue(
+        democlub_id = int(democlub_id),
+        question = question,
+        reference_url = reference_url,
+        seat = find_seat(seat_name),
+        created = convdate(created),
+        updated = convdate(updated),
+        key_name = key_name
+    )
+    log("Storing local issue for " + seat_name + ": " + local_issue.question)
+    local_issues_by_key[key_name] = local_issue
+log("Putting all local issues")
+put_in_batches(local_issues_by_key.values())
+
 
 
 
