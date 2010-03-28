@@ -64,7 +64,7 @@ def _form_array_amount_done(issue_forms):
 class EmailSurveyToCandidacies(forms.Form):
     seats = list(db.Query(Seat))
     seats.sort(cmp=lambda x, y: cmp(x.name, y.name))
-    constituency_choices = [("all", "Any constituencies")] + [ (s.ynmp_id, s.name) for s in seats]
+    constituency_choices = [("all", "Any constituencies")] + [ (s.key().name(), s.name) for s in seats]
     constituency = forms.ChoiceField(
             required=True, choices=constituency_choices, label="Constituency:", help_text="(Only send to candidates standing in this constituency)"
     )
