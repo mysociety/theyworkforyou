@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
+from django.views.generic.simple import direct_to_template, redirect_to
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 
 import views
@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^survey$', views.survey_candidacy),
     url(r'^survey/(?P<token>.+)$', views.survey_candidacy),
 
-    url(r'^survey/$', lambda r: HttpResponsePermanentRedirect('/survey')),
+    url(r'^survey/$', redirect_to, {'url' : '/survey'} ),
 
     url(r'^admin/?$', views.admin),
 
