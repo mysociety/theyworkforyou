@@ -7,6 +7,7 @@ Note if an email address has changed
 
 What should it do if they've already filled in the survey?
     - can edit their answers and resubmit, until a deadline?
+    - "I think they can probably change anything up to the day before the user survey goes live"
 
 Make it autosave, probably using:
     * Get whole state of form http://api.jquery.com/serialize/
@@ -16,12 +17,12 @@ Make it autosave, probably using:
     * Recover it later
 With an "I'm done" button
 
+Teach Matthew how all this works
+
 Make sure backup is working
 
 Make sure you can get the data out again with agreements and things recorded
 right before you send it out to real candidates.
-
-Ask, do we want to show the reference_url links on the survey?
 
 
 
