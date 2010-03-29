@@ -132,13 +132,16 @@ def load_from_ynmp(ynmp):
     put_in_batches(seats_by_key.values())
 
     # Get list of existing candiacies in remote datastore
+    # in batches due to 1000 entity at a time limit, as per http://code.google.com/appengine/articles/remote_api.html
     log("Getting list of Candidacies")
-    candidacies = Candidacy.all().filter("deleted =", False)
+    candidacies = Candidacy.all().filter("deleted =", False).fetch(100)
     to_be_marked_deleted = {}
-    for candidacy in candidacies:
-        key_name = candidacy.key().name()
-        log("Marking before have candidacy key " + key_name)
-        to_be_marked_deleted[key_name] = candidacy
+    while candidacies:
+        for candidacy in candidacies:
+            key_name = candidacy.key().name()
+            log("Marking before have candidacy key " + key_name)
+            to_be_marked_deleted[key_name] = candidacy
+        candidacies = Candidacy.all().filter("deleted =", False).filter('__key__ >', candidacies[-1].key()).fetch(100)
 
     # Loop through new dump of candidacies from YourNextMP, adding new ones
     candidacies_by_key = {}
@@ -229,7 +232,6 @@ def auth_func():
     return (options.email, getpass.getpass('Password:'))
 remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api', auth_func, servername=options.host)
 log("Connected to " + options.host)
-
 
 # Load in JSON files, merging as we go
 ynmp = {}
