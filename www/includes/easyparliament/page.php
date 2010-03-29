@@ -1009,7 +1009,8 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
         		  <div>
         		      <h5>Donate</h5>
         		      <p>
-        		          This website is run by <a href="http://www.mysociety.org/">mySociety</a>, a registered charity.
+        		          This website is run by <a href="http://www.mysociety.org/">mySociety</a>, the project of a
+                          a <a href="http://www.ukcod.org.uk/">registered charity</a>.
 				  If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
         		      </p>
         		      <h5>Sign up to our newsletter</h5>
