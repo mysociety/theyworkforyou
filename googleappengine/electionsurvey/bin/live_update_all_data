@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Get new data from YourNextMP and DemocracyClub and update it on live election site
+./load_freshdata.py --host=election.theyworkforyou.com very-short-refined-issues.csv national-issues.csv --fetch 
+
