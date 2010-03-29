@@ -1344,7 +1344,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		
 		
 		if ($uplink || $prevlink || $nextlink) {
-			echo '<p class="nextprev">', $uplink, ' ', $nextlink, ' ', $prevlink, '</p><br class="clear">';
+			echo "<p class='nextprev'>$nextlink $prevlink $uplink</p><br class='clear'>";
 		}
 	}
 
