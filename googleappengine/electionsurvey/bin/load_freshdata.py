@@ -201,9 +201,9 @@ def load_from_democlub(csv_files):
             key_name = democlub_id
             refined_issue = RefinedIssue(
                 democlub_id = int(democlub_id),
-                question = question,
-                reference_url = reference_url,
-                seat = find_seat(seat_name),
+                question = question.decode('utf-8'),
+                reference_url = reference_url.decode('utf-8'),
+                seat = find_seat(seat_name.decode('utf-8')),
                 created = convdate(created),
                 updated = convdate(updated),
                 key_name = key_name
