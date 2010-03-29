@@ -60,10 +60,11 @@ def log(msg):
     print datetime.datetime.now(), msg
 
 def put_in_batches(models, limit = 500):
+    tot = len(models)
     c = 0
     while len(models) > 0:
         put_models = models[0:limit]
-        log("    db.put batch " + str(c) + ", size " + str(len(put_models)))
+        log("    db.put batch " + str(c) + ", size " + str(len(put_models)) + ", total " + str(tot))
         db.put(put_models)
         models = models[limit:]
         c += 1
