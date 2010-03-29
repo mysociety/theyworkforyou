@@ -1,11 +1,9 @@
 Do this next
 ============
 
-Make sure that substantive changes to a refined issue mean it gets a new id.
-Somehow don't allow cahanging of issues for a constituency which has already been sent
+Somehow don't allow changing of issues for a constituency which has already been sent
 Note if an email address has changed 
     * Option to resend survey
-Speed up local issue storing somehow
 
 What should it do if they've already filled in the survey?
     - can edit their answers and resubmit, until a deadline?
