@@ -10,6 +10,16 @@ function expenses_display_table($extra_info, $gadget=false, $start_year=9) {
         }
         $end_year = $earliest_year;        
         if ($gadget) {
+             $first_year_with_data = '';
+             for ($ey=2000+$latest_year; $ey>=2000+$earliest_year; --$ey) {
+	         if (isset($extra_info['expenses'.($ey).'_col1'])){
+                      $first_year_with_data = $ey;
+                      break;
+                 } 		
+             }
+             if ($first_year_with_data == ''){
+                  return '';
+             }
              $out .= "<h2>Expenses</h2>";
              $end_year = $start_year - 2;
              $out .= '<div class="other-expenses-links">';
@@ -231,7 +241,7 @@ function expenses_mostrecent($extra_info, $gadget=false) {
     }
   }
   if ($year == '')
-    return 'No expense information.';
+    return '';
 	$cols = array();
 	for ($i=1; $i<=11; $i++) {
 		if ($i==11) $r = 'total';
