@@ -13,6 +13,8 @@ import csv
 import os
 import getpass
 import datetime
+import optparse
+import re
 
 sys.path = ["../", "../google_appengine/"] + sys.path
 import django.utils.simplejson as json
@@ -23,12 +25,19 @@ from google.appengine.api.datastore_types import Key
 from models import Party, Candidate, Seat, Candidacy, RefinedIssue
 
 # Parameters
-#HOST="localhost:8080"
-HOST="election.theyworkforyou.com"
-EMAIL="francis@flourish.org"
-YOURNEXTMP_JSON_FILE="very-short-candidates-sample.json"
-#YOURNEXTMP_JSON_FILE="yournextmp_export_2010-02-23.json"
 DEMOCRACYCLUB_LOCAL_ISSUE_CSV_FILE="very-short-refined-issues.csv"
+
+parser = optparse.OptionParser()
+
+parser.set_usage('''Load or update data in TheyWorkForYou election, from YourNextMP and Democracy Club. Arguments are JSON files from YourNextMP or CSV files from Democracy Club to load.''')
+parser.add_option('--host', type='string', dest="host", help='domain:port of application, e.g. localhost:8080, election.theyworkforyou.com', default="localhost:8080")
+parser.add_option('--email', type='string', dest="email", help='email address for authentication to application', default="francis@flourish.org")
+
+(options, args) = parser.parse_args()
+
+for arg in args:
+    if not re.search("(\.json|\.csv)$", arg):
+        raise Exception("Please only .json or .csv files: " + arg)
 
 ######################################################################
 # Helpers
@@ -42,11 +51,10 @@ def int_or_null(i):
     return int(i)
 
 def find_seat(x):
-    seats = list(db.Query(Seat).filter('name =', x))
-    if len(seats) == 0:
-        raise Exception("Could not find seat: " + x)
-    assert len(seats) == 1
-    return seats[0]
+    seat = db.Query(Seat).filter('name =', x).get()
+    if not seat:
+        raise Exception("Could not find seat " + x)
+    return seat
 
 def log(msg):
     print datetime.datetime.now(), msg
@@ -66,16 +74,25 @@ def put_in_batches(models, limit = 500):
 # Configure connection via remote_api to datastore - after this
 # data store calls are remote
 def auth_func():
-    return (EMAIL, getpass.getpass('Password:'))
-remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api', auth_func, servername=HOST)
-log("Connected to " + HOST)
+    return (options.email, getpass.getpass('Password:'))
+remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api', auth_func, servername=options.host)
+log("Connected to " + options.host)
 
 ######################################################################
 # Load from YourNextMP
 
-# Load in JSON file from YNMP
-content = open(YOURNEXTMP_JSON_FILE).read()
-ynmp = json.loads(content)
+# Load in JSON files
+ynmp = {}
+for arg in args:
+    if re.search("(\.json)$", arg):
+        content = open(arg).read()
+        json_load = json.loads(content)
+        
+        for k, v in json_load.iteritems():
+            if k in ynmp:
+                ynmp[k].update(json_load[k])
+            else:
+                ynmp[k] = json_load[k]
 
 # Put parties in datastore - don't worry about deleted ones, they just
 # won't be referenced by other tables.
@@ -187,26 +204,28 @@ for refined_issue in refined_issues:
     to_be_marked_deleted[key_name] = refined_issue
 
 # Load in CSV file and create/update all the issues
-reader = csv.reader(open(DEMOCRACYCLUB_LOCAL_ISSUE_CSV_FILE, "rb"))
 refined_issues_by_key = {}
-for row in reader:
-    (democlub_id, question, reference_url, seat_name, created, updated) = row
-    key_name = democlub_id
-    refined_issue = RefinedIssue(
-        democlub_id = int(democlub_id),
-        question = question,
-        reference_url = reference_url,
-        seat = find_seat(seat_name),
-        created = convdate(created),
-        updated = convdate(updated),
-        key_name = key_name
-    )
-    log("Storing local issue for " + seat_name + ": " + refined_issue.question)
-    refined_issues_by_key[key_name] = refined_issue
+for arg in args:
+    if re.search("(\.csv)$", arg):
+        reader = csv.reader(open(arg, "rb"))
+        for row in reader:
+            (democlub_id, question, reference_url, seat_name, created, updated) = row
+            key_name = democlub_id
+            refined_issue = RefinedIssue(
+                democlub_id = int(democlub_id),
+                question = question,
+                reference_url = reference_url,
+                seat = find_seat(seat_name),
+                created = convdate(created),
+                updated = convdate(updated),
+                key_name = key_name
+            )
+            log("Storing local issue for " + seat_name + ": " + refined_issue.question)
+            refined_issues_by_key[key_name] = refined_issue
 
-    # record we still have this issue
-    if key_name in to_be_marked_deleted:
-        del to_be_marked_deleted[key_name]
+            # record we still have this issue
+            if key_name in to_be_marked_deleted:
+                del to_be_marked_deleted[key_name]
 log("Putting all refined issues")
 put_in_batches(refined_issues_by_key.values())
 
