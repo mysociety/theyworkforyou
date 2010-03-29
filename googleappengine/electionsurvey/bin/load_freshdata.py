@@ -50,10 +50,12 @@ def int_or_null(i):
         return i
     return int(i)
 
-def find_seat(x):
-    seat = db.Query(Seat).filter('name =', x).get()
+def find_seat(seat_name):
+    seat = db.Query(Seat).filter('name =', seat_name).get()
+    if not seat and '&' in seat_name:
+        seat = db.Query(Seat).filter('name =', seat_name.replace("&", "and")).get()
     if not seat:
-        raise Exception("Could not find seat " + x)
+        raise Exception("Could not find seat " + seat_name)
     return seat
 
 def log(msg):
