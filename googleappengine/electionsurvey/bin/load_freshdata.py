@@ -94,7 +94,7 @@ def load_from_ynmp(ynmp):
             updated = convdate(party_data["updated"]),
             key_name = key_name
         )
-        log("Storing party " + party.name)
+        log("  Storing party " + party.name)
         parties_by_key[key_name] = party
     log("Putting all parties")
     put_in_batches(parties_by_key.values())
@@ -115,7 +115,7 @@ def load_from_ynmp(ynmp):
             updated = convdate(candidate_data["updated"]),
             key_name = key_name
         )
-        log("Storing candidate " + candidate.name)
+        log("  Storing candidate " + candidate.name)
         candidates_by_key[key_name] = candidate
     log("Putting all candidates")
     put_in_batches(candidates_by_key.values())
@@ -133,7 +133,7 @@ def load_from_ynmp(ynmp):
             updated = convdate(seat_data["updated"]),
             key_name = key_name
         )
-        log("Storing seat " + seat.name)
+        log("  Storing seat " + seat.name)
         seats_by_key[key_name] = seat
     log("Putting all seats")
     put_in_batches(seats_by_key.values())
@@ -194,7 +194,7 @@ def load_from_democlub(csv_files):
     to_be_marked_deleted = {}
     for refined_issue in refined_issues:
         key_name = refined_issue.key().name()
-        log("Marking before have refined issue key " + key_name)
+        log("  Marking before have refined issue key " + key_name)
         to_be_marked_deleted[key_name] = refined_issue
 
     # Load in CSV file and create/update all the issues
@@ -214,7 +214,7 @@ def load_from_democlub(csv_files):
                 updated = convdate(updated),
                 key_name = key_name
             )
-            log("Storing local issue for " + seat_name + ": " + refined_issue.question)
+            log("  Storing local issue for " + seat_name + ": " + refined_issue.question)
             refined_issues_by_key[key_name] = refined_issue
 
             # record we still have this issue
@@ -225,7 +225,7 @@ def load_from_democlub(csv_files):
 
     # See which refined issues are left, i.e. are deleted
     for key_name, refined_issue in to_be_marked_deleted.iteritems():
-        log("Marking deleted issue for " + refined_issue.seat.name + ":" + refined_issue.question)
+        log("  Marking deleted issue for " + refined_issue.seat.name + ":" + refined_issue.question)
         refined_issue.deleted = True
     log("Putting marked deleted refined issues")
     put_in_batches(to_be_marked_deleted.values())
