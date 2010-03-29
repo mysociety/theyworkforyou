@@ -17,14 +17,14 @@ class AuthCandidacyForm(forms.Form):
     token = forms.CharField() 
 
 # One question in the candidate survey
-class LocalIssueQuestionForm(forms.Form):
+class IssueQuestionForm(forms.Form):
     # Constructor needs to know which candidacy and issue this is for
     def __init__(self, *args, **kwargs):
         self.refined_issue = kwargs.pop('refined_issue')
         self.candidacy = kwargs.pop('candidacy')
 
         kwargs['prefix'] = 'issue-%s' % self.refined_issue.key().name()
-        super(LocalIssueQuestionForm, self).__init__(*args, **kwargs)
+        super(IssueQuestionForm, self).__init__(*args, **kwargs)
         self.fields['agreement'].label = self.refined_issue.question
     
     # Store the candidate's response in the database
@@ -49,6 +49,15 @@ class LocalIssueQuestionForm(forms.Form):
         ]
     )
 
+# One local question in the candidate survey
+class LocalIssueQuestionForm(IssueQuestionForm):
+    pass
+
+# One national question in the candidate survey
+class NationalIssueQuestionForm(IssueQuestionForm):
+    pass
+
+# Helpers for handling multiple questions 
 def _form_array_save(issue_forms):
     for form in issue_forms:
         form.save()
@@ -59,4 +68,5 @@ def _form_array_amount_done(issue_forms):
         if not form.errors:
             c += 1
     return c
+
 

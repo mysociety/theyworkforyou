@@ -69,30 +69,40 @@ def survey_candidacy(request, token = None):
     # Have they tried to post an answer?
     submitted = 'questions_submitted' in post
 
-    # Construct array of forms containing all local issues
-    issues_for_seat = candidacy.seat.refinedissue_set.filter("deleted =", False).fetch(1000)
-    issue_forms = []
     valid = True
-    for issue in issues_for_seat:
+    # Construct array of forms containing all local issues
+    local_issues_for_seat = candidacy.seat.refinedissue_set.filter("deleted =", False).fetch(1000)
+    local_issue_forms = []
+    for issue in local_issues_for_seat:
         form = forms.LocalIssueQuestionForm(submitted and post or None, refined_issue=issue, candidacy=candidacy)
         valid = valid and form.is_valid()
-        issue_forms.append(form)
+        local_issue_forms.append(form)
+    # ... and national issues
+    national_seat = db.Query(Seat).filter("name =", "National").get()
+    national_issues_for_seat = national_seat.refinedissue_set.filter("deleted =", False).fetch(1000)
+    national_issue_forms = []
+    for issue in national_issues_for_seat:
+        form = forms.NationalIssueQuestionForm(submitted and post or None, refined_issue=issue, candidacy=candidacy)
+        valid = valid and form.is_valid()
+        national_issue_forms.append(form)
+    all_issue_forms = local_issue_forms + national_issue_forms
 
     # Save the answers to all questions in a transaction 
     if submitted and valid:
-        db.run_in_transaction(forms._form_array_save, issue_forms)
+        db.run_in_transaction(forms._form_array_save, all_issue_forms)
         candidacy.survey_filled_in = True
         candidacy.log('Survey form completed successfully')
         return render_to_response('survey_candidacy_thanks.html', { 'candidate' : candidacy.candidate })
 
     # Otherwise log if they submitted an incomplete form
     if submitted and not valid:
-        amount_done = forms._form_array_amount_done(issue_forms)
-        amount_max = len(issue_forms)
+        amount_done = forms._form_array_amount_done(all_issue_forms)
+        amount_max = len(all_issue_forms)
         candidacy.log('Survey form submitted incomplete, %d/%d questions answered' % (amount_done, amount_max))
 
     return render_to_response('survey_candidacy_questions.html', {
-        'issue_forms': issue_forms,
+        'local_issue_forms': local_issue_forms,
+        'national_issue_forms': national_issue_forms,
         'unfinished': submitted and not valid,
         'token': candidacy.survey_token,
         'candidacy' : candidacy,

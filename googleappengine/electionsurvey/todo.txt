@@ -37,6 +37,9 @@ With an "I'm done" button
 
 Make sure backup is working
 
+Make sure you can get the data out again with agreements and things recorded
+right before you send it out to real candidates.
+
 
 Write voter quiz:
     - with postcode form

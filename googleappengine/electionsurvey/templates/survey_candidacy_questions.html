@@ -20,13 +20,20 @@
 {% endif %}
 
 <form method="post" action="/survey" id="electionsurvey">
-    <h3>Local issues for {{ seat.name }}</h3>
+    <h3>National issues</h3>
         <ul>
-            {% for form in issue_forms %}
+            {% for form in national_issue_forms %}
             <li{% if form.agreement.errors %} class="error"{% endif %}>{{ form.agreement.label_tag }} {{ form.agreement }}
             {% endfor %}
         </ul>
-    </h3>
+
+    <h3>Local issues for {{ seat.name }}</h3>
+        <ul>
+            {% for form in local_issue_forms %}
+            <li{% if form.agreement.errors %} class="error"{% endif %}>{{ form.agreement.label_tag }} {{ form.agreement }}
+            {% endfor %}
+        </ul>
+
     <input type="hidden" name="token" value="{{ token }}" > 
     <input type="hidden" name="questions_submitted" value="1" > 
 
