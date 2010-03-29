@@ -31,7 +31,7 @@ def index(request):
     return render_to_response('index.html', {})
 
 # Authenticate a candidate
-def _check_auth(post, ip_address):
+def _check_auth(post, ip_address, first_auth):
     form = forms.AuthCandidacyForm(post or None)
 
     if not post:
@@ -43,7 +43,7 @@ def _check_auth(post, ip_address):
     if not candidacy:
         return render_to_response('survey_candidacy_auth.html', { 'form': form, 'error': True })
 
-    if 'auth_submitted' in post:
+    if first_auth:
         if not candidacy.survey_token_use_count:
             candidacy.survey_token_use_count = 0
         candidacy.survey_token_use_count += 1
@@ -55,11 +55,13 @@ def _check_auth(post, ip_address):
 @ratelimit(minutes = 2, requests = 40) # stop brute-forcing of token 
 def survey_candidacy(request, token = None):
     post = request.POST or {}
+    first_auth = 'auth_submitted' in post # whether is first time they authenticated
     if token:
         post['token'] = token
+        first_auth = True
 
     # Check they have the token
-    response = _check_auth(post, request.META['REMOTE_ADDR'])
+    response = _check_auth(post, request.META['REMOTE_ADDR'], first_auth)
     if not isinstance(response, Candidacy):
         return response
     candidacy = response

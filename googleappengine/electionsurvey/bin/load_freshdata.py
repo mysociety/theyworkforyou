@@ -252,5 +252,5 @@ for arg in args:
     if re.search("(\.csv)$", arg):
         csv_files.append(arg)
 if csv_files:
-    load_from_democlub(csv_file)
+    load_from_democlub(csv_files)
 
