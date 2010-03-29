@@ -48,7 +48,10 @@ class Candidate(db.Model):
 
     # Validators
     def validated_email(self):
-        email = self.email.strip()
+        email = self.email
+        if email == None:
+            return None
+        email = email.strip()
         try:
             django.forms.EmailField().clean(email)
             return email
