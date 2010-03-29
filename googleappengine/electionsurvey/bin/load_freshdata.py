@@ -15,6 +15,8 @@ import getpass
 import datetime
 import optparse
 import re
+import urllib2
+import gzip
 
 sys.path = ["../", "../google_appengine/"] + sys.path
 import django.utils.simplejson as json
@@ -22,16 +24,19 @@ from google.appengine.ext import db
 from google.appengine.ext.remote_api import remote_api_stub
 from google.appengine.api.datastore_types import Key
 
+import settings
 from models import Party, Candidate, Seat, Candidacy, RefinedIssue
 
 # Parameters
-DEMOCRACYCLUB_LOCAL_ISSUE_CSV_FILE="very-short-refined-issues.csv"
+DEMOCLUB_URL="http://www.democracyclub.org.uk/issues/refined_csv"
+YOURNEXTMP_URL="http://www.yournextmp.com/data/%s/latest/json_main"
 
 parser = optparse.OptionParser()
 
 parser.set_usage('''Load or update data in TheyWorkForYou election, from YourNextMP and Democracy Club. Arguments are JSON files from YourNextMP or CSV files from Democracy Club to load. If you specify one file of a type, you must specify *all* the files of that type, as other entries in the database will be marked as deleted.''')
 parser.add_option('--host', type='string', dest="host", help='domain:port of application, e.g. localhost:8080, election.theyworkforyou.com', default="localhost:8080")
 parser.add_option('--email', type='string', dest="email", help='email address for authentication to application', default="francis@flourish.org")
+parser.add_option('--fetch', action='store_true', dest='fetch', help='as well as command line arguments, also retrieve latest full dumps from YourNextMP and DemocracyClub and use this', default=False)
 
 (options, args) = parser.parse_args()
 
@@ -195,6 +200,7 @@ def load_from_democlub(csv_files):
     # Load in CSV file and create/update all the issues
     refined_issues_by_key = {}
     for csv_file in csv_files:
+        log("Reading CSV file " + csv_file)
         reader = csv.reader(open(csv_file, "rb"))
         for row in reader:
             (democlub_id, question, reference_url, seat_name, created, updated) = row
@@ -234,6 +240,27 @@ def auth_func():
     return (options.email, getpass.getpass('Password:'))
 remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api', auth_func, servername=options.host)
 log("Connected to " + options.host)
+
+# Load in extra files
+if options.fetch:
+    log("Fetching latest Democracy Club CSV file")
+    democlub_file = "/tmp/load_freshdata_democracy_club.csv"
+    democlub_h = open(democlub_file, 'w')
+    democlub_h.write(urllib2.urlopen(DEMOCLUB_URL).read())
+    democlub_h.close()
+    args.append(democlub_file)
+    
+    log("Fetching latest YourNextMP JSON file")
+    ynmp_url = YOURNEXTMP_URL % (settings.YOURNEXTMP_API_TOKEN)
+    ynmp_file = "/tmp/load_freshdata_yournextmp.json"
+    ynmp_h = open(ynmp_file + ".gz", 'w')
+    ynmp_h.write(urllib2.urlopen(ynmp_url).read())
+    ynmp_h.close()
+    ynmp_h = open(ynmp_file, 'w')
+    ynmp_h.write(gzip.GzipFile(ynmp_file + ".gz").read())
+    ynmp_h.close()
+    args.append(ynmp_file)
+log("File list: " + str(args))
 
 # Load in JSON files, merging as we go
 ynmp = {}
