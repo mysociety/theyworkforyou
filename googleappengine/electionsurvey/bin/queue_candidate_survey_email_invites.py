@@ -39,7 +39,7 @@ parser.set_usage('''Queue tasks to email a bunch of candidates with an invitatio
 parser.add_option('--constituency', type='string', dest="constituency", help='Name of constituency, default is all constituencies', default=None)
 parser.add_option('--limit', type='int', dest="limit", help='Maximum number to queue', default=None)
 parser.add_option('--real', action='store_true', dest="real", help='Really queue the emails, default is dry run', default=False)
-parser.add_option('--host', type='string', dest="host", help='domain:port of application, e.g. localhost:8080, election.theyworkforyou.com', default="localhost:8080")
+parser.add_option('--host', type='string', dest="host", help='domain:port of application, default is localhost:8080. e.g. election.theyworkforyou.com', default="localhost:8080")
 parser.add_option('--email', type='string', dest="email", help='email address for authentication to application', default="francis@flourish.org")
 
 (options, args) = parser.parse_args()
