@@ -56,7 +56,7 @@ def _check_auth(post, ip_address, first_auth):
 # Survey a candidate
 @ratelimit(minutes = 2, requests = 40) # stop brute-forcing of token 
 def survey_candidacy(request, token = None):
-    post = request.POST or {}
+    post = dict(request.POST.items()) or {}
     first_auth = 'auth_submitted' in post # whether is first time they authenticated
     if token:
         post['token'] = token

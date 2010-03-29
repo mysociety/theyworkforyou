@@ -6,7 +6,7 @@
 
 {% if unfinished %}
     {% if autosave_when %}
-    <p class="error">You started answering the questions before, and can carry on below.</p>
+    <p class="error">Thanks for coming back to the survey! Your answers so far are filled in below.</p>
     {% else %}
     <p class="error">Please finish answering the questions.</p>
     {% endif %}
@@ -21,6 +21,10 @@
     up to the Election, and if you become an MP they will
     become a record of your views on TheyWorkForYou.com.
 </p>
+
+<script type="text/javascript" charset="utf-8">
+    document.write("<p>Don't worry, your responses are saved to draft as you work, so you can come back and carry on at any time.</p>");
+</script>
 {% endif %}
 
 <form method="post" action="/survey" id="electionsurvey">

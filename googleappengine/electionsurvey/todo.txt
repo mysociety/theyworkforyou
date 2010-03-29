@@ -11,7 +11,6 @@ What should it do if they've already filled in the survey?
 
 Make it autosave, probably using:
     * Test it in IE: http://www.howtocreate.co.uk/fixedPosition.html
-    * Fix up text to say what it does, and an "I'm done" button
     * Two AJAX requests might go past each other out of order - have serial number counting up? send time?
 
 Separate local from national, ask national first, only then show local
