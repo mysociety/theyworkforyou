@@ -64,7 +64,7 @@ if options.constituency != None:
     seat = db.Query(Seat).filter("name =", options.constituency).get()
     if not seat:
         raise Exception("Constituency not found")
-    candidacies.filter("seat = ", seat.key().name())
+    candidacies.filter("seat = ", seat)
 
 if options.limit != None:
     candidacies = candidacies.fetch(int(options.limit))
