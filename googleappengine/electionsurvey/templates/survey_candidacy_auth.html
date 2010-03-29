@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>TheyWorkForYou PPC survey</h2>
+
+<h3>Please enter your candidate code</h3>
+
+{% if error %}
+<p id="error">
+    Sorry, we couldn't find that code. Please check it carefully and try again.
+    It doesn't matter if you type the letters in upper or lower case, or put in
+    extra spaces or punctuation.
+</p>
+{% endif %}
+
+<form method="post" action="/survey">
+<p>{{ form.token }}
+<input type="hidden" name="auth_submitted" value="1" > 
+<input type="submit" value="Submit">
+</form>
+
+<p>
+We send a unique code to each PPC by email, fax, or letter. 
+<br>It consists of 8 letters and numbers. e.g. <strong>6gxthqv4</strong>
+</p>
+
+<h3>Haven't received your code yet?</h3>
+
+<p>First, make sure email address is right on <a href="http://www.yournextmp.com">YourNextMP</a>.
+Then either wait for your invitation, or <a href="mailto:election@theyworkforyou.com">contact us</a>
+if you want to get going right away.
+
+{% endblock %}

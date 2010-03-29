@@ -1,0 +1,61 @@
+Policy questions
+================
+
+Check Edmund doesn't edit candidate names and keep the same candidate id
+
+Should people be able to share their answers? Embed their results in their
+blog or similar
+
+Do we want to give the reference_url links on the survey?
+
+
+Do this next
+============
+
+Think about what to do regarding deleted issues, and issues whose questions change
+   if the survey has already been sent
+Note if an email address has changed (so can resend survey)
+
+Get latest data from YourNextMP's new JSON
+    http://www.yournextmp.com/data/YOURNEXTMP_API_KEY/latest/json_main
+Fix character encoding bug in refined_csv in DemocacyClub code
+Get latest issue data from DemocacyClub
+    http://www.democracyclub.org.uk/issues/refined_csv
+
+Add code for national questions
+
+What should it do if they've already filled in the survey?
+    - can edit their answers and resubmit, until a deadline?
+
+Make it autosave, probably using:
+    * Get whole state of form http://api.jquery.com/serialize/
+    * Hook whenever a widget changes in form
+    * Submit to server into special autosave database field holding query string
+    * Show floating flash to make it clear it is doing that / change text
+    * Recover it later
+With an "I'm done" button
+
+Make sure backup is working
+
+Make sure you can get the data out again with agreements and things recorded
+right before you send it out to real candidates.
+
+
+Write voter quiz:
+    - with postcode form
+    - asking voters the same questions as candidates
+Display comparison pages
+
+Add options to share on most popular social networking sites
+
+Show candidates which haven't answered yet
+Mechanism to hassle them to answer
+
+Import voting record from Public Whip for the national issues which are linked to divisions
+Display that in results of quiz
+
+
+
+
+
+

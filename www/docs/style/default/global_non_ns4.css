@@ -497,7 +497,15 @@ ul.jumpers {
 .regmemcategory {font-weight: bold; margin: 0 14px 0 18px; }
 .regmemitem {margin: 0.5em 14px 0.5em 18px; }
 
+#dreamcomparisons li {
+    border-bottom: dotted 1px #cccccc;
+    clear: both;
+    overflow: hidden;
+}
 
+#dreamcomparisons small {
+    float: right;
+}
 
 /**** HOME PAGE ****************************************************************/	
 /* We override the standard block styles for this special home page block.     */
@@ -631,10 +639,8 @@ div.vidOn div.main {background-color: #ffff66;}
 #mysociety_bar ul li {display:block;margin:0;float:left; border-left:solid 1px #8f8f8f;
     padding:0 0.8em 0 0.8em;}
 
-#mysociety_bar #logo {width:75px; height:21px; background: url(../../images/mysociety_small.png) no-repeat 0 0; position:absolute; top:0.4em; left:0; border-left:none; padding:0;}
+#mysociety_bar #logo { border-left:none; }
 #mysociety_bar a {font-weight:normal; text-decoration:underline;}
-#mysociety_bar #logo a {display:block;}
-#mysociety_bar #logo span {display:none;}
 
 #mysociety_bar #moresites {padding-right:0; position:relative;}
 #mysociety_bar #moresites a {background:url(../../images/bararrow.png) no-repeat right 3px;

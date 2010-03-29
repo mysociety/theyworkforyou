@@ -1,0 +1,52 @@
+{
+   "Candidate" : {
+      "-2" : {
+         "name" : "Stilton Mouse",
+         "phone" : null,
+         "created" : "2010-02-07T00:25:50",
+         "email" : "frabcus@fastmail.fm",
+         "party_id" : "-32",
+         "image_id" : null,
+         "fax" : null,
+         "id" : "-2",
+         "updated" : "2010-02-07T00:25:50",
+         "address" : null,
+         "code" : "stilton_mouse"
+      }
+   },
+   "Candidacy" : {
+      "-12" : {
+         "created" : "2010-02-07T00:25:50",
+         "seat_id" : "-2",
+         "id" : "-12",
+         "updated" : "2010-02-07T00:25:50",
+         "candidate_id" : "-2"
+      }
+   },
+   "Seat" : {
+      "-1" : {
+         "created" : "2010-03-29T09:15:00",
+         "name" : "National",
+         "updated" : "2010-03-29T09:15:00",
+         "id" : "-1",
+         "code" : "national"
+      },
+      "-2" : {
+         "created" : "2010-02-06T23:52:20",
+         "name" : "Felpersham Outer",
+         "updated" : "2010-02-06T23:52:20",
+         "id" : "-2",
+         "code" : "felpersham_outer"
+      }
+   },
+   "Party" : {
+      "-32" : {
+         "created" : "2010-02-06T23:53:01",
+         "image_id" : null,
+         "name" : "Independent",
+         "updated" : "2010-02-06T23:53:01",
+         "id" : "-32",
+         "code" : "independent"
+      }
+    }
+}
