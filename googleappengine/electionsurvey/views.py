@@ -7,6 +7,8 @@
 #
 
 import email.utils
+import cgi
+import datetime
 
 from google.appengine.api import urlfetch
 from google.appengine.api.datastore_types import Key
@@ -69,6 +71,15 @@ def survey_candidacy(request, token = None):
     # Have they tried to post an answer?
     submitted = 'questions_submitted' in post
 
+    # Do we need to load from autosave?
+    autosave_when = None
+    if first_auth and candidacy.survey_autosave:
+        saved = cgi.parse_qs(candidacy.survey_autosave)
+        for k, v in saved.iteritems():
+            post[str(k)] = v[0]
+        submitted = True
+        autosave_when = candidacy.survey_autosave_when
+
     valid = True
     # Construct array of forms containing all local issues
     local_issues_for_seat = candidacy.seat.refinedissue_set.filter("deleted =", False).fetch(1000)
@@ -107,8 +118,19 @@ def survey_candidacy(request, token = None):
         'token': candidacy.survey_token,
         'candidacy' : candidacy,
         'candidate' : candidacy.candidate,
-        'seat' : candidacy.seat
+        'seat' : candidacy.seat,
+        'autosave_when' : autosave_when
     })
+
+# Called by AJAX to automatically keep half filled in forms
+def survey_autosave(request, token):
+    candidacy = Candidacy.find_by_token(token)
+    if not candidacy:
+        raise Exception("Invalid token " + token)
+    candidacy.survey_autosave = request.POST['ser']
+    candidacy.survey_autosave_when = datetime.datetime.now()
+    candidacy.put()
+    return render_to_response('survey_autosave_ok.html')
 
 # Task to email a candidate a survey
 def task_invite_candidacy_survey(request, candidacy_key_name):

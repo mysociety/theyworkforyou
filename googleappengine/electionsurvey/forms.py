@@ -39,7 +39,7 @@ class IssueQuestionForm(forms.Form):
 
     # 0 = strongly disagree, 100 = strongly agree
     agreement = forms.ChoiceField(
-        widget=forms.widgets.RadioSelect(),
+        widget=forms.widgets.RadioSelect(attrs={'class':'watchmechange'}),
         required=True,
         choices=[
             (100, 'Agree (strongly)'),

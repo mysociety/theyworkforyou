@@ -83,6 +83,8 @@ class Candidacy(db.Model):
     survey_token_use_count = db.IntegerProperty()
     survey_invite_emailed = db.BooleanProperty(default = False)
     survey_filled_in = db.BooleanProperty(default = False)
+    survey_autosave = db.TextProperty()
+    survey_autosave_when = db.DateTimeProperty()
 
     audit_log = db.StringListProperty()
 
