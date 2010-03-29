@@ -30,7 +30,9 @@
     <h3>Local issues for {{ seat.name }}</h3>
         <ul>
             {% for form in local_issue_forms %}
-            <li{% if form.agreement.errors %} class="error"{% endif %}>{{ form.agreement.label_tag }} {{ form.agreement }}
+                <li{% if form.agreement.errors %} class="error"{% endif %}>{{ form.agreement.label_tag }} {{ form.agreement }}
+            {% empty %}
+                <li>There are no local questions in this constituency.</li>
             {% endfor %}
         </ul>
 
