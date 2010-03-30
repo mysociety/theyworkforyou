@@ -10,22 +10,29 @@
     {% if unfinished %}
         <p class="error">Please finish answering the questions.</p>
     {% else %}
-    <p>
-        Hello, {{ candidate.name }}. Please carefully state your views on the
-        national and local issues below. 
-    </p>
+        <p>
+            Hello, {{ candidate.name }}. Please carefully state your views on the
+            national and local issues below. 
+        </p>
 
-    <p>
-        Your responses will be used by voters in the run
-        up to the Election, and if you become an MP they will
-        become a record of your views on TheyWorkForYou.com.
-    </p>
-
-    <script type="text/javascript" charset="utf-8">
-        document.write("<p>Don't worry, your responses are saved to draft as you work, so you can come back and carry on at any time.</p>");
-    </script>
+        <p>
+            Your responses will be used by voters in the run
+            up to the Election, and if you become an MP they will
+            become a record of your views on TheyWorkForYou.com.
+        </p>
     {% endif %}
 {% endif %}
+
+</div>
+</div>
+<div class="break"></div>
+<div class="stripe-time-2">
+<div class="sidebar">
+    <script type="text/javascript" charset="utf-8">
+        document.write('<p class="autosave-note"> <strong>Don\'t worry!</strong> Your responses are saved to draft as you fill them in, so you can close the window or go away, and carry later.</p> ')
+    </script>
+</div>
+<div class="main">
 
 <form method="post" action="/survey" id="electionsurvey">
     <h3>National issues</h3>

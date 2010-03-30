@@ -24,3 +24,12 @@ form#electionsurvey li {
     display: inline;
 }
 
+.autosave-note {
+    font-style: italic;
+    margin-right: 2em;
+}
+
+.stripe-side {
+    background-color: red;
+}
+
