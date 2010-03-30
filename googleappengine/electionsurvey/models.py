@@ -24,7 +24,7 @@ import datetime
 # Candidate from YourMP
 
 class Party(db.Model):
-    id = db.IntegerProperty()
+    ynmp_id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
 
@@ -35,7 +35,7 @@ class Party(db.Model):
 
 
 class Candidate(db.Model):
-    id = db.IntegerProperty()
+    ynmp_id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
 
@@ -48,7 +48,10 @@ class Candidate(db.Model):
 
     # Validators
     def validated_email(self):
-        email = self.email.strip()
+        email = self.email
+        if email == None:
+            return None
+        email = email.strip()
         try:
             django.forms.EmailField().clean(email)
             return email
@@ -56,7 +59,7 @@ class Candidate(db.Model):
             return None
  
 class Seat(db.Model):
-    id = db.IntegerProperty()
+    ynmp_id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
 
@@ -66,7 +69,7 @@ class Seat(db.Model):
 
 digits = "0123456789abcdefghjkmnpqrstvwxyz"
 class Candidacy(db.Model):
-    id = db.IntegerProperty()
+    ynmp_id = db.IntegerProperty()
 
     seat = db.ReferenceProperty(Seat)
     candidate = db.ReferenceProperty(Candidate)
@@ -74,12 +77,19 @@ class Candidacy(db.Model):
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
 
-    # Tokens, used in URL of survey
+    deleted = db.BooleanProperty(default = False)
+
     survey_token = db.StringProperty()
     survey_token_use_count = db.IntegerProperty()
     survey_invite_emailed = db.BooleanProperty(default = False)
+    survey_invite_sent_to_emails = db.StringListProperty() # historic list of addresses we've emailed
     survey_filled_in = db.BooleanProperty(default = False)
+    survey_autosave = db.TextProperty()
+    survey_autosave_when = db.DateTimeProperty()
 
+    audit_log = db.StringListProperty()
+
+    # Tokens are used in URL of survey / for user to enter from paper letter
     def generate_survey_token(self):
         i = random.getrandbits(40) # 8 characters of 5 bits each
         enc = ''
@@ -104,9 +114,8 @@ class Candidacy(db.Model):
         assert len(founds) == 1
         return founds[0]
 
-    # Audit log of what has happened to candidate
-    audit_log = db.StringListProperty()
-    # ... log does save also
+    # Audit log of what has happened to candidate.
+    # Note: The log function does a save too
     def log(self, message):
         self.audit_log.append(datetime.datetime.now().isoformat() + " " + message)
         self.save()
@@ -116,7 +125,7 @@ class Candidacy(db.Model):
 # Local issue data from DemocracyClub    
 
 class RefinedIssue(db.Model):
-    id = db.IntegerProperty()
+    democlub_id = db.IntegerProperty()
 
     question = db.StringProperty()
     reference_url = db.StringProperty()
@@ -126,8 +135,9 @@ class RefinedIssue(db.Model):
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
 
+    deleted = db.BooleanProperty(default = False)
 
-# Candidate survey response model
+# Candidate survey, response to one question
 class SurveyResponse(db.Model):
     def __init__(self, *args, **kwargs):
         kwargs['key_name'] = "%s-%s" % (kwargs['candidacy'].name(), kwargs['refined_issue'].name())
@@ -136,7 +146,7 @@ class SurveyResponse(db.Model):
     candidacy = db.ReferenceProperty(Candidacy, required=True)
     refined_issue = db.ReferenceProperty(RefinedIssue, required=True)
 
-    # 0 = strongly disagree, 100 = strongly agree
+    # 100 = strongly agree, 0 = strongly disagree
     agreement = db.RatingProperty(required=True)
 
 

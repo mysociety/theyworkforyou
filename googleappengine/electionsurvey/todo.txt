@@ -1,41 +1,30 @@
-Policy questions
-================
-
-Ask Edmund about candidate identifiers for deleted / renamed candidates
-
-Will it be multiple pages? Does it need a save as you're going along? Maybe
-free text separate page to main survey?
-
-When can a candidate edit their answers?
-
-Should people be able to share their answers? Embed their results in their
-blog or similar
-
-
 Do this next
 ============
 
-Do a basic reload of data and make sure all the keys are sticky
-Make sure that if two items from different models have same import keys they
-    definitely don't overwrite each other
-Cope with reloading when there are deleted and renamed candidates / issues
-Get latest data from YourNextMP's new JSON
-Check counts of things in live datastore are right
+Somehow don't allow changing of issues for a constituency which has already been sent
 
-Backup, automated to our usual place
-
-Add code for national questions
-
-Add link to candidate survey from front page of election.theyworkforyou.com for now
 What should it do if they've already filled in the survey?
+    - can edit their answers and resubmit, until a deadline?
+    - "I think they can probably change anything up to the day before the user survey goes live"
 
 Make it autosave, probably using:
-    * Get whole state of form http://api.jquery.com/serialize/
-    * Hook whenever a widget changes in form
-    * Submit to server into special autosave database field holding query string
-    * Show floating flash to make it clear it is doing that / change text
-    * Recover it later
-With an "I'm done" button
+    * Test it in IE: http://www.howtocreate.co.uk/fixedPosition.html
+    * Two AJAX requests might go past each other out of order - have serial number counting up? send time?
+
+Separate local from national, ask national first, only then show local
+Free text fields
+    * Make sure autosave works with £ signs and other unicode
+
+Teach Matthew how all this works
+
+Make sure backup is working
+
+Make sure you can get the data out again with agreements and things recorded
+right before you send it out to real candidates.
+
+Script to detect cases where email address has changed and show them
+    (make sure compares to validated_email)
+
 
 
 Write voter quiz:
@@ -51,6 +40,7 @@ Mechanism to hassle them to answer
 Import voting record from Public Whip for the national issues which are linked to divisions
 Display that in results of quiz
 
+Function to share answers / embed in blog?
 
 
 

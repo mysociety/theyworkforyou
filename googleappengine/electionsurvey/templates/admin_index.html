@@ -2,40 +2,6 @@
 
 {% block content %}
 
-<h2>Email survey invitations to candidates</h2>
-
-<p>Select the candidates to send to. Only sends to those who haven't been sent to already.</P>
-
-<form method="post" action="/admin/">
-    {{ form.errors }}
-    {{ form.as_p }}
-    <input type="hidden" name="email_survey_submitted" value="1" > 
-    <input type="submit" value="Dry run" name="dry_run">
-    <input type="submit" value="Submit" name="submit">
-</form>
-
-{% if candidacies %}
-    {% if dry_run %}
-        <h3>Dry run, real run would send invite to {{ candidacies_len }} candidates:</h3>
-    {% else %}
-        <h3>Invite sending tasks queued for  {{ candidacies_len }} candidates:</h3>
-    {% endif %}
-    <p>
-        {% for candidacy in candidacies %}
-            {{ candidacy.candidate.name }} ({{ candidacy.seat.name }}) 
-            {% if candidacy.candidate.validated_email %} 
-                {{ candidacy.candidate.email }}
-            {% else %}
-                <strong>no valid email</strong> 
-                {% if dry_run %}
-                    (so won't actually send, or mark as sent)
-                {% else %}
-                    (so not actually queued)
-                {% endif %}
-            {% endif %}
-            <br>
-        {% endfor %}
-    </p>
-{% endif %}
+<p>Nothing here yet</p>
 
 {% endblock %}

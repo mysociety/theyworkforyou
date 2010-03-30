@@ -7,6 +7,8 @@
 #
 
 import email.utils
+import cgi
+import datetime
 
 from google.appengine.api import urlfetch
 from google.appengine.api.datastore_types import Key
@@ -31,7 +33,7 @@ def index(request):
     return render_to_response('index.html', {})
 
 # Authenticate a candidate
-def _check_auth(post, ip_address):
+def _check_auth(post, ip_address, first_auth):
     form = forms.AuthCandidacyForm(post or None)
 
     if not post:
@@ -43,7 +45,7 @@ def _check_auth(post, ip_address):
     if not candidacy:
         return render_to_response('survey_candidacy_auth.html', { 'form': form, 'error': True })
 
-    if 'auth_submitted' in post:
+    if first_auth:
         if not candidacy.survey_token_use_count:
             candidacy.survey_token_use_count = 0
         candidacy.survey_token_use_count += 1
@@ -54,12 +56,14 @@ def _check_auth(post, ip_address):
 # Survey a candidate
 @ratelimit(minutes = 2, requests = 40) # stop brute-forcing of token 
 def survey_candidacy(request, token = None):
-    post = request.POST or {}
+    post = dict(request.POST.items()) or {}
+    first_auth = 'auth_submitted' in post # whether is first time they authenticated
     if token:
         post['token'] = token
+        first_auth = True
 
     # Check they have the token
-    response = _check_auth(post, request.META['REMOTE_ADDR'])
+    response = _check_auth(post, request.META['REMOTE_ADDR'], first_auth)
     if not isinstance(response, Candidacy):
         return response
     candidacy = response
@@ -67,40 +71,70 @@ def survey_candidacy(request, token = None):
     # Have they tried to post an answer?
     submitted = 'questions_submitted' in post
 
-    # Construct array of forms containing all local issues
-    issues_for_seat = candidacy.seat.refinedissue_set.fetch(1000)
-    issue_forms = []
+    # Do we need to load from autosave?
+    autosave_when = None
+    if first_auth and candidacy.survey_autosave:
+        saved = cgi.parse_qs(candidacy.survey_autosave)
+        for k, v in saved.iteritems():
+            post[str(k)] = v[0]
+        submitted = True
+        autosave_when = candidacy.survey_autosave_when
+
     valid = True
-    for issue in issues_for_seat:
+    # Construct array of forms containing all local issues
+    local_issues_for_seat = candidacy.seat.refinedissue_set.filter("deleted =", False).fetch(1000)
+    local_issue_forms = []
+    for issue in local_issues_for_seat:
         form = forms.LocalIssueQuestionForm(submitted and post or None, refined_issue=issue, candidacy=candidacy)
         valid = valid and form.is_valid()
-        issue_forms.append(form)
+        local_issue_forms.append(form)
+    # ... and national issues
+    national_seat = db.Query(Seat).filter("name =", "National").get()
+    national_issues_for_seat = national_seat.refinedissue_set.filter("deleted =", False).fetch(1000)
+    national_issue_forms = []
+    for issue in national_issues_for_seat:
+        form = forms.NationalIssueQuestionForm(submitted and post or None, refined_issue=issue, candidacy=candidacy)
+        valid = valid and form.is_valid()
+        national_issue_forms.append(form)
+    all_issue_forms = local_issue_forms + national_issue_forms
 
     # Save the answers to all questions in a transaction 
     if submitted and valid:
-        db.run_in_transaction(forms._form_array_save, issue_forms)
+        db.run_in_transaction(forms._form_array_save, all_issue_forms)
         candidacy.survey_filled_in = True
         candidacy.log('Survey form completed successfully')
         return render_to_response('survey_candidacy_thanks.html', { 'candidate' : candidacy.candidate })
 
     # Otherwise log if they submitted an incomplete form
     if submitted and not valid:
-        amount_done = forms._form_array_amount_done(issue_forms)
-        amount_max = len(issue_forms)
+        amount_done = forms._form_array_amount_done(all_issue_forms)
+        amount_max = len(all_issue_forms)
         candidacy.log('Survey form submitted incomplete, %d/%d questions answered' % (amount_done, amount_max))
 
     return render_to_response('survey_candidacy_questions.html', {
-        'issue_forms': issue_forms,
+        'local_issue_forms': local_issue_forms,
+        'national_issue_forms': national_issue_forms,
         'unfinished': submitted and not valid,
         'token': candidacy.survey_token,
         'candidacy' : candidacy,
         'candidate' : candidacy.candidate,
-        'seat' : candidacy.seat
+        'seat' : candidacy.seat,
+        'autosave_when' : autosave_when
     })
 
+# Called by AJAX to automatically keep half filled in forms
+def survey_autosave(request, token):
+    candidacy = Candidacy.find_by_token(token)
+    if not candidacy:
+        raise Exception("Invalid token " + token)
+    candidacy.survey_autosave = request.POST['ser']
+    candidacy.survey_autosave_when = datetime.datetime.now()
+    candidacy.put()
+    return render_to_response('survey_autosave_ok.html')
+
 # Task to email a candidate a survey
-def task_invite_candidacy_survey(request, candidacy_id):
-    candidacy = Candidacy.get_by_key_name(candidacy_id)
+def task_invite_candidacy_survey(request, candidacy_key_name):
+    candidacy = Candidacy.get_by_key_name(candidacy_key_name)
     if candidacy.survey_invite_emailed:
         return HttpResponse("Given up, already emailed")
 
@@ -143,7 +177,8 @@ on behalf of the voters of %s constituency
     message.send()
 
     candidacy.survey_invite_emailed = True
-    candidacy.log("Sent survey invite email")
+    candidacy.survey_invite_sent_to_emails.append(to_email)
+    candidacy.log("Sent survey invite email to " + to_email)
 
     text = "</p>Survey invitation sent to %s</p>" % candidate_name
     text += "<pre>%s</pre>" % str(message.body)
@@ -152,42 +187,7 @@ on behalf of the voters of %s constituency
 
 # Administrator functions
 def admin(request):
-    form = forms.EmailSurveyToCandidacies(request.POST or None)
-    dry_run = False
-    candidacies = None
-
-    # Send to people
-    if request.POST and 'email_survey_submitted' in request.POST:
-        if form.is_valid():
-            seat_id = form.cleaned_data['constituency']
-            limit = form.cleaned_data['limit']
-
-            candidacies = db.Query(Candidacy)
-            if seat_id != 'all':
-                seat = Seat.get_by_key_name(seat_id) 
-                candidacies.filter("seat = ", seat.key())
-
-            candidacies.filter("survey_invite_emailed = ", False)
-
-            candidacies = candidacies.fetch(limit)
-
-            if 'dry_run' in request.POST:
-                dry_run = True
-            elif 'submit' in request.POST:
-                c = 0
-                for candidacy in candidacies:
-                    if candidacy.candidate.validated_email():
-                        c += 1
-                        taskqueue.add(url='/task/invite_candidacy_survey/' + str(candidacy.id), countdown=c)
-            else:
-                raise Exception("Needs to either be dry_run or submit")
-
-    return render_to_response('admin_index.html', {
-        'form' : form, 
-        'candidacies' : candidacies,
-        'candidacies_len' : candidacies and len(candidacies),
-        'dry_run' : dry_run
-    })
+    return render_to_response('admin_index.html', { })
 
 
 

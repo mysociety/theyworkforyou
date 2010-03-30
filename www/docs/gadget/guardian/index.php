@@ -18,7 +18,11 @@ switch ($action) {
                 $title = "Extract from the register of members' interests"; 
                 $body = "<h1>" . $member->full_name() . ": <span>Members' Interests</span></h1>";
                 $body .= "<h2>$title</h2>";
-                $body .= $member->extra_info['register_member_interests_html'];
+                $rmi  = $member->extra_info['register_member_interests_html'];
+                if (strlen($rmi) == 0){
+                    output_error('No data');
+                }
+                $body .= $rmi;
 		if (isset($member->extra_info['register_member_interests_date'])) {
 		    $body .= '<div class="rmi-lastupdate">Register last updated: ';
 		    $body .= format_date($member->extra_info['register_member_interests_date'], SHORTDATEFORMAT);
@@ -43,7 +47,11 @@ switch ($action) {
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
 		$title = "Allowances: " . $member->full_name();
                 $body = "<h1>" . $member->full_name() . ": <span>Expenses</span></h1>";
-		$body .= expenses_display_table($member->extra_info, $gadget=true, $int_start_year);
+                $table = expenses_display_table($member->extra_info, $gadget=true, $int_start_year);
+                if (strlen($table) == 0){
+                    output_error('No data');
+                }
+		$body .= $table;
                 output_resource($title, $body, 'expenses-full');
 		break;
 
@@ -82,6 +90,9 @@ speeches from ', $member->full_name(), '</a></p>';
 	case 'expenses-component':
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
                 $body = expenses_mostrecent($member->extra_info, $gadget=true);
+                if (strlen($body) == 0){
+                    output_error('No data');
+                }  
 		$body .= "<p class=\"more\"><a 
 href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/expenses/$member->guardian_aristotle_id}\">More 
 expenses</a></p>";
@@ -91,6 +102,9 @@ expenses</a></p>";
 	case 'rmi-component':
                 $show_more = false;
 		$rmi = $member->extra_info['register_member_interests_html'];
+		if (strlen($rmi) == 0){
+                    output_error('No data');
+                }
 		if (preg_match('#(<div class="regmemcategory">.*?<div class="regmemcategory">.*?)<div class="regmemcategory"#s', $rmi, $m)) {
 			$rmi = $m[1];
 			$show_more = true;

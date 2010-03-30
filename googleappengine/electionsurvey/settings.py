@@ -94,8 +94,7 @@ CACHE_BACKEND = 'memcached://'
 TEAM_FROM_EMAIL = "TheyWorkForYou <election@theyworkforyou.com>"
 EMAIL_URL_PREFIX = "http://election.theyworkforyou.com"
 
-try:
-    from local_settings import *
-except ImportError:
-    pass
+# Copy local_settings.py-ingit to local_settings.py
+from local_settings import *
+
 

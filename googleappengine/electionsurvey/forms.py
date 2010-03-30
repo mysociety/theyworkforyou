@@ -17,14 +17,14 @@ class AuthCandidacyForm(forms.Form):
     token = forms.CharField() 
 
 # One question in the candidate survey
-class LocalIssueQuestionForm(forms.Form):
+class IssueQuestionForm(forms.Form):
     # Constructor needs to know which candidacy and issue this is for
     def __init__(self, *args, **kwargs):
         self.refined_issue = kwargs.pop('refined_issue')
         self.candidacy = kwargs.pop('candidacy')
 
-        kwargs['prefix'] = 'issue-%d' % self.refined_issue.id
-        super(LocalIssueQuestionForm, self).__init__(*args, **kwargs)
+        kwargs['prefix'] = 'issue-%s' % self.refined_issue.key().name()
+        super(IssueQuestionForm, self).__init__(*args, **kwargs)
         self.fields['agreement'].label = self.refined_issue.question
     
     # Store the candidate's response in the database
@@ -39,7 +39,7 @@ class LocalIssueQuestionForm(forms.Form):
 
     # 0 = strongly disagree, 100 = strongly agree
     agreement = forms.ChoiceField(
-        widget=forms.widgets.RadioSelect(),
+        widget=forms.widgets.RadioSelect(attrs={'class':'watchmechange'}),
         required=True,
         choices=[
             (100, 'Agree (strongly)'),
@@ -49,6 +49,15 @@ class LocalIssueQuestionForm(forms.Form):
         ]
     )
 
+# One local question in the candidate survey
+class LocalIssueQuestionForm(IssueQuestionForm):
+    pass
+
+# One national question in the candidate survey
+class NationalIssueQuestionForm(IssueQuestionForm):
+    pass
+
+# Helpers for handling multiple questions 
 def _form_array_save(issue_forms):
     for form in issue_forms:
         form.save()
@@ -59,29 +68,5 @@ def _form_array_amount_done(issue_forms):
         if not form.errors:
             c += 1
     return c
-
-# Admin form for sending survey by email to candidates
-class EmailSurveyToCandidacies(forms.Form):
-    seats = list(db.Query(Seat))
-    seats.sort(cmp=lambda x, y: cmp(x.name, y.name))
-    constituency_choices = [("all", "Any constituencies")] + [ (s.id, s.name) for s in seats]
-    constituency = forms.ChoiceField(
-            required=True, choices=constituency_choices, label="Constituency:", help_text="(Only send to candidates standing in this constituency)"
-    )
-
-    limit = forms.IntegerField(required=True, initial=1,
-        help_text="(At most send to this many candidates)")
-
-    # This abandoned (now only emails candidates not yet emailed for
-    # idempotency of email task). Code here to make it easier to add another
-    # similar option
-    #already_emailed_choices = [
-    #        ("false", "Only candidates not yet emailed"),
-    #        ("true", "Only candidates who have already been emailed"),
-    #        ("either", "Whether or not they've already been emailed")
-    #]
-    #already_emailed = forms.ChoiceField(
-    #        required=True, choices=already_emailed_choices, label="Already emailed:", help_text=""
-    #)
 
 

@@ -386,8 +386,8 @@ class ThreadGate(object):
     if self.__backoff_time > 0.0:
       if not threading.currentThread().exit_flag:
         logger.info('[%s] Backing off due to errors: %.1f seconds',
-                    (self.threading.currentThread().getName(),
-                     self.__backoff_time))
+                    threading.currentThread().getName(),
+                     self.__backoff_time)
         self.__sleep(self.__backoff_time)
 
   def FinishWork(self, instruction=None):

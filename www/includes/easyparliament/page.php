@@ -1009,7 +1009,8 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
         		  <div>
         		      <h5>Donate</h5>
         		      <p>
-        		          This website is run by <a href="http://www.mysociety.org/">mySociety</a>, a registered charity.
+        		          This website is run by <a href="http://www.mysociety.org/">mySociety</a>, the project of a
+                          a <a href="http://www.ukcod.org.uk/">registered charity</a>.
 				  If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
         		      </p>
         		      <h5>Sign up to our newsletter</h5>
@@ -1316,7 +1317,12 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		
 		if (isset($nextprev['up'])) {
 
-			$uplink = '<span class="up"><a href="' .  $nextprev['up']['url'] . '" title="' . $nextprev['up']['title'] . '">' . $nextprev['up']['body'] . '</a></span>';
+			$uplink = '<span class="up"><a href="' .  $nextprev['up']['url'] . '" title="' . $nextprev['up']['title'] . '">' . $nextprev['up']['body'] . '</a>';
+			if (get_http_var('s')) {
+				$URL = new URL($this_page);
+				$uplink .= '<br><a href="' . $URL->generate() . '">Remove highlighting</a>';
+			}
+			$uplink .= '</span>';
 		}
 		
 		
@@ -1338,7 +1344,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		
 		
 		if ($uplink || $prevlink || $nextlink) {
-			echo '<p class="nextprev">', $uplink, ' ', $nextlink, ' ', $prevlink, '</p><br class="clear">';
+			echo "<p class='nextprev'>$nextlink $prevlink $uplink</p><br class='clear'>";
 		}
 	}
 

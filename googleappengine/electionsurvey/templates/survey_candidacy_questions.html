@@ -5,7 +5,11 @@
 <h2>TheyWorkForYou PPC survey</h2>
 
 {% if unfinished %}
+    {% if autosave_when %}
+    <p class="error">Thanks for coming back to the survey! Your answers so far are filled in below.</p>
+    {% else %}
     <p class="error">Please finish answering the questions.</p>
+    {% endif %}
 {% else %}
 <p>
     Hello, {{ candidate.name }}. Please carefully state your views on the
@@ -17,20 +21,50 @@
     up to the Election, and if you become an MP they will
     become a record of your views on TheyWorkForYou.com.
 </p>
+
+<script type="text/javascript" charset="utf-8">
+    document.write("<p>Don't worry, your responses are saved to draft as you work, so you can come back and carry on at any time.</p>");
+</script>
 {% endif %}
 
 <form method="post" action="/survey" id="electionsurvey">
-    <h3>Local issues for {{ seat.name }}</h3>
+    <h3>National issues</h3>
         <ul>
-            {% for form in issue_forms %}
+            {% for form in national_issue_forms %}
             <li{% if form.agreement.errors %} class="error"{% endif %}>{{ form.agreement.label_tag }} {{ form.agreement }}
             {% endfor %}
         </ul>
-    </h3>
-    <input type="hidden" name="token" value="{{ token }}" > 
+
+    <h3>Local issues for {{ seat.name }}</h3>
+        <ul>
+            {% for form in local_issue_forms %}
+                <li{% if form.agreement.errors %} class="error"{% endif %}>{{ form.agreement.label_tag }} {{ form.agreement }}
+            {% empty %}
+                <li>There are no local questions in this constituency.</li>
+            {% endfor %}
+        </ul>
+
+    <input type="hidden" name="token" value="{{ token }}" id="token" > 
     <input type="hidden" name="questions_submitted" value="1" > 
 
     <p><input type="submit" value="Submit survey"></p>
 </form>
+
+<script type="text/javascript" charset="utf-8">
+    var t = $('<div id="autosave" style="position: fixed; left: 0; bottom: 0; padding: 0.5em; background-color: #e8fdcb">Draft automatically saved</div>').hide();
+    $('body').append(t);
+    // Autosave the form
+    function survey_form_changed() {
+        var token = $('#token').val();
+        // store all the form data
+        var ser = $('form').serialize();
+        // submit it do the server
+        $.ajax({ url: "/survey/autosave/" + token, context: document.body, type: 'POST', data: { 'ser': ser }, success: function(){
+            $('#autosave').show();
+            $('#autosave').fadeOut(2000);
+        }});
+    };
+    $('.watchmechange').change(survey_form_changed)
+</script>
 
 {% endblock %}
