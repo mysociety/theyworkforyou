@@ -15,6 +15,7 @@ Make it autosave, probably using:
 
 Separate local from national, ask national first, only then show local
 Free text fields
+    * Make sure autosave works with £ signs and other unicode
 
 Teach Matthew how all this works
 

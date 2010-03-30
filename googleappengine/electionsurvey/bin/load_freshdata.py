@@ -236,10 +236,10 @@ def load_from_democlub(csv_files):
 
 # Configure connection via remote_api to datastore - after this
 # data store calls are remote
+log("Connecting to " + options.host)
 def auth_func():
     return (options.email, getpass.getpass('Password:'))
 remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api', auth_func, servername=options.host)
-log("Connected to " + options.host)
 
 # Load in extra files
 if options.fetch:

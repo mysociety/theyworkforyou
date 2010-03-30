@@ -136,7 +136,7 @@ class RefinedIssue(db.Model):
 
     deleted = db.BooleanProperty(default = False)
 
-# Candidate survey response model
+# Candidate survey, response to one question
 class SurveyResponse(db.Model):
     def __init__(self, *args, **kwargs):
         kwargs['key_name'] = "%s-%s" % (kwargs['candidacy'].name(), kwargs['refined_issue'].name())
@@ -145,7 +145,7 @@ class SurveyResponse(db.Model):
     candidacy = db.ReferenceProperty(Candidacy, required=True)
     refined_issue = db.ReferenceProperty(RefinedIssue, required=True)
 
-    # 0 = strongly disagree, 100 = strongly agree
+    # 100 = strongly agree, 0 = strongly disagree
     agreement = db.RatingProperty(required=True)
 
 

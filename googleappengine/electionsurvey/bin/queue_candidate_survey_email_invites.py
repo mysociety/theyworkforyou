@@ -35,7 +35,12 @@ def log(msg):
 
 parser = optparse.OptionParser()
 
-parser.set_usage('''Queue tasks to email a bunch of candidates with an invitation to do the survey.''')
+parser.set_usage('''Queue tasks to email a bunch of candidates with an invitation to do the survey.
+
+Doesn't send to candidacies who have been deleted, have already been invited
+by email or who have already filled in the survey. In addition, you can limit
+which candidates are invited by constituency and/or by number using the parameters
+below.''')
 parser.add_option('--constituency', type='string', dest="constituency", help='Name of constituency, default is all constituencies', default=None)
 parser.add_option('--limit', type='int', dest="limit", help='Maximum number to queue', default=None)
 parser.add_option('--real', action='store_true', dest="real", help='Really queue the emails, default is dry run', default=False)
@@ -51,14 +56,15 @@ else:
 
 # Configure connection via remote_api to datastore - after this
 # data store calls are remote
+log("Connecting to " + options.host)
 def auth_func():
     return (options.email, getpass.getpass('Password:'))
 remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api', auth_func, servername=options.host)
-log("Connected to " + options.host)
 
 candidacies = db.Query(Candidacy)
 candidacies.filter("deleted = ", False)
 candidacies.filter("survey_invite_emailed = ", False)
+candidacies.filter("survey_filled_in = ", False)
 
 if options.constituency != None:
     seat = db.Query(Seat).filter("name =", options.constituency).get()
