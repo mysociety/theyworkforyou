@@ -1,7 +1,6 @@
 Do this next
 ============
 
-Flag in queue script to freeze seats as you send out the surveys for them
 XXX Check can grab multiple pages of frozen seats in the loader script
 
 Make sure autosave works, with Matthew:

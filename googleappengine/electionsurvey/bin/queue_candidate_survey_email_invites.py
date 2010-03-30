@@ -37,13 +37,18 @@ parser = optparse.OptionParser()
 
 parser.set_usage('''Queue tasks to email a bunch of candidates with an invitation to do the survey.
 
-Doesn't send to candidacies who have been deleted, have already been invited
-by email or who have already filled in the survey. In addition, you can limit
-which candidates are invited by constituency and/or by number using the parameters
-below.''')
+Doesn't send to candidacies who:
+  * have been deleted
+  * have already been invited by email
+  * have invalid email addresses
+  * are not in a constituency whose local issues have been fronen
+  * already filled in the survey
+In addition, you can limit which candidates are invited by constituency and/or
+by maximum number using the parameters below.''')
 parser.add_option('--constituency', type='string', dest="constituency", help='Name of constituency, default is all constituencies', default=None)
 parser.add_option('--limit', type='int', dest="limit", help='Maximum number to queue', default=None)
 parser.add_option('--real', action='store_true', dest="real", help='Really queue the emails, default is dry run', default=False)
+parser.add_option('--freeze', action='store_true', dest="freeze", help='', default=False)
 parser.add_option('--host', type='string', dest="host", help='domain:port of application, default is localhost:8080. e.g. election.theyworkforyou.com', default="localhost:8080")
 parser.add_option('--email', type='string', dest="email", help='email address for authentication to application', default="francis@flourish.org")
 
@@ -78,9 +83,20 @@ if options.limit != None:
 log("Found " + str(candidacies.count(None)) + " candidacies")
 c = 0
 for candidacy in candidacies:
+    frozen = candidacy.seat.frozen_local_issues
+
+    if not frozen and options.freeze:
+        if options.real:
+            candidacy.seat.frozen_local_issues = True
+            candidacy.seat.put()
+            log("Frozen local issues for seat: " + candidacy.seat.name)
+        else:
+            log("Would freeze local issues for seat: " + candidacy.seat.name)
+        frozen = True
+
     if not candidacy.candidate.validated_email():
         log("Not queueing, invalid email " + str(candidacy.candidate.email) + " for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
-    elif not candidacy.seat.frozen_local_issues:
+    elif not frozen:
         log("Not queueing, seat isn't frozen for local issues: " + candidacy.seat.name + ", " + candidacy.candidate.name)
     else:
         c += 1 # one second between sending each mail
