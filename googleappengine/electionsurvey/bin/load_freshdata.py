@@ -87,6 +87,7 @@ def get_frozen_local_issues_seats():
     fs = Seat.all().filter("frozen_local_issues =", True).fetch(100)
     while fs:
         for f in fs:
+            log("  Seat is frozen to local issues changes: " + f.name)
             frozen_seats[f.key().name()] = f
         fs = Seat.all().filter("frozen_local_issues =",True).filter('__key__ >', fs[-1].key()).fetch(100)
 
@@ -202,7 +203,7 @@ def load_from_ynmp(ynmp, frozen_seats):
 ######################################################################
 # Load from DemocracyClub
 
-def load_from_democlub(csv_files):
+def load_from_democlub(csv_files, frozen_seats):
     # Get list of existing refined issues in remote datastore, so can track what to delete
     log("Getting list of refined issues")
     refined_issues = RefinedIssue.all().filter("deleted =", False)
@@ -220,17 +221,22 @@ def load_from_democlub(csv_files):
         for row in reader:
             (democlub_id, question, reference_url, seat_name, created, updated) = row
             key_name = democlub_id
-            refined_issue = RefinedIssue(
-                democlub_id = int(democlub_id),
-                question = question.decode('utf-8'),
-                reference_url = reference_url.decode('utf-8'),
-                seat = find_seat(seat_name.decode('utf-8')),
-                created = convdate(created),
-                updated = convdate(updated),
-                key_name = key_name
-            )
-            log("  Storing local issue for " + seat_name + ": " + refined_issue.question)
-            refined_issues_by_key[key_name] = refined_issue
+            seat = find_seat(seat_name.decode('utf-8'))
+
+            if seat.key().name() in frozen_seats:
+                log("  Frozen seat " + seat_name + ", not storing issue: " + question)
+            else:
+                refined_issue = RefinedIssue(
+                    democlub_id = int(democlub_id),
+                    question = question.decode('utf-8'),
+                    reference_url = reference_url.decode('utf-8'),
+                    seat = seat,
+                    created = convdate(created),
+                    updated = convdate(updated),
+                    key_name = key_name
+                )
+                log("  Storing local issue for " + seat_name + ": " + question)
+                refined_issues_by_key[key_name] = refined_issue
 
             # record we still have this issue
             if key_name in to_be_marked_deleted:
@@ -301,5 +307,5 @@ for arg in args:
     if re.search("(\.csv)$", arg):
         csv_files.append(arg)
 if csv_files:
-    load_from_democlub(csv_files)
+    load_from_democlub(csv_files, frozen_seats)
 

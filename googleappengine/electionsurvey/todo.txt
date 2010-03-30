@@ -1,7 +1,6 @@
 Do this next
 ============
 
-Make it so frozen seats can't have their issues changed
 Only send surveys out to frozen seats
 Flag in queue script to freeze seats as you send out the surveys for them
 XXX Check can grab multiple pages of frozen seats in the loader script
@@ -26,6 +25,7 @@ What should it do if they've already filled in the survey?
 
 Script to detect cases where email address has changed and show them
     (make sure compares to validated_email)
+Script to show what frozen seats have changed local issues
 
 Put backup on sandwich
 Make sure backup is going off site
