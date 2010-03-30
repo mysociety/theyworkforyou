@@ -177,7 +177,7 @@ on behalf of the voters of %s constituency
     message.send()
 
     candidacy.survey_invite_emailed = True
-    candidacy.survey_invite_email_addresses.append(to_email)
+    candidacy.survey_invite_sent_to_emails.append(to_email)
     candidacy.log("Sent survey invite email to " + to_email)
 
     text = "</p>Survey invitation sent to %s</p>" % candidate_name

@@ -23,6 +23,7 @@ Make sure you can get the data out again with agreements and things recorded
 right before you send it out to real candidates.
 
 Script to detect cases where email address has changed and show them
+    (make sure compares to validated_email)
 
 
 

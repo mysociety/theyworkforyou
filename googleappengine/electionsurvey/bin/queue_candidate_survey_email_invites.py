@@ -88,7 +88,7 @@ for candidacy in candidacies:
         else:
             log(str(c) + " would queue invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
     else:
-        log("Not queueing, invalid email for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
+        log("Not queueing, invalid email " + str(candidacy.candidate.email) + " for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
 
 
 
