@@ -24,7 +24,7 @@ form#electionsurvey li {
     display: inline;
 }
 
-#auto-save {
+#autosave {
     background-color: #e8fdcb;
     padding: 0.5em;
     display: none;
