@@ -1317,7 +1317,12 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		
 		if (isset($nextprev['up'])) {
 
-			$uplink = '<span class="up"><a href="' .  $nextprev['up']['url'] . '" title="' . $nextprev['up']['title'] . '">' . $nextprev['up']['body'] . '</a></span>';
+			$uplink = '<span class="up"><a href="' .  $nextprev['up']['url'] . '" title="' . $nextprev['up']['title'] . '">' . $nextprev['up']['body'] . '</a>';
+			if (get_http_var('s')) {
+				$URL = new URL($this_page);
+				$uplink .= '<br><a href="' . $URL->generate() . '">Remove highlighting</a>';
+			}
+			$uplink .= '</span>';
 		}
 		
 		
@@ -1339,7 +1344,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		
 		
 		if ($uplink || $prevlink || $nextlink) {
-			echo '<p class="nextprev">', $uplink, ' ', $nextlink, ' ', $prevlink, '</p><br class="clear">';
+			echo "<p class='nextprev'>$nextlink $prevlink $uplink</p><br class='clear'>";
 		}
 	}
 
