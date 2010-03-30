@@ -6,7 +6,6 @@ Somehow don't allow changing of issues for a constituency which has already been
 Make sure autosave works, with Matthew:
     * Test it in IE: http://www.howtocreate.co.uk/fixedPosition.html
     * Two AJAX requests might go past each other out of order - have serial number counting up? send time?
-    * Don't think it should go red when coming in from autosave
 
 Separate local from national, ask national first, only then show local
 Free text fields
