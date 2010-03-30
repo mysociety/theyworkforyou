@@ -2,6 +2,8 @@ Do this next
 ============
 
 Somehow don't allow changing of issues for a constituency which has already been sent
+Check reload of data preserves frozenness
+Check can grab multiple pages of frozen seats
 
 Make sure autosave works, with Matthew:
     * Test it in IE: http://www.howtocreate.co.uk/fixedPosition.html

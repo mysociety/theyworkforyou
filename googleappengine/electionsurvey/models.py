@@ -66,6 +66,8 @@ class Seat(db.Model):
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
 
+    frozen_local_issues = db.BooleanProperty(default = False)
+
 
 digits = "0123456789abcdefghjkmnpqrstvwxyz"
 class Candidacy(db.Model):

@@ -79,7 +79,20 @@ def put_in_batches(models, limit = 500):
 ######################################################################
 # Load from YourNextMP
 
-def load_from_ynmp(ynmp):
+# Find out which constituencies (seats) do not allow updates to local issues
+# any more (i.e. because a survey has already been sent out)
+def get_frozen_local_issues_seats():
+    log("Getting seats which are frozen to local issues changes")
+    frozen_seats = {}
+    fs = Seat.all().filter("frozen_local_issues =", True).fetch(100)
+    while fs:
+        for f in fs:
+            frozen_seats[f.key().name()] = f
+        fs = Seat.all().filter("frozen_local_issues =",True).filter('__key__ >', fs[-1].key()).fetch(100)
+
+    return frozen_seats
+
+def load_from_ynmp(ynmp, frozen_seats):
     # Put parties in datastore - don't worry about deleted ones, they just
     # won't be referenced by other tables.
     parties_by_key = {}
@@ -133,6 +146,8 @@ def load_from_ynmp(ynmp):
             updated = convdate(seat_data["updated"]),
             key_name = key_name
         )
+        if key_name in frozen_seats:
+            seat.frozen_local_issues = True
         log("  Storing seat " + seat.name)
         seats_by_key[key_name] = seat
     log("Putting all seats")
@@ -262,6 +277,9 @@ if options.fetch:
     args.append(ynmp_file)
 log("File list: " + str(args))
 
+# Which seats are frozen to changes in local issues?
+frozen_seats = get_frozen_local_issues_seats()
+
 # Load in JSON files, merging as we go
 ynmp = {}
 for arg in args:
@@ -275,7 +293,7 @@ for arg in args:
             else:
                 ynmp[k] = json_load[k]
 if ynmp:
-    load_from_ynmp(ynmp)
+    load_from_ynmp(ynmp, frozen_seats)
 
 # Get list of CSV files
 csv_files = []
