@@ -2,8 +2,6 @@ Do this next
 ============
 
 Somehow don't allow changing of issues for a constituency which has already been sent
-Note if an email address has changed 
-    * Option to resend survey
 
 What should it do if they've already filled in the survey?
     - can edit their answers and resubmit, until a deadline?
@@ -23,6 +21,8 @@ Make sure backup is working
 
 Make sure you can get the data out again with agreements and things recorded
 right before you send it out to real candidates.
+
+Script to detect cases where email address has changed and show them
 
 
 
