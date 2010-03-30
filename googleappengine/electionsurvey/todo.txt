@@ -1,26 +1,24 @@
 Do this next
 ============
 
-XXX Check can grab multiple pages of frozen seats in the loader script
+Make sure you can get the data out again with agreements and things recorded
+right before you send it out to real candidates.
+
+Free text fields
+    * Make sure autosave works with £ signs and other unicode
+Separate local from national, ask national first, only then show local
 
 Make sure autosave works, with Matthew:
     * Test it in IE: http://www.howtocreate.co.uk/fixedPosition.html
     * Two AJAX requests might go past each other out of order - have serial number counting up? send time?
-
-Separate local from national, ask national first, only then show local
-Free text fields
-    * Make sure autosave works with £ signs and other unicode
-
 Teach Matthew how all this works
-
-Make sure you can get the data out again with agreements and things recorded
-right before you send it out to real candidates.
 
 
 What should it do if they've already filled in the survey?
     - can edit their answers and resubmit, until a deadline?
     - "I think they can probably change anything up to the day before the user survey goes live"
 
+XXX Check can grab multiple pages of frozen seats in the loader script
 Script to detect cases where email address has changed and show them
     (make sure compares to validated_email)
 Script to show what frozen seats have changed local issues
