@@ -50,21 +50,4 @@
     <p><input type="submit" value="Submit survey"></p>
 </form>
 
-<script type="text/javascript" charset="utf-8">
-    var t = $('<div id="autosave" style="position: fixed; left: 0; bottom: 0; padding: 0.5em; background-color: #e8fdcb">Draft automatically saved</div>').hide();
-    $('body').append(t);
-    // Autosave the form
-    function survey_form_changed() {
-        var token = $('#token').val();
-        // store all the form data
-        var ser = $('form').serialize();
-        // submit it do the server
-        $.ajax({ url: "/survey/autosave/" + token, context: document.body, type: 'POST', data: { 'ser': ser }, success: function(){
-            $('#autosave').show();
-            $('#autosave').fadeOut(2000);
-        }});
-    };
-    $('.watchmechange').change(survey_form_changed)
-</script>
-
 {% endblock %}
