@@ -78,7 +78,11 @@ if options.limit != None:
 log("Found " + str(candidacies.count(None)) + " candidacies")
 c = 0
 for candidacy in candidacies:
-    if candidacy.candidate.validated_email():
+    if not candidacy.candidate.validated_email():
+        log("Not queueing, invalid email " + str(candidacy.candidate.email) + " for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
+    elif not candidacy.seat.frozen_local_issues:
+        log("Not queueing, seat isn't frozen for local issues: " + candidacy.seat.name + ", " + candidacy.candidate.name)
+    else:
         c += 1 # one second between sending each mail
         if options.real:
             log(str(c) + " queued invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
@@ -87,8 +91,6 @@ for candidacy in candidacies:
             candidacy.log("Queued task to send survey invite email")
         else:
             log(str(c) + " would queue invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
-    else:
-        log("Not queueing, invalid email " + str(candidacy.candidate.email) + " for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
 
 
 
