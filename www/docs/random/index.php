@@ -15,7 +15,7 @@ $q = $db->query("select gid from hansard where htype in (10,11) and major=1 and 
 $gid = $q->field(0, 'gid');
 
 $args = array (
-	'gid' => fix_gid_from_db($giid),
+	'gid' => fix_gid_from_db($gid),
 	'glossarise' => 1,
 	'sort' => 'regexp_replace',
 );
