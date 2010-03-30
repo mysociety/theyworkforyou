@@ -1,9 +1,10 @@
 Do this next
 ============
 
-Somehow don't allow changing of issues for a constituency which has already been sent
-Check reload of data preserves frozenness
-Check can grab multiple pages of frozen seats
+Make it so frozen seats can't have their issues changed
+Only send surveys out to frozen seats
+Flag in queue script to freeze seats as you send out the surveys for them
+XXX Check can grab multiple pages of frozen seats in the loader script
 
 Make sure autosave works, with Matthew:
     * Test it in IE: http://www.howtocreate.co.uk/fixedPosition.html
