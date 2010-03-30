@@ -3,13 +3,10 @@ Do this next
 
 Somehow don't allow changing of issues for a constituency which has already been sent
 
-What should it do if they've already filled in the survey?
-    - can edit their answers and resubmit, until a deadline?
-    - "I think they can probably change anything up to the day before the user survey goes live"
-
-Make it autosave, probably using:
+Make sure autosave works, with Matthew:
     * Test it in IE: http://www.howtocreate.co.uk/fixedPosition.html
     * Two AJAX requests might go past each other out of order - have serial number counting up? send time?
+    * Don't think it should go red when coming in from autosave
 
 Separate local from national, ask national first, only then show local
 Free text fields
@@ -17,13 +14,19 @@ Free text fields
 
 Teach Matthew how all this works
 
-Make sure backup is working
-
 Make sure you can get the data out again with agreements and things recorded
 right before you send it out to real candidates.
 
+
+What should it do if they've already filled in the survey?
+    - can edit their answers and resubmit, until a deadline?
+    - "I think they can probably change anything up to the day before the user survey goes live"
+
 Script to detect cases where email address has changed and show them
     (make sure compares to validated_email)
+
+Put backup on sandwich
+Make sure backup is going off site
 
 
 

@@ -71,21 +71,25 @@ def survey_candidacy(request, token = None):
     # Have they tried to post an answer?
     submitted = 'questions_submitted' in post
 
-    # Do we need to load from autosave?
     autosave_when = None
-    if first_auth and candidacy.survey_autosave:
-        saved = cgi.parse_qs(candidacy.survey_autosave)
-        for k, v in saved.iteritems():
-            post[str(k)] = v[0]
-        submitted = True
-        autosave_when = candidacy.survey_autosave_when
+    if first_auth:
+        # Do we need to load from autosave?
+        if candidacy.survey_autosave:
+            saved = cgi.parse_qs(candidacy.survey_autosave)
+            for k, v in saved.iteritems():
+                post[str(k)] = v[0]
+            submitted = False
+            autosave_when = candidacy.survey_autosave_when
+        else:
+            # Make sure form definitely doesn't get errors
+            post = None
 
     valid = True
     # Construct array of forms containing all local issues
     local_issues_for_seat = candidacy.seat.refinedissue_set.filter("deleted =", False).fetch(1000)
     local_issue_forms = []
     for issue in local_issues_for_seat:
-        form = forms.LocalIssueQuestionForm(submitted and post or None, refined_issue=issue, candidacy=candidacy)
+        form = forms.LocalIssueQuestionForm(post, refined_issue=issue, candidacy=candidacy)
         valid = valid and form.is_valid()
         local_issue_forms.append(form)
     # ... and national issues
@@ -93,7 +97,7 @@ def survey_candidacy(request, token = None):
     national_issues_for_seat = national_seat.refinedissue_set.filter("deleted =", False).fetch(1000)
     national_issue_forms = []
     for issue in national_issues_for_seat:
-        form = forms.NationalIssueQuestionForm(submitted and post or None, refined_issue=issue, candidacy=candidacy)
+        form = forms.NationalIssueQuestionForm(post, refined_issue=issue, candidacy=candidacy)
         valid = valid and form.is_valid()
         national_issue_forms.append(form)
     all_issue_forms = local_issue_forms + national_issue_forms
