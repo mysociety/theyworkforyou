@@ -1,6 +1,4 @@
 $(function(){
-    var t = $('<div id="autosave" style="position: fixed; left: 0; bottom: 0; padding: 0.5em; background-color: #e8fdcb">Draft automatically saved</div>').hide();
-    $('body').append(t);
     // Autosave the form when any radio button changes
     $('.watchmechange').change(survey_form_changed);
 });

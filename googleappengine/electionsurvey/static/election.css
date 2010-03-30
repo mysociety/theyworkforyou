@@ -24,6 +24,12 @@ form#electionsurvey li {
     display: inline;
 }
 
+#auto-save {
+    background-color: #e8fdcb;
+    padding: 0.5em;
+    display: none;
+}
+
 .autosave-note {
     font-style: italic;
     margin-right: 2em;
