@@ -12,7 +12,6 @@ Free text fields
 Separate local from national, ask national first, only then show local
 
 Make sure autosave works, with Matthew:
-    * Test it in IE: http://www.howtocreate.co.uk/fixedPosition.html
     * Two AJAX requests might go past each other out of order - have serial number counting up? send time?
 Teach Matthew how all this works
 
