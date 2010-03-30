@@ -27,6 +27,8 @@ form#electionsurvey li {
 #autosave {
     background-color: #e8fdcb;
     padding: 0.5em;
+    margin: 0.5em;
+    text-align: center;
     display: none;
 }
 

@@ -26,11 +26,13 @@
 </div>
 <div class="sidebar">
     <script type="text/javascript" charset="utf-8">
-        document.write('<p class="autosave-note"> <strong>Don\'t worry!</strong> Your responses are saved to draft as you fill them in, so you can close the window or go away, and carry later.</p> <div id="autosave">Draft automatically saved</div>');
+        document.write('<p class="autosave-note"> <strong>Don\'t worry!</strong> Your responses are saved to draft as you fill them in, so you can close the window or go away, and carry later.</p>');
     </script>
 </div>
 <div class="break"></div>
 </div>
+
+<div class="stripe-time-2">
 <div class="main">
 
 <form method="post" action="/survey" id="electionsurvey">
@@ -55,5 +57,11 @@
 
     <p><input type="submit" value="Submit survey"></p>
 </form>
+
+</div>
+<div class="sidebar">
+    <script type="text/javascript" charset="utf-8">
+        document.write('<div id="autosave">Draft automatically saved</div>');
+    </script>
 
 {% endblock %}
