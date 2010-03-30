@@ -11,7 +11,7 @@ function survey_form_changed() {
     var ser = $('form').serialize();
     // submit it to the server
     $.ajax({ url: "/survey/autosave/" + token, context: document.body, type: 'POST', data: { 'ser': ser }, success: function(){
-        $('#autosave').stop().show().fadeOut(2000);
+        $('#autosave').stop(true, true).show().fadeOut(2000);
     }});
 }
 
