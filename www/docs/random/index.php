@@ -11,7 +11,7 @@ shuffle($dates);
 $date = trim($dates[0]);
 
 $db = new ParlDB();
-$q = $db->query("select gid from hansard where htype in (10,11) and major=1 and hdate=$date order by rand() limit 1");
+$q = $db->query("select gid from hansard where htype in (10,11) and major=1 and hdate='$date' order by rand() limit 1");
 $gid = $q->field(0, 'gid');
 
 $args = array (
