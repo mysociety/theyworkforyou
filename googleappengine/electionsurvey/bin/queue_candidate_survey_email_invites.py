@@ -87,6 +87,8 @@ for candidacy in candidacies:
             candidacy.log("Queued task to send survey invite email")
         else:
             log(str(c) + " would queue invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
+    else:
+        log("Not queueing, invalid email for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
 
 
 
