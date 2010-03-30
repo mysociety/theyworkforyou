@@ -5,7 +5,10 @@ Make sure you can get the data out again with agreements and things recorded
 right before you send it out to real candidates.
 
 Free text fields
+    * One by each question "Optional space for more explanation (not required)"
+    * Greyed out until the answer the multi-chioce part of the question
     * Make sure autosave works with £ signs and other unicode
+
 Separate local from national, ask national first, only then show local
 
 Make sure autosave works, with Matthew:
