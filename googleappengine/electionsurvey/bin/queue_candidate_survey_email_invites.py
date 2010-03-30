@@ -84,6 +84,7 @@ for candidacy in candidacies:
             log(str(c) + " queued invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
             eta = datetime.datetime.utcnow() + datetime.timedelta(seconds=c) # AppEngine servers use UTC
             taskqueue.add(url='/task/invite_candidacy_survey/' + str(candidacy.key().name()), eta = eta)
+            candidacy.log("Queued task to send survey invite email")
         else:
             log(str(c) + " would queue invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
 
