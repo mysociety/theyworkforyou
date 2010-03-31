@@ -39,7 +39,7 @@ class IssueQuestionForm(forms.Form):
 
     # 0 = strongly disagree, 100 = strongly agree
     agreement = forms.ChoiceField(
-        widget=forms.widgets.RadioSelect(attrs={'class':'watchmechange'}),
+        widget=forms.widgets.RadioSelect(attrs={'class':'autosave_survey_form enable_more_explanation'}),
         required=True,
         choices=[
             (100, 'Agree (strongly)'),
@@ -50,7 +50,7 @@ class IssueQuestionForm(forms.Form):
     )
 
     more_explanation = forms.CharField(required=True,
-                widget=forms.Textarea(attrs={'cols':60, 'rows':2}),
+            widget=forms.Textarea(attrs={'class':'more_explanation_textarea', 'cols':60, 'rows':2}),
                 label="Optional space for more explanation (not required):"
     )
 
