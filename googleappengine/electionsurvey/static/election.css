@@ -48,3 +48,8 @@ form#electionsurvey div.more_explanation {
 .textLimiter {
     display: none;
 }
+
+.disabled {
+    background-color: #cccccc;
+    color: #333333;
+}

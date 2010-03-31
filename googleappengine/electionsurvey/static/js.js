@@ -1,7 +1,7 @@
 $(function(){
     // Enable/disable more explanation fields at start according to status of radio buttons
-    $('ul.questions textarea').attr('disabled', 'disabled');
-    $('ul.questions > li').has('input:radio:checked').find('textarea').removeAttr('disabled');
+    $('ul.questions textarea').attr('disabled', 'disabled').addClass('disabled');
+    $('ul.questions > li').has('input:radio:checked').find('textarea').removeAttr('disabled').removeClass('disabled');
 
     // Allow editing of more explanations when radio button has been pressed
     $('input:radio').change(function(){
