@@ -1,9 +1,6 @@
 Do this next
 ============
 
-Teach Matthew how all this works
-
-
 Make sure off site backups are working reliably
 
 Write voter quiz:
