@@ -51,7 +51,7 @@ class IssueQuestionForm(forms.Form):
     )
 
     more_explanation = forms.CharField(required=False,
-            widget=forms.Textarea(attrs={'class':'more_explanation_textarea', 'cols':60, 'rows':2}),
+            widget=forms.Textarea(attrs={'class':'autosave_survey_form more_explanation_textarea', 'cols':60, 'rows':2}),
                 label="Optional space for short explanation (not required):"
     )
 
