@@ -9,6 +9,7 @@
 import email.utils
 import cgi
 import datetime
+import urllib
 
 from google.appengine.api import urlfetch
 from google.appengine.api.datastore_types import Key
@@ -75,7 +76,8 @@ def survey_candidacy(request, token = None):
     if first_auth:
         # Do we need to load from autosave?
         if candidacy.survey_autosave:
-            saved = cgi.parse_qs(candidacy.survey_autosave)
+            # with str() cast here we get unicode typed values in result dictionary, and then double escaped unicode in display
+            saved = cgi.parse_qs(str(candidacy.survey_autosave)) 
             for k, v in saved.iteritems():
                 post[str(k)] = v[0]
             submitted = False
