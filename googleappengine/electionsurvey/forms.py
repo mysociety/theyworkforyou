@@ -33,6 +33,7 @@ class IssueQuestionForm(forms.Form):
             parent = self.candidacy,
             agreement = int(self.cleaned_data['agreement']),
             refined_issue = self.refined_issue.key(),
+            more_explanation = self.cleaned_data['more_explanation'],
             candidacy = self.candidacy.key()
         )
         survey_response.put()
@@ -49,7 +50,7 @@ class IssueQuestionForm(forms.Form):
         ]
     )
 
-    more_explanation = forms.CharField(
+    more_explanation = forms.CharField(required=False,
             widget=forms.Textarea(attrs={'class':'more_explanation_textarea', 'cols':60, 'rows':2}),
                 label="Optional space for short explanation (not required):"
     )
