@@ -45,4 +45,6 @@ form#electionsurvey div.more_explanation {
 .stripe-side {
     background-color: red;
 }
-
+.textLimiter {
+    display: none;
+}

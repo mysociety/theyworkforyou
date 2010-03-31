@@ -12,7 +12,10 @@ $(function(){
     $('input:radio').add('ul.questions textarea').change(autosave_survey_form);
     
     // Autosave if they close the window (in case in middle of typing in textarea)
-    window.onbeforeunload = autosave_survey_form
+    window.onbeforeunload = autosave_survey_form;
+
+    // Prevent too much text in the more explanation fields
+    $('ul.questions').find('textarea').textLimiter(255);
 });
 
 // Store form data on server so can come back to it later
