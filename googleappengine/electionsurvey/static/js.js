@@ -13,7 +13,7 @@ $(function(){
     // Autosave if they close the window (in case in middle of typing in textarea)
     window.onbeforeunload = autosave_survey_form;
     // Autosave when the submit button is clicked (although this will do an onbeforeunload also?)
-    $('form#electionsurvey').autosave_survey_form;
+    $('form#electionsurvey').submit(autosave_survey_form);
 
     // Prevent too much text in the more explanation fields
     $('ul.questions').find('textarea').textLimiter(255, { limitColor: '#FF0000' });
