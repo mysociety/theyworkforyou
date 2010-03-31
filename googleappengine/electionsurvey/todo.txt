@@ -3,12 +3,7 @@ Do this next
 
 Make *sure* data comes out right that goes into survey, before sending to real candidates
 
-£ signs not working in short explanation
-
-
-More explanation field only autosave when focus is lost, make that clearer or better
-Add an absolute length limit to the explanation field
-Two AJAX requests might go past each other out of order - have serial number counting up? send time?
+Disabled textareas aren't greyed out in Firefox/IE (on Mac only?)
 
 Teach Matthew how all this works
 
