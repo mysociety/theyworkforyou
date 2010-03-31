@@ -51,7 +51,7 @@ class IssueQuestionForm(forms.Form):
 
     more_explanation = forms.CharField(
             widget=forms.Textarea(attrs={'class':'more_explanation_textarea', 'cols':60, 'rows':2}),
-                label="Optional space for more explanation (not required):"
+                label="Optional space for short explanation (not required):"
     )
 
 # One local question in the candidate survey

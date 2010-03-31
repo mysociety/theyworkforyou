@@ -48,8 +48,8 @@
     <h3>Local issues for {{ seat.name }}</h3>
         <ul>
             {% for form in local_issue_forms %}
-            <li class="single_question{% if unfinished and form.agreement.errors %} error{% endif %}">
-                <div class="agreement">
+            <li class="single_question">
+                <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
                     {{ form.agreement.label_tag }} {{ form.agreement }}
                 </div>
                 <div class="more_explanation">
