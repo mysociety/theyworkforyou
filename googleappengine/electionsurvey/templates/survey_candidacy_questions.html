@@ -32,10 +32,10 @@
 
 <form method="post" action="/survey" id="electionsurvey">
     <h3>National issues</h3>
-        <ul>
+        <ul class="questions">
             {% for form in national_issue_forms %}
-            <li class="single_question{% if unfinished and form.agreement.errors %} error{% endif %}">
-                <div class="agreement">
+            <li>
+                <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
                     {{ form.agreement.label_tag }} {{ form.agreement }}
                 </div>
                 <div class="more_explanation">
@@ -46,9 +46,9 @@
         </ul>
 
     <h3>Local issues for {{ seat.name }}</h3>
-        <ul>
+        <ul class="questions">
             {% for form in local_issue_forms %}
-            <li class="single_question">
+            <li>
                 <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
                     {{ form.agreement.label_tag }} {{ form.agreement }}
                 </div>
