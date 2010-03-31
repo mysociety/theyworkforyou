@@ -48,7 +48,13 @@
     <h3>Local issues for {{ seat.name }}</h3>
         <ul>
             {% for form in local_issue_forms %}
-            <li{% if unfinished and form.agreement.errors %} class="error"{% endif %}>{{ form.agreement.label_tag }} {{ form.agreement }}
+            <li class="single_question{% if unfinished and form.agreement.errors %} error{% endif %}">
+                <div class="agreement">
+                    {{ form.agreement.label_tag }} {{ form.agreement }}
+                </div>
+                <div class="more_explanation">
+                    {{ form.more_explanation.label_tag }} {{ form.more_explanation }}
+                </div>
             </li>
             {% empty %}
                 <li>There are no local questions in this constituency.</li>
