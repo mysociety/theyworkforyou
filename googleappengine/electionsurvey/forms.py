@@ -49,7 +49,7 @@ class IssueQuestionForm(forms.Form):
         ]
     )
 
-    more_explanation = forms.CharField(required=True,
+    more_explanation = forms.CharField(
             widget=forms.Textarea(attrs={'class':'more_explanation_textarea', 'cols':60, 'rows':2}),
                 label="Optional space for more explanation (not required):"
     )
