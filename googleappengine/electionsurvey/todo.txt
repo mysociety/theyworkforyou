@@ -19,11 +19,12 @@ Display that in results of quiz
 Function to share answers / embed in blog?
 
 
+When we start displaying the survey answers, rethink if they are allowed to resubmit survey
+
 Script to detect cases where email address has changed and show them
     (make sure compares to validated_email)
 Script to show what frozen seats have changed local issues
 
-When we start displaying the survey answers, rethink if they are allowed to resubmit survey
 
 
 
