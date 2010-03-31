@@ -10,6 +10,9 @@ $(function(){
 
     // Autosave the form when any part of it changes
     $('input:radio').add('ul.questions textarea').change(autosave_survey_form);
+    
+    // Autosave if they close the window (in case in middle of typing in textarea)
+    window.onbeforeunload = autosave_survey_form
 });
 
 // Store form data on server so can come back to it later
