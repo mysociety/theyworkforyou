@@ -1,8 +1,9 @@
 Do this next
 ============
 
-Make sure you can get the data out again with agreements and things recorded
-right before you send it out to real candidates.
+Make *sure* data comes out right that goes into survey, before sending to real candidates
+
+£ signs not working in short explanation
 
 
 More explanation field only autosave when focus is lost, make that clearer or better

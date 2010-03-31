@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^admin/?$', redirect_to, {'url' : '/admin/index'} ),
     url(r'^admin/index$', views.admin_index),
     url(r'^admin/stats$', views.admin_stats),
+    url(r'^admin/responses$', views.admin_responses),
 
     url(r'^task/invite_candidacy_survey/(?P<candidacy_key_name>[\d-]+)$', views.task_invite_candidacy_survey),
 

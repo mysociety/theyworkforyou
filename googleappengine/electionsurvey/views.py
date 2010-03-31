@@ -106,6 +106,7 @@ def survey_candidacy(request, token = None):
     if submitted and valid:
         db.run_in_transaction(forms._form_array_save, all_issue_forms)
         candidacy.survey_filled_in = True
+        candidacy.survey_filled_in_when = datetime.datetime.now()
         candidacy.log('Survey form completed successfully')
         return render_to_response('survey_candidacy_thanks.html', { 'candidate' : candidacy.candidate })
 
@@ -238,7 +239,11 @@ def admin_stats(request):
         'survey_response_count': survey_response_count, 
     })
 
-
+def admin_responses(request):
+    candidacies = db.Query(Candidacy).filter('survey_filled_in =', True).order('-survey_filled_in_when').fetch(1000)
+    return render_to_response('admin_responses.html', { 
+        'candidacies': candidacies,
+    })
 
 
 
