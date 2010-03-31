@@ -17,12 +17,17 @@ h2 {
 
 form#electionsurvey ul {
     margin-top: 0.5em;
-    margin-bottom: 2em;
 }
 
 form#electionsurvey li {
     display: inline;
 }
+
+form#electionsurvey div.more_explanation {
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+}
+
 
 #autosave {
     background-color: #e8fdcb;

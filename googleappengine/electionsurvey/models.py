@@ -151,6 +151,8 @@ class SurveyResponse(db.Model):
     # 100 = strongly agree, 0 = strongly disagree
     agreement = db.RatingProperty(required=True)
 
+    more_explanation = db.StringProperty() # maximum 500 characters, indexed
+
 
 
 
