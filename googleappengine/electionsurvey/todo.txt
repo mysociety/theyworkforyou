@@ -4,6 +4,7 @@ Do this next
 Make sure you can get the data out again with agreements and things recorded
 right before you send it out to real candidates.
 
+
 More explanation field only autosave when focus is lost, make that clearer or better
 Add an absolute length limit to the explanation field
 Two AJAX requests might go past each other out of order - have serial number counting up? send time?

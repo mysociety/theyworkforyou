@@ -26,7 +26,7 @@ from django.conf import settings
 from ratelimitcache import ratelimit
 
 import forms
-from models import Seat, RefinedIssue, Candidacy
+from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse
 
 # Front page of election site
 def index(request):
@@ -188,10 +188,55 @@ on behalf of the voters of %s constituency
     text += "<pre>%s</pre>" % str(message.body)
     return HttpResponse(text)
 
+# Count number of items a query would return
+def get_count(q):
+    q.order('__key__')
+    r = q.fetch(1000)
+    count = 0 
+    while True:
+        count += len(r)
+        if len(r) < 1000:
+            break
+        q.filter('__key__ >', r[-1])
+        r = q.fetch(1000)
+    return count
 
 # Administrator functions
-def admin(request):
+def admin_index(request):
     return render_to_response('admin_index.html', { })
+
+def admin_stats(request):
+    party_count = get_count(db.Query(Party, keys_only=True))
+
+    candidate_count = get_count(db.Query(Candidate, keys_only=True))
+    seat_count = get_count(db.Query(Seat, keys_only=True))
+
+    candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False))
+    deleted_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted =', True))
+    emailed_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_invite_emailed =', True))
+    deleted_emailed_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', True).filter('survey_invite_emailed =', True))
+    filled_in_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_filled_in =', True))
+    deleted_filled_in_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', True).filter('survey_filled_in =', True))
+
+    refined_issue_count = get_count(db.Query(RefinedIssue, keys_only=True).filter('deleted = ', False))
+    deleted_refined_issue_count = get_count(db.Query(RefinedIssue, keys_only=True).filter('deleted = ', True))
+
+    survey_response_count = get_count(db.Query(SurveyResponse, keys_only=True))
+
+    return render_to_response('admin_stats.html', { 
+        'party_count': party_count,
+        'candidate_count': candidate_count, 
+        'seat_count': seat_count,
+        'candidacy_count': candidacy_count, 
+            'deleted_candidacy_count': deleted_candidacy_count,
+        'emailed_candidacy_count': emailed_candidacy_count, 
+            'deleted_emailed_candidacy_count': deleted_emailed_candidacy_count,
+        'filled_in_candidacy_count': filled_in_candidacy_count, 
+            'deleted_filled_in_candidacy_count': deleted_filled_in_candidacy_count,
+        'refined_issue_count': refined_issue_count,
+            'deleted_refined_issue_count': deleted_refined_issue_count,
+        'survey_response_count': survey_response_count, 
+    })
 
 
 
