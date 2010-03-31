@@ -5,7 +5,7 @@ $(function(){
 
     // Allow editing of more explanations when radio button has been pressed
     $('input:radio').change(function(){
-        $(this).closest('ul.questions > li').find('textarea').removeAttr('disabled');
+        $(this).closest('ul.questions > li').find('textarea').removeAttr('disabled').removeClass('disabled');
     });
 
     // Autosave the form when any part of it changes
