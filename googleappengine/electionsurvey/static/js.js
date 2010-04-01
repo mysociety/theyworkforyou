@@ -22,11 +22,22 @@ $(function(){
 // Store form data on server so can come back to it later
 function autosave_survey_form() {
     var token = $('input#token').val();
-    // store all the form data
-    var ser = $('form#electionsurvey').serialize();
-    // submit it to the server
-    $.ajax({ url: "/survey/autosave/" + token, context: document.body, type: 'POST', data: { 'ser': ser }, success: function(){
-        $('div#autosave').stop(true, true).show().fadeOut(2000);
-    }});
+    // see if the form is modified at all, i.e. we have
+    // some fields in it other than token / questions_submitted
+    var fields = $('form#electionsurvey').serializeArray();
+    var filled_in = false;
+    jQuery.each(fields, function(i, field){
+        if (field.name != 'token' && field.name != 'questions_submitted') {
+            filled_in = true;
+        }
+    });
+    if (filled_in) {
+        // store all the form data
+        var ser = $('form#electionsurvey').serialize();
+        // submit it to the server
+        $.ajax({ url: "/survey/autosave/" + token, context: document.body, type: 'POST', data: { 'ser': ser }, success: function(){
+            $('div#autosave').stop(true, true).show().fadeOut(2000);
+        }});
+    }
 }
 
