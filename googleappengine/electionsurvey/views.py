@@ -163,8 +163,8 @@ def task_invite_candidacy_survey(request, candidacy_key_name):
     message.to = email.utils.formataddr((to_name, to_email))
     message.body = """Hi %s,
 
-TheyWorkForYou is inviting all PPCs to tell their voters their
-views on important national and local issues.
+TheyWorkForYou is inviting all PPCs to share their positions 
+on a range of major national and local issues.
 
 Click this link, it should only take you a few minutes.
 
