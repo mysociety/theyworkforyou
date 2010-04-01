@@ -12,6 +12,19 @@
          "updated" : "2010-02-07T00:25:50",
          "address" : null,
          "code" : "stilton_mouse"
+      },
+      "-3" : {
+         "name" : "Stom Teinberg",
+         "phone" : null,
+         "created" : "2010-02-07T00:25:50",
+         "email" : "tom@mysociety.org",
+         "party_id" : "-32",
+         "image_id" : null,
+         "fax" : null,
+         "id" : "-3",
+         "updated" : "2010-02-07T00:25:50",
+         "address" : null,
+         "code" : "stom_teinberg"
       }
    },
    "Candidacy" : {
@@ -21,6 +34,13 @@
          "id" : "-12",
          "updated" : "2010-02-07T00:25:50",
          "candidate_id" : "-2"
+      },
+      "-13" : {
+         "created" : "2010-02-07T00:25:50",
+         "seat_id" : "-2",
+         "id" : "-13",
+         "updated" : "2010-02-07T00:25:50",
+         "candidate_id" : "-3"
       }
    },
    "Seat" : {
