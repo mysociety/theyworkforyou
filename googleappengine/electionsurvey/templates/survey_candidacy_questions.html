@@ -41,7 +41,8 @@
             {% for form in national_issue_forms %}
             <li>
                 <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
-                    {{ form.agreement.label_tag }} {{ form.agreement }}
+                    <strong>{{ forloop.counter }}. {{ form.agreement.label_tag }}</strong> 
+                    {{ form.agreement }}
                 </div>
                 <div class="more_explanation">
                     {{ form.more_explanation.label_tag }} {{ form.more_explanation }}
@@ -60,7 +61,8 @@
                 {% for form in local_issue_forms %}
                 <li>
                     <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
-                        {{ form.agreement.label_tag }} {{ form.agreement }}
+                        <strong>{{ forloop.counter }}. {{ form.agreement.label_tag }}</strong> 
+                        {{ form.agreement }}
                     </div>
                     <div class="more_explanation">
                         {{ form.more_explanation.label_tag }} {{ form.more_explanation }}
