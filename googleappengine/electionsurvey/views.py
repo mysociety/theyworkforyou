@@ -163,17 +163,21 @@ def task_invite_candidacy_survey(request, candidacy_key_name):
     message.to = email.utils.formataddr((to_name, to_email))
     message.body = """Hi %s,
 
-TheyWorkForYou is inviting all PPCs to tell their voters
-their views on important national and local issues.
+TheyWorkForYou is inviting all PPCs to tell their voters their
+views on important national and local issues.
 
 Click this link, it should only take you a few minutes.
 
 %s
 
 Millions of people use TheyWorkForYou to find out about their MP
-every year. Your answers will be used by voters in your constituency
-in the run up to the election, and if you become an MP they will appear 
-on your record on TheyWorkForYou.
+every year. Your answers will be used in a quiz to help voters
+in your constituency decide who to vote for, and if you become an
+MP they will appear on your record on TheyWorkForYou.
+
+What's unique about this quiz? You get to answer as an individual
+candidate, and it includes local questions gathered by 5000
+volunteers from across the country.
 
 TheyWorkForYou team
 on behalf of the voters of %s constituency
