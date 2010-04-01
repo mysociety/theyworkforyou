@@ -16,7 +16,7 @@ $(function(){
     $('form#electionsurvey').submit(autosave_survey_form);
 
     // Prevent too much text in the more explanation fields
-    $('ul.questions').find('textarea').textLimiter(255, { limitColor: '#FF0000' });
+    $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
 });
 
 // Store form data on server so can come back to it later
