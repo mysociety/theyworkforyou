@@ -33,6 +33,11 @@
 <form method="post" action="/survey" id="electionsurvey">
     <h3>National issues</h3>
         <ul class="questions">
+            <li>
+                <div class="issues_note">The questions were all approved as fair by a panel of judges
+                from across the political spectrum.
+                </div>
+            </li>
             {% for form in national_issue_forms %}
             <li>
                 <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
@@ -46,21 +51,32 @@
         </ul>
 
     <h3>Local issues for {{ seat.name }}</h3>
-        <ul class="questions">
-            {% for form in local_issue_forms %}
-            <li>
-                <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
-                    {{ form.agreement.label_tag }} {{ form.agreement }}
-                </div>
-                <div class="more_explanation">
-                    {{ form.more_explanation.label_tag }} {{ form.more_explanation }}
-                </div>
-            </li>
-            {% empty %}
-            <li>We asked volunteers to find local questions, but unfortunately
-            none have been submitted for this constituency.</li>
-            {% endfor %}
-        </ul>
+        {% if local_issue_forms %}
+            <ul class="questions">
+                <li>
+                    <div class="issues_note">We asked volunteers in your constituency to find these questions.
+                    </div>
+                </li>
+                {% for form in local_issue_forms %}
+                <li>
+                    <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
+                        {{ form.agreement.label_tag }} {{ form.agreement }}
+                    </div>
+                    <div class="more_explanation">
+                        {{ form.more_explanation.label_tag }} {{ form.more_explanation }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <ul class="questions">
+                <li>
+                    <div class="issues_note">We asked volunteers to find local questions, but unfortunately
+                        none have been submitted for this constituency.
+                    </div>
+                </li>
+            </ul>
+        {% endif %}
 
     <input type="hidden" name="token" value="{{ token }}" id="token" > 
     <input type="hidden" name="questions_submitted" value="1" > 

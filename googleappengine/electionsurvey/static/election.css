@@ -27,6 +27,10 @@ form#electionsurvey div.more_explanation {
     margin-top: 0.5em;
     margin-bottom: 2em;
 }
+form#electionsurvey div.issues_note {
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+}
 
 
 #autosave {
