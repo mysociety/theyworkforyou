@@ -163,21 +163,25 @@ def task_invite_candidacy_survey(request, candidacy_key_name):
     message.to = email.utils.formataddr((to_name, to_email))
     message.body = """Hi %s,
 
-TheyWorkForYou is inviting all PPCs to share their positions 
-on a range of major national and local issues.
+TheyWorkForYou is inviting all PPCs to share their positions on a
+range of major national and local issues.
 
 Click this link, it should only take you a few minutes.
 
 %s
 
-Millions of people use TheyWorkForYou to find out about their MP
-every year. Your answers will be used in a quiz to help voters
-in your constituency decide who to vote for, and if you become 
-an MP they will appear on your record on TheyWorkForYou.
+Millions of people use TheyWorkForYou to find out about their MPs
+every year. Your answers will be used in a quiz to help voters in
+your constituency decide who to vote for. If you are elected,
+your page on TheyWorkForYou will include your answers, and note
+which new MPs declined to participate.
 
-What's unique about this quiz? You get to answer as an individual
-candidate, and it includes local questions gathered by 5000
-volunteers from across the country.
+What is unique about this survey is that the local issues, and
+indeed much of the entire project, have been provided by a
+network of over 5000 new volunteers, under the banner of
+Democracy Club. These individuals are looking to you, as a
+candidate, to embody the accountability that everyone wants to
+see from the new Parliament.
 
 TheyWorkForYou team
 on behalf of the voters of %s constituency
