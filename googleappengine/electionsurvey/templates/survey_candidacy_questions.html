@@ -8,7 +8,14 @@
     <p class="error">Thanks for coming back to the survey! Your answers so far are filled in below.</p>
 {% else %}
     {% if unfinished %}
-        <p class="error">Please finish answering the questions.</p>
+        <p class="error">
+        <script type="text/javascript" charset="utf-8">
+            document.write("A draft has been saved, but your responses won't be submitted until you've answered all the questions");
+        </script>
+        <noscript>
+            Please finish answering the questions.
+        </noscript>
+        </p>
     {% else %}
         <p>
             Hello, {{ candidate.name }}. Please carefully state your views on the
@@ -80,6 +87,17 @@
 
     <input type="hidden" name="token" value="{{ token }}" id="token" > 
     <input type="hidden" name="questions_submitted" value="1" > 
+
+    {% if unfinished %}
+        <p class="error">
+        <script type="text/javascript" charset="utf-8">
+            document.write("A draft has been saved, but your responses won't be submitted until you've answered all the questions");
+        </script>
+        <noscript>
+            Please finish answering the questions.
+        </noscript>
+        </p>
+    {% endif %}
 
     <p><input type="submit" value="Submit survey"></p>
 </form>
