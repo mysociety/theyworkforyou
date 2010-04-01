@@ -46,7 +46,6 @@
                 </div>
                 <div class="more_explanation">
                     {{ form.more_explanation.label_tag }}
-                    <br>
                     {{ form.more_explanation }}
                 </div>
             </li>
@@ -67,7 +66,8 @@
                         {{ form.agreement }}
                     </div>
                     <div class="more_explanation">
-                        {{ form.more_explanation.label_tag }} {{ form.more_explanation }}
+                        {{ form.more_explanation.label_tag }} 
+                        {{ form.more_explanation }}
                     </div>
                 </li>
                 {% endfor %}
