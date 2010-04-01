@@ -3,6 +3,7 @@ Do this next
 
 Send test email out again to me/Tom
 
+Really autosave should check for conflicts between two browser windows
 
 
 Make sure off site backups are working reliably
