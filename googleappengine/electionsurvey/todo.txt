@@ -1,10 +1,6 @@
 Do this next
 ============
 
-Improve formatting of long list of issues
-- numbers
-- some bold?
-
 Send test email out again to me/Tom
 
 
