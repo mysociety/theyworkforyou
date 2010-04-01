@@ -172,8 +172,8 @@ Click this link, it should only take you a few minutes.
 
 Millions of people use TheyWorkForYou to find out about their MP
 every year. Your answers will be used in a quiz to help voters
-in your constituency decide who to vote for, and if you become an
-MP they will appear on your record on TheyWorkForYou.
+in your constituency decide who to vote for, and if you become 
+an MP they will appear on your record on TheyWorkForYou.
 
 What's unique about this quiz? You get to answer as an individual
 candidate, and it includes local questions gathered by 5000
