@@ -157,6 +157,9 @@ class SurveyResponse(db.Model):
 
     more_explanation = db.StringProperty() # maximum 500 characters, indexed
 
+    def deleted(self):
+        return self.refined_issue.deleted
+
 
 
 

@@ -14,11 +14,13 @@
     <ul>
     {% for r in c.responses %}
         <li>
-        {{ r.agreement }}% agree - 
-        {{ r.refined_issue.question }} 
-        {% if r.more_explanation %}
-            <br><em>"{{r.more_explanation }}"</em>
-        {% endif %}
+        {% if r.deleted %} <s> {% endif %} 
+            {{ r.agreement }}% agree - 
+            {{ r.refined_issue.question }} 
+            {% if r.more_explanation %}
+                <br><em>"{{r.more_explanation }}"</em>
+            {% endif %}
+        {% if r.deleted %} </s> {% endif %} 
         </li>
     {% endfor %}
 </ul>
