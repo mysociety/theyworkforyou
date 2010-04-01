@@ -206,15 +206,25 @@ def load_from_ynmp(ynmp, frozen_seats):
 ######################################################################
 # Load from DemocracyClub
 
+    fs = Seat.all().filter("frozen_local_issues =", True).fetch(100)
+    while fs:
+        for f in fs:
+            log("  Seat is frozen to local issues changes: " + f.name)
+            frozen_seats[f.key().name()] = f
+        fs = Seat.all().filter("frozen_local_issues =",True).filter('__key__ >', fs[-1].key()).fetch(100)
+
+
 def load_from_democlub(csv_files, frozen_seats):
     # Get list of existing refined issues in remote datastore, so can track what to delete
     log("Getting list of refined issues")
-    refined_issues = RefinedIssue.all().filter("deleted =", False)
+    refined_issues = RefinedIssue.all().filter("deleted =", False).fetch(100)
     to_be_marked_deleted = {}
-    for refined_issue in refined_issues:
-        key_name = refined_issue.key().name()
-        log("  Marking before have refined issue key " + key_name)
-        to_be_marked_deleted[key_name] = refined_issue
+    while refined_issues:
+        for refined_issue in refined_issues:
+            key_name = refined_issue.key().name()
+            log("  Marking before have refined issue key " + key_name)
+            to_be_marked_deleted[key_name] = refined_issue
+        refined_issues = RefinedIssue.all().filter("deleted =", False).filter('__key__ >', refined_issues[-1].key()).fetch(100)
 
     # Load in CSV file and create/update all the issues
     refined_issues_by_key = {}
