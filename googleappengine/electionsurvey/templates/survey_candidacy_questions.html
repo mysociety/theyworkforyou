@@ -31,13 +31,8 @@
 <div class="main">
 
 <form method="post" action="/survey" id="electionsurvey">
-    <h3>National issues</h3>
+    <h3>National issues - Determined by a politically balanced expert panel</h3>
         <ul class="questions">
-            <li>
-                <div class="issues_note">These questions were all approved as fair by a panel of judges
-                from across the political spectrum.
-                </div>
-            </li>
             {% for form in national_issue_forms %}
             <li>
                 <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
@@ -52,13 +47,9 @@
             {% endfor %}
         </ul>
 
-    <h3>Local issues for {{ seat.name }}</h3>
+    <h3>Local issues - Submitted by volunteers in {{ seat.name }} constituency</h3>
         {% if local_issue_forms %}
             <ul class="questions">
-                <li>
-                    <div class="issues_note">We asked volunteers in your constituency to find these questions.
-                    </div>
-                </li>
                 {% for form in local_issue_forms %}
                 <li>
                     <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
