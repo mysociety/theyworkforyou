@@ -45,6 +45,7 @@ class IssueQuestionForm(forms.Form):
         choices=[
             (100, 'Agree (strongly)'),
             (75, 'Agree'),
+            (50, 'Neutral'),
             (25, 'Disagree'),
             (0, 'Disagree (strongly)'),
         ]
