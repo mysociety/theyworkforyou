@@ -121,7 +121,7 @@ $GLOBALS['recessdates'][1] = array(
         1=>array('less'=>5),
         2=>array('between'=>array(10,22)),
         3=>array('more'=>30),
-        4=>array('less'=>6, 'more'=>12),
+        4=>array('less'=>6, 'more'=>8),
 		5=>array('less'=>18),
     ),
 );
