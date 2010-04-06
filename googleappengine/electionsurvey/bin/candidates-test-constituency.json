@@ -25,6 +25,19 @@
          "updated" : "2010-02-07T00:25:50",
          "address" : null,
          "code" : "stom_teinberg"
+      },
+      "-4" : {
+         "name" : "Puncan Darkes",
+         "phone" : null,
+         "created" : "2010-02-07T00:25:50",
+         "email" : "duncan@mysociety.org",
+         "party_id" : "-32",
+         "image_id" : null,
+         "fax" : null,
+         "id" : "-4",
+         "updated" : "2010-02-07T00:25:50",
+         "address" : null,
+         "code" : "puncan_darkes"
       }
    },
    "Candidacy" : {
@@ -41,6 +54,13 @@
          "id" : "-13",
          "updated" : "2010-02-07T00:25:50",
          "candidate_id" : "-3"
+      },
+      "-14" : {
+         "created" : "2010-02-07T00:25:50",
+         "seat_id" : "-2",
+         "id" : "-14",
+         "updated" : "2010-02-07T00:25:50",
+         "candidate_id" : "-4"
       }
    },
    "Seat" : {
