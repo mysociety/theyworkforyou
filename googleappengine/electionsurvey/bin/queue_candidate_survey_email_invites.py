@@ -101,12 +101,12 @@ for candidacy in candidacies:
     else:
         c += 1 # one second between sending each mail
         if options.real:
-            log(str(c) + " queued invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
+            log(str(c) + " queued invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name + " email: " + candidacy.candidate.email)
             eta = datetime.datetime.utcnow() + datetime.timedelta(seconds=c) # AppEngine servers use UTC
             taskqueue.Queue('survey-email').add(taskqueue.Task(url='/task/invite_candidacy_survey/' + str(candidacy.key().name()), eta = eta))
             candidacy.log("Queued task to send survey invite email")
         else:
-            log(str(c) + " would queue invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
+            log(str(c) + " would queue invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name+ " email: " + candidacy.candidate.email)
 
 
 
