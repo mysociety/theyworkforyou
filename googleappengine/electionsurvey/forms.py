@@ -33,20 +33,27 @@ class IssueQuestionForm(forms.Form):
             parent = self.candidacy,
             agreement = int(self.cleaned_data['agreement']),
             refined_issue = self.refined_issue.key(),
+            more_explanation = self.cleaned_data['more_explanation'],
             candidacy = self.candidacy.key()
         )
         survey_response.put()
 
     # 0 = strongly disagree, 100 = strongly agree
     agreement = forms.ChoiceField(
-        widget=forms.widgets.RadioSelect(attrs={'class':'watchmechange'}),
+        widget=forms.widgets.RadioSelect(),
         required=True,
         choices=[
             (100, 'Agree (strongly)'),
             (75, 'Agree'),
+            (50, 'Neutral'),
             (25, 'Disagree'),
             (0, 'Disagree (strongly)'),
         ]
+    )
+
+    more_explanation = forms.CharField(required=False,
+            widget=forms.Textarea(attrs={'cols':60, 'rows':2}),
+                label="Optional space for short explanation (not required, 250 characters max):"
     )
 
 # One local question in the candidate survey

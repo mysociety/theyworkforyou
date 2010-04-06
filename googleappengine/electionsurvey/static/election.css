@@ -17,10 +17,43 @@ h2 {
 
 form#electionsurvey ul {
     margin-top: 0.5em;
-    margin-bottom: 2em;
 }
 
 form#electionsurvey li {
     display: inline;
 }
 
+form#electionsurvey div.more_explanation {
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+}
+form#electionsurvey div.issues_note {
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+}
+
+
+#autosave {
+    background-color: #e8fdcb;
+    padding: 0.5em;
+    margin: 0.5em;
+    text-align: center;
+    display: none;
+}
+
+.autosave-note {
+    font-style: italic;
+    margin-right: 2em;
+}
+
+.stripe-side {
+    background-color: red;
+}
+.textLimiter {
+    display: none;
+}
+
+.disabled {
+    background-color: #dddddd;
+    color: #333333;
+}

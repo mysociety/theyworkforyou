@@ -1,14 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>election.theyworkforyou.com admin interface</title>
+    <title>TWFY election admin</title>
 </head>
 
-<h1>election.theyworkforyou.com admin interface</h1>
-
 <p>
-    <a href="https://appengine.google.com/dashboard?&app_id=theyworkforyouelection">Google AppEngine control panel</a> - web stats, browse the database, see the task queue and more
+    <a href="/admin">Index</a> |
+    <a href="/admin/stats">Stats</a> |
+    <a href="/admin/responses">Responses</a> |
+    <a href="https://appengine.google.com/dashboard?&app_id=theyworkforyouelection">AppEngine Dashboard</a> 
 </p>
+
+
+<h1>TWFY election admin - {% block title %}{% endblock %}</h1>
 
 <body>
   {% block content %}

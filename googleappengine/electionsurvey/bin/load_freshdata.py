@@ -33,7 +33,7 @@ YOURNEXTMP_URL="http://www.yournextmp.com/data/%s/latest/json_main"
 
 parser = optparse.OptionParser()
 
-parser.set_usage('''Load or update data in TheyWorkForYou election, from YourNextMP and Democracy Club. Arguments are JSON files from YourNextMP or CSV files from Democracy Club to load. If you specify one file of a type, you must specify *all* the files of that type, as other entries in the database will be marked as deleted.''')
+parser.set_usage('''Load or update data in TheyWorkForYou election, from YourNextMP and Democracy Club. Arguments are JSON files from YourNextMP or CSV files from Democracy Club to load. You must specify *all* the files, as other entries in the database will be marked as deleted.''')
 parser.add_option('--host', type='string', dest="host", help='domain:port of application, e.g. localhost:8080, election.theyworkforyou.com', default="localhost:8080")
 parser.add_option('--email', type='string', dest="email", help='email address for authentication to application', default="francis@flourish.org")
 parser.add_option('--fetch', action='store_true', dest='fetch', help='as well as command line arguments, also retrieve latest full dumps from YourNextMP and DemocracyClub and use this', default=False)
@@ -55,13 +55,15 @@ def int_or_null(i):
         return i
     return int(i)
 
+seats_by_name = {}
 def find_seat(seat_name):
-    seat = db.Query(Seat).filter('name =', seat_name).get()
-    if not seat and '&' in seat_name:
-        seat = db.Query(Seat).filter('name =', seat_name.replace("&", "and")).get()
-    if not seat:
+    if seat_name not in seats_by_name and '&' in seat_name:
+        seat_name = seat_name.replace("&", "and")
+
+    if seat_name not in seats_by_name:
         raise Exception("Could not find seat " + seat_name)
-    return seat
+
+    return seats_by_name[seat_name]
 
 def log(msg):
     print datetime.datetime.now(), msg
@@ -151,6 +153,7 @@ def load_from_ynmp(ynmp, frozen_seats):
             seat.frozen_local_issues = True
         log("  Storing seat " + seat.name)
         seats_by_key[key_name] = seat
+        seats_by_name[seat.name] = seat
     log("Putting all seats")
     put_in_batches(seats_by_key.values())
 
@@ -203,15 +206,25 @@ def load_from_ynmp(ynmp, frozen_seats):
 ######################################################################
 # Load from DemocracyClub
 
+    fs = Seat.all().filter("frozen_local_issues =", True).fetch(100)
+    while fs:
+        for f in fs:
+            log("  Seat is frozen to local issues changes: " + f.name)
+            frozen_seats[f.key().name()] = f
+        fs = Seat.all().filter("frozen_local_issues =",True).filter('__key__ >', fs[-1].key()).fetch(100)
+
+
 def load_from_democlub(csv_files, frozen_seats):
     # Get list of existing refined issues in remote datastore, so can track what to delete
     log("Getting list of refined issues")
-    refined_issues = RefinedIssue.all().filter("deleted =", False)
+    refined_issues = RefinedIssue.all().filter("deleted =", False).fetch(100)
     to_be_marked_deleted = {}
-    for refined_issue in refined_issues:
-        key_name = refined_issue.key().name()
-        log("  Marking before have refined issue key " + key_name)
-        to_be_marked_deleted[key_name] = refined_issue
+    while refined_issues:
+        for refined_issue in refined_issues:
+            key_name = refined_issue.key().name()
+            log("  Marking before have refined issue key " + key_name)
+            to_be_marked_deleted[key_name] = refined_issue
+        refined_issues = RefinedIssue.all().filter("deleted =", False).filter('__key__ >', refined_issues[-1].key()).fetch(100)
 
     # Load in CSV file and create/update all the issues
     refined_issues_by_key = {}
@@ -298,14 +311,12 @@ for arg in args:
                 ynmp[k].update(json_load[k])
             else:
                 ynmp[k] = json_load[k]
-if ynmp:
-    load_from_ynmp(ynmp, frozen_seats)
+load_from_ynmp(ynmp, frozen_seats)
 
 # Get list of CSV files
 csv_files = []
 for arg in args:
     if re.search("(\.csv)$", arg):
         csv_files.append(arg)
-if csv_files:
-    load_from_democlub(csv_files, frozen_seats)
+load_from_democlub(csv_files, frozen_seats)
 

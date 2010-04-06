@@ -9,6 +9,7 @@
 import email.utils
 import cgi
 import datetime
+import urllib
 
 from google.appengine.api import urlfetch
 from google.appengine.api.datastore_types import Key
@@ -26,7 +27,7 @@ from django.conf import settings
 from ratelimitcache import ratelimit
 
 import forms
-from models import Seat, RefinedIssue, Candidacy
+from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse
 
 # Front page of election site
 def index(request):
@@ -75,7 +76,8 @@ def survey_candidacy(request, token = None):
     if first_auth:
         # Do we need to load from autosave?
         if candidacy.survey_autosave:
-            saved = cgi.parse_qs(candidacy.survey_autosave)
+            # with str() cast here we get unicode typed values in result dictionary, and then double escaped unicode in display
+            saved = cgi.parse_qs(str(candidacy.survey_autosave)) 
             for k, v in saved.iteritems():
                 post[str(k)] = v[0]
             submitted = False
@@ -106,6 +108,7 @@ def survey_candidacy(request, token = None):
     if submitted and valid:
         db.run_in_transaction(forms._form_array_save, all_issue_forms)
         candidacy.survey_filled_in = True
+        candidacy.survey_filled_in_when = datetime.datetime.now()
         candidacy.log('Survey form completed successfully')
         return render_to_response('survey_candidacy_thanks.html', { 'candidate' : candidacy.candidate })
 
@@ -160,17 +163,25 @@ def task_invite_candidacy_survey(request, candidacy_key_name):
     message.to = email.utils.formataddr((to_name, to_email))
     message.body = """Hi %s,
 
-TheyWorkForYou is inviting all PPCs to tell their voters
-their views on important national and local issues.
+TheyWorkForYou is inviting all PPCs to share their positions on a
+range of major national and local issues.
 
 Click this link, it should only take you a few minutes.
 
 %s
 
-Millions of people use TheyWorkForYou to find out about their MP
-every year. Your answers will be used by voters in your constituency
-in the run up to the election, and if you become an MP they will appear 
-on your record on TheyWorkForYou.
+Millions of people use TheyWorkForYou to find out about their MPs
+every year. Your answers will be used in a quiz to help voters in
+your constituency decide who to vote for. If you are elected,
+your page on TheyWorkForYou will include your answers, and note
+which new MPs declined to participate.
+
+What is unique about this survey is that the local issues, and
+indeed much of the entire project, have been provided by a
+network of over 5000 new volunteers, under the banner of
+Democracy Club. These individuals are looking to you, as a
+candidate, to embody the accountability that everyone wants to
+see from the new Parliament.
 
 TheyWorkForYou team
 on behalf of the voters of %s constituency
@@ -188,12 +199,61 @@ on behalf of the voters of %s constituency
     text += "<pre>%s</pre>" % str(message.body)
     return HttpResponse(text)
 
+# Count number of items a query would return
+def get_count(q):
+    q.order('__key__')
+    r = q.fetch(1000)
+    count = 0 
+    while True:
+        count += len(r)
+        if len(r) < 1000:
+            break
+        q.filter('__key__ >', r[-1])
+        r = q.fetch(1000)
+    return count
 
 # Administrator functions
-def admin(request):
+def admin_index(request):
     return render_to_response('admin_index.html', { })
 
+def admin_stats(request):
+    party_count = get_count(db.Query(Party, keys_only=True))
 
+    candidate_count = get_count(db.Query(Candidate, keys_only=True))
+    seat_count = get_count(db.Query(Seat, keys_only=True))
+
+    candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False))
+    deleted_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted =', True))
+    emailed_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_invite_emailed =', True))
+    deleted_emailed_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', True).filter('survey_invite_emailed =', True))
+    filled_in_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_filled_in =', True))
+    deleted_filled_in_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', True).filter('survey_filled_in =', True))
+
+    refined_issue_count = get_count(db.Query(RefinedIssue, keys_only=True).filter('deleted = ', False))
+    deleted_refined_issue_count = get_count(db.Query(RefinedIssue, keys_only=True).filter('deleted = ', True))
+
+    survey_response_count = get_count(db.Query(SurveyResponse, keys_only=True))
+
+    return render_to_response('admin_stats.html', { 
+        'party_count': party_count,
+        'candidate_count': candidate_count, 
+        'seat_count': seat_count,
+        'candidacy_count': candidacy_count, 
+            'deleted_candidacy_count': deleted_candidacy_count,
+        'emailed_candidacy_count': emailed_candidacy_count, 
+            'deleted_emailed_candidacy_count': deleted_emailed_candidacy_count,
+        'filled_in_candidacy_count': filled_in_candidacy_count, 
+            'deleted_filled_in_candidacy_count': deleted_filled_in_candidacy_count,
+        'refined_issue_count': refined_issue_count,
+            'deleted_refined_issue_count': deleted_refined_issue_count,
+        'survey_response_count': survey_response_count, 
+    })
+
+def admin_responses(request):
+    candidacies = db.Query(Candidacy).filter('survey_filled_in =', True).order('-survey_filled_in_when').fetch(1000)
+    return render_to_response('admin_responses.html', { 
+        'candidacies': candidacies,
+    })
 
 
 

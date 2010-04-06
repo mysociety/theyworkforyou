@@ -86,6 +86,7 @@ class Candidacy(db.Model):
     survey_invite_emailed = db.BooleanProperty(default = False)
     survey_invite_sent_to_emails = db.StringListProperty() # historic list of addresses we've emailed
     survey_filled_in = db.BooleanProperty(default = False)
+    survey_filled_in_when = db.DateTimeProperty()
     survey_autosave = db.TextProperty()
     survey_autosave_when = db.DateTimeProperty()
 
@@ -115,6 +116,9 @@ class Candidacy(db.Model):
             return False
         assert len(founds) == 1
         return founds[0]
+
+    def responses(self):
+        return self.surveyresponse_set
 
     # Audit log of what has happened to candidate.
     # Note: The log function does a save too
@@ -150,6 +154,11 @@ class SurveyResponse(db.Model):
 
     # 100 = strongly agree, 0 = strongly disagree
     agreement = db.RatingProperty(required=True)
+
+    more_explanation = db.StringProperty() # maximum 500 characters, indexed
+
+    def deleted(self):
+        return self.refined_issue.deleted
 
 
 
