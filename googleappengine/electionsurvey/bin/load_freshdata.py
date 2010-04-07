@@ -68,7 +68,7 @@ def find_seat(seat_name):
 def log(msg):
     print datetime.datetime.now(), msg
 
-def put_in_batches(models, limit = 500):
+def put_in_batches(models, limit = 250):
     tot = len(models)
     c = 0
     while len(models) > 0:
