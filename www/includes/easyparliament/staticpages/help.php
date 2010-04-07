@@ -230,6 +230,17 @@ then simply read and merge into our site every day (our preferred option!).
 
 </dd>
 
+<dt><a name="dates_wrong"></a>The date someone starts/ends a ministerial position is wrong!</dt>
+<dd>
+<p>TheyWorkForYou gets its ministerial information, as with much else, by
+scraping various pages on the official parliament.uk site; we do not have the
+resources to maintain it all manually. Sadly, the site is sometimes out of date
+or incorrect, which will of course lead to incorrect information appearing
+on our site too. Due to the way it all hangs together (with lots of bits of
+string), it is not at all simple to override or fix these at present.
+
+</dd>
+
 <dt><a name="independent"></a>What is an Independent, or Independent &lt;party&gt; MP?</dt>
 <dd>
 

@@ -157,7 +157,7 @@ function person_offices($extra_info) {
 		}
 	}
 	if ($mins) {
-		print '<li>' . join('<br>', $mins) . '</li>';
+		print '<li>' . join('<br>', $mins) . ' <small>(<a href="/help/#dates_wrong">note about dates</a>)</small></li>';
 	}
 }
 
