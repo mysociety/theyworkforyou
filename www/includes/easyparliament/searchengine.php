@@ -44,7 +44,7 @@ class SEARCHENGINE {
         global $xapiandb, $PAGE, $hansardmajors, $parties;
         if (!$xapiandb) {
             if (strstr(XAPIANDB, ":")) {
-                ini_set('display_errors', 'On');
+                //ini_set('display_errors', 'On');
                 list ($xapian_host, $xapian_port) = split(":", XAPIANDB);
                 twfy_debug("SEARCH", "Using Xapian remote backend: " . $xapian_host . " port " . $xapian_port);
                 $xapiandb_remote = remote_open($xapian_host, intval($xapian_port));
