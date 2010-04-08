@@ -372,6 +372,16 @@ class MEMBER {
     // Grabs extra information (e.g. external links) from the database
     # DISPLAY is whether it's to be displayed on MP page.
     function load_extra_info($display = false) {
+        global $memcache;
+        if (!$memcache) {
+            $memcache = new Memcache;
+            $memcache->connect('localhost', 11211);
+        }
+        $this->extra_info = $memcache->get(OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id);
+        if ($this->extra_info) {
+            return;
+        }
+        $this->extra_info = array();
 
 	$q = $this->db->query('SELECT * FROM moffice WHERE person=' .
 		mysql_real_escape_string($this->person_id) . ' ORDER BY from_date DESC');
@@ -499,6 +509,7 @@ class MEMBER {
 		);
 	}
 
+        $memcache->set(OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id, $this->extra_info, 0, 3600);
     }
 	
 	// Functions for accessing things about this Member.

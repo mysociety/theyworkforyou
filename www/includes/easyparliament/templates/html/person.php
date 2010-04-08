@@ -568,51 +568,63 @@ and has had no written questions answered for which we know the department or su
 }
 
 function person_recent_appearances($member) {
-	global $DATA, $SEARCHENGINE, $this_page;
+    global $DATA, $SEARCHENGINE, $this_page;
 
-	echo '<a name="hansard"></a>';
-	$title = 'Most recent appearances';
-	if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-		$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
-	}
+    echo '<a name="hansard"></a>';
+    $title = 'Most recent appearances';
+    if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
+        $title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
+    }
         
-        print "<h4>$title</h4>";
+    print "<h4>$title</h4>";
 
-	//$this->block_start(array('id'=>'hansard', 'title'=>$title));
-	// This is really far from ideal - I don't really want $PAGE to know
-	// anything about HANSARDLIST / DEBATELIST / WRANSLIST.
-	// But doing this any other way is going to be a lot more work for little 
-	// benefit unfortunately.
-        twfy_debug_timestamp();
-	$HANSARDLIST = new HANSARDLIST();
-	
-	$searchstring = "speaker:$member[person_id]";
-	$SEARCHENGINE = new SEARCHENGINE($searchstring); 
-	$args = array (
-		's' => $searchstring,
-		'p' => 1,
-		'num' => 3,
-	       'pop' => 1,
-		'o' => 'd',
-	);
-	$HANSARDLIST->display('search_min', $args);
-        twfy_debug_timestamp();
+    //$this->block_start(array('id'=>'hansard', 'title'=>$title));
+    // This is really far from ideal - I don't really want $PAGE to know
+    // anything about HANSARDLIST / DEBATELIST / WRANSLIST.
+    // But doing this any other way is going to be a lot more work for little 
+    // benefit unfortunately.
+    twfy_debug_timestamp();
 
-	$MOREURL = new URL('search');
-	$MOREURL->insert( array('pid'=>$member['person_id'], 'pop'=>1) );
-	?>
+    global $memcache;
+    if (!$memcache) {
+        $memcache = new Memcache;
+        $memcache->connect('localhost', 11211);
+    }
+    $recent = $memcache->get(OPTION_TWFY_DB_NAME . ':recent_appear:' . $member['person_id']);
+    if (!$recent) {
+        $HANSARDLIST = new HANSARDLIST();
+        $searchstring = "speaker:$member[person_id]";
+        $SEARCHENGINE = new SEARCHENGINE($searchstring); 
+        $args = array (
+            's' => $searchstring,
+            'p' => 1,
+            'num' => 3,
+            'pop' => 1,
+            'o' => 'd',
+        );
+        ob_start();
+        $HANSARDLIST->display('search_min', $args);
+        $recent = ob_get_clean();
+        $memcache->set(OPTION_TWFY_DB_NAME . ':recent_appear:' . $member['person_id'], $recent, 0, 3600);
+    }
+    print $recent;
+    twfy_debug_timestamp();
+
+    $MOREURL = new URL('search');
+    $MOREURL->insert( array('pid'=>$member['person_id'], 'pop'=>1) );
+    ?>
 <p id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4">More of <?php echo ucfirst($member['full_name']); ?>'s recent appearances</a></p>
 
 <?php
-	if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-		// If we set an RSS feed for this page.
-		$HELPURL = new URL('help');
-		?>
-				<p class="unneededprintlinks"><a href="<?php echo WEBPATH . $rssurl; ?>" title="XML version of this person's recent appearances">RSS feed</a> (<a href="<?php echo $HELPURL->generate(); ?>#rss" title="An explanation of what RSS feeds are for">?</a>)</p>
+    if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
+        // If we set an RSS feed for this page.
+        $HELPURL = new URL('help');
+?>
+        <p class="unneededprintlinks"><a href="<?php echo WEBPATH . $rssurl; ?>" title="XML version of this person's recent appearances">RSS feed</a> (<a href="<?php echo $HELPURL->generate(); ?>#rss" title="An explanation of what RSS feeds are for">?</a>)</p>
 <?php
-	}
-	
-//	$this->block_end();
+    }
+
+// $this->block_end();
 
 }
 
