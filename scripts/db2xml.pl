@@ -28,11 +28,10 @@ use Getopt::Long;
 use DBI; 
 use XML::Twig;
 
-use vars qw($cronquiet $update_person $personid $members_xml_file $dbh $parldata $lastupdatedir $pwmembers $passer $debug
+use vars qw($cronquiet $update_person $personid $members_xml_file $dbh $parldata $pwmembers $passer $debug
 );
 
 $parldata = mySociety::Config::get('RAWDATA');
-$lastupdatedir = mySociety::Config::get('XAPIANDB') . '/../xml2db/';
 $pwmembers = mySociety::Config::get('PWMEMBERS');
 
 my $result = GetOptions (
