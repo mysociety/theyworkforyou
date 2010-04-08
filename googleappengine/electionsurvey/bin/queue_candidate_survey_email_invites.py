@@ -46,6 +46,7 @@ Doesn't send to candidacies who:
 In addition, you can limit which candidates are invited by constituency and/or
 by maximum number using the parameters below.''')
 parser.add_option('--constituency', type='string', dest="constituency", help='Name of constituency, default is all constituencies', default=None)
+parser.add_option('--constituency_list', type='string', dest="constituency_list", help='File containing names of constituencies one per line, default is all constituencies', default=None)
 parser.add_option('--limit', type='int', dest="limit", help='Maximum number to queue', default=None)
 parser.add_option('--real', action='store_true', dest="real", help='Really queue the emails, default is dry run', default=False)
 parser.add_option('--freeze', action='store_true', dest="freeze", help='', default=False)
@@ -76,6 +77,15 @@ if options.constituency != None:
     if not seat:
         raise Exception("Constituency not found")
     candidacies.filter("seat = ", seat)
+
+if options.constituency_list != None:
+    seats = []
+    for constituency in open(options.constituency_list):
+        constituency = constituency.strip()
+        seat = db.Query(Seat).filter("name =", constituency).get()
+        seats.append(seat)
+
+    candidacies.filter("seat in ", seats)
 
 if options.limit != None:
     candidacies = candidacies.fetch(int(options.limit))
