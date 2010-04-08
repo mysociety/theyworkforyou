@@ -10,7 +10,7 @@
 
 {% for c in candidacies %}
 <div>
-    <strong>{{ c.candidate.name }}, {{ c.seat.name }}</strong> on {{ c.survey_filled_in_when }}
+    <strong>{{ c.candidate.name }} ({{ c.seat.name }}, {{ c.candidate.party.name }})</strong> on {{ c.survey_filled_in_when }}
     <ul>
     {% for r in c.responses %}
         <li>
