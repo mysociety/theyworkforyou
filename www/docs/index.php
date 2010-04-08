@@ -65,7 +65,7 @@ $PAGE->stripe_start("full");
         		// (We don't allow the user to search for a postcode if they
         		// already have one set in their prefs.)
 
-        		$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode()));
+        		$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
         		if ($MEMBER->valid) {
         			$pc_form = false;
         			if ($THEUSER->isloggedin()) {

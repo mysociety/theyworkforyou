@@ -16,31 +16,16 @@ if ($order == 'expenses') print ', 2004 Expenses Grand Total';
 elseif ($order == 'debates') print ',Debates spoken in the last year';
 print "\n";
 
-$opik = array();
-
 foreach ($data['data'] as $n => $mp) {
-
-	// Lembit Opik is special
-	if ($mp['last_name']=='&Ouml;pik') {
-		$opik = $mp;
-		continue;
-	}
-	if ($opik && strcmp('Opik', $mp['last_name'])<0) {
-		render_mps_row($opik, $order);
-		$opik = array();
-	}
-
 	render_mps_row($mp, $order);
-
 }
 
 function render_mps_row($mp, $order) {
 	global $parties;
-	$con = html_entity_decode($mp['constituency']);
+	$con = $mp['constituency'];
 	if (strstr($con, ',')) $con = "\"$con\"";
 	print $mp['person_id'] . ',';
-	print html_entity_decode($mp['first_name']) . ',' .
-		html_entity_decode($mp['last_name']) . ',';
+	print $mp['first_name'] . ',' . $mp['last_name'] . ',';
 	if (array_key_exists($mp['party'], $parties))
 		print $parties[$mp['party']];
 	else

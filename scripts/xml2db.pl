@@ -31,7 +31,6 @@ use XML::Twig;
 use File::Find;
 use Getopt::Long;
 use Data::Dumper;
-use HTML::Entities;
 
 use Uncapitalise;
 
@@ -42,8 +41,7 @@ use Uncapitalise;
 
 # output_filter 'safe' uses entities &#nnnn; to encode characters, this is
 # the easiest/most reliable way to get the encodings correct for content
-# output with Twig's ->sprint (attributes are different, see use of
-# encode_entities in the member stuff below)
+# output with Twig's ->sprint (content, rather than attributes)
 my $outputfilter = 'safe';
 #DBI->trace(1);
 
@@ -918,28 +916,32 @@ my %member_ids = ();
 # Add member of parliament to database
 sub db_memberadd {
         my $id = $_[0];
+        my @params = @_;
         my $q = $memberexist->execute($id);
         $memberexist->finish();
         die "More than one existing member of same id $id" if $q > 1;
 
+        $params[4] = Encode::encode('iso-8859-1', $params[4]);
+        $params[5] = Encode::encode('iso-8859-1', $params[5]);
+        $params[6] = Encode::encode('iso-8859-1', $params[6]);
         if ($q == 1) {
                 # Member already exists, check they are the same
-                $q = $membercheck->execute(@_);
+                $q = $membercheck->execute(@params);
                 $membercheck->finish();
                 if ($q == 0) {
                         print "Replacing existing member with new data for $id\n";
                         print "This is for your information only, just check it looks OK.\n";
                         print "\n";
-                        print Dumper(\@_);
-                        $memberadd->execute(@_);
+                        print Dumper(\@params);
+                        $memberadd->execute(@params);
                         $memberadd->finish();
                 }
         } else {
                 print "Adding new member with identifier $id\n";
                 print "This is for your information only, just check it looks OK.\n";
                 print "\n";
-                print Dumper(\@_);
-                $memberadd->execute(@_);
+                print Dumper(\@params);
+                $memberadd->execute(@params);
                 $memberadd->finish();
         }
 
@@ -1107,9 +1109,7 @@ sub loadmoffice {
     return if ($pos eq 'PPS (Rt Hon Peter Hain, Secretary of State)' && $dept eq 'Northern Ireland Office' && $person == 10518);
     return if ($pos eq 'PPS (Rt Hon Peter Hain, Secretary of State)' && $dept eq 'Office of the Secretary of State for Wales' && $person == 10458);
 
-        # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
-        # get lost somewhere between Perl, the database and the browser.
-        push @moffices, [$mofficeid, encode_entities_noapos($dept), encode_entities_noapos($pos), $moff->att('fromdate'),
+        push @moffices, [$mofficeid, $dept, $pos, $moff->att('fromdate'),
                 $moff->att('todate'), $person, $moff->att('source') ];
 }
 
@@ -1125,11 +1125,9 @@ sub loadconstituency
     for (my $name = $cons->first_child('name'); $name;
         $name = $name->next_sibling('name')) {
 
-        # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters         
-        # get lost somewhere between Perl, the database and the browser.
         $constituencyadd->execute(
             $consid,
-            encode_entities_noapos($name->att('text')),
+            Encode::encode('iso-8859-1', $name->att('text')),
             $main_name,
             $cons->att('fromdate'),
             $cons->att('todate'),
@@ -1164,18 +1162,13 @@ sub loadmember {
         my $party = $member->att('party');
         $party = '' if $party eq 'unknown';
 
-        # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
-        # get lost somewhere between Perl, the database and the browser.
-        # Just done for names (not constituency and party) as they are the
-        # only place to have accents, and constituencies have & signs and
-        # the postcode search matching system uses them.
         db_memberadd($id, 
                 $person_id,
                 $house, 
-                encode_entities_noapos($member->att('title')),
-                encode_entities_noapos($member->att('firstname')), 
-                encode_entities_noapos($member->att('lastname')),
-                encode_entities_noapos($member->att('constituency')), 
+                $member->att('title'),
+                $member->att('firstname'),
+                $member->att('lastname'),
+                $member->att('constituency'),
                 $party,
                 $fromdate, $todate,
                 $member->att('fromwhy'), $member->att('towhy'));
@@ -1203,18 +1196,13 @@ sub loadlord {
         $fromdate = '0000-00-00' unless $fromdate;
         my $affiliation = $member->att('affiliation') || '';
         my $towhy = $member->att('towhy') || '';
-        # We encode entities as e.g. &Ouml;, as otherwise non-ASCII characters
-        # get lost somewhere between Perl, the database and the browser.
-        # Just done for names (not constituency and party) as they are the
-        # only place to have accents, and constituencies have & signs and
-        # the postcode search matching system uses them.
         db_memberadd($id,
                 $person_id,
                 $house,
-                encode_entities_noapos($member->att('title')),
+                $member->att('title'),
                 $member->att('forenames'),
                 $member->att('lordname'), 
-                encode_entities_noapos($member->att('lordofname')),
+                $member->att('lordofname'),
                 $affiliation,
                 $fromdate, $member->att('todate'),
                 '', $towhy);
@@ -1235,9 +1223,9 @@ sub loadroyal {
         db_memberadd($id,
                 $person_id,
                 $house,
-                encode_entities_noapos($member->att('title')),
-                encode_entities_noapos($member->att('firstname')), 
-                encode_entities_noapos($member->att('lastname')),
+                $member->att('title'),
+                $member->att('firstname'),
+                $member->att('lastname'),
                 '', # No constituency, all land is "held of the Crown"
                 '', # No party, constitutionally
                 $member->att('fromdate'), $member->att('todate'),
@@ -1255,10 +1243,10 @@ sub loadni {
         db_memberadd($id, 
                 $person_id,
                 $house, 
-                encode_entities_noapos($member->att('title')),
-                encode_entities_noapos($member->att('firstname')), 
-                encode_entities_noapos($member->att('lastname')),
-                encode_entities_noapos($member->att('constituency')), 
+                $member->att('title'),
+                $member->att('firstname'),
+                $member->att('lastname'),
+                $member->att('constituency'),
                 Encode::encode('iso-8859-1', $member->att('party')),
                 $member->att('fromdate'), $member->att('todate'),
                 $member->att('fromwhy'), $member->att('towhy'));
@@ -1274,10 +1262,10 @@ sub loadmsp {
         db_memberadd($id, 
                 $person_id,
                 $house, 
-                encode_entities_noapos($member->att('title')),
-                encode_entities_noapos($member->att('firstname')), 
-                encode_entities_noapos($member->att('lastname')),
-                encode_entities_noapos($member->att('constituency')), 
+                $member->att('title'),
+                $member->att('firstname'),
+                $member->att('lastname'),
+                $member->att('constituency'),
                 Encode::encode('iso-8859-1', $member->att('party')),
                 $member->att('fromdate'), $member->att('todate'),
                 $member->att('fromwhy'), $member->att('towhy'));
@@ -2138,13 +2126,6 @@ sub do_load_gidredirect
  
         $gradd->execute($oldgid, $newgid, $curdate, $major);
         $gradd->finish();
-}
-
-sub encode_entities_noapos($) {
-        my $s = shift;
-        encode_entities($s);
-        $s =~ s/&#39;/'/;
-        return $s;
 }
 
 # TODO

@@ -7,6 +7,7 @@ class MEMBER {
 
 	var $member_id;
 	var $person_id;
+        var $guardian_aristotle_id;
 	var $first_name;
 	var $title;
 	var $last_name;
@@ -64,6 +65,8 @@ class MEMBER {
 		
 		global $PAGE, $this_page;
 		
+        $house = isset($args['house']) ? $args['house'] : null;
+
 		$this->db = new ParlDB;
 		$person_id = '';	
 		if (isset($args['member_id']) && is_numeric($args['member_id'])) {
@@ -72,12 +75,15 @@ class MEMBER {
 			$con = isset($args['constituency']) ? $args['constituency'] : '';
 			$person_id = $this->name_to_person_id($args['name'], $con);
 		} elseif (isset($args['constituency'])) {
-			$person_id = $this->constituency_to_person_id($args['constituency']);
+			$person_id = $this->constituency_to_person_id($args['constituency'], $house);
 		} elseif (isset($args['postcode'])) {
-			$person_id = $this->postcode_to_person_id($args['postcode']);
+			$person_id = $this->postcode_to_person_id($args['postcode'], $house);
 		} elseif (isset($args['person_id']) && is_numeric($args['person_id'])) {
 			$person_id = $args['person_id'];	
-		}
+		} elseif (isset($args['guardian_aristotle_id']) && is_numeric($args['guardian_aristotle_id'])) {
+                        $this->guardian_aristotle_id = $args['guardian_aristotle_id'];	
+                        $person_id = $this->guardian_aristotle_id_to_person_id(); 
+  	        }
 		
 		if (!$person_id) {
 			$this->valid = false;
@@ -102,7 +108,7 @@ class MEMBER {
 			first_name, last_name, constituency, party, lastupdate,
 			entered_house, left_house, entered_reason, left_reason, person_id
 			FROM member
-			WHERE person_id = '" . mysql_escape_string($person_id) . "'
+			WHERE person_id = '" . mysql_real_escape_string($person_id) . "'
                         ORDER BY left_house DESC, house");
 
 		if (!$q->rows() > 0) {
@@ -179,7 +185,7 @@ class MEMBER {
 	function member_id_to_person_id ($member_id) {
 		global $PAGE;
 		$q = $this->db->query("SELECT person_id FROM member 
-					WHERE member_id = '" . mysql_escape_string($member_id) . "'");
+					WHERE member_id = '" . mysql_real_escape_string($member_id) . "'");
 		if ($q->rows > 0) {
 			return $q->field(0, 'person_id');
 		} else {
@@ -188,13 +194,13 @@ class MEMBER {
 		}	
 	}
 	
-	function postcode_to_person_id ($postcode) {
+	function postcode_to_person_id ($postcode, $house=null) {
 		twfy_debug ('MP', "postcode_to_person_id converting postcode to person");
 		$constituency = strtolower(postcode_to_constituency($postcode));
-		return $this->constituency_to_person_id($constituency);
+		return $this->constituency_to_person_id($constituency, $house);
 	}
 	
-	function constituency_to_person_id ($constituency) {
+	function constituency_to_person_id ($constituency, $house=null) {
 		global $PAGE;
 		if ($constituency == '') {
 			$PAGE->error_message("Sorry, no constituency was found.");
@@ -202,24 +208,25 @@ class MEMBER {
 		}
 
 		if ($constituency == 'Orkney ') {
-			$constituency = 'Orkney &amp; Shetland';
+			$constituency = 'Orkney & Shetland';
 		}
 
 		$normalised = normalise_constituency_name($constituency);
 		if ($normalised) $constituency = $normalised;
 
 	        $q = $this->db->query("SELECT person_id FROM member 
-					WHERE constituency = '" . mysql_escape_string($constituency) . "' 
-					AND left_reason = 'still_in_office'");
+					WHERE constituency = '" . mysql_real_escape_string($constituency) . "' 
+					AND left_reason = 'still_in_office'" . ($house ? ' AND house='.mysql_real_escape_string($house) : ''));
 
 		if ($q->rows > 0) {
 			return $q->field(0, 'person_id');
 		} else {
-			$q = $this->db->query("SELECT person_id FROM member WHERE constituency = '".mysql_escape_string($constituency)."' ORDER BY left_house DESC LIMIT 1");
+			$q = $this->db->query("SELECT person_id FROM member WHERE constituency = '".mysql_real_escape_string($constituency) . "'"
+                . ($house ? ' AND house='.mysql_real_escape_string($house) : '') . ' ORDER BY left_house DESC LIMIT 1');
 			if ($q->rows > 0) {
 				return $q->field(0, 'person_id');
 			} else {
-				$PAGE->error_message("Sorry, there is no current member for the '" . htmlentities(html_entity_decode($constituency)) . "' constituency.");
+				$PAGE->error_message("Sorry, there is no current member for the '" . htmlentities($constituency) . "' constituency.");
 				return false;
 			}
 		}
@@ -245,8 +252,8 @@ class MEMBER {
 				$PAGE->error_message('Sorry, that name was not recognised.');
 				return false;
 			}
-			$title = mysql_escape_string($m[1]);
-			$last_name = mysql_escape_string($m[2]);
+			$title = mysql_real_escape_string($m[1]);
+			$last_name = mysql_real_escape_string($m[2]);
 			$const = $m[3];
 			$q .= "house = 2 AND title = '$title' AND last_name='$last_name'";
 		} elseif ($this_page=='msp') {
@@ -257,9 +264,9 @@ class MEMBER {
 				$PAGE->error_message('Sorry, that name was not recognised.');
 				return false;
 			}
-			$first_name = mysql_escape_string($m[1]);
-			$middle_name = mysql_escape_string($m[2]);
-			$last_name = mysql_escape_string($m[3]);
+			$first_name = mysql_real_escape_string($m[1]);
+			$middle_name = mysql_real_escape_string($m[2]);
+			$last_name = mysql_real_escape_string($m[3]);
 			$q .= "house = 4 AND (";
 			$q .= "(first_name='$first_name $middle_name' AND last_name='$last_name')";
 			$q .= " or (first_name='$first_name' AND last_name='$middle_name $last_name') )";
@@ -271,9 +278,9 @@ class MEMBER {
 				$PAGE->error_message('Sorry, that name was not recognised.');
 				return false;
 			}
-			$first_name = mysql_escape_string($m[1]);
-			$middle_name = mysql_escape_string($m[2]);
-			$last_name = mysql_escape_string($m[3]);
+			$first_name = mysql_real_escape_string($m[1]);
+			$middle_name = mysql_real_escape_string($m[2]);
+			$last_name = mysql_real_escape_string($m[3]);
 			$q .= "house = 3 AND (
 	(first_name='$first_name $middle_name' AND last_name='$last_name')
 	or (first_name='$first_name' AND last_name='$middle_name $last_name')
@@ -290,9 +297,9 @@ class MEMBER {
 			$first_name = $m[1];
 			$middle_name = $m[2];
 			$last_name = $m[3];
-			# if ($title) $q .= 'title = \'' . mysql_escape_string($title) . '\' AND ';
-			$q .= "house =1 AND ((first_name='".mysql_escape_string($first_name." ".$middle_name)."' AND last_name='".mysql_escape_string($last_name)."') OR ".
-			"(first_name='".mysql_escape_string($first_name)."' AND last_name='".mysql_escape_string($middle_name." ".$last_name)."'))";
+			# if ($title) $q .= 'title = \'' . mysql_real_escape_string($title) . '\' AND ';
+			$q .= "house =1 AND ((first_name='".mysql_real_escape_string($first_name." ".$middle_name)."' AND last_name='".mysql_real_escape_string($last_name)."') OR ".
+			"(first_name='".mysql_real_escape_string($first_name)."' AND last_name='".mysql_real_escape_string($middle_name." ".$last_name)."'))";
 			if ($const) {
 				$normalised = normalise_constituency_name($const);
 				if ($normalised && strtolower($normalised) != strtolower($const)) {
@@ -305,7 +312,7 @@ class MEMBER {
 		}
 
 		if ($const || $this_page=='peer') {
-			$q .= ' AND constituency=\''.mysql_escape_string($const)."'";
+			$q .= ' AND constituency=\''.mysql_real_escape_string($const)."'";
 		}
 		$q .= ' ORDER BY left_house DESC';
 		$q = $this->db->query($q);
@@ -335,6 +342,19 @@ class MEMBER {
 		}
 	}
 
+        function guardian_aristotle_id_to_person_id () {
+             $q = $this->db->query("SELECT person_id
+                                    FROM 	personinfo 
+                                    WHERE	data_key = 'guardian_aristotle_id'
+                                    AND data_value = '" . mysql_real_escape_string($this->guardian_aristotle_id) . "'
+                                   ");
+             if ($q->rows > 0) {
+                  return $q->field(0, 'person_id');
+             } else {
+                  return false;
+             }
+        }
+
 	function set_users_mp () {
 		// Is this MP THEUSER's MP?
 		global $THEUSER;
@@ -352,9 +372,19 @@ class MEMBER {
     // Grabs extra information (e.g. external links) from the database
     # DISPLAY is whether it's to be displayed on MP page.
     function load_extra_info($display = false) {
+        global $memcache;
+        if (!$memcache) {
+            $memcache = new Memcache;
+            $memcache->connect('localhost', 11211);
+        }
+        $this->extra_info = $memcache->get(OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id);
+        if ($this->extra_info) {
+            return;
+        }
+        $this->extra_info = array();
 
 	$q = $this->db->query('SELECT * FROM moffice WHERE person=' .
-		mysql_escape_string($this->person_id) . ' ORDER BY from_date DESC');
+		mysql_real_escape_string($this->person_id) . ' ORDER BY from_date DESC');
 	for ($row=0; $row<$q->rows(); $row++) {
 		$this->extra_info['office'][] = $q->row($row);
 	}
@@ -364,11 +394,11 @@ class MEMBER {
 	#			(SELECT count(member_id) FROM memberinfo AS m2
 	#				WHERE m2.data_key=memberinfo.data_key AND m2.data_value=memberinfo.data_value) AS joint
 	#               FROM 	memberinfo
-	#               WHERE	member_id = '" . mysql_escape_string($this->member_id) . "'
+	#               WHERE	member_id = '" . mysql_real_escape_string($this->member_id) . "'
 	#               ");
         $q = $this->db->query("SELECT data_key, data_value
                         FROM 	memberinfo
-                        WHERE	member_id = '" . mysql_escape_string($this->member_id) . "'
+                        WHERE	member_id = '" . mysql_real_escape_string($this->member_id) . "'
                         ");
         for ($row = 0; $row < $q->rows(); $row++) {
 		$this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
@@ -380,11 +410,11 @@ class MEMBER {
 	#$q = $this->db->query("SELECT data_key, data_value, (SELECT person_id FROM personinfo AS p2
 	#		WHERE p2.person_id <> personinfo.person_id AND p2.data_key=personinfo.data_key AND p2.data_value=personinfo.data_value LIMIT 1) AS count
 	#               FROM 	personinfo
-	#               WHERE	person_id = '" . mysql_escape_string($this->person_id) . "'
+	#               WHERE	person_id = '" . mysql_real_escape_string($this->person_id) . "'
 	#               ");
         $q = $this->db->query("SELECT data_key, data_value
                         FROM 	personinfo
-                        WHERE	person_id = '" . mysql_escape_string($this->person_id) . "'
+                        WHERE	person_id = '" . mysql_real_escape_string($this->person_id) . "'
                         ");
         for ($row = 0; $row < $q->rows(); $row++) {
             $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
@@ -396,19 +426,21 @@ class MEMBER {
 	if ($this->house(1)) {
 
         	$q = $this->db->query("SELECT data_key, data_value FROM consinfo
-			WHERE constituency = '" . mysql_escape_string($this->constituency) . "'");
+			WHERE constituency = '" . mysql_real_escape_string($this->constituency) . "'");
 		for ($row = 0; $row < $q->rows(); $row++) {
 			$this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
 		}
 
 		if (array_key_exists('guardian_mp_summary', $this->extra_info)) {
 			$guardian_url = $this->extra_info['guardian_mp_summary'];
-			$this->extra_info['guardian_register_member_interests'] = 
-				str_replace("/person/", "/person/parliamentrmi/", $guardian_url);
-			$this->extra_info['guardian_biography'] = $guardian_url; # str_replace("/person/", "/person/biography/", $guardian_url);
-			$this->extra_info['guardian_howtheyvoted'] = 
-				str_replace("/person/", "/person/howtheyvoted/", $guardian_url);
+			$this->extra_info['guardian_biography'] = $guardian_url; 
 		}
+                if (array_key_exists('guardian_aristotle_id', $this->extra_info)) {
+                       $politics_base_url = 'http://politics.guardian.co.uk/person/';
+                       $aristotle_id = $this->extra_info['guardian_aristotle_id'];
+                       $this->extra_info['guardian_howtheyvoted'] =
+                                $politics_base_url . "howtheyvoted/0,,-$aristotle_id,00.html";	
+                } 
 	}
 
         if (array_key_exists('public_whip_rebellions', $this->extra_info)) {
@@ -477,6 +509,7 @@ class MEMBER {
 		);
 	}
 
+        $memcache->set(OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id, $this->extra_info, 0, 3600);
     }
 	
 	// Functions for accessing things about this Member.
@@ -744,18 +777,18 @@ function find_rep_image($pid, $smallonly = false, $substitute_missing = false) {
 	}
 	
 	//if no image, use a dummy one
-	if(!isset($image) && isset($substitute_missing)){
+	if (!$image && $substitute_missing) {
 	    if($smallonly){
 	        if($substitute_missing === "lord"){
-	            $image = IMAGEPATH . "/unknownlord.png";
+	            $image = IMAGEPATH . "unknownlord.png";
             }else{
-                $image = IMAGEPATH . "/unknownperson.png";                
+                $image = IMAGEPATH . "unknownperson.png";                
             }
         }else{ 
 	        if($substitute_missing === "lord"){
-	            $image = IMAGEPATH . "/unknownlord_large.png";
+	            $image = IMAGEPATH . "unknownlord_large.png";
             }else{
-                $image = IMAGEPATH . "/unknownperson_large.png";                
+                $image = IMAGEPATH . "unknownperson_large.png";                
 
             }
         }

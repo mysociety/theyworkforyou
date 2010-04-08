@@ -506,7 +506,7 @@ $this->page = array (
 		'title'			=> "Overview of the UK Parliament"
 	),
 	'parent'		=> 'hansard',
-	'title'			=> "Are your MPs and Peers working for you in the UK's Parliament?",
+	'title'			=> "Are your MPs and Peers working for you in the UK's Parliament? Hansard++",
 	'rss'			=> 'news/index.rdf',
 	'url'			=> ''
 ),
@@ -593,7 +593,7 @@ $this->page = array (
     		'text'			=> 'Debates',
     		'title'			=> "Overview of the Northern Ireland Assembly debates"
     	),
-    	'title'			=> 'Overview of the Northern Ireland Assembly',
+    	'title'			=> '',
     	'url'			=> 'ni/'
     ),
 	'nidebate'  => array (
@@ -780,7 +780,7 @@ $this->page = array (
     		'text'			=> 'Overview',
     		'title'			=> "Overview of the Scottish Parliament"
     	),
-    	'title'			=> 'Overview of the Scottish Parliament',
+    	'title'			=> '',
     	'url'			=> 'scotland/'
     ),	
 	'spdebate'  => array (

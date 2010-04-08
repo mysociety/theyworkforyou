@@ -170,7 +170,7 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 			header('HTTP/1.0 500 Internal Server Error');
 			print "<p>Oops, sorry, an error has occurred!</p>\n";
 		}
-		if (!($errno & E_USER_NOTICE)) {
+		if (!($errno & E_USER_NOTICE) && strpos($errmsg, 'pg_connect')===false && strpos($errmsg, 'mysql_connect')===false) {
 			mail(BUGSLIST, "[TWFYBUG]: $errmsg", $err, "From: Bug <" . CONTACTEMAIL . ">\n".  "X-Mailer: PHP/" . phpversion() );
 		}
 	}	
@@ -218,7 +218,7 @@ function adodb_backtrace($print=true)
 	}
       }
               
-      $s .= $arr['function'].'('.implode(', ',$args).')';
+      $s .= $arr['function'].'('.implode(', ',$args).')</font>';
       //      $s .= sprintf("</font><font color=#808080 size=-1> # line %4d,".
       //		    " file: <a href=\"file:/%s\">%s</a></font>",
       //	    $arr['line'],$arr['file'],$arr['file']);
@@ -826,20 +826,21 @@ function make_plural($word, $number)
 # This is yucky. XXX
 function entities_to_numbers($string) {
 	$string = str_replace(
-		array('&Ouml;', '&acirc;', '&uacute;', '&aacute;', '&iacute;', '&ocirc;'),
-		array('&#214;', '&#226;',  '&#250;',   '&#225;',   '&#237;',   '&#244;' ),
+		array('&Ouml;', '&acirc;', '&uacute;', '&aacute;', '&iacute;', '&ocirc;', '&eacute;'),
+		array('&#214;', '&#226;',  '&#250;',   '&#225;',   '&#237;',   '&#244;',  '&#233;'  ),
 		$string
 	);
 	return $string;
 }
 
 function make_member_url($name, $const = '', $house = 1) {
-	$s = array(' ', '&amp;', '&ocirc;', '&ouml;', '&acirc;', '&iacute;', '&aacute;', '&uacute;');
-	$r = array('_', 'and',     'o',       'o',    'a',       'i',        'a',        'u',      );
+	$s  = array(' ', '&amp;', '&ocirc;', '&Ouml;', '&ouml;', '&acirc;', '&iacute;', '&aacute;', '&uacute;', '&eacute;');
+	$s2 = array(" ", "&",     "\xf4",    "\xd6", "\xf6",   "\xe2",    "\xed",     "\xe1",     "\xfa",     "\xe9");
+	$r  = array('_', 'and',     'o',       'o', 'o',    'a',       'i',        'a',        'u',        'e',      );
 	$name = preg_replace('#^the #', '', strtolower($name));
-	$out = urlencode(str_replace($s, $r, $name));
+	$out = urlencode(str_replace($s2, $r, str_replace($s, $r, $name)));
 	if ($const && $house==1)
-		$out .= '/' . urlencode(str_replace($s, $r, strtolower($const)));
+		$out .= '/' . urlencode(str_replace($s2, $r, str_replace($s, $r, strtolower($const))));
 	elseif ($house==0)
 		$out = 'elizabeth_the_second';
 	return $out;

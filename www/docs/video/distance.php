@@ -50,7 +50,7 @@ function day_speeches($search, $type, $date) {
 	$SEARCHENGINE = new SEARCHENGINE($search);
 
 	$db = new ParlDB;
-	$q_gid = mysql_escape_string('uk.org.publicwhip/' . $want['gid']);
+	$q_gid = mysql_real_escape_string('uk.org.publicwhip/' . $want['gid']);
 	$q = $db->query("select hpos from hansard where gid='$q_gid'");
 	$want['hpos'] = $q->field(0, 'hpos');
 

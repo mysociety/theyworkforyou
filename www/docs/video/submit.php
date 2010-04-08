@@ -8,7 +8,7 @@ $time = intval(get_http_var('time'));
 $file = intval(get_http_var('file'));
 
 $gid = "uk.org.publicwhip/$gid";
-$q_gid = mysql_escape_string($gid);
+$q_gid = mysql_real_escape_string($gid);
 
 $db = new ParlDB;
 $q = $db->query("select hdate, htime, adate, atime from hansard

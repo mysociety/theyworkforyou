@@ -1,0 +1,65 @@
+Do this next
+============
+
+SPF
+http://www.google.com/support/a/bin/answer.py?hl=en&answer=33786
+
+Fix up emails:
+    * Remove all .gsi.gov.uk
+         "email" : "ps.huw.irranca-davies@defra.gsi.gov.uk",
+         "name" : "Huw Irranca Davies",
+         "email" : "dileeni.daniel-selvaratnam@justice.gsi.gov.uk",
+         "name" : "Maria Eagle",
+         "email" : "chris.mole@dft.gsi.gov.uk",
+         "name" : "Chris Mole",
+         "email" : "tom.greatrex@scotlandoffice.gsi.gov.uk",
+         "name" : "Tom Greatrex",
+         "email" : "hazel.blears@communities.gsi.gov.uk",
+         "name" : "Hazel Blears",
+         "email" : "hilary.benn@defra.gsi.gov.uk",
+         "name" : "Hilary Benn",
+         "email" : "alun.pugh@wales.gsi.gov.uk",
+         "name" : "Alun Pugh",
+         "email" : "dhmail@dh.gsi.gov.uk",
+         "name" : "Dawn Primarolo",
+    * Check all .parliament.uk
+    * Check frequency of all domains
+      - check for spam on them
+    * Cancel all moderations of person who got one totally wrong
+    * Check for same address 50 times.
+
+Fix up issues
+    http://code.google.com/p/constituencyvolunteernetwork/wiki/IssueModerationPolicy
+
+Send test email out again to me/Tom/Duncan
+
+Really autosave should check for conflicts between two browser windows
+
+
+Make sure off site backups are working reliably
+
+Write voter quiz:
+    - with postcode form
+    - asking voters the same questions as candidates
+Display comparison pages
+
+Add options to share on most popular social networking sites
+
+Show candidates which haven't answered yet
+Mechanism to hassle them to answer
+
+Import voting record from Public Whip for the national issues which are linked to divisions
+Display that in results of quiz
+
+Function to share answers / embed in blog?
+
+
+When we start displaying the survey answers, rethink if they are allowed to resubmit survey
+
+Script to detect cases where email address has changed and show them
+    (make sure compares to validated_email)
+Script to show what frozen seats have changed local issues
+
+
+
+

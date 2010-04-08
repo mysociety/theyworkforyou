@@ -43,7 +43,7 @@ $errors = array();
 // need to detect these.
 $pid = get_http_var('pid') != '' ? get_http_var('pid') : get_http_var('p');
 $name = strtolower(str_replace(array('_'), array(' '), get_http_var('n')));
-$cconstituency = strtolower(str_replace(array('_','.',' and '), array(' ','&amp;',' &amp; '), get_http_var('c'))); # *** postcode functions use global $constituency!!! ***
+$cconstituency = strtolower(str_replace(array('_','.',' and '), array(' ','&',' & '), get_http_var('c'))); # *** postcode functions use global $constituency!!! ***
 if ($cconstituency == 'mysociety test constituency') {
 	header("Location: stom.html");
 	exit;
@@ -51,12 +51,16 @@ if ($cconstituency == 'mysociety test constituency') {
 
 # Special case names
 $redirect = false;
-if ($name == 'sion simon') $name = "si&ocirc;n simon";
-if ($name == 'sian james') $name = "si&acirc;n james";
-if ($name == 'lembit opik') $name = "lembit &ouml;pik";
-if ($name == 'bairbre de brun') $name = "bairbre de br&uacute;n";
-if ($name == 'daithi mckay') $name = 'daith&iacute; mckay';
-if ($name == 'caral ni chuilin') $name = 'car&aacute;l n&iacute; chuil&iacute;n';
+if ($name == 'sion simon') $name = "si\xf4n simon";
+if ($name == 'sian james') $name = "si\xe2n james";
+if ($name == 'lembit opik') $name = "lembit \xf6pik";
+if ($name == 'bairbre de brun') $name = "bairbre de br\xfan";
+if ($name == 'daithi mckay') $name = "daith\xed mckay";
+if ($name == 'caral ni chuilin') $name = "car\xe1l n\xed chuil\xedn";
+if ($name == 'caledon du pre') $name = "caledon du pr\xe9";
+if ($name == 'sean etchingham') $name = "se\xe1n etchingham";
+if ($name == 'john tinne') $name = "john tinn\xe9";
+if ($name == 'renee short') $name = "ren\xe9e short";
 if ($name == 'a j beith') {
 	$name = 'alan beith';
 	$redirect = true;
@@ -67,10 +71,10 @@ if ($name == 'micky brady') {
 }
 
 # Special stuff for Ynys Mon
-if ($cconstituency == 'ynys mon') $cconstituency = "ynys m&ocirc;n"; # Stop infinite loop
+if ($cconstituency == 'ynys mon') $cconstituency = "ynys m\xf4n";
 # And cope with Unicode URL
 if (preg_match("#^ynys m\xc3\xb4n#i", $cconstituency))
-	$cconstituency = "ynys m&ocirc;n";
+	$cconstituency = "ynys m\xf4n";
 
 // Redirect for MP recent appearanecs
 if (get_http_var('recent')) {
@@ -181,7 +185,7 @@ if (is_numeric(get_http_var('m'))) {
 		member_redirect($MEMBER);
 	}
 } elseif ($cconstituency) {
-	if ($cconstituency == 'your &amp; my society') {
+	if ($cconstituency == 'your & my society') {
 		header('Location: /mp/stom%20teinberg');
 		exit;
 	}
@@ -271,7 +275,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	// SIDEBAR.
 
 	// We have to generate this HTML to pass to stripe_end().
-	$linkshtml = $PAGE->generate_member_links($MEMBER, $MEMBER->extra_info());
+	$linkshtml = generate_member_links($MEMBER);
 	
 	$sidebars = array(
 /*		array('type'=>'include', 'content' => 'donate'),*/
@@ -317,34 +321,46 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 		}
 	}
 
-	if ($MEMBER->house(1)) {
-		$lat = null; $lon = null;
-		$geometry = _api_getGeometry_name($MEMBER->constituency());
-		if (isset($geometry['centre_lat'])) {
-			$lat = $geometry['centre_lat'];
-			$lon = $geometry['centre_lon'];
-		}
-		if ($lat && $lon) {
-			$nearby_consts = _api_getConstituencies_latitude($lat, $lon, 300);
-			if ($nearby_consts) {
-				$conlist = '<ul><!-- '.$lat.','.$lon.' -->';
-				for ($k=1; $k<=min(5, count($nearby_consts)-1); $k++) {
-					$name = $nearby_consts[$k]['name'];
-					$dist = $nearby_consts[$k]['distance'];
-					$conlist .= '<li><a href="' . WEBPATH . 'mp/?c=' . urlencode($name) . '">';
-					$conlist .= $nearby_consts[$k]['name'] . '</a>';
-					$dist_miles = round($dist / 1.609344, 0);
-					$conlist .= ' <small title="Centre to centre">(' . $dist_miles. ' miles)</small>';
-					$conlist .= '</li>';
-				}
-				$conlist .= '</ul>';
-				$sidebars[] = array(
-					'type' => 'html',
-					'content' => '<div class="block"><h4>Nearby constituencies</h4><div class="blockbody">' . $conlist . ' </div></div>'
-				);
-			}
-		}
-	}
+    if ($MEMBER->house(1)) {
+        global $memcache;
+        if (!$memcache) {
+            $memcache = new Memcache;
+            $memcache->connect('localhost', 11211);
+        }
+        $nearby = $memcache->get(OPTION_TWFY_DB_NAME . ':nearby_const:' . $MEMBER->person_id());
+        if (!$nearby) {
+            $lat = null; $lon = null;
+            $geometry = _api_getGeometry_name($MEMBER->constituency());
+            if (isset($geometry['centre_lat'])) {
+                $lat = $geometry['centre_lat'];
+                $lon = $geometry['centre_lon'];
+            }
+            if ($lat && $lon) {
+                $nearby_consts = _api_getConstituencies_latitude($lat, $lon, 300);
+                if ($nearby_consts) {
+                    $conlist = '<ul><!-- '.$lat.','.$lon.' -->';
+                    for ($k=1; $k<=min(5, count($nearby_consts)-1); $k++) {
+                        $name = $nearby_consts[$k]['name'];
+                        $dist = $nearby_consts[$k]['distance'];
+                        $conlist .= '<li><a href="' . WEBPATH . 'mp/?c=' . urlencode($name) . '">';
+                        $conlist .= $nearby_consts[$k]['name'] . '</a>';
+                        $dist_miles = round($dist / 1.609344, 0);
+                        $conlist .= ' <small title="Centre to centre">(' . $dist_miles. ' miles)</small>';
+                        $conlist .= '</li>';
+                    }
+                    $conlist .= '</ul>';
+                    $nearby = $conlist;
+                    $memcache->set(OPTION_TWFY_DB_NAME . ':nearby_const:' . $MEMBER->person_id(), $nearby, 0, 3600);
+                }
+            }
+        }
+        if ($nearby) {
+            $sidebars[] = array(
+                'type' => 'html',
+                'content' => '<div class="block"><h4>Nearby constituencies</h4><div class="blockbody">' . $nearby . ' </div></div>'
+            );
+        }
+    }
 
 	if (array_key_exists('office', $MEMBER->extra_info())) {
 		$office = $MEMBER->extra_info();
@@ -372,7 +388,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 		}
 		if ($mins) {
 			$sidebars[] = array('type'=>'html',
-			'content' => '<div class="block"><h4>Other offices held in the past</h4><div class="blockbody"><ul>'.$mins.'</ul></div></div>');
+			'content' => '<div class="block"><h4>Other offices held in the past</h4><div class="blockbody"><ul>'.$mins.'</ul><p align="right"><a href="/help/#dates_wrong">Note about dates</a></div></div>');
 		}
 	}
 
@@ -480,5 +496,86 @@ function regional_list($pc, $area_type, $rep_type) {
 	echo $out;
 	$PAGE->stripe_end();
 	$PAGE->page_end();
+}
+
+function generate_member_links ($member) {
+	// Receives its data from $MEMBER->display_links;
+	// This returns HTML, rather than outputting it.
+	// Why? Because we need this to be in the sidebar, and 
+	// we can't call the MEMBER object from the sidebar includes
+	// to get the links. So we call this function from the mp
+	// page and pass the HTML through to stripe_end(). Better than nothing.
+
+	$links = $member->extra_info();
+
+	// Bah, can't use $this->block_start() for this, as we're returning HTML...
+	$html = '<div class="block">
+			<h4>More useful links for this person</h4>
+			<div class="blockbody">
+			<ul' . (get_http_var('c4')?' style="list-style-type:none;"':''). '>';
+
+	if (isset($links['maiden_speech'])) {
+		$maiden_speech = fix_gid_from_db($links['maiden_speech']);
+		$html .= '<li><a href="' . WEBPATH . 'debate/?id=' . $maiden_speech . '">Maiden speech</a></li>';
+	}
+
+	// BIOGRAPHY.
+	global $THEUSER;
+	if (isset($links['mp_website'])) {
+		$html .= '<li><a href="' . $links['mp_website'] . '">'. $member->full_name().'\'s personal website</a>';
+		if ($THEUSER->is_able_to('viewadminsection')) {
+			$html .= ' [<a href="/admin/websites.php?editperson=' .$member->person_id() . '">Edit</a>]';
+		}
+		$html .= '</li>';
+	} elseif ($THEUSER->is_able_to('viewadminsection')) {
+		 $html .= '<li>[<a href="/admin/websites.php?editperson=' . $member->person_id() . '">Add personal website</a>]</li>';
+	}
+
+	if (isset($links['twitter_username'])) {
+		$html .= '<li><a href="http://twitter.com/' . $links['twitter_username'] . '">'. $member->full_name().'&rsquo;s Twitter feed</a></li>';
+	}
+
+	if (isset($links['sp_url'])) {
+		$html .= '<li><a href="' . $links['sp_url'] . '">'. $member->full_name().'\'s page on the Scottish Parliament website</a></li>';
+	}
+
+	if (isset($links['guardian_biography'])) {
+		$html .= '	<li><a href="' . $links['guardian_biography'] . '">Guardian profile</a></li>';
+	}
+	if (isset($links['wikipedia_url'])) {
+		$html .= '	<li><a href="' . $links['wikipedia_url'] . '">Wikipedia page</a></li>';
+	}
+
+	if (isset($links['bbc_profile_url'])) {
+		$html .= '      <li><a href="' . $links['bbc_profile_url'] . '">BBC News profile</a></li>';
+	} 
+
+	if (isset($links['diocese_url'])) {
+		$html .= '	<li><a href="' . $links['diocese_url'] . '">Diocese website</a></li>';
+	}
+
+	$html .= '<li><a href="http://www.edms.org.uk/mps/' . $member->person_id() . '/">Early Day Motions signed by this MP</a> <small>(From edms.org.uk)</small></li>';
+
+	if (isset($links['journa_list_link'])) {
+		$html .= '      <li><a href="' . $links['journa_list_link'] . '">Newspaper articles written by this MP</a> <small>(From Journalisted)</small></li>';
+	} 
+
+	if (isset($links['guardian_election_results'])) {
+		$html .= '      <li><a href="' . $links['guardian_election_results'] . '">Election results for ' . $member->constituency() . '</a> <small>(From The Guardian)</small></li>';
+	}
+
+	/*
+	# BBC Catalogue is offline
+	$bbc_name = urlencode($member->first_name()) . "%20" . urlencode($member->last_name());
+	if ($member->member_id() == -1)
+		$bbc_name = 'Queen Elizabeth';
+	$html .= '      <li><a href="http://catalogue.bbc.co.uk/catalogue/infax/search/' . $bbc_name . '">TV/radio appearances</a> <small>(From BBC Programme Catalogue)</small></li>';
+	*/
+
+	$html .= "      </ul>
+				</div>
+			</div> <!-- end block -->
+";
+	return $html;
 }
 

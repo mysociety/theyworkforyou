@@ -9,8 +9,8 @@ $oops = get_http_var('oops');
 if (!$oops || !$gid) exit;
 
 $gid = "uk.org.publicwhip/$gid";
-$q_gid = mysql_escape_string($gid);
-$q_oops = mysql_escape_string($oops);
+$q_gid = mysql_real_escape_string($gid);
+$q_oops = mysql_real_escape_string($oops);
 
 $db = new ParlDB;
 $q = $db->query("update video_timestamps set deleted=1 where id=$q_oops and gid='$q_gid' and current_timestamp<whenstamped+interval 30 second");

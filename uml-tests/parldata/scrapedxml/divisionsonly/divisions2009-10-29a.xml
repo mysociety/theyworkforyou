@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE publicwhip [
+<!ENTITY ndash "&#8211;">
+<!ENTITY mdash "&#8212;">
+<!ENTITY iexcl "&#161;">
+<!ENTITY divide "&#247;">
+<!ENTITY euro "&#8364;">
+<!ENTITY trade "&#8482;">
+<!ENTITY bull "&#8226;">
+<!ENTITY lsquo "&#8216;">
+<!ENTITY rsquo "&#8217;">
+<!ENTITY sbquo "&#8218;">
+<!ENTITY ldquo "&#8220;">
+<!ENTITY rdquo "&#8221;">
+<!ENTITY bdquo "&#8222;">
+<!ENTITY dagger "&#8224;">
+
+<!ENTITY Ouml "&#214;">
+<!ENTITY agrave "&#224;">
+<!ENTITY aacute "&#225;">
+<!ENTITY acirc "&#226;">
+<!ENTITY atilde "&#227;">
+<!ENTITY auml "&#228;">
+<!ENTITY ccedil "&#231;">
+<!ENTITY egrave "&#232;">
+<!ENTITY eacute "&#233;">
+<!ENTITY ecirc "&#234;">
+<!ENTITY euml "&#235;">
+<!ENTITY iacute "&#237;">
+<!ENTITY icirc "&#238;">
+<!ENTITY iuml "&#239;">
+<!ENTITY ntilde "&#241;">
+<!ENTITY nbsp "&#160;">
+<!ENTITY oacute "&#243;">
+<!ENTITY ocirc "&#244;">
+<!ENTITY ouml "&#246;">
+<!ENTITY oslash "&#248;">
+<!ENTITY uacute "&#250;">
+<!ENTITY uuml "&#252;">
+<!ENTITY thorn "&#254;">
+
+<!ENTITY pound "&#163;">
+<!ENTITY sect "&#167;">
+<!ENTITY copy "&#169;">
+<!ENTITY reg "&#174;">
+<!ENTITY deg "&#176;">
+<!ENTITY plusmn "&#177;">
+<!ENTITY sup2 "&#178;">
+<!ENTITY micro "&#181;">
+<!ENTITY para "&#182;">
+<!ENTITY middot "&#183;">
+<!ENTITY ordm "&#186;">
+<!ENTITY frac14 "&#188;">
+<!ENTITY frac12 "&#189;">
+<!ENTITY frac34 "&#190;">
+<!ENTITY oelig "&#339;">
+<!ENTITY aelig "&#230;">
+]>
+<publicwhip latest="yes" scrapeversion="a">
+  <major-heading colnum="421" id="uk.org.publicwhip/debate/2009-10-29a.421.0" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000013">
+	BUSINESS BEFORE QUESTIONS
+</major-heading>
+  <minor-heading colnum="421" id="uk.org.publicwhip/debate/2009-10-29a.421.1" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000017">
+	Canterbury City Council Bill  (By Order)
+</minor-heading>
+  <minor-heading colnum="421" id="uk.org.publicwhip/debate/2009-10-29a.421.3" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000018">
+	Nottingham City Council Bill  (By Order)
+</minor-heading>
+  <minor-heading colnum="421" id="uk.org.publicwhip/debate/2009-10-29a.421.5" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000019">
+	Bournemouth Borough Council Bill [ Lords]   (By Order)
+</minor-heading>
+  <minor-heading colnum="421" id="uk.org.publicwhip/debate/2009-10-29a.421.7" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000020">
+	Manchester City Council Bill [ Lords]  (By Order)
+</minor-heading>
+  <minor-heading colnum="421" id="uk.org.publicwhip/debate/2009-10-29a.421.9" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000021">
+	City of Westminster Bill [ Lords]
+</minor-heading>
+  <minor-heading colnum="421" id="uk.org.publicwhip/debate/2009-10-29a.421.12" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000022">
+	Bournemouth Borough Council Bill [ Lords]
+</minor-heading>
+  <minor-heading colnum="421" id="uk.org.publicwhip/debate/2009-10-29a.421.15" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000023">
+	Manchester City Council Bill [ Lords]
+</minor-heading>
+  <minor-heading colnum="422" id="uk.org.publicwhip/debate/2009-10-29a.422.0" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000024">
+	Canterbury City Council Bill
+</minor-heading>
+  <minor-heading colnum="422" id="uk.org.publicwhip/debate/2009-10-29a.422.3" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000025">
+	Leeds City Council Bill
+</minor-heading>
+  <minor-heading colnum="422" id="uk.org.publicwhip/debate/2009-10-29a.422.6" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000026">
+	Nottingham City Council Bill
+</minor-heading>
+  <minor-heading colnum="422" id="uk.org.publicwhip/debate/2009-10-29a.422.9" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000027">
+	Reading Borough Council Bill
+</minor-heading>
+  <oral-heading colnum="422" id="uk.org.publicwhip/debate/2009-10-29a.422.12" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000009">
+	ORAL ANSWERS TO QUESTIONS
+</oral-heading>
+  <major-heading colnum="422" id="uk.org.publicwhip/debate/2009-10-29a.422.13" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#91029-0001.htm_dpthd0">
+	ENVIRONMENT, FOOD AND RURAL AFFAIRS
+</major-heading>
+  <minor-heading colnum="422" id="uk.org.publicwhip/debate/2009-10-29a.422.15" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000029">
+	Natural Environment
+</minor-heading>
+  <minor-heading colnum="424" id="uk.org.publicwhip/debate/2009-10-29a.424.1" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000030">
+	Floods (Pitt Report)
+</minor-heading>
+  <minor-heading colnum="425" id="uk.org.publicwhip/debate/2009-10-29a.425.5" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0001.htm#09102935000031">
+	Local Food Chains
+</minor-heading>
+  <minor-heading colnum="427" id="uk.org.publicwhip/debate/2009-10-29a.427.0" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0002.htm#09102935000032">
+	Farmers (Suicides)
+</minor-heading>
+  <minor-heading colnum="428" id="uk.org.publicwhip/debate/2009-10-29a.428.2" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0002.htm#09102935000033">
+	Common Agricultural Policy
+</minor-heading>
+  <minor-heading colnum="429" id="uk.org.publicwhip/debate/2009-10-29a.429.4" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0002.htm#09102935000034">
+	Bovine Tuberculosis
+</minor-heading>
+  <minor-heading colnum="430" id="uk.org.publicwhip/debate/2009-10-29a.430.2" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0002.htm#09102935000035">
+	Light Pollution
+</minor-heading>
+  <minor-heading colnum="431" id="uk.org.publicwhip/debate/2009-10-29a.431.5" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0002.htm#09102935000036">
+	International Whaling Commission
+</minor-heading>
+  <minor-heading colnum="432" id="uk.org.publicwhip/debate/2009-10-29a.432.2" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0002.htm#09102935000037">
+	UK Fishing Industry
+</minor-heading>
+  <minor-heading colnum="433" id="uk.org.publicwhip/debate/2009-10-29a.433.2" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0003.htm#09102935000038">
+	Milk and Dairy Industry
+</minor-heading>
+  <minor-heading colnum="434" id="uk.org.publicwhip/debate/2009-10-29a.434.3" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0003.htm#09102935000039">
+	Bees (Pesticides)
+</minor-heading>
+  <minor-heading colnum="435" id="uk.org.publicwhip/debate/2009-10-29a.435.1" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0003.htm#09102935000040">
+	Farm-gate Milk Prices
+</minor-heading>
+  <minor-heading colnum="435" id="uk.org.publicwhip/debate/2009-10-29a.435.8" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0003.htm#09102935000041">
+	British Waterways
+</minor-heading>
+  <minor-heading colnum="437" id="uk.org.publicwhip/debate/2009-10-29a.437.0" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0003.htm#09102935000042">
+	Flood Defences
+</minor-heading>
+  <minor-heading colnum="437" id="uk.org.publicwhip/debate/2009-10-29a.437.5" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0003.htm#09102935000043">
+	Topical Questions
+</minor-heading>
+  <major-heading colnum="443" id="uk.org.publicwhip/debate/2009-10-29a.443.0" nospeaker="true" time="10:30:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0004.htm#09102935000005">
+	Business of the House
+</major-heading>
+  <minor-heading colnum="455" id="uk.org.publicwhip/debate/2009-10-29a.455.0" nospeaker="true" time="011:32:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0006.htm#09102935000006">
+	Personal Statement
+</minor-heading>
+  <minor-heading colnum="456" id="uk.org.publicwhip/debate/2009-10-29a.456.0" nospeaker="true" time="012:11:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0006.htm#09102935000007">
+	Fireworks Safety
+</minor-heading>
+  <speech colnum="456" id="uk.org.publicwhip/debate/2009-10-29a.456.2" speakerid="uk.org.publicwhip/member/1947" speakername="Ian Lucas" speakeroffice="The Parliamentary Under-Secretary of State for Business, Innovation and Skills" time="012:14:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0006.htm#09102935001287">
+    <p class="" pid="a.456.2/1" pwmotiontext="yes">I beg to move,</p>
+    <p class="indent" pid="a.456.2/2" pwmotiontext="yes">That this House has considered the matter of fireworks safety.</p>
+  </speech>
+  <minor-heading colnum="479" id="uk.org.publicwhip/debate/2009-10-29a.479.0" nospeaker="true" time="013:39:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0010.htm#09102935000001">
+	Social Care Green Paper
+</minor-heading>
+  <speech colnum="479" id="uk.org.publicwhip/debate/2009-10-29a.479.1" speakerid="uk.org.publicwhip/member/1678" speakername="Andy Burnham" speakeroffice="The Secretary of State for Health" time="013:42:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0010.htm#09102935001383">
+    <p class="" pid="a.479.1/1" pwmotiontext="yes">I beg to move,</p>
+    <p class="indent" pid="a.479.1/2" pwmotiontext="yes">That this House has considered the matter of the Social Care Green Paper.</p>
+  </speech>
+  <major-heading colnum="545" id="uk.org.publicwhip/debate/2009-10-29a.545.0" nospeaker="true" time="017:31:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0021.htm#09102935000011">
+	REGIONAL SELECT COMMITTEE (WEST MIDLANDS)
+</major-heading>
+  <major-heading colnum="545" id="uk.org.publicwhip/debate/2009-10-29a.545.2" nospeaker="true" time="017:31:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0021.htm">
+	REGIONAL SELECT COMMITTEE (YORKSHIRE AND THE HUMBER)
+</major-heading>
+  <major-heading colnum="546" id="uk.org.publicwhip/debate/2009-10-29a.546.5" nospeaker="true" time="017:55:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0021.htm">
+	REGIONAL SELECT COMMITTEE (SOUTH WEST)
+</major-heading>
+  <major-heading colnum="548" id="uk.org.publicwhip/debate/2009-10-29a.548.0" nospeaker="true" time="017:59:00" url="http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0021.htm#09102935000004">
+	FURNITURE INDUSTRY
+</major-heading>
+</publicwhip>

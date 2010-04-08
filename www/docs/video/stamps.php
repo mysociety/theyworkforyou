@@ -7,7 +7,7 @@ date_default_timezone_set('Europe/London');
 $videodb = video_db_connect();
 
 $gid = get_http_var('gid');
-$q_gid = mysql_escape_string("uk.org.publicwhip/$gid");
+$q_gid = mysql_real_escape_string("uk.org.publicwhip/$gid");
 
 $db = new ParlDB;
 $q = $db->query("select subsection_id,adate,atime from hansard, video_timestamps

@@ -26,7 +26,7 @@ direction of that part of the polygon, whether it adds or subtracts from the are
 }
 
 function api_getBoundary_name($name) {
-	$name = html_entity_decode(normalise_constituency_name($name)); # XXX
+	$name = normalise_constituency_name($name);
 	if (!$name) {
 		api_error('Name not recognised');
 		return;
@@ -37,7 +37,7 @@ function api_getBoundary_name($name) {
 	$areas_info = _api_cacheCheck('mapit_get_voting_areas_info', $areas);
 	$id = null;
 	foreach ($areas_info as $k => $v) {
-		if (html_entity_decode(normalise_constituency_name($v['name'])) == $name) {
+		if (normalise_constituency_name($v['name']) == $name) {
 			$id = $k;
 		}
 	}

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/102/trunk/appengine_django
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/102/trunk/appengine_django/__init__.py
+END
+mail.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/83/trunk/appengine_django/mail.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/95/trunk/appengine_django/models.py
+END
+replacement_imp.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/appengine_django/replacement_imp.py
+END

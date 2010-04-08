@@ -31,7 +31,7 @@ if (DEVSITE) {
     print $out;
 } else {
     ?><p>You can't upload files on a live site, as it doesn't have permissions
-    to commit to CVS. Please go to one of the staging sites.</p>
+    to commit to git. Please go to one of the staging sites.</p>
     <?
 }
 
@@ -64,12 +64,12 @@ function submit_photo() {
             array_push($errors, "Saving to $dir/mps/$pid.jpeg failed");
         if (!$errors) {
             print "<pre>";
-            chdir("$dir/mpsL");
-            passthru("cvs -Q add -kb $pid.jpeg 2>&1");
-            chdir("../mps");
-            passthru("cvs -Q add -kb $pid.jpeg 2>&1");
-            chdir("../");
-            passthru('cvs -Q commit -m "Photo update from admin web photo upload interface." mpsL mps 2>&1');
+            chdir($dir);
+            passthru('git pull');
+            passthru("git add mpsL/$pid.jpeg");
+            passthru("git add mps/$pid.jpeg");
+            passthru('git commit -m "Photo update from admin web photo upload interface."');
+            passthru('git push');
             print "</pre>";
         }
     }
@@ -87,9 +87,9 @@ function display_form($errors = array()) {
         $out .= '<ul id="error"><li>' . join('</li><li>', $errors) . '</li></ul>';
     }
     $out .= <<<EOF
-<p>Photos are automatically added in CVS and committed. Because of this,
+<p>Photos are automatically added in git and committed. Because of this,
 only use this interface on a development version of the site which is
-in a CVS checkout (francis.theyworkforyou.com or similar). Then deploy
+in a git checkout (francis.theyworkforyou.com or similar). Then deploy
 to the live site.
 </p>
 <form method="post" action="photos.php" enctype="multipart/form-data">

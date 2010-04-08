@@ -20,7 +20,7 @@ foreach ($data['data'] as $n => $mla) {
 
 function render_mlas_row($mla, $order) {
 	global $parties;
-	$con = html_entity_decode($mla['constituency']);
+	$con = $mla['constituency'];
 	if (strstr($con, ',')) $con = "\"$con\"";
 	$name = member_full_name(3, $mla['title'], $mla['first_name'], $mla['last_name'], $mla['constituency']);
 	if (strstr($name, ',')) $name = "\"$name\"";

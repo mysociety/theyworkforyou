@@ -122,7 +122,7 @@ foreach ($alertdata as $alertitem) {
 			write_and_send_email($current_email, $user_id, $email_text, $template);
 		$current_email = $email;
 		$email_text = '';
-		$q = $db->query('SELECT user_id FROM users WHERE email = \''.mysql_escape_string($email)."'");
+		$q = $db->query('SELECT user_id FROM users WHERE email = \''.mysql_real_escape_string($email)."'");
 		if ($q->rows() > 0) {
 			$user_id = $q->field(0, 'user_id');
 			$registered++;
@@ -175,14 +175,14 @@ foreach ($alertdata as $alertitem) {
 			}
 			#mlog($row['major'] . " " . $row['gid'] ."\n");
 			if ($row['hdate'] < '2009-01-01') continue;
-			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_gid[$major] . '/' . mysql_escape_string($row['gid']) . "'");
+			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_gid[$major] . '/' . mysql_real_escape_string($row['gid']) . "'");
 			if ($q->rows() > 0) continue;
 			--$k;
 			if ($k>=0) {
 				$any_content = true;
 				$parentbody = str_replace(array('<i>', '</i>', '&#8212;', '<span class="hi">', '</span>'), array('', '', '-', '*', '*'), $row['parent']['body']);
 				$body = str_replace(array('&#163;','&#8212;','<span class="hi">','</span>'), array("\xa3",'-','*','*'), $row['body']);
-				if (isset($row['speaker']) && count($row['speaker'])) $body = html_entity_decode(member_full_name($row['speaker']['house'], $row['speaker']['title'], $row['speaker']['first_name'], $row['speaker']['last_name'], $row['speaker']['constituency'])) . ': ' . $body;
+				if (isset($row['speaker']) && count($row['speaker'])) $body = member_full_name($row['speaker']['house'], $row['speaker']['title'], $row['speaker']['first_name'], $row['speaker']['last_name'], $row['speaker']['constituency']) . ': ' . $body;
 
 				$body = wordwrap($body, 72);
 				$o[$major] .= $parentbody . ' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ")\nhttp://www.theyworkforyou.com" . $row['listurl'] . "\n";

@@ -1,5 +1,7 @@
 <?
 
+include_once 'api_getPerson.php';
+
 function api_getLord_front() {
 ?>
 <p><big>Fetch a particular Lord.</big></p>
@@ -13,35 +15,15 @@ function api_getLord_front() {
 <?	
 }
 
-function _api_getLord_row($row) {
-	global $parties;
-	$row['full_name'] = member_full_name($row['house'], $row['title'], $row['first_name'],
-		$row['last_name'], $row['constituency']);
-	if (isset($parties[$row['party']]))
-		$row['party'] = $parties[$row['party']];
-	$row = array_map('html_entity_decode', $row);
-	return $row;
-}
-
 function api_getLord_id($id) {
 	$db = new ParlDB;
 	$q = $db->query("select * from member
-		where house=2 and person_id = '" . mysql_escape_string($id) . "'
+		where house=2 and person_id = '" . mysql_real_escape_string($id) . "'
 		order by left_house desc");
 	if ($q->rows()) {
-		$output = array();
-		$last_mod = 0;
-		for ($i=0; $i<$q->rows(); $i++) {
-			$out = _api_getLord_row($q->row($i));
-			$output[] = $out;
-			$time = strtotime($q->field($i, 'lastupdate'));
-			if ($time > $last_mod)
-				$last_mod = $time;
-		}
-		api_output($output, $last_mod);
+        _api_getPerson_output($q);
 	} else {
 		api_error('Unknown person ID');
 	}
 }
 
-?>

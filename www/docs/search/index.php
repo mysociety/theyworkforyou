@@ -301,7 +301,7 @@ function find_constituency ($args) {
 		} else {
             $query = "select distinct
                     (select name from constituency where cons_id = o.cons_id and main_name) as name 
-                from constituency AS o where name like '%" . mysql_escape_string($try) . "%'
+                from constituency AS o where name like '%" . mysql_real_escape_string($try) . "%'
                 and from_date <= date(now()) and date(now()) <= to_date";
             $db = new ParlDB;
             $q = $db->query($query);
@@ -322,7 +322,7 @@ function find_constituency ($args) {
         $URL = new URL('mp');
         if ($MEMBER->valid) {
             $URL->insert(array('m'=>$MEMBER->member_id()));
-            print '<h3>MP for ' . preg_replace("#$searchterm#i", '<span class="hi">$0</span>', $constituency);
+            print '<h3>MP for ' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency);
             if ($validpostcode) {
                 // Display the postcode the user searched for.
                 print ' (' . htmlentities(strtoupper($args['s'])) . ')';
@@ -342,7 +342,7 @@ function find_constituency ($args) {
                 $URL->insert(array('m'=>$MEMBER->member_id()));
             }
             print '<li><a href="'.$URL->generate().'"><strong>' . $MEMBER->full_name() .
-                '</strong></a> (' . preg_replace("#$searchterm#i", '<span class="hi">$0</span>', $constituency) .
+                '</strong></a> (' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency) .
                 ', '.$MEMBER->party().')</li>';
         }
         print '</ul>';
@@ -403,13 +403,10 @@ function find_users ($args) {
 }
 
 function member_db_lookup($searchstring) {
-	$searchstring = trim(preg_replace("#[^0-9a-z'& -]#i", '', $searchstring));
 	if (!$searchstring) return false;
 	$searchwords = explode(' ', $searchstring, 3);
     foreach ($searchwords as $i => $searchword) {
-        $searchwords[$i] = mysql_real_escape_string(htmlentities($searchword));
-        if (!strcasecmp($searchword,'Opik'))
-            $searchwords[$i] = '&Ouml;pik';
+        $searchwords[$i] = mysql_real_escape_string($searchword);
     }
 	if (count($searchwords) == 1) {
 		$where = "first_name LIKE '%" . $searchwords[0] . "%' OR last_name LIKE '%" . $searchwords[0] . "%'";

@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<!DOCTYPE publicwhip
+[
+<!ENTITY ndash   "&#8211;">
+<!ENTITY mdash   "&#8212;">
+<!ENTITY iexcl   "&#161;">
+<!ENTITY divide  "&#247;">
+<!ENTITY euro    "&#8364;">
+<!ENTITY trade   "&#8482;">
+<!ENTITY bull    "&#8226;">
+<!ENTITY lsquo   "&#8216;">
+<!ENTITY rsquo   "&#8217;">
+<!ENTITY sbquo   "&#8218;">
+<!ENTITY ldquo   "&#8220;">
+<!ENTITY rdquo   "&#8221;">
+<!ENTITY bdquo   "&#8222;">
+<!ENTITY dagger  "&#8224;">
+
+<!ENTITY Ouml   "&#214;" >
+<!ENTITY agrave "&#224;" >
+<!ENTITY aacute "&#225;" >
+<!ENTITY acirc  "&#226;" >
+<!ENTITY atilde "&#227;" >
+<!ENTITY auml   "&#228;" >
+<!ENTITY ccedil "&#231;" >
+<!ENTITY egrave "&#232;" >
+<!ENTITY eacute "&#233;" >
+<!ENTITY ecirc  "&#234;" >
+<!ENTITY euml   "&#235;" >
+<!ENTITY iacute "&#237;" >
+<!ENTITY icirc  "&#238;" >
+<!ENTITY iuml	"&#239;" >
+<!ENTITY ntilde "&#241;" >
+<!ENTITY nbsp   "&#160;" >
+<!ENTITY oacute "&#243;" >
+<!ENTITY ocirc  "&#244;" >
+<!ENTITY ouml   "&#246;" >
+<!ENTITY oslash "&#248;" >
+<!ENTITY uacute "&#250;" >
+<!ENTITY uuml   "&#252;" >
+<!ENTITY thorn  "&#254;" >
+
+<!ENTITY pound  "&#163;" >
+<!ENTITY sect   "&#167;" >
+<!ENTITY copy   "&#169;" >
+<!ENTITY reg    "&#174;" >
+<!ENTITY deg    "&#176;" >
+<!ENTITY plusmn "&#177;" >
+<!ENTITY sup2   "&#178;" >
+<!ENTITY micro  "&#181;" >
+<!ENTITY para   "&#182;" >
+<!ENTITY middot "&#183;" >
+<!ENTITY ordm   "&#186;" >
+<!ENTITY frac14 "&#188;" >
+<!ENTITY frac12 "&#189;" >
+<!ENTITY frac34 "&#190;" >
+<!ENTITY oelig "&#339;" >
+<!ENTITY aelig  "&#230;" >
+
+]>
+
+<publicwhip scrapeversion="a" latest="yes">
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.171.0" nospeaker="true" colnum="171"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000626">
+	Air Quality
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.171.1" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="171"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000626">
+	<p pid="a.171.1/1" qnum="HL5813">To ask Her Majesty's Government why they have not responded by legally required deadlines to the request and subsequent appeal by the Campaign for Clean Air in London in relation to information relating to a meeting that took place on 22 January 2009 between Lord Hunt of Kings Heath and the Mayor of London, Boris Johnson, on air quality matters.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.171.2" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="171"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000003">
+	<p pid="a.171.2/1">The Government always strive to meet the 20 working day deadline for responding to requests made under the environmental information regulations (EIRs). However, we very much regret that in this case we were unable to meet the deadline at either the initial request or internal review stage. This was because the request from the Campaign for Clean Air in London involved some detailed and careful consideration about the application or otherwise of certain of the exceptions in the EIRs, the consequent balance of the public interest arguments around the disclosure of advice to ministers as well as consultation with third parties about information relating to them.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.171.3" nospeaker="true" colnum="171"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000627">
+	Alpacas and Llamas
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.171.4" speakerid="uk.org.publicwhip/lord/100098" speakername="Baroness Byford" colon=":" colnum="171"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000627">
+	<p pid="a.171.4/1" qnum="HL5931">To ask Her Majesty's Government what measures are in place regarding the health of alpacas and llamas in England.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.171.5" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="171"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000004">
+	<p pid="a.171.5/1">The Animal Health and Welfare Strategy for Great Britain, launched in June 2004, continues to direct the Government and others in their work to bring about long-term improvements to the well-being of England's kept animals, including camelids (alpacas and llamas).</p>
+	<p pid="a.171.5/2">Suspicion of a notifiable exotic animal disease in camelids is notifiable to Animal Health. Defra has a scanning surveillance program in place to measure notifiable diseases.</p>
+	<p pid="a.171.5/3">Through Defra's surveillance programmes, the Veterinary Laboratory Agency has identified Johne's disease and Bovine Viral Diarrhoea in llamas and alpacas and is undertaking research to better understand diseases in these species.</p>
+	<p pid="a.171.5/4">The camelid sector in the UK has acted in a largely responsible manner in proactively vaccinating its animals against bluetongue serotype 8 (BTV8). Bluetongue- susceptible animals imported into the UK, including alpacas and llamas, will be tested for BTV8 on arrival.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.172.0" nospeaker="true" inserted-heading="true" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000628">
+	Alpacas and Llamas
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.172.1" speakerid="uk.org.publicwhip/lord/100098" speakername="Baroness Byford" colon=":" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000628">
+	<p pid="a.172.1/1" qnum="HL5932">To ask Her Majesty's Government whether they pay compensation for bovine tuberculosis to owners of alpacas and llamas; or whether such payments are decided locally in England.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.172.2" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000008">
+	<p pid="a.172.2/1">Once testing and slaughter protocols have been agreed with the owner, Defra's approach is to provide compensation of &pound;750 for each TB-affected alpaca and/or llama required to be slaughtered for disease control purposes.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.172.3" nospeaker="true" inserted-heading="true" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000629">
+	Alpacas and Llamas
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.172.4" speakerid="uk.org.publicwhip/lord/100098" speakername="Baroness Byford" colon=":" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000629">
+	<p pid="a.172.4/1" qnum="HL5933">To ask Her Majesty's Government which anatomical part of llamas and alpacas is used for testing for bovine tuberculosis.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.172.5" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000009">
+	<p pid="a.172.5/1">The preferred anatomical part for TB testing in llamas and alpacas (camelids) is the neck at the base of the cervical area about level with the animal's back (cranial scapular). The auxiliary, behind the front leg, is also acceptable. The fibre is shaved off so the test site is easily seen.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.172.6" nospeaker="true" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000630">
+	Armed Forces Day: Northern Ireland
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.172.7" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000630">
+	<p pid="a.172.7/1" qnum="HL5986">To ask Her Majesty's Government what funding was provided by the Ministry of Defence for the Armed Forces Day in Carrickfergus.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.172.8" speakerid="uk.org.publicwhip/lord/100844" speakername="Baroness Taylor of Bolton" colon=":" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000010">
+	<p pid="a.172.8/1">The MoD provided &pound;10,000 of funding to the Armed Forces Day event in Carrickfergus.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.172.9" nospeaker="true" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000631">
+	Common Agricultural Policy: Single Farm Payment
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.172.10" speakerid="uk.org.publicwhip/lord/100098" speakername="Baroness Byford" colon=":" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000631">
+	<p pid="a.172.10/1" qnum="HL5739">To ask Her Majesty's Government how many farmers receiving the single farm payment were wrongly paid in each year from 2005 to 2008; and how many farmers have outstanding claims for those years.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.172.11" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="172"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000011">
+	<p pid="a.172.11/1">The number of farmers whose single payment scheme claims we currently identify as needing adjustment post-payment is set out below:</p>
+	<table>
+		<tbody>
+			<tr pid="a.172.11/4"> <td>Scheme Year</td> <td>Number of farmers<sup>*</sup></td> </tr>
+			<tr pid="a.172.11/5"> <td>2005</td> <td>26,296</td> </tr>
+			<tr pid="a.172.11/6"> <td>2006</td> <td>15,494</td> </tr>
+			<tr pid="a.172.11/7"> <td>2007</td> <td>7,661</td> </tr>
+			<tr pid="a.172.11/8"> <td>2008</td> <td>1,485</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.172.11/11">* It should be noted that some farmers may be included against more than one year.</p>
+	<p pid="a.172.11/12">The number of farmers who have received no single payment scheme payment to date from a valid claim is:</p>
+	<table>
+		<tbody>
+			<tr pid="a.172.11/15"> <td>Scheme Year</td> <td>Number of farmers<sup>*</sup></td> </tr>
+			<tr pid="a.172.11/16"> <td>2005</td> <td>3</td> </tr>
+			<tr pid="a.172.11/17"> <td>2006</td> <td>8</td> </tr>
+			<tr pid="a.172.11/18"> <td>2007</td> <td>44</td> </tr>
+			<tr pid="a.172.11/19"> <td>2008</td> <td>114</td> </tr>
+		</tbody>
+	</table>
+	<p pid="a.172.11/22">Some farmers may be included against more than one year, as above.</p>
+	<p pid="a.172.11/23">The majority of these relate to probate issues.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.173.0" nospeaker="true" inserted-heading="true" colnum="173"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000632">
+	Common Agricultural Policy: Single Farm Payment
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.173.1" speakerid="uk.org.publicwhip/lord/100098" speakername="Baroness Byford" colon=":" colnum="173"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000632">
+	<p pid="a.173.1/1" qnum="HL5742">To ask Her Majesty's Government how much money has been recovered from overpayments of the single farm payment in each year 2005 to 2008.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.173.2" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="173"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000030">
+	<p pid="a.173.2/1">The amount of money recovered from single payment scheme overpayments for each year 2005 to 2008 are shown in the following table:</p>
+	<table>
+		<tbody>
+			<tr pid="a.173.2/4"> <td>Year</td> <td>Amount Recovered</td> </tr>
+			<tr pid="a.173.2/5"> <td>2005</td> <td>&pound;19.1 million</td> </tr>
+			<tr pid="a.173.2/6"> <td>2006</td> <td>&pound;13.7 million</td> </tr>
+			<tr pid="a.173.2/7"> <td>2007</td> <td>&pound;4.5 million</td> </tr>
+			<tr pid="a.173.2/8"> <td>2008</td> <td>&pound;0.08 million</td> </tr>
+		</tbody>
+	</table>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.173.3" nospeaker="true" colnum="173"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000633">
+	Devolved Administrations
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.173.4" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="173"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000633">
+	<p pid="a.173.4/1" qnum="HL5837">To ask Her Majesty's Government whether they have funded, or intend to fund, major capital projects for the devolved Administrations which are opposed to its policy on the environment.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.173.5" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="173"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000039">
+	<p pid="a.173.5/1">Major capital projects in devolved areas of policy are for the devolved Administrations to fund from within their overall block budgets.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.173.6" nospeaker="true" inserted-heading="true" colnum="173"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000634">
+	Devolved Administrations
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.173.7" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="173"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000634">
+	<p pid="a.173.7/1" qnum="HL5839">To ask Her Majesty's Government in what circumstances they will allow a devolved Administration to undertake an option which is more expensive than an option based on environmental considerations.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.174.0" speakerid="uk.org.publicwhip/lord/100983" speakername="Lord Myners" colon=":" colnum="174"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000040">
+	<p pid="a.174.0/1">In devolved areas of spending it is up to the devolved Administrations to assess the financial and environmental considerations of devolved spending projects.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.174.1" nospeaker="true" colnum="174"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000635">
+	Italy: Antiquities
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.174.2" speakerid="uk.org.publicwhip/lord/100531" speakername="Lord Renfrew of Kaimsthorn" colon=":" colnum="174"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000635">
+	<p pid="a.174.2/1" qnum="HL5821">To ask Her Majesty's Government what requests have been received from the Italian legal authorities for assistance in returning to Italy antiquities allegedly exported illegally, formerly in the possession of Mr Robin Symes; and what response has been offered.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.174.3" speakerid="uk.org.publicwhip/lord/100956" speakername="Lord West of Spithead" colon=":" colnum="174"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000041">
+	<p pid="a.174.3/1">The UK can receive requests for assistance to return antiquities that have been allegedly illegally exported, through a number of routes including:</p>
+	<p pid="a.174.3/2">the EU Council Directive 93/7/EC 1993 and the European Communities (Return of Cultural Objects) Regulations 1994, which set out procedures for mutual assistance between EU member states for the return of cultural objects unlawfully removed from the territory of an EU member state. Such requests are handled by the Department for Culture, Media and Sport (DCMS). The DCMS has received no requests for assistance from the Italian authorities in relation to Mr Symes under the EU Council Directive; andmutual legal assistance (MLA) in criminal matters. The Home Office UK Central Authority (UKCA) handles requests for mutual legal assistance where the assistance required is for use in an ongoing criminal investigation or for use in criminal proceedings. The UK is able to provide a wide range of assistance under the provisions of the Crime (International Co-operation) Act 2003 and the Proceeds of Crime Act 2002 (External Requests and Orders) Order 2005.</p>
+	<p pid="a.174.3/3">It is the normal policy of the Home Office to neither confirm nor deny the receipt of MLA requests so as not to prejudice ongoing criminal investigations or criminal proceedings.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.174.4" nospeaker="true" colnum="174"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000636">
+	Morocco: Fisheries Agreements
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.174.5" speakerid="uk.org.publicwhip/lord/100029" speakername="Lord Avebury" colon=":" colnum="174"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000636">
+	<p pid="a.174.5/1" qnum="HL5823">To ask Her Majesty's Government on what terms they consider the fisheries agreement between the United Kingdom and Morocco should be renewed.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.174.6" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="174"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000043">
+	<p pid="a.174.6/1">The fisheries agreement between the EU and Morocco expires in 2011. As with all negotiations with third countries we will seek to ensure that the financial compensation offered to Morocco in exchange for fishing opportunities is used to aid development of Morocco's fishing industry and its national administration's ability to effectively conserve fisheries resources. In agreeing the fishing opportunities to the EU fleet we would seek to ensure that the best available scientific advice is strictly adhered to.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.175.0" nospeaker="true" colnum="175"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000637">
+	National DNA Database
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.175.1" speakerid="uk.org.publicwhip/lord/100855" speakername="Lord Jones of Cheltenham" colon=":" colnum="175"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000637">
+	<p pid="a.175.1/1" qnum="HL5745">To ask Her Majesty's Government what steps they are taking to remove innocent citizens from the DNA database.</p>
+	<p pid="a.175.1/2" qnum="HL5746">To ask Her Majesty's Government what assessment they have made of the effect on crime in Scotland of removing innocent citizens from the DNA database.</p>
+	<p pid="a.175.1/3" qnum="HL5747">To ask Her Majesty's Government what is their response to the appeal made by African Peoples Advocacy regarding the process for removal from the DNA database of innocent citizens from black and ethnic minority communities.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.175.2" speakerid="uk.org.publicwhip/lord/100956" speakername="Lord West of Spithead" colon=":" colnum="175"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000044">
+	<p pid="a.175.2/1">We are currently considering the results of the public consultation exercise conducted over the summer on proposals for a proportionate framework for the retention of DNA in light of the judgment of the European Court of Human Rights in the case of S and Marper.</p>
+	<p pid="a.175.2/2">As soon as parliamentary time allows, we will bring forward appropriate measures which will place the detail of DNA retention periods on the face of primary legislation, allowing full debate and scrutiny on the issue in both Houses.</p>
+	<p pid="a.175.2/3">As far as the process of removal raised by the African Peoples Advocacy is concerned, currently only chief police officers have the discretion to decide whether to remove DNA records. The guidance on the exceptional case procedure issued by the Association of Chief Police Officers makes it clear that records and profiles which have been taken lawfully will be removed only in exceptional cases. If a person thinks their DNA records should be removed from the database all they need to do is write to their local chief police officer setting out what they feel are the exceptional circumstances around their case that would qualify for their records to be removed.</p>
+	<p pid="a.175.2/4">The consultation paper on DNA retention proposed placing the exceptional case procedure on a statutory footing and detailing the criteria under which applications should be considered. This aims to make the process more open and transparent and to raise public awareness of the ability to apply for deletion and the grounds on which such applications could be made.</p>
+	<p pid="a.175.2/5">The retention rules for the DNA database as they apply in Scotland are a matter for the Scottish Executive and as such Her Majesty's Government are unable to provide an assessment.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.176.0" nospeaker="true" colnum="176"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000638">
+	Northern Ireland Office: Consultants
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.176.1" speakerid="uk.org.publicwhip/lord/100358" speakername="Lord Laird" colon=":" colnum="176"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000638">
+	<p pid="a.176.1/1" qnum="HL5649">To ask Her Majesty's Government what outside consultants were employed by the Northern Ireland Office from 1 September in each of the past five years; for what tasks; and at what cost.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.176.2" speakerid="uk.org.publicwhip/lord/100828" speakername="Baroness Royall of Blaisdon" colon=":" colnum="176"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0001.htm#09102934000049">
+	<p pid="a.176.2/1">The Northern Ireland Office (NIO) has control mechanisms in place to ensure that the use of external consultancy is managed appropriately. The cost of external consultancy has dropped steadily over the past four financial years with a 45 per cent reduction in costs over the period.</p>
+	<p pid="a.176.2/2">Detailed information on the use of external consultants by the NIO and its executive agencies is only available for each financial year from 2005-06 to 2008-09. The following tables give a breakdown of the type of consultancy provided and the costs in each of the last four financial years.</p>
+	<table>
+		<tbody>
+			<tr pid="a.176.2/5"> <td colspan="2"><I>NIO and Executive Agencies Financial Year 2005-06</I></td> </tr>
+			<tr pid="a.176.2/6"> <td>Management</td> <td></td> </tr>
+			<tr pid="a.176.2/7"> <td>CPCR Ltd</td> <td>&pound;300,000</td> </tr>
+			<tr pid="a.176.2/8"> <td>Deloitte</td> <td>&pound;107,500</td> </tr>
+			<tr pid="a.176.2/9"> <td>Williamson Consulting</td> <td>&pound;36,239</td> </tr>
+			<tr pid="a.176.2/10"> <td>Grafton Recruiting</td> <td>&pound;32,000</td> </tr>
+			<tr pid="a.176.2/11"> <td>Jenkinson Consulting</td> <td>&pound;24,000</td> </tr>
+			<tr pid="a.176.2/12"> <td>Parity</td> <td>&pound;19,835</td> </tr>
+			<tr pid="a.176.2/13"> <td>Price Waterhouse Coopers</td> <td>&pound;15,080</td> </tr>
+			<tr pid="a.176.2/14"> <td>Clairteq Systems Consulting</td> <td>&pound;14,252</td> </tr>
+			<tr pid="a.176.2/15"> <td>Penna PLC</td> <td>&pound;12,866</td> </tr>
+			<tr pid="a.176.2/16"> <td>TTC International</td> <td>&pound;11,485</td> </tr>
+			<tr pid="a.176.2/17"> <td>OGC</td> <td>&pound;10,861</td> </tr>
+			<tr pid="a.176.2/18"> <td>Anderson Spratt</td> <td>&pound;10,497</td> </tr>
+			<tr pid="a.176.2/19"> <td>M.M.M.A</td> <td>&pound;9,990</td> </tr>
+			<tr pid="a.176.2/20"> <td>QUB</td> <td>&pound;9,054</td> </tr>
+			<tr pid="a.176.2/21"> <td>FSS</td> <td>&pound;8,556</td> </tr>
+			<tr pid="a.176.2/22"> <td>JBM Consultants Ltd</td> <td>&pound;7,380</td> </tr>
+			<tr pid="a.176.2/23"> <td>The Whitehall &amp; Industry Group</td> <td>&pound;4,000</td> </tr>
+			<tr pid="a.176.2/24"> <td>The Test Score</td> <td>&pound;3,414</td> </tr>
+			<tr pid="a.176.2/25"> <td>BBC Consultancy</td> <td>&pound;2,720</td> </tr>
+			<tr pid="a.176.2/26"> <td>Daniell Consulting</td> <td>&pound;2,147</td> </tr>
+			<tr pid="a.176.2/27"> <td>Others/Individual Contracts</td> <td>&pound;85,913</td> </tr>
+			<tr pid="a.176.2/28"> <td>Cumulative total</td> <td>&pound;727,789</td> </tr>
+			<tr pid="a.176.2/29"> <td colspan="2">Financial</td> </tr>
+			<tr pid="a.176.2/30"> <td>Watts &amp; Partners</td> <td>&pound;131,473</td> </tr>
+			<tr pid="a.176.2/31"> <td>PWC</td> <td>&pound;38,939</td> </tr>
+			<tr pid="a.176.2/32"> <td>BDO</td> <td>&pound;14,500</td> </tr>
+			<tr pid="a.176.2/33"> <td>AH Design</td> <td>&pound;6,580</td> </tr>
+			<tr pid="a.176.2/34"> <td>ASM Howarth</td> <td>&pound;6,000</td> </tr>
+			<tr pid="a.176.2/35"> <td>QUB</td> <td>&pound;2,524</td> </tr>
+			<tr pid="a.176.2/36"> <td>Others/Individual Contracts</td> <td>&pound;67,430</td> </tr>
+			<tr pid="a.176.2/37"> <td>Cumulative total</td> <td>&pound;267,446</td> </tr>
+			<tr pid="a.176.2/38"> <td colspan="2">Assurance</td> </tr>
+			<tr pid="a.176.2/39"> <td>OGC</td> <td>&pound;14,000</td> </tr>
+			<tr pid="a.176.2/40"> <td>T &amp; S International</td> <td>&pound;1,640</td> </tr>
+			<tr pid="a.176.2/41"> <td>Cumulative total</td> <td>&pound;15,640</td> </tr>
+			<tr pid="a.176.2/42"> <td colspan="2">Research</td> </tr>
+			<tr pid="a.176.2/43"> <td>Keppies Design</td> <td>&pound;120,158</td> </tr>
+			<tr pid="a.176.2/44"> <td>L'Estrange &amp; Brett</td> <td>&pound;56,352</td> </tr>
+			<tr pid="a.176.2/45"> <td>Napier Watson</td> <td>&pound;40,907</td> </tr>
+			<tr pid="a.176.2/46"> <td>Colin Burrows CICS Ltd</td> <td>&pound;29,515</td> </tr>
+			<tr pid="a.176.2/47"> <td>Anderson Spratt</td> <td>&pound;10,229</td> </tr>
+			<tr pid="a.176.2/48"> <td>AASK</td> <td>&pound;9,000</td> </tr>
+			<tr pid="a.176.2/49"> <td>Turley Assoc</td> <td>&pound;6,112</td> </tr>
+			<tr pid="a.176.2/50"> <td>Claire Consulting</td> <td>&pound;1,000</td> </tr>
+			<tr pid="a.176.2/51"> <td>Others/Individual Contracts</td> <td>&pound;195,576</td> </tr>
+			<tr pid="a.176.2/52"> <td>Cumulative total</td> <td>&pound;468,849</td> </tr>
+			<tr pid="a.176.2/53"> <td colspan="2">Marketing</td> </tr>
+			<tr pid="a.176.2/54"> <td>Anderson Spratt</td> <td>&pound;18,000</td> </tr>
+			<tr pid="a.176.2/55"> <td>Cumulative total</td> <td>&pound;18,000</td> </tr>
+			<tr pid="a.176.2/56"> <td colspan="2">General Consultancy</td> </tr>
+			<tr pid="a.176.2/57"> <td>Cleaver Fulton &amp; Rankin</td> <td>&pound;20,000</td> </tr>
+			<tr pid="a.176.2/58"> <td>Deloitte</td> <td>&pound;19,975</td> </tr>
+			<tr pid="a.176.2/59"> <td>Aedas</td> <td>&pound;9,500</td> </tr>
+			<tr pid="a.176.2/60"> <td>BDP</td> <td>&pound;7,300</td> </tr>
+			<tr pid="a.176.2/61"> <td>Karolyn Cooper</td> <td>&pound;6,017</td> </tr>
+			<tr pid="a.176.2/62"> <td>Cowan Architectural</td> <td>&pound;4,000</td> </tr>
+			<tr pid="a.176.2/63"> <td>DLA</td> <td>&pound;3,080</td> </tr>
+			<tr pid="a.176.2/64"> <td>CSO</td> <td>&pound;126</td> </tr>
+			<tr pid="a.176.2/65"> <td>Others/Individual Contracts</td> <td>&pound;5,000</td> </tr>
+			<tr pid="a.176.2/66"> <td>Cumulative total</td> <td>&pound;74,998</td> </tr>
+			<tr pid="a.176.2/67"> <td colspan="2">IT Consultancy</td> </tr>
+			<tr pid="a.176.2/68"> <td>Tim Lewis Rec</td> <td>&pound;311,651</td> </tr>
+			<tr pid="a.176.2/69"> <td>Deloitte</td> <td>&pound;146,544</td> </tr>
+			<tr pid="a.176.2/70"> <td>Osprey Mott MacDonald</td> <td>&pound;126,409</td> </tr>
+			<tr pid="a.176.2/71"> <td>PA Consulting</td> <td>&pound;72,800</td> </tr>
+			<tr pid="a.176.2/72"> <td>Securetest</td> <td>&pound;72,701</td> </tr>
+			<tr pid="a.176.2/73"> <td>Parasol</td> <td>&pound;52,700</td> </tr>
+			<tr pid="a.176.2/74"> <td>ICS Computing</td> <td>&pound;25,740</td> </tr>
+			<tr pid="a.176.2/75"> <td>HP</td> <td>&pound;22,700</td> </tr>
+			<tr pid="a.176.2/76"> <td>Mentec International Ltd</td> <td>&pound;19,245</td> </tr>
+			<tr pid="a.176.2/77"> <td>Deloitte</td> <td>&pound;7,000</td> </tr>
+			<tr pid="a.176.2/78"> <td>IB Solutions</td> <td>&pound;875</td> </tr>
+			<tr pid="a.176.2/79"> <td>Cumulative total</td> <td>&pound;858,365</td> </tr>
+			<tr pid="a.176.2/80"> <td>Total Expenditure 05/06</td> <td>&pound;2,431,087</td> </tr>
+		</tbody>
+	</table>
+	<table>
+		<tbody>
+			<tr pid="a.176.2/85"> <td colspan="2"><I>Executive Agencies Financial Year 2006-07</I></td> </tr>
+			<tr pid="a.176.2/86"> <td>Management</td> <td></td> </tr>
+			<tr pid="a.176.2/87"> <td>Deloitte</td> <td>&pound;92,839</td> </tr>
+			<tr pid="a.176.2/88"> <td>Grafton Recruitment</td> <td>&pound;65,163</td> </tr>
+			<tr pid="a.176.2/89"> <td>CPCR</td> <td>&pound;22,200</td> </tr>
+			<tr pid="a.176.2/90"> <td>Parity</td> <td>&pound;19,835</td> </tr>
+			<tr pid="a.176.2/91"> <td>Deloitte</td> <td>&pound;17,476</td> </tr>
+			<tr pid="a.176.2/92"> <td>Jenkinson Consultancy</td> <td>&pound;16,215</td> </tr>
+			<tr pid="a.176.2/93"> <td>PricewaterhouseCoopers</td> <td>&pound;12,393</td> </tr>
+			<tr pid="a.176.2/94"> <td>The Whitehall Industry Group</td> <td>&pound;8,000</td> </tr>
+			<tr pid="a.176.2/95"> <td>Stredia</td> <td>&pound;2,540</td> </tr>
+			<tr pid="a.176.2/96"> <td>Young Minds</td> <td>&pound;2,068</td> </tr>
+			<tr pid="a.176.2/97"> <td>CIPFA</td> <td>&pound;2,000</td> </tr>
+			<tr pid="a.176.2/98"> <td>McMurray Consulting Ltd</td> <td>&pound;1,000</td> </tr>
+			<tr pid="a.176.2/99"> <td>Allnut &amp; Assoc</td> <td>&pound;911</td> </tr>
+			<tr pid="a.176.2/100"> <td>JBM Consultants Ltd</td> <td>&pound;265</td> </tr>
+			<tr pid="a.176.2/101"> <td>Others/Individual Contracts</td> <td>&pound;60,572</td> </tr>
+			<tr pid="a.176.2/102"> <td>Cumulative total</td> <td>&pound;323,477</td> </tr>
+			<tr pid="a.176.2/103"> <td colspan="2">Financial</td> </tr>
+			<tr pid="a.176.2/104"> <td>Watts &amp; Partners</td> <td>&pound;86,000</td> </tr>
+			<tr pid="a.176.2/105"> <td>BDO</td> <td>&pound;19,181</td> </tr>
+			<tr pid="a.176.2/106"> <td>PWC</td> <td>&pound;15,820</td> </tr>
+			<tr pid="a.176.2/107"> <td>AH Design</td> <td>&pound;5,600</td> </tr>
+			<tr pid="a.176.2/108"> <td>QUB</td> <td>&pound;2,524</td> </tr>
+			<tr pid="a.176.2/109"> <td>Other/Individual Contracts</td> <td>&pound;63,870</td> </tr>
+			<tr pid="a.176.2/110"> <td>Cumulative total</td> <td>&pound;192,995</td> </tr>
+			<tr pid="a.176.2/111"> <td colspan="2">Assurance</td> </tr>
+			<tr pid="a.176.2/112"> <td>Deloitte</td> <td>&pound;40,919</td> </tr>
+			<tr pid="a.176.2/113"> <td>OGC</td> <td>&pound;14,000</td> </tr>
+			<tr pid="a.176.2/114"> <td>T&amp;S International Training</td> <td>&pound;6,030</td> </tr>
+			<tr pid="a.176.2/115"> <td>Scrutiny Panel</td> <td>&pound;5,117</td> </tr>
+			<tr pid="a.176.2/116"> <td>Others/Individual Contracts</td> <td>&pound;19,530</td> </tr>
+			<tr pid="a.176.2/117"> <td>Cumulative total</td> <td>&pound;85,596</td> </tr>
+			<tr pid="a.176.2/118"> <td colspan="2">Research</td> </tr>
+			<tr pid="a.176.2/119"> <td>Dream Group Ltd</td> <td>&pound;106,040</td> </tr>
+			<tr pid="a.176.2/120"> <td>Deloitte</td> <td>&pound;49,175</td> </tr>
+			<tr pid="a.176.2/121"> <td>ARCS UK Ltd</td> <td>&pound;30,000</td> </tr>
+			<tr pid="a.176.2/122"> <td>DSTL</td> <td>&pound;28,667</td> </tr>
+			<tr pid="a.176.2/123"> <td>Northern Ireland Youth Forum</td> <td>&pound;3,000</td> </tr>
+			<tr pid="a.176.2/124"> <td>Community Dialogue</td> <td>&pound;2,550</td> </tr>
+			<tr pid="a.176.2/125"> <td>Others/Individual Contracts</td> <td>&pound;153,263</td> </tr>
+			<tr pid="a.176.2/126"> <td>Cumulative total</td> <td>&pound;372,695</td> </tr>
+			<tr pid="a.176.2/127"> <td colspan="2">Marketing</td> </tr>
+			<tr pid="a.176.2/128"> <td>Anderson Spratt</td> <td>&pound;23,504</td> </tr>
+			<tr pid="a.176.2/129"> <td>Cumulative total</td> <td>&pound;23,504</td> </tr>
+			<tr pid="a.176.2/130"> <td colspan="2">General Consultancy</td> </tr>
+			<tr pid="a.176.2/131"> <td>Keppie Design</td> <td>&pound;90,000</td> </tr>
+			<tr pid="a.176.2/132"> <td>Operational Team</td> <td>&pound;47,000</td> </tr>
+			<tr pid="a.176.2/133"> <td>BDP</td> <td>&pound;34,075</td> </tr>
+			<tr pid="a.176.2/134"> <td>Newell &amp; Budge</td> <td>&pound;22,976</td> </tr>
+			<tr pid="a.176.2/135"> <td>Cleaver Fulton Rankin</td> <td>&pound;15,260</td> </tr>
+			<tr pid="a.176.2/136"> <td>Aedas</td> <td>&pound;9,500</td> </tr>
+			<tr pid="a.176.2/137"> <td>RPS</td> <td>&pound;7,250</td> </tr>
+			<tr pid="a.176.2/138"> <td>L'Estrange &amp; Brett</td> <td>&pound;4,540</td> </tr>
+			<tr pid="a.176.2/139"> <td>Crown Architectural</td> <td>&pound;1,800</td> </tr>
+			<tr pid="a.176.2/140"> <td>Others/Individual Contracts</td> <td>&pound;40,659</td> </tr>
+			<tr pid="a.176.2/141"> <td>Cumulative total</td> <td>&pound;273,060</td> </tr>
+			<tr pid="a.176.2/142"> <td colspan="2">IT Consultancy</td> </tr>
+			<tr pid="a.176.2/143"> <td>Tim Lewis Rec</td> <td>&pound;60,000</td> </tr>
+			<tr pid="a.176.2/144"> <td>Osprey Mott Mac Donald</td> <td>&pound;56,959</td> </tr>
+			<tr pid="a.176.2/145"> <td>Parasol</td> <td>&pound;50,000</td> </tr>
+			<tr pid="a.176.2/146"> <td>Singularity</td> <td>&pound;28,050</td> </tr>
+			<tr pid="a.176.2/147"> <td>BT</td> <td>&pound;27,318</td> </tr>
+			<tr pid="a.176.2/148"> <td>Mentec Int Ltd</td> <td>&pound;26,490</td> </tr>
+			<tr pid="a.176.2/149"> <td>BIC Systems</td> <td>&pound;15,407</td> </tr>
+			<tr pid="a.176.2/150"> <td>HP</td> <td>&pound;15,000</td> </tr>
+			<tr pid="a.176.2/151"> <td>Deloitte</td> <td>&pound;10,000</td> </tr>
+			<tr pid="a.176.2/152"> <td>PA Consulting</td> <td>&pound;9,060</td> </tr>
+			<tr pid="a.176.2/153"> <td>DLA Piper</td> <td>&pound;8,958</td> </tr>
+			<tr pid="a.176.2/154"> <td>Photobase</td> <td>&pound;7,285</td> </tr>
+			<tr pid="a.176.2/155"> <td>OGC</td> <td>&pound;5,974</td> </tr>
+			<tr pid="a.176.2/156"> <td>Biznet</td> <td>&pound;5,858</td> </tr>
+			<tr pid="a.176.2/157"> <td>DID</td> <td>&pound;129</td> </tr>
+			<tr pid="a.176.2/158"> <td>BDS</td> <td>&pound;41</td> </tr>
+			<tr pid="a.176.2/159"> <td>Cumulative total</td> <td>&pound;326,529</td> </tr>
+			<tr pid="a.176.2/160"> <td>Total Expenditure 06/07</td> <td>&pound;1,597,856</td> </tr>
+		</tbody>
+	</table>
+	<table>
+		<tbody>
+			<tr pid="a.176.2/165"> <td colspan="2"><I>NIO and Executive Agencies Financial Year 2007-08</I></td> </tr>
+			<tr pid="a.176.2/166"> <td>Management</td> <td></td> </tr>
+			<tr pid="a.176.2/167"> <td>NI Youth Forum</td> <td>&pound;1,007</td> </tr>
+			<tr pid="a.176.2/168"> <td>Anderson Spratt</td> <td>&pound;17,049</td> </tr>
+			<tr pid="a.176.2/169"> <td>Kairos</td> <td>&pound;8,500</td> </tr>
+			<tr pid="a.176.2/170"> <td>Deloitte</td> <td>&pound;24,663</td> </tr>
+			<tr pid="a.176.2/171"> <td>FGS McClure Watters</td> <td>&pound;14,000</td> </tr>
+			<tr pid="a.176.2/172"> <td>Capita Learning &amp; Dev</td> <td>&pound;1,415</td> </tr>
+			<tr pid="a.176.2/173"> <td>Grafton Recruitment</td> <td>&pound;12,756</td> </tr>
+			<tr pid="a.176.2/174"> <td>Odgers Ray and Berndston</td> <td>&pound;35,281</td> </tr>
+			<tr pid="a.176.2/175"> <td>Jenkinson Consulting</td> <td>&pound;1,800</td> </tr>
+			<tr pid="a.176.2/176"> <td>Others/Individual Contracts</td> <td>&pound;10,176</td> </tr>
+			<tr pid="a.176.2/177"> <td>Cumulative total</td> <td>&pound;126,618</td> </tr>
+			<tr pid="a.176.2/178"> <td colspan="2">Financial</td> </tr>
+			<tr pid="a.176.2/179"> <td>Disability Action</td> <td>&pound;4,179</td> </tr>
+			<tr pid="a.176.2/180"> <td>Moore Stephens (CJINI)</td> <td>&pound;2,926</td> </tr>
+			<tr pid="a.176.2/181"> <td>PKF Consultancy</td> <td>&pound;50,878</td> </tr>
+			<tr pid="a.176.2/182"> <td>PWC</td> <td>&pound;60,350</td> </tr>
+			<tr pid="a.176.2/183"> <td>Cumulative total</td> <td>&pound;118,333</td> </tr>
+			<tr pid="a.176.2/184"> <td colspan="2">Assurance</td> </tr>
+			<tr pid="a.176.2/185"> <td>T&amp;S International</td> <td>&pound;23,262</td> </tr>
+			<tr pid="a.176.2/186"> <td>UKAS Accreditation</td> <td>&pound;2,203</td> </tr>
+			<tr pid="a.176.2/187"> <td>Jenkinson Consulting</td> <td>&pound;895</td> </tr>
+			<tr pid="a.176.2/188"> <td>Others/Individual Contracts</td> <td>&pound;11,515</td> </tr>
+			<tr pid="a.176.2/189"> <td>Cumulative total</td> <td>&pound;37,875</td> </tr>
+			<tr pid="a.176.2/190"> <td colspan="2">Research</td> </tr>
+			<tr pid="a.176.2/191"> <td>Quality Business Management</td> <td>&pound;5,423</td> </tr>
+			<tr pid="a.176.2/192"> <td>Others/Individual Contracts</td> <td>&pound;52,517</td> </tr>
+			<tr pid="a.176.2/193"> <td>Cumulative total</td> <td>&pound;57,940</td> </tr>
+			<tr pid="a.176.2/194"> <td colspan="2">Marketing</td> </tr>
+			<tr pid="a.176.2/195"> <td>GPS</td> <td>&pound;2,500</td> </tr>
+			<tr pid="a.176.2/196"> <td>Coppernoise</td> <td>&pound;1,145</td> </tr>
+			<tr pid="a.176.2/197"> <td>Label One Ltd</td> <td>&pound;3,273</td> </tr>
+			<tr pid="a.176.2/198"> <td>Peninsula Print &amp; Design Ltd</td> <td>&pound;998</td> </tr>
+			<tr pid="a.176.2/199"> <td>Page Setup</td> <td>&pound;1,262</td> </tr>
+			<tr pid="a.176.2/200"> <td>Milward Brown Ulster</td> <td>&pound;21,385</td> </tr>
+			<tr pid="a.176.2/201"> <td>Cumulative total</td> <td>&pound;30,562</td> </tr>
+			<tr pid="a.176.2/202"> <td colspan="2">General Consultancy</td> </tr>
+			<tr pid="a.176.2/203"> <td>Carter Globe associates</td> <td>&pound;36,000</td> </tr>
+			<tr pid="a.176.2/204"> <td>Myles Danker Estate Man Advice</td> <td>&pound;2,500</td> </tr>
+			<tr pid="a.176.2/205"> <td>Quest Consulting</td> <td>&pound;17,000</td> </tr>
+			<tr pid="a.176.2/206"> <td>Williams &amp; Shaw</td> <td>&pound;1,000</td> </tr>
+			<tr pid="a.176.2/207"> <td>BDP</td> <td>&pound;8,267</td> </tr>
+			<tr pid="a.176.2/208"> <td>L'Estrange and Brett</td> <td>&pound;9,598</td> </tr>
+			<tr pid="a.176.2/209"> <td>Others/Individual Contracts</td> <td>&pound;61,106</td> </tr>
+			<tr pid="a.176.2/210"> <td>Cumulative total</td> <td>&pound;135,471</td> </tr>
+			<tr pid="a.176.2/211"> <td colspan="2">IT Consultancy</td> </tr>
+			<tr pid="a.176.2/212"> <td>Mott MacDonald</td> <td>&pound;295,220</td> </tr>
+			<tr pid="a.176.2/213"> <td>Deloitte</td> <td>&pound;22,770</td> </tr>
+			<tr pid="a.176.2/214"> <td>PWC (CJINI)</td> <td>&pound;5,170</td> </tr>
+			<tr pid="a.176.2/215"> <td>Microsoft</td> <td>&pound;48,000</td> </tr>
+			<tr pid="a.176.2/216"> <td>ICS</td> <td>&pound;20,000</td> </tr>
+			<tr pid="a.176.2/217"> <td>Fujitsu</td> <td>&pound;513,000</td> </tr>
+			<tr pid="a.176.2/218"> <td>iB Solutions</td> <td>&pound;22,000</td> </tr>
+			<tr pid="a.176.2/219"> <td>NDI</td> <td>&pound;20,000</td> </tr>
+			<tr pid="a.176.2/220"> <td>Selex</td> <td>&pound;23,778</td> </tr>
+			<tr pid="a.176.2/221"> <td>ICS</td> <td>&pound;29,150</td> </tr>
+			<tr pid="a.176.2/222"> <td>Real Estate Management</td> <td>&pound;3,990</td> </tr>
+			<tr pid="a.176.2/223"> <td>Cumulative total</td> <td>&pound;1,003,078</td> </tr>
+			<tr pid="a.176.2/224"> <td>Total Expenditure 07/08</td> <td>&pound;1,509,877</td> </tr>
+		</tbody>
+	</table>
+	<table>
+		<tbody>
+			<tr pid="a.176.2/229"> <td colspan="2"><I>NIO and Executive Agencies Financial Year 2008-09</I></td> </tr>
+			<tr pid="a.176.2/230"> <td>Management</td> <td></td> </tr>
+			<tr pid="a.176.2/231"> <td>MacDonald Stephen Consultancy Ltd</td> <td>&pound;33,044</td> </tr>
+			<tr pid="a.176.2/232"> <td>Deloitte</td> <td>&pound;57,554</td> </tr>
+			<tr pid="a.176.2/233"> <td>KPMG</td> <td>&pound;22,000</td> </tr>
+			<tr pid="a.176.2/234"> <td>Hays Healthcare Consultancy</td> <td>&pound;20,139</td> </tr>
+			<tr pid="a.176.2/235"> <td>Kairos</td> <td>&pound;8,500</td> </tr>
+			<tr pid="a.176.2/236"> <td>Social Research Centre Ltd</td> <td>&pound;10,315</td> </tr>
+			<tr pid="a.176.2/237"> <td>Carter Goble Lee</td> <td>&pound;32,400</td> </tr>
+			<tr pid="a.176.2/238"> <td>SRB Consultants</td> <td>&pound;4,469</td> </tr>
+			<tr pid="a.176.2/239"> <td>PWC</td> <td>&pound;5,220</td> </tr>
+			<tr pid="a.176.2/240"> <td>Others/Individual Contracts</td> <td>&pound;87,858</td> </tr>
+			<tr pid="a.176.2/241"> <td>Cumulative total</td> <td>&pound;281,499</td> </tr>
+			<tr pid="a.176.2/242"> <td colspan="2">Financial</td> </tr>
+			<tr pid="a.176.2/243"> <td>PWC</td> <td>&pound;60,853</td> </tr>
+			<tr pid="a.176.2/244"> <td>BDP</td> <td>&pound;29,719</td> </tr>
+			<tr pid="a.176.2/245"> <td>Deloitte</td> <td>&pound;11,260</td> </tr>
+			<tr pid="a.176.2/246"> <td>Clarke Shipway</td> <td>&pound;8,721</td> </tr>
+			<tr pid="a.176.2/247"> <td>Cumulative total</td> <td>&pound;110,553</td> </tr>
+			<tr pid="a.176.2/248"> <td colspan="2">Assurance</td> </tr>
+			<tr pid="a.176.2/249"> <td>OCPA</td> <td>&pound;1,393</td> </tr>
+			<tr pid="a.176.2/250"> <td>OGC</td> <td>&pound;13,600</td> </tr>
+			<tr pid="a.176.2/251"> <td>Grant Thornton</td> <td>&pound;19,650</td> </tr>
+			<tr pid="a.176.2/252"> <td>Key Forensic Services</td> <td>&pound;43,436</td> </tr>
+			<tr pid="a.176.2/253"> <td>Others/Individual Contracts</td> <td>&pound;21,979</td> </tr>
+			<tr pid="a.176.2/254"> <td>Cumulative total</td> <td>&pound;100,058</td> </tr>
+			<tr pid="a.176.2/255"> <td colspan="2">Research</td> </tr>
+			<tr pid="a.176.2/256"> <td>Williamson Consulting</td> <td>&pound;1,884</td> </tr>
+			<tr pid="a.176.2/257"> <td>Cumulative total</td> <td>&pound;1,884</td> </tr>
+			<tr pid="a.176.2/258"> <td colspan="2">Marketing</td> </tr>
+			<tr pid="a.176.2/259"> <td>N/A</td> <td>0</td> </tr>
+			<tr pid="a.176.2/260"> <td colspan="2">General Consultancy</td> </tr>
+			<tr pid="a.176.2/261"> <td>PWC</td> <td>&pound;89,776</td> </tr>
+			<tr pid="a.176.2/262"> <td>Fitzsimons Kinney Mallon Sols</td> <td>&pound;532</td> </tr>
+			<tr pid="a.176.2/263"> <td>Hamilton Architects</td> <td>&pound;1,500</td> </tr>
+			<tr pid="a.176.2/264"> <td>Grant Thornton</td> <td>&pound;19,815</td> </tr>
+			<tr pid="a.176.2/265"> <td>DLA Piper</td> <td>&pound;37,519</td> </tr>
+			<tr pid="a.176.2/266"> <td>Hays Construction &amp; Property</td> <td>&pound;9,769</td> </tr>
+			<tr pid="a.176.2/267"> <td>Others/Individual Contracts</td> <td>&pound;134,516</td> </tr>
+			<tr pid="a.176.2/268"> <td>Cumulative total</td> <td>&pound;293,427</td> </tr>
+			<tr pid="a.176.2/269"> <td colspan="2">IT Consultancy</td> </tr>
+			<tr pid="a.176.2/270"> <td>Deloitte</td> <td>&pound;20,000</td> </tr>
+			<tr pid="a.176.2/271"> <td>Fluent Technology</td> <td>&pound;1,050</td> </tr>
+			<tr pid="a.176.2/272"> <td>Fujitsu</td> <td>&pound;233,000</td> </tr>
+			<tr pid="a.176.2/273"> <td>Lagan</td> <td>&pound;5,000</td> </tr>
+			<tr pid="a.176.2/274"> <td>ICS</td> <td>&pound;40,000</td> </tr>
+			<tr pid="a.176.2/275"> <td>Mott Macdonald</td> <td>&pound;212,137</td> </tr>
+			<tr pid="a.176.2/276"> <td>Selex</td> <td>&pound;11,000</td> </tr>
+			<tr pid="a.176.2/277"> <td>Biznet</td> <td>&pound;4,994</td> </tr>
+			<tr pid="a.176.2/278"> <td>Cumulative total</td> <td>&pound;527,181</td> </tr>
+			<tr pid="a.176.2/279"> <td>Total Expenditure 08/09</td> <td>&pound;1,314,602</td> </tr>
+		</tbody>
+	</table>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.180.0" nospeaker="true" colnum="180"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000639">
+	Pollution: Airborne Particles
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.180.1" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="180"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000639">
+	<p pid="a.180.1/1" qnum="HL5685">To ask Her Majesty's Government what is the average number of years lost per person in England and Wales who dies prematurely from short-, medium- or long-term exposure to particulate matter (PM10).</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.181.0" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="181"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000542">
+	<p pid="a.181.0/1">Calculations carried out for the review of the UK air quality strategy (<a href="http://www.defra">www.defra</a>. gov.uk/environment/quality/air/airquality/publications/stratreview-analysis/index.htm) estimated that, if all man-made fine particulate matter (PM2.5) present in the UK in 2005 were removed for the lifetime of people born in 2005, the average life expectancy per person would be 7 to 8 months greater than if the level of man-made PM2.5 had remained at 2005 levels for a lifetime.</p>
+	<p pid="a.181.0/2">The above calculation represents the effect of long-term exposure to fine particles. A similar calculation has not been done for PM10 since the evidence that it is a good metric for representing the effect of long-term exposure is much weaker than for PM2.5. (<a href="http://www">www</a>. advisorybodies.doh.gov.uk/comeap/pdfs/finallongtermeffectsmort2009report.pdf).</p>
+	<p pid="a.181.0/3">Studies of short-term exposure to PM10 do suggest a link with increased mortality but the studies do not give direct information on the life lost per person. It is thought that those affected are probably already seriously ill but that many of the deaths are brought forward by several months, rather than just days or weeks.</p>
+	<p pid="a.181.0/4">There are too few studies of the effects of medium term exposure for calculations such as those above to be made.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.181.1" nospeaker="true" inserted-heading="true" colnum="181"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000640">
+	Pollution: Airborne Particles
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.181.2" speakerid="uk.org.publicwhip/lord/100042" speakername="Lord Berkeley" colon=":" colnum="181"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000640">
+	<p pid="a.181.2/1" qnum="HL5686">To ask Her Majesty's Government what is their calculation, based on the latest advice from the Committee on the Medical Effects of Air Pollutants (using a six per cent coefficient for all-cause mortality), of the number of people who died prematurely in Greater London in 2005 as a result of short-, medium- or long-term exposure to particulate matter (PM10).</p>
+	<p pid="a.181.2/2" qnum="HL5687">To ask Her Majesty's Government what is their calculation, based on the latest advice from the Committee on Medical Effects of Air Pollutants for sensitivity analyses (assuming a 12 per cent and a 15 per cent coefficient for all-cause mortality), of the number of people who died prematurely in Greater London in 2005 as a result of short-, medium- or long-term exposure to particulate matter (PM10).</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.181.3" speakerid="uk.org.publicwhip/lord/100164" speakername="Lord Davies of Oldham" colon=":" colnum="181"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000546">
+	<p pid="a.181.3/1">The specified coefficients relate only to the effects of long-term exposure.</p>
+	<p pid="a.181.3/2">Calculations on the health impact of long-term exposure to fine particles (PM2.5) in Greater London will be done as part of a forthcoming supplement to the report of the Committee on the Medical Effects of Air Pollutants on <I>Long-t</I><I>erm Exposure to Air Pollution: Effect on Mortality</I> (<a href="http://www.advisorybodies.doh.gov.uk/COMEAP/pdfs/finallongtermeffectsmort2009report.pdf">www.advisorybodies.doh.gov.uk/COMEAP/pdfs/finallongtermeffectsmort2009report.pdf</a>.</p>
+	<p pid="a.181.3/3">The main results will be expressed in terms of effect on life expectancy, as this is more appropriate with regard to long-term exposure. However, there is also likely to be discussion on changes in the numbers of deaths over time.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.182.0" nospeaker="true" colnum="182"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000641">
+	Sierra Leone: Visas
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.182.1" speakerid="uk.org.publicwhip/lord/100855" speakername="Lord Jones of Cheltenham" colon=":" colnum="182"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000641">
+	<p pid="a.182.1/1" qnum="HL5660">To ask Her Majesty's Government what assessment they have made of the effect on citizens of Sierra Leone of the decision to cease issuing visas in Freetown; and what is the estimated annual saving achieved by that decision.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.182.2" speakerid="uk.org.publicwhip/lord/100956" speakername="Lord West of Spithead" colon=":" colnum="182"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000549">
+	<p pid="a.182.2/1">The UK Border Agency continues to issue visas in Freetown, Sierra Leone. All applicants in Sierra Leone continue to be able to submit their applications and collect appropriate documentation in Freetown. Responsibility for decision-making on visas, however, has been transferred to Banjul as part of the UK Border Agency's &quot;hub and spoke programme&quot;. This is a global strategy to improve the quality and consistency of visa decision-making by consolidating decision-making in a regional hub, thus allowing consideration of an application in a different location from that in which it was registered.</p>
+	<p pid="a.182.2/2">The change was primarily driven by the need to improve the consistency of decision quality by transferring it to a larger specialist team in Banjul. However, we expect there will be an estimated annual saving of around &pound;60,000.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.182.3" nospeaker="true" colnum="182"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000642">
+	Universities: Officer Training Corps
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.182.4" speakerid="uk.org.publicwhip/lord/100026" speakername="Lord Astor of Hever" colon=":" colnum="182"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000642">
+	<p pid="a.182.4/1" qnum="HL5891">To ask Her Majesty's Government in light of the suspension of training for the University Officer Training Corps (UOTC), how many officers from the UOTC they expect will go to Sandhurst in (a) two, (b) three, and (c) four years' time.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.182.5" speakerid="uk.org.publicwhip/lord/100844" speakername="Baroness Taylor of Bolton" colon=":" colnum="182"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000551">
+	<p pid="a.182.5/1">The number of officers from UOTC expected to go to Sandhurst in two, three, and four years' time can only be estimated. It is estimated that the number of officers for each period will be 346.</p>
+	<p pid="a.182.5/2">The estimates are created from an average of the historical data of UOTC numbers starting at Sandhurst on both the Regular Commissioning Course and the Territorial Army Commissioning Course from 2006-08.</p>
+	<p pid="a.182.5/3">Training activity for the UOTC has not been suspended and it is hoped that the majority of UOTC core training activity will continue on a voluntary basis. Undergraduates and instructors will continue to be reimbursed for travel and subsistence costs. Non-core training activities may also continue on a voluntary basis at the discretion of commanding officers subject to the availability of volunteer instructors.</p>
+</reply>
+
+<minor-heading id="uk.org.publicwhip/wrans/2009-10-29a.183.0" nospeaker="true" colnum="183"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000643">
+	Worker Registration Scheme
+</minor-heading>
+
+<ques id="uk.org.publicwhip/wrans/2009-10-29a.183.1" speakerid="uk.org.publicwhip/lord/100794" speakername="Lord Roberts of Llandudno" colon=":" colnum="183"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000643">
+	<p pid="a.183.1/1" qnum="HL5729">To ask Her Majesty's Government how many people are registered under the Worker Registration Scheme in respect of each of the European Union accession countries.</p>
+</ques>
+
+<reply id="uk.org.publicwhip/wrans/2009-10-29a.183.2" speakerid="uk.org.publicwhip/lord/100956" speakername="Lord West of Spithead" colon=":" colnum="183"  url="http://www.publications.parliament.uk/pa/ld200809/ldhansrd/text/91029w0003.htm#09102934000554">
+	<p pid="a.183.2/1">Not all European Union accession countries' workers need to register under the Worker Registration Scheme; nationals of Malta and Cyprus are not required to register. Information for the period May 2004 to quarter one 2009 can be accessed via the following link at <a href="http://www.bia">http://www.bia</a>. homeoffice.gov.uk/sitecontent/documents/aboutus/reports/accession_monitoring_report/.</p>
+	<p pid="a.183.2/2">Information for quarter two 2009 is available via the following at <a href="http://www.homeoffice.gov.uk/rds/pdfs09/immiq209.pdf">http://www.homeoffice.gov.uk/rds/pdfs09/immiq209.pdf</a>.</p>
+</reply>
+</publicwhip>
+

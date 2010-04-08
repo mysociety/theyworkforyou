@@ -69,6 +69,7 @@ if ($order == 'party') {
 				</div>
 				<table class="people">
 				<thead>
+                <tr>
 				    <th colspan="2">Name</th>
 				    <th>Party</th>
 				    <th>Constituency</th>
@@ -81,6 +82,7 @@ if ($order == 'party') {
                     	<th>Swing to lose seat (%)</th>
                     <?php	}
                     ?>
+                </tr>
 				</thead>
 				<tbody>
 <?php
@@ -88,21 +90,8 @@ if ($order == 'party') {
 $MPURL = new URL(str_replace('s', '', $this_page));
 $style = '2';
 
-$opik = array();
-
 foreach ($data['data'] as $pid => $mp) {
-
-	// Lembit Opik is special
-	if ($mp['last_name']=='&Ouml;pik') {
-		$opik = $mp;
-		continue;
-	}
-	if ($opik && strcmp('Opik', $mp['last_name'])<0) {
-		render_mps_row($opik, $style, $order, $MPURL);
-		$opik = array();
-	}
 	render_mps_row($mp, $style, $order, $MPURL);
-
 }
 ?>
 				</tbody>
@@ -122,7 +111,7 @@ function render_mps_row($mp, &$style, $order, $MPURL) {
 				<tr>
                 <td class="row">
                 <?php
-                list($image,$sz) = find_rep_image($mp['person_id'], true);
+                list($image,$sz) = find_rep_image($mp['person_id'], true, true);
                 if ($image) {
                     echo '<a href="' . $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1) . '" class="speakerimage"><img height="59" class="portrait" alt="" src="', $image, '"';
                     echo '></a>';

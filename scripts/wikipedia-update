@@ -4,10 +4,10 @@
 #set -x
 
 cd `dirname $0`
-cd ../../
-source shlib/deployfns
+cd ../
+source commonlib/shlib/deployfns
 
-read_conf twfy/conf/general
+read_conf conf/general
 
 cd /data/vhost/www.theyworkforyou.com/dumps
 rm -f all-titles-in-ns0.gz
@@ -18,7 +18,7 @@ DUMPDATE=`wget -q -O - http://download.wikimedia.org/backup-index.html | grep "e
 wget -q -O all-titles-in-ns0.gz http://download.wikimedia.org/enwiki/$DUMPDATE/enwiki-$DUMPDATE-all-titles-in-ns0.gz
 gunzip all-titles-in-ns0.gz
 echo "load data concurrent local infile '/data/vhost/www.theyworkforyou.com/dumps/all-titles-in-ns0' ignore into table titles;" | mysql $OPTION_TWFY_DB_NAME -h $OPTION_TWFY_DB_HOST
-cd /data/vhost/www.theyworkforyou.com/mysociety/twfy/scripts
+cd `dirname $0`
 cat wikipedia-exceptions | mysql $OPTION_TWFY_DB_NAME -h $OPTION_TWFY_DB_HOST
 
 #Full database:

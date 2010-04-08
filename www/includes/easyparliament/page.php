@@ -109,7 +109,7 @@ class PAGE {
 		$sitetitle = $DATA->page_metadata($this_page, "sitetitle");
 		$keywords_title = '';
 		
-		if ($this_page == 'home') {
+		if ($this_page == 'overview') {
 			$title = $sitetitle . ': ' . $DATA->page_metadata($this_page, "title");
 		
 		} else {
@@ -124,7 +124,8 @@ class PAGE {
 
 			$parent_page = $DATA->page_metadata($this_page, 'parent');
 			if ($parent_title = $DATA->page_metadata($parent_page, 'title')) {
-				$title .= ": $parent_title";
+				if ($title) $title .= ': ';
+				$title .= $parent_title;
 			}
 
 			if ($title == '') {
@@ -249,14 +250,14 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		if (defined('OPTION_GAZE_URL') && OPTION_GAZE_URL) {
 			$country = gaze_get_country_from_ip($_SERVER["REMOTE_ADDR"]);
 			if ($country == 'NZ' || get_http_var('nz')) {
-				print '<p id="video_already"><strong>New!</strong> You\'re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
+				print '<p id="video_already">You&rsquo;re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
 			} elseif ($country == 'AU' || get_http_var('au')) {
-				print '<p id="video_already"><strong>New!</strong> You\'re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under</p>';
+				print '<p id="video_already">You&rsquo;re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under</p>';
 			} elseif ($country == 'IE' || get_http_var('ie')) {
-				print '<p id="video_already"><strong>New!</strong> Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
-			} /* else {
-				print '<p id="video_already"><strong>Mirror readers!</strong> <a href="http://www.writetothem.com/?a=westminstermp">Click here to write to your MP</a></p>';
-            } */
+				print '<p id="video_already">Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
+			} else {
+				print '<p id="video_already" style="text-align:left"><strong>Hello:</strong> <a href="http://www.democracyclub.org.uk/">Join Democracy Club to help make this the most accountable general election ever!</a></p>';
+            }
 		}
 
 # # 2009-01 interstitial
@@ -284,7 +285,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 	        <?php } ?>
 		        <ul>
 		            <li id="logo">
-		                <a href="http://www.mysociety.org"><span>mySociety</span></a>
+		                <a href="http://www.mysociety.org/"><img src="/images/mysociety_small.png" alt="mySociety" width="72" height="16"></a>
 		            </li>
 		            <li>
 		                <a href="http://www.mysociety.org/donate/?cs=1" title="Like this website? Donate to help keep it running.">Donate</a>
@@ -1008,7 +1009,8 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
         		  <div>
         		      <h5>Donate</h5>
         		      <p>
-        		          This website is run by <a href="http://www.mysociety.org/">mySociety</a>, a registered charity.
+        		          This website is run by <a href="http://www.mysociety.org/">mySociety</a>, the project of a
+                          a <a href="http://www.ukcod.org.uk/">registered charity</a>.
 				  If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
         		      </p>
         		      <h5>Sign up to our newsletter</h5>
@@ -1076,7 +1078,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		}
 ?>
 
-<br class="clear"/>
+<br class="clear">
 </div> <!-- end #footer -->
 </div> <!-- end #container -->
 
@@ -1146,88 +1148,6 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 	function display_member($member, $extra_info) {
 		include_once INCLUDESPATH . 'easyparliament/templates/html/person.php';
 	}
-	
-	function generate_member_links ($member, $links) {
-		// Receives its data from $MEMBER->display_links;
-		// This returns HTML, rather than outputting it.
-		// Why? Because we need this to be in the sidebar, and 
-		// we can't call the MEMBER object from the sidebar includes
-		// to get the links. So we call this function from the mp
-		// page and pass the HTML through to stripe_end(). Better than nothing.
-
-		// Bah, can't use $this->block_start() for this, as we're returning HTML...
-		$html = '<div class="block">
-				<h4>More useful links for this person</h4>
-				<div class="blockbody">
-				<ul' . (get_http_var('c4')?' style="list-style-type:none;"':''). '>';
-
-		if (isset($links['maiden_speech'])) {
-			$maiden_speech = fix_gid_from_db($links['maiden_speech']);
-			$html .= '<li><a href="' . WEBPATH . 'debate/?id=' . $maiden_speech . '">Maiden speech</a></li>';
-		}
-
-		// BIOGRAPHY.
-		global $THEUSER;
-		if (isset($links['mp_website'])) {
-			$html .= '<li><a href="' . $links['mp_website'] . '">'. $member->full_name().'\'s personal website</a>';
-			if ($THEUSER->is_able_to('viewadminsection')) {
-				$html .= ' [<a href="/admin/websites.php?editperson=' .$member->person_id() . '">Edit</a>]';
-			}
-			$html .= '</li>';
-		} elseif ($THEUSER->is_able_to('viewadminsection')) {
-			 $html .= '<li>[<a href="/admin/websites.php?editperson=' . $member->person_id() . '">Add personal website</a>]</li>';
-		}
-
-		if (isset($links['twitter_username'])) {
-			$html .= '<li><a href="http://twitter.com/' . $links['twitter_username'] . '">'. $member->full_name().'&rsquo;s Twitter feed</a></li>';
-		}
-
-		if (isset($links['sp_url'])) {
-			$html .= '<li><a href="' . $links['sp_url'] . '">'. $member->full_name().'\'s page on the Scottish Parliament website</a></li>';
-		}
-
-		if(isset($links['guardian_biography'])) {
-			$html .= '	<li><a href="' . $links['guardian_biography'] . '">Biography</a> <small>(From The Guardian)</small></li>';
-		}
-		if(isset($links['wikipedia_url'])) {
-			$html .= '	<li><a href="' . $links['wikipedia_url'] . '">Biography</a> <small>(From Wikipedia)</small></li>';
-		}
-		
-		if(isset($links['diocese_url'])) {
-			$html .= '	<li><a href="' . $links['diocese_url'] . '">Diocese website</a></li>';
-		}
-
-        $html .= '<li><a href="http://www.edms.org.uk/mps/' . $member->person_id() . '">Early Day Motions signed by this MP</a> <small>(From edms.org.uk)</small></li>';
-
-		if (isset($links['journa_list_link'])) {
-			$html .= '	<li><a href="' . $links['journa_list_link'] . '">Newspaper articles written by this MP</a> <small>(From Journalisted)</small></li>';
-
-		} 
-		
-		if (isset($links['guardian_election_results'])) {
-			$html .= '	<li><a href="' . $links['guardian_election_results'] . '">Election results for ' . $member->constituency() . '</a> <small>(From The Guardian)</small></li>';
-		}
-
-		if (isset($links['bbc_profile_url'])) {
-			$html .= '	<li><a href="' . $links['bbc_profile_url'] . '">General information</a> <small>(From BBC News)</small></li>';
-
-		} 
-		/*
-		# BBC Catalogue is offline
-		$bbc_name = urlencode($member->first_name()) . "%20" . urlencode($member->last_name());
-		if ($member->member_id() == -1)
-			$bbc_name = 'Queen Elizabeth';
-		$html .= '	<li><a href="http://catalogue.bbc.co.uk/catalogue/infax/search/' . $bbc_name . '">TV/radio appearances</a> <small>(From BBC Programme Catalogue)</small></li>';
-		*/
-
-		
-		$html .= "	</ul>
-					</div>
-				</div> <!-- end block -->
-";
-		return $html;
-	}
-	
 	
 	function error_message ($message, $fatal = false, $status = 500) {
 		// If $fatal is true, we exit the page right here.
@@ -1397,7 +1317,12 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		
 		if (isset($nextprev['up'])) {
 
-			$uplink = '<span class="up"><a href="' .  $nextprev['up']['url'] . '" title="' . $nextprev['up']['title'] . '">' . $nextprev['up']['body'] . '</a></span>';
+			$uplink = '<span class="up"><a href="' .  $nextprev['up']['url'] . '" title="' . $nextprev['up']['title'] . '">' . $nextprev['up']['body'] . '</a>';
+			if (get_http_var('s')) {
+				$URL = new URL($this_page);
+				$uplink .= '<br><a href="' . $URL->generate() . '">Remove highlighting</a>';
+			}
+			$uplink .= '</span>';
 		}
 		
 		
@@ -1419,7 +1344,7 @@ piwik_log(piwik_action_name, piwik_idsite, piwik_url);
 		
 		
 		if ($uplink || $prevlink || $nextlink) {
-			echo '<p class="nextprev">', $uplink, ' ', $nextlink, ' ', $prevlink, '</p><br class="clear"/>';
+			echo "<p class='nextprev'>$nextlink $prevlink $uplink</p><br class='clear'>";
 		}
 	}
 

@@ -1,0 +1,32 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}
+    Survey responses
+{% endblock %}
+
+{% block content %}
+
+<p>Most recent responses (maximum 1000)</p>
+
+{% for c in candidacies %}
+<div>
+    <strong>{{ c.candidate.name }}, {{ c.seat.name }}</strong> on {{ c.survey_filled_in_when }}
+    <ul>
+    {% for r in c.responses %}
+        <li>
+        {% if r.deleted %} <s> {% endif %} 
+            {{ r.agreement }}% agree - 
+            {{ r.refined_issue.question }} 
+            {% if r.more_explanation %}
+                <br><em>"{{r.more_explanation }}"</em>
+            {% endif %}
+        {% if r.deleted %} </s> {% endif %} 
+        </li>
+    {% endfor %}
+</ul>
+</dl>
+</div>
+{% endfor %}
+
+
+{% endblock %}

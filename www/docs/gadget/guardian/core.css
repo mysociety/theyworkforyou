@@ -1,3 +1,5 @@
+/* Expenses Component */
+
 .mysociety #expenses-brief {
    font-size: 12px; 
 }
@@ -25,8 +27,8 @@
 }
 
 .mysociety #expenses-brief #rank-header {
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #999999;
     margin-bottom: 0;
     background-color: #d3d3d3;
     padding: 0 5px 5px 5px;
@@ -45,21 +47,26 @@
 }
 
 .mysociety #expenses-brief ul li.even {
-    background-color: #d3d3d3;
+    background-color: #F5F5F5;
 }
 
-.mysociety #expenses-brief li.even, 
-.mysociety #expenses-brief li.odd {
+.mysociety #expenses-brief ul li.odd { 
+    background-color: #EDEDED;
+}                                                                           
+
+.mysociety #expenses-brief li.odd, 
+.mysociety #expenses-brief li.even {
     overflow: hidden;
     padding: 5px 5px 5px 5px;
     text-indent: 0;
     background-image: none;
+    background-repeat: no-repeat;
     clear: both;
     font-size: 12px;
 }
 
 .mysociety #expenses-brief li#total {
-    border-top: 1px solid #000000;
+    border-top: 1px solid #999999;
 }
 
 .mysociety span.expenses-raw {
@@ -77,19 +84,20 @@
 
 .mysociety p.more {
     margin-top: 5px;
-    border-bottom: 1px dotted #d3d3d3;
+    border-bottom: 1px dotted #999999;
     padding-bottom: 5px;
     margin-bottom: 5px !important;
 }
 
+/* Register of Members' Interests Component */
 
 .mysociety #rmi-brief {
    font-size: 12px; 
 }
 
 .mysociety .regmemcategory {
-   border-top: 1px solid #000000;
-   border-bottom: 1px dotted #d3d3d3;
+   border-top: 1px solid #999999;
+   border-bottom: 1px dotted #999999;
    padding: 3px 0 5px 0;
 }
 
@@ -97,14 +105,226 @@
     text-indent	: 20px;
     margin-top: 3px;
     background-image: url(http://louise.theyworkforyou.com/gadget/guardian/icon_bullet.gif);
+    background-repeat: no-repeat;
     background-position: 0 3px;
 }
 
 .mysociety #rmi-brief p.more {
     padding-top: 5px; 
-    border-top: 1px dotted #d3d3d3;
+    border-top: 1px dotted #999999;
 }
+
 
 .mysociety .mysociety-footer img {
     padding-top: 5px;
+}
+
+.mysociety .mysociety-footer a {
+   
+}
+
+/* Register of Members' Interests Resource */ 
+
+.mysociety #rmi-full h1 {
+    font-family: georgia,serif;
+    font-size: 26px;
+    font-weight: normal;
+
+}
+
+.mysociety #rmi-full h1 span{
+    color: #999999;
+    display: block;
+}
+
+
+.mysociety #rmi-full .mysociety-footer {
+    position: relative;
+    padding-top: 4px;
+}
+
+.mysociety #rmi-full .mysociety-footer span {
+    vertical-align: top;
+}
+
+.mysociety #rmi-full .mysociety-footer img {
+    padding-top: 0;
+    margin-left: 5px;
+}
+
+.mysociety #rmi-full .mysociety-footer a.mysociety-footer-image-link:focus, 
+.mysociety #rmi-full .mysociety-footer a.mysociety-footer-image-link:active {
+    background-color: #ffffff; 
+}
+
+.mysociety .mysociety-footer a:hover {
+    text-decoration: none;
+} 
+
+.mysociety #rmi-full h2 {
+    font-size: 14px;
+    font-weight: bold;
+    border-top: 10px solid #d61d00;
+    padding: 4px 0 6px 0;
+    font-family: georgia,serif;
+}
+
+.mysociety #rmi-full .regmemitem {
+    line-height: 1.357;
+    background-position: 2px 2px;
+    text-indent: 18px;
+}
+
+.mysociety #rmi-full {
+    font-size: 12px;
+}
+
+.mysociety #rmi-full .regmemcategory {
+    margin-top: 20px;
+    padding-bottom: 10px;  
+}
+
+.mysociety #rmi-full i {
+    font-style: normal;
+}
+
+.mysociety #rmi-full .rmi-lastupdate {
+    margin-top: 20px;
+    border-top: 1px solid #000000;
+    padding: 5px 0 20px 0;
+    border-bottom: 1px dotted #999999;
+}
+
+/* Expenses resource */
+
+.mysociety #expenses-full h1 {
+    font-family: georgia,serif;
+    font-size: 26px;
+    font-weight: normal;
+
+}
+
+.mysociety #expenses-full h1 span{
+    color: #999999;
+    display: block;
+}
+
+.mysociety #expenses-full h2 {
+    font-weight: bold;
+    font-size: 14px;
+    border-top: 10px solid #d61d00;
+    padding: 4px 0 6px;
+} 
+
+.mysociety #expenses-full table {
+    border-bottom: 1px solid #999999; 
+    margin-bottom: 3px;
+}
+
+.mysociety #expenses-full th.main-header {
+    font-family: georgia,serif;
+    font-size: 16px;
+    padding: 8px 0 15px 0;
+    border-top: 1px solid #D61D00;   
+} 
+
+.mysociety #expenses-full th {
+    border: 1px solid #999999;
+    padding: 3px;
+    background-color: #D3D3D3;
+    text-align: left;
+}
+
+.mysociety #expenses-full td {
+    border-left: 1px solid #999999;
+    border-right: 1px solid #999999;
+    padding: 3px; 
+}
+
+.mysociety #expenses-full th {
+    vertical-align: top;
+}
+
+.mysociety #expenses-full th.left {
+    text-align: left;
+}
+
+.mysociety #expenses-full td.row-1 {
+    background-color: #F5F5F5;
+}
+
+.mysociety #expenses-full td.row-2 {
+    background-color: #EDEDED;
+}
+
+.mysociety #expenses-full td.aggregate-value {
+    background-color: #F0F0F0;
+}
+
+.mysociety #expenses-full td.left,
+.mysociety #expenses-full th.left {
+    border-left: 0;
+}
+
+.mysociety #expenses-full td.right,  
+.mysociety #expenses-full th.right {
+    border-right: 0;
+    text-align: left;
+}
+
+.mysociety #expenses-full .overall-ranking {
+   display: block;
+}
+
+.mysociety #expenses-full td .rank {
+   display: block;
+}
+
+.mysociety #expenses-full th.total { 
+    background-color: #EDEDED;
+    border-top: 0;
+    font-weight: normal;
+    
+} 
+ 
+.mysociety #expenses-full .expenses-note-link { 
+    display: inline; 
+}
+
+.mysociety #expenses-full .extra-travel-info,
+.mysociety #expenses-full .extra-travel-info small,
+.mysociety #expenses-full .extra-info {
+   font-size: 11px; 
+   margin-bottom: 3px;
+} 
+
+.mysociety #expenses-full .extra-info {
+     border-top: 1px solid #BEBEBE;
+     margin-top: 3px;
+}
+
+.mysociety #expenses-full .people {
+    width: 460px;
+    clear: both;
+}
+ 
+.mysociety #expenses-full .people th {
+    width: 52px;
+}
+
+.mysociety #expenses-full .other-expenses-links {
+    display: block;
+    width: 440px; 
+}
+
+.mysociety #expenses-full .earlier-expenses-link {
+    float: right;
+    margin-bottom: 8px;
+    margin-top: 4px;
+}
+
+.mysociety #expenses-full .later-expenses-link {
+    float: left;
+    margin-bottom: 8px;
+    margin-top: 4px; 
 }

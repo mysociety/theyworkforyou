@@ -146,13 +146,15 @@ if ($action{'pw'}) {
         # no2id, top-up fees, abolish parliament, no smoking, Parliament FOI,
         # trident, climate change bill
         # TODO: Think about how these (esp no2id) might change now after election
-        foreach my $dreamid (1049, 1053, 1050, 363, 826, 1051, 1052, 856, 811, 975, 996, 984, 1030) {
+        foreach my $dreamid (1049, 1053, 1050, 363, 826, 1051, 1052, 856, 811, 975, 996, 984, 1030,
+            837, 1071, 1074, 1077, 1079, 1080) {
                 $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid");
         }
 }
 
 if ($action{'expenses'}) {
         print "Parsing expenses\n" if $verbose;
+        $twig->parsefile($pwmembers . "expenses200809.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "expenses200708.xml", ErrorContext => 2);        
         $twig->parsefile($pwmembers . "expenses200607.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "expenses200506.xml", ErrorContext => 2);
@@ -161,6 +163,7 @@ if ($action{'expenses'}) {
         $twig->parsefile($pwmembers . "expenses200304.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "expenses200203.xml", ErrorContext => 2);
         $twig->parsefile($pwmembers . "expenses200102.xml", ErrorContext => 2);
+        makerankings_expenses();
 }
 
 # Get any data from the database
@@ -543,7 +546,25 @@ sub makerankings {
                         }
                 }
         }
+        
+        enrankify($personinfohash, "debate_sectionsspoken_inlastyear", 0);
+        enrankify($personinfohash, "comments_on_speeches", 0);
+        enrankify($personinfohash, "wrans_asked_inlastyear", 0);
+        enrankify($personinfohash, "Ldebate_sectionsspoken_inlastyear", 0);
+        enrankify($personinfohash, "Lcomments_on_speeches", 0);
+        enrankify($personinfohash, "Lwrans_asked_inlastyear", 0);
+        enrankify($personinfohash, "three_word_alliterations", 0);
+        enrankify($personinfohash, "ending_with_a_preposition", 0);
+        enrankify($personinfohash, "only_asked_why", 0);
+        enrankify($personinfohash, "Lthree_word_alliterations", 0);
+        enrankify($personinfohash, "Lending_with_a_preposition", 0);
+        enrankify($memberinfohash, "swing_to_lose_seat_today", 0);
+        enrankify($personinfohash, "reading_ease", 0);
+        enrankify($personinfohash, "reading_year", 0);
+        enrankify($personinfohash, "writetothem_responsiveness_mean_2005", 0);
+}
 
+sub makerankings_expenses {
         foreach my $mp_id (keys %$personinfohash) {
                 if (defined($personinfohash->{$mp_id}->{'expenses2007_col5a'})) {
                         my $total = 0;
@@ -571,36 +592,25 @@ sub makerankings {
                 }
         }
         
-         foreach my $mp_id (keys %$personinfohash) {
-                if (defined($personinfohash->{$mp_id}->{'expenses2008_colmp_reg_travel_a'})) {
+        foreach my $mp_id (keys %$personinfohash) {
+            for (my $year=2008; $year<=2009; $year++) {
+                my $prefix = "expenses$year";
+                if (defined($personinfohash->{$mp_id}->{$prefix . '_colmp_reg_travel_a'})) {
                         
                         my $total = 0;
                         foreach my $let ('a'..'d') {
-                                $total += $personinfohash->{$mp_id}->{'expenses2008_colmp_reg_travel_'.$let};
-                                $total += $personinfohash->{$mp_id}->{'expenses2008_colmp_other_travel_'.$let};
+                                $total += $personinfohash->{$mp_id}->{$prefix . '_colmp_reg_travel_'.$let};
+                                $total += $personinfohash->{$mp_id}->{$prefix . '_colmp_other_travel_'.$let};
                         }
-                        $personinfohash->{$mp_id}->{'expenses2008_col5'} = $total;
-                        $personinfohash->{$mp_id}->{'expenses2008_col6'} = $personinfohash->{$mp_id}->{'expenses2008_colemployee_travel_a'};                  
-                        $personinfohash->{$mp_id}->{'expenses2008_total'} = $personinfohash->{$mp_id}->{'expenses2008_coltotal_inc_travel'};
+                        $personinfohash->{$mp_id}->{$prefix . '_col5'} = $total;
+                        $personinfohash->{$mp_id}->{$prefix . '_col6'} = $personinfohash->{$mp_id}->{$prefix . '_colemployee_travel_a'};                  
+                        $personinfohash->{$mp_id}->{$prefix . '_total'} = $personinfohash->{$mp_id}->{$prefix . '_coltotal_inc_travel'}
+                            if $personinfohash->{$mp_id}->{$prefix . '_coltotal_inc_travel'};
                 }
+            }
         }
         
-        
-        enrankify($personinfohash, "debate_sectionsspoken_inlastyear", 0);
-        enrankify($personinfohash, "comments_on_speeches", 0);
-        enrankify($personinfohash, "wrans_asked_inlastyear", 0);
-        enrankify($personinfohash, "Ldebate_sectionsspoken_inlastyear", 0);
-        enrankify($personinfohash, "Lcomments_on_speeches", 0);
-        enrankify($personinfohash, "Lwrans_asked_inlastyear", 0);
-        enrankify($personinfohash, "three_word_alliterations", 0);
-        enrankify($personinfohash, "ending_with_a_preposition", 0);
-        enrankify($personinfohash, "only_asked_why", 0);
-        enrankify($personinfohash, "Lthree_word_alliterations", 0);
-        enrankify($personinfohash, "Lending_with_a_preposition", 0);
-        enrankify($memberinfohash, "swing_to_lose_seat_today", 0);
-        enrankify($personinfohash, "reading_ease", 0);
-        enrankify($personinfohash, "reading_year", 0);
-        for (my $year=2002; $year<=2008; ++$year) {
+        for (my $year=2002; $year<=2009; ++$year) {
                 next if $year == 2006;
                 for (my $col=1; $col<=9; ++$col) {
                         enrankify($personinfohash, 'expenses'.$year.'_col'.$col, 0);
@@ -612,17 +622,20 @@ sub makerankings {
                 enrankify($personinfohash, 'expenses2007_col5'.$let, 0);
         }
         
-        foreach my $let ('a'..'d'){
-                enrankify($personinfohash, 'expenses2008_colmp_reg_travel_'.$let, 0);
-                enrankify($personinfohash, 'expenses2008_colmp_other_travel_'.$let, 0);
+        foreach my $let ('a'..'d') {
+            for (my $year=2008; $year<=2009; $year++) {
+                enrankify($personinfohash, 'expenses' . $year . '_colmp_reg_travel_'.$let, 0);
+                enrankify($personinfohash, 'expenses' . $year . '_colmp_other_travel_'.$let, 0);
+            }
         }
-        enrankify($personinfohash, 'expenses2008_colcomms_allowance', 0);
-        enrankify($personinfohash, 'expenses2008_colspouse_travel_a', 0);
-        enrankify($personinfohash, 'expenses2008_colfamily_travel_a', 0);
-        enrankify($personinfohash, 'expenses2008_coltotal_exc_travel', 0);
-        enrankify($personinfohash, 'expenses2008_coltotal_travel', 0);
-
-        enrankify($personinfohash, "writetothem_responsiveness_mean_2005", 0);
+        for (my $year=2008; $year<=2009; $year++) {
+            enrankify($personinfohash, 'expenses' . $year . '_colcomms_allowance', 0);
+            enrankify($personinfohash, 'expenses' . $year . '_colspouse_travel_a', 0);
+            enrankify($personinfohash, 'expenses' . $year . '_colfamily_travel_a', 0);
+            enrankify($personinfohash, 'expenses' . $year . '_coltotal_exc_travel', 0);
+            enrankify($personinfohash, 'expenses' . $year . '_coltotal_travel', 0);
+        }
+        enrankify($personinfohash, 'expenses2009_colstationery', 0);
 }
 
 # Generate ranks from a data field

@@ -199,17 +199,7 @@ class PEOPLE {
 			print '<option value="'.$MEMBER->person_id().'">Your MP, '.$MEMBER->full_name().'</option>';
 		}
 		print '<optgroup label="MPs">';
-		$opik = array();
 		foreach ($data['data'] as $row) {
-			// Lembit Opik is special
-		        if ($row['last_name']=='&Ouml;pik') {
-		                $opik = $row;
-		                continue;
-		        }
-			if (count($opik) && strcmp('Opik', $row['last_name'])<0) {
-				print '<option value="'.$opik['person_id'].'">' . $opik['first_name'].' '.$opik['last_name'].'</option>';
-				$opik = array();
-			}
 			print '<option';
 			if (isset($args['pid']) && $args['pid']==$row['person_id']) print ' selected';
 			print ' value="'.$row['person_id'].'">' . $row['first_name'].' '.$row['last_name'];

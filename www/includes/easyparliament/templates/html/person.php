@@ -52,7 +52,7 @@ echo '<ul class="hilites clear">';
 		print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
 	}
 print "</ul>";
-print '<br class="clear"/>';
+print '<br class="clear">';
 
 person_user_actions($member);
 person_internal_links($member, $extra_info);
@@ -157,25 +157,18 @@ function person_offices($extra_info) {
 		}
 	}
 	if ($mins) {
-		print '<li>' . join('<br>', $mins) . '</li>';
+		print '<li>' . join('<br>', $mins) . ' <small>(<a href="/help/#dates_wrong">note about dates</a>)</small></li>';
 	}
 }
 
 function person_ask_for_picture($member) {
-	echo '<p class="missingphoto">';
-	if ($member['current_member_anywhere']) {
-		echo 'We&rsquo;re missing a photo of ' .
-$member['full_name'] . '. If you are ' . $member['full_name'] . ', or have a
-photo of them <em>that you have copyright of</em>,
-<a href="mailto:' . CONTACTEMAIL . '">please email it to us</a>.';
-	} else {
-		echo 'We&rsquo;re missing a photo of ' .
-$member['full_name'] . '. If you have a photo <em>that you have copyright
-of</em>, or can locate a <em>copyright free</em> photo of them <a
-href="mailto:' . CONTACTEMAIL . '">please email it to us</a>.';
-	}
-	echo ' Please do not email us about copyrighted photos
-elsewhere on the internet; we can&rsquo;t use them.</p>';
+	echo '<p class="missingphoto">
+We&rsquo;re missing a photo of ' .  $member['full_name'] . '. If you have a
+photo <em>that you can release under a Creative Commons Attribution-ShareAlike
+license</em> or can locate a <em>copyright free</em> photo,
+<a href="mailto:' . CONTACTEMAIL . '">please email it to us</a>. Please do not
+email us about copyrighted photos elsewhere on the internet; we can&rsquo;t use
+them.</p>';
 }
 
 function person_enter_leave_facts($member, $extra_info) {
@@ -351,89 +344,108 @@ function person_internal_links($member, $extra_info) {
 	echo '</ul>';
 }
 
+function display_dream_comparison($extra_info, $member, $dreamid, $desc, $inverse=false) {
+	if (isset($extra_info["public_whip_dreammp${dreamid}_distance"])) {
+		if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 0) {
+			$dmpdesc = 'Has <strong>never voted</strong> on';
+		} else {
+			$dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
+			print "<!-- distance $dreamid: $dmpscore -->";
+			if ($inverse) 
+				$dmpscore = 1.0 - $dmpscore;
+			$english = score_to_strongly($dmpscore);
+			if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 1) {
+				$english = preg_replace('#(very )?(strongly|moderately) #', '', $english);
+			}
+			$dmpdesc = 'Voted <strong>' . $english . '</strong>';
+
+			// How many votes Dream MP and MP both voted (and didn't abstain) in
+			// $extra_info["public_whip_dreammp${dreamid}_both_voted"];
+		}
+?>
+		<li><?=$dmpdesc?> <?=$desc?>. 
+<small class="unneededprintlinks"> 
+<a href="http://www.publicwhip.org.uk/mp.php?mpid=<?=$member['member_id']?>&amp;dmp=<?=$dreamid?>">votes</a>
+</small>
+		</li>
+<?php
+		return true;
+	}
+	return false;
+}
+
+# Display the person's voting record on various issues.
 function person_voting_record($member, $extra_info) {
-	// Voting Record.
 	?> <a name="votingrecord"></a> <?php
 	//$this->block_start(array('id'=>'votingrecord', 'title'=>'Voting record (from PublicWhip)'));
 	print '<h4>Voting record (from PublicWhip)</h4>';
 	$displayed_stuff = 0;
-	function display_dream_comparison($extra_info, $member, $dreamid, $desc, $inverse, $search) {
-		if (isset($extra_info["public_whip_dreammp${dreamid}_distance"])) {
-			if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 0) {
-				$dmpdesc = 'Has <strong>never voted</strong> on';
-			} else {
-				$dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
-				print "<!-- distance $dreamid: $dmpscore -->";
-				if ($inverse) 
-					$dmpscore = 1.0 - $dmpscore;
-				$english = score_to_strongly($dmpscore);
-				if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 1) {
-					$english = preg_replace('#(very )?(strongly|moderately) #', '', $english);
-				}
-				$dmpdesc = 'Voted <strong>' . $english . '</strong>';
 
-				// How many votes Dream MP and MP both voted (and didn't abstain) in
-				// $extra_info["public_whip_dreammp${dreamid}_both_voted"];
-			}
-			$search_link = WEBPATH . "search/?s=" . urlencode($search) . 
-				"&pid=" . $member['person_id'] . "&pop=1";
-			?>
-			<li>
-			<?=$dmpdesc?>
-		<?=$desc?>. 
-<small class="unneededprintlinks"> 
-<a href="http://www.publicwhip.org.uk/mp.php?mpid=<?=$member['member_id']?>&amp;dmp=<?=$dreamid?>">votes</a>,
-<a href="<?=$search_link?>">speeches</a>
-</small>
-
-			</li>
-<?php
-			return true;
-		}
-		return false;
+	if ($member['party']=='Speaker' || $member['party']=='Deputy Speaker') {
+		if ($member['party']=='Speaker') $art = 'the'; else $art = 'a';
+		echo "<p>As $art $member[party], $member[full_name] cannot vote (except to break a tie).</p>";
 	}
 
-if ($member['party']=='Speaker' || $member['party']=='Deputy Speaker') {
-	if ($member['party']=='Speaker') $art = 'the'; else $art = 'a';
-	echo "<p>As $art $member[party], $member[full_name] cannot vote (except to break a tie).</p>";
-}
-
-if (isset($extra_info["public_whip_dreammp230_distance"]) || isset($extra_info["public_whip_dreammp996_distance"])) { # XXX
-	$displayed_stuff = 1; ?>
-
+	if (isset($extra_info["public_whip_dreammp230_distance"]) || isset($extra_info["public_whip_dreammp996_distance"])) { # XXX
+		$displayed_stuff = 1;
+?>
 
 <p id="howvoted">How <?=$member['full_name']?> voted on key issues since 2001:</p>
 <ul id="dreamcomparisons">
 <?
-	$got_dream = false;
-	$got_dream |= display_dream_comparison($extra_info, $member, 996, "a <strong>transparent Parliament</strong>", false, '"freedom of information"');
-	if (in_array(1, $member['houses']))
-		$got_dream |= display_dream_comparison($extra_info, $member, 811, "introducing a <strong>smoking ban</strong>", false, "smoking");
-	#$got_dream |= display_dream_comparison($extra_info, $member, 856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>", false, "legislative and regulatory reform bill");
-	$got_dream |= display_dream_comparison($extra_info, $member, 1051, "introducing <strong>ID cards</strong>", false, "id cards");
-	$got_dream |= display_dream_comparison($extra_info, $member, 363, "introducing <strong>foundation hospitals</strong>", false, "foundation hospital");
-	$got_dream |= display_dream_comparison($extra_info, $member, 1052, "introducing <strong>student top-up fees</strong>", false, "top-up fees");
-	if (in_array(1, $member['houses']))
-		$got_dream |= display_dream_comparison($extra_info, $member, 1053, "Labour's <strong>anti-terrorism laws</strong>", false, "terrorism");
-	$got_dream |= display_dream_comparison($extra_info, $member, 1049, "the <strong>Iraq war</strong>", false, "iraq");
-	$got_dream |= display_dream_comparison($extra_info, $member, 975, "an <strong>investigation</strong> into the Iraq war", false, "iraq");
-	$got_dream |= display_dream_comparison($extra_info, $member, 984, "replacing <strong>Trident</strong>", false, "trident");
-	$got_dream |= display_dream_comparison($extra_info, $member, 1050, "the <strong>hunting ban</strong>", false, "hunting");
-	$got_dream |= display_dream_comparison($extra_info, $member, 826, "equal <strong>gay rights</strong>", false, "gay");
-        $got_dream |= display_dream_comparison($extra_info, $member, 1030, "laws to <strong>stop climate change</strong>", false, "climate change");
+        # ID, display string, MP only
+        $policies = array(
+			array(996, "a <strong>transparent Parliament</strong>"),
+			array(811, "introducing a <strong>smoking ban</strong>", true),
+			array(1051, "introducing <strong>ID cards</strong>"),
+			array(363, "introducing <strong>foundation hospitals</strong>"),
+			array(1052, "introducing <strong>student top-up fees</strong>"),
+			array(1053, "Labour's <strong>anti-terrorism laws</strong>", true),
+			array(1049, "the <strong>Iraq war</strong>"),
+			# array(975, "an <strong>investigation</strong> into the Iraq war"), XXX See code below
+			array(984, "replacing <strong>Trident</strong>"),
+			array(1050, "the <strong>hunting ban</strong>"),
+			array(826, "equal <strong>gay rights</strong>"),
+			array(1030, "laws to <strong>stop climate change</strong>"),
+			array(1074, "greater <strong>autonomy for schools</strong>"),
+			array(1071, "allowing ministers to <strong>intervene in inquests</strong>"),
+			array(1079, "removing <strong>hereditary peers</strong> from the House of Lords"),
+			# array(837, "a <strong>wholly elected</strong> House of Lords"), XXX See code below
+            # Unfinished
+		    # array(856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>"),
+		    # array(1080, "government budgets and associated measures"),
+		    # array(1077, "equal extradition terms with the US"),
+        );
+        shuffle($policies);
 
-	if (!$got_dream) {
-		print "<li>" . $member['full_name'] . " has not voted enough in this parliament to have any scores.</li>";
-	}
-	print '</ul>';
+        $joined = array(
+            1079 => array(837, "a <strong>wholly elected</strong> House of Lords"),
+            1049 => array(975, "an <strong>investigation</strong> into the Iraq war"),
+        );
+
+		$got_dream = false;
+        foreach ($policies as $policy) {
+            if (isset($policy[2]) && $policy[2] && !in_array(1, $member['houses']))
+                continue;
+		    $got_dream |= display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
+            if (isset($joined[$policy[0]])) {
+			    $policy = $joined[$policy[0]];
+		        $got_dream |= display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
+            }
+        }
+
+		if (!$got_dream) {
+			print "<li>" . $member['full_name'] . " has not voted enough in this parliament to have any scores.</li>";
+		}
+		print '</ul>';
 ?>
 <p class="italic">
 <small>Read about <a href="<?=WEBPATH ?>help/#votingrecord">how the voting record is decided</a>.</small>
 </p>
 
-<? } ?>
-
 <?
+    }
+
 	// Links to full record at Guardian and Public Whip	
 	$record = array();
 	if (isset($extra_info['guardian_howtheyvoted'])) {
@@ -556,51 +568,63 @@ and has had no written questions answered for which we know the department or su
 }
 
 function person_recent_appearances($member) {
-	global $DATA, $SEARCHENGINE, $this_page;
+    global $DATA, $SEARCHENGINE, $this_page;
 
-	echo '<a name="hansard"></a>';
-	$title = 'Most recent appearances';
-	if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-		$title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
-	}
+    echo '<a name="hansard"></a>';
+    $title = 'Most recent appearances';
+    if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
+        $title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
+    }
         
-        print "<h4>$title</h4>";
+    print "<h4>$title</h4>";
 
-	//$this->block_start(array('id'=>'hansard', 'title'=>$title));
-	// This is really far from ideal - I don't really want $PAGE to know
-	// anything about HANSARDLIST / DEBATELIST / WRANSLIST.
-	// But doing this any other way is going to be a lot more work for little 
-	// benefit unfortunately.
-        twfy_debug_timestamp();
-	$HANSARDLIST = new HANSARDLIST();
-	
-	$searchstring = "speaker:$member[person_id]";
-	$SEARCHENGINE = new SEARCHENGINE($searchstring); 
-	$args = array (
-		's' => $searchstring,
-		'p' => 1,
-		'num' => 3,
-	       'pop' => 1,
-		'o' => 'd',
-	);
-	$HANSARDLIST->display('search_min', $args);
-        twfy_debug_timestamp();
+    //$this->block_start(array('id'=>'hansard', 'title'=>$title));
+    // This is really far from ideal - I don't really want $PAGE to know
+    // anything about HANSARDLIST / DEBATELIST / WRANSLIST.
+    // But doing this any other way is going to be a lot more work for little 
+    // benefit unfortunately.
+    twfy_debug_timestamp();
 
-	$MOREURL = new URL('search');
-	$MOREURL->insert( array('pid'=>$member['person_id'], 'pop'=>1) );
-	?>
+    global $memcache;
+    if (!$memcache) {
+        $memcache = new Memcache;
+        $memcache->connect('localhost', 11211);
+    }
+    $recent = $memcache->get(OPTION_TWFY_DB_NAME . ':recent_appear:' . $member['person_id']);
+    if (!$recent) {
+        $HANSARDLIST = new HANSARDLIST();
+        $searchstring = "speaker:$member[person_id]";
+        $SEARCHENGINE = new SEARCHENGINE($searchstring); 
+        $args = array (
+            's' => $searchstring,
+            'p' => 1,
+            'num' => 3,
+            'pop' => 1,
+            'o' => 'd',
+        );
+        ob_start();
+        $HANSARDLIST->display('search_min', $args);
+        $recent = ob_get_clean();
+        $memcache->set(OPTION_TWFY_DB_NAME . ':recent_appear:' . $member['person_id'], $recent, 0, 3600);
+    }
+    print $recent;
+    twfy_debug_timestamp();
+
+    $MOREURL = new URL('search');
+    $MOREURL->insert( array('pid'=>$member['person_id'], 'pop'=>1) );
+    ?>
 <p id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4">More of <?php echo ucfirst($member['full_name']); ?>'s recent appearances</a></p>
 
 <?php
-	if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-		// If we set an RSS feed for this page.
-		$HELPURL = new URL('help');
-		?>
-				<p class="unneededprintlinks"><a href="<?php echo WEBPATH . $rssurl; ?>" title="XML version of this person's recent appearances">RSS feed</a> (<a href="<?php echo $HELPURL->generate(); ?>#rss" title="An explanation of what RSS feeds are for">?</a>)</p>
+    if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
+        // If we set an RSS feed for this page.
+        $HELPURL = new URL('help');
+?>
+        <p class="unneededprintlinks"><a href="<?php echo WEBPATH . $rssurl; ?>" title="XML version of this person's recent appearances">RSS feed</a> (<a href="<?php echo $HELPURL->generate(); ?>#rss" title="An explanation of what RSS feeds are for">?</a>)</p>
 <?php
-	}
-	
-//	$this->block_end();
+    }
+
+// $this->block_end();
 
 }
 

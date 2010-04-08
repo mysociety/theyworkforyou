@@ -71,7 +71,7 @@ function postcode_to_constituency_internal($postcode) {
   
 	$db = new ParlDB;
 
-	$q = $db->query('select name from postcode_lookup where postcode = "'. mysql_escape_string($postcode).'"');
+	$q = $db->query('select name from postcode_lookup where postcode = "'. mysql_real_escape_string($postcode).'"');
 	if ($q->rows > 0) {
 		$name = $q->field(0, 'name');
 		if (postcode_is_scottish($postcode)) {
@@ -132,7 +132,7 @@ function postcode_to_constituency_internal($postcode) {
 		} else {
 			$serialized = $normalised;
 		}
-		$db->query('replace into postcode_lookup values("'. mysql_escape_string($postcode).'", "'.mysql_escape_string($serialized).'")');
+		$db->query('replace into postcode_lookup values("'. mysql_real_escape_string($postcode).'", "'.mysql_real_escape_string($serialized).'")');
 	} else {
 		return '';
 	}

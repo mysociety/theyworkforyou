@@ -38,7 +38,7 @@ function api_getconstituency_postcode($pc) {
         api_error('Unknown postcode, or problem with lookup');
     } else {
         $new_info = mapit_get_voting_area_info($new_areas['WMC']);
-        $output['name'] = html_entity_decode($new_info['name']);
+        $output['name'] = $new_info['name'];
         api_output($output);
     }
 
@@ -51,7 +51,7 @@ function api_getconstituency_postcode($pc) {
 		} elseif ($constituency) {
                     $db = new ParlDB;
                     $q = $db->query("select constituency, data_key, data_value from consinfo
-                                     where constituency = '" . mysql_escape_string($constituency) . "'");
+                                     where constituency = '" . mysql_real_escape_string($constituency) . "'");
                     if ($q->rows()) {
                         for ($i=0; $i<$q->rows(); $i++) {
                             $data_key = $q->field($i, 'data_key');
@@ -59,7 +59,7 @@ function api_getconstituency_postcode($pc) {
                         }
                         ksort($output);
 		    }
-                    $output['name'] = html_entity_decode($constituency);
+                    $output['name'] = $constituency;
 		    api_output($output);
 		} else {
 			api_error('Unknown postcode');
