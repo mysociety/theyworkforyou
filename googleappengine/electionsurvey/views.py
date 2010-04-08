@@ -33,6 +33,9 @@ from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyRespon
 def index(request):
     return render_to_response('index.html', {})
 
+#####################################################################
+# Candidate survey
+
 # Authenticate a candidate
 def _check_auth(post, ip_address, first_auth):
     form = forms.AuthCandidacyForm(post or None)
@@ -198,6 +201,9 @@ on behalf of the voters of %s constituency
     text = "</p>Survey invitation sent to %s</p>" % candidate_name
     text += "<pre>%s</pre>" % str(message.body)
     return HttpResponse(text)
+
+#####################################################################
+# Administration interface
 
 # Count number of items a query would return
 def get_count(q):
