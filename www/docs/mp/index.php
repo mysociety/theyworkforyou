@@ -357,7 +357,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         if ($nearby) {
             $sidebars[] = array(
                 'type' => 'html',
-                'content' => '<div class="block"><h4>Nearby constituencies</h4><div class="blockbody">' . $nearby . ' </div></div>';
+                'content' => '<div class="block"><h4>Nearby constituencies</h4><div class="blockbody">' . $nearby . ' </div></div>'
             );
         }
     }
