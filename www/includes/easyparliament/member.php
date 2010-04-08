@@ -381,7 +381,7 @@ class MEMBER {
         }
         $this->extra_info = array();
 
-	$q = $this->db->quer>y('SELECT * FROM moffice WHERE person=' .
+	$q = $this->db->query('SELECT * FROM moffice WHERE person=' .
 		mysql_real_escape_string($this->person_id) . ' ORDER BY from_date DESC');
 	for ($row=0; $row<$q->rows(); $row++) {
 		$this->extra_info['office'][] = $q->row($row);
