@@ -218,7 +218,7 @@ function adodb_backtrace($print=true)
 	}
       }
               
-      $s .= $arr['function'].'('.implode(', ',$args).')';
+      $s .= $arr['function'].'('.implode(', ',$args).')</font>';
       //      $s .= sprintf("</font><font color=#808080 size=-1> # line %4d,".
       //		    " file: <a href=\"file:/%s\">%s</a></font>",
       //	    $arr['line'],$arr['file'],$arr['file']);
