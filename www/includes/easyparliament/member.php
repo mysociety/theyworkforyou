@@ -373,7 +373,15 @@ class MEMBER {
     # DISPLAY is whether it's to be displayed on MP page.
     function load_extra_info($display = false) {
 
-	$q = $this->db->query('SELECT * FROM moffice WHERE person=' .
+        $memcache = new Memcache;
+        $memcache->connect('localhost', 11211);
+        $this->extra_info = $memcache->get(OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id);
+        if ($this->extra_info) {
+            return;
+        }
+        $this->extra_info = array();
+
+	$q = $this->db->quer>y('SELECT * FROM moffice WHERE person=' .
 		mysql_real_escape_string($this->person_id) . ' ORDER BY from_date DESC');
 	for ($row=0; $row<$q->rows(); $row++) {
 		$this->extra_info['office'][] = $q->row($row);
@@ -499,6 +507,7 @@ class MEMBER {
 		);
 	}
 
+        $memcache->set(OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id, $this->extra_info, 0, 3600);
     }
 	
 	// Functions for accessing things about this Member.
