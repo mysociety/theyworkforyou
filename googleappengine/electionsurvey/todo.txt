@@ -1,6 +1,14 @@
 Do this next
 ============
 
+Be sure to fix up Liverpool :)
+
+Send to ones with "0 issues posted"
+    http://www.democracyclub.org.uk/constituencies/
+
+Check up on Berwick-upon-Tweed mailing:
+    SELECT * FROM Candidacy WHERE seat = KEY('Seat', '1124')
+
 SPF
 http://www.google.com/support/a/bin/answer.py?hl=en&answer=33786
 
@@ -31,9 +39,10 @@ Fix up emails:
 Fix up issues
     http://code.google.com/p/constituencyvolunteernetwork/wiki/IssueModerationPolicy
 
-Send test email out again to me/Tom/Duncan
 
-Really autosave should check for conflicts between two browser windows
+Rethink /survey URL for postal
+
+
 
 
 Make sure off site backups are working reliably
@@ -61,5 +70,5 @@ Script to detect cases where email address has changed and show them
 Script to show what frozen seats have changed local issues
 
 
-
+Really autosave should check for conflicts between two browser windows
 
