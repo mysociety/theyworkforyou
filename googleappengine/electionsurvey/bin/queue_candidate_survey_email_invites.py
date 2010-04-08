@@ -109,7 +109,7 @@ for candidacy in candidacies:
     elif not frozen:
         log("Not queueing, seat isn't frozen for local issues: " + candidacy.seat.name + ", " + candidacy.candidate.name)
     else:
-        c += 1 # one second between sending each mail
+        c += 2 # two seconds between sending each mail, try to keep within GAE limits
         if options.real:
             log(str(c) + " queued invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name + " email: " + candidacy.candidate.email)
             eta = datetime.datetime.utcnow() + datetime.timedelta(seconds=c) # AppEngine servers use UTC
