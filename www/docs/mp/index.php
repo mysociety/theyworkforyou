@@ -321,34 +321,46 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 		}
 	}
 
-	if ($MEMBER->house(1)) {
-		$lat = null; $lon = null;
-		$geometry = _api_getGeometry_name($MEMBER->constituency());
-		if (isset($geometry['centre_lat'])) {
-			$lat = $geometry['centre_lat'];
-			$lon = $geometry['centre_lon'];
-		}
-		if ($lat && $lon) {
-			$nearby_consts = _api_getConstituencies_latitude($lat, $lon, 300);
-			if ($nearby_consts) {
-				$conlist = '<ul><!-- '.$lat.','.$lon.' -->';
-				for ($k=1; $k<=min(5, count($nearby_consts)-1); $k++) {
-					$name = $nearby_consts[$k]['name'];
-					$dist = $nearby_consts[$k]['distance'];
-					$conlist .= '<li><a href="' . WEBPATH . 'mp/?c=' . urlencode($name) . '">';
-					$conlist .= $nearby_consts[$k]['name'] . '</a>';
-					$dist_miles = round($dist / 1.609344, 0);
-					$conlist .= ' <small title="Centre to centre">(' . $dist_miles. ' miles)</small>';
-					$conlist .= '</li>';
-				}
-				$conlist .= '</ul>';
-				$sidebars[] = array(
-					'type' => 'html',
-					'content' => '<div class="block"><h4>Nearby constituencies</h4><div class="blockbody">' . $conlist . ' </div></div>'
-				);
-			}
-		}
-	}
+    if ($MEMBER->house(1)) {
+        global $memcache;
+        if (!$memcache) {
+            $memcache = new Memcache;
+            $memcache->connect('localhost', 11211);
+        }
+        $nearby = $memcache->get(OPTION_TWFY_DB_NAME . ':nearby_const:' . $MEMBER->person_id());
+        if (!$nearby) {
+            $lat = null; $lon = null;
+            $geometry = _api_getGeometry_name($MEMBER->constituency());
+            if (isset($geometry['centre_lat'])) {
+                $lat = $geometry['centre_lat'];
+                $lon = $geometry['centre_lon'];
+            }
+            if ($lat && $lon) {
+                $nearby_consts = _api_getConstituencies_latitude($lat, $lon, 300);
+                if ($nearby_consts) {
+                    $conlist = '<ul><!-- '.$lat.','.$lon.' -->';
+                    for ($k=1; $k<=min(5, count($nearby_consts)-1); $k++) {
+                        $name = $nearby_consts[$k]['name'];
+                        $dist = $nearby_consts[$k]['distance'];
+                        $conlist .= '<li><a href="' . WEBPATH . 'mp/?c=' . urlencode($name) . '">';
+                        $conlist .= $nearby_consts[$k]['name'] . '</a>';
+                        $dist_miles = round($dist / 1.609344, 0);
+                        $conlist .= ' <small title="Centre to centre">(' . $dist_miles. ' miles)</small>';
+                        $conlist .= '</li>';
+                    }
+                    $conlist .= '</ul>';
+                    $nearby = $conlist;
+                    $memcache->set(OPTION_TWFY_DB_NAME . ':nearby_const:' . $MEMBER->person_id(), $nearby, 0, 3600);
+                }
+            }
+        }
+        if ($nearby) {
+            $sidebars[] = array(
+                'type' => 'html',
+                'content' => '<div class="block"><h4>Nearby constituencies</h4><div class="blockbody">' . $nearby . ' </div></div>';
+            );
+        }
+    }
 
 	if (array_key_exists('office', $MEMBER->extra_info())) {
 		$office = $MEMBER->extra_info();
