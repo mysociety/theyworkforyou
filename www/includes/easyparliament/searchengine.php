@@ -43,7 +43,15 @@ class SEARCHENGINE {
 
         global $xapiandb, $PAGE, $hansardmajors, $parties;
         if (!$xapiandb) {
-            $xapiandb = new XapianDatabase(XAPIANDB);
+            if (strstr(XAPIANDB, ":")) {
+                ini_set('display_errors', 'On');
+                list ($xapian_host, $xapian_port) = split(":", XAPIANDB);
+                twfy_debug("SEARCH", "Using Xapian remote backend: " . $xapian_host . " port " . $xapian_port);
+                $xapiandb_remote = remote_open($xapian_host, intval($xapian_port));
+                $xapiandb = new XapianDatabase($xapiandb_remote);
+            } else {
+                $xapiandb = new XapianDatabase(XAPIANDB);
+            }
         }
 		$this->query = $query;
         if (!isset($this->stemmer)) $this->stemmer = new XapianStem('english');
