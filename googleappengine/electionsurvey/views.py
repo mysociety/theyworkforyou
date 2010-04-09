@@ -272,10 +272,14 @@ def _canonicalise_postcode(postcode):
     return postcode
 
 def _postcode_to_constituency(postcode):
-    url = "http://theyworkforyouapi.appspot.com/lookup?key=%s&format=js&pc=%s" % (settings.THEYWORKFORYOU_API_KEY, postcode.replace(' ', ''))
-    result = urllib2.urlopen(url).read()
-    json_result = json.loads(result)
-    seat_name = json_result['future_constituency']
+    if postcode == 'ZZ9 9ZY':
+        seat_name = 'Felpersham Outer'
+    else:
+        url = "http://theyworkforyouapi.appspot.com/lookup?key=%s&format=js&pc=%s" % (settings.THEYWORKFORYOU_API_KEY, postcode.replace(' ', ''))
+        result = urllib2.urlopen(url).read()
+        json_result = json.loads(result)
+        seat_name = json_result['future_constituency']
+
     return db.Query(Seat).filter('name =', seat_name).get()
 
 def quiz_index(request):
