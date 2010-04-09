@@ -3,3 +3,6 @@
 # Get one of these here: http://www.yournextmp.com/data
 YOURNEXTMP_API_TOKEN="xxxxxxxxxxxxxxxxx"
 
+# Get one of these here: http://www.theyworkforyou.com/api/
+THEYWORKFORYOU_API_KEY="xxxxxxxxxxxxxxxxxxxx"
+

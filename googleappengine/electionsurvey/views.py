@@ -9,7 +9,8 @@
 import email.utils
 import cgi
 import datetime
-import urllib
+import urllib2
+import re
 
 from google.appengine.api import urlfetch
 from google.appengine.api.datastore_types import Key
@@ -23,6 +24,7 @@ from django.forms.formsets import formset_factory
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
+import django.utils.simplejson as json
 
 from ratelimitcache import ratelimit
 
@@ -260,6 +262,28 @@ def admin_responses(request):
     return render_to_response('admin_responses.html', { 
         'candidacies': candidacies,
     })
+
+#####################################################################
+# Voter quiz
+
+def _canonicalise_postcode(postcode):
+    postcode = re.sub('[^A-Z0-9]', '', postcode.upper())
+    postcode = re.sub('(\d[A-Z]{2})$', r' \1', postcode)
+    return postcode
+
+def _postcode_to_constituency(postcode):
+    url = "http://theyworkforyouapi.appspot.com/lookup?key=%s&format=js&pc=%s" % (settings.THEYWORKFORYOU_API_KEY, postcode.replace(' ', ''))
+    result = urllib2.urlopen(url).read()
+    json_result = json.loads(result)
+    seat_name = json_result['future_constituency']
+    return db.Query(Seat).filter('name =', seat_name).get()
+
+def quiz_index(request):
+    postcode = _canonicalise_postcode(request.GET['pc'])
+    seat = _postcode_to_constituency(postcode)
+    raise Exception(seat.name)
+
+
 
 
 
