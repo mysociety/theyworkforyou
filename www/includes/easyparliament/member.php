@@ -509,7 +509,7 @@ class MEMBER {
 		);
 	}
 
-        $memcache->set(OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id, $this->extra_info, 0, 3600);
+        $memcache->set(OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id, $this->extra_info, MEMCACHE_COMPRESSED, 3600);
     }
 	
 	// Functions for accessing things about this Member.

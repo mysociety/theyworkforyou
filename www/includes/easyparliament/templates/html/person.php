@@ -605,7 +605,7 @@ function person_recent_appearances($member) {
         ob_start();
         $HANSARDLIST->display('search_min', $args);
         $recent = ob_get_clean();
-        $memcache->set(OPTION_TWFY_DB_NAME . ':recent_appear:' . $member['person_id'], $recent, 0, 3600);
+        $memcache->set(OPTION_TWFY_DB_NAME . ':recent_appear:' . $member['person_id'], $recent, MEMCACHE_COMPRESSED, 3600);
     }
     print $recent;
     twfy_debug_timestamp();
