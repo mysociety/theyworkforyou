@@ -21,6 +21,10 @@ function _api_getPerson_row($row, $has_party=FALSE){
     global $parties;
     $row['full_name'] = member_full_name($row['house'], $row['title'], $row['first_name'],
         $row['last_name'], $row['constituency']);
+    if ($row['house'] == 1) {
+        $URL = new URL('mp');
+        $row['url'] = $URL->generate('none') . make_member_url($row['full_name'], $row['constituency'], $row['house']);
+    }
     if ($has_party && isset($parties[$row['party']]))
         $row['party'] = $parties[$row['party']];
     list($image,$sz) = find_rep_image($row['person_id']);
