@@ -24,8 +24,7 @@ use mySociety::Config;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
 my $parldata = mySociety::Config::get('RAWDATA');
-my $lastupdatedir = mySociety::Config::get('INCLUDESPATH') . "/../../xml2db/");
-print "Please check $lastupdatedir is right path for xml2db, then remove this line"; exit;
+my $lastupdatedir = mySociety::Config::get('INCLUDESPATH') . "../../../xml2db/";
 
 use DBI; 
 use XML::Twig;
