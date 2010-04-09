@@ -5,7 +5,19 @@
 <h2>TheyWorkForYou PPC survey</h2>
 
 {% if autosave_when %}
-    <p class="error">Thanks for coming back to the survey! Your answers so far are filled in below.</p>
+    {% if candidacy.survey_filled_in %}
+        <p class="error">
+            Thank you! You've already filled in the survey. 
+        </p>
+        <p class="error">
+            If you like, you can update your answers, add more explanations,
+            and resubmit. When the public quiz launches, you will no longer be
+            able to do this.
+        </p>
+    {% else %}
+        <p class="error">Thanks for coming back to the survey! Your answers so far are filled 
+        in below.</p>
+    {% endif %}
 {% else %}
     {% if unfinished %}
         {% include "_survey_candidacy_incomplete.html" %}
