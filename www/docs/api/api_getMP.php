@@ -34,8 +34,65 @@ This will return all database entries for this person, so will include previous 
 </dl>
 
 <h4>Example Response</h4>
-<pre>&lt;twfy&gt;
-  &lt;/twfy&gt;
+<pre>
+[{
+  "member_id" : "1368",
+  "house" : "1",
+  "first_name" : "Hywel",
+  "last_name" : "Francis",
+  "constituency" : "Aberavon",
+  "party" : "Labour",
+  "entered_house" : "2005-05-05",
+  "left_house" : "9999-12-31",
+  "entered_reason" : "general_election",
+  "left_reason" : "still_in_office",
+  "person_id" : "10900",
+  "title" : "",
+  "lastupdate" : "2008-02-26 22:25:20",
+  "full_name" : "Hywel Francis",
+  "url" : "/mp/hywel_francis/aberavon",
+  "image" : "/images/mps/10900.jpg",
+  "image_height" : 59,
+  "image_width" : 49,
+  "office" : [{
+  "moffice_id" : "4949210",
+  "dept" : "Liaison Committee",
+  "position" : "",
+  "from_date" : "2005-11-01",
+  "to_date" : "9999-12-31",
+  "person" : "10900",
+  "source" : "chgpages/selctee"
+},
+{
+  "moffice_id" : "4949211",
+  "dept" : "Welsh Affairs Committee",
+  "position" : "Chairman",
+  "from_date" : "2005-11-01",
+  "to_date" : "9999-12-31",
+  "person" : "10900",
+  "source" : "chgpages/selctee"
+}]
+},
+{
+  "member_id" : "900",
+  "house" : "1",
+  "first_name" : "Hywel",
+  "last_name" : "Francis",
+  "constituency" : "Aberavon",
+  "party" : "Labour",
+  "entered_house" : "2001-06-07",
+  "left_house" : "2005-04-11",
+  "entered_reason" : "general_election",
+  "left_reason" : "general_election_standing",
+  "person_id" : "10900",
+  "title" : "Mr",
+  "lastupdate" : "2009-05-19 23:24:40",
+  "full_name" : "Mr Hywel Francis",
+  "url" : "/mp/mr_hywel_francis/aberavon",
+  "image" : "/images/mps/10900.jpg",
+  "image_height" : 59,
+  "image_width" : 49
+}]
 </pre>
 
 <?	
