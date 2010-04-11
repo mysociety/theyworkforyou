@@ -221,7 +221,7 @@ foreach my $constituency (keys %$consinfohash) {
         my $data = $consinfohash->{$constituency};
         foreach my $key (keys %$data) {
                 my $value = $data->{$key};
-                $consinfoadd->execute(encode_entities_noapos($constituency), $key, $value, $value);
+                $consinfoadd->execute($constituency, $key, $value, $value);
         }
 }
 
@@ -705,12 +705,5 @@ sub enrankify {
                 $hash->{$mp}->{$field . '_quintile'} = $quintile;
                 $prevvalue = $mpsvalue{$mp};
         }
-}
-
-sub encode_entities_noapos {
-        my $s = shift;
-        encode_entities($s);
-        $s =~ s/&#39;/'/;
-        return $s;
 }
 
