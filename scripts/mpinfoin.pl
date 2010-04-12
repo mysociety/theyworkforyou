@@ -337,7 +337,7 @@ sub makerankings {
         $sth->execute();
         if ($sth->rows == 0) {
                 $sth = $dbh->prepare($query .
-                        '(select person_id from member where left_house = \'2005-04-11\')');
+                        '(select person_id from member where left_house = \'2010-04-12\')');
                 $sth->execute();
                 if ($sth->rows == 0) {
                         print "Failed to find any MPs for rankings, change General Election date here if you are near one";
