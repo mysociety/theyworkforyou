@@ -119,7 +119,7 @@ function api_getMP_postcode($pc) {
 		} elseif ($constituency) {
 			$person = _api_getMP_constituency($constituency);
 			$output = $person;
-			api_output($output, strtotime($output['lastupdate']));
+			api_output($output, isset($output['lastupdate']) ? strtotime($output['lastupdate']) : null);
 		} else {
 			api_error('Unknown postcode');
 		}
