@@ -10,20 +10,22 @@
 
 {% for c in candidacies %}
 <div>
-    <strong>{{ c.candidate.name }} ({{ c.seat.name }}, {{ c.candidate.party.name }})</strong> on {{ c.survey_filled_in_when }}
+    <h3>{{ c.candidate.name }} ({{ c.seat.name }}, {{ c.candidate.party.name }})</h3> 
+    <p><em>Submitted on {{ c.survey_filled_in_when }}</em></p>
+    <h4>National</h4>
     <ul>
-    {% for r in c.responses %}
-        <li>
-        {% if r.deleted %} <s> {% endif %} 
-            {{ r.agreement }}% agree - 
-            {{ r.refined_issue.question }} 
-            {% if r.more_explanation %}
-                <br><em>"{{r.more_explanation }}"</em>
-            {% endif %}
-        {% if r.deleted %} </s> {% endif %} 
-        </li>
+    {% for r in c.national_responses %}
+        {% include "_admin_responses_question.html" %}
     {% endfor %}
-</ul>
+    </ul>
+    <h4>Local</h4>
+    <ul>
+    {% for r in c.local_responses %}
+        {% include "_admin_responses_question.html" %}
+    {% empty %}
+        No local answers.
+    {% endfor %}
+    </ul>
 </dl>
 </div>
 {% endfor %}
