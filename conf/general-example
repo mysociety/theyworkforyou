@@ -111,7 +111,7 @@ define('PROBLEM_EMAIL', CONTACTEMAIL);
 define ("POSTCODE_SEARCH_DOMAIN", '');
 define ("POSTCODE_SEARCH_PORT", "80");
 define ("POSTCODE_SEARCH_PATH", "somescript.php?postcode=");
-
+define ("POSTCODE_API_URL", "");
 
 // *******************************************************************************
 // mySociety user-tracking.

@@ -10,6 +10,18 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 # First, the special Speaker box.
 person_speaker_special($member, $extra_info);
 
+# Special 2010 election bit
+if (isset($member['left_house'][1]) && $member['left_house'][1]['date'] == '2010-04-12') {
+    global $THEUSER;
+    $bound_pc = '';
+    if ($THEUSER->postcode_is_set()) {
+        $bound_pc = '?pc=' . urlencode($THEUSER->postcode());
+    }
+    print '<p id="video_already">Constituency boundaries are changing for this election.
+<a href="/boundaries/' . $bound_pc . '">Find out what constituency you will be in</a>.
+</p>';
+}
+
 # Heading/ picture
 print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
 person_image($member);
