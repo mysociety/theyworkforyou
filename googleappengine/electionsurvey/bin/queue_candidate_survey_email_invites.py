@@ -30,6 +30,76 @@ from models import Party, Candidate, Seat, Candidacy, RefinedIssue
 def log(msg):
     print datetime.datetime.now(), msg
 
+def group_by_n(lst, n):
+    return [lst[i:i+n] for i in range(0,len(lst),n)]
+
+######################################################################
+# Actions
+
+def get_seats_list_from_options(options):
+    seats_list = []
+    if options.constituency != None:
+        seat = db.Query(Seat).filter("name =", options.constituency).get()
+        seats_list.append(seats_list)
+
+    if options.constituency_list != None:
+        for constituency in open(options.constituency_list):
+            constituency = constituency.strip()
+            seat = db.Query(Seat).filter("name =", constituency).get()
+            seats_list.append(seat)
+
+    return seats_list
+
+def make_base_query_from_options(options):
+    candidacies = db.Query(Candidacy)
+    candidacies.filter("deleted = ", False)
+    candidacies.filter("survey_invite_emailed = ", False)
+    candidacies.filter("survey_filled_in = ", False)
+
+    return candidacies
+
+def do_for_query(candidacies):
+    log("Found " + str(candidacies.count(None)) + " candidacies")
+    c = 0
+    for candidacy in candidacies:
+        frozen = candidacy.seat.frozen_local_issues
+
+        if not frozen and options.freeze:
+            if options.real:
+                candidacy.seat.frozen_local_issues = True
+                candidacy.seat.put()
+                log("Frozen local issues for seat: " + candidacy.seat.name)
+            else:
+                log("Would freeze local issues for seat: " + candidacy.seat.name)
+            frozen = True
+
+        if not candidacy.candidate.validated_email():
+            log("Not queueing, invalid email " + str(candidacy.candidate.email) + " for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
+        elif not frozen:
+            log("Not queueing, seat isn't frozen for local issues: " + candidacy.seat.name + ", " + candidacy.candidate.name)
+        else:
+            c += 2 # two seconds between sending each mail, try to keep within GAE limits
+            if options.real:
+                log(str(c) + " queued invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name + " email: " + candidacy.candidate.email)
+                eta = datetime.datetime.utcnow() + datetime.timedelta(seconds=c) # AppEngine servers use UTC
+                taskqueue.Queue('survey-email').add(taskqueue.Task(url='/task/invite_candidacy_survey/' + str(candidacy.key().name()), eta = eta))
+                candidacy.log("Queued task to send survey invite email")
+            else:
+                log(str(c) + " would queue invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name+ " email: " + candidacy.candidate.email)
+
+def do_for_some_seats(seats, options):
+    if options.limit:
+        raise Exception("--limit not implemented when constituency list specified")
+
+    # Can only do IN for a small number of constituencies at a time (max, I
+    # think, 25), so do in smaller groups
+    for seats_group in group_by_n(seats, 10):
+        log("Doing constituency group: " + ", ".join([seat.name for seat in seats_group]))
+        candidacies = make_base_query_from_options(options)
+        candidacies.filter("seat in ", seats_group)
+        do_for_query(candidacies)
+
+
 ######################################################################
 # Main
 
@@ -67,57 +137,14 @@ def auth_func():
     return (options.email, getpass.getpass('Password:'))
 remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api', auth_func, servername=options.host)
 
-candidacies = db.Query(Candidacy)
-candidacies.filter("deleted = ", False)
-candidacies.filter("survey_invite_emailed = ", False)
-candidacies.filter("survey_filled_in = ", False)
-
-if options.constituency != None:
-    seat = db.Query(Seat).filter("name =", options.constituency).get()
-    if not seat:
-        raise Exception("Constituency not found")
-    candidacies.filter("seat = ", seat)
-
-if options.constituency_list != None:
-    seats = []
-    for constituency in open(options.constituency_list):
-        constituency = constituency.strip()
-        seat = db.Query(Seat).filter("name =", constituency).get()
-        seats.append(seat)
-
-    candidacies.filter("seat in ", seats)
-
-if options.limit != None:
-    candidacies = candidacies.fetch(int(options.limit))
-
-log("Found " + str(candidacies.count(None)) + " candidacies")
-c = 0
-for candidacy in candidacies:
-    frozen = candidacy.seat.frozen_local_issues
-
-    if not frozen and options.freeze:
-        if options.real:
-            candidacy.seat.frozen_local_issues = True
-            candidacy.seat.put()
-            log("Frozen local issues for seat: " + candidacy.seat.name)
-        else:
-            log("Would freeze local issues for seat: " + candidacy.seat.name)
-        frozen = True
-
-    if not candidacy.candidate.validated_email():
-        log("Not queueing, invalid email " + str(candidacy.candidate.email) + " for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
-    elif not frozen:
-        log("Not queueing, seat isn't frozen for local issues: " + candidacy.seat.name + ", " + candidacy.candidate.name)
-    else:
-        c += 2 # two seconds between sending each mail, try to keep within GAE limits
-        if options.real:
-            log(str(c) + " queued invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name + " email: " + candidacy.candidate.email)
-            eta = datetime.datetime.utcnow() + datetime.timedelta(seconds=c) # AppEngine servers use UTC
-            taskqueue.Queue('survey-email').add(taskqueue.Task(url='/task/invite_candidacy_survey/' + str(candidacy.key().name()), eta = eta))
-            candidacy.log("Queued task to send survey invite email")
-        else:
-            log(str(c) + " would queue invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name+ " email: " + candidacy.candidate.email)
-
-
+# Do the action
+seats = get_seats_list_from_options(options)
+if len(seats) > 0:
+    do_for_some_seats(seats, options)
+else:
+    candidacies = make_base_query_from_options(options)
+    if options.limit != None:
+        candidacies = candidacies.fetch(int(options.limit))
+    do_for_query(candidacies)
 
 
