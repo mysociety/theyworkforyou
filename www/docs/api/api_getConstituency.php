@@ -23,49 +23,51 @@ This is a temporary feature before the 2010 general election.</dd>
 <p>Without future=1, NN12 8NF returns: <samp>{ "name" : "Daventry" }</samp>
 <p>With future=1, NN12 8NF returns: <samp>{ "name" : "South Northamptonshire" }</samp>
 
-<?	
+<?
 }
 
 function api_getconstituency_postcode($pc) {
-	$pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
+    $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
 
-  if (get_http_var('future')) {
-
-    $xml = simplexml_load_string(file_get_contents(POSTCODE_API_URL . urlencode($pc)));
-	if ($xml->error) {
-		api_error('Unknown postcode, or problem with lookup');
-    } else {
-        $output['name'] = (string)$xml->future_constituency;
-        api_output($output);
+    if (!validate_postcode($pc)) {
+        api_error('Invalid postcode');
+        return;
     }
 
-  } else {
+    if (get_http_var('future')) {
 
-	if (validate_postcode($pc)) {
-		$constituency = postcode_to_constituency($pc);
-		if ($constituency == 'CONNECTION_TIMED_OUT') {
-			api_error('Connection timed out');
-		} elseif ($constituency) {
-                    $db = new ParlDB;
-                    $q = $db->query("select constituency, data_key, data_value from consinfo
-                                     where constituency = '" . mysql_real_escape_string($constituency) . "'");
-                    if ($q->rows()) {
-                        for ($i=0; $i<$q->rows(); $i++) {
-                            $data_key = $q->field($i, 'data_key');
-                            $output[$data_key] = $q->field($i, 'data_value');
-                        }
-                        ksort($output);
-		    }
-                    $output['name'] = $constituency;
-		    api_output($output);
-		} else {
-			api_error('Unknown postcode');
-		}
-	} else {
-		api_error('Invalid postcode');
-	}
+        $xml = simplexml_load_string(file_get_contents(POSTCODE_API_URL . urlencode($pc)));
+        if ($xml->error) {
+            api_error('Unknown postcode, or problem with lookup');
+            return;
+        }
+        $output['name'] = (string)$xml->future_constituency;
+        api_output($output);
 
-  }
+    } else {
+
+        $constituency = postcode_to_constituency($pc);
+        if ($constituency == 'CONNECTION_TIMED_OUT') {
+            api_error('Connection timed out');
+            return;
+        }
+        if (!$constituency) {
+            api_error('Unknown postcode');
+            return;
+        }
+        $db = new ParlDB;
+        $q = $db->query("select constituency, data_key, data_value from consinfo
+                         where constituency = '" . mysql_real_escape_string($constituency) . "'");
+        if ($q->rows()) {
+            for ($i=0; $i<$q->rows(); $i++) {
+                $data_key = $q->field($i, 'data_key');
+                $output[$data_key] = $q->field($i, 'data_value');
+            }
+            ksort($output);
+        }
+        $output['name'] = $constituency;
+        api_output($output);
+
+    }
 }
 
-?>

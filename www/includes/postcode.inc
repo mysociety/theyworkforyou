@@ -19,7 +19,7 @@ function postcode_to_constituency($postcode) {
 
     $start = getmicrotime();
     twfy_debug_timestamp();
-    $ret = postcode_to_constituency_internal($postcode);
+    $ret = postcode_to_constituency_internal($postcode, true);
     $duration = getmicrotime() - $start;
     twfy_debug ("TIME", "Postcode $postcode lookup took $duration seconds, returned $ret.");
     twfy_debug_timestamp();
@@ -44,7 +44,7 @@ function postcode_to_constituencies($postcode) {
         return $last_postcode_value;
     }
 
-    $ret = postcode_to_constituency_internal($postcode);
+    $ret = postcode_to_constituency_internal($postcode, false);
     if (is_string($ret)) return $ret;
 
     $last_postcode = $postcode;
@@ -64,7 +64,7 @@ function fake_postcode ($postcode){
 	return $q2->field(0, "name");
 }
 
-function postcode_to_constituency_internal($postcode) {
+function postcode_to_constituency_internal($postcode, $mp_only=true) {
 	# Try and match with regexp to exclude non postcodes quickly
 	if (!validate_postcode($postcode))
 		return '';
@@ -86,6 +86,15 @@ function postcode_to_constituency_internal($postcode) {
 			return array('WMC' => $name);
 		}
 	}
+
+    # So as not to disturb Scot/NI lookup
+    if ($mp_only) {
+        $xml = simplexml_load_string(file_get_contents(POSTCODE_API_URL . urlencode($postcode)));
+        if ($xml->error) {
+            return '';
+        }
+        return (string)$xml->current_constituency;
+    }
 
 	# $pid = getmypid();
 	# $tracefn = '/tmp/apache.ktrace.' . getmicrotime();
