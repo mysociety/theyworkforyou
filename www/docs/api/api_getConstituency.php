@@ -35,9 +35,7 @@ function api_getconstituency_postcode($pc) {
 	if ($xml->error) {
 		api_error('Unknown postcode, or problem with lookup');
     } else {
-        $current = $xml->current_constituency;
-        $new = $xml->future_constituency;
-        $output['name'] = $xml->future_constituency;
+        $output['name'] = (string)$xml->future_constituency;
         api_output($output);
     }
 
