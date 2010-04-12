@@ -117,9 +117,11 @@ class Candidacy(db.Model):
         assert len(founds) == 1
         return founds[0]
 
-    def responses(self):
-        return self.surveyresponse_set
+    def national_responses(self):
+        return filter(lambda x: x.refined_issue.seat.name == 'National', self.surveyresponse_set)
 
+    def local_responses(self):
+        return filter(lambda x: x.refined_issue.seat.name != 'National', self.surveyresponse_set)
     # Audit log of what has happened to candidate.
     # Note: The log function does a save too
     def log(self, message):
