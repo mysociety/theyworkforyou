@@ -255,8 +255,8 @@ if (typeof urchinTracker == 'function') urchinTracker();
 				print '<p id="video_already">You&rsquo;re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under</p>';
 			} elseif ($country == 'IE' || get_http_var('ie')) {
 				print '<p id="video_already">Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
-			} else {
-				print '<p id="video_already" style="text-align:left"><strong>Hello:</strong> <a href="http://www.democracyclub.org.uk/">Join Democracy Club to help make this the most accountable general election ever!</a></p>';
+			#} else {
+			#	print '<p id="video_already" style="text-align:left"><strong>Hello:</strong> <a href="http://www.democracyclub.org.uk/">Join Democracy Club to help make this the most accountable general election ever!</a></p>';
             }
 		}
 
