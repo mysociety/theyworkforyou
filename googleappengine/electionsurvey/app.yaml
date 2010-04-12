@@ -18,6 +18,9 @@ handlers:
   script: main.py
   login: admin
 
+- url: /stats.*
+  script: $PYTHON_LIB/google/appengine/ext/appstats/ui.py
+
 - url: /task/.*
   script: main.py
   login: admin
