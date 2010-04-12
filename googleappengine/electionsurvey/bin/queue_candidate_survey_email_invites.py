@@ -40,7 +40,7 @@ def get_seats_list_from_options(options):
     seats_list = []
     if options.constituency != None:
         seat = db.Query(Seat).filter("name =", options.constituency).get()
-        seats_list.append(seats_list)
+        seats_list.append(seat)
 
     if options.constituency_list != None:
         for constituency in open(options.constituency_list):
