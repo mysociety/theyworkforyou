@@ -119,7 +119,7 @@ function api_getMP_postcode($pc) {
 		} elseif ($constituency) {
 			$person = _api_getMP_constituency($constituency);
 			$output = $person;
-			api_output($output, strtotime($output['lastupdate']));
+			api_output($output, isset($output['lastupdate']) ? strtotime($output['lastupdate']) : null);
 		} else {
 			api_error('Unknown postcode');
 		}
@@ -144,7 +144,7 @@ function _api_getMP_constituency($constituency) {
 	$db = new ParlDB;
 
 	if ($constituency == '')
-		return false;
+		return array();
 
 	if ($constituency == 'Orkney ')
 		$constituency = 'Orkney &amp; Shetland';
@@ -166,6 +166,6 @@ function _api_getMP_constituency($constituency) {
 			return _api_getPerson_row($q->row(0), true);
 	}
 	
-	return false;
+	return array();
 }
 

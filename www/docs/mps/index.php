@@ -8,8 +8,12 @@ if (get_http_var('c4')) $this_page = 'c4_mps';
 elseif (get_http_var('c4x')) $this_page = 'c4x_mps';
 
 $args = array();
+$date = get_http_var('date');
 
-if ($date = get_http_var('date')) {
+# 2010 general election override
+if (!$date) $date = '2010-04-12';
+
+if ($date) {
 	$date = parse_date($date);
 	if ($date) {
 		$DATA->set_page_metadata($this_page, 'title', 'MPs, as on ' . format_date($date['iso'], LONGDATEFORMAT));
