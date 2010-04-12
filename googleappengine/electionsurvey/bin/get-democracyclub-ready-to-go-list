@@ -1,0 +1,6 @@
+#!/bin/bash
+
+GET http://www.democracyclub.org.uk/constituencies/ | grep '<td class="ready">Yes </td>' -B 5 | grep "constituencies" | cut -d ">" -f 3 | cut -d "<" -f 1
+
+
+

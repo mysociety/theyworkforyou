@@ -3,19 +3,12 @@ Do this next
 
 Make sure off site backups are working reliably
 
-
 Be sure to fix up Liverpool :)
 
 Send 20 / 30 local issues ones and leave for 24 hours
 
-Rethink /survey URL for postal
-    Make it /ppc
-
 Write script for making CSV file for mail merge
 
-
-Get postcode lookup working:
-http://theyworkforyouapi.appspot.com/lookup?key=XXXXXX&format=js&pc=eh11bb
 
 Write voter quiz:
     - with postcode form
@@ -32,8 +25,11 @@ Display that in results of quiz
 
 Function to share answers / embed in blog?
 
+Test postcode lookup with constituency with & in name
 
-When we start displaying the survey answers, rethink if they are allowed to resubmit survey
+
+
+When we start displaying the survey answers, stop resubmit of survey
 
 Script to detect cases where email address has changed and show them
     (make sure compares to validated_email)
@@ -41,4 +37,12 @@ Script to show what frozen seats have changed local issues
 
 
 Really autosave should check for conflicts between two browser windows
+
+
+Ideas for quiz
+==============
+
+Have an icon for each one
+
+
 
