@@ -144,7 +144,7 @@ function _api_getMP_constituency($constituency) {
 	$db = new ParlDB;
 
 	if ($constituency == '')
-		return false;
+		return array();
 
 	if ($constituency == 'Orkney ')
 		$constituency = 'Orkney &amp; Shetland';
@@ -166,6 +166,6 @@ function _api_getMP_constituency($constituency) {
 			return _api_getPerson_row($q->row(0), true);
 	}
 	
-	return false;
+	return array();
 }
 
