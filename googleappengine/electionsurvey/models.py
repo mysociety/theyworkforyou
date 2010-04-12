@@ -153,6 +153,7 @@ class SurveyResponse(db.Model):
 
     candidacy = db.ReferenceProperty(Candidacy, required=True)
     refined_issue = db.ReferenceProperty(RefinedIssue, required=True)
+    national = db.BooleanProperty()
 
     # 100 = strongly agree, 0 = strongly disagree
     agreement = db.RatingProperty(required=True)

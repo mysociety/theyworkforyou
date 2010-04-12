@@ -21,6 +21,7 @@ class IssueQuestionForm(forms.Form):
     # Constructor needs to know which candidacy and issue this is for
     def __init__(self, *args, **kwargs):
         self.refined_issue = kwargs.pop('refined_issue')
+        self.national = (self.refined_issue.seat.name == 'National')
         self.candidacy = kwargs.pop('candidacy')
 
         kwargs['prefix'] = 'issue-%s' % self.refined_issue.key().name()
@@ -34,7 +35,8 @@ class IssueQuestionForm(forms.Form):
             agreement = int(self.cleaned_data['agreement']),
             refined_issue = self.refined_issue.key(),
             more_explanation = self.cleaned_data['more_explanation'],
-            candidacy = self.candidacy.key()
+            candidacy = self.candidacy.key(),
+            national = self.national
         )
         survey_response.put()
 
