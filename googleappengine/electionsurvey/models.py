@@ -118,10 +118,11 @@ class Candidacy(db.Model):
         return founds[0]
 
     def national_responses(self):
-        return filter(lambda x: x.refined_issue.seat.name == 'National', self.surveyresponse_set)
+        return self.surveyresponse_set.filter('national =', True)
 
     def local_responses(self):
-        return filter(lambda x: x.refined_issue.seat.name != 'National', self.surveyresponse_set)
+        return self.surveyresponse_set.filter('national =', False)
+
     # Audit log of what has happened to candidate.
     # Note: The log function does a save too
     def log(self, message):
