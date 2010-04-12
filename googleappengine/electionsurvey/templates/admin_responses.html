@@ -10,7 +10,12 @@
 
 {% for c in candidacies %}
 <div>
-    <h3>{{ c.candidate.name }} ({{ c.seat.name }}, {{ c.candidate.party.name }})</h3> 
+    <h3>
+        {% if c.deleted %} <s> {% endif %} 
+            {{ c.candidate.name }} ({{ c.seat.name }}, {{ c.candidate.party.name }})
+        {% if c.deleted %} </s> {% endif %} 
+    </h3> 
+
     <p><em>Submitted on {{ c.survey_filled_in_when }}</em></p>
     <h4>National</h4>
     <ul>
