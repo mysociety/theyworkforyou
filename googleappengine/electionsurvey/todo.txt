@@ -1,11 +1,14 @@
 Do this next
 ============
 
+Cope with:
+         "status" : "standing_down",
+Check Bob Steel
+    http://www.yournextmp.com/candidates/bob_steel
+
+Post "Frank Little"'s answers
+
 Make sure off site backups are working reliably
-
-Be sure to fix up Liverpool :)
-
-Send 20 / 30 local issues ones and leave for 24 hours
 
 Write script for making CSV file for mail merge
 
