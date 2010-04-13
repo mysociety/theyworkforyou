@@ -4,6 +4,8 @@ Do this next
 Check Liverpool constituencies
 
 Add JSON of what status of each candidates response is
+    "All at once, I think."
+    Give the YNMP ids
 
 Cope with:
          "status" : "standing_down",
