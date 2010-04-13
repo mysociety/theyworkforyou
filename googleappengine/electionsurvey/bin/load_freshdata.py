@@ -232,7 +232,9 @@ def load_from_democlub(csv_files, frozen_seats):
         log("Reading CSV file " + csv_file)
         reader = csv.reader(open(csv_file, "rb"))
         for row in reader:
-            (democlub_id, question, reference_url, seat_name, created, updated) = row
+            if len(row) == 6:
+                row.append(None)
+            (democlub_id, question, reference_url, seat_name, created, updated, short_name) = row
             key_name = democlub_id
             seat = find_seat(seat_name.decode('utf-8'))
 
@@ -243,6 +245,7 @@ def load_from_democlub(csv_files, frozen_seats):
                     democlub_id = int(democlub_id),
                     question = question.decode('utf-8'),
                     reference_url = reference_url.decode('utf-8'),
+                    short_name = short_name.decode('utf-8'),
                     seat = seat,
                     created = convdate(created),
                     updated = convdate(updated),

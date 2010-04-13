@@ -28,7 +28,7 @@ from models import Party, Candidate, Seat, Candidacy, RefinedIssue
 # Helpers
 
 def log(msg):
-    print datetime.datetime.now(), msg
+    print datetime.datetime.now(), msg.encode('utf-8')
 
 def group_by_n(lst, n):
     return [lst[i:i+n] for i in range(0,len(lst),n)]

@@ -138,6 +138,7 @@ class RefinedIssue(db.Model):
 
     question = db.StringProperty()
     reference_url = db.StringProperty()
+    short_name = db.StringProperty()
 
     seat = db.ReferenceProperty(Seat)
 
