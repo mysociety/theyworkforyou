@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>Interview your next MP!</h2>
+<h2>Which issues do you care about?</h2>
 
 <!--<p class="error">
     Dummy error
@@ -15,8 +15,11 @@
 <div class="stripe-time-2">
 <div class="main">
 
-<p>There are <strong>{{ candidacy_count }} {{ candidacy_count|pluralize:"person,people" }}</strong> who want
-to be an MP where you live, in <strong>{{ seat.name }}</strong> constituency.</p>
+<p>
+    There are <strong>{{ candidacy_count }} 
+    {{ candidacy_count|pluralize:"person,people" }}</strong> who want to be an
+    MP where you live, in <strong>{{ seat.name }}</strong> constituency.
+</p>
 
 <form method="post" action="/quiz" id="voterquiz">
     <h3>National issues - Determined by a politically balanced expert panel</h3>
@@ -67,6 +70,6 @@ to be an MP where you live, in <strong>{{ seat.name }}</strong> constituency.</p
 
 </div>
 <div class="sidebar">
-    Sidebar text XXX
+    <!-- Any sidebar text goes here -->
 
 {% endblock %}
