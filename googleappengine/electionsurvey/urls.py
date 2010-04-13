@@ -22,6 +22,8 @@ urlpatterns = patterns('',
     url(r'^quiz$', views.quiz_index),
     url(r'^quiz/(?P<postcode>.+)$', views.quiz_main),
 
+    url(r'^quiz/$', redirect_to, {'url' : '/quiz'} ),
+
     url(r'^admin/?$', redirect_to, {'url' : '/admin/index'} ),
     url(r'^admin/index$', views.admin_index),
     url(r'^admin/stats$', views.admin_stats),
