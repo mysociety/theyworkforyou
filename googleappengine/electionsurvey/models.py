@@ -159,7 +159,7 @@ class SurveyResponse(db.Model):
     # 100 = strongly agree, 0 = strongly disagree
     agreement = db.RatingProperty(required=True)
 
-    more_explanation = db.StringProperty() # maximum 500 characters, indexed
+    more_explanation = db.StringProperty(multiline=True) # maximum 500 characters, indexed
 
     def deleted(self):
         return self.refined_issue.deleted
