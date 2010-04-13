@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>
+    It's job interview time for your next MP!
+</h2>
+
+<p>
+</p>
+
+<p>
+Every five years or so, you get to choose who will <strong>make our laws</strong>, 
+and <strong>run our country</strong>.  
+</p>
+
+{% if form.postcode.errors %}
+<p class="error">
+    Please enter a valid postcode, e.g. OX1 3DR (don't worry about spaces or capialisation)
+</p>
+{% endif %}
+
+<form method="post" action="/quiz" id="postcode_form">
+    <p>
+        <strong>{{ form.postcode.label_tag }}</strong> {{ form.postcode }}
+        <input type="submit" value="Go!">
+    </p>
+</form>
+
+<p>
+</p>
+
+<h3>
+    Why should I do this quiz, when there are a million others on the Internet?
+</h3>
+
+<p>
+</p>
+
+<p>There are two unique things about this quiz:</p>
+
+<ol>
+
+    <li>We asked every wannabe MP <strong>their personal views</strong>;
+    we don't assume everyone in each party is the same.</li>
+
+    <li>We quizzed each candidate about <strong>national and local</strong> issues.
+    The local issues were selected by thousands of volunteers from across the country.
+    </li>
+
+</ol>
+
+<p></p>
+
+{% endblock %}

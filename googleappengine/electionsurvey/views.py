@@ -266,25 +266,50 @@ def admin_responses(request):
 #####################################################################
 # Voter quiz
 
+# For display, includes space
 def _canonicalise_postcode(postcode):
     postcode = re.sub('[^A-Z0-9]', '', postcode.upper())
     postcode = re.sub('(\d[A-Z]{2})$', r' \1', postcode)
     return postcode
 
+# For use in URLs, excludes space
+def _urlise_postcode(postcode):
+    postcode = _canonicalise_postcode(postcode)
+    postcode = postcode.replace(' ', '')
+    return postcode
+
+# Look up postcode, returning (post-election) constituency
 def _postcode_to_constituency(postcode):
-    if postcode == 'ZZ9 9ZY':
+    postcode = _urlise_postcode(postcode)
+    if postcode == 'WW99WW':
         seat_name = 'Felpersham Outer'
     else:
-        url = "http://theyworkforyouapi.appspot.com/lookup?key=%s&format=js&pc=%s" % (settings.THEYWORKFORYOU_API_KEY, postcode.replace(' ', ''))
+        url = "http://theyworkforyouapi.appspot.com/lookup?key=%s&format=js&pc=%s" % (settings.THEYWORKFORYOU_API_KEY, postcode)
         result = urllib2.urlopen(url).read()
         json_result = json.loads(result)
         seat_name = json_result['future_constituency']
 
     return db.Query(Seat).filter('name =', seat_name).get()
 
+# Postcode form on quiz
 def quiz_index(request):
-    postcode = _canonicalise_postcode(request.GET['pc'])
+    form = forms.QuizPostcodeForm(request.REQUEST)
+
+    if form.is_valid():
+        postcode = _urlise_postcode(form.cleaned_data['postcode'])
+        seat = _postcode_to_constituency(postcode)
+        return HttpResponseRedirect('/quiz/' + postcode)
+
+    return render_to_response('quiz_index.html', { 
+        'form': form,
+    })
+
+
+def quiz_main(request, postcode):
+    display_postcode = _canonicalise_postcode(postcode)
+    url_postcode = _urlise_postcode(postcode)
     seat = _postcode_to_constituency(postcode)
+
     raise Exception(seat.name)
 
 

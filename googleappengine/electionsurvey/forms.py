@@ -9,6 +9,7 @@
 from google.appengine.ext import db
 
 from django import forms
+import django.contrib.localflavor.uk.forms
 
 from models import SurveyResponse, Seat
 
@@ -77,5 +78,10 @@ def _form_array_amount_done(issue_forms):
         if not form.errors:
             c += 1
     return c
+
+# Enter postcode at start of survey
+class QuizPostcodeForm(forms.Form):
+    postcode = django.contrib.localflavor.uk.forms.UKPostcodeField(required=True,
+            label = 'To begin, enter your postcode:')
 
 
