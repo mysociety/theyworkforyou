@@ -25,7 +25,18 @@ $(function(){
         $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
     }
     if ($('form#voterquiz').length) {
-        alert('boo');
+        $('ul.questions > li').hide();
+        var first_question = $('ul.questions > li:first');
+        first_question.show(600);
+        $('h3:eq(1)').hide();
+        $('form#voterquiz input:submit.final').hide();
+
+        $('ul.questions > li').change(function(){
+            $(this).closest('ul.questions > li').next().show(600)
+        });
+        $('ul.questions > li input:submit#discard').submit(function(){
+            $(this).hide()
+        });
     }
 });
 

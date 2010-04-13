@@ -4,9 +4,9 @@
 
 <h2>TheyWorkForYou PPC survey</h2>
 
-<p class="error">
+<!--<p class="error">
     Dummy error
-</p>
+</p> -->
 
 </div>
 <div class="break"></div>
@@ -25,6 +25,7 @@
                     {{ form.agreement }}
                 </div>
                 <div class="more_explanation">
+                    <p><input type="submit" value="Don't care / don't know" class="discard"></p>
                 </div>
             </li>
             {% endfor %}
@@ -40,6 +41,7 @@
                         {{ form.agreement }}
                     </div>
                     <div class="more_explanation">
+                        <input type="submit" value="Don't care / don't know" class="discard">
                     </div>
                 </li>
                 {% endfor %}
@@ -57,7 +59,7 @@
     <input type="hidden" name="postcode" value="{{ postcode }}" id="token" > 
     <input type="hidden" name="questions_submitted" value="1" > 
 
-    <p><input type="submit" value="Submit quiz"></p>
+    <p><input type="submit" value="Submit quiz" class="final"></p>
 </form>
 
 </div>
