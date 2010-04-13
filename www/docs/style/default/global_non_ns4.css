@@ -2,6 +2,10 @@
 /* Headings */
 h1 {margin: 0;padding: 0;display: inline;
 	font-size: 1px;position:relative;top:-30px;left:-12px;}
+/* Whilst banner is displayed */
+h1 { top:-12px; }
+/* Whilst banner is displayed */
+
 h2 , h2 a:link, h2 a:visited {color: #111;text-decoration:none;padding-top:1em;font-size:1.8em;}
 h3, h3 a:link, h3 a:visited {color: #5c4610;text-decoration:none;}
 h4 { color: #4D6C25; }
@@ -643,6 +647,12 @@ div.vidOn div.main {background-color: #ffff66;}
 }
 .informational.left {
     text-align: left;
+}
+.informational.banner {
+    float: left;
+    text-align: left;
+    border-top: none;
+    border-left: none;
 }
 
 /* mySociety bar */
