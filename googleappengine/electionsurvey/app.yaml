@@ -39,4 +39,6 @@ skip_files:
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
 - ^(.*/)?.*\.bak$
-- ^googleappengine/.*
+- ^(.*/)?google_appengine/.*
+
+
