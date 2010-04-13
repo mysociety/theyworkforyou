@@ -205,6 +205,19 @@ on behalf of the voters of %s constituency
     text += "<pre>%s</pre>" % str(message.body)
     return HttpResponse(text)
 
+# Used by DemocracyClub to measure progress
+def survey_stats_json(request):
+    candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False))
+    emailed_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_invite_emailed =', True))
+    filled_in_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_filled_in =', True))
+
+    result = { 'candidacy_count': candidacy_count,
+               'emailed_candidacy_count': emailed_candidacy_count,
+               'filled_in_candidacy_count': filled_in_candidacy_count }
+
+    return HttpResponse(json.dumps(result))
+
+
 #####################################################################
 # Administration interface
 
