@@ -15,19 +15,19 @@ h2 {
     height: 2px;
 }
 
-form#electionsurvey ul {
+form#electionsurvey ul, form#voterquiz ul {
     margin-top: 0.5em;
 }
 
-form#electionsurvey li {
+form#electionsurvey li, form#voterquiz li {
     display: inline;
 }
 
-form#electionsurvey div.more_explanation {
+form#electionsurvey div.more_explanation, form#voterquiz div.more_explanation {
     margin-top: 0.5em;
     margin-bottom: 2em;
 }
-form#electionsurvey div.issues_note {
+form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
     margin-top: 0.5em;
     margin-bottom: 2em;
 }

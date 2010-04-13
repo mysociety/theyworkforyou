@@ -1,27 +1,32 @@
 $(function(){
-    var more_explanation_label_unfolded = $('ul.questions > li div.more_explanation label').html();
-    var more_explanation_label_folded = "After you answer, optional space for a short explanation is available.";
+    if ($('form#electionsurvey').length) {
+        var more_explanation_label_unfolded = $('ul.questions > li div.more_explanation label').html();
+        var more_explanation_label_folded = "After you answer, optional space for a short explanation is available.";
 
-    // Enable/disable more explanation fields at start according to status of radio buttons
-    $('ul.questions textarea').attr('disabled', 'disabled').addClass('disabled').hide();
-    $('ul.questions div.more_explanation label').html(more_explanation_label_folded);
-    $('ul.questions > li').has('input:radio:checked').find('textarea').removeAttr('disabled').removeClass('disabled').show();
-    $('ul.questions > li').has('input:radio:checked').find('div.more_explanation label').html(more_explanation_label_unfolded);
-    // Allow editing of more explanations when radio button has been pressed
-    $('input:radio').change(function(){
-        $(this).closest('ul.questions > li').find('textarea').removeAttr('disabled').removeClass('disabled').show(600);
-        $(this).closest('ul.questions > li').find('div.more_explanation label').html(more_explanation_label_unfolded);
-    });
+        // Enable/disable more explanation fields at start according to status of radio buttons
+        $('ul.questions textarea').attr('disabled', 'disabled').addClass('disabled').hide();
+        $('ul.questions div.more_explanation label').html(more_explanation_label_folded);
+        $('ul.questions > li').has('input:radio:checked').find('textarea').removeAttr('disabled').removeClass('disabled').show();
+        $('ul.questions > li').has('input:radio:checked').find('div.more_explanation label').html(more_explanation_label_unfolded);
+        // Allow editing of more explanations when radio button has been pressed
+        $('input:radio').change(function(){
+            $(this).closest('ul.questions > li').find('textarea').removeAttr('disabled').removeClass('disabled').show(600);
+            $(this).closest('ul.questions > li').find('div.more_explanation label').html(more_explanation_label_unfolded);
+        });
 
-    // Autosave the form when any part of it changes
-    $('input:radio').add('ul.questions textarea').change(autosave_survey_form);
-    // Autosave if they close the window (in case in middle of typing in textarea)
-    window.onbeforeunload = autosave_survey_form;
-    // Autosave when the submit button is clicked (although this will do an onbeforeunload also?)
-    $('form#electionsurvey').submit(autosave_survey_form);
+        // Autosave the form when any part of it changes
+        $('input:radio').add('ul.questions textarea').change(autosave_survey_form);
+        // Autosave if they close the window (in case in middle of typing in textarea)
+        window.onbeforeunload = autosave_survey_form;
+        // Autosave when the submit button is clicked (although this will do an onbeforeunload also?)
+        $('form#electionsurvey').submit(autosave_survey_form);
 
-    // Prevent too much text in the more explanation fields
-    $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
+        // Prevent too much text in the more explanation fields
+        $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
+    }
+    if ($('form#voterquiz').length) {
+        alert('boo');
+    }
 });
 
 // Store form data on server so can come back to it later
