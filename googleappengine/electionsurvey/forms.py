@@ -128,5 +128,21 @@ class QuizPostcodeForm(forms.Form):
     postcode = MyUKPostcodeField(required=True, label = 'To begin, enter your postcode:')
 
 
+class QuizNationalIssueSelectForm(forms.Form):
+    short_names = [ "Taxes",
+        "Business",
+        "Climate change",
+        "Equality",
+        "Public spending",
+        "Retirement",
+        "Immigration",
+        "CCTV cameras",
+        "Marriage",
+        "Political honesty",
+        "The Arts",
+        "Europe",
+        "Iran",
+        "Afghanistan",
+        "Foreign aid" ]
 
 

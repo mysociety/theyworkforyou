@@ -310,6 +310,7 @@ def quiz_main(request, postcode):
         'national_issue_forms': national_issue_forms,
         'seat' : seat,
         'candidacy_count' : seat.candidacy_set.filter("deleted = ", False).count(),
+        'local_issue_count' : seat.candidacy_set.filter("deleted = ", False).count(),
         'postcode' : postcode
     })
 

@@ -15,10 +15,7 @@ Make sure off site backups are working reliably
 Write script for making CSV file for mail merge
 
 
-
-Write voter quiz:
-    - asking voters the same questions as candidates
-Display comparison pages
+Take form submission and display comparison pages
 
 Rename quiz_index quiz_postcode
 
