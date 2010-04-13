@@ -259,9 +259,11 @@ def admin_stats(request):
     })
 
 def admin_responses(request):
-    candidacies = db.Query(Candidacy).filter('survey_filled_in =', True).order('-survey_filled_in_when').fetch(1000)
+    MAX_RESPONSES = 20
+    candidacies = db.Query(Candidacy).filter('survey_filled_in =', True).order('-survey_filled_in_when').fetch(MAX_RESPONSES)
     return render_to_response('admin_responses.html', { 
         'candidacies': candidacies,
+        'max_responses': MAX_RESPONSES
     })
 
 #####################################################################

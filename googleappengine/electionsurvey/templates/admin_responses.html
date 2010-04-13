@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<p>Most recent responses (maximum 1000)</p>
+<p>Most recent responses (maximum {{ max_responses }})</p>
 
 {% for c in candidacies %}
 <div>
