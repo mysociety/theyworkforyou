@@ -635,8 +635,15 @@ div.vidOn div.main {background-color: #ffff66;}
 
 .video_name { border-bottom: solid 1px #666666; }
 
-#video_already {background-color: #ffff99;border: solid 2px #ff9900;padding: 4px;text-align: center;}
-
+.informational {
+    background-color: #ffff99;
+    border: solid 2px #ff9900;
+    padding: 4px;
+    text-align: center;
+}
+.informational.left {
+    text-align: left;
+}
 
 /* mySociety bar */
     

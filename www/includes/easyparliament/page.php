@@ -250,13 +250,13 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		if (defined('OPTION_GAZE_URL') && OPTION_GAZE_URL) {
 			$country = gaze_get_country_from_ip($_SERVER["REMOTE_ADDR"]);
 			if ($country == 'NZ' || get_http_var('nz')) {
-				print '<p id="video_already">You&rsquo;re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
+				print '<p class="informational">You&rsquo;re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
 			} elseif ($country == 'AU' || get_http_var('au')) {
-				print '<p id="video_already">You&rsquo;re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under</p>';
+				print '<p class="informational">You&rsquo;re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under</p>';
 			} elseif ($country == 'IE' || get_http_var('ie')) {
-				print '<p id="video_already">Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
-			#} else {
-			#	print '<p id="video_already" style="text-align:left"><strong>Hello:</strong> <a href="http://www.democracyclub.org.uk/">Join Democracy Club to help make this the most accountable general election ever!</a></p>';
+				print '<p class="informational">Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
+			} else {
+				print '<p class="informational banner">You can improve this election: <a href="http://www.democracyclub.org.uk/">TheyWorkForYou needs your help to pin down every candidate</a></p>';
             }
 		}
 

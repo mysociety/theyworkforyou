@@ -17,7 +17,7 @@ if (isset($member['left_house'][1]) && $member['left_house'][1]['date'] == '2010
     if ($THEUSER->postcode_is_set()) {
         $bound_pc = '?pc=' . urlencode($THEUSER->postcode());
     }
-    print '<p id="video_already">Constituency boundaries are changing for this election.
+    print '<p class="informational">Constituency boundaries are changing for this election.
 <a href="/boundaries/' . $bound_pc . '">Find out what constituency you will be in</a>.
 </p>';
 }

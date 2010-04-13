@@ -174,7 +174,7 @@ function api_check_key($key) {
 }
 
 function api_key_current_message() { ?>
-<p id="video_already" style="text-align:left"><em>Current API users</em>: We
+<p class="informational left"><em>Current API users</em>: We
 realise the inconvenience of adding a key to an API that previously did not
 require one. However, we feel it is now necessary in order to monitor the
 service for abuse, help with support and maintenance, locate large volume/
