@@ -15,15 +15,16 @@ and <strong>run our country</strong>.
 </p>
 
 {% if form.postcode.errors %}
-<p class="error">
-    Please enter a valid postcode, e.g. OX1 3DR (don't worry about spaces or capialisation)
-</p>
+    <p class="error">
+        {{ form.postcode.errors|join:" " }}
+    </p>
 {% endif %}
 
 <form method="post" action="/quiz" id="postcode_form">
     <p>
         <strong>{{ form.postcode.label_tag }}</strong> {{ form.postcode }}
         <input type="submit" value="Go!">
+        <br>e.g. OX1 3DR (don't worry about spaces or capialisation)
     </p>
 </form>
 

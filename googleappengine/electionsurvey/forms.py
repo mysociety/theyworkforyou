@@ -6,10 +6,16 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
 
+import urllib2
+import re
+
 from google.appengine.ext import db
 
 from django import forms
+from django.conf import settings
 import django.contrib.localflavor.uk.forms
+
+import django.utils.simplejson as json
 
 from models import SurveyResponse, Seat
 
@@ -79,9 +85,46 @@ def _form_array_amount_done(issue_forms):
             c += 1
     return c
 
+# For display, includes space
+def _canonicalise_postcode(postcode):
+    postcode = re.sub('[^A-Z0-9]', '', postcode.upper())
+    postcode = re.sub('(\d[A-Z]{2})$', r' \1', postcode)
+    return postcode
+
+# For use in URLs, excludes space
+def _urlise_postcode(postcode):
+    postcode = _canonicalise_postcode(postcode)
+    postcode = postcode.replace(' ', '')
+    return postcode
+
+# Look up postcode, returning (post-election) constituency
+def _postcode_to_constituency(postcode):
+    postcode = _urlise_postcode(postcode)
+    if postcode == 'WW99WW':
+        seat_name = 'Felpersham Outer'
+    else:
+        url = "http://theyworkforyouapi.appspot.com/lookup?key=%s&format=js&pc=%s" % (settings.THEYWORKFORYOU_API_KEY, postcode)
+        result = urllib2.urlopen(url).read()
+        json_result = json.loads(result)
+
+        if 'error' in json_result:
+            raise django.forms.util.ValidationError(json_result['error'])
+        seat_name = json_result['future_constituency']
+
+    return db.Query(Seat).filter('name =', seat_name).get()
+
+class MyUKPostcodeField(django.contrib.localflavor.uk.forms.UKPostcodeField):
+    default_error_messages = { 'invalid': 'Please enter a valid postcode.' }
+
 # Enter postcode at start of survey
 class QuizPostcodeForm(forms.Form):
-    postcode = django.contrib.localflavor.uk.forms.UKPostcodeField(required=True,
-            label = 'To begin, enter your postcode:')
+    # Look up constituency for postcode
+    def clean_postcode(self):
+        postcode = self.cleaned_data['postcode']
+        seat = _postcode_to_constituency(postcode)
+        self.cleaned_data['seat'] = seat
+        return postcode
+
+    postcode = MyUKPostcodeField(required=True, label = 'To begin, enter your postcode:')
 
 
