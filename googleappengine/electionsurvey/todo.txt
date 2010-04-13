@@ -1,6 +1,8 @@
 Do this next
 ============
 
+Add JSON of what is going on with delivery
+
 Cope with:
          "status" : "standing_down",
 Check Bob Steel
@@ -13,8 +15,8 @@ Make sure off site backups are working reliably
 Write script for making CSV file for mail merge
 
 
+
 Write voter quiz:
-    - with postcode form
     - asking voters the same questions as candidates
 Display comparison pages
 

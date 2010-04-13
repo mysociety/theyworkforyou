@@ -271,19 +271,18 @@ def admin_responses(request):
 
 # Postcode form on quiz
 def quiz_index(request):
-    form = forms.QuizPostcodeForm(request.REQUEST)
+    form = forms.QuizPostcodeForm(request.POST or None)
 
-    if form.is_valid():
-        postcode = forms._urlise_postcode(form.cleaned_data['postcode'])
-        return HttpResponseRedirect('/quiz/' + postcode)
+    if request.method == 'POST':
+        if form.is_valid():
+            postcode = forms._urlise_postcode(form.cleaned_data['postcode'])
+            return HttpResponseRedirect('/quiz/' + postcode)
 
     return render_to_response('quiz_index.html', { 
         'form': form,
     })
 
 def quiz_main(request, postcode):
-    post = dict(request.POST.items()) or {}
-
     display_postcode = forms._canonicalise_postcode(postcode)
     url_postcode = forms._urlise_postcode(postcode)
     seat = forms._postcode_to_constituency(postcode)
@@ -293,7 +292,7 @@ def quiz_main(request, postcode):
     local_issues_for_seat = seat.refinedissue_set.filter("deleted =", False).fetch(1000)
     local_issue_forms = []
     for issue in local_issues_for_seat:
-        form = forms.LocalIssueQuestionForm(post, refined_issue=issue, candidacy=None)
+        form = forms.LocalIssueQuestionForm(request.POST, refined_issue=issue, candidacy=None)
         valid = valid and form.is_valid()
         local_issue_forms.append(form)
     # ... and national issues
@@ -301,16 +300,16 @@ def quiz_main(request, postcode):
     national_issues_for_seat = national_seat.refinedissue_set.filter("deleted =", False).fetch(1000)
     national_issue_forms = []
     for issue in national_issues_for_seat:
-        form = forms.NationalIssueQuestionForm(post, refined_issue=issue, candidacy=None)
+        form = forms.NationalIssueQuestionForm(request.POST, refined_issue=issue, candidacy=None)
         valid = valid and form.is_valid()
         national_issue_forms.append(form)
     #all_issue_forms = local_issue_forms + national_issue_forms
-
 
     return render_to_response('quiz_main.html', {
         'local_issue_forms': local_issue_forms,
         'national_issue_forms': national_issue_forms,
         'seat' : seat,
+        'candidacy_count' : seat.candidacy_set.filter("deleted = ", False).count(),
         'postcode' : postcode
     })
 

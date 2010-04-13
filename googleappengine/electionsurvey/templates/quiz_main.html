@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>TheyWorkForYou PPC survey</h2>
+<h2>Interview your next MP!</h2>
 
 <!--<p class="error">
     Dummy error
@@ -14,6 +14,9 @@
 
 <div class="stripe-time-2">
 <div class="main">
+
+<p>There are <strong>{{ candidacy_count }} {{ candidacy_count|pluralize:"person,people" }}</strong> who want
+to be an MP where you live, in <strong>{{ seat.name }}</strong> constituency.</p>
 
 <form method="post" action="/quiz" id="voterquiz">
     <h3>National issues - Determined by a politically balanced expert panel</h3>
