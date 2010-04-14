@@ -1,22 +1,15 @@
 Do this next
 ============
 
-Check Liverpool constituencies
-
-Add JSON of what status of each candidates response is
-    "All at once, I think."
-    Give the YNMP ids
-
 Cope with:
          "status" : "standing_down",
 Check Bob Steel
     http://www.yournextmp.com/candidates/bob_steel
 
-Post "Frank Little"'s answers
-
 Write script for making CSV file for mail merge
 
-Resend everything (for new email addresses)
+Show in admin how many constituencies are frozen
+Make better code to resend everything (to pick up new emails)
 
 When we start displaying the survey answers, stop resubmit of survey
 
