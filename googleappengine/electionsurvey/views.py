@@ -217,6 +217,38 @@ def survey_stats_json(request):
 
     return HttpResponse(json.dumps(result))
 
+def survey_candidacies_json(request):
+    candidacies = db.Query(Candidacy).filter('deleted =', False)
+
+    result = []
+    for c in candidacies:
+        item = { 'ynmp_id': c.ynmp_id,
+
+            'survey_invite_emailed': c.survey_invite_emailed,
+            'survey_invite_sent_to_emails': c.survey_invite_sent_to_emails,
+            'survey_filled_in': c.survey_filled_in,
+            'survey_filled_in_when': c.survey_filled_in_when,
+
+        }
+        if 'details' in request.GET:
+            details = {
+                'seat_ynmp_id': c.seat.ynmp_id,
+                'seat_name': c.seat.name,
+                'seat_code': c.seat.code,
+
+                'candidate_ynmp_id': c.candidate.ynmp_id,
+                'candidate_name': c.candidate.name,
+                'candidate_code': c.candidate.code,
+
+                'candidate_party_ynmp_id': c.candidate.party.ynmp_id,
+                'candidate_party_name': c.candidate.party.name,
+                'candidate_party_code': c.candidate.party.code,
+            }
+            item.update(details)
+        result.append(item)
+
+
+    return HttpResponse(json.dumps(result))
 
 #####################################################################
 # Administration interface

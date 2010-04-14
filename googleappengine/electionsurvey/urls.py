@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^survey$', views.survey_candidacy),
     url(r'^survey/autosave/(?P<token>.+)$', views.survey_autosave),
     url(r'^survey/stats.json$', views.survey_stats_json),
+    url(r'^survey/candidacies.json$', views.survey_candidacies_json),
     url(r'^survey/(?P<token>.+)$', views.survey_candidacy),
 
     url(r'^survey/$', redirect_to, {'url' : '/survey'} ),
