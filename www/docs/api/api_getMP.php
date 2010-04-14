@@ -7,6 +7,15 @@ function api_getMP_front() {
 ?>
 <p><big>Fetch a particular MP.</big></p>
 
+<p class="informational left">
+This API call is <strong>not</strong> broken. There are no MPs from when
+Parliament is dissolved until the general election, and so (as this call has
+always done with respect to deaths etc.), this call will by default return no
+result for postcode or constituency lookup. If you wish to always return a
+result, even when the seat is vacant, please specify the always_return
+parameter as documented below.
+</p>
+
 <h4>Arguments</h4>
 <dl>
 
