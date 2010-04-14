@@ -39,12 +39,14 @@ def group_by_n(lst, n):
 def get_seats_list_from_options(options):
     seats_list = []
     if options.constituency != None:
+        log("Getting individual constituency " + options.constituency)
         seat = db.Query(Seat).filter("name =", options.constituency).get()
         seats_list.append(seat)
 
     if options.constituency_list != None:
         for constituency in open(options.constituency_list):
             constituency = constituency.strip()
+            log("Getting list constituency " + constituency)
             seat = db.Query(Seat).filter("name =", constituency).get()
             seats_list.append(seat)
 
