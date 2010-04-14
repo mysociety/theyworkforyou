@@ -1,4 +1,4 @@
-#!/usr/bin/python2.5
+#!/usr/bin/python2.5 -u
 #
 # queue_candidate_survey_email_invites.py:
 # Sets up tasks to invite specfied sets of candidates
