@@ -1,4 +1,6 @@
 #!/usr/bin/python2.5
+# coding=utf-8
+
 #
 # load_freshdata.py:
 # Loads data from YourNextMP and DemocracyClub into GAE. Call this script as
@@ -232,10 +234,14 @@ def load_from_democlub(csv_files, frozen_seats):
         log("Reading CSV file " + csv_file)
         reader = csv.reader(open(csv_file, "rb"))
         for row in reader:
+
             if len(row) == 6:
                 row.append(None)
             (democlub_id, question, reference_url, seat_name, created, updated, short_name) = row
             key_name = democlub_id
+
+            # DemocracyClub has this constituency without its accent, YourNextMP has it with it.
+            seat_name = seat_name.replace("Ynys Mon", "Ynys Môn")
             seat = find_seat(seat_name.decode('utf-8'))
 
             if seat.key().name() in frozen_seats:
