@@ -14,4 +14,5 @@ the May 2010 General Election.
 2010-national-questions-judging-1.wma
 2010-national-questions-judging-2.wma
 
+See bin/national-issues.csv for the final list of issues selected.
 

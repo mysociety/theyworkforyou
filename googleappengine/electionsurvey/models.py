@@ -130,9 +130,8 @@ class Candidacy(db.Model):
         self.save()
 
            
-
-# Local issue data from DemocracyClub    
-
+# Local issue data from DemocracyClub. Also used to store national issues with
+# a magic constituency called "National". See bin/national-issues.csv.
 class RefinedIssue(db.Model):
     democlub_id = db.IntegerProperty()
 

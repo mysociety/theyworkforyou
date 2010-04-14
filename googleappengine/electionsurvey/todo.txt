@@ -20,6 +20,10 @@ Make sure off site backups are working reliably
 
 Write script for making CSV file for mail merge
 
+Check that the constituencies early frozen for having 0 issues are OK
+(maybe some could be resent if not?)
+
+
 
 Take form submission and display comparison pages
 

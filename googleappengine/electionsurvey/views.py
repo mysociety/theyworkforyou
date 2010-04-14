@@ -350,8 +350,11 @@ def quiz_main(request, postcode):
         national_issue_forms.append(form)
     #all_issue_forms = local_issue_forms + national_issue_forms
 
+    national_issue_select_form = forms.QuizNationalIssueSelectForm(request.POST)
+
     return render_to_response('quiz_main.html', {
         'local_issue_forms': local_issue_forms,
+        'national_issue_select_form': national_issue_select_form,
         'national_issue_forms': national_issue_forms,
         'seat' : seat,
         'candidacy_count' : seat.candidacy_set.filter("deleted = ", False).count(),
