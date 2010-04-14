@@ -90,7 +90,7 @@ function postcode_to_constituency_internal($postcode, $mp_only=true) {
     # So as not to disturb Scot/NI lookup
     if ($mp_only) {
         $xml = simplexml_load_string(file_get_contents(POSTCODE_API_URL . urlencode($postcode)));
-        if ($xml->error) {
+        if (!$xml || $xml->error) {
             return '';
         }
         return (string)$xml->current_constituency;
