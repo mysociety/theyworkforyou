@@ -217,6 +217,7 @@ def survey_stats_json(request):
 
     return HttpResponse(json.dumps(result))
 
+# Optionally: ?details=1 in the URL adds more info
 def survey_candidacies_json(request):
     candidacies = db.Query(Candidacy).filter('deleted =', False)
 
@@ -227,8 +228,7 @@ def survey_candidacies_json(request):
             'survey_invite_emailed': c.survey_invite_emailed,
             'survey_invite_sent_to_emails': c.survey_invite_sent_to_emails,
             'survey_filled_in': c.survey_filled_in,
-            'survey_filled_in_when': c.survey_filled_in_when,
-
+            'survey_filled_in_when': c.survey_filled_in_when and c.survey_filled_in_when.strftime('%Y-%m-%dT%H:%M:%S') or None
         }
         if 'details' in request.GET:
             details = {
