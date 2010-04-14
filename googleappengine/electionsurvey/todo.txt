@@ -1,8 +1,6 @@
 Do this next
 ============
 
-What does it do if a candidates email has changed?
-
 Check Liverpool constituencies
 
 Add JSON of what status of each candidates response is
@@ -20,6 +18,13 @@ Make sure off site backups are working reliably
 
 Write script for making CSV file for mail merge
 
+Resend everything (for new email addresses)
+
+When we start displaying the survey answers, stop resubmit of survey
+
+Script to detect cases where email address has changed and show them
+    (make sure compares to validated_email)
+Script to show what frozen seats have changed local issues
 Check that the constituencies early frozen for having 0 issues are OK
 (maybe some could be resent if not?)
 
@@ -42,12 +47,6 @@ Function to share answers / embed in blog?
 Test postcode lookup with constituency with & in name
 
 
-
-When we start displaying the survey answers, stop resubmit of survey
-
-Script to detect cases where email address has changed and show them
-    (make sure compares to validated_email)
-Script to show what frozen seats have changed local issues
 
 
 Really autosave should check for conflicts between two browser windows
