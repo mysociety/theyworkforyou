@@ -315,7 +315,7 @@ def admin_responses(request):
 # Voter quiz
 
 # Postcode form on quiz
-def quiz_index(request):
+def quiz_ask_postcode(request):
     form = forms.QuizPostcodeForm(request.POST or None)
 
     if request.method == 'POST':
@@ -323,7 +323,7 @@ def quiz_index(request):
             postcode = forms._urlise_postcode(form.cleaned_data['postcode'])
             return HttpResponseRedirect('/quiz/' + postcode)
 
-    return render_to_response('quiz_index.html', { 
+    return render_to_response('quiz_ask_postcode.html', { 
         'form': form,
     })
 

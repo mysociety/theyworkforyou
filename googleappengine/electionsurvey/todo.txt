@@ -32,8 +32,6 @@ Check that the constituencies early frozen for having 0 issues are OK
 
 Take form submission and display comparison pages
 
-Rename quiz_index quiz_postcode
-
 Add options to share on most popular social networking sites
 
 Show candidates which haven't answered yet
