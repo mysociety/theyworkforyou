@@ -50,6 +50,11 @@ def get_seats_list_from_options(options):
             seat = db.Query(Seat).filter("name =", constituency).get()
             seats_list.append(seat)
 
+    if len(seats_list) == 0:
+        log("Getting all constituencies")
+        seats_list = db.Query(Seat).order('name').fetch(1000)
+        assert len(seats_list) != 1000
+
     return seats_list
 
 def make_base_query_from_options(options):
@@ -92,11 +97,14 @@ def do_for_query(candidacies):
 def do_for_some_seats(seats, options):
     # Can only do IN for a small number of constituencies at a time (max, I
     # think, 25), so do in smaller groups
+    c = 0
     for seats_group in group_by_n(seats, 10):
-        log("Doing constituency group: " + ", ".join([seat.name for seat in seats_group]))
+        log(str(c) + "/" + str(len(seats)) + " - Doing constituency group: " + ", ".join([seat.name for seat in seats_group]))
+        c += len(seats_group)
         candidacies = make_base_query_from_options(options)
         candidacies.filter("seat in ", seats_group)
         do_for_query(candidacies)
+        log("") # spacing to make it look nicer
 
 
 ######################################################################
@@ -137,10 +145,7 @@ remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api'
 
 # Do the action
 seats = get_seats_list_from_options(options)
-if len(seats) > 0:
-    do_for_some_seats(seats, options)
-else:
-    candidacies = make_base_query_from_options(options)
-    do_for_query(candidacies)
+assert len(seats) > 0
+do_for_some_seats(seats, options)
 
 
