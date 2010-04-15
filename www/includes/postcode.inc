@@ -93,7 +93,7 @@ function postcode_to_constituency_internal($postcode, $mp_only=true) {
         if (!$xml || $xml->error) {
             return '';
         }
-        return (string)$xml->current_constituency;
+        return iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_constituency);
     }
 
 	# $pid = getmypid();
