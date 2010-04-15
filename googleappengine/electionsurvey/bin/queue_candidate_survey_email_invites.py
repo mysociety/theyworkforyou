@@ -90,9 +90,6 @@ def do_for_query(candidacies):
                 log(str(c) + " would queue invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name+ " email: " + candidacy.candidate.email)
 
 def do_for_some_seats(seats, options):
-    if options.limit:
-        raise Exception("--limit not implemented when constituency list specified")
-
     # Can only do IN for a small number of constituencies at a time (max, I
     # think, 25), so do in smaller groups
     for seats_group in group_by_n(seats, 10):
@@ -115,11 +112,10 @@ Doesn't send to candidacies who:
   * have invalid email addresses
   * are not in a constituency whose local issues have been fronen
   * already filled in the survey
-In addition, you can limit which candidates are invited by constituency and/or
-by maximum number using the parameters below.''')
+In addition, you can limit which candidates are invited by constituency and
+various other ways using the parameters below.''')
 parser.add_option('--constituency', type='string', dest="constituency", help='Name of constituency, default is all constituencies', default=None)
 parser.add_option('--constituency_list', type='string', dest="constituency_list", help='File containing names of constituencies one per line, default is all constituencies', default=None)
-parser.add_option('--limit', type='int', dest="limit", help='Maximum number to queue', default=None)
 parser.add_option('--real', action='store_true', dest="real", help='Really queue the emails, default is dry run', default=False)
 parser.add_option('--freeze', action='store_true', dest="freeze", help='', default=False)
 parser.add_option('--host', type='string', dest="host", help='domain:port of application, default is localhost:8080. e.g. election.theyworkforyou.com', default="localhost:8080")
@@ -145,8 +141,6 @@ if len(seats) > 0:
     do_for_some_seats(seats, options)
 else:
     candidacies = make_base_query_from_options(options)
-    if options.limit != None:
-        candidacies = candidacies.fetch(int(options.limit))
     do_for_query(candidacies)
 
 
