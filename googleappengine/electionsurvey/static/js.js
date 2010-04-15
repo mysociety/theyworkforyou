@@ -25,18 +25,30 @@ $(function(){
         $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
     }
     if ($('form#voterquiz').length) {
-        $('ul.questions > li').hide();
-        var first_question = $('ul.questions > li:first');
-        first_question.show(600);
-        $('h3:eq(1)').hide();
-        $('form#voterquiz input:submit.final').hide();
+        $('ul.national > li').hide();
+        //var first_question = $('ul.questions > li:first');
+        //first_question.show(600);
+        //$('h3:eq(1)').hide();
+        //$('form#voterquiz input:submit.final').hide();
 
-        $('ul.questions > li').change(function(){
-            $(this).closest('ul.questions > li').next().show(600)
+        // Checking national issues interested in
+        $('input:checkbox').change(function(){
+            var id_prefix = $(this).attr("name")
+            var question_part = $('li#' + id_prefix)
+            if ($(this).is(':checked')) {
+                question_part.show(600)
+            } else {
+                question_part.hide(600)
+            }
         });
-        $('ul.questions > li input:submit#discard').submit(function(){
-            $(this).hide()
-        });
+
+        // Filling in national question answers
+        //$('ul.questions > li').change(function(){
+        //    $(this).closest('ul.questions > li').next().show(600)
+        //});
+        //$('ul.questions > li input:submit#discard').submit(function(){
+        //    $(this).hide()
+        //});
     }
 });
 

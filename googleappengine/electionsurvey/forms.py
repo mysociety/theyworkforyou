@@ -30,10 +30,12 @@ class IssueQuestionForm(forms.Form):
         self.refined_issue = kwargs.pop('refined_issue')
         self.national = (self.refined_issue.seat.name == 'National')
         self.candidacy = kwargs.pop('candidacy')
-
-        kwargs['prefix'] = 'issue-%s' % self.refined_issue.key().name()
+        kwargs['prefix'] = self.id_prefix()
         super(IssueQuestionForm, self).__init__(*args, **kwargs)
         self.fields['agreement'].label = self.refined_issue.question
+
+    def id_prefix(self):
+        return 'issue-%s' % self.refined_issue.key().name()
     
     # Store the candidate's response in the database
     def save(self):
@@ -135,7 +137,7 @@ class QuizNationalIssueSelectForm(forms.Form):
         super(QuizNationalIssueSelectForm, self).__init__(*args, **kwargs)
 
         for national_issue in self.national_issues:
-            national_issue_id = 'national_issue_' + str(national_issue.democlub_id)
+            national_issue_id = 'issue-%s' % national_issue.key().name()
             self.fields[national_issue_id] = forms.BooleanField(required=False, 
                 label=national_issue.short_name
             )

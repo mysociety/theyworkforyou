@@ -21,25 +21,28 @@
     MP where you live, in <strong>{{ seat.name }}</strong> constituency.
 </p>
 
-<p>Tick the national issues that you care about:
-
-<form method="post" action="#" id="nationalissueselect">
-    <p>
-    {{ national_issue_select_form }}
-    </p>
-</form>
-
 <form method="post" action="/quiz" id="voterquiz">
     <h3>National issues - Determined by a politically balanced expert panel</h3>
-        <ul class="questions">
+        <p>First, tick the national issues that matter to you.</p>
+
+        <div class="national_selection">
+            {% for field in national_issue_select_form %}
+                <div class="{% cycle 'row1' 'row2' 'row3' %}">
+                {{ field.label_tag }}&nbsp;{{ field }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <p>Then say what your view is on each issue.</p>
+
+        <ul class="questions national">
             {% for form in national_issue_forms %}
-            <li>
-                <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
+            <li id="{{ form.id_prefix }}">
+            <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
                     <strong>{{ forloop.counter }}. {{ form.agreement.label_tag }}</strong> 
                     {{ form.agreement }}
                 </div>
                 <div class="more_explanation">
-                    <p><input type="submit" value="Don't care / don't know" class="discard"></p>
                 </div>
             </li>
             {% endfor %}
@@ -47,7 +50,7 @@
 
     <h3>Local issues - Submitted by volunteers in {{ seat.name }} constituency</h3>
         {% if local_issue_forms %}
-            <ul class="questions">
+            <ul class="questions local">
                 {% for form in local_issue_forms %}
                 <li>
                     <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
@@ -61,7 +64,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <ul class="questions">
+            <ul class="questions local">
                 <li>
                     <div class="issues_note">We asked volunteers to find local questions, but unfortunately
                         none have been submitted for this constituency.

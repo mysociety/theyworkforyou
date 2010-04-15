@@ -57,3 +57,21 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
     background-color: #dddddd;
     color: #333333;
 }
+
+div.national_selection {
+    margin-left: 3em;
+    margin-bottom: 2em;
+}
+.row1 {
+    float: right;
+    width: 33%;
+}
+.row2 {
+    float: left;
+    width: 33%;
+}
+.row3 {
+    float: center
+    width: 33%;
+}
+
