@@ -19,7 +19,7 @@ function create_map_filename($c) {
 }
 
 $pc = get_http_var('pc');
-if (!validate_postcode($pc)) {
+if ($pc && !validate_postcode($pc)) {
     print '<p>Sorry, that doesn&rsquo;t appear to be a valid postcode.</p>';
     $pc = '';
 }
