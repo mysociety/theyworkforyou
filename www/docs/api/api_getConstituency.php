@@ -41,7 +41,7 @@ function api_getconstituency_postcode($pc) {
             api_error('Unknown postcode, or problem with lookup');
             return;
         }
-        $output['name'] = (string)$xml->future_constituency;
+        $output['name'] = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency);
         api_output($output);
 
     } else {

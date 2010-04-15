@@ -31,9 +31,9 @@ if ($pc) {
     }
 }
 if ($pc) {
-    $current = $xml->current_constituency;
-    $new = $xml->future_constituency;
-    $mp_name = $xml->current_mp_name;
+    $current = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_constituency);
+    $new = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency);
+    $mp_name = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_mp_name);
 
     $current_disp = str_replace('&', 'and', $current);
     $map_url_current = create_map_filename($current);
