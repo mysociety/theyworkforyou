@@ -38,6 +38,7 @@ class Candidate(db.Model):
     ynmp_id = db.IntegerProperty()
     name = db.StringProperty()
     code = db.StringProperty()
+    status = db.StringProperty() # raw from YourNextMP dump, either 'standing' or 'standing_down'
 
     email = db.StringProperty()
     party = db.ReferenceProperty(Party)

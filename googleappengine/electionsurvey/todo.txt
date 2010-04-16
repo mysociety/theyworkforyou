@@ -1,11 +1,6 @@
 Do this next
 ============
 
-Cope with:
-         "status" : "standing_down",
-Check Bob Steel
-    http://www.yournextmp.com/candidates/bob_steel
-
 Write script for making CSV file for mail merge
 
 When we start displaying the survey answers, stop resubmit of survey

@@ -121,11 +121,14 @@ def load_from_ynmp(ynmp, frozen_seats):
     # just won't be referenced by a candidacy
     candidates_by_key = {}
     for candidate_id, candidate_data in ynmp["Candidate"].iteritems():
+        if "status" not in candidate_data:
+                raise Exception("No status entry for " + str(candidate_data))
         key_name = candidate_id
         candidate = Candidate(
             ynmp_id = int(candidate_id),
             name = candidate_data["name"],
             code = candidate_data["code"],
+            status = candidate_data["status"],
             email = candidate_data["email"],
             party = parties_by_key[candidate_data["party_id"]],
             image_id = int_or_null(candidate_data["image_id"]),
@@ -174,6 +177,11 @@ def load_from_ynmp(ynmp, frozen_seats):
     # Loop through new dump of candidacies from YourNextMP, adding new ones
     candidacies_by_key = {}
     for candidacy_id, candidacy_data in ynmp["Candidacy"].iteritems():
+        candidate = candidates_by_key[candidacy_data["candidate_id"]]
+        assert candidate.status in ['standing', 'standing_down']
+        if candidate.status == 'standing_down':
+            continue
+
         key_name = candidacy_data["seat_id"] + "-" + candidacy_data["candidate_id"]
 
         # find existing entry if there is one, or else make new one
@@ -185,7 +193,7 @@ def load_from_ynmp(ynmp, frozen_seats):
         # fill in values
         candidacy.ynmp_id = int(candidacy_id)
         candidacy.seat = seats_by_key[candidacy_data["seat_id"]]
-        candidacy.candidate = candidates_by_key[candidacy_data["candidate_id"]]
+        candidacy.candidate = candidate
         candidacy.created = convdate(candidacy_data["created"])
         candidacy.updated = convdate(candidacy_data["updated"])
         candidacy.deleted = False
