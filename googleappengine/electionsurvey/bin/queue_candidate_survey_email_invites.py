@@ -1,4 +1,6 @@
 #!/usr/bin/python2.5 -u
+# coding=utf-8
+
 #
 # queue_candidate_survey_email_invites.py:
 # Sets up tasks to invite specfied sets of candidates
@@ -44,12 +46,15 @@ def get_seats_list_from_options(options):
         seats_list.append(seat)
 
     if options.constituency_list != None:
-        for constituency in open(options.constituency_list):
-            constituency = constituency.strip()
-            log("Getting list constituency " + constituency)
-            seat = db.Query(Seat).filter("name =", constituency).get()
+        for seat_name in open(options.constituency_list):
+            seat_name = seat_name.strip()
+            # DemocracyClub doesn't have accent on this seat name
+            seat_name = seat_name.replace("Ynys Mon", "Ynys Môn")
+            seat_name = seat_name.decode('utf-8')
+            log("Getting list constituency " + seat_name)
+            seat = db.Query(Seat).filter("name =", seat_name).get()
             if not seat:
-                raise Exception("Couldn't find seat: " + constituency)
+                raise Exception("Couldn't find seat: " + seat_name)
             seats_list.append(seat)
 
     if len(seats_list) == 0:
