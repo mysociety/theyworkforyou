@@ -13,8 +13,6 @@ When we start displaying the survey answers, stop resubmit of survey
 Script to detect cases where email address has changed and show them
     (make sure compares to validated_email)
 Script to show what frozen seats have changed local issues
-Check that the constituencies early frozen for having 0 issues are OK
-(maybe some could be resent if not?)
 
 
 
