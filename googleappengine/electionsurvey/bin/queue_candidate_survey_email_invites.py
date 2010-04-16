@@ -66,33 +66,33 @@ def make_base_query_from_options(options):
     return candidacies
 
 global_email_delta = 0
-def do_for_query(candidacies):
-    log("Found " + str(candidacies.count(None)) + " candidacies")
-    for candidacy in candidacies:
-        frozen = candidacy.seat.frozen_local_issues
+def do_for_candidacy(candidacy):
+    global global_email_delta
 
-        if not frozen and options.freeze:
-            if options.real:
-                candidacy.seat.frozen_local_issues = True
-                candidacy.seat.put()
-                log("Frozen local issues for seat: " + candidacy.seat.name)
-            else:
-                log("Would freeze local issues for seat: " + candidacy.seat.name)
-            frozen = True
+    frozen = candidacy.seat.frozen_local_issues
 
-        if not candidacy.candidate.validated_email():
-            log("Not queueing, invalid email " + str(candidacy.candidate.email) + " for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
-        elif not frozen:
-            log("Not queueing, seat isn't frozen for local issues: " + candidacy.seat.name + ", " + candidacy.candidate.name)
+    if not frozen and options.freeze:
+        if options.real:
+            candidacy.seat.frozen_local_issues = True
+            candidacy.seat.put()
+            log("Frozen local issues for seat: " + candidacy.seat.name)
         else:
-            global_email_delta += 2 # two seconds between sending each mail, try to keep within GAE limits
-            if options.real:
-                log(str(global_email_delta) + " queued invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name + " email: " + candidacy.candidate.email)
-                eta = datetime.datetime.utcnow() + datetime.timedelta(seconds=global_email_delta) # AppEngine servers use UTC
-                taskqueue.Queue('survey-email').add(taskqueue.Task(url='/task/invite_candidacy_survey/' + str(candidacy.key().name()), eta = eta))
-                candidacy.log("Queued task to send survey invite email")
-            else:
-                log(str(global_email_delta) + " would queue invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name+ " email: " + candidacy.candidate.email)
+            log("Would freeze local issues for seat: " + candidacy.seat.name)
+        frozen = True
+
+    if not candidacy.candidate.validated_email():
+        log("Not queueing, invalid email " + str(candidacy.candidate.email) + " for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name)
+    elif not frozen:
+        log("Not queueing, seat isn't frozen for local issues: " + candidacy.seat.name + ", " + candidacy.candidate.name)
+    else:
+        global_email_delta += 2 # two seconds between sending each mail, try to keep within GAE limits
+        if options.real:
+            log(str(global_email_delta) + " queued invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name + " email: " + candidacy.candidate.email)
+            eta = datetime.datetime.utcnow() + datetime.timedelta(seconds=global_email_delta) # AppEngine servers use UTC
+            taskqueue.Queue('survey-email').add(taskqueue.Task(url='/task/invite_candidacy_survey/' + str(candidacy.key().name()), eta = eta))
+            candidacy.log("Queued task to send survey invite email")
+        else:
+            log(str(global_email_delta) + " would queue invite for candidacy " + candidacy.seat.name + ", " + candidacy.candidate.name+ " email: " + candidacy.candidate.email)
 
 def do_for_some_seats(seats, options):
     # Can only do IN for a small number of constituencies at a time (max, I
@@ -103,7 +103,8 @@ def do_for_some_seats(seats, options):
         c += len(seats_group)
         candidacies = make_base_query_from_options(options)
         candidacies.filter("seat in ", seats_group)
-        do_for_query(candidacies)
+        for candidacy in candidacies:
+            do_for_candidacy(candidacy)
         log("") # spacing to make it look nicer
 
 
