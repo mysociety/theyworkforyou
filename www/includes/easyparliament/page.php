@@ -249,7 +249,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		print "\t<a name=\"top\"></a>\n\n";
 		if (defined('OPTION_GAZE_URL') && OPTION_GAZE_URL) {
 			$country = gaze_get_country_from_ip($_SERVER["REMOTE_ADDR"]);
-            if (!$country) $country = get_http_var('country');
+            if (get_http_var('country')) $country = strtoupper(get_http_var('country'));
 			if ($country == 'NZ') {
 				print '<p class="informational banner">You&rsquo;re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
 			} elseif ($country == 'AU') {
