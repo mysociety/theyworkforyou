@@ -64,8 +64,7 @@ def get_seats_list_from_options(options):
 
     return seats_list
 
-def make_base_query_from_options(options):
-    candidacies = db.Query(Candidacy)
+def filter_query_from_options(candidacies, options):
     candidacies.filter("deleted = ", False)
     candidacies.filter("survey_invite_emailed = ", False)
     candidacies.filter("survey_filled_in = ", False)
@@ -105,11 +104,11 @@ def do_for_some_seats(seats, options):
     # Can only do IN for a small number of constituencies at a time (max, I
     # think, 25), so do in smaller groups
     c = 0
-    for seats_group in group_by_n(seats, 10):
-        log(str(c) + "/" + str(len(seats)) + " - Doing constituency group: " + ", ".join([seat.name for seat in seats_group]))
-        c += len(seats_group)
-        candidacies = make_base_query_from_options(options)
-        candidacies.filter("seat in ", seats_group)
+    for seat in seats:
+        log(str(c) + "/" + str(len(seats)) + " - Doing constituency: " + seat.name)
+        c += 1
+        candidacies = seat.candidacy_set
+        candidacies = filter_query_from_options(candidacies, options)
         for candidacy in candidacies:
             do_for_candidacy(candidacy)
         log("") # spacing to make it look nicer
