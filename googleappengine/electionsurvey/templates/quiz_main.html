@@ -38,7 +38,7 @@
         <ul class="questions national">
             {% for form in national_issue_forms %}
             <li id="{{ form.id_prefix }}">
-            <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
+                <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
                     <strong>{{ forloop.counter }}. {{ form.agreement.label_tag }}</strong> 
                     {{ form.agreement }}
                 </div>

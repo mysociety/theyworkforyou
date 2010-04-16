@@ -9,7 +9,6 @@ Check Bob Steel
 Write script for making CSV file for mail merge
 
 Show in admin how many constituencies are frozen
-Make better code to resend everything (to pick up new emails)
 
 When we start displaying the survey answers, stop resubmit of survey
 

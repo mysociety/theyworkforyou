@@ -275,6 +275,7 @@ def admin_stats(request):
 
     candidate_count = get_count(db.Query(Candidate, keys_only=True))
     seat_count = get_count(db.Query(Seat, keys_only=True))
+    frozen_seat_count = get_count(db.Query(Seat, keys_only=True).filter('frozen_local_issues =', True))
 
     candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False))
     deleted_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted =', True))
@@ -292,6 +293,7 @@ def admin_stats(request):
         'party_count': party_count,
         'candidate_count': candidate_count, 
         'seat_count': seat_count,
+            'frozen_seat_count': frozen_seat_count,
         'candidacy_count': candidacy_count, 
             'deleted_candidacy_count': deleted_candidacy_count,
         'emailed_candidacy_count': emailed_candidacy_count, 
