@@ -48,6 +48,8 @@ def get_seats_list_from_options(options):
             constituency = constituency.strip()
             log("Getting list constituency " + constituency)
             seat = db.Query(Seat).filter("name =", constituency).get()
+            if not seat:
+                raise Exception("Couldn't find seat: " + constituency)
             seats_list.append(seat)
 
     if len(seats_list) == 0:
