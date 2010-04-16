@@ -75,21 +75,10 @@ global_email_delta = 0
 def do_for_candidacy(candidacy, seat):
     global global_email_delta
 
-    frozen = seat.frozen_local_issues
+    assert seat.frozen_local_issues
 
-    if not frozen and options.freeze:
-        if options.real:
-            seat.frozen_local_issues = True
-            seat.put()
-            log("Frozen local issues for seat: " + seat.name)
-        else:
-            log("Would freeze local issues for seat: " + seat.name)
-        frozen = True
-
-    if not frozen:
+    if not candidacy.candidate.validated_email():
         log("Not queueing, invalid email " + str(candidacy.candidate.email) + " for candidacy " + seat.name + ", " + candidacy.candidate.name)
-    elif not candidacy.candidate.validated_email():
-        log("Not queueing, seat isn't frozen for local issues: " + seat.name + ", " + candidacy.candidate.name)
     else:
         global_email_delta += 2 # two seconds between sending each mail, try to keep within GAE limits
         if options.real:
@@ -107,10 +96,25 @@ def do_for_some_seats(seats, options):
     for seat in seats:
         log(str(c) + "/" + str(len(seats)) + " - Doing constituency: " + seat.name)
         c += 1
-        candidacies = seat.candidacy_set
-        candidacies = filter_query_from_options(candidacies, options)
-        for candidacy in candidacies:
-            do_for_candidacy(candidacy, seat)
+
+        frozen = seat.frozen_local_issues
+        if not frozen and options.freeze:
+            if options.real:
+                seat.frozen_local_issues = True
+                seat.put()
+                log("Frozen local issues for seat: " + seat.name)
+            else:
+                log("Would freeze local issues for seat: " + seat.name)
+            frozen = True
+
+        if frozen:
+            candidacies = seat.candidacy_set
+            candidacies = filter_query_from_options(candidacies, options)
+            for candidacy in candidacies:
+                do_for_candidacy(candidacy, seat)
+        else:
+            log("Skipping, seat isn't frozen for local issues: " + seat.name)
+
         log("") # spacing to make it look nicer
 
 
