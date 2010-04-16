@@ -1,6 +1,7 @@
 {
    "Candidate" : {
       "-2" : {
+         "status" : "standing",
          "name" : "Stilton Mouse",
          "phone" : null,
          "created" : "2010-02-07T00:25:50",
@@ -14,6 +15,7 @@
          "code" : "stilton_mouse"
       },
       "-3" : {
+         "status" : "standing",
          "name" : "Stom Teinberg",
          "phone" : null,
          "created" : "2010-02-07T00:25:50",
@@ -27,6 +29,7 @@
          "code" : "stom_teinberg"
       },
       "-4" : {
+         "status" : "standing",
          "name" : "Puncan Darkes",
          "phone" : null,
          "created" : "2010-02-07T00:25:50",
