@@ -8,8 +8,6 @@ Check Bob Steel
 
 Write script for making CSV file for mail merge
 
-Show in admin how many constituencies are frozen
-
 When we start displaying the survey answers, stop resubmit of survey
 
 Script to detect cases where email address has changed and show them
