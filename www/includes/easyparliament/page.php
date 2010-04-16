@@ -249,12 +249,14 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		print "\t<a name=\"top\"></a>\n\n";
 		if (defined('OPTION_GAZE_URL') && OPTION_GAZE_URL) {
 			$country = gaze_get_country_from_ip($_SERVER["REMOTE_ADDR"]);
-			if ($country == 'NZ' || get_http_var('nz')) {
+			if ($country == 'NZ' || get_http_var('country')=='NZ') {
 				print '<p class="informational">You&rsquo;re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
-			} elseif ($country == 'AU' || get_http_var('au')) {
+			} elseif ($country == 'AU' || get_http_var('country')=='AU') {
 				print '<p class="informational">You&rsquo;re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under</p>';
-			} elseif ($country == 'IE' || get_http_var('ie')) {
+			} elseif ($country == 'IE' || get_http_var('country')=='IE') {
 				print '<p class="informational">Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
+			} elseif ($country == 'CA' || get_http_var('country')=='CA') {
+				print '<p class="informational">Check out <a href="http://howdtheyvote.ca/">How&rsquo;d They Vote?</a> and <a href="http://www.openparliament.ca/">OpenParliament.ca</a></p>';
 			} else {
 				print '<p class="informational banner">You can improve this election: <a href="http://www.democracyclub.org.uk/">TheyWorkForYou needs your help to pin down every candidate</a></p>';
             }
