@@ -334,7 +334,7 @@ def quiz_main(request, postcode):
     url_postcode = forms._urlise_postcode(postcode)
     seat = forms._postcode_to_constituency(postcode)
 
-    answers = forms.SeatAnswerBroker(seat)
+    answers = forms.SeatAnswerDisplayer(seat)
 
     return render_to_response('quiz_main.html', {
         'seat' : seat,
