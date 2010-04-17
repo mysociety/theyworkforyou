@@ -25,11 +25,16 @@
 <p>Click on any statements you have a strong view about.</p>
 
     <ul class="answers national">
-        {% for national_issue in national_issues %}
+        {% for national_issue in answers.national_issues %}
         <li>
             <div class="statement">
                 <strong> {{ national_issue.short_name }} </strong>
                 {{ national_issue.question }}
+            </div>
+            <div class="full_answers">
+                {% for candidacy in national_issue.survey_response_set %}
+                {{ survey_response.answer }}
+                {% endfor %} 
             </div>
         </li>
         {% endfor %}
@@ -37,9 +42,9 @@
 
 <h3>Local issues</h3>
     <p>Submitted by volunteers like you in {{ seat.name }} constituency.</p>
-    {% if local_issues %}
+    {% if answers.local_issues %}
         <ul class="answers local">
-            {% for local_issue in local_issues %}
+            {% for local_issue in answers.local_issues %}
             <li>
                 <div class="statement">
                     {{ local_issue.question }}

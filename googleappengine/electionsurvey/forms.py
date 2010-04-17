@@ -8,6 +8,7 @@
 
 import urllib2
 import re
+import collections
 
 from google.appengine.ext import db
 
@@ -128,6 +129,23 @@ class QuizPostcodeForm(forms.Form):
         return postcode
 
     postcode = MyUKPostcodeField(required=True, label = 'To begin, enter your postcode:')
+
+# Returns stuff for template to show answers for a seat
+class SeatAnswerBroker():
+    def __init__(self, seat):
+        self.seat = seat
+
+        self.local_issues = seat.refinedissue_set.filter("deleted =", False).fetch(1000)
+        self.national_issues = db.Query(RefinedIssue).filter('national =', True).filter("deleted =", False).fetch(1000)
+
+        self.candidacies = seat.candidacy_set.filter("deleted = ", False).fetch(1000)
+
+        self.responses_by_candidacy_issue = collections.defaultdict(dict)
+        all_responses = db.Query(SurveyResponse).filter('candidacy in', self.candidacies).fetch(1000)
+        for response in all_responses:
+            self.responses_by_candidacy_issue[response.candidacy][response.refined_issue] = response
+
+
 
 
 

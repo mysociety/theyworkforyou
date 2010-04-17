@@ -334,15 +334,11 @@ def quiz_main(request, postcode):
     url_postcode = forms._urlise_postcode(postcode)
     seat = forms._postcode_to_constituency(postcode)
 
-    local_issues_for_seat = seat.refinedissue_set.filter("deleted =", False).fetch(1000)
-    national_issues = db.Query(RefinedIssue).filter('national =', True).filter("deleted =", False).fetch(1000)
+    answers = forms.SeatAnswerBroker(seat)
 
     return render_to_response('quiz_main.html', {
-        'local_issues': local_issues_for_seat,
-        'local_issues_count' : len(local_issues_for_seat),
-        'national_issues': national_issues,
         'seat' : seat,
-        'candidacy_count' : seat.candidacy_set.filter("deleted = ", False).count(),
+        'answers' : answers,
         'postcode' : postcode
     })
 
