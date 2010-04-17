@@ -377,7 +377,8 @@ class MEMBER {
             $memcache = new Memcache;
             $memcache->connect('localhost', 11211);
         }
-        $this->extra_info = $memcache->get(OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id);
+        $memcache_key = OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id . ($display ? '' : ':plain');
+        $this->extra_info = $memcache->get($memcache_key);
         if ($this->extra_info) {
             return;
         }
@@ -509,7 +510,7 @@ class MEMBER {
 		);
 	}
 
-        $memcache->set(OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id, $this->extra_info, MEMCACHE_COMPRESSED, 3600);
+        $memcache->set($memcache_key, $this->extra_info, MEMCACHE_COMPRESSED, 3600);
     }
 	
 	// Functions for accessing things about this Member.
