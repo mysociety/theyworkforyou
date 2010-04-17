@@ -334,33 +334,15 @@ def quiz_main(request, postcode):
     url_postcode = forms._urlise_postcode(postcode)
     seat = forms._postcode_to_constituency(postcode)
 
-    valid = True
-    # Construct array of forms containing all local issues
     local_issues_for_seat = seat.refinedissue_set.filter("deleted =", False).fetch(1000)
-    local_issue_forms = []
-    for issue in local_issues_for_seat:
-        form = forms.LocalIssueQuestionForm(request.POST, refined_issue=issue, candidacy=None)
-        valid = valid and form.is_valid()
-        local_issue_forms.append(form)
-    # ... and national issues
-    national_seat = db.Query(Seat).filter("name =", "National").get()
-    national_issues_for_seat = national_seat.refinedissue_set.filter("deleted =", False).fetch(1000)
-    national_issue_forms = []
-    for issue in national_issues_for_seat:
-        form = forms.NationalIssueQuestionForm(request.POST, refined_issue=issue, candidacy=None)
-        valid = valid and form.is_valid()
-        national_issue_forms.append(form)
-    #all_issue_forms = local_issue_forms + national_issue_forms
-
-    national_issue_select_form = forms.QuizNationalIssueSelectForm(request.POST)
+    national_issues = db.Query(RefinedIssue).filter('national =', True).filter("deleted =", False).fetch(1000)
 
     return render_to_response('quiz_main.html', {
-        'local_issue_forms': local_issue_forms,
-        'national_issue_select_form': national_issue_select_form,
-        'national_issue_forms': national_issue_forms,
+        'local_issues': local_issues_for_seat,
+        'local_issues_count' : len(local_issues_for_seat),
+        'national_issues': national_issues,
         'seat' : seat,
         'candidacy_count' : seat.candidacy_set.filter("deleted = ", False).count(),
-        'local_issue_count' : seat.candidacy_set.filter("deleted = ", False).count(),
         'postcode' : postcode
     })
 

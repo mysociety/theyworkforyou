@@ -129,19 +129,6 @@ class QuizPostcodeForm(forms.Form):
 
     postcode = MyUKPostcodeField(required=True, label = 'To begin, enter your postcode:')
 
-# Choosing which national issues you want to cover:
-class QuizNationalIssueSelectForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        self.national_issues = db.Query(RefinedIssue).filter('national =', True).fetch(1000)
-
-        super(QuizNationalIssueSelectForm, self).__init__(*args, **kwargs)
-
-        for national_issue in self.national_issues:
-            national_issue_id = 'issue-%s' % national_issue.key().name()
-            self.fields[national_issue_id] = forms.BooleanField(required=False, 
-                label=national_issue.short_name
-            )
-
 
 
 

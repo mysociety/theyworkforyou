@@ -21,63 +21,41 @@
     MP where you live, in <strong>{{ seat.name }}</strong> constituency.
 </p>
 
-<form method="post" action="/quiz" id="voterquiz">
-    <h3>National issues - Determined by a politically balanced expert panel</h3>
-        <p>First, tick the national issues that matter to you.</p>
+<h3>National issues</h3>
+<p>Click on any statements you have a strong view about.</p>
 
-        <div class="national_selection">
-            {% for field in national_issue_select_form %}
-                <div class="{% cycle 'row1' 'row2' 'row3' %}">
-                {{ field.label_tag }}&nbsp;{{ field }}
-                </div>
-            {% endfor %}
-        </div>
+    <ul class="answers national">
+        {% for national_issue in national_issues %}
+        <li>
+            <div class="statement">
+                <strong> {{ national_issue.short_name }} </strong>
+                {{ national_issue.question }}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
 
-        <p>Then say what your view is on each issue.</p>
-
-        <ul class="questions national">
-            {% for form in national_issue_forms %}
-            <li id="{{ form.id_prefix }}">
-                <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
-                    <strong>{{ forloop.counter }}. {{ form.agreement.label_tag }}</strong> 
-                    {{ form.agreement }}
-                </div>
-                <div class="more_explanation">
+<h3>Local issues</h3>
+    <p>Submitted by volunteers like you in {{ seat.name }} constituency.</p>
+    {% if local_issues %}
+        <ul class="answers local">
+            {% for local_issue in local_issues %}
+            <li>
+                <div class="statement">
+                    {{ local_issue.question }}
                 </div>
             </li>
             {% endfor %}
         </ul>
-
-    <h3>Local issues - Submitted by volunteers in {{ seat.name }} constituency</h3>
-        {% if local_issue_forms %}
-            <ul class="questions local">
-                {% for form in local_issue_forms %}
-                <li>
-                    <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
-                        <strong>{{ forloop.counter }}. {{ form.agreement.label_tag }}</strong> 
-                        {{ form.agreement }}
-                    </div>
-                    <div class="more_explanation">
-                        <input type="submit" value="Don't care / don't know" class="discard">
-                    </div>
-                </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <ul class="questions local">
-                <li>
-                    <div class="issues_note">We asked volunteers to find local questions, but unfortunately
-                        none have been submitted for this constituency.
-                    </div>
-                </li>
-            </ul>
-        {% endif %}
-
-    <input type="hidden" name="postcode" value="{{ postcode }}" id="token" > 
-    <input type="hidden" name="questions_submitted" value="1" > 
-
-    <p><input type="submit" value="Submit quiz" class="final"></p>
-</form>
+    {% else %}
+        <ul class="answers local">
+            <li>
+                <div class="issues_note">We asked volunteers to find local questions, but unfortunately
+                    none have been submitted for this constituency.
+                </div>
+            </li>
+        </ul>
+    {% endif %}
 
 </div>
 <div class="sidebar">

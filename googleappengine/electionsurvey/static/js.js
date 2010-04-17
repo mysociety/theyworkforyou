@@ -24,14 +24,17 @@ $(function(){
         // Prevent too much text in the more explanation fields
         $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
     }
-    if ($('form#voterquiz').length) {
-        $('ul.national > li').hide();
+    if ($('ul.answers').length) {
+        //$('ul.answers').hide();
+
+        // $('ul.national > li').hide();
         //var first_question = $('ul.questions > li:first');
         //first_question.show(600);
         //$('h3:eq(1)').hide();
         //$('form#voterquiz input:submit.final').hide();
 
         // Checking national issues interested in
+        /*
         $('input:checkbox').change(function(){
             var id_prefix = $(this).attr("name")
             var question_part = $('li#' + id_prefix)
@@ -41,6 +44,7 @@ $(function(){
                 question_part.hide(600)
             }
         });
+        */
 
         // Filling in national question answers
         //$('ul.questions > li').change(function(){
