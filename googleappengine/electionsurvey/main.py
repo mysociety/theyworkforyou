@@ -32,10 +32,13 @@ from appengine_django import have_django_zip
 from appengine_django import django_zip_path
 
 # Google App Engine imports.
-from google.appengine.ext.webapp import util
+from google.appengine.ext.webapp import util, template
 
 # Import the part of Django that we use here.
 import django.core.handlers.wsgi
+
+# Template tags
+template.register_template_library('templatetags.quiz_extras')
 
 def main():
   # Ensure the Django zipfile is in the path if required.

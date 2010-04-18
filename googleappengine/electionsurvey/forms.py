@@ -140,13 +140,10 @@ class SeatAnswerDisplayer():
 
         self.candidacies = seat.candidacy_set.filter("deleted = ", False).fetch(1000)
 
-        self.responses_by_candidacy_issue = collections.defaultdict(dict)
+        self.responses = collections.defaultdict(dict)
         all_responses = db.Query(SurveyResponse).filter('candidacy in', self.candidacies).fetch(1000)
         for response in all_responses:
-            self.responses_by_candidacy_issue[response.candidacy][response.refined_issue] = response
-
-
-
+            self.responses[response.candidacy.key().name()][response.refined_issue.key().name()] = response
 
 
 
