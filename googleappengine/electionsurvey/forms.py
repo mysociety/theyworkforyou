@@ -130,7 +130,8 @@ class QuizPostcodeForm(forms.Form):
 
     postcode = MyUKPostcodeField(required=True, label = 'To begin, enter your postcode:')
 
-# Returns stuff for template to show answers for a seat
+# Returns stuff for template to show answers for a seat. Used as helper
+# for various of the template tags in quiz_extras
 class SeatAnswerDisplayer():
     def __init__(self, seat):
         self.seat = seat
