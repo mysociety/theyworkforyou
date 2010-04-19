@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>Which issues do you care about?</h2>
+<h2>Interview the candidates to be MP for {{ seat.name }}</h2>
 
 <!--<p class="error">
     Dummy error
@@ -21,17 +21,23 @@
     MP where you live, in <strong>{{ seat.name }}</strong> constituency.
 </p>
 
-<h3>Candidates who have not responded</h3>
-<ul>
-{% for candidacy in candidacies_without_response %}
-        <li>
-            {% include "_quiz_candidacy.html" %} hasn't responded to the survey yet.
-        </li>
-{% endfor %} 
-</ul>
+{% ifnotequal candidacy_without_response_count 0 %}
+<h3>{{ candidacy_without_response_count }} candidate{{ candidacy_without_response_count|pluralize }} {{ candidacy_without_response_count|pluralize:"has,have" }} not yet responded</h3>
+    <p>
+    <ul>
+    {% for candidacy in candidacies_without_response %}
+            <li>
+                {% include "_quiz_candidacy.html" %} 
+            </li>
+    {% endfor %} 
+    </ul>
+    </p>
+{% endifnotequal %}
 
-<h3>National issues</h3>
-<p>Click on any statements you have a strong view about.</p>
+<h3>{{ candidacy_with_response_count }} candidate{{ candidacy_with_response_count|pluralize }} {{ candidacy_with_response_count|pluralize:"has,have" }} responded</h3>
+
+<h4>National issues</h4>
+<p>Click on any statements you would like the candidate's views on.</p>
 
     <ul class="answers national">
         {% for national_answer in national_answers %}
@@ -55,7 +61,7 @@
         {% endfor %}
     </ul>
 
-<h3>Local issues</h3>
+<h4>Local issues</h4>
     <p>Submitted by volunteers like you in {{ seat.name }} constituency.</p>
     {% if answers.local_issues %}
         <ul class="answers local">

@@ -432,6 +432,9 @@ def quiz_main(request, postcode):
         'seat' : seat,
         'candidacies' : candidacies,
         'candidacies_without_response' : candidacies_without_response,
+        'candidacy_count' : len(candidacies),
+        'candidacy_with_response_count' : len(candidacies) - len(candidacies_without_response),
+        'candidacy_without_response_count' : len(candidacies_without_response),
         'national_answers' : national_answers,
         #'local_issues' : local_issues,
         'postcode' : postcode
