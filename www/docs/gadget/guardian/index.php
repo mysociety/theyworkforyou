@@ -16,7 +16,7 @@ switch ($action) {
 	# Resources
 	case 'rmi-resource':
                 $title = "Extract from the register of members' interests"; 
-                $body = "<h1>" . $member->full_name() . ": <span>Members' Interests</span></h1>";
+                $body = "<h1>" . $member->full_name() . ": <span>Member's interests</span></h1>";
                 $body .= "<h2>$title</h2>";
                 $rmi  = $member->extra_info['register_member_interests_html'];
                 if (strlen($rmi) == 0){
