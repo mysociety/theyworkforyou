@@ -10,6 +10,9 @@ Script to detect cases where email address has changed and show them
 Script to show what frozen seats have changed local issues
 
 
+- Aggregate all those not responding into one list
+- Show photographs, or party logos, whichever are available
+- Fold so comes down when shows who they are only
 
 Check escaping of more_explanation display
 
