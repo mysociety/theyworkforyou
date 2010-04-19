@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>TheyWorkForYou 2010 General Election PPC survey</h2>
+
+<p>
+This page shows the questions asked, and which candidates have responded so
+far, for <a href="http://www.mysociety.org/2010/04/15/theyworkforyou-election-survey/">TheyWorkForYou's
+    election survey</a> in the constituency of {{ seat.name }}. The results
+will be published in a quiz before election day.
+</p>
+
+<h3>Candidates in {{ seat.name }}</h3>
+
+<ul>
+{% for candidacy in candidacies %}
+    <li>
+    <img src="{{ candidacy.candidate.party.image_url}}" alt="{{ candidacy.candidate.party.name }}" title="{{ candidacy.candidate.party.name }}">
+        <strong>{{ candidacy.candidate.name }} </strong> - survey
+        {% if candidacy.survey_invite_emailed %}
+            has been emailed,
+        {% else %}
+            not emailed,
+        {% endif %}
+
+        {% if candidacy.survey_filled_in %}
+            has been filled in
+        {% else %}
+            not filled in
+        {% endif %}
+     </li>
+
+{% endfor %}
+</ul>
+
+<h3>Questions asked in {{ seat.name }}</h3>
+
+<form method="post" action="#" id="electionsurvey">
+    <h4>National issues - Determined by a politically balanced expert panel</h4>
+        <ul class="questions">
+            {% for form in national_issue_forms %}
+            <li>
+                <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
+                    <strong>{{ forloop.counter }}. {{ form.agreement.label_tag }}</strong> 
+                    {{ form.agreement }}
+                </div>
+                <div class="more_explanation">
+                    {{ form.more_explanation.label_tag }}
+                    {{ form.more_explanation }}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+    <h4>Local issues - Submitted by volunteers in {{ seat.name }} constituency</h4>
+        {% if local_issue_forms %}
+            <ul class="questions">
+                {% for form in local_issue_forms %}
+                <li>
+                    <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
+                        <strong>{{ forloop.counter }}. {{ form.agreement.label_tag }}</strong> 
+                        {{ form.agreement }}
+                    </div>
+                    <div class="more_explanation">
+                        {{ form.more_explanation.label_tag }} 
+                        {{ form.more_explanation }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <ul class="questions">
+                <li>
+                    <div class="issues_note">We asked volunteers to find local questions, but unfortunately
+                        none have been submitted for this constituency.
+                    </div>
+                </li>
+            </ul>
+        {% endif %}
+
+        <p><em>This is not a real survey, just a sample, so there is no autosave or submit button.</em></p>
+
+</form>
+
+{% endblock %}
