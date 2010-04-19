@@ -28,11 +28,21 @@
     {% for candidacy in candidacies_without_response %}
             <li>
                 {% include "_quiz_candidacy.html" %} 
+                {% if candidacy.survey_invite_emailed %} has not yet been
+                emailed, because we don't know their email address.
+                Please find it out and add it to <a href="{{ candidacy.yournextmp_url }}">their page on YourNextMP</a>.
+                {% else %}
+                has been emailed, but has not yet responded.
+                Please <a href="{{ candidacy.yournextmp_url }}">contact them</a> by email, phone or
+                in person, and ask them to respond to the survey.
+                {% endif %}
             </li>
     {% endfor %} 
     </ul>
     </p>
 {% endifnotequal %}
+
+{% ifnotequal candidacy_with_response_count 0 %}
 
 <h3>{{ candidacy_with_response_count }} candidate{{ candidacy_with_response_count|pluralize }} {{ candidacy_with_response_count|pluralize:"has,have" }} responded</h3>
 
@@ -82,8 +92,10 @@
             </li>
         </ul>
     {% endif %}
+{% endifnotequal %}
 
 </div>
+
 <div class="sidebar">
     <!-- Any sidebar text goes here -->
 

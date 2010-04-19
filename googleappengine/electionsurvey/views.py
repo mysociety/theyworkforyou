@@ -425,12 +425,13 @@ def quiz_main(request, postcode):
         'name': candidacies_by_id[i].candidate.name, 
         'party': candidacies_by_id[i].candidate.party.name,
         'image_url': candidacies_by_id[i].candidate.image_url(),
-        'party_image_url': candidacies_by_id[i].candidate.party.image_url()
+        'party_image_url': candidacies_by_id[i].candidate.party.image_url(),
+        'yournextmp_url': candidacies_by_id[i].candidate.yournextmp_url(),
+        'survey_invite_emailed': candidacies_by_id[i].survey_invite_emailed
     } for i in candidacies_without_response_id]
 
     return render_to_response('quiz_main.html', {
         'seat' : seat,
-        'candidacies' : candidacies,
         'candidacies_without_response' : candidacies_without_response,
         'candidacy_count' : len(candidacies),
         'candidacy_with_response_count' : len(candidacies) - len(candidacies_without_response),

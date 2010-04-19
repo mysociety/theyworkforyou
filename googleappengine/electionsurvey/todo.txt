@@ -12,13 +12,11 @@ Send survey reminder to people who haven't done it
 
 - Improve speed of loading
 - Fold so comes down when shows who they are only
-
-Check escaping of more_explanation display
+- Fix line up of party icons and name
+- Ones that haven't been emailed, hassle to get email address
 
 Add options to share on most popular social networking sites
 
-Show candidates which haven't answered yet
-Mechanism to hassle them to answer
 
 Make sure it advertises TheyWorkForYou alert signups etc!
 

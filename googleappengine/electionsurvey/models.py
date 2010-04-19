@@ -78,6 +78,9 @@ class Candidate(db.Model):
         else:
             return None
 
+    def yournextmp_url(self):
+        return "http://www.yournextmp.com/candidates/%s" % self.code
+
  
 class Seat(db.Model):
     ynmp_id = db.IntegerProperty()
