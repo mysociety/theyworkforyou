@@ -2,6 +2,13 @@ Do this next
 ============
 
 Page showing dummy survey
+Send survey reminder to people who haven't done it
+    * offer explicit opt out
+    * read Grieken mail
+    * make sure you look for bounce messages this time
+- Ask PPCs who have done survey to motivate other party members to do survey?
+- Get people to tweet to provoke someone into filling in their survey
+
 
 - Improve speed of loading
 - Show constituency name somewhere

@@ -136,6 +136,42 @@ def survey_candidacy(request, token = None):
         'autosave_when' : autosave_when
     })
 
+# Public information about survey for the seat
+def survey_seats_list(request):
+    seats = db.Query(Seat).order("name").fetch(1000)
+
+    return render_to_response('survey_candidacy_seats_list.html', {
+        'seats' : seats,
+    })
+
+
+
+def survey_seats(request, code):
+    seat = db.Query(Seat).filter("code =", code).get()
+    candidacies = seat.candidacy_set.filter('deleted =', False)
+
+    # Construct array of forms containing all local issues
+    local_issues_for_seat = seat.refinedissue_set.filter("deleted =", False).fetch(1000)
+    local_issue_forms = []
+    for issue in local_issues_for_seat:
+        form = forms.LocalIssueQuestionForm({}, refined_issue=issue, candidacy=None)
+        local_issue_forms.append(form)
+    # ... and national issues
+    national_seat = db.Query(Seat).filter("name =", "National").get()
+    national_issues_for_seat = national_seat.refinedissue_set.filter("deleted =", False).fetch(1000)
+    national_issue_forms = []
+    for issue in national_issues_for_seat:
+        form = forms.NationalIssueQuestionForm({}, refined_issue=issue, candidacy=None)
+        national_issue_forms.append(form)
+    all_issue_forms = local_issue_forms + national_issue_forms
+
+    return render_to_response('survey_candidacy_seat.html', {
+        'local_issue_forms': local_issue_forms,
+        'national_issue_forms': national_issue_forms,
+        'seat' : seat,
+        'candidacies' : candidacies,
+    })
+
 # Called by AJAX to automatically keep half filled in forms
 def survey_autosave(request, token):
     candidacy = Candidacy.find_by_token(token)
@@ -355,18 +391,17 @@ def quiz_main(request, postcode):
     national_issues = db.Query(RefinedIssue).filter('national =', True).filter("deleted =", False).fetch(1000)
 
     # responses candidates have made
-    candidacies_with_response_id = set()
     all_responses = db.Query(SurveyResponse).filter('candidacy in', candidacies).fetch(1000)
 
     # construct dictionaries with all the information in 
     national_answers = []
+    candidacies_with_response_id = set()
     for national_issue in national_issues:
         issue = { 
             'short_name': national_issue.short_name, 
             'question': national_issue.question 
         }
         candidacies_with_response = []
-        candidacies_without_response_id = set()
         for response in all_responses:
             if response.candidacy.key().name() in candidacies_by_id and response.refined_issue.key().name() == national_issue.key().name():
                 assert response.agreement in [0,25,50,75,100]
@@ -380,22 +415,23 @@ def quiz_main(request, postcode):
                     }
                 )
                 candidacies_with_response_id.add(response.candidacy.key().name())
-        candidacies_without_response_id = candidacies_id.difference(candidacies_with_response_id)
-        candidacies_without_response = [ { 
-            'name': candidacies_by_id[i].candidate.name, 
-            'party': candidacies_by_id[i].candidate.party.name,
-            'image_url': candidacies_by_id[i].candidate.image_url(),
-            'party_image_url': candidacies_by_id[i].candidate.party.image_url()
-        } for i in candidacies_without_response_id]
-
-        issue['candidacies_with_response'] = candidacies_with_response
-        issue['candidacies_without_response'] = candidacies_without_response
+        issue['candidacies'] = candidacies_with_response
 
         national_answers.append(issue)
+
+    # work out who didn't give a response
+    candidacies_without_response_id = candidacies_id.difference(candidacies_with_response_id)
+    candidacies_without_response = [ { 
+        'name': candidacies_by_id[i].candidate.name, 
+        'party': candidacies_by_id[i].candidate.party.name,
+        'image_url': candidacies_by_id[i].candidate.image_url(),
+        'party_image_url': candidacies_by_id[i].candidate.party.image_url()
+    } for i in candidacies_without_response_id]
 
     return render_to_response('quiz_main.html', {
         'seat' : seat,
         'candidacies' : candidacies,
+        'candidacies_without_response' : candidacies_without_response,
         'national_answers' : national_answers,
         #'local_issues' : local_issues,
         'postcode' : postcode
