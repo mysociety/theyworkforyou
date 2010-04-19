@@ -3,7 +3,6 @@ Do this next
 
 Page showing dummy survey
 
-
 - Make quotes round more explanation conditional on it having content
 - Show photographs, or party logos, whichever are available
 - Fold so comes down when shows who they are only

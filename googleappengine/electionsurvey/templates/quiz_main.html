@@ -37,7 +37,7 @@
                 {% for candidacy in national_answer.candidacies_with_response %}
                     <li>
                         <strong>{{ candidacy.name }}</strong> ({{ candidacy.party}})
-                            {{ candidacy.agreement_verb }}{% if candidacy.more_explanation %}, saying "{{ candidacy.more_explanation }}"{% endif %}
+                        {{ candidacy.agreement_verb }}{% if candidacy.more_explanation %}, saying "{{ candidacy.more_explanation }}"{% else %}.{% endif %}
 
                     </li>
                 {% endfor %} 
