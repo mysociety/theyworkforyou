@@ -36,7 +36,9 @@
                 <ul>
                 {% for candidacy in national_answer.candidacies_with_response %}
                     <li>
-                        <strong>{{ candidacy.name }}</strong> ({{ candidacy.party}})
+                        {% if candidacy.party_image_url %} <img src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}"> {% endif %}
+                        {% if candidacy.image_url %} <img src="{{ candidacy.image_url}}" alt=""> {% endif %}
+                        <strong>{{ candidacy.name }}</strong>
                         {{ candidacy.agreement_verb }}{% if candidacy.more_explanation %}, saying "{{ candidacy.more_explanation }}"{% else %}.{% endif %}
 
                     </li>
@@ -44,7 +46,9 @@
                 </ul>
                 <p>
                     {% for candidacy in national_answer.candidacies_without_response %}
-                    <strong>{{ candidacy.name }}</strong>{% if not forloop.last %},{% endif %}
+                    {% if candidacy.party_image_url %} <img src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}"> {% endif %}
+                        {% if candidacy.image_url %} <img src="{{ candidacy.image_url}}" alt=""> {% endif %}
+                        <strong>{{ candidacy.name }}</strong> {% if not forloop.last %},{% endif %}
                     {% endfor %}
                     haven't responded yet.
                 </p>

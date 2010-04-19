@@ -373,6 +373,8 @@ def quiz_main(request, postcode):
                 candidacies_with_response.append( {
                         'name': response.candidacy.candidate.name,
                         'party': response.candidacy.candidate.party.name,
+                        'image_url': response.candidacy.candidate.image_url(),
+                        'party_image_url': response.candidacy.candidate.party.image_url(),
                         'agreement_verb': agreement_verb[response.agreement],
                         'more_explanation': re.sub("\s+", " ",response.more_explanation.strip())
                     }
@@ -381,7 +383,9 @@ def quiz_main(request, postcode):
         candidacies_without_response_id = candidacies_id.difference(candidacies_with_response_id)
         candidacies_without_response = [ { 
             'name': candidacies_by_id[i].candidate.name, 
-            'party': candidacies_by_id[i].candidate.party 
+            'party': candidacies_by_id[i].candidate.party.name,
+            'image_url': candidacies_by_id[i].candidate.image_url(),
+            'party_image_url': candidacies_by_id[i].candidate.party.image_url()
         } for i in candidacies_without_response_id]
 
         issue['candidacies_with_response'] = candidacies_with_response

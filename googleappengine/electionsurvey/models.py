@@ -23,6 +23,11 @@ import datetime
 
 # Candidate from YourMP
 
+# size is large/medium/small
+def _image_id_to_url(image_id, size):
+    padded_id = "%09i" % image_id
+    return "http://yournextmp.s3.amazonaws.com/images/%s/%s/%s-%s.png" % (padded_id[-4:-2], padded_id[-2:],padded_id, size)
+
 class Party(db.Model):
     ynmp_id = db.IntegerProperty()
     name = db.StringProperty()
@@ -32,6 +37,13 @@ class Party(db.Model):
 
     created = db.DateTimeProperty()
     updated = db.DateTimeProperty()
+
+    # Image URL
+    def image_url(self):
+        if self.image_id:
+            return _image_id_to_url(self.image_id, "small")
+        else:
+            return None
 
 
 class Candidate(db.Model):
@@ -58,6 +70,14 @@ class Candidate(db.Model):
             return email
         except django.forms.ValidationError:
             return None
+
+    # Image URL
+    def image_url(self):
+        if self.image_id:
+            return _image_id_to_url(self.image_id, "small")
+        else:
+            return None
+
  
 class Seat(db.Model):
     ynmp_id = db.IntegerProperty()
