@@ -33,7 +33,7 @@
             </div>
             <div class="full_answers">
                 <ul>
-                {% for candidacy in answers.candidacies %}
+                {% for candidacy in answers.candidacies_with_response %}
                     <li>
                     <strong>{{ candidacy.candidate.name }}</strong>
                         {% lookup_answer_agreement answers candidacy national_issue %}
@@ -41,6 +41,12 @@
                     </li>
                 {% endfor %} 
                 </ul>
+                <p>
+                    {% for candidacy in answers.candidacies_without_response %}
+                    <strong>{{ candidacy.candidate.name }}</strong>{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                    haven't responded yet.
+                </p>
             </div>
         </li>
         {% endfor %}

@@ -132,19 +132,38 @@ class QuizPostcodeForm(forms.Form):
 
 # Returns stuff for template to show answers for a seat. Used as helper
 # for various of the template tags in quiz_extras
+# Uses key().name() lots as GAE returns different objects each time if it gets a
+# model via a different route even within one transaction.
 class SeatAnswerDisplayer():
     def __init__(self, seat):
         self.seat = seat
 
+        # local and national issues for the seat
         self.local_issues = seat.refinedissue_set.filter("deleted =", False).fetch(1000)
         self.national_issues = db.Query(RefinedIssue).filter('national =', True).filter("deleted =", False).fetch(1000)
 
+        # all the candidates
         self.candidacies = seat.candidacy_set.filter("deleted = ", False).fetch(1000)
+        self.candidacies_by_id = {}
+        for c in self.candidacies:
+            self.candidacies_by_id[c.key().name()] = c
 
+        # responses candidates have made
         self.responses = collections.defaultdict(dict)
+        self.candidacies_with_response_id = set()
         all_responses = db.Query(SurveyResponse).filter('candidacy in', self.candidacies).fetch(1000)
         for response in all_responses:
             self.responses[response.candidacy.key().name()][response.refined_issue.key().name()] = response
+            self.candidacies_with_response_id.add(response.candidacy.key().name())
+
+        # list of candidates have / haven't made response
+        self.candidacies_id = set([c.key().name() for c in self.candidacies])
+        self.candidacies_without_response_id = self.candidacies_id.difference(self.candidacies_with_response_id)
+        self.candidacies_with_response = [ self.candidacies_by_id[i] for i in self.candidacies_with_response_id]
+        self.candidacies_without_response = [ self.candidacies_by_id[i] for i in self.candidacies_without_response_id]
+
+
+
 
 
 
