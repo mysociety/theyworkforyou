@@ -25,25 +25,26 @@
 <p>Click on any statements you have a strong view about.</p>
 
     <ul class="answers national">
-        {% for national_issue in answers.national_issues %}
+        {% for national_answer in national_answers %}
+
         <li>
             <div class="statement">
-                <strong> {{ national_issue.short_name }} </strong>
-                {{ national_issue.question }}
+                <strong> {{ national_answer.short_name }} </strong>
+                {{ national_answer.question }}
             </div>
             <div class="full_answers">
                 <ul>
-                {% for candidacy in answers.candidacies_with_response %}
+                {% for candidacy in national_answer.candidacies_with_response %}
                     <li>
-                    <strong>{{ candidacy.candidate.name }}</strong>
-                        {% lookup_answer_agreement answers candidacy national_issue %}
-                        "{% lookup_answer_more_explanation answers candidacy national_issue %}"
+                        <strong>{{ candidacy.name }}</strong> ({{ candidacy.party}})
+                            {{ candidacy.agreement_verb }}{% if candidacy.more_explanation %}, saying "{{ candidacy.more_explanation }}"{% endif %}
+
                     </li>
                 {% endfor %} 
                 </ul>
                 <p>
-                    {% for candidacy in answers.candidacies_without_response %}
-                    <strong>{{ candidacy.candidate.name }}</strong>{% if not forloop.last %},{% endif %}
+                    {% for candidacy in national_answer.candidacies_without_response %}
+                    <strong>{{ candidacy.name }}</strong>{% if not forloop.last %},{% endif %}
                     {% endfor %}
                     haven't responded yet.
                 </p>

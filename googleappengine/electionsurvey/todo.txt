@@ -1,16 +1,9 @@
 Do this next
 ============
 
-Write script for making CSV file for mail merge
-
-When we start displaying the survey answers, stop resubmit of survey
-
-Script to detect cases where email address has changed and show them
-    (make sure compares to validated_email)
-Script to show what frozen seats have changed local issues
+Page showing dummy survey
 
 
-- Aggregate all those not responding into one list
 - Make quotes round more explanation conditional on it having content
 - Show photographs, or party logos, whichever are available
 - Fold so comes down when shows who they are only
@@ -27,6 +20,17 @@ Make sure it advertises TheyWorkForYou alert signups etc!
 Function to share answers / embed in blog?
 
 Test postcode lookup with constituency with & in name
+
+
+Write script for making CSV file for mail merge
+
+When we start displaying the survey answers, stop resubmit of survey
+
+Script to detect cases where email address has changed and show them
+    (make sure compares to validated_email)
+Script to show what frozen seats have changed local issues
+
+
 
 Import voting record from Public Whip for the national issues which are linked to divisions
 Display that in results of quiz
