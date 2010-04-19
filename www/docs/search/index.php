@@ -318,7 +318,7 @@ function find_constituency ($args) {
 	if ($constituency != '') {
 		// Got a match, display....
 			
-		$MEMBER = new MEMBER(array('constituency'=>$constituency));
+		$MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
         $URL = new URL('mp');
         if ($MEMBER->valid) {
             $URL->insert(array('m'=>$MEMBER->member_id()));
@@ -336,7 +336,7 @@ function find_constituency ($args) {
 	} elseif (count($constituencies)) {
         print "<h3>MPs in constituencies matching '".htmlentities($searchterm)."'</h3><ul>";
         foreach ($constituencies as $constituency) {
-            $MEMBER = new MEMBER(array('constituency'=>$constituency));
+            $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
             $URL = new URL('mp');
             if ($MEMBER->valid) {
                 $URL->insert(array('m'=>$MEMBER->member_id()));
