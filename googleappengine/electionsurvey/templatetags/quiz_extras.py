@@ -7,6 +7,7 @@
 #
 
 import datetime
+import re
 
 from django import template
 
@@ -26,7 +27,7 @@ def lookup_answer_more_explanation(answers, candidacy, issue):
     if issue.key().name() not in answers_for_candidacy:
         return ""
     refined_issue = answers_for_candidacy[issue.key().name()]
-    return str(refined_issue.more_explanation)
+    return re.sub("\s+", " ", str(refined_issue.more_explanation).strip())
 
 
 
