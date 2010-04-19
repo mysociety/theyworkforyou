@@ -24,8 +24,6 @@
 <h3>National issues</h3>
 <p>Click on any statements you have a strong view about.</p>
 
-<p>{% current_time "%Y-%M-%d %I:%M %p" %}</p>
-
     <ul class="answers national">
         {% for national_issue in answers.national_issues %}
         <li>
@@ -38,7 +36,8 @@
                 {% for candidacy in answers.candidacies %}
                     <li>
                     <strong>{{ candidacy.candidate.name }}</strong>
-                    {% lookup_answer_agreement answers candidacy national_issue %}
+                        {% lookup_answer_agreement answers candidacy national_issue %}
+                        "{% lookup_answer_more_explanation answers candidacy national_issue %}"
                     </li>
                 {% endfor %} 
                 </ul>
