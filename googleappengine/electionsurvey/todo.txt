@@ -25,6 +25,7 @@ Send survey reminder to people who haven't done it
 - Fix line up of party icons and name
 - Improve speed of loading
 - Ones that haven't been emailed, hassle to get email address
+- Try jqueryui?
 
 Add options to share on most popular social networking sites
 

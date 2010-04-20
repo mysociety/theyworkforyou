@@ -26,10 +26,10 @@ $(function(){
     }
     if ($('ul.answers').length) {
         $('ul.answers > li > div.full_answers').hide();
-        //var first_question = $('ul.questions > li:first');
-        //first_question.show(600);
-        //$('h3:eq(1)').hide();
-        //$('form#voterquiz input:submit.final').hide();
+        $('ul.answers > li > div.statement').click(function(){
+            $(this).closest('li').find('div.full_answers').toggle(600);
+            return false; // don't follow the fake link
+        });
 
         // Checking national issues interested in
         /*
@@ -43,14 +43,6 @@ $(function(){
             }
         });
         */
-
-        // Filling in national question answers
-        //$('ul.questions > li').change(function(){
-        //    $(this).closest('ul.questions > li').next().show(600)
-        //});
-        //$('ul.questions > li input:submit#discard').submit(function(){
-        //    $(this).hide()
-        //});
     }
 });
 

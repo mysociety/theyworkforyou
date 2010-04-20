@@ -55,13 +55,16 @@
             <div class="statement">
                 <strong> {{ national_answer.short_name }} </strong>
                 {{ national_answer.question }}
+                <script type="text/javascript" charset="utf-8">
+                    document.write('<a href="">Find out!</a>');
+                </script>
             </div>
             <div class="full_answers">
                 <ul>
                 {% for candidacy in national_answer.candidacies %}
                     <li>
                         {% include "_quiz_candidacy.html" %}
-                        {{ candidacy.agreement_verb }}{% if candidacy.more_explanation %}, saying "{{ candidacy.more_explanation }}"{% else %}.{% endif %}
+                        {% include "_quiz_agreement.html" %}
                     </li>
                 {% endfor %} 
                 </ul>
@@ -77,14 +80,18 @@
             {% for local_answer in local_answers %}
             <li>
                 <div class="statement">
-                    <strong>{{ forloop.counter }}.</strong> {{ local_answer.question }}
+                    <strong>{{ forloop.counter }}.</strong> 
+                    {{ local_answer.question }}
+                    <script type="text/javascript" charset="utf-8">
+                        document.write('<a href="">Find out!</a>');
+                    </script>
                 </div>
                 <div class="full_answers">
                     <ul>
                     {% for candidacy in local_answer.candidacies %}
                         <li>
                             {% include "_quiz_candidacy.html" %}
-                            {{ candidacy.agreement_verb }}{% if candidacy.more_explanation %}, saying "{{ candidacy.more_explanation }}"{% else %}.{% endif %}
+                            {% include "_quiz_agreement.html" %}
                         </li>
                     {% endfor %} 
                     </ul>
