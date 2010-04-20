@@ -25,7 +25,7 @@ $(function(){
         $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
     }
     if ($('ul.answers').length) {
-        $('ul.national > li').hide();
+        $('ul.answers > li > div.full_answers').hide();
         //var first_question = $('ul.questions > li:first');
         //first_question.show(600);
         //$('h3:eq(1)').hide();
