@@ -21,7 +21,6 @@ Send survey reminder to people who haven't done it
     spending a couple more minutes checking!"
 
 
-- Fold so comes down when shows who they are only
 - Fix line up of party icons and name
 - Make mouse change when hover over statement
 - Make "find out!" text flip
