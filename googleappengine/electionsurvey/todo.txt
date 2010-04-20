@@ -11,6 +11,16 @@ Send survey reminder to people who haven't done it
 - Get people to tweet to provoke someone into filling in their survey
 
 
+ We got your contact details from YourNextMP, a publicly available
+database of PPCs that is collaboratively researched and editors by
+volunteers.  You might want to double check your profile there to make
+sure they got your details correct, add some biographical detail, and
+maybe add a photo.  The data on that site is used by a large number of
+other websites and phone applications that are designed to let people
+know more about the people they've voting for, so it's worth you
+spending a couple more minutes checking!
+
+
 - Improve speed of loading
 - Fold so comes down when shows who they are only
 - Fix line up of party icons and name
@@ -41,6 +51,7 @@ Display that in results of quiz
 
 
 
+Rename log as log_and_save
 
 Really autosave should check for conflicts between two browser windows
 
