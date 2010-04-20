@@ -27,7 +27,14 @@ $(function(){
     if ($('ul.answers').length) {
         $('ul.answers > li > div.full_answers').hide();
         $('ul.answers > li > div.statement').click(function(){
-            $(this).closest('li').find('div.full_answers').toggle(600);
+           var findout = $(this).closest('li').find('span.findout');
+            var full_answers = $(this).closest('li').find('div.full_answers');
+            if (full_answers.is(":hidden")) {
+               findout.html("Hide");
+            } else {
+               findout.html("Find out!");
+            }
+            full_answers.toggle(600);
             return false; // don't follow the fake link
         });
 

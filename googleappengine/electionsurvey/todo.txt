@@ -23,8 +23,9 @@ Send survey reminder to people who haven't done it
 
 - Fold so comes down when shows who they are only
 - Fix line up of party icons and name
+- Make mouse change when hover over statement
+- Make "find out!" text flip
 - Improve speed of loading
-- Ones that haven't been emailed, hassle to get email address
 - Try jqueryui?
 
 Add options to share on most popular social networking sites
