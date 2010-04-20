@@ -11,6 +11,7 @@ import cgi
 import datetime
 import urllib2
 import re
+import collections
 
 from google.appengine.api import urlfetch
 from google.appengine.api.datastore_types import Key
@@ -133,6 +134,42 @@ def survey_candidacy(request, token = None):
         'candidate' : candidacy.candidate,
         'seat' : candidacy.seat,
         'autosave_when' : autosave_when
+    })
+
+# Public information about survey for the seat
+def survey_seats_list(request):
+    seats = db.Query(Seat).order("name").fetch(1000)
+
+    return render_to_response('survey_candidacy_seats_list.html', {
+        'seats' : seats,
+    })
+
+
+
+def survey_seats(request, code):
+    seat = db.Query(Seat).filter("code =", code).get()
+    candidacies = seat.candidacy_set.filter('deleted =', False)
+
+    # Construct array of forms containing all local issues
+    local_issues_for_seat = seat.refinedissue_set.filter("deleted =", False).fetch(1000)
+    local_issue_forms = []
+    for issue in local_issues_for_seat:
+        form = forms.LocalIssueQuestionForm({}, refined_issue=issue, candidacy=None)
+        local_issue_forms.append(form)
+    # ... and national issues
+    national_seat = db.Query(Seat).filter("name =", "National").get()
+    national_issues_for_seat = national_seat.refinedissue_set.filter("deleted =", False).fetch(1000)
+    national_issue_forms = []
+    for issue in national_issues_for_seat:
+        form = forms.NationalIssueQuestionForm({}, refined_issue=issue, candidacy=None)
+        national_issue_forms.append(form)
+    all_issue_forms = local_issue_forms + national_issue_forms
+
+    return render_to_response('survey_candidacy_seat.html', {
+        'local_issue_forms': local_issue_forms,
+        'national_issue_forms': national_issue_forms,
+        'seat' : seat,
+        'candidacies' : candidacies,
     })
 
 # Called by AJAX to automatically keep half filled in forms
@@ -316,6 +353,14 @@ def admin_responses(request):
 #####################################################################
 # Voter quiz
 
+agreement_verb = {
+    0: "strongly disagrees",
+    25: "disagrees",
+    50: "is neutral",
+    75: "agrees",
+    100: "strongly agrees"
+}
+
 # Postcode form on quiz
 def quiz_ask_postcode(request):
     form = forms.QuizPostcodeForm(request.POST or None)
@@ -334,11 +379,65 @@ def quiz_main(request, postcode):
     url_postcode = forms._urlise_postcode(postcode)
     seat = forms._postcode_to_constituency(postcode)
 
-    answers = forms.SeatAnswerDisplayer(seat)
+    # find all the candidates
+    candidacies = seat.candidacy_set.filter("deleted = ", False).fetch(1000)
+    candidacies_by_id = {}
+    for c in candidacies:
+        candidacies_by_id[c.key().name()] = c
+    candidacies_id = set([c.key().name() for c in candidacies])
+
+    # local and national issues for the seat
+    local_issues = seat.refinedissue_set.filter("deleted =", False).fetch(1000)
+    national_issues = db.Query(RefinedIssue).filter('national =', True).filter("deleted =", False).fetch(1000)
+
+    # responses candidates have made
+    all_responses = db.Query(SurveyResponse).filter('candidacy in', candidacies).fetch(1000)
+
+    # construct dictionaries with all the information in 
+    national_answers = []
+    candidacies_with_response_id = set()
+    for national_issue in national_issues:
+        issue = { 
+            'short_name': national_issue.short_name, 
+            'question': national_issue.question 
+        }
+        candidacies_with_response = []
+        for response in all_responses:
+            if response.candidacy.key().name() in candidacies_by_id and response.refined_issue.key().name() == national_issue.key().name():
+                assert response.agreement in [0,25,50,75,100]
+                candidacies_with_response.append( {
+                        'name': response.candidacy.candidate.name,
+                        'party': response.candidacy.candidate.party.name,
+                        'image_url': response.candidacy.candidate.image_url(),
+                        'party_image_url': response.candidacy.candidate.party.image_url(),
+                        'agreement_verb': agreement_verb[response.agreement],
+                        'more_explanation': re.sub("\s+", " ",response.more_explanation.strip())
+                    }
+                )
+                candidacies_with_response_id.add(response.candidacy.key().name())
+        issue['candidacies'] = candidacies_with_response
+
+        national_answers.append(issue)
+
+    # work out who didn't give a response
+    candidacies_without_response_id = candidacies_id.difference(candidacies_with_response_id)
+    candidacies_without_response = [ { 
+        'name': candidacies_by_id[i].candidate.name, 
+        'party': candidacies_by_id[i].candidate.party.name,
+        'image_url': candidacies_by_id[i].candidate.image_url(),
+        'party_image_url': candidacies_by_id[i].candidate.party.image_url(),
+        'yournextmp_url': candidacies_by_id[i].candidate.yournextmp_url(),
+        'survey_invite_emailed': candidacies_by_id[i].survey_invite_emailed
+    } for i in candidacies_without_response_id]
 
     return render_to_response('quiz_main.html', {
         'seat' : seat,
-        'answers' : answers,
+        'candidacies_without_response' : candidacies_without_response,
+        'candidacy_count' : len(candidacies),
+        'candidacy_with_response_count' : len(candidacies) - len(candidacies_without_response),
+        'candidacy_without_response_count' : len(candidacies_without_response),
+        'national_answers' : national_answers,
+        #'local_issues' : local_issues,
         'postcode' : postcode
     })
 

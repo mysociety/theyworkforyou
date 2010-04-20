@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>TheyWorkForYou 2010 General Election PPC survey</h2>
+
+<p>Select a seat to see the questions and the status of the survey there.</p>
+
+<ul>
+{% for seat in seats %}
+    <li>
+        <a href="/survey/seats/{{ seat.code }}">{{ seat.name }}</a>
+     </li>
+
+{% endfor %}
+</ul>
+
+{% endblock %}

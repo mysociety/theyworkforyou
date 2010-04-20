@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>Which issues do you care about?</h2>
+<h2>Interview the candidates to be MP for {{ seat.name }}</h2>
 
 <!--<p class="error">
     Dummy error
@@ -21,38 +21,57 @@
     MP where you live, in <strong>{{ seat.name }}</strong> constituency.
 </p>
 
-<h3>National issues</h3>
-<p>Click on any statements you have a strong view about.</p>
+{% ifnotequal candidacy_without_response_count 0 %}
+<h3>{{ candidacy_without_response_count }} candidate{{ candidacy_without_response_count|pluralize }} {{ candidacy_without_response_count|pluralize:"has,have" }} not yet responded</h3>
+    <p>
+    <ul>
+    {% for candidacy in candidacies_without_response %}
+            <li>
+                {% include "_quiz_candidacy.html" %} 
+                {% if candidacy.survey_invite_emailed %} has not yet been
+                emailed, because we don't know their email address.
+                Please find it out and add it to <a href="{{ candidacy.yournextmp_url }}">their page on YourNextMP</a>.
+                {% else %}
+                has been emailed, but has not yet responded.
+                Please <a href="{{ candidacy.yournextmp_url }}">contact them</a> by email, phone or
+                in person, and ask them to respond to the survey.
+                {% endif %}
+            </li>
+    {% endfor %} 
+    </ul>
+    </p>
+{% endifnotequal %}
+
+{% ifnotequal candidacy_with_response_count 0 %}
+
+<h3>{{ candidacy_with_response_count }} candidate{{ candidacy_with_response_count|pluralize }} {{ candidacy_with_response_count|pluralize:"has,have" }} responded</h3>
+
+<h4>National issues</h4>
+<p>Click on any statements you would like the candidate's views on.</p>
 
     <ul class="answers national">
-        {% for national_issue in answers.national_issues %}
+        {% for national_answer in national_answers %}
+
         <li>
             <div class="statement">
-                <strong> {{ national_issue.short_name }} </strong>
-                {{ national_issue.question }}
+                <strong> {{ national_answer.short_name }} </strong>
+                {{ national_answer.question }}
             </div>
             <div class="full_answers">
                 <ul>
-                {% for candidacy in answers.candidacies_with_response %}
+                {% for candidacy in national_answer.candidacies %}
                     <li>
-                    <strong>{{ candidacy.candidate.name }}</strong>
-                        {% lookup_answer_agreement answers candidacy national_issue %}
-                        "{% lookup_answer_more_explanation answers candidacy national_issue %}"
+                        {% include "_quiz_candidacy.html" %}
+                        {{ candidacy.agreement_verb }}{% if candidacy.more_explanation %}, saying "{{ candidacy.more_explanation }}"{% else %}.{% endif %}
                     </li>
                 {% endfor %} 
                 </ul>
-                <p>
-                    {% for candidacy in answers.candidacies_without_response %}
-                    <strong>{{ candidacy.candidate.name }}</strong>{% if not forloop.last %},{% endif %}
-                    {% endfor %}
-                    haven't responded yet.
-                </p>
             </div>
         </li>
         {% endfor %}
     </ul>
 
-<h3>Local issues</h3>
+<h4>Local issues</h4>
     <p>Submitted by volunteers like you in {{ seat.name }} constituency.</p>
     {% if answers.local_issues %}
         <ul class="answers local">
@@ -73,8 +92,10 @@
             </li>
         </ul>
     {% endif %}
+{% endifnotequal %}
 
 </div>
+
 <div class="sidebar">
     <!-- Any sidebar text goes here -->
 

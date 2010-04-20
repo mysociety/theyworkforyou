@@ -1,6 +1,31 @@
 Do this next
 ============
 
+Page showing dummy survey
+Send survey reminder to people who haven't done it
+    * perhaps give instructions to type in token if can't click links?
+    * offer explicit opt out
+    * read Grieken mail
+    * make sure you look for bounce messages this time
+- Ask PPCs who have done survey to motivate other party members to do survey?
+- Get people to tweet to provoke someone into filling in their survey
+
+
+- Improve speed of loading
+- Fold so comes down when shows who they are only
+- Fix line up of party icons and name
+- Ones that haven't been emailed, hassle to get email address
+
+Add options to share on most popular social networking sites
+
+
+Make sure it advertises TheyWorkForYou alert signups etc!
+
+Function to share answers / embed in blog?
+
+Test postcode lookup with constituency with & in name
+
+
 Write script for making CSV file for mail merge
 
 When we start displaying the survey answers, stop resubmit of survey
@@ -10,23 +35,6 @@ Script to detect cases where email address has changed and show them
 Script to show what frozen seats have changed local issues
 
 
-- Aggregate all those not responding into one list
-- Make quotes round more explanation conditional on it having content
-- Show photographs, or party logos, whichever are available
-- Fold so comes down when shows who they are only
-
-Check escaping of more_explanation display
-
-Add options to share on most popular social networking sites
-
-Show candidates which haven't answered yet
-Mechanism to hassle them to answer
-
-Make sure it advertises TheyWorkForYou alert signups etc!
-
-Function to share answers / embed in blog?
-
-Test postcode lookup with constituency with & in name
 
 Import voting record from Public Whip for the national issues which are linked to divisions
 Display that in results of quiz

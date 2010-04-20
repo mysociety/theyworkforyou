@@ -90,7 +90,7 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 	} else {
 		$CHANGEURL = new URL('userchangepc');
 	}
-	$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode()));
+	$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
 	$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
 	?>
 	  <p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about how <?php echo $mpname; ?>, your ex-MP, represented you over the last parliament</strong></a><br>

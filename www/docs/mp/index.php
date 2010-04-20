@@ -79,7 +79,7 @@ if (preg_match("#^ynys m\xc3\xb4n#i", $cconstituency))
 // Redirect for MP recent appearanecs
 if (get_http_var('recent')) {
 	if ($THEUSER->postcode_is_set() && !$pid) {
-		$MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode()));
+		$MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode(), 'house' => 1));
 		if ($MEMBER->person_id())
 			$pid = $MEMBER->person_id();
 	} 
@@ -130,7 +130,7 @@ if (is_numeric(get_http_var('m'))) {
 			twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
 		} else {
 			// Redirect to the canonical MP page, with a person id.
-			$MEMBER = new MEMBER(array('constituency' => $constituency));
+			$MEMBER = new MEMBER(array('constituency' => $constituency, 'house' => 1));
 			if ($MEMBER->person_id()) {
 				// This will cookie the postcode.
 				$THEUSER->set_postcode_cookie($pc);
@@ -163,7 +163,7 @@ if (is_numeric(get_http_var('m'))) {
 		$PAGE->error_message('Your set postcode is not in Northern Ireland.');
 	}
 } elseif ($THEUSER->postcode_is_set() && $name == '' && $cconstituency == '') {
-	$MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode()));
+	$MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode(), 'house' => 1));
 	member_redirect($MEMBER);
 } elseif ($name && $cconstituency) {
 	$MEMBER = new MEMBER(array('name'=>$name, 'constituency'=>$cconstituency));
@@ -189,7 +189,7 @@ if (is_numeric(get_http_var('m'))) {
 		header('Location: /mp/stom%20teinberg');
 		exit;
 	}
-	$MEMBER = new MEMBER(array('constituency' => $cconstituency));
+	$MEMBER = new MEMBER(array('constituency' => $cconstituency, 'house' => 1));
 	member_redirect($MEMBER);
 } else {
 	// No postcode, member_id or person_id to use.

@@ -36,7 +36,7 @@ if (validate_postcode($pc)) {
 		list($out, $sidebars) = pick_multiple($pc, $constituencies, 'NIE', 'MLA');
 	} else {
 		# Just have an MP, redirect instantly to the canonical page
-		$MEMBER = new MEMBER(array('constituency' => $constituencies['WMC']));
+		$MEMBER = new MEMBER(array('constituency' => $constituencies['WMC'], 'house' => 1));
 		if ($MEMBER->person_id()) {
 			$THEUSER->set_postcode_cookie($pc);
 		}

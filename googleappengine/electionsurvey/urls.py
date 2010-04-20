@@ -16,9 +16,12 @@ urlpatterns = patterns('',
     url(r'^survey/autosave/(?P<token>.+)$', views.survey_autosave),
     url(r'^survey/stats.json$', views.survey_stats_json),
     url(r'^survey/candidacies.json$', views.survey_candidacies_json),
+    url(r'^survey/seats$', views.survey_seats_list),
+    url(r'^survey/seats/(?P<code>.+)$', views.survey_seats),
     url(r'^survey/(?P<token>.+)$', views.survey_candidacy),
 
     url(r'^survey/$', redirect_to, {'url' : '/survey'} ),
+    url(r'^survey/seat/$', redirect_to, {'url' : '/survey/seat'} ),
 
     url(r'^quiz$', views.quiz_ask_postcode),
     url(r'^quiz/(?P<postcode>.+)$', views.quiz_main),
