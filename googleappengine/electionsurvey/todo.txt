@@ -2,37 +2,42 @@ Do this next
 ============
 
 Page showing dummy survey
- "Sick of push-polling from special interests?"
+    "Sick of push-polling from special interests?"
 Send survey reminder to people who haven't done it
+    * make sure you look for bounce messages this time
     * perhaps give instructions to type in token if can't click links?
     * offer explicit opt out
-    * read Grieken mail
-    * make sure you look for bounce messages this time
+    * read Grieken mail again
 - Ask PPCs who have done survey to motivate other party members to do survey?
-- Get people to tweet to provoke someone into filling in their survey
 
-     "We got your contact details from YourNextMP, a publicly available
-    database of PPCs that is collaboratively researched and editors by
-    volunteers.  You might want to double check your profile there to make
-    sure they got your details correct, add some biographical detail, and
-    maybe add a photo.  The data on that site is used by a large number of
-    other websites and phone applications that are designed to let people
-    know more about the people they've voting for, so it's worth you
-    spending a couple more minutes checking!"
+-------------------------------------------------
+Subject: Sick of push-polling from special interests?
+
+{{ name }}, 
+
+Millions of voters will see the results of this PPC survey.
+
+The questions are non-partisan, gathered by local volunteers in
+{{ constituency }} and by famous MP tracking website TheyWorkForYou.
+
+It'll only take you a few minutes. Click on this link, and 
+then fill in the form.
+
+http://election.theyworkforyou.com/survey/{{ token }}
+
+Best wishes,
+
+TheyWorkForYou election team
+-------------------------------------------------
 
 
 - Fix line up of party icons and name
-- Make mouse change when hover over statement
-- Make "find out!" text flip
 - Improve speed of loading
-- Try jqueryui?
 
 Add options to share on most popular social networking sites
-
+Function to share answers / embed in blog?
 
 Make sure it advertises TheyWorkForYou alert signups etc!
-
-Function to share answers / embed in blog?
 
 Test postcode lookup with constituency with & in name
 
