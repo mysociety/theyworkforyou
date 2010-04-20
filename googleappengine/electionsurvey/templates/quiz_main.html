@@ -56,12 +56,12 @@
 
     <ul class="answers national">
         {% for national_answer in national_answers %}
-        <li>
+        <li class="answer">
             <div class="statement">
                 <strong> {{ national_answer.short_name }} </strong>
                 {{ national_answer.question }}
                 <script type="text/javascript" charset="utf-8">
-                    document.write('<a href=""><span class="findout">Find out!</span></a>');
+                    document.write('<a href=""><span class="findout">Click to find out!</span></a>');
                 </script>
             </div>
             <div class="full_answers">
@@ -83,12 +83,12 @@
     {% if local_issues_count %}
         <ul class="answers local">
             {% for local_answer in local_answers %}
-            <li>
+            <li class="answer">
                 <div class="statement">
                     <strong>{{ forloop.counter }}.</strong> 
                     {{ local_answer.question }}
                     <script type="text/javascript" charset="utf-8">
-                        document.write('<a href=""><span class="findout">Find out!</span></a>');
+                        document.write('<a href=""><span class="findout">Click to find out!</span></a>');
                     </script>
                 </div>
                 <div class="full_answers">

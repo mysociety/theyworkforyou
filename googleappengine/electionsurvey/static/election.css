@@ -61,6 +61,21 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
     color: #333333;
 }
 
+.answer {
+    border: solid 1px #ffffff;
+    padding: 2px;
+}
+.hovering {
+    /*
+    color: #ff0000;
+    background-color: #ffcccc;
+    border: solid 2px #990000;
+    */
+    background-color: #9999dd;
+    border: solid 1px #000066;
+    padding: 2px;
+}
+
 div.national_selection {
     margin-left: 3em;
     margin-bottom: 2em;
