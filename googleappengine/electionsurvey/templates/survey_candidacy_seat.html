@@ -16,7 +16,9 @@ will be published in a quiz before election day.
 <ul>
 {% for candidacy in candidacies %}
     <li>
-    <img src="{{ candidacy.candidate.party.image_url}}" alt="{{ candidacy.candidate.party.name }}" title="{{ candidacy.candidate.party.name }}">
+        {% if candidacy.candidate.party.image_url %} 
+            <img src="{{ candidacy.candidate.party.image_url}}" alt="{{ candidacy.candidate.party.name }}" title="{{ candidacy.candidate.party.name }}">
+        {% endif %}
         <strong>{{ candidacy.candidate.name }} </strong> - survey
         {% if candidacy.survey_invite_emailed %}
             has been emailed,

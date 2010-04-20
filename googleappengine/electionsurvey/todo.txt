@@ -3,6 +3,7 @@ Do this next
 
 Page showing dummy survey
 Send survey reminder to people who haven't done it
+    * perhaps give instructions to type in token if can't click links?
     * offer explicit opt out
     * read Grieken mail
     * make sure you look for bounce messages this time

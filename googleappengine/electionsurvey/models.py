@@ -43,7 +43,7 @@ class Party(db.Model):
         if self.image_id:
             return _image_id_to_url(self.image_id, "small")
         else:
-            return ""
+            return None
 
 
 class Candidate(db.Model):
@@ -76,7 +76,7 @@ class Candidate(db.Model):
         if self.image_id:
             return _image_id_to_url(self.image_id, "small")
         else:
-            return ""
+            return None
 
     def yournextmp_url(self):
         return "http://www.yournextmp.com/candidates/%s" % self.code
