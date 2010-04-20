@@ -51,7 +51,6 @@
 
     <ul class="answers national">
         {% for national_answer in national_answers %}
-
         <li>
             <div class="statement">
                 <strong> {{ national_answer.short_name }} </strong>
@@ -73,16 +72,27 @@
 
 <h4>Local issues</h4>
     <p>Submitted by volunteers like you in {{ seat.name }} constituency.</p>
-    {% if answers.local_issues %}
+    {% if local_issues_count %}
         <ul class="answers local">
-            {% for local_issue in answers.local_issues %}
+            {% for local_answer in local_answers %}
             <li>
                 <div class="statement">
-                    {{ local_issue.question }}
+                    <strong>{{ forloop.counter }}.</strong> {{ local_answer.question }}
+                </div>
+                <div class="full_answers">
+                    <ul>
+                    {% for candidacy in local_answer.candidacies %}
+                        <li>
+                            {% include "_quiz_candidacy.html" %}
+                            {{ candidacy.agreement_verb }}{% if candidacy.more_explanation %}, saying "{{ candidacy.more_explanation }}"{% else %}.{% endif %}
+                        </li>
+                    {% endfor %} 
+                    </ul>
                 </div>
             </li>
             {% endfor %}
         </ul>
+
     {% else %}
         <ul class="answers local">
             <li>

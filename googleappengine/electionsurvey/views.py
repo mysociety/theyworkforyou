@@ -374,6 +374,30 @@ def quiz_ask_postcode(request):
         'form': form,
     })
 
+# Helper for quiz_main
+def _get_entry_for_issue(candidacies_by_id, all_responses, candidacies_with_response_id, issue_model):
+    issue = { 
+        'short_name': issue_model.short_name, 
+        'question': issue_model.question 
+    }
+    candidacies_with_response = []
+    for response in all_responses:
+        if response.candidacy.key().name() in candidacies_by_id and response.refined_issue.key().name() == issue_model.key().name():
+            assert response.agreement in [0,25,50,75,100]
+            candidacies_with_response.append( {
+                    'name': response.candidacy.candidate.name,
+                    'party': response.candidacy.candidate.party.name,
+                    'image_url': response.candidacy.candidate.image_url(),
+                    'party_image_url': response.candidacy.candidate.party.image_url(),
+                    'agreement_verb': agreement_verb[response.agreement],
+                    'more_explanation': re.sub("\s+", " ",response.more_explanation.strip())
+                }
+            )
+        candidacies_with_response_id.add(response.candidacy.key().name())
+    issue['candidacies'] = candidacies_with_response
+    return issue
+
+# For voters to learn about candidates
 def quiz_main(request, postcode):
     display_postcode = forms._canonicalise_postcode(postcode)
     url_postcode = forms._urlise_postcode(postcode)
@@ -387,37 +411,22 @@ def quiz_main(request, postcode):
     candidacies_id = set([c.key().name() for c in candidacies])
 
     # local and national issues for the seat
-    local_issues = seat.refinedissue_set.filter("deleted =", False).fetch(1000)
     national_issues = db.Query(RefinedIssue).filter('national =', True).filter("deleted =", False).fetch(1000)
+    local_issues = seat.refinedissue_set.filter("deleted =", False).fetch(1000)
 
     # responses candidates have made
     all_responses = db.Query(SurveyResponse).filter('candidacy in', candidacies).fetch(1000)
 
+    candidacies_with_response_id = set()
     # construct dictionaries with all the information in 
     national_answers = []
-    candidacies_with_response_id = set()
     for national_issue in national_issues:
-        issue = { 
-            'short_name': national_issue.short_name, 
-            'question': national_issue.question 
-        }
-        candidacies_with_response = []
-        for response in all_responses:
-            if response.candidacy.key().name() in candidacies_by_id and response.refined_issue.key().name() == national_issue.key().name():
-                assert response.agreement in [0,25,50,75,100]
-                candidacies_with_response.append( {
-                        'name': response.candidacy.candidate.name,
-                        'party': response.candidacy.candidate.party.name,
-                        'image_url': response.candidacy.candidate.image_url(),
-                        'party_image_url': response.candidacy.candidate.party.image_url(),
-                        'agreement_verb': agreement_verb[response.agreement],
-                        'more_explanation': re.sub("\s+", " ",response.more_explanation.strip())
-                    }
-                )
-                candidacies_with_response_id.add(response.candidacy.key().name())
-        issue['candidacies'] = candidacies_with_response
-
-        national_answers.append(issue)
+        new_entry = _get_entry_for_issue(candidacies_by_id, all_responses, candidacies_with_response_id, national_issue)
+        national_answers.append(new_entry)
+    local_answers = []
+    for local_issue in local_issues:
+        new_entry = _get_entry_for_issue(candidacies_by_id, all_responses, candidacies_with_response_id, local_issue)
+        local_answers.append(new_entry)
 
     # work out who didn't give a response
     candidacies_without_response_id = candidacies_id.difference(candidacies_with_response_id)
@@ -437,7 +446,8 @@ def quiz_main(request, postcode):
         'candidacy_with_response_count' : len(candidacies) - len(candidacies_without_response),
         'candidacy_without_response_count' : len(candidacies_without_response),
         'national_answers' : national_answers,
-        #'local_issues' : local_issues,
+        'local_answers' : local_answers,
+        'local_issues_count' : len(local_issues),
         'postcode' : postcode
     })
 
