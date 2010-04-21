@@ -1,35 +1,6 @@
 Do this next
 ============
 
-Page showing dummy survey
-    "Sick of push-polling from special interests?"
-Send survey reminder to people who haven't done it
-    * don't do it to people emailed in the last few days
-    * make sure you look for bounce messages this time
-    * perhaps give instructions to type in token if can't click links?
-    * offer explicit opt out
-    * read Grieken mail again
-- Ask PPCs who have done survey to motivate other party members to do survey?
-
--------------------------------------------------
-Subject: Sick of push-polling from special interests?
-
-{{ name }}, 
-
-Millions of voters will see the results of this PPC survey.
-
-The questions are non-partisan, gathered by local volunteers in
-{{ constituency }} and by famous MP tracking website TheyWorkForYou.
-
-It'll only take you a few minutes. Click on this link, and 
-then fill in the form.
-
-http://election.theyworkforyou.com/survey/{{ token }}
-
-Best wishes,
-
-TheyWorkForYou election team
--------------------------------------------------
 
 "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 Rename PPC to something else
@@ -75,20 +46,59 @@ Script to show what frozen seats have changed local issues
 
 Do another patch of sending to changed emails
 
+
+Survey reminder
+===============
+
+Page showing dummy survey
+    "Sick of push-polling from special interests?"
+Send survey reminder to people who haven't done it
+    * don't do it to people emailed in the last few days
+    * make sure you look for bounce messages this time
+    * perhaps give instructions to type in token if can't click links?
+    * offer explicit opt out
+    * read Grieken mail again
+    * See Becka's email
+- Ask PPCs who have done survey to motivate other party members to do survey?
+
+-------------------------------------------------
+Subject: Sick of push-polling from special interests?
+
+{{ name }}, 
+
+Millions of voters will see the results of this PPC survey.
+
+The questions are non-partisan, gathered by local volunteers in
+{{ constituency }} and by famous MP tracking website TheyWorkForYou.
+
+It'll only take you a few minutes. Click on this link, and 
+then fill in the form.
+
+http://election.theyworkforyou.com/survey/{{ token }}
+
+Best wishes,
+
+TheyWorkForYou election team
+-------------------------------------------------
+
+
+
+
+
+
+Other things
+============
+
 Import voting record from Public Whip for the national issues which are linked to divisions
 Display that in results of quiz
-
-
 
 Rename log as log_and_save
 
 Really autosave should check for conflicts between two browser windows
 
 
-Ideas for quiz
-==============
 
-Have an icon for each one
+
 
 
 
