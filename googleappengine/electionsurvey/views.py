@@ -261,12 +261,14 @@ def survey_candidacies_json(request):
     result = []
     for c in candidacies:
         item = { 'ynmp_id': c.ynmp_id,
-
             'survey_invite_emailed': c.survey_invite_emailed,
             'survey_invite_sent_to_emails': c.survey_invite_sent_to_emails,
             'survey_filled_in': c.survey_filled_in,
             'survey_filled_in_when': c.survey_filled_in_when and c.survey_filled_in_when.strftime('%Y-%m-%dT%H:%M:%S') or None
         }
+        if 'secret' in request.GET and request.GET['secret'] == settings.DEMOCRACYCLUB_SHARED_SECRET:
+            assert c.survey_token
+            item['survey_token'] = c.survey_token
         if 'details' in request.GET:
             details = {
                 'seat_ynmp_id': c.seat.ynmp_id,

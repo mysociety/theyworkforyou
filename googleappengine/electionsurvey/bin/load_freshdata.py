@@ -197,6 +197,10 @@ def load_from_ynmp(ynmp, frozen_seats):
         candidacy.created = convdate(candidacy_data["created"])
         candidacy.updated = convdate(candidacy_data["updated"])
         candidacy.deleted = False
+        # make sure it has a survey token
+        if not candidacy.survey_token:
+            log("Generating survey token for " + candidacy.seat.name + " " + candidacy.candidate.name)
+            candidacy.generate_survey_token() # this does save too, since it logs
         log("Storing candidacy " + candidacy.seat.name + " " + candidacy.candidate.name)
         candidacies_by_key[key_name] = candidacy
 
