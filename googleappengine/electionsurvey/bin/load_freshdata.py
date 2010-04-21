@@ -178,8 +178,8 @@ def load_from_ynmp(ynmp, frozen_seats):
     candidacies_by_key = {}
     for candidacy_id, candidacy_data in ynmp["Candidacy"].iteritems():
         candidate = candidates_by_key[candidacy_data["candidate_id"]]
-        assert candidate.status in ['standing', 'standing_down']
-        if candidate.status == 'standing_down':
+        assert candidate.status in ['standing', 'standing_down', 'not-standing']
+        if candidate.status == 'standing_down' or candidate.status == 'not-standing':
             continue
 
         key_name = candidacy_data["seat_id"] + "-" + candidacy_data["candidate_id"]
