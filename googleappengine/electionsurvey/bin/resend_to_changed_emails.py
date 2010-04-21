@@ -91,8 +91,8 @@ for candidacy in candidacies:
     candidate = candidates_by_id[candidate_key_str]
 
     c = c + 1
-    log(str(c) + " Considering " + candidate.name + " current email " + str(candidate.email) + ", already sent to: " + ",".join(candidacy.survey_invite_sent_to_emails))
-    if candidate.email not in candidacy.survey_invite_sent_to_emails:
+    log(str(c) + " Considering " + candidate.name + " current email " + str(candidate.validated_email()) + ", already sent to: " + ",".join(candidacy.survey_invite_sent_to_emails))
+    if candidate.validated_email() not in candidacy.survey_invite_sent_to_emails:
         if candidacy.survey_filled_in:
             log("  *** already filled in survey but email has changed")
         else:
