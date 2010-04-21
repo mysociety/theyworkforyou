@@ -4,6 +4,7 @@ Do this next
 Page showing dummy survey
     "Sick of push-polling from special interests?"
 Send survey reminder to people who haven't done it
+    * don't do it to people emailed in the last few days
     * make sure you look for bounce messages this time
     * perhaps give instructions to type in token if can't click links?
     * offer explicit opt out
@@ -30,10 +31,31 @@ Best wishes,
 TheyWorkForYou election team
 -------------------------------------------------
 
+"Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 Rename PPC to something else
 
+- Move ones who haven't responded into same list as others
+- Change URL to be something other than quiz
 - Fix line up of party icons and name
 - Improve speed of loading
+- Strip down the content of homepage to something much more mininmalist, and much more confident
+- Link to blog post for explanation?
+- "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
+- Whole thing could be more centered, I suppose. Like WTT or FMS
+- You could also make the postcode box really big, like Richard Pope specialises in
+- Change "This website is run by mySociety, a registered charity." to as on TWFY
+
+- Huge big text on survey page should be
+  "Scan the issues, and click on the ones that you feel strongest about"
+- When no party image, format it a bit better
+  e.g. Mad Cap Tom http://election.theyworkforyou.com/quiz/SW1P3LB
+  Logo for indepenents?
+- Box each issue more before they go blue
+- Make font larger, screen narrower, so only 10 words per line
+- Alternate colours of each question so easier to read
+- Once you open an issue, that is where it should say "4 of your candidates have answered the survey. 3 haven't yet."
+- Break each candidate answer visually into a box
+- Would be great if it said "Bob Smith (Conservative) *agrees* with the above statement about tax. They said "xxxxxx""
 
 Add options to share on most popular social networking sites
 Function to share answers / embed in blog?
@@ -69,4 +91,8 @@ Ideas for quiz
 Have an icon for each one
 
 
+
+
+command to restore full database from backup:
+./google_appengine/bulkloader.py  --passin --restore --db_filename=skip --log_file /tmp/fai.log --url=http://localhost:8080/remote_api --app_id=theyworkforyouelection --email="francis@flourish.org" --filename=/home/francis/toobig/gae/theyworkforyouelection.googleappengine.sqlite3 
 
