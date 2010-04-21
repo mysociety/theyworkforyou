@@ -236,8 +236,9 @@ function person_enter_leave_facts($member, $extra_info) {
 		echo $member['left_house'][1]['date_pretty'].'</strong>';
 		if ($member['left_house'][1]['reason']) print ' &mdash; ' . $member['left_house'][1]['reason'];
 		print '</li>';
-	} elseif (isset($extra_info['standing_down']) && $extra_info['standing_down']) {
-		print '<li><strong>Standing down</strong> at the next election</li>';
+	    if (isset($extra_info['standing_down']) && $extra_info['standing_down']) {
+		    print '<li><strong>Not standing</strong> in the election</li>';
+	    }
 	}
 
 	if (isset($member['entered_house'][3]['date'])) {
