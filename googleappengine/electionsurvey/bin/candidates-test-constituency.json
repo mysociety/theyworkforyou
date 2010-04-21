@@ -41,6 +41,20 @@
          "updated" : "2010-02-07T00:25:50",
          "address" : null,
          "code" : "puncan_darkes"
+      },
+      "-5" : {
+         "status" : "standing",
+         "name" : "Beb Sacon",
+         "phone" : null,
+         "created" : "2010-04-21T00:25:50",
+         "email" : "seb.bacon@gmail.com",
+         "party_id" : "-32",
+         "image_id" : null,
+         "fax" : null,
+         "id" : "-5",
+         "updated" : "2010-04-21T00:25:50",
+         "address" : null,
+         "code" : "puncan_darkes"
       }
    },
    "Candidacy" : {
@@ -64,6 +78,13 @@
          "id" : "-14",
          "updated" : "2010-02-07T00:25:50",
          "candidate_id" : "-4"
+      },
+      "-15" : {
+         "created" : "2010-02-07T00:25:50",
+         "seat_id" : "-2",
+         "id" : "-15",
+         "updated" : "2010-02-07T00:25:50",
+         "candidate_id" : "-5"
       }
    },
    "Seat" : {
