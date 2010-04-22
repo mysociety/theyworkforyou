@@ -1,10 +1,18 @@
 Do this next
 ============
 
-Send out the reminder mailing
 Make sure you check bounce messages!
+> zahid@zahidiqbal.co.uk
+> wilson.chowdhry@greenparty.org.uk
+> ben.foley@greenparty.org.uk (resend didn't work, Francis, DNS
+> presumably takes time to propagate...)
+> paula.keaveney@liverpool.gov.uk
+
+Add your phone number?
+Option to just not do survey?
 
 Rename PPC to something else everywhere
+
 
 - Move ones who haven't responded into same list as others
 - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
@@ -42,7 +50,11 @@ When we start displaying the survey answers, stop resubmit of survey
 Write script for making CSV file for mail merge
 
 
+Check for people who've autosaved but not filled in and do special mail
 Do another patch of sending to changed emails
+- Make sure you add Message ID and Date this time
+    iso/pylib/sendemail.py has python code we use, dunno why that's not in
+    generic pylib that adds date, message-id, does header escaping, etc.
 Ask PPCs who have done survey to motivate other party members to do survey?
 
 
