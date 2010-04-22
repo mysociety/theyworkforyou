@@ -103,3 +103,25 @@ div.national_selection {
     width: 33%;
 }
 
+#postcode_quiz_page {
+    text-align: center;
+}
+
+#postcode_quiz_page #postcode_form {
+    font-size: 100%;
+}
+#postcode_quiz_page #postcode_form strong {
+    font-size: 150%;
+}
+#postcode_quiz_page input[type="text"] {
+    font-size: 250%;
+    border: solid lightgray 0.2em;
+    margin: 0;
+}
+#postcode_quiz_page input[type="submit"] {
+    font-size: 250%;
+    margin: 0;
+}
+
+
+
