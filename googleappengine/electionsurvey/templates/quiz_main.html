@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>Interview the candidates to be MP for {{ seat.name }}</h2>
+<h2>Scan the issues, and click on the ones that you feel strongest about</h2>
 
 <!--<p class="error">
     Dummy error
@@ -22,13 +22,6 @@
 </p>
 
 <h4>National issues</h4>
-    <script type="text/javascript" charset="utf-8">
-        document.write("<p>Click on any statements you would like the candidate's views on.</p>")
-    </script>
-    <noscript>
-        <p>Below are the candidate's view on each issue.</p>
-    </noscript>
-
     <ul class="answers national">
         {% for national_answer in national_answers %}
         <li class="answer">
@@ -54,8 +47,7 @@
         {% endfor %}
     </ul>
 
-<h4>Local issues</h4>
-    <p>Submitted by volunteers like you in {{ seat.name }} constituency.</p>
+<h4>Local issues (submitted by local volunteers)</h4>
     {% if local_issues_count %}
         <ul class="answers local">
             {% for local_answer in local_answers %}

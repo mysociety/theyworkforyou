@@ -15,12 +15,13 @@ Rename PPC to something else everywhere
 
 
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
-- Fix line up of party icons and name
 - Strip down the content of homepage to something much more mininmalist, and much more confident
 - Link to blog post for explanation?
-- "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 - Whole thing could be more centered, I suppose. Like WTT or FMS
 - You could also make the postcode box really big, like Richard Pope specialises in
+
+- Fix line up of party icons and name
+- "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 - Change "This website is run by mySociety, a registered charity." to as on TWFY
 - Huge big text on survey page should be
   "Scan the issues, and click on the ones that you feel strongest about"
@@ -32,6 +33,7 @@ Rename PPC to something else everywhere
 - Sort by surname like on a ballot paper?
 - Change URL to be something other than quiz
 - Memcache each constituency
+- Link to hassle interface.
 
 Add options to share on most popular social networking sites
 Function to share answers / embed in blog?
