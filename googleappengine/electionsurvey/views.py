@@ -377,25 +377,26 @@ def quiz_ask_postcode(request):
     })
 
 # Helper for quiz_main
-def _get_entry_for_issue(candidacies_by_id, all_responses, candidacies_with_response_id, issue_model):
+def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_response_key, issue_model):
     issue = { 
         'short_name': issue_model.short_name, 
         'question': issue_model.question 
     }
     candidacies_with_response = []
     for response in all_responses:
-        if response.candidacy.key().name() in candidacies_by_id and response.refined_issue.key().name() == issue_model.key().name():
+        if str(response.candidacy.key()) in candidacies_by_key and str(response.refined_issue.key()) == str(issue_model.key()):
+            candidacy = candidacies_by_key[str(response.candidacy.key())] # grab cached version, so doesn't have to get from the database again
             assert response.agreement in [0,25,50,75,100]
             candidacies_with_response.append( {
-                    'name': response.candidacy.candidate.name,
-                    'party': response.candidacy.candidate.party.name,
-                    'image_url': response.candidacy.candidate.image_url(),
-                    'party_image_url': response.candidacy.candidate.party.image_url(),
+                    'name': candidacy.candidate.name,
+                    'party': candidacy.candidate.party.name,
+                    'image_url': candidacy.candidate.image_url(),
+                    'party_image_url': candidacy.candidate.party.image_url(),
                     'agreement_verb': agreement_verb[response.agreement],
                     'more_explanation': re.sub("\s+", " ",response.more_explanation.strip())
                 }
             )
-        candidacies_with_response_id.add(response.candidacy.key().name())
+        candidacies_with_response_key.add(str(response.candidacy.key()))
     issue['candidacies'] = candidacies_with_response
     return issue
 
@@ -407,10 +408,10 @@ def quiz_main(request, postcode):
 
     # find all the candidates
     candidacies = seat.candidacy_set.filter("deleted = ", False).fetch(1000)
-    candidacies_by_id = {}
+    candidacies_by_key = {}
     for c in candidacies:
-        candidacies_by_id[c.key().name()] = c
-    candidacies_id = set([c.key().name() for c in candidacies])
+        candidacies_by_key[str(c.key())] = c
+    candidacies_key = set(candidacies_by_key.keys())
 
     # local and national issues for the seat
     national_issues = db.Query(RefinedIssue).filter('national =', True).filter("deleted =", False).fetch(1000)
@@ -419,27 +420,28 @@ def quiz_main(request, postcode):
     # responses candidates have made
     all_responses = db.Query(SurveyResponse).filter('candidacy in', candidacies).fetch(1000)
 
-    candidacies_with_response_id = set()
+    candidacies_with_response_key = set()
     # construct dictionaries with all the information in 
     national_answers = []
     for national_issue in national_issues:
-        new_entry = _get_entry_for_issue(candidacies_by_id, all_responses, candidacies_with_response_id, national_issue)
+        new_entry = _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_response_key, national_issue)
         national_answers.append(new_entry)
+    #return render_to_response("index.html")
     local_answers = []
     for local_issue in local_issues:
-        new_entry = _get_entry_for_issue(candidacies_by_id, all_responses, candidacies_with_response_id, local_issue)
+        new_entry = _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_response_key, local_issue)
         local_answers.append(new_entry)
 
     # work out who didn't give a response
-    candidacies_without_response_id = candidacies_id.difference(candidacies_with_response_id)
+    candidacies_without_response_key = candidacies_key.difference(candidacies_with_response_key)
     candidacies_without_response = [ { 
-        'name': candidacies_by_id[i].candidate.name, 
-        'party': candidacies_by_id[i].candidate.party.name,
-        'image_url': candidacies_by_id[i].candidate.image_url(),
-        'party_image_url': candidacies_by_id[i].candidate.party.image_url(),
-        'yournextmp_url': candidacies_by_id[i].candidate.yournextmp_url(),
-        'survey_invite_emailed': candidacies_by_id[i].survey_invite_emailed
-    } for i in candidacies_without_response_id]
+        'name': candidacies_by_key[k].candidate.name, 
+        'party': candidacies_by_key[k].candidate.party.name,
+        'image_url': candidacies_by_key[k].candidate.image_url(),
+        'party_image_url': candidacies_by_key[k].candidate.party.image_url(),
+        'yournextmp_url': candidacies_by_key[k].candidate.yournextmp_url(),
+        'survey_invite_emailed': candidacies_by_key[k].survey_invite_emailed
+    } for k in candidacies_without_response_key]
 
     return render_to_response('quiz_main.html', {
         'seat' : seat,
@@ -453,8 +455,6 @@ def quiz_main(request, postcode):
         'postcode' : postcode
     })
 
-
-    raise Exception(seat.name)
 
 
 

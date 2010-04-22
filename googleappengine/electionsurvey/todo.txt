@@ -17,6 +17,7 @@ Rename PPC to something else everywhere
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - Fix line up of party icons and name
 - Improve speed of loading
+  * Don't regenerate other candidate bit over and over again
 - Strip down the content of homepage to something much more mininmalist, and much more confident
 - Link to blog post for explanation?
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
