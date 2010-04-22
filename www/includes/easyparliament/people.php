@@ -77,19 +77,15 @@ class PEOPLE {
 	function _get_data_by_group($args) {
 		// $args can have an optional 'order' element.
 
-        $use_standing_down = ($args['house'] == 1 && isset($args['date']) && $args['date'] == '2010-04-12');
         $use_extracol = (isset($args['order']) && in_array($args['order'], array('expenses', 'debates', 'safety')));
-        $use_personinfo = ($use_standing_down || $use_extracol);
+        $use_personinfo = $use_extracol;
 
         # Defaults
 		$order = 'last_name';
 		$sqlorder = 'last_name, first_name';
 
-		$query = 'SELECT distinct member.person_id, title, first_name, last_name, constituency, party, dept, position ';
-        if ($use_standing_down) {
-            $query .= ', data_value ';
-            $personinfo_key = 'standing_down';
-        } elseif ($use_extracol) {
+		$query = 'SELECT distinct member.person_id, title, first_name, last_name, constituency, party, left_reason, dept, position ';
+        if ($use_extracol) {
             $query .= ', data_value ';
 			$order = $args['order'];
 			$sqlorder = 'data_value+0 DESC, last_name, first_name';
@@ -144,12 +140,11 @@ class PEOPLE {
 					'last_name' 	=> $q->field($row, 'last_name'),
 					'constituency' 	=> $q->field($row, 'constituency'),
 					'party' 	=> $q->field($row, 'party'),
+					'left_reason' 	=> $q->field($row, 'left_reason'),
 					'dept'		=> $dept,
 					'pos'		=> $pos
 				);
-				if ($use_standing_down) {
-					$narray['standing_down'] = $q->field($row, 'data_value');
-				} elseif ($use_extracol) {
+				if ($use_extracol) {
 					$narray['data_value'] = $q->field($row, 'data_value');
 				}
 

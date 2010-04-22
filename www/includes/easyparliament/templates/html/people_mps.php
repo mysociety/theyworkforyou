@@ -120,7 +120,7 @@ function render_mps_row($mp, &$style, $order, $MPURL) {
                 </td>
 				<td class="row-<?php echo $style; ?>"><a href="<?php echo $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1); ?>"><?php echo $name; ?></a>
 <?
-if (isset($mp['standing_down'])) {
+if ($mp['left_reason'] == 'general_election_not_standing') {
     print '<br><em>Standing down</em>';
 }
 ?></td>
