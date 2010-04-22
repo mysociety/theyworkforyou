@@ -20,7 +20,6 @@ Rename PPC to something else everywhere
 - Whole thing could be more centered, I suppose. Like WTT or FMS
 - You could also make the postcode box really big, like Richard Pope specialises in
 
-- Fix line up of party icons and name
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 - Box each issue more before they go blue
 - Make font larger, screen narrower, so only 10 words per line

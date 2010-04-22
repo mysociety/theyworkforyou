@@ -35,6 +35,16 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
 .answers div.statement {
 }
 
+.party_image {
+    float: left;
+    margin-right: 0.5em;
+}
+.statement_body {
+    margin-top: 0.5em;
+}
+.clear_statement {
+    clear: both;
+}
 
 #autosave {
     background-color: #e8fdcb;

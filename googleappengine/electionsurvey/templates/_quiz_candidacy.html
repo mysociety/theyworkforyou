@@ -1,4 +1,3 @@
-{% if candidacy.party_image_url %} <img src="{{ candidacy.party_image_url}}" alt=""> {% endif %}
+<div class="party_image">{% if candidacy.party_image_url %} <img src="{{ candidacy.party_image_url}}" alt=""> {% endif %}</div>
 <!--{% if candidacy.image_url %} <img src="{{ candidacy.image_url}}" alt=""> {% endif %}-->
-<strong>{{ candidacy.name }}</strong> ({{ candidacy.party }})
-
+<div class="statement_body"><strong>{{ candidacy.name }}</strong> ({{ candidacy.party }})
