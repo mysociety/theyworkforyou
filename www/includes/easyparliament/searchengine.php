@@ -422,37 +422,36 @@ class SEARCHENGINE {
 
     // Puts HTML highlighting round all the matching words in the text
     function highlight($body) {
+        $stemmed_words = array_map(array($this, 'stem'), $this->words);
         if (is_array($body)) {
             foreach ($body as $k => $b) {
-                $body[$k] = $this->highlight_internal($b);
+                $body[$k] = $this->highlight_internal($b, $stemmed_words);
             }
             return $body;
         } else {
-            return $this->highlight_internal($body);
+            return $this->highlight_internal($body, $stemmed_words);
         }
     }
 
-    function highlight_internal($body) {
+    function highlight_internal($body, $stemmed_words) {
         // Contents will be used in preg_replace() to highlight the search terms.
         $findwords = array();
         $replacewords = array();
-            
+
         # Does html_entity_decode without the htmlspecialchars
         $body = preg_replace('/&#(\d\d\d);/e', 'chr($1)', $body);
 		$splitextract = preg_split('/([0-9,.]+|['.$this->wordcharsnodigit.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
 		$hlextract = "";
-        $stemmed_words = array_map(array($this, 'stem'), $this->words);
 		foreach( $splitextract as $extractword) {
             $endswithamp = '';
-            if (preg_match('/&$/', $extractword)) {
+            if (substr($extractword, -1) == '&') {
                 $extractword = substr($extractword, 0, -1);
                 $endswithamp = '&';
             }
 			$hl = false;
+			$matchword = $this->stem($extractword);
 			foreach( $stemmed_words as $word ) {
 				if ($word == '') continue;
-				
-				$matchword  = $this->stem($extractword);
 				if ($matchword == $word) {
 					$hl = true;
 					break;
