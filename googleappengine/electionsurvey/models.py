@@ -43,7 +43,7 @@ class Party(db.Model):
         if self.image_id:
             return _image_id_to_url(self.image_id, "small")
         else:
-            return None
+            return "/static/independent.png" # uses logo from http://www.independentnetwork.org.uk/ for now
 
 
 class Candidate(db.Model):

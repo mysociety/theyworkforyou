@@ -28,7 +28,6 @@ Rename PPC to something else everywhere
   "Scan the issues, and click on the ones that you feel strongest about"
 - When no party image, format it a bit better
   e.g. Mad Cap Tom http://election.theyworkforyou.com/quiz/SW1P3LB
-  Logo for indepenents?
 - Box each issue more before they go blue
 - Make font larger, screen narrower, so only 10 words per line
 - Alternate colours of each question so easier to read
