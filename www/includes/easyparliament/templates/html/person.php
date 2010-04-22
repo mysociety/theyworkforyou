@@ -235,13 +235,7 @@ function person_enter_leave_facts($member, $extra_info) {
 			print 'on ';
 		echo $member['left_house'][1]['date_pretty'].'</strong>';
 		if ($member['left_house'][1]['reason']) print ' &mdash; ' . $member['left_house'][1]['reason'];
-        if ($member['left_house'][1]['date_pretty'] == '12 April 2010' && !(isset($extra_info['standing_down']) && $extra_info['standing_down'])) {
-            print ' (may be standing again)';
-        }
 		print '</li>';
-	    if (isset($extra_info['standing_down']) && $extra_info['standing_down']) {
-		    print '<li><strong>Not standing</strong> in the election</li>';
-	    }
 	}
 
 	if (isset($member['entered_house'][3]['date'])) {
