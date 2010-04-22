@@ -14,8 +14,7 @@ Option to just not do survey?
 Rename PPC to something else everywhere
 
 
-- "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
-- Change URL to be something other than quiz
+- Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - Fix line up of party icons and name
 - Improve speed of loading
 - Strip down the content of homepage to something much more mininmalist, and much more confident
@@ -36,6 +35,7 @@ Rename PPC to something else everywhere
 - Break each candidate answer visually into a box
 - Would be great if it said "Bob Smith (Conservative) *agrees* with the above statement about tax. They said "xxxxxx""
 - Sort by surname like on a ballot paper?
+- Change URL to be something other than quiz
 
 Add options to share on most popular social networking sites
 Function to share answers / embed in blog?
