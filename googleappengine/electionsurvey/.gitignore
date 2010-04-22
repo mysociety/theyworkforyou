@@ -1,2 +1,3 @@
 test.datastore
+backupcheck.datastore
 local_settings.py
