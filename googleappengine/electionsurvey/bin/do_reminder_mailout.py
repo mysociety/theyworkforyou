@@ -24,6 +24,7 @@ parser.add_option('--incsv', type='string', dest="incsv", help='CSV file to use'
 assert options.incsv
 reader = csv.reader(open(options.incsv, "rb"))
 s = smtplib.SMTP('localhost')
+c = 0
 for row in reader:
     (name, to_email, url, seat) = row
     name = name.decode('utf-8')
@@ -53,7 +54,8 @@ TheyWorkForYou election team''' % (name, seat, url)
     msg['From'] = "TheyWorkForYou <election@theyworkforyou.com>"
     msg['To'] = email.utils.formataddr((name, to_email))
 
-    print "Sending reminder email to " + to_email + " seat: " + seat.encode("utf-8") + " name: " + name.encode("utf-8")
+    c = c + 1
+    print str(c) + " Sending reminder email to " + name.encode("utf-8") + " " + to_email + " (" + seat.encode("utf-8") + ") " + url
     s.sendmail("election@theyworkforyou.com", [to_email], msg.as_string())
 
     # so we don't totally overflood
