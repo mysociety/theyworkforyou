@@ -32,8 +32,8 @@ for row in reader:
     subject = "Local voters ask for your views on local and national issues"
     body = '''%s, 
 
-Thousands of voters in %s constituency will see
-the results of this MP candidate survey.
+Thousands of voters in %s constituency 
+will see the results of this MP candidate survey.
 
 The questions are non-partisan, gathered by local
 volunteers in the constituency and by famous MP
