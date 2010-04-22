@@ -29,7 +29,6 @@ Rename PPC to something else everywhere
 - Alternate colours of each question so easier to read
 - Once you open an issue, that is where it should say "4 of your candidates have answered the survey. 3 haven't yet."
 - Break each candidate answer visually into a box
-- Would be great if it said "XXX *agrees* with the above statement about tax. They said "xxxxxx""
 - Sort by surname like on a ballot paper?
 - Change URL to be something other than quiz
 - Memcache each constituency

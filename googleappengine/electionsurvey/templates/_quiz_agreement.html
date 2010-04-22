@@ -1,2 +1,3 @@
-{{ candidacy.agreement_verb }}{% if candidacy.more_explanation %}, saying "{{ candidacy.more_explanation }}"{% else %}.{% endif %}
+<strong>{{ candidacy.agreement_verb }}</strong> with the above statement.
+{% if candidacy.more_explanation %} They said <em>"{{ candidacy.more_explanation }}"</em>{% endif %}
 
