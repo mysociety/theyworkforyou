@@ -384,7 +384,7 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
     }
     candidacies_with_response = []
     for response in all_responses:
-        if str(Response.candidacy.get_value_for_datastore(response)) in candidacies_by_key and str(SurveyResponse.refined_issue.get_value_for_datastore(response)) == str(issue_model.key()):
+        if str(SurveyResponse.candidacy.get_value_for_datastore(response)) in candidacies_by_key and str(SurveyResponse.refined_issue.get_value_for_datastore(response)) == str(issue_model.key()):
             candidacy = candidacies_by_key[str(response.candidacy.key())] # grab cached version, so doesn't have to get from the database again
             assert response.agreement in [0,25,50,75,100]
             candidacies_with_response.append( {
@@ -419,6 +419,7 @@ def quiz_main(request, postcode):
 
     # responses candidates have made
     all_responses = db.Query(SurveyResponse).filter('candidacy in', candidacies).fetch(1000)
+    #return render_to_response("index.html")
 
     candidacies_with_response_key = set()
     # construct dictionaries with all the information in 
@@ -426,7 +427,6 @@ def quiz_main(request, postcode):
     for national_issue in national_issues:
         new_entry = _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_response_key, national_issue)
         national_answers.append(new_entry)
-    #return render_to_response("index.html")
     local_answers = []
     for local_issue in local_issues:
         new_entry = _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_response_key, local_issue)
