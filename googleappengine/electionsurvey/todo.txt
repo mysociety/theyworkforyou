@@ -1,11 +1,13 @@
 Do this next
 ============
 
+Send out the reminder mailing
+Make sure you check bounce messages!
 
-"Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
-Rename PPC to something else
+Rename PPC to something else everywhere
 
 - Move ones who haven't responded into same list as others
+- "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - Change URL to be something other than quiz
 - Fix line up of party icons and name
 - Improve speed of loading
@@ -15,7 +17,6 @@ Rename PPC to something else
 - Whole thing could be more centered, I suppose. Like WTT or FMS
 - You could also make the postcode box really big, like Richard Pope specialises in
 - Change "This website is run by mySociety, a registered charity." to as on TWFY
-
 - Huge big text on survey page should be
   "Scan the issues, and click on the ones that you feel strongest about"
 - When no party image, format it a bit better
@@ -31,58 +32,18 @@ Rename PPC to something else
 Add options to share on most popular social networking sites
 Function to share answers / embed in blog?
 
-Make sure it advertises TheyWorkForYou alert signups etc!
+Make sure it advertises TheyWorkForYou alert signups etc
 
 Test postcode lookup with constituency with & in name
+
+When we start displaying the survey answers, stop resubmit of survey
 
 
 Write script for making CSV file for mail merge
 
-When we start displaying the survey answers, stop resubmit of survey
-
-Script to show what frozen seats have changed local issues
-
-
 
 Do another patch of sending to changed emails
-
-
-Survey reminder
-===============
-
-Page showing dummy survey
-    "Sick of push-polling from special interests?"
-Send survey reminder to people who haven't done it
-    * don't do it to people emailed in the last few days
-    * make sure you look for bounce messages this time
-    * perhaps give instructions to type in token if can't click links?
-    * offer explicit opt out
-    * read Grieken mail again
-    * See Becka's email
-- Ask PPCs who have done survey to motivate other party members to do survey?
-
--------------------------------------------------
-Subject: Sick of push-polling from special interests?
-
-{{ name }}, 
-
-Millions of voters will see the results of this PPC survey.
-
-The questions are non-partisan, gathered by local volunteers in
-{{ constituency }} and by famous MP tracking website TheyWorkForYou.
-
-It'll only take you a few minutes. Click on this link, and 
-then fill in the form.
-
-http://election.theyworkforyou.com/survey/{{ token }}
-
-Best wishes,
-
-TheyWorkForYou election team
--------------------------------------------------
-
-
-
+Ask PPCs who have done survey to motivate other party members to do survey?
 
 
 
@@ -95,9 +56,6 @@ Display that in results of quiz
 Rename log as log_and_save
 
 Really autosave should check for conflicts between two browser windows
-
-
-
 
 
 
