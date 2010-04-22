@@ -21,31 +21,6 @@
     MP where you live, in <strong>{{ seat.name }}</strong> constituency.
 </p>
 
-{% ifnotequal candidacy_without_response_count 0 %}
-<h3>{{ candidacy_without_response_count }} candidate{{ candidacy_without_response_count|pluralize }} {{ candidacy_without_response_count|pluralize:"has,have" }} not yet responded</h3>
-    <p>
-    <ul>
-    {% for candidacy in candidacies_without_response %}
-            <li>
-                {% include "_quiz_candidacy.html" %} 
-                {% if candidacy.survey_invite_emailed %} has not yet been
-                emailed, because we don't know their email address.
-                Please find it out and add it to <a href="{{ candidacy.yournextmp_url }}">their page on YourNextMP</a>.
-                {% else %}
-                has been emailed, but has not yet responded.
-                Please <a href="{{ candidacy.yournextmp_url }}">contact them</a> by email, phone or
-                in person, and ask them to respond to the survey.
-                {% endif %}
-            </li>
-    {% endfor %} 
-    </ul>
-    </p>
-{% endifnotequal %}
-
-{% ifnotequal candidacy_with_response_count 0 %}
-
-<h3>{{ candidacy_with_response_count }} candidate{{ candidacy_with_response_count|pluralize }} {{ candidacy_with_response_count|pluralize:"has,have" }} responded</h3>
-
 <h4>National issues</h4>
     <script type="text/javascript" charset="utf-8">
         document.write("<p>Click on any statements you would like the candidate's views on.</p>")
@@ -72,6 +47,7 @@
                         {% include "_quiz_agreement.html" %}
                     </li>
                 {% endfor %} 
+                {% include "_quiz_without_response.html" %}
                 </ul>
             </div>
         </li>
@@ -99,6 +75,7 @@
                             {% include "_quiz_agreement.html" %}
                         </li>
                     {% endfor %} 
+                    {% include "_quiz_without_response.html" %}
                     </ul>
                 </div>
             </li>
@@ -114,7 +91,6 @@
             </li>
         </ul>
     {% endif %}
-{% endifnotequal %}
 
 </div>
 

@@ -1,4 +1,4 @@
-Do this next
+o this next
 ============
 
 Make sure you check bounce messages!
@@ -14,7 +14,6 @@ Option to just not do survey?
 Rename PPC to something else everywhere
 
 
-- Move ones who haven't responded into same list as others
 - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - Change URL to be something other than quiz
 - Fix line up of party icons and name
@@ -36,6 +35,7 @@ Rename PPC to something else everywhere
 - Once you open an issue, that is where it should say "4 of your candidates have answered the survey. 3 haven't yet."
 - Break each candidate answer visually into a box
 - Would be great if it said "Bob Smith (Conservative) *agrees* with the above statement about tax. They said "xxxxxx""
+- Sort by surname like on a ballot paper?
 
 Add options to share on most popular social networking sites
 Function to share answers / embed in blog?
@@ -48,6 +48,8 @@ When we start displaying the survey answers, stop resubmit of survey
 
 
 Write script for making CSV file for mail merge
+
+Fix 404 to say right message
 
 
 Check for people who've autosaved but not filled in and do special mail
