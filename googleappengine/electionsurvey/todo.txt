@@ -16,8 +16,6 @@ Rename PPC to something else everywhere
 
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - Fix line up of party icons and name
-- Improve speed of loading
-  * Don't regenerate other candidate bit over and over again
 - Strip down the content of homepage to something much more mininmalist, and much more confident
 - Link to blog post for explanation?
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
@@ -26,16 +24,15 @@ Rename PPC to something else everywhere
 - Change "This website is run by mySociety, a registered charity." to as on TWFY
 - Huge big text on survey page should be
   "Scan the issues, and click on the ones that you feel strongest about"
-- When no party image, format it a bit better
-  e.g. Mad Cap Tom http://election.theyworkforyou.com/quiz/SW1P3LB
 - Box each issue more before they go blue
 - Make font larger, screen narrower, so only 10 words per line
 - Alternate colours of each question so easier to read
 - Once you open an issue, that is where it should say "4 of your candidates have answered the survey. 3 haven't yet."
 - Break each candidate answer visually into a box
-- Would be great if it said "Bob Smith (Conservative) *agrees* with the above statement about tax. They said "xxxxxx""
+- Would be great if it said "XXX *agrees* with the above statement about tax. They said "xxxxxx""
 - Sort by surname like on a ballot paper?
 - Change URL to be something other than quiz
+- Memcache each constituency
 
 Add options to share on most popular social networking sites
 Function to share answers / embed in blog?

@@ -153,6 +153,7 @@ class Candidacy(db.Model):
         self.audit_log.append(datetime.datetime.now().isoformat() + " " + message)
         self.save()
 
+
            
 # Local issue data from DemocracyClub. Also used to store national issues with
 # a magic constituency called "National". See bin/national-issues.csv.
