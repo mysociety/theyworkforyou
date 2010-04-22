@@ -384,7 +384,7 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
     }
     candidacies_with_response = []
     for response in all_responses:
-        if str(response.candidacy.key()) in candidacies_by_key and str(response.refined_issue.key()) == str(issue_model.key()):
+        if str(response.candidacy.key()) in candidacies_by_key and str(SurveyResponse.refined_issue.get_value_for_datastore(response)) == str(issue_model.key()):
             candidacy = candidacies_by_key[str(response.candidacy.key())] # grab cached version, so doesn't have to get from the database again
             assert response.agreement in [0,25,50,75,100]
             candidacies_with_response.append( {
