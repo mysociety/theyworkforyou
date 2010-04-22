@@ -129,7 +129,7 @@ class QuizPostcodeForm(forms.Form):
         return postcode
 
     postcode = MyUKPostcodeField(required=True, label = 'Enter your postcode',
-            widget=forms.TextInput(attrs={'size':'12'}))
+            widget=forms.TextInput(attrs={'size':'8'}))
 
 
 
