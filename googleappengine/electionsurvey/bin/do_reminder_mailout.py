@@ -14,6 +14,7 @@ import optparse
 import smtplib
 import email.utils
 import email.mime.text
+import email
 import time
 
 parser = optparse.OptionParser()
@@ -24,6 +25,7 @@ parser.add_option('--incsv', type='string', dest="incsv", help='CSV file to use'
 assert options.incsv
 reader = csv.reader(open(options.incsv, "rb"))
 s = smtplib.SMTP('localhost')
+c = 0
 for row in reader:
     (name, to_email, url, seat) = row
     name = name.decode('utf-8')
@@ -48,16 +50,19 @@ Best wishes,
 
 TheyWorkForYou election team''' % (name, seat, url)
 
-    msg = email.mime.text.MIMEText(body)
+    msg = email.mime.text.MIMEText(body.encode('UTF-8'), 'plain', 'UTF-8')
     msg['Subject'] = subject
     msg['From'] = "TheyWorkForYou <election@theyworkforyou.com>"
-    msg['To'] = email.utils.formataddr((name, to_email))
+    # code to handle accents from http://mg.pov.lt/blog/unicode-emails-in-python.html
+    mail_encoded_name = str(email.Header.Header(unicode(name), 'UTF-8'))
+    msg['To'] = email.utils.formataddr((mail_encoded_name, to_email))
 
-    print "Sending reminder email to " + to_email + " seat: " + seat.encode("utf-8") + " name: " + name.encode("utf-8")
+    c = c + 1
+    print str(c) + " Sending reminder email to " + name.encode("utf-8") + " " + to_email + " (" + seat.encode("utf-8") + ") " + url
     s.sendmail("election@theyworkforyou.com", [to_email], msg.as_string())
 
     # so we don't totally overflood
-    time.sleep(0.1)
+    time.sleep(0.5)
 
 s.quit()
 
