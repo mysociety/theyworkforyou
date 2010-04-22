@@ -77,7 +77,7 @@ class PEOPLE {
 	function _get_data_by_group($args) {
 		// $args can have an optional 'order' element.
 
-        $use_standing_down = ($args['house'] == 1 && !isset($args['date']));
+        $use_standing_down = ($args['house'] == 1 && isset($args['date']) && $args['date'] == '2010-04-12');
         $use_extracol = (isset($args['order']) && in_array($args['order'], array('expenses', 'debates', 'safety')));
         $use_personinfo = ($use_standing_down || $use_extracol);
 
