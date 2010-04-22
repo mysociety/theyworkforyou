@@ -64,11 +64,11 @@ def lookup_seats_by_id():
 # Generator to return all candidacies
 def emailed_not_filled_in_candidacies():
     log("Getting all candidacies")
-    fs = Candidacy.all().filter("survey_invite_emailed =", True).filter("survey_filled_in = ", False).fetch(100)
+    fs = Candidacy.all().filter("deleted = ", False).filter("survey_invite_emailed =", True).filter("survey_filled_in = ", False).fetch(100)
     while fs:
         for f in fs:
             yield f
-        fs = Candidacy.all().filter("survey_invite_emailed =", True).filter("survey_filled_in = ", False).filter('__key__ >', fs[-1].key()).fetch(100)
+        fs = Candidacy.all().filter("deleted = ", False).filter("survey_invite_emailed =", True).filter("survey_filled_in = ", False).filter('__key__ >', fs[-1].key()).fetch(100)
 
 ######################################################################
 # Main
