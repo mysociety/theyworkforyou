@@ -416,6 +416,9 @@ function member_db_lookup($searchstring) {
 		$where = "(first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
         $where .= " OR (first_name LIKE '%" . $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[0] . "%')";
 		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
+        if (strtolower($searchwords[0]) == 'nick') {
+		    $where .= " OR (first_name LIKE '%nicholas%' AND last_name LIKE '%" . $searchwords[1] . "%')";
+        }
 	} else {
         $searchwords[2] = str_replace('of ', '', $searchwords[2]);
 		$where = "(first_name LIKE '%" . $searchwords[0].' '.$searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
