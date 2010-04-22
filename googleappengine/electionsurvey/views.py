@@ -384,8 +384,9 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
     }
     candidacies_with_response = []
     for response in all_responses:
-        if str(SurveyResponse.candidacy.get_value_for_datastore(response)) in candidacies_by_key and str(SurveyResponse.refined_issue.get_value_for_datastore(response)) == str(issue_model.key()):
-            candidacy = candidacies_by_key[str(response.candidacy.key())] # grab cached version, so doesn't have to get from the database again
+        candidacy_key = str(SurveyResponse.candidacy.get_value_for_datastore(response))
+        if candidacy_key in candidacies_by_key and str(SurveyResponse.refined_issue.get_value_for_datastore(response)) == str(issue_model.key()):
+            candidacy = candidacies_by_key[candidacy_key] # grab cached version, so doesn't have to get from the database again
             assert response.agreement in [0,25,50,75,100]
             candidacies_with_response.append( {
                     'name': candidacy.candidate.name,
@@ -396,7 +397,7 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
                     'more_explanation': re.sub("\s+", " ",response.more_explanation.strip())
                 }
             )
-        candidacies_with_response_key.add(str(response.candidacy.key()))
+        candidacies_with_response_key.add(candidacy_key)
     issue['candidacies'] = candidacies_with_response
     return issue
 
@@ -419,7 +420,6 @@ def quiz_main(request, postcode):
 
     # responses candidates have made
     all_responses = db.Query(SurveyResponse).filter('candidacy in', candidacies).fetch(1000)
-    #return render_to_response("index.html")
 
     candidacies_with_response_key = set()
     # construct dictionaries with all the information in 
