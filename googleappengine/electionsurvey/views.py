@@ -419,7 +419,7 @@ def quiz_main(request, postcode):
     local_issues = seat.refinedissue_set.filter("deleted =", False).fetch(1000)
 
     # responses candidates have made
-    all_responses = db.Query(SurveyResponse).filter('candidacy in', candidacies).fetch(1000)
+    all_responses = db.Query(SurveyResponse).filter('candidacy in', candidacies).fetch(1000) # this is slow on dev server
 
     candidacies_with_response_key = set()
     # construct dictionaries with all the information in 
