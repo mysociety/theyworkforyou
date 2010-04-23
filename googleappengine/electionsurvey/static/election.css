@@ -71,19 +71,50 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
     color: #333333;
 }
 
+/* Issues results page */
+
 .answer {
-    border: solid 1px #ffffff;
-    padding: 2px;
+    overflow: auto;
 }
-.hovering {
-    /*
-    color: #ff0000;
-    background-color: #ffcccc;
-    border: solid 2px #990000;
-    */
-    background-color: #9999dd;
-    border: solid 1px #000066;
-    padding: 2px;
+li.answer:nth-child(2n) {
+    background-color: #eeeeee;
+}
+
+li.answer .statement {
+    padding: 0.5em;
+    cursor: pointer;
+    cursor: hand;
+}
+li.answer .full_answers {
+    padding: 0.5em;
+}
+
+li.opened {
+    border: dotted 2px #333333;
+}
+
+.full_answers > ul > li {
+    border-top: dotted 1px #999999;
+    margin-top: 0.25em;
+    padding-top: 0.25em;
+}
+
+.full_answers p {
+    margin: 0;
+    padding: 0;
+}
+
+.party_image {
+    padding-top: 0.25em;
+}
+
+li.answer.hovering, .hovering {
+    background-color: #ffffcc;
+}
+
+span.findout {
+    margin-left: 0.5em;
+    float: right;
 }
 
 div.national_selection {

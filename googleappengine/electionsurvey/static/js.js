@@ -25,25 +25,28 @@ $(function(){
         $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
     }
     if ($('ul.answers').length) {
-        $('ul.answers > li').click(function(e){
+        $('ul.answers > li div.statement').click(function(){
           
-          if (e.target.nodeName == "A" && ! $(e.target).hasClass("findout") ){
-            return true; // simply follow the link
-          }          
-           var findout = $(this).find('span.findout');
-            var full_answers = $(this).find('div.full_answers');
+            var findout = $(this).find('span.findout');
+            var p = $(this).parent();
+            var full_answers = p.find('div.full_answers');
             if (full_answers.is(":hidden")) {
                findout.html("Hide");
             } else {
-               findout.html("Click to find out!");
+               findout.html("Responses &dArr;");
             }
             full_answers.toggle(600);
+            p.toggleClass('opened');
             return false; // don't follow the fake link
-        });
-        $('ul.answers > li').hover(
-                function(){ $(this).addClass('hovering') },
-                function(){ $(this).removeClass('hovering') }
+        }).hover(
+            function(){ $(this).addClass('hovering'); },
+            function(){ $(this).removeClass('hovering'); }
         );
+
+        $('ul.answers a.inner_hide').click(function(){
+            $(this).closest('li.answer').find('div.statement').click();
+            return false;
+        });
 
         // Checking national issues interested in
         /*
