@@ -1,8 +1,8 @@
 Things to talk to Tom about:
 
 Who is doing mail merge
-Media publicity
-What should wording be to get their vote
+What should wording be to get TWFY signup
+Media publicity (Seb)
 
 
 Do this next
@@ -12,26 +12,28 @@ Do this next
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
-- Box each issue more before they go blue
-- Make font larger, screen narrower, so only 10 words per line
-- Alternate colours of each question so easier to read
+- Link to hassle interface
+Work out design way to get email
+Work out technical side of TheyWorkForYou and HearFromYourMP signups
+
 - Once you open an issue, that is where it should say "4 of your candidates have answered the survey. 3 haven't yet."
-- Break each candidate answer visually into a box
 - Sort by surname like on a ballot paper?
 - Change URL to be something other than quiz
 - Memcache each constituency
-- Link to hassle interface
 - Test on different browsers
-
-Add options to share on most popular social networking sites
-
-Make sure it advertises TheyWorkForYou alert signups etc
-
-
+- Focus postcode box at start? document.postcodeForm.pc.focus() is what WTT does
 
 Write script for making CSV file for mail merge
 
-Fix 404 to say right message
+Add options to share on most popular social networking sites
+
+
+Mail when survey live:
+    Matthew Harris 
+
+Actively refused to answer:
+    Michael Meacher, Oldham West (Labour)
+
 
 
 Check for people who've autosaved but not filled in and do special mail
