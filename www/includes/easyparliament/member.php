@@ -139,7 +139,7 @@ class MEMBER {
 				$this->left_house[$house] = array(
 					'date' => $left_house,
 					'date_pretty' => $this->left_house_text($left_house),
-					'reason' => $this->left_reason_text($left_reason),
+					'reason' => $this->left_reason_text($left_reason, $left_house, $house),
 					'constituency' => $const,
 					'party' => $this->party_text($party)
 				);
@@ -593,13 +593,13 @@ class MEMBER {
 	}
 	
 	function left_reason() 		{ return $this->left_reason; }
-	function left_reason_text($left_reason, $mponly=0) { 
+	function left_reason_text($left_reason, $left_house, $house) { 
 		if (isset($this->reasons[$left_reason])) {
 			$left_reason = $this->reasons[$left_reason];
 			if (is_array($left_reason)) {
-				$q = $this->db->query("SELECT MAX(left_house) AS max FROM member");
+				$q = $this->db->query("SELECT MAX(left_house) AS max FROM member WHERE house=$house");
 				$max = $q->field(0, 'max');
-				if ((!$mponly && $max == $this->left_house) || ($mponly && $max == $this->mp_left_house)) {
+				if ($max == $left_house) {
 					return $left_reason[0];
 				} else {
 					return $left_reason[1];
