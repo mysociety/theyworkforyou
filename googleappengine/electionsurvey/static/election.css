@@ -133,7 +133,7 @@ div.national_selection {
     margin-top: 0.5em;
 }
 
-body.js ul.answers div.full_answers {
+html.js ul.answers div.full_answers {
     display: none;
 }
 
