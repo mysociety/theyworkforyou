@@ -123,5 +123,7 @@ div.national_selection {
     margin: 0;
 }
 
-
+body.js ul.answers div.full_answers {
+    display: none;
+}
 
