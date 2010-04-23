@@ -25,7 +25,12 @@ $(function(){
         $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
     }
     if ($('ul.answers').length) {
-        $('ul.answers > li').click(function(){
+        $('ul.answers > li > div.full_answers').hide();
+        $('ul.answers > li').click(function(e){
+          
+          if (e.target.nodeName == "A" && ! $(e.target).hasClass("findout") ){
+            return true; // simply follow the link
+          }          
            var findout = $(this).find('span.findout');
             var full_answers = $(this).find('div.full_answers');
             if (full_answers.is(":hidden")) {
