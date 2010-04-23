@@ -77,7 +77,7 @@ def survey_candidacy(request, token = None):
     candidacy = response
 
     # Have they already filled in?
-    if candidacy.survey_filled_in_when:
+    if candidacy.survey_filled_in:
         return render_to_response('survey_candidacy_already_done.html', { 'candidate' : candidacy.candidate, 'candidacy' : candidacy })
 
     # Have they tried to post an answer?
