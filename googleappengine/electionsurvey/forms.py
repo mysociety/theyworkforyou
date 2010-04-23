@@ -128,7 +128,7 @@ class QuizPostcodeForm(forms.Form):
         self.cleaned_data['seat'] = seat
         return postcode
 
-    postcode = MyUKPostcodeField(required=True, label = 'Enter your postcode',
+    postcode = MyUKPostcodeField(required=True, label = 'Enter your postcode:',
             widget=forms.TextInput(attrs={'size':'8'}))
 
 

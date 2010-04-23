@@ -2,20 +2,14 @@
 
 {% block content %}
 
-<p>
-</p>
-
 <div id="postcode_quiz_page">
 
 <h2>
-    It's job interview time for your next MP!
+    It&rsquo;s job interview time for your next MP!
 </h2>
 
 <p>
-</p>
-
-<p>
-    Every five years or so, you get to choose who will <strong>make our laws</strong>, 
+    Every few years, you get to choose who will <strong>make our laws</strong>, 
     and <strong>run our country</strong>.  
 </p>
 
@@ -26,13 +20,12 @@
 {% endif %}
 
 <form method="post" action="/quiz" id="postcode_form">
-    <p>
+    <p id="postcode_line">
         <strong>{{ form.postcode.label_tag }}</strong> 
-        <br>
         {{ form.postcode }}
         <input type="submit" value="Go!">
-        <br>e.g. OX1 3DR (don't worry about spaces or capitalisation)
     </p>
+    <p>e.g. OX1 3DR <small>(don&rsquo;t worry about spaces or capitalisation)</small></p>
 </form>
 
 </div>

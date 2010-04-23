@@ -103,24 +103,34 @@ div.national_selection {
     width: 33%;
 }
 
-#postcode_quiz_page {
-    text-align: center;
+#postcode_quiz_page h2 {
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 #postcode_quiz_page #postcode_form {
     font-size: 100%;
 }
-#postcode_quiz_page #postcode_form strong {
+#postcode_quiz_page #postcode_form p {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0; /* Override TWFY CSS */
+    text-align: center;
+}
+#postcode_quiz_page p#postcode_line {
     font-size: 150%;
 }
-#postcode_quiz_page input[type="text"] {
-    font-size: 250%;
-    border: solid lightgray 0.2em;
+#postcode_quiz_page #postcode_form strong {
+    display: block;
+    text-align: left;
+}
+#postcode_quiz_page input {
+    font-size: 166%;
     margin: 0;
 }
-#postcode_quiz_page input[type="submit"] {
-    font-size: 250%;
-    margin: 0;
+#postcode_quiz_page input[type="text"] {
+    border: solid lightgray 0.2em;
+    margin-top: 0.5em;
 }
 
 body.js ul.answers div.full_answers {
