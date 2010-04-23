@@ -1,13 +1,6 @@
 Do this next
 ============
 
-Make sure you check bounce messages!
-> zahid@zahidiqbal.co.uk
-> wilson.chowdhry@greenparty.org.uk
-> ben.foley@greenparty.org.uk (resend didn't work, Francis, DNS
-> presumably takes time to propagate...)
-> paula.keaveney@liverpool.gov.uk
-
 Add your phone number?
 Option to just not do survey?
 
