@@ -25,7 +25,6 @@ $(function(){
         $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
     }
     if ($('ul.answers').length) {
-        $('ul.answers > li > div.full_answers').hide();
         $('ul.answers > li').click(function(e){
           
           if (e.target.nodeName == "A" && ! $(e.target).hasClass("findout") ){
