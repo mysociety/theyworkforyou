@@ -389,7 +389,7 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
                     'party': candidacy.candidate.party.name,
                     'image_url': candidacy.candidate.image_url(),
                     'party_image_url': candidacy.candidate.party.image_url(),
-                    'agreement_verb': response.verb,
+                    'agreement_verb': response.verb(),
                     'more_explanation': re.sub("\s+", " ",response.more_explanation.strip())
                 }
             )
