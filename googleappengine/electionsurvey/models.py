@@ -172,6 +172,22 @@ class RefinedIssue(db.Model):
 
     deleted = db.BooleanProperty(default = False)
 
+# Lookups for describing agreement
+agreement_verb = {
+    0: "strongly disagrees",
+    25: "disagrees",
+    50: "is neutral",
+    75: "agrees",
+    100: "strongly agrees"
+}
+agreement_verb_you = {
+    0: "strongly disagree",
+    25: "disagree",
+    50: "are neutral",
+    75: "agree",
+    100: "strongly agree"
+}
+
 # Candidate survey, response to one question
 class SurveyResponse(db.Model):
     def __init__(self, *args, **kwargs):
@@ -190,7 +206,10 @@ class SurveyResponse(db.Model):
     def deleted(self):
         return self.refined_issue.deleted
 
-
+    def verb(self):
+        return agreement_verb[self.agreement]
+    def verb_you(self):
+        return agreement_verb_you[self.agreement]
 
 
 

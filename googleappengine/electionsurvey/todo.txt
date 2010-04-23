@@ -1,4 +1,4 @@
-o this next
+Do this next
 ============
 
 Make sure you check bounce messages!
@@ -36,7 +36,6 @@ Make sure it advertises TheyWorkForYou alert signups etc
 
 Test postcode lookup with constituency with & in name
 
-When we start displaying the survey answers, stop resubmit of survey
 
 
 Write script for making CSV file for mail merge

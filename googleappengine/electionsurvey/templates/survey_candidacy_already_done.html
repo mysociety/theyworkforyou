@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>TheyWorkForYou PPC survey</h3>
+
+<h3>Thank you, {{ candidate.name }}! You already filled in the survey.</h3>
+
+<p>We got your answers on {{ candidacy.survey_filled_in_when|date:"D, d M Y" }}. 
+They will be published in an online guide for the voters of 
+{{ candidacy.seat.name }} constituency shortly before the election.
+</p>
+
+<h3>If you haven't already....</h3>
+
+<p>
+    Check <a href="http://www.yournextmp.com/candidates/{{ candidate.code }}">your profile on YourNextMP</a>.
+    Please fix any details that are wrong, and upload your photo if you can.
+</p>
+
+<h3>Your answers were...</h3>
+
+    <h4>National</h4>
+    <ul>
+    {% for r in candidacy.national_responses %}
+        <li>
+            {{ forloop.counter}}.
+            {{ r.refined_issue.question }} 
+            - you <strong>{{ r.verb_you }}</strong>.
+            {% if r.more_explanation %}
+                You added <em>"{{r.more_explanation.strip }}"</em>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+    <h4>Local</h4>
+    <ul>
+    {% for r in candidacy.local_responses %}
+        <li>
+            {{ forloop.counter}}.
+            {{ r.refined_issue.question }} 
+            - you <strong>{{ r.verb_you }}</strong>
+            {% if r.more_explanation %}
+                saying <em>"{{r.more_explanation.strip }}"</em>
+            {% endif %}
+        </li>
+    {% empty %}
+        No local questions.
+    {% endfor %}
+    </ul>
+
+{% endblock %}
+

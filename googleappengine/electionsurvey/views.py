@@ -76,6 +76,10 @@ def survey_candidacy(request, token = None):
         return response
     candidacy = response
 
+    # Have they already filled in?
+    if candidacy.survey_filled_in_when:
+        return render_to_response('survey_candidacy_already_done.html', { 'candidate' : candidacy.candidate, 'candidacy' : candidacy })
+
     # Have they tried to post an answer?
     submitted = 'questions_submitted' in post
 
@@ -355,14 +359,6 @@ def admin_responses(request):
 #####################################################################
 # Voter quiz
 
-agreement_verb = {
-    0: "strongly disagrees",
-    25: "disagrees",
-    50: "is neutral",
-    75: "agrees",
-    100: "strongly agrees"
-}
-
 # Postcode form on quiz
 def quiz_ask_postcode(request):
     form = forms.QuizPostcodeForm(request.POST or None)
@@ -393,7 +389,7 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
                     'party': candidacy.candidate.party.name,
                     'image_url': candidacy.candidate.image_url(),
                     'party_image_url': candidacy.candidate.party.image_url(),
-                    'agreement_verb': agreement_verb[response.agreement],
+                    'agreement_verb': response.verb,
                     'more_explanation': re.sub("\s+", " ",response.more_explanation.strip())
                 }
             )
