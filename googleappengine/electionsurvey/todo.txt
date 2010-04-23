@@ -2,7 +2,7 @@ Things to talk to Tom about:
 
 Who is doing mail merge
 Media publicity
-
+What should wording be to get their vote
 
 
 Do this next
@@ -24,11 +24,8 @@ Do this next
 - Test on different browsers
 
 Add options to share on most popular social networking sites
-Function to share answers / embed in blog?
 
 Make sure it advertises TheyWorkForYou alert signups etc
-
-Test postcode lookup with constituency with & in name
 
 
 
