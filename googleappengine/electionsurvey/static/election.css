@@ -38,7 +38,10 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
 .party_image {
     float: left;
     margin-right: 0.5em;
+    padding-top: 0.25em;
+    border: solid 1px #999999;
 }
+
 .statement_body {
     margin-top: 0.5em;
 }
@@ -102,10 +105,6 @@ li.opened {
 .full_answers p {
     margin: 0;
     padding: 0;
-}
-
-.party_image {
-    padding-top: 0.25em;
 }
 
 li.answer.hovering, .hovering {
