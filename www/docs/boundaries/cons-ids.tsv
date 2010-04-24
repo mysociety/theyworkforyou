@@ -1,0 +1,651 @@
+Guardian    PA  Guardian name   TheyWorkForYou name
+664	1	Aberavon	Aberavon
+1471	2	Aberconwy	Aberconwy
+666	3	Aberdeen North	Aberdeen North
+667	4	Aberdeen South	Aberdeen South
+1417	5	Aberdeenshire West and Kincardine	West Aberdeenshire and Kincardine
+668	6	Airdrie and Shotts	Airdrie and Shotts
+669	7	Aldershot	Aldershot
+670	8	Aldridge-Brownhills	Aldridge-Brownhills
+671	9	Altrincham and Sale West	Altrincham and Sale West
+672	10	Alyn and Deeside	Alyn and Deeside
+673	11	Amber Valley	Amber Valley
+674	12	Angus	Angus
+898	13	Antrim East	East Antrim
+1164	14	Antrim North	North Antrim
+1293	15	Antrim South	South Antrim
+1472	16	Arfon	Arfon
+675	17	Argyll and Bute	Argyll and Bute
+677	18	Arundel and South Downs	Arundel and South Downs
+678	19	Ashfield	Ashfield
+679	20	Ashford	Ashford
+680	21	Ashton under Lyne	Ashton-under-Lyne
+681	22	Aylesbury	Aylesbury
+797	23	Ayr, Carrick and Cumnock	Ayr, Carrick and Cumnock
+682	24	Ayrshire Central	Central Ayrshire
+860	25	Ayrshire North and Arran	North Ayrshire and Arran
+683	26	Banbury	Banbury
+684	27	Banff and Buchan	Banff and Buchan
+685	28	Barking	Barking
+686	29	Barnsley Central	Barnsley Central
+687	30	Barnsley East	Barnsley East
+690	31	Barrow and Furness	Barrow and Furness
+1473	33	Basildon South and Thurrock East	South Basildon and East Thurrock
+1474	32	Basildon and Billericay	Basildon and Billericay
+692	34	Basingstoke	Basingstoke
+693	35	Bassetlaw	Bassetlaw
+694	36	Bath	Bath
+695	37	Batley and Spen	Batley and Spen
+696	38	Battersea	Battersea
+697	39	Beaconsfield	Beaconsfield
+698	40	Beckenham	Beckenham
+699	41	Bedford	Bedford
+1120	42	Bedfordshire Mid	Mid Bedfordshire
+1170	43	Bedfordshire North East	North East Bedfordshire
+1310	44	Bedfordshire South West	South West Bedfordshire
+700	45	Belfast East	Belfast East
+701	46	Belfast North	Belfast North
+702	47	Belfast South	Belfast South
+703	48	Belfast West	Belfast West
+1475	49	Bermondsey and Old Southwark	Bermondsey and Old Southwark
+704	50	Berwick-upon-Tweed	Berwick-upon-Tweed
+1260	51	Berwickshire, Roxburgh and Selkirk	Berwickshire, Roxburgh and Selkirk
+705	52	Bethnal Green and Bow	Bethnal Green and Bow
+708	53	Beverley and Holderness	Beverley and Holderness
+709	54	Bexhill and Battle	Bexhill and Battle
+711	55	Bexleyheath and Crayford	Bexleyheath and Crayford
+713	56	Birkenhead	Birkenhead
+714	57	Birmingham Edgbaston	Birmingham, Edgbaston
+715	58	Birmingham Erdington	Birmingham, Erdington
+716	59	Birmingham Hall Green	Birmingham, Hall Green
+717	60	Birmingham Hodge Hill	Birmingham, Hodge Hill
+718	61	Birmingham Ladywood	Birmingham, Ladywood
+719	62	Birmingham Northfield	Birmingham, Northfield
+720	63	Birmingham Perry Barr	Birmingham, Perry Barr
+721	64	Birmingham Selly Oak	Birmingham, Selly Oak
+725	65	Birmingham Yardley	Birmingham, Yardley
+726	66	Bishop Auckland	Bishop Auckland
+728	67	Blackburn	Blackburn
+1476	68	Blackley and Broughton	Blackley and Broughton
+1477	69	Blackpool North and Cleveleys	Blackpool North and Cleveleys
+731	70	Blackpool South	Blackpool South
+732	71	Blaenau Gwent	Blaenau Gwent
+733	72	Blaydon	Blaydon
+734	73	Blyth Valley	Blyth Valley
+735	74	Bognor Regis and Littlehampton	Bognor Regis and Littlehampton
+736	75	Bolsover	Bolsover
+737	76	Bolton North East	Bolton North East
+738	77	Bolton South East	Bolton South East
+739	78	Bolton West	Bolton West
+741	79	Bootle	Bootle
+742	80	Boston and Skegness	Boston and Skegness
+743	81	Bosworth	Bosworth
+744	82	Bournemouth East	Bournemouth East
+745	83	Bournemouth West	Bournemouth West
+747	84	Bracknell	Bracknell
+1478	85	Bradford East	Bradford East
+749	86	Bradford South	Bradford South
+750	87	Bradford West	Bradford West
+751	88	Braintree	Braintree
+752	89	Brecon and Radnorshire	Brecon and Radnorshire
+1479	90	Brent Central	Brent Central
+754	91	Brent North	Brent North
+756	92	Brentford and Isleworth	Brentford and Isleworth
+757	93	Brentwood and Ongar	Brentwood and Ongar
+758	94	Bridgend	Bridgend
+1480	95	Bridgwater and Somerset West	Bridgwater and West Somerset
+762	96	Brigg and Goole	Brigg and Goole
+763	97	Brighton Kemptown	Brighton, Kemptown
+764	98	Brighton Pavilion	Brighton, Pavilion
+765	99	Bristol East	Bristol East
+766	100	Bristol North West	Bristol North West
+767	101	Bristol South	Bristol South
+768	102	Bristol West	Bristol West
+1481	103	Broadland	Broadland
+769	104	Bromley and Chislehurst	Bromley and Chislehurst
+770	105	Bromsgrove	Bromsgrove
+771	106	Broxbourne	Broxbourne
+772	107	Broxtowe	Broxtowe
+773	108	Buckingham	Buckingham
+774	109	Burnley	Burnley
+775	110	Burton	Burton
+776	111	Bury North	Bury North
+777	112	Bury South	Bury South
+778	113	Bury St Edmunds	Bury St Edmunds
+780	114	Caerphilly	Caerphilly
+782	115	Caithness, Sutherland and Easter Ross	Caithness, Sutherland and Easter Ross
+783	116	Calder Valley	Calder Valley
+784	117	Camberwell and Peckham	Camberwell and Peckham
+1482	118	Camborne and Redruth	Camborne and Redruth
+785	119	Cambridge	Cambridge
+1171	120	Cambridgeshire North East	North East Cambridgeshire
+1186	121	Cambridgeshire North West	North West Cambridgeshire
+1294	122	Cambridgeshire South	South Cambridgeshire
+1298	123	Cambridgeshire South East	South East Cambridgeshire
+786	124	Cannock Chase	Cannock Chase
+788	125	Canterbury	Canterbury
+789	126	Cardiff Central	Cardiff Central
+790	127	Cardiff North	Cardiff North
+791	128	Cardiff South and Penarth	Cardiff South and Penarth
+792	129	Cardiff West	Cardiff West
+793	130	Carlisle	Carlisle
+795	131	Carmarthen East and Dinefwr	Carmarthen East and Dinefwr
+796	132	Carmarthen West and Pembrokeshire South	Carmarthen West and South Pembrokeshire
+798	133	Carshalton and Wallington	Carshalton and Wallington
+799	134	Castle Point	Castle Point
+803	135	Ceredigion	Ceredigion
+805	136	Charnwood	Charnwood
+806	137	Chatham and Aylesford	Chatham and Aylesford
+807	138	Cheadle	Cheadle
+808	139	Chelmsford	Chelmsford
+1483	140	Chelsea and Fulham	Chelsea and Fulham
+811	141	Cheltenham	Cheltenham
+813	142	Chesham and Amersham	Chesham and Amersham
+814	144	Chesterfield	Chesterfield
+815	145	Chichester	Chichester
+817	146	Chingford and Woodford Green	Chingford and Woodford Green
+1484	147	Chippenham	Chippenham
+818	148	Chipping Barnet	Chipping Barnet
+820	149	Chorley	Chorley
+821	150	Christchurch	Christchurch
+823	151	Cities of London and Westminster	Cities of London and Westminster
+824	143	City of Chester	City of Chester
+825	214	City of Durham	City of Durham
+1485	152	Clacton	Clacton
+829	153	Cleethorpes	Cleethorpes
+831	154	Clwyd South	Clwyd South
+833	155	Clwyd West	Clwyd West
+836	156	Coatbridge, Chryston and Bellshill	Coatbridge, Chryston and Bellshill
+837	157	Colchester	Colchester
+840	158	Colne Valley	Colne Valley
+841	159	Congleton	Congleton
+843	160	Copeland	Copeland
+844	161	Corby	Corby
+1166	162	Cornwall North	North Cornwall
+1299	163	Cornwall South East	South East Cornwall
+845	164	Cotswold	The Cotswolds
+846	165	Coventry North East	Coventry North East
+847	166	Coventry North West	Coventry North West
+848	167	Coventry South	Coventry South
+851	168	Crawley	Crawley
+852	169	Crewe and Nantwich	Crewe and Nantwich
+854	170	Croydon Central	Croydon Central
+855	171	Croydon North	Croydon North
+858	172	Croydon South	Croydon South
+859	173	Cumbernauld, Kilsyth and Kirkintilloch East	Cumbernauld, Kilsyth and Kirkintilloch East
+862	174	Cynon Valley	Cynon Valley
+1486	175	Dagenham and Rainham	Dagenham and Rainham
+864	176	Darlington	Darlington
+865	177	Dartford	Dartford
+866	178	Daventry	Daventry
+868	179	Delyn	Delyn
+869	180	Denton and Reddish	Denton and Reddish
+870	181	Derby North	Derby North
+871	182	Derby South	Derby South
+1487	183	Derbyshire Dales	Derbyshire Dales
+1488	184	Derbyshire Mid	Mid Derbyshire
+1172	185	Derbyshire North East	North East Derbyshire
+1295	186	Derbyshire South	South Derbyshire
+872	187	Devizes	Devizes
+1489	188	Devon Central	Central Devon
+900	189	Devon East	East Devon
+1167	190	Devon North	North Devon
+1312	191	Devon South West	South West Devon
+1376	192	Devon West and Torridge	Torridge and West Devon
+873	193	Dewsbury	Dewsbury
+874	194	Don Valley	Don Valley
+875	195	Doncaster Central	Doncaster Central
+876	196	Doncaster North	Doncaster North
+1121	197	Dorset Mid and Poole North	Mid Dorset and North Poole
+1168	198	Dorset North	North Dorset
+1296	199	Dorset South	South Dorset
+1422	200	Dorset West	West Dorset
+877	201	Dover	Dover
+1169	202	Down North	North Down
+1297	203	Down South	South Down
+879	204	Dudley North	Dudley North
+880	205	Dudley South	Dudley South
+883	206	Dulwich and West Norwood	Dulwich and West Norwood
+952	207	Dumfries and Galloway	Dumfries and Galloway
+885	208	Dumfriesshire, Clydesdale and Tweeddale	Dumfriesshire, Clydesdale and Tweeddale
+1344	209	Dunbartonshire East	East Dunbartonshire
+884	210	Dunbartonshire West	West Dunbartonshire
+886	211	Dundee East	Dundee East
+887	212	Dundee West	Dundee West
+889	213	Dunfermline and Fife West	Dunfermline and West Fife
+890	215	Durham North	North Durham
+891	216	Durham North West	North West Durham
+1490	217	Dwyfor Meirionnydd	Dwyfor Meirionnydd
+1491	218	Ealing Central and Acton	Ealing Central and Acton
+894	219	Ealing North	Ealing North
+895	220	Ealing Southall	Ealing, Southall
+897	221	Easington	Easington
+901	222	East Ham	East Ham
+903	223	East Kilbride, Strathaven and Lesmahagow	East Kilbride, Strathaven and Lesmahagow
+905	224	East Lothian	East Lothian
+908	225	Eastbourne	Eastbourne
+909	226	Eastleigh	Eastleigh
+912	227	Eddisbury	Eddisbury
+915	228	Edinburgh East	Edinburgh East
+917	229	Edinburgh North and Leith	Edinburgh North and Leith
+919	230	Edinburgh South	Edinburgh South
+918	231	Edinburgh South West	Edinburgh South West
+920	232	Edinburgh West	Edinburgh West
+921	233	Edmonton	Edmonton
+922	234	Ellesmere Port and Neston	Ellesmere Port and Neston
+1492	235	Elmet and Rothwell	Elmet and Rothwell
+924	236	Eltham	Eltham
+925	237	Enfield North	Enfield North
+926	238	Enfield Southgate	Enfield, Southgate
+927	239	Epping Forest	Epping Forest
+928	240	Epsom and Ewell	Epsom and Ewell
+929	241	Erewash	Erewash
+931	242	Erith and Thamesmead	Erith and Thamesmead
+933	243	Esher and Walton	Esher and Walton
+934	244	Exeter	Exeter
+936	245	Falkirk	Falkirk
+938	246	Fareham	Fareham
+940	247	Faversham and Kent Mid	Faversham and Mid Kent
+941	248	Feltham and Heston	Feltham and Heston
+942	249	Fermanagh and South Tyrone	Fermanagh and South Tyrone
+1173	250	Fife North East	North East Fife
+1493	251	Filton and Bradley Stoke	Filton and Bradley Stoke
+944	252	Finchley and Golders Green	Finchley and Golders Green
+945	253	Folkestone and Hythe	Folkestone and Hythe
+946	254	Forest of Dean	Forest of Dean
+947	255	Foyle	Foyle
+949	256	Fylde	Fylde
+950	257	Gainsborough	Gainsborough
+1494	258	Garston and Halewood	Garston and Halewood
+1495	259	Gateshead	Gateshead
+955	260	Gedling	Gedling
+1496	261	Gillingham and Rainham	Gillingham and Rainham
+970	262	Glasgow Central	Glasgow Central
+959	263	Glasgow East	Glasgow East
+966	264	Glasgow North	Glasgow North
+971	265	Glasgow North East	Glasgow North East
+958	266	Glasgow North West	Glasgow North West
+960	267	Glasgow South	Glasgow South
+967	268	Glasgow South West	Glasgow South West
+800	269	Glenrothes	Glenrothes
+972	270	Gloucester	Gloucester
+973	271	Gordon	Gordon
+974	272	Gosport	Gosport
+975	273	Gower	Gower
+977	274	Grantham and Stamford	Grantham and Stamford
+978	275	Gravesham	Gravesham
+979	276	Great Grimsby	Great Grimsby
+980	277	Great Yarmouth	Great Yarmouth
+984	278	Greenwich and Woolwich	Greenwich and Woolwich
+985	279	Guildford	Guildford
+986	280	Hackney North and Stoke Newington	Hackney North and Stoke Newington
+987	281	Hackney South and Shoreditch	Hackney South and Shoreditch
+988	282	Halesowen and Rowley Regis	Halesowen and Rowley Regis
+990	283	Halifax	Halifax
+991	284	Haltemprice and Howden	Haltemprice and Howden
+992	285	Halton	Halton
+996	286	Hammersmith	Hammersmith
+902	287	Hampshire East	East Hampshire
+1174	288	Hampshire North East	North East Hampshire
+1187	289	Hampshire North West	North West Hampshire
+1497	290	Hampstead and Kilburn	Hampstead and Kilburn
+999	291	Harborough	Harborough
+1000	292	Harlow	Harlow
+1002	293	Harrogate and Knaresborough	Harrogate and Knaresborough
+1003	294	Harrow East	Harrow East
+1004	295	Harrow West	Harrow West
+1005	296	Hartlepool	Hartlepool
+1498	297	Harwich and Essex North	Harwich and North Essex
+1007	298	Hastings and Rye	Hastings and Rye
+1008	299	Havant	Havant
+1009	300	Hayes and Harlington	Hayes and Harlington
+1010	301	Hazel Grove	Hazel Grove
+1011	302	Hemel Hempstead	Hemel Hempstead
+1012	303	Hemsworth	Hemsworth
+1013	304	Hendon	Hendon
+1016	305	Henley	Henley
+1499	306	Hereford and Herefordshire South	Hereford and South Herefordshire
+1500	307	Herefordshire North	North Herefordshire
+1018	308	Hertford and Stortford	Hertford and Stortford
+1175	309	Hertfordshire North East	North East Hertfordshire
+1313	310	Hertfordshire South West	South West Hertfordshire
+1019	311	Hertsmere	Hertsmere
+1020	312	Hexham	Hexham
+1021	313	Heywood and Middleton	Heywood and Middleton
+1022	314	High Peak	High Peak
+1023	315	Hitchin and Harpenden	Hitchin and Harpenden
+1024	316	Holborn and St Pancras	Holborn and St Pancras
+1501	317	Hornchurch and Upminster	Hornchurch and Upminster
+1028	318	Hornsey and Wood Green	Hornsey and Wood Green
+1029	319	Horsham	Horsham
+1502	320	Houghton and Sunderland South	Houghton and Sunderland South
+1032	321	Hove	Hove
+1033	322	Huddersfield	Huddersfield
+1034	323	Hull East	Kingston upon Hull East
+1035	324	Hull North	Kingston upon Hull North
+1037	325	Hull West and Hessle	Kingston upon Hull West and Hessle
+1038	326	Huntingdon	Huntingdon
+1039	327	Hyndburn	Hyndburn
+1040	328	Ilford North	Ilford North
+1041	329	Ilford South	Ilford South
+981	330	Inverclyde	Inverclyde
+1042	331	Inverness, Nairn, Badenoch and Strathspey	Inverness, Nairn, Badenoch and Strathspey
+1044	332	Ipswich	Ipswich
+1045	333	Isle of Wight	Isle of Wight
+1046	334	Islington North	Islington North
+1047	335	Islington South and Finsbury	Islington South and Finsbury
+1048	336	Islwyn	Islwyn
+1049	337	Jarrow	Jarrow
+1050	338	Keighley	Keighley
+1503	339	Kenilworth and Southam	Kenilworth and Southam
+1051	340	Kensington	Kensington
+1053	341	Kettering	Kettering
+1054	342	Kilmarnock and Loudoun	Kilmarnock and Loudoun
+1056	343	Kingston and Surbiton	Kingston and Surbiton
+1058	344	Kingswood	Kingswood
+1059	345	Kirkcaldy and Cowdenbeath	Kirkcaldy and Cowdenbeath
+1504	346	Knowsley	Knowsley
+1063	347	Lagan Valley	Lagan Valley
+835	348	Lanark and Hamilton East	Lanark and Hamilton East
+1426	349	Lancashire West	West Lancashire
+1505	350	Lancaster and Fleetwood	Lancaster and Fleetwood
+1067	351	Leeds Central	Leeds Central
+1068	352	Leeds East	Leeds East
+1069	353	Leeds North East	Leeds North East
+1070	354	Leeds North West	Leeds North West
+1072	355	Leeds West	Leeds West
+1073	356	Leicester East	Leicester East
+1074	357	Leicester South	Leicester South
+1075	358	Leicester West	Leicester West
+1188	359	Leicestershire North West	North West Leicestershire
+1506	360	Leicestershire South	South Leicestershire
+1076	361	Leigh	Leigh
+1078	362	Lewes	Lewes
+1082	363	Lewisham Deptford	Lewisham, Deptford
+1080	364	Lewisham East	Lewisham East
+1507	365	Lewisham West and Penge	Lewisham West and Penge
+1084	366	Leyton and Wanstead	Leyton and Wanstead
+1085	367	Lichfield	Lichfield
+1086	368	Lincoln	Lincoln
+1088	369	Linlithgow and Falkirk East	Linlithgow and East Falkirk
+1093	370	Liverpool Riverside	Liverpool, Riverside
+1094	371	Liverpool Walton	Liverpool, Walton
+1095	372	Liverpool Wavertree	Liverpool, Wavertree
+1096	373	Liverpool West Derby	Liverpool, West Derby
+1097	374	Livingston	Livingston
+1098	375	Llanelli	Llanelli
+904	376	Londonderry East	East Londonderry
+1099	377	Loughborough	Loughborough
+1100	378	Louth and Horncastle	Louth and Horncastle
+1101	379	Ludlow	Ludlow
+1102	380	Luton North	Luton North
+1103	381	Luton South	Luton South
+1104	382	Macclesfield	Macclesfield
+1105	383	Maidenhead	Maidenhead
+1107	384	Maidstone and The Weald	Maidstone and The Weald
+1108	385	Makerfield	Makerfield
+1508	386	Maldon	Maldon
+1111	387	Manchester Central	Manchester Central
+1112	388	Manchester Gorton	Manchester, Gorton
+1113	389	Manchester Withington	Manchester, Withington
+1115	390	Mansfield	Mansfield
+1509	391	Meon Valley	Meon Valley
+1118	392	Meriden	Meriden
+1119	393	Merthyr Tydfil and Rhymney	Merthyr Tydfil and Rhymney
+1128	394	Middlesbrough	Middlesbrough
+1129	395	Middlesbrough South and Cleveland East	Middlesbrough South and East Cleveland
+1130	396	Midlothian	Midlothian
+1510	397	Milton Keynes North	Milton Keynes North
+1511	398	Milton Keynes South	Milton Keynes South
+1133	399	Mitcham and Morden	Mitcham and Morden
+1134	400	Mole Valley	Mole Valley
+1137	401	Monmouth	Monmouth
+1139	402	Montgomeryshire	Montgomeryshire
+1140	403	Moray	Moray
+1141	404	Morecambe and Lunesdale	Morecambe and Lunesdale
+1512	405	Morley and Outwood	Morley and Outwood
+1145	406	Motherwell and Wishaw	Motherwell and Wishaw
+1433	407	Na h-Eileanan an Iar	Na h-Eileanan an Iar
+1146	408	Neath	Neath
+1148	409	New Forest East	New Forest East
+1149	410	New Forest West	New Forest West
+1150	411	Newark	Newark
+1151	412	Newbury	Newbury
+1152	414	Newcastle upon Tyne Central	Newcastle upon Tyne Central
+1153	415	Newcastle upon Tyne East	Newcastle upon Tyne East
+1155	416	Newcastle upon Tyne North	Newcastle upon Tyne North
+1156	413	Newcastle-under-Lyme	Newcastle-under-Lyme
+1160	417	Newport East	Newport East
+1161	418	Newport West	Newport West
+1162	419	Newry and Armagh	Newry and Armagh
+1513	420	Newton Abbot	Newton Abbot
+1123	421	Norfolk Mid	Mid Norfolk
+1178	422	Norfolk North	North Norfolk
+1189	423	Norfolk North West	North West Norfolk
+1303	424	Norfolk South	South Norfolk
+1314	425	Norfolk South West	South West Norfolk
+1514	426	Normanton, Pontefract and Castleford	Normanton, Pontefract and Castleford
+1192	427	Northampton North	Northampton North
+1193	428	Northampton South	Northampton South
+1515	429	Northamptonshire South	South Northamptonshire
+1195	430	Norwich North	Norwich North
+1196	431	Norwich South	Norwich South
+1198	432	Nottingham East	Nottingham East
+1199	433	Nottingham North	Nottingham North
+1200	434	Nottingham South	Nottingham South
+1201	435	Nuneaton	Nuneaton
+1202	436	Ochil and Perthshire South	Ochil and South Perthshire
+1203	437	Ogmore	Ogmore
+1204	438	Old Bexley and Sidcup	Old Bexley and Sidcup
+1206	439	Oldham East and Saddleworth	Oldham East and Saddleworth
+1208	440	Oldham West and Royton	Oldham West and Royton
+1209	441	Orkney and Shetland	Orkney and Shetland
+1210	442	Orpington	Orpington
+1211	443	Oxford East	Oxford East
+1212	444	Oxford West and Abingdon	Oxford West and Abingdon
+1213	445	Paisley and Renfrewshire North	Paisley and Renfrewshire North
+1214	446	Paisley and Renfrewshire South	Paisley and Renfrewshire South
+1217	447	Pendle	Pendle
+1516	448	Penistone and Stocksbridge	Penistone and Stocksbridge
+1218	449	Penrith and The Border	Penrith and The Border
+1219	450	Perth and Perthshire North	Perth and North Perthshire
+1221	451	Peterborough	Peterborough
+1517	452	Plymouth Moor View	Plymouth, Moor View
+1518	453	Plymouth Sutton and Devonport	Plymouth, Sutton and Devonport
+1226	454	Pontypridd	Pontypridd
+1227	455	Poole	Poole
+1519	456	Poplar and Limehouse	Poplar and Limehouse
+1229	457	Portsmouth North	Portsmouth North
+1230	458	Portsmouth South	Portsmouth South
+1231	459	Preseli Pembrokeshire	Preseli Pembrokeshire
+1232	460	Preston	Preston
+1233	461	Pudsey	Pudsey
+1234	462	Putney	Putney
+1520	463	Rayleigh and Wickford	Rayleigh and Wickford
+1237	464	Reading East	Reading East
+1238	465	Reading West	Reading West
+1239	466	Redcar	Redcar
+1240	467	Redditch	Redditch
+1242	468	Reigate	Reigate
+910	469	Renfrewshire East	East Renfrewshire
+1243	470	Rhondda	Rhondda
+1304	521	Ribble South (South Ribble)	South Ribble
+1244	471	Ribble Valley	Ribble Valley
+1245	472	Richmond (Yorks)	Richmond (Yorks)
+1246	473	Richmond Park	Richmond Park
+1249	474	Rochdale	Rochdale
+1521	475	Rochester and Strood	Rochester and Strood
+1251	476	Rochford and Southend East	Rochford and Southend East
+1252	477	Romford	Romford
+1522	478	Romsey and Southampton North	Romsey and Southampton North
+1256	479	Ross, Skye and Lochaber	Ross, Skye and Lochaber
+1257	480	Rossendale and Darwen	Rossendale and Darwen
+1258	481	Rother Valley	Rother Valley
+1259	482	Rotherham	Rotherham
+1523	483	Rugby	Rugby
+1524	484	Ruislip, Northwood and Pinner	Ruislip, Northwood and Pinner
+1263	485	Runnymede and Weybridge	Runnymede and Weybridge
+1264	486	Rushcliffe	Rushcliffe
+969	487	Rutherglen and Hamilton West	Rutherglen and Hamilton West
+1265	488	Rutland and Melton	Rutland and Melton
+1267	489	Saffron Walden	Saffron Walden
+1525	495	Salford and Eccles	Salford and Eccles
+1270	496	Salisbury	Salisbury
+1272	497	Scarborough and Whitby	Scarborough and Whitby
+1273	498	Scunthorpe	Scunthorpe
+1274	499	Sedgefield	Sedgefield
+1526	500	Sefton Central	Sefton Central
+1527	501	Selby and Ainsty	Selby and Ainsty
+1276	502	Sevenoaks	Sevenoaks
+1528	503	Sheffield Brightside and Hillsborough	Sheffield, Brightside and Hillsborough
+1279	504	Sheffield Central	Sheffield Central
+1280	505	Sheffield Hallam	Sheffield, Hallam
+1281	506	Sheffield Heeley	Sheffield, Heeley
+1529	507	Sheffield South East	Sheffield South East
+1283	508	Sherwood	Sherwood
+1284	509	Shipley	Shipley
+1286	510	Shrewsbury and Atcham	Shrewsbury and Atcham
+1179	511	Shropshire North	North Shropshire
+1287	512	Sittingbourne and Sheppey	Sittingbourne and Sheppey
+1288	513	Skipton and Ripon	Skipton and Ripon
+1289	514	Sleaford and North Hykeham	Sleaford and North Hykeham
+1290	515	Slough	Slough
+1291	516	Solihull	Solihull
+1530	517	Somerset North	North Somerset
+1531	518	Somerset North East	North East Somerset
+1292	519	Somerton and Frome	Somerton and Frome
+1302	520	South Holland and The Deepings	South Holland and The Deepings
+1305	522	South Shields	South Shields
+1317	523	Southampton Itchen	Southampton, Itchen
+1318	524	Southampton Test	Southampton, Test
+1320	525	Southend West	Southend West
+1321	526	Southport	Southport
+1323	527	Spelthorne	Spelthorne
+1324	490	St Albans	St Albans
+1532	491	St Austell and Newquay	St Austell and Newquay
+1325	492	St Helens North	St Helens North
+1533	493	St Helens South and Whiston	St Helens South and Whiston
+1327	494	St Ives	St Ives
+1328	528	Stafford	Stafford
+1329	529	Staffordshire Moorlands	Staffordshire Moorlands
+1306	530	Staffordshire South	South Staffordshire
+1330	531	Stalybridge and Hyde	Stalybridge and Hyde
+1332	532	Stevenage	Stevenage
+1333	533	Stirling	Stirling
+1334	534	Stockport	Stockport
+1335	535	Stockton North	Stockton North
+1336	536	Stockton South	Stockton South
+1337	537	Stoke-on-Trent Central	Stoke-on-Trent Central
+1338	538	Stoke-on-Trent North	Stoke-on-Trent North
+1339	539	Stoke-on-Trent South	Stoke-on-Trent South
+1340	540	Stone	Stone
+1341	541	Stourbridge	Stourbridge
+1342	542	Strangford	Strangford
+1343	543	Stratford-on-Avon	Stratford-on-Avon
+1345	544	Streatham	Streatham
+1347	545	Stretford and Urmston	Stretford and Urmston
+1348	546	Stroud	Stroud
+802	547	Suffolk Central and Ipswich North	Central Suffolk and North Ipswich
+1349	548	Suffolk Coastal	Suffolk Coastal
+1307	549	Suffolk South	South Suffolk
+1429	550	Suffolk West	West Suffolk
+1534	551	Sunderland Central	Sunderland Central
+906	552	Surrey East	East Surrey
+1353	553	Surrey Heath	Surrey Heath
+1315	554	Surrey South West	South West Surrey
+1125	555	Sussex Mid	Mid Sussex
+1354	557	Sutton Coldfield	Sutton Coldfield
+1355	556	Sutton and Cheam	Sutton and Cheam
+1356	558	Swansea East	Swansea East
+1357	559	Swansea West	Swansea West
+1181	560	Swindon North	North Swindon
+1308	561	Swindon South	South Swindon
+1359	562	Tamworth	Tamworth
+1360	563	Tatton	Tatton
+1535	564	Taunton Deane	Taunton Deane
+1364	565	Telford	Telford
+1365	566	Tewkesbury	Tewkesbury
+1183	567	Thanet North	North Thanet
+1309	568	Thanet South	South Thanet
+1368	640	The Wrekin	The Wrekin
+1536	569	Thirsk and Malton	Thirsk and Malton
+1537	570	Thornbury and Yate	Thornbury and Yate
+1369	571	Thurrock	Thurrock
+1371	572	Tiverton and Honiton	Tiverton and Honiton
+1372	573	Tonbridge and Malling	Tonbridge and Malling
+1373	574	Tooting	Tooting
+1374	575	Torbay	Torbay
+1375	576	Torfaen	Torfaen
+1377	577	Totnes	Totnes
+1378	578	Tottenham	Tottenham
+1538	579	Truro and Falmouth	Truro and Falmouth
+1381	580	Tunbridge Wells	Tunbridge Wells
+1383	581	Twickenham	Twickenham
+1385	582	Tynemouth	Tynemouth
+1184	583	Tyneside North	North Tyneside
+1430	584	Tyrone West	West Tyrone
+1126	585	Ulster Mid	Mid Ulster
+1387	586	Upper Bann	Upper Bann
+1539	587	Uxbridge and Ruislip South	Uxbridge and South Ruislip
+1389	588	Vale of Clwyd	Vale of Clwyd
+1390	589	Vale of Glamorgan	Vale of Glamorgan
+1392	590	Vauxhall	Vauxhall
+1393	591	Wakefield	Wakefield
+1394	592	Wallasey	Wallasey
+1396	593	Walsall North	Walsall North
+1397	594	Walsall South	Walsall South
+1398	595	Walthamstow	Walthamstow
+1399	596	Wansbeck	Wansbeck
+1402	597	Wantage	Wantage
+1403	598	Warley	Warley
+1406	599	Warrington North	Warrington North
+1407	600	Warrington South	Warrington South
+1408	601	Warwick and Leamington	Warwick and Leamington
+1185	602	Warwickshire North	North Warwickshire
+1540	603	Washington and Sunderland West	Washington and Sunderland West
+1409	604	Watford	Watford
+1410	605	Waveney	Waveney
+1411	606	Wealden	Wealden
+1412	607	Weaver Vale	Weaver Vale
+1413	608	Wellingborough	Wellingborough
+1414	609	Wells	Wells
+1415	610	Welwyn Hatfield	Welwyn Hatfield
+1541	611	Wentworth and Dearne	Wentworth and Dearne
+1418	612	West Bromwich East	West Bromwich East
+1419	613	West Bromwich West	West Bromwich West
+1424	614	West Ham	West Ham
+1434	615	Westminster North	Westminster North
+1435	616	Westmorland and Lonsdale	Westmorland and Lonsdale
+1436	617	Weston-Super-Mare	Weston-Super-Mare
+1437	618	Wigan	Wigan
+1191	619	Wiltshire North	North Wiltshire
+1542	620	Wiltshire South West	South West Wiltshire
+1438	621	Wimbledon	Wimbledon
+1439	622	Winchester	Winchester
+1440	623	Windsor	Windsor
+1442	624	Wirral South	Wirral South
+1443	625	Wirral West	Wirral West
+1543	626	Witham	Witham
+1444	627	Witney	Witney
+1445	628	Woking	Woking
+1446	629	Wokingham	Wokingham
+1447	630	Wolverhampton North East	Wolverhampton North East
+1448	631	Wolverhampton South East	Wolverhampton South East
+1449	632	Wolverhampton South West	Wolverhampton South West
+1452	633	Worcester	Worcester
+1127	634	Worcestershire Mid	Mid Worcestershire
+1431	635	Worcestershire West	West Worcestershire
+1453	636	Workington	Workington
+1544	637	Worsley and Eccles South	Worsley and Eccles South
+907	638	Worthing East and Shoreham	East Worthing and Shoreham
+1456	639	Worthing West	Worthing West
+1457	641	Wrexham	Wrexham
+1458	642	Wycombe	Wycombe
+1460	644	Wyre Forest	Wyre Forest
+1545	643	Wyre and Preston North	Wyre and Preston North
+1461	645	Wythenshawe and Sale East	Wythenshawe and Sale East
+1462	646	Yeovil	Yeovil
+1463	647	Ynys Mon	Ynys Mon
+1546	648	York Central	York Central
+1547	649	York Outer	York Outer
+1465	650	Yorkshire East	East Yorkshire
