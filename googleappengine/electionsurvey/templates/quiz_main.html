@@ -21,35 +21,6 @@
     MP where you live, in <strong>{{ seat.name }}</strong> constituency.
 </p>
 
-<h4>National issues</h4>
-    <ul class="answers national">
-        {% for national_answer in national_answers %}
-        <li class="answer">
-            <div class="statement">
-                <strong> {{ national_answer.short_name }} </strong>
-                {{ national_answer.question }}
-                <script type="text/javascript" charset="utf-8">
-                    document.write('<a href=""><span class="findout">Responses &dArr;</span></a>');
-                </script>
-            </div>
-            <div class="full_answers">
-                <ul>
-                {% for candidacy in national_answer.candidacies %}
-                    <li>
-                        {% include "_quiz_candidacy.html" %}
-                        {% include "_quiz_agreement.html" %}
-                    </li>
-                {% endfor %} 
-                {% include "_quiz_without_response.html" %}
-                </ul>
-                <script type="text/javascript" charset="utf-8">
-                    document.write('<p align="right"><a class="inner_hide" href="">Hide</a></p>');
-                </script>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
-
 <h4>Local issues (submitted by local volunteers)</h4>
     {% if local_issues_count %}
         <ul class="answers local">
@@ -89,6 +60,36 @@
             </li>
         </ul>
     {% endif %}
+
+<h4>National issues</h4>
+    <ul class="answers national">
+        {% for national_answer in national_answers %}
+        <li class="answer">
+            <div class="statement">
+                <strong> {{ national_answer.short_name }} </strong>
+                {{ national_answer.question }}
+                <script type="text/javascript" charset="utf-8">
+                    document.write('<a href=""><span class="findout">Responses &dArr;</span></a>');
+                </script>
+            </div>
+            <div class="full_answers">
+                <ul>
+                {% for candidacy in national_answer.candidacies %}
+                    <li>
+                        {% include "_quiz_candidacy.html" %}
+                        {% include "_quiz_agreement.html" %}
+                    </li>
+                {% endfor %} 
+                {% include "_quiz_without_response.html" %}
+                </ul>
+                <script type="text/javascript" charset="utf-8">
+                    document.write('<p align="right"><a class="inner_hide" href="">Hide</a></p>');
+                </script>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
 
 </div>
 
