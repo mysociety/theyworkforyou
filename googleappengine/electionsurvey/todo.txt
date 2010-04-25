@@ -1,19 +1,73 @@
-Things to talk to Tom about:
-
-Who is doing mail merge
-What should wording be to get TWFY signup
-Media publicity (Seb)
-
-
 Do this next
 ============
 
+Sort out slugs linking to democracyclub constituency pages
+
+2. Some design fixes to make it more obvious what you are supposed to
+do after you've put in your postcode. This would include:
+   * Centering the entire thing on the page
+   * Get rid of the "Click to find out!" link, and make it more
+obvious that each entire statement is itself a clickable item,
+preferably in very clear quotation marks. Each one should look a bit
+like a very big button, I guess. This is where I'm looking for
+Matthew's input, as I'm not quite sure how to make this work.
+   * Once you click to open an issue, that issue and all the comments
+under it need to be made more separate from the rest of the page,
+either by being clearly boxed in, or whitespace, or something.
+  * At the moment, when it says someone "Disagrees with the above
+statement" it isn't obvious if it means a) the actual statement they
+disagree with b) the statement by the previous candidate c) some other
+statement further up the page. This is the biggest UI challenge this
+entire thing faces, I think. Perhaps when you mouse over the words
+"Above statement" it could flash the actual statement text?
+  * Randomise the ordering of the issues from how they are now, or
+arrange the statements "left wing, right wing, left wing right wing".
+I only say this because the first four are all in a left wing voice
+(even though there are a carefully balanced number overall), which
+means if you only scan the top of the questions for a second it looks
+v much like a left wing survey. This might even count for the original
+survey itself, actually. Which might explain the low Tory response
+rates. Argh.
+
+
+3. Francis and I talked quite a lot about there being an aspect of
+teasing on the site - namely saying "Three candidates agree with this
+statement, but we won't show you who unless you sign up to TWFY". I am
+suspecting that this will be impossible to deliver in time, so I have
+a new suggestion. Namely, within each set of candidate responses to a
+statement you add a clear, bright email subs box at the bottom of the
+candidates saying saying "TheyWorkForYou thinks it is important that
+we all pay a little bit of attention to what our MPs do once elected.
+Please sign up so we can update you on what your new MP gets up to."
+
+> My feeling is that people who've not responded should just have "no
+> response" or something very unwordy in place of their answer (rather
+> than doing it inline with the questions/answers).  i.e. the whole
+> "click to find their email address" or "click to bug them" stuff
+> should happen at the bottom of the page.  At the top there should be a
+> statement about who's not answered and that they can help chase up at
+> the end.
+
+Seb's big quotes round statement are nice
+
+
+My feeling is that people who've not responded should just have "no
+response" or something very unwordy in place of their answer (rather
+than doing it inline with the questions/answers).  i.e. the whole
+"click to find their email address" or "click to bug them" stuff
+should happen at the bottom of the page.  At the top there should be a
+statement about who's not answered and that they can help chase up at
+the end.
+
+- get the filled in vs. no email thing just right (and even no address)
+- "is neutral with" is not good wording
 - Link to blog post for explanation?
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
 - Link to hassle interface
-Work out design way to get email
+Work out design way to get people to track MPs by email after election
+- Email me if you get more data?
 Work out technical side of TheyWorkForYou and HearFromYourMP signups
 
 - Once you open an issue, that is where it should say "4 of your candidates have answered the survey. 3 haven't yet."
@@ -23,16 +77,26 @@ Work out technical side of TheyWorkForYou and HearFromYourMP signups
 - Test on different browsers
 - Focus postcode box at start? document.postcodeForm.pc.focus() is what WTT does
 
-Write script for making CSV file for mail merge
+Add options to share on 
+    Facebook
+    Twitter
 
-Add options to share on most popular social networking sites
+Load in postal address into database
+Write script for making CSV file for mail merge
+    - name
+    - constituency name
+    - survey token
+    - address data
+Do those for which we have postal address, but no valid email address, first
+Then do those that haven't replied to the survey
 
 
 Mail when survey live:
     Matthew Harris 
 
-Actively refused to answer:
+Actively refused to answer (with reason):
     Michael Meacher, Oldham West (Labour)
+    Marcus Jones, Nuneaton (Conservative)
 
 
 

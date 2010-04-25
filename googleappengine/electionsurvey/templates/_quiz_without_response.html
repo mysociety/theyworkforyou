@@ -2,9 +2,8 @@
     <li>
         {% include "_quiz_candidacy.html" %} 
         {% if candidacy.survey_invite_emailed %} 
-            has been emailed, but has <strong>not yet responded</strong>.
-            Please <a href="{{ candidacy.yournextmp_url }}">contact them</a> by email, phone or
-            in person, and ask them to respond to the survey.
+            has <strong>not yet</strong> gone on the record. 
+            <a href="{{ candidacy.hassle_url }}">Tell them you want an answer</a>.
         {% else %}
             has not yet been emailed, because we <strong>don't know their email address</strong>.
             Please find it out and add it to <a href="{{ candidacy.yournextmp_url }}">their page on YourNextMP</a>.

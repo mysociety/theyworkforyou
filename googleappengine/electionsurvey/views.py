@@ -436,6 +436,7 @@ def quiz_main(request, postcode):
         'image_url': candidacies_by_key[k].candidate.image_url(),
         'party_image_url': candidacies_by_key[k].candidate.party.image_url(),
         'yournextmp_url': candidacies_by_key[k].candidate.yournextmp_url(),
+        'hassle_url': seat.democracyclub_url() + "#candidacies",
         'survey_invite_emailed': candidacies_by_key[k].survey_invite_emailed
     } for k in candidacies_without_response_key]
 
