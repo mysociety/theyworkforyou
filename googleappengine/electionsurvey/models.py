@@ -93,7 +93,7 @@ class Seat(db.Model):
     frozen_local_issues = db.BooleanProperty(default = False)
 
     def democracyclub_url(self): 
-        # XXX this won't work on some &/and constituencies, and needs changing
+        # XXX this won't work, and needs changing
         slug = self.code
         slug = slug.replace("_", "-")
         return "http://www.democracyclub.org.uk/constituencies/%s/" % slug
