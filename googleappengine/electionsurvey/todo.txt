@@ -32,11 +32,7 @@ Seb's big quotes round statement are nice
 Add options to share on 
     Twitter (can't believe there is nothing nice for this)
 
-Write script for making CSV file for mail merge
-    - name
-    - constituency name
-    - survey token
-    - address data
+Only export postal address if there is a postcode in it
 Do those for which we have postal address, but no valid email address, first
 Then do those that haven't replied to the survey
 

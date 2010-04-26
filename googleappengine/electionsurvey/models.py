@@ -115,6 +115,8 @@ class Candidacy(db.Model):
     survey_token_use_count = db.IntegerProperty()
     survey_invite_emailed = db.BooleanProperty(default = False)
     survey_invite_sent_to_emails = db.StringListProperty() # historic list of addresses we've emailed
+    survey_invite_posted = db.BooleanProperty(default = False)
+    survey_invite_sent_to_addresses = db.StringListProperty() # historic list of addresses we've emailed
     survey_filled_in = db.BooleanProperty(default = False)
     survey_filled_in_when = db.DateTimeProperty()
     survey_autosave = db.TextProperty()

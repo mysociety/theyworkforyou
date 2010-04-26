@@ -202,6 +202,8 @@ def load_from_ynmp(ynmp, frozen_seats):
         if not candidacy.survey_token:
             log("Generating survey token for " + candidacy.seat.name + " " + candidacy.candidate.name)
             candidacy.generate_survey_token() # this does save too, since it logs
+        if candidacy.survey_invite_posted == None:
+            candidacy.survey_invite_posted = False
         log("Storing candidacy " + candidacy.seat.name + " " + candidacy.candidate.name)
         candidacies_by_key[key_name] = candidacy
 
