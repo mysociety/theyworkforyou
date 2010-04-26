@@ -1,4 +1,4 @@
-#!/usr/bin/python2.5
+#!/usr/bin/python2.5 -u
 # coding=utf-8
 
 #
@@ -68,7 +68,7 @@ def find_democracyclub_seat_in_yournextmp(seat_name):
     return seats_by_name[seat_name]
 
 def log(msg):
-    print datetime.datetime.now(), msg
+    print datetime.datetime.now(), msg.encode('utf-8')
 
 def put_in_batches(models, limit = 250):
     tot = len(models)
@@ -260,7 +260,7 @@ def load_from_democlub(csv_files, frozen_seats):
             seat = find_democracyclub_seat_in_yournextmp(seat_name.decode('utf-8'))
 
             if seat.key().name() in frozen_seats:
-                log("  Frozen seat " + seat_name + ", not storing issue: " + question)
+                log("  Frozen seat " + seat_name + ", not storing issue")
             else:
                 refined_issue = RefinedIssue(
                     democlub_id = int(democlub_id),
