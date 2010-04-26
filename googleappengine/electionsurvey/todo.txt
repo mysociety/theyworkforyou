@@ -1,7 +1,6 @@
 Do this next
 ============
 
-- Link to hassle interface
 Sort out slugs linking to democracyclub constituency pages
 
 3. Francis and I talked quite a lot about there being an aspect of
@@ -14,25 +13,25 @@ candidates saying saying "TheyWorkForYou thinks it is important that
 we all pay a little bit of attention to what our MPs do once elected.
 Please sign up so we can update you on what your new MP gets up to."
 
-Seb's big quotes round statement are nice
-
-- Link to blog post for explanation?
-- Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
-- "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
-
 Work out design way to get people to track MPs by email after election
 - Email me if you get more data?
 Work out technical side of TheyWorkForYou and HearFromYourMP signups
+
+
+Seb's big quotes round statement are nice
+
+- Link to blog post for explanation
+- Make blog post about how national issues were decided
+- Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
+- "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
 - Change URL to be something other than quiz
 - Memcache each constituency
 - Test on different browsers
 
 Add options to share on 
-    Facebook
-    Twitter
+    Twitter (can't believe there is nothing nice for this)
 
-Load in postal address into database
 Write script for making CSV file for mail merge
     - name
     - constituency name
