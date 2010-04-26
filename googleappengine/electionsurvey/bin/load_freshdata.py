@@ -68,7 +68,7 @@ def find_democracyclub_seat_in_yournextmp(seat_name):
     return seats_by_name[seat_name]
 
 def log(msg):
-    print datetime.datetime.now(), msg.encode('utf-8')
+    print datetime.datetime.now(), msg.encode("utf-8")
 
 def put_in_batches(models, limit = 250):
     tot = len(models)
@@ -91,6 +91,7 @@ def get_frozen_local_issues_seats():
     fs = Seat.all().filter("frozen_local_issues =", True).fetch(100)
     while fs:
         for f in fs:
+            log("  XXX Seat is frozen to local issues changes: " + str(f.ynmp_id))
             log("  Seat is frozen to local issues changes: " + f.name)
             frozen_seats[f.key().name()] = f
         fs = Seat.all().filter("frozen_local_issues =",True).filter('__key__ >', fs[-1].key()).fetch(100)

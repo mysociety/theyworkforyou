@@ -1,6 +1,8 @@
 Do this next
 ============
 
+Work out why my count of candidates is lower than YNMP
+
 
 Sort out slugs linking to democracyclub constituency pages
 
@@ -18,22 +20,18 @@ Work out design way to get people to track MPs by email after election
 - Email me if you get more data?
 Work out technical side of TheyWorkForYou and HearFromYourMP signups
 
-
-
 Seb's big quotes round statement are nice
 
+- Call it candidate explorer
 - Link to blog post for explanation
-- Make blog post about how national issues were decided
+- Post blog post about how national issues were decided
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
-- Change URL to be something other than quiz
+- Change URL to be something other than quiz, maybe candidate explorer
+    * update tweet this link
 - Memcache each constituency
 - Test on different browsers
-
-Add options to share on 
-    Twitter (can't believe there is nothing nice for this)
-
 
 Do those for which we have postal address, but no valid email address again
 Grep for have sent email, and add have sent post as well (in a few days time, Thursdayish)
@@ -49,6 +47,7 @@ Other things
 ============
 
 Check for people who've autosaved but not filled in and do special mail
+Search for surveys filled in from funny IPs
 Do another patch of sending to all emails
 - Make sure you add Message ID and Date this time
     iso/pylib/sendemail.py has python code we use, dunno why that's not in
