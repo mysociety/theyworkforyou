@@ -15,6 +15,7 @@ import os
 import getpass
 import datetime
 import optparse
+import re
 
 sys.path = ["../", "../google_appengine/"] + sys.path
 from google.appengine.ext import db
@@ -64,11 +65,21 @@ def lookup_seats_by_id():
 # Generator to return all candidacies
 def not_invited_candidacies():
     log("Getting all candidacies")
-    fs = Candidacy.all().filter("deleted = ", False).filter("survey_invite_emailed =", False).filter("survey_invite_posted = ", False).fetch(100)
+    fs = Candidacy.all().filter("deleted = ", False).filter("survey_invite_emailed =", False).filter("survey_invite_posted = ", False).filter("survey_filled_in =", False).fetch(100)
     while fs:
         for f in fs:
             yield f
-        fs = Candidacy.all().filter("deleted = ", False).filter("survey_invite_emailed =", False).filter("survey_invite_posted = ", False).filter('__key__ >', fs[-1].key()).fetch(100)
+        fs = Candidacy.all().filter("deleted = ", False).filter("survey_invite_emailed =", False).filter("survey_invite_posted = ", False).filter("survey_filled_in =", False).filter('__key__ >', fs[-1].key()).fetch(100)
+
+def put_in_batches(models, limit = 250):
+    tot = len(models)
+    c = 0
+    while len(models) > 0:
+        put_models = models[0:limit]
+        log("    db.put batch " + str(c) + ", size " + str(len(put_models)) + ", total " + str(tot))
+        db.put(put_models)
+        models = models[limit:]
+        c += 1
 
 ######################################################################
 # Main
@@ -84,6 +95,8 @@ parser.add_option('--real', action='store_true', dest="real", help='Really queue
 
 (options, args) = parser.parse_args()
 
+assert options.out
+
 if options.real:
     log("Real run, will mark as postal sent")
 else:
@@ -97,26 +110,24 @@ def auth_func():
 remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api', auth_func, servername=options.host)
 
 # Main loop
-assert options.out
 h = open(options.out, "wb")
 writer = csv.writer(h)
-#candidates_by_id = lookup_candidates_by_id()
-#seats_by_id = lookup_seats_by_id()
+candidates_by_id = lookup_candidates_by_id()
+seats_by_id = lookup_seats_by_id()
 candidacies = not_invited_candidacies()
+candidacies_done = []
 c = 0
 for candidacy in candidacies:
+    c = c + 1
+
     # This gets the key of a ReferenceProperty, without dereferencing it (so we can
     # look up the already cached candidate model)
-    #candidate_key_str = str(Candidacy.candidate.get_value_for_datastore(candidacy))
-    #candidate = candidates_by_id[candidate_key_str]
-    #seat_key_str = str(Candidacy.seat.get_value_for_datastore(candidacy))
-    #seat = seats_by_id[seat_key_str]
-    candidate = candidacy.candidate
-    seat = candidacy.seat
-
-    assert not candidacy.survey_filled_in 
-    assert not candidacy.survey_invite_emailed 
-    assert not candidacy.survey_invite_posted
+    candidate_key_str = str(Candidacy.candidate.get_value_for_datastore(candidacy))
+    candidate = candidates_by_id[candidate_key_str]
+    seat_key_str = str(Candidacy.seat.get_value_for_datastore(candidacy))
+    seat = seats_by_id[seat_key_str]
+    #candidate = candidacy.candidate
+    #seat = candidacy.seat
 
     address = candidate.address
     if address != None:
@@ -126,30 +137,42 @@ for candidacy in candidacies:
 
     msg = str(c) + " Considering " + candidate.name 
     if address:
-        msg = msg + " current address " + address
+        msg = msg + " current address " + re.sub('\s+', ' ', address)
     log(msg)
 
+    assert not candidacy.survey_invite_emailed 
+    assert not candidacy.survey_invite_posted
+
     if address:
-        c = c + 1
+        postcodes = re.findall(r'[A-Z]{1,2}[0-9R][0-9A-Z]?\s*[0-9][A-Z]{2}(?i)', address)
+        if len(postcodes) == 1:
 
-        row = [ 
-                candidacy.key().name(),
-                candidate.name.encode("utf-8"), 
-                seat.name.encode("utf-8"),
-                candidacy.survey_token.encode("utf-8"), 
-                candidate.address.encode("utf-8")
-        ]
-        writer.writerow(row)
+            row = [ 
+                    candidacy.key().name(),
+                    candidate.name.encode("utf-8"), 
+                    seat.name.encode("utf-8"),
+                    candidacy.survey_token.encode("utf-8"), 
+                    candidate.address.encode("utf-8")
+            ]
+            writer.writerow(row)
 
-        if options.real:
-            log(str(c) + "  Yes, marking post sent")
-            candidacy.survey_invite_posted = True
-            candidacy.survey_invite_sent_to_addresses.append(address)
-            candidacy.put()
+            if options.real:
+                log(str(c) + "  Yes, marking post sent")
+                candidacy.survey_invite_posted = True
+                candidacy.survey_invite_sent_to_addresses.append(address)
+                candidacies_done.append(candidacy)
+            else:
+                log(str(c) + "  Yes, it not dry run would mark post sent")
         else:
-            log(str(c) + "  Yes, it not dry run would mark post sent")
+            log(str(c) + "  No, doesn't have exactly one postcode")
+    else:
+        log(str(c) + "  No, doesn't have postal address")
 
     h.flush()
+
+if options.real:
+    put_in_batches(candidacies_done)
+log("Total done: " + str(c))
 
 h.close()
 

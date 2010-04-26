@@ -1,6 +1,7 @@
 Do this next
 ============
 
+
 Sort out slugs linking to democracyclub constituency pages
 
 3. Francis and I talked quite a lot about there being an aspect of
@@ -38,6 +39,9 @@ Then do those that haven't replied to the survey
 
 
 
+Try using Django 1.1 like this, maybe will reduce errors?
+http://code.google.com/appengine/docs/python/tools/libraries.html
+
 
 
 
@@ -57,6 +61,7 @@ Mail when survey live:
 Actively refused to answer (with reason):
     Michael Meacher, Oldham West (Labour)
     Marcus Jones, Nuneaton (Conservative)
+    Yvonne Fovargue, Markerfield (Labour)
 
 Sort by surname like on a ballot paper?
 
