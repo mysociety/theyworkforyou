@@ -58,7 +58,7 @@ def int_or_null(i):
     return int(i)
 
 seats_by_name = {}
-def find_seat(seat_name):
+def find_democracyclub_seat_in_yournextmp(seat_name):
     if seat_name not in seats_by_name and '&' in seat_name:
         seat_name = seat_name.replace("&", "and")
 
@@ -255,7 +255,7 @@ def load_from_democlub(csv_files, frozen_seats):
 
             # DemocracyClub has this constituency without its accent, YourNextMP has it with it.
             seat_name = seat_name.replace("Ynys Mon", "Ynys Môn")
-            seat = find_seat(seat_name.decode('utf-8'))
+            seat = find_democracyclub_seat_in_yournextmp(seat_name.decode('utf-8'))
 
             if seat.key().name() in frozen_seats:
                 log("  Frozen seat " + seat_name + ", not storing issue: " + question)
