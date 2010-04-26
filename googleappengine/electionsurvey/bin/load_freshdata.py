@@ -164,7 +164,7 @@ def load_from_ynmp(ynmp, frozen_seats):
     put_in_batches(seats_by_key.values())
 
     # Get list of existing candiacies in remote datastore
-    # in batches due to 1000 entity at a time limit, as per http://code.google.com/appengine/articles/remote_api.html
+    # in batches due to 100 entity at a time limit, as per http://code.google.com/appengine/articles/remote_api.html
     log("Getting list of Candidacies")
     candidacies = Candidacy.all().filter("deleted =", False).fetch(100)
     to_be_marked_deleted = {}
