@@ -261,7 +261,7 @@ def load_from_democlub(csv_files, frozen_seats):
             seat = find_democracyclub_seat_in_yournextmp(seat_name.decode('utf-8'))
 
             if seat.key().name() in frozen_seats:
-                log("  Frozen seat " + seat_name + ", not storing issue")
+                log("  Frozen seat " + seat_name.decode('utf-8') + ", not storing issue")
             else:
                 refined_issue = RefinedIssue(
                     democlub_id = int(democlub_id),
