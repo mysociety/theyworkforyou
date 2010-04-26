@@ -61,6 +61,9 @@ $(function(){
         });
         */
     }
+    if ($('form#postcode_form').length) {
+        $('form#postcode_form #id_postcode').focus()
+    }
 });
 
 // Store form data on server so can come back to it later

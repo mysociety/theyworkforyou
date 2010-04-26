@@ -27,7 +27,6 @@ Work out technical side of TheyWorkForYou and HearFromYourMP signups
 - Change URL to be something other than quiz
 - Memcache each constituency
 - Test on different browsers
-- Focus postcode box at start? document.postcodeForm.pc.focus() is what WTT does
 
 Add options to share on 
     Facebook
