@@ -130,6 +130,7 @@ def load_from_ynmp(ynmp, frozen_seats):
             code = candidate_data["code"],
             status = candidate_data["status"],
             email = candidate_data["email"],
+            address = candidate_data["address"],
             party = parties_by_key[candidate_data["party_id"]],
             image_id = int_or_null(candidate_data["image_id"]),
             created = convdate(candidate_data["created"]),
