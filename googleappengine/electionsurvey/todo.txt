@@ -1,6 +1,7 @@
 Do this next
 ============
 
+- Link to hassle interface
 Sort out slugs linking to democracyclub constituency pages
 
 3. Francis and I talked quite a lot about there being an aspect of
@@ -13,38 +14,16 @@ candidates saying saying "TheyWorkForYou thinks it is important that
 we all pay a little bit of attention to what our MPs do once elected.
 Please sign up so we can update you on what your new MP gets up to."
 
-> My feeling is that people who've not responded should just have "no
-> response" or something very unwordy in place of their answer (rather
-> than doing it inline with the questions/answers).  i.e. the whole
-> "click to find their email address" or "click to bug them" stuff
-> should happen at the bottom of the page.  At the top there should be a
-> statement about who's not answered and that they can help chase up at
-> the end.
-
 Seb's big quotes round statement are nice
 
-
-My feeling is that people who've not responded should just have "no
-response" or something very unwordy in place of their answer (rather
-than doing it inline with the questions/answers).  i.e. the whole
-"click to find their email address" or "click to bug them" stuff
-should happen at the bottom of the page.  At the top there should be a
-statement about who's not answered and that they can help chase up at
-the end.
-
-- get the filled in vs. no email thing just right (and even no address)
-- "is neutral with" is not good wording
 - Link to blog post for explanation?
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
-- Link to hassle interface
 Work out design way to get people to track MPs by email after election
 - Email me if you get more data?
 Work out technical side of TheyWorkForYou and HearFromYourMP signups
 
-- Once you open an issue, that is where it should say "4 of your candidates have answered the survey. 3 haven't yet."
-- Sort by surname like on a ballot paper?
 - Change URL to be something other than quiz
 - Memcache each constituency
 - Test on different browsers
@@ -64,6 +43,20 @@ Do those for which we have postal address, but no valid email address, first
 Then do those that haven't replied to the survey
 
 
+
+
+
+
+Other things
+============
+
+Check for people who've autosaved but not filled in and do special mail
+Do another patch of sending to all emails
+- Make sure you add Message ID and Date this time
+    iso/pylib/sendemail.py has python code we use, dunno why that's not in
+    generic pylib that adds date, message-id, does header escaping, etc.
+Ask PPCs who have done survey to motivate other party members to do survey?
+
 Mail when survey live:
     Matthew Harris 
 
@@ -71,19 +64,7 @@ Actively refused to answer (with reason):
     Michael Meacher, Oldham West (Labour)
     Marcus Jones, Nuneaton (Conservative)
 
-
-
-Check for people who've autosaved but not filled in and do special mail
-Do another patch of sending to changed emails
-- Make sure you add Message ID and Date this time
-    iso/pylib/sendemail.py has python code we use, dunno why that's not in
-    generic pylib that adds date, message-id, does header escaping, etc.
-Ask PPCs who have done survey to motivate other party members to do survey?
-
-
-
-Other things
-============
+Sort by surname like on a ballot paper?
 
 Import voting record from Public Whip for the national issues which are linked to divisions
 Display that in results of quiz
