@@ -47,19 +47,6 @@ $(function(){
             $(this).closest('li.answer').find('div.statement').click();
             return false;
         });
-
-        // Checking national issues interested in
-        /*
-        $('input:checkbox').change(function(){
-            var id_prefix = $(this).attr("name")
-            var question_part = $('li#' + id_prefix)
-            if ($(this).is(':checked')) {
-                question_part.show(600)
-            } else {
-                question_part.hide(600)
-            }
-        });
-        */
     }
     if ($('form#postcode_form').length) {
         $('form#postcode_form #id_postcode').focus()
