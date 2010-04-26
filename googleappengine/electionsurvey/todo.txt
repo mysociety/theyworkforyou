@@ -3,14 +3,6 @@ Do this next
 
 Sort out slugs linking to democracyclub constituency pages
 
-  * At the moment, when it says someone "Disagrees with the above
-statement" it isn't obvious if it means a) the actual statement they
-disagree with b) the statement by the previous candidate c) some other
-statement further up the page. This is the biggest UI challenge this
-entire thing faces, I think. Perhaps when you mouse over the words
-"Above statement" it could flash the actual statement text?
-
-
 3. Francis and I talked quite a lot about there being an aspect of
 teasing on the site - namely saying "Three candidates agree with this
 statement, but we won't show you who unless you sign up to TWFY". I am

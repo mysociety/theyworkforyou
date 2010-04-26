@@ -15,20 +15,14 @@
 <div class="stripe-time-2">
 <div class="main">
 
-<p>
-    There are <strong>{{ candidacy_count }} 
-    {{ candidacy_count|pluralize:"person,people" }}</strong> who want to be an
-    MP where you live, in <strong>{{ seat.name }}</strong> constituency.
-</p>
-
-<h4>Local issues (submitted by local volunteers)</h4>
+<h4>Local statements (for {{ seat.name }} constituency)</h4>
     {% if local_issues_count %}
         <ul class="answers local">
             {% for local_answer in local_answers %}
             <li class="answer">
                 <div class="statement">
                     <strong>{{ forloop.counter }}.</strong> 
-                    {{ local_answer.question }}
+                    &ldquo;{{ local_answer.question }}&rdquo;
                     <script type="text/javascript" charset="utf-8">
                         document.write('<a href=""><span class="findout">Responses &dArr;</span></a>');
                     </script>
@@ -61,13 +55,13 @@
         </ul>
     {% endif %}
 
-<h4>National issues</h4>
+<h4>National statements</h4>
     <ul class="answers national">
         {% for national_answer in national_answers %}
         <li class="answer">
             <div class="statement">
                 <strong> {{ national_answer.short_name }} </strong>
-                {{ national_answer.question }}
+                &ldquo;{{ national_answer.question }}&rdquo;
                 <script type="text/javascript" charset="utf-8">
                     document.write('<a href=""><span class="findout">Responses &dArr;</span></a>');
                 </script>
