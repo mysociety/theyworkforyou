@@ -69,7 +69,7 @@ def find_democracyclub_seat_in_yournextmp(seat_name, seat_slug):
 
     # store the DemocracyClub mapping, if we don't have it already
     if not seat.democracyclub_slug:
-        log("  setting slug " + seat_slug)
+        log("    setting slug " + seat_slug)
         seat.democracyclub_slug = seat_slug
         seat.put()
 
