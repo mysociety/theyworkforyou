@@ -1,0 +1,51 @@
+So, you want to hack on an election time survey of candidates?
+==============================================================
+
+How to install the TheyWorkForYou election 2010 code on
+something that can run Python.
+
+1. Grab the TheyWorkForYou code. You can snaffle it from
+github. 
+$ git clone http://github.com/mysociety/theyworkforyou.git
+
+2. Go into the Election Survey directory.
+$ cd theyworkforyou/googleappengine/electionsurvey
+There's a local fixed copy of the Google AppEngine SDK in
+that directory, so you don't need to download it separately.
+
+3. Do you want to:
+    a) use an existing developer test database, if so go to 4)
+    b) make a new developer test database, if so go to 6)
+
+4. Download the developer database, called something like 
+mouse.datastore, into the electionsurvey directory.
+
+5. Start the local development server pointing to the database.
+$ python2.5 ./google_appengine/dev_appserver.py . --datastore_path=mouse.datastore
+You have finished.
+
+6. You'll need to run a copy of the server, making a new database.
+$ python2.5 ./google_appengine/dev_appserver.py . --datastore_path=test.datastore
+
+7. And load some test data into it.
+$ cd bin
+$ ./load_freshdata.py --host=localhost candidates-test-constituency.json test-refined-issues.csv national-issues.csv
+
+What you have then looks a bit like Django, only it is using the AppEngine
+datastore models, so will behave oddly in many regards. Some other tips:
+
+
+Can I have some other development tips, please, thank you
+=========================================================
+
+1. There's an AppEngine development admin interface.
+    http://localhost:8080/_ah/admin/
+
+2. If you're sending email, you can add a test host and port with these sort of
+parameters to dev_appserver.
+    --smtp_host=localhost  --smtp_port=9999
+There's a copy of smtps.py in electionsurvey/bin which is a debug SMTP server.
+
+
+
+
