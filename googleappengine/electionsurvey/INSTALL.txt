@@ -1,0 +1,52 @@
+So, you want to hack on an election time survey of candidates?
+==============================================================
+
+How to install the TheyWorkForYou election 2010 code on
+something that can run Python.
+
+1. Grab the TheyWorkForYou code. You can snaffle it from
+the mySociety anonymous git repository. 
+$ git clone git://git.mysociety.org/theyworkforyou.git
+
+2. Go into the Election Survey directory.
+$ cd theyworkforyou/googleappengine/electionsurvey
+There's a local fixed copy of the Google AppEngine SDK in
+that directory, so you don't need to download it separately.
+
+3. If you want to use an existing developer database, download 
+it into the electionsurvey directory. Otherwise you can run
+with a new database name.
+
+4. Copy local_settings.py-ingit to local_settings.py and edit it.
+It has some instructions as to which API keys you really need.
+
+5. Start the local development server pointing to the database.
+$ python2.5 ./google_appengine/dev_appserver.py . --datastore_path=mouse.datastore
+It will be listening on http://localhost:8080
+
+6. If you are working on a blank database, to load some test data in.
+$ cd bin
+$ ./load_freshdata.py --host=localhost candidates-test-constituency.json test-refined-issues.csv national-issues.csv
+
+What you have then looks a bit like Django, only it is using the 
+AppEngine datastore models, so will behave oddly in many regards.
+
+There are no Django applications, everything is on one models.py 
+file, one views.py file and one templates directory. Look in urls.py 
+to get going.
+
+
+Can I have some other development tips, please, thank you
+=========================================================
+
+1. There's an AppEngine development admin interface.
+    http://localhost:8080/_ah/admin/
+
+2. If you're sending email, you can add a test host and port with these sort of
+parameters to dev_appserver.
+    --smtp_host=localhost  --smtp_port=9999
+There's a copy of smtps.py in electionsurvey/bin which is a debug SMTP server.
+
+
+
+

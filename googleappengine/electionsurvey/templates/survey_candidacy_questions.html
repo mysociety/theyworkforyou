@@ -43,22 +43,6 @@
 <div class="main">
 
 <form method="post" action="/survey" id="electionsurvey">
-    <h3>National issues - Determined by a politically balanced expert panel</h3>
-        <ul class="questions">
-            {% for form in national_issue_forms %}
-            <li>
-                <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
-                    <strong>{{ forloop.counter }}. {{ form.agreement.label_tag }}</strong> 
-                    {{ form.agreement }}
-                </div>
-                <div class="more_explanation">
-                    {{ form.more_explanation.label_tag }}
-                    {{ form.more_explanation }}
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-
     <h3>Local issues - Submitted by volunteers in {{ seat.name }} constituency</h3>
         {% if local_issue_forms %}
             <ul class="questions">
@@ -84,6 +68,22 @@
                 </li>
             </ul>
         {% endif %}
+
+    <h3>National issues - Determined by a politically balanced expert panel</h3>
+        <ul class="questions">
+            {% for form in national_issue_forms %}
+            <li>
+                <div class="agreement{% if unfinished and form.agreement.errors %} error{% endif %}">
+                    <strong>{{ forloop.counter }}. {{ form.agreement.label_tag }}</strong> 
+                    {{ form.agreement }}
+                </div>
+                <div class="more_explanation">
+                    {{ form.more_explanation.label_tag }}
+                    {{ form.more_explanation }}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
 
     <input type="hidden" name="token" value="{{ token }}" id="token" > 
     <input type="hidden" name="questions_submitted" value="1" > 

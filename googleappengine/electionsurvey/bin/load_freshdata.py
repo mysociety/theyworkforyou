@@ -1,4 +1,4 @@
-#!/usr/bin/python2.5
+#!/usr/bin/python2.5 -u
 # coding=utf-8
 
 #
@@ -58,7 +58,7 @@ def int_or_null(i):
     return int(i)
 
 seats_by_name = {}
-def find_seat(seat_name):
+def find_democracyclub_seat_in_yournextmp(seat_name):
     if seat_name not in seats_by_name and '&' in seat_name:
         seat_name = seat_name.replace("&", "and")
 
@@ -68,7 +68,7 @@ def find_seat(seat_name):
     return seats_by_name[seat_name]
 
 def log(msg):
-    print datetime.datetime.now(), msg
+    print datetime.datetime.now(), msg.encode("utf-8")
 
 def put_in_batches(models, limit = 250):
     tot = len(models)
@@ -130,6 +130,7 @@ def load_from_ynmp(ynmp, frozen_seats):
             code = candidate_data["code"],
             status = candidate_data["status"],
             email = candidate_data["email"],
+            address = candidate_data["address"],
             party = parties_by_key[candidate_data["party_id"]],
             image_id = int_or_null(candidate_data["image_id"]),
             created = convdate(candidate_data["created"]),
@@ -163,7 +164,7 @@ def load_from_ynmp(ynmp, frozen_seats):
     put_in_batches(seats_by_key.values())
 
     # Get list of existing candiacies in remote datastore
-    # in batches due to 1000 entity at a time limit, as per http://code.google.com/appengine/articles/remote_api.html
+    # in batches due to 100 entity at a time limit, as per http://code.google.com/appengine/articles/remote_api.html
     log("Getting list of Candidacies")
     candidacies = Candidacy.all().filter("deleted =", False).fetch(100)
     to_be_marked_deleted = {}
@@ -201,6 +202,8 @@ def load_from_ynmp(ynmp, frozen_seats):
         if not candidacy.survey_token:
             log("Generating survey token for " + candidacy.seat.name + " " + candidacy.candidate.name)
             candidacy.generate_survey_token() # this does save too, since it logs
+        if candidacy.survey_invite_posted == None:
+            candidacy.survey_invite_posted = False
         log("Storing candidacy " + candidacy.seat.name + " " + candidacy.candidate.name)
         candidacies_by_key[key_name] = candidacy
 
@@ -254,10 +257,10 @@ def load_from_democlub(csv_files, frozen_seats):
 
             # DemocracyClub has this constituency without its accent, YourNextMP has it with it.
             seat_name = seat_name.replace("Ynys Mon", "Ynys Môn")
-            seat = find_seat(seat_name.decode('utf-8'))
+            seat = find_democracyclub_seat_in_yournextmp(seat_name.decode('utf-8'))
 
             if seat.key().name() in frozen_seats:
-                log("  Frozen seat " + seat_name + ", not storing issue: " + question)
+                log("  Frozen seat " + seat_name.decode('utf-8') + ", not storing issue")
             else:
                 refined_issue = RefinedIssue(
                     democlub_id = int(democlub_id),
@@ -299,13 +302,6 @@ remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api'
 
 # Load in extra files
 if options.fetch:
-    log("Fetching latest Democracy Club CSV file")
-    democlub_file = "/tmp/load_freshdata_democracy_club.csv"
-    democlub_h = open(democlub_file, 'w')
-    democlub_h.write(urllib2.urlopen(DEMOCLUB_URL).read())
-    democlub_h.close()
-    args.append(democlub_file)
-    
     log("Fetching latest YourNextMP JSON file")
     ynmp_url = YOURNEXTMP_URL % (settings.YOURNEXTMP_API_TOKEN)
     ynmp_file = "/tmp/load_freshdata_yournextmp.json"
@@ -316,7 +312,15 @@ if options.fetch:
     ynmp_h.write(gzip.GzipFile(ynmp_file + ".gz").read())
     ynmp_h.close()
     args.append(ynmp_file)
-log("File list: " + str(args))
+
+    log("Fetching latest Democracy Club CSV file")
+    democlub_file = "/tmp/load_freshdata_democracy_club.csv"
+    democlub_h = open(democlub_file, 'w')
+    democlub_h.write(urllib2.urlopen(DEMOCLUB_URL).read())
+    democlub_h.close()
+    args.append(democlub_file)
+
+    log("File list: " + str(args))
 
 # Which seats are frozen to changes in local issues?
 frozen_seats = get_frozen_local_issues_seats()

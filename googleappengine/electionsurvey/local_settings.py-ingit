@@ -1,11 +1,16 @@
 # Copy this file to localsettings.py and edit it
 
 # Get one of these here: http://www.yournextmp.com/data
+# You need it if using the --fetch option to pull data
+# from YourNextMP. Not needed if you have a test dev
+# database with data in already.
 YOURNEXTMP_API_TOKEN="xxxxxxxxxxxxxxxxx"
 
 # Get one of these here: http://www.theyworkforyou.com/api/
+# Needed for postcode lookup on voter quiz.
 THEYWORKFORYOU_API_KEY="xxxxxxxxxxxxxxxxxxxx"
 
-# If this is known, can get all the survey tokens in JSON file
+# If this is known, can get all the survey tokens in JSON file.
+# Probably not needed for most testing.
 DEMOCRACYCLUB_SHARED_SECRET="xxxxxxxxxxxxxxxxxxxx"
 

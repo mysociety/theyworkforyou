@@ -1,50 +1,68 @@
-Things to talk to Tom about:
-
-Who is doing mail merge
-Media publicity
-What should wording be to get their vote
-
-
 Do this next
 ============
 
-- Link to blog post for explanation?
+Work out why my count of candidates is lower than YNMP
+
+
+Sort out slugs linking to democracyclub constituency pages
+
+3. Francis and I talked quite a lot about there being an aspect of
+teasing on the site - namely saying "Three candidates agree with this
+statement, but we won't show you who unless you sign up to TWFY". I am
+suspecting that this will be impossible to deliver in time, so I have
+a new suggestion. Namely, within each set of candidate responses to a
+statement you add a clear, bright email subs box at the bottom of the
+candidates saying saying "TheyWorkForYou thinks it is important that
+we all pay a little bit of attention to what our MPs do once elected.
+Please sign up so we can update you on what your new MP gets up to."
+
+Work out design way to get people to track MPs by email after election
+- Email me if you get more data?
+Work out technical side of TheyWorkForYou and HearFromYourMP signups
+
+Seb's big quotes round statement are nice
+
+- Call it candidate explorer
+- Link to blog post for explanation
+- Post blog post about how national issues were decided
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
-- Box each issue more before they go blue
-- Make font larger, screen narrower, so only 10 words per line
-- Alternate colours of each question so easier to read
-- Once you open an issue, that is where it should say "4 of your candidates have answered the survey. 3 haven't yet."
-- Break each candidate answer visually into a box
-- Sort by surname like on a ballot paper?
-- Change URL to be something other than quiz
+- Change URL to be something other than quiz, maybe candidate explorer
+    * update tweet this link
 - Memcache each constituency
-- Link to hassle interface
 - Test on different browsers
 
-Add options to share on most popular social networking sites
+Do those for which we have postal address, but no valid email address again
+Grep for have sent email, and add have sent post as well (in a few days time, Thursdayish)
+Then do those that haven't replied to the survey
 
-Make sure it advertises TheyWorkForYou alert signups etc
+Try using Django 1.1 like this, maybe will reduce errors?
+http://code.google.com/appengine/docs/python/tools/libraries.html
 
-
-
-Write script for making CSV file for mail merge
-
-Fix 404 to say right message
-
-
-Check for people who've autosaved but not filled in and do special mail
-Do another patch of sending to changed emails
-- Make sure you add Message ID and Date this time
-    iso/pylib/sendemail.py has python code we use, dunno why that's not in
-    generic pylib that adds date, message-id, does header escaping, etc.
-Ask PPCs who have done survey to motivate other party members to do survey?
 
 
 
 Other things
 ============
+
+Check for people who've autosaved but not filled in and do special mail
+Search for surveys filled in from funny IPs
+Do another patch of sending to all emails
+- Make sure you add Message ID and Date this time
+    iso/pylib/sendemail.py has python code we use, dunno why that's not in
+    generic pylib that adds date, message-id, does header escaping, etc.
+Ask PPCs who have done survey to motivate other party members to do survey?
+
+Mail when survey live:
+    Matthew Harris 
+
+Actively refused to answer (with reason):
+    Michael Meacher, Oldham West (Labour)
+    Marcus Jones, Nuneaton (Conservative)
+    Yvonne Fovargue, Markerfield (Labour)
+
+Sort by surname like on a ballot paper?
 
 Import voting record from Public Whip for the national issues which are linked to divisions
 Display that in results of quiz

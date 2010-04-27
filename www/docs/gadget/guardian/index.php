@@ -117,7 +117,7 @@ expenses</a></p>";
                 $body .= $rmi;
 		if ($show_more) {
 			$body .= "<p class=\"more\"><a 
-href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->guardian_aristotle_id}\">Full members' 
+href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->guardian_aristotle_id}\">Full member's 
 interests</a></p>";
 		}
                 $body .= mysociety_footer();

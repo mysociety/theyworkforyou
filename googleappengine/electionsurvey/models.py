@@ -53,6 +53,7 @@ class Candidate(db.Model):
     status = db.StringProperty() # raw from YourNextMP dump, either 'standing' or 'standing_down'
 
     email = db.StringProperty()
+    address = db.TextProperty()
     party = db.ReferenceProperty(Party)
     image_id = db.IntegerProperty()
 
@@ -92,6 +93,11 @@ class Seat(db.Model):
 
     frozen_local_issues = db.BooleanProperty(default = False)
 
+    def democracyclub_url(self): 
+        # XXX this won't work, and needs changing
+        slug = self.code
+        slug = slug.replace("_", "-")
+        return "http://www.democracyclub.org.uk/constituencies/%s/" % slug
 
 digits = "0123456789abcdefghjkmnpqrstvwxyz"
 class Candidacy(db.Model):
@@ -109,6 +115,8 @@ class Candidacy(db.Model):
     survey_token_use_count = db.IntegerProperty()
     survey_invite_emailed = db.BooleanProperty(default = False)
     survey_invite_sent_to_emails = db.StringListProperty() # historic list of addresses we've emailed
+    survey_invite_posted = db.BooleanProperty(default = False)
+    survey_invite_sent_to_addresses = db.StringListProperty() # historic list of addresses we've emailed
     survey_filled_in = db.BooleanProperty(default = False)
     survey_filled_in_when = db.DateTimeProperty()
     survey_autosave = db.TextProperty()

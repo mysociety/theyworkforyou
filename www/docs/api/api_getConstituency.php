@@ -12,7 +12,9 @@ function api_getConstituency_front() {
 <dd>Fetch the constituency with associated information for a given postcode.</dd>
 <dt>future (optional)</dt>
 <dd>If set to anything, return the name of the constituency this postcode will be in
-at the next election (<a href="/boundaries/new-constituencies.tsv">list as TSV file</a>).
+at the next election (<a href="/boundaries/new-constituencies.tsv">list as TSV file</a>,
+<a href="/boundaries/cons-ids.tsv">TSV list matching TheyWorkForYou name to Guardian name,
+PA ID, and Guardian ID</a>).
 This is a temporary feature before the 2010 general election.</dd>
 </dl>
 
