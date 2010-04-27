@@ -89,11 +89,11 @@ function postcode_to_constituency_internal($postcode, $mp_only=true) {
 
     # So as not to disturb Scot/NI lookup
     if ($mp_only) {
-        $xml = simplexml_load_string(file_get_contents(POSTCODE_API_URL . urlencode($postcode)));
-        if (!$xml || $xml->error) {
-            return '';
+        $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($postcode)));
+        if ($xml) {
+            if ($xml->error) return '';
+            return iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_constituency);
         }
-        return iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_constituency);
     }
 
 	# $pid = getmypid();
