@@ -101,8 +101,8 @@ class Seat(db.Model):
             slug = self.code
             slug = slug.replace("_", "-")
 
-            if slug == 'newry-and-amagh':
-                slug = 'newry-amagh'
+            if slug == 'newry-and-armagh':
+                slug = 'newry-armagh'
 
         return "http://www.democracyclub.org.uk/constituencies/%s/" % slug
 

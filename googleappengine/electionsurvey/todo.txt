@@ -1,8 +1,6 @@
 Do this next
 ============
 
-Change colours on seats/
-
 Storing TheyWorkForYou/HearFromYourMP/DemocracyClub signups in a local model
 
 - Post blog post about how national issues were decided
