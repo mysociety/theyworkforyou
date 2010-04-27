@@ -97,6 +97,13 @@ class Seat(db.Model):
 
     def democracyclub_url(self): 
         slug = self.democracyclub_slug
+        if not slug:
+            slug = self.code
+            slug = slug.replace("_", "-")
+
+            if slug = 'newry-and-amagh':
+                slug = 'newry-amagh'
+
         return "http://www.democracyclub.org.uk/constituencies/%s/" % slug
 
 digits = "0123456789abcdefghjkmnpqrstvwxyz"
