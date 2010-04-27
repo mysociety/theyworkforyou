@@ -31,7 +31,7 @@ import django.utils.simplejson as json
 from ratelimitcache import ratelimit
 
 import forms
-from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse
+from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse, AristotleToYnmpCandidateMap
 
 # Front page of election site
 def index(request):
@@ -296,40 +296,60 @@ def survey_candidacies_json(request):
 
 # The Guardian: individual candidate responses
 # This is called, with an aristotle id as the single parameter, from the Guardian CMS
-# The raw_name, raw_constituency_name parameters allows lookups without aristotle, for debugging
+# The raw_name & raw_constituency_name parameters allow lookups without aristotle, for debugging
 def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name=None):    
     constituency_name = raw_const_name or ""
     constituency_aristotle_id = 0
     candidate_name = ""
-    error_message = ""
     found_name = "Not found"
     candidacy = False
+    candidate = False
+    candidate_id_mapping = False
+    error_message = ""
+    debug_message = ""
     if aristotle_id:
-        url = "http://www.guardian.co.uk/politics/api/person/%s/json" % aristotle_id;
-        result = urlfetch.fetch(url)
-        if result.status_code == 200:
-            candidateData = json.loads( result.content )
-            if candidateData['person']:
-                candidate_name = candidateData['person']['name']
-            if candidate_name == "":
-                error_message = "No name found from Aristotle"
+        try:
+            aristotle_id = int(aristotle_id)
+            candidate_id_mapping = db.Query(AristotleToYnmpCandidateMap).filter("aristotle_id =", aristotle_id).get()
+        except exceptions.ValueError:
+            aristotle_id = None
+        if candidate_id_mapping:
+            candidate = db.Query(Candidate).filter("ynmp_id=", candidate_id_mapping.ynmp_id).get()
+            debug_message = debug_message + (" [map-hit: %s] " % candidate_id_mapping.ynmp_id)
+        if not candidate:
+            url = "http://www.guardian.co.uk/politics/api/person/%s/json" % aristotle_id;
+            result = urlfetch.fetch(url)
+            if result.status_code == 200:
+                candidateData = json.loads( result.content )
+                if candidateData['person']:
+                    candidate_name = candidateData['person']['name']
+                if candidate_name == "":
+                    error_message = "No name found from Aristotle"
+                else:
+                    jsonCandidacies = candidateData['person']['candidacies']
+                    for c in jsonCandidacies:
+                        if c['election']['year'] == "2010":
+                            constituency_aristotle_id = c['constituency']['aristotle-id']
+                            constituency_name = c['constituency']['name']
+                            break
+                    if constituency_name == "": # Guardian doesn't believe this is a candidate: don't show
+                        error_message = "No 2010 constituency found from Aristotle"
             else:
-                jsonCandidacies = candidateData['person']['candidacies']
-                for c in jsonCandidacies:
-                    if c['election']['year'] == "2010":
-                        constituency_aristotle_id = c['constituency']['aristotle-id']
-                        constituency_name = c['constituency']['name']
-                        break
-                if constituency_name == "":
-                    error_message = "No 2010 constituency found from Aristotle"
-        else:
-            error_message = "Aristotle JSON load failed with HTTP status %s" % result.status_code
+                error_message = "Aristotle JSON load failed with HTTP status %s" % result.status_code
     elif raw_name:
         candidate_name = raw_name
     if not error_message:
-        candidate_code = candidate_name.lower().replace(" ", "_")
-        candidate = db.Query(Candidate).filter("code =", candidate_code).get()
+        if not candidate:
+            candidate_code = candidate_name.lower().replace(" ", "_")
+            debug_message =  debug_message + " [candidate_code=" + candidate_code + "] "
+            candidate = db.Query(Candidate).filter("code =", candidate_code).get()
         if candidate:
+            if aristotle_id and candidate.ynmp_id and not candidate_id_mapping: # we've discovered a new mapping: save it
+                candidate_id_mapping = AristotleToYnmpCandidateMap()
+                candidate_id_mapping.aristotle_id = aristotle_id
+                candidate_id_mapping.ynmp_id = candidate.ynmp_id
+                candidate_id_mapping.put()
+                debug_message=debug_message + (" [map-saved %s] " % candidate.ynmp_id)
             # note: there may be multiple candidacies, but for now we take just the one
             candidacy = db.Query(Candidacy).filter("candidate =", candidate).get()
         else:
@@ -374,7 +394,7 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
       'name_canonical': found_name, 
       'candidacy': candidacy, 
       'error_message': error_message,
-      'debug_message': "aristotle_id=%s, raw_name=%s, raw_const_name=%s" % (aristotle_id, raw_name, raw_const_name)
+      'debug_message': "aristotle_id=%s, raw_name=%s, raw_const_name=%s\n  %s" % (aristotle_id, raw_name, raw_const_name, debug_message)
     })
 
 

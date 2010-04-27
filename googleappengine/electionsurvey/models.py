@@ -226,5 +226,12 @@ class SurveyResponse(db.Model):
     def verb_you(self):
         return agreement_verb_you[self.agreement]
 
-
+# populated with data built up from hits (caching)
+# confirmed == false until a human has confirmed that this is a true match
+# later we might want to add *reject* to force this match to never be made?
+class AristotleToYnmpCandidateMap(db.Model):
+    aristotle_id = db.IntegerProperty()
+    ynmp_id = db.IntegerProperty()
+    confirmed = db.BooleanProperty(default = False)
+       
 
