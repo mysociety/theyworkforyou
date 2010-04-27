@@ -38,7 +38,7 @@ function api_getconstituency_postcode($pc) {
 
     if (get_http_var('future')) {
 
-        $xml = simplexml_load_string(file_get_contents(POSTCODE_API_URL . urlencode($pc)));
+        $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($pc)));
         if (!$xml || $xml->error) {
             api_error('Unknown postcode, or problem with lookup');
             return;
