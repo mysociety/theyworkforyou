@@ -93,6 +93,8 @@ class Seat(db.Model):
 
     frozen_local_issues = db.BooleanProperty(default = False)
 
+    democracyclub_slug = db.StringProperty()
+
     def democracyclub_url(self): 
         # XXX this won't work, and needs changing
         slug = self.code
