@@ -173,3 +173,22 @@ html.js ul.answers div.full_answers {
     margin: 5em;
 }
 
+.candidate_emailed {
+    color: #00ff00;
+}
+.candidate_not_emailed {
+    color: #ff0000;
+}
+.candidate_posted {
+    color: #00ff00;
+}
+.candidate_not_posted {
+    color: #ff0000;
+}
+.candidate_filled_in {
+    color: #00ff00;
+}
+.candidate_not_filled_in {
+    color: #ff0000;
+}
+

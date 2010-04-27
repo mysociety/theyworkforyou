@@ -20,16 +20,24 @@ will be published in a quiz before election day.
             <img src="{{ candidacy.candidate.party.image_url}}" alt="{{ candidacy.candidate.party.name }}" title="{{ candidacy.candidate.party.name }}">
         {% endif %}
         <strong>{{ candidacy.candidate.name }} </strong> - survey
+
         {% if candidacy.survey_invite_emailed %}
-            has been emailed,
+            <span class="candidate_emailed">has been emailed</span>,
         {% else %}
-            not emailed,
+            <span class="candidate_not_emailed">not emailed</span>,
         {% endif %}
 
-        {% if candidacy.survey_filled_in %}
-            has been filled in
+        {% if candidacy.survey_invite_posted %}
+            <span class="candidate_posted">has been posted</span>,
         {% else %}
-            not filled in
+            <span class="candidate_not_posted">not posted</span>,
+        {% endif %}
+
+
+        {% if candidacy.survey_filled_in %}
+            <span class="candidate_filled_in">has been filled in</span>
+        {% else %}
+            <span class="candidate_not_filled_in">not filled in</span>
         {% endif %}
      </li>
 
