@@ -32,7 +32,7 @@ $ cd bin
 $ ./load_freshdata.py --host=localhost candidates-test-constituency.json test-refined-issues.csv national-issues.csv
 
 What you have then looks a bit like Django, only it is using the AppEngine
-datastore models, so will behave oddly in many regards. Some other tips:
+datastore models, so will behave oddly in many regards.
 
 
 Can I have some other development tips, please, thank you
