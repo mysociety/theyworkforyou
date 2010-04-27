@@ -3,49 +3,36 @@ Do this next
 
 Storing TheyWorkForYou/HearFromYourMP/DemocracyClub signups in a local model
 
-- Post blog post about how national issues were decided
-
-
-
-
-3. Francis and I talked quite a lot about there being an aspect of
-teasing on the site - namely saying "Three candidates agree with this
-statement, but we won't show you who unless you sign up to TWFY". I am
-suspecting that this will be impossible to deliver in time, so I have
-a new suggestion. Namely, within each set of candidate responses to a
-statement you add a clear, bright email subs box at the bottom of the
-candidates saying saying "TheyWorkForYou thinks it is important that
-we all pay a little bit of attention to what our MPs do once elected.
-Please sign up so we can update you on what your new MP gets up to."
-
 Work out design way to get people to track MPs by email after election
 - Email me if you get more data?
 Work out technical side of TheyWorkForYou and HearFromYourMP signups
 
-Seb's big quotes round statement are nice
+Link to blog post for explanation
 
 - Call it candidate explorer
-- Link to blog post for explanation
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
 - Change URL to be something other than quiz, maybe candidate explorer
     * update tweet this link
-- Memcache each constituency
-- Test on different browsers
 
-Do those for which we have postal address, but no valid email address again
-Grep for have sent email, and add have sent post as well (in a few days time, Thursdayish)
-Then do those that haven't replied to the survey
-
-Try using Django 1.1 like this, maybe will reduce errors?
-http://code.google.com/appengine/docs/python/tools/libraries.html
+Postal
+- Do those for which we have postal address, but no valid email address again
+- Grep for have sent email, and add have sent post as well (in a few days time, Thursdayish)
+- Then do those that haven't replied to the survey
 
 
 
 
 Other things
 ============
+
+Try using Django 1.1 like this, maybe will reduce errors?
+http://code.google.com/appengine/docs/python/tools/libraries.html
+
+
+Test on different browsers
+Memcache each constituency
 
 Check for people who've autosaved but not filled in and do special mail
 Search for surveys filled in from funny IPs
