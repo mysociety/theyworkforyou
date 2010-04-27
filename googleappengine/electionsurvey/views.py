@@ -294,9 +294,9 @@ def survey_candidacies_json(request):
     return HttpResponse(json.dumps(result))
 
 
-#================[start]============================= 
-#    the Guardian: individual candidate responses
-#
+# The Guardian: individual candidate responses
+# This is called, with an aristotle id as the single parameter, from the Guardian CMS
+# The raw_name, raw_constituency_name parameters allows lookups without aristotle, for debugging
 def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name=None):    
     constituency_name = raw_const_name or ""
     constituency_aristotle_id = 0
@@ -376,10 +376,6 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
       'error_message': error_message,
       'debug_message': "aristotle_id=%s, raw_name=%s, raw_const_name=%s" % (aristotle_id, raw_name, raw_const_name)
     })
-#
-# the Guardian: individual candidate responses
-#=====================[end]=====================
-
 
 
 #####################################################################
