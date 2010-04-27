@@ -21,9 +21,35 @@
         <li>
             Has survey: <strong>{{ candidacy.survey_filled_in }}</strong>
         </li>
-        <li>
-            Local issues: {{ local_issue_results }}
-        </li>
+        {% if candidacy.survey_filled_in and candidacy.surveyresponse_set %}
+            <li>
+                Survey answers:
+                <ul>
+                    {% for sr in candidacy.surveyresponse_set %}
+                        <li>
+                            <div style="background-color: #ffff; padding: 4px">
+                                {% if not sr.national %}
+                                    <strong>
+                                        Local:
+                                    </strong>
+                                {% endif %}
+                                {% if sr.refined_issue.short_name %}
+                                    <strong>
+                                        {{sr.refined_issue.short_name}}:
+                                    </strong>
+                                {% endif %}
+                                {{sr.refined_issue.question}}
+                            </div>
+                            <div style="background-color: #ffff; padding: 4px">
+                                <strong>
+                                    {{sr.verb}}
+                                </strong>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endif %}
     </ul>
 {% else %}
     <p>

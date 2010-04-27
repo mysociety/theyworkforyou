@@ -369,24 +369,12 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
             
     local_issue_results = []
     if candidacy:
-        found_name = candidacy.candidate.name
-        if candidacy.survey_filled_in:
-            local_issues_for_seat = candidacy.seat.refinedissue_set.filter("deleted =", False).fetch(1000)
-    #        for issue in local_issues_for_seat:
-    #            result = candidacy.survey_response.filter("refined_issue =", issue)
-    #            if result:
-    #                local_issue_results.append("%s? [%s]" % (issue.question, result.agreement ))
-    #        national_seat = db.Query(Seat).filter("name =", "National").get()
-    #        national_issues_for_seat = national_seat.refinedissue_set.filter("deleted =", False).fetch(1000)
-        
-    #    found_party =  candidacy.candidate.party.name # do a check using the Guardian abbreviation?
-   
+        found_name = candidacy.candidate.name   
     debug_message = "raw params: id=%s, name=%s, const=%s" % (aristotle_id, raw_name, raw_const_name)
 
     return render_to_response('guardian_candidate.html', {
       'name_canonical': found_name, 
       'candidacy': candidacy, 
-      'local_issue_results': local_issue_results,
       'error_message': error_message,
       'debug_message': debug_message
     })
