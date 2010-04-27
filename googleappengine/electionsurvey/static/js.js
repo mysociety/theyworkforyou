@@ -1,4 +1,6 @@
 $(function(){
+    //$('#container').hide(750) testing
+    
     if ($('form#electionsurvey').length) {
         var more_explanation_label_unfolded = $('ul.questions > li div.more_explanation label').html();
         var more_explanation_label_folded = "After you answer, optional space for a short explanation is available.";

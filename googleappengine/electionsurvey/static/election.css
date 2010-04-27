@@ -167,3 +167,9 @@ html.js ul.answers div.full_answers {
     display: none;
 }
 
+#offer_longterm {
+    text-align: center;
+    font-size: 166%;
+    margin: 5em;
+}
+
