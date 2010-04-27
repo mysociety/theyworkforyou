@@ -96,9 +96,7 @@ class Seat(db.Model):
     democracyclub_slug = db.StringProperty()
 
     def democracyclub_url(self): 
-        # XXX this won't work, and needs changing
-        slug = self.code
-        slug = slug.replace("_", "-")
+        slug = self.democracyclub_slug
         return "http://www.democracyclub.org.uk/constituencies/%s/" % slug
 
 digits = "0123456789abcdefghjkmnpqrstvwxyz"

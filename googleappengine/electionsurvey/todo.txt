@@ -1,7 +1,7 @@
 Do this next
 ============
 
-Sort out slugs linking to democracyclub constituency pages
+Change colours on seats/
 
 Storing TheyWorkForYou/HearFromYourMP/DemocracyClub signups in a local model
 
