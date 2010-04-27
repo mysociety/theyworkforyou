@@ -35,6 +35,10 @@ urlpatterns = patterns('',
 
     url(r'^task/invite_candidacy_survey/(?P<candidacy_key_name>[\d-]+)$', views.task_invite_candidacy_survey),
 
+    url(r'^guardian_candidate/(?P<aristotle_id>\d+)$', views.guardian_candidate),
+    url(r'^guardian_candidate/(?P<raw_name>.+)/(?P<raw_const_name>.+)$', views.guardian_candidate),
+    url(r'^guardian_candidate/(?P<raw_name>.+)$', views.guardian_candidate),
+
     # url(r'^fooble$', views.fooble),
 
     # Example:

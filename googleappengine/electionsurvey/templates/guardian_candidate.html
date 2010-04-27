@@ -1,0 +1,36 @@
+{% block content %}
+
+<h2>
+    Guardian Candidate: {{ name_canonical }} 
+</h2>
+
+{% if candidacy %}
+    <ul>
+        <li>    
+          Candidate: {{candidacy.candidate.name}}
+        </li>
+        <li>
+            Party: {{ candidacy.candidate.party.name }}
+        </li>
+        <li>    
+            Seat: {{ candidacy.seat.name }}
+        </li>
+        <li>    
+            Key: {{ candidacy.key }}
+        </li>
+        <li>
+            Has survey: <strong>{{ candidacy.survey_filled_in }}</strong>
+        </li>
+        <li>
+            Local issues: {{ local_issue_results }}
+        </li>
+    </ul>
+{% else %}
+    <p>
+        {{ error_message }}
+    </p>
+{% endif %}
+<p style="color:#cccccc; font-family:monospace; border-top: 1px solid #cccccc; padding:8px;margin-top:2em;">
+    {{ debug_message }}
+</p>
+{% endblock %}
