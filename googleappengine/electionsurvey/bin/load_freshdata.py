@@ -302,13 +302,6 @@ remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api'
 
 # Load in extra files
 if options.fetch:
-    log("Fetching latest Democracy Club CSV file")
-    democlub_file = "/tmp/load_freshdata_democracy_club.csv"
-    democlub_h = open(democlub_file, 'w')
-    democlub_h.write(urllib2.urlopen(DEMOCLUB_URL).read())
-    democlub_h.close()
-    args.append(democlub_file)
-    
     log("Fetching latest YourNextMP JSON file")
     ynmp_url = YOURNEXTMP_URL % (settings.YOURNEXTMP_API_TOKEN)
     ynmp_file = "/tmp/load_freshdata_yournextmp.json"
@@ -319,7 +312,15 @@ if options.fetch:
     ynmp_h.write(gzip.GzipFile(ynmp_file + ".gz").read())
     ynmp_h.close()
     args.append(ynmp_file)
-log("File list: " + str(args))
+
+    log("Fetching latest Democracy Club CSV file")
+    democlub_file = "/tmp/load_freshdata_democracy_club.csv"
+    democlub_h = open(democlub_file, 'w')
+    democlub_h.write(urllib2.urlopen(DEMOCLUB_URL).read())
+    democlub_h.close()
+    args.append(democlub_file)
+
+    log("File list: " + str(args))
 
 # Which seats are frozen to changes in local issues?
 frozen_seats = get_frozen_local_issues_seats()
