@@ -1,62 +1,36 @@
 {% block content %}
-
-<h2>
-    Guardian Candidate: {{ name_canonical }} 
-</h2>
-
+<!-- 
+  election.theyworkforyou.com by mySociety:
+  {{ debug_message }} 
+  {{ error_message }} 
+-->
 {% if candidacy %}
-    <ul>
-        <li>    
-          Candidate: {{candidacy.candidate.name}}
-        </li>
-        <li>
-            Party: {{ candidacy.candidate.party.name }}
-        </li>
-        <li>    
-            Seat: {{ candidacy.seat.name }}
-        </li>
-        <li>    
-            Key: {{ candidacy.key }}
-        </li>
-        <li>
-            Has survey: <strong>{{ candidacy.survey_filled_in }}</strong>
-        </li>
-        {% if candidacy.survey_filled_in and candidacy.surveyresponse_set %}
-            <li>
-                Survey answers:
-                <ul>
-                    {% for sr in candidacy.surveyresponse_set %}
-                        <li>
-                            <div style="background-color: #ffff; padding: 4px">
-                                {% if not sr.national %}
-                                    <strong>
-                                        Local:
-                                    </strong>
-                                {% endif %}
-                                {% if sr.refined_issue.short_name %}
-                                    <strong>
-                                        {{sr.refined_issue.short_name}}:
-                                    </strong>
-                                {% endif %}
-                                {{sr.refined_issue.question}}
-                            </div>
-                            <div style="background-color: #ffff; padding: 4px">
-                                <strong>
-                                    {{sr.verb}}
-                                </strong>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </li>
-        {% endif %}
-    </ul>
-{% else %}
-    <p>
-        {{ error_message }}
-    </p>
+<!-- 
+    Canonical:  {{ name_canonical }} 
+    Candidate:  {{ candidacy.candidate.name}}
+    Party:      {{ candidacy.candidate.party.name }}
+    Seat:       {{ candidacy.seat.name }}
+    Has survey: {{ candidacy.survey_filled_in }}
+-->
+    {% if candidacy.survey_filled_in and candidacy.surveyresponse_set %}
+        {% for sr in candidacy.surveyresponse_set %}
+            <div class="ms-twfy-survey-item">
+                {% if not sr.national %}
+                    <strong>
+                        Local:
+                    </strong>
+                {% endif %}
+                {% if sr.refined_issue.short_name %}
+                    <strong>
+                        {{sr.refined_issue.short_name}}:
+                    </strong>
+                {% endif %}
+                {{sr.refined_issue.question}}
+            </div>
+            <div class="ms-twfy-survery-agree">
+                {{sr.verb}}
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endif %}
-<p style="color:#cccccc; font-family:monospace; border-top: 1px solid #cccccc; padding:8px;margin-top:2em;">
-    {{ debug_message }}
-</p>
 {% endblock %}

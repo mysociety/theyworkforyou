@@ -297,86 +297,84 @@ def survey_candidacies_json(request):
 #================[start]============================= 
 #    the Guardian: individual candidate responses
 #
-def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name=None):
-    
-    candidate_name = ""
+def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name=None):    
     constituency_name = raw_const_name or ""
     constituency_aristotle_id = 0
-
+    candidate_name = ""
+    error_message = ""
+    found_name = "Not found"
+    candidacy = False
     if aristotle_id:
         url = "http://www.guardian.co.uk/politics/api/person/%s/json" % aristotle_id;
         result = urlfetch.fetch(url)
         if result.status_code == 200:
-            candidateData = json.loads( result.content )        
-            candidate_name = candidateData['person']['name']
+            candidateData = json.loads( result.content )
+            if candidateData['person']:
+                candidate_name = candidateData['person']['name']
             if candidate_name == "":
-                return render_to_response('guardian_candidate.html', {'error_message': "No name found from Aristotle" })
-            jsonCandidacies = candidateData['person']['candidacies']
-            for c in jsonCandidacies:
-                if c['election']['year'] == "2010":
-                    constituency_aristotle_id = c['constituency']['aristotle-id']
-                    constituency_name = c['constituency']['name']
-                    break
-            if constituency_name == "":
-                return render_to_response('guardian_candidate.html', {'error_message': "No 2010 constituency found from Aristotle"})
+                error_message = "No name found from Aristotle"
+            else:
+                jsonCandidacies = candidateData['person']['candidacies']
+                for c in jsonCandidacies:
+                    if c['election']['year'] == "2010":
+                        constituency_aristotle_id = c['constituency']['aristotle-id']
+                        constituency_name = c['constituency']['name']
+                        break
+                if constituency_name == "":
+                    error_message = "No 2010 constituency found from Aristotle"
         else:
-            return render_to_response('guardian_candidate.html', {'error_message': "Aristotle JSON load failed with HTTP status %s" % result.status_code })
+            error_message = "Aristotle JSON load failed with HTTP status %s" % result.status_code
     elif raw_name:
-        candidate_name = raw_name        
-    candidacy = False
-    error_message = ""
-    candidate_code = candidate_name.lower().replace(" ", "_")
-    found_name = "Not found"
-    clen = 0
-    candidate = db.Query(Candidate).filter("code =", candidate_code).get()
-    if candidate:
-        # note: there may be multiple candidacies, but for now we take just the one
-        candidacy = db.Query(Candidacy).filter("candidate =", candidate).get()
-    else:
-        # We can't easily search on surname (suffix-searches v. inefficient in datastore)
-        # ...unless we added it as another property.
-        # so instead find this seat, and check the surnames of candidates in that seat
-        # Remember this search is because the name match didn't work already, so let's try surname
-        surname = candidate_code.split('_')[-1]
-        if constituency_aristotle_id and False: # TODO: lookup in aristotle:ynmp-id map
-            seat = db.Query(Seat).filter("aristotle_id =", constituency_aristotle_id).get()
+        candidate_name = raw_name
+    if not error_message:
+        candidate_code = candidate_name.lower().replace(" ", "_")
+        candidate = db.Query(Candidate).filter("code =", candidate_code).get()
+        if candidate:
+            # note: there may be multiple candidacies, but for now we take just the one
+            candidacy = db.Query(Candidacy).filter("candidate =", candidate).get()
         else:
-            seat_code = constituency_name.lower().replace(" ", "_")
-            seat = db.Query(Seat).filter("code =", seat_code).get()
-        if seat:
-            candidacies = db.Query(Candidacy).filter("seat =", seat)
-            surname_matches = []
-            for c in candidacies:
-                if c.candidate.code.split('_')[-1] == surname:
-                    surname_matches.append(c)
-            if len(surname_matches) == 0:
-                error_message = "%d matches on surname %s in %s" % (0, surname, seat.name)
-            elif len(surname_matches) == 1:
-                candidacy = surname_matches[0]
-            else: # surname clash: disambiguate by first name
-                first_name = candidate_code.split('_')[0]
-                first_name_matches = []
-                for c in surname_matches:
-                    if c.candidate.code.split('_')[0] == first_name:
-                        first_name_matches.append(c)
-                if len(first_name_matches) == 1:
-                    candidacy = first_name_matches[0]
-                else: # TODO: really should disambigiute on full name here (may have middle initial?)
-                    error_message = "%d matches on surname %s, %d matches on first name, in %s" % (len(surname_matches), len(first_name_matches), surname, seat.name)
-                    candidacy = False
-        else:
-            error_message = "No exact name match, no seat found matching " + seat_code
-            
-    local_issue_results = []
-    if candidacy:
-        found_name = candidacy.candidate.name   
-    debug_message = "raw params: id=%s, name=%s, const=%s" % (aristotle_id, raw_name, raw_const_name)
-
+            # We can't easily search on surname (suffix-searches v. inefficient in datastore)
+            # ...unless we added it as another property.
+            # so instead find this seat, and check the surnames of candidates in that seat
+            # Remember this search is because the name match didn't work already, so let's try surname
+            surname = candidate_code.split('_')[-1]
+            if constituency_aristotle_id and False: # TODO: lookup in aristotle:ynmp-id map
+                seat = db.Query(Seat).filter("aristotle_id =", constituency_aristotle_id).get()
+            else:
+                seat_code = constituency_name.lower().replace(" ", "_")
+                seat = db.Query(Seat).filter("code =", seat_code).get()
+            if seat:
+                candidacies = db.Query(Candidacy).filter("seat =", seat)
+                surname_matches = []
+                for c in candidacies:
+                    if c.candidate.code.split('_')[-1] == surname:
+                        surname_matches.append(c)
+                if len(surname_matches) == 0:
+                    error_message = "%d matches on surname %s in %s" % (0, surname, seat.name)
+                elif len(surname_matches) == 1:
+                    candidacy = surname_matches[0]
+                else: # surname clash: disambiguate by first name
+                    first_name = candidate_code.split('_')[0]
+                    first_name_matches = []
+                    for c in surname_matches:
+                        if c.candidate.code.split('_')[0] == first_name:
+                            first_name_matches.append(c)
+                    if len(first_name_matches) == 1:
+                        candidacy = first_name_matches[0]
+                    else: # TODO: really should disambigiute on full name here (may have middle initial?)
+                        error_message = "%d matches on surname %s, %d matches on first name, in %s" % (len(surname_matches), len(first_name_matches), surname, seat.name)
+                        candidacy = False
+            else:
+                error_message = "No exact name match (%s), no seat found matching (%s)" % (candidate_code, seat_code)
+        if candidacy:
+            found_name = candidacy.candidate.name
+    if not error_message:
+        error_message = "OK"
     return render_to_response('guardian_candidate.html', {
       'name_canonical': found_name, 
       'candidacy': candidacy, 
       'error_message': error_message,
-      'debug_message': debug_message
+      'debug_message': "aristotle_id=%s, raw_name=%s, raw_const_name=%s" % (aristotle_id, raw_name, raw_const_name)
     })
 #
 # the Guardian: individual candidate responses
