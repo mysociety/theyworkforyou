@@ -58,14 +58,22 @@ def int_or_null(i):
     return int(i)
 
 seats_by_name = {}
-def find_democracyclub_seat_in_yournextmp(seat_name):
+def find_democracyclub_seat_in_yournextmp(seat_name, seat_slug):
     if seat_name not in seats_by_name and '&' in seat_name:
         seat_name = seat_name.replace("&", "and")
 
     if seat_name not in seats_by_name:
         raise Exception("Could not find seat " + seat_name)
 
-    return seats_by_name[seat_name]
+    seat = seats_by_name[seat_name]
+
+    # store the DemocracyClub mapping, if we don't have it already
+    if not seat.democracyclub_slug:
+        log("    setting slug " + seat_slug)
+        seat.democracyclub_slug = seat_slug
+        seat.put()
+
+    return seat
 
 def log(msg):
     print datetime.datetime.now(), msg.encode("utf-8")
@@ -250,14 +258,14 @@ def load_from_democlub(csv_files, frozen_seats):
         reader = csv.reader(open(csv_file, "rb"))
         for row in reader:
 
-            if len(row) == 6:
+            if len(row) == 7:
                 row.append(None)
-            (democlub_id, question, reference_url, seat_name, created, updated, short_name) = row
+            (democlub_id, question, reference_url, seat_name, created, updated, seat_slug, short_name) = row
             key_name = democlub_id
 
             # DemocracyClub has this constituency without its accent, YourNextMP has it with it.
             seat_name = seat_name.replace("Ynys Mon", "Ynys Môn")
-            seat = find_democracyclub_seat_in_yournextmp(seat_name.decode('utf-8'))
+            seat = find_democracyclub_seat_in_yournextmp(seat_name.decode('utf-8'), seat_slug.decode('utf-8'))
 
             if seat.key().name() in frozen_seats:
                 log("  Frozen seat " + seat_name.decode('utf-8') + ", not storing issue")

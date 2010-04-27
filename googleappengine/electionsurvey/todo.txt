@@ -1,10 +1,12 @@
 Do this next
 ============
 
-Work out why my count of candidates is lower than YNMP
+Storing TheyWorkForYou/HearFromYourMP/DemocracyClub signups in a local model
+
+- Post blog post about how national issues were decided
 
 
-Sort out slugs linking to democracyclub constituency pages
+
 
 3. Francis and I talked quite a lot about there being an aspect of
 teasing on the site - namely saying "Three candidates agree with this
@@ -24,7 +26,6 @@ Seb's big quotes round statement are nice
 
 - Call it candidate explorer
 - Link to blog post for explanation
-- Post blog post about how national issues were decided
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
@@ -48,6 +49,7 @@ Other things
 
 Check for people who've autosaved but not filled in and do special mail
 Search for surveys filled in from funny IPs
+Search for surveys filled in which email is invalidated for now
 Do another patch of sending to all emails
 - Make sure you add Message ID and Date this time
     iso/pylib/sendemail.py has python code we use, dunno why that's not in

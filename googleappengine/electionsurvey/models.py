@@ -93,10 +93,17 @@ class Seat(db.Model):
 
     frozen_local_issues = db.BooleanProperty(default = False)
 
+    democracyclub_slug = db.StringProperty()
+
     def democracyclub_url(self): 
-        # XXX this won't work, and needs changing
-        slug = self.code
-        slug = slug.replace("_", "-")
+        slug = self.democracyclub_slug
+        if not slug:
+            slug = self.code
+            slug = slug.replace("_", "-")
+
+            if slug == 'newry-and-armagh':
+                slug = 'newry-armagh'
+
         return "http://www.democracyclub.org.uk/constituencies/%s/" % slug
 
 digits = "0123456789abcdefghjkmnpqrstvwxyz"
