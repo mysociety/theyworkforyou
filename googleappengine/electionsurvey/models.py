@@ -242,5 +242,6 @@ class PostElectionSignup(db.Model):
 
     theyworkforyou = db.BooleanProperty()
     hearfromyourmp = db.BooleanProperty()
+    democracyclub = db.BooleanProperty()
 
 
