@@ -2,15 +2,14 @@ Do this next
 ============
 
 When there are no candidates change "Scan the issues, and select how you feel about them"
-Make "what do you think?" text more obvious
 Make it have signup form when you've got all candidates answered
 
 The "click here to ask them to go on the record" link doesn't work.
 
-Link to skip local issues, when there are lots of them
 Votematch link (search for james graham)
 
-Do we even need the short titles, or are they just clutter?
+Hide link for signup box
+
 
 Change URL/domain
     * update tweet this link

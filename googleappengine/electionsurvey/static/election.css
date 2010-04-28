@@ -242,6 +242,7 @@ div.full_answers table.answers th {
 }
 div.full_answers table.answers td.you {
  width: 15em;
+ font-size: 115%;
 }
 
 table.answers tr.what-you-think a,
