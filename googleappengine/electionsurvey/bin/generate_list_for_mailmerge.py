@@ -91,7 +91,7 @@ parser.set_usage('''Find
 parser.add_option('--host', type='string', dest="host", help='domain:port of application, default is localhost:8080. e.g. election.theyworkforyou.com', default="localhost:8080")
 parser.add_option('--email', type='string', dest="email", help='email address for authentication to application', default="francis@flourish.org")
 parser.add_option('--out', type='string', dest="out", help='CSV file to make')
-parser.add_option('--real', action='store_true', dest="real", help='Really queue the emails, default is dry run', default=False)
+parser.add_option('--real', action='store_true', dest="real", help='Really set the has been posted to flag on candidacies, default is dry run', default=False)
 
 (options, args) = parser.parse_args()
 
@@ -134,10 +134,14 @@ for candidacy in candidacies:
         address = address.strip()
         if address == "":
             address = None
+    email = candidate.validated_email()
 
-    msg = str(c) + " Considering " + candidate.name 
+    msg = str(c) + " Considering " + candidate.name + ", " + seat.name
     if address:
         msg = msg + " current address " + re.sub('\s+', ' ', address)
+    if email:
+        msg = msg + " current email " + email
+    msg = msg + " " + candidate.yournextmp_url()
     log(msg)
 
     assert not candidacy.survey_invite_emailed 

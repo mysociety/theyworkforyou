@@ -2,7 +2,29 @@
 
 {% block content %}
 
-<h2>Scan the issues, and click on the ones that you feel strongest about</h2>
+<h2>Welcome to our election survey!</h2>
+{% if candidacy_with_response_count %}
+<p>We've got responses from {{candidacy_with_response_count}} candidates in your constituency.</p>
+
+{% if candidacies_without_response %}
+ <p>However, we don't have responses from {{ candidacy_without_response_count}}
+ candidates.  Some we've emailed and haven't replied, and others we
+ don't have an email address for yet.  They are:
+
+ {% for candidacy in candidacies_without_response %}
+  {% if forloop.last %} and {% endif %}<strong>{{ candidacy.name }}</strong> ({{ candidacy.party }}){% if not forloop.last %},{% else %}.{% endif %}
+ {% endfor %} 
+{% endif %}
+
+{% else %}
+ <p>Although thousands of candidates across the country have answered
+ it, we're afraid no-one in your constituency has done so.  You can
+ help petition your candidates by using the form at the bottom of the
+ page, and we'll let you know when we have some results for you!</p>
+{% endif %}
+
+
+<h2>Scan the issues, and select how you feel about them</h2>
 
 <!--<p class="error">
     Dummy error
@@ -21,25 +43,15 @@
             {% for local_answer in local_answers %}
             <li class="answer">
                 <div class="statement">
-                    <strong>{{ forloop.counter }}.</strong> 
-                    &ldquo;{{ local_answer.question }}&rdquo;
-                    <script type="text/javascript" charset="utf-8">
-                        document.write('<a href=""><span class="findout">Responses &dArr;</span></a>');
-                    </script>
+                    <blockquote>{{ local_answer.question }}</blockquote>
                 </div>
                 <div class="full_answers">
-                    <ul>
+		    <table class="answers">
+	            {% include "_quiz_agreement_table_header.html" %}
                     {% for candidacy in local_answer.candidacies %}
-                        <li>
-                            {% include "_quiz_candidacy.html" %}
-                            {% include "_quiz_agreement.html" %}
-                        </li>
+                    {% include "_quiz_agreement.html" %}
                     {% endfor %} 
-                    {% include "_quiz_without_response.html" %}
-                    </ul>
-                    <script type="text/javascript" charset="utf-8">
-                        document.write('<p align="right"><a class="inner_hide" href="">Hide</a></p>');
-                    </script>
+		    </table>
                 </div>
             </li>
             {% endfor %}
@@ -61,24 +73,15 @@
         <li class="answer">
             <div class="statement">
                 <strong> {{ national_answer.short_name }} </strong>
-                &ldquo;{{ national_answer.question }}&rdquo;
-                <script type="text/javascript" charset="utf-8">
-                    document.write('<a href=""><span class="findout">Responses &dArr;</span></a>');
-                </script>
+                <blockquote>{{ national_answer.question }}</blockquote>
             </div>
             <div class="full_answers">
-                <ul>
-                {% for candidacy in national_answer.candidacies %}
-                    <li>
-                        {% include "_quiz_candidacy.html" %}
-                        {% include "_quiz_agreement.html" %}
-                    </li>
-                {% endfor %} 
-                {% include "_quiz_without_response.html" %}
-                </ul>
-                <script type="text/javascript" charset="utf-8">
-                    document.write('<p align="right"><a class="inner_hide" href="">Hide</a></p>');
-                </script>
+		    <table class="answers">
+	            {% include "_quiz_agreement_table_header.html" %}
+                    {% for candidacy in national_answer.candidacies %}
+                    {% include "_quiz_agreement.html" %}
+                    {% endfor %} 
+		    </table>
             </div>
         </li>
         {% endfor %}
@@ -88,14 +91,11 @@
 
 </div>
 
-<div class="sidebar">
+<div class="tell-friends">
     <!-- Any sidebar text goes here -->
-    <h1>Tell your friends</h1>
+    <h2>Tell your friends</h2>
 
     <a name="fb_share" type="button" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 
     <br><a href="http://twitter.com/home/?status=Just%20tried%20TheyWorkForYou's%20election%20candidate%20explorer%20-%20has%20local%20and%20national%20issues%20http://election.theyworkforyou.com/quiz"><img src="/static/tweetthis-15.gif"></a>
-
-
-
 {% endblock %}
