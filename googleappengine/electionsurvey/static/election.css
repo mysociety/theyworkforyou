@@ -35,6 +35,11 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
     margin-bottom: 2em;
 }
 
+div.full_answers table.answers td.agreement-col{
+    width: 60px;
+    text-align: center;
+}
+
 .answers div.statement {
 }
 
@@ -163,9 +168,9 @@ html.js ul.answers div.full_answers {
 blockquote {
     font-size: 1.5em;
     background: url(blockquote.png) no-repeat 0 0;
-    padding: 10px 15px 0 60px;
+    padding: 10px 30px 0 60px;
     margin: 0;
-    width: 620px;
+    width: 680px;
     min-height: 48px;
 }
 
@@ -225,6 +230,7 @@ table.answers tr.what-you-think a,
 table.answers tr.what-they-think span.agreement {
  padding: 5px;
  display: block;
+ height: 2.5em;
 }
 
 table.answers tr.what-they-think span.agreement {
@@ -257,4 +263,7 @@ table.answers tr.what-they-think span.agreement {
 .candidate_not_filled_in {
     color: #ff0000;
 }
+
+
+ 
 
