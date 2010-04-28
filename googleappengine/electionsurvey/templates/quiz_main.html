@@ -8,23 +8,27 @@
 
 {% if candidacies_without_response %}
  <p>However, we don't have responses from {{ candidacy_without_response_count}}
- candidates.  Some we've emailed and haven't replied, and others we
- don't have an email address for yet.  They are:
+ candidates.  Some haven't replied, and others we've not been able to contact.  
+ They are:
 
  {% for candidacy in candidacies_without_response %}
-  {% if forloop.last %} and {% endif %}<strong>{{ candidacy.name }}</strong> ({{ candidacy.party }}){% if not forloop.last %},{% else %}.{% endif %}
+  {% if forloop.last %}{% ifnotequal candidacies_without_response|length 1 %} and {% endifnotequal %}{% endif %}<strong>{{ candidacy.name }}</strong> ({{ candidacy.party }}){% if not forloop.last %},{% else %}.{% endif %}
  {% endfor %} 
 {% endif %}
+
+<h2>Scan the issues, and select how you feel about them</h2>
 
 {% else %}
  <p>Although thousands of candidates across the country have answered
  it, we're afraid no-one in your constituency has done so.  You can
  help petition your candidates by using the form at the bottom of the
  page, and we'll let you know when we have some results for you!</p>
+
+<h2>These are the questions we've asked them</h2>
+
 {% endif %}
 
 
-<h2>Scan the issues, and select how you feel about them</h2>
 
 <!--<p class="error">
     Dummy error
