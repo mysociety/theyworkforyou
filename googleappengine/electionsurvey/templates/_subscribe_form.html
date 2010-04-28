@@ -1,0 +1,49 @@
+<div id="subscribe_box">
+    <h2>Watch your MP after the election too!</h2>
+
+    <p>TheyWorkForYou thinks it is important that we all pay a little bit of
+    attention to what our MPs do once elected.  Please sign up so we can update you 
+    on what your new MP gets up to.</p>
+
+    <form method="post" action="/subscribe" id="subscribe_form">
+        <p>
+            <strong>{{ subscribe_form.name.label_tag }}</strong>
+            {{ subscribe_form.name }}
+            <br>
+            <strong>{{ subscribe_form.email.label_tag }}</strong>
+            {{ subscribe_form.email }}
+            <br>
+            <strong>{{ subscribe_form.postcode.label_tag }}</strong>
+            {{ subscribe_form.postcode }}
+            <br>
+            <span class="signup_checkbox">
+                {{ subscribe_form.democlub_signup.label_tag }}
+                {{ subscribe_form.democlub_signup }}
+            </span>
+            <br>
+            <span class="signup_checkbox">
+                {{ subscribe_form.twfy_signup.label_tag }}
+                {{ subscribe_form.twfy_signup }}
+            </span>
+            <br>
+            <span class="signup_checkbox">
+                {{ subscribe_form.hfymp_signup.label_tag }}
+                {{ subscribe_form.hfymp_signup }}
+            </span>
+            <br>
+            <input type="submit" value="Sign up">
+        </p>
+        <p>
+            <small>
+                You will be immediately subscribed to DemocracyClub, so you can
+                help out with tasks before the election. After the election,
+                you will receive emails asking you to confirm any
+                subscriptions to TheyWorkForYou and HearFromYourMP.
+            </small>
+        </p>
+    </form>
+</div>
+
+
+
+

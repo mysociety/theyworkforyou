@@ -167,10 +167,12 @@ html.js ul.answers div.full_answers {
     display: none;
 }
 
-#offer_longterm {
-    text-align: center;
-    font-size: 166%;
+#subscribe_box {
+    font-size: 100%;
     margin: 5em;
+}
+.signup_checkbox {
+    font-size: 75%;
 }
 
 .candidate_emailed {

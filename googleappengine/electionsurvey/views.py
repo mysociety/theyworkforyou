@@ -525,6 +525,13 @@ def quiz_main(request, postcode):
         'survey_invite_emailed': candidacies_by_key[k].survey_invite_emailed
     } for k in candidacies_without_response_key]
 
+    subscribe_form = forms.MultiServiceSubscribeForm({ 
+        'postcode': display_postcode,
+        'democlub_signup': True,
+        'twfy_signup': True,
+        'hfymp_signup': True,
+    })
+
     return render_to_response('quiz_main.html', {
         'seat' : seat,
         'candidacies_without_response' : candidacies_without_response,
@@ -534,7 +541,8 @@ def quiz_main(request, postcode):
         'national_answers' : national_answers,
         'local_answers' : local_answers,
         'local_issues_count' : len(local_issues),
-        'postcode' : postcode
+        'postcode' : postcode,
+        'subscribe_form' : subscribe_form
     })
 
 

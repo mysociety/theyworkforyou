@@ -3,6 +3,8 @@ Do this next
 
 Storing TheyWorkForYou/HearFromYourMP/DemocracyClub signups in a local model
 
+On main quiz, "has not been asked" for postal is wrong
+
 Work out design way to get people to track MPs by email after election
 - Email me if you get more data?
 Work out technical side of TheyWorkForYou and HearFromYourMP signups
