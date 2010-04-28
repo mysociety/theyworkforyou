@@ -569,7 +569,6 @@ def quiz_main(request, postcode):
     })
 
     return render_to_response('quiz_main.html', {
-        'id': ' id="quiz"',
         'seat' : seat,
         'candidacies_without_response' : candidacies_without_response,
         'candidacy_count' : len(candidacies),
