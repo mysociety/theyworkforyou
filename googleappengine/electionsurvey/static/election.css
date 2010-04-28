@@ -10,6 +10,9 @@ h2 {
 #error {
     color: #990000;
 }
+.errorlist {
+    color: #990000;
+}
 
 #topmenu {
     height: 2px;
@@ -228,10 +231,12 @@ table.answers tr.what-they-think span.agreement {
  background-color: #eee;
 }
 
-#offer_longterm {
-    text-align: center;
-    font-size: 166%;
+#subscribe_box {
+    font-size: 100%;
     margin: 5em;
+}
+.signup_checkbox {
+    font-size: 75%;
 }
 
 .candidate_emailed {

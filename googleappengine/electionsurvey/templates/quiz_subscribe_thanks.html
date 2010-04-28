@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% if democlub_signup %}
+    <h2>Thanks! Now check your email</h2>
+    <p>You'll find an email from DemocracyClub. Follow the instructions
+    in it to begin asking your MP candidates to fill in the survey.
+    </p>
+{% else %}
+    <h2>Thanks!</h2>
+{% endif %}
+
+{% if twfy_signup or hfymp_signup %}
+    <h2>After the election...</h2>
+{% endif %}
+
+{% if twfy_signup and hfymp_signup %}
+    <p>You will receive emails asking you to
+    confirm your subscriptions to TheyWorkForYou and HearFromYourMP.</p>
+{% else %}
+    {% if twfy_signup %}
+        <p>You will receive an email asking you
+        to confirm your subscription to TheyWorkForYou.</p>
+    {% endif %}
+
+    {% if hfymp_signup %}
+        <p>You will receive an email asking you
+        to confirm your subscription to HearFromYourMP.</p>
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}

@@ -227,4 +227,16 @@ class SurveyResponse(db.Model):
         return agreement_verb_you[self.agreement]
 
 
+# Sign up to post election email alerts and services
+class PostElectionSignup(db.Model):
+    name = db.StringProperty()
+    email = db.StringProperty()
+    postcode = db.StringProperty()
+
+    theyworkforyou = db.BooleanProperty()
+    hearfromyourmp = db.BooleanProperty()
+
+
+
+
 

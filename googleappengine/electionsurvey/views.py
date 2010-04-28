@@ -31,7 +31,7 @@ import django.utils.simplejson as json
 from ratelimitcache import ratelimit
 
 import forms
-from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse
+from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse, PostElectionSignup
 
 # Front page of election site
 def index(request):
@@ -527,6 +527,13 @@ def quiz_main(request, postcode):
         'survey_invite_emailed': candidacies_by_key[k].survey_invite_emailed
     } for k in candidacies_without_response_key]
 
+    subscribe_form = forms.MultiServiceSubscribeForm(initial={ 
+        'postcode': display_postcode,
+        'democlub_signup': True,
+        'twfy_signup': True,
+        'hfymp_signup': True,
+    })
+
     return render_to_response('quiz_main.html', {
         'seat' : seat,
         'candidacies_without_response' : candidacies_without_response,
@@ -536,10 +543,36 @@ def quiz_main(request, postcode):
         'national_answers' : national_answers,
         'local_answers' : local_answers,
         'local_issues_count' : len(local_issues),
-        'postcode' : postcode
+        'postcode' : postcode,
+        'subscribe_form' : subscribe_form
     })
 
 
+# Subscribing to DemocracyClub / TheyWorkForYou / HearFromYourMP
+def quiz_subscribe(request):
+    subscribe_form = forms.MultiServiceSubscribeForm(request.POST)
+    if subscribe_form.is_valid():
+        post_election_signup = PostElectionSignup(
+                name = subscribe_form.cleaned_data['name'],
+                email = subscribe_form.cleaned_data['email'],
+                postcode = subscribe_form.cleaned_data['postcode'],
+                theyworkforyou = subscribe_form.cleaned_data['twfy_signup'],
+                hearfromyourmp = subscribe_form.cleaned_data['hfymp_signup']
+        )
+        post_election_signup.put()
+
+        if subscribe_form.cleaned_data['democlub_signup']:
+            raise Exception('todo: democracy club signup')
+
+        return render_to_response('quiz_subscribe_thanks.html', { 
+            'twfy_signup':  subscribe_form.cleaned_data['twfy_signup'],
+            'hfymp_signup':  subscribe_form.cleaned_data['hfymp_signup'],
+            'democlub_signup':  subscribe_form.cleaned_data['democlub_signup'],
+        } )
+
+    return render_to_response('quiz_subscribe.html', {
+        'subscribe_form' : subscribe_form
+    })
 
 
 
