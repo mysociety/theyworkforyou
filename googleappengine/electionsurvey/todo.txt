@@ -7,13 +7,20 @@ On main quiz, "has not been asked" when they've had postal survey is wrong
 
 
 Quotes being cropped in first question, so min height needed
-"Candidates not parties" is the marketing line
+"Candidates not parties" or "candidates not party leaders" is the marketing line
 Be able to close questions
 When there are no candidates, put form at top
 Check what happens when you've got all candidates answered
 Link to skip local issues
 (12:47:57) tgreen: top text is a bit wordy and looks like standard gumpf, needs to be more prominent
 (12:48:00) tgreen: and link to the bottom form
+Votematch link
+
+Log answers people give in database? So can share.
+Have a choice of candidates at the end, say who you now like most
+
+TheyWantToWorkForYou domain?
+    * update tweet this link
 
 
 Work out design way to get people to track MPs by email after election.
@@ -24,8 +31,6 @@ Link to blog post for explanation
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
-- Change URL to be something other than quiz, maybe candidate explorer
-    * update tweet this link
 
 Postal
 - Do those for which we have postal address, but no valid email address again
