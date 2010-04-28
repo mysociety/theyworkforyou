@@ -5,6 +5,7 @@ Do this next
 - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
+Try the actual signup
 Put in name of constituency near top of page
 When there are no candidates change "Scan the issues, and select how you feel about them"
 Check what happens when you've got all candidates answered

@@ -6,13 +6,6 @@
 
 <h2>Scan the issues, and select how you feel about them</h2>
 
-</div>
-<div class="break"></div>
-</div>
-
-<div class="stripe-time-2">
-<div class="main">
-
 <h4>Local statements (for {{ seat.name }} constituency)</h4>
     {% if local_issues_count %}
         <ul class="answers local">
@@ -65,13 +58,15 @@
 
 {% include "_quiz_hassle_section.html" %}
 
-</div>
+<!-- Any sidebar text goes here -->
+<h2>Tell your friends about this MP job interview</h2>
 
-<div class="tell-friends">
-    <!-- Any sidebar text goes here -->
-    <h2>Tell your friends</h2>
+<p>
+    <br><a name="fb_share" type="button" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 
-    <a name="fb_share" type="button" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+    <br><br><a href="http://twitter.com/home/?status=Just%20tried%20TheyWorkForYou's%20election%20candidate%20explorer%20-%20has%20local%20and%20national%20issues%20http://election.theyworkforyou.com/quiz"><img src="/static/tweetthis-15.gif"></a>
+</p>
 
-    <br><a href="http://twitter.com/home/?status=Just%20tried%20TheyWorkForYou's%20election%20candidate%20explorer%20-%20has%20local%20and%20national%20issues%20http://election.theyworkforyou.com/quiz"><img src="/static/tweetthis-15.gif"></a>
 {% endblock %}
+
+
