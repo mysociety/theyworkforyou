@@ -10,13 +10,12 @@ Test on different browsers
 Memcache each constituency
 
 
-Link to blog post for explanation
-
 Log answers people give in database? So can share.
 Have a choice of candidates at the end, say who you now like most
 
+Link to blog posts for explanation
 
-When survey already filled in, order is wrong (local shoudl be first)
+
 On main quiz, "has not been asked" when they've had postal survey is wrong
     make admin page show postal sent too
 Grep for have sent email, and add have sent post as well (in a few days time, Thursdayish)
