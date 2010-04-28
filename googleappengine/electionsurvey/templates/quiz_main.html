@@ -2,33 +2,48 @@
 
 {% block content %}
 
-<h2>Welcome to our election survey!</h2>
-{% if candidacy_with_response_count %}
-<p>We've got responses from {{candidacy_with_response_count}} candidates in your constituency.</p>
 
 {% if candidacies_without_response %}
- <p>However, we don't have responses from {{ candidacy_without_response_count}}
- candidates.  Some we've emailed and haven't replied, and others we
- don't have an email address for yet.  They are:
+    <h2>Help us get answers from all your candidates!</h2>
 
- {% for candidacy in candidacies_without_response %}
-  {% if forloop.last %} and {% endif %}<strong>{{ candidacy.name }}</strong> ({{ candidacy.party }}){% if not forloop.last %},{% else %}.{% endif %}
- {% endfor %} 
-{% endif %}
+    {% if candidacy_with_response_count %}
+        <p>
+            We've got answers from {{ candidacy_with_response_count }} applicant{{ candidacy_with_response_count|pluralize }}
+            to be your MP. You can explore the answers below.
+        </p>
 
+        <p>
+            However, 
+            {% for candidacy in candidacies_without_response %}
+                {% if forloop.last %} and {% endif %}<strong>{{ candidacy.name }}</strong> ({{ candidacy.party }}){% if not forloop.last %},{% else %}{% endif %}
+            {% endfor %} 
+            have not yet put their views on the record.
+        </p>
+
+        <p>
+            <a href="#subscribe_box">Click here to ask them to go on the record</a>
+        </p>
+    {% else %}
+        <p>
+            Although we've got thousands of answers from across the country, none of the applicants to be your
+            MP have answered yet.
+        </p>
+
+        {% include "_quiz_subscribe_form.html" %}
+        
+    {% endif %}
+                
 {% else %}
- <p>Although thousands of candidates across the country have answered
- it, we're afraid no-one in your constituency has done so.  You can
- help petition your candidates by using the form at the bottom of the
- page, and we'll let you know when we have some results for you!</p>
+    <h2>Welcome to our election survey!</h2>
+
+    <p>
+        All the candidates in your constituency have answered the questions. You can explore the answers below.
+    </p>
 {% endif %}
+
 
 
 <h2>Scan the issues, and select how you feel about them</h2>
-
-<!--<p class="error">
-    Dummy error
-</p> -->
 
 </div>
 <div class="break"></div>
@@ -86,6 +101,23 @@
         </li>
         {% endfor %}
     </ul>
+
+    {% if candidacies_without_response %}
+        <h2>Help us get answers from your candidates!</h2>
+        <p>We've not got survey results for candidates in any of these parties:</p>
+        <div>
+        {% for candidacy in candidacies_without_response %}
+            {% if candidacy.party_image_url %}<img class="party_image" src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}">{% else %}{{ candidacy.party}}{% endif %}
+        {% endfor %} 
+        </div>
+        <div class="clear_statement"></div>
+    {% else %}
+        <h2>Watch your MP after the election too!</h2>
+
+        <p>TheyWorkForYou thinks it is important that we all pay a little bit of
+        attention to what our MPs do once elected.  Please sign up so we can update you 
+        on what your new MP gets up to.</p>
+    {% endif %}
 
     {% include "_quiz_subscribe_form.html" %}
 

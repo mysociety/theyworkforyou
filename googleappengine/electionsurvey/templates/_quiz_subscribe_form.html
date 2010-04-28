@@ -1,23 +1,8 @@
+<p>
+    Enter your details below and we'll take you to a page that makes it really simple for you to chase up your candidates.
+</p>
+
 <div id="subscribe_box">
- {% if candidacies_without_response %}
-    <h2>Help us get answers from your candidates!</h2>
-    <p>We've not got survey results for candidates in any of these parties:</p>
-    <div>
-    {% for candidacy in candidacies_without_response %}
-      {% if candidacy.party_image_url %}<img class="party_image" src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}">{% else %}{{ candidacy.party}}{% endif %}
-    {% endfor %} 
-    </div>
-    <div class="clear_statement"></div>
-    <p>Enter your details below and we'll take you to a page that makes it really simple for you to chase up your candidates.</p>
- {% else %}
-    <h2>Watch your MP after the election too!</h2>
-
-    <p>TheyWorkForYou thinks it is important that we all pay a little bit of
-    attention to what our MPs do once elected.  Please sign up so we can update you 
-    on what your new MP gets up to.</p>
-
- {% endif %}
-
     {% if subscribe_form.errors %}
         {{ subscribe_form.errors }}
     {% endif %}
@@ -48,7 +33,7 @@
                 {{ subscribe_form.hfymp_signup }}
             </span>
             <br>
-            <input type="submit" value="Sign up">
+            <input type="submit" value="Hassle the MP candidates">
         </p>
         <p>
             <small>
