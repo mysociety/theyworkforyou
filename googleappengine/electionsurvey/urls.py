@@ -10,7 +10,6 @@ import models
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', views.index),
 
     url(r'^survey$', views.survey_candidacy),
     url(r'^survey/autosave/(?P<token>.+)$', views.survey_autosave),
@@ -23,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^survey/$', redirect_to, {'url' : '/survey'} ),
     url(r'^survey/seat/$', redirect_to, {'url' : '/survey/seat'} ),
 
+    url(r'^$', views.quiz_ask_postcode),
     url(r'^quiz$', views.quiz_ask_postcode),
     url(r'^quiz/subscribe$', views.quiz_subscribe),
     url(r'^quiz/seats/(?P<code>.+)$', views.quiz_by_code),
