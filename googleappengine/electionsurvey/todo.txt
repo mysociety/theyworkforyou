@@ -1,21 +1,16 @@
 Do this next
 ============
 
-"Candidates not parties" or "candidates not party leaders" is the marketing line
-- "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
-- "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
-
-Try the actual signup
-Put in name of constituency near top of page
-When there are no candidates change "Scan the issues, and select how you feel about them"
 Check what happens when you've got all candidates answered
-    and make it have a signup form
-
+When there are no candidates change "Scan the issues, and select how you feel about them"
 Make "what do you think?" text more obvious
+Make it have signup form when you've got all candidates answered
 
 Link to skip local issues, when there are lots of them
 Votematch link (search for james graham)
 Remove democlub signup link as it does redirect
+
+Do we even need the short titles, or are they just clutter?
 
 Change URL/domain
     * update tweet this link
@@ -43,6 +38,10 @@ Postal
 
 Other things
 ============
+
+"Candidates not parties" or "candidates not party leaders" is the marketing line
+- "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
+- "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
 Be able to close questions in quiz
 
