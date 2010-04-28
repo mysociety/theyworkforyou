@@ -36,7 +36,7 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
 }
 
 div.full_answers table.answers td.agreement-col{
-    width: 60px;
+    width: 5em;
     text-align: center;
 }
 
@@ -48,6 +48,9 @@ div.full_answers table.answers td.agreement-col{
     margin-right: 0.5em;
     padding-top: 0.25em;
 }
+.block_party_image {
+}
+
 
 .statement_body {
     margin-top: 0.5em;
@@ -170,7 +173,7 @@ blockquote {
     background: url(blockquote.png) no-repeat 0 0;
     padding: 10px 30px 0 60px;
     margin: 0;
-    width: 680px;
+    max-width: 610px;
     min-height: 48px;
 }
 
@@ -178,11 +181,14 @@ div.horizontal.agreement ul li {
     display: inline;
 }
 
-div.main {float: none; width: auto; margin: 0; padding: 0;position:relative;}
+body#quiz div.main {
+    float: none;
+    width: auto;
+}
 
 div.full_answers table.answers {
  border-collapse: collapse;
- width: 700px;
+ width: 49em;
  margin: 0;
 }
 
@@ -210,12 +216,12 @@ div.full_answers table.answers th.explanation {
  width: 15em;
 }
 
-div.full_answers table.answers tr.what-they-think {
+html.js div.full_answers table.answers tr.what-they-think {
  display: none;
 }
 
-div.full_answers table.answers th.who,
-div.full_answers table.answers .explanation {
+html.js div.full_answers table.answers th.who,
+html.js div.full_answers table.answers .explanation {
  visibility: hidden;
 }
 
@@ -239,7 +245,7 @@ table.answers tr.what-they-think span.agreement {
 
 #subscribe_box {
     font-size: 100%;
-    margin: 5em;
+    margin-left: 1em;
 }
 .signup_checkbox {
     font-size: 75%;

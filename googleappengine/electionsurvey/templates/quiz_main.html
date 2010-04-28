@@ -2,40 +2,9 @@
 
 {% block content %}
 
-<h2>Welcome to our election survey!</h2>
-{% if candidacy_with_response_count %}
-<p>We've got responses from {{candidacy_with_response_count}} candidates in your constituency.</p>
-
-{% if candidacies_without_response %}
- <p>However, we don't have responses from {{ candidacy_without_response_count}}
- candidates.  Some we've emailed and haven't replied, and others we
- don't have an email address for yet.  They are:
-
- {% for candidacy in candidacies_without_response %}
-  {% if forloop.last %} and {% endif %}<strong>{{ candidacy.name }}</strong> ({{ candidacy.party }}){% if not forloop.last %},{% else %}.{% endif %}
- {% endfor %} 
-{% endif %}
-
-{% else %}
- <p>Although thousands of candidates across the country have answered
- it, we're afraid no-one in your constituency has done so.  You can
- help petition your candidates by using the form at the bottom of the
- page, and we'll let you know when we have some results for you!</p>
-{% endif %}
-
+{% include "_quiz_hassle_section.html" %}
 
 <h2>Scan the issues, and select how you feel about them</h2>
-
-<!--<p class="error">
-    Dummy error
-</p> -->
-
-</div>
-<div class="break"></div>
-</div>
-
-<div class="stripe-time-2">
-<div class="main">
 
 <h4>Local statements (for {{ seat.name }} constituency)</h4>
     {% if local_issues_count %}
@@ -87,15 +56,17 @@
         {% endfor %}
     </ul>
 
-    {% include "_quiz_subscribe_form.html" %}
+{% include "_quiz_hassle_section.html" %}
 
-</div>
+<!-- Any sidebar text goes here -->
+<h2>Tell your friends about this MP job interview</h2>
 
-<div class="tell-friends">
-    <!-- Any sidebar text goes here -->
-    <h2>Tell your friends</h2>
+<p>
+    <br><a name="fb_share" type="button" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 
-    <a name="fb_share" type="button" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+    <br><br><a href="http://twitter.com/home/?status=Just%20tried%20TheyWorkForYou's%20election%20candidate%20explorer%20-%20has%20local%20and%20national%20issues%20http://election.theyworkforyou.com/quiz"><img src="/static/tweetthis-15.gif"></a>
+</p>
 
-    <br><a href="http://twitter.com/home/?status=Just%20tried%20TheyWorkForYou's%20election%20candidate%20explorer%20-%20has%20local%20and%20national%20issues%20http://election.theyworkforyou.com/quiz"><img src="/static/tweetthis-15.gif"></a>
 {% endblock %}
+
+

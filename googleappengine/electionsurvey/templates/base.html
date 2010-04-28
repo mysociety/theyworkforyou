@@ -5,6 +5,7 @@
 	<title>TheyWorkForYou Election: Who would work for you, if elected MP?</title>
 	<meta name="description" content="Making choosing who to vote for easy.">
 	<meta name="keywords" content="election, General Election, survey, quiz, candidates, PPC, PPCs, Parliament, government, house of commons, MP, Member of Parliament, MPs, Commons, UK, Britain, British">
+	{% block meta %}{% endblock %}
     <script type="text/javascript">document.getElementsByTagName('html')[0].className+=' js';</script>
     <script type="text/javascript" src="/static/jquery-1.4.1.min.js"></script>
     <script type="text/javascript" src="/static/textAreaLimiter.js"></script>   
@@ -16,7 +17,7 @@
         @import url(/static/global_non_ns4.css);
         @import url(/static/election.css);
     </style>
-</head><body>
+</head><body{{ id }}>
 <div id="container">
     <a name="top"></a>
 
