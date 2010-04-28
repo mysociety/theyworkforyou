@@ -25,32 +25,30 @@ $PAGE->stripe_start("full");
 
 <!-- Actions -->
 <div id="welcome_uk" class="welcome_actions">
-    <!-- Search / alerts -->
-    <div id="welcome_search">
-        <?php
-        	global $SEARCHURL;
-        	global $SEARCHLOG;
-        	$SEARCHURL = new URL('search');
-            $popular_searches = $SEARCHLOG->popular_recent(10);
-        ?>
-        <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-            <h3><label for="s">Search,  create an alert or RSS feed</label></h3>            
-            <p>
-                <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
-                <input type="submit" value="Go" class="submit">
-                <br>
-                <small>e.g. <em>word</em>, <em>phrase</em>, or <em>person</em> | <a href="/search/?adv=1">More options</a></small>
-            </p>
-            <?php if (count($popular_searches) > 0) { ?>
-                <p>
-                    Popular searches today: 
-                    <?php foreach ($popular_searches as $popular_search) { ?>
-                        <a href="<?php echo $popular_search['url']?>"><?php echo $popular_search['display']?></a>
-                    <?php } ?>
-                </p>
-            <?php } ?>
-        </form>
+    <div id="" style="min-height: 27em; background: #ffff99;">
+        <h2 align="center" style="padding-top:0; margin: 0.5em;">Election Quiz &ndash; it&rsquo;s job interview time for your next MP!</h2>
+
+<p>
+    Every few years, you get to choose who will <strong>make our laws</strong>, 
+    and <strong>run our country</strong>.  
+</p>
+
+<p> 
+    We asked individual candidates about <strong>local and national</strong> issues. 
+    You can explore their answers.
+</p>
+
+<form method="post" action="http://election.theyworkforyou.com/quiz" id="postcode_form">
+    <p id="postcode_line" style="font-size: 150%; text-align: center; padding-bottom: 0;">
+        <strong style="display:block; text-align: left;"><label for="id_postcode">Enter your postcode:</label></strong> 
+        <input id="id_postcode" type="text" name="postcode" size="8" style="border: 0.2em solid #88a465; font-size: 166%; margin: 0.25em 0 0 0;">
+        <input type="submit" value="Go!" style="font-size: 166%">
+    </p>
+    <p style="margin-top:0; text-align: center">e.g. OX1 3DR <small>(don&rsquo;t worry about spaces or capitalisation)</small></p>
+</form>
+
     </div>
+
     <div>
         <h3>Your representative</h3>
         <?php
@@ -101,6 +99,32 @@ $PAGE->stripe_start("full");
         	echo '<p>Read debates they&rsquo;ve taken part in, see how they voted, sign up for an email alert, and more.</p>';
         ?>
     </div>
+    <!-- Search / alerts -->
+    <div id="welcome_search">
+        <?php
+        	global $SEARCHURL;
+        	global $SEARCHLOG;
+        	$SEARCHURL = new URL('search');
+            $popular_searches = $SEARCHLOG->popular_recent(10);
+        ?>
+        <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
+            <h3><label for="s">Search,  create an alert or RSS feed</label></h3>            
+            <p>
+                <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
+                <input type="submit" value="Go" class="submit">
+                <br>
+                <small>e.g. <em>word</em>, <em>phrase</em>, or <em>person</em> | <a href="/search/?adv=1">More options</a></small>
+            </p>
+            <?php if (count($popular_searches) > 0) { ?>
+                <p>
+                    Popular searches today: 
+                    <?php foreach ($popular_searches as $popular_search) { ?>
+                        <a href="<?php echo $popular_search['url']?>"><?php echo $popular_search['display']?></a>
+                    <?php } ?>
+                </p>
+            <?php } ?>
+        </form>
+    </div>
 
     <br class="clear">
 </div>
@@ -111,14 +135,17 @@ $PAGE->stripe_start("full");
 ?>
 
 <!-- Campaign -->
+<!--
 <div class="campaign">
     <p>
         Become a TheyWorkForYou volunteer in your constituency <span class="chev"><span class="hide">-</span></span>
 	<a href="http://www.democracyclub.org.uk/">Join DemocracyClub</a>
     </p>
 </div>
+-->
 
 <!-- Latest in parliament -->
+<!--
 <div class="latest col3">
     <h3>Recently in the UK Parliament</h3>
     <div>
@@ -174,6 +201,8 @@ $PAGE->stripe_start("full");
     </div>
     <br class="clear">&nbsp;
 </div>
+-->
+
 <?php
 
 $PAGE->stripe_end();
