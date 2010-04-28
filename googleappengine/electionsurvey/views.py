@@ -36,9 +36,6 @@ from ratelimitcache import ratelimit
 import forms
 from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse, PostElectionSignup, AristotleToYnmpCandidateMap
 
-# Front page of election site
-def index(request):
-    return render_to_response('index.html', {})
 
 #####################################################################
 # Candidate survey

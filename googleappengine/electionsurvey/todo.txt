@@ -1,32 +1,32 @@
 Do this next
 ============
 
-With template not working on GAE???
-
-Change URL/domain
-Update tweet this link
-
 Front page of TWFY
 
 Test on different browsers
+
+
 Memcache each constituency
 
+Add contact link
 
 Log answers people give in database? So can share.
 Have a choice of candidates at the end, say who you now like most
 
 Link to blog posts for explanation
 
-
 Postal
 - AGAIN - Do those for which we have postal address, but no valid email address
 - Do those that haven't replied to the survey, but have postal address (even if emaield)
 
+Change domain to better one?
 
 
 
 Other things
 ============
+
+Remove democracy club slug from model, is not needed really now
 
 "Candidates not parties" or "candidates not party leaders" is the marketing line
 - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
