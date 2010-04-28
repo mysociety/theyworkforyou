@@ -183,7 +183,8 @@ div.horizontal.agreement ul li {
 
 body#quiz div.main {
     float: none;
-    width: auto;
+    margin: 0 auto;
+    width: 52em;
 }
 
 div.full_answers table.answers {
