@@ -8,7 +8,11 @@
     {% include "_quiz_hassle_section.html" %}
 {% endwith %}
 
-<h2>Scan the issues, and select how you feel about them</h2>
+{% if candidacy_with_response_count %}
+    <h2>Scan the issues, and select how you feel about them</h2>
+{% else %}
+    <h2>The questions your candidates will be asked</h2>
+{% endif %}
 
 <h4 id="local">Local statements (for {{ seat.name }} constituency)</h4>
 <p class="inter_link">(<a href="#national">skip to national statements</a>)</p>
