@@ -13,24 +13,73 @@
     Has survey: {{ candidacy.survey_filled_in }}
 -->
     {% if candidacy.survey_filled_in and candidacy.surveyresponse_set %}
-        {% for sr in candidacy.surveyresponse_set %}
-            <div class="ms-twfy-survey-item">
-                {% if not sr.national %}
-                    <strong>
-                        Local:
-                    </strong>
-                {% endif %}
-                {% if sr.refined_issue.short_name %}
-                    <strong>
-                        {{sr.refined_issue.short_name}}:
-                    </strong>
-                {% endif %}
-                {{sr.refined_issue.question}}
+        <style>
+            .ms-twfy-container{
+                margin: 0;
+            }
+            .ms-twfy-container h2{
+                font-size: 15px;
+                margin: 0px;
+            }
+            .ms-twfy-container p{
+                font-size: 15px;
+                color: rgb(153, 153, 153);
+                margin: 0px;
+            }
+            .ms-twfy-item {
+                margin-top: 16px;
+                border-top: 1px dotted rgb(153, 153, 153);
+            }
+            .ms-twfy-q {
+                font-size: 16px;
+            }
+            .ms-twfy-a-100{
+                background-color: #00ff00;
+            }
+            .ms-twfy-a-75{
+                background-color: #99ff99;
+            }
+            .ms-twfy-a-50{
+                background-color: #cccccc;
+            }
+            .ms-twfy-a-25{
+                background-color: #ff9999;
+            }
+            .ms-twfy-a-0{
+                background-color: #ff0000;
+            }
+            .ms-twfy-a-none{
+                
+            }
+        </style>
+        <div class="ms-twfy-container">
+            <div class="hd">
+                <h2>
+                    TheyWorkForYou questionnaire
+                </h2>
             </div>
-            <div class="ms-twfy-survery-agree">
-                {{sr.verb}}
-            </div>
-        {% endfor %}
+            <p>
+                Candidates give their response to a series of policy positions
+            </p>
+            {% for sr in candidacy.surveyresponse_set %}
+                <div class="ms-twfy-item">
+                    <div class="ms-twfy-q">
+                        {{ forloop.counter }}.
+                        {% if not sr.national %}
+                                Local:
+                        {% endif %}
+                        {% if sr.refined_issue.short_name %}
+                                {{sr.refined_issue.short_name}}:
+                        {% endif %}
+                        {{sr.refined_issue.question}}
+                    </div>
+                    <div class="ms-twfy-a-{{sr.agreement}}">
+                        {{sr.verb}}
+                    </div>
+                </div>
+            {% endfor %}
+        </ol>
+        </div>
     {% endif %}
 {% endif %}
 {% endblock %}
