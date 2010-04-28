@@ -1,21 +1,16 @@
 Do this next
 ============
 
-Check what happens when you've got all candidates answered
-When there are no candidates change "Scan the issues, and select how you feel about them"
-Make "what do you think?" text more obvious
-Make it have signup form when you've got all candidates answered
-
-Link to skip local issues, when there are lots of them
 Votematch link (search for james graham)
-Remove democlub signup link as it does redirect
 
-Do we even need the short titles, or are they just clutter?
 
 Change URL/domain
     * update tweet this link
 
 Front page of TWFY
+
+Test on different browsers
+Memcache each constituency
 
 
 Link to blog post for explanation
@@ -48,9 +43,6 @@ Be able to close questions in quiz
 Try using Django 1.1 like this, maybe will reduce errors?
 http://code.google.com/appengine/docs/python/tools/libraries.html
 
-
-Test on different browsers
-Memcache each constituency
 
 Check for people who've autosaved but not filled in and do special mail
 Search for surveys filled in from funny IPs

@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 
+{% block extrabody %} id="quiz"{% endblock %}
+
 {% block content %}
 
-{% include "_quiz_hassle_section.html" %}
+{% with 1 as shorter_hassle_section %}
+    {% include "_quiz_hassle_section.html" %}
+{% endwith %}
 
-<h2>Scan the issues, and select how you feel about them</h2>
+{% if candidacy_with_response_count %}
+    <h2>Scan the issues, and select how you feel about them</h2>
+{% else %}
+    <h2>The questions your candidates will be asked</h2>
+{% endif %}
 
-<h4>Local statements (for {{ seat.name }} constituency)</h4>
+<h4 id="local">Local statements (for {{ seat.name }} constituency)</h4>
+<p class="inter_link">(<a href="#national">skip to national statements</a>)</p>
     {% if local_issues_count %}
         <ul class="answers local">
             {% for local_answer in local_answers %}
@@ -36,7 +45,8 @@
         </ul>
     {% endif %}
 
-<h4>National statements</h4>
+<h4 id="national">National statements</h4>
+<p class="inter_link">(<a href="#local">back to local statements</a>)</p>
     <ul class="answers national">
         {% for national_answer in national_answers %}
         <li class="answer">
@@ -56,8 +66,13 @@
         {% endfor %}
     </ul>
 
-{% include "_quiz_hassle_section.html" %}
+{% with 0 as shorter_hassle_section %}
+    {% include "_quiz_hassle_section.html" %}
+{% endwith %}
 
+
+</div>
+<div class="sidebar">
 <!-- Any sidebar text goes here -->
 <h2>Tell your friends about this MP job interview</h2>
 

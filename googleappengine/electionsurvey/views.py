@@ -310,6 +310,7 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
     candidate_id_mapping = False
     error_message = ""
     debug_message = ""
+    url_for_seat = ""
     # note these Guardian lables are not quite the same as the TWFY verb defaults
     # And these are set up to start with agreement ;-)
     result_labels = (
@@ -400,12 +401,14 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
                 error_message = "No exact name match (%s), no seat found matching (%s)" % (candidate_code, seat_code)
         if candidacy:
             found_name = candidacy.candidate.name
+            url_for_seat = "http://election.theyworkforyou.com/quiz/seats/%s" % candidacy.seat.code
             
     if not error_message:
         error_message = "OK"
     return render_to_response('guardian_candidate.html', {
       'name_canonical': found_name, 
       'candidacy': candidacy, 
+      'url_for_seat': url_for_seat,
       'result_labels': result_labels,
       'error_message': error_message,
       'debug_message': "aristotle_id=%s, raw_name=%s, raw_const_name=%s\n  %s" % (aristotle_id, raw_name, raw_const_name, debug_message)
@@ -518,11 +521,21 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
     issue['form'] = forms.LocalIssueQuestionForm({}, refined_issue=issue_model, candidacy=None)
     return issue
 
-# For voters to learn about candidates
-def quiz_main(request, postcode):
-    display_postcode = forms._canonicalise_postcode(postcode)
-    url_postcode = forms._urlise_postcode(postcode)
+def quiz_by_code(request, code):
+    seat = db.Query(Seat).filter("code =", code).get()
+    return quiz_main(request, seat, "")
+
+def quiz_by_postcode(request, postcode):
     seat = forms._postcode_to_constituency(postcode)
+    return quiz_main(request, seat, postcode)
+
+# For voters to learn about candidates
+def quiz_main(request, seat, postcode):
+    display_postcode = ""
+    url_postcode = ""
+    if postcode:
+        display_postcode = forms._canonicalise_postcode(postcode)
+        url_postcode = forms._urlise_postcode(postcode)
 
     # find all the candidates
     candidacies = seat.candidacy_set.filter("deleted = ", False).fetch(1000)
@@ -569,7 +582,6 @@ def quiz_main(request, postcode):
     })
 
     return render_to_response('quiz_main.html', {
-        'id': ' id="quiz"',
         'seat' : seat,
         'candidacies_without_response' : candidacies_without_response,
         'candidacy_count' : len(candidacies),
@@ -595,32 +607,49 @@ def quiz_subscribe(request):
                 email = email,
                 postcode = postcode,
                 theyworkforyou = subscribe_form.cleaned_data['twfy_signup'],
-                hearfromyourmp = subscribe_form.cleaned_data['hfymp_signup']
+                hearfromyourmp = subscribe_form.cleaned_data['hfymp_signup'],
         )
         post_election_signup.put()
+
+        if subscribe_form.cleaned_data['democlub_signup']:
+            (first_name, space, last_name) = name.partition(" ")
+            fields = { 
+                'first_name' : first_name,
+                'last_name' : last_name,
+                'email' : email,
+                'postcode' : postcode
+            }
+            form_data = urllib.urlencode(fields)
+            result = urlfetch.fetch(url = "http://www.democracyclub.org.uk", 
+                    payload = form_data,
+                    method = urlfetch.POST)
+            if result.status_code != 200:
+                raise Exception("Error posting to DemocracyClub")
 
         candidacy_without_response_count = request.POST.get('candidacy_without_response_count',0)
         seat = forms._postcode_to_constituency(postcode)
 
-        democlub_hassle_url = seat.democracyclub_url() + "?email=%s&postcode=%s&name=%s" % (
-                urllib.quote_plus(email), urllib.quote_plus(postcode), urllib.quote_plus(name)
-        )
-        return HttpResponseRedirect(democlub_hassle_url)
+        democlub_redirect = subscribe_form.cleaned_data['democlub_redirect']
+        if democlub_redirect:
+            democlub_hassle_url = seat.democracyclub_url() + "?email=%s&postcode=%s&name=%s" % (
+                    urllib.quote_plus(email), urllib.quote_plus(postcode), urllib.quote_plus(name)
+            )
+            return HttpResponseRedirect(democlub_hassle_url)
 
         # For later when we have form even if have got all candidates answers
-        #return render_to_response('quiz_subscribe_thanks.html', { 
-        #    'twfy_signup':  subscribe_form.cleaned_data['twfy_signup'],
-        #    'hfymp_signup':  subscribe_form.cleaned_data['hfymp_signup'],
-        #    'seat': seat,
-        #    'email': email,
-        #    'postcode': postcode,
-        #    'name': name,
-        #    'candidacy_without_response_count':candidacy_without_response_count
-        #    } )
+        return render_to_response('quiz_subscribe_thanks.html', { 
+            'twfy_signup':  subscribe_form.cleaned_data['twfy_signup'],
+            'hfymp_signup':  subscribe_form.cleaned_data['hfymp_signup'],
+            'democlub_signup':  subscribe_form.cleaned_data['democlub_signup'],
+            'seat': seat,
+            'email': email,
+            'urlise_postcode': forms._urlise_postcode(postcode),
+            'name': name,
+            'candidacy_without_response_count':candidacy_without_response_count
+        } )
 
     return render_to_response('quiz_subscribe.html', {
         'subscribe_form' : subscribe_form
     })
-
-
+    
 

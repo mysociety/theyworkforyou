@@ -16,33 +16,32 @@
         <style>
             .ms-twfy-container{
                 margin: 0;
+                padding: 0;
             }
-            .ms-twfy-container h2{
-                font-size: 15px;
-                margin: 0px;
-            }
-            .ms-twfy-subhead{
-                font-size: 15px;
-                color: rgb(153, 153, 153);
-                margin: 0px;
+            .ms-twfy-container h2 span{
+                display: block;
+                color:rgb(153, 153, 153);
+                font-weight: normal;
             }
             .ms-twfy-container p{
-                margin: 8px 0;
+                margin: 0px 0px 8px 0px;
             }
             .ms-twfy-item {
                 margin-top: 16px;
                 border-top: 1px solid rgb(153, 153, 153);
+                padding 0;
                 clear: both;
             }
             .ms-twfy-q {
-                font-size: 16px;
+                margin-top: 4px;
+                font-size: 14px;
             }
             .ms-twfy-a{
-                font-size: 13px;
                 float: left;
-                width: 90px;
-                padding: 2px;
-                margin: 6px 0;
+                width: 88px;
+                padding: 3px 0px 6px 2px;
+                font-size: 95%;
+                margin: 12px 0;
             }
             .ms-twfy-no{
                 color: rgb(153, 153, 153);
@@ -53,17 +52,17 @@
                 background-color: rgb(110, 29, 16);
             }
         </style>
-        <div class="ms-twfy-container">
+        <div class="ms-twfy-container" style="width:460px;">
             <div class="hd">
                 <h2>
                     TheyWorkForYou questionnaire
+                    <span>
+                        Candidates give their response to a series of policy positions
+                    </span>
                 </h2>
             </div>
-            <div class="ms-twfy-subhead">
-                Candidates give their response to a series of policy positions
-            </div>
             <p>
-                <a href="#">Candidate's full explanation</a>
+                <a href="{{url_for_seat}}">Candidate's full explanation</a>
             </p>
             {% for sr in candidacy.surveyresponse_set %}
                 <div class="ms-twfy-item">
@@ -73,20 +72,17 @@
                                 Local:
                         {% endif %}
                         {% if sr.refined_issue.short_name %}
-                                {{sr.refined_issue.short_name}}:
+                                <!--{{sr.refined_issue.short_name}}:-->
                         {% endif %}
                         "{{sr.refined_issue.question}}"
                     </div>
                     {% for value, label in result_labels %}
-                    
                         <div class="ms-twfy-a ms-twfy-{% ifequal value sr.agreement %}yes{%else%}no{%endifequal%}">
                             {{ label|safe }}
                         </div>
                     {% endfor %}
-                    </div>
                 </div>
             {% endfor %}
-        </ol>
         </div>
     {% endif %}
 {% endif %}
