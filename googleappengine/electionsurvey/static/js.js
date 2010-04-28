@@ -30,6 +30,11 @@ $(function(){
     $('table.answers tr.what-you-think a').click(function() {
 	    $(this).css('background-color', '#eee');
 	    var table = $(this).parents('table.answers');
+	    var cell = $(this).parent();
+	    $('tr > td', table).css('background-color', '#fff');
+	    column = cell.parent("tr").children().index(cell) + 1;
+	    $('tr > td:nth-child('+column+')[class!=explanation]', table).css('background-color', '#ffc');
+	    var colindex = $.inArray($(this).parents('td'), $('td', $(this).parents('tr')));
 	    table.find('tr.what-they-think').fadeIn(600);
 	    table.find('.explanation').css('visibility', 'visible');
 	    table.find('.you').html('<strong>You</strong>');

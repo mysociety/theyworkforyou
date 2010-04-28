@@ -42,7 +42,6 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
     float: left;
     margin-right: 0.5em;
     padding-top: 0.25em;
-    border: solid 1px #999999;
 }
 
 .statement_body {
@@ -164,7 +163,7 @@ html.js ul.answers div.full_answers {
 blockquote {
     font-size: 1.5em;
     background: url(blockquote.png) no-repeat 0 0;
-    padding: 10px 15px 32px 60px;
+    padding: 10px 15px 0 60px;
     margin: 0;
     width: 620px;
 }
@@ -194,7 +193,7 @@ div.full_answers table.answers td {
 }
 
 div.full_answers table.answers tr {
- border-bottom: 1px solid #4D6C25;
+ border-bottom: 1px solid #ddd;
 }
 
 div.full_answers table.answers tr.has-explanation {
@@ -217,7 +216,7 @@ div.full_answers table.answers .explanation {
 div.full_answers table.answers th {
  width: 5em;
 }
-div.full_answers table.answers th.who {
+div.full_answers table.answers td.you {
  width: 15em;
 }
 
