@@ -194,6 +194,8 @@ def task_invite_candidacy_survey(request, candidacy_key_name):
     candidacy = Candidacy.get_by_key_name(candidacy_key_name)
     if candidacy.survey_invite_emailed:
         return HttpResponse("Given up, already emailed")
+    if candidacy.survey_filled_in:
+        return HttpResponse("Given up, already filled in")
 
     # Get email and name
     to_email = candidacy.candidate.validated_email()
@@ -253,11 +255,14 @@ on behalf of the voters of %s constituency
 def survey_stats_json(request):
     candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False))
     emailed_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_invite_emailed =', True))
+    posted_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_invite_posted =', True))
     filled_in_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_filled_in =', True))
 
     result = { 'candidacy_count': candidacy_count,
                'emailed_candidacy_count': emailed_candidacy_count,
-               'filled_in_candidacy_count': filled_in_candidacy_count }
+               'posted_candidacy_count': posted_candidacy_count,
+               'filled_in_candidacy_count': filled_in_candidacy_count 
+    }
 
     return HttpResponse(json.dumps(result))
 
@@ -270,6 +275,8 @@ def survey_candidacies_json(request):
         item = { 'ynmp_id': c.ynmp_id,
             'survey_invite_emailed': c.survey_invite_emailed,
             'survey_invite_sent_to_emails': c.survey_invite_sent_to_emails,
+            'survey_invite_posted': c.survey_invite_posted,
+            'survey_invite_sent_to_addresses': c.survey_invite_sent_to_addresses,
             'survey_filled_in': c.survey_filled_in,
             'survey_filled_in_when': c.survey_filled_in_when and c.survey_filled_in_when.strftime('%Y-%m-%dT%H:%M:%S') or None
         }
@@ -446,6 +453,8 @@ def admin_stats(request):
     deleted_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted =', True))
     emailed_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_invite_emailed =', True))
     deleted_emailed_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', True).filter('survey_invite_emailed =', True))
+    posted_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_invite_posted =', True))
+    deleted_posted_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', True).filter('survey_invite_posted =', True))
     filled_in_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_filled_in =', True))
     deleted_filled_in_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', True).filter('survey_filled_in =', True))
 
@@ -463,6 +472,8 @@ def admin_stats(request):
             'deleted_candidacy_count': deleted_candidacy_count,
         'emailed_candidacy_count': emailed_candidacy_count, 
             'deleted_emailed_candidacy_count': deleted_emailed_candidacy_count,
+        'posted_candidacy_count': posted_candidacy_count, 
+            'deleted_posted_candidacy_count': deleted_posted_candidacy_count,
         'filled_in_candidacy_count': filled_in_candidacy_count, 
             'deleted_filled_in_candidacy_count': deleted_filled_in_candidacy_count,
         'refined_issue_count': refined_issue_count,
@@ -571,7 +582,8 @@ def quiz_main(request, seat, postcode):
         'party_image_url': candidacies_by_key[k].candidate.party.image_url(),
         'yournextmp_url': candidacies_by_key[k].candidate.yournextmp_url(),
         'hassle_url': seat.democracyclub_url() + "#candidates",
-        'survey_invite_emailed': candidacies_by_key[k].survey_invite_emailed
+        'survey_invite_emailed': candidacies_by_key[k].survey_invite_emailed,
+        'survey_invite_posted': candidacies_by_key[k].survey_invite_posted
     } for k in candidacies_without_response_key]
 
     subscribe_form = forms.MultiServiceSubscribeForm(initial={ 

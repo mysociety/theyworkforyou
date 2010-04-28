@@ -4,7 +4,7 @@
         {% include "_quiz_candidacy.html" %} 
       </td>
       <td colspan="5">
-        {% if candidacy.survey_invite_emailed %} 
+        {% if candidacy.survey_invite_emailed or candidacy.survey_invite_posted %} 
             has <strong>not yet</strong> gone on the record. 
         {% else %}
             has <strong>not been asked </strong> yet.
