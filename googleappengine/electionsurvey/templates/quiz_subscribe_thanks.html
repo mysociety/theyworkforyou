@@ -7,23 +7,12 @@
 
 {% block content %}
 
-
-{% if democlub_signup %}
-    <h2>Thanks! Now check your email</h2>
-    <p>You'll find an email from DemocracyClub. Follow the instructions
-    in it to begin asking your MP candidates to fill in the survey.
-    </p>
-{% else %}
-    <h2>Thanks!</h2>
-{% endif %}
-
 {% if candidacy_without_response_count %}
 <p>
  You are now being redirected to a page on Democracy Club where you can chase up your candidates, or <a href="{{ seat.democracyclub_url }}?email={{email|escape}}&postcode={{postcode|escape}}&name={{name|escape}}">go directly to the candidates page</a>.
-
-<a href="http://democlub:8010/constituencies/aberconwy/?email={{email|escape}}&postcode={{postcode|escape}}&name={{name|escape}}">go directly to the candidates page</a>.
 </p>
 {% endif %}
+
 {% if twfy_signup or hfymp_signup %}
     <h2>After the election...</h2>
 {% endif %}

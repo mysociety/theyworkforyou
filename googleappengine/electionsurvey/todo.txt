@@ -9,12 +9,7 @@ Try the actual signup
 Put in name of constituency near top of page
 When there are no candidates change "Scan the issues, and select how you feel about them"
 Check what happens when you've got all candidates answered
-
-    Depending on which boxes you tick, you will be
-    subscribed to DemocracyClub, so you can help out with
-    tasks before the election. After the election, you
-    will receive emails asking you to confirm any
-    subscriptions to TheyWorkForYou and HearFromYourMP.
+    and make it have a signup form
 
 Make "what do you think?" text more obvious
 

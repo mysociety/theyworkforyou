@@ -13,6 +13,7 @@ import urllib2
 import urllib
 import re
 import collections
+import urllib
 
 from google.appengine.api import urlfetch
 from google.appengine.api.datastore_types import Key
@@ -586,20 +587,24 @@ def quiz_subscribe(request):
         )
         post_election_signup.put()
 
-        #if subscribe_form.cleaned_data['democlub_signup']:
-        #    raise Exception('todo: democracy club signup')
         candidacy_without_response_count = request.POST.get('candidacy_without_response_count',0)
         seat = forms._postcode_to_constituency(postcode)
-        return render_to_response('quiz_subscribe_thanks.html', { 
-            'twfy_signup':  subscribe_form.cleaned_data['twfy_signup'],
-            'hfymp_signup':  subscribe_form.cleaned_data['hfymp_signup'],
-            'democlub_signup':  subscribe_form.cleaned_data['democlub_signup'],
-            'seat': seat,
-            'email': email,
-            'postcode': postcode,
-            'name': name,
-            'candidacy_without_response_count':candidacy_without_response_count
-            } )
+
+        democlub_hassle_url = seat.democracyclub_url() + "?email=%s&postcode=%s&name=%s" % (
+                urllib.quote_plus(email), urllib.quote_plus(postcode), urllib.quote_plus(name)
+        )
+        return HttpResponseRedirect(democlub_hassle_url)
+
+        # For later when we have form even if have got all candidates answers
+        #return render_to_response('quiz_subscribe_thanks.html', { 
+        #    'twfy_signup':  subscribe_form.cleaned_data['twfy_signup'],
+        #    'hfymp_signup':  subscribe_form.cleaned_data['hfymp_signup'],
+        #    'seat': seat,
+        #    'email': email,
+        #    'postcode': postcode,
+        #    'name': name,
+        #    'candidacy_without_response_count':candidacy_without_response_count
+        #    } )
 
     return render_to_response('quiz_subscribe.html', {
         'subscribe_form' : subscribe_form
