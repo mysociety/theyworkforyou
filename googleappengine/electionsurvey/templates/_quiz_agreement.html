@@ -2,27 +2,27 @@
 			  <td>
                             {% include "_quiz_candidacy.html" %}
 			  </td>
-			  <td>
+			  <td class="agreement-col">
 			    {% ifequal candidacy.agreement 100 %}
 			     <span class="agreement">{{ candidacy.agreement_verb }}</span>
 			    {% endifequal %}
 			  </td>
-			  <td>
+			  <td class="agreement-col">
 			    {% ifequal candidacy.agreement 75 %}
 			     <span class="agreement">{{ candidacy.agreement_verb }}</span>
 			    {% endifequal %}
 			  </td>
-			  <td>
+			  <td class="agreement-col">
 			    {% ifequal candidacy.agreement 50 %}
 			     <span class="agreement">{{ candidacy.agreement_verb }}</span>
 			    {% endifequal %}
 			  </td>
-			  <td>
+			  <td class="agreement-col">
 			    {% ifequal candidacy.agreement 25 %}
 			     <span class="agreement">{{ candidacy.agreement_verb }}</span>
 			    {% endifequal %}
 			  </td>
-			  <td>
+			  <td class="agreement-col">
 			    {% ifequal candidacy.agreement 0 %}
 			     <span class="agreement">{{ candidacy.agreement_verb }}</span>
 			    {% endifequal %}

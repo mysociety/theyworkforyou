@@ -10,6 +10,7 @@ import email.utils
 import cgi
 import datetime
 import urllib2
+import urllib
 import re
 import collections
 
@@ -20,6 +21,7 @@ from google.appengine.api import mail
 
 # XXX remember to migrate this when the API becomes stable
 from google.appengine.api.labs import taskqueue
+from google.appengine.api.urlfetch import fetch
 
 from django.forms.formsets import formset_factory
 from django.shortcuts import render_to_response, get_object_or_404
@@ -572,23 +574,32 @@ def quiz_main(request, postcode):
 def quiz_subscribe(request):
     subscribe_form = forms.MultiServiceSubscribeForm(request.POST)
     if subscribe_form.is_valid():
+        name = subscribe_form.cleaned_data['name']
+        email = subscribe_form.cleaned_data['email']
+        postcode = subscribe_form.cleaned_data['postcode']
         post_election_signup = PostElectionSignup(
-                name = subscribe_form.cleaned_data['name'],
-                email = subscribe_form.cleaned_data['email'],
-                postcode = subscribe_form.cleaned_data['postcode'],
+                name = name,
+                email = email,
+                postcode = postcode,
                 theyworkforyou = subscribe_form.cleaned_data['twfy_signup'],
                 hearfromyourmp = subscribe_form.cleaned_data['hfymp_signup']
         )
         post_election_signup.put()
 
-        if subscribe_form.cleaned_data['democlub_signup']:
-            raise Exception('todo: democracy club signup')
-
+        #if subscribe_form.cleaned_data['democlub_signup']:
+        #    raise Exception('todo: democracy club signup')
+        candidacy_without_response_count = request.POST.get('candidacy_without_response_count',0)
+        seat = forms._postcode_to_constituency(postcode)
         return render_to_response('quiz_subscribe_thanks.html', { 
             'twfy_signup':  subscribe_form.cleaned_data['twfy_signup'],
             'hfymp_signup':  subscribe_form.cleaned_data['hfymp_signup'],
             'democlub_signup':  subscribe_form.cleaned_data['democlub_signup'],
-        } )
+            'seat': seat,
+            'email': email,
+            'postcode': postcode,
+            'name': name,
+            'candidacy_without_response_count':candidacy_without_response_count
+            } )
 
     return render_to_response('quiz_subscribe.html', {
         'subscribe_form' : subscribe_form

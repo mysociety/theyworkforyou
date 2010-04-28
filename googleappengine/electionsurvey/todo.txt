@@ -13,6 +13,13 @@ Grep for have sent email, and add have sent post as well (in a few days time, Th
 - Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
+Depending on which boxes you tick, you will be
+subscribed to DemocracyClub, so you can help out with
+tasks before the election. After the election, you
+will receive emails asking you to confirm any
+subscriptions to TheyWorkForYou and HearFromYourMP.
+
+
 Top text is a bit wordy and looks like standard gumpf, needs to be more prominent
     and link to the bottom form
 When there are no candidates, put form at top
