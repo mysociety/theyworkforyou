@@ -38,6 +38,9 @@ $(function(){
 	    table.find('tr.what-they-think').fadeIn(600);
 	    table.find('.explanation').css('visibility', 'visible');
 	    table.find('.you').html('<strong>You</strong>');
+
+	    var li = $(this).closest('li.answer');
+	    $('html,body').animate({ 'scrollTop': li.offset().top });
 	    return false;
 	});
 
