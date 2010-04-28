@@ -19,6 +19,7 @@ from google.appengine.api import urlfetch
 from google.appengine.api.datastore_types import Key
 from google.appengine.ext import db
 from google.appengine.api import mail
+from google.appengine.api import memcache
 
 # XXX remember to migrate this when the API becomes stable
 from google.appengine.api.labs import taskqueue
@@ -538,14 +539,8 @@ def quiz_by_postcode(request, postcode):
     seat = forms._postcode_to_constituency(postcode)
     return quiz_main(request, seat, postcode)
 
-# For voters to learn about candidates
-def quiz_main(request, seat, postcode):
-    display_postcode = ""
-    url_postcode = ""
-    if postcode:
-        display_postcode = forms._canonicalise_postcode(postcode)
-        url_postcode = forms._urlise_postcode(postcode)
-
+# Used for quiz_main below
+def _get_quiz_main_params(seat):
     # find all the candidates
     candidacies = seat.candidacy_set.filter("deleted = ", False).fetch(1000)
     candidacies_by_key = {}
@@ -584,6 +579,26 @@ def quiz_main(request, seat, postcode):
         'survey_invite_posted': candidacies_by_key[k].survey_invite_posted
     } for k in candidacies_without_response_key]
 
+    return { 'candidacies_without_response' : candidacies_without_response,
+        'candidacy_count' : len(candidacies),
+        'candidacy_with_response_count' : len(candidacies) - len(candidacies_without_response),
+        'candidacy_without_response_count' : len(candidacies_without_response),
+        'national_answers' : national_answers,
+        'local_answers' : local_answers,
+        'local_issues_count' : len(local_issues),
+    }
+
+
+# For voters to learn about candidates
+def quiz_main(request, seat, postcode):
+    display_postcode = ""
+    url_postcode = ""
+    if postcode:
+        display_postcode = forms._canonicalise_postcode(postcode)
+        url_postcode = forms._urlise_postcode(postcode)
+
+    params = _get_quiz_main_params(seat)
+
     subscribe_form = forms.MultiServiceSubscribeForm(initial={ 
         'postcode': display_postcode,
         'democlub_signup': True,
@@ -591,19 +606,11 @@ def quiz_main(request, seat, postcode):
         'hfymp_signup': True,
     })
 
-    return render_to_response('quiz_main.html', {
-        'seat' : seat,
-        'candidacies_without_response' : candidacies_without_response,
-        'candidacy_count' : len(candidacies),
-        'candidacy_with_response_count' : len(candidacies) - len(candidacies_without_response),
-        'candidacy_without_response_count' : len(candidacies_without_response),
-        'national_answers' : national_answers,
-        'local_answers' : local_answers,
-        'local_issues_count' : len(local_issues),
-        'postcode' : postcode,
-        'subscribe_form' : subscribe_form
-    })
+    params['seat'] = seat
+    params['postcode'] = postcode
+    params['subscribe_form'] = subscribe_form
 
+    return render_to_response('quiz_main.html', params)
 
 # Subscribing to DemocracyClub / TheyWorkForYou / HearFromYourMP
 def quiz_subscribe(request):
