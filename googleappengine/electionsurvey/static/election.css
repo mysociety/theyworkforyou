@@ -42,7 +42,6 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
     float: left;
     margin-right: 0.5em;
     padding-top: 0.25em;
-    border: solid 1px #999999;
 }
 
 .statement_body {
@@ -82,12 +81,9 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
 .answer {
     overflow: auto;
 }
-li.answer:nth-child(2n) {
-    background-color: #eeeeee;
-}
 
 li.answer .statement {
-    padding: 0.5em;
+    padding: 0;
     cursor: pointer;
     cursor: hand;
 }
@@ -95,9 +91,6 @@ li.answer .full_answers {
     padding: 0.5em;
 }
 
-li.opened {
-    border: dotted 2px #333333;
-}
 
 .full_answers > ul > li {
     border-top: dotted 1px #999999;
@@ -110,9 +103,6 @@ li.opened {
     padding: 0;
 }
 
-li.answer.hovering, .hovering {
-    background-color: #ffffcc;
-}
 
 span.findout {
     margin-left: 0.5em;
@@ -167,7 +157,77 @@ div.national_selection {
 }
 
 html.js ul.answers div.full_answers {
-    display: none;
+    display: block;
+}
+
+blockquote {
+    font-size: 1.5em;
+    background: url(blockquote.png) no-repeat 0 0;
+    padding: 10px 15px 0 60px;
+    margin: 0;
+    width: 620px;
+}
+
+div.horizontal.agreement ul li {
+    display: inline;
+}
+
+div.main {float: none; width: auto; margin: 0; padding: 0;position:relative;}
+
+div.full_answers table.answers {
+ border-collapse: collapse;
+ width: 700px;
+ margin: 0;
+}
+
+div.full_answers table.answers td,
+div.full_answers table.answers th {
+ padding: 5px;
+}
+
+div.full_answers table.answers,
+div.full_answers table.answers tr,
+div.full_answers table.answers th,
+div.full_answers table.answers td {
+ text-align: left;
+}
+
+div.full_answers table.answers tr {
+ border-bottom: 1px solid #ddd;
+}
+
+div.full_answers table.answers tr.has-explanation {
+ border-bottom: none;
+}
+
+div.full_answers table.answers th.explanation {
+ width: 15em;
+}
+
+div.full_answers table.answers tr.what-they-think {
+ display: none;
+}
+
+div.full_answers table.answers th.who,
+div.full_answers table.answers .explanation {
+ visibility: hidden;
+}
+
+div.full_answers table.answers th {
+ width: 5em;
+}
+div.full_answers table.answers td.you {
+ width: 15em;
+}
+
+table.answers tr.what-you-think a,
+table.answers tr.what-they-think span.agreement {
+ padding: 5px;
+ display: block;
+}
+
+table.answers tr.what-they-think span.agreement {
+ background-color: #eee;
 }
 
 #subscribe_box {

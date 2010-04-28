@@ -1,4 +1,38 @@
-<strong>{{ candidacy.agreement_verb }}</strong>.
-{% if candidacy.more_explanation %} They say <em>&ldquo;{{ candidacy.more_explanation }}&rdquo;</em>{% endif %}
-</div>
-<div class="clear_statement"></div>
+                        <tr class="what-they-think{% if candidacy.more_explanation %} has-explanation{% endif %}">
+			  <td>
+                            {% include "_quiz_candidacy.html" %}
+			  </td>
+			  <td>
+			    {% ifequal candidacy.agreement 100 %}
+			     <span class="agreement">{{ candidacy.agreement_verb }}</span>
+			    {% endifequal %}
+			  </td>
+			  <td>
+			    {% ifequal candidacy.agreement 75 %}
+			     <span class="agreement">{{ candidacy.agreement_verb }}</span>
+			    {% endifequal %}
+			  </td>
+			  <td>
+			    {% ifequal candidacy.agreement 50 %}
+			     <span class="agreement">{{ candidacy.agreement_verb }}</span>
+			    {% endifequal %}
+			  </td>
+			  <td>
+			    {% ifequal candidacy.agreement 25 %}
+			     <span class="agreement">{{ candidacy.agreement_verb }}</span>
+			    {% endifequal %}
+			  </td>
+			  <td>
+			    {% ifequal candidacy.agreement 0 %}
+			     <span class="agreement">{{ candidacy.agreement_verb }}</span>
+			    {% endifequal %}
+			  </td>
+                        </tr>
+                        {% if candidacy.more_explanation %}
+			 <tr class="what-they-think">
+			   <td></td>
+			   <td class="explanation" colspan="5">
+                            <em>&ldquo;{{ candidacy.more_explanation }}&rdquo;</em>
+			  </td>
+			 </tr>
+			{% endif %}

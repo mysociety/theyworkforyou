@@ -1,16 +1,16 @@
 {% for candidacy in candidacies_without_response %}
-    <li>
+    <tr class="what-they-think">
+      <td>
         {% include "_quiz_candidacy.html" %} 
+      </td>
+      <td colspan="5">
         {% if candidacy.survey_invite_emailed %} 
             has <strong>not yet</strong> gone on the record. 
-            <a href="{{ candidacy.hassle_url }}">Tell them you want an answer</a>.
         {% else %}
             has <strong>not been asked </strong> yet.
-            <a href="{{ candidacy.yournextmp_url }}">Tell us their email address</a>.
         {% endif %}
-        </div>
-        <div class="clear_statement"></div>
-    </li>
+        </td>
+      </tr>
 {% endfor %} 
 
 
