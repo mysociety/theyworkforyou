@@ -21,35 +21,36 @@
                 font-size: 15px;
                 margin: 0px;
             }
-            .ms-twfy-container p{
+            .ms-twfy-subhead{
                 font-size: 15px;
                 color: rgb(153, 153, 153);
                 margin: 0px;
             }
+            .ms-twfy-container p{
+                margin: 8px 0;
+            }
             .ms-twfy-item {
                 margin-top: 16px;
-                border-top: 1px dotted rgb(153, 153, 153);
+                border-top: 1px solid rgb(153, 153, 153);
+                clear: both;
             }
             .ms-twfy-q {
                 font-size: 16px;
             }
-            .ms-twfy-a-100{
-                background-color: #00ff00;
+            .ms-twfy-a{
+                font-size: 13px;
+                float: left;
+                width: 90px;
+                padding: 2px;
+                margin: 6px 0;
             }
-            .ms-twfy-a-75{
-                background-color: #99ff99;
+            .ms-twfy-no{
+                color: rgb(153, 153, 153);
+                background-color: rgb(245, 245, 245);
             }
-            .ms-twfy-a-50{
-                background-color: #cccccc;
-            }
-            .ms-twfy-a-25{
-                background-color: #ff9999;
-            }
-            .ms-twfy-a-0{
-                background-color: #ff0000;
-            }
-            .ms-twfy-a-none{
-                
+            .ms-twfy-yes{
+                color: rgb(255, 255, 255);
+                background-color: rgb(110, 29, 16);
             }
         </style>
         <div class="ms-twfy-container">
@@ -58,8 +59,11 @@
                     TheyWorkForYou questionnaire
                 </h2>
             </div>
-            <p>
+            <div class="ms-twfy-subhead">
                 Candidates give their response to a series of policy positions
+            </div>
+            <p>
+                <a href="#">Candidate's full explanation</a>
             </p>
             {% for sr in candidacy.surveyresponse_set %}
                 <div class="ms-twfy-item">
@@ -71,10 +75,14 @@
                         {% if sr.refined_issue.short_name %}
                                 {{sr.refined_issue.short_name}}:
                         {% endif %}
-                        {{sr.refined_issue.question}}
+                        "{{sr.refined_issue.question}}"
                     </div>
-                    <div class="ms-twfy-a-{{sr.agreement}}">
-                        {{sr.verb}}
+                    {% for value, label in result_labels %}
+                    
+                        <div class="ms-twfy-a ms-twfy-{% ifequal value sr.agreement %}yes{%else%}no{%endifequal%}">
+                            {{ label|safe }}
+                        </div>
+                    {% endfor %}
                     </div>
                 </div>
             {% endfor %}
