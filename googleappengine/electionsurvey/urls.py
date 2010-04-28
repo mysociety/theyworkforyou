@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^survey/seat/$', redirect_to, {'url' : '/survey/seat'} ),
 
     url(r'^quiz$', views.quiz_ask_postcode),
+    url(r'^quiz/subscribe$', views.quiz_subscribe),
     url(r'^quiz/(?P<postcode>.+)$', views.quiz_main),
 
     url(r'^quiz/$', redirect_to, {'url' : '/quiz'} ),

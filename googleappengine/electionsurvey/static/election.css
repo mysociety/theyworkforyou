@@ -10,6 +10,9 @@ h2 {
 #error {
     color: #990000;
 }
+.errorlist {
+    color: #990000;
+}
 
 #topmenu {
     height: 2px;

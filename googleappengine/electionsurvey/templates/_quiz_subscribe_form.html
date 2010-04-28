@@ -5,7 +5,11 @@
     attention to what our MPs do once elected.  Please sign up so we can update you 
     on what your new MP gets up to.</p>
 
-    <form method="post" action="/subscribe" id="subscribe_form">
+    {% if subscribe_form.errors %}
+        {{ subscribe_form.errors }}
+    {% endif %}
+
+    <form method="post" action="/quiz/subscribe" id="subscribe_form">
         <p>
             <strong>{{ subscribe_form.name.label_tag }}</strong>
             {{ subscribe_form.name }}

@@ -525,7 +525,7 @@ def quiz_main(request, postcode):
         'survey_invite_emailed': candidacies_by_key[k].survey_invite_emailed
     } for k in candidacies_without_response_key]
 
-    subscribe_form = forms.MultiServiceSubscribeForm({ 
+    subscribe_form = forms.MultiServiceSubscribeForm(initial={ 
         'postcode': display_postcode,
         'democlub_signup': True,
         'twfy_signup': True,
@@ -546,6 +546,15 @@ def quiz_main(request, postcode):
     })
 
 
+# Subscribing to DemocracyClub / TheyWorkForYou / HearFromYourMP
+def quiz_subscribe(request):
+    subscribe_form = forms.MultiServiceSubscribeForm(request.POST)
+    if subscribe_form.is_valid():
+        raise Exception("valid, do your stuff here")
+
+    return render_to_response('quiz_subscribe.html', {
+        'subscribe_form' : subscribe_form
+    })
 
 
 
