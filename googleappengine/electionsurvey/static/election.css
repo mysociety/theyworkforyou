@@ -49,8 +49,12 @@ div.full_answers table.answers td.agreement-col{
     padding-top: 0.25em;
 }
 .block_party_image {
+    border: solid 1px #999999;
 }
 
+div.missing {
+    background-color: #ffeecc;
+}
 
 .statement_body {
     margin-top: 0.5em;
@@ -183,7 +187,16 @@ div.horizontal.agreement ul li {
 
 body#quiz div.main {
     float: none;
-    width: auto;
+    margin: 0 auto;
+    width: 52em;
+}
+
+body#quiz h3 {
+    margin-top: 2em;
+}
+
+p.inter_link {
+    margin-bottom: 0;
 }
 
 div.full_answers table.answers {

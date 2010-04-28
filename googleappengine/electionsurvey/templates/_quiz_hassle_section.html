@@ -1,4 +1,5 @@
 {% if candidacies_without_response %}
+<div class="missing">
     <h2>Help us get answers from all your candidates!</h2>
 
     {% if candidacy_with_response_count %}
@@ -28,7 +29,7 @@
 
         {% include "_quiz_subscribe_form.html" %}
     {% endif %}
-                
+</div> 
 {% else %}
     <h2>Welcome to our election survey!</h2>
 
