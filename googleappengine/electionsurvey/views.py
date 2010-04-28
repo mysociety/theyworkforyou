@@ -31,7 +31,7 @@ import django.utils.simplejson as json
 from ratelimitcache import ratelimit
 
 import forms
-from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse
+from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse, PostElectionSignup
 
 # Front page of election site
 def index(request):
@@ -550,7 +550,15 @@ def quiz_main(request, postcode):
 def quiz_subscribe(request):
     subscribe_form = forms.MultiServiceSubscribeForm(request.POST)
     if subscribe_form.is_valid():
-        raise Exception("valid, do your stuff here")
+        post_election_signup = PostElectionSignup(
+                name = subscribe_form.cleaned_data['name'],
+                email = subscribe_form.cleaned_data['email'],
+                postcode = subscribe_form.cleaned_data['postcode'],
+                theyworkforyou = subscribe_form.cleaned_data['twfy_signup'],
+                hearfromyourmp = subscribe_form.cleaned_data['hfymp_signup']
+        )
+        post_election_signup.put()
+        return render_to_response('quiz_subscribe_thanks.html', {} )
 
     return render_to_response('quiz_subscribe.html', {
         'subscribe_form' : subscribe_form

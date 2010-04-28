@@ -233,8 +233,8 @@ class PostElectionSignup(db.Model):
     email = db.StringProperty()
     postcode = db.StringProperty()
 
-    hearfromyourmp = db.BooleanProperty()
     theyworkforyou = db.BooleanProperty()
+    hearfromyourmp = db.BooleanProperty()
 
 
 
