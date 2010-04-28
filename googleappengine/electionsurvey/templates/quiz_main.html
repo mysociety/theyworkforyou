@@ -9,7 +9,7 @@
 <h2>Scan the issues, and select how you feel about them</h2>
 
 <h4 id="local">Local statements (for {{ seat.name }} constituency)</h4>
-<p class="inter_link">(<a href="#national">National statements</a>)</p>
+<p class="inter_link">(<a href="#national">skip to national statements</a>)</p>
     {% if local_issues_count %}
         <ul class="answers local">
             {% for local_answer in local_answers %}
@@ -40,7 +40,7 @@
     {% endif %}
 
 <h3 id="national">National statements</h3>
-<p class="inter_link">(<a href="#local">Local statements</a>)</p>
+<p class="inter_link">(<a href="#local">back to local statements</a>)</p>
     <ul class="answers national">
         {% for national_answer in national_answers %}
         <li class="answer">
