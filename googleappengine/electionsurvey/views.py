@@ -310,6 +310,15 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
     candidate_id_mapping = False
     error_message = ""
     debug_message = ""
+    # note these Guardian lables are not quite the same as the TWFY verb defaults
+    # And these are set up to start with agreement ;-)
+    result_labels = (
+        (100, "Strongly<br/>agree"),
+        (75, "Agree<br/>&nbsp;"),
+        (50, "Neither&nbsp;agree<br/>nor&nbsp;disagree"),
+        (25, "Disagree<br/>&nbsp;"),
+        (0, "Strongly<br/>disagree")
+        )
     if aristotle_id:
         try:
             aristotle_id = int(aristotle_id)
@@ -391,11 +400,13 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
                 error_message = "No exact name match (%s), no seat found matching (%s)" % (candidate_code, seat_code)
         if candidacy:
             found_name = candidacy.candidate.name
+            
     if not error_message:
         error_message = "OK"
     return render_to_response('guardian_candidate.html', {
       'name_canonical': found_name, 
       'candidacy': candidacy, 
+      'result_labels': result_labels,
       'error_message': error_message,
       'debug_message': "aristotle_id=%s, raw_name=%s, raw_const_name=%s\n  %s" % (aristotle_id, raw_name, raw_const_name, debug_message)
     })
