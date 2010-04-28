@@ -59,6 +59,9 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 	// Sends an email to BUGSLIST.
 	global $PAGE;
 
+    # Ignore errors we've asked to ignore
+    if (error_reporting()==0) return;
+
    // define an assoc array of error string
    // in reality the only entries we should
    // consider are E_WARNING, E_NOTICE, E_USER_ERROR,
