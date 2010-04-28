@@ -13,11 +13,13 @@
         </p>
 
         <p>
-            However, 
+            However, candidates from the following parties have not yet put their views on record.
+        </p>
+
+        <p>
             {% for candidacy in candidacies_without_response %}
-                {% if forloop.last %} and {% endif %}<strong>{{ candidacy.name }}</strong> ({{ candidacy.party }}){% if not forloop.last %},{% else %}{% endif %}
+            {% if candidacy.party_image_url %}<img class="block_party_image" src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}" title="{{ candidacy.name }} ({{ candidacy.party}})">{% else %}{{ candidacy.party}}{% endif %}
             {% endfor %} 
-            have not yet put their views on the record.
         </p>
 
         <p>
@@ -106,7 +108,7 @@
         <p>We've not got survey results for candidates in any of these parties:</p>
         <div>
         {% for candidacy in candidacies_without_response %}
-            {% if candidacy.party_image_url %}<img class="party_image" src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}">{% else %}{{ candidacy.party}}{% endif %}
+            {% if candidacy.party_image_url %}<img class="block_party_image" src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}">{% else %}{{ candidacy.party}}{% endif %}
         {% endfor %} 
         </div>
         <div class="clear_statement"></div>

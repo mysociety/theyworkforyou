@@ -1,48 +1,42 @@
 Do this next
 ============
 
-
-When survey already filled in, order is wrong (local shoudl be first)
-On main quiz, "has not been asked" when they've had postal survey is wrong
-    make admin page show postal sent too
-Grep for have sent email, and add have sent post as well (in a few days time, Thursdayish)
-
-
 "Candidates not parties" or "candidates not party leaders" is the marketing line
-- Call it candidate explorer
-- Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
+- "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
 - "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
 
-Depending on which boxes you tick, you will be
-subscribed to DemocracyClub, so you can help out with
-tasks before the election. After the election, you
-will receive emails asking you to confirm any
-subscriptions to TheyWorkForYou and HearFromYourMP.
-
-
-Top text is a bit wordy and looks like standard gumpf, needs to be more prominent
-    and link to the bottom form
-When there are no candidates, put form at top
+Put in name of constituency near top of page
+When there are no candidates change "Scan the issues, and select how you feel about them"
 Check what happens when you've got all candidates answered
-Link to skip local issues
+
+    Depending on which boxes you tick, you will be
+    subscribed to DemocracyClub, so you can help out with
+    tasks before the election. After the election, you
+    will receive emails asking you to confirm any
+    subscriptions to TheyWorkForYou and HearFromYourMP.
+
+Make "what do you think?" text more obvious
+
+Link to skip local issues, when there are lots of them
 Votematch link (search for james graham)
 Remove democlub signup link as it does redirect
 
-TheyWantToWorkForYou domain?
+Change URL/domain
     * update tweet this link
 
 Front page of TWFY
 
 
-Work out design way to get people to track MPs by email after election.
-
 Link to blog post for explanation
-
-Tidy up
 
 Log answers people give in database? So can share.
 Have a choice of candidates at the end, say who you now like most
 
+
+When survey already filled in, order is wrong (local shoudl be first)
+On main quiz, "has not been asked" when they've had postal survey is wrong
+    make admin page show postal sent too
+Grep for have sent email, and add have sent post as well (in a few days time, Thursdayish)
 
 Postal
 - * Do those for which we have postal address, but no valid email address again
