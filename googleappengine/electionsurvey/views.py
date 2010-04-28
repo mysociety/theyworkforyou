@@ -595,9 +595,23 @@ def quiz_subscribe(request):
                 postcode = postcode,
                 theyworkforyou = subscribe_form.cleaned_data['twfy_signup'],
                 hearfromyourmp = subscribe_form.cleaned_data['hfymp_signup'],
-                democracyclub = subscribe_form.cleaned_data['democlub_signup']
         )
         post_election_signup.put()
+
+        if subscribe_form.cleaned_data['democlub_signup']:
+            (first_name, space, last_name) = name.partition(" ")
+            fields = { 
+                'first_name' : first_name,
+                'last_name' : last_name,
+                'email' : email,
+                'postcode' : postcode
+            }
+            form_data = urllib.urlencode(fields)
+            result = urlfetch.fetch(url = "http://www.democracyclub.org.uk", 
+                    payload = form_data,
+                    method = urlfetch.POST)
+            if result.status_code != 200:
+                raise Exception("Error posting to DemocracyClub")
 
         candidacy_without_response_count = request.POST.get('candidacy_without_response_count',0)
         seat = forms._postcode_to_constituency(postcode)
@@ -616,10 +630,10 @@ def quiz_subscribe(request):
             'democlub_signup':  subscribe_form.cleaned_data['democlub_signup'],
             'seat': seat,
             'email': email,
-            'postcode': postcode,
+            'urlise_postcode': forms._urlise_postcode(postcode),
             'name': name,
             'candidacy_without_response_count':candidacy_without_response_count
-            } )
+        } )
 
     return render_to_response('quiz_subscribe.html', {
         'subscribe_form' : subscribe_form

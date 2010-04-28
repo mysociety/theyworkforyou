@@ -2,8 +2,15 @@
 
 {% block content %}
 
-{% if twfy_signup or hfymp_signup %}
-    <h2>After the election...</h2>
+<h2>Thank you!</h2>
+
+{% if democlub_signup %}
+    <p>
+        You will shortly receive an email where you need to confirm
+        your subscription to Democracy Club. Please check your spam filters
+        if you do not get it.
+    </p>
+
 {% endif %}
 
 {% if twfy_signup and hfymp_signup %}
@@ -21,5 +28,9 @@
     {% endif %}
 
 {% endif %}
+
+<p>
+    <a href="/quiz/{{ urlise_postcode }}">Return to the MP candidate survey results</a>
+</p>
 
 {% endblock %}
