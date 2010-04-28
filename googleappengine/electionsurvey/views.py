@@ -558,7 +558,15 @@ def quiz_subscribe(request):
                 hearfromyourmp = subscribe_form.cleaned_data['hfymp_signup']
         )
         post_election_signup.put()
-        return render_to_response('quiz_subscribe_thanks.html', {} )
+
+        if subscribe_form.cleaned_data['democlub_signup']:
+            raise Exception('todo: democracy club signup')
+
+        return render_to_response('quiz_subscribe_thanks.html', { 
+            'twfy_signup':  subscribe_form.cleaned_data['twfy_signup'],
+            'hfymp_signup':  subscribe_form.cleaned_data['hfymp_signup'],
+            'democlub_signup':  subscribe_form.cleaned_data['democlub_signup'],
+        } )
 
     return render_to_response('quiz_subscribe.html', {
         'subscribe_form' : subscribe_form
