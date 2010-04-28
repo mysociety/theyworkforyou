@@ -1,8 +1,20 @@
 Do this next
 ============
 
+
 When survey already filled in, order is wrong (local shoudl be first)
 On main quiz, "has not been asked" when they've had postal survey is wrong
+
+
+Quotes being cropped in first question, so min height needed
+"Candidates not parties" is the marketing line
+Be able to close questions
+When there are no candidates, put form at top
+Check what happens when you've got all candidates answered
+Link to skip local issues
+(12:47:57) tgreen: top text is a bit wordy and looks like standard gumpf, needs to be more prominent
+(12:48:00) tgreen: and link to the bottom form
+
 
 Work out design way to get people to track MPs by email after election.
 
