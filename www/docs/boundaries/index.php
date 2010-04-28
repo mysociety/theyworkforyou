@@ -25,7 +25,8 @@ if ($pc && !validate_postcode($pc)) {
 }
 if ($pc) {
     $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($pc)));
-	if (!$xml || $xml->error) {
+	if (!$xml) {
+    } elseif ($xml->error) {
 		print "<p>Sorry, " . htmlentities($pc) . " isn't a known postcode (or our postcode lookup is temporarily not working).</p>";
         $pc = '';
     }

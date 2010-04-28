@@ -38,7 +38,8 @@ function api_getconstituency_postcode($pc) {
 
     if (get_http_var('future')) {
 
-        $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($pc)));
+        #$xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($pc)));
+        $xml = '';
         if (!$xml) {
             $new_areas = mapit_get_voting_areas($pc, 13); # Magic number 13
             if (is_object($new_areas)) { # rabx_is_error throws Notice
