@@ -3,7 +3,7 @@
 h1 {margin: 0;padding: 0;display: inline;
 	font-size: 1px;position:relative;top:-30px;left:-12px;}
 /* Whilst banner is displayed */
-h1 { top:-12px; }
+/* h1 { top:-12px; } */
 /* Whilst banner is displayed */
 
 h2 , h2 a:link, h2 a:visited {color: #111;text-decoration:none;padding-top:1em;font-size:1.8em;}
@@ -233,7 +233,7 @@ div.sidebar p.vote a {padding:0.2em;}
 /* Homepages */
 
 div.welcome_actions {height:1%; margin-top: 2em; margin-bottom: 1em; }
-div.welcome_actions div {background:url(../../images/white.png); float:left; width:46%; margin:2%;
+div.welcome_actions div {background:url(../../images/white.png); float:left; width:46%; margin: 1.5em 2%;
         min-height:12em;}
 div.welcome_actions div h3 {color:#000;}
 div.welcome_actions #welcome_search  input.text {font-size:1.3em; width:85%;}
