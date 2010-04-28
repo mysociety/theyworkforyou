@@ -4,7 +4,9 @@
 
 {% block content %}
 
-{% include "_quiz_hassle_section.html" %}
+{% with 1 as shorter_hassle_section %}
+    {% include "_quiz_hassle_section.html" %}
+{% endwith %}
 
 <h2>Scan the issues, and select how you feel about them</h2>
 
@@ -60,7 +62,10 @@
         {% endfor %}
     </ul>
 
-{% include "_quiz_hassle_section.html" %}
+{% with 0 as shorter_hassle_section %}
+    {% include "_quiz_hassle_section.html" %}
+{% endwith %}
+
 
 </div>
 <div class="sidebar">
