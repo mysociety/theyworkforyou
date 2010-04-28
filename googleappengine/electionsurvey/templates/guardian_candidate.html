@@ -35,12 +35,11 @@
                 clear: both;
             }
             .ms-twfy-q {
-                font-size: 16px;
+                font-size: 14px;
             }
             .ms-twfy-a{
-                font-size: 13px;
                 float: left;
-                width: 90px;
+                width: 88px;
                 padding: 2px;
                 margin: 6px 0;
             }
@@ -53,7 +52,7 @@
                 background-color: rgb(110, 29, 16);
             }
         </style>
-        <div class="ms-twfy-container">
+        <div class="ms-twfy-container" style="width:460px;">
             <div class="hd">
                 <h2>
                     TheyWorkForYou questionnaire
@@ -73,20 +72,17 @@
                                 Local:
                         {% endif %}
                         {% if sr.refined_issue.short_name %}
-                                {{sr.refined_issue.short_name}}:
+                                <!--{{sr.refined_issue.short_name}}:-->
                         {% endif %}
                         "{{sr.refined_issue.question}}"
                     </div>
                     {% for value, label in result_labels %}
-                    
                         <div class="ms-twfy-a ms-twfy-{% ifequal value sr.agreement %}yes{%else%}no{%endifequal%}">
                             {{ label|safe }}
                         </div>
                     {% endfor %}
-                    </div>
                 </div>
             {% endfor %}
-        </ol>
         </div>
     {% endif %}
 {% endif %}
