@@ -13,12 +13,14 @@
                     We've got answers from {{ candidacy_with_response_count }} applicant{{ candidacy_with_response_count|pluralize }}
                     to be your MP. You can explore the answers below.
                 </p>
+                <p>
+                    However, candidates from the following parties have not yet put their views on record.
+                </p>
             {% else %}
+                <p>
+                    Thanks for reading the candidate responses. Remember to share! However, candidates from the following parties have not yet put their views on record.
+                </p>
             {% endif %}
-
-            <p>
-                However, candidates from the following parties have not yet put their views on record.
-            </p>
 
             <p>
                 {% for candidacy in candidacies_without_response %}
