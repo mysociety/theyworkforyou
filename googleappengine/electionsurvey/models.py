@@ -234,4 +234,13 @@ class AristotleToYnmpCandidateMap(db.Model):
     ynmp_id = db.IntegerProperty()
     confirmed = db.BooleanProperty(default = False)
        
+# Sign up to post election email alerts and services
+class PostElectionSignup(db.Model):
+    name = db.StringProperty()
+    email = db.StringProperty()
+    postcode = db.StringProperty()
+
+    theyworkforyou = db.BooleanProperty()
+    hearfromyourmp = db.BooleanProperty()
+
 

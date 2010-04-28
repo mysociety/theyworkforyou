@@ -131,6 +131,19 @@ class QuizPostcodeForm(forms.Form):
     postcode = MyUKPostcodeField(required=True, label = 'Enter your postcode:',
             widget=forms.TextInput(attrs={'size':'8'}))
 
+# Enter postcode at start of survey
+class MultiServiceSubscribeForm(forms.Form):
+    name = forms.CharField(required=True, label='Your name:',
+            widget=forms.TextInput(attrs={'size':'20'}))
+    email = forms.EmailField(required=True, label='Your email:',
+            widget=forms.TextInput(attrs={'size':'20'}))
+    postcode = MyUKPostcodeField(required=True, label = 'Your postcode:',
+            widget=forms.TextInput(attrs={'size':'8'}))
+
+    democlub_signup = forms.BooleanField(required=False, label='Join transparency network DemocracyClub')
+    twfy_signup = forms.BooleanField(required=False, label='Email me when my new MP speaks in Parliament')
+    hfymp_signup = forms.BooleanField(required=False, label='Hear from my new MP and discuss issues')
+
 
 
 
