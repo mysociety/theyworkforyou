@@ -186,6 +186,10 @@ div.horizontal.agreement ul li {
 }
 
 body#quiz div.main {
+    width: 52em;
+    margin-right: 1em;
+}
+body#quiz div.sidebar {
     float: none;
     width: auto;
 }
