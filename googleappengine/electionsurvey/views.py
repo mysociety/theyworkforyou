@@ -475,11 +475,13 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
                     'image_url': candidacy.candidate.image_url(),
                     'party_image_url': candidacy.candidate.party.image_url(),
                     'agreement_verb': response.verb(),
+                    'agreement': response.agreement,
                     'more_explanation': re.sub("\s+", " ",response.more_explanation.strip())
                 }
             )
         candidacies_with_response_key.add(candidacy_key)
     issue['candidacies'] = candidacies_with_response
+    issue['form'] = forms.LocalIssueQuestionForm({}, refined_issue=issue_model, candidacy=None)
     return issue
 
 # For voters to learn about candidates

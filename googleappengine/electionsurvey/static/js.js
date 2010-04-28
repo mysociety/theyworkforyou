@@ -26,30 +26,16 @@ $(function(){
         // Prevent too much text in the more explanation fields
         $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
     }
-    if ($('ul.answers').length) {
-        $('ul.answers > li div.statement').click(function(){
-          
-            var findout = $(this).find('span.findout');
-            var p = $(this).parent();
-            var full_answers = p.find('div.full_answers');
-            if (full_answers.is(":hidden")) {
-               findout.html("Hide");
-            } else {
-               findout.html("Responses &dArr;");
-            }
-            full_answers.toggle(600);
-            p.toggleClass('opened');
-            return false; // don't follow the fake link
-        }).hover(
-            function(){ $(this).addClass('hovering'); },
-            function(){ $(this).removeClass('hovering'); }
-        );
 
-        $('ul.answers a.inner_hide').click(function(){
-            $(this).closest('li.answer').find('div.statement').click();
-            return false;
-        });
-    }
+    $('table.answers tr.what-you-think a').click(function() {
+	    $(this).css('background-color', '#eee');
+	    var table = $(this).parents('table.answers');
+	    table.find('tr.what-they-think').fadeIn(600);
+	    table.find('.explanation').css('visibility', 'visible');
+	    table.find('.you').html('<strong>You</strong>');
+	    return false;
+	});
+
     if ($('form#postcode_form').length) {
         $('form#postcode_form #id_postcode').focus()
     }
