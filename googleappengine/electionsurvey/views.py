@@ -310,6 +310,7 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
     candidate_id_mapping = False
     error_message = ""
     debug_message = ""
+    url_for_seat = ""
     # note these Guardian lables are not quite the same as the TWFY verb defaults
     # And these are set up to start with agreement ;-)
     result_labels = (
@@ -400,12 +401,14 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
                 error_message = "No exact name match (%s), no seat found matching (%s)" % (candidate_code, seat_code)
         if candidacy:
             found_name = candidacy.candidate.name
+            url_for_seat = "http://election.theyworkforyou.com/quiz/seats/%s" % candidacy.seat.code
             
     if not error_message:
         error_message = "OK"
     return render_to_response('guardian_candidate.html', {
       'name_canonical': found_name, 
       'candidacy': candidacy, 
+      'url_for_seat': url_for_seat,
       'result_labels': result_labels,
       'error_message': error_message,
       'debug_message': "aristotle_id=%s, raw_name=%s, raw_const_name=%s\n  %s" % (aristotle_id, raw_name, raw_const_name, debug_message)
@@ -518,11 +521,21 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
     issue['form'] = forms.LocalIssueQuestionForm({}, refined_issue=issue_model, candidacy=None)
     return issue
 
-# For voters to learn about candidates
-def quiz_main(request, postcode):
-    display_postcode = forms._canonicalise_postcode(postcode)
-    url_postcode = forms._urlise_postcode(postcode)
+def quiz_by_code(request, code):
+    seat = db.Query(Seat).filter("code =", code).get()
+    return quiz_main(request, seat, "")
+
+def quiz_by_postcode(request, postcode):
     seat = forms._postcode_to_constituency(postcode)
+    return quiz_main(request, seat, postcode)
+
+# For voters to learn about candidates
+def quiz_main(request, seat, postcode):
+    display_postcode = ""
+    url_postcode = ""
+    if postcode:
+        display_postcode = forms._canonicalise_postcode(postcode)
+        url_postcode = forms._urlise_postcode(postcode)
 
     # find all the candidates
     candidacies = seat.candidacy_set.filter("deleted = ", False).fetch(1000)
@@ -638,6 +651,5 @@ def quiz_subscribe(request):
     return render_to_response('quiz_subscribe.html', {
         'subscribe_form' : subscribe_form
     })
-
-
+    
 

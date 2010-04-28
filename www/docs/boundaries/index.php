@@ -26,16 +26,27 @@ if ($pc && !validate_postcode($pc)) {
 if ($pc) {
     $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($pc)));
 	if (!$xml) {
+
+        $current = postcode_to_constituency($pc);
+        $new_areas = mapit_get_voting_areas($pc, 13); # Magic number 13
+        if (is_object($new_areas) || !isset($new_areas['WMC'])) {
+            $pc = '';
+        } else {
+            $new_info = mapit_get_voting_area_info($new_areas['WMC']);
+            $new = $new_info['name'];
+        }
+        $mp_name = '';
+
     } elseif ($xml->error) {
 		print "<p>Sorry, " . htmlentities($pc) . " isn't a known postcode (or our postcode lookup is temporarily not working).</p>";
         $pc = '';
+    } else {
+        $current = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_constituency);
+        $new = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency);
+        $mp_name = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_mp_name);
     }
 }
 if ($pc) {
-    $current = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_constituency);
-    $new = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency);
-    $mp_name = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_mp_name);
-
     $current_disp = str_replace('&', 'and', $current);
     $map_url_current = create_map_filename($current);
     $map_url_new = create_map_filename($new);

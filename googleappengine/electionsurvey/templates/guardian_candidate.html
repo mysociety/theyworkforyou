@@ -16,9 +16,7 @@
         <style>
             .ms-twfy-container{
                 margin: 0;
-            }
-            .ms-twfy-container h2{
-                margin: 0px;
+                padding: 0;
             }
             .ms-twfy-container h2 span{
                 display: block;
@@ -26,7 +24,7 @@
                 font-weight: normal;
             }
             .ms-twfy-container p{
-                margin: 8px 0;
+                margin: 0px 0px 8px 0px;
             }
             .ms-twfy-item {
                 margin-top: 16px;
@@ -42,6 +40,7 @@
                 float: left;
                 width: 88px;
                 padding: 3px 2px;
+                font-size: 90%;
                 margin: 12px 0;
             }
             .ms-twfy-no{
@@ -63,7 +62,7 @@
                 </h2>
             </div>
             <p>
-                <a href="#">Candidate's full explanation</a>
+                <a href="{{url_for_seat}}">Candidate's full explanation</a>
             </p>
             {% for sr in candidacy.surveyresponse_set %}
                 <div class="ms-twfy-item">
