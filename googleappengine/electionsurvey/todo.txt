@@ -3,7 +3,7 @@ Do this next
 
 On main quiz, "has not been asked" when they've had postal survey is wrong
 
-Work out design way to get people to track MPs by email after election
+Work out design way to get people to track MPs by email after election.
 
 Link to blog post for explanation
 
