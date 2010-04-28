@@ -8,7 +8,6 @@ Make it have signup form when you've got all candidates answered
 
 Link to skip local issues, when there are lots of them
 Votematch link (search for james graham)
-Remove democlub signup link as it does redirect
 
 Do we even need the short titles, or are they just clutter?
 

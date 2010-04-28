@@ -1,4 +1,4 @@
-{% if candidacies_without_response %}
+{% if candidacy_without_response_count %}
 <div class="missing">
     <h2>Help us get answers from all your candidates!</h2>
 
@@ -31,11 +31,9 @@
     {% endif %}
 </div> 
 {% else %}
-    <h2>Welcome to our election survey!</h2>
+    <h2>Keep track of your new MP after the election!</h2>
 
-    <p>
-        All the candidates in your constituency have answered the questions. You can explore the answers below.
-    </p>
+    {% include "_quiz_subscribe_form.html" %}
 {% endif %}
 
 
