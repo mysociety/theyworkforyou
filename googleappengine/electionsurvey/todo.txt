@@ -1,6 +1,8 @@
 Do this next
 ============
 
+Check gathering signups works on live site
+
 Front page of TWFY
 
 Test on different browsers

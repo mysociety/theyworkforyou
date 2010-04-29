@@ -528,7 +528,6 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
             )
         candidacies_with_response_key.add(candidacy_key)
     issue['candidacies'] = candidacies_with_response
-    issue['form'] = forms.LocalIssueQuestionForm({}, refined_issue=issue_model, candidacy=None)
     return issue
 
 def quiz_by_code(request, code):
@@ -537,6 +536,8 @@ def quiz_by_code(request, code):
 
 def quiz_by_postcode(request, postcode):
     seat = forms._postcode_to_constituency(postcode)
+    if seat == None:
+        raise Exception("Seat not found")
     return quiz_main(request, seat, postcode)
 
 # Used for quiz_main below
@@ -579,7 +580,8 @@ def _get_quiz_main_params(seat):
         'survey_invite_posted': candidacies_by_key[k].survey_invite_posted
     } for k in candidacies_without_response_key]
 
-    return { 'candidacies_without_response' : candidacies_without_response,
+    return { 
+        'candidacies_without_response' : candidacies_without_response,
         'candidacy_count' : len(candidacies),
         'candidacy_with_response_count' : len(candidacies) - len(candidacies_without_response),
         'candidacy_without_response_count' : len(candidacies_without_response),
@@ -588,6 +590,15 @@ def _get_quiz_main_params(seat):
         'local_issues_count' : len(local_issues),
     }
 
+def _get_quiz_main_params_memcached(seat):
+    key = "quiz_main_seat_" + seat.key().name()
+    data = memcache.get(key)
+    if data is not None:
+        return data
+    else:
+        data = _get_quiz_main_params(seat)
+        memcache.add(key, data, 60 * 60) # 1 hour cache
+        return data
 
 # For voters to learn about candidates
 def quiz_main(request, seat, postcode):
@@ -597,7 +608,7 @@ def quiz_main(request, seat, postcode):
         display_postcode = forms._canonicalise_postcode(postcode)
         url_postcode = forms._urlise_postcode(postcode)
 
-    params = _get_quiz_main_params(seat)
+    params = _get_quiz_main_params_memcached(seat)
 
     subscribe_form = forms.MultiServiceSubscribeForm(initial={ 
         'postcode': display_postcode,
