@@ -87,7 +87,6 @@ for candidacy in all_candidacies:
 
 put_in_batches(all_candidacies)
 
-h.close()
 
 
 
