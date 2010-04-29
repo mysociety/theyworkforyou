@@ -1,18 +1,16 @@
 $(function(){
-    //$('#container').hide(750) testing
-    
     if ($('form#electionsurvey').length) {
         var more_explanation_label_unfolded = $('ul.questions > li div.more_explanation label').html();
         var more_explanation_label_folded = "After you answer, optional space for a short explanation is available.";
 
         // Enable/disable more explanation fields at start according to status of radio buttons
-        $('ul.questions textarea').attr('disabled', 'disabled').addClass('disabled').hide();
+        $('ul.questions textarea').attr('disabled', 'disabled').addClass('disabled'); //.hide();
         $('ul.questions div.more_explanation label').html(more_explanation_label_folded);
-        $('ul.questions > li').has('input:radio:checked').find('textarea').removeAttr('disabled').removeClass('disabled').show();
+        $('ul.questions > li').has('input:radio:checked').find('textarea').removeAttr('disabled').removeClass('disabled'); //.show();
         $('ul.questions > li').has('input:radio:checked').find('div.more_explanation label').html(more_explanation_label_unfolded);
         // Allow editing of more explanations when radio button has been pressed
         $('input:radio').change(function(){
-            $(this).closest('ul.questions > li').find('textarea').removeAttr('disabled').removeClass('disabled').show(600);
+            $(this).closest('ul.questions > li').find('textarea').removeAttr('disabled').removeClass('disabled'); //.show(600);
             $(this).closest('ul.questions > li').find('div.more_explanation label').html(more_explanation_label_unfolded);
         });
 
