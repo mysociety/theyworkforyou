@@ -36,7 +36,7 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
 }
 
 div.full_answers table.answers td.agreement-col{
-    width: 5em;
+    width: 7em;
     text-align: center;
 }
 
@@ -186,7 +186,7 @@ div.horizontal.agreement ul li {
 }
 
 body#quiz div.main {
-    width: 52em;
+    width: 50em;
     margin-right: 1em;
 }
 body#quiz div.sidebar {
@@ -204,13 +204,12 @@ p.inter_link {
 
 div.full_answers table.answers {
  border-collapse: collapse;
- width: 49em;
  margin: 0;
 }
 
 div.full_answers table.answers td,
 div.full_answers table.answers th {
- padding: 5px;
+ padding: 0.25em;
 }
 
 div.full_answers table.answers,
@@ -244,6 +243,11 @@ html.js div.full_answers table.answers .explanation {
 div.full_answers table.answers th {
  width: 5em;
 }
+
+td.explanation {
+    width: 25em;
+}
+
 div.full_answers table.answers td.you {
  width: 15em;
  font-size: 115%;
@@ -251,7 +255,7 @@ div.full_answers table.answers td.you {
 
 table.answers tr.what-you-think a,
 table.answers tr.what-they-think span.agreement {
- padding: 5px;
+ padding: 0.25em;
  display: block;
  height: 2.5em;
 }
