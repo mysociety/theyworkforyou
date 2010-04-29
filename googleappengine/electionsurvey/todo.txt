@@ -12,6 +12,8 @@ Put white space below "Help us get answers from all your candidates!"
 box at bottom, so when you click internal link to it it always
 scrolls to top of browser
 
+Say more about privacy by emails
+
 
 Put constituency tag in twitter
     http://code.google.com/p/constituencyvolunteernetwork/source/browse/trunk/hashtags.py
@@ -34,15 +36,11 @@ Change domain to better one?
 Publicity
 =========
 
-Democracy Club volunteers
-mySociety developers public list
-
 mySociety news email list
 mySociety blog post
-@mysociety Tweet 
 
 Public Whip mailing
-TheyWorkForYou alerts
+TheyWorkForYou other pages
 
 
 Other things

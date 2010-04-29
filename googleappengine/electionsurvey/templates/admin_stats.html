@@ -20,9 +20,15 @@
 
 <p>
 <b>Candidacies emailed:</b> {{ emailed_candidacy_count }} active, {{ deleted_emailed_candidacy_count }} deleted
+<br><b>Candidacies posted:</b> {{ posted_candidacy_count }} active, {{ deleted_posted_candidacy_count }} deleted
 <br><b>Candidacies filled_in:</b> {{ filled_in_candidacy_count }} active, {{ deleted_filled_in_candidacy_count }} deleted
 <br><b>Total survey individual question responses:</b> {{ survey_response_count }} (might included responses to deleted questions)
 </p>
 
+<h2>Voter quiz activity</h2>
+
+<p>
+<b>Post election signup count:</b> {{ posted_election_signup_count }} active of which {{ posted_election_signup_count_none }} unchecked both TWFY/HFYMP
+</p>
 
 {% endblock %}

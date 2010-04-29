@@ -468,6 +468,9 @@ def admin_stats(request):
 
     survey_response_count = get_count(db.Query(SurveyResponse, keys_only=True))
 
+    post_election_signup_count = get_count(db.Query(PostElectionSignup, keys_only=True))
+    post_election_signup_count_none = get_count(db.Query(PostElectionSignup, keys_only=True).filter('theyworkforyou = ', False).filter('hearfromyourmp = ', False))
+
     return render_to_response('admin_stats.html', { 
         'party_count': party_count,
         'candidate_count': candidate_count, 
@@ -484,6 +487,8 @@ def admin_stats(request):
         'refined_issue_count': refined_issue_count,
             'deleted_refined_issue_count': deleted_refined_issue_count,
         'survey_response_count': survey_response_count, 
+        'post_election_signup_count': post_election_signup_count,
+            'post_election_signup_count_none': post_election_signup_count_none,
     })
 
 def admin_responses(request):
