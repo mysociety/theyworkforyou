@@ -316,8 +316,8 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
     error_message = ""
     debug_message = ""
     url_for_seat = ""
-    # note these Guardian lables are not quite the same as the TWFY verb defaults
-    # And these are set up to start with agreement ;-)
+    # note these Guardian labels are not quite the same as the TWFY verb defaults
+    # And these are set up to start with agreement (hence descending value order)
     result_labels = (
         (100, "Strongly<br/>agree"),
         (75, "Agree<br/>&nbsp;"),
@@ -331,10 +331,14 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
             candidate_id_mapping = db.Query(AristotleToYnmpCandidateMap).filter("aristotle_id =", aristotle_id).get()
         except exceptions.ValueError:
             aristotle_id = None
+            error_message = "Badly formed aristotle_id" # unexpected: urls.py prevents non-digits
         if candidate_id_mapping:
-            candidate = db.Query(Candidate).filter("ynmp_id=", candidate_id_mapping.ynmp_id).get()
             debug_message = debug_message + (" [map-hit: %s] " % candidate_id_mapping.ynmp_id)
-        if not candidate:
+            if candidate_id_mapping.ynmp_id == 0: # explicit block: *never* matches
+                error_message = "Map: blocked"
+            else:
+                candidate = db.Query(Candidate).filter("ynmp_id=", candidate_id_mapping.ynmp_id).get()
+        if not candidate and not error_message:
             url = "http://www.guardian.co.uk/politics/api/person/%s/json" % aristotle_id;
             result = urlfetch.fetch(url)
             if result.status_code == 200:
@@ -377,7 +381,8 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
             # Remember this search is because the name match didn't work already, so let's try surname
             surname = candidate_code.split('_')[-1]
             if constituency_aristotle_id and False: # TODO: lookup in aristotle:ynmp-id map
-                seat = db.Query(Seat).filter("aristotle_id =", constituency_aristotle_id).get()
+                seat_ynmp_id = constituency_aristotle_id # would be mapped
+                seat = db.Query(Seat).filter("ynmp_id =", seat_ynmp_id).get()
             else:
                 seat_code = constituency_name.lower().replace(" ", "_")
                 seat = db.Query(Seat).filter("code =", seat_code).get()
@@ -399,7 +404,9 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
                             first_name_matches.append(c)
                     if len(first_name_matches) == 1:
                         candidacy = first_name_matches[0]
-                    else: # TODO: really should disambigiute on full name here (may have middle initial?)
+                    else: 
+                        # TODO: really should disambigiute on full name here (may have middle initial?)
+                        # TODO: or maybe compare first initials which may be unique?
                         error_message = "%d matches on surname %s, %d matches on first name, in %s" % (len(surname_matches), len(first_name_matches), surname, seat.name)
                         candidacy = False
             else:
@@ -407,7 +414,7 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
         if candidacy:
             found_name = candidacy.candidate.name
             url_for_seat = "http://election.theyworkforyou.com/quiz/seats/%s" % candidacy.seat.code
-            
+    # TODO: some of these strings are included in HTML comment: should check for and collapse "--"         
     if not error_message:
         error_message = "OK"
     return render_to_response('guardian_candidate.html', {

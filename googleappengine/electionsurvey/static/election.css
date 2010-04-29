@@ -41,6 +41,7 @@ div.full_answers table.answers td.agreement-col{
 }
 
 .answers div.statement {
+    margin-bottom:0.25em;
 }
 
 .party_image {
@@ -54,6 +55,8 @@ div.full_answers table.answers td.agreement-col{
 
 div.missing {
     background-color: #ffeecc;
+    margin-left:10px;
+    padding-top:0.5em;
 }
 
 .statement_body {
@@ -179,6 +182,7 @@ blockquote {
     margin: 0;
     max-width: 610px;
     min-height: 48px;
+    letter-spacing:-0.5px;
 }
 
 div.horizontal.agreement ul li {
@@ -216,6 +220,7 @@ div.full_answers table.answers {
 div.full_answers table.answers td,
 div.full_answers table.answers th {
  padding: 0.25em;
+ padding-bottom:0.5em;
 }
 
 div.full_answers table.answers,
@@ -256,14 +261,18 @@ td.explanation {
 
 div.full_answers table.answers td.you {
  width: 15em;
- font-size: 125%;
+ font-size: 100%;
+ color:#333;
 }
 
 table.answers tr.what-you-think a,
 table.answers tr.what-they-think span.agreement {
  padding: 0.25em;
  display: block;
- height: 2.5em;
+}
+
+table.answers tr.what-they-think {
+    padding-bottom:0.5em;
 }
 
 table.answers tr.what-they-think span.agreement {
