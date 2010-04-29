@@ -1,6 +1,14 @@
 Do this next
 ============
 
+Consider sorting them by order that they answered :0
+- with a line between those who answered before/after quiz launch
+
+Put white space below "Help us get answers from all your candidates!"
+box at bottom, so when you click internal link to it it always
+scrolls to top of browser
+
+
 Put constituency tag in twitter
     http://code.google.com/p/constituencyvolunteernetwork/source/browse/trunk/hashtags.py
     slug is the same as the DC slug, except it doesnt take & into account.
@@ -28,6 +36,9 @@ mySociety developers public list
 mySociety news email list
 mySociety blog post
 @mysociety Tweet 
+
+Public Whip mailing
+TheyWorkForYou alerts
 
 
 Other things
