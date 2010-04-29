@@ -194,6 +194,12 @@ body#quiz div.sidebar {
     width: auto;
 }
 
+body#quiz div.sidebar h2 {
+    font-size:1.2em;
+    margin-bottom:0;
+}
+
+
 body#quiz h3 {
     margin-top: 2em;
 }
