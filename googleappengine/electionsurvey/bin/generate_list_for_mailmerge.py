@@ -71,6 +71,15 @@ def not_invited_candidacies():
             yield f
         fs = Candidacy.all().filter("deleted = ", False).filter("survey_invite_emailed =", False).filter("survey_invite_posted = ", False).filter("survey_filled_in =", False).filter('__key__ >', fs[-1].key()).fetch(100)
 
+def even_if_emailed_not_invited_candidacies():
+    log("Getting all candidacies")
+    fs = Candidacy.all().filter("deleted = ", False).filter("survey_invite_posted = ", False).filter("survey_filled_in =", False).fetch(100)
+    while fs:
+        for f in fs:
+            yield f
+        fs = Candidacy.all().filter("deleted = ", False).filter("survey_invite_posted = ", False).filter("survey_filled_in =", False).filter('__key__ >', fs[-1].key()).fetch(100)
+
+
 def put_in_batches(models, limit = 250):
     tot = len(models)
     c = 0
@@ -92,6 +101,7 @@ parser.add_option('--host', type='string', dest="host", help='domain:port of app
 parser.add_option('--email', type='string', dest="email", help='email address for authentication to application', default="francis@flourish.org")
 parser.add_option('--out', type='string', dest="out", help='CSV file to make')
 parser.add_option('--real', action='store_true', dest="real", help='Really set the has been posted to flag on candidacies, default is dry run', default=False)
+parser.add_option('--even_if_emailed', action='store_true', dest="even_if_emailed", help='Do it even if they\'ve been emailed already', default=False)
 
 (options, args) = parser.parse_args()
 
@@ -114,7 +124,10 @@ h = open(options.out, "wb")
 writer = csv.writer(h)
 candidates_by_id = lookup_candidates_by_id()
 seats_by_id = lookup_seats_by_id()
-candidacies = not_invited_candidacies()
+if options.even_if_emailed:
+    candidacies = even_if_emailed_not_invited_candidacies()
+else:
+    candidacies = not_invited_candidacies()
 candidacies_done = []
 c = 0
 for candidacy in candidacies:
@@ -144,8 +157,10 @@ for candidacy in candidacies:
     msg = msg + " " + candidate.yournextmp_url()
     log(msg)
 
-    assert not candidacy.survey_invite_emailed 
+    if not options.even_if_emailed:
+        assert not candidacy.survey_invite_emailed 
     assert not candidacy.survey_invite_posted
+    assert not candidacy.survey_filled_in
 
     if address:
         postcodes = re.findall(r'[A-Z]{1,2}[0-9R][0-9A-Z]?\s*[0-9][A-Z]{2}(?i)', address)

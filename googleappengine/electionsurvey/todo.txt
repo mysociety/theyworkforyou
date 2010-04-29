@@ -1,6 +1,8 @@
 Do this next
 ============
 
+Add analytics
+
 Consider sorting them by order that they answered :0
 - with a line between those who answered before/after quiz launch
 
