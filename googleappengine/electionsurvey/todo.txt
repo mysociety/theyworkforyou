@@ -1,6 +1,10 @@
 Do this next
 ============
 
+Add analytics
+
+Are you one of those candidates?
+
 Consider sorting them by order that they answered :0
 - with a line between those who answered before/after quiz launch
 

@@ -604,7 +604,7 @@ def _get_quiz_main_params_memcached(seat):
         return data
     else:
         data = _get_quiz_main_params(seat)
-        memcache.add(key, data, 60 * 60) # 1 hour cache
+        memcache.add(key, data, 60 * 10) # 10 minute cache
         return data
 
 # For voters to learn about candidates
