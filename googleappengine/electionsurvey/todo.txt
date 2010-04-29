@@ -1,13 +1,6 @@
 Do this next
 ============
 
-Check gathering signups works on live site
-
-Front page of TWFY
-
-Test on different browsers
-
-
 Put constituency tag in twitter
     http://code.google.com/p/constituencyvolunteernetwork/source/browse/trunk/hashtags.py
     slug is the same as the DC slug, except it doesnt take & into account.
@@ -25,6 +18,16 @@ Postal
 
 Change domain to better one?
 
+
+Publicity
+=========
+
+Democracy Club volunteers
+mySociety developers public list
+
+mySociety news email list
+mySociety blog post
+@mysociety Tweet 
 
 
 Other things
