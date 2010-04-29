@@ -14,6 +14,11 @@ scrolls to top of browser
 
 Say more about privacy by emails
 
+Change constituency link
+
+Opt-in to get email when there are more results in your constituency?
+    store date/time when they sign up to alerts
+
 
 Put constituency tag in twitter
     http://code.google.com/p/constituencyvolunteernetwork/source/browse/trunk/hashtags.py
@@ -42,6 +47,11 @@ mySociety blog post
 
 Public Whip mailing
 TheyWorkForYou other pages
+
+Check leaders pages:
+http://election.theyworkforyou.com/quiz/seats/sheffield_hallam
+http://election.theyworkforyou.com/quiz/seats/witney
+http://election.theyworkforyou.com/quiz/seats/kirkcaldy_and_cowdenbeath
 
 
 Other things
