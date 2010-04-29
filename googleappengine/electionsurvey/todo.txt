@@ -12,8 +12,6 @@ Put constituency tag in twitter
     http://code.google.com/p/constituencyvolunteernetwork/source/browse/trunk/hashtags.py
     slug is the same as the DC slug, except it doesnt take & into account.
 
-Memcache each constituency
-
 Add contact link
 
 Log answers people give in database? So can share.
