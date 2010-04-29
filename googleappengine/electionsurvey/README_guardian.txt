@@ -1,3 +1,7 @@
+*** More, better information avaialable here:
+*** https://secure.mysociety.org/intranet/ProductionSites/TheyWorkForYou/GuardianElectionSurvey
+
+
 The Guardian hit the election survey results from within their CMS, at the bottom 
 of every "Politcal Person" page.
 Currently, we return empty content if there is no result to show (i.e., not a 404).
@@ -20,7 +24,7 @@ instead of the searching algorithm. You may need to manually delete a key if it'
 stopping a better match being found; conversely if you add the id it will always
 return the (mapped) candidate.
 
-
+==========================================================================
 This is the microapp definition:
 name:--------------------------------------------------------------------
 twfy-candidate-survey
