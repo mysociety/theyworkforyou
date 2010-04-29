@@ -25,6 +25,7 @@ Log answers people give in database? So can share.
 Have a choice of candidates at the end, say who you now like most
 
 Link to blog posts for explanation
+    http://www.democracyclub.org.uk/blog/2010/04/candidate-survey-faq/
 
 Postal
 - AGAIN - Do those for which we have postal address, but no valid email address
