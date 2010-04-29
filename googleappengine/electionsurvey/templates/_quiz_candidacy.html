@@ -1,3 +1,3 @@
 {% if candidacy.party_image_url %}<img class="party_image" src="{{ candidacy.party_image_url}}" alt="">{% endif %}
 <!--{% if candidacy.image_url %} <img src="{{ candidacy.image_url}}" alt=""> {% endif %}-->
-<div class="statement_body"><strong>{{ candidacy.name }}</strong> ({{ candidacy.party }})
+<div class="statement_body"><a href='http://www.yournextmp.com/candidates/{{ candidacy.code }}' class="candidate_name" target="_blank"><strong>{{ candidacy.name }}</strong></a> ({{ candidacy.party }})

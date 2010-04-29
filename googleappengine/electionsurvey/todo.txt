@@ -1,54 +1,64 @@
 Do this next
 ============
 
+Add analytics
 
-When survey already filled in, order is wrong (local shoudl be first)
-On main quiz, "has not been asked" when they've had postal survey is wrong
+Are you one of those candidates?
+
+Consider sorting them by order that they answered :0
+- with a line between those who answered before/after quiz launch
+
+Put white space below "Help us get answers from all your candidates!"
+box at bottom, so when you click internal link to it it always
+scrolls to top of browser
 
 
-Quotes being cropped in first question, so min height needed
-"Candidates not parties" or "candidates not party leaders" is the marketing line
-Be able to close questions
-When there are no candidates, put form at top
-Check what happens when you've got all candidates answered
-Link to skip local issues
-(12:47:57) tgreen: top text is a bit wordy and looks like standard gumpf, needs to be more prominent
-(12:48:00) tgreen: and link to the bottom form
-Votematch link
+Put constituency tag in twitter
+    http://code.google.com/p/constituencyvolunteernetwork/source/browse/trunk/hashtags.py
+    slug is the same as the DC slug, except it doesnt take & into account.
+
+Add contact link
 
 Log answers people give in database? So can share.
 Have a choice of candidates at the end, say who you now like most
 
-TheyWantToWorkForYou domain?
-    * update tweet this link
-
-
-Work out design way to get people to track MPs by email after election.
-
-Link to blog post for explanation
-
-- Call it candidate explorer
-- Remove quiz - "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
-- "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
-
+Link to blog posts for explanation
 
 Postal
-- Do those for which we have postal address, but no valid email address again
-- Grep for have sent email, and add have sent post as well (in a few days time, Thursdayish)
-- Then do those that haven't replied to the survey
+- AGAIN - Do those for which we have postal address, but no valid email address
+- Do those that haven't replied to the survey, but have postal address (even if emaield)
+
+Change domain to better one?
 
 
+Publicity
+=========
+
+Democracy Club volunteers
+mySociety developers public list
+
+mySociety news email list
+mySociety blog post
+@mysociety Tweet 
+
+Public Whip mailing
+TheyWorkForYou alerts
 
 
 Other things
 ============
 
+Remove democracy club slug from model, is not needed really now
+
+"Candidates not parties" or "candidates not party leaders" is the marketing line
+- "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
+- "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
+
+Be able to close questions in quiz
+
 Try using Django 1.1 like this, maybe will reduce errors?
 http://code.google.com/appengine/docs/python/tools/libraries.html
 
-
-Test on different browsers
-Memcache each constituency
 
 Check for people who've autosaved but not filled in and do special mail
 Search for surveys filled in from funny IPs

@@ -1,47 +1,21 @@
 {% extends 'base.html' %}
 
+{% block extrabody %} id="quiz"{% endblock %}
+
 {% block content %}
 
-<h2>Welcome to our election survey!</h2>
+{% with 1 as shorter_hassle_section %}
+    {% include "_quiz_hassle_section.html" %}
+{% endwith %}
+
 {% if candidacy_with_response_count %}
-<p>We've got responses from {{candidacy_with_response_count}} candidates in your constituency.</p>
-
-{% if candidacies_without_response %}
- <p>However, we don't have responses from {{ candidacy_without_response_count}}
- candidates.  Some haven't replied, and others we've not been able to contact.  
- They are:
-
- {% for candidacy in candidacies_without_response %}
-  {% if forloop.last %}{% ifnotequal candidacies_without_response|length 1 %} and {% endifnotequal %}{% endif %}<strong>{{ candidacy.name }}</strong> ({{ candidacy.party }}){% if not forloop.last %},{% else %}.{% endif %}
- {% endfor %} 
-{% endif %}
-
-<h2>Scan the issues, and select how you feel about them</h2>
-
+    <h2>To see what your MP candidates said, select how you feel on each issue</h2>
 {% else %}
- <p>Although thousands of candidates across the country have answered
- it, we're afraid no-one in your constituency has done so.  You can
- help petition your candidates by using the form at the bottom of the
- page, and we'll let you know when we have some results for you!</p>
-
-<h2>These are the questions we've asked them</h2>
-
+    <h2>The questions your candidates will be asked</h2>
 {% endif %}
 
-
-
-<!--<p class="error">
-    Dummy error
-</p> -->
-
-</div>
-<div class="break"></div>
-</div>
-
-<div class="stripe-time-2">
-<div class="main">
-
-<h4>Local statements (for {{ seat.name }} constituency)</h4>
+<h4 id="local">Local statements (for {{ seat.name }} constituency)</h4>
+<p class="inter_link">(<a href="#national">skip to national statements</a>)</p>
     {% if local_issues_count %}
         <ul class="answers local">
             {% for local_answer in local_answers %}
@@ -71,12 +45,12 @@
         </ul>
     {% endif %}
 
-<h4>National statements</h4>
+<h4 id="national">National statements</h4>
+<p class="inter_link">(<a href="#local">back to local statements</a>)</p>
     <ul class="answers national">
         {% for national_answer in national_answers %}
         <li class="answer">
             <div class="statement">
-                <strong> {{ national_answer.short_name }} </strong>
                 <blockquote>{{ national_answer.question }}</blockquote>
             </div>
             <div class="full_answers">
@@ -90,16 +64,38 @@
         </li>
         {% endfor %}
     </ul>
-
-    {% include "_quiz_subscribe_form.html" %}
-
+{% with 0 as shorter_hassle_section %}
+    {% include "_quiz_hassle_section.html" %}
+{% endwith %}
 </div>
 
-<div class="tell-friends">
+<div class="sidebar">
     <!-- Any sidebar text goes here -->
-    <h2>Tell your friends</h2>
+    <h2>Tell your friends about this MP job interview</h2>
 
-    <a name="fb_share" type="button" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+    <p>
+        <br><a name="fb_share" type="button" share_url="http://election.theyworkforyou.com/" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 
-    <br><a href="http://twitter.com/home/?status=Just%20tried%20TheyWorkForYou's%20election%20candidate%20explorer%20-%20has%20local%20and%20national%20issues%20http://election.theyworkforyou.com/quiz"><img src="/static/tweetthis-15.gif"></a>
+        <br><br><a href="http://twitter.com/home/?status=I've+been+exploring+what+my+MP+candidates+think+about+local+and+national+issues+at+http%3A%2F%2Fwww.theyworkforyou.com%2F+%23ge2010"><img src="/static/tweetthis-15.gif"></a>
+    </p>
+
+    <h2>Other election sites you might like</h2>
+
+    <div class="link_out">
+        <a href="http://www.thestraightchoice.org">The Straight Choice</a> &ndash; upload and
+        view election leaflets
+    </div>
+
+    <div class="link_out">
+        <a href="http://www.votematch.org.uk/2010/index.php">Vote Match</a> &ndash; which
+        party agrees with your policies?
+    </div>
+
+    <div class="link_out">
+        <a href="http://voteforpolicies.org.uk/">Vote for Policies</a> &ndash; compare
+        policies before finding out which party has them
+    </div>
+</div>
 {% endblock %}
+
+

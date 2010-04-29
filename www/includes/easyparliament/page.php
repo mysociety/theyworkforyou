@@ -259,7 +259,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			} elseif ($country == 'CA') {
 				print '<p class="informational banner">Check out <a href="http://howdtheyvote.ca/">How&rsquo;d They Vote?</a> and <a href="http://www.openparliament.ca/">OpenParliament.ca</a></p>';
 			} else {
-				print '<p class="informational banner">You can improve this election: <a href="http://www.democracyclub.org.uk/">TheyWorkForYou needs your help to pin down every candidate</a></p>';
+				#print '<p class="informational banner">You can improve this election: <a href="http://www.democracyclub.org.uk/">TheyWorkForYou needs your help to pin down every candidate</a></p>';
             }
 		}
 

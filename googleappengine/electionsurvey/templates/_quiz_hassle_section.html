@@ -1,0 +1,61 @@
+{% if shorter_hassle_section %}
+<div class="missing" id="missing_short">
+{% else %}
+<div class="missing" id="missing_long">
+{% endif %}
+
+{% if candidacy_without_response_count %}
+        <h2>Help us get answers from all your candidates!</h2>
+
+        {% if candidacy_with_response_count %}
+            {% if shorter_hassle_section %}
+                <p>
+                    We've got answers from {{ candidacy_with_response_count }} applicant{{ candidacy_with_response_count|pluralize }}
+                    to be your MP. You can explore the answers below.
+                </p>
+                <p>
+                    However, candidates from the following parties have not yet put their views on record.
+                </p>
+            {% else %}
+                <p>
+                    Thanks for reading the candidate responses. Remember to share! However, candidates from the following parties have not yet put their views on record.
+                </p>
+            {% endif %}
+
+            <p>
+                {% for candidacy in candidacies_without_response %}
+                {% if candidacy.party_image_url %}<img class="block_party_image" src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}" title="{{ candidacy.name }} ({{ candidacy.party}})">{% else %}{{ candidacy.party}}{% endif %}
+                {% endfor %} 
+            </p>
+
+            {% if shorter_hassle_section %}
+            <p>
+                <a href="#missing_long">Click here to ask them to go on the record</a>
+            </p>
+            {% else %}
+                {% include "_quiz_subscribe_form.html" %}
+            {% endif %}
+        {% else %}
+            <p>
+                Although we've got thousands of answers from across the country, none of the applicants to be your
+                MP have answered yet.
+            </p>
+
+            {% include "_quiz_subscribe_form.html" %}
+        {% endif %}
+{% else %}
+    <h2>Keep track of your new MP after the election!</h2>
+
+    {% if shorter_hassle_section %}
+        <p>
+            <a href="#missing_long">Click here to stay informed about your new MP</a>
+        </p>
+    {% else %}
+        {% include "_quiz_subscribe_form.html" %}
+    {% endif %}
+{% endif %}
+
+</div> 
+
+
+

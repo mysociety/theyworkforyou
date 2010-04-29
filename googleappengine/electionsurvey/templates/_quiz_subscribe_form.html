@@ -1,23 +1,14 @@
+{% if candidacy_without_response_count %}
+<p>
+    Enter your details below and we'll take you to a page that makes it really simple for you to chase up your candidates.
+</p>
+{% else %}
+<p>
+    Democracy can carry on when it isn't election time. Three services you might like.
+</p>
+{% endif %}
+
 <div id="subscribe_box">
- {% if candidacies_without_response %}
-    <h2>Help us get answers from your candidates!</h2>
-    <p>We've not got survey results for candidates in any of these parties:</p>
-    <div>
-    {% for candidacy in candidacies_without_response %}
-      {% if candidacy.party_image_url %}<img class="party_image" src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}">{% else %}{{ candidacy.party}}{% endif %}
-    {% endfor %} 
-    </div>
-    <div class="clear_statement"></div>
-    <p>Enter your details below and we'll take you to a page that makes it really simple for you to chase up your candidates.</p>
- {% else %}
-    <h2>Watch your MP after the election too!</h2>
-
-    <p>TheyWorkForYou thinks it is important that we all pay a little bit of
-    attention to what our MPs do once elected.  Please sign up so we can update you 
-    on what your new MP gets up to.</p>
-
- {% endif %}
-
     {% if subscribe_form.errors %}
         {{ subscribe_form.errors }}
     {% endif %}
@@ -34,11 +25,6 @@
             {{ subscribe_form.postcode }}
             <br>
             <span class="signup_checkbox">
-                {{ subscribe_form.democlub_signup.label_tag }}
-                {{ subscribe_form.democlub_signup }}
-            </span>
-            <br>
-            <span class="signup_checkbox">
                 {{ subscribe_form.twfy_signup.label_tag }}
                 {{ subscribe_form.twfy_signup }}
             </span>
@@ -47,18 +33,30 @@
                 {{ subscribe_form.hfymp_signup.label_tag }}
                 {{ subscribe_form.hfymp_signup }}
             </span>
-            <br/>
-	    <input type="hidden" name="candidacy_without_response_count" value="{{ candidacy_without_response_count }} " />
-
-            <input type="submit" value="Sign up">
+            {% if candidacy_without_response_count %}
+                <input type="hidden" name="democlub_signup" value="0" />
+                <input type="hidden" name="democlub_redirect" value="1" />
+            {% else %}
+                <br>
+                <span class="signup_checkbox">
+                    {{ subscribe_form.democlub_signup.label_tag }}
+                    {{ subscribe_form.democlub_signup }}
+                </span>
+                <input type="hidden" name="democlub_redirect" value="0" />
+            {% endif %}
+            <br>
+            <input type="hidden" name="candidacy_without_response_count" value="{{ candidacy_without_response_count }} " />
+            {% if candidacy_without_response_count %}
+                <input type="submit" value="Hassle the MP candidates">
+            {% else %}
+                <input type="submit" value="Join up!">
+            {% endif %}
         </p>
         <p>
             <small>
-                Depending on which boxes you tick, you will be
-                subscribed to DemocracyClub, so you can help out with
-                tasks before the election. After the election, you
-                will receive emails asking you to confirm any
-                subscriptions to TheyWorkForYou and HearFromYourMP.
+                If you leave the boxes ticked, after the election you will
+                receive emails asking you to confirm any subscriptions to
+                TheyWorkForYou, HearFromYourMP. 
             </small>
         </p>
     </form>

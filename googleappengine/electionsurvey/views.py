@@ -13,11 +13,13 @@ import urllib2
 import urllib
 import re
 import collections
+import urllib
 
 from google.appengine.api import urlfetch
 from google.appengine.api.datastore_types import Key
 from google.appengine.ext import db
 from google.appengine.api import mail
+from google.appengine.api import memcache
 
 # XXX remember to migrate this when the API becomes stable
 from google.appengine.api.labs import taskqueue
@@ -35,9 +37,6 @@ from ratelimitcache import ratelimit
 import forms
 from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse, PostElectionSignup, AristotleToYnmpCandidateMap
 
-# Front page of election site
-def index(request):
-    return render_to_response('index.html', {})
 
 #####################################################################
 # Candidate survey
@@ -193,6 +192,8 @@ def task_invite_candidacy_survey(request, candidacy_key_name):
     candidacy = Candidacy.get_by_key_name(candidacy_key_name)
     if candidacy.survey_invite_emailed:
         return HttpResponse("Given up, already emailed")
+    if candidacy.survey_filled_in:
+        return HttpResponse("Given up, already filled in")
 
     # Get email and name
     to_email = candidacy.candidate.validated_email()
@@ -252,11 +253,14 @@ on behalf of the voters of %s constituency
 def survey_stats_json(request):
     candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False))
     emailed_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_invite_emailed =', True))
+    posted_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_invite_posted =', True))
     filled_in_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_filled_in =', True))
 
     result = { 'candidacy_count': candidacy_count,
                'emailed_candidacy_count': emailed_candidacy_count,
-               'filled_in_candidacy_count': filled_in_candidacy_count }
+               'posted_candidacy_count': posted_candidacy_count,
+               'filled_in_candidacy_count': filled_in_candidacy_count 
+    }
 
     return HttpResponse(json.dumps(result))
 
@@ -269,6 +273,8 @@ def survey_candidacies_json(request):
         item = { 'ynmp_id': c.ynmp_id,
             'survey_invite_emailed': c.survey_invite_emailed,
             'survey_invite_sent_to_emails': c.survey_invite_sent_to_emails,
+            'survey_invite_posted': c.survey_invite_posted,
+            'survey_invite_sent_to_addresses': c.survey_invite_sent_to_addresses,
             'survey_filled_in': c.survey_filled_in,
             'survey_filled_in_when': c.survey_filled_in_when and c.survey_filled_in_when.strftime('%Y-%m-%dT%H:%M:%S') or None
         }
@@ -309,16 +315,30 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
     candidate_id_mapping = False
     error_message = ""
     debug_message = ""
+    url_for_seat = ""
+    # note these Guardian labels are not quite the same as the TWFY verb defaults
+    # And these are set up to start with agreement (hence descending value order)
+    result_labels = (
+        (100, "Strongly<br/>agree"),
+        (75, "Agree<br/>&nbsp;"),
+        (50, "Neither&nbsp;agree<br/>nor&nbsp;disagree"),
+        (25, "Disagree<br/>&nbsp;"),
+        (0, "Strongly<br/>disagree")
+        )
     if aristotle_id:
         try:
             aristotle_id = int(aristotle_id)
             candidate_id_mapping = db.Query(AristotleToYnmpCandidateMap).filter("aristotle_id =", aristotle_id).get()
         except exceptions.ValueError:
             aristotle_id = None
+            error_message = "Badly formed aristotle_id" # unexpected: urls.py prevents non-digits
         if candidate_id_mapping:
-            candidate = db.Query(Candidate).filter("ynmp_id=", candidate_id_mapping.ynmp_id).get()
             debug_message = debug_message + (" [map-hit: %s] " % candidate_id_mapping.ynmp_id)
-        if not candidate:
+            if candidate_id_mapping.ynmp_id == 0: # explicit block: *never* matches
+                error_message = "Map: blocked"
+            else:
+                candidate = db.Query(Candidate).filter("ynmp_id=", candidate_id_mapping.ynmp_id).get()
+        if not candidate and not error_message:
             url = "http://www.guardian.co.uk/politics/api/person/%s/json" % aristotle_id;
             result = urlfetch.fetch(url)
             if result.status_code == 200:
@@ -361,7 +381,8 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
             # Remember this search is because the name match didn't work already, so let's try surname
             surname = candidate_code.split('_')[-1]
             if constituency_aristotle_id and False: # TODO: lookup in aristotle:ynmp-id map
-                seat = db.Query(Seat).filter("aristotle_id =", constituency_aristotle_id).get()
+                seat_ynmp_id = constituency_aristotle_id # would be mapped
+                seat = db.Query(Seat).filter("ynmp_id =", seat_ynmp_id).get()
             else:
                 seat_code = constituency_name.lower().replace(" ", "_")
                 seat = db.Query(Seat).filter("code =", seat_code).get()
@@ -383,18 +404,24 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
                             first_name_matches.append(c)
                     if len(first_name_matches) == 1:
                         candidacy = first_name_matches[0]
-                    else: # TODO: really should disambigiute on full name here (may have middle initial?)
+                    else: 
+                        # TODO: really should disambigiute on full name here (may have middle initial?)
+                        # TODO: or maybe compare first initials which may be unique?
                         error_message = "%d matches on surname %s, %d matches on first name, in %s" % (len(surname_matches), len(first_name_matches), surname, seat.name)
                         candidacy = False
             else:
                 error_message = "No exact name match (%s), no seat found matching (%s)" % (candidate_code, seat_code)
         if candidacy:
             found_name = candidacy.candidate.name
+            url_for_seat = "http://election.theyworkforyou.com/quiz/seats/%s" % candidacy.seat.code
+    # TODO: some of these strings are included in HTML comment: should check for and collapse "--"         
     if not error_message:
         error_message = "OK"
     return render_to_response('guardian_candidate.html', {
       'name_canonical': found_name, 
       'candidacy': candidacy, 
+      'url_for_seat': url_for_seat,
+      'result_labels': result_labels,
       'error_message': error_message,
       'debug_message': "aristotle_id=%s, raw_name=%s, raw_const_name=%s\n  %s" % (aristotle_id, raw_name, raw_const_name, debug_message)
     })
@@ -431,6 +458,8 @@ def admin_stats(request):
     deleted_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted =', True))
     emailed_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_invite_emailed =', True))
     deleted_emailed_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', True).filter('survey_invite_emailed =', True))
+    posted_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_invite_posted =', True))
+    deleted_posted_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', True).filter('survey_invite_posted =', True))
     filled_in_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', False).filter('survey_filled_in =', True))
     deleted_filled_in_candidacy_count = get_count(db.Query(Candidacy, keys_only=True).filter('deleted = ', True).filter('survey_filled_in =', True))
 
@@ -448,6 +477,8 @@ def admin_stats(request):
             'deleted_candidacy_count': deleted_candidacy_count,
         'emailed_candidacy_count': emailed_candidacy_count, 
             'deleted_emailed_candidacy_count': deleted_emailed_candidacy_count,
+        'posted_candidacy_count': posted_candidacy_count, 
+            'deleted_posted_candidacy_count': deleted_posted_candidacy_count,
         'filled_in_candidacy_count': filled_in_candidacy_count, 
             'deleted_filled_in_candidacy_count': deleted_filled_in_candidacy_count,
         'refined_issue_count': refined_issue_count,
@@ -494,6 +525,7 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
             candidacies_with_response.append( {
                     'name': candidacy.candidate.name,
                     'party': candidacy.candidate.party.name,
+                    'code': candidacy.candidate.code,
                     'image_url': candidacy.candidate.image_url(),
                     'party_image_url': candidacy.candidate.party.image_url(),
                     'agreement_verb': response.verb(),
@@ -503,15 +535,20 @@ def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_res
             )
         candidacies_with_response_key.add(candidacy_key)
     issue['candidacies'] = candidacies_with_response
-    issue['form'] = forms.LocalIssueQuestionForm({}, refined_issue=issue_model, candidacy=None)
     return issue
 
-# For voters to learn about candidates
-def quiz_main(request, postcode):
-    display_postcode = forms._canonicalise_postcode(postcode)
-    url_postcode = forms._urlise_postcode(postcode)
-    seat = forms._postcode_to_constituency(postcode)
+def quiz_by_code(request, code):
+    seat = db.Query(Seat).filter("code =", code).get()
+    return quiz_main(request, seat, "")
 
+def quiz_by_postcode(request, postcode):
+    seat = forms._postcode_to_constituency(postcode)
+    if seat == None:
+        raise Exception("Seat not found")
+    return quiz_main(request, seat, postcode)
+
+# Used for quiz_main below
+def _get_quiz_main_params(seat):
     # find all the candidates
     candidacies = seat.candidacy_set.filter("deleted = ", False).fetch(1000)
     candidacies_by_key = {}
@@ -546,8 +583,39 @@ def quiz_main(request, postcode):
         'party_image_url': candidacies_by_key[k].candidate.party.image_url(),
         'yournextmp_url': candidacies_by_key[k].candidate.yournextmp_url(),
         'hassle_url': seat.democracyclub_url() + "#candidates",
-        'survey_invite_emailed': candidacies_by_key[k].survey_invite_emailed
+        'survey_invite_emailed': candidacies_by_key[k].survey_invite_emailed,
+        'survey_invite_posted': candidacies_by_key[k].survey_invite_posted
     } for k in candidacies_without_response_key]
+
+    return { 
+        'candidacies_without_response' : candidacies_without_response,
+        'candidacy_count' : len(candidacies),
+        'candidacy_with_response_count' : len(candidacies) - len(candidacies_without_response),
+        'candidacy_without_response_count' : len(candidacies_without_response),
+        'national_answers' : national_answers,
+        'local_answers' : local_answers,
+        'local_issues_count' : len(local_issues),
+    }
+
+def _get_quiz_main_params_memcached(seat):
+    key = "quiz_main_seat_" + seat.key().name()
+    data = memcache.get(key)
+    if data is not None:
+        return data
+    else:
+        data = _get_quiz_main_params(seat)
+        memcache.add(key, data, 60 * 10) # 10 minute cache
+        return data
+
+# For voters to learn about candidates
+def quiz_main(request, seat, postcode):
+    display_postcode = ""
+    url_postcode = ""
+    if postcode:
+        display_postcode = forms._canonicalise_postcode(postcode)
+        url_postcode = forms._urlise_postcode(postcode)
+
+    params = _get_quiz_main_params_memcached(seat)
 
     subscribe_form = forms.MultiServiceSubscribeForm(initial={ 
         'postcode': display_postcode,
@@ -556,19 +624,11 @@ def quiz_main(request, postcode):
         'hfymp_signup': True,
     })
 
-    return render_to_response('quiz_main.html', {
-        'seat' : seat,
-        'candidacies_without_response' : candidacies_without_response,
-        'candidacy_count' : len(candidacies),
-        'candidacy_with_response_count' : len(candidacies) - len(candidacies_without_response),
-        'candidacy_without_response_count' : len(candidacies_without_response),
-        'national_answers' : national_answers,
-        'local_answers' : local_answers,
-        'local_issues_count' : len(local_issues),
-        'postcode' : postcode,
-        'subscribe_form' : subscribe_form
-    })
+    params['seat'] = seat
+    params['postcode'] = postcode
+    params['subscribe_form'] = subscribe_form
 
+    return render_to_response('quiz_main.html', params)
 
 # Subscribing to DemocracyClub / TheyWorkForYou / HearFromYourMP
 def quiz_subscribe(request):
@@ -582,28 +642,49 @@ def quiz_subscribe(request):
                 email = email,
                 postcode = postcode,
                 theyworkforyou = subscribe_form.cleaned_data['twfy_signup'],
-                hearfromyourmp = subscribe_form.cleaned_data['hfymp_signup']
+                hearfromyourmp = subscribe_form.cleaned_data['hfymp_signup'],
         )
         post_election_signup.put()
 
-        #if subscribe_form.cleaned_data['democlub_signup']:
-        #    raise Exception('todo: democracy club signup')
+        if subscribe_form.cleaned_data['democlub_signup']:
+            (first_name, space, last_name) = name.partition(" ")
+            fields = { 
+                'first_name' : first_name,
+                'last_name' : last_name,
+                'email' : email,
+                'postcode' : postcode
+            }
+            form_data = urllib.urlencode(fields)
+            result = urlfetch.fetch(url = "http://www.democracyclub.org.uk", 
+                    payload = form_data,
+                    method = urlfetch.POST)
+            if result.status_code != 200:
+                raise Exception("Error posting to DemocracyClub")
+
         candidacy_without_response_count = request.POST.get('candidacy_without_response_count',0)
         seat = forms._postcode_to_constituency(postcode)
+
+        democlub_redirect = subscribe_form.cleaned_data['democlub_redirect']
+        if democlub_redirect:
+            democlub_hassle_url = seat.democracyclub_url() + "?email=%s&postcode=%s&name=%s" % (
+                    urllib.quote_plus(email), urllib.quote_plus(postcode), urllib.quote_plus(name)
+            )
+            return HttpResponseRedirect(democlub_hassle_url)
+
+        # For later when we have form even if have got all candidates answers
         return render_to_response('quiz_subscribe_thanks.html', { 
             'twfy_signup':  subscribe_form.cleaned_data['twfy_signup'],
             'hfymp_signup':  subscribe_form.cleaned_data['hfymp_signup'],
             'democlub_signup':  subscribe_form.cleaned_data['democlub_signup'],
             'seat': seat,
             'email': email,
-            'postcode': postcode,
+            'urlise_postcode': forms._urlise_postcode(postcode),
             'name': name,
             'candidacy_without_response_count':candidacy_without_response_count
-            } )
+        } )
 
     return render_to_response('quiz_subscribe.html', {
         'subscribe_form' : subscribe_form
     })
-
-
+    
 

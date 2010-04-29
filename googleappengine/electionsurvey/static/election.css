@@ -36,17 +36,27 @@ form#electionsurvey div.issues_note, form#voterquiz div.issues_note {
 }
 
 div.full_answers table.answers td.agreement-col{
-    width: 60px;
+    width: 7em;
     text-align: center;
 }
 
 .answers div.statement {
+    margin-bottom:0.25em;
 }
 
 .party_image {
     float: left;
     margin-right: 0.5em;
     padding-top: 0.25em;
+}
+.block_party_image {
+    border: solid 1px #999999;
+}
+
+div.missing {
+    background-color: #ffeecc;
+    margin-left:10px;
+    padding-top:0.5em;
 }
 
 .statement_body {
@@ -170,25 +180,47 @@ blockquote {
     background: url(blockquote.png) no-repeat 0 0;
     padding: 10px 30px 0 60px;
     margin: 0;
-    width: 680px;
+    max-width: 610px;
     min-height: 48px;
+    letter-spacing:-0.5px;
 }
 
 div.horizontal.agreement ul li {
     display: inline;
 }
 
-div.main {float: none; width: auto; margin: 0; padding: 0;position:relative;}
+body#quiz div.main {
+    width: 50em;
+    margin-right: 1em;
+}
+body#quiz div.sidebar {
+    float: none;
+    width: auto;
+}
+
+body#quiz div.sidebar h2 {
+    font-size:1.2em;
+    margin-bottom:0;
+}
+
+
+body#quiz h3 {
+    margin-top: 2em;
+}
+
+p.inter_link {
+    margin-bottom: 0;
+}
 
 div.full_answers table.answers {
  border-collapse: collapse;
- width: 700px;
  margin: 0;
 }
 
 div.full_answers table.answers td,
 div.full_answers table.answers th {
- padding: 5px;
+ padding: 0.25em;
+ padding-bottom:0.5em;
 }
 
 div.full_answers table.answers,
@@ -210,27 +242,37 @@ div.full_answers table.answers th.explanation {
  width: 15em;
 }
 
-div.full_answers table.answers tr.what-they-think {
+html.js div.full_answers table.answers tr.what-they-think {
  display: none;
 }
 
-div.full_answers table.answers th.who,
-div.full_answers table.answers .explanation {
+html.js div.full_answers table.answers th.who,
+html.js div.full_answers table.answers .explanation {
  visibility: hidden;
 }
 
 div.full_answers table.answers th {
  width: 5em;
 }
+
+td.explanation {
+    width: 25em;
+}
+
 div.full_answers table.answers td.you {
  width: 15em;
+ font-size: 100%;
+ color:#333;
 }
 
 table.answers tr.what-you-think a,
 table.answers tr.what-they-think span.agreement {
- padding: 5px;
+ padding: 0.25em;
  display: block;
- height: 2.5em;
+}
+
+table.answers tr.what-they-think {
+    padding-bottom:0.5em;
 }
 
 table.answers tr.what-they-think span.agreement {
@@ -239,7 +281,7 @@ table.answers tr.what-they-think span.agreement {
 
 #subscribe_box {
     font-size: 100%;
-    margin: 5em;
+    margin-left: 1em;
 }
 .signup_checkbox {
     font-size: 75%;
@@ -264,6 +306,11 @@ table.answers tr.what-they-think span.agreement {
     color: #ff0000;
 }
 
+a.candidate_name {
+    color:#336;
+}
 
- 
+div.link_out {
+    margin-bottom: 0.8em;
+} 
 

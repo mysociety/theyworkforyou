@@ -20,19 +20,6 @@ They will be published in an online guide for the voters of
 
 <h3>Your answers were...</h3>
 
-    <h4>National</h4>
-    <ul>
-    {% for r in candidacy.national_responses %}
-        <li>
-            {{ forloop.counter}}.
-            {{ r.refined_issue.question }} 
-            - you <strong>{{ r.verb_you }}</strong>.
-            {% if r.more_explanation %}
-                You added <em>"{{r.more_explanation.strip }}"</em>
-            {% endif %}
-        </li>
-    {% endfor %}
-    </ul>
     <h4>Local</h4>
     <ul>
     {% for r in candidacy.local_responses %}
@@ -46,6 +33,20 @@ They will be published in an online guide for the voters of
         </li>
     {% empty %}
         No local questions.
+    {% endfor %}
+    </ul>
+
+    <h4>National</h4>
+    <ul>
+    {% for r in candidacy.national_responses %}
+        <li>
+            {{ forloop.counter}}.
+            {{ r.refined_issue.question }} 
+            - you <strong>{{ r.verb_you }}</strong>.
+            {% if r.more_explanation %}
+                You added <em>"{{r.more_explanation.strip }}"</em>
+            {% endif %}
+        </li>
     {% endfor %}
     </ul>
 
