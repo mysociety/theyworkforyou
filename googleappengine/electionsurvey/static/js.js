@@ -116,13 +116,16 @@ function update_candidate_most_agree() {
         
     }
     for(candidate in scores) {
-        if(candidate == agree_most)
+        if(scores[candidate] == agree_most_score && agree_most_score != 0)
             css_class = "winning";
         else
             css_class = "";
         scoretext += "<tr class='"+css_class+"'><td>" + candidate_names[candidate] + "</td><td><strong>" + scores[candidate] + " points</strong></td><td style='width:40px;'><small>(" + candidate_parties[candidate] + ")</small></td></tr>";
     }
     $("#agree_most").html(scoretext + "</table>");
+
+    if(agree_most_score == 0)
+        agree_most = "no-one";
 
     candidate_name = candidate_names[agree_most]
     if(agree_most != "no-one" && agree_most != "secret")

@@ -93,7 +93,7 @@
 
         scores = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": 0,{% endfor %}{% templatetag closebrace %};
 
-        candidate_names = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% templatetag closebrace %};
+        candidate_names = {% templatetag openbrace %}'no-one': 'nobody',{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% templatetag closebrace %};
 
         candidate_parties = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.party }}",{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.party }}",{% endfor %}{% templatetag closebrace %};
         
