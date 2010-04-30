@@ -95,7 +95,7 @@
 
         candidate_names = {% templatetag openbrace %}'no-one': 'nobody',{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.name }}"{% if not forloop.last %},{% endif %}{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.name }}"{% if not forloop.last %},{% endif %}{% endfor %}{% templatetag closebrace %};
 
-        candidate_parties = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.party }}"{% not forloop.last %},{% endif %}{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.party }}"{% if not forloop.last%},{% endif %}{% endfor %}{% templatetag closebrace %};
+        candidate_parties = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.party }}"{% if not forloop.last %},{% endif %}{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.party }}"{% if not forloop.last%},{% endif %}{% endfor %}{% templatetag closebrace %};
         
         scores_undo = {};
     </script>
