@@ -4,11 +4,10 @@ Do this next
 Do a dump for analysis
     include columns for party etc.
 
-Tell friends at bottom as well for people who got that far
-    and on front page?
-
-
 Send final reminder mail on Sunday:
+- Make sure you add Message ID and Date this time
+    iso/pylib/sendemail.py has python code we use, dunno why that's not in
+    generic pylib that adds date, message-id, does header escaping, etc.
 > A good possible refusenik hook is (IMO) to say "You may not be aware that X
 > other candidates for your party have filled it in. They understand that it
 > is worth doing, I hope we can persuade you too"
@@ -27,19 +26,14 @@ Public Whip mailing
 Other things
 ============
 
-Remove democracy club slug from model, is not needed really now
+Remove democracy club slug from model, is not needed really now (can calculate it)
 
 Try using Django 1.1 like this, maybe will reduce errors?
 http://code.google.com/appengine/docs/python/tools/libraries.html
 
-
 Check for people who've autosaved but not filled in and do special mail
 Search for surveys filled in from funny IPs
 Search for surveys filled in which email is invalidated for now
-Do another patch of sending to all emails
-- Make sure you add Message ID and Date this time
-    iso/pylib/sendemail.py has python code we use, dunno why that's not in
-    generic pylib that adds date, message-id, does header escaping, etc.
 Ask PPCs who have done survey to motivate other party members to do survey?
 
 Actively refused to answer (with reason):
@@ -48,9 +42,6 @@ Actively refused to answer (with reason):
     Yvonne Fovargue, Markerfield (Labour)
 
 Sort by surname like on a ballot paper?
-
-Import voting record from Public Whip for the national issues which are linked to divisions
-Display that in results of quiz
 
 Rename log as log_and_save
 
