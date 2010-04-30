@@ -263,6 +263,8 @@ div.full_answers table.answers td.you {
  width: 15em;
  font-size: 100%;
  color:#333;
+ padding-right: 32px;
+ background: url(arrow.png) no-repeat center right;
 }
 
 table.answers tr.what-you-think a,

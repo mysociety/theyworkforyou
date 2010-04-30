@@ -36,6 +36,7 @@ $(function(){
 	    table.find('tr.what-they-think').fadeIn(600);
 	    table.find('.explanation').css('visibility', 'visible');
 	    table.find('.you').html('<strong>You</strong>');
+	    table.find('.you').css('background','none');
 
 	    var li = $(this).closest('li.answer');
 	    $('html,body').animate({ 'scrollTop': li.offset().top });
