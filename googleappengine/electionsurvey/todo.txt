@@ -8,11 +8,6 @@ Tell friends at bottom as well for people who got that far
     and on front page?
 
 
-Put constituency tag in twitter
-    http://code.google.com/p/constituencyvolunteernetwork/source/browse/trunk/hashtags.py
-    slug is the same as the DC slug, except it doesnt take & into account.
-
-
 Send final reminder mail on Sunday:
 > A good possible refusenik hook is (IMO) to say "You may not be aware that X
 > other candidates for your party have filled it in. They understand that it

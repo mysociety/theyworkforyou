@@ -21,6 +21,8 @@ import random
 import re
 import datetime
 
+import hashtags
+
 # Candidate from YourMP
 
 # size is large/medium/small
@@ -95,7 +97,7 @@ class Seat(db.Model):
 
     democracyclub_slug = db.StringProperty()
 
-    def democracyclub_url(self): 
+    def calc_slug(self): 
         slug = self.democracyclub_slug
         if not slug:
             slug = self.code
@@ -103,8 +105,26 @@ class Seat(db.Model):
 
             if slug == 'newry-and-armagh':
                 slug = 'newry-armagh'
+        return slug
 
+    def democracyclub_url(self): 
+        slug = self.calc_slug()
         return "http://www.democracyclub.org.uk/constituencies/%s/" % slug
+
+    def hashtag(self):
+        slug = self.calc_slug()
+        if slug in hashtags.constituency_hashtags:
+            return " #" + hashtags.constituency_hashtags[slug]
+        else:
+            return ""
+
+    def encoded_hashtag(self):
+        slug = self.calc_slug()
+        if slug in hashtags.constituency_hashtags:
+            return "%20%23" + hashtags.constituency_hashtags[slug]
+        else:
+            return ""
+
 
 digits = "0123456789abcdefghjkmnpqrstvwxyz"
 class Candidacy(db.Model):
