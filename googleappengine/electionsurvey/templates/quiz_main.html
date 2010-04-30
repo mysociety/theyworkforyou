@@ -82,6 +82,8 @@
         scores = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": 0,{% endfor %}{% templatetag closebrace %};
 
         candidate_names = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% templatetag closebrace %};
+
+        candidate_parties = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.party }}",{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.party }}",{% endfor %}{% templatetag closebrace %};
         
         scores_undo = {};
 
@@ -94,12 +96,12 @@
     <p>
         I have agreed most with 
         <select id="you_agree_with" name="you_agree_with">
-            <option value="no-one">no-one</option>
+            <option value="no-one">no candidates</option>
             {% for candidacy in candidacies_with_response %}
             <option value="{{ candidacy.code }}">{{ candidacy.name }}</option>{% endfor %}
             {% for candidacy in candidacies_without_response %}
             <option value="{{ candidacy.code }}">{{ candidacy.name }}</option>{% endfor %}
-            <option value="secret">it's a secret</option>
+            <option value="secret">[it's a secret]</option>
         </select>
         so far.<br/>
         &ndash; <a href='http://twitter.com/home/?status=I%20agreed%20most%20with%20Francis%20Frog%20in%20Cambridge%20-%20which%20candidate%20do%20you%20agree%20with%20http://bit.ly/dfsdf' target="_blank" id="twitterlink">tweet this</a> or <a href='http://www.facebook.com/sharer.php?u=http://election.theyworkforyou.com/&t=I%20agreed%20most%20with%20Francis%20Frog%20in%20Cambridge' target="_blank">share on facebook</a>
@@ -108,7 +110,7 @@
         <div id="agree_most">
         <ul>
             {% for candidacy in candidacies_with_response %}
-            <li>{{ candidacy.name }} 0 points</li>{% endfor %}
+            <li>{{ candidacy.name }} <small>({{ candidacy.party }})</small> &ndash; <strong>0 points</strong></li>{% endfor %}
         </ul>
         </div>
         <br/>

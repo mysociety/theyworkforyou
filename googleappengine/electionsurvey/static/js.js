@@ -111,7 +111,7 @@ function update_candidate_most_agree() {
             agree_most = candidate;
             agree_most_score = scores[candidate];
         }
-        scoretext += "<li>" + candidate_names[candidate] + " " + scores[candidate] + " points</li>";
+        scoretext += "<li>" + candidate_names[candidate] + " <small>(" + candidate_parties[candidate] + ")</small> <strong>" + scores[candidate] + " points</strong></li>";
     }
     $("#agree_most").html(scoretext + "</ul>");
     $("#you_agree_with").val(agree_most)
@@ -119,7 +119,11 @@ function update_candidate_most_agree() {
 }
 
 function update_sharing() {
-    var sharing_text = text1 + $("#you_agree_with :selected").text() + text2
+    candidate_code = $("#you_agree_with").val();
+    candidate_name = $("#you_agree_with :selected").text();
+    if(candidate_code != "no-one" && candidate_code != "secret")
+        candidate_name += " (" + candidate_parties[$("#you_agree_with").val()] + ")";
+    var sharing_text = text1 + candidate_name + text2;
     $("#pastetext").val(sharing_text);
     $("#twitterlink").attr("href", "http://twitter.com/home/?status=" + escape(sharing_text));
 }
