@@ -76,36 +76,36 @@
     <script>
         var text1 = "I agreed most with ";
         var text2 = " in {{ seat.name }} - which candidate do you agree with most? http://bit.ly/dfsdf";
-
-        questions = {% templatetag openbrace %}{% for answer in local_answers %}"{{ answer.question }}": {% templatetag openbrace %}{% for candidacy in answer.candidacies %}"{{ candidacy.code }}": {{ candidacy.agreement }},{% endfor %}{% templatetag closebrace %},{% endfor %} {% for answer in national_answers %}"{{ answer.question }}": {% templatetag openbrace %}{% for candidacy in answer.candidacies %}"{{ candidacy.code }}": {{ candidacy.agreement }},{% endfor %}{% templatetag closebrace %},{% endfor %}{% templatetag closebrace %};
+        
+        questions = {% templatetag openbrace %}{% for answer in local_answers %}"{{ answer.question|urlencode }}": {% templatetag openbrace %}{% for candidacy in answer.candidacies %}"{{ candidacy.code }}": {{ candidacy.agreement }},{% endfor %}{% templatetag closebrace %},{% endfor %} {% for answer in national_answers %}"{{ answer.question|urlencode }}": {% templatetag openbrace %}{% for candidacy in answer.candidacies %}"{{ candidacy.code }}": {{ candidacy.agreement }},{% endfor %}{% templatetag closebrace %},{% endfor %}{% templatetag closebrace %};
 
         scores = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": 0,{% endfor %}{% templatetag closebrace %};
 
         candidate_names = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% templatetag closebrace %};
-
+        
         scores_undo = {};
 
         function survey_answer_selected(question, answer) {
-            candidate_answers = questions[question];
+            candidate_answers = questions[escape(question)];
 
-            if(question in scores_undo) {
-                candidate_scores_undo = scores_undo[question];
+            if(escape(question) in scores_undo) {
+                candidate_scores_undo = scores_undo[escape(question)];
                 for(candidate in candidate_scores_undo)
                     scores[candidate] -= candidate_scores_undo[candidate];
-                delete scores_undo[question];
+                delete scores_undo[escape(question)];
             }
 
-            scores_undo[question] = {};
+            scores_undo[escape(question)] = {};
 
             for(candidate in candidate_answers) {
                 candidate_answer = candidate_answers[candidate];
                 if(candidate_answer == answer) {
                     scores[candidate] += 2;
-                    scores_undo[question][candidate] = 2;
+                    scores_undo[escape(question)][candidate] = 2;
                 }
                 else if(candidate_answer == answer + 25 || candidate_answer == answer -25) {
                     scores[candidate] += 1;
-                    scores_undo[question][candidate] = 1;
+                    scores_undo[escape(question)][candidate] = 1;
                 }
             }
 
