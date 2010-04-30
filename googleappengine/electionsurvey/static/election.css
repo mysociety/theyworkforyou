@@ -170,6 +170,9 @@ div.national_selection {
     border: solid lightgray 0.2em;
     margin-top: 0.5em;
 }
+#postcode_quiz_page p#candidate {
+    margin-top: 3em;
+}
 
 html.js ul.answers div.full_answers {
     display: block;

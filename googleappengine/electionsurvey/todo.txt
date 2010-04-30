@@ -8,19 +8,18 @@ Tell friends at bottom as well for people who got that far
     and on front page?
 
 
-
 Put constituency tag in twitter
     http://code.google.com/p/constituencyvolunteernetwork/source/browse/trunk/hashtags.py
     slug is the same as the DC slug, except it doesnt take & into account.
 
-Add contact link
 
-Log answers people give in database? So can share.
-Have a choice of candidates at the end, say who you now like most
-
-Opt-in to get email when there are more results in your constituency?
-    store date/time when they sign up to alerts
-
+Send final reminder mail on Sunday:
+> A good possible refusenik hook is (IMO) to say "You may not be aware that X
+> other candidates for your party have filled it in. They understand that it
+> is worth doing, I hope we can persuade you too"
+> 
+> It could even be in the subject line "144 other Labour PPCs have gone on the
+> record - please join them"
 
 
 Publicity
@@ -61,6 +60,9 @@ Display that in results of quiz
 Rename log as log_and_save
 
 Really autosave should check for conflicts between two browser windows
+
+Opt-in to get email when there are more results in your constituency?
+    store date/time when they sign up to alerts
 
 
 
