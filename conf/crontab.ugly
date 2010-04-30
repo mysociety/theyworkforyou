@@ -20,7 +20,7 @@ MAILTO=team@theyworkforyou.com
 37 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/theyworkforyou/scripts/dailyupdate
 
 # Weekly, compact Xapian database
-23 4 * * Sun !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/morning-update.lock /data/vhost/!!(*= $vhost *)!!/theyworkforyou/scripts/compactsearchdb || echo "morningupdate or compactsearchdb is already running"
+# 23 4 * * Sun !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/morning-update.lock /data/vhost/!!(*= $vhost *)!!/theyworkforyou/scripts/compactsearchdb || echo "morningupdate or compactsearchdb is already running"
 # And remove any things in the index that are no longer present
 0 23 * * Sat !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/theyworkforyou/search/index.pl check cronquiet
 

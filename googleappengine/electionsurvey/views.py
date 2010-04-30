@@ -27,7 +27,7 @@ from google.appengine.api.urlfetch import fetch
 
 from django.forms.formsets import formset_factory
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.conf import settings
 import django.forms.util
 import django.utils.simplejson as json
@@ -550,7 +550,7 @@ def quiz_by_code(request, code):
 def quiz_by_postcode(request, postcode):
     seat = forms._postcode_to_constituency(postcode)
     if seat == None:
-        raise Exception("Seat not found")
+        raise Http404
     return quiz_main(request, seat, postcode)
 
 # Used for quiz_main below
