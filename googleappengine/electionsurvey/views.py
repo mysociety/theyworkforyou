@@ -519,7 +519,8 @@ def quiz_ask_postcode(request):
 def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_response_key, issue_model):
     issue = { 
         'short_name': issue_model.short_name, 
-        'question': issue_model.question 
+        'question': issue_model.question,
+        'democlub_id': issue_model.democlub_id,
     }
     candidacies_with_response = []
     for response in all_responses:
@@ -584,6 +585,7 @@ def _get_quiz_main_params(seat):
     candidacies_without_response = [ { 
         'name': candidacies_by_key[k].candidate.name, 
         'party': candidacies_by_key[k].candidate.party.name,
+        'code': candidacies_by_key[k].candidate.code,
         'image_url': candidacies_by_key[k].candidate.image_url(),
         'party_image_url': candidacies_by_key[k].candidate.party.image_url(),
         'yournextmp_url': candidacies_by_key[k].candidate.yournextmp_url(),
@@ -592,8 +594,11 @@ def _get_quiz_main_params(seat):
         'survey_invite_posted': candidacies_by_key[k].survey_invite_posted
     } for k in candidacies_without_response_key]
 
+    candidacies_with_response = national_answers[0]['candidacies']
+
     return { 
         'candidacies_without_response' : candidacies_without_response,
+        'candidacies_with_response' : candidacies_with_response,
         'candidacy_count' : len(candidacies),
         'candidacy_with_response_count' : len(candidacies) - len(candidacies_without_response),
         'candidacy_without_response_count' : len(candidacies_without_response),

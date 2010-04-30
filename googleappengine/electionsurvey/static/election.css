@@ -193,16 +193,30 @@ body#quiz div.main {
     width: 50em;
     margin-right: 1em;
 }
+
 body#quiz div.sidebar {
     float: none;
     width: auto;
+    position: fixed;
+    left:51em;
 }
 
 body#quiz div.sidebar h2 {
     font-size:1.2em;
-    margin-bottom:0;
+    margin:0;
+    margin-bottom:0.25em;
+    margin-top:1em;
+    padding:0;
 }
 
+body#quiz div.sidebar h2:first-child {
+    margin-top:0;
+}
+
+body#quiz div.sidebar p {
+    margin:0;
+    padding:0;
+}
 
 body#quiz h3 {
     margin-top: 2em;

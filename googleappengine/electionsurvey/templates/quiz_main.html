@@ -71,37 +71,123 @@
 
 <div class="sidebar">
     <!-- Any sidebar text goes here -->
-
-    <h2>Help!</h2>
-
-    <p>
-        <a href="http://www.democracyclub.org.uk/blog/2010/04/candidate-survey-faq/">Frequently asked questions</a>
-    </p>
-
     <h2>Tell your friends about this MP job interview</h2>
 
+    <script>
+        var text1 = "I agreed most with ";
+        var text2 = " in {{ seat.name }} - which candidate do you agree with most? http://bit.ly/dfsdf";
+
+        questions = {% templatetag openbrace %}{% for answer in local_answers %}"{{ answer.question }}": {% templatetag openbrace %}{% for candidacy in answer.candidacies %}"{{ candidacy.code }}": {{ candidacy.agreement }},{% endfor %}{% templatetag closebrace %},{% endfor %} {% for answer in national_answers %}"{{ answer.question }}": {% templatetag openbrace %}{% for candidacy in answer.candidacies %}"{{ candidacy.code }}": {{ candidacy.agreement }},{% endfor %}{% templatetag closebrace %},{% endfor %}{% templatetag closebrace %};
+
+        scores = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": 0,{% endfor %}{% templatetag closebrace %};
+
+        candidate_names = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% templatetag closebrace %};
+
+        scores_undo = {};
+
+        function survey_answer_selected(question, answer) {
+            candidate_answers = questions[question];
+
+            if(question in scores_undo) {
+                candidate_scores_undo = scores_undo[question];
+                for(candidate in candidate_scores_undo)
+                    scores[candidate] -= candidate_scores_undo[candidate];
+                delete scores_undo[question];
+            }
+
+            scores_undo[question] = {};
+
+            for(candidate in candidate_answers) {
+                candidate_answer = candidate_answers[candidate];
+                if(candidate_answer == answer) {
+                    scores[candidate] += 2;
+                    scores_undo[question][candidate] = 2;
+                }
+                else if(candidate_answer == answer + 25 || candidate_answer == answer -25) {
+                    scores[candidate] += 1;
+                    scores_undo[question][candidate] = 1;
+                }
+            }
+
+            update_candidate_most_agree();
+        }
+
+        function update_candidate_most_agree() {
+            agree_most = "no-one";
+            agree_most_score = 0;
+            scoretext = "<ul>";
+            for(candidate in scores) {
+                if(agree_most_score < scores[candidate]) {
+                    agree_most = candidate;
+                    agree_most_score = scores[candidate];
+                }
+                scoretext += "<li>" + candidate_names[candidate] + " " + scores[candidate] + "</li>";
+            }
+            $("#agree_most").html(scoretext + "</ul>");
+            $("#you_agree_with").val(agree_most)
+            update_sharing();
+        }
+
+        function update_sharing() {
+            var sharing_text = text1 + $("#you_agree_with :selected").text() + text2
+            $("#pastetext").val(sharing_text);
+            $("#twitterlink").attr("href", "http://twitter.com/home/?status=" + escape(sharing_text));
+        }
+
+        $(function () {
+            $("#you_agree_with").change(update_sharing);
+            update_sharing();
+        });
+    </script>
+    
     <p>
+        <form>
+        I have agreed most with 
+        <select id="you_agree_with" name="you_agree_with">
+            <option value="no-one">no-one</option>
+            {% for candidacy in candidacies_with_response %}
+            <option value="{{ candidacy.code }}">{{ candidacy.name }}</option>{% endfor %}
+            {% for candidacy in candidacies_without_response %}
+            <option value="{{ candidacy.code }}">{{ candidacy.name }}</option>{% endfor %}
+            <option value="secret">it's a secret</option>
+        </select>
+        so far.<br/>
+        &ndash; <a href='http://twitter.com/home/?status=I%20agreed%20most%20with%20Francis%20Frog%20in%20Cambridge%20-%20which%20candidate%20do%20you%20agree%20with%20http://bit.ly/dfsdf' target="_blank" id="twitterlink">tweet this</a> or <a href='http://www.facebook.com/sharer.php?u=http://election.theyworkforyou.com/&t=I%20agreed%20most%20with%20Francis%20Frog%20in%20Cambridge' target="_blank">share on facebook</a>
+        <input id="pastetext" type="text" value="" onclick="this.select()"/>
+        <div id="agree_most">
+        </div>
+        </form>
+    </p>
+   
+    <!--<p>
         <br><a name="fb_share" type="button" share_url="http://election.theyworkforyou.com/" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 
         <br><br><a href="http://twitter.com/home/?status=I've+been+exploring+what+my+MP+candidates+think+about+local+and+national+issues+at+http%3A%2F%2Fwww.theyworkforyou.com%2F+%23ge2010"><img src="/static/tweetthis-15.gif"></a>
-    </p>
+    </p>-->
 
     <h2>Other election sites you might like</h2>
 
-    <div class="link_out">
-        <a href="http://www.thestraightchoice.org">The Straight Choice</a> &ndash; upload and
-        view election leaflets
-    </div>
+    <p>
+        <div class="link_out">
+            <a href="http://www.thestraightchoice.org" target="_blank">The Straight Choice</a> &ndash; upload and
+            view election leaflets
+        </div>
 
-    <div class="link_out">
-        <a href="http://www.votematch.org.uk/2010/index.php">Vote Match</a> &ndash; which
-        party agrees with your policies?
-    </div>
+        <div class="link_out">
+            <a href="http://www.votematch.org.uk/2010/index.php" target="_blank">Vote Match</a> &ndash; which
+            party agrees with your policies?
+        </div>
 
-    <div class="link_out">
-        <a href="http://voteforpolicies.org.uk/">Vote for Policies</a> &ndash; compare
-        policies before finding out which party has them
-    </div>
+        <div class="link_out">
+            <a href="http://voteforpolicies.org.uk/" target="_blank">Vote for Policies</a> &ndash; compare
+            policies before finding out which party has them
+        </div>
+    </p>
+
+    <h2>Help!</h2>
+    <p>
+        <a href="http://www.democracyclub.org.uk/blog/2010/04/candidate-survey-faq/" target="_blank">Frequently asked questions</a>
+    </p>
 </div>
 {% endblock %}
 

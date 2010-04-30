@@ -39,6 +39,11 @@ $(function(){
 	    table.find('.you').css('background','none');
 
 	    var li = $(this).closest('li.answer');
+
+        question = li.children('.statement').children('blockquote').html();
+        answer = (6-column)*25;
+        survey_answer_selected(question, answer);
+        
 	    $('html,body').animate({ 'scrollTop': li.offset().top });
 	    return false;
 	});
