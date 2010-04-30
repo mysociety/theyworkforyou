@@ -330,3 +330,7 @@ div.link_out {
     margin-bottom: 0.8em;
 } 
 
+tr.winning  {
+    background:#FFC;
+}
+

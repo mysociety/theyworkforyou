@@ -111,19 +111,16 @@
             <option value="secret">[it's a secret]</option>
         </select>
         so far.<br/>-->
-        <textarea id="agreed_most" style="width:100%;height:6em;margin-right:0.5em;">Answer questions to the survey to see which candidate agrees with you the most.</textarea><br/>
-        <div style="font-size:1.em;margin-bottom:0.5em;"><a href='http://twitter.com/home/?status=Which%20MP%20candidate%20do%20you%20agree%20with%20the%20most%3F%20http%3A%2F%2Fbit.ly%2F+9MRs6t%20%23ge2010' target="_blank" id="twitterlink">tweet this</a> or <a href='http://www.facebook.com/sharer.php?u=http://election.theyworkforyou.com/' target="_blank">share on facebook</a></div>
-        
-        
+        <!--<textarea id="agreed_most" style="width:100%;height:6em;margin-right:0.5em;">Answer questions to the survey to see which candidate agrees with you the most.</textarea><br/>-->      
         <div id="agree_most">
         <table width="100%">
             {% for candidacy in candidacies_with_response %}
-            <tr><td>{{ candidacy.name }}</td><td><strong>0 points</strong><td><small>({{ candidacy.party }})</small></td></tr>{% endfor %}
+            <tr><td>{{ candidacy.name }}</td><td><strong>0 points</strong><td style="width:40px;"><small>({{ candidacy.party }})</small></td></tr>{% endfor %}
         </table>
         </div>
         <br/>
-        <a name="fb_share" type="button" share_url="http://election.theyworkforyou.com/" href="http://www.facebook.com/sharer.php">Share on facebook</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script> 
-        <a style="font-weight:normal;" href="http://twitter.com/home/?status=I%27ve+been+exploring+what+my+MP+candidates+think+about+local+and+national+issues+at+http%3A%2F%2Fwww.theyworkforyou.com%2F+%23ge2010"><img src="http://twitter-badges.s3.amazonaws.com/twitter-b.png" alt="Tweet this"/> tweet this</a>
+        <div id="agreed_most" style="width:100%;margin-right:0.5em;margin-bottom:0.25em;padding:0.25em;border:1px dashed #CCC;">Answer questions to the survey to see which candidate agrees with you the most.</div>
+        <div style="font-size:1.em;margin-bottom:0.5em;"><a href='http://twitter.com/home/?status=Which%20MP%20candidate%20do%20you%20agree%20with%20the%20most%3F%20http%3A%2F%2Fbit.ly%2F+9MRs6t%20%23ge2010' target="_blank" id="twitterlink">tweet this</a> or <a href='http://www.facebook.com/sharer.php?u=http://election.theyworkforyou.com/' target="_blank">share on facebook</a></div>
     </p>
    
     <!--<p>
@@ -136,6 +133,9 @@
     <p>
         <a href="http://www.democracyclub.org.uk/blog/2010/04/candidate-survey-faq/" target="_blank">Frequently asked questions</a>
     </p>
+    <br/>
+    <a name="fb_share" type="button" share_url="http://election.theyworkforyou.com/" href="http://www.facebook.com/sharer.php">Share on facebook</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script> 
+    <a style="font-weight:normal;" href="http://twitter.com/home/?status=I%27ve+been+exploring+what+my+MP+candidates+think+about+local+and+national+issues+at+http%3A%2F%2Fwww.theyworkforyou.com%2F+%23ge2010"><img src="http://twitter-badges.s3.amazonaws.com/twitter-b.png" alt="Tweet this"/></a>
 </div>
 {% endblock %}
 

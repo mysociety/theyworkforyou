@@ -113,7 +113,14 @@ function update_candidate_most_agree() {
             agree_most = candidate;
             agree_most_score = scores[candidate];
         }
-        scoretext += "<tr><td>" + candidate_names[candidate] + "</td><td><strong>" + scores[candidate] + " points</strong></td><td><small>(" + candidate_parties[candidate] + ")</small></td></tr>";
+        
+    }
+    for(candidate in scores) {
+        if(candidate == agree_most)
+            css_class = "winning";
+        else
+            css_class = "";
+        scoretext += "<tr class='"+css_class+"'><td>" + candidate_names[candidate] + "</td><td><strong>" + scores[candidate] + " points</strong></td><td style='width:40px;'><small>(" + candidate_parties[candidate] + ")</small></td></tr>";
     }
     $("#agree_most").html(scoretext + "</table>");
 
@@ -121,7 +128,7 @@ function update_candidate_most_agree() {
     if(agree_most != "no-one" && agree_most != "secret")
         candidate_name += " (" + candidate_parties[agree_most] + ")";
     var sharing_text = text1 + candidate_name + text2;
-    $("#agreed_most").val(sharing_text);
+    $("#agreed_most").html(sharing_text);
     $("#twitterlink").attr("href", "http://twitter.com/home/?status=" + escape(sharing_text));
 }
 
