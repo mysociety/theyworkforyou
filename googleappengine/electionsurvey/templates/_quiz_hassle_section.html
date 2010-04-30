@@ -16,7 +16,9 @@
                 </p>
             {% else %}
                 <p>
-                    Thanks for reading the candidate responses. Remember to share! However, candidates from the following parties have not yet put their views on record.
+                    Thanks for reading the candidate responses. Remember to
+                    share! However, candidates from the following parties have
+                    not yet put their views on record.
                 </p>
             {% endif %}
 
@@ -32,6 +34,9 @@
                 <small>(if you're one of them then <a href="/survey">go here</a>)</small>
             </p>
             {% else %}
+                <p>
+                    <small>(if you're one of these candidates then <a href="/survey">go here</a>)</small>
+                </p>
                 {% include "_quiz_subscribe_form.html" %}
             {% endif %}
         {% else %}

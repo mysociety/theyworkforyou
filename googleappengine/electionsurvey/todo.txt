@@ -4,85 +4,35 @@ Do this next
 Do a dump for analysis
     include columns for party etc.
 
-Consider sorting them by order that they answered :0
-- with a line between those who answered before/after quiz launch
-
-Put white space below "Help us get answers from all your candidates!"
-box at bottom, so when you click internal link to it it always
-scrolls to top of browser
-
-Say more about privacy by emails
-
-"Change constituency" link - i.e. go back to postcode box
-
-Opt-in to get email when there are more results in your constituency?
-    store date/time when they sign up to alerts
-
-Change heading for Facebook to get to be job interview
 Tell friends at bottom as well for people who got that far
     and on front page?
-
-Change Independent logo to be a grey blob or something
-
-"Well done on all the hard work! Once small suggestion - the hassling
-interface after the quiz seems a bit disjointed.  Maybe it should warn
-you you are about to leave the site, and prompt you to tell them that
-you went to the site to inform yourself what to do with your vote and
-were disapointed to not see them listed?"
-
-"Perhaps putting the standard TWFY "help" link on the page somewhere
-would go a long way towards righting that "
-
 
 
 Put constituency tag in twitter
     http://code.google.com/p/constituencyvolunteernetwork/source/browse/trunk/hashtags.py
     slug is the same as the DC slug, except it doesnt take & into account.
 
-Add contact link
 
-Log answers people give in database? So can share.
-Have a choice of candidates at the end, say who you now like most
-
-Link to blog posts for explanation
-    http://www.democracyclub.org.uk/blog/2010/04/candidate-survey-faq/
-
-Postal
-- AGAIN - Do those for which we have postal address, but no valid email address
-- Do those that haven't replied to the survey, but have postal address (even if emaield)
-
-Change domain to better one?
+Send final reminder mail on Sunday:
+> A good possible refusenik hook is (IMO) to say "You may not be aware that X
+> other candidates for your party have filled it in. They understand that it
+> is worth doing, I hope we can persuade you too"
+> 
+> It could even be in the subject line "144 other Labour PPCs have gone on the
+> record - please join them"
 
 
 Publicity
 =========
 
-    How about we offer to blog about people who
-    hassle their candidates in the most imaginative (but non threatening)
-    manner?
-
-mySociety news email list
-mySociety blog post
-
 Public Whip mailing
-TheyWorkForYou other pages
 
-Check leaders pages:
-http://election.theyworkforyou.com/quiz/seats/sheffield_hallam
-http://election.theyworkforyou.com/quiz/seats/witney
-http://election.theyworkforyou.com/quiz/seats/kirkcaldy_and_cowdenbeath
 
 
 Other things
 ============
 
 Remove democracy club slug from model, is not needed really now
-
-"Candidates not parties" or "candidates not party leaders" is the marketing line
-- "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
-- "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
-
-Be able to close questions in quiz
 
 Try using Django 1.1 like this, maybe will reduce errors?
 http://code.google.com/appengine/docs/python/tools/libraries.html
@@ -96,9 +46,6 @@ Do another patch of sending to all emails
     iso/pylib/sendemail.py has python code we use, dunno why that's not in
     generic pylib that adds date, message-id, does header escaping, etc.
 Ask PPCs who have done survey to motivate other party members to do survey?
-
-Mail when survey live:
-    Matthew Harris 
 
 Actively refused to answer (with reason):
     Michael Meacher, Oldham West (Labour)
@@ -114,6 +61,8 @@ Rename log as log_and_save
 
 Really autosave should check for conflicts between two browser windows
 
+Opt-in to get email when there are more results in your constituency?
+    store date/time when they sign up to alerts
 
 
 
