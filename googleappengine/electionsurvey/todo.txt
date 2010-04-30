@@ -4,12 +4,9 @@ Do this next
 Do a dump for analysis
     include columns for party etc.
 
-Say more about privacy by emails
-
 "Perhaps putting the standard TWFY "help" link on the page somewhere
 would go a long way towards righting that "
 
-Change heading for Facebook to get to be job interview
 Tell friends at bottom as well for people who got that far
     and on front page?
 
@@ -32,31 +29,14 @@ Opt-in to get email when there are more results in your constituency?
 Publicity
 =========
 
-    How about we offer to blog about people who
-    hassle their candidates in the most imaginative (but non threatening)
-    manner?
-
-mySociety blog post
-
 Public Whip mailing
-TheyWorkForYou other pages
 
-Check leaders pages:
-    http://election.theyworkforyou.com/quiz/seats/sheffield_hallam
-    http://election.theyworkforyou.com/quiz/seats/witney
-    http://election.theyworkforyou.com/quiz/seats/kirkcaldy_and_cowdenbeath
 
 
 Other things
 ============
 
 Remove democracy club slug from model, is not needed really now
-
-"Candidates not parties" or "candidates not party leaders" is the marketing line
-- "Explore TheyWorkForYou's Unprecedented Candidate Survey, brought to you by 6000 volunteers"
-- "TheyWorkForYou is the UK's main site for tracking what MPs get up to. At this election we've recruited an army of volunteers to help find out where the people who want to become MPs stand."
-
-Be able to close questions in quiz
 
 Try using Django 1.1 like this, maybe will reduce errors?
 http://code.google.com/appengine/docs/python/tools/libraries.html
@@ -71,9 +51,6 @@ Do another patch of sending to all emails
     generic pylib that adds date, message-id, does header escaping, etc.
 Ask PPCs who have done survey to motivate other party members to do survey?
 
-Mail when survey live:
-    Matthew Harris 
-
 Actively refused to answer (with reason):
     Michael Meacher, Oldham West (Labour)
     Marcus Jones, Nuneaton (Conservative)
@@ -87,7 +64,6 @@ Display that in results of quiz
 Rename log as log_and_save
 
 Really autosave should check for conflicts between two browser windows
-
 
 
 
