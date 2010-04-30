@@ -36,8 +36,14 @@ $(function(){
 	    table.find('tr.what-they-think').fadeIn(600);
 	    table.find('.explanation').css('visibility', 'visible');
 	    table.find('.you').html('<strong>You</strong>');
+	    table.find('.you').css('background','none');
 
 	    var li = $(this).closest('li.answer');
+
+        question = li.children('.statement').children('blockquote').html();
+        answer = (6-column)*25;
+        survey_answer_selected(question, answer);
+        
 	    $('html,body').animate({ 'scrollTop': li.offset().top });
 	    return false;
 	});
@@ -68,4 +74,58 @@ function autosave_survey_form() {
         }});
     }
 }
+
+function survey_answer_selected(question, answer) {
+    candidate_answers = questions[escape(question)];
+
+    if(escape(question) in scores_undo) {
+        candidate_scores_undo = scores_undo[escape(question)];
+        for(candidate in candidate_scores_undo)
+            scores[candidate] -= candidate_scores_undo[candidate];
+        delete scores_undo[escape(question)];
+    }
+
+    scores_undo[escape(question)] = {};
+
+    for(candidate in candidate_answers) {
+        candidate_answer = candidate_answers[candidate];
+        if(candidate_answer == answer) {
+            scores[candidate] += 2;
+            scores_undo[escape(question)][candidate] = 2;
+        }
+        else if(candidate_answer == answer + 25 || candidate_answer == answer -25) {
+            scores[candidate] += 1;
+            scores_undo[escape(question)][candidate] = 1;
+        }
+    }
+
+    update_candidate_most_agree();
+}
+
+function update_candidate_most_agree() {
+    agree_most = "no-one";
+    agree_most_score = 0;
+    scoretext = "<ul>";
+    for(candidate in scores) {
+        if(agree_most_score < scores[candidate]) {
+            agree_most = candidate;
+            agree_most_score = scores[candidate];
+        }
+        scoretext += "<li>" + candidate_names[candidate] + " <small>(" + candidate_parties[candidate] + ")</small> <strong>" + scores[candidate] + " points</strong></li>";
+    }
+    $("#agree_most").html(scoretext + "</ul>");
+    $("#you_agree_with").val(agree_most)
+    update_sharing();
+}
+
+function update_sharing() {
+    candidate_code = $("#you_agree_with").val();
+    candidate_name = $("#you_agree_with :selected").text();
+    if(candidate_code != "no-one" && candidate_code != "secret")
+        candidate_name += " (" + candidate_parties[$("#you_agree_with").val()] + ")";
+    var sharing_text = text1 + candidate_name + text2;
+    $("#pastetext").val(sharing_text);
+    $("#twitterlink").attr("href", "http://twitter.com/home/?status=" + escape(sharing_text));
+}
+
 

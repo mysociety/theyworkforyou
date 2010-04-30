@@ -258,8 +258,8 @@ if (typeof urchinTracker == 'function') urchinTracker();
 				print '<p class="informational banner">Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
 			} elseif ($country == 'CA') {
 				print '<p class="informational banner">Check out <a href="http://howdtheyvote.ca/">How&rsquo;d They Vote?</a> and <a href="http://www.openparliament.ca/">OpenParliament.ca</a></p>';
-			} else {
-				#print '<p class="informational banner">You can improve this election: <a href="http://www.democracyclub.org.uk/">TheyWorkForYou needs your help to pin down every candidate</a></p>';
+			} elseif ($this_page != 'overview') {
+				print '<p class="informational banner"><a href="http://election.theyworkforyou.com/">Find out what your candidates said on local and national issues in our quiz</a></p>';
             }
 		}
 
@@ -315,12 +315,15 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		
 		$img = '<img src="' . IMAGEPATH . 'logo.png" width="423" height="80" alt="TheyWorkForYou.com">';
 
-		if ($this_page != 'home') {
-			$HOMEURL = new URL('home');
+		if ($this_page != 'overview') {
+			$HOMEURL = new URL('overview');
 			$HOMEURL = $HOMEURL->generate();
 			$HOMETITLE = 'To the front page of the site';
 			$img = '<a href="' . $HOMEURL . '" title="' . $HOMETITLE . '">' . $img . '</a>';
-		}
+            $class = '';
+        } else {
+            $class = ' class="front"';
+        }
 
 /*
 XXX: Confusing, I don't like it, we have the filter now, so don't have this for the moment.
@@ -346,7 +349,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		?>
 	<div id="banner">
 		<div id="title">
-			<h1><?php echo $img; ?></h1>
+			<h1<?=$class ?>><?=$img ?></h1>
 		</div>
 <?php
 	#		if ($this_page != 'home' && $this_page != 'search' && $this_page != 'yourmp') {

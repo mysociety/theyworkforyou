@@ -5,16 +5,14 @@
 {% endif %}
 
 {% if candidacy_without_response_count %}
-        <h2>Before you begin: Help us get answers from all your candidates!</h2>
+        <h4>{% if shorter_hassle_section %}Before you begin: help{% else %}Help{% endif %} us get answers from all your candidates!</h4>
 
         {% if candidacy_with_response_count %}
             {% if shorter_hassle_section %}
                 <p>
-                    We've got answers from {{ candidacy_with_response_count }} applicant{{ candidacy_with_response_count|pluralize }}
+                    We've got answers from <strong>{{ candidacy_with_response_count }} applicant{{ candidacy_with_response_count|pluralize }}</strong>
                     to be your MP. You can explore the answers below.
-                </p>
-                <p>
-                    However, candidates from the following parties have not yet put their views on record.
+                    However, candidates from the following parties have <strong>not yet</strong> put their views on record.
                 </p>
             {% else %}
                 <p>

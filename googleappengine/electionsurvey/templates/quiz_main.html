@@ -71,37 +71,82 @@
 
 <div class="sidebar">
     <!-- Any sidebar text goes here -->
-
-    <h2>Help!</h2>
-
-    <p>
-        <a href="http://www.democracyclub.org.uk/blog/2010/04/candidate-survey-faq/">Frequently asked questions</a>
-    </p>
-
     <h2>Tell your friends about this MP job interview</h2>
 
+    <script>
+        var text1 = "I agreed most with ";
+        var text2 = " in {{ seat.name }} - how about you? http://bit.ly/9MRs6t #ge2010";
+        
+        questions = {% templatetag openbrace %}{% for answer in local_answers %}"{{ answer.question|urlencode }}": {% templatetag openbrace %}{% for candidacy in answer.candidacies %}"{{ candidacy.code }}": {{ candidacy.agreement }},{% endfor %}{% templatetag closebrace %},{% endfor %} {% for answer in national_answers %}"{{ answer.question|urlencode }}": {% templatetag openbrace %}{% for candidacy in answer.candidacies %}"{{ candidacy.code }}": {{ candidacy.agreement }},{% endfor %}{% templatetag closebrace %},{% endfor %}{% templatetag closebrace %};
+
+        scores = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": 0,{% endfor %}{% templatetag closebrace %};
+
+        candidate_names = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.name }}",{% endfor %}{% templatetag closebrace %};
+
+        candidate_parties = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.party }}",{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.party }}",{% endfor %}{% templatetag closebrace %};
+        
+        scores_undo = {};
+
+        $(function () {
+            $("#you_agree_with").change(update_sharing);
+            update_sharing();
+        });
+    </script>
+    
     <p>
+        I have agreed most with 
+        <select id="you_agree_with" name="you_agree_with">
+            <option value="no-one">no candidates</option>
+            {% for candidacy in candidacies_with_response %}
+            <option value="{{ candidacy.code }}">{{ candidacy.name }}</option>{% endfor %}
+            {% for candidacy in candidacies_without_response %}
+            <option value="{{ candidacy.code }}">{{ candidacy.name }}</option>{% endfor %}
+            <option value="secret">[it's a secret]</option>
+        </select>
+        so far.<br/>
+        &ndash; <a href='http://twitter.com/home/?status=I%20agreed%20most%20with%20Francis%20Frog%20in%20Cambridge%20-%20how%20about%20you%20http%3A%2F%2Fbit.ly%2F+9MRs6t%20%23ge2010' target="_blank" id="twitterlink">tweet this</a> or <a href='http://www.facebook.com/sharer.php?u=http://election.theyworkforyou.com/' target="_blank">share on facebook</a>
+        <input id="pastetext" type="text" value="" onclick="this.select()"/>
+
+        <div id="agree_most">
+        <ul>
+            {% for candidacy in candidacies_with_response %}
+            <li>{{ candidacy.name }} <small>({{ candidacy.party }})</small> &ndash; <strong>0 points</strong></li>{% endfor %}
+        </ul>
+        </div>
+        <br/>
+        <a name="fb_share" type="button" share_url="http://election.theyworkforyou.com/" href="http://www.facebook.com/sharer.php">Share on facebook</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script> 
+        <a style="font-weight:normal;" href="http://twitter.com/home/?status=I%27ve+been+exploring+what+my+MP+candidates+think+about+local+and+national+issues+at+http%3A%2F%2Fwww.theyworkforyou.com%2F+%23ge2010"><img src="http://twitter-badges.s3.amazonaws.com/twitter-b.png" alt="Tweet this"/> tweet this</a>
+    </p>
+   
+    <!--<p>
         <br><a name="fb_share" type="button" share_url="http://election.theyworkforyou.com/" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 
         <br><br><a href="http://twitter.com/home/?status=I've+been+exploring+what+my+MP+candidates+think+about+local+and+national+issues+at+http%3A%2F%2Fwww.theyworkforyou.com%2F+%23ge2010"><img src="/static/tweetthis-15.gif"></a>
-    </p>
+    </p>-->
 
     <h2>Other election sites you might like</h2>
 
-    <div class="link_out">
-        <a href="http://www.thestraightchoice.org">The Straight Choice</a> &ndash; upload and
-        view election leaflets
-    </div>
+    <p>
+        <div class="link_out">
+            <a href="http://www.thestraightchoice.org" target="_blank">The Straight Choice</a> &ndash; upload and
+            view election leaflets
+        </div>
 
-    <div class="link_out">
-        <a href="http://www.votematch.org.uk/2010/index.php">Vote Match</a> &ndash; which
-        party agrees with your policies?
-    </div>
+        <div class="link_out">
+            <a href="http://www.votematch.org.uk/2010/index.php" target="_blank">Vote Match</a> &ndash; which
+            party agrees with your policies?
+        </div>
 
-    <div class="link_out">
-        <a href="http://voteforpolicies.org.uk/">Vote for Policies</a> &ndash; compare
-        policies before finding out which party has them
-    </div>
+        <div class="link_out">
+            <a href="http://voteforpolicies.org.uk/" target="_blank">Vote for Policies</a> &ndash; compare
+            policies before finding out which party has them
+        </div>
+    </p>
+
+    <h2>Help!</h2>
+    <p>
+        <a href="http://www.democracyclub.org.uk/blog/2010/04/candidate-survey-faq/" target="_blank">Frequently asked questions</a>
+    </p>
 </div>
 {% endblock %}
 

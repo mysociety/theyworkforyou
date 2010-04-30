@@ -27,7 +27,7 @@ from google.appengine.api.urlfetch import fetch
 
 from django.forms.formsets import formset_factory
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.conf import settings
 import django.forms.util
 import django.utils.simplejson as json
@@ -519,7 +519,8 @@ def quiz_ask_postcode(request):
 def _get_entry_for_issue(candidacies_by_key, all_responses, candidacies_with_response_key, issue_model):
     issue = { 
         'short_name': issue_model.short_name, 
-        'question': issue_model.question 
+        'question': issue_model.question,
+        'democlub_id': issue_model.democlub_id,
     }
     candidacies_with_response = []
     for response in all_responses:
@@ -549,7 +550,7 @@ def quiz_by_code(request, code):
 def quiz_by_postcode(request, postcode):
     seat = forms._postcode_to_constituency(postcode)
     if seat == None:
-        raise Exception("Seat not found")
+        raise Http404
     return quiz_main(request, seat, postcode)
 
 # Used for quiz_main below
@@ -584,6 +585,7 @@ def _get_quiz_main_params(seat):
     candidacies_without_response = [ { 
         'name': candidacies_by_key[k].candidate.name, 
         'party': candidacies_by_key[k].candidate.party.name,
+        'code': candidacies_by_key[k].candidate.code,
         'image_url': candidacies_by_key[k].candidate.image_url(),
         'party_image_url': candidacies_by_key[k].candidate.party.image_url(),
         'yournextmp_url': candidacies_by_key[k].candidate.yournextmp_url(),
@@ -592,8 +594,11 @@ def _get_quiz_main_params(seat):
         'survey_invite_posted': candidacies_by_key[k].survey_invite_posted
     } for k in candidacies_without_response_key]
 
+    candidacies_with_response = national_answers[0]['candidacies']
+
     return { 
         'candidacies_without_response' : candidacies_without_response,
+        'candidacies_with_response' : candidacies_with_response,
         'candidacy_count' : len(candidacies),
         'candidacy_with_response_count' : len(candidacies) - len(candidacies_without_response),
         'candidacy_without_response_count' : len(candidacies_without_response),
