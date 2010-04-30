@@ -75,7 +75,7 @@
 
     <script>
         var text1 = "I agreed most with ";
-        var text2 = " in {{ seat.name }} - which candidate do you agree with most? http://bit.ly/dfsdf";
+        var text2 = " in {{ seat.name }} - how about you? http://bit.ly/9MRs6t #ge2010";
         
         questions = {% templatetag openbrace %}{% for answer in local_answers %}"{{ answer.question|urlencode }}": {% templatetag openbrace %}{% for candidacy in answer.candidacies %}"{{ candidacy.code }}": {{ candidacy.agreement }},{% endfor %}{% templatetag closebrace %},{% endfor %} {% for answer in national_answers %}"{{ answer.question|urlencode }}": {% templatetag openbrace %}{% for candidacy in answer.candidacies %}"{{ candidacy.code }}": {{ candidacy.agreement }},{% endfor %}{% templatetag closebrace %},{% endfor %}{% templatetag closebrace %};
 
@@ -104,7 +104,7 @@
             <option value="secret">[it's a secret]</option>
         </select>
         so far.<br/>
-        &ndash; <a href='http://twitter.com/home/?status=I%20agreed%20most%20with%20Francis%20Frog%20in%20Cambridge%20-%20which%20candidate%20do%20you%20agree%20with%20http://bit.ly/dfsdf' target="_blank" id="twitterlink">tweet this</a> or <a href='http://www.facebook.com/sharer.php?u=http://election.theyworkforyou.com/&t=I%20agreed%20most%20with%20Francis%20Frog%20in%20Cambridge' target="_blank">share on facebook</a>
+        &ndash; <a href='http://twitter.com/home/?status=I%20agreed%20most%20with%20Francis%20Frog%20in%20Cambridge%20-%20how%20about%20you%20http%3A%2F%2Fbit.ly%2F+9MRs6t%20%23ge2010' target="_blank" id="twitterlink">tweet this</a> or <a href='http://www.facebook.com/sharer.php?u=http://election.theyworkforyou.com/' target="_blank">share on facebook</a>
         <input id="pastetext" type="text" value="" onclick="this.select()"/>
 
         <div id="agree_most">
