@@ -51,6 +51,8 @@ $(function(){
     if ($('form#postcode_form').length) {
         $('form#postcode_form #id_postcode').focus()
     }
+
+    $("#agreed_most").change(function () { $("#twitterlink").attr("href", "http://twitter.com/home/?status=" + escape($("#agreed_most").val())); });
 });
 
 // Store form data on server so can come back to it later
@@ -105,17 +107,22 @@ function survey_answer_selected(question, answer) {
 function update_candidate_most_agree() {
     agree_most = "no-one";
     agree_most_score = 0;
-    scoretext = "<ul>";
+    scoretext = "<table width='100%'>";
     for(candidate in scores) {
         if(agree_most_score < scores[candidate]) {
             agree_most = candidate;
             agree_most_score = scores[candidate];
         }
-        scoretext += "<li>" + candidate_names[candidate] + " <small>(" + candidate_parties[candidate] + ")</small> <strong>" + scores[candidate] + " points</strong></li>";
+        scoretext += "<tr><td>" + candidate_names[candidate] + "</td><td><strong>" + scores[candidate] + " points</strong></td><td><small>(" + candidate_parties[candidate] + ")</small></td></tr>";
     }
-    $("#agree_most").html(scoretext + "</ul>");
-    $("#you_agree_with").val(agree_most)
-    update_sharing();
+    $("#agree_most").html(scoretext + "</table>");
+
+    candidate_name = candidate_names[agree_most]
+    if(agree_most != "no-one" && agree_most != "secret")
+        candidate_name += " (" + candidate_parties[agree_most] + ")";
+    var sharing_text = text1 + candidate_name + text2;
+    $("#agreed_most").val(sharing_text);
+    $("#twitterlink").attr("href", "http://twitter.com/home/?status=" + escape(sharing_text));
 }
 
 function update_sharing() {
@@ -124,7 +131,7 @@ function update_sharing() {
     if(candidate_code != "no-one" && candidate_code != "secret")
         candidate_name += " (" + candidate_parties[$("#you_agree_with").val()] + ")";
     var sharing_text = text1 + candidate_name + text2;
-    $("#pastetext").val(sharing_text);
+    $("#agreed_most").html(sharing_text);
     $("#twitterlink").attr("href", "http://twitter.com/home/?status=" + escape(sharing_text));
 }
 

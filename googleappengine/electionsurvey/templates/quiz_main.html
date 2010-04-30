@@ -67,11 +67,23 @@
 {% with 0 as shorter_hassle_section %}
     {% include "_quiz_hassle_section.html" %}
 {% endwith %}
+    <h3>Other election sites you might like</h3>
+
+        <div class="link_out"><p>
+            <a href="http://www.thestraightchoice.org" target="_blank">The Straight Choice</a> &ndash; upload and
+            view election leaflets<br/>
+
+            <a href="http://www.votematch.org.uk/2010/index.php" target="_blank">Vote Match</a> &ndash; which
+            party agrees with your policies?<br/>
+
+            <a href="http://voteforpolicies.org.uk/" target="_blank">Vote for Policies</a> &ndash; compare
+            policies before finding out which party has them<br/>
+        </p></div>
 </div>
 
 <div class="sidebar">
     <!-- Any sidebar text goes here -->
-    <h2>Tell your friends about this MP job interview</h2>
+    <h2>Who do you most agree with?</h2>
 
     <script>
         var text1 = "I agreed most with ";
@@ -86,15 +98,10 @@
         candidate_parties = {% templatetag openbrace %}{% for candidacy in candidacies_with_response %}"{{ candidacy.code }}": "{{ candidacy.party }}",{% endfor %}{% for candidacy in candidacies_without_response %}"{{ candidacy.code }}": "{{ candidacy.party }}",{% endfor %}{% templatetag closebrace %};
         
         scores_undo = {};
-
-        $(function () {
-            $("#you_agree_with").change(update_sharing);
-            update_sharing();
-        });
     </script>
     
     <p>
-        I have agreed most with 
+        <!--You have agreed most with 
         <select id="you_agree_with" name="you_agree_with">
             <option value="no-one">no candidates</option>
             {% for candidacy in candidacies_with_response %}
@@ -103,15 +110,16 @@
             <option value="{{ candidacy.code }}">{{ candidacy.name }}</option>{% endfor %}
             <option value="secret">[it's a secret]</option>
         </select>
-        so far.<br/>
-        &ndash; <a href='http://twitter.com/home/?status=I%20agreed%20most%20with%20Francis%20Frog%20in%20Cambridge%20-%20how%20about%20you%20http%3A%2F%2Fbit.ly%2F+9MRs6t%20%23ge2010' target="_blank" id="twitterlink">tweet this</a> or <a href='http://www.facebook.com/sharer.php?u=http://election.theyworkforyou.com/' target="_blank">share on facebook</a>
-        <input id="pastetext" type="text" value="" onclick="this.select()"/>
-
+        so far.<br/>-->
+        <textarea id="agreed_most" style="width:100%;height:6em;margin-right:0.5em;">Answer questions to the survey to see which candidate agrees with you the most.</textarea><br/>
+        <div style="font-size:1.em;margin-bottom:0.5em;"><a href='http://twitter.com/home/?status=Which%20MP%20candidate%20do%20you%20agree%20with%20the%20most%3F%20http%3A%2F%2Fbit.ly%2F+9MRs6t%20%23ge2010' target="_blank" id="twitterlink">tweet this</a> or <a href='http://www.facebook.com/sharer.php?u=http://election.theyworkforyou.com/' target="_blank">share on facebook</a></div>
+        
+        
         <div id="agree_most">
-        <ul>
+        <table width="100%">
             {% for candidacy in candidacies_with_response %}
-            <li>{{ candidacy.name }} <small>({{ candidacy.party }})</small> &ndash; <strong>0 points</strong></li>{% endfor %}
-        </ul>
+            <tr><td>{{ candidacy.name }}</td><td><strong>0 points</strong><td><small>({{ candidacy.party }})</small></td></tr>{% endfor %}
+        </table>
         </div>
         <br/>
         <a name="fb_share" type="button" share_url="http://election.theyworkforyou.com/" href="http://www.facebook.com/sharer.php">Share on facebook</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script> 
@@ -124,26 +132,7 @@
         <br><br><a href="http://twitter.com/home/?status=I've+been+exploring+what+my+MP+candidates+think+about+local+and+national+issues+at+http%3A%2F%2Fwww.theyworkforyou.com%2F+%23ge2010"><img src="/static/tweetthis-15.gif"></a>
     </p>-->
 
-    <h2>Other election sites you might like</h2>
-
-    <p>
-        <div class="link_out">
-            <a href="http://www.thestraightchoice.org" target="_blank">The Straight Choice</a> &ndash; upload and
-            view election leaflets
-        </div>
-
-        <div class="link_out">
-            <a href="http://www.votematch.org.uk/2010/index.php" target="_blank">Vote Match</a> &ndash; which
-            party agrees with your policies?
-        </div>
-
-        <div class="link_out">
-            <a href="http://voteforpolicies.org.uk/" target="_blank">Vote for Policies</a> &ndash; compare
-            policies before finding out which party has them
-        </div>
-    </p>
-
-    <h2>Help!</h2>
+    <h3>Help!</h3>
     <p>
         <a href="http://www.democracyclub.org.uk/blog/2010/04/candidate-survey-faq/" target="_blank">Frequently asked questions</a>
     </p>

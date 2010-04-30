@@ -199,10 +199,10 @@ body#quiz div.sidebar {
     width: auto;
     position: fixed;
     left:51em;
+    padding-right:1em;
 }
 
-body#quiz div.sidebar h2 {
-    font-size:1.2em;
+body#quiz div.sidebar h2, body#quiz div.sidebar h3 {
     margin:0;
     margin-bottom:0.25em;
     margin-top:1em;
