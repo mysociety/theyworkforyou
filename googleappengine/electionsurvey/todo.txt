@@ -3,6 +3,7 @@ Do this next
 
 Do a dump for analysis
     include columns for party etc.
+Send to Ben Goldacre too
 
 Send final reminder mail on Sunday:
 - Make sure you add Message ID and Date this time

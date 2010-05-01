@@ -270,7 +270,9 @@ def survey_candidacies_json(request):
 
     result = []
     for c in candidacies:
-        item = { 'ynmp_id': c.ynmp_id,
+        item = { 
+            'key_name': c.key().name(),
+            'ynmp_id': c.ynmp_id,
             'survey_invite_emailed': c.survey_invite_emailed,
             'survey_invite_sent_to_emails': c.survey_invite_sent_to_emails,
             'survey_invite_posted': c.survey_invite_posted,
@@ -298,6 +300,21 @@ def survey_candidacies_json(request):
             item.update(details)
         result.append(item)
 
+    return HttpResponse(json.dumps(result))
+
+def survey_responses_json(request):
+    results = db.Query(SurveyResponse).filter('deleted =', False)
+
+    result = []
+    for r in results:
+        item = { 
+            'candidacy_key_name': r.candidacy.key().name(),
+            'refined_issue': r.refined_issue.key().name(),
+            'national': r.national,
+            'agreement': r.agreement,
+            'more_explanation': r.more_explanation,
+        }
+        result.append(item)
 
     return HttpResponse(json.dumps(result))
 
