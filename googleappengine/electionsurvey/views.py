@@ -289,6 +289,7 @@ def survey_candidacies_json(request):
                 'seat_name': c.seat.name,
                 'seat_code': c.seat.code,
 
+                'candidate_key_name': c.candidate.key.name(),
                 'candidate_ynmp_id': c.candidate.ynmp_id,
                 'candidate_name': c.candidate.name,
                 'candidate_code': c.candidate.code,
@@ -309,7 +310,7 @@ def survey_responses_json(request):
     for r in results:
         item = { 
             'candidacy_key_name': r.candidacy.key().name(),
-            'refined_issue': r.refined_issue.key().name(),
+            'refined_issue_key_name': r.refined_issue.key().name(),
             'national': r.national,
             'agreement': r.agreement,
             'more_explanation': r.more_explanation,
