@@ -303,7 +303,7 @@ def survey_candidacies_json(request):
     return HttpResponse(json.dumps(result))
 
 def survey_responses_json(request):
-    results = db.Query(SurveyResponse).filter('deleted =', False)
+    results = db.Query(SurveyResponse)
 
     result = []
     for r in results:
@@ -313,6 +313,22 @@ def survey_responses_json(request):
             'national': r.national,
             'agreement': r.agreement,
             'more_explanation': r.more_explanation,
+        }
+        result.append(item)
+
+    return HttpResponse(json.dumps(result))
+
+def survey_seats_json(request):
+    results = db.Query(Seat)
+
+    result = []
+    for s in results:
+        item = { 
+            'key_name': s.key().name(),
+            'ynmp_id': s.ynmp_id,
+            'name': s.name,
+            'code': s.code,
+            'frozen_local_issues': s.frozen_local_issues
         }
         result.append(item)
 

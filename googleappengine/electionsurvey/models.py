@@ -239,7 +239,7 @@ class SurveyResponse(db.Model):
     more_explanation = db.StringProperty(multiline=True) # maximum 500 characters, indexed
 
     def deleted(self):
-        return self.refined_issue.deleted
+        return self.refined_issue.deleted or self.candidacy.deleted
 
     def verb(self):
         return agreement_verb[self.agreement]
