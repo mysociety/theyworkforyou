@@ -88,7 +88,6 @@
     <script>
         var text1 = "I agreed most with ";
         var text2 = " in {{ seat.name }} - how about you? http://bit.ly/9MRs6t @democlub #ge2010{{ seat.hashtag }}";
-        document.write("moo");
         
         questions = {% templatetag openbrace %}
             {% for answer in local_answers %}"{{ answer.question|urlencode }}": 

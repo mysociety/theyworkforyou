@@ -30,7 +30,7 @@ $(function(){
 	    var table = $(this).parents('table.answers');
 	    var cell = $(this).parent();
 	    $('tr > td', table).css('background-color', '#fff');
-	    column = cell.parent("tr").children().index(cell) + 1;
+	    var column = cell.parent("tr").children().index(cell) + 1;
 	    $('tr > td:nth-child('+column+')[class!=explanation]', table).css('background-color', '#ffc');
 	    var colindex = $.inArray($(this).parents('td'), $('td', $(this).parents('tr')));
 	    table.find('tr.what-they-think').fadeIn(600);
@@ -40,8 +40,8 @@ $(function(){
 
 	    var li = $(this).closest('li.answer');
 
-        question = li.children('.statement').children('blockquote').html();
-        answer = (6-column)*25;
+        var question = li.children('.statement').children('blockquote').html();
+        var answer = (6-column)*25;
         survey_answer_selected(question, answer);
         
 	    $('html,body').animate({ 'scrollTop': li.offset().top });
@@ -78,10 +78,10 @@ function autosave_survey_form() {
 }
 
 function survey_answer_selected(question, answer) {
-    candidate_answers = questions[escape(question)];
+    var candidate_answers = questions[escape(question)];
 
     if(escape(question) in scores_undo) {
-        candidate_scores_undo = scores_undo[escape(question)];
+        var candidate_scores_undo = scores_undo[escape(question)];
         for(candidate in candidate_scores_undo)
             scores[candidate] -= candidate_scores_undo[candidate];
         delete scores_undo[escape(question)];
@@ -105,9 +105,9 @@ function survey_answer_selected(question, answer) {
 }
 
 function update_candidate_most_agree() {
-    agree_most = "no-one";
-    agree_most_score = 0;
-    scoretext = "<table width='100%'>";
+    var agree_most = "no-one";
+    var agree_most_score = 0;
+    var scoretext = "<table width='100%'>";
     for(candidate in scores) {
         if(agree_most_score < scores[candidate]) {
             agree_most = candidate;
@@ -127,7 +127,7 @@ function update_candidate_most_agree() {
     if(agree_most_score == 0)
         agree_most = "no-one";
 
-    candidate_name = candidate_names[agree_most]
+    var candidate_name = candidate_names[agree_most]
     if(agree_most != "no-one" && agree_most != "secret")
         candidate_name += " (" + candidate_parties[agree_most] + ")";
     var sharing_text = text1 + candidate_name + text2;
@@ -136,8 +136,8 @@ function update_candidate_most_agree() {
 }
 
 function update_sharing() {
-    candidate_code = $("#you_agree_with").val();
-    candidate_name = $("#you_agree_with :selected").text();
+    var candidate_code = $("#you_agree_with").val();
+    var candidate_name = $("#you_agree_with :selected").text();
     if(candidate_code != "no-one" && candidate_code != "secret")
         candidate_name += " (" + candidate_parties[$("#you_agree_with").val()] + ")";
     var sharing_text = text1 + candidate_name + text2;
