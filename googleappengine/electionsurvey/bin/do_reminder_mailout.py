@@ -33,16 +33,19 @@ for row in reader:
 
     subject = "Last chance to tell local voters your views!"
     body = '''%s, 
+As we enter the final few days of the campaigns
+many voters are still undecided. 
 
-Thousands of voters in %s constituency 
-will see the results of this MP candidate survey.
+Thousands of voters in %s constituency will see
+the results of this MP candidate survey, which
+lets you pin your political colours to the mast.
 
 The questions are non-partisan, gathered by local
 volunteers in the constituency and by famous MP
 tracking website TheyWorkForYou.
 
 It'll only take you a few minutes. Click on this
-link, and then fill in the multi-choice questions.
+link.
 
 %s
 
