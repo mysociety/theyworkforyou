@@ -6,9 +6,6 @@ Do a dump for analysis
 Send to Ben Goldacre too
 
 Send final reminder mail on Sunday:
-- Make sure you add Message ID and Date this time
-    iso/pylib/sendemail.py has python code we use, dunno why that's not in
-    generic pylib that adds date, message-id, does header escaping, etc.
 > A good possible refusenik hook is (IMO) to say "You may not be aware that X
 > other candidates for your party have filled it in. They understand that it
 > is worth doing, I hope we can persuade you too"

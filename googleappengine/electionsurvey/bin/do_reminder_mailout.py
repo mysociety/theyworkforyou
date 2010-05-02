@@ -31,7 +31,7 @@ for row in reader:
     name = name.decode('utf-8')
     seat = seat.decode('utf-8')
 
-    subject = "Local voters ask for your views on local and national issues"
+    subject = "Last chance to tell local voters your views!"
     body = '''%s, 
 
 Thousands of voters in %s constituency 
