@@ -142,10 +142,23 @@ div.national_selection {
 }
 
 #postcode_quiz_page h2 {
-    margin-top: 1em;
-    margin-bottom: 1em;
+ padding-top: 1em;
 }
 
+body#postcode div.main {
+    width: 100%;
+}
+
+body#postcode div#welcome_uk {
+    background:#88A465 url(westminster.jpg) right 20%;
+    position:relative;
+    padding: 1.5em;
+}
+
+#postcode_quiz_page  {
+ background: #ff9;
+ width: 60%;
+}
 #postcode_quiz_page #postcode_form {
     font-size: 100%;
 }
