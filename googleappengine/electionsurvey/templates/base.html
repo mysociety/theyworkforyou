@@ -7,17 +7,11 @@
 	<meta name="keywords" content="election, General Election, survey, quiz, candidates, PPC, PPCs, Parliament, government, house of commons, MP, Member of Parliament, MPs, Commons, UK, Britain, British">
 
  <meta property="og:title" content="It's job interview time for your next MP!"/>
- <meta property="og:description" content="Answers that parliamentary candidates in {{ seat.name }} have given to our cross-party questions, both national and local"/>
+ <meta property="og:description" content="Answers that parliamentary candidates {% if seat %}in {{ seat.name }}{% else %}across the country{% endif %} have given to a selection of national and local questions"/>
  <meta property="og:url" content="http://election.theyworkforyou.com"/>
  <meta property="og:image" content="http://election.theyworkforyou/static/twfy-mini-logo.png"/>
  <meta property="og:site_name" content="TheyWantToWorForYou: election quiz" />
  <meta property="fb:app_id" content="118464748175507" />
- {% if seat %}
- <meta property="og:region" content="{{ seat.name }}"/>
- {% endif %}
- {% if postcode %}
- <meta property="og:postal-code" content="{{ postcode }}"/>
- {% endif %}
  <meta property="og:country-name" content="UK"/>
 
 	{% block meta %}{% endblock %}
