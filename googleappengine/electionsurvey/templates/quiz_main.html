@@ -2,17 +2,19 @@
 
 {% block extrabody %} id="quiz"{% endblock %}
 {% block content %}
+<h2>This page contains the views of the MP candidates for {{ seat.name }} on a wide range of issues</h2>
+
+{% if candidacy_with_response_count %}
+    <p>To see how their views compare with yours, pick any quote below and select your view</p>
+{% endif %}
 
 {% with 1 as shorter_hassle_section %}
     {% include "_quiz_hassle_section.html" %}
 {% endwith %}
 
-{% if candidacy_with_response_count %}
-    <h2>To see what your MP candidates said, select how you feel on each issue</h2>
-{% else %}
-    <h2>The questions your candidates will be asked</h2>
+{% if not candidacy_with_response_count %}
+    <h3>The questions your candidates will be asked are:</h3>
 {% endif %}
-
 <h4 id="local">Local statements (for {{ seat.name }} constituency)</h4>
 <p class="inter_link">(<a href="#national">skip to national statements</a>)</p>
     {% if local_issues_count %}
@@ -88,7 +90,7 @@
 
 <div class="sidebar">
     <!-- Any sidebar text goes here -->
-    <h2>Who do you most agree with?</h2>
+    <h3>Who do you most agree with?</h3>
 
     <script>
         var text1 = "I agreed most with ";
