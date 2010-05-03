@@ -176,7 +176,7 @@ body#postcode div.main {
 }
 
 body#postcode div#welcome_uk {
-    background:#88A465 url(westminster.jpg) right 20%;
+    background:#6a98d3 url(westminster.jpg)no-repeat right 20%;
     position:relative;
     padding: 1.5em;
     height: 450px;
