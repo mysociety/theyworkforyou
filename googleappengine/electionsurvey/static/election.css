@@ -49,8 +49,24 @@ div.full_answers table.answers td.agreement-col{
     margin-right: 0.5em;
     padding-top: 0.25em;
 }
+
+.block_party_wrap {
+    margin-left: 2em;
+}
+.block_party_outer {
+    float: left;
+    text-align: center;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    margin-bottom: 1em;
+}
+.block_party_image_div {
+    height: 40px;
+}
 .block_party_image {
-    border: solid 1px #999999;
+}
+.block_party_clear {
+    clear: both;
 }
 
 div.missing {
