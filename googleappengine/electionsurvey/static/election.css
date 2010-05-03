@@ -172,6 +172,10 @@ body#postcode div#welcome_uk {
     height: 450px;
 }
 
+div#title h1 {
+ float: left;
+}
+
 #postcode_quiz_page  {
  background: #ff9;
  width: 60%;
