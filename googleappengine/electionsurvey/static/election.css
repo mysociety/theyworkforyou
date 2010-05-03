@@ -153,11 +153,13 @@ body#postcode div#welcome_uk {
     background:#88A465 url(westminster.jpg) right 20%;
     position:relative;
     padding: 1.5em;
+    height: 450px;
 }
 
 #postcode_quiz_page  {
  background: #ff9;
  width: 60%;
+ float: left;
 }
 #postcode_quiz_page #postcode_form {
     font-size: 100%;

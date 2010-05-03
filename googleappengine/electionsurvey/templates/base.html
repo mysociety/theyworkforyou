@@ -18,6 +18,20 @@
         @import url(/static/election.css);
     </style>
 </head><body{% block extrabody %}{% endblock %}>
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({appId: '118464748175507', status: true, cookie: true,
+             xfbml: true});
+  };
+  (function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+  }());
+</script>
+
 <div id="container">
     <a name="top"></a>
 
@@ -48,6 +62,7 @@
 
         <div id="title">
             <h1><a href="http://www.theyworkforyou.com/" title="To the front page of the site"><img src="/static/logo.png" width="423" height="80" alt="TheyWorkForYou.com"></a></h1>
+<fb:like href="election.theyworkforyou.com" layout="standard" show_faces="true" width="450" action="like" colorscheme="light"></fb:like>
         </div>
     </div> <!-- end #banner -->
 
