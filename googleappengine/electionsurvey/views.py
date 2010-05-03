@@ -25,6 +25,7 @@ from google.appengine.api import memcache
 from google.appengine.api.labs import taskqueue
 from google.appengine.api.urlfetch import fetch
 
+from django.utils.http import urlquote_plus
 from django.forms.formsets import formset_factory
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, Http404
@@ -711,7 +712,7 @@ def quiz_subscribe(request):
         democlub_redirect = subscribe_form.cleaned_data['democlub_redirect']
         if democlub_redirect:
             democlub_hassle_url = seat.democracyclub_url() + "?email=%s&postcode=%s&name=%s" % (
-                    urllib.quote_plus(email), urllib.quote_plus(postcode), urllib.quote_plus(name)
+                    urlquote_plus(email), urlquote_plus(postcode), urlquote_plus(name)
             )
             return HttpResponseRedirect(democlub_hassle_url)
 
