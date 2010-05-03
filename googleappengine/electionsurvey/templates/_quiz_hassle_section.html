@@ -28,17 +28,23 @@
             </p>
         {% endif %}
 
-        <p>
-            {% for candidacy in candidacies_without_response %}
-            {% if candidacy.party_image_url %}<img class="block_party_image" src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}" title="{{ candidacy.name }} ({{ candidacy.party}})">{% else %}{{ candidacy.party}}{% endif %}
-            {% endfor %} 
-        </p>
+        <div class="block_party_wrap">
+        {% for candidacy in candidacies_without_response %}
+            <div class="block_party_outer">
+                    <div class="block_party_image_div">
+                    {% if candidacy.party_image_url %}<img class="block_party_image" src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}">{% else %}{{ candidacy.party}}{% endif %}
+                    </div>
+                    {{ candidacy.name }}<br>({{ candidacy.party}})
+            </div>
+        {% endfor %} 
+        </div>
+        <div class="block_party_clear"></div>
 
         {% if shorter_hassle_section and candidacy_with_response_count %}
-        <p>
-            <a href="#missing_long">Click here to ask them to go on the record</a>
-            <small>(if you're one of them then <a href="/survey">go here</a>)</small>
-        </p>
+            <p>
+                <a href="#missing_long">Click here to ask them to go on the record</a>
+                <small>(if you're one of them then <a href="/survey">go here</a>)</small>
+            </p>
         {% else %}
             <p>
                 <small>(if you're one of these candidates then <a href="/survey">go here</a>)</small>
