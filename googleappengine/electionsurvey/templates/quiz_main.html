@@ -5,7 +5,7 @@
 <h2>This page contains the views of the MP candidates for {{ seat.name }} on a wide range of issues</h2>
 
 {% if candidacy_with_response_count %}
-    <p>To see how their views compare with yours, pick any quote below and select your view</p>
+    <p>To see how their views compare with yours, pick any quote below and select your view.</p>
 {% endif %}
 
 {% with 1 as shorter_hassle_section %}
@@ -15,7 +15,12 @@
 {% if not candidacy_with_response_count %}
     <h3>The questions your candidates will be asked are:</h3>
 {% endif %}
-<h4 id="local">Local statements (for {{ seat.name }} constituency)</h4>
+{% if candidacy_with_response_count %}
+ <h4 id="local">Let's start by looking at the local statements</h4>
+{% else %}
+ <h4 id="local">Now, let's start by looking at local statements</h4>
+{% endif %}
+
 <p class="inter_link">(<a href="#national">skip to national statements</a>)</p>
     {% if local_issues_count %}
         <ul class="answers local">
