@@ -22,7 +22,7 @@ class LatestAnswers(Feed):
         return data
         
     def item_link(self, item):
-        return item.seat.get_absolute_url()
+        return item.seat.get_absolute_url() + "#%s" % item.candidate.ynmp_id
 
     def item_pubdate(self, item):
         return item.survey_filled_in_when
