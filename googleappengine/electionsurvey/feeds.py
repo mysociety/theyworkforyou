@@ -17,8 +17,8 @@ class LatestAnswers(Feed):
         if data is None:
             data = db.Query(Candidacy)\
                    .filter('survey_filled_in =', True)\
-                   .order('-survey_filled_in_when').fetch(50)
-            memcache.add(key, data, 60 * 30) # 30 minute cache
+                   .order('-survey_filled_in_when').fetch(200)
+            memcache.add(key, data, 60 * 10) # 10 minute cache
         return data
         
     def item_link(self, item):
