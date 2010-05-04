@@ -73,8 +73,11 @@ function api_getConstituency_postcode($pc) {
 }
 
 function api_getConstituency_name($constituency) {
-    $normalised = normalise_constituency_name($constituency);
-    if ($normalised) $constituency = $normalised;
+    $constituency = normalise_constituency_name($constituency);
+    if (!$constituency) {
+        api_error('Could not find anything with that name');
+        return;
+    }
 
     $db = new ParlDB;
     $q = $db->query("select constituency, data_key, data_value from consinfo
