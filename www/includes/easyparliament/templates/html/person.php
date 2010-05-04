@@ -10,6 +10,12 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 # First, the special Speaker box.
 # person_speaker_special($member, $extra_info);
 
+# Heading/ picture
+print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
+person_image($member);
+echo '<h2>' . $member['full_name'] . '</h2>';
+echo '<h3>' . person_summary_description($member) . '</h3>';
+
 # Special 2010 election bit
 if (isset($member['left_house'][1]) && $member['left_house'][1]['date'] == '2010-04-12') {
     global $THEUSER;
@@ -22,7 +28,7 @@ if (isset($member['left_house'][1]) && $member['left_house'][1]['date'] == '2010
             $new = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency);
             if ($current == $member['constituency']) {
                 $bound_pc = '?pc=' . urlencode($THEUSER->postcode());
-                print '<p style="text-align: center; color: #990000;">
+                print '<p style="color: #cc0000;">
 At this week&rsquo;s election you will be in the
 <strong>' . $new . '</strong> constituency.
 </p>';
@@ -30,12 +36,6 @@ At this week&rsquo;s election you will be in the
         }
     }
 }
-
-# Heading/ picture
-print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
-person_image($member);
-echo '<h2>' . $member['full_name'] . '</h2>';
-echo '<h3>' . person_summary_description($member) . '</h3>';
 
 # History
 echo '<ul>';
