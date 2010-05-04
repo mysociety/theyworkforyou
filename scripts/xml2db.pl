@@ -457,7 +457,7 @@ sub db_connect
         $hdeletegid = $dbh->prepare("delete from hansard where gid = ?");
 
         # member (MP) queries
-        $constituencyadd = $dbh->prepare("replace into constituency
+        $constituencyadd = $dbh->prepare("insert into constituency
                 (cons_id, name, main_name, from_date, to_date) values
                 (?, ?, ?, ?, ?)");
         $memberadd = $dbh->prepare("replace into member (member_id, person_id, house, title, first_name, last_name,
@@ -1006,6 +1006,7 @@ sub memory_test
 
 sub add_mps_and_peers {
         $dbh->do("delete from moffice");
+        $dbh->do("delete from constituency");
         my $pwmembers = mySociety::Config::get('PWMEMBERS');
         my $twig = XML::Twig->new(twig_handlers => 
                 { 'constituency' => \&loadconstituency }, 
