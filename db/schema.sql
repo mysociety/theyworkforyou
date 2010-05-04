@@ -12,7 +12,7 @@ CREATE TABLE `consinfo` (
 );
 
 CREATE TABLE `constituency` (
-  `name` varchar(100) NOT NULL default '',
+  `name` varchar(100) collate latin1_spanish_ci NOT NULL default '',
   `main_name` tinyint(1) NOT NULL default '0',
   `from_date` date NOT NULL default '1000-01-01',
   `to_date` date NOT NULL default '9999-12-31',
