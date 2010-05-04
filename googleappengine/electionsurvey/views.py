@@ -487,7 +487,8 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
                     else: 
                         # TODO: really should disambigiute on full name here (may have middle initial?)
                         # TODO: or maybe compare first initials which may be unique?
-                        error_message = "%d matches on surname %s, %d matches on first name, in %s" % (len(surname_matches), len(first_name_matches), surname, seat.name)
+                        # TODO: or party! ...but in practice it turns out this is almost never happening anyway
+                        error_message = "%d matches on surname %s, %d matches on first name %s, in %s" % (len(surname_matches), surname, len(first_name_matches), first_name, seat.name)
                         candidacy = False
             else:
                 error_message = "No exact name match (%s), no seat found matching (%s)" % (candidate_code, seat_code)
