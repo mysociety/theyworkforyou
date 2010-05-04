@@ -1,6 +1,9 @@
 Do this next
 ============
 
+@jakeg82 
+@frabcus bug report... if 2 candidates get same score on election.mysociety.org, the Twitter post only says you agree with one of them most.
+
 Do a dump for analysis
     include columns for party etc.
 Send to Ben Goldacre too
