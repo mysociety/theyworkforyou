@@ -36,7 +36,7 @@ import django.utils.simplejson as json
 from ratelimitcache import ratelimit
 
 import forms
-from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse, PostElectionSignup, AristotleToYnmpCandidateMap
+from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse, PostElectionSignup, AristotleToYnmpCandidateMap, AverageResponseByParty
 
 
 #####################################################################
@@ -264,6 +264,51 @@ def survey_stats_json(request):
     }
 
     return HttpResponse(json.dumps(result))
+
+# Calculate average agreement of a political party to one of the questions
+def task_average_response_by_party(request, party_key_name, refined_issue_key_name):
+    party = Party.get_by_key_name(party_key_name)
+    refined_issue = RefinedIssue.get_by_key_name(refined_issue_key_name)
+
+    arbp = db.Query(AverageResponseByParty).filter('party =', party).filter('refined_issue =', refined_issue).get()
+    if not arbp:
+        arbp = AverageResponseByParty(party = party, refined_issue = refined_issue,
+                average_agreement = None, processing_running_total = 0, 
+                processing_running_count = 0, processing_next_key = None)
+
+    chunk = db.Query(Candidacy).filter('deleted = ', False).filter('survey_filled_in =', True)
+
+    # carry on calculation where we left off
+    if arbp.processing_last_candidacy == None:
+        assert arbp.processing_running_total == 0
+        assert arbp.processing_running_count == 0
+    else:
+        chunk = chunk.filter('__key__ >', arbp.processing_last_candidacy.key())
+
+    # do 100 candidacies at a time, as too slow otherwise
+    chunk.fetch(100) # XXX
+
+    candidacy = None
+    for candidacy in chunk:
+        survey_response = db.Query(SurveyResponse).filter('candidacy =', candidacy).filter('refined_issue =', refined_issue).get()
+        if survey_response:
+            arbp.processing_running_total += survey_response.agreement
+            arbp.processing_running_count += 1
+    arbp.processing_last_candidacy = candidacy
+
+    # if we've finished, work out average
+    if candidacy == None:
+        arbp.average_agreement = float(arbp.processing_running_total) / float(arbp.processing_running_count)
+
+    arbp.put()
+
+    # calculate next chunk
+    if candidacy == None:
+        return HttpResponse("Calculation complete for " + party.name + " question: " + refined_issue.question)
+    else:
+        taskqueue.Queue('average-calc').add(taskqueue.Task(url='/task/average_response_by_party/' + party_key_name + "/" + refined_issue_key_name))
+        return HttpResponse("Done " + str(arbp.processing_running_count) + ", queued next chunk for " + party.name + " question: " + question)
+
 
 # Optionally: ?details=1 in the URL adds more info
 def survey_candidacies_json(request):

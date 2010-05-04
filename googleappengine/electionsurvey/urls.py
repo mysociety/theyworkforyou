@@ -44,6 +44,7 @@ urlpatterns = patterns('',
     url(r'^admin/responses$', views.admin_responses),
 
     url(r'^task/invite_candidacy_survey/(?P<candidacy_key_name>[\d-]+)$', views.task_invite_candidacy_survey),
+    url(r'^task/average_response_by_party/(?P<party_key_name>[\d-]+)/(?P<refined_issue_key_name>[\d-]+)$', views.task_average_response_by_party),
 
     url(r'^guardian_candidate/(?P<aristotle_id>\d+)$', views.guardian_candidate),
     url(r'^guardian_candidate/(?P<raw_name>.+)/(?P<raw_const_name>.+)$', views.guardian_candidate),
