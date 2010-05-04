@@ -3,7 +3,7 @@
 --
 
 CREATE TABLE `consinfo` (
-  `constituency` varchar(100) NOT NULL default '',
+  `constituency` varchar(100) collate latin1_spanish_ci NOT NULL default '',
   `data_key` varchar(100) NOT NULL default '',
   `data_value` text NOT NULL,
   UNIQUE KEY `consinfo_constituency_data_key` (`constituency`,`data_key`),
@@ -12,7 +12,7 @@ CREATE TABLE `consinfo` (
 );
 
 CREATE TABLE `constituency` (
-  `name` varchar(100) NOT NULL default '',
+  `name` varchar(100) collate latin1_spanish_ci NOT NULL default '',
   `main_name` tinyint(1) NOT NULL default '0',
   `from_date` date NOT NULL default '1000-01-01',
   `to_date` date NOT NULL default '9999-12-31',
