@@ -50,6 +50,11 @@ div.full_answers table.answers td.agreement-col{
     padding-top: 0.25em;
 }
 
+.party_image.you {
+    float: none;
+    vertical-align: middle;
+}
+
 .block_party_wrap {
     margin-left: 2em;
 }
@@ -74,7 +79,12 @@ div.missing {
     margin-left:10px;
     padding-top:0.5em;
 }
-
+div.missing h4 {
+ color: #CC0000;
+}
+div.missing h4 img {
+ vertical-align: middle;
+}
 .statement_body {
     margin-top: 0.5em;
 }
@@ -166,7 +176,7 @@ body#postcode div.main {
 }
 
 body#postcode div#welcome_uk {
-    background:#88A465 url(westminster.jpg) right 20%;
+    background:#6a98d3 url(westminster.jpg)no-repeat right 20%;
     position:relative;
     padding: 1.5em;
     height: 450px;
@@ -238,12 +248,12 @@ body#quiz div.sidebar {
     position: fixed;
     left:51em;
     padding-right:1em;
+    padding-top: 0.5em;
 }
 
 body#quiz div.sidebar h2, body#quiz div.sidebar h3 {
     margin:0;
     margin-bottom:0.25em;
-    margin-top:1em;
     padding:0;
 }
 
@@ -254,10 +264,6 @@ body#quiz div.sidebar h2:first-child {
 body#quiz div.sidebar p {
     margin:0;
     padding:0;
-}
-
-body#quiz h3 {
-    margin-top: 2em;
 }
 
 p.inter_link {

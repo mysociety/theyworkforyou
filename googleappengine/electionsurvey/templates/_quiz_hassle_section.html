@@ -5,23 +5,9 @@
 {% endif %}
 
 {% if candidacy_without_response_count %}
-        <h4>{% if shorter_hassle_section %}Before you begin: help{% else %}Help{% endif %} us get answers from all your candidates!</h4>
+        <h4><img src="/static/exclamation.png" width="40" height="40" />Stop press: {{ candidacy_without_response_count }} of your candidates have failed to go on the record! </h4>
 
-        {% if candidacy_with_response_count %}
-            {% if shorter_hassle_section %}
-                <p>
-                    We've got answers from <strong>{{ candidacy_with_response_count }} applicant{{ candidacy_with_response_count|pluralize }}</strong>
-                    to be your MP. You can explore the answers below.
-                    However, candidates from the following parties have <strong>not yet</strong> put their views on record.
-                </p>
-            {% else %}
-                <p>
-                    Thanks for reading the candidate responses. Remember to
-                    share! However, candidates from the following parties have
-                    not yet put their views on record.
-                </p>
-            {% endif %}
-        {% else %}
+        {% if not candidacy_with_response_count %}
             <p>
                 Although we've got thousands of answers from across the country, none of the applicants to be your
                 MP have answered yet.
@@ -42,7 +28,7 @@
 
         {% if shorter_hassle_section and candidacy_with_response_count %}
             <p>
-                <a href="#missing_long">Click here to ask them to go on the record</a>
+                <a href="#missing_long">It's not too late to get them to answer! Here's how...</a>
                 <small>(if you're one of them then <a href="/survey">go here</a>)</small>
             </p>
         {% else %}

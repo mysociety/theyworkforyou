@@ -4,13 +4,18 @@ from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 
 import views
 import models
+from feeds import LatestAnswers
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
+feeds = {'latest_answers':LatestAnswers}
 
+urlpatterns = patterns('',
+    url(r'^feeds/(?P<url>.*)/$',
+        'django.contrib.syndication.views.feed',
+        {'feed_dict': feeds}),
     url(r'^survey/stats.json$', views.survey_stats_json),
     url(r'^survey/candidacies.json$', views.survey_candidacies_json),
     url(r'^survey/responses.json$', views.survey_responses_json),

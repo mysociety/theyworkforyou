@@ -1,30 +1,26 @@
 {% extends 'base.html' %}
 
 {% block extrabody %} id="quiz"{% endblock %}
-{% block meta %}
- <meta property="og:title" content="It's job interview time for your next MP!"/>
- <meta property="og:description" content="Answers that parliamentary candidates in {{ seat.name }} have given to our cross-party questions, both national and local"/>
- <meta property="og:url" content="http://election.theyworkforyou{{ seat.get_absolute_url }}"/>
- <meta property="og:image" content="http://election.theyworkforyou/static/twfy-mini-logo.png"/>
- <meta property="og:site_name" content="TheyWantToWorForYou: election quiz" />
- <meta property="fb:app_id" content="118464748175507" />
- <meta property="og:region" content="{{ seat.name }}"/>
- <meta property="og:postal-code" content="{{ postcode }}"/>
- <meta property="og:country-name" content="UK"/>
-{% endblock %}
 {% block content %}
+<h2>This page contains the views of the MP candidates for {{ seat.name }} on a wide range of issues</h2>
+
+{% if candidacy_with_response_count %}
+    <p>To see how their views compare with yours, pick any quote below and select your view.</p>
+{% endif %}
 
 {% with 1 as shorter_hassle_section %}
     {% include "_quiz_hassle_section.html" %}
 {% endwith %}
 
+{% if not candidacy_with_response_count %}
+    <h3>The questions your candidates will be asked are:</h3>
+{% endif %}
 {% if candidacy_with_response_count %}
-    <h2>To see what your MP candidates said, select how you feel on each issue</h2>
+ <h4 id="local">Let's start by looking at the local statements</h4>
 {% else %}
-    <h2>The questions your candidates will be asked</h2>
+ <h4 id="local">Now, let's start by looking at local statements</h4>
 {% endif %}
 
-<h4 id="local">Local statements (for {{ seat.name }} constituency)</h4>
 <p class="inter_link">(<a href="#national">skip to national statements</a>)</p>
     {% if local_issues_count %}
         <ul class="answers local">
@@ -74,6 +70,12 @@
         </li>
         {% endfor %}
     </ul>
+
+<h3>Comments (Facebook)</h3>
+<fb:comments xid="{{ site.get_absolute_url|urlencode }}" numposts="10" width="600"></fb:comments>
+
+
+
 {% with 0 as shorter_hassle_section %}
     {% include "_quiz_hassle_section.html" %}
 {% endwith %}
@@ -93,7 +95,7 @@
 
 <div class="sidebar">
     <!-- Any sidebar text goes here -->
-    <h2>Who do you most agree with?</h2>
+    <h3>Who do you most agree with?</h3>
 
     <script>
         var text1 = "I agreed most with ";
@@ -173,22 +175,13 @@
         <div id="agreed_most" style="width:100%;margin-right:0.5em;margin-bottom:0.25em;padding:0.25em;border:1px dashed #CCC;">Answer questions to the survey to see which candidate agrees with you the most.</div>
         <div style="font-size:1.em;margin-top:0.5em;"><a href='http://twitter.com/home/?status=Which%20MP%20candidate%20do%20you%20agree%20with%20the%20most%3F%20http%3A%2F%2Fbit.ly%2F9MRs6t%20@democlub%20%23ge2010{{ seat.encoded_hashtag }}' target="_blank" id="twitterlink"><img src="http://twitter-badges.s3.amazonaws.com/t_mini-b.png" alt="Democlub on twitter"/> tweet this</a> or <a href='http://www.facebook.com/sharer.php?u=http://election.theyworkforyou.com/?1' target="_blank"><img src="/static/facebook.jpg" border="0"/> share on facebook</a></div>
     </p>
-   
-    <!--<p>
-        <br><a name="fb_share" type="button" share_url="http://election.theyworkforyou.com/" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
-
-        <br><br><a href="http://twitter.com/home/?status=I've+been+exploring+what+my+MP+candidates+think+about+local+and+national+issues+at+http%3A%2F%2Fwww.theyworkforyou.com%2F+%23ge2010"><img src="/static/tweetthis-15.gif"></a>
-    </p>-->
-<hr />
-<fb:comments  numposts="10" width="350"></fb:comments>
+    <hr />
+    <fb:like layout="standard" show_faces="true" width="450" action="like" colorscheme="light"></fb:like>
 
     <h3>Help!</h3>
     <p>
         <a href="http://www.democracyclub.org.uk/blog/2010/04/candidate-survey-faq/" target="_blank">Frequently asked questions</a>
     </p>
-    <!--<a name="fb_share" type="button" share_url="http://election.theyworkforyou.com/" href="http://www.facebook.com/sharer.php">Share on facebook</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script> 
-    <a style="font-weight:normal;" href="http://twitter.com/home/?status=I%27ve+been+exploring+what+my+MP+candidates+think+about+local+and+national+issues+at+http%3A%2F%2Fwww.theyworkforyou.com%2F+%23ge2010"><img src="http://twitter-badges.s3.amazonaws.com/twitter-b.png" alt="Tweet this"/></a>-->
-
 </div>
 {% endblock %}
 
