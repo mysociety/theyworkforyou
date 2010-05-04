@@ -69,7 +69,7 @@ function api_getConstituency_postcode($pc) {
 
     }
 
-    return api_getConstituency_name($constituency);
+    return _api_getConstituency_name($constituency);
 }
 
 function api_getConstituency_name($constituency) {
@@ -78,7 +78,10 @@ function api_getConstituency_name($constituency) {
         api_error('Could not find anything with that name');
         return;
     }
+    return _api_getConstituency_name($constituency);
+}
 
+function _api_getConstituency_name($constituency) {
     $db = new ParlDB;
     $q = $db->query("select constituency, data_key, data_value from consinfo
                      where constituency = '" . mysql_real_escape_string($constituency) . "'");
