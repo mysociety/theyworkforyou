@@ -286,7 +286,7 @@ def task_average_response_by_party(request, party_key_name, refined_issue_key_na
         chunk = chunk.filter('__key__ >', arbp.processing_last_candidacy.key())
 
     # do 100 candidacies at a time, as too slow otherwise
-    chunk.fetch(100) # XXX
+    chunk.fetch(10) # XXX
 
     candidacy = None
     for candidacy in chunk:
