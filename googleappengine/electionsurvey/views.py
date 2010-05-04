@@ -430,7 +430,7 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
                 else:
                     jsonCandidacies = candidateData['person']['candidacies']
                     for c in jsonCandidacies:
-                        if c['election']['year'] == "2010":
+                        if c['election'] and c['election']['year'] == "2010":
                             constituency_aristotle_id = c['constituency']['aristotle-id']
                             constituency_name = c['constituency']['name']
                             break
