@@ -38,7 +38,8 @@ function _api_getConstituencies_search($s) {
 		where constituency.cons_id = c_main.cons_id
 		and c_main.main_name and constituency.name like "%' . mysql_real_escape_string($s) .
 		'%" and constituency.from_date <= date(now())
-		and date(now()) <= constituency.to_date');
+		and date(now()) <= constituency.to_date
+        order by name');
 	$output = array();
 	$done = array();
 	for ($i=0; $i<$q->rows(); $i++) {
@@ -65,7 +66,8 @@ function api_getConstituencies_date($date) {
 function api_getConstituencies($date = 'now()') {
 	$db = new ParlDB;
 	$q = $db->query('select cons_id, name from constituency
-		where main_name and from_date <= date('.$date.') and date('.$date.') <= to_date');
+		where main_name and from_date <= date('.$date.') and date('.$date.') <= to_date
+        order by name');
 	$output = array();
 	for ($i=0; $i<$q->rows(); $i++) {
 		$output[] = array(

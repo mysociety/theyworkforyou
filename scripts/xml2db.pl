@@ -429,7 +429,7 @@ sub parsefile_glob {
 my ($dbh, 
         $epadd, $epcheck, $epupdate,
         $hadd, $hcheck, $hupdate, $hdelete, $hdeletegid,
-        $constituencyadd, $constituencydel, $memberadd, $memberexist, $membercheck, 
+        $constituencyadd, $memberadd, $memberexist, $membercheck, 
         $gradd, $grcheck, $grdeletegid,
         $scotqadd, $scotqdelete, $scotqbusinessexist, $scotqholdingexist,
         $scotqdategidexist, $scotqreferenceexist,
@@ -457,7 +457,6 @@ sub db_connect
         $hdeletegid = $dbh->prepare("delete from hansard where gid = ?");
 
         # member (MP) queries
-        $constituencydel = $dbh->prepare("delete from constituency");
         $constituencyadd = $dbh->prepare("insert into constituency
                 (cons_id, name, main_name, from_date, to_date) values
                 (?, ?, ?, ?, ?)");
@@ -1007,8 +1006,7 @@ sub memory_test
 
 sub add_mps_and_peers {
         $dbh->do("delete from moffice");
-        $constituencydel->execute(); 
-        $constituencydel->finish();
+        $dbh->do("delete from constituency");
         my $pwmembers = mySociety::Config::get('PWMEMBERS');
         my $twig = XML::Twig->new(twig_handlers => 
                 { 'constituency' => \&loadconstituency }, 
@@ -1114,8 +1112,7 @@ sub loadmoffice {
 }
 
 # Add constituency
-sub loadconstituency
-{
+sub loadconstituency {
     my ($twig, $cons) = @_;
 
     my $consid = $cons->att('id');

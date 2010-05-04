@@ -35,7 +35,7 @@ $(function(){
 	    var colindex = $.inArray($(this).parents('td'), $('td', $(this).parents('tr')));
 	    table.find('tr.what-they-think').fadeIn(600);
 	    table.find('.explanation').css('visibility', 'visible');
-	    table.find('.you').html('<strong>You</strong>');
+	    table.find('.you').html('<img class="party_image you" src="/static/independent.png" /><strong>You</strong>');
 	    table.find('.you').css('background','none');
 
 	    var li = $(this).closest('li.answer');

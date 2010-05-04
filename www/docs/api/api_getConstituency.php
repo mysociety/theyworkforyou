@@ -69,6 +69,10 @@ function api_getconstituency_postcode($pc) {
             api_error('Unknown postcode');
             return;
         }
+
+        $normalised = normalise_constituency_name($constituency);
+        if ($normalised) $constituency = $normalised;
+
         $db = new ParlDB;
         $q = $db->query("select constituency, data_key, data_value from consinfo
                          where constituency = '" . mysql_real_escape_string($constituency) . "'");

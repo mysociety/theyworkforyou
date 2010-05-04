@@ -192,7 +192,10 @@ class Candidacy(db.Model):
         self.audit_log.append(datetime.datetime.now().isoformat() + " " + message)
         self.save()
 
-
+    def __unicode__(self):
+        return "%s standing in %s for %s" % (self.candidate.name,
+                                             self.seat.name,
+                                             self.candidate.party.name)
            
 # Local issue data from DemocracyClub. Also used to store national issues with
 # a magic constituency called "National". See bin/national-issues.csv.

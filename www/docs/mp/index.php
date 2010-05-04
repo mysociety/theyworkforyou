@@ -43,7 +43,7 @@ $errors = array();
 // need to detect these.
 $pid = get_http_var('pid') != '' ? get_http_var('pid') : get_http_var('p');
 $name = strtolower(str_replace(array('_'), array(' '), get_http_var('n')));
-$cconstituency = strtolower(str_replace(array('_','.',' and '), array(' ','&',' & '), get_http_var('c'))); # *** postcode functions use global $constituency!!! ***
+$cconstituency = strtolower(str_replace(array('_','.'), array(' ','&'), get_http_var('c'))); # *** postcode functions use global $constituency!!! ***
 if ($cconstituency == 'mysociety test constituency') {
 	header("Location: stom.html");
 	exit;
