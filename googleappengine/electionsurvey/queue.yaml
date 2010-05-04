@@ -1,3 +1,6 @@
 queue:
 - name: survey-email
   rate: 1/s
+- name: averarge-calc
+  rate: 50/s
+

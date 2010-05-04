@@ -253,6 +253,17 @@ class SurveyResponse(db.Model):
     def verb_you(self):
         return agreement_verb_you[self.agreement]
 
+# Used to find average agreement to a question by all members of a particular party
+class AverageResponseByParty(db.Model):
+    party = db.ReferenceProperty(Party, required=True)
+    refined_issue = db.ReferenceProperty(RefinedIssue, required=True)
+
+    average_agreement = db.FloatProperty()
+
+    processing_running_total = db.IntegerProperty()
+    processing_running_count = db.IntegerProperty()
+    processing_last_candidacy = db.ReferenceProperty()
+
 # populated with data built up from hits (caching)
 # confirmed == false until a human has confirmed that this is a true match
 # later we might want to add *reject* to force this match to never be made?

@@ -103,6 +103,8 @@ if ($action{'links'}) {
         $twig->parsefile($pwmembers . "bbc-links.xml", ErrorContext => 2);
         print "  BBC IDs\n" if $verbose;
         $twig->parsefile($pwmembers . "bbc-constituency-ids.xml", ErrorContext => 2);
+        print "  PA/Guardian constituency IDs\n" if $verbose;
+        $twig->parsefile($pwmembers . "constituency-links.xml", ErrorContext => 2);
         print "  dates of birth\n" if $verbose;
         $twig->parsefile($pwmembers . "dates-of-birth.xml", ErrorContext => 2);
         # TODO: Update Guardian links
@@ -219,6 +221,7 @@ foreach my $person_id (keys %$personinfohash) {
 # Write to database - cons
 foreach my $constituency (keys %$consinfohash) {
         my $data = $consinfohash->{$constituency};
+        $constituency = Encode::encode('iso-8859-1', $constituency);
         foreach my $key (keys %$data) {
                 my $value = $data->{$key};
                 $consinfoadd->execute($constituency, $key, $value, $value);

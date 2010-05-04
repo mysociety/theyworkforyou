@@ -1,13 +1,6 @@
 Do this next
 ============
 
-Add candidate name for AdWords
-
-Cut first sentence from Facebook text, and inc ?
-Larger Facebook button
-
-Change links to new domain
-
 Do a dump for analysis
     include columns for party etc.
 Send to Ben Goldacre too
