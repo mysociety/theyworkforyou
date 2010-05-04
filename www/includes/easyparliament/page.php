@@ -259,7 +259,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 			} elseif ($country == 'CA') {
 				print '<p class="informational banner">Check out <a href="http://howdtheyvote.ca/">How&rsquo;d They Vote?</a> and <a href="http://www.openparliament.ca/">OpenParliament.ca</a></p>';
 			} elseif ($this_page != 'overview') {
-				print '<p class="informational banner"><a href="http://election.theyworkforyou.com/">Find out what your candidates said on local and national issues in our quiz</a></p>';
+				#print '<p class="informational banner"><a href="http://election.theyworkforyou.com/">Find out what your candidates said on local and national issues in our quiz</a></p>';
             }
 		}
 
@@ -628,8 +628,23 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 
 	// Where the actual meat of the page begins, after the title and menu.
 	function content_start () {
-		global $this_page;
+		global $this_page, $THEUSER;
 		echo '<div id="content">';
+
+	    if ($this_page != 'overview') {
+            $bound_pc = '';
+            if (get_http_var('pc')) {
+                $bound_pc = get_http_var('pc');
+            } elseif ($THEUSER->postcode_is_set()) {
+                $bound_pc = $THEUSER->postcode();
+            }
+			print '<p class="informational all"><a href="http://election.theyworkforyou.com/quiz/';
+            if ($bound_pc) {
+                print urlencode($bound_pc);
+            }
+            print '">Find out what your candidates said on local and national issues in our quiz</a></p>';
+        }
+
 		if (in_array($this_page, array('survey', 'overview'))) {
 			return;
 		}

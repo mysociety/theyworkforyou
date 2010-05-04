@@ -8,19 +8,27 @@ $member['has_video_matching'] = $member['current_member'][1] && $member['party']
 $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1']);
 
 # First, the special Speaker box.
-person_speaker_special($member, $extra_info);
+# person_speaker_special($member, $extra_info);
 
 # Special 2010 election bit
 if (isset($member['left_house'][1]) && $member['left_house'][1]['date'] == '2010-04-12') {
     global $THEUSER;
     $bound_pc = '';
-    if ($THEUSER->postcode_is_set()) {
-        $bound_pc = '?pc=' . urlencode($THEUSER->postcode());
-    }
-    print '<p class="informational">
-Constituency boundaries are changing for this election.
-<a href="/boundaries/' . $bound_pc . '">Find out what constituency you will be in</a>.
+    if (is_object($THEUSER) && $THEUSER->postcode_is_set()) {
+        $pc = $THEUSER->postcode();
+        $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($pc)));
+	    if ($xml && !$xml->error) {
+            $current = normalise_constituency_name(iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_constituency));
+            $new = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency);
+            if ($current == $member['constituency']) {
+                $bound_pc = '?pc=' . urlencode($THEUSER->postcode());
+                print '<p style="text-align: center; color: #990000;">
+At this week&rsquo;s election you will be in the
+<strong>' . $new . '</strong> constituency.
 </p>';
+            }
+        }
+    }
 }
 
 # Heading/ picture
