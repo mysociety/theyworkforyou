@@ -8,13 +8,14 @@ function api_getConstituency_front() {
 
 <h4>Arguments</h4>
 <dl>
+<dt>name</dt>
+<dd>Fetch the data associated to the constituency with this name.</dd>
 <dt>postcode</dt>
 <dd>Fetch the constituency with associated information for a given postcode.</dd>
 <dt>future (optional)</dt>
 <dd>If set to anything, return the name of the constituency this postcode will be in
-at the next election (<a href="/boundaries/new-constituencies.tsv">list as TSV file</a>,
-<a href="/boundaries/cons-ids.tsv">TSV list matching TheyWorkForYou name to Guardian name,
-PA ID, and Guardian ID</a>).
+at the 2010 election (<a href="/api/docs/getConstituencies">getConstituencies</a>
+will return a full list if given a date on or after 2010-05-06).
 This is a temporary feature before the 2010 general election.</dd>
 </dl>
 
@@ -28,7 +29,7 @@ This is a temporary feature before the 2010 general election.</dd>
 <?
 }
 
-function api_getconstituency_postcode($pc) {
+function api_getConstituency_postcode($pc) {
     $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
 
     if (!validate_postcode($pc)) {
@@ -66,10 +67,14 @@ function api_getconstituency_postcode($pc) {
             return;
         }
 
-        $normalised = normalise_constituency_name($constituency);
-        if ($normalised) $constituency = $normalised;
-
     }
+
+    return api_getConstituency_name($constituency);
+}
+
+function api_getConstituency_name($constituency) {
+    $normalised = normalise_constituency_name($constituency);
+    if ($normalised) $constituency = $normalised;
 
     $db = new ParlDB;
     $q = $db->query("select constituency, data_key, data_value from consinfo

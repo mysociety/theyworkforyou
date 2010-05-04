@@ -12,7 +12,7 @@ $methods = array(
 	),
 	'getConstituency' => array(
 		'new' => true,
-		'parameters' => array('postcode', 'future'),
+		'parameters' => array('name', 'postcode', 'future'),
 		'required' => true,
 		'help' => 'Searches for a constituency and returns details',
 	),
