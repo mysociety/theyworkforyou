@@ -221,6 +221,7 @@ foreach my $person_id (keys %$personinfohash) {
 # Write to database - cons
 foreach my $constituency (keys %$consinfohash) {
         my $data = $consinfohash->{$constituency};
+        $constituency = Encode::encode('iso-8859-1', $constituency);
         foreach my $key (keys %$data) {
                 my $value = $data->{$key};
                 $consinfoadd->execute($constituency, $key, $value, $value);
