@@ -3,7 +3,7 @@
 --
 
 CREATE TABLE `consinfo` (
-  `constituency` varchar(100) NOT NULL default '',
+  `constituency` varchar(100) collate latin1_spanish_ci NOT NULL default '',
   `data_key` varchar(100) NOT NULL default '',
   `data_value` text NOT NULL,
   UNIQUE KEY `consinfo_constituency_data_key` (`constituency`,`data_key`),
