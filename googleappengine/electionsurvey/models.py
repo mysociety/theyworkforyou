@@ -9,7 +9,7 @@
 from google.appengine.ext import db
 
 import django.forms
-from django.db.models import permalink
+from django.conf import settings
 
 # XXX should this be using db.Model ?
 # import appengine_django.models
@@ -126,9 +126,8 @@ class Seat(db.Model):
         else:
             return ""
 
-    @permalink
     def get_absolute_url(self):
-        return ('views.quiz_by_code', [self.code])
+        return settings.EMAIL_URL_PREFIX + "/quiz/seats/" + self.code
 
 digits = "0123456789abcdefghjkmnpqrstvwxyz"
 class Candidacy(db.Model):
