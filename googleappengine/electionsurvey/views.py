@@ -417,7 +417,7 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
             if candidate_id_mapping.ynmp_id == 0: # explicit block: *never* matches
                 error_message = "Map: blocked"
             else:
-                candidate = db.Query(Candidate).filter("ynmp_id=", candidate_id_mapping.ynmp_id).get()
+                candidate = db.Query(Candidate).filter("ynmp_id =", candidate_id_mapping.ynmp_id).get()
         if not candidate and not error_message:
             url = "http://www.guardian.co.uk/politics/api/person/%s/json" % aristotle_id;
             result = urlfetch.fetch(url)
