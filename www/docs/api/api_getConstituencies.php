@@ -10,7 +10,7 @@ function api_getConstituencies_front() {
 <p>Note only one argument can be given at present.</p>
 <dl>
 <dt>date (optional)</dt>
-<dd>Fetch the list of constituencies as it was on this date.</dd>
+<dd>Fetch the list of constituencies as on this date.</dd>
 <dt>search (optional)</dt>
 <dd>Fetch the list of constituencies that match this search string.</dd>
 <dt>latitude, longitude, distance (optional, all together)</dt>

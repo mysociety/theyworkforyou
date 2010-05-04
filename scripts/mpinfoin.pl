@@ -103,6 +103,8 @@ if ($action{'links'}) {
         $twig->parsefile($pwmembers . "bbc-links.xml", ErrorContext => 2);
         print "  BBC IDs\n" if $verbose;
         $twig->parsefile($pwmembers . "bbc-constituency-ids.xml", ErrorContext => 2);
+        print "  PA/Guardian constituency IDs\n" if $verbose;
+        $twig->parsefile($pwmembers . "constituency-links.xml", ErrorContext => 2);
         print "  dates of birth\n" if $verbose;
         $twig->parsefile($pwmembers . "dates-of-birth.xml", ErrorContext => 2);
         # TODO: Update Guardian links
