@@ -814,7 +814,7 @@ def survey_seats_json(request):
     return HttpResponse(json.dumps(result))
 
 def survey_refined_issues_json(request):
-    candidacies = db.Query(RefinedIssue).filter('deleted =', False)
+    results = db.Query(RefinedIssue).filter('deleted =', False)
 
     result = []
     for i in results:
