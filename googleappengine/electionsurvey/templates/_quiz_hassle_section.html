@@ -45,6 +45,11 @@
             </p>
             {% include "_quiz_subscribe_form.html" %}
         {% endif %}
+	{% if not candidacy_with_response_count %}
+	    <p>
+	    Although no-one here has answered the questions, you can see the how each party answers on average over at our partner site, <a href="http://www.democracyclub.org.uk/twfy/parties/" target="_blank">Democracy Club</a>.
+	    </p>
+	{% endif %}
 {% else %}
     <h2>Keep track of your new MP after the election!</h2>
 
