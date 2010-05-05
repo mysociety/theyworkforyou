@@ -714,7 +714,14 @@ def quiz_main(request, seat, postcode):
         'twfy_signup': True,
         'hfymp_signup': True,
     })
-
+    
+    referer = request.META.get('HTTP_REFERER','')
+    if referer:
+        is_local = False
+        for local_domain_part in settings.LOCAL_DOMAIN_PARTS:
+            if local_domain_part in referer:
+                is_local = True
+        params['external_referer'] = not is_local
     params['seat'] = seat
     params['postcode'] = postcode
     params['subscribe_form'] = subscribe_form
