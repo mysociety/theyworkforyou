@@ -310,78 +310,6 @@ def task_average_response_by_party(request, party_key_name, refined_issue_key_na
         return HttpResponse("Done " + str(arbp.processing_running_count) + ", queued next chunk for " + party.name + " question: " + question)
 
 
-# Optionally: ?details=1 in the URL adds more info
-def survey_candidacies_json(request):
-    candidacies = db.Query(Candidacy).filter('deleted =', False)
-
-    result = []
-    for c in candidacies:
-        item = { 
-            'key_name': c.key().name(),
-            'ynmp_id': c.ynmp_id,
-            'survey_invite_emailed': c.survey_invite_emailed,
-            'survey_invite_sent_to_emails': c.survey_invite_sent_to_emails,
-            'survey_invite_posted': c.survey_invite_posted,
-            'survey_invite_sent_to_addresses': c.survey_invite_sent_to_addresses,
-            'survey_filled_in': c.survey_filled_in,
-            'survey_filled_in_when': c.survey_filled_in_when and c.survey_filled_in_when.strftime('%Y-%m-%dT%H:%M:%S') or None
-        }
-        if 'secret' in request.GET and request.GET['secret'] == settings.DEMOCRACYCLUB_SHARED_SECRET:
-            assert c.survey_token
-            item['survey_token'] = c.survey_token
-        if 'details' in request.GET:
-            details = {
-                'seat_ynmp_id': c.seat.ynmp_id,
-                'seat_name': c.seat.name,
-                'seat_code': c.seat.code,
-
-                'candidate_key_name': c.candidate.key.name(),
-                'candidate_ynmp_id': c.candidate.ynmp_id,
-                'candidate_name': c.candidate.name,
-                'candidate_code': c.candidate.code,
-
-                'candidate_party_ynmp_id': c.candidate.party.ynmp_id,
-                'candidate_party_name': c.candidate.party.name,
-                'candidate_party_code': c.candidate.party.code,
-            }
-            item.update(details)
-        result.append(item)
-
-    return HttpResponse(json.dumps(result))
-
-def survey_responses_json(request):
-    results = db.Query(SurveyResponse)
-
-    result = []
-    for r in results:
-        item = { 
-            'candidacy_key_name': r.candidacy.key().name(),
-            'refined_issue_key_name': r.refined_issue.key().name(),
-            'national': r.national,
-            'agreement': r.agreement,
-            'more_explanation': r.more_explanation,
-        }
-        result.append(item)
-
-    return HttpResponse(json.dumps(result))
-
-def survey_seats_json(request):
-    results = db.Query(Seat)
-
-    result = []
-    for s in results:
-        item = { 
-            'key_name': s.key().name(),
-            'ynmp_id': s.ynmp_id,
-            'name': s.name,
-            'code': s.code,
-            'frozen_local_issues': s.frozen_local_issues
-        }
-        result.append(item)
-
-    return HttpResponse(json.dumps(result))
-
-
 # The Guardian: individual candidate responses
 # This is called, with an aristotle id as the single parameter, from the Guardian CMS
 # The raw_name & raw_constituency_name parameters allow lookups without aristotle, for debugging
@@ -777,5 +705,122 @@ def quiz_subscribe(request):
     return render_to_response('quiz_subscribe.html', {
         'subscribe_form' : subscribe_form
     })
+
+#####################################################################
+# API
+
+def api_index(request):
+    return render_to_response('api_index.html', {
+    })
     
+# Optionally: ?details=1 in the URL adds more info
+def survey_candidacies_json(request):
+    candidacies = db.Query(Candidacy).filter('deleted =', False)
+
+    result = []
+    for c in candidacies:
+        item = { 
+            'key_name': c.key().name(),
+            'ynmp_id': c.ynmp_id,
+            'survey_invite_emailed': c.survey_invite_emailed,
+            'survey_invite_sent_to_emails': c.survey_invite_sent_to_emails,
+            'survey_invite_posted': c.survey_invite_posted,
+            'survey_invite_sent_to_addresses': c.survey_invite_sent_to_addresses,
+            'survey_filled_in': c.survey_filled_in,
+            'survey_filled_in_when': c.survey_filled_in_when and c.survey_filled_in_when.strftime('%Y-%m-%dT%H:%M:%S') or None,
+            'seat_key_name': Candidacy.seat.get_value_for_datastore(c).name(),
+            'candidate_key_name': Candidacy.candidate.get_value_for_datastore(c).name()
+        }
+        if 'secret' in request.GET and request.GET['secret'] == settings.DEMOCRACYCLUB_SHARED_SECRET:
+            assert c.survey_token
+            item['survey_token'] = c.survey_token
+        if 'details' in request.GET:
+            details = {
+                'seat_ynmp_id': c.seat.ynmp_id,
+                'seat_name': c.seat.name,
+                'seat_code': c.seat.code,
+
+                'candidate_ynmp_id': c.candidate.ynmp_id,
+                'candidate_name': c.candidate.name,
+                'candidate_code': c.candidate.code,
+
+                'candidate_party_ynmp_id': c.candidate.party.ynmp_id,
+                'candidate_party_name': c.candidate.party.name,
+                'candidate_party_code': c.candidate.party.code,
+            }
+            item.update(details)
+        result.append(item)
+
+    return HttpResponse(json.dumps(result))
+
+def survey_candidates_json(request):
+    results = db.Query(Candidate)
+
+    result = []
+    for c in results:
+        item = { 
+            'key_name': c.key().name(),
+            'ynmp_id': c.ynmp_id,
+            'name': c.name,
+            'code': c.code,
+            'status': c.status,
+            'email': c.email,
+            'address': c.address,
+
+            'party_key_name': Candidate.party.get_value_for_datastore(c).name(),
+            'image_id': c.image_id,
+        }
+        result.append(item)
+
+    return HttpResponse(json.dumps(result))
+
+def survey_responses_json(request):
+    results = db.Query(SurveyResponse)
+
+    result = []
+    for r in results:
+        item = { 
+            'candidacy_key_name': SurveyResponse.candidacy.get_value_for_datastore(r).name(),
+            'refined_issue_key_name': SurveyResponse.refined_issue.get_value_for_datastore(r).name(),
+            'national': r.national,
+            'agreement': r.agreement,
+            'more_explanation': r.more_explanation,
+        }
+        result.append(item)
+
+    return HttpResponse(json.dumps(result))
+
+def survey_seats_json(request):
+    results = db.Query(Seat)
+
+    result = []
+    for s in results:
+        item = { 
+            'key_name': s.key().name(),
+            'ynmp_id': s.ynmp_id,
+            'name': s.name,
+            'code': s.code,
+            'frozen_local_issues': s.frozen_local_issues
+        }
+        result.append(item)
+
+    return HttpResponse(json.dumps(result))
+
+def survey_refined_issues_json(request):
+    candidacies = db.Query(RefinedIssue).filter('deleted =', False)
+
+    result = []
+    for i in results:
+        item = { 
+            'democlub_id': i.democlub_id,
+            'question': i.question,
+            'reference_url': i.reference_url,
+            'short_name': i.short_name,
+            'national': i.national
+        }
+        result.append(item)
+
+    return HttpResponse(json.dumps(result))
+
+
 

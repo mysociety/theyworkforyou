@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>TheyWorkForYou Election Survey API</h2>
+
+<p>Well, not so much an API, as some files you can download. They're made in real time though.</p>
+
+<p>
+    <a href="/survey/stats.json">stats.json</a> - basic count of how many candidates have completed survey.
+    <br><a href="/survey/candidacies.json">candidacies.json</a> - list of all
+    candidacies, whether they have been emailed / posted to fill in the survey, and whether
+    they have filled it in.
+    <br><a href="/survey/candidates.json">candidates.json</a> - name, email and address of each
+    candidate.
+    <br><a href="/survey/responses.json">responses.json</a> - survey responses to questions, including
+    extra text responses. agreement ranges from 0% for strongly disagree, to 100% for strongly agree.
+    <br><a href="/survey/seats.json">seats.json</a> - name of each seat. Includes a special magic
+    seat called "National" for the national questions.
+    <br><a href="/survey/issues.json">issues.json</a> - the question for each national and local issue.
+</p>
+
+<p>
+    <strong>Notes:</strong>
+    <ol>
+        <li>
+            Use the key_name fields to cross reference between the files. 
+        </li>
+        <li>
+            The candidacies/candidates distinction is a historical accident. We
+            thought more candidates stood in multiple seats, and that would matter more. So
+            alas, to get name of a candidacy, you have to look it up by key_name in the
+            candidates file.
+        </li>
+        <li>
+            The candidacies, candidates and seats data are all imported straight from 
+            <a href="http://www.yournextmp.com">YourNextMP</a>.
+            You might find the direct <a href="http://www.yournextmp.com/data">YourNextMP data</a> source
+            useful. The various ynmp_id fields in the above JSON files cross link to it.
+        </li>
+        <li>
+            The issues data is from <a href="http://www.democracyclub.org.uk/">Democracy Club</a>.
+            You can download a <a href="http://www.democracyclub.org.uk/issues/refined_csv">CSV file
+            of their local issues data</a> direct from them. But the version in the files above is the fixed
+            version which the final 2010 election survey used. Questions might
+            have changed since then, at least in theory.
+        </li>
+</p>
+
+{% endblock %}
+
+
