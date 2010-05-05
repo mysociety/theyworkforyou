@@ -4,6 +4,12 @@
 {% block content %}
 <h2>This page contains the views of the MP candidates for {{ seat.name }} on a wide range of issues</h2>
 
+{% if not postcode or external_referer %}
+<form action="/quiz" method="post">
+<p><em>Not in {{ seat.name }}? Enter your postcode here: <input name="postcode" size="8" /> <input type="submit" value="go" /></em></p>
+</form>
+{% endif %}
+
 {% if candidacy_with_response_count %}
     <p>To see how their views compare with yours, pick any quote below and select your view.</p>
 {% endif %}
