@@ -14,6 +14,7 @@ import urllib
 import re
 import collections
 import urllib
+import hashlib
 
 from google.appengine.api import urlfetch
 from google.appengine.api.datastore_types import Key
@@ -28,7 +29,7 @@ from google.appengine.api.urlfetch import fetch
 from django.utils.http import urlquote_plus
 from django.forms.formsets import formset_factory
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.http import HttpResponseRedirect, HttpResponse, Http404, QueryDict
 from django.conf import settings
 import django.forms.util
 import django.utils.simplejson as json
@@ -36,8 +37,7 @@ import django.utils.simplejson as json
 from ratelimitcache import ratelimit
 
 import forms
-from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse, PostElectionSignup, AristotleToYnmpCandidateMap, AverageResponseByParty
-
+from models import Seat, RefinedIssue, Candidacy, Party, Candidate, SurveyResponse, PostElectionSignup, AristotleToYnmpCandidateMap, AverageResponseByParty, UsefulVote
 
 #####################################################################
 # Candidate survey
@@ -187,6 +187,35 @@ def survey_autosave(request, token):
     candidacy.survey_autosave_when = datetime.datetime.now()
     candidacy.put()
     return render_to_response('survey_autosave_ok.html')
+
+# Called by AJAX 
+def survey_useful_save(request, token):
+    vote = db.Query(UsefulVote).filter("token =", token).get()
+    querydict = QueryDict(request.POST['ser'])
+    #if vote:
+    #    raise Exception("Already voted")
+    seat_code = querydict.get('seat_code', '')
+    seat = db.Query(Seat).filter("code =", seat_code).get()
+    ip_address = str(request.META.get('REMOTE_ADDR', 'na'))
+    useful = querydict.get('useful', '')
+    user_email = querydict.get('email', '')
+    if vote:
+        if useful:
+            vote.ip_address = ip_address
+            vote.useful = useful
+            vote.seat = seat
+        elif user_email:
+            vote.email = user_email
+    else:
+        vote = UsefulVote(
+            token = querydict['token'],
+            ip_address = ip_address,
+            useful = useful,
+            seat = seat
+            )
+    vote.put()
+    return render_to_response('survey_autosave_ok.html')
+
 
 # Task to email a candidate a survey
 def task_invite_candidacy_survey(request, candidacy_key_name):
@@ -650,6 +679,10 @@ def quiz_main(request, seat, postcode):
             if local_domain_part in referer:
                 is_local = True
         params['external_referer'] = not is_local
+    m = hashlib.md5()
+    m.update(referer)
+    m.update(request.META.get('HTTP_USER_AGENT', ''))
+    params['votetoken'] = m.hexdigest()
     params['seat'] = seat
     params['postcode'] = postcode
     params['subscribe_form'] = subscribe_form

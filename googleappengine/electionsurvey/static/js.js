@@ -25,6 +25,7 @@ $(function(){
         $('ul.questions').find('textarea').textLimiter(250, { limitColor: '#FF0000' });
     }
 
+    $('input.votebutton').click(vote);
     $('table.answers tr.what-you-think a').click(function() {
 	    $(this).css('background-color', '#eee');
 	    var table = $(this).parents('table.answers');
@@ -55,6 +56,24 @@ $(function(){
     $("#agreed_most").change(function () { $("#twitterlink").attr("href", "http://twitter.com/home/?status=" + escape($("#agreed_most").val())); });
 });
 
+function vote() {
+    var formhtml = "Thanks for letting us know.  If you'd be willing to take part in a survey after the election, please enter your email: <input id='useremail' name='email' value='' /><input type='button' class='votebutton' value='submit'/>"
+    var token = $('input#votetoken').val();
+    var ser = $('form#usefulvote').serialize();
+    var ser = ser +  '&useful=' + $(this).attr('name');
+    // submit it to the server
+    $.ajax({ url: "/survey/vote/" + token, context: document.body, type: 'POST', data: { 'ser': ser }, success: function(){
+		if ($('#useremail').length>0) {
+ 		$('form#usefulvote').html("Thankyou!");
+		} else {
+ 		$('form#usefulvote').html(formhtml + '<input id="votetoken" type="hidden" name="token" value="' + token + '"/>');
+		$('.votebutton').click(vote);
+		}
+ 
+	    }
+	});
+    return false;
+}
 // Store form data on server so can come back to it later
 function autosave_survey_form() {
     var token = $('input#token').val();
