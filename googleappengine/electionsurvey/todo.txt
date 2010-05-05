@@ -1,6 +1,10 @@
 Do this next
 ============
 
+Turn off taking new survey results when polls close
+
+Change hassle interface when polls close
+
 (16:27:50) dracos: it still says on survey results "we'll put your results up closer to election"
 
 @jakeg82 
