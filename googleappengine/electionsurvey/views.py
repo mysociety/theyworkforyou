@@ -784,6 +784,9 @@ def survey_candidates_json(request):
 def survey_responses_json(request):
     results = db.Query(SurveyResponse)
 
+    if 'national' in request.GET:
+        results.filter('national =', True)
+
     result = []
     for r in results:
         item = { 
