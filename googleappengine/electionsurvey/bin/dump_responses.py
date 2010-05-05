@@ -61,6 +61,50 @@ def lookup_seats_by_id():
         fs = Seat.all().filter('__key__ >', fs[-1].key()).fetch(100)
     return seats_by_id
 
+# Cache the parties classes so they can be looked up quicker than one by one later
+def lookup_parties_by_id():
+    log("Getting all parties")
+    fs = Party.all().fetch(100)
+    parties_by_id = {}
+    c = 0
+    while fs:
+        log("  getting batch from " + str(c))
+        for f in fs:
+            c = c + 1
+            parties_by_id[str(f.key())] = f
+        fs = Party.all().filter('__key__ >', fs[-1].key()).fetch(100)
+    return parties_by_id
+
+# Cache the seats classes so they can be looked up quicker than one by one later
+def lookup_issues_by_id():
+    log("Getting all issues")
+    fs = RefinedIssue.all().fetch(100)
+    issues_by_id = {}
+    c = 0
+    while fs:
+        log("  getting batch from " + str(c))
+        for f in fs:
+            c = c + 1
+            issues_by_id[str(f.key())] = f
+        fs = RefinedIssue.all().filter('__key__ >', fs[-1].key()).fetch(100)
+    return issues_by_id
+
+# Cache the candidacies classes so they can be looked up quicker than one by one later
+def lookup_candidacies_by_id():
+    log("Getting all candidacies")
+    fs = Candidacy.all().fetch(100)
+    candidacies_by_id = {}
+    c = 0
+    while fs:
+        log("  getting batch from " + str(c))
+        for f in fs:
+            c = c + 1
+            candidacies_by_id[str(f.key())] = f
+        fs = Candidacy.all().filter('__key__ >', fs[-1].key()).fetch(100)
+    return candidacies_by_id
+
+
+
 # Generator getting all responses
 def all_responses():
     log("Getting all responses")
@@ -102,18 +146,47 @@ def auth_func():
     return (options.email, getpass.getpass('Password:'))
 remote_api_stub.ConfigureRemoteDatastore('theyworkforyouelection', '/remote_api', auth_func, servername=options.host)
 
+candidates_by_id = lookup_candidates_by_id()
+seats_by_id = lookup_seats_by_id()
+parties_by_id = lookup_parties_by_id()
+issues_by_id = lookup_issues_by_id()
+candidacies_by_id = lookup_candidacies_by_id()
+
 # Main loop
 h = open(options.out, "wb")
 writer = csv.writer(h)
 c = 0
-writer.writerow(['candidacy_key_name', 'refined_issue_key_name', 'national', 'agreement', 'more_explanation'])
+writer.writerow(['candidacy_key_name', 'refined_issue_key_name', 'national', 'agreement', 'more_explanation',
+    'candidate_name', 'seat_name', 'party_name', 'question', 'reference_url'
+    ])
+
 for r in all_responses():
+    candidacy_key_str = str(SurveyResponse.candidacy.get_value_for_datastore(r))
+    candidacy = candidacies_by_id[candidacy_key_str]
+
+    seat_key_str = str(Candidacy.seat.get_value_for_datastore(candidacy))
+    seat = seats_by_id[seat_key_str]
+
+    candidate_key_str = str(Candidacy.candidate.get_value_for_datastore(candidacy))
+    candidate = candidates_by_id[candidate_key_str]
+
+    party_key_str = str(Candidate.party.get_value_for_datastore(candidate))
+    party = parties_by_id[party_key_str]
+
+    issue_key_str = str(SurveyResponse.refined_issue.get_value_for_datastore(r))
+    issue = issues_by_id[issue_key_str]
+
     row = [ 
             SurveyResponse.candidacy.get_value_for_datastore(r).name(),
             SurveyResponse.refined_issue.get_value_for_datastore(r).name(),
             r.national,
             r.agreement,
             r.more_explanation.encode('utf-8'),
+            candidate.name.encode('utf-8'),
+            seat.name.encode('utf-8'),
+            party.name.encode('utf-8'),
+            issue.question.encode('utf-8'),
+            issue.reference_url.encode('utf-8'),
     ]
     writer.writerow(row)
 

@@ -6,6 +6,15 @@
 
 <p>Well, not so much an API, as some files you can download. They're made in real time though.</p>
 
+<h3>Spreadsheet</h3>
+
+<p>
+    <a href="/static/all_responses.csv">all_responses.csv</a> - spreadsheet of all responses, including
+    candidate name, constituency, party and the question.
+</p>
+
+<h3>JSON</h3>
+
 <p>
     <a href="/survey/stats.json">stats.json</a> - basic count of how many candidates have completed survey.
     <br><a href="/survey/candidacies.json">candidacies.json</a> - list of all
@@ -19,10 +28,12 @@
     <br><a href="/survey/responses.json">responses.json</a> - survey responses to questions, including
     extra text responses. agreement ranges from 0% for strongly disagree, to 100% for strongly agree.
     Add ?national=1 to the URL to get national question responses only (more likely to load).
+    <strong>This doesn't work as dataset is too large</strong> - please use the all_responses.csv above
+    which is a static dump.
 </p>
 
 <p>
-    <strong>Notes:</strong>
+    <strong>Notes on JSON files:</strong>
     <ol>
         <li>
             Use the key_name fields to cross reference between the files. 

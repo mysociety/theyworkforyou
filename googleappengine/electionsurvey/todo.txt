@@ -1,12 +1,10 @@
 Do this next
 ============
 
+(16:27:50) dracos: it still says on survey results "we'll put your results up closer to election"
+
 @jakeg82 
 @frabcus bug report... if 2 candidates get same score on election.mysociety.org, the Twitter post only says you agree with one of them most.
-
-Do a dump for analysis
-    include columns for party etc.
-Send to Ben Goldacre too
 
 
 
