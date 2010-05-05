@@ -399,7 +399,7 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
         candidate_name = raw_name
     if not error_message:
         if not candidate:
-            candidate_code = candidate_name.lower().replace(" ", "_")
+            candidate_code = re.sub('\W+', "_", candidate_name.lower())
             debug_message =  debug_message + " [candidate_code=" + candidate_code + "] "
             candidate = db.Query(Candidate).filter("code =", candidate_code).get()
         if candidate:
@@ -421,7 +421,7 @@ def guardian_candidate(request, aristotle_id=None, raw_name=None, raw_const_name
                 seat_ynmp_id = constituency_aristotle_id # would be mapped
                 seat = db.Query(Seat).filter("ynmp_id =", seat_ynmp_id).get()
             else:
-                seat_code = constituency_name.lower().replace(" ", "_")
+                seat_code = re.sub('\W+', "_", constituency_name.lower())
                 seat = db.Query(Seat).filter("code =", seat_code).get()
             if seat:
                 candidacies = db.Query(Candidacy).filter("seat =", seat)
