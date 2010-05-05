@@ -5,7 +5,7 @@
 {% endif %}
 
 {% if candidacy_without_response_count %}
-        <h4><img src="/static/exclamation.png" width="40" height="40" />Stop press: {{ candidacy_without_response_count }} of your candidates have failed to go on the record! </h4>
+        <h4><img src="/static/exclamation.png" width="40" height="40" />Stop press: {{ candidacy_without_response_count }} of your candidates haven't gone on the record! </h4>
 
         {% if not candidacy_with_response_count %}
             <p>
@@ -13,14 +13,22 @@
                 MP have answered yet.
             </p>
         {% endif %}
-
+	    
         <div class="block_party_wrap">
         {% for candidacy in candidacies_without_response %}
             <div class="block_party_outer">
                     <div class="block_party_image_div">
                     {% if candidacy.party_image_url %}<img class="block_party_image" src="{{ candidacy.party_image_url}}" alt="{{ candidacy.party }}">{% else %}{{ candidacy.party}}{% endif %}
                     </div>
-                    {{ candidacy.name }}<br>({{ candidacy.party}})
+                    {{ candidacy.name }}<br>
+		    <span style="font-size: small">({{ candidacy.party}})</span><br>
+		    {% if not candidacy.survey_invite_emailed %}
+ 		     {% if not candidacy.survey_invite_posted %}
+		       <em style="font-size: small">because we couldn't contact them</em>
+		     {% endif %}
+		    {% endif %}
+
+
             </div>
         {% endfor %} 
         </div>
