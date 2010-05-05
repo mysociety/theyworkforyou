@@ -13,11 +13,11 @@
     they have filled it in.
     <br><a href="/survey/candidates.json">candidates.json</a> - name, email and address of each
     candidate.
-    <br><a href="/survey/responses.json">responses.json</a> - survey responses to questions, including
-    extra text responses. agreement ranges from 0% for strongly disagree, to 100% for strongly agree.
     <br><a href="/survey/seats.json">seats.json</a> - name of each seat. Includes a special magic
     seat called "National" for the national questions.
     <br><a href="/survey/issues.json">issues.json</a> - the question for each national and local issue.
+    <br><a href="/survey/responses.json">responses.json</a> - survey responses to questions, including
+    extra text responses. agreement ranges from 0% for strongly disagree, to 100% for strongly agree.
 </p>
 
 <p>
@@ -44,6 +44,11 @@
             of their local issues data</a> direct from them. But the version in the files above is the fixed
             version which the final 2010 election survey used. Questions might
             have changed since then, at least in theory.
+        </li>
+        <li>
+            Deleted candidacies and issues are stored in our database but are
+            now exported in the above files. Now the survey collection is over
+            and the list of candidates is fixed, that's probably not a problem.
         </li>
 </p>
 
