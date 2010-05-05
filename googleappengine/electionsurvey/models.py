@@ -281,3 +281,9 @@ class PostElectionSignup(db.Model):
     hearfromyourmp = db.BooleanProperty()
 
 
+class UsefulVote(db.Model):
+    token = db.StringProperty()
+    ip_address = db.StringProperty(default=None)
+    useful = db.StringProperty(default=None)
+    seat = db.ReferenceProperty(Seat, required=True)
+    email = db.StringProperty(default=None)

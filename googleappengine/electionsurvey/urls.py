@@ -28,6 +28,7 @@ urlpatterns = patterns('',
 
     url(r'^survey$', views.survey_candidacy),
     url(r'^survey/autosave/(?P<token>.+)$', views.survey_autosave),
+    url(r'^survey/vote/(?P<token>.+)$', views.survey_useful_save),
     url(r'^survey/seats$', views.survey_seats_list),
     url(r'^survey/seats/(?P<code>.+)$', views.survey_seats),
     url(r'^survey/(?P<token>.+)$', views.survey_candidacy),

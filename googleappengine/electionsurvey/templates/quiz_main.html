@@ -182,8 +182,18 @@
         <div style="font-size:1.em;margin-top:0.5em;"><a href='http://twitter.com/home/?status=Which%20MP%20candidate%20do%20you%20agree%20with%20the%20most%3F%20http%3A%2F%2Fbit.ly%2F9MRs6t%20@democlub%20%23ge2010{{ seat.encoded_hashtag }}' target="_blank" id="twitterlink"><img src="http://twitter-badges.s3.amazonaws.com/t_mini-b.png" alt="Democlub on twitter"/> tweet this</a> or <a href='http://www.facebook.com/sharer.php?u=http://election.theyworkforyou.com/?1' target="_blank"><img src="/static/facebook.jpg" border="0"/> share on facebook</a></div>
     </p>
     <hr />
+    <em>Survey: did the information on this page influence your vote?</em>
+    <form id="usefulvote">
+      <input type="hidden" name="token" value="{{votetoken}}" id="votetoken" />
+      <input type="hidden" name="seat_code" value="{{seat.code}}" id="votetoken" />
+      
+      <input type="button" class="votebutton" name="yes" value="yes" />
+      <input type="button" class="votebutton" name="no" value="no" /> 
+      <input type="button" class="votebutton" name="no" value="not enough info" /> 
+    </form>
+    <hr />
     <fb:like layout="standard" show_faces="true" width="450" action="like" colorscheme="light"></fb:like>
-
+    <hr />
     <h3>Help!</h3>
     <p>
         <a href="http://www.democracyclub.org.uk/blog/2010/04/candidate-survey-faq/" target="_blank">Frequently asked questions</a>
