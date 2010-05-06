@@ -14,6 +14,7 @@ $this->block_start(array('title'=>'Relevant links'));
 echo "<ul><li><a href='$csvurl'>Download a CSV file that you can load into Excel</a></li>";
 if ($this_page == 'mps') {
 ?>
+<li><a href="?date=2010-05-06">MPs at 2010 general election</a></li>
 <li><a href="?date=2005-05-05">MPs at 2005 general election</a></li>
 <li><a href="?date=2001-06-07">MPs at 2001 general election</a></li>
 <li><a href="?date=1997-05-01">MPs at 1997 general election</a></li>
