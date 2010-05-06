@@ -10,9 +10,6 @@ elseif (get_http_var('c4x')) $this_page = 'c4x_mps';
 $args = array();
 $date = get_http_var('date');
 
-# 2010 general election override
-if (!$date) $date = '2010-04-12';
-
 if ($date) {
 	$date = parse_date($date);
 	if ($date) {
