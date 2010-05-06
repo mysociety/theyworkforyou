@@ -98,7 +98,7 @@ EMAIL_URL_PREFIX = "http://election.theyworkforyou.com"
 LOCAL_DOMAIN_PARTS = ["theyworkforyou", "localhost"]
 
 # Stops candidates submitting to survey
-SURVEY_RESPONSES_CLOSED = False
+SURVEY_RESPONSES_CLOSED = True
 
 # Copy local_settings.py-ingit to local_settings.py
 from local_settings import *
