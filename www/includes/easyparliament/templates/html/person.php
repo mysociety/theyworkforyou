@@ -430,6 +430,7 @@ function person_voting_record($member, $extra_info) {
 			array(1071, "allowing ministers to <strong>intervene in inquests</strong>"),
 			array(1079, "removing <strong>hereditary peers</strong> from the House of Lords"),
             array(1087, "a <strong>stricter asylum system</strong>"),
+            array(1065, "more <strong>EU integration</strong>"),
 			# array(837, "a <strong>wholly elected</strong> House of Lords"), XXX See code below
             # Unfinished
 		    # array(856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>"),

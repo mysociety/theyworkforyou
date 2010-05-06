@@ -1,5 +1,6 @@
 from google.appengine.api import memcache
 from google.appengine.ext import db
+from google.appengine.runtime.apiproxy_errors import CapabilityDisabledError
 import random
 
 class APIKey(db.Model):
@@ -17,7 +18,10 @@ class APIKey(db.Model):
                 counter = CounterShard(key_name=shard_name, name=self.name)
             counter.count += 1
             counter.put()
-        db.run_in_transaction(txn)
+        try:
+            db.run_in_transaction(txn)
+        except CapabilityDisabledError:
+            pass
         memcache.incr(self.name)
 
     def get_count(self):
