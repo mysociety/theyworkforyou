@@ -4,7 +4,7 @@
 <div class="missing" id="missing_long">
 {% endif %}
 
-{% if candidacy_without_response_count %}
+{% if candidacy_without_response_count and shorter_hassle_section %}
         <h4><img src="/static/exclamation.png" width="40" height="40" />Stop press: {{ candidacy_without_response_count }} of your candidates haven't gone on the record! </h4>
 
         {% if not candidacy_with_response_count %}
@@ -35,14 +35,18 @@
         <div class="block_party_clear"></div>
 
         {% if shorter_hassle_section and candidacy_with_response_count %}
+<!--
             <p>
                 <a href="#missing_long">It's not too late to get them to answer! Here's how...</a>
                 <small>(if you're one of them then <a href="/survey">go here</a>)</small>
             </p>
+-->
         {% else %}
+<!--
             <p>
                 <small>(if you're one of these candidates then <a href="/survey">go here</a>)</small>
             </p>
+-->
             {% include "_quiz_subscribe_form.html" %}
         {% endif %}
 	{% if not candidacy_with_response_count %}

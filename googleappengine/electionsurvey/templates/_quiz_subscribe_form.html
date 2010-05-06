@@ -1,12 +1,6 @@
-{% if candidacy_without_response_count %}
 <p>
-    If you found this survey useful, <strong>please take five minutes to help make it even better</strong>. Enter your details below and we'll take you to Democracy Club, a partner site that makes it really simple for you to chase up people who've not answered the survey yet.
+    Democracy can carry on when it isn't election time. Here are three services you might like.  If you found this survey useful, please consider signing up.
 </p>
-{% else %}
-<p>
-    Democracy can carry on when it isn't election time. Three services you might like.
-</p>
-{% endif %}
 
 <div id="subscribe_box">
     {% if subscribe_form.errors %}
@@ -33,24 +27,15 @@
                 {{ subscribe_form.hfymp_signup.label_tag }}
                 {{ subscribe_form.hfymp_signup }}
             </span>
-            {% if candidacy_without_response_count %}
-                <input type="hidden" name="democlub_signup" value="0" />
-                <input type="hidden" name="democlub_redirect" value="1" />
-            {% else %}
-                <br>
-                <span class="signup_checkbox">
-                    {{ subscribe_form.democlub_signup.label_tag }}
-                    {{ subscribe_form.democlub_signup }}
-                </span>
-                <input type="hidden" name="democlub_redirect" value="0" />
-            {% endif %}
+            <br>
+            <span class="signup_checkbox">
+                {{ subscribe_form.democlub_signup.label_tag }}
+                {{ subscribe_form.democlub_signup }}
+            </span>
+            <input type="hidden" name="democlub_redirect" value="0" />
             <br>
             <input type="hidden" name="candidacy_without_response_count" value="{{ candidacy_without_response_count }} " />
-            {% if candidacy_without_response_count %}
-                <input type="submit" value="Hassle the MP candidates">
-            {% else %}
-                <input type="submit" value="Join up!">
-            {% endif %}
+            <input type="submit" value="Join up!">
         </p>
         <p>
             <small>

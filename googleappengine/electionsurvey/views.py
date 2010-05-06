@@ -718,7 +718,8 @@ def quiz_subscribe(request):
                     payload = form_data,
                     method = urlfetch.POST)
             if result.status_code != 200:
-                raise Exception("Error posting to DemocracyClub")
+                pass
+                #raise Exception("Error posting to DemocracyClub")
 
         candidacy_without_response_count = request.POST.get('candidacy_without_response_count',0)
         seat = forms._postcode_to_constituency(postcode)
