@@ -66,6 +66,9 @@ def _check_auth(post, ip_address, first_auth):
 # Survey a candidate
 @ratelimit(minutes = 2, requests = 40) # stop brute-forcing of token 
 def survey_candidacy(request, token = None):
+    if settings.SURVEY_RESPONSES_CLOSED:
+        return render_to_response('survey_candidacy_closed.html', { })
+
     post = dict(request.POST.items()) or {}
     first_auth = 'auth_submitted' in post # whether is first time they authenticated
     if token:
@@ -151,7 +154,6 @@ def survey_seats_list(request):
     })
 
 
-
 def survey_seats(request, code):
     seat = db.Query(Seat).filter("code =", code).get()
     candidacies = seat.candidacy_set.filter('deleted =', False)
@@ -180,6 +182,9 @@ def survey_seats(request, code):
 
 # Called by AJAX to automatically keep half filled in forms
 def survey_autosave(request, token):
+    if settings.SURVEY_RESPONSES_CLOSED:
+        raise Exception("Survey closed to new responses")
+
     candidacy = Candidacy.find_by_token(token)
     if not candidacy:
         raise Exception("Invalid token " + token)
