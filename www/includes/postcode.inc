@@ -92,7 +92,7 @@ function postcode_to_constituency_internal($postcode, $mp_only=true) {
         $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($postcode)));
         if ($xml) {
             if ($xml->error) return '';
-            return array('WMC' => iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_constituency));
+            return array('WMC' => iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency));
         }
     }
 
