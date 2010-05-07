@@ -221,14 +221,14 @@ class MEMBER {
 		if ($q->rows > 0) {
 			return $q->field(0, 'person_id');
 		} else {
-			$q = $this->db->query("SELECT person_id FROM member WHERE constituency = '".mysql_real_escape_string($constituency) . "'"
-                . ($house ? ' AND house='.mysql_real_escape_string($house) : '') . ' ORDER BY left_house DESC LIMIT 1');
-			if ($q->rows > 0) {
-				return $q->field(0, 'person_id');
-			} else {
+			#$q = $this->db->query("SELECT person_id FROM member WHERE constituency = '".mysql_real_escape_string($constituency) . "'"
+            #    . ($house ? ' AND house='.mysql_real_escape_string($house) : '') . ' ORDER BY left_house DESC LIMIT 1');
+			#if ($q->rows > 0) {
+			#	return $q->field(0, 'person_id');
+			#} else {
 				$PAGE->error_message("Sorry, there is no current member for the '" . htmlentities($constituency) . "' constituency.");
 				return false;
-			}
+			#}
 		}
 	}
 
