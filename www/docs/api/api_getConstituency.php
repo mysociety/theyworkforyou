@@ -12,19 +12,10 @@ function api_getConstituency_front() {
 <dd>Fetch the data associated to the constituency with this name.</dd>
 <dt>postcode</dt>
 <dd>Fetch the constituency with associated information for a given postcode.</dd>
-<dt>future (optional)</dt>
-<dd>If set to anything, return the name of the constituency this postcode will be in
-at the 2010 election (<a href="/api/docs/getConstituencies">getConstituencies</a>
-will return a full list if given a date on or after 2010-05-06).
-This is a temporary feature before the 2010 general election.</dd>
 </dl>
 
 <h4>Example Response</h4>
 <pre>{ "name" : "Manchester, Gorton" }</pre>
-
-<h4>Example of future variable</h4>
-<p>Without future=1, NN12 8NF returns: <samp>{ "name" : "Daventry" }</samp>
-<p>With future=1, NN12 8NF returns: <samp>{ "name" : "South Northamptonshire" }</samp>
 
 <?
 }
@@ -37,36 +28,14 @@ function api_getConstituency_postcode($pc) {
         return;
     }
 
-    if (get_http_var('future')) {
-
-        $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($pc)));
-        if (!$xml) {
-            $new_areas = mapit_get_voting_areas($pc, 13); # Magic number 13
-            if (is_object($new_areas) || !isset($new_areas['WMC'])) { # rabx_is_error throws Notice
-                api_error('Unknown postcode, or problem with lookup');
-                return;
-            }
-            $new_info = mapit_get_voting_area_info($new_areas['WMC']);
-            $constituency = $new_info['name'];
-        } elseif ($xml->error) {
-            api_error('Unknown postcode, or problem with lookup');
-            return;
-        } else {
-            $constituency = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency);
-        }
-
-    } else {
-
-        $constituency = postcode_to_constituency($pc);
-        if ($constituency == 'CONNECTION_TIMED_OUT') {
-            api_error('Connection timed out');
-            return;
-        }
-        if (!$constituency) {
-            api_error('Unknown postcode');
-            return;
-        }
-
+    $constituency = postcode_to_constituency($pc);
+    if ($constituency == 'CONNECTION_TIMED_OUT') {
+        api_error('Connection timed out');
+        return;
+    }
+    if (!$constituency) {
+        api_error('Unknown postcode');
+        return;
     }
 
     return _api_getConstituency_name($constituency);

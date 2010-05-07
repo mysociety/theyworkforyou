@@ -12,7 +12,7 @@ $methods = array(
 	),
 	'getConstituency' => array(
 		'new' => true,
-		'parameters' => array('name', 'postcode', 'future'),
+		'parameters' => array('name', 'postcode'),
 		'required' => true,
 		'help' => 'Searches for a constituency and returns details',
 	),
@@ -79,7 +79,7 @@ $methods = array(
 	),
 	'getGeometry' => array(
 		'new' => true,
-		'parameters' => array('name', 'future'),
+		'parameters' => array('name'),
 		'required' => false,
 		'help' => 'Returns centre, bounding box of constituencies'
 	),
