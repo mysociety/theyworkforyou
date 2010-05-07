@@ -25,6 +25,7 @@ $PAGE->stripe_start("full");
 
 <!-- Actions -->
 <div id="welcome_uk" class="welcome_actions">
+<!--
     <div id="" style="min-height: 27em; background: #ffff99;">
         <h2 align="center" style="padding-top:0; margin: 0.5em;">Election Quiz &ndash; it&rsquo;s job interview time for your next MP!</h2>
 
@@ -48,8 +49,9 @@ $PAGE->stripe_start("full");
 </form>
 
     </div>
+-->
 
-    <div>
+    <div style="background: #ffff99;">
         <h3>Your representative</h3>
         <?php
         
@@ -86,7 +88,7 @@ $PAGE->stripe_start("full");
 
         	if ($pc_form) { ?>
         		<form action="/postcode/" method="get">
-        		<p><strong>Find out about your former <acronym title="Member of Parliament">MP</acronym>/
+        		<p><strong>Find out about your new <acronym title="Member of Parliament">MP</acronym>/
         		<acronym title="Members of the Scottish Parliament">MSPs</acronym>/
         		<acronym title="Members of the (Northern Irish) Legislative Assembly">MLAs</acronym></strong><br>
         		<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>

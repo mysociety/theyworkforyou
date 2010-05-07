@@ -16,26 +16,9 @@ person_image($member);
 echo '<h2>' . $member['full_name'] . '</h2>';
 echo '<h3>' . person_summary_description($member) . '</h3>';
 
-# Special 2010 election bit
-if (isset($member['left_house'][1]) && $member['left_house'][1]['date'] == '2010-04-12') {
-    global $THEUSER;
-    $bound_pc = '';
-    if (is_object($THEUSER) && $THEUSER->postcode_is_set()) {
-        $pc = $THEUSER->postcode();
-        $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($pc)));
-	    if ($xml && !$xml->error) {
-            $current = normalise_constituency_name(iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_constituency));
-            $new = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency);
-            if ($current == $member['constituency']) {
-                $bound_pc = '?pc=' . urlencode($THEUSER->postcode());
-                print '<p style="color: #cc0000;">
-At this week&rsquo;s election you will be in the
-<strong>' . $new . '</strong> constituency.
-</p>';
-            }
-        }
-    }
-}
+print '<p class="informational all" style="margin-bottom:1em">';
+print '<a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a>
+<br>(no more than once per day)</p>';
 
 # History
 echo '<ul>';
@@ -329,7 +312,7 @@ function person_user_actions($member) {
 
 	# If they're currently an MLA, a Lord or a non-Sinn Fein MP
 	if ($member['has_email_alerts']) {
-		print '<li><a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a> (no more than once per day)</li>';
+		#print '<li><a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a> (no more than once per day)</li>';
 	}
 
 	# Video

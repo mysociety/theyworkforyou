@@ -631,6 +631,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		global $this_page, $THEUSER;
 		echo '<div id="content">';
 
+/*
 	    if ($this_page != 'overview') {
             $bound_pc = '';
             if (get_http_var('pc')) {
@@ -644,6 +645,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
             }
             print '">Find out what your candidates said on local and national issues in our quiz</a></p>';
         }
+*/
 
 		if (in_array($this_page, array('survey', 'overview'))) {
 			return;
