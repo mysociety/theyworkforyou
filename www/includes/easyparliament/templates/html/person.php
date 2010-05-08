@@ -16,9 +16,11 @@ person_image($member);
 echo '<h2>' . $member['full_name'] . '</h2>';
 echo '<h3>' . person_summary_description($member) . '</h3>';
 
-print '<p class="informational all" style="margin-bottom:1em">';
-print '<a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a>
-<br>(no more than once per day)</p>';
+if ($member['has_email_alerts']) {
+    print '<p class="informational all" style="margin-bottom:1em">';
+    print '<a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a>
+    <br>(no more than once per day)</p>';
+}
 
 # History
 echo '<ul>';
