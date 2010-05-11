@@ -1022,6 +1022,7 @@ sub add_mps_and_peers {
                 { 'member' => \&loadmember },
                 output_filter => $outputfilter );
         $twig->parsefile($pwmembers . "all-members.xml");
+        $twig->parsefile($pwmembers . "all-members-2010.xml");
         undef $twig;
         $twig = XML::Twig->new(twig_handlers => 
                 { 'lord' => \&loadlord },
