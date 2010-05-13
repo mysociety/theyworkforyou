@@ -1048,6 +1048,7 @@ sub add_mps_and_peers {
                 { 'moffice' => \&loadmoffice }, 
                 output_filter => $outputfilter );
         $twig->parsefile($pwmembers . "ministers.xml");
+        $twig->parsefile($pwmembers . "ministers-2010.xml");
         undef $twig;
         loadmoffices();
         check_member_ids();
