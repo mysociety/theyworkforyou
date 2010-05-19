@@ -61,13 +61,16 @@ if ($name == 'caledon du pre') $name = "caledon du pr\xe9";
 if ($name == 'sean etchingham') $name = "se\xe1n etchingham";
 if ($name == 'john tinne') $name = "john tinn\xe9";
 if ($name == 'renee short') $name = "ren\xe9e short";
-if ($name == 'a j beith') {
-	$name = 'alan beith';
-	$redirect = true;
-}
-if ($name == 'micky brady') {
-	$name = 'mickey brady';
-	$redirect = true;
+
+$name_fix = array(
+    'a j beith' => 'alan beith',
+    'micky brady' => 'mickey brady',
+    'daniel rogerson' => 'dan rogerson',
+    'andrew slaughter' => 'andy slaughter',
+);
+if (array_key_exists($name, $name_fix)) {
+    $name = $name_fix[$name];
+    $redirect = true;
 }
 
 # Special stuff for Ynys Mon
