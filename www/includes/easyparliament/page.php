@@ -1081,6 +1081,13 @@ pr()//-->
 			twfy_debug ('TIME', "Total system time: $duration microseconds.");
 		}
 		
+?>
+
+<br class="clear">
+</div> <!-- end #footer -->
+</div> <!-- end #container -->
+
+<?
 		if (DOMAIN == 'www.theyworkforyou.com') { ?>
 <!-- Piwik -->
 <script type="text/javascript">
@@ -1097,10 +1104,6 @@ piwikTracker.enableLinkTracking();
 <?
 		}
 ?>
-
-<br class="clear">
-</div> <!-- end #footer -->
-</div> <!-- end #container -->
 
 <script type="text/javascript" charset="utf-8">
     barSetup();
