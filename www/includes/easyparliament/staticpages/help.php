@@ -2,7 +2,7 @@
 
 <ul>
 <li><a href="#use">How do people use TheyWorkForYou?</a></li>
-<li><a href="#missing">Is this the whole of Hansard?</a></li>
+<li><a href="#coverage">Is this the whole of Hansard?</a></li>
 <li><a href="#moderation">How do you moderate annotations?</a></li>
 <li><a href="#privacy">What is your privacy policy?</a></li>
 <li><a href="#cookie">What is your cookie policy?</a></li>
@@ -69,7 +69,7 @@ press release."</blockquote>
 </blockquote>
 </dd>
 
-<dt><a name="missing"></a>Is this the whole of Hansard?</dt>
+<dt><a name="coverage"></a>Is this the whole of Hansard?</dt>
 <dd>
 <p>TheyWorkForYou currently contains:</p>
 <ul>
@@ -77,6 +77,8 @@ press release."</blockquote>
 <li>knowledge of MPs back to <strong>1806</strong> or thereabouts;
 <li>Hansard Commons written answers and written ministerial statements 
 back to the General Election of June 2001;
+<li>Hansard Commons Public Bill Committees (previously called Standing Committees) back to the 
+start of the 2000&ndash;01 session.
 <li>Hansard House of Lords Hansard (except Grand Committees) back to around November 1999;
 <li>knowledge of Lords back to the House of Lords Act 1999;
 <li>everything in the various Northern Ireland (Transitional) Assembly debates, and all MLAs; 
