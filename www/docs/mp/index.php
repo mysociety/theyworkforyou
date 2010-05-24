@@ -67,11 +67,18 @@ $name_fix = array(
     'micky brady' => 'mickey brady',
     'daniel rogerson' => 'dan rogerson',
     'andrew slaughter' => 'andy slaughter',
-    'robert wilson' => 'rob wilson',
+    'robert wilson' => array('rob wilson', 'reading east'),
 );
 if (array_key_exists($name, $name_fix)) {
-    $name = $name_fix[$name];
-    $redirect = true;
+    if (is_array($name_fix[$name])) {
+        if ($cconstituency == $name_fix[$name][1]) {
+            $name = $name_fix[$name][0];
+            $redirect = true;
+        }
+    } else {
+        $name = $name_fix[$name];
+        $redirect = true;
+    }
 }
 
 # Special stuff for Ynys Mon
