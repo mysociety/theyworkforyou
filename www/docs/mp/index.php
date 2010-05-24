@@ -67,6 +67,7 @@ $name_fix = array(
     'micky brady' => 'mickey brady',
     'daniel rogerson' => 'dan rogerson',
     'andrew slaughter' => 'andy slaughter',
+    'robert wilson' => 'rob wilson',
 );
 if (array_key_exists($name, $name_fix)) {
     $name = $name_fix[$name];
