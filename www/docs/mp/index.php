@@ -71,6 +71,8 @@ $name_fix = array(
     'james mcgovern' => 'jim mcgovern',
     'patrick mcfadden' => 'pat mcfadden',
     'chris leslie' => 'christopher leslie',
+    'joseph meale' => 'alan meale',
+    'james sheridan' => 'jim sheridan',
 );
 if (array_key_exists($name, $name_fix)) {
     if (is_array($name_fix[$name])) {
