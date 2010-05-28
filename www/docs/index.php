@@ -147,7 +147,6 @@ $PAGE->stripe_start("full");
 -->
 
 <!-- Latest in parliament -->
-<!--
 <div class="latest col3">
     <h3>Recently in the UK Parliament</h3>
     <div>
@@ -203,7 +202,6 @@ $PAGE->stripe_start("full");
     </div>
     <br class="clear">&nbsp;
 </div>
--->
 
 <?php
 
