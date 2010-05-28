@@ -241,7 +241,7 @@ class MEMBER {
 		# Matthew made this change, but I don't know why.  It broke
 		# Iain Duncan Smith, so I've put it back.  FAI 2005-03-14
 		#		$success = preg_match('#^(.*? .*?) (.*?)$#', $name, $m);
-		$q = "SELECT DISTINCT person_id,constituency FROM member WHERE ";
+		$q = "SELECT person_id,constituency,max(left_house) AS left_house FROM member WHERE ";
 		if ($this_page=='peer') {
 			$success = preg_match('#^(.*?) (.*?) of (.*?)$#', $name, $m);
 			if (!$success)
@@ -314,7 +314,7 @@ class MEMBER {
 		if ($const || $this_page=='peer') {
 			$q .= ' AND constituency=\''.mysql_real_escape_string($const)."'";
 		}
-		$q .= ' ORDER BY left_house DESC';
+		$q .= ' GROUP BY person_id, constituency ORDER BY left_house DESC';
 		$q = $this->db->query($q);
 		if ($q->rows > 1) {
 			# Hacky as a very hacky thing that's graduated in hacking from the University of Hacksville
@@ -332,6 +332,14 @@ class MEMBER {
 			$this->constituency = $consts;
 			return $person_ids;
 		} elseif ($q->rows > 0) {
+			if ($q->field(0, 'left_house') != '9999-12-31') {
+				$qq = $this->db->query('SELECT MAX(left_house) AS left_house FROM member
+					WHERE person_id=' . $q->field(0, 'person_id')
+				);
+				if ($qq->field(0, 'left_house') != $q->field(0, 'left_house')) {
+					$this->canonical = false;
+				}
+			}
 			return $q->field(0, 'person_id');
 		} elseif ($const && $this_page!='peer') {
 			$this->canonical = false;
