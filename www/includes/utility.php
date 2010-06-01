@@ -54,6 +54,10 @@ function twfy_debug ($header, $text="") {
 }
 
 
+function exception_handler ($e) {
+    trigger_error($e->getMessage());
+}
+
 function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 	// Custom error-handling function.
 	// Sends an email to BUGSLIST.

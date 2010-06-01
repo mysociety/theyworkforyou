@@ -42,6 +42,7 @@ if(function_exists('date_default_timezone_set')) date_default_timezone_set(TIMEZ
 
 // The error_handler function is in includes/utility.php
 $old_error_handler = set_error_handler("error_handler");
+$old_exception_handler = set_exception_handler("exception_handler");
 
 // The time the page starts, so we can display the total at the end.
 // getmicrotime() is in utiltity.php.
