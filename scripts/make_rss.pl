@@ -41,14 +41,6 @@ pbc_rss();
 
 sub debates_rss {
     my ($major, $title, $url, $file) = @_;
-    my $query = $dbh->prepare("select hdate from hansard where major=$major order by hdate desc limit 1");
-    $query->execute();
-    my ($date) = $query->fetchrow_array();
-    return unless $date;
-
-    # do we need to do something date related here?
-    $query = $dbh->prepare("SELECT e.body, h.hdate, h.htype, h.gid, h.subsection_id, h.section_id, h.epobject_id FROM hansard h, epobject e WHERE h.major=$major AND htype=10 AND h.hdate='$date' AND h.epobject_id = e.epobject_id order by h.epobject_id");
-    $query->execute;
 
     my $rss = new XML::RSS (version => '1.0');
     $rss->channel(
@@ -59,16 +51,26 @@ sub debates_rss {
         syn => $syn,
     );
 
-    my $body = '';
-    while (my $result = $query->fetchrow_hashref) {
-        my ($id) = $result->{gid} =~ m#\/([^/]+)$#;
-        $body .= "<li><a href=\"http://www.theyworkforyou.com/$url?id=$id\">$result->{body}</a></li>\n";
+    my $query = $dbh->prepare("select distinct(hdate) from hansard where major=$major order by hdate desc limit 10");
+    $query->execute();
+    while (my $date = $query->fetchrow_array) {
+
+        # do we need to do something date related here?
+        my $q = $dbh->prepare("SELECT e.body, h.hdate, h.htype, h.gid, h.subsection_id, h.section_id, h.epobject_id FROM hansard h, epobject e WHERE h.major=$major AND htype=10 AND h.hdate='$date' AND h.epobject_id = e.epobject_id order by h.epobject_id");
+        $q->execute;
+
+        my $body = '';
+        while (my $result = $q->fetchrow_hashref) {
+            my ($id) = $result->{gid} =~ m#\/([^/]+)$#;
+            $body .= "<li><a href=\"http://www.theyworkforyou.com/$url?id=$id\">$result->{body}</a></li>\n";
+        }
+        $rss->add_item(
+            title => "$title for $date",
+            link => "http://www.theyworkforyou.com/$url?d=$date",
+            description => "<ul>\n\n$body\n\n</ul>\n"
+        );
+
     }
-    $rss->add_item(
-        title => "$title for $date",
-        link => "http://www.theyworkforyou.com/$url?d=$date",
-        description => "<ul>\n\n$body\n\n</ul>\n"
-    );
 
     open(FP, '>' . mySociety::Config::get('BASEDIR') . "/$file") or die $!;
     print FP $rss->as_string;
@@ -76,18 +78,13 @@ sub debates_rss {
 }
 
 sub wms_rss {
-    my $query = $dbh->prepare("select hdate from hansard where major=4 order by hdate desc limit 1");
-    $query->execute();
-    my ($date) = $query->fetchrow_array();
-    return unless $date;
-
-    $query = $dbh->prepare("
+    my $query = $dbh->prepare("
         SELECT e.body, h.hdate, h.htype, h.gid, h.subsection_id, h.section_id,
                 h.epobject_id, m.house, m.title, m.first_name, m.last_name, m.constituency, m.person_id
         FROM hansard h, epobject e, member m
-        WHERE h.major=4 AND htype=12 AND h.hdate='$date' AND section_id != 0 AND subsection_id != 0
+        WHERE h.major=4 AND htype=12 AND section_id != 0 AND subsection_id != 0
         AND h.epobject_id = e.epobject_id AND h.speaker_id = m.member_id
-        ORDER BY h.epobject_id desc");
+        ORDER BY h.hdate desc, h.epobject_id desc LIMIT 20");
     $query->execute;
 
     my $rss = new XML::RSS (version => '1.0');
@@ -114,7 +111,7 @@ sub wms_rss {
         $rss->add_item(
             title => $title,
             link => 'http://www.theyworkforyou.com/wms/?id=' . $id,
-            description => $result->{body}
+            description => $result->{body},
         );
     }
     open (FP, '>' . mySociety::Config::get('BASEDIR') . "/wms/wms.rss") or die $!;
