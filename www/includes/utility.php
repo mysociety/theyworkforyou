@@ -146,17 +146,18 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 
 	if (DEVSITE || get_http_var(DEBUGTAG)) {
 		// On a devsite we just display the problem.
+        $errtxt = nl2br($err) . "\n";
+        if (!strstr($errmsg, 'mysql_connect')) {
+			$errtxt .= "<br><br>Backtrace:<br>" . nl2br(adodb_backtrace(false));
+		}
 		$message = array(
 			'title' => "Error",
-			'text' => "$err\n"
+			'text' => $errtxt
 		);
 		if (is_object($PAGE)) {
 			$PAGE->error_message($message, $fatal);
 		} else {
 			vardump($message);
-		}
-		if (!strstr($errmsg, 'mysql_connect')) {
-			vardump(adodb_backtrace());
 		}
 		
 	} else {
@@ -205,7 +206,6 @@ function adodb_backtrace($print=true)
     foreach ($traceArr as $arr) {
       for ($i=0; $i < $tabs; $i++) $s .= ' &nbsp; ';
       $tabs -= 1;
-      $s .= '<font face="Courier New,Courier">';
       if (isset($arr['class'])) $s .= $arr['class'].'.';
       $args = array();
       if (isset($arr['args'])) foreach($arr['args'] as $v) {
@@ -221,7 +221,7 @@ function adodb_backtrace($print=true)
 	}
       }
               
-      $s .= $arr['function'].'('.implode(', ',$args).')</font>';
+      $s .= $arr['function'].'('.implode(', ',$args).')';
       //      $s .= sprintf("</font><font color=#808080 size=-1> # line %4d,".
       //		    " file: <a href=\"file:/%s\">%s</a></font>",
       //	    $arr['line'],$arr['file'],$arr['file']);
