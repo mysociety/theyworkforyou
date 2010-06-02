@@ -313,6 +313,8 @@ phrase</strong> you wish to receive alerts for:</label>
         echo '<input type="hidden" name="pid" value="' . htmlspecialchars($details['pid']) . '">';
     if ($details['keyword'])
         echo '<input type="hidden" name="keyword" value="' . htmlspecialchars($details['keyword']) . '">';
+    if ($details['pid'] || $details['keyword'])
+        echo '<input type="hidden" name="only" value="1">';
 
     if (!$details['email_verified']) {
         if (isset($errors["email"]) && (get_http_var('submitted') || $details['add'])) {
