@@ -464,67 +464,6 @@ foreach ($members as $member) {
     }
 }
 
-// Given a search string, searches in the names of members and returns a list of those found
-function search_members_by_name($searchstring) {
-	if (!$searchstring) {
-		$PAGE->error_message("No search string");
-		return false;
-	}
-
-    $searchstring = trim(preg_replace('#[a-z]+:[a-z0-9]+#', '', $searchstring));
-    $q = _search_member_db_lookup($searchstring);
-	if (!$q) return false;
-
-    $members = array();
-	if ($q->rows() > 0) {
-	
-		$URL1 = new URL('mp');
-		$URL2 = new URL('peer');
-		
-        $last_pid = null;
-        $entered_house = '';
-		for ($n=0; $n<$q->rows(); $n++) {
-            if ($q->field($n, 'person_id') != $last_pid) {
-                # First, stick the oldest entered house from last PID on to its end!
-                if ($entered_house)
-                    $members[count($members)-1][1] = format_date($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
-                $last_pid = $q->field($n, 'person_id');
-                if ($q->field($n, 'left_house') != '9999-12-31') {
-                    $former = 'formerly ';
-                } else {
-                    $former = '';
-                }
-                $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'first_name'), $q->field($n, 'last_name'), $q->field($n, 'constituency') );
-                if ($q->field($n, 'house') == 1) {
-                    $URL1->insert(array('pid'=>$last_pid));
-                    $s = '<a href="' . $URL1->generate() . '"><strong>';
-                    $s .= $name . '</strong></a> (' . $former . $q->field($n, 'constituency') . ', ';
-                } else {
-                    $URL2->insert(array('pid'=>$last_pid));
-                    $s = '<a href="' . $URL2->generate() . '"><strong>' . $name . '</strong></a> (';
-                }
-                $party = $q->field($n, 'party');
-                if (isset($parties[$party]))
-                    $party = $parties[$party];
-                if ($party)
-                    $s .= $party . ', ';
-                $s2 = ' &ndash; ';
-                if ($q->field($n, 'left_house') != '9999-12-31')
-                   $s2 .= format_date($q->field($n, 'left_house'), SHORTDATEFORMAT);
-		        $MOREURL = new URL('search');
-                $MOREURL->insert( array('pid'=>$last_pid, 'pop'=>1, 's'=>null) );
-                $s3 = ') &ndash; <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
-                $members[] = array($s, $s2, $s3);
-            }
-            $entered_house = $q->field($n, 'entered_house');
-		}
-        if ($entered_house)
-            $members[count($members)-1][1] = format_date($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
-	}
-
-    return $members;
-}
-
 // Checks to see if the search term provided has any similar matching entries in the glossary.
 // If it does, show links off to them.
 function find_glossary_items($args) {
