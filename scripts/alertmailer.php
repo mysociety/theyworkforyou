@@ -126,7 +126,7 @@ foreach ($alertdata as $alertitem) {
 		if ($email_text)
 			write_and_send_email($current, $user_id, $email_text, $template);
 		$current['email'] = $email;
-		$current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'],
+		$current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'];
 		$email_text = '';
 		$q = $db->query('SELECT user_id FROM users WHERE email = \''.mysql_real_escape_string($email)."'");
 		if ($q->rows() > 0) {
