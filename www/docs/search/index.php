@@ -402,7 +402,7 @@ function find_users ($args) {
 
 }
 
-function member_db_lookup($searchstring) {
+function _search_member_db_lookup($searchstring) {
 	if (!$searchstring) return false;
 	$searchwords = explode(' ', $searchstring, 3);
     foreach ($searchwords as $i => $searchword) {
@@ -449,7 +449,7 @@ function find_members ($searchstring) {
 	}
 
     $searchstring = trim(preg_replace('#[a-z]+:[a-z0-9]+#', '', $searchstring));
-    $q = member_db_lookup($searchstring);
+    $q = _search_member_db_lookup($searchstring);
 	if (!$q) return false;
 
 	if ($q->rows() > 0) {
@@ -609,7 +609,7 @@ function construct_search_string() {
 
     # Searching from MP pages
 	if ($searchspeaker = trim(get_http_var('person'))) {
-        $q = member_db_lookup($searchspeaker);
+        $q = _search_member_db_lookup($searchspeaker);
         $pids = array();
         for ($i=0; $i<$q->rows(); $i++) {
             $pids[$q->field($i, 'person_id')] = true;
