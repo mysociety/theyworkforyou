@@ -263,7 +263,7 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
     if ($details['alertsearch']) {
         echo '<ul class="hilites"><li>';
         echo $form_start . '<input type="hidden" name="keyword" value="' . htmlspecialchars($details['alertsearch']) . '">';
-        echo 'Results from a search for [' . htmlspecialchars($details['alertsearch']) . '] ';
+        echo 'Mentions of [' . htmlspecialchars($details['alertsearch']) . '] ';
         echo ' <input type="submit" value="Subscribe"></form>';
         echo "</li></ul>";
     }
