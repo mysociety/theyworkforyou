@@ -16,13 +16,14 @@ A link at the bottom of the page will send you a list of all your alerts with li
 FUNCTIONS		
 check_input()	Validates the edited or added alert data and creates error messages.
 add_alert()	Adds alert to database depending on success.
-display_form()	Shows the form to enter alert data.
+display_search_form()	Shows the new form to enter alert data.
 set_criteria()	Sets search criteria from information in MP and Keyword fields.
 */
 		
 include_once "../../includes/easyparliament/init.php";
 include_once "../../includes/easyparliament/people.php";
 include_once "../../includes/easyparliament/member.php";
+include_once "../../includes/easyparliament/searchengine.php";
 include_once INCLUDESPATH . '../../commonlib/phplib/auth.php';
 include_once INCLUDESPATH . '../../commonlib/phplib/crosssell.php';
 
@@ -39,6 +40,7 @@ if ($THEUSER->loggedin()) {
 }
 $details['keyword'] = trim(get_http_var("keyword"));
 $details['pid'] = trim(get_http_var("pid"));
+$details['alertsearch'] = trim(get_http_var("alertsearch"));
 if ($details['pid'] == 'Any') $details['pid'] = '';
 
 // Check the input.
@@ -46,6 +48,12 @@ if ($details['pid'] == 'Any') $details['pid'] = '';
 // will have elements. The keys will be the name of form elements,
 // and the values will be text to display when we show the form again.
 $errors = check_input($details);
+
+// Do the search
+if ($details['alertsearch']) {
+    $details['members'] = search_member_db_lookup($details['alertsearch']);
+    list ($details['constituencies'], $validpostcode) = search_constituencies_by_query($details['alertsearch']);
+}
 
 if (!sizeof($errors) && ( (get_http_var('submitted') && ($details['keyword'] || $details['pid']))
                        || (get_http_var('only') && ($details['keyword'] || $details['pid']))
@@ -55,7 +63,7 @@ if (!sizeof($errors) && ( (get_http_var('submitted') && ($details['keyword'] || 
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 	$PAGE->block_start(array ('id'=>'alerts', 'title'=>'Request a TheyWorkForYou.com Email Alert'));
-	display_form($details, $errors);
+	display_search_form($details, $errors);
 	$PAGE->block_end();	
 	$end = array();
 	if (!get_http_var('only') || !$details['pid'] || $details['keyword']) {
@@ -84,14 +92,12 @@ function check_input ($details) {
 	
 	if ($details['pid'] && !ctype_digit($details['pid']))
 		$errors['pid'] = 'Please choose a valid person';
-#	if (!$details['keyword'])
-#		$errors['keyword'] = 'Please enter a search term';
 
-	if ((get_http_var('submitted') || get_http_var('only')) && !$details['pid'] && !$details['keyword'])
-		$errors['keyword'] = 'Please choose a person and/or enter a keyword';
+	if ((get_http_var('submitted') || get_http_var('only')) && !$details['pid'] && !$details['alertsearch'])
+		$errors['alertsearch'] = 'Please enter what you want to be alerted about';
 
-	if (strpos($details['keyword'], '..')) {
-		$errors['keyword'] = 'You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!';
+	if (strpos($details['alertsearch'], '..')) {
+		$errors['alertsearch'] = 'You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!';
 	}
 
 	// Send the array of any errors back...
@@ -178,31 +184,13 @@ function add_alert ($details) {
     the alert when submitted.
 */
 
-function display_form ( $details = array(), $errors = array() ) {
+function display_search_form ( $details = array(), $errors = array() ) {
 	global $this_page, $ALERT, $PAGE, $THEUSER;
 	$ACTIONURL = new URL($this_page);
 	$ACTIONURL->reset();
 ?>
 
-<p>This page allows you to request an email alert from TheyWorkForYou.com.</p>
-
 <?	if (!get_http_var('only')) { ?>
-<ul>
-<li>To receive an alert <strong>every time a particular person appears</strong>,
-select their name from the drop-down list of MPs and Lords, and
-leave the word/phrase box blank.</li>
-
-<li>To receive an alert <strong>every time a particular keyword or phrase appears</strong>,
-select "Any MP/Lord" from the drop-down list of MPs and Lords, and enter your search term in
-the box underneath.  The results are selected using the same rules as for a
-normal search (see the box to the right for help on setting your criteria).</li>
-
-<li>You can also <strong>combine</strong> both types of criteria to be alerted
-<strong>only</strong> when a particular person uses the keywords you have defined.
-To do this, select the person from the drop-down list <em>and</em> enter the keyword(s) as
-above.</li>
-</ul>
-
 <p>Please note that you should only enter one topic per alert - if you wish to receive alerts on more than one topic, or for more than one person, simply fill in this form as many times as you need.</p>
 <?	} ?>
 
@@ -218,43 +206,56 @@ above.</li>
 				<span class="formw"><input type="text" name="email" id="email" value="<?php if (isset($details["email"])) { echo htmlentities($details["email"]); } ?>" maxlength="255" size="30" class="form"></span>
 				</div>
 	<?php	}
-		if (!get_http_var('only') || !$details['keyword']) {
-			if (isset($errors['pid'])) {
-				$PAGE->error_message($errors['pid']);
-			}
-	?>
-				<div class="row">
-				<span class="label"><label for="pid">Person you wish to receive alerts for:</label></span>
-				<span class="formw"><?
-				if (get_http_var('only') && $details['pid']) {
-					$MEMBER = new MEMBER(array('person_id'=>$details['pid']));
-					print $MEMBER->full_name();
-					print '<input type="hidden" name="pid" value="' . htmlspecialchars($details['pid']) . '">';
-				} else { ?><select name="pid">
-				<option value="Any">Any MP/Lord/MLA/MSP</option>
-				<?php 
-				// Get a list of MPs/Lords for displaying in the form using the PEOPLE class
-				$LIST = new PEOPLE;
-				$args['order'] = 'last_name';
-				if ($details['pid']) $args['pid'] = $details['pid'];
-				$LIST->listoptions($args);
-				?>
-				</select>
-			<? } ?>
-				</span>
-				</div>
-	<?php	}
+        if ($details['members'] && $details['members']->rows() > 0) {
+            echo '<ul class="hilites">';
+            $q = $details['members'];
+            $last_pid = null;
+            for ($n=0; $n<$q->rows(); $n++) {
+                if ($q->field($n, 'left_house') != '9999-12-31') {
+                    if ($q->field($n, 'person_id') != $last_pid) {
+                        $last_pid = $q->field($n, 'person_id');
+                        echo '<li>';
+                        $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'first_name'), $q->field($n, 'last_name'), $q->field($n, 'constituency') );
+                        if ($q->field($n, 'house') == 1) {
+                            echo $name . '(' . $q->field($n, 'constituency') . ') ';
+                        } else {
+                            echo $name;
+                        }
+                        echo $q->field($n, 'person_id');
+                        echo "</li>\n";
+                    }
+                }
+            }
+            echo '</ul>';
+        }
+
+        if ($details['constituencies']) {
+            echo '<ul class="hilites">';
+            foreach ($details['constituencies'] as $constituency) {
+                $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
+                $URL = new URL('mp');
+                if ($MEMBER->valid) {
+                    $URL->insert(array('m'=>$MEMBER->member_id()));
+                }
+                echo "<li>";
+                echo $MEMBER->full_name();
+                echo ' (' . htmlspecialchars($constituency) . ')';
+                echo "</li>";
+            }
+            echo '</ul>';
+        }
+ 
 		if (!get_http_var('only') || !$details['pid']) {
-			if (isset($errors["keyword"])) {
-				$PAGE->error_message($errors["keyword"]);
+			if (isset($errors["alertsearch"])) {
+				$PAGE->error_message($errors["alertsearch"]);
 			}
 	?>
 				<div class="row"> 
-				<span class="label"><label for="keyword">Word or phrase you wish to receive alerts for:</label></span>
-				<span class="formw"><input type="text" name="keyword" id="keyword" value="<?php if ($details['keyword']) { echo htmlentities($details['keyword']); } ?>" maxlength="255" size="30" class="form"></span>
+				<span class="label"><label for="keyword">Name, keyword or phrase you would like to receive alerts for:</label></span>
+				<span class="formw"><input type="text" name="alertsearch" id="alertsearch" value="<?php if ($details['alertsearch']) { echo htmlentities($details['alertsearch']); } ?>" maxlength="255" size="30" class="form"></span>
 				</div>
 	<?php	}
-		$submittext = "Request Email Alert";
+		$submittext = "Search";
 	?>
 						
 				<div class="row">
@@ -272,6 +273,7 @@ above.</li>
 			echo '<input type="hidden" name="site" value="' . htmlspecialchars(get_http_var('site')) . '">';
 		echo '<input type="hidden" name="submitted" value="true"> </form>';
 } 
+
 
 ?>
 
