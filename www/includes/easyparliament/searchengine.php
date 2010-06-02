@@ -679,6 +679,44 @@ function search_by_usage($search, $house = 0) {
         return $data;
 }
 
+// Internal use
+function _search_member_db_lookup($searchstring) {
+	if (!$searchstring) return false;
+	$searchwords = explode(' ', $searchstring, 3);
+    foreach ($searchwords as $i => $searchword) {
+        $searchwords[$i] = mysql_real_escape_string($searchword);
+    }
+	if (count($searchwords) == 1) {
+		$where = "first_name LIKE '%" . $searchwords[0] . "%' OR last_name LIKE '%" . $searchwords[0] . "%'";
+	} elseif (count($searchwords) == 2) {
+		// We don't do anything special if there are more than two search words.
+		// And here we're assuming the user's put the names in the right order.
+		$where = "(first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
+        $where .= " OR (first_name LIKE '%" . $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[0] . "%')";
+		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
+        if (strtolower($searchwords[0]) == 'nick') {
+		    $where .= " OR (first_name LIKE '%nicholas%' AND last_name LIKE '%" . $searchwords[1] . "%')";
+        }
+	} else {
+        $searchwords[2] = str_replace('of ', '', $searchwords[2]);
+		$where = "(first_name LIKE '%" . $searchwords[0].' '.$searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
+        $where .= " OR (first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1].' '.$searchwords[2] . "%')";
+		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND first_name LIKE '%". $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
+		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%". $searchwords[1] . "%' AND constituency LIKE '%" . $searchwords[2] . "%')";
+    }
+
+    $db = new ParlDB;
+	$q = $db->query("SELECT person_id,
+                            title, first_name, last_name,
+							constituency, party,
+                            entered_house, left_house, house
+					FROM 	member
+					WHERE	($where)
+					ORDER BY last_name, first_name, person_id, entered_house desc
+					");
+    return $q;
+}
+
 // Given a search string, searches in the names of members and returns a list of those found
 function search_members_by_name($searchstring) {
 	if (!$searchstring) {
