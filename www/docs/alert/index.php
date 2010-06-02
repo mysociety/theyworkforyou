@@ -51,7 +51,7 @@ if ($action = get_http_var('action')) {
     } elseif ($action == 'Resume') {
         $success = $ALERT->resume($token);
         if ($success)
-            $message = '<p><strong>That alert has been resumed.</srtong> You
+            $message = '<p><strong>That alert has been resumed.</strong> You
             will now receive email alerts on any day when there are entries in
             Hansard that match your criteria.</p>';
     } elseif ($action == 'Delete') {
