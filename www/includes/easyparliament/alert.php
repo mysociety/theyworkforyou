@@ -152,8 +152,6 @@ class ALERT {
 			return $data;
 	}
 
-// FUNCTION: add
-
 	function add ($details, $confirmation_email=false, $instantly_confirm=true) {
 		
 		// Adds a new alert's info into the database.
@@ -165,13 +163,6 @@ class ALERT {
 		//		etc... using the same keys as the object variable names.
 		// )
 		
-		// The BOOL variables confirmed and deleted will be true or false and will need to be
-		// converted to 1/0 for MySQL.
-		
-		global $REMOTE_ADDR;
-
-		$alerttime = gmdate("YmdHis");
-
 		$criteria = alert_details_to_criteria($details);
 
 		$q = $this->db->query("SELECT * FROM alerts WHERE email='".mysql_real_escape_string($details['email'])."' AND criteria='".mysql_real_escape_string($criteria)."' AND confirmed=1");
@@ -338,11 +329,14 @@ class ALERT {
 						");
         if (!$q->rows()) {
             $this->token_checked = false;
-            return false;
+        } else {
+            $this->token_checked = array(
+                'id' => $q->field(0, 'alert_id'),
+                'email' => $q->field(0, 'email'),
+                'criteria' => $q->field(0, 'criteria'),
+            );
         }
-
-        $this->token_checked = true;
-        return $q;
+        return $this->token_checked;
     }
 
 	// The user has clicked the link in their confirmation email
@@ -350,10 +344,10 @@ class ALERT {
 	// If all goes well the alert will be confirmed.
 	// The alert will be active when scripts run each day to send the actual emails.
 	function confirm ($token) {
-		if (!($q = $this->check_token($token))) return false;
-        $this->criteria = $q->field(0, 'criteria');
-        $this->email = $q->field(0, 'email');
-		$r = $this->db->query("UPDATE alerts SET confirmed = 1, deleted = 0 WHERE alert_id = " . mysql_real_escape_string($q->field(0, 'alert_id')));
+		if (!($alert = $this->check_token($token))) return false;
+        $this->criteria = $alert['criteria'];
+        $this->email = $alert['email'];
+		$r = $this->db->query("UPDATE alerts SET confirmed = 1, deleted = 0 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
         return $r->success();
 	}
 
@@ -361,20 +355,20 @@ class ALERT {
 	// and the deletion page has passed the token from the URL to here.
 	// If all goes well the alert will be flagged as deleted.
 	function delete($token) {
-		if (!($q = $this->check_token($token))) return false;
-		$r = $this->db->query("UPDATE alerts SET deleted = 1 WHERE alert_id = " . mysql_real_escape_string($q->field(0, 'alert_id')));
+		if (!($alert = $this->check_token($token))) return false;
+		$r = $this->db->query("UPDATE alerts SET deleted = 1 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
         return $r->success();
 	}
 
 	function suspend($token) {
-		if (!($q = $this->check_token($token))) return false;
-		$r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = " . mysql_real_escape_string($q->field(0, 'alert_id')));
+		if (!($alert = $this->check_token($token))) return false;
+		$r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
         return $r->success();
 	}
 
 	function resume($token) {
-		if (!($q = $this->check_token($token))) return false;
-		$r = $this->db->query("UPDATE alerts SET deleted = 0 WHERE alert_id = " . mysql_real_escape_string($q->field(0, 'alert_id')));
+		if (!($alert = $this->check_token($token))) return false;
+		$r = $this->db->query("UPDATE alerts SET deleted = 0 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
         return $r->success();
 	}
 
@@ -403,7 +397,7 @@ class ALERT {
 function alerts_manage($email) {
 	$db = new ParlDB;
 	$q = $db->query('SELECT * FROM alerts WHERE email = "' . mysql_real_escape_string($email) . '"
-        AND deleted!=1 ORDER BY confirmed, deleted, alert_id');
+        AND deleted!=1 ORDER BY created');
 	$out = '';
 	for ($i=0; $i<$q->rows(); ++$i) {
 		$row = $q->row($i);

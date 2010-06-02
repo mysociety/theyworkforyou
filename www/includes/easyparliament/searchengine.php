@@ -680,7 +680,7 @@ function search_by_usage($search, $house = 0) {
 }
 
 // Return query result from looking for MPs
-function search_member_db_lookup($searchstring) {
+function search_member_db_lookup($searchstring, $current_only=false) {
 	if (!$searchstring) return false;
 	$searchwords = explode(' ', $searchstring, 3);
     foreach ($searchwords as $i => $searchword) {
@@ -704,6 +704,11 @@ function search_member_db_lookup($searchstring) {
 		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND first_name LIKE '%". $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
 		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%". $searchwords[1] . "%' AND constituency LIKE '%" . $searchwords[2] . "%')";
     }
+    $where = "($where)";
+
+    if ($current_only) {
+        $where .= " AND left_house='9999-12-31'";
+    }
 
     $db = new ParlDB;
 	$q = $db->query("SELECT person_id,
@@ -711,7 +716,7 @@ function search_member_db_lookup($searchstring) {
 							constituency, party,
                             entered_house, left_house, house
 					FROM 	member
-					WHERE	($where)
+					WHERE	$where
 					ORDER BY last_name, first_name, person_id, entered_house desc
 					");
     return $q;
