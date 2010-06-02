@@ -434,7 +434,7 @@ function alerts_manage($email) {
         $action .= '</form>';
 		$out .= '<tr><td>' . $criteria . '</td><td align="center">' . $action . '</td></tr>';
         if (!$current) {
-            $out .= '<tr><td colspan="2">&mdash; <em>not currently active on TheyWorkForYou</em></td></tr>';
+            $out .= '<tr><td colspan="2"><small>&nbsp;&mdash; <em>not a current member of any body covered by TheyWorkForYou</em></small></td></tr>';
         }
 	}
 	if ($out) {
