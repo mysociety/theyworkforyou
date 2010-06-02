@@ -99,10 +99,12 @@ if (!sizeof($errors) && ( (get_http_var('submitted') && ($details['keyword'] || 
     $ALERT = new ALERT;
     $token = get_http_var('t');
     if ($alert = $ALERT->check_token($token)) {
+	    $PAGE->block_start(array ('title'=>'Your current email alerts'));
         alerts_manage($alert->field(0, 'email'));
+        $PAGE->block_end();
     }
 
-	$PAGE->block_start(array ('id'=>'alerts', 'title'=>'Request a TheyWorkForYou.com Email Alert'));
+	$PAGE->block_start(array ('id'=>'alerts', 'title'=>'Request a TheyWorkForYou email alert'));
 	display_form($details, $errors);
 	$PAGE->block_end();	
 	$end = array();
@@ -232,7 +234,7 @@ function display_form ( $details = array(), $errors = array() ) {
 	$ACTIONURL->reset();
 ?>
 
-<p>This page allows you to request an email alert from TheyWorkForYou.com.</p>
+<p>This page allows you to request an email alert from TheyWorkForYou.</p>
 
 <?	if (!get_http_var('only')) { ?>
 <ul>

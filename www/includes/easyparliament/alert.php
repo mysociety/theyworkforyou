@@ -409,10 +409,14 @@ function alerts_manage($email) {
 		$row = $q->row($i);
 		$criteria = explode(' ',$row['criteria']);
 		$ccc = array();
+        $current = true;
 		foreach ($criteria as $c) {
 			if (preg_match('#^speaker:(\d+)#',$c,$m)) {
 				$MEMBER = new MEMBER(array('person_id'=>$m[1]));
 				$ccc[] = 'spoken by ' . $MEMBER->full_name();
+                if (!$MEMBER->current_member_anywhere()) {
+                    $current = false;
+                }
 			} else {
 				$ccc[] = $c;
 			}
@@ -428,11 +432,13 @@ function alerts_manage($email) {
 			$action .= '<input type="submit" name="action" value="Suspend"> <input type="submit" name="action" value="Delete">';
 		}
         $action .= '</form>';
-		$out .= '<tr><td>'.$criteria.'</td><td align="center">'.$action.'</td></tr>';
+		$out .= '<tr><td>'.$criteria.'</td><td align="center">'.$action.'</td><td>';
+        if (!$current) {
+            $out .= '&mdash; <em>not currently active on TheyWorkForYou</em>';
+        }
+        $out .= '</td></tr>';
 	}
-	print '<p>To add a new alert, simply visit an MP or Peer\'s page or conduct a search &#8212; to be given the option of turning them into alerts automatically &#8212; or visit <a href="/alert/">the manual addition page</a>.</p>';
 	if ($out) {
-		print '<p>Here are your email alerts:</p>';
 		print '<table cellpadding="3" cellspacing="0"><tr><th>Criteria</th><th>Action</th></tr>' . $out . '</table>';
 	} else {
 		print '<p>You currently have no email alerts set up.</p>';
