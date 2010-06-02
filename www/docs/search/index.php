@@ -442,7 +442,30 @@ function _search_member_db_lookup($searchstring) {
 function find_members ($searchstring) {
 	// Maybe there'll be a better place to put this at some point...
 	global $PAGE, $parties;
-	
+
+    $members = search_members_by_name($searchstring);
+
+	// We don't display anything if there were no matches.
+    if ($members) {
+	?>
+<div id="people_results">
+	<h3>People matching &lsquo;<?php echo htmlentities($searchstring); ?>&rsquo;</h3> 
+	<ul class="hilites">
+<?
+foreach ($members as $member) {
+    echo '<li>';
+    echo $member[0] . $member[1] . $member[2];
+    echo "</li>\n";
+}
+?>
+	</ul>
+</div>
+<?php	
+    }
+}
+
+// Given a search string, searches in the names of members and returns a list of those found
+function search_members_by_name($searchstring) {
 	if (!$searchstring) {
 		$PAGE->error_message("No search string");
 		return false;
@@ -452,11 +475,11 @@ function find_members ($searchstring) {
     $q = _search_member_db_lookup($searchstring);
 	if (!$q) return false;
 
+    $members = array();
 	if ($q->rows() > 0) {
 	
 		$URL1 = new URL('mp');
 		$URL2 = new URL('peer');
-		$members = array();
 		
         $last_pid = null;
         $entered_house = '';
@@ -497,24 +520,9 @@ function find_members ($searchstring) {
 		}
         if ($entered_house)
             $members[count($members)-1][1] = format_date($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
-		?>
-<div id="people_results">
-	<h3>People matching &lsquo;<?php echo htmlentities($searchstring); ?>&rsquo;</h3> 
-	<ul class="hilites">
-<?
-foreach ($members as $member) {
-    echo '<li>';
-    echo $member[0] . $member[1] . $member[2];
-    echo "</li>\n";
-}
-?>
-	</ul>
-</div>
-<?php	
 	}
-	
-	// We don't display anything if there were no matches.
 
+    return $members;
 }
 
 // Checks to see if the search term provided has any similar matching entries in the glossary.
