@@ -79,6 +79,7 @@ function alert_details_to_criteria($details) {
 
 class ALERT {
 
+    var $token_checked = null;
 	var $alert_id = "";
 	var $email = "";
 	var $criteria = "";		// Sets the terms that are used to produce the search results.
@@ -318,6 +319,9 @@ class ALERT {
 	}
 
     function check_token($token) {
+        if (!is_null($this->token_checked))
+            return $this->token_checked;
+
 		$arg = strstr($token, '::') ? '::' : '-';
 		$token_parts = explode($arg, $token);
 		if (count($token_parts) != 2)
@@ -332,8 +336,12 @@ class ALERT {
 						WHERE alert_id = '" . mysql_real_escape_string($alert_id) . "'
 						AND registrationtoken = '" . mysql_real_escape_string($registrationtoken) . "'
 						");
-        if (!$q->rows()) return false;
+        if (!$q->rows()) {
+            $this->token_checked = false;
+            return false;
+        }
 
+        $this->token_checked = true;
         return $q;
     }
 
@@ -392,10 +400,9 @@ class ALERT {
 
 }
 
-function alerts_manage() {
-    global $THEUSER;
+function alerts_manage($email) {
 	$db = new ParlDB;
-	$q = $db->query('SELECT * FROM alerts WHERE email = "' . mysql_real_escape_string($THEUSER->email()).'"
+	$q = $db->query('SELECT * FROM alerts WHERE email = "' . mysql_real_escape_string($email) . '"
         AND deleted!=1 ORDER BY confirmed, deleted, alert_id');
 	$out = '';
 	for ($i=0; $i<$q->rows(); ++$i) {

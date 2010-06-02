@@ -95,6 +95,13 @@ if (!sizeof($errors) && ( (get_http_var('submitted') && ($details['keyword'] || 
     if ($message) {
         $PAGE->informational($message);
     }
+
+    $ALERT = new ALERT;
+    $token = get_http_var('t');
+    if ($alert = $ALERT->check_token($token)) {
+        alerts_manage($alert->field(0, 'email'));
+    }
+
 	$PAGE->block_start(array ('id'=>'alerts', 'title'=>'Request a TheyWorkForYou.com Email Alert'));
 	display_form($details, $errors);
 	$PAGE->block_end();	

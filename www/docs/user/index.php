@@ -1077,7 +1077,7 @@ function display_user ($user_id="") {
 		if ($this_page == 'userviewself') {
 			$PAGE->stripe_start();
 			print '<h3>Your email alerts</h3>';
-            alerts_manage();
+            alerts_manage($THEUSER->email());
 			$PAGE->stripe_end();
 		}
 
