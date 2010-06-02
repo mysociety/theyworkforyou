@@ -432,11 +432,10 @@ function alerts_manage($email) {
 			$action .= '<input type="submit" name="action" value="Suspend"> <input type="submit" name="action" value="Delete">';
 		}
         $action .= '</form>';
-		$out .= '<tr><td>'.$criteria.'</td><td align="center">'.$action.'</td><td>';
+		$out .= '<tr><td>' . $criteria . '</td><td align="center">' . $action . '</td></tr>';
         if (!$current) {
-            $out .= '&mdash; <em>not currently active on TheyWorkForYou</em>';
+            $out .= '<tr><td colspan="2">&mdash; <em>not currently active on TheyWorkForYou</em></td></tr>';
         }
-        $out .= '</td></tr>';
 	}
 	if ($out) {
 		print '<table cellpadding="3" cellspacing="0"><tr><th>Criteria</th><th>Action</th></tr>' . $out . '</table>';

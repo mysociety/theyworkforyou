@@ -99,9 +99,11 @@ if (!sizeof($errors) && ( (get_http_var('submitted') && ($details['keyword'] || 
     $ALERT = new ALERT;
     $token = get_http_var('t');
     if ($alert = $ALERT->check_token($token)) {
+        ob_start();
 	    $PAGE->block_start(array ('title'=>'Your current email alerts'));
         alerts_manage($alert->field(0, 'email'));
         $PAGE->block_end();
+        $sidebar = ob_get_clean();
     }
 
 	$PAGE->block_start(array ('id'=>'alerts', 'title'=>'Request a TheyWorkForYou email alert'));
@@ -109,7 +111,8 @@ if (!sizeof($errors) && ( (get_http_var('submitted') && ($details['keyword'] || 
 	$PAGE->block_end();	
 	$end = array();
 	if (!get_http_var('only') || !$details['pid'] || $details['keyword']) {
-		$end[] = array('type' => 'include', 'content' => 'search');
+		#$end[] = array('type' => 'include', 'content' => 'search');
+		$end[] = array('type' => 'html', 'content' => $sidebar);
 	}
 	$PAGE->stripe_end($end);
 	$PAGE->page_end(); 
