@@ -38,10 +38,15 @@ mlog("lastupdated: $lastupdated lastbatch: $lastbatch\n");
 # have been made since last time we ran
 $batch_query_fragment = "";
 for ($i=$lastbatch + 1; $i <= $max_batch_id; $i++) {
+    # Emergency May 2010 fix
+    # Covering NI April/May, Scotland April/May,
+    # PBC December 2009 - April 2010, UK May
+    if ($i == 197 || $i == 219 || $i == 221 || $i == 229 || $i == 236)
 	$batch_query_fragment .= "batch:$i ";
 }
 $batch_query_fragment = trim($batch_query_fragment);
 mlog("batch_query_fragment: " . $batch_query_fragment . "\n");
+exit;
 
 # For testing purposes, specify nomail on command line to not send out emails
 $nomail = false;
@@ -174,7 +179,7 @@ foreach ($alertdata as $alertitem) {
 				$k = 3;
 			}
 			#mlog($row['major'] . " " . $row['gid'] ."\n");
-			if ($row['hdate'] < '2009-01-01') continue;
+			if ($row['hdate'] < '2010-01-01' && $major != 6) continue;
 			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_gid[$major] . '/' . mysql_real_escape_string($row['gid']) . "'");
 			if ($q->rows() > 0) continue;
 			--$k;
