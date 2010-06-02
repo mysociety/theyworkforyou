@@ -186,36 +186,6 @@ $this->page = array (
 		'title'			=> 'TheyWorkForYou Email Alerts',
 		'url'			=> 'alert/',
 	),		
-	'alertconfirm' => array (
-		'url'			=> 'alert/confirm/'
-	),
-	'alertconfirmfailed' => array (
-		'title'			=> 'Oops!',
-		'url'			=> 'alert/confirm/'
-	),
-	'alertconfirmsucceeded' => array (
-		'title'			=> 'Alert Confirmed!',
-		'url'			=> 'alert/confirm/'
-	),
-	'alertdelete' => array (
-		'url'			=> 'alert/delete/'
-	),
-	'alertdeletefailed' => array (
-		'title'			=> 'Oops!',
-		'url'			=> 'alert/delete/'
-	),
-	'alertdeletesucceeded' => array (
-		'title'			=> 'Alert Deleted!',
-		'url'			=> 'alert/delete/'
-	),
-	'alertundeletesucceeded' => array (
-		'title'			=> 'Alert Undeleted!',
-		'url'			=> 'alert/undelete/'
-	),
-	'alertundeletefailed' => array (
-		'title'			=> 'Oops!',
-		'url'			=> 'alert/undelete/'
-	),
 	'alertwelcome' => array (
 		'title'			=> 'Email Alerts',
 		'url'			=> 'alert/',

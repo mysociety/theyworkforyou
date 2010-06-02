@@ -17,7 +17,6 @@ ALERT
 
 	fetch_between($confirmed, $deleted, $start_date, $end_date)	Fetch summary data on alerts created between the dates.
 	fetch($confirmed, $deleted)					Fetch all alert data from DB.
-	listalerts()							Lists all live alerts
 	add($details, $confirmation_email)				Add a new alert to the DB.
 	send_confirmation_email($details)				Done after add()ing the alert.
 	email_exists($email)						Checks if an alert exists with a certain email address.
@@ -25,14 +24,11 @@ ALERT
 	delete($token)							Remove an existing alert from the DB
 	id_exists()							Checks if an alert_id is valid.
 	
-	Accessor functions for each object variable (eg, alert_id()  ).
-
 To create a new alert do:
 	$ALERT = new ALERT;
 	$ALERT->add();
 
 You can then access all the alert's variables with appropriately named functions, such as:
-	$ALERT->alert_id();
 	$ALERT->email();
 etc.
 
@@ -83,11 +79,10 @@ function alert_details_to_criteria($details) {
 
 class ALERT {
 
+    var $token_checked = null;
 	var $alert_id = "";
 	var $email = "";
 	var $criteria = "";		// Sets the terms that are used to produce the search results.
-	var $deleted = "";		// Flag set when user requests deletion of alert.
-	var $confirmed = "";  // boolean - Has the user confirmed via email?
 
 	function ALERT () {
 		$this->db = new ParlDB;
@@ -155,24 +150,6 @@ class ALERT {
 		
 			
 			return $data;
-	}
-
-// FUNCTION: listalserts
-
-	function listalerts () {
-			
-			// Lists all live alerts
-			
-			$tmpdata = array();
-			$confirmed = '1';
-			$deleted = '0';
-
-			// Get all the data that's to be returned.
-			$tmpdata = $this->fetch($confirmed, $deleted);
-//			foreach ($tmpdata as $n => $data)
-//				{
-//					echo "Alert: " . $data['email'] . " and " . $data['criteria'];
-//				}
 	}
 
 // FUNCTION: add
@@ -341,107 +318,67 @@ class ALERT {
 
 	}
 
-// FUNCTION: confirm
+    function check_token($token) {
+        if (!is_null($this->token_checked))
+            return $this->token_checked;
 
-	function confirm ($token) {
-		// The user has clicked the link in their confirmation email
-		// and the confirm page has passed the token from the URL to here.
-		// If all goes well the alert will be confirmed.
-		// The alert will be active when scripts run each day to send the actual emails.
-
-		// Split the token into its parts.
-		if (strstr($token, '::')) $arg = '::';
-		else $arg = '-';
+		$arg = strstr($token, '::') ? '::' : '-';
 		$token_parts = explode($arg, $token);
-		if (count($token_parts)!=2)
+		if (count($token_parts) != 2)
 			return false;
+
 		list($alert_id, $registrationtoken) = $token_parts;
-
-		if (!is_numeric($alert_id) || $registrationtoken == '') {
+		if (!is_numeric($alert_id) || !$registrationtoken)
 			return false;
-		}
 
-		$q = $this->db->query("SELECT email, criteria
+		$q = $this->db->query("SELECT alert_id, email, criteria
 						FROM alerts
 						WHERE alert_id = '" . mysql_real_escape_string($alert_id) . "'
 						AND registrationtoken = '" . mysql_real_escape_string($registrationtoken) . "'
 						");
+        if (!$q->rows()) {
+            $this->token_checked = false;
+            return false;
+        }
 
-		if ($q->rows() == 1) {
-			$this->criteria = $q->field(0, 'criteria');
-			$this->email = $q->field(0, 'email');
-			$r = $this->db->query("UPDATE alerts
-						SET confirmed = '1', deleted = '0'
-						WHERE	alert_id = '" . mysql_real_escape_string($alert_id) . "'
-						");
+        $this->token_checked = true;
+        return $q;
+    }
 
-			if ($r->success()) {
-				$this->confirmed = true;
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			// Couldn't find this alert in the DB. Maybe the token was
-			// wrong or incomplete?
-			return false;
-		}
+	// The user has clicked the link in their confirmation email
+	// and the confirm page has passed the token from the URL to here.
+	// If all goes well the alert will be confirmed.
+	// The alert will be active when scripts run each day to send the actual emails.
+	function confirm ($token) {
+		if (!($q = $this->check_token($token))) return false;
+        $this->criteria = $q->field(0, 'criteria');
+        $this->email = $q->field(0, 'email');
+		$r = $this->db->query("UPDATE alerts SET confirmed = 1, deleted = 0 WHERE alert_id = " . mysql_real_escape_string($q->field(0, 'alert_id')));
+        return $r->success();
 	}
 
-// FUNCTION:  delete	
-
-	function delete ($token) {
-		// The user has clicked the link in their delete confirmation email
-		// and the deletion page has passed the token from the URL to here.
-		// If all goes well the alert will be flagged as deleted.
-
-		// Split the token into its parts.
-		if (strstr($token, '::')) $arg = '::';
-		else $arg = '-';
-		$bits = explode($arg, $token);
-		if (count($bits)<2)
-			return false;
-		list($alert_id, $registrationtoken) = $bits;
-
-		if (!is_numeric($alert_id) || $registrationtoken == '') {
-			return false;
-		}
-
-		$q = $this->db->query("SELECT email, criteria
-						FROM alerts
-						WHERE alert_id = '" . mysql_real_escape_string($alert_id) . "'
-						AND registrationtoken = '" . mysql_real_escape_string($registrationtoken) . "'
-						");
-
-		if ($q->rows() == 1) {
-
-			// Set that they're confirmed in the DB.
-			$r = $this->db->query("UPDATE alerts
-						SET deleted = '1'
-						WHERE	alert_id = '" . mysql_real_escape_string($alert_id) . "'
-						");
-
-			if ($r->success()) {
-
-				$this->deleted = true;
-				return true;
-				
-			} else {
-				// Couldn't delete this alert in the DB.
-				return false;
-			}
-
-		} else {
-			// Couldn't find this alert in the DB. Maybe the token was
-			// wrong or incomplete?
-			return false;
-		}
+	// The user has clicked the link in their delete confirmation email
+	// and the deletion page has passed the token from the URL to here.
+	// If all goes well the alert will be flagged as deleted.
+	function delete($token) {
+		if (!($q = $this->check_token($token))) return false;
+		$r = $this->db->query("UPDATE alerts SET deleted = 1 WHERE alert_id = " . mysql_real_escape_string($q->field(0, 'alert_id')));
+        return $r->success();
 	}
 
+	function suspend($token) {
+		if (!($q = $this->check_token($token))) return false;
+		$r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = " . mysql_real_escape_string($q->field(0, 'alert_id')));
+        return $r->success();
+	}
 
-	// Functions for accessing the user's variables.
+	function resume($token) {
+		if (!($q = $this->check_token($token))) return false;
+		$r = $this->db->query("UPDATE alerts SET deleted = 0 WHERE alert_id = " . mysql_real_escape_string($q->field(0, 'alert_id')));
+        return $r->success();
+	}
 
-	function alert_id() 			{ return $this->alert_id; }
+	// Getters
 	function email() 			{ return $this->email; }
 	function criteria() 			{ return $this->criteria; }
 	function criteria_pretty($html = false) {
@@ -460,14 +397,50 @@ class ALERT {
 		if ($spokenby) $criteria .= ($html?'<li>':'* ') . "Spoken by $spokenby" . ($html?'</li>':'') . "\n";
 		return $criteria;
 	}
-	function deleted() 			{ return $this->deleted; }
-	function confirmed() 			{ return $this->confirmed; }
 
+}
 
-/////////// PRIVATE FUNCTIONS BELOW... ////////////////
+function alerts_manage($email) {
+	$db = new ParlDB;
+	$q = $db->query('SELECT * FROM alerts WHERE email = "' . mysql_real_escape_string($email) . '"
+        AND deleted!=1 ORDER BY confirmed, deleted, alert_id');
+	$out = '';
+	for ($i=0; $i<$q->rows(); ++$i) {
+		$row = $q->row($i);
+		$criteria = explode(' ',$row['criteria']);
+		$ccc = array();
+        $current = true;
+		foreach ($criteria as $c) {
+			if (preg_match('#^speaker:(\d+)#',$c,$m)) {
+				$MEMBER = new MEMBER(array('person_id'=>$m[1]));
+				$ccc[] = 'spoken by ' . $MEMBER->full_name();
+                if (!$MEMBER->current_member_anywhere()) {
+                    $current = false;
+                }
+			} else {
+				$ccc[] = $c;
+			}
+		}
+		$criteria = join(' ',$ccc);
+		$token = $row['alert_id'] . '-' . $row['registrationtoken'];
+		$action = '<form action="/alert/" method="post"><input type="hidden" name="t" value="'.$token.'">';
+		if (!$row['confirmed']) {
+			$action .= '<input type="submit" name="action" value="Confirm">';
+		} elseif ($row['deleted']==2) {
+			$action .= '<input type="submit" name="action" value="Resume">';
+		} else {
+			$action .= '<input type="submit" name="action" value="Suspend"> <input type="submit" name="action" value="Delete">';
+		}
+        $action .= '</form>';
+		$out .= '<tr><td>' . $criteria . '</td><td align="center">' . $action . '</td></tr>';
+        if (!$current) {
+            $out .= '<tr><td colspan="2"><small>&nbsp;&mdash; <em>not a current member of any body covered by TheyWorkForYou</em></small></td></tr>';
+        }
+	}
+	if ($out) {
+		print '<table cellpadding="3" cellspacing="0"><tr><th>Criteria</th><th>Action</th></tr>' . $out . '</table>';
+	} else {
+		print '<p>You currently have no email alerts set up.</p>';
+	}
+}
 
-
-} // End USER class
-
-
-?>

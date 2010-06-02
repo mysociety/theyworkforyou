@@ -7,12 +7,14 @@ to copy and then paste them into the 'Location' or
 or 'return' on your keyboard.
 
 Best wishes,
-TheyWorkForYou.com
+TheyWorkForYou
 
 -------------------------------------------------------------------
 TheyWorkForYou email alerts need love and support to look
-after. Please consider joining our search for 250 Patrons
-to help us continue and expand:
-        http://www.pledgebank.com/twfypatrons
+after. Please consider donating to mySociety to help us
+continue and expand:
+        http://www.mysociety.org/donate/
 -------------------------------------------------------------------
 
+To manage your alerts, please visit the following link:
+    {MANAGE}

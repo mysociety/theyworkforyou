@@ -38,10 +38,15 @@ mlog("lastupdated: $lastupdated lastbatch: $lastbatch\n");
 # have been made since last time we ran
 $batch_query_fragment = "";
 for ($i=$lastbatch + 1; $i <= $max_batch_id; $i++) {
+    # Emergency May 2010 fix
+    # Covering NI April/May, Scotland April/May,
+    # PBC December 2009 - April 2010, UK May
+    if ($i == 197 || $i == 219 || $i == 221 || $i == 229 || $i == 236)
 	$batch_query_fragment .= "batch:$i ";
 }
 $batch_query_fragment = trim($batch_query_fragment);
 mlog("batch_query_fragment: " . $batch_query_fragment . "\n");
+exit;
 
 # For testing purposes, specify nomail on command line to not send out emails
 $nomail = false;
@@ -83,7 +88,7 @@ $sentemails = 0;
 
 $LIVEALERTS = new ALERT;
 
-$current_email = '';
+$current = array('email' => '', 'token' => '');
 $email_text = '';
 $globalsuccess = 1;
 
@@ -117,10 +122,11 @@ foreach ($alertdata as $alertitem) {
 	}
 	$criteria_batch = $criteria_raw . " " . $batch_query_fragment;
 
-	if ($email != $current_email) {
+	if ($email != $current['email']) {
 		if ($email_text)
-			write_and_send_email($current_email, $user_id, $email_text, $template);
-		$current_email = $email;
+			write_and_send_email($current, $user_id, $email_text, $template);
+		$current['email'] = $email;
+		$current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'],
 		$email_text = '';
 		$q = $db->query('SELECT user_id FROM users WHERE email = \''.mysql_real_escape_string($email)."'");
 		if ($q->rows() > 0) {
@@ -174,7 +180,7 @@ foreach ($alertdata as $alertitem) {
 				$k = 3;
 			}
 			#mlog($row['major'] . " " . $row['gid'] ."\n");
-			if ($row['hdate'] < '2009-01-01') continue;
+			if ($row['hdate'] < '2010-01-01' && $major != 6) continue;
 			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_gid[$major] . '/' . mysql_real_escape_string($row['gid']) . "'");
 			if ($q->rows() > 0) continue;
 			--$k;
@@ -206,12 +212,11 @@ foreach ($alertdata as $alertitem) {
 					$email_text .= $body;
 				}
 			}
-			$email_text .= "To cancel your alert for " . $desc . ", please use:\nhttp://www.theyworkforyou.com/D/" . $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'] . "\n\n";
 		}
 	}
 }
 if ($email_text)
-	write_and_send_email($current_email, $user_id, $email_text, $template);
+	write_and_send_email($current, $user_id, $email_text, $template);
 
 mlog("\n");
 
@@ -243,7 +248,7 @@ function sort_by_stuff($a, $b) {
 	return ($a['hpos'] > $b['hpos']) ? 1 : -1;
 }
 
-function write_and_send_email($email, $user_id, $data, $template) {
+function write_and_send_email($current, $user_id, $data, $template) {
 	global $globalsuccess, $sentemails, $nomail, $start_time;
 
 	$data .= '===================='."\n\n";
@@ -253,9 +258,12 @@ function write_and_send_email($email, $user_id, $data, $template) {
 		$data .= "If you register on the site, you will be able to manage your\nalerts there as well as write annotations. :)\n";
 	}
 	$sentemails++;
-	mlog("SEND $sentemails : Sending email to $email ... ");
-	$d = array('to' => $email, 'template' => $template);
-	$m = array('DATA' => $data);
+	mlog("SEND $sentemails : Sending email to $current[email] ... ");
+	$d = array('to' => $current['email'], 'template' => $template);
+	$m = array(
+		'DATA' => $data,
+		'MANAGE' => 'http://www.theyworkforyou.com/D/' . $current['token'],
+	);
 	if (!$nomail) {
 		$success = send_template_email($d, $m, true, true); # true = "Precedence: bulk", want bounces
 		mlog("sent ... ");

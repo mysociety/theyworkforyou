@@ -35,6 +35,7 @@
 
 include_once "../../includes/easyparliament/init.php";
 include_once "../../includes/easyparliament/member.php";
+include_once "../../includes/easyparliament/alert.php";
 
 // Which page we're on all depends on the value of the "pg" variable...
 switch (get_http_var("pg")) {
@@ -1076,39 +1077,7 @@ function display_user ($user_id="") {
 		if ($this_page == 'userviewself') {
 			$PAGE->stripe_start();
 			print '<h3>Your email alerts</h3>';
-			$db = new ParlDB;
-			$q = $db->query('SELECT * FROM alerts WHERE email = "' . mysql_real_escape_string($THEUSER->email()).'" ORDER BY confirmed,deleted,alert_id');
-			$out = '';
-			for ($i=0; $i<$q->rows(); ++$i) {
-				$row = $q->row($i);
-				$criteria = explode(' ',$row['criteria']);
-				$ccc = array();
-				foreach ($criteria as $c) {
-					if (preg_match('#^speaker:(\d+)#',$c,$m)) {
-						$MEMBER = new MEMBER(array('person_id'=>$m[1]));
-						$ccc[] = 'spoken by ' . $MEMBER->full_name();
-					} else {
-						$ccc[] = $c;
-					}
-				}
-				$criteria = join(' ',$ccc);
-				$token = $row['alert_id'] . '-' . $row['registrationtoken'];
-				if (!$row['confirmed']) {
-					$action = '<a href="/A/'.$token.'">Confirm</a>';
-				} elseif ($row['deleted']) {
-					$action = '<form action="/alert/undelete/" method="post"><input type="hidden" name="t" value="'.$token.'"><input type="submit" value="Undelete"></form>';
-				} else {
-					$action = '<form action="/alert/delete/" method="post"><input type="hidden" name="t" value="'.$token.'"><input type="submit" value="Delete"></form>';
-				}
-				$out .= '<tr><td>'.$criteria.'</td><td>'.$action.'</td></tr>';
-			}
-			print '<p>To add a new alert, simply visit an MP or Peer\'s page or conduct a search &#8212; to be given the option of turning them into alerts automatically &#8212; or visit <a href="/alert/">the manual addition page</a>.</p>';
-			if ($out) {
-				print '<p>Here are your email alerts:</p>';
-				print '<table cellpadding="3" cellspacing="0"><tr><th>Criteria</th><th>Action</th></tr>' . $out . '</table>';
-			} else {
-				print '<p>You currently have no email alerts set up.</p>';
-			}
+            alerts_manage($THEUSER->email());
 			$PAGE->stripe_end();
 		}
 

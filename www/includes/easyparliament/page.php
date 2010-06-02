@@ -1248,7 +1248,9 @@ piwikTracker.enableLinkTracking();
 		}
 	}
 	
-	
+    function informational($text) {
+        print '<div class="informational left">' . $text . '</div>';
+    }
 
 	function set_hansard_headings ($info) {
 		// Called from HANSARDLIST->display().
