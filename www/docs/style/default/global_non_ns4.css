@@ -642,6 +642,9 @@ div.vidOn div.main {background-color: #ffff66;}
 
 .video_name { border-bottom: solid 1px #666666; }
 
+div.informational {
+    margin: 0em 0 1em 18px;
+}
 .informational {
     background-color: #ffff99;
     border: solid 2px #ff9900;

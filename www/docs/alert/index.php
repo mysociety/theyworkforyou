@@ -28,7 +28,45 @@ include_once INCLUDESPATH . '../../commonlib/phplib/crosssell.php';
 
 $this_page = "alert";
 
-$args = array( 'action' => $this_page);
+$message = '';
+if ($action = get_http_var('action')) {
+    $ALERT = new ALERT;
+    $token = get_http_var('t');
+    $success = true;
+    if ($action == 'Confirm') {
+        $success = $ALERT->confirm($token);
+        if ($success) {
+	        $criteria = $ALERT->criteria_pretty(true);
+	        $email = $ALERT->email();
+            $message = "<p>Your alert has been confirmed. You will now
+            receive email alerts for the following criteria:</p>
+            <ul>$criteria</ul> <p>This is normally the day after, but could
+            conceivably be later due to issues at our or parliament.uk's
+            end.</p>";
+        }
+    } elseif ($action == 'Suspend') {
+        $success = $ALERT->suspend($token);
+        if ($success)
+            $message = '<p><strong>That alert has been suspended.</strong> You will no longer receive this alert.</p>';
+    } elseif ($action == 'Resume') {
+        $success = $ALERT->resume($token);
+        if ($success)
+            $message = '<p><strong>That alert has been resumed.</srtong> You
+            will now receive email alerts on any day when there are entries in
+            Hansard that match your criteria.</p>';
+    } elseif ($action == 'Delete') {
+        $success = $ALERT->delete($token);
+        if ($success)
+            $message = '<p><strong>That alert has been deleted.</strong> You will no longer receive this alert.</p>';
+    }
+    if (!$success)
+        $message = "<p>The link you followed to reach this page appears to be
+        incomplete.</p> <p>If you clicked a link in your alert email you may
+        need to manually copy and paste the entire link to the 'Location' bar
+        of the web browser and try again.</p> <p>If you still get this message,
+        please do <a href='mailto:" . CONTACTEMAIL . "'>email us</a> and let us
+        know, and we'll help out!</p>";
+}
 
 // Put all the user-submitted data in an array.
 $details = array();
@@ -54,6 +92,9 @@ if (!sizeof($errors) && ( (get_http_var('submitted') && ($details['keyword'] || 
 } else {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
+    if ($message) {
+        $PAGE->informational($message);
+    }
 	$PAGE->block_start(array ('id'=>'alerts', 'title'=>'Request a TheyWorkForYou.com Email Alert'));
 	display_form($details, $errors);
 	$PAGE->block_end();	
@@ -235,7 +276,7 @@ above.</li>
 				<?php 
 				// Get a list of MPs/Lords for displaying in the form using the PEOPLE class
 				$LIST = new PEOPLE;
-				$args['order'] = 'last_name';
+				$args = array('order' => 'last_name');
 				if ($details['pid']) $args['pid'] = $details['pid'];
 				$LIST->listoptions($args);
 				?>
@@ -272,6 +313,4 @@ above.</li>
 			echo '<input type="hidden" name="site" value="' . htmlspecialchars(get_http_var('site')) . '">';
 		echo '<input type="hidden" name="submitted" value="true"> </form>';
 } 
-
-?>
 
