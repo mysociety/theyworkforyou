@@ -177,10 +177,11 @@ class ALERT {
 		}
 
 		$q = $this->db->query("INSERT INTO alerts (
-				email, criteria, deleted, confirmed, created
+				email, criteria, postcode, deleted, confirmed, created
 			) VALUES (
 				'" . mysql_real_escape_string($details["email"]) . "',
 				'" . mysql_real_escape_string($criteria) . "',
+				'" . mysql_real_escape_string($details['pc']) . "',
 				'0', '0', NOW()
 			)
 		");

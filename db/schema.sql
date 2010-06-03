@@ -184,6 +184,7 @@ CREATE TABLE `alerts` (
   `registrationtoken` varchar(34) NOT NULL default '',
   `confirmed` tinyint(1) NOT NULL default '0',
   `created` datetime NOT NULL default '0000-00-00 00:00:00',
+  `postcode` varchar(10) NOT NULL default '',
   PRIMARY KEY  (`alert_id`),
   KEY `email` (`email`),
   KEY `confirmed` (`confirmed`,`deleted`)

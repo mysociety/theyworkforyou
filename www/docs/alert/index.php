@@ -80,6 +80,7 @@ if ($THEUSER->loggedin()) {
 $details['keyword'] = trim(get_http_var("keyword"));
 $details['pid'] = trim(get_http_var("pid"));
 $details['alertsearch'] = trim(get_http_var("alertsearch"));
+$details['pc'] = get_http_var('pc');
 $details['add'] = get_http_var('only');
 
 $errors = check_input($details);
@@ -95,6 +96,7 @@ if (!sizeof($errors) && $details['add'] && ($details['keyword'] || $details['pid
     $details['keyword'] = '';
     $details['pid'] = '';
     $details['alertsearch'] = '';
+    $details['pc'] = '';
     $details['add'] = '';
 }
 
@@ -252,6 +254,8 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
             $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
             echo "<li>";
             echo $form_start . '<input type="hidden" name="pid" value="' . $MEMBER->person_id() . '">';
+            if ($valid_postcode)
+                echo '<input type="hidden" name="pc" value="' . htmlspecialchars($details['alertsearch']) . '">';
             echo $MEMBER->full_name();
             echo ' (' . htmlspecialchars($constituency) . ')';
             echo ' <input type="submit" value="Subscribe"></form>';
