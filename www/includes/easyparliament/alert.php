@@ -291,8 +291,17 @@ class ALERT {
 		}
 	}
 
-
-// FUNCTION: email_exists
+	function fetch_by_mp($email, $pid) {
+		$q = $this->db->query("SELECT alert_id FROM alerts
+            WHERE confirmed AND NOT deleted
+            AND email='" . mysql_real_escape_string($email) . "'
+            AND criteria='speaker:" . mysql_real_escape_string($pid) . "'");
+		if ($q->rows() > 0) {
+			return true;
+		} else {
+ 			return false;
+		}
+	}
 
 	function email_exists ($email) {
 		// Returns true if there's a user with this email address.

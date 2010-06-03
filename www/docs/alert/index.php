@@ -109,6 +109,23 @@ if ($message) {
 $sidebar = null;
 if ($details['email_verified']) {
     ob_start();
+    if ($THEUSER->postcode()) {
+        $current_mp = new MEMBER(array('postcode' => $THEUSER->postcode()));
+        if (!$ALERT->fetch_by_mp($THEUSER->email(), $current_mp->person_id())) {
+            $PAGE->block_start(array ('title'=>'Your current MP'));
+?>
+<form action="/alert/" method="post">
+<input type="hidden" name="t" value="<?=htmlspecialchars(get_http_var('t'))?>">
+<input type="hidden" name="only" value="1">
+<input type="hidden" name="pid" value="<?=$current_mp->person_id()?>">
+You are not subscribed to an alert for your current MP,
+<?=$current_mp->full_name() ?>.
+<input type="submit" value="Subscribe">
+</form>
+<?
+            $PAGE->block_end();
+        }
+    }
     $PAGE->block_start(array ('title'=>'Your current email alerts'));
     alerts_manage($details['email']);
     $PAGE->block_end();
