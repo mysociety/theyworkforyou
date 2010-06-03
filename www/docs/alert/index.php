@@ -254,7 +254,7 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
             $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
             echo "<li>";
             echo $form_start . '<input type="hidden" name="pid" value="' . $MEMBER->person_id() . '">';
-            if ($valid_postcode)
+            if ($validpostcode)
                 echo '<input type="hidden" name="pc" value="' . htmlspecialchars($details['alertsearch']) . '">';
             echo $MEMBER->full_name();
             echo ' (' . htmlspecialchars($constituency) . ')';
