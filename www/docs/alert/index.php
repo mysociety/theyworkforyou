@@ -88,7 +88,7 @@ $errors = check_input($details);
 // Do the search
 if ($details['alertsearch']) {
     $details['members'] = search_member_db_lookup($details['alertsearch'], true);
-    list ($details['constituencies'], $validpostcode) = search_constituencies_by_query($details['alertsearch']);
+    list ($details['constituencies'], $details['valid_postcode']) = search_constituencies_by_query($details['alertsearch']);
 }
 
 if (!sizeof($errors) && $details['add'] && ($details['keyword'] || $details['pid'])) {
@@ -254,7 +254,7 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
             $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
             echo "<li>";
             echo $form_start . '<input type="hidden" name="pid" value="' . $MEMBER->person_id() . '">';
-            if ($validpostcode)
+            if ($details['valid_postcode'])
                 echo '<input type="hidden" name="pc" value="' . htmlspecialchars($details['alertsearch']) . '">';
             echo $MEMBER->full_name();
             echo ' (' . htmlspecialchars($constituency) . ')';
