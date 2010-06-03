@@ -208,7 +208,7 @@ address</a>. We've got a few ideas ourselves, to keep you on your toes.
 
 <dt><a name="pps_unknown"></a>Why are the PPS positions out of date?</dt>
 <dd>
-<p>TheyWorkForYou gets its ministerial information, as with much else, by
+<p>TheyWorkForYou got its ministerial information, as with much else, by
 scraping various pages on the official parliament.uk site. Since the 16th of
 January 2009, the <a
 href="http://www.parliament.uk/directories/hciolists/Pps.cfm">page on
@@ -221,25 +221,18 @@ PPSes.</p>
 Private Secretaries, there doesn't appear to be a lot we can do. Apologies for
 any inconvenience caused.</p>
 
-<!--
-<p>In order to fix this, we would either need to find a new source of information
-and write a brand new parser solely for that &ndash; not a trivial task, and
-one that leads to yet more maintenance every time the format changes &ndash; or
-we need Parliament or the Government to provide us with a URL containing a
-machine-readable file of all the PPSes that is kept up to date, which we can
-then simply read and merge into our site every day (our preferred option!).
--->
-
 </dd>
 
 <dt><a name="dates_wrong"></a>The date someone starts/ends a ministerial position is wrong!</dt>
 <dd>
-<p>TheyWorkForYou gets its ministerial information, as with much else, by
-scraping various pages on the official parliament.uk site; we do not have the
-resources to maintain it all manually. Sadly, the site is sometimes out of date
+<p>TheyWorkForYou got its ministerial information, as with much else, by
+scraping various pages on the official parliament.uk site.
+Sadly, the site is sometimes out of date
 or incorrect, which will of course lead to incorrect information appearing
 on our site too. Due to the way it all hangs together (with lots of bits of
 string), it is not at all simple to override or fix these at present.
+However, since the 2010 election, the list is kept manually which should
+lead to greater accuracy.
 
 </dd>
 
