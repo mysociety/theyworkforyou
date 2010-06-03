@@ -247,7 +247,9 @@ class USER {
 					$ALERT = new ALERT;
 					$ALERT->add(array(
 						'email' => $details['email'],
-						'pid' => $pid), false, false);
+						'pid' => $pid,
+                        'pc' => $details['postcode'],
+                    ), false, false);
 				}
 
 				if ($confirmation_required) {
