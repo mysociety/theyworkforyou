@@ -38,15 +38,10 @@ mlog("lastupdated: $lastupdated lastbatch: $lastbatch\n");
 # have been made since last time we ran
 $batch_query_fragment = "";
 for ($i=$lastbatch + 1; $i <= $max_batch_id; $i++) {
-    # Emergency May 2010 fix
-    # Covering NI April/May, Scotland April/May,
-    # PBC December 2009 - April 2010, UK May
-    if ($i == 197 || $i == 219 || $i == 221 || $i == 229 || $i == 236)
 	$batch_query_fragment .= "batch:$i ";
 }
 $batch_query_fragment = trim($batch_query_fragment);
 mlog("batch_query_fragment: " . $batch_query_fragment . "\n");
-exit;
 
 # For testing purposes, specify nomail on command line to not send out emails
 $nomail = false;
@@ -251,7 +246,7 @@ function sort_by_stuff($a, $b) {
 function write_and_send_email($current, $data, $template) {
 	global $globalsuccess, $sentemails, $nomail, $start_time;
 
-	$data .= '===================='."\n\n";
+	$data .= '====================';
 	$sentemails++;
 	mlog("SEND $sentemails : Sending email to $current[email] ... ");
 	$d = array('to' => $current['email'], 'template' => $template);
