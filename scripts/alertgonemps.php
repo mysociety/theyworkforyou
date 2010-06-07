@@ -115,7 +115,9 @@ foreach ($alertdata as $alertitem) {
 
     $lh = $member->left_house();
     $lh = array_shift($lh);
-	$email_text[] = '* ' . $member->full_name() . ', left ' . $lh['date_pretty'];
+    $text = '* ' . $member->full_name() . ', left ' . $lh['date_pretty'];
+    if (!in_array($text, $email_text))
+	    $email_text[] = $text;
 }
 if ($email_text)
     write_and_send_email($current, $email_text, $template);
