@@ -1,0 +1,28 @@
+Subject: Your TheyWorkForYou email alert
+Dear TheyWorkForYou alert subscriber,
+
+We're just writing to let you know that you are subscribed to
+{ALERTS} that won't email you any time soon - for example, because
+the MP or Lord has left Parliament. Your affected {ALERT_IS}:
+
+{DATA}
+
+(You may have other, live, alerts not listed here.)
+
+We thought you might want to alter your alerts to cover new MPs,
+Lords, and so on, and have written a new interface that lets you
+view your alerts, sign up for new ones, and suspend or remove
+alerts you no longer want. Simply visit this URL:
+
+    {MANAGE}
+
+Best wishes,
+TheyWorkForYou
+
+-------------------------------------------------------------------
+TheyWorkForYou email alerts need love and support to look
+after. Please consider donating to mySociety to help us
+continue and expand:
+        http://www.mysociety.org/donate/
+-------------------------------------------------------------------
+
