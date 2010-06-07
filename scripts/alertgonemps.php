@@ -88,11 +88,11 @@ foreach ($alertdata as $alertitem) {
     if ($member->current_member_anywhere()) continue;
 
     if (in_array($member->full_name(), array(
-        'Paul Boateng', 'Helen Liddell', 'Jack McConnell', 'Tim Boswell',
+        'Mr Paul Boateng', 'Mrs Helen Liddell', 'Jack McConnell', 'Tim Boswell',
         'Angela Browning', 'John Gummer', 'Michael Howard', 'John Maples',
-        'Michael Spicer', 'Richard Allan', 'Matthew Taylor', 'George Willis',
-        'Hillary Armstrong', 'Des Browne', 'Quentin Davies', 'Beverley Hughes',
-        'John Hutton', 'Jim Knight', 'Tommy McAvoy', 'John McFall', 'John Prescott',
+        'Michael Spicer', 'Mr Richard Allan', 'Matthew Taylor', 'Phil Willis',
+        'Hilary Armstrong', 'Des Browne', 'Quentin Davies', 'Beverley Hughes',
+        'John Hutton', 'Jim Knight', 'Thomas McAvoy', 'John McFall', 'John Prescott',
         'John Reid', 'Angela Smith', 'Don Touhig', 'Michael Wills', 'Ian Paisley',
     ))) continue;
 
