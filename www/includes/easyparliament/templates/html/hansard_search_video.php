@@ -32,7 +32,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 			echo "<em>" . ucfirst(member_full_name($sp['house'], $sp['title'], $sp['first_name'], $sp['last_name'], $sp['constituency'])) . "</em>: ";
 		} 
 		
-		echo '&#8220;' . $row['body'] . "&#8221;</dd>\n";
+		echo '&#8220;' . $row['extract'] . "&#8221;</dd>\n";
 		echo '<dd><em><small>This speech is ';
 		if ($row['hpos']-$want['hpos']>0) {
 			echo ($row['hpos']-$want['hpos']) . ' later than';

@@ -47,7 +47,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 			$name = ucfirst(member_full_name($sp['house'], $sp['title'], $sp['first_name'], $sp['last_name'], $sp['constituency']));
 			echo entities_to_numbers($name) . ': ';
 		} 
-		echo htmlspecialchars(str_replace(array('&#8212;', '<span class="hi">', '</span>'), array('-', '<b>', '</b>'), $row['body'])) . "</description>\n</item>\n";
+		echo htmlspecialchars(str_replace(array('&#8212;', '<span class="hi">', '</span>'), array('-', '<b>', '</b>'), $row['extract'])) . "</description>\n</item>\n";
 	}
 }
 ?>

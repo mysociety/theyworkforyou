@@ -88,7 +88,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 			echo "<em>" . ucfirst(member_full_name($sp['house'], $sp['title'], $sp['first_name'], $sp['last_name'], $sp['constituency'])) . "</em>: ";
 		} 
 		
-		echo $row['body'] . "</p></dd>\n";
+		echo $row['extract'] . "</p></dd>\n";
 	
 	}
 	

@@ -43,7 +43,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		?></dt>
 					<dd><p>&#8220;<?php
 		
-		echo $row['body'] . "&#8221;</p></dd>\n";
+		echo $row['extract'] . "&#8221;</p></dd>\n";
 	}
 	?>
 				</dl>

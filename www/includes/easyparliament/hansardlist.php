@@ -972,7 +972,6 @@ class HANSARDLIST {
 		return $this->_get_data_by_search($args);
 	}
 	function _get_data_by_search_video ($args) {
-		$args['full_text'] = true;
 		return $this->_get_data_by_search($args);
 	}
 	function _get_data_by_search ($args) {
@@ -1138,7 +1137,8 @@ class HANSARDLIST {
 			$itemdata['speaker_id'] 	= $q->field(0, 'speaker_id');
 			$itemdata['hpos']		= $q->field(0, 'hpos');
 			$itemdata['video_status']	= $q->field(0, 'video_status');
-			$itemdata['body'] = $this->prepare_search_result_for_display($q->field(0, 'body'));
+			$itemdata['body'] = $q->field(0, 'body');
+			$itemdata['extract'] = $this->prepare_search_result_for_display($q->field(0, 'body'));
 
 			//////////////////////////
 			// 2. Create the URL to link to this bit of text.
@@ -1220,7 +1220,8 @@ class HANSARDLIST {
 					);
 					$ddata = $this->_get_hansard_data($input);
 					if (count($ddata)) {
-						$itemdata['body'] = $this->prepare_search_result_for_display($ddata[0]['body']);
+						$itemdata['body'] = $ddata[0]['body'];
+						$itemdata['extract'] = $this->prepare_search_result_for_display($ddata[0]['body']);
 						$itemdata['speaker_id'] = $ddata[0]['speaker_id'];
 						if ($itemdata['speaker_id']) {
 							$itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
@@ -1228,6 +1229,7 @@ class HANSARDLIST {
 					}
 				} elseif ($itemdata['htype'] == 10) {
 					$itemdata['body'] = '';
+					$itemdata['extract'] = '';
 				}
 			}
 
