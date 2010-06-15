@@ -182,7 +182,7 @@ foreach ($alertdata as $alertitem) {
 			if ($k>=0) {
 				$any_content = true;
 				$parentbody = str_replace(array('<i>', '</i>', '&#8212;', '<span class="hi">', '</span>'), array('', '', '-', '*', '*'), $row['parent']['body']);
-				$body = str_replace(array('&#163;','&#8212;','<span class="hi">','</span>'), array("\xa3",'-','*','*'), $row['body']);
+				$body = str_replace(array('&#163;','&#8212;','<span class="hi">','</span>'), array("\xa3",'-','*','*'), $row['extract']);
 				if (isset($row['speaker']) && count($row['speaker'])) $body = member_full_name($row['speaker']['house'], $row['speaker']['title'], $row['speaker']['first_name'], $row['speaker']['last_name'], $row['speaker']['constituency']) . ': ' . $body;
 
 				$body = wordwrap($body, 72);

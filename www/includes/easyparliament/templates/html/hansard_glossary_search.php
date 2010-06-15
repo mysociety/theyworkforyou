@@ -59,7 +59,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 			echo "<em>" . $row['speaker']['first_name'] . ' ' . $row['speaker']['last_name'] . "</em>: ";
 		} 
 		
-		echo $row['body'] . "</p></dd>\n";
+		echo $row['extract'] . "</p></dd>\n";
 	
 	}
 	
