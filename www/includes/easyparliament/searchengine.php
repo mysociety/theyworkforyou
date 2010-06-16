@@ -119,6 +119,7 @@ class SEARCHENGINE {
             if (strpos($word, ':') !== false) {
                 $items = split(":", strtolower($word));
                 $type = $items[0];
+                if (substr($type, 0, 1)=='-') $type = substr($type, 1);
                 $value = strtolower(join(":", array_slice($items,1)));
                 if ($type == 'section') {
                     $newv = $value;

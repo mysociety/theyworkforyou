@@ -40,7 +40,7 @@ if (get_http_var('adv') || $warning) {
 } elseif ($searchstring) {
 	// We're searching for something.
 	$searchstring = filter_user_input($searchstring, 'strict');
-    $searchstring2 = trim(preg_replace('#[a-z]+:[a-z0-9]+#', '', $searchstring));
+    $searchstring2 = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $searchstring));
     $time = parse_date($searchstring2);
     if ($time['iso']) {
         header('Location: /hansard/?d=' . $time['iso']);
