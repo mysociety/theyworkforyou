@@ -20,6 +20,7 @@ def check_dependencies(check_group=True,user_and_group=None):
     # anyway...
     required_packages = [ "libqt4-dev",
                           "make",
+                          "slirp",
                           "debootstrap",
                           "user-mode-linux",
                           "uml-utilities",
