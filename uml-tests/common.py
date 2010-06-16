@@ -41,6 +41,8 @@ def check_dependencies(check_group=True,user_and_group=None):
             print "The package '"+p+"' doesn't seem to be installed"
             succeeded = False
         if not succeeded:
+            print "To install all the required packages, try:"
+            print "  sudo apt-get install "+" ".join(required_packages)
             sys.exit(1)
     # Make sure that CutyCapt is built:
     check_call(["make","-s"])
