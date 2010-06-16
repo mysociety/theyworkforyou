@@ -102,6 +102,8 @@ def setup_configuration():
         if k not in configuration:
             raise Exception, "You must define %s in 'conf'" % (k,)
 
+    configuration.setdefault('SSH_PORT','22')
+
     # Check that UML_SERVER_HOSTNAME resolves to UML_SERVER_IP:
     try:
         ip = socket.gethostbyname(configuration['UML_SERVER_HOSTNAME'])
@@ -157,6 +159,7 @@ def ssh_start_control_master(user="alice"):
                      "-o", "ControlPath="+control_file,
                      "-N",
                      "-f",
+                     "-p", configuration['SSH_PORT'],
                      user+"@"+configuration['UML_SERVER_IP'] ]
     if 0 == call(full_command):
         created_ssh_control_files.append((user,control_file))
@@ -169,6 +172,7 @@ def ssh_check_control_master(user="alice"):
                      "-o", "StrictHostKeyChecking=no",
                      "-o", "ControlPath="+user_to_control_file(user),
                      "-O", "check",
+                     "-p", configuration['SSH_PORT'],
                      user+"@"+configuration['UML_SERVER_IP'] ]
     return 0 == call(full_command)
 
@@ -181,6 +185,7 @@ def ssh_stop_control_master(user):
                      "-o", "StrictHostKeyChecking=no",
                      "-o", "ControlPath="+user_to_control_file(user),
                      "-O", "exit",
+                     "-p", configuration['SSH_PORT'],
                      user+"@"+configuration['UML_SERVER_IP'] ]
     if 0 != call(full_command):
         print "Warning: stopping SSH ControlMaster for user %s failed" % (user,)
@@ -189,6 +194,7 @@ def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=
     full_command = [ "ssh",
                      "-o", "StrictHostKeyChecking=no",
                      "-o", "ControlPath="+user_to_control_file(user),
+                     "-p", configuration['SSH_PORT'],
                      user+"@"+configuration['UML_SERVER_IP'],
                      command ]
     if verbose:
@@ -238,6 +244,7 @@ def scp(source,destination,user="alice",verbose=True):
     full_command = [ "scp",
                      "-o", "StrictHostKeyChecking=no",
                      "-o", "ControlPath="+user_to_control_file(user),
+                     "-P", configuration['SSH_PORT'],
                      source,
                      full_destination ]
     if verbose:
@@ -254,7 +261,7 @@ def rsync_from_guest(source,destination,user="alice",exclude_git=False,verbose=T
     if exclude_git:
         full_command.append("--exclude=.git")
     full_command += [ "-e",
-                      "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user),
+                      "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user)+" -p "+configuration['SSH_PORT'],
                       user+"@"+configuration['UML_SERVER_IP']+":"+source,
                       destination ]
     print "##".join(full_command)
@@ -272,7 +279,7 @@ def rsync_to_guest(source,destination,user="alice",exclude_git=False,delete=Fals
     if delete:
         full_command.append("--delete")
     full_command += [ "-e",
-                      "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user),
+                      "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user)+" -p "+configuration['SSH_PORT'],
                       source,
                       user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
     if verbose:
