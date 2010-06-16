@@ -46,6 +46,8 @@ def check_dependencies(check_group=True,user_and_group=None):
             sys.exit(1)
     # Make sure that CutyCapt is built:
     check_call(["make","-s"])
+    if user_and_group:
+        check_call(["chown",user_and_group,"cutycapt/CutyCapt/"])
     # Make sure that the current user is in the uml-net group:
     if check_group and not re.search('\(uml-net\)',(Popen(["id"],stdout=PIPE).communicate()[0])):
         print "The current user is not in the group 'uml-net'"
