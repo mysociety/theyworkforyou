@@ -407,7 +407,7 @@ function _find_members_internal($searchstring) {
 		return false;
 	}
 
-    $searchstring = trim(preg_replace('#[a-z]+:[a-z0-9]+#', '', $searchstring));
+    $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $searchstring));
     $q = search_member_db_lookup($searchstring);
 	if (!$q) return false;
 
