@@ -331,7 +331,7 @@ function person_internal_links($member, $extra_info) {
 	if ($member['has_voting_record']) {
 		echo '<li><a href="#votingrecord">Voting record</a></li>';
 		if ($member['current_member'][1])
-			echo '<li><a href="#topics">Committees and topics of interest</a></li>';
+			echo '<li><a href="#topics">Topics of interest</a></li>';
 	}
 	# Show recent appearances, unless a SF MP who's not an MLA
 	if ($member['has_recent_appearances']) {
@@ -497,7 +497,7 @@ function person_voting_record($member, $extra_info) {
 function person_committees_and_topics($member, $extra_info) {
 	$chairmens_panel = false;
 	echo '<a name="topics"></a>
-<h4>Committees and topics of interest</h4>';
+<h4>Topics of interest</h4>';
 	$topics_block_empty = true;
 
 	// Select committee membership
@@ -669,6 +669,7 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 		$displayed_stuff |= display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister);
 	}
 
+/*
 	if (isset($extra_info['select_committees'])) {
 		print "<li>Is a member of <strong>$extra_info[select_committees]</strong> select committee";
 		if ($extra_info['select_committees'] != 1)
@@ -677,6 +678,7 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 			print " ($extra_info[select_committees_chair] as chair)";
 		print '.</li>';
 	}
+*/
 
 	$wtt_displayed = display_writetothem_numbers(2008, $extra_info);
 	$displayed_stuff |= $wtt_displayed;
