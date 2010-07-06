@@ -134,11 +134,12 @@ if (isset($data['years'])) {
 				<tr><?php
 				}
 
-				if ($data['info']['major'] == 5) # NI
-					$recess = array('');
-				else
-					$recess = recess_prettify($currentDay, $month, $year,
-						($hansardmajors[$data['info']['major']]['location'] == 'Scotland') ? 4 : 1);
+                $recess_major = 1; # For all of UK Parliament
+                if ($hansardmajors[$data['info']['major']]['location'] == 'NI')
+                    $recess_major = 5;
+                elseif ($hansardmajors[$data['info']['major']]['location'] == 'Scotland')
+                    $recess_major = 4; # For all of Scotland
+                $recess = recess_prettify($currentDay, $month, $year, $recess_major);
 
 				// Is this day actually Today in the real world?
 				// If so, higlight it.

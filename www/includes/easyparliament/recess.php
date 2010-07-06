@@ -223,6 +223,25 @@ $GLOBALS['recessdates'][4] = array(
 	),
 );
 
+/* NI Assembly */
+$GLOBALS['recessdates'][5] = array(
+	2010 => array(
+        3 => array('more' => 26),
+        4 => array('less' => 12),
+		7 => array('more' => 2),
+        8 => array('all' => 1),
+        9 => array('less' => 6),
+        10 => array('more' => 22),
+        12 => array('more' => 17),
+	),
+    2011 => array(
+        1 => array('less' => 10),
+        4 => array('more' => 15),
+        5 => array('less' => 2),
+        7 => array('more' => 1),
+    ),
+);
+
 /*
 function currently_in_recess() {
     // Main file which recesswatcher.py overwrites each day
