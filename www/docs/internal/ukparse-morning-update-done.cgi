@@ -26,7 +26,7 @@ while (my $q = new mySociety::CGIFast()) {
             my $email = mySociety::Config::get('CONTACTEMAIL');
             my $body = mySociety::Email::construct_email({
                 _body_ => $errors,
-                Subject => 'TheyWorkForYou daily import failure',
+                Subject => 'TheyWorkForYou daily import message',
                 From => [ $email, 'TheyWorkForYou' ],
                 To => $email,
             });
