@@ -333,6 +333,7 @@ function recess_prettify($day, $month, $year, $body) {
 				break;
 			case 10: if ($body==1) $recess = 'Conference Recess';
 				elseif ($body==4) $recess = 'Autumn Recess';
+				elseif ($body==5) $recess = 'Halloween Recess';
 				break;
 			default: $recess = 1;
 		}

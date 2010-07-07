@@ -535,7 +535,7 @@ function generate_member_links ($member) {
 
 	if (isset($links['maiden_speech'])) {
 		$maiden_speech = fix_gid_from_db($links['maiden_speech']);
-		$html .= '<li><a href="' . WEBPATH . 'debate/?id=' . $maiden_speech . '">Maiden speech</a></li>';
+		$html .= '<li><a href="' . WEBPATH . 'debate/?id=' . $maiden_speech . '">Maiden speech</a> (automated, may be wrong)</li>';
 	}
 
 	// BIOGRAPHY.
