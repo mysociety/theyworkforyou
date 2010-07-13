@@ -252,8 +252,9 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
                 $last_pid = $q->field($n, 'person_id');
                 echo '<li>';
                 echo $form_start . '<input type="hidden" name="pid" value="' . $last_pid . '">';
+                echo 'Things by ';
                 $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'first_name'), $q->field($n, 'last_name'), $q->field($n, 'constituency') );
-                if ($q->field($n, 'house') == 1) {
+                if ($q->field($n, 'house') != 2) {
                     echo $name . ' (' . $q->field($n, 'constituency') . ') ';
                 } else {
                     echo $name;
@@ -292,7 +293,7 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
     if ($details['pid']) {
         $MEMBER = new MEMBER(array('person_id'=>$details['pid']));
         echo '<ul class="hilites"><li>';
-        echo "Signing up for " . $MEMBER->full_name();
+        echo "Signing up for things by " . $MEMBER->full_name();
         echo ' (' . htmlspecialchars($MEMBER->constituency()) . ')';
         echo "</li></ul>";
     }

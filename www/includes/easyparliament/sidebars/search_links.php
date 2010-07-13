@@ -8,7 +8,7 @@ $email_text = '';
 global $SEARCHENGINE, $searchstring;
 if ($SEARCHENGINE) {
 	$person_id = get_http_var('pid');
-	$email_link = '/alert/?only=1' . ($searchstring ? '&amp;keyword='.urlencode($searchstring) : '') .
+	$email_link = '/alert/?' . ($searchstring ? 'alertsearch='.urlencode($searchstring) : '') .
 		($person_id ? '&amp;pid='.urlencode($person_id) : '');
 	$email_text = $SEARCHENGINE->query_description_long();
 }
