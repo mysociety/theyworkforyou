@@ -39,6 +39,9 @@ class SEARCHLOG {
 		if (preg_match('#66\.249\.(6[4-9]|[78]\d|9[0-5])\.#', $ip)) { # Googlebot
 			return;
 		}
+        $ua = $_SERVER['HTTP_USER_AGENT'];
+        if (preg_match('#simplepie#i', $ua))
+            return
 
         $this->db->query("INSERT INTO search_query_log
             (query_string, page_number, count_hits, ip_address, query_time)
