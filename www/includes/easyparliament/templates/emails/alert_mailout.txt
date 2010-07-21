@@ -16,5 +16,5 @@ continue and expand:
         http://www.mysociety.org/donate/
 -------------------------------------------------------------------
 
-To manage your alerts, please visit the following link:
+To manage, unsubscribe or add to your alerts, please visit the following link:
     {MANAGE}
