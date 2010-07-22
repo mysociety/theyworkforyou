@@ -93,6 +93,15 @@ else:
 
 call(["ssh-keygen","-R","["+configuration['UML_SERVER_IP']+"]:"+configuration['SSH_PORT']])
 
+# If we try to use SSH too quickly, even though we've waited for the
+# daemon to start listening, it seems to fail with:
+#
+#      ssh_exchange_identification: Connection closed by remote host
+#      Control socket connect(/tmp/uml-ssh-root-172.19.9.118-2242-root.control): No such file or directory
+#
+# Grr....
+time.sleep(5)
+
 # Set up both SSH ControlMasters, so we don't have to keep reopening SSH session:
 
 ssh_start_control_master("root")
