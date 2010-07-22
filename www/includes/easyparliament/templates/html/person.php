@@ -566,7 +566,7 @@ function person_committees_and_topics($member, $extra_info) {
 	}
 	
 	if ($topics_block_empty) {
-		print "<p><em>This MP is not currently on any select or public bill committee
+		print "<p><em>This MP is not currently on any public bill committee
 and has had no written questions answered for which we know the department or subject.</em></p>";
 	}
 
