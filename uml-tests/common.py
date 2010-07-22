@@ -431,11 +431,11 @@ def web_server_working():
                       "-o",
                       "/dev/null"])
 
-def wait_for_web_server(popen_object):
+def wait_for_service(popen_object,service_up):
     interval_seconds = 1
     while True:
         still_alive = (None == popen_object.poll())
-        up = web_server_working()
+        up = service_up()
         if still_alive:
             if up:
                 return True
@@ -446,3 +446,12 @@ def wait_for_web_server(popen_object):
             popen_object.wait()
             print "Process "+str(popen_object.pid)+" died, returncode: "+str(popen_object.returncode)
             return False
+
+def ssh_listening():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        s.connect((configuration['UML_SERVER_IP'],int(configuration['SSH_PORT'],10)))
+        s.close()
+        return True
+    except:
+        return False

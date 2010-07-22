@@ -59,6 +59,9 @@ if uml_already_running:
     if not web_server_working():
         print "... but the web server doesn't seem to be up.  Exiting..."
         sys.exit(1)
+    if not ssh_listening():
+        print "... but the SSH server doesn't seem to be up.  Exiting..."
+        sys.exit(1)
 else:
     # Restart from standard root filesystem, perhaps generated from
     # create-rootfs.py:
@@ -74,7 +77,7 @@ else:
     popen_object = Popen("./start-server.py",
                          stdout=uml_stdout,
                          stderr=uml_stderr)
-    up = wait_for_web_server(popen_object)
+    up = wait_for_service(popen_object,web_server_working) and wait_for_service(popen_object,ssh_listening)
     check_call(["stty","sane"])
     if not up:
         print "Failed to start the UML machine:"
