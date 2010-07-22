@@ -142,9 +142,6 @@ try:
 
     ssh_start_control_master("alice")
 
-    if 0 != ssh("DEBIAN_FRONTEND=noninteractive apt-get install --yes locales",user="root"):
-        raise Exception, "Installing additional packages failed"
-
     print "==  Checking if we need to generate a UTF-8 locale"
     if 0 != ssh("locale -a | egrep -i en_gb.utf-?8",user="root"):
         # The we should generate a UTF-8 locale:
