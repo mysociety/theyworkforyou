@@ -37,7 +37,7 @@ def check_dependencies(check_group=True,user_and_group=None):
     package_list = Popen(["dpkg","-l"],stdout=PIPE).communicate()[0]
     for p in required_packages:
         succeeded = True
-        if not re.search('(?ms)(^|\n)(ii\s+'+p+'\s+[^\n]+)\n',package_list):
+        if not re.search('(?ms)(^|\n)([hi]i\s+'+p+'\s+[^\n]+)\n',package_list):
             print "The package '"+p+"' doesn't seem to be installed"
             succeeded = False
         if not succeeded:
