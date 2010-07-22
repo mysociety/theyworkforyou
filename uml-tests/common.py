@@ -94,7 +94,6 @@ def setup_configuration():
             raise Exception, "There was a malformed line in 'conf': "+line
 
     required_configuration_keys = [ 'UML_SERVER_IP',
-                                    'GUEST_IP',
                                     'GUEST_GATEWAY',
                                     'GUEST_NETMASK',
                                     'GUEST_NAMESERVER',
