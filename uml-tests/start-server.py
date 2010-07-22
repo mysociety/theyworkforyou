@@ -31,8 +31,7 @@ if use_slirp:
 
 cwd = os.path.realpath(".")
 
-command = [ "./linux-2.6.24-x86_64" ]
-# command = [ "/home/mark/linux-2.6.34.y/linux" ]
+command = [ "linux" ]
 if options.single:
     command.append("single")
 command += [ "mem=256M",
