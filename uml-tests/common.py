@@ -116,6 +116,9 @@ def setup_configuration():
 
     configuration['DEPLOYED_PATH'] = "/data/vhost/"+configuration['UML_SERVER_HOSTNAME']+"/theyworkforyou"
 
+    if re.search('^127.0',configuration['UML_SERVER_IP']):
+        raise Exception, "A slirp bug means that you can't use a localhost IP as your UML_SERVER_IP; make it an external interface"
+
 def add_passwords_to_configuration():
     configuration['MYSQL_TWFY_PASSWORD'] = pgpw('twfy')
     configuration['MYSQL_ROOT_PASSWORD'] = pgpw('twfy')

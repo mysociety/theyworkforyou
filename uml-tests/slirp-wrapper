@@ -1,3 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-exec slirp -S "host addr 172.19.9.118" "redir 8042 80" "redir 2242 22" "$@"
+set -e
+
+D=$(dirname $(readlink -f "$BASH_SOURCE"))
+source "$D"/conf
+
+exec slirp-fullbolt -S "host addr $UML_SERVER_IP" "redir 8042 80" "redir 2242 22" "$@"
