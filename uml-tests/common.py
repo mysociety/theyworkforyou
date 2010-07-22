@@ -455,3 +455,10 @@ def ssh_listening():
         return True
     except:
         return False
+
+# A horrible, hacky way of testing whether a port is bound which
+# depends on the format of netstat output - this is just for a simple
+# sanity checking when starting the UML machine.
+
+def port_bound(port_number):
+    return 0 == call("netstat -tan|egrep '^tcp *[0-9]+ *[0-9]+ *[^ :]+:%s ' > /dev/null" % str(port_number),shell=True)

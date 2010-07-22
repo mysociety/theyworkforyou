@@ -19,6 +19,16 @@ options,args = parser.parse_args()
 
 use_slirp = True
 
+if use_slirp:
+    fail = False
+    # FIXME: configure these ports
+    for port in [ 8042, 2242 ]:
+        if port_bound(port):
+            fail = True
+            print "Port %d appears to be in use." % (port,)
+    if fail:
+        sys.exit(1)
+
 cwd = os.path.realpath(".")
 
 command = [ "./linux-2.6.24-x86_64" ]
