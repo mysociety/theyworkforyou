@@ -89,6 +89,10 @@ else:
         call("cat uml.stderr",shell=True)
         sys.exit(1)
 
+# Remove the SSH host keys for the UML guest, since it will probably have changed:
+
+call(["ssh-keygen","-R","["+configuration['UML_SERVER_IP']+"]:"+configuration['SSH_PORT']])
+
 # Set up both SSH ControlMasters, so we don't have to keep reopening SSH session:
 
 ssh_start_control_master("root")
