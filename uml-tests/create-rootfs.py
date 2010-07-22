@@ -80,6 +80,7 @@ fp.write('''deb http://ftp.de.debian.org/debian/ lenny main
 deb-src http://ftp.de.debian.org/debian/ lenny main''')
 fp.close()
 
+untemplate("etc-fstab.template",mount_point+"/etc/fstab")
 untemplate("etc-network-interfaces.template",mount_point+"/etc/network/interfaces")
 untemplate("etc-resolv.conf.template",mount_point+"/etc/resolv.conf")
 
