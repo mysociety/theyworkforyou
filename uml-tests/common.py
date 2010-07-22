@@ -194,13 +194,16 @@ def ssh_stop_control_master(user):
     if 0 != call(full_command):
         print "Warning: stopping SSH ControlMaster for user %s failed" % (user,)
 
-def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=None,verbose=True):
+def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=None,verbose=True,use_control_file=True):
     full_command = [ "ssh",
-                     "-o", "StrictHostKeyChecking=no",
-                     "-o", "ControlPath="+user_to_control_file(user),
-                     "-p", configuration['SSH_PORT'],
-                     user+"@"+configuration['UML_SERVER_IP'],
-                     command ]
+                     "-o", "StrictHostKeyChecking=no" ]
+    if use_control_file:
+        full_command += [ "-o", "ControlPath="+user_to_control_file(user) ]
+    else:
+        full_command += [ "-i", "id_dsa."+user ]
+    full_command += [ "-p", configuration['SSH_PORT'],
+                      user+"@"+configuration['UML_SERVER_IP'],
+                      command ]
     if verbose:
         tw, th = cached_terminal_size()
         print trim_string("Running: ssh [...] "+command+"\r",tw)
