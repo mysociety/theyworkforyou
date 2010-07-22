@@ -20,6 +20,7 @@ def check_dependencies(check_group=True,user_and_group=None):
     # anyway...
     required_packages = [ "libqt4-dev",
                           "make",
+                          "slirp",
                           "debootstrap",
                           "user-mode-linux",
                           "uml-utilities",
@@ -28,7 +29,7 @@ def check_dependencies(check_group=True,user_and_group=None):
                           "openssh-client",
                           "curl",
                           "e2fsprogs",
-                          "python2.5-minimal",
+                          "python2.6-minimal",
                           "python-beautifulsoup",
                           "wdg-html-validator",
                           "sgml-data",
@@ -36,13 +37,17 @@ def check_dependencies(check_group=True,user_and_group=None):
     package_list = Popen(["dpkg","-l"],stdout=PIPE).communicate()[0]
     for p in required_packages:
         succeeded = True
-        if not re.search('(?ms)(^|\n)(ii\s+'+p+'\s+[^\n]+)\n',package_list):
+        if not re.search('(?ms)(^|\n)([hi]i\s+'+p+'\s+[^\n]+)\n',package_list):
             print "The package '"+p+"' doesn't seem to be installed"
             succeeded = False
         if not succeeded:
+            print "To install all the required packages, try:"
+            print "  sudo apt-get install "+" ".join(required_packages)
             sys.exit(1)
     # Make sure that CutyCapt is built:
     check_call(["make","-s"])
+    if user_and_group:
+        check_call(["chown",user_and_group,"cutycapt/CutyCapt/"])
     # Make sure that the current user is in the uml-net group:
     if check_group and not re.search('\(uml-net\)',(Popen(["id"],stdout=PIPE).communicate()[0])):
         print "The current user is not in the group 'uml-net'"
@@ -89,7 +94,6 @@ def setup_configuration():
             raise Exception, "There was a malformed line in 'conf': "+line
 
     required_configuration_keys = [ 'UML_SERVER_IP',
-                                    'GUEST_IP',
                                     'GUEST_GATEWAY',
                                     'GUEST_NETMASK',
                                     'GUEST_NAMESERVER',
@@ -98,6 +102,8 @@ def setup_configuration():
     for k in required_configuration_keys:
         if k not in configuration:
             raise Exception, "You must define %s in 'conf'" % (k,)
+
+    configuration.setdefault('SSH_PORT','22')
 
     # Check that UML_SERVER_HOSTNAME resolves to UML_SERVER_IP:
     try:
@@ -109,6 +115,9 @@ def setup_configuration():
         raise Exception, "The hostname '"+configuration['UML_SERVER_HOSTNAME']+"' should resolve to UML_SERVER_IP ("+configuration['UML_SERVER_IP']+"), not "+ip
 
     configuration['DEPLOYED_PATH'] = "/data/vhost/"+configuration['UML_SERVER_HOSTNAME']+"/theyworkforyou"
+
+    if re.search('^127.0',configuration['UML_SERVER_IP']):
+        raise Exception, "A slirp bug means that you can't use a localhost IP as your UML_SERVER_IP; make it an external interface"
 
 def add_passwords_to_configuration():
     configuration['MYSQL_TWFY_PASSWORD'] = pgpw('twfy')
@@ -154,6 +163,7 @@ def ssh_start_control_master(user="alice"):
                      "-o", "ControlPath="+control_file,
                      "-N",
                      "-f",
+                     "-p", configuration['SSH_PORT'],
                      user+"@"+configuration['UML_SERVER_IP'] ]
     if 0 == call(full_command):
         created_ssh_control_files.append((user,control_file))
@@ -166,6 +176,7 @@ def ssh_check_control_master(user="alice"):
                      "-o", "StrictHostKeyChecking=no",
                      "-o", "ControlPath="+user_to_control_file(user),
                      "-O", "check",
+                     "-p", configuration['SSH_PORT'],
                      user+"@"+configuration['UML_SERVER_IP'] ]
     return 0 == call(full_command)
 
@@ -178,16 +189,21 @@ def ssh_stop_control_master(user):
                      "-o", "StrictHostKeyChecking=no",
                      "-o", "ControlPath="+user_to_control_file(user),
                      "-O", "exit",
+                     "-p", configuration['SSH_PORT'],
                      user+"@"+configuration['UML_SERVER_IP'] ]
     if 0 != call(full_command):
         print "Warning: stopping SSH ControlMaster for user %s failed" % (user,)
 
-def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=None,verbose=True):
+def ssh(command,user="alice",capture=False,stdout_filename=None,stderr_filename=None,verbose=True,use_control_file=True):
     full_command = [ "ssh",
-                     "-o", "StrictHostKeyChecking=no",
-                     "-o", "ControlPath="+user_to_control_file(user),
-                     user+"@"+configuration['UML_SERVER_IP'],
-                     command ]
+                     "-o", "StrictHostKeyChecking=no" ]
+    if use_control_file:
+        full_command += [ "-o", "ControlPath="+user_to_control_file(user) ]
+    else:
+        full_command += [ "-i", "id_dsa."+user ]
+    full_command += [ "-p", configuration['SSH_PORT'],
+                      user+"@"+configuration['UML_SERVER_IP'],
+                      command ]
     if verbose:
         tw, th = cached_terminal_size()
         print trim_string("Running: ssh [...] "+command+"\r",tw)
@@ -235,6 +251,7 @@ def scp(source,destination,user="alice",verbose=True):
     full_command = [ "scp",
                      "-o", "StrictHostKeyChecking=no",
                      "-o", "ControlPath="+user_to_control_file(user),
+                     "-P", configuration['SSH_PORT'],
                      source,
                      full_destination ]
     if verbose:
@@ -251,7 +268,7 @@ def rsync_from_guest(source,destination,user="alice",exclude_git=False,verbose=T
     if exclude_git:
         full_command.append("--exclude=.git")
     full_command += [ "-e",
-                      "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user),
+                      "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user)+" -p "+configuration['SSH_PORT'],
                       user+"@"+configuration['UML_SERVER_IP']+":"+source,
                       destination ]
     print "##".join(full_command)
@@ -269,7 +286,7 @@ def rsync_to_guest(source,destination,user="alice",exclude_git=False,delete=Fals
     if delete:
         full_command.append("--delete")
     full_command += [ "-e",
-                      "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user),
+                      "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user)+" -p "+configuration['SSH_PORT'],
                       source,
                       user+"@"+configuration['UML_SERVER_IP']+":"+destination ]
     if verbose:
@@ -414,11 +431,11 @@ def web_server_working():
                       "-o",
                       "/dev/null"])
 
-def wait_for_web_server(popen_object):
+def wait_for_service(popen_object,service_up):
     interval_seconds = 1
     while True:
         still_alive = (None == popen_object.poll())
-        up = web_server_working()
+        up = service_up()
         if still_alive:
             if up:
                 return True
@@ -429,3 +446,19 @@ def wait_for_web_server(popen_object):
             popen_object.wait()
             print "Process "+str(popen_object.pid)+" died, returncode: "+str(popen_object.returncode)
             return False
+
+def ssh_listening():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        s.connect((configuration['UML_SERVER_IP'],int(configuration['SSH_PORT'],10)))
+        s.close()
+        return True
+    except:
+        return False
+
+# A horrible, hacky way of testing whether a port is bound which
+# depends on the format of netstat output - this is just for a simple
+# sanity checking when starting the UML machine.
+
+def port_bound(port_number):
+    return 0 == call("netstat -tan|egrep '^tcp *[0-9]+ *[0-9]+ *[^ :]+:%s ' > /dev/null" % str(port_number),shell=True)

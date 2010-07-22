@@ -6,6 +6,6 @@ iface lo inet loopback
 
 auto eth0
 iface eth0 inet static
-  address %GUEST_IP%
-  netmask %GUEST_NETMASK%
-  gateway %GUEST_GATEWAY%
+  address 10.0.2.15
+  netmask 255.0.0.0
+  gateway 10.0.2.15

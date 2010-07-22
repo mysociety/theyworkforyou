@@ -1,4 +1,4 @@
-#!/usr/bin/python2.5
+#!/usr/bin/python2.6
 
 # This script takes requires a more-or-less basic lenny UML root
 # filesystem image and sets up TWFY on it.  To create a suitable UML
@@ -59,6 +59,9 @@ if uml_already_running:
     if not web_server_working():
         print "... but the web server doesn't seem to be up.  Exiting..."
         sys.exit(1)
+    if not ssh_listening():
+        print "... but the SSH server doesn't seem to be up.  Exiting..."
+        sys.exit(1)
 else:
     # Restart from standard root filesystem, perhaps generated from
     # create-rootfs.py:
@@ -74,7 +77,7 @@ else:
     popen_object = Popen("./start-server.py",
                          stdout=uml_stdout,
                          stderr=uml_stderr)
-    up = wait_for_web_server(popen_object)
+    up = wait_for_service(popen_object,web_server_working) and wait_for_service(popen_object,ssh_listening)
     check_call(["stty","sane"])
     if not up:
         print "Failed to start the UML machine:"
@@ -85,6 +88,19 @@ else:
         print "Standard error was:"
         call("cat uml.stderr",shell=True)
         sys.exit(1)
+
+# Remove the SSH host keys for the UML guest, since it will probably have changed:
+
+call(["ssh-keygen","-R","["+configuration['UML_SERVER_IP']+"]:"+configuration['SSH_PORT']])
+
+# If we try to use SSH too quickly, even though we've waited for the
+# daemon to start listening, it seems to fail with:
+#
+#      ssh_exchange_identification: Connection closed by remote host
+#      Control socket connect(/tmp/uml-ssh-root-172.19.9.118-2242-root.control): No such file or directory
+#
+# Grr....
+time.sleep(5)
 
 # Set up both SSH ControlMasters, so we don't have to keep reopening SSH session:
 
@@ -118,23 +134,13 @@ try:
     # public key authentication.  (This sets the encrypted password field
     # to '!' in /etc/shadow.)
 
-    if 0 != ssh("passwd -l root",user="root"):
-        raise Exception, "Locking root's password failed"
+    # if 0 != ssh("passwd -l root",user="root"):
+    #     raise Exception, "Locking root's password failed"
 
     if 0 != ssh("passwd -l alice",user="root"):
         raise Exception, "Locking alice's password failed"
 
     ssh_start_control_master("alice")
-
-    if 0 != scp("files-for-uml-deploy/etc/apt/sources.list","/etc/apt/sources.list",user="root"):
-            raise Exception, "Copying over the new /etc/apt/sources.list failed"
-
-    # Now install some extra packages that we'll need:
-    if 0 != ssh("apt-get update",user="root"):
-        raise Exception, "Updating the package information failed"
-
-    if 0 != ssh("DEBIAN_FRONTEND=noninteractive apt-get install --yes locales",user="root"):
-        raise Exception, "Installing additional packages failed"
 
     print "==  Checking if we need to generate a UTF-8 locale"
     if 0 != ssh("locale -a | egrep -i en_gb.utf-?8",user="root"):
@@ -143,6 +149,13 @@ try:
             raise Exception, "Overwriting /etc/locale.gen failed"
         if 0 != ssh("/usr/sbin/locale-gen",user="root"):
             raise Exception, "Running locale-gen failed"
+
+    if 0 != scp("files-for-uml-deploy/etc/apt/sources.list","/etc/apt/sources.list",user="root"):
+            raise Exception, "Copying over the new /etc/apt/sources.list failed"
+
+    # Now install some extra packages that we'll need:
+    if 0 != ssh("apt-get update",user="root"):
+        raise Exception, "Updating the package information failed"
 
     # The packages here should be taken from files added to
     # /etc/mysociety/packages.d under the various archetypes, but for the

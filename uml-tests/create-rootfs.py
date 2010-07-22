@@ -1,4 +1,4 @@
-#!/usr/bin/python2.5
+#!/usr/bin/python2.6
 
 import re
 import os
@@ -64,7 +64,7 @@ check_call(["mke2fs","-F",image_filename])
 check_call(["tune2fs","-j",image_filename])
 check_call(["mount","-o","loop",image_filename,mount_point])
 check_call(["debootstrap",
-            "--include=apache2-mpm-prefork,openssh-server,git-core,cvs,emacs22-nox,vim,less,postgresql-8.3",
+            "--include=apache2-mpm-prefork,openssh-server,git-core,cvs,emacs22-nox,vim,less,postgresql-8.3,locales",
             "lenny",
             mount_point,
             "http://ftp.uk.debian.org/debian"])
@@ -80,11 +80,9 @@ fp.write('''deb http://ftp.de.debian.org/debian/ lenny main
 deb-src http://ftp.de.debian.org/debian/ lenny main''')
 fp.close()
 
+untemplate("etc-fstab.template",mount_point+"/etc/fstab")
 untemplate("etc-network-interfaces.template",mount_point+"/etc/network/interfaces")
-
-fp = open(mount_point+"/etc/resolv.conf","w")
-fp.write("nameserver "+configuration['GUEST_NAMESERVER'])
-fp.close()
+untemplate("etc-resolv.conf.template",mount_point+"/etc/resolv.conf")
 
 fp = open(mount_point+"/etc/hostname","w")
 fp.write("sandbox")
