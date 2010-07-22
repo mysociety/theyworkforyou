@@ -142,13 +142,6 @@ try:
 
     ssh_start_control_master("alice")
 
-    if 0 != scp("files-for-uml-deploy/etc/apt/sources.list","/etc/apt/sources.list",user="root"):
-            raise Exception, "Copying over the new /etc/apt/sources.list failed"
-
-    # Now install some extra packages that we'll need:
-    if 0 != ssh("apt-get update",user="root"):
-        raise Exception, "Updating the package information failed"
-
     if 0 != ssh("DEBIAN_FRONTEND=noninteractive apt-get install --yes locales",user="root"):
         raise Exception, "Installing additional packages failed"
 
@@ -159,6 +152,13 @@ try:
             raise Exception, "Overwriting /etc/locale.gen failed"
         if 0 != ssh("/usr/sbin/locale-gen",user="root"):
             raise Exception, "Running locale-gen failed"
+
+    if 0 != scp("files-for-uml-deploy/etc/apt/sources.list","/etc/apt/sources.list",user="root"):
+            raise Exception, "Copying over the new /etc/apt/sources.list failed"
+
+    # Now install some extra packages that we'll need:
+    if 0 != ssh("apt-get update",user="root"):
+        raise Exception, "Updating the package information failed"
 
     # The packages here should be taken from files added to
     # /etc/mysociety/packages.d under the various archetypes, but for the
