@@ -326,7 +326,7 @@ def save_page(url,output_html_filename,url_opener=None,post_parameters=None):
         # Then it's a full URL:
         full_url = url
     else:
-        full_url = "http://"+configuration['UML_SERVER_HOSTNAME']+url
+        full_url = "http://"+configuration['UML_SERVER_HOSTNAME']+":8042"+url
     if url_opener:
         try:
             if post_parameters:
