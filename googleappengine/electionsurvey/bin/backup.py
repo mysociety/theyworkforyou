@@ -34,9 +34,10 @@ if os.system(cmd) != 0:
     raise Exception("Failed to call bulkloader.py")
 
 # Compress it rsyncably and split into chunks
-if os.system("gzip --rsyncable --force %s | split -d -b 256M - %s.gz" %(TMP_BACKUP_FILE_LOCATION, TMP_BACKUP_FILE_LOCATION)) != 0:
+if os.system("cat $TMP_BACKUP_FILE_LOCATION | gzip --rsyncable --force | split -d -b 256M - %s.gz" %(TMP_BACKUP_FILE_LOCATION, TMP_BACKUP_FILE_LOCATION)) != 0:
     raise Exception("Failed to call gzip --force")
 
-# Remove the old backup directory and replace it with the temporary one.
-shutil.rmtree(GAE_BACKUP_DIRECTORY)
+# Remove the old backup directory (if it's there) 
+# and replace it with the temporary one.
+shutil.rmtree(GAE_BACKUP_DIRECTORY, ignore_errors=True)
 shutil.move(TEMP_BACKUP_DIR, GAE_BACKUP_DIRECTORY)
