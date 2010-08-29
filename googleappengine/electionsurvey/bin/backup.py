@@ -34,8 +34,12 @@ if os.system(cmd) != 0:
     raise Exception("Failed to call bulkloader.py")
 
 # Compress it rsyncably and split into chunks
-if os.system("cat $TMP_BACKUP_FILE_LOCATION | gzip --rsyncable --force | split -d -b 256M - %s.gz" %(TMP_BACKUP_FILE_LOCATION, TMP_BACKUP_FILE_LOCATION)) != 0:
+if os.system("gzip --to-stdout --rsyncable --force %s | split -d -b 256M - %s.gz" %(TMP_BACKUP_FILE_LOCATION, TMP_BACKUP_FILE_LOCATION)) != 0:
     raise Exception("Failed to call gzip --force")
+
+# Since we succeeded in compressing it, we can now 
+# remove the uncompressed file
+os.remove(TMP_BACKUP_FILE_LOCATION)
 
 # Remove the old backup directory (if it's there) 
 # and replace it with the temporary one.
