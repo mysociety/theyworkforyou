@@ -16,11 +16,11 @@ import shutil
 URL="http://theyworkforyouelection.appspot.com/remote_api"
 EMAIL="election@theyworkforyou.com"
 
-DAILYDB_BACKUPS_DIR = '/data/backups/dailydb/'
+BACKUPS_DIR = '/data/backups/'
 BACKUP_FILE_NAME = "theyworkforyouelection.googleappengine.sqlite3"
-GAE_BACKUP_DIRECTORY = os.path.join(DAILYDB_BACKUPS_DIR, BACKUP_FILE_NAME)
+GAE_BACKUP_DIRECTORY = os.path.join(BACKUPS_DIR, BACKUP_FILE_NAME)
 
-TEMP_BACKUP_DIR = tempfile.mkdtemp(dir=DAILYDB_BACKUPS_DIR)
+TEMP_BACKUP_DIR = tempfile.mkdtemp(dir=BACKUPS_DIR)
 TMP_BACKUP_FILE_LOCATION = os.path.join(TEMP_BACKUP_DIR, BACKUP_FILE_NAME)
 
 PWD=os.getcwd()
