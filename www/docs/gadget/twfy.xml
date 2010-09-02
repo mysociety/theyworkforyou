@@ -133,7 +133,11 @@
             }
 
 	    var html = ['<p><big><strong>', name, ' MP</strong></big><br/>',
-		    party, ', ', cons, '<br/>Majority: ', majority, '. <a href="http://www.theyworkforyou.com/mp/?p=', pid, '" target="_blank">more</a></p>']
+		    party, ', ', cons, '<br/>' ]
+        if (majority) {
+            html.push('Majority: ', majority, '. ')
+        }
+        html.push('<a href="http://www.theyworkforyou.com/mp/?p=', pid, '" target="_blank">more</a></p>')
 	    // html.push('<p>Majority: ', majority, '</p>') // , ', ', swing, '% swing to lose</p>')
 
             _gel('recent-header').innerHTML = '';
