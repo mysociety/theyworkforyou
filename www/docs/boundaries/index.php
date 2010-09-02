@@ -7,6 +7,12 @@ include_once '../../../commonlib/phplib/mapit.php';
 $PAGE->page_start();
 ?>
 <h2>General election constituency boundaries</h2>
+
+<div class="informational">This part of the site is no longer in use and does not display correct results.
+If you wish to look up what constituency a postcode was in before the 2010 election, use our public lookup
+service at <a href="http://mapit.mysociety.org">http://mapit.mysociety.org/</a>.
+</div>
+
 <div id="boundaries">
 <?
 

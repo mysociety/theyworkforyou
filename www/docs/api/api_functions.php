@@ -80,15 +80,14 @@ $methods = array(
 	'getGeometry' => array(
 		'new' => true,
 		'parameters' => array('name'),
-		'required' => false,
+		'required' => true,
 		'help' => 'Returns centre, bounding box of constituencies'
 	),
-/*	'getBoundary' => array(
+	'getBoundary' => array(
 		'parameters' => array('name'),
 		'required' => true,
 		'help' => 'Returns boundary polygon of constituency'
 	),
-*/
 	'getCommittee' => array(
 		'new' => true,
 		'parameters' => array('name', 'date'),
