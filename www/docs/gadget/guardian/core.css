@@ -1,5 +1,9 @@
 /* Expenses Component */
 
+.mysociety {
+   clear: both;
+}
+
 .mysociety #expenses-brief {
    font-size: 12px; 
 }
