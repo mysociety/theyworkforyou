@@ -5,13 +5,7 @@ include_once INCLUDESPATH . 'constituencies.inc';
 //returns the constituency name, given uh, a postcode.
 function postcode_to_constituency($postcode) {
     global $last_postcode, $last_postcode_value;
-
-    if(!defined("POSTCODE_SEARCH_DOMAIN") || !POSTCODE_SEARCH_DOMAIN) {
-        return fake_postcode($postcode);
-    }
-
     $postcode = canonicalise_postcode($postcode);
-
     if ($last_postcode == $postcode) {
         twfy_debug ("TIME", "Postcode $postcode looked up last time, is $last_postcode_value .");
         return $last_postcode_value['WMC'];
@@ -33,11 +27,6 @@ function postcode_to_constituency($postcode) {
 
 function postcode_to_constituencies($postcode) {
     global $last_postcode, $last_postcode_value;
-    if(!defined("POSTCODE_SEARCH_DOMAIN") || !POSTCODE_SEARCH_DOMAIN) {
-         $ret = array();
-         $ret['WMC'] = fake_postcode($postcode);
-         return $ret;
-    }
     $postcode = canonicalise_postcode($postcode);
     if ($last_postcode == $postcode) {
         twfy_debug ("TIME", "Postcode $postcode looked up last time, is $last_postcode_value .");
@@ -50,18 +39,6 @@ function postcode_to_constituencies($postcode) {
     $last_postcode = $postcode;
     $last_postcode_value = $ret;
     return $ret;
-}
-
-// map a postcode to an MP, random but deterministic
-function fake_postcode ($postcode){
-	$db = new ParlDB;
-	$fake_cons_id=abs(crc32($postcode)%630);
- 	$query = "select name from constituency where main_name and cons_id = '".$fake_cons_id."'";
-	$q2 = $db->query($query);
-	if ($q2->rows <= 0)
-		return false;
-
-	return $q2->field(0, "name");
 }
 
 function postcode_to_constituency_internal($postcode, $mp_only=true) {
@@ -88,20 +65,20 @@ function postcode_to_constituency_internal($postcode, $mp_only=true) {
 	}
 
     # So as not to disturb Scot/NI lookup
-    if ($mp_only) {
-        $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($postcode)));
-        if ($xml) {
-            if ($xml->error) return '';
-            return array('WMC' => iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency));
-        }
-    }
+    #if ($mp_only) {
+    #    $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($postcode)));
+    #    if ($xml) {
+    #        if ($xml->error) return '';
+    #        return array('WMC' => iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency));
+    #    }
+    #}
 
 	# $pid = getmypid();
 	# $tracefn = '/tmp/apache.ktrace.' . getmicrotime();
 	# system("/home/fawkes/bin/ktracewrap -p $pid -f " . $tracefn);
 
-	$filename = POSTCODE_SEARCH_PATH .  urlencode($postcode);
-	$ch = curl_init('http://' . POSTCODE_SEARCH_DOMAIN . $filename);
+	$filename = '/postcode/' . rawurlencode($postcode);
+	$ch = curl_init('http://mapit.mysociety.org' . $filename);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
 	curl_setopt($ch, CURLOPT_TIMEOUT, 10);
@@ -115,15 +92,15 @@ function postcode_to_constituency_internal($postcode, $mp_only=true) {
 	curl_close($ch);
 	#unlink($tracefn);
 
-	if (!preg_match('#<areas>#', $file, $m)) {
+	$r = json_decode($file, true);
+	if (!$file || isset($r['error'])) {
 		trigger_error("Postcode database is not working. Content:\n".$file.", request: ". $filename, E_USER_WARNING);
 		return '';
 	}
-	preg_match_all('#<name type="(.*?)">(.*?)</name>#', $file, $m, PREG_SET_ORDER);
 	$areas = array();
-	foreach ($m as $row) {
-		if ($row[1]=='WMC' || $row[1]=='SPC' || $row[1]=='SPE' || $row[1]=='NIE')
-			$areas[$row[1]] = $row[2];
+	foreach ($r['areas'] as $row) {
+		if (in_array($row['type'], array('WMC', 'SPC', 'SPE', 'NIE')))
+			$areas[$row['type']] = $row['name'];
 	}
 
 	if (!isset($areas['WMC'])) {
