@@ -6,12 +6,10 @@ function api_getMPs_front() {
 ?>
 <p><big>Fetch a list of MPs.</big></p>
 
-<p class="informational left">
-This API call is <strong>not</strong> broken. There are no MPs from when
-Parliament is dissolved until the general election, and so
-this call will return no results for a default lookup.
-If you wish to have a list of MPs as they were on the date of dissolution,
-please specify a date parameter of 2010-04-12.
+<p>
+Note that during the period before a general election
+when there are no MPs, this call will correctly return no results
+for a default (today) lookup.
 </p>
 
 <h4>Arguments</h4>
