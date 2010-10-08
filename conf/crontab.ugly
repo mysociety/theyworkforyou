@@ -7,12 +7,7 @@
 # $Id: crontab.ugly,v 1.13 2010-01-29 20:11:48 matthew Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
-
-!!(* if ($user eq 'matthew') { *)!!
-MAILTO=matthew@mysociety.org
-!!(* } else { *)!!
-MAILTO=team@theyworkforyou.com
-!!(* } *)!!
+MAILTO=cron-!!(*= $site *)!!@mysociety.org
 
 !!(* if (!$staging || $user eq 'matthew') { *)!!
 
