@@ -7,9 +7,7 @@ $email_text = '';
 # XXX global $searchstring is horrible
 global $SEARCHENGINE, $searchstring;
 if ($SEARCHENGINE) {
-	$person_id = get_http_var('pid');
-	$email_link = '/alert/?' . ($searchstring ? 'alertsearch='.urlencode($searchstring) : '') .
-		($person_id ? '&amp;pid='.urlencode($person_id) : '');
+	$email_link = '/alert/?' . ($searchstring ? 'alertsearch='.urlencode($searchstring) : '');
 	$email_text = $SEARCHENGINE->query_description_long();
 }
 
