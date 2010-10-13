@@ -103,7 +103,7 @@ function postcode_to_constituency_internal($postcode, $mp_only=true) {
     $areas = array();
     foreach ($r['areas'] as $row) {
         if (in_array($row['type'], array('WMC', 'SPC', 'SPE', 'NIE')))
-            $areas[$row['type']] = $row['name'];
+            $areas[$row['type']] = utf8_decode($row['name']);
     }
 
     if (!isset($areas['WMC'])) {
