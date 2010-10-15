@@ -16,7 +16,8 @@ import shutil
 URL="http://theyworkforyouelection.appspot.com/remote_api"
 EMAIL="election@theyworkforyou.com"
 
-BACKUPS_DIR = '/data/backups/'
+BACKUPS_DIR = os.getenv("BACKUP_DIRECTORY")
+
 BACKUP_FILE_NAME = "theyworkforyouelection.googleappengine.sqlite3"
 GAE_BACKUP_DIRECTORY = os.path.join(BACKUPS_DIR, BACKUP_FILE_NAME)
 
