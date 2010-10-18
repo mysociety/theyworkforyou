@@ -60,7 +60,6 @@ private function change_video(id:String, time:int):void {
 private function init():void {
     gid = Application.application.parameters.gid;
     stamping = Application.application.parameters.stamping;
-    change_video(Application.application.parameters.file, int(Application.application.parameters.start));
     
     video.addEventListener('metadataReceived', video_onMetaData);
     ExternalInterface.addCallback('currentTime', currentTime);
@@ -127,6 +126,9 @@ private function video_playheadUpdate():void {
 private function video_play():void {
     go.label = 'Now!';
     go.styleName = 'nowStyle';
+    if (!videoSource) {
+        change_video(Application.application.parameters.file, int(Application.application.parameters.start));
+    }
     video.play();
     playing = true;
 }
