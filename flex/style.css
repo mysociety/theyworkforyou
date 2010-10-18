@@ -1,7 +1,3 @@
-#video {
-    background-image: Embed("assets/preview-logo.jpg");
-}
-                            
 Application {
     paddingTop: 0;
     paddingRight: 0;
@@ -9,6 +5,10 @@ Application {
     paddingLeft: 0;
 }
 
+VideoDisplay {
+    background-image: Embed("assets/preview-logo.jpg");
+}
+                            
 @font-face {
     src:url("assets/arial.ttf");
     font-family: Arial;
