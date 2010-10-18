@@ -1,3 +1,7 @@
+#video {
+    background-image: Embed("assets/preview-logo.jpg");
+}
+                            
 Application {
     paddingTop: 0;
     paddingRight: 0;

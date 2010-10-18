@@ -31,7 +31,7 @@ public function moveVideoExt(moveGID:String):int {
                 change_video(stamp.file, stamp.time);
                 video_play(); // Otherwise the old video continues to play...
             } else {
-                seek(stamp.time, true, false);
+                seek(stamp.time, true);
             }
             return 1;
         }
@@ -82,7 +82,6 @@ private function stampsArrived():void {
 
 public var times:Array = [];
 public var filepositions:Array = [];
-private var firstLoad:Boolean = true;
 
 [Bindable]
 public var _duration:int = 0;
@@ -93,11 +92,7 @@ private function video_onMetaData(evt:MetadataEvent):void {
     times = evt.info.keyframes.times;
     filepositions = evt.info.keyframes.filepositions;
     if (times && filepositions && startAt>0 && startAt<_duration) {
-        playing = true;
-        if (firstLoad)
-            video.volume = 0;
-        seek(startAt, true, firstLoad);
-        firstLoad = false;
+        seek(startAt, false);
     }
 }
 
@@ -159,7 +154,7 @@ private function stopButton_click():void {
     playing = false;
     video.stop();
     if (startAt>0 && startAt<_duration) {
-        seek(startAt, false, false);
+        seek(startAt, false);
     } else {
         videoSource = 'http://' + hostname + '/' + fileID + '.flv?start=0';
     }
@@ -221,7 +216,7 @@ private function scrubToolTip(val:String):String {
 }
 
 private function video_thumbRelease():void {
-    seek(scrubBar.value, true, false);
+    seek(scrubBar.value, true);
 }
 
 private function seekBack_click(offset:int):void {
@@ -233,7 +228,7 @@ private function seekBack_click(offset:int):void {
         video_play();
         return;
     }
-    seek(video.playheadTime - offset, false, false);
+    seek(video.playheadTime - offset, false);
     var alarmTimer:Timer = new Timer(1000,1);
     alarmTimer.addEventListener(TimerEvent.TIMER, onSeekAlarm);
     alarmTimer.start();
@@ -247,7 +242,7 @@ private function seekFwd_click(offset:int):void {
         video_play();
         return;
     }
-    seek(video.playheadTime + offset, false, false);
+    seek(video.playheadTime + offset, false);
     var alarmTimer:Timer = new Timer(1000,1);
     alarmTimer.addEventListener(TimerEvent.TIMER, onSeekAlarm);
     alarmTimer.start();
@@ -262,7 +257,7 @@ private function onSeekAlarm(evt:TimerEvent):void {
 
 private var _beginning:int = 0;
 
-private function seek(s:int, startImmediately:Boolean, veryFirstLoad:Boolean):void {
+private function seek(s:int, startImmediately:Boolean):void {
     //if (s >= 16770) {
     //    stopButton_click();
     //    Alert.show("Sorry, there is currently a bug going past 4:39:36 on any video.");
@@ -276,19 +271,9 @@ private function seek(s:int, startImmediately:Boolean, veryFirstLoad:Boolean):vo
         videoSource = 'http://' + hostname + '/' + fileID + '.flv?start=' + filepositions[pos];
         _beginning = times[pos];
     }
-    if (veryFirstLoad) {
-        var alarmTimer:Timer = new Timer(500,1);
-        alarmTimer.addEventListener(TimerEvent.TIMER, onFirstAlarm);
-        alarmTimer.start();
-    }
     if (startImmediately || playing) {
         video_play();
     }
-}
-
-private function onFirstAlarm(evt:TimerEvent):void {
-    video_pause();
-    video.volume = 0.75;
 }
 
 // Roll-over pretty controls
