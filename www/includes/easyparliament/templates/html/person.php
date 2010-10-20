@@ -756,7 +756,7 @@ function person_register_interests($member, $extra_info) {
 		echo format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
 		echo '. ';
 	}
-	echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/061106/memi01.htm">More about the Register</a>';
+	echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm">More about the Register</a>';
 	echo '</p>';
 	print '<p><strong><a href="' . WEBPATH . 'regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
 }
