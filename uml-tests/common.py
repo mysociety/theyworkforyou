@@ -316,7 +316,7 @@ def generate_thumbnail_version(original_image_filename):
 
 def render_page(page_path,output_image_filename):
     return 0 == call(["./cutycapt/CutyCapt/CutyCapt",
-                      "--url=http://"+configuration['UML_SERVER_HOSTNAME']+page_path,
+                      "--url=http://"+configuration['UML_SERVER_HOSTNAME']+":8042"+page_path,
                       "--javascript=off",
                       "--plugins=off",
                       "--out="+output_image_filename])
