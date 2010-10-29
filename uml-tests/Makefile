@@ -1,4 +1,4 @@
 .PHONY : all
 
 all :
-	( cd cutycapt/CutyCapt && qmake && $$MAKE )
+	( cd cutycapt/CutyCapt && qmake && make )
