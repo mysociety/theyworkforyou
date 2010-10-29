@@ -271,7 +271,8 @@ def rsync_from_guest(source,destination,user="alice",exclude_git=False,verbose=T
                       "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user)+" -p "+configuration['SSH_PORT'],
                       user+"@"+configuration['UML_SERVER_IP']+":"+source,
                       destination ]
-    print "##".join(full_command)
+    # print "##".join(full_command)
+    print trim_string("Running: rsync [...] "+source+" "+destination)
     return call(full_command)
 
 # FIXME: untested
