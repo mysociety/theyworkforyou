@@ -64,7 +64,7 @@ run_page_test(change_page_test,
               test_name="Checking forget postcode prompt appears",
               test_short_name="change-forget-postcode-prompt")
 
-change_postcode_test = run_http_test("/postcode/?pc=CB2%202RP&submit=GO",
+change_postcode_test = run_http_test("/postcode/?pc=CB2%208RP&submit=GO",
                                      test_name="Changing postcode",
                                      test_short_name="change-postcode",
                                      browser=browser)
