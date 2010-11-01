@@ -28,11 +28,8 @@ def add_instrumentation(www_directory):
         raise Exception, "Failed to 'git add' the instrument.php file"
     if 0 != ssh("cd "+www_directory+" && git add -u"):
         raise Exception, "Failed to run git add -u"
-    if 0 == ssh("cd && git diff --cached --exit-code"):
-        # Then there are no differences staged - don't bother committing
-        pass
-    else:
-        # Now commit those changes:
+    if 0 != ssh("cd "+www_directory+" && git diff --cached --exit-code"):
+        # Then there are changes to be committed:
         if 0 != ssh("cd "+www_directory+" && git commit -m 'Add instrumentation to every PHP file'"):
             raise Exception, "Failed to commit the addition of instrumentation"
     return [ x for x in instrumented_files if len(x.strip()) > 0 ]
