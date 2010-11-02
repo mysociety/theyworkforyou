@@ -433,9 +433,14 @@ function person_voting_record($member, $extra_info) {
 
 	if ($got_dream) {
 		$displayed_stuff = 1;
+        if ($member['entered_house'][1]['date'] > '2001-06-07') {
+            $since = '';
+        } else {
+            $since = ' since 2001';
+        }
 ?>
 
-<p id="howvoted">How <?=$member['full_name']?> voted on key issues since 2001:</p>
+<p id="howvoted">How <?=$member['full_name']?> voted on key issues<?=$since?>:</p>
 <ul id="dreamcomparisons">
 <?=$got_dream ?>
 </ul>
