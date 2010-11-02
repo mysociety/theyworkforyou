@@ -391,7 +391,7 @@ function person_voting_record($member, $extra_info) {
     # ID, display string, MP only
     $policies = array(
 	    array(996, "a <strong>transparent Parliament</strong>"),
-		array(811, "introducing a <strong>smoking ban</strong>", true),
+		array(811, "a <strong>smoking ban</strong>", true),
 		array(1051, "introducing <strong>ID cards</strong>"),
 		array(363, "introducing <strong>foundation hospitals</strong>"),
 		array(1052, "introducing <strong>student top-up fees</strong>"),
