@@ -28,7 +28,7 @@
 *)!!
 
 !!(*
-    my $port = 80;
+    my $port = 8042;
     if ($https) {
         print "SSLCertificateFile /etc/apache2/ssl.crt/$vhost.crt\n";
         print "SSLCertificateKeyFile /etc/apache2/ssl.key/$vhost.key\n";
