@@ -293,7 +293,7 @@ if (isset ($data['rows'])) {
 				if($data['info']['major'] == 101 || $data['info']['major'] == 1){
 				    echo '<li><a href="' . $speaker['url'] . '#votingrecord">View voting record</a></li>';												    
 			    }
-				echo '<li><a href="' . $speaker['url'] . '#hansard">Most recent apperances</a></li>';				
+				echo '<li><a href="' . $speaker['url'] . '#hansard">Most recent appearances</a></li>';				
 				echo '<li><a href="' . $speaker['url'] . '#numbers">Numerology</a></li>';								
 				echo '<li><strong><a href="' . $speaker['url'] . '">Full profile ...</a></strong></li>';												
 				echo '</ul></div>';
