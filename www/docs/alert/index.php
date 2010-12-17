@@ -285,7 +285,13 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
     if ($details['alertsearch']) {
         echo '<ul class="hilites"><li>';
         echo $form_start . '<input type="hidden" name="keyword" value="' . htmlspecialchars($details['alertsearch']) . '">';
-        echo 'Mentions of [' . htmlspecialchars($details['alertsearch']) . '] ';
+        echo 'Mentions of [';
+		$alertsearch = $details['alertsearch'];
+        if (preg_match('#speaker:(\d+)#', $alertsearch, $m)) {
+			$MEMBER = new MEMBER(array('person_id'=>$m[1]));
+		    $alertsearch = str_replace("speaker:$m[1]", "speaker:" . $MEMBER->full_name(), $alertsearch);
+        }
+        echo htmlspecialchars($alertsearch) . '] ';
         echo ' <input type="submit" value="Subscribe"></form>';
         echo "</li></ul>";
     }
@@ -300,7 +306,13 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
 
     if ($details['keyword']) {
         echo '<ul class="hilites"><li>';
-        echo 'Signing up for results from a search for [' . htmlspecialchars($details['keyword']) . ']';
+        echo 'Signing up for results from a search for [';
+		$alertsearch = $details['keyword'];
+        if (preg_match('#speaker:(\d+)#', $alertsearch, $m)) {
+			$MEMBER = new MEMBER(array('person_id'=>$m[1]));
+		    $alertsearch = str_replace("speaker:$m[1]", "speaker:" . $MEMBER->full_name(), $alertsearch);
+        }
+        echo htmlspecialchars($alertsearch) . ']';
         echo "</li></ul>";
     }
 

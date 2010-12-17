@@ -5,16 +5,11 @@ include_once 'api_getGeometry.php';
 
 function api_getBoundary_front() {
 ?>
-<p><big>Returns boundary information for a constituency.</big></p>
+<p><big>Returns KML file for a constituency.</big></p>
 
-<p>Returns the bounding polygon of the constituency, in latitude and longitude
-coordinates (WGS84). Note that some constituencies have multiple parts to their
-polygon, including holes in polygons. The return value is an array of these
-parts.</p>
-
-<p>Each part is an associative array containing two values. The 'points' one is
-an array of pairs of latitude, longitude. The 'sense' field gives the
-direction of that part of the polygon, whether it adds or subtracts from the area.</p>
+<p>Returns the bounding polygon of the constituency, in KML format (see <a
+href="http://mapit.mysociety.org/">mapit.mysociety.org</a> for other formats,
+past constituency boundaries, and so on).</p>
 
 <h4>Arguments</h4>
 <dl>
@@ -45,10 +40,7 @@ function api_getBoundary_name($name) {
 		api_error('No data found for name');
 		return;
 	}
-	$out = mapit_get_voting_area_geometry($id, 'wgs84');
-	if (isset($out['polygon']))
-		api_output($out['polygon']);
-	else
-		api_error('Nothing returned from get_voting_areas_geometry');
+    header("Location: http://mapit.mysociety.org/area/4326/$id.kml");
+    exit;
 }
 

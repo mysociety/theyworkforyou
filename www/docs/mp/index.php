@@ -355,7 +355,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
                 $lon = $geometry['centre_lon'];
             }
             if ($lat && $lon) {
-                $nearby_consts = _api_getConstituencies_latitude($lat, $lon, 300);
+                $nearby_consts = 0; #_api_getConstituencies_latitude($lat, $lon, 300); XXX Currently disabled
                 if ($nearby_consts) {
                     $conlist = '<ul><!-- '.$lat.','.$lon.' -->';
                     for ($k=1; $k<=min(5, count($nearby_consts)-1); $k++) {

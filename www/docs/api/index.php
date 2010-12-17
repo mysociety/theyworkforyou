@@ -219,7 +219,7 @@ use the API.
 
 <p>These help you interface with the API more easily in a particular language:</p>
 <ul>
-<li><a href="http://codefluency.com/articles/2006/11/21/tfwy-1-0-0-released/">Ruby</a> (thanks to Bruce Williams and Martin Owen)</li>
+<li><a href="http://github.com/bruce/twfy">Ruby</a> (thanks to Bruce Williams and Martin Owen)</li>
 <li><a href="http://search.cpan.org/perldoc?WebService::TWFY::API">Perl</a> (thanks to Spiros Denaxas)</li>
 <li><a href="http://tools.rubenarakelyan.com/twfyapi/">PHP</a> (thanks to Ruben Arakelyan)</li>
 <li><a href="http://code.google.com/p/twfython/">Python</a> (thanks to Paul Doran)</li>

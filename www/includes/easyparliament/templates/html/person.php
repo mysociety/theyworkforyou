@@ -349,12 +349,13 @@ function person_internal_links($member, $extra_info) {
 }
 
 function display_dream_comparison($extra_info, $member, $dreamid, $desc, $inverse=false) {
+    $out = '';
 	if (isset($extra_info["public_whip_dreammp${dreamid}_distance"])) {
 		if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 0) {
 			$dmpdesc = 'Has <strong>never voted</strong> on';
 		} else {
 			$dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
-			print "<!-- distance $dreamid: $dmpscore -->";
+			$out .= "<!-- distance $dreamid: $dmpscore -->";
 			if ($inverse) 
 				$dmpscore = 1.0 - $dmpscore;
 			$english = score_to_strongly($dmpscore);
@@ -366,16 +367,13 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
 			// How many votes Dream MP and MP both voted (and didn't abstain) in
 			// $extra_info["public_whip_dreammp${dreamid}_both_voted"];
 		}
-?>
-		<li><?=$dmpdesc?> <?=$desc?>. 
-<small class="unneededprintlinks"> 
-<a href="http://www.publicwhip.org.uk/mp.php?mpid=<?=$member['member_id']?>&amp;dmp=<?=$dreamid?>">votes</a>
+        $out .= "<li>$dmpdesc $desc. 
+<small class='unneededprintlinks'> 
+<a href='http://www.publicwhip.org.uk/mp.php?mpid=$member[member_id]&amp;dmp=$dreamid'>votes</a>
 </small>
-		</li>
-<?php
-		return true;
+		</li>";
 	}
-	return false;
+	return $out;
 }
 
 # Display the person's voting record on various issues.
@@ -390,61 +388,62 @@ function person_voting_record($member, $extra_info) {
 		echo "<p>As $art $member[party], $member[full_name] cannot vote (except to break a tie).</p>";
 	}
 
-	if (isset($extra_info["public_whip_dreammp230_distance"]) || isset($extra_info["public_whip_dreammp996_distance"])) { # XXX
-		$displayed_stuff = 1;
-?>
+    # ID, display string, MP only
+    $policies = array(
+	    array(996, "a <strong>transparent Parliament</strong>"),
+		array(811, "a <strong>smoking ban</strong>", true),
+		array(1051, "introducing <strong>ID cards</strong>"),
+		array(363, "introducing <strong>foundation hospitals</strong>"),
+		array(1052, "introducing <strong>student top-up fees</strong>"),
+		array(1053, "Labour's <strong>anti-terrorism laws</strong>", true),
+		array(1049, "the <strong>Iraq war</strong>"),
+		# array(975, "an <strong>investigation</strong> into the Iraq war"), XXX See code below
+		array(984, "replacing <strong>Trident</strong>"),
+		array(1050, "the <strong>hunting ban</strong>"),
+		array(826, "equal <strong>gay rights</strong>"),
+		array(1030, "laws to <strong>stop climate change</strong>"),
+		array(1074, "greater <strong>autonomy for schools</strong>"),
+		array(1071, "allowing ministers to <strong>intervene in inquests</strong>"),
+		array(1079, "removing <strong>hereditary peers</strong> from the House of Lords"),
+        array(1087, "a <strong>stricter asylum system</strong>"),
+        array(1065, "more <strong>EU integration</strong>"),
+		# array(837, "a <strong>wholly elected</strong> House of Lords"), XXX See code below
+        # Unfinished
+		# array(856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>"),
+		# array(1080, "government budgets and associated measures"),
+		# array(1077, "equal extradition terms with the US"),
+    );
+    shuffle($policies);
 
-<p id="howvoted">How <?=$member['full_name']?> voted on key issues since 2001:</p>
-<ul id="dreamcomparisons">
-<?
-        # ID, display string, MP only
-        $policies = array(
-			array(996, "a <strong>transparent Parliament</strong>"),
-			array(811, "introducing a <strong>smoking ban</strong>", true),
-			array(1051, "introducing <strong>ID cards</strong>"),
-			array(363, "introducing <strong>foundation hospitals</strong>"),
-			array(1052, "introducing <strong>student top-up fees</strong>"),
-			array(1053, "Labour's <strong>anti-terrorism laws</strong>", true),
-			array(1049, "the <strong>Iraq war</strong>"),
-			# array(975, "an <strong>investigation</strong> into the Iraq war"), XXX See code below
-			array(984, "replacing <strong>Trident</strong>"),
-			array(1050, "the <strong>hunting ban</strong>"),
-			array(826, "equal <strong>gay rights</strong>"),
-			array(1030, "laws to <strong>stop climate change</strong>"),
-			array(1074, "greater <strong>autonomy for schools</strong>"),
-			array(1071, "allowing ministers to <strong>intervene in inquests</strong>"),
-			array(1079, "removing <strong>hereditary peers</strong> from the House of Lords"),
-            array(1087, "a <strong>stricter asylum system</strong>"),
-            array(1065, "more <strong>EU integration</strong>"),
-			# array(837, "a <strong>wholly elected</strong> House of Lords"), XXX See code below
-            # Unfinished
-		    # array(856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>"),
-		    # array(1080, "government budgets and associated measures"),
-		    # array(1077, "equal extradition terms with the US"),
-        );
-        shuffle($policies);
+    $joined = array(
+        1079 => array(837, "a <strong>wholly elected</strong> House of Lords"),
+        1049 => array(975, "an <strong>investigation</strong> into the Iraq war"),
+    );
 
-        $joined = array(
-            1079 => array(837, "a <strong>wholly elected</strong> House of Lords"),
-            1049 => array(975, "an <strong>investigation</strong> into the Iraq war"),
-        );
-
-		$got_dream = false;
-        foreach ($policies as $policy) {
-            if (isset($policy[2]) && $policy[2] && !in_array(1, $member['houses']))
-                continue;
-		    $got_dream |= display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
-            if (isset($joined[$policy[0]])) {
-			    $policy = $joined[$policy[0]];
-		        $got_dream |= display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
-            }
+	$got_dream = '';
+    foreach ($policies as $policy) {
+        if (isset($policy[2]) && $policy[2] && !in_array(1, $member['houses']))
+            continue;
+	    $got_dream .= display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
+        if (isset($joined[$policy[0]])) {
+		    $policy = $joined[$policy[0]];
+	        $got_dream .= display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
         }
+    }
 
-		if (!$got_dream) {
-			print "<li>" . $member['full_name'] . " has not voted enough in this parliament to have any scores.</li>";
-		}
-		print '</ul>';
+	if ($got_dream) {
+		$displayed_stuff = 1;
+        if (in_array(1, $member['houses']) && $member['entered_house'][1]['date'] > '2001-06-07') {
+            $since = '';
+        } else {
+            $since = ' since 2001';
+        }
 ?>
+
+<p id="howvoted">How <?=$member['full_name']?> voted on key issues<?=$since?>:</p>
+<ul id="dreamcomparisons">
+<?=$got_dream ?>
+</ul>
 <p class="italic">
 <small>Read about <a href="<?=WEBPATH ?>help/#votingrecord">how the voting record is decided</a>.</small>
 </p>
@@ -566,7 +565,7 @@ function person_committees_and_topics($member, $extra_info) {
 	}
 	
 	if ($topics_block_empty) {
-		print "<p><em>This MP is not currently on any select or public bill committee
+		print "<p><em>This MP is not currently on any public bill committee
 and has had no written questions answered for which we know the department or subject.</em></p>";
 	}
 
@@ -756,7 +755,7 @@ function person_register_interests($member, $extra_info) {
 		echo format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
 		echo '. ';
 	}
-	echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/061106/memi01.htm">More about the Register</a>';
+	echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm">More about the Register</a>';
 	echo '</p>';
 	print '<p><strong><a href="' . WEBPATH . 'regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
 }

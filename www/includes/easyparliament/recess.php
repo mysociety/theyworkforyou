@@ -122,9 +122,25 @@ $GLOBALS['recessdates'][1] = array(
         2=>array('between'=>array(10,22)),
         3=>array('more'=>30),
         4=>array('less'=>6, 'more'=>8),
-		5=>array('less'=>18),
+		5=>array('less'=>18, 'more'=>27),
+        6=>array('less'=>2),
+        7=>array('more'=>27),
+        8=>array('all'=>1),
+        9=>array('less'=>6, 'more'=>16),
+        10=>array('less'=>11),
+        12=>array('more'=>21),
+    ),
+    2011 => array(
+        1=>array('less'=>10),
     ),
 );
+# Lords differences
+$GLOBALS['recessdates'][101] = $GLOBALS['recessdates'][1];
+$GLOBALS['recessdates'][101][2010][5]['more'] = 26;
+$GLOBALS['recessdates'][101][2010][7]['more'] = 28;
+$GLOBALS['recessdates'][101][2010][9] = array('all'=>1);
+$GLOBALS['recessdates'][101][2010][10]['less'] = 5;
+$GLOBALS['recessdates'][101][2010][12]['more'] = 22;
 
 /* Scottish Parliament */
 $GLOBALS['recessdates'][4] = array(
@@ -289,17 +305,17 @@ function recess_prettify($day, $month, $year, $body) {
 	|| (isset($dates[$year][$month]['between'][2]) && $day > $dates[$year][$month]['between'][2] && $day < $dates[$year][$month]['between'][3]) ) {
 		switch ($month) {
 			case 1: case 12: $recess = 'Christmas Recess'; break;
-			case 2: if ($body==1) $recess = 'Half Term Week';
+			case 2: if ($body==1 || $body==101) $recess = 'Half Term Week';
 				elseif ($body==4) $recess = 'February Recess';
 				break;
-			case 3: if ($body==1) $recess = 'Easter Recess';
+			case 3: if ($body==1 || $body==101) $recess = 'Easter Recess';
 				elseif ($body==4) $recess = 'Spring Recess';
 				break;
 			case 4: if (isset($dates[$year][$month]['more']) && $day > $dates[$year][$month]['more']) {
 					$recess = 'Election Recess';
 				} elseif ($body==4 && $year==2003) {
 					$recess = 'Election Recess';
-				} elseif ($body==1) {
+				} elseif ($body==1 || $body==101) {
 					$recess = 'Easter Recess';
 				} elseif ($body==4) {
 					$recess = 'Spring Recess';
@@ -313,7 +329,7 @@ function recess_prettify($day, $month, $year, $body) {
 				break;
 			case 6: if ($year==2001) {
 					$recess = 'Election Recess';
-				} elseif ($body==1) {
+				} elseif ($body==1 || $body==101) {
 					$recess = 'Whit Recess';
 				} elseif ($body==4) {
 					$recess = 'Summer Recess';
@@ -325,13 +341,13 @@ function recess_prettify($day, $month, $year, $body) {
 				break;
 			case 9: if (isset($dates[$year][$month]['less']) && $day < $dates[$year][$month]['less']) {
 					$recess = 'Summer Recess';
-				} elseif ($body==1) {
+				} elseif ($body==1 || $body==101) {
 					$recess = 'Conference Recess';
 				} else {
 					trigger_error("Argh9");
 				}
 				break;
-			case 10: if ($body==1) $recess = 'Conference Recess';
+			case 10: if ($body==1 || $body==101) $recess = 'Conference Recess';
 				elseif ($body==4) $recess = 'Autumn Recess';
 				elseif ($body==5) $recess = 'Halloween Recess';
 				break;

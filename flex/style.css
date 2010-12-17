@@ -5,6 +5,10 @@ Application {
     paddingLeft: 0;
 }
 
+VideoDisplay {
+    background-image: Embed("assets/preview-logo.jpg");
+}
+                            
 @font-face {
     src:url("assets/arial.ttf");
     font-family: Arial;

@@ -94,9 +94,6 @@ $PAGE->stripe_start("full");
         		<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
         		</form>
         	<?php
-        		if (!defined("POSTCODE_SEARCH_DOMAIN") || !POSTCODE_SEARCH_DOMAIN) {
-        			print '<p align="right"><em>Postcodes are being mapped to a random MP</em></p>';
-        		}
         	}
         	echo '<p>Read debates they&rsquo;ve taken part in, see how they voted, sign up for an email alert, and more.</p>';
         ?>

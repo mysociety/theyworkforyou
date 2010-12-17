@@ -139,6 +139,8 @@ if (isset($data['years'])) {
                     $recess_major = 5;
                 elseif ($hansardmajors[$data['info']['major']]['location'] == 'Scotland')
                     $recess_major = 4; # For all of Scotland
+                elseif ($data['info']['major'] == 101)
+                    $recess_major = 101; # Lords slightly different
                 $recess = recess_prettify($currentDay, $month, $year, $recess_major);
 
 				// Is this day actually Today in the real world?

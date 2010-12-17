@@ -397,8 +397,8 @@ class ALERT {
 			}
 		}
 		$criteria = '';
-		if (count($words)) $criteria .= ($html?'<li>':'* ') . 'Containing the ' . make_plural('word', count($words)) . ': ' . join(' ', $words) . ($html?'</li>':'') . "\n";
-		if ($spokenby) $criteria .= ($html?'<li>':'* ') . "Spoken by $spokenby" . ($html?'</li>':'') . "\n";
+		if (count($words)) $criteria .= ($html?'<li>':'* ') . 'Mentions of [' . join(' ', $words) . ']' . ($html?'</li>':'') . "\n";
+		if ($spokenby) $criteria .= ($html?'<li>':'* ') . "Things by $spokenby" . ($html?'</li>':'') . "\n";
 		return $criteria;
 	}
 
