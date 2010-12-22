@@ -29,7 +29,7 @@ def check_dependencies(check_group=True,user_and_group=None):
                           "openssh-client",
                           "curl",
                           "e2fsprogs",
-                          "python2.6-minimal",
+                          "python-minimal",
                           "python-beautifulsoup",
                           "wdg-html-validator",
                           "sgml-data",
