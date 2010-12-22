@@ -616,7 +616,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label"><label for="postcode">Your UK postcode:</label></span>
-				<span class="formw"><input type="postcode" name="postcode" id="postcode" value="<?php if (isset($details["postcode"])) { echo htmlentities($details["postcode"]); } ?>" maxlength="10" size="10" class="form"> <small>Optional and not public</small></span>
+				<span class="formw"><input type="text" name="postcode" id="postcode" value="<?php if (isset($details["postcode"])) { echo htmlentities($details["postcode"]); } ?>" maxlength="10" size="10" class="form"> <small>Optional and not public</small></span>
 				</div>
 
 <?php
@@ -626,7 +626,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label"><label for="url">Your website:</label></span>
-				<span class="formw"><input type="url" name="url" id="url" value="<?php if (isset($details['url'])) { echo htmlentities($details['url']); } ?>" maxlength="255" size="20" class="form"> <small>Optional and public</small></span>
+				<span class="formw"><input type="text" name="url" id="url" value="<?php if (isset($details['url'])) { echo htmlentities($details['url']); } ?>" maxlength="255" size="20" class="form"> <small>Optional and public</small></span>
 				</div>
 
 

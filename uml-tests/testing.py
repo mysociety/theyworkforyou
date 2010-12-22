@@ -236,7 +236,7 @@ class HTTPTest(Test):
         self.render_succeeded = False
         self.parsing_succeeded = False
         self.no_error_check_succeeded = False
-        self.render = render
+        self.render = False
         self.check_for_error_element = check_for_error_element
         self.error_message = ""
         self.browser = browser

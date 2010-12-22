@@ -29,7 +29,7 @@ def check_dependencies(check_group=True,user_and_group=None):
                           "openssh-client",
                           "curl",
                           "e2fsprogs",
-                          "python2.6-minimal",
+                          "python-minimal",
                           "python-beautifulsoup",
                           "wdg-html-validator",
                           "sgml-data",
@@ -315,7 +315,9 @@ def generate_thumbnail_version(original_image_filename):
     return thumbnail_filename
 
 def render_page(page_path,output_image_filename):
-    return 0 == call(["./cutycapt/CutyCapt/CutyCapt",
+    return 0 == call(["xvfb-run",
+                      '--server-args="-screen 0, 1024x768x24"',
+                      "./cutycapt/CutyCapt/CutyCapt",
                       "--url=http://"+configuration['UML_SERVER_HOSTNAME']+":8042"+page_path,
                       "--javascript=off",
                       "--plugins=off",
@@ -341,7 +343,7 @@ def save_page(url,output_html_filename,url_opener=None,post_parameters=None):
             fp.write(html)
             fp.close()
         except urllib2.URLError, e:
-            print >> sys.stderr, "Got an error when fetcing the page with urllib2: "+str(e)
+            print >> sys.stderr, "Got an error when fetching the page with urllib2: %s %s" % (e, full_url) 
             return False
         return True
     else:

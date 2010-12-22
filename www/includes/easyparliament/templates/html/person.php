@@ -394,7 +394,7 @@ function person_voting_record($member, $extra_info) {
 		array(811, "a <strong>smoking ban</strong>", true),
 		array(1051, "introducing <strong>ID cards</strong>"),
 		array(363, "introducing <strong>foundation hospitals</strong>"),
-		array(1052, "introducing <strong>student top-up fees</strong>"),
+		# array(1052, "introducing <strong>student top-up fees</strong>"),
 		array(1053, "Labour's <strong>anti-terrorism laws</strong>", true),
 		array(1049, "the <strong>Iraq war</strong>"),
 		# array(975, "an <strong>investigation</strong> into the Iraq war"), XXX See code below

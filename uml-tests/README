@@ -30,7 +30,7 @@ The important scripts are:
   ./start-server.py
 
       This script starts up the UML machine; this is called anyway by
-      ./setup-mysociety-deploy so you will need to use this often.
+      ./setup-mysociety-deploy so you will not need to use this often.
 
   ./ssh-root
   ./ssh-alice
