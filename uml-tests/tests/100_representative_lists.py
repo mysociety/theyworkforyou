@@ -1,5 +1,5 @@
 from testing import *
-from common import mps_test
+from common_tests import mps_test
 
 # ------------------------------------------------------------------------
 
