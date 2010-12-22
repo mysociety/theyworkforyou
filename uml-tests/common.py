@@ -315,7 +315,9 @@ def generate_thumbnail_version(original_image_filename):
     return thumbnail_filename
 
 def render_page(page_path,output_image_filename):
-    return 0 == call(["./cutycapt/CutyCapt/CutyCapt",
+    return 0 == call(["xvfb-run",
+                      '--server-args="-screen 0, 1024x768x24"',
+                      "./cutycapt/CutyCapt/CutyCapt",
                       "--url=http://"+configuration['UML_SERVER_HOSTNAME']+":8042"+page_path,
                       "--javascript=off",
                       "--plugins=off",
