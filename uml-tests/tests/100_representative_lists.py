@@ -21,7 +21,7 @@ def link_from_mp_name(current_test,http_test,name):
 
 def at_least_n_links(current_test,http_test,parent_type,parent_class,min_number):
     all_links = http_test.soup.find(parent_type, parent_class).a
-    current_test.log("There are %s links in parent %s (class %s)" % (len(all_links, parent_type, parent_class)))
+    current_test.log("There are %s links in parent %s (class %s)" % (len(all_links), parent_type, parent_class))
     return len(all_links) >= min_number
 
 run_page_test(mps_test,
