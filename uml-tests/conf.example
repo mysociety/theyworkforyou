@@ -15,3 +15,6 @@ GUEST_GATEWAY=192.168.1.254
 GUEST_NETMASK=255.255.255.0
 # GUEST_NAMESERVER should be the IP address of a working nameserver.
 GUEST_NAMESERVER=212.23.8.1
+# SSH_PORT - the default ports for a UML machine are 8042 (http) and 
+# 2242 (ssh)
+SSH_PORT=2242
