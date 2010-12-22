@@ -1,13 +1,9 @@
 from testing import *
+from common import mps_test
 
 # ------------------------------------------------------------------------
 
-mps_test = run_http_test("/mps/",
-                         test_name="Fetching basic MPs page",
-                         test_short_name="basic-MPs",
-                         render=False) # render fails on a page this size...
-
-# This uses the result of the previous test to check that Diane
+# This uses the result of the common test to check that Diane
 # Abbot (the first MP in this data set) is in the list.
 
 run_page_test(mps_test,
