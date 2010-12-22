@@ -343,7 +343,7 @@ def save_page(url,output_html_filename,url_opener=None,post_parameters=None):
             fp.write(html)
             fp.close()
         except urllib2.URLError, e:
-            print >> sys.stderr, "Got an error when fetcing the page with urllib2: "+str(e)
+            print >> sys.stderr, "Got an error when fetching the page with urllib2: %s %s" % (e, full_url) 
             return False
         return True
     else:
