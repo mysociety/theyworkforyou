@@ -52,8 +52,8 @@ mlas_test = run_http_test("/mlas/",
                           test_short_name="basic-MLAs")
 
 run_page_test(mlas_test,
-              lambda t,o: at_least_n_links(t,o,"table", "people", 100),
-              test_name="At least 100 people in MLAs page",
-              test_short_name="msps-contains-at-least-100-people")
+              lambda t,o: at_least_n_links(t,o,"table", "people", 200),
+              test_name="At least 200 links in MLAs page",
+              test_short_name="msps-contains-at-least-200-links")
 
 # ------------------------------------------------------------------------
