@@ -1,4 +1,4 @@
-#!/usr/bin/python2.6
+#!/usr/bin/python
 
 # This script takes requires a more-or-less basic lenny UML root
 # filesystem image and sets up TWFY on it.  To create a suitable UML
