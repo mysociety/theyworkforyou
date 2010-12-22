@@ -1,6 +1,6 @@
 from browser import *
 from testing import *
-from common import mps_test
+from common_tests import mps_test
 import time
 
 cj, browser = create_cookiejar_and_browser()
