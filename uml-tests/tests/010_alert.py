@@ -6,7 +6,7 @@ import time
 cj, browser = create_cookiejar_and_browser()
 
 def get_first_person_link(current_test,http_test):
-    first_person_link = http_test.soup.find('table','people')[0].find('a')
+    first_person_link = http_test.soup.find('table','people').find('a')
     current_test.log("The first person link is : "+str(first_person_link))
     return first_person_link
     
