@@ -1,49 +1,33 @@
 from browser import *
 from testing import *
+from common import mps_test
 import time
 
 cj, browser = create_cookiejar_and_browser()
-search_hewitt_test = run_http_test("/search/?s=patricia+hewitt",
-                                   test_name="Searching for Patricia Hewitt's page",
-                                   test_short_name="search-hewitt",
-                                   browser=browser)
 
-def find_people_in_search_results(test,old_test):
-    pr = old_test.soup.find( lambda x: x.name == 'div' and ('id','people_results') in x.attrs )
-    if not pr:
-        test.log('Failed to find a div with id="people_results"')
-        return []
-    test.log("Got people_people results div:\n"+pr.prettify())
-    if not pr:
-        test.log('Failed to find a div with id="people_results"')
-        return []
-    results = []
-    all_links = pr.findAll('a')
-    test.log("  all_links of length "+str(len(all_links)))
-    for link in all_links:
-        test.log("  link has attributes: "+str(link.attrs))
-        for t in link.attrs:
-            test.log("    attribute pair: "+str(t))
-            if t[0] == 'href' and not re.search('^/search.*pop',t[1]):
-                tag_contents = non_tag_data_in(link)
-                test.log('Found "'+tag_contents+'"')
-                results.append((t[0],t[1],tag_contents))
-    return results
+def get_first_person_link(current_test,http_test):
+    first_person_link = http_test.soup.table('people').a
+    current_test.log("The first person link is : "+str(first_person_link))
+    return first_person_link
+    
+index_first_person = run_page_test(mps_test,
+              lambda t,o: get_first_person_link(t,o),
+              test_name="Finding the first person in the search results page",
+              test_short_name="search-results-first")
 
-run_page_test(search_hewitt_test,
-              lambda t,o: [ x for x in find_people_in_search_results(t,o) if x[2] == 'Patricia Hewitt' ],
-              test_name="Finding Patricia Hewitt in the search results page",
-              test_short_name="search-results-hewitt")
-
-hewitt_page_test = run_http_test("/mp/patricia_hewitt/leicester_west",
-                                 test_name="Fetching Patricia Hewitt's page",
-                                 test_short_name="fetching-hewitt-page",
-                                 browser=browser)
+if not index_first_person.succeeded():
+    raise Exception, "Couldn't get the first link from the MPs index page"
+    
+first_person_link = index_first_person.test_succeeded['href']
+first_person_page_test = run_http_test(first_person_link,
+                                       test_name="Fetching the first person's page",
+                                       test_short_name="fetching-first-person-page",
+                                       browser=browser)
 
 def link_to_email_alert(t,o):
     return o.soup.find( lambda x: x.name == 'a' and tag_text_is(x,'Email me whenever',substring=True) )
 
-alert_link_test = run_page_test(hewitt_page_test,
+alert_link_test = run_page_test(first_person_page_test,
                                 lambda t,o: link_to_email_alert(t,o),
                                 test_name="Finding email alert link",
                                 test_short_name="find-email-alert-link")
