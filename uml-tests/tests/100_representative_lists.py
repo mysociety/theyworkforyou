@@ -19,6 +19,11 @@ def link_from_mp_name(current_test,http_test,name):
     current_test.log("All the tags with the matching name are: "+str(all_tags))
     return 1 == len(all_tags)
 
+def at_least_n_links(current_test,http_test,parent_type,parent_class,min_number):
+    all_links = http_test.soup.find(parent_type, parent_class).a
+    current_test.log("There are %s links in parent %s (class %s)" % (len(all_links, parent_type, parent_class)))
+    return len(all_links) >= min_number
+
 run_page_test(mps_test,
               lambda t,o: link_from_mp_name(t,o,"Richard Younger-Ross"),
               test_name="Richard Younger-Ross in MPs page",
@@ -47,13 +52,8 @@ mlas_test = run_http_test("/mlas/",
                           test_short_name="basic-MLAs")
 
 run_page_test(mlas_test,
-              lambda t,o: link_from_mp_name(t,o,"Gerry Adams"),
-              test_name="Gerry Adams in MLAs page",
-              test_short_name="msps-contains-gerry-adams")
-
-run_page_test(mlas_test,
-              lambda t,o: link_from_mp_name(t,o,"Sammy Wilson"),
-              test_name="Sammy Wilson in MLAs page",
-              test_short_name="msps-contains-sammy-wilson")
+              lambda t,o: at_least_n_links(t,o,"table", "people", 100),
+              test_name="At least 100 people in MLAs page",
+              test_short_name="msps-contains-at-least-100-people")
 
 # ------------------------------------------------------------------------
