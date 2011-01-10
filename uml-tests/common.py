@@ -29,7 +29,7 @@ def check_dependencies(check_group=True,user_and_group=None):
                           "openssh-client",
                           "curl",
                           "e2fsprogs",
-                          "python2.6-minimal",
+                          "python-minimal",
                           "python-beautifulsoup",
                           "wdg-html-validator",
                           "sgml-data",
@@ -271,7 +271,8 @@ def rsync_from_guest(source,destination,user="alice",exclude_git=False,verbose=T
                       "ssh -l "+user+" -o StrictHostKeyChecking=no -o ControlPath="+user_to_control_file(user)+" -p "+configuration['SSH_PORT'],
                       user+"@"+configuration['UML_SERVER_IP']+":"+source,
                       destination ]
-    print "##".join(full_command)
+    # print "##".join(full_command)
+    print trim_string("Running: rsync [...] "+source+" "+destination)
     return call(full_command)
 
 # FIXME: untested
@@ -314,8 +315,10 @@ def generate_thumbnail_version(original_image_filename):
     return thumbnail_filename
 
 def render_page(page_path,output_image_filename):
-    return 0 == call(["./cutycapt/CutyCapt/CutyCapt",
-                      "--url=http://"+configuration['UML_SERVER_HOSTNAME']+page_path,
+    return 0 == call(["xvfb-run",
+                      '--server-args="-screen 0, 1024x768x24"',
+                      "./cutycapt/CutyCapt/CutyCapt",
+                      "--url=http://"+configuration['UML_SERVER_HOSTNAME']+":8042"+page_path,
                       "--javascript=off",
                       "--plugins=off",
                       "--out="+output_image_filename])
@@ -326,7 +329,7 @@ def save_page(url,output_html_filename,url_opener=None,post_parameters=None):
         # Then it's a full URL:
         full_url = url
     else:
-        full_url = "http://"+configuration['UML_SERVER_HOSTNAME']+url
+        full_url = "http://"+configuration['UML_SERVER_HOSTNAME']+":8042"+url
     if url_opener:
         try:
             if post_parameters:
@@ -340,7 +343,7 @@ def save_page(url,output_html_filename,url_opener=None,post_parameters=None):
             fp.write(html)
             fp.close()
         except urllib2.URLError, e:
-            print >> sys.stderr, "Got an error when fetcing the page with urllib2: "+str(e)
+            print >> sys.stderr, "Got an error when fetching the page with urllib2: %s %s" % (e, full_url) 
             return False
         return True
     else:

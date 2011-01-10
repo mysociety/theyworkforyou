@@ -1,4 +1,9 @@
-#!/usr/bin/python2.6
+#!/usr/bin/python
+
+# This script creates a basic Debian lenny root filesystem.  An
+# example invocation would be:
+#
+#   sudo ./create-rootfs.py 2000 uml-rootfs-pristine tmp mark:mark
 
 import re
 import os
