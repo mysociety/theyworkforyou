@@ -506,9 +506,8 @@ class MEMBER {
 	$this->extra_info['pbc'] = array();
 	for ($i=0; $i<$q->rows(); $i++) {
 		$bill_id = $q->field($i, 'bill_id');
-		#$c = $this->db->query('select count(*) as c from hansard where major=6 and minor='.$bill_id.' and htype=10');
-		#$c = $c->field(0, 'c');
-		$c = 'n/a';
+		$c = $this->db->query('select count(*) as c from hansard where major=6 and minor='.$bill_id.' and htype=10');
+		$c = $c->field(0, 'c');
 		$title = $q->field($i, 'title');
 		$attending = $q->field($i, 'a');
 		$chairman = $q->field($i, 'c');

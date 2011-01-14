@@ -1,17 +1,25 @@
-# UML_SERVER_IP should be an unused IP address on your local network;
-# the UML machine will appear to have this address:
+# UML_SERVER_IP should be an external interface of the computer you
+# are running these tests on.  The web server of the UML instance will
+# listen on UML_SERVER_IP:8042.  It should be an external interface
+# due to a bug in slirp, which means that redir doesn't work if you
+# use localhost.
 UML_SERVER_IP=192.168.1.253
 # UML_SERVER_HOSTNAME is the hostname for your UML machine.  (There
-# must be an entry in /etc/hosts that maps this hostname
-# UML_SERVER_IP.)
+# must be an entry in /etc/hosts or in the DNS that maps this hostname
+# to UML_SERVER_IP.)
 UML_SERVER_HOSTNAME=theyworkforyou.sandbox
 # GUEST_GATEWAY is the IP address that the UML machine will use as a
-# router - to avoid confusion, this should also be an unused address
-# on your local network, although it will not be visible except from
-# the UML machine.
-GUEST_GATEWAY=192.168.1.254
-# GUEST_NETMASK should be the same as the netmask for your local
-# server.
-GUEST_NETMASK=255.255.255.0
-# GUEST_NAMESERVER should be the IP address of a working nameserver.
-GUEST_NAMESERVER=212.23.8.1
+# router.  (This value is specified by slirp, so don't change i this
+# unless you know what you're doing.)
+GUEST_GATEWAY=10.0.2.15
+# GUEST_NETMASK is the netmask insert into /etc/network/interfaces on
+# the UML machine.  (This value is specified by slirp, so don't change
+# i this unless you know what you're doing.)
+GUEST_NETMASK=255.0.0.0
+# GUEST_NAMESERVER is the nameserver used in /etc/resolv.conf on the
+# UML machine.  (This value is specified by slirp, so don't change i
+# this unless you know what you're doing.)
+GUEST_NAMESERVER=10.0.2.3
+# The default ports for the UML machine are 8042 (http) and 2242
+# (ssh), the latter can be changed here with the SSH_PORT setting:
+SSH_PORT=2242

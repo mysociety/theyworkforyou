@@ -20,6 +20,16 @@ if not os.path.exists(start_directory):
 
 os.chdir(start_directory)
 
+def already_instrumented(filename):
+    fp = open(filename)
+    try:
+        for line in fp.readlines():
+            if re.search('include_once.*instrument\.php',line):
+                return True
+        return False
+    finally:
+        fp.close()
+
 for (dirpath, dirnames, filenames) in os.walk("."):
     for filename in filenames:
         if not re.search('(?i)\.php$',filename):
@@ -28,28 +38,31 @@ for (dirpath, dirnames, filenames) in os.walk("."):
             continue
         full_relative_filename = os.path.join(dirpath,filename)
         full_relative_filename = re.sub('^\.\/','',full_relative_filename)
-        slashes = len(re.findall('/',full_relative_filename))
-        prefix = slashes * "../"
-        extra_line = 'include_once dirname(__FILE__).'
-        extra_line += '"/'+prefix+'includes/instrument.php";'
-        backup = full_relative_filename + ".backup"
-        if not os.path.exists(backup):
-            check_call(["cp",full_relative_filename,backup])
-        # Copy the file, but if it looks like a standard PHP file
-        # insert the instrumentation line as the second line.
-        fp = open(backup)
-        ofp = open(full_relative_filename,"w")
-        file_rewritten = False
-        first_line = True
-        for line in fp:
-            if first_line:
-                if re.search('^\s*<\?(php)?\s*$',line):
-                    ofp.write(line)
-                    ofp.write(extra_line+"\n")
-                    file_rewritten = True
+        if already_instrumented(full_relative_filename):
+            print full_relative_filename
+        else:
+            slashes = len(re.findall('/',full_relative_filename))
+            prefix = slashes * "../"
+            extra_line = 'include_once dirname(__FILE__).'
+            extra_line += '"/'+prefix+'includes/instrument.php";'
+            backup = full_relative_filename + ".backup"
+            if not os.path.exists(backup):
+                check_call(["cp",full_relative_filename,backup])
+            # Copy the file, but if it looks like a standard PHP file
+            # insert the instrumentation line as the second line.
+            fp = open(backup)
+            ofp = open(full_relative_filename,"w")
+            file_rewritten = False
+            first_line = True
+            for line in fp:
+                if first_line:
+                    if re.search('^\s*<\?(php)?\s*$',line):
+                        ofp.write(line)
+                        ofp.write(extra_line+"\n")
+                        file_rewritten = True
+                    else:
+                        ofp.write(line)
+                    first_line = False
                 else:
                     ofp.write(line)
-                first_line = False
-            else:
-                ofp.write(line)
-        print full_relative_filename
+            print full_relative_filename

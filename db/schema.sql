@@ -73,7 +73,8 @@ CREATE TABLE `hansard` (
   KEY `modified` (`modified`),
   KEY `source_url` (`source_url`),
   KEY `video_status` (`video_status`),
-  KEY `hansard_speaker_id_hdate_hpos` (`speaker_id`,`hdate`,`hpos`)
+  KEY `hansard_speaker_id_hdate_hpos` (`speaker_id`,`hdate`,`hpos`),
+  KEY `hansard_major_minor_htype` (`major`,`minor`,`htype`)
 );
 
 CREATE TABLE `member` (

@@ -38,7 +38,7 @@ def local_mp_link(current_test,http_test,mp_name):
     return False
 
 run_page_test(main_page_test,
-              lambda t,o: local_mp_link(t,o,"Denis Murphy"),
+              lambda t,o: local_mp_link(t,o,"Sheila Gilmore"),
               test_name="Checking local MP appears on main page",
               test_short_name="main-page-has-local-MP")
 
@@ -64,7 +64,7 @@ run_page_test(change_page_test,
               test_name="Checking forget postcode prompt appears",
               test_short_name="change-forget-postcode-prompt")
 
-change_postcode_test = run_http_test("/postcode/?pc=CB2%202RP&submit=GO",
+change_postcode_test = run_http_test("/postcode/?pc=CB2%208RP&submit=GO",
                                      test_name="Changing postcode",
                                      test_short_name="change-postcode",
                                      browser=browser)

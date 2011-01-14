@@ -164,9 +164,6 @@ $vhosts = {
         aliases => [ ],
         redirects => [ ],
         crontab => 1,
-        exec_extras => [
-            'touch www/docs/google77287ac10bb8023f.html' # for Google webmaster tools
-        ],
         databases => [ 'bbcparlvid', 'twfy' ],
         email => { 'twfy-live' => 'twfy/scripts/handlemail', 
                    'twfy-abuse' => 'twfy/scripts/handlearfmail' }
