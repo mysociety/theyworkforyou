@@ -1,8 +1,5 @@
 <?php
 
-if (defined('OPTION_TRACKING') && OPTION_TRACKING)
-	require_once INCLUDESPATH . '../../commonlib/phplib/tracking.php';
-
 include_once INCLUDESPATH . '../../commonlib/phplib/gaze.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
@@ -1060,11 +1057,6 @@ s=screen;srw=s.width;an!="Netscape"?srb=s.colorDepth:srb=s.pixelDepth
 pr()//-->
 </script><noscript><img alt="" src="http://x3.extreme-dm.com/z/?tag=fawkes&amp;p=<?php echo $url; ?>&amp;j=n" height="1" width="1"></noscript>
 <?php
-
-			// mySociety tracking, not on staging
-			if (defined('OPTION_TRACKING') && OPTION_TRACKING) {
-		                track_event($extra);
-			}
 		}
 
 		// DAMN, this really shouldn't be in PAGE.

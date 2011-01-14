@@ -112,15 +112,6 @@ define ("POSTCODE_API_URL", "");
 // *******************************************************************************
 // mySociety user-tracking.
 
-// Do we add the web-bug image to each page?
-define('OPTION_TRACKING', 0);   // off by default
-
-// URL of the web-bug image.
-define('OPTION_TRACKING_URL', 'http://path/to/web/bug');
-
-// Shared secret to authenticate against the tracking service.
-define('OPTION_TRACKING_SECRET', 'really-secret-value');
-
 // For linking to HFYMP at points
 define('OPTION_AUTH_SHARED_SECRET', '');
 define('OPTION_HEARFROMYOURMP_BASE_URL', '');
