@@ -11,7 +11,8 @@ $start = intval(get_http_var('start'));
 $file = intval(get_http_var('file'));
 $pid = intval(get_http_var('pid'));
 $gid_safe = $gid;
-
+$PAGE->error_message('Sorry, video is currently gone while the video is being moved to a new location, will be back.', true);
+exit;
 if (!$gid) {
 	$this_page = 'video_front';
 	$PAGE->page_start();
@@ -23,7 +24,6 @@ if (!$gid) {
 }
 
 $this_page = 'video_main';
-
 $surrounding_speeches = 3;
 # if ($from == 'next') $surrounding_speeches = 2;
 
