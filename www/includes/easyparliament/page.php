@@ -259,6 +259,8 @@ if (typeof urchinTracker == 'function') urchinTracker();
 				#print '<p class="informational banner"><a href="http://election.theyworkforyou.com/">Find out what your candidates said on local and national issues in our quiz</a></p>';
             }
 		}
+	print '<p class="informational banner">TheyWorkForYou will be <strong>unavailable tonight from 11pm</strong> 
+(hopefully not for too long) as we move the database from London to Manchester.</p>';
 
 # # 2009-01 interstitial
 # include INCLUDESPATH . '../docs/foiorder2009/fns.php';
