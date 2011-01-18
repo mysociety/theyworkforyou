@@ -105,12 +105,13 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 		
 	// Write the text to the file...
 	$filename = $rsspath . $person_id . '.rdf';
-	$fh = fopen($filename, "w");
-	if (fwrite($fh, $rsstext) === FALSE) {
+	$fh = @fopen($filename, "w");
+	if (!$fh) { # Problem writing, just carry on
 		echo "Could not write to file ($filename)\n";
+		continue;
 	}
+	fwrite($fh, $rsstext);
 	fclose ($fh);
-
 }
 
 #print "Took " . (time()-$starttime) . " seconds\n";
