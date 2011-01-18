@@ -1,3 +1,4 @@
+memcached
 libemail-localdelivery-perl
 php5-xapian 
 libmailtools-perl
@@ -7,4 +8,5 @@ libxml-twig-perl
 php5-cli
 php5-mysql 
 php5-curl
+php5-memcache
 #libxapian-search-perl
