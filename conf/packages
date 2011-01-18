@@ -9,4 +9,4 @@ php5-cli
 php5-mysql 
 php5-curl
 php5-memcache
-#libxapian-search-perl
+libsearch-xapian-perl
