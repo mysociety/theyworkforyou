@@ -851,6 +851,7 @@ span.highlight {background:#ffffd7; padding: 0 1em;}
     font-size: 150%;
     list-style-type: disc;
     margin-left: 1em;
+    line-height: 1.4;
 }
 #boundaries .picture {
     text-align: center;
@@ -866,4 +867,11 @@ span.highlight {background:#ffffd7; padding: 0 1em;}
 }
 #boundaries form {
     margin-left: 3em;
+}
+
+#boundaries p.error {
+    color: #990000;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    background-color: #ffeeee;
 }

@@ -6,96 +6,101 @@ include_once '../../../commonlib/phplib/mapit.php';
 
 $PAGE->page_start();
 ?>
-<h2>General election constituency boundaries</h2>
-
-<div class="informational">This part of the site is no longer in use and does not display correct results.
-If you wish to look up what constituency a postcode was in before the 2010 election, use our public lookup
-service at <a href="http://mapit.mysociety.org">http://mapit.mysociety.org/</a>.
-</div>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<h2>Scottish election constituency boundaries</h2>
 
 <div id="boundaries">
 <?
 
-function create_map_filename($c) {
-    $c = str_replace(array(',', '(', ')', "'"), '', $c);
-    $c = str_replace('&', 'and', $c);
-    $c = str_replace("\xf4", 'o', $c);
-    $c = rawurlencode(strtolower($c));
-    return $c;
-}
-
 $pc = get_http_var('pc');
 if ($pc && !validate_postcode($pc)) {
-    print '<p>Sorry, that doesn&rsquo;t appear to be a valid postcode.</p>';
+    print '<p class="error">Sorry, that doesn&rsquo;t appear to be a valid postcode.</p>';
     $pc = '';
 }
 if ($pc) {
-    $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($pc)));
-	if (!$xml) {
-
-        $current = postcode_to_constituency($pc);
-        $new_areas = mapit_get_voting_areas($pc, 13); # Magic number 13
-        if (is_object($new_areas) || !isset($new_areas['WMC'])) {
-            $pc = '';
-        } else {
-            $new_info = mapit_get_voting_area_info($new_areas['WMC']);
-            $new = $new_info['name'];
-        }
-        $mp_name = '';
-
-    } elseif ($xml->error) {
-		print "<p>Sorry, " . htmlentities($pc) . " isn't a known postcode (or our postcode lookup is temporarily not working).</p>";
+    # current will have WMC key. If Scottish, has SPC and SPE too.
+    $mapit = mapit_call('postcode', $pc);
+    $current = array(); $current_id = array();
+    foreach ($mapit['areas'] as $id => $val) {
+        $current[$val['type']] = $val['name'];
+        $current_id[$val['type']] = $id;
+    }
+    if (!array_key_exists('SPC', $current)) {
+        print '<p class="error">That doesn&rsquo;t appear to be a Scottish postcode.</p>';
         $pc = '';
-    } else {
-        $current = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_constituency);
-        $new = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency);
-        $mp_name = iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->current_mp_name);
     }
 }
 if ($pc) {
-    $current_disp = str_replace('&', 'and', $current);
-    $map_url_current = create_map_filename($current);
-    $map_url_new = create_map_filename($new);
+    $a = array($current['SPC'], $current['SPE']);
+    $db = new ParlDB;
+    $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
+        WHERE house=4 AND constituency IN ('" . join("','", $a) . "')
+        AND left_reason = 'still_in_office'");
+    $mreg = array();
+    for ($i=0; $i<$q->rows(); $i++) {
+        $cons = $q->field($i, 'constituency');
+        if ($cons == $current['SPC']) {
+            $name = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
+        } elseif ($cons == $current['SPE']) {
+            $mreg[] = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
+        }
+    }
+
+    # If Scottish, has SPC and SPE. Otherwise, empty.
+    $mapit = mapit_call('postcode', $pc, array('generation' => 15)); # Magic number 15
+    $new = array(); $new_id = array();
+    foreach ($mapit['areas'] as $id => $val) {
+        $new[$val['type']] = $val['name'];
+        $new_id[$val['type']] = $id;
+    }
 ?>
 
 <div id="maps">
 <h3>Maps</h3>
-<?
-    if (is_ni($new)) {
-        print '<p><em>We don&rsquo;t currently have maps showing the new constituency boundary for Northern Irish constituencies.</em></p>';
-    } elseif (is_scottish($new)) {
-        print '<p><em>There are no boundary changes in Scotland for this election.</em></p>';
-    } else {
-        print "<p class='desc'>New $new constituency for May 6th:</p>";
-        print "<p><img src='http://matthew.theyworkforyou.com/boundaries/maps_next/$map_url_new.png' alt='Map showing boundary of the $new constituency' width=400 height=400>";
-    }
-?>
-<p class="desc"><? if (!is_scottish($new)) print 'Former c'; else print 'C'; ?>onstituency of <?=$current_disp?>:</p>
-<p><img src='http://matthew.theyworkforyou.com/boundaries/maps_now/<?=$map_url_current?>.png' alt='Map showing boundary of the <?=$current_disp?> constituency' width=400 height=400>
-
-<p class="footer"><small>Images produced from the Ordnance Survey <a href="http://www.election-maps.co.uk/" rel="nofollow">election-maps</a> service. Images reproduced with permission of <a href="http://www.ordnancesurvey.co.uk/" rel="nofollow">Ordnance Survey</a> and <a href="http://www.lpsni.gov.uk/" rel="nofollow">Land and Property Services</a>.</small></p>
+<p class='desc'>New <?=$new['SPC']?> constituency for May 5th:</p>
+<div id="map_next" style="width:400px;height:400px"></div>
+<p class="desc">Former constituency of <?=$current['SPC']?>:</p>
+<div id="map_now" style="width:400px;height:400px"></div>
+<p class="footer"><small>Uses <a href="http://www.ordnancesurvey.co.uk/">Ordnance Survey</a> data &copy; Crown copyright and database right 2010, via <a href="http://mapit.mysociety.org/">MaPit</a>.</small></p>
 
 </div>
 
-<ul class="results">
+<script>
+$(function(){
+    var opt = {
+        zoom: 5,
+        center: new google.maps.LatLng(55, -3),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById('map_next'), opt);
+    var boundary = new google.maps.KmlLayer('http://mapit.mysociety.org/area/<?=$new_id['SPC']?>.kml');
+    boundary.setMap(map);
+    var map = new google.maps.Map(document.getElementById('map_now'), opt);
+    var boundary = new google.maps.KmlLayer('http://mapit.mysociety.org/area/<?=$current_id['SPC']?>.kml');
+    boundary.setMap(map);
+});
+</script>
+
+    <ul class="results">
 <?
-    $mp_url = '/mp/' . make_member_url($mp_name, $current, 1);
-    if (is_scottish($new)) {
-        print '<li>Scotland does not have any boundary changes, so you remain
-        in your constituency of <strong>' . $current_disp . '</strong>; your MP
-        was <a href="' . $mp_url . '">' . $mp_name . '</a>.';
+    $mp_url = '/msp/' . make_member_url($name, '', 4);
+    if (isset($new)) {
+        print "<li>For the general election, you <!-- are -->will be in the <strong>$new[SPC]</strong> constituency, in the <strong>$new[SPE]</strong> region.";
     } else {
-        if (isset($new)) {
-            print '<li>For the general election, you are in the <strong>' . $new . '</strong> constituency.';
-        } else {
-            print '<li>We cannot look up the constituency for the election for some reason, sorry.';
-        }
-?>
-<li>You were in the <strong><?=$current_disp?></strong> constituency; your MP was <a href='<?=$mp_url?>'><?=$mp_name?></a>.</p>
-<?
+        print '<li>We cannot look up the constituency for the election for some reason, sorry.';
     }
+?>
+<li>You <!-- were -->are in the <strong><?=$current['SPC']?></strong> constituency, in the <strong><?=$current['SPE']?></strong> region; your constituency MSP <!-- was -->is <a href='<?=$mp_url?>'><?=$name?></a>, and your regional MSPs <!-- were -->are <?
+    foreach ($mreg as $k => $n) {
+        print "<a href='/msp/" . make_member_url($n, '', 4) . "'>$n</a>";
+        if ($k < count($mreg)-2) print ', ';
+        elseif ($k == count($mreg)-2) print ' and ';
+    }
+?>.</p>
+
+<?
     echo '</ul>';
-    if (isset($new) && $current_disp == $new && !is_scottish($new)) {
+    if (isset($new) && $current['SPC'] == $new['SPC']) {
         print '<p>The constituency may have kept the same name but altered its boundaries &ndash; do check the maps on the right.</p>';
     }
 }
@@ -109,123 +114,26 @@ if (!$pc) { ?>
 }
 ?>
 
-<p class="intro">Constituency
-boundaries are <strong>changing</strong> for the 2010 general election in
-England, Wales, and Northern Ireland. Enter your postcode here to find out
-what constituency you were in, and what constituency you are now 
-voting in at the election, along with maps of before and after.
+<p class="intro">Constituency boundaries are <strong>changing</strong> for the
+2011 Scottish election. Enter your postcode here to find out what constituency
+you are currently <!-- were --> in,
+and what constituency you will be <!-- are now --> voting in at the election, along
+with maps of before and after.
 </p>
 
 <form method="get">
-<p><label for="pc">Enter your UK postcode:</label>
-<input type="text" id="pc" name="pc" value="<?=htmlspecialchars($pc)?>" size="7">
+<p><label for="pc">Enter your Scottish postcode:</label>
+<input type="text" id="pc" name="pc" value="<?=htmlspecialchars(get_http_var('pc'))?>" size="7">
 <input type="submit" value="Look up">
 </p>
 </form>
 
-<p>This service should work anywhere in the UK, errors and omissions excepted.</p>
+<p>This service should work anywhere in Scotland, errors and omissions excepted.</p>
 
-<p>This service is also available through the <a href="/api/">TheyWorkForYou API</a>
-via the getConstituency method; you must credit TheyWorkForYou if you use this, and 
-please contact us about commercial use.</p>
-
-<p><big><em><a href="http://www.democracyclub.org.uk/">Join DemocracyClub</a> to help make
-this coming election the most transparent ever!</em></big></p>
+<p>This service is also available through our web service <a href="http://mapit.mysociety.org/">MaPit</a>.</p>
 
 </div>
 <?
 
 $PAGE->page_end();
 
-# ---
-
-function is_scottish($c) {
-    $const_scottish = array(
-'Aberdeen North',
-'Aberdeen South',
-'Airdrie and Shotts',
-'Angus',
-'Argyll and Bute',
-'Ayr, Carrick and Cumnock',
-'Banff and Buchan',
-'Berwickshire, Roxburgh and Selkirk',
-'Caithness, Sutherland and Easter Ross',
-'Central Ayrshire',
-'Coatbridge, Chryston and Bellshill',
-'Cumbernauld, Kilsyth and Kirkintilloch East',
-'Dumfries and Galloway',
-'Dumfriesshire, Clydesdale and Tweeddale',
-'Dundee East',
-'Dundee West',
-'Dunfermline and West Fife',
-'East Dunbartonshire',
-'East Kilbride, Strathaven and Lesmahagow',
-'East Lothian',
-'East Renfrewshire',
-'Edinburgh East',
-'Edinburgh North and Leith',
-'Edinburgh South',
-'Edinburgh South West',
-'Edinburgh West',
-'Falkirk',
-'Glasgow Central',
-'Glasgow East',
-'Glasgow North',
-'Glasgow North East',
-'Glasgow North West',
-'Glasgow South',
-'Glasgow South West',
-'Glenrothes',
-'Gordon',
-'Inverclyde',
-'Inverness, Nairn, Badenoch and Strathspey',
-'Kilmarnock and Loudoun',
-'Kirkcaldy and Cowdenbeath',
-'Lanark and Hamilton East',
-'Linlithgow and East Falkirk',
-'Livingston',
-'Midlothian',
-'Moray',
-'Motherwell and Wishaw',
-'Na h-Eileanan an Iar',
-'North Ayrshire and Arran',
-'North East Fife',
-'Ochil and South Perthshire',
-'Orkney and Shetland',
-'Paisley and Renfrewshire North',
-'Paisley and Renfrewshire South',
-'Perth and North Perthshire',
-'Ross, Skye and Lochaber',
-'Rutherglen and Hamilton West',
-'Stirling',
-'West Aberdeenshire and Kincardine',
-'West Dunbartonshire',
-);
-    if (in_array((string)$c, $const_scottish)) return true;
-    return false;
-}
-
-function is_ni($c) {
-    $const_ni = array(
-'Belfast East',
-'Belfast North',
-'Belfast South',
-'Belfast West',
-'East Antrim',
-'East Londonderry',
-'Fermanagh and South Tyrone',
-'Foyle',
-'Lagan Valley',
-'Mid Ulster',
-'Newry and Armagh',
-'North Antrim',
-'North Down',
-'South Antrim',
-'South Down',
-'Strangford',
-'Upper Bann',
-'West Tyrone',
-);
-    if (in_array((string)$c, $const_ni)) return true;
-    return false;
-}

@@ -21,7 +21,7 @@ while (my $q = new mySociety::CGIFast()) {
     if (not defined $pid) {
         print "Content-Type: text/plain\r\n\r\nFork failed";
     } elsif ($pid == 0) {
-        my $errors = `$path`;
+        my $errors = `$path 2>&1`;
         if ($errors) {
             my $email = mySociety::Config::get('CONTACTEMAIL');
             my $body = mySociety::Email::construct_email({
