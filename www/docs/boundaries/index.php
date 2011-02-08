@@ -20,6 +20,12 @@ if ($pc && !validate_postcode($pc)) {
 if ($pc) {
     # current will have WMC key. If Scottish, has SPC and SPE too.
     $mapit = mapit_call('postcode', $pc);
+    if (is_object($mapit)) { # RABX error returns an object
+        print '<p class="error">Afraid we couldn&rsquo;t find that postcode.</p>';
+        $pc = '';
+    }
+}
+if ($pc) {
     $current = array(); $current_id = array();
     foreach ($mapit['areas'] as $id => $val) {
         $current[$val['type']] = $val['name'];
