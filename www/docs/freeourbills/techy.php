@@ -131,7 +131,7 @@ enough to think of yet.
 
 <p>Here is something that was thrown together quite quickly. It's nothing more than the start of
 the beginning of an idea of a
-<a href="http://bitter.ukcod.org.uk/~matthew/bills/read-diff">rough-sketch demo</a>, and in no
+<a href="rough-demo/">rough-sketch demo</a>, and in no
 way should any of its content be taken as what we would like Parliament to do, only the possibility
 of what could be done with more structured data.</p>
 
