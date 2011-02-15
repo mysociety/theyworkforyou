@@ -1,0 +1,205 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Garamond, serif;
+    line-height: 1.4;
+}
+dfn {
+    font-style: normal;
+    border-bottom: dotted 1px black;
+    cursor: help;
+}
+blockquote, .bqhide {
+    font-style: italic;
+    border: solid 1px #9999ff;
+    padding: 0 0.5em;
+    margin: 0 5% 0.5em;
+}
+blockquote p {
+    margin: 0.5em 0;
+}
+#heading {
+    font-size: 180%;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 0.5em;
+    border-bottom: solid 2px #9999ff;
+    background-color: #ccccff;
+}
+dt {
+    font-weight: bold;
+    float: left;
+    clear: left;
+}
+dd {
+    margin-left: 10em;
+}
+h1 {
+    margin: 0;
+    font-size: 150%;
+}
+h3, h4 {
+    margin: 0.5em 0 0 0;
+}
+#content {
+    padding: 1em;
+    margin: 0 auto;
+    max-width: 60em;
+}
+#footer {
+    clear: both;
+    padding-top: 1em;
+    text-align: center;
+    font-size: 90%;
+}
+
+#for { background-color: #ccffcc; margin-bottom: 1em; }
+#against { background-color: #ffcccc; }
+#for, #against {
+    padding: 0.5em 1%;
+}
+#for, #against, #readthisbill, #activity, #support, #oppose {
+    border-radius: 1em;
+    -moz-border-radius: 1em;
+}
+
+#col {
+    float: right;
+    width: 30%;
+    margin: 0 0.5% 1em;
+}
+#col h2 {
+    text-align: center;
+    margin: 0;
+}
+#col ul {
+    margin: 0;
+    padding: 0 0 0 1.5em;
+}
+#col p {
+    margin: 0.5em 0 0 0;
+}
+.seeall {
+    text-align: right;
+}
+#readthisbill {
+    margin: 0.5em 0 0 0.5em;
+    font-size: 200%;
+    float: right;
+    padding: 0.2em 0.5em;
+    border: solid 1px #9999ff;
+    background-color: #ccccff;
+}
+#support, #oppose {
+    font-size: 120%;
+    float: right;
+    padding: 0.1em 0.2em;
+}
+#support a, #oppose a {
+    text-decoration: none;
+    color: #000000;
+}
+#support {
+    border: solid 1px #669966;
+    background-color: #99cc99;
+}
+#oppose {
+    border: solid 1px #996666;
+    background-color: #cc9999;
+}
+a:link { color: #0000ff; }
+a:visited { color: #000066; }
+a:active, a:hover {
+    color: #ff0000;
+}
+dl {
+    margin-left: 1.5em;
+}
+#activity {
+    padding: 0.2em 0.5em;
+    background-color: #ffffcc;
+    border: solid 2px #ffcc99;
+    margin-right: 35%;
+}
+#activity h2 {
+    margin: 0;
+}
+#activity p {
+    margin: 0.5em 0;
+}
+#progress {
+margin: 0 auto;
+padding-right: 35%;
+background-image: url("http://farm2.static.flickr.com/1068/976850381_eabc255530_o_d.jpg");
+height: 40px;
+width: 571px;
+background-repeat: no-repeat;
+background-position: 0 -485px;
+}
+
+#enacted:first-letter {
+    font-size: 3.27em;
+    line-height: 0.5em;
+}
+#enacted span {
+    font-variant: small-caps;
+}
+
+ol#bill {
+    margin: 0; padding: 0; list-style-type: none;
+}
+ol#bill li {
+    margin: 0.5em 0;
+    width: 100%; /* XXX */
+}
+ol#bill ol {
+    margin: 0; padding: 0 0 0 3.5em; list-style-type: none;
+}
+ol#bill ol li {
+    text-indent: -2em;
+}
+ol#bill ol li.quotestart {
+    text-indent: -2.5em;
+}
+ol#bill blockquote, ol#bill .bqhide {
+    float: right;
+    clear: right;
+    max-width: 15em;
+    text-indent: 0;
+    margin: 0 1em 0.5em;
+}
+ol#bill .bqhide blockquote {
+    border: none;
+    float: none;
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+
+p.paraClauseText {
+    margin-left: 3.5em;
+}
+span.p:hover {
+    border-bottom: dotted 1px red;
+}
+span.b {
+    font-weight: bold;
+}
+
+.added {
+    background-color: #ccffcc;
+}
+.deleted {
+    background-color: #ffcccc;
+}
+.toggleword, .toggleexpl {
+    font-style: italic;
+    cursor: pointer;
+    cursor: hand;
+}
+
+#mothball {
+    color: #ff9900;
+    text-align: center;
+}
+
