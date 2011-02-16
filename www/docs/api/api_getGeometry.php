@@ -51,13 +51,8 @@ function _api_getGeometry_name($name) {
     $areas = _api_cacheCheck('mapit_get_areas_by_type', 'WMC');
     $ni_geometry = _api_ni_centroids();
     $areas_info = _api_cacheCheck('mapit_get_voting_areas_info', $areas);
-    $names = array();
     foreach ($areas_info as $area_id => $area) {
-        $names[$area_id] = $area['name'];
-    }
-    $names = normalise_constituency_names($names);
-    foreach ($areas_info as $area_id => $area) {
-        if ($name == $names[$area_id]) {
+        if ($name == $area['name']) {
             if (isset($ni_geometry[$area_id])) {
                 $out = $ni_geometry[$area_id];
             } else {
