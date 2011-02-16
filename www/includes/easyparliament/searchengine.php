@@ -423,6 +423,9 @@ class SEARCHENGINE {
 
     // Puts HTML highlighting round all the matching words in the text
     function highlight($body) {
+        if (!defined('XAPIANDB') || !XAPIANDB)
+            return $body;
+
         $stemmed_words = array_map(array($this, 'stem'), $this->words);
         if (is_array($body)) {
             foreach ($body as $k => $b) {
