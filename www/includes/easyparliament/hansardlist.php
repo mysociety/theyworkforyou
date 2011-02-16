@@ -132,6 +132,9 @@ class HANSARDLIST {
 		
 		global $PAGE;
 
+        if ($view == 'search' && (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH))
+            return false;
+
 		$validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_min', 'search_video', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates');
 		if (in_array($view, $validviews)) {
 
