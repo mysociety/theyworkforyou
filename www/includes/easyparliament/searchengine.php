@@ -435,6 +435,9 @@ class SEARCHENGINE {
     }
 
     function highlight_internal($body, $stemmed_words) {
+        if (!defined('XAPIANDB') || !XAPIANDB)
+            return $body;
+
         // Contents will be used in preg_replace() to highlight the search terms.
         $findwords = array();
         $replacewords = array();
