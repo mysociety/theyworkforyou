@@ -227,6 +227,9 @@ if ($q_house==1) {
             find_constituency($args);
         }
 
+        if (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH) {
+            print '<p>Apologies, search has been turned off currently for performance reasons.</p>';
+        }
         $LIST->display('search', $args);
 	
         if ($args['s']) {
