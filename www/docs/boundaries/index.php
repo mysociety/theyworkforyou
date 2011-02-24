@@ -7,7 +7,7 @@ include_once '../../../commonlib/phplib/mapit.php';
 $PAGE->page_start();
 ?>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<h2>Scottish election constituency boundaries</h2>
+<h2>Scottish and Northern Irish election constituency boundaries</h2>
 
 <div id="boundaries">
 <?
@@ -18,7 +18,7 @@ if ($pc && !validate_postcode($pc)) {
     $pc = '';
 }
 if ($pc) {
-    # current will have WMC key. If Scottish, has SPC and SPE too.
+    # current will have WMC key. If Scottish, has SPC and SPE too. If NI, has NIE.
     $mapit = mapit_call('postcode', $pc);
     if (is_object($mapit)) { # RABX error returns an object
         print '<p class="error">Afraid we couldn&rsquo;t find that postcode.</p>';
@@ -31,23 +31,30 @@ if ($pc) {
         $current[$val['type']] = $val['name'];
         $current_id[$val['type']] = $id;
     }
-    if (!array_key_exists('SPC', $current)) {
-        print '<p class="error">That doesn&rsquo;t appear to be a Scottish postcode.</p>';
+    if (!array_key_exists('SPC', $current) && !array_key_exists('NIE', $current)) {
+        print '<p class="error">That doesn&rsquo;t appear to be a Scottish or Northern Irish postcode.</p>';
         $pc = '';
     }
 }
 if ($pc) {
-    $a = array($current['SPC'], $current['SPE']);
+    if (array_key_exists('SPC', $current)) {
+        $a = array($current['SPC'], $current['SPE']);
+        $country = 'S';
+    } else {
+        $a = array($current['NIE']);
+        $country = 'N';
+    }
     $db = new ParlDB;
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
-        WHERE house=4 AND constituency IN ('" . join("','", $a) . "')
+        WHERE house in (3,4) AND constituency IN ('" . join("','", $a) . "')
         AND left_reason = 'still_in_office'");
     $mreg = array();
     for ($i=0; $i<$q->rows(); $i++) {
         $cons = $q->field($i, 'constituency');
-        if ($cons == $current['SPC']) {
+        $house = $q->field($i, 'house');
+        if (($house == 4 && $cons == $current['SPC']) || ($house == 3 && $cons == $current['NIE'])) {
             $name = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
-        } elseif ($cons == $current['SPE']) {
+        } elseif ($house == 4 && $cons == $current['SPE']) {
             $mreg[] = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
         }
     }
@@ -59,6 +66,8 @@ if ($pc) {
         $new[$val['type']] = $val['name'];
         $new_id[$val['type']] = $id;
     }
+
+    if ($country == 'S') {
 ?>
 
 <div id="maps">
@@ -86,32 +95,46 @@ $(function(){
     boundary.setMap(map);
 });
 </script>
-
+<?
+    }
+?>
     <ul class="results">
 <?
-    $mp_url = '/msp/' . make_member_url($name, '', 4);
-    if (isset($new)) {
-        print "<li>For the general election, you <!-- are -->will be in the <strong>$new[SPC]</strong> constituency, in the <strong>$new[SPE]</strong> region.";
+    if (count($new)) {
+        print "<li>For the Parliament election, you <!-- are -->will be in the <strong>$new[SPC]</strong> constituency, in the <strong>$new[SPE]</strong> region.";
+    } elseif ($country == 'N') {
+        print "<li>For the Assembly election, you <!-- are -->will be in the <strong>$current[WMC]</strong> constituency.";
     } else {
         print '<li>We cannot look up the constituency for the election for some reason, sorry.';
     }
-?>
-<li>You <!-- were -->are in the <strong><?=$current['SPC']?></strong> constituency, in the <strong><?=$current['SPE']?></strong> region; your constituency MSP <!-- was -->is <a href='<?=$mp_url?>'><?=$name?></a>, and your regional MSPs <!-- were -->are <?
-    foreach ($mreg as $k => $n) {
-        print "<a href='/msp/" . make_member_url($n, '', 4) . "'>$n</a>";
-        if ($k < count($mreg)-2) print ', ';
-        elseif ($k == count($mreg)-2) print ' and ';
-    }
-?>.</p>
 
+    if ($country == 'S') {
+        $mp_url = '/msp/' . make_member_url($name, '', 4);
+?>
+<li>You <!-- were -->are currently in the <strong><?=$current['SPC']?></strong> constituency, in the <strong><?=$current['SPE']?></strong> region; your constituency MSP <!-- was -->is <a href='<?=$mp_url?>'><?=$name?></a>, and your regional MSPs <!-- were -->are <?
+        foreach ($mreg as $k => $n) {
+            print "<a href='/msp/" . make_member_url($n, '', 4) . "'>$n</a>";
+            if ($k < count($mreg)-2) print ', ';
+            elseif ($k == count($mreg)-2) print ' and ';
+        }
+        echo '.</li>';
+    } elseif ($country == 'N') {
+        $mp_url = '/mla/' . make_member_url($name, '', 3);
+?>
+<li>You <!-- were -->are currently in the <strong><?=$current['NIE']?></strong> constituency; your constituency MLA <!-- was -->is <a href='<?=$mp_url?>'><?=$name?></a>.</li>
 <?
+    }
     echo '</ul>';
-    if (isset($new) && $current['SPC'] == $new['SPC']) {
+
+    if (count($new) && $current['SPC'] == $new['SPC']) {
         print '<p>The constituency may have kept the same name but altered its boundaries &ndash; do check the maps on the right.</p>';
+    }
+    if ($country == 'N' && $current['NIE'] == $current['WMC']) {
+        print '<p>The constituency may have kept the same name but altered its boundaries &ndash; see the <a href="http://www.boundarycommission.org.uk/pics/big_map_1.jpg">summary map</a>.</p>';
     }
 }
 
-if (!$pc) { ?>
+if (!$pc || $country == 'N') { ?>
 <div class="picture">
 <a href="http://www.flickr.com/photos/markybon/138214000/" title="Boundaries by MarkyBon, on Flickr"><img src="http://farm1.static.flickr.com/51/138214000_80327fe675.jpg" width="358" height="500" alt="Boundaries"></a>
 <br><small>Boundaries by MarkyBon</small>
@@ -121,20 +144,21 @@ if (!$pc) { ?>
 ?>
 
 <p class="intro">Constituency boundaries are <strong>changing</strong> for the
-2011 Scottish election. Enter your postcode here to find out what constituency
+2011 Scottish and Northern Irish elections. Enter your postcode here to find out what constituency
 you are currently <!-- were --> in,
 and what constituency you will be <!-- are now --> voting in at the election, along
-with maps of before and after.
+with maps of before and after for Scotland (Northern Irish people will have to make
+do with this <a href="http://www.boundarycommission.org.uk/pics/big_map_1.jpg">overall summary map</a> from the Boundary Commission).
 </p>
 
 <form method="get">
-<p><label for="pc">Enter your Scottish postcode:</label>
+<p><label for="pc">Enter your Scottish or Northern Irish postcode:</label>
 <input type="text" id="pc" name="pc" value="<?=htmlspecialchars(get_http_var('pc'))?>" size="7">
 <input type="submit" value="Look up">
 </p>
 </form>
 
-<p>This service should work anywhere in Scotland, errors and omissions excepted.</p>
+<p>This service should work anywhere in Scotland or Nothern Ireland, errors and omissions excepted.</p>
 
 <p>This service is also available through our web service <a href="http://mapit.mysociety.org/">MaPit</a>.</p>
 
