@@ -183,14 +183,14 @@ if (isset ($data['rows'])) {
 			if (!isset($section['first_gid'])) $section['first_gid'] = $row['gid'];
 	
 			$video_content = '';
-                        #if ($first_video_displayed == 0 && $row['video_status']&4 && !($row['video_status']&8)) {
-			#	$video_content = video_sidebar($row, $section, $speeches, $data['info']['major']);
-                        #        $first_video_displayed = true;
-                        #}
-			#if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&12)) {
-			#	$video_content = video_advert($row, $data['info']['major']);
-                        #        $first_speech_displayed = true;
-			#}
+			if ($first_video_displayed == 0 && $row['video_status']&4 && !($row['video_status']&8)) {
+				$video_content = video_sidebar($row, $section, $speeches, $data['info']['major']);
+				$first_video_displayed = true;
+			}
+			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&12)) {
+				$video_content = video_advert($row, $data['info']['major']);
+				$first_speech_displayed = true;
+			}
 
 			$id = '';
 			if ($this_page != 'debate') $id = 'g' . gid_to_anchor($row['gid']);
@@ -226,14 +226,14 @@ if (isset ($data['rows'])) {
 			if (!isset($section['first_gid'])) $section['first_gid'] = $row['gid'];
 	
 			$video_content = '';
-                        #if ($first_video_displayed == 0 && $row['video_status']&4 && !($row['video_status']&8)) {
-			#	$video_content = video_sidebar($row, $section, $speeches, $data['info']['major']);
-                        #        $first_video_displayed = true;
-                        #}
-			#if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&12)) {
-			#	$video_content = video_advert($row, $data['info']['major']);
-                        #        $first_speech_displayed = true;
-			#}
+			if ($first_video_displayed == 0 && $row['video_status']&4 && !($row['video_status']&8)) {
+				$video_content = video_sidebar($row, $section, $speeches, $data['info']['major']);
+				$first_video_displayed = true;
+			}
+			if ($video_content == '' && $first_speech_displayed == 0 && $row['video_status']&1 && !($row['video_status']&12)) {
+				$video_content = video_advert($row, $data['info']['major']);
+				$first_speech_displayed = true;
+			}
 	
 			// If this item is at a new time, then print the time.
 			if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00" && $stripecount != 1) {
