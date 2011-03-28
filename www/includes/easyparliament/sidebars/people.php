@@ -41,6 +41,15 @@ Earlier/ other date:
 </form>
 
 <?
+} elseif ($this_page == 'msps') {
+?>
+
+<li><a href="?date=2007-05-03">MSPs at 2007 election</a></li>
+<li><a href="?date=2003-05-01">MSPs at 2003 election</a></li>
+<li><a href="?date=1999-05-06">MSPs at 1999 election</a></li>
+<li><a href="<?=$allurl?>">Historical list of all MSPs</a></li>
+
+<?
 } else {
 	echo "<li><a href='$allurl'>Historical list of all $rep</a></li>";
 }

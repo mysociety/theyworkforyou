@@ -491,7 +491,7 @@ $this->page = array (
 			'text'			=> 'MLAs',
 			'title'			=> "List of all Members of the Northern Ireland Assembly (MLAs)"
 		),
-		'title'			=> 'All MLAs',
+		'title'			=> '',
 		'url'			=> 'mlas/'
 	),
 	'msps' => array (
@@ -500,7 +500,7 @@ $this->page = array (
 			'text'			=> 'MSPs',
 			'title'			=> "List of Members of the Scottish Parliament (MSPs)"
 		),
-		'title'			=> 'Current MSPs',
+		'title'			=> '',
 		'url'			=> 'msps/'
 	),
     'msp' => array (

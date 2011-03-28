@@ -35,7 +35,16 @@ if ($order == 'party') {
 	$th_constituency = 'Constituency';
 }
 
+if (!count($data['data'])) {
 ?>
+
+<p>There are currently no MSPs &ndash; we are presumably in the period between the
+dissolution of the Parliament and its next election.</p>
+
+<?
+} else {
+?>
+
 <div class="sort">
     Sort by:
     <ul>
@@ -55,16 +64,17 @@ if ($order == 'party') {
 </thead>
 <tbody>
 <?php
-
-$MPURL = new URL(substr($this_page, 0, -1));
-$style = '2';
-foreach ($data['data'] as $pid => $mp) {
-	render_mps_row($mp, $style, $order, $MPURL);
-}
+    $MPURL = new URL(substr($this_page, 0, -1));
+    $style = '2';
+    foreach ($data['data'] as $pid => $mp) {
+	    render_mps_row($mp, $style, $order, $MPURL);
+    }
 ?>
 </tbody>
 </table>
 <?
+
+}
 
 function render_mps_row($mp, &$style, $order, $MPURL) {
 	$style = $style == '1' ? '2' : '1';

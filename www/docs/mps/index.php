@@ -3,56 +3,72 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH."easyparliament/people.php";
 
-$this_page = 'mps';
-if (get_http_var('c4')) $this_page = 'c4_mps';
-elseif (get_http_var('c4x')) $this_page = 'c4x_mps';
-
-$args = array();
-$date = get_http_var('date');
-
-if ($date) {
-	$date = parse_date($date);
-	if ($date) {
-		$DATA->set_page_metadata($this_page, 'title', 'MPs, as on ' . format_date($date['iso'], LONGDATEFORMAT));
-		$args['date'] = $date['iso'];
-	}
+if (get_http_var('msp')) {
+    list_reps('msps', 'MSP', 'MSPs', 'msp_search');
+} elseif (get_http_var('mla')) {
+    list_reps('mlas', 'MLA', 'MLAs', 'mla_search');
+} elseif (get_http_var('peer')) {
+    list_reps('peers', 'Peer', 'Peers', 'peer_search');
 } else {
-	$DATA->set_page_metadata($this_page, 'title', 'All current Members of Parliament');
+    list_reps('mps', 'MP', 'MPs', 'mp_search');
 }
 
-if (get_http_var('f') != 'csv') {
-	$PAGE->page_start();
-	$PAGE->stripe_start();
-	$format = 'html';
-} else {
-	$format = 'csv';
+function list_reps($type, $rep_type, $rep_plural, $search_sidebar) {
+    global $this_page, $PAGE, $DATA;
+
+    if (get_http_var('c4')) {
+        $this_page = 'c4_mps';
+    } elseif (get_http_var('c4x')) {
+        $this_page = 'c4x_mps';
+    } else {
+        $this_page = $type;
+    }
+
+    $args = array();
+    if ($type == 'peers')
+        $args['order'] = 'name';
+
+    $date = get_http_var('date');
+    if ($date) {
+        $date = parse_date($date);
+        if ($date) {
+            $DATA->set_page_metadata($this_page, 'title', $rep_plural . ', as on ' . format_date($date['iso'], LONGDATEFORMAT));
+            $args['date'] = $date['iso'];
+        }
+    } elseif (get_http_var('all')) {
+        $DATA->set_page_metadata($this_page, 'title', 'All ' . $rep_plural . ', including former ones');
+        $args['all'] = true;
+    } else {
+        $DATA->set_page_metadata($this_page, 'title', 'All ' . $rep_plural);
+    }
+
+    if (get_http_var('f') != 'csv') {
+        $PAGE->page_start();
+        $PAGE->stripe_start();
+        $format = 'html';
+    } else {
+        $format = 'csv';
+    }
+
+    $order = get_http_var('o');
+    $orders = array(
+        'n' => 'name', 'f' => 'first_name', 'l' => 'last_name',
+        'c' => 'constituency', 'p' => 'party', 'e' => 'expenses',
+        'd' => 'debates', 's' => 'safety'
+    );
+    if (array_key_exists($order, $orders))
+        $args['order'] = $orders[$order];
+
+    $PEOPLE = new PEOPLE;
+    $PEOPLE->display($type, $args, $format);
+
+    if (get_http_var('f') != 'csv') {
+        $PAGE->stripe_end(array(
+            array('type' => 'include', 'content' => 'people'),
+            array('type' => 'include', 'content' => $search_sidebar),
+        ));
+        $PAGE->page_end();
+    }
+
 }
 
-if (get_http_var('o') == 'f') {
-	$args['order'] = 'first_name';
-} elseif (get_http_var('o') == 'l') {
-	$args['order'] = 'last_name';
-} elseif (get_http_var('o') == 'c') {
-	$args['order'] = 'constituency';
-} elseif (get_http_var('o') == 'p') {
-	$args['order'] = 'party';
-} elseif (get_http_var('o') == 'e') {
-	$args['order'] = 'expenses';
-} elseif (get_http_var('o') == 'd') {
-	$args['order'] = 'debates';
-} elseif (get_http_var('o') == 's') {
-	$args['order'] = 'safety';
-}
-
-$PEOPLE = new PEOPLE;
-$PEOPLE->display('mps', $args, $format);
-
-if (get_http_var('f') != 'csv') {
-	$PAGE->stripe_end(array(
-		array('type'=>'include', 'content'=>'people'),
-		array('type'=>'include', 'content'=>'mp_search')		
-	));
-	$PAGE->page_end();
-}
-
-?>
