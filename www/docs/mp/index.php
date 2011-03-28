@@ -473,7 +473,7 @@ function regional_list($pc, $area_type, $rep_type) {
 	$db = new ParlDB;
 	$q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member 
 		WHERE constituency IN ('" . join("','", $a) . "') 
-		AND left_reason = 'still_in_office'");
+		AND left_reason = 'still_in_office' AND house in (3,4)");
     $current = true;
     if (!$q->rows()) {
         # XXX No results implies dissolution, fix for 2011.
