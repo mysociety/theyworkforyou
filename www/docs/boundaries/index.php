@@ -45,9 +45,10 @@ if ($pc) {
         $country = 'N';
     }
     $db = new ParlDB;
+    # Just left politicians
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
-        WHERE house in (3,4) AND constituency IN ('" . join("','", $a) . "')
-        AND left_reason = 'still_in_office'");
+        WHERE constituency IN ('" . join("','", $a) . "')
+        AND ( ( house = 3 and left_house = '2011-03-24' ) or ( house = 4 and left_house = '2011-03-23') )");
     $mreg = array();
     for ($i=0; $i<$q->rows(); $i++) {
         $cons = $q->field($i, 'constituency');
@@ -101,9 +102,9 @@ $(function(){
     <ul class="results">
 <?
     if (count($new)) {
-        print "<li>For the Parliament election, you <!-- are -->will be in the <strong>$new[SPC]</strong> constituency, in the <strong>$new[SPE]</strong> region.";
+        print "<li>For the Parliament election, you are in the <strong>$new[SPC]</strong> constituency, in the <strong>$new[SPE]</strong> region.";
     } elseif ($country == 'N') {
-        print "<li>For the Assembly election, you <!-- are -->will be in the <strong>$current[WMC]</strong> constituency.";
+        print "<li>For the Assembly election, you are in the <strong>$current[WMC]</strong> constituency.";
     } else {
         print '<li>We cannot look up the constituency for the election for some reason, sorry.';
     }
@@ -111,7 +112,7 @@ $(function(){
     if ($country == 'S') {
         $mp_url = '/msp/' . make_member_url($name, '', 4);
 ?>
-<li>You <!-- were -->are currently in the <strong><?=$current['SPC']?></strong> constituency, in the <strong><?=$current['SPE']?></strong> region; your constituency MSP <!-- was -->is <a href='<?=$mp_url?>'><?=$name?></a>, and your regional MSPs <!-- were -->are <?
+<li>You were in the <strong><?=$current['SPC']?></strong> constituency, in the <strong><?=$current['SPE']?></strong> region; your constituency MSP was <a href='<?=$mp_url?>'><?=$name?></a>, and your regional MSPs were <?
         foreach ($mreg as $k => $n) {
             print "<a href='/msp/" . make_member_url($n, '', 4) . "'>$n</a>";
             if ($k < count($mreg)-2) print ', ';
@@ -121,7 +122,7 @@ $(function(){
     } elseif ($country == 'N') {
         $mp_url = '/mla/' . make_member_url($name, '', 3);
 ?>
-<li>You <!-- were -->are currently in the <strong><?=$current['NIE']?></strong> constituency; your constituency MLA <!-- was -->is <a href='<?=$mp_url?>'><?=$name?></a>.</li>
+<li>You were in the <strong><?=$current['NIE']?></strong> constituency; your constituency MLA was <a href='<?=$mp_url?>'><?=$name?></a>.</li>
 <?
     }
     echo '</ul>';
@@ -145,8 +146,8 @@ if (!$pc || $country == 'N') { ?>
 
 <p class="intro">Constituency boundaries are <strong>changing</strong> for the
 2011 Scottish and Northern Irish elections. Enter your postcode here to find out what constituency
-you are currently <!-- were --> in,
-and what constituency you will be <!-- are now --> voting in at the election, along
+you were in,
+and what constituency you are now voting in at the election, along
 with maps of before and after for Scotland (Northern Irish people will have to make
 do with this <a href="http://www.boundarycommission.org.uk/pics/big_map_1.jpg">overall summary map</a> from the Boundary Commission).
 </p>
