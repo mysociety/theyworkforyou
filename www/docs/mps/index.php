@@ -4,16 +4,16 @@ include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH."easyparliament/people.php";
 
 if (get_http_var('msp')) {
-    list_reps('msps', 'MSP', 'MSPs', 'msp_search');
+    list_reps('msps', 'MSPs', 'msp_search');
 } elseif (get_http_var('mla')) {
-    list_reps('mlas', 'MLA', 'MLAs', 'mla_search');
+    list_reps('mlas', 'MLAs', 'mla_search');
 } elseif (get_http_var('peer')) {
-    list_reps('peers', 'Peer', 'Peers', 'peer_search');
+    list_reps('peers', 'Members of the House of Lords', 'peer_search');
 } else {
-    list_reps('mps', 'MP', 'MPs', 'mp_search');
+    list_reps('mps', 'MPs', 'mp_search');
 }
 
-function list_reps($type, $rep_type, $rep_plural, $search_sidebar) {
+function list_reps($type, $rep_plural, $search_sidebar) {
     global $this_page, $PAGE, $DATA;
 
     if (get_http_var('c4')) {
