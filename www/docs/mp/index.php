@@ -474,6 +474,14 @@ function regional_list($pc, $area_type, $rep_type) {
 	$q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member 
 		WHERE constituency IN ('" . join("','", $a) . "') 
 		AND left_reason = 'still_in_office'");
+    $current = true;
+    if (!$q->rows()) {
+        # XXX No results implies dissolution, fix for 2011.
+        $current = false;
+	    $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member 
+		    WHERE constituency IN ('" . join("','", $a) . "') 
+		    AND ( (house=3 AND left_house='2011-03-24') OR (house=4 AND left_house='2011-03-23') )");
+        }
 	$mcon = array(); $mreg = array();
 	for ($i=0; $i<$q->rows(); $i++) {
 		$house = $q->field($i, 'house');
@@ -498,12 +506,23 @@ function regional_list($pc, $area_type, $rep_type) {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 	if ($rep_type == 'msp') {
-		$out = '<p>You have one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
-		$out .= '<p>Your <strong>constituency MSP</strong> is <a href="/msp/?p=' . $mcon['person_id'] . '">';
-		$out .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, MSP for ' . $mcon['constituency'];
-		$out .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> are:</p>';
+        if ($current) {
+		    $out = '<p>You have one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
+		    $out .= '<p>Your <strong>constituency MSP</strong> is <a href="/msp/?p=' . $mcon['person_id'] . '">';
+		    $out .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, MSP for ' . $mcon['constituency'];
+		    $out .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> are:</p>';
+        } else {
+		    $out = '<p>You had one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
+		    $out .= '<p>Your <strong>constituency MSP</strong> was <a href="/msp/?p=' . $mcon['person_id'] . '">';
+		    $out .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, MSP for ' . $mcon['constituency'];
+		    $out .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> were:</p>';
+        }
 	} else {
-		$out = '<p>You have multiple MLAs (Members of the Legislative Assembly) who represent you in ' . $constituencies['NIE'] . '. They are:</p>';
+        if ($current) {
+		    $out = '<p>You have multiple MLAs (Members of the Legislative Assembly) who represent you in ' . $constituencies['NIE'] . '. They are:</p>';
+        } else {
+		    $out = '<p>You had multiple MLAs (Members of the Legislative Assembly) who represented you in ' . $constituencies['NIE'] . '. They were:</p>';
+        }
 	}
 	$out .= '<ul>';
 	foreach($mreg as $reg) {
