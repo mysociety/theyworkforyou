@@ -73,15 +73,24 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
 	}
 
 	$a = array_values($areas);
+
 	$q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member 
 		WHERE constituency IN ('" . join("','", $a) . "') 
-		AND left_reason = 'still_in_office'");
+		AND left_reason = 'still_in_office' AND house in (3,4)");
+    $current = true;
+    if (!$q->rows()) {
+        # XXX No results implies dissolution, fix for 2011.
+        $current = false;
+        $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member 
+            WHERE constituency IN ('" . join("','", $a) . "') 
+            AND ( (house=3 AND left_house='2011-03-24') OR (house=4 AND left_house='2011-03-23') )");
+    }
+
 	$mcon = array(); $mreg = array();
 	for ($i=0; $i<$q->rows(); $i++) {
 		$house = $q->field($i, 'house');
 		$cons = $q->field($i, 'constituency');
-		if ($house==1) {
-		} elseif ($house==3) {
+		if ($house==3) {
 			$mreg[] = $q->row($i);
 		} elseif ($house==4) {
 			if ($cons == $areas['SPC']) {
@@ -102,12 +111,14 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
 	$out .= '<strong>MP</strong> (Member of Parliament) is <a href="/mp/?p=' . $mp['person_id'] . '">';
 	$out .= $mp['first_name'] . ' ' . $mp['last_name'] . '</a>, ' . $mp['constituency'] . '</li>';
 	if ($mcon) {
-		$out .= '<li>Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) is <a href="/msp/?p=' . $mcon['person_id'] . '">';
+		$out .= '<li>Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) ';
+        $out .= $current ? 'is' : 'was';
+        $out .= ' <a href="/msp/?p=' . $mcon['person_id'] . '">';
 		$out .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, ' . $mcon['constituency'] . '</li>';
 	}
 	$out .= '<li>Your <strong>' . $areas[$area_type] . ' ' . $rep_type . 's</strong> ';
 	if ($rep_type=='MLA') $out .= '(Members of the Legislative Assembly)';
-	$out .= ' are:';
+	$out .= ' ' . ($current ? 'are' : 'were') . ':';
 	$out .= '<ul>';
 	foreach($mreg as $reg) {
 		$out .= '<li><a href="/' . strtolower($rep_type) . '/?p=' . $reg['person_id'] . '">';
