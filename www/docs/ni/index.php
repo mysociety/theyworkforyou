@@ -118,6 +118,36 @@ if (get_http_var("d") != "") {
 			$PAGE->stripe_end();
 		}
 	}
+} elseif (get_http_var('more')) {
+	$this_page = "nidebatesfront";
+	$PAGE->page_start();
+	$PAGE->stripe_start();
+	?>
+				<h4>Busiest debates from the most recent month</h4>
+<?php
+
+	$LIST = new NILIST;
+	$LIST->display('biggest_debates', array('days'=>30, 'num'=>20));
+
+	$rssurl = $DATA->page_metadata($this_page, 'rss');
+	$PAGE->stripe_end(array(
+		array (
+			'type' => 'nextprev'
+		),
+		array (
+			'type' => 'include',
+			'content' => 'calendar_nidebates'
+		),
+		array (
+			'type' => 'include',
+			'content' => "nidebates"
+		),
+		array (
+			'type' => 'html',
+			'content' => '<div class="block"><h4><a href="/' . $rssurl . '">RSS feed of most recent debates</a></h4></div>'
+		)
+	));
+
 } else {
     ni_front_page();
 }
@@ -189,7 +219,7 @@ $DEBATELIST->display('recent_debates', array('days' => 30, 'num' => 5));
 $MOREURL = new URL('nidebatesfront');
 
 ?>
-        <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more debates</a></strong></p>
+        <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>?more=1">See more debates</a></strong></p>
 
 </div>
 

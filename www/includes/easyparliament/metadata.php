@@ -587,7 +587,7 @@ $this->page = array (
 			'text'			=> 'Debates',
 			'title'			=> "Northern Ireland Assembly debates"
 		),
-		'parent'		=> 'ni_home',
+		'parent'		=> 'nioverview',
 		'title'			=> 'Northern Ireland Assembly debates',
 		'rss'			=> 'ni/ni.rss',
 		'url'			=> 'ni/'
