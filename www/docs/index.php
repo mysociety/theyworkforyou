@@ -88,7 +88,7 @@ $PAGE->stripe_start("full");
 
         	if ($pc_form) { ?>
         		<form action="/postcode/" method="get">
-        		<p><strong>Find out about your new <acronym title="Member of Parliament">MP</acronym>/
+        		<p><strong>Find out about your <acronym title="Member of Parliament">MP</acronym>/
         		<acronym title="Members of the Scottish Parliament">MSPs</acronym>/
         		<acronym title="Members of the (Northern Irish) Legislative Assembly">MLAs</acronym></strong><br>
         		<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
