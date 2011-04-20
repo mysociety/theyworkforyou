@@ -14,12 +14,12 @@ $methods = array(
 		'new' => true,
 		'parameters' => array('name', 'postcode'),
 		'required' => true,
-		'help' => 'Searches for a constituency and returns details',
+		'help' => 'Searches for a UK Parliament constituency and returns details',
 	),
 	'getConstituencies' => array(
 		'parameters' => array('date', 'search', 'latitude', 'longitude', 'distance'),
 		'required' => false,
-		'help' => 'Returns list of constituencies',
+		'help' => 'Returns list of UK Parliament constituencies',
 	),
 	'getPerson' => array(
 		'new' => true,
@@ -81,12 +81,12 @@ $methods = array(
 		'new' => true,
 		'parameters' => array('name'),
 		'required' => true,
-		'help' => 'Returns centre, bounding box of constituencies'
+		'help' => 'Returns centre, bounding box of UK Parliament constituencies'
 	),
 	'getBoundary' => array(
 		'parameters' => array('name'),
 		'required' => true,
-		'help' => 'Returns boundary polygon of constituency'
+		'help' => 'Returns boundary polygon of UK Parliament constituency'
 	),
 	'getCommittee' => array(
 		'new' => true,
