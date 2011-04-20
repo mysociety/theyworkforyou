@@ -2,10 +2,54 @@
 
 include_once "../../includes/easyparliament/init.php";
 
-if (($date = get_http_var('d')) && preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
-	$this_page = 'hansard_date';
+$date = get_http_var('d');
+if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
+    calendar_summary();
+} elseif ($date >= date('Y-m-d')) {
+    calendar_future_date($date);
+} else {
+    calendar_past_date($date);
+}
+
+# ---
+
+# Show upcoming stuff, perhaps a week or so, and links to view more.
+# Sidebar of month calendar showing soonest future stuff
+function calendar_summary() {
+    global $this_page, $PAGE;
+    $this_page = 'calendar_summary';
+
+    $db = new ParlDB();
+    $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= NOW()');
+    $min_future_date = $q->field(0, 'm');
+    if (!$min_future_date) {
+        $PAGE->error_message('There is no future information in the database currently.');
+        $PAGE->page_end();
+        return;
+    }
+        #WHERE event_date < current_timesta
+        #ORDER BY event_date');
+    #$db->query('SELECT * FROM future
+     #   WHERE event_date < current_timesta
+      #  ORDER BY event_date');
+
+    include_once INCLUDESPATH . 'easyparliament/templates/html/calendar_summary.php';
+}
+
+# Show the events for a future date.
+function calendar_future_date($date) {
+    global $this_page, $PAGE;
+    $this_page = 'calendar_future';
+    include_once INCLUDESPATH . 'easyparliament/templates/html/calendar_future_date.php';
+}
+
+function calendar_past_date($date) {
+    global $PAGE, $DATA, $this_page, $hansardmajors;
+
+	$this_page = 'calendar_past';
 	$PAGE->set_hansard_headings(array('date'=>$date));
 	$URL = new URL($this_page);
+	$nextprevdata = array();
 	$db = new ParlDB;
 	$q = $db->query("SELECT MIN(hdate) AS hdate FROM hansard WHERE hdate > '$date'");
 	if ($q->rows() > 0 && $q->field(0, 'hdate') != NULL) {
@@ -65,11 +109,5 @@ if (($date = get_http_var('d')) && preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) 
 		),
 	));
 	$PAGE->page_end();
-
-} else {
-
-	header("Location: http://" . DOMAIN . "/");
-	exit;
-
 }
 

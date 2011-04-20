@@ -220,6 +220,22 @@ $this->page = array (
         'url' => 'boundaries/',
     ),
 
+	'calendar_summary' => array (
+		'parent'		=> 'hansard',
+		'title'			=> 'Calendar',
+		'url'			=> 'calendar/'
+	),
+	'calendar_future' => array (
+		'parent'		=> 'hansard',
+		'title'			=> 'Calendar',
+		'url'			=> 'calendar/'
+	),
+	'calendar_past' => array (
+		'parent'		=> 'hansard',
+		'title'			=> 'Calendar',
+		'url'			=> 'calendar/'
+	),
+
 	'cards' => array (
 		'title'			=> 'MP Stats Cards',
 		'url'			=> 'cards/'
@@ -351,11 +367,6 @@ $this->page = array (
 		'title'			=> '',
 		'url'			=> ''
 	),
-	'hansard_date' => array (
-		'parent'		=> 'hansard',
-		'title'			=> 'House of Commons, House of Lords, Northern Ireland Assembly, and the Scottish Parliament',
-		'url'			=> 'hansard/'
-	),	
 	'help' => array (
 		'title'			=> 'Help',
 		'url'			=> 'help/'
