@@ -135,7 +135,7 @@ class HANSARDLIST {
         if ($view == 'search' && (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH))
             return false;
 
-		$validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_min', 'search_video', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates');
+		$validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_min', 'search_video', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates', 'recent_pbc_debates');
 		if (in_array($view, $validviews)) {
 
 			// What function do we call for this view?
@@ -2986,8 +2986,7 @@ class WRANSLIST extends HANSARDLIST {
 					'body'		=> $parentbody
 				)
 			);
-			
-		
+
 		}	
 
 		$data = array (
@@ -3150,7 +3149,7 @@ class StandingCommittee extends DEBATELIST {
 		return $data;
 	}
 
-	function _get_data_by_recent_debates($args) {
+	function _get_data_by_recent_pbc_debates($args) {
 		if (!isset($args['num'])) $args['num'] = 20;
 		$q = $this->db->query('select gid, minor, hdate from hansard
 			where htype=10 and major=6

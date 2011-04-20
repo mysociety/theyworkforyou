@@ -110,7 +110,7 @@ if ($bill_id && !$id) {
 <p><a href="2010-11/">See all committees for the current session</a></p>
 <?php
 	
-	$committee->display( 'recent_debates', array( 'num' => 50 ) );
+	$committee->display( 'recent_pbc_debates', array( 'num' => 50 ) );
 	$rssurl = $DATA->page_metadata($this_page, 'rss');
 	$PAGE->stripe_end(array(
 		array(
