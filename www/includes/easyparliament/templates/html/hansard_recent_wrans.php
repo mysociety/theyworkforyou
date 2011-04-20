@@ -32,27 +32,30 @@ $count = 0;
 
 foreach ($data['data'] as $wran) {
 
-	$count++;
-	
-	$extrainfo = array();
-	
-	if ($wran['totalcomments'] > 0) {
-		$plural = make_plural('annotation', $wran['totalcomments']);
-		$totalcomments = '; ' . $wran['totalcomments'] . ' ' . $plural;
-	} else {
-		$totalcomments = '';
-	}
-	
-	$speaker = $wran['child']['speaker'];
-	echo '<dt><a name="w', $count, '"></a><strong><a href="', $wran['list_url'], '">';
-	if ($wran['parent']['body']) echo $wran['parent']['body'], ': ';
-	echo $wran['body'], '</a></strong> <small>(', format_date($wran['hdate'], LONGDATEFORMAT),
-		$totalcomments, ')</small></dt><dd>';
-	if (sizeof($speaker)) {
-		echo '<a href="', $speaker['url'], '">', member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']), '</a>: ';
-	}
-	echo $wran['child']['body'];
-	echo '</dd>';
+    $count++;
+
+    $extrainfo = array();
+
+    if ($wran['totalcomments'] > 0) {
+        $plural = make_plural('annotation', $wran['totalcomments']);
+        $totalcomments = '; ' . $wran['totalcomments'] . ' ' . $plural;
+    } else {
+        $totalcomments = '';
+    }
+
+    $speaker = $wran['child']['speaker'];
+    echo '<dt><a name="w', $count, '"></a><strong><a href="', $wran['list_url'], '">';
+    if ($wran['parent']['body']) echo $wran['parent']['body'], ': ';
+    echo $wran['body'], '</a></strong> <small>answered ', format_date($wran['hdate'], LONGDATEFORMAT),
+        $totalcomments, '</small></dt><dd>';
+    if (sizeof($speaker)) {
+        $body = preg_replace('/<p>/', '', $wran['child']['body'], 1);
+        echo '<p><a href="', $speaker['url'], '">', member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']), '</a>: ';
+    } else {
+        $body = $wran['child']['body'];
+    }
+    echo $body;
+    echo '</dd>';
 }
 
 echo '</dl>';

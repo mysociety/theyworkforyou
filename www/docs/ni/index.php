@@ -119,40 +119,83 @@ if (get_http_var("d") != "") {
 		}
 	}
 } else {
-	$this_page = "nioverview";
-	$PAGE->page_start();
-	$PAGE->stripe_start();
-
-	?>
-				<h4>Busiest debates from the most recent month</h4>
-<?php
-	
-	$LIST = new NILIST;
-	$LIST->display('biggest_debates', array('days'=>30, 'num'=>20));
-
-	$rssurl = $DATA->page_metadata($this_page, 'rss');
-	$PAGE->stripe_end(array(
-		array (
-			'type' => 'nextprev'
-		),
-		array (
-			'type' => 'include',
-			'content' => 'calendar_nidebates'
-		),
-		array (
-			'type' => 'include',
-			'content' => "nidebates"
-		),
-		array (
-			'type' => 'html',
-			'content' => '<div class="block"><h4><a href="/' . $rssurl . '">RSS feed of most recent debates</a></h4></div>'
-		)
-	));
-	
+    ni_front_page();
 }
 
 $PAGE->page_end();
 
 twfy_debug_timestamp("page end");
 
+# ---
+
+function ni_front_page() {
+    global $this_page, $PAGE, $THEUSER, $SEARCHURL;
+
+	$this_page = "nioverview";
+	$PAGE->page_start();
+	$PAGE->stripe_start('full');
+    $SEARCHURL = new URL('search');
 ?>
+
+<h2>Northern Ireland Assembly</h2>
+
+<div class="welcome_col1">
+
+<div id="welcome_ni" class="welcome_actions">
+
+    <div>
+        <h3>Your representative</h3>
+            <form action="/postcode/" method="get">
+            <p><strong>Find out about your <acronym title="Members of the Legislative Assembly">MLAs</acronym></strong><br>
+            <label for="pc">Enter your postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
+            </form>
+        <p>Read debates they&rsquo;ve taken part in, see how they voted, sign up for an email alert, and more.</p>
+    </div>
+    <!-- Search / alerts -->
+    <div id="welcome_search">
+        <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
+            <h3><label for="s">Search,  create an alert or RSS feed</label></h3>
+            <p>
+                <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyEord"))?>">&nbsp;&nbsp;
+                <input type="hidden" name="section" value="ni">
+                <input type="submit" value="Go" class="submit">
+                <br>
+                <small>e.g. a <em>word</em>, <em>phrase</em>, or <em>person</em> | <a href="/search/?adv=1">More options</a></small>
+            </p>
+        </form>
+    </div>
+
+    <a class="credit" href="http://www.flickr.com/photos/lyng883/255250716/">Photo by Lyn Gateley</a>
+
+    <br class="clear">
+</div>
+
+<?php
+
+$PAGE->include_sidebar_template('nidebates');
+
+?>
+
+</div>
+
+<div class="welcome_col2">
+
+<h3>Recent Northern Ireland Assembly debates</h3>
+
+<?php
+
+$DEBATELIST = new NILIST;
+$DEBATELIST->display('recent_debates', array('days' => 30, 'num' => 5));
+$MOREURL = new URL('nidebatesfront');
+
+?>
+        <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more debates</a></strong></p>
+
+</div>
+
+<?php
+
+$PAGE->stripe_end();
+
+}
+
