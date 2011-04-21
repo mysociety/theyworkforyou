@@ -43,8 +43,9 @@ function _calendar_future_date($date) {
 
     $db = new ParlDB();
 
-    $q = $db->query("SELECT * FROM future WHERE
-        event_date = '$date'
+    $q = $db->query("SELECT * FROM future
+        LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
+        WHERE event_date = '$date'
         AND deleted = 0
         ORDER BY chamber");
 
@@ -76,6 +77,11 @@ function calendar_display_entry($e) {
         }
     } else {
         $title = $e['title'];
+        if ($pid = $e['person_id']) {
+            $MEMBER = new MEMBER(array( 'person_id' => $pid ));
+            $name = $MEMBER->full_name();
+            $title .= " &ndash; <a href='/mp/?p=$pid'>$name</a>";
+        }
     }
 
     $meta = array();

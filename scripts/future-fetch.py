@@ -2,21 +2,24 @@
 
 import os
 import sys
+import re
+from lxml import objectify
+import MySQLdb
+
+# Set up commonlib pylib
 package_dir = os.path.abspath(os.path.split(__file__)[0])
+sys.path.append( os.path.normpath(package_dir + "/../commonlib/pylib") )
 
-paths = (
-    os.path.normpath(package_dir + "/../commonlib/pylib"),
-    )
-
-for path in paths:
-    if path not in sys.path:
-        sys.path.append(path)
-
+# And from that, get the config
 from mysociety import config
 config.set_file(os.path.abspath(package_dir + "/../conf/general"))
 
-from lxml import objectify
-import MySQLdb
+# And now we have config, find parlparse
+sys.path.append( os.path.normpath(config.get('PWMEMBERS') + '../pyscraper') )
+sys.path.append( os.path.normpath(config.get('PWMEMBERS') + '../pyscraper/lords') )
+# This name matching could be done a lot better
+from resolvemembernames import memberList
+from resolvelordsnames import lordsList
 
 CALENDAR_URL = 'http://services.parliament.uk/calendar/all.rss'
 
@@ -34,8 +37,10 @@ class Entry(object):
     committee_name = ''
     debate_type = ''
     title = ''
-    witnesses = ''
+    witnesses = None
+    witnesses_str = ''
     location = ''
+    person = None
 
     def __init__(self, entry):
         self.id = entry.event.attrib['id']
@@ -57,14 +62,33 @@ class Entry(object):
 
         title_text = entry.event.inquiry.text
         if title_text:
-            # TODO Check for person's name at end of this string, strip and match to ID if present
+            m = re.search(' - ([^-]*)$', title_text)
+            if m:
+                id, name, cons = memberList.matchfullnamecons(m.group(1), None, self.event_date)
+                if not id:
+                    try:
+                        id = lordsList.GetLordIDfname(m.group(1), None, self.event_date)
+                    except:
+                        pass
+                if id:
+                    title_text = title_text.replace(' - ' + m.group(1), '')
+                    self.person = memberList.membertoperson(id)
             self.title = title_text.strip()
 
+        self.witnesses = []
         witness_text = entry.event.witnesses.text
         if witness_text == 'This is a private meeting.':
             self.title = witness_text
         elif witness_text:
-            self.witnesses = witness_text.strip()
+            self.witnesses_str = witness_text.strip()
+            m = re.findall(r'\b(\w+ \w+ MP)', self.witnesses_str)
+            for mp in m:
+                id, name, cons = memberList.matchfullnamecons(mp, None, self.event_date)
+                if not id: continue
+                pid = int(memberList.membertoperson(id).replace('uk.org.publicwhip/person/', ''))
+                mp_link = '<a href="/mp/?p=%d">%s</a>' % (pid, mp)
+                self.witnesses.append(pid)
+                self.witnesses_str = self.witnesses_str.replace(mp, mp_link)
 
         location_text = entry.event.location.text
         if location_text: self.location = location_text.strip()
@@ -92,9 +116,19 @@ class Entry(object):
             self.event_date, self.time_start, self.time_end,
             self.committee_name, self.debate_type,
             self.title.encode('iso-8859-1', 'xmlcharrefreplace'),
-            self.witnesses.encode('iso-8859-1', 'xmlcharrefreplace'),
+            self.witnesses_str.encode('iso-8859-1', 'xmlcharrefreplace'),
             self.location.encode('iso-8859-1', 'xmlcharrefreplace'),
         ) )
+        if self.person:
+            db_cursor.execute(
+                'INSERT INTO future_people (calendar_id, person_id, witness) VALUES (%s, %s, %s)',
+                (self.id, self.person.replace('uk.org.publicwhip/person/', ''), 0)
+            )
+        for witness in self.witnesses:
+            db_cursor.execute(
+                'INSERT INTO future_people (calendar_id, person_id, witness) VALUES (%s, %s, %s)',
+                (self.id, witness, 1)
+            )
 
 db_connection = MySQLdb.connect(
     host=config.get('TWFY_DB_HOST'),
@@ -117,6 +151,7 @@ for entry in entries:
     if row_count:
         # We have seen this event before. TODO Compare with current entry,
         # update db and Xapian if so
+        Entry(entry)
         pass
     else:
         Entry(entry).add()
