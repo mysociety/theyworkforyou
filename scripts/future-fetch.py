@@ -41,7 +41,8 @@ class Entry(object):
         self.id = entry.event.attrib['id']
         self.link_calendar = entry.guid
         self.link_external = entry.link
-        self.chamber = '%s: %s' % (entry.event.house.text.strip(), entry.event.chamber.text.strip())
+        chamber = entry.event.chamber.text.strip()
+        self.chamber = '%s: %s' % (entry.event.house.text.strip(), chamber)
         self.event_date = entry.event.date
         self.time_start = getattr(entry.event, 'startTime', None)
         self.time_end = getattr(entry.event, 'endTime', None)
@@ -49,7 +50,7 @@ class Entry(object):
         committee_text = entry.event.comittee.text
         if committee_text:
             committee_text = committee_text.strip()
-            if committee_text == 'Select Committee':
+            if chamber in ('Select Committee', 'General Committee'):
                 self.committee_name = committee_text
             else:
                 self.debate_type = committee_text
