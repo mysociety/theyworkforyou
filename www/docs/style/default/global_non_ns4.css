@@ -390,6 +390,36 @@ div.comment {margin-top: 2em;}
 div.comment p.credit {line-height: 1.3em;margin-bottom: 0;}
 div.comment p.comment {margin-bottom: 0;}
 
+ul.calendar {
+    list-style-type: disc;
+    padding-left: 1.5em;
+}
+
+dl.calendar dt {
+    font-weight: normal;
+    margin-top: 0.5em;
+}
+dl.calendar dt.sc {
+    font-weight: bold;
+}
+
+dl.calendar dt span, ul.calendar li span {
+    white-space: nowrap;
+    color: #666666;
+    font-size: 0.85em;
+    font-weight: normal;
+}
+
+dl.calendar dt span.type {
+}
+dl.calendar dt span.meta {
+}
+
+dl.calendar dd {
+    margin: 0 0 0.5em 1.5em;
+    font-size: 0.85em;
+}
+
 /*
 
 dl.big-debates dt,

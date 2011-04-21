@@ -222,12 +222,12 @@ $this->page = array (
 
 	'calendar_summary' => array (
 		'parent'		=> 'hansard',
-		'title'			=> 'Calendar',
+		'title'			=> 'Upcoming business',
 		'url'			=> 'calendar/'
 	),
 	'calendar_future' => array (
 		'parent'		=> 'hansard',
-		'title'			=> 'Calendar',
+		'title'			=> 'Upcoming business',
 		'url'			=> 'calendar/'
 	),
 	'calendar_past' => array (

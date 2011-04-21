@@ -27,21 +27,101 @@ function calendar_summary() {
         $PAGE->page_end();
         return;
     }
-        #WHERE event_date < current_timesta
-        #ORDER BY event_date');
-    #$db->query('SELECT * FROM future
-     #   WHERE event_date < current_timesta
-      #  ORDER BY event_date');
 
-    include_once INCLUDESPATH . 'easyparliament/templates/html/calendar_summary.php';
+    return _calendar_future_date($min_future_date);
 }
 
 # Show the events for a future date.
 function calendar_future_date($date) {
-    global $this_page, $PAGE;
+    global $this_page;
     $this_page = 'calendar_future';
+    return _calendar_future_date($date);
+}
+
+function _calendar_future_date($date) {
+    global $this_page, $DATA, $PAGE;
+
+    $db = new ParlDB();
+
+    $q = $db->query("SELECT * FROM future WHERE
+        event_date = '$date'
+        AND deleted = 0
+        ORDER BY chamber");
+
+    if (!$q->rows()) {
+        $PAGE->error_message('There is currently no information available for that date.');
+        $PAGE->page_end();
+        return;
+    }
+
+    $DATA->set_page_metadata($this_page, 'date', $date);
+
+    $data = array();
+    foreach ($q->data as $row) {
+        $data[$row['event_date']][$row['chamber']][] = $row;
+    }
+
     include_once INCLUDESPATH . 'easyparliament/templates/html/calendar_future_date.php';
 }
+
+function calendar_display_entry($e) {
+    $private = false;
+    if ($e['committee_name']) {
+        $title = $e['committee_name'];
+        if ($e['title'] == 'to consider the Bill') {
+        } elseif ($e['title'] && $e['title'] != 'This is a private meeting.') {
+            $title .= ': ' . $e['title'];
+        } else {
+            $private = true;
+        }
+    } else {
+        $title = $e['title'];
+    }
+
+    $meta = array();
+
+    if ($e['debate_type'] == "Prime Minister's Question Time") {
+        $title = $e['debate_type'];
+    } elseif ($d = $e['debate_type']) {
+        if ($d == 'Adjournment') $d = 'Adjournment debate';
+        $meta[] = $d;
+    }
+
+    if ($e['time_start'] || $e['location']) {
+        if ($e['time_start']) {
+            $time = format_time($e['time_start'], TIMEFORMAT);
+            if ($e['time_end'])
+                $time .= ' &ndash; ' . format_time($e['time_end'], TIMEFORMAT);
+            $meta[] = $time;
+        }
+        if ($e['location'])
+            $meta[] = $e['location'];
+    }
+    if ($private)
+        $meta[] = 'Private meeting';
+
+    if (strstr($e['chamber'], 'Select Committee')) {
+        print '<dt class="sc">';
+    } else {
+        print '<li>';
+    }
+    print "$title ";
+    if ($meta) print '<span>' . join('; ', $meta) . '</span>';
+    if (strstr($e['chamber'], 'Select Committee')) {
+        print "</dt>\n";
+    } else {
+        print "</li>\n";
+    }
+    if ($e['witnesses']) {
+        print "<dd>";
+        print '<a href=" $e[link_calendar] "></a>';
+        print '<a href=" $e[link_external] "></a>';
+        print 'Witnesses: ' . $e['witnesses'];
+        print "</dd>\n";
+    }
+}
+
+# ---
 
 function calendar_past_date($date) {
     global $PAGE, $DATA, $this_page, $hansardmajors;
