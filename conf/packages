@@ -11,3 +11,4 @@ php5-curl
 php5-memcache
 php5-imagick
 libsearch-xapian-perl
+python-mysqldb
