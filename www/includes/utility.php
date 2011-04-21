@@ -8,8 +8,9 @@ General utility functions v1.1 (well, it was).
 include_once INCLUDESPATH . '../../commonlib/phplib/email.php';
 include_once INCLUDESPATH . '../../commonlib/phplib/datetime.php';
 
+# Pass it a brief header word and some debug text and it'll be output.
+# If TEXT is an array, call the user function, assuming it's a class.
 function twfy_debug ($header, $text="") {
-	// Pass it a brief header word and some debug text and it'll be output.
 
 	// We set ?DEBUGTAG=n in the URL.
 	// (DEBUGTAG is set in config.php).
@@ -48,6 +49,7 @@ function twfy_debug ($header, $text="") {
 		
 		// If we can show this header, then, er, show it.
 		if ( in_array($header, $allowed_headers) || $debug_level >= 4) {
+            if (is_array($text)) $text = call_user_func($text);
 			print "<p><span style=\"color:#039;\"><strong>$header</strong></span> $text</p>\n";	
 		}
 	}
