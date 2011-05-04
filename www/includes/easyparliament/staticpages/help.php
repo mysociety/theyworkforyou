@@ -226,13 +226,13 @@ any inconvenience caused.</p>
 <dt><a name="dates_wrong"></a>The date someone starts/ends a ministerial position is wrong!</dt>
 <dd>
 <p>TheyWorkForYou got its ministerial information, as with much else, by
-scraping various pages on the official parliament.uk site.
-Sadly, the site is sometimes out of date
-or incorrect, which will of course lead to incorrect information appearing
-on our site too. Due to the way it all hangs together (with lots of bits of
-string), it is not at all simple to override or fix these at present.
-However, since the 2010 election, the list is kept manually which should
-lead to greater accuracy.
+scraping various pages on the official parliament.uk site. Sadly, the site was
+sometimes out of date or incorrect, which will of course lead to incorrect
+information appearing on our site too. Due to the way it all hangs together
+(with lots of bits of string), it is not at all simple to override or fix these
+at present. Also, since the 2010 election, due to changes to the official site,
+we have been unable to fetch or maintain a list of ministers or select
+committee memberships at all.
 
 </dd>
 

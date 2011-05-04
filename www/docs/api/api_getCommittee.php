@@ -4,6 +4,8 @@ function api_getCommittee_front() {
 ?>
 <p><big>Fetch the members of a Select Committee.</big></p>
 
+<p class="informational">We have no information since the 2010 general election, and information before may be inaccurate.</p>
+
 <h4>Arguments</h4>
 <dl>
 <dt>name</dt>
