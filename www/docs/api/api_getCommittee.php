@@ -8,8 +8,9 @@ function api_getCommittee_front() {
 
 <h4>Arguments</h4>
 <dl>
-<dt>name</dt>
-<dd>Fetch the members of the committee that match this name - if more than one committee matches, return their names.</dd>
+<dt>name (optional)</dt>
+<dd>Fetch the members of the committee that match this name - if more than one committee matches, return their names.
+If left blank, return all committee names for the date provided (or current date) in the database.</dd>
 <dt>date (optional)</dt>
 <dd>Return the members of the committee as they were on this date.</dd>
 </dl>
@@ -44,6 +45,10 @@ function api_getCommittee_front() {
 }</pre>
 
 <?	
+}
+
+function api_getCommittee() {
+    return api_getCommittee_date(get_http_var('date'));
 }
 
 function api_getCommittee_name($name) {
@@ -97,7 +102,24 @@ function api_getCommittee_name($name) {
 
 
 function api_getCommittee_date($date) {
-	api_error('You need to give a name!');
+	$db = new ParlDB;
+
+	$date = parse_date($date);
+	if ($date) $date = '"' . $date['iso'] . '"';
+	else $date = 'date(now())';
+	$q = $db->query("select distinct(dept) from moffice
+		where source = 'chgpages/selctee'
+		and from_date <= " . $date . ' and '
+		. $date . ' <= to_date');
+	if ($q->rows()) {
+		for ($i=0; $i<$q->rows(); $i++) {
+			$output['committees'][] = array(
+				'name' => $q->field($i, 'dept')
+			);
+		}
+		api_output($output);
+	} else {
+		api_error('No committees found');
+	}
 }
 
-?>

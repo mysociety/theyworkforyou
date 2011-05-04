@@ -91,7 +91,7 @@ $methods = array(
 	'getCommittee' => array(
 		'new' => true,
 		'parameters' => array('name', 'date'),
-		'required' => true,
+		'required' => false,
 		'help' => 'Returns members of Select Committee',
 	),
 	'getDebates' => array(
