@@ -143,6 +143,12 @@ db_cursor = db_connection.cursor()
 parsed = objectify.parse(CALENDAR_URL)
 root = parsed.getroot()
 
+# Get the id's of entries from the future as the databas sees it.
+# We'll delete ids from here as we go, and what's left will be things
+# which are no longer in Future Business.
+db_cursor.execute('select id from future where event_date > CURRENT_DATE()')
+old_entries = set(db_cursor.fetchall())
+
 entries = root.channel.findall('item')
 for entry in entries:
     id = entry.event.attrib['id']
@@ -152,8 +158,9 @@ for entry in entries:
         # We have seen this event before. TODO Compare with current entry,
         # update db and Xapian if so
         Entry(entry)
-        pass
+        
+        old_entries.discard( (long(id),) )
     else:
         Entry(entry).add()
 
-# TODO HERE: Remove entries that are no longer present in the feed.
+db_cursor.executemany('delete from future where id=%s', tuple(old_entries))
