@@ -143,7 +143,7 @@ db_cursor = db_connection.cursor()
 parsed = objectify.parse(CALENDAR_URL)
 root = parsed.getroot()
 
-# Get the id's of entries from the future as the databas sees it.
+# Get the id's of entries from the future as the database sees it.
 # We'll delete ids from here as we go, and what's left will be things
 # which are no longer in Future Business.
 db_cursor.execute('select id from future where event_date > CURRENT_DATE()')
