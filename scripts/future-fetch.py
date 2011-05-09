@@ -163,4 +163,4 @@ for entry in entries:
     else:
         Entry(entry).add()
 
-db_cursor.executemany('delete from future where id=%s', tuple(old_entries))
+db_cursor.executemany('update future set deleted=1 where id=%s', tuple(old_entries))
