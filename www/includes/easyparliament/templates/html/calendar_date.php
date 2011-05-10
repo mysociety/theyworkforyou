@@ -41,6 +41,10 @@ foreach ($data['dates'] as $date => $day_events) {
 $PAGE->stripe_end(array(
     array (
         'type' => 'include',
+        'content' => 'calendar_box'
+    ),
+    array (
+        'type' => 'include',
         'content' => 'calendar_future'
     ),
 ));
