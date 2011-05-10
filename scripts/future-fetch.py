@@ -42,7 +42,6 @@ class Entry(object):
     witnesses = None
     witnesses_str = ''
     location = ''
-    person = None
 
     def __init__(self, entry):
         self.id = entry.event.attrib['id']
@@ -63,19 +62,27 @@ class Entry(object):
             else:
                 self.debate_type = committee_text
 
+        self.people = []
+
         title_text = entry.event.inquiry.text
         if title_text:
             m = re.search(' - ([^-]*)$', title_text)
             if m:
-                id, name, cons = memberList.matchfullnamecons(m.group(1), None, self.event_date)
-                if not id:
-                    try:
-                        id = lordsList.GetLordIDfname(m.group(1), None, self.event_date)
-                    except:
-                        pass
-                if id:
-                    title_text = title_text.replace(' - ' + m.group(1), '')
-                    self.person = memberList.membertoperson(id)
+                person_texts = [x.strip() for x in m.group(1).split('/')]
+
+                for person_text in person_texts:
+                    id, name, cons = memberList.matchfullnamecons(m.group(1), None, self.event_date)
+                    if not id:
+                        try:
+                            id = lordsList.GetLordIDfname(m.group(1), None, self.event_date)
+                        except:
+                            pass
+                    if id:
+                        self.people.append(int(memberList.membertoperson(id).replace('uk.org.publicwhip/person/', '')))
+
+            if self.people:
+                title_text = title_text.replace(' - ' + m.group(1), '')
+
             self.title = title_text.strip()
 
         self.witnesses = []
@@ -127,15 +134,21 @@ class Entry(object):
         )""", self.get_tuple()
                           )
 
-        if self.person:
+        self.update_people(delete_old=False)
+
+    def update_people(self, delete_old=True):
+        new_people = [(self.id, person, 0) for person in self.people]
+        new_witnesses = [(self.id, witness, 1) for witness in self.witnesses]
+
+        if delete_old:
             db_cursor.execute(
-                'INSERT INTO future_people (calendar_id, person_id, witness) VALUES (%s, %s, %s)',
-                (self.id, self.person.replace('uk.org.publicwhip/person/', ''), 0)
-            )
-        for witness in self.witnesses:
-            db_cursor.execute(
-                'INSERT INTO future_people (calendar_id, person_id, witness) VALUES (%s, %s, %s)',
-                (self.id, witness, 1)
+                'DELETE FROM future_people where calendar_id = %s',
+                (self.id,))
+            
+        db_cursor.executemany(
+            '''INSERT INTO future_people(calendar_id, person_id, witness)
+                  VALUES (%s, %s, %s)''',
+            new_people + new_witnesses
             )
 
     def update(self):
@@ -163,51 +176,7 @@ class Entry(object):
             event_tuple[1:] + (self.id,)
             )
 
-
-        self.person_id = long(self.person.rsplit('/', 1)[-1]) if self.person else None
-
-        person_count = db_cursor.execute(
-            'SELECT person_id FROM future_people WHERE calendar_id = %s and witness = %s',
-            (self.id, 0))
-
-        if person_count and self.person_id:
-            person_row = db_cursor.fetchone()
-            if person_row[0] != self.person_id:
-                db_cursor.execute(
-                    'UPDATE future_people SET person_id = %s WHERE calendar_id = %s and witness = %s',
-                    (self.person_id, self.id, 0))
-        elif self.person_id:
-            db_cursor.execute(
-                '''INSERT INTO future_people(person_id, calendar_id, witness)
-                       VALUES (%s, %s, %s)''',
-                (self.person_id, self.id, 0)
-                )
-        elif person_count:
-            db_cursor.execute(
-                'DELETE FROM future_people WHERE calendar_id=%s and witness=%s',
-                (self.id, 0)
-                )
-
-        witness_count = db_cursor.execute(
-            'SELECT person_id FROM future_people WHERE calendar_id = %s and witness = %s',
-            (self.id, 1))
-
-        old_witnesses = set((x[0] for x in db_cursor.fetchall()))
-
-        if witness_count:
-            for witness_id in self.witnesses:
-                if witness_id not in old_witnesses:
-                    db_cursor.execute(
-                        '''INSERT INTO future_people(person_id, calendar_id, witness)
-                             VALUES (%s, %s, %s)''',
-                        (witness_id, self.id, 1))
-                    
-        for witness in old_witnesses:
-            if witness not in self.witnesses:
-                db_cursor.execute(
-                    'DELETE FROM future_people WHERE person_id=%s and calendar_id=%s and witness=%s',
-                    (witness, self.id, 1))
-
+        self.update_people()
 
 db_connection = MySQLdb.connect(
     host=config.get('TWFY_DB_HOST'),
