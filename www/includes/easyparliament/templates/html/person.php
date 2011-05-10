@@ -42,7 +42,7 @@ echo '</ul>';
 
 if ($member['has_email_alerts']) {
     print '<p class="informational all" style="margin-bottom:1em">';
-    print '<a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a>
+    print '<a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me updates on '. $member['full_name']. '&rsquo;s activity</strong></a>
     (no more than once per day)</p>';
 }
 
@@ -314,7 +314,7 @@ function person_user_actions($member) {
 
 	# If they're currently an MLA, a Lord or a non-Sinn Fein MP
 	if ($member['has_email_alerts']) {
-		#print '<li><a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a> (no more than once per day)</li>';
+		#print '<li><a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me updates on ' . $member['full_name']. '&rsquo;s activity</strong></a> (no more than once per day)</li>';
 	}
 
 	# Video
@@ -712,14 +712,14 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 	if (isset($extra_info['number_of_alerts'])) {
 		$displayed_stuff = 1;
 	?>
-		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking whenever <?
+		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking <?
 		if ($member['house_disp']==1) print 'this MP';
 		elseif ($member['house_disp']==2) print 'this peer';
 		elseif ($member['house_disp']==3) print 'this MLA';
 		elseif ($member['house_disp']==4) print 'this MSP';
-		elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
+		elseif ($member['house_disp']==0) print $member['full_name'];
 		if ($member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein') || $member['current_member'][4]) {
-			print ' &mdash; <a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'">email me whenever '. $member['full_name']. ' speaks</a>';
+			print ' &mdash; <a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'">email me updates on '. $member['full_name']. '&rsquo;s activity</a>';
 		}
 		print '.</li>';
 	}
