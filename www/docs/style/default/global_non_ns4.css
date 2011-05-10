@@ -390,6 +390,15 @@ div.comment {margin-top: 2em;}
 div.comment p.credit {line-height: 1.3em;margin-bottom: 0;}
 div.comment p.comment {margin-bottom: 0;}
 
+h4.calendar a {
+    color: #2680C6;
+    text-decoration: none;
+    font-size: 83%;
+}
+h4.calendar a:hover {
+    text-decoration:underline;
+}
+
 ul.calendar {
     list-style-type: disc;
     padding-left: 1.5em;

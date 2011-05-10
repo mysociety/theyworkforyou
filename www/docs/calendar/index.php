@@ -54,7 +54,15 @@ function calendar_date($date) {
 
     $data = array();
     foreach ($q->data as $row) {
-        $data[$row['event_date']][$row['chamber']][] = $row;
+        $data['dates'][$row['event_date']][$row['chamber']][] = $row;
+    }
+
+    $data['majors'] = array();
+    if ($this_page == 'calendar_past') {
+        $q = $db->query('SELECT DISTINCT major FROM hansard WHERE hdate = "' . mysql_escape_string($date) . '"');
+        foreach ($q->data as $row) {
+            $data['majors'][] = $row['major'];
+        }
     }
 
     include_once INCLUDESPATH . 'easyparliament/templates/html/calendar_date.php';

@@ -1,6 +1,6 @@
 <?php
 
-global $PAGE;
+global $PAGE, $hansardmajors;
 $PAGE->page_start();
 $PAGE->stripe_start();
 
@@ -13,16 +13,23 @@ $order = array(
 );
 $plural = array(0, 0, 0, 1, 1, 1, 0);
 $list   = array(1, 1, 1, 1, 0, 0, 1);
+$major  = array(1, 101, 2, 0, 0, 0, 0);
 
 # Content goes here
-foreach ($data as $date => $day_events) {
+foreach ($data['dates'] as $date => $day_events) {
     print "<h3>" . format_date($date, LONGERDATEFORMAT) . "</h3>\n";
     foreach ($order as $i => $chamber) {
         if (!array_key_exists($chamber, $day_events))
             continue;
         $events = $day_events[$chamber];
         if ($plural[$i]) $chamber .= 's';
-        print "<h4>$chamber</h4>\n";
+        print "<h4 class='calendar'>$chamber";
+        if (in_array($major[$i], $data['majors'])) {
+            $URL = new URL($hansardmajors[$major[$i]]['page_all']);
+            $URL->insert( array( 'd' => $date ) );
+            print ' &nbsp; <a href="' . $URL->generate() . '">See this day &rarr;</a>';
+        }
+        print "</h4>\n";
         print $list[$i] ? "<ul class='calendar'>\n" : "<dl class='calendar'>\n";
         foreach ($events as $event) {
             calendar_display_entry($event);
