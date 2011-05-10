@@ -6,6 +6,8 @@ import re
 from lxml import objectify
 import MySQLdb
 
+import datetime
+
 # Set up commonlib pylib
 package_dir = os.path.abspath(os.path.split(__file__)[0])
 sys.path.append( os.path.normpath(package_dir + "/../commonlib/pylib") )
@@ -44,6 +46,7 @@ class Entry(object):
 
     def __init__(self, entry):
         self.id = entry.event.attrib['id']
+        self.deleted = 0
         self.link_calendar = entry.guid
         self.link_external = entry.link
         chamber = entry.event.chamber.text.strip()
@@ -93,6 +96,18 @@ class Entry(object):
         location_text = entry.event.location.text
         if location_text: self.location = location_text.strip()
 
+    def get_tuple(self):
+        return (
+            self.id, self.deleted,
+            self.link_calendar, self.link_external,
+            self.body, self.chamber,
+            self.event_date, self.time_start, self.time_end,
+            self.committee_name, self.debate_type,
+            self.title.encode('iso-8859-1', 'xmlcharrefreplace'),
+            self.witnesses_str.encode('iso-8859-1', 'xmlcharrefreplace'),
+            self.location.encode('iso-8859-1', 'xmlcharrefreplace'),
+            )
+
     def add(self):
         # TODO This function needs to insert into Xapian as well, or store to insert in one go at the end
         db_cursor.execute("""INSERT INTO future (
@@ -109,16 +124,9 @@ class Entry(object):
             %s, %s, %s, 
             %s, %s, 
             %s, %s, %s
-        )""", (
-            self.id, 0,
-            self.link_calendar, self.link_external,
-            self.body, self.chamber,
-            self.event_date, self.time_start, self.time_end,
-            self.committee_name, self.debate_type,
-            self.title.encode('iso-8859-1', 'xmlcharrefreplace'),
-            self.witnesses_str.encode('iso-8859-1', 'xmlcharrefreplace'),
-            self.location.encode('iso-8859-1', 'xmlcharrefreplace'),
-        ) )
+        )""", self.get_tuple()
+                          )
+
         if self.person:
             db_cursor.execute(
                 'INSERT INTO future_people (calendar_id, person_id, witness) VALUES (%s, %s, %s)',
@@ -129,6 +137,77 @@ class Entry(object):
                 'INSERT INTO future_people (calendar_id, person_id, witness) VALUES (%s, %s, %s)',
                 (self.id, witness, 1)
             )
+
+    def update(self):
+        event_tuple = self.get_tuple()
+
+        db_cursor.execute(
+            """
+          UPDATE future SET
+            deleted = %s,
+            link_calendar = %s,
+            link_external = %s, 
+            body = %s,
+            chamber = %s, 
+            event_date = %s, 
+            time_start = %s, 
+            time_end = %s, 
+            committee_name = %s, 
+            debate_type = %s, 
+            title = %s, 
+            witnesses = %s, 
+            location = %s
+          WHERE
+            id = %s
+            """,
+            event_tuple[1:] + (self.id,)
+            )
+
+
+        self.person_id = long(self.person.rsplit('/', 1)[-1]) if self.person else None
+
+        person_count = db_cursor.execute(
+            'SELECT person_id FROM future_people WHERE calendar_id = %s and witness = %s',
+            (self.id, 0))
+
+        if person_count and self.person_id:
+            person_row = db_cursor.fetchone()
+            if person_row[0] != self.person_id:
+                db_cursor.execute(
+                    'UPDATE future_people SET person_id = %s WHERE calendar_id = %s and witness = %s',
+                    (self.person_id, self.id, 0))
+        elif self.person_id:
+            db_cursor.execute(
+                '''INSERT INTO future_people(person_id, calendar_id, witness)
+                       VALUES (%s, %s, %s)''',
+                (self.person_id, self.id, 0)
+                )
+        elif person_count:
+            db_cursor.execute(
+                'DELETE FROM future_people WHERE calendar_id=%s and witness=%s',
+                (self.id, 0)
+                )
+
+        witness_count = db_cursor.execute(
+            'SELECT person_id FROM future_people WHERE calendar_id = %s and witness = %s',
+            (self.id, 1))
+
+        old_witnesses = set((x[0] for x in db_cursor.fetchall()))
+
+        if witness_count:
+            for witness_id in self.witnesses:
+                if witness_id not in old_witnesses:
+                    db_cursor.execute(
+                        '''INSERT INTO future_people(person_id, calendar_id, witness)
+                             VALUES (%s, %s, %s)''',
+                        (witness_id, self.id, 1))
+                    
+        for witness in old_witnesses:
+            if witness not in self.witnesses:
+                db_cursor.execute(
+                    'DELETE FROM future_people WHERE person_id=%s and calendar_id=%s and witness=%s',
+                    (witness, self.id, 1))
+
 
 db_connection = MySQLdb.connect(
     host=config.get('TWFY_DB_HOST'),
@@ -152,15 +231,40 @@ old_entries = set(db_cursor.fetchall())
 entries = root.channel.findall('item')
 for entry in entries:
     id = entry.event.attrib['id']
-    row_count = db_cursor.execute('select * from future where id=%s', id)
+    new_entry = Entry(entry)
+
+    row_count = db_cursor.execute(
+        '''SELECT id, deleted, 
+           link_calendar, link_external,
+           body, chamber, 
+           event_date, time_start, time_end, 
+           committee_name, debate_type, 
+           title, witnesses, location
+         FROM future 
+         WHERE id=%s''', 
+        id,
+        )
 
     if row_count:
         # We have seen this event before. TODO Compare with current entry,
         # update db and Xapian if so
-        Entry(entry)
+        old_row = db_cursor.fetchone()
+
+        # For some reason the time fields come out as timedelta rather that time, so need converting.
+        old_tuple = (str(old_row[0]),) + \
+            old_row[1:6] + \
+            (old_row[6].isoformat(), ) + \
+            ((datetime.datetime.min + old_row[7]).time().isoformat() if old_row[7] is not None else None,) + \
+            ((datetime.datetime.min + old_row[8]).time().isoformat() if old_row[8] is not None else None,) + \
+            old_row[9:]
         
+        new_tuple = new_entry.get_tuple()
+
+        if old_tuple != new_entry.get_tuple():
+            new_entry.update()
+
         old_entries.discard( (long(id),) )
     else:
-        Entry(entry).add()
+        new_entry.add()
 
-db_cursor.executemany('update future set deleted=1 where id=%s', tuple(old_entries))
+db_cursor.executemany('UPDATE future SET deleted=1 WHERE id=%s', tuple(old_entries))
