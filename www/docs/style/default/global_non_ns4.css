@@ -689,6 +689,9 @@ div.informational {
     border: solid 2px #ff9900;
     padding: 4px;
     text-align: center;
+    border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
 }
 .informational.left {
     text-align: left;
@@ -700,8 +703,17 @@ div.informational {
     border-left: none;
 }
 .informational.all {
-    margin: 1em 0 0;
+    float: right;
+    width: 15em;
+    margin: 1em 0 1em 1em;
     font-size: 150%;
+}
+.informational.all a {
+}
+.informational.all span {
+    display: block;
+    text-align: right;
+    font-size: 70%;
 }
 
 /* mySociety bar */
@@ -808,7 +820,7 @@ div#person_page .main h4 {padding-top:1em; margin-top:2em; border-top:dotted 1px
 div.main p.person {float:left; background:url(../../images/photobacklarge.png) no-repeat; width:115px; height:151px; position:relative;margin: 0.3em 1em 1em 18px;}
 div.main p.person img.portrait {position:absolute; top:20px; left:7px; border:none;}
 div.main .missingphoto {
-    background: #ffffaa;
+    clear: left;
     padding: 0.5em 1em;
     font-size: 0.8em;
     margin: 0 0 1em;

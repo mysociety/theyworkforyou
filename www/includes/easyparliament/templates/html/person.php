@@ -12,6 +12,13 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 
 # Heading/ picture
 print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
+
+if ($member['has_email_alerts']) {
+    print '<p class="informational all">';
+    print '<a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me updates on '. $member['full_name']. '&rsquo;s activity</strong></a>
+    <span>(no more than once per day)</span></p>';
+}
+
 person_image($member);
 echo '<h2>' . $member['full_name'] . '</h2>';
 echo '<h3>' . person_summary_description($member) . '</h3>';
@@ -39,12 +46,6 @@ echo '<ul>';
 	}
 
 echo '</ul>';
-
-if ($member['has_email_alerts']) {
-    print '<p class="informational all" style="margin-bottom:1em">';
-    print '<a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me updates on '. $member['full_name']. '&rsquo;s activity</strong></a>
-    (no more than once per day)</p>';
-}
 
 //if dummy image, show message asking for a photo
 if (!exists_rep_image($member['person_id'])) {
