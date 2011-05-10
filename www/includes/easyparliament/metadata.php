@@ -221,18 +221,21 @@ $this->page = array (
     ),
 
 	'calendar_summary' => array (
+		'menu'			=> array (
+			'text'			=> 'Upcoming',
+			'title'			=> '',
+		),
 		'parent'		=> 'hansard',
-		'title'			=> 'Upcoming business',
 		'url'			=> 'calendar/'
 	),
 	'calendar_future' => array (
-		'parent'		=> 'hansard',
+		'parent'		=> 'calendar_summary',
 		'title'			=> 'Upcoming business',
 		'url'			=> 'calendar/'
 	),
 	'calendar_past' => array (
-		'parent'		=> 'hansard',
-		'title'			=> 'Calendar',
+		'parent'		=> 'calendar_summary',
+		'title'			=> 'Previous business',
 		'url'			=> 'calendar/'
 	),
 

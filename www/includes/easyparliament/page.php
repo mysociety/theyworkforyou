@@ -386,7 +386,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		// we're within that section.
 		$items = array (
 			array('home'),
-			array('hansard', 'overview', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front'),
+			array('hansard', 'overview', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'calendar_summary'),
 			array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
 			array('ni_home', 'nioverview', 'mlas'),
 			array('wales_home'),

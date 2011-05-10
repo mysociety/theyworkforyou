@@ -4,11 +4,14 @@ include_once "../../includes/easyparliament/init.php";
 
 $date = get_http_var('d');
 if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
+    $this_page = 'calendar_future';
     calendar_summary();
 } elseif ($date >= date('Y-m-d')) {
-    calendar_future_date($date);
+    $this_page = 'calendar_future';
+    calendar_date($date);
 } else {
-    calendar_past_date($date);
+    $this_page = 'calendar_past';
+    calendar_date($date);
 }
 
 # ---
@@ -16,8 +19,7 @@ if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
 # Show upcoming stuff, perhaps a week or so, and links to view more.
 # Sidebar of month calendar showing soonest future stuff
 function calendar_summary() {
-    global $this_page, $PAGE;
-    $this_page = 'calendar_summary';
+    global $PAGE;
 
     $db = new ParlDB();
     $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= NOW()');
@@ -28,17 +30,10 @@ function calendar_summary() {
         return;
     }
 
-    return _calendar_future_date($min_future_date);
+    return calendar_date($min_future_date);
 }
 
-# Show the events for a future date.
-function calendar_future_date($date) {
-    global $this_page;
-    $this_page = 'calendar_future';
-    return _calendar_future_date($date);
-}
-
-function _calendar_future_date($date) {
+function calendar_date($date) {
     global $this_page, $DATA, $PAGE;
 
     $db = new ParlDB();
@@ -62,7 +57,7 @@ function _calendar_future_date($date) {
         $data[$row['event_date']][$row['chamber']][] = $row;
     }
 
-    include_once INCLUDESPATH . 'easyparliament/templates/html/calendar_future_date.php';
+    include_once INCLUDESPATH . 'easyparliament/templates/html/calendar_date.php';
 }
 
 function calendar_display_entry($e) {
@@ -129,10 +124,10 @@ function calendar_display_entry($e) {
 
 # ---
 
+/*
 function calendar_past_date($date) {
     global $PAGE, $DATA, $this_page, $hansardmajors;
 
-	$this_page = 'calendar_past';
 	$PAGE->set_hansard_headings(array('date'=>$date));
 	$URL = new URL($this_page);
 	$nextprevdata = array();
@@ -196,4 +191,5 @@ function calendar_past_date($date) {
 	));
 	$PAGE->page_end();
 }
+*/
 

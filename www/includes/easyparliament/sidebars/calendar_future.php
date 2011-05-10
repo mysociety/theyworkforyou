@@ -17,7 +17,7 @@ $PAGE->block_start(array('title' => 'Future business calendar', 'id'=>'calendar'
 
 $data = array(
     'info' => array(
-        'page' => 'calendar_future',
+        'page' => $this_page,
         'major' => 1, # For recess dates only - good enough
         'onday' => $args['onday'],
         'all' => 1,
