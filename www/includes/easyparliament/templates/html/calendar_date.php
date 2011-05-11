@@ -39,11 +39,26 @@ foreach ($data['dates'] as $date => $day_events) {
 }
 
 $PAGE->stripe_end(array(
-    array (
+    array(
         'type' => 'include',
         'content' => 'calendar_box'
     ),
-    array (
+    array(
+        'type' => 'html',
+        'content' => '
+<div class="block">
+<h4>Search upcoming business</h4>
+<div class="blockbody">
+<form action="/search/" method="get">
+<p><input type="text" name="s" value="" size="40"> <input type="submit" value="Go">
+<input type="hidden" name="section" value="future">
+</p>
+</form>
+</div>
+</div>
+        '
+    ),
+    array(
         'type' => 'include',
         'content' => 'calendar_future'
     ),

@@ -75,6 +75,7 @@ Enter a name here to restrict results to contributions only by that person.
 		'wrans' => 'Written answers',
 		'wms' => 'Written ministerial statements',
 		'standing' => 'Bill Committees',
+        'future' => 'Future Business',
 	),
 	'Northern Ireland Assembly' => array(
 		'ni' => 'Debates',
