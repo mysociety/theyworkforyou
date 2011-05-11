@@ -209,6 +209,56 @@ if ($action ne "check" && $action ne 'checkfull') {
         $db->replace_document_by_term("Q$gid", $doc);
     }
 
+    if (!$cronquiet) {
+	print "xapian indexing Future Business\n";
+    }
+
+    # Now add Future Business to the index.
+    my $fb_query = "SELECT id, body, chamber, event_date, committee_name, debate_type, title, witnesses, location, deleted, pos, unix_timestamp(modified) as modified FROM future";
+
+    my $fbq = $dbh->prepare($fb_query);
+    $fbq->execute();
+
+    my $people_query = "SELECT person_id FROM future_people WHERE calendar_id = ?";
+    my $pq = $dbh->prepare($people_query);
+
+    while (my $row = $fbq->fetchrow_hashref()) {
+	my $xid = "Qcalendar/$row->{id}";
+
+        my $doc = new Search::Xapian::Document();
+        $termgenerator->set_document($doc);
+
+        $doc->set_data($xid);
+
+        $doc->add_term($xid);
+        $doc->add_term("B$new_indexbatch"); # For email alerts
+	$doc->add_term('MF'); # Mark it as Future Business
+
+        my $date = $row->{event_date};
+        $date =~ s/-//g;
+	$doc->add_term("D$date");
+
+        my $time_start = $row->{time_start} || 0;
+        $time_start =~ s/[^0-9]//g;
+
+        $doc->add_value(0, pack('N', $date+0) . pack('N', $time_start+0));
+        $doc->add_value(1, $date); # For date range searches
+        $doc->add_value(2, pack('N', $row->{modified}) . pack('N', $row->{pos})); # For email alerts
+
+        $termgenerator->index_text($row->{title});
+        $termgenerator->increase_termpos();
+        $termgenerator->index_text($row->{witnesses});
+        $termgenerator->increase_termpos();
+        $termgenerator->index_text($row->{committee_name});
+	
+	$pq->execute($row->{id});
+	while (my $personrow = $pq->fetchrow_hashref()) {
+	    $doc->add_term("S$personrow->{person_id}")
+	}
+	
+	$db->replace_document_by_term($xid, $doc);
+    }
+
     if ($last_hdate ne "") {
         print "\n" unless $cronquiet;
         # Store new batch number
