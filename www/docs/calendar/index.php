@@ -1,12 +1,16 @@
 <?php
 
 include_once "../../includes/easyparliament/init.php";
+include_once "../../includes/easyparliament/calendar.php";
 
 $date = get_http_var('d');
 if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
-    $this_page = 'calendar_future';
+    $this_page = 'calendar_today';
     calendar_summary();
-} elseif ($date >= date('Y-m-d')) {
+} elseif ($date == date('Y-m-d')) {
+    $this_page = 'calendar_today';
+    calendar_date($date);
+} elseif ($date > date('Y-m-d')) {
     $this_page = 'calendar_future';
     calendar_date($date);
 } else {
@@ -21,9 +25,7 @@ if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
 function calendar_summary() {
     global $PAGE;
 
-    $db = new ParlDB();
-    $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= NOW()');
-    $min_future_date = $q->field(0, 'm');
+    $min_future_date = calendar_min_future_date();
     if (!$min_future_date) {
         $PAGE->error_message('There is no future information in the database currently.');
         $PAGE->page_end();
@@ -34,28 +36,12 @@ function calendar_summary() {
 }
 
 function calendar_date($date) {
-    global $this_page, $DATA, $PAGE;
+    global $this_page;
 
     $db = new ParlDB();
 
-    $q = $db->query("SELECT * FROM future
-        LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
-        WHERE event_date = '$date'
-        AND deleted = 0
-        ORDER BY chamber, pos");
-
-    if (!$q->rows()) {
-        $PAGE->error_message('There is currently no information available for that date.');
-        $PAGE->page_end();
-        return;
-    }
-
-    $DATA->set_page_metadata($this_page, 'date', $date);
-
     $data = array();
-    foreach ($q->data as $row) {
-        $data['dates'][$row['event_date']][$row['chamber']][] = $row;
-    }
+    $data['dates'] = calendar_fetch_date($date);
 
     $data['majors'] = array();
     if ($this_page == 'calendar_past') {
@@ -66,68 +52,6 @@ function calendar_date($date) {
     }
 
     include_once INCLUDESPATH . 'easyparliament/templates/html/calendar_date.php';
-}
-
-function calendar_display_entry($e) {
-    $private = false;
-    if ($e['committee_name']) {
-        $title = $e['committee_name'];
-        if ($e['title'] == 'to consider the Bill') {
-        } elseif ($e['title'] && $e['title'] != 'This is a private meeting.') {
-            $title .= ': ' . $e['title'];
-        } else {
-            $private = true;
-        }
-    } else {
-        $title = $e['title'];
-        if ($pid = $e['person_id']) {
-            $MEMBER = new MEMBER(array( 'person_id' => $pid ));
-            $name = $MEMBER->full_name();
-            $title .= " &ndash; <a href='/mp/?p=$pid'>$name</a>";
-        }
-    }
-
-    $meta = array();
-
-    if ($e['debate_type'] == "Prime Minister's Question Time") {
-        $title = $e['debate_type'];
-    } elseif ($d = $e['debate_type']) {
-        if ($d == 'Adjournment') $d = 'Adjournment debate';
-        $meta[] = $d;
-    }
-
-    if ($e['time_start'] || $e['location']) {
-        if ($e['time_start']) {
-            $time = format_time($e['time_start'], TIMEFORMAT);
-            if ($e['time_end'])
-                $time .= ' &ndash; ' . format_time($e['time_end'], TIMEFORMAT);
-            $meta[] = $time;
-        }
-        if ($e['location'])
-            $meta[] = $e['location'];
-    }
-    if ($private)
-        $meta[] = 'Private meeting';
-
-    if (strstr($e['chamber'], 'Select Committee')) {
-        print '<dt class="sc">';
-    } else {
-        print '<li>';
-    }
-    print "$title ";
-    if ($meta) print '<span>' . join('; ', $meta) . '</span>';
-    if (strstr($e['chamber'], 'Select Committee')) {
-        print "</dt>\n";
-    } else {
-        print "</li>\n";
-    }
-    if ($e['witnesses']) {
-        print "<dd>";
-        print '<a href=" $e[link_calendar] "></a>';
-        print '<a href=" $e[link_external] "></a>';
-        print 'Witnesses: ' . $e['witnesses'];
-        print "</dd>\n";
-    }
 }
 
 # ---

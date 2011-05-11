@@ -233,6 +233,11 @@ $this->page = array (
 		'title'			=> 'Upcoming business',
 		'url'			=> 'calendar/'
 	),
+	'calendar_today' => array (
+		'parent'		=> 'calendar_summary',
+		'title'			=> 'Today&rsquo;s business',
+		'url'			=> 'calendar/'
+	),
 	'calendar_past' => array (
 		'parent'		=> 'calendar_summary',
 		'title'			=> 'Previous business',
