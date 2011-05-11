@@ -51,7 +51,7 @@ $PAGE->stripe_start("full");
     </div>
 -->
 
-    <div style="background: #ffff99;">
+    <div>
         <h3>Your representative</h3>
         <?php
         

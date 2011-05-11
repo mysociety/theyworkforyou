@@ -255,6 +255,7 @@ div.welcome_actions {
 
 div.welcome_actions div {
     background: url(../../images/white.png);
+    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
 }
 
 div.welcome_actions div h3 {
@@ -299,28 +300,22 @@ div#welcome_uk.welcome_actions div {
     min-height: 12em;
 }
 
-div#welcome_scotland.welcome_actions {
-    background: #0b1837 url(../../images/front_scotland.jpg) 100% 0%;
+div#welcome_scotland.welcome_actions, div#welcome_ni.welcome_actions {
     border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
     padding: 2em 2em 0 2em;
     margin-top: 1em;
 }
 
-div#welcome_scotland.welcome_actions div {
+div#welcome_scotland.welcome_actions div, div#welcome_ni.welcome_actions div {
     margin-bottom: 2em;
-    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
+}
+
+div#welcome_scotland.welcome_actions {
+    background: #0b1837 url(../../images/front_scotland.jpg) 100% 0%;
 }
 
 div#welcome_ni.welcome_actions {
     background: #0b1837 url(../../images/front_ni.jpg) 0% 0%;
-    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
-    padding: 2em 2em 0 2em;
-    margin-top: 1em;
-}
-
-div#welcome_ni.welcome_actions div {
-    margin-bottom: 2em;
-    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
 }
 
 /* Front campaign */
