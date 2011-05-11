@@ -49,7 +49,7 @@ foreach ($data['data'] as $wran) {
     echo $wran['body'], '</a></strong> <small>answered ', format_date($wran['hdate'], LONGDATEFORMAT),
         $totalcomments, '</small></dt><dd>';
     if (sizeof($speaker)) {
-        $body = preg_replace('/<p>/', '', $wran['child']['body'], 1);
+        $body = preg_replace('/<p[^>]*>/', '', $wran['child']['body'], 1);
         echo '<p><a href="', $speaker['url'], '">', member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']), '</a>: ';
     } else {
         $body = $wran['child']['body'];

@@ -239,6 +239,7 @@ div.welcome_col1 {
     float: left;
     width: 49%;
     margin-left: 1%;
+    margin-top: 1em;
 }
 
 div.welcome_col2 {
@@ -249,13 +250,16 @@ div.welcome_col2 {
 
 div.welcome_actions {
     height: 1%;
-    margin-bottom: 1em;
+    margin: 0 0 1em;
     position: relative;
+    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
+    padding: 2em 2em 0 2em;
 }
 
 div.welcome_actions div {
     background: url(../../images/white.png);
     border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
+    margin-bottom: 2em;
 }
 
 div.welcome_actions div h3 {
@@ -290,24 +294,7 @@ div.welcome_actions a.credit {
 
 div#welcome_uk.welcome_actions {
     background: #88A465 url(../../images/westminster.jpg) right 20%;
-    margin-top: 2em;
-}
-
-div#welcome_uk.welcome_actions div {
-    float: left;
-    width: 46%;
-    margin: 1.5em 2%;
-    min-height: 12em;
-}
-
-div#welcome_scotland.welcome_actions, div#welcome_ni.welcome_actions {
-    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
-    padding: 2em 2em 0 2em;
     margin-top: 1em;
-}
-
-div#welcome_scotland.welcome_actions div, div#welcome_ni.welcome_actions div {
-    margin-bottom: 2em;
 }
 
 div#welcome_scotland.welcome_actions {
@@ -320,10 +307,25 @@ div#welcome_ni.welcome_actions {
 
 /* Front campaign */
 
-div.campaign {background:#ffffd7 url(../../images/campaign.png) bottom right no-repeat; margin:0 16px 0.7em 16px;padding:16px; font-weight:bold; color:#555; position:relative; font-size:1.3em;}
-div.campaign p {padding:0 0 0 22px; margin:0; background:url(../../images/pin.png) no-repeat left 60%;}
-div.campaign span.chev {padding-left:25px; background:url(../../images/chev.png) no-repeat 0 4px; padding-right:16px;}
-
+div.campaign {
+    background: #ffffd7 url(../../images/campaign.png) bottom right no-repeat;
+    margin: 0.77em 16px 0.7em 16px;
+    padding: 16px;
+    font-weight: bold;
+    color: #555;
+    position: relative;
+    font-size: 1.3em;
+}
+div.campaign p {
+    padding: 0 0 0 22px;
+    margin: 0;
+    background: url(../../images/pin.png) no-repeat left 60%;
+}
+div.campaign span.chev {
+    padding-left: 25px;
+    background: url(../../images/chev.png) no-repeat 0 4px;
+    padding-right: 16px;
+}
 	
 
 /* Extra - eg, the 'source' link on Hansard pages. */
@@ -513,6 +515,24 @@ dl.big-debates dt small {
 dl.recent-wrans dt small {
     color: #666666;
     float: right;
+    margin: 0 0 0 0.5em;
+}
+
+dl.big-debates.front > dt {
+    font-size: 125%;
+}
+
+dl.big-debates.front > dt small {
+    font-size: 68%;
+}
+
+dl.big-debates.front h3, dl.big-debates.front h4 {
+    font-size: 100%;
+    margin-top: 1em;
+}
+
+dl.big-debates.front dl, dl.big-debates.front dd > ul, dl.big-debates.front > dd > p {
+    font-size: 85%;
 }
 
 /*

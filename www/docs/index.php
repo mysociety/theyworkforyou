@@ -2,59 +2,38 @@
 
 include_once "../includes/easyparliament/init.php";
 
-$number_of_debates_to_show = 6;
-$number_of_wrans_to_show = 5;
-
-//set page name (selects relivant bottom menu item)
+//set page name (selects relevant bottom menu item)
 $this_page = 'overview';
 
-//output header
 $PAGE->page_start();
 $PAGE->supress_heading = true;
 $PAGE->stripe_start("full");
 
+$last_dates = array(); // holds the most recent data there is data for, indexed by type
+$DEBATELIST = new DEBATELIST;
+$LORDSDEBATELIST = new LORDSDEBATELIST;
+$WHALLLIST = new WHALLLIST;
+$WMSLIST = new WMSLIST;
+$WRANSLIST = new WRANSLIST;
+$COMMITTEE = new StandingCommittee();
+$last_dates[1] = $DEBATELIST->most_recent_day();
+$last_dates[101] = $LORDSDEBATELIST->most_recent_day();
+$last_dates[4] = $WMSLIST->most_recent_day();
+$last_dates[2] = $WHALLLIST->most_recent_day();
+$last_dates[3] = $WRANSLIST->most_recent_day();
+$last_dates[6] = $COMMITTEE->most_recent_day();
+
 ?>
-<!-- Welcome -->
-<!-- <div class="attention welcome">
-    <h2>
-        Welcome to TheyWorkForYou for the UK Parliament.
-        <br>Find out what your MP is doing in your name, read debates and sign up for email alerts.
-    </h2>
-</div>
--->
+
+<div class="welcome_col1">
 
 <!-- Actions -->
 <div id="welcome_uk" class="welcome_actions">
-<!--
-    <div id="" style="min-height: 27em; background: #ffff99;">
-        <h2 align="center" style="padding-top:0; margin: 0.5em;">Election Quiz &ndash; it&rsquo;s job interview time for your next MP!</h2>
-
-<p>
-    Every few years, you get to choose who will <strong>make our laws</strong>, 
-    and <strong>run our country</strong>.  
-</p>
-
-<p> 
-    We asked individual candidates about <strong>local and national</strong> issues. 
-    You can explore their answers.
-</p>
-
-<form method="post" action="http://election.theyworkforyou.com/quiz" id="postcode_form">
-    <p id="postcode_line" style="font-size: 150%; text-align: center; padding-bottom: 0;">
-        <strong style="display:block; text-align: left;"><label for="id_postcode">Enter your postcode:</label></strong> 
-        <input id="id_postcode" type="text" name="postcode" size="8" style="border: 0.2em solid #88a465; font-size: 166%; margin: 0.25em 0 0 0;">
-        <input type="submit" value="Go!" style="font-size: 166%">
-    </p>
-    <p style="margin-top:0; text-align: center">e.g. OX1 3DR <small>(don&rsquo;t worry about spaces or capitalisation)</small></p>
-</form>
-
-    </div>
--->
 
     <div>
         <h3>Your representative</h3>
         <?php
-        
+
 		$MPURL = new URL('yourmp');
         	global $THEUSER;
 
@@ -79,7 +58,7 @@ $PAGE->stripe_start("full");
         			if ($left_house[1]['date'] != '9999-12-31') {
         				$former = 'former';
         			}
-        ?> 
+        ?>
         	<p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br>
         	In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
         <?php
@@ -107,19 +86,18 @@ $PAGE->stripe_start("full");
             $popular_searches = $SEARCHLOG->popular_recent(10);
         ?>
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-            <h3><label for="s">Search,  create an alert or RSS feed</label></h3>            
+            <h3><label for="s">Search,  create an alert or RSS feed</label></h3>
             <p>
                 <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
                 <input type="submit" value="Go" class="submit">
-                <br>
                 <small>e.g. <em>word</em>, <em>phrase</em>, or <em>person</em> | <a href="/search/?adv=1">More options</a></small>
             </p>
-            <?php if (count($popular_searches) > 0) { ?>
+            <?php if (count($popular_searches)) { ?>
                 <p>
-                    Popular searches today: 
-                    <?php foreach ($popular_searches as $popular_search) { ?>
-                        <a href="<?php echo $popular_search['url']?>"><?php echo $popular_search['display']?></a>
-                    <?php } ?>
+                    Popular searches today:
+                    <?php foreach ($popular_searches as $popular_search) {
+                        echo $popular_search['display'];
+                    } ?>
                 </p>
             <?php } ?>
         </form>
@@ -128,80 +106,116 @@ $PAGE->stripe_start("full");
     <br class="clear">
 </div>
 
-<?php
-    $PAGE->stripe_end();
-    $PAGE->stripe_start("full");
-?>
+<dl class="big-debates front">
 
-<!-- Campaign -->
-<!--
+<dt><a href="<?=$last_dates[3]['listurl']?>">Written answers</a>
+<small><?=format_date($last_dates[3]['hdate'], LONGERDATEFORMAT); ?></small>
+</dt>
+<dd>The parliamentary question is a great way for MPs and peers to discover
+information from ministers which the government may not wish to reveal.
+
+<h3>Random recent written question</h3>
+<?php
+
+$WRANSLIST->display('recent_wrans', array('days' => 7, 'num' => 1));
+$MOREURL = new URL('wransfront');
+
+?>
+    <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more written answers</a></strong></p>
+
+<dt><a href="<?=$last_dates[4]['listurl']?>">Written ministerial statements</a>
+<small><?=format_date($last_dates[4]['hdate'], LONGERDATEFORMAT); ?></small>
+</dt>
+<dd>Written ministerial statements were introduced to stop the practice of
+having &ldquo;planted&rdquo; questions to elicit Government statements.
+
+<h4>Random recent written ministerial statement</h4>
+<?php
+
+$WMSLIST->display('recent_wms', array('days' => 7, 'num' => 1));
+$MOREURL = new URL('wmsfront');
+
+?>
+    <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more written statements</a></strong></p>
+
+<? if (count($last_dates[6])) { ?>
+<dt><a href="<?=$last_dates[6]['listurl']?>">Public Bill committees</a>
+<small><?=format_date($last_dates[6]['hdate'], LONGERDATEFORMAT); ?></small>
+</dt>
+<dd>Previously called Standing Committees, these study proposed legislation (bills) in detail, debating each clause and sending amendments to the Commons.
+
+<h3>Latest Public Bill Committee meetings</h3>
+<?php
+
+$COMMITTEE->display('recent_pbc_debates', array('num' => 5));
+$MOREURL = new URL('pbcfront');
+
+?>
+    <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Public Bill committees</a></strong></p>
+
+<? } ?>
+
+</div>
+<div class="welcome_col2">
+
 <div class="campaign">
     <p>
-        Become a TheyWorkForYou volunteer in your constituency <span class="chev"><span class="hide">-</span></span>
-	<a href="http://www.democracyclub.org.uk/">Join DemocracyClub</a>
+        What&rsquo;s up next: <span class="chev"><span class="hide">-</span></span>
+	<a href="/calendar/">Upcoming</a>
     </p>
 </div>
--->
 
-<!-- Latest in parliament -->
-<div class="latest col3">
-    <h3>Recently in the UK Parliament</h3>
-    <div>
-        <?php
-    
-            //Latest activity (column 1)
-            $DEBATELIST = new DEBATELIST; 
-            $LORDSDEBATELIST = new LORDSDEBATELIST;
+<?
+$PAGE->include_sidebar_template('front');
+?>
 
-            $last_dates = array(); // holds the most recent data there is data for, indexed by type    
-            $last_dates[1] = $DEBATELIST->most_recent_day();    
-            $last_dates[101] = $LORDSDEBATELIST->most_recent_day();
+<dl class="big-debates front">
+<dt><a href="<?=$last_dates[1]['listurl']?>">Commons debates</a>
+<small><?=format_date($last_dates[1]['hdate'], LONGERDATEFORMAT); ?></small>
+</dt>
+<dd>The main chamber of the House of Commons is where debates are held
+on a variety of topics, oral questions are answered, and new legislation is
+debated.
 
-            //get html
-            $latest_html = major_summary($last_dates, false);
-            echo $latest_html;
-        ?>
-    </div>
-    <div>
-        <?php
-            //Latest activity (column 2)  
-            $WHALLLIST = new WHALLLIST;                   
-            $WMSLIST = new WMSLIST; 
-            $last_dates = array();
-            $last_dates[4] = $WMSLIST->most_recent_day();       
-            $last_dates[2] = $WHALLLIST->most_recent_day();                     
-            
-            //get html
-            $latest_html = major_summary($last_dates, false);
-            echo $latest_html;        
-        ?>
-    </div>
-    <div>
-        <?php    
-            //Latest activity (column 3)
-            $WRANSLIST = new WRANSLIST;    
-            $last_dates = array();
-            $last_dates[3] = $WRANSLIST->most_recent_day();        
-    
-            /*
-            	foreach (array_keys($hansardmajors) as $major) {
-            		if (array_key_exists($major, $data)) {
-            			unset($data[$major]['listurl']);
-            			if (count($data[$major]) == 0) 
-            				unset($data[$major]);
-            		}
-            	}
-        	*/
-            //get debates html
-            $latest_html = major_summary($last_dates, false);
-            echo $latest_html;
-        ?>    
-    </div>
-    <br class="clear">&nbsp;
+<h4>Random recent Commons debate</h4>
+<?php
+$DEBATELIST->display('recent_debates', array('days' => 7, 'num' => 1));
+$MOREURL = new URL('debatesfront');
+?>
+        <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Commons debates</a></strong></p>
+
+<dt><a href="<?=$last_dates[2]['listurl']?>">Westminster Hall</a>
+<small><?=format_date($last_dates[2]['hdate'], LONGERDATEFORMAT); ?></small>
+</dt>
+<dd>Westminster Hall is a secondary MP debating chamber, in a horseshoe
+arrangement aimed at fostering a more constructive debate.
+
+<h3>Random recent Westminster Hall debate</h3>
+<?php
+$WHALLLIST->display('recent_debates', array('days' => 7, 'num' => 1));
+$MOREURL = new URL('whallfront');
+?>
+        <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Westminster Hall debates</a></strong></p>
+
+<dt><a href="<?=$last_dates[101]['listurl']?>">Lords debates</a>
+<small><?=format_date($last_dates[101]['hdate'], LONGERDATEFORMAT); ?></small>
+</dt>
+<dd>Peers from all parties (and crossbench and bishops) scrutinise government
+legislation and debate a variety of issues in the House of Lords main chamber.
+
+<h4>Random recent Lords debates</h4>
+<?php
+$LORDSDEBATELIST->display('recent_debates', array('days' => 7, 'num' => 1));
+$MOREURL = new URL('lordsdebatesfront');
+?>
+        <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Lords debates</a></strong></p>
+
+</dl>
+
 </div>
 
 <?php
+    $PAGE->stripe_end();
 
-$PAGE->stripe_end();
 $PAGE->page_end();
 

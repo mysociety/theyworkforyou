@@ -912,7 +912,7 @@ function major_summary($data, $echo = true) {
 	
 	//if no printed majors passed, default to all
 	if(!isset($printed_majors)){
-	    $printed_majors = array(1, 2, 3, 5, 101, 7); # 8
+	    $printed_majors = array(1, 2, 4, 3, 5, 101, 7); # 8
 	}
 	
 	// single date?
@@ -947,21 +947,31 @@ function major_summary($data, $echo = true) {
 			$date = $data['date'];
 		else 
 			$date = $data[$p_major]['hdate'];
-		$q = $db->query('SELECT body, gid
+		$q = $db->query('SELECT section_id, body, gid
 				FROM hansard, epobject
-				WHERE hansard.epobject_id = epobject.epobject_id AND section_id = 0
-				AND hdate = "' . $date . '"
+				WHERE hansard.epobject_id = epobject.epobject_id '
+                . ($p_major == 4 ? 'AND subsection_id=0' : 'AND section_id=0') .
+                ' AND hdate = "' . $date . '"
 				AND major = ' . $p_major . '
 				ORDER BY hpos');
 		$out = '';
 		$LISTURL = new URL($hansardmajors[$p_major]['page_all']);
+		$current_sid = 0;
 		for ($i = 0; $i < $q->rows(); $i++) {
 			$gid = fix_gid_from_db($q->field($i, 'gid'));
 			$body = $q->field($i, 'body');
+			$section_id = $q->field($i, 'section_id');
 			//if (strstr($body, 'Chair]')) continue;
-			$LISTURL->insert( array( 'id' => $gid ) );
-			$out .= '<li><a href="'.$LISTURL->generate().'">';
-			$out .= $body . '</a>';
+            if ($p_major == 4 && !$section_id) {
+				if ($current_sid++){ 
+				    $out .= '</ul>';
+				}
+				$out .= '<li>' . $body . '<ul>';
+            } else {
+			    $LISTURL->insert( array( 'id' => $gid ) );
+			    $out .= '<li><a href="'.$LISTURL->generate().'">';
+			    $out .= $body . '</a>';
+            }
 		}
 		if ($out) {
 			$html .= _major_summary_title($p_major, $data, $LISTURL, $daytext);
@@ -970,43 +980,11 @@ function major_summary($data, $echo = true) {
 			$html .= '</ul>';
 		}
 	}
-	if (array_key_exists(4, $data)) {
-		if ($one_date)
-			$date = $data['date'];
-		else 
-			$date = $data[4]['hdate'];
-		$q = $db->query('SELECT section_id, body, gid FROM hansard,epobject
-				WHERE hansard.epobject_id = epobject.epobject_id AND major=4 AND hdate="'.$date.'" AND subsection_id=0
-				ORDER BY major, hpos');
-		if ($q->rows()) {
-			$LISTURL = new URL($hansardmajors[4]['page_all']);
-			$html .= _major_summary_title(4, $data, $LISTURL, $daytext);
-			$html .= "<ul>";
-			$current_sid = 0;
-			for ($i = 0; $i < $q->rows(); $i++) {
-				$gid = fix_gid_from_db($q->field($i, 'gid'));
-				$body = $q->field($i, 'body');
-				$section_id = $q->field($i, 'section_id');
-				if (!$section_id) {
-					if ($current_sid++){ 
-					    $html .= '</ul>';
-					}
-					$html .= '<li>' . $body . '<ul>';
-
-				} else {
-					$LISTURL->insert( array( 'id' => $gid ) );
-					$html .= '<li><a href="'.$LISTURL->generate().'">';
-					$html .= $body . '</a>';
-				}
-			}
-			$html .= '</ul>';
-		}
-	}
-	$html .= '</ul>';
+    $html .= '</ul>';
 	
-	if($echo){
+	if ($echo) {
 	    print $html;
-	}else{
+	} else {
 	    return $html;
     }
 }
