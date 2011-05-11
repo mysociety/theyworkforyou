@@ -191,6 +191,7 @@ CREATE TABLE `future` (
   `title` text NOT NULL,
   `witnesses` text NOT NULL,
   `location` varchar(255) NOT NULL,
+  `pos` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `event_date` (`event_date`),
   KEY `modified` (`modified`)

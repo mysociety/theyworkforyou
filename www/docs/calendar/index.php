@@ -42,7 +42,7 @@ function calendar_date($date) {
         LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
         WHERE event_date = '$date'
         AND deleted = 0
-        ORDER BY chamber");
+        ORDER BY chamber, pos");
 
     if (!$q->rows()) {
         $PAGE->error_message('There is currently no information available for that date.');

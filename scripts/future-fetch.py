@@ -25,6 +25,8 @@ from resolvelordsnames import lordsList
 
 CALENDAR_URL = 'http://services.parliament.uk/calendar/all.rss'
 
+positions = {}
+
 class Entry(object):                                                                                                                                                          
     id = None
     created = None
@@ -50,7 +52,7 @@ class Entry(object):
         self.link_external = entry.link
         chamber = entry.event.chamber.text.strip()
         self.chamber = '%s: %s' % (entry.event.house.text.strip(), chamber)
-        self.event_date = entry.event.date
+        self.event_date = entry.event.date.text
         self.time_start = getattr(entry.event, 'startTime', None)
         self.time_end = getattr(entry.event, 'endTime', None)
 
@@ -199,8 +201,10 @@ old_entries = set(db_cursor.fetchall())
 
 entries = root.channel.findall('item')
 for entry in entries:
-    id = entry.event.attrib['id']
     new_entry = Entry(entry)
+    id = new_entry.id
+    event_date = new_entry.event_date
+    positions[event_date] = positions.setdefault(event_date, 0) + 1
 
     row_count = db_cursor.execute(
         '''SELECT id, deleted, 
@@ -235,5 +239,7 @@ for entry in entries:
         old_entries.discard( (long(id),) )
     else:
         new_entry.add()
+
+    db_cursor.execute('UPDATE future SET pos=%s WHERE id=%s', (positions[event_date], id))
 
 db_cursor.executemany('UPDATE future SET deleted=1 WHERE id=%s', tuple(old_entries))
