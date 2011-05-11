@@ -4,7 +4,7 @@ include_once 'api_getGeometry.php';
 
 function api_getConstituencies_front() {
 ?>
-<p><big>Fetch a list of constituencies.</big></p>
+<p><big>Fetch a list of UK Parliament constituencies.</big></p>
 
 <h4>Arguments</h4>
 <p>Note only one argument can be given at present.</p>

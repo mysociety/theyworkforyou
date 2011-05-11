@@ -4,7 +4,7 @@ include_once '../../../commonlib/phplib/mapit.php';
 
 function api_getConstituency_front() {
 ?>
-<p><big>Fetch a constituency.</big></p>
+<p><big>Fetch a UK Parliament constituency.</big></p>
 
 <h4>Arguments</h4>
 <dl>

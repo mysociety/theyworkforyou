@@ -73,24 +73,18 @@ function postcode_to_constituency_internal($postcode, $mp_only=true) {
     #    }
     #}
 
-    # $pid = getmypid();
-    # $tracefn = '/tmp/apache.ktrace.' . getmicrotime();
-    # system("/home/fawkes/bin/ktracewrap -p $pid -f " . $tracefn);
-
     $filename = '/postcode/' . rawurlencode($postcode);
     $ch = curl_init('http://mapit.mysociety.org' . $filename);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     $file = curl_exec($ch);
-    # system("/home/fawkes/bin/ktracewrap -c -p $pid");
     if (curl_errno($ch)) {
         $errno = curl_errno($ch);
         trigger_error("Postcode database: " . $errno . ' ' . curl_error($ch), E_USER_WARNING);
         return 'CONNECTION_TIMED_OUT';
     }
     curl_close($ch);
-    #unlink($tracefn);
 
     $r = json_decode($file, true);
     if (!$file) {
@@ -108,6 +102,33 @@ function postcode_to_constituency_internal($postcode, $mp_only=true) {
 
     if (!isset($areas['WMC'])) {
         return '';
+    }
+
+    # Temporarily, from May 2011 election until May 2011 Boundary-Line is
+    # loaded, make another call to look up new Scottish constituency
+    # Call only returns new Scottish constituencies
+    if (isset($areas['SPC'])) {
+        $filename = '/postcode/' . rawurlencode($postcode) . '?generation=15';
+        $ch = curl_init('http://mapit.mysociety.org' . $filename);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        $file = curl_exec($ch);
+        if (curl_errno($ch)) {
+            $errno = curl_errno($ch);
+            trigger_error("Postcode database: " . $errno . ' ' . curl_error($ch), E_USER_WARNING);
+            return 'CONNECTION_TIMED_OUT';
+        }
+        curl_close($ch);
+        $r = json_decode($file, true);
+        if (!$file) {
+            trigger_error("Postcode database is not working. Content:\n".$file.", request: ". $filename, E_USER_WARNING);
+            return '';
+        }
+        if (isset($r['error'])) return '';
+        foreach ($r['areas'] as $row) {
+            $areas[$row['type']] = utf8_decode($row['name']);
+        }
     }
 
     # Normalise name - assume SP and NI are already so...

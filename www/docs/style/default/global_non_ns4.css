@@ -235,15 +235,93 @@ div.sidebar p.vote a {padding:0.2em;}
 
 /* Homepages */
 
-div.welcome_actions {height:1%; margin-top: 2em; margin-bottom: 1em; }
-div.welcome_actions div {background:url(../../images/white.png); float:left; width:46%; margin: 1.5em 2%;
-        min-height:12em;}
-div.welcome_actions div h3 {color:#000;}
-div.welcome_actions #welcome_search  input.text {font-size:1.3em; width:85%;}
-div#welcome_uk.welcome_actions {background:#88A465 url(../../images/westminster.jpg) right 20%; position:relative;}
-div.welcome_actions small#attribution {position:absolute; bottom:5px; left:20px; font-size:0.6em;}
-div.welcome_actions small#attribution a {color:#fff; font-weight:normal;}
+div.welcome_col1 {
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+}
 
+div.welcome_col2 {
+    float: right;
+    width: 50%;
+    margin-top: 1em;
+}
+
+div.welcome_actions {
+    height: 1%;
+    margin-bottom: 1em;
+    position: relative;
+}
+
+div.welcome_actions div {
+    background: url(../../images/white.png);
+}
+
+div.welcome_actions div h3 {
+    color: #000;
+}
+
+div.welcome_actions #welcome_search input.text {
+    font-size: 1.3em;
+    width: 85%;
+}
+
+div.welcome_actions small#attribution {
+    position: absolute;
+    bottom: 5px;
+    left: 20px;
+    font-size: 0.6em;
+}
+
+div.welcome_actions small#attribution a {
+    color: #fff;
+    font-weight: normal;
+}
+
+div.welcome_actions a.credit {
+    position: absolute;
+    right: 0.5em;
+    bottom: 0.5em;
+    color: #000000;
+    font-weight: normal;
+    font-size: 0.85em;
+}
+
+div#welcome_uk.welcome_actions {
+    background: #88A465 url(../../images/westminster.jpg) right 20%;
+    margin-top: 2em;
+}
+
+div#welcome_uk.welcome_actions div {
+    float: left;
+    width: 46%;
+    margin: 1.5em 2%;
+    min-height: 12em;
+}
+
+div#welcome_scotland.welcome_actions {
+    background: #0b1837 url(../../images/front_scotland.jpg) 100% 0%;
+    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
+    padding: 2em 2em 0 2em;
+    margin-top: 1em;
+}
+
+div#welcome_scotland.welcome_actions div {
+    margin-bottom: 2em;
+    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
+}
+
+div#welcome_ni.welcome_actions {
+    background: #0b1837 url(../../images/front_ni.jpg) 0% 0%;
+    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
+    padding: 2em 2em 0 2em;
+    margin-top: 1em;
+}
+
+div#welcome_ni.welcome_actions div {
+    margin-bottom: 2em;
+    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
+}
 
 /* Front campaign */
 
@@ -429,13 +507,21 @@ dl.calendar dd {
     font-size: 0.85em;
 }
 
+dl.big-debates dt, dl.recent-wrans dt {
+	font-weight: normal;
+}
+
+dl.big-debates dt small {
+    display: block;
+    color: #666666;
+}
+dl.recent-wrans dt small {
+    color: #666666;
+    float: right;
+}
+
 /*
 
-dl.big-debates dt,
-dl.recent-wrans dt {
-	line-height: 1.3em;
-	font-weight: normal;
-	}
 dl.big-debates dd {
 	line-height: 1.3em;
 	margin: 0 0 0.5em 1.5em;
@@ -841,7 +927,14 @@ div.block div.blockbody {padding: 0 0.6em 1em 0.6em;}
 div.block div.blockbody p,
 div.block div.blockbody ul {margin-left: 0;margin-right: 0;padding:0;}
 
-div#help.block {border-top:solid 10px #990100!important; background:#fff7f6 url(../../images/help.png) no-repeat 8px 10px; border-bottom:none;}
+div#help.block {
+    border-top: solid 10px #990100 !important;
+    background: #fff7f6 url(../../images/help.png) no-repeat 8px 10px;
+    border-bottom: none;
+    border-top-left-radius: 0.5em;
+    -webkit-border-top-left-radius: 0.5em;
+    -moz-border-radius-topleft: 0.5em;
+}
 div#help.block ul li {background:none; padding-left:0;}
 div#help.block ul li ul li {list-style-type:circle; margin-left:2em;}
 div#help.block h4 {padding-left:40px;color:#990100;padding-top:14px;}

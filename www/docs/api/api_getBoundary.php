@@ -5,7 +5,7 @@ include_once 'api_getGeometry.php';
 
 function api_getBoundary_front() {
 ?>
-<p><big>Returns KML file for a constituency.</big></p>
+<p><big>Returns KML file for a UK Parliament constituency.</big></p>
 
 <p>Returns the bounding polygon of the constituency, in KML format (see <a
 href="http://mapit.mysociety.org/">mapit.mysociety.org</a> for other formats,

@@ -36,6 +36,7 @@ if ($pc) {
         $pc = '';
     }
 }
+
 if ($pc) {
     if (array_key_exists('SPC', $current)) {
         $a = array($current['SPC'], $current['SPE']);
@@ -44,6 +45,17 @@ if ($pc) {
         $a = array($current['NIE']);
         $country = 'N';
     }
+}
+
+if (!$pc || $country == 'N') { ?>
+<div class="picture">
+<a href="http://www.flickr.com/photos/markybon/138214000/" title="Boundaries by MarkyBon, on Flickr"><img src="http://farm1.static.flickr.com/51/138214000_80327fe675.jpg" width="358" height="500" alt="Boundaries"></a>
+<br><small>Boundaries by MarkyBon</small>
+</div>
+<?
+}
+
+if ($pc) {
     $db = new ParlDB;
     # Just left politicians
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
@@ -133,15 +145,14 @@ $(function(){
     if ($country == 'N' && $current['NIE'] == $current['WMC']) {
         print '<p>The constituency may have kept the same name but altered its boundaries &ndash; see the <a href="http://www.boundarycommission.org.uk/pics/big_map_1.jpg">summary map</a>.</p>';
     }
+    if ($country == 'S') {
+        print '<p class="informational"><a href="/scotland/">View TheyWorkForYou&rsquo;s coverage of the Scottish Parliament</a></p>';
+    }
+    if ($country == 'N') {
+        print '<p class="informational"><a href="/ni/">View TheyWorkForYou&rsquo;s coverage of the Northern Ireland Assembly</a></p>';
+    }
 }
 
-if (!$pc || $country == 'N') { ?>
-<div class="picture">
-<a href="http://www.flickr.com/photos/markybon/138214000/" title="Boundaries by MarkyBon, on Flickr"><img src="http://farm1.static.flickr.com/51/138214000_80327fe675.jpg" width="358" height="500" alt="Boundaries"></a>
-<br><small>Boundaries by MarkyBon</small>
-</div>
-<?
-}
 ?>
 
 <p class="intro">Constituency boundaries are <strong>changing</strong> for the
@@ -161,7 +172,13 @@ do with this <a href="http://www.boundarycommission.org.uk/pics/big_map_1.jpg">o
 
 <p>This service should work anywhere in Scotland or Nothern Ireland, errors and omissions excepted.</p>
 
-<p>This service is also available through our web service <a href="http://mapit.mysociety.org/">MaPit</a>.</p>
+<p>This service is also available through our web service <a href="http://mapit.mysociety.org/">MaPit</a>,
+which can provide programmatic access to the constituency for a particular postcode.</p>
+
+<ul class="results">
+<li><a href="/scotland/">TheyWorkForYou&rsquo;s coverage of the Scottish Parliament</a>
+<li><a href="/ni/">TheyWorkForYou&rsquo;s coverage of the Northern Ireland Assembly</a>
+</ul>
 
 </div>
 <?
