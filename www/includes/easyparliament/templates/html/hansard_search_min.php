@@ -36,7 +36,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 			echo ('<strong>' . $row['parent']['body'] . '</strong>');
 		}
 		echo '</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT) . ')';
-		if ($row['video_status'] == 5 || $row['video_status'] == 7) {
+		if (isset($row['video_status']) && ($row['video_status'] == 5 || $row['video_status'] == 7)) {
 			echo ' <em>has video</em> ';
 		}
 		echo '</small>';
