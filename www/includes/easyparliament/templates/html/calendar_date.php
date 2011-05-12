@@ -47,7 +47,7 @@ $PAGE->stripe_end(array(
         'type' => 'html',
         'content' => '
 <div class="block">
-<h4>Search upcoming business</h4>
+<h4>Search upcoming business, or set up a future business email alert</h4>
 <div class="blockbody">
 <form action="/search/" method="get">
 <p><input type="text" name="s" value="" size="40"> <input type="submit" value="Go">
