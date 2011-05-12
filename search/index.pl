@@ -44,7 +44,7 @@ if ($action eq "sincefile") {
     if (-e $lastupdatedfile) {
         # Read unix time from file
         open FH, "<$lastupdatedfile" or die "couldn't open $lastupdatedfile even though it is there";
-        $since_date_condition = " where hansard.modified >= from_unixtime('" . (readline FH) . "')";
+        $since_date_condition = " where {{modified}} >= from_unixtime('" . (readline FH) . "')";
         close FH;
     }
     # Store time we need to update from next time
@@ -53,15 +53,15 @@ if ($action eq "sincefile") {
     my @row = $sth->fetchrow_array();
     $now_start_string = $row[0];
 } elsif ($action eq "lastweek") {
-    $since_date_condition = " where hdate > date_sub(curdate(), interval 7 day)";
+    $since_date_condition = " where {{date}} > date_sub(curdate(), interval 7 day)";
 } elsif ($action eq "lastmonth") {
-    $since_date_condition = " where hdate > date_sub(curdate(), interval 1 month)";
+    $since_date_condition = " where {{date}} > date_sub(curdate(), interval 1 month)";
 } elsif ($action eq "daterange") {
     my $datefrom = shift;
     die "As fourth parameter, specify from date in form 2001-06-01" if !$datefrom;
     my $dateto = shift;
     die "As fifth parameter, specify to date in form 2004-10-28" if !$dateto;
-    $since_date_condition = " where hdate >= '$datefrom' and hdate <= '$dateto'";
+    $since_date_condition = " where {{date}} >= '$datefrom' and {{date}} <= '$dateto'";
 }
 
 # Section, fed up of indexing things that don't need to be
@@ -101,7 +101,9 @@ if ($action ne "check" && $action ne 'checkfull') {
         from epobject join hansard on epobject.epobject_id = hansard.epobject_id
         left join member on hansard.speaker_id = member.member_id
         left join epobject as section on hansard.section_id = section.epobject_id";
-    $query .= $since_date_condition;
+    (my $sdc = $since_date_condition) =~ s/{{date}}/hdate/;
+    $sdc =~ s/{{modified}}/hansard.modified/;
+    $query .= $sdc;
     $query .= ' and major = ' . $section if ($section);
     $query .= ' ORDER BY hdate,major,hpos';
     my $q = $dbh->prepare($query);
@@ -205,7 +207,9 @@ if ($action ne "check" && $action ne 'checkfull') {
 
     # Now add Future Business to the index.
     my $fb_query = "SELECT id, body, chamber, event_date, committee_name, debate_type, title, witnesses, location, deleted, pos, unix_timestamp(modified) as modified FROM future";
-    $fb_query .= $since_date_condition;
+    ($sdc = $since_date_condition) =~ s/{{date}}/event_date/;
+    $sdc =~ s/{{modified}}/modified/;
+    $fb_query .= $sdc;
 
     my $fbq = $dbh->prepare($fb_query);
     $fbq->execute();
