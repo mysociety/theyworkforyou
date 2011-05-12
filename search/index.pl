@@ -59,7 +59,7 @@ if ($action eq "sincefile") {
 } elsif ($action eq "daterange") {
     my $datefrom = shift;
     die "As fourth parameter, specify from date in form 2001-06-01" if !$datefrom;
-    my $dateto = shift
+    my $dateto = shift;
     die "As fifth parameter, specify to date in form 2004-10-28" if !$dateto;
     $since_date_condition = " where hdate >= '$datefrom' and hdate <= '$dateto'";
 }
