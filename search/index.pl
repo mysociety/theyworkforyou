@@ -57,17 +57,11 @@ if ($action eq "sincefile") {
 } elsif ($action eq "lastmonth") {
     $since_date_condition = " where hdate > date_sub(curdate(), interval 1 month)";
 } elsif ($action eq "daterange") {
-    $since_date_condition = " where hdate >= '$datefrom' and hdate <= '$dateto'";
-}
-
-# Date range case
-my $datefrom;
-my $dateto;
-if ($action eq "daterange") {
-    $datefrom=shift;
+    my $datefrom = shift;
     die "As fourth parameter, specify from date in form 2001-06-01" if !$datefrom;
-    $dateto=shift;
+    my $dateto = shift
     die "As fifth parameter, specify to date in form 2004-10-28" if !$dateto;
+    $since_date_condition = " where hdate >= '$datefrom' and hdate <= '$dateto'";
 }
 
 # Section, fed up of indexing things that don't need to be
