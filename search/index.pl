@@ -201,10 +201,6 @@ if ($action ne "check" && $action ne 'checkfull') {
         $db->replace_document_by_term("Q$gid", $doc);
     }
 
-    if (!$cronquiet) {
-        print "xapian indexing Future Business\n";
-    }
-
     # Now add Future Business to the index.
     my $fb_query = "SELECT id, body, chamber, event_date, committee_name, debate_type, title, witnesses, location, deleted, pos, unix_timestamp(modified) as modified FROM future";
     ($sdc = $since_date_condition) =~ s/{{date}}/event_date/;
@@ -219,6 +215,14 @@ if ($action ne "check" && $action ne 'checkfull') {
 
     while (my $row = $fbq->fetchrow_hashref()) {
         my $xid = "calendar/$row->{id}";
+
+        if ('calendar' ne $last_area) {
+            $last_hdate = $row->{event_date};
+            $last_area = 'calendar';
+            if (!$cronquiet) {
+                print "xapian indexing Future Business\n";
+            }
+        }
 
         my $date = $row->{event_date};
         $date =~ s/-//g;
