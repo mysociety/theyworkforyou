@@ -487,7 +487,7 @@ dl.calendar dt.sc {
     font-weight: bold;
 }
 
-dl.calendar dt span, ul.calendar li span {
+dl.calendar dt span, ul.calendar li span, span.future_meta {
     white-space: nowrap;
     color: #666666;
     font-size: 0.85em;
