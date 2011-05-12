@@ -222,7 +222,7 @@ if ($q_house==1) {
 	
     	$LIST = new HANSARDLIST();
 
-        if ($args['s']) {
+        if ($args['s'] && !strstr($args['s'], 'section:')) {
     	    find_members($args['s']);
             find_constituency($args);
         }
