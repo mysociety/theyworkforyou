@@ -3311,7 +3311,7 @@ class StandingCommittee extends DEBATELIST {
 			$data[$hdate][] = array(
 				'bill'=> $title,
 				'sitting' => $sitting_txt,
-				'url' => "$session/" . urlencode(str_replace(' ','_',$title)) . '/#sitting' . $sitting,
+				'url' => "/pbc/$session/" . urlencode(str_replace(' ','_',$title)) . '/#sitting' . $sitting,
 			);
 		}
 		return $data;
