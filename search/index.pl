@@ -46,15 +46,18 @@ if ($action eq "sincefile") {
         open FH, "<$lastupdatedfile" or die "couldn't open $lastupdatedfile even though it is there";
         $since_date_condition = " where hansard.modified >= from_unixtime('" . (readline FH) . "')";
         close FH;
-    } else {
-        # No file, update everything
-        $since_date_condition = "";        
     }
     # Store time we need to update from next time
     my $sth = $dbh->prepare("select unix_timestamp(now())");
     $sth->execute();
     my @row = $sth->fetchrow_array();
     $now_start_string = $row[0];
+} elsif ($action eq "lastweek") {
+    $since_date_condition = " where hdate > date_sub(curdate(), interval 7 day)";
+} elsif ($action eq "lastmonth") {
+    $since_date_condition = " where hdate > date_sub(curdate(), interval 1 month)";
+} elsif ($action eq "daterange") {
+    $since_date_condition = " where hdate >= '$datefrom' and hdate <= '$dateto'";
 }
 
 # Date range case
@@ -91,6 +94,7 @@ $termgenerator->set_stemmer($stemmer);
 # $termgenerator->set_stopper();
 
 if ($action ne "check" && $action ne 'checkfull') {
+
     # Batch numbers - each new stuff gets a new batch number
     my $max_indexbatch = $dbh->selectrow_array('select max(indexbatch_id) from indexbatch') || 0;
     my $new_indexbatch = $max_indexbatch + 1;
@@ -101,17 +105,9 @@ if ($action ne "check" && $action ne 'checkfull') {
         unix_timestamp(hansard.created) as created, hpos,
         person_id, member.title, first_name, last_name, constituency, party, house
         from epobject join hansard on epobject.epobject_id = hansard.epobject_id
-	    left join member on hansard.speaker_id = member.member_id
+        left join member on hansard.speaker_id = member.member_id
         left join epobject as section on hansard.section_id = section.epobject_id";
-    if ($action eq "lastweek") {
-        $query .= " where hdate > date_sub(curdate(), interval 7 day)";
-    } if ($action eq "lastmonth") {
-        $query .= " where hdate > date_sub(curdate(), interval 1 month)";
-    } elsif ($action eq "sincefile") {
-        $query .= $since_date_condition;
-    } elsif ($action eq "daterange") {
-        $query .= " where hdate >= '$datefrom' and hdate <= '$dateto'";
-    }
+    $query .= $since_date_condition;
     $query .= ' and major = ' . $section if ($section);
     $query .= ' ORDER BY hdate,major,hpos';
     my $q = $dbh->prepare($query);
@@ -210,11 +206,12 @@ if ($action ne "check" && $action ne 'checkfull') {
     }
 
     if (!$cronquiet) {
-	print "xapian indexing Future Business\n";
+        print "xapian indexing Future Business\n";
     }
 
     # Now add Future Business to the index.
     my $fb_query = "SELECT id, body, chamber, event_date, committee_name, debate_type, title, witnesses, location, deleted, pos, unix_timestamp(modified) as modified FROM future";
+    $fb_query .= $since_date_condition;
 
     my $fbq = $dbh->prepare($fb_query);
     $fbq->execute();
@@ -223,40 +220,43 @@ if ($action ne "check" && $action ne 'checkfull') {
     my $pq = $dbh->prepare($people_query);
 
     while (my $row = $fbq->fetchrow_hashref()) {
-	my $xid = "Qcalendar/$row->{id}";
+        my $xid = "calendar/$row->{id}";
+
+        my $date = $row->{event_date};
+        $date =~ s/-//g;
 
         my $doc = new Search::Xapian::Document();
         $termgenerator->set_document($doc);
 
         $doc->set_data($xid);
 
-        $doc->add_term($xid);
+        $doc->add_term("Q$xid");
         $doc->add_term("B$new_indexbatch"); # For email alerts
-	$doc->add_term('MF'); # Mark it as Future Business
-
-        my $date = $row->{event_date};
-        $date =~ s/-//g;
-	$doc->add_term("D$date");
+        $doc->add_term('MF'); # Mark it as Future Business
+        $pq->execute($row->{id});
+        while (my $personrow = $pq->fetchrow_hashref()) {
+            $doc->add_term("S$personrow->{person_id}")
+        }
+        $doc->add_term("D$date");
 
         my $time_start = $row->{time_start} || 0;
         $time_start =~ s/[^0-9]//g;
-
         $doc->add_value(0, pack('N', $date+0) . pack('N', $time_start+0));
         $doc->add_value(1, $date); # For date range searches
         $doc->add_value(2, pack('N', $row->{modified}) . pack('N', $row->{pos})); # For email alerts
 
         $termgenerator->index_text($row->{title});
-        $termgenerator->increase_termpos();
-        $termgenerator->index_text($row->{witnesses});
-        $termgenerator->increase_termpos();
-        $termgenerator->index_text($row->{committee_name});
-	
-	$pq->execute($row->{id});
-	while (my $personrow = $pq->fetchrow_hashref()) {
-	    $doc->add_term("S$personrow->{person_id}")
-	}
-	
-	$db->replace_document_by_term($xid, $doc);
+        if ($row->{witnesses}) {
+            (my $witnesses = $row->{witnesses}) =~ s/<[^>]*>//; # Might be links
+            $termgenerator->increase_termpos();
+            $termgenerator->index_text($witnesses);
+        }
+        if ($row->{committee_text}) {
+            $termgenerator->increase_termpos();
+            $termgenerator->index_text($row->{committee_name});
+        }
+
+        $db->replace_document_by_term("Q$xid", $doc);
     }
 
     if ($last_hdate ne "") {
@@ -266,14 +266,16 @@ if ($action ne "check" && $action ne 'checkfull') {
     }
 
     # Write out date we updated to, for 'sincefile' case
-    if ($action eq "sincefile") {
-	    # print "updating sincefile\n";
+    if ($action eq "sincefile") {   
+        # print "updating sincefile\n";
         open FH, ">$lastupdatedfile.tmp" or die "couldn't write to $lastupdatedfile.tmp";
         print FH "$now_start_string";
         close FH;
         rename "$lastupdatedfile.tmp", $lastupdatedfile;
     }
+
 } elsif ($action eq 'check') {
+
     my $lastupdatedir = "$dbfile/../xml2db/";
     open FP, $lastupdatedir . 'deleted-gids' or exit;
     while (<FP>) {
@@ -286,7 +288,9 @@ if ($action ne "check" && $action ne 'checkfull') {
     # Wipe the file.
     open FP, '>' . $lastupdatedir . 'deleted-gids';
     close FP;
+
 } elsif ($action eq 'checkfull') {
+
     # Look for deleted items, or items we've missed
 
     # Check for items in Xapian not in MySQL:
