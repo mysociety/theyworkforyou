@@ -134,6 +134,7 @@ class SEARCHENGINE {
                     elseif ($value == 'spwrans' || $value == 'spwran') $newv = 8;
                     elseif ($value == 'uk') $newv = array(1,2,3,4,6,101);
                     elseif ($value == 'scotland') $newv = array(7,8);
+                    elseif ($value == 'future') $newv = 'F';
                     if (is_array($newv)) {
                         $newv = 'major:' . join(' major:', $newv);
                     } else {
@@ -222,6 +223,7 @@ class SEARCHENGINE {
             $qd = str_replace('M7 OR M8', 'section:scotland', $qd);
         }
         $qd = preg_replace('#\bM(\d+)\b#e', '"in the \'" . (isset($hansardmajors[$1]["title"]) ? $hansardmajors[$1]["title"] . "\'" : "$1")', $qd);
+        $qd = preg_replace('#\bMF\b#', 'in Future Business', $qd);
 
         # Replace stemmed things with their unstemmed terms from the query
         $used = array();

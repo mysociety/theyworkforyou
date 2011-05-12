@@ -53,6 +53,7 @@ system "./xml2db.pl $cronquiet --recent --scotland --quiet";
 system "./xml2db.pl $cronquiet --recent --scotwrans --quiet";
 system "./xml2db.pl $cronquiet --recent --scotqs --quiet";
 system "./xml2db.pl $cronquiet --recent --standing --quiet";
+system "python ./future-fetch.py";
 
 $cronquiet = substr($cronquiet, 2) if $cronquiet;
 # Update Xapan index

@@ -173,6 +173,37 @@ CREATE TABLE `titles` (
   PRIMARY KEY  (`title`)
 );
 
+CREATE TABLE `future` (
+  `id` int(11) NOT NULL,
+  `created` datetime NOT NULL default '0000-00-00 00:00:00',
+  `modified` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `deleted` tinyint(1) NOT NULL,
+  `link_calendar` varchar(255) NOT NULL,
+  `link_external` varchar(255) NOT NULL,
+  `body` varchar(20) NOT NULL,
+  `chamber` varchar(255) NOT NULL,
+  `event_date` date NOT NULL,
+  `time_start` time,
+  `time_end` time,
+  -- One of the following two will be blank, possibly both
+  `committee_name` varchar(255) NOT NULL,
+  `debate_type` varchar(255) NOT NULL,
+  `title` text NOT NULL,
+  `witnesses` text NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `pos` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `event_date` (`event_date`),
+  KEY `modified` (`modified`)
+);
+
+CREATE TABLE `future_people` (
+  `calendar_id` int(11) NOT NULL,
+  `person_id` int(11) NOT NULL,
+  `witness` tinyint(1) NOT NULL,
+  KEY `calendar_id` (`calendar_id`)
+);
+
 --
 -- User content tables
 --

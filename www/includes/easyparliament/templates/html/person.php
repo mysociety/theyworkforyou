@@ -12,6 +12,13 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 
 # Heading/ picture
 print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
+
+if ($member['has_email_alerts']) {
+    print '<p class="informational all">';
+    print '<a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me updates on '. $member['full_name']. '&rsquo;s activity</strong></a>
+    <span>(no more than once per day)</span></p>';
+}
+
 person_image($member);
 echo '<h2>' . $member['full_name'] . '</h2>';
 echo '<h3>' . person_summary_description($member) . '</h3>';
@@ -39,12 +46,6 @@ echo '<ul>';
 	}
 
 echo '</ul>';
-
-if ($member['has_email_alerts']) {
-    print '<p class="informational all" style="margin-bottom:1em">';
-    print '<a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a>
-    (no more than once per day)</p>';
-}
 
 //if dummy image, show message asking for a photo
 if (!exists_rep_image($member['person_id'])) {
@@ -314,7 +315,7 @@ function person_user_actions($member) {
 
 	# If they're currently an MLA, a Lord or a non-Sinn Fein MP
 	if ($member['has_email_alerts']) {
-		#print '<li><a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me whenever '. $member['full_name']. ' speaks</strong></a> (no more than once per day)</li>';
+		#print '<li><a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me updates on ' . $member['full_name']. '&rsquo;s activity</strong></a> (no more than once per day)</li>';
 	}
 
 	# Video
@@ -712,14 +713,14 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 	if (isset($extra_info['number_of_alerts'])) {
 		$displayed_stuff = 1;
 	?>
-		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking whenever <?
+		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking <?
 		if ($member['house_disp']==1) print 'this MP';
 		elseif ($member['house_disp']==2) print 'this peer';
 		elseif ($member['house_disp']==3) print 'this MLA';
 		elseif ($member['house_disp']==4) print 'this MSP';
-		elseif ($member['house_disp']==0) print $member['full_name']; ?> speaks<?php
+		elseif ($member['house_disp']==0) print $member['full_name'];
 		if ($member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein') || $member['current_member'][4]) {
-			print ' &mdash; <a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'">email me whenever '. $member['full_name']. ' speaks</a>';
+			print ' &mdash; <a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'">email me updates on '. $member['full_name']. '&rsquo;s activity</a>';
 		}
 		print '.</li>';
 	}

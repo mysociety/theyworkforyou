@@ -67,11 +67,11 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		if (isset($row['parent']) && count($row['parent']) > 0) {
 			echo ('<strong>' . $row['parent']['body'] . '</strong>');			
 		}
-		echo '</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT) . ')';
-		if ($row['video_status'] == 5 || $row['video_status'] == 7) {
+		echo '</a> <small>(' . format_date($row['hdate'], LONGDATEFORMAT) . ')';
+		if (isset($row['video_status']) && ($row['video_status'] == 5 || $row['video_status'] == 7)) {
 			echo ' <em>has video</em> ';
 		}
-		if ($row['collapsed'] && $row['subsection_id']) {
+		if (isset($row['collapsed']) && $row['collapsed'] && $row['subsection_id']) {
 		    $URL = new URL('search');
 		    $URL->insert(array('s' => $info['s'] . " segment:$row[subsection_id]" ));
 		    echo ' <a href="', $URL->generate(), '">See ', $row['collapsed'],
@@ -85,7 +85,8 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		echo '</dt> <dd><p>';
 		if (isset($row['speaker']) && count($row['speaker'])) {
 			$sp = $row['speaker'];
-			echo "<em>" . ucfirst(member_full_name($sp['house'], $sp['title'], $sp['first_name'], $sp['last_name'], $sp['constituency'])) . "</em>: ";
+			echo "<em>" . ucfirst(member_full_name($sp['house'], $sp['title'], $sp['first_name'], $sp['last_name'], $sp['constituency'])) . "</em>";
+            if ($row['extract']) echo ": ";
 		} 
 		
 		echo $row['extract'] . "</p></dd>\n";

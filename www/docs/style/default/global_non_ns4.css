@@ -239,6 +239,7 @@ div.welcome_col1 {
     float: left;
     width: 49%;
     margin-left: 1%;
+    margin-top: 1em;
 }
 
 div.welcome_col2 {
@@ -249,12 +250,16 @@ div.welcome_col2 {
 
 div.welcome_actions {
     height: 1%;
-    margin-bottom: 1em;
+    margin: 0 0 1em;
     position: relative;
+    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
+    padding: 2em 2em 0 2em;
 }
 
 div.welcome_actions div {
     background: url(../../images/white.png);
+    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
+    margin-bottom: 2em;
 }
 
 div.welcome_actions div h3 {
@@ -289,46 +294,38 @@ div.welcome_actions a.credit {
 
 div#welcome_uk.welcome_actions {
     background: #88A465 url(../../images/westminster.jpg) right 20%;
-    margin-top: 2em;
-}
-
-div#welcome_uk.welcome_actions div {
-    float: left;
-    width: 46%;
-    margin: 1.5em 2%;
-    min-height: 12em;
+    margin-top: 1em;
 }
 
 div#welcome_scotland.welcome_actions {
     background: #0b1837 url(../../images/front_scotland.jpg) 100% 0%;
-    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
-    padding: 2em 2em 0 2em;
-    margin-top: 1em;
-}
-
-div#welcome_scotland.welcome_actions div {
-    margin-bottom: 2em;
-    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
 }
 
 div#welcome_ni.welcome_actions {
     background: #0b1837 url(../../images/front_ni.jpg) 0% 0%;
-    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
-    padding: 2em 2em 0 2em;
-    margin-top: 1em;
-}
-
-div#welcome_ni.welcome_actions div {
-    margin-bottom: 2em;
-    border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
 }
 
 /* Front campaign */
 
-div.campaign {background:#ffffd7 url(../../images/campaign.png) bottom right no-repeat; margin:0 16px 0.7em 16px;padding:16px; font-weight:bold; color:#555; position:relative; font-size:1.3em;}
-div.campaign p {padding:0 0 0 22px; margin:0; background:url(../../images/pin.png) no-repeat left 60%;}
-div.campaign span.chev {padding-left:25px; background:url(../../images/chev.png) no-repeat 0 4px; padding-right:16px;}
-
+div.campaign {
+    background: #ffffd7 url(../../images/campaign.png) bottom right no-repeat;
+    margin: 0.77em 16px 0.7em 16px;
+    padding: 16px;
+    font-weight: bold;
+    color: #555;
+    position: relative;
+    font-size: 1.3em;
+}
+div.campaign p {
+    padding: 0 0 0 22px;
+    margin: 0;
+    background: url(../../images/pin.png) no-repeat left 60%;
+}
+div.campaign span.chev {
+    padding-left: 25px;
+    background: url(../../images/chev.png) no-repeat 0 4px;
+    padding-right: 16px;
+}
 	
 
 /* Extra - eg, the 'source' link on Hansard pages. */
@@ -468,6 +465,45 @@ div.comment {margin-top: 2em;}
 div.comment p.credit {line-height: 1.3em;margin-bottom: 0;}
 div.comment p.comment {margin-bottom: 0;}
 
+h4.calendar a {
+    color: #2680C6;
+    text-decoration: none;
+    font-size: 83%;
+}
+h4.calendar a:hover {
+    text-decoration:underline;
+}
+
+ul.calendar {
+    list-style-type: disc;
+    padding-left: 1.5em;
+}
+
+dl.calendar dt {
+    font-weight: normal;
+    margin-top: 0.5em;
+}
+dl.calendar dt.sc {
+    font-weight: bold;
+}
+
+dl.calendar dt span, ul.calendar li span, span.future_meta {
+    white-space: nowrap;
+    color: #666666;
+    font-size: 0.85em;
+    font-weight: normal;
+}
+
+dl.calendar dt span.type {
+}
+dl.calendar dt span.meta {
+}
+
+dl.calendar dd {
+    margin: 0 0 0.5em 1.5em;
+    font-size: 0.85em;
+}
+
 dl.big-debates dt, dl.recent-wrans dt {
 	font-weight: normal;
 }
@@ -479,6 +515,27 @@ dl.big-debates dt small {
 dl.recent-wrans dt small {
     color: #666666;
     float: right;
+    margin: 0 0 0 0.5em;
+}
+
+dl.big-debates.front > dt {
+    font-size: 125%;
+}
+dl.big-debates.front > dd {
+    border-bottom: solid 1px #999;
+}
+
+dl.big-debates.front > dt small {
+    font-size: 68%;
+}
+
+dl.big-debates.front h3, dl.big-debates.front h4 {
+    font-size: 100%;
+    margin-top: 1em;
+}
+
+dl.big-debates.front dl, dl.big-debates.front dd > ul, dl.big-debates.front > dd > p {
+    font-size: 85%;
 }
 
 /*
@@ -736,6 +793,9 @@ div.informational {
     border: solid 2px #ff9900;
     padding: 4px;
     text-align: center;
+    border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
 }
 .informational.left {
     text-align: left;
@@ -747,8 +807,17 @@ div.informational {
     border-left: none;
 }
 .informational.all {
-    margin: 1em 0 0;
+    float: right;
+    width: 15em;
+    margin: 1em 0 1em 1em;
     font-size: 150%;
+}
+.informational.all a {
+}
+.informational.all span {
+    display: block;
+    text-align: right;
+    font-size: 70%;
 }
 
 /* mySociety bar */
@@ -854,7 +923,13 @@ div.sidebar div.comment-teaser ul li {display:inline;padding:0; margin:0; paddin
 div#person_page .main h4 {padding-top:1em; margin-top:2em; border-top:dotted 1px #808080;}
 div.main p.person {float:left; background:url(../../images/photobacklarge.png) no-repeat; width:115px; height:151px; position:relative;margin: 0.3em 1em 1em 18px;}
 div.main p.person img.portrait {position:absolute; top:20px; left:7px; border:none;}
-div.main .missingphoto {background:#ffffaa; padding:0.5em 1em; font-size:0.8em;margin:0; z-index: -1; }
+div.main .missingphoto {
+    clear: left;
+    padding: 0.5em 1em;
+    font-size: 0.8em;
+    margin: 0 0 1em;
+    z-index: -1;
+}
 
 ul.hilites {list-style-type: none;}
 ul.hilites li {padding-left:25px;margin-left:0; background:url(../../images/bulletlarge.png) no-repeat left 2px;padding-bottom:0.3em;}

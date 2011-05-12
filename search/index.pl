@@ -44,27 +44,24 @@ if ($action eq "sincefile") {
     if (-e $lastupdatedfile) {
         # Read unix time from file
         open FH, "<$lastupdatedfile" or die "couldn't open $lastupdatedfile even though it is there";
-        $since_date_condition = " where hansard.modified >= from_unixtime('" . (readline FH) . "')";
+        $since_date_condition = " where {{modified}} >= from_unixtime('" . (readline FH) . "')";
         close FH;
-    } else {
-        # No file, update everything
-        $since_date_condition = "";        
     }
     # Store time we need to update from next time
     my $sth = $dbh->prepare("select unix_timestamp(now())");
     $sth->execute();
     my @row = $sth->fetchrow_array();
     $now_start_string = $row[0];
-}
-
-# Date range case
-my $datefrom;
-my $dateto;
-if ($action eq "daterange") {
-    $datefrom=shift;
+} elsif ($action eq "lastweek") {
+    $since_date_condition = " where {{date}} > date_sub(curdate(), interval 7 day)";
+} elsif ($action eq "lastmonth") {
+    $since_date_condition = " where {{date}} > date_sub(curdate(), interval 1 month)";
+} elsif ($action eq "daterange") {
+    my $datefrom = shift;
     die "As fourth parameter, specify from date in form 2001-06-01" if !$datefrom;
-    $dateto=shift;
+    my $dateto = shift;
     die "As fifth parameter, specify to date in form 2004-10-28" if !$dateto;
+    $since_date_condition = " where {{date}} >= '$datefrom' and {{date}} <= '$dateto'";
 }
 
 # Section, fed up of indexing things that don't need to be
@@ -91,6 +88,7 @@ $termgenerator->set_stemmer($stemmer);
 # $termgenerator->set_stopper();
 
 if ($action ne "check" && $action ne 'checkfull') {
+
     # Batch numbers - each new stuff gets a new batch number
     my $max_indexbatch = $dbh->selectrow_array('select max(indexbatch_id) from indexbatch') || 0;
     my $new_indexbatch = $max_indexbatch + 1;
@@ -101,17 +99,11 @@ if ($action ne "check" && $action ne 'checkfull') {
         unix_timestamp(hansard.created) as created, hpos,
         person_id, member.title, first_name, last_name, constituency, party, house
         from epobject join hansard on epobject.epobject_id = hansard.epobject_id
-	    left join member on hansard.speaker_id = member.member_id
+        left join member on hansard.speaker_id = member.member_id
         left join epobject as section on hansard.section_id = section.epobject_id";
-    if ($action eq "lastweek") {
-        $query .= " where hdate > date_sub(curdate(), interval 7 day)";
-    } if ($action eq "lastmonth") {
-        $query .= " where hdate > date_sub(curdate(), interval 1 month)";
-    } elsif ($action eq "sincefile") {
-        $query .= $since_date_condition;
-    } elsif ($action eq "daterange") {
-        $query .= " where hdate >= '$datefrom' and hdate <= '$dateto'";
-    }
+    (my $sdc = $since_date_condition) =~ s/{{date}}/hdate/;
+    $sdc =~ s/{{modified}}/hansard.modified/;
+    $query .= $sdc;
     $query .= ' and major = ' . $section if ($section);
     $query .= ' ORDER BY hdate,major,hpos';
     my $q = $dbh->prepare($query);
@@ -209,6 +201,72 @@ if ($action ne "check" && $action ne 'checkfull') {
         $db->replace_document_by_term("Q$gid", $doc);
     }
 
+    # Now add Future Business to the index.
+    my $fb_query = "SELECT id, body, chamber, event_date, committee_name, debate_type, title, witnesses, location, deleted, pos, unix_timestamp(modified) as modified FROM future";
+    ($sdc = $since_date_condition) =~ s/{{date}}/event_date/;
+    $sdc =~ s/{{modified}}/modified/;
+    $fb_query .= $sdc;
+
+    my $fbq = $dbh->prepare($fb_query);
+    $fbq->execute();
+
+    my $people_query = "SELECT person_id FROM future_people WHERE calendar_id = ?";
+    my $pq = $dbh->prepare($people_query);
+
+    while (my $row = $fbq->fetchrow_hashref()) {
+        my $xid = "calendar/$row->{id}";
+
+        if ($row->{deleted}) {
+            # Remove from Xapian if it's marked as deleted in the database
+            $db->delete_document_by_term("Q$xid");
+            next;
+        }
+
+        if ('calendar' ne $last_area) {
+            $last_hdate = $row->{event_date};
+            $last_area = 'calendar';
+            if (!$cronquiet) {
+                print "xapian indexing Future Business\n";
+            }
+        }
+
+        my $date = $row->{event_date};
+        $date =~ s/-//g;
+
+        my $doc = new Search::Xapian::Document();
+        $termgenerator->set_document($doc);
+
+        $doc->set_data($xid);
+
+        $doc->add_term("Q$xid");
+        $doc->add_term("B$new_indexbatch"); # For email alerts
+        $doc->add_term('MF'); # Mark it as Future Business
+        $pq->execute($row->{id});
+        while (my $personrow = $pq->fetchrow_hashref()) {
+            $doc->add_term("S$personrow->{person_id}")
+        }
+        $doc->add_term("D$date");
+
+        my $time_start = $row->{time_start} || 0;
+        $time_start =~ s/[^0-9]//g;
+        $doc->add_value(0, pack('N', $date+0) . pack('N', $time_start+0));
+        $doc->add_value(1, $date); # For date range searches
+        $doc->add_value(2, pack('N', $row->{modified}) . pack('N', $row->{pos})); # For email alerts
+
+        $termgenerator->index_text($row->{title});
+        if ($row->{witnesses}) {
+            (my $witnesses = $row->{witnesses}) =~ s/<[^>]*>//; # Might be links
+            $termgenerator->increase_termpos();
+            $termgenerator->index_text($witnesses);
+        }
+        if ($row->{committee_name}) {
+            $termgenerator->increase_termpos();
+            $termgenerator->index_text($row->{committee_name});
+        }
+
+        $db->replace_document_by_term("Q$xid", $doc);
+    }
+
     if ($last_hdate ne "") {
         print "\n" unless $cronquiet;
         # Store new batch number
@@ -216,14 +274,16 @@ if ($action ne "check" && $action ne 'checkfull') {
     }
 
     # Write out date we updated to, for 'sincefile' case
-    if ($action eq "sincefile") {
-	    # print "updating sincefile\n";
+    if ($action eq "sincefile") {   
+        # print "updating sincefile\n";
         open FH, ">$lastupdatedfile.tmp" or die "couldn't write to $lastupdatedfile.tmp";
         print FH "$now_start_string";
         close FH;
         rename "$lastupdatedfile.tmp", $lastupdatedfile;
     }
+
 } elsif ($action eq 'check') {
+
     my $lastupdatedir = "$dbfile/../xml2db/";
     open FP, $lastupdatedir . 'deleted-gids' or exit;
     while (<FP>) {
@@ -236,7 +296,9 @@ if ($action ne "check" && $action ne 'checkfull') {
     # Wipe the file.
     open FP, '>' . $lastupdatedir . 'deleted-gids';
     close FP;
+
 } elsif ($action eq 'checkfull') {
+
     # Look for deleted items, or items we've missed
 
     # Check for items in Xapian not in MySQL:

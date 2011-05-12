@@ -200,18 +200,16 @@ if (isset($data['years'])) {
 				
 <?php
 
-				if ($PAGE->within_stripe_sidebar()) {
-					// Not ideal that this is here, but it works.
-					// And it's easier here as we need the date.
-					$years = array_keys($data['years']);
-					$year = $years[0];
-					$URL = new URL($hansardmajors[$data['info']['major']]['page_year']);
-					$URL->insert(array('y'=>$year));
-					?>
-				<p><a href="<?php echo $URL->generate(); ?>">See all of <?php echo $year; ?></a></p>
-<?php
-				}
+		}
 
+		if ($PAGE->within_stripe_sidebar() && !isset($data['info']['all'])) {
+			// Not ideal that this is here, but it works.
+			// And it's easier here as we need the date.
+			$years = array_keys($data['years']);
+			$year = $years[0];
+			$URL = new URL($hansardmajors[$data['info']['major']]['page_year']);
+			$URL->insert(array('y'=>$year));
+            print '<p><a href="' . $URL->generate() . '">See all of ' . $year . '</a></p>';
 		}
 	}
 } else {

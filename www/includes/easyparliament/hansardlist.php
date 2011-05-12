@@ -2,6 +2,7 @@
 
 include_once INCLUDESPATH."easyparliament/searchengine.php";
 include_once INCLUDESPATH."easyparliament/searchlog.php";
+include_once INCLUDESPATH."easyparliament/calendar.php";
 
 /*
 
@@ -1099,144 +1100,171 @@ class HANSARDLIST {
 				}
 			}
 
-			// Get the data for the gid from the database
-			$q = $this->db->query("SELECT hansard.gid,
-                                    hansard.hdate,
-                                    hansard.htime,
-                                    hansard.section_id,
-                                    hansard.subsection_id,
-                                    hansard.htype,
-                                    hansard.major, hansard.minor,
-                                    hansard.speaker_id,
-                                    hansard.hpos,
-                                    hansard.video_status,
-				    epobject.epobject_id,
-                                    epobject.body
-                            FROM hansard, epobject
-                            WHERE hansard.gid = '$gid'
-                            AND hansard.epobject_id = epobject.epobject_id"
+            if (strstr($gid, 'calendar')) {
+                $id = fix_gid_from_db($gid);
+
+                $q = $this->db->query("SELECT *, event_date as hdate, pos as hpos
+                    FROM future
+                    LEFT JOIN future_people ON id=calendar_id AND witness=0
+                    WHERE id = $id AND deleted=0");
+                if ($q->rows() == 0) continue;
+
+                $itemdata = $q->row(0);
+
+                # Ignore past events in places that we cover (we'll have the data from Hansard)
+                if ($itemdata['event_date'] < date('Y-m-d') &&
+                    in_array($itemdata['chamber'], array(
+                        'Commons: Main Chamber', 'Lords: Main Chamber',
+                        'Commons: Westminster Hall',
+                    )))
+                        continue;
+
+                list($cal_item, $cal_meta) = calendar_meta($itemdata);
+                $body = $this->prepare_search_result_for_display($cal_item) . '.';
+                if ($cal_meta) {
+                    $body .= ' <span class="future_meta">' . join('; ', $cal_meta) . '</span>';
+                }
+                if ($itemdata['witnesses']) {
+                    $body .= '<br><small>Witnesses: '
+                        . $this->prepare_search_result_for_display($itemdata['witnesses'])
+                        . '</small>';
+                }
+
+                if ($itemdata['event_date'] >= date('Y-m-d')) {
+                    $title = 'Upcoming Business';
+                } else {
+                    $title = 'Previous Business';
+                }
+                $itemdata['gid']            = $id;
+                $itemdata['relevance']      = $relevances[$n];
+                $itemdata['parent']['body'] = $title . ' &ndash; ' . $itemdata['chamber'];
+                $itemdata['extract']        = $body;
+                $itemdata['listurl']        = '/calendar/?d=' . $itemdata['event_date'] . '#cal' . $itemdata['id'];
+                $itemdata['major']          = 'F';
+
+            } else {
+
+			    // Get the data for the gid from the database
+                $q = $this->db->query("SELECT hansard.gid, hansard.hdate,
+                    hansard.htime, hansard.section_id, hansard.subsection_id,
+                    hansard.htype, hansard.major, hansard.minor,
+                    hansard.speaker_id, hansard.hpos, hansard.video_status,
+                    epobject.epobject_id, epobject.body
+                FROM hansard, epobject
+                WHERE hansard.gid = '$gid'
+                    AND hansard.epobject_id = epobject.epobject_id"
+                );
+
+                if ($q->rows() > 1)
+                    $PAGE->error_message("Got more than one row getting data for $gid");
+                if ($q->rows() == 0) {
+                    # This error message is totally spurious, so don't show it
+                    # $PAGE->error_message("Unexpected missing gid $gid while searching");
+                    continue;
+                }
+            
+                $itemdata = $q->row(0);
+                $itemdata['collapsed']  = $collapsed;
+                $itemdata['gid']        = fix_gid_from_db( $q->field(0, 'gid') );
+                $itemdata['relevance']  = $relevances[$n];
+                $itemdata['extract']    = $this->prepare_search_result_for_display($q->field(0, 'body'));
+    
+                //////////////////////////
+                // 2. Create the URL to link to this bit of text.
+    
+                $id_data = array (
+                    'major'            => $itemdata['major'],
+                    'minor'            => $itemdata['minor'],
+                    'htype'         => $itemdata['htype'],
+                    'gid'             => $itemdata['gid'],
+                    'section_id'    => $itemdata['section_id'],
+                    'subsection_id'    => $itemdata['subsection_id']
+                );
+    
+                // We append the query onto the end of the URL as variable 's'
+                // so we can highlight them on the debate/wrans list page.
+                $url_args = array ('s' => $searchstring);
+    
+                $itemdata['listurl'] = $this->_get_listurl($id_data, $url_args, $encode);
+    
+                //////////////////////////
+                // 3. Get the speaker for this item, if applicable.
+                if ( $itemdata['speaker_id'] != 0) {
+                    $itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
+                }
+    
+                //////////////////////////
+                // 4. Get data about the parent (sub)section.
+                if ($itemdata['major'] && $hansardmajors[$itemdata['major']]['type'] == 'debate') {
+                    // Debate
+                    if ($itemdata['htype'] != 10) {
+                        $section = $this->_get_section($itemdata);
+                        $itemdata['parent']['body'] = $section['body'];
+#                        $itemdata['parent']['listurl'] = $section['listurl'];
+                        if ($itemdata['section_id'] != $itemdata['subsection_id']) {
+                            $subsection = $this->_get_subsection($itemdata);
+                            $itemdata['parent']['body'] .= ': ' . $subsection['body'];
+#                            $itemdata['parent']['listurl'] = $subsection['listurl'];
+                        }
+                        if ($itemdata['major'] == 5) {
+                            $itemdata['parent']['body'] = 'Northern Ireland Assembly: ' . $itemdata['parent']['body'];
+                        } elseif ($itemdata['major'] == 6) {
+                            $itemdata['parent']['body'] = 'Public Bill Committee: ' . $itemdata['parent']['body'];
+                        } elseif ($itemdata['major'] == 7) {
+                            $itemdata['parent']['body'] = 'Scottish Parliament: ' . $itemdata['parent']['body'];
+                        }
+    
+                    } else {
+                        // It's a section, so it will be its own title.
+                        $itemdata['parent']['body'] = $itemdata['body'];
+                        $itemdata['body'] = '';
+                    }
+                    
+                } else {
+                    // Wrans or WMS
+                    $section = $this->_get_section($itemdata);
+                    $subsection = $this->_get_subsection($itemdata);
+                    $body = $hansardmajors[$itemdata['major']]['title'] . ' &#8212; ';
+                    if (isset($section['body'])) $body .= $section['body'];
+                    if (isset($subsection['body'])) $body .= ': ' . $subsection['body'];
+                    if (isset($subsection['listurl'])) $listurl = $subsection['listurl'];
+                    else $listurl = '';
+                    $itemdata['parent'] = array (
+                        'body' => $body,
+                        'listurl' => $listurl
+                    );
+                    if ($itemdata['htype'] == 11) {
+                        # Search result was a subsection heading; fetch the first entry
+                        # from the wrans/wms to show under the heading
+                        $input = array (
+                            'amount' => array(
+                                'body' => true,
+                                'speaker' => true
+                            ),
+                            'where' => array(
+                                'hansard.subsection_id=' => $itemdata['epobject_id']
+                            ),
+                            'order' => 'hpos ASC',
+                            'limit' => 1
                         );
+                        $ddata = $this->_get_hansard_data($input);
+                        if (count($ddata)) {
+                            $itemdata['body'] = $ddata[0]['body'];
+                            $itemdata['extract'] = $this->prepare_search_result_for_display($ddata[0]['body']);
+                            $itemdata['speaker_id'] = $ddata[0]['speaker_id'];
+                            if ($itemdata['speaker_id']) {
+                                $itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
+                            }
+                        }
+                    } elseif ($itemdata['htype'] == 10) {
+                        $itemdata['body'] = '';
+                        $itemdata['extract'] = '';
+                    }
+                }
 
-			if ($q->rows() > 1)
-				$PAGE->error_message("Got more than one row getting data for $gid");
-			if ($q->rows() == 0) {
-				# This error message is totally spurious, so don't show it
-				# $PAGE->error_message("Unexpected missing gid $gid while searching");
-				continue;
-			}
-		
-			$itemdata = array();
-			$itemdata['collapsed'] = $collapsed;
-			$itemdata['gid'] 		= fix_gid_from_db( $q->field(0, 'gid') );
-			$itemdata['hdate'] 		= $q->field(0, 'hdate');	
-			$itemdata['htime'] 		= $q->field(0, 'htime');	
-			$itemdata['htype'] 		= $q->field(0, 'htype');		
-			$itemdata['major'] 		= $q->field(0, 'major');
-			$itemdata['minor'] 		= $q->field(0, 'minor');
-			$itemdata['section_id'] 	= $q->field(0, 'section_id');
-			$itemdata['subsection_id'] 	= $q->field(0, 'subsection_id');
-			$itemdata['epobject_id'] 	= $q->field(0, 'epobject_id');
-			$itemdata['relevance'] 		= $relevances[$n];			
-			$itemdata['speaker_id'] 	= $q->field(0, 'speaker_id');
-			$itemdata['hpos']		= $q->field(0, 'hpos');
-			$itemdata['video_status']	= $q->field(0, 'video_status');
-			$itemdata['body'] = $q->field(0, 'body');
-			$itemdata['extract'] = $this->prepare_search_result_for_display($q->field(0, 'body'));
+            } // End of handling non-calendar search result
 
-			//////////////////////////
-			// 2. Create the URL to link to this bit of text.
-
-			$id_data = array (
-				'major'			=> $itemdata['major'],
-				'minor'			=> $itemdata['minor'],
-				'htype' 		=> $itemdata['htype'],
-				'gid' 			=> $itemdata['gid'],
-				'section_id'	=> $itemdata['section_id'],
-				'subsection_id'	=> $itemdata['subsection_id']
-			);
-
-			// We append the query onto the end of the URL as variable 's'
-			// so we can highlight them on the debate/wrans list page.
-			$url_args = array ('s' => $searchstring);
-
-			$itemdata['listurl'] = $this->_get_listurl($id_data, $url_args, $encode);
-
-			//////////////////////////
-			// 3. Get the speaker for this item, if applicable.
-			if ( $itemdata['speaker_id'] != 0) {
-				$itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
-			}
-
-			//////////////////////////
-			// 4. Get data about the parent (sub)section.
-			if ($itemdata['major'] && $hansardmajors[$itemdata['major']]['type'] == 'debate') {
-				// Debate
-				if ($itemdata['htype'] != 10) {
-					$section = $this->_get_section($itemdata);
-					$itemdata['parent']['body'] = $section['body'];
-#					$itemdata['parent']['listurl'] = $section['listurl'];
-					if ($itemdata['section_id'] != $itemdata['subsection_id']) {
-						$subsection = $this->_get_subsection($itemdata);
-						$itemdata['parent']['body'] .= ': ' . $subsection['body'];
-#						$itemdata['parent']['listurl'] = $subsection['listurl'];
-					}
-					if ($itemdata['major'] == 5) {
-						$itemdata['parent']['body'] = 'Northern Ireland Assembly: ' . $itemdata['parent']['body'];
-					} elseif ($itemdata['major'] == 6) {
-						$itemdata['parent']['body'] = 'Public Bill Committee: ' . $itemdata['parent']['body'];
-					} elseif ($itemdata['major'] == 7) {
-						$itemdata['parent']['body'] = 'Scottish Parliament: ' . $itemdata['parent']['body'];
-					}
-
-				} else {
-					// It's a section, so it will be its own title.
-					$itemdata['parent']['body'] = $itemdata['body'];
-					$itemdata['body'] = '';
-				}
-				
-			} else {
-				// Wrans or WMS
-				$section = $this->_get_section($itemdata);
-				$subsection = $this->_get_subsection($itemdata);
-				$body = $hansardmajors[$itemdata['major']]['title'] . ' &#8212; ';
-				if (isset($section['body'])) $body .= $section['body'];
-				if (isset($subsection['body'])) $body .= ': ' . $subsection['body'];
-				if (isset($subsection['listurl'])) $listurl = $subsection['listurl'];
-				else $listurl = '';
-				$itemdata['parent'] = array (
-					'body' => $body,
-					'listurl' => $listurl
-				);
-				if ($itemdata['htype'] == 11) {
-					# Search result was a subsection heading; fetch the first entry
-					# from the wrans/wms to show under the heading
-					$input = array (
-						'amount' => array(
-							'body' => true,
-							'speaker' => true
-						),
-						'where' => array(
-							'hansard.subsection_id=' => $itemdata['epobject_id']
-						),
-						'order' => 'hpos ASC',
-						'limit' => 1
-					);
-					$ddata = $this->_get_hansard_data($input);
-					if (count($ddata)) {
-						$itemdata['body'] = $ddata[0]['body'];
-						$itemdata['extract'] = $this->prepare_search_result_for_display($ddata[0]['body']);
-						$itemdata['speaker_id'] = $ddata[0]['speaker_id'];
-						if ($itemdata['speaker_id']) {
-							$itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
-						}
-					}
-				} elseif ($itemdata['htype'] == 10) {
-					$itemdata['body'] = '';
-					$itemdata['extract'] = '';
-				}
-			}
-
-			$rows[] = $itemdata;
+            $rows[] = $itemdata;
 		}
 
 		$data['rows'] = $rows;

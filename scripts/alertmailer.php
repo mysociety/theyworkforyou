@@ -94,12 +94,42 @@ $alertdata = $alertdata['data'];
 
 $DEBATELIST = new DEBATELIST; # Nothing debate specific, but has to be one of them
 
-$sects = array('', 'Commons debate', 'Westminster Hall debate', 'Written Answer', 'Written Ministerial Statement', 'Northern Ireland Assembly debate', 'Public Bill committee', 'Scottish Parliament debate', 'Scottish Parliament written answer');
-$sects[101] = 'Lords debate';
-$sects_gid = array('', 'debate', 'westminhall', 'wrans', 'wms', 'ni', 'pbc', 'sp', 'spwa');
-$sects_gid[101] = 'lords';
-$sects_search = array('', 'debate', 'westminhall', 'wrans', 'wms', 'ni', 'pbc', 'sp', 'spwrans');
-$sects_search[101] = 'lords';
+$sects = array(
+    1 => 'Commons debate',
+    2 => 'Westminster Hall debate',
+    3 => 'Written Answer',
+    4 => 'Written Ministerial Statement',
+    5 => 'Northern Ireland Assembly debate',
+    6 => 'Public Bill committee',
+    7 => 'Scottish Parliament debate',
+    8 => 'Scottish Parliament written answer',
+    101 => 'Lords debate',
+    'F' => 'event',
+);
+$sects_gid = array(
+    1 => 'debate',
+    2 => 'westminhall',
+    3 => 'wrans',
+    4 => 'wms',
+    5 => 'ni',
+    6 => 'pbc',
+    7 => 'sp',
+    8 => 'spwa',
+    101 => 'lords',
+    'F' => 'calendar',
+);
+$sects_search = array(
+    1 => 'debate',
+    2 => 'westminhall',
+    3 => 'wrans',
+    4 => 'wms',
+    5 => 'ni',
+    6 => 'pbc',
+    7 => 'sp',
+    8 => 'spwrans',
+    101 => 'lords',
+    'F' => 'future',
+);
 $results = array();
 
 $outof = count($alertdata);
@@ -168,7 +198,7 @@ foreach ($alertdata as $alertitem) {
 		$o = array(); $major = 0; $count = array(); $total = 0;
 		$any_content = false;
 		foreach ($data['rows'] as $row) {
-			if ($major != $row['major']) {
+			if ($major !== $row['major']) {
 				$count[$major] = $total; $total = 0;
 				$major = $row['major'];
 				$o[$major] = '';
@@ -181,8 +211,8 @@ foreach ($alertdata as $alertitem) {
 			--$k;
 			if ($k>=0) {
 				$any_content = true;
-				$parentbody = str_replace(array('<i>', '</i>', '&#8212;', '<span class="hi">', '</span>'), array('', '', '-', '*', '*'), $row['parent']['body']);
-				$body = str_replace(array('&#163;','&#8212;','<span class="hi">','</span>'), array("\xa3",'-','*','*'), $row['extract']);
+				$parentbody = text_html_to_email($row['parent']['body']);
+				$body = text_html_to_email($row['extract']);
 				if (isset($row['speaker']) && count($row['speaker'])) $body = member_full_name($row['speaker']['house'], $row['speaker']['title'], $row['speaker']['first_name'], $row['speaker']['last_name'], $row['speaker']['constituency']) . ': ' . $body;
 
 				$body = wordwrap($body, 72);
@@ -268,5 +298,16 @@ function write_and_send_email($current, $data, $template) {
 	}
 	mlog("done\n");
 	if (!$success) $globalsuccess = 0;
+}
+
+function text_html_to_email($s) {
+    $s = preg_replace('#</?(i|small)>#', '', $s);
+    $s = preg_replace('#</?span[^>]*>#', '*', $s);
+    $s = str_replace(
+        array('&#163;', '&ndash;', '&#8212;', '<br>'),
+        array("\xa3",   '-',       '-',       "\n"  ),
+        $s
+    );
+    return $s;
 }
 

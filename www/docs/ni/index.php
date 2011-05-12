@@ -189,7 +189,6 @@ function ni_front_page() {
                 <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyEord"))?>">&nbsp;&nbsp;
                 <input type="hidden" name="section" value="ni">
                 <input type="submit" value="Go" class="submit">
-                <br>
                 <small>e.g. a <em>word</em>, <em>phrase</em>, or <em>person</em> | <a href="/search/?adv=1">More options</a></small>
             </p>
         </form>
