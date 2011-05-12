@@ -104,7 +104,7 @@ $sects = array(
     7 => 'Scottish Parliament debate',
     8 => 'Scottish Parliament written answer',
     101 => 'Lords debate',
-    'F' => 'future event',
+    'F' => 'event',
 );
 $sects_gid = array(
     1 => 'debate',
@@ -301,9 +301,11 @@ function write_and_send_email($current, $data, $template) {
 }
 
 function text_html_to_email($s) {
+    $s = preg_replace('#</?(i|small)>#', '', $s);
+    $s = preg_replace('#</?span[^>]*>#', '*', $s);
     $s = str_replace(
-        array('&#163;', '<i>', '</i>', '&ndash;', '&#8212;', '<span class="future_meta">', '<span class="hi">', '</span>'),
-        array("\xa3",   '',    '',     '-',       '-',       '*',                          '*',                 '*'      ),
+        array('&#163;', '&ndash;', '&#8212;', '<br>'),
+        array("\xa3",   '-',       '-',       "\n"  ),
         $s
     );
     return $s;
