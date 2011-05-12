@@ -2,7 +2,7 @@
 
 function calendar_min_future_date() {
     $db = new ParlDB();
-    $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= NOW() AND deleted = 0');
+    $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= DATE(NOW()) AND deleted = 0');
     return $q->field(0, 'm');
 }
 
