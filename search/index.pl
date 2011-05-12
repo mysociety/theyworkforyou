@@ -223,6 +223,12 @@ if ($action ne "check" && $action ne 'checkfull') {
         my $date = $row->{event_date};
         $date =~ s/-//g;
 
+        if ($row->{deleted}) {
+            # Remove from Xapian if it's marked as deleted in the database
+            $db->delete_document_by_term("Q$xid");
+            next;
+        }
+
         my $doc = new Search::Xapian::Document();
         $termgenerator->set_document($doc);
 
@@ -249,7 +255,7 @@ if ($action ne "check" && $action ne 'checkfull') {
             $termgenerator->increase_termpos();
             $termgenerator->index_text($witnesses);
         }
-        if ($row->{committee_text}) {
+        if ($row->{committee_name}) {
             $termgenerator->increase_termpos();
             $termgenerator->index_text($row->{committee_name});
         }

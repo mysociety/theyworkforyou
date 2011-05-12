@@ -61,7 +61,7 @@ class Entry(object):
             committee_text = committee_text.strip()
             if chamber in ('Select Committee', 'General Committee'):
                 self.committee_name = committee_text
-            else:
+            elif committee_text != "Prime Minister's Question Time":
                 self.debate_type = committee_text
 
         self.people = []
@@ -86,6 +86,8 @@ class Entry(object):
                 title_text = title_text.replace(' - ' + m.group(1), '')
 
             self.title = title_text.strip()
+        elif committee_text == "Prime Minister's Question Time":
+            self.title = committee_text
 
         self.witnesses = []
         witness_text = entry.event.witnesses.text

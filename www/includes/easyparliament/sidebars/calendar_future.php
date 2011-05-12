@@ -28,7 +28,7 @@ $action = 'all';
 
 $db = new ParlDB;
 
-$q = $db->query('SELECT MIN(event_date) AS min, MAX(event_date) AS max FROM future WHERE event_date >= NOW()');
+$q = $db->query('SELECT MIN(event_date) AS min, MAX(event_date) AS max FROM future WHERE event_date >= NOW() AND deleted = 0');
 $min_future_date = $q->field(0, 'min');
 $max_future_date = $q->field(0, 'max');
 if (!$min_future_date || !$max_future_date) {
@@ -42,6 +42,7 @@ list($finalyear, $finalmonth, $day) = explode('-', $max_future_date);
 $q =  $db->query("SELECT DISTINCT(event_date) AS event_date FROM future
     WHERE event_date >= '" . mysql_real_escape_string($firstyear) . "-" . mysql_real_escape_string($firstmonth) . "-01'
     AND event_date <= '" . mysql_real_escape_string($finalyear) . "-" . mysql_real_escape_string($finalmonth) . "-31'
+    AND deleted = 0
     ORDER BY event_date ASC
 ");
 

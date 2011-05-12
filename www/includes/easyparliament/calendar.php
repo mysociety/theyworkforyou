@@ -2,7 +2,7 @@
 
 function calendar_min_future_date() {
     $db = new ParlDB();
-    $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= NOW()');
+    $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= NOW() AND deleted = 0');
     return $q->field(0, 'm');
 }
 
@@ -32,6 +32,30 @@ function calendar_fetch_date($date) {
 }
 
 function calendar_display_entry($e) {
+    list($title, $meta) = calendar_meta($e);
+
+    if (strstr($e['chamber'], 'Select Committee')) {
+        print '<dt class="sc" id="cal' . $e['id'] . '">';
+    } else {
+        print '<li id="cal' . $e['id'] . '">';
+    }
+    print "$title ";
+    if ($meta) print '<span>' . join('; ', $meta) . '</span>';
+    if (strstr($e['chamber'], 'Select Committee')) {
+        print "</dt>\n";
+    } else {
+        print "</li>\n";
+    }
+    if ($e['witnesses']) {
+        print "<dd>";
+        print '<a href=" $e[link_calendar] "></a>';
+        print '<a href=" $e[link_external] "></a>';
+        print 'Witnesses: ' . $e['witnesses'];
+        print "</dd>\n";
+    }
+}
+
+function calendar_meta($e) {
     $private = false;
     if ($e['committee_name']) {
         $title = $e['committee_name'];
@@ -52,9 +76,7 @@ function calendar_display_entry($e) {
 
     $meta = array();
 
-    if ($e['debate_type'] == "Prime Minister's Question Time") {
-        $title = $e['debate_type'];
-    } elseif ($d = $e['debate_type']) {
+    if ($d = $e['debate_type']) {
         if ($d == 'Adjournment') $d = 'Adjournment debate';
         $meta[] = $d;
     }
@@ -72,24 +94,6 @@ function calendar_display_entry($e) {
     if ($private)
         $meta[] = 'Private meeting';
 
-    if (strstr($e['chamber'], 'Select Committee')) {
-        print '<dt class="sc">';
-    } else {
-        print '<li>';
-    }
-    print "$title ";
-    if ($meta) print '<span>' . join('; ', $meta) . '</span>';
-    if (strstr($e['chamber'], 'Select Committee')) {
-        print "</dt>\n";
-    } else {
-        print "</li>\n";
-    }
-    if ($e['witnesses']) {
-        print "<dd>";
-        print '<a href=" $e[link_calendar] "></a>';
-        print '<a href=" $e[link_external] "></a>';
-        print 'Witnesses: ' . $e['witnesses'];
-        print "</dd>\n";
-    }
+    return array($title, $meta);
 }
 
