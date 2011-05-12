@@ -96,7 +96,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
                 <p>
                     Popular searches today:
                     <?php foreach ($popular_searches as $popular_search) {
-                        echo $popular_search['display'];
+                        echo $popular_search['display'] . ' ';
                     } ?>
                 </p>
             <?php } ?>
