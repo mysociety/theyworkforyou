@@ -18,7 +18,6 @@ function calendar_fetch_date($date) {
 
     if (!$q->rows()) {
         $PAGE->error_message('There is currently no information available for that date.');
-        $PAGE->page_end();
         return array();
     }
 
