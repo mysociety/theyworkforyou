@@ -19,7 +19,7 @@ function calendar_fetch_date($date) {
     if (!$q->rows()) {
         $PAGE->error_message('There is currently no information available for that date.');
         $PAGE->page_end();
-        return;
+        return array();
     }
 
     $DATA->set_page_metadata($this_page, 'date', $date);

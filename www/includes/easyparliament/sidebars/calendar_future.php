@@ -6,20 +6,13 @@ global $PAGE, $DATA, $this_page;
 
 $date = $DATA->page_metadata($this_page, 'date');
 
-$datebits = explode('-', $date);
-$args = array(
-    'year' => $datebits[0],
-    'month' => $datebits[1],
-    'onday' => $date
-);
-
 $PAGE->block_start(array('title' => 'Future business calendar', 'id'=>'calendar'));
 
 $data = array(
     'info' => array(
         'page' => 'calendar_future',
         'major' => 1, # For recess dates only - good enough
-        'onday' => $args['onday'],
+        'onday' => $date,
         'all' => 1,
     )
 );
