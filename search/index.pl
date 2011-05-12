@@ -216,6 +216,12 @@ if ($action ne "check" && $action ne 'checkfull') {
     while (my $row = $fbq->fetchrow_hashref()) {
         my $xid = "calendar/$row->{id}";
 
+        if ($row->{deleted}) {
+            # Remove from Xapian if it's marked as deleted in the database
+            $db->delete_document_by_term("Q$xid");
+            next;
+        }
+
         if ('calendar' ne $last_area) {
             $last_hdate = $row->{event_date};
             $last_area = 'calendar';
@@ -226,12 +232,6 @@ if ($action ne "check" && $action ne 'checkfull') {
 
         my $date = $row->{event_date};
         $date =~ s/-//g;
-
-        if ($row->{deleted}) {
-            # Remove from Xapian if it's marked as deleted in the database
-            $db->delete_document_by_term("Q$xid");
-            next;
-        }
 
         my $doc = new Search::Xapian::Document();
         $termgenerator->set_document($doc);
