@@ -1103,7 +1103,8 @@ class HANSARDLIST {
             if (strstr($gid, 'calendar')) {
                 $id = fix_gid_from_db($gid);
 
-                $q = $this->db->query("SELECT *, event_date as hdate FROM future
+                $q = $this->db->query("SELECT *, event_date as hdate, pos as hpos
+                    FROM future
                     LEFT JOIN future_people ON id=calendar_id AND witness=0
                     WHERE id = $id AND deleted=0");
                 if ($q->rows() == 0) continue;
@@ -1139,6 +1140,7 @@ class HANSARDLIST {
                 $itemdata['parent']['body'] = $title . ' &ndash; ' . $itemdata['chamber'];
                 $itemdata['extract']        = $body;
                 $itemdata['listurl']        = '/calendar/?d=' . $itemdata['event_date'] . '#cal' . $itemdata['id'];
+                $itemdata['major']          = 'F';
 
             } else {
 
