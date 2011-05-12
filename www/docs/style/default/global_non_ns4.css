@@ -521,6 +521,9 @@ dl.recent-wrans dt small {
 dl.big-debates.front > dt {
     font-size: 125%;
 }
+dl.big-debates.front > dd {
+    border-bottom: solid 1px #999;
+}
 
 dl.big-debates.front > dt small {
     font-size: 68%;
