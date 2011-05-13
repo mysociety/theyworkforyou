@@ -271,9 +271,14 @@ function sort_by_stuff($a, $b) {
     if ($a['major'] > $b['major']) return 1;
     if ($a['major'] < $b['major']) return -1;
 
-    # Then by date (most recent first)
-    if ($a['hdate'] < $b['hdate']) return 1;
-    if ($a['hdate'] > $b['hdate']) return -1;
+    # Then by date (most recent first for everything except future, which is the opposite)
+    if ($a['major'] == 'F') {
+        if ($a['hdate'] > $b['hdate']) return 1;
+        if ($a['hdate'] < $b['hdate']) return -1;
+    } else {
+        if ($a['hdate'] < $b['hdate']) return 1;
+        if ($a['hdate'] > $b['hdate']) return -1;
+    }
 
     # Lastly by speech position within a debate.
     if ($a['hpos'] == $b['hpos']) return 0;
