@@ -1137,7 +1137,7 @@ class HANSARDLIST {
                 }
                 $itemdata['gid']            = $id;
                 $itemdata['relevance']      = $relevances[$n];
-                $itemdata['parent']['body'] = $title . ' &ndash; ' . $itemdata['chamber'];
+                $itemdata['parent']['body'] = $title . ' &#8211; ' . $itemdata['chamber'];
                 $itemdata['extract']        = $body;
                 $itemdata['listurl']        = '/calendar/?d=' . $itemdata['event_date'] . '#cal' . $itemdata['id'];
                 $itemdata['major']          = 'F';

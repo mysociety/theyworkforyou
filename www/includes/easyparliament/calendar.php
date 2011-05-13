@@ -69,7 +69,7 @@ function calendar_meta($e) {
         if ($pid = $e['person_id']) {
             $MEMBER = new MEMBER(array( 'person_id' => $pid ));
             $name = $MEMBER->full_name();
-            $title .= " &ndash; <a href='/mp/?p=$pid'>$name</a>";
+            $title .= " &#8211; <a href='/mp/?p=$pid'>$name</a>";
         }
     }
 
@@ -84,7 +84,7 @@ function calendar_meta($e) {
         if ($e['time_start']) {
             $time = format_time($e['time_start'], TIMEFORMAT);
             if ($e['time_end'])
-                $time .= ' &ndash; ' . format_time($e['time_end'], TIMEFORMAT);
+                $time .= ' &#8211; ' . format_time($e['time_end'], TIMEFORMAT);
             $meta[] = $time;
         }
         if ($e['location'])
