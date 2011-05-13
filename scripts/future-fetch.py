@@ -73,17 +73,17 @@ class Entry(object):
                 person_texts = [x.strip() for x in m.group(1).split('/')]
 
                 for person_text in person_texts:
-                    id, name, cons = memberList.matchfullnamecons(m.group(1), None, self.event_date)
+                    id, name, cons = memberList.matchfullnamecons(person_text, None, self.event_date)
                     if not id:
                         try:
-                            id = lordsList.GetLordIDfname(m.group(1), None, self.event_date)
+                            id = lordsList.GetLordIDfname(person_text, None, self.event_date)
                         except:
                             pass
                     if id:
                         self.people.append(int(memberList.membertoperson(id).replace('uk.org.publicwhip/person/', '')))
 
-            if self.people:
-                title_text = title_text.replace(' - ' + m.group(1), '')
+                if len(self.people) == len(person_texts):
+                    title_text = title_text.replace(' - ' + m.group(1), '')
 
             self.title = title_text.strip()
         elif committee_text == "Prime Minister's Question Time":
