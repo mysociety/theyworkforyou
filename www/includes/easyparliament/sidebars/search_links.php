@@ -21,20 +21,22 @@ if (preg_match('#\s*section:([a-z]*)#', $filter_ss, $m)) {
 if ($section) {
     $search_engine = new SEARCHENGINE($filter_ss);
     $email_link_anywhere = '/alert/?' . ($filter_ss ? 'alertsearch='.urlencode($filter_ss) : '');
-    $email_text_anywhere = $search_engine->query_description_long() . ' anywhere';
+    $email_text_anywhere = $search_engine->query_description_long();
 }
 
 if ($email_text || $rss) {
     $this->block_start(array( 'title' => "Being alerted to new search results"));
     echo '<ul id="search_links">';
     if ($email_text) {
-        echo '<li id="search_links_email"><a href="', $email_link, '">Subscribe to an email alert</a> for ', $email_text, '</li>';
+        if ($email_text_anywhere) {
+            echo '<li id="search_links_email"><a href="', $email_link_anywhere, '">Subscribe to an email alert</a> for ', $email_text_anywhere;
+            echo ' <br><small>(or just <a href="', $email_link, '">subscribe</a> for ', $email_text, ')</small></li>';
+        } else {
+            echo '<li id="search_links_email"><a href="', $email_link, '">Subscribe to an email alert</a> for ', $email_text, '</li>';
+        }
     }
     if ($rss) {
         echo '<li id="search_links_rss">Or <a href="/', $rss, '">get an RSS feed</a></li>';
-    }
-    if ($email_text_anywhere) {
-        echo '<li id="search_links_email"><a href="', $email_link_anywhere, '">Subscribe to an email alert</a> for ', $email_text_anywhere, '</li>';
     }
     echo '</ul>';
     $this->block_end();
