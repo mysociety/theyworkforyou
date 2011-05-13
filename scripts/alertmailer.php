@@ -263,14 +263,21 @@ if (!$nomail && !$onlyemail) {
 mlog(date('r') . "\n");
 
 function sort_by_stuff($a, $b) {
-	if ($a['major'] > $b['major']) return 1;
-	if ($a['major'] < $b['major']) return -1;
+    # Always have future business first.
+    if ($a['major'] == 'F' && $b['major'] != 'F') return -1;
+    if ($b['major'] == 'F' && $a['major'] != 'F') return 1;
 
-	if ($a['hdate'] < $b['hdate']) return 1;
-	if ($a['hdate'] > $b['hdate']) return -1;
+    # Otherwise sort firstly by major number (so Commons before NI before SP before Lords)
+    if ($a['major'] > $b['major']) return 1;
+    if ($a['major'] < $b['major']) return -1;
 
-	if ($a['hpos'] == $b['hpos']) return 0;
-	return ($a['hpos'] > $b['hpos']) ? 1 : -1;
+    # Then by date (most recent first)
+    if ($a['hdate'] < $b['hdate']) return 1;
+    if ($a['hdate'] > $b['hdate']) return -1;
+
+    # Lastly by speech position within a debate.
+    if ($a['hpos'] == $b['hpos']) return 0;
+    return ($a['hpos'] > $b['hpos']) ? 1 : -1;
 }
 
 function write_and_send_email($current, $data, $template) {
