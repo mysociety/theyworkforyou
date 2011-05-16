@@ -13,6 +13,7 @@ $PAGE->page_start();
 <?
 
 $pc = get_http_var('pc');
+$pc = ''; # No form submissions, please
 if ($pc && !validate_postcode($pc)) {
     print '<p class="error">Sorry, that doesn&rsquo;t appear to be a valid postcode.</p>';
     $pc = '';
@@ -48,6 +49,12 @@ if ($pc) {
 }
 
 if (!$pc || $country == 'N') { ?>
+
+<div class="informational">
+This page was for before the 2011 Scottish and Northern Irish elections.
+It does not currently function.
+</div>
+
 <div class="picture">
 <a href="http://www.flickr.com/photos/markybon/138214000/" title="Boundaries by MarkyBon, on Flickr"><img src="http://farm1.static.flickr.com/51/138214000_80327fe675.jpg" width="358" height="500" alt="Boundaries"></a>
 <br><small>Boundaries by MarkyBon</small>
@@ -165,8 +172,8 @@ do with this <a href="http://www.boundarycommission.org.uk/pics/big_map_1.jpg">o
 
 <form method="get">
 <p><label for="pc">Enter your Scottish or Northern Irish postcode:</label>
-<input type="text" id="pc" name="pc" value="<?=htmlspecialchars(get_http_var('pc'))?>" size="7">
-<input type="submit" value="Look up">
+<input disabled type="text" id="pc" name="pc" value="<?=htmlspecialchars(get_http_var('pc'))?>" size="7">
+<input disabled type="submit" value="Look up">
 </p>
 </form>
 
