@@ -110,6 +110,9 @@ class SEARCHENGINE {
             if ($word == '"') {
                 $in_quote = !$in_quote;
                 if ($in_quote) array_push($this->phrases, array());
+                if (!$in_quote && !count($this->phrases[count($this->phrases) - 1])) {
+                    array_pop($this->phrases);
+                }
                 continue;
             }
             if ($word == '') {
