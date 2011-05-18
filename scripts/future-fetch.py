@@ -29,7 +29,7 @@ positions = {}
 
 class Entry(object):                                                                                                                                                          
     id = None
-    created = None
+    modified = None
     deleted = 0
     link_calendar = None
     link_external = None
@@ -122,7 +122,7 @@ class Entry(object):
     def add(self):
         # TODO This function needs to insert into Xapian as well, or store to insert in one go at the end
         db_cursor.execute("""INSERT INTO future (
-            id, created, deleted, 
+            id, modified, deleted,
             link_calendar, link_external, 
             body, chamber, 
             event_date, time_start, time_end, 
@@ -161,6 +161,7 @@ class Entry(object):
         db_cursor.execute(
             """
           UPDATE future SET
+            modified = now(),
             deleted = %s,
             link_calendar = %s,
             link_external = %s, 

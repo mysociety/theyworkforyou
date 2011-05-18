@@ -175,8 +175,8 @@ CREATE TABLE `titles` (
 
 CREATE TABLE `future` (
   `id` int(11) NOT NULL,
-  `created` datetime NOT NULL default '0000-00-00 00:00:00',
-  `modified` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `modified` datetime NOT NULL,
   `deleted` tinyint(1) NOT NULL,
   `link_calendar` varchar(255) NOT NULL,
   `link_external` varchar(255) NOT NULL,
