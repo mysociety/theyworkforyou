@@ -29,7 +29,7 @@ $SEARCHURL = new URL('search');
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
             <h3><label for="s">Search,  create an alert or RSS feed</label></h3>
             <p>
-                <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyEord"))?>">&nbsp;&nbsp;
+                <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
                 <input type="hidden" name="section" value="scotland">
                 <input type="submit" value="Go" class="submit">
                 <small>e.g. a <em>word</em>, <em>phrase</em>, or <em>person</em> | <a href="/search/?adv=1">More options</a></small>

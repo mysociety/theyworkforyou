@@ -1120,6 +1120,11 @@ sub loadconstituency {
     my $consid = $cons->att('id');
     $consid =~ s#uk.org.publicwhip/cons/##;
 
+    my $fromdate = $cons->att('fromdate');
+    $fromdate .= '-00-00' if length($fromdate) == 4;
+    my $todate = $cons->att('todate');
+    $todate .= '-00-00' if length($todate) == 4;
+
     my $main_name = 1;
     for (my $name = $cons->first_child('name'); $name;
         $name = $name->next_sibling('name')) {
@@ -1128,8 +1133,8 @@ sub loadconstituency {
             $consid,
             Encode::encode('iso-8859-1', $name->att('text')),
             $main_name,
-            $cons->att('fromdate'),
-            $cons->att('todate'),
+            $fromdate,
+            $todate,
             );
         $constituencyadd->finish();
 #        if ($main_name) {
