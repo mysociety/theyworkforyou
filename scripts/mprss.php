@@ -89,7 +89,7 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 <link>http://' . DOMAIN . $mpurl . '</link>
 <description></description>
 <dc:language>en-gb</dc:language>
-<dc:creator>TheyWorkForYou.com, mprss.php script</dc:creator>
+<dc:creator>TheyWorkForYou.com</dc:creator>
 <dc:date>' . $datenow . '</dc:date>
 
 <items>
