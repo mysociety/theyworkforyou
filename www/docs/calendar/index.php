@@ -32,10 +32,11 @@ Why not explore our extensive archive using the search box above?');
         return;
     }
 
-    if ($min_future_date == date('Y-m-d')
+    if ($min_future_date == date('Y-m-d')) {
         $this_page = 'calendar_today';
-    else
+    } else {
         $this_page = 'calendar_future';
+    }
 
     return calendar_date($min_future_date);
 }
