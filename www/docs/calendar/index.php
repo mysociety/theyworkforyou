@@ -5,7 +5,6 @@ include_once "../../includes/easyparliament/calendar.php";
 
 $date = get_http_var('d');
 if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
-    $this_page = 'calendar_today';
     calendar_summary();
 } elseif ($date == date('Y-m-d')) {
     $this_page = 'calendar_today';
@@ -23,7 +22,7 @@ if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
 # Show upcoming stuff, perhaps a week or so, and links to view more.
 # Sidebar of month calendar showing soonest future stuff
 function calendar_summary() {
-    global $PAGE;
+    global $PAGE, $this_page;
 
     $min_future_date = calendar_min_future_date();
     if (!$min_future_date) {
@@ -32,6 +31,11 @@ Why not explore our extensive archive using the search box above?');
         $PAGE->page_end();
         return;
     }
+
+    if ($min_future_date == date('Y-m-d')
+        $this_page = 'calendar_today';
+    else
+        $this_page = 'calendar_future';
 
     return calendar_date($min_future_date);
 }

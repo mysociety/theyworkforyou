@@ -476,7 +476,12 @@ function person_voting_record($member, $extra_info) {
 						<li><a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?=$member['member_id'] ?>#divisions" title="See more details at Public Whip">
                         <strong><?php echo htmlentities(ucfirst($extra_info['public_whip_rebel_description'])); ?> rebels</strong></a> against their party<?php
 		if (isset($extra_info['public_whip_rebelrank'])) {
-			echo " in this parliament"; /* &#8212; ";
+			if ($extra_info['public_whip_data_date'] == 'complete') {
+				echo " in their last parliament";
+			} else {
+			    echo " in this parliament";
+			}
+			/* &#8212; ";
 			if (isset($extra_info['public_whip_rebelrank_joint']))
 				print 'joint ';
 			echo make_ranking($extra_info['public_whip_rebelrank']);

@@ -17,7 +17,10 @@ function calendar_fetch_date($date) {
         ORDER BY chamber, pos");
 
     if (!$q->rows()) {
-        $PAGE->error_message('There is currently no information available for that date.');
+        if ($date >= date('Y-m-d'))
+            $PAGE->error_message('There is currently no information available for that date.');
+        else
+            $PAGE->error_message('There is no information available for that date.');
         return array();
     }
 
