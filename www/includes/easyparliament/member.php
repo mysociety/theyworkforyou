@@ -149,7 +149,7 @@ class MEMBER {
 			    || (!$this->house_disp && $house==4)	# MSPs and
 			    || (!$this->house_disp && $house==3)	# MLAs have lowest priority
 			    || ($this->house_disp!=2 && $house==2)	# Lords have highest priority
-			    || ((!$this->house_disp || $this->house_disp==3) && $house==1) # MPs have higher priority than MLAs
+			    || (!$this->house_disp && $house==1) # MPs
 			) {
 				$this->house_disp = $house;
 				$this->constituency = $const;
@@ -323,6 +323,13 @@ class MEMBER {
 			$person_ids = array(); $consts = array();
 			for ($i=0; $i<$q->rows(); ++$i) {
 				$pid = $q->field($i, 'person_id');
+
+                # XXX A hack within a hack
+                # There are two Mark Durkan MLAs - the current one is the
+                # nephew of the old one. To stop this page constantly asking
+                # you to pick between them, shortcircuit the current one
+                if ($pid == 25143) return $pid;
+
 				if (!in_array($pid, $person_ids)) {
 					$person_ids[] = $pid;
 					$consts[] = $q->field($i, 'constituency');

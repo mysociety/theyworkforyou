@@ -197,7 +197,7 @@ if (is_numeric(get_http_var('m'))) {
 	$MEMBER = new MEMBER(array('name' => $name));
 	if (((($MEMBER->house_disp==1)
 	    || ($MEMBER->house_disp==2 && $this_page!='peer'))
-	    && ($MEMBER->valid || !is_array($MEMBER->person_id()))) || $redirect) {
+	    && ($MEMBER->valid || !is_array($MEMBER->person_id()))) || !$MEMBER->canonical || $redirect) {
 		member_redirect($MEMBER);
 	}
 	if (preg_match('#^(mr|mrs|ms)#', $name)) {
