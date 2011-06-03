@@ -300,13 +300,6 @@ class MEMBER {
 			# if ($title) $q .= 'title = \'' . mysql_real_escape_string($title) . '\' AND ';
 			$q .= "house =1 AND ((first_name='".mysql_real_escape_string($first_name." ".$middle_name)."' AND last_name='".mysql_real_escape_string($last_name)."') OR ".
 			"(first_name='".mysql_real_escape_string($first_name)."' AND last_name='".mysql_real_escape_string($middle_name." ".$last_name)."'))";
-			if ($const) {
-				$normalised = normalise_constituency_name($const);
-				if ($normalised && strtolower($normalised) != strtolower($const)) {
-					$this->canonical = false;
-					$const = $normalised;
-				}
-			}
 		} elseif ($this_page == 'royal') {
 			$q .= ' house = 0';
 		}
