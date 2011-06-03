@@ -3267,7 +3267,7 @@ class StandingCommittee extends DEBATELIST {
 		foreach ($bills as $id => $title) {
 			$data[] = array(
 				'title' => $title,
-				'url' => "/pbc/" . urlencode($session) '/' . urlencode(str_replace(' ', '_', $title)) . '/',
+				'url' => "/pbc/" . urlencode($session) . '/' . urlencode(str_replace(' ', '_', $title)) . '/',
 				'contentcount' => isset($counts[$id]) ? $counts[$id] : '???',
 				# 'totalcomments' => isset($comments[$id]) ? $comments[$id] : '???',
 			);
