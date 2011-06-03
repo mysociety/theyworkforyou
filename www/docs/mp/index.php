@@ -42,8 +42,8 @@ $errors = array();
 // Some legacy URLs use 'p' rather than 'pid' for person id. So we still
 // need to detect these.
 $pid = get_http_var('pid') != '' ? get_http_var('pid') : get_http_var('p');
-$name = strtolower(str_replace(array('_'), array(' '), get_http_var('n')));
-$cconstituency = strtolower(str_replace(array('_','.'), array(' ','&'), get_http_var('c'))); # *** postcode functions use global $constituency!!! ***
+$name = strtolower(str_replace('_', ' ', get_http_var('n')));
+$cconstituency = strtolower(str_replace('_', ' ', get_http_var('c'))); # *** postcode functions use global $constituency!!! ***
 if ($cconstituency == 'mysociety test constituency') {
 	header("Location: stom.html");
 	exit;
