@@ -133,10 +133,11 @@ class PAGE {
 		}
 
 		if (!$metakeywords = $DATA->page_metadata($this_page, "metakeywords")) {
-			$metakeywords = "";
+		  $metakeywords = 'Parliament, government, house of commons, house of lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, UK, Britain, British, Welsh, Scottish, Wales, Scotland';
 		}
+
 		if (!$metadescription = $DATA->page_metadata($this_page, "metadescription")) {
-			$metadescription = "";
+			$metadescription = "Making parliament easy.";
 		}
 
 		if ($this_page != "home") {
@@ -171,10 +172,11 @@ class PAGE {
 				}
 			}
 		}
-		
+	       
 		// Needs to come before any HTML is output, in case it needs to set a cookie.
 		$SKIN = new SKIN();
 			
+
 		if (!$keywords = $DATA->page_metadata($this_page, "keywords")) {
 			$keywords = "";	
 		} else {
@@ -198,8 +200,8 @@ class PAGE {
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	<title><?php echo $title; ?></title>
-	<meta name="description" content="Making parliament easy.">
-	<meta name="keywords" content="Parliament, government, house of commons, house of lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, UK, Britain, British, Welsh, Scottish, Wales, Scotland, <?php echo htmlentities($keywords_title).htmlentities($keywords); ?>">
+	<meta name="description" content="<?php echo htmlentities($metadescription); ?>">
+	<meta name="keywords" content="<?php echo htmlentities($metakeywords); ?>">
 	<?=$robots ?>
 	<link rel="author" title="Send feedback" href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">
 	<link rel="home" title="Home" href="http://<?php echo DOMAIN; ?>/">
