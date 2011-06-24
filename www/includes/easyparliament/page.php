@@ -973,6 +973,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
                 $assembly_links = $this->get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home', 'boundaries'));
                 $international_links = $this->get_menu_links(array ('newzealand', 'australia', 'ireland'));
                 $tech_links = $this->get_menu_links(array ('code', 'api', 'data', 'devmailinglist', 'irc'));
+		$landing_links = $this->get_menu_links(array ('parliament_landing', 'hansard_landing'));
 
         /*
         		$about_links[] = '<a href="' . WEBPATH . 'api/">API</a> / <a href="http://ukparse.kforge.net/parlparse">XML</a>';
@@ -1023,6 +1024,16 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
                 			    <?php
                 			        foreach ($tech_links as $tech_link) {
                 			            echo '<li>' . $tech_link . '</li>';
+                			        }
+                                ?>
+                            </ul>
+                        </dd>
+                        <dt>Explanatory Pages: </dt>
+        			    <dd>
+        			        <ul>
+                			    <?php
+                			        foreach ($landing_links as $landing_link) {
+                			            echo '<li>' . $landing_link . '</li>';
                 			        }
                                 ?>
                             </ul>

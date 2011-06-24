@@ -375,6 +375,11 @@ $this->page = array (
 		'title'			=> '',
 		'url'			=> ''
 	),
+        // Hansard landing page
+        'hansard_landing' => array (
+                'title'                 => 'Hansard',
+                'url'                   => 'search-hansard/',
+        ),
 	'help' => array (
 		'title'			=> 'Help',
 		'url'			=> 'help/'
@@ -474,6 +479,12 @@ $this->page = array (
 		'title'			=> 'Debates for ',
 		'url'			=> 'lords/'
 	),
+
+        // Parliament landing page
+        'parliament_landing' => array (
+                'title'                 => 'Parliament',
+                'url'                   => 'parliament/',
+        ),
 
 	'peer' => array (
 		'parent'		=> 'peers',

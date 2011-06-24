@@ -338,7 +338,17 @@ div.clearboth {
     height: 1em;
 }
 
-div.landing_banner div.mainsearchbox {
+/* Image attribution */
+div.landing_banner .image_attribution {
+    font-size: 80%;
+    color: #ffffff;
+    text-align: right;
+    float: right;
+    padding-top: 0.2em;
+}
+
+div.landing_banner .image_attribution a {
+    color: #ffffff;
 }
 
 /* Hansard */

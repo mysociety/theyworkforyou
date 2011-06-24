@@ -1,6 +1,6 @@
 <?php
 
-$this_page = "landing";
+$this_page = "hansard_landing";
 
 include_once "../../includes/easyparliament/init.php";
 
@@ -18,7 +18,7 @@ $PAGE->stripe_start('full');
   <div>
     <div class="transparent_white">
       <h2>Hansard: the UK Parliament Record</h2>
-      <h3>Search Hansard back to 1935</h3>
+      <h3>Search Hansard</h3>
 
 <?php
 $PAGE->search_form();
@@ -27,6 +27,7 @@ $PAGE->search_form();
     </div>
     <div class='clearboth'></div>
   </div>
+  <div class='image_attribution'>Image from <a href='http://www.flickr.com/photos/limaoscarjuliet/225249268'>limaoscarjuliet</a></div>
 </div>
 
 <?php

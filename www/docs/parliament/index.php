@@ -1,6 +1,6 @@
 <?php
 
-$this_page = "landing";
+$this_page = "parliament_landing";
 
 include_once "../../includes/easyparliament/init.php";
 
@@ -26,6 +26,7 @@ $PAGE->search_form();
     </div>
     <div class='clearboth'></div>
   </div>
+  <div class='image_attribution'>Image from <a href='http://www.flickr.com/photos/g4egk/4121065454/'>Gregg Knapp</a></div>
 </div>
 
 <?php
@@ -35,9 +36,9 @@ $PAGE->stripe_start();
 
 <p>In the UK, Parliament consists of the House of Commons and the House of Lords, with the monarch at the head.</p>
 
-<p> The House of Commons is made up of democratically elected <a href='/mps/'>members of parliament (MPs)</a> representing every UK constituency. The <a href='/peers/'>House of Lords</a> is composed of unelected peers and senior bishops. Proceedings are overseen by a Speaker, whose job it is to retain order.</p>
+<p> The House of Commons is made up of democratically elected <a href='/mps/'>Members of Parliament (MPs)</a> representing every UK constituency. The <a href='/peers/'>House of Lords</a> is composed of unelected peers and senior bishops. Proceedings are overseen by a Speaker, whose job it is to retain order.</p>
 
-<p>Parliament meets at the Houses of Westminster in London. Here there is a regular schedule of events, including <a href='/debates/'>debates</a>, <a href='pbc'>committees</a> and <a href='/written-answers-and-statements/'>parliamentary questions</a>. If you would like to learn more about what exactly goes on in parliament, visit our <a href='/'>homepage</a>, where you can find out who your MP is, see recent debates and statements, and set up email alerts.</p>
+<p>Parliament meets at the Houses of Westminster in London. Here there is a regular schedule of events, including <a href='/debates/'>debates</a>, <a href='pbc'>committees</a> and <a href='/written-answers-and-statements/'>parliamentary questions</a>. If you would like to learn more about what exactly goes on in Parliament, visit our <a href='/'>homepage</a>, where you can find out who your MP is, see recent debates and statements, and set up email alerts.</p>
 
 <?php
 $PAGE->stripe_end();
