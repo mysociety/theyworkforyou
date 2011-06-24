@@ -318,13 +318,24 @@ div.landing_banner div {
     height: 1%;
 }
 
+div.landing_banner div#clearboth {
+    clear: both;
+    display: block;
+}
+
 div.transparent_white {
     background: url(../../images/white.png);
     border-radius: 0.5em; -moz-border-radius: 0.5em; -webkit-border-radius: 0.5em;
     margin: 0 auto 0 0;
-    width: 50%;
     height 1%;
     padding: 1em;
+    float: left;
+}
+
+div.clearboth {
+    clear: both;
+    display: block;
+    height: 1em;
 }
 
 div.landing_banner div.mainsearchbox {

@@ -18,13 +18,13 @@ $PAGE->stripe_start('full');
   <div>
     <div class="transparent_white">
       <h2>Parliament</h2>
-  <h3>Search for any word or phrase &ndash; see if it&rsquo;s been mentioned in Parliament</h3>
+      <h3>Search for any word or phrase &ndash; see if it&rsquo;s been mentioned in Parliament</h3>
 
 <?php
 $PAGE->search_form();
 ?>
-
     </div>
+    <div class='clearboth'></div>
   </div>
 </div>
 
@@ -33,7 +33,11 @@ $PAGE->stripe_end();
 $PAGE->stripe_start();
 ?>
 
-<p>TheyWorkForYou.com is an independent website containing complete records of everything that goes on in Parliament. Use the search box above to see how Members of Parliament talk about the topics that affect you, like daylight saving, minimum wage, or the NHS.<p>
+<p>In the UK, Parliament consists of the House of Commons and the House of Lords, with the monarch at the head.</p>
+
+<p> The House of Commons is made up of democratically elected <a href='/mps/'>members of parliament (MPs)</a> representing every UK constituency. The <a href='/peers/'>House of Lords</a> is composed of unelected peers and senior bishops. Proceedings are overseen by a Speaker, whose job it is to retain order.</p>
+
+<p>Parliament meets at the Houses of Westminster in London. Here there is a regular schedule of events, including <a href='/debates/'>debates</a>, <a href='pbc'>committees</a> and <a href='/written-answers-and-statements/'>parliamentary questions</a>. If you would like to learn more about what exactly goes on in parliament, visit our <a href='/'>homepage</a>, where you can find out who your MP is, see recent debates and statements, and set up email alerts.</p>
 
 <?php
 $PAGE->stripe_end();

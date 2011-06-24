@@ -25,6 +25,7 @@ $PAGE->search_form();
 ?>
 
     </div>
+    <div class='clearboth'></div>
   </div>
 </div>
 
