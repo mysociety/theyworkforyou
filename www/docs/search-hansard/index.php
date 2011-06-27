@@ -27,7 +27,7 @@ $PAGE->search_form();
     </div>
     <div class='clearboth'></div>
   </div>
-  <div class='image_attribution'>Image from <a href='http://www.flickr.com/photos/limaoscarjuliet/225249268'>limaoscarjuliet</a></div>
+  <div class='image_attribution'>Background image from <a href='http://www.flickr.com/photos/limaoscarjuliet/225249268'>limaoscarjuliet</a></div>
 </div>
 
 <?php
