@@ -360,7 +360,8 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
 			if ($inverse) 
 				$dmpscore = 1.0 - $dmpscore;
 			$english = score_to_strongly($dmpscore);
-			if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 1) {
+            # XXX Note special casing of 2nd tuition fee policy here
+			if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 1 || $dreamid == 1132) {
 				$english = preg_replace('#(very )?(strongly|moderately) #', '', $english);
 			}
 			$dmpdesc = 'Voted <strong>' . $english . '</strong>';
@@ -395,7 +396,7 @@ function person_voting_record($member, $extra_info) {
 		array(811, "a <strong>smoking ban</strong>", true),
 		array(1051, "introducing <strong>ID cards</strong>"),
 		array(363, "introducing <strong>foundation hospitals</strong>"),
-		# array(1052, "introducing <strong>student top-up fees</strong>"),
+		array(1052, "university <strong>tuition fees</strong>"),
 		array(1053, "Labour's <strong>anti-terrorism laws</strong>", true),
 		array(1049, "the <strong>Iraq war</strong>"),
 		# array(975, "an <strong>investigation</strong> into the Iraq war"), XXX See code below
@@ -408,6 +409,7 @@ function person_voting_record($member, $extra_info) {
 		array(1079, "removing <strong>hereditary peers</strong> from the House of Lords"),
         array(1087, "a <strong>stricter asylum system</strong>"),
         array(1065, "more <strong>EU integration</strong>"),
+        array(1110, "increasing the <strong>rate of VAT</strong>"),
 		# array(837, "a <strong>wholly elected</strong> House of Lords"), XXX See code below
         # Unfinished
 		# array(856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>"),
@@ -419,6 +421,7 @@ function person_voting_record($member, $extra_info) {
     $joined = array(
         1079 => array(837, "a <strong>wholly elected</strong> House of Lords"),
         1049 => array(975, "an <strong>investigation</strong> into the Iraq war"),
+        1052 => array(1132, 'raising the UK&rsquo;s undergraduate tuition fee cap to &pound;9,000 per year'),
     );
 
 	$got_dream = '';

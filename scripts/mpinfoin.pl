@@ -143,13 +143,9 @@ if ($action{'pw'}) {
         print "Parsing Public Whip attendance and policies\n" if $verbose;
         $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml"); # i love twig
         $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords"); # i love twig
-        # TODO: Add smoking, parliamentary scrutiny
-        # Iraq war, terrorism law, Hunting, Foundation hospitals, gay vote,
-        # no2id, top-up fees, abolish parliament, no smoking, Parliament FOI,
-        # trident, climate change bill
-        # TODO: Think about how these (esp no2id) might change now after election
-        foreach my $dreamid (1049, 1053, 1050, 363, 826, 1051, 1052, 856, 811, 975, 996, 984, 1030,
-            837, 1071, 1074, 1077, 1079, 1080, 1087, 1065) {
+        # Various policy IDs, see http://www.publicwhip.org.uk/policies.php for what they are
+        foreach my $dreamid (1049, 1053, 1050, 363, 826, 1051, 1052, 1132, 856, 811, 975, 996, 984, 1030,
+            837, 1071, 1074, 1077, 1079, 1080, 1087, 1065, 1110) {
                 $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid");
         }
 }
