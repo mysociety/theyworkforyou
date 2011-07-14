@@ -199,18 +199,22 @@ if ($q_house==1) {
 
 
         $SEARCHENGINE = new SEARCHENGINE($searchstring); 
-    	$pagetitle = 'Search for ' . $SEARCHENGINE->query_description_short();
-    	$pagenum = get_http_var('p');
-    	if (is_numeric($pagenum) && $pagenum > 1) {
-    		$pagetitle .= ", page $pagenum";
-    	}
-	
-    	$DATA->set_page_metadata($this_page, 'title', $pagetitle);
-	    $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($searchstring));
-    	$PAGE->page_start();
-    	$PAGE->stripe_start();
-    	$PAGE->search_form($searchstring);
-	
+        $pagetitle = 'Search for ' . $SEARCHENGINE->query_description_short();
+        $pagenum = get_http_var('p');
+        if (is_numeric($pagenum) && $pagenum > 1) {
+            $pagetitle .= ", page $pagenum";
+        }
+
+        $DATA->set_page_metadata($this_page, 'title', $pagetitle);
+        $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($searchstring));
+        if (!$pagenum || $pagenum == 1) {
+            # Allow indexing of first page of search results
+            $DATA->set_page_metadata($this_page, 'robots', '');
+        }
+        $PAGE->page_start();
+        $PAGE->stripe_start();
+        $PAGE->search_form($searchstring);
+
         $o = get_http_var('o');
     	$args = array (
     		's' => $searchstring,
