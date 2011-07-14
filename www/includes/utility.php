@@ -28,7 +28,7 @@ function twfy_debug ($header, $text="") {
 	
 		// Set which level shows which types of debug info.
 		$levels = array (
-			1 => array ('SKIN', 'THEUSER', 'TIME', 'SQLERROR', 'PAGE', 'TEMPLATE', 'SEARCH', 'ALERTS', 'MP'),
+			1 => array ('THEUSER', 'TIME', 'SQLERROR', 'PAGE', 'TEMPLATE', 'SEARCH', 'ALERTS', 'MP'),
 			2 => array ('SQL', 'EMAIL', 'WIKIPEDIA', 'hansardlist', 'debatelist', 'wranslist', 'whalllist'),
 			3 => array ('SQLRESULT')
 			// Higher than this: 'DATA', etc.

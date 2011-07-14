@@ -173,10 +173,6 @@ class PAGE {
 			}
 		}
 	       
-		// Needs to come before any HTML is output, in case it needs to set a cookie.
-		$SKIN = new SKIN();
-			
-
 		if (!$keywords = $DATA->page_metadata($this_page, "keywords")) {
 			$keywords = "";	
 		} else {
@@ -212,8 +208,11 @@ class PAGE {
 	<script type="text/javascript" src="/js/bar.js"></script>	
 <?php
 		echo $linkshtml; 
-		
-		$SKIN->output_stylesheets();
+?>
+	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/global.css" type="text/css">
+	<link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/print.css" type="text/css" media="print">
+<?php
 
 		if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
 			// If this page has an RSS feed set.
@@ -1088,7 +1087,6 @@ pr()//-->
 		
 ?>
 
-<br class="clear">
 </div> <!-- end #footer -->
 </div> <!-- end #container -->
 

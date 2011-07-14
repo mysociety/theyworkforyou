@@ -9,19 +9,19 @@ div.extra,
 div.mainsearchbox,
 div.pagelinks,
 a.permalink{
-	display: none;
-	}
-	
+    display: none;
+}
+
 a {
-	text-decoration: none;
-	}
+    text-decoration: none;
+}
 div.calendar a {
-	font-weight: bold;
-	}
-	
+    font-weight: bold;
+}
+
 div.main {
-	width: 100%;
-	float: none;
+    width: 100%;
+    float: none;
 }
 
 div.stripe-side,
@@ -35,52 +35,52 @@ div.stripe-procedural-1,
 div.stripe-2,
 div.stripe-time-2,
 div.stripe-procedural-2 {
-	background: none;
-	color: #000;
-	}
+    background: none;
+    color: #000;
+}
 
 div.stripe-time-1,
 div.stripe-procedural-1,
 div.stripe-time-2,
 div.stripe-procedural-2 {
-	font-style: italic;
-	}
+    font-style: italic;
+}
 
 div.stripe-1 div.main,
 div.stripe-2 div.main,
 div.stripe-1-on div.main,
 div.stripe-2-on div.main {
-	padding: 0 0 1em 0;
-	}
-	
+    padding: 0 0 1em 0;
+}
+
 div.block h4 {
-	margin: 0.1em;
-	}
+    margin: 0.1em;
+}
 
 span.hi {
-	background: none;
-	font-weight: bold;
-	}
+    background: none;
+    font-weight: bold;
+}
 #votingrecord {
-	clear: both;
+    clear: both;
 }
 .jumpers {
-	display: none;
+    display: none;
 }
 .unneededprintlinks {
-	display: none;
+    display: none;
 }
 
 #register a:after {
-	content: " ( " attr(href) " )";
+    content: " ( " attr(href) " )";
 }
 #hansard #moreappear a:after {
-	content: " ( http://www.theyworkforyou.com" attr(href) " )";
+    content: " ( http://www.theyworkforyou.com" attr(href) " )";
 }
 .printonly {
-	display: block;
+    display: block;
 }
 
 div#survey_teaser {
-	display: none !important;
+    display: none !important;
 }

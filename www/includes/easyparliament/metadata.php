@@ -761,11 +761,6 @@ $this->page = array (
 		'url'			=> 'news/index.xml'
 	),
 	
-	'skin'		=> array (
-		'title'			=> 'Skin this site',
-		'url'			=> 'skin/'
-	),
-	
 	/* Scottish Parliament */
 	'sp_home' => array(
 		'menu'			=> array (
