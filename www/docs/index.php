@@ -95,8 +95,9 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
             <?php if (count($popular_searches)) { ?>
                 <p>
                     Popular searches today:
-                    <?php foreach ($popular_searches as $popular_search) {
-                        echo $popular_search['display'] . ' ';
+                    <?php foreach ($popular_searches as $i => $popular_search) {
+                        echo $popular_search['display'];
+                        if ($i < count($popular_searches)-1) print ', ';
                     } ?>
                 </p>
             <?php } ?>
