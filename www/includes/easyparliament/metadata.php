@@ -558,14 +558,6 @@ $this->page = array (
 		'title'			=> 'Send this page to a friend',
 		'url'			=> 'email/'
 	),
-	'c4_mp' => array (
-		'title'			=> 'MP',
-		'url'			=> 'mp/c4/'
-	),
-	'c4x_mp' => array (
-		'title'			=> 'MP',
-		'url'			=> 'mp/c4x/'
-	),
 	// The directory MPs' RSS feeds are stored in.
 	'mp_rss' => array (
 		'url'			=> 'rss/mp/'
@@ -579,14 +571,6 @@ $this->page = array (
     	'title'			=> '',
     	'url'			=> 'mps/'
     ),
-	'c4_mps' => array (
-		'title' => 'All MPs',
-		'url' => 'mps/c4/'
-	),
-	'c4x_mps' => array (
-		'title' => 'All MPs',
-		'url' => 'mps/c4x/'
-	),
 
 	/* Northern Ireland Assembly */
 	'ni_home' => array(

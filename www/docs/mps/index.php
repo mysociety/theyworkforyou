@@ -16,13 +16,7 @@ if (get_http_var('msp')) {
 function list_reps($type, $rep_plural, $search_sidebar) {
     global $this_page, $PAGE, $DATA;
 
-    if (get_http_var('c4')) {
-        $this_page = 'c4_mps';
-    } elseif (get_http_var('c4x')) {
-        $this_page = 'c4x_mps';
-    } else {
-        $this_page = $type;
-    }
+    $this_page = $type;
 
     $args = array();
     if ($type == 'peers')

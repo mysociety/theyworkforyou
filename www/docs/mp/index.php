@@ -113,9 +113,7 @@ if (get_http_var('recent')) {
 /////////////////////////////////////////////////////////
 // CHECK SUBMITTED MEMBER (term of office) ID.
 
-if (get_http_var('c4')) $this_page = 'c4_mp';
-elseif (get_http_var('c4x')) $this_page = 'c4x_mp';
-elseif (get_http_var('peer')) $this_page = 'peer';
+if (get_http_var('peer')) $this_page = 'peer';
 elseif (get_http_var('royal')) $this_page = 'royal';
 elseif (get_http_var('mla')) $this_page = 'mla';
 elseif (get_http_var('msp')) $this_page = 'msp';
@@ -451,9 +449,6 @@ function member_redirect(&$MEMBER) {
 	// Now we redirect to the canonical MP page, with a person_id.
 	if ($MEMBER->person_id()) {
 		$url = $MEMBER->url();
-		if ($this_page == 'c4_mp') {
-			$url = str_replace('mp/', 'mp/c4/', $url);
-		}
 		header('Location: ' . $url, true, 301 );
 		exit;
 	}
@@ -550,7 +545,7 @@ function generate_member_links ($member) {
 	$html = '<div class="block">
 			<h4>More useful links for this person</h4>
 			<div class="blockbody">
-			<ul' . (get_http_var('c4')?' style="list-style-type:none;"':''). '>';
+			<ul>';
 
 	if (isset($links['maiden_speech'])) {
 		$maiden_speech = fix_gid_from_db($links['maiden_speech']);

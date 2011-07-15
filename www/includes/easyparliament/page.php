@@ -1130,8 +1130,6 @@ piwikTracker.enableLinkTracking();
 		echo '<br>';
 		$this->block_start(array('id'=>'mp', 'title'=>'Find out about your MP/MSPs/MLAs'));
 		echo '<form action="/postcode/" method="get">';
-		if (get_http_var('c4')) print '<input type="hidden" name="c4" value="1">';
-		if (get_http_var('c4x')) print '<input type="hidden" name="c4x" value="1">';
 		if ($THEUSER->postcode_is_set()) {
 			$FORGETURL = new URL('userchangepc');
 			$FORGETURL->insert(array('forget'=>'t'));
