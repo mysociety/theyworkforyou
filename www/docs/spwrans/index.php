@@ -132,8 +132,7 @@ if (get_http_var('d')) {
 	$this_page = 'spwransyear';
 	
 	if (is_numeric(get_http_var('y'))) {
-		$pagetitle = $DATA->page_metadata($this_page, 'title');
-		$DATA->set_page_metadata($this_page, 'title', $pagetitle.' '.get_http_var('y'));
+		$DATA->set_page_metadata($this_page, 'title', get_http_var('y'));
 	}
 	
 	$PAGE->page_start();

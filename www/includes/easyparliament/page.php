@@ -132,13 +132,16 @@ class PAGE {
 			}
 		}
 
-		if (!$metakeywords = $DATA->page_metadata($this_page, "metakeywords")) {
-		  $metakeywords = 'Parliament, government, house of commons, house of lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, UK, Britain, British, Welsh, Scottish, Wales, Scotland';
-		}
+        if (!$meta_keywords = $DATA->page_metadata($this_page, "meta_keywords")) {
+            $meta_keywords = $keywords_title;
+            if ($meta_keywords) $meta_keywords .= ', ';
+            $meta_keywords .= 'Hansard, Official Report, Parliament, government, House of Commons, House of Lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, Scottish Parliament, Northern Ireland Assembly, MSP, MLA, MSPs, MLAs';
+        }
 
-		if (!$metadescription = $DATA->page_metadata($this_page, "metadescription")) {
-			$metadescription = "Making parliament easy.";
-		}
+        $meta_description = '';
+        if ($meta_description = $DATA->page_metadata($this_page, "meta_description")) {
+            $meta_description = '<meta name="description" content="' . htmlentities($meta_description) . '">';
+        }
 
 		if ($this_page != "home") {
 			$URL = new URL('home');
@@ -196,8 +199,8 @@ class PAGE {
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	<title><?php echo $title; ?></title>
-	<meta name="description" content="<?php echo htmlentities($metadescription); ?>">
-	<meta name="keywords" content="<?php echo htmlentities($metakeywords); ?>">
+	<?=$meta_description ?>
+	<meta name="keywords" content="<?php echo htmlentities($meta_keywords); ?>">
 	<?=$robots ?>
 	<link rel="author" title="Send feedback" href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">
 	<link rel="home" title="Home" href="http://<?php echo DOMAIN; ?>/">
@@ -1257,55 +1260,47 @@ piwikTracker.enableLinkTracking();
         print '<div class="informational left">' . $text . '</div>';
     }
 
-	function set_hansard_headings ($info) {
-		// Called from HANSARDLIST->display().
-		// $info is the $data['info'] array passed to the template.
-		// If the page's HTML hasn't already been started, it sets the page
-		// headings that will be needed later in the page.
-		
-		global $DATA, $this_page;
+    function set_hansard_headings ($info) {
+        // Called from HANSARDLIST->display().
+        // $info is the $data['info'] array passed to the template.
+        // If the page's HTML hasn't already been started, it sets the page
+        // headings that will be needed later in the page.
 
-		if (!$this->page_started()) {
-			// The page's HTML hasn't been started yet, so we'd better do it.
+        global $DATA, $this_page;
 
-			// Set the page title (in the <title></title>).
+        if ($this->page_started()) return;
+        // The page's HTML hasn't been started yet, so we'd better do it.
 
-			$page_title = '';
+        // Set the page title (in the <title></title>).
+        $page_title = '';
 
-			if (isset($info['text'])) {
-				// Use a truncated version of the page's main item's body text.
-				// trim_words() is in utility.php. Trim to 40 chars.
-				$page_title = trim_characters($info['text'], 0, 40);
-				
-			} elseif (isset($info['year'])) {
-				// debatesyear and wransyear pages.
-				$page_title = $DATA->page_metadata($this_page, 'title');
+        if (isset($info['text_heading'])) {
+            $page_title = $info['text_heading'];
+        } elseif (isset($info['text'])) {
+            // Use a truncated version of the page's main item's body text.
+            // trim_words() is in utility.php. Trim to 40 chars.
+            $page_title = trim_characters($info['text'], 0, 40);
+        }
 
-				$page_title .= $info['year'];	
-			}
+        if (isset($info['date'])) {
+            // debatesday and wransday pages.
+            if ($page_title != '') {
+                $page_title .= ': ';
+            }
+            $page_title .= format_date ($info['date'], SHORTDATEFORMAT);
+        }
 
-			if (isset($info['date'])) {
-				// debatesday and wransday pages.
-				if ($page_title != '') {
-					$page_title .= ': ';
-				}
-				$page_title .= format_date ($info['date'], SHORTDATEFORMAT);
-			}
-			
-			if ($page_title != '') {
-				$DATA->set_page_metadata($this_page, 'title', $page_title);
-			}
-		
-			if (isset($info['date'])) {
-				// Set the page heading (displayed on the page).
-				$page_heading = format_date($info['date'], LONGERDATEFORMAT);
-				$DATA->set_page_metadata($this_page, 'heading', $page_heading);
-			}
-	
-		}
+        if ($page_title != '') {
+            $DATA->set_page_metadata($this_page, 'title', $page_title);
+        }
 
-	}
+        if (isset($info['date'])) {
+            // Set the page heading (displayed on the page).
+            $page_heading = format_date($info['date'], LONGERDATEFORMAT);
+            $DATA->set_page_metadata($this_page, 'heading', $page_heading);
+        }
 
+    }
 	
 	function nextprevlinks () {
 		

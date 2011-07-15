@@ -1330,7 +1330,6 @@ class HANSARDLIST {
 		// hansard data.
 		// But months that have no data will still have a month array (empty).
 	
-		// $data['info'] may have 'year' => 2004 if we're just viewing a single year.
 		// $data['info'] may have 'prevlink' => '/debates/?y=2003' or something
 		// if we're viewing recent months.
 		
@@ -2379,9 +2378,11 @@ class HANSARDLIST {
 			// Duh.
 			if ($itemdata['htype'] == '10') {
 				$nextprev = $this->_get_nextprev_items( $sectionrow );
+			    $data['info']['text_heading'] = $itemdata['body'];
 			
 			} elseif ($itemdata['htype'] == '11') {
 				$nextprev = $this->_get_nextprev_items( $subsectionrow );
+			    $data['info']['text_heading'] = $itemdata['body'];
 			
 			} else {
 				// Ordinary lowly item.
@@ -2397,10 +2398,8 @@ class HANSARDLIST {
 				$nextprev['up']['body']		= 'See the whole debate';
 			}
 			
-			
 			// We can then access this from $PAGE and the templates.
 			$DATA->set_page_metadata($this_page, 'nextprev', $nextprev);
-			
 			
 			// Now get all the non-heading rows.
 

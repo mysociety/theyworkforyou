@@ -336,7 +336,6 @@ $this->page = array (
 	),
 	'debatesyear' => array (
 		'parent'		=> 'debatesfront',
-		'title'			=> 'Debates for ',
 		'url'			=> 'debates/'
 	),
 	'epvote' => array (
@@ -488,7 +487,6 @@ $this->page = array (
 	),
 	'lordsdebatesyear' => array (
 		'parent'		=> 'lordsdebatesfront',
-		'title'			=> 'Debates for ',
 		'url'			=> 'lords/'
 	),
 
@@ -636,7 +634,6 @@ $this->page = array (
 	),
 	'nidebatesyear' => array (
 		'parent'		=> 'nidebatesfront',
-		'title'			=> 'Debates for ',
 		'url'			=> 'ni/'
 	),
 
@@ -819,7 +816,6 @@ $this->page = array (
 
 	'spdebatesyear' => array (
 		'parent'		=> 'spdebatesfront',
-		'title'			=> 'Debates for ',
 		'url'			=> 'sp/'
 	),
 	'spwrans'  => array (
@@ -847,7 +843,6 @@ $this->page = array (
 	),
 	'spwransyear' => array (
 		'parent'		=> 'spwransfront',
-		'title'			=> 'Scottish Parliament Written answers for ',
 		'url'			=> 'spwrans/'
 	),
 
@@ -997,7 +992,6 @@ $this->page = array (
 	), 
 	'whallyear' => array (
 		'parent'		=> 'whallfront',
-		'title'			=> 'Westminster Hall debates for ',
 		'url'			=> 'whall/'
 	),
 
@@ -1023,7 +1017,6 @@ $this->page = array (
 	),
 	'wmsyear' => array (
 		'parent'		=> 'wmsfront',
-		'title'			=> 'Written Ministerial Statements for ',
 		'url'			=> 'wms/'
 	),
 
@@ -1052,7 +1045,6 @@ $this->page = array (
 	),
 	'wransyear' => array (
 		'parent'		=> 'wransfront',
-		'title'			=> 'Written answers for ',
 		'url'			=> 'wrans/'
 	),
 
