@@ -248,26 +248,44 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 	
 	$member_name = ucfirst($MEMBER->full_name());
 
-	$subtitle = $member_name;
+	$title = $member_name;
+	$desc = "Read $member_name's contributions to Parliament, including speeches and questions";
+	if ($MEMBER->current_member_anywhere())
+		$desc .= ', investigate their voting record, and get email alerts on their activity';
+
 	if ($MEMBER->house(1)) {
 		if (!$MEMBER->current_member(1)) {
-			$subtitle .= ', former';
+			$title .= ', former';
 		}
-		$subtitle .= ' MP, '.$MEMBER->constituency();
+		$title .= ' MP';
+        if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
 	}
 	if ($MEMBER->house(3)) {
+        if ($MEMBER->house(1) || $MEMBER->house(2)) {
+            $desc = str_replace('Parliament', 'Parliament and the Northern Ireland Assembly', $desc);
+        } else {
+            $desc = str_replace('Parliament', 'the Northern Ireland Assembly', $desc);
+        }
 		if (!$MEMBER->current_member(3)) {
-			$subtitle .= ', former';
+			$title .= ', former';
 		}
-		$subtitle .= ' MLA, '.$MEMBER->constituency();
+		$title .= ' MLA';
+        if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
 	}
 	if ($MEMBER->house(4)) {
+        if ($MEMBER->house(1) || $MEMBER->house(2)) {
+            $desc = str_replace('Parliament', 'the UK and Scottish Parliaments', $desc);
+        } else {
+            $desc = str_replace('Parliament', 'the Scottish Parliament', $desc);
+        }
+        $desc = str_replace(', and get email alerts on their activity', '', $desc);
 		if (!$MEMBER->current_member(4)) {
-			$subtitle .= ', former';
+			$title .= ', former';
 		}
-		$subtitle .= ' MSP, '.$MEMBER->constituency();
+		$title .= ' MSP, '.$MEMBER->constituency();
 	}
-	$DATA->set_page_metadata($this_page, 'subtitle', $subtitle);
+	$DATA->set_page_metadata($this_page, 'title', $title);
+    $DATA->set_page_metadata($this_page, 'meta_description', $desc);
 	$DATA->set_page_metadata($this_page, 'heading', '');
 
 	// So we can put a link in the <head> in $PAGE->page_start();	

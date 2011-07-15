@@ -1,5 +1,3 @@
-<h3>Frequently asked questions</h3>
-
 <ul>
 <li><a href="#use">How do people use TheyWorkForYou?</a></li>
 <li><a href="#coverage">Is this the whole of Hansard?</a></li>

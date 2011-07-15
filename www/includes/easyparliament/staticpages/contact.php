@@ -1,14 +1,13 @@
-<h2>Who do you want to contact?</h3>
-<p></p>
+<h1>Who do you want to contact?</h1>
 
-<h3>Contact your MP or MLA</h3>
+<h2>Contact your MP or MLA</h2>
 
 <p>Use <a href="http://www.writetothem.com">WriteToThem</a> to contact your MP or MLA.</p>
 
-<h3>Contact a Lord</h3>
+<h2>Contact a Lord</h2>
 <p>Use <a href="http://www.writetothem.com/lords">WriteToThem Lords</a> to contact a lord.</p>
 
-<h3>Contact the TheyWorkForYou team</h3>
+<h2>Contact the TheyWorkForYou team</h2>
 <p>
 Please tell us what you think about <strong>TheyWorkForYou.com</strong>
 </p>

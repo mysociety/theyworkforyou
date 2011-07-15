@@ -392,7 +392,7 @@ $this->page = array (
                 'url'                   => 'search-hansard/',
         ),
 	'help' => array (
-		'title'			=> 'Help',
+		'title'			=> 'Help - Frequently Asked Questions',
 		'url'			=> 'help/'
 	),
 	'help_us_out' => array (
@@ -507,7 +507,7 @@ $this->page = array (
 			'title'			=> "List of all Lords"
 		),
 		'parent'		=> 'hansard',
-		'title'			=> 'All Lords',
+		'title'			=> '',
 		'url'			=> 'peers/'
 	),
 'overview' => array (

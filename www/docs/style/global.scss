@@ -78,9 +78,6 @@ h1 {
     margin-bottom: 1em;
     font-size: 1.8em;
 }
-#person_page h1 {
-    margin-top: 0;
-}
 
 h1 span {
     color: #5C4610;
@@ -1346,7 +1343,7 @@ ul#dreamcomparisons {
     background-color: #ffff99;
     border: solid 2px #ff9900;
 }
-div#person_page .main #campaign_block h4 {
+div#person_page .main #campaign_block h2 {
     background-color: #ffcc00;
     margin-top: 0;
     border-top: none; }
@@ -1621,9 +1618,11 @@ div.informational {
 
 
 /* Parliament/assembly home pages */
+/* UNUSED?
 div.latest h3, div.latest ul {
     float: none;
 }
+*/
 
 /* Date times */
 abbr.datetime {
@@ -1809,7 +1808,7 @@ div.sidebar div.comment-teaser ul li {
 }
 
 /* MP pages */
-div#person_page .main h4 {
+div#person_page .main h2 {
     padding-top: 1em;
     margin-top: 2em;
     border-top: dotted 1px #808080;

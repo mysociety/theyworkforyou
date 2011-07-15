@@ -7,7 +7,7 @@ little wrong with Parliament that a healthy mixture of transparency and public e
 
 <p>Hence this website.</p>
 
-<h3>Who runs this site?</h3>
+<h2>Who runs this site?</h2>
 
 <p>TheyWorkForYou is a website run by <a href="http://www.mysociety.org/">mySociety</a>,
 which is itself a project of UK Citizens Online Democracy, a registered charity.
@@ -26,7 +26,7 @@ freely available. Do let us know if you want to help!
 </p>
 
 
-<h3><a name="history"></a>History</h3>
+<h2><a name="history"></a>History</h2>
 
 <p>TheyWorkForYou was set up almost entirely <a href="#1">[1]</a> by a dozen or so volunteers
 who thought it should be really easy for people to keep tabs on their elected MPs,
@@ -64,7 +64,7 @@ work on their own versions. :)</p>
 Longair</a> contributed the parsing code and much front-end code for the Scottish Parliament
 which launched in May 2008. Wales is now all alone&hellip;</p>
 
-<h3>Volunteers</h3>
+<h2>Volunteers</h2>
 
 <p><em>They did all this in their spare time, because they thought it was worth doing.
 And if it's worth doing, you might as well try to do it well. </em></p>

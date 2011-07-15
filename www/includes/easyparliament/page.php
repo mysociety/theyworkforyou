@@ -111,9 +111,7 @@ class PAGE {
 		
 		} else {
 
-			if ($page_subtitle = $DATA->page_metadata($this_page, "subtitle")) {
-				$title = $page_subtitle;
-			} elseif ($page_title = $DATA->page_metadata($this_page, "title")) {
+			if ($page_title = $DATA->page_metadata($this_page, "title")) {
 				$title = $page_title;
 			}
 			// We'll put this in the meta keywords tag.
