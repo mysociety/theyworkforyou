@@ -20,8 +20,7 @@ if ($member['has_email_alerts']) {
 }
 
 person_image($member);
-echo '<h2>' . $member['full_name'] . '</h2>';
-echo '<h3>' . person_summary_description($member) . '</h3>';
+echo '<h1>' . $member['full_name'] . '<br><span>' . person_summary_description($member) . '</span></h1>';
 
 # History
 echo '<ul>';
@@ -87,7 +86,7 @@ if (isset($extra_info['register_member_interests_html'])) {
 if ($member['has_expenses']) {
 	include_once INCLUDESPATH . 'easyparliament/expenses.php';
 	echo '<a name="expenses"></a>';
-	echo '<h4>Expenses</h4>';
+	echo '<h2>Expenses</h2>';
 	echo expenses_display_table($extra_info);
 }
 
@@ -139,9 +138,9 @@ function person_summary_description($member) {
 		}
 		if ($house==1 || $house==3 || $house==4) {
 			$desc .= ' ';
-			if ($house==1) $desc .= 'MP';
-			if ($house==3) $desc .= 'MLA';
-			if ($house==4) $desc .= 'MSP';
+			if ($house==1) $desc .= '<abbr title="Member of Parliament">MP</abbr>';
+			if ($house==3) $desc .= '<abbr title="Member of the Legislative Assembly">MLA</abbr>';
+			if ($house==4) $desc .= '<abbr title="Member of the Scottish Parliament">MSP</abbr>';
 			if ($party_br) {
 				$desc .= " ($party_br)";
 			}
@@ -382,7 +381,7 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
 function person_voting_record($member, $extra_info) {
 	?> <a name="votingrecord"></a> <?php
 	//$this->block_start(array('id'=>'votingrecord', 'title'=>'Voting record (from PublicWhip)'));
-	print '<h4>Voting record (from PublicWhip)</h4>';
+	print '<h2>Voting record (from PublicWhip)</h2>';
 	$displayed_stuff = 0;
 
 	if ($member['party']=='Speaker' || $member['party']=='Deputy Speaker') {
@@ -506,7 +505,7 @@ function person_voting_record($member, $extra_info) {
 function person_committees_and_topics($member, $extra_info) {
 	$chairmens_panel = false;
 	echo '<a name="topics"></a>
-<h4>Topics of interest</h4>';
+<h2>Topics of interest</h2>';
 	$topics_block_empty = true;
 
 	// Select committee membership
@@ -523,7 +522,7 @@ function person_committees_and_topics($member, $extra_info) {
 			}
 		}
 		if ($mins) {
-			print "<h5>Select Committee membership</h5>";
+			print "<h3>Select Committee membership</h3>";
 			print "<ul>";
 			foreach ($mins as $min) {
 				print '<li>' . $min . '</li>';
@@ -559,7 +558,7 @@ function person_committees_and_topics($member, $extra_info) {
 	# Public Bill Committees
 	if (count($extra_info['pbc'])) {
 		$topics_block_empty = false;
-		print '<h5>Public Bill Committees <small>(sittings attended)</small></h5>';
+		print '<h3>Public Bill Committees <small>(sittings attended)</small></h3>';
 		if ($member['party'] == 'Scottish National Party') {
 			echo '<p><em>SNP MPs only attend sittings where the legislation pertains to Scotland.</em></p>';
 		}
@@ -591,7 +590,7 @@ function person_recent_appearances($member) {
         $title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
     }
         
-    print "<h4>$title</h4>";
+    print "<h2>$title</h2>";
 
     //$this->block_start(array('id'=>'hansard', 'title'=>$title));
     // This is really far from ideal - I don't really want $PAGE to know
@@ -646,7 +645,7 @@ function person_recent_appearances($member) {
 function person_numerology($member, $extra_info) {
 	echo '<a name="numbers"></a>';
 	//$this->block_start(array('id'=>'numbers', 'title'=>'Numerology'));
-	print "<h4>Numerology</h4>";
+	print "<h2>Numerology</h2>";
 	$displayed_stuff = 0;
 ?>
 <p><em>Please note that numbers do not measure quality. 
@@ -752,7 +751,7 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 
 function person_register_interests($member, $extra_info) {
 	print '<a name="register"></a>';
-	print "<h4>Register of Members&rsquo; Interests</h4>";
+	print "<h2>Register of Members&rsquo; Interests</h2>";
 
 	if ($extra_info['register_member_interests_html'] != '') {
 		echo $extra_info['register_member_interests_html'];

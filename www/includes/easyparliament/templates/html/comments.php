@@ -56,7 +56,7 @@ if (isset($data['comments'][0]['preview']) && $data['comments'][0]['preview'] ==
 				<a name="comments"></a>
 <?php
 if ($subheading != '') { 
-	echo "\t\t\t\t<h4>$subheading</h4>\n"; 
+	echo "\t\t\t\t<h3>$subheading</h3>\n"; 
 }
 
 	

@@ -106,7 +106,7 @@ if ($bill_id && !$id) {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 	?>
-<h4>Most recent Public Bill committee debates</h4>
+<h2>Most recent Public Bill committee debates</h2>
 <p><a href="/pbc/2010-11/">See all committees for the current session</a></p>
 <?php
 	

@@ -119,7 +119,7 @@ if (get_http_var("d") != "") {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 	?>
-				<h4>Busiest debates from the most recent week</h4>
+				<h2>Busiest debates from the most recent week</h2>
 <?php
 	
 	$LIST = new SPLIST;

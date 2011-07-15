@@ -14,12 +14,12 @@ freeourbills_styles();
 
 <p id="fob_help">We need your help:</p>
 
-<h2>Free our Bills!</h2>
+<h1>Free our Bills!</h1>
 
 <p id="free_our_bills_banner">The Nice Polite Campaign to Gently Encourage
 Parliament to Publish Bills in a 21st Century Way, Please. Now.</p>
 
-<h3>What the&hellip;?</h3>
+<h2>What the&hellip;?</h2>
 
 <p>Writing, discussing and voting on bills is what we employ our MPs to do. If
 enough <strong>MPs vote on bills</strong> they become the law, meaning you or I
@@ -40,14 +40,14 @@ with.</p>
 support the campaign, and over 100 MPs have signed up so far. Sign up to our
 campaign and we'll tell you whether your MP has signed.</p>
 
-<h3>We need you!</h3>
+<h2>We need you!</h2>
 
 <? signup_form() ?>
 <? freeourbills_sharethis_link(); ?>
 
 <p></p>
 
-<h3>Why?</h3>
+<h2>Why?</h2>
 
 <p>Being the people who run TheyWorkForYou we spend lots of our time
 taking rubbish, broken information from Parliament and fixing it up so
@@ -78,7 +78,7 @@ enough to think of yet.
 </ul>
 
 <!-- 
-<h3>"Why won&rsquo;t Parliament do this?"</h3>
+<h2>"Why won&rsquo;t Parliament do this?"</h2>
 
 <p>We tried, my dears, we really did. We had meetings, and heard
 encouraging words. We wrote a proposal on what they should do,
@@ -92,7 +92,7 @@ signing up for email alerts &ldquo;na&iuml;ve&rdquo;. Those are the same email
 alerts (73,000 and counting) that people sign up for every day on
 TheyWorkForYou.
 
-<h3>"Isn&rsquo;t it really expensive?"</h3>
+<h2>"Isn&rsquo;t it really expensive?"</h2>
 
 <p>No. This needs about &pound;10,000 worth of programming to build a tool to
 convert bills to the right format, and probably a Parliamentary staff
@@ -105,13 +105,13 @@ can afford this. -->
 <p>Read our <a href="/freeourbills/techy">details of the technical changes we
 want Parliament to make to the way it publishes bills</a> for more.
 
-<h3>Won&rsquo;t this disrupt the delicate process of writing bills?</h3>
+<h2>Won&rsquo;t this disrupt the delicate process of writing bills?</h2>
 
 <p>Nope, the improved publication we&rsquo;re talking about has nothing to do
 with the actual legal contents of bills. It&rsquo;s about how it gets
 translated into an electronic format once they&rsquo;ve finished.
 
-<h3>What are your real motives? Who does this benefit politically?</h3>
+<h2>What are your real motives? Who does this benefit politically?</h2>
 
 <p>Dammit, we hoped you wouldn't ask that, and now our secret is blown.
 Obviously this campaign benefits Gordon Brown at the expense of Tony Blair. No,
@@ -122,13 +122,13 @@ even if we wanted to be partisan, it'd be against the law. And if you're still
 suspicious you'll see that MPs from almost all parties have signed our
 <a href="http://edmi.parliament.uk/EDMi/EDMDetails.aspx?EDMID=36490">EDM</a>.
 
-<h3>Isn&rsquo;t this an embarrassingly obscure thing to be campaigning about?
-Can&rsquo;t you campaign about saving puppies or something?</h3>
+<h2>Isn&rsquo;t this an embarrassingly obscure thing to be campaigning about?
+Can&rsquo;t you campaign about saving puppies or something?</h2>
 
 <p>Hey &ndash; <strong>you&rsquo;re</strong> the one who just read all the way down to this point.
 Suck it up and sign up, soldier.
 
-<h3>We need you!</h3>
+<h2>We need you!</h2>
 
 <? signup_form(); ?>
 <? freeourbills_sharethis_link(); ?>

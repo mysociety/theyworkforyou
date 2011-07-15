@@ -69,7 +69,7 @@ If you don&rsquo;t want to participate, thanks anyway<? if ($referer) print ', <
 }
 ?>
 
-<h2> TheyWorkForYou&rsquo;s quick and painless user survey </h2>
+<h1> TheyWorkForYou&rsquo;s quick and painless user survey </h1>
 
 <div id="survey">
 

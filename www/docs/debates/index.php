@@ -126,7 +126,7 @@ if (get_http_var("d") != "") {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 ?>
-	<h4>Recent House of Commons debates</h4>
+	<h2>Recent House of Commons debates</h2>
 <?php
 	
 	$DEBATELIST = new DEBATELIST;
@@ -177,7 +177,7 @@ if (get_http_var("d") != "") {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 ?>
-	<h4>Recent Westminster Hall debates</h4>
+	<h2>Recent Westminster Hall debates</h2>
 <?php
 	
 	$WHALLLIST = new WHALLLIST;
@@ -207,7 +207,7 @@ if (get_http_var("d") != "") {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 ?>
-	<h4>Recent House of Lords debates</h4>
+	<h2>Recent House of Lords debates</h2>
 <?php
 	
 	$LORDSDEBATELIST = new LORDSDEBATELIST;
@@ -228,7 +228,11 @@ if (get_http_var("d") != "") {
 		),
 		array (
 			'type' => 'html',
-			'content' => '<div class="block"><h4><a href="/' . $rssurl . '">RSS feed of most recent debates</a></h4></div>'
+			'content' => '<div class="block">
+<h4>RSS feed</h4>
+<p><a href="' . WEBPATH . $rssurl . '"><img alt="RSS feed" border="0" align="middle" src="http://www.theyworkforyou.com/images/rss.gif"></a>
+<a href="' . WEBPATH . $rssurl . '">RSS feed of most recent debates</a></p>
+</div>'
 		)
 	));
 	

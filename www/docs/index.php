@@ -31,7 +31,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
 <div id="welcome_uk" class="welcome_actions">
 
     <div>
-        <h3>Your representative</h3>
+        <h2>Your representative</h2>
         <?php
 
 		$MPURL = new URL('yourmp');
@@ -86,7 +86,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
             $popular_searches = $SEARCHLOG->popular_recent(10);
         ?>
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-            <h3><label for="s">Search,  create an alert or RSS feed</label></h3>
+            <h2><label for="s">Search,  create an alert or RSS feed</label></h2>
             <p>
                 <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
                 <input type="submit" value="Go" class="submit">
@@ -130,7 +130,7 @@ $MOREURL = new URL('wransfront');
 <dd>Written ministerial statements were introduced to stop the practice of
 having &ldquo;planted&rdquo; questions to elicit Government statements.
 
-<h4>Random recent written ministerial statement</h4>
+<h3 class="alt">Random recent written ministerial statement</h3>
 <?php
 
 $WMSLIST->display('recent_wms', array('days' => 7, 'num' => 1));
@@ -178,7 +178,7 @@ $PAGE->include_sidebar_template('front');
 on a variety of topics, oral questions are answered, and new legislation is
 debated.
 
-<h4>Random recent Commons debate</h4>
+<h3 class="alt">Random recent Commons debate</h3>
 <?php
 $DEBATELIST->display('recent_debates', array('days' => 7, 'num' => 1));
 $MOREURL = new URL('debatesfront');
@@ -204,7 +204,7 @@ $MOREURL = new URL('whallfront');
 <dd>Peers from all parties (and crossbench and bishops) scrutinise government
 legislation and debate a variety of issues in the House of Lords main chamber.
 
-<h4>Random recent Lords debates</h4>
+<h3 class="alt">Random recent Lords debates</h3>
 <?php
 $LORDSDEBATELIST->display('recent_debates', array('days' => 7, 'num' => 1));
 $MOREURL = new URL('lordsdebatesfront');

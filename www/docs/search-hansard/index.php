@@ -17,8 +17,8 @@ $PAGE->stripe_start('full');
 <div id="hansard_landing_banner" class="landing_banner">
   <div>
     <div class="transparent_white">
-      <h2>Hansard: the UK Parliament Record</h2>
-      <h3>Search Hansard</h3>
+      <h1>Hansard: the UK Parliament Record
+        <br><span>Search Hansard</span></h1>
 
 <?php
 $PAGE->search_form();
@@ -39,7 +39,7 @@ $PAGE->stripe_start();
 TheyWorkForYou&rsquo;s version of Hansard is the easiest to use anywhere on the web. </p>
 <p>Search Hansard now by entering any word or phrase in the box above.</p>
 
-<h4>On TheyWorkForYou&rsquo;s Hansard you can:</h4>
+<h2>On TheyWorkForYou&rsquo;s Hansard you can:</h2>
 <ul class='hilites clear'>
   <li>search for any word or phrase</li>
   <li>navigate debates, written answers and statements easily</li>
@@ -47,7 +47,7 @@ TheyWorkForYou&rsquo;s version of Hansard is the easiest to use anywhere on the 
   <li>access all Commons debates as far back as 1935, Lords debates from 1999, and more</li>
 </ul>
 
-<h4>Also:</h4>
+<h2>Also:</h2>
 <ul class='hilites clear'>
   <li><a href="/mps">See the voting records and attendance of any MP</a></li>
   <li><a href="/">Find out who your MP is</a></li>

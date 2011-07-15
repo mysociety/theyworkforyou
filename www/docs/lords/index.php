@@ -156,7 +156,7 @@ if (get_http_var("d") != "") {
 
 	$PAGE->stripe_start();
 	?>
-				<h4>Busiest debates from the most recent week</h4>
+				<h2>Busiest debates from the most recent week</h2>
 <?php
 	
 	$LORDSDEBATELIST = new LORDSDEBATELIST;
@@ -177,7 +177,11 @@ if (get_http_var("d") != "") {
 		),
 		array (
 			'type' => 'html',
-			'content' => '<div class="block"><h4><a href="/' . $rssurl . '">RSS feed of most recent debates</a></h4></div>'
+			'content' => '<div class="block">
+<h4>RSS feed</h4>
+<p><a href="' . WEBPATH . $rssurl . '"><img alt="RSS feed" border="0" align="middle" src="http://www.theyworkforyou.com/images/rss.gif"></a>
+<a href="' . WEBPATH . $rssurl . '">RSS feed of most recent debates</a></p>
+</div>'
 		)
 	));
 	

@@ -135,21 +135,16 @@ if (isset ($data['rows'])) {
         		$timetracker = substr($row['htime'],0,5); // Set the timetracker to the current time
             }
 
-			?>
-			    <?php if($subsection_title != '' && $subsection_title != "&nbsp;"){ ?>
-    				<h2><?php echo $subsection_title; ?></h2>			
-    				<h3><?php echo $section['title']; ?></h3>
-    			<?php } else { ?>			
-    				<h2><?php echo $section['title']; ?></h2>    			    
-    			<?php } ?>    			    
-				<h4>
-				    <?php echo $section_text . ", "  .format_date($row['hdate'], LONGDATEFORMAT); ?><?php if ($has_start_time){ ?>, 
-				        <abbr class="datetime" title="<?php echo $row['hdate'] . $row['htime'] ?>">
-				            <?php echo format_time($row['htime'], TIMEFORMAT); ?>
-				        </abbr>
-				    <?php } ?>    
-				</h4>				
-<?php
+            if ($subsection_title != '' && $subsection_title != "&nbsp;") {
+                print "<h1>$subsection_title<br><span>$section[title]</span>";
+            } else {
+                print "<h1>$section[title]";
+            }
+            if ($has_start_time) {
+               print "<br><span class='datetime'>" . format_time($row['htime'], TIMEFORMAT) . '</span>';
+            }
+            print '</h1>';
+
 #			$body = technorati_pretty();
 #			if ($body) {
 #				print '<div class="blockbody">' . $body . '</div>';
@@ -458,10 +453,11 @@ if (isset ($data['rows'])) {
 	
 	if (!$titles_displayed) {
 		$PAGE->stripe_start('head-2');
-		?>
-				<h4><?php echo $section['title']; ?></h4>
-				<h5><?php echo $subsection_title; ?></h5>
-<?php
+		if($subsection_title != '' && $subsection_title != "&nbsp;") {
+			print "<h1>$subsection_title<br><span>$section[title]</span></h1>";
+		} else {
+			print "<h1>$section[title]</h1>";
+		}
 		$PAGE->stripe_end(array(
 			array (
 				'type' => 'nextprev'

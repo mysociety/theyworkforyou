@@ -155,7 +155,7 @@ if (get_http_var("d") != "") {
 
 	$PAGE->stripe_start();
 	?>
-				<h4>Busiest Westminster Hall debates from the most recent week</h4>
+				<h2>Busiest Westminster Hall debates from the most recent week</h2>
 <?php
 	
 	$WHALLLIST = new WHALLLIST;

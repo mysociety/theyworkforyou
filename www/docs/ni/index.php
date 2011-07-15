@@ -123,7 +123,7 @@ if (get_http_var("d") != "") {
 	$PAGE->page_start();
 	$PAGE->stripe_start();
 	?>
-				<h4>Busiest debates from the most recent month</h4>
+				<h2>Busiest debates from the most recent month</h2>
 <?php
 
 	$LIST = new NILIST;
@@ -167,14 +167,12 @@ function ni_front_page() {
     $SEARCHURL = new URL('search');
 ?>
 
-<h2>Northern Ireland Assembly</h2>
-
 <div class="welcome_col1">
 
 <div id="welcome_ni" class="welcome_actions">
 
     <div>
-        <h3>Your representative</h3>
+        <h2>Your representative</h2>
             <form action="/postcode/" method="get">
             <p><strong>Find out about your <acronym title="Members of the Legislative Assembly">MLAs</acronym></strong><br>
             <label for="pc">Enter your postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
@@ -184,7 +182,7 @@ function ni_front_page() {
     <!-- Search / alerts -->
     <div id="welcome_search">
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-            <h3><label for="s">Search,  create an alert or RSS feed</label></h3>
+            <h2><label for="s">Search,  create an alert or RSS feed</label></h2>
             <p>
                 <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
                 <input type="hidden" name="section" value="ni">
@@ -209,7 +207,7 @@ $PAGE->include_sidebar_template('nidebates');
 
 <div class="welcome_col2">
 
-<h3>Recent Northern Ireland Assembly debates</h3>
+<h2>Recent Northern Ireland Assembly debates</h2>
 
 <?php
 

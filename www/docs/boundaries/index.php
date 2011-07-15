@@ -7,7 +7,7 @@ include_once '../../../commonlib/phplib/mapit.php';
 $PAGE->page_start();
 ?>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<h2>Scottish and Northern Irish election constituency boundaries</h2>
+<h1>Scottish and Northern Irish election constituency boundaries</h1>
 
 <div id="boundaries">
 <?

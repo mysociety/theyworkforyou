@@ -115,7 +115,7 @@ if (get_http_var("d") != "") {
 
 	$PAGE->stripe_start();
 	?>
-				<h4>Some recent written ministerial statements</h4>
+				<h2>Some recent written ministerial statements</h2>
 <?php
 	
 	$WMSLIST = new WMSLIST;

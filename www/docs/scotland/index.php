@@ -9,14 +9,12 @@ $SEARCHURL = new URL('search');
 
 ?>
 
-<h2>Scottish Parliament</h2>
-
 <div class="welcome_col1">
 
 <div id="welcome_scotland" class="welcome_actions">
 
     <div>
-        <h3>Your representative</h3>
+        <h2>Your representative</h2>
             <form action="/postcode/" method="get">
             <p><strong>Find out about your <acronym title="Members of the Scottish Parliament">MSPs</acronym></strong><br>
             <label for="pc">Enter your Scottish postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
@@ -27,7 +25,7 @@ $SEARCHURL = new URL('search');
     <!-- Search / alerts -->
     <div id="welcome_search">
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-            <h3><label for="s">Search,  create an alert or RSS feed</label></h3>
+            <h2><label for="s">Search,  create an alert or RSS feed</label></h2>
             <p>
                 <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
                 <input type="hidden" name="section" value="scotland">
@@ -42,7 +40,7 @@ $SEARCHURL = new URL('search');
     <br class="clear">
 </div>
 
-    <h3>Some recent Scottish Parliament written answers</h3>
+    <h2>Some recent Scottish Parliament written answers</h2>
 <?php
 
 $WRANSLIST = new SPWRANSLIST;
@@ -62,7 +60,7 @@ $PAGE->include_sidebar_template('spdebates');
 
 ?>
 
-<h3>Recent Scottish Parliament debates</h3>
+<h2>Recent Scottish Parliament debates</h2>
 
 <?php
 

@@ -42,7 +42,9 @@ Why not explore our extensive archive using the search box above?');
 }
 
 function calendar_date($date) {
-    global $this_page;
+    global $DATA, $this_page;
+
+    $DATA->set_page_metadata($this_page, 'title', format_date($date, LONGERDATEFORMAT));
 
     $db = new ParlDB();
 

@@ -7,7 +7,7 @@ $this_page = 'wales_overview';
 $PAGE->page_start();
 $PAGE->stripe_start();
 ?>
-<h3>We need you!</h3>
+<h1>We need you!</h1>
 
 <p>It'd be fantastic if TheyWorkForYou also covered the
 Welsh Assembly, as we do with the

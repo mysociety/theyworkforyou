@@ -9,7 +9,7 @@ $PAGE->page_start();
 $PAGE->stripe_start();
 $db = new ParlDB;
 
-print '<h2>Departments</h2>';
+print '<h1>Departments</h1>';
 
 $q = $db->query('select major,body from hansard,epobject
 	where hansard.epobject_id=epobject.epobject_id and major in (3,4) and section_id=0

@@ -17,8 +17,8 @@ $PAGE->stripe_start('full');
 <div id="parliament_landing_banner" class="landing_banner">
   <div>
     <div class="transparent_white">
-      <h2>Parliament</h2>
-      <h3>Search for any word or phrase &ndash; see if it&rsquo;s been mentioned in Parliament</h3>
+      <h1>Parliament
+        <br><span>Search for any word or phrase &ndash; see if it&rsquo;s been mentioned in Parliament</span></h1>
 
 <?php
 $PAGE->search_form();

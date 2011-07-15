@@ -302,19 +302,19 @@ function find_constituency ($args) {
         $URL = new URL('mp');
         if ($MEMBER->valid) {
             $URL->insert(array('m'=>$MEMBER->member_id()));
-            print '<h3>MP for ' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency);
+            print '<h2>MP for ' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency);
             if ($validpostcode) {
                 // Display the postcode the user searched for.
                 print ' (' . htmlentities(strtoupper($args['s'])) . ')';
             }
-            ?></h3>
+            ?></h2>
             
             <p><a href="<?php echo $URL->generate(); ?>"><strong><?php echo $MEMBER->full_name(); ?></strong></a> (<?php echo $MEMBER->party(); ?>)</p>
     <?php
         }
 
 	} elseif (count($constituencies)) {
-        print "<h3>MPs in constituencies matching '".htmlentities($searchterm)."'</h3><ul>";
+        print "<h2>MPs in constituencies matching '".htmlentities($searchterm)."'</h2><ul>";
         foreach ($constituencies as $constituency) {
             $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
             $URL = new URL('mp');
@@ -371,7 +371,7 @@ function find_users ($args) {
             $members[] = '<a href="' . $URL->generate() . '">' . $q->field($n, 'firstname') . ' ' . $q->field($n, 'lastname') . '</a>';
 		}
 		?>
-	<h3>Users matching '<?php echo htmlentities($searchstring); ?>'</h3> 
+	<h2>Users matching '<?php echo htmlentities($searchstring); ?>'</h2> 
 	<ul>
 	<li><?php print implode("</li>\n\t<li>", $members); ?></li>
 	</ul>
@@ -392,7 +392,7 @@ function find_members ($searchstring) {
     if ($members) {
 	?>
 <div id="people_results">
-	<h3>People matching &lsquo;<?php echo htmlentities($searchstring); ?>&rsquo;</h3> 
+	<h2>People matching &lsquo;<?php echo htmlentities($searchstring); ?>&rsquo;</h2> 
 	<ul class="hilites">
 <?
 foreach ($members as $member) {
@@ -482,7 +482,7 @@ function find_glossary_items($args) {
 		$URL->insert(array('gl' => ""));
 		
 		?>
-				<h3>Matching glossary terms:</h3> 
+				<h2>Matching glossary terms:</h2> 
 				<p><?
 		$n = 1;
 		foreach($GLOSSARY->search_matches as $glossary_id => $term) {

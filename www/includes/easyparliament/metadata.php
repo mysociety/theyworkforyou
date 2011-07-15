@@ -228,19 +228,31 @@ $this->page = array (
 		'parent'		=> 'hansard',
 		'url'			=> 'calendar/'
 	),
-	'calendar_future' => array (
+	'calendar_future_head' => array (
 		'parent'		=> 'calendar_summary',
 		'title'			=> 'Upcoming business',
 		'url'			=> 'calendar/'
 	),
-	'calendar_today' => array (
+	'calendar_future' => array (
+		'parent'		=> 'calendar_future_head',
+		'url'			=> 'calendar/'
+	),
+	'calendar_today_head' => array (
 		'parent'		=> 'calendar_summary',
 		'title'			=> 'Today&rsquo;s business',
 		'url'			=> 'calendar/'
 	),
-	'calendar_past' => array (
+	'calendar_today' => array (
+		'parent'		=> 'calendar_today_head',
+		'url'			=> 'calendar/'
+	),
+	'calendar_past_head' => array (
 		'parent'		=> 'calendar_summary',
 		'title'			=> 'Previous business',
+		'url'			=> 'calendar/'
+	),
+	'calendar_past' => array (
+		'parent'		=> 'calendar_past_head',
 		'url'			=> 'calendar/'
 	),
 
@@ -308,7 +320,7 @@ $this->page = array (
 			'title'			=> "Debates in the House of Commons, Westminster Hall, and the House of Lords"
 		),
 		'parent'		=> 'hansard',
-		'title'			=> 'UK Parliament Debates',
+		'title'			=> 'UK Parliament Hansard Debates',
 		'rss'			=> 'debates/debates.rss',
 		'url'			=> 'debates/'
 	),
@@ -1050,7 +1062,7 @@ $this->page = array (
 			'title'			=> '',
 		),
 		'parent'		=> 'hansard',
-		'title'			=> 'Written answers and statements',
+		'title'			=> 'Hansard Written Answers and Statements',
 		'url'			=> 'written-answers-and-statements/'
 	),
 

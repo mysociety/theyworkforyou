@@ -900,18 +900,21 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			// We don't want to print both.
 			$section_text = '';
 		} elseif (!$page_text && $section_text) {
-			// Bodge for if we have a page_text but no section_text.
-			$section_text = '';
+			// Bodge for if we have a section_text but no page_text.
 			$page_text = $section_text;
+			$section_text = '';
 		}
 
 		# XXX Yucky
 		if ($this_page != 'home' && $this_page != 'contact') {
-			if ($page_text) {
-				print "\t\t\t\t<h2>$page_text</h2>\n";
-			}
 			if ($section_text && $parent_page != 'help_us_out' && $parent_page != 'home' && $this_page != 'campaign') {
-				print "\t\t\t\t<h3>$section_text</h3>\n";
+				print "\t\t\t\t<h1>$section_text";
+				if ($page_text) {
+					print "\n\t\t\t\t<br><span>$page_text</span>\n";
+				}
+				print "</h1>\n";
+			} elseif ($page_text) {
+				print "\t\t\t\t<h1>$page_text</h1>\n";
 			}
 		}
 

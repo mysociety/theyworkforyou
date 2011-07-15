@@ -14,7 +14,7 @@ $PAGE->page_start();
 
 echo '<div id="written-answers>';
 $PAGE->stripe_start();
-echo '<h3>Some recent written answers</h3>';
+echo '<h2>Some recent written answers</h2>';
 $WRANSLIST = new WRANSLIST;
 $WRANSLIST->display('recent_wrans', array('days'=>7, 'num'=>5));
 $PAGE->stripe_end(array(
@@ -52,7 +52,7 @@ echo '</div>';
 
 echo '<div id="written-statements">';
 $PAGE->stripe_start();
-echo '<h3>Some recent written ministerial statements</h3>';
+echo '<h2>Some recent written ministerial statements</h2>';
 $WMSLIST = new WMSLIST;
 $WMSLIST->display('recent_wms', array('days'=>7, 'num'=>20));
 $rssurl = $DATA->page_metadata($this_page, 'rss');
