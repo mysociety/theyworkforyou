@@ -71,7 +71,7 @@ $this->page = array (
 	'default' => array (
 		'parent'	=> '',
 		'session_vars' => array('super_debug'),
-		'sitetitle'		=> 'TheyWorkForYou.com',
+		'sitetitle'		=> 'TheyWorkForYou',
 	),
 	
 	
@@ -506,7 +506,7 @@ $this->page = array (
 		'title'			=> "Overview of the UK Parliament"
 	),
 	'parent'		=> 'hansard',
-	'title'			=> "Are your MPs and Peers working for you in the UK's Parliament? Hansard++",
+	'title'			=> "Hansard and Official Reports for the UK Parliament, Scottish Parliament, and Northern Ireland Assembly - done right",
 	'rss'			=> 'news/index.rdf',
 	'url'			=> ''
 ),

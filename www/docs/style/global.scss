@@ -80,22 +80,6 @@ p.error {
 
 /* Headings */
 
-h1 {
-    margin: 0;
-    padding: 0;
-    display: inline;
-    font-size: 1px;
-    position: relative;
-    top:-30px;
-    left:-12px;
-}
-/* Whilst banner is displayed */
-/*
-h1 { top:-12px; }
-h1.front { top:-30px; }
-*/
-/* Whilst banner is displayed */
-
 h2 , h2 a:link, h2 a:visited {
     color: #111;
     text-decoration: none;
@@ -279,12 +263,20 @@ a:hover {
     margin: 0;
     padding: 0;
     height: 7em;
+    z-index: -1;
 }
-#title {
-    padding: 20px 14px 16px 25px;
-    line-height: 0;
-    font-size: 10%; /* Only way to stop space below images in Win IE? */}
 
+#title {
+    position: relative;
+    top: -10px;
+    left: 13px;
+    width: 423px;
+    height: 80px;
+}
+#title h1 {
+    margin: 0;
+    padding: 0;
+}
 
 /* Warnings */
 

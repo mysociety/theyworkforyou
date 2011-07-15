@@ -128,7 +128,7 @@ class PAGE {
 			if ($title == '') {
 				$title = $sitetitle;
 			} else {			
-				$title .= ' (' . $sitetitle . ')';
+				$title .= ' - ' . $sitetitle;
 			}
 		}
 
@@ -311,16 +311,15 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		// The title bit of the page, with possible search box.
 		global $this_page, $DATA;
 		
-		$img = '<img src="' . IMAGEPATH . 'logo.png" width="423" height="80" alt="TheyWorkForYou.com">';
+		$img = '<img src="' . IMAGEPATH . 'logo.png" width="423" height="80" alt="TheyWorkForYou - Hansard and Official Reports for the UK Parliament, Scottish Parliament, and Northern Ireland Assembly">';
 
 		if ($this_page != 'overview') {
 			$HOMEURL = new URL('overview');
 			$HOMEURL = $HOMEURL->generate();
 			$HOMETITLE = 'To the front page of the site';
-			$img = '<a href="' . $HOMEURL . '" title="' . $HOMETITLE . '">' . $img . '</a>';
-            $class = '';
+			$heading = '<a href="' . $HOMEURL . '" title="' . $HOMETITLE . '">' . $img . '</a>';
         } else {
-            $class = ' class="front"';
+            $heading = '<h1>' . $img . '</h1>';
         }
 
 /*
@@ -347,7 +346,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		?>
 	<div id="banner">
 		<div id="title">
-			<h1<?=$class ?>><?=$img ?></h1>
+			<?=$heading?>
 		</div>
 <?php
 	#		if ($this_page != 'home' && $this_page != 'search' && $this_page != 'yourmp') {
