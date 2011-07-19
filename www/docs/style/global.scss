@@ -90,10 +90,18 @@ h1 span.datetime {
     line-height: 1.3em;
 }
 
-h2, h2 a:link, h2 a:visited {
+h2 {
     color: #4D6C25;
-    text-decoration: none;
     font-size: 1.5em;
+}
+
+h2 a {
+    color: #2680C6;
+    text-decoration: none;
+    font-size: 83%;
+}
+h2 a:hover {
+    text-decoration: underline;
 }
 
 h3 {
@@ -980,15 +988,6 @@ div.comment p.credit {
 }
 div.comment p.comment {
     margin-bottom: 0;
-}
-
-h2.calendar a {
-    color: #2680C6;
-    text-decoration: none;
-    font-size: 83%;
-}
-h2.calendar a:hover {
-    text-decoration: underline;
 }
 
 ul.calendar {

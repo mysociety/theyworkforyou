@@ -21,8 +21,8 @@ td { vertical-align: top; }
 .a { background-color: #ccffcc; margin-bottom: 0.5em; }
 .r { background-color: #ffcccc; margin-bottom: 0.5em; }
 th { text-align: left; }
-table#regmem h4 { margin: 0; margin-top: 0.5em; padding-top: 0.5em; border-top: dotted 1px #333333; }
-#regmem h5 { margin: 0; border-bottom: dotted 1px #cccccc; }
+table#regmem h2 { margin: 0; margin-top: 0.5em; padding-top: 0.5em; border-top: dotted 1px #333333; }
+#regmem h3 { margin: 0; border-bottom: dotted 1px #cccccc; }
 #mps li {
 	float: left;
 	width: 23%;
@@ -103,11 +103,11 @@ Please be aware that changes in typography/styling at the source might mean some
 				$oout .= cat_heading($cat_type) . $diff;
 		}
 		if ($oout)
-			$out .= span_row("<h4>$pretty - <a href=\"./?d=$iso#$p\">View full entry</a></h4>", true) . $oout;
+			$out .= span_row("<h2>$pretty - <a href=\"./?d=$iso#$p\">View full entry</a></h2>", true) . $oout;
 	}
 	$_ = $earliest;
 	$pretty = format_date(preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $_), LONGDATEFORMAT);
-	$out .= span_row("<h4>$pretty (first entry we have)</h4>", true);
+	$out .= span_row("<h2>$pretty (first entry we have)</h2>", true);
 	if (array_key_exists($_, $nil)) {
 		$out .= span_row('Nothing');
 	}
@@ -164,7 +164,7 @@ function register_history($f) {
 			$out .= clean_diff($old, $new);
 		}
 		if ($out) {
-			print span_row('<h4>'.$names[$person_id].' - <a href="?p='.$person_id.'">Register history</a> | <a href="http://www.theyworkforyou.com/mp/?pid='.$person_id.'">MP\'s page</a></h4>', true) . $out;
+			print span_row('<h2>'.$names[$person_id].' - <a href="?p='.$person_id.'">Register history</a> | <a href="http://www.theyworkforyou.com/mp/?pid='.$person_id.'">MP\'s page</a></h2>', true) . $out;
 		}
 	}
 	print '</table>';
@@ -276,9 +276,13 @@ function show_register($d) {
 			$out .= prettify($d)."\n";
 		}
 		if ($out) {
-			$PAGE->block_start(array('title'=>'<a name="'.$person_id.'"></a>'.$names[$person_id].' - <a href="?p='.$person_id.'">Register history</a> | <a href="http://www.theyworkforyou.com/mp/?pid='.$person_id.'">MP\'s page</a>'));
+			print '<div class="block">';
+			print '<h2><a name="' . $person_id . '"></a>' . $names[$person_id] . ' - ';
+			print '<a href="?p=' . $person_id . '">Register history</a> | ';
+			print '<a href="http://www.theyworkforyou.com/mp/?pid=' . $person_id . '">MP\'s page</a>';
+			print '</h2> <div class="blockbody">';
 			print "\n$out";
-			$PAGE->block_end();
+			print '</div></div>';
 		}
 	}
 	print '</div>';
@@ -321,7 +325,7 @@ function prettify($s) {
 
 function cat_heading($cat_type, $table = true) {
 	global $cats;
-	$row = "<h5>$cat_type. $cats[$cat_type]</h5>";
+	$row = "<h3>$cat_type. $cats[$cat_type]</h3>";
 	if ($table)
 		return span_row($row, true);
 	return $row;
