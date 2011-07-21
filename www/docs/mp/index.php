@@ -76,6 +76,7 @@ $name_fix = array(
     'chinyelu onwurah' => 'chi onwurah',
     'steve rotherham' => 'steve rotheram',
     'michael weatherley' => 'mike weatherley',
+    'louise bagshawe' => 'louise mensch',
 );
 if (array_key_exists($name, $name_fix)) {
     if (is_array($name_fix[$name])) {
