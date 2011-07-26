@@ -463,11 +463,17 @@ $PAGE->page_end();
 
 
 function member_redirect(&$MEMBER) {
-	global $this_page;
-	// We come here after creating a MEMBER object by various methods.
-	// Now we redirect to the canonical MP page, with a person_id.
-	if ($MEMBER->person_id()) {
-		$url = $MEMBER->url();
+    // We come here after creating a MEMBER object by various methods.
+    // Now we redirect to the canonical MP page, with a person_id.
+    if ($MEMBER->person_id()) {
+        $url = $MEMBER->url();
+        $params = array();
+        foreach ($_GET as $key => $value) {
+            if (substr($key, 0, 4) == 'utm_' || $key == 'gclid')
+                $params[$key] = $value;
+        }
+        if (count($params))
+            $url .= '?' . join('&', $params);
 		header('Location: ' . $url, true, 301 );
 		exit;
 	}
