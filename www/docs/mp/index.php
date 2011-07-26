@@ -470,7 +470,7 @@ function member_redirect(&$MEMBER) {
         $params = array();
         foreach ($_GET as $key => $value) {
             if (substr($key, 0, 4) == 'utm_' || $key == 'gclid')
-                $params[$key] = $value;
+                $params[] = "$key=$value";
         }
         if (count($params))
             $url .= '?' . join('&', $params);
