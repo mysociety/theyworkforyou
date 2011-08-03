@@ -244,7 +244,7 @@ function adodb_backtrace($print=true)
 function validate_email ($string) {
 	if (!preg_match('/^[-!#$%&\'*+\\.\/0-9=?A-Z^_`a-z{|}~]+'.
 		'@'.
-		'[-!#$%&\'*+\\\/0-9=?A-Z^_`a-z{|}~]+\.'.
+		'[-!#$%&\'*.\\+\/0-9=?A-Z^_`a-z{|}~]+\.'.
 		'[-!#$%&\'*+\\.\/0-9=?A-Z^_`a-z{|}~]+$/', $string)) {
 		return false;
 	} else {
