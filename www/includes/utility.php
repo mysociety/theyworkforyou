@@ -73,21 +73,22 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
    // consider are E_WARNING, E_NOTICE, E_USER_ERROR,
    // E_USER_WARNING and E_USER_NOTICE
    # Commented out are ones that a user function cannot handle.
-   $errortype = array (
-		#E_ERROR				=> "Error",
-		E_WARNING			=> "Warning",
-		#E_PARSE				=> "Parsing Error",
-		E_NOTICE			=> "Notice",
-		#E_CORE_ERROR		=> "Core Error",
-		#E_CORE_WARNING		=> "Core Warning",
-		#E_COMPILE_ERROR		=> "Compile Error",
-		#E_COMPILE_WARNING	=> "Compile Warning",
-		E_USER_ERROR		=> "User Error",
-		E_USER_WARNING		=> "User Warning",
-		E_USER_NOTICE		=> "User Notice",
-		// PHP 5 only, 2048 = E_STRICT
-		2048			=> "Runtime Notice"
-	);
+    $errortype = array (
+        #E_ERROR            => "Error",
+        E_WARNING           => "Warning",
+        #E_PARSE            => "Parsing Error",
+        E_NOTICE            => "Notice",
+        #E_CORE_ERROR       => "Core Error",
+        #E_CORE_WARNING     => "Core Warning",
+        #E_COMPILE_ERROR    => "Compile Error",
+        #E_COMPILE_WARNING  => "Compile Warning",
+        E_USER_ERROR        => "User Error",
+        E_USER_WARNING      => "User Warning",
+        E_USER_NOTICE       => "User Notice",
+        E_STRICT            => "Runtime Notice",
+        # 5.3 introduced E_DEPRECATED
+        8192                => 'Deprecated',
+    );
 
 	$err = '';
 	if (isset($_SERVER['REQUEST_URI'])) {

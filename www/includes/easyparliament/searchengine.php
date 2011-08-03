@@ -27,7 +27,7 @@ Example usage:
 
 include_once INCLUDESPATH . 'dbtypes.php';
 
-if (XAPIANDB != ''  && version_compare(phpversion(), '5.0', '>=')){
+if (XAPIANDB != '') {
     if (file_exists('/usr/share/php/xapian.php')){
         include_once '/usr/share/php/xapian.php';
     }else{
