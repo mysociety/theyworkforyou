@@ -26,6 +26,7 @@ function calendar_summary() {
 
     $min_future_date = calendar_min_future_date();
     if (!$min_future_date) {
+        $this_page = 'calendar_future';
         $PAGE->error_message('We don&rsquo;t currently have any future information.
 Why not explore our extensive archive using the search box above?');
         $PAGE->page_end();
