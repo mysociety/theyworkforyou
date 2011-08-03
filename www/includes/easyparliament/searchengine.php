@@ -45,7 +45,7 @@ class SEARCHENGINE {
         if (!$xapiandb) {
             if (strstr(XAPIANDB, ":")) {
                 //ini_set('display_errors', 'On');
-                list ($xapian_host, $xapian_port) = split(":", XAPIANDB);
+                list ($xapian_host, $xapian_port) = explode(":", XAPIANDB);
                 twfy_debug("SEARCH", "Using Xapian remote backend: " . $xapian_host . " port " . $xapian_port);
                 $xapiandb_remote = remote_open($xapian_host, intval($xapian_port));
                 $xapiandb = new XapianDatabase($xapiandb_remote);
@@ -120,7 +120,7 @@ class SEARCHENGINE {
             }
 
             if (strpos($word, ':') !== false) {
-                $items = split(":", strtolower($word));
+                $items = explode(":", strtolower($word));
                 $type = $items[0];
                 if (substr($type, 0, 1)=='-') $type = substr($type, 1);
                 $value = strtolower(join(":", array_slice($items,1)));

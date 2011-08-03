@@ -241,10 +241,10 @@ function adodb_backtrace($print=true)
 
 // Far from foolproof, but better than nothing.
 function validate_email ($string) {
-	if (!ereg('^[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+'.
+	if (!preg_match('/^[-!#$%&\'*+\\.\/0-9=?A-Z^_`a-z{|}~]+'.
 		'@'.
-		'[-!#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+\.'.
-		'[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+$', $string)) {
+		'[-!#$%&\'*+\\\/0-9=?A-Z^_`a-z{|}~]+\.'.
+		'[-!#$%&\'*+\\.\/0-9=?A-Z^_`a-z{|}~]+$/', $string)) {
 		return false;
 	} else {
 		return true;
