@@ -69,15 +69,4 @@ function showPersonLinks(sId){
 
 $(function(){
 	$('body').addClass('js');
-	window.setTimeout(function(){
-		$('#survey_teaser').show('slow');
-		if (document.getElementById('first_survey')) {
-			$.get('/survey/ajax.php');
-		}
-	}, 2000);
-	$('#survey_teaser small a').click(function(){
-		$.cookie('survey', '1b', { expires: 365, path: '/' });
-		$('#survey_teaser').hide('slow');
-		return false;
-	});
 });

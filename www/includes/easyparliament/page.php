@@ -645,31 +645,6 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
         }
 */
 
-		if (in_array($this_page, array('survey', 'overview'))) {
-			return;
-		}
-		$show_survey_qn = 0;
-		$first_survey = 0;
-		if (isset($_COOKIE['survey'])) {
-			$show_survey_qn = $_COOKIE['survey'];
-		} else {
-			$rand = rand(1, 100);
-			if ($rand <= 20) {
-				$show_survey_qn = 1;
-				$first_survey = 1;
-			}
-			setcookie('survey', $show_survey_qn, time()+60*60*24*365, '/');
-		}
-		if ($show_survey_qn == '1') {
-			echo '
-<div id="survey_teaser">Did you find what you were looking for?
-<br><a href="/survey/?answer=yes">Yes</a> | <a href="/survey/?answer=no">No</a>
-<small>| <a href="/survey/?ignore=1">Close</a></small>
-</div>';
-		}
-		if ($first_survey == '1') {
-			echo '<div id="first_survey"></div>';
-		}
 	}
 
 
