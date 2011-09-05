@@ -420,7 +420,7 @@ function person_voting_record($member, $extra_info) {
     $joined = array(
         1079 => array(837, "a <strong>wholly elected</strong> House of Lords"),
         1049 => array(975, "an <strong>investigation</strong> into the Iraq war"),
-        1052 => array(1132, 'raising the UK&rsquo;s undergraduate tuition fee cap to &pound;9,000 per year'),
+        1052 => array(1132, 'raising England&rsquo;s undergraduate tuition fee cap to &pound;9,000 per year'),
     );
 
 	$got_dream = '';
