@@ -398,7 +398,6 @@ function person_voting_record($member, $extra_info) {
 		array(1052, "university <strong>tuition fees</strong>"),
 		array(1053, "Labour's <strong>anti-terrorism laws</strong>", true),
 		array(1049, "the <strong>Iraq war</strong>"),
-		# array(975, "an <strong>investigation</strong> into the Iraq war"), XXX See code below
 		array(984, "replacing <strong>Trident</strong>"),
 		array(1050, "the <strong>hunting ban</strong>"),
 		array(826, "equal <strong>gay rights</strong>"),
@@ -409,7 +408,8 @@ function person_voting_record($member, $extra_info) {
         array(1087, "a <strong>stricter asylum system</strong>"),
         array(1065, "more <strong>EU integration</strong>"),
         array(1110, "increasing the <strong>rate of VAT</strong>"),
-		# array(837, "a <strong>wholly elected</strong> House of Lords"), XXX See code below
+        array(1084, "a more <a href='http://en.wikipedia.org/wiki/Proportional_representation'>proportional system</a> for electing MPs"),
+        array(1124, "automatic enrolment in occupational pensions"),
         # Unfinished
 		# array(856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>"),
 		# array(1080, "government budgets and associated measures"),
@@ -421,6 +421,7 @@ function person_voting_record($member, $extra_info) {
         1079 => array(837, "a <strong>wholly elected</strong> House of Lords"),
         1049 => array(975, "an <strong>investigation</strong> into the Iraq war"),
         1052 => array(1132, 'raising England&rsquo;s undergraduate tuition fee cap to &pound;9,000 per year'),
+        1124 => array(1109, "encouraging occupational pensions"),
     );
 
 	$got_dream = '';

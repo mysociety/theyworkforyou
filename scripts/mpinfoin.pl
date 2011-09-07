@@ -145,7 +145,7 @@ if ($action{'pw'}) {
         $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords"); # i love twig
         # Various policy IDs, see http://www.publicwhip.org.uk/policies.php for what they are
         foreach my $dreamid (1049, 1053, 1050, 363, 826, 1051, 1052, 1132, 856, 811, 975, 996, 984, 1030,
-            837, 1071, 1074, 1077, 1079, 1080, 1087, 1065, 1110) {
+            837, 1071, 1074, 1077, 1079, 1080, 1087, 1065, 1110, 1084, 1124, 1109) {
                 $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid");
         }
 }
