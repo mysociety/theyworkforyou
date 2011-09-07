@@ -1,6 +1,6 @@
 <?
 
-include_once 'api_getPerson.php';
+include_once dirname(__FILE__) . '/api_getPerson.php';
 
 function api_getLord_front() {
 ?>

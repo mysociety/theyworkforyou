@@ -1,6 +1,6 @@
 <?
 
-include_once 'api_getGeometry.php';
+include_once dirname(__FILE__) . '/api_getGeometry.php';
 
 function api_getConstituencies_front() {
 ?>

@@ -3,7 +3,7 @@
 $this_page = "home";
 
 include_once "../includes/easyparliament/init.php";
-include_once "../includes/easyparliament/member.php";
+include_once INCLUDESPATH . "easyparliament/member.php";
 
 $PAGE->page_start();
 

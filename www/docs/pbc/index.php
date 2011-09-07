@@ -1,7 +1,7 @@
 <?php
 
 include_once "../../includes/easyparliament/init.php";
-include_once "../../includes/easyparliament/glossary.php";
+include_once INCLUDESPATH . "easyparliament/glossary.php";
 
 # For displaying Standing Committee debates. I know they're Public Bill
 # Committees now, but I've called them standing committees everywhere

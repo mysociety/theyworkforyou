@@ -1,6 +1,6 @@
 <?
 
-include_once dirname(__FILE__) . '/../../../commonlib/phplib/rabx.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/rabx.php';
 
 # The METHODS
 

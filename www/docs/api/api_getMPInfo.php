@@ -1,6 +1,6 @@
 <?
 
-include_once 'api_getMPsInfo.php';
+include_once dirname(__FILE__) . '/api_getMPsInfo.php';
 
 function api_getMPInfo_front() {
 ?>

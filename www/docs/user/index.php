@@ -34,8 +34,8 @@
 
 
 include_once "../../includes/easyparliament/init.php";
-include_once "../../includes/easyparliament/member.php";
-include_once "../../includes/easyparliament/alert.php";
+include_once INCLUDESPATH . "easyparliament/member.php";
+include_once INCLUDESPATH . "easyparliament/alert.php";
 
 // Which page we're on all depends on the value of the "pg" variable...
 switch (get_http_var("pg")) {

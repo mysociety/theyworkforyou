@@ -1,7 +1,7 @@
 <?
 
 include_once INCLUDESPATH . 'easyparliament/member.php';
-include_once 'api_getPerson.php';
+include_once dirname(__FILE__) . '/api_getPerson.php';
 
 function api_getMSP_front() {
 ?>

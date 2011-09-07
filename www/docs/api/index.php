@@ -1,9 +1,8 @@
 <?
 
 include_once '../../includes/easyparliament/init.php';
-include_once '../../includes/postcode.inc';
-
-include_once 'api_functions.php';
+include_once INCLUDESPATH . 'postcode.inc';
+include_once './api_functions.php';
 
 # XXX: Need to override error handling! XXX
 

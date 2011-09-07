@@ -1,7 +1,7 @@
 <?
 
-include_once '../../../commonlib/phplib/mapit.php';
-include_once 'api_getGeometry.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/mapit.php';
+include_once dirname(__FILE__) . '/api_getGeometry.php';
 
 function api_getBoundary_front() {
 ?>

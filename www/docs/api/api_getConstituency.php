@@ -1,6 +1,6 @@
 <?
 
-include_once '../../../commonlib/phplib/mapit.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/mapit.php';
 
 function api_getConstituency_front() {
 ?>

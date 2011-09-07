@@ -1,9 +1,9 @@
 <?
 
 include_once '../../includes/easyparliament/init.php';
-include_once '../../includes/postcode.inc';
-include_once 'api_functions.php';
-include_once '../../../commonlib/phplib/auth.php';
+include_once INCLUDESPATH . 'postcode.inc';
+include_once './api_functions.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/auth.php';
 
 $a = auth_ab64_encode(urandom_bytes(32));
 

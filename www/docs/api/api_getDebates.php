@@ -1,6 +1,6 @@
 <?
 
-include_once 'api_getHansard.php';
+include_once dirname(__FILE__) . '/api_getHansard.php';
 
 function api_getDebates_front() {
 ?>

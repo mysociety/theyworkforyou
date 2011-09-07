@@ -1,7 +1,7 @@
 <?php
 
 include_once "../../includes/easyparliament/init.php";
-include_once "../../includes/easyparliament/calendar.php";
+include_once INCLUDESPATH . "easyparliament/calendar.php";
 
 $date = get_http_var('d');
 if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {

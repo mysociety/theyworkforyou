@@ -1,6 +1,6 @@
 <?
 
-include_once 'api_getMembers.php';
+include_once dirname(__FILE__) . '/api_getMembers.php';
 
 function api_getMLAs_front() {
 ?>
