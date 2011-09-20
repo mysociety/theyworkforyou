@@ -132,6 +132,18 @@ $GLOBALS['recessdates'][1] = array(
     ),
     2011 => array(
         1=>array('less'=>10),
+        2=>array('between'=>array(17,28)),
+        4=>array('between'=>array(5,26)),
+        5=>array('more'=>24),
+        6=>array('less'=>7),
+        7=>array('more'=>19),
+        8=>array('all'=>1),
+        9=>array('less'=>5, 'more'=>15),
+        10=>array('less'=>10),
+        12=>array('more'=>20),
+    ),
+    2012 => array(
+        1=>array('less'=>10),
     ),
 );
 # Lords differences
@@ -141,6 +153,18 @@ $GLOBALS['recessdates'][101][2010][7]['more'] = 28;
 $GLOBALS['recessdates'][101][2010][9] = array('all'=>1);
 $GLOBALS['recessdates'][101][2010][10]['less'] = 5;
 $GLOBALS['recessdates'][101][2010][12]['more'] = 22;
+$GLOBALS['recessdates'][101][2011] = array(
+    1 => array('less'=>10),
+    2 => array('between'=>array(16,28)),
+    4 => array('between'=>array(6,26)),
+    5 => array('more'=>25),
+    6 => array('less'=>6),
+    7 => array('more'=>20),
+    8 => array('all'=>1),
+    9 => array('less'=>5, 'more'=>15),
+    10 => array('less'=>3),
+    12 => array('more'=>21),
+);
 
 /* Scottish Parliament */
 $GLOBALS['recessdates'][4] = array(
