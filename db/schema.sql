@@ -170,7 +170,11 @@ CREATE TABLE `pbc_members` (
 
 CREATE TABLE `titles` (
   `title` varchar(190) NOT NULL default '',
-  `ignore` tinyint(1) NOT NULL default 0,
+  PRIMARY KEY  (`title`)
+);
+
+CREATE TABLE `titles_ignored` (
+  `title` varchar(190) NOT NULL default '',
   PRIMARY KEY  (`title`)
 );
 
