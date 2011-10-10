@@ -65,7 +65,7 @@ function wikipedize ($source) {
   $matched = array();
   $db = new ParlDB;  
   $source = explode('|||', $source);
-  $q = $db->query("SELECT title FROM titles WHERE title IN ('" . join("','", $phrases) . "')");
+  $q = $db->query("SELECT title FROM titles WHERE title IN ('" . join("','", $phrases) . "') AND ignore=0");
   $phrases = array();
   for ($i=0; $i<$q->rows(); $i++) {
     $phrases[] = $q->field($i, 'title');
