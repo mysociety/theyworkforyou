@@ -1,27 +1,11 @@
 <?php
-
 /*
-  
-  wikiproxy.php v0.5 04-10-2004
-  
-  stefan (wholivesat) whitelabel.org
-  
-  Wikipediarises http://news.bbc.co.uk, and adds a technorati.com sidebar to any pages that have been linked from blogs.
-  
-  This requires a database of wikipedia titles, like http://www.whitelabel.org/wp/convertedtitles.gz, imported into a mysql database 'wikiproxy' created like this:
-  
-  mysql> create table titles (title varchar(190) NOT NULL, PRIMARY KEY (title)) type=MyISAM;
-  
-  followed by
-  
-  mysql> load data infile '/home/stefan/whitelabel.org/wp/convertedtitles' ignore into table titles;
+  Based on wikiproxy.php v0.5 04-10-2004 stefan (wholivesat) whitelabel.org
+  scripts/wikipedia-update updates the database of titles each week.
   
   The bits of code I didn't borrow from elsewhere (and I've credited where) is licenced under the GPL. Do with it what you will, but this is my first php and my first code for 7 years, so I'd appreciate feedback and suggestions via comments on my blog:
-
   http://www.whitelabel.org/archives/002248.html
-  
   (especially regex optimisations for lines 64 and 65 - ideally a way of making it NOT match if we're within an IMG tag, because then I could drop the antiTaginTag stuff)
-  
 */
 
 function lensort($a, $b) {
@@ -38,12 +22,16 @@ function wikipedize ($source) {
   # Set up various variables
   $capsword = "[A-Z][a-zA-Z'0-9-]*"; # not starting with number, as catches too much
   $fillerwords = "of|and|in|on|under|the|for";
-  $middlewordre = "(?:$capsword|$fillerwords)";
+  $middlewordsre = "(?:\s*(?:$capsword|$fillerwords))*";
   $endwordre = "(?:$capsword)"; # and, of etc. can't appear at ends
+  $notfiller = "(?:(?!Of|And|In|On|Under|The|For)$capsword)";
 
   # Match either "Two Endwords" or "Endword and Some Middle Words"
-  $phrasewithfiller = "$endwordre(?:\s*$middlewordre)*\s*$endwordre";
+  $phrasewithfiller = "$endwordre$middlewordsre\s*$endwordre";
   $greedyproperre = "/\b$phrasewithfiller\b/ms";
+
+  # And do a match ignoring things starting with filler words
+  $greedynofillerstartre = "/\b$notfiller$middlewordsre\s*$endwordre\b/ms";
 
   # Match without filler words (so if you have a phrase like
   # "Amnesty International and Human Rights Watch" you also get both parts
@@ -60,13 +48,14 @@ function wikipedize ($source) {
   preg_match_all($frugalproperre, $source, $propernounphrases2);
   preg_match_all($greedynotfirst, $source, $propernounphrases3);
   preg_match_all($greedypossessive, $source, $propernounphrases4);
+  preg_match_all($greedynofillerstartre, $source, $propernounphrases5);
 
   # Three Letter Acronyms
   preg_match_all("/\b[A-Z]{2,}/ms", $source, $acronyms);
   
   # We don't want no steenking duplicates
   $phrases = array_unique(array_merge($propernounphrases1[0], $propernounphrases2[0],
-  	$propernounphrases3[1], $propernounphrases4[1], $acronyms[0]));
+    $propernounphrases3[1], $propernounphrases4[1], $propernounphrases5[0], $acronyms[0]));
   foreach ($phrases as $i => $phrase) {
     $phrases[$i] = mysql_real_escape_string(str_replace(' ', '_', trim($phrase)));
   }
