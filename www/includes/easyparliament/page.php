@@ -141,8 +141,8 @@ class PAGE {
             $meta_description = '<meta name="description" content="' . htmlentities($meta_description) . '">';
         }
 
-		if ($this_page != "home") {
-			$URL = new URL('home');
+		if ($this_page != 'overview') {
+			$URL = new URL('overview');
 			
 			$linkshtml = "\t<link rel=\"start\" title=\"Home\" href=\"" . $URL->generate() . "\">\n";
 		}
@@ -186,7 +186,7 @@ class PAGE {
 		}
 
 		header('Content-Type: text/html; charset=iso-8859-1');
-        if ($this_page == 'home') {
+        if ($this_page == 'overview') {
             header('Vary: Cookie, X-GeoIP-Country');
             header('Cache-Control: max-age=600');
         }

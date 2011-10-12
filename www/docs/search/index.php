@@ -8,6 +8,8 @@ include_once INCLUDESPATH."easyparliament/glossary.php";
 // From http://cvs.sourceforge.net/viewcvs.py/publicwhip/publicwhip/website/
 include_once INCLUDESPATH."postcode.inc";
 
+header('Cache-Control: max-age=900');
+
 if (get_http_var('pid') == 16407) {
     header('Location: /search/?pid=10133');
     exit;
