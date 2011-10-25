@@ -362,8 +362,9 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
             $memcache->connect('localhost', 11211);
         }
         $nearby = $memcache->get(OPTION_TWFY_DB_NAME . ':nearby_const:' . $MEMBER->person_id());
-        if (!$nearby) {
+        if ($nearby === false) {
             $lat = null; $lon = null;
+            $nearby = '';
             $geometry = _api_getGeometry_name($MEMBER->constituency());
             if (isset($geometry['centre_lat'])) {
                 $lat = $geometry['centre_lat'];
@@ -384,9 +385,9 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
                     }
                     $conlist .= '</ul>';
                     $nearby = $conlist;
-                    $memcache->set(OPTION_TWFY_DB_NAME . ':nearby_const:' . $MEMBER->person_id(), $nearby, 0, 3600);
                 }
             }
+            $memcache->set(OPTION_TWFY_DB_NAME . ':nearby_const:' . $MEMBER->person_id(), $nearby, 0, 3600);
         }
         if ($nearby) {
             $sidebars[] = array(
