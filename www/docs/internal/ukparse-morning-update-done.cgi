@@ -23,7 +23,7 @@ while (my $q = new mySociety::CGIFast()) {
     } elsif ($pid == 0) {
         my $errors = `$path 2>&1 | cat`;
         if ($errors) {
-            my $email = mySociety::Config::get('CONTACTEMAIL');
+            my $email = mySociety::Config::get('PROBLEM_EMAIL');
             my $body = mySociety::Email::construct_email({
                 _body_ => $errors,
                 Subject => 'TheyWorkForYou daily import message',
