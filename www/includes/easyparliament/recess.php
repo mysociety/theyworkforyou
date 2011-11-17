@@ -140,6 +140,7 @@ $GLOBALS['recessdates'][1] = array(
         8=>array('all'=>1),
         9=>array('less'=>5, 'more'=>15),
         10=>array('less'=>10),
+        11=>array('between'=>array(15,21)),
         12=>array('more'=>20),
     ),
     2012 => array(
@@ -163,6 +164,7 @@ $GLOBALS['recessdates'][101][2011] = array(
     8 => array('all'=>1),
     9 => array('less'=>5, 'more'=>15),
     10 => array('less'=>3),
+    11=>array('between'=>array(16,21)),
     12 => array('more'=>21),
 );
 
@@ -375,6 +377,8 @@ function recess_prettify($day, $month, $year, $body) {
 				elseif ($body==4) $recess = 'Autumn Recess';
 				elseif ($body==5) $recess = 'Halloween Recess';
 				break;
+            case 11: $recess = 'Autumn Recess';
+                break;
 			default: $recess = 1;
 		}
 		if (isset($dates[$year][$month]['less']) && $day < $dates[$year][$month]['less']) {
