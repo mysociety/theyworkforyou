@@ -44,7 +44,7 @@ function api_getMSP_postcode($pc) {
 		if ($constituencies == 'CONNECTION_TIMED_OUT') {
 			api_error('Connection timed out');
 		} elseif (isset($constituencies['SPC'])) {
-			_api_getMSP_constituency($constituencies);
+			_api_getMSP_constituency(array($constituencies['SPC'], $constituencies['SPE']));
 		} elseif (isset($constituencies['WMC'])) {
 			api_error('Non-Scottish postcode');
 		} else {
