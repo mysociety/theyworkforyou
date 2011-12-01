@@ -396,7 +396,7 @@ function person_voting_record($member, $extra_info) {
 		array(1051, "introducing <strong>ID cards</strong>"),
 		array(363, "introducing <strong>foundation hospitals</strong>"),
 		array(1052, "university <strong>tuition fees</strong>"),
-		array(1053, "Labour's <strong>anti-terrorism laws</strong>", true),
+		array(1053, "Labour's <strong title='Including voting to maintain them'>anti-terrorism laws</strong>", true),
 		array(1049, "the <strong>Iraq war</strong>"),
 		array(984, "replacing <strong>Trident</strong>"),
 		array(1050, "the <strong>hunting ban</strong>"),
