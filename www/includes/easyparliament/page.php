@@ -181,7 +181,9 @@ class PAGE {
 		}
 
 		$robots = '';
-		if ($robots = $DATA->page_metadata($this_page, 'robots')) {
+		if (DEVSITE) {
+			$robots = '<meta name="robots" content="noindex,nofollow">';
+		} elseif ($robots = $DATA->page_metadata($this_page, 'robots')) {
 			$robots = '<meta name="robots" content="' . $robots . '">';
 		}
 

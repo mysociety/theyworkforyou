@@ -387,7 +387,7 @@ class MEMBER {
         }
         $memcache_key = OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id . ($display ? '' : ':plain');
         $this->extra_info = $memcache->get($memcache_key);
-        if ($this->extra_info) {
+        if (!DEVSITE && $this->extra_info) {
             return;
         }
         $this->extra_info = array();
