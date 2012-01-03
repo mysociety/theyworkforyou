@@ -209,6 +209,22 @@ CREATE TABLE `future_people` (
   KEY `calendar_id` (`calendar_id`)
 );
 
+CREATE TABLE `future_questions` (
+  `calendar_id` int(11), -- normally null for written questions.
+  `person_id` int(11) NOT NULL,
+  `written` tinyint(1) NOT NULL, -- 1 for written, 0 for oral.
+  `topical` tinyint(1) NOT NULL, -- 1 for topical, 0 for not.
+  `pmq` tinyint(1) NOT NULL, -- 1 if this is as PMQ - these are always topical.
+  `questiontext` text, -- Can be null for topical questions.
+  `uin` int(11) NOT NULL, -- parliament's identifier for this question.
+  `ballotno` int(11) NOT NULL, -- position in the ballot.
+  `interest` tinyint(1) NOT NULL, -- 1 if a relevant interest declared.
+  `notice_date` date, -- not present for oral questions.
+  `orig_answer_date` date, -- date the question was originally to be answered on.
+  `current_answer_date` date, -- date the question is currently to be answered on.
+  KEY `calendar_id` (`calendar_id`)
+);
+
 --
 -- User content tables
 --
