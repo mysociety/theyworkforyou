@@ -183,7 +183,7 @@ my @wrans_major_headings = (
 "PUBLIC ACCOUNTS COMMITTEE", "SOLICITOR-GENERAL", "SOLICITOR GENERAL", "SCOTLAND", "SOCIAL SECURITY", "TRANSPORT",
 "TRANSPORT, LOCAL GOVERNMENT AND THE REGIONS", "TRADE AND INDUSTRY", "TREASURY", "WALES", "WORK AND PENSIONS",
 "INNOVATION, UNIVERSITIES AND SKILLS", "CHILDREN, SCHOOLS AND FAMILIES",
-"BUSINESS, ENTERPRISE AND REGULATORY REFORM"
+"BUSINESS, ENTERPRISE AND REGULATORY REFORM", "BUSINESS, INNOVATION AND SKILLS",
 );
 use vars qw($wrans_major_headings);
 $wrans_major_headings = ',' . join(',', @wrans_major_headings) . ',';
@@ -1395,7 +1395,7 @@ sub load_debate_heading {
         # major headings "under" it.
         my $text = strip_string($speech->sprint(1));
         if ($inoralanswers) {
-                if ($wrans_major_headings !~ /,$text,/) { # $text =~ m/[a-z]/ || $text eq 'BILL PRESENTED' || $text eq 'NEW MEMBER' || $text eq 'POINT OF ORDER') {
+                if ($wrans_major_headings !~ /,\Q$text\E,/) { # $text =~ m/[a-z]/ || $text eq 'BILL PRESENTED' || $text eq 'NEW MEMBER' || $text eq 'POINT OF ORDER') {
                         $inoralanswers = 0;
                 } else {
                         # &#8212; is mdash (apparently some browsers don't know &mdash;)
