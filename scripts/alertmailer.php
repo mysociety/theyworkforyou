@@ -205,7 +205,14 @@ foreach ($alertdata as $alertitem) {
 				$k = 3;
 			}
 			#mlog($row['major'] . " " . $row['gid'] ."\n");
-			if ($row['hdate'] < '2010-01-01' && $major != 6) continue;
+
+			# Due to database server failure and restoring from day
+			# old backup, 17th January 2012 is being newly
+			# inserted, but has already been alerted upon. So
+			# manually now stop anything from before 18th January
+			# 2012 from sending an email alert again.
+			if ($row['hdate'] < '2012-01-18') continue;
+
 			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_gid[$major] . '/' . mysql_real_escape_string($row['gid']) . "'");
 			if ($q->rows() > 0) continue;
 			--$k;
