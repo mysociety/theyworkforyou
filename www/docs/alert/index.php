@@ -141,6 +141,7 @@ if ($sidebar) {
     $end[] = array('type' => 'html', 'content' => $sidebar);
 }
 $end[] = array('type' => 'include', 'content' => 'mysociety_news');
+$end[] = array('type' => 'include', 'content' => 'search');
 $PAGE->stripe_end($end);
 $PAGE->page_end($extra); 
 
@@ -319,9 +320,10 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
     if (!$details['add']) {
 ?>
 
-<p><label for="alertsearch">To sign up to an email alert, enter your <strong>postcode</strong>, the
-<strong>name</strong> of who you're interested in, or a <strong>word or
-phrase</strong> you wish to receive alerts for:</label>
+<p><label for="alertsearch">To sign up to an email alert, enter either your
+<strong>postcode</strong>, the <strong>name</strong> of who you're interested
+in, or the <strong>search word</strong> or <strong>words</strong> you wish to receive alerts
+for.</label> To be alerted on an exact <strong>phrase</strong>, be sure to put it in quotes.
 
 <?
     }

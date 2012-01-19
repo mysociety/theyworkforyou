@@ -364,7 +364,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			</form>
 			<ul>
 			    <li>
-			        e.g. a <em>word</em>, <em>phrase</em> or <em>person</em>
+			        e.g. a <em>word</em>, <em>phrase</em>, <em>person</em>, or <em>postcode</em>
 			    </li>
 			    <li>
 			        |
