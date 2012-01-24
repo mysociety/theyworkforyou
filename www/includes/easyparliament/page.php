@@ -250,7 +250,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
 		print "\t<a name=\"top\"></a>\n\n";
 		if (defined('OPTION_GAZE_URL') && OPTION_GAZE_URL) {
 			$country = gaze_get_country_from_ip($_SERVER["REMOTE_ADDR"]);
-            if (get_http_var('country')) $country = strtoupper(get_http_var('country'));
+			if (get_http_var('country')) $country = strtoupper(get_http_var('country'));
 			if ($country == 'NZ') {
 				print '<p class="informational banner">You&rsquo;re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
 			} elseif ($country == 'AU') {
@@ -259,9 +259,9 @@ if (typeof urchinTracker == 'function') urchinTracker();
 				print '<p class="informational banner">Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
 			} elseif ($country == 'CA') {
 				print '<p class="informational banner">Check out <a href="http://howdtheyvote.ca/">How&rsquo;d They Vote?</a> and <a href="http://www.openparliament.ca/">OpenParliament.ca</a></p>';
-			} elseif ($this_page != 'overview') {
-				#print '<p class="informational banner"><a href="http://election.theyworkforyou.com/">Find out what your candidates said on local and national issues in our quiz</a></p>';
-            }
+			} else {
+				print '<p class="informational banner"> Would you like to work with the team that built this site? <a href="http://mysocietyltd.theresumator.com/apply/">We&rsquo;re recruiting.</a></p>';
+			}
 		}
 
 # # 2009-01 interstitial
