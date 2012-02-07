@@ -218,6 +218,8 @@ if (is_numeric(get_http_var('m'))) {
 /////////////////////////////////////////////////////////
 // DISPLAY A REPRESENTATIVE
 
+header('Cache-Control: max-age=900');
+
 if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $PAGE->page_start();
     $PAGE->stripe_start('side');
