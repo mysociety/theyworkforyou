@@ -12,7 +12,7 @@ $PAGE->page_start();
 # XXX Search box currently in the stripe below should, when wrans and wms are
 # two columns, be moved up here spanning across the two columns.
 
-echo '<div id="written-answers>';
+echo '<div id="written-answers">';
 $PAGE->stripe_start();
 echo '<h2>Some recent written answers</h2>';
 $WRANSLIST = new WRANSLIST;
