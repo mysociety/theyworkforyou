@@ -168,7 +168,7 @@ foreach ($alertdata as $alertitem) {
 	if (!isset($results[$criteria_batch])) {
 		mlog("  ALERT $active/$outof QUERY $queries : Xapian query '$criteria_batch'");
 		$start = getmicrotime();
-		$SEARCHENGINE = new SEARCHENGINE($criteria_batch);
+		$SEARCHENGINE = new SEARCHENGINE($criteria_batch, true);
 		#mlog("query_remade: " . $SEARCHENGINE->query_remade() . "\n");
 		$args = array(
 			's' => $criteria_raw, # Note: use raw here for URLs, whereas search engine has batch
@@ -180,10 +180,11 @@ foreach ($alertdata as $alertitem) {
 		);
 		$data = $DEBATELIST->_get_data_by_search($args);
 		# add to cache (but only for speaker queries, which are commonly repeated)
-		if (preg_match('#^speaker:\d+$#', $criteria_raw, $m)) {
-			mlog(", caching");
-			$results[$criteria_batch] = $data;
-		}
+		# Don't cache, it's very quick, and we'd prefer low memory usage
+		#if (preg_match('#^speaker:\d+$#', $criteria_raw, $m)) {
+		#	mlog(", caching");
+		#	$results[$criteria_batch] = $data;
+		#}
 		#		unset($SEARCHENGINE);
 		$total_results = $data['info']['total_results'];
 		$queries++;

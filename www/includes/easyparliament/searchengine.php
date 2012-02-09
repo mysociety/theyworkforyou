@@ -37,7 +37,7 @@ if (XAPIANDB != '') {
 
 class SEARCHENGINE {
 
-	function SEARCHENGINE ($query) {
+	function SEARCHENGINE ($query, $phrase_allowed=false) {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
@@ -179,11 +179,12 @@ class SEARCHENGINE {
         twfy_debug("SEARCH", "prefixed: " . var_export($this->prefixed, true));
 
         twfy_debug("SEARCH", "query -- ". $this->query);
-        $query = $this->queryparser->parse_query($this->query,
-            XapianQueryParser::FLAG_BOOLEAN | XapianQueryParser::FLAG_PHRASE |
-            XapianQueryParser::FLAG_LOVEHATE | XapianQueryParser::FLAG_WILDCARD |
-            XapianQueryParser::FLAG_SPELLING_CORRECTION
-        );
+        $flags = XapianQueryParser::FLAG_BOOLEAN | XapianQueryParser::FLAG_LOVEHATE |
+            XapianQueryParser::FLAG_WILDCARD | XapianQueryParser::FLAG_SPELLING_CORRECTION;
+        if ($phrase_allowed) {
+            $flags = $flags | XapianQueryParser::FLAG_PHRASE;
+        }
+        $query = $this->queryparser->parse_query($this->query, $flags);
         $this->enquire->set_query($query);
 
         # Now parse the parsed query back into a query string, yummy
