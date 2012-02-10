@@ -1361,6 +1361,44 @@ div#intro.block #foi2009 li {
     font-weight: normal;
 }
 
+/* Survey related */
+body.js #survey_teaser {
+    display: none;
+}
+#survey_teaser {
+    z-index: 2;
+    position: fixed;
+    right: 0;
+    top: 40%;
+    width: 12em;
+    text-align: center;
+    background-color: #ffcc33;
+    border: solid 1px #ff9900;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+}
+#survey {
+    margin: 0 14px 1.5em 18px;
+    max-width: 60em;
+}
+#survey ul {
+    list-style-type: disc;
+    margin: 0 0 1em 1.5em;
+}
+#survey #disclaimer {
+    border-bottom: solid 1px black;
+}
+#survey_table {
+    margin-bottom: 1em;
+}
+#survey tr {
+    vertical-align: top;
+}
+#survey .alt {
+    background-color: #E8FFC5;
+}
+
 /*
 .unspoken { font-style: italic; }
 .heading { font-weight: bold; }
@@ -1442,18 +1480,20 @@ div.informational {
     border-top: none;
     border-left: none;
 }
-.informational.all {
+.informational.alert {
     float: right;
     width: 15em;
     margin: 1em 0 1em 1em;
     font-size: 150%;
 }
-.informational.all a {
-}
-.informational.all span {
+.informational.alert span {
     display: block;
     text-align: right;
     font-size: 70%;
+}
+.informational.all {
+    margin: 1em;
+    font-size: 110%;
 }
 
 /* mySociety bar */

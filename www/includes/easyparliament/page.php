@@ -324,29 +324,7 @@ if (typeof urchinTracker == 'function') urchinTracker();
         } else {
             $heading = '<h1>' . $img . '</h1>';
         }
-
-/*
-XXX: Confusing, I don't like it, we have the filter now, so don't have this for the moment.
-
-		# As in menu(), we work out what section of the site we're in
-		$this_parent = $DATA->page_metadata($this_page, 'parent');
-		if (!$this_parent) {
-			$top_hilite = $this_page;
-		} else {
-			$parents_parent = $DATA->page_metadata($this_parent, 'parent');
-			$top_hilite = $parents_parent ? $parents_parent : $this_parent;
-		}
-		if ($top_hilite == 'hansard') {
-			$section = 'uk';
-		} elseif ($top_hilite == 'ni_home') {
-			$section = 'ni';
-		} elseif ($top_hilite == 'sp_home') {
-			$section = 'scotland';
-		} else {
-			$section = '';
-		}
-*/
-		?>
+?>
 	<div id="banner">
 		<div id="title">
 			<?=$heading?>
@@ -381,33 +359,19 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 <?php	
 	}
 	
-	function menu () {
-		global $this_page, $DATA, $THEUSER;
+	// Works out which things to highlight, and which 'country' section we're in.
+	// Returns array of 'top' highlight, 'bottom' highlight, and which country section to show
+	function menu_highlights() {
+		global $this_page, $DATA;
 
-		// Page names mapping to those in metadata.php.
-		// Links in the top menu, and the sublinks we see if
-		// we're within that section.
-		$items = array (
-			array('home'),
-			array('hansard', 'overview', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'calendar_summary'),
-			array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
-			array('ni_home', 'nioverview', 'mlas'),
-			array('wales_home'),
-		);
-
-		$top_links = array();
-		$bottom_links = array();
-		
 		// We work out which of the items in the top and bottom menus
-		// are highlighted - $top_hilite and $bottom_hilite respectively.
-		
+		// are highlighted - $top_highlight and $bottom_highlight respectively.
 		$parent = $DATA->page_metadata($this_page, 'parent');
 		
 		if (!$parent) {
-			// This page is probably one of the ones in the top men.
-			// So hilite it and no bottom menu hilites.
-			$top_hilite = $this_page;
-			$bottom_hilite = '';
+
+			$top_highlight = $this_page;
+			$bottom_highlight = '';
 		
 			$selected_top_link = $DATA->page_metadata('hansard', 'menu');
 			$url = new URL('hansard');
@@ -422,29 +386,65 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 				if ($p) $parents[] = $p;
 			}
 
-			$top_hilite = array_pop($parents);
+			$top_highlight = array_pop($parents);
 			if (!$parents) {
 				// No grandparent - this page's parent is in the top menu.
 				// We're on one of the pages linked to by the bottom menu.
-				// So hilite it and its parent.
-				$bottom_hilite = $this_page;
+				// So highlight it and its parent.
+				$bottom_highlight = $this_page;
 			} else {
-				// This page is not in either menu. So hilite its parent
+				// This page is not in either menu. So highlight its parent
 				// (in the bottom menu) and its grandparent (in the top).
-				$bottom_hilite = array_pop($parents);
+				$bottom_highlight = array_pop($parents);
 			}
 
-			$selected_top_link = $DATA->page_metadata($top_hilite, 'menu');
+			$selected_top_link = $DATA->page_metadata($top_highlight, 'menu');
 			if (!$selected_top_link) {
 				# Just in case something's gone wrong
 				$selected_top_link = $DATA->page_metadata('hansard', 'menu');
 			}
-			$url = new URL($top_hilite);
+			$url = new URL($top_highlight);
 			$selected_top_link['link'] = $url->generate();
 
 		}
 
-        //get the top and bottom links
+		if ($top_highlight == 'hansard') {
+			$section = 'uk';
+		} elseif ($top_highlight == 'ni_home') {
+			$section = 'ni';
+		} elseif ($top_highlight == 'sp_home') {
+			$section = 'scotland';
+		} else {
+			$section = '';
+		}
+
+		return array(
+			'top' => $top_highlight,
+			'bottom' => $bottom_highlight,
+			'top_selected' => $selected_top_link,
+			'section' => $section,
+		);
+	}
+
+	function menu () {
+		global $this_page, $DATA, $THEUSER;
+
+		// Page names mapping to those in metadata.php.
+		// Links in the top menu, and the sublinks we see if
+		// we're within that section.
+		$items = array (
+			array('home'),
+			array('hansard', 'overview', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'calendar_summary'),
+			array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
+			array('ni_home', 'nioverview', 'mlas'),
+			array('wales_home'),
+		);
+
+		$highlights = $this->menu_highlights();
+
+		//get the top and bottom links
+		$top_links = array();
+		$bottom_links = array();
 		foreach ($items as $bottompages) {
 			$toppage = array_shift($bottompages);
 			
@@ -457,13 +457,13 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			if (!$title) continue;
 
                 //get link and description for the menu ans add it to the array
-    			$class = $toppage == $top_hilite ? ' class="on"' : '';            
+			$class = $toppage == $highlights['top'] ? ' class="on"' : '';
     			$URL = new URL($toppage);			            
     			$top_link = array("link" => '<a href="' . $URL->generate() . '" title="' . $title . '"' . $class . '>' . $text . '</a>', 
     			    "title" => $title);
                 array_push($top_links, $top_link);
             
-			if ($toppage == $top_hilite) {
+			if ($toppage == $highlights['top']) {
  
 				// This top menu link is highlighted, so generate its bottom menu.
 				foreach ($bottompages as $bottompage) {
@@ -472,7 +472,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 					$title = $menudata['title'];
 					// Where we're linking to.
 					$URL = new URL($bottompage);	
-					$class = $bottompage == $bottom_hilite ? ' class="on"' : '';
+					$class = $bottompage == $highlights['bottom'] ? ' class="on"' : '';
 					$bottom_links[] = '<a href="' . $URL->generate() . '" title="' . $title . '"' . $class . '>' . $text . '</a>';
 				}
 			}
@@ -480,9 +480,9 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 		?>
 	<div id="menu">
 		<div id="topmenu">
-		    <div id="topmenuselected"><a href="<?=$selected_top_link['link']?>"><?=$selected_top_link['text'] ?></a> <a id="topmenu-change" href="/parliaments/" onclick="toggleVisible('site');return false;"><small>(change)</small></a></div>
+		    <div id="topmenuselected"><a href="<?=$highlights['top_selected']['link']?>"><?=$highlights['top_selected']['text'] ?></a> <a id="topmenu-change" href="/parliaments/" onclick="toggleVisible('site');return false;"><small>(change)</small></a></div>
 <?php
-			$this->user_bar($top_hilite);
+			$this->user_bar($highlights['top']);
 			?>
     			<dl id="site">
     			    <?php foreach ($top_links as $top_link) {?>
@@ -504,7 +504,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 	}
 
 
-	function user_bar ($top_hilite='') {
+	function user_bar ($top_highlight='') {
 		// Called from menu(), but separated out here for clarity.
 		// Does just the bit of the menu related to login/join/etc.
 		global $this_page, $DATA, $THEUSER;
@@ -522,7 +522,7 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
 			$edittext 	= $menudata['text'];
 			$edittitle 	= $menudata['title'];
 			$EDITURL 	= new URL('userviewself');
-			if ($this_page == 'userviewself' || $this_page == 'useredit' || $top_hilite == 'userviewself') {
+			if ($this_page == 'userviewself' || $this_page == 'useredit' || $top_highlight == 'userviewself') {
 				$editclass = ' class="on"';
 			} else {
 				$editclass = '';
@@ -646,6 +646,11 @@ XXX: Confusing, I don't like it, we have the filter now, so don't have this for 
             print '">Find out what your candidates said on local and national issues in our quiz</a></p>';
         }
 */
+
+		$highlights = $this->menu_highlights();
+		if ($highlights['section'] == 'scotland') {
+			print '<p class="informational all">Due to changes made to the official Scottish Parliament website at the start of 2011, our parser that used to fetch their web pages and convert them into more structured information has stopped working. We&rsquo;re afraid we cannot give a timescale as to when we will be able to cover the Scottish Parliament again. Sorry for any inconvenience caused.</p>';
+		}
 
 	}
 

@@ -14,7 +14,7 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
 
 if ($member['has_email_alerts']) {
-    print '<p class="informational all">';
+    print '<p class="informational alert">';
     print '<a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me updates on '. $member['full_name']. '&rsquo;s activity</strong></a>
     <span>(no more than once per day)</span></p>';
 }
