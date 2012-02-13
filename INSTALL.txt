@@ -151,7 +151,7 @@ the Data".
    database. You do this using a script called xml2db.pl which is in
    the "scripts" subdir. 
    
-3. Edit the config file (config/general) to tell it where 
+3. Edit the config file (conf/general) to tell it where 
    to look for this data using the variables RAWDATA and PWMEMBERS. PWMEMBERS toos to point to  the 'members' subdir which you fetched above.
 
 4. now run xml2db.pl as follows:
