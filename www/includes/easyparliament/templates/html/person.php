@@ -658,8 +658,9 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 <?php
 
 	$since_text = 'in the last year';
-	#if ($member['entered_house'] > '2005-05-05')
-	#	$since_text = 'since joining Parliament';
+	$year_ago = date('Y-m-d', strtotime('now -1 year'));
+	if ($member['entered_house'] > $year_ago)
+		$since_text = 'since joining Parliament';
 
 	$MOREURL = new URL('search');
 	$section = 'section:debates section:whall section:lords section:ni';
