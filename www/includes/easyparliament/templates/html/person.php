@@ -663,7 +663,7 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 	# Find latest entered house
 	$entered_house = null;
 	foreach ($member['entered_house'] as $h => $eh) {
-		if (!$entered_house || $eh > $entered_house) $entered_house = $eh;
+		if (!$entered_house || $eh['date'] > $entered_house) $entered_house = $eh['date'];
 	}
 	if ($entered_house > $year_ago)
 		$since_text = 'since joining Parliament';
