@@ -659,7 +659,13 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 
 	$since_text = 'in the last year';
 	$year_ago = date('Y-m-d', strtotime('now -1 year'));
-	if ($member['entered_house'] > $year_ago)
+
+	# Find latest entered house
+	$entered_house = null;
+	foreach ($member['entered_house'] as $h => $eh) {
+		if (!$entered_house || $eh > $entered_house) $entered_house = $eh;
+	}
+	if ($entered_house > $year_ago)
 		$since_text = 'since joining Parliament';
 
 	$MOREURL = new URL('search');
