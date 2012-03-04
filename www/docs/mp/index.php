@@ -151,7 +151,7 @@ if (is_numeric(get_http_var('m'))) {
                 // This will cookie the postcode.
                 $THEUSER->set_postcode_cookie($pc);
             }
-            member_redirect($MEMBER);
+            member_redirect($MEMBER, 302);
         }
     } else {
         $errors['pc'] = "Sorry, ".htmlentities($pc) ." isn't a valid postcode";
@@ -180,7 +180,7 @@ if (is_numeric(get_http_var('m'))) {
     }
 } elseif ($THEUSER->postcode_is_set() && $name == '' && $constituency == '') {
     $MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode(), 'house' => 1));
-    member_redirect($MEMBER);
+    member_redirect($MEMBER, 302);
 } elseif ($name && $constituency) {
     $MEMBER = new MEMBER(array('name'=>$name, 'constituency'=>$constituency));
     if (($MEMBER->house_disp==2 && $this_page!='peer') || !$MEMBER->canonical || $redirect) {
@@ -463,7 +463,7 @@ $PAGE->page_end();
 
 
 
-function member_redirect(&$MEMBER) {
+function member_redirect(&$MEMBER, $code = 301) {
     // We come here after creating a MEMBER object by various methods.
     // Now we redirect to the canonical MP page, with a person_id.
     if ($MEMBER->person_id()) {
@@ -475,7 +475,7 @@ function member_redirect(&$MEMBER) {
         }
         if (count($params))
             $url .= '?' . join('&', $params);
-        header('Location: ' . $url, true, 301 );
+        header('Location: ' . $url, true, $code );
         exit;
     }
 }
