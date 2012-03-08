@@ -324,8 +324,8 @@ function text_html_to_email($s) {
     $s = preg_replace('#</?(i|small)>#', '', $s);
     $s = preg_replace('#</?span[^>]*>#', '*', $s);
     $s = str_replace(
-        array('&#163;', '&#8211;', '&#8212;', '<br>'),
-        array("\xa3",   '-',       '-',       "\n"  ),
+        array('&#163;', '&#8211;', '&#8212;', '&#8217;', '<br>'),
+        array("\xa3",   '-',       '-',       "'",       "\n"  ),
         $s
     );
     return $s;
