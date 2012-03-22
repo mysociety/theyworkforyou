@@ -25,6 +25,11 @@ twfy_debug("TEMPLATE", "hansard_search.php");
 $info = $data['info'];
 $searchdescription = $data['searchdescription'];
 
+# XXX Hack
+if (preg_match('#budget#', $searchdescription)) { ?>
+<p class="informational"><a href="http://www.theyworkforyou.com/debates/?id=2012-03-21a.793.0">Read the Budget speech and debate</a></p>
+<? }
+
 if (isset($info['total_results']) && $info['total_results'] > 0) {
 
 	// If we're getting matches and no glossary entry, we can trigger them to add a definition
