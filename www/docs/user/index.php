@@ -433,7 +433,7 @@ function add_user (	$details) {
 		
 		$PAGE->page_start();
 		
-		$errors["db"] = "Sorry, we were unable to create an account for you. Please <a href=\"mailto:". CONTACTEMAIL . "\">let us know</a>. Thanks.";
+		$errors["db"] = "Sorry, we were unable to create an account for you. Please <a href=\"mailto:". str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a>. Thanks.";
 
 		display_form( $details, $errors);
 		
@@ -487,7 +487,7 @@ function update_user ( $details ) {
 		
 		$PAGE->page_start();
 		
-		$errors["db"] = "Sorry, we were unable to update $who details. Please <a href=\"mailto:" . CONTACTEMAIL . "\">let us know</a> what you were trying to change. Thanks.";
+		$errors["db"] = "Sorry, we were unable to update $who details. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a> what you were trying to change. Thanks.";
 		
 		display_form($details, $errors);
 		

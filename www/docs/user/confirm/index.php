@@ -37,7 +37,7 @@ if (get_http_var('welcome') == 't') {
 
 	<p>Feel free to use it to keep an eye on <strong>your MP</strong>, Peers, add <strong>annotations</strong> next to speeches, or help others by contributing your own <strong>links</strong>.</p>
 
-	<p>Do <a href="mailto:<?php echo CONTACTEMAIL; ?>">let us know</a> if you find a bug, or have a suggestion.</p>
+	<p>Do <a href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">let us know</a> if you find a bug, or have a suggestion.</p>
 	
 <?php
 		} else {
@@ -92,7 +92,7 @@ function confirm_error() {
 	
 	<p>If you clicked a link in your confirmation email you may need to manually copy and paste the entire link to the 'Location' bar of the web browser and try again.</p>
 
-	<p>If you still get this message, please do <a href="mailto:<?php echo CONTACTEMAIL; ?>">email us</a> and let us know, and we'll help out!</p>
+	<p>If you still get this message, please do <a href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">email us</a> and let us know, and we'll help out!</p>
 
 <?php
 

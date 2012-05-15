@@ -172,7 +172,7 @@ function person_ask_for_picture($member) {
 We&rsquo;re missing a photo of ' .  $member['full_name'] . '. If you have a
 photo <em>that you can release under a Creative Commons Attribution-ShareAlike
 license</em> or can locate a <em>copyright free</em> photo,
-<a href="mailto:' . CONTACTEMAIL . '">please email it to us</a>. Please do not
+<a href="mailto:' . str_replace('@', '&#64;', CONTACTEMAIL) . '">please email it to us</a>. Please do not
 email us about copyrighted photos elsewhere on the internet; we can&rsquo;t use
 them.</p>';
 }

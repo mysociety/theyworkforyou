@@ -1084,24 +1084,6 @@ pr()//-->
 </div> <!-- end #footer -->
 </div> <!-- end #container -->
 
-<?
-		if (DOMAIN == 'www.theyworkforyou.com') { ?>
-<!-- Piwik -->
-<script type="text/javascript">
-var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.mysociety.org/" : "http://piwik.mysociety.org/");
-document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 7);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-} catch( err ) {}
-</script><noscript><p><img src="http://piwik.mysociety.org/piwik.php?idsite=7" style="border:0" alt=""/></p></noscript>
-<!-- End Piwik Tag -->
-<?
-		}
-?>
-
 <script type="text/javascript" charset="utf-8">
     barSetup();
 </script>

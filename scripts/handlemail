@@ -67,7 +67,7 @@ my $mail = mySociety::Email::construct_email({
     From => [ mySociety::Config::get('CONTACTEMAIL'), 'TheyWorkForYou' ],
     To => $data{return_path},
     _template_ => $template,
-    _parameters_ => { },
+    _parameters_ => { email => mySociety::Config::get('CONTACTEMAIL') },
 });
 
 if (mySociety::EmailUtil::EMAIL_SUCCESS

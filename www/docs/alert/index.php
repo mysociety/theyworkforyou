@@ -62,7 +62,7 @@ if ($action = get_http_var('action')) {
         incomplete.</p> <p>If you clicked a link in your alert email you may
         need to manually copy and paste the entire link to the 'Location' bar
         of the web browser and try again.</p> <p>If you still get this message,
-        please do <a href='mailto:" . CONTACTEMAIL . "'>email us</a> and let us
+        please do <a href='mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "'>email us</a> and let us
         know, and we'll help out!</p>";
 }
 
@@ -224,7 +224,7 @@ function add_alert ($details) {
 		$advert = true;
 	} else {
 		$message = array ('title' => "This alert has not been accepted",
-		'text' => "Sorry, we were unable to create this alert. Please <a href=\"mailto:". CONTACTEMAIL . "\">let us know</a>. Thanks."
+		'text' => "Sorry, we were unable to create this alert. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a>. Thanks."
 		);
 	}
     return $message['text'];

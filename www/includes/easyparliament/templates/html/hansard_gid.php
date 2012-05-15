@@ -841,7 +841,7 @@ function video_sidebar($row, $section, $count, $major) {
 	$out .= video_object($video['id'], $start, "$gid_type/$row[gid]");
 	$flashvars = 'gid=' . "$gid_type/$row[gid]" . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
 	$out .= "<br><b>Add this video to another site:</b><br><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'></embed>\"><br><small>(copy and paste the above)</small>";
-	$out .= "<p style='margin-bottom:0'>Is this not the right video? <a href='mailto:team&#64;theyworkforyou.com?subject=Incorrect%20video,%20id%20$row[gid];$video[id];$ts_id'>Let us know</a></p>";
+	$out .= "<p style='margin-bottom:0'>Is this not the right video? <a href='mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "?subject=Incorrect%20video,%20id%20$row[gid];$video[id];$ts_id'>Let us know</a></p>";
 	if ($count > 1) {
 		$out .= '<p style="position:absolute;bottom:0;right:0;margin:0"><a href="" onclick="return showVideo();">Hide</a></p>';
 		$out .= '</div></div>';
