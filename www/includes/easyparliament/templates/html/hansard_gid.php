@@ -274,7 +274,7 @@ if (isset ($data['rows'])) {
 				list($image,$sz) = find_rep_image($speaker['person_id'], true, $missing_photo_type);				
 
 				echo '<a class="speakerimage" id="speakerimage_' . $row['epobject_id'] . '" href="', $speaker['url'], '" title="See more information about ', $speakername, '" onmouseover="showPersonLinks(' . $row['epobject_id'] . ')" >';
-				echo '<span><img src="', $image, '" class="portrait" alt="Photo of ', $speakername, '"';
+				echo '<span><img src="', $image, '" alt="Photo of ', $speakername, '"';
 				/*
 				if (get_http_var('partycolours')) {
 					echo ' style="border: 3px solid ', party_to_colour($speaker['party']), ';"';

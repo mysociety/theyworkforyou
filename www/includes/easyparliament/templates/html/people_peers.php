@@ -91,7 +91,7 @@ function render_peers_row($peer, &$style, $order, $URL) {
                 <?php
                 list($image,$sz) = find_rep_image($peer['person_id'], true, 'lord');
                 if ($image) {
-                    echo '<a href="' . $URL->generate().make_member_url($name) . '" class="speakerimage"><img height="59" class="portrait" alt="" src="', $image, '"';
+                    echo '<a href="' . $URL->generate().make_member_url($name) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
                     echo '></a>';
                 }
                 ?>

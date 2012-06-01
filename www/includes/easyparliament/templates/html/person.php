@@ -101,7 +101,7 @@ function person_image($member) {
 		list($image,$sz) = find_rep_image($member['person_id'], false, true);		    
 	}
 	echo '<p class="person">';
-	echo '<img class="portrait" alt="Photo of ', $member['full_name'], '" src="', $image, '"';
+	echo '<img alt="Photo of ', $member['full_name'], '" src="', $image, '"';
 	if ($sz=='S') echo ' height="118"';
 	echo '></p>';
 }

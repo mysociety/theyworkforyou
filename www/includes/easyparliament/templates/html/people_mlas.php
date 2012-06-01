@@ -74,7 +74,7 @@ function render_mps_row($mp, &$style, $order, $MPURL) {
     <?php
     list($image,$sz) = find_rep_image($mp['person_id'], true, true);
     if ($image) {
-        echo '<a href="' . $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1) . '" class="speakerimage"><img height="59" class="portrait" alt="" src="', $image, '"';
+        echo '<a href="' . $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
         echo '></a>';
     }
     ?>

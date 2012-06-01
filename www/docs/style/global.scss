@@ -1821,11 +1821,10 @@ div.main p.person {
     height: 151px;
     position: relative;
     margin: 0.3em 1em 1em 18px;
+    padding-top: 20px;
+    text-align: center;
 }
-div.main p.person img.portrait {
-    position: absolute;
-    top: 20px;
-    left: 7px;
+div.main p.person img {
     border: none;
 }
 div.main .missingphoto {
