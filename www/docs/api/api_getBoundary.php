@@ -28,8 +28,7 @@ function api_getBoundary_name($name) {
 	}
 
 	$out = array();
-	$areas = _api_cacheCheck('mapit_get_areas_by_type', 'WMC');
-	$areas_info = _api_cacheCheck('mapit_get_voting_areas_info', $areas);
+	$areas_info = _api_cacheCheck('areas', 'WMC');
 	$id = null;
 	foreach ($areas_info as $k => $v) {
 		if (normalise_constituency_name($v['name']) == $name) {

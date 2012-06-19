@@ -48,9 +48,8 @@ function _api_getGeometry_name($name) {
 
     $name = normalise_constituency_name($name);
 
-    $areas = _api_cacheCheck('mapit_get_areas_by_type', 'WMC');
+    $areas_info = _api_cacheCheck('areas', 'WMC');
     $ni_geometry = _api_ni_centroids();
-    $areas_info = _api_cacheCheck('mapit_get_voting_areas_info', $areas);
     foreach ($areas_info as $area_id => $area) {
         if ($name == $area['name']) {
             if (isset($ni_geometry[$area_id])) {
@@ -67,10 +66,9 @@ function _api_getGeometry_name($name) {
 
 function _api_cacheCheck($fn, $arg='') {
     $cache = INCLUDESPATH . '../docs/api/cache/' . $fn;
-    if (is_array($arg)) $cache .= '_' . count($arg);
     if (is_file($cache))
         return unserialize(file_get_contents($cache));
-    $out = call_user_func($fn, $arg);
+    $out = mapit_call($fn, $arg);
     $fp = fopen($cache, 'w');
     if ($fp) {
         fwrite($fp, serialize($out));
