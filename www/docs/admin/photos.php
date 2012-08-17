@@ -143,9 +143,9 @@ function submit_attribution() {
     $attr_link = get_http_var('attr_link');
     $errors = array();
 
-    if (!$pid || !$attr_text || !$attr_link)
+    if (!$pid || !$attr_text)
         array_push($errors, 'Missing information');
-    elseif (substr($attr_link, 0, 4) != 'http')
+    elseif ($attr_link && substr($attr_link, 0, 4) != 'http')
         array_push($errors, 'Bad link');
 
     if ($errors)
