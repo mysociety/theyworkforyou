@@ -44,6 +44,18 @@ echo '<ul>';
 		person_offices($extra_info);
 	}
 
+    if (isset($extra_info['photo_attribution_text'])) {
+        print '<li><small>Photo: ';
+        if (isset($extra_info['photo_attribution_link'])) {
+            print '<a href="' . $extra_info['photo_attribution_link'] . '" rel="nofollow">';
+        }
+        print $extra_info['photo_attribution_text'];
+        if (isset($extra_info['photo_attribution_link'])) {
+            print '</a>';
+        }
+        print '</small></li>';
+    }
+
 echo '</ul>';
 
 //if dummy image, show message asking for a photo
