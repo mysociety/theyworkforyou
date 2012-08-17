@@ -44,7 +44,7 @@ echo '<ul>';
 		person_offices($extra_info);
 	}
 
-    if (isset($extra_info['photo_attribution_text']) && $extra_info['photo_attribution_text']) {
+    if (exists_rep_image($member['person_id']) && isset($extra_info['photo_attribution_text']) && $extra_info['photo_attribution_text']) {
         print '<li><small>Photo: ';
         if (isset($extra_info['photo_attribution_link']) && $extra_info['photo_attribution_link']) {
             print '<a href="' . $extra_info['photo_attribution_link'] . '" rel="nofollow">';
