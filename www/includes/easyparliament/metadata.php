@@ -164,7 +164,7 @@ $this->page = array (
 		'url'			=> 'admin/trackbacks.php'
 	),
 	'admin_photos' => array (
-		'title'			=> 'Photo upload',
+		'title'			=> 'Photo upload/attribution',
 		'parent'		=> 'admin',
 		'url'			=> 'admin/photos.php',
 	),

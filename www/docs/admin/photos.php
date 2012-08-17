@@ -13,27 +13,23 @@ $db = new ParlDB;
 $PAGE->page_start();
 $PAGE->stripe_start();
 
-#$q = $db->query('SELECT COUNT(*) AS c FROM alerts');
-#$total = $q->field(0, 'c');
-#$tabledata = array (
-#	'header' => array('Stat', 'Number'),
-#	'rows' => $rows
-#);
-#$PAGE->display_table($tabledata);
+?>
 
-if (DEVSITE) {
-    $out = '';
-    if (get_http_var('submit_photo')) {
-        $out = submit_photo();
-    } else {
-        $out = display_form();
-    }
-    print $out;
+<p>Photos are automatically added to version control and committed. Because of this,
+the photo upload interface only works on a development version of the site. On the
+other hand, setting attribution needs to be done on the live database, on the live
+version of the site.
+</p>
+
+<?
+
+$out = '';
+if (get_http_var('submit')) {
+    $out = DEVSITE ? submit_photo() : submit_attribution();
 } else {
-    ?><p>You can't upload files on a live site, as it doesn't have permissions
-    to commit to git. Please go to one of the staging sites.</p>
-    <?
+    $out = DEVSITE ? display_photo_form() : display_attribution_form();
 }
+print $out;
 
 function submit_photo() {
     $dir = "../images";
@@ -75,29 +71,17 @@ function submit_photo() {
     }
 
     if ($errors)
-        return display_form($errors);
-    return "<p><em>Photo uploaded and resized for pid $pid</em> &mdash; check how it looks <a href=\"/mp?p=$pid\">on their page</a></p>" . display_form();
+        return display_photo_form($errors);
+    return "<p><em>Photo uploaded and resized for pid $pid</em> &mdash; check how it looks <a href=\"/mp?p=$pid\">on their page</a></p>" . display_photo_form();
 }
 
-function display_form($errors = array()) {
-    global $db; 
-
-    $out = '';
-    if ($errors) {
-        $out .= '<ul id="error"><li>' . join('</li><li>', $errors) . '</li></ul>';
-    }
-    $out .= <<<EOF
-<p>Photos are automatically added in git and committed. Because of this,
-only use this interface on a development version of the site which is
-in a git checkout (francis.theyworkforyou.com or similar). Then deploy
-to the live site.
-</p>
-<form method="post" action="photos.php" enctype="multipart/form-data">
+function person_drop_down() {
+    global $db;
+    $out = '
 <div class="row">
 <span class="label"><label for="form_pid">Person:</label></span>
 <span class="formw"><select id="form_pid" name="pid"></span>
-EOF;
-
+';
     $query = 'SELECT house, person_id, title, first_name, last_name, constituency, party
         FROM member
         WHERE house>0 GROUP by person_id
@@ -126,20 +110,79 @@ EOF;
         $out .= '<option value="'.$p_id.'">'.$desc.'</option>' . "\n";
     }
 
+    $out .= ' </select></span> </div> ';
+    return $out;
+}
+
+function display_photo_form($errors = array()) {
+    $out = '';
+    if ($errors) {
+        $out .= '<ul class="error"><li>' . join('</li><li>', $errors) . '</li></ul>';
+    }
+    $out .= '<form method="post" action="photos.php" enctype="multipart/form-data">';
+    $out .= person_drop_down();
     $out .= <<<EOF
-</select></span>
-</div>
 <div class="row">
     <span class="label"><label for="form_photo">Photo:</label></span>
     <span class="formw"><input type="file" name="photo" id="form_photo" size="50"></span>
 </div>
 <div class="row">
     <span class="label">&nbsp;</span>
-    <span class="formw"><input type="submit" name="submit_photo" value="Upload photo"></span>
+    <span class="formw"><input type="submit" name="submit" value="Upload photo"></span>
 </div>
 </form>
 
 <p style="clear:both; margin-top: 3em"><a href="/images/mps/photo-status.php">List MPs without photos</a></p>
+EOF;
+    return $out;
+}
+
+function submit_attribution() {
+    $pid = intval(get_http_var('pid'));
+    $attr_text = get_http_var('attr_text');
+    $attr_link = get_http_var('attr_link');
+    $errors = array();
+
+    if (!$pid || !$attr_text || !$attr_link)
+        array_push($errors, 'Missing information');
+    elseif (substr($attr_link, 0, 4) != 'http')
+        array_push($errors, 'Bad link');
+
+    if ($errors)
+        return display_attribution_form($errors);
+
+    # UPDATE
+    global $db;
+    $query = "INSERT INTO personinfo (person_id,data_key,data_value) VALUES
+            ($pid,'photo_attribution_text','" . mysql_real_escape_string($attr_text) . "'),
+            ($pid,'photo_attribution_link','" . mysql_real_escape_string($attr_link) . "'),
+        ON DUPLICATE KEY UPDATE data_value=VALUES(data_value)";
+    $q = $db->query($query);
+
+    return "<p><em>Attribution text/link set for pid $pid</em> &mdash; check how it looks <a href=\"/mp?p=$pid\">on their page</a></p>" . display_attribution_form();
+}
+
+function display_attribution_form($errors = array()) {
+    $out = '';
+    if ($errors) {
+        $out .= '<ul class="error"><li>' . join('</li><li>', $errors) . '</li></ul>';
+    }
+    $out .= '<form method="post" action="photos.php">';
+    $out .= person_drop_down();
+    $out .= <<<EOF
+<div class="row">
+    <span class="label"><label for="form_attr_link">Attribution link:</label></span>
+    <span class="formw"><input type="text" name="attr_link" id="form_attr_link" size="50"></span>
+</div>
+<div class="row">
+    <span class="label"><label for="form_attr_text">Attribution text:</label></span>
+    <span class="formw"><input type="text" name="attr_text" id="form_attr_text" size="50"></span>
+</div>
+<div class="row">
+    <span class="label">&nbsp;</span>
+    <span class="formw"><input type="submit" name="submit" value="Update attribution"></span>
+</div>
+</form>
 EOF;
     return $out;
 }
