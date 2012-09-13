@@ -209,10 +209,11 @@ Our own data - lists of MPs, Lords, constituencies and so on - is available
 under the <a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative
 Commons Attribution-ShareAlike license version 2.5</a>.
 
-<p>Low volume, non-commercial use of the API service itself is free. Please
-<a href="/contact">contact us</a> for commercial use, or if you are about
-to use the service on a large scale. Please credit TheyWorkForYou if you
-use the API.
+<p>Low volume, charitable use of the API service itself is free. 
+Please <a href="/contact">contact&nbsp;us</a> for all other use. Please credit 
+us by linking to <a href="http://www.theyworkforyou.com/">TheyWorkForYou</a> with 
+wording such as "Data service provided by TheyWorkForYou" on the page where the 
+data is used. This attribution is optional if you've paid for use of the service.
 
 <h3>Bindings</h3>
 
