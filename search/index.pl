@@ -309,6 +309,7 @@ if ($action ne "check" && $action ne 'checkfull') {
     while ($allterms ne $alltermsend) {
         my $term = "$allterms";
         if ($term =~ m#^Q#) {
+            next if $term =~ /^Qcalendar/; # 13-Sept-2012, from production edit
             $q->execute('uk.org.publicwhip/' . substr($term, 1));
             my $exists = $q->fetchrow_arrayref();
             unless ($exists) {
