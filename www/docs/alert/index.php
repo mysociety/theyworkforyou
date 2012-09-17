@@ -294,6 +294,10 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
         }
         echo htmlspecialchars($alertsearch) . '] ';
         echo ' <input type="submit" value="Subscribe"></form>';
+        if (strstr($alertsearch, ',') > -1) {
+            echo '<em class="error">You have used a comma in your search term &ndash; are you sure this is what you want?
+You cannot sign up to multiple search terms using a comma &ndash; either use OR, or fill in this form multiple times.</em>';
+        }
         echo "</li></ul>";
     }
 
@@ -322,10 +326,10 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
 
 <p><label for="alertsearch">To sign up to an email alert, enter either your
 <strong>postcode</strong>, the <strong>name</strong> of who you're interested
-in, or the <strong>search word</strong> or <strong>words</strong> you wish to receive alerts
+in, or the <strong>search term</strong> you wish to receive alerts
 for.</label> To be alerted on an exact <strong>phrase</strong>, be sure to put it in quotes.
-Also use quotes around a word to avoid stemming (where &lsquo;horse&rsquo; will
-also match &lsquo;horses&rsquo;),
+Also use quotes around a word to avoid stemming (where &lsquo;horse&rsquo; would
+also match &lsquo;horses&rsquo;).
 
 <?
     }
@@ -376,14 +380,20 @@ also match &lsquo;horses&rsquo;),
     if (!$details['email_verified']) {
 ?>
         <p>If you join or sign in, you won't need to confirm your email
-        address for every alert you set.
+        address for every alert you set.<br><br>
 <?php
     }
     if (!$details['add']) {
 ?>
-        <p>Please note that you should only enter one topic per alert - if
-        you wish to receive alerts on more than one topic, or for more than
-        one person, simply fill in this form as many times as you need.</p>
+        <p>Please note that you should only enter <strong>one term per alert</strong> &ndash; if
+        you wish to receive alerts on more than one thing, or for more than
+        one person, simply fill in this form as many times as you need, or use boolean OR.<br><br></p>
+        <p>For example, if you wish to receive alerts whenever the words
+        <i>horse</i> or <i>pony</i> are mentioned in Parliament, please fill in
+        this form once with the word <i>horse</i> and then again with the word
+        <i>pony</i> (or you can put <i>horse OR pony</i> with the OR in capitals
+        as explained on the right). Do not put <i>horse, pony</i> as that will only
+        sign you up for alerts where <strong>both</strong> horse and pony are mentioned.</p>
 <?php
     }
 ?>
