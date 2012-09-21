@@ -422,7 +422,8 @@ CREATE TABLE `api_stats` (
   `query_time` datetime NOT NULL,
   `query` text NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `api_key` (`api_key`)
+  KEY `api_key` (`api_key`),
+  KEY `query_time` (`query_time`)
 );
 
 CREATE TABLE `survey` (
