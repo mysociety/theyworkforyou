@@ -5,7 +5,7 @@
  * Description: Summary of the day's API usage
  */
 
-include_once '../www/includes/easyparliament/init.php';
+include_once dirname(__FILE__) . '/../www/includes/easyparliament/init.php';
 
 $db = new ParlDB;
 $q = $db->query('SELECT
