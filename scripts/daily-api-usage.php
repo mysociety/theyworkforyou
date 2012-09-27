@@ -9,7 +9,7 @@ include_once dirname(__FILE__) . '/../www/includes/easyparliament/init.php';
 
 $db = new ParlDB;
 $q = $db->query('SELECT
-    api_key.api_key, api_key.commercial, DATE(api_key.created), api_key.reason,
+    api_key.api_key, api_key.commercial, DATE(api_key.created) AS created, api_key.reason,
     users.firstname, users.lastname, users.email,
     count(distinct(ip_address)) as ip_addresses, count(*) AS count
     FROM api_stats, api_key, users
