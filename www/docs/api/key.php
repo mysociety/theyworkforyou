@@ -10,7 +10,6 @@ $a = auth_ab64_encode(urandom_bytes(32));
 $this_page = 'api_key';
 $PAGE->page_start();
 $PAGE->stripe_start();
-api_key_current_message();
 echo '<p>TheyWorkForYou API calls require a key, so that we can monitor usage
 of the service, and provide usage stats to you.';
 if ($THEUSER->loggedin()) {

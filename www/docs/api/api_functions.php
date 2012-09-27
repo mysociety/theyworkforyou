@@ -172,16 +172,6 @@ function api_check_key($key) {
 	return true;
 }
 
-function api_key_current_message() { ?>
-<p class="informational left"><em>Current API users</em>: We
-realise the inconvenience of adding a key to an API that previously did not
-require one. However, we feel it is now necessary in order to monitor the
-service for abuse, help with support and maintenance, locate large volume/
-commercial users to ask them to contribute to our costs, and provide you with
-usage statistics.</p>
-<?
-}
-
 # Front-end sidebar of all methods
 
 function api_sidebar() {

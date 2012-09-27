@@ -160,8 +160,6 @@ function api_front_page($error = '') {
 
 <p align="center"><strong>http://www.theyworkforyou.com/api/<em>function</em>?key=<em>key</em>&amp;output=<em>output</em>&amp;<em>other_variables</em></strong></p>
 
-<? api_key_current_message(); ?>
-
 <p>The current version of the API is <em>1.0.0</em>. If we make changes to the
 API functions, we'll increase the version number and make it an argument so you
 can still use the old version.</p>
