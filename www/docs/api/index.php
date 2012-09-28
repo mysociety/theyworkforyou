@@ -191,27 +191,28 @@ and in PHP and RABX a serialised array containing one entry with key <code>error
 
 </td></tr></table>
 
-<h3>Licensing</h3>
+<h3>Usage and Licensing</h3>
 
-<p>To use parliamentary material yourself (that's data returned from
-getDebates, getWrans, and getWMS), you will need to get a
-<a href="http://www.opsi.gov.uk/click-use/parliamentary-licence-information/index.htm">Parliamentary Licence</a> from the Office of Public Sector
-Information.
+<? $em = join('&#64;', array('commercial', 'mysociety.org')); ?>
+<p>Low volume, charitable use of the API service itself is free. This means
+direct use by registered charities, or individuals pursuing a non-profit
+project on an unpaid basis, with a volume of up to 50,000 calls per year.
+Please email us at <a href="mailto:<?=$em?>"><?=$em?></a> for all other use. If you are using
+the API for a charitable purpose and are unsure of the likely volume please
+contact us in advance by emailing <a href="mailto:<?=$em?>"><?=$em?></a>.
 
-<? /* All Ordnance Survey data (returned by getGeometry and getBoundary) is
-covered by the <acronym title="Pan-Government Agreement">PGA</acronym>
-under the <a href="http://www.dca.gov.uk/">Department for Constitutional
-Affairs</a>; you will have to get your own licence to re-use them. */ ?>
+<p>Parliamentary material (that's data returned from getDebates, getWrans, and
+getWMS) may be reused under the terms of the
+<a href="http://www.parliament.uk/site-information/copyright/">Open Parliament Licence</a>.
+Our own data &ndash; lists of MPs, Lords, constituencies and so on &ndash; is
+available under the
+<a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative Commons
+Attribution-ShareAlike license version 2.5</a>.
 
-Our own data - lists of MPs, Lords, constituencies and so on - is available
-under the <a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative
-Commons Attribution-ShareAlike license version 2.5</a>.
-
-<p>Low volume, charitable use of the API service itself is free. 
-Please <a href="/contact">contact&nbsp;us</a> for all other use. Please credit 
-us by linking to <a href="http://www.theyworkforyou.com/">TheyWorkForYou</a> with 
-wording such as "Data service provided by TheyWorkForYou" on the page where the 
-data is used. This attribution is optional if you've paid for use of the service.
+<p>Please credit us by linking to <a href="http://www.theyworkforyou.com/">TheyWorkForYou</a>
+with wording such as "Data service provided by TheyWorkForYou" on the page
+where the data is used. This attribution is optional if you've paid for use of
+the service.
 
 <h3>Bindings</h3>
 
