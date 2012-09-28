@@ -9,9 +9,10 @@ function _api_getMembers_output($sql) {
 	$output = array();
 	$last_mod = 0;
 	for ($i=0; $i<$q->rows(); $i++) {
+		$pid = $q->field($i, 'person_id');
 		$row = array(
 			'member_id' => $q->field($i, 'member_id'),
-			'person_id' => $q->field($i, 'person_id'),
+			'person_id' => $pid,
 			'name' => html_entity_decode(member_full_name($q->field($i, 'house'), $q->field($i, 'title'),
 				$q->field($i, 'first_name'), $q->field($i, 'last_name'),
 				$q->field($i, 'constituency') )),
@@ -19,11 +20,22 @@ function _api_getMembers_output($sql) {
 		);
 		if ($q->field($i, 'house') != 2)
 			$row['constituency'] = $q->field($i, 'constituency');
-		$output[] = $row;
+		$output[$pid] = $row;
 		$time = strtotime($q->field($i, 'lastupdate'));
 		if ($time > $last_mod)
 			$last_mod = $time;
 	}
+
+	$pids = array_keys($output);
+	$q = $db->query('SELECT person, dept, position, from_date, to_date FROM moffice
+		WHERE to_date="9999-12-31" AND person IN (' . join(',', $pids) . ')');
+	for ($i=0; $i<$q->rows(); $i++) {
+		$row = $q->row($i);
+		$pid = $row['person'];
+		unset($row['person']);
+		$output[$pid]['office'][] = $row;
+	}
+	$output = array_values($output);
 	api_output($output, $last_mod);
 }
 
