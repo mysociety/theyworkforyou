@@ -28,7 +28,7 @@ function api_getConstituency_postcode($pc) {
         return;
     }
 
-    $constituency = postcode_to_constituency($pc);
+    $constituency = postcode_to_constituency($pc, true);
     if ($constituency == 'CONNECTION_TIMED_OUT') {
         api_error('Connection timed out');
         return;

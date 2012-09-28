@@ -40,7 +40,7 @@ function api_getMSP_id($id) {
 function api_getMSP_postcode($pc) {
 	$pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
 	if (validate_postcode($pc)) {
-		$constituencies = postcode_to_constituencies($pc);
+		$constituencies = postcode_to_constituencies($pc, true);
 		if ($constituencies == 'CONNECTION_TIMED_OUT') {
 			api_error('Connection timed out');
 		} elseif (isset($constituencies['SPC'])) {

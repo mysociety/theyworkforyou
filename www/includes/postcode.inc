@@ -3,7 +3,7 @@
 include_once INCLUDESPATH . 'constituencies.inc';
 
 //returns the constituency name, given uh, a postcode.
-function postcode_to_constituency($postcode) {
+function postcode_to_constituency($postcode, $api = false) {
     global $last_postcode, $last_postcode_value;
     $postcode = canonicalise_postcode($postcode);
     if ($last_postcode == $postcode) {
@@ -13,7 +13,7 @@ function postcode_to_constituency($postcode) {
 
     $start = getmicrotime();
     twfy_debug_timestamp();
-    $ret = postcode_to_constituency_internal($postcode, true);
+    $ret = postcode_to_constituency_internal($postcode, true, $api);
     $duration = getmicrotime() - $start;
     twfy_debug ("TIME", "Postcode $postcode lookup took $duration seconds, returned $ret.");
     twfy_debug_timestamp();
@@ -25,7 +25,7 @@ function postcode_to_constituency($postcode) {
     return $ret['WMC'];
 }
 
-function postcode_to_constituencies($postcode) {
+function postcode_to_constituencies($postcode, $api = false) {
     global $last_postcode, $last_postcode_value;
     $postcode = canonicalise_postcode($postcode);
     if ($last_postcode == $postcode) {
@@ -33,7 +33,7 @@ function postcode_to_constituencies($postcode) {
         return $last_postcode_value;
     }
 
-    $ret = postcode_to_constituency_internal($postcode, false);
+    $ret = postcode_to_constituency_internal($postcode, false, $api);
     if (is_string($ret)) return $ret;
 
     $last_postcode = $postcode;
@@ -41,7 +41,7 @@ function postcode_to_constituencies($postcode) {
     return $ret;
 }
 
-function postcode_to_constituency_internal($postcode, $mp_only=true) {
+function postcode_to_constituency_internal($postcode, $mp_only=true, $api) {
     # Try and match with regexp to exclude non postcodes quickly
     if (!validate_postcode($postcode))
         return '';
