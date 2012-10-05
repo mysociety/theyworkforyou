@@ -91,15 +91,9 @@ class MEMBER {
 		}
 
 		if (is_array($person_id)) {
-			if ($this_page == 'peer') {
-				# Hohoho, how long will I get away with this for?
-				#   Not very long, it made Lord Patel go wrong
-				$person_id = $person_id[0];
-			} else {
-				$this->valid = false;
-				$this->person_id = $person_id;
-				return;
-			}
+			$this->valid = false;
+			$this->person_id = $person_id;
+			return;
 		}
 		$this->valid = true;
 		
@@ -309,27 +303,28 @@ class MEMBER {
 		}
 		$q .= ' GROUP BY person_id, constituency ORDER BY left_house DESC';
 		$q = $this->db->query($q);
+
 		if ($q->rows > 1) {
 			# Hacky as a very hacky thing that's graduated in hacking from the University of Hacksville
 			# Anyone who wants to do it properly, feel free
-
-			$person_ids = array(); $consts = array();
+            $pid_override = get_http_var('pid_override');
+			$person_ids = array();
 			for ($i=0; $i<$q->rows(); ++$i) {
 				$pid = $q->field($i, 'person_id');
-
-                # XXX A hack within a hack
-                # There are two Mark Durkan MLAs - the current one is the
-                # nephew of the old one. To stop this page constantly asking
-                # you to pick between them, shortcircuit the current one
-                if ($pid == 25143) return $pid;
-
+                if ($pid == $pid_override) {
+                    return $pid;
+                }
 				if (!in_array($pid, $person_ids)) {
-					$person_ids[] = $pid;
-					$consts[] = $q->field($i, 'constituency');
+					$person_ids[] = $q->row($i);
 				}
 			}
-			if (sizeof($person_ids) == 1) return $person_ids[0];
-			$this->constituency = $consts;
+            if ($pid_override) {
+			    $PAGE->error_message("Sorry, there is no current member with that name.");
+			    return false;
+            }
+            if (sizeof($person_ids) == 1) {
+                return $person_ids[0]['person_id'];
+            }
 			return $person_ids;
 		} elseif ($q->rows > 0) {
 			if ($q->field(0, 'left_house') != '9999-12-31') {
@@ -340,7 +335,15 @@ class MEMBER {
 					$this->canonical = false;
 				}
 			}
-			return $q->field(0, 'person_id');
+			$pid = $q->field(0, 'person_id');
+            if ($pid_override = get_http_var('pid_override')) {
+                $this->canonical = false;
+                if ($pid != $pid_override) {
+			        $PAGE->error_message("Sorry, there is no current member with that name.");
+			        return false;
+                }
+            }
+            return $pid;
 		} elseif ($const && $this_page!='peer') {
 			$this->canonical = false;
 			return $this->name_to_person_id($name);
