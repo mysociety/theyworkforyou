@@ -29,7 +29,7 @@ function _api_getMembers_output($sql) {
     }
 
     $pids = array_keys($output);
-    if (count($pids) {
+    if (count($pids)) {
         $q = $db->query('SELECT person, dept, position, from_date, to_date FROM moffice
             WHERE to_date="9999-12-31" AND person IN (' . join(',', $pids) . ')');
         for ($i=0; $i<$q->rows(); $i++) {
