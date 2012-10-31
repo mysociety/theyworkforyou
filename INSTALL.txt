@@ -115,16 +115,16 @@ and so on.
 
 <VirtualHost localether>
  ServerAdmin me@example.com
- DocumentRoot /data/vhost/www.theyworkforyou.com/www/docs
+ DocumentRoot /data/vhost/www.theyworkforyou.com/theyworkforyou/www/docs
  ServerName twfy.example.com
-  <Directory /data/vhost/www.theyworkforyou.com/www/docs>
+  <Directory /data/vhost/www.theyworkforyou.com/theyworkforyou/www/docs>
    Options FollowSymLinks
    AllowOverride All
    Allow from all
    Order allow,deny
   </Directory>
 
- Include /data/vhost/www.theyworkforyou.com/conf/httpd.conf
+ Include /data/vhost/www.theyworkforyou.com/theyworkforyou/conf/httpd.conf
 
  ErrorLog /var/log/httpd/twfy_error
  CustomLog /var/log/httpd/twfy_access combined
