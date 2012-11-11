@@ -379,7 +379,7 @@ also match &lsquo;horses&rsquo;).
 <?php
     if (!$details['email_verified']) {
 ?>
-        <p>If you join or sign in, you won't need to confirm your email
+        <p>If you <a href="/user/?pg=join">join</a> or <a href="/user/login/?ret=%2Falert%2F">sign in</a>, you won't need to confirm your email
         address for every alert you set.<br><br>
 <?php
     }
