@@ -451,8 +451,14 @@ function person_voting_record($member, $extra_info) {
 		$displayed_stuff = 1;
         if (in_array(1, $member['houses']) && $member['entered_house'][1]['date'] > '2001-06-07') {
             $since = '';
+        } elseif (!in_array(1, $member['houses']) && in_array(2, $member['houses']) && $member['entered_house'][2]['date'] > '2001-06-07') {
+            $since = '';
         } else {
             $since = ' since 2001';
+        }
+        # If not current MP/Lord, but current MLA/MSP, need to say voting record is when MP
+        if (!$member['current_member'][1] && !$member['current_member'][2] && ($member['current_member'][4] || $member['current_member'][3])) {
+            $since .= ' whilst an MP';
         }
 ?>
 
