@@ -728,7 +728,7 @@ function display_form ( $details = array(), $errors = array() ) {
 	foreach ($statuses as $n => $status) {
 		print "\t<option value=\"$status\"";
 		if ($status == $details["status"]) {
-			print " checked";
+			print " selected";
 		}
 		print ">$status</option>\n";
 	}
