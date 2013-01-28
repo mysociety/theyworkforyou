@@ -101,7 +101,6 @@ if (get_http_var("submitted") == "true") {
 	$details = array();
 	$details["firstname"]		= trim(get_http_var("firstname"));
 	$details["lastname"]		= trim(get_http_var("lastname"));
-	$details["email"]			= trim(get_http_var("em"));
 	// We use boolean true/false internally. Convert the text from the form to boolean.
 	$details["emailpublic"]		= get_http_var("emailpublic") == "true" ? true : false;
 	$details["password"]		= trim(get_http_var("password"));
@@ -120,6 +119,7 @@ if (get_http_var("submitted") == "true") {
 	}
 	
 	if ($this_page == "otheruseredit") {
+		$details["email"]			= trim(get_http_var("em"));
 		$details["user_id"]			= trim(get_http_var("u"));
 		$details["status"]			= trim(get_http_var("status"));
 		if (get_http_var("deleted") != "") {
@@ -567,9 +567,10 @@ function display_form ( $details = array(), $errors = array() ) {
 				</div>
 
 <?php
-	if (isset($errors["email"])) {
-		$PAGE->error_message($errors["email"]);
-	}
+	if ($this_page == "otheruseredit") {
+		if (isset($errors["email"])) {
+			$PAGE->error_message($errors["email"]);
+		}
 ?>
 				<div class="row">
 				<span class="label"><label for="em">Email address:</label></span>
@@ -577,6 +578,8 @@ function display_form ( $details = array(), $errors = array() ) {
 				</div>
 
 <?php
+
+	}
 
 	if ($this_page == "useredit" || $this_page == "otheruseredit") {
 		// If not, the user's joining.
