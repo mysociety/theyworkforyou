@@ -118,8 +118,11 @@ if (get_http_var("submitted") == "true") {
 		$details['url'] = 'http://' . $details['url'];
 	}
 	
+	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
+		$details["email"] = trim(get_http_var("em"));
+	}
+
 	if ($this_page == "otheruseredit") {
-		$details["email"]			= trim(get_http_var("em"));
 		$details["user_id"]			= trim(get_http_var("u"));
 		$details["status"]			= trim(get_http_var("status"));
 		if (get_http_var("deleted") != "") {
@@ -567,7 +570,7 @@ function display_form ( $details = array(), $errors = array() ) {
 				</div>
 
 <?php
-	if ($this_page == "otheruseredit") {
+	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
 		if (isset($errors["email"])) {
 			$PAGE->error_message($errors["email"]);
 		}
