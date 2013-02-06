@@ -1765,9 +1765,6 @@ div.sidebar div.comment-teaser blockquote cite {
     padding: 1em;
 }
 
-div.sidebar div.comment-teaser div.add {
-    padding-bottom: 1em;
-}
 div.sidebar div.comment-teaser a.link { background:url(../images/link.png) no-repeat 0 50%;
     padding-left: 16px;
 }
@@ -2067,3 +2064,10 @@ span.highlight {
     margin-bottom: 0.5em;
     background-color: #ffeeee;
 }
+
+.division-list {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+}
+

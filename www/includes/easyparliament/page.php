@@ -213,7 +213,6 @@ class PAGE {
 		echo $linkshtml; 
 	# XXX Below line for speed
 ?>
-	<style>.division-list { -webkit-column-count: 3; -moz-column-count: 3; column-count: 3; }</style>
 	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/global.css" type="text/css">
 	<link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/print.css" type="text/css" media="print">

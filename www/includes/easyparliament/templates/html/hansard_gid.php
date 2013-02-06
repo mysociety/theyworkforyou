@@ -195,8 +195,7 @@ if (isset ($data['rows'])) {
 			echo $row['body'];
 			
 			context_link($row);			
-			$action_links = array(array("link" => $row['commentsurl'], "title" => "Link to this", "text" => "Link to this", "class"=>"link"));
-
+			$action_links = array('<a href="' . $row['listurl'] . '" class="link">Link to this</a>');
 			$sidebarhtml = generate_commentteaser(&$row, $data['info']['major'], $action_links);
 			
 			$PAGE->stripe_end(array(
@@ -333,7 +332,7 @@ if (isset ($data['rows'])) {
 
             // link
 			if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
-                $action_links["link"] = array("link" => $row['commentsurl'], "title" => "Link to this", "text" => "Link to this", "class"=>"link");
+                $action_links["link"] = 'Link to this: <a href="' . $row['commentsurl'] . '" class="link">Individually</a> | <a href="' . $row['listurl'] . '">In context</a>';
 			}
 				
 			//source
@@ -367,16 +366,16 @@ if (isset ($data['rows'])) {
 				if ($hansardmajors[$data['info']['major']]['location']=='Scotland'){        
 				    $text = 'Official Report source';
 				}
-                $action_links["source"] = array("link" => $row['source_url'], "after" => $source_title, "text" => $text, "class"=>"source");
+                $action_links["source"] = '<a href="' . $row['source_url'] . '" class="source">' . $text . "</a> ($source_title)";
 			}
 
             //video
             if ($data['info']['major'] == 1 && $this_page != 'debate') { # Commons debates only
 				if ($row['video_status']&4) {
-    				$action_links["video"] = array("link" => $row['commentsurl'], "title" => "Watch this", "text" => "Watch this", "class"=>"watch", "onclick" => "return moveVideo('debate/" . $row['gid'] . "');");
+    				$action_links["video"] = '<a href="' . $row['commentsurl'] . '" class="watch" onclick="return moveVideo(\'debate/' . $row['gid'] . '\');">Watch this</a>');
 				} elseif (!$video_content && $row['video_status']&1 && !($row['video_status']&8)) {
 					$gid_type = $data['info']['major'] == 1 ? 'debate' : 'lords';
-				    $action_links["video"] = array("link" => "/video/?from=debate&amp;gid=" . $gid_type . '/' . $row['gid'], "title" => "Video match this", "class" =>"timestamp", "text" => "Video match this");
+				    $action_links["video"] = '<a href="/video/?from=debate&amp;gid=' . $gid_type . '/' . $row['gid'] . '" class="timestamp">Video match this</a>');
 				}
 			}
 
@@ -417,6 +416,19 @@ if (isset ($data['rows'])) {
 				$sidebarhtml .= generate_votes ( $row['votes'], $row['major'], $row['epobject_id'], $row['gid'] );
 			}
 
+			if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
+                // Build the 'Add an annotation' link.
+                if (!$THEUSER->isloggedin()) {
+                    $URL = new URL('userprompt');
+                    $URL->insert(array('ret'=>$row['commentsurl']));
+                    $commentsurl = $URL->generate();
+                } else {
+                    $commentsurl = $row['commentsurl'];
+                }
+                
+                $action_links['add'] = '<a class="annotate" href="' . $commentsurl . '#addcomment">Add an annotation</a> <small>(e.g. more info, blog post or wikipedia article)</small>';
+            }
+            
 # Do the logic for this in the function; plus why shouldn't
 # you be able to comment on speeches with unknown speakers?
 #			if (($hansardmajors[$data['info']['major']]['type'] == 'debate') && isset($row['speaker']) && count($row['speaker']) > 0) {
@@ -572,44 +584,13 @@ function generate_commentteaser (&$row, $major, $action_links) {
     if (isset($action_links)) {
         $html .= '<ul>';
             foreach ($action_links as $action_link) {
-				if (!is_array($action_link)) {
-					$html .= $action_link;
-					continue;
-				}
-                $html .= '<li>';
-                $html .= '<a href="' . $action_link['link'] . '" class="' . $action_link['class'] . '"';
-				if (isset($action_link['title'])) {
-					$html .= ' title="' . $action_link['title'] . '"';
-				}
-                if (isset($action_link['onclick'])) {
-                    $html .= ' onclick="' . $action_link['onclick']  . '"';
-                }
-                $html .= '>';
-                $html .= $action_link["text"];                                    
-                $html .= '</a>';
-				if (isset($action_link['after']) && $action_link['after']) {
-				    $html .= ' (' . $action_link['after'] . ')';
-				}
-                $html .= "</li>\n";
+                $html .= "<li>$action_link</li>\n";
             }
         $html .= '</ul>';        
     }
 
 	if ($hansardmajors[$major]['type'] == 'debate' && $hansardmajors[$major]['page_all']==$this_page) {
 
-//		$html .= ' <a href="' .  $row['commentsurl'] . '" title="Copy this URL to link directly to this piece of text" class="permalink">Link to this</a>';
-		
-		// Build the 'Add an annotation' link.
-		if (!$THEUSER->isloggedin()) {
-			$URL = new URL('userprompt');
-			$URL->insert(array('ret'=>$row['commentsurl']));
-			$commentsurl = $URL->generate();
-		} else {
-			$commentsurl = $row['commentsurl'];
-		}
-		
-		$html .= '<div class="add"><a class="annotate" href="' . $commentsurl . '#addcomment" title="Annotate this speech">Add an annotation</a> <small>(e.g. more info, blog post or wikipedia article)</small></div>';
-		
 		//Add existing annotations
 		if ($row['totalcomments'] > 0) {
 			$comment = $row['comment'];
