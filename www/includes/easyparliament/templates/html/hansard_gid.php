@@ -9,7 +9,7 @@
 // The array $data will be packed full of luverly stuff about hansard objects.
 // See the bottom of this document for information about its structure and contents...
 
-global $PAGE, $this_page, $GLOSSARY, $hansardmajors, $DATA;
+global $PAGE, $this_page, $GLOSSARY, $hansardmajors, $DATA, $THEUSER;
 
 include_once INCLUDESPATH."easyparliament/searchengine.php";
 include_once INCLUDESPATH."easyparliament/member.php";
@@ -576,7 +576,7 @@ function generate_commentteaser (&$row, $major, $action_links) {
 	*/
 	// $url is the URL of the item's page, which contains comments.
 	
-	global $this_page, $THEUSER, $hansardmajors;
+	global $this_page, $hansardmajors;
 	
 	$html = '';
 	
