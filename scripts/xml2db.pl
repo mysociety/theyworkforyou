@@ -1410,40 +1410,37 @@ sub load_debate_division {
         my ($division, $major) = @_;
         my $divdate = $division->att('divdate');
         my $divnumber = $division->att('divnumber');
-        if ($divdate ge '2013-01-01') {
-                my $text = "<p class='divisionheading'>Division number $divnumber</p>";
-                my $divcount = $division->first_child('divisioncount'); # attr ayes noes tellerayes tellernoes
-                my @lists = $division->children('mplist');
-                foreach my $list (@lists) {
-                        my $side = $list->att('vote');
-                        die unless $side eq 'aye' or $side eq 'no';
-                        $text .= "<h2>\u$side</h2> <ul class='division-list'>";
-                        my @names = $list->children('mpname'); # attr ids vote (teller), text is name
-                        foreach my $person (@names) {
-                                my $member_id = $person->att('id');
-                                $member_id =~ s/.*\///;
-                                my $vote = $person->att('vote');
-                                die unless $vote eq $side;
-                                my $teller = $person->att('teller');
-                                my $name = $person->sprint(1);
-                                $name =~ s/^(.*), (.*)$/$2 $1/;
-                                $name =~ s/^(rh|Mr|Sir|Ms|Mrs|Dr) //;
-                                $text .= "<li><a href='/mp/?m=$member_id'>$name</a>";
-                                $text .= ' (teller)' if $teller;
-                                $text .= "</li>\n";
-                        }
-                        $text .= "</ul>";
-                }
-                do_load_speech($division, $major, 0, $text);
-                return;
-        }
 
-        my $text = 
+        my $text =
 "<p class=\"divisionheading\">Division number $divnumber</p>
 <p class=\"divisionbody\"><a href=\"http://www.publicwhip.org.uk/division.php?date=$divdate&amp;number=$divnumber";
         $text .= '&amp;house=lords' if $major == 101;
         $text .= "&amp;showall=yes#voters\">See full
 list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip</a>)</p>";
+
+        my $divcount = $division->first_child('divisioncount'); # attr ayes noes tellerayes tellernoes
+        my @lists = $division->children('mplist');
+        foreach my $list (@lists) {
+                my $side = $list->att('vote');
+                die unless $side eq 'aye' or $side eq 'no';
+                $text .= "<h2>\u$side</h2> <ul class='division-list'>";
+                my @names = $list->children('mpname'); # attr ids vote (teller), text is name
+                foreach my $person (@names) {
+                        my $member_id = $person->att('id');
+                        $member_id =~ s/.*\///;
+                        my $vote = $person->att('vote');
+                        die unless $vote eq $side;
+                        my $teller = $person->att('teller');
+                        my $name = $person->sprint(1);
+                        $name =~ s/^(.*), (.*)$/$2 $1/;
+                        $name =~ s/^(rh|Mr|Sir|Ms|Mrs|Dr) //;
+                        $text .= "<li><a href='/mp/?m=$member_id'>$name</a>";
+                        $text .= ' (teller)' if $teller;
+                        $text .= "</li>\n";
+                }
+                $text .= "</ul>";
+        }
+
         do_load_speech($division, $major, 0, $text);
 }
 
