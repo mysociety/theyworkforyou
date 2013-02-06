@@ -372,10 +372,10 @@ if (isset ($data['rows'])) {
             //video
             if ($data['info']['major'] == 1 && $this_page != 'debate') { # Commons debates only
 				if ($row['video_status']&4) {
-    				$action_links["video"] = '<a href="' . $row['commentsurl'] . '" class="watch" onclick="return moveVideo(\'debate/' . $row['gid'] . '\');">Watch this</a>');
+    				$action_links["video"] = '<a href="' . $row['commentsurl'] . '" class="watch" onclick="return moveVideo(\'debate/' . $row['gid'] . '\');">Watch this</a>';
 				} elseif (!$video_content && $row['video_status']&1 && !($row['video_status']&8)) {
 					$gid_type = $data['info']['major'] == 1 ? 'debate' : 'lords';
-				    $action_links["video"] = '<a href="/video/?from=debate&amp;gid=' . $gid_type . '/' . $row['gid'] . '" class="timestamp">Video match this</a>');
+				    $action_links["video"] = '<a href="/video/?from=debate&amp;gid=' . $gid_type . '/' . $row['gid'] . '" class="timestamp">Video match this</a>';
 				}
 			}
 
