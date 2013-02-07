@@ -339,7 +339,7 @@ if (isset ($data['rows'])) {
 			if (isset($row['source_url']) && $row['source_url'] != '') {
 				$source_title = '';
 				$major = $data['info']['major'];
-				if ($major==1 || $major==2 || (($major==3 || $major==4) && isset($row['speaker']['house'])) || $major==101) {
+				if ($major==1 || $major==2 || (($major==3 || $major==4) && isset($row['speaker']['house'])) || $major==101 || $major==6) {
 					$source_title = 'Citation: ';
 					if ($major==1 || $major==2) {
 						$source_title .= 'HC';
@@ -349,6 +349,8 @@ if (isset ($data['rows'])) {
 						} else {
 						    $source_title .= 'HL';
 						}
+					} elseif ($major==6) {
+                        $source_title .= $section['title'];
 					} else {
 						$source_title .= 'HL';
 					}
@@ -366,7 +368,10 @@ if (isset ($data['rows'])) {
 				if ($hansardmajors[$data['info']['major']]['location']=='Scotland'){        
 				    $text = 'Official Report source';
 				}
-                $action_links["source"] = '<a href="' . $row['source_url'] . '" class="source">' . $text . "</a> ($source_title)";
+                $action_links["source"] = '<a href="' . $row['source_url'] . '" class="source">' . $text . "</a>";
+                if ($source_title) {
+                    $action_links['source'] .= " ($source_title)";
+                }
 			}
 
             //video
