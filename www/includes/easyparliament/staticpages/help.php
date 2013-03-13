@@ -181,8 +181,8 @@ things which we don't count yet, and some which we never could.  Even when we
 do, a count doesn't measure the quality of an MPs contribution.</p>
 
 <p>After reading media reports like <a
-href="http://www.timesonline.co.uk/article/0,,17129-2060278,00.html">this one
-in The Times</a>, and hearing from real MP's researchers who have admitted
+href="http://web.archive.org/web/20070216112003/http://www.timesonline.co.uk/tol/news/politics/article735429.ece">this one
+in The Times (cached)</a>, and hearing from real MP's researchers who have admitted
 to tabling questions to increase their boss's rankings, we became concerned about the
 use of these statistics.</p>
 
