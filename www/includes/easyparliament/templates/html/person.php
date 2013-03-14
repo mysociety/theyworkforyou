@@ -412,7 +412,7 @@ function person_voting_record($member, $extra_info) {
 		array(1049, "the <strong>Iraq war</strong>"),
 		array(984, "replacing <strong>Trident</strong>"),
 		array(1050, "the <strong>hunting ban</strong>"),
-		#array(826, "equal <strong>gay rights</strong>"),
+		array(826, "equal <strong>gay rights</strong>"),
 		array(1030, "laws to <strong>stop climate change</strong>"),
 		array(1074, "greater <strong>autonomy for schools</strong>"),
 		array(1071, "allowing ministers to <strong>intervene in inquests</strong>"),
