@@ -721,7 +721,7 @@ function send_email ($to, $subject, $message, $bulk = false, $from = '', $want_b
      "Content-Type: text/plain; charset=iso-8859-1\r\n" .
      "MIME-Version: 1.0\r\n" .
      "Content-Transfer-Encoding: 8bit\r\n" . 
-     ($bulk ? "Precedence: bulk\r\n" : "" ).
+     ($bulk ? "Precedence: bulk\r\nAuto-Submitted: auto-generated\r\n" : "" ).
      "X-Mailer: PHP/" . phpversion();
 	twfy_debug('EMAIL', "Sending email to $to with subject of '$subject'");
 
