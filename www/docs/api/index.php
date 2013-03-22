@@ -225,6 +225,7 @@ the service.
 <li><a href="http://tools.rubenarakelyan.com/twfyapi/">ASP.net</a> (thanks to Ruben Arakelyan)</li>
 <li><a href="https://sourceforge.net/projects/twfyjavaapi">Java</a> (thanks to Mitch Kent)</li>
 <li><a href="https://github.com/rhinocratic/twfy">Clojure</a> (thanks to Andrew Baxter)</li>
+<li><a href="https://github.com/jamtho/twfy">Common Lisp</a> (thanks to James Thompson)</li>
 </ul>
 
 <p>If anyone wishes to write bindings for the API in any language, please
