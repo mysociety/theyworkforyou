@@ -76,6 +76,7 @@ function wikipedize ($source) {
 
   foreach ($phrases as $wikistring) {
     $phrase = str_replace('_', ' ', $wikistring);
+    $wikistring = str_replace("'", "%27", $wikistring);
 
     # See if already matched a string this one is contained within
     foreach ($matched as $got) {
