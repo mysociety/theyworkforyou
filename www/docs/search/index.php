@@ -514,7 +514,9 @@ function find_glossary_items($args) {
 # ---
 
 function construct_search_string() {
-    $searchstring = trim(get_http_var('s'));
+    $search_main = trim(get_http_var('s'));
+
+    $searchstring = '';
 
     # Stuff from advanced search form
     if ($advphrase = get_http_var('phrase')) {
@@ -585,6 +587,13 @@ function construct_search_string() {
             $searchstring .= ' speaker:' . join(' speaker:', $pids);
     }
 
-    return trim($searchstring);
+    $searchstring = trim($searchstring);
+    if ($search_main && $searchstring) {
+        $searchstring = "($search_main) $searchstring";
+    } elseif ($search_main) {
+        $searchstring = $search_main;
+    }
+
+    return $searchstring;
 }
 
