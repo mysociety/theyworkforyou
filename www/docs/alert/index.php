@@ -146,6 +146,8 @@ $PAGE->page_end($extra);
 # ---
 
 function check_input ($details) {
+    global $SEARCHENGINE;
+
     $errors = array();
 
     // Check each of the things the user has input.
@@ -175,9 +177,12 @@ function check_input ($details) {
     if (strpos($text, '..')) {
         $errors['alertsearch'] = 'You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!';
     }
-    if (preg_match('#\s*OR\s*$#', $text)) {
-        $errors['alertsearch'] = 'That search appears to be invalid, please check and try again.';
+
+    $se = new SEARCHENGINE($text);
+    if (!$se->valid) {
+        $errors['alertsearch'] = 'That search appears to be invalid - ' . $se->error . ' - please check and try again.';
     }
+
     if (strlen($text) > 255) {
         $errors['alertsearch'] = 'That search is too long for our database; please split it up into multiple smaller alerts.';
     }
