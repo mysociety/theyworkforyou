@@ -367,7 +367,9 @@ also match &lsquo;horses&rsquo;).
 ?>
 
     <div class="row">   
-        <input type="submit" class="submit" value="Search">
+        <input type="submit" class="submit" value="<?=
+            ($details['pid'] || $details['keyword']) ? 'Subscribe' : 'Search'
+        ?>">
     </div>
 
     <div class="row">
