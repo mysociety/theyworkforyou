@@ -11,7 +11,8 @@ $this_page = 'api_key';
 $PAGE->page_start();
 $PAGE->stripe_start();
 echo '<p>TheyWorkForYou API calls require a key, so that we can monitor usage
-of the service, and provide usage stats to you.';
+of the service, and provide usage stats to you. Please see <a href="/api">the
+API overview</a> for how to use your key.';
 if ($THEUSER->loggedin()) {
 	if (get_http_var('create_key') && get_http_var('reason')) {
 		create_key(get_http_var('commercial'), get_http_var('reason'));
