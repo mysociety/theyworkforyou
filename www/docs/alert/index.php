@@ -146,32 +146,43 @@ $PAGE->page_end($extra);
 # ---
 
 function check_input ($details) {
-	$errors = array();
+    $errors = array();
 
-	// Check each of the things the user has input.
-	// If there is a problem with any of them, set an entry in the $errors array.
-	// This will then be used to (a) indicate there were errors and (b) display
-	// error messages when we show the form again.
-	
-	// Check email address is valid and unique.
-	if (!$details['email']) {
-		$errors["email"] = "Please enter your email address";
-	} elseif (!validate_email($details["email"])) {
-		// validate_email() is in includes/utilities.php
-		$errors["email"] = "Please enter a valid email address";
-	} 
-	
-	if ($details['pid'] && !ctype_digit($details['pid']))
-		$errors['pid'] = 'Invalid person ID passed';
+    // Check each of the things the user has input.
+    // If there is a problem with any of them, set an entry in the $errors array.
+    // This will then be used to (a) indicate there were errors and (b) display
+    // error messages when we show the form again.
 
-	if ($details['submitted'] && !$details['pid'] && !$details['alertsearch'] && !$details['keyword'])
-		$errors['alertsearch'] = 'Please enter what you want to be alerted about';
+    // Check email address is valid and unique.
+    if (!$details['email']) {
+        $errors["email"] = "Please enter your email address";
+    } elseif (!validate_email($details["email"])) {
+        // validate_email() is in includes/utilities.php
+        $errors["email"] = "Please enter a valid email address";
+    } 
 
-	if (strpos($details['alertsearch'], '..') || strpos($details['keyword'], '..')) {
-		$errors['alertsearch'] = 'You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!';
-	}
+    if ($details['pid'] && !ctype_digit($details['pid'])) {
+        $errors['pid'] = 'Invalid person ID passed';
+    }
 
-	return $errors;
+    $text = $details['alertsearch'];
+    if (!$text) $text = $details['keyword'];
+
+    if ($details['submitted'] && !$details['pid'] && !$text) {
+        $errors['alertsearch'] = 'Please enter what you want to be alerted about';
+    }
+
+    if (strpos($text, '..')) {
+        $errors['alertsearch'] = 'You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!';
+    }
+    if (preg_match('#\s*OR\s*$#', $text)) {
+        $errors['alertsearch'] = 'That search appears to be invalid, please check and try again.';
+    }
+    if (strlen($text) > 255) {
+        $errors['alertsearch'] = 'That search is too long for our database; please split it up into multiple smaller alerts.';
+    }
+
+    return $errors;
 }
 
 function add_alert ($details) {
@@ -342,7 +353,7 @@ also match &lsquo;horses&rsquo;).
 ?>
 
 <div class="row">
-<input type="text" name="alertsearch" id="alertsearch" value="<?php if ($details['alertsearch']) { echo htmlentities($details['alertsearch']); } ?>" size="30" style="font-size:150%">
+<input type="text" name="alertsearch" id="alertsearch" value="<?php if ($details['alertsearch']) { echo htmlentities($details['alertsearch']); } ?>" maxlength="255" size="30" style="font-size:150%">
 </div>
 
 <?php
