@@ -4,9 +4,9 @@
  It is based on the file /user/index.php.
  The alerts depend on the class ALERT which is established in /includes/easyparliament/alert.php
 
-submitted=1 means we've submitted some form of search.
-only=1 means we've picked one of those results (or come straight from MP or
-search results page), and should try and add, asking for email if needed.
+The submitted flag means we've submitted some form of search. Having pid or
+keyword present means we've picked one of those results (or come straight from
+e.g. MP page), and should try and add, asking for email if needed.
 
 FUNCTIONS
 check_input()	Validates the edited or added alert data and creates error messages.
@@ -81,7 +81,7 @@ $details['keyword'] = trim(get_http_var("keyword"));
 $details['pid'] = trim(get_http_var("pid"));
 $details['alertsearch'] = trim(get_http_var("alertsearch"));
 $details['pc'] = get_http_var('pc');
-$details['add'] = get_http_var('only');
+$details['submitted'] = get_http_var('submitted') || $details['pid'] || $details['keyword'];
 
 $errors = check_input($details);
 
@@ -91,13 +91,12 @@ if ($details['alertsearch']) {
     list ($details['constituencies'], $details['valid_postcode']) = search_constituencies_by_query($details['alertsearch']);
 }
 
-if (!sizeof($errors) && $details['add'] && ($details['keyword'] || $details['pid'])) {
+if (!sizeof($errors) && ($details['keyword'] || $details['pid'])) {
     $message = add_alert( $details );
     $details['keyword'] = '';
     $details['pid'] = '';
     $details['alertsearch'] = '';
     $details['pc'] = '';
-    $details['add'] = '';
 }
 
 $PAGE->page_start();
@@ -116,7 +115,6 @@ if ($details['email_verified']) {
 ?>
 <form action="/alert/" method="post">
 <input type="hidden" name="t" value="<?=htmlspecialchars(get_http_var('t'))?>">
-<input type="hidden" name="only" value="1">
 <input type="hidden" name="pid" value="<?=$current_mp->person_id()?>">
 You are not subscribed to an alert for your current MP,
 <?=$current_mp->full_name() ?>.
@@ -166,7 +164,7 @@ function check_input ($details) {
 	if ($details['pid'] && !ctype_digit($details['pid']))
 		$errors['pid'] = 'Invalid person ID passed';
 
-	if ((get_http_var('submitted') || $details['add']) && !$details['pid'] && !$details['alertsearch'] && !$details['keyword'])
+	if ($details['submitted'] && !$details['pid'] && !$details['alertsearch'] && !$details['keyword'])
 		$errors['alertsearch'] = 'Please enter what you want to be alerted about';
 
 	if (strpos($details['alertsearch'], '..') || strpos($details['keyword'], '..')) {
@@ -241,7 +239,6 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
     $ACTIONURL->reset();
     $form_start = '<form action="' . $ACTIONURL->generate() . '" method="post">
 <input type="hidden" name="t" value="' . htmlspecialchars(get_http_var('t')) . '">
-<input type="hidden" name="only" value="1">
 <input type="hidden" name="email" value="' . htmlspecialchars(get_http_var('email')) . '">';
 
     if (isset($details['members']) && $details['members']->rows() > 0) {
@@ -321,7 +318,7 @@ You cannot sign up to multiple search terms using a comma &ndash; either use OR,
         echo "</li></ul>";
     }
 
-    if (!$details['add']) {
+    if (!$details['pid'] && !$details['keyword']) {
 ?>
 
 <p><label for="alertsearch">To sign up to an email alert, enter either your
@@ -338,7 +335,7 @@ also match &lsquo;horses&rsquo;).
 <input type="hidden" name="t" value="' . htmlspecialchars(get_http_var('t')) . '">
 <input type="hidden" name="submitted" value="1">';
 
-    if (!$details['add']) {
+    if (!$details['pid'] && !$details['keyword']) {
         if (isset($errors["alertsearch"])) {
             $PAGE->error_message($errors["alertsearch"]);
         }
@@ -355,11 +352,9 @@ also match &lsquo;horses&rsquo;).
         echo '<input type="hidden" name="pid" value="' . htmlspecialchars($details['pid']) . '">';
     if ($details['keyword'])
         echo '<input type="hidden" name="keyword" value="' . htmlspecialchars($details['keyword']) . '">';
-    if ($details['pid'] || $details['keyword'])
-        echo '<input type="hidden" name="only" value="1">';
 
     if (!$details['email_verified']) {
-        if (isset($errors["email"]) && (get_http_var('submitted') || $details['add'])) {
+        if (isset($errors["email"]) && $details['submitted']) {
             $PAGE->error_message($errors["email"]);
         }
 ?>
@@ -383,7 +378,7 @@ also match &lsquo;horses&rsquo;).
         address for every alert you set.<br><br>
 <?php
     }
-    if (!$details['add']) {
+    if (!$details['pid'] && !$details['keyword']) {
 ?>
         <p>Please note that you should only enter <strong>one term per alert</strong> &ndash; if
         you wish to receive alerts on more than one thing, or for more than

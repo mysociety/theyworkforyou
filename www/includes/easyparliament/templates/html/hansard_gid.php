@@ -283,7 +283,7 @@ if (isset ($data['rows'])) {
 
 				//speaker links
 				echo '<div class="personinfo" id="personinfo_' . $row['epobject_id']  . '"><ul>';
-				echo '<li><a href="/alert/?only=1&pid=' . $speaker['person_id'] . '">Email me when ' . $speakername .  ' speaks</a></li>';
+				echo '<li><a href="/alert/?pid=' . $speaker['person_id'] . '">Email me when ' . $speakername .  ' speaks</a></li>';
 				if($data['info']['major'] == 101 || $data['info']['major'] == 1){
 				    echo '<li><a href="' . $speaker['url'] . '#votingrecord">View voting record</a></li>';												    
 			    }

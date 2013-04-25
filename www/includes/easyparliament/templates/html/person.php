@@ -15,7 +15,7 @@ print '<p class="printonly">This data was produced by TheyWorkForYou from a vari
 
 if ($member['has_email_alerts']) {
     print '<p class="informational alert">';
-    print '<a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me updates on '. $member['full_name']. '&rsquo;s activity</strong></a>
+    print '<a href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Email me updates on '. $member['full_name']. '&rsquo;s activity</strong></a>
     <span>(no more than once per day)</span></p>';
 }
 
@@ -326,7 +326,7 @@ function person_user_actions($member) {
 
 	# If they're currently an MLA, a Lord or a non-Sinn Fein MP
 	if ($member['has_email_alerts']) {
-		#print '<li><a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'"><strong>Email me updates on ' . $member['full_name']. '&rsquo;s activity</strong></a> (no more than once per day)</li>';
+		#print '<li><a href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Email me updates on ' . $member['full_name']. '&rsquo;s activity</strong></a> (no more than once per day)</li>';
 	}
 
 	# Video
@@ -760,7 +760,7 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 		elseif ($member['house_disp']==4) print 'this MSP';
 		elseif ($member['house_disp']==0) print $member['full_name'];
 		if ($member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein') || $member['current_member'][4]) {
-			print ' &mdash; <a href="' . WEBPATH . 'alert/?only=1&amp;pid='.$member['person_id'].'">email me updates on '. $member['full_name']. '&rsquo;s activity</a>';
+			print ' &mdash; <a href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'">email me updates on '. $member['full_name']. '&rsquo;s activity</a>';
 		}
 		print '.</li>';
 	}
