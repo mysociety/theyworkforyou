@@ -346,14 +346,16 @@ also match &lsquo;horses&rsquo;).
 <input type="hidden" name="t" value="' . htmlspecialchars(get_http_var('t')) . '">
 <input type="hidden" name="submitted" value="1">';
 
-    if (!$details['pid'] && !$details['keyword']) {
+    if ((!$details['pid'] && !$details['keyword']) || isset($errors['alertsearch'])) {
         if (isset($errors["alertsearch"])) {
             $PAGE->error_message($errors["alertsearch"]);
         }
+        $text = $details['alertsearch'];
+        if (!$text) $text = $details['keyword'];
 ?>
 
 <div class="row">
-<input type="text" name="alertsearch" id="alertsearch" value="<?php if ($details['alertsearch']) { echo htmlentities($details['alertsearch']); } ?>" maxlength="255" size="30" style="font-size:150%">
+<input type="text" name="alertsearch" id="alertsearch" value="<?php if ($text) { echo htmlentities($text); } ?>" maxlength="255" size="30" style="font-size:150%">
 </div>
 
 <?php
