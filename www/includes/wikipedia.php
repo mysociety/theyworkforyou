@@ -2,7 +2,7 @@
 /*
   Based on wikiproxy.php v0.5 04-10-2004 stefan (wholivesat) whitelabel.org
   scripts/wikipedia-update updates the database of titles each week.
-  
+
   The bits of code I didn't borrow from elsewhere (and I've credited where) is licenced under the GPL. Do with it what you will, but this is my first php and my first code for 7 years, so I'd appreciate feedback and suggestions via comments on my blog:
   http://www.whitelabel.org/archives/002248.html
   (especially regex optimisations for lines 64 and 65 - ideally a way of making it NOT match if we're within an IMG tag, because then I could drop the antiTaginTag stuff)
@@ -52,18 +52,18 @@ function wikipedize ($source) {
 
   # Three Letter Acronyms
   preg_match_all("/\b[A-Z]{2,}/ms", $source, $acronyms);
-  
+
   # We don't want no steenking duplicates
   $phrases = array_unique(array_merge($propernounphrases1[0], $propernounphrases2[0],
     $propernounphrases3[1], $propernounphrases4[1], $propernounphrases5[0], $acronyms[0]));
   foreach ($phrases as $i => $phrase) {
     $phrases[$i] = mysql_real_escape_string(str_replace(' ', '_', trim($phrase)));
   }
- 
+
   # Open up a db connection, and whittle our list down even further, against
   # the real titles.
   $matched = array();
-  $db = new ParlDB;  
+  $db = new ParlDB;
   $source = explode('|||', $source);
   $q = $db->query("SELECT titles.title FROM titles LEFT JOIN titles_ignored ON titles.title=titles_ignored.title WHERE titles.title IN ('" . join("','", $phrases) . "') AND titles_ignored.title IS NULL");
   $phrases = array();
@@ -87,13 +87,13 @@ function wikipedize ($source) {
     # Go ahead
     twfy_debug("WIKIPEDIA", "Matched '$phrase'");
     # 1 means only replace one match for phrase per paragraph
-    $source = preg_replace ("/$phrase/", "<a href='http://en.wikipedia.org/wiki/$wikistring'>$phrase</a>", $source, 1);
+    $source = preg_replace ('/' . $phrase . '(?!(?>[^<]*(?:<(?!\/?a\b)[^<]*)*)</a>)/', "<a href='http://en.wikipedia.org/wiki/$wikistring'>$phrase</a>", $source, 1);
     array_push($matched, $phrase);
   }
 
   if (!$was_array)
     $source = join('|||', $source);
- 
+
   return $source;
 }
 
@@ -152,7 +152,7 @@ function antiTagInTag( $content = '', $format = 'htmlhead' )
     }
   if (isset($tags)&&isset($newtags)){
   $content = str_replace($tags, $newtags, $content);
-  }  
+  }
 return $content;
 }
 
