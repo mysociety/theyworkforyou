@@ -312,7 +312,7 @@ class GLOSSARY {
 		$body = preg_replace($findwords, $replacewords, $body);
 		if (isset($this->glossary_id))
 			# The regex here ensures that the phrase is only matched if it's not already within <a> tags, preventing double-linking. Kudos to http://stackoverflow.com/questions/7798829/php-regular-expression-to-match-keyword-outside-html-tag-a
-			$body = preg_replace("/\b(" . $this->terms[$this->glossary_id]['title'] . ")\b(?!(?>[^<]*(?:<(?!\/?a\b)[^<]*)*)</a>)/i", '<strong>\\1</strong>', $body, 1);
+			$body = preg_replace("/\b(" . $this->terms[$this->glossary_id]['title'] . ")\b(?!(?>[^<]*(?:<(?!\/?a\b)[^<]*)*)<\/a>)/i", '<strong>\\1</strong>', $body, 1);
 
 		# XXX This means NI page, so replace MLA names
 		if ($tokenize == 2) {
