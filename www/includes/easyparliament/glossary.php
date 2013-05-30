@@ -322,26 +322,10 @@ class GLOSSARY {
 		// TODO: Merge this code into above, so our gloss and wikipedia
 		// don't clash (e.g. URLs getting doubly munged etc.)
 		$body = wikipedize($body);  
-	
-		// Then translate all the title tag codes.
-		// (this stops preg replace replacing content in the title tags)
-		if ($tokenize == 0) {
-			$body = $this->glossarise_titletags($body);
-		}
 
 		return ($body);
 	}
-	
-	function glossarise_titletags($body) {
-		if (is_array($body)) {
-			foreach ($body as $i => $t) {
-				$body[$i] = antiTagInTag($t);
-			}
-		} else {
-			$body = antiTagInTag($body);
-		}
-		return $body;
-	}
+
 }
 
 ?>
