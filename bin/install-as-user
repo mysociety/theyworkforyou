@@ -1,0 +1,69 @@
+#!/bin/sh
+
+set -e
+DONE_MSG=$(printf "\033[32mdone\033[0m")
+
+if [ $# -ne 3 ]
+then
+    cat >&2 <<EOUSAGE
+Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY>
+EOUSAGE
+    exit 1
+fi
+
+UNIX_USER="$1"
+HOST="$2"
+DIRECTORY="$3"
+DB_NAME="theyworkforyou"
+
+# Check that the arguments we've been passed are sensible:
+
+IP_ADDRESS_FOR_HOST="$(dig +short $HOST)"
+
+if [ x = x"$IP_ADDRESS_FOR_HOST" ]
+then
+    echo "The hostname $HOST didn't resolve to an IP address"
+    exit 1
+fi
+
+if ! id "$UNIX_USER" 2> /dev/null > /dev/null
+then
+    echo "The user '$UNIX_USER' didn't exist."
+    exit 1
+fi
+
+if [ "$(whoami)" != "$UNIX_USER" ]
+then
+    echo "This script should be run by the user '$UNIX_USER'."
+    exit 1
+fi
+
+REPOSITORY="$DIRECTORY/theyworkforyou"
+LINK_DESTINATION="$HOME/theyworkforyou"
+
+echo -n "Linking $LINK_DESTINATION to $REPOSITORY... "
+ln -sfn "$REPOSITORY" $LINK_DESTINATION
+echo $DONE_MSG
+cd "$REPOSITORY"
+
+echo -n "Creating conf/general configuration... "
+# Write sensible values into the config file:
+sed -r \
+    -e 's!^(.*"OPTION_TWFY_DB_USER", *)"[^"]*"!'"\\1'$UNIX_USER'!" \
+    -e 's!^(.*"OPTION_TWFY_DB_PASS", *)"[^"]*"!'"\\1''!" \
+    -e 's!^(.*"OPTION_TWFY_DB_NAME", *)"[^"]*"!'"\\1'$DB_NAME'!" \
+    -e 's!^(.*"BASEDIR", *)"[^"]*"!'"\\1'$REPOSITORY/www/docs'!" \
+    -e 's!^(.*"DOMAIN", *)"[^"]*"!'"\\1'$HOST'!" \
+    -e 's!^(.*"COOKIEDOMAIN", *)"[^"]*"!'"\\1'$HOST'!" \
+    conf/general-example > conf/general
+echo $DONE_MSG
+
+# Create the database if it doesn't exist:
+echo -n "Loading schema into database... "
+if ! mysql -u twfy theyworkforyou -e "DESCRIBE consinfo" 2>/dev/null | grep -q Field; then
+    mysql -u twfy theyworkforyou < db/schema.sql
+else
+    printf "\033[33malready\033[0m "
+fi
+echo $DONE_MSG
+
