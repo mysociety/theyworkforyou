@@ -18,20 +18,20 @@ Francis Irving
 on behalf of the TheyWorkForYou.com team
 2004-07-10 (updated 2008-04-30)
 
-------------------------------------------------------------------------------
-
-What is TheyWorkForYou.com anyway?
+## What is TheyWorkForYou.com anyway?
 
 Everything MPs say in the UK's House of Commons is recorded in a document
 called Hansard.  TheyWorkForYou.com helps make sense of this vital democratic
 resource and, crucially, allows you to add your own annotations and links to the
 official transcripts of Parliament.
 
-How on earth do I use this code?
+## How on earth do I use this code?
 
-See INSTALL.txt for installation questions.
+See INSTALL.md for installation questions.
 
 Probably best that you ask questions on the mySociety developers-public email list.
 https://secure.mysociety.org/admin/lists/mailman/listinfo/developers-public
 
+## Test Status
 
+[![Build Status](https://travis-ci.org/mysociety/fixmystreet.png?branch=master)](https://travis-ci.org/mysociety/fixmystreet)
