@@ -310,7 +310,7 @@ class GLOSSARY {
 			}
 		}
 		// Highlight all occurrences of another glossary term in the definition.
-		$body = preg_replace($findwords, $replacewords, $body);
+		$body = preg_replace($findwords, $replacewords, $body, 1);
 		if (isset($this->glossary_id))
 			$body = preg_replace("/(?<![>\.\'\/])\b(" . $this->terms[$this->glossary_id]['title'] . ")\b(?![<\'])/i", '<strong>\\1</strong>', $body, 1);
 
