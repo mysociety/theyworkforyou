@@ -72,7 +72,7 @@ echo -n "Checking out parlparse... "
 if [ ! -e $HOME/parlparse ]; then
     cd $HOME
     svn co -q http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse
-    cd -
+    cd - >/dev/null
 fi
 echo $DONE_MSG
 

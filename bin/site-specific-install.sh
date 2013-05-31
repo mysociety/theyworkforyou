@@ -37,7 +37,7 @@ if ! dpkg -l php5-xapian 2>/dev/null | grep -q '^.i'; then
     echo -n "  Build dependencies for xapian-bindings... "
     apt-get -qq build-dep xapian-bindings >/dev/null
     echo $DONE_MSG
-    echo -n "  PHP dev headers and devscripts... "
+    echo "  PHP dev headers and devscripts... "
     apt-get -qq install php5-dev php5-cli devscripts >/dev/null
     echo $DONE_MSG
     echo -n "  xapian-bindings source... "
