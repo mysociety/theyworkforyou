@@ -4,10 +4,3 @@ We keep 2009-10-26 to 2009-10-31 (inclusive) except in the case of
 ni, where we use 2009-10-12 to 2009-10-17, otherwise there'd be no
 data there.
 
-parlparse was grabbed from svn, except that I've only kept MPs who are
-current or left parliament in 1995 or later, since that cuts out a lot
-of historical data:
-
-  xml_grep --pretty_print indented 'member[@todate=~/^(9999-12-31|2|199[56789])/]' all-members.xml >reduced-all-members.xml
-
-people.xml was then updated with ./personsets.py
