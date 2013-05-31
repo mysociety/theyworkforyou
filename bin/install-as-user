@@ -55,6 +55,7 @@ sed -r \
     -e 's!^(.*"BASEDIR", *)"[^"]*"!'"\\1'$REPOSITORY/www/docs'!" \
     -e 's!^(.*"DOMAIN", *)"[^"]*"!'"\\1'$HOST'!" \
     -e 's!^(.*"COOKIEDOMAIN", *)"[^"]*"!'"\\1'$HOST'!" \
+    -e 's!^(.*"XAPIANDB", *)'"''!\\1'$DIRECTORY/searchdb'!" \
     conf/general-example > conf/general
 echo $DONE_MSG
 
@@ -67,3 +68,16 @@ else
 fi
 echo $DONE_MSG
 
+echo -n "Checking out parlparse... "
+if [ ! -e $HOME/parlparse ]; then
+    cd $HOME
+    svn co -q http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse
+    cd -
+fi
+echo $DONE_MSG
+
+echo -n "Default linking of test data... "
+if [ ! -e $HOME/pwdata ]; then
+    ln -s $HOME/theyworkforyou/uml-tests/parldata $HOME/pwdata
+fi
+echo $DONE_MSG
