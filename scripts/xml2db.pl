@@ -1552,7 +1552,7 @@ sub add_wms_day {
 }
 
 sub is_dupe {
-        return 1 if $_[0] =~ /My (?:right )?(?:hon(\.|ourable) )?(?:and )?(?:noble )?friend\s*.*? (?:has )?(?:today )?(?:(?:made|issued) the following (?:Written )?Ministerial Statement|published a report)/i;
+        return 1 if $_[0] =~ /My (?:right )?(?:hon(\.|ourable) )?(?:and )?(?:noble )?friend\s*.*? (?:has )?(?:today )?(?:(?:made|issued) the following (?:Written )?(?:Ministerial )?Statement|published a report)/i;
         return 0;
 }
 sub load_wms_speech {
