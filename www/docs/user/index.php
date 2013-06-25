@@ -266,37 +266,38 @@ function check_input ($details) {
 	// They don't need a last name. In case Madonna joins.
 
 	// Check email address is valid and unique.
-	if ($details["email"] == "") {
-		$errors["email"] = "Please enter $who email address";
+	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
+        if ($details["email"] == "") {
+            $errors["email"] = "Please enter $who email address";
 	
-	} elseif (!validate_email($details["email"])) {
-		// validate_email() is in includes/utilities.php
-		$errors["email"] = "Please enter a valid email address";
-	
-	} else {
+        } elseif (!validate_email($details["email"])) {
+            // validate_email() is in includes/utilities.php
+            $errors["email"] = "Please enter a valid email address";
 
-		$USER = new USER;
-		$id_of_user_with_this_addresss = $USER->email_exists($details["email"]);
-				
-		if ($this_page == "useredit" && 
-			get_http_var("u") == "" && 
-			$THEUSER->isloggedin()) {
-			// User is updating their own info.
-			// Check no one else has this email.
+        } else {
 
-			if ($id_of_user_with_this_addresss && 
-				$id_of_user_with_this_addresss != $THEUSER->user_id()) {
-				$errors["email"] = "Someone else has already joined with this email address";
-			}
-			
-		} else {
-			// User is joining. Check no one is already here with this email.
-	 		if ($this_page == "userjoin" && $id_of_user_with_this_addresss) {
-				$errors["email"] = "There is already a user with this email address";
-			}
-		}
-	}
-	
+            $USER = new USER;
+            $id_of_user_with_this_addresss = $USER->email_exists($details["email"]);
+
+            if ($this_page == "useredit" &&
+                get_http_var("u") == "" &&
+                $THEUSER->isloggedin()) {
+                // User is updating their own info.
+                // Check no one else has this email.
+
+                if ($id_of_user_with_this_addresss &&
+                    $id_of_user_with_this_addresss != $THEUSER->user_id()) {
+                    $errors["email"] = "Someone else has already joined with this email address";
+                }
+
+            } else {
+                // User is joining. Check no one is already here with this email.
+                if ($this_page == "userjoin" && $id_of_user_with_this_addresss) {
+                    $errors["email"] = "There is already a user with this email address";
+                }
+            }
+        }
+    }
 	
 	// Check passwords.
 	if ($this_page == "userjoin") {
