@@ -76,13 +76,6 @@ if (isset ($data['rows'])) {
 		$bodies = $SEARCHENGINE->highlight($bodies);
 		twfy_debug_timestamp('After highlight');
 	}
-	if (isset($data['info']['glossarise']) && ($data['info']['glossarise'] == 1)) {
-		// Now we replace the title attributes for the glossarised links
-		// to avoid words being highlighted within them.
-		twfy_debug_timestamp('Before glossarise_titletags');
-		$bodies = $GLOSSARY->glossarise_titletags($bodies, 1);
-		twfy_debug_timestamp('After glossarise_titletags');
-	}
 
 	$speeches = 0;
 	for ($i=0; $i<count($data['rows']); $i++) {
