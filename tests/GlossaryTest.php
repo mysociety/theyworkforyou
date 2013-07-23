@@ -5,7 +5,9 @@ class GlossaryTest extends PHPUnit_Framework_TestCase
 
 	public function setUp() {
 		include_once('www/includes/easyparliament/glossary.php');
-		$this->glossary = new GLOSSARY();
+
+		$args['sort'] = "regexp_replace";
+		$this->glossary = new GLOSSARY($args);
 	 }
 
 	public function testGlossariseNormal()
