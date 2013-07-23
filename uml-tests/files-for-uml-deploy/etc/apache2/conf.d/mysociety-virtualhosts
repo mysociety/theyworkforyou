@@ -1,2 +1,0 @@
-# Include the virtual host configurations:
-Include /etc/apache2/virtualhosts.d/

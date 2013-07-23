@@ -1,7 +1,0 @@
-#!/bin/sh
-
-# We might want to run this from a different directory:
-D="$(dirname $(readlink -nf "$0"))"
-. "$D/conf"
-
-exec ssh -o StrictHostKeyChecking=no -p $SSH_PORT -i "$D/id_dsa.root" root@$UML_SERVER_IP "$@"

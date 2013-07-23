@@ -218,14 +218,15 @@ the service.
 
 <p>These help you interface with the API more easily in a particular language:</p>
 <ul>
-<li><a href="http://github.com/bruce/twfy">Ruby</a> (thanks to Bruce Williams and Martin Owen)</li>
-<li><a href="http://search.cpan.org/perldoc?WebService::TWFY::API">Perl</a> (thanks to Spiros Denaxas)</li>
-<li><a href="http://tools.rubenarakelyan.com/twfyapi/">PHP</a> (thanks to Ruben Arakelyan)</li>
-<li><a href="http://code.google.com/p/twfython/">Python</a> (thanks to Paul Doran)</li>
-<li><a href="http://tools.rubenarakelyan.com/twfyapi/">ASP.net</a> (thanks to Ruben Arakelyan)</li>
-<li><a href="https://sourceforge.net/projects/twfyjavaapi">Java</a> (thanks to Mitch Kent)</li>
+<li><a href="https://github.com/rubenarakelyan/twfyapi/">ASP.net</a> (thanks to Ruben Arakelyan)</li>
 <li><a href="https://github.com/rhinocratic/twfy">Clojure</a> (thanks to Andrew Baxter)</li>
 <li><a href="https://github.com/jamtho/twfy">Common Lisp</a> (thanks to James Thompson)</li>
+<li><a href="https://github.com/rubenarakelyan/twfyapi/">JavaScript</a> (thanks to Ruben Arakelyan)</li>
+<li><a href="https://sourceforge.net/projects/twfyjavaapi">Java</a> (thanks to Mitch Kent)</li>
+<li><a href="http://search.cpan.org/perldoc?WebService::TWFY::API">Perl</a> (thanks to Spiros Denaxas)</li>
+<li><a href="https://github.com/rubenarakelyan/twfyapi/">PHP</a> (thanks to Ruben Arakelyan)</li>
+<li><a href="http://code.google.com/p/twfython/">Python</a> (thanks to Paul Doran)</li>
+<li><a href="http://github.com/bruce/twfy">Ruby</a> (thanks to Bruce Williams and Martin Owen)</li>
 </ul>
 
 <p>If anyone wishes to write bindings for the API in any language, please
