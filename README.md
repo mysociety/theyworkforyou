@@ -23,3 +23,5 @@ If you have questions, the best place to ask is the mySociety developers-public 
 ## Build Status
 
 [![Build Status](https://travis-ci.org/mysociety/theyworkforyou.png?branch=master)](https://travis-ci.org/mysociety/theyworkforyou)
+
+[![Coverage Status](https://coveralls.io/repos/mysociety/theyworkforyou/badge.png)](https://coveralls.io/r/mysociety/theyworkforyou)
