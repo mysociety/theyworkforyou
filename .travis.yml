@@ -8,11 +8,7 @@ php:
 notifications:
   email: false
   
-env:
-  - TWFY_TEST_DB_HOST=localhost
-  - TWFY_TEST_DB_USER=root
-  - TWFY_TEST_DB_PASS=
-  - TWFY_TEST_DB_NAME=twfy_test
+env: TWFY_TEST_DB_HOST="localhost" TWFY_TEST_DB_USER="root" TWFY_TEST_DB_PASS="" TWFY_TEST_DB_NAME="twfy_test"
   
 before_script:
  - mysql -e "create database IF NOT EXISTS twfy_test;" -uroot
