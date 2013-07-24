@@ -2,12 +2,23 @@
 
 // TWFY Test Bootstrapper
 
-// Load up the config
-include_once dirname(__FILE__) . '/../conf/general';
+// Test to make sure we have the test DB environment variables. If not, this isn't testing, so abort.
+// Define the DB connection constants before we do anything else.
+if (
+    isset ($_ENV['TWFY_TEST_DB_HOST']) AND
+    isset ($_ENV['TWFY_TEST_DB_USER']) AND
+    isset ($_ENV['TWFY_TEST_DB_PASS']) AND
+    isset ($_ENV['TWFY_TEST_DB_NAME'])
+) {
 
-// Make sure we're running on a staging server or Travis, or else we probably shouldn't be testing (bad ju
-if (DEVSITE !== 1) {
-    echo 'This isn\'t a development site. Aborting in case you\'re accidentally running tests on production.';
+    // Define the DB variables before init.php tries
+    define('OPTION_TWFY_DB_HOST', $_ENV['TWFY_TEST_DB_HOST']);
+    define('OPTION_TWFY_DB_USER', $_ENV['TWFY_TEST_DB_USER']);
+    define('OPTION_TWFY_DB_PASS', $_ENV['TWFY_TEST_DB_PASS']);
+    define('OPTION_TWFY_DB_NAME', $_ENV['TWFY_TEST_DB_NAME']);
+
+} else {
+    echo 'Testing environment variables not set. This will cause bad things to happen if testing happens on production. Aborting.';
     exit(1);
 }
 
