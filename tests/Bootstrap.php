@@ -2,8 +2,6 @@
 
 // TWFY Test Bootstrapper
 
-var_dump($_SERVER);
-
 // Test to make sure we have the test DB environment variables. If not, this isn't testing, so abort.
 // Define the DB connection constants before we do anything else.
 if (
