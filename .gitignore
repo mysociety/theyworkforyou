@@ -2,3 +2,5 @@
 *~
 *.pyc
 .sass-cache
+vendor
+composer.lock

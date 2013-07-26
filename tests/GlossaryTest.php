@@ -1,7 +1,21 @@
 <?php
 
-class GlossaryTest extends PHPUnit_Framework_TestCase
+class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
 {
+
+    public function getConnection()
+    {
+        $dsn = 'mysql:host=' . OPTION_TWFY_DB_HOST . ' ;dbname=' . OPTION_TWFY_DB_NAME;
+        $username = OPTION_TWFY_DB_USER;
+        $password = OPTION_TWFY_DB_PASS;
+        $pdo = new PDO($dsn, $username, $password);
+        return $this->createDefaultDBConnection($pdo, OPTION_TWFY_DB_NAME);
+    }
+
+    public function getDataSet()
+    {
+        return $this->createFlatXMLDataSet(dirname(__FILE__).'/_fixtures/glossary.xml');
+    }
 
 	public function setUp() {
 		include_once('www/includes/easyparliament/glossary.php');

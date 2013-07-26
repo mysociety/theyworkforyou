@@ -2,6 +2,12 @@
 
 // TWFY Test Bootstrapper
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+// Go get the Composer autoloader to make sure we've got the right PHPUnit extensions.
+require_once(dirname(__FILE__) . '/../vendor/autoload.php');
+
 // Test to make sure we have the test DB environment variables. If not, this isn't testing, so abort.
 // Define the DB connection constants before we do anything else.
 if (
@@ -18,7 +24,7 @@ if (
     define('OPTION_TWFY_DB_NAME', $_SERVER['TWFY_TEST_DB_NAME']);
     
     // Define the base directory
-    define ("BASEDIR",dirname(__FILE__) . '/../www/docs'); 
+    define ("BASEDIR", dirname(__FILE__) . '/../www/docs'); 
     
     // If there isn't a config file (most likely this is running an automated test) copy one in.
     if ( ! file_exists(dirname(__FILE__) . '/../conf/general')) {
