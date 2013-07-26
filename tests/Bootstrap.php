@@ -22,6 +22,19 @@ if (
     exit(1);
 }
 
+// Explicitly declare we're in testing (avoids trying deploy-only things)
+define('TESTING', TRUE);
+
+// Specify bits of configuration that would normally be dealt with by deployment
+define ("WEBPATH", "/");
+define ("DEVSITE", 1);
+define ("DEBUGTAG", 'twfy_debug');
+define ("TIMEZONE", "Europe/London");
+define ("BASEDIR", dirname(__FILE__) . '/../www/docs');
+define ("INCLUDESPATH", BASEDIR . "/../includes/");
+define ("IMAGEPATH", WEBPATH . "images/");
+define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");
+
 // Load up the init script (handles the rest of the config, DB connection etc)
 include_once('www/includes/easyparliament/init.php');
 

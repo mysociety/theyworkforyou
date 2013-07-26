@@ -33,7 +33,9 @@ define ('POSTCODE_COOKIE', 		'eppc');
 And now all the files we'll include on every page. 
 ********************************************************************************/
 
-include_once dirname(__FILE__) . '/../../../conf/general';
+if ( TESTING !== TRUE ) {
+    include_once dirname(__FILE__) . '/../../../conf/general';
+}
 include_once INCLUDESPATH . 'utility.php';
 twfy_debug_timestamp("after including utility.php");
 
