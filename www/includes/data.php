@@ -182,7 +182,7 @@ class DATA {
 			$debugtext = "No metadata found for key '$key'";
 		}
 		
-		twfy_debug("DATA", "$debugtext, returning '$return'.");
+		twfy_debug("DATA", "$debugtext, returning '" . (is_scalar($return) ? $return : gettype($return)) . "'.");
 
 		return $return;
 	}
