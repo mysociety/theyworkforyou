@@ -1,4 +1,4 @@
 tools:
     php_code_sniffer: true
-    php_code_coverage: true
     php_loc: true
+    php_mess_detector: true
