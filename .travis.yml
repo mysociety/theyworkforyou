@@ -12,6 +12,7 @@ env: TWFY_TEST_DB_HOST="localhost" TWFY_TEST_DB_USER="root" TWFY_TEST_DB_PASS=""
   
 before_script:
  - mysql -e "create database IF NOT EXISTS twfy_test;" -uroot
+ - mysql -u root twfy_test < db/schema.sql
  - wget http://getcomposer.org/composer.phar
  - php composer.phar install --dev --no-interaction
  - echo "short_open_tag = On" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
