@@ -17,18 +17,19 @@ if (
     isset($_SERVER['TWFY_TEST_DB_NAME'])
 ) {
 
-    // Define the DB constants before config does. This should happen regardless of the presence of a config file.
-    define('OPTION_TWFY_DB_HOST', $_SERVER['TWFY_TEST_DB_HOST']);
-    define('OPTION_TWFY_DB_USER', $_SERVER['TWFY_TEST_DB_USER']);
-    define('OPTION_TWFY_DB_PASS', $_SERVER['TWFY_TEST_DB_PASS']);
-    define('OPTION_TWFY_DB_NAME', $_SERVER['TWFY_TEST_DB_NAME']);
-    
-    // Define the base directory
-    define ("BASEDIR", dirname(__FILE__) . '/../www/docs'); 
-    
     // If there isn't a config file (most likely this is running an automated test) copy one in.
     if ( ! file_exists(dirname(__FILE__) . '/../conf/general')) {
-        copy(dirname(__FILE__) . '/../conf/general-example', dirname(__FILE__) . '/../conf/general');
+        $conf = file_get_contents(dirname(__FILE__) . '/../conf/general-example');
+        foreach(array('HOST', 'USER', 'PASS', 'NAME') as $key) {
+            $conf = preg_replace(
+                '/"OPTION_TWFY_DB_' . $key . '", *"[^"]*"/',
+                 '"OPTION_TWFY_DB_' . $key . '", "' . $_SERVER["TWFY_TEST_DB_$key"] . '"',
+                $conf
+            );
+        }
+        $basedir = dirname(__FILE__) . '/../www/docs';
+        $conf = preg_replace('/"BASEDIR", *"[^"]*"/', '"BASEDIR", "' . $basedir . '"', $conf); 
+        file_put_contents(dirname(__FILE__) . '/../conf/general', $conf);
     }
 
 } else {
