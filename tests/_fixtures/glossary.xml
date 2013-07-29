@@ -1,59 +1,65 @@
 <?xml version="1.0"?>
-
-<!--
--
-- Sequel Pro XML dump
-- Version 4096
--
-- http://www.sequelpro.com/
-- http://code.google.com/p/sequel-pro/
--
-- Host: 127.0.0.1 (MySQL 5.1.66-0+squeeze1-log)
-- Database: twfy_nick
-- Generation Time Time: 2013-07-26 15:33:58 +0000
--
--->
-
-<resultset statement="SELECT * FROM `users`" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-	<row>
-		<field name="user_id">1</field>
-		<field name="firstname">User</field>
-		<field name="lastname">Test</field>
-		<field name="email"></field>
-		<field name="password"></field>
-		<field name="lastvisit">0000-00-00 00:00:00</field>
-		<field name="registrationtime">0000-00-00 00:00:00</field>
-		<field name="registrationip" xsi:nil="true" />
-		<field name="status">User</field>
-		<field name="emailpublic">0</field>
-		<field name="optin">0</field>
-		<field name="deleted">0</field>
-		<field name="postcode"></field>
-		<field name="registrationtoken"></field>
-		<field name="confirmed">1</field>
-		<field name="url"></field>
-		<field name="api_key" xsi:nil="true" />
-	</row>
-
-	<row>
-		<field name="user_id">2</field>
-		<field name="firstname">Moderator</field>
-		<field name="lastname">Test</field>
-		<field name="email"></field>
-		<field name="password"></field>
-		<field name="lastvisit">0000-00-00 00:00:00</field>
-		<field name="registrationtime">0000-00-00 00:00:00</field>
-		<field name="registrationip" xsi:nil="true" />
-		<field name="status">Moderator</field>
-		<field name="emailpublic">0</field>
-		<field name="optin">0</field>
-		<field name="deleted">0</field>
-		<field name="postcode"></field>
-		<field name="registrationtoken"></field>
-		<field name="confirmed">1</field>
-		<field name="url"></field>
-		<field name="api_key" xsi:nil="true" />
-	</row>
-
-</resultset>
+<dataset>
+    <table name="editqueue">
+    	<column>edit_id</column>
+    	<column>user_id</column>
+    	<column>edit_type</column>
+    	<column>epobject_id_l</column>
+    	<column>epobject_id_h</column>
+    	<column>glossary_id</column>
+    	<column>time_start</column>
+    	<column>time_end</column>
+    	<column>title</column>
+    	<column>body</column>
+    	<column>submitted</column>
+    	<column>editor_id</column>
+    	<column>approved</column>
+    	<column>decided</column>
+    	<column>reason</column>
+    	<row>
+    			<value>210</value>
+    			<value>1</value>
+    			<value>2</value>
+    			<value></value>
+    			<value></value>
+    			<value>169</value>
+    			<value></value>
+    			<value></value>
+    			<value><![CDATA[Constituency]]></value>
+    			<value><![CDATA[In a general election, each <b>Constituency</b> chooses an MP to represent them. MPs have a responsibility to represnt the views of the <b>Constituency</b> in the House of Commons. There are 659 <b>Constituencies</b>, and thus 659 MPs.
+    A citizen of a <b>Constituency</b> is known as a Constitu<i>ent</i>]]></value>
+    			<value><![CDATA[2004-06-19 15:46:48]]></value>
+    			<value>2</value>
+    			<value>1</value>
+    			<value><![CDATA[2004-06-20 22:33:22]]></value>
+    			<value></value>
+    	</row>
+    </table>
+    <table name="glossary">
+    	<column>glossary_id</column>
+    	<column>title</column>
+    	<column>body</column>
+    	<column>wikipedia</column>
+    	<column>created</column>
+    	<column>last_modified</column>
+    	<column>type</column>
+    	<column>visible</column>
+    	<row>
+    			<value>169</value>
+    			<value><![CDATA[Constituency]]></value>
+    			<value><![CDATA[In a general election, each <b>Constituency</b> chooses an MP to represent them. MPs have a responsibility to represnt the views of the <b>Constituency</b> in the House of Commons. There are 659 <b>Constituencies</b>, and thus 659 MPs.
+    A citizen of a <b>Constituency</b> is known as a Constitu<i>ent</i>]]></value>
+    			<value></value>
+    			<value><![CDATA[2004-06-20 22:33:22]]></value>
+    			<value></value>
+    			<value>2</value>
+    			<value>1</value>
+    	</row>
+    </table>
+    <table name="titles">
+    	<column>title</column>
+    	<row>
+    			<value><![CDATA[MP]]></value>
+    	</row>
+    </table>
+</dataset>
