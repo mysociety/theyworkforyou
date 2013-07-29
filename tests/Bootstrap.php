@@ -6,7 +6,6 @@
 require_once(dirname(__FILE__) . '/../vendor/autoload.php');
 
 // Test to make sure we have the test DB environment variables. If not, this isn't testing, so abort.
-// Define the DB connection constants before we do anything else.
 if (
     isset($_SERVER['TWFY_TEST_DB_HOST']) AND
     isset($_SERVER['TWFY_TEST_DB_USER']) AND
