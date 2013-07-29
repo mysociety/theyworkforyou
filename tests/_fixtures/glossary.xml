@@ -62,4 +62,61 @@
     			<value><![CDATA[MP]]></value>
     	</row>
     </table>
+    <table name="users">
+    	<column>user_id</column>
+    	<column>firstname</column>
+    	<column>lastname</column>
+    	<column>email</column>
+    	<column>password</column>
+    	<column>lastvisit</column>
+    	<column>registrationtime</column>
+    	<column>registrationip</column>
+    	<column>status</column>
+    	<column>emailpublic</column>
+    	<column>optin</column>
+    	<column>deleted</column>
+    	<column>postcode</column>
+    	<column>registrationtoken</column>
+    	<column>confirmed</column>
+    	<column>url</column>
+    	<column>api_key</column>
+    	<row>
+    			<value>1</value>
+    			<value><![CDATA[User]]></value>
+    			<value><![CDATA[Test]]></value>
+    			<value></value>
+    			<value></value>
+    			<value><![CDATA[0000-00-00 00:00:00]]></value>
+    			<value><![CDATA[0000-00-00 00:00:00]]></value>
+    			<value></value>
+    			<value><![CDATA[User]]></value>
+    			<value>0</value>
+    			<value>0</value>
+    			<value>0</value>
+    			<value></value>
+    			<value></value>
+    			<value>1</value>
+    			<value></value>
+    			<value></value>
+    	</row>
+    	<row>
+    			<value>2</value>
+    			<value><![CDATA[Moderator]]></value>
+    			<value><![CDATA[Test]]></value>
+    			<value></value>
+    			<value></value>
+    			<value><![CDATA[0000-00-00 00:00:00]]></value>
+    			<value><![CDATA[0000-00-00 00:00:00]]></value>
+    			<value></value>
+    			<value><![CDATA[Moderator]]></value>
+    			<value>0</value>
+    			<value>0</value>
+    			<value>0</value>
+    			<value></value>
+    			<value></value>
+    			<value>1</value>
+    			<value></value>
+    			<value></value>
+    	</row>
+    </table>
 </dataset>
