@@ -7,9 +7,13 @@ use strict;
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
 # Magic numbers, and other properties of the destination schema
-# are documented here:
-#        http://parl.stand.org.uk/cgi-bin/moin.cgi/DataSchema
-#        
+# used to be documented here:
+#        http://web.archive.org/web/20090414002944/http://wiki.theyworkforyou.com/cgi-bin/moin.cgi/DataSchema
+# ... although please be aware that (as the archive.org URL suggests)
+# that document is no longer maintained and contains out-of-date information.
+# For some of the other magic numbers, you can refer to
+# www/includes/dbtypes.php in this repository, which should be current.
+#
 # The XML files for Hansard objects come from the Public Whip parser:
 #       http://scm.kforge.net/plugins/scmsvn/cgi-bin/viewcvs.cgi/trunk/parlparse/pyscraper/?root=ukparse
 # And those for MPs are in (semi-)manually updated files here:
