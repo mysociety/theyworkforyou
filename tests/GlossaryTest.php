@@ -14,10 +14,13 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
 
     public function getDataSet()
     {
-        return $this->createFlatXMLDataSet(dirname(__FILE__).'/_fixtures/glossary.xml');
+        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/glossary.xml');
     }
 
 	public function setUp() {
+	
+	    parent::setUp();
+	
 		include_once('www/includes/easyparliament/glossary.php');
 
 		$args['sort'] = "regexp_replace";
@@ -26,7 +29,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
 
 	public function testGlossariseNormal()
     {
-        $this->assertEquals('<a href="/glossary/?gl=169" title="In a general election, each Constituency chooses an MP to represent them...." class="glossary">constituency</a>', $this->glossary->glossarise('constituency'));
+        $this->assertEquals('<a href="/glossary/?gl=1" title="In a general election, each Constituency chooses an MP to represent them...." class="glossary">constituency</a>', $this->glossary->glossarise('constituency'));
     }
 
     public function testGlossariseInLink()
@@ -41,7 +44,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
 
     public function testGlossariseInSpacedString()
     {
-        $this->assertEquals('foo <a href="/glossary/?gl=169" title="In a general election, each Constituency chooses an MP to represent them...." class="glossary">constituency</a> bar', $this->glossary->glossarise('foo constituency bar'));
+        $this->assertEquals('foo <a href="/glossary/?gl=1" title="In a general election, each Constituency chooses an MP to represent them...." class="glossary">constituency</a> bar', $this->glossary->glossarise('foo constituency bar'));
     }
 
     public function testWikipediaLinkNormal()
