@@ -182,12 +182,12 @@ class COMMENT {
 						(user_id, epobject_id, body, posted, visible, original_gid)
 						VALUES
 						(
-						'" . addslashes($THEUSER->user_id()) . "',
-						'" . addslashes($data['epobject_id']) . "',
-						'" . addslashes($body) . "',
+						'" . mysql_real_escape_string($THEUSER->user_id()) . "',
+						'" . mysql_real_escape_string($data['epobject_id']) . "',
+						'" . mysql_real_escape_string($body) . "',
 						'" . $posted . "',
 						1,
-						'" . addslashes($data['gid']) . "'
+						'" . mysql_real_escape_string($data['gid']) . "'
 						)");
 		
 		if ($q->success()) {
