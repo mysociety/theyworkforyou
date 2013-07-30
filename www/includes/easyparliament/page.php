@@ -198,7 +198,7 @@ class PAGE {
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	<title><?php echo $title; ?></title>
+	<title><?php echo preg_replace('#<[^>]*>#', '', $title); ?></title>
 	<?=$meta_description ?>
 	<meta name="keywords" content="<?php echo htmlentities($meta_keywords); ?>">
 	<?=$robots ?>
@@ -211,6 +211,7 @@ class PAGE {
 	<script type="text/javascript" src="/js/bar.js"></script>	
 <?php
 		echo $linkshtml; 
+	# XXX Below line for speed
 ?>
 	<link rel="stylesheet" href="<?php echo WEBPATH; ?>style/global.css" type="text/css">
 	<link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">

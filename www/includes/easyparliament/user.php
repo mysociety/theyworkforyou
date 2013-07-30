@@ -638,7 +638,7 @@ class USER {
 		global $PAGE;
 
 		// Update email alerts if email address changed
-		if ($this->email != $details['email']) {
+		if (isset($details['email']) && $this->email != $details['email']) {
 			$this->db->query('UPDATE alerts SET email = "' . mysql_real_escape_string($details['email']) . '" WHERE email = "' . mysql_real_escape_string($this->email) . '"');
 		}
 
@@ -648,6 +648,7 @@ class USER {
 		$deletedsql = "";
 		$confirmedsql = "";
 		$statussql = "";
+		$emailsql = '';
 
 		if (isset($details["password"]) && $details["password"] != "") {
 			// The password is being updated.
@@ -693,6 +694,10 @@ class USER {
 
 		}
 
+		if (isset($details['email']) && $details['email']) {
+			$emailsql = "email = '" . mysql_real_escape_string($details['email']) . "', ";
+		}
+
 		// Convert internal true/false variables to MySQL BOOL 1/0 variables.
 		$emailpublic = $details["emailpublic"] == true ? 1 : 0;
 		$optin = $details["optin"] == true ? 1 : 0;
@@ -700,13 +705,13 @@ class USER {
 		$q = $this->db->query("UPDATE users
 						SET		firstname 	= '" . mysql_real_escape_string($details["firstname"]) . "',
 								lastname 	= '" . mysql_real_escape_string($details["lastname"]) . "',
-								email		= '" . mysql_real_escape_string($details["email"]) . "',
 								emailpublic	= '" . $emailpublic . "',
 								postcode	= '" . mysql_real_escape_string($details["postcode"]) . "',
 								url			= '" . mysql_real_escape_string($details["url"]) . "',"
 								. $passwordsql
 								. $deletedsql
 								. $confirmedsql
+								. $emailsql
 								. $statussql . "
 								optin 		= '" . $optin . "'
 						WHERE 	user_id 	= '" . mysql_real_escape_string($details["user_id"]) . "'
@@ -1085,7 +1090,6 @@ class THEUSER extends USER {
 
 				$this->firstname 		= $newdetails["firstname"];
 				$this->lastname 		= $newdetails["lastname"];
-				$this->email 			= $newdetails["email"];
 				$this->emailpublic 		= $newdetails["emailpublic"];
 				$this->postcode 		= $newdetails["postcode"];
 				$this->url 				= $newdetails["url"];

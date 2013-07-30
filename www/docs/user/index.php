@@ -101,7 +101,6 @@ if (get_http_var("submitted") == "true") {
 	$details = array();
 	$details["firstname"]		= trim(get_http_var("firstname"));
 	$details["lastname"]		= trim(get_http_var("lastname"));
-	$details["email"]			= trim(get_http_var("em"));
 	// We use boolean true/false internally. Convert the text from the form to boolean.
 	$details["emailpublic"]		= get_http_var("emailpublic") == "true" ? true : false;
 	$details["password"]		= trim(get_http_var("password"));
@@ -119,6 +118,10 @@ if (get_http_var("submitted") == "true") {
 		$details['url'] = 'http://' . $details['url'];
 	}
 	
+	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
+		$details["email"] = trim(get_http_var("em"));
+	}
+
 	if ($this_page == "otheruseredit") {
 		$details["user_id"]			= trim(get_http_var("u"));
 		$details["status"]			= trim(get_http_var("status"));
@@ -263,37 +266,38 @@ function check_input ($details) {
 	// They don't need a last name. In case Madonna joins.
 
 	// Check email address is valid and unique.
-	if ($details["email"] == "") {
-		$errors["email"] = "Please enter $who email address";
+	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
+        if ($details["email"] == "") {
+            $errors["email"] = "Please enter $who email address";
 	
-	} elseif (!validate_email($details["email"])) {
-		// validate_email() is in includes/utilities.php
-		$errors["email"] = "Please enter a valid email address";
-	
-	} else {
+        } elseif (!validate_email($details["email"])) {
+            // validate_email() is in includes/utilities.php
+            $errors["email"] = "Please enter a valid email address";
 
-		$USER = new USER;
-		$id_of_user_with_this_addresss = $USER->email_exists($details["email"]);
-				
-		if ($this_page == "useredit" && 
-			get_http_var("u") == "" && 
-			$THEUSER->isloggedin()) {
-			// User is updating their own info.
-			// Check no one else has this email.
+        } else {
 
-			if ($id_of_user_with_this_addresss && 
-				$id_of_user_with_this_addresss != $THEUSER->user_id()) {
-				$errors["email"] = "Someone else has already joined with this email address";
-			}
-			
-		} else {
-			// User is joining. Check no one is already here with this email.
-	 		if ($this_page == "userjoin" && $id_of_user_with_this_addresss) {
-				$errors["email"] = "There is already a user with this email address";
-			}
-		}
-	}
-	
+            $USER = new USER;
+            $id_of_user_with_this_addresss = $USER->email_exists($details["email"]);
+
+            if ($this_page == "useredit" &&
+                get_http_var("u") == "" &&
+                $THEUSER->isloggedin()) {
+                // User is updating their own info.
+                // Check no one else has this email.
+
+                if ($id_of_user_with_this_addresss &&
+                    $id_of_user_with_this_addresss != $THEUSER->user_id()) {
+                    $errors["email"] = "Someone else has already joined with this email address";
+                }
+
+            } else {
+                // User is joining. Check no one is already here with this email.
+                if ($this_page == "userjoin" && $id_of_user_with_this_addresss) {
+                    $errors["email"] = "There is already a user with this email address";
+                }
+            }
+        }
+    }
 	
 	// Check passwords.
 	if ($this_page == "userjoin") {
@@ -567,9 +571,10 @@ function display_form ( $details = array(), $errors = array() ) {
 				</div>
 
 <?php
-	if (isset($errors["email"])) {
-		$PAGE->error_message($errors["email"]);
-	}
+	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
+		if (isset($errors["email"])) {
+			$PAGE->error_message($errors["email"]);
+		}
 ?>
 				<div class="row">
 				<span class="label"><label for="em">Email address:</label></span>
@@ -577,6 +582,8 @@ function display_form ( $details = array(), $errors = array() ) {
 				</div>
 
 <?php
+
+	}
 
 	if ($this_page == "useredit" || $this_page == "otheruseredit") {
 		// If not, the user's joining.
@@ -725,7 +732,7 @@ function display_form ( $details = array(), $errors = array() ) {
 	foreach ($statuses as $n => $status) {
 		print "\t<option value=\"$status\"";
 		if ($status == $details["status"]) {
-			print " checked";
+			print " selected";
 		}
 		print ">$status</option>\n";
 	}

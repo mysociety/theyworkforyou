@@ -534,7 +534,7 @@ function prepare_comment_for_display ($text) {
 
 	$link_length = 60;
 	$text = preg_replace(
-		"/(?<!\"|\/)((http(s?):\/\/)|(www\.))([a-zA-Z\d\_\.\+\,\;\?\%\~\-\/\#\='\*\$\!\(\)\&]+)([a-zA-Z\d\_\?\%\~\-\/\#\='\*\$\!\&])/e",
+		"/(?<!\"|\/)((http(s?):\/\/)|(www\.))([a-zA-Z\d\_\.\+\,\;\?\%\~\-\/\#\='\*\$\!\(\)\&\[\]]+)([a-zA-Z\d\_\?\%\~\-\/\#\='\*\$\!\&])/e",
 		'(strlen(\'$0\')>$link_length) ? \'<a href="$0" rel="nofollow">\'.substr(\'$0\',0,$link_length)."...</a>" : \'<a href="$0" rel="nofollow">$0</a>\'',
 		$text);
 	$text = str_replace('<a href="www', '<a href="http://www', $text);
@@ -721,7 +721,7 @@ function send_email ($to, $subject, $message, $bulk = false, $from = '', $want_b
      "Content-Type: text/plain; charset=iso-8859-1\r\n" .
      "MIME-Version: 1.0\r\n" .
      "Content-Transfer-Encoding: 8bit\r\n" . 
-     ($bulk ? "Precedence: bulk\r\n" : "" ).
+     ($bulk ? "Precedence: bulk\r\nAuto-Submitted: auto-generated\r\n" : "" ).
      "X-Mailer: PHP/" . phpversion();
 	twfy_debug('EMAIL', "Sending email to $to with subject of '$subject'");
 

@@ -49,7 +49,7 @@ def api_output_xml(self, data):
 def api_output(self, data):
     """Output an API response, depending upon format. JSON done here as it's easy."""
     if self.request.get('format') == 'js':
-        self.response.headers['Content-Type'] = 'text/javascript'
+        self.response.headers['Content-Type'] = 'application/json'
         json = simplejson.dumps(data)
         if re.match('[A-Za-z0-9._[\]]+$', self.request.get('callback')):
             json = '%s(%s)' % (self.request.get('callback'), json)

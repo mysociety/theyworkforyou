@@ -1,58 +1,87 @@
-Things To Do
-~~~~~~~~~~~~
+Tests that used to be tested here
+=================================
 
-After testing installation with Louise, added the following TODOs:
+Set up steps:
+  data in parldata (was rsync, could be done with symlink now?)
+  svn co http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse
+  ./xml2db.pl --members (also had "--from=2009-10-01 --to=2009-10-31" but not sure that's honoured)
+  ./xml2db.pl --wrans --debates --westminhall --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing  --from=2009-10-01 --to=2009-10-31
+  ./index.pl sincefile
 
-- Make the web server port also configurable via the conf file (see
-  "git grep 8042")
+/user/?pg=join&ret=%2F
+  h2 Join TheyWorkForYou
+  form action=/user/, inputs firstname lastname em password password2 postcode url
+  POST /user with different passwords
 
-- Document the cutycapt submodule
+/glossary/
+  div class=leters
 
-- Take out exim and postgresql from the debootstrap
+/search/
+  form#search-form, input name=s id=s
+/search?s=her+excellency+the+President+of+India
+  dl#searchresults dt == Prime Minister: Engagements
+    dd "In view of this week's state visit"
 
-- Need to lower shared_buffers down to 24M from 32M when creating the image
+/mps/ table.people a => fetch
+  a "Email me whenever" =>  form action=/alert/ method=post hidden pid=10278
+  submit form, look for nearly done message, check email, follow link
 
-- create-rootfs.py needs to set up Apache initially to work on port 8042
+/ni/?id=2009-10-13.5.13
+  div.speech a=='Margaret Ritchie', div.main 'energy efficiency is but one element in the alleviation of fuel poverty'
+/debates/?id=2009-10-29a.548.0
+  div.speech a=='David Taylor', div.main 'common areas where consumers potentially are not getting'
+/lords/?id=2009-10-27a.1100.6
+  div.speech a=='Baroness Thornton', div.main 'concerned about the health information on labels on alcoholic drinks'
+/whall/?id=2009-10-27a.47.0
+  div.speech a=='Chris Mole', div.main 'undermine the basic affordability of the dualling of the line'
+/sp/?id=2009-10-28.20531.0
+  div.speech a=='Fiona Hyslop', div.main 'have focused in particular on lower-income families'
 
-- cutycapt needs to be run under xvfb - currently this produces an
-  error on balti
+/postcode/?pc=EH8+9NB
+  h2 "Denis Murphy"
 
-- Generating the coverage reports is hacky at the moment, and
-  pointlessly generates lots of files for every test.  (The rewriting
-  of path names, etc. is also rather brittle.)
+/
+  h4/li are:
+    ("The most recent Commons debates", "Business Before Questions"),
+    ("The most recent Lords debates", "Africa: Water Shortages &#8212; Question"),
+    ("The most recent Westminster Hall debates", "[Sir Nicholas Winterton in the Chair] &#8212; Oil and Gas"),
+    ("The most recent Written Answers","Work and Pensions"),
+    ("The most recent Written Ministerial Statements", "House of LordsEU: Justice and Home Affairs CouncilGlobal Entrepreneurship WeekLondon Underground") ]
 
-========================================================================
+/postcode/?pc=EH8+9NB
+  Test cookie has eppc=EH89NB'
+/
+  a href=/mp/ link has Sheila Gilmore in it
+/user/changepc/
+  form action=/postcode/ contains "Your current postcode: EH89NB", a href=/user/changepc/?forget=t
+/postcode/?pc=CB2%208RP&submit=GO
+  h2 Bridget Prentice
+/user/changepc/?forget=t
+  strong Enter your UK postcode:
 
-- Generate alert email
+/mp/gordon_brown/kirkcaldy_and_cowdenbeath
 
-- Show which lines are used in which test
+/scotland/
+  h3/h4 text "Busiest Scottish Parliament debates from the most recent week", next 'Scottish Economy (103 speeches)'
+  h3 "Some recent written answers", next next contains 2[0-9]\s+October\s+2009
 
-- Make the report prettier:
-    Report overall statistics at the top
-    Better CSS
+ni/
+  h3/h4 text "Busiest debates from the most recent month", next "Private Members&#8217; Business"
 
-- Generate the test div from a method of Test
+/wales/
+  h3 "We need you!"
 
-- Trick CutyCapt into sending cookies
+/mps/
+  Contains 1 Diane Abbott link
+  Contains 1 Richard Younger-Ross
 
+/msps/
+  Contains 1 Brian Adam link, and 1 John Wilson
 
-# - Setting up TUN/TAP IP addresses with DHCP:
-# 
-#     This should be possible, but nothing I've tried works.  It's
-#     probably a case where I need to ask advice.
-# 
-# - Should add an option to "mysociety vhost" to allow deployment of a
-#   specific version of the site.  (Update: this should now work by
-#   specifying a particular ref in vhosts.pl.)
+/mlas/
+  Contains >=200 links in table.people
 
-- Update: not sure if this still applies...  At the moment we're not
-  using the packages files from the archetypes.  I don't think that
-  necessarily makes sense in this situation.  We can't get them
-  without access to the private CVS.  (The lists are actually
-  build-dependencies, and there's no system for automatically
-  installing from them as well.  It could just do apt-get build-dep.)
+/spwrans/?id=2009-10-26.S3W-27797.h
+  first class speaker labour speaker, is Sarah Boyack, speech "To ask the Scottish Executive how many properties it has disposed of in the last two years to which section 68 of the Climate Change (Scotland) Act 2009 could have been applied."
+  first class speaker scottish national party, is John Swinney, speech "No core Scottish Government-owned buildings, to which section 68 of the Climate Change (Scotland) Act 2009 could have been applied, have been sold by the Scottish Government in the last two years."
 
-- Shrink the image as much as possible (e.g. zerofree?)
-
-- Update: not sure if this is still true....  Leading whitespace is
-  lost in coverage reports.

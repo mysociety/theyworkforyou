@@ -27,7 +27,7 @@ Example usage:
 
 include_once INCLUDESPATH . 'dbtypes.php';
 
-if (XAPIANDB != '') {
+if (defined('XAPIANDB') AND XAPIANDB != '') {
     if (file_exists('/usr/share/php/xapian.php')){
         include_once '/usr/share/php/xapian.php';
     }else{
@@ -38,6 +38,8 @@ if (XAPIANDB != '') {
 class SEARCHENGINE {
 
 	function SEARCHENGINE ($query, $phrase_allowed=false) {
+        $this->valid = false;
+
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
@@ -184,7 +186,14 @@ class SEARCHENGINE {
         if ($phrase_allowed) {
             $flags = $flags | XapianQueryParser::FLAG_PHRASE;
         }
-        $query = $this->queryparser->parse_query($this->query, $flags);
+        try {
+            $query = $this->queryparser->parse_query($this->query, $flags);
+        } catch (Exception $e) {
+            # Nothing we can really do with a bad query
+            $this->error = htmlspecialchars($e->getMessage());
+            return null;
+        }
+
         $this->enquire->set_query($query);
 
         # Now parse the parsed query back into a query string, yummy
@@ -279,10 +288,17 @@ class SEARCHENGINE {
         twfy_debug("SEARCH", "words: " . var_export($this->words, true));
         twfy_debug("SEARCH", "phrases: " . var_export($this->phrases, true));
         twfy_debug("SEARCH", "queryparser description -- " . $this->query_desc);
+
+        $this->valid = true;
     }
 
     function query_description_internal($long) {
-        if (!defined('XAPIANDB') || !XAPIANDB) return '';
+        if (!defined('XAPIANDB') || !XAPIANDB) {
+            return '';
+        }
+        if (!$this->valid) {
+            return '[bad query]';
+        }
         return $this->query_desc;
     }
 

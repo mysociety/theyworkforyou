@@ -19,6 +19,7 @@ my $pwmembers = mySociety::Config::get('PWMEMBERS');
 use XML::Twig;
 use DBI; 
 use File::Find;
+use LWP::UserAgent;
 use HTML::Entities;
 use Data::Dumper;
 use Syllable;
@@ -140,13 +141,14 @@ if ($action{'speaker_candidates'}) {
 
 
 if ($action{'pw'}) {
+        my $ua = LWP::UserAgent->new( agent => 'mySociety/1.0 (TheyWorkForYou)' );
         print "Parsing Public Whip attendance and policies\n" if $verbose;
-        $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml"); # i love twig
-        $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords"); # i love twig
+        $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml", $ua);
+        $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords", $ua);
         # Various policy IDs, see http://www.publicwhip.org.uk/policies.php for what they are
         foreach my $dreamid (1049, 1053, 1050, 363, 826, 1051, 1052, 1132, 856, 811, 975, 996, 984, 1030,
             837, 1071, 1074, 1077, 1079, 1080, 1087, 1065, 1110, 1084, 1124, 1109) {
-                $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid");
+                $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid", $ua);
         }
 }
 

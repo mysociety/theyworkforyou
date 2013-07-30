@@ -292,7 +292,8 @@ class GLOSSARY {
 			$term_title = $this->terms[$glossary_id]['title'];
 			
 			$URL->update(array("gl" => $glossary_id));
-			$findwords[$glossary_id] = "/(?<![>\.\'\/])\b(" . $term_title . ")\b(?![<\'])/i";
+			# The regex here ensures that the phrase is only matched if it's not already within <a> tags, preventing double-linking. Kudos to http://stackoverflow.com/questions/7798829/php-regular-expression-to-match-keyword-outside-html-tag-a
+			$findwords[$glossary_id] = "/\b(" . $term_title . ")\b(?!(?>[^<]*(?:<(?!\/?a\b)[^<]*)*)<\/a>)/i";
 			// catch glossary terms within their own definitions
 			if ($glossary_id == $this->glossary_id) {
 				$replacewords[] = "<strong>\\1</strong>";
@@ -309,7 +310,7 @@ class GLOSSARY {
 			}
 		}
 		// Highlight all occurrences of another glossary term in the definition.
-		$body = preg_replace($findwords, $replacewords, $body);
+		$body = preg_replace($findwords, $replacewords, $body, 1);
 		if (isset($this->glossary_id))
 			$body = preg_replace("/(?<![>\.\'\/])\b(" . $this->terms[$this->glossary_id]['title'] . ")\b(?![<\'])/i", '<strong>\\1</strong>', $body, 1);
 
@@ -321,26 +322,10 @@ class GLOSSARY {
 		// TODO: Merge this code into above, so our gloss and wikipedia
 		// don't clash (e.g. URLs getting doubly munged etc.)
 		$body = wikipedize($body);  
-	
-		// Then translate all the title tag codes.
-		// (this stops preg replace replacing content in the title tags)
-		if ($tokenize == 0) {
-			$body = $this->glossarise_titletags($body);
-		}
 
 		return ($body);
 	}
-	
-	function glossarise_titletags($body) {
-		if (is_array($body)) {
-			foreach ($body as $i => $t) {
-				$body[$i] = antiTagInTag($t);
-			}
-		} else {
-			$body = antiTagInTag($body);
-		}
-		return $body;
-	}
+
 }
 
 ?>

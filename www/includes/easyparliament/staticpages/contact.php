@@ -20,3 +20,5 @@ Please tell us what you think about <strong>TheyWorkForYou.com</strong>
 We seek responses to all these questions.
 </p>
 <p><strong>We are not your MP</strong>. To contact your MP <a href="http://www.writetothem.com">click here</a>. The email address of TheyWorkForYou.com, which is run by <strong>a charity</strong>, is: <a href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>"><?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?></a></p>
+
+<p>If you are a member of the press you can get in touch at <a href="mailto:press@mysociety.org">press@mysociety.org</a>, or read more in our <a href="http://www.mysociety.org/press-area/theyworkforyou/">press area</a>.</p>

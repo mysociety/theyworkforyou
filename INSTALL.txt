@@ -1,4 +1,4 @@
-TheyWorkForYou.com Installation Instructions 
+TheyWorkForYou.com Installation Instructions
 ============================================
 $Id: INSTALL.txt,v 1.15 2009-08-04 14:48:49 francis Exp $
 
@@ -13,11 +13,11 @@ php and mysql.
 System Requirements
 ===================
 
-* Perl 5.8.1 
+* Perl 5.8.1
 
 * PHP 5
 
-  short_open_tag has to be enabled, and PHP must be configured with curl, 
+  short_open_tag has to be enabled, and PHP must be configured with curl,
   using the '--with-curl' option. There's actually only one call that's
   PHP5 specific, it otherwise runs fine in PHP4, but PHP4 has not had
   security updates since 2008-08-08, so use PHP5 now.
@@ -60,7 +60,7 @@ Documentation and help is also available from the following:
 Installation
 ============
 
-NOTE: 
+NOTE:
   I assume you will set this up to run as a NAME BASED VIRTUAL
   HOST. It's quite possible to set it up without using its own
   virtual host, but I'll not cover that here.
@@ -94,7 +94,7 @@ In directory
 
 You should rename the file:
   general-example
-to 
+to
   general
 
 and then edit the first few lines to be appropriate for your setup.
@@ -103,10 +103,10 @@ otherwise specified.
 
 6. configure apache:
 
-If you want to create a virtual host, make sure that the 
+If you want to create a virtual host, make sure that the
 NameVirtualHost directive is uncommented and says
 
-NameVirtualHost * 
+NameVirtualHost *
 
 and then add something like the following, with the paths updated
 for your setup, and restart apache (apachectl restart). The Include
@@ -115,15 +115,15 @@ and so on.
 
 <VirtualHost localether>
  ServerAdmin me@example.com
- DocumentRoot /data/vhost/www.theyworkforyou.com/docs
+ DocumentRoot /data/vhost/www.theyworkforyou.com/theyworkforyou/www/docs
  ServerName twfy.example.com
-  <Directory /data/vhost/www.theyworkforyou.com/docs>
+  <Directory /data/vhost/www.theyworkforyou.com/theyworkforyou/www/docs>
    Options FollowSymLinks
    AllowOverride All
    Allow from all
    Order allow,deny
   </Directory>
- 
+
  Include /data/vhost/www.theyworkforyou.com/theyworkforyou/conf/httpd.conf
 
  ErrorLog /var/log/httpd/twfy_error
@@ -149,9 +149,9 @@ the Data".
 
 2. Now you have that data, you are ready to import it into your
    database. You do this using a script called xml2db.pl which is in
-   the "scripts" subdir. 
-   
-3. Edit the config file (conf/general) to tell it where 
+   the "scripts" subdir.
+
+3. Edit the config file (conf/general) to tell it where
    to look for this data using the variables RAWDATA and PWMEMBERS. PWMEMBERS toos to point to  the 'members' subdir which you fetched above.
 
 4. now run xml2db.pl as follows:
@@ -192,4 +192,9 @@ You can probably use "search/indexall.sh" to help.
 
 DBD::mysql::st execute failed: Incorrect key file for table '/tmp/#sql_b63_0.MYI'; try to repair it at ./index.pl line 118.
 
+3. Git Submodules
+
+If you've downloaded your copy by git cloning, you'll need to pull down the submodules in commonlib.
+
+You can do this by going to the directory where you cloned the repo and run "git submodule update --init"
 

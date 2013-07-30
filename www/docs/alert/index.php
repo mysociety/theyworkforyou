@@ -4,9 +4,9 @@
  It is based on the file /user/index.php.
  The alerts depend on the class ALERT which is established in /includes/easyparliament/alert.php
 
-submitted=1 means we've submitted some form of search.
-only=1 means we've picked one of those results (or come straight from MP or
-search results page), and should try and add, asking for email if needed.
+The submitted flag means we've submitted some form of search. Having pid or
+keyword present means we've picked one of those results (or come straight from
+e.g. MP page), and should try and add, asking for email if needed.
 
 FUNCTIONS
 check_input()	Validates the edited or added alert data and creates error messages.
@@ -81,7 +81,7 @@ $details['keyword'] = trim(get_http_var("keyword"));
 $details['pid'] = trim(get_http_var("pid"));
 $details['alertsearch'] = trim(get_http_var("alertsearch"));
 $details['pc'] = get_http_var('pc');
-$details['add'] = get_http_var('only');
+$details['submitted'] = get_http_var('submitted') || $details['pid'] || $details['keyword'];
 
 $errors = check_input($details);
 
@@ -91,13 +91,12 @@ if ($details['alertsearch']) {
     list ($details['constituencies'], $details['valid_postcode']) = search_constituencies_by_query($details['alertsearch']);
 }
 
-if (!sizeof($errors) && $details['add'] && ($details['keyword'] || $details['pid'])) {
+if (!sizeof($errors) && ($details['keyword'] || $details['pid'])) {
     $message = add_alert( $details );
     $details['keyword'] = '';
     $details['pid'] = '';
     $details['alertsearch'] = '';
     $details['pc'] = '';
-    $details['add'] = '';
 }
 
 $PAGE->page_start();
@@ -116,7 +115,6 @@ if ($details['email_verified']) {
 ?>
 <form action="/alert/" method="post">
 <input type="hidden" name="t" value="<?=htmlspecialchars(get_http_var('t'))?>">
-<input type="hidden" name="only" value="1">
 <input type="hidden" name="pid" value="<?=$current_mp->person_id()?>">
 You are not subscribed to an alert for your current MP,
 <?=$current_mp->full_name() ?>.
@@ -148,32 +146,48 @@ $PAGE->page_end($extra);
 # ---
 
 function check_input ($details) {
-	$errors = array();
+    global $SEARCHENGINE;
 
-	// Check each of the things the user has input.
-	// If there is a problem with any of them, set an entry in the $errors array.
-	// This will then be used to (a) indicate there were errors and (b) display
-	// error messages when we show the form again.
-	
-	// Check email address is valid and unique.
-	if (!$details['email']) {
-		$errors["email"] = "Please enter your email address";
-	} elseif (!validate_email($details["email"])) {
-		// validate_email() is in includes/utilities.php
-		$errors["email"] = "Please enter a valid email address";
-	} 
-	
-	if ($details['pid'] && !ctype_digit($details['pid']))
-		$errors['pid'] = 'Invalid person ID passed';
+    $errors = array();
 
-	if ((get_http_var('submitted') || $details['add']) && !$details['pid'] && !$details['alertsearch'] && !$details['keyword'])
-		$errors['alertsearch'] = 'Please enter what you want to be alerted about';
+    // Check each of the things the user has input.
+    // If there is a problem with any of them, set an entry in the $errors array.
+    // This will then be used to (a) indicate there were errors and (b) display
+    // error messages when we show the form again.
 
-	if (strpos($details['alertsearch'], '..') || strpos($details['keyword'], '..')) {
-		$errors['alertsearch'] = 'You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!';
-	}
+    // Check email address is valid and unique.
+    if (!$details['email']) {
+        $errors["email"] = "Please enter your email address";
+    } elseif (!validate_email($details["email"])) {
+        // validate_email() is in includes/utilities.php
+        $errors["email"] = "Please enter a valid email address";
+    } 
 
-	return $errors;
+    if ($details['pid'] && !ctype_digit($details['pid'])) {
+        $errors['pid'] = 'Invalid person ID passed';
+    }
+
+    $text = $details['alertsearch'];
+    if (!$text) $text = $details['keyword'];
+
+    if ($details['submitted'] && !$details['pid'] && !$text) {
+        $errors['alertsearch'] = 'Please enter what you want to be alerted about';
+    }
+
+    if (strpos($text, '..')) {
+        $errors['alertsearch'] = 'You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!';
+    }
+
+    $se = new SEARCHENGINE($text);
+    if (!$se->valid) {
+        $errors['alertsearch'] = 'That search appears to be invalid - ' . $se->error . ' - please check and try again.';
+    }
+
+    if (strlen($text) > 255) {
+        $errors['alertsearch'] = 'That search is too long for our database; please split it up into multiple smaller alerts.';
+    }
+
+    return $errors;
 }
 
 function add_alert ($details) {
@@ -241,7 +255,6 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
     $ACTIONURL->reset();
     $form_start = '<form action="' . $ACTIONURL->generate() . '" method="post">
 <input type="hidden" name="t" value="' . htmlspecialchars(get_http_var('t')) . '">
-<input type="hidden" name="only" value="1">
 <input type="hidden" name="email" value="' . htmlspecialchars(get_http_var('email')) . '">';
 
     if (isset($details['members']) && $details['members']->rows() > 0) {
@@ -321,7 +334,7 @@ You cannot sign up to multiple search terms using a comma &ndash; either use OR,
         echo "</li></ul>";
     }
 
-    if (!$details['add']) {
+    if (!$details['pid'] && !$details['keyword']) {
 ?>
 
 <p><label for="alertsearch">To sign up to an email alert, enter either your
@@ -338,14 +351,16 @@ also match &lsquo;horses&rsquo;).
 <input type="hidden" name="t" value="' . htmlspecialchars(get_http_var('t')) . '">
 <input type="hidden" name="submitted" value="1">';
 
-    if (!$details['add']) {
+    if ((!$details['pid'] && !$details['keyword']) || isset($errors['alertsearch'])) {
         if (isset($errors["alertsearch"])) {
             $PAGE->error_message($errors["alertsearch"]);
         }
+        $text = $details['alertsearch'];
+        if (!$text) $text = $details['keyword'];
 ?>
 
 <div class="row">
-<input type="text" name="alertsearch" id="alertsearch" value="<?php if ($details['alertsearch']) { echo htmlentities($details['alertsearch']); } ?>" size="30" style="font-size:150%">
+<input type="text" name="alertsearch" id="alertsearch" value="<?php if ($text) { echo htmlentities($text); } ?>" maxlength="255" size="30" style="font-size:150%">
 </div>
 
 <?php
@@ -355,11 +370,9 @@ also match &lsquo;horses&rsquo;).
         echo '<input type="hidden" name="pid" value="' . htmlspecialchars($details['pid']) . '">';
     if ($details['keyword'])
         echo '<input type="hidden" name="keyword" value="' . htmlspecialchars($details['keyword']) . '">';
-    if ($details['pid'] || $details['keyword'])
-        echo '<input type="hidden" name="only" value="1">';
 
     if (!$details['email_verified']) {
-        if (isset($errors["email"]) && (get_http_var('submitted') || $details['add'])) {
+        if (isset($errors["email"]) && $details['submitted']) {
             $PAGE->error_message($errors["email"]);
         }
 ?>
@@ -372,18 +385,20 @@ also match &lsquo;horses&rsquo;).
 ?>
 
     <div class="row">   
-        <input type="submit" class="submit" value="Search">
+        <input type="submit" class="submit" value="<?=
+            ($details['pid'] || $details['keyword']) ? 'Subscribe' : 'Search'
+        ?>">
     </div>
 
     <div class="row">
 <?php
     if (!$details['email_verified']) {
 ?>
-        <p>If you join or sign in, you won't need to confirm your email
+        <p>If you <a href="/user/?pg=join">join</a> or <a href="/user/login/?ret=%2Falert%2F">sign in</a>, you won't need to confirm your email
         address for every alert you set.<br><br>
 <?php
     }
-    if (!$details['add']) {
+    if (!$details['pid'] && !$details['keyword']) {
 ?>
         <p>Please note that you should only enter <strong>one term per alert</strong> &ndash; if
         you wish to receive alerts on more than one thing, or for more than

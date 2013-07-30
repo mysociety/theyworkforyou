@@ -7,9 +7,13 @@ use strict;
 # Loads XML written answer, debate and member files into the fawkes database.
 # 
 # Magic numbers, and other properties of the destination schema
-# are documented here:
-#        http://parl.stand.org.uk/cgi-bin/moin.cgi/DataSchema
-#        
+# used to be documented here:
+#        http://web.archive.org/web/20090414002944/http://wiki.theyworkforyou.com/cgi-bin/moin.cgi/DataSchema
+# ... although please be aware that (as the archive.org URL suggests)
+# that document is no longer maintained and contains out-of-date information.
+# For some of the other magic numbers, you can refer to
+# www/includes/dbtypes.php in this repository, which should be current.
+#
 # The XML files for Hansard objects come from the Public Whip parser:
 #       http://scm.kforge.net/plugins/scmsvn/cgi-bin/viewcvs.cgi/trunk/parlparse/pyscraper/?root=ukparse
 # And those for MPs are in (semi-)manually updated files here:
@@ -1410,12 +1414,37 @@ sub load_debate_division {
         my ($division, $major) = @_;
         my $divdate = $division->att('divdate');
         my $divnumber = $division->att('divnumber');
-        my $text = 
+
+        my $text =
 "<p class=\"divisionheading\">Division number $divnumber</p>
 <p class=\"divisionbody\"><a href=\"http://www.publicwhip.org.uk/division.php?date=$divdate&amp;number=$divnumber";
         $text .= '&amp;house=lords' if $major == 101;
         $text .= "&amp;showall=yes#voters\">See full
 list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip</a>)</p>";
+
+        my $divcount = $division->first_child('divisioncount'); # attr ayes noes tellerayes tellernoes
+        my @lists = $division->children('mplist');
+        foreach my $list (@lists) {
+                my $side = $list->att('vote');
+                die unless $side eq 'aye' or $side eq 'no';
+                $text .= "<h2>\u$side</h2> <ul class='division-list'>";
+                my @names = $list->children('mpname'); # attr ids vote (teller), text is name
+                foreach my $person (@names) {
+                        my $member_id = $person->att('id');
+                        $member_id =~ s/.*\///;
+                        my $vote = $person->att('vote');
+                        die unless $vote eq $side;
+                        my $teller = $person->att('teller');
+                        my $name = $person->sprint(1);
+                        $name =~ s/^(.*), (.*)$/$2 $1/;
+                        $name =~ s/^(rh|Mr|Sir|Ms|Mrs|Dr) //;
+                        $text .= "<li><a href='/mp/?m=$member_id'>$name</a>";
+                        $text .= ' (teller)' if $teller;
+                        $text .= "</li>\n";
+                }
+                $text .= "</ul>";
+        }
+
         do_load_speech($division, $major, 0, $text);
 }
 
@@ -1527,7 +1556,7 @@ sub add_wms_day {
 }
 
 sub is_dupe {
-        return 1 if $_[0] =~ /My (?:right )?(?:hon(\.|ourable) )?(?:and )?(?:noble )?friend\s*.*? (?:has )?(?:today )?(?:(?:made|issued) the following (?:Written )?Ministerial Statement|published a report)/i;
+        return 1 if $_[0] =~ /My (?:right )?(?:hon(\.|ourable) )?(?:and )?(?:noble )?friend\s*.*? (?:has )?(?:today )?(?:(?:made|issued) the following (?:Written )?(?:Ministerial )?Statement|published a report)/i;
         return 0;
 }
 sub load_wms_speech {

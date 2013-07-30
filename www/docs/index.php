@@ -109,6 +109,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
 
 <dl class="big-debates front">
 
+<? if (count($last_dates[3])) { ?>
 <dt><a href="<?=$last_dates[3]['listurl']?>">Written answers</a>
 <small><?=format_date($last_dates[3]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
@@ -118,12 +119,15 @@ information from ministers which the government may not wish to reveal.
 <h3>Random recent written question</h3>
 <?php
 
-$WRANSLIST->display('recent_wrans', array('days' => 7, 'num' => 1));
-$MOREURL = new URL('wransfront');
-
+    $WRANSLIST->display('recent_wrans', array('days' => 7, 'num' => 1));
+    $MOREURL = new URL('wransfront');
 ?>
     <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more written answers</a></strong></p>
+<?
+}
 
+if (count($last_dates[4])) {
+?>
 <dt><a href="<?=$last_dates[4]['listurl']?>">Written ministerial statements</a>
 <small><?=format_date($last_dates[4]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
@@ -138,8 +142,11 @@ $MOREURL = new URL('wmsfront');
 
 ?>
     <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more written statements</a></strong></p>
+<?
+}
 
-<? if (count($last_dates[6])) { ?>
+if (count($last_dates[6])) {
+?>
 <dt><a href="<?=$last_dates[6]['listurl']?>">Public Bill committees</a>
 <small><?=format_date($last_dates[6]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
@@ -171,6 +178,9 @@ $PAGE->include_sidebar_template('front');
 ?>
 
 <dl class="big-debates front">
+<?
+if (count($last_dates[1])) {
+?>
 <dt><a href="<?=$last_dates[1]['listurl']?>">Commons debates</a>
 <small><?=format_date($last_dates[1]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
@@ -184,7 +194,11 @@ $DEBATELIST->display('recent_debates', array('days' => 7, 'num' => 1));
 $MOREURL = new URL('debatesfront');
 ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Commons debates</a></strong></p>
+<?
+}
 
+if (count($last_dates[2])) {
+?>
 <dt><a href="<?=$last_dates[2]['listurl']?>">Westminster Hall</a>
 <small><?=format_date($last_dates[2]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
@@ -197,7 +211,11 @@ $WHALLLIST->display('recent_debates', array('days' => 7, 'num' => 1));
 $MOREURL = new URL('whallfront');
 ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Westminster Hall debates</a></strong></p>
+<?
+}
 
+if (count($last_dates[101])) {
+?>
 <dt><a href="<?=$last_dates[101]['listurl']?>">Lords debates</a>
 <small><?=format_date($last_dates[101]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
@@ -210,7 +228,9 @@ $LORDSDEBATELIST->display('recent_debates', array('days' => 7, 'num' => 1));
 $MOREURL = new URL('lordsdebatesfront');
 ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Lords debates</a></strong></p>
-
+<?
+}
+?>
 </dl>
 
 </div>
