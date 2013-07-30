@@ -272,7 +272,6 @@ class GLOSSARY {
 		if (is_string($body) && preg_match("/^(http:*[^\s])$/i", $body)) {
 			$body = "<a href=\"" . $body . "\" title=\"External link to " . $body . "\">" . $body . "</a>";
 			return ($body);
-
 		} 
 
 		// otherwise, just replace everything.
