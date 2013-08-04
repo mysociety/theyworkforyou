@@ -1041,9 +1041,10 @@ class PAGE {
 				  If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
         		      </p>
         		      <h5>Sign up to our newsletter</h5>
-        		      <form method="get" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
+        		      <form method="post" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
         		          <input type="text" name="email">
         		          <input type="submit" value="Join">
+        		          <div style="display:none;">Please don't fill in this box: <input type="text" name="username"></div>
         		      </form>
         		      <p>
         		          Approximately once a month, spam free.
