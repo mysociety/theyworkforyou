@@ -1,0 +1,6 @@
+{
+    "require-dev": {
+        "satooshi/php-coveralls": "dev-master",
+        "phpunit/dbunit": ">=1.2"
+    }
+}

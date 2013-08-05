@@ -219,16 +219,15 @@ if (is_numeric(get_http_var('m'))) {
 /////////////////////////////////////////////////////////
 // DISPLAY A REPRESENTATIVE
 
-header('Cache-Control: max-age=900');
+#header('Cache-Control: max-age=900');
 
 if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $PAGE->page_start();
     $PAGE->stripe_start('side');
     print '<p>That name is not unique. Please select from the following:</p><ul>';
-    $cs = $MEMBER->constituency();
     $c = 0;
-    foreach ($MEMBER->person_id() as $id) {
-        print '<li><a href="' . WEBPATH . 'mp/?pid='.$id.'">' . ucwords(strtolower($name)) . ', ' . $cs[$c++] . '</a></li>';
+    foreach ($MEMBER->person_id() as $row) {
+        print '<li><a href="' . WEBPATH . 'mp/?pid='.$row['person_id'].'">' . ucwords(strtolower($name)) . ', ' . $row['constituency'] . '</a></li>';
     }
     print '</ul>';
 
