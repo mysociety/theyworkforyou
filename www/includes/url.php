@@ -46,7 +46,7 @@ hidden_form_vars() - Prints hidden form variables.
 
 VERSION HISTORY
 v1.0	2003-07-16
-v1.1	2003-09-10 
+v1.1	2003-09-10
 			Changed format for $encode in generate().
 			Insert() now overwrites existing variables, rather than maintaining them.
 v1.2	2003-10-03
@@ -64,48 +64,53 @@ class URL {
 
 		// The page we're going to be generating URL(s) for.
 		$this->destinationpage = $pagename;
-		
+
 		// These stores an associative array of key/value pairs that
 		// we'll want passed on to other pages.
 		$this->session_vars = array ();
-		
-		// Set the contents of $this->session_vars.
-		// session_vars are variables we generally want to pass between pages, if any.
-		// Will only be added as vars if they have values.
-		
-		$keys = $DATA->page_metadata($this->destinationpage, "session_vars");
-		foreach ($keys as $key) {
-			if (get_http_var($key) != "") {
-				$this->session_vars[$key] = get_http_var($key);
+
+		// Prevent things using $DATA running if it hasn't been set, ie in testing
+		if (isset($DATA)) {
+
+			// Set the contents of $this->session_vars.
+			// session_vars are variables we generally want to pass between pages, if any.
+			// Will only be added as vars if they have values.
+
+			$keys = $DATA->page_metadata($this->destinationpage, "session_vars");
+			foreach ($keys as $key) {
+				if (get_http_var($key) != "") {
+					$this->session_vars[$key] = get_http_var($key);
+				}
 			}
+
+			// Some pages have the same URL, modified by a "pg" variable.
+			// See if this page is one such, and add the variable if so.
+			if ($pg = $DATA->page_metadata($this->destinationpage, "pg")) {
+				$this->session_vars["pg"] = $pg;
+			}
+
 		}
 
-		// Some pages have the same URL, modified by a "pg" variable.
-		// See if this page is one such, and add the variable if so.
-		if ($pg = $DATA->page_metadata($this->destinationpage, "pg")) {
-			$this->session_vars["pg"] = $pg;
-		}
-		
 		// So we can restore the originals.
 		$this->original_session_vars = $this->session_vars;
 
 	}
-	
-	
+
+
 	function restore() {
 		// Call this to reset the session vars to how they were when
 		// the object was instantiated.
 		$this->session_vars = $this->original_session_vars;
 
 	}
-	
-	
+
+
 	function reset() {
 		// Call this to remove all the session_vars.
 		$this->session_vars = array ();
 	}
-	
-	
+
+
 	function insert($arr) {
 		// $arr is an associative array of key/value pairs.
 		// These will be used as session_vars in addition to any that
@@ -114,8 +119,8 @@ class URL {
 			$this->session_vars[$key] = $val;
 		}
 	}
-	
-	
+
+
 	function remove($arr) {
 		// $arr is a list array of key names. Any key/value pairs
 		// in session_vars with keys found in $arr will be removed.
@@ -125,7 +130,7 @@ class URL {
 			}
 		}
 	}
-	
+
 	function update($arr) {
 		// $arr is an associative array of key/value pairs.
 		// Any keys in session_vars that are also in $arr
@@ -139,7 +144,7 @@ class URL {
 	}
 
 
-	
+
 	function generate($encode = "html", $overrideVars=array()) {
 		// Returns a URL with the appropriate session_vars.
 		// If $encode is "html", the URL will be suitable to be put in HTML.
@@ -152,9 +157,9 @@ class URL {
 		// 'session vars' in a url, but override just one or two of
 		// them.
 		global $DATA;
-		
+
 		$url_args = array ();
-		
+
 		foreach (array_merge($this->session_vars, $overrideVars) as $key => $var) {
 			if (is_array($var)) {
 				foreach ($var as $v) {
@@ -163,9 +168,9 @@ class URL {
 			} elseif ($var != null)
 				$url_args[] = "$key=" . urlencode(stripslashes($var));
 		}
-		
+
 		$page_url = WEBPATH . $DATA->page_metadata($this->destinationpage, "url");
-		
+
 		if (sizeof($url_args) == 0) {
 			return $page_url;
 		} else {
@@ -180,7 +185,7 @@ class URL {
 
 /* 	DEPRECATED. Use hidden_form_vars() in utility.php instead. */
 
-	// Use this when you have a form and want to retain some/all of the 
+	// Use this when you have a form and want to retain some/all of the
 	// variables in the URL get string.
 	// If you have a form that changes, say, $s, then you'll need to
 	// pass "s" in in the $remove_vars array, so it isn't created as a
@@ -188,7 +193,7 @@ class URL {
 	function hidden_form_varsOLD ($remove_vars=array(), $insert_vars=array()) {
 		// This should really be tidied up lots. That $dont_keep array for a start is NASTY!
 		// You can also pass in an array of variables to remove() and insert().
-		
+
 		foreach ($_GET as $key => $val) {
 			$vars[$key] = get_http_var($key);
 		}
@@ -215,8 +220,8 @@ class URL {
 
 			}
 		}
-		
-		// Reset $session_vars to how it was before. 
+
+		// Reset $session_vars to how it was before.
 		// Otherwise if you call functions after you've generated hidden vars
 		// everything will be changed around from how it was before.
 		$this->session_vars = $old_session_vars;
