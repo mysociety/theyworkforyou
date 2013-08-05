@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" bootstrap="tests/Bootstrap.php">
+    <testsuite name="TheyWorkForYou Test Suite">
+        <directory>tests</directory>
+    </testsuite>
+</phpunit>

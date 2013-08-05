@@ -187,10 +187,12 @@ class PAGE {
 			$robots = '<meta name="robots" content="' . $robots . '">';
 		}
 
-		header('Content-Type: text/html; charset=iso-8859-1');
-        if ($this_page == 'overview') {
-            header('Vary: Cookie, X-GeoIP-Country');
-            header('Cache-Control: max-age=600');
+        if (!headers_sent()) {
+            header('Content-Type: text/html; charset=iso-8859-1');
+            if ($this_page == 'overview') {
+                header('Vary: Cookie, X-GeoIP-Country');
+                header('Cache-Control: max-age=600');
+            }
         }
 
 ?>
@@ -1154,12 +1156,14 @@ pr()//-->
 	function error_message ($message, $fatal = false, $status = 500) {
 		// If $fatal is true, we exit the page right here.
 		// $message is like the array used in $this->message()
-			
-		if (!$this->page_started()) {
-			header("HTTP/1.0 $status Internal Server Error");
-			$this->page_start();
-		}
-		
+
+        if (!$this->page_started()) {
+            if (!headers_sent()) {
+                header("HTTP/1.0 $status Internal Server Error");
+            }
+            $this->page_start();
+        }
+
 		if (is_string($message)) {
 			// Sometimes we're just sending a single line to this function
 			// rather like the bigger array...
