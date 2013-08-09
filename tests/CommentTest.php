@@ -42,9 +42,20 @@ class CommentTest extends PHPUnit_Extensions_Database_TestCase
     public function testGetBody()
     {
         $comment = new COMMENT(1);
-        $this->assertEquals($comment->body(), 'This is a test comment, featuring a link to http://theyworkforyou.com and an email address of test@theyworkforyou.com.
+        $this->assertEquals($comment->body(), "This is a test comment, including http://theyworkforyou.com <a href=\"http://theyworkforyou.com\">links</a>, email addresses like test@theyworkforyou.com, <b>bold</b>, <i>italics</i>, apostrophes ' , curly apostrophes ’ , and stray &lt; brackets to ensure they're rendered correctly.
 
-It also spans multiple lines.');
+It also spans multiple lines.");
+    }
+    
+    /**
+     * Makes sure a comment is correctly rendered.
+     */
+    public function testPrepareCommentForDisplay()
+    {
+        $comment = new COMMENT(1);
+        $this->assertEquals(prepare_comment_for_display($comment->body()), "This is a test comment, including <a href=\"http://theyworkforyou.com\" rel=\"nofollow\">http://theyworkforyou.com</a> <a href=\"http://theyworkforyou.com\">links</a>, email addresses like <a href=\"mailto:test@theyworkforyou.com\">test@theyworkforyou.com</a>, <b>bold</b>, <i>italics</i>, apostrophes ' , curly apostrophes ’ , and stray &lt; brackets to ensure they're rendered correctly.<br>
+<br>
+It also spans multiple lines.");
     }
 
     /**
@@ -63,7 +74,9 @@ It also spans multiple lines.');
         
         $data = array(
             'epobject_id' => 1,
-            'body' => "This is a test comment, including <a href=\"#\">links</a> and apostrophes to ensure they're not stripped.
+            'body' => "This is a test comment, including http://theyworkforyou.com <a href=\"http://theyworkforyou.com\">links</a>, <b>bold</b>, <i>italics</i>, apostrophes ' , curly apostrophes ’ , and stray < brackets to ensure they're not stripped.
+            
+It also includes <script>alert('malicious!');</script> script tags, to ensure they are stripped correctly.
 
 It also spans multiple lines.",
             'gid' => ''
@@ -76,9 +89,11 @@ It also spans multiple lines.",
         
         $comment = new COMMENT($commentId);
         
-        $this->assertEquals($comment->body(), "This is a test comment, including <a href=\"#\">links</a> and apostrophes to ensure they're not stripped.
+        $this->assertEquals("This is a test comment, including http://theyworkforyou.com <a href=\"http://theyworkforyou.com\">links</a>, <b>bold</b>, <i>italics</i>, apostrophes ' , curly apostrophes ’ , and stray &lt; brackets to ensure they're not stripped.
+            
+It also includes  script tags, to ensure they are stripped correctly.
 
-It also spans multiple lines.");
+It also spans multiple lines.", $comment->body());
 
     }
 }

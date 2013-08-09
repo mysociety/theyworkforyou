@@ -486,38 +486,33 @@ function trim_characters ($text, $start, $length, $url_length = 60) {
 	return $text;
 }
 
-
+/**
+ * Filters user input to remove unwanted HTML tags etc
+ */
 function filter_user_input ($text, $filter_type) {
-	// We use this to filter any major user input, especially comments.
-	// Gets rid of bad HTML, basically.
-	// Uses iamcal.com's lib_filter class.
-	
-	// $filter_type is the level of filtering we want:
-	// 	'comment' allows <b> and <i> tags.
-	//	'strict' strips all tags.
-	
-	global $filter;
-	
-	$text = trim($text);
-	
-	// Replace 3 or more newlines with just two newlines.
-	//$text = preg_replace("/(\n){3,}/", "\n\n", $text);
+
+    // Load up HTMLPurifier
+    include_once (INCLUDESPATH."htmlpurifier.standalone.php");
+    
+    $filter_config = HTMLPurifier_Config::createDefault();
+    
+    // Create the HTMLPurifier object
+    $purifier = new HTMLPurifier($filter_config);
+    
+    // Trim the text to deal with leading/trailing whitespace
+    $text = trim($text);
 
 	if ($filter_type == 'strict') {
 		// No tags allowed at all!
-		$filter->allowed = array ();
+		$filter_config->set('HTML.Allowed', '');
 		
 	} else {
 		// Comment.
-		// Only allowing <em>, <b> and <a> tags.
-		$filter->allowed = array (
-			'a' => array('href'),
-			'strong' => array(),
-			'em' => array()
-		);
+		// Only allowing <a href>, <b>, <strong>, <i> and <em>
+		$filter_config->set('HTML.Allowed', 'a[href],b,strong,i,em');
 	}
 	
-	$text = $filter->go($text);
+	$text = $purifier->purify($text);
 
 	return $text;
 
@@ -526,11 +521,6 @@ function filter_user_input ($text, $filter_type) {
 function prepare_comment_for_display ($text) {
 	// Makes any URLs into HTML links.
 	// Turns \n's into <br>
-
-	// Encode HTML entities.
-	// Can't do htmlentities() because it'll turn the few tags we allow into &lt;
-	// Must go before the URL stuff.
-	$text = htmlentities_notags($text);
 
 	$link_length = 60;
 	$text = preg_replace(

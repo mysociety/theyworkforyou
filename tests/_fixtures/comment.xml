@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<database name="twfy_nick">
+<database name="twfy_testing">
 	<table_data name="alerts">
 	</table_data>
 	<table_data name="anonvotes">
@@ -22,7 +22,7 @@
 		<field name="comment_id">1</field>
 		<field name="user_id">1</field>
 		<field name="epobject_id">1</field>
-		<field name="body">This is a test comment, featuring a link to http://theyworkforyou.com and an email address of test@theyworkforyou.com.
+		<field name="body">This is a test comment, including http://theyworkforyou.com &lt;a href=&quot;http://theyworkforyou.com&quot;&gt;links&lt;/a&gt;, email addresses like test@theyworkforyou.com, &lt;b&gt;bold&lt;/b&gt;, &lt;i&gt;italics&lt;/i&gt;, apostrophes ' , curly apostrophes ? , and stray &amp;lt; brackets to ensure they're rendered correctly.
 
 It also spans multiple lines.</field>
 		<field name="posted" xsi:nil="true" />
