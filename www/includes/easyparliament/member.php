@@ -21,7 +21,6 @@ class MEMBER {
 	var $extra_info = array();
 	// Is this MP THEUSERS's MP?
 	var $the_users_mp = false;
-	var $canonical = true;
 	var $house_disp = 0; # Which house we should display this person in
 	
 	// Mapping member table 'house' numbers to text.
@@ -336,13 +335,9 @@ class MEMBER {
 				$qq = $this->db->query('SELECT MAX(left_house) AS left_house FROM member
 					WHERE person_id=' . $q->field(0, 'person_id')
 				);
-				if ($qq->field(0, 'left_house') != $q->field(0, 'left_house')) {
-					$this->canonical = false;
-				}
 			}
 			return $q->field(0, 'person_id');
 		} elseif ($const && $this_page!='peer') {
-			$this->canonical = false;
 			return $this->name_to_person_id($name);
 		} else {
 			$PAGE->error_message("Sorry, there is no current member with that name.");

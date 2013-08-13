@@ -48,7 +48,6 @@ if ($constituency == 'mysociety test constituency') {
 }
 
 # Special case names
-$redirect = false;
 if ($name == 'sion simon') $name = "si\xf4n simon";
 if ($name == 'sian james') $name = "si\xe2n james";
 if ($name == 'lembit opik') $name = "lembit \xf6pik";
@@ -81,11 +80,9 @@ if (array_key_exists($name, $name_fix)) {
     if (is_array($name_fix[$name])) {
         if ($constituency == $name_fix[$name][1]) {
             $name = $name_fix[$name][0];
-            $redirect = true;
         }
     } else {
         $name = $name_fix[$name];
-        $redirect = true;
     }
 }
 
@@ -218,13 +215,13 @@ elseif ($THEUSER->postcode_is_set() && $name == '' && $constituency == '')
 elseif ($name && $constituency)
 {
     $MEMBER = new MEMBER(array('name'=>$name, 'constituency'=>$constituency));
-    if (($MEMBER->house_disp==2 && $this_page!='peer') || !$MEMBER->canonical || $redirect) {
+    
+    // If this person is not unique in name, don't redirect and instead wait to show list
+    if (!is_array($MEMBER->person_id()))
+    {
+        twfy_debug ('MP', 'Redirecting for member found by name and constituency');
         member_redirect($MEMBER);
     }
-    if ($MEMBER->the_users_mp) {
-        $this_page = 'yourmp';
-    }
-    twfy_debug ('MP', 'Displaying MP by name');
 }
 
 /////////////////////////////////////////////////////////
@@ -232,12 +229,14 @@ elseif ($name && $constituency)
 elseif ($name)
 {
     $MEMBER = new MEMBER(array('name' => $name));
-    if (((($MEMBER->house_disp==1)
-        || ($MEMBER->house_disp==2 && $this_page!='peer'))
-        && ($MEMBER->valid || !is_array($MEMBER->person_id()))) || !$MEMBER->canonical || $redirect) {
+    if (preg_match('#^(mr|mrs|ms)#', $name)) {
         member_redirect($MEMBER);
     }
-    if (preg_match('#^(mr|mrs|ms)#', $name)) {
+    
+    // If this person is not unique in name, don't redirect and instead wait to show list
+    if (!is_array($MEMBER->person_id()))
+    {
+        twfy_debug ('MP', 'Redirecting for MP found by name only');
         member_redirect($MEMBER);
     }
 }
