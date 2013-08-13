@@ -646,7 +646,7 @@ class MEMBER {
 		} elseif ($house==0) {
 			$URL = new URL('royal');
 		}
-		$member_url = make_member_url($this->full_name(true), $this->constituency(), $house);
+		$member_url = make_member_url($this->full_name(true), $this->constituency(), $house, $this->person_id());
 		if ($absolute)
 			return 'http://' . DOMAIN . $URL->generate('none') . $member_url;
 		else

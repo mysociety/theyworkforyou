@@ -30,6 +30,6 @@ function render_msps_row($msp, $order) {
 	else
 		print $msp['party'];
 	print ',' . $con . ',' .  'http://www.theyworkforyou.com/msp/' . 
-		make_member_url($msp['first_name'].' '.$msp['last_name']);
+		make_member_url($msp['first_name'].' '.$msp['last_name'], NULL, 4, $msp['person_id']);
 	print "\n";
 }
