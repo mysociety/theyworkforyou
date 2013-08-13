@@ -119,16 +119,25 @@ elseif (get_http_var('mla')) $this_page = 'mla';
 elseif (get_http_var('msp')) $this_page = 'msp';
 else $this_page = 'mp';
 
-if (is_numeric(get_http_var('m'))) {
-    // Got a member id, redirect to the canonical MP page, with a person id.
-    $MEMBER = new MEMBER(array('member_id' => get_http_var('m')));
-    member_redirect($MEMBER);
-
-} elseif (is_numeric($pid)) {
+if (is_numeric($pid))
+{
 
     // Normal, plain, displaying an MP by person ID.
     $MEMBER = new MEMBER(array('person_id' => $pid));
+    
+    // Ensure that we're actually at the current, correct and canonical URL for the person. If not, redirect.
+    if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== $MEMBER->url(FALSE))
+    {
+        member_redirect($MEMBER);
+    }
+}
+elseif (is_numeric(get_http_var('m')))
+{
+    // Got a member id, redirect to the canonical MP page, with a person id.
+    $MEMBER = new MEMBER(array('member_id' => get_http_var('m')));
     member_redirect($MEMBER);
+    
+}
 
 /////////////////////////////////////////////////////////
 // CHECK SUBMITTED POSTCODE
