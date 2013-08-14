@@ -28,7 +28,7 @@ function render_peers_row($peer, $order) {
 	else
 		print $peer['party'];
 	print ',' .  'http://www.theyworkforyou.com/peer/' . 
-		make_member_url($name, null);
+		make_member_url($name, NULL, 2, $peer['person_id']);
 	print "\n";
 }
 

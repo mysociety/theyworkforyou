@@ -48,7 +48,6 @@ if ($constituency == 'mysociety test constituency') {
 }
 
 # Special case names
-$redirect = false;
 if ($name == 'sion simon') $name = "si\xf4n simon";
 if ($name == 'sian james') $name = "si\xe2n james";
 if ($name == 'lembit opik') $name = "lembit \xf6pik";
@@ -81,11 +80,9 @@ if (array_key_exists($name, $name_fix)) {
     if (is_array($name_fix[$name])) {
         if ($constituency == $name_fix[$name][1]) {
             $name = $name_fix[$name][0];
-            $redirect = true;
         }
     } else {
         $name = $name_fix[$name];
-        $redirect = true;
     }
 }
 
@@ -111,29 +108,51 @@ if (get_http_var('recent')) {
 }
 
 /////////////////////////////////////////////////////////
-// CHECK SUBMITTED MEMBER (term of office) ID.
-
+// DETERMINE TYPE OF REPRESENTITIVE
 if (get_http_var('peer')) $this_page = 'peer';
 elseif (get_http_var('royal')) $this_page = 'royal';
 elseif (get_http_var('mla')) $this_page = 'mla';
 elseif (get_http_var('msp')) $this_page = 'msp';
 else $this_page = 'mp';
 
-if (is_numeric(get_http_var('m'))) {
+/////////////////////////////////////////////////////////
+// CANONICAL PERSON ID
+if (is_numeric($pid))
+{
+
+    // Normal, plain, displaying an MP by person ID.
+    $MEMBER = new MEMBER(array('person_id' => $pid));
+
+    // If the member ID doesn't exist then the object won't have it set.
+    if ($MEMBER->member_id)
+    {
+        // Ensure that we're actually at the current, correct and canonical URL for the person. If not, redirect.
+        if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== $MEMBER->url(FALSE))
+        {
+            member_redirect($MEMBER);
+        }
+    }
+    else
+    {
+        $errors['pc'] = 'Sorry, that ID number wasn\'t recognised.';
+    }
+}
+
+/////////////////////////////////////////////////////////
+// MEMBER ID
+elseif (is_numeric(get_http_var('m')))
+{
     // Got a member id, redirect to the canonical MP page, with a person id.
     $MEMBER = new MEMBER(array('member_id' => get_http_var('m')));
     member_redirect($MEMBER);
 
-} elseif (is_numeric($pid)) {
-
-    // Normal, plain, displaying an MP by person ID.
-    $MEMBER = new MEMBER(array('person_id' => $pid));
-    member_redirect($MEMBER);
+}
 
 /////////////////////////////////////////////////////////
 // CHECK SUBMITTED POSTCODE
 
-} elseif (get_http_var('pc') != '') {
+elseif (get_http_var('pc') != '')
+{
     // User has submitted a postcode, so we want to display that.
     $pc = get_http_var('pc');
     $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
@@ -159,11 +178,14 @@ if (is_numeric(get_http_var('m'))) {
         twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
     }
 
+}
+
 /////////////////////////////////////////////////////////
-// DOES THE USER HAVE A POSTCODE ALREADY SET?
+// DOES THE USER HAVE A POSTCODE ALREADY SET (SCOTLAND)?
 // (Either in their logged-in details or in a cookie from a previous search.)
 
-} elseif ($this_page == 'msp' && $THEUSER->postcode_is_set() && $name == '' && $constituency == '') {
+elseif ($this_page == 'msp' && $THEUSER->postcode_is_set() && $name == '' && $constituency == '')
+{
     $this_page = 'yourmsp';
     if (postcode_is_scottish($THEUSER->postcode())) {
         regional_list($THEUSER->postcode(), 'SPC', 'msp');
@@ -171,7 +193,13 @@ if (is_numeric(get_http_var('m'))) {
     } else {
         $PAGE->error_message('Your set postcode is not in Scotland.');
     }
-} elseif ($this_page == 'mla' && $THEUSER->postcode_is_set() && $name == '' && $constituency == '') {
+}
+
+/////////////////////////////////////////////////////////
+// DOES THE USER HAVE A POSTCODE ALREADY SET (NI)?
+// (Either in their logged-in details or in a cookie from a previous search.)
+elseif ($this_page == 'mla' && $THEUSER->postcode_is_set() && $name == '' && $constituency == '')
+{
     $this_page = 'yourmla';
     if (postcode_is_ni($THEUSER->postcode())) {
         regional_list($THEUSER->postcode(), 'NIE', 'mla');
@@ -179,45 +207,70 @@ if (is_numeric(get_http_var('m'))) {
     } else {
         $PAGE->error_message('Your set postcode is not in Northern Ireland.');
     }
-} elseif ($THEUSER->postcode_is_set() && $name == '' && $constituency == '') {
+}
+
+/////////////////////////////////////////////////////////
+// DOES THE USER HAVE A POSTCODE ALREADY SET (WESTMINISTER)?
+// (Either in their logged-in details or in a cookie from a previous search.)
+elseif ($THEUSER->postcode_is_set() && $name == '' && $constituency == '')
+{
     $MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode(), 'house' => 1));
     member_redirect($MEMBER, 302);
-} elseif ($name && $constituency) {
+}
+
+/////////////////////////////////////////////////////////
+// NAME AND CONSTITUENCY
+elseif ($name && $constituency)
+{
     $MEMBER = new MEMBER(array('name'=>$name, 'constituency'=>$constituency));
-    if (($MEMBER->house_disp==2 && $this_page!='peer') || !$MEMBER->canonical || $redirect) {
+
+    // If this person is not unique in name, don't redirect and instead wait to show list
+    if (!is_array($MEMBER->person_id()))
+    {
+        twfy_debug ('MP', 'Redirecting for member found by name and constituency');
         member_redirect($MEMBER);
     }
-    if ($MEMBER->the_users_mp) {
-        $this_page = 'yourmp';
-    }
-    twfy_debug ('MP', 'Displaying MP by name');
-} elseif ($name) {
+}
+
+/////////////////////////////////////////////////////////
+// NAME ONLY
+elseif ($name)
+{
     $MEMBER = new MEMBER(array('name' => $name));
-    if (((($MEMBER->house_disp==1)
-        || ($MEMBER->house_disp==2 && $this_page!='peer'))
-        && ($MEMBER->valid || !is_array($MEMBER->person_id()))) || !$MEMBER->canonical || $redirect) {
-        member_redirect($MEMBER);
-    }
     if (preg_match('#^(mr|mrs|ms)#', $name)) {
         member_redirect($MEMBER);
     }
-} elseif ($constituency) {
+
+    // If this person is not unique in name, don't redirect and instead wait to show list
+    if (!is_array($MEMBER->person_id()))
+    {
+        twfy_debug ('MP', 'Redirecting for MP found by name only');
+        member_redirect($MEMBER);
+    }
+}
+
+/////////////////////////////////////////////////////////
+// CONSTITUENCY ONLY
+elseif ($constituency)
+{
     if ($constituency == 'your & my society') {
         header('Location: /mp/stom%20teinberg');
         exit;
     }
     $MEMBER = new MEMBER(array('constituency' => $constituency, 'house' => 1));
     member_redirect($MEMBER);
-} else {
+}
+
+/////////////////////////////////////////////////////////
+// UNABLE TO IDENTIFY MP
+else
+{
     // No postcode, member_id or person_id to use.
     twfy_debug ('MP', "We don't have any way of telling what MP to display");
 }
 
-
-
-
 /////////////////////////////////////////////////////////
-// DISPLAY A REPRESENTATIVE
+// DISPLAY A LIST OF REPRESENTATIVES
 
 header('Cache-Control: max-age=900');
 
@@ -241,6 +294,9 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     );
 
     $PAGE->stripe_end(array($sidebar));
+
+/////////////////////////////////////////////////////////
+// DISPLAY A REPRESENTATIVE
 
 } elseif (isset($MEMBER) && $MEMBER->person_id()) {
 

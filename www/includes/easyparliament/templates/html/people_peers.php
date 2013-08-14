@@ -91,12 +91,12 @@ function render_peers_row($peer, &$style, $order, $URL) {
                 <?php
                 list($image,$sz) = find_rep_image($peer['person_id'], true, 'lord');
                 if ($image) {
-                    echo '<a href="' . $URL->generate().make_member_url($name) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
+                    echo '<a href="' . $URL->generate().make_member_url($name, null, 2, $peer['person_id']) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
                     echo '></a>';
                 }
                 ?>
                 </td>				    
-				<td class="row-<?php echo $style; ?>"><a href="<?php echo $URL->generate().make_member_url($name, null, 2); ?>"><?php echo ucfirst($name); ?></a></td>
+				<td class="row-<?php echo $style; ?>"><a href="<?php echo $URL->generate().make_member_url($name, null, 2, $peer['person_id']); ?>"><?php echo ucfirst($name); ?></a></td>
 				<td class="row-<?php echo $style; ?>"><?php echo $party; ?></td>
 				<td class="row-<?php echo $style; ?>"><?php
 	if (is_array($peer['dept'])) print join('<br>', array_map('manymins', $peer['pos'], $peer['dept']));

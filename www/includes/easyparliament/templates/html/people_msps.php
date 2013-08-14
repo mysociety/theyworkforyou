@@ -85,13 +85,13 @@ function render_mps_row($mp, &$style, $order, $MPURL) {
     <?php
     list($image,$sz) = find_rep_image($mp['person_id'], true, true);
     if ($image) {
-        echo '<a href="' . $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
+        echo '<a href="' . $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], NULL, 4, $mp['person_id']) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
         echo '></a>';
     }
     ?>
     </td>
 <td class="row-<?php echo $style; ?>"><a href="<?php
-	echo $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 4);
+	echo $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], NULL, 4, $mp['person_id']);
 ?>"><?php echo $name; ?></a></td>
 <td class="row-<?php echo $style; ?>"><?php echo $mp['party']; ?></td>
 <td class="row-<?php echo $style; ?>"><?php echo $mp['constituency']; ?></td>
