@@ -123,10 +123,18 @@ if (is_numeric($pid))
     // Normal, plain, displaying an MP by person ID.
     $MEMBER = new MEMBER(array('person_id' => $pid));
 
-    // Ensure that we're actually at the current, correct and canonical URL for the person. If not, redirect.
-    if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== $MEMBER->url(FALSE))
+    // If the member ID doesn't exist then the object won't have it set.
+    if ($MEMBER->member_id)
     {
-        member_redirect($MEMBER);
+        // Ensure that we're actually at the current, correct and canonical URL for the person. If not, redirect.
+        if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== $MEMBER->url(FALSE))
+        {
+            member_redirect($MEMBER);
+        }
+    }
+    else
+    {
+        $errors['pc'] = 'Sorry, that ID number wasn\'t recognised.';
     }
 }
 
