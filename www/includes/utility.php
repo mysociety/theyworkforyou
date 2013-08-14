@@ -845,34 +845,34 @@ function entities_to_numbers($string) {
 
 function make_member_url($name, $const = '', $house = 1, $pid = NULL) {
 
-    // Case for Elizabeth II
+	// Case for Elizabeth II
 	if ($house==0)
 	{
 		return 'elizabeth_the_second';
-    }
+	}
 
-	$s  = array(' ', '&amp;', '&ocirc;', '&Ouml;', '&ouml;', '&acirc;', '&iacute;', '&aacute;', '&uacute;', '&eacute;', '&oacute;', '&Oacute;');
-	$s2 = array(" ", "&",     "\xf4",    "\xd6",   "\xf6",   "\xe2",    "\xed",     "\xe1",     "\xfa",     "\xe9",     "\xf3",     "\xd3");
-	$r  = array('_', 'and',   'o',       'o',      'o',      'a',       'i',        'a',        'u',        'e',        'o',        'o');
+	$s   = array(' ', '&amp;', '&ocirc;', '&Ouml;', '&ouml;', '&acirc;', '&iacute;', '&aacute;', '&uacute;', '&eacute;', '&oacute;', '&Oacute;');
+	$s2  = array(" ", "&",     "\xf4",    "\xd6",   "\xf6",   "\xe2",    "\xed",     "\xe1",     "\xfa",     "\xe9",     "\xf3",     "\xd3");
+	$r   = array('_', 'and',   'o',       'o',      'o',      'a',       'i',        'a',        'u',        'e',        'o',        'o');
 	$name = preg_replace('#^the #', '', strtolower($name));
-	
+
 	$out = '';
-	
+
 	// Insert the Person ID if known.
 	if ($pid !== NULL)
 	{
-    	$out .= $pid . '/';
+		$out .= $pid . '/';
 	}
-    
-    // Always inject the person's name
+
+	// Always inject the person's name
 	$out .= urlencode(str_replace($s2, $r, str_replace($s, $r, $name)));
-	
+
 	// If there is a constituency, inject that too
 	if ($const && $house == 1)
 	{
 		$out .= '/' . urlencode(str_replace($s2, $r, str_replace($s, $r, strtolower($const))));
-    }
-    
+	}
+
 	return $out;
 }
 

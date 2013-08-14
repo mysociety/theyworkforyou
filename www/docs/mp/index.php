@@ -122,7 +122,7 @@ if (is_numeric($pid))
 
     // Normal, plain, displaying an MP by person ID.
     $MEMBER = new MEMBER(array('person_id' => $pid));
-    
+
     // Ensure that we're actually at the current, correct and canonical URL for the person. If not, redirect.
     if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== $MEMBER->url(FALSE))
     {
@@ -137,7 +137,7 @@ elseif (is_numeric(get_http_var('m')))
     // Got a member id, redirect to the canonical MP page, with a person id.
     $MEMBER = new MEMBER(array('member_id' => get_http_var('m')));
     member_redirect($MEMBER);
-    
+
 }
 
 /////////////////////////////////////////////////////////
@@ -215,7 +215,7 @@ elseif ($THEUSER->postcode_is_set() && $name == '' && $constituency == '')
 elseif ($name && $constituency)
 {
     $MEMBER = new MEMBER(array('name'=>$name, 'constituency'=>$constituency));
-    
+
     // If this person is not unique in name, don't redirect and instead wait to show list
     if (!is_array($MEMBER->person_id()))
     {
@@ -232,7 +232,7 @@ elseif ($name)
     if (preg_match('#^(mr|mrs|ms)#', $name)) {
         member_redirect($MEMBER);
     }
-    
+
     // If this person is not unique in name, don't redirect and instead wait to show list
     if (!is_array($MEMBER->person_id()))
     {
@@ -260,9 +260,6 @@ else
     // No postcode, member_id or person_id to use.
     twfy_debug ('MP', "We don't have any way of telling what MP to display");
 }
-
-
-
 
 /////////////////////////////////////////////////////////
 // DISPLAY A LIST OF REPRESENTATIVES
