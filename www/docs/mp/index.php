@@ -127,7 +127,7 @@ if (is_numeric($pid))
     if ($MEMBER->member_id)
     {
         // Ensure that we're actually at the current, correct and canonical URL for the person. If not, redirect.
-        if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== $MEMBER->url(FALSE))
+        if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)))
         {
             member_redirect($MEMBER);
         }

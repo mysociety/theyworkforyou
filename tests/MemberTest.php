@@ -122,6 +122,18 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
 
         $this->assertEquals('http://' . DOMAIN . '/mp/2/test_current-mp/test_westminister_constituency', $MEMBER->url());
     }
+    
+    /**
+     * Test that MP URLs with special characters are generated correctly.
+     *
+     * Special characters in URLs *should* be encoded.
+     */
+    public function testGetMPSpecialCharacterURL()
+    {
+        $MEMBER = new MEMBER(array('person_id' => 11));
+
+        $this->assertEquals('http://' . DOMAIN . '/mp/11/test_special-character-constituency/test_constituency%2C_comma', $MEMBER->url());
+    }
 
     /**
      * Test that Peer URLs are generated correctly.

@@ -53,7 +53,7 @@
 		<field name="left_reason">still_in_office</field>
 		<field name="person_id">1</field>
 		<field name="title">Queen</field>
-		<field name="lastupdate">2013-08-07 12:02:49</field>
+		<field name="lastupdate">2013-08-07 11:02:49</field>
 	</row>
 	<row>
 		<field name="member_id">1</field>
@@ -68,7 +68,7 @@
 		<field name="left_reason">still_in_office</field>
 		<field name="person_id">2</field>
 		<field name="title">Mrs</field>
-		<field name="lastupdate">2013-08-07 16:06:19</field>
+		<field name="lastupdate">2013-08-07 15:06:19</field>
 	</row>
 	<row>
 		<field name="member_id">2</field>
@@ -83,7 +83,7 @@
 		<field name="left_reason">still_in_office</field>
 		<field name="person_id">3</field>
 		<field name="title">Mr</field>
-		<field name="lastupdate">2013-08-07 16:06:22</field>
+		<field name="lastupdate">2013-08-07 15:06:22</field>
 	</row>
 	<row>
 		<field name="member_id">3</field>
@@ -98,7 +98,7 @@
 		<field name="left_reason">still_in_office</field>
 		<field name="person_id">4</field>
 		<field name="title">Miss</field>
-		<field name="lastupdate">2013-08-07 12:15:38</field>
+		<field name="lastupdate">2013-08-07 11:15:38</field>
 	</row>
 	<row>
 		<field name="member_id">4</field>
@@ -113,7 +113,7 @@
 		<field name="left_reason">still_in_office</field>
 		<field name="person_id">5</field>
 		<field name="title">Ms</field>
-		<field name="lastupdate">2013-08-07 12:15:47</field>
+		<field name="lastupdate">2013-08-07 11:15:47</field>
 	</row>
 	<row>
 		<field name="member_id">5</field>
@@ -128,7 +128,7 @@
 		<field name="left_reason">general_election</field>
 		<field name="person_id">6</field>
 		<field name="title">Mrs</field>
-		<field name="lastupdate">2013-08-07 16:06:13</field>
+		<field name="lastupdate">2013-08-07 15:06:13</field>
 	</row>
 	<row>
 		<field name="member_id">6</field>
@@ -143,7 +143,7 @@
 		<field name="left_reason">died</field>
 		<field name="person_id">7</field>
 		<field name="title">Mr</field>
-		<field name="lastupdate">2013-08-07 16:06:16</field>
+		<field name="lastupdate">2013-08-07 15:06:16</field>
 	</row>
 	<row>
 		<field name="member_id">7</field>
@@ -158,7 +158,7 @@
 		<field name="left_reason">general_election</field>
 		<field name="person_id">7</field>
 		<field name="title">Miss</field>
-		<field name="lastupdate">2013-08-07 16:06:34</field>
+		<field name="lastupdate">2013-08-07 15:06:34</field>
 	</row>
 	<row>
 		<field name="member_id">8</field>
@@ -173,7 +173,7 @@
 		<field name="left_reason">general_election</field>
 		<field name="person_id">8</field>
 		<field name="title">Ms</field>
-		<field name="lastupdate">2013-08-07 12:15:55</field>
+		<field name="lastupdate">2013-08-07 11:15:55</field>
 	</row>
 	<row>
 		<field name="member_id">9</field>
@@ -188,7 +188,7 @@
 		<field name="left_reason">general_election</field>
 		<field name="person_id">9</field>
 		<field name="title">Mr</field>
-		<field name="lastupdate">2013-08-07 12:19:47</field>
+		<field name="lastupdate">2013-08-07 11:19:47</field>
 	</row>
 	<row>
 		<field name="member_id">10</field>
@@ -203,7 +203,22 @@
 		<field name="left_reason">still_in_office</field>
 		<field name="person_id">10</field>
 		<field name="title">Mr</field>
-		<field name="lastupdate">2013-08-07 12:19:47</field>
+		<field name="lastupdate">2013-08-07 11:19:47</field>
+	</row>
+	<row>
+		<field name="member_id">11</field>
+		<field name="house">1</field>
+		<field name="first_name">Test</field>
+		<field name="last_name">Special-Character-Constituency</field>
+		<field name="constituency">Test Constituency, Comma</field>
+		<field name="party"></field>
+		<field name="entered_house">2000-01-01</field>
+		<field name="left_house">9999-12-31</field>
+		<field name="entered_reason">general_election</field>
+		<field name="left_reason">still_in_office</field>
+		<field name="person_id">11</field>
+		<field name="title">Mrs</field>
+		<field name="lastupdate">2013-08-15 16:53:57</field>
 	</row>
 	</table_data>
 	<table_data name="memberinfo">
