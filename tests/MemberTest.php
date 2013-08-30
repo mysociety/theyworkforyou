@@ -107,7 +107,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
 
         $MEMBER = new MEMBER(array('name' => 'test duplicate-mp'));
 
-        var_dump($MEMBER);
+        #var_dump($MEMBER);
 
         $this->assertEquals(NULL, $MEMBER->member_id);
         $this->assertEquals(array(10,9), $MEMBER->person_id);

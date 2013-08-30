@@ -463,35 +463,40 @@ class SEARCHENGINE {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return $body;
 
-        // Contents will be used in preg_replace() to highlight the search terms.
-        $findwords = array();
-        $replacewords = array();
-
         # Does html_entity_decode without the htmlspecialchars
         $body = preg_replace('/&#(\d\d\d);/e', 'chr($1)', $body);
-		$splitextract = preg_split('/([0-9,.]+|['.$this->wordcharsnodigit.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
-		$hlextract = "";
-		foreach( $splitextract as $extractword) {
+        $splitextract = preg_split('/(<[^>]*>|[0-9,.]+|['.$this->wordcharsnodigit.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $hlextract = "";
+        foreach( $splitextract as $extractword) {
+            if (preg_match('/^<[^>]*>$/', $extractword)) {
+                $hlextract .= $extractword;
+                continue;
+            }
             $endswithamp = '';
             if (substr($extractword, -1) == '&') {
                 $extractword = substr($extractword, 0, -1);
                 $endswithamp = '&';
             }
-			$hl = false;
-			$matchword = $this->stem($extractword);
-			foreach( $stemmed_words as $word ) {
-				if ($word == '') continue;
-				if ($matchword == $word) {
-					$hl = true;
-					break;
-				}
-			}
-			if ($hl)
-				$hlextract .= "<span class=\"hi\">$extractword</span>$endswithamp";
-			else
-				$hlextract .= $extractword . $endswithamp;
-		}
+            $hl = false;
+            $matchword = $this->stem($extractword);
+            foreach( $stemmed_words as $word ) {
+                if ($word == '') continue;
+                if ($matchword == $word) {
+                    $hl = true;
+                    break;
+                }
+            }
+            if ($hl) {
+                $hlextract .= "<span class=\"hi\">$extractword</span>$endswithamp";
+            } else {
+                $hlextract .= $extractword . $endswithamp;
+            }
+        }
         $body = preg_replace("#</span>\s+<span class=\"hi\">#", " ", $hlextract);
+
+        // Contents will be used in preg_replace() to highlight the search terms.
+        $findwords = array();
+        $replacewords = array();
 
         /*
         XXX OLD Way of doing it, doesn't work too well with stemming...
@@ -499,9 +504,9 @@ class SEARCHENGINE {
             if (ctype_digit($word)) {
                 array_push($findwords, "/\b($word|" . number_format($word) . ")\b/");
             } else {
-    			array_push($findwords, "/\b($word)\b/i");
+                array_push($findwords, "/\b($word)\b/i");
             }
-			array_push($replacewords, "<span class=\"hi\">\\1</span>");
+            array_push($replacewords, "<span class=\"hi\">\\1</span>");
             //array_push($findwords, "/([^>\.\'])\b(" . $word . ")\b([^<\'])/i");
             //array_push($replacewords, "\\1<span class=\"hi\">\\2</span>\\3");
         }
@@ -513,13 +518,8 @@ class SEARCHENGINE {
             $replacewords[] = "<span class=\"hi\">\\1</span>";
         }
 
-        // Highlight search words.
+        // Highlight search phrases.
         $hlbody = preg_replace($findwords, $replacewords, $body);
-        // Remove any highlighting within HTML.
-        $hlbody = preg_replace('#<(a|phrase)\s([^>]*?)<span class="hi">([^<]*?)</span>([^>]*?)">#', "<\\1 \\2\\3\\4\">", $hlbody);
-        $hlbody = preg_replace('#<(/?)<span class="hi">a</span>([^>]*?)>#', "<\\1a\\2>", $hlbody); # XXX Horrible hack
-        // Collapse duplicates
-        #$hlbody = preg_replace("#</span>(\W+)<span class=\"hi\">#", "\\1", $hlbody);
 
         return $hlbody;
     }

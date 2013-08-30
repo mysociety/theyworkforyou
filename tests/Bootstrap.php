@@ -29,7 +29,7 @@ if (
     }
 
 } else {
-    echo 'Testing environment variables not set. This will cause bad things to happen if testing happens on production. Aborting.';
+    echo "Testing environment variables not set. This will cause bad things to happen if testing happens on production. Aborting.\n";
     exit(1);
 }
 
