@@ -206,6 +206,13 @@ class PAGE {
 	<?=$robots ?>
 	<link rel="author" title="Send feedback" href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">
 	<link rel="home" title="Home" href="http://<?php echo DOMAIN; ?>/">
+
+	<meta property="og:title" content="TheyWorkForYou">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://<?php echo DOMAIN; ?>">
+	<!--<meta property="og:image" content="http://nick.writetothem.dev.mysociety.org/static/img/favicon-256.png">-->
+	<meta property="og:description" content="TheyWorkForYou is a website which makes it easy to keep track of your local MP's activities.">
+
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="/jslib/share/share.js"></script>
