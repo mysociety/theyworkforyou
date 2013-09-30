@@ -18,6 +18,8 @@ class SearchTest extends PHPUnit_Framework_TestCase
      */
 	public function testSearchNormal()
     {
+        if (array_key_exists('TRAVIS', $_SERVER)) { return; }
+
         $SEARCHENGINE = new SEARCHENGINE('test');
 
         $this->assertEquals(
@@ -31,6 +33,8 @@ class SearchTest extends PHPUnit_Framework_TestCase
      */
 	public function testSearchLink()
     {
+        if (array_key_exists('TRAVIS', $_SERVER)) { return; }
+
         $SEARCHENGINE = new SEARCHENGINE('test');
 
         $this->assertEquals(
