@@ -1,6 +1,8 @@
 memcached
 libemail-localdelivery-perl
 php5-xapian 
+libdbd-mysql-perl
+libhtml-parser-perl
 libmailtools-perl
 libmime-perl
 liberror-perl 
