@@ -237,15 +237,23 @@ elseif ($name && $constituency)
 elseif ($name)
 {
     $MEMBER = new MEMBER(array('name' => $name));
-    if (preg_match('#^(mr|mrs|ms)#', $name)) {
-        member_redirect($MEMBER);
-    }
 
-    // If this person is not unique in name, don't redirect and instead wait to show list
-    if (!is_array($MEMBER->person_id()))
-    {
-        twfy_debug ('MP', 'Redirecting for MP found by name only');
-        member_redirect($MEMBER);
+    // Edge case for Elizabeth II
+    if ($name !== 'elizabeth the second') {
+
+        // Only attempt further detection if this isn't the Queen.
+
+        if (preg_match('#^(mr|mrs|ms)#', $name)) {
+            member_redirect($MEMBER);
+        }
+
+        // If this person is not unique in name, don't redirect and instead wait to show list
+        if (!is_array($MEMBER->person_id()))
+        {
+            twfy_debug ('MP', 'Redirecting for MP found by name only');
+            member_redirect($MEMBER);
+        }
+
     }
 }
 
