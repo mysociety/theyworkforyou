@@ -144,11 +144,11 @@ class MEMBER {
 				);
 			}
 
-			if ( $house==0 					# The Monarch
-			    || (!$this->house_disp && $house==4)	# MSPs and
-			    || (!$this->house_disp && $house==3)	# MLAs have lowest priority
-			    || ($this->house_disp!=2 && $house==2)	# Lords have highest priority
-			    || (!$this->house_disp && $house==1) # MPs
+			if ( $house==HOUSE_TYPE_ROYAL 					# The Monarch
+			    || (!$this->house_disp && $house==HOUSE_TYPE_SCOTLAND)	# MSPs and
+			    || (!$this->house_disp && $house==HOUSE_TYPE_NI)	# MLAs have lowest priority
+			    || ($this->house_disp!=HOUSE_TYPE_LORDS && $house==HOUSE_TYPE_LORDS)	# Lords have highest priority
+			    || (!$this->house_disp && $house==HOUSE_TYPE_COMMONS) # MPs
 			) {
 				$this->house_disp = $house;
 				$this->constituency = $const;
@@ -254,7 +254,7 @@ class MEMBER {
 			$title = mysql_real_escape_string($m[1]);
 			$last_name = mysql_real_escape_string($m[2]);
 			$const = $m[3];
-			$q .= "house = 2 AND title = '$title' AND last_name='$last_name'";
+			$q .= "house = " . HOUSE_TYPE_LORDS . " AND title = '$title' AND last_name='$last_name'";
 		} elseif ($this_page=='msp') {
 			$success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
 			if (!$success)
@@ -266,7 +266,7 @@ class MEMBER {
 			$first_name = mysql_real_escape_string($m[1]);
 			$middle_name = mysql_real_escape_string($m[2]);
 			$last_name = mysql_real_escape_string($m[3]);
-			$q .= "house = 4 AND (";
+			$q .= "house = " . HOUSE_TYPE_SCOTLAND . " AND (";
 			$q .= "(first_name='$first_name $middle_name' AND last_name='$last_name')";
 			$q .= " or (first_name='$first_name' AND last_name='$middle_name $last_name') )";
 		} elseif ($this_page=='mla') {
@@ -280,7 +280,7 @@ class MEMBER {
 			$first_name = mysql_real_escape_string($m[1]);
 			$middle_name = mysql_real_escape_string($m[2]);
 			$last_name = mysql_real_escape_string($m[3]);
-			$q .= "house = 3 AND (
+			$q .= "house = " . HOUSE_TYPE_NI . " AND (
 	(first_name='$first_name $middle_name' AND last_name='$last_name')
 	or (first_name='$first_name' AND last_name='$middle_name $last_name')
 	or (title='$first_name' AND first_name='$middle_name' AND last_name='$last_name')
@@ -297,10 +297,10 @@ class MEMBER {
 			$middle_name = $m[2];
 			$last_name = $m[3];
 			# if ($title) $q .= 'title = \'' . mysql_real_escape_string($title) . '\' AND ';
-			$q .= "house =1 AND ((first_name='".mysql_real_escape_string($first_name." ".$middle_name)."' AND last_name='".mysql_real_escape_string($last_name)."') OR ".
+			$q .= "house = " . HOUSE_TYPE_COMMONS . " AND ((first_name='".mysql_real_escape_string($first_name." ".$middle_name)."' AND last_name='".mysql_real_escape_string($last_name)."') OR ".
 			"(first_name='".mysql_real_escape_string($first_name)."' AND last_name='".mysql_real_escape_string($middle_name." ".$last_name)."'))";
 		} elseif ($this_page == 'royal') {
-			$q .= ' house = 0';
+			$q .= ' house = ' . HOUSE_TYPE_ROYAL;
 		}
 
 		if ($const || $this_page=='peer') {
@@ -427,7 +427,7 @@ class MEMBER {
         }
 
         // Info specific to constituency (e.g. election results page on Guardian website)
-	if ($this->house(1)) {
+	if ($this->house(HOUSE_TYPE_COMMONS)) {
 
         	$q = $this->db->query("SELECT data_key, data_value FROM consinfo
 			WHERE constituency = '" . mysql_real_escape_string($this->constituency) . "'");
@@ -464,12 +464,12 @@ class MEMBER {
         }
 
 	if (isset($this->extra_info['public_whip_attendrank'])) {
-		$prefix = ($this->house(2) ? 'L' : '');
+		$prefix = ($this->house(HOUSE_TYPE_LORDS) ? 'L' : '');
 		$this->extra_info[$prefix.'public_whip_division_attendance_rank'] = $this->extra_info['public_whip_attendrank'];
 		$this->extra_info[$prefix.'public_whip_division_attendance_rank_outof'] = $this->extra_info['public_whip_attendrank_outof'];
 		$this->extra_info[$prefix.'public_whip_division_attendance_quintile'] = floor($this->extra_info['public_whip_attendrank'] / ($this->extra_info['public_whip_attendrank_outof']+1) * 5);
 	}
-	if ($this->house(2) && isset($this->extra_info['public_whip_division_attendance'])) {
+	if ($this->house(HOUSE_TYPE_LORDS) && isset($this->extra_info['public_whip_division_attendance'])) {
 		$this->extra_info['Lpublic_whip_division_attendance'] = $this->extra_info['public_whip_division_attendance'];
 		unset($this->extra_info['public_whip_division_attendance']);
 	}
@@ -528,7 +528,7 @@ class MEMBER {
 	function last_name() 		{ return $this->last_name; }
 	function full_name($no_mp_title = false) {
 		$title = $this->title;
-		if ($no_mp_title && ($this->house_disp==1 || $this->house_disp==3 || $this->house_disp==4))
+		if ($no_mp_title && ($this->house_disp==HOUSE_TYPE_COMMONS || $this->house_disp==HOUSE_TYPE_NI || $this->house_disp==HOUSE_TYPE_SCOTLAND))
 			$title = '';
 		return member_full_name($this->house_disp, $title, $this->first_name, $this->last_name, $this->constituency);
 	}
@@ -561,7 +561,7 @@ class MEMBER {
 	function entered_house_text($entered_house) {
 		if (!$entered_house) return '';
 		list($year, $month, $day) = explode('-', $entered_house);
-		if ($month==1 && $day==1 && $this->house(2)) {
+		if ($month==1 && $day==1 && $this->house(HOUSE_TYPE_LORDS)) {
 			return $year;
 		} elseif ($month==0 && $day==0) {
 			return $year;
@@ -678,9 +678,9 @@ class MEMBER {
 
 	function previous_mps() {
 		$previous_people = '';
-		$entered_house = $this->entered_house(1);
+		$entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
 		if (is_null($entered_house)) return '';
-		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=1 AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house < "' . $entered_house['date'] . '" ORDER BY entered_house DESC');
+		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=' . HOUSE_TYPE_COMMONS . ' AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house < "' . $entered_house['date'] . '" ORDER BY entered_house DESC');
 		for ($r = 0; $r < $q->rows(); $r++) {
 			$pid = $q->field($r, 'person_id');
 			$name = $q->field($r, 'first_name') . ' ' . $q->field($r, 'last_name');
@@ -696,9 +696,9 @@ class MEMBER {
 
 	function future_mps() {
 		$future_people = '';
-		$entered_house = $this->entered_house(1);
+		$entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
 		if (is_null($entered_house)) return '';
-		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=1 AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house > "' . $entered_house['date'] . '" ORDER BY entered_house');
+		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=' . HOUSE_TYPE_COMMONS . ' AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house > "' . $entered_house['date'] . '" ORDER BY entered_house');
 		if ($this->person_id() == 10218) return;
 		for ($r = 0; $r < $q->rows(); $r++) {
 			$pid = $q->field($r, 'person_id');
