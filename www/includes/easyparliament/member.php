@@ -11,7 +11,7 @@ class MEMBER {
 	var $first_name;
 	var $title;
 	var $last_name;
-	var $constituency; 
+	var $constituency;
 	var $party;
 	var $other_parties;
 	var $other_constituencies;
@@ -22,7 +22,7 @@ class MEMBER {
 	// Is this MP THEUSERS's MP?
 	var $the_users_mp = false;
 	var $house_disp = 0; # Which house we should display this person in
-	
+
 	// Mapping member table 'house' numbers to text.
 	var $houses_pretty = array(
 		0 => 'Royal Family',
@@ -31,7 +31,7 @@ class MEMBER {
 		3 => 'Northern Ireland Assembly',
 		4 => 'Scottish Parliament',
 	);
-	
+
 	// Mapping member table reasons to text.
 	var $reasons = array(
 		'became_peer'		=> 'Became peer',
@@ -51,7 +51,7 @@ class MEMBER {
 		'replaced_in_region'	=> 'Appointed, regional replacement',
 
 	);
-	
+
 	function MEMBER ($args) {
 		// $args is a hash like one of:
 		// member_id 		=> 237
@@ -61,13 +61,13 @@ class MEMBER {
 
 		// If just a constituency we currently just get the current member for
 		// that constituency.
-		
+
 		global $PAGE, $this_page;
-		
+
         $house = isset($args['house']) ? $args['house'] : null;
 
 		$this->db = new ParlDB;
-		$person_id = '';	
+		$person_id = '';
 		if (isset($args['member_id']) && is_numeric($args['member_id'])) {
 			$person_id = $this->member_id_to_person_id($args['member_id']);
 		} elseif (isset($args['name'])) {
@@ -78,12 +78,12 @@ class MEMBER {
 		} elseif (isset($args['postcode'])) {
 			$person_id = $this->postcode_to_person_id($args['postcode'], $house);
 		} elseif (isset($args['person_id']) && is_numeric($args['person_id'])) {
-			$person_id = $args['person_id'];	
+			$person_id = $args['person_id'];
 		} elseif (isset($args['guardian_aristotle_id']) && is_numeric($args['guardian_aristotle_id'])) {
-                        $this->guardian_aristotle_id = $args['guardian_aristotle_id'];	
-                        $person_id = $this->guardian_aristotle_id_to_person_id(); 
+                        $this->guardian_aristotle_id = $args['guardian_aristotle_id'];
+                        $person_id = $this->guardian_aristotle_id_to_person_id();
   	        }
-		
+
 		if (!$person_id) {
 			$this->valid = false;
 			return;
@@ -101,7 +101,7 @@ class MEMBER {
 			}
 		}
 		$this->valid = true;
-		
+
 		// Get the data.
 		$q = $this->db->query("SELECT member_id, house, title,
 			first_name, last_name, constituency, party, lastupdate,
@@ -132,7 +132,7 @@ class MEMBER {
 					'date_pretty' => $this->entered_house_text($entered_house),
 					'reason' => $this->entered_reason_text($entered_reason),
 				);
-			} 
+			}
 
 			if (!isset($this->left_house[$house])) {
 				$this->left_house[$house] = array(
@@ -144,11 +144,11 @@ class MEMBER {
 				);
 			}
 
-			if ( $house==0 					# The Monarch
-			    || (!$this->house_disp && $house==4)	# MSPs and
-			    || (!$this->house_disp && $house==3)	# MLAs have lowest priority
-			    || ($this->house_disp!=2 && $house==2)	# Lords have highest priority
-			    || (!$this->house_disp && $house==1) # MPs
+			if ( $house==HOUSE_TYPE_ROYAL 					# The Monarch
+			    || (!$this->house_disp && $house==HOUSE_TYPE_SCOTLAND)	# MSPs and
+			    || (!$this->house_disp && $house==HOUSE_TYPE_NI)	# MLAs have lowest priority
+			    || ($this->house_disp!=HOUSE_TYPE_LORDS && $house==HOUSE_TYPE_LORDS)	# Lords have highest priority
+			    || (!$this->house_disp && $house==HOUSE_TYPE_COMMONS) # MPs
 			) {
 				$this->house_disp = $house;
 				$this->constituency = $const;
@@ -177,28 +177,28 @@ class MEMBER {
 	        // when you need it, as some uses of MEMBER are lightweight (e.g.
 	        // in searchengine.php)
 		// $this->load_extra_info();
-		
+
 		$this->set_users_mp();
 	}
-	
+
 	function member_id_to_person_id ($member_id) {
 		global $PAGE;
-		$q = $this->db->query("SELECT person_id FROM member 
+		$q = $this->db->query("SELECT person_id FROM member
 					WHERE member_id = '" . mysql_real_escape_string($member_id) . "'");
 		if ($q->rows > 0) {
 			return $q->field(0, 'person_id');
 		} else {
 			$PAGE->error_message("Sorry, there is no member with a member ID of '" . htmlentities($member_id) . "'.");
 			return false;
-		}	
+		}
 	}
-	
+
 	function postcode_to_person_id ($postcode, $house=null) {
 		twfy_debug ('MP', "postcode_to_person_id converting postcode to person");
 		$constituency = strtolower(postcode_to_constituency($postcode));
 		return $this->constituency_to_person_id($constituency, $house);
 	}
-	
+
 	function constituency_to_person_id ($constituency, $house=null) {
 		global $PAGE;
 		if ($constituency == '') {
@@ -213,8 +213,8 @@ class MEMBER {
 		$normalised = normalise_constituency_name($constituency);
 		if ($normalised) $constituency = $normalised;
 
-	        $q = $this->db->query("SELECT person_id FROM member 
-					WHERE constituency = '" . mysql_real_escape_string($constituency) . "' 
+	        $q = $this->db->query("SELECT person_id FROM member
+					WHERE constituency = '" . mysql_real_escape_string($constituency) . "'
 					AND left_reason = 'still_in_office'" . ($house ? ' AND house='.mysql_real_escape_string($house) : ''));
 
 		if ($q->rows > 0) {
@@ -254,7 +254,7 @@ class MEMBER {
 			$title = mysql_real_escape_string($m[1]);
 			$last_name = mysql_real_escape_string($m[2]);
 			$const = $m[3];
-			$q .= "house = 2 AND title = '$title' AND last_name='$last_name'";
+			$q .= "house = " . HOUSE_TYPE_LORDS . " AND title = '$title' AND last_name='$last_name'";
 		} elseif ($this_page=='msp') {
 			$success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
 			if (!$success)
@@ -266,7 +266,7 @@ class MEMBER {
 			$first_name = mysql_real_escape_string($m[1]);
 			$middle_name = mysql_real_escape_string($m[2]);
 			$last_name = mysql_real_escape_string($m[3]);
-			$q .= "house = 4 AND (";
+			$q .= "house = " . HOUSE_TYPE_SCOTLAND . " AND (";
 			$q .= "(first_name='$first_name $middle_name' AND last_name='$last_name')";
 			$q .= " or (first_name='$first_name' AND last_name='$middle_name $last_name') )";
 		} elseif ($this_page=='mla') {
@@ -280,7 +280,7 @@ class MEMBER {
 			$first_name = mysql_real_escape_string($m[1]);
 			$middle_name = mysql_real_escape_string($m[2]);
 			$last_name = mysql_real_escape_string($m[3]);
-			$q .= "house = 3 AND (
+			$q .= "house = " . HOUSE_TYPE_NI . " AND (
 	(first_name='$first_name $middle_name' AND last_name='$last_name')
 	or (first_name='$first_name' AND last_name='$middle_name $last_name')
 	or (title='$first_name' AND first_name='$middle_name' AND last_name='$last_name')
@@ -297,10 +297,10 @@ class MEMBER {
 			$middle_name = $m[2];
 			$last_name = $m[3];
 			# if ($title) $q .= 'title = \'' . mysql_real_escape_string($title) . '\' AND ';
-			$q .= "house =1 AND ((first_name='".mysql_real_escape_string($first_name." ".$middle_name)."' AND last_name='".mysql_real_escape_string($last_name)."') OR ".
+			$q .= "house = " . HOUSE_TYPE_COMMONS . " AND ((first_name='".mysql_real_escape_string($first_name." ".$middle_name)."' AND last_name='".mysql_real_escape_string($last_name)."') OR ".
 			"(first_name='".mysql_real_escape_string($first_name)."' AND last_name='".mysql_real_escape_string($middle_name." ".$last_name)."'))";
 		} elseif ($this_page == 'royal') {
-			$q .= ' house = 0';
+			$q .= ' house = ' . HOUSE_TYPE_ROYAL;
 		}
 
 		if ($const || $this_page=='peer') {
@@ -347,7 +347,7 @@ class MEMBER {
 
         function guardian_aristotle_id_to_person_id () {
              $q = $this->db->query("SELECT person_id
-                                    FROM 	personinfo 
+                                    FROM 	personinfo
                                     WHERE	data_key = 'guardian_aristotle_id'
                                     AND data_value = '" . mysql_real_escape_string($this->guardian_aristotle_id) . "'
                                    ");
@@ -370,7 +370,7 @@ class MEMBER {
 			}
 		}
 	}
-	
+
 
     // Grabs extra information (e.g. external links) from the database
     # DISPLAY is whether it's to be displayed on MP page.
@@ -392,7 +392,7 @@ class MEMBER {
 	for ($row=0; $row<$q->rows(); $row++) {
 		$this->extra_info['office'][] = $q->row($row);
 	}
-	
+
         // Info specific to member id (e.g. attendance during that period of office)
 	#$q = $this->db->query("SELECT data_key, data_value,
 	#			(SELECT count(member_id) FROM memberinfo AS m2
@@ -427,7 +427,7 @@ class MEMBER {
         }
 
         // Info specific to constituency (e.g. election results page on Guardian website)
-	if ($this->house(1)) {
+	if ($this->house(HOUSE_TYPE_COMMONS)) {
 
         	$q = $this->db->query("SELECT data_key, data_value FROM consinfo
 			WHERE constituency = '" . mysql_real_escape_string($this->constituency) . "'");
@@ -437,14 +437,14 @@ class MEMBER {
 
 		if (array_key_exists('guardian_mp_summary', $this->extra_info)) {
 			$guardian_url = $this->extra_info['guardian_mp_summary'];
-			$this->extra_info['guardian_biography'] = $guardian_url; 
+			$this->extra_info['guardian_biography'] = $guardian_url;
 		}
                 if (array_key_exists('guardian_aristotle_id', $this->extra_info)) {
                        $politics_base_url = 'http://politics.guardian.co.uk/person/';
                        $aristotle_id = $this->extra_info['guardian_aristotle_id'];
                        $this->extra_info['guardian_howtheyvoted'] =
-                                $politics_base_url . "howtheyvoted/0,,-$aristotle_id,00.html";	
-                } 
+                                $politics_base_url . "howtheyvoted/0,,-$aristotle_id,00.html";
+                }
 	}
 
         if (array_key_exists('public_whip_rebellions', $this->extra_info)) {
@@ -460,16 +460,16 @@ class MEMBER {
                 $rebel_desc = "sometimes";
             elseif ($rebellions > 5)
                 $rebel_desc = "quite often";
-            $this->extra_info['public_whip_rebel_description'] = $rebel_desc; 
+            $this->extra_info['public_whip_rebel_description'] = $rebel_desc;
         }
-        
+
 	if (isset($this->extra_info['public_whip_attendrank'])) {
-		$prefix = ($this->house(2) ? 'L' : '');
+		$prefix = ($this->house(HOUSE_TYPE_LORDS) ? 'L' : '');
 		$this->extra_info[$prefix.'public_whip_division_attendance_rank'] = $this->extra_info['public_whip_attendrank'];
 		$this->extra_info[$prefix.'public_whip_division_attendance_rank_outof'] = $this->extra_info['public_whip_attendrank_outof'];
 		$this->extra_info[$prefix.'public_whip_division_attendance_quintile'] = floor($this->extra_info['public_whip_attendrank'] / ($this->extra_info['public_whip_attendrank_outof']+1) * 5);
 	}
-	if ($this->house(2) && isset($this->extra_info['public_whip_division_attendance'])) {
+	if ($this->house(HOUSE_TYPE_LORDS) && isset($this->extra_info['public_whip_division_attendance'])) {
 		$this->extra_info['Lpublic_whip_division_attendance'] = $this->extra_info['public_whip_division_attendance'];
 		unset($this->extra_info['public_whip_division_attendance']);
 	}
@@ -479,7 +479,7 @@ class MEMBER {
         		"sort" => "regexp_replace"
         	);
         	$GLOSSARY = new GLOSSARY($args);
-        	$this->extra_info['register_member_interests_html'] = 
+        	$this->extra_info['register_member_interests_html'] =
 		$GLOSSARY->glossarise($this->extra_info['register_member_interests_html']);
         }
 
@@ -519,16 +519,16 @@ class MEMBER {
 
         $memcache->set($memcache_key, $this->extra_info, MEMCACHE_COMPRESSED, 3600);
     }
-	
+
 	// Functions for accessing things about this Member.
-	
+
 	function member_id() 		{ return $this->member_id; }
 	function person_id() 		{ return $this->person_id; }
 	function first_name() 		{ return $this->first_name; }
 	function last_name() 		{ return $this->last_name; }
 	function full_name($no_mp_title = false) {
 		$title = $this->title;
-		if ($no_mp_title && ($this->house_disp==1 || $this->house_disp==3 || $this->house_disp==4))
+		if ($no_mp_title && ($this->house_disp==HOUSE_TYPE_COMMONS || $this->house_disp==HOUSE_TYPE_NI || $this->house_disp==HOUSE_TYPE_SCOTLAND))
 			$title = '';
 		return member_full_name($this->house_disp, $title, $this->first_name, $this->last_name, $this->constituency);
 	}
@@ -561,46 +561,46 @@ class MEMBER {
 	function entered_house_text($entered_house) {
 		if (!$entered_house) return '';
 		list($year, $month, $day) = explode('-', $entered_house);
-		if ($month==1 && $day==1 && $this->house(2)) {
+		if ($month==1 && $day==1 && $this->house(HOUSE_TYPE_LORDS)) {
 			return $year;
 		} elseif ($month==0 && $day==0) {
 			return $year;
 		} elseif (checkdate($month, $day, $year) && $year != '9999') {
-			return format_date($entered_house, LONGDATEFORMAT); 
+			return format_date($entered_house, LONGDATEFORMAT);
 		} else {
 			return "n/a";
 		}
 	}
-	
+
 	function left_house($house = null) {
 		if (!is_null($house))
 			return array_key_exists($house, $this->left_house) ? $this->left_house[$house] : null;
 		return $this->left_house;
 	}
-	
+
 	function left_house_text($left_house) {
 		if (!$left_house) return '';
 		list($year, $month, $day) = explode('-', $left_house);
 		if (checkdate($month, $day, $year) && $year != '9999') {
-			return format_date($left_house, LONGDATEFORMAT); 
+			return format_date($left_house, LONGDATEFORMAT);
 		} elseif ($month==0 && $day==0) {
 			return $year;
 		} else {
 			return "n/a";
 		}
 	}
-	
+
 	function entered_reason() 	{ return $this->entered_reason; }
-	function entered_reason_text($entered_reason) { 
+	function entered_reason_text($entered_reason) {
 		if (isset($this->reasons[$entered_reason])) {
 			return $this->reasons[$entered_reason];
 		} else {
 			return $entered_reason;
 		}
 	}
-	
+
 	function left_reason() 		{ return $this->left_reason; }
-	function left_reason_text($left_reason, $left_house, $house) { 
+	function left_reason_text($left_reason, $left_house, $house) {
 		if (isset($this->reasons[$left_reason])) {
 			$left_reason = $this->reasons[$left_reason];
 			if (is_array($left_reason)) {
@@ -618,9 +618,9 @@ class MEMBER {
 			return $left_reason;
 		}
 	}
-	
+
 	function extra_info()		{ return $this->extra_info; }
-	
+
 	function current_member($house = 0) {
 		$current = array();
 		foreach (array_keys($this->houses_pretty) as $h) {
@@ -635,15 +635,15 @@ class MEMBER {
 
 	function url($absolute = true) {
 		$house = $this->house_disp;
-		if ($house==1) {
+		if ($house == HOUSE_TYPE_COMMONS) {
 			$URL = new URL('mp');
-		} elseif ($house==2) {
+		} elseif ($house == HOUSE_TYPE_LORDS) {
 			$URL = new URL('peer');
-		} elseif ($house==3) {
+		} elseif ($house == HOUSE_TYPE_NI) {
 			$URL = new URL('mla');
-		} elseif ($house==4) {
+		} elseif ($house == HOUSE_TYPE_SCOTLAND) {
 			$URL = new URL('msp');
-		} elseif ($house==0) {
+		} elseif ($house == HOUSE_TYPE_ROYAL) {
 			$URL = new URL('royal');
 		}
 		$member_url = make_member_url($this->full_name(true), $this->constituency(), $house, $this->person_id());
@@ -652,10 +652,10 @@ class MEMBER {
 		else
 			return $URL->generate('none') . $member_url;
 	}
-	
+
 	function display () {
 		global $PAGE;
-		
+
 		$member = array (
 			'member_id' 		=> $this->member_id(),
 			'person_id'		=> $this->person_id(),
@@ -672,15 +672,15 @@ class MEMBER {
 			'current_member_anywhere'   => $this->current_member_anywhere(),
 			'house_disp'		=> $this->house_disp,
 		);
-		
+
 		$PAGE->display_member($member, $this->extra_info);
 	}
 
 	function previous_mps() {
 		$previous_people = '';
-		$entered_house = $this->entered_house(1);
+		$entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
 		if (is_null($entered_house)) return '';
-		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=1 AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house < "' . $entered_house['date'] . '" ORDER BY entered_house DESC');
+		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=' . HOUSE_TYPE_COMMONS . ' AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house < "' . $entered_house['date'] . '" ORDER BY entered_house DESC');
 		for ($r = 0; $r < $q->rows(); $r++) {
 			$pid = $q->field($r, 'person_id');
 			$name = $q->field($r, 'first_name') . ' ' . $q->field($r, 'last_name');
@@ -696,9 +696,9 @@ class MEMBER {
 
 	function future_mps() {
 		$future_people = '';
-		$entered_house = $this->entered_house(1);
+		$entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
 		if (is_null($entered_house)) return '';
-		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=1 AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house > "' . $entered_house['date'] . '" ORDER BY entered_house');
+		$q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=' . HOUSE_TYPE_COMMONS . ' AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house > "' . $entered_house['date'] . '" ORDER BY entered_house');
 		if ($this->person_id() == 10218) return;
 		for ($r = 0; $r < $q->rows(); $r++) {
 			$pid = $q->field($r, 'person_id');
@@ -708,7 +708,7 @@ class MEMBER {
 		return $future_people;
 	}
 
- 
+
     function current_member_anywhere(){
         $is_current = false;
 	    $current_memberships = $this->current_member();
@@ -717,8 +717,8 @@ class MEMBER {
 	            $is_current = true;
             }
 	    }
-	    
-	    return $is_current;   
+
+	    return $is_current;
     }
 }
 
@@ -733,7 +733,7 @@ $party_colours = array(
     "Ind UU" => "#ccddee",
     "Labour" => "#cc0000",
     "Lab/Co-op" => "#cc0000",
-    "LDem" => "#f1cc0a", #"#ff9900", 
+    "LDem" => "#f1cc0a", #"#ff9900",
     "PC" => "#33CC33",
     "SDLP" => "#8D9033",
     "SF" => "#2B7255",
@@ -783,20 +783,20 @@ function find_rep_image($pid, $smallonly = false, $substitute_missing = false) {
 		$image = IMAGEPATH . 'mps/' . $pid . '.png';
 		$sz = 'S';
 	}
-	
+
 	//if no image, use a dummy one
 	if (!$image && $substitute_missing) {
 	    if($smallonly){
 	        if($substitute_missing === "lord"){
 	            $image = IMAGEPATH . "unknownlord.png";
             }else{
-                $image = IMAGEPATH . "unknownperson.png";                
+                $image = IMAGEPATH . "unknownperson.png";
             }
-        }else{ 
+        }else{
 	        if($substitute_missing === "lord"){
 	            $image = IMAGEPATH . "unknownlord_large.png";
             }else{
-                $image = IMAGEPATH . "unknownperson_large.png";                
+                $image = IMAGEPATH . "unknownperson_large.png";
 
             }
         }

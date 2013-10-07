@@ -95,7 +95,7 @@ if (preg_match("#^ynys m\xc3\xb4n#i", $constituency))
 // Redirect for MP recent appearanecs
 if (get_http_var('recent')) {
     if ($THEUSER->postcode_is_set() && !$pid) {
-        $MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode(), 'house' => 1));
+        $MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
         if ($MEMBER->person_id())
             $pid = $MEMBER->person_id();
     }
@@ -166,7 +166,7 @@ elseif (get_http_var('pc') != '')
             twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
         } else {
             // Redirect to the canonical MP page, with a person id.
-            $MEMBER = new MEMBER(array('constituency' => $constituency, 'house' => 1));
+            $MEMBER = new MEMBER(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
             if ($MEMBER->person_id()) {
                 // This will cookie the postcode.
                 $THEUSER->set_postcode_cookie($pc);
@@ -214,7 +214,7 @@ elseif ($this_page == 'mla' && $THEUSER->postcode_is_set() && $name == '' && $co
 // (Either in their logged-in details or in a cookie from a previous search.)
 elseif ($THEUSER->postcode_is_set() && $name == '' && $constituency == '')
 {
-    $MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode(), 'house' => 1));
+    $MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
     member_redirect($MEMBER, 302);
 }
 
@@ -265,7 +265,7 @@ elseif ($constituency)
         header('Location: /mp/stom%20teinberg');
         exit;
     }
-    $MEMBER = new MEMBER(array('constituency' => $constituency, 'house' => 1));
+    $MEMBER = new MEMBER(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
     member_redirect($MEMBER);
 }
 
@@ -319,33 +319,33 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     if ($MEMBER->current_member_anywhere())
         $desc .= ', investigate their voting record, and get email alerts on their activity';
 
-    if ($MEMBER->house(1)) {
+    if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
         if (!$MEMBER->current_member(1)) {
             $title .= ', former';
         }
         $title .= ' MP';
         if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
     }
-    if ($MEMBER->house(3)) {
-        if ($MEMBER->house(1) || $MEMBER->house(2)) {
+    if ($MEMBER->house(HOUSE_TYPE_NI)) {
+        if ($MEMBER->house(HOUSE_TYPE_COMMONS) || $MEMBER->house(HOUSE_TYPE_LORDS)) {
             $desc = str_replace('Parliament', 'Parliament and the Northern Ireland Assembly', $desc);
         } else {
             $desc = str_replace('Parliament', 'the Northern Ireland Assembly', $desc);
         }
-        if (!$MEMBER->current_member(3)) {
+        if (!$MEMBER->current_member(HOUSE_TYPE_NI)) {
             $title .= ', former';
         }
         $title .= ' MLA';
         if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
     }
-    if ($MEMBER->house(4)) {
-        if ($MEMBER->house(1) || $MEMBER->house(2)) {
+    if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
+        if ($MEMBER->house(HOUSE_TYPE_COMMONS) || $MEMBER->house(HOUSE_TYPE_LORDS)) {
             $desc = str_replace('Parliament', 'the UK and Scottish Parliaments', $desc);
         } else {
             $desc = str_replace('Parliament', 'the Scottish Parliament', $desc);
         }
         $desc = str_replace(', and get email alerts on their activity', '', $desc);
-        if (!$MEMBER->current_member(4)) {
+        if (!$MEMBER->current_member(HOUSE_TYPE_SCOTLAND)) {
             $title .= ', former';
         }
         $title .= ' MSP, '.$MEMBER->constituency();
@@ -403,7 +403,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     }
 */
 
-    if ($MEMBER->house(1)) {
+    if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
         $previous_people = $MEMBER->previous_mps();
         if ($previous_people) {
             $sidebars[] = array(
@@ -422,7 +422,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         }
     }
 
-    if ($MEMBER->house(1)) {
+    if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
         global $memcache;
         if (!$memcache) {
             $memcache = new Memcache;
@@ -559,14 +559,14 @@ function regional_list($pc, $area_type, $rep_type) {
     $db = new ParlDB;
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
         WHERE constituency IN ('" . join("','", $a) . "')
-        AND left_reason = 'still_in_office' AND house in (3,4)");
+        AND left_reason = 'still_in_office' AND house in (" . HOUSE_TYPE_NI . "," . HOUSE_TYPE_SCOTLAND . ")");
     $current = true;
     if (!$q->rows()) {
         # XXX No results implies dissolution, fix for 2011.
         $current = false;
         $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
             WHERE constituency IN ('" . join("','", $a) . "')
-            AND ( (house=3 AND left_house='2011-03-24') OR (house=4 AND left_house='2011-03-23') )");
+            AND ( (house=" . HOUSE_TYPE_NI . " AND left_house='2011-03-24') OR (house=" . HOUSE_TYPE_SCOTLAND . " AND left_house='2011-03-23') )");
         }
     $mcon = array(); $mreg = array();
     for ($i=0; $i<$q->rows(); $i++) {
@@ -574,11 +574,11 @@ function regional_list($pc, $area_type, $rep_type) {
         $pid = $q->field($i, 'person_id');
         $name = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
         $cons = $q->field($i, 'constituency');
-        if ($house==1) {
+        if ($house == HOUSE_TYPE_COMMONS) {
             continue;
-        } elseif ($house==3) {
+        } elseif ($house == HOUSE_TYPE_NI) {
             $mreg[] = $q->row($i);
-        } elseif ($house==4) {
+        } elseif ($house == HOUSE_TYPE_SCOTLAND) {
             if ($cons == $constituencies['SPC']) {
                 $mcon = $q->row($i);
             } elseif ($cons == $constituencies['SPE']) {
@@ -678,7 +678,7 @@ function generate_member_links ($member) {
         $html .= '    <li><a href="' . $links['diocese_url'] . '">Diocese website</a></li>';
     }
 
-    if ($member->house(1)) {
+    if ($member->house(HOUSE_TYPE_COMMONS)) {
         $html .= '<li><a href="http://www.edms.org.uk/mps/' . $member->person_id() . '/">Early Day Motions signed by this MP</a> <small>(From edms.org.uk)</small></li>';
     }
 

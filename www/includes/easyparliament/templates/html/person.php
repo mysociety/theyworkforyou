@@ -1,10 +1,10 @@
 <?php
 
 # Some big IFs that are used multiple times. Methods on a class instance, you say, what's that?
-$member['has_voting_record'] = ((in_array(1, $member['houses']) && $member['party'] != 'Sinn Fein') || in_array(2, $member['houses']));
-$member['has_recent_appearances'] = !(in_array(1, $member['houses']) && $member['party'] == 'Sinn Fein' && !in_array(3, $member['houses']));
-$member['has_email_alerts'] = $member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein') || $member['current_member'][4];
-$member['has_video_matching'] = $member['current_member'][1] && $member['party'] != 'Sinn Fein';
+$member['has_voting_record'] = ((in_array(HOUSE_TYPE_COMMONS, $member['houses']) && $member['party'] != 'Sinn Fein') || in_array(HOUSE_TYPE_LORDS, $member['houses']));
+$member['has_recent_appearances'] = !(in_array(HOUSE_TYPE_COMMONS, $member['houses']) && $member['party'] == 'Sinn Fein' && !in_array(HOUSE_TYPE_NI, $member['houses']));
+$member['has_email_alerts'] = $member['current_member'][HOUSE_TYPE_ROYAL] || $member['current_member'][HOUSE_TYPE_LORDS] || $member['current_member'][HOUSE_TYPE_NI] || ($member['current_member'][HOUSE_TYPE_COMMONS] && $member['party'] != 'Sinn Fein') || $member['current_member'][HOUSE_TYPE_SCOTLAND];
+$member['has_video_matching'] = $member['current_member'][HOUSE_TYPE_COMMONS] && $member['party'] != 'Sinn Fein';
 $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1']);
 
 # First, the special Speaker box.
@@ -66,7 +66,7 @@ if (!exists_rep_image($member['person_id'])) {
 echo '<ul class="hilites clear">';
 	person_enter_leave_facts($member, $extra_info);
 	person_majority($extra_info);
-	if ($member['party'] == 'Sinn Fein' && in_array(1, $member['houses'])) {
+	if ($member['party'] == 'Sinn Fein' && in_array(HOUSE_TYPE_COMMONS, $member['houses'])) {
 		print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
 	}
 print "</ul>";
@@ -81,7 +81,7 @@ if ($member['has_voting_record']) {
 
 $member['chairmens_panel'] = false;
 # Topics of interest only for current MPs at the moment
-if ($member['current_member'][1]) { # in_array(1, $member['houses'])
+if ($member['current_member'][HOUSE_TYPE_COMMONS]) { # in_array(1, $member['houses'])
 	$member['chairmens_panel'] = person_committees_and_topics($member, $extra_info);
 }
 
@@ -106,7 +106,7 @@ if ($member['has_expenses']) {
 
 # Gets and outputs the correct image (with special case for Lords)
 function person_image($member) {
-	$is_lord = in_array(2, $member['houses']);
+	$is_lord = in_array(HOUSE_TYPE_LORDS, $member['houses']);
 	if ($is_lord) {
 		list($image,$sz) = find_rep_image($member['person_id'], false, 'lord');
 	} else {
@@ -121,13 +121,13 @@ function person_image($member) {
 # Given a MEMBER array, return a summary description of the person's member positions,
 # e.g. "Former MLA for Toytown, MP for Trumpton"
 function person_summary_description($member) {
-	if (in_array(0, $member['houses'])) { # Royal short-circuit
-		return '<li><strong>Acceded on ' . $member['entered_house'][0]['date_pretty']
+	if (in_array(HOUSE_TYPE_ROYAL, $member['houses'])) { # Royal short-circuit
+		return '<li><strong>Acceded on ' . $member['entered_house'][HOUSE_TYPE_ROYAL]['date_pretty']
 			. '</strong></li><li><strong>Coronated on 2 June 1953</strong></li>';
 	}
 	$desc = '';
 	foreach ($member['houses'] as $house) {
-		if ($house==1 && isset($member['entered_house'][2]))
+		if ($house==HOUSE_TYPE_COMMONS && isset($member['entered_house'][HOUSE_TYPE_LORDS]))
 			continue; # Same info is printed further down
 
 		if (!$member['current_member'][$house]) $desc .= 'Former ';
@@ -148,17 +148,17 @@ function person_summary_description($member) {
 				$desc .= $last['from'] . ' ';
 			}
 		}
-		if ($house==1 || $house==3 || $house==4) {
+		if ($house==HOUSE_TYPE_COMMONS || $house==HOUSE_TYPE_NI || $house==HOUSE_TYPE_SCOTLAND) {
 			$desc .= ' ';
-			if ($house==1) $desc .= '<abbr title="Member of Parliament">MP</abbr>';
-			if ($house==3) $desc .= '<abbr title="Member of the Legislative Assembly">MLA</abbr>';
-			if ($house==4) $desc .= '<abbr title="Member of the Scottish Parliament">MSP</abbr>';
+			if ($house==HOUSE_TYPE_COMMONS) $desc .= '<abbr title="Member of Parliament">MP</abbr>';
+			if ($house==HOUSE_TYPE_NI) $desc .= '<abbr title="Member of the Legislative Assembly">MLA</abbr>';
+			if ($house==HOUSE_TYPE_SCOTLAND) $desc .= '<abbr title="Member of the Scottish Parliament">MSP</abbr>';
 			if ($party_br) {
 				$desc .= " ($party_br)";
 			}
 			$desc .= ' for ' . $member['left_house'][$house]['constituency'];
 		}
-		if ($house==2 && $party != 'Bishop') $desc .= ' Peer';
+		if ($house==HOUSE_TYPE_LORDS && $party != 'Bishop') $desc .= ' Peer';
 		$desc .= ', ';
 	}
 	$desc = preg_replace('#, $#', '', $desc);
@@ -190,34 +190,34 @@ them.</p>';
 }
 
 function person_enter_leave_facts($member, $extra_info) {
-	if (isset($member['left_house'][1]) && isset($member['entered_house'][2])) {
+	if (isset($member['left_house'][HOUSE_TYPE_COMMONS]) && isset($member['entered_house'][HOUSE_TYPE_LORDS])) {
 		print '<li><strong>Entered the House of Lords ';
-		if (strlen($member['entered_house'][2]['date_pretty'])==4)
+		if (strlen($member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'])==4)
 			print 'in ';
 		else
 			print 'on ';
-		print $member['entered_house'][2]['date_pretty'].'</strong>';
+		print $member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
 		print '</strong>';
-		if ($member['entered_house'][2]['reason']) print ' &mdash; ' . $member['entered_house'][2]['reason'];
+		if ($member['entered_house'][HOUSE_TYPE_LORDS]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_LORDS]['reason'];
 		print '</li>';
 		print '<li><strong>Previously MP for ';
-		print $member['left_house'][1]['constituency'] . ' until ';
-		print $member['left_house'][1]['date_pretty'].'</strong>';
-		if ($member['left_house'][1]['reason']) print ' &mdash; ' . $member['left_house'][1]['reason'];
+		print $member['left_house'][HOUSE_TYPE_COMMONS]['constituency'] . ' until ';
+		print $member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
+		if ($member['left_house'][HOUSE_TYPE_COMMONS]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_COMMONS]['reason'];
 		print '</li>';
-	} elseif (isset($member['entered_house'][2]['date'])) {
+	} elseif (isset($member['entered_house'][HOUSE_TYPE_LORDS]['date'])) {
 		print '<li><strong>Became a Lord ';
-		if (strlen($member['entered_house'][2]['date_pretty'])==4)
+		if (strlen($member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'])==4)
 			print 'in ';
 		else
 			print 'on ';
-		print $member['entered_house'][2]['date_pretty'].'</strong>';
-		if ($member['entered_house'][2]['reason']) print ' &mdash; ' . $member['entered_house'][2]['reason'];
+		print $member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
+		if ($member['entered_house'][HOUSE_TYPE_LORDS]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_LORDS]['reason'];
 		print '</li>';
 	}
-	if (in_array(2, $member['houses']) && !$member['current_member'][2]) {
-		print '<li><strong>Left Parliament on '.$member['left_house'][2]['date_pretty'].'</strong>';
-		if ($member['left_house'][2]['reason']) print ' &mdash; ' . $member['left_house'][2]['reason'];
+	if (in_array(HOUSE_TYPE_LORDS, $member['houses']) && !$member['current_member'][HOUSE_TYPE_LORDS]) {
+		print '<li><strong>Left Parliament on '.$member['left_house'][HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
+		if ($member['left_house'][HOUSE_TYPE_LORDS]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_LORDS]['reason'];
 		print '</li>';
 	}
 
@@ -227,43 +227,43 @@ function person_enter_leave_facts($member, $extra_info) {
 			$extra_info['lordbio_from'], '">Number 10 press release</a>)</small></li>';
 	}
 
-	if (isset($member['entered_house'][1]['date'])) {
+	if (isset($member['entered_house'][HOUSE_TYPE_COMMONS]['date'])) {
 		print '<li><strong>Entered Parliament on ';
-		print $member['entered_house'][1]['date_pretty'].'</strong>';
-		if ($member['entered_house'][1]['reason']) print ' &mdash; ' . $member['entered_house'][1]['reason'];
+		print $member['entered_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
+		if ($member['entered_house'][HOUSE_TYPE_COMMONS]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_COMMONS]['reason'];
 		print '</li>';
 	}
-	if (in_array(1, $member['houses']) && !$member['current_member'][1] && !isset($member['entered_house'][2])) {
+	if (in_array(HOUSE_TYPE_COMMONS, $member['houses']) && !$member['current_member'][HOUSE_TYPE_COMMONS] && !isset($member['entered_house'][HOUSE_TYPE_LORDS])) {
 		print '<li><strong>Left Parliament ';
-		if (strlen($member['left_house'][1]['date_pretty'])==4)
+		if (strlen($member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'])==4)
 			print 'in ';
 		else
 			print 'on ';
-		echo $member['left_house'][1]['date_pretty'].'</strong>';
-		if ($member['left_house'][1]['reason']) print ' &mdash; ' . $member['left_house'][1]['reason'];
+		echo $member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
+		if ($member['left_house'][HOUSE_TYPE_COMMONS]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_COMMONS]['reason'];
 		print '</li>';
 	}
 
-	if (isset($member['entered_house'][3]['date'])) {
+	if (isset($member['entered_house'][HOUSE_TYPE_NI]['date'])) {
 		print '<li><strong>Entered the Assembly on ';
-		print $member['entered_house'][3]['date_pretty'].'</strong>';
-		if ($member['entered_house'][3]['reason']) print ' &mdash; ' . $member['entered_house'][3]['reason'];
+		print $member['entered_house'][HOUSE_TYPE_NI]['date_pretty'].'</strong>';
+		if ($member['entered_house'][HOUSE_TYPE_NI]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_NI]['reason'];
 		print '</li>';
 	}
-	if (in_array(3, $member['houses']) && !$member['current_member'][3]) {
-		print '<li><strong>Left the Assembly on '.$member['left_house'][3]['date_pretty'].'</strong>';
-		if ($member['left_house'][3]['reason']) print ' &mdash; ' . $member['left_house'][3]['reason'];
+	if (in_array(HOUSE_TYPE_NI, $member['houses']) && !$member['current_member'][HOUSE_TYPE_NI]) {
+		print '<li><strong>Left the Assembly on '.$member['left_house'][HOUSE_TYPE_NI]['date_pretty'].'</strong>';
+		if ($member['left_house'][HOUSE_TYPE_NI]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_NI]['reason'];
 		print '</li>';
 	}
-	if (isset($member['entered_house'][4]['date'])) {
+	if (isset($member['entered_house'][HOUSE_TYPE_SCOTLAND]['date'])) {
 		print '<li><strong>Entered the Scottish Parliament on ';
-		print $member['entered_house'][4]['date_pretty'].'</strong>';
-		if ($member['entered_house'][4]['reason']) print ' &mdash; ' . $member['entered_house'][4]['reason'];
+		print $member['entered_house'][HOUSE_TYPE_SCOTLAND]['date_pretty'].'</strong>';
+		if ($member['entered_house'][HOUSE_TYPE_SCOTLAND]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_SCOTLAND]['reason'];
 		print '</li>';
 	}
-	if (in_array(4, $member['houses']) && !$member['current_member'][4]) {
-		print '<li><strong>Left the Scottish Parliament on '.$member['left_house'][4]['date_pretty'].'</strong>';
-		if ($member['left_house'][4]['reason']) print ' &mdash; ' . $member['left_house'][4]['reason'];
+	if (in_array(HOUSE_TYPE_SCOTLAND, $member['houses']) && !$member['current_member'][HOUSE_TYPE_SCOTLAND]) {
+		print '<li><strong>Left the Scottish Parliament on '.$member['left_house'][HOUSE_TYPE_SCOTLAND]['date_pretty'].'</strong>';
+		if ($member['left_house'][HOUSE_TYPE_SCOTLAND]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_SCOTLAND]['reason'];
 		print '</li>';
 	}
 }
@@ -305,20 +305,20 @@ function person_user_actions($member) {
 		<li><a onClick="recordWTT(this, 'User');return false;" href="http://www.writetothem.com/?a=WMC&amp;pc=<?php echo htmlentities(urlencode($pc)); ?>"><strong>Send a message to <?php echo $member['full_name']; ?></strong></a> (only use this for <em>your</em> MP) <small>(via WriteToThem.com)</small></li>
 		<li><a href="http://www.hearfromyourmp.com/?pc=<?=htmlentities(urlencode($pc)) ?>"><strong>Get messages from your MP</strong></a> <small>(via HearFromYourMP)</small></strong></a></li>
 <?php
-	} elseif ($member['current_member'][1]) {
+	} elseif ($member['current_member'][HOUSE_TYPE_COMMONS]) {
 ?>
 		<li><a onClick="recordWTT(this, 'MP');return false;" href="http://www.writetothem.com/"><strong>Send a message to your MP</strong></a> <small>(via WriteToThem.com)</small></li>
 		<li><a href="http://www.hearfromyourmp.com/"><strong>Sign up to <em>HearFromYourMP</em></strong></a> to get messages from your MP</li>
 <?php
-	} elseif ($member['current_member'][3]) {
+	} elseif ($member['current_member'][HOUSE_TYPE_NI]) {
 ?>
 		<li><a onClick="recordWTT(this, 'MLA');return false;" href="http://www.writetothem.com/"><strong>Send a message to your MLA</strong></a> <small>(via WriteToThem.com)</small></li>
 <?php
-	} elseif ($member['current_member'][4]) {
+	} elseif ($member['current_member'][HOUSE_TYPE_SCOTLAND]) {
 ?>
 		<li><a onClick="recordWTT(this, 'MSP');return false;" href="http://www.writetothem.com/"><strong>Send a message to your MSP</strong></a> <small>(via WriteToThem.com)</small></li>
 <?php
-	} elseif ($member['current_member'][2]) {
+	} elseif ($member['current_member'][HOUSE_TYPE_LORDS]) {
 ?>
 		<li><a onClick="recordWTT(this, 'Lord');return false;" href="http://www.writetothem.com/?person=uk.org.publicwhip/person/<?php echo $member['person_id']; ?>"><strong>Send a message to <?php echo $member['full_name']; ?></strong></a> <small>(via WriteToThem.com)</small></li>
 <?php
@@ -342,7 +342,7 @@ function person_internal_links($member, $extra_info) {
 	# If a non-SF MP, or a Lord
 	if ($member['has_voting_record']) {
 		echo '<li><a href="#votingrecord">Voting record</a></li>';
-		if ($member['current_member'][1])
+		if ($member['current_member'][HOUSE_TYPE_COMMONS])
 			echo '<li><a href="#topics">Topics of interest</a></li>';
 	}
 	# Show recent appearances, unless a SF MP who's not an MLA
@@ -438,7 +438,7 @@ function person_voting_record($member, $extra_info) {
 
 	$got_dream = '';
     foreach ($policies as $policy) {
-        if (isset($policy[2]) && $policy[2] && !in_array(1, $member['houses']))
+        if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member['houses']))
             continue;
 	    $got_dream .= display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
         if (isset($joined[$policy[0]])) {
@@ -449,15 +449,15 @@ function person_voting_record($member, $extra_info) {
 
 	if ($got_dream) {
 		$displayed_stuff = 1;
-        if (in_array(1, $member['houses']) && $member['entered_house'][1]['date'] > '2001-06-07') {
+        if (in_array(HOUSE_TYPE_COMMONS, $member['houses']) && $member['entered_house'][HOUSE_TYPE_COMMONS]['date'] > '2001-06-07') {
             $since = '';
-        } elseif (!in_array(1, $member['houses']) && in_array(2, $member['houses']) && $member['entered_house'][2]['date'] > '2001-06-07') {
+        } elseif (!in_array(HOUSE_TYPE_COMMONS, $member['houses']) && in_array(HOUSE_TYPE_LORDS, $member['houses']) && $member['entered_house'][HOUSE_TYPE_LORDS]['date'] > '2001-06-07') {
             $since = '';
         } else {
             $since = ' since 2001';
         }
         # If not current MP/Lord, but current MLA/MSP, need to say voting record is when MP
-        if (!$member['current_member'][1] && !$member['current_member'][2] && ($member['current_member'][4] || $member['current_member'][3])) {
+        if (!$member['current_member'][HOUSE_TYPE_COMMONS] && !$member['current_member'][HOUSE_TYPE_LORDS] && ($member['current_member'][HOUSE_TYPE_SCOTLAND] || $member['current_member'][HOUSE_TYPE_NI])) {
             $since .= ' whilst an MP';
         }
 ?>
@@ -497,7 +497,7 @@ function person_voting_record($member, $extra_info) {
 						<li><a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?=$member['member_id'] ?>#divisions" title="See more details at Public Whip">
                         <strong><?php echo htmlentities(ucfirst($extra_info['public_whip_rebel_description'])); ?> rebels</strong></a> against their party<?php
 		if (isset($extra_info['public_whip_rebelrank'])) {
-			if ($member['house_disp'] == 2) {
+			if ($member['house_disp'] == HOUSE_TYPE_LORDS) {
 				echo '';
 			} elseif ($extra_info['public_whip_data_date'] == 'complete') {
 				echo " in their last parliament";
@@ -738,7 +738,7 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 	if ($member['party'] != 'Sinn Fein') {
 		$when = 'in this Parliament with this affiliation';
 		# Lords have one record per affiliation until they leave (ignoring name changes, sigh)
-		if ($member['house_disp'] == 2 ) {
+		if ($member['house_disp'] == HOUSE_TYPE_LORDS ) {
 			$when = 'in this House with this affiliation';
 		}
 		$displayed_stuff |= display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> ' . $when, $after_stuff, $extra_info);
@@ -754,12 +754,12 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 		$displayed_stuff = 1;
 	?>
 		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking <?
-		if ($member['house_disp']==1) print 'this MP';
-		elseif ($member['house_disp']==2) print 'this peer';
-		elseif ($member['house_disp']==3) print 'this MLA';
-		elseif ($member['house_disp']==4) print 'this MSP';
-		elseif ($member['house_disp']==0) print $member['full_name'];
-		if ($member['current_member'][0] || $member['current_member'][2] || $member['current_member'][3] || ($member['current_member'][1] && $member['party'] != 'Sinn Fein') || $member['current_member'][4]) {
+		if ($member['house_disp']==HOUSE_TYPE_COMMONS) print 'this MP';
+		elseif ($member['house_disp']==HOUSE_TYPE_LORDS) print 'this peer';
+		elseif ($member['house_disp']==HOUSE_TYPE_NI) print 'this MLA';
+		elseif ($member['house_disp']==HOUSE_TYPE_SCOTLAND) print 'this MSP';
+		elseif ($member['house_disp']==HOUSE_TYPE_ROYAL) print $member['full_name'];
+		if ($member['current_member'][HOUSE_TYPE_ROYAL] || $member['current_member'][HOUSE_TYPE_LORDS] || $member['current_member'][HOUSE_TYPE_NI] || ($member['current_member'][HOUSE_TYPE_COMMONS] && $member['party'] != 'Sinn Fein') || $member['current_member'][HOUSE_TYPE_SCOTLAND]) {
 			print ' &mdash; <a href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'">email me updates on '. $member['full_name']. '&rsquo;s activity</a>';
 		}
 		print '.</li>';
@@ -807,9 +807,9 @@ function person_register_interests($member, $extra_info) {
 function display_stats_line($category, $blurb, $type, $inwhat, $afterstuff, $extra_info, $minister = false, $Lminister = false) {
 	$return = false;
 	if (isset($extra_info[$category]))
-		$return = display_stats_line_house(1, $category, $blurb, $type, $inwhat, $extra_info, $minister, $afterstuff);
+		$return = display_stats_line_house(HOUSE_TYPE_COMMONS, $category, $blurb, $type, $inwhat, $extra_info, $minister, $afterstuff);
 	if (isset($extra_info["L$category"]))
-		$return = display_stats_line_house(2, "L$category", $blurb, $type, $inwhat, $extra_info, $Lminister, $afterstuff);
+		$return = display_stats_line_house(HOUSE_TYPE_LORDS, "L$category", $blurb, $type, $inwhat, $extra_info, $Lminister, $afterstuff);
 	return $return;
 }
 
@@ -821,7 +821,7 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 			$inwhat = preg_replace('#<\/a>#', '', $inwhat);
 		}
 	}
-	if ($house==2) $inwhat = str_replace('MP', 'Lord', $inwhat);
+	if ($house==HOUSE_TYPE_LORDS) $inwhat = str_replace('MP', 'Lord', $inwhat);
 	print '<li>' . $blurb;
 	print '<strong>' . $extra_info[$category];
 	if ($type) print ' ' . make_plural($type, $extra_info[$category]);
@@ -832,7 +832,7 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 	} elseif ($minister)
 		print ' &#8212; Ministers do not ask written questions';
 	else {
-		$type = ($house==1?'MP':($house==2?'Lord':'MLA'));
+		$type = ($house==HOUSE_TYPE_COMMONS?'MP':($house==HOUSE_TYPE_LORDS?'Lord':'MLA'));
 		if (!get_http_var('rem') && isset($extra_info[$category . '_quintile'])) {
 			print ' &#8212; ';
 			$q = $extra_info[$category . '_quintile'];
