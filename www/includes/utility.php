@@ -843,10 +843,10 @@ function entities_to_numbers($string) {
 	return $string;
 }
 
-function make_member_url($name, $const = '', $house = 1, $pid = NULL) {
+function make_member_url($name, $const = '', $house = HOUSE_TYPE_COMMONS, $pid = NULL) {
 
 	// Case for Elizabeth II
-	if ($house==0)
+	if ($house == HOUSE_TYPE_ROYAL)
 	{
 		return 'elizabeth_the_second';
 	}
@@ -868,7 +868,7 @@ function make_member_url($name, $const = '', $house = 1, $pid = NULL) {
 	$out .= urlencode(str_replace($s2, $r, str_replace($s, $r, $name)));
 
 	// If there is a constituency, inject that too
-	if ($const && $house == 1)
+	if ($const && $house == HOUSE_TYPE_COMMONS)
 	{
 		$out .= '/' . urlencode(str_replace($s2, $r, str_replace($s, $r, strtolower($const))));
 	}
@@ -878,18 +878,18 @@ function make_member_url($name, $const = '', $house = 1, $pid = NULL) {
 
 function member_full_name($house, $title, $first_name, $last_name, $constituency) {
 	$s = 'ERROR';
-	if ($house == 1 || $house == 3 || $house == 4) {
+	if ($house == HOUSE_TYPE_COMMONS || $house == HOUSE_TYPE_NI || $house == HOUSE_TYPE_SCOTLAND) {
 		$s = $first_name . ' ' . $last_name;
 		if ($title) {
 			$s = $title . ' ' . $s;
 		}
-	} elseif ($house == 2) {
+	} elseif ($house == HOUSE_TYPE_LORDS) {
 		$s = '';
 		if (!$last_name) $s = 'the ';
 		$s .= $title;
 		if ($last_name) $s .= ' ' . $last_name;
 		if ($constituency) $s .= ' of ' . $constituency;
-	} elseif ($house == 0) { # Queen
+	} elseif ($house == HOUSE_TYPE_ROYAL) { # Queen
 		$s = "$first_name $last_name";
 	}
 	return $s;

@@ -174,3 +174,11 @@ $edit_types = array (
 	2 => "glossary_modify"
 );
 */
+
+// Constants for various house types
+define ('HOUSE_TYPE_ROYAL', 0);
+define ('HOUSE_TYPE_COMMONS', 1);
+define ('HOUSE_TYPE_LORDS', 2);
+define ('HOUSE_TYPE_NI', 3);
+define ('HOUSE_TYPE_SCOTLAND', 4);
+define ('HOUSE_TYPE_WALES', 5);
