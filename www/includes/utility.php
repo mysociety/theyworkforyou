@@ -502,6 +502,11 @@ function filter_user_input ($text, $filter_type) {
     // Trim the text to deal with leading/trailing whitespace
     $text = trim($text);
 
+    // setting the input encoding to Windows-1252 means we can
+    // cope with various fancy quote marks and the like
+    $filter_config->set('Core.Encoding', 'Windows-1252');
+    $filter_config->set('Core.EscapeNonASCIICharacters', true);
+
 	if ($filter_type == 'strict') {
 		// No tags allowed at all!
 		$filter_config->set('HTML.Allowed', '');
@@ -513,6 +518,11 @@ function filter_user_input ($text, $filter_type) {
 	}
 	
 	$text = $purifier->purify($text);
+
+    // we do this so that the output matches that of the site. the
+    // //TRANSLIT means that non ISO-8859-1 characters are converted
+    // into their ISO-8859-1 equivalent
+    $text = iconv('Windows-1252', 'ISO-8859-1//TRANSLIT', $text);
 
 	return $text;
 

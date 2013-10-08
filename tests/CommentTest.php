@@ -97,4 +97,13 @@ It also spans multiple lines.", $comment->body());
 
     }
 
+    public function testHTMLCleaningWithNonASCIIChars()
+    {
+        // this file is UTF-8 but odd comments are sent up looking like Windows-1252 so we need the
+        // input text to be encoded thus otherwise the output is different
+        $text = iconv('UTF-8', 'Windows-1252', "This is a curly  ’ apostrophe. Is 2 < 3 ø ø €  ’ « ö à");
+
+        $this->assertEquals("This is a curly  &#8217; apostrophe. Is 2 &lt; 3 &#248; &#248; &#8364;  &#8217; &#171; &#246; &#224;", filter_user_input($text, 'comment'));
+    }
+
 }
