@@ -518,6 +518,9 @@ function filter_user_input ($text, $filter_type) {
             'b' => array(),
             'i' => array()
         );
+        // turning this on means that stray angle brackets
+        // are not turned in to tags
+        $filter->always_make_tags = 0;
     }
 
     $text = $filter->go($text);
@@ -560,6 +563,15 @@ function htmlentities_notags ($text) {
 	//$tbl["—"] = "-";
 	//$tbl["»"] = "&raquo;";
 	//$tbl["«"] = "&laquo;";
+  
+  // lib_filter will replace unmatched < and > with entities so
+  // we abuse strtr's only replace once behaviour to not double
+  // encode them. May not be robust.
+  // This does mean if anyone actually wants to put &gt; or &lt;
+  // in a comment they can't but that's a lot less likely than
+  // < or > for less than and greater than.
+  $tbl['&lt;'] = "&lt;";
+  $tbl['&gt;'] = "&gt;";
 		 
 	// Don't want to encode these things
 	unset ($tbl["<"]);

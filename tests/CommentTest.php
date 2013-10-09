@@ -91,7 +91,7 @@ It also spans multiple lines.",
 
         $this->assertEquals("This is a test comment, including http://theyworkforyou.com <a href=\"http://theyworkforyou.com\">links</a>, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're not stripped.
 
-It also includes  script tags, to ensure they are stripped correctly.
+It also includes alert('malicious!'); script tags, to ensure they are stripped correctly.
 
 It also spans multiple lines.", $comment->body());
 
