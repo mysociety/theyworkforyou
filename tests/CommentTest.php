@@ -103,7 +103,7 @@ It also spans multiple lines.", $comment->body());
         // input text to be encoded thus otherwise the output is different
         $text = iconv('UTF-8', 'Windows-1252', "This is a curly  ’ apostrophe. Is 2 < 3 ø ø €  ’ « ö à");
 
-        $this->assertEquals("This is a curly  &#8217; apostrophe. Is 2 &lt; 3 &#248; &#248; &#8364;  &#8217; &#171; &#246; &#224;", filter_user_input($text, 'comment'));
+        $this->assertEquals("This is a curly  ' apostrophe. Is 2 &lt; 3 &oslash; &oslash; EUR  ' &laquo; &ouml; &agrave;", prepare_comment_for_display(filter_user_input($text,'comment')));
     }
 
 }

@@ -582,6 +582,10 @@ function htmlentities_notags ($text) {
 	# strtr "will *NOT* try to replace stuff that it has already worked on."
 	$text = strtr($text, $tbl);
 
+    // This turns any out of bounds characters like fancy quotes
+    // into the ISO-8859-1 equivalent if possible.
+    $text = iconv('Windows-1252', 'ISO-8859-1//TRANSLIT', $text);
+
 	# Remove all illegal HTML characters (damn you, Windows-1252)
 	$text = preg_replace('/[\x80-\x9f]/', '', $text);
 
