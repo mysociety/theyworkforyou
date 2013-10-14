@@ -554,6 +554,9 @@ function htmlentities_notags ($text) {
 	// If you want to do htmlentities() on some text that has HTML tags
 	// in it, then you need this function.
 	
+    // we need to specify the encoding here becuase PHP 5.4 defaults to UTF-8
+    // Windows-1252 is uses because it contains the ISO-8859-1 table in PHP 5.4
+    // contains all of 4 characters, despite 5.3 containing 100 odd.
 	$tbl = get_html_translation_table(HTML_ENTITIES, ENT_QUOTES, 'Windows-1252');
 
 	// You could encode extra stuff...
