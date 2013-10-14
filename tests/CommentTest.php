@@ -97,13 +97,19 @@ It also spans multiple lines.", $comment->body());
 
     }
 
+    public function testHTMLCleaningOfAngleBrackets() {
+        $text = 'Is 2 < 3?';
+
+        $this->assertEquals('Is 2 &lt; 3?', filter_user_input( $text, 'comment' ) );
+    }
+
     public function testHTMLCleaningWithNonASCIIChars()
     {
         // this file is UTF-8 but odd comments are sent up looking like Windows-1252 so we need the
         // input text to be encoded thus otherwise the output is different
-        $text = iconv('UTF-8', 'Windows-1252', "This is a curly  ’ apostrophe. Is 2 < 3 ø ø €  ’ « ö à");
+        $text = iconv('UTF-8', 'Windows-1252', "This is a curly  ’ apostrophe. Is 2 &lt; 3 ø ø €  ’ « ö à");
 
-        $this->assertEquals("This is a curly  ' apostrophe. Is 2 &lt; 3 &oslash; &oslash; EUR  ' &laquo; &ouml; &agrave;", prepare_comment_for_display(filter_user_input($text,'comment')));
+        $this->assertEquals("This is a curly  &rsquo; apostrophe. Is 2 &lt; 3 &oslash; &oslash; &euro;  &rsquo; &laquo; &ouml; &agrave;", prepare_comment_for_display($text));
     }
 
 }

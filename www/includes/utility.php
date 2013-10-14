@@ -554,7 +554,7 @@ function htmlentities_notags ($text) {
 	// If you want to do htmlentities() on some text that has HTML tags
 	// in it, then you need this function.
 	
-	$tbl = get_html_translation_table(HTML_ENTITIES);
+	$tbl = get_html_translation_table(HTML_ENTITIES, ENT_QUOTES, 'Windows-1252');
 
 	// You could encode extra stuff...
 	//$tbl["“"] = "&quot;";
