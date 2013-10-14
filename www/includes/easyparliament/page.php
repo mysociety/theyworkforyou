@@ -228,6 +228,11 @@ class PAGE {
 		if (!DEVSITE) {
 ?>
 
+    <link rel="apple-touch-icon" href="/images/apple-touch-60.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-touch-76.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-touch-120.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-touch-152.png" />
+
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-660910-1']);
