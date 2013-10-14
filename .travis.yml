@@ -7,6 +7,7 @@ php:
 
 notifications:
   email: false
+  irc: "irc.mysociety.org#activity"
   
 env: TWFY_TEST_DB_HOST="127.0.0.1" TWFY_TEST_DB_USER="root" TWFY_TEST_DB_PASS="" TWFY_TEST_DB_NAME="twfy_test"
   
