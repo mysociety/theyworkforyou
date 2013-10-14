@@ -7,7 +7,11 @@ php:
 
 notifications:
   email: false
-  irc: "irc.mysociety.org#activity"
+  irc:
+    channels:
+      - "irc.mysociety.org#activity"
+    use_notice: true
+    skip_join: true
   
 env: TWFY_TEST_DB_HOST="127.0.0.1" TWFY_TEST_DB_USER="root" TWFY_TEST_DB_PASS="" TWFY_TEST_DB_NAME="twfy_test"
   
