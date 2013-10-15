@@ -486,51 +486,56 @@ function trim_characters ($text, $start, $length, $url_length = 60) {
 	return $text;
 }
 
-
+/**
+ * Filters user input to remove unwanted HTML tags etc
+ */
 function filter_user_input ($text, $filter_type) {
-	// We use this to filter any major user input, especially comments.
-	// Gets rid of bad HTML, basically.
-	// Uses iamcal.com's lib_filter class.
-	
-	// $filter_type is the level of filtering we want:
-	// 	'comment' allows <b> and <i> tags.
-	//	'strict' strips all tags.
-	
-	global $filter;
-	
-	$text = trim($text);
-	
-	// Replace 3 or more newlines with just two newlines.
-	//$text = preg_replace("/(\n){3,}/", "\n\n", $text);
+    // We use this to filter any major user input, especially comments.
+    // Gets rid of bad HTML, basically.
+    // Uses iamcal.com's lib_filter class.
 
-	if ($filter_type == 'strict') {
-		// No tags allowed at all!
-		$filter->allowed = array ();
-		
-	} else {
-		// Comment.
-		// Only allowing <em>, <b> and <a> tags.
-		$filter->allowed = array (
-			'a' => array('href'),
-			'strong' => array(),
-			'em' => array()
-		);
-	}
-	
-	$text = $filter->go($text);
+    // $filter_type is the level of filtering we want:
+    //      'comment' allows <b> and <i> tags.
+    //      'strict' strips all tags.
 
-	return $text;
+    global $filter;
 
+    $text = trim($text);
+
+    // Replace 3 or more newlines with just two newlines.
+    //$text = preg_replace("/(\n){3,}/", "\n\n", $text);
+
+    if ($filter_type == 'strict') {
+        // No tags allowed at all!
+        $filter->allowed = array ();
+    } else {
+        // Comment.
+        // Only allowing <a href>, <b>, <strong>, <i> and <em>
+        $filter->allowed = array (
+            'a' => array('href'),
+            'strong' => array(),
+            'em' => array(),
+            'b' => array(),
+            'i' => array()
+        );
+        // turning this on means that stray angle brackets
+        // are not turned in to tags
+        $filter->always_make_tags = 0;
+    }
+
+    $text = $filter->go($text);
+
+    return $text;
 }
 
 function prepare_comment_for_display ($text) {
 	// Makes any URLs into HTML links.
 	// Turns \n's into <br>
 
-	// Encode HTML entities.
-	// Can't do htmlentities() because it'll turn the few tags we allow into &lt;
-	// Must go before the URL stuff.
-	$text = htmlentities_notags($text);
+  // Encode HTML entities.
+  // Can't do htmlentities() because it'll turn the few tags we allow into &lt;
+  // Must go before the URL stuff.
+  $text = htmlentities_notags($text);
 
 	$link_length = 60;
 	$text = preg_replace(
@@ -549,7 +554,10 @@ function htmlentities_notags ($text) {
 	// If you want to do htmlentities() on some text that has HTML tags
 	// in it, then you need this function.
 	
-	$tbl = get_html_translation_table(HTML_ENTITIES);
+    // we need to specify the encoding here becuase PHP 5.4 defaults to UTF-8
+    // Windows-1252 is uses because it contains the ISO-8859-1 table in PHP 5.4
+    // contains all of 4 characters, despite 5.3 containing 100 odd.
+	$tbl = get_html_translation_table(HTML_ENTITIES, ENT_QUOTES, 'Windows-1252');
 
 	// You could encode extra stuff...
 	//$tbl["“"] = "&quot;";
@@ -558,6 +566,15 @@ function htmlentities_notags ($text) {
 	//$tbl["—"] = "-";
 	//$tbl["»"] = "&raquo;";
 	//$tbl["«"] = "&laquo;";
+  
+  // lib_filter will replace unmatched < and > with entities so
+  // we abuse strtr's only replace once behaviour to not double
+  // encode them. May not be robust.
+  // This does mean if anyone actually wants to put &gt; or &lt;
+  // in a comment they can't but that's a lot less likely than
+  // < or > for less than and greater than.
+  $tbl['&lt;'] = "&lt;";
+  $tbl['&gt;'] = "&gt;";
 		 
 	// Don't want to encode these things
 	unset ($tbl["<"]);
@@ -567,6 +584,10 @@ function htmlentities_notags ($text) {
 	
 	# strtr "will *NOT* try to replace stuff that it has already worked on."
 	$text = strtr($text, $tbl);
+
+    // This turns any out of bounds characters like fancy quotes
+    // into the ISO-8859-1 equivalent if possible.
+    $text = iconv('Windows-1252', 'ISO-8859-1//TRANSLIT', $text);
 
 	# Remove all illegal HTML characters (damn you, Windows-1252)
 	$text = preg_replace('/[\x80-\x9f]/', '', $text);

@@ -1,3 +1,7 @@
+# License
+
+## WriteToThem
+
 Copyright (c) 2003-2004, FaxYourMP Ltd where not otherwise marked
 Copyright (c) 2003-2004, various as marked in individual files
 All rights reserved.
@@ -27,3 +31,10 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+## HTMLPurifier
+
+This software makes use of the HTMLPurifier library, which is licenses under the
+GNU Lesser General Public License. A copy of this license is available at the
+following location in this repository:
+
+`www/includes/standalone/HTMLPurifier/LICENSE.txt`
