@@ -260,11 +260,6 @@ class PAGE {
 		// Start the body, put in the page headings.
 		?>
 <body>
-
-<div id="surveyPromoBanner" style="clear:both;padding:1em;margin-top:24px;background:#DDD;">
-We're running a short survey on how people use TheyWorkForYou. If you don't mind answering a few quick questions (it'll take about a minute) and helping us improve the site, <a href="http://www.surveymonkey.com/s/H75HX83" target="_blank">click here</a>.
-</div>
-
 <div id="container">
 <?php
 		twfy_debug ("PAGE", "This page: $this_page");
