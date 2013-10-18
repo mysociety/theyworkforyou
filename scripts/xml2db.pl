@@ -163,7 +163,7 @@ $wmsdir = $parldata . "scrapedxml/wms/";
 $lordswmsdir = $parldata . "scrapedxml/lordswms/";
 $lordsdebatesdir = $parldata . "scrapedxml/lordspages/";
 $nidir = $parldata . 'scrapedxml/ni/';
-$scotlanddir = $parldata . 'scrapedxml/sp/';
+$scotlanddir = $parldata . 'scrapedxml/sp-new/meeting-of-the-parliament/';
 $scotwransdir = $parldata . 'scrapedxml/sp-written/';
 $standingdir = $parldata . 'scrapedxml/standing/';
 $scotqsdir = $parldata . 'scrapedxml/sp-questions/';
@@ -221,6 +221,7 @@ sub process_type {
                         my @stat = stat($xdir . $xfile);
                         my $use = ($stat[9] >= $xsince);
                         if (m/^$xname(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/
+                            || m/^(\d{4}-\d\d-\d\d)_(\d+)\.xml$/
                             || /^$xname\d{4}-\d\d-\d\d_[^_]*_[^_]*_(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/) {
                                 my $date_part = $1;
         
@@ -1667,7 +1668,7 @@ sub add_scotland_day {
         # find out what gids there are (using tallygidsmode)
         $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
         $tallygidsmode = 1; %gids = (); $tallygidsmodedummycount = 10;
-        parsefile_glob($twig, $parldata . "scrapedxml/sp/sp" . $curdate. "*.xml");
+        parsefile_glob($twig, $parldata . "scrapedxml/sp-new/meeting-of-the-parliament/" . $curdate. "*.xml");
         # see if there are deleted gids
         my @gids = keys %gids;
         check_extra_gids($date, \@gids, "major = 7");
@@ -1675,7 +1676,7 @@ sub add_scotland_day {
         # make the modifications
         $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
         $tallygidsmode = 0; %gids = ();
-        parsefile_glob($twig, $parldata . "scrapedxml/sp/sp" . $curdate. "*.xml");
+        parsefile_glob($twig, $parldata . "scrapedxml/sp-new/meeting-of-the-parliament/" . $curdate. "*.xml");
 
         undef $twig;
 }
