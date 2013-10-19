@@ -665,9 +665,6 @@ class PAGE {
 */
 
 		$highlights = $this->menu_highlights();
-		if ($highlights['section'] == 'scotland') {
-			print '<p class="informational all">Due to changes made to the official Scottish Parliament website at the start of 2011, our parser that used to fetch their web pages and convert them into more structured information has stopped working. We&rsquo;re afraid we cannot give a timescale as to when we will be able to cover the Scottish Parliament again. Sorry for any inconvenience caused.</p>';
-		}
 
 	}
 
