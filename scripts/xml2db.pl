@@ -1657,6 +1657,16 @@ sub load_ni_heading {
 
 sub add_scotland_day {
         my ($date) = @_;
+
+        # This script now is hardcoded to only use the new Scottish
+        # Parliament data.  This exists for the whole of the
+        # parliament, but we should only use it for days after
+        # 2011-01-13, since the earlier data from before the
+        # parliament website was changed is much higher quality.
+        if ($date lt "2011-01-14") {
+            return;
+        }
+
         my $twig = XML::Twig->new(twig_handlers => { 
                 'speech'        => sub { do_load_speech($_, 7, 0, $_->sprint(1)) },
                 'minor-heading' => sub { do_load_subheading($_, 7, strip_string($_->sprint(1))) },
