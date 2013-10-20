@@ -31,6 +31,7 @@ my $parldata = mySociety::Config::get('RAWDATA');
 my $lastupdatedir = mySociety::Config::get('INCLUDESPATH') . "../../../xml2db/";
 
 use DBI; 
+use HTML::Entities;
 use XML::Twig;
 use File::Find;
 use Getopt::Long;
@@ -2050,7 +2051,9 @@ sub do_load_speech
                 if ($speaker eq "unknown")
                 {
                         $speaker = 0;
-                        $pretext = '<p class="unknownspeaker">' . $speech->att('speakername') . ':</p> ';
+                        my $encoded = HTML::Entities::encode_entities(
+                                $speech->att('speakername'));
+                        $pretext = '<p class="unknownspeaker">' . $encoded . ':</p> ';
                 }
         }
         else
