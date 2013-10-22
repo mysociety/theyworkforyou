@@ -1831,12 +1831,10 @@ div.main .missingphoto {
 }
 
 ul.hilites {
-    list-style-type: none;
+    list-style-type: disc;
+    list-style-position: inside;
 }
 ul.hilites li {
-    padding-left: 25px;
-    margin-left: 0;
-    background: url(../images/bulletlarge.png) no-repeat left 2px;
     padding-bottom: 0.3em;
 }
 
