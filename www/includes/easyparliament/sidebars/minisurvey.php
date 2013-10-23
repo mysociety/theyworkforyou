@@ -66,7 +66,7 @@ if ($show_survey_qn < $current_question) {
     </ul>
 
     <p>
-        <input type="submit" value="Send answer">
+        <input type="submit" value="Submit answer">
     </p>
 
     <p><a href="/help/#survey">What is this about?</a></p>
