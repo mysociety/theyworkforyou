@@ -4,6 +4,7 @@
 <li><a href="#moderation">How do you moderate annotations?</a></li>
 <li><a href="#privacy">What is your privacy policy?</a></li>
 <li><a href="#cookie">What is your cookie policy?</a></li>
+<li><a href="#survey">What are these survey questions?</a></li>
 <li><a href="#extreme">What's that weird 'extreme tracker' and 'urchin' javascript I spy in your page source?</a></li>
 <li><a href="#rss">What is RSS?</a></li>
 <li><a href="#votingrecord">How is the voting record decided?</a></li>
@@ -124,10 +125,16 @@ please bear in mind that this service is run by a tiny charity and some voluntee
 <!-- start new faq entry-->
 <dt><a name="cookie"></a>What is your cookie policy?</dt>
 <dd>
-<p>We use cookies to save you from having to repeatedly sign in to the site, and also to remember your postcode. The site will work with cookies disabled, but it won't be as good. </p>
+<p>We use cookies to save you from having to repeatedly sign in to the site, and also to remember your postcode. We may also use them to record if you've answered one of the survey questions we ask. The site will work with cookies disabled, but it won't be as good. </p>
 </dd>
 <!-- end old faq entry -->
 
+<!-- start new faq entry-->
+<dt><a name="survey"></a>What are these survey questions?</dt>
+<dd>
+<p>In order to improve the site we're asking some questions to help us understand who uses the site and what they want. The answers are <strong>completely anonymous</strong>.</p>
+</dd>
+<!-- end old faq entry -->
 
 <!-- start new faq entry-->
 <dt><a name="extreme"></a>What's that weird 'extreme tracker' and 'urchin' javascript I spy in your page source?</dt>
