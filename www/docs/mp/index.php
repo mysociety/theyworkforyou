@@ -386,6 +386,10 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         ), */
         array (
             'type'        => 'include',
+            'content'    => 'minisurvey'
+        ),
+        array (
+            'type'        => 'include',
             'content'    => 'mp_speech_search'
         ),
         array (

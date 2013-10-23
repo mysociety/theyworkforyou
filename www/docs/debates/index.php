@@ -113,6 +113,10 @@ if (get_http_var("d") != "") {
 		),
 		array (
 			'type' => 'include',
+			'content' => 'minisurvey'
+		),
+		array (
+			'type' => 'include',
 			'content' => "hocdebates"
 		)
 	));
@@ -133,6 +137,10 @@ if (get_http_var("d") != "") {
 	$rssurl = $DATA->page_metadata($this_page, 'rss');
 	$PAGE->stripe_end(array(
 		# XXX When this is three columns, not one, put this search at the top spanning...
+		array (
+			'type' => 'include',
+			'content' => 'minisurvey'
+		),
 		array(
 			'type' => 'html',
 			'content' => '
@@ -185,6 +193,10 @@ if (get_http_var("d") != "") {
 	$PAGE->stripe_end(array(
 		array (
 			'type' => 'include',
+			'content' => 'minisurvey'
+		),
+		array (
+			'type' => 'include',
 			'content' => 'calendar_whalldebates'
 		),
 		array (
@@ -215,6 +227,10 @@ if (get_http_var("d") != "") {
 	$PAGE->stripe_end(array(
 		array (
 			'type' => 'nextprev'
+		),
+		array (
+			'type' => 'include',
+			'content' => 'minisurvey'
 		),
 		array (
 			'type' => 'include',

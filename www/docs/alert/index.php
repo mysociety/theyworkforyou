@@ -138,6 +138,7 @@ $end = array();
 if ($sidebar) {
     $end[] = array('type' => 'html', 'content' => $sidebar);
 }
+$end[] = array('type' => 'include', 'content' => 'minisurvey');
 $end[] = array('type' => 'include', 'content' => 'mysociety_news');
 $end[] = array('type' => 'include', 'content' => 'search');
 $PAGE->stripe_end($end);

@@ -18,6 +18,10 @@ echo '<h2>Some recent written answers</h2>';
 $WRANSLIST = new WRANSLIST;
 $WRANSLIST->display('recent_wrans', array('days'=>7, 'num'=>5));
 $PAGE->stripe_end(array(
+	array (
+		'type' => 'include',
+		'content' => 'minisurvey'
+	),
 	array(
 		'type' => 'html',
 		'content' => '
