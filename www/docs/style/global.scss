@@ -1397,6 +1397,14 @@ body.js #survey_teaser {
     background-color: #E8FFC5;
 }
 
+/* Mini survey */
+form.minisurvey ul {
+    list-style-type: none;
+    li {
+        background: none;
+    }
+}
+
 /*
 .unspoken { font-style: italic; }
 .heading { font-weight: bold; }
