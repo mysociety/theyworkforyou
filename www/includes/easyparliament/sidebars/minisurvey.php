@@ -36,8 +36,15 @@ if ($has_answered_question == $current_question) {
 }
 
 if ($show_survey_qn < $current_question) {
-    $URL = new URL($this_page);
-    $URL->insert(array('answered_survey' => $current_question ));
+    $page_url = '';
+    if ( in_array( $this_page, array('mp', 'peer', 'msp', 'mla', 'royal') ) ) {
+        global $MEMBER;
+        $page_url = $MEMBER->url() . "?answered_survey=$current_question";
+    } else {
+        $URL = new URL($this_page);
+        $URL->insert(array('answered_survey' => $current_question ));
+        $page_url = DOMAIN . $URL->generate();
+    }
 
     $user_code = bin2hex(urandom_bytes(16));
     $auth_signature = auth_sign_with_shared_secret($user_code, OPTION_SURVEY_SECRET);
@@ -53,8 +60,8 @@ if ($show_survey_qn < $current_question) {
     <input type="hidden" name="user_code" value="<?=$user_code ?>">
     <input type="hidden" name="auth_signature" value="<?=$auth_signature ?>">
 
-    <input type="hidden" name="came_from" value="<?=$referer ?>">
-    <input type="hidden" name="return_url" value="http://<?=DOMAIN ?><?=$URL->generate()?>">
+    <input type="hidden" name="came_from" value="<?=$page_url ?>">
+    <input type="hidden" name="return_url" value="<?=$page_url ?>">
 
 
     <p>
