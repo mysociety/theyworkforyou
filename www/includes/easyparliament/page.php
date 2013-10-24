@@ -210,8 +210,9 @@ class PAGE {
 	<meta property="og:title" content="TheyWorkForYou">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="http://<?php echo DOMAIN; ?>">
-	<!--<meta property="og:image" content="http://nick.writetothem.dev.mysociety.org/static/img/favicon-256.png">-->
+	<meta property="og:image" content="http://<?php echo DOMAIN; ?>/images/favicon-256.png">
 	<meta property="og:description" content="TheyWorkForYou is a website which makes it easy to keep track of your local MP's activities.">
+	<meta property="fb:app_id" content="227648394066332">
 
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/jquery.cookie.js"></script>
@@ -231,14 +232,20 @@ class PAGE {
 			// If this page has an RSS feed set.
 			echo '<link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="http://', DOMAIN, WEBPATH, $rssurl, '">';
 		}
+		
+		?>
+		
+		<link rel="apple-touch-icon" href="/images/apple-touch-60.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-touch-76.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-touch-120.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-touch-152.png" />
+		
+		<?php
 
 		if (!DEVSITE) {
 ?>
 
-    <link rel="apple-touch-icon" href="/images/apple-touch-60.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-touch-76.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-touch-120.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-touch-152.png" />
+    
 
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -257,8 +264,11 @@ class PAGE {
   }
 </script>
 
-<?		}
-		echo '</head>';
+<?		} ?>
+
+</head>
+
+<?php
 	}
 
 	function page_body () {
