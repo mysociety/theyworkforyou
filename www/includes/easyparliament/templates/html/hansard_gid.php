@@ -391,7 +391,16 @@ if (isset ($data['rows'])) {
 				$body = str_replace('href="../../../', 'href="http://www.scottish.parliament.uk/', $body);
 			}
 
-			$body = preg_replace('#\[Official Report, (.*?)[,;] (.*?) (\d+MC)\.\]#', '<big>[This section has been corrected on $1, column $3 &mdash; read correction]</big>', $body);
+			if (preg_match('#\[Official Report, (.*?)[,;] (.*?) (\d+MC)\.\]#', $body)) {
+				# Why, you may ask, would someone have to check whether a
+				# regular expression matches before replacing that regular
+				# expression with some other text? And all I can tell you,
+				# future person reading this, is that otherwise occasionally
+				# this replacement removes the entire contents of $body, even
+				# though it has no matches (it does have e.g. "[Official
+				# Report,", but not at the start of the string). Thanks, PHP.
+				$body = preg_replace('#\[Official Report, (.*?)[,;] (.*?) (\d+MC)\.\]#', '<big>[This section has been corrected on $1, column $3 &mdash; read correction]</big>', $body);
+			}
 			$body = preg_replace('#(<p[^>]*class="[^"]*?)("[^>]*)pwmotiontext="moved"#', '$1 moved$2', $body);
 			$body = str_replace('pwmotiontext="moved"', 'class="moved"', $body);
 			$body = str_replace('<a href="h', '<a rel="nofollow" href="h', $body); # As even sites in Hansard lapse and become spam-sites
