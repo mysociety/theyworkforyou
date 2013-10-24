@@ -35,6 +35,45 @@ if ($order == 'party') {
 	$th_constituency = 'Constituency';
 }
 
+$MPURL = new URL('yourmp');
+global $THEUSER;
+$pc_form = true;
+if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
+	// User is logged in and has a postcode, or not logged in with a cookied postcode.
+
+	// (We don't allow the user to search for a postcode if they
+	// already have one set in their prefs.)
+
+	$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
+	if ($MEMBER->valid) {
+		$pc_form = false;
+		if ($THEUSER->isloggedin()) {
+			$CHANGEURL = new URL('useredit');
+		} else {
+			$CHANGEURL = new URL('userchangepc');
+		}
+		$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
+		$former = "";
+		$left_house = $MEMBER->left_house();
+		if ($left_house[1]['date'] != '9999-12-31') {
+			$former = 'former';
+		}
+?>
+<p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out about <?php echo $mpname; ?>, your <?= $former ?> MLA</strong></a><br>
+In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
+<?php
+	}
+}
+
+if ($pc_form) { ?>
+	<form action="/postcode/" method="get">
+	<p><strong>Looking for your <acronym title="Members of the (Northern Irish) Legislative Assembly">MLA</acronym>, <acronym title="Member of Parliament">MP</acronym> or
+	<acronym title="Members of the Scottish Parliament">MSP</acronym>?</strong><br>
+	<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
+	</form>
+<?php
+}
+
 ?>
 <div class="sort">
     Sort by:
