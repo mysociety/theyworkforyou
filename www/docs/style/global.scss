@@ -508,7 +508,7 @@ a:hover {
     margin: 0;
     padding: 0 0.8em 0 0;
 }
-#footer div {
+#footer div.right {
     border-left: dotted 1px #fff;
     color: #fff;
     float: left;
@@ -518,7 +518,7 @@ a:hover {
 }
 #footer div h5 {
     margin: 0;
-    padding: 0 0 0.8em 0;
+    padding: 0.4em 0 0.8em 0;
     font-size: 1.1em;
     font-family: arial, sans-serif;
     font-weight: bold;

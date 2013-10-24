@@ -277,6 +277,34 @@ class PAGE {
         // Start the body, put in the page headings.
         ?>
 <body>
+
+<div id="fb-root"></div>
+<script>
+window.fbAsyncInit = function() {
+    FB.init({
+    appId      : '227648394066332',
+    xfbml      : true
+    });
+
+    FB.Event.subscribe('edge.create', function(targetUrl) {
+        _gaq.push(['_trackSocial', 'facebook', 'like', targetUrl]);
+    });
+
+    FB.Event.subscribe('edge.remove', function(targetUrl) {
+        _gaq.push(['_trackSocial', 'facebook', 'unlike', targetUrl]);
+    });
+
+};
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
 <div id="container">
 <?php
         twfy_debug ("PAGE", "This page: $this_page");
@@ -1054,7 +1082,61 @@ class PAGE {
                             </ul>
                         </dd>
                   </dl>
-                  <div>
+                  <div class="right">
+
+                      <div class="fb-like" data-href="https://www.facebook.com/TheyWorkForYou" data-colorscheme="light" data-layout="button_count" data-action="like" data-show-faces="false" data-send="false"></div>
+
+                      <br>
+
+                      <a href="https://twitter.com/theyworkforyou" class="twitter-follow-button" data-show-count="false">Follow @theyworkforyou</a>
+
+                    <script>
+
+                        window.twttr = (function (d,s,id) {
+                            var t, js, fjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+                            js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+                            return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+                        }(document, "script", "twitter-wjs"));
+
+                        // Used with the Google Analytics Tweet tracking
+                        function extractParamFromUri(uri, paramName) {
+                            if (!uri) {
+                                return;
+                            }
+                            var uri = uri.split('#')[0];  // Remove anchor.
+                            var parts = uri.split('?');  // Check for query params.
+                            if (parts.length == 1) {
+                                return;
+                            }
+                            var query = decodeURI(parts[1]);
+
+                            // Find url param.
+                            paramName += '=';
+                            var params = query.split('&');
+                            for (var i = 0, param; param = params[i]; ++i) {
+                                if (param.indexOf(paramName) === 0) {
+                                    return unescape(param.split('=')[1]);
+                                }
+                            }
+                        }
+
+                        function trackTwitter(intent_event) {
+                            if (intent_event) {
+                                var opt_pagePath;
+                                if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+                                    opt_target = extractParamFromUri(intent_event.target.src, 'url');
+                                }
+                                _gaq.push(['_trackSocial', 'twitter', 'follow', opt_pagePath]);
+                            }
+                        }
+
+                        twttr.ready(function (twttr) {
+                            twttr.events.bind('follow', trackTwitter);
+                        });
+
+                    </script>
+
                       <h5>Donate</h5>
                       <p>
                           This website is run by <a href="http://www.mysociety.org/">mySociety</a>, the project of
