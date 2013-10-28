@@ -21,6 +21,7 @@ $survey_site = "twfy-mini-$current_question";
 $show_survey_qn = 0;
 $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 $has_answered_question = get_http_var('answered_survey');
+$hide_question = get_http_var('hide_survey');
 
 // we never want to display this on the front page or any
 // other survey page we might have
@@ -28,7 +29,10 @@ if (in_array($this_page, array('survey', 'overview'))) {
     return;
 }
 
-if ($has_answered_question == $current_question) {
+if ($hide_question) {
+    $show_survey_qn = $current_question;
+    setcookie('survey', $current_question, time()+60*60*24*365, '/');
+} else if ($has_answered_question == $current_question) {
     $show_survey_qn = $current_question;
     setcookie('survey', $current_question, time()+60*60*24*365, '/');
 } else if (isset($_COOKIE['survey'])) {
@@ -37,13 +41,18 @@ if ($has_answered_question == $current_question) {
 
 if ($show_survey_qn < $current_question) {
     $page_url = '';
+    $hide_url = '';
     if ( in_array( $this_page, array('mp', 'peer', 'msp', 'mla', 'royal') ) ) {
         global $MEMBER;
         $page_url = $MEMBER->url() . "?answered_survey=$current_question";
+        $hide_url = $MEMBER->url() . "?hide_survey=$current_question";
     } else {
         $URL = new URL($this_page);
         $URL->insert(array('answered_survey' => $current_question ));
         $page_url = DOMAIN . $URL->generate();
+        $URL = new URL($this_page);
+        $URL->insert(array('hide_survey' => $current_question ));
+        $hide_url = DOMAIN . $URL->generate();
     }
 
     $user_code = bin2hex(urandom_bytes(16));
@@ -73,7 +82,7 @@ if ($show_survey_qn < $current_question) {
     </ul>
 
     <p>
-        <input type="submit" value="Submit answer">
+    <input type="submit" value="Submit answer"> <small><a href="http://<?=$hide_url ?>">Hide this</a></small>
     </p>
 
 </form>
