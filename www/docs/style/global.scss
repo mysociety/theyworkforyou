@@ -1405,6 +1405,19 @@ form.minisurvey ul {
     }
 }
 
+.stripe-survey {
+    #minisurvey {
+        margin: 0px;
+        padding-left: 18px;
+    }
+    .main {
+        width: 100%;
+    }
+    .sidebar {
+        display: none;
+    }
+}
+
 /*
 .unspoken { font-style: italic; }
 .heading { font-weight: bold; }
