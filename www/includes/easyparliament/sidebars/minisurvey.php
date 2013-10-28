@@ -49,7 +49,7 @@ if ($show_survey_qn < $current_question) {
     $user_code = bin2hex(urandom_bytes(16));
     $auth_signature = auth_sign_with_shared_secret($user_code, OPTION_SURVEY_SECRET);
 
-    $this->block_start(array('id'=>'minisurvey', 'title'=>"Mini survey"));
+    $this->block_start(array('id'=>'minisurvey', 'title'=>'Mini survey. <small><a href="/help/#survey">What is this about?</a></small>'));
 ?>
 
 <form class="minisurvey" method="post" action="<?=OPTION_SURVEY_URL?>">
@@ -76,7 +76,6 @@ if ($show_survey_qn < $current_question) {
         <input type="submit" value="Submit answer">
     </p>
 
-    <p><a href="/help/#survey">What is this about?</a></p>
 </form>
 
 <?php
