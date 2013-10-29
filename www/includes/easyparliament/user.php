@@ -994,7 +994,7 @@ class THEUSER extends USER {
 						");
 
 		if ($q->rows() == 1) {
-        list( $user_id, $email ) = split('::', $q->field(0, 'data'));
+        list( $user_id, $email ) = explode('::', $q->field(0, 'data'));
 
         $this->email = $email;
 
