@@ -978,6 +978,54 @@ class THEUSER extends USER {
 		}
 	}
 
+  function confirm_email ($token) {
+		$arg = '';
+		if (strstr($token, '::')) $arg = '::';
+		if (strstr($token, '-')) $arg = '-';
+		list($user_id, $registrationtoken) = explode($arg, $token);
+
+		if (!is_numeric($user_id) || $registrationtoken == '') {
+        return false;
+		}
+		$q = $this->db->query("SELECT data
+						FROM	tokens
+						WHERE	token = '" . mysql_real_escape_string($registrationtoken) . "'
+            AND   type = 'E'
+						");
+
+		if ($q->rows() == 1) {
+        list( $user_id, $email ) = split('::', $q->field(0, 'data'));
+
+        $this->email = $email;
+
+        // only the logged in user should be able to 
+        // make the token work
+        if ( $this->user_id() != $user_id ) {
+            return false;
+        }
+
+        $details = array(
+            'email' => $this->email(),
+            'firstname' => $this->firstname(),
+            'lastname' => $this->lastname(),
+            'postcode' => $this->postcode(),
+            'url' => $this->url(),
+            'optin' => $this->optin(),
+            'user_id' => $user_id,
+            'emailpublic' => $this->emailpublic()
+        );
+        $this->_update($details);
+
+				$URL = new URL('userconfirmed');
+				$URL->insert(array('email'=>'t'));
+				$redirecturl = $URL->generate();
+        $this->login($redirecturl, 'session');
+    } else {
+        return false;
+    }
+
+  }
+
 
 	function confirm ($token) {
 		// The user has clicked the link in their confirmation email
@@ -1077,6 +1125,12 @@ class THEUSER extends USER {
 
 		if ($this->isloggedin()) {
 
+
+        $email = '';
+      if ( isset($details['email'] ) ) {
+        $email = $details['email'];
+        unset($details['email']);
+      }
 			$details["user_id"] = $this->user_id;
 
 			$newdetails = $this->_update($details);
@@ -1097,6 +1151,26 @@ class THEUSER extends USER {
 				if ($newdetails["password"] != "") {
 					$this->password = $newdetails["password"];
 				}
+
+        // need to check if user already exists
+        if ($email && $email != $this->email) {
+          $token = substr( crypt($email . microtime()), 12, 16 );
+          $data = $this->user_id() . '::' . $email;
+          $r = $this->db->query("INSERT INTO tokens
+              ( token, type, data ) 
+              VALUES
+              (
+                  '" . mysql_real_escape_string( $token ) . "',
+                  'E',
+                  '" . mysql_real_escape_string( $data ) . "'
+              )
+          ");
+
+          // send confirmation email here
+          if ( !$r->success() ) {
+              return false;
+          }
+        }
 
 				return true;
 			} else {

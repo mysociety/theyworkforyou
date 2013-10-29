@@ -118,9 +118,7 @@ if (get_http_var("submitted") == "true") {
 		$details['url'] = 'http://' . $details['url'];
 	}
 	
-	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
 		$details["email"] = trim(get_http_var("em"));
-	}
 
 	if ($this_page == "otheruseredit") {
 		$details["user_id"]			= trim(get_http_var("u"));
@@ -571,7 +569,6 @@ function display_form ( $details = array(), $errors = array() ) {
 				</div>
 
 <?php
-	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
 		if (isset($errors["email"])) {
 			$PAGE->error_message($errors["email"]);
 		}
@@ -583,7 +580,6 @@ function display_form ( $details = array(), $errors = array() ) {
 
 <?php
 
-	}
 
 	if ($this_page == "useredit" || $this_page == "otheruseredit") {
 		// If not, the user's joining.
