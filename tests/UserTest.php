@@ -88,9 +88,10 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
 
         $this->assertEquals( 'user@example.org', $u->email() );
 
-        $d = $u->_update( array(
+        $d = $u->update_self( array(
             'firstname' => 'Experiment',
             'lastname' => 'User',
+            'email' => 'user@example.com',
             'emailpublic' => '0',
             'postcode' => 'EH1 99SP',
             'password' => '',
@@ -98,6 +99,33 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
             'optin' => '',
             'user_id' => 1
         ) );
+
+        // email should not change as user needs to confirm
+        $this->assertEquals( 'user@example.org', $u->email() );
+
+        $tokenCount = $this->getConnection()->getRowCount('tokens', 'data = "1::user@example.com"');
+        $this->assertEquals(1, $tokenCount, 'correct number of email confirm tokens');
+
+        // token is based on the time so we can't test for it
+        $queryTable = $this->getConnection()->createQueryTable(
+            'tokens', 'SELECT type, data FROM tokens WHERE data = "1::user@example.com"'
+        );
+
+        $expectedTable = $this->createXmlDataSet(dirname(__FILE__).'/_fixtures/expectedTokens.xml')
+                              ->getTable("tokens");
+
+        $this->assertTablesEqual($expectedTable, $queryTable);
+
+        $queryTable = $this->getConnection()->createQueryTable(
+            'tokens', 'SELECT token, type, data FROM tokens WHERE data = "1::user@example.com"'
+        );
+
+        $tokenRow = $queryTable->getRow(0);
+        $token = '2-' . $tokenRow['token'];
+
+        $u->confirm_email($token);
+
+        $this->assertEquals( 'user@example.com', $u->email(), 'confirming with token updates email address' );
     }
 
 }
