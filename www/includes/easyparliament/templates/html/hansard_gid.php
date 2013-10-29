@@ -154,9 +154,9 @@ if (isset ($data['rows'])) {
 					'type' => 'nextprev'
 				)
 			));
-			$PAGE->stripe_start('survey');
-      $PAGE->include_sidebar_template('minisurvey');
-			$PAGE->stripe_end();
+			//$PAGE->stripe_start('survey');
+      //$PAGE->include_sidebar_template('minisurvey');
+			//$PAGE->stripe_end();
 
 			$titles_displayed = true;
 		}
