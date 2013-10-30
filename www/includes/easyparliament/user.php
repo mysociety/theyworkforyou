@@ -1155,7 +1155,7 @@ class THEUSER extends USER {
 	}
 	
 	
-	function update_self ($details) {
+	function update_self ($details, $confirm_email = true) {
 		// If the user wants to update their details, call this function.
 		// It checks that they're logged in before letting them.
 
@@ -1214,7 +1214,11 @@ class THEUSER extends USER {
 					if ( $r->success() ) {
 						$newdetails['email'] = $email;
 						$newdetails['token'] = $token;
-						return $this->send_email_confirmation_email($newdetails);
+						if ( $confirm_email ) {
+							return $this->send_email_confirmation_email($newdetails);
+						} else {
+							return true;
+						}
 					} else {
 						return false;
 					}

@@ -98,7 +98,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
             'url' => '',
             'optin' => '',
             'user_id' => 1
-        ) );
+        ), false );
 
         // email should not change as user needs to confirm
         $this->assertEquals( 'user@example.org', $u->email() );
