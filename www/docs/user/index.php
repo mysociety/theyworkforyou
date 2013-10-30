@@ -264,7 +264,7 @@ function check_input ($details) {
 	// They don't need a last name. In case Madonna joins.
 
 	// Check email address is valid and unique.
-	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
+	if ($this_page == "otheruseredit" || $this_page == 'userjoin' || $this_page == 'useredit') {
         if ($details["email"] == "") {
             $errors["email"] = "Please enter $who email address";
 	
@@ -275,7 +275,7 @@ function check_input ($details) {
         } else {
 
             $USER = new USER;
-            $id_of_user_with_this_addresss = $USER->email_exists($details["email"]);
+            $id_of_user_with_this_addresss = $USER->email_exists($details["email"], true);
 
             if ($this_page == "useredit" &&
                 get_http_var("u") == "" &&

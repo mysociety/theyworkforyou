@@ -470,12 +470,16 @@ class USER {
 	}
 
 
-	function email_exists ($email) {
+	function email_exists ($email, $return_id = false) {
 		// Returns true if there's a user with this email address.
 
 		if ($email != "") {
 			$q = $this->db->query("SELECT user_id FROM users WHERE email='" . mysql_real_escape_string($email) . "'");
 			if ($q->rows() > 0) {
+				if ( $return_id ) {
+					$row = $q->row(0);
+					return $row['user_id'];
+				}
 				return true;
 			} else {
  				return false;
@@ -1126,8 +1130,13 @@ class THEUSER extends USER {
 		if ($this->isloggedin()) {
 
 
-        $email = '';
+			// this is checked elsewhere but just in case we check here and
+			// bail out to be on the safe side
+			$email = '';
       if ( isset($details['email'] ) ) {
+				if ( $details['email'] != $this->email() && $this->email_exists( $details['email'] ) ) {
+					return false;
+				}
         $email = $details['email'];
         unset($details['email']);
       }
