@@ -126,6 +126,8 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
         $u->confirm_email($token,false);
 
         $this->assertEquals( 'user@example.com', $u->email(), 'confirming with token updates email address' );
+        $tokenCount = $this->getConnection()->getRowCount('tokens', 'data = "1::user@example.com"');
+        $this->assertEquals(0, $tokenCount, 'token deleted once email confirmed');
     }
 
 }

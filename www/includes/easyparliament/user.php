@@ -1055,15 +1055,26 @@ class THEUSER extends USER {
 				'user_id' => $user_id,
 				'emailpublic' => $this->emailpublic()
 			);
-			$this->_update($details);
+			$ret = $this->_update($details);
 
-			$URL = new URL('userconfirmed');
-			$URL->insert(array('email'=>'t'));
-			$redirecturl = $URL->generate();
-			if ($redirect) {
-				$this->login($redirecturl, 'session');
+			if ( $ret ) {
+				// and remove the token to be tidy
+				$q = $this->db->query("DELETE
+					FROM	tokens
+					WHERE	token = '" . mysql_real_escape_string($registrationtoken) . "'
+					AND   type = 'E'
+				");
+
+				$URL = new URL('userconfirmed');
+				$URL->insert(array('email'=>'t'));
+				$redirecturl = $URL->generate();
+				if ($redirect) {
+					$this->login($redirecturl, 'session');
+				} else {
+					return true;
+				}
 			} else {
-				return true;
+				return false;
 			}
 		} else {
 			return false;
