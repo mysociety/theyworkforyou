@@ -1028,13 +1028,23 @@ class THEUSER extends USER {
 		if (!is_numeric($user_id) || $registrationtoken == '') {
 			return false;
 		}
-		$q = $this->db->query("SELECT data
+		$q = $this->db->query("SELECT expires, data
 			FROM	tokens
 			WHERE	token = '" . mysql_real_escape_string($registrationtoken) . "'
 			AND   type = 'E'
 		");
 
 		if ($q->rows() == 1) {
+			$expires = $q->field(0, 'expires');
+			$expire_time = strtotime($expires);
+			if ( $expire_time < time() ) {
+				global $PAGE;
+				if ( $PAGE && $redirect ) {
+					$PAGE->error_message ("Sorry, that token seems to have expired");
+				}
+				return false;
+			}
+
 			list( $user_id, $email ) = explode('::', $q->field(0, 'data'));
 
 			$this->email = $email;
@@ -1216,9 +1226,10 @@ class THEUSER extends USER {
 					$token = substr( crypt($email . microtime()), 12, 16 );
 					$data = $this->user_id() . '::' . $email;
 					$r = $this->db->query("INSERT INTO tokens
-						( token, type, data ) 
+						( expires, token, type, data )
 						VALUES
 						(
+							DATE_ADD(CURRENT_DATE(), INTERVAL 30 DAY),
 							'" . mysql_real_escape_string( $token ) . "',
 							'E',
 							'" . mysql_real_escape_string( $data ) . "'

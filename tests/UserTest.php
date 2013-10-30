@@ -130,4 +130,23 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals(0, $tokenCount, 'token deleted once email confirmed');
     }
 
+    public function testExpiredToken() {
+        $_COOKIE['epuser_id'] = '1.5ce7f6e2d7de4db00c297e1da0d48ac';
+        $u = new THEUSER();
+        $u->loggedin = 1;
+
+        $this->assertEquals( 'user@example.org', $u->email(), 'confirming inital email address' );
+
+        $tokenCount = $this->getConnection()->getRowCount('tokens', 'data = "1::user@example.net"');
+        $this->assertEquals(1, $tokenCount, 'correct number of email confirm tokens');
+
+        $token = '2-lkdsjafhsadjhf';
+
+        $u->confirm_email($token,false);
+        $this->assertEquals( 'user@example.org', $u->email(), 'expired token does not update email address' );
+
+        $tokenCount = $this->getConnection()->getRowCount('tokens', 'data = "1::user@example.net"');
+        $this->assertEquals(1, $tokenCount, 'correct number of email confirm tokens');
+    }
+
 }

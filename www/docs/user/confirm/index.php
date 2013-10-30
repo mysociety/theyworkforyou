@@ -115,13 +115,20 @@ function confirm_error() {
 	
 	$this_page = 'userconfirmfailed';
 	
-	$PAGE->page_start();
-	
-	$PAGE->stripe_start();
+	if ( !$PAGE->page_started() ) {
+		$PAGE->page_start();
+
+		$PAGE->stripe_start();
 	
 	?>
 	
 	<p>The link you followed to reach this page appears to be incomplete.</p>
+
+<?php
+	} else {
+		$PAGE->stripe_start();
+	}
+?>
 	
 	<p>If you clicked a link in your confirmation email you may need to manually copy and paste the entire link to the 'Location' bar of the web browser and try again.</p>
 

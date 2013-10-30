@@ -436,6 +436,7 @@ CREATE TABLE `tokens` (
     `token` varchar(100) NOT NULL default '',
     `type` varchar(1) NOT NULL default '',
     `data` text NOT NULL default '',
+    `expires` datetime,
     PRIMARY KEY (`token`)
 );
 
