@@ -481,7 +481,11 @@ function update_user ( $details ) {
 			$this_page = "userviewself";
 		}
 
-		display_user( $user_id );
+		if ($details['email'] != $THEUSER->email()) {
+			display_user( $user_id, true );
+		} else {
+			display_user( $user_id );
+		}
 
 		
 	} else {
@@ -825,7 +829,7 @@ function display_form ( $details = array(), $errors = array() ) {
 
 
 
-function display_user ($user_id="") {
+function display_user ($user_id="", $email_changed=false) {
 
 	global $THEUSER, $PAGE, $DATA, $this_page, $who;
 	
@@ -967,8 +971,10 @@ function display_user ($user_id="") {
 
 
 			
-		if ($edited) {
+		if ($edited && (!$email_changed || $display == 'another user')) {
 			print "\t\t\t\t<p><strong>" . ucfirst($who) . " details have been updated:</strong></p>\n";
+		} elseif ($edited && $email_changed) {
+			print "\t\t\t\t<p><strong>" . ucfirst($who) . " details have been updated and we've sent a confirmation email to your new email address:</strong></p>\n";
 		}
 
 		if ($this_page == 'userviewself' && !$edited) {
@@ -1001,6 +1007,13 @@ function display_user ($user_id="") {
 				</div>
 
 <?php
+		if (isset($email) && $email_changed) {
+			?>
+			<div class="row">
+				<strong>We won't update your email till you click the confirmation link we've sent you.</strong>
+			</div>
+<?php
+		}
 
 		if (isset($postcode)) {
 			if ($postcode == '') {

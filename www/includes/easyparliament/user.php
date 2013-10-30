@@ -279,6 +279,43 @@ class USER {
 	}
 
 
+	function send_email_confirmation_email($details) {
+		// A brief check of the facts...
+		if (!is_numeric($this->user_id) ||
+			!isset($details['email']) ||
+			$details['email'] == '' ||
+			!isset($details['token']) ||
+			$details['token'] == '' ) {
+			return false;
+		}
+
+		// We prefix the registration token with the user's id and '-'.
+		// Not for any particularly good reason, but we do.
+
+		$urltoken = $this->user_id . '-' . $details['token'];
+
+		$confirmurl = 'http://' . DOMAIN . '/E/' . $urltoken;
+
+		// Arrays we need to send a templated email.
+		$data = array (
+			'to' 		=> $details['email'],
+			'template' 	=> 'email_confirmation'
+		);
+
+		$merge = array (
+			'FIRSTNAME' 	=> $details['firstname'],
+			'LASTNAME' 		=> $details['lastname'],
+			'CONFIRMURL'	=> $confirmurl
+		);
+
+		$success = send_template_email($data, $merge);
+
+		if ($success) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	function send_confirmation_email($details) {
 		// After we've add()ed a user we'll probably be sending them
@@ -1174,7 +1211,11 @@ class THEUSER extends USER {
 					");
 
 					// send confirmation email here
-					if ( !$r->success() ) {
+					if ( $r->success() ) {
+						$newdetails['email'] = $email;
+						$newdetails['token'] = $token;
+						return $this->send_email_confirmation_email($newdetails);
+					} else {
 						return false;
 					}
 				}
