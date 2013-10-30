@@ -982,53 +982,53 @@ class THEUSER extends USER {
 		}
 	}
 
-  function confirm_email ($token) {
+	function confirm_email ($token) {
 		$arg = '';
 		if (strstr($token, '::')) $arg = '::';
 		if (strstr($token, '-')) $arg = '-';
 		list($user_id, $registrationtoken) = explode($arg, $token);
 
 		if (!is_numeric($user_id) || $registrationtoken == '') {
-        return false;
+			return false;
 		}
 		$q = $this->db->query("SELECT data
-						FROM	tokens
-						WHERE	token = '" . mysql_real_escape_string($registrationtoken) . "'
-            AND   type = 'E'
-						");
+			FROM	tokens
+			WHERE	token = '" . mysql_real_escape_string($registrationtoken) . "'
+			AND   type = 'E'
+		");
 
 		if ($q->rows() == 1) {
-        list( $user_id, $email ) = explode('::', $q->field(0, 'data'));
+			list( $user_id, $email ) = explode('::', $q->field(0, 'data'));
 
-        $this->email = $email;
+			$this->email = $email;
 
-        // only the logged in user should be able to 
-        // make the token work
-        if ( $this->user_id() != $user_id ) {
-            return false;
-        }
+			// only the logged in user should be able to
+			// make the token work
+			if ( $this->user_id() != $user_id ) {
+				return false;
+			}
 
-        $details = array(
-            'email' => $this->email(),
-            'firstname' => $this->firstname(),
-            'lastname' => $this->lastname(),
-            'postcode' => $this->postcode(),
-            'url' => $this->url(),
-            'optin' => $this->optin(),
-            'user_id' => $user_id,
-            'emailpublic' => $this->emailpublic()
-        );
-        $this->_update($details);
+			$details = array(
+				'email' => $this->email(),
+				'firstname' => $this->firstname(),
+				'lastname' => $this->lastname(),
+				'postcode' => $this->postcode(),
+				'url' => $this->url(),
+				'optin' => $this->optin(),
+				'user_id' => $user_id,
+				'emailpublic' => $this->emailpublic()
+			);
+			$this->_update($details);
 
-				$URL = new URL('userconfirmed');
-				$URL->insert(array('email'=>'t'));
-				$redirecturl = $URL->generate();
-        $this->login($redirecturl, 'session');
-    } else {
-        return false;
-    }
+			$URL = new URL('userconfirmed');
+			$URL->insert(array('email'=>'t'));
+			$redirecturl = $URL->generate();
+			$this->login($redirecturl, 'session');
+		} else {
+			return false;
+		}
 
-  }
+	}
 
 
 	function confirm ($token) {
@@ -1129,17 +1129,16 @@ class THEUSER extends USER {
 
 		if ($this->isloggedin()) {
 
-
 			// this is checked elsewhere but just in case we check here and
 			// bail out to be on the safe side
 			$email = '';
-      if ( isset($details['email'] ) ) {
+			if ( isset($details['email'] ) ) {
 				if ( $details['email'] != $this->email() && $this->email_exists( $details['email'] ) ) {
 					return false;
 				}
-        $email = $details['email'];
-        unset($details['email']);
-      }
+				$email = $details['email'];
+				unset($details['email']);
+			}
 			$details["user_id"] = $this->user_id;
 
 			$newdetails = $this->_update($details);
@@ -1161,25 +1160,24 @@ class THEUSER extends USER {
 					$this->password = $newdetails["password"];
 				}
 
-        // need to check if user already exists
-        if ($email && $email != $this->email) {
-          $token = substr( crypt($email . microtime()), 12, 16 );
-          $data = $this->user_id() . '::' . $email;
-          $r = $this->db->query("INSERT INTO tokens
-              ( token, type, data ) 
-              VALUES
-              (
-                  '" . mysql_real_escape_string( $token ) . "',
-                  'E',
-                  '" . mysql_real_escape_string( $data ) . "'
-              )
-          ");
+				if ($email && $email != $this->email) {
+					$token = substr( crypt($email . microtime()), 12, 16 );
+					$data = $this->user_id() . '::' . $email;
+					$r = $this->db->query("INSERT INTO tokens
+						( token, type, data ) 
+						VALUES
+						(
+							'" . mysql_real_escape_string( $token ) . "',
+							'E',
+							'" . mysql_real_escape_string( $data ) . "'
+						)
+					");
 
-          // send confirmation email here
-          if ( !$r->success() ) {
-              return false;
-          }
-        }
+					// send confirmation email here
+					if ( !$r->success() ) {
+						return false;
+					}
+				}
 
 				return true;
 			} else {
