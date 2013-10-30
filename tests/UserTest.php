@@ -123,7 +123,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
         $tokenRow = $queryTable->getRow(0);
         $token = '2-' . $tokenRow['token'];
 
-        $u->confirm_email($token);
+        $u->confirm_email($token,false);
 
         $this->assertEquals( 'user@example.com', $u->email(), 'confirming with token updates email address' );
     }

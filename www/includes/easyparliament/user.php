@@ -1019,7 +1019,7 @@ class THEUSER extends USER {
 		}
 	}
 
-	function confirm_email ($token) {
+	function confirm_email ($token, $redirect=true) {
 		$arg = '';
 		if (strstr($token, '::')) $arg = '::';
 		if (strstr($token, '-')) $arg = '-';
@@ -1060,7 +1060,11 @@ class THEUSER extends USER {
 			$URL = new URL('userconfirmed');
 			$URL->insert(array('email'=>'t'));
 			$redirecturl = $URL->generate();
-			$this->login($redirecturl, 'session');
+			if ($redirect) {
+				$this->login($redirecturl, 'session');
+			} else {
+				return true;
+			}
 		} else {
 			return false;
 		}
