@@ -71,6 +71,7 @@ if ($show_survey_qn < $current_question) {
 
     <input type="hidden" name="came_from" value="<?=$page_url ?>">
     <input type="hidden" name="return_url" value="<?=$page_url ?>">
+    <input type="hidden" name="question_no" value="<?=$current_question ?>">
 
 
     <p>

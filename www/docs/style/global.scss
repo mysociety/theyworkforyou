@@ -1398,6 +1398,10 @@ body.js #survey_teaser {
 }
 
 /* Mini survey */
+.js #minisurvey {
+	display: none;
+}
+
 form.minisurvey ul {
     list-style-type: none;
     li {
