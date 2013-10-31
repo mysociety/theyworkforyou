@@ -82,7 +82,7 @@ if ($show_survey_qn < $current_question) {
     </ul>
 
     <p>
-    <input type="submit" value="Submit answer"> <small><a href="http://<?=$hide_url ?>">Hide this</a></small>
+    <input type="submit" value="Submit answer"> <small><a href="<?=$hide_url ?>">Hide this</a></small>
     </p>
 
 </form>
