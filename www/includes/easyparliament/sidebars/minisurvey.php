@@ -49,10 +49,10 @@ if ($show_survey_qn < $current_question) {
     } else {
         $URL = new URL($this_page);
         $URL->insert(array('answered_survey' => $current_question ));
-        $page_url = DOMAIN . $URL->generate();
+        $page_url = 'http://' . DOMAIN . $URL->generate();
         $URL = new URL($this_page);
         $URL->insert(array('hide_survey' => $current_question ));
-        $hide_url = DOMAIN . $URL->generate();
+        $hide_url = 'http://' . DOMAIN . $URL->generate();
     }
 
     $user_code = bin2hex(urandom_bytes(16));
