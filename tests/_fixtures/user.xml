@@ -2,6 +2,16 @@
 <mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <database name="twfy_testing">
 	<table_data name="alerts">
+      <row>
+        <field name="email">user@example.org</field>
+        <field name="criteria">.org</field>
+        <field name="confirmed">1</field>
+      </row>
+      <row>
+        <field name="email">user@example.net</field>
+        <field name="criteria">.net</field>
+        <field name="confirmed">1</field>
+      </row>
 	</table_data>
 	<table_data name="anonvotes">
 	</table_data>

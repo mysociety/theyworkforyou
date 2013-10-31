@@ -113,8 +113,10 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
 
         $expectedTable = $this->createXmlDataSet(dirname(__FILE__).'/_fixtures/expectedTokens.xml')
                               ->getTable("tokens");
-
         $this->assertTablesEqual($expectedTable, $queryTable);
+
+        $alertCount = $this->getConnection()->getRowCount('alerts', 'email = "user@example.org"');
+        $this->assertEquals(1, $alertCount, 'correct number of alerts');
 
         $queryTable = $this->getConnection()->createQueryTable(
             'tokens', 'SELECT token, type, data FROM tokens WHERE data = "1::user@example.com"'
@@ -128,6 +130,12 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals( 'user@example.com', $u->email(), 'confirming with token updates email address' );
         $tokenCount = $this->getConnection()->getRowCount('tokens', 'data = "1::user@example.com"');
         $this->assertEquals(0, $tokenCount, 'token deleted once email confirmed');
+
+        $alertCount = $this->getConnection()->getRowCount('alerts', 'email = "user@example.com"');
+        $this->assertEquals(1, $alertCount, 'one alert for new email address');
+
+        $alertCount = $this->getConnection()->getRowCount('alerts', 'email = "user@example.org"');
+        $this->assertEquals(0, $alertCount, 'no alerts for old email address');
     }
 
     public function testExpiredToken() {

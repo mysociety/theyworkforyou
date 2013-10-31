@@ -1047,8 +1047,6 @@ class THEUSER extends USER {
 
 			list( $user_id, $email ) = explode('::', $q->field(0, 'data'));
 
-			$this->email = $email;
-
 			// only the logged in user should be able to
 			// make the token work
 			if ( $this->user_id() != $user_id ) {
@@ -1056,7 +1054,7 @@ class THEUSER extends USER {
 			}
 
 			$details = array(
-				'email' => $this->email(),
+				'email' => $email,
 				'firstname' => $this->firstname(),
 				'lastname' => $this->lastname(),
 				'postcode' => $this->postcode(),
@@ -1075,6 +1073,7 @@ class THEUSER extends USER {
 					AND   type = 'E'
 				");
 
+				$this->email = $email;
 				$URL = new URL('userconfirmed');
 				$URL->insert(array('email'=>'t'));
 				$redirecturl = $URL->generate();
