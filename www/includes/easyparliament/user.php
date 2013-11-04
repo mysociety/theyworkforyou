@@ -279,6 +279,43 @@ class USER {
 	}
 
 
+	function send_email_confirmation_email($details) {
+		// A brief check of the facts...
+		if (!is_numeric($this->user_id) ||
+			!isset($details['email']) ||
+			$details['email'] == '' ||
+			!isset($details['token']) ||
+			$details['token'] == '' ) {
+			return false;
+		}
+
+		// We prefix the registration token with the user's id and '-'.
+		// Not for any particularly good reason, but we do.
+
+		$urltoken = $this->user_id . '-' . $details['token'];
+
+		$confirmurl = 'http://' . DOMAIN . '/E/' . $urltoken;
+
+		// Arrays we need to send a templated email.
+		$data = array (
+			'to' 		=> $details['email'],
+			'template' 	=> 'email_confirmation'
+		);
+
+		$merge = array (
+			'FIRSTNAME' 	=> $details['firstname'],
+			'LASTNAME' 		=> $details['lastname'],
+			'CONFIRMURL'	=> $confirmurl
+		);
+
+		$success = send_template_email($data, $merge);
+
+		if ($success) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	function send_confirmation_email($details) {
 		// After we've add()ed a user we'll probably be sending them
@@ -470,12 +507,16 @@ class USER {
 	}
 
 
-	function email_exists ($email) {
+	function email_exists ($email, $return_id = false) {
 		// Returns true if there's a user with this email address.
 
 		if ($email != "") {
 			$q = $this->db->query("SELECT user_id FROM users WHERE email='" . mysql_real_escape_string($email) . "'");
 			if ($q->rows() > 0) {
+				if ( $return_id ) {
+					$row = $q->row(0);
+					return $row['user_id'];
+				}
 				return true;
 			} else {
  				return false;
@@ -978,6 +1019,78 @@ class THEUSER extends USER {
 		}
 	}
 
+	function confirm_email ($token, $redirect=true) {
+		$arg = '';
+		if (strstr($token, '::')) $arg = '::';
+		if (strstr($token, '-')) $arg = '-';
+		list($user_id, $registrationtoken) = explode($arg, $token);
+
+		if (!is_numeric($user_id) || $registrationtoken == '') {
+			return false;
+		}
+		$q = $this->db->query("SELECT expires, data
+			FROM	tokens
+			WHERE	token = '" . mysql_real_escape_string($registrationtoken) . "'
+			AND   type = 'E'
+		");
+
+		if ($q->rows() == 1) {
+			$expires = $q->field(0, 'expires');
+			$expire_time = strtotime($expires);
+			if ( $expire_time < time() ) {
+				global $PAGE;
+				if ( $PAGE && $redirect ) {
+					$PAGE->error_message ("Sorry, that token seems to have expired");
+				}
+				return false;
+			}
+
+			list( $user_id, $email ) = explode('::', $q->field(0, 'data'));
+
+			// only the logged in user should be able to
+			// make the token work
+			if ( $this->user_id() != $user_id ) {
+				return false;
+			}
+
+			$details = array(
+				'email' => $email,
+				'firstname' => $this->firstname(),
+				'lastname' => $this->lastname(),
+				'postcode' => $this->postcode(),
+				'url' => $this->url(),
+				'optin' => $this->optin(),
+				'user_id' => $user_id,
+				'emailpublic' => $this->emailpublic()
+			);
+			$ret = $this->_update($details);
+
+			if ( $ret ) {
+				// and remove the token to be tidy
+				$q = $this->db->query("DELETE
+					FROM	tokens
+					WHERE	token = '" . mysql_real_escape_string($registrationtoken) . "'
+					AND   type = 'E'
+				");
+
+				$this->email = $email;
+				$URL = new URL('userconfirmed');
+				$URL->insert(array('email'=>'t'));
+				$redirecturl = $URL->generate();
+				if ($redirect) {
+					$this->login($redirecturl, 'session');
+				} else {
+					return true;
+				}
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+
+	}
+
 
 	function confirm ($token) {
 		// The user has clicked the link in their confirmation email
@@ -1066,7 +1179,7 @@ class THEUSER extends USER {
 	}
 	
 	
-	function update_self ($details) {
+	function update_self ($details, $confirm_email = true) {
 		// If the user wants to update their details, call this function.
 		// It checks that they're logged in before letting them.
 
@@ -1077,6 +1190,16 @@ class THEUSER extends USER {
 
 		if ($this->isloggedin()) {
 
+			// this is checked elsewhere but just in case we check here and
+			// bail out to be on the safe side
+			$email = '';
+			if ( isset($details['email'] ) ) {
+				if ( $details['email'] != $this->email() && $this->email_exists( $details['email'] ) ) {
+					return false;
+				}
+				$email = $details['email'];
+				unset($details['email']);
+			}
 			$details["user_id"] = $this->user_id;
 
 			$newdetails = $this->_update($details);
@@ -1096,6 +1219,34 @@ class THEUSER extends USER {
 				$this->optin 			= $newdetails["optin"];
 				if ($newdetails["password"] != "") {
 					$this->password = $newdetails["password"];
+				}
+
+				if ($email && $email != $this->email) {
+					$token = substr( crypt($email . microtime()), 12, 16 );
+					$data = $this->user_id() . '::' . $email;
+					$r = $this->db->query("INSERT INTO tokens
+						( expires, token, type, data )
+						VALUES
+						(
+							DATE_ADD(CURRENT_DATE(), INTERVAL 30 DAY),
+							'" . mysql_real_escape_string( $token ) . "',
+							'E',
+							'" . mysql_real_escape_string( $data ) . "'
+						)
+					");
+
+					// send confirmation email here
+					if ( $r->success() ) {
+						$newdetails['email'] = $email;
+						$newdetails['token'] = $token;
+						if ( $confirm_email ) {
+							return $this->send_email_confirmation_email($newdetails);
+						} else {
+							return true;
+						}
+					} else {
+						return false;
+					}
 				}
 
 				return true;

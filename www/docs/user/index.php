@@ -118,9 +118,7 @@ if (get_http_var("submitted") == "true") {
 		$details['url'] = 'http://' . $details['url'];
 	}
 	
-	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
 		$details["email"] = trim(get_http_var("em"));
-	}
 
 	if ($this_page == "otheruseredit") {
 		$details["user_id"]			= trim(get_http_var("u"));
@@ -266,7 +264,7 @@ function check_input ($details) {
 	// They don't need a last name. In case Madonna joins.
 
 	// Check email address is valid and unique.
-	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
+	if ($this_page == "otheruseredit" || $this_page == 'userjoin' || $this_page == 'useredit') {
         if ($details["email"] == "") {
             $errors["email"] = "Please enter $who email address";
 	
@@ -277,7 +275,7 @@ function check_input ($details) {
         } else {
 
             $USER = new USER;
-            $id_of_user_with_this_addresss = $USER->email_exists($details["email"]);
+            $id_of_user_with_this_addresss = $USER->email_exists($details["email"], true);
 
             if ($this_page == "useredit" &&
                 get_http_var("u") == "" &&
@@ -483,7 +481,11 @@ function update_user ( $details ) {
 			$this_page = "userviewself";
 		}
 
-		display_user( $user_id );
+		if ($details['email'] != $THEUSER->email()) {
+			display_user( $user_id, true );
+		} else {
+			display_user( $user_id );
+		}
 
 		
 	} else {
@@ -571,7 +573,6 @@ function display_form ( $details = array(), $errors = array() ) {
 				</div>
 
 <?php
-	if ($this_page == "otheruseredit" || $this_page == 'userjoin') {
 		if (isset($errors["email"])) {
 			$PAGE->error_message($errors["email"]);
 		}
@@ -583,7 +584,6 @@ function display_form ( $details = array(), $errors = array() ) {
 
 <?php
 
-	}
 
 	if ($this_page == "useredit" || $this_page == "otheruseredit") {
 		// If not, the user's joining.
@@ -829,7 +829,7 @@ function display_form ( $details = array(), $errors = array() ) {
 
 
 
-function display_user ($user_id="") {
+function display_user ($user_id="", $email_changed=false) {
 
 	global $THEUSER, $PAGE, $DATA, $this_page, $who;
 	
@@ -971,8 +971,10 @@ function display_user ($user_id="") {
 
 
 			
-		if ($edited) {
+		if ($edited && (!$email_changed || $display == 'another user')) {
 			print "\t\t\t\t<p><strong>" . ucfirst($who) . " details have been updated:</strong></p>\n";
+		} elseif ($edited && $email_changed) {
+			print "\t\t\t\t<p><strong>" . ucfirst($who) . " details have been updated and we've sent a confirmation email to your new email address:</strong></p>\n";
 		}
 
 		if ($this_page == 'userviewself' && !$edited) {
@@ -1005,6 +1007,13 @@ function display_user ($user_id="") {
 				</div>
 
 <?php
+		if (isset($email) && $email_changed) {
+			?>
+			<div class="row">
+				<strong>We won't update your email till you click the confirmation link we've sent you.</strong>
+			</div>
+<?php
+		}
 
 		if (isset($postcode)) {
 			if ($postcode == '') {
