@@ -240,9 +240,12 @@ function add_alert ($details) {
 			'text' => 'You already appear to be subscribed to this email alert, so we have not signed you up to it again.'
 			);
 		} else {
+			// don't throw an error message as that implies that they have already signed
+			// up for the alert but instead pretend all is normal but send an email saying
+			// that someone tried to sign them up for an existing alert
 			$ALERT->send_already_signedup_email($details);
-			$message = array ('title' => "This alert has not been accepted",
-			'text' => "Sorry, we were unable to create this alert. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a>. Thanks."
+			$message = array('title' => "We're nearly done...",
+				'text' => "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address to receive the alert. Thanks."
 			);
 		}
 		$advert = true;
