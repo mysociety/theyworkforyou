@@ -291,6 +291,29 @@ class ALERT {
 		}
 	}
 
+	function send_already_signedup_email($details) {
+		$data = array (
+			'to' 		=> $details['email'],
+			'template' 	=> 'alert_already_signedup'
+		);
+
+		$criteria = alert_details_to_criteria($details);
+		$this->criteria = $criteria;
+
+		$merge = array (
+			'FIRSTNAME' 	=> 'THEY WORK FOR YOU',
+			'LASTNAME' 		=> ' ALERT ALREADY SIGNED UP',
+			'CRITERIA'	=> $this->criteria_pretty()
+		);
+
+		$success = send_template_email($data, $merge);
+		if ($success) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	function fetch_by_mp($email, $pid) {
 		$q = $this->db->query("SELECT alert_id FROM alerts
             WHERE confirmed AND NOT deleted
