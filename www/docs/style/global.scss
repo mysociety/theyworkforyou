@@ -1397,6 +1397,31 @@ body.js #survey_teaser {
     background-color: #E8FFC5;
 }
 
+/* Mini survey */
+.js #minisurvey {
+	display: none;
+}
+
+form.minisurvey ul {
+    list-style-type: none;
+    li {
+        background: none;
+    }
+}
+
+.stripe-survey {
+    #minisurvey {
+        margin: 0px;
+        padding-left: 18px;
+    }
+    .main {
+        width: 100%;
+    }
+    .sidebar {
+        display: none;
+    }
+}
+
 /*
 .unspoken { font-style: italic; }
 .heading { font-weight: bold; }

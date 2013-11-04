@@ -139,6 +139,10 @@ $PAGE->stripe_end(array(
 		'content' => 'calendar_'.$sidebar
 	),
 	array (
+		'type' => 'include',
+		'content' => 'minisurvey'
+	),
+	array (
 		'type'	=> 'include',
 		'content'	=> $sidebar
 	)

@@ -69,4 +69,16 @@ function showPersonLinks(sId){
 
 $(function(){
 	$('body').addClass('js');
+	window.setTimeout(function(){
+		if ( $('#minisurvey').length ) {
+			lastAnswered = $.cookie('survey');
+			current = $('input[name="question_no"]').attr('value');
+			// need to check the cookie here as browser caching means that
+			// the survey block can be included in the page even after they've
+			// answered the question
+			if ( lastAnswered == null || lastAnswered < current ) {
+				$('#minisurvey').show('slow');
+			}
+		}
+	}, 2000);
 });

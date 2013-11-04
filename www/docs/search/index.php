@@ -59,6 +59,10 @@ if (get_http_var('adv') || $warning || !$searchstring) {
     $PAGE->stripe_end(array (
         array(
             'type'      => 'include',
+            'content'   => 'minisurvey'
+        ),
+        array(
+            'type'      => 'include',
             'content'   => 'search_links'
         ),
         array(

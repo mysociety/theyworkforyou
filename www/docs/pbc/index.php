@@ -113,6 +113,10 @@ if ($bill_id && !$id) {
 	$committee->display( 'recent_pbc_debates', array( 'num' => 50 ) );
 	$rssurl = $DATA->page_metadata($this_page, 'rss');
 	$PAGE->stripe_end(array(
+		array (
+			'type' => 'include',
+			'content' => "minisurvey"
+		),
 		array(
 			'type' => 'html',
 			'content' => '
