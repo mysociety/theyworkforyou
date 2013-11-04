@@ -191,7 +191,7 @@ function check_input ($details) {
 }
 
 function add_alert ($details) {
-    global $ALERT, $extra;
+    global $THEUSER, $ALERT, $extra;
 
 	$external_auth = auth_verify_with_shared_secret($details['email'], OPTION_AUTH_SHARED_SECRET, get_http_var('sign'));
 	if ($external_auth) {
@@ -232,9 +232,19 @@ function add_alert ($details) {
 			'text' => "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address to receive the alert. Thanks."
 		);
 	} elseif ($success == -2) {
-		$message = array('title' => 'You already have this alert',
-		'text' => 'You already appear to be subscribed to this email alert, so we have not signed you up to it again.'
-		);
+		// we need to make sure we know that the person attempting to sign up 
+		// for the alert has that email address to stop people trying to work
+		// out what alerts they are signed up to
+		if ( $details['email_verified'] || ( $THEUSER->loggedin && $THEUSER->email() == $details['email'] ) ) {
+			$message = array('title' => 'You already have this alert',
+			'text' => 'You already appear to be subscribed to this email alert, so we have not signed you up to it again.'
+			);
+		} else {
+			$ALERT->send_already_signedup_email($details);
+			$message = array ('title' => "This alert has not been accepted",
+			'text' => "Sorry, we were unable to create this alert. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a>. Thanks."
+			);
+		}
 		$advert = true;
 	} else {
 		$message = array ('title' => "This alert has not been accepted",

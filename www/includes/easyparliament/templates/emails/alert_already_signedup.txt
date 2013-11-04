@@ -1,0 +1,16 @@
+Subject: Already signed up for an alert on TheyWorkForYou,com
+Someone, maybe you, tried to sign you up for an alert on
+TheyWorkForYou.com that you are already signed up for with
+the following criteria:
+
+{CRITERIA}
+
+As you are already signed up for this we've not signed you up
+to it again.
+
+If you have not tried to register for this alert then someone else
+entered your address. If you think this has been done maliciously
+then let us know.
+
+Best wishes,
+TheyWorkForYou
