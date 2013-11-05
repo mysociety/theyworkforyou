@@ -920,6 +920,11 @@ class THEUSER extends USER {
 		// are correct. We can then continue with logging the user in (taking into
 		// account their cookie remembering settings etc) with $this->login().
 
+		// This error string is shared between both email and password errors to
+		// prevent leaking of account existence.
+
+		$error_string = 'There is no user registered with an email of ' . htmlentities($email) . ', or the given password is incorrect. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave annotations.';
+
 		$q = $this->db->query("SELECT user_id, password, deleted, confirmed FROM users WHERE email='" . mysql_real_escape_string($email) . "'");
 
 		if ($q->rows() == 1) {
@@ -936,13 +941,13 @@ class THEUSER extends USER {
 
 			} else {
 				// Failed.
-				return array ("invalidpassword"=>"This is not the correct password for " . htmlentities($email));
+				return array ("invalidemail" => $error_string);
 
 			}
 
 		} else {
 			// Failed.
-			return array ("invalidemail"=>"There is no user registered with an email of " . htmlentities($email) . '. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave annotations.');
+			return array ("invalidemail" => $error_string);
 		}
 
 	}
