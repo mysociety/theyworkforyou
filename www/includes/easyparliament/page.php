@@ -96,6 +96,25 @@ class PAGE {
         }
     }
 
+    function version($file) {
+        global $memcache;
+        if (!$memcache) {
+            $memcache = new Memcache;
+            $memcache->connect('localhost', 11211);
+        }
+        $memcache_key = OPTION_TWFY_DB_NAME . ':stat_cache:' . $file;
+        $hash = '';
+        if ( !DEVSITE ) {
+            $hash = $memcache->get($memcache_key);
+            if (!$hash) {
+                $path = BASEDIR . '/' . $file;
+                $hash = filemtime($path);
+                $memcache->set($memcache_key, $hash, MEMCACHE_COMPRESSED, 300);
+            }
+        }
+
+        return "$file?" . $hash;
+    }
 
     function page_header () {
         global $DATA, $this_page;
@@ -214,18 +233,18 @@ class PAGE {
     <meta property="og:description" content="TheyWorkForYou is a website which makes it easy to keep track of your local MP's activities.">
     <meta property="fb:app_id" content="227648394066332">
 
-    <script type="text/javascript" src="/js/jquery.js"></script>
-    <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<?php echo $this->version('/js/jquery.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->version('/js/jquery.cookie.js') ?>"></script>
     <script type="text/javascript" src="/jslib/share/share.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/bar.js"></script>
+    <script type="text/javascript" src="<?php echo $this->version('/js/main.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->version('/js/bar.js') ?>"></script>
 <?php
         echo $linkshtml;
     # XXX Below line for speed
 ?>
-    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/global.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo WEBPATH; ?><?php echo $this->version('style/global.css' ) ?>" type="text/css">
     <link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/print.css" type="text/css" media="print">
+    <link rel="stylesheet" href="<?php echo WEBPATH; ?><?php echo $this->version('style/print.css') ?>" type="text/css" media="print">
 <?php
 
         if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
