@@ -81,3 +81,8 @@ if [ ! -e $HOME/pwdata ]; then
     ln -s $HOME/theyworkforyou/uml-tests/parldata $HOME/pwdata
 fi
 echo $DONE_MSG
+
+echo -n "Generating global.css..."
+cd $HOME
+./conf/post-deploy.bash
+echo $DONE_MSG
