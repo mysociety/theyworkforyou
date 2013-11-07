@@ -37,6 +37,7 @@ class MEMBER {
 		'became_peer'		=> 'Became peer',
 		'by_election'		=> 'Byelection',
 		'changed_party'		=> 'Changed party',
+		'changed_name' 		=> 'Changed name',
 		'declared_void'		=> 'Declared void',
 		'died'			=> 'Died',
 		'disqualified'		=> 'Disqualified',
