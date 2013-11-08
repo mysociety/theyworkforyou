@@ -93,6 +93,16 @@ if ($pc_form) { ?>
         <li><?php echo $th_party; ?></li>
     </ul>
 </div>
+<?php
+	if ( $order == 'last_name' || $order == 'first_name' ) {
+		echo('<div class="sort">');
+		for ( $i = 65; $i <= 90; $i++ ) {
+			$c = chr($i);
+			echo( '<a href="#' . $c . '">' . $c . '</a> ' );
+		}
+		echo('</div>');
+	}
+?>
 
 <table class="people">
 <thead>
@@ -106,8 +116,14 @@ if ($pc_form) { ?>
 <?php
     $MPURL = new URL(substr($this_page, 0, -1));
     $style = '2';
-    foreach ($data['data'] as $pid => $mp) {
-	    render_mps_row($mp, $style, $order, $MPURL);
+		$current_letter = 'A';
+		foreach ($data['data'] as $pid => $mp) {
+			$letter = '';
+			if (strtoupper($mp[$order][0]) != $current_letter) {
+				$current_letter = strtoupper($mp[$order][0]);
+				$letter = $current_letter;
+			}
+			render_mps_row($mp, $style, $order, $MPURL, $letter);
     }
 ?>
 </tbody>
@@ -116,13 +132,16 @@ if ($pc_form) { ?>
 
 }
 
-function render_mps_row($mp, &$style, $order, $MPURL) {
+function render_mps_row($mp, &$style, $order, $MPURL, $letter='') {
 	$style = $style == '1' ? '2' : '1';
 	$name = member_full_name(4, $mp['title'], $mp['first_name'], $mp['last_name'], $mp['constituency']);
 	?>
 <tr>
     <td class="row">
     <?php
+		if ( $letter ) {
+			echo '<a name="' . $letter . '"></a>';
+		}
     list($image,$sz) = find_rep_image($mp['person_id'], true, true);
     if ($image) {
         echo '<a href="' . $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], NULL, 4, $mp['person_id']) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
