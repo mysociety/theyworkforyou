@@ -84,5 +84,5 @@ echo $DONE_MSG
 
 echo -n "Generating global.css..."
 cd $HOME
-./conf/post-deploy.bash
+conf/post-deploy.bash
 echo $DONE_MSG
