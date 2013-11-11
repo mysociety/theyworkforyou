@@ -488,7 +488,8 @@
 			# with &quot;. we call it last thing before returning.
 			#
 
-			$m[2] = str_replace("\"", "&quot;", $m[2]);
+			// don't do this as it breaks search
+			//$m[2] = str_replace("\"", "&quot;", $m[2]);
 
 
 
