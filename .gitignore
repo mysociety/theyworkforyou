@@ -3,3 +3,4 @@
 *.pyc
 .sass-cache
 vendor
+www/docs/style/*.css

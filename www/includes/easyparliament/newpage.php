@@ -131,9 +131,8 @@ class NEWPAGE extends PAGE {
         echo $linkshtml;
     # XXX Below line for speed
 ?>
-    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/global.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/app.css" type="text/css">
     <link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/print.css" type="text/css" media="print">
 <?php
 
         if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
