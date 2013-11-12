@@ -282,7 +282,7 @@ window.fbAsyncInit = function() {
 ?>
         <nav class="top-bar">
         <ul class="title-area">
-            <li class="name"><?=$heading?></li>
+            <li class="name"><h1><a href="/"><?=$heading?></a></h1></li>
         </ul>
 <?php
         $this->menu();
