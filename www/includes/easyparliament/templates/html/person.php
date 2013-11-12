@@ -517,7 +517,7 @@ function person_voting_record($member, $extra_info) {
 ?>
 
 <p id="howvoted">How <?=$member['full_name']?> voted on key issues<?=$since?>:</p>
-<ul id="dreamcomparisons">
+<ul class="no-bullet" id="dreamcomparisons">
 <?=$got_dream ?>
 </ul>
 <p class="italic">
@@ -547,7 +547,7 @@ function person_voting_record($member, $extra_info) {
 	// Rebellion rate
 	if (isset($extra_info['public_whip_rebellions']) && $extra_info['public_whip_rebellions'] != 'n/a') {	
 		$displayed_stuff = 1;
-?>					<ul>
+?>					<ul class="no-bullet">
 						<li><a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?=$member['member_id'] ?>#divisions" title="See more details at Public Whip">
                         <strong><?php echo htmlentities(ucfirst($extra_info['public_whip_rebel_description'])); ?> rebels</strong></a> against their party<?php
 		if (isset($extra_info['public_whip_rebelrank'])) {
@@ -598,7 +598,7 @@ function person_committees_and_topics($member, $extra_info) {
 		}
 		if ($mins) {
 			print "<h3>Select Committee membership</h3>";
-			print "<ul>";
+			print '<ul class="no-bullet">';
 			foreach ($mins as $min) {
 				print '<li>' . $min . '</li>';
 			}
@@ -620,7 +620,7 @@ function person_committees_and_topics($member, $extra_info) {
 	
 	if ($wrans_dept) {
 		print "<p><strong>Asks most questions about</strong></p>";
-		print "<ul>";
+		print '<ul class="no-bullet">';
 		if ($wrans_dept_1) print $wrans_dept_1;
 		if ($wrans_dept_2) print $wrans_dept_2;
 		print "</ul>";
@@ -637,7 +637,7 @@ function person_committees_and_topics($member, $extra_info) {
 		if ($member['party'] == 'Scottish National Party') {
 			echo '<p><em>SNP MPs only attend sittings where the legislation pertains to Scotland.</em></p>';
 		}
-		echo '<ul>';
+		echo '<ul class="no-bullet">';
 		foreach ($extra_info['pbc'] as $bill_id => $arr) {
 			print '<li>';
 			if ($arr['chairman']) print 'Chairman, ';
@@ -726,7 +726,7 @@ function person_numerology($member, $extra_info) {
 <p><em>Please note that numbers do not measure quality. 
 Also, representatives may do other things not currently covered
 by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p>
-<ul>
+<ul class="no-bullet">
 <?php
 
 	$since_text = 'in the last year';
