@@ -1096,10 +1096,12 @@ pr()//-->
 </div> <!-- end #footer -->
 </div> <!-- end #container -->
 
-<script type="text/javascript" charset="utf-8">
-    barSetup();
-</script>
+<script src="/js/foundation/foundation.js"></script>
+<script src="/js/foundation/foundation.magellan.js"></script>
 
+<script>
+  $(document).foundation();
+</script>
 </body>
 <?php
         ob_end_flush();

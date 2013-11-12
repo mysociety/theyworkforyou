@@ -13,7 +13,8 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 # Heading/ picture
 print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
 
-print '<div class="panel">';
+print '<a data-magellan-destination="profile" name="profile"></a>';
+print '<div class="panel" id="mp-panel">';
 
 print '<div class="row"><div class="large-1 columns">';
 
@@ -86,15 +87,16 @@ $SEARCHURL = new URL("search");
 					</form>
 				</div>
 <?php 
-print '</div><div class="large-2 columns">';
+print '</div><div class="large-4 columns">';
 if ($member['has_email_alerts']) {
     print '<a class="button alert" href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Get email updates</strong><br>on this person&rsquo;s activity</a>
     ';
 }
 print '</div>';
 print '</div>';
+print '</div>';
 ?>
-<div data-magellan-expedition="fixed">
+<div data-magellan-expedition="fixed" class="person-subnav">
     <dl class="sub-nav">
         <dt data-magellan-arrival="profile"><a href="#profile">Profile</a></dt>
         <dt data-magellan-arrival="votingrecord"><a href="#votingrecord">Voting record</a></dt>
@@ -104,8 +106,6 @@ print '</div>';
     </dl>
 </div>
 <?php
-print '</div>';
-print '<br class="clear">';
 
 ?>
 
@@ -118,6 +118,7 @@ person_internal_links($member, $extra_info);
  */
 
 if ($member['has_voting_record']) {
+	?> <a data-magellan-destination="votingrecord" name="votingrecord"></a> <?php
     echo '<div class="panel">';
 	person_voting_record($member, $extra_info);
   echo '</div>';
@@ -126,31 +127,35 @@ if ($member['has_voting_record']) {
 $member['chairmens_panel'] = false;
 
 if ($member['has_recent_appearances']) {
+    echo '<a data-magellan-destination="hansard" name="hansard"></a>';
     echo '<div class="panel">';
 	person_recent_appearances($member);
   echo '</div>';
 }
 # Topics of interest only for current MPs at the moment
 if ($member['current_member'][HOUSE_TYPE_COMMONS]) { # in_array(1, $member['houses'])
+	echo '<a data-magellan-destination="topics" name="topics"></a>';
 echo '<div class="panel">';
 	$member['chairmens_panel'] = person_committees_and_topics($member, $extra_info);
   echo '</div>';
 }
 
+	echo '<a data-magellan-destination="numbers" name="numbers"></a>';
 echo '<div class="panel">';
 person_numerology($member, $extra_info);
   echo '</div>';
 
 if (isset($extra_info['register_member_interests_html'])) {
+print '<a data-magellan-destination="register" name="register"></a>';
 echo '<div class="panel">';
 	person_register_interests($member, $extra_info);
   echo '</div>';
 }
 
 if ($member['has_expenses']) {
+	echo '<a data-magellan-destination="expenses" name="expenses"></a>';
     echo '<div class="panel">';
 	include_once INCLUDESPATH . 'easyparliament/expenses.php';
-	echo '<a name="expenses"></a>';
 	echo '<h2>Expenses</h2>';
 	echo expenses_display_table($extra_info);
   echo '</div>';
@@ -445,7 +450,6 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
 
 # Display the person's voting record on various issues.
 function person_voting_record($member, $extra_info) {
-	?> <a name="votingrecord"></a> <?php
 	//$this->block_start(array('id'=>'votingrecord', 'title'=>'Voting record (from PublicWhip)'));
 	print '<h2>Voting record (from PublicWhip)</h2>';
 	$displayed_stuff = 0;
@@ -579,8 +583,7 @@ function person_voting_record($member, $extra_info) {
 
 function person_committees_and_topics($member, $extra_info) {
 	$chairmens_panel = false;
-	echo '<a name="topics"></a>
-<h2>Topics of interest</h2>';
+echo'<h2>Topics of interest</h2>';
 	$topics_block_empty = true;
 
 	// Select committee membership
@@ -659,7 +662,6 @@ and has had no written questions answered for which we know the department or su
 function person_recent_appearances($member) {
     global $DATA, $SEARCHENGINE, $this_page;
 
-    echo '<a name="hansard"></a>';
     $title = 'Most recent appearances';
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
         $title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
@@ -718,7 +720,6 @@ function person_recent_appearances($member) {
 }
 
 function person_numerology($member, $extra_info) {
-	echo '<a name="numbers"></a>';
 	//$this->block_start(array('id'=>'numbers', 'title'=>'Numerology'));
 	print "<h2>Numerology</h2>";
 	$displayed_stuff = 0;
@@ -837,7 +838,6 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 }
 
 function person_register_interests($member, $extra_info) {
-	print '<a name="register"></a>';
 	print "<h2>Register of Members&rsquo; Interests</h2>";
 
 	if ($extra_info['register_member_interests_html'] != '') {

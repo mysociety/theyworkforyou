@@ -2,3 +2,33 @@
 @import "settings";
 @import "normalize";
 @import "foundation";
+
+#mp-panel {
+    margin-bottom: 0px;
+}
+
+.person-subnav {
+    padding: 0px;
+    margin-bottom: 20px;
+    border-top: 1px solid $panel-bg;
+    border-bottom: 1px solid $borders;
+
+    .sub-nav {
+        @include sub-nav($sub-nav-font-color, $sub-nav-font-size, $panel-bg);
+
+        margin-left: 0px;
+        margin-bottom: 0px;
+
+        dt {
+            margin: 0px;
+            padding: 8px;
+            border-right: 1px solid $borders;
+            &.active {
+                border-bottom: 3px solid $brand;
+                a {
+                    color: $body-font-color;
+                }
+            }
+        }
+    }
+}
