@@ -18,6 +18,7 @@ if ($member['has_email_alerts']) {
     print '<a href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Email me updates on '. $member['full_name']. '&rsquo;s activity</strong></a>
     <span>(no more than once per day)</span></p>';
 }
+print '<div class="panel">';
 
 person_image($member);
 echo '<h1>' . $member['full_name'] . '<br><span>' . person_summary_description($member) . '</span></h1>';
@@ -70,36 +71,49 @@ echo '<ul class="hilites clear">';
 		print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
 	}
 print "</ul>";
+print '</div>';
 print '<br class="clear">';
 
 person_user_actions($member);
 person_internal_links($member, $extra_info);
 
 if ($member['has_voting_record']) {
+    echo '<div class="panel">';
 	person_voting_record($member, $extra_info);
+  echo '</div>';
 }
 
 $member['chairmens_panel'] = false;
-# Topics of interest only for current MPs at the moment
-if ($member['current_member'][HOUSE_TYPE_COMMONS]) { # in_array(1, $member['houses'])
-	$member['chairmens_panel'] = person_committees_and_topics($member, $extra_info);
-}
 
 if ($member['has_recent_appearances']) {
+    echo '<div class="panel">';
 	person_recent_appearances($member);
+  echo '</div>';
+}
+# Topics of interest only for current MPs at the moment
+if ($member['current_member'][HOUSE_TYPE_COMMONS]) { # in_array(1, $member['houses'])
+echo '<div class="panel">';
+	$member['chairmens_panel'] = person_committees_and_topics($member, $extra_info);
+  echo '</div>';
 }
 
+echo '<div class="panel">';
 person_numerology($member, $extra_info);
+  echo '</div>';
 
 if (isset($extra_info['register_member_interests_html'])) {
+echo '<div class="panel">';
 	person_register_interests($member, $extra_info);
+  echo '</div>';
 }
 
 if ($member['has_expenses']) {
+    echo '<div class="panel">';
 	include_once INCLUDESPATH . 'easyparliament/expenses.php';
 	echo '<a name="expenses"></a>';
 	echo '<h2>Expenses</h2>';
 	echo expenses_display_table($extra_info);
+  echo '</div>';
 }
 
 # Helper functions
