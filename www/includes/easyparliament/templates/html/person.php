@@ -13,15 +13,13 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 # Heading/ picture
 print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
 
-if ($member['has_email_alerts']) {
-    print '<p class="informational alert">';
-    print '<a href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Email me updates on '. $member['full_name']. '&rsquo;s activity</strong></a>
-    <span>(no more than once per day)</span></p>';
-}
 print '<div class="panel">';
 
+print '<div class="row"><div class="large-1 columns">';
+
 person_image($member);
-echo '<h1>' . $member['full_name'] . '<br><span>' . person_summary_description($member) . '</span></h1>';
+print'</div><div class="large-9 columns">';
+echo '<h1>' . $member['full_name'] . '</h1><h3 class="subheader">' . person_summary_description($member) . '</h3>';
 
 # History
 echo '<ul>';
@@ -64,6 +62,7 @@ if (!exists_rep_image($member['person_id'])) {
 	person_ask_for_picture($member);
 }
 
+/*
 echo '<ul class="hilites clear">';
 	person_enter_leave_facts($member, $extra_info);
 	person_majority($extra_info);
@@ -71,11 +70,52 @@ echo '<ul class="hilites clear">';
 		print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
 	}
 print "</ul>";
+ */
+
+
+$SEARCHURL = new URL("search");
+
+	?>
+
+				<div class="mpsearchbox">
+					<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
+					<p>
+					<input name="s" size="24" maxlength="200" placeholder="Search this person's speeches">
+					<input type="hidden" name="pid" value="<?php echo $member['person_id']; ?>">
+					<input type="submit" class="submit" value="GO"></p>
+					</form>
+				</div>
+<?php 
+print '</div><div class="large-2 columns">';
+if ($member['has_email_alerts']) {
+    print '<a class="button alert" href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Get email updates</strong><br>on this person&rsquo;s activity</a>
+    ';
+}
+print '</div>';
+print '</div>';
+?>
+<div data-magellan-expedition="fixed">
+    <dl class="sub-nav">
+        <dt data-magellan-arrival="profile"><a href="#profile">Profile</a></dt>
+        <dt data-magellan-arrival="votingrecord"><a href="#votingrecord">Voting record</a></dt>
+        <dt data-magellan-arrival="hansard"><a href="#hansard">Appearances</a></dt>
+        <dt data-magellan-arrival="expenses"><a href="#expenses">Expenses</a></dt>
+        <dt data-magellan-arrival="register"><a href="#register">Register of interests</a></dt>
+    </dl>
+</div>
+<?php
 print '</div>';
 print '<br class="clear">';
 
+?>
+
+
+<?php
+
+/*
 person_user_actions($member);
 person_internal_links($member, $extra_info);
+ */
 
 if ($member['has_voting_record']) {
     echo '<div class="panel">';
