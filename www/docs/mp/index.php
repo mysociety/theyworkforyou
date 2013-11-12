@@ -191,7 +191,7 @@ elseif ($this_page == 'msp' && $THEUSER->postcode_is_set() && $name == '' && $co
         regional_list($THEUSER->postcode(), 'SPC', 'msp');
         exit;
     } else {
-        $PAGE->error_message('Your set postcode is not in Scotland.');
+        $NEWPAGE->error_message('Your set postcode is not in Scotland.');
     }
 }
 
@@ -205,7 +205,7 @@ elseif ($this_page == 'mla' && $THEUSER->postcode_is_set() && $name == '' && $co
         regional_list($THEUSER->postcode(), 'NIE', 'mla');
         exit;
     } else {
-        $PAGE->error_message('Your set postcode is not in Northern Ireland.');
+        $NEWPAGE->error_message('Your set postcode is not in Northern Ireland.');
     }
 }
 
@@ -283,8 +283,8 @@ else
 header('Cache-Control: max-age=900');
 
 if (isset($MEMBER) && is_array($MEMBER->person_id())) {
-    $PAGE->page_start();
-    $PAGE->stripe_start('side');
+    $NEWPAGE->page_start();
+    $NEWPAGE->stripe_start('side');
     print '<p>That name is not unique. Please select from the following:</p><ul>';
     $cs = $MEMBER->constituency();
     $c = 0;
@@ -301,7 +301,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
             </div>'
     );
 
-    $PAGE->stripe_end(array($sidebar));
+    $NEWPAGE->stripe_end(array($sidebar));
 
 /////////////////////////////////////////////////////////
 // DISPLAY A REPRESENTATIVE
@@ -354,17 +354,17 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $DATA->set_page_metadata($this_page, 'meta_description', $desc);
     $DATA->set_page_metadata($this_page, 'heading', '');
 
-    // So we can put a link in the <head> in $PAGE->page_start();
+    // So we can put a link in the <head> in $NEWPAGE->page_start();
     $feedurl = $DATA->page_metadata('mp_rss', 'url') . $MEMBER->person_id() . '.rdf';
     if (file_exists(BASEDIR . '/' . $feedurl))
         $DATA->set_page_metadata($this_page, 'rss', $feedurl);
 
     twfy_debug_timestamp("before page_start");
-    $PAGE->page_start();
+    $NEWPAGE->page_start();
     twfy_debug_timestamp("after page_start");
 
     twfy_debug_timestamp("before stripe start");
-    $PAGE->stripe_start('side', 'person_page');
+    $NEWPAGE->stripe_start('side', 'person_page');
     twfy_debug_timestamp("after stripe start");
 
     twfy_debug_timestamp("before display of MP");
@@ -402,7 +402,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
         $sidebars[] = array (
             'type'         => 'html',
-            'content'    => $PAGE->member_rss_block(array('appearances' => WEBPATH . $rssurl))
+            'content'    => $NEWPAGE->member_rss_block(array('appearances' => WEBPATH . $rssurl))
         );
     }
 */
@@ -514,21 +514,21 @@ body of your articles as the source of any analysis or
 data you get off this site. If you ignore this, we might have to start
 keeping these sorts of records on you...</p></div></div>'
     );
-    $PAGE->stripe_end($sidebars);
+    $NEWPAGE->stripe_end($sidebars);
 
 } else {
     // Something went wrong
-    $PAGE->page_start();
-    $PAGE->stripe_start();
+    $NEWPAGE->page_start();
+    $NEWPAGE->stripe_start();
     if (isset($errors['pc'])) {
-        $PAGE->error_message($errors['pc']);
+        $NEWPAGE->error_message($errors['pc']);
     }
-    $PAGE->postcode_form();
-    $PAGE->stripe_end();
+    $NEWPAGE->postcode_form();
+    $NEWPAGE->stripe_end();
 }
 
 
-$PAGE->page_end();
+$NEWPAGE->page_end();
 
 
 
@@ -558,7 +558,7 @@ function regional_list($pc, $area_type, $rep_type) {
     } elseif (!isset($constituencies[$area_type])) {
         $errors['pc'] = htmlentities($pc) . ' does not appear to be a valid postcode';
     }
-    global $PAGE;
+    global $NEWPAGE;
     $a = array_values($constituencies);
     $db = new ParlDB;
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
@@ -589,12 +589,12 @@ function regional_list($pc, $area_type, $rep_type) {
                 $mreg[] = $q->row($i);
             }
         } else {
-            $PAGE->error_message('Odd result returned!' . $house);
+            $NEWPAGE->error_message('Odd result returned!' . $house);
             return;
         }
     }
-    $PAGE->page_start();
-    $PAGE->stripe_start();
+    $NEWPAGE->page_start();
+    $NEWPAGE->stripe_start();
     if ($rep_type == 'msp') {
         if ($current) {
             $out = '<p>You have one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
@@ -622,8 +622,8 @@ function regional_list($pc, $area_type, $rep_type) {
     }
     $out .= '</ul>';
     echo $out;
-    $PAGE->stripe_end();
-    $PAGE->page_end();
+    $NEWPAGE->stripe_end();
+    $NEWPAGE->page_end();
 }
 
 function generate_member_links ($member) {
