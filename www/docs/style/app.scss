@@ -3,6 +3,14 @@
 @import "normalize";
 @import "foundation";
 
+.person-contact-button {
+    @include button-base;
+    @include button-size(em-calc(12));
+    @include button-style;
+
+    text-align: left;
+}
+
 #mp-panel {
     margin-bottom: 0px;
 }

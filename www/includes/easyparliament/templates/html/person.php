@@ -19,7 +19,7 @@ print '<div class="panel" id="mp-panel">';
 print '<div class="row"><div class="large-1 columns">';
 
 person_image($member);
-print'</div><div class="large-9 columns">';
+print'</div><div class="large-7 columns">';
 echo '<h1>' . $member['full_name'] . '</h1><h3 class="subheader">' . person_summary_description($member) . '</h3>';
 
 # History
@@ -89,7 +89,7 @@ $SEARCHURL = new URL("search");
 <?php 
 print '</div><div class="large-4 columns">';
 if ($member['has_email_alerts']) {
-    print '<a class="button alert" href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Get email updates</strong><br>on this person&rsquo;s activity</a>
+    print '<a class="button alert person-contact-button" href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Get email updates</strong><br><small>on this person&rsquo;s activity</small></a>
     ';
 }
 print '</div>';
