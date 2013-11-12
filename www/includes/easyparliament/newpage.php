@@ -212,7 +212,7 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div id="container">
+<div class="content-wrapper">
 <?php
         twfy_debug ("PAGE", "This page: $this_page");
 
@@ -243,39 +243,22 @@ window.fbAsyncInit = function() {
 # echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
 # </div>';
 
-        $this->mysociety_bar();
+        //$this->mysociety_bar();
         $this->title_bar();
-        $this->menu();
+        //$this->menu();
     }
 
     //render the little mysociety crossell
     function mysociety_bar () {
         global $this_page;
         ?>
-            <div id="mysociety_bar">
-            <?php if (1==0 && $this_page != 'overview') { ?>
-                <div id="headercampaign"><p><a href="http://www.pledgebank.com/twfypatrons">Become a They Work For You Patron ...</p></a></div>
-            <?php } ?>
-                <ul>
-                    <li id="logo">
-                        <a href="http://www.mysociety.org/"><img src="/images/mysociety_small.png" alt="mySociety" width="72" height="16"></a>
-                    </li>
-                    <li>
-                        <a href="http://www.mysociety.org/donate/?cs=1" title="Like this website? Donate to help keep it running.">Donate</a>
-                    </li>
-                    <li id="moresites">
-                        <a id="moresiteslink" href="http://www.mysociety.org/projects/?cs=1" title="Donate to UK Citizens Online Democracy, mySociety's parent charity.">More</a>
-                    </li>
-                    <li >
-                        <noscript>
-
-                            <a href="http://www.mysociety.org/projects/?cs=1" title="View all mySociety's projects">More mySociety projects...</a>&nbsp;&nbsp;
-                            <a href="https://secure.mysociety.org/admin/lists/mailman/listinfo/news?cs=1" title="mySociety newsletter - about once a month">mySociety newsletter</a>
-                        </noscript>
-                    </li>
+        <div class="ms_header_nav">
+            <nav>
+                <ul class="menu">
+                    <li id="ms_logo"><a class="ms_header_nav-logo" target="_blank" href="http://www.mysociety.org">&nbsp;</a></li>
                 </ul>
-            </div>
-
+            </nav>
+        </div>
         <?php
     }
 
@@ -293,16 +276,21 @@ window.fbAsyncInit = function() {
         } else {
             $heading = '<h1>' . $img . '</h1>';
         }
+
+        $heading = 'TheyWorkForYou';
 ?>
-    <div id="banner">
-        <div id="title">
-            <?=$heading?>
-        </div>
+        <nav class="top-bar">
+        <ul class="title-area">
+            <li class="name"><?=$heading?></li>
+        </ul>
 <?php
+        $this->menu();
+        $this->mysociety_bar();
     #       if ($this_page != 'home' && $this_page != 'search' && $this_page != 'yourmp') {
             $URL = new URL('search');
             $URL->reset();
             ?>
+<!--
         <div id="search">
             <form action="<?php echo $URL->generate(); ?>" method="get">
                <label for="searchbox">Search</label><input id="searchbox" name="s" size="15">
@@ -321,10 +309,11 @@ window.fbAsyncInit = function() {
                 </li>
             </ul>
         </div>
+-->
 <?php
     #       }
         ?>
-    </div> <!-- end #banner -->
+</nav>
 <?php
     }
 
@@ -447,7 +436,7 @@ window.fbAsyncInit = function() {
             }
         }
         ?>
-    <div id="menu">
+<!--
         <div id="topmenu">
             <div id="topmenuselected"><a href="<?=$highlights['top_selected']['link']?>"><?=$highlights['top_selected']['text'] ?></a> <a id="topmenu-change" href="/parliaments/" onclick="toggleVisible('site');return false;"><small>(change)</small></a></div>
 <?php
@@ -461,13 +450,12 @@ window.fbAsyncInit = function() {
                 </dl>
 
             <br>
-        </div>
-        <div id="bottommenu">
-            <ul>
+        </div>-->
+        <section class="top-bar-section">
+            <ul class="right">
             <li><?php print implode("</li>\n\t\t\t<li>", $bottom_links); ?></li>
             </ul>
-        </div>
-    </div> <!-- end #menu -->
+        </section>
 
 <?php
     }
