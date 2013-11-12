@@ -127,6 +127,7 @@ class NEWPAGE extends PAGE {
     <script type="text/javascript" src="/jslib/share/share.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/bar.js"></script>
+    <script type="text/javascript" src="/js/custom.modernizr.js"></script>
 <?php
         echo $linkshtml;
     # XXX Below line for speed
