@@ -9,6 +9,11 @@
 
 @import url(http://fonts.googleapis.com/css?family=Lato:700|Open+Sans&subset=latin,latin-ext);
 
+// this is from old stylesheets
+.printonly {
+    @extend .print-only;
+}
+
 .person-contact-button {
     @include button-base;
     @include button-size(emCalc(12));
