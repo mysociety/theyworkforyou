@@ -587,7 +587,7 @@ window.fbAsyncInit = function() {
     // Where the actual meat of the page begins, after the title and menu.
     function content_start () {
         global $this_page, $THEUSER;
-        echo '<div class="large-10 large-centered columns">';
+        echo '<div class="large-12 large-centered columns">';
 
 /*
         if ($this_page != 'overview') {
