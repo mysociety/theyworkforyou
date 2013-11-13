@@ -1,11 +1,17 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:700|Open+Sans&subset=latin,latin-ext);
+// Global Foundation Settings
 @import "settings";
+
+// Comment out this import if you don't want to use normalize
 @import "normalize";
+
+// Comment out this import if you are customizing you imports below
 @import "foundation";
+
+@import url(http://fonts.googleapis.com/css?family=Lato:700|Open+Sans&subset=latin,latin-ext);
 
 .person-contact-button {
     @include button-base;
-    @include button-size(em-calc(12));
+    @include button-size(emCalc(12));
     @include button-style;
 
     text-align: left;

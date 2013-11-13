@@ -4,3 +4,4 @@
 .sass-cache
 vendor
 www/docs/style/*.css
+www/docs/style/stylesheets

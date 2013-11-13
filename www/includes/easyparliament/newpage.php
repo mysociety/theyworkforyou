@@ -132,7 +132,7 @@ class NEWPAGE extends PAGE {
         echo $linkshtml;
     # XXX Below line for speed
 ?>
-    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/app.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/stylesheets/app.css" type="text/css">
     <link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">
 <?php
 
