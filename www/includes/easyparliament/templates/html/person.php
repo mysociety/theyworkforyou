@@ -91,6 +91,11 @@ print '</div><div class="large-4 columns">';
 if ($member['has_email_alerts']) {
     print '<a class="button alert person-contact-button" href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a>
     ';
+    if ($member['the_users_mp'] == true) {
+        global $THEUSER;
+        $pc = $THEUSER->postcode();
+        print '<a class="button alert person-contact-button" href="http://www.writetothem.com/?a=WMC&amp;pc='. htmlentities(urlencode($pc)) .'"><strong>Send a message</strong><small>with WriteToThem</small></a>';
+    }
 }
 print '</div>';
 print '</div>';
