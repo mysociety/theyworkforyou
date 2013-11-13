@@ -280,6 +280,7 @@ window.fbAsyncInit = function() {
 
         $heading = 'TheyWorkForYou';
 ?>
+        <div class="contain-to-grid">
         <nav class="top-bar">
         <ul class="title-area">
             <li class="name"><h1><a href="/"><?=$heading?></a></h1></li>
@@ -315,6 +316,7 @@ window.fbAsyncInit = function() {
     #       }
         ?>
 </nav>
+</div>
 <?php
     }
 
