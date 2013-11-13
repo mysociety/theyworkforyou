@@ -15,6 +15,15 @@
     @include button-style;
 
     text-align: left;
+    padding-right: 0.5em;
+    padding-left: 1em;
+    strong {
+        display: block;
+    }
+    small {
+        display: block;
+        font-weight: normal;
+    }
 }
 
 #mp-panel {

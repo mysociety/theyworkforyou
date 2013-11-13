@@ -89,7 +89,7 @@ $SEARCHURL = new URL("search");
 <?php 
 print '</div><div class="large-4 columns">';
 if ($member['has_email_alerts']) {
-    print '<a class="button alert person-contact-button" href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Get email updates</strong><br><small>on this person&rsquo;s activity</small></a>
+    print '<a class="button alert person-contact-button" href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a>
     ';
 }
 print '</div>';
