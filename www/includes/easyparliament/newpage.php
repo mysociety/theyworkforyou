@@ -234,19 +234,7 @@ window.fbAsyncInit = function() {
             }
         }
 
-# # 2009-01 interstitial
-# include INCLUDESPATH . '../docs/foiorder2009/fns.php';
-# echo '<div id="everypage" style="display:none">
-# <p style="float:right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
-# <h2>Blimey. It looks like the Internets won &ndash; <small>a message from TheyWorkForYou</small></h2>
-# <p>Sorry to interrupt, but we thought you&rsquo;d like to know that <strong>you won</strong>!';
-# echo $foi2009_message;
-# echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
-# </div>';
-
-        //$this->mysociety_bar();
         $this->title_bar();
-        //$this->menu();
     }
 
     //render the little mysociety crossell
@@ -266,57 +254,15 @@ window.fbAsyncInit = function() {
     function title_bar () {
         // The title bit of the page, with possible search box.
         global $this_page, $DATA;
-
-        $img = '<img src="' . IMAGEPATH . 'logo.png" width="423" height="80" alt="TheyWorkForYou - Hansard and Official Reports for the UK Parliament, Scottish Parliament, and Northern Ireland Assembly">';
-
-        if ($this_page != 'overview') {
-            $HOMEURL = new URL('overview');
-            $HOMEURL = $HOMEURL->generate();
-            $HOMETITLE = 'To the front page of the site';
-            $heading = '<a href="' . $HOMEURL . '" title="' . $HOMETITLE . '">' . $img . '</a>';
-        } else {
-            $heading = '<h1>' . $img . '</h1>';
-        }
-
-        $heading = 'TheyWorkForYou';
 ?>
         <div class="contain-to-grid">
-        <nav class="top-bar">
-        <ul class="title-area">
-            <li class="name"><h1><a href="/"><?=$heading?></a></h1></li>
-        </ul>
-<?php
-        $this->menu();
-        $this->mysociety_bar();
-    #       if ($this_page != 'home' && $this_page != 'search' && $this_page != 'yourmp') {
-            $URL = new URL('search');
-            $URL->reset();
-            ?>
-<!--
-        <div id="search">
-            <form action="<?php echo $URL->generate(); ?>" method="get">
-               <label for="searchbox">Search</label><input id="searchbox" name="s" size="15">
-               <input type="submit" class="submit" value="Go">
-               <? /* <input type="hidden" name="section" value="<?=$section?>"> */ ?>
-            </form>
-            <ul>
-                <li>
-                    e.g. a <em>word</em>, <em>phrase</em>, <em>person</em>, or <em>postcode</em>
-                </li>
-                <li>
-                    |
-                </li>
-                <li>
-                    <a href="/search/">More options</a>
-                </li>
+            <nav class="top-bar">
+            <ul class="title-area">
+                <li class="name"><h1><a href="/">TheyWorkForYou</a></h1></li>
             </ul>
+            <?php $this->menu(); ?>
+            </nav>
         </div>
--->
-<?php
-    #       }
-        ?>
-</nav>
-</div>
 <?php
     }
 
@@ -611,7 +557,10 @@ window.fbAsyncInit = function() {
 
     }
 
-    function panel_start() {
+    function panel_start($anchor='', $magellan=false) {
+        if ($anchor) {
+            print '<a' . ( $magellan ? ' data-magellan-destination="' . $anchor .'"' : '' ) . ' name="' . $anchor . '"></a>';
+        }
         ?>
         <div class="panel">
         <?php

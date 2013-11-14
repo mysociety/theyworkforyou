@@ -1,5 +1,6 @@
 <?php
 
+global $NEWPAGE;
 # Some big IFs that are used multiple times. Methods on a class instance, you say, what's that?
 $member['has_voting_record'] = ((in_array(HOUSE_TYPE_COMMONS, $member['houses']) && $member['party'] != 'Sinn Fein') || in_array(HOUSE_TYPE_LORDS, $member['houses']));
 $member['has_recent_appearances'] = !(in_array(HOUSE_TYPE_COMMONS, $member['houses']) && $member['party'] == 'Sinn Fein' && !in_array(HOUSE_TYPE_NI, $member['houses']));
@@ -11,14 +12,17 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 # person_speaker_special($member, $extra_info);
 
 # Heading/ picture
-print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
+?>
+<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>
+<a data-magellan-destination="profile" name="profile"></a>
+<div class="panel-row" id="mp-panel">
+<div class="large-1 columns">
 
-print '<a data-magellan-destination="profile" name="profile"></a>';
-
-print '<div class="panel-row" id="mp-panel"><div class="large-1 columns">';
-
+<?php
 person_image($member);
-print'</div><div class="large-7 columns">';
+?>
+</div><div class="large-7 columns">
+<?php
 echo '<h1>' . $member['full_name'] . '</h1><h3 class="subheader">' . person_summary_description($member) . '</h3>';
 
 # History
@@ -85,21 +89,24 @@ $SEARCHURL = new URL("search");
 					<input type="submit" class="submit" value="GO"></p>
 					</form>
 				</div>
+    </div>
 <?php 
-print '</div><div class="small-6 large-2 person-button-column">';
 if ($member['has_email_alerts']) {
-    print '<a class="button alert person-contact-button" href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a>
-    ';
+?>
+    <div class="small-6 large-2 person-button-column">
+        <a class="button alert person-contact-button" href="<?= WEBPATH ?>alert/?pid=<?=$member['person_id']?>"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a>
+    </div>
+<?php
     if ($member['the_users_mp'] == true) {
         global $THEUSER;
         $pc = $THEUSER->postcode();
-        print '</div><div class="small-6 large-2 person-button-column">';
+        print '<div class="small-6 large-2 person-button-column">';
         print '<a class="button alert person-contact-button" href="http://www.writetothem.com/?a=WMC&amp;pc='. htmlentities(urlencode($pc)) .'"><strong>Send a message</strong><small>with WriteToThem</small></a>';
+        print '</div>';
     }
 }
-print '</div>';
-print '</div>';
 ?>
+</div>
 <div data-magellan-expedition="fixed" class="person-subnav">
     <dl class="sub-nav">
         <dt data-magellan-arrival="profile"><a href="#profile">Profile</a></dt>
@@ -109,10 +116,6 @@ print '</div>';
         <dt data-magellan-arrival="register"><a href="#register">Register of interests</a></dt>
     </dl>
 </div>
-<?php
-
-?>
-
 
 <?php
 
@@ -122,47 +125,41 @@ person_internal_links($member, $extra_info);
  */
 
 if ($member['has_voting_record']) {
-	?> <a data-magellan-destination="votingrecord" name="votingrecord"></a> <?php
-    echo '<div class="panel">';
+    $NEWPAGE->panel_start('votingrecord', true);
 	person_voting_record($member, $extra_info);
-  echo '</div>';
+    $NEWPAGE->panel_end();
 }
 
 $member['chairmens_panel'] = false;
 
 if ($member['has_recent_appearances']) {
-    echo '<a data-magellan-destination="hansard" name="hansard"></a>';
-    echo '<div class="panel">';
+    $NEWPAGE->panel_start('hansard', true);
 	person_recent_appearances($member);
-  echo '</div>';
+    $NEWPAGE->panel_end();
 }
 # Topics of interest only for current MPs at the moment
 if ($member['current_member'][HOUSE_TYPE_COMMONS]) { # in_array(1, $member['houses'])
-	echo '<a data-magellan-destination="topics" name="topics"></a>';
-echo '<div class="panel">';
+    $NEWPAGE->panel_start('topics', true);
 	$member['chairmens_panel'] = person_committees_and_topics($member, $extra_info);
-  echo '</div>';
+    $NEWPAGE->panel_end();
 }
 
-	echo '<a data-magellan-destination="numbers" name="numbers"></a>';
-echo '<div class="panel">';
+    $NEWPAGE->panel_start('numbers', true);
 person_numerology($member, $extra_info);
-  echo '</div>';
+    $NEWPAGE->panel_end();
 
 if (isset($extra_info['register_member_interests_html'])) {
-print '<a data-magellan-destination="register" name="register"></a>';
-echo '<div class="panel">';
+    $NEWPAGE->panel_start('register', true);
 	person_register_interests($member, $extra_info);
-  echo '</div>';
+    $NEWPAGE->panel_end();
 }
 
 if ($member['has_expenses']) {
-	echo '<a data-magellan-destination="expenses" name="expenses"></a>';
-    echo '<div class="panel">';
+    $NEWPAGE->panel_start('expenses', true);
 	include_once INCLUDESPATH . 'easyparliament/expenses.php';
 	echo '<h2>Expenses</h2>';
 	echo expenses_display_table($extra_info);
-  echo '</div>';
+    $NEWPAGE->panel_end();
 }
 
 # Helper functions
