@@ -15,7 +15,7 @@ print '<p class="printonly">This data was produced by TheyWorkForYou from a vari
 
 print '<a data-magellan-destination="profile" name="profile"></a>';
 
-print '<div class="row" id="mp-panel"><div class="large-1 columns">';
+print '<div class="panel-row" id="mp-panel"><div class="large-1 columns">';
 
 person_image($member);
 print'</div><div class="large-7 columns">';

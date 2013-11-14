@@ -19,7 +19,8 @@
     padding-right: 0.5em;
 }
 
-.row {
+.panel-row {
+    @extend .row;
     padding-top: 1.25em;
     padding-bottom: 1.25em;
     border-style: solid;
