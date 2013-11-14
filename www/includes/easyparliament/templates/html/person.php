@@ -14,9 +14,8 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
 
 print '<a data-magellan-destination="profile" name="profile"></a>';
-print '<div class="panel" id="mp-panel">';
 
-print '<div class="row"><div class="large-1 columns">';
+print '<div class="row" id="mp-panel"><div class="large-1 columns">';
 
 person_image($member);
 print'</div><div class="large-7 columns">';
@@ -87,17 +86,17 @@ $SEARCHURL = new URL("search");
 					</form>
 				</div>
 <?php 
-print '</div><div class="large-4 columns">';
+print '</div><div class="small-6 large-2 person-button-column">';
 if ($member['has_email_alerts']) {
     print '<a class="button alert person-contact-button" href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a>
     ';
     if ($member['the_users_mp'] == true) {
         global $THEUSER;
         $pc = $THEUSER->postcode();
+        print '</div><div class="small-6 large-2 person-button-column">';
         print '<a class="button alert person-contact-button" href="http://www.writetothem.com/?a=WMC&amp;pc='. htmlentities(urlencode($pc)) .'"><strong>Send a message</strong><small>with WriteToThem</small></a>';
     }
 }
-print '</div>';
 print '</div>';
 print '</div>';
 ?>

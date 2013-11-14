@@ -14,6 +14,16 @@
     @extend .print-only;
 }
 
+.row {
+    padding-top: 1.25em;
+    padding-bottom: 1.25em;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #e6e6e6;
+    margin-bottom: 1.25em;
+    background: white;
+}
+
 .person-contact-button {
     @include button-base;
     @include button-size(emCalc(12));
@@ -36,10 +46,15 @@
 }
 
 .person-subnav {
+    min-width: 0px;
+    max-width: $row-width;
+    width: 100%;
     padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 20px;
+    border: 1px solid $borders;
     border-top: 1px solid $panel-bg;
-    border-bottom: 1px solid $borders;
 
     .sub-nav {
         @include sub-nav($sub-nav-font-color, $sub-nav-font-size, $panel-bg);
