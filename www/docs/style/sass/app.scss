@@ -24,18 +24,25 @@
     background: white;
 }
 
+.person-button-column {
+    @extend .columns;
+    padding-left: 0em;
+}
+
 .person-contact-button {
     @include button-base;
-    @include button-size(emCalc(12));
-    @include button-style;
+    @include button-size(emCalc(12), true);
+    @include button-style($alert-color, 4px);
 
     text-align: left;
-    padding-right: 0.5em;
-    padding-left: 1em;
+    padding: em-calc(8);
+    box-shadow: none;
+    -webkit-box-shadow: none;
     strong {
         display: block;
     }
     small {
+        font-size: 0.9em;
         display: block;
         font-weight: normal;
     }
