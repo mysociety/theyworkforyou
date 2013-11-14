@@ -1052,9 +1052,14 @@ class THEUSER extends USER {
 
             list( $user_id, $email ) = explode('::', $q->field(0, 'data'));
 
-            // only the logged in user should be able to
-            // make the token work
-            if ( $this->user_id() != $user_id ) {
+            // if we are logged in as someone else don't change the email
+            if ( $this->user_id() != 0 && $this->user_id() != $user_id ) {
+                return false;
+            }
+
+            // if the user isn't logged in then try and load the
+            // details
+            if ($this->user_id() == 0 && !$this->init($user_id)) {
                 return false;
             }
 
