@@ -117,6 +117,9 @@ if ($member['has_email_alerts']) {
     </dl>
 </div>
 
+
+<div class="row">
+    <div class="large-8 columns" id="main-content">
 <?php
 
 /*
@@ -161,6 +164,10 @@ if ($member['has_expenses']) {
 	echo expenses_display_table($extra_info);
     $NEWPAGE->panel_end();
 }
+
+?>
+</div>
+<?php
 
 # Helper functions
 

@@ -371,6 +371,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 
     $MEMBER->display();
 
+    print '<div class="large-4 columns sidebar">';
     twfy_debug_timestamp("after display of MP");
 
     // SIDEBAR.
@@ -511,6 +512,7 @@ data you get off this site. If you ignore this, we might have to start
 keeping these sorts of records on you...</p></div></div>'
     );
     $NEWPAGE->stripe_end($sidebars);
+    print '</div>';
 
 } else {
     // Something went wrong

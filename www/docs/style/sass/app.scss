@@ -14,6 +14,10 @@
     @extend .print-only;
 }
 
+a, a:hover, a:active {
+    color: $links;
+}
+
 .top-bar-section ul li a:not(.button) {
     padding-left: 0.5em;
     padding-right: 0.5em;
@@ -29,6 +33,29 @@
     margin-bottom: 1.25em;
     background: white;
 }
+
+.sidebar {
+    font-family: 'Opens Sans', sans-serif;
+    font-size: em-calc(14);
+    color: #666666;
+
+    p, ul, h4, a {
+        font-size: em-calc(14);
+    }
+
+    h4 {
+        color: #333333;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+}
+
+#main-content {
+    padding-left: 0px;
+}
+
 
 .person-button-column {
     @extend .columns;

@@ -654,8 +654,10 @@ window.fbAsyncInit = function() {
 
         $this->within_stripe_main = false;
         ?>
-            </div> <!-- end .main -->
+<!--
+            </div> <!-- end .main - - >
             <div class="sidebar">
+-->
 
         <?
         $this->within_stripe_sidebar = true;
