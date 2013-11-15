@@ -99,6 +99,30 @@ a, a:hover, a:active {
     }
     dd {
         border-bottom: 1px dotted $borders;
+        .appearance-date {
+            min-width: 4em;
+            float: left;
+            font-weight: bold;
+            text-align: center;
+            margin-right: em-calc(16);
+            .day {
+                border: 1px solid $borders;
+                border-bottom: none;
+                display: block;
+            }
+            .month {
+                color: white;
+                background-color: $brand;
+                border: 1px solid $borders;
+                display: block;
+                padding-left: 0.2em;
+                padding-right: 0.2em;
+            }
+        }
+
+        p {
+            margin-left: 5em;
+        }
     }
 }
 
