@@ -447,9 +447,9 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
 			// How many votes Dream MP and MP both voted (and didn't abstain) in
 			// $extra_info["public_whip_dreammp${dreamid}_both_voted"];
 		}
-        $out .= "<li>$dmpdesc $desc. 
-<small class='unneededprintlinks'> 
-<a href='http://www.publicwhip.org.uk/mp.php?mpid=$member[member_id]&amp;dmp=$dreamid'>votes</a>
+        $out .= "<li>$dmpdesc $desc.
+<small class='votepolicylink unneededprintlinks'>
+<a href='http://www.publicwhip.org.uk/mp.php?mpid=$member[member_id]&amp;dmp=$dreamid'>Votes</a>
 </small>
 		</li>";
 	}
@@ -459,12 +459,40 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
 # Display the person's voting record on various issues.
 function person_voting_record($member, $extra_info) {
 	//$this->block_start(array('id'=>'votingrecord', 'title'=>'Voting record (from PublicWhip)'));
-	print '<h2>Voting record (from PublicWhip)</h2>';
+	print '<h2>Voting record <small>from PublicWhip</small></h2>';
 	$displayed_stuff = 0;
 
 	if ($member['party']=='Speaker' || $member['party']=='Deputy Speaker') {
 		if ($member['party']=='Speaker') $art = 'the'; else $art = 'a';
 		echo "<p>As $art $member[party], $member[full_name] cannot vote (except to break a tie).</p>";
+	}
+
+	// Rebellion rate
+	if (isset($extra_info['public_whip_rebellions']) && $extra_info['public_whip_rebellions'] != 'n/a') {
+		$displayed_stuff = 1;
+?>					<ul class="no-bullet">
+						<li><a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?=$member['member_id'] ?>#divisions" title="See more details at Public Whip">
+                        <strong><?php echo htmlentities(ucfirst($extra_info['public_whip_rebel_description'])); ?> rebels</strong></a> against their party<?php
+		if (isset($extra_info['public_whip_rebelrank'])) {
+			if ($member['house_disp'] == HOUSE_TYPE_LORDS) {
+				echo '';
+			} elseif ($extra_info['public_whip_data_date'] == 'complete') {
+				echo " in their last parliament";
+			} else {
+			    echo " in this parliament";
+			}
+			/* &#8212; ";
+			if (isset($extra_info['public_whip_rebelrank_joint']))
+				print 'joint ';
+			echo make_ranking($extra_info['public_whip_rebelrank']);
+			echo " most rebellious of ";
+			echo $extra_info['public_whip_rebelrank_outof'];
+			echo ($member['house']=='House of Commons') ? " MPs" : ' Lords';
+			*/
+		}
+		?>.
+		</li>
+	</ul><?php
 	}
 
     # ID, display string, MP only
@@ -528,11 +556,11 @@ function person_voting_record($member, $extra_info) {
         }
 ?>
 
-<p id="howvoted">How <?=$member['full_name']?> voted on key issues<?=$since?>:</p>
+<h3>How <?=$member['full_name']?> voted on key issues<?=$since?></h3>
 <ul class="no-bullet" id="dreamcomparisons">
 <?=$got_dream ?>
 </ul>
-<p class="italic">
+<p class="italic voterecordinfo">
 <small>Read about <a href="<?=WEBPATH ?>help/#votingrecord">how the voting record is decided</a>.</small>
 </p>
 
@@ -552,37 +580,10 @@ function person_voting_record($member, $extra_info) {
 	if (count($record) > 0) {
 		$displayed_stuff = 1;
 		?>
-		<p>More on <?php echo implode(' &amp; ', $record); ?></p>
+		<p class="morelink">More on <?php echo implode(' &amp; ', $record); ?></p>
 <?php
 	}
         
-	// Rebellion rate
-	if (isset($extra_info['public_whip_rebellions']) && $extra_info['public_whip_rebellions'] != 'n/a') {	
-		$displayed_stuff = 1;
-?>					<ul class="no-bullet">
-						<li><a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?=$member['member_id'] ?>#divisions" title="See more details at Public Whip">
-                        <strong><?php echo htmlentities(ucfirst($extra_info['public_whip_rebel_description'])); ?> rebels</strong></a> against their party<?php
-		if (isset($extra_info['public_whip_rebelrank'])) {
-			if ($member['house_disp'] == HOUSE_TYPE_LORDS) {
-				echo '';
-			} elseif ($extra_info['public_whip_data_date'] == 'complete') {
-				echo " in their last parliament";
-			} else {
-			    echo " in this parliament";
-			}
-			/* &#8212; ";
-			if (isset($extra_info['public_whip_rebelrank_joint']))
-				print 'joint ';
-			echo make_ranking($extra_info['public_whip_rebelrank']);
-			echo " most rebellious of ";
-			echo $extra_info['public_whip_rebelrank_outof'];
-			echo ($member['house']=='House of Commons') ? " MPs" : ' Lords';
-			*/
-		}
-		?>.
-		</li>
-	</ul><?php
-	}
 
 	if (!$displayed_stuff) {
 		print '<p>No data to display yet.</p>';

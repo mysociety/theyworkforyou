@@ -34,6 +34,13 @@ a, a:hover, a:active {
     background: white;
 }
 
+.panel {
+    h2 {
+        padding-bottom: 0.5em;
+        border-bottom: 1px dotted $borders;
+    }
+}
+
 .sidebar {
     font-family: 'Opens Sans', sans-serif;
     font-size: em-calc(14);
@@ -52,10 +59,32 @@ a, a:hover, a:active {
     }
 }
 
+.morelink {
+    text-align: right;
+}
+
 #main-content {
     padding-left: 0px;
 }
 
+// Vote record
+#dreamcomparisons {
+    margin-bottom: 0px;
+    li {
+        border-top: 1px dotted $borders;
+        line-height: 2;
+        .votepolicylink {
+            float: right;
+        }
+        &:last-child {
+            border-bottom: 1px dotted $borders;
+        }
+    }
+}
+
+.voterecordinfo {
+    text-align: right;
+}
 
 .person-button-column {
     @extend .columns;
