@@ -63,6 +63,10 @@ a, a:hover, a:active {
     text-align: right;
 }
 
+.infolink {
+    text-align: right;
+}
+
 #main-content {
     padding-left: 0px;
 }
@@ -82,9 +86,6 @@ a, a:hover, a:active {
     }
 }
 
-.voterecordinfo {
-    text-align: right;
-}
 
 // Recent appearances
 #searchresults {
@@ -99,6 +100,23 @@ a, a:hover, a:active {
     dd {
         border-bottom: 1px dotted $borders;
     }
+}
+
+// members interests
+.regmemcategory {
+    font-weight: bold;
+    margin-top: em-calc(16);
+    margin-bottom: em-calc(8);
+    border-bottom: 1px dotted $borders;
+
+    &:nth-of-type(1) {
+        margin-top: 0px;
+    }
+}
+
+.regmemitem {
+    margin-bottom: em-calc(8);
+    margin-left: 1em;
 }
 
 .person-button-column {

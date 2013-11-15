@@ -560,7 +560,7 @@ function person_voting_record($member, $extra_info) {
 <ul class="no-bullet" id="dreamcomparisons">
 <?=$got_dream ?>
 </ul>
-<p class="italic voterecordinfo">
+<p class="italic infolink">
 <small>Read about <a href="<?=WEBPATH ?>help/#votingrecord">how the voting record is decided</a>.</small>
 </p>
 
@@ -854,7 +854,7 @@ function person_register_interests($member, $extra_info) {
 	} else {
 		echo "\t\t\t\t<p>Nil</p>\n";
 	}
-	echo '<p class="italic">';
+	echo '<p class="italic infolink">';
 	if (isset($extra_info['register_member_interests_date'])) {
 		echo 'Register last updated: ';
 		echo format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
@@ -862,7 +862,7 @@ function person_register_interests($member, $extra_info) {
 	}
 	echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm">More about the Register</a>';
 	echo '</p>';
-	print '<p><strong><a href="' . WEBPATH . 'regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
+	print '<p class="morelink"><strong><a href="' . WEBPATH . 'regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
 }
 
 # ---
