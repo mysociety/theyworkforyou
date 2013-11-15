@@ -18,6 +18,10 @@ a, a:hover, a:active {
     color: $links;
 }
 
+ul {
+    list-style-type: none;
+}
+
 .top-bar-section ul li a:not(.button) {
     padding-left: 0.5em;
     padding-right: 0.5em;
