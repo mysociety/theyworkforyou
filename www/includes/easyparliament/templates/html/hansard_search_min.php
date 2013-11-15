@@ -44,11 +44,11 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		?></dt>
         <dd>
         <div class="appearance-date">
-            <span class="day"><?php echo format_date($row['hdate'], 'j' ) ?></span>
+            <div class="day"><?php echo format_date($row['hdate'], 'j' ) ?></div><!--
             <?php if ( $year < $cur_year ) { ?>
-            <span class="month"><?php echo format_date($row['hdate'], 'M y' ) ?></span>
+            --><div class="month"><?php echo format_date($row['hdate'], 'M y' ) ?></div>
             <?php } else { ?>
-            <span class="month"><?php echo format_date($row['hdate'], 'M' ) ?></span>
+            --><div class="month"><?php echo format_date($row['hdate'], 'M' ) ?></div>
             <?php } ?>
         </div>
 
