@@ -854,14 +854,14 @@ function person_register_interests($member, $extra_info) {
 	} else {
 		echo "\t\t\t\t<p>Nil</p>\n";
 	}
-	echo '<p class="italic infolink">';
+	echo '<p class="italic infolink"><small>';
 	if (isset($extra_info['register_member_interests_date'])) {
 		echo 'Register last updated: ';
 		echo format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
 		echo '. ';
 	}
 	echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm">More about the Register</a>';
-	echo '</p>';
+	echo '</small></p>';
 	print '<p class="morelink"><strong><a href="' . WEBPATH . 'regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
 }
 
