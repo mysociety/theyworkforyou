@@ -106,7 +106,7 @@ if ($member['has_email_alerts']) {
     }
 }
 ?>
-</div>
+</div> <!-- end mp panel -->
 <div data-magellan-expedition="fixed" class="person-subnav">
     <dl class="sub-nav">
         <dt data-magellan-arrival="profile"><a href="#profile">Profile</a></dt>
@@ -164,9 +164,7 @@ if ($member['has_expenses']) {
 	echo expenses_display_table($extra_info);
     $NEWPAGE->panel_end();
 }
-
 ?>
-</div>
 <?php
 
 # Helper functions

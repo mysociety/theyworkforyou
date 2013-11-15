@@ -569,7 +569,7 @@ window.fbAsyncInit = function() {
     }
     function panel_end() {
         ?>
-        </div>
+        </div> <!-- end panel -->
         <?php
     }
 
@@ -586,13 +586,22 @@ window.fbAsyncInit = function() {
         //  'procedural-1', 'procedural-2' - For the proecdures in hansard listings.
         //  'foot' - For the bottom stripe on hansard debates/wrans listings.
         // $id is the value of an id for this div (if blank, not used).
+        $columns = 'large-8';
+        if ( $type == 'full' ) {
+            $columns = 'large-12';
+        }
         ?>
+        <div class="row">
+        <div class="<?=$columns?> columns">
+        <div class="panel">
+<!--
         <div class="stripe-<?php echo $type; ?><?php if ($extra_class != '') echo ' ' . $extra_class; ?>"<?php
         if ($id != '') {
             print ' id="' . $id . '"';
         }
         ?>>
             <div class="main">
+-->
 <?php
         $this->within_stripe_main = true;
         // On most, uncomplicated pages, the first stripe on a page will include
@@ -604,7 +613,7 @@ window.fbAsyncInit = function() {
     }
 
 
-    function stripe_end ($contents = array(), $extra = '') {
+    function stripe_end ($contents = array(), $extra = '', $haspanel=true) {
         // $contents is an array containing 0 or more hashes.
         // Each hash has two values, 'type' and 'content'.
         // 'Type' could be one of these:
@@ -655,11 +664,11 @@ window.fbAsyncInit = function() {
         global $DATA, $this_page;
 
         $this->within_stripe_main = false;
+        if ( $haspanel ) {
+            print '</div> <!-- end panel -->';
+        }
         ?>
-<!--
-            </div> <!-- end .main - - >
-            <div class="sidebar">
--->
+</div> <!-- end row -->
 
         <?
         $this->within_stripe_sidebar = true;
@@ -668,7 +677,7 @@ window.fbAsyncInit = function() {
         if (count($contents) == 0) {
             print "\t\t\t&nbsp;\n";
         } else {
-            #print '<div class="sidebar">';
+            print '<div class="large-4 columns sidebar">';
             foreach ($contents as $hash) {
                 if (isset($hash['type'])) {
                     if ($hash['type'] == 'include') {
@@ -700,6 +709,8 @@ window.fbAsyncInit = function() {
             }
             ?>
         </div> <!-- end .stripe-* -->
+</div> <!-- end other thing -->
+</div>
 
 <?php
     }

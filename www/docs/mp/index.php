@@ -363,15 +363,10 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $NEWPAGE->page_start();
     twfy_debug_timestamp("after page_start");
 
-    twfy_debug_timestamp("before stripe start");
-    $NEWPAGE->stripe_start('side', 'person_page');
-    twfy_debug_timestamp("after stripe start");
-
     twfy_debug_timestamp("before display of MP");
 
     $MEMBER->display();
 
-    print '<div class="large-4 columns sidebar">';
     twfy_debug_timestamp("after display of MP");
 
     // SIDEBAR.
@@ -511,8 +506,7 @@ body of your articles as the source of any analysis or
 data you get off this site. If you ignore this, we might have to start
 keeping these sorts of records on you...</p></div></div>'
     );
-    $NEWPAGE->stripe_end($sidebars);
-    print '</div>';
+    $NEWPAGE->stripe_end($sidebars, '', false);
 
 } else {
     // Something went wrong
@@ -592,7 +586,7 @@ function regional_list($pc, $area_type, $rep_type) {
         }
     }
     $NEWPAGE->page_start();
-    $NEWPAGE->stripe_start();
+    $NEWPAGE->stripe_start('full');
     if ($rep_type == 'msp') {
         if ($current) {
             $out = '<p>You have one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
