@@ -48,7 +48,7 @@ expenses</a></p>";
 	     	$out .= ' Read <a href="' . $extra_info['expenses_url'] . '">2004/05 &ndash; 2008/09 and 1st quarter 2009/10 receipts</a>.';
 	     $out .= "</p>\n";
         }         
-        $out .= '<table class="people"><tr><th 
+        $out .= '<table class="people responsive"><tr><th 
 class="left">Type';
 	# TODO: Needs to be more complicated at 2005/06, because of General Election
 	for ($y=$start_year; $y>=$end_year; $y--) {
@@ -61,6 +61,7 @@ class="left">Type';
 		}
 	}
 	$out .= '</th></tr>';
+  $out .= '<tbody>';
 	$out .= '<tr><td class="row-1 left">Staying away from main home</td>';
 	$out .= expenses_row('col1', $extra_info,1, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><td class="row-2 left">London costs</td>';
@@ -89,7 +90,7 @@ class="left">Type';
 	$out .= expenses_row('col9', $extra_info,1, $gadget, $start_year, $end_year);
 	$out .= '</tr><tr><th class="left total">Total</th>';
 	$out .= expenses_row('total', $extra_info,2, $gadget, $start_year, $end_year);
-	$out .= '</tr></table>';
+	$out .= '</tr></tbody></table>';
 
         if (isset($extra_info['expenses2009_colmp_reg_travel_a']) and $extra_info['expenses2009_col5'] > 0 and $start_year 
 >= 9 and $end_year <= 9){
