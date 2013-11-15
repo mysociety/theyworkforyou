@@ -109,6 +109,7 @@ class NEWPAGE extends PAGE {
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <title><?php echo preg_replace('#<[^>]*>#', '', $title); ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <?=$meta_description ?>
     <meta name="keywords" content="<?php echo htmlentities($meta_keywords); ?>">
     <?=$robots ?>
