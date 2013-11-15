@@ -713,7 +713,7 @@ function person_recent_appearances($member) {
     $MOREURL = new URL('search');
     $MOREURL->insert( array('pid'=>$member['person_id'], 'pop'=>1) );
     ?>
-<p id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4">More of <?php echo ucfirst($member['full_name']); ?>'s recent appearances</a></p>
+<p class="morelink" id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4">More of <?php echo ucfirst($member['full_name']); ?>'s recent appearances</a></p>
 
 <?php
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {

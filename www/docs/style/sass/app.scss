@@ -86,6 +86,21 @@ a, a:hover, a:active {
     text-align: right;
 }
 
+// Recent appearances
+#searchresults {
+    dt {
+        a {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            -moz-text-decoration-style: dotted;
+            -webkit-text-decoration-style: dotted;
+        }
+    }
+    dd {
+        border-bottom: 1px dotted $borders;
+    }
+}
+
 .person-button-column {
     @extend .columns;
     padding-left: 0em;
