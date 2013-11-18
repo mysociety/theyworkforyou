@@ -405,6 +405,7 @@ window.fbAsyncInit = function() {
         <section class="top-bar-section">
             <ul class="right">
             <li><?php print implode("</li>\n\t\t\t<li>", $bottom_links); ?></li>
+            <li id="ms_logo"><a class="ms_header_nav-logo" target="_blank" href="http://www.mysociety.org">&nbsp;</a></li>
             </ul>
         </section>
 

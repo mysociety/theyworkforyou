@@ -7,6 +7,8 @@
 // Comment out this import if you are customizing you imports below
 @import "foundation";
 
+@import "ms_header";
+
 @import url(http://fonts.googleapis.com/css?family=Lato:700|Open+Sans&subset=latin,latin-ext);
 
 // this is from old stylesheets
@@ -20,6 +22,12 @@ a, a:hover, a:active {
 
 ul {
     list-style-type: none;
+}
+
+.top-bar {
+    .right {
+        background-color: $brand;
+    }
 }
 
 .top-bar-section ul li a:not(.button) {
