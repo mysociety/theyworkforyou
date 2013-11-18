@@ -261,6 +261,7 @@ window.fbAsyncInit = function() {
             <nav class="top-bar">
             <ul class="title-area">
                 <li class="name"><h1><a href="/">TheyWorkForYou</a></h1></li>
+                <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
             </ul>
             <?php $this->menu(); ?>
             </nav>
@@ -1065,6 +1066,7 @@ pr()//-->
 
 <script src="/js/foundation/foundation.js"></script>
 <script src="/js/foundation/foundation.magellan.js"></script>
+<script src="/js/foundation/foundation.topbar.js"></script>
 <script src="/js/responsive-tables.js"></script>
 
 <script>

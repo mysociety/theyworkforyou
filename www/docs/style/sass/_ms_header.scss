@@ -4,22 +4,27 @@ This is the header that runs across the very top of each mySociety page
 
 */
 #ms_logo{
-    width: 10em;
     text-align:center;
     font-size: 0.7em;
     padding:0;
+    background-color: #222;
+    @media #{$topbar-media-query} {
+        background-color: $brand;
+    }
     a{
         @extend .ir;
+        width: 10em;
         display:block;
         border-radius: 0 0 1.25em 1.25em;
         color: rgba(255,255,255,0.3);
-        background: #222 url('../img/mysociety-header_logo-mini.png') no-repeat scroll center center;
-        background-size: auto 100%;
+        background: #222 url('../img/mysociety-header_logo.png') no-repeat scroll center center;
+        background-size: 80% auto;
         line-height:2;
         padding: 0.5em 0;
 
-        @media #{$small} {
-            background-image: url('../img/mysociety-header_logo.png');
+        @media #{$topbar-media-query} {
+            background-color: $brand;
+            background: #222 url('../img/mysociety-header_logo.png') no-repeat scroll center center;
             background-size: 80% auto;
         }
     }
