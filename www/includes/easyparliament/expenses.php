@@ -48,12 +48,24 @@ expenses</a></p>";
 	     	$out .= ' Read <a href="' . $extra_info['expenses_url'] . '">2004/05 &ndash; 2008/09 and 1st quarter 2009/10 receipts</a>.';
 	     $out .= "</p>\n";
         }         
-        $out .= '<table class="people responsive"><tr><th 
-class="left">Type';
+        $out .= '<table class="people">';
+        $out .= '<tr><th class="left">Type';
+        $wide_year = $end_year + 3;
+        $med_year = $end_year + 5;
 	# TODO: Needs to be more complicated at 2005/06, because of General Election
 	for ($y=$start_year; $y>=$end_year; $y--) {
                 $class = '';
-                if ($y == $end_year) $class = "class='right'";
+                $responsive_class = '';
+                if ( $y <= $wide_year ) {
+                    $responsive_class = 'show-for-large-up';
+                } else if ( $y <= $med_year ) {
+                    $responsive_class = 'show-for-medium-up';
+                }
+                if ($y == $end_year) {
+                    $class = "class='right $responsive_class'";
+                } else {
+                    $class = "class='$responsive_class'";
+                }
 		$out .= "</th><th $class>";
 		$out .= year_string($y);
 		if (isset($extra_info["expenses200{$y}_col1_rank_outof"])) {
@@ -63,33 +75,33 @@ class="left">Type';
 	$out .= '</th></tr>';
   $out .= '<tbody>';
 	$out .= '<tr><td class="row-1 left">Staying away from main home</td>';
-	$out .= expenses_row('col1', $extra_info,1, $gadget, $start_year, $end_year);
+	$out .= expenses_row('col1', $extra_info,1, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-2 left">London costs</td>';
-	$out .= expenses_row('col2', $extra_info,2, $gadget, $start_year, $end_year);
+	$out .= expenses_row('col2', $extra_info,2, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-1 left">Office running costs</td>';
-	$out .= expenses_row('col3', $extra_info,1, $gadget, $start_year, $end_year);
+	$out .= expenses_row('col3', $extra_info,1, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-2 left" >Staffing costs</td>';
-	$out .= expenses_row('col4', $extra_info,2, $gadget, $start_year, $end_year);
+	$out .= expenses_row('col4', $extra_info,2, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-1 left">Communications Allowance</td>';
-	$out .= expenses_row('colcomms_allowance', $extra_info,1, $gadget, $start_year, $end_year);
+	$out .= expenses_row('colcomms_allowance', $extra_info,1, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-2 left">Members\' Travel</td>';
-	$out .= expenses_row('col5', $extra_info,2, $gadget, $start_year, $end_year);
+	$out .= expenses_row('col5', $extra_info,2, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-1 left">Members\' Staff Travel</td>';
-	$out .= expenses_row('col6', $extra_info,1, $gadget, $start_year, $end_year);
+	$out .= expenses_row('col6', $extra_info,1, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-2 left">Members\' Spouse Travel</td>';
-	$out .= expenses_row('colspouse_travel_a', $extra_info,2, $gadget, $start_year, $end_year);
+	$out .= expenses_row('colspouse_travel_a', $extra_info,2, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-1 left">Members\' Family Travel</td>';
-	$out .= expenses_row('colfamily_travel_a', $extra_info,1, $gadget, $start_year, $end_year);
+	$out .= expenses_row('colfamily_travel_a', $extra_info,1, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-2 left">Centrally Purchased Stationery</td>';
-	$out .= expenses_row('col7', $extra_info,2, $gadget, $start_year, $end_year);
+	$out .= expenses_row('col7', $extra_info,2, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-1 left">Stationery: Associated Postage Costs</td>';
-	$out .= expenses_row('col7a', $extra_info,1, $gadget, $start_year, $end_year);
+	$out .= expenses_row('col7a', $extra_info,1, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-2 left">Centrally Provided Computer Equipment</td>';
-	$out .= expenses_row('col8', $extra_info,2, $gadget, $start_year, $end_year);
+	$out .= expenses_row('col8', $extra_info,2, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><td class="row-1 left">Other Costs</td>';
-	$out .= expenses_row('col9', $extra_info,1, $gadget, $start_year, $end_year);
+	$out .= expenses_row('col9', $extra_info,1, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr><tr><th class="left total">Total</th>';
-	$out .= expenses_row('total', $extra_info,2, $gadget, $start_year, $end_year);
+	$out .= expenses_row('total', $extra_info,2, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr></tbody></table>';
 
         if (isset($extra_info['expenses2009_colmp_reg_travel_a']) and $extra_info['expenses2009_col5'] > 0 and $start_year 
@@ -127,10 +139,12 @@ $end_year <= 7) {
 
 }
 
-function expenses_row($col, $extra_info, $style, $gadget, $start_year, $end_year) {
+function expenses_row($col, $extra_info, $style, $gadget, $start_year, $end_year, $med_year, $wide_year) {
 	$out = '';
         $start_year = 2000 + (int) $start_year;
         $end_year = 2000 + (int) $end_year; 
+        $med_year = 2000 + (int) $med_year;
+        $wide_year = 2000 + (int) $wide_year;
 	for ($ey=$start_year; $ey>=$end_year; --$ey) {
            $extra_class = '';
 	   list($amount, $rank, $extra) = expenses_item($ey, $col, $extra_info, $gadget);
@@ -140,8 +154,13 @@ function expenses_row($col, $extra_info, $style, $gadget, $start_year, $end_year
                $rowspan = " rowspan='2' style='vertical-align: middle'";
                $extra_class = 'aggregate-value';
            } 
-           if ($col=='col7a' && $ey==2009) continue;
            if ($ey == $end_year) $extra_class = 'right'; 
+            if ( $ey <= $wide_year ) {
+                $extra_class .= ' show-for-large-up';
+            } else if ( $ey <= $med_year ) {
+                $extra_class .= ' show-for-medium-up';
+            }
+           if ($col=='col7a' && $ey==2009) continue;
            $out .= "<td class='row-$style $extra_class'$rowspan>$amount$rank$extra</td>\n";
 	}
 	return $out;

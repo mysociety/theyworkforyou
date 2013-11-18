@@ -134,7 +134,6 @@ class NEWPAGE extends PAGE {
     # XXX Below line for speed
 ?>
     <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/stylesheets/app.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/stylesheets/responsive-tables.css" type="text/css">
     <link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">
 <?php
 
@@ -1067,7 +1066,6 @@ pr()//-->
 <script src="/js/foundation/foundation.js"></script>
 <script src="/js/foundation/foundation.magellan.js"></script>
 <script src="/js/foundation/foundation.topbar.js"></script>
-<script src="/js/responsive-tables.js"></script>
 
 <script>
   $(document).foundation();
