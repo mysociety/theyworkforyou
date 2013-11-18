@@ -1034,11 +1034,11 @@ $this->page = array (
 
 	'wranswmsfront'  => array (
 		'menu'			=> array (
-			'text'			=> 'Written Answers and Statements',
-			'title'			=> '',
+			'text'			=> 'Written Answers',
+			'title'			=> 'Written Answers and Statements',
 		),
 		'parent'		=> 'hansard',
-		'title'			=> 'Hansard Written Answers and Statements',
+		'title'			=> 'Hansard Written Answers',
 		'url'			=> 'written-answers-and-statements/'
 	),
 
