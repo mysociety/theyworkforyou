@@ -112,8 +112,8 @@ if ($member['has_email_alerts']) {
         <dt data-magellan-arrival="profile"><a href="#profile">Profile</a></dt>
         <dt data-magellan-arrival="votingrecord"><a href="#votingrecord">Voting record</a></dt>
         <dt data-magellan-arrival="hansard"><a href="#hansard">Appearances</a></dt>
-        <dt data-magellan-arrival="expenses"><a href="#expenses">Expenses</a></dt>
         <dt data-magellan-arrival="register"><a href="#register">Register of interests</a></dt>
+        <dt data-magellan-arrival="expenses"><a href="#expenses">Expenses</a></dt>
     </dl>
 </div>
 
