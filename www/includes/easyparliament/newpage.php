@@ -185,7 +185,7 @@ class NEWPAGE extends PAGE {
 
         // Start the body, put in the page headings.
         ?>
-<body>
+<body class="antialiased">
 
 <div id="fb-root"></div>
 <script>
