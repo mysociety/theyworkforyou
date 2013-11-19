@@ -370,34 +370,12 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     twfy_debug_timestamp("after display of MP");
 
     // SIDEBAR.
-
-    // We have to generate this HTML to pass to stripe_end().
-    $linkshtml = generate_member_links($MEMBER);
-
     $sidebars = array(
-/*        array('type'=>'include', 'content' => 'donate'),*/
-/*        array (
-            'type'        => 'include',
-            'content'    => 'mp_email_friend'
-        ), */
         array (
             'type'        => 'include',
             'content'    => 'minisurvey'
-        ),
-        array (
-            'type'        => 'html',
-            'content'    => $linkshtml
         )
     );
-
-/*
-    if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-        $sidebars[] = array (
-            'type'         => 'html',
-            'content'    => $NEWPAGE->member_rss_block(array('appearances' => WEBPATH . $rssurl))
-        );
-    }
-*/
 
     if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
         $previous_people = $MEMBER->previous_mps();
@@ -413,10 +391,48 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
             $sidebars[] = array(
                 'type' => 'html',
                 'content' => '<div class="block"><h4>Succeeding MPs in this constituency</h4><div class="blockbody"><ul>'
-                    . $future_people . '<li><em>Might show odd results due to bugs</em></li></ul></div></div>'
+                    . $future_people . '<li class="infolink"><em>Might show odd results due to bugs</em></li></ul></div></div>'
             );
         }
     }
+
+    if ( $MEMBER->house(HOUSE_TYPE_COMMONS) ) {
+        $member = array (
+            'member_id' 		=> $MEMBER->member_id(),
+            'person_id'		=> $MEMBER->person_id(),
+            'constituency' 		=> $MEMBER->constituency(),
+            'party'			=> $MEMBER->party_text(),
+            'other_parties'		=> $MEMBER->other_parties,
+            'other_constituencies'	=> $MEMBER->other_constituencies,
+            'houses'		=> $MEMBER->houses(),
+            'entered_house'		=> $MEMBER->entered_house(),
+            'left_house'		=> $MEMBER->left_house(),
+            'current_member'	=> $MEMBER->current_member(),
+            'full_name'		=> $MEMBER->full_name(),
+            'the_users_mp'		=> $MEMBER->the_users_mp(),
+            'current_member_anywhere'   => $MEMBER->current_member_anywhere(),
+            'house_disp'		=> $MEMBER->house_disp,
+        );
+        $topics_html = person_committees_and_topics_for_sidebar($member, $MEMBER->extra_info);
+
+        if ( $topics_html ) {
+            $sidebars[] = array ( 'type' => 'html', 'content' => $topics_html);
+        }
+    }
+
+    // We have to generate this HTML to pass to stripe_end().
+    $linkshtml = generate_member_links($MEMBER);
+    $sidebars[] = array ( 'type' => 'html', 'content' => $linkshtml);
+
+/*
+    if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
+        $sidebars[] = array (
+            'type'         => 'html',
+            'content'    => $NEWPAGE->member_rss_block(array('appearances' => WEBPATH . $rssurl))
+        );
+    }
+*/
+
 
     if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
         global $memcache;

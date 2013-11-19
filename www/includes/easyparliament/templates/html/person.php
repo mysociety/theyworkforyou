@@ -141,10 +141,14 @@ if ($member['has_recent_appearances']) {
     $NEWPAGE->panel_end();
 }
 # Topics of interest only for current MPs at the moment
-if ($member['current_member'][HOUSE_TYPE_COMMONS]) { # in_array(1, $member['houses'])
-    $NEWPAGE->panel_start('topics', true);
-	$member['chairmens_panel'] = person_committees_and_topics($member, $extra_info);
-    $NEWPAGE->panel_end();
+if ($member['current_member'][HOUSE_TYPE_COMMONS]) {
+    // we used to generate this when we were checking topics but this
+    // is now in the sidebar so we don't check this till too late
+		foreach ($extra_info['office'] as $row) {
+        if ($row['dept'] == "Chairmen's Panel Committee") {
+            $member['chairmens_panel'] = true;
+        }
+    }
 }
 
     $NEWPAGE->panel_start('numbers', true);
@@ -586,6 +590,95 @@ function person_voting_record($member, $extra_info) {
 	if (!$displayed_stuff) {
 		print '<p>No data to display yet.</p>';
 	}
+}
+
+function person_committees_and_topics_for_sidebar($member, $extra_info) {
+    $out = '';
+    $topics_block_empty = true;
+
+    // Select committee membership
+    if (array_key_exists('office', $extra_info)) {
+        $mins = array();
+
+        foreach ($extra_info['office'] as $row) {
+            if ($row['to_date'] == '9999-12-31' && $row['source'] == 'chgpages/selctee') {
+                $m = prettify_office($row['position'], $row['dept']);
+                if ($row['from_date']!='2004-05-28') {
+                    $m .= ' <small>(since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')</small>';
+                }
+                $mins[] = $m;
+            }
+        }
+
+        if ($mins) {
+            $topics_block_empty = false;
+
+            $out .=  "<h4>Select Committee membership</h4>";
+            $out .=  '<ul class="no-bullet">';
+            foreach ($mins as $min) {
+                $out .=  '<li>' . $min . '</li>';
+            }
+            $out .=  "</ul>";
+        }
+    }
+
+    $out .= '<h4>Topics of interest</h4>';
+    $wrans_dept = false;
+    $wrans_dept_1 = null;
+    $wrans_dept_2 = null;
+
+    if (isset($extra_info['wrans_departments'])) {
+        $wrans_dept = true;
+        $subjects = explode(',', $extra_info['wrans_departments']);
+        $wrans_dept_1 = '<span class="radius label">' . implode( '</span> <span class="radius label">', $subjects ) . '</span>';
+    }
+
+    if (isset($extra_info['wrans_subjects'])) {
+        $wrans_dept = true;
+        $subjects = explode(',', $extra_info['wrans_subjects']);
+        $wrans_dept_2 = '<span class="radius label">' . implode( '</span> <span class="radius label">', $subjects ) . '</span>';
+    }
+
+    if ($wrans_dept) {
+        $topics_block_empty = false;
+
+        if ($wrans_dept_1) { $out .=  $wrans_dept_1; }
+        if ($wrans_dept_2) { $out .=  $wrans_dept_2; }
+
+        $WRANSURL = new URL('search');
+        $WRANSURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
+        $out .= '<p class="infolink"><small>(based on <a href="' . $WRANSURL->generate() . '">written questions asked by ' . $member['full_name'] . '</a> and answered by departments)</small></p>';
+    }
+
+    # Public Bill Committees
+    if (count($extra_info['pbc'])) {
+        $topics_block_empty = false;
+        $out .=  '<h4>Public Bill Committees <small>(sittings attended)</small></h4>';
+
+        if ($member['party'] == 'Scottish National Party') {
+            $out .=  '<p><em>SNP MPs only attend sittings where the legislation pertains to Scotland.</em></p>';
+        }
+
+        $out .=  '<ul class="no-bullet">';
+        foreach ($extra_info['pbc'] as $bill_id => $arr) {
+            $out .=  '<li>';
+
+            if ($arr['chairman']) {
+                $out .=  'Chairman, ';
+            }
+            $out .=  '<a href="/pbc/' . $arr['session'] . '/' . urlencode($arr['title']) . '">'
+            . $arr['title'] . ' Committee</a> <small>(' . $arr['attending']
+            . ' out of ' . $arr['outof'] . ')</small>';
+        }
+        $out .=  '</ul>';
+    }
+
+    if ($topics_block_empty) {
+        $out .=  "<p><em>This MP is not currently on any public bill committee
+        and has had no written questions answered for which we know the department or subject.</em></p>";
+    }
+
+    return $out;
 }
 
 function person_committees_and_topics($member, $extra_info) {
