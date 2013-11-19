@@ -20,8 +20,13 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 
 <?php
 person_image($member);
+
+if ($member['has_email_alerts']) {
+    print '</div><div class="large-7 columns">';
+} else {
+    print '</div><div class="large-11 columns">';
+}
 ?>
-</div><div class="large-7 columns">
 <?php
 echo '<h1>' . $member['full_name'] . '</h1><h3 class="subheader">' . person_summary_description($member) . '</h3>';
 
