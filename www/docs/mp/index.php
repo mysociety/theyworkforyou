@@ -396,7 +396,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         }
     }
 
-    if ( $MEMBER->house(HOUSE_TYPE_COMMONS) ) {
+    if ( $MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->current_member_anywhere() ) {
         $member = array (
             'member_id' 		=> $MEMBER->member_id(),
             'person_id'		=> $MEMBER->person_id(),
