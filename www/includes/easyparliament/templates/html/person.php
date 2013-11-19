@@ -144,9 +144,11 @@ if ($member['has_recent_appearances']) {
 if ($member['current_member'][HOUSE_TYPE_COMMONS]) {
     // we used to generate this when we were checking topics but this
     // is now in the sidebar so we don't check this till too late
-		foreach ($extra_info['office'] as $row) {
-        if ($row['dept'] == "Chairmen's Panel Committee") {
-            $member['chairmens_panel'] = true;
+    if ( array_key_exists('office', $extra_info) ) {
+        foreach ($extra_info['office'] as $row) {
+            if ($row['dept'] == "Chairmen's Panel Committee") {
+                $member['chairmens_panel'] = true;
+            }
         }
     }
 }
