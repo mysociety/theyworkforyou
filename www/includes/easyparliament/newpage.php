@@ -904,6 +904,8 @@ window.fbAsyncInit = function() {
                 ?>
 
                 <div id="footer">
+                    <div class="row">
+                    <div class="large-8 columns">
                     <dl>
                         <dt>About: </dt>
                         <dd>
@@ -920,7 +922,7 @@ window.fbAsyncInit = function() {
                             <ul>
                                 <?php
                                     foreach ($assembly_links as $assembly_link) {
-                                        echo '<li>' . $assembly_link . '</li>';
+                                        echo '<li>' . $assembly_link . '</li> ';
                                     }
                                 ?>
                             </ul>
@@ -930,7 +932,7 @@ window.fbAsyncInit = function() {
                             <ul>
                                 <?php
                                     foreach ($international_links as $international_link) {
-                                        echo '<li>' . $international_link . '</li>';
+                                        echo '<li>' . $international_link . '</li> ';
                                     }
                                 ?>
                             </ul>
@@ -940,7 +942,7 @@ window.fbAsyncInit = function() {
                             <ul>
                                 <?php
                                     foreach ($tech_links as $tech_link) {
-                                        echo '<li>' . $tech_link . '</li>';
+                                        echo '<li>' . $tech_link . '</li> ';
                                     }
                                 ?>
                             </ul>
@@ -950,13 +952,14 @@ window.fbAsyncInit = function() {
                             <ul>
                                 <?php
                                     foreach ($landing_links as $landing_link) {
-                                        echo '<li>' . $landing_link . '</li>';
+                                        echo '<li>' . $landing_link . '</li> ';
                                     }
                                 ?>
                             </ul>
                         </dd>
                   </dl>
-                  <div class="right">
+                    </div>
+                  <div class="large-4 columns">
 
                       <div class="fb-like" data-href="https://www.facebook.com/TheyWorkForYou" data-colorscheme="light" data-layout="button_count" data-action="like" data-show-faces="false" data-send="false"></div>
 
@@ -1027,6 +1030,7 @@ window.fbAsyncInit = function() {
                           Approximately once a month, spam free.
                       </p>
                   </div>
+            </div>
         <?php
         // This makes the tracker appear on all sections, but only actually on theyworkforyou.com
                 //if ($DATA->page_metadata($this_page, 'track') ) {

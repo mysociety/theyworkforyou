@@ -83,6 +83,42 @@ ul {
     padding-left: 0px;
 }
 
+#footer {
+    clear: both;
+    margin-top: 1em;
+    padding-top: 1em;
+    background-color: $brand;
+    div.columns {
+        font-size: 0.8em;
+    }
+    a, a:hover, a:active {
+        color: white;
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        -moz-text-decoration-style: dotted;
+        -webkit-text-decoration-style: dotted;
+    }
+    dl {
+        dt {
+            float: left;
+            clear: left;
+            font-weight: bold;
+            width: 13em;
+        }
+        dd {
+            float: left;
+            max-width: 40em;
+            li {
+                margin-bottom: 0px;
+                display: inline-block;
+            }
+            li {
+                padding-right: 0.25em;
+            }
+        }
+    }
+}
+
 // Vote record
 #dreamcomparisons {
     margin-bottom: 0px;
