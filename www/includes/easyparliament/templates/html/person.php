@@ -16,19 +16,18 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 <p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>
 <a data-magellan-destination="profile" name="profile"></a>
 <div class="panel-row" id="mp-panel">
-<div class="large-1 columns">
 
 <?php
-person_image($member);
 
 if ($member['has_email_alerts']) {
-    print '</div><div class="large-7 columns">';
+    print '<div class="large-8 small-12 columns" id="mp-details">';
 } else {
-    print '</div><div class="large-11 columns">';
+    print '<div class="large-12 small-12 columns" id="mp-details">';
 }
+person_image($member);
 ?>
 <?php
-echo '<h1>' . $member['full_name'] . '</h1><h3 class="subheader">' . person_summary_description($member) . '</h3>';
+echo '<div class="mp-details"><h1>' . $member['full_name'] . '</h1><h3 class="subheader">' . person_summary_description($member) . '</h3>';
 
 # History
 echo '<ul>';
@@ -94,6 +93,7 @@ $SEARCHURL = new URL("search");
 					<input type="submit" class="submit" value="GO"></p>
 					</form>
 				</div>
+    </div>
     </div>
 <?php 
 if ($member['has_email_alerts']) {

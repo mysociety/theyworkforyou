@@ -119,6 +119,22 @@ ul {
     }
 }
 
+#mp-panel {
+    .person, .mp-details {
+        float: left;
+    }
+    .mp-details {
+        margin-left: 1em;
+    }
+
+    @media only screen and ( max-width: 500px ) {
+        .person {
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
+
 // Vote record
 #dreamcomparisons {
     margin-bottom: 0px;
