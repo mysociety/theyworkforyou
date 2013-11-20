@@ -267,6 +267,16 @@ ul {
     border: 1px solid $borders;
     border-top: 1px solid $panel-bg;
 
+    &.fixed {
+        max-width: none;
+
+        .sub-nav {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: $row-width;
+        }
+    }
+
     .sub-nav {
         @include sub-nav($sub-nav-font-color, $sub-nav-font-size, $panel-bg);
 
