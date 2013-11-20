@@ -291,16 +291,11 @@ ul {
                 border-bottom: 3px solid $brand;
                 a {
                     color: $body-font-color;
+                    padding: 0px;
                 }
             }
             @media only screen and ( max-width: 500px ) {
-                font-size: 0.7em;
-                padding: 2px;
-
-                &.active {
-                    font-weight: normal;
-                    color: black;
-                }
+                padding: 4px;
             }
         }
     }

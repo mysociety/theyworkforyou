@@ -119,9 +119,9 @@ if ($member['has_email_alerts']) {
 <div data-magellan-expedition="fixed" class="person-subnav">
     <dl class="sub-nav">
         <dt data-magellan-arrival="profile"><a href="#profile">Profile</a></dt>
-        <dt data-magellan-arrival="votingrecord"><a href="#votingrecord">Voting record</a></dt>
+        <dt data-magellan-arrival="votingrecord"><a href="#votingrecord">Voting<span class="hide-for-small"> record</span></a></dt>
         <dt data-magellan-arrival="hansard"><a href="#hansard">Appearances</a></dt>
-        <dt data-magellan-arrival="register"><a href="#register">Register of interests</a></dt>
+        <dt data-magellan-arrival="register"><a href="#register">Register<span class="hide-for-small"> of interests</span></a></dt>
         <dt data-magellan-arrival="expenses"><a href="#expenses">Expenses</a></dt>
     </dl>
 </div>
