@@ -97,8 +97,12 @@ $SEARCHURL = new URL("search");
     </div>
 <?php 
 if ($member['has_email_alerts']) {
+    $cols = "small-12 large-2";
+    if ($member['the_users_mp'] == true) {
+        $cols = "small-6 large-2";
+    }
 ?>
-    <div class="small-6 large-2 person-button-column">
+    <div class="<?=$cols?> person-button-column">
         <a class="button alert person-contact-button" href="<?= WEBPATH ?>alert/?pid=<?=$member['person_id']?>"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a>
     </div>
 <?php
