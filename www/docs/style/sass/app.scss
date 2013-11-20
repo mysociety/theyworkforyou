@@ -293,6 +293,15 @@ ul {
                     color: $body-font-color;
                 }
             }
+            @media only screen and ( max-width: 500px ) {
+                font-size: 0.7em;
+                padding: 2px;
+
+                &.active {
+                    font-weight: normal;
+                    color: black;
+                }
+            }
         }
     }
 }
