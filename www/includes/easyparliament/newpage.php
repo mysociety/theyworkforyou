@@ -187,34 +187,34 @@ class NEWPAGE extends PAGE {
         ?>
 <body class="antialiased">
 
-<div id="fb-root"></div>
-<script>
-window.fbAsyncInit = function() {
-    FB.init({
-    appId      : '227648394066332',
-    xfbml      : true
-    });
+    <div id="fb-root"></div>
+    <script>
+    window.fbAsyncInit = function() {
+        FB.init({
+        appId      : '227648394066332',
+        xfbml      : true
+        });
 
-    FB.Event.subscribe('edge.create', function(targetUrl) {
-        _gaq.push(['_trackSocial', 'facebook', 'like', targetUrl]);
-    });
+        FB.Event.subscribe('edge.create', function(targetUrl) {
+            _gaq.push(['_trackSocial', 'facebook', 'like', targetUrl]);
+        });
 
-    FB.Event.subscribe('edge.remove', function(targetUrl) {
-        _gaq.push(['_trackSocial', 'facebook', 'unlike', targetUrl]);
-    });
+        FB.Event.subscribe('edge.remove', function(targetUrl) {
+            _gaq.push(['_trackSocial', 'facebook', 'unlike', targetUrl]);
+        });
 
-};
+    };
 
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/all.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_GB/all.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
 
-<div class="content-wrapper">
+    <div class="content-wrapper">
 <?php
         twfy_debug ("PAGE", "This page: $this_page");
 
@@ -258,10 +258,10 @@ window.fbAsyncInit = function() {
 ?>
         <div class="contain-to-grid">
             <nav class="top-bar">
-            <ul class="title-area">
-                <li class="name"><h1><a href="/">TheyWorkForYou</a></h1></li>
-                <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
-            </ul>
+                <ul class="title-area">
+                    <li class="name"><h1><a href="/">TheyWorkForYou</a></h1></li>
+                    <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+                </ul>
             <?php $this->menu(); ?>
             </nav>
         </div>
@@ -386,8 +386,8 @@ window.fbAsyncInit = function() {
                 }
             }
         }
+        /*
         ?>
-<!--
         <div id="topmenu">
             <div id="topmenuselected"><a href="<?=$highlights['top_selected']['link']?>"><?=$highlights['top_selected']['text'] ?></a> <a id="topmenu-change" href="/parliaments/" onclick="toggleVisible('site');return false;"><small>(change)</small></a></div>
 <?php
@@ -402,12 +402,13 @@ window.fbAsyncInit = function() {
 
             <br>
         </div>-->
-        <section class="top-bar-section">
-            <ul class="right">
-            <li><?php print implode("</li>\n\t\t\t<li>", $bottom_links); ?></li>
-            <li id="ms_logo"><a class="ms_header_nav-logo" target="_blank" href="http://www.mysociety.org">&nbsp;</a></li>
-            </ul>
-        </section>
+<?php */ ?>
+                <section class="top-bar-section">
+                    <ul class="right">
+                    <li><?php print implode("</li>\n                    <li>", $bottom_links); ?></li>
+                    <li id="ms_logo"><a class="ms_header_nav-logo" target="_blank" href="http://www.mysociety.org">&nbsp;</a></li>
+                    </ul>
+                </section>
 
 <?php
     }
@@ -538,7 +539,9 @@ window.fbAsyncInit = function() {
     // Where the actual meat of the page begins, after the title and menu.
     function content_start () {
         global $this_page, $THEUSER;
-        echo '<div class="large-12 large-centered columns">';
+?>
+        <div class="large-12 large-centered columns">
+<?php
 
 /*
         if ($this_page != 'overview') {

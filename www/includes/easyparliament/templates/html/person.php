@@ -8,127 +8,103 @@ $member['has_email_alerts'] = $member['current_member'][HOUSE_TYPE_ROYAL] || $me
 $member['has_video_matching'] = $member['current_member'][HOUSE_TYPE_COMMONS] && $member['party'] != 'Sinn Fein';
 $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1']);
 
-# First, the special Speaker box.
-# person_speaker_special($member, $extra_info);
-
 # Heading/ picture
-?>
-<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>
-<a data-magellan-destination="profile" name="profile"></a>
-<div class="panel-row" id="mp-panel">
-
-<?php
-
+$mp_panel_columns = 'large-12'; // columns for main info panel
+$button_columns = '';           // columns for alert/wtt buttons
 if ($member['has_email_alerts']) {
-    print '<div class="large-8 small-12 columns" id="mp-details">';
-} else {
-    print '<div class="large-12 small-12 columns" id="mp-details">';
-}
-person_image($member);
-?>
-<?php
-echo '<div class="mp-details"><h1>' . $member['full_name'] . '</h1><h3 class="subheader">' . person_summary_description($member) . '</h3>';
-
-# History
-$history = '';
-
-	if ($member['other_constituencies']) {
-		$history .=  "<li>Also represented " . join('; ', array_keys($member['other_constituencies']));
-		$history .= '</li>';
-	}
-
-	if ($member['other_parties'] && $member['party'] != 'Speaker' && $member['party'] != 'Deputy Speaker') {
-		$history .= "<li>Changed party ";
-		foreach ($member['other_parties'] as $r) {
-			$out[] = 'from ' . $r['from'] . ' on ' . format_date($r['date'], SHORTDATEFORMAT);
-		}
-		$history .= join('; ', $out);
-		$history .= '</li>';
-	}
-
-	// Ministerial positions
-	if (array_key_exists('office', $extra_info)) {
-		person_offices($extra_info);
-	}
-
-    if (exists_rep_image($member['person_id']) && isset($extra_info['photo_attribution_text']) && $extra_info['photo_attribution_text']) {
-        $history .= '<li><small>Photo: ';
-        if (isset($extra_info['photo_attribution_link']) && $extra_info['photo_attribution_link']) {
-            $history .= '<a href="' . $extra_info['photo_attribution_link'] . '" rel="nofollow">';
-        }
-        $history .= $extra_info['photo_attribution_text'];
-        if (isset($extra_info['photo_attribution_link']) && $extra_info['photo_attribution_link']) {
-            $history .= '</a>';
-        }
-        $history .= '</small></li>';
+    $mp_panel_columns = 'large-8';
+    $button_cols = "small-12 large-2";
+    if ($member['the_users_mp'] == true) {
+        $button_cols = "small-6 large-2";
     }
+}
+
+?>
+            <p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>
+            <a data-magellan-destination="profile" name="profile"></a>
+            <div class="panel-row" id="mp-panel">
+                <div class="<?=$mp_panel_columns?> small-12 columns" id="mp-details">
+                    <?php person_image($member); ?>
+
+                    <div class="mp-details">
+                        <h1><?=$member['full_name']?></h1>
+                        <h3 class="subheader"><?php print person_summary_description($member) ?></h3>
+
+<?php
+    $history = get_member_history($member, $extra_info);
 
     if ( $history ) {
-        print "<ul class=\"hilites\">$history</ul>";
+        print "                        <ul class=\"hilites\">\n$history\n                            </ul>";
     }
 
 //if dummy image, show message asking for a photo
 if (!exists_rep_image($member['person_id'])) {
-	person_ask_for_picture($member);
+    person_ask_for_picture($member);
 }
 
-echo '<ul class="hilites clear">';
-	person_enter_leave_facts($member, $extra_info);
-	person_majority($extra_info);
-	if ($member['party'] == 'Sinn Fein' && in_array(HOUSE_TYPE_COMMONS, $member['houses'])) {
-		print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
-	}
-print "</ul>";
+?>
+                        <ul class="hilites clear">
+<?php
+print "                        ";
+person_enter_leave_facts($member, $extra_info);
+person_majority($extra_info);
+print "\n";
 
+if ($member['party'] == 'Sinn Fein' && in_array(HOUSE_TYPE_COMMONS, $member['houses'])) {
+    print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
+}
+?>
+                        </ul>
+<?php
 
 $SEARCHURL = new URL("search");
 
-	?>
-
-				<div class="mpsearchbox">
-					<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-					<p>
-					<input name="s" size="24" maxlength="200" placeholder="Search this person's speeches">
-					<input type="hidden" name="pid" value="<?php echo $member['person_id']; ?>">
-					<input type="submit" class="submit" value="GO"></p>
-					</form>
-				</div>
-    </div>
-    </div>
-<?php 
-if ($member['has_email_alerts']) {
-    $cols = "small-12 large-2";
-    if ($member['the_users_mp'] == true) {
-        $cols = "small-6 large-2";
-    }
 ?>
-    <div class="<?=$cols?> person-button-column">
-        <a class="button alert person-contact-button" href="<?= WEBPATH ?>alert/?pid=<?=$member['person_id']?>"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a>
-    </div>
+                        <div class="mpsearchbox">
+                            <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
+                                <p>
+                                    <input name="s" size="24" maxlength="200" placeholder="Search this person's speeches">
+                                    <input type="hidden" name="pid" value="<?php echo $member['person_id']; ?>">
+                                    <input type="submit" class="submit" value="GO">
+                                </p>
+                            </form>
+                        </div>
+                    </div> <!-- end .mp-details -->
+                </div> <!-- end #mp-details -->
+
+<?php
+if ($member['has_email_alerts']) {
+?>
+                <div class="<?=$button_cols?> person-button-column">
+                    <a class="button alert person-contact-button" href="<?= WEBPATH ?>alert/?pid=<?=$member['person_id']?>"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a>
+                </div>
 <?php
     if ($member['the_users_mp'] == true) {
         global $THEUSER;
         $pc = $THEUSER->postcode();
-        print '<div class="small-6 large-2 person-button-column">';
-        print '<a class="button alert person-contact-button" href="http://www.writetothem.com/?a=WMC&amp;pc='. htmlentities(urlencode($pc)) .'"><strong>Send a message</strong><small>with WriteToThem</small></a>';
-        print '</div>';
+    ?>
+
+                <div class="small-6 large-2 person-button-column">
+                    <a class="button alert person-contact-button" href="http://www.writetothem.com/?a=WMC&amp;pc=<?php htmlentities(urlencode($pc)) ?>"><strong>Send a message</strong><small>with WriteToThem</small></a>
+                </div>
+<?php
     }
 }
 ?>
-</div> <!-- end mp panel -->
-<div data-magellan-expedition="fixed" class="person-subnav">
-    <dl class="sub-nav">
-        <dt data-magellan-arrival="profile"><a href="#profile">Profile</a></dt>
-        <dt data-magellan-arrival="votingrecord"><a href="#votingrecord">Voting<span class="hide-for-small"> record</span></a></dt>
-        <dt data-magellan-arrival="hansard"><a href="#hansard">Appearances</a></dt>
-        <dt data-magellan-arrival="register"><a href="#register">Register<span class="hide-for-small"> of interests</span></a></dt>
-        <dt data-magellan-arrival="expenses"><a href="#expenses">Expenses</a></dt>
-    </dl>
-</div>
+            </div> <!-- end mp panel -->
 
+            <div data-magellan-expedition="fixed" class="person-subnav">
+                <dl class="sub-nav">
+                    <dt data-magellan-arrival="profile"><a href="#profile">Profile</a></dt>
+                    <dt data-magellan-arrival="votingrecord"><a href="#votingrecord">Voting<span class="hide-for-small"> record</span></a></dt>
+                    <dt data-magellan-arrival="hansard"><a href="#hansard">Appearances</a></dt>
+                    <dt data-magellan-arrival="register"><a href="#register">Register<span class="hide-for-small"> of interests</span></a></dt>
+                    <dt data-magellan-arrival="expenses"><a href="#expenses">Expenses</a></dt>
+                </dl>
+            </div>
 
-<div class="row">
-    <div class="large-8 columns" id="main-content">
+            <div class="row">
+                <div class="large-8 columns" id="main-content">
 <?php
 
 /*
@@ -138,7 +114,7 @@ person_internal_links($member, $extra_info);
 
 if ($member['has_voting_record']) {
     $NEWPAGE->panel_start('votingrecord', true);
-	person_voting_record($member, $extra_info);
+    person_voting_record($member, $extra_info);
     $NEWPAGE->panel_end();
 }
 
@@ -146,7 +122,7 @@ $member['chairmens_panel'] = false;
 
 if ($member['has_recent_appearances']) {
     $NEWPAGE->panel_start('hansard', true);
-	person_recent_appearances($member);
+    person_recent_appearances($member);
     $NEWPAGE->panel_end();
 }
 # Topics of interest only for current MPs at the moment
@@ -162,26 +138,23 @@ if ($member['current_member'][HOUSE_TYPE_COMMONS]) {
     }
 }
 
-    $NEWPAGE->panel_start('numbers', true);
+$NEWPAGE->panel_start('numbers', true);
 person_numerology($member, $extra_info);
-    $NEWPAGE->panel_end();
+$NEWPAGE->panel_end();
 
 if (isset($extra_info['register_member_interests_html'])) {
     $NEWPAGE->panel_start('register', true);
-	person_register_interests($member, $extra_info);
+    person_register_interests($member, $extra_info);
     $NEWPAGE->panel_end();
 }
 
 if ($member['has_expenses']) {
     $NEWPAGE->panel_start('expenses', true);
-	include_once INCLUDESPATH . 'easyparliament/expenses.php';
-	echo '<h2>Expenses</h2>';
-	echo expenses_display_table($extra_info);
+    include_once INCLUDESPATH . 'easyparliament/expenses.php';
+    echo '<h2>Expenses</h2>';
+    echo expenses_display_table($extra_info);
     $NEWPAGE->panel_end();
 }
-?>
-<?php
-
 # Helper functions
 
 # Gets and outputs the correct image (with special case for Lords)
@@ -243,6 +216,40 @@ function person_summary_description($member) {
 	}
 	$desc = preg_replace('#, $#', '', $desc);
 	return $desc;
+}
+
+function get_member_history($member, $extra_info) {
+    $history = '';
+    if ($member['other_constituencies']) {
+        $history .=  "<li>Also represented " . join('; ', array_keys($member['other_constituencies']));
+        $history .= '</li>';
+    }
+
+    if ($member['other_parties'] && $member['party'] != 'Speaker' && $member['party'] != 'Deputy Speaker') {
+        $history .= "<li>Changed party ";
+        foreach ($member['other_parties'] as $r) {
+            $out[] = 'from ' . $r['from'] . ' on ' . format_date($r['date'], SHORTDATEFORMAT);
+        }
+        $history .= join('; ', $out);
+        $history .= '</li>';
+    }
+
+    // Ministerial positions
+    if (array_key_exists('office', $extra_info)) {
+        person_offices($extra_info);
+    }
+
+    if (exists_rep_image($member['person_id']) && isset($extra_info['photo_attribution_text']) && $extra_info['photo_attribution_text']) {
+        $history .= '<li><small>Photo: ';
+        if (isset($extra_info['photo_attribution_link']) && $extra_info['photo_attribution_link']) {
+            $history .= '<a href="' . $extra_info['photo_attribution_link'] . '" rel="nofollow">';
+        }
+        $history .= $extra_info['photo_attribution_text'];
+        if (isset($extra_info['photo_attribution_link']) && $extra_info['photo_attribution_link']) {
+            $history .= '</a>';
+        }
+        $history .= '</small></li>';
+    }
 }
 
 function person_offices($extra_info) {
