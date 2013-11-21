@@ -475,6 +475,18 @@ function person_voting_record($member, $extra_info) {
 	print '<h2>Voting record <small>from PublicWhip</small></h2>';
 	$displayed_stuff = 0;
 
+  $member_has_died = 0;
+  if (
+        $member['left_house'] && (
+            ( in_array(HOUSE_TYPE_COMMONS, $member['left_house']) && $member['left_house'][HOUSE_TYPE_COMMONS]['reason'] && $member['left_house'][HOUSE_TYPE_COMMONS]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_LORDS, $member['left_house']) && $member['left_house'][HOUSE_TYPE_LORDS ]['reason'] && $member['left_house'][HOUSE_TYPE_LORDS]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_SCOTLAND, $member['left_house']) && $member['left_house'][HOUSE_TYPE_SCOTLAND ]['reason'] && $member['left_house'][HOUSE_TYPE_SCOTLAND]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_NI, $member['left_house']) && $member['left_house'][HOUSE_TYPE_NI ]['reason'] && $member['left_house'][HOUSE_TYPE_NI]['reason'] == 'Died' )
+        )
+  ) {
+      $member_has_died = 1;
+  }
+
 	if ($member['party']=='Speaker' || $member['party']=='Deputy Speaker') {
 		if ($member['party']=='Speaker') $art = 'the'; else $art = 'a';
 		echo "<p>As $art $member[party], $member[full_name] cannot vote (except to break a tie).</p>";
@@ -483,9 +495,13 @@ function person_voting_record($member, $extra_info) {
 	// Rebellion rate
 	if (isset($extra_info['public_whip_rebellions']) && $extra_info['public_whip_rebellions'] != 'n/a') {
 		$displayed_stuff = 1;
+    $rebels_term = 'rebels';
+    if ( $member_has_died ) {
+        $rebels_term = 'rebelled';
+    }
 ?>					<ul class="no-bullet">
 						<li><a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?=$member['member_id'] ?>#divisions" title="See more details at Public Whip">
-                        <strong><?php echo htmlentities(ucfirst($extra_info['public_whip_rebel_description'])); ?> rebels</strong></a> against their party<?php
+                        <strong><?php echo htmlentities(ucfirst($extra_info['public_whip_rebel_description'])) . ' ' . $rebels_term; ?></strong></a> against their party<?php
 		if (isset($extra_info['public_whip_rebelrank'])) {
 			if ($member['house_disp'] == HOUSE_TYPE_LORDS) {
 				echo '';
@@ -559,6 +575,8 @@ function person_voting_record($member, $extra_info) {
         if (in_array(HOUSE_TYPE_COMMONS, $member['houses']) && $member['entered_house'][HOUSE_TYPE_COMMONS]['date'] > '2001-06-07') {
             $since = '';
         } elseif (!in_array(HOUSE_TYPE_COMMONS, $member['houses']) && in_array(HOUSE_TYPE_LORDS, $member['houses']) && $member['entered_house'][HOUSE_TYPE_LORDS]['date'] > '2001-06-07') {
+            $since = '';
+        } elseif ( $member_has_died ) {
             $since = '';
         } else {
             $since = ' since 2001';
