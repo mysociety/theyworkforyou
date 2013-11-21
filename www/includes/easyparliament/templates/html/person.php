@@ -30,20 +30,20 @@ person_image($member);
 echo '<div class="mp-details"><h1>' . $member['full_name'] . '</h1><h3 class="subheader">' . person_summary_description($member) . '</h3>';
 
 # History
-echo '<ul>';
+$history = '';
 
 	if ($member['other_constituencies']) {
-		print "<li>Also represented " . join('; ', array_keys($member['other_constituencies']));
-		print '</li>';
+		$history .=  "<li>Also represented " . join('; ', array_keys($member['other_constituencies']));
+		$history .= '</li>';
 	}
 
 	if ($member['other_parties'] && $member['party'] != 'Speaker' && $member['party'] != 'Deputy Speaker') {
-		print "<li>Changed party ";
+		$history .= "<li>Changed party ";
 		foreach ($member['other_parties'] as $r) {
 			$out[] = 'from ' . $r['from'] . ' on ' . format_date($r['date'], SHORTDATEFORMAT);
 		}
-		print join('; ', $out);
-		print '</li>';
+		$history .= join('; ', $out);
+		$history .= '</li>';
 	}
 
 	// Ministerial positions
@@ -52,25 +52,26 @@ echo '<ul>';
 	}
 
     if (exists_rep_image($member['person_id']) && isset($extra_info['photo_attribution_text']) && $extra_info['photo_attribution_text']) {
-        print '<li><small>Photo: ';
+        $history .= '<li><small>Photo: ';
         if (isset($extra_info['photo_attribution_link']) && $extra_info['photo_attribution_link']) {
-            print '<a href="' . $extra_info['photo_attribution_link'] . '" rel="nofollow">';
+            $history .= '<a href="' . $extra_info['photo_attribution_link'] . '" rel="nofollow">';
         }
-        print $extra_info['photo_attribution_text'];
+        $history .= $extra_info['photo_attribution_text'];
         if (isset($extra_info['photo_attribution_link']) && $extra_info['photo_attribution_link']) {
-            print '</a>';
+            $history .= '</a>';
         }
-        print '</small></li>';
+        $history .= '</small></li>';
     }
 
-echo '</ul>';
+    if ( $history ) {
+        print "<ul class=\"hilites\">$history</ul>";
+    }
 
 //if dummy image, show message asking for a photo
 if (!exists_rep_image($member['person_id'])) {
 	person_ask_for_picture($member);
 }
 
-/*
 echo '<ul class="hilites clear">';
 	person_enter_leave_facts($member, $extra_info);
 	person_majority($extra_info);
@@ -78,7 +79,6 @@ echo '<ul class="hilites clear">';
 		print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
 	}
 print "</ul>";
- */
 
 
 $SEARCHURL = new URL("search");
@@ -271,78 +271,78 @@ them.</p>';
 
 function person_enter_leave_facts($member, $extra_info) {
 	if (isset($member['left_house'][HOUSE_TYPE_COMMONS]) && isset($member['entered_house'][HOUSE_TYPE_LORDS])) {
-		print '<li><strong>Entered the House of Lords ';
+		print '<li>Entered the House of Lords ';
 		if (strlen($member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'])==4)
 			print 'in ';
 		else
 			print 'on ';
-		print $member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
-		print '</strong>';
+		print $member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'].'';
+		print '';
 		if ($member['entered_house'][HOUSE_TYPE_LORDS]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_LORDS]['reason'];
 		print '</li>';
-		print '<li><strong>Previously MP for ';
+		print '<li>Previously MP for ';
 		print $member['left_house'][HOUSE_TYPE_COMMONS]['constituency'] . ' until ';
-		print $member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
+		print $member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'';
 		if ($member['left_house'][HOUSE_TYPE_COMMONS]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_COMMONS]['reason'];
 		print '</li>';
 	} elseif (isset($member['entered_house'][HOUSE_TYPE_LORDS]['date'])) {
-		print '<li><strong>Became a Lord ';
+		print '<li>Became a Lord ';
 		if (strlen($member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'])==4)
 			print 'in ';
 		else
 			print 'on ';
-		print $member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
+		print $member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'].'';
 		if ($member['entered_house'][HOUSE_TYPE_LORDS]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_LORDS]['reason'];
 		print '</li>';
 	}
 	if (in_array(HOUSE_TYPE_LORDS, $member['houses']) && !$member['current_member'][HOUSE_TYPE_LORDS]) {
-		print '<li><strong>Left Parliament on '.$member['left_house'][HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
+		print '<li>Left Parliament on '.$member['left_house'][HOUSE_TYPE_LORDS]['date_pretty'].'';
 		if ($member['left_house'][HOUSE_TYPE_LORDS]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_LORDS]['reason'];
 		print '</li>';
 	}
 
 	if (isset($extra_info['lordbio'])) {
-		echo '<li><strong>Positions held at time of appointment:</strong> ', $extra_info['lordbio'],
+		echo '<li>Positions held at time of appointment: ', $extra_info['lordbio'],
 			' <small>(from <a href="',
 			$extra_info['lordbio_from'], '">Number 10 press release</a>)</small></li>';
 	}
 
 	if (isset($member['entered_house'][HOUSE_TYPE_COMMONS]['date'])) {
-		print '<li><strong>Entered Parliament on ';
-		print $member['entered_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
+		print '<li>Entered Parliament on ';
+		print $member['entered_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'';
 		if ($member['entered_house'][HOUSE_TYPE_COMMONS]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_COMMONS]['reason'];
 		print '</li>';
 	}
 	if (in_array(HOUSE_TYPE_COMMONS, $member['houses']) && !$member['current_member'][HOUSE_TYPE_COMMONS] && !isset($member['entered_house'][HOUSE_TYPE_LORDS])) {
-		print '<li><strong>Left Parliament ';
+		print '<li>Left Parliament ';
 		if (strlen($member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'])==4)
 			print 'in ';
 		else
 			print 'on ';
-		echo $member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
+		echo $member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'';
 		if ($member['left_house'][HOUSE_TYPE_COMMONS]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_COMMONS]['reason'];
 		print '</li>';
 	}
 
 	if (isset($member['entered_house'][HOUSE_TYPE_NI]['date'])) {
-		print '<li><strong>Entered the Assembly on ';
-		print $member['entered_house'][HOUSE_TYPE_NI]['date_pretty'].'</strong>';
+		print '<li>Entered the Assembly on ';
+		print $member['entered_house'][HOUSE_TYPE_NI]['date_pretty'].'';
 		if ($member['entered_house'][HOUSE_TYPE_NI]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_NI]['reason'];
 		print '</li>';
 	}
 	if (in_array(HOUSE_TYPE_NI, $member['houses']) && !$member['current_member'][HOUSE_TYPE_NI]) {
-		print '<li><strong>Left the Assembly on '.$member['left_house'][HOUSE_TYPE_NI]['date_pretty'].'</strong>';
+		print '<li>Left the Assembly on '.$member['left_house'][HOUSE_TYPE_NI]['date_pretty'].'';
 		if ($member['left_house'][HOUSE_TYPE_NI]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_NI]['reason'];
 		print '</li>';
 	}
 	if (isset($member['entered_house'][HOUSE_TYPE_SCOTLAND]['date'])) {
-		print '<li><strong>Entered the Scottish Parliament on ';
-		print $member['entered_house'][HOUSE_TYPE_SCOTLAND]['date_pretty'].'</strong>';
+		print '<li>Entered the Scottish Parliament on ';
+		print $member['entered_house'][HOUSE_TYPE_SCOTLAND]['date_pretty'].'';
 		if ($member['entered_house'][HOUSE_TYPE_SCOTLAND]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_SCOTLAND]['reason'];
 		print '</li>';
 	}
 	if (in_array(HOUSE_TYPE_SCOTLAND, $member['houses']) && !$member['current_member'][HOUSE_TYPE_SCOTLAND]) {
-		print '<li><strong>Left the Scottish Parliament on '.$member['left_house'][HOUSE_TYPE_SCOTLAND]['date_pretty'].'</strong>';
+		print '<li>Left the Scottish Parliament on '.$member['left_house'][HOUSE_TYPE_SCOTLAND]['date_pretty'].'';
 		if ($member['left_house'][HOUSE_TYPE_SCOTLAND]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_SCOTLAND]['reason'];
 		print '</li>';
 	}
@@ -350,7 +350,7 @@ function person_enter_leave_facts($member, $extra_info) {
 
 function person_majority($extra_info) {	
 	if (!isset($extra_info['majority_in_seat'])) return;
-	print '<li><strong>Majority:</strong> ' . number_format($extra_info['majority_in_seat']) . ' votes. ';
+	print '<li>Majority: ' . number_format($extra_info['majority_in_seat']) . ' votes. ';
 	if (isset($extra_info['swing_to_lose_seat_today'])) {
 	/*
 	if (isset($extra_info['swing_to_lose_seat_today_quintile'])) {

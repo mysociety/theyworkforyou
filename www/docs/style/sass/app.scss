@@ -127,6 +127,11 @@ ul {
         margin-left: 1em;
     }
 
+    ul.hilites {
+        margin-bottom: em-calc(8px);
+        font-size: em-calc(14px);
+    }
+
     @media only screen and ( max-width: 500px ) {
         .person {
             width: 100%;
