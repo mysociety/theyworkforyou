@@ -29,6 +29,10 @@ ul {
         background-color: $brand;
     }
 
+    #search-fallback {
+        display: none;
+    }
+
     // based on http://www.callmenick.com/labs/expanding-search-bar-using-css-transitions
     #search-wrapper {
         height:65px;

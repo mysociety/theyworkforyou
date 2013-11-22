@@ -106,6 +106,8 @@ class NEWPAGE extends PAGE {
 
 ?>
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <title><?php echo preg_replace('#<[^>]*>#', '', $title); ?></title>
@@ -134,7 +136,9 @@ class NEWPAGE extends PAGE {
     # XXX Below line for speed
 ?>
     <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/stylesheets/app.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/stylesheets/ie8.css" type="text/css">
     <link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">
+    <script type="text/javascript" src="/js/respond.min.js"></script>
 <?php
 
         if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
@@ -408,15 +412,18 @@ class NEWPAGE extends PAGE {
                 <section class="top-bar-section">
                     <ul class="right">
                     <li><?php print implode("</li>\n                    <li>", $bottom_links); ?></li>
+                    <li id="search-fallback">
+                        <a href="<?php print $SEARCH->generate(); ?>" id="fallback"><img src="/images/search.png"></a>
+                    </li>
                     <li id="search-wrapper">
                         <form action="<?php print $SEARCH->generate(); ?>" method="get">
                             <ul class="search-form">
-                                <li><label for="s"><img src="/images/search.png" /></label></li>
+                            <li><label for="s"><img src="/images/search.png" /></label></li>
                                 <li><input type="text" id="s" name="s" placeholder="Type search terms and hit enter..."></li>
                             </ul>
                         </form>
                     </li>
-                    <li id="ms_logo"><a class="ms_header_nav-logo" target="_blank" href="http://www.mysociety.org">&nbsp;</a></li>
+                    <li id="ms_logo"><a class="ms_header_nav-logo" target="_blank" href="http://www.mysociety.org">&nbsp;<img class="logo-img" src="/style/img/mysociety-header_logo.png"/></a></li>
                     </ul>
                 </section>
 

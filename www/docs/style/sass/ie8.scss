@@ -1,0 +1,107 @@
+@import "settings";
+
+.lt-ie9 .top-bar {
+  background: $brand;
+}
+.lt-ie9 .top-bar-section ul li { float: left; }
+.lt-ie9 .top-bar-section ul li > a { padding-right: 14px !important; }
+.lt-ie9 .top-bar-section ul li .js-generated { display: none; }
+.lt-ie9 .top-bar-section li a:not(.button) {
+  background: $brand; 
+}
+.lt-ie9 .top-bar-section li a { background: $brand; }
+.lt-ie9 .top-bar-section li a:not(.button):hover { background: #2b2b2b; }
+.lt-ie9 .top-bar-section .has-dropdown > a { padding-right: 35px !important; }
+.lt-ie9 .top-bar-section .has-dropdown > a:after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border: solid 5px;
+  border-color: rgba(255, 255, 255, 0.5) transparent transparent transparent;
+  margin-top: -2.5px; 
+}
+.lt-ie9 .top-bar-section .has-dropdown.moved { position: relative; }
+.lt-ie9 .top-bar-section .has-dropdown.moved > .dropdown { visibility: hidden; }
+.lt-ie9 .top-bar-section .has-dropdown:hover > .dropdown, 
+.lt-ie9 .top-bar-section .has-dropdown:active > .dropdown { visibility: visible; }
+.lt-ie9 .top-bar-section .has-dropdown .dropdown li.has-dropdown > a:after {
+  border: none;
+  content: "\00bb";
+  margin-top: -7px;
+  right: 5px; 
+}
+.lt-ie9 .top-bar-section .dropdown {
+  left: 0;
+  top: auto;
+  background: transparent; 
+}
+.lt-ie9 .top-bar-section .dropdown li a {
+  line-height: 1;
+  white-space: nowrap;
+  padding: 7px 15px;
+  background: $brand; 
+}
+.lt-ie9 .top-bar-section .dropdown li label {
+  white-space: nowrap;
+  background: $brand; 
+}
+.lt-ie9 .top-bar-section .dropdown li .dropdown {
+  left: 100%;
+  top: 0; 
+}
+.lt-ie9 .top-bar-section > ul > .divider {
+  border-bottom: none;
+  border-top: none;
+  border-right: solid 1px #2b2b2b;
+  border-left: solid 1px black;
+  clear: none;
+  height: 45px;
+  width: 0px; 
+}
+.lt-ie9 .top-bar-section .has-form {
+  background: #111111;
+  padding: 0 15px;
+  height: 45px; 
+}
+.lt-ie9 .top-bar-section ul.right li .dropdown {
+  left: auto;
+  right: 0; 
+}
+.lt-ie9 .top-bar-section ul.right li .dropdown li .dropdown { right: 100%; }
+
+.lt-ie9 #search-fallback {
+    display: block;
+    max-height: 65px;
+    a {
+        padding-top: 4px;
+        padding-bottom: 9px;
+    }
+}
+
+.lt-ie9 .top-bar #search-wrapper {
+    display: none;
+}
+
+#ie8-drop-control {
+    display: none;
+}
+.lt-ie9 #ie8-drop-control {
+    display: inline;
+}
+
+.lt-ie9 #non-ie8-drop-control {
+    display: none;
+}
+
+.lt-ie9 #ms_logo {
+    text-align: center;
+    a {
+        background-image: none;
+        .logo-img {
+            margin-left: 1em;
+            display: inline;
+            width: 8em;
+        }
+    }
+}
