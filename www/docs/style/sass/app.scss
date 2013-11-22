@@ -28,6 +28,57 @@ ul {
     .right {
         background-color: $brand;
     }
+
+    // based on http://www.callmenick.com/labs/expanding-search-bar-using-css-transitions
+    #search-wrapper {
+        height:65px;
+        width: 48px;
+        padding-left: 10px;
+        input[type="text"] {
+            width: 0px;
+            padding: 0;
+            border: none;
+            background-color: $brand;
+            position: absolute;
+            right: -18px;
+            margin-top: 10px;
+            margin-right: 10px;
+
+            color:rgb(150,150,150);
+
+            -webkit-transition:width 0.5s ease-in-out;
+               -moz-transition:width 0.5s ease-in-out;
+                    transition:width 0.5s ease-in-out;
+        }
+
+        input[type="text"]:focus,
+        input[type="text"]:active {
+            background-color: white;
+            width:480px;
+            padding-left: 0.5em;
+        }
+
+        .search-form {
+            width:48px;
+            line-height: 65px;
+            height: 65px !important;
+            background-color: $brand;
+            position:relative;
+        }
+
+        label {
+            display:block;
+            width:48px;
+            height:65px;
+            /*font-size:0;*/
+            position:absolute;
+            padding:0;
+            top:0;
+            right:-48px;
+            cursor:pointer;
+        }
+    }
+
 }
 
 .top-bar-section ul li a:not(.button) {

@@ -386,6 +386,8 @@ class NEWPAGE extends PAGE {
                 }
             }
         }
+        $SEARCH = new URL('search');
+        $SEARCH->reset(); // do not want search in MP id etc
         /*
         ?>
         <div id="topmenu">
@@ -406,6 +408,14 @@ class NEWPAGE extends PAGE {
                 <section class="top-bar-section">
                     <ul class="right">
                     <li><?php print implode("</li>\n                    <li>", $bottom_links); ?></li>
+                    <li id="search-wrapper">
+                        <form action="<?php print $SEARCH->generate(); ?>" method="get">
+                            <ul class="search-form">
+                                <li><label for="s"><img src="/images/search.png" /></label></li>
+                                <li><input type="text" id="s" name="s" placeholder="Type search terms and hit enter..."></li>
+                            </ul>
+                        </form>
+                    </li>
                     <li id="ms_logo"><a class="ms_header_nav-logo" target="_blank" href="http://www.mysociety.org">&nbsp;</a></li>
                     </ul>
                 </section>
