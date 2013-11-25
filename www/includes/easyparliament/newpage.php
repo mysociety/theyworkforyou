@@ -261,7 +261,7 @@ class NEWPAGE extends PAGE {
         global $this_page, $DATA;
 ?>
         <div class="contain-to-grid">
-            <nav class="top-bar">
+            <nav class="top-bar" data-options="is_hover:false">
                 <ul class="title-area">
                     <li class="name"><h1><a href="/">TheyWorkForYou</a></h1></li>
                     <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
@@ -410,6 +410,17 @@ class NEWPAGE extends PAGE {
         </div>-->
 <?php */ ?>
                 <section class="top-bar-section">
+                    <ul class="left">
+                        <li class="has-dropdown">
+                            <a id="current-location" href="#">UK</a>
+                            <ul id="triangle-isosceles" class="dropdown triangle-isosceles top">
+                                <li><a href="#">UK Parliament</a></li>
+                                <li><a href="#">Scottish parliament</a></li>
+                                <li><a href="#">Northern Ireland Assembly</a></li>
+                                <li><a href="#">Welsh Assembly</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                     <ul class="right">
                     <li><?php print implode("</li>\n                    <li>", $bottom_links); ?></li>
                     <li id="search-fallback">
