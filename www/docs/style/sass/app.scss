@@ -82,7 +82,38 @@ ul {
             cursor:pointer;
         }
     }
+}
 
+.top-bar.expanded {
+    #search-wrapper {
+        width: auto;
+        padding: 0px;
+        .search-form {
+            background: #222;
+            background-color: none;
+            li {
+                display: inline;
+            }
+            width: auto;
+            input[type="text"] {
+                display: inline;
+                width: 80%;
+                position: static;
+                background: white;
+                padding-left: 0.5em;
+            }
+            label {
+                display: inline;
+                position: static;
+            }
+        }
+    }
+    #ms_logo a {
+        background: #222222 url("../img/mysociety-header_logo.png") no-repeat scroll center left;
+        width: 100%;
+        margin-left: 0.5em;
+        background-size: 10em auto;
+    }
 }
 
 .top-bar-section ul li a:not(.button) {
