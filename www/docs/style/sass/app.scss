@@ -170,12 +170,47 @@ ul {
 }
 
 #footer {
+    padding-top: em-calc(48px);
+    color: white;
     clear: both;
     margin-top: 1em;
-    padding-top: 1em;
-    background-color: $brand;
+    background-color: $footer;
+    font-family: "Open Sans", sans-serif;
+    font-size: em-calc(14);
+
+    #stay-up-to-date h5 {
+        color: white;
+        padding-bottom: 0.5em;
+        border-bottom: solid 1px $light-text;
+    }
+
+    #footer-nav {
+        margin-top: 1em;
+    }
+
+    input {
+        display: inline;
+        border-radius: 2px;
+        padding: 0.75em;
+        font-size: 1em;
+        border: none;
+        height: auto;
+
+        &[type=text] {
+            width: 80%;
+            margin-right: 0px;
+            border-radius: 2px 0px 0px 2px;
+        }
+        &[type=submit] {
+            background-color: $brand;
+            color: white;
+            margin-left: 0px;
+            border-radius: 0px 2px 2px 0px;
+        }
+    }
+
     div.columns {
-        font-size: 0.8em;
+        font-size: em-calc(14);
     }
     a, a:hover, a:active {
         color: white;
@@ -186,20 +221,12 @@ ul {
     }
     dl {
         dt {
-            float: left;
-            clear: left;
             font-weight: bold;
-            width: 13em;
+            border-bottom: solid 1px $light-text;
         }
         dd {
-            float: left;
-            max-width: 40em;
-            li {
-                margin-bottom: 0px;
-                display: inline-block;
-            }
-            li {
-                padding-right: 0.25em;
+            a {
+                text-decoration: none;
             }
         }
     }

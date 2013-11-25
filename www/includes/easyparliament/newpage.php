@@ -925,130 +925,146 @@ class NEWPAGE extends PAGE {
 
                 <div id="footer">
                     <div class="row">
-                    <div class="large-8 columns">
-                    <dl>
-                        <dt>About: </dt>
-                        <dd>
-                            <ul>
-                                <?php
-                                    foreach ($about_links as $about_link) {
-                                        echo '<li>' . $about_link . '</li>';
+                        <div class="large-4 columns">
+                            <p>
+                                TheyWorkForYou lets you find out what your MP, MSP or MLA is doing in your name, read debates, written answers, see what&rsquo;s coming up in Parliament, and sign up for email alerts when there&rsquo;s past or future activity on someone or something you&rsquo;re interested in.
+                            </p>
+
+                              <p>
+                                  This website is run by <a href="http://www.mysociety.org/">mySociety</a>, the project of
+                                  a <a href="http://www.ukcod.org.uk/">registered charity</a>.
+                          If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
+                              </p>
+                        </div>
+                      <div class="large-8 columns">
+                        <div id="stay-up-to-date" class="row">
+                          <div class="large-12 columns">
+                                <h5>
+                                    STAY UP TO DATE
+                                </h5>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-6 columns">
+                              <p>Sign up to our monthly newsletter</p>
+                              <form method="post" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
+                                  <input placeholder="Your email" type="text" name="email"><input type="submit" value="Sign Up">
+                                  <div style="display:none;">Please don't fill in this box: <input type="text" name="username"></div>
+                              </form>
+                            </div>
+                            <div class="large-6 columns">
+                            <p>
+                            Follow us
+                            </p>
+                          <div class="fb-like" data-href="https://www.facebook.com/TheyWorkForYou" data-colorscheme="light" data-layout="button_count" data-action="like" data-show-faces="false" data-send="false"></div>
+
+                          <a href="https://twitter.com/theyworkforyou" class="twitter-follow-button" data-show-count="false">Follow @theyworkforyou</a>
+                            <script>
+
+                                window.twttr = (function (d,s,id) {
+                                    var t, js, fjs = d.getElementsByTagName(s)[0];
+                                    if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+                                    js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+                                    return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+                                }(document, "script", "twitter-wjs"));
+
+                                // Used with the Google Analytics Tweet tracking
+                                function extractParamFromUri(uri, paramName) {
+                                    if (!uri) {
+                                        return;
                                     }
-                                ?>
-                            </ul>
-                        </dd>
-                        <dt>Parliaments &amp; assemblies: </dt>
-                        <dd>
-                            <ul>
-                                <?php
-                                    foreach ($assembly_links as $assembly_link) {
-                                        echo '<li>' . $assembly_link . '</li> ';
+                                    var uri = uri.split('#')[0];  // Remove anchor.
+                                    var parts = uri.split('?');  // Check for query params.
+                                    if (parts.length == 1) {
+                                        return;
                                     }
-                                ?>
-                            </ul>
-                        </dd>
-                        <dt>International projects: </dt>
-                        <dd>
-                            <ul>
-                                <?php
-                                    foreach ($international_links as $international_link) {
-                                        echo '<li>' . $international_link . '</li> ';
+                                    var query = decodeURI(parts[1]);
+
+                                    // Find url param.
+                                    paramName += '=';
+                                    var params = query.split('&');
+                                    for (var i = 0, param; param = params[i]; ++i) {
+                                        if (param.indexOf(paramName) === 0) {
+                                            return unescape(param.split('=')[1]);
+                                        }
                                     }
-                                ?>
-                            </ul>
-                        </dd>
-                        <dt>Technical: </dt>
-                        <dd>
-                            <ul>
-                                <?php
-                                    foreach ($tech_links as $tech_link) {
-                                        echo '<li>' . $tech_link . '</li> ';
-                                    }
-                                ?>
-                            </ul>
-                        </dd>
-                        <dt>Explanatory Pages: </dt>
-                        <dd>
-                            <ul>
-                                <?php
-                                    foreach ($landing_links as $landing_link) {
-                                        echo '<li>' . $landing_link . '</li> ';
-                                    }
-                                ?>
-                            </ul>
-                        </dd>
-                  </dl>
-                    </div>
-                  <div class="large-4 columns">
-
-                      <div class="fb-like" data-href="https://www.facebook.com/TheyWorkForYou" data-colorscheme="light" data-layout="button_count" data-action="like" data-show-faces="false" data-send="false"></div>
-
-                      <br>
-
-                      <a href="https://twitter.com/theyworkforyou" class="twitter-follow-button" data-show-count="false">Follow @theyworkforyou</a>
-
-                    <script>
-
-                        window.twttr = (function (d,s,id) {
-                            var t, js, fjs = d.getElementsByTagName(s)[0];
-                            if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
-                            js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
-                            return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
-                        }(document, "script", "twitter-wjs"));
-
-                        // Used with the Google Analytics Tweet tracking
-                        function extractParamFromUri(uri, paramName) {
-                            if (!uri) {
-                                return;
-                            }
-                            var uri = uri.split('#')[0];  // Remove anchor.
-                            var parts = uri.split('?');  // Check for query params.
-                            if (parts.length == 1) {
-                                return;
-                            }
-                            var query = decodeURI(parts[1]);
-
-                            // Find url param.
-                            paramName += '=';
-                            var params = query.split('&');
-                            for (var i = 0, param; param = params[i]; ++i) {
-                                if (param.indexOf(paramName) === 0) {
-                                    return unescape(param.split('=')[1]);
                                 }
-                            }
-                        }
 
-                        function trackTwitter(intent_event) {
-                            if (intent_event) {
-                                var opt_pagePath;
-                                if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
-                                    opt_target = extractParamFromUri(intent_event.target.src, 'url');
+                                function trackTwitter(intent_event) {
+                                    if (intent_event) {
+                                        var opt_pagePath;
+                                        if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+                                            opt_target = extractParamFromUri(intent_event.target.src, 'url');
+                                        }
+                                        _gaq.push(['_trackSocial', 'twitter', 'follow', opt_pagePath]);
+                                    }
                                 }
-                                _gaq.push(['_trackSocial', 'twitter', 'follow', opt_pagePath]);
-                            }
-                        }
 
-                        twttr.ready(function (twttr) {
-                            twttr.events.bind('follow', trackTwitter);
-                        });
+                                twttr.ready(function (twttr) {
+                                    twttr.events.bind('follow', trackTwitter);
+                                });
 
-                    </script>
-
-                      <h5>Donate</h5>
-                      <p>
-                          This website is run by <a href="http://www.mysociety.org/">mySociety</a>, the project of
-                          a <a href="http://www.ukcod.org.uk/">registered charity</a>.
-                  If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
-                      </p>
-                      <h5>Sign up to our newsletter</h5>
-                      <form method="post" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
-                          <input type="text" name="email">
-                          <input type="submit" value="Join">
-                          <div style="display:none;">Please don't fill in this box: <input type="text" name="username"></div>
-                      </form>
-                      <p>
-                          Approximately once a month, spam free.
-                      </p>
+                            </script>
+                            </div>
+                        </div>
+                        <div id="footer-nav" class="row">
+                            <div class="large-3 columns">
+                                <dl>
+                                    <dt>ABOUT: </dt>
+                                    <dd>
+                                        <ul>
+                                            <?php
+                                                foreach ($about_links as $about_link) {
+                                                    echo '<li>' . $about_link . '</li>';
+                                                }
+                                            ?>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="large-3 columns">
+                                <dl>
+                                    <dt>PARLIAMENTS &amp; ASSEMBLIES: </dt>
+                                    <dd>
+                                        <ul>
+                                            <?php
+                                                foreach ($assembly_links as $assembly_link) {
+                                                    echo '<li>' . $assembly_link . '</li> ';
+                                                }
+                                            ?>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="large-3 columns">
+                                <dl>
+                                    <dt>DEVELOPERS: </dt>
+                                    <dd>
+                                        <ul>
+                                            <?php
+                                                foreach ($tech_links as $tech_link) {
+                                                    echo '<li>' . $tech_link . '</li> ';
+                                                }
+                                            ?>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="large-3 columns">
+                                <dl>
+                                    <dt>INTERNATIONAL PROJECTS: </dt>
+                                    <dd>
+                                        <ul>
+                                            <?php
+                                                foreach ($international_links as $international_link) {
+                                                    echo '<li>' . $international_link . '</li> ';
+                                                }
+                                            ?>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
                   </div>
             </div>
         <?php
