@@ -936,7 +936,7 @@ class NEWPAGE extends PAGE {
 
                 <div id="footer">
                     <div class="row">
-                        <div class="large-4 columns">
+                        <div class="large-4 columns" id="footer-about">
                             <p>
                                 TheyWorkForYou lets you find out what your MP, MSP or MLA is doing in your name, read debates, written answers, see what&rsquo;s coming up in Parliament, and sign up for email alerts when there&rsquo;s past or future activity on someone or something you&rsquo;re interested in.
                             </p>

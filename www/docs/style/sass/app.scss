@@ -20,7 +20,7 @@ a, a:hover, a:active {
     color: $links;
 }
 
-ul {
+ul, li {
     list-style-type: none;
 }
 
@@ -234,12 +234,15 @@ ul {
     h2 {
         padding-bottom: 0.5em;
         border-bottom: 1px dotted $borders;
+        small {
+            font-family: 'Lato regular', sans-serif;
+            font-size: em-calc(14);
+        }
     }
 }
 
 .sidebar {
     font-family: 'Opens Sans', sans-serif;
-    font-size: em-calc(14);
     color: #666666;
 
     p, ul, h4, a {
@@ -256,7 +259,9 @@ ul {
 }
 
 .morelink {
+    font-size: em-calc(14px);
     text-align: right;
+    font-weight: bold;
 }
 
 .infolink {
@@ -268,22 +273,35 @@ ul {
 }
 
 #footer {
-    padding-top: em-calc(48px);
+    padding-top: em-calc(40px);
     color: white;
     clear: both;
     margin-top: 1em;
     background-color: $footer;
     font-family: "Open Sans", sans-serif;
-    font-size: em-calc(14);
 
     #stay-up-to-date h5 {
         color: white;
         padding-bottom: 0.5em;
         border-bottom: solid 1px $light-text;
+        font-family: Lato, sans-serif;
+        font-size: 12px;
     }
 
     #footer-nav {
         margin-top: 1em;
+        dt {
+            font-size: 12px;
+            font-weight: bold;
+            font-family: Lato, sans-serif;
+        }
+        dd {
+            font-size: 12px;
+        }
+    }
+
+    #footer-about {
+        font-size: 14px;
     }
 
     input {
@@ -338,6 +356,11 @@ ul {
         margin-left: 1em;
     }
 
+    .subheader {
+        font-family: "Lato light", sans-serif;
+        font-size: 16px;
+    }
+
     ul.hilites {
         margin-bottom: em-calc(8px);
         font-size: em-calc(14px);
@@ -358,6 +381,9 @@ ul {
         border-top: 1px dotted $borders;
         line-height: 2;
         .votepolicylink {
+            font-family: 'Open Sans', sans-serif;
+            font-size: em-calc(12);
+            font-weight: bold;
             float: right;
         }
         &:last-child {
@@ -370,6 +396,8 @@ ul {
 // Recent appearances
 #searchresults {
     dt {
+        font-size: em-calc(18);
+        font-weight: bold;
         a {
             text-decoration: underline;
             text-decoration-style: dotted;
@@ -378,15 +406,19 @@ ul {
         }
     }
     dd {
+        font-size: em-calc(14);
         border-bottom: 1px dotted $borders;
         .appearance-date {
             font-weight: bold;
+            font-family: 'Open Sans bold', sans-serif;
             .day {
+                font-size: 12px;
                 display: inline-block;
                 border: 1px solid $borders;
                 border-right: none;
             }
             .month {
+                font-size: 12px;
                 display: inline-block;
                 color: white;
                 background-color: $brand;
@@ -402,6 +434,7 @@ ul {
                 text-align: center;
                 margin-right: em-calc(16);
                 .day {
+                    font-size: 24px;
                     display: block;
                     border-right: 1px solid $borders;
                     border-bottom: none;
@@ -448,10 +481,12 @@ ul {
     box-shadow: none;
     -webkit-box-shadow: none;
     strong {
+        font-family: 'Lato bold', sans-serif;
+        font-size: em-calc(18);
         display: block;
     }
     small {
-        font-size: 0.9em;
+        font-size: em-calc(13);
         display: block;
         font-weight: normal;
     }
