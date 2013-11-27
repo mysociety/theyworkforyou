@@ -73,11 +73,22 @@ ul, li {
     }
 
     .left {
+        font-family: 'Open Sans', sans-serif;
         background: $brand;
         background-color: $brand;
         li {
             background: $brand;
             background-color: $brand;
+            a {
+                padding: 0.5em !important;
+                padding-right: 2em !important;
+                font-size: 11px;
+
+                &::after {
+                    top: 30px;
+                    right: -15px;
+                }
+            }
         }
         #current-location {
             background: darken( $brand, 5% );
@@ -92,10 +103,10 @@ ul, li {
                 background-color: darken( $brand, 5%);
             }
         }
+        ul.dropdown {
+            border-radius: 4px;
+        }
         .dropdown {
-            ul {
-                border-radius: 4px;
-            }
             li {
                 float: none;
                 background-color: transparent;
@@ -106,6 +117,7 @@ ul, li {
                     padding-right: 1em;
                     background-color: #444;
                     color: white;
+                    font-size: 14px;
 
                     &:hover {
                         background-color: black;
