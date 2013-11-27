@@ -323,10 +323,13 @@ class NEWPAGE extends PAGE {
 
         if ($top_highlight == 'hansard') {
             $section = 'uk';
+            $selected_top_link['text'] = 'UK';
         } elseif ($top_highlight == 'ni_home') {
             $section = 'ni';
+            $selected_top_link['text'] = 'NORTHERN IRELAND';
         } elseif ($top_highlight == 'sp_home') {
             $section = 'scotland';
+            $selected_top_link['text'] = 'SCOTLAND';
         } else {
             $section = '';
         }
@@ -412,12 +415,11 @@ class NEWPAGE extends PAGE {
                 <section class="top-bar-section">
                     <ul class="left">
                         <li class="has-dropdown">
-                            <a id="current-location" href="#">UK</a>
+                            <a id="current-location" href="#"><?=$highlights['top_selected']['text'] ?></a>
                             <ul id="triangle-isosceles" class="dropdown triangle-isosceles top">
-                                <li><a href="#">UK Parliament</a></li>
-                                <li><a href="#">Scottish parliament</a></li>
-                                <li><a href="#">Northern Ireland Assembly</a></li>
-                                <li><a href="#">Welsh Assembly</a></li>
+                            <?php foreach ($top_links as $top_link) {?>
+                                <li><?php print $top_link['link']; ?></li>
+                            <?php } ?>
                             </ul>
                         </li>
                     </ul>
