@@ -268,6 +268,23 @@ ul, li {
     ul {
         list-style-type: none;
     }
+
+    .block {
+        margin-bottom: 24px;
+        border-bottom: 1px solid $borders;
+        &:last-child {
+            margin-bottom: 0px;
+            border-bottom: none;
+        }
+
+        p.interests {
+            line-height: 1.8em;
+
+            .label {
+                border: 1px solid #dadada;
+            }
+        }
+    }
 }
 
 .morelink {

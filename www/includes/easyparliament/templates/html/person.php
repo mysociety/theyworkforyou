@@ -629,7 +629,7 @@ function person_voting_record($member, $extra_info) {
 }
 
 function person_committees_and_topics_for_sidebar($member, $extra_info) {
-    $out = '';
+    $out = '<div class="block">';
     $topics_block_empty = true;
 
     // Select committee membership
@@ -678,8 +678,10 @@ function person_committees_and_topics_for_sidebar($member, $extra_info) {
     if ($wrans_dept) {
         $topics_block_empty = false;
 
+        $out .= '<p class="interests">';
         if ($wrans_dept_1) { $out .=  $wrans_dept_1; }
         if ($wrans_dept_2) { $out .=  $wrans_dept_2; }
+        $out .= '</p>';
 
         $WRANSURL = new URL('search');
         $WRANSURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
@@ -713,6 +715,7 @@ function person_committees_and_topics_for_sidebar($member, $extra_info) {
         $out .=  "<p><em>This MP is not currently on any public bill committee
         and has had no written questions answered for which we know the department or subject.</em></p>";
     }
+    $out .= "</div>";
 
     return $out;
 }
