@@ -921,9 +921,9 @@ class NEWPAGE extends PAGE {
 
                 $about_links = $this->get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact'));
                 $assembly_links = $this->get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home', 'boundaries'));
-                $international_links = $this->get_menu_links(array ('newzealand', 'australia', 'ireland'));
-                $tech_links = $this->get_menu_links(array ('code', 'api', 'data', 'devmailinglist', 'irc'));
-        $landing_links = $this->get_menu_links(array ('parliament_landing', 'hansard_landing'));
+                $international_links = $this->get_menu_links(array ('newzealand', 'australia', 'ireland', 'mzalendo'));
+                $tech_links = $this->get_menu_links(array ('code', 'api', 'data', 'pombola', 'devmailinglist', 'irc'));
+                $landing_links = $this->get_menu_links(array ('parliament_landing', 'hansard_landing'));
 
         /*
                 $about_links[] = '<a href="' . WEBPATH . 'api/">API</a> / <a href="http://ukparse.kforge.net/parlparse">XML</a>';

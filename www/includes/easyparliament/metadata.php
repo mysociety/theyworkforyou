@@ -430,6 +430,11 @@ $this->page = array (
     	'heading'		=> 'Raw data (XML)',
     	'url'			=> 'http://ukparse.kforge.net/parlparse'
     ),
+    'pombola' => array (
+    	'title'			=> 'Pombola',
+    	'heading'		=> 'Helping you keep tabs on your national parliament or congress',
+    	'url'			=> 'http://www.mysociety.org/international/pombola/'
+    ),
     'devmailinglist' => array (
     	'title'			=> 'Developer mailing list',
     	'heading'		=> 'Developer mailing list',
@@ -460,6 +465,11 @@ $this->page = array (
     	'heading'		=> 'TheyWorkForYou for the Houses of the Oireachtas',
     	'url'			=> 'http://www.kildarestreet.com/'
     ),    
+    'mzalendo' => array (
+    	'title'			=> 'Mzalendo',
+    	'heading'		=> 'Keeping an eye on the Kenyan Parliament',
+    	'url'			=> 'http://info.mzalendo.com/'
+    ),
 	'lordsdebate'  => array (
 		'parent'		=> 'lordsdebatesfront',
 		'url'			=> 'lords/',
