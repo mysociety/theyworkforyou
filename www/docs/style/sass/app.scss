@@ -48,115 +48,115 @@ ul, li {
         }
 
         @media #{$small} {
-        // all this triangle stuff adapted from http://nicolasgallagher.com/pure-css-speech-bubbles/
-        #triangle-isosceles {
-           position:absolute;
-           width: 20em;
-           left: -8em;
-           padding:0px;
-           margin:5px 0 3em;
-           color:#000;
-           background:#444;
+            // all this triangle stuff adapted from http://nicolasgallagher.com/pure-css-speech-bubbles/
+            #triangle-isosceles {
+               position:absolute;
+               width: 20em;
+               left: -8em;
+               padding:0px;
+               margin:5px 0 3em;
+               color:#000;
+               background:#444;
 
-           /* css3 */
-           -moz-border-radius:4px;
-           -webkit-border-radius:4px;
-           border-radius:4px;
-           background:-moz-linear-gradient(top, #444, #444);
-           background:linear-gradient(top, #444, #444);
-        }
+               /* css3 */
+               -moz-border-radius:4px;
+               -webkit-border-radius:4px;
+               border-radius:4px;
+               background:-moz-linear-gradient(top, #444, #444);
+               background:linear-gradient(top, #444, #444);
+            }
 
-        #triangle-isosceles.top {
-          background:-webkit-gradient(linear, 0 0, 0 100%, from(#444), to(#444));
-          background:-moz-linear-gradient(#444, #444);
-          background:-o-linear-gradient(#444, #444);
-          background:linear-gradient(#444, #444);
-        }
+            #triangle-isosceles.top {
+              background:-webkit-gradient(linear, 0 0, 0 100%, from(#444), to(#444));
+              background:-moz-linear-gradient(#444, #444);
+              background:-o-linear-gradient(#444, #444);
+              background:linear-gradient(#444, #444);
+            }
 
-        #triangle-isosceles:after {
-          content:"";
-          position:absolute;
-          bottom:-15px; /* value = - border-top-width - border-bottom-width */
-          left:50px; /* controls horizontal position */
-          border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
-          border-style:solid;
-          border-color:#444 transparent;
-            /* reduce the damage in FF3.0 */
-            display:block; 
-            width:0;
-        }
+            #triangle-isosceles:after {
+              content:"";
+              position:absolute;
+              bottom:-15px; /* value = - border-top-width - border-bottom-width */
+              left:50px; /* controls horizontal position */
+              border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
+              border-style:solid;
+              border-color:#444 transparent;
+                /* reduce the damage in FF3.0 */
+                display:block; 
+                width:0;
+            }
 
-        #triangle-isosceles.top:after {
-          top:-5px; /* value = - border-top-width - border-bottom-width */
-          right:10em; /* controls horizontal position */
-          bottom:auto;
-          left:auto;
-          border-width:0 5px 5px; /* vary these values to change the angle of the vertex */
-          border-color:#444 transparent;
-        }
+            #triangle-isosceles.top:after {
+              top:-5px; /* value = - border-top-width - border-bottom-width */
+              right:10em; /* controls horizontal position */
+              bottom:auto;
+              left:auto;
+              border-width:0 5px 5px; /* vary these values to change the angle of the vertex */
+              border-color:#444 transparent;
+            }
 
-        .left {
-            font-family: 'Open Sans', sans-serif;
-            background: $brand;
-            background-color: $brand;
-            li {
+            .left {
+                font-family: 'Open Sans', sans-serif;
                 background: $brand;
                 background-color: $brand;
-                a {
-                    padding: 0.5em !important;
-                    padding-right: 2em !important;
-                    font-size: 11px;
-
-                    &::after {
-                        top: 30px;
-                        right: -15px;
-                    }
-                }
-            }
-            #current-location {
-                background: darken( $brand, 5% );
-                background-color: darken( $brand, 5%);
-                margin-top: 20px;
-                padding: 0.25em;
-                line-height: 1em;
-                /*border: 1px solid white;*/
-                border-radius: 4px;
-                &:hover {
-                    background: darken( $brand, 5% );
-                    background-color: darken( $brand, 5%);
-                }
-            }
-            ul.dropdown {
-                border-radius: 4px;
-            }
-            .dropdown {
                 li {
-                    float: none;
-                    background-color: transparent;
-                    background: transparent;
+                    background: $brand;
+                    background-color: $brand;
                     a {
-                        background-color: #444;
-                        padding-left: 1em;
-                        padding-right: 1em;
-                        background-color: #444;
-                        color: white;
-                        font-size: 14px;
+                        padding: 0.5em !important;
+                        padding-right: 2em !important;
+                        font-size: 11px;
 
-                        &:hover {
-                            background-color: black;
+                        &::after {
+                            top: 30px;
+                            right: -15px;
                         }
                     }
-                    &:nth-child(2) a {
-                        padding-top: 1em;
-                        border-radius: 3px 3px 0px 0px;
+                }
+                #current-location {
+                    background: darken( $brand, 5% );
+                    background-color: darken( $brand, 5%);
+                    margin-top: 20px;
+                    padding: 0.25em;
+                    line-height: 1em;
+                    /*border: 1px solid white;*/
+                    border-radius: 4px;
+                    &:hover {
+                        background: darken( $brand, 5% );
+                        background-color: darken( $brand, 5%);
                     }
-                    &:last-child a {
-                        border-radius: 0px 0px 3px 3px;
-                        padding-bottom: 1em;
+                }
+                ul.dropdown {
+                    border-radius: 4px;
+                }
+                .dropdown {
+                    li {
+                        float: none;
+                        background-color: transparent;
+                        background: transparent;
+                        a {
+                            background-color: #444;
+                            padding-left: 1em;
+                            padding-right: 1em;
+                            background-color: #444;
+                            color: white;
+                            font-size: 14px;
+
+                            &:hover {
+                                background-color: black;
+                            }
+                        }
+                        &:nth-child(2) a {
+                            padding-top: 1em;
+                            border-radius: 3px 3px 0px 0px;
+                        }
+                        &:last-child a {
+                            border-radius: 0px 0px 3px 3px;
+                            padding-bottom: 1em;
+                        }
                     }
                 }
             }
-        }
         }
 
         .right {
