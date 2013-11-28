@@ -1,5 +1,17 @@
 Hello everyone,
 
+If you're looking to set up a new Parliamentary monitoring site then you
+should look at our Pombola probject at
+http://www.mysociety.org/international/pombola/ which takes the lessons
+we've learned from writing and running TheyWorkForYou and uses them to
+create a modern, flexible and more easily adaptable platform for
+creating your own Parliamentary monitoring site. We strongly encourage
+people to use this rather than trying to adapt TheyWorkForYou to their
+own requirements.
+
+If you want to dig in to the source of TheyWorkForYou then carry right
+on below.
+
 We're pleased to release the TheyWorkForYou.com source code. This is the code
 for the website itself. It's mainly written in PHP, although there are also some
 Perl scripts for database loading and indexing. The backend parser code is
