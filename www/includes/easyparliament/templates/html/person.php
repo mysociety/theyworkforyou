@@ -63,9 +63,8 @@ $SEARCHURL = new URL("search");
                         <div class="mpsearchbox">
                             <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
                                 <p>
-                                    <input name="s" size="24" maxlength="200" placeholder="Search this person's speeches">
+                                    <input name="s" size="24" maxlength="200" placeholder="Search this person's speeches"><input type="submit" class="submit" value="GO">
                                     <input type="hidden" name="pid" value="<?php echo $member['person_id']; ?>">
-                                    <input type="submit" class="submit" value="GO">
                                 </p>
                             </form>
                         </div>
