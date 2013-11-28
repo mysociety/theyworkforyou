@@ -552,7 +552,9 @@ ul, li {
         padding-left: 0;
     }
     @media #{$small} {
-        padding: 1em;
+        &:nth-of-type(2) {
+            padding-right: 0.75em;
+        }
     }
 }
 
