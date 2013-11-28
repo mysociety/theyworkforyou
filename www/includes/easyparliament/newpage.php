@@ -896,6 +896,7 @@ class NEWPAGE extends PAGE {
                 $title = $DATA->page_metadata($page, 'title');
             }
             $url = $DATA->page_metadata($page, 'url');
+            $tooltip = $DATA->page_metadata($page, 'heading');
 
             //check for external vs internal menu links
             if(!valid_url($url)){
@@ -907,7 +908,7 @@ class NEWPAGE extends PAGE {
             if ($page == $this_page) {
                 $links[] = $title;
             } else {
-                $links[] = '<a href="' . $url . '">' . $title . '</a>';
+                $links[] = '<a href="' . $url . '"' . ( $tooltip ? ' title="' . $tooltip . '"' : '' ) . '>' . $title . '</a>';
             }
         }
 

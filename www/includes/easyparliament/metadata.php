@@ -422,17 +422,17 @@ $this->page = array (
 	),
 	'api' => array (
 		'title'			=> 'API',
-		'heading'		=> 'API',
+		'heading'		=> 'API - Query the TheyWorkForYou database',
 		'url'			=> 'api/'
 	),
     'data' => array (
     	'title'			=> 'Raw Data',
-    	'heading'		=> 'Raw data (XML)',
+    	'heading'		=> 'Raw data (XML) - the data behind TheyWorkForYou and Public Whip',
     	'url'			=> 'http://ukparse.kforge.net/parlparse'
     ),
     'pombola' => array (
     	'title'			=> 'Pombola',
-    	'heading'		=> 'Helping you keep tabs on your national parliament or congress',
+    	'heading'		=> 'mySociety\'s platform for running a Parliamentary monitoring site like this',
     	'url'			=> 'http://www.mysociety.org/international/pombola/'
     ),
     'devmailinglist' => array (
@@ -442,7 +442,7 @@ $this->page = array (
     ),        
     'code' => array (
     	'title'			=> 'Source code',
-    	'heading'		=> 'Source code',
+    	'heading'		=> 'TheyWorkForYou Source code',
     	'url'			=> 'http://github.com/mysociety/theyworkforyou'
     ),    
     'irc' => array (
