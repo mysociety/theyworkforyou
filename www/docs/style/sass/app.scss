@@ -24,211 +24,230 @@ ul, li {
     list-style-type: none;
 }
 
-.top-bar {
-    // all this triangle stuff adapted from http://nicolasgallagher.com/pure-css-speech-bubbles/
-    #triangle-isosceles {
-       position:absolute;
-       width: 20em;
-       left: -8em;
-       padding:0px;
-       margin:5px 0 3em;
-       color:#000;
-       background:#444;
+@media only screen and ( max-width: 500px ) {
+    .content-wrapper > .columns {
+        padding-left: 0px;
+        padding-right: 0px;
 
-       /* css3 */
-       -moz-border-radius:4px;
-       -webkit-border-radius:4px;
-       border-radius:4px;
-       background:-moz-linear-gradient(top, #444, #444);
-       background:linear-gradient(top, #444, #444);
+        .panel {
+            margin-left: 0.75em;
+        }
     }
+}
 
-    #triangle-isosceles.top {
-      background:-webkit-gradient(linear, 0 0, 0 100%, from(#444), to(#444));
-      background:-moz-linear-gradient(#444, #444);
-      background:-o-linear-gradient(#444, #444);
-      background:linear-gradient(#444, #444);
-    }
+.contain-to-grid {
+    .top-bar {
+        margin-bottom: 0px;
 
-    #triangle-isosceles:after {
-      content:"";
-      position:absolute;
-      bottom:-15px; /* value = - border-top-width - border-bottom-width */
-      left:50px; /* controls horizontal position */
-      border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
-      border-style:solid;
-      border-color:#444 transparent;
-        /* reduce the damage in FF3.0 */
-        display:block; 
-        width:0;
-    }
+        @media #{$small} {
+            margin-bottom: 1.5em;
+        }
 
-    #triangle-isosceles.top:after {
-      top:-5px; /* value = - border-top-width - border-bottom-width */
-      right:10em; /* controls horizontal position */
-      bottom:auto;
-      left:auto;
-      border-width:0 5px 5px; /* vary these values to change the angle of the vertex */
-      border-color:#444 transparent;
-    }
+        // all this triangle stuff adapted from http://nicolasgallagher.com/pure-css-speech-bubbles/
+        #triangle-isosceles {
+           position:absolute;
+           width: 20em;
+           left: -8em;
+           padding:0px;
+           margin:5px 0 3em;
+           color:#000;
+           background:#444;
 
-    .left {
-        font-family: 'Open Sans', sans-serif;
-        background: $brand;
-        background-color: $brand;
-        li {
+           /* css3 */
+           -moz-border-radius:4px;
+           -webkit-border-radius:4px;
+           border-radius:4px;
+           background:-moz-linear-gradient(top, #444, #444);
+           background:linear-gradient(top, #444, #444);
+        }
+
+        #triangle-isosceles.top {
+          background:-webkit-gradient(linear, 0 0, 0 100%, from(#444), to(#444));
+          background:-moz-linear-gradient(#444, #444);
+          background:-o-linear-gradient(#444, #444);
+          background:linear-gradient(#444, #444);
+        }
+
+        #triangle-isosceles:after {
+          content:"";
+          position:absolute;
+          bottom:-15px; /* value = - border-top-width - border-bottom-width */
+          left:50px; /* controls horizontal position */
+          border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
+          border-style:solid;
+          border-color:#444 transparent;
+            /* reduce the damage in FF3.0 */
+            display:block; 
+            width:0;
+        }
+
+        #triangle-isosceles.top:after {
+          top:-5px; /* value = - border-top-width - border-bottom-width */
+          right:10em; /* controls horizontal position */
+          bottom:auto;
+          left:auto;
+          border-width:0 5px 5px; /* vary these values to change the angle of the vertex */
+          border-color:#444 transparent;
+        }
+
+        .left {
+            font-family: 'Open Sans', sans-serif;
             background: $brand;
             background-color: $brand;
-            a {
-                padding: 0.5em !important;
-                padding-right: 2em !important;
-                font-size: 11px;
-
-                &::after {
-                    top: 30px;
-                    right: -15px;
-                }
-            }
-        }
-        #current-location {
-            background: darken( $brand, 5% );
-            background-color: darken( $brand, 5%);
-            margin-top: 20px;
-            padding: 0.25em;
-            line-height: 1em;
-            /*border: 1px solid white;*/
-            border-radius: 4px;
-            &:hover {
-                background: darken( $brand, 5% );
-                background-color: darken( $brand, 5%);
-            }
-        }
-        ul.dropdown {
-            border-radius: 4px;
-        }
-        .dropdown {
             li {
-                float: none;
-                background-color: transparent;
-                background: transparent;
+                background: $brand;
+                background-color: $brand;
                 a {
-                    background-color: #444;
-                    padding-left: 1em;
-                    padding-right: 1em;
-                    background-color: #444;
-                    color: white;
-                    font-size: 14px;
+                    padding: 0.5em !important;
+                    padding-right: 2em !important;
+                    font-size: 11px;
 
-                    &:hover {
-                        background-color: black;
+                    &::after {
+                        top: 30px;
+                        right: -15px;
                     }
                 }
-                &:nth-child(2) a {
-                    padding-top: 1em;
-                    border-radius: 3px 3px 0px 0px;
+            }
+            #current-location {
+                background: darken( $brand, 5% );
+                background-color: darken( $brand, 5%);
+                margin-top: 20px;
+                padding: 0.25em;
+                line-height: 1em;
+                /*border: 1px solid white;*/
+                border-radius: 4px;
+                &:hover {
+                    background: darken( $brand, 5% );
+                    background-color: darken( $brand, 5%);
                 }
-                &:last-child a {
-                    border-radius: 0px 0px 3px 3px;
-                    padding-bottom: 1em;
+            }
+            ul.dropdown {
+                border-radius: 4px;
+            }
+            .dropdown {
+                li {
+                    float: none;
+                    background-color: transparent;
+                    background: transparent;
+                    a {
+                        background-color: #444;
+                        padding-left: 1em;
+                        padding-right: 1em;
+                        background-color: #444;
+                        color: white;
+                        font-size: 14px;
+
+                        &:hover {
+                            background-color: black;
+                        }
+                    }
+                    &:nth-child(2) a {
+                        padding-top: 1em;
+                        border-radius: 3px 3px 0px 0px;
+                    }
+                    &:last-child a {
+                        border-radius: 0px 0px 3px 3px;
+                        padding-bottom: 1em;
+                    }
                 }
             }
         }
-    }
 
-    .right {
-        background-color: $brand;
-    }
-
-    #search-fallback {
-        display: none;
-    }
-
-    // based on http://www.callmenick.com/labs/expanding-search-bar-using-css-transitions
-    #search-wrapper {
-        height:65px;
-        width: 48px;
-        padding-left: 10px;
-        input[type="text"] {
-            width: 0px;
-            padding: 0;
-            border: none;
+        .right {
             background-color: $brand;
-            position: absolute;
-            right: -18px;
-            margin-top: 10px;
-            margin-right: 10px;
-
-            color:rgb(150,150,150);
-
-            -webkit-transition:width 0.5s ease-in-out;
-               -moz-transition:width 0.5s ease-in-out;
-                    transition:width 0.5s ease-in-out;
         }
 
-        input[type="text"]:focus,
-        input[type="text"]:active {
-            background-color: white;
-            width:480px;
-            padding-left: 0.5em;
+        #search-fallback {
+            display: none;
         }
 
-        .search-form {
-            width:48px;
-            line-height: 65px;
-            height: 65px !important;
-            background-color: $brand;
-            position:relative;
-        }
-
-        label {
-            display:block;
-            width:48px;
+        // based on http://www.callmenick.com/labs/expanding-search-bar-using-css-transitions
+        #search-wrapper {
             height:65px;
-            /*font-size:0;*/
-            position:absolute;
-            padding:0;
-            top:0;
-            right:-48px;
-            cursor:pointer;
-        }
-    }
-}
-
-.top-bar.expanded {
-    #search-wrapper {
-        width: auto;
-        padding: 0px;
-        .search-form {
-            background: #222;
-            background-color: none;
-            li {
-                display: inline;
-            }
-            width: auto;
+            width: 48px;
+            padding-left: 10px;
             input[type="text"] {
-                display: inline;
-                width: 80%;
-                position: static;
-                background: white;
+                width: 0px;
+                padding: 0;
+                border: none;
+                background-color: $brand;
+                position: absolute;
+                right: -18px;
+                margin-top: 10px;
+                margin-right: 10px;
+
+                color:rgb(150,150,150);
+
+                -webkit-transition:width 0.5s ease-in-out;
+                   -moz-transition:width 0.5s ease-in-out;
+                        transition:width 0.5s ease-in-out;
+            }
+
+            input[type="text"]:focus,
+            input[type="text"]:active {
+                background-color: white;
+                width:480px;
                 padding-left: 0.5em;
             }
+
+            .search-form {
+                width:48px;
+                line-height: 65px;
+                height: 65px !important;
+                background-color: $brand;
+                position:relative;
+            }
+
             label {
-                display: inline;
-                position: static;
+                display:block;
+                width:48px;
+                height:65px;
+                /*font-size:0;*/
+                position:absolute;
+                padding:0;
+                top:0;
+                right:-48px;
+                cursor:pointer;
             }
         }
     }
-    #ms_logo a {
-        background: #222222 url("../img/mysociety-header_logo.png") no-repeat scroll center left;
-        width: 100%;
-        margin-left: 0.5em;
-        background-size: 10em auto;
-    }
-}
 
-.top-bar-section ul li a:not(.button) {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    .top-bar.expanded {
+        #search-wrapper {
+            width: auto;
+            padding: 0px;
+            .search-form {
+                background: #222;
+                background-color: none;
+                li {
+                    display: inline;
+                }
+                width: auto;
+                input[type="text"] {
+                    display: inline;
+                    width: 80%;
+                    position: static;
+                    background: white;
+                    padding-left: 0.5em;
+                }
+                label {
+                    display: inline;
+                    position: static;
+                }
+            }
+        }
+        #ms_logo a {
+            background: #222222 url("../img/mysociety-header_logo.png") no-repeat scroll center left;
+            width: 100%;
+            margin-left: 0.5em;
+            background-size: 10em auto;
+        }
+    }
+
+    .top-bar-section ul li a:not(.button) {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
 }
 
 .panel-row {
@@ -397,8 +416,13 @@ ul, li {
 
     @media only screen and ( max-width: 500px ) {
         .person {
-            width: 100%;
-            text-align: center;
+            float: left;
+            margin-right: 1em;
+            margin-bottom: 0.25em
+        }
+        .mp-details {
+            float: none;
+            margin-left: inherit;
         }
     }
 }
@@ -498,6 +522,16 @@ ul, li {
 
 .person-button-column {
     @extend .columns;
+
+    &:nth-of-type(2) {
+        padding-right: 0;
+    }
+    &:nth-of-type(3) {
+        padding-left: 0;
+    }
+    @media #{$small} {
+        padding: 1em;
+    }
 }
 
 .person-contact-button {
@@ -508,6 +542,7 @@ ul, li {
     text-align: left;
     padding: em-calc(8);
     box-shadow: none;
+    border-radius: 0px;
     -webkit-box-shadow: none;
     strong {
         font-family: 'Lato bold', sans-serif;
@@ -518,6 +553,10 @@ ul, li {
         font-size: em-calc(13);
         display: block;
         font-weight: normal;
+    }
+
+    @media #{$small} {
+        border-radius: 4px;
     }
 }
 
