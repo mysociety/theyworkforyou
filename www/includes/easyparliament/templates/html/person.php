@@ -31,12 +31,6 @@ if ($member['has_email_alerts']) {
                         <h3 class="subheader"><?php print person_summary_description($member) ?></h3>
 
 <?php
-    $history = get_member_history($member, $extra_info);
-
-    if ( $history ) {
-        print "                        <ul class=\"hilites\">\n$history\n                            </ul>";
-    }
-
 //if dummy image, show message asking for a photo
 if (!exists_rep_image($member['person_id'])) {
     person_ask_for_picture($member);
@@ -46,6 +40,7 @@ if (!exists_rep_image($member['person_id'])) {
                         <ul class="hilites clear">
 <?php
 print "                        ";
+get_member_history($member, $extra_info);
 person_enter_leave_facts($member, $extra_info);
 person_majority($extra_info);
 print "\n";
