@@ -36,6 +36,16 @@ ul, li {
 }
 
 .contain-to-grid {
+    #top-border {
+        position: absolute;
+        height: 19px;
+        font-size: 12px;
+        background-color: darken($brand, 10%);
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        z-index: 2000;
+    }
     .top-bar {
         margin-bottom: 0px;
 
@@ -48,6 +58,10 @@ ul, li {
         }
 
         @media #{$small} {
+            #ms_logo {
+                z-index: 2002;
+                position: relative;
+            }
             // all this triangle stuff adapted from http://nicolasgallagher.com/pure-css-speech-bubbles/
             #triangle-isosceles {
                position:absolute;
@@ -161,6 +175,43 @@ ul, li {
 
         .right {
             background-color: $brand;
+            @media #{$small} {
+                li#user_options {
+                    #current_option {
+                        display: none;
+                    }
+                    .dropdown {
+                        font-size: 12px;
+                        display: block;
+                        position: absolute;
+                        z-index: 2001;
+                        top: 0px;
+                        right: 0px;
+                        background-color: darken($brand, 10%);
+                        height: 100px;
+                        width: 600px;
+                        .js-generated {
+                            display: none;
+                        }
+                        li {
+                            border: none;
+                            clear: none;
+                            float: right;
+                            color: white;
+                            width: auto;
+                            display: inline-block;
+                            padding-left: 1em;
+                            padding-right: 1em;
+                            a {
+                                display: inline;
+                                width: auto;
+                                padding: 0px;
+                                background-color: transparent;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         #search-fallback {

@@ -261,6 +261,7 @@ class NEWPAGE extends PAGE {
         global $this_page, $DATA;
 ?>
         <div class="contain-to-grid">
+            <div id="top-border">&nbsp;</div>
             <nav class="top-bar" data-options="is_hover:false">
                 <ul class="title-area">
                     <li class="name"><h1><a href="/">TheyWorkForYou</a></h1></li>
@@ -436,6 +437,12 @@ class NEWPAGE extends PAGE {
                             </ul>
                         </form>
                     </li>
+                    <li class="has-dropdown" id="user_options">
+                        <a id="current_option" href="#">login</a>
+                        <ul class="dropdown">
+                            <?php $this->user_bar($highlights['top']); ?>
+                        </ul>
+                    </li>
                     <li id="ms_logo"><a class="ms_header_nav-logo" target="_blank" href="http://www.mysociety.org">&nbsp;<img class="logo-img" src="/style/img/mysociety-header_logo.png"/></a></li>
                     </ul>
                 </section>
@@ -485,7 +492,6 @@ class NEWPAGE extends PAGE {
 
         ?>
 
-            <ul id="user">
             <li><a href="<?php echo $LOGOUTURL->generate(); ?>" title="<?php echo $logouttitle; ?>"<?php echo $logoutclass; ?>><?php echo $logouttext; ?></a></li>
             <li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo $edittext; ?></a></li>
             <li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo htmlentities($username); ?></a></li>
@@ -535,14 +541,12 @@ class NEWPAGE extends PAGE {
             }
 
         ?>
-            <ul id="user">
             <li><a href="<?php echo $LOGINURL->generate(); ?>" title="<?php echo $logintitle; ?>"<?php echo $loginclass; ?>><?php echo $logintext; ?></a></li>
             <li><a href="<?php echo $JOINURL->generate(); ?>" title="<?php echo $jointitle; ?>"<?php echo $joinclass; ?>><?php echo $jointext; ?></a></li>
 <?php
         }
 
         // If the user's postcode is set, then we add a link to Your MP etc.
-        $divider = true;
         if ($THEUSER->postcode_is_set()) {
             $items = array('yourmp');
             if (postcode_is_scottish($THEUSER->postcode()))
@@ -554,15 +558,9 @@ class NEWPAGE extends PAGE {
                 $logintext  = $menudata['text'];
                 $logintitle = $menudata['title'];
                 $URL = new URL($item);
-                if($divider){
-                    echo '<li class="divider"><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
-                }else{
-                    echo '<li><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
-                }
-                $divider = false;
+                echo '<li><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
             }
         }
-        echo '</ul>';
     }
 
 
