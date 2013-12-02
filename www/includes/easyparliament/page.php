@@ -245,9 +245,36 @@ class PAGE {
         if (!DEVSITE) {
 ?>
 
-
+<!-- Load GA experiments API for front-page test -->
+<script src="//www.google-analytics.com/cx/api.js?experiment=SCodGIyjRRS8DPSYDkd-Og"></script>
 
 <script type="text/javascript">
+
+  // Select GA experiment variation
+  var chosenVariation = cxApi.chooseVariation();
+
+  // Text variations to use
+  var pageVariations = [
+    function() {},  // Original
+    function() {    // Verbose
+      document.getElementById('searchLabel').innerHTML = 'Search, or create an email alert or RSS feed';
+    },
+    function() {    // Slash Separated
+      document.getElementById('searchLabel').innerHTML = 'Search, or create an email alert/RSS feed';
+    },
+    function() {    // No RSS
+      document.getElementById('searchLabel').innerHTML = 'Search, or create an email alert';
+    },
+    function() {    // Just Add "Email"
+      document.getElementById('searchLabel').innerHTML = 'Search, create an email alert or RSS feed';
+    }
+  ];
+
+  // When page is ready, switch the content
+  $(document).ready(
+    pageVariations[chosenVariation]
+  );
+
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-660910-1']);
   _gaq.push(['_trackPageview']);
@@ -258,10 +285,20 @@ class PAGE {
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
- function recordWTT(link, label) {
+  function recordWTT(link, label) {
     _gat._getTrackerByName()._trackEvent('Links', 'WriteToThem', label);
     setTimeout('document.location = "' + link.href + '"', 100);
   }
+
+  function trackFormSubmit(form, category, name, value) {
+    try {
+      _gaq.push(['_trackEvent', category, name, value]);
+    } catch(err){}
+    setTimeout(function() {
+      form.submit();
+      }, 100);
+    }
+
 </script>
 
 <?      } ?>
