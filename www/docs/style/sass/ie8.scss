@@ -13,8 +13,8 @@
 .lt-ie9 .top-bar-section li a:not(.button):hover { background: #2b2b2b; }
 .lt-ie9 .top-bar-section .has-dropdown > a { padding-right: 35px !important; }
 .lt-ie9 .top-bar-section .has-dropdown > a:after {
-  content: "";
-  display: block;
+  /*content: "";*/
+  display: none;
   width: 0;
   height: 0;
   border: solid 5px;
@@ -27,10 +27,23 @@
 .lt-ie9 .top-bar-section .has-dropdown:active > .dropdown { visibility: visible; }
 .lt-ie9 .top-bar-section .has-dropdown .dropdown li.has-dropdown > a:after {
   border: none;
-  content: "\00bb";
-  margin-top: -7px;
-  right: 5px; 
+  /* content: "\00bb"; */
+  margin-top: 7px;
+  right: -7px; 
 }
+
+.lt-ie9 .contain-to-grid .top-bar-section ul.right li {
+    line-height: 80px;
+    a {
+        padding: 0px;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+    &#user_options ul li {
+        line-height: 16px;
+    }
+}
+
 .lt-ie9 .top-bar-section .dropdown {
   left: 0;
   top: auto;
@@ -71,12 +84,8 @@
 .lt-ie9 .top-bar-section ul.right li .dropdown li .dropdown { right: 100%; }
 
 .lt-ie9 #search-fallback {
-    display: block;
-    max-height: 65px;
-    a {
-        padding-top: 4px;
-        padding-bottom: 9px;
-    }
+    display: block !important;
+    max-height: 80px;
 }
 
 .lt-ie9 .top-bar #search-wrapper {
