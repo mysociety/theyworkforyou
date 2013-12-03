@@ -128,7 +128,7 @@ ul, li {
                         font-size: 11px;
 
                         &::after {
-                            top: 30px;
+                            top: 40px;
                             right: -15px;
                         }
                     }
@@ -136,7 +136,7 @@ ul, li {
                 #current-location {
                     background: darken( $brand, 5% );
                     background-color: darken( $brand, 5%);
-                    margin-top: 20px;
+                    margin-top: 30px;
                     padding: 0.25em;
                     line-height: 1em;
                     /*border: 1px solid white;*/
@@ -226,7 +226,7 @@ ul, li {
 
         // based on http://www.callmenick.com/labs/expanding-search-bar-using-css-transitions
         #search-wrapper {
-            height:65px;
+            height:80px;
             width: 48px;
             padding-left: 10px;
             input[type="text"] {
@@ -236,7 +236,7 @@ ul, li {
                 background-color: $brand;
                 position: absolute;
                 right: -18px;
-                margin-top: 10px;
+                margin-top: 20px;
                 margin-right: 10px;
 
                 color:rgb(150,150,150);
@@ -255,8 +255,8 @@ ul, li {
 
             .search-form {
                 width:48px;
-                line-height: 65px;
-                height: 65px !important;
+                line-height: 80px;
+                height: 80px !important;
                 background-color: $brand;
                 position:relative;
             }
@@ -264,7 +264,7 @@ ul, li {
             label {
                 display:block;
                 width:48px;
-                height:65px;
+                height:80px;
                 /*font-size:0;*/
                 position:absolute;
                 padding:0;
