@@ -37,14 +37,20 @@ ul, li {
 
 .contain-to-grid {
     #top-border {
-        position: absolute;
-        height: 19px;
-        font-size: 12px;
-        background-color: darken($brand, 10%);
-        left: 0px;
-        top: 0px;
-        width: 100%;
-        z-index: 2000;
+        display: none;
+    }
+    @media only screen and ( min-width: 1060px ) {
+        #top-border {
+            display: block;
+            position: absolute;
+            height: 19px;
+            font-size: 12px;
+            background-color: darken($brand, 10%);
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            z-index: 2000;
+        }
     }
     .top-bar {
         margin-bottom: 0px;
