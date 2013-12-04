@@ -136,7 +136,7 @@ class NEWPAGE extends PAGE {
     # XXX Below line for speed
 ?>
     <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/stylesheets/app.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/stylesheets/ie8.css" type="text/css">
+    <!--[if IE 8]><link rel="stylesheet" href="<?php echo WEBPATH; ?>style/stylesheets/ie8.css" type="text/css"><![endif]-->
     <link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">
     <script type="text/javascript" src="/js/respond.min.js"></script>
 <?php
@@ -415,7 +415,7 @@ class NEWPAGE extends PAGE {
 <?php */ ?>
                 <section class="top-bar-section">
                     <ul class="left">
-                        <li class="has-dropdown">
+                        <li class="has-dropdown" id="pick_house">
                             <a id="current-location" href="#"><?=$highlights['top_selected']['text'] ?></a>
                             <ul id="triangle-isosceles" class="dropdown triangle-isosceles top">
                             <?php foreach ($top_links as $top_link) {?>

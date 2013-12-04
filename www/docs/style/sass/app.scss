@@ -24,7 +24,7 @@ ul, li {
     list-style-type: none;
 }
 
-@media only screen and ( max-width: 500px ) {
+@media only screen and ( max-width: $mobile-breakpoint ) {
     .content-wrapper > .columns {
         padding-left: 0px;
         padding-right: 0px;
@@ -39,7 +39,7 @@ ul, li {
     #top-border {
         display: none;
     }
-    @media only screen and ( min-width: 1060px ) {
+    @media only screen and ( min-width: $topbar-breakpoint ) {
         #top-border {
             display: block;
             position: absolute;
@@ -493,7 +493,7 @@ ul, li {
         font-size: em-calc(14px);
     }
 
-    @media only screen and ( max-width: 1070px ) {
+    @media only screen and ( max-width: $topbar-breakpoint ) {
         .person {
             float: left;
             margin-right: 1em;

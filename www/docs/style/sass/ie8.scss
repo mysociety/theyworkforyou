@@ -1,9 +1,25 @@
 @import "settings";
 
+$topbar-breakpoint: em-calc(60);
+$mobile-breakpoint: em-calc(60);
+$small-screen: 60px;
+$medium-screen: 60px;
+$large-screen: 60px;
+$topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
+
+@import "app";
+
+.lt-ie9 #top-border,
+.lt-ie9 .content-wrapper {
+    width: 1080px !important;
+}
+
 .lt-ie9 .top-bar {
   background: $brand;
 }
+.lt-ie9 .top-bar-section ul { float: none !important; }
 .lt-ie9 .top-bar-section ul li { float: left; }
+
 .lt-ie9 .top-bar-section ul li > a { padding-right: 14px !important; }
 .lt-ie9 .top-bar-section ul li .js-generated { display: none; }
 .lt-ie9 .top-bar-section li a:not(.button) {
@@ -36,8 +52,8 @@
     line-height: 80px;
     a {
         padding: 0px;
-        padding-left: 0.5em;
-        padding-right: 0.5em;
+        padding-left: 0.25em;
+        padding-right: 0.25em;
     }
     &#user_options ul li {
         line-height: 16px;
@@ -104,6 +120,9 @@
 }
 
 .lt-ie9 #ms_logo {
+    position: absolute !important;
+    top: 0px;
+    left: 968px;
     text-align: center;
     a {
         background-image: none;
@@ -111,6 +130,47 @@
             margin-left: 1em;
             display: inline;
             width: 8em;
+        }
+    }
+}
+
+.lt-ie9 .top-bar .left li#pick_house {
+    #current-location {
+        display: none;
+    }
+    #triangle-isosceles {
+        margin: 0px;
+    }
+    .dropdown {
+        font-size: 12px;
+        display: block;
+        position: absolute;
+        z-index: 2002;
+        top: 0px;
+        left: -250px;
+        background-color: darken($brand, 10%);
+        height: 16px;
+        width: 600px;
+        .js-generated {
+            display: none;
+        }
+        li {
+            font-size: 12px;
+            border: none;
+            clear: none;
+            float: left;
+            color: white;
+            width: auto;
+            display: inline-block;
+            padding-left: 0.25em;
+            padding-right: 0.25em;
+            a {
+                font-size: 12px;
+                display: inline;
+                width: auto;
+                padding: 0px;
+                background-color: transparent;
+            }
         }
     }
 }
