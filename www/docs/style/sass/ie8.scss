@@ -185,3 +185,7 @@ $topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
         background: none;
     }
 }
+
+.lt-ie9 dl.sub-nav {
+    width: 100%;
+}
