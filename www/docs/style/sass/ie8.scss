@@ -174,3 +174,14 @@ $topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
         }
     }
 }
+
+.lt-ie9 #mp-panel {
+    input[name='s'] {
+        width: 240px;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .mp-details input.submit {
+        background: none;
+    }
+}

@@ -472,7 +472,7 @@ ul, li {
             border-radius: 2px 0px 0px 2px;
             padding: 0.25em;
             border-right: 0px;
-            &[type="submit"] {
+            &.submit {
                 background: transparent url('/images/search.png') no-repeat scroll center center;
                 background-color: transparent;
                 color: transparent;
