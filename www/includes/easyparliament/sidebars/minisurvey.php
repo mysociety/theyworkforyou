@@ -17,6 +17,7 @@ require_once INCLUDESPATH . "../../commonlib/phplib/auth.php";
 // increment this each time you change the question so
 // the cookie magic works
 $current_question = 1;
+$always_ask = 1;
 $survey_site = "twfy-mini-$current_question";
 $show_survey_qn = 0;
 $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
@@ -30,16 +31,22 @@ if (in_array($this_page, array('survey', 'overview'))) {
 }
 
 if ($hide_question) {
+    $always_ask = 0;
     $show_survey_qn = $current_question;
     setcookie('survey', $current_question, time()+60*60*24*365, '/');
-} else if ($has_answered_question == $current_question) {
+} else if ($has_answered_question == $current_question && !$always_ask) {
     $show_survey_qn = $current_question;
     setcookie('survey', $current_question, time()+60*60*24*365, '/');
 } else if (isset($_COOKIE['survey'])) {
     $show_survey_qn = $_COOKIE['survey'];
 }
 
-if ($show_survey_qn < $current_question) {
+$survey_id = 'minisurvey';
+if ( $always_ask ) {
+    $survey_id = 'minisurvey-show';
+}
+
+if ($show_survey_qn < $current_question && !$has_answered_question) {
     $page_url = '';
     $hide_url = '';
     if ( in_array( $this_page, array('mp', 'peer', 'msp', 'mla', 'royal') ) ) {
@@ -58,7 +65,7 @@ if ($show_survey_qn < $current_question) {
     $user_code = bin2hex(urandom_bytes(16));
     $auth_signature = auth_sign_with_shared_secret($user_code, OPTION_SURVEY_SECRET);
 
-    $this->block_start(array('id'=>'minisurvey', 'title'=>'Mini survey. <small><a href="/help/#survey">What is this about?</a></small>'));
+    $this->block_start(array('id'=>$survey_id, 'title'=>'Mini survey. <small><a href="/help/#survey">What is this about?</a></small>'));
 ?>
 
 <form class="minisurvey" method="post" action="<?=OPTION_SURVEY_URL?>">
