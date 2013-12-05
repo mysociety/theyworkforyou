@@ -419,10 +419,15 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
             $sidebars[] = array ( 'type' => 'html', 'content' => $topics_html);
         }
 
+        $expenses_2004_url = 'http://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
+
+        if ( array_key_exists('expenses_url', $MEMBER->extra_info) ) {
+            $expenses_2004_url = $MEMBER->extra_info['expenses_url'];
+        }
         $expenses_html = '<div class="block"><h4>Expenses</h4><div class="blockbody">';
         $expenses_html .= '<p>Expenses data for MPs is availble from 2004 onwards split over several locations.' .
                          ' At the moment we don\'t have the time to convert it to a format we can display on the site so we just have to point you to where you can find it.</p>';
-        $expenses_html .= '<ul><li><a href="http://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/">Expenses from 2004 to to 2009</a></li>';
+        $expenses_html .= '<ul><li><a href="' . $expenses_2004_url . '">Expenses from 2004 to to 2009</a></li>';
         $expenses_html .= '<li><a href="http://www.parliamentary-standards.org.uk/AnnualisedData.aspx">Expenses from 2010 onwards</a></li></ul>';
         $expenses_html .= '</div></div>';
 
