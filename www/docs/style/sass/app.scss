@@ -466,12 +466,16 @@ ul, li {
     .mp-details {
         margin-left: 1em;
         input {
+            -webkit-appearance: none;
             font-family: 'Open Sans', sans-serif;
             font-style: italic;
             border: 1px solid $borders;
             border-radius: 2px 0px 0px 2px;
             padding: 0.25em;
             border-right: 0px;
+            &[name='s'] {
+                width: 250px;
+            }
             &.submit {
                 background: transparent url('/images/search.png') no-repeat scroll center center;
                 background-color: transparent;
