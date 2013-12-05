@@ -16,7 +16,7 @@ require_once INCLUDESPATH . "../../commonlib/phplib/auth.php";
 
 // increment this each time you change the question so
 // the cookie magic works
-$current_question = 1;
+$current_question = 2;
 $always_ask = 1;
 $survey_site = "twfy-mini-$current_question";
 $show_survey_qn = 0;
@@ -82,11 +82,11 @@ if ($show_survey_qn < $current_question && !$has_answered_question) {
 
 
     <p>
-    Do you use TheyWorkForYou for professional purposes?
+    Did you find what you were looking for on this page?
     </p>
     <ul>
-        <li><label><input type="radio" name="professional" value="1"  id="id_professional_yes">Yes</label></li>
-        <li><label><input type="radio" name="professional" value="0"  id="id_professional_no">No</label></li>
+        <li><label><input type="radio" name="find_on_page" value="1"  id="id_find_on_page_yes">Yes</label></li>
+        <li><label><input type="radio" name="find_on_page" value="0"  id="id_find_on_page_no">No</label></li>
     </ul>
 
     <p>
