@@ -383,7 +383,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
             $sidebars[] = array(
                 'type' => 'html',
                 'content' => '<div class="block"><h4>Previous MPs in this constituency</h4><div class="blockbody"><ul>'
-                    . $previous_people . '<li><em>Might show odd results due to bugs</em></li></ul></div></div>'
+                    . $previous_people . '<li class="infolink"><em>Might show odd results due to bugs</em></li></ul></div></div>'
             );
         }
         $future_people = $MEMBER->future_mps();
