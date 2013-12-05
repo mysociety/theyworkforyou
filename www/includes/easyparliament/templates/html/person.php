@@ -36,9 +36,9 @@ if (!exists_rep_image($member['person_id'])) {
                         <ul class="hilites clear">
 <?php
 print "                        ";
-get_member_history($member, $extra_info);
 person_enter_leave_facts($member, $extra_info);
 person_majority($extra_info);
+get_member_history($member, $extra_info);
 print "\n";
 
 if ($member['party'] == 'Sinn Fein' && in_array(HOUSE_TYPE_COMMONS, $member['houses'])) {
