@@ -235,7 +235,7 @@ function get_member_history($member, $extra_info) {
 function person_offices($extra_info) {
 	$mins = array();
 	foreach ($extra_info['office'] as $row) {
-		if ($row['to_date'] == '9999-12-31' && $row['source'] != 'chgpages/selctee') {
+		if ($row['to_date'] == '9999-12-31' && $row['source'] != 'chgpages/selctee' && $row['source'] != 'datadotparliament/committee') {
 			$m = prettify_office($row['position'], $row['dept']);
 			$m .= ' (since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')';
 			$mins[] = $m;
@@ -617,7 +617,7 @@ function person_committees_and_topics_for_sidebar($member, $extra_info) {
         $mins = array();
 
         foreach ($extra_info['office'] as $row) {
-            if ($row['to_date'] == '9999-12-31' && $row['source'] == 'chgpages/selctee') {
+            if ($row['to_date'] == '9999-12-31' && $row['source'] == 'chgpages/selctee' || $row['source'] == 'datadotparliament/committee' ) {
                 $m = prettify_office($row['position'], $row['dept']);
                 if ($row['from_date']!='2004-05-28') {
                     $m .= ' <small>(since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')</small>';
