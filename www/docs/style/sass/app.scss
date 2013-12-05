@@ -496,6 +496,10 @@ ul, li {
         margin-bottom: em-calc(8px);
         font-size: em-calc(14px);
     }
+    ul.hilites,
+    p.missingphoto {
+        max-width: 40em;
+    }
 
     @media only screen and ( max-width: $topbar-breakpoint ) {
         .person {
