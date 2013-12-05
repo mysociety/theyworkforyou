@@ -93,7 +93,6 @@ if ($member['has_email_alerts']) {
                     <dt data-magellan-arrival="votingrecord"><a href="#votingrecord">Voting<span class="hide-for-small"> record</span></a></dt>
                     <dt data-magellan-arrival="hansard"><a href="#hansard">Appearances</a></dt>
                     <dt data-magellan-arrival="register"><a href="#register">Register<span class="hide-for-small"> of interests</span></a></dt>
-                    <dt data-magellan-arrival="expenses"><a href="#expenses">Expenses</a></dt>
                 </dl>
             </div>
 
@@ -142,13 +141,6 @@ if (isset($extra_info['register_member_interests_html'])) {
     $NEWPAGE->panel_end();
 }
 
-if ($member['has_expenses']) {
-    $NEWPAGE->panel_start('expenses', true);
-    include_once INCLUDESPATH . 'easyparliament/expenses.php';
-    echo '<h2>Expenses</h2>';
-    echo expenses_display_table($extra_info);
-    $NEWPAGE->panel_end();
-}
 # Helper functions
 
 # Gets and outputs the correct image (with special case for Lords)
