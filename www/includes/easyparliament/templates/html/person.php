@@ -12,11 +12,7 @@ $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extr
 $mp_panel_columns = 'large-12'; // columns for main info panel
 $button_columns = '';           // columns for alert/wtt buttons
 if ($member['has_email_alerts']) {
-    $mp_panel_columns = 'large-8';
-    $button_cols = "small-12 large-2";
-    if ($member['the_users_mp'] == true) {
-        $button_cols = "small-6 large-2";
-    }
+    $mp_panel_columns = 'large-9';
 }
 
 ?>
@@ -69,22 +65,20 @@ $SEARCHURL = new URL("search");
 <?php
 if ($member['has_email_alerts']) {
 ?>
-                <div class="<?=$button_cols?> person-button-column">
+                <div class="small-12 large-3 person-button-column">
                     <a class="button alert person-contact-button" href="<?= WEBPATH ?>alert/?pid=<?=$member['person_id']?>"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a>
-                </div>
 <?php
     if ($member['the_users_mp'] == true) {
         global $THEUSER;
         $pc = $THEUSER->postcode();
     ?>
 
-                <div class="small-6 large-2 person-button-column">
                     <a class="button alert person-contact-button" href="http://www.writetothem.com/?a=WMC&amp;pc=<?php htmlentities(urlencode($pc)) ?>"><strong>Send a message</strong><small>with WriteToThem</small></a>
-                </div>
 <?php
     }
 }
 ?>
+                </div>
             </div> <!-- end mp panel -->
 
             <div data-magellan-expedition="fixed" class="person-subnav">

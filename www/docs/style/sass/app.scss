@@ -606,16 +606,25 @@ ul, li {
 .person-button-column {
     @extend .columns;
 
-    &.small-6 {
+    &.small-12 {
         &:nth-of-type(2) {
             padding-right: 0;
         }
         &:nth-of-type(3) {
             padding-left: 0;
         }
+        .person-contact-button {
+            display: inline-block;
+            width: 48%;
+            float: none;
+        }
         @media #{$small} {
             &:nth-of-type(2) {
                 padding-right: 0.75em;
+            }
+            .person-contact-button {
+                display: block;
+                width: auto;
             }
         }
     }
@@ -626,11 +635,13 @@ ul, li {
     @include button-size(emCalc(12), true);
     @include button-style($alert-color, 4px);
 
+    width: auto;
     text-align: left;
     padding: em-calc(8);
     box-shadow: none;
     border-radius: 0px;
     -webkit-box-shadow: none;
+    min-width: 175px;
     strong {
         font-family: 'Lato bold', sans-serif;
         font-size: em-calc(18);
