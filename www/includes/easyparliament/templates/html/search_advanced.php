@@ -38,6 +38,7 @@ Enter a name here to restrict results to contributions only by that person.
 <option>Agriculture, Fisheries and Food
 <option>Attorney-General
 <option>Business, Enterprise and Regulatory Reform
+<option>Business, Innovation and Skills
 <option>Cabinet Office
 <option>Children, Schools and Families
 <option>Church Commissioners
@@ -54,6 +55,7 @@ Enter a name here to restrict results to contributions only by that person.
 <option>Electoral Commission Committee
 <option>Employment
 <option>Energy
+<option>Energy and Climate Change
 <option>Environment
 <option>Environment Food and Rural Affairs
 <option>European Community
