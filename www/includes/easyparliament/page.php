@@ -275,24 +275,22 @@ class PAGE {
     pageVariations[chosenVariation]
   );
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-660910-1']);
-  _gaq.push(['_trackPageview']);
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+    ga('create', 'UA-660910-1');  // Replace with your property ID.
+    ga('send', 'pageview');
 
   function recordWTT(link, label) {
-    _gat._getTrackerByName()._trackEvent('Links', 'WriteToThem', label);
+    ga('send', 'event', 'Links', 'WriteToThem', label);
     setTimeout('document.location = "' + link.href + '"', 100);
   }
 
   function trackFormSubmit(form, category, name, value) {
     try {
-      _gaq.push(['_trackEvent', category, name, value]);
+      ga('send', 'event', category, name, value);
     } catch(err){}
     setTimeout(function() {
       form.submit();
@@ -324,11 +322,11 @@ window.fbAsyncInit = function() {
     });
 
     FB.Event.subscribe('edge.create', function(targetUrl) {
-        _gaq.push(['_trackSocial', 'facebook', 'like', targetUrl]);
+        ga('send', 'social', 'facebook', 'like', targetUrl);
     });
 
     FB.Event.subscribe('edge.remove', function(targetUrl) {
-        _gaq.push(['_trackSocial', 'facebook', 'unlike', targetUrl]);
+        ga('send', 'social', 'facebook', 'unlike', targetUrl);
     });
 
 };
@@ -1166,7 +1164,7 @@ window.fbAsyncInit = function() {
                                 if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
                                     opt_target = extractParamFromUri(intent_event.target.src, 'url');
                                 }
-                                _gaq.push(['_trackSocial', 'twitter', 'follow', opt_pagePath]);
+                                ga('send', 'social', 'twitter', 'follow', opt_pagePath);
                             }
                         }
 
