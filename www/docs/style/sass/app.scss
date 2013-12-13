@@ -499,6 +499,7 @@ ul, li {
 }
 
 #mp-panel {
+    box-shadow: 2px 2px 2px #999;
     .person, .mp-details {
         float: left;
     }
@@ -728,9 +729,11 @@ ul, li {
     margin-bottom: 20px;
     border: 1px solid $borders;
     border-top: 1px solid $panel-bg;
+    box-shadow: 2px 2px 2px #999;
 
     &.fixed {
         max-width: none;
+        box-shadow: none;
 
         .sub-nav {
             margin-left: auto;
