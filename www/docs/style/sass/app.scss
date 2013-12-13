@@ -249,6 +249,7 @@ ul, li {
                 right: -18px;
                 margin-top: 20px;
                 margin-right: 10px;
+                border-radius: 2px;
 
                 color:rgb(150,150,150);
 
@@ -729,8 +730,10 @@ ul, li {
         dt {
             margin: 0px;
             padding: 8px;
+            padding-bottom: 11px;
             border-right: 1px solid $borders;
             &.active {
+                padding-bottom: 8px;
                 border-bottom: 3px solid $brand;
                 a {
                     color: $body-font-color;
