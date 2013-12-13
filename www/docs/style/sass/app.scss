@@ -76,8 +76,8 @@ ul, li {
             // all this triangle stuff adapted from http://nicolasgallagher.com/pure-css-speech-bubbles/
             #triangle-isosceles {
                position:absolute;
-               width: 20em;
-               left: -8em;
+               width: auto;
+               left: -5em;
                padding:0px;
                margin:5px 0 3em;
                color:#000;
@@ -113,7 +113,7 @@ ul, li {
 
             #triangle-isosceles.top:after {
               top:-5px; /* value = - border-top-width - border-bottom-width */
-              right:10em; /* controls horizontal position */
+              right:50%; /* controls horizontal position */
               bottom:auto;
               left:auto;
               border-width:0 5px 5px; /* vary these values to change the angle of the vertex */
