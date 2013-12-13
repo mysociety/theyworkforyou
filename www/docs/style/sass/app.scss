@@ -332,7 +332,7 @@ ul, li {
 .panel {
     h2 {
         padding-bottom: 0.5em;
-        border-bottom: 1px dotted $borders;
+        border-bottom: 1px solid $borders;
         small {
             font-family: 'Lato regular', sans-serif;
             font-size: em-calc(14);
