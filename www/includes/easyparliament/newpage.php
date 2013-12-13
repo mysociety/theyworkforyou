@@ -1029,7 +1029,7 @@ class NEWPAGE extends PAGE {
                         <div id="footer-nav" class="row">
                             <div class="large-3 columns">
                                 <dl>
-                                    <dt>ABOUT: </dt>
+                                    <dt>ABOUT </dt>
                                     <dd>
                                         <ul>
                                             <?php
@@ -1043,7 +1043,7 @@ class NEWPAGE extends PAGE {
                             </div>
                             <div class="large-3 columns">
                                 <dl>
-                                    <dt>PARLIAMENTS &amp; ASSEMBLIES: </dt>
+                                    <dt>PARLIAMENTS &amp; ASSEMBLIES </dt>
                                     <dd>
                                         <ul>
                                             <?php
@@ -1057,7 +1057,7 @@ class NEWPAGE extends PAGE {
                             </div>
                             <div class="large-3 columns">
                                 <dl>
-                                    <dt>DEVELOPERS: </dt>
+                                    <dt>DEVELOPERS </dt>
                                     <dd>
                                         <ul>
                                             <?php
@@ -1071,7 +1071,7 @@ class NEWPAGE extends PAGE {
                             </div>
                             <div class="large-3 columns">
                                 <dl>
-                                    <dt>INTERNATIONAL PROJECTS: </dt>
+                                    <dt>INTERNATIONAL PROJECTS </dt>
                                     <dd>
                                         <ul>
                                             <?php
