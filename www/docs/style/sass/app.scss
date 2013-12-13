@@ -20,6 +20,11 @@ a, a:hover, a:active {
     color: $links;
 }
 
+a:hover {
+    color: darken($links, 10%);
+    text-decoration: underline;
+}
+
 ul, li {
     list-style-type: none;
 }
