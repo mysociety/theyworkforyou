@@ -562,6 +562,7 @@ ul, li {
         border-top: 1px dotted $borders;
         line-height: 2;
         .votepolicylink {
+            display: none;
             font-family: 'Open Sans', sans-serif;
             font-size: em-calc(12);
             font-weight: bold;
@@ -569,6 +570,16 @@ ul, li {
         }
         &:last-child {
             border-bottom: 1px dotted $borders;
+        }
+    }
+}
+
+.touch {
+    #dreamcomparisons {
+        li {
+            .votepolicylink {
+                display: inline;
+            }
         }
     }
 }
