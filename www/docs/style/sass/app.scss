@@ -40,6 +40,12 @@ ul, li {
     }
 }
 
+@media only screen and ( min-width: $mobile-breakpoint ) {
+    .antialiased {
+        -webkit-font-smoothing: auto;
+    }
+}
+
 .contain-to-grid {
     #top-border {
         display: none;
