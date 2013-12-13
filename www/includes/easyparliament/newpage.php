@@ -268,6 +268,7 @@ class NEWPAGE extends PAGE {
         global $this_page, $DATA;
 ?>
         <div class="contain-to-grid">
+            <div id="mysoc-border">&nbsp;</div>
             <div id="top-border">&nbsp;</div>
             <nav class="top-bar" data-options="is_hover:false">
                 <ul class="title-area">
