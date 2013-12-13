@@ -50,7 +50,7 @@ ul, li {
             position: absolute;
             height: 19px;
             font-size: 12px;
-            background-color: darken($brand, 10%);
+            background-color: darken($brand, 5%);
             left: 0px;
             top: 0px;
             width: 100%;
@@ -198,7 +198,7 @@ ul, li {
                         z-index: 2001;
                         top: 0px;
                         right: 0px;
-                        background-color: darken($brand, 10%);
+                        background-color: darken($brand, 5%);
                         height: 100px;
                         width: 600px;
                         .js-generated {

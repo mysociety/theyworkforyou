@@ -148,7 +148,7 @@ $topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
         z-index: 2002;
         top: 0px;
         left: -250px;
-        background-color: darken($brand, 10%);
+        background-color: darken($brand, 5%);
         height: 16px;
         width: 600px;
         .js-generated {
