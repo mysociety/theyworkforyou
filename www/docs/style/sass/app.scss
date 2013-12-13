@@ -356,6 +356,17 @@ ul, li {
         list-style-type: none;
     }
 
+    input[type=submit],
+    input[type=button] {
+        border-radius: 2px;
+        padding: 0.75em;
+        border: none;
+        background-color: $brand;
+        color: white;
+        margin-left: 0px;
+        border-radius: 2px;
+    }
+
     .block {
         margin-bottom: 24px;
         border-bottom: 1px solid $borders;
