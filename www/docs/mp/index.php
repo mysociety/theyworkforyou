@@ -494,7 +494,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         }
         if ($mins) {
             $sidebars[] = array('type'=>'html',
-            'content' => '<div class="block"><h4>Other offices held in the past</h4><div class="blockbody"><ul>'.$mins.'</ul><p align="right"><a href="/help/#dates_wrong">Note about dates</a></div></div>');
+            'content' => '<div class="block"><h4>Other offices held in the past</h4><div class="blockbody"><ul>'.$mins.'</ul></div></div>');
         }
     }
 

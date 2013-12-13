@@ -235,9 +235,7 @@ scraping various pages on the official parliament.uk site. Sadly, the site was
 sometimes out of date or incorrect, which will of course lead to incorrect
 information appearing on our site too. Due to the way it all hangs together
 (with lots of bits of string), it is not at all simple to override or fix these
-at present. Also, since the 2010 election, due to changes to the official site,
-we have been unable to fetch or maintain a list of ministers or select
-committee memberships at all.
+at present.
 
 </dd>
 
