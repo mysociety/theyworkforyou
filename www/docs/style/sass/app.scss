@@ -745,24 +745,31 @@ ul, li {
     @extend .columns;
 
     &.small-12 {
-        &:nth-of-type(2) {
-            padding-right: 0;
-        }
-        &:nth-of-type(3) {
-            padding-left: 0;
-        }
+        padding-right: 0;
+        padding-left: 0;
         .person-contact-button {
             display: inline-block;
-            width: 48%;
+            width: 50%;
+            min-width: 0px;
             float: none;
+            &:nth-of-type(1) {
+                border-right: 1px solid $borders;
+            }
+            strong {
+                font-size: 1em;
+            }
         }
         @media #{$small} {
+            border: 0px;
             &:nth-of-type(2) {
                 padding-right: 0.75em;
             }
             .person-contact-button {
                 display: block;
                 width: auto;
+            }
+            strong {
+                font-size: em-calc(18);
             }
         }
     }
@@ -783,7 +790,6 @@ ul, li {
     min-width: 175px;
     strong {
         font-family: Lato, sans-serif;
-        font-size: em-calc(18);
         display: block;
     }
     small {
