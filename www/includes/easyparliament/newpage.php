@@ -446,7 +446,7 @@ class NEWPAGE extends PAGE {
                         </form>
                     </li>
                     <li class="has-dropdown" id="user_options">
-                        <a id="current_option" href="#">login</a>
+                        <a id="current_option" href="#">Login</a>
                         <ul class="dropdown">
                             <?php $this->user_bar($highlights['top']); ?>
                         </ul>
