@@ -860,3 +860,15 @@ ul, li {
         }
     }
 }
+
+.minisurvey {
+    p, ul {
+        margin-bottom: 0.5em;
+    }
+    li {
+        line-height: 1.5;
+    }
+    input[type='radio'] {
+        margin-right: 0.5em;
+    }
+}
