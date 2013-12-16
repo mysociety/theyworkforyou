@@ -459,6 +459,7 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
 # Display the person's voting record on various issues.
 function person_voting_record($member, $extra_info) {
 	//$this->block_start(array('id'=>'votingrecord', 'title'=>'Voting record (from PublicWhip)'));
+  print '<div class="moreinfo"><span class="moreinfo-text">Read about how the voting record is decided.</span><a class="moreinfo-link" href="' . WEBPATH . 'help/#votingrecord"><img src="/images/questionmark.png" alt="" title=""></a></div>';
 	print '<h2>Voting record <small>from PublicWhip</small></h2>';
 	$displayed_stuff = 0;
 
@@ -578,10 +579,6 @@ function person_voting_record($member, $extra_info) {
 <ul class="no-bullet" id="dreamcomparisons">
 <?=$got_dream ?>
 </ul>
-<p class="italic infolink">
-<small>Read about <a href="<?=WEBPATH ?>help/#votingrecord">how the voting record is decided</a>.</small>
-</p>
-
 <?
     }
 
@@ -638,7 +635,6 @@ function person_committees_and_topics_for_sidebar($member, $extra_info) {
         }
     }
 
-    $out .= '<h4>Topics of interest</h4>';
     $wrans_dept = false;
     $wrans_dept_1 = null;
     $wrans_dept_2 = null;
@@ -655,18 +651,22 @@ function person_committees_and_topics_for_sidebar($member, $extra_info) {
         $wrans_dept_2 = '<span class="radius label">' . implode( '</span> <span class="radius label">', $subjects ) . '</span>';
     }
 
+    $topics  = '';
     if ($wrans_dept) {
         $topics_block_empty = false;
 
-        $out .= '<p class="interests">';
-        if ($wrans_dept_1) { $out .=  $wrans_dept_1; }
-        if ($wrans_dept_2) { $out .=  $wrans_dept_2; }
-        $out .= '</p>';
+        $topics .= '<p class="interests">';
+        if ($wrans_dept_1) { $topics .=  $wrans_dept_1; }
+        if ($wrans_dept_2) { $topics .=  $wrans_dept_2; }
+        $topics .= '</p>';
 
         $WRANSURL = new URL('search');
         $WRANSURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
-        $out .= '<p class="infolink"><small>(based on <a href="' . $WRANSURL->generate() . '">written questions asked by ' . $member['full_name'] . '</a> and answered by departments)</small></p>';
+        $out .= '<div class="moreinfo"><span class="moreinfo-text">Based on written questions asked by ' . $member['full_name'] . ' and answered by departments</span><a href="' . $WRANSURL->generate() . '"><img src="/images/questionmark.png"></a></div>';
     }
+
+    $out .= '<h4>Topics of interest</h4>';
+    $out .= $topics;
 
     # Public Bill Committees
     if (count($extra_info['pbc'])) {
@@ -957,6 +957,14 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 }
 
 function person_register_interests($member, $extra_info) {
+  $regtext = '';
+	if (isset($extra_info['register_member_interests_date'])) {
+		$regtext .= '<nobr>Register last updated: ';
+		$regtext .=  format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
+		$regtext .=  '.</nobr> ';
+	}
+  $regtext .= 'More about the Register';
+  print '<div class="moreinfo"><span class="moreinfo-text">' . $regtext . '</span><a class="moreinfo-link" href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm"><img src="/images/questionmark.png" alt="" title=""></a></div>';
 	print "<h2>Register of Members&rsquo; Interests</h2>";
 
 	if ($extra_info['register_member_interests_html'] != '') {
@@ -964,14 +972,6 @@ function person_register_interests($member, $extra_info) {
 	} else {
 		echo "\t\t\t\t<p>Nil</p>\n";
 	}
-	echo '<p class="italic infolink"><small>';
-	if (isset($extra_info['register_member_interests_date'])) {
-		echo 'Register last updated: ';
-		echo format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
-		echo '. ';
-	}
-	echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm">More about the Register</a>';
-	echo '</small></p>';
 	print '<p class="morelink"><strong><a href="' . WEBPATH . 'regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
 }
 

@@ -382,16 +382,16 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         if ($previous_people) {
             $sidebars[] = array(
                 'type' => 'html',
-                'content' => '<div class="block"><h4>Previous MPs in this constituency</h4><div class="blockbody"><ul>'
-                    . $previous_people . '<li class="infolink"><em>Might show odd results due to bugs</em></li></ul></div></div>'
+                'content' => '<div class="block"><div class="moreinfo"><span class="moreinfo-text">Might show odd results due to bugs</span><img src="/images/questionmark.png"></div><h4>Previous MPs in this constituency</h4><div class="blockbody"><ul>'
+                    . $previous_people . '</ul></div></div>'
             );
         }
         $future_people = $MEMBER->future_mps();
         if ($future_people) {
             $sidebars[] = array(
                 'type' => 'html',
-                'content' => '<div class="block"><h4>Succeeding MPs in this constituency</h4><div class="blockbody"><ul>'
-                    . $future_people . '<li class="infolink"><em>Might show odd results due to bugs</em></li></ul></div></div>'
+                'content' => '<div class="block"><div class="moreinfo"><span class="moreinfo-text">Might show odd results due to bugs</span><img src="/images/questionmark.png"></div><h4>Succeeding MPs in this constituency</h4><div class="blockbody"><ul>'
+                    . $future_people . '</ul></div></div>'
             );
         }
     }
@@ -516,7 +516,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         }
         if ($mins) {
             $sidebars[] = array('type'=>'html',
-            'content' => '<div class="block"><h4>Other offices held in the past</h4><div class="blockbody"><ul>'.$mins.'</ul><p align="right"><a href="/help/#dates_wrong">Note about dates</a></div></div>');
+            'content' => '<div class="block"><div class="moreinfo"><span class="moreinfo-text">Note about dates</span><a href="/help/#dates_wrong"><img src="/images/questionmark.png"></a></div><h4>Other offices held in the past</h4><div class="blockbody"><ul>'.$mins.'</ul></div>');
         }
     }
 

@@ -78,6 +78,10 @@ $(function(){
   } else {
       $('body').addClass('touch');
   }
+  $('.moreinfo').hover(
+      function() { $(this).children('.moreinfo-text').show(); },
+      function() { $(this).children('.moreinfo-text').hide(); }
+  );
 	window.setTimeout(function(){
 		if ( $('#minisurvey').length ) {
 			lastAnswered = $.cookie('survey');
