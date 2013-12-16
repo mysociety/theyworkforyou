@@ -17,3 +17,5 @@ libsearch-xapian-perl
 python-mysqldb
 python-lxml
 subversion
+zurb-foundation
+compass
