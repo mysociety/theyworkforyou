@@ -490,6 +490,10 @@ ul, li {
         -moz-text-decoration-style: dotted;
         -webkit-text-decoration-style: dotted;
     }
+    a:hover {
+        color: darken($links, 10%);
+    }
+
     dl {
         dt {
             font-weight: bold;
