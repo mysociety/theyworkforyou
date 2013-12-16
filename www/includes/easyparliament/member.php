@@ -63,7 +63,7 @@ class MEMBER {
 		// If just a constituency we currently just get the current member for
 		// that constituency.
 
-		global $PAGE, $this_page;
+		global $NEWPAGE,$PAGE, $this_page;
 
         $house = isset($args['house']) ? $args['house'] : null;
 
@@ -233,7 +233,7 @@ class MEMBER {
 	}
 
 	function name_to_person_id ($name, $const='') {
-		global $PAGE, $this_page;
+		global $NEWPAGE, $PAGE, $this_page;
 		if ($name == '') {
 			$PAGE->error_message('Sorry, no name was found.');
 			return false;
@@ -261,7 +261,7 @@ class MEMBER {
 			if (!$success)
 				$success = preg_match('#^(.*?)() (.*)$#', $name, $m);
 			if (!$success) {
-				$PAGE->error_message('Sorry, that name was not recognised.');
+				$NEWPAGE->error_message('Sorry, that name was not recognised.');
 				return false;
 			}
 			$first_name = mysql_real_escape_string($m[1]);
@@ -275,7 +275,7 @@ class MEMBER {
 			if (!$success)
 				$success = preg_match('#^(.*?)() (.*)$#', $name, $m);
 			if (!$success) {
-				$PAGE->error_message('Sorry, that name was not recognised.');
+				$NEWPAGE->error_message('Sorry, that name was not recognised.');
 				return false;
 			}
 			$first_name = mysql_real_escape_string($m[1]);
@@ -291,7 +291,7 @@ class MEMBER {
 			if (!$success)
 				$success = preg_match('#^(.*?)() (.*)$#', $name, $m);
 			if (!$success) {
-				$PAGE->error_message('Sorry, that name was not recognised.');
+				$NEWPAGE->error_message('Sorry, that name was not recognised.');
 				return false;
 			}
 			$first_name = $m[1];
@@ -341,7 +341,7 @@ class MEMBER {
 		} elseif ($const && $this_page!='peer') {
 			return $this->name_to_person_id($name);
 		} else {
-			$PAGE->error_message("Sorry, there is no current member with that name.");
+			$NEWPAGE->error_message("Sorry, there is no current member with that name.");
 			return false;
 		}
 	}
