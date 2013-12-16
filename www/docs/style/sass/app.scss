@@ -855,6 +855,9 @@ ul, li {
                     padding: 0px;
                 }
             }
+            @media #{$small} {
+                font-size: 15px;
+            }
             @media only screen and ( max-width: $mobile-breakpoint ) {
                 padding: 4px;
             }
