@@ -568,7 +568,7 @@ ul, li {
 }
 
 #mp-panel {
-    box-shadow: 2px 2px 2px #999;
+    box-shadow: 0px 1px 3px 0px rgba( 0, 0, 0, 0.2 );
     .person, .mp-details {
         float: left;
     }
@@ -808,7 +808,7 @@ ul, li {
     margin-bottom: 20px;
     border: 1px solid $borders;
     border-top: 1px solid $panel-bg;
-    box-shadow: 2px 2px 2px #999;
+    box-shadow: 0px 1px 3px 0px rgba( 0, 0, 0, 0.2 );
 
     &.fixed {
         max-width: none;
