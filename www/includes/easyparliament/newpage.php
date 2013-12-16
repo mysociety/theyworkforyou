@@ -435,12 +435,12 @@ class NEWPAGE extends PAGE {
                     <ul class="right">
                     <li><?php print implode("</li>\n                    <li>", $bottom_links); ?></li>
                     <li id="search-fallback">
-                        <a href="<?php print $SEARCH->generate(); ?>" id="fallback"><img src="/images/search.png"></a>
+                        <a href="<?php print $SEARCH->generate(); ?>" id="fallback"><img src="/images/search-white.png"></a>
                     </li>
                     <li id="search-wrapper">
                         <form action="<?php print $SEARCH->generate(); ?>" method="get">
                             <ul class="search-form">
-                            <li><label for="s"><img src="/images/search.png" /></label></li>
+                            <li><label for="s"><img src="/images/search-white.png" /></label></li>
                                 <li><input type="text" id="s" name="s" placeholder="Type search terms and hit enter..."></li>
                             </ul>
                         </form>

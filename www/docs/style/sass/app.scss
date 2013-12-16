@@ -249,6 +249,10 @@ ul, li {
 
         #search-fallback {
             display: none;
+            img {
+                width: 24px;
+                height: 24px;
+            }
         }
 
         // based on http://www.callmenick.com/labs/expanding-search-bar-using-css-transitions
@@ -299,6 +303,10 @@ ul, li {
                 top:0;
                 right:-48px;
                 cursor:pointer;
+            }
+            img {
+                width: 24px;
+                height: 24px;
             }
         }
     }
