@@ -813,6 +813,7 @@ ul, li {
     &.fixed {
         max-width: none;
         box-shadow: none;
+        border-bottom: 0px;
 
         .sub-nav {
             margin-left: auto;
