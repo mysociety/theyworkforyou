@@ -35,5 +35,29 @@ MAILTO=cron-!!(*= $site *)!!@mysociety.org
 
 #0 8 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/theyworkforyou/scripts/edm_status.pl > /data/vhost/!!(*= $vhost *)!!/dumps/edm_status.csv
 
+# Scheduled parlparse update tasks
+
+# update latest stuff from parliament.uk in the morning.
+# parliament.uk is meant to update by 6am
+13 6 * * * !!(*= $user *)!! !!(*= $pwmembers *)!!../scripts/morningupdate
+
+# daily update at night for MP data (regmem, data from Public Whip etc.)
+37 1 * * * !!(*= $user *)!! !!(*= $pwmembers *)!!../scripts/dailyupdate
+
+# several times a day, check for changes in various pages (lists of MPs, ministers etc.):
+#  update at night, as David Boothroyd ofen updates strengths.html in the evening
+#  update at lunch, so if a minister is sacked in the morning and the clerks alert
+#  update with the six o'clock news
+20 1 * * * !!(*= $user *)!! !!(*= $pwmembers *)!!../scripts/changewatcher
+0 12 * * * !!(*= $user *)!! !!(*= $pwmembers *)!!../scripts/changewatcher
+0 18 * * * !!(*= $user *)!! !!(*= $pwmembers *)!!../scripts/changewatcher
+# (the above times are all guesswork, but it doesn't really matter)
+
+# 01:10, email when a parliamentary recess starts/ends
+# 10 1 * * * !!(*= $user *)!! !!(*= $pwmembers *)!!../scripts/recesswatcher.py
+
+# every week early Sunday grab weekly range of data
+23 4 * * Sun !!(*= $user *)!! !!(*= $pwmembers *)!!../scripts/weeklyupdate
+
 !!(* } *)!!
 
