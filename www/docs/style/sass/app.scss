@@ -81,15 +81,19 @@ ul, li {
     .top-bar {
         margin-bottom: 0px;
 
-        @media #{$small} {
-            margin-bottom: 1.5em;
-        }
         .left {
             background: black;
             background-color: black;
         }
 
         @media #{$small} {
+            margin-bottom: 1.5em;
+            .name {
+                h1 {
+                    line-height: 55px;
+                    padding-top: 23px;
+                }
+            }
             #ms_logo {
                 z-index: 2002;
                 position: relative;
@@ -145,6 +149,7 @@ ul, li {
                 font-family: 'Open Sans', sans-serif;
                 background: $brand;
                 background-color: $brand;
+                padding-top: 8px;
                 li {
                     background: $brand;
                     background-color: $brand;
@@ -186,7 +191,7 @@ ul, li {
                             padding-right: 1em;
                             background-color: #444;
                             color: white;
-                            font-size: 14px;
+                            font-size: 15px;
 
                             &:hover {
                                 background-color: black;
@@ -208,6 +213,12 @@ ul, li {
         .right {
             background-color: $brand;
             @media #{$small} {
+                li {
+                    a {
+                        line-height: 50px;
+                        padding-top: 25px;
+                    }
+                }
                 li#user_options {
                     #current_option {
                         display: none;
@@ -236,6 +247,7 @@ ul, li {
                             padding-right: 1em;
                             padding-top: 2px;
                             a {
+                                line-height: 1;
                                 display: inline;
                                 width: auto;
                                 padding: 0px;
@@ -264,10 +276,10 @@ ul, li {
                 width: 0px;
                 padding: 0;
                 border: none;
-                background-color: $brand;
+                background-color: white;
                 position: absolute;
-                right: -18px;
-                margin-top: 20px;
+                right: -5px;
+                margin-top: 30px;
                 margin-right: 10px;
                 border-radius: 2px;
 
@@ -296,10 +308,11 @@ ul, li {
             label {
                 display:block;
                 width:48px;
-                height:80px;
+                height:50px;
                 /*font-size:0;*/
                 position:absolute;
                 padding:0;
+                padding-top: 10px;
                 top:0;
                 right:-48px;
                 cursor:pointer;
