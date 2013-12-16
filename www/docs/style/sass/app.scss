@@ -278,7 +278,7 @@ ul, li {
                 border: none;
                 background-color: white;
                 position: absolute;
-                right: -5px;
+                right: 135px;
                 margin-top: 30px;
                 margin-right: 10px;
                 border-radius: 2px;
@@ -297,24 +297,15 @@ ul, li {
                 padding-left: 0.5em;
             }
 
-            .search-form {
-                width:48px;
-                line-height: 80px;
-                height: 80px !important;
-                background-color: $brand;
-                position:relative;
-            }
-
             label {
                 display:block;
                 width:48px;
                 height:50px;
-                /*font-size:0;*/
                 position:absolute;
                 padding:0;
                 padding-top: 10px;
-                top:0;
-                right:-48px;
+                top: 30px;
+                right:90px;
                 cursor:pointer;
             }
             img {
@@ -326,26 +317,22 @@ ul, li {
 
     .top-bar.expanded {
         #search-wrapper {
+            height: auto;
             width: auto;
             padding: 0px;
-            .search-form {
-                background: #222;
-                background-color: none;
-                li {
-                    display: inline;
-                }
-                width: auto;
-                input[type="text"] {
-                    display: inline;
-                    width: 80%;
-                    position: static;
-                    background: white;
-                    padding-left: 0.5em;
-                }
-                label {
-                    display: inline;
-                    position: static;
-                }
+            background: #222;
+            padding-left: 0.5em;
+            input[type="text"] {
+                display: inline;
+                width: 80%;
+                position: static;
+                background: white;
+                padding-left: 0.5em;
+                margin-top: 0px;
+            }
+            label {
+                display: inline;
+                position: static;
             }
         }
         #ms_logo a {
