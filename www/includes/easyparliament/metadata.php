@@ -422,13 +422,18 @@ $this->page = array (
 	),
 	'api' => array (
 		'title'			=> 'API',
-		'heading'		=> 'API',
+		'heading'		=> 'API - Query the TheyWorkForYou database',
 		'url'			=> 'api/'
 	),
     'data' => array (
     	'title'			=> 'Raw Data',
-    	'heading'		=> 'Raw data (XML)',
+    	'heading'		=> 'Raw data (XML) - the data behind TheyWorkForYou and Public Whip',
     	'url'			=> 'http://ukparse.kforge.net/parlparse'
+    ),
+    'pombola' => array (
+    	'title'			=> 'Pombola',
+    	'heading'		=> 'mySociety\'s platform for running a Parliamentary monitoring site like this',
+    	'url'			=> 'http://www.mysociety.org/international/pombola/'
     ),
     'devmailinglist' => array (
     	'title'			=> 'Developer mailing list',
@@ -437,7 +442,7 @@ $this->page = array (
     ),        
     'code' => array (
     	'title'			=> 'Source code',
-    	'heading'		=> 'Source code',
+    	'heading'		=> 'TheyWorkForYou Source code',
     	'url'			=> 'http://github.com/mysociety/theyworkforyou'
     ),    
     'irc' => array (
@@ -460,6 +465,11 @@ $this->page = array (
     	'heading'		=> 'TheyWorkForYou for the Houses of the Oireachtas',
     	'url'			=> 'http://www.kildarestreet.com/'
     ),    
+    'mzalendo' => array (
+    	'title'			=> 'Mzalendo',
+    	'heading'		=> 'Keeping an eye on the Kenyan Parliament',
+    	'url'			=> 'http://info.mzalendo.com/'
+    ),
 	'lordsdebate'  => array (
 		'parent'		=> 'lordsdebatesfront',
 		'url'			=> 'lords/',
@@ -1034,11 +1044,11 @@ $this->page = array (
 
 	'wranswmsfront'  => array (
 		'menu'			=> array (
-			'text'			=> 'Written Answers and Statements',
-			'title'			=> '',
+			'text'			=> 'Written Answers',
+			'title'			=> 'Written Answers and Statements',
 		),
 		'parent'		=> 'hansard',
-		'title'			=> 'Hansard Written Answers and Statements',
+		'title'			=> 'Hansard Written Answers',
 		'url'			=> 'written-answers-and-statements/'
 	),
 

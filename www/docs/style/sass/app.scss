@@ -1,0 +1,874 @@
+// Global Foundation Settings
+@import "settings";
+
+// Comment out this import if you don't want to use normalize
+@import "normalize";
+
+// Comment out this import if you are customizing you imports below
+@import "foundation";
+
+@import "ms_header";
+
+@import url(http://fonts.googleapis.com/css?family=Lato:700|Open+Sans&subset=latin,latin-ext);
+
+// this is from old stylesheets
+.printonly {
+    @extend .print-only;
+}
+
+a, a:hover, a:active {
+    color: $links;
+}
+
+a:hover {
+    color: darken($links, 10%);
+    text-decoration: underline;
+}
+
+ul, li {
+    list-style-type: none;
+}
+
+@media only screen and ( max-width: $mobile-breakpoint ) {
+    .content-wrapper > .columns {
+        padding-left: 0px;
+        padding-right: 0px;
+
+        .panel {
+            margin-left: 0.75em;
+        }
+    }
+}
+
+@media only screen and ( min-width: $mobile-breakpoint ) {
+    .antialiased {
+        -webkit-font-smoothing: auto;
+    }
+}
+
+.contain-to-grid {
+    a:hover {
+        text-decoration: none;
+    }
+    #mysoc-border,
+    #top-border {
+        display: none;
+    }
+    @media only screen and ( min-width: $topbar-breakpoint ) {
+        #mysoc-border {
+            display: block;
+            position: absolute;
+            height: 3px;
+            font-size: 3px;
+            background-color: #222;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            z-index: 2004;
+        }
+        #top-border {
+            display: block;
+            position: absolute;
+            height: 19px;
+            font-size: 12px;
+            background-color: darken($brand, 5%);
+            left: 0px;
+            top: 3px;
+            width: 100%;
+            z-index: 2000;
+        }
+    }
+    .top-bar {
+        margin-bottom: 0px;
+
+        .left {
+            background: black;
+            background-color: black;
+        }
+
+        @media #{$small} {
+            margin-bottom: 1.5em;
+            .name {
+                h1 {
+                    line-height: 55px;
+                    padding-top: 23px;
+                }
+            }
+            #ms_logo {
+                z-index: 2002;
+                position: relative;
+            }
+            // all this triangle stuff adapted from http://nicolasgallagher.com/pure-css-speech-bubbles/
+            #triangle-isosceles {
+               position:absolute;
+               width: auto;
+               left: -5em;
+               padding:0px;
+               margin:5px 0 3em;
+               color:#000;
+               background:#444;
+
+               /* css3 */
+               -moz-border-radius:4px;
+               -webkit-border-radius:4px;
+               border-radius:4px;
+               background:-moz-linear-gradient(top, #444, #444);
+               background:linear-gradient(top, #444, #444);
+            }
+
+            #triangle-isosceles.top {
+              background:-webkit-gradient(linear, 0 0, 0 100%, from(#444), to(#444));
+              background:-moz-linear-gradient(#444, #444);
+              background:-o-linear-gradient(#444, #444);
+              background:linear-gradient(#444, #444);
+            }
+
+            #triangle-isosceles:after {
+              content:"";
+              position:absolute;
+              bottom:-15px; /* value = - border-top-width - border-bottom-width */
+              left:50px; /* controls horizontal position */
+              border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
+              border-style:solid;
+              border-color:#444 transparent;
+                /* reduce the damage in FF3.0 */
+                display:block; 
+                width:0;
+            }
+
+            #triangle-isosceles.top:after {
+              top:-5px; /* value = - border-top-width - border-bottom-width */
+              right:50%; /* controls horizontal position */
+              bottom:auto;
+              left:auto;
+              border-width:0 5px 5px; /* vary these values to change the angle of the vertex */
+              border-color:#444 transparent;
+            }
+
+            .left {
+                font-family: 'Open Sans', sans-serif;
+                background: $brand;
+                background-color: $brand;
+                padding-top: 8px;
+                li {
+                    background: $brand;
+                    background-color: $brand;
+                    a {
+                        padding: 0.5em !important;
+                        padding-right: 2em !important;
+                        font-size: 11px;
+
+                        &::after {
+                            top: 40px;
+                            right: -20px;
+                        }
+                    }
+                }
+                #current-location {
+                    background: darken( $brand, 5% );
+                    background-color: darken( $brand, 5%);
+                    margin-top: 30px;
+                    padding: 0.25em;
+                    line-height: 1em;
+                    /*border: 1px solid white;*/
+                    border-radius: 4px;
+                    &:hover {
+                        background: darken( $brand, 5% );
+                        background-color: darken( $brand, 5%);
+                    }
+                }
+                ul.dropdown {
+                    border-radius: 4px;
+                }
+                .dropdown {
+                    li {
+                        float: none;
+                        background-color: transparent;
+                        background: transparent;
+                        a {
+                            background-color: #444;
+                            padding-left: 1em;
+                            padding-right: 1em;
+                            background-color: #444;
+                            color: white;
+                            font-size: 15px;
+
+                            &:hover {
+                                background-color: black;
+                            }
+                        }
+                        &:nth-child(2) a {
+                            padding-top: 1em;
+                            border-radius: 3px 3px 0px 0px;
+                        }
+                        &:last-child a {
+                            border-radius: 0px 0px 3px 3px;
+                            padding-bottom: 1em;
+                        }
+                    }
+                }
+            }
+        }
+
+        .right {
+            background-color: $brand;
+            @media #{$small} {
+                li {
+                    a {
+                        line-height: 50px;
+                        padding-top: 25px;
+                    }
+                }
+                li#user_options {
+                    #current_option {
+                        display: none;
+                    }
+                    .dropdown {
+                        font-size: 11px;
+                        display: block;
+                        position: absolute;
+                        z-index: 2001;
+                        top: 0px;
+                        right: 0px;
+                        background-color: darken($brand, 5%);
+                        height: 100px;
+                        width: 600px;
+                        .js-generated {
+                            display: none;
+                        }
+                        li {
+                            border: none;
+                            clear: none;
+                            float: right;
+                            color: white;
+                            width: auto;
+                            display: inline-block;
+                            padding-left: 1em;
+                            padding-right: 1em;
+                            padding-top: 2px;
+                            a {
+                                line-height: 1;
+                                display: inline;
+                                width: auto;
+                                padding: 0px;
+                                background-color: transparent;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        #search-fallback {
+            display: none;
+            img {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        // based on http://www.callmenick.com/labs/expanding-search-bar-using-css-transitions
+        #search-wrapper {
+            height:80px;
+            width: 48px;
+            padding-left: 10px;
+            input[type="text"] {
+                width: 0px;
+                padding: 0;
+                border: none;
+                background-color: white;
+                position: absolute;
+                right: -5px;
+                margin-top: 30px;
+                margin-right: 10px;
+                border-radius: 2px;
+
+                color:rgb(150,150,150);
+
+                -webkit-transition:width 0.5s ease-in-out;
+                   -moz-transition:width 0.5s ease-in-out;
+                        transition:width 0.5s ease-in-out;
+            }
+
+            input[type="text"]:focus,
+            input[type="text"]:active {
+                background-color: white;
+                width:480px;
+                padding-left: 0.5em;
+            }
+
+            .search-form {
+                width:48px;
+                line-height: 80px;
+                height: 80px !important;
+                background-color: $brand;
+                position:relative;
+            }
+
+            label {
+                display:block;
+                width:48px;
+                height:50px;
+                /*font-size:0;*/
+                position:absolute;
+                padding:0;
+                padding-top: 10px;
+                top:0;
+                right:-48px;
+                cursor:pointer;
+            }
+            img {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+
+    .top-bar.expanded {
+        #search-wrapper {
+            width: auto;
+            padding: 0px;
+            .search-form {
+                background: #222;
+                background-color: none;
+                li {
+                    display: inline;
+                }
+                width: auto;
+                input[type="text"] {
+                    display: inline;
+                    width: 80%;
+                    position: static;
+                    background: white;
+                    padding-left: 0.5em;
+                }
+                label {
+                    display: inline;
+                    position: static;
+                }
+            }
+        }
+        #ms_logo a {
+            background: #222222 url("../img/mysociety-header_logo.png") no-repeat scroll center left;
+            width: 100%;
+            margin-left: 0.5em;
+            background-size: 10em auto;
+        }
+    }
+
+    .top-bar-section ul li a:not(.button) {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+}
+
+.panel-row {
+    @extend .row;
+    padding-top: 1.25em;
+    padding-bottom: 1.25em;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #e6e6e6;
+    margin-bottom: 1.25em;
+    background: white;
+}
+
+.panel {
+    h2 {
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid $borders;
+        small {
+            font-family: 'Lato', sans-serif;
+            font-size: 14px;
+        }
+    }
+}
+
+.moreinfo {
+    float: right;
+    position: relative;
+    .moreinfo-text {
+        display: none;
+        z-index: 3000;
+        position: absolute;
+        top: -1.5em;
+        right: -20px;
+        line-height: 1.5;
+        color: white;
+        background-color: #444;
+        min-width: 15em;
+        padding: 0.75em;
+        border-radius: 3px;
+        margin:5px 0 5px;
+        margin-right:50px;
+        font-size: 12px;
+
+        /* css3 */
+        -moz-border-radius:4px;
+        -webkit-border-radius:4px;
+        border-radius:4px;
+        background:-moz-linear-gradient(top, #444, #444);
+        background:linear-gradient(top, #444, #444);
+    }
+
+    .moreinfo-text:after {
+        content:"";
+        position:absolute;
+        bottom:-15px; /* value = - border-top-width - border-bottom-width */
+        left:50px; /* controls horizontal position */
+        border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
+        border-style:solid;
+        border-color:#444 transparent;
+        /* reduce the damage in FF3.0 */
+        display:block;
+        width:0;
+        top:40%; /* controls vertical position */
+        right:-5px; /* value = - border-left-width - border-right-width */
+        bottom:auto;
+        left:auto;
+        border-width:5px 0 5px 5px;
+        border-color:transparent #444;
+    }
+
+    img {
+        height: 21px;
+        width: 21px;
+    }
+}
+
+.sidebar {
+    font-family: 'Opens Sans', sans-serif;
+    color: #333333;
+
+    p, ul, h4, a {
+        font-size: em-calc(14);
+    }
+
+    h4 {
+        color: #666666;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    input[type=submit],
+    input[type=button] {
+        border-radius: 2px;
+        padding: 0.75em;
+        border: none;
+        background-color: $brand;
+        color: white;
+        margin-left: 0px;
+        border-radius: 2px;
+    }
+
+    .block {
+        margin-bottom: 24px;
+        border-bottom: 1px solid $borders;
+        &:last-child {
+            margin-bottom: 0px;
+            border-bottom: none;
+        }
+
+        p.interests {
+            line-height: 1.8em;
+
+            .label {
+                margin-right: 0.5em;
+                border: 1px solid #dadada;
+            }
+        }
+    }
+}
+
+.morelink {
+    font-size: em-calc(14px);
+    text-align: right;
+    font-weight: bold;
+}
+
+.infolink {
+    text-align: right;
+}
+
+#main-content {
+    padding-left: 0px;
+}
+
+#footer {
+    padding-top: em-calc(40px);
+    color: white;
+    clear: both;
+    margin-top: 1em;
+    background-color: $footer;
+    font-family: "Open Sans", sans-serif;
+
+    #stay-up-to-date h5 {
+        color: white;
+        padding-bottom: 0.5em;
+        border-bottom: solid 1px $light-text;
+        font-family: Lato, sans-serif;
+        font-size: 12px;
+    }
+
+    .fb-like {
+        margin-right: 0.5em;
+    }
+
+    #footer-nav {
+        margin-top: 1em;
+        dt {
+            font-size: 12px;
+            font-weight: bold;
+            font-family: Lato, sans-serif;
+        }
+        dd {
+            font-size: 12px;
+        }
+    }
+
+    #footer-about {
+        font-size: 14px;
+    }
+
+    input {
+        display: inline;
+        border-radius: 2px;
+        padding: 0.75em;
+        font-size: 1em;
+        border: none;
+        height: auto;
+
+        &[type=text] {
+            width: 80%;
+            margin-right: 0px;
+            border-radius: 2px 0px 0px 2px;
+        }
+        &[type=submit] {
+            background-color: $brand;
+            color: white;
+            margin-left: 0px;
+            border-radius: 0px 2px 2px 0px;
+        }
+    }
+
+    div.columns {
+        font-size: em-calc(14);
+    }
+    a, a:hover, a:active {
+        color: white;
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        -moz-text-decoration-style: dotted;
+        -webkit-text-decoration-style: dotted;
+    }
+    a:hover {
+        color: darken($links, 10%);
+    }
+
+    dl {
+        dt {
+            font-weight: bold;
+            border-bottom: solid 1px $light-text;
+        }
+        dd {
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+#mp-panel {
+    box-shadow: 0px 1px 3px 0px rgba( 0, 0, 0, 0.2 );
+    .person, .mp-details {
+        float: left;
+    }
+    .mp-details {
+        margin-left: 1em;
+        input {
+            -webkit-appearance: none;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 13px;
+            font-style: italic;
+            border: 1px solid $borders;
+            border-radius: 2px 0px 0px 2px;
+            padding: 0.5em;
+            border-right: 0px;
+            &[name='s'] {
+                width: 250px;
+            }
+            &.submit {
+                background: transparent url('/images/search.png') no-repeat scroll center center;
+                background-color: transparent;
+                color: transparent;
+                border-right: 1px solid $borders;
+                border-left: 0px;
+                border-radius: 0px 2px 2px 0px;
+            }
+        }
+    }
+
+    .subheader {
+        font-family: Lato, sans-serif;
+        font-size: 16px;
+    }
+
+    ul.hilites {
+        margin-bottom: em-calc(8px);
+        font-size: em-calc(14px);
+    }
+    ul.hilites,
+    p.missingphoto {
+        max-width: 40em;
+    }
+
+    @media only screen and ( max-width: $topbar-breakpoint ) {
+        .person {
+            float: left;
+            margin-right: 1em;
+            margin-bottom: 0.25em
+        }
+        .mp-details {
+            float: none;
+            margin-left: inherit;
+        }
+    }
+}
+
+// Vote record
+#dreamcomparisons {
+    li {
+        border-top: 1px dotted $borders;
+        line-height: 2;
+        .votepolicylink {
+            display: none;
+            font-family: 'Open Sans', sans-serif;
+            font-size: em-calc(12);
+            font-weight: bold;
+            float: right;
+        }
+        &:last-child {
+            border-bottom: 1px dotted $borders;
+        }
+    }
+}
+
+.touch {
+    #dreamcomparisons {
+        li {
+            .votepolicylink {
+                display: inline;
+            }
+        }
+    }
+}
+
+
+// Recent appearances
+#searchresults {
+    dt {
+        font-size: em-calc(18);
+        font-weight: bold;
+        a {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            -moz-text-decoration-style: dotted;
+            -webkit-text-decoration-style: dotted;
+        }
+    }
+    dd {
+        font-size: em-calc(14);
+        border-bottom: 1px dotted $borders;
+        .appearance-date {
+            font-weight: bold;
+            font-family: 'Open Sans bold', sans-serif;
+            .day {
+                font-size: 12px;
+                display: inline-block;
+                border: 1px solid $borders;
+                border-right: none;
+            }
+            .month {
+                font-size: 12px;
+                display: inline-block;
+                color: white;
+                background-color: $brand;
+                border: 1px solid $borders;
+                padding-left: 0.2em;
+                padding-right: 0.2em;
+            }
+        }
+        @media #{$small} {
+            .appearance-date {
+                min-width: 4em;
+                float: left;
+                text-align: center;
+                margin-right: em-calc(16);
+                .day {
+                    font-size: 24px;
+                    display: block;
+                    border-right: 1px solid $borders;
+                    border-bottom: none;
+                }
+                .month {
+                    display: block;
+                }
+            }
+            p {
+                margin-left: 5em;
+            }
+        }
+    }
+}
+
+// members interests
+.regmemcategory {
+    font-weight: bold;
+    margin-top: em-calc(16);
+    margin-bottom: em-calc(8);
+    border-bottom: 1px dotted $borders;
+
+    &:nth-of-type(1) {
+        margin-top: 0px;
+    }
+}
+
+.regmemitem {
+    margin-bottom: em-calc(8);
+    margin-left: 1em;
+}
+
+.person-button-column {
+    @extend .columns;
+
+    &.small-12 {
+        &:nth-of-type(2) {
+            padding-right: 0;
+        }
+        &:nth-of-type(3) {
+            padding-left: 0;
+        }
+        .person-contact-button {
+            display: inline-block;
+            width: 48%;
+            float: none;
+        }
+        @media #{$small} {
+            &:nth-of-type(2) {
+                padding-right: 0.75em;
+            }
+            .person-contact-button {
+                display: block;
+                width: auto;
+            }
+        }
+    }
+}
+
+.person-contact-button {
+    @include button-base;
+    @include button-size(emCalc(12), true);
+    @include button-style($alert-color, 4px);
+
+    width: auto;
+    text-align: left;
+    padding: em-calc(8);
+    box-shadow: none;
+    border-radius: 0px;
+    border: 0px;
+    -webkit-box-shadow: none;
+    min-width: 175px;
+    strong {
+        font-family: Lato, sans-serif;
+        font-size: em-calc(18);
+        display: block;
+    }
+    small {
+        font-size: em-calc(13);
+        display: block;
+        font-weight: normal;
+    }
+
+    @media #{$small} {
+        border-radius: 4px;
+    }
+}
+
+#mp-panel {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    h1 {
+        line-height: 1;
+        margin-top: 0px;
+        margin-bottom: 0.2em;
+    }
+
+    h3 {
+        margin-top: 0px;
+        font-weight: 200;
+    }
+}
+
+.person-subnav {
+    min-width: 0px;
+    max-width: $row-width;
+    width: 100%;
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    border: 1px solid $borders;
+    border-top: 1px solid $panel-bg;
+    box-shadow: 0px 1px 3px 0px rgba( 0, 0, 0, 0.2 );
+
+    &.fixed {
+        max-width: none;
+        box-shadow: none;
+        border-bottom: 0px;
+
+        .sub-nav {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: $row-width;
+        }
+    }
+
+    .sub-nav {
+        @include sub-nav($sub-nav-font-color, $sub-nav-font-size, $panel-bg);
+
+        margin-left: 0px;
+        margin-bottom: 0px;
+
+        dt {
+            margin: 0px;
+            padding: 8px;
+            padding-bottom: 11px;
+            border-right: 1px solid $borders;
+            &.active {
+                padding-bottom: 8px;
+                border-bottom: 3px solid $brand;
+                a {
+                    color: $body-font-color;
+                    padding: 0px;
+                }
+            }
+            @media only screen and ( max-width: $mobile-breakpoint ) {
+                padding: 4px;
+            }
+        }
+    }
+}
+
+.minisurvey {
+    p, ul {
+        margin-bottom: 0.5em;
+    }
+    li {
+        line-height: 1.5;
+    }
+    input[type='radio'] {
+        margin-right: 0.5em;
+    }
+}

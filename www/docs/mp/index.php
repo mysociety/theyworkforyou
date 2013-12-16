@@ -191,7 +191,7 @@ elseif ($this_page == 'msp' && $THEUSER->postcode_is_set() && $name == '' && $co
         regional_list($THEUSER->postcode(), 'SPC', 'msp');
         exit;
     } else {
-        $PAGE->error_message('Your set postcode is not in Scotland.');
+        $NEWPAGE->error_message('Your set postcode is not in Scotland.');
     }
 }
 
@@ -205,7 +205,7 @@ elseif ($this_page == 'mla' && $THEUSER->postcode_is_set() && $name == '' && $co
         regional_list($THEUSER->postcode(), 'NIE', 'mla');
         exit;
     } else {
-        $PAGE->error_message('Your set postcode is not in Northern Ireland.');
+        $NEWPAGE->error_message('Your set postcode is not in Northern Ireland.');
     }
 }
 
@@ -283,8 +283,8 @@ else
 header('Cache-Control: max-age=900');
 
 if (isset($MEMBER) && is_array($MEMBER->person_id())) {
-    $PAGE->page_start();
-    $PAGE->stripe_start('side');
+    $NEWPAGE->page_start();
+    $NEWPAGE->stripe_start('side');
     print '<p>That name is not unique. Please select from the following:</p><ul>';
     $cs = $MEMBER->constituency();
     $c = 0;
@@ -301,7 +301,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
             </div>'
     );
 
-    $PAGE->stripe_end(array($sidebar));
+    $NEWPAGE->stripe_end(array($sidebar));
 
 /////////////////////////////////////////////////////////
 // DISPLAY A REPRESENTATIVE
@@ -354,18 +354,14 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $DATA->set_page_metadata($this_page, 'meta_description', $desc);
     $DATA->set_page_metadata($this_page, 'heading', '');
 
-    // So we can put a link in the <head> in $PAGE->page_start();
+    // So we can put a link in the <head> in $NEWPAGE->page_start();
     $feedurl = $DATA->page_metadata('mp_rss', 'url') . $MEMBER->person_id() . '.rdf';
     if (file_exists(BASEDIR . '/' . $feedurl))
         $DATA->set_page_metadata($this_page, 'rss', $feedurl);
 
     twfy_debug_timestamp("before page_start");
-    $PAGE->page_start();
+    $NEWPAGE->page_start();
     twfy_debug_timestamp("after page_start");
-
-    twfy_debug_timestamp("before stripe start");
-    $PAGE->stripe_start('side', 'person_page');
-    twfy_debug_timestamp("after stripe start");
 
     twfy_debug_timestamp("before display of MP");
 
@@ -374,57 +370,83 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     twfy_debug_timestamp("after display of MP");
 
     // SIDEBAR.
-
-    // We have to generate this HTML to pass to stripe_end().
-    $linkshtml = generate_member_links($MEMBER);
-
     $sidebars = array(
-/*        array('type'=>'include', 'content' => 'donate'),*/
-/*        array (
-            'type'        => 'include',
-            'content'    => 'mp_email_friend'
-        ), */
         array (
             'type'        => 'include',
             'content'    => 'minisurvey'
-        ),
-        array (
-            'type'        => 'include',
-            'content'    => 'mp_speech_search'
-        ),
-        array (
-            'type'        => 'html',
-            'content'    => $linkshtml
         )
     );
-
-/*
-    if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-        $sidebars[] = array (
-            'type'         => 'html',
-            'content'    => $PAGE->member_rss_block(array('appearances' => WEBPATH . $rssurl))
-        );
-    }
-*/
 
     if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
         $previous_people = $MEMBER->previous_mps();
         if ($previous_people) {
             $sidebars[] = array(
                 'type' => 'html',
-                'content' => '<div class="block"><h4>Previous MPs in this constituency</h4><div class="blockbody"><ul>'
-                    . $previous_people . '<li><em>Might show odd results due to bugs</em></li></ul></div></div>'
+                'content' => '<div class="block"><div class="moreinfo"><span class="moreinfo-text">Might show odd results due to bugs</span><img src="/images/questionmark.png"></div><h4>Previous MPs in this constituency</h4><div class="blockbody"><ul>'
+                    . $previous_people . '</ul></div></div>'
             );
         }
         $future_people = $MEMBER->future_mps();
         if ($future_people) {
             $sidebars[] = array(
                 'type' => 'html',
-                'content' => '<div class="block"><h4>Succeeding MPs in this constituency</h4><div class="blockbody"><ul>'
-                    . $future_people . '<li><em>Might show odd results due to bugs</em></li></ul></div></div>'
+                'content' => '<div class="block"><div class="moreinfo"><span class="moreinfo-text">Might show odd results due to bugs</span><img src="/images/questionmark.png"></div><h4>Succeeding MPs in this constituency</h4><div class="blockbody"><ul>'
+                    . $future_people . '</ul></div></div>'
             );
         }
     }
+
+    if ( $MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->current_member_anywhere() ) {
+        $member = array (
+            'member_id' 		=> $MEMBER->member_id(),
+            'person_id'		=> $MEMBER->person_id(),
+            'constituency' 		=> $MEMBER->constituency(),
+            'party'			=> $MEMBER->party_text(),
+            'other_parties'		=> $MEMBER->other_parties,
+            'other_constituencies'	=> $MEMBER->other_constituencies,
+            'houses'		=> $MEMBER->houses(),
+            'entered_house'		=> $MEMBER->entered_house(),
+            'left_house'		=> $MEMBER->left_house(),
+            'current_member'	=> $MEMBER->current_member(),
+            'full_name'		=> $MEMBER->full_name(),
+            'the_users_mp'		=> $MEMBER->the_users_mp(),
+            'current_member_anywhere'   => $MEMBER->current_member_anywhere(),
+            'house_disp'		=> $MEMBER->house_disp,
+        );
+        $topics_html = person_committees_and_topics_for_sidebar($member, $MEMBER->extra_info);
+
+        if ( $topics_html ) {
+            $sidebars[] = array ( 'type' => 'html', 'content' => $topics_html);
+        }
+
+        $expenses_2004_url = 'http://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
+
+        if ( array_key_exists('expenses_url', $MEMBER->extra_info) ) {
+            $expenses_2004_url = $MEMBER->extra_info['expenses_url'];
+        }
+        $expenses_html = '<div class="block"><h4>Expenses</h4><div class="blockbody">';
+        $expenses_html .= '<p>Expenses data for MPs is availble from 2004 onwards split over several locations.' .
+                         ' At the moment we don\'t have the time to convert it to a format we can display on the site so we just have to point you to where you can find it.</p>';
+        $expenses_html .= '<ul><li><a href="' . $expenses_2004_url . '">Expenses from 2004 to to 2009</a></li>';
+        $expenses_html .= '<li><a href="http://www.parliamentary-standards.org.uk/AnnualisedData.aspx">Expenses from 2010 onwards</a></li></ul>';
+        $expenses_html .= '</div></div>';
+
+        $sidebars[] = array ( 'type' => 'html', 'content' => $expenses_html);
+    }
+
+    // We have to generate this HTML to pass to stripe_end().
+    $linkshtml = generate_member_links($MEMBER);
+    $sidebars[] = array ( 'type' => 'html', 'content' => $linkshtml);
+
+/*
+    if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
+        $sidebars[] = array (
+            'type'         => 'html',
+            'content'    => $NEWPAGE->member_rss_block(array('appearances' => WEBPATH . $rssurl))
+        );
+    }
+*/
+
 
     if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
         global $memcache;
@@ -514,21 +536,21 @@ body of your articles as the source of any analysis or
 data you get off this site. If you ignore this, we might have to start
 keeping these sorts of records on you...</p></div></div>'
     );
-    $PAGE->stripe_end($sidebars);
+    $NEWPAGE->stripe_end($sidebars, '', false);
 
 } else {
     // Something went wrong
-    $PAGE->page_start();
-    $PAGE->stripe_start();
+    $NEWPAGE->page_start();
+    $NEWPAGE->stripe_start();
     if (isset($errors['pc'])) {
-        $PAGE->error_message($errors['pc']);
+        $NEWPAGE->error_message($errors['pc']);
     }
-    $PAGE->postcode_form();
-    $PAGE->stripe_end();
+    $NEWPAGE->postcode_form();
+    $NEWPAGE->stripe_end();
 }
 
 
-$PAGE->page_end();
+$NEWPAGE->page_end();
 
 
 
@@ -558,7 +580,7 @@ function regional_list($pc, $area_type, $rep_type) {
     } elseif (!isset($constituencies[$area_type])) {
         $errors['pc'] = htmlentities($pc) . ' does not appear to be a valid postcode';
     }
-    global $PAGE;
+    global $NEWPAGE;
     $a = array_values($constituencies);
     $db = new ParlDB;
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
@@ -589,12 +611,12 @@ function regional_list($pc, $area_type, $rep_type) {
                 $mreg[] = $q->row($i);
             }
         } else {
-            $PAGE->error_message('Odd result returned!' . $house);
+            $NEWPAGE->error_message('Odd result returned!' . $house);
             return;
         }
     }
-    $PAGE->page_start();
-    $PAGE->stripe_start();
+    $NEWPAGE->page_start();
+    $NEWPAGE->stripe_start('full');
     if ($rep_type == 'msp') {
         if ($current) {
             $out = '<p>You have one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
@@ -622,8 +644,8 @@ function regional_list($pc, $area_type, $rep_type) {
     }
     $out .= '</ul>';
     echo $out;
-    $PAGE->stripe_end();
-    $PAGE->page_end();
+    $NEWPAGE->stripe_end();
+    $NEWPAGE->page_end();
 }
 
 function generate_member_links ($member) {

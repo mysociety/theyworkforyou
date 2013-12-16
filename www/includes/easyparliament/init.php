@@ -72,6 +72,7 @@ include_once (INCLUDESPATH."url.php");
 include_once (INCLUDESPATH."lib_filter.php");
 include_once (INCLUDESPATH."easyparliament/user.php");
 include_once (INCLUDESPATH."easyparliament/page.php");
+include_once (INCLUDESPATH."easyparliament/newpage.php");
 include_once (INCLUDESPATH."easyparliament/hansardlist.php");
 include_once (INCLUDESPATH."easyparliament/commentlist.php");
 include_once (INCLUDESPATH."easyparliament/comment.php");

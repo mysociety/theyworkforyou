@@ -69,6 +69,19 @@ function showPersonLinks(sId){
 
 $(function(){
 	$('body').addClass('js');
+  // check if touch
+  if ( !Modernizr.touch ) {
+      $('#dreamcomparisons li').hover(
+        function() { $(this).children('.votepolicylink').show(); },
+        function() { $(this).children('.votepolicylink').hide(); }
+      );
+  } else {
+      $('body').addClass('touch');
+  }
+  $('.moreinfo').hover(
+      function() { $(this).children('.moreinfo-text').show(); },
+      function() { $(this).children('.moreinfo-text').hide(); }
+  );
 	window.setTimeout(function(){
 		if ( $('#minisurvey').length ) {
 			lastAnswered = $.cookie('survey');

@@ -1,5 +1,6 @@
 <?php
 
+global $NEWPAGE;
 # Some big IFs that are used multiple times. Methods on a class instance, you say, what's that?
 $member['has_voting_record'] = ((in_array(HOUSE_TYPE_COMMONS, $member['houses']) && $member['party'] != 'Sinn Fein') || in_array(HOUSE_TYPE_LORDS, $member['houses']));
 $member['has_recent_appearances'] = !(in_array(HOUSE_TYPE_COMMONS, $member['houses']) && $member['party'] == 'Sinn Fein' && !in_array(HOUSE_TYPE_NI, $member['houses']));
@@ -7,99 +8,131 @@ $member['has_email_alerts'] = $member['current_member'][HOUSE_TYPE_ROYAL] || $me
 $member['has_video_matching'] = $member['current_member'][HOUSE_TYPE_COMMONS] && $member['party'] != 'Sinn Fein';
 $member['has_expenses'] = isset($extra_info['expenses2004_col1']) || isset($extra_info['expenses2006_col1']) || isset($extra_info['expenses2007_col1']) || isset($extra_info['expenses2008_col1']);
 
-# First, the special Speaker box.
-# person_speaker_special($member, $extra_info);
-
 # Heading/ picture
-print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
-
+$mp_panel_columns = 'large-12'; // columns for main info panel
+$button_columns = '';           // columns for alert/wtt buttons
 if ($member['has_email_alerts']) {
-    print '<p class="informational alert">';
-    print '<a href="' . WEBPATH . 'alert/?pid='.$member['person_id'].'"><strong>Email me updates on '. $member['full_name']. '&rsquo;s activity</strong></a>
-    <span>(no more than once per day)</span></p>';
+    $mp_panel_columns = 'large-9';
 }
 
-person_image($member);
-echo '<h1>' . $member['full_name'] . '<br><span>' . person_summary_description($member) . '</span></h1>';
+?>
+            <p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>
+            <a data-magellan-destination="profile" name="profile"></a>
+            <div class="panel-row" id="mp-panel">
+                <div class="<?=$mp_panel_columns?> small-12 columns" id="mp-details">
+                    <?php person_image($member); ?>
 
-# History
-echo '<ul>';
+                    <div class="mp-details">
+                        <h1><?=$member['full_name']?></h1>
+                        <h3 class="subheader"><?php print person_summary_description($member) ?></h3>
 
-	if ($member['other_constituencies']) {
-		print "<li>Also represented " . join('; ', array_keys($member['other_constituencies']));
-		print '</li>';
-	}
-
-	if ($member['other_parties'] && $member['party'] != 'Speaker' && $member['party'] != 'Deputy Speaker') {
-		print "<li>Changed party ";
-		foreach ($member['other_parties'] as $r) {
-			$out[] = 'from ' . $r['from'] . ' on ' . format_date($r['date'], SHORTDATEFORMAT);
-		}
-		print join('; ', $out);
-		print '</li>';
-	}
-
-	// Ministerial positions
-	if (array_key_exists('office', $extra_info)) {
-		person_offices($extra_info);
-	}
-
-    if (exists_rep_image($member['person_id']) && isset($extra_info['photo_attribution_text']) && $extra_info['photo_attribution_text']) {
-        print '<li><small>Photo: ';
-        if (isset($extra_info['photo_attribution_link']) && $extra_info['photo_attribution_link']) {
-            print '<a href="' . $extra_info['photo_attribution_link'] . '" rel="nofollow">';
-        }
-        print $extra_info['photo_attribution_text'];
-        if (isset($extra_info['photo_attribution_link']) && $extra_info['photo_attribution_link']) {
-            print '</a>';
-        }
-        print '</small></li>';
-    }
-
-echo '</ul>';
-
+<?php
 //if dummy image, show message asking for a photo
 if (!exists_rep_image($member['person_id'])) {
-	person_ask_for_picture($member);
+    person_ask_for_picture($member);
 }
 
-echo '<ul class="hilites clear">';
-	person_enter_leave_facts($member, $extra_info);
-	person_majority($extra_info);
-	if ($member['party'] == 'Sinn Fein' && in_array(HOUSE_TYPE_COMMONS, $member['houses'])) {
-		print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
-	}
-print "</ul>";
-print '<br class="clear">';
+?>
+                        <ul class="hilites clear">
+<?php
+print "                        ";
+person_enter_leave_facts($member, $extra_info);
+person_majority($extra_info);
+get_member_history($member, $extra_info);
+print "\n";
 
+if ($member['party'] == 'Sinn Fein' && in_array(HOUSE_TYPE_COMMONS, $member['houses'])) {
+    print '<li>Sinn F&eacute;in MPs do not take their seats in Parliament</li>';
+}
+?>
+                        </ul>
+<?php
+
+$SEARCHURL = new URL("search");
+
+?>
+                        <div class="mpsearchbox">
+                            <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
+                                <p>
+                                    <input name="s" size="24" maxlength="200" placeholder="Search this person's speeches"><input type="submit" class="submit" value="GO">
+                                    <input type="hidden" name="pid" value="<?php echo $member['person_id']; ?>">
+                                </p>
+                            </form>
+                        </div>
+                    </div> <!-- end .mp-details -->
+                </div> <!-- end #mp-details -->
+
+<?php
+if ($member['has_email_alerts']) {
+?>
+                <div class="small-12 large-3 person-button-column">
+                    <a class="button alert person-contact-button" href="<?= WEBPATH ?>alert/?pid=<?=$member['person_id']?>"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a>
+<?php
+    if ($member['the_users_mp'] == true) {
+        global $THEUSER;
+        $pc = $THEUSER->postcode();
+    ?>
+
+                    <a class="button alert person-contact-button" href="http://www.writetothem.com/?a=WMC&amp;pc=<?php htmlentities(urlencode($pc)) ?>"><strong>Send a message</strong><small>with WriteToThem</small></a>
+<?php
+    }
+}
+?>
+                </div>
+            </div> <!-- end mp panel -->
+
+            <div data-magellan-expedition="fixed" class="person-subnav">
+                <dl class="sub-nav">
+                    <dt data-magellan-arrival="profile"><a href="#profile">Profile</a></dt>
+                    <dt data-magellan-arrival="votingrecord"><a href="#votingrecord">Voting<span class="hide-for-small"> record</span></a></dt>
+                    <dt data-magellan-arrival="hansard"><a href="#hansard">Appearances</a></dt>
+                    <dt data-magellan-arrival="register"><a href="#register">Register<span class="hide-for-small"> of interests</span></a></dt>
+                </dl>
+            </div>
+
+            <div class="row">
+                <div class="large-8 columns" id="main-content">
+<?php
+
+/*
 person_user_actions($member);
 person_internal_links($member, $extra_info);
+ */
 
 if ($member['has_voting_record']) {
-	person_voting_record($member, $extra_info);
+    $NEWPAGE->panel_start('votingrecord', true);
+    person_voting_record($member, $extra_info);
+    $NEWPAGE->panel_end();
 }
 
 $member['chairmens_panel'] = false;
-# Topics of interest only for current MPs at the moment
-if ($member['current_member'][HOUSE_TYPE_COMMONS]) { # in_array(1, $member['houses'])
-	$member['chairmens_panel'] = person_committees_and_topics($member, $extra_info);
-}
 
 if ($member['has_recent_appearances']) {
-	person_recent_appearances($member);
+    $NEWPAGE->panel_start('hansard', true);
+    person_recent_appearances($member);
+    $NEWPAGE->panel_end();
+}
+# Topics of interest only for current MPs at the moment
+if ($member['current_member'][HOUSE_TYPE_COMMONS]) {
+    // we used to generate this when we were checking topics but this
+    // is now in the sidebar so we don't check this till too late
+    if ( array_key_exists('office', $extra_info) ) {
+        foreach ($extra_info['office'] as $row) {
+            if ($row['dept'] == "Chairmen's Panel Committee") {
+                $member['chairmens_panel'] = true;
+            }
+        }
+    }
 }
 
+$NEWPAGE->panel_start('numbers', true);
 person_numerology($member, $extra_info);
+$NEWPAGE->panel_end();
 
 if (isset($extra_info['register_member_interests_html'])) {
-	person_register_interests($member, $extra_info);
-}
-
-if ($member['has_expenses']) {
-	include_once INCLUDESPATH . 'easyparliament/expenses.php';
-	echo '<a name="expenses"></a>';
-	echo '<h2>Expenses</h2>';
-	echo expenses_display_table($extra_info);
+    $NEWPAGE->panel_start('register', true);
+    person_register_interests($member, $extra_info);
+    $NEWPAGE->panel_end();
 }
 
 # Helper functions
@@ -165,6 +198,40 @@ function person_summary_description($member) {
 	return $desc;
 }
 
+function get_member_history($member, $extra_info) {
+    $history = '';
+    if ($member['other_constituencies']) {
+        $history .=  "<li>Also represented " . join('; ', array_keys($member['other_constituencies']));
+        $history .= '</li>';
+    }
+
+    if ($member['other_parties'] && $member['party'] != 'Speaker' && $member['party'] != 'Deputy Speaker') {
+        $history .= "<li>Changed party ";
+        foreach ($member['other_parties'] as $r) {
+            $out[] = 'from ' . $r['from'] . ' on ' . format_date($r['date'], SHORTDATEFORMAT);
+        }
+        $history .= join('; ', $out);
+        $history .= '</li>';
+    }
+
+    // Ministerial positions
+    if (array_key_exists('office', $extra_info)) {
+        person_offices($extra_info);
+    }
+
+    if (exists_rep_image($member['person_id']) && isset($extra_info['photo_attribution_text']) && $extra_info['photo_attribution_text']) {
+        $history .= '<li><small>Photo: ';
+        if (isset($extra_info['photo_attribution_link']) && $extra_info['photo_attribution_link']) {
+            $history .= '<a href="' . $extra_info['photo_attribution_link'] . '" rel="nofollow">';
+        }
+        $history .= $extra_info['photo_attribution_text'];
+        if (isset($extra_info['photo_attribution_link']) && $extra_info['photo_attribution_link']) {
+            $history .= '</a>';
+        }
+        $history .= '</small></li>';
+    }
+}
+
 function person_offices($extra_info) {
 	$mins = array();
 	foreach ($extra_info['office'] as $row) {
@@ -175,7 +242,7 @@ function person_offices($extra_info) {
 		}
 	}
 	if ($mins) {
-		print '<li>' . join('<br>', $mins) . ' <small>(<a href="/help/#dates_wrong">note about dates</a>)</small></li>';
+		print '<li>' . join('<br>', $mins) . '</li>';
 	}
 }
 
@@ -191,78 +258,78 @@ them.</p>';
 
 function person_enter_leave_facts($member, $extra_info) {
 	if (isset($member['left_house'][HOUSE_TYPE_COMMONS]) && isset($member['entered_house'][HOUSE_TYPE_LORDS])) {
-		print '<li><strong>Entered the House of Lords ';
+		print '<li>Entered the House of Lords ';
 		if (strlen($member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'])==4)
 			print 'in ';
 		else
 			print 'on ';
-		print $member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
-		print '</strong>';
+		print $member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'].'';
+		print '';
 		if ($member['entered_house'][HOUSE_TYPE_LORDS]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_LORDS]['reason'];
 		print '</li>';
-		print '<li><strong>Previously MP for ';
+		print '<li>Previously MP for ';
 		print $member['left_house'][HOUSE_TYPE_COMMONS]['constituency'] . ' until ';
-		print $member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
+		print $member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'';
 		if ($member['left_house'][HOUSE_TYPE_COMMONS]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_COMMONS]['reason'];
 		print '</li>';
 	} elseif (isset($member['entered_house'][HOUSE_TYPE_LORDS]['date'])) {
-		print '<li><strong>Became a Lord ';
+		print '<li>Became a Lord ';
 		if (strlen($member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'])==4)
 			print 'in ';
 		else
 			print 'on ';
-		print $member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
+		print $member['entered_house'][HOUSE_TYPE_LORDS]['date_pretty'].'';
 		if ($member['entered_house'][HOUSE_TYPE_LORDS]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_LORDS]['reason'];
 		print '</li>';
 	}
 	if (in_array(HOUSE_TYPE_LORDS, $member['houses']) && !$member['current_member'][HOUSE_TYPE_LORDS]) {
-		print '<li><strong>Left Parliament on '.$member['left_house'][HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
+		print '<li>Left Parliament on '.$member['left_house'][HOUSE_TYPE_LORDS]['date_pretty'].'';
 		if ($member['left_house'][HOUSE_TYPE_LORDS]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_LORDS]['reason'];
 		print '</li>';
 	}
 
 	if (isset($extra_info['lordbio'])) {
-		echo '<li><strong>Positions held at time of appointment:</strong> ', $extra_info['lordbio'],
+		echo '<li>Positions held at time of appointment: ', $extra_info['lordbio'],
 			' <small>(from <a href="',
 			$extra_info['lordbio_from'], '">Number 10 press release</a>)</small></li>';
 	}
 
 	if (isset($member['entered_house'][HOUSE_TYPE_COMMONS]['date'])) {
-		print '<li><strong>Entered Parliament on ';
-		print $member['entered_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
+		print '<li>Entered Parliament on ';
+		print $member['entered_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'';
 		if ($member['entered_house'][HOUSE_TYPE_COMMONS]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_COMMONS]['reason'];
 		print '</li>';
 	}
 	if (in_array(HOUSE_TYPE_COMMONS, $member['houses']) && !$member['current_member'][HOUSE_TYPE_COMMONS] && !isset($member['entered_house'][HOUSE_TYPE_LORDS])) {
-		print '<li><strong>Left Parliament ';
+		print '<li>Left Parliament ';
 		if (strlen($member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'])==4)
 			print 'in ';
 		else
 			print 'on ';
-		echo $member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
+		echo $member['left_house'][HOUSE_TYPE_COMMONS]['date_pretty'].'';
 		if ($member['left_house'][HOUSE_TYPE_COMMONS]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_COMMONS]['reason'];
 		print '</li>';
 	}
 
 	if (isset($member['entered_house'][HOUSE_TYPE_NI]['date'])) {
-		print '<li><strong>Entered the Assembly on ';
-		print $member['entered_house'][HOUSE_TYPE_NI]['date_pretty'].'</strong>';
+		print '<li>Entered the Assembly on ';
+		print $member['entered_house'][HOUSE_TYPE_NI]['date_pretty'].'';
 		if ($member['entered_house'][HOUSE_TYPE_NI]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_NI]['reason'];
 		print '</li>';
 	}
 	if (in_array(HOUSE_TYPE_NI, $member['houses']) && !$member['current_member'][HOUSE_TYPE_NI]) {
-		print '<li><strong>Left the Assembly on '.$member['left_house'][HOUSE_TYPE_NI]['date_pretty'].'</strong>';
+		print '<li>Left the Assembly on '.$member['left_house'][HOUSE_TYPE_NI]['date_pretty'].'';
 		if ($member['left_house'][HOUSE_TYPE_NI]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_NI]['reason'];
 		print '</li>';
 	}
 	if (isset($member['entered_house'][HOUSE_TYPE_SCOTLAND]['date'])) {
-		print '<li><strong>Entered the Scottish Parliament on ';
-		print $member['entered_house'][HOUSE_TYPE_SCOTLAND]['date_pretty'].'</strong>';
+		print '<li>Entered the Scottish Parliament on ';
+		print $member['entered_house'][HOUSE_TYPE_SCOTLAND]['date_pretty'].'';
 		if ($member['entered_house'][HOUSE_TYPE_SCOTLAND]['reason']) print ' &mdash; ' . $member['entered_house'][HOUSE_TYPE_SCOTLAND]['reason'];
 		print '</li>';
 	}
 	if (in_array(HOUSE_TYPE_SCOTLAND, $member['houses']) && !$member['current_member'][HOUSE_TYPE_SCOTLAND]) {
-		print '<li><strong>Left the Scottish Parliament on '.$member['left_house'][HOUSE_TYPE_SCOTLAND]['date_pretty'].'</strong>';
+		print '<li>Left the Scottish Parliament on '.$member['left_house'][HOUSE_TYPE_SCOTLAND]['date_pretty'].'';
 		if ($member['left_house'][HOUSE_TYPE_SCOTLAND]['reason']) print ' &mdash; ' . $member['left_house'][HOUSE_TYPE_SCOTLAND]['reason'];
 		print '</li>';
 	}
@@ -270,7 +337,7 @@ function person_enter_leave_facts($member, $extra_info) {
 
 function person_majority($extra_info) {	
 	if (!isset($extra_info['majority_in_seat'])) return;
-	print '<li><strong>Majority:</strong> ' . number_format($extra_info['majority_in_seat']) . ' votes. ';
+	print '<li>Majority: ' . number_format($extra_info['majority_in_seat']) . ' votes. ';
 	if (isset($extra_info['swing_to_lose_seat_today'])) {
 	/*
 	if (isset($extra_info['swing_to_lose_seat_today_quintile'])) {
@@ -380,9 +447,9 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
 			// How many votes Dream MP and MP both voted (and didn't abstain) in
 			// $extra_info["public_whip_dreammp${dreamid}_both_voted"];
 		}
-        $out .= "<li>$dmpdesc $desc. 
-<small class='unneededprintlinks'> 
-<a href='http://www.publicwhip.org.uk/mp.php?mpid=$member[member_id]&amp;dmp=$dreamid'>votes</a>
+        $out .= "<li>$dmpdesc $desc.
+<small class='votepolicylink unneededprintlinks'>
+<a href='http://www.publicwhip.org.uk/mp.php?mpid=$member[member_id]&amp;dmp=$dreamid'>Votes</a>
 </small>
 		</li>";
 	}
@@ -391,14 +458,58 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
 
 # Display the person's voting record on various issues.
 function person_voting_record($member, $extra_info) {
-	?> <a name="votingrecord"></a> <?php
 	//$this->block_start(array('id'=>'votingrecord', 'title'=>'Voting record (from PublicWhip)'));
-	print '<h2>Voting record (from PublicWhip)</h2>';
+  print '<div class="moreinfo"><span class="moreinfo-text">Read about how the voting record is decided.</span><a class="moreinfo-link" href="' . WEBPATH . 'help/#votingrecord"><img src="/images/questionmark.png" alt="" title=""></a></div>';
+	print '<h2>Voting record <small>from PublicWhip</small></h2>';
 	$displayed_stuff = 0;
+
+  $member_has_died = 0;
+  if (
+        $member['left_house'] && (
+            ( in_array(HOUSE_TYPE_COMMONS, $member['left_house']) && $member['left_house'][HOUSE_TYPE_COMMONS]['reason'] && $member['left_house'][HOUSE_TYPE_COMMONS]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_LORDS, $member['left_house']) && $member['left_house'][HOUSE_TYPE_LORDS ]['reason'] && $member['left_house'][HOUSE_TYPE_LORDS]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_SCOTLAND, $member['left_house']) && $member['left_house'][HOUSE_TYPE_SCOTLAND ]['reason'] && $member['left_house'][HOUSE_TYPE_SCOTLAND]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_NI, $member['left_house']) && $member['left_house'][HOUSE_TYPE_NI ]['reason'] && $member['left_house'][HOUSE_TYPE_NI]['reason'] == 'Died' )
+        )
+  ) {
+      $member_has_died = 1;
+  }
 
 	if ($member['party']=='Speaker' || $member['party']=='Deputy Speaker') {
 		if ($member['party']=='Speaker') $art = 'the'; else $art = 'a';
 		echo "<p>As $art $member[party], $member[full_name] cannot vote (except to break a tie).</p>";
+	}
+
+	// Rebellion rate
+	if (isset($extra_info['public_whip_rebellions']) && $extra_info['public_whip_rebellions'] != 'n/a') {
+		$displayed_stuff = 1;
+    $rebels_term = 'rebels';
+    if ( $member_has_died ) {
+        $rebels_term = 'rebelled';
+    }
+?>					<ul class="no-bullet">
+						<li><a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?=$member['member_id'] ?>#divisions" title="See more details at Public Whip">
+                        <strong><?php echo htmlentities(ucfirst($extra_info['public_whip_rebel_description'])) . ' ' . $rebels_term; ?></strong></a> against their party<?php
+		if (isset($extra_info['public_whip_rebelrank'])) {
+			if ($member['house_disp'] == HOUSE_TYPE_LORDS) {
+				echo '';
+			} elseif ($extra_info['public_whip_data_date'] == 'complete') {
+				echo " in their last parliament";
+			} else {
+			    echo " in this parliament";
+			}
+			/* &#8212; ";
+			if (isset($extra_info['public_whip_rebelrank_joint']))
+				print 'joint ';
+			echo make_ranking($extra_info['public_whip_rebelrank']);
+			echo " most rebellious of ";
+			echo $extra_info['public_whip_rebelrank_outof'];
+			echo ($member['house']=='House of Commons') ? " MPs" : ' Lords';
+			*/
+		}
+		?>.
+		</li>
+	</ul><?php
 	}
 
     # ID, display string, MP only
@@ -453,6 +564,8 @@ function person_voting_record($member, $extra_info) {
             $since = '';
         } elseif (!in_array(HOUSE_TYPE_COMMONS, $member['houses']) && in_array(HOUSE_TYPE_LORDS, $member['houses']) && $member['entered_house'][HOUSE_TYPE_LORDS]['date'] > '2001-06-07') {
             $since = '';
+        } elseif ( $member_has_died ) {
+            $since = '';
         } else {
             $since = ' since 2001';
         }
@@ -462,14 +575,10 @@ function person_voting_record($member, $extra_info) {
         }
 ?>
 
-<p id="howvoted">How <?=$member['full_name']?> voted on key issues<?=$since?>:</p>
-<ul id="dreamcomparisons">
+<h3>How <?=$member['full_name']?> voted on key issues<?=$since?></h3>
+<ul class="no-bullet" id="dreamcomparisons">
 <?=$got_dream ?>
 </ul>
-<p class="italic">
-<small>Read about <a href="<?=WEBPATH ?>help/#votingrecord">how the voting record is decided</a>.</small>
-</p>
-
 <?
     }
 
@@ -486,47 +595,114 @@ function person_voting_record($member, $extra_info) {
 	if (count($record) > 0) {
 		$displayed_stuff = 1;
 		?>
-		<p>More on <?php echo implode(' &amp; ', $record); ?></p>
+		<p class="morelink">More on <?php echo implode(' &amp; ', $record); ?></p>
 <?php
 	}
         
-	// Rebellion rate
-	if (isset($extra_info['public_whip_rebellions']) && $extra_info['public_whip_rebellions'] != 'n/a') {	
-		$displayed_stuff = 1;
-?>					<ul>
-						<li><a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?=$member['member_id'] ?>#divisions" title="See more details at Public Whip">
-                        <strong><?php echo htmlentities(ucfirst($extra_info['public_whip_rebel_description'])); ?> rebels</strong></a> against their party<?php
-		if (isset($extra_info['public_whip_rebelrank'])) {
-			if ($member['house_disp'] == HOUSE_TYPE_LORDS) {
-				echo '';
-			} elseif ($extra_info['public_whip_data_date'] == 'complete') {
-				echo " in their last parliament";
-			} else {
-			    echo " in this parliament";
-			}
-			/* &#8212; ";
-			if (isset($extra_info['public_whip_rebelrank_joint']))
-				print 'joint ';
-			echo make_ranking($extra_info['public_whip_rebelrank']);
-			echo " most rebellious of ";
-			echo $extra_info['public_whip_rebelrank_outof'];
-			echo ($member['house']=='House of Commons') ? " MPs" : ' Lords';
-			*/
-		}
-		?>.
-		</li>
-	</ul><?php
-	}
 
 	if (!$displayed_stuff) {
 		print '<p>No data to display yet.</p>';
 	}
 }
 
+function person_committees_and_topics_for_sidebar($member, $extra_info) {
+    $out = '<div class="block">';
+    $topics_block_empty = true;
+
+    // Select committee membership
+    if (array_key_exists('office', $extra_info)) {
+        $mins = array();
+
+        foreach ($extra_info['office'] as $row) {
+            if ($row['to_date'] == '9999-12-31' && $row['source'] == 'chgpages/selctee' || $row['source'] == 'datadotparl/committee' ) {
+                $m = prettify_office($row['position'], $row['dept']);
+                if ($row['from_date']!='2004-05-28') {
+                    $m .= ' <small>(since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')</small>';
+                }
+                $mins[] = $m;
+            }
+        }
+
+        if ($mins) {
+            $topics_block_empty = false;
+
+            $out .=  "<h4>Select Committee membership</h4>";
+            $out .=  '<ul class="no-bullet">';
+            foreach ($mins as $min) {
+                $out .=  '<li>' . $min . '</li>';
+            }
+            $out .=  "</ul>";
+        }
+    }
+
+    $wrans_dept = false;
+    $wrans_dept_1 = null;
+    $wrans_dept_2 = null;
+
+    if (isset($extra_info['wrans_departments'])) {
+        $wrans_dept = true;
+        $subjects = explode(',', $extra_info['wrans_departments']);
+        $wrans_dept_1 = '<span class="radius label">' . implode( '</span> <span class="radius label">', $subjects ) . '</span>';
+    }
+
+    if (isset($extra_info['wrans_subjects'])) {
+        $wrans_dept = true;
+        $subjects = explode(',', $extra_info['wrans_subjects']);
+        $wrans_dept_2 = '<span class="radius label">' . implode( '</span> <span class="radius label">', $subjects ) . '</span>';
+    }
+
+    $topics  = '';
+    if ($wrans_dept) {
+        $topics_block_empty = false;
+
+        $topics .= '<p class="interests">';
+        if ($wrans_dept_1) { $topics .=  $wrans_dept_1; }
+        if ($wrans_dept_2) { $topics .=  $wrans_dept_2; }
+        $topics .= '</p>';
+
+        $WRANSURL = new URL('search');
+        $WRANSURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
+        $out .= '<div class="moreinfo"><span class="moreinfo-text">Based on written questions asked by ' . $member['full_name'] . ' and answered by departments</span><a href="' . $WRANSURL->generate() . '"><img src="/images/questionmark.png"></a></div>';
+    }
+
+    $out .= '<h4>Topics of interest</h4>';
+    $out .= $topics;
+
+    # Public Bill Committees
+    if (count($extra_info['pbc'])) {
+        $topics_block_empty = false;
+        $out .=  '<h4>Public Bill Committees <small>(sittings attended)</small></h4>';
+
+        if ($member['party'] == 'Scottish National Party') {
+            $out .=  '<p><em>SNP MPs only attend sittings where the legislation pertains to Scotland.</em></p>';
+        }
+
+        $out .=  '<ul class="no-bullet">';
+        foreach ($extra_info['pbc'] as $bill_id => $arr) {
+            $out .=  '<li>';
+
+            if ($arr['chairman']) {
+                $out .=  'Chairman, ';
+            }
+            $out .=  '<a href="/pbc/' . $arr['session'] . '/' . urlencode($arr['title']) . '">'
+            . $arr['title'] . ' Committee</a> <small>(' . $arr['attending']
+            . ' out of ' . $arr['outof'] . ')</small>';
+        }
+        $out .=  '</ul>';
+    }
+
+    if ($topics_block_empty) {
+        $out .=  "<p><em>This MP is not currently on any public bill committee
+        and has had no written questions answered for which we know the department or subject.</em></p>";
+    }
+    $out .= "</div>";
+
+    return $out;
+}
+
 function person_committees_and_topics($member, $extra_info) {
 	$chairmens_panel = false;
-	echo '<a name="topics"></a>
-<h2>Topics of interest</h2>';
+echo'<h2>Topics of interest</h2>';
 	$topics_block_empty = true;
 
 	// Select committee membership
@@ -544,7 +720,7 @@ function person_committees_and_topics($member, $extra_info) {
 		}
 		if ($mins) {
 			print "<h3>Select Committee membership</h3>";
-			print "<ul>";
+			print '<ul class="no-bullet">';
 			foreach ($mins as $min) {
 				print '<li>' . $min . '</li>';
 			}
@@ -566,7 +742,7 @@ function person_committees_and_topics($member, $extra_info) {
 	
 	if ($wrans_dept) {
 		print "<p><strong>Asks most questions about</strong></p>";
-		print "<ul>";
+		print '<ul class="no-bullet">';
 		if ($wrans_dept_1) print $wrans_dept_1;
 		if ($wrans_dept_2) print $wrans_dept_2;
 		print "</ul>";
@@ -583,7 +759,7 @@ function person_committees_and_topics($member, $extra_info) {
 		if ($member['party'] == 'Scottish National Party') {
 			echo '<p><em>SNP MPs only attend sittings where the legislation pertains to Scotland.</em></p>';
 		}
-		echo '<ul>';
+		echo '<ul class="no-bullet">';
 		foreach ($extra_info['pbc'] as $bill_id => $arr) {
 			print '<li>';
 			if ($arr['chairman']) print 'Chairman, ';
@@ -605,7 +781,6 @@ and has had no written questions answered for which we know the department or su
 function person_recent_appearances($member) {
     global $DATA, $SEARCHENGINE, $this_page;
 
-    echo '<a name="hansard"></a>';
     $title = 'Most recent appearances';
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
         $title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
@@ -648,7 +823,7 @@ function person_recent_appearances($member) {
     $MOREURL = new URL('search');
     $MOREURL->insert( array('pid'=>$member['person_id'], 'pop'=>1) );
     ?>
-<p id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4">More of <?php echo ucfirst($member['full_name']); ?>'s recent appearances</a></p>
+<p class="morelink" id="moreappear"><a href="<?php echo $MOREURL->generate(); ?>#n4">More of <?php echo ucfirst($member['full_name']); ?>'s recent appearances</a></p>
 
 <?php
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
@@ -664,7 +839,6 @@ function person_recent_appearances($member) {
 }
 
 function person_numerology($member, $extra_info) {
-	echo '<a name="numbers"></a>';
 	//$this->block_start(array('id'=>'numbers', 'title'=>'Numerology'));
 	print "<h2>Numerology</h2>";
 	$displayed_stuff = 0;
@@ -672,7 +846,7 @@ function person_numerology($member, $extra_info) {
 <p><em>Please note that numbers do not measure quality. 
 Also, representatives may do other things not currently covered
 by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p>
-<ul>
+<ul class="no-bullet">
 <?php
 
 	$since_text = 'in the last year';
@@ -783,7 +957,14 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 }
 
 function person_register_interests($member, $extra_info) {
-	print '<a name="register"></a>';
+  $regtext = '';
+	if (isset($extra_info['register_member_interests_date'])) {
+		$regtext .= '<nobr>Register last updated: ';
+		$regtext .=  format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
+		$regtext .=  '.</nobr> ';
+	}
+  $regtext .= 'More about the Register';
+  print '<div class="moreinfo"><span class="moreinfo-text">' . $regtext . '</span><a class="moreinfo-link" href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm"><img src="/images/questionmark.png" alt="" title=""></a></div>';
 	print "<h2>Register of Members&rsquo; Interests</h2>";
 
 	if ($extra_info['register_member_interests_html'] != '') {
@@ -791,15 +972,7 @@ function person_register_interests($member, $extra_info) {
 	} else {
 		echo "\t\t\t\t<p>Nil</p>\n";
 	}
-	echo '<p class="italic">';
-	if (isset($extra_info['register_member_interests_date'])) {
-		echo 'Register last updated: ';
-		echo format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
-		echo '. ';
-	}
-	echo '<a href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm">More about the Register</a>';
-	echo '</p>';
-	print '<p><strong><a href="' . WEBPATH . 'regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
+	print '<p class="morelink"><strong><a href="' . WEBPATH . 'regmem/?p='.$member['person_id'].'">View the history of this MP\'s entries in the Register</a></strong></p>';
 }
 
 # ---
