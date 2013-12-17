@@ -245,35 +245,7 @@ class PAGE {
         if (!DEVSITE) {
 ?>
 
-<!-- Load GA experiments API for front-page test -->
-<script src="//www.google-analytics.com/cx/api.js?experiment=SCodGIyjRRS8DPSYDkd-Og"></script>
-
 <script type="text/javascript">
-
-  // Select GA experiment variation
-  var chosenVariation = cxApi.chooseVariation();
-
-  // Text variations to use
-  var pageVariations = [
-    function() {},  // Original
-    function() {    // Verbose
-      document.getElementById('searchLabel').innerHTML = 'Search, or create an email alert or RSS feed';
-    },
-    function() {    // Slash Separated
-      document.getElementById('searchLabel').innerHTML = 'Search, or create an email alert/RSS feed';
-    },
-    function() {    // No RSS
-      document.getElementById('searchLabel').innerHTML = 'Search, or create an email alert';
-    },
-    function() {    // Just Add "Email"
-      document.getElementById('searchLabel').innerHTML = 'Search, create an email alert or RSS feed';
-    }
-  ];
-
-  // When page is ready, switch the content
-  $(document).ready(
-    pageVariations[chosenVariation]
-  );
 
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

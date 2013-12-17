@@ -86,7 +86,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
             $popular_searches = $SEARCHLOG->popular_recent(10);
         ?>
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Home'); return false;">
-            <h2><label for="s" id="searchLabel">Search, create an alert or RSS feed</label></h2>
+            <h2><label for="s">Search, create an email alert or RSS feed</label></h2>
             <p>
                 <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
                 <input type="submit" value="Go" class="submit">
