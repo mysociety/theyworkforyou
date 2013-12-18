@@ -32,12 +32,6 @@ unless ($ENV{LOCKFILE}) {
 #print "Start time: ";
 #date +"%Y-%m-%d %H:%M:%S %Z"
 
-if (!$staging) {
-    # Get new data -- with the "-a" so we get same timestamps as remote filesystem
-    print "Rsyncing new data from parlparse\n" if $verbose;
-    system "rsync --delete --exclude '.zip' --exclude '.svn' --exclude 'tmp/' --archive ukparse.kforge.net::parldata /home/twfy-live/parldata";
-}
-
 # Load recent new files from XML into the database
 print "Loading into database\n" if $verbose;
 chdir $FindBin::Bin;
