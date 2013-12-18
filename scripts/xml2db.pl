@@ -261,20 +261,16 @@ sub process_type {
                         my $xdir = $xdirs->[$i];
                         (my $sxdir = $xdir) =~ s/lords(wrans|wms)/lordspages/;
                         # Find last update time
-                        my @stat = stat($sxdir . "changedates.txt");
-                        die "couldn't stat[9] $sxdir/changedates.txt" if (!$stat[9]);
-                        die "xmaxtime[$i] not initialised" if (!$xmaxtime[$i]);
-                        die "$sxdir : $stat[9] vs $xmaxtime[$i] : changedates.txt time isn't greater or equal than largest file" unless ($stat[9] >= $xmaxtime[$i]);
-                        if ($xxmaxtime < $stat[9]) {
-                                $xxmaxtime = $stat[9];
+                        die "xmaxtime[$i] not initialised" unless $xmaxtime[$i];
+                        if ($xxmaxtime < $xmaxtime[$i]) {
+                                $xxmaxtime = $xmaxtime[$i];
                         }
-                        $xmaxtime[$i] = $stat[9];
                 }
        
                 if ($xxmaxtime != $xsince) {
                         # We use the current maxtime, so we run things still at that time again
-                        # (the rsync from parlparse might have only got one of two files set in 
-                        # the same second, and next time it might get the other)
+                        # (when there was an rsync from parlparse it might have only got one of
+                        # two files set in # the same second, and next time it might get the other)
                         #print "$xname since: $xsince new max $xmaxtime from changedates\n";
                         my $xname = $xnames->[0];
                         open FH, ">$lastupdatedir$xname-lastload" or die "couldn't open $lastupdatedir$xname-lastload for writing";
@@ -563,20 +559,10 @@ sub process_mentions {
 
                 # Store that we've done
                 if ($recent) {
-                        my $xxmaxtime = 0;
-                        # Find last update time
-                        my @stat = stat($xdir . "changedates.txt");
-                        die "couldn't stat[9] $xdir/changedates.txt" if (!$stat[9]);
-                        die "xmaxtime not initialised" if (!$xmaxtime);
-                        die "$xdir : $stat[9] vs $xmaxtime : changedates.txt time isn't greater or equal than largest file" unless ($stat[9] >= $xmaxtime);
-                        if ($xxmaxtime < $stat[9]) {
-                                $xxmaxtime = $stat[9];
-                        }
-                        $xmaxtime = $stat[9];
-
-                        if ($xxmaxtime != $xsince) {
+                        die "xmaxtime not initialised" unless $xmaxtime;
+                        if ($xmaxtime != $xsince) {
                                 open FH, ">$lastupdatedir$xgidtype-lastload" or die "couldn't open $lastupdatedir$xgidtype-lastload for writing";
-                                print FH $xxmaxtime;
+                                print FH $xmaxtime;
                                 close FH;
                         }
                 }
