@@ -1,0 +1,49 @@
+# crontab Example:
+# Timed tasks for TheyWorkForYou. Example file.
+
+PATH=/usr/local/bin:/usr/bin:/bin
+MAILTO=cron-twfy@mysociety.org
+
+# daily update at night for MP data (regmem, data from Public Whip etc.)
+37 2 * * * twfy /data/vhost/www.theyworkforyou.com/theyworkforyou/scripts/dailyupdate
+
+# Weekly, compact Xapian database
+# 23 4 * * Sun twfy run-with-lockfile -n /data/vhost/www.theyworkforyou.com/morning-update.lock /data/vhost/www.theyworkforyou.com/theyworkforyou/scripts/compactsearchdb || echo "morningupdate or compactsearchdb is already running"
+# And remove any things in the index that are no longer present
+0 23 * * Sat twfy /data/vhost/www.theyworkforyou.com/theyworkforyou/search/index.pl check cronquiet
+
+# every day, generate a summary of the API the day before
+0 1 * * * twfy /data/vhost/www.theyworkforyou.com/theyworkforyou/scripts/daily-api-usage.php
+
+# every week early Sunday grab Wikipedia titles update, only on live site
+23 4 * * Sun twfy /data/vhost/www.theyworkforyou.com/theyworkforyou/scripts/wikipedia-update
+
+# not for the glossary links, but for the editing history from
+# political IP addresses, only on live site
+4 0-23/2 * * * twfy /data/vhost/www.theyworkforyou.com/theyworkforyou/scripts/wikipedia-cron.php
+
+#0 8 * * * twfy /data/vhost/www.theyworkforyou.com/theyworkforyou/scripts/edm_status.pl > /data/vhost/www.theyworkforyou.com/dumps/edm_status.csv
+
+# Scheduled parlparse update tasks
+
+# update latest stuff from parliament.uk in the morning.
+# parliament.uk is meant to update by 6am
+13 6 * * * twfy ~/parlparse/scripts/morningupdate
+
+# daily update at night for MP data (regmem, data from Public Whip etc.)
+37 1 * * * twfy ~/parlparse/scripts/dailyupdate
+
+# several times a day, check for changes in various pages (lists of MPs, ministers etc.):
+#  update at night, as David Boothroyd ofen updates strengths.html in the evening
+#  update at lunch, so if a minister is sacked in the morning and the clerks alert
+#  update with the six o'clock news
+20 1 * * * twfy ~/parlparse/scripts/changewatcher
+0 12 * * * twfy ~/parlparse/scripts/changewatcher
+0 18 * * * twfy ~/parlparse/scripts/changewatcher
+# (the above times are all guesswork, but it doesn't really matter)
+
+# 01:10, email when a parliamentary recess starts/ends
+# 10 1 * * * twfy ~/parlparse/scripts/recesswatcher.py
+
+# every week early Sunday grab weekly range of data
+23 4 * * Sun twfy ~/parlparse/scripts/weeklyupdate
