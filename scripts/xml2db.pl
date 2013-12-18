@@ -218,23 +218,22 @@ sub process_type {
                 # Record which dates have files which have been updated
                 # (each date can have multiple files, if published Hansard has changed)
                 my $xwanted = sub {
+                        return unless /^$xname(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/
+                            || /^(\d{4}-\d\d-\d\d)_(\d+)\.xml$/
+                            || /^$xname\d{4}-\d\d-\d\d_[^_]*_[^_]*_(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/;
                         my $xfile = $_;
                         my @stat = stat($xdir . $xfile);
                         my $use = ($stat[9] >= $xsince);
-                        if (m/^$xname(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/
-                            || m/^(\d{4}-\d\d-\d\d)_(\d+)\.xml$/
-                            || /^$xname\d{4}-\d\d-\d\d_[^_]*_[^_]*_(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/) {
-                                my $date_part = $1;
+                        my $date_part = $1;
         
-                                if ($xmaxtime[$i] < $stat[9]) {
-                                        $xmaxfile = $xfile;
-                                        $xmaxtime[$i] = $stat[9];
-                                }
+                        if ($xmaxtime[$i] < $stat[9]) {
+                                $xmaxfile = $xfile;
+                                $xmaxtime[$i] = $stat[9];
+                        }
 
-                                #print $xfile ." ".($use?"t":"f")." $xsince $stat[9]\n";
-                                if ($all || ($use && $recent) || ($datefrom le $date_part && $date_part le $dateto)) {
-                                        $process->{$date_part} = 1;
-                                }
+                        #print $xfile ." ".($use?"t":"f")." $xsince $stat[9]\n";
+                        if ($all || ($use && $recent) || ($datefrom le $date_part && $date_part le $dateto)) {
+                                $process->{$date_part} = 1;
                         }
                 };
                 find({ wanted=>$xwanted, preprocess=>\&revsort }, $xdir);
@@ -531,21 +530,20 @@ sub process_mentions {
                 # Record which dates have files which have been updated:
 
                 my $xwanted = sub {
+                        return unless /^up-to-(\d{4}-\d\d-\d\d)(.*)\.xml$/;
                         my $xfile = $_;
                         my @stat = stat($xdir . $xfile);
                         my $use = ($stat[9] >= $xsince);
-                        if (m/^up-to-(\d{4}-\d\d-\d\d)(.*)\.xml$/) {
-                                my $date_part = $1;
+                        my $date_part = $1;
 
-                                if ($xmaxtime < $stat[9]) {
-                                        $xmaxfile = $xfile;
-                                        $xmaxtime = $stat[9];
-                                }
+                        if ($xmaxtime < $stat[9]) {
+                                $xmaxfile = $xfile;
+                                $xmaxtime = $stat[9];
+                        }
 
-                                #print $xfile ." ".($use?"t":"f")." $xsince $stat[9]\n";
-                                if ($all || ($use && $recent) || ($datefrom le $date_part && $date_part le $dateto)) {
-                                        $process->{$date_part} = $xfile;
-                                }
+                        #print $xfile ." ".($use?"t":"f")." $xsince $stat[9]\n";
+                        if ($all || ($use && $recent) || ($datefrom le $date_part && $date_part le $dateto)) {
+                                $process->{$date_part} = $xfile;
                         }
                 };
 
