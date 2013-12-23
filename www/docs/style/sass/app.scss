@@ -9,7 +9,7 @@
 
 @import "ms_header";
 
-@import url(http://fonts.googleapis.com/css?family=Lato:200,400,700|Open+Sans:400,700&subset=latin,latin-ext);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700|Open+Sans:400,700&subset=latin,latin-ext);
 
 // this is from old stylesheets
 .printonly {
@@ -132,7 +132,7 @@ ul, li {
               border-style:solid;
               border-color:#444 transparent;
                 /* reduce the damage in FF3.0 */
-                display:block; 
+                display:block;
                 width:0;
             }
 
@@ -868,5 +868,25 @@ ul, li {
     }
     input[type='radio'] {
         margin-right: 0.5em;
+    }
+}
+
+.topic-header {
+
+    margin-bottom: em-calc(30);
+
+    h1 {
+        font-size: em-calc(60);
+        margin-bottom: 0;
+
+        &.subheader {
+            font-size: em-calc(40);
+            color: lighten($header-font-color, 30%);
+            font-weight: 300;
+        }
+    }
+
+    p {
+        font-size: em-calc(16);
     }
 }
