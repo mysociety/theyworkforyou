@@ -11,6 +11,9 @@
 
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700|Open+Sans:400,700&subset=latin,latin-ext);
 
+// Include the Foundation icon font
+@import '../foundation-icons/foundation-icons.css';
+
 // this is from old stylesheets
 .printonly {
     @extend .print-only;
@@ -887,6 +890,43 @@ ul, li {
     }
 
     p {
+        font-size: em-calc(18);
+    }
+}
+
+.topic-ctas {
+
+    .cta-icon {
+        color: $brand;
+        display: block;
+        text-align: center;
+        @extend .show-for-medium-up;
+    }
+
+    h4 {
+        font-size: em-calc(18);
+    }
+
+    p {
+        font-size: em-calc(14);
+    }
+
+}
+
+.topic-sidebar {
+
+    @extend .show-for-medium-up;
+
+    .callout-image {
+        margin-left: -$column-gutter;
+    }
+
+    h4 {
         font-size: em-calc(16);
+    }
+
+    p.large {
+        margin-top: 1em;
+        font-size: em-calc(18);
     }
 }
