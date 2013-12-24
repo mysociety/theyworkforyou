@@ -1,0 +1,119 @@
+---
+vagrantfile-local:
+    vm:
+        box: debian-wheezy72-x64-vbox43
+        box_url: 'http://box.puphpet.com/debian-wheezy72-x64-vbox43.box'
+        hostname: null
+        network:
+            private_network: 192.168.88.10
+            forwarded_port: {  }
+        provider:
+            virtualbox:
+                modifyvm:
+                    name: theyworkforyou
+                    natdnshostresolver1: on
+                    memory: '512'
+                setextradata:
+                    VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
+        provision:
+            puppet:
+                manifests_path: puppet/manifests
+                options:
+                    - --verbose
+                    - '--hiera_config /vagrant/hiera.yaml'
+                    - '--parser future'
+        synced_folder:
+            Mi71pkIVJlO9:
+                id: vagrant-root
+                source: ./
+                target: /data/twfy
+                nfs: 'false'
+        usable_port_range: 2200..2250
+    ssh:
+        host: null
+        port: null
+        private_key_path: null
+        username: vagrant
+        guest_port: null
+        keep_alive: true
+        forward_agent: false
+        forward_x11: false
+        shell: 'bash -l'
+    vagrant:
+        host: ':detect'
+server:
+    packages:
+        - memcached
+        - libemail-localdelivery-perl
+        - libdbd-mysql-perl
+        - libhtml-parser-perl
+        - libmailtools-perl
+        - libmime-perl
+        - liberror-perl
+        - libxml-twig-perl
+        - libyaml-perl
+        - libsearch-xapian-perl
+        - python-mysqldb
+        - python-lxml
+        - subversion
+        - snarf
+    dot_files:
+        -
+            bash_aliases: null
+    _prevent_empty: ''
+apache:
+    modules:
+        - php
+        - rewrite
+    vhosts:
+        Kovy75VNOgYt:
+            servername: theyworkforyou.dev
+            docroot: /data/twfy/www/docs
+            port: '80'
+            override:
+                - All
+    user: www-data
+    group: www-data
+    default_vhost: true
+    mpm_module: prefork
+php:
+    version: '54'
+    composer: '1'
+    modules:
+        php:
+            - cli
+            - intl
+            - mcrypt
+            - curl
+            - imagick
+            - memcached
+        pear: {  }
+        pecl:
+            - pecl_http
+    ini:
+        display_errors: On
+        error_reporting: '-1'
+        session.save_path: /var/lib/php/session
+    timezone: Europe/London
+xdebug:
+    install: '1'
+    settings:
+        xdebug.default_enable: '1'
+        xdebug.remote_autostart: '0'
+        xdebug.remote_connect_back: '1'
+        xdebug.remote_enable: '1'
+        xdebug.remote_handler: dbgp
+        xdebug.remote_port: '9000'
+mysql:
+    root_password: flFQ8TS53H
+    phpmyadmin: 0
+    databases:
+        9Pzmm4C1O0vd:
+            grant:
+                - ALL
+            name: twfy
+            host: localhost
+            user: twfy
+            password: twfy
+            sql_file: /data/twfy/db/schema.sql
+
