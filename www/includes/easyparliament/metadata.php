@@ -428,7 +428,7 @@ $this->page = array (
     'data' => array (
     	'title'			=> 'Raw Data',
     	'heading'		=> 'Raw data (XML) - the data behind TheyWorkForYou and Public Whip',
-    	'url'			=> 'http://ukparse.kforge.net/parlparse'
+    	'url'			=> 'http://parser.theyworkforyou.com'
     ),
     'pombola' => array (
     	'title'			=> 'Pombola',
