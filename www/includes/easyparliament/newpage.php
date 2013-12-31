@@ -127,6 +127,7 @@ class NEWPAGE extends PAGE {
 
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/js/jquery.fittext.js"></script>
     <script type="text/javascript" src="/jslib/share/share.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/bar.js"></script>
