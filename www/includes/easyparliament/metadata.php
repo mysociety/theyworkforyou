@@ -840,6 +840,19 @@ $this->page = array (
 		'url'			=> 'spwrans/'
 	),
 
+	// Topic pages
+
+	'topic' => array (
+		'url'           => 'topic/',
+		'title'         => 'Topics'
+	),
+
+	'topiccrimestats' => array (
+		'url'           => 'topic/crime-stats',
+		'parent'        => 'topic',
+		'title'         => 'Crime Statistics'
+	),
+
 	// The URL 3rd parties need to ping something here.
 	'trackback' => array (
 		'url'			=> 'trackback/'
