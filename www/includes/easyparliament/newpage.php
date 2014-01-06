@@ -208,8 +208,17 @@ class NEWPAGE extends PAGE {
     } catch(err){}
     setTimeout(function() {
       form.submit();
-      }, 100);
-    }
+    }, 100);
+  }
+
+  function trackLinkClick(link, category, name, value) {
+    try {
+      ga('send', 'event', category, name, value);
+    } catch(err){}
+    setTimeout(function() {
+      document.location.href = link.href;
+    }, 100);
+  }
 </script>
 
 <?      } ?>
