@@ -16,7 +16,7 @@ import mx.managers.PopUpManager;
 import flash.external.*;
 //import mx.controls.Alert;
 
-private var hostname:String = 'parlvid.mysociety.org:81';
+private var hostname:String = 'parlvid.mysociety.org';
 
 public function currentTime():int {
     return int(video.playheadTime);
