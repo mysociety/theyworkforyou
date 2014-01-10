@@ -66,7 +66,7 @@ $SEARCHURL = new URL("search");
 if ($member['has_email_alerts']) {
 ?>
                 <div class="small-12 large-3 person-button-column">
-                    <a class="button alert person-contact-button" href="<?= WEBPATH ?>alert/?pid=<?=$member['person_id']?>"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a><?php
+                    <a class="button alert person-contact-button" href="<?= WEBPATH ?>alert/?pid=<?=$member['person_id']?>" id="mp-alert-cta-text" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a><?php
     if ($member['the_users_mp'] == true) {
         global $THEUSER;
         $pc = $THEUSER->postcode();
