@@ -10,20 +10,19 @@ vagrantfile-local:
         provider:
             virtualbox:
                 modifyvm:
-                    name: theyworkforyou
                     natdnshostresolver1: on
                     memory: '512'
                 setextradata:
                     VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
         provision:
             puppet:
-                manifests_path: puppet/manifests
+                manifests_path: puphpet/puppet/manifests
                 options:
-                    - --verbose
-                    - '--hiera_config /vagrant/hiera.yaml'
+                    - '--verbose'
+                    - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            Mi71pkIVJlO9:
+            WD1dp2TtMIpp:
                 id: vagrant-root
                 source: ./
                 target: /data/twfy
@@ -66,7 +65,7 @@ apache:
         - php
         - rewrite
     vhosts:
-        Kovy75VNOgYt:
+        LqczCSzVMEXM:
             servername: theyworkforyou.dev
             docroot: /data/twfy/www/docs
             port: '80'
@@ -76,16 +75,18 @@ apache:
     group: www-data
     default_vhost: true
     mpm_module: prefork
+    mod_pagespeed: 0
+    mod_spdy: 0
 php:
     version: '54'
     composer: '1'
     modules:
         php:
             - cli
-            - intl
-            - mcrypt
             - curl
             - imagick
+            - intl
+            - mcrypt
             - memcached
         pear: {  }
         pecl:
@@ -104,11 +105,16 @@ xdebug:
         xdebug.remote_enable: '1'
         xdebug.remote_handler: dbgp
         xdebug.remote_port: '9000'
+drush:
+    install: 0
+    settings:
+        drush.tag_branch: 6.x
 mysql:
     root_password: flFQ8TS53H
     phpmyadmin: 0
+    adminer: 0
     databases:
-        9Pzmm4C1O0vd:
+        yrUHbjAOEWal:
             grant:
                 - ALL
             name: twfy
@@ -116,4 +122,13 @@ mysql:
             user: twfy
             password: twfy
             sql_file: /data/twfy/db/schema.sql
+beanstalkd:
+    install: 0
+    listenaddress: 0.0.0.0
+    listenport: '13000'
+    maxjobsize: '65535'
+    maxconnections: '1024'
+    binlogdir: /var/lib/beanstalkd/binlog
+    binlogfsync: null
+    binlogsize: '10485760'
 

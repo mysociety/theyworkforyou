@@ -35,8 +35,11 @@ file { "/home/${::ssh_username}":
 # copy dot files to ssh user's home directory
 exec { 'dotfiles':
   cwd     => "/home/${::ssh_username}",
-  command => "cp -r /vagrant/files/dot/.[a-zA-Z0-9]* /home/${::ssh_username}/ && chown -R ${::ssh_username} /home/${::ssh_username}/.[a-zA-Z0-9]*",
-  onlyif  => "test -d /vagrant/files/dot",
+  command => "cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* /home/${::ssh_username}/ \
+              && chown -R ${::ssh_username} /home/${::ssh_username}/.[a-zA-Z0-9]* \
+              && cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* /root/",
+  onlyif  => 'test -d /vagrant/puphpet/files/dot',
+  returns => [0, 1],
   require => User[$::ssh_username]
 }
 
@@ -56,12 +59,29 @@ case $::osfamily {
   'redhat': {
     class { 'yum': extrarepo => ['epel'] }
 
+    class { 'yum::repo::rpmforge': }
+    class { 'yum::repo::repoforgeextras': }
+
     Class['::yum'] -> Yum::Managed_yumrepo <| |> -> Package <| |>
+
+    if defined(Package['git']) == false {
+      package { 'git':
+        ensure  => latest,
+        require => Class['yum::repo::repoforgeextras']
+      }
+    }
 
     exec { 'bash_git':
       cwd     => "/home/${::ssh_username}",
       command => "curl https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > /home/${::ssh_username}/.bash_git",
       creates => "/home/${::ssh_username}/.bash_git"
+    }
+
+    exec { 'bash_git for root':
+      cwd     => '/root',
+      command => "cp /home/${::ssh_username}/.bash_git /root/.bash_git",
+      creates => '/root/.bash_git',
+      require => Exec['bash_git']
     }
 
     file_line { 'link ~/.bash_git':
@@ -74,13 +94,28 @@ case $::osfamily {
       ]
     }
 
+    file_line { 'link ~/.bash_git for root':
+      ensure  => present,
+      line    => 'if [ -f ~/.bash_git ] ; then source ~/.bash_git; fi',
+      path    => '/root/.bashrc',
+      require => [
+        Exec['dotfiles'],
+        Exec['bash_git'],
+      ]
+    }
+
     file_line { 'link ~/.bash_aliases':
       ensure  => present,
       line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
       path    => "/home/${::ssh_username}/.bash_profile",
-      require => [
-        File_line['link ~/.bash_git'],
-      ]
+      require => File_line['link ~/.bash_git']
+    }
+
+    file_line { 'link ~/.bash_aliases for root':
+      ensure  => present,
+      line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
+      path    => '/root/.bashrc',
+      require => File_line['link ~/.bash_git for root']
     }
 
     ensure_packages( ['augeas'] )
@@ -93,6 +128,8 @@ if $php_values == undef {
 
 case $::operatingsystem {
   'debian': {
+    include apt::backports
+
     add_dotdeb { 'packages.dotdeb.org': release => $lsbdistcodename }
 
     if is_hash($php_values) {
@@ -105,9 +142,23 @@ case $::operatingsystem {
         add_dotdeb { 'packages.dotdeb.org-php55': release => 'wheezy-php55' }
       }
     }
+
+    $server_lsbdistcodename = downcase($lsbdistcodename)
+
+    apt::force { 'git':
+      release => "${server_lsbdistcodename}-backports",
+      timeout => 60
+    }
   }
   'ubuntu': {
-    apt::key { '4F4EA0AAE5267A6C': }
+    apt::key { '4F4EA0AAE5267A6C':
+      key_server => 'hkp://keyserver.ubuntu.com:80'
+    }
+    apt::key { '4CBEDD5A':
+      key_server => 'hkp://keyserver.ubuntu.com:80'
+    }
+
+    apt::ppa { 'ppa:pdoes/ppa': require => Apt::Key['4CBEDD5A'] }
 
     if is_hash($php_values) {
       # Ubuntu Lucid 10.04, Precise 12.04, Quantal 12.10 and Raring 13.04 can do PHP 5.3 (default <= 12.10) and 5.4 (default <= 13.04)
@@ -160,7 +211,7 @@ define add_dotdeb ($release){
 ## Begin Apache manifest
 
 if $yaml_values == undef {
-  $yaml_values = loadyaml('/vagrant/puppet/hieradata/common.yaml')
+  $yaml_values = loadyaml('/vagrant/puphpet/config.yaml')
 }
 
 if $apache_values == undef {
@@ -173,7 +224,7 @@ $webroot_location = $puphpet::params::apache_webroot_location
 
 exec { "exec mkdir -p ${webroot_location}":
   command => "mkdir -p ${webroot_location}",
-  onlyif  => "test -d ${webroot_location}",
+  creates => $webroot_location,
 }
 
 if ! defined(File[$webroot_location]) {
@@ -208,6 +259,14 @@ if $::osfamily == 'debian' {
     port     => '80',
     protocol => 'tcp'
   }
+}
+
+if has_key($apache_values, 'mod_pagespeed') and $apache_values['mod_pagespeed'] == 1 {
+  class { 'puphpet::apache::modpagespeed': }
+}
+
+if has_key($apache_values, 'mod_spdy') and $apache_values['mod_spdy'] == 1 {
+  class { 'puphpet::apache::modspdy': }
 }
 
 create_resources(apache::vhost, $apache_values['vhosts'])
@@ -255,6 +314,12 @@ if $php_fpm_ini == undef {
 if is_hash($apache_values) {
   include apache::params
 
+  if has_key($apache_values, 'mod_spdy') and $apache_values['mod_spdy'] == 1 {
+    $php_webserver_service_ini = 'cgi'
+  } else {
+    $php_webserver_service_ini = 'httpd'
+  }
+
   $php_webserver_service = 'httpd'
   $php_webserver_user    = $apache::params::user
   $php_webserver_restart = true
@@ -265,9 +330,10 @@ if is_hash($apache_values) {
 } elsif is_hash($nginx_values) {
   include nginx::params
 
-  $php_webserver_service = "${php_prefix}fpm"
-  $php_webserver_user    = $nginx::params::nx_daemon_user
-  $php_webserver_restart = true
+  $php_webserver_service     = "${php_prefix}fpm"
+  $php_webserver_service_ini = $php_webserver_service
+  $php_webserver_user        = $nginx::params::nx_daemon_user
+  $php_webserver_restart     = true
 
   class { 'php':
     package             => $php_webserver_service,
@@ -284,8 +350,9 @@ if is_hash($apache_values) {
     require    => Package[$php_webserver_service]
   }
 } else {
-  $php_webserver_service = undef
-  $php_webserver_restart = false
+  $php_webserver_service     = undef
+  $php_webserver_service_ini = undef
+  $php_webserver_restart     = false
 
   class { 'php':
     package             => "${php_prefix}cli",
@@ -307,11 +374,22 @@ if count($php_values['modules']['pecl']) > 0 {
 }
 if count($php_values['ini']) > 0 {
   each( $php_values['ini'] ) |$key, $value| {
-    puphpet::ini { $key:
-      entry       => "CUSTOM/${key}",
-      value       => $value,
-      php_version => $php_values['version'],
-      webserver   => $php_webserver_service
+    if is_array($value) {
+      each( $php_values['ini'][$key] ) |$innerkey, $innervalue| {
+        puphpet::ini { "${key}_${innerkey}":
+          entry       => "CUSTOM_${innerkey}/${key}",
+          value       => $innervalue,
+          php_version => $php_values['version'],
+          webserver   => $php_webserver_service_ini
+        }
+      }
+    } else {
+      puphpet::ini { $key:
+        entry       => "CUSTOM/${key}",
+        value       => $value,
+        php_version => $php_values['version'],
+        webserver   => $php_webserver_service_ini
+      }
     }
   }
 
@@ -333,7 +411,7 @@ puphpet::ini { $key:
   entry       => 'CUSTOM/date.timezone',
   value       => $php_values['timezone'],
   php_version => $php_values['version'],
-  webserver   => $php_webserver_service
+  webserver   => $php_webserver_service_ini
 }
 
 define php_mod {
@@ -397,6 +475,30 @@ if $xdebug_values['install'] != undef and $xdebug_values['install'] == 1 {
     }
   }
 }
+
+## Begin Drush manifest
+
+if $drush_values == undef {
+  $drush_values = hiera('drush', false)
+}
+
+if $drush_values['install'] != undef and $drush_values['install'] == 1 {
+  if ($drush_values['settings']['drush.tag_branch'] != undef) {
+    $drush_tag_branch = $drush_values['settings']['drush.tag_branch']
+  } else {
+    $drush_tag_branch = ''
+  }
+
+  ## @see https://drupal.org/node/2165015
+  include drush::git::drush
+
+  ## class { 'drush::git::drush':
+  ##   git_branch => $drush_tag_branch,
+  ##   update     => true,
+  ## }
+}
+
+## End Drush manifest
 
 ## Begin MySQL manifest
 
@@ -464,7 +566,7 @@ define mysql_db (
   }
 }
 
-if $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
+if has_key($mysql_values, 'phpmyadmin') and $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
   if $::osfamily == 'debian' {
     if $::operatingsystem == 'ubuntu' {
       apt::key { '80E7349A06ED541C': }
@@ -487,23 +589,44 @@ if $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
   include puphpet::params
 
   if is_hash($apache_values) {
-    $mysql_webroot_location = $puphpet::params::apache_webroot_location
+    $mysql_pma_webroot_location = $puphpet::params::apache_webroot_location
   } elsif is_hash($nginx_values) {
-    $mysql_webroot_location = $puphpet::params::nginx_webroot_location
+    $mysql_pma_webroot_location = $puphpet::params::nginx_webroot_location
 
     mysql_nginx_default_conf { 'override_default_conf':
-      webroot => $mysql_webroot_location
+      webroot => $mysql_pma_webroot_location
     }
   }
 
-  file { "${mysql_webroot_location}/phpmyadmin":
-    target  => "/usr/share/${phpMyAdmin_folder}",
-    ensure  => link,
-    replace => 'no',
+  exec { 'move phpmyadmin to webroot':
+    command => "mv /usr/share/${phpMyAdmin_folder} ${mysql_pma_webroot_location}/phpmyadmin",
+    onlyif  => "test ! -d ${mysql_pma_webroot_location}/phpmyadmin",
     require => [
       Package[$phpMyAdmin_package],
-      File[$mysql_webroot_location]
+      File[$mysql_pma_webroot_location]
     ]
+  }
+
+  file { "/usr/share/${phpMyAdmin_folder}":
+    target  => "${mysql_pma_webroot_location}/phpmyadmin",
+    ensure  => link,
+    replace => 'no',
+    require => Exec['move phpmyadmin to webroot']
+  }
+}
+
+if has_key($mysql_values, 'adminer') and $mysql_values['adminer'] == 1 and is_hash($php_values) {
+  if is_hash($apache_values) {
+    $mysql_adminer_webroot_location = $puphpet::params::apache_webroot_location
+  } elsif is_hash($nginx_values) {
+    $mysql_adminer_webroot_location = $puphpet::params::nginx_webroot_location
+  } else {
+    $mysql_adminer_webroot_location = $puphpet::params::apache_webroot_location
+  }
+
+  class { 'puphpet::adminer':
+    location => "${mysql_adminer_webroot_location}/adminer",
+    owner    => 'www-data'
   }
 }
 
@@ -526,5 +649,15 @@ define mysql_nginx_default_conf (
     fastcgi_pass => $fastcgi_pass,
     notify       => Class['nginx::service'],
   }
+}
+
+# Begin beanstalkd
+
+if $beanstalkd_values == undef {
+  $beanstalkd_values = hiera('beanstalkd', false)
+}
+
+if has_key($beanstalkd_values, 'install') and $beanstalkd_values['install'] == 1 {
+  beanstalkd::config { $beanstalkd_values: }
 }
 
