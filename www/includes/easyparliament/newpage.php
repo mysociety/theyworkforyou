@@ -123,7 +123,7 @@ class NEWPAGE extends PAGE {
     <meta property="og:url" content="http://<?php echo DOMAIN; ?>">
     <meta property="og:image" content="http://<?php echo DOMAIN; ?>/images/favicon-256.png">
     <meta property="og:description" content="TheyWorkForYou is a website which makes it easy to keep track of your local MP's activities.">
-    <meta property="fb:app_id" content="227648394066332">
+    <meta property="fb:admins" content="143203489083755">
 
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/jquery.cookie.js"></script>
