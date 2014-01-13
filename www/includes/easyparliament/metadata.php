@@ -853,6 +853,12 @@ $this->page = array (
 		'title'         => 'Crime Statistics'
 	),
 
+	'topicnhs' => array (
+		'url'           => 'topic/nhs',
+		'parent'        => 'topic',
+		'title'         => 'NHS'
+	),
+
 	// The URL 3rd parties need to ping something here.
 	'trackback' => array (
 		'url'			=> 'trackback/'

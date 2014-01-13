@@ -13,7 +13,8 @@ $NEWPAGE->stripe_start('full');
 
 // Array of topic page names (must exist in metadata.php) and titles to display.
 $topics = array(
-    'topiccrimestats' => 'Crime Statistics'
+    'topiccrimestats' => 'Crime Statistics',
+    'topicnhs'        => 'NHS'
 );
 
 ?>
