@@ -1528,8 +1528,13 @@ pr()//-->
         $URL = new URL('search');
         $URL->reset(); // no need to pass any query params as a form action. They are not used.
 
-        if ($value == '')
-            $value = get_http_var('s');
+        if ($value == '') {
+            if (get_http_var('q') !== '') {
+                $value = get_http_var('q');
+            } else {
+                $value = get_http_var('s');
+            }
+        }
 
         $person_name = '';
         if (preg_match_all('#speaker:(\d+)#', $value, $m) == 1) {
