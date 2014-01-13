@@ -67,10 +67,27 @@ if ($member['has_email_alerts']) {
 ?>
                 <div class="small-12 large-3 person-button-column">
                     <a class="button alert person-contact-button" href="<?= WEBPATH ?>alert/?pid=<?=$member['person_id']?>" id="mp-alert-cta-text" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a><?php
-    if ($member['the_users_mp'] == true) {
-        global $THEUSER;
+
+if ($member['the_users_mp'] == true) {
         $pc = $THEUSER->postcode();
-    ?><a class="button alert person-contact-button" href="http://www.writetothem.com/?a=WMC&amp;pc=<?php htmlentities(urlencode($pc)) ?>"><strong>Send a message</strong><small>with WriteToThem</small></a>
+?>
+        <a onClick="trackLinkClick('Links', 'WriteToThem', 'User');return false;" class="button alert person-contact-button" href="http://www.writetothem.com/?a=WMC&amp;pc=<?php htmlentities(urlencode($pc)) ?>"><strong>Send a message</strong><small>with WriteToThem</small></a>
+<?php
+    } elseif ($member['current_member'][HOUSE_TYPE_COMMONS]) {
+?>
+        <a onClick="trackLinkClick('Links', 'WriteToThem', 'MP');return false;" class="button alert person-contact-button" href="http://www.writetothem.com/"><strong>Send a message to your MP</strong><small>with WriteToThem</small></a>
+<?php
+    } elseif ($member['current_member'][HOUSE_TYPE_NI]) {
+?>
+        <a onClick="trackLinkClick('Links', 'WriteToThem', 'MLA');return false;" class="button alert person-contact-button" href="http://www.writetothem.com/"><strong>Send a message to your MLA</strong><small>with WriteToThem</small></a>
+<?php
+    } elseif ($member['current_member'][HOUSE_TYPE_SCOTLAND]) {
+?>
+        <a onClick="trackLinkClick('Links', 'WriteToThem', 'MSP');return false;" class="button alert person-contact-button" href="http://www.writetothem.com/"><strong>Send a message to your MSP</strong><small>with WriteToThem</small></a>
+<?php
+    } elseif ($member['current_member'][HOUSE_TYPE_LORDS]) {
+?>
+        <a onClick="trackLinkClick('Links', 'WriteToThem', 'MP');return false;" class="button alert person-contact-button" href="http://www.writetothem.com/?person=uk.org.publicwhip/person/<?php echo $member['person_id']; ?>"><strong>Send a message to <?php echo $member['full_name']; ?></strong><small>with WriteToThem</small></a>
 <?php
     }
 }
