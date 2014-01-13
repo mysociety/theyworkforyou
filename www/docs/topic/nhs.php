@@ -83,7 +83,7 @@ $NEWPAGE->stripe_start('side');
                 <div class="large-9 columns">
 
                     <h4>
-                        <a href="http://www.theyworkforyou.com/search/?s=%nhs%22">
+                        <a href="http://www.theyworkforyou.com/search/?s=%22nhs%22">
                             Search the whole site
                         </a>
                     </h4>
@@ -105,7 +105,7 @@ $NEWPAGE->stripe_start('side');
                 <div class="large-9 columns">
 
                     <h4>
-                        <a href="http://www.theyworkforyou.com/alert/?alertsearch=%27nhs%27">
+                        <a href="http://www.theyworkforyou.com/alert/?alertsearch=%22nhs%22">
                             Sign up for email alerts
                         </a>
                     </h4>

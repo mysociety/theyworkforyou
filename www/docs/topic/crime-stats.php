@@ -104,7 +104,7 @@ $NEWPAGE->stripe_start('side');
                 <div class="large-9 columns">
 
                     <h4>
-                        <a href="http://www.theyworkforyou.com/alert/?alertsearch=%27crime+statistics%27">
+                        <a href="http://www.theyworkforyou.com/alert/?alertsearch=%22crime+statistics%22">
                             Sign up for email alerts
                         </a>
                     </h4>
