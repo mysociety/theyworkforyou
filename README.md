@@ -25,10 +25,6 @@ use our name without our permission.
 
 See the file LICENSE.txt for exact legal information.
 
-Francis Irving  
-on behalf of the TheyWorkForYou.com team  
-2004-07-10 (updated 2008-04-30)
-
 ## What is TheyWorkForYou.com anyway?
 
 Everything MPs say in the UK's House of Commons is recorded in a document called
@@ -43,6 +39,26 @@ See INSTALL.md for installation questions.
 If you have questions, the best place to ask is the mySociety developers-public
 email list at
 https://secure.mysociety.org/admin/lists/mailman/listinfo/developers-public
+
+### Developing with Vagrant
+
+You will need the latest versions of VirtualBox and Vagrant, then:
+
+* Stick an entry in your `hosts` file to point `theyworkforyou.dev` at `192.168.88.10`.
+* Run `vagrant up`.
+* Go make a cup of tea. It may take a while whilst Vagrant and Puppet do their thing.
+* Point your web browser at `http://theyworkforyou.dev` and marvel at modern technology.
+
+#### Compiling Static Assets
+
+If you're working on a page which uses the redesign, you will need to compile
+static assets:
+
+* `vagrant ssh`
+* `sudo gem install zurb-foundation`
+* `sudo gem install compass`
+* `cd /data/twfy/www/docs/style`
+* `compass compile` for a one-off compilation or `compass watch` to recompile on changes
 
 ## Testing
 
