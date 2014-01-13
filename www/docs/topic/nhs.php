@@ -12,8 +12,9 @@ $NEWPAGE->stripe_start('side');
     <h1>The NHS</h1>
     <h1 class="subheader">&amp; the UK Parliament</h1>
 
-    <p>MPs and Lords often talk about the NHS, because it's a major
-        political issue. Here are some places you might want to start:</p>
+    <p>The NHS is a major political issue right now &mdash; it's mentioned a lot
+    in Parliament, so it can be hard to know exactly where to find the important
+    debates. Here are some places you might want to start:</p>
 
 </div>
 
@@ -28,18 +29,18 @@ $NEWPAGE->stripe_start('side');
             <div class="row">
 
                 <div class="large-3 columns">
-                    <i class="cta-icon fi-page"></i>
+                    <i class="cta-icon fi-comment-quotes"></i>
                 </div>
 
                 <div class="large-9 columns">
 
                     <h4>
-                        <a href="http://www.theyworkforyou.com/lords/?id=2013-10-29a.1482.5">
-                            Anti-social Behaviour Crime and Policing Bill (second reading)
+                        <a href="http://www.theyworkforyou.com/debates/?id=2011-01-31b.605.0">
+                            Health and Social Care Bill
                         </a>
                     </h4>
 
-                    <p>The House of Lords debate a proposed law, making many references to crime statistics.</p>
+                    <p>Andrew Lansley, Secretary of State for Health, sets out plans for a reorganisation of the NHS, which MPs then debate and vote on.</p>
 
                 </div>
 
@@ -56,12 +57,12 @@ $NEWPAGE->stripe_start('side');
                 <div class="large-9 columns">
 
                     <h4>
-                        <a href="http://www.theyworkforyou.com/lords/?id=2013-11-28a.1576.0">
-                            Police and Public trust
+                        <a href="http://www.theyworkforyou.com/debates/?id=2012-01-16a.536.0">
+                            NHS (Private Sector)
                         </a>
                     </h4>
 
-                    <p>A debate on police misconduct and how much the general public trust the police not to cover up crime statistics, mistakes and misbehaviour</p>
+                    <p>A year later, the opposition puts forward its concerns with the model, ending in a further vote.</p>
 
                 </div>
 
@@ -104,7 +105,7 @@ $NEWPAGE->stripe_start('side');
                 <div class="large-9 columns">
 
                     <h4>
-                        <a href="http://www.theyworkforyou.com/alert/?alertsearch=%nhs%27">
+                        <a href="http://www.theyworkforyou.com/alert/?alertsearch=%27nhs%27">
                             Sign up for email alerts
                         </a>
                     </h4>
