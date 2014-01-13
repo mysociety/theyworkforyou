@@ -1,2 +1,9 @@
-# Using Flex 3.0.0, from http://www.adobe.com/products/flex/flexdownloads/
-/home/matthew/flex/bin/mxmlc -output=/home/matthew/theyworkforyou/www/docs/video/parlvid.swf -title "TheyWorkForYou video timestamper" -creator "Matthew Somerville" -publisher "mySociety" /home/matthew/theyworkforyou/flex/main.mxml
+# Using Flex 3.6.0, from http://www.adobe.com/cfusion/entitlement/index.cfm?e=flex3sdk
+#
+# NB when unzipping the SDK, some of the permissions are set incorrectly, so doing
+#   $ find $FLEX_HOME -exec chmod u+rwX {} \;
+# should fix things up.
+
+FLEX_HOME=/home/ian/flex
+
+$FLEX_HOME/bin/mxmlc -output=../www/docs/video/parlvid.swf -title "TheyWorkForYou video timestamper" -creator "Matthew Somerville" -publisher "mySociety" main.mxml
