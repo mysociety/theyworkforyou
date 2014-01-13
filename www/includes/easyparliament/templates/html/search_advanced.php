@@ -3,7 +3,7 @@
 <form action="/search/" method="get" id="search-form">
 
 <div id="term-search">
-    <label for="s" class="hide">Search</label> <input type="text" id="s" name="s" value="<?=htmlspecialchars(get_http_var('s')) ?>">
+    <label for="s" class="hide">Search</label> <input type="text" id="s" name="q" value="<?=htmlspecialchars(get_http_var('q') != '' ? get_http_var('q') : get_http_var('s')) ?>">
     <div class="help">
     Enter what you&rsquo;re looking for here. See the help to the right for how
     to search for <strong>"unstemmed" words</strong>, <strong>-exclude -words</strong>, or perform <strong>OR boolean</strong> searches.

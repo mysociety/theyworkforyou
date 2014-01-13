@@ -471,7 +471,7 @@ class NEWPAGE extends PAGE {
                     <li id="search-wrapper">
                         <form action="<?php print $SEARCH->generate(); ?>" method="get">
                             <label for="s"><img src="/images/search-white.png" /></label>
-                            <input type="text" id="s" name="s" placeholder="Type search terms and hit enter...">
+                            <input type="text" id="s" name="q" placeholder="Type search terms and hit enter...">
                         </form>
                     </li>
                     <li class="has-dropdown" id="user_options">
@@ -1506,7 +1506,7 @@ pr()//-->
                 if (get_http_var('house')) {
                     echo '<input type="hidden" name="house" value="', htmlentities(get_http_var('house')), '">';
                 }
-                echo '<input type="text" name="s" value="', htmlentities($value), '" size="50"> ';
+                echo '<input type="text" name="q" value="', htmlentities($value), '" size="50"> ';
                 echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
                 $URL = new URL('search');
             $URL->insert(array('adv' => 1));
@@ -1653,12 +1653,12 @@ pr()//-->
         // Search box on the MP page.
 
         $URL = new URL('search');
-        $URL->remove(array('s'));
+        $URL->remove(array('s', 'q'));
         ?>
                 <div class="mpsearchbox">
                     <form action="<?php echo $URL->generate(); ?>" method="get">
                     <p>
-                    <input name="s" size="12">
+                    <input name="q" size="12">
                     <input type="hidden" name="pid" value="<?=$person_id ?>">
                     <input type="submit" class="submit" value="GO"></p>
                     </form>

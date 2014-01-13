@@ -13,7 +13,7 @@
     </form>
     <form style="margin: 0; padding: 5px 0 0 0;" title="Search everything said in Parliament since 2001" action="http://www.theyworkforyou.com/search/" method="get">
         <label style="display: block; font-size: small; font-weight: bold; margin: 0 0 2px 0;" for="s">Search Parliament</label>
-        <input id="s" name="s" style="width: 12em; border: solid 1px #4D6C25;" title="Type what you're looking for" type="text" tabindex="3" size="15" maxlength="100" value="Your Search">
+        <input id="s" name="q" style="width: 12em; border: solid 1px #4D6C25;" title="Type what you're looking for" type="text" tabindex="3" size="15" maxlength="100" value="Your Search">
         <input id="Submit2" name="Submit2" style="border: solid 0px #4d6c25; background-color: #4D6C25; color: #ffffff; font-weight: bold; text-transform: uppercase;" title="Submit search" tabindex="4" type="submit" value="Go">
         <br>
     </form>

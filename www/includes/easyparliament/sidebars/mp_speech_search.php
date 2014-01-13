@@ -13,7 +13,7 @@ if ($MEMBER->person_id()) {
                 <div class="mpsearchbox">
                     <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
                     <p>
-                    <input name="s" size="24" maxlength="200">
+                    <input name="q" size="24" maxlength="200">
                     <input type="hidden" name="pid" value="<?php echo $pid; ?>">
                     <input type="submit" class="submit" value="GO"></p>
                     </form>

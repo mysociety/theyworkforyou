@@ -114,7 +114,7 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
     ?>
                         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
                         <p><strong>Search everything said in Parliament since 2001, or for an ex-MP or constituency</strong><br>
-                        <label for="s">Type what you are looking for:</label>&nbsp; <input type="text" name="s" id="s" size="15" maxlength="100" class="text">&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit"></p>
+                        <label for="s">Type what you are looking for:</label>&nbsp; <input type="text" name="q" id="s" size="15" maxlength="100" class="text">&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit"></p>
                         <?php
                             // Display popular queries
                             global $SEARCHLOG;
