@@ -23,16 +23,16 @@
 //
 // sidebar:
 // If you have a 'sidebar' element for a page then that page will have its content
-// set to a restricted width and a sidebar will be inserted. The contents of this 
+// set to a restricted width and a sidebar will be inserted. The contents of this
 // will be include()d from a file in template/sidebars/ of the name of the 'sidebar'
 // value ('search.php' in the example above).
 
 /* Items a page might have:
 
-	menu		An array of 'text' and 'title' which are used if the page 
+	menu		An array of 'text' and 'title' which are used if the page
 				appears in the site menu.
 	title		Used for the <title> and the page's heading on the page.
-	heading		If present *this* is used for the page's heading on the page, in 
+	heading		If present *this* is used for the page's heading on the page, in
 				in place of the title.
 	url			The URL from the site webroot for this page.
 	parent		What page is this page's parent (see below).
@@ -42,27 +42,27 @@
 	track (deprecated)     	Do we want to include the Extreme Tracker javascript on this page?
 	rss			Does the content of this page (or some of it) have an RSS version?
 					If so, 'rss' should be set to '/a/path/to/the/feed.rdf'.
-						
-	
+
+
 	PARENTS
-	The site's menu has a top menu and a bottom, sub-menu. What is displayed in the 
+	The site's menu has a top menu and a bottom, sub-menu. What is displayed in the
 	sub-menu depends on which page is selected in the top menu. This is worked out
 	from the bottom up, by looking at pages' parents. Here's an example top and bottom
 	menu, with the capitalised items hilited:
-	
+
 	Home	HANSARD		Glossary	Help
-	
+
 		DEBATES		Written Answers
 
-	If we were viewing a particular debate, we would be on the 'debate' page. The parent 
-	of this is 'debatesfront', which is the DEBATES link in the bottom menu - hence its 
+	If we were viewing a particular debate, we would be on the 'debate' page. The parent
+	of this is 'debatesfront', which is the DEBATES link in the bottom menu - hence its
 	hilite. The parent of 'debatesfront' is 'hansard', hence its hilite in the top menu.
-	
+
 	This may, of course, make no sense at all...
-	
+
 	If a page has no parent it is either in the top menu or no menu items should be hilited.
 	The actual contents of each menu is determined in $PAGE->menu().
-	
+
 */
 
 $this->page = array (
@@ -73,13 +73,13 @@ $this->page = array (
 		'session_vars' => array('super_debug'),
 		'sitetitle'		=> 'TheyWorkForYou',
 	),
-	
-	
-	
-// Every page on the site should have an entry below...	
+
+
+
+// Every page on the site should have an entry below...
 
 // KEEP THE PAGES IN ALPHABETICAL ORDER! TA.
-	
+
 	'about' => array (
 		'title'			=> 'About us',
 		'url'			=> 'about/'
@@ -173,7 +173,7 @@ $this->page = array (
 		'parent'		=> 'admin',
 		'url'			=> 'admin/websites.php',
 	),
-	
+
 // Added by Richard Allan for email alert functions
 
 	'alert' => array (
@@ -185,14 +185,14 @@ $this->page = array (
 		),
 		'title'			=> 'TheyWorkForYou Email Alerts',
 		'url'			=> 'alert/',
-	),		
+	),
 	'alertwelcome' => array (
 		'title'			=> 'Email Alerts',
 		'url'			=> 'alert/',
 	),
 
 // End of ALERTS additions
-		
+
 	'api_front'		=> array (
 		'menu'			=> array (
 			'text'			=> 'API',
@@ -299,7 +299,7 @@ $this->page = array (
 	    'title' => 'News',
 	    'url' => 'http://www.mysociety.org/category/projects/theyworkforyou/'
 	),
-	'debate'  => array (	
+	'debate'  => array (
 		'parent'		=> 'debatesfront',
 		'url'			=> 'debate/',
 		'session_vars'	=> array ('id'),
@@ -313,7 +313,7 @@ $this->page = array (
 		'parent'		=> 'debatesfront',
 		'session_vars'	=> array ('d'),
 		'url'			=> 'debates/',
-	),			
+	),
 	'alldebatesfront' => array (
 		'menu'			=> array (
 			'text'			=> 'Debates',
@@ -439,12 +439,12 @@ $this->page = array (
     	'title'			=> 'Developer mailing list',
     	'heading'		=> 'Developer mailing list',
     	'url'			=> 'https://secure.mysociety.org/admin/lists/mailman/listinfo/developers-public'
-    ),        
+    ),
     'code' => array (
     	'title'			=> 'Source code',
     	'heading'		=> 'TheyWorkForYou Source code',
     	'url'			=> 'http://github.com/mysociety/theyworkforyou'
-    ),    
+    ),
     'irc' => array (
     	'title'			=> 'IRC chat channel',
     	'heading'		=> 'IRC chat channel',
@@ -454,7 +454,7 @@ $this->page = array (
     	'title'			=> 'New Zealand',
     	'heading'		=> 'They Work For You - New Zealand',
     	'url'			=> 'http://www.theyworkforyou.co.nz/'
-    ),    
+    ),
     'australia' => array (
     	'title'			=> 'Australia',
     	'heading'		=> 'Open Australia',
@@ -464,7 +464,7 @@ $this->page = array (
     	'title'			=> 'Ireland',
     	'heading'		=> 'TheyWorkForYou for the Houses of the Oireachtas',
     	'url'			=> 'http://www.kildarestreet.com/'
-    ),    
+    ),
     'mzalendo' => array (
     	'title'			=> 'Mzalendo',
     	'heading'		=> 'Keeping an eye on the Kenyan Parliament',
@@ -484,7 +484,7 @@ $this->page = array (
 		'parent'		=> 'lordsdebatesfront',
 		'session_vars'	=> array ('d'),
 		'url'			=> 'lords/',
-	),			
+	),
 	'lordsdebatesfront' => array (
 		'menu'			=> array (
 			'text'			=> 'Lords debates',
@@ -554,7 +554,7 @@ $this->page = array (
 		'url'			=> 'msps/'
 	),
     'msp' => array (
-    	'parent'		=> 'msps',	    
+    	'parent'		=> 'msps',
     	'title'			=> 'MSP',
     	'url'			=> 'msp/'
     ),
@@ -615,7 +615,7 @@ $this->page = array (
 		'parent'		=> 'nidebatesfront',
 		'session_vars'	=> array ('d'),
 		'url'			=> 'ni/',
-	),			
+	),
 	'nidebatesfront' => array (
 		'menu'			=> array (
 			'text'			=> 'Debates',
@@ -635,7 +635,7 @@ $this->page = array (
 		'pg'			=> 'editother',
 		'title'			=> "Editing a user's data",
 		'url'			=> 'user/'
-	),			
+	),
 	'privacy' => array (
 		'title'			=> 'Privacy Policy',
 		'url'			=> 'privacy/'
@@ -692,22 +692,22 @@ $this->page = array (
 		'title'			=> 'Changes to the Register of Members\' Interests',
 		'url'			=> 'regmem/'
 	),
-	
+
 	'regmem_date' => array (
 		'url'			=> 'regmem/',
 		'parent'		=> 'regmem'
 	),
-	
+
 	'regmem_mp' => array (
 		'url'			=> 'regmem/',
 		'parent'		=> 'regmem'
 	),
-	
+
 	'regmem_diff' => array (
 		'url'			=> 'regmem/',
 		'parent'		=> 'regmem'
 	),
-	
+
 	'royal' => array (
 		'title'			=> 'Royal',
 		'url'			=> 'royal/'
@@ -725,7 +725,7 @@ $this->page = array (
 		'title'			=> 'Help with searching',
 		'url'			=> 'search/'
 	),
-	
+
 	'sitenews'		=> array (
 		'menu'			=> array (
 			'text'			=> 'TheyWorkForYou news',
@@ -763,7 +763,7 @@ $this->page = array (
 	'sitenews_rss2' 	=> array (
 		'url'			=> 'news/index.xml'
 	),
-	
+
 	/* Scottish Parliament */
 	'sp_home' => array(
 		'menu'			=> array (
@@ -781,7 +781,7 @@ $this->page = array (
     	),
     	'title'			=> '',
     	'url'			=> 'scotland/'
-    ),	
+    ),
 	'spdebate'  => array (
 		'parent'		=> 'spdebatesfront',
 		'url'			=> 'sp/',
@@ -796,7 +796,7 @@ $this->page = array (
 		'parent'		=> 'spdebatesfront',
 		'session_vars'	=> array ('d'),
 		'url'			=> 'sp/',
-	),			
+	),
 	'spdebatesfront' => array (
 		'menu'			=> array (
 			'text'			=> 'Debates',
@@ -845,6 +845,12 @@ $this->page = array (
 	'topic' => array (
 		'url'           => 'topic/',
 		'title'         => 'Topics'
+	),
+
+	'topicbenefits' => array (
+		'url'           => 'topic/benefits',
+		'parent'        => 'topic',
+		'title'         => 'Benefits'
 	),
 
 	'topiccrimestats' => array (
@@ -930,7 +936,7 @@ $this->page = array (
 			'title'			=> "Sign out"
 		),
 		'url'			=> 'user/logout/'
-	),		
+	),
 	'userpassword' => array (
 		'title'			=> 'Change password',
 		'url'			=> 'user/password/'
@@ -978,12 +984,12 @@ $this->page = array (
 	),
 
 	/* Westminster Hall */
-	'whall'  => array (	
+	'whall'  => array (
 		'parent'		=> 'whallfront',
 		'url'			=> 'whall/',
 		'session_vars'	=> array ('id'),
 	),
-	'whalls'  => array (	
+	'whalls'  => array (
 		'parent'		=> 'whallfront',
 		'url'			=> 'whall/',
 		'session_vars'	=> array ('id'),
@@ -992,7 +998,7 @@ $this->page = array (
 		'parent'		=> 'whallfront',
 		'session_vars'	=> array ('d'),
 		'url'			=> 'whall/',
-	),			
+	),
 	'whallfront' => array (
 		'menu'			=> array (
 			'text'			=> 'Westminster Hall',
@@ -1002,7 +1008,7 @@ $this->page = array (
 		'title'			=> 'Westminster Hall debates',
 		'rss'			=> 'whall/whall.rss',
 		'url'			=> 'whall/'
-	), 
+	),
 	'whallyear' => array (
 		'parent'		=> 'whallfront',
 		'url'			=> 'whall/'
@@ -1124,7 +1130,7 @@ $this->page = array (
 
 // We just use the sections for creating page headings/titles.
 // The 'title' is always used for the <title> tag of the page.
-// The text displayed on the page itself will also be this, 
+// The text displayed on the page itself will also be this,
 // UNLESS the section has a 'heading', in which case that's used instead.
 
 $this->section = array (
