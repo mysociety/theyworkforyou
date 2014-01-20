@@ -69,6 +69,7 @@ if ($member['has_email_alerts']) {
                     <a class="button alert person-contact-button" href="<?= WEBPATH ?>alert/?pid=<?=$member['person_id']?>" id="mp-alert-cta-text" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;"><strong>Get email updates</strong><small>on this person&rsquo;s activity</small></a><?php
 
 if ($member['the_users_mp'] == true) {
+        global $THEUSER;
         $pc = $THEUSER->postcode();
 ?>
         <a onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'User'); return false;" class="button alert person-contact-button" href="https://www.writetothem.com/?a=WMC&amp;pc=<?php htmlentities(urlencode($pc)) ?>">
