@@ -197,11 +197,6 @@ class NEWPAGE extends PAGE {
     ga('create', 'UA-660910-1');  // Replace with your property ID.
     ga('send', 'pageview');
 
-  function recordWTT(link, label) {
-    ga('send', 'event', 'Links', 'WriteToThem', label);
-    setTimeout('document.location = "' + link.href + '"', 100);
-  }
-
   function trackFormSubmit(form, category, name, value) {
     try {
       ga('send', 'event', category, name, value);
