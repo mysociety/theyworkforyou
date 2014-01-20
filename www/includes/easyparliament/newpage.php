@@ -171,7 +171,7 @@ class NEWPAGE extends PAGE {
     var pageVariations = [
     function() {},  // Original
     function() {    // Verbose
-      document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Recieve an update</strong><small> whenever this person is active in Parliament</small>';
+      document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Receive an update</strong><small> whenever this person is active in Parliament</small>';
     },
     function() {    // Slash Separated
       document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Get email alerts</strong><small> on this person&rsquo;s activity</small>';
@@ -180,7 +180,7 @@ class NEWPAGE extends PAGE {
       document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Get email updates</strong><small> whenever this person is active in Parliament</small>';
     },
     function() {    // Variant 4
-      document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Recieve an alert</strong><small> whenever this person is active in Parliament</small>';
+      document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Receive an alert</strong><small> whenever this person is active in Parliament</small>';
     }
   ];
 
