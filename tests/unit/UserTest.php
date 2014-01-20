@@ -23,7 +23,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/user.xml');
+        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/../_fixtures/user.xml');
     }
 
     /**

@@ -23,7 +23,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/glossary.xml');
+        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/../_fixtures/glossary.xml');
     }
 
     /**
@@ -32,7 +32,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
 	public function setUp()
 	{
         parent::setUp();
-        
+
         include_once('www/includes/easyparliament/glossary.php');
     }
 
@@ -43,7 +43,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
     {
         $args['sort'] = "regexp_replace";
 		$glossary = new GLOSSARY($args);
-		
+
         $this->assertEquals('<a href="/glossary/?gl=1" title="In a general election, each Constituency chooses an MP to represent them...." class="glossary">constituency</a>', $glossary->glossarise('constituency'));
     }
 
@@ -54,7 +54,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
     {
         $args['sort'] = "regexp_replace";
 		$glossary = new GLOSSARY($args);
-		
+
         $this->assertEquals('<a href="#">constituency</a>', $glossary->glossarise('<a href="#">constituency</a>'));
     }
 
@@ -65,7 +65,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
     {
         $args['sort'] = "regexp_replace";
 		$glossary = new GLOSSARY($args);
-		
+
         $this->assertEquals('fooconstituencybar', $glossary->glossarise('fooconstituencybar'));
     }
 
@@ -76,7 +76,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
     {
         $args['sort'] = "regexp_replace";
 		$glossary = new GLOSSARY($args);
-		
+
         $this->assertEquals('foo <a href="/glossary/?gl=1" title="In a general election, each Constituency chooses an MP to represent them...." class="glossary">constituency</a> bar', $glossary->glossarise('foo constituency bar'));
     }
 
@@ -87,7 +87,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
     {
         $args['sort'] = "regexp_replace";
 		$glossary = new GLOSSARY($args);
-		
+
         $this->assertEquals('<a href="http://en.wikipedia.org/wiki/MP">MP</a>', $glossary->glossarise('MP'));
     }
 
@@ -98,7 +98,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
     {
         $args['sort'] = "regexp_replace";
 		$glossary = new GLOSSARY($args);
-		
+
         $this->assertEquals('<a href="#">MP</a>', $glossary->glossarise('<a href="#">MP</a>'));
     }
 
@@ -109,7 +109,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
     {
         $args['sort'] = "regexp_replace";
 		$glossary = new GLOSSARY($args);
-		
+
         $this->assertEquals('fooMPbar', $glossary->glossarise('fooMPbar'));
     }
 
@@ -120,7 +120,7 @@ class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
     {
         $args['sort'] = "regexp_replace";
 		$glossary = new GLOSSARY($args);
-		
+
         $this->assertEquals('foo <a href="http://en.wikipedia.org/wiki/MP">MP</a> bar', $glossary->glossarise('foo MP bar'));
     }
 }

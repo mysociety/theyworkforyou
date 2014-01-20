@@ -23,7 +23,7 @@ class CommentTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/comment.xml');
+        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/../_fixtures/comment.xml');
     }
 
     /**
