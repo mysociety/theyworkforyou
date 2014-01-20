@@ -1,6 +1,8 @@
 <?php
 // This is global bootstrap for autoloading
 
+echo "Bootstrapping TWFY test environment.\n";
+
 // Test to make sure we have the test DB environment variables. If not, this isn't testing, so abort.
 // Define the DB connection constants before we do anything else.
 if (
@@ -9,6 +11,7 @@ if (
     isset($_SERVER['TWFY_TEST_DB_PASS']) AND
     isset($_SERVER['TWFY_TEST_DB_NAME'])
 ) {
+    echo "Testing environment detected; proceeding to set configuration.\n";
 
     // Define the DB constants before config does. This should happen regardless of the presence of a config file.
     define('OPTION_TWFY_DB_HOST', $_SERVER['TWFY_TEST_DB_HOST']);
