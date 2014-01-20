@@ -225,6 +225,14 @@ mysql:
             user: twfy
             password: twfy
             sql_file: /data/twfy/db/schema.sql
+        rlnakvKwFYF9:
+            grant:
+                - ALL
+            name: twfy-test
+            host: localhost
+            user: twfy-test
+            password: twfy-test
+            sql_file: ''
 postgresql:
     install: '0'
     settings:

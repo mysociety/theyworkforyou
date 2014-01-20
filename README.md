@@ -58,18 +58,27 @@ static assets after changes:
 * `cd /data/twfy/www/docs/style`
 * `compass compile` for a one-off compilation or `compass watch` to recompile on changes
 
+#### Xapian
+
+TheyWorkForYou uses Xapian to provide search. You will need to [install it
+manually](http://trac.xapian.org/wiki/FAQ/PHP%20Bindings%20Package)
+
 ## Testing
 
-TheyWorkForYou includes a (currently *very limited*) test suite, using PHPunit.
-To run tests, ensure that the environment variables `TWFY_TEST_DB_HOST`,
-`TWFY_TEST_DB_NAME`, `TWFY_TEST_DB_USER` and `TWFY_TEST_DB_PASS` are set and
-contain relevant information for your testing database. The database will be
-stripped down and rebuilt during testing, so make sure it's not an important
-copy.
+TheyWorkForYou includes a (currently limited) unit and acceptance test suite,
+using [Codeception](http://codeception.com/).
 
-You may find that in some versions of PHPUnit errors are thrown regarding code
-coverage reports. If this is the case, the version installed by [Composer](http://getcomposer.org/)
-and located at `/vendor/bin/phpunit` should run correctly.
+The easiest way to run tests is to install the Vagrant environment, then run the
+following commands to install the test tools and configure the test environment:
+
+* `vagrant ssh`
+* `cd /data/twfy`
+* `composer install`
+* `source tests/environment`
+
+You can then run the tests using:
+
+* `vendor/bin/codecept run`
 
 ## Build Status
 
