@@ -70,9 +70,9 @@ if ($member['has_email_alerts']) {
 
 if ($member['the_users_mp'] == true) {
         global $THEUSER;
-        $pc = $THEUSER->postcode();
+        $pc = $THEUSER->postcode;
 ?>
-        <a onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'User'); return false;" class="button alert person-contact-button" href="https://www.writetothem.com/?a=WMC&amp;pc=<?php htmlentities(urlencode($pc)) ?>">
+        <a onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'User'); return false;" class="button alert person-contact-button" href="https://www.writetothem.com/?a=WMC&amp;pc=<?= htmlentities(urlencode($pc)) ?>">
             <strong>Send a message</strong><small>with WriteToThem</small>
         </a>
 <?php
