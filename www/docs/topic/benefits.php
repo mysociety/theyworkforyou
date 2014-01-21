@@ -12,8 +12,11 @@ $NEWPAGE->stripe_start('side');
     <h1>Benefits</h1>
     <h1 class="subheader">&amp; the UK Parliament</h1>
 
-    <p>MPs and Lords often talk about Benefits, because they're a major
-        political issue. Here are some places you might want to start:</p>
+    <p>Benefits are a major political issue right now - they are mentioned a lot
+        in Parliament, so it can be hard to know exactly where to find the
+        important debates.</p>
+
+    <p>Here are some places you might want to start:</p>
 
 </div>
 
@@ -23,42 +26,6 @@ $NEWPAGE->stripe_start('side');
 <!-- Begin CTAs -->
 
     <div class="row">
-        <div class="large-12 columns">
-
-            <p>Looking for information on benefits, tax credits, eligibility and appeals?
-                TheyWorkForYou only has a record of what's going on in Parliament, but
-                GOV.UK might be able to help you.</p>
-
-            <p><a href="https://www.gov.uk/browse/benefits" onclick="trackLinkClick(this, 'Links', 'GOVUK', 'Benefits'); return false;" class="button small">Visit "Benefits" on GOV.UK</a></p>
-
-            <hr>
-
-        </div>
-    </div>
-
-    <div class="row">
-
-        <div class="large-6 columns">
-            <div class="row">
-
-                <div class="large-3 columns">
-                    <i class="cta-icon fi-page"></i>
-                </div>
-
-                <div class="large-9 columns">
-
-                    <h4>
-                        <a href="http://www.theyworkforyou.com/lords/?id=2013-10-29a.1482.5">
-                            Anti-social Behaviour Crime and Policing Bill (second reading)
-                        </a>
-                    </h4>
-
-                    <p>The House of Lords debate a proposed law, making many references to crime statistics.</p>
-
-                </div>
-
-            </div>
-        </div>
 
         <div class="large-6 columns">
             <div class="row">
@@ -70,12 +37,34 @@ $NEWPAGE->stripe_start('side');
                 <div class="large-9 columns">
 
                     <h4>
-                        <a href="http://www.theyworkforyou.com/lords/?id=2013-11-28a.1576.0">
-                            Police and Public trust
+                        <a href="http://www.theyworkforyou.com/lords/?id=2013-02-13a.664.3">
+                            Universal Credit Regulations
                         </a>
                     </h4>
 
-                    <p>A debate on police misconduct and how much the general public trust the police not to cover up crime statistics, mistakes and misbehaviour</p>
+                    <p>Lords debate, and approve, the consolidation of all benefits into the Universal Credit system.</p>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="large-6 columns">
+            <div class="row">
+
+                <div class="large-3 columns">
+                    <i class="cta-icon fi-page"></i>
+                </div>
+
+                <div class="large-9 columns">
+
+                    <h4>
+                        <a href="http://www.theyworkforyou.com/lords/?id=2013-02-11a.457.8">
+                            Welfare Benefits Up-rating Bill
+                        </a>
+                    </h4>
+
+                    <p>Lords debate a cap on annual increases to working-age benefits.</p>
 
                 </div>
 
@@ -146,7 +135,7 @@ $sidebar = array(
     'content' => '<div class="topic-sidebar">
 
         <div class="callout-image">
-            <img src="/images/topics/crime-stats.jpg">
+            <img src="/images/topics/benefits.jpg">
         </div>
 
         <div>
@@ -156,6 +145,14 @@ $sidebar = array(
         <div>
             <h4>Give us feedback!</h4>
             <p>How are we doing? Did you find what you were looking for? <a href="#">Drop us a line</a> and let us know!</p>
+        </div>
+
+        <div>
+
+            <h4>Need practical information or help with benefits?</p>
+
+            <p>You\'re probably better off visiting <a href="https://www.gov.uk/browse/benefits" onclick="trackLinkClick(this, \'Links\', \'GOVUK\', \'Benefits\'); return false;"> "Benefits" on GOV.UK</a>.</p>
+
         </div>
 
     </div>'
