@@ -85,9 +85,18 @@ if ($show_survey_qn < $current_question && !$has_answered_question) {
     Did you find what you were looking for on this page?
     </p>
     <ul>
-        <li><label><input type="radio" name="find_on_page" value="1"  id="id_find_on_page_yes">Yes</label></li>
-        <li><label><input type="radio" name="find_on_page" value="0"  id="id_find_on_page_no">No</label></li>
+        <li><label><input type="radio" name="find_on_page" value="1"  id="id_find_on_page_yes" onclick="$('#minisurvey-further-details').hide()">Yes</label></li>
+        <li><label><input type="radio" name="find_on_page" value="0"  id="id_find_on_page_no" onclick="$('#minisurvey-further-details').show()">No</label></li>
     </ul>
+
+    <div id="minisurvey-further-details" hidden>
+
+        <p>
+            <label for="minisurvey-looking-for">What were you looking for?</label>
+            <input id="minisurvey-looking-for" name="looking_for">
+        </p>
+
+    </div>
 
     <p>
     <input type="submit" value="Submit answer"> <small><a href="<?=$hide_url ?>">Hide this</a></small>
