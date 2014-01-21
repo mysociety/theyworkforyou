@@ -427,7 +427,7 @@ ul, li {
 }
 
 .sidebar {
-    font-family: 'Opens Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     color: #333333;
 
     p, ul, h4 {
@@ -879,18 +879,33 @@ ul, li {
     margin-bottom: em-calc(30);
 
     h1 {
-        font-size: em-calc(60);
+        font-size: em-calc(58);
         margin-bottom: 0;
+        line-height: 1em;
 
         &.subheader {
-            font-size: em-calc(40);
+            font-size: em-calc(30);
             color: lighten($header-font-color, 30%);
             font-weight: 300;
+            margin-top: 0;
+            line-height: 1em;
+            margin-bottom: 0.5em;
+        }
+
+        @media #{$small} {
+            font-size: em-calc(72);
+            &.subheader {
+                font-size: em-calc(48);
+            }
         }
     }
 
     p {
-        font-size: em-calc(18);
+        font-size: 1em;
+        line-height: 1.4em;
+        @media #{$small} {
+            font-size: em-calc(18);
+        }
     }
 }
 
@@ -905,6 +920,7 @@ ul, li {
 
     h4 {
         font-size: em-calc(18);
+        line-height: 1.3em;
     }
 
     p {
@@ -922,7 +938,7 @@ ul, li {
     }
 
     h4 {
-        font-size: em-calc(16);
+        font-size: em-calc(18);
     }
 
     p.large {
