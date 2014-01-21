@@ -7,7 +7,7 @@ function postcode_to_constituency($postcode, $api = false) {
     global $last_postcode, $last_postcode_value;
     $postcode = canonicalise_postcode($postcode);
     if ($last_postcode == $postcode) {
-        twfy_debug ("TIME", "Postcode $postcode looked up last time, is $last_postcode_value .");
+        twfy_debug ("TIME", "Postcode $postcode looked up last time, is " . $last_postcode_value['WMC']);
         return $last_postcode_value['WMC'];
     }
 
@@ -15,7 +15,7 @@ function postcode_to_constituency($postcode, $api = false) {
     twfy_debug_timestamp();
     $ret = postcode_to_constituency_internal($postcode, true, $api);
     $duration = getmicrotime() - $start;
-    twfy_debug ("TIME", "Postcode $postcode lookup took $duration seconds, returned $ret.");
+    twfy_debug ("TIME", "Postcode $postcode lookup took $duration seconds, returned " . is_string($ret) ? $ret : $ret['WMC']);
     twfy_debug_timestamp();
 
     if (is_string($ret)) return $ret;
