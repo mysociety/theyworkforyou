@@ -149,7 +149,7 @@ $sidebar = array(
 
         <div>
 
-            <h4>Need practical information or help with benefits?</p>
+            <h4>Need practical information or help with benefits?</h4>
 
             <p>You\'re probably better off visiting <a href="https://www.gov.uk/browse/benefits" onclick="trackLinkClick(this, \'Links\', \'GOVUK\', \'Benefits\'); return false;"> "Benefits" on GOV.UK</a>.</p>
 
