@@ -61,7 +61,8 @@ static assets after changes:
 #### Xapian
 
 TheyWorkForYou uses Xapian to provide search. You will need to [install it
-manually](http://trac.xapian.org/wiki/FAQ/PHP%20Bindings%20Package)
+manually](http://trac.xapian.org/wiki/FAQ/PHP%20Bindings%20Package). Since Vagrant
+runs PHP 5.4 you will need to use the second (test-surpressing) build command.
 
 ## Testing
 
