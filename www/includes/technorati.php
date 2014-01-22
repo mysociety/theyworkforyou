@@ -29,7 +29,7 @@ class xItem {
   var $xPermalink;
 }
 
-function technorati ($url){
+function technorati($url) {
   global $arItems, $itemCount;
 
 # array of technorati links
@@ -48,7 +48,7 @@ function technorati ($url){
 
 // from http://wordpress.org/support/10/2363
 
-function doCosmos ($urlstring){
+function doCosmos($urlstring) {
 
   $techRati = "http://api.technorati.com/cosmos?format=xml&url=$urlstring&key=7e64960cc7e9b1cb4315e56a6544fce7" ;
 

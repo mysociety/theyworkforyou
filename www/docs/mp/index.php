@@ -644,7 +644,7 @@ function regional_list($pc, $area_type, $rep_type) {
     $NEWPAGE->page_end();
 }
 
-function generate_member_links ($member) {
+function generate_member_links($member) {
     // Receives its data from $MEMBER->display_links;
     // This returns HTML, rather than outputting it.
     // Why? Because we need this to be in the sidebar, and

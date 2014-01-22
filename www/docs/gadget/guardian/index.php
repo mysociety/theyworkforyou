@@ -138,7 +138,7 @@ function load_member($pid) {
 	return $member;
 }
 
-function mysociety_footer(){
+function mysociety_footer() {
         return '<div class="mysociety-footer"><span><a href="http://mysociety.org">Powered by 
 </a></span><a class="mysociety-footer-image-link" href="http://mysociety.org"><img src="http://' . 
 DOMAIN . 

@@ -37,7 +37,7 @@ if (defined('XAPIANDB') AND XAPIANDB != '') {
 
 class SEARCHENGINE {
 
-	function SEARCHENGINE ($query, $phrase_allowed=false) {
+	function SEARCHENGINE($query, $phrase_allowed=false) {
         $this->valid = false;
 
         if (!defined('XAPIANDB') || !XAPIANDB)
@@ -403,7 +403,7 @@ class SEARCHENGINE {
     }
 
     // Perform the full search...
-    function run_search ($first_result, $results_per_page, $sort_order='relevance') {
+    function run_search($first_result, $results_per_page, $sort_order='relevance') {
 		$start = getmicrotime();
 
         #$matches = $this->enquire->get_mset($first_result, $results_per_page);

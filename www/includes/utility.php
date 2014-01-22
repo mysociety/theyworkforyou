@@ -10,7 +10,7 @@ include_once INCLUDESPATH . '../../commonlib/phplib/datetime.php';
 
 # Pass it a brief header word and some debug text and it'll be output.
 # If TEXT is an array, call the user function, assuming it's a class.
-function twfy_debug ($header, $text="") {
+function twfy_debug($header, $text="") {
 
 	// We set ?DEBUGTAG=n in the URL.
 	// (DEBUGTAG is set in config.php).
@@ -55,11 +55,11 @@ function twfy_debug ($header, $text="") {
 	}
 }
 
-function exception_handler ($e) {
+function exception_handler($e) {
     trigger_error($e->getMessage());
 }
 
-function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
+function error_handler($errno, $errmsg, $filename, $linenum, $vars) {
 	// Custom error-handling function.
 	// Sends an email to BUGSLIST.
 	global $PAGE;
@@ -238,7 +238,7 @@ function adodb_backtrace($print=true)
 }
 
 // Far from foolproof, but better than nothing.
-function validate_email ($string) {
+function validate_email($string) {
 	if (!preg_match('/^[-!#$%&\'*+\\.\/0-9=?A-Z^_`a-z{|}~]+'.
 		'@'.
 		'[-!#$%&\'*.\\+\/0-9=?A-Z^_`a-z{|}~]+\.'.
@@ -249,7 +249,7 @@ function validate_email ($string) {
 	}
 }
 
-function validate_postcode ($postcode) {
+function validate_postcode($postcode) {
 	// See http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
 
 	$postcode = trim($postcode);
@@ -296,7 +296,7 @@ function twfy_debug_timestamp($label = "") {
     $timestamp_last = $t;
 }
 
-function format_timestamp ($timestamp, $format) {
+function format_timestamp($timestamp, $format) {
 	// Pass it a MYSQL TIMESTAMP (YYYYMMDDHHMMSS) and a
 	// PHP date format string (eg, "Y-m-d H:i:s")
 	// and it returns a nicely formatted string according to requirements.
@@ -317,7 +317,7 @@ function format_timestamp ($timestamp, $format) {
 $format_date_months = array('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 $format_date_months_short = array('', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
 
-function format_date ($date, $format) {
+function format_date($date, $format) {
 	global $format_date_months, $format_date_months_short;
 	// Pass it a date (YYYY-MM-DD) and a
 	// PHP date format string (eg, "Y-m-d H:i:s")
@@ -341,7 +341,7 @@ function format_date ($date, $format) {
 }
 
 
-function format_time ($time, $format) {
+function format_time($time, $format) {
 	// Pass it a time (HH:MM:SS) and a
 	// PHP date format string (eg, "H:i")
 	// and it returns a nicely formatted string according to requirements.
@@ -357,7 +357,7 @@ function format_time ($time, $format) {
 
 
 
-function relative_time ($datetime) {
+function relative_time($datetime) {
 	// Pass it a 'YYYY-MM-DD HH:MM:SS' and it will return something
 	// like "Two hours ago", "Last week", etc.
 	
@@ -429,7 +429,7 @@ function strip_tags_tospaces($text) {
     return strip_tags(trim($text)); 
 }
 
-function trim_characters ($text, $start, $length, $url_length = 60) {
+function trim_characters($text, $start, $length, $url_length = 60) {
 	// Pass it a string, a numeric start position and a numeric length.
 	// If the start position is > 0, the string will be trimmed to start at the
 	// nearest word boundary after (or at) that position.
@@ -485,7 +485,7 @@ function trim_characters ($text, $start, $length, $url_length = 60) {
 /**
  * Filters user input to remove unwanted HTML tags etc
  */
-function filter_user_input ($text, $filter_type) {
+function filter_user_input($text, $filter_type) {
     // We use this to filter any major user input, especially comments.
     // Gets rid of bad HTML, basically.
     // Uses iamcal.com's lib_filter class.
@@ -524,7 +524,7 @@ function filter_user_input ($text, $filter_type) {
     return $text;
 }
 
-function prepare_comment_for_display ($text) {
+function prepare_comment_for_display($text) {
 	// Makes any URLs into HTML links.
 	// Turns \n's into <br>
 
@@ -545,7 +545,7 @@ function prepare_comment_for_display ($text) {
 	return $text;	
 }
 
-function htmlentities_notags ($text) {
+function htmlentities_notags($text) {
 	// If you want to do htmlentities() on some text that has HTML tags
 	// in it, then you need this function.
 	
@@ -598,7 +598,7 @@ function htmlentities_notags ($text) {
 
 }
 
-function fix_gid_from_db ($gid, $keepmajor = false) {
+function fix_gid_from_db($gid, $keepmajor = false) {
 	// The gids in the database are longer than we use in the site.
 	// Feed this a gid from the db and it will be returned truncated.
 	
@@ -622,7 +622,7 @@ function fix_gid_from_db ($gid, $keepmajor = false) {
 	
 }
 
-function gid_to_anchor ($gid) {
+function gid_to_anchor($gid) {
 	// For trimming gids to be used as #anchors in pages.
 	// Extracted here so we keep it consistent.
 	// The gid should already be truncated using fix_gid_from_db(), so it
@@ -632,7 +632,7 @@ function gid_to_anchor ($gid) {
 	return substr( $gid, (strpos($gid, '.') + 1) );
 }
 
-function send_template_email ($data, $merge, $bulk = false, $want_bounces = false) {
+function send_template_email($data, $merge, $bulk = false, $want_bounces = false) {
 	// We should have some email templates in INCLUDESPATH/easyparliament/templates/emails/.
 	
 	// $data is like:
@@ -724,12 +724,12 @@ function send_template_email ($data, $merge, $bulk = false, $want_bounces = fals
 /* verp_envelope_sender RECIPIENT
  * Construct a VERP envelope sender for an email to RECIPIENT
  */
-function twfy_verp_envelope_sender($recipient){
+function twfy_verp_envelope_sender($recipient) {
     $envelope_sender = verp_envelope_sender($recipient, 'twfy', EMAILDOMAIN);
     return $envelope_sender;
 }
 
-function send_email ($to, $subject, $message, $bulk = false, $from = '', $want_bounces = false) {
+function send_email($to, $subject, $message, $bulk = false, $from = '', $want_bounces = false) {
 	// Use this rather than PHP's mail() direct, so we can make alterations
 	// easily to all the emails we send out from the site.
 	// eg, we might want to add a .sig to everything here...
@@ -761,7 +761,7 @@ function send_email ($to, $subject, $message, $bulk = false, $from = '', $want_b
 // http://www.iamcal.com/publish/article.php?id=13
 
 // Call this with a key name to get a GET or POST variable.
-function get_http_var ($name, $default=''){
+function get_http_var($name, $default='') {
 	if (array_key_exists($name, $_GET)) {
 		return clean_var($_GET[$name]);
 	}
@@ -771,11 +771,11 @@ function get_http_var ($name, $default=''){
 	return $default;
 }
 
-function clean_var ($a){
+function clean_var($a) {
 	return (ini_get("magic_quotes_gpc") == 1) ? recursive_strip($a) : $a;
 }
 
-function recursive_strip ($a){
+function recursive_strip($a) {
 	if (is_array($a)) {
 		while (list($key, $val) = each($a)) {
 			$a[$key] = recursive_strip($val);
@@ -787,7 +787,7 @@ function recursive_strip ($a){
 }
 
 // Call this with a key name to get a COOKIE variable.
-function get_cookie_var($name, $default=''){
+function get_cookie_var($name, $default='') {
 	if (array_key_exists($name, $_COOKIE)) {
 		return clean_var($_COOKIE[$name]);
 	}

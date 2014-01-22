@@ -239,7 +239,7 @@ function expenses_extra_travel($extra_info, $year) {
     return $out;
 }
 
-function year_string($year){
+function year_string($year) {
   return '200' . ($year-1) . '/0' . $year;
 }
 

@@ -296,7 +296,7 @@ function find_comments($args) {
     $commentlist->display('search', $args);
 }
 
-function find_constituency ($args) {
+function find_constituency($args) {
     // We see if the user is searching for a postcode or constituency.
     global $PAGE;
 
@@ -348,7 +348,7 @@ function find_constituency ($args) {
     }
 }
 
-function find_users ($args) {
+function find_users($args) {
     // Maybe there'll be a better place to put this at some point...
     global $PAGE;
 
@@ -401,7 +401,7 @@ function find_users ($args) {
 
 }
 
-function find_members ($searchstring) {
+function find_members($searchstring) {
     // Maybe there'll be a better place to put this at some point...
     global $PAGE, $parties;
 

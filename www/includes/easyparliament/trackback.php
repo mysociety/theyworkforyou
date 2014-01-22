@@ -35,7 +35,7 @@ class TRACKBACK {
 	// But switching this to true will mark all incoming trackbacks as invisible.
 
 
-	function TRACKBACK () {
+	function TRACKBACK() {
 		
 		$this->db = new ParlDB;
 		
@@ -86,7 +86,7 @@ class TRACKBACK {
 		$this->render($view, $data, $format);
 	}
 
-	function render ($view, $data, $format='html') {
+	function render($view, $data, $format='html') {
 		
 		if ($format != 'html') {
 			$format = 'html';
@@ -99,7 +99,7 @@ class TRACKBACK {
 	
 	}
 
-	function add ($trackbackdata) {
+	function add($trackbackdata) {
 		/*
 		$data = array (
 			'epobject_id' 	=> '34533',
@@ -165,7 +165,7 @@ class TRACKBACK {
 
 
 
-	function _get_trackbacks_by_epobject_id ($args) {
+	function _get_trackbacks_by_epobject_id($args) {
 	
 		// Returns an array of the trackback data for this particular
 		// gid.
@@ -215,7 +215,7 @@ class TRACKBACK {
 	}
 
 
-	function _get_trackbacks_by_recent ($args) {
+	function _get_trackbacks_by_recent($args) {
 	
 		// Returns an array of the most recent trackback data for all objects.
 		

@@ -12,7 +12,7 @@ function lensort($a, $b) {
   return strlen($a) < strlen($b);
 }
 
-function wikipedize ($source) {
+function wikipedize($source) {
 	$was_array = false;
 	if (is_array($source)) {
 		$source = join('|||', $source);
@@ -99,7 +99,7 @@ function wikipedize ($source) {
 }
 
 #credit: isaac schlueter (lifted from http://uk2.php.net/strip-tags)
-function antiTagInTag( $content = '', $format = 'htmlhead' )
+function antiTagInTag($content = '', $format = 'htmlhead')
 {
   if( !function_exists( 'format_to_output' ) )
     {    // Use the external function if it exists, or fall back on just strip_tags.

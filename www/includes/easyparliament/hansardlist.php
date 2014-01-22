@@ -103,7 +103,7 @@ class HANSARDLIST {
 	// don't need to call it and it's lengthy query again.
 	var $most_recent_day;
 
-	function HANSARDLIST () {
+	function HANSARDLIST() {
 		$this->db = new ParlDB;
 	}
 	
@@ -170,7 +170,7 @@ class HANSARDLIST {
 	
 	
 	
-	function render ($view, $data, $format='html') {
+	function render($view, $data, $format='html') {
 		// Once we have the data that's to be rendered,
 		// include the template.
 
@@ -185,7 +185,7 @@ class HANSARDLIST {
 	}
 	
 	
-	function total_items () {
+	function total_items() {
 		// Returns number of items in debates or wrans, depending on which class this is, 
 		// DEBATELIST or WRANSLIST.
 		
@@ -196,7 +196,7 @@ class HANSARDLIST {
 	
 	
 	
-	function most_recent_day () {
+	function most_recent_day() {
 		// Very simple. Returns an array of stuff about the most recent data
 		// for this major:
 
@@ -247,20 +247,20 @@ class HANSARDLIST {
 	}
 	
 	
-	function htype () {
+	function htype() {
 		return $this->htype;
 	}
 
-	function epobject_id () {
+	function epobject_id() {
 		return $this->epobject_id;
 	}
 
-	function gid () {
+	function gid() {
 		return $this->gid;
 	}
 	
 	
-	function _get_section ($itemdata) {
+	function _get_section($itemdata) {
 		// Pass it an array of data about an item and it will return an
 		// array of data about the item's section heading.
 
@@ -303,7 +303,7 @@ class HANSARDLIST {
 	
 	
 
-	function _get_subsection ($itemdata) {
+	function _get_subsection($itemdata) {
 		// Pass it an array of data about an item and it will return an
 		// array of data about the item's subsection heading.
 
@@ -342,7 +342,7 @@ class HANSARDLIST {
 	
 
 
-	function _get_nextprev_items ($itemdata) {
+	function _get_nextprev_items($itemdata) {
 		global $hansardmajors;
 
 		// Pass it an array of item info, of a section/subsection, and this will return
@@ -523,7 +523,7 @@ class HANSARDLIST {
 	}
 	
 	
-	function _get_nextprev_dates ($date) {
+	function _get_nextprev_dates($date) {
 		global $hansardmajors;
 		// Pass it a yyyy-mm-dd date and it'll return an array
 		// containing the next/prev dates that contain items from 
@@ -596,7 +596,7 @@ class HANSARDLIST {
 
 
 
-	function _validate_date ($args) {
+	function _validate_date($args) {
 		// Used when we're viewing things by (_get_data_by_date() functions).
 		// If $args['date'] is a valid yyyy-mm-dd date, it is returned.
 		// Else false is returned.
@@ -631,7 +631,7 @@ class HANSARDLIST {
 	
 	
 	
-	function _get_item ($args) {
+	function _get_item($args) {
 		global $PAGE;
 	
 		if (!isset($args['gid']) && $args['gid'] == '') {
@@ -750,7 +750,7 @@ class HANSARDLIST {
 	}
 
 
-	function _get_data_by_date ($args) {
+	function _get_data_by_date($args) {
 		// For displaying the section and subsection headings as
 		// links for an entire day of debates/wrans.
 	
@@ -835,7 +835,7 @@ class HANSARDLIST {
 	}
 	
 
-	function _get_data_by_recent ($args) {
+	function _get_data_by_recent($args) {
 		// Like _get_data_by_id() and _get_data_by_date()
 		// this returns a $data array suitable for sending to a template.
 		// It lists recent dates with debates/wrans on them, with links.
@@ -885,7 +885,7 @@ class HANSARDLIST {
 	# Display a person's most recent debates.
 	# Only used by MP RSS generator now, MP pages use Xapian search
 	# XXX: Abolish this entirely?
-	function _get_data_by_person ($args) {
+	function _get_data_by_person($args) {
 		global $PAGE, $hansardmajors;
 		$items_to_list = isset($args['max']) ? $args['max'] : 20;
 	
@@ -972,13 +972,13 @@ class HANSARDLIST {
 	}
 	
 	
-	function _get_data_by_search_min ($args) {
+	function _get_data_by_search_min($args) {
 		return $this->_get_data_by_search($args);
 	}
-	function _get_data_by_search_video ($args) {
+	function _get_data_by_search_video($args) {
 		return $this->_get_data_by_search($args);
 	}
-	function _get_data_by_search ($args) {
+	function _get_data_by_search($args) {
 		
 		// Creates a fairly standard $data structure for the search function.
 		// Will probably be rendered by the hansard_search.php template.
@@ -1299,7 +1299,7 @@ class HANSARDLIST {
 		return $extract;
 	}
 
-	function _get_data_by_calendar ($args) {
+	function _get_data_by_calendar($args) {
 		// We should have come here via _get_data_by_calendar() in
 		// DEBATELIST or WRANLIST, so $this->major should now be set.
 		
@@ -1602,7 +1602,7 @@ class HANSARDLIST {
 		return $result; 
 	}
 
-	function _get_hansard_data ($input) {
+	function _get_hansard_data($input) {
 		global $hansardmajors;
 		// Generic function for getting hansard data from the DB.
 		// It returns an empty array if no data was found.
@@ -1883,7 +1883,7 @@ class HANSARDLIST {
 	}
 	
 	
-	function _get_votes ($epobject_id) {
+	function _get_votes($epobject_id) {
 		// Called from _get_hansard_data().
 		// Separated out here just for clarity.
 		// Returns an array of user and anon yes/no votes for an epobject.
@@ -2032,7 +2032,7 @@ class HANSARDLIST {
 		return $LISTURL->generate($encode) . $fragment;
 	}
 
-	function _get_speaker ($speaker_id, $hdate) {
+	function _get_speaker($speaker_id, $hdate) {
 		// Pass it the id of a speaker. If $this->speakers doesn't
 		// already contain data about the speaker, it's fetched from the DB
 		// and put in $this->speakers.
@@ -2122,7 +2122,7 @@ class HANSARDLIST {
 	
 	
 	
-	function _get_comment ($item_data) {
+	function _get_comment($item_data) {
 		// Pass it some variables belonging to an item and the function
 		// returns an array containing:
 		// 1) A count of the comments within this item.
@@ -2185,7 +2185,7 @@ class HANSARDLIST {
 	}
 	
 	
-	function _get_comment_count_for_epobject ($item_data) {
+	function _get_comment_count_for_epobject($item_data) {
 		global $hansardmajors;
 		// What it says on the tin.
 		// $item_data must have 'htype' and 'epobject_id' elements. TODO: Check for major==4
@@ -2223,7 +2223,7 @@ class HANSARDLIST {
 	
 	
 /*	
-	function _get_trackback_data ($itemdata) {
+	function _get_trackback_data($itemdata) {
 		// Returns a array of data we need to create the Trackback Auto-discovery
 		// RDF on a page.
 		
@@ -2269,7 +2269,7 @@ class HANSARDLIST {
 	}
 */
 
-	function _get_data_by_gid ($args) {
+	function _get_data_by_gid($args) {
 	
 		// We need to get the data for this gid.
 		// Then depending on what htype it is, we get the data for other items too.
@@ -2519,7 +2519,7 @@ class WMSLIST extends WRANSLIST {
 	var $major = 4;
 	var $listpage = 'wms';
 	var $commentspage = 'wms';
-	function wmslist () {
+	function wmslist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'wms/';
 	}
@@ -2532,7 +2532,7 @@ class WHALLLIST extends DEBATELIST {
 	var $major = 2;
 	var $listpage = 'whalls';
 	var $commentspage = 'whall';
-	function whalllist () {
+	function whalllist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'westminhall/';
 	}
@@ -2562,7 +2562,7 @@ class SPWRANSLIST extends WRANSLIST {
 	var $major = 8;
 	var $listpage = 'spwrans';
 	var $commentspage = 'spwrans';
-	function spwranslist () {
+	function spwranslist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'spwa/';
 	}
@@ -2602,12 +2602,12 @@ class DEBATELIST extends HANSARDLIST {
 	var $listpage = 'debates';
 	var $commentspage = 'debate';
 	
-	function debatelist () {
+	function debatelist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'debate/';
 	}
 
-	function _get_data_by_recent_mostvotes ($args) {
+	function _get_data_by_recent_mostvotes($args) {
 		// Get the most highly voted recent speeches.
 		// $args may have 'days'=>7 and/or 'num'=>5
 		// or something like that.
@@ -2713,7 +2713,7 @@ class DEBATELIST extends HANSARDLIST {
 	}
 	
 
-	function total_speeches () {
+	function total_speeches() {
 		
 		$q = $this->db->query("SELECT COUNT(*) AS count FROM hansard WHERE major='" . $this->major . "' AND htype = 12");
 		
@@ -2958,12 +2958,12 @@ class WRANSLIST extends HANSARDLIST {
 	var $listpage = 'wrans';
 	var $commentspage = 'wrans'; // We don't have a separate page for wrans comments.
 
-	function wranslist () {
+	function wranslist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'wrans/';
 	}
 
-	function total_questions () {
+	function total_questions() {
 		$q = $this->db->query("SELECT COUNT(*) AS count FROM hansard WHERE major='" . $this->major . "' AND minor = 1");
 		return $q->field(0, 'count');
 	}
@@ -3183,7 +3183,7 @@ class StandingCommittee extends DEBATELIST {
 		return $comm;
 	}
 
-	function _get_data_by_bill ($args) {
+	function _get_data_by_bill($args) {
 		global $DATA, $this_page;
 		$data = array();
 		$input = array (
@@ -3232,7 +3232,7 @@ class StandingCommittee extends DEBATELIST {
 		return $data;		
 	}
 
-	function _get_data_by_session ($args) {
+	function _get_data_by_session($args) {
 		global $DATA, $this_page;
 		$session = $args['session'];
 		$e_session = mysql_real_escape_string($session);

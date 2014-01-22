@@ -84,13 +84,13 @@ class ALERT {
 	var $email = "";
 	var $criteria = "";		// Sets the terms that are used to produce the search results.
 
-	function ALERT () {
+	function ALERT() {
 		$this->db = new ParlDB;
 	}
 
 // FUNCTION: fetch_between
 
-	function fetch_between ($confirmed, $deleted, $start_date, $end_date) {
+	function fetch_between($confirmed, $deleted, $start_date, $end_date) {
 	  // Return summary data on all the alerts that were created between $start_date 
 	  // and $end_date (inclusive) and whose confirmed and deleted values match the booleans
 	  // passed in $confirmed and $deleted
@@ -112,7 +112,7 @@ class ALERT {
 
 // FUNCTION: fetch
 
-	function fetch ($confirmed, $deleted) {
+	function fetch($confirmed, $deleted) {
 		// Pass it an alert id and it will fetch data about alerts from the db
 		// and put it all in the appropriate variables.
 		// Normal usage is for $confirmed variable to be set to true
@@ -151,7 +151,7 @@ class ALERT {
 			return $data;
 	}
 
-	function add ($details, $confirmation_email=false, $instantly_confirm=true) {
+	function add($details, $confirmation_email=false, $instantly_confirm=true) {
 		
 		// Adds a new alert's info into the database.
 		// Then calls another function to send them a confirmation email.
@@ -325,7 +325,7 @@ class ALERT {
 		}
 	}
 
-	function email_exists ($email) {
+	function email_exists($email) {
 		// Returns true if there's a user with this email address.
 
 		if ($email != "") {
@@ -375,7 +375,7 @@ class ALERT {
 	// and the confirm page has passed the token from the URL to here.
 	// If all goes well the alert will be confirmed.
 	// The alert will be active when scripts run each day to send the actual emails.
-	function confirm ($token) {
+	function confirm($token) {
 		if (!($alert = $this->check_token($token))) return false;
         $this->criteria = $alert['criteria'];
         $this->email = $alert['email'];
@@ -405,8 +405,8 @@ class ALERT {
 	}
 
 	// Getters
-	function email() 			{ return $this->email; }
-	function criteria() 			{ return $this->criteria; }
+	function email() { return $this->email; }
+	function criteria() { return $this->criteria; }
 	function criteria_pretty($html = false) {
 		$criteria = explode(' ',$this->criteria);
 		$words = array(); $spokenby = '';

@@ -5,7 +5,7 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 
 class NEWPAGE extends PAGE {
 
-    function page_header () {
+    function page_header() {
         global $DATA, $this_page;
 
         $linkshtml = "";
@@ -168,17 +168,17 @@ class NEWPAGE extends PAGE {
 
     // Text variations to use
     var pageVariations = [
-    function() {},  // Original
-    function() {    // Verbose
+    function () {},  // Original
+    function () {    // Verbose
       document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Receive an update</strong><small> whenever this person is active in Parliament</small>';
     },
-    function() {    // Slash Separated
+    function () {    // Slash Separated
       document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Get email alerts</strong><small> on this person&rsquo;s activity</small>';
     },
-    function() {    // Variant 3
+    function () {    // Variant 3
       document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Get email updates</strong><small> whenever this person is active in Parliament</small>';
     },
-    function() {    // Variant 4
+    function () {    // Variant 4
       document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Receive an alert</strong><small> whenever this person is active in Parliament</small>';
     }
   ];
@@ -188,7 +188,7 @@ class NEWPAGE extends PAGE {
     pageVariations[chosenVariation]
   );
 
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (function (i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function () {
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
@@ -200,7 +200,7 @@ class NEWPAGE extends PAGE {
     try {
       ga('send', 'event', category, name, value);
     } catch(err){}
-    setTimeout(function() {
+    setTimeout(function () {
       form.submit();
     }, 100);
   }
@@ -209,7 +209,7 @@ class NEWPAGE extends PAGE {
     try {
       ga('send', 'event', category, name, value);
     } catch(err){}
-    setTimeout(function() {
+    setTimeout(function () {
       document.location.href = link.href;
     }, 100);
   }
@@ -222,7 +222,7 @@ class NEWPAGE extends PAGE {
 <?php
     }
 
-    function page_body () {
+    function page_body() {
         global $this_page;
 
         // Start the body, put in the page headings.
@@ -231,23 +231,23 @@ class NEWPAGE extends PAGE {
 
     <div id="fb-root"></div>
     <script>
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
         FB.init({
         appId      : '227648394066332',
         xfbml      : true
         });
 
-        FB.Event.subscribe('edge.create', function(targetUrl) {
+        FB.Event.subscribe('edge.create', function (targetUrl) {
             ga('send', 'social', 'facebook', 'like', targetUrl);
         });
 
-        FB.Event.subscribe('edge.remove', function(targetUrl) {
+        FB.Event.subscribe('edge.remove', function (targetUrl) {
             ga('send', 'social', 'facebook', 'unlike', targetUrl);
         });
 
     };
 
-    (function(d, s, id) {
+    (function (d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
@@ -281,7 +281,7 @@ class NEWPAGE extends PAGE {
     }
 
     //render the little mysociety crossell
-    function mysociety_bar () {
+    function mysociety_bar() {
         global $this_page;
         ?>
         <div class="ms_header_nav">
@@ -294,7 +294,7 @@ class NEWPAGE extends PAGE {
         <?php
     }
 
-    function title_bar () {
+    function title_bar() {
         // The title bit of the page, with possible search box.
         global $this_page, $DATA;
 ?>
@@ -382,7 +382,7 @@ class NEWPAGE extends PAGE {
         );
     }
 
-    function menu () {
+    function menu() {
         global $this_page, $DATA, $THEUSER;
 
         // Page names mapping to those in metadata.php.
@@ -487,7 +487,7 @@ class NEWPAGE extends PAGE {
 <?php
     }
 
-    function user_bar ($top_highlight='') {
+    function user_bar($top_highlight='') {
         // Called from menu(), but separated out here for clarity.
         // Does just the bit of the menu related to login/join/etc.
         global $this_page, $DATA, $THEUSER;
@@ -600,7 +600,7 @@ class NEWPAGE extends PAGE {
     }
 
     // Where the actual meat of the page begins, after the title and menu.
-    function content_start () {
+    function content_start() {
         global $this_page, $THEUSER;
 ?>
         <div class="large-12 large-centered columns">
@@ -640,7 +640,7 @@ class NEWPAGE extends PAGE {
         <?php
     }
 
-    function stripe_start ($type='side', $id='', $extra_class = '') {
+    function stripe_start($type='side', $id='', $extra_class = '') {
         // $type is one of:
         //  'full' - a full width div
         //  'side' - a white stripe with a coloured sidebar.
@@ -783,7 +783,7 @@ class NEWPAGE extends PAGE {
 
 
 
-    function include_sidebar_template ($sidebarname) {
+    function include_sidebar_template($sidebarname) {
         global $this_page, $DATA;
 
             $sidebarpath = INCLUDESPATH.'easyparliament/sidebars/'.$sidebarname.'.php';
@@ -829,7 +829,7 @@ class NEWPAGE extends PAGE {
             }
     }
 
-    function block_end () {
+    function block_end() {
         if ($this->blockbody_open) {
             ?>
                     </div>
@@ -905,14 +905,14 @@ class NEWPAGE extends PAGE {
 
 
 
-    function content_end () {
+    function content_end() {
 
         print "</div> <!-- end #content -->";
 
     }
 
     //get <a> links for a particular set of pages defined in metadata.php
-    function get_menu_links ($pages){
+    function get_menu_links($pages) {
         global $DATA, $this_page;
         $links = array();
 
@@ -945,7 +945,7 @@ class NEWPAGE extends PAGE {
         return $links;
     }
 
-    function page_footer ($extra = null) {
+    function page_footer($extra = null) {
         global $DATA, $this_page;
 
                 global $DATA, $this_page;
@@ -1009,7 +1009,7 @@ class NEWPAGE extends PAGE {
                                     var t, js, fjs = d.getElementsByTagName(s)[0];
                                     if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
                                     js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
-                                    return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+                                    return window.twttr || (t = { _e: [], ready: function (f) { t._e.push(f) } });
                                 }(document, "script", "twitter-wjs"));
 
                                 // Used with the Google Analytics Tweet tracking
@@ -1192,7 +1192,7 @@ pr()//-->
         $this->block_end();
     }
 
-    function member_rss_block ($urls) {
+    function member_rss_block($urls) {
         // Returns the html for a person's rss feeds sidebar block.
         // Used on MP/Peer page.
 
@@ -1222,7 +1222,7 @@ pr()//-->
         include_once INCLUDESPATH . 'easyparliament/templates/html/person.php';
     }
 
-    function error_message ($message, $fatal = false, $status = 500) {
+    function error_message($message, $fatal = false, $status = 500) {
         // If $fatal is true, we exit the page right here.
         // $message is like the array used in $this->message()
 
@@ -1253,7 +1253,7 @@ pr()//-->
     }
 
 
-    function message ($message, $class='') {
+    function message($message, $class='') {
         // Generates a very simple but common page content.
         // Used for when a user logs out, or votes, or any simple thing
         // where there's a little message and probably a link elsewhere.
@@ -1304,7 +1304,7 @@ pr()//-->
         print '<div class="informational left">' . $text . '</div>';
     }
 
-    function set_hansard_headings ($info) {
+    function set_hansard_headings($info) {
         // Called from HANSARDLIST->display().
         // $info is the $data['info'] array passed to the template.
         // If the page's HTML hasn't already been started, it sets the page
@@ -1346,7 +1346,7 @@ pr()//-->
 
     }
 
-    function nextprevlinks () {
+    function nextprevlinks() {
 
         // Generally called from $this->stripe_end();
 
@@ -1440,7 +1440,7 @@ pr()//-->
         return $message;
     }
 
-    function trackback_rss ($trackbackdata) {
+    function trackback_rss($trackbackdata) {
         /*
         Outputs Trackback Auto Discovery RSS for something.
 
@@ -1467,7 +1467,7 @@ pr()//-->
 <?php
     }
 
-    function search_form ($value='') {
+    function search_form($value='') {
         global $SEARCHENGINE;
         // Search box on the search page.
         // If $value is set then it will be displayed in the form.
@@ -1643,7 +1643,7 @@ pr()//-->
 <?php
     }
 
-    function mp_search_form ($person_id) {
+    function mp_search_form($person_id) {
         // Search box on the MP page.
 
         $URL = new URL('search');
@@ -1660,7 +1660,7 @@ pr()//-->
 <?php
     }
 
-    function glossary_search_form ($args) {
+    function glossary_search_form($args) {
         // Search box on the glossary page.
         global $THEUSER;
 
@@ -1695,7 +1695,7 @@ pr()//-->
 <?php
     }
 
-    function glossary_add_definition_form ($args) {
+    function glossary_add_definition_form($args) {
         // Add a definition for a new Glossary term.
         global $GLOSSARY;
 
@@ -1716,7 +1716,7 @@ pr()//-->
 <?php
     }
 
-    function glossary_add_link_form ($args) {
+    function glossary_add_link_form($args) {
         // Add an external link to the glossary.
         global $GLOSSARY;
 
@@ -1889,7 +1889,7 @@ pr()//-->
         print "</div>";
     }
 
-    function page_links ($pagedata) {
+    function page_links($pagedata) {
         // The next/prev and page links for the search page.
         global $this_page;
 
@@ -1990,7 +1990,7 @@ pr()//-->
 
 
 
-    function comment_form ($commentdata) {
+    function comment_form($commentdata) {
         // Comment data must at least contain an epobject_id.
         // Comment text is optional.
         // 'return_page' is either 'debate' or 'wran'.
@@ -2068,7 +2068,7 @@ Annotations should be information that adds value to the contribution, not opini
 <?php
     }
 
-    function display_commentreport ($data) {
+    function display_commentreport($data) {
         // $data has key value pairs.
         // Called from $COMMENT->display_report().
 
@@ -2102,7 +2102,7 @@ Annotations should be information that adds value to the contribution, not opini
     }
 
 
-    function display_commentreportlist ($data) {
+    function display_commentreportlist($data) {
         // For the admin section.
         // Gets an array of data from COMMENTLIST->render().
         // Passes it on to $this->display_table().
@@ -2161,7 +2161,7 @@ Annotations should be information that adds value to the contribution, not opini
 
 
 
-    function display_calendar_month ($month, $year, $dateArray, $page) {
+    function display_calendar_month($month, $year, $dateArray, $page) {
         // From http://www.zend.com/zend/trick/tricks-Oct-2002.php
         // Adjusted for style, putting Monday first, and the URL of the page linked to.
 
@@ -2356,7 +2356,7 @@ Annotations should be information that adds value to the contribution, not opini
 
 
 
-    function admin_menu () {
+    function admin_menu() {
         // Returns HTML suitable for putting in the sidebar on Admin pages.
         global $this_page, $DATA;
 

@@ -148,7 +148,7 @@ function api_log_call($key) {
 		VALUES ('$key', '$ip', NOW(), '" . mysql_real_escape_string($query) . "')");
 }
 
-function api_is_superuser_key($key){
+function api_is_superuser_key($key) {
   $db = new ParlDB;
   $q = $db->query('SELECT api_key.user_id, users.status 
 	           FROM   api_key, users 

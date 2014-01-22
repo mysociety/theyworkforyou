@@ -238,7 +238,7 @@ if (get_http_var("submitted") == "true") {
 	
 }
 
-function check_input ($details) {
+function check_input($details) {
 	global $THEUSER, $this_page, $who;
 	
 	// This may be a URL that will send the user back to where they were before they
@@ -346,7 +346,7 @@ function check_input ($details) {
 	return $errors;
 }
 
-function add_user (	$details) {
+function add_user($details) {
 	global $THEUSER, $PAGE, $this_page;
 
 		
@@ -439,7 +439,7 @@ function add_user (	$details) {
 
 
 
-function update_user ( $details ) {
+function update_user($details) {
 	global $THEUSER, $this_page, $PAGE, $who;
 
 	// There were no errors when the edit user form was submitted,
@@ -820,7 +820,7 @@ function display_form ( $details = array(), $errors = array() ) {
 
 
 
-function display_user ($user_id="", $email_changed=false) {
+function display_user($user_id="", $email_changed=false) {
 
 	global $THEUSER, $PAGE, $DATA, $this_page, $who;
 	

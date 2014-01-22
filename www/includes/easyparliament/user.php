@@ -80,11 +80,11 @@ class USER {
     //      Alter THEUSER->update_self() to update with the new vars, if appropriate.
     //      Change things in the add/edit/view user page.
 
-    function USER () {
+    function USER() {
         $this->db = new ParlDB;
     }
 
-    function init ($user_id) {
+    function init($user_id) {
         // Pass it a user id and it will fetch the user's data from the db
         // and put it all in the appropriate variables.
         // Returns true if we've found user_id in the DB, false otherwise.
@@ -146,7 +146,7 @@ class USER {
 
     }
 
-    function add ($details, $confirmation_required=true) {
+    function add($details, $confirmation_required=true) {
         // Adds a new user's info into the db.
         // Then optionally (and usually) calls another function to
         // send them a confirmation email.
@@ -350,7 +350,7 @@ class USER {
     }
 
 
-    function update_other_user ($details) {
+    function update_other_user($details) {
         // If someone (like an admin) is updating another user, call this
         // function. It checks their privileges before letting them.
 
@@ -385,7 +385,7 @@ class USER {
 
 
 
-    function change_password ($email) {
+    function change_password($email) {
 
         // This function is called from the Change Password page.
         // It will create a new password for the user with $email address.
@@ -445,7 +445,7 @@ class USER {
 
     }
 
-    function send_password_reminder () {
+    function send_password_reminder() {
         global $PAGE;
 
         // You'll probably have just called $this->change_password().
@@ -478,7 +478,7 @@ class USER {
 
 
 
-    function id_exists ($user_id) {
+    function id_exists($user_id) {
         // Returns true if there's a user with this user_id.
 
         if (is_numeric($user_id)) {
@@ -495,7 +495,7 @@ class USER {
     }
 
 
-    function email_exists ($email, $return_id = false) {
+    function email_exists($email, $return_id = false) {
         // Returns true if there's a user with this email address.
 
         if ($email != "") {
@@ -516,7 +516,7 @@ class USER {
     }
 
 
-    function is_able_to ( $action ) {
+    function is_able_to($action) {
         // Call this function to find out if a user is allowed to do something.
         // It uses the user's status to return true or false.
         // Possible actions:
@@ -609,7 +609,7 @@ class USER {
     // Same for every user...
     // Just returns an array of the possible statuses a user could have.
     // Handy for forms where you edit/view users etc.
-    function possible_statuses () {
+    function possible_statuses() {
         // Maybe there's a way of fetching these from the DB,
         // so we don't duplicate them here...?
 
@@ -623,29 +623,29 @@ class USER {
 
     // Functions for accessing the user's variables.
 
-    function user_id()              { return $this->user_id; }
-    function firstname()            { return $this->firstname; }
-    function lastname()             { return $this->lastname; }
-    function password()             { return $this->password; }
-    function email()                { return $this->email; }
-    function emailpublic()          { return $this->emailpublic; }
-    function postcode()             { return $this->postcode; }
-    function url()                  { return $this->url; }
-    function lastvisit()            { return $this->lastvisit; }
+    function user_id() { return $this->user_id; }
+    function firstname() { return $this->firstname; }
+    function lastname() { return $this->lastname; }
+    function password() { return $this->password; }
+    function email() { return $this->email; }
+    function emailpublic() { return $this->emailpublic; }
+    function postcode() { return $this->postcode; }
+    function url() { return $this->url; }
+    function lastvisit() { return $this->lastvisit; }
 
-    function registrationtime()     { return $this->registrationtime; }
-    function registrationip()       { return $this->registrationip; }
-    function optin()                { return $this->optin; }
+    function registrationtime() { return $this->registrationtime; }
+    function registrationip() { return $this->registrationip; }
+    function optin() { return $this->optin; }
     // Don't use the status to check access privileges - use the is_able_to() function.
     // But you might use status() to return text to display, describing a user.
     // We can then change what status() does in the future if our permissions system
     // changes.
-    function status()               { return $this->status; }
-    function deleted()              { return $this->deleted; }
-    function confirmed()            { return $this->confirmed; }
+    function status() { return $this->status; }
+    function deleted() { return $this->deleted; }
+    function confirmed() { return $this->confirmed; }
 
 
-    function postcode_is_set () {
+    function postcode_is_set() {
         // So we can tell if the, er, postcode is set or not.
         // Could maybe put some validation in here at some point.
         if ($this->postcode != '') {
@@ -658,7 +658,7 @@ class USER {
 
 /////////// PRIVATE FUNCTIONS BELOW... ////////////////
 
-    function _update ($details) {
+    function _update($details) {
         // Update a user's info.
         // DO NOT call this function direct.
         // Call either $this->update_other_user() or $this->update_self().
@@ -781,7 +781,7 @@ class THEUSER extends USER {
     var $loggedin = false;
 
 
-    function THEUSER () {
+    function THEUSER() {
         // This function is run automatically when a THEUSER
         // object is instantiated.
 
@@ -881,10 +881,10 @@ class THEUSER extends USER {
 
     // For completeness, but it's better to call $this->isloggedin()
     // if you want to check the log in status.
-    function loggedin ()        { return $this->loggedin; }
+    function loggedin() { return $this->loggedin; }
 
 
-    function isloggedin () {
+    function isloggedin() {
         // Call this function to check if the user is successfully logged in.
 
         if ($this->loggedin()) {
@@ -897,7 +897,7 @@ class THEUSER extends USER {
     }
 
 
-    function isvalid ($email, $userenteredpassword) {
+    function isvalid($email, $userenteredpassword) {
         // Returns true if this email and plaintext password match a user in the db.
         // If false returns an array of form error messages.
 
@@ -939,7 +939,7 @@ class THEUSER extends USER {
 
 
 
-    function login ($returl="", $expire) {
+    function login($returl="", $expire) {
 
         // This is used to log the user in. Duh.
         // You should already have checked the user's email and password using
@@ -990,7 +990,7 @@ class THEUSER extends USER {
 
 
 
-    function logout ($returl) {
+    function logout($returl) {
 
         // $returl is the URL to redirect the user to after log in, generally the
         // page they were on before. But if it doesn't exist, they'll just go to
@@ -1009,7 +1009,7 @@ class THEUSER extends USER {
         }
     }
 
-    function confirm_email ($token, $redirect=true) {
+    function confirm_email($token, $redirect=true) {
         $arg = '';
         if (strstr($token, '::')) $arg = '::';
         if (strstr($token, '-')) $arg = '-';
@@ -1086,7 +1086,7 @@ class THEUSER extends USER {
 
     }
 
-    function confirm ($token) {
+    function confirm($token) {
         // The user has clicked the link in their confirmation email
         // and the confirm page has passed the token from the URL to here.
         // If all goes well they'll be confirmed and then logged in.
@@ -1154,7 +1154,7 @@ class THEUSER extends USER {
     }
 
 
-    function set_postcode_cookie ($pc) {
+    function set_postcode_cookie($pc) {
         // Set the user's postcode.
         // Doesn't change it in the DB, as it's probably mainly for
         // not-logged-in users.
@@ -1166,12 +1166,12 @@ class THEUSER extends USER {
         twfy_debug('USER', "Set the cookie named '" . POSTCODE_COOKIE . " to '$pc' for " . COOKIEDOMAIN . " domain");
     }
 
-    function unset_postcode_cookie () {
+    function unset_postcode_cookie() {
         if (!headers_sent()) // if in debug mode
             setcookie (POSTCODE_COOKIE, '', time() - 3600, '/', COOKIEDOMAIN);
     }
 
-    function update_self ($details, $confirm_email = true) {
+    function update_self($details, $confirm_email = true) {
         // If the user wants to update their details, call this function.
         // It checks that they're logged in before letting them.
 

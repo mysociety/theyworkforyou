@@ -17,7 +17,7 @@ This will return all database entries for this person, so will include previous 
 <?php
 }
 
-function _api_getPerson_row($row, $has_party=FALSE){
+function _api_getPerson_row($row, $has_party=FALSE) {
     global $parties;
     $row['full_name'] = member_full_name($row['house'], $row['title'], $row['first_name'],
         $row['last_name'], $row['constituency']);

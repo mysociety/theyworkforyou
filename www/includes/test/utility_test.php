@@ -12,7 +12,7 @@ include_once 'simpletest/reporter.php';
 
 class UtilityTest extends UnitTestCase{
   
-  function testVerpEnvelopeSenderCanCreateStandardSender(){
+  function testVerpEnvelopeSenderCanCreateStandardSender() {
     $sender = twfy_verp_envelope_sender('aperson@a.nother.dom');
     $expected_sender = 'twfy+aperson=a.nother.dom@' + EMAILDOMAIN;
     $this->assertEqual($sender, $expected_sender, 'verp_envelope_sender can create a sender for a standard address');

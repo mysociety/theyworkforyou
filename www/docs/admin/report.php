@@ -122,7 +122,7 @@ $PAGE->page_end();
 // prepare_emails_for_not_deleting()
 // resolve()
 
-function view ($REPORT, $COMMENT, $FORMURL) {
+function view($REPORT, $COMMENT, $FORMURL) {
 	// First page - viewing the comment and its report.
 
 	// This also sets the comment's url, which we use further down!
@@ -170,7 +170,7 @@ function get_template_contents($template) {
 
 
 
-function prepare_emails_for_deleting ($REPORT, $COMMENT, $FORMURL) {
+function prepare_emails_for_deleting($REPORT, $COMMENT, $FORMURL) {
 	// From the view() function, the user has chosen to delete the comment.
 	// Now they can prepare the appropriate emails, or choose not to send them.
 	
@@ -231,7 +231,7 @@ function prepare_emails_for_not_deleting($REPORT, $COMMENT, $FORMURL) {
 <?php
 }
 
-function resolve ($REPORT, $COMMENT) {
+function resolve($REPORT, $COMMENT) {
 	// The user has chosen to either delete or not delete the comment.
 	// And we might be sending emails.
 	

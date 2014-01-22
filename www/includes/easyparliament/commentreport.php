@@ -40,7 +40,7 @@ class COMMENTREPORT {
 	var $email = '';
 	
 
-	function COMMENTREPORT ($report_id='') {
+	function COMMENTREPORT($report_id='') {
 		// Pass it a report id and it gets and sets this report's data.
 
 		$this->db = new ParlDB;
@@ -124,22 +124,22 @@ class COMMENTREPORT {
 	}
 	
 	
-	function report_id () 		{ return $this->report_id; }
-	function comment_id () 		{ return $this->comment_id; }
-	function user_id () 		{ return $this->user_id; }
-	function user_name () 		{ return $this->firstname . ' ' . $this->lastname; }
-	function firstname ()		{ return $this->firstname; }
-	function lastname () 		{ return $this->lastname; }
-	function email ()			{ return $this->email; }
-	function body () 			{ return $this->body; }
-	function reported () 		{ return $this->reported; }
-	function resolved () 		{ return $this->resolved; }
-	function resolvedby () 		{ return $this->resolvedby; }
-	function locked () 			{ return $this->locked; }
-	function lockedby () 		{ return $this->lockedby; }
-	function upheld () 			{ return $this->upheld; }
+	function report_id() { return $this->report_id; }
+	function comment_id() { return $this->comment_id; }
+	function user_id() { return $this->user_id; }
+	function user_name() { return $this->firstname . ' ' . $this->lastname; }
+	function firstname() { return $this->firstname; }
+	function lastname() { return $this->lastname; }
+	function email() { return $this->email; }
+	function body() { return $this->body; }
+	function reported() { return $this->reported; }
+	function resolved() { return $this->resolved; }
+	function resolvedby() { return $this->resolvedby; }
+	function locked() { return $this->locked; }
+	function lockedby() { return $this->lockedby; }
+	function upheld() { return $this->upheld; }
 
-	function create ($COMMENT, $reportdata) {
+	function create($COMMENT, $reportdata) {
 		// For when a user posts a report on a comment.
 		// $reportdata is an array like:
 		//	array (
@@ -279,7 +279,7 @@ class COMMENTREPORT {
 	}
 
 
-	function display () {
+	function display() {
 
 		$data = array();
 		
@@ -312,7 +312,7 @@ class COMMENTREPORT {
 	}
 	
 	
-	function lock () {
+	function lock() {
 		// Called when an admin user goes to examine a report, so that
 		// only one person can edit at once.		
 
@@ -342,7 +342,7 @@ class COMMENTREPORT {
 	}
 	
 	
-	function unlock () {
+	function unlock() {
 		// Unlock a comment so it can be examined by someone else.
 	
 		$q = $this->db->query ("UPDATE commentreports
@@ -362,7 +362,7 @@ class COMMENTREPORT {
 	
 
 
-	function resolve ($upheld, $COMMENT) {
+	function resolve($upheld, $COMMENT) {
 		// Resolve a report.
 		// $upheld is true or false.
 		// $COMMENT is an existing COMMENT object - we need this so 

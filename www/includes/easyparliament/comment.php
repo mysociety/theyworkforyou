@@ -41,7 +41,7 @@ class COMMENT {
 	var $exists = false;
 	
 	
-	function COMMENT ($comment_id='') {
+	function COMMENT($comment_id='') {
 	
 		$this->db = new ParlDB;
 
@@ -89,22 +89,22 @@ class COMMENT {
 	
 	
 	// Use these for accessing the object's variables externally.
-	function comment_id() 	{ return $this->comment_id; }
-	function user_id() 		{ return $this->user_id; }
-	function epobject_id() 	{ return $this->epobject_id; }
-	function body() 		{ return $this->body; }
-	function posted() 		{ return $this->posted; }
-	function visible() 		{ return $this->visible; }
-	function modflagged() 	{ return $this->modflagged; }
-	function exists() 		{ return $this->exists; }
-	function firstname() 	{ return $this->firstname; }
-	function lastname()		{ return $this->lastname; }
-	function url()	 		{ return $this->url; }
+	function comment_id() { return $this->comment_id; }
+	function user_id() { return $this->user_id; }
+	function epobject_id() { return $this->epobject_id; }
+	function body() { return $this->body; }
+	function posted() { return $this->posted; }
+	function visible() { return $this->visible; }
+	function modflagged() { return $this->modflagged; }
+	function exists() { return $this->exists; }
+	function firstname() { return $this->firstname; }
+	function lastname() { return $this->lastname; }
+	function url() { return $this->url; }
 	
 	function comments_enabled() { return $this->comments_enabled; }
 	
 	
-	function create ($data) {
+	function create($data) {
 		// Inserts data for this comment into the database.
 		// $data has 'epobject_id' and 'body' elements.
 		// Returns the new comment_id if successful, false otherwise.
@@ -207,7 +207,7 @@ class COMMENT {
 	}
 	
 
-	function display ($format='html', $template='comments') {
+	function display($format='html', $template='comments') {
 
 		$data['comments'][0] = array (
 			'comment_id'	=> $this->comment_id,
@@ -268,7 +268,7 @@ class COMMENT {
 	}
 	
 
-	function delete () {
+	function delete() {
 		// Mark the comment as invisible.
 		
 		global $THEUSER, $PAGE;
@@ -300,7 +300,7 @@ class COMMENT {
 	
 	
 	
-	function _set_url () {
+	function _set_url() {
 		global $hansardmajors;
 		// Creates and sets the URL for the comment.
 				
@@ -331,7 +331,7 @@ class COMMENT {
 	
 	
 	
-	function _set_username () {
+	function _set_username() {
 		// Gets and sets the user's name who posted the comment.
 				
 		if ($this->firstname == '' && $this->lastname == '') {

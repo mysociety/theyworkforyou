@@ -10,7 +10,7 @@ $PEOPLE->display('mps');
 
 class PEOPLE {
 
-	function PEOPLE () {
+	function PEOPLE() {
 		$this->db = new ParlDB;
 	}
 
@@ -39,7 +39,7 @@ class PEOPLE {
 	
 	
 	
-	function render ($view, $data, $format='html') {
+	function render($view, $data, $format='html') {
 		// Once we have the data that's to be rendered,
 		// include the template.
 
@@ -69,7 +69,7 @@ class PEOPLE {
 		return $this->_get_data_by_group($args);
 	}
 
-	function _get_data_by_mps ($args) {
+	function _get_data_by_mps($args) {
 		$args['house'] = 1;
 		return $this->_get_data_by_group($args);
 	}

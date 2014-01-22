@@ -129,7 +129,7 @@
 		# this is the main entry point - pass your document to be filtered into here
 		#
 
-		function go($data){
+		function go($data) {
 
 			$this->tag_counts = array();
 
@@ -150,7 +150,7 @@
 		# waste time matching stuff inside them.
 		#
 
-		function escape_comments($data){
+		function escape_comments($data) {
 
 			$data = preg_replace("/<!--(.*?)-->/se", "'<!--'.HtmlSpecialChars(\$this->StripSingle('\\1')).'-->'", $data);
 
@@ -159,7 +159,7 @@
 
 		#####################################################################################
 
-		function balance_html($data){
+		function balance_html($data) {
 
 			if ($this->always_make_tags){
 
@@ -198,7 +198,7 @@
 
 		#####################################################################################
 
-		function check_tags($data){
+		function check_tags($data) {
 
 			$data = preg_replace("/<(.*?)>/se", "\$this->process_tag(\$this->StripSingle('\\1'))",	$data);
 
@@ -213,7 +213,7 @@
 
 		#####################################################################################
 
-		function process_tag($data){
+		function process_tag($data) {
 
 			# ending tags
 			if (preg_match("/^\/([a-z0-9]+)/si", $data, $matches)){
@@ -290,7 +290,7 @@
 
 		#####################################################################################
 
-		function process_param_protocol($data){
+		function process_param_protocol($data) {
 
 			$data = $this->validate_entities($data, 1);
 
@@ -310,7 +310,7 @@
 		# 'foo<b></b>bar' is converted to 'foobar'.
 		#
 
-		function process_remove_blanks($data){
+		function process_remove_blanks($data) {
 
 			if (count($this->remove_blanks)){
 
@@ -333,7 +333,7 @@
 		# if so, make it less shouty.
 		#
 
-		function fix_case($data){
+		function fix_case($data) {
 
 			#
 			# extract only the (latin) letters in the string
@@ -378,7 +378,7 @@
 		# 'sentance'.
 		#
 
-		function fix_case_inner($m){
+		function fix_case_inner($m) {
 
 			$data = StrToLower($m[2]);
 
@@ -403,7 +403,7 @@
 		# ampersand) is allowed, else corrects it.
 		#
 
-		function validate_entities($data, $in_attribute){
+		function validate_entities($data, $in_attribute) {
 
 			#		
 			# turn ascii characters into their actual characters, if requested.
@@ -439,7 +439,7 @@
 		# this function comes last in processing, to clean up data outside of tags.
  		#
 
-		function cleanup_non_tags($data){
+		function cleanup_non_tags($data) {
 
 			return preg_replace_callback(
 				"/(>|^)([^<]+?)(<|$)/s",
@@ -449,7 +449,7 @@
 			
 		}
 
-		function cleanup_non_tags_inner($m){
+		function cleanup_non_tags_inner($m) {
 
 			#
 			# first, deal with the entities
@@ -480,7 +480,7 @@
 		# it.
 		#
 
-		function check_entity($preamble, $term){
+		function check_entity($preamble, $term) {
 
 			#
 			# if the terminating character is not a semi-colon, treat
@@ -517,7 +517,7 @@
 		# stuff between '&' and ';') is valid.
 		#
 
-		function is_valid_entity($entity){
+		function is_valid_entity($entity) {
 
 			#
 			# numeric entity. over 127 is always allowed, else it's a pref
@@ -555,7 +555,7 @@
 		# inside strings. within general text, we decode hex/dec entities.
 		#
 
-		function decode_entities($data, $in_attribute=1){
+		function decode_entities($data, $in_attribute=1) {
 
 			$data = preg_replace_callback('!(&)#(\d+);?!', array($this, 'decode_dec_entity'), $data);
 			$data = preg_replace_callback('!(&)#x([0-9a-f]+);?!i', array($this, 'decode_hex_entity'), $data);
@@ -567,12 +567,12 @@
 			return $data;
 		}
 
-		function decode_hex_entity($m){
+		function decode_hex_entity($m) {
 
 			return $this->decode_num_entity($m[1], hexdec($m[2]));
 		}
 
-		function decode_dec_entity($m){
+		function decode_dec_entity($m) {
 
 			return $this->decode_num_entity($m[1], intval($m[2]));
 		}
@@ -585,7 +585,7 @@
 		# character. remeber to escape XML characters!
 		#
 
-		function decode_num_entity($orig_type, $d){
+		function decode_num_entity($orig_type, $d) {
 
 			if ($d < 0){ $d = 32; } # treat control characters as spaces
 
@@ -611,7 +611,7 @@
 
 		#####################################################################################
 
-		function StripSingle($data){
+		function StripSingle($data) {
 			return str_replace(array('\\"', "\\0"), array('"', chr(0)), $data);
 		}
 

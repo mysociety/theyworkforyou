@@ -46,7 +46,7 @@ class EDITQUEUE {
 
 	var $pending_count = '';
 	
-	function EDITQUEUE () {
+	function EDITQUEUE() {
 		$this->db = new ParlDB;
 	}
 

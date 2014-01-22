@@ -7,7 +7,7 @@ Depends on having the debug() and getmicrotime() functions available elsewhere t
 Somewhere (probably in includes/easyparliament/init.php) there should be something like:
 
     Class ParlDB extends MySQL {
-        function ParlDB () {
+        function ParlDB() {
             $this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
         }
     }
@@ -104,11 +104,11 @@ Class MySQLQuery {
     var $insert_id = NULL;
     var $affected_rows = NULL;
 
-    function MySQLQuery ($conn) {
+    function MySQLQuery($conn) {
         $this->conn = $conn;
     }
 
-    function query ($sql="") {
+    function query($sql="") {
 
         if (empty($sql)) {
             $this->success = false;
@@ -229,7 +229,7 @@ Class MySQLQuery {
 $global_connection = null;
 Class MySQL {
 
-    function init ($db_host, $db_user, $db_pass, $db_name) {
+    function init($db_host, $db_user, $db_pass, $db_name) {
         global $global_connection;
         // These vars come from config.php.
 
@@ -261,7 +261,7 @@ Class MySQL {
         exit;
     }
 
-    function query ($sql) {
+    function query($sql) {
         // Pass it an SQL query and if the query was successful
         // it returns a MySQLQuery object which you can get results from.
 
@@ -280,7 +280,7 @@ Class MySQL {
     }
 
     // Call at the end of a page.
-    function display_total_duration () {
+    function display_total_duration() {
         global $mysqltotalduration;
         twfy_debug ("TIME", "Total time for MySQL queries on this page: " . $mysqltotalduration . " seconds.");
     }

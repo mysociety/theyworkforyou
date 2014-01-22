@@ -73,7 +73,7 @@ class DATA {
 	
 	
 	
-	function Data () {
+	function Data() {
 		
 		include_once METADATAPATH;	// defined in config.php
 	
@@ -84,7 +84,7 @@ class DATA {
 //////////////////////////////////////
 
 	// Special function for setting $this_section depending on the value of $this_page.	
-	function set_section () {
+	function set_section() {
 		// This should be called at the start of a page.
 		global $this_section, $this_page;
 
@@ -95,11 +95,11 @@ class DATA {
 	// Getting page and section metadata
 	// $page/$section is a page name.
 	// $key is the element of metadata you want to retrieve.
-	function page_metadata ($page, $key) {
+	function page_metadata($page, $key) {
 		return $this->_get_metadata(array("page"=>$page, "key"=>$key), "page");
 	}
 
-	function section_metadata ($section, $key) {
+	function section_metadata($section, $key) {
 		return $this->_get_metadata(array("section"=>$section, "key"=>$key), "section");
 	}
 	
@@ -107,18 +107,18 @@ class DATA {
 
 	// Setting page and section.
 	// $page/$section, $key and $value should make sense...
-	function set_page_metadata ($page, $key, $value) {
+	function set_page_metadata($page, $key, $value) {
 		$this->_set_metadata(array("page"=>$page,"key"=>$key,"value"=>$value));
 	}
 
-	function set_section_metadata ($section, $key, $value) {
+	function set_section_metadata($section, $key, $value) {
 		$this->_set_metadata(array("section"=>$section,"key"=>$key,"value"=>$value));
 	}
 	
 
 	// DEPRECATED.
 	// Directly access an item.
-	function metadata ($type, $item, $key) {
+	function metadata($type, $item, $key) {
 		if ($this->test_for_metadata($type, $item, $key)) {
 			return $this->$type[$item][$key];
 		} else {
@@ -130,7 +130,7 @@ class DATA {
 	
 	// Test for the presence of something.
 	// eg $exists = $DATA->test_for_metadata("page", "about", "title")
-	function test_for_metadata ($type, $item, $key) {
+	function test_for_metadata($type, $item, $key) {
 		$dataarray =& $this->$type;
 
 		if (isset($dataarray[$item][$key])) {
@@ -145,7 +145,7 @@ class DATA {
 ///////////////////////////////////////
 
 	// Only accessed through page_metadata() or section_metadata()
-	function _get_metadata ($args="", $type) {
+	function _get_metadata($args="", $type) {
 		// $type is either 'page' or 'section'
 		global $this_page, $this_section;
 
@@ -179,7 +179,7 @@ class DATA {
 		return $return;
 	}
 
-	function _set_metadata ($args) {
+	function _set_metadata($args) {
 
 		if (isset($args["section"])) {
 			$type = "section";

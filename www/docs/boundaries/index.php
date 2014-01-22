@@ -101,7 +101,7 @@ if ($pc) {
 </div>
 
 <script>
-$(function(){
+$(function () {
     var opt = {
         zoom: 5,
         center: new google.maps.LatLng(55, -3),

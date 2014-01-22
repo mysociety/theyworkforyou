@@ -146,7 +146,7 @@ $PAGE->page_end($extra);
 
 # ---
 
-function check_input ($details) {
+function check_input($details) {
     global $SEARCHENGINE;
 
     $errors = array();
@@ -191,7 +191,7 @@ function check_input ($details) {
     return $errors;
 }
 
-function add_alert ($details) {
+function add_alert($details) {
     global $THEUSER, $ALERT, $extra;
 
 	$external_auth = auth_verify_with_shared_secret($details['email'], OPTION_AUTH_SHARED_SECRET, get_http_var('sign'));

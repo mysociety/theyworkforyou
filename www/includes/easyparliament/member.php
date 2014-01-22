@@ -53,7 +53,7 @@ class MEMBER {
 
 	);
 
-	function MEMBER ($args) {
+	function MEMBER($args) {
 		// $args is a hash like one of:
 		// member_id 		=> 237
 		// person_id 		=> 345
@@ -182,7 +182,7 @@ class MEMBER {
 		$this->set_users_mp();
 	}
 
-	function member_id_to_person_id ($member_id) {
+	function member_id_to_person_id($member_id) {
 		global $PAGE;
 		$q = $this->db->query("SELECT person_id FROM member
 					WHERE member_id = '" . mysql_real_escape_string($member_id) . "'");
@@ -194,13 +194,13 @@ class MEMBER {
 		}
 	}
 
-	function postcode_to_person_id ($postcode, $house=null) {
+	function postcode_to_person_id($postcode, $house=null) {
 		twfy_debug ('MP', "postcode_to_person_id converting postcode to person");
 		$constituency = strtolower(postcode_to_constituency($postcode));
 		return $this->constituency_to_person_id($constituency, $house);
 	}
 
-	function constituency_to_person_id ($constituency, $house=null) {
+	function constituency_to_person_id($constituency, $house=null) {
 		global $PAGE;
 		if ($constituency == '') {
 			$PAGE->error_message("Sorry, no constituency was found.");
@@ -232,7 +232,7 @@ class MEMBER {
 		}
 	}
 
-	function name_to_person_id ($name, $const='') {
+	function name_to_person_id($name, $const='') {
 		global $NEWPAGE, $PAGE, $this_page;
 		if ($name == '') {
 			$PAGE->error_message('Sorry, no name was found.');
@@ -346,7 +346,7 @@ class MEMBER {
 		}
 	}
 
-        function guardian_aristotle_id_to_person_id () {
+        function guardian_aristotle_id_to_person_id() {
              $q = $this->db->query("SELECT person_id
                                     FROM 	personinfo
                                     WHERE	data_key = 'guardian_aristotle_id'
@@ -359,7 +359,7 @@ class MEMBER {
              }
         }
 
-	function set_users_mp () {
+	function set_users_mp() {
 		// Is this MP THEUSER's MP?
 		global $THEUSER;
 		if (is_object($THEUSER) && $THEUSER->postcode_is_set() && $this->current_member(1)) {
@@ -522,10 +522,10 @@ class MEMBER {
 
 	// Functions for accessing things about this Member.
 
-	function member_id() 		{ return $this->member_id; }
-	function person_id() 		{ return $this->person_id; }
-	function first_name() 		{ return $this->first_name; }
-	function last_name() 		{ return $this->last_name; }
+	function member_id() { return $this->member_id; }
+	function person_id() { return $this->person_id; }
+	function first_name() { return $this->first_name; }
+	function last_name() { return $this->last_name; }
 	function full_name($no_mp_title = false) {
 		$title = $this->title;
 		if ($no_mp_title && ($this->house_disp==HOUSE_TYPE_COMMONS || $this->house_disp==HOUSE_TYPE_NI || $this->house_disp==HOUSE_TYPE_SCOTLAND))
@@ -541,8 +541,8 @@ class MEMBER {
 	function house_text($house) {
 		return $this->houses_pretty[$house];
 	}
-	function constituency() 	{ return $this->constituency; }
-	function party() 			{ return $this->party; }
+	function constituency() { return $this->constituency; }
+	function party() { return $this->party; }
 	function party_text($party = null) {
 		global $parties;
 		if (!$party)
@@ -590,7 +590,7 @@ class MEMBER {
 		}
 	}
 
-	function entered_reason() 	{ return $this->entered_reason; }
+	function entered_reason() { return $this->entered_reason; }
 	function entered_reason_text($entered_reason) {
 		if (isset($this->reasons[$entered_reason])) {
 			return $this->reasons[$entered_reason];
@@ -599,7 +599,7 @@ class MEMBER {
 		}
 	}
 
-	function left_reason() 		{ return $this->left_reason; }
+	function left_reason() { return $this->left_reason; }
 	function left_reason_text($left_reason, $left_house, $house) {
 		if (isset($this->reasons[$left_reason])) {
 			$left_reason = $this->reasons[$left_reason];
@@ -619,7 +619,7 @@ class MEMBER {
 		}
 	}
 
-	function extra_info()		{ return $this->extra_info; }
+	function extra_info() { return $this->extra_info; }
 
 	function current_member($house = 0) {
 		$current = array();
@@ -631,7 +631,7 @@ class MEMBER {
 		return $current;
 	}
 
-	function the_users_mp()		{ return $this->the_users_mp; }
+	function the_users_mp() { return $this->the_users_mp; }
 
 	function url($absolute = true) {
 		$house = $this->house_disp;
@@ -653,7 +653,7 @@ class MEMBER {
 			return $URL->generate('none') . $member_url;
 	}
 
-	function display () {
+	function display() {
 		global $PAGE;
 
 		$member = array (
@@ -708,7 +708,7 @@ class MEMBER {
 		return $future_people;
 	}
 
-    function current_member_anywhere(){
+    function current_member_anywhere() {
         $is_current = false;
 	    $current_memberships = $this->current_member();
 	    foreach ($current_memberships as $current_memberships) {
@@ -756,7 +756,7 @@ function party_to_colour($party) {
     }
 }
 
-function exists_rep_image($pid){
+function exists_rep_image($pid) {
     $image = find_rep_image($pid, false, false);
     return $image[1] !== null;
 }
