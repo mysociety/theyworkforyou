@@ -2068,7 +2068,7 @@ pr()//-->
 <?php
             return;
 
-        } else if (!$THEUSER->is_able_to('addcomment')) {
+        } elseif (!$THEUSER->is_able_to('addcomment')) {
             // The user is logged in but not allowed to post a comment.
 
             ?>

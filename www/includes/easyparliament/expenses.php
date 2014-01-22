@@ -58,7 +58,7 @@ expenses</a></p>";
                 $responsive_class = '';
                 if ($y <= $wide_year) {
                     $responsive_class = 'show-for-large-up';
-                } else if ($y <= $med_year) {
+                } elseif ($y <= $med_year) {
                     $responsive_class = 'show-for-medium-up';
                 }
                 if ($y == $end_year) {
@@ -157,7 +157,7 @@ function expenses_row($col, $extra_info, $style, $gadget, $start_year, $end_year
            if ($ey == $end_year) $extra_class = 'right';
             if ($ey <= $wide_year) {
                 $extra_class .= ' show-for-large-up';
-            } else if ($ey <= $med_year) {
+            } elseif ($ey <= $med_year) {
                 $extra_class .= ' show-for-medium-up';
             }
            if ($col=='col7a' && $ey==2009) continue;

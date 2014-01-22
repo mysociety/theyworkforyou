@@ -34,10 +34,10 @@ if ($hide_question) {
     $always_ask = 0;
     $show_survey_qn = $current_question;
     setcookie('survey', $current_question, time()+60*60*24*365, '/');
-} else if ($has_answered_question == $current_question && !$always_ask) {
+} elseif ($has_answered_question == $current_question && !$always_ask) {
     $show_survey_qn = $current_question;
     setcookie('survey', $current_question, time()+60*60*24*365, '/');
-} else if (isset($_COOKIE['survey'])) {
+} elseif (isset($_COOKIE['survey'])) {
     $show_survey_qn = $_COOKIE['survey'];
 }
 
@@ -105,7 +105,7 @@ if ($show_survey_qn < $current_question && !$has_answered_question) {
 
 <?php
     $this->block_end();
-} else if ($has_answered_question) {
+} elseif ($has_answered_question) {
     $this->block_start(array('id'=>'survey', 'title'=>"Mini survey"));
 ?>
     Thanks for answering.

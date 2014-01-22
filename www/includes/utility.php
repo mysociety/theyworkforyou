@@ -215,9 +215,9 @@ function adodb_backtrace($print=true)
       $args = array();
       if (isset($arr['args'])) foreach ($arr['args'] as $v) {
 	if (is_null($v)) $args[] = 'null';
-	else if (is_array($v)) $args[] = 'Array['.sizeof($v).']';
-	else if (is_object($v)) $args[] = 'Object:'.get_class($v);
-	else if (is_bool($v)) $args[] = $v ? 'true' : 'false';
+	elseif (is_array($v)) $args[] = 'Array['.sizeof($v).']';
+	elseif (is_object($v)) $args[] = 'Object:'.get_class($v);
+	elseif (is_bool($v)) $args[] = $v ? 'true' : 'false';
 	else {
 	  $v = (string) @$v;
 	  $str = htmlspecialchars(substr($v,0,$MAXSTRLEN));

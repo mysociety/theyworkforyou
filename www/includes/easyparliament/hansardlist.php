@@ -2687,7 +2687,7 @@ class DEBATELIST extends HANSARDLIST {
 					// Debate.
 					$parent = $this->_get_subsection ($speeches[$n]);
 
-				//} else if ($this->major == 3) {
+				//} elseif ($this->major == 3) {
 					// Wrans.
 				//	$parent = $this->_get_section ($speeches[$n]);
 				//}

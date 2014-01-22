@@ -362,7 +362,7 @@ class USER {
         if (!isset($details["user_id"])) {
             return false;
 
-        } else if ($THEUSER->is_able_to("edituser")) {
+        } elseif ($THEUSER->is_able_to("edituser")) {
 
             // If the user doing the updating has appropriate privileges...
 

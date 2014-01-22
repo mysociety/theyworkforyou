@@ -383,7 +383,7 @@ function cond_parse_http_date($date) {
 		$H = $ma[5];
 		$M = $ma[6];
 		$S = $ma[7];
-	} else if (preg_match("/^$cond_weekday_re, $cond_date2_re $cond_time_re GMT\$/", $date, $ma)) {
+	} elseif (preg_match("/^$cond_weekday_re, $cond_date2_re $cond_time_re GMT\$/", $date, $ma)) {
 		/* RFC 850 */
 		$d = $ma[2];
 		$m = $cond_month_map[$ma[3]];
@@ -391,7 +391,7 @@ function cond_parse_http_date($date) {
 		$H = $ma[5];
 		$M = $ma[6];
 		$S = $ma[7];
-	} else if (preg_match("/^$cond_wkday_re $cond_date3_re $cond_time_re (\\d{4})\$/", $date, $ma)) {
+	} elseif (preg_match("/^$cond_wkday_re $cond_date3_re $cond_time_re (\\d{4})\$/", $date, $ma)) {
 		/* asctime(3) */
 		$d = preg_replace('/ /', '', $ma[3]);
 		$m = $cond_month_map[$ma[2]];
