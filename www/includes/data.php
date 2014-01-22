@@ -181,22 +181,22 @@ class DATA {
 
     public function _set_metadata($args) {
 
-        if (isset($args["section"])) {
-            $type = "section";
-            $item = $args["section"];
-        } else {
-            $type = "page";
-            $item = $args["page"];
-        }
+		if (isset($args["section"])) {
+			$type = "section";
+			$item = $args["section"];
+		} else {
+			$type = "page";
+			$item = $args["page"];
+		}
 
-        $key = $args["key"];
-        $value = $args["value"];
+		$key = $args["key"];
+		$value = $args["value"];
 
-        twfy_debug("DATA", "Setting: ".$type."[".$item."][".$key."] = '" . print_r($value, 1) . "'");
+		twfy_debug("DATA", "Setting: ".$type."[".$item."][".$key."] = '" . print_r($value, TRUE) . "'");
 
-        $dataarray =& $this->$type;
-        $dataarray[$item][$key] = $value;
-    }
+		$dataarray =& $this->$type;
+		$dataarray[$item][$key] = $value;
+	}
 
 }
 
