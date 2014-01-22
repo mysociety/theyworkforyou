@@ -27,18 +27,18 @@ into being more popular.
 class SEARCHLOG {
 
 
-	public function SEARCHLOG() {
+    public function SEARCHLOG() {
         $this->SEARCHURL = new URL('search');
 
         $this->db = new ParlDB;
-	}
+    }
 
-	public function add($searchlogdata) {
+    public function add($searchlogdata) {
 
-		$ip = getenv('REMOTE_ADDR');
-		if (preg_match('#66\.249\.(6[4-9]|[78]\d|9[0-5])\.#', $ip)) { # Googlebot
-			return;
-		}
+        $ip = getenv('REMOTE_ADDR');
+        if (preg_match('#66\.249\.(6[4-9]|[78]\d|9[0-5])\.#', $ip)) { # Googlebot
+            return;
+        }
         if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match('#simplepie#i', $_SERVER['HTTP_USER_AGENT'])) {
             return;
         }
@@ -56,7 +56,7 @@ class SEARCHLOG {
 
         $q =  $this->db->query("SELECT *, count(*) AS c FROM search_query_log
                 WHERE count_hits != 0 AND query_string != 'twat'
-	       AND query_string != 'suffragettes' AND page_number=1
+           AND query_string != 'suffragettes' AND page_number=1
                 AND query_time > date_sub(NOW(), INTERVAL 1 DAY)
                 GROUP BY query_string ORDER BY c desc LIMIT $count;");
 
@@ -88,14 +88,14 @@ class SEARCHLOG {
         $query = $q->field($row, 'query_string');
         $this->SEARCHURL->insert(array('s'=>$query, 'pop'=>1));
         $url = $this->SEARCHURL->generate();
-	$htmlescape = 1;
-	if (preg_match('#speaker:(\d+)#', $query, $m)) {
-		$qq = $this->db->query('SELECT first_name, last_name FROM member WHERE person_id="' . $m[1] . '" LIMIT 1');
-		if ($qq->rows()) {
-			$query = preg_replace('#speaker:(\d+)#', $qq->field(0, 'first_name') . ' ' . $qq->field(0, 'last_name'), $query);
-			#$htmlescape = 0;
-		}
-	}
+    $htmlescape = 1;
+    if (preg_match('#speaker:(\d+)#', $query, $m)) {
+        $qq = $this->db->query('SELECT first_name, last_name FROM member WHERE person_id="' . $m[1] . '" LIMIT 1');
+        if ($qq->rows()) {
+            $query = preg_replace('#speaker:(\d+)#', $qq->field(0, 'first_name') . ' ' . $qq->field(0, 'last_name'), $query);
+            #$htmlescape = 0;
+        }
+    }
         $visible_name = preg_replace('/"/', '', $query);
 
         $rowarray = $q->row($row);

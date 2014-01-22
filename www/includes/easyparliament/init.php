@@ -55,17 +55,17 @@ set_exception_handler("exception_handler");
 // getmicrotime() is in utiltity.php.
 define ("STARTTIME", getmicrotime());
 if (!isset($_SERVER['WINDIR'])) {
-	$rusage = getrusage();
-	define ('STARTTIMES', $rusage['ru_stime.tv_sec']*1000000 + $rusage['ru_stime.tv_usec']);
-	define ('STARTTIMEU', $rusage['ru_utime.tv_sec']*1000000 + $rusage['ru_utime.tv_usec']);
+    $rusage = getrusage();
+    define ('STARTTIMES', $rusage['ru_stime.tv_sec']*1000000 + $rusage['ru_stime.tv_usec']);
+    define ('STARTTIMEU', $rusage['ru_utime.tv_sec']*1000000 + $rusage['ru_utime.tv_usec']);
 }
 include_once (INCLUDESPATH."data.php");
 include_once (INCLUDESPATH."mysql.php");
 
 Class ParlDB extends MySQL {
-	public function ParlDB() {
-		$this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
-	}
+    public function ParlDB() {
+        $this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
+    }
 }
 
 include_once (INCLUDESPATH."url.php");

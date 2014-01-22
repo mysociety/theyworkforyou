@@ -18,13 +18,13 @@ echo '<h2>Some recent written answers</h2>';
 $WRANSLIST = new WRANSLIST;
 $WRANSLIST->display('recent_wrans', array('days'=>7, 'num'=>5));
 $PAGE->stripe_end(array(
-	array (
-		'type' => 'include',
-		'content' => 'minisurvey'
-	),
-	array(
-		'type' => 'html',
-		'content' => '
+    array (
+        'type' => 'include',
+        'content' => 'minisurvey'
+    ),
+    array(
+        'type' => 'html',
+        'content' => '
 <div class="block">
 <h4>Search written answers and statements</h4>
 <div class="blockbody">
@@ -39,18 +39,18 @@ $PAGE->stripe_end(array(
 </div>
 </div>
 ',
-	),
-	array (
-		'type' => 'nextprev'
-	),
-	array (
-		'type' => 'include',
-		'content' => 'calendar_wrans'
-	),
-		array (
-		'type' => 'include',
-		'content' => "wrans"
-	)
+    ),
+    array (
+        'type' => 'nextprev'
+    ),
+    array (
+        'type' => 'include',
+        'content' => 'calendar_wrans'
+    ),
+        array (
+        'type' => 'include',
+        'content' => "wrans"
+    )
 ));
 echo '</div>';
 
@@ -61,26 +61,26 @@ $WMSLIST = new WMSLIST;
 $WMSLIST->display('recent_wms', array('days'=>7, 'num'=>20));
 $rssurl = $DATA->page_metadata($this_page, 'rss');
 $PAGE->stripe_end(array(
-	array (
-		'type' => 'nextprev'
-	),
-	array (
-		'type' => 'include',
-		'content' => 'calendar_wms'
-	),
-	array (
-		'type' => 'include',
-		'content' => "wms"
-	),
-	array (
-		'type' => 'html',
-		'content' => '<div class="block">
+    array (
+        'type' => 'nextprev'
+    ),
+    array (
+        'type' => 'include',
+        'content' => 'calendar_wms'
+    ),
+    array (
+        'type' => 'include',
+        'content' => "wms"
+    ),
+    array (
+        'type' => 'html',
+        'content' => '<div class="block">
 <h4>RSS feed</h4>
 <p><a href="' . WEBPATH . $rssurl . '"><img border="0" alt="RSS feed" align="middle" src="http://www.theyworkforyou.com/images/rss.gif"></a>
 <a href="' . WEBPATH . $rssurl . '">RSS feed of recent statements</a></p>
 </div>'
 
-	)
+    )
 ));
 echo '</div>';
 

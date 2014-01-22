@@ -10,11 +10,11 @@
 /*
 
 $data['info'] = array (
-	'results_per_page' => 10,
-	'total_results' => 1240,
-	'first_result' => 0,
-	'page' => 1,
-	's' => 'fox+hunting'
+    'results_per_page' => 10,
+    'total_results' => 1240,
+    'first_result' => 0,
+    'page' => 1,
+    's' => 'fox+hunting'
 );
 */
 
@@ -26,22 +26,22 @@ $info = $data['info'];
 $searchdescription = $data['searchdescription'];
 
 if (isset ($data['rows']) && count($data['rows']) > 0) {
-	?>
-				<dl id="searchresults">
+    ?>
+                <dl id="searchresults">
 <?php
     $cur_year = intval(strftime('%G'));
-	foreach ($data['rows'] as $n => $row) {
-		?>
-					<dt><a href="<?php echo $row['listurl']; ?>"><?php
-		if (isset($row['parent']) && count($row['parent']) > 0) {
-			echo ('<strong>' . $row['parent']['body'] . '</strong>');
-		}
-		echo '</a>';
-		if (isset($row['video_status']) && ($row['video_status'] == 5 || $row['video_status'] == 7)) {
-			echo ' <small><em>has video</em></small> ';
-		}
+    foreach ($data['rows'] as $n => $row) {
+        ?>
+                    <dt><a href="<?php echo $row['listurl']; ?>"><?php
+        if (isset($row['parent']) && count($row['parent']) > 0) {
+            echo ('<strong>' . $row['parent']['body'] . '</strong>');
+        }
+        echo '</a>';
+        if (isset($row['video_status']) && ($row['video_status'] == 5 || $row['video_status'] == 7)) {
+            echo ' <small><em>has video</em></small> ';
+        }
     $year = 0; intval(format_date($row['hdate'], 'y'));
-		?></dt>
+        ?></dt>
         <dd>
         <div class="appearance-date">
             <div class="day"><?php echo format_date($row['hdate'], 'j' ) ?></div><!--
@@ -54,10 +54,10 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 
         <p>&#8220;<?php
 
-		echo $row['extract'] . "&#8221;</p></dd>\n";
-	}
-	?>
-				</dl>
+        echo $row['extract'] . "&#8221;</p></dd>\n";
+    }
+    ?>
+                </dl>
 
 <?php
 

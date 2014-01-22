@@ -4,23 +4,23 @@
   mysql> load data infile '/home/stefan/whitelabel.org/wp/convertedtitles' ignore into table titles;
   */
 function technorati_pretty() {
-	global $arItems;
-	technorati('http://www.theyworkforyou.com' . $_SERVER['REQUEST_URI']);
-	$body = '';
-	foreach ($arItems as $item) {
-		$created = strtotime($item->xCreated);
-		$ago = time() - $created; $string = 'second';
-		if ($ago > 59) { $ago /= 60; $string = 'minute'; }
-		if ($string == 'minute' && $ago > 59) { $ago /= 60; $string = 'hour'; }
-		if ($string == 'hour' && $ago > 23) { $ago /= 24; $string = 'day'; }
-		if ($string == 'day' && $ago > 13) { $ago /= 7; $string = 'week'; }
-		$ago = round($ago); if ($ago != 1) $string .= 's';
-		$body .= '<li><a href="' . $item->xLink . '">' . $item->xTitle . '</a> ('.$ago.' '.$string.' ago)</li>';
-	}
-	if ($body) {
-		$body = "<ul>$body</ul>";
-	}
-	return $body;
+    global $arItems;
+    technorati('http://www.theyworkforyou.com' . $_SERVER['REQUEST_URI']);
+    $body = '';
+    foreach ($arItems as $item) {
+        $created = strtotime($item->xCreated);
+        $ago = time() - $created; $string = 'second';
+        if ($ago > 59) { $ago /= 60; $string = 'minute'; }
+        if ($string == 'minute' && $ago > 59) { $ago /= 60; $string = 'hour'; }
+        if ($string == 'hour' && $ago > 23) { $ago /= 24; $string = 'day'; }
+        if ($string == 'day' && $ago > 13) { $ago /= 7; $string = 'week'; }
+        $ago = round($ago); if ($ago != 1) $string .= 's';
+        $body .= '<li><a href="' . $item->xLink . '">' . $item->xTitle . '</a> ('.$ago.' '.$string.' ago)</li>';
+    }
+    if ($body) {
+        $body = "<ul>$body</ul>";
+    }
+    return $body;
 }
 
 class xItem {
@@ -130,7 +130,7 @@ function character1Data($parser, $data) {
     $arItems[$itemCount]->xLink = $data;
     #$itemCount++;
   } elseif ($curTag == $createdKey) {
-	  $arItems[$itemCount]->xCreated = $data;
-	  $itemCount++;
-	}
+      $arItems[$itemCount]->xCreated = $data;
+      $itemCount++;
+    }
 }

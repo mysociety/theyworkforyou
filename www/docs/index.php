@@ -34,55 +34,55 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
         <h2>Your representative</h2>
         <?php
 
-		$MPURL = new URL('yourmp');
-        	global $THEUSER;
+        $MPURL = new URL('yourmp');
+            global $THEUSER;
 
-        	$pc_form = true;
-        	if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
-        		// User is logged in and has a postcode, or not logged in with a cookied postcode.
+            $pc_form = true;
+            if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
+                // User is logged in and has a postcode, or not logged in with a cookied postcode.
 
-        		// (We don't allow the user to search for a postcode if they
-        		// already have one set in their prefs.)
+                // (We don't allow the user to search for a postcode if they
+                // already have one set in their prefs.)
 
-        		$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
-        		if ($MEMBER->valid) {
-        			$pc_form = false;
-        			if ($THEUSER->isloggedin()) {
-        				$CHANGEURL = new URL('useredit');
-        			} else {
-        				$CHANGEURL = new URL('userchangepc');
-        			}
-        			$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
-        			$former = "";
-        			$left_house = $MEMBER->left_house();
-        			if ($left_house[1]['date'] != '9999-12-31') {
-        				$former = 'former';
-        			}
+                $MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
+                if ($MEMBER->valid) {
+                    $pc_form = false;
+                    if ($THEUSER->isloggedin()) {
+                        $CHANGEURL = new URL('useredit');
+                    } else {
+                        $CHANGEURL = new URL('userchangepc');
+                    }
+                    $mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
+                    $former = "";
+                    $left_house = $MEMBER->left_house();
+                    if ($left_house[1]['date'] != '9999-12-31') {
+                        $former = 'former';
+                    }
         ?>
-        	<p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br>
-        	In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
+            <p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br>
+            In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
         <?php
-        		}
-        	}
+                }
+            }
 
-        	if ($pc_form) { ?>
-        		<form action="/postcode/" method="get">
-        		<p><strong>Find out about your <acronym title="Member of Parliament">MP</acronym>/
-        		<acronym title="Members of the Scottish Parliament">MSPs</acronym>/
-        		<acronym title="Members of the (Northern Irish) Legislative Assembly">MLAs</acronym></strong><br>
-        		<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
-        		</form>
-        	<?php
-        	}
-        	echo '<p>Read debates they&rsquo;ve taken part in, see how they voted, sign up for an email alert, and more.</p>';
+            if ($pc_form) { ?>
+                <form action="/postcode/" method="get">
+                <p><strong>Find out about your <acronym title="Member of Parliament">MP</acronym>/
+                <acronym title="Members of the Scottish Parliament">MSPs</acronym>/
+                <acronym title="Members of the (Northern Irish) Legislative Assembly">MLAs</acronym></strong><br>
+                <label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
+                </form>
+            <?php
+            }
+            echo '<p>Read debates they&rsquo;ve taken part in, see how they voted, sign up for an email alert, and more.</p>';
         ?>
     </div>
     <!-- Search / alerts -->
     <div id="welcome_search">
         <?php
-        	global $SEARCHURL;
-        	global $SEARCHLOG;
-        	$SEARCHURL = new URL('search');
+            global $SEARCHURL;
+            global $SEARCHLOG;
+            $SEARCHURL = new URL('search');
             $popular_searches = $SEARCHLOG->popular_recent(10);
         ?>
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Home'); return false;">
@@ -169,7 +169,7 @@ $MOREURL = new URL('pbcfront');
 <div class="campaign">
     <p>
         What&rsquo;s up next: <span class="chev"><span class="hide">-</span></span>
-	<a href="/calendar/">Upcoming</a>
+    <a href="/calendar/">Upcoming</a>
     </p>
 </div>
 

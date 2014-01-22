@@ -12,7 +12,7 @@ $PAGE->block_start(array ('title'=>'Things currently noticeable to the user'));
 
 <style type="text/css">
 dt strong {
-	color: #ff0000;
+    color: #ff0000;
 }
 </style>
 <dl>

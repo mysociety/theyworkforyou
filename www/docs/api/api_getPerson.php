@@ -64,15 +64,15 @@ function api_getPerson_id($id) {
 }
 
 function _api_getPerson_output($q) {
-	$output = array();
-	$last_mod = 0;
-	for ($i=0; $i<$q->rows(); $i++) {
+    $output = array();
+    $last_mod = 0;
+    for ($i=0; $i<$q->rows(); $i++) {
         $house = $q->field($i, 'house');
         $out = _api_getPerson_row($q->row($i), $house == 0 ? false : true);
-		$output[] = $out;
-		$time = strtotime($q->field($i, 'lastupdate'));
-		if ($time > $last_mod)
-			$last_mod = $time;
-	}
-	api_output($output, $last_mod);
+        $output[] = $out;
+        $time = strtotime($q->field($i, 'lastupdate'));
+        if ($time > $last_mod)
+            $last_mod = $time;
+    }
+    api_output($output, $last_mod);
 }

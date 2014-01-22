@@ -7,101 +7,101 @@ include_once './api_functions.php';
 # XXX: Need to override error handling! XXX
 
 if ($q_method = get_http_var('method')) {
-	if (get_http_var('docs')) {
-		$key = 'DOCS';
-	} else {
-		$key = get_http_var('key');
-		if (!$key) {
-			api_error('No API key provided. Please see http://www.theyworkforyou.com/api/key for more information.');
-			exit;
-		}
-		$check = api_check_key($key);
-		if (!$check) {
-			api_error('Invalid API key.');
-			exit;
-		} elseif ($check === 'disabled') {
-			api_error('Your API key has been disabled.');
-			exit;
-		}
-	}
-	$match = 0;
-	foreach ($methods as $method => $data) {
-		if (strtolower($q_method) == strtolower($method)) {
+    if (get_http_var('docs')) {
+        $key = 'DOCS';
+    } else {
+        $key = get_http_var('key');
+        if (!$key) {
+            api_error('No API key provided. Please see http://www.theyworkforyou.com/api/key for more information.');
+            exit;
+        }
+        $check = api_check_key($key);
+        if (!$check) {
+            api_error('Invalid API key.');
+            exit;
+        } elseif ($check === 'disabled') {
+            api_error('Your API key has been disabled.');
+            exit;
+        }
+    }
+    $match = 0;
+    foreach ($methods as $method => $data) {
+        if (strtolower($q_method) == strtolower($method)) {
       if (isset($data['superuser']) && $data['superuser']) {
         $super_check = api_is_superuser_key($key);
         if (!$super_check) {
-    			if (get_http_var('docs')) {
-    			  api_front_page();
-    			} else {
-    			  api_error('Invalid API key.');
-    			  exit;
-  			  }
-    		}
+                if (get_http_var('docs')) {
+                  api_front_page();
+                } else {
+                  api_error('Invalid API key.');
+                  exit;
+              }
+            }
       }
 
-			api_log_call($key);
-			$match++;
-			if (get_http_var('docs')) {
-				$_GET['verbose'] = 1;
-				ob_start();
-			}
-			foreach ($data['parameters'] as $parameter) {
-				if ($q_param = trim(get_http_var($parameter))) {
-					$match++;
-					include_once 'api_'. $method . '.php';
-					api_call_user_func_or_error('api_' . $method . '_' . $parameter, array($q_param), 'API call not yet functional', 'api');
-					break;
-				}
-			}
-			if ($match == 1 && (get_http_var('output') || !get_http_var('docs'))) {
-				if ($data['required']) {
-					api_error('No parameter provided to function "' .
-					htmlspecialchars($q_method) .
-						'". Possible choices are: ' .
-						join(', ', $data['parameters']) );
-				} else {
-					include_once 'api_'. $method . '.php';
-					api_call_user_func_or_error('api_' . $method, array(), 'API call not yet functional', 'api');
-					break;
-				}
-			}
-			break;
-		}
-	}
-	if (!$match) {
-		api_log_call($key);
-		api_front_page('Unknown function "' . htmlspecialchars($q_method) .
-			'". Possible functions are: ' .
-			join(', ', array_keys($methods)) );
-	} else {
-		if (get_http_var('docs')) {
-			$explorer = ob_get_clean();
-			api_documentation_front($method, $explorer);
-		}
-	}
+            api_log_call($key);
+            $match++;
+            if (get_http_var('docs')) {
+                $_GET['verbose'] = 1;
+                ob_start();
+            }
+            foreach ($data['parameters'] as $parameter) {
+                if ($q_param = trim(get_http_var($parameter))) {
+                    $match++;
+                    include_once 'api_'. $method . '.php';
+                    api_call_user_func_or_error('api_' . $method . '_' . $parameter, array($q_param), 'API call not yet functional', 'api');
+                    break;
+                }
+            }
+            if ($match == 1 && (get_http_var('output') || !get_http_var('docs'))) {
+                if ($data['required']) {
+                    api_error('No parameter provided to function "' .
+                    htmlspecialchars($q_method) .
+                        '". Possible choices are: ' .
+                        join(', ', $data['parameters']) );
+                } else {
+                    include_once 'api_'. $method . '.php';
+                    api_call_user_func_or_error('api_' . $method, array(), 'API call not yet functional', 'api');
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    if (!$match) {
+        api_log_call($key);
+        api_front_page('Unknown function "' . htmlspecialchars($q_method) .
+            '". Possible functions are: ' .
+            join(', ', array_keys($methods)) );
+    } else {
+        if (get_http_var('docs')) {
+            $explorer = ob_get_clean();
+            api_documentation_front($method, $explorer);
+        }
+    }
 } else {
-	api_front_page();
+    api_front_page();
 }
 
 function api_documentation_front($method, $explorer) {
-	global $PAGE, $this_page, $DATA, $methods;
-	$this_page = 'api_doc_front';
-	$DATA->set_page_metadata($this_page, 'title', "$method function");
-	$PAGE->page_start();
-	$PAGE->stripe_start();
-	include_once 'api_'. $method . '.php';
-	print '<p align="center"><strong>http://www.theyworkforyou.com/api/' . $method . '</strong></p>';
-	api_call_user_func_or_error('api_' . $method . '_front', array(), 'No documentation yet', 'html');
+    global $PAGE, $this_page, $DATA, $methods;
+    $this_page = 'api_doc_front';
+    $DATA->set_page_metadata($this_page, 'title', "$method function");
+    $PAGE->page_start();
+    $PAGE->stripe_start();
+    include_once 'api_'. $method . '.php';
+    print '<p align="center"><strong>http://www.theyworkforyou.com/api/' . $method . '</strong></p>';
+    api_call_user_func_or_error('api_' . $method . '_front', array(), 'No documentation yet', 'html');
 ?>
 <h4>Explorer</h4>
 <p>Try out this function without writing any code!</p>
 <form method="get" action="?#output">
 <p>
 <?php foreach ($methods[$method]['parameters'] as $parameter) {
-	print $parameter . ': <input type="text" name="'.$parameter.'" value="';
-	if ($val = get_http_var($parameter))
-		print htmlspecialchars($val);
-	print '" size="30"><br>';
+    print $parameter . ': <input type="text" name="'.$parameter.'" value="';
+    if ($val = get_http_var($parameter))
+        print htmlspecialchars($val);
+    print '" size="30"><br>';
 }
 ?>
 Output:
@@ -118,30 +118,30 @@ Output:
 </p>
 </form>
 <?php
-	if ($explorer) {
-		$qs = array();
-		foreach ($methods[$method]['parameters'] as $parameter) {
-			if (get_http_var($parameter))
-				$qs[] = htmlspecialchars(rawurlencode($parameter) . '=' . urlencode(get_http_var($parameter)));
-		}
-		print '<h4><a name="output"></a>Output</h4>';
-		print '<p>URL for this: <strong>http://www.theyworkforyou.com/api/';
-		print $method . '?' . join('&amp;', $qs) . '&amp;output='.get_http_var('output').'</strong></p>';
-		print '<pre>' . htmlspecialchars($explorer) . '</pre>';
-	}
-	$sidebar = api_sidebar();
-	$PAGE->stripe_end(array($sidebar));
-	$PAGE->page_end();
+    if ($explorer) {
+        $qs = array();
+        foreach ($methods[$method]['parameters'] as $parameter) {
+            if (get_http_var($parameter))
+                $qs[] = htmlspecialchars(rawurlencode($parameter) . '=' . urlencode(get_http_var($parameter)));
+        }
+        print '<h4><a name="output"></a>Output</h4>';
+        print '<p>URL for this: <strong>http://www.theyworkforyou.com/api/';
+        print $method . '?' . join('&amp;', $qs) . '&amp;output='.get_http_var('output').'</strong></p>';
+        print '<pre>' . htmlspecialchars($explorer) . '</pre>';
+    }
+    $sidebar = api_sidebar();
+    $PAGE->stripe_end(array($sidebar));
+    $PAGE->page_end();
 }
 
 function api_front_page($error = '') {
-	global $PAGE, $methods, $this_page, $THEUSER;
-	$this_page = 'api_front';
-	$PAGE->page_start();
-	$PAGE->stripe_start();
-	if ($error) {
-		print "<p style='color: #cc0000'>$error</p>";
-	}
+    global $PAGE, $methods, $this_page, $THEUSER;
+    $this_page = 'api_front';
+    $PAGE->page_start();
+    $PAGE->stripe_start();
+    if ($error) {
+        print "<p style='color: #cc0000'>$error</p>";
+    }
 ?>
 <p>Welcome to TheyWorkForYou's API section, where you can learn how to query our database for information.</p>
 
@@ -247,7 +247,7 @@ to discuss things.</p>
 </ul>
 
 <?php
-	$sidebar = api_sidebar();
-	$PAGE->stripe_end(array($sidebar));
-	$PAGE->page_end();
+    $sidebar = api_sidebar();
+    $PAGE->stripe_end(array($sidebar));
+    $PAGE->page_end();
 }

@@ -100,72 +100,72 @@ This will return all database entries for this person, so will include previous 
 }
 
 function api_getMP_id($id) {
-	$db = new ParlDB;
-	$q = $db->query("select * from member
-		where house=1 and person_id = '" . mysql_real_escape_string($id) . "'
-		order by left_house desc");
-	if ($q->rows()) {
+    $db = new ParlDB;
+    $q = $db->query("select * from member
+        where house=1 and person_id = '" . mysql_real_escape_string($id) . "'
+        order by left_house desc");
+    if ($q->rows()) {
         _api_getPerson_output($q);
-	} else {
-		api_error('Unknown person ID');
-	}
+    } else {
+        api_error('Unknown person ID');
+    }
 }
 
 function api_getMP_postcode($pc) {
-	$pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
-	if (validate_postcode($pc)) {
-		$constituency = postcode_to_constituency($pc, true);
-		if ($constituency == 'CONNECTION_TIMED_OUT') {
-			api_error('Connection timed out');
-		} elseif ($constituency) {
-			$person = _api_getMP_constituency($constituency);
-			$output = $person;
-			api_output($output, isset($output['lastupdate']) ? strtotime($output['lastupdate']) : null);
-		} else {
-			api_error('Unknown postcode');
-		}
-	} else {
-		api_error('Invalid postcode');
-	}
+    $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
+    if (validate_postcode($pc)) {
+        $constituency = postcode_to_constituency($pc, true);
+        if ($constituency == 'CONNECTION_TIMED_OUT') {
+            api_error('Connection timed out');
+        } elseif ($constituency) {
+            $person = _api_getMP_constituency($constituency);
+            $output = $person;
+            api_output($output, isset($output['lastupdate']) ? strtotime($output['lastupdate']) : null);
+        } else {
+            api_error('Unknown postcode');
+        }
+    } else {
+        api_error('Invalid postcode');
+    }
 }
 
 function api_getMP_constituency($constituency) {
-	$person = _api_getMP_constituency($constituency);
-	if ($person) {
-		$output = $person;
-		api_output($output, strtotime($output['lastupdate']));
-	} else {
-		api_error('Unknown constituency, or no MP for that constituency');
-	}
+    $person = _api_getMP_constituency($constituency);
+    if ($person) {
+        $output = $person;
+        api_output($output, strtotime($output['lastupdate']));
+    } else {
+        api_error('Unknown constituency, or no MP for that constituency');
+    }
 }
 
 # Very similary to MEMBER's constituency_to_person_id
 # Should all be abstracted properly :-/
 function _api_getMP_constituency($constituency) {
-	$db = new ParlDB;
+    $db = new ParlDB;
 
-	if ($constituency == '')
-		return array();
+    if ($constituency == '')
+        return array();
 
-	if ($constituency == 'Orkney ')
-		$constituency = 'Orkney &amp; Shetland';
+    if ($constituency == 'Orkney ')
+        $constituency = 'Orkney &amp; Shetland';
 
-	$normalised = normalise_constituency_name($constituency);
-	if ($normalised) $constituency = $normalised;
+    $normalised = normalise_constituency_name($constituency);
+    if ($normalised) $constituency = $normalised;
 
-	$q = $db->query("SELECT * FROM member
-		WHERE constituency = '" . mysql_real_escape_string($constituency) . "'
-		AND left_reason = 'still_in_office' AND house=1");
-	if ($q->rows > 0)
-		return _api_getPerson_row($q->row(0), true);
+    $q = $db->query("SELECT * FROM member
+        WHERE constituency = '" . mysql_real_escape_string($constituency) . "'
+        AND left_reason = 'still_in_office' AND house=1");
+    if ($q->rows > 0)
+        return _api_getPerson_row($q->row(0), true);
 
-	if (get_http_var('always_return')) {
-		$q = $db->query("SELECT * FROM member
-			WHERE house=1 AND constituency = '".mysql_real_escape_string($constituency)."'
-			ORDER BY left_house DESC LIMIT 1");
-		if ($q->rows > 0)
-			return _api_getPerson_row($q->row(0), true);
-	}
+    if (get_http_var('always_return')) {
+        $q = $db->query("SELECT * FROM member
+            WHERE house=1 AND constituency = '".mysql_real_escape_string($constituency)."'
+            ORDER BY left_house DESC LIMIT 1");
+        if ($q->rows > 0)
+            return _api_getPerson_row($q->row(0), true);
+    }
 
-	return array();
+    return array();
 }

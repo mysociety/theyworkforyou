@@ -20,23 +20,23 @@ function api_getMPInfo_front() {
 }
 
 function api_getMPinfo_id($id) {
-	if (!ctype_digit($id)) {
-		api_error('Unknown person ID');
-		return;
-	}
+    if (!ctype_digit($id)) {
+        api_error('Unknown person ID');
+        return;
+    }
 
-	$output = _api_getMPsInfo_id($id);
-	if ($output) {
+    $output = _api_getMPsInfo_id($id);
+    if ($output) {
         if ($output[0]) {
-		    api_output($output[0][$id], $output[1]);
+            api_output($output[0][$id], $output[1]);
         } else {
             api_error('Unknown field');
         }
-	} else {
-		api_error('Unknown person ID');
-	}
+    } else {
+        api_error('Unknown person ID');
+    }
 }
 
 function api_getMPinfo_fields($f) {
-	api_error('You must supply a person ID');
+    api_error('You must supply a person ID');
 }

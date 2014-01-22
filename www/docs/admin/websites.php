@@ -69,11 +69,11 @@ function list_members() {
         $mpname = member_full_name($q->field($row, 'house'), $q->field($row, 'title'), $q->field($row, 'first_name'), $q->field($row, 'last_name'), $q->field($row, 'constituency'));
         $mp_website = $q->field($row, 'data_value');
         $out .= ' <small>[<a href="websites.php?editperson=' . $q->field($row, 'person_id') . '"';
-	if ($mp_website) {
+    if ($mp_website) {
             $out .= ' title="Change URL ' . $mp_website . '">Edit URL</a>]</small>';
-	} else {
+    } else {
             $out .= '>Add URL</a>]</small>';
-	}
+    }
         $out .= ' ' . $mpname;
         if ($q->field($row, 'constituency') && $q->field($row, 'house')!=2) {
             $out .= ' (' . $q->field($row, 'constituency') . ')';
@@ -130,10 +130,10 @@ function subnav() {
 $menu = $PAGE->admin_menu();
 
 $PAGE->stripe_end(array(
-	array(
-		'type'		=> 'html',
-		'content'	=> $menu
-	)
+    array(
+        'type'		=> 'html',
+        'content'	=> $menu
+    )
 ));
 
 $PAGE->page_end();

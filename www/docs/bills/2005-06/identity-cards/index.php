@@ -93,11 +93,11 @@ Motions, <a href="http://www.theyworkforyou.com/debates/?id=2006-03-29a.999.0">d
 
 $PAGE->block_end();
 
-	$includes = array(
-		array (
-			'type' => 'include',
-			'content' => 'bills_intro'
-		),
-	);
+    $includes = array(
+        array (
+            'type' => 'include',
+            'content' => 'bills_intro'
+        ),
+    );
 $PAGE->stripe_end($includes);
 $PAGE->page_end();

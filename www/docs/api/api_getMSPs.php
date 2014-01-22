@@ -18,14 +18,14 @@ function api_getMSPs_front() {
 
 <h4>Example Response</h4>
 <pre>a:646:{
-	i:0; a:5:{
-		s:9:"member_id"; s:4:"1368";
-		s:9:"person_id"; s:5:"10900";
-		s:4:"name"; s:13:"Hywel Francis";
-		s:5:"party"; s:6:"Labour";
-		s:12:"constituency"; s:8:"Aberavon";
-	}
-	i:1; ...
+    i:0; a:5:{
+        s:9:"member_id"; s:4:"1368";
+        s:9:"person_id"; s:5:"10900";
+        s:4:"name"; s:13:"Hywel Francis";
+        s:5:"party"; s:6:"Labour";
+        s:12:"constituency"; s:8:"Aberavon";
+    }
+    i:1; ...
 </pre>
 
 <?php
@@ -33,16 +33,16 @@ function api_getMSPs_front() {
 
 /* See api_getMembers.php for these shared functions */
 function api_getMSPs_party($s) {
-	api_getMembers_party(4, $s);
+    api_getMembers_party(4, $s);
 }
 function api_getMSPs_search($s) {
-	api_getMembers_search(4, $s);
+    api_getMembers_search(4, $s);
 }
 function api_getMSPs_date($date) {
-	api_getMembers_date(4, $date);
+    api_getMembers_date(4, $date);
 }
 function api_getMSPs($date = 'now()') {
-	api_getMembers(4, $date);
+    api_getMembers(4, $date);
 }
 
 ?>

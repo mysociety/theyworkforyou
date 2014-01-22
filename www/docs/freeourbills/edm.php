@@ -67,17 +67,17 @@ function lookup($pc) {
     $mp = unserialize($file);
     if (isset($mp['error'])) {
         print 'ERROR: '. $mp['error'];
-	return;
+    return;
     }
 
     $out = array();
     $handle = fopen('/data/vhost/www.theyworkforyou.com/dumps/edm_status.csv', 'r');
     while (($data = fgetcsv($handle, 1000, ",")) !== false) {
         list($pid, $name, $party, $const, $signed, $modcom, $minister) = $data;
-	if ($pid == $mp['person_id']) {
-	    $out = array('signed_edm'=>$signed, 'modcom'=>$modcom, 'minister'=>$minister);
-	    break;
-	}
+    if ($pid == $mp['person_id']) {
+        $out = array('signed_edm'=>$signed, 'modcom'=>$modcom, 'minister'=>$minister);
+        break;
+    }
     }
     fclose($handle);
 

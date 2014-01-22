@@ -23,8 +23,8 @@ $q = $db->query('SELECT COUNT(*) AS c FROM alerts WHERE confirmed=0');
 $unconfirmed = $q->field(0, 'c');
 $rows = array(array('Total', $total), array('Active', $active), array('Deleted', $deleted), array('Unconfirmed', $unconfirmed));
 $tabledata = array (
-	'header' => array('Stat', 'Number'),
-	'rows' => $rows
+    'header' => array('Stat', 'Number'),
+    'rows' => $rows
 );
 $PAGE->display_table($tabledata);
 
@@ -34,8 +34,8 @@ if (isset($_GET['o']) && $_GET['o'] == 'c') $order = 'created, alert_id';
 print '<h4>Active alerts</h4>';
 $q = $db->query('SELECT email,criteria,created FROM alerts WHERE confirmed=1 AND deleted=0 ORDER BY '.$order);
 $tabledata = array (
-	'header' => array('<a href="alerts.php">Email</a>', 'Criteria', '<a href="alerts.php?o=c">Created</a>'),
-	'rows' => generate_rows($q)
+    'header' => array('<a href="alerts.php">Email</a>', 'Criteria', '<a href="alerts.php?o=c">Created</a>'),
+    'rows' => generate_rows($q)
 );
 $PAGE->display_table($tabledata);
 
@@ -51,33 +51,33 @@ $PAGE->display_table($tabledata);
 
 $menu = $PAGE->admin_menu();
 $PAGE->stripe_end(array(
-	array(
-		'type'		=> 'html',
-		'content'	=> $menu
-	)
+    array(
+        'type'		=> 'html',
+        'content'	=> $menu
+    )
 ));
 
 $PAGE->page_end();
 
 function generate_rows($q) {
-	global $db;
-	$rows = array();
-	$USERURL = new URL('userview');
-	for ($row=0; $row<$q->rows(); $row++) {
-		$email = $q->field($row, 'email');
-		$criteria = $q->field($row, 'criteria');
-		$SEARCHENGINE = new SEARCHENGINE($criteria);
-		$r = $db->query("SELECT user_id,firstname,lastname FROM users WHERE email = '" . mysql_real_escape_string($email) . "'");
-		if ($r->rows() > 0) {
-			$user_id = $r->field(0, 'user_id');
-			$USERURL->insert(array('u'=>$user_id));
-			$name = '<a href="'. $USERURL->generate() . '">' . $r->field(0, 'firstname') . ' ' . $r->field(0, 'lastname') . '</a>';
-		} else {
-			$name = $email;
-		}
-		$created = $q->field($row, 'created');
-		if ($created == '0000-00-00 00:00:00') $created = '&nbsp;';
-		$rows[] = array($name, $SEARCHENGINE->query_description_long(), $created);
-	}
-	return $rows;
+    global $db;
+    $rows = array();
+    $USERURL = new URL('userview');
+    for ($row=0; $row<$q->rows(); $row++) {
+        $email = $q->field($row, 'email');
+        $criteria = $q->field($row, 'criteria');
+        $SEARCHENGINE = new SEARCHENGINE($criteria);
+        $r = $db->query("SELECT user_id,firstname,lastname FROM users WHERE email = '" . mysql_real_escape_string($email) . "'");
+        if ($r->rows() > 0) {
+            $user_id = $r->field(0, 'user_id');
+            $USERURL->insert(array('u'=>$user_id));
+            $name = '<a href="'. $USERURL->generate() . '">' . $r->field(0, 'firstname') . ' ' . $r->field(0, 'lastname') . '</a>';
+        } else {
+            $name = $email;
+        }
+        $created = $q->field($row, 'created');
+        if ($created == '0000-00-00 00:00:00') $created = '&nbsp;';
+        $rows[] = array($name, $SEARCHENGINE->query_description_long(), $created);
+    }
+    return $rows;
 }

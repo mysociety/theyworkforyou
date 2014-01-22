@@ -8,12 +8,12 @@ $PAGE->page_start();
 $PAGE->stripe_start();
 echo '<dl>';
 foreach (array('hansard', 'sp_home', 'ni_home', 'wales_home') as $page) {
-	$menu = $DATA->page_metadata($page, 'menu');
-	$title = $menu['text'];
-	$text = $menu['title'];
-	$URL = new URL($page);
-	$url = $URL->generate();
-	echo "<dt><a href='$url'>$title</a></dt><dd>$text</dd>\n";
+    $menu = $DATA->page_metadata($page, 'menu');
+    $title = $menu['text'];
+    $text = $menu['title'];
+    $URL = new URL($page);
+    $url = $URL->generate();
+    echo "<dt><a href='$url'>$title</a></dt><dd>$text</dd>\n";
 }
 echo '</ul>';
 

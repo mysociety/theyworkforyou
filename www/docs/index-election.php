@@ -26,44 +26,44 @@ $WMSLIST = new WMSLIST;
 $wmsdata = $WMSLIST->most_recent_day();
 
 if (count($debatesdata) > 0 && count($wransdata) > 0 && count($whalldata) > 0 && count($wmsdata) > 0) {
-	// Links to Debates and Wrans.
-	$debatestext = '<a href="' . $debatesdata['listurl'] . '">Debates</a>';
-	$wranstext = '<a href="' . $wransdata['listurl'] . '">Written Answers</a>';
-	$whalltext = '<a href="' . $whalldata['listurl'] . '">Westminster Hall debates</a>';
-	$wmstext = '<a href="' . $wmsdata['listurl'] . '">Written Ministerial Statements</a>';
+    // Links to Debates and Wrans.
+    $debatestext = '<a href="' . $debatesdata['listurl'] . '">Debates</a>';
+    $wranstext = '<a href="' . $wransdata['listurl'] . '">Written Answers</a>';
+    $whalltext = '<a href="' . $whalldata['listurl'] . '">Westminster Hall debates</a>';
+    $wmstext = '<a href="' . $wmsdata['listurl'] . '">Written Ministerial Statements</a>';
 
-	// Now we work out whether the debates/wrans are from yesterday or another day...
-	// And create the appropriate text ($daytext) to display accordingly.
+    // Now we work out whether the debates/wrans are from yesterday or another day...
+    // And create the appropriate text ($daytext) to display accordingly.
 
-	$todaystime = gmmktime(0, 0, 0, date('m'), date('d'), date('Y'));
+    $todaystime = gmmktime(0, 0, 0, date('m'), date('d'), date('Y'));
 
-	if ($debatesdata['hdate'] == $wransdata['hdate'] && $debatesdata['hdate'] == $whalldata['hdate'] && $debatesdata['hdate'] == $wmsdata['hdate']) {
-		// They're on the same day, which is nice, and most common.
+    if ($debatesdata['hdate'] == $wransdata['hdate'] && $debatesdata['hdate'] == $whalldata['hdate'] && $debatesdata['hdate'] == $wmsdata['hdate']) {
+        // They're on the same day, which is nice, and most common.
 
-		if ($todaystime - $debatesdata['timestamp'] == 86400) {
-			$daytext = "yesterday's";
+        if ($todaystime - $debatesdata['timestamp'] == 86400) {
+            $daytext = "yesterday's";
 
-		} elseif ($todaystime - $debatesdata['timestamp'] <= (6 * 86400)) {
-			// Less than a week ago, so like "last Tuesday's".
-			$daytext = gmdate('l', $debatesdata['timestamp']) . "'s";
+        } elseif ($todaystime - $debatesdata['timestamp'] <= (6 * 86400)) {
+            // Less than a week ago, so like "last Tuesday's".
+            $daytext = gmdate('l', $debatesdata['timestamp']) . "'s";
 
-		} else {
+        } else {
 
-			// Over a week ago.
-			$daytext = "the most recent ";
-		}
+            // Over a week ago.
+            $daytext = "the most recent ";
+        }
 
-	} else {
-		// Debates and Wrans are from different dates. We'll just do this for now:
-		$daytext = "the most recent ";
-	}
+    } else {
+        // Debates and Wrans are from different dates. We'll just do this for now:
+        $daytext = "the most recent ";
+    }
 
 #	$hansardline = "Comment on $daytext <ul><li>$debatestext</li><li>$wranstext</li><li>$whalltext</li><li>$wmstext</li></ul>";
-	$hansardline = "Comment on $daytext $debatestext, $wranstext, $whalltext, and $wmstext";
+    $hansardline = "Comment on $daytext $debatestext, $wranstext, $whalltext, and $wmstext";
 
 } else {
-	// We didn't get some or all of the data, so just...
-	$hansardline = "Comment on events in parliament";
+    // We didn't get some or all of the data, so just...
+    $hansardline = "Comment on events in parliament";
 }
 
 
@@ -74,47 +74,47 @@ $MPURL = new URL('yourmp');
 
 $PAGE->block_start(array ('id'=>'intro', 'title'=>'Election special! Find out how they performed for YOU:'));
 ?>
-						<ol>
+                        <ol>
 
-						<li>
+                        <li>
 <?php
 if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
-	// User is logged in and has a postcode, or not logged in with a cookied postcode.
+    // User is logged in and has a postcode, or not logged in with a cookied postcode.
 
-	// (We don't allow the user to search for a postcode if they
-	// already have one set in their prefs.)
+    // (We don't allow the user to search for a postcode if they
+    // already have one set in their prefs.)
 
-	if ($THEUSER->isloggedin()) {
-		$CHANGEURL = new URL('useredit');
-	} else {
-		$CHANGEURL = new URL('userchangepc');
-	}
-	$MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
-	$mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
-	?>
-	  <p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about how <?php echo $mpname; ?>, your ex-MP, represented you over the last parliament</strong></a><br>
-						In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
+    if ($THEUSER->isloggedin()) {
+        $CHANGEURL = new URL('useredit');
+    } else {
+        $CHANGEURL = new URL('userchangepc');
+    }
+    $MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
+    $mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
+    ?>
+      <p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about how <?php echo $mpname; ?>, your ex-MP, represented you over the last parliament</strong></a><br>
+                        In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
 <?php
 
 } else {
-	// User is not logged in and doesn't have a personal postcode set.
-	?>
-						<form action="<?php echo $MPURL->generate(); ?>" method="get">
+    // User is not logged in and doesn't have a personal postcode set.
+    ?>
+                        <form action="<?php echo $MPURL->generate(); ?>" method="get">
     <p><strong>Now that the election has been called, you can use this site to find out what your ex-MP did throughout the last parliament. We have performance stats, speeches, voting records and more...</strong><br>
-						<label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" GO " class="submit"></p>
-						</form>
+                        <label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" GO " class="submit"></p>
+                        </form>
 <?php
 }
 ?>
-						</li>
+                        </li>
 
-						<li>
+                        <li>
 <?php
-	$SEARCHURL = new URL('search');
-	?>
-						<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-						<p><strong>Search everything said in Parliament since 2001, or for an ex-MP or constituency</strong><br>
-						<label for="s">Type what you are looking for:</label>&nbsp; <input type="text" name="s" id="s" size="15" maxlength="100" class="text">&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit"></p>
+    $SEARCHURL = new URL('search');
+    ?>
+                        <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
+                        <p><strong>Search everything said in Parliament since 2001, or for an ex-MP or constituency</strong><br>
+                        <label for="s">Type what you are looking for:</label>&nbsp; <input type="text" name="s" id="s" size="15" maxlength="100" class="text">&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit"></p>
                         <?php
                             // Display popular queries
                             global $SEARCHLOG;
@@ -136,17 +136,17 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
                                 ?> </p> <?php
                             }
                         ?>
-						</form>
-						</li>
+                        </form>
+                        </li>
 <?php
 
-	// Get the data for the Busiest Debate stuff.
-	$biggest_data = $DEBATELIST->biggest_debates();
-	// Because it could return multiple debates, and we only want one.
-	$biggest_data = $biggest_data['data'][0];
-	?>
+    // Get the data for the Busiest Debate stuff.
+    $biggest_data = $DEBATELIST->biggest_debates();
+    // Because it could return multiple debates, and we only want one.
+    $biggest_data = $biggest_data['data'][0];
+    ?>
 
-						</ol>
+                        </ol>
 <a href="nonelection.php"> old homepage</a>
 
 <?php
@@ -176,23 +176,23 @@ $URL = new URL('glossary');
 
 //$PAGE->block_start(array('title'=>'Latest glossary entry'));
 ?>
-	<!--
-						<p><strong>A tricksy word</strong> It will go right here.</p>
+    <!--
+                        <p><strong>A tricksy word</strong> It will go right here.</p>
 
-						<p><a href="<?php echo $URL->generate(); ?>">See more words from the glossary</a></p>
+                        <p><a href="<?php echo $URL->generate(); ?>">See more words from the glossary</a></p>
 -->
 <?php
 //$PAGE->block_end();
 
 $PAGE->stripe_end(array(
-	array (
-		'type' => 'include',
-		'content' => 'whatisthissite'
-	),
-	array (
-		'type' => 'include',
-		'content' => 'sitenews_recent'
-	)
+    array (
+        'type' => 'include',
+        'content' => 'whatisthissite'
+    ),
+    array (
+        'type' => 'include',
+        'content' => 'sitenews_recent'
+    )
 ));
 
 $PAGE->page_end();

@@ -26,41 +26,41 @@ function api_getComments_front() {
 }
 
 function api_getComments_start_date($start_date) {
-    	$args = array (
-    		'start_date' => $start_date,
-    		'end_date' => get_http_var('end_date')
-    	);
-	$commentlist = new COMMENTLIST;
-	$commentlist->display('dates', $args, 'api');
+        $args = array (
+            'start_date' => $start_date,
+            'end_date' => get_http_var('end_date')
+        );
+    $commentlist = new COMMENTLIST;
+    $commentlist->display('dates', $args, 'api');
 }
 
 function api_getComments_search($s) {
-    	$args = array (
-    		's' => $s,
-    		'p' => get_http_var('page'),
-    		'num' => get_http_var('num'),
-    	);
-	$commentlist = new COMMENTLIST;
-	$commentlist->display('search', $args, 'api');
+        $args = array (
+            's' => $s,
+            'p' => get_http_var('page'),
+            'num' => get_http_var('num'),
+        );
+    $commentlist = new COMMENTLIST;
+    $commentlist->display('search', $args, 'api');
 }
 
 function api_getComments() {
-	$args = array(
-		'page' => get_http_var('p'),
-    		'num' => get_http_var('num'),
-	);
-	$COMMENTLIST = new COMMENTLIST;
-	$COMMENTLIST->display('recent', $args, 'api');
+    $args = array(
+        'page' => get_http_var('p'),
+            'num' => get_http_var('num'),
+    );
+    $COMMENTLIST = new COMMENTLIST;
+    $COMMENTLIST->display('recent', $args, 'api');
 }
 
 function api_getComments_pid($pid) {
-	$args = array(
-		'page' => get_http_var('p'),
-    		'num' => get_http_var('num'),
-		'pid' => $pid
-	);
-	$COMMENTLIST = new COMMENTLIST;
-	$COMMENTLIST->display('recent', $args, 'api');
+    $args = array(
+        'page' => get_http_var('p'),
+            'num' => get_http_var('num'),
+        'pid' => $pid
+    );
+    $COMMENTLIST = new COMMENTLIST;
+    $COMMENTLIST->display('recent', $args, 'api');
 }
 
 ?>

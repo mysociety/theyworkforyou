@@ -49,10 +49,10 @@ Wrans items / in-session day: <?=round($wrans_items/$uniquedates,0)?> -->
 $menu = $PAGE->admin_menu();
 
 $PAGE->stripe_end(array(
-	array(
-		'type'		=> 'html',
-		'content'	=> $menu
-	)
+    array(
+        'type'		=> 'html',
+        'content'	=> $menu
+    )
 ));
 
 $PAGE->page_end();

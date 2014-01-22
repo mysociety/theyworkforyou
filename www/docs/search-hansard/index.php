@@ -6,7 +6,7 @@ include_once '../../includes/easyparliament/init.php';
 
 $DATA->set_page_metadata($this_page, 'title', 'Hansard');
 $DATA->set_page_metadata($this_page, 'meta_description',
-			 'Find the complete Hansard on TheyWorkForYou.com - transcripts from all UK parliamentary debates in easily-searchable form.');
+             'Find the complete Hansard on TheyWorkForYou.com - transcripts from all UK parliamentary debates in easily-searchable form.');
 $DATA->set_page_metadata($this_page, 'meta_keywords', "hansard, search hansard, hansard transcriptions, hansard record, parliamentary transcripts, parliament transcripts, parliament records, uk hansard, hansard uk, house of commons transcript, house of commons debates, house of commons records");
 
 $PAGE->supress_heading = true;

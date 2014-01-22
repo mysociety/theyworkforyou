@@ -24,32 +24,32 @@ $PAGE->hansard_page_start($data['info']);
 
 if (isset ($data['rows']) && $data['rows'] > 0) {
 
-	?>
-		<ul class="dates">
+    ?>
+        <ul class="dates">
 <?php
 
-	foreach ($data['rows'] as $n => $row) {
+    foreach ($data['rows'] as $n => $row) {
 
-		if (isset($row['listurl'])) {
-			print "\t\t<li><a href=\"" . $row['listurl'] . "\">" . $row['body'] . "</a></li>\n";
-		} else {
-			print "\t\t<li>" . $row['body'] . "</li>\n";
-		}
-	}
+        if (isset($row['listurl'])) {
+            print "\t\t<li><a href=\"" . $row['listurl'] . "\">" . $row['body'] . "</a></li>\n";
+        } else {
+            print "\t\t<li>" . $row['body'] . "</li>\n";
+        }
+    }
 
-	?>
-		</ul>
+    ?>
+        </ul>
 <?php
 
 } // End display of rows.
 
 else {
 
-	?>
+    ?>
 <p>No data to display.</p>
 <?php
 }
 
 ?>
-	<div class="break"></div>
+    <div class="break"></div>
 </div> <!-- end hansard -->

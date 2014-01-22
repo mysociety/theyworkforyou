@@ -17,10 +17,10 @@ $COMMENTLIST->display('recent', array('num'=>50));
 $menu = $PAGE->admin_menu();
 
 $PAGE->stripe_end(array(
-	array(
-		'type'		=> 'html',
-		'content'	=> $menu
-	)
+    array(
+        'type'		=> 'html',
+        'content'	=> $menu
+    )
 ));
 
 $PAGE->page_end();

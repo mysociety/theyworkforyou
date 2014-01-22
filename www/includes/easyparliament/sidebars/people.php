@@ -51,7 +51,7 @@ Earlier/ other date:
 
 <?php
 } else {
-	echo "<li><a href='$allurl'>Historical list of all $rep</a></li>";
+    echo "<li><a href='$allurl'>Historical list of all $rep</a></li>";
 }
 echo '</ul>';
 $this->block_end();

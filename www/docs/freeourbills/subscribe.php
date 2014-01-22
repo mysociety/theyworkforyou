@@ -78,32 +78,32 @@ freeourbills_styles();
 $url_token = trim(get_http_var('t'));
 if ($url_token) {
 
-	$q = $db->query('SELECT * FROM campaigners WHERE token = "' . mysql_real_escape_string($url_token).'"');
- 	if ($q->rows() > 0) {
-		$q = $db->query('UPDATE campaigners SET confirmed = 1 WHERE token = "' . mysql_real_escape_string($url_token).'"');
-		?>
-		<p class="free_our_bills_thanks">Thanks for signing up to the campaign! We'll contact you soon.</p>
-		<p class="free_our_bills_thanks">Now invite your friends to sign up too...</p>
+    $q = $db->query('SELECT * FROM campaigners WHERE token = "' . mysql_real_escape_string($url_token).'"');
+    if ($q->rows() > 0) {
+        $q = $db->query('UPDATE campaigners SET confirmed = 1 WHERE token = "' . mysql_real_escape_string($url_token).'"');
+        ?>
+        <p class="free_our_bills_thanks">Thanks for signing up to the campaign! We'll contact you soon.</p>
+        <p class="free_our_bills_thanks">Now invite your friends to sign up too...</p>
 <?php
 $PAGE->block_start(array ('title'=>'Tell your friends about the \'Free our Bills!\' campaign'));
 freeourbills_share_page();
 $PAGE->block_end();
 ?>
-		<p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
-		<?php
-	} else {
-		?>
-		<p class="free_our_bills_confirm">Please check the link that you've copied from your email, it doesn't seem right.</p>
-		<p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
-		<?php
-	}
-	return;
+        <p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
+        <?php
+    } else {
+        ?>
+        <p class="free_our_bills_confirm">Please check the link that you've copied from your email, it doesn't seem right.</p>
+        <p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
+        <?php
+    }
+    return;
 }
 
 if ($errors) {
-	print '<div id="warning"><ul><li>';
-	print join ('</li><li>', array_values($errors));
-	print '</li></ul></div>';
+    print '<div id="warning"><ul><li>';
+    print join ('</li><li>', array_values($errors));
+    print '</li></ul></div>';
 
     signup_form();
 } else {

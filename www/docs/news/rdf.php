@@ -23,13 +23,13 @@ print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
 <items>
 <rdf:Seq>
 <?php
-	$c = 0;
-	foreach ($all_news as $id => $news_row) {
-		if ($c++ == 10) break;
-		list($title, $content, $date) = $news_row;
-		$url = "http://www.theyworkforyou.com".news_individual_link($date, $title);
-		print "<rdf:li rdf:resource=\"$url\" />\n";
-	}
+    $c = 0;
+    foreach ($all_news as $id => $news_row) {
+        if ($c++ == 10) break;
+        list($title, $content, $date) = $news_row;
+        $url = "http://www.theyworkforyou.com".news_individual_link($date, $title);
+        print "<rdf:li rdf:resource=\"$url\" />\n";
+    }
 ?>
 </rdf:Seq>
 </items>
@@ -37,13 +37,13 @@ print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
 </channel>
 
 <?php
-	$c = 0;
-	foreach ($all_news as $id => $news_row) {
-		if ($c++ == 10) break;
-		list($title, $content, $date) = $news_row;
-		$url = "http://www.theyworkforyou.com".news_individual_link($date, $title);
-		$excerpt = trim_characters(news_format_body($content), 0, 250);
-		$date = str_replace(" ", "T", $date) . "+00:00";
+    $c = 0;
+    foreach ($all_news as $id => $news_row) {
+        if ($c++ == 10) break;
+        list($title, $content, $date) = $news_row;
+        $url = "http://www.theyworkforyou.com".news_individual_link($date, $title);
+        $excerpt = trim_characters(news_format_body($content), 0, 250);
+        $date = str_replace(" ", "T", $date) . "+00:00";
 ?>
 <item rdf:about="<?=$url?>">
 <title><?=htmlspecialchars($title)?></title>
@@ -55,7 +55,7 @@ print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
 </item>
 
 <?php
-	}
+    }
 ?>
 
 </rdf:RDF>

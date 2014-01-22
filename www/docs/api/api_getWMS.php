@@ -30,89 +30,89 @@ function api_getWMS_front() {
 <h4>Example Response</h4>
 <pre>
 &lt;twfy&gt;
-	...
-	&lt;match&gt;
-		&lt;entry&gt;
-			&lt;epobject_id&gt;10465207&lt;/epobject_id&gt;
-			&lt;htype&gt;10&lt;/htype&gt;
-			&lt;gid&gt;2005-10-27a.13WS.0&lt;/gid&gt;
-			&lt;hpos&gt;4&lt;/hpos&gt;
-			&lt;section_id&gt;0&lt;/section_id&gt;
-			&lt;subsection_id&gt;0&lt;/subsection_id&gt;
-			&lt;hdate&gt;2005-10-27&lt;/hdate&gt;
-			&lt;htime&gt;&lt;/htime&gt;
-			&lt;source_url&gt;http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm051027/wmstext/51027m01.htm#51027m01.html_dpthd0&lt;/source_url&gt;
-			&lt;major&gt;4&lt;/major&gt;
-			&lt;body&gt;Deputy Prime Minister&lt;/body&gt;
-		&lt;/entry&gt;
-		&lt;subs&gt;
-			&lt;arr2&gt;
-				&lt;epobject_id&gt;10465208&lt;/epobject_id&gt;
-				&lt;htype&gt;11&lt;/htype&gt;
-				&lt;gid&gt;2005-10-27a.13WS.1&lt;/gid&gt;
-				&lt;hpos&gt;5&lt;/hpos&gt;
-				&lt;section_id&gt;10465207&lt;/section_id&gt;
-				&lt;subsection_id&gt;0&lt;/subsection_id&gt;
-				&lt;hdate&gt;2005-10-27&lt;/hdate&gt;
-				&lt;htime&gt;&lt;/htime&gt;
-				&lt;source_url&gt;http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm051027/wmstext/51027m01.htm#51027m01.html_sbhd0&lt;/source_url&gt;
-				&lt;major&gt;4&lt;/major&gt;
-				&lt;body&gt;Disabled Facilities Grant&lt;/body&gt;
-				&lt;excerpt&gt;...&lt;/excerpt&gt;
-				&lt;listurl&gt;/wms/?id=2005-10-27a.13WS.1&lt;/listurl&gt;
-				&lt;commentsurl&gt;/wms/?id=2005-10-27a.13WS.1&lt;/commentsurl&gt;
-				&lt;totalcomments&gt;0&lt;/totalcomments&gt;
-				&lt;comment&gt;&lt;/comment&gt;
-			&lt;/arr2&gt;
-			&lt;arr2&gt;
-				&lt;epobject_id&gt;10465210&lt;/epobject_id&gt;
-				&lt;htype&gt;11&lt;/htype&gt;
-				&lt;gid&gt;2005-10-27a.14WS.0&lt;/gid&gt;
-				&lt;hpos&gt;7&lt;/hpos&gt;
-				&lt;section_id&gt;10465207&lt;/section_id&gt;
-				&lt;subsection_id&gt;0&lt;/subsection_id&gt;
-				&lt;hdate&gt;2005-10-27&lt;/hdate&gt;
-				&lt;htime&gt;&lt;/htime&gt;
-				&lt;source_url&gt;http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm051027/wmstext/51027m01.htm#51027m01.html_sbhd1&lt;/source_url&gt;
-				&lt;major&gt;4&lt;/major&gt;
-				&lt;body&gt;Planning Regulations (Antennas, including Satellite Dishes)&lt;/body&gt;
-				&lt;excerpt&gt;...&lt;/excerpt&gt;
-				&lt;listurl&gt;/wms/?id=2005-10-27a.14WS.0&lt;/listurl&gt;
-				&lt;commentsurl&gt;/wms/?id=2005-10-27a.14WS.0&lt;/commentsurl&gt;
-				&lt;totalcomments&gt;0&lt;/totalcomments&gt;
-				&lt;comment&gt;&lt;/comment&gt;
-			&lt;/arr2&gt;
-		&lt;/subs&gt;
-	&lt;/match&gt;
-	...
+    ...
+    &lt;match&gt;
+        &lt;entry&gt;
+            &lt;epobject_id&gt;10465207&lt;/epobject_id&gt;
+            &lt;htype&gt;10&lt;/htype&gt;
+            &lt;gid&gt;2005-10-27a.13WS.0&lt;/gid&gt;
+            &lt;hpos&gt;4&lt;/hpos&gt;
+            &lt;section_id&gt;0&lt;/section_id&gt;
+            &lt;subsection_id&gt;0&lt;/subsection_id&gt;
+            &lt;hdate&gt;2005-10-27&lt;/hdate&gt;
+            &lt;htime&gt;&lt;/htime&gt;
+            &lt;source_url&gt;http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm051027/wmstext/51027m01.htm#51027m01.html_dpthd0&lt;/source_url&gt;
+            &lt;major&gt;4&lt;/major&gt;
+            &lt;body&gt;Deputy Prime Minister&lt;/body&gt;
+        &lt;/entry&gt;
+        &lt;subs&gt;
+            &lt;arr2&gt;
+                &lt;epobject_id&gt;10465208&lt;/epobject_id&gt;
+                &lt;htype&gt;11&lt;/htype&gt;
+                &lt;gid&gt;2005-10-27a.13WS.1&lt;/gid&gt;
+                &lt;hpos&gt;5&lt;/hpos&gt;
+                &lt;section_id&gt;10465207&lt;/section_id&gt;
+                &lt;subsection_id&gt;0&lt;/subsection_id&gt;
+                &lt;hdate&gt;2005-10-27&lt;/hdate&gt;
+                &lt;htime&gt;&lt;/htime&gt;
+                &lt;source_url&gt;http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm051027/wmstext/51027m01.htm#51027m01.html_sbhd0&lt;/source_url&gt;
+                &lt;major&gt;4&lt;/major&gt;
+                &lt;body&gt;Disabled Facilities Grant&lt;/body&gt;
+                &lt;excerpt&gt;...&lt;/excerpt&gt;
+                &lt;listurl&gt;/wms/?id=2005-10-27a.13WS.1&lt;/listurl&gt;
+                &lt;commentsurl&gt;/wms/?id=2005-10-27a.13WS.1&lt;/commentsurl&gt;
+                &lt;totalcomments&gt;0&lt;/totalcomments&gt;
+                &lt;comment&gt;&lt;/comment&gt;
+            &lt;/arr2&gt;
+            &lt;arr2&gt;
+                &lt;epobject_id&gt;10465210&lt;/epobject_id&gt;
+                &lt;htype&gt;11&lt;/htype&gt;
+                &lt;gid&gt;2005-10-27a.14WS.0&lt;/gid&gt;
+                &lt;hpos&gt;7&lt;/hpos&gt;
+                &lt;section_id&gt;10465207&lt;/section_id&gt;
+                &lt;subsection_id&gt;0&lt;/subsection_id&gt;
+                &lt;hdate&gt;2005-10-27&lt;/hdate&gt;
+                &lt;htime&gt;&lt;/htime&gt;
+                &lt;source_url&gt;http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm051027/wmstext/51027m01.htm#51027m01.html_sbhd1&lt;/source_url&gt;
+                &lt;major&gt;4&lt;/major&gt;
+                &lt;body&gt;Planning Regulations (Antennas, including Satellite Dishes)&lt;/body&gt;
+                &lt;excerpt&gt;...&lt;/excerpt&gt;
+                &lt;listurl&gt;/wms/?id=2005-10-27a.14WS.0&lt;/listurl&gt;
+                &lt;commentsurl&gt;/wms/?id=2005-10-27a.14WS.0&lt;/commentsurl&gt;
+                &lt;totalcomments&gt;0&lt;/totalcomments&gt;
+                &lt;comment&gt;&lt;/comment&gt;
+            &lt;/arr2&gt;
+        &lt;/subs&gt;
+    &lt;/match&gt;
+    ...
 </pre>
 <?php
 }
 
 function api_getWMS_date($d) {
-	_api_getHansard_date('WMS', $d);
+    _api_getHansard_date('WMS', $d);
 }
 function api_getWMS_year($y) {
-	_api_getHansard_year('WMS', $y);
+    _api_getHansard_year('WMS', $y);
 }
 function api_getWMS_search($s) {
-	_api_getHansard_search( array(
-		's' => $s,
-		'pid' => get_http_var('person'),
-		'type' => 'wms',
-	) );
+    _api_getHansard_search( array(
+        's' => $s,
+        'pid' => get_http_var('person'),
+        'type' => 'wms',
+    ) );
 }
 function api_getWMS_person($pid) {
-	_api_getHansard_search(array(
-		'pid' => $pid,
-		'type' => 'wms',
-	));
+    _api_getHansard_search(array(
+        'pid' => $pid,
+        'type' => 'wms',
+    ));
 }
 function api_getWMS_gid($gid) {
-	_api_getHansard_gid('WMS', $gid);
+    _api_getHansard_gid('WMS', $gid);
 }
 function api_getWMS_department($dept) {
-	_api_getHansard_department('WMS', $dept);
+    _api_getHansard_department('WMS', $dept);
 }
 
 ?>

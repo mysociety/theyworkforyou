@@ -194,67 +194,67 @@ function check_input($details) {
 function add_alert($details) {
     global $THEUSER, $ALERT, $extra;
 
-	$external_auth = auth_verify_with_shared_secret($details['email'], OPTION_AUTH_SHARED_SECRET, get_http_var('sign'));
-	if ($external_auth) {
-		$site = get_http_var('site');
-		$extra = 'from_' . $site . '=1';
-		$confirm = false;
-	} elseif ($details['email_verified']) {
-		$confirm = false;
-	} else {
-		$confirm = true;
-	}
+    $external_auth = auth_verify_with_shared_secret($details['email'], OPTION_AUTH_SHARED_SECRET, get_http_var('sign'));
+    if ($external_auth) {
+        $site = get_http_var('site');
+        $extra = 'from_' . $site . '=1';
+        $confirm = false;
+    } elseif ($details['email_verified']) {
+        $confirm = false;
+    } else {
+        $confirm = true;
+    }
 
-	// If this goes well, the alert will be added to the database and a confirmation email
-	// will be sent to them.
-	$success = $ALERT->add ( $details, $confirm );
+    // If this goes well, the alert will be added to the database and a confirmation email
+    // will be sent to them.
+    $success = $ALERT->add ( $details, $confirm );
 
-	$advert = false;
-	if ($success>0 && !$confirm) {
-		if ($details['pid']) {
-			$MEMBER = new MEMBER(array('person_id'=>$details['pid']));
-			$criteria = $MEMBER->full_name();
-			if ($details['keyword']) {
-				$criteria .= ' mentions \'' . $details['keyword'] . '\'';
-			} else {
-				$criteria .= ' contributes';
-			}
-		} elseif ($details['keyword']) {
-			$criteria = '\'' . $details['keyword'] . '\' is mentioned';
-		}
-		$message = array(
-			'title' => 'Your alert has been added',
-			'text' => 'You will now receive email alerts on any day when ' . $criteria . ' in parliament.'
-		);
-		$advert = true;
-	} elseif ($success>0) {
-		$message = array(
-			'title' => "We're nearly done...",
-			'text' => "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address to receive the alert. Thanks."
-		);
-	} elseif ($success == -2) {
-		// we need to make sure we know that the person attempting to sign up
-		// for the alert has that email address to stop people trying to work
-		// out what alerts they are signed up to
-		if ( $details['email_verified'] || ( $THEUSER->loggedin && $THEUSER->email() == $details['email'] ) ) {
-			$message = array('title' => 'You already have this alert',
-			'text' => 'You already appear to be subscribed to this email alert, so we have not signed you up to it again.'
-			);
-		} else {
-			// don't throw an error message as that implies that they have already signed
-			// up for the alert but instead pretend all is normal but send an email saying
-			// that someone tried to sign them up for an existing alert
-			$ALERT->send_already_signedup_email($details);
-			$message = array('title' => "We're nearly done...",
-				'text' => "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address to receive the alert. Thanks."
-			);
-		}
-		$advert = true;
-	} else {
-		$message = array ('title' => "This alert has not been accepted",
-		'text' => "Sorry, we were unable to create this alert. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a>. Thanks."
-		);
-	}
+    $advert = false;
+    if ($success>0 && !$confirm) {
+        if ($details['pid']) {
+            $MEMBER = new MEMBER(array('person_id'=>$details['pid']));
+            $criteria = $MEMBER->full_name();
+            if ($details['keyword']) {
+                $criteria .= ' mentions \'' . $details['keyword'] . '\'';
+            } else {
+                $criteria .= ' contributes';
+            }
+        } elseif ($details['keyword']) {
+            $criteria = '\'' . $details['keyword'] . '\' is mentioned';
+        }
+        $message = array(
+            'title' => 'Your alert has been added',
+            'text' => 'You will now receive email alerts on any day when ' . $criteria . ' in parliament.'
+        );
+        $advert = true;
+    } elseif ($success>0) {
+        $message = array(
+            'title' => "We're nearly done...",
+            'text' => "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address to receive the alert. Thanks."
+        );
+    } elseif ($success == -2) {
+        // we need to make sure we know that the person attempting to sign up
+        // for the alert has that email address to stop people trying to work
+        // out what alerts they are signed up to
+        if ( $details['email_verified'] || ( $THEUSER->loggedin && $THEUSER->email() == $details['email'] ) ) {
+            $message = array('title' => 'You already have this alert',
+            'text' => 'You already appear to be subscribed to this email alert, so we have not signed you up to it again.'
+            );
+        } else {
+            // don't throw an error message as that implies that they have already signed
+            // up for the alert but instead pretend all is normal but send an email saying
+            // that someone tried to sign them up for an existing alert
+            $ALERT->send_already_signedup_email($details);
+            $message = array('title' => "We're nearly done...",
+                'text' => "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address to receive the alert. Thanks."
+            );
+        }
+        $advert = true;
+    } else {
+        $message = array ('title' => "This alert has not been accepted",
+        'text' => "Sorry, we were unable to create this alert. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a>. Thanks."
+        );
+    }
 
     return $message['text'];
 }
@@ -315,10 +315,10 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
         echo '<ul class="hilites"><li>';
         echo $form_start . '<input type="hidden" name="keyword" value="' . htmlspecialchars($details['alertsearch']) . '">';
         echo 'Mentions of [';
-		$alertsearch = $details['alertsearch'];
+        $alertsearch = $details['alertsearch'];
         if (preg_match('#speaker:(\d+)#', $alertsearch, $m)) {
-			$MEMBER = new MEMBER(array('person_id'=>$m[1]));
-		    $alertsearch = str_replace("speaker:$m[1]", "speaker:" . $MEMBER->full_name(), $alertsearch);
+            $MEMBER = new MEMBER(array('person_id'=>$m[1]));
+            $alertsearch = str_replace("speaker:$m[1]", "speaker:" . $MEMBER->full_name(), $alertsearch);
         }
         echo htmlspecialchars($alertsearch) . '] ';
         echo ' <input type="submit" value="Subscribe"></form>';
@@ -340,10 +340,10 @@ You cannot sign up to multiple search terms using a comma &ndash; either use OR,
     if ($details['keyword']) {
         echo '<ul class="hilites"><li>';
         echo 'Signing up for results from a search for [';
-		$alertsearch = $details['keyword'];
+        $alertsearch = $details['keyword'];
         if (preg_match('#speaker:(\d+)#', $alertsearch, $m)) {
-			$MEMBER = new MEMBER(array('person_id'=>$m[1]));
-		    $alertsearch = str_replace("speaker:$m[1]", "speaker:" . $MEMBER->full_name(), $alertsearch);
+            $MEMBER = new MEMBER(array('person_id'=>$m[1]));
+            $alertsearch = str_replace("speaker:$m[1]", "speaker:" . $MEMBER->full_name(), $alertsearch);
         }
         echo htmlspecialchars($alertsearch) . ']';
         echo "</li></ul>";
