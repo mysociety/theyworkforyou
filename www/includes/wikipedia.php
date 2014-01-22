@@ -151,7 +151,7 @@ function antiTagInTag($content = '', $format = 'htmlhead')
       $newtags[] = '<' . $newtag . '>';
       $newtag = format_to_output( $tag, $format );
     }
-  if (isset($tags)&&isset($newtags)){
+  if (isset($tags)&&isset($newtags)) {
   $content = str_replace($tags, $newtags, $content);
   }
 return $content;

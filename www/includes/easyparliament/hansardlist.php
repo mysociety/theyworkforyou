@@ -312,7 +312,7 @@ class HANSARDLIST {
 		// What we return.
 		$subsectiondata = array ();
 
-		if ($itemdata['htype'] == '12' || $itemdata['htype'] == '13' ) {
+		if ($itemdata['htype'] == '12' || $itemdata['htype'] == '13') {
 			// This item is a speech or procedural, so get the
 			// subsection info above this item.
 
@@ -1189,7 +1189,7 @@ class HANSARDLIST {
 
                 //////////////////////////
                 // 3. Get the speaker for this item, if applicable.
-                if ( $itemdata['speaker_id'] != 0) {
+                if ($itemdata['speaker_id'] != 0) {
                     $itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
                 }
 

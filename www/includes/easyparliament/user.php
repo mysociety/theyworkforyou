@@ -395,7 +395,7 @@ class USER {
         if ($this->email_exists($email)) {
 
             $this->email = $email;
-            for(;;) {
+            for (;;) {
 
                 $pwd=null;
                 $o=null;
@@ -406,14 +406,14 @@ class USER {
                     if($y>350 && $y<601) $d=chr(rand(48,57));
                     if($y<351) $d=chr(rand(65,90));
                     if($y>600) $d=chr(rand(97,122));
-                    if($d!=$o && !preg_match('#[O01lI]#', $d)) {
+                    if ($d!=$o && !preg_match('#[O01lI]#', $d)) {
                         $o=$d; $pwd.=$d; $x++;
                     }
                 }
 
                 // If the PW fits your purpose (e.g. this regexpression) return it, else make a new one
                 // (You can change this regular-expression how you want ....)
-                if(preg_match("/^[a-zA-Z]{1}([a-zA-Z]+[0-9][a-zA-Z]+)+/",$pwd)) {
+                if (preg_match("/^[a-zA-Z]{1}([a-zA-Z]+[0-9][a-zA-Z]+)+/",$pwd)) {
                     break;
                 }
 
@@ -501,7 +501,7 @@ class USER {
         if ($email != "") {
             $q = $this->db->query("SELECT user_id FROM users WHERE email='" . mysql_real_escape_string($email) . "'");
             if ($q->rows() > 0) {
-                if ( $return_id ) {
+                if ($return_id) {
                     $row = $q->row(0);
                     return $row['user_id'];
                 }
@@ -1029,7 +1029,7 @@ class THEUSER extends USER {
             $expire_time = strtotime($expires);
             if ( $expire_time < time() ) {
                 global $PAGE;
-                if ( $PAGE && $redirect ) {
+                if ($PAGE && $redirect) {
                     $PAGE->error_message ("Sorry, that token seems to have expired");
                 }
                 return false;
@@ -1060,7 +1060,7 @@ class THEUSER extends USER {
             );
             $ret = $this->_update($details);
 
-            if ( $ret ) {
+            if ($ret) {
                 // and remove the token to be tidy
                 $q = $this->db->query("DELETE
                     FROM    tokens
@@ -1231,7 +1231,7 @@ class THEUSER extends USER {
                     if ( $r->success() ) {
                         $newdetails['email'] = $email;
                         $newdetails['token'] = $token;
-                        if ( $confirm_email ) {
+                        if ($confirm_email) {
                             return $this->send_email_confirmation_email($newdetails);
                         } else {
                             return true;

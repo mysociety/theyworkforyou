@@ -98,7 +98,7 @@ if (isset($data['years'])) {
 
 			// Create the calendar headers
 
-			foreach($daysOfWeek as $day) {
+			foreach ($daysOfWeek as $day) {
 				print "<th>$day</th>";
 			}
 

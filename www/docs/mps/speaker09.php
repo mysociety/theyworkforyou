@@ -72,15 +72,15 @@ for ($i=0; $i<$q->rows(); $i++) {
 		print '<tr><th align="left"><a href="' . $member[$pid]->url() . '">' . $member[$pid]->full_name() . '</a></th>';
 		$oldpid = $pid;
 	}
-	if ($key == 'speaker_candidate_response_summary'){
-		if ($value){
+	if ($key == 'speaker_candidate_response_summary') {
+		if ($value) {
 			$value = rtrim($value);
 			$value = rtrim($value, ".");
 			echo "<td>$value ";
-		}else{
+		} else {
 			echo "<td>No response ";
 		}
-	}else{
+	} else {
 		if ($value)
  			echo "(and <strong>was</strong> a candidate for speaker).</td>";
 		else

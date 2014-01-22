@@ -28,9 +28,9 @@ Example usage:
 include_once INCLUDESPATH . 'dbtypes.php';
 
 if (defined('XAPIANDB') AND XAPIANDB != '') {
-    if (file_exists('/usr/share/php/xapian.php')){
+    if (file_exists('/usr/share/php/xapian.php')) {
         include_once '/usr/share/php/xapian.php';
-    }else{
+    } else {
         twfy_debug('SEARCH', '/usr/share/php/xapian.php does not exist');
     }
 }
@@ -269,7 +269,7 @@ class SEARCHENGINE {
             $qd = str_replace("AND_NOT ($mm)", $mmn, $qd);
         }
 
-        foreach( $this->prefixed as $items ) {
+        foreach ($this->prefixed as $items) {
             if ($items[0] == 'groupby') {
                 if ($items[1] == 'debate') {
                     $qd .= ' grouped by debate';
@@ -352,7 +352,7 @@ class SEARCHENGINE {
         if (preg_match('#(speaker|segment):\d+#', $this->query)) {
             $collapsed = true;
         }
-        foreach( $this->prefixed as $items ) {
+        foreach ($this->prefixed as $items) {
             if ($items[0] == 'groupby') {
                 $collapsed = true;
                 if ($items[1] == 'speech')
@@ -467,7 +467,7 @@ class SEARCHENGINE {
         $body = preg_replace('/&#(\d\d\d);/e', 'chr($1)', $body);
         $splitextract = preg_split('/(<[^>]*>|[0-9,.]+|['.$this->wordcharsnodigit.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
         $hlextract = "";
-        foreach( $splitextract as $extractword) {
+        foreach ($splitextract as $extractword) {
             if (preg_match('/^<[^>]*>$/', $extractword)) {
                 $hlextract .= $extractword;
                 continue;
@@ -479,7 +479,7 @@ class SEARCHENGINE {
             }
             $hl = false;
             $matchword = $this->stem($extractword);
-            foreach( $stemmed_words as $word ) {
+            foreach ($stemmed_words as $word) {
                 if ($word == '') continue;
                 if ($matchword == $word) {
                     $hl = true;
@@ -512,7 +512,7 @@ class SEARCHENGINE {
         }
         */
 
-        foreach( $this->phrases as $phrase ) {
+        foreach ($this->phrases as $phrase) {
             $phrasematch = join($phrase, '[^'.$this->wordchars.']+');
             array_push($findwords, "/\b($phrasematch)\b/i");
             $replacewords[] = "<span class=\"hi\">\\1</span>";
@@ -530,7 +530,7 @@ class SEARCHENGINE {
         $pos = -1;
 
         // look for phrases
-        foreach( $this->phrases as $phrase ) {
+        foreach ($this->phrases as $phrase) {
             $phrasematch = join($phrase, '[^'.$this->wordchars.']+');
             if (preg_match('/([^'.$this->wordchars.']' . $phrasematch . '[^A-Za-z0-9])/', $lcbody, $matches))
             {
@@ -546,12 +546,12 @@ class SEARCHENGINE {
 
 		$splitextract = preg_split('/([0-9,.]+|['.$this->wordcharsnodigit.']+)/', $lcbody, -1, PREG_SPLIT_DELIM_CAPTURE);
         $stemmed_words = array_map(array($this, 'stem'), $this->words);
-		foreach( $splitextract as $extractword) {
+		foreach ($splitextract as $extractword) {
             $extractword = preg_replace('/&$/', '', $extractword);
             if (!$extractword) continue;
             $wordpos = strpos($lcbody, $extractword);
             if (!$wordpos) continue;
-			foreach( $stemmed_words as $word ) {
+			foreach ($stemmed_words as $word) {
 				if ($word == '') continue;
 				$matchword = $this->stem($extractword);
 				if ($matchword == $word && ($wordpos < $pos || $pos==-1)) {
@@ -562,7 +562,7 @@ class SEARCHENGINE {
         // only look for earlier words if phrases weren't found
         if ($pos != -1) return $pos;
 
-        foreach( $this->words as $word ) {
+        foreach ($this->words as $word) {
             if (ctype_digit($word)) $word = '(?:'.$word.'|'.number_format($word).')';
             if (preg_match('/([^'.$this->wordchars.']' . $word . '[^'.$this->wordchars. '])/', $lcbody, $matches)) {
                 $wordpos = strpos( $lcbody, $matches[0] );
@@ -576,7 +576,7 @@ class SEARCHENGINE {
         // only look for something containing the word (ie. something stemmed, but doesn't work all the time) if no whole word was found
         if ($pos != -1) return $pos;
 
-        foreach( $this->words as $word ) {
+        foreach ($this->words as $word) {
             if (ctype_digit($word)) $word = '(?:'.$word.'|'.number_format($word).')';
             if (preg_match('/(' . $word . ')/', $lcbody, $matches)) {
                 $wordpos = strpos( $lcbody, $matches[0] );

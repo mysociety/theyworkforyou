@@ -45,7 +45,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
         <dd>
         <div class="appearance-date">
             <div class="day"><?php echo format_date($row['hdate'], 'j' ) ?></div><!--
-            <?php if ( $year < $cur_year ) { ?>
+            <?php if ($year < $cur_year) { ?>
             --><div class="month"><?php echo format_date($row['hdate'], 'M y' ) ?></div>
             <?php } else { ?>
             --><div class="month"><?php echo format_date($row['hdate'], 'M' ) ?></div>

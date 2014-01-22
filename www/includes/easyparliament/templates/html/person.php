@@ -260,7 +260,7 @@ function get_member_history($member, $extra_info) {
 function person_offices($extra_info) {
 	$mins = array();
 	foreach ($extra_info['office'] as $row) {
-		if ($row['to_date'] == '9999-12-31' && $row['source'] != 'chgpages/selctee' && $row['source'] != 'datadotparl/committee' ) {
+		if ($row['to_date'] == '9999-12-31' && $row['source'] != 'chgpages/selctee' && $row['source'] != 'datadotparl/committee') {
 			$m = prettify_office($row['position'], $row['dept']);
 			$m .= ' (since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')';
 			$mins[] = $m;
@@ -509,7 +509,7 @@ function person_voting_record($member, $extra_info) {
 	if (isset($extra_info['public_whip_rebellions']) && $extra_info['public_whip_rebellions'] != 'n/a') {
 		$displayed_stuff = 1;
     $rebels_term = 'rebels';
-    if ( $member_has_died ) {
+    if ($member_has_died) {
         $rebels_term = 'rebelled';
     }
 ?>					<ul class="no-bullet">
@@ -600,7 +600,7 @@ function person_voting_record($member, $extra_info) {
             $since = '';
         } elseif (!in_array(HOUSE_TYPE_COMMONS, $member['houses']) && in_array(HOUSE_TYPE_LORDS, $member['houses']) && $member['entered_house'][HOUSE_TYPE_LORDS]['date'] > '2001-06-07') {
             $since = '';
-        } elseif ( $member_has_died ) {
+        } elseif ($member_has_died) {
             $since = '';
         } else {
             $since = ' since 2001';
@@ -650,7 +650,7 @@ function person_committees_and_topics_for_sidebar($member, $extra_info) {
         $mins = array();
 
         foreach ($extra_info['office'] as $row) {
-            if ($row['to_date'] == '9999-12-31' && $row['source'] == 'chgpages/selctee' || $row['source'] == 'datadotparl/committee' ) {
+            if ($row['to_date'] == '9999-12-31' && $row['source'] == 'chgpages/selctee' || $row['source'] == 'datadotparl/committee') {
                 $m = prettify_office($row['position'], $row['dept']);
                 if ($row['from_date']!='2004-05-28') {
                     $m .= ' <small>(since ' . format_date($row['from_date'], SHORTDATEFORMAT) . ')</small>';
@@ -948,7 +948,7 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 	if ($member['party'] != 'Sinn Fein') {
 		$when = 'in this Parliament with this affiliation';
 		# Lords have one record per affiliation until they leave (ignoring name changes, sigh)
-		if ($member['house_disp'] == HOUSE_TYPE_LORDS ) {
+		if ($member['house_disp'] == HOUSE_TYPE_LORDS) {
 			$when = 'in this House with this affiliation';
 		}
 		$displayed_stuff |= display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> ' . $when, $after_stuff, $extra_info);
@@ -1111,7 +1111,7 @@ function person_speaker_special($member, $extra_info) {
     $days_since_contact = floor((time() - $contact_date_midnight) / 86400);
     if ($days_since_contact == 1) {
         $days_since_string = $days_since_contact . ' day ago';
-    } elseif($days_since_contact > 1) {
+    } elseif ($days_since_contact > 1) {
         $days_since_string = $days_since_contact . ' days ago';
     } else {
         $days_since_string = 'today';
@@ -1124,7 +1124,7 @@ function person_speaker_special($member, $extra_info) {
         $days_for_reply = floor(($reply_date_midnight - $contact_date_midnight) / 86400);
         if ($days_for_reply == 0) {
             $reply_time = "in less than 24 hours";
-        } elseif($days_for_reply == 1) {
+        } elseif ($days_for_reply == 1) {
             $reply_time = "in 1 day";
         } else {
             $reply_time = "in $days_for_reply days";
@@ -1142,7 +1142,7 @@ function person_speaker_special($member, $extra_info) {
     }
     $PAGE->block_start(array('id'=>'campaign_block', 'title' => $spk_cand_title));
 
-    if (!isset($extra_info["speaker_candidate_response"])){
+    if (!isset($extra_info["speaker_candidate_response"])) {
         print "
                 You can help make sure that all the candidates understand that they
                 must be a strong, Internet-savvy proponents of a better, more

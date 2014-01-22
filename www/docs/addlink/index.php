@@ -71,7 +71,7 @@ if (get_http_var("submitterm") != '') {
 } elseif ($GLOSSARY->query != '') {
 // Deal with all the various searching possiblities...
 
-	if($GLOSSARY->num_search_matches >= 1) {
+	if ($GLOSSARY->num_search_matches >= 1) {
 		// Offer a list of matching terms
 		$PAGE->glossary_display_match_list($GLOSSARY);
 	}

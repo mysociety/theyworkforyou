@@ -107,9 +107,9 @@ if ($pc_form) { ?>
 				    </ul>
 				</div>
 				<?php
-				if ( $order == 'last_name' || $order == 'first_name' ) {
+				if ($order == 'last_name' || $order == 'first_name') {
 					echo('<div class="sort">');
-					for ( $i = 65; $i <= 90; $i++ ) {
+					for ($i = 65; $i <= 90; $i++) {
 						$c = chr($i);
 						echo( '<a href="#' . $c . '">' . $c . '</a> ' );
 					}
@@ -166,7 +166,7 @@ function render_mps_row($mp, &$style, $order, $MPURL, $letter=false) {
 				<tr>
                 <td class="row">
 <?php
-								if ( $letter ) {
+								if ($letter) {
 									echo '<a name="' . $letter . '"></a>';
 								}
                 list($image,$sz) = find_rep_image($mp['person_id'], true, true);

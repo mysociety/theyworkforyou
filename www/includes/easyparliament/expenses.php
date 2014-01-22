@@ -12,12 +12,12 @@ function expenses_display_table($extra_info, $gadget=false, $start_year=9) {
         if ($gadget) {
              $first_year_with_data = '';
              for ($ey=2000+$latest_year; $ey>=2000+$earliest_year; --$ey) {
-	         if (isset($extra_info['expenses'.($ey).'_col1'])){
+	         if (isset($extra_info['expenses'.($ey).'_col1'])) {
                       $first_year_with_data = $ey;
                       break;
                  }
              }
-             if ($first_year_with_data == ''){
+             if ($first_year_with_data == '') {
                   return '';
              }
              $out .= "<h2>Expenses</h2>";
@@ -56,9 +56,9 @@ expenses</a></p>";
 	for ($y=$start_year; $y>=$end_year; $y--) {
                 $class = '';
                 $responsive_class = '';
-                if ( $y <= $wide_year ) {
+                if ($y <= $wide_year) {
                     $responsive_class = 'show-for-large-up';
-                } else if ( $y <= $med_year ) {
+                } else if ($y <= $med_year) {
                     $responsive_class = 'show-for-medium-up';
                 }
                 if ($y == $end_year) {
@@ -117,7 +117,7 @@ expenses</a></p>";
 	if (isset($extra_info['expenses2007_col5a']) and $extra_info['expenses2007_col5'] > 0 and $start_year >= 7 and
 $end_year <= 7) {
 		$out .= '<p class="extra-travel-info"><a name="travel2007"></a><sup>3</sup> <small>';
-		foreach(array('a'=>'Car','b'=>'3rd party','c'=>'Rail','d'=>'Air','e'=>'Other','f'=>'European') as $let => $desc) {
+		foreach (array('a'=>'Car','b'=>'3rd party','c'=>'Rail','d'=>'Air','e'=>'Other','f'=>'European') as $let => $desc) {
 			if ($extra_info['expenses2007_col5'.$let] > 0) {
 				$out .= $desc . ' &pound;'.number_format(str_replace(',','',$extra_info['expenses2007_col5'.$let]));
 				if (isset($extra_info['expenses2007_col5'.$let.'_rank']))
@@ -155,9 +155,9 @@ function expenses_row($col, $extra_info, $style, $gadget, $start_year, $end_year
                $extra_class = 'aggregate-value';
            }
            if ($ey == $end_year) $extra_class = 'right';
-            if ( $ey <= $wide_year ) {
+            if ($ey <= $wide_year) {
                 $extra_class .= ' show-for-large-up';
-            } else if ( $ey <= $med_year ) {
+            } else if ($ey <= $med_year) {
                 $extra_class .= ' show-for-medium-up';
             }
            if ($col=='col7a' && $ey==2009) continue;
@@ -209,9 +209,9 @@ function expenses_item($ey, $col, $extra_info, $gadget) {
 function expenses_extra_travel($extra_info, $year) {
     $out = '<p class="extra-travel-info"><a name="travel' . $year . '"></a><sup>' . (2010 - $year) . '</sup> <small>';
     $regular_travel_header = FALSE;
-    foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'Misc') as $let => $desc){
+    foreach (array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'Misc') as $let => $desc) {
         $travel_field = $extra_info['expenses' . $year . '_colmp_reg_travel_'.$let];
-        if ($travel_field > 0){
+        if ($travel_field > 0) {
             if ($regular_travel_header == FALSE)
                 $out .= 'Regular journeys between home/constituency/Westminster: ';
             $regular_travel_header = TRUE;
@@ -223,9 +223,9 @@ function expenses_extra_travel($extra_info, $year) {
     }
 
     $other_travel_header = FALSE;
-    foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'European') as $let => $desc){
+    foreach (array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'European') as $let => $desc) {
         $travel_field = $extra_info['expenses' . $year . '_colmp_other_travel_'.$let];
-        if ($travel_field > 0){
+        if ($travel_field > 0) {
             if ($other_travel_header == FALSE)
                 $out .= 'Other: ';
             $other_travel_header = TRUE;
@@ -247,7 +247,7 @@ function expenses_mostrecent($extra_info, $gadget=false) {
   $out = '<div id="expenses-header"> Expenses ';
   $year = '';
   for ($ey=2009; $ey>=2002; --$ey) {
-    if (isset($extra_info['expenses'.$ey.'_col1'])){
+    if (isset($extra_info['expenses'.$ey.'_col1'])) {
       $out .= year_string($ey-2000);
       $out .= '</div>';
       $out .= '<div id="rank-header"><h2 id="expenses-years">';
@@ -272,7 +272,7 @@ function expenses_mostrecent($extra_info, $gadget=false) {
 		$cols[$r] = "<span class=\"expenses-raw\">$row[0]</span><span class=\"expenses-rank\">$row[1]</span>";
 	}
 	$other_cols = array('spouse_travel_a', 'family_travel_a', 'comms_allowance');
-	foreach($other_cols as $col){
+	foreach ($other_cols as $col) {
 		$r = 'col' . $col;
 		$row = expenses_item($year, $r, $extra_info, $gadget);
 		$cols[$r] = "<span class=\"expenses-raw\">$row[0]</span><span class=\"expenses-rank\">$row[1]</span>";

@@ -42,7 +42,7 @@ if ($hide_question) {
 }
 
 $survey_id = 'minisurvey';
-if ( $always_ask ) {
+if ($always_ask) {
     $survey_id = 'minisurvey-show';
 }
 
@@ -105,7 +105,7 @@ if ($show_survey_qn < $current_question && !$has_answered_question) {
 
 <?php
     $this->block_end();
-} else if ( $has_answered_question ) {
+} else if ($has_answered_question) {
     $this->block_start(array('id'=>'survey', 'title'=>"Mini survey"));
 ?>
     Thanks for answering.

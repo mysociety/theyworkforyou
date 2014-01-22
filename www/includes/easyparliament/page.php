@@ -264,7 +264,7 @@ class PAGE {
   function trackFormSubmit(form, category, name, value) {
     try {
       ga('send', 'event', category, name, value);
-    } catch(err){}
+    } catch (err) {}
     setTimeout(function () {
       form.submit();
       }, 100);
@@ -683,9 +683,9 @@ window.fbAsyncInit = function () {
                 $logintext  = $menudata['text'];
                 $logintitle = $menudata['title'];
                 $URL = new URL($item);
-                if($divider){
+                if ($divider) {
                     echo '<li class="divider"><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
-                }else{
+                } else {
                     echo '<li><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
                 }
                 $divider = false;
@@ -994,7 +994,7 @@ window.fbAsyncInit = function () {
             $url = $DATA->page_metadata($page, 'url');
 
             //check for external vs internal menu links
-            if(!valid_url($url)){
+            if (!valid_url($url)) {
                 $URL = new URL($page);
                 $url = $URL->generate();
             }
@@ -1817,14 +1817,14 @@ pr()//-->
                     <div class="letters">
                         <ul>
     <?php
-        for($n=0; $n<13; $n++) {
+        for ($n=0; $n<13; $n++) {
             print $letters[$n];
         }
         ?>
                         </ul>
                         <ul>
     <?php
-        for($n=13; $n<26; $n++) {
+        for ($n=13; $n<26; $n++) {
             print $letters[$n];
         }
         ?>
@@ -1842,7 +1842,7 @@ pr()//-->
         $term['body'] = $GLOSSARY->glossarise($term['body'], 0, 1);
 
         // add some extra controls for the administrators
-        if ($this_page == "admin_glossary"){
+        if ($this_page == "admin_glossary") {
             print "<a id=\"gl".$term['glossary_id']."\"></a>";
             print "<h3>" . $term['title'] . "</h3>";
             $URL = new URL('admin_glossary');
@@ -2259,7 +2259,7 @@ Annotations should be information that adds value to the contribution, not opini
 
         // Create the calendar headers
 
-        foreach($daysOfWeek as $day) {
+        foreach ($daysOfWeek as $day) {
             $calendar .= "<th>$day</th>";
         }
 

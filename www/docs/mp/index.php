@@ -415,7 +415,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         );
         $topics_html = person_committees_and_topics_for_sidebar($member, $MEMBER->extra_info);
 
-        if ( $topics_html ) {
+        if ($topics_html) {
             $sidebars[] = array ( 'type' => 'html', 'content' => $topics_html);
         }
 
@@ -633,7 +633,7 @@ function regional_list($pc, $area_type, $rep_type) {
         }
     }
     $out .= '<ul>';
-    foreach($mreg as $reg) {
+    foreach ($mreg as $reg) {
         $out .= '<li><a href="/' . $rep_type . '/?p=' . $reg['person_id'] . '">';
         $out .= $reg['first_name'] . ' ' . $reg['last_name'];
         $out .= '</a>';

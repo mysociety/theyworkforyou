@@ -177,8 +177,8 @@ function api_check_key($key) {
 function api_sidebar() {
 	global $methods;
 	$sidebar = '<div class="block"><h4>API Functions</h4> <div class="blockbody"><ul>';
-	foreach ($methods as $method => $data){
-    if (isset($data['superuser']) && $data['superuser']){
+	foreach ($methods as $method => $data) {
+    if (isset($data['superuser']) && $data['superuser']) {
 		  continue;
 		}
 		$sidebar .= '<li';

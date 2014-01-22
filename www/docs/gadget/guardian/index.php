@@ -19,7 +19,7 @@ switch ($action) {
                 $body = "<h1>" . $member->full_name() . ": <span>Member's interests</span></h1>";
                 $body .= "<h2>$title</h2>";
                 $rmi  = $member->extra_info['register_member_interests_html'];
-                if (strlen($rmi) == 0){
+                if (strlen($rmi) == 0) {
                     output_error('No data');
                 }
                 $body .= $rmi;
@@ -37,7 +37,7 @@ switch ($action) {
 		break;
 	case 'expenses-resource':
                 $start_year = get_http_var('start_year');
-                if (! preg_match('/^20\d\d$/', $start_year) ){
+                if (! preg_match('/^20\d\d$/', $start_year) ) {
                     $start_year = null;
                 }
                 if (empty($start_year)) {
@@ -48,7 +48,7 @@ switch ($action) {
 		$title = "Allowances: " . $member->full_name();
                 $body = "<h1>" . $member->full_name() . ": <span>Expenses</span></h1>";
                 $table = expenses_display_table($member->extra_info, $gadget=true, $int_start_year);
-                if (strlen($table) == 0){
+                if (strlen($table) == 0) {
                     output_error('No data');
                 }
 		$body .= $table;
@@ -90,7 +90,7 @@ speeches from ', $member->full_name(), '</a></p>';
 	case 'expenses-component':
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
                 $body = expenses_mostrecent($member->extra_info, $gadget=true);
-                if (strlen($body) == 0){
+                if (strlen($body) == 0) {
                     output_error('No data');
                 }
 		$body .= "<p class=\"more\"><a
@@ -102,7 +102,7 @@ expenses</a></p>";
 	case 'rmi-component':
                 $show_more = false;
 		$rmi = $member->extra_info['register_member_interests_html'];
-		if (strlen($rmi) == 0){
+		if (strlen($rmi) == 0) {
                     output_error('No data');
                 }
 		if (preg_match('#(<div class="regmemcategory">.*?<div class="regmemcategory">.*?)<div class="regmemcategory"#s', $rmi, $m)) {

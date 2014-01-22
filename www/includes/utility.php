@@ -213,7 +213,7 @@ function adodb_backtrace($print=true)
       $tabs -= 1;
       if (isset($arr['class'])) $s .= $arr['class'].'.';
       $args = array();
-      if (isset($arr['args'])) foreach($arr['args'] as $v) {
+      if (isset($arr['args'])) foreach ($arr['args'] as $v) {
 	if (is_null($v)) $args[] = 'null';
 	else if (is_array($v)) $args[] = 'Array['.sizeof($v).']';
 	else if (is_object($v)) $args[] = 'Object:'.get_class($v);
@@ -948,7 +948,7 @@ function major_summary($data, $echo = true) {
 	$one_date = false;
 
 	//if no printed majors passed, default to all
-	if(!isset($printed_majors)){
+	if (!isset($printed_majors)) {
 	    $printed_majors = array(1, 2, 4, 3, 5, 101, 7); # 8
 	}
 
@@ -1000,7 +1000,7 @@ function major_summary($data, $echo = true) {
 			$section_id = $q->field($i, 'section_id');
 			//if (strstr($body, 'Chair]')) continue;
             if ($p_major == 4 && !$section_id) {
-				if ($current_sid++){
+				if ($current_sid++) {
 				    $out .= '</ul>';
 				}
 				$out .= '<li>' . $body . '<ul>';
@@ -1030,7 +1030,7 @@ function _major_summary_title($major, $data, $LISTURL, $daytext) {
 	global $hansardmajors;
 
 	$return = '<h4>';
-	if (isset($daytext[$major])){
+	if (isset($daytext[$major])) {
 	 $return .= $daytext[$major] . ' ';
 	}
 
@@ -1069,7 +1069,7 @@ function score_to_strongly($dmpscore) {
 
 function valid_url($url) {
 	$return = false;
-	if(preg_match("/^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(:(\d+))?/i", $url)){
+	if (preg_match("/^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(:(\d+))?/i", $url)) {
 		$return = true;
 	}
 	return $return;

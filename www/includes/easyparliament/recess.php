@@ -289,7 +289,7 @@ function currently_in_recess() {
     // Main file which recesswatcher.py overwrites each day
     $h = fopen(RECESSFILE, "r");
     $today = date("Y-m-d");
-    while ($line = fgets($h)){
+    while ($line = fgets($h)) {
         list($name, $from, $to) = explode(",", $line);
         if ($from <= $today and $today <= $to) {
             return array($name, trim($from), trim($to));
@@ -297,7 +297,7 @@ function currently_in_recess() {
     }
     // Second manual override file
     $h = fopen(RECESSFILE.".extra", "r");
-    while ($line = fgets($h)){
+    while ($line = fgets($h)) {
         list($name, $from, $to) = explode(",", $line);
         if ($from <= $today and $today <= $to) {
             return array($name, trim($from), trim($to));

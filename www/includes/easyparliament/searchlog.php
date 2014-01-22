@@ -66,7 +66,7 @@ class SEARCHLOG {
         }
 
         //maximum number of chars?
-        if(isset($max_chars) && $max_chars > 0){
+        if (isset($max_chars) && $max_chars > 0) {
             $lentotal = 0;
             $correct_amount = array();
             // Select a number of queries that will fit in the space

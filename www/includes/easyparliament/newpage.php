@@ -199,7 +199,7 @@ class NEWPAGE extends PAGE {
   function trackFormSubmit(form, category, name, value) {
     try {
       ga('send', 'event', category, name, value);
-    } catch(err){}
+    } catch (err) {}
     setTimeout(function () {
       form.submit();
     }, 100);
@@ -208,7 +208,7 @@ class NEWPAGE extends PAGE {
   function trackLinkClick(link, category, name, value) {
     try {
       ga('send', 'event', category, name, value);
-    } catch(err){}
+    } catch (err) {}
     setTimeout(function () {
       document.location.href = link.href;
     }, 100);
@@ -653,7 +653,7 @@ class NEWPAGE extends PAGE {
         //  'foot' - For the bottom stripe on hansard debates/wrans listings.
         // $id is the value of an id for this div (if blank, not used).
         $columns = 'large-8';
-        if ( $type == 'full' ) {
+        if ($type == 'full') {
             $columns = 'large-12';
         }
         ?>
@@ -730,7 +730,7 @@ class NEWPAGE extends PAGE {
         global $DATA, $this_page;
 
         $this->within_stripe_main = false;
-        if ( $haspanel ) {
+        if ($haspanel) {
             print '</div> <!-- end panel -->';
         }
         ?>
@@ -929,7 +929,7 @@ class NEWPAGE extends PAGE {
             $tooltip = $DATA->page_metadata($page, 'heading');
 
             //check for external vs internal menu links
-            if(!valid_url($url)){
+            if (!valid_url($url)) {
                 $URL = new URL($page);
                 $url = $URL->generate();
             }
@@ -1774,14 +1774,14 @@ pr()//-->
                     <div class="letters">
                         <ul>
     <?php
-        for($n=0; $n<13; $n++) {
+        for ($n=0; $n<13; $n++) {
             print $letters[$n];
         }
         ?>
                         </ul>
                         <ul>
     <?php
-        for($n=13; $n<26; $n++) {
+        for ($n=13; $n<26; $n++) {
             print $letters[$n];
         }
         ?>
@@ -1799,7 +1799,7 @@ pr()//-->
         $term['body'] = $GLOSSARY->glossarise($term['body'], 0, 1);
 
         // add some extra controls for the administrators
-        if ($this_page == "admin_glossary"){
+        if ($this_page == "admin_glossary") {
             print "<a id=\"gl".$term['glossary_id']."\"></a>";
             print "<h3>" . $term['title'] . "</h3>";
             $URL = new URL('admin_glossary');
@@ -2216,7 +2216,7 @@ Annotations should be information that adds value to the contribution, not opini
 
         // Create the calendar headers
 
-        foreach($daysOfWeek as $day) {
+        foreach ($daysOfWeek as $day) {
             $calendar .= "<th>$day</th>";
         }
 

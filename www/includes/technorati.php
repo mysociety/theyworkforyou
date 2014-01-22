@@ -59,7 +59,7 @@ function doCosmos($urlstring) {
 //  $cacheFilename= $nums[0];
 
   // cache for 30 mins only
-  //  if (!file_exists("cache/{$cacheFilename}.xml")||  (time() - filemtime("cache/{$cacheFilename}.xml") > 1800)||filesize ("cache/{$cacheFilename}.xml")==0 ){
+  //  if (!file_exists("cache/{$cacheFilename}.xml")||  (time() - filemtime("cache/{$cacheFilename}.xml") > 1800)||filesize ("cache/{$cacheFilename}.xml")==0 ) {
 
 #echo "cache miss!";
 

@@ -501,7 +501,7 @@ function find_glossary_items($args) {
                 <h2>Matching glossary terms:</h2>
                 <p><?php
         $n = 1;
-        foreach($GLOSSARY->search_matches as $glossary_id => $term) {
+        foreach ($GLOSSARY->search_matches as $glossary_id => $term) {
             $URL->update(array("gl" => $glossary_id));
             ?><a href="<?php echo $URL->generate(); ?>"><strong><?php echo htmlentities($term['title']); ?></strong></a><?php
             if ($n < $GLOSSARY->num_search_matches) {

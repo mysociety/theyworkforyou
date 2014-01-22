@@ -120,7 +120,7 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
 	if ($rep_type=='MLA') $out .= '(Members of the Legislative Assembly)';
 	$out .= ' ' . ($current ? 'are' : 'were') . ':';
 	$out .= '<ul>';
-	foreach($mreg as $reg) {
+	foreach ($mreg as $reg) {
 		$out .= '<li><a href="/' . strtolower($rep_type) . '/?p=' . $reg['person_id'] . '">';
 		$out .= $reg['first_name'] . ' ' . $reg['last_name'];
 		$out .= '</a>';

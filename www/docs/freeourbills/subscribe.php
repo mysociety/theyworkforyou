@@ -105,7 +105,7 @@ if ($errors) {
 	print '</li></ul></div>';
 
     signup_form();
-}  else {
+} else {
     print "<p class=\"free_our_bills_confirm\">There was a problem signing you up, please try again later.</p>";
 }
 ?>

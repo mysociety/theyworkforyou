@@ -161,7 +161,7 @@
 
 		function balance_html($data) {
 
-			if ($this->always_make_tags){
+			if ($this->always_make_tags) {
 
 				#
 				# try and form html
@@ -173,7 +173,7 @@
 				$data = preg_replace("/<([^>]*?)(?=<|$)/", "<$1>", $data);
 				$data = preg_replace("/(^|>)([^<]*?)(?=>)/", "$1<$2", $data);
 
-			}else{
+			} else {
 
 				#
 				# escape stray brackets
@@ -202,8 +202,8 @@
 
 			$data = preg_replace("/<(.*?)>/se", "\$this->process_tag(\$this->StripSingle('\\1'))",	$data);
 
-			foreach(array_keys($this->tag_counts) as $tag){
-				for($i=0; $i<$this->tag_counts[$tag]; $i++){
+			foreach (array_keys($this->tag_counts) as $tag) {
+				for ($i=0; $i<$this->tag_counts[$tag]; $i++) {
 					$data .= "</$tag>";
 				}
 			}
@@ -216,70 +216,70 @@
 		function process_tag($data) {
 
 			# ending tags
-			if (preg_match("/^\/([a-z0-9]+)/si", $data, $matches)){
+			if (preg_match("/^\/([a-z0-9]+)/si", $data, $matches)) {
 				$name = StrToLower($matches[1]);
-				if (in_array($name, array_keys($this->allowed))){
-					if (!in_array($name, $this->no_close)){
-						if (isset($this->tag_counts[$name])){
+				if (in_array($name, array_keys($this->allowed))) {
+					if (!in_array($name, $this->no_close)) {
+						if (isset($this->tag_counts[$name])) {
 							$this->tag_counts[$name]--;
 							return '</'.$name.'>';
 						}
 					}
-				}else{
+				} else {
 					return '';
 				}
 			}
 
 			# starting tags
-			if (preg_match("/^([a-z0-9]+)(.*?)(\/?)$/si", $data, $matches)){
+			if (preg_match("/^([a-z0-9]+)(.*?)(\/?)$/si", $data, $matches)) {
 
 				$name = StrToLower($matches[1]);
 				$body = $matches[2];
 				$ending = $matches[3];
-				if (in_array($name, array_keys($this->allowed))){
+				if (in_array($name, array_keys($this->allowed))) {
 					$params = "";
 					preg_match_all("/([a-z0-9]+)=([\"'])(.*?)\\2/si", $body, $matches_2, PREG_SET_ORDER);		# <foo a="b" />
 					preg_match_all("/([a-z0-9]+)(=)([^\"\s']+)/si", $body, $matches_1, PREG_SET_ORDER);		# <foo a=b />
 					preg_match_all("/([a-z0-9]+)=([\"'])([^\"']*?)\s*$/si", $body, $matches_3, PREG_SET_ORDER);	# <foo a="b />
 					$matches = array_merge($matches_1, $matches_2, $matches_3);
 
-					foreach($matches as $match){
+					foreach ($matches as $match) {
 						$pname = StrToLower($match[1]);
-						if (in_array($pname, $this->allowed[$name])){
+						if (in_array($pname, $this->allowed[$name])) {
 							$value = $match[3];
-							if (in_array($pname, $this->protocol_attributes)){
+							if (in_array($pname, $this->protocol_attributes)) {
 								$value = $this->process_param_protocol($value);
 							}
 							$params .= " $pname=\"$value\"";
 						}
 					}
-					if (in_array($name, $this->no_close)){
+					if (in_array($name, $this->no_close)) {
 						$ending = ' /';
 					}
-					if (in_array($name, $this->always_close)){
+					if (in_array($name, $this->always_close)) {
 						$ending = '';
 					}
-					if (!$ending){
-						if (isset($this->tag_counts[$name])){
+					if (!$ending) {
+						if (isset($this->tag_counts[$name])) {
 							$this->tag_counts[$name]++;
-						}else{
+						} else {
 							$this->tag_counts[$name] = 1;
 						}
 					}
-					if ($ending){
+					if ($ending) {
 						$ending = ' /';
 					}
 					return '<'.$name.$params.$ending.'>';
-				}else{
+				} else {
 					return '';
 				}
 			}
 
 			# comments
-			if (preg_match("/^!--(.*)--$/si", $data)){
-				if ($this->strip_comments){
+			if (preg_match("/^!--(.*)--$/si", $data)) {
+				if ($this->strip_comments) {
 					return '';
-				}else{
+				} else {
 					return '<'.$data.'>';
 				}
 			}
@@ -294,8 +294,8 @@
 
 			$data = $this->validate_entities($data, 1);
 
-			if (preg_match("/^([^:]+)\:/si", $data, $matches)){
-				if (!in_array($matches[1], $this->allowed_protocols)){
+			if (preg_match("/^([^:]+)\:/si", $data, $matches)) {
+				if (!in_array($matches[1], $this->allowed_protocols)) {
 					$data = '#'.substr($data, strlen($matches[1])+1);
 				}
 			}
@@ -312,10 +312,10 @@
 
 		function process_remove_blanks($data) {
 
-			if (count($this->remove_blanks)){
+			if (count($this->remove_blanks)) {
 
 				$tags = implode('|', $this->remove_blanks);
-				while (1){
+				while (1) {
 					$len = strlen($data);
 					$data = preg_replace("/<({$tags})(\s[^>]*)?(><\\/\\1>|\\/>)/", '', $data);
 					if ($len == strlen($data)) break;
@@ -346,7 +346,7 @@
 			# if there are less than 5, just allow it as-is
 			#
 
-			if (strlen($data_notags)<5){
+			if (strlen($data_notags)<5) {
 				return $data;
 			}
 
@@ -354,7 +354,7 @@
 			# if there are lowercase letters somewhere, allow it as-is
 			#
 
-			if (preg_match('/[a-z]/', $data_notags)){
+			if (preg_match('/[a-z]/', $data_notags)) {
 				return $data;
 			}
 
@@ -414,7 +414,7 @@
 			# make it into a clickable URL via lib_autolink).
 			#
 
-			if ($in_attribute || $this->normalise_ascii_entities){
+			if ($in_attribute || $this->normalise_ascii_entities) {
 				$data = $this->decode_entities($data, $in_attribute);
 			}
 
@@ -487,7 +487,7 @@
 			# this as a non-entity
 			#
 
-			if ($term != ';'){
+			if ($term != ';') {
 
 				return '&amp;'.$preamble;
 			}
@@ -496,7 +496,7 @@
 			# if it's an allowed entity, go for it
 			#
 
-			if ($this->is_valid_entity($preamble)){
+			if ($this->is_valid_entity($preamble)) {
 
 				return '&'.$preamble;
 			}
@@ -523,7 +523,7 @@
 			# numeric entity. over 127 is always allowed, else it's a pref
 			#
 
-			if (preg_match('!^#([0-9]+)$!i', $entity, $m)){
+			if (preg_match('!^#([0-9]+)$!i', $entity, $m)) {
 
 				return ($m[1] > 127) ? 1 : $this->allow_numbered_entities;
 			}
@@ -532,14 +532,14 @@
 			# hex entity. over 127 is always allowed, else it's a pref
 			#
 
-			if (preg_match('!^#x([0-9a-f]+)$!i', $entity, $m)){
+			if (preg_match('!^#x([0-9a-f]+)$!i', $entity, $m)) {
 
 				return (hexdec($m[1]) > 127) ? 1 : $this->allow_numbered_entities;
 			}
 
 
 
-			if (in_array($entity, $this->allowed_entities)){
+			if (in_array($entity, $this->allowed_entities)) {
 
 				return 1;
 			}
@@ -560,7 +560,7 @@
 			$data = preg_replace_callback('!(&)#(\d+);?!', array($this, 'decode_dec_entity'), $data);
 			$data = preg_replace_callback('!(&)#x([0-9a-f]+);?!i', array($this, 'decode_hex_entity'), $data);
 
-			if ($in_attribute){
+			if ($in_attribute) {
 				$data = preg_replace_callback('!(%)([0-9a-f]{2});?!i', array($this, 'decode_hex_entity'), $data);
 			}
 
@@ -587,7 +587,7 @@
 
 		function decode_num_entity($orig_type, $d) {
 
-			if ($d < 0){ $d = 32; } # treat control characters as spaces
+			if ($d < 0) { $d = 32; } # treat control characters as spaces
 
 			#
 			# don't mess with high characters - what to replace them with is
@@ -595,9 +595,9 @@
 			# you can't use them to pass 'javascript:' etc (at present)
 			#
 
-			if ($d > 127){
-				if ($orig_type == '%'){ return '%'.dechex($d); }
-				if ($orig_type == '&'){ return "&#$d;"; }
+			if ($d > 127) {
+				if ($orig_type == '%') { return '%'.dechex($d); }
+				if ($orig_type == '&') { return "&#$d;"; }
 			}
 
 			#

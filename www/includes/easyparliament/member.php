@@ -712,7 +712,7 @@ class MEMBER {
         $is_current = false;
 	    $current_memberships = $this->current_member();
 	    foreach ($current_memberships as $current_memberships) {
-    	    if($current_memberships === true){
+    	    if ($current_memberships === true) {
 	            $is_current = true;
             }
 	    }
@@ -785,16 +785,16 @@ function find_rep_image($pid, $smallonly = false, $substitute_missing = false) {
 
 	//if no image, use a dummy one
 	if (!$image && $substitute_missing) {
-	    if($smallonly){
-	        if($substitute_missing === "lord"){
+	    if ($smallonly) {
+	        if ($substitute_missing === "lord") {
 	            $image = IMAGEPATH . "unknownlord.png";
-            }else{
+            } else {
                 $image = IMAGEPATH . "unknownperson.png";
             }
-        }else{
-	        if($substitute_missing === "lord"){
+        } else {
+	        if ($substitute_missing === "lord") {
 	            $image = IMAGEPATH . "unknownlord_large.png";
-            }else{
+            } else {
                 $image = IMAGEPATH . "unknownperson_large.png";
 
             }

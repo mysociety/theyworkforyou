@@ -298,7 +298,7 @@ class GLOSSARY {
 				$replacewords[] = "<strong>\\1</strong>";
 			}
 			else {
-				if ($this_page == "admin_glossary"){
+				if ($this_page == "admin_glossary") {
 					$link_url = "#gl".$glossary_id;
 				}
 				else {
