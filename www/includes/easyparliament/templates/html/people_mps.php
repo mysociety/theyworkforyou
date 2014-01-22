@@ -93,7 +93,7 @@ if ($pc_form) { ?>
 				<div class="sort">
 				    Sort by:
 				    <ul>
-                        <li><?php echo $th_last_name; ?></li>                        				        
+                        <li><?php echo $th_last_name; ?></li>
                         <li><?php echo $th_first_name; ?></li>
                         <li><?php echo $th_party; ?></li>
                         <?php	if ($order == 'expenses') { ?>
@@ -122,7 +122,7 @@ if ($pc_form) { ?>
 				    <th colspan="2">Name</th>
 				    <th>Party</th>
 				    <th>Constituency</th>
-				    <th>Positions</th>				    
+				    <th>Positions</th>
 				    <?php	if ($order == 'expenses') { ?>
                     	<th>2004 Expenses Grand Total</th>
                     <?php	} elseif ($order == 'debates') { ?>
@@ -151,7 +151,7 @@ foreach ($data['data'] as $pid => $mp) {
 ?>
 				</tbody>
 				</table>
-				
+
 <?php
 
 function render_mps_row($mp, &$style, $order, $MPURL, $letter=false) {
@@ -160,7 +160,7 @@ function render_mps_row($mp, &$style, $order, $MPURL, $letter=false) {
 	$style = $style == '1' ? '2' : '1';
 
 	$name = member_full_name(1, $mp['title'], $mp['first_name'], $mp['last_name'], $mp['constituency']);
-	
+
 #	$MPURL->insert(array('pid'=>$mp['person_id']));
 	?>
 				<tr>

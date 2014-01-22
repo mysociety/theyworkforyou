@@ -64,9 +64,9 @@ $USERURL = new URL('userview');
 for ($row=0; $row<$q->rows(); $row++) {
 
 	$user_id = $q->field($row, 'user_id');
-	
+
 	$USERURL->insert(array('u'=>$user_id));
-	
+
 	if ($q->field($row, 'confirmed') == 1) {
 		$confirmed = 'Yes';
 		$name = '<a href="' . $USERURL->generate() . '">' . htmlspecialchars($q->field($row, 'firstname'))
@@ -75,7 +75,7 @@ for ($row=0; $row<$q->rows(); $row++) {
 		$confirmed = 'No';
 		$name = htmlspecialchars($q->field($row, 'firstname') . ' ' . $q->field($row, 'lastname'));
 	}
-	
+
 	$rows[] = array (
 		$name,
 		'<a href="mailto:' . $q->field($row, 'email') . '">' . $q->field($row, 'email') . '</a>',

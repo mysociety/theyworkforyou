@@ -1,6 +1,6 @@
 <?php
 
-// This page is used to handle the whole admin side of examining and completing 
+// This page is used to handle the whole admin side of examining and completing
 // comment reports.
 // Pass it a GET string like ?rid=37&cid=54
 // where rid is a report_id and cid is a comment_id.
@@ -45,25 +45,25 @@ $FORMURL = new URL($this_page);
 // Check that the user is allowed to take action, and this report isn't locked.
 
 if ($REPORT->locked() && $REPORT->lockedby() != $THEUSER->user_id()) {
-	
+
 	print "<p><strong>Someone else was examining this report at " . $REPORT->locked() . " so you can only look at it, not take any action. You could try again in a few minutes.</strong></p>\n";
 
 	$COMMENT->display();
 
 	$REPORT->display();
-	
+
 	$PAGE->stripe_end(array(
 		array(
 			'type'		=> 'html',
 			'content'	=> $menu
 		)
 	));
-	
+
 	$PAGE->page_end();
 	exit;
 
 } elseif ($THEUSER->is_able_to('deletecomment')) {
-	
+
 	// Prevent anyone else from editing this report.
 	$REPORT->lock();
 
@@ -72,15 +72,15 @@ if ($REPORT->locked() && $REPORT->lockedby() != $THEUSER->user_id()) {
 //////////////////////////////////////////////////////////////////////////////////
 // Now we decide what we're going to do on this page.
 // You could read this if/else stuff from the bottom up to be honest...
-	
+
 if (get_http_var('resolve') != '') {
 
 	// The user has reached the final stage, choosing what emails to send to who.
 	// And here we finally delete the comment if needs be, and resolve the report.
 
 	resolve($REPORT, $COMMENT);
-	
-	
+
+
 } elseif (get_http_var('takingaction') == 'true') {
 
 	// The user has chosen to delete or not delete the comment.
@@ -88,22 +88,22 @@ if (get_http_var('resolve') != '') {
 
 	// This also sets the comment's url, which we use further down!
 	$COMMENT->display();
-	
+
 	$REPORT->display();
 
 	if (get_http_var('yes') != '') {
 		prepare_emails_for_deleting($REPORT, $COMMENT, $FORMURL);
-	
+
 	} else {
 		prepare_emails_for_not_deleting($REPORT, $COMMENT, $FORMURL);
 	}
 
 } else {
-	
+
 
 	// The user is viewing a comment and its report.
 	view($REPORT, $COMMENT, $FORMURL);
-	
+
 }
 
 $PAGE->stripe_end(array(
@@ -131,9 +131,9 @@ function view($REPORT, $COMMENT, $FORMURL) {
 	$REPORT->display();
 
 	?>
-	
+
 	<p><strong>Do you wish to delete the comment?</strong></p>
-	
+
 	<form action="<?php echo $FORMURL->generate(); ?>" method="post">
 		<p><input type="submit" name="yes" value=" Yes "> &nbsp;
 		<input type="submit" name="no" value=" No ">
@@ -152,19 +152,19 @@ function get_template_contents($template) {
 	// Shares some code with send_template_email() in utility.php
 	// so may be scope for rationalising...
 	global $PAGE;
-	
+
 	$filename = INCLUDESPATH . "easyparliament/templates/emails/" . $template . ".txt";
 
 	if (!file_exists($filename)) {
 		$PAGE->error_message("Sorry, we could not find the email template.");
 		return false;
 	}
-	
+
 	// Get the text from the template.
 	$handle = fopen($filename, "r");
 	$emailtext = fread($handle, filesize($filename));
 	fclose($handle);
-	
+
 	return $emailtext;
 }
 
@@ -173,7 +173,7 @@ function get_template_contents($template) {
 function prepare_emails_for_deleting($REPORT, $COMMENT, $FORMURL) {
 	// From the view() function, the user has chosen to delete the comment.
 	// Now they can prepare the appropriate emails, or choose not to send them.
-	
+
 	global $this_page;
 
 #	$commentermail = preg_replace("/\n/", "<br>\n", get_template_contents('comment_deleted') );
@@ -184,7 +184,7 @@ function prepare_emails_for_deleting($REPORT, $COMMENT, $FORMURL) {
 		<p><strong>You've chosen to delete this comment.</strong> You can now send an email to both the person who posted the comment, and the person who made the report. Uncheck a box to prevent an email from being sent. The comment will not be deleted until you click the button below.</p>
 
 		<form action="<?php echo $FORMURL->generate(); ?>" method="post">
-			
+
 			<p><strong><input type="checkbox" name="sendtocommenter" value="true" checked id="sendtocommenter"> <label for="sendtocommenter">Send this email to the person who posted the comment:</label></strong></p>
 
 <!--			<p class="email-template"><?php echo $commentermail; ?></p> -->
@@ -208,21 +208,21 @@ function prepare_emails_for_deleting($REPORT, $COMMENT, $FORMURL) {
 function prepare_emails_for_not_deleting($REPORT, $COMMENT, $FORMURL) {
 	// From the view() function, the user has chosen NOT to delete the comment.
 	// Now they can prepare the appropriate emails, or choose not to send them.
-	
+
 	global $this_page;
 
 	$reportermail = preg_replace("/\n/", "<br>\n", get_template_contents('report_declined') );
-		
+
 	?>
 		<p><strong>You have chosen not to delete this comment.</strong> You can now send an email to the person who made the report (uncheck the box to send no email). The report will not be resolved until you click the button below.</p>
-		
+
 		<form action="<?php echo $FORMURL->generate(); ?>" method="post">
 			<p>&nbsp;<br><strong><input type="checkbox" name="sendtoreporter" value="true" checked id="sendtoreporter"> <label for="sendtoreporter">Send this email to the person who reported the comment:</label></strong></p>
 
 			<p class="email-template"><?php echo $reportermail; ?></p>
-			
+
 			<p>Enter a reason to replace {REASON}: <input type="text" name="declinedreason" size="40"></p>
-			
+
 			<p><input type="submit" name="resolve" value=" Resolve this report ">
 			<input type="hidden" name="deletecomment" value="false">
 			<input type="hidden" name="rid" value="<?php echo htmlentities($REPORT->report_id()); ?>">
@@ -234,31 +234,31 @@ function prepare_emails_for_not_deleting($REPORT, $COMMENT, $FORMURL) {
 function resolve($REPORT, $COMMENT) {
 	// The user has chosen to either delete or not delete the comment.
 	// And we might be sending emails.
-	
+
 	global $PAGE;
-		
+
 	if (get_http_var('deletecomment') == 'true') {
 		$upheld = true;
 	} else {
 		$upheld = false;
-	}	
+	}
 
 	$success = $REPORT->resolve ($upheld, $COMMENT);
 
 	if ($success) {
-	
+
 		if ($upheld == true) {
 			print "<p>The comment has been deleted.</p>\n";
 		}
-		
+
 		print "<p>The report has been resolved.</p>\n";
-		
-		
+
+
 		if (get_http_var('sendtoreporter') == 'true') {
 			// We're sending an email to the reporter.
 			// Either approving or declining what they suggested.
 			if ($REPORT->user_id() > 0) {
-				// The reporting user was logged in at the time, 
+				// The reporting user was logged in at the time,
 				// so get their email address.
 				$USER = new USER;
 				$USER->init( $REPORT->user_id() );
@@ -267,7 +267,7 @@ function resolve($REPORT, $COMMENT) {
 				// Non-logged-in user; they should have left their address.
 				$email = $REPORT->email();
 			}
-			
+
 			// Prepare the data needed for either email.
 			$data = array (
 				'to' 			=> $email
@@ -277,20 +277,20 @@ function resolve($REPORT, $COMMENT) {
 				'LASTNAME' 		=> $REPORT->lastname(),
 				'REPORTBODY' 	=> strip_tags($REPORT->body())
 			);
-			
+
 			// Add stuff specific to each type of email.
 			if ($upheld == true) {
 				$data['template'] = 'report_upheld';
-			
+
 			} else {
 				$data['template'] = 'report_declined';
 				$merge['COMMENTURL'] = 'http://' . DOMAIN . $COMMENT->url();
 				$merge['REASON'] = get_http_var('declinedreason');
 			}
-			
+
 			$success = send_template_email($data, $merge);
 
-			
+
 			if ($success) {
 				print "<p>An email has been sent to the person who made the report.</p>\n";
 			} else {
@@ -298,7 +298,7 @@ function resolve($REPORT, $COMMENT) {
 			}
 
 		}
-		
+
 		if (get_http_var('sendtocommenter') == 'true') {
 			// We're telling the commenter that their comment has been deleted.
 			$USER = new USER;
@@ -307,7 +307,7 @@ function resolve($REPORT, $COMMENT) {
 			// Create the URL for if a user wants to return and post another comment.
 			// Remove the anchor for their now deleted comment.
 			$addcommentsurl = 'http://' . DOMAIN . preg_replace("/#.*$/", '#addcomment', $COMMENT->url());
-			
+
 			$data = array (
 				'to' => $USER->email(),
 				'template' => 'comment_deleted_blank',
@@ -321,10 +321,10 @@ function resolve($REPORT, $COMMENT) {
 				'ADDCOMMENTURL'	=> $addcommentsurl,
 				'COMMENTBODY'	=> strip_tags($COMMENT->body())
 			);
-			
+
 			// We only send this email if a comment has been deleted.
 			$success = send_template_email($data, $merge);
-	
+
 			if ($success) {
 				print "<p>An email has been sent to the person who posted the comment.</p>\n";
 			} else {
@@ -334,7 +334,7 @@ function resolve($REPORT, $COMMENT) {
 	}
 
 	$URL = new URL('admin_home');
-	
+
 	print '<p><a href="' . $URL->generate() . '">Back</a></p>';
 }
 

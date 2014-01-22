@@ -42,7 +42,7 @@ if (count($data) > 0) {
 	} else {
 		$title = 'Some sites linking to this page';
 	}
-	
+
 	if (!$PAGE->within_stripe()) {
 		$PAGE->stripe_start();
 		$stripe_must_be_ended = true;
@@ -54,10 +54,10 @@ if (count($data) > 0) {
 	<div class="trackbacks">
 		<h4><?php echo $title; ?></h4>
 		<dl>
-		
+
 <?php
 	foreach ($data as $n => $trackback) {
-		
+
 		list($date, $time) = explode(' ', $trackback['posted']);
 		$date = format_date($date, SHORTDATEFORMAT);
 		$time = format_time($time, TIMEFORMAT);
@@ -67,14 +67,14 @@ if (count($data) > 0) {
 			<small>At <?php echo htmlentities($trackback['blog_name']); ?> on <?php echo $date . ' ' . $time; ?></small>
 		</dd>
 <?php
-	
+
 	} // End cycling through trackbacks.
-	
+
 	?>
 		</dl>
 	</div> <!-- end trackbacks -->
 <?php
-	
+
 	if ($stripe_must_be_ended) {
 		$PAGE->stripe_end();
 	}

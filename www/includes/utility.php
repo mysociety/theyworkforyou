@@ -20,12 +20,12 @@ function twfy_debug($header, $text="") {
 	// with a $header in $levels[1].
 	// For level '2', anything with a $header in $levels[1] AND $levels[2].
 	// Level '4' shows everything.
-	
+
 	$debug_level = get_http_var(DEBUGTAG);
 	#$debug_level = 1;
-	
+
 	if ($debug_level != '') {
-	
+
 		// Set which level shows which types of debug info.
 		$levels = array (
 			1 => array ('THEUSER', 'TIME', 'SQLERROR', 'PAGE', 'TEMPLATE', 'SEARCH', 'ALERTS', 'MP'),
@@ -33,24 +33,24 @@ function twfy_debug($header, $text="") {
 			3 => array ('SQLRESULT')
 			// Higher than this: 'DATA', etc.
 		);
-	
+
 		// Store which headers we are allowed to show.
 		$allowed_headers = array();
-		
+
 		if ($debug_level > count($levels)) {
 			$max_level_to_show = count($levels);
 		} else {
 			$max_level_to_show = $debug_level;
 		}
-		
+
 		for ($n = 1; $n <= $max_level_to_show; $n++) {
 			$allowed_headers = array_merge ($allowed_headers, $levels[$n] );
 		}
-		
+
 		// If we can show this header, then, er, show it.
 		if ( in_array($header, $allowed_headers) || $debug_level >= 4) {
             if (is_array($text)) $text = call_user_func($text);
-			print "<p><span style=\"color:#039;\"><strong>$header</strong></span> $text</p>\n";	
+			print "<p><span style=\"color:#039;\"><strong>$header</strong></span> $text</p>\n";
 		}
 	}
 }
@@ -124,8 +124,8 @@ function error_handler($errno, $errmsg, $filename, $linenum, $vars) {
 //	if (in_array($errno, $user_errors)) {
 //		$err .= "Variables:\t" . serialize($vars) . "\n";
 //	}
-	
-	
+
+
 	// Add the problematic line if possible.
 	if (is_readable($filename)) {
 		$source = file($filename);
@@ -137,8 +137,8 @@ function error_handler($errno, $errmsg, $filename, $linenum, $vars) {
 		$err .= $linenum+1 . " " . $source[$linenum];
 		$err .= $linenum+2 . " " . $source[$linenum+1];
 	}
-	
-	
+
+
 	// Will we need to exit after this error?
 	$fatal_errors = array(E_ERROR, E_USER_ERROR);
 	if (in_array($errno, $fatal_errors)) {
@@ -164,10 +164,10 @@ function error_handler($errno, $errmsg, $filename, $linenum, $vars) {
 		} else {
 			vardump($message);
 		}
-		
+
 	} else {
 		// On live sites we display a nice message and email the problem.
-		
+
 		$message = array(
 			'title' => "Sorry, an error has occurred",
 			'text' => "We've been notified by email and will try to fix the problem soon!"
@@ -182,8 +182,8 @@ function error_handler($errno, $errmsg, $filename, $linenum, $vars) {
 		if (!($errno & E_USER_NOTICE) && strpos($errmsg, 'pg_connect')===false && strpos($errmsg, 'mysql_connect')===false) {
 			mail(BUGSLIST, "[TWFYBUG]: $errmsg", $err, "From: Bug <" . CONTACTEMAIL . ">\n".  "X-Mailer: PHP/" . phpversion() );
 		}
-	}	
-	
+	}
+
 	// Do we need to exit?
 	if ($fatal) {
 		exit(1);
@@ -202,9 +202,9 @@ function adodb_backtrace($print=true)
 {
   $s = '';
   if (PHPVERSION() >= 4.3) {
-      
+
     $MAXSTRLEN = 64;
-      
+
     $traceArr = debug_backtrace();
     array_shift($traceArr);
     $tabs = sizeof($traceArr)-1;
@@ -225,13 +225,13 @@ function adodb_backtrace($print=true)
 	  $args[] = $str;
 	}
       }
-              
+
       $s .= $arr['function'].'('.implode(', ',$args).')';
       //      $s .= sprintf("</font><font color=#808080 size=-1> # line %4d,".
       //		    " file: <a href=\"file:/%s\">%s</a></font>",
       //	    $arr['line'],$arr['file'],$arr['file']);
       $s .= "\n";
-    }   
+    }
     if ($print) print $s;
   }
   return $s;
@@ -261,7 +261,7 @@ function validate_postcode($postcode) {
 	$fth = 'ABEHMNPRVWXY';
 	$num = '0123456789';
 	$nom = '0123456789';
-	$gap = '\s\.';	
+	$gap = '\s\.';
 
 	if (	preg_match("/^[$fst][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
 			preg_match("/^[$fst][$num][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
@@ -300,12 +300,12 @@ function format_timestamp($timestamp, $format) {
 	// Pass it a MYSQL TIMESTAMP (YYYYMMDDHHMMSS) and a
 	// PHP date format string (eg, "Y-m-d H:i:s")
 	// and it returns a nicely formatted string according to requirements.
-	
+
 	// Because strtotime can't handle TIMESTAMPS.
-	
+
 	if (preg_match("/^(\d\d\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/", $timestamp, $matches)) {
 		list($string, $year, $month, $day, $hour, $min, $sec) = $matches;
-	
+
 		return gmdate ($format, gmmktime($hour, $min, $sec, $month, $day, $year));
 	} else {
 		return "";
@@ -332,7 +332,7 @@ function format_date($date, $format) {
 				return ($day+0) . ' ' . $format_date_months[$month+0] . " $year";
 			}
 		}
-	
+
 		return gmdate ($format, gmmktime(0, 0, 0, $month, $day, $year));
 	} else {
 		return "";
@@ -360,9 +360,9 @@ function format_time($time, $format) {
 function relative_time($datetime) {
 	// Pass it a 'YYYY-MM-DD HH:MM:SS' and it will return something
 	// like "Two hours ago", "Last week", etc.
-	
+
 	// http://maniacalrage.net/projects/relative/
-	
+
 	if (!preg_match("/\d\d\d\d-\d\d-\d\d \d\d\:\d\d\:\d\d/", $datetime)) {
 		return '';
 	}
@@ -382,8 +382,8 @@ function relative_time($datetime) {
 	$minutes = floor($diff/60);
 	$diff 	-= $minutes * 60;
 	$seconds = $diff;
-    
-	
+
+
 	if ($months > 0) {
 		// Over a month old, just show the actual date.
 		$date = substr($datetime, 0, 10);
@@ -411,10 +411,10 @@ function relative_time($datetime) {
 			$relative_date .= ($relative_date?', ':'').$seconds.' second'.($seconds>1?'s':'');
 		}
 	}
-	
+
 	// Return relative date and add proper verbiage
 	return $relative_date.' ago';
-	
+
 }
 
 function parse_date($date) {
@@ -426,7 +426,7 @@ function parse_date($date) {
  * replaced by single spaces, and other HTML tags have been removed. */
 function strip_tags_tospaces($text) {
     $text = preg_replace("#\<(p|br|div|td|tr|th|table)[^>]*\>#i", " ", $text);
-    return strip_tags(trim($text)); 
+    return strip_tags(trim($text));
 }
 
 function trim_characters($text, $start, $length, $url_length = 60) {
@@ -440,19 +440,19 @@ function trim_characters($text, $start, $length, $url_length = 60) {
 	// HTML is always stripped (must be for trimming to prevent broken tags).
 
 	$text = strip_tags_tospaces($text);
-	
+
 	// Split long strings up so they don't go too long.
 	// Mainly for URLs which are displayed, but aren't links when trimmed.
 	$text = preg_replace('/(\S{' . $url_length . '})/', "\$1 ", $text);
 
 	// Otherwise the word boundary matching goes odd...
 	$text = preg_replace("/[\n\r]/", " ", $text);
-	
+
 	// Trim start.
 	if ($start > 0) {
 		$text = substr($text, $start);
-		
-		// Word boundary.         
+
+		// Word boundary.
 		if (preg_match ("/.+?\b(.*)/", $text, $matches)) {
 			$text = $matches[1];
 			// Strip spare space at the start.
@@ -460,23 +460,23 @@ function trim_characters($text, $start, $length, $url_length = 60) {
 		}
 		$text = '...' . $text;
 	}
-	
+
 	// Trim end.
 	if (strlen($text) > $length) {
 
 		// Allow space for ellipsis.
-		$text = substr($text, 0, $length - 3); 
+		$text = substr($text, 0, $length - 3);
 
-		// Word boundary.         
+		// Word boundary.
 		if (preg_match ("/(.*)\s.+/", $text, $matches)) {
 			$text = $matches[1];
 			// Strip spare space at the end.
 			$text = preg_replace ("/\s$/", '', $text);
 		}
-		// We don't want to use the HTML entity for an ellipsis (&#8230;), because then 
+		// We don't want to use the HTML entity for an ellipsis (&#8230;), because then
 		// it screws up when we subsequently use htmlentities() to print the returned
 		// string!
-		$text .= '...'; 
+		$text .= '...';
 	}
 
 	return $text;
@@ -539,16 +539,16 @@ function prepare_comment_for_display($text) {
 		'(strlen(\'$0\')>$link_length) ? \'<a href="$0" rel="nofollow">\'.substr(\'$0\',0,$link_length)."...</a>" : \'<a href="$0" rel="nofollow">$0</a>\'',
 		$text);
 	$text = str_replace('<a href="www', '<a href="http://www', $text);
-	$text = preg_replace("/([\w\.]+)(@)([\w\.\-]+)/i", "<a href=\"mailto:$0\">$0</a>", $text); 
+	$text = preg_replace("/([\w\.]+)(@)([\w\.\-]+)/i", "<a href=\"mailto:$0\">$0</a>", $text);
 	$text = str_replace("\n", "<br>\n", $text);
 
-	return $text;	
+	return $text;
 }
 
 function htmlentities_notags($text) {
 	// If you want to do htmlentities() on some text that has HTML tags
 	// in it, then you need this function.
-	
+
 	$tbl = array();
 	if ( version_compare( phpversion(), '5.3.4', '<' ) ) {
 		// the third argument was only added in php 5.3.4 but our current production
@@ -568,7 +568,7 @@ function htmlentities_notags($text) {
 	//$tbl["—"] = "-";
 	//$tbl["»"] = "&raquo;";
 	//$tbl["«"] = "&laquo;";
-  
+
   // lib_filter will replace unmatched < and > with entities so
   // we abuse strtr's only replace once behaviour to not double
   // encode them. May not be robust.
@@ -577,13 +577,13 @@ function htmlentities_notags($text) {
   // < or > for less than and greater than.
   $tbl['&lt;'] = "&lt;";
   $tbl['&gt;'] = "&gt;";
-		 
+
 	// Don't want to encode these things
 	unset ($tbl["<"]);
 	unset ($tbl[">"]);
 	unset ($tbl["'"]);
 	unset ($tbl['"']);
-	
+
 	# strtr "will *NOT* try to replace stuff that it has already worked on."
 	$text = strtr($text, $tbl);
 
@@ -601,16 +601,16 @@ function htmlentities_notags($text) {
 function fix_gid_from_db($gid, $keepmajor = false) {
 	// The gids in the database are longer than we use in the site.
 	// Feed this a gid from the db and it will be returned truncated.
-	
+
 	// $gid will be like 'uk.org.publicwhip/debate/2003-02-28.475.3'.
-	
+
 	// You will almost always want $keepmajor to be false.
 	// This returns '2003-02-28.475.3' which is used for URLs.
-	
+
 	// However, trackbacks want a bit more info, so we can tell what
 	// kind of thing they link to. So they need $keepmajor to be true.
 	// This returns 'debate_2003-02-28.475.3'.
-	
+
 	if ($keepmajor) {
 		$newgid = substr($gid, strpos($gid, '/')+1 );
 		$newgid = str_replace('/', '_', $newgid);
@@ -619,7 +619,7 @@ function fix_gid_from_db($gid, $keepmajor = false) {
 	}
 
 	return $newgid;
-	
+
 }
 
 function gid_to_anchor($gid) {
@@ -628,42 +628,42 @@ function gid_to_anchor($gid) {
 	// The gid should already be truncated using fix_gid_from_db(), so it
 	// will be like 2003-11-20.966.0
 	// This function returns 966.0
-	
+
 	return substr( $gid, (strpos($gid, '.') + 1) );
 }
 
 function send_template_email($data, $merge, $bulk = false, $want_bounces = false) {
 	// We should have some email templates in INCLUDESPATH/easyparliament/templates/emails/.
-	
+
 	// $data is like:
 	// array (
 	//	'template' 	=> 'send_confirmation',
 	//	'to'		=> 'phil@gyford.com',
 	//	'subject'	=> 'Your confirmation email'
 	// );
-	
+
 	// $merge is like:
 	// array (
 	//	'FIRSTNAME' => 'Phil',
 	//	'LATNAME'	=> 'Gyford'
 	// 	etc...
 	// );
-	
-	// In $data, 'template' and 'to' are mandatory. 'template' is the 
+
+	// In $data, 'template' and 'to' are mandatory. 'template' is the
 	// name of the file (when it has '.txt' added to it).
-	
+
 	// We'll get the text of the template and replace all the $merge
-	// keys with their tokens. eg, if '{FIRSTNAME}' in the template will 
+	// keys with their tokens. eg, if '{FIRSTNAME}' in the template will
 	// be replaced with 'Phil'.
-	
-	// Additionally, the first line of a template may start with 
+
+	// Additionally, the first line of a template may start with
 	// 'Subject:'. Any text immediately following that, on the same line
 	// will be the subject of the email (it will also have its tokens merged).
 	// But this subject can be overridden by sending including a 'subject'
 	// pair in $data.
-	
+
 	global $PAGE;
-	
+
 	if (!isset($data['to']) || $data['to'] == '') {
 		$PAGE->error_message ("We need an email address to send to.");
 		return false;
@@ -675,7 +675,7 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
 		$PAGE->error_message("Sorry, we could not find the email template '" . htmlentities($data['template']) . "'.");
 		return false;
 	}
-	
+
 	// Get the text from the template.
 	$handle = fopen($filename, "r");
 	$emailtext = fread($handle, filesize($filename));
@@ -683,7 +683,7 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
 
 	// See if there's a default subject in the template.
 	$firstline = substr($emailtext, 0, strpos($emailtext, "\n"));
-	
+
 	// Work out what the subject line is.
 	if (preg_match("/Subject:/", $firstline)) {
 		if (isset($data['subject'])) {
@@ -691,29 +691,29 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
 		} else {
 			$subject = trim( substr($firstline, 8) );
 		}
-		
+
 		// Either way, remove this subject line from the template.
 		$emailtext = substr($emailtext, strpos($emailtext, "\n"));
-		
+
 	} elseif (isset($data['subject'])) {
 		$subject = $data['subject'];
 	} else {
 		$PAGE->error_message ("We don't have a subject line for the email, so it wasn't sent.");
 		return false;
 	}
-	
+
 
 	// Now merge all the tokens from $merge into $emailtext...
 	$search = array();
 	$replace = array();
-	
+
 	foreach ($merge as $key => $val) {
 		$search[] = '/{'.$key.'}/';
 		$replace[] = $val;
 	}
-	
+
 	$emailtext = preg_replace($search, $replace, $emailtext);
-	
+
 	// Send it!
 	$success = send_email ($data['to'], $subject, $emailtext, $bulk, 'twfy-DO-NOT-REPLY@' . EMAILDOMAIN, $want_bounces);
 
@@ -736,11 +736,11 @@ function send_email($to, $subject, $message, $bulk = false, $from = '', $want_bo
 
 	if (!$from) $from = CONTACTEMAIL;
 
-	$headers = 
+	$headers =
 	 "From: TheyWorkForYou <$from>\r\n" .
      "Content-Type: text/plain; charset=iso-8859-1\r\n" .
      "MIME-Version: 1.0\r\n" .
-     "Content-Transfer-Encoding: 8bit\r\n" . 
+     "Content-Transfer-Encoding: 8bit\r\n" .
      ($bulk ? "Precedence: bulk\r\nAuto-Submitted: auto-generated\r\n" : "" ).
      "X-Mailer: PHP/" . phpversion();
 	twfy_debug('EMAIL', "Sending email to $to with subject of '$subject'");
@@ -796,11 +796,11 @@ function get_cookie_var($name, $default='') {
 ///////////////////////////////
 
 // Pass it an array of key names that should not be generated as
-// hidden form variables. It then outputs hidden form variables 
+// hidden form variables. It then outputs hidden form variables
 // based on the session_vars for this page.
 function hidden_form_vars ($omit = array()) {
 	global $DATA, $this_page;
-	
+
 	$session_vars = $DATA->page_metadata($this_page, "session_vars");
 
 	foreach ($session_vars as $n => $key) {
@@ -813,11 +813,11 @@ function hidden_form_vars ($omit = array()) {
 // Deprecated. Use hidden_form_vars, above, instead.
 function hidden_vars ($omit = array()) {
 	global $DATA;
-	
+
 	foreach ($args as $key => $val) {
 		if (!in_array($key, $omit)) {
 			print "<input type=\"hidden\" name=\"$key\" value=\"" . htmlspecialchars($val) . "\">\n";
-		}	
+		}
 	}
 }
 
@@ -827,16 +827,16 @@ function make_ranking($rank)
 
     # 11th, 12th, 13th use "th" not "st", "nd", "rd"
     if (floor(($rank % 100) / 10) == 1)
-        return $rank . "th"; 
+        return $rank . "th";
     # 1st
     if ($rank % 10 == 1)
         return $rank . "st";
     # 2nd
     if ($rank % 10 == 2)
-        return $rank . "nd"; 
+        return $rank . "nd";
     # 3rd
     if ($rank % 10 == 3)
-        return $rank . "rd"; 
+        return $rank . "rd";
     # Everything else use th
     return $rank . "th";
 }
@@ -946,19 +946,19 @@ function major_summary($data, $echo = true) {
 	$html = '';
 	$db = new ParlDB;
 	$one_date = false;
-	
+
 	//if no printed majors passed, default to all
 	if(!isset($printed_majors)){
 	    $printed_majors = array(1, 2, 4, 3, 5, 101, 7); # 8
 	}
-	
+
 	// single date?
 	if (isset($data['date'])) $one_date = true;
 
     // remove empty entries, so they don't produce errors
     foreach (array_keys($hansardmajors) as $major) {
         if (array_key_exists($major, $data)) {
-            if (count($data[$major]) == 0) 
+            if (count($data[$major]) == 0)
                 unset($data[$major]);
         }
     }
@@ -979,10 +979,10 @@ function major_summary($data, $echo = true) {
 	foreach ($printed_majors as $p_major) {
 		if (!array_key_exists($p_major, $data))
 			continue;
-		
+
 		if ($one_date)
 			$date = $data['date'];
-		else 
+		else
 			$date = $data[$p_major]['hdate'];
 		$q = $db->query('SELECT section_id, body, gid
 				FROM hansard, epobject
@@ -1000,7 +1000,7 @@ function major_summary($data, $echo = true) {
 			$section_id = $q->field($i, 'section_id');
 			//if (strstr($body, 'Chair]')) continue;
             if ($p_major == 4 && !$section_id) {
-				if ($current_sid++){ 
+				if ($current_sid++){
 				    $out .= '</ul>';
 				}
 				$out .= '<li>' . $body . '<ul>';
@@ -1012,13 +1012,13 @@ function major_summary($data, $echo = true) {
 		}
 		if ($out) {
 			$html .= _major_summary_title($p_major, $data, $LISTURL, $daytext);
-	        $html .= '<ul class="hansard-day">';			
+	        $html .= '<ul class="hansard-day">';
 			$html .= $out;
 			$html .= '</ul>';
 		}
 	}
     $html .= '</ul>';
-	
+
 	if ($echo) {
 	    print $html;
 	} else {
@@ -1028,12 +1028,12 @@ function major_summary($data, $echo = true) {
 
 function _major_summary_title($major, $data, $LISTURL, $daytext) {
 	global $hansardmajors;
-	
+
 	$return = '<h4>';
 	if (isset($daytext[$major])){
 	 $return .= $daytext[$major] . ' ';
 	}
-	
+
 	$return .= '<a href="';
 	if (isset($data[$major]['listurl']))
 		$return .= $data[$major]['listurl'];
@@ -1044,7 +1044,7 @@ function _major_summary_title($major, $data, $LISTURL, $daytext) {
 	$return .= '">' . $hansardmajors[$major]['title'] . '</a>';
 	if (isset($daytext[$major])) $return;
 	$return .= '</h4>';
-	
+
 	return $return;
 }
 

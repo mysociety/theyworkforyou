@@ -1,10 +1,10 @@
 <?php
 /*	Remember, we are currently within the GLOSSARYLIST class,
 	in the render() function.
-	
-	We cycle through the $data array and output the comment(s). 
+
+	We cycle through the $data array and output the comment(s).
 	It should be something like this:
-	
+
 	$data = array (
 		'info'	=> array (
 			'user_id' => '34'		//  Might be used to highlight the user's comments.
@@ -30,7 +30,7 @@
 		)
 	);
 
-	
+
 */
 global $PAGE, $DATA, $this_page, $THEUSER;
 
@@ -46,7 +46,7 @@ if (isset($data['comments'][0]['preview']) && $data['comments'][0]['preview'] ==
 
 } elseif ($this_page == 'commentreport' || $this_page == 'admin_commentreport') {
 	$subheading = "";
-	
+
 } else {
 	$subheading = 'Annotations';
 }
@@ -62,7 +62,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 	foreach ($data['comments'] as $n => $comment) {
 		$style = $n % 2 == 0 ? '1' : '2';
 
-		if (isset($data['info']['user_id']) && 
+		if (isset($data['info']['user_id']) &&
 			$comment['user_id'] == $data['info']['user_id']) {
 			$style .= '-on';
 		}
@@ -74,7 +74,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 		} else {
 			echo ">\n";
 		}
-		
+
 		$USERURL = new URL('userview');
 		$USERURL->insert(array('u'=>$comment['user_id']));
 		?>
@@ -83,19 +83,19 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 <?php
 		// Make URLs into links and do <br>s.
 		$body = prepare_comment_for_display($comment['body']); // In utility.php
-		
+
 		echo $body;
 		?></p>
-		
+
 		</div>
 		<div class="sidebar">
-		<p> Posted on 
+		<p> Posted on
 <?php
 		list($date, $time) = explode(' ', $comment['posted']);
 		$date = format_date($date, SHORTDATEFORMAT);
 		$time = format_time($time, TIMEFORMAT);
-		
-		echo $date; ?>, 
+
+		echo $date; ?>,
 <?php
 		if (isset($comment['url'])) {
 			?>
@@ -106,14 +106,14 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 			echo "\t\t$time";
 		}
 
-		if (($this_page != 'commentreport' && 
-			$this_page != 'addcomment'  && 
-			$this_page != 'admin_commentreport') 
+		if (($this_page != 'commentreport' &&
+			$this_page != 'addcomment'  &&
+			$this_page != 'admin_commentreport')
 			&& $THEUSER->is_able_to('reportcomment')
 			&& !$comment['modflagged']
 			) {
-			
-			// The comment hasn't been reported and we're on a page where we want to 
+
+			// The comment hasn't been reported and we're on a page where we want to
 			// display this link.
 
 			$URL = new URL('commentreport');
@@ -121,7 +121,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 				'id'	=> $comment['comment_id'],
 				'ret' 	=> $comment['url']
 			));
-			
+
 			?><br>
 		<a href="<?php echo $URL->generate(); ?>" title="Notify moderators that this annotation needs editing or deleting">Report this annotation</a>
 <?php
@@ -131,14 +131,14 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 		This annotation has been reported
 <?php
 		}
-		
+
 		?>
 		</p>
 		</div>
 		<div class="break">&nbsp;</div>
 	</div>
 <?php
-	
+
 	}
 
 } else {

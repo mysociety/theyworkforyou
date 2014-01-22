@@ -19,9 +19,9 @@ $args = array (
 	'glossarise' => 1,
 	'sort' => 'regexp_replace',
 );
-	
+
 $GLOSSARY = new GLOSSARY($args);
 $LIST = new DEBATELIST;
 $result = $LIST->display('gid', $args);
-		
+
 $PAGE->page_end();

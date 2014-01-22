@@ -43,30 +43,30 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 				<dl id="searchresults">
 <?php
 	for ($i=0; $i<count($data['rows']); $i++) {
-	
+
 		$row = $data['rows'][$i];
-		
+
 		?>
 					<dt><a href="<?php echo $row['listurl']; ?>"><?php
 		if (isset($row['parent']) && count($row['parent']) > 0) {
-			echo ('<strong>' . $row['parent']['body'] . '</strong>');			
+			echo ('<strong>' . $row['parent']['body'] . '</strong>');
 		}
 		echo ('</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT) . ')</small>');
 		?></dt>
 					<dd><p><?php
-		
+
 		if (isset($row['speaker']['first_name'])) {
 			echo "<em>" . $row['speaker']['first_name'] . ' ' . $row['speaker']['last_name'] . "</em>: ";
-		} 
-		
+		}
+
 		echo $row['extract'] . "</p></dd>\n";
-	
+
 	}
-	
+
 	?>
 				</dl> <!-- end searchresults -->
 
-<?php 
+<?php
 
 }
 // else, no results.

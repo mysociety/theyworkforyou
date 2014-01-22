@@ -35,7 +35,7 @@ foreach ($data as $row) {
 	#}
 	if (count($moreinfo) > 0) {
 		print "<small>(" . implode (', ', $moreinfo) . ") </small>";
-	}	
+	}
 }
 print "\n\t\t\t\t</ul> <!-- end hansard-day -->\n";
 

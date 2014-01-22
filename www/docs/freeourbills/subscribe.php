@@ -76,16 +76,16 @@ freeourbills_styles();
 
 $url_token = trim(get_http_var('t'));
 if ($url_token) {
-	
+
 	$q = $db->query('SELECT * FROM campaigners WHERE token = "' . mysql_real_escape_string($url_token).'"');
  	if ($q->rows() > 0) {
 		$q = $db->query('UPDATE campaigners SET confirmed = 1 WHERE token = "' . mysql_real_escape_string($url_token).'"');
 		?>
 		<p class="free_our_bills_thanks">Thanks for signing up to the campaign! We'll contact you soon.</p>
 		<p class="free_our_bills_thanks">Now invite your friends to sign up too...</p>
-<?php 
+<?php
 $PAGE->block_start(array ('title'=>'Tell your friends about the \'Free our Bills!\' campaign'));
-freeourbills_share_page(); 
+freeourbills_share_page();
 $PAGE->block_end();
 ?>
 		<p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>

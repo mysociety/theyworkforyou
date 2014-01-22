@@ -29,7 +29,7 @@ function render_mlas_row($mla, $order) {
 		print $parties[$mla['party']];
 	else
 		print $mla['party'];
-	print ',' . $con . ',' .  'http://www.theyworkforyou.com/mla/' . 
+	print ',' . $con . ',' .  'http://www.theyworkforyou.com/mla/' .
 		make_member_url($mla['first_name'].' '.$mla['last_name'], NULL, 3, $mla['person_id']);
 	print "\n";
 }

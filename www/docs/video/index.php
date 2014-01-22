@@ -94,7 +94,7 @@ for ($i=0; $i<$q->rows(); $i++) {
 		$gids_previous[] = $row;
 	} elseif ($row['hpos'] > $hpos) {
 		$gids_following[] = $row;
-		
+
 	} else {
 		$gid_actual = $row;
 	}

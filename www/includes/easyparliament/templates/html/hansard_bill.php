@@ -36,11 +36,11 @@ if (isset ($data['rows'])) {
 			}
 			print "\t\t\t\t\t<li>";
 		}
-		
-		// Are we going to make this (sub)section a link 
+
+		// Are we going to make this (sub)section a link
 		// and does it contain printable speeches?
 		$has_content = true;
-		
+
 		if ($has_content) {
 			echo '<a ';
 			if ($row['htype'] == 10) {
@@ -65,12 +65,12 @@ if (isset ($data['rows'])) {
 			}
 			if (count($moreinfo) > 0) {
 				print "<small>(" . implode (', ', $moreinfo) . ") </small>";
-			}	
+			}
 		} else {
-			// Nothing in this item, so no link.	
+			// Nothing in this item, so no link.
 			print '<strong>' . $row['body'] . '</strong>';
 		}
-		
+
 		if (isset($row['excerpt'])) {
 			print "<br>\n\t\t\t\t\t<span class=\"excerpt-debates\">" . trim_characters($row['excerpt'], 0, 200) . "</span>";
 		}
@@ -85,12 +85,12 @@ if (isset ($data['rows'])) {
 		}
 
 	} // End cycling through rows.
-	
+
 	if ($prevlevel == 'sub') {
 		// Finish final sub-level list.
 		print "\t\t\t\t\t</ul>\n\t\t\t\t\t</li>\n";
 	}
-	
+
 	print "\n\t\t\t\t</ul> <!-- end hansard-day -->\n";
 } // End display of rows.
 

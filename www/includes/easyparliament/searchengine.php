@@ -92,7 +92,7 @@ class SEARCHENGINE {
         $this->phrases = array();
         // Items prefixed with a colon (speaker:10024) as an (array of (name, value))
         $this->prefixed = array();
-        
+
         // Split words up into individual words, and quoted phrases
         preg_match_all('/(' .
             '"|' . # match either a quote, or...
@@ -320,7 +320,7 @@ class SEARCHENGINE {
     function get_spelling_correction() {
          if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
-            
+
             return $this->queryparser->get_corrected_query_string();
     }
 
@@ -340,7 +340,7 @@ class SEARCHENGINE {
                 $this->enquire->set_sort_by_value(0, false);
                 break;
             case 'created':
-                $this->enquire->set_sort_by_value(2); 
+                $this->enquire->set_sort_by_value(2);
             default:
                 //do nothing, default ordering is by relevance
                 break;
@@ -359,7 +359,7 @@ class SEARCHENGINE {
                     ; // no collapse key
                 elseif ($items[1] == 'debate')
                     $this->enquire->set_collapse_key(3);
-                else 
+                else
                     $PAGE->error_message("Unknown group by '$items[1]' ignored");
             }
         }
@@ -367,7 +367,7 @@ class SEARCHENGINE {
         // default to grouping by subdebate, i.e. by page
         if (!$collapsed)
             $this->enquire->set_collapse_key(3);
-        
+
         /*
         XXX Helping to debug possible Xapian bug
         foreach (array(0, 50, 100, 200, 300, 400, 460) as $fff) {
@@ -431,7 +431,7 @@ class SEARCHENGINE {
         }
 		$duration = getmicrotime() - $start;
 		twfy_debug ("SEARCH", "Run search took $duration seconds.");
-    }	
+    }
     // ... use these to get the results
     function get_gids() {
         return $this->gids;
@@ -774,7 +774,7 @@ function search_constituencies_by_query($searchterm) {
 			$constituency = normalise_constituency_name($try);
 		} else {
             $query = "select distinct
-                    (select name from constituency where cons_id = o.cons_id and main_name) as name 
+                    (select name from constituency where cons_id = o.cons_id and main_name) as name
                 from constituency AS o where name like '%" . mysql_real_escape_string($try) . "%'
                 and from_date <= date(now()) and date(now()) <= to_date";
             $db = new ParlDB;

@@ -19,9 +19,9 @@
             etc.
         )
     );
-    
+
     The 'parent' element is optional.
-    
+
 */
 
 twfy_debug("TEMPLATE", "hansard_biggest_debates.php");
@@ -35,24 +35,24 @@ $count = 0;
 foreach ($data['data'] as $debate) {
 
     $count++;
-    
+
     $extrainfo = array();
-    
+
     $plural = $debate['contentcount'] == 1 ? 'speech' : 'speeches';
     $extrainfo[] = $debate['contentcount'] . ' ' . $plural;
-    
+
     if ($debate['totalcomments'] > 0) {
         $plural = $debate['totalcomments'] == 1 ? 'annotation' : 'annotations';
         $extrainfo[] = $debate['totalcomments'] . ' ' . $plural;
     }
-    
+
     $debateline = '<a href="' . $debate['list_url'] . '">';
     if ($debate['parent']['body']) {
         $debateline .= $debate['parent']['body'] . ': ';
     }
     $debateline .= $debate['body'] . '</a> <small>'
         . format_date($debate['hdate'], LONGERDATEFORMAT)
-        . '; ' . implode(', ', $extrainfo) 
+        . '; ' . implode(', ', $extrainfo)
         . '</small>';
 ?>
                 <dt><?php echo $debateline; ?></dt>

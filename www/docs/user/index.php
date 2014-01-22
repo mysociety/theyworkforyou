@@ -11,18 +11,18 @@
 		* whether $THEUSER is logged in or not;
 		* whether $THEUSER has appropriate security privileges;
 		* and whether we've been passed the ID of a user to view/edit.
-	
+
 	2) If we've come to this page after submitting its form, we check the form data.
 		If the data is OK, we either edit or add the user and display the new info.
 		If there were errors, the same form is displayed again with error messages.
-	
+
 	3) On the other hand, if the form hasn't been submitted we've just arrived here.
 		In that case the form (or the user info, if just viewing) is displayed.
-		
-		
+
+
 	After the first part of working out which page we're on, and munging any data
 		various functions in this file are used:
-		
+
 		check_input()	Validates the edited or added user data and creates error messages.
 		add_user()		Calls $THEUSER->add() and displays the results, depending on success.
 		update_user()	Calls the appropriate functions and updates, displays results.
@@ -30,7 +30,7 @@
 		display_user()	Displays a user's details.
 
 */
-		
+
 
 
 include_once "../../includes/easyparliament/init.php";
@@ -41,43 +41,43 @@ include_once INCLUDESPATH . "easyparliament/alert.php";
 switch (get_http_var("pg")) {
 
 	case "join":	// A new user signing up.
-		
+
 		$this_page = "userjoin";
 		break;
-	
+
 	case "editother":	// Editing someone else's info.
 
-		// We need a user_id. So make sure that exists. 
+		// We need a user_id. So make sure that exists.
 		// And make sure the user is allowed to do this!
-		
+
 		if (is_numeric( get_http_var("u") ) && $THEUSER->is_able_to("edituser")) {
 
 			$this_page = "otheruseredit";
-	
+
 		} else {
 			// Revert to editing THEUSER's own info.
 			$this_page = "useredit";
 
 		}
-		
-		break;	
-	
+
+		break;
+
 	case "edit":	// Edit this user's owninfo.
-		
+
 		if ($THEUSER->isloggedin()) {
-			$this_page = "useredit";	
-		
+			$this_page = "useredit";
+
 		} else {
 			// Unlikely to get to this page without being logged in,
 			// but just in case, show them the blank form.
 			$this_page = "userjoin";
-		
+
 		}
 		break;
-		
+
 	default:
-	
-		if ($THEUSER->isloggedin() && 
+
+		if ($THEUSER->isloggedin() &&
 			(get_http_var('u') == '' || get_http_var('u') == $THEUSER->user_id())
 			) {
 			// Logged in user viewing their own details.
@@ -88,7 +88,7 @@ switch (get_http_var("pg")) {
 		}
 }
 
-// A little detail... we want to change text in the page depending on whose 
+// A little detail... we want to change text in the page depending on whose
 // info is being changed or added.
 $who = $this_page == "otheruseredit" ? "the user's" : "your";
 
@@ -115,7 +115,7 @@ if (get_http_var("submitted") == "true") {
 	if ($details['url'] != '' && !preg_match('/^http/', $details['url'])) {
 		$details['url'] = 'http://' . $details['url'];
 	}
-	
+
 		$details["email"] = trim(get_http_var("em"));
 
 	if ($this_page == "otheruseredit") {
@@ -134,7 +134,7 @@ if (get_http_var("submitted") == "true") {
 			$details['confirmed'] = false;
 		}
 	}
-	
+
 	//$details['status'] = $THEUSER->status();
 
 	// Check the input.
@@ -145,69 +145,69 @@ if (get_http_var("submitted") == "true") {
 
 	if (sizeof($errors) > 0) {
 		// Validation errors. Print form again.
-		
+
 		$PAGE->page_start();
-		
+
 		display_form($details, $errors);
-		
-		$PAGE->page_end(); 
-		
+
+		$PAGE->page_end();
+
 	} elseif ($this_page == "userjoin") {
 		// No errors so far, so try to sign up and log in.
-		
+
 		add_user( $details );
 
 	} else {
-		// No errors so far, editing an existing user, 
+		// No errors so far, editing an existing user,
 		// $this_page == "useredit" or "otheruseredit".
-	
+
 		update_user( $details );
 
 	}
-	
-	
+
+
 
 } else {
 	// THEUSER has just arrived at this page, no form submitted.
 
-	
+
 	if ($this_page == "userview" || $this_page == 'userviewself') {
 
 		display_user ();
-	
+
 	} else {
-			
+
 
 		$PAGE->page_start();
-			
+
 		if ($this_page == "useredit") {
-			
+
 			// We're editing THEUSER's own info, so set all the vars.
-			$details = array();			
+			$details = array();
 			$details["firstname"]		= $THEUSER->firstname();
 			$details["lastname"]		= $THEUSER->lastname();
 			$details["email"]			= $THEUSER->email();
 			$details["emailpublic"]		= $THEUSER->emailpublic();
 			$details["password"]		= $THEUSER->password();
-			$details["optin"]			= $THEUSER->optin();	
+			$details["optin"]			= $THEUSER->optin();
 			$details["postcode"]		= $THEUSER->postcode();
 			$details["url"]				= $THEUSER->url();
 			$details["status"]			= $THEUSER->status();
-				
+
 			// display the form with this user's info.
 			display_form ($details);
-			
+
 		} elseif ($this_page == "otheruseredit") {
-	
+
 			// We're editing the info of a different user.
 			// So set up a new user object with the id supplied
 			// and get the user's info.
-			
+
 			$USER = new USER;
 			$USER->init( get_http_var("u") );
-			
+
 			$details = array();
-			
+
 			$details["user_id"]			= $USER->user_id();
 			$details["firstname"]		= $USER->firstname();
 			$details["lastname"]		= $USER->lastname();
@@ -220,27 +220,27 @@ if (get_http_var("submitted") == "true") {
 			$details["status"]			= $USER->status();
 			$details["deleted"]			= $USER->deleted();
 			$details["confirmed"]		= $USER->confirmed();
-			
+
 			// Display the form with the other user's info.
 			display_form ($details);
-		
+
 		} else {
-			
+
 			// $this_page == "userjoin".
 			// Display a blank form.
 			display_form ();
-			
+
 		}
-		
-		
+
+
 		$PAGE->page_end();
 	}
-	
+
 }
 
 function check_input($details) {
 	global $THEUSER, $this_page, $who;
-	
+
 	// This may be a URL that will send the user back to where they were before they
 	// wanted to join.
 	$ret = get_http_var("ret");
@@ -251,19 +251,19 @@ function check_input($details) {
 	// If there is a problem with any of them, set an entry in the $errors array.
 	// This will then be used to (a) indicate there were errors and (b) display
 	// error messages when we show the form again.
-	
+
 	// Check first name.
 	if ($details["firstname"] == "") {
 		$errors["firstname"] = "Please enter $who first name";
 	}
-		
+
 	// They don't need a last name. In case Madonna joins.
 
 	// Check email address is valid and unique.
 	if ($this_page == "otheruseredit" || $this_page == 'userjoin' || $this_page == 'useredit') {
         if ($details["email"] == "") {
             $errors["email"] = "Please enter $who email address";
-	
+
         } elseif (!validate_email($details["email"])) {
             // validate_email() is in includes/utilities.php
             $errors["email"] = "Please enter a valid email address";
@@ -292,56 +292,56 @@ function check_input($details) {
             }
         }
     }
-	
+
 	// Check passwords.
 	if ($this_page == "userjoin") {
-		
+
 		// Only *must* enter a password if they're joining.
 		if ($details["password"] == "") {
 			$errors["password"] = "Please enter $who password";
-		
+
 		} elseif (strlen($details["password"]) < 6) {
 			$errors["password"] = "Please enter at least six characters";
 		}
-	
+
 		if ($details["password2"] == "") {
 			$errors["password2"] = "Please enter $who password again";
 		}
-		
+
 		if ($details["password"] != "" && $details["password2"] != "" && $details["password"] != $details["password2"]) {
 			$errors["password"] = ucfirst($who) . " passwords did not match. Please try again.";
 		}
-		
+
 	} else {
-	
+
 		// Update details pages.
-		
+
 		if ($details["password"] != "" && strlen($details["password"]) < 6) {
 			$errors["password"] = "Please enter at least six characters";
 		}
-		
+
 		if ($details["password"] != $details["password2"]) {
 			$errors["password"] = ucfirst($who) . " passwords did not match. Please try again.";
 		}
 	}
-	
+
 	// Check postcode (which is not a compulsory field).
 	if ($details["postcode"] != "" && !validate_postcode($details["postcode"])) {
 		$errors["postcode"] = "Sorry, this isn't a valid UK postcode.";
 	}
 
 	// No checking of URL.
-	
-	
+
+
 	if ($this_page == "otheruseredit") {
-		
+
 		// We're editing another user's info.
-		
+
 		// Could check status here...?
 
-		
+
 	}
-	
+
 	// Send the array of any errors back...
 	return $errors;
 }
@@ -349,33 +349,33 @@ function check_input($details) {
 function add_user($details) {
 	global $THEUSER, $PAGE, $this_page;
 
-		
+
 	// If this goes well, the user will have their data
-	// added to the database and a confirmation email 
+	// added to the database and a confirmation email
 	// will be sent to them.
 	$success = $THEUSER->add ( $details );
 
 	if ($success) {
 		// No validation errors.
-		
+
 		$this_page = 'userwelcome';
-		
+
 		$PAGE->page_start();
-		
+
 		$PAGE->stripe_start();
-		
+
 		$message = array(
 			'title' => "We're nearly done...",
 			'text' => "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address before you can log in. Thanks."
 		);
-		
+
 		$PAGE->message($message);
 
 		$PAGE->stripe_end();
 
 /*		We used to log the user in straight away.
-		Now we send them a confirmation email. 
-		
+		Now we send them a confirmation email.
+
 		Keeping this code here, just in case.
 		Note that you'll probably have to add the 'remember' checkbox
 		back into the sign-up form.
@@ -387,14 +387,14 @@ function add_user($details) {
 		} else {
 			$expire ="session";
 		}
-		
+
 		// Wherever the user ends up next, we'll display a welcome message to them
-		// indicated by the 'newuser' element in the URL....		
-		
-		// $ret might be a URL that will take the user back to where they 
+		// indicated by the 'newuser' element in the URL....
+
+		// $ret might be a URL that will take the user back to where they
 		// where before joining.
 		if (get_http_var("ret") != "") {
-			
+
 			$url = get_http_var("ret");
 			// We're now going to have to fudge things a bit. Want to add "newuser=1"
 			// on to the end of wherever we were before, so a welcome message will
@@ -407,32 +407,32 @@ function add_user($details) {
 
 		} else {
 			// We'll send the user to the front page after they've joined.
-			
+
 			$URL = new URL("home");
 			$URL->insert(array("newuser"=>"1"));
 			$url = $URL->generate();
-		}			
+		}
 
-		// Log the new user in. They'll be sent off elsewhere, so we don't output any 
+		// Log the new user in. They'll be sent off elsewhere, so we don't output any
 		// HTML here.
-		$THEUSER->login($url, $expire);			
+		$THEUSER->login($url, $expire);
 
 */
 
 	} else {
-		
+
 		// Something went wrong, so display the form (with error messages).
-		
+
 		$this_page = 'userjoin';
-		
+
 		$PAGE->page_start();
-		
+
 		$errors["db"] = "Sorry, we were unable to create an account for you. Please <a href=\"mailto:". str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a>. Thanks.";
 
 		display_form( $details, $errors);
-		
+
 	}
-	
+
 	$PAGE->page_end();
 }
 
@@ -448,25 +448,25 @@ function update_user($details) {
 	// Who are we updating? $THEUSER or someone else?
 	if ($this_page == "otheruseredit") {
 		// Someone else.
-		
+
 		$success = $THEUSER->update_other_user ( $details );
-		
+
 		// For displaying the altered info.
 		$user_id = $details["user_id"];
-	
+
 	} else {
-		// $this_page == "useredit"	
-		
-		$success = $THEUSER->update_self ( $details );	
+		// $this_page == "useredit"
+
+		$success = $THEUSER->update_self ( $details );
 
 		// For displaying the altered info.
 		$user_id = $THEUSER->user_id;
 	}
-	
+
 
 	if ($success) {
 		// No errors, all updated, show results.
-		
+
 		if ($this_page == 'otheruseredit') {
 			$this_page = "userview";
 		} else {
@@ -479,21 +479,21 @@ function update_user($details) {
 			display_user( $user_id );
 		}
 
-		
+
 	} else {
 		// Something went wrong.
-		
-		$PAGE->page_start();
-		
-		$errors["db"] = "Sorry, we were unable to update $who details. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a> what you were trying to change. Thanks.";
-		
-		display_form($details, $errors);
-		
-		$PAGE->page_end();	
-	}	
-	
 
-		
+		$PAGE->page_start();
+
+		$errors["db"] = "Sorry, we were unable to update $who details. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a> what you were trying to change. Thanks.";
+
+		display_form($details, $errors);
+
+		$PAGE->page_end();
+	}
+
+
+
 }
 
 
@@ -501,18 +501,18 @@ function update_user($details) {
 
 function display_form ( $details = array(), $errors = array() ) {
 	global $this_page, $THEUSER, $who, $PAGE;
-	
+
 	$PAGE->stripe_start();
-	
+
 	if (isset($errors["db"])) {
-		
+
 		$PAGE->error_message($errors["db"]);
-	
+
 	} else {
-		
+
 		$URL = new URL("userlogin");
 		$URL->insert(array('ret'=>get_http_var('ret')));
-		
+
 		if (!$THEUSER->isloggedin()) {
 			?>
 				<p>Joining TheyWorkForYou allows you to leave annotations on debates, as well as
@@ -521,7 +521,7 @@ function display_form ( $details = array(), $errors = array() ) {
 <?php
 		}
 	}
-	
+
 	$ACTIONURL = new URL($this_page);
 	$ACTIONURL->reset();
 	?>
@@ -546,7 +546,7 @@ function display_form ( $details = array(), $errors = array() ) {
 				</div>
 <?php
 	}
-	
+
 	if (isset($errors["firstname"])) {
 		$PAGE->error_message($errors["firstname"]);
 	}
@@ -628,7 +628,7 @@ function display_form ( $details = array(), $errors = array() ) {
 				<span class="formw"><input type="text" name="url" id="url" value="<?php if (isset($details['url'])) { echo htmlentities($details['url']); } ?>" maxlength="255" size="20" class="form"> <small>Optional and public</small></span>
 				</div>
 
-				
+
 				<div class="row">
 				&nbsp;<br>Let other users see <?php echo $who; ?> email address?
 				</div>
@@ -644,20 +644,20 @@ function display_form ( $details = array(), $errors = array() ) {
 				<span class="formw"><input type="radio" name="emailpublic" id="emailpublictrue" value="true"<?php
 	if (isset($details["emailpublic"]) && $details["emailpublic"] == true) {
 		print " checked";
-	}	
+	}
 	?>> <label for="emailpublictrue">Yes</label><br>
 					<input type="radio" name="emailpublic" id="emailpublicfalse" value="false"<?php
-	if (($this_page == "userjoin" && get_http_var("submitted") != "true") 
-		|| 
+	if (($this_page == "userjoin" && get_http_var("submitted") != "true")
+		||
 		(isset($details["emailpublic"]) && $details["emailpublic"] == false)
 		) {
 		print " checked";
 	}
 	?>> <label for="emailpublicfalse">No</label></span>
 				</div>
-				
-				
-				
+
+
+
 				<div class="row">
 				&nbsp;<br>Do <?php if ($this_page == "otheruseredit") { echo "they"; } else { echo "you"; } ?> wish to receive occasional update emails about TheyWorkForYou.com?
 				</div>
@@ -739,7 +739,7 @@ function display_form ( $details = array(), $errors = array() ) {
 	}
 	?>></span>
 				</div>
-				
+
 				<div class="row">
 				<span class="label"><label for="deleted">"Deleted"?</label></span>
 				<span class="formw"><input type="checkbox" name="deleted[]" id="deleted" value="true"<?php
@@ -751,14 +751,14 @@ function display_form ( $details = array(), $errors = array() ) {
 
 <?php
 	}
-	
-	
+
+
 	if ($this_page == "useredit" || $this_page == "otheruseredit") {
 		$submittext = "Update details";
 	} else {
 		$submittext = "Join TheyWorkForYou.com";
 	}
-	
+
 	$TERMSURL = new URL('houserules');
 ?>
 				<div class="row">
@@ -800,14 +800,14 @@ function display_form ( $details = array(), $errors = array() ) {
 <?php
 
 	if ($this_page == 'userjoin') {
-	
+
 		$PAGE->stripe_end(array (
 			array (
 				'type'		=> 'include',
 				'content'	=> 'userjoin'
 			)
 		));
-		
+
 	} else {
 		$PAGE->stripe_end();
 	}
@@ -823,49 +823,49 @@ function display_form ( $details = array(), $errors = array() ) {
 function display_user($user_id="", $email_changed=false) {
 
 	global $THEUSER, $PAGE, $DATA, $this_page, $who;
-	
+
 
 	// We're either going to be:
-	//	Displaying the details of a user who's just been edited 
+	//	Displaying the details of a user who's just been edited
 	//		(their user_id will be in $user_id now).
 	//	Viewing THEUSER's own data.
-	//	Viewing someone else's data (their id will be in the GET string 
+	//	Viewing someone else's data (their id will be in the GET string
 	//		user_id variable).
-	
-	
+
+
 	// We could do something cleverer so that if THEUSER has sufficient
 	// privileges we display more data when they're viewing someone else's info
 	// than what your average punter sees.
-	
-	
+
+
 	// If $user_id is a user id, we've just edited that user's info.
-	
-	
-	
+
+
+
 	// FIRST: Work out whose info we're going to show.
-	
+
 	$edited = false; 	// Have we just edited someone's info?
 
 	if (is_numeric($user_id) && $user_id == $THEUSER->user_id()) {
 		// Display this user's just edited info.
 		$display = "this user";
 		$edited = true;
-		
+
 	} elseif (is_numeric($user_id)) {
 		// Display someone else's just edited info.
 		$display = "another user";
 		$edited = true;
-		
+
 	} elseif (is_numeric(get_http_var("u"))) {
 		// Display someone else's info.
 		$user_id = get_http_var("u");
 		$display = "another user";
-	
+
 	} elseif ($THEUSER->isloggedin()) {
 		// Display this user's info.
 		$display = "this user";
 		$user_id = $THEUSER->user_id();
-	
+
 	} else {
 		// Nothing to show!
 		$URL = new URL('userlogin');
@@ -873,13 +873,13 @@ function display_user($user_id="", $email_changed=false) {
 		$loginurl = $URL->generate();
 		header("Location: $loginurl");
 		exit;
-		
+
 	}
-	
-	
+
+
 
 	// SECOND: Get the data for whoever we're going to show.
-	
+
 	$db = new ParlDB;
 	if ($display == "another user") {
 
@@ -890,20 +890,20 @@ function display_user($user_id="", $email_changed=false) {
 
 		if ($valid && $USER->confirmed() && !$USER->deleted()) {
 			// Don't want to display unconfirmed or deleted users.
-		
+
 			$name = $USER->firstname() . " " . $USER->lastname();
 			$url = $USER->url();
-			
+
 			if ($USER->emailpublic() == true) {
 				$email = $USER->email();
-			}		
-			
+			}
+
 			$status 			= $USER->status();
 			$registrationtime	= $USER->registrationtime();
-	
+
 			// Change the page title to reflect whose info we're viewing.
 			$DATA->set_page_metadata($this_page, "title", "$name");
-			
+
 			$q = $db->query('select count(*) as c from video_timestamps where deleted=0 and user_id= ' . $USER->user_id());
 			$video = $q->field(0, 'c');
 
@@ -911,11 +911,11 @@ function display_user($user_id="", $email_changed=false) {
 			// This user_id doesn't exist.
 			$display = "none";
 		}
-		
-			
+
+
 	} elseif ($display == "this user") {
-		
-		// Display THEUSER's info.	
+
+		// Display THEUSER's info.
 		$name 			= $THEUSER->firstname() . " " . $THEUSER->lastname();
 		$url 			= $THEUSER->url();
 		if ($edited) {
@@ -932,25 +932,25 @@ function display_user($user_id="", $email_changed=false) {
 			$registrationtime	= $THEUSER->registrationtime();
 			$status			= $THEUSER->status();
 		}
-	
+
 		$q = $db->query('select count(*) as c from video_timestamps where deleted=0 and user_id= ' . $THEUSER->user_id());
 		$video = $q->field(0, 'c');
-	
+
 		// Change the page title to make it clear we're viewing THEUSER's
 		// own info. Make them less worried about other people seeing some of the
 		// info that shouldn't be public.
-		$DATA->set_page_metadata($this_page, "title", "Your details");		
-				
+		$DATA->set_page_metadata($this_page, "title", "Your details");
+
 	} else {
 
 		// There's nothing to display!
-				
+
 	}
 
 	// THIRD: Print out what we've got.
 	$PAGE->page_start();
 
-	if ($display != "none") {	
+	if ($display != "none") {
 
 		$PAGE->stripe_start();
 
@@ -960,7 +960,7 @@ function display_user($user_id="", $email_changed=false) {
 			$registrationtime = format_date ($date, LONGDATEFORMAT);
 		}
 
-			
+
 		if ($edited && (!$email_changed || $display == 'another user')) {
 			print "\t\t\t\t<p><strong>" . ucfirst($who) . " details have been updated:</strong></p>\n";
 		} elseif ($edited && $email_changed) {
@@ -971,7 +971,7 @@ function display_user($user_id="", $email_changed=false) {
 			$EDITURL = new URL('useredit');
 			?>
 				<p><strong>This is how other people see you.</strong> <a href="<?php echo $EDITURL->generate(); ?>">Edit your details</a>.</p>
-<?php	
+<?php
 		}
 
 		?>
@@ -1032,7 +1032,7 @@ function display_user($user_id="", $email_changed=false) {
 
 <?php
 		}
-		
+
 		if (isset($emailpublic)) {
 			?>
 				<div class="row">&nbsp;<br>Let other people see your email address? <strong><?php echo htmlentities($emailpublic); ?></strong></div>
@@ -1062,7 +1062,7 @@ function display_user($user_id="", $email_changed=false) {
 				</div>
 <?php
 		}
-		
+
 		if (isset($video)) {
 			echo '<div class="row"><span class="label">Videos timestamped</span>
 				<span class="formw">', $video, '</span></div>';
@@ -1075,7 +1075,7 @@ function display_user($user_id="", $email_changed=false) {
 				<p>&nbsp;<br><a href="<?php echo $EDITURL->generate(); ?>">Edit again</a> or <a href="<?php echo $VIEWURL->generate(); ?>">see how others see you</a>.</p>
 <?php
 		}
-		
+
 
 		$PAGE->stripe_end();
 
@@ -1088,33 +1088,33 @@ function display_user($user_id="", $email_changed=false) {
 		}
 
 		if (!$edited) {
-		
+
 			$args = array(
 				'user_id' => $user_id,
 				'page' => get_http_var('p')
 			);
-	
+
 			$COMMENTLIST = new COMMENTLIST();
-			
+
 			$COMMENTLIST->display('user', $args);
 		}
-		
+
 	} else {
-	
+
 		$message = array (
 			'title' => 'Sorry...',
 			'text'	=> "We don't have a user ID, so we can't show you anyone's details."
 		);
-		
+
 		$PAGE->message($message);
-	
+
 	}
-	
+
 
 	$PAGE->page_end();
-		
+
 
 } // end display_user()
 
-		
+
 ?>

@@ -1,5 +1,5 @@
 <?php
-// For displaying the main Hansard content listings (by gid), 
+// For displaying the main Hansard content listings (by gid),
 // and individual Hansard items (the comments are handled separately
 // by COMMENTLIST and the comments.php template).
 
@@ -17,7 +17,7 @@ include_once INCLUDESPATH."easyparliament/member.php";
 
 twfy_debug("TEMPLATE", "hansard_gid.php");
 
-// Will set the page headings and start the page HTML if it hasn't 
+// Will set the page headings and start the page HTML if it hasn't
 // already been started.
 if (!isset($data['info'])) {
 	// No data! We'll be exiting here! but send a 404 so that spiders stop indexing the page.
@@ -123,7 +123,7 @@ if (isset ($data['rows'])) {
 			
 			//get section text (e.g. house of commons debate)
 		    $parent_page = $DATA->page_metadata($this_page, 'parent');			
-			$section_text = $DATA->page_metadata($parent_page, 'title');		    
+			$section_text = $DATA->page_metadata($parent_page, 'title');
 			
 			//work out the time the debate started
             $has_start_time = false;
@@ -258,9 +258,9 @@ if (isset ($data['rows'])) {
 
             // Used for action links (link, source, watch etc)
             $action_links = array();
-                
+
 			if (isset($row['speaker']) && count($row['speaker']) > 0) {
-			    
+
 			  // We have a speaker to print.
 				$speaker = $row['speaker'];
 				$speakername = ucfirst(member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']));
@@ -285,7 +285,7 @@ if (isset ($data['rows'])) {
 				echo '<div class="personinfo" id="personinfo_' . $row['epobject_id']  . '"><ul>';
 				echo '<li><a href="/alert/?pid=' . $speaker['person_id'] . '">Email me when ' . $speakername .  ' speaks</a></li>';
 				if($data['info']['major'] == 101 || $data['info']['major'] == 1){
-				    echo '<li><a href="' . $speaker['url'] . '#votingrecord">View voting record</a></li>';												    
+				    echo '<li><a href="' . $speaker['url'] . '#votingrecord">View voting record</a></li>';
 			    }
 				echo '<li><a href="' . $speaker['url'] . '#hansard">Most recent appearances</a></li>';				
 				echo '<li><a href="' . $speaker['url'] . '#numbers">Numerology</a></li>';								
@@ -361,11 +361,11 @@ if (isset ($data['rows'])) {
 						$source_title .= 'W';
 					} elseif ($major==4) {
 						$source_title .= 'WS';
-					} 
+					}
 				}
 
                 $text = "Hansard source";
-				if ($hansardmajors[$data['info']['major']]['location']=='Scotland'){        
+				if ($hansardmajors[$data['info']['major']]['location']=='Scotland'){
 				    $text = 'Official Report source';
 				}
                 $action_links["source"] = '<a href="' . $row['source_url'] . '" class="source">' . $text . "</a>";
@@ -433,10 +433,10 @@ if (isset ($data['rows'])) {
                 } else {
                     $commentsurl = $row['commentsurl'];
                 }
-                
+
                 $action_links['add'] = '<a class="annotate" href="' . $commentsurl . '#addcomment">Add an annotation</a> <small>(e.g. more info, blog post or wikipedia article)</small>';
             }
-            
+
 # Do the logic for this in the function; plus why shouldn't
 # you be able to comment on speeches with unknown speakers?
 #			if (($hansardmajors[$data['info']['major']]['type'] == 'debate') && isset($row['speaker']) && count($row['speaker']) > 0) {
@@ -462,7 +462,7 @@ if (isset ($data['rows'])) {
 		} // End htype 12.
 		
 
-		// TRACKBACK AUTO DISCOVERY 
+		// TRACKBACK AUTO DISCOVERY
 /*		if (isset($row['trackback']) && count($row['trackback']) > 0) {
 
 			$PAGE->trackback_rss($row['trackback']);
@@ -594,7 +594,7 @@ function generate_commentteaser (&$row, $major, $action_links) {
             foreach ($action_links as $action_link) {
                 $html .= "<li>$action_link</li>\n";
             }
-        $html .= '</ul>';        
+        $html .= '</ul>';
     }
 
 	if ($hansardmajors[$major]['type'] == 'debate' && $hansardmajors[$major]['page_all']==$this_page) {
@@ -648,7 +648,7 @@ function generate_commentteaser (&$row, $major, $action_links) {
 $votelinks_so_far = 0;
 function generate_votes ($votes, $major, $id, $gid) {
 	/*
-	Returns HTML for the 'Interesting?' links (debates) or the 'Does this answer 
+	Returns HTML for the 'Interesting?' links (debates) or the 'Does this answer
 	the question?' links (wrans) in the sidebar.
 	
 	We have yes/no, even for debates, for which we only allow people to say 'yes'.
@@ -802,7 +802,7 @@ function get_question_mentions_html($row_data) {
 	}
 	$result .= '</ul>';
 	return $result;
-} 
+}
 
 function video_sidebar($row, $section, $count, $major) {
 	include_once INCLUDESPATH . 'easyparliament/video.php';
@@ -909,8 +909,8 @@ pairs along the lines of:
 	)
 	etc.
 
-Note: There are two URLs. 
-	'listurl' is a link to the item in context, in the list view. 
+Note: There are two URLs.
+	'listurl' is a link to the item in context, in the list view.
 	'commentsurl' is the page where we can see this item and all its comments.
 
 Note: The 'trackback' array won't always be there - only if we think we're going to

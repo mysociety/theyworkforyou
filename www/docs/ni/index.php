@@ -3,7 +3,7 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
-// For displaying all the NIA debates on a day, or a single debate. 
+// For displaying all the NIA debates on a day, or a single debate.
 
 if (get_http_var("d") != "") {
 	$this_page = "nidebatesday";
@@ -12,7 +12,7 @@ if (get_http_var("d") != "") {
 	);
 	$LIST = new NILIST;
 	$LIST->display('date', $args);
-	
+
 } elseif (get_http_var('id') != "") {
 	$this_page = "nidebates";
 	$args = array (
@@ -35,7 +35,7 @@ if (get_http_var("d") != "") {
 	}
 
 	$LIST = new NILIST;
-	
+
 	$result = $LIST->display('gid', $args);
 	// If it is a redirect, change URL
 	if (is_string($result)) {
@@ -46,7 +46,7 @@ if (get_http_var("d") != "") {
 	}
 
 } elseif (get_http_var('y') != '') {
-	
+
 	$this_page = 'nidebatesyear';
 	if (is_numeric(get_http_var('y'))) {
 		$DATA->set_page_metadata($this_page, 'title', get_http_var('y'));
@@ -67,7 +67,7 @@ if (get_http_var("d") != "") {
 			'content' => "nidebates"
 		)
 	));
-	
+
 } elseif (get_http_var('gid') != '') {
 	$this_page = 'nidebate';
 	$args = array(

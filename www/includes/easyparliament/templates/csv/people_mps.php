@@ -30,7 +30,7 @@ function render_mps_row($mp, $order) {
 		print $parties[$mp['party']];
 	else
 		print $mp['party'];
-	print ',' . $con . ',' .  'http://www.theyworkforyou.com/mp/' . 
+	print ',' . $con . ',' .  'http://www.theyworkforyou.com/mp/' .
 		make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1, $mp['person_id']);
 	if ($order == 'expenses') print ', £' . $mp['data_value'];
 	elseif ($order == 'debates') print ', ' . $mp['data_value'];

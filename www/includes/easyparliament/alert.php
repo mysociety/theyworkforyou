@@ -23,7 +23,7 @@ ALERT
 	confirm($token)							Confirm a new alert in the DB
 	delete($token)							Remove an existing alert from the DB
 	id_exists()							Checks if an alert_id is valid.
-	
+
 To create a new alert do:
 	$ALERT = new ALERT;
 	$ALERT->add();
@@ -68,7 +68,7 @@ function alert_confirmation_advert($details) {
 	return $advert_shown;
 }
 
-	
+
 function alert_details_to_criteria($details) {
 	$criteria = array();
 	if (isset($details['keyword']) && $details['keyword']) $criteria[] = $details['keyword'];
@@ -91,13 +91,13 @@ class ALERT {
 // FUNCTION: fetch_between
 
 	function fetch_between($confirmed, $deleted, $start_date, $end_date) {
-	  // Return summary data on all the alerts that were created between $start_date 
+	  // Return summary data on all the alerts that were created between $start_date
 	  // and $end_date (inclusive) and whose confirmed and deleted values match the booleans
 	  // passed in $confirmed and $deleted
 	  	$q = $this->db->query("SELECT   criteria, count(*) as cnt
                              FROM     alerts
 	                	         WHERE    confirmed = ". $confirmed .
-	          	             " AND      deleted = " . $deleted . 
+	          	             " AND      deleted = " . $deleted .
 	                	       " AND      created >= '" .  mysql_real_escape_string($start_date) . "'" .
 	                         " AND      created <= '" .  mysql_real_escape_string($end_date) . "'" .
 	                   	     " GROUP BY criteria" );
@@ -132,7 +132,7 @@ class ALERT {
 						' ORDER BY email');
 
 		$data = array();
-			
+
 			for ($row=0; $row<$q->rows(); $row++) {
 				$contents = array(
 				'alert_id' 	=> $q->field($row, 'alert_id'),
@@ -146,13 +146,13 @@ class ALERT {
 			}
 			$info = "Alert";
 			$data = array ('info' => $info, 'data' => $data);
-		
-			
+
+
 			return $data;
 	}
 
 	function add($details, $confirmation_email=false, $instantly_confirm=true) {
-		
+
 		// Adds a new alert's info into the database.
 		// Then calls another function to send them a confirmation email.
 		// $details is an associative array of all the alert's details, of the form:
@@ -161,7 +161,7 @@ class ALERT {
 		//		"criteria"	=> "speaker:521",
 		//		etc... using the same keys as the object variable names.
 		// )
-		
+
 		$criteria = alert_details_to_criteria($details);
 
 		$q = $this->db->query("SELECT * FROM alerts WHERE email='".mysql_real_escape_string($details['email'])."' AND criteria='".mysql_real_escape_string($criteria)."' AND confirmed=1");
@@ -206,7 +206,7 @@ class ALERT {
 			// stuff, just need to match this token.
 
 			$this->registrationtoken = strtr($token, '.', 'X');
-	
+
 			// Add that to the database.
 
 			$r = $this->db->query("UPDATE alerts
@@ -268,7 +268,7 @@ class ALERT {
 		$urltoken = $this->alert_id . '-' . $this->registrationtoken;
 
 		$confirmurl = 'http://' . DOMAIN . '/A/' . $urltoken;
-		
+
 		// Arrays we need to send a templated email.
 		$data = array (
 			'to' 		=> $details['email'],

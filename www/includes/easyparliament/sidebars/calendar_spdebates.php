@@ -9,14 +9,14 @@ global $PAGE;
 if ($this_page == 'spdebatesday') {
 	$date = get_http_var('d');
 	list($year, $month, $day) = explode('-', $date);
-	
+
 	$args = array (
 		'year' => $year,
 		'month' => $month,
 		'onday' => $date
 	);
 	$title = 'Debates this month';
-	
+
 } else {
 	$args = array (
 		'months' => 1	// How many recent months to show.

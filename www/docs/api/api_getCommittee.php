@@ -44,7 +44,7 @@ If left blank, return all committee names for the date provided (or current date
   ]
 }</pre>
 
-<?php	
+<?php
 }
 
 function api_getCommittee() {

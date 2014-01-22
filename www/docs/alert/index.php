@@ -142,7 +142,7 @@ $end[] = array('type' => 'include', 'content' => 'minisurvey');
 $end[] = array('type' => 'include', 'content' => 'mysociety_news');
 $end[] = array('type' => 'include', 'content' => 'search');
 $PAGE->stripe_end($end);
-$PAGE->page_end($extra); 
+$PAGE->page_end($extra);
 
 # ---
 
@@ -162,7 +162,7 @@ function check_input($details) {
     } elseif (!validate_email($details["email"])) {
         // validate_email() is in includes/utilities.php
         $errors["email"] = "Please enter a valid email address";
-    } 
+    }
 
     if ($details['pid'] && !ctype_digit($details['pid'])) {
         $errors['pid'] = 'Invalid person ID passed';
@@ -205,10 +205,10 @@ function add_alert($details) {
 		$confirm = true;
 	}
 
-	// If this goes well, the alert will be added to the database and a confirmation email 
+	// If this goes well, the alert will be added to the database and a confirmation email
 	// will be sent to them.
 	$success = $ALERT->add ( $details, $confirm );
-	
+
 	$advert = false;
 	if ($success>0 && !$confirm) {
 		if ($details['pid']) {
@@ -233,7 +233,7 @@ function add_alert($details) {
 			'text' => "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address to receive the alert. Thanks."
 		);
 	} elseif ($success == -2) {
-		// we need to make sure we know that the person attempting to sign up 
+		// we need to make sure we know that the person attempting to sign up
 		// for the alert has that email address to stop people trying to work
 		// out what alerts they are signed up to
 		if ( $details['email_verified'] || ( $THEUSER->loggedin && $THEUSER->email() == $details['email'] ) ) {
@@ -398,7 +398,7 @@ also match &lsquo;horses&rsquo;).
     }
 ?>
 
-    <div class="row">   
+    <div class="row">
         <input type="submit" class="submit" value="<?=
             ($details['pid'] || $details['keyword']) ? 'Subscribe' : 'Search'
         ?>">

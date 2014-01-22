@@ -1,10 +1,10 @@
 <?php
 /*	Remember, we are currently within the COMMENTLIST class,
 	in the render() function.
-	
-	We cycle through the $data array and output the comment(s). 
+
+	We cycle through the $data array and output the comment(s).
 	It should be something like this:
-	
+
 	$data = array (
 		'info'	=> array (
 			'user_id' => '34'		//  Might be used to highlight the user's comments.
@@ -30,7 +30,7 @@
 		)
 	);
 
-	
+
 */
 global $PAGE, $DATA, $this_page, $THEUSER;
 
@@ -46,7 +46,7 @@ if (isset($data['comments'][0]['preview']) && $data['comments'][0]['preview'] ==
 
 } elseif ($this_page == 'commentreport' || $this_page == 'admin_commentreport') {
 	$subheading = "";
-	
+
 } else {
 	$subheading = 'Annotations';
 }
@@ -54,44 +54,44 @@ if (isset($data['comments'][0]['preview']) && $data['comments'][0]['preview'] ==
 ?>
 				<a name="comments"></a>
 <?php
-if ($subheading != '') { 
-	echo "\t\t\t\t<h4>$subheading</h4>\n"; 
+if ($subheading != '') {
+	echo "\t\t\t\t<h4>$subheading</h4>\n";
 }
 
-	
+
 
 if (isset($data['comments']) && count($data['comments']) > 0) {
 
 	foreach ($data['comments'] as $n => $comment) {
 		$style = $n % 2 != 0 ? '1' : '2';
 
-		if (isset($data['info']['user_id']) && 
+		if (isset($data['info']['user_id']) &&
 			$comment['user_id'] == $data['info']['user_id']) {
 			$style .= '-on';
 		}
-		
+
 		if (isset($comment['comment_id'])) {
 			$id = 'c' . $comment['comment_id'];
 		} else {
 			$id = '';
 		}
-			
+
 		?>
 				<div class="comment" id="<?php echo $id; ?>">
 					<a name="<?php echo $id; ?>"></a>
 <?php
 
 		// COMMENT REPORTING LINK.
-		
-		if (($this_page != 'commentreport' && 
-			$this_page != 'addcomment'  && 
-			$this_page != 'admin_commentreport') 
+
+		if (($this_page != 'commentreport' &&
+			$this_page != 'addcomment'  &&
+			$this_page != 'admin_commentreport')
 			&& $THEUSER->is_able_to('reportcomment')
 			&& $THEUSER->user_id() != $comment['user_id']
 			&& !$comment['modflagged']
 			) {
-			
-			// The comment hasn't been reported and we're on a page where we want to 
+
+			// The comment hasn't been reported and we're on a page where we want to
 			// display this link.
 
 			$URL = new URL('commentreport');
@@ -99,7 +99,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 				'id'	=> $comment['comment_id'],
 				'ret' 	=> $comment['url']
 			));
-			
+
 			$reporthtml = '(<a href="' . $URL->generate() . '" title="Notify moderators that this comment should be deleted">Report this comment</a>)';
 
 		} elseif ($comment['modflagged']) {
@@ -108,20 +108,20 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 			// When previewing a comment...
 			$reporthtml = '';
 		}
-		
+
 
 		// USERNAME AND DATE AND TIME.
 
 		$USERURL = new URL('userview');
 		$USERURL->insert(array('u'=>$comment['user_id']));
-		
+
 		list($date, $time) = explode(' ', $comment['posted']);
 		$date = format_date($date, SHORTDATEFORMAT);
 		$time = format_time($time, TIMEFORMAT);
 		?>
 					<p class="credit"><a href="<?php echo $USERURL->generate(); ?>" title="See information about this user"><strong><?php echo htmlentities($comment['firstname']) .' '. htmlentities($comment['lastname']); ?></strong></a><br>
-					<small>Posted on <?php echo $date; 
-					
+					<small>Posted on <?php echo $date;
+
 		if (isset($comment['url'])) {
 			print ' <a href="' . $comment['url'] . '" title="Link to this comment">' . $time . '</a>';
 
@@ -130,17 +130,17 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 			print ' '.$time;
 		}
 		?> <?php echo $reporthtml; ?></small></p>
-		
+
 <?php
 
 		// THE COMMENT BODY.
-		
+
 		// Make URLs into links and do <br>s.
 		$body = prepare_comment_for_display($comment['body']); // In utility.php
-		
+
 		echo "<p class=\"comment\">$body</p>\n";
 
-		
+
 		?>
 				</div> <!-- end .comment -->
 <?php

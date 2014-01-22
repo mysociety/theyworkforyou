@@ -59,7 +59,7 @@ MPs obsessively checking their own stats. -->
 <p>
 It&rsquo;s time for Parliament to improve its act and start publishing these vital
 documents properly in the first place. Quite apart from the fact that we&rsquo;re a
-tiny charity without many resources to fix this information, 
+tiny charity without many resources to fix this information,
 <em>you&rsquo;re paying</em> for them to produce it in a uselessly old
 fashioned way.  Unless Parliament produces better bills:
 
@@ -77,7 +77,7 @@ can&rsquo;t see their involvement with the bill making process.
 enough to think of yet.
 </ul>
 
-<!-- 
+<!--
 <h2>"Why won&rsquo;t Parliament do this?"</h2>
 
 <p>We tried, my dears, we really did. We had meetings, and heard

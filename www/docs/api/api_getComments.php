@@ -30,7 +30,7 @@ function api_getComments_start_date($start_date) {
     		'start_date' => $start_date,
     		'end_date' => get_http_var('end_date')
     	);
-	$commentlist = new COMMENTLIST;    
+	$commentlist = new COMMENTLIST;
 	$commentlist->display('dates', $args, 'api');
 }
 
@@ -40,7 +40,7 @@ function api_getComments_search($s) {
     		'p' => get_http_var('page'),
     		'num' => get_http_var('num'),
     	);
-	$commentlist = new COMMENTLIST;    
+	$commentlist = new COMMENTLIST;
 	$commentlist->display('search', $args, 'api');
 }
 

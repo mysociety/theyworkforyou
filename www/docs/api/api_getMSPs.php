@@ -28,7 +28,7 @@ function api_getMSPs_front() {
 	i:1; ...
 </pre>
 
-<?php	
+<?php
 }
 
 /* See api_getMembers.php for these shared functions */

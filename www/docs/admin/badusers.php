@@ -18,34 +18,34 @@ $PAGE->stripe_start();
 <?php
 
 // Get a list of the users who have the most deleted comments.
-$q = $db->query("SELECT COUNT(*) AS deletedcount, 
+$q = $db->query("SELECT COUNT(*) AS deletedcount,
 						u.user_id,
 						u.firstname,
 						u.lastname,
 						u.email
 				FROM 	comments c, users u
-				WHERE 	c.visible = 0 
+				WHERE 	c.visible = 0
 				AND		c.user_id = u.user_id
 				GROUP BY user_id
 				ORDER BY deletedcount DESC");
 
 $rows = array();
 $USERURL = new URL('userview');
-	
+
 for ($row=0; $row<$q->rows(); $row++) {
-	
+
 	$user_id = $q->field($row, 'user_id');
-	
+
 	// Get the total comments posted for this user.
 	$r = $db->query("SELECT COUNT(*) AS totalcount
 					FROM	comments
 					WHERE	user_id = '" . $user_id . "'");
-	
+
 	$totalcomments = $r->field(0, 'totalcount');
-	
+
 	$percentagedeleted = ( $q->field($row, 'deletedcount') / $totalcomments ) * 100;
-	
-	
+
+
 	// Get complaints made about this user's comments, but not upheld.
 	$r = $db->query("SELECT COUNT(*) AS count
 					FROM commentreports, comments
@@ -53,12 +53,12 @@ for ($row=0; $row<$q->rows(); $row++) {
 					AND		comments.user_id = '$user_id'
 					AND		commentreports.resolved IS NOT NULL
 					AND		commentreports.upheld = '0'");
-	
+
 	$notupheldcount = $r->field(0, 'count');
-	
-	
+
+
 	$USERURL->insert(array('u'=>$user_id));
-	
+
 	$rows[] = array (
 		'<a href="' . $USERURL->generate() . '">' . $q->field($row, 'firstname') . ' ' . $q->field($row, 'lastname') . '</a>',
 		$totalcomments,
@@ -104,11 +104,11 @@ $q = $db->query("SELECT COUNT(*) AS rejectedcount,
 
 $rows = array();
 $USERURL = new URL('userview');
-	
+
 for ($row=0; $row<$q->rows(); $row++) {
 
 	$user_id = $q->field($row, 'user_id');
-	
+
 	$USERURL->insert(array('u'=>$user_id));
 
 	// Get how many valid complaints they've submitted.
@@ -116,13 +116,13 @@ for ($row=0; $row<$q->rows(); $row++) {
 					FROM commentreports
 					WHERE	user_id = '$user_id'
 					AND		upheld = '1'");
-	
+
 	$rows[] = array (
 		'<a href="' . $USERURL->generate() . '">' . $q->field($row, 'firstname') . ' ' . $q->field($row, 'lastname') . '</a>',
 		$q->field($row, 'rejectedcount'),
 		$r->field(0, 'upheldcount')
 	);
-	
+
 }
 $tabledata = array (
 	'header' => array (

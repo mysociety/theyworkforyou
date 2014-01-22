@@ -20,8 +20,8 @@
 			etc.
 		)
 	);
-	
-	
+
+
 */
 
 twfy_debug("TEMPLATE", "hansard_recent_wms.php");
@@ -35,16 +35,16 @@ $count = 0;
 foreach ($data['data'] as $wran) {
 
 	$count++;
-	
+
 	$extrainfo = array();
-	
+
 	if ($wran['totalcomments'] > 0) {
 		$plural = $wran['totalcomments'] == 1 ? 'annotation' : 'annotations';
 		$totalcomments = ' <small>(' . $wran['totalcomments'] . ' ' . $plural . ')</small>';
 	} else {
 		$totalcomments = '';
 	}
-	
+
 	$speaker = $wran['child']['speaker'];
 	?>
 				<dt><a name="w<?php echo $count; ?>"></a><strong><a href="<?php echo $wran['list_url']; ?>"><?php echo $wran['parent']['body'] . ': ' . $wran['body']; ?></a></strong> <?php echo format_date($wran['hdate'], LONGDATEFORMAT) . ' ' .$totalcomments; ?></dt>

@@ -22,7 +22,7 @@ function api_getMLA_front() {
   &lt;/twfy&gt;
 </pre>
 
-<?php	
+<?php
 }
 
 function api_getMLA_id($id) {

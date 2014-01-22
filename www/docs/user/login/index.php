@@ -19,12 +19,12 @@ if (get_http_var("submitted") == "true") {
 	$email 		= get_http_var("email");
 	$password 	= get_http_var("password");
 	$remember 	= get_http_var("remember");
-	
+
 	// The user may have tried to do something that requires being logged in.
 	// In which case we should arrive here with that page's URL in 'ret'.
 	// We can then send the user there after log in.
 	$returnurl 	= get_http_var("ret");
-	
+
 	$errors = array();
 
 	if ($email == "") {
@@ -39,10 +39,10 @@ if (get_http_var("submitted") == "true") {
 	if (sizeof($errors) > 0) {
 		// Validation errors. Print form again.
 		display_page($errors);
-		
+
 	} else {
 		// No errors so far, so try to log in.
-		
+
 		$valid = $THEUSER->isvalid($email, $password);
 
 		if ($valid && !is_array($valid)) {
@@ -55,15 +55,15 @@ if (get_http_var("submitted") == "true") {
 
 			// $returnurl is the url of where we'll send the user after login.
 			$THEUSER->login($returnurl, $expire);
-			
+
 		} else {
-		
+
 			// Merge the validation errors with any we already have.
 			$errors = array_merge($errors, $valid);
-	
-			display_page($errors);	
+
+			display_page($errors);
 		}
-		
+
 	}
 
 } elseif ($resend = get_http_var('resend')) {
@@ -95,14 +95,14 @@ if (get_http_var("submitted") == "true") {
 
 function display_page( $errors=array() ) {
 	global $PAGE, $this_page, $THEUSER;
-	
+
 	$PAGE->page_start();
-	
+
 	$PAGE->stripe_start();
-	
+
 	if ($THEUSER->isloggedin()) {
 		// Shouldn't really get here, but you never know.
-		$URL = new URL('userlogout'); 
+		$URL = new URL('userlogout');
 		?>
 	<p><strong>You are already logged in. <a href="<?php echo $URL->generate(); ?>">Log out?</a></strong></p>
 <?php
@@ -111,13 +111,13 @@ function display_page( $errors=array() ) {
 		return;
 	}
 	?>
-	
+
 				<p>Not yet a member? <a href="<?php $URL = new URL("userjoin"); echo $URL->generate(); ?>">Join now</a>!</p>
 
 <?php
 
 	$PAGE->login_form($errors);
-	
+
 
 	$PAGE->stripe_end(array(
 		array (

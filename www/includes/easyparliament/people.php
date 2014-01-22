@@ -16,29 +16,29 @@ class PEOPLE {
 
 	function display ($view, $args=array(), $format='html') {
 		global $PAGE;
-	
+
 		$validviews = array('mps', 'peers', 'mlas', 'msps');
-		
+
 		if (in_array($view, $validviews)) {
-		
+
 			// What function do we call for this view?
 			$function = '_get_data_by_'.$view;
-			
+
 			// Get all the data that's to be rendered.
 			$data = $this->$function($args);
-			
+
 		} else {
 			$PAGE->error_message ("You haven't specified a view type.");
 			return false;
 		}
-		
+
 		$return = $this->render($view, $data, $format);
-		
+
 		return $return;
 	}
-	
-	
-	
+
+
+
 	function render($view, $data, $format='html') {
 		// Once we have the data that's to be rendered,
 		// include the template.
@@ -47,11 +47,11 @@ class PEOPLE {
 		if ($format == 'none') {
 			return $data;
 		}
-		
+
 		//This should really be a single template? (rjp)
 		include (INCLUDESPATH."easyparliament/templates/$format/people_$view" . ".php");
 		return true;
-	
+
 	}
 
 	function _get_data_by_msps($args) {
@@ -123,7 +123,7 @@ class PEOPLE {
 		}
 
 		$q = $this->db->query($query . "ORDER BY $sqlorder");
-	
+
 		$data = array();
 		for ($row=0; $row<$q->rows(); $row++) {
 			$p_id = $q->field($row, 'person_id');
@@ -163,16 +163,16 @@ class PEOPLE {
 		}
 		if ($args['house'] == 2 && ($order == 'name' || $order == 'constituency'))
 			uasort($data, array($this, 'by_peer_name'));
-		
+
 		$data = array (
 			'info' => array (
 				'order' => $order
 			),
 			'data' => $data
 		);
-		
+
 		return $data;
-	
+
 	}
 	function by_peer_name($a, $b) {
 		if (!$a['last_name'] && !$b['last_name'])
@@ -182,7 +182,7 @@ class PEOPLE {
 		if (!$b['last_name'])
 			return strcmp($a['last_name'], $b['constituency']);
 		if (strcmp($a['last_name'], $b['last_name']))
-			return strcmp($a['last_name'], $b['last_name']); 
+			return strcmp($a['last_name'], $b['last_name']);
 		return strcmp($a['constituency'], $b['constituency']);
 	}
 

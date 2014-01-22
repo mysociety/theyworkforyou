@@ -2,12 +2,12 @@
 /*
  * survey/index.php:
  * Ask and store questionnaire for research.
- *  
+ *
  * Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
  * Email: matthew@mysociety.org. WWW: http://www.mysociety.org
  *
  * $Id: index.php,v 1.4 2010-01-20 10:48:58 matthew Exp $
- * 
+ *
  */
 
 include_once INCLUDESPATH . "easyparliament/init.php";

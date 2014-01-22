@@ -185,14 +185,14 @@ function parse_amendments() {
 				$bill[$page][$i] = '<del title="'.$num.'">' . $bill[$page][$i] . '</del>';
 			}
 		}
-		# Page  4, line 9 [Clause 6], leave out from `under' to `creating' and insert `this Part making provision' 
+		# Page  4, line 9 [Clause 6], leave out from `under' to `creating' and insert `this Part making provision'
 		if (preg_match('#Page\s+(\d+), line (\d+) \[Clause (\d+)\], leave out from `(.*?)\' to `(.*?)\' and insert `(.*?)\'#s', $amendment, $m)) {
 			$page = $m[1]; $line = $m[2]; $clause = $m[3];
 			$from_text = $m[4]; $to_text = $m[5]; $insert = $m[6];
 			unset($amendments[$num]);
 			$bill[$page][$line] = preg_replace("#$from_text(.*?)$to_text#", "$from_text <del title='$num'>$1</del><ins title='$num'>$insert</ins> $to_text", $bill[$page][$line]);
 		}
-		# Page  7, line 1 [Clause 12], leave out from `of' to `the' in line 2 and insert `...' 
+		# Page  7, line 1 [Clause 12], leave out from `of' to `the' in line 2 and insert `...'
 		if (preg_match('#Page\s+(\d+), line (\d+) \[Clause (\d+)\], leave out from `(.*?)\' to `(.*?)\' in line (\d+) and insert `(.*?)\'#s', $amendment, $m)) {
 			$page = $m[1]; $from_line = $m[2]; $clause = $m[3];
 			$from_text = $m[4]; $to_text = $m[5]; $to_line = $m[6];
@@ -218,7 +218,7 @@ function parse_amendments() {
 			unset($amendments[$num]);
 			$bill[$page][$line] = str_replace($from_text, "$from_text <del title='$num'>", $bill[$page][$line]) . "</del><ins title='$num'>$insert</ins>";
 		}
-		# Page   4 [Clause 7], leave out line 26 and insert `An order under this Part may not make provision to--' 
+		# Page   4 [Clause 7], leave out line 26 and insert `An order under this Part may not make provision to--'
 		if (preg_match('#Page\s+(\d+) \[Clause (\d+)\], leave out line (\d+)(?: and insert `(.*?)\')?#', $amendment, $m)) {
 			$page = $m[1]; $line = $m[3]; $clause = $m[2];
 			$insert = isset($m[4]) ? $m[4] : null;
@@ -312,7 +312,7 @@ function parse_amendments() {
 				}
 			}
 		}
-	
+
 		# New clause
 		if (preg_match('#^\*(.*?)\*\s+(.*?)$#s', $amendment, $m)) {
 			unset($amendments[$num]);

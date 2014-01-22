@@ -60,9 +60,9 @@ if (get_http_var("submitterm") != '') {
 
 	// We're submitting a comment.
 	$success = $GLOSSARY->create($data);
-	
+
 	if ($success) {
-		// $success will be the editqueue_id().		
+		// $success will be the editqueue_id().
 		print "<h4>Thank you for your help</h4><p>Your definition for <strong>&quot;" . $data['title'] . "&quot;</strong> has been submitted and awaits moderator approval. If every thing is well and good, it should appear on the site within the next day or so.</p>";
 		print "<p>You can browse the exising glossary below:</p>";
 		$PAGE->glossary_atoz($GLOSSARY);
@@ -70,36 +70,36 @@ if (get_http_var("submitterm") != '') {
 		$PAGE->error_message("Sorry, there was an error and we were unable to add your Glossary item.");
 	}
 	$PAGE->stripe_end();
-	
+
 } elseif (get_http_var("previewterm") != '') {
 // We're previewing a Glossary definition.
 
 	if (get_http_var('definition') != '') {
 
-		// Mock up a "current term" to send to the display function		
+		// Mock up a "current term" to send to the display function
 		$body = get_http_var('definition');
 		$title = get_http_var('g');
-		
+
 		$GLOSSARY->current_term['body'] = filter_user_input($body, 'comment'); // In init.php
 		$GLOSSARY->current_term['title'] = filter_user_input($title, 'comment'); // In init.php
 
 		// Off it goes...
 		print "<p>Your entry should look something like this:</p>";
 		print "<h3>$title</h3>";
-		
+
 		$PAGE->glossary_display_term($GLOSSARY);
 
-		
+
 		// Then, in case they aren't happy with it, show them the form again
 		$PAGE->glossary_add_definition_form($args);
 	}
-	
+
 	$PAGE->stripe_end();
-	
-	
+
+
 } elseif ($GLOSSARY->query != '') {
 // Deal with all the various searching possiblities...
-	
+
 	if($GLOSSARY->num_search_matches >= 1) {
 		// Offer a list of matching terms
 		$PAGE->glossary_display_match_list($GLOSSARY);
@@ -109,16 +109,16 @@ if (get_http_var("submitterm") != '') {
 
 		// Ok, so now we can see of the word(s) appear in Hansard at all.
 		// The following query was modified from the hansardlist search.
-		// However, no point checking, if the user can't add terms. 
+		// However, no point checking, if the user can't add terms.
 		if ($THEUSER->is_able_to('addterm')) {
-		
+
 			// glossary matches should always be quoted.
 			// Just to be sure, we'll strip away any quotes and add them again.
 			if (preg_match("/^(\"|\')/", $args['s'])) {
 				$args['s'] = preg_replace("/\"|\'/", "", $args['s']);
 			}
 
-			if ($args['count']) {	
+			if ($args['count']) {
 
 				print "<h4>So far so good</h4><p>Just so you know, we found <strong>" . $args['count'] . "</strong> occurences of <strong>" . stripslashes($GLOSSARY->query) . "</strong> in Hansard.<br>Just to make sure that your definition will not appear out of context, please have a look at the <a href=\"#excerpts\">excerpts</a>. If you're happy that your definition will apply to the right thing, then carry on below:</p>";
 
@@ -137,26 +137,26 @@ if (get_http_var("submitterm") != '') {
 				// force hansardlist to use the glossary search template,
 				// while still performing a standard search.
 				$args['view_override'] = "glossary_search";
-				$LIST = new HANSARDLIST();				
+				$LIST = new HANSARDLIST();
 				$LIST->display('search', $args);
 				print "<p><a href=\"#definition\">Back to form</a></p>";
 			}
 		}
 
 	$PAGE->stripe_end();
-	
+
 } else {
 	// We just arrived here empty handed...
-	
+
 	if (isset($error_message)) {
 		$PAGE->error_message($error_message);
 	}
-	
+
 	print "<p>Seen a piece of jargon or an external reference? By adding the phrase and definition to the glossary, you'll create a link for it everywhere an MP or Peer says it. Search for a phrase to add or browse the existing entries for inspiration.</p>";
 	print "<h3>Step 1: Search for a phrase</h3>";
-	
+
 	$PAGE->glossary_search_form($args);
-	
+
 	$URL = new URL('glossary');
 
 	// Early Day Motion

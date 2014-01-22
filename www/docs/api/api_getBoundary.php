@@ -17,7 +17,7 @@ past constituency boundaries, and so on).</p>
 <dd>Name of the constituency.
 </dl>
 
-<?php	
+<?php
 }
 
 function api_getBoundary_name($name) {

@@ -3,7 +3,7 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
-// For displaying all the WMS on a day, or a single WMS. 
+// For displaying all the WMS on a day, or a single WMS.
 
 if (get_http_var("d") != "") {
 	// We have a date. so show all WMS on this day.
@@ -13,17 +13,17 @@ if (get_http_var("d") != "") {
 	);
 	$LIST = new WMSLIST;
 	$LIST->display('date', $args);
-	
+
 } elseif (get_http_var('y') != '') {
-	
+
 	// Show a calendar for a particular year's WMS.
-	
+
 	$this_page = 'wmsyear';
 
 	if (is_numeric(get_http_var('y'))) {
 		$DATA->set_page_metadata($this_page, 'title', get_http_var('y'));
 	}
-	
+
 	$PAGE->page_start();
 
 	$PAGE->stripe_start();
@@ -33,10 +33,10 @@ if (get_http_var("d") != "") {
 	);
 
 	$LIST = new WMSLIST;
-	
+
 	$LIST->display('calendar', $args);
 
-	
+
 	$PAGE->stripe_end(array(
 		array (
 			'type' => 'nextprev'
@@ -67,9 +67,9 @@ if (get_http_var("d") != "") {
 		$GLOSSARY = new GLOSSARY($args);
 	}
 
-	
+
 	$WMSLIST = new WMSLIST;
-	
+
 	$result = $WMSLIST->display('gid', $args);
 	if (is_string($result)) {
 		$URL = new URL('wms');
@@ -108,14 +108,14 @@ if (get_http_var("d") != "") {
 	// No date or debate id. Show recent WMS.
 
 	$this_page = "wmsfront";
-	
+
 	$PAGE->page_start();
 
 	$PAGE->stripe_start();
 	?>
 				<h2>Some recent written ministerial statements</h2>
 <?php
-	
+
 	$WMSLIST = new WMSLIST;
 	$WMSLIST->display('recent_wms', array('days'=>7, 'num'=>20));
 
@@ -142,7 +142,7 @@ if (get_http_var("d") != "") {
 
 		)
 	));
-	
+
 }
 
 $PAGE->page_end();

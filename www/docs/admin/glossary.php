@@ -24,7 +24,7 @@ if (get_http_var('approve')) {
 	if (!is_array($approve)) {
 		$approve = array ( $approve );
 	}
-	// Add all approved items 
+	// Add all approved items
 	$data = array (
 		'approvals' => $approve,
 		'epobject_type' => 2
@@ -33,7 +33,7 @@ if (get_http_var('approve')) {
 }
 elseif (get_http_var('decline')) {
 	$decline = array (get_http_var('decline'));
-	// Dump all declined items 
+	// Dump all declined items
 	$data = array (
 		'declines' => $decline,
 		'epobject_type' => 2
@@ -57,7 +57,7 @@ if (isset($GLOSSARY->terms)) {
 		$GLOSSARY->current_term = $term;
 		$PAGE->glossary_display_term($GLOSSARY);
 	}
-}	
+}
 
 // Now that's easy :)
 // Even easier when you copy it :p

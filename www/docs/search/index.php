@@ -187,7 +187,7 @@ you will have to search for it separately.</p>
 function search_normal($searchstring) {
     global $PAGE, $DATA, $this_page, $SEARCHENGINE;
 
-    $SEARCHENGINE = new SEARCHENGINE($searchstring); 
+    $SEARCHENGINE = new SEARCHENGINE($searchstring);
     $qd = $SEARCHENGINE->valid ? $SEARCHENGINE->query_description_short() : $searchstring;
     $pagetitle = 'Search for ' . $qd;
     $pagenum = get_http_var('p');
@@ -292,7 +292,7 @@ function search_order_t($searchstring) {
 # ---
 
 function find_comments($args) {
-    $commentlist = new COMMENTLIST;    
+    $commentlist = new COMMENTLIST;
     $commentlist->display('search', $args);
 }
 
@@ -327,7 +327,7 @@ function find_constituency($args) {
                 print ' (' . htmlentities(strtoupper($args['s'])) . ')';
             }
             ?></h2>
-            
+
             <p><a href="<?php echo $URL->generate(); ?>"><strong><?php echo $MEMBER->full_name(); ?></strong></a> (<?php echo $MEMBER->party(); ?>)</p>
     <?php
         }
@@ -390,7 +390,7 @@ function find_users($args) {
             $members[] = '<a href="' . $URL->generate() . '">' . $q->field($n, 'firstname') . ' ' . $q->field($n, 'lastname') . '</a>';
         }
         ?>
-    <h2>Users matching '<?php echo htmlentities($searchstring); ?>'</h2> 
+    <h2>Users matching '<?php echo htmlentities($searchstring); ?>'</h2>
     <ul>
     <li><?php print implode("</li>\n\t<li>", $members); ?></li>
     </ul>
@@ -411,7 +411,7 @@ function find_members($searchstring) {
     if ($members) {
 ?>
 <div id="people_results">
-    <h2>People matching &lsquo;<?php echo htmlentities($searchstring); ?>&rsquo;</h2> 
+    <h2>People matching &lsquo;<?php echo htmlentities($searchstring); ?>&rsquo;</h2>
     <ul class="hilites">
 <?php
 foreach ($members as $member) {
@@ -498,11 +498,11 @@ function find_glossary_items($args) {
         $URL = new URL('glossary');
         $URL->insert(array('gl' => ""));
 ?>
-                <h2>Matching glossary terms:</h2> 
+                <h2>Matching glossary terms:</h2>
                 <p><?php
         $n = 1;
         foreach($GLOSSARY->search_matches as $glossary_id => $term) {
-            $URL->update(array("gl" => $glossary_id)); 
+            $URL->update(array("gl" => $glossary_id));
             ?><a href="<?php echo $URL->generate(); ?>"><strong><?php echo htmlentities($term['title']); ?></strong></a><?php
             if ($n < $GLOSSARY->num_search_matches) {
                 print ", ";

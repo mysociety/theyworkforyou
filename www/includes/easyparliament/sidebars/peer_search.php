@@ -11,7 +11,7 @@ global $MEMBER;
 		<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
 		<p>
     		<input name="s" size="24" maxlength="200">
-    		<input type="submit" class="submit" value="GO"> 		
+    		<input type="submit" class="submit" value="GO">
 		</p>
 		<small>e.g. <a href="/search/?s=Lord+Mandelson">Lord Mandelson</a> or <a href="/search/?s=Lord+Ashcroft">Lord Ashcroft</a></small>
 		</form>

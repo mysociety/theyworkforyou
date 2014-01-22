@@ -53,13 +53,13 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
         </div>
 
         <p>&#8220;<?php
-		
+
 		echo $row['extract'] . "&#8221;</p></dd>\n";
 	}
 	?>
 				</dl>
 
-<?php 
+<?php
 
 } else { ?>
 <p>No data to display.</p>

@@ -26,7 +26,7 @@ if (get_http_var('approve')) {
 	if (!is_array($approve)) {
 		$approve = array ( $approve );
 	}
-	// Add all approved items 
+	// Add all approved items
 	$data = array (
 		'approvals' => $approve,
 		'epobject_type' => 2
@@ -35,7 +35,7 @@ if (get_http_var('approve')) {
 }
 elseif (get_http_var('decline')) {
 	$decline = array (get_http_var('decline'));
-	// Dump all declined items 
+	// Dump all declined items
 	$data = array (
 		'declines' => $decline,
 		'epobject_type' => 2
@@ -51,7 +51,7 @@ $PAGE->stripe_start();
 // If we're modifying something, show a form to do so with (unless we've just submitted it!)
 if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 
-	$glossary_id = get_http_var('modify');	
+	$glossary_id = get_http_var('modify');
 
 	// Mock up a "current term" to send to the display function
 	if (get_http_var('previewterm')) {
@@ -70,19 +70,19 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 	}
 
 	$user_id = $EDITQUEUE->pending[$glossary_id]['user_id'];
-	
+
 	$GLOSSARY->current_term['body'] = filter_user_input($body, 'comment'); // In init.php
 	$GLOSSARY->current_term['title'] = filter_user_input($title, 'comment'); // In init.php
 
 	// They'll be needing to edit it...
 	$args['action'] = "admin_glossary";
 	$args['glossary_id'] = $glossary_id;
-	
+
 	$URL = new URL('admin_glossary_pending');
 	$form_action = $URL->generate('url');
-	
+
 	?>
-	
+
 	<div class="glossaryaddbox">
 		<form action="<?php echo $form_action; ?>" method="post">
 		<input type="hidden" name="modify" value="<?php echo $glossary_id; ?>">
@@ -91,7 +91,7 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 		<label for="definition"><p><textarea name="definition" id="definition" rows="10" cols="40"><?php echo htmlentities($body); ?></textarea></p>
 
 	<?php
-	
+
 	// Wiki woo!
 	// We need to work out how best to work this...
 	$wiki_link = "http://en.wikipedia.org/wiki/" . strtr($title, " ", "_");
@@ -104,16 +104,16 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 	</div>
 
 <?php
-	
+
 	// Off it goes...
 	print "<p>This is what it was going to look like:</p>";
 	print "<h3>$title</h3>";
-		
+
 	$PAGE->glossary_display_term($GLOSSARY);
 
 }
 else {
-	
+
 	// add a modification to the database
 	if (get_http_var('submitterm') && get_http_var('modify')) {
 		$data = array (

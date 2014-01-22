@@ -19,15 +19,15 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 <?php
 
 	foreach ($data['rows'] as $n => $row) {
-		
+
 		// While we're linking to individual speeches,
 		// the text is the body of the parent, ie (sub)section.
 		$title = $row['parent']['body'];
-		
+
 		if (isset($row['listurl'])) {
 			$title = "<a href=\"" . $row['listurl'] . "\">$title</a>";
 		}
-		
+
 		if (isset($row['speaker']) && isset($row['speaker']['member_id'])) {
 			$URL = new URL('member');
 			$URL->insert(array('id'=>$row['speaker']['member_id']));
@@ -39,9 +39,9 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 						<li><p><strong><?php echo $title; ?></strong><br>
 							<?php echo $member; ?>&#8220;<?php echo trim_characters($row['body'], 0, 200); ?>&#8221;</p></li>
 <?php
-		
+
 	}
-	
+
 	?>
 						</ol>
 <?php

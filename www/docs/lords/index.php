@@ -3,7 +3,7 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
-// For displaying all the Lords debates on a day, or a single debate. 
+// For displaying all the Lords debates on a day, or a single debate.
 
 if (get_http_var("d") != "") {
 	if (get_http_var('c') != '') {
@@ -16,24 +16,24 @@ if (get_http_var("d") != "") {
 		$LIST->display('column', $args);
 	} else {
 	// We have a date. so show all debates on this day.
-	
+
 	$this_page = "lordsdebatesday";
-	
+
 	$args = array (
 		'date' => get_http_var('d')
 	);
-	
+
 	$LIST = new LORDSDEBATELIST;
-	
+
 	$LIST->display('date', $args);
 	}
-	
+
 } elseif (get_http_var('id') != "") {
 	// We have an id so show that item.
 	// Could be a section id (so we get a list of all the subsections in it),
 	// or a subsection id (so we'd get the whole debate),
 	// or an item id within a debate in which case we just get that item and some headings.
-	
+
 	$this_page = "lordsdebates";
 
 	$args = array (
@@ -56,7 +56,7 @@ if (get_http_var("d") != "") {
 	}
 
 	$LIST = new LORDSDEBATELIST;
-	
+
 	$result = $LIST->display('gid', $args);
 	// If it is a redirect, change URL
 	if (is_string($result)) {
@@ -72,17 +72,17 @@ if (get_http_var("d") != "") {
 #	);
 #	$TRACKBACK = new TRACKBACK;
 #	$TRACKBACK->display('epobject_id', $args);
-	
+
 } elseif (get_http_var('y') != '') {
-	
+
 	// Show a calendar for a particular year's debates.
-	
+
 	$this_page = 'lordsdebatesyear';
 
 	if (is_numeric(get_http_var('y'))) {
 		$DATA->set_page_metadata($this_page, 'title', get_http_var('y'));
 	}
-	
+
 	$PAGE->page_start();
 
 	$PAGE->stripe_start();
@@ -92,10 +92,10 @@ if (get_http_var("d") != "") {
 	);
 
 	$LIST = new LORDSDEBATELIST;
-	
+
 	$LIST->display('calendar', $args);
 
-	
+
 	$PAGE->stripe_end(array(
 		array (
 			'type' => 'nextprev'
@@ -105,7 +105,7 @@ if (get_http_var("d") != "") {
 			'content' => "holdebates"
 		)
 	));
-	
+
 } elseif (get_http_var('gid') != '') {
 	$this_page = 'lordsdebate';
 	$args = array('gid' => get_http_var('gid') );
@@ -150,14 +150,14 @@ if (get_http_var("d") != "") {
 	// No date or debate id. Show recent years with debates on.
 
 	$this_page = "lordsdebatesfront";
-	
+
 	$PAGE->page_start();
 
 	$PAGE->stripe_start();
 	?>
 				<h2>Busiest debates from the most recent week</h2>
 <?php
-	
+
 	$LORDSDEBATELIST = new LORDSDEBATELIST;
 	$LORDSDEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>20));
 
@@ -183,7 +183,7 @@ if (get_http_var("d") != "") {
 </div>'
 		)
 	));
-	
+
 }
 
 $PAGE->page_end();

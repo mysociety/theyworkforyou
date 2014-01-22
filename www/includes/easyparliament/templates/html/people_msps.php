@@ -88,7 +88,7 @@ if ($pc_form) { ?>
 <div class="sort">
     Sort by:
     <ul>
-        <li><?php echo $th_last_name; ?> |</li>                
+        <li><?php echo $th_last_name; ?> |</li>
         <li><?php echo $th_first_name; ?> |</li>
         <li><?php echo $th_party; ?></li>
     </ul>

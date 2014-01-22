@@ -38,7 +38,7 @@ if ($q_method = get_http_var('method')) {
   			  }
     		}
       }
-    
+
 			api_log_call($key);
 			$match++;
 			if (get_http_var('docs')) {

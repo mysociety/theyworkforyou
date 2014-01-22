@@ -3,28 +3,28 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
-// For displaying all the WH debates on a day, or a single WH debate. 
+// For displaying all the WH debates on a day, or a single WH debate.
 
 if (get_http_var("d") != "") {
 	// We have a date. so show all WH debates on this day.
-	
+
 	$this_page = "whallday";
-	
+
 	$args = array (
 		'date' => get_http_var('d')
 	);
-	
+
 	$LIST = new WHALLLIST;
-	
+
 	$LIST->display('date', $args);
-	
-	
+
+
 } elseif (get_http_var('id') != "") {
 	// We have an id so show that item.
 	// Could be a section id (so we get a list of all the subsections in it),
 	// or a subsection id (so we'd get the whole debate),
 	// or an item id within a debate in which case we just get that item and some headings.
-	
+
 	$this_page = 'whalls';
 
 	$args = array (
@@ -46,9 +46,9 @@ if (get_http_var("d") != "") {
 		$GLOSSARY = new GLOSSARY($args);
 	}
 
-	
+
 	$LIST = new WHALLLIST;
-	
+
 	$result = $LIST->display('gid', $args);
 	// If it is a redirect, change URL
 	if (is_string($result)) {
@@ -57,29 +57,29 @@ if (get_http_var("d") != "") {
 		header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
 		exit;
 	}
-	
+
 
 	// We show trackbacks on this page.
-	
+
 	$args = array (
 		'epobject_id' => $LIST->epobject_id()
 	);
-	
+
 #	$TRACKBACK = new TRACKBACK;
-	
+
 #	$TRACKBACK->display('epobject_id', $args);
 
-	
+
 } elseif (get_http_var('y') != '') {
-	
+
 	// Show a calendar for a particular year's WH debates.
-	
+
 	$this_page = 'whallyear';
 
 	if (is_numeric(get_http_var('y'))) {
 		$DATA->set_page_metadata($this_page, 'title', get_http_var('y'));
 	}
-	
+
 	$PAGE->page_start();
 
 	$PAGE->stripe_start();
@@ -89,10 +89,10 @@ if (get_http_var("d") != "") {
 	);
 
 	$LIST = new WHALLLIST;
-	
+
 	$LIST->display('calendar', $args);
 
-	
+
 	$PAGE->stripe_end(array(
 		array (
 			'type' => 'nextprev'
@@ -146,14 +146,14 @@ if (get_http_var("d") != "") {
 	// No date or debate id. Show recent years with debates on.
 
 	$this_page = "whallfront";
-	
+
 	$PAGE->page_start();
 
 	$PAGE->stripe_start();
 	?>
 				<h2>Busiest Westminster Hall debates from the most recent week</h2>
 <?php
-	
+
 	$WHALLLIST = new WHALLLIST;
 	$WHALLLIST->display('biggest_debates', array('days'=>7, 'num'=>20));
 
@@ -179,7 +179,7 @@ if (get_http_var("d") != "") {
 </div>'
 		)
 	));
-	
+
 }
 
 $PAGE->page_end();

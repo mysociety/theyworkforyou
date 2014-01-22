@@ -66,11 +66,11 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 
 	echo '<dl id="searchresults">';
 	for ($i=0; $i<count($data['rows']); $i++) {
-	
+
 		$row = $data['rows'][$i];
 		echo '<dt><a href="', $row['listurl'], '">';
 		if (isset($row['parent']) && count($row['parent']) > 0) {
-			echo ('<strong>' . $row['parent']['body'] . '</strong>');			
+			echo ('<strong>' . $row['parent']['body'] . '</strong>');
 		}
 		echo '</a> <small>(' . format_date($row['hdate'], LONGDATEFORMAT) . ')';
 		if (isset($row['video_status']) && ($row['video_status'] == 5 || $row['video_status'] == 7)) {
@@ -92,12 +92,12 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 			$sp = $row['speaker'];
 			echo "<em>" . ucfirst(member_full_name($sp['house'], $sp['title'], $sp['first_name'], $sp['last_name'], $sp['constituency'])) . "</em>";
             if ($row['extract']) echo ": ";
-		} 
-		
+		}
+
 		echo $row['extract'] . "</p></dd>\n";
-	
+
 	}
-	
+
 	echo '</dl> <!-- end searchresults -->';
 	$PAGE->page_links($info);
 	$PAGE->search_form($info['s']);

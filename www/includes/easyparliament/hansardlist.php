@@ -6,40 +6,40 @@ include_once INCLUDESPATH."easyparliament/calendar.php";
 
 /*
 
-The HANSARDLIST class and its children, DEBATELIST and WRANSLIST, display data about 
+The HANSARDLIST class and its children, DEBATELIST and WRANSLIST, display data about
 Hansard objects. You call display things by doing something like:
 
 		$LIST = new DEBATELIST;
 		$LIST->display('gid', array('gid'=>'2003-10-30.422.4') );
-	
+
 	The second line could be replaced with something like one of these:
 
 		$LIST->display('date', array('date'=>'2003-12-31') );
 		$LIST->display('recent');
 		$LIST->display('member', array('id'=>37) );
-	
-	
+
+
 Basic structure...
 
-	The display() function calls a get function which returns all the data that 
-	is to be displayed. The function name depends on the $view (ie, 'gid', 'recent', 
-	etc). 
+	The display() function calls a get function which returns all the data that
+	is to be displayed. The function name depends on the $view (ie, 'gid', 'recent',
+	etc).
 	Once we have an array of data, the render() function is called, which includes
 	a template. This cycles through the data array and outputs HTML.
-	
+
 	Most of the data is fetched from the database by the _get_hansard_data() function.
-	
+
 	The COMMENTSLIST class is simpler and works in a similar fashion - that might help
 	you get your head round how this all works...
-	
+
 Future stuff...
 
-	You could have multiple templates for different formats. Eg, to output stuff in 
+	You could have multiple templates for different formats. Eg, to output stuff in
 	XML, duplicate the HTML template and change what you need to create XML instead.
 	Then call the display() function something like this:
 		$LIST->display('gid', array('gid'=>'2003-10-30.422.4'), 'xml' );
 	(You'll need to allow the 'xml' format in render() too).
-	
+
 	No support for pages of results yet. This would be passed in in the $args array
 	and used in the LIMIT of the _get_hansard_data() function.
 	The template could then display links to next/prev pages in the sequence.
@@ -56,8 +56,8 @@ class HANSARDLIST {
 	// If you change this, change it in COMMENTSLIST->_fix_gid() too!
 	// And in TRACKBACK too.
 	var $gidprefix = 'uk.org.publicwhip/';
-	
-	
+
+
 	// This will be used to cache information about speakers on this page
 	// so we don't have to keep fetching the same data from the DB.
 	var $speakers = array ();
@@ -78,27 +78,27 @@ class HANSARDLIST {
 	/*
 	$this->epobjectid_to_gid[ $epobject_id ] => $gid;
 	*/
-	
+
 	# Similarly, cache bill lookups
 	var $bill_lookup = array();
-	
-	// This is so we can tell what type of thing we're displaying from outside 
+
+	// This is so we can tell what type of thing we're displaying from outside
 	// the object. eg, so we know if we should be able to post comments to the
 	// item. It will have a value set if we are displaying by 'gid' (not 'date').
 	// Use htype() to access it.
 	var $htype;
-	
-	
+
+
 	// Reset to the relevant major ID in DEBATELIST or WRANSLIST
 	var $major;
-	
-	
+
+
 	// When we view a particular item, we set these to the epobject_id and gid
 	// of the item so we can attach Trackbacks etc to it from outside.
 	var $epobject_id;
 	var $gid;
-	
-	
+
+
 	// This will be set if $this->most_recent_day() is called. Just so we
 	// don't need to call it and it's lengthy query again.
 	var $most_recent_day;
@@ -106,9 +106,9 @@ class HANSARDLIST {
 	function HANSARDLIST() {
 		$this->db = new ParlDB;
 	}
-	
-	
-	
+
+
+
 	function display ($view, $args=array(), $format='html') {
 
 		// $view is what we're viewing by:
@@ -120,17 +120,17 @@ class HANSARDLIST {
 		//	'search' is all debates/wrans that match a search term.
 		//	'biggest_debates' is biggest recent debates (obviously only for DEBATESLIST).
 		//  'recent_wrans' is some recent written answers (obv only for WRANSLIST).
-		
-		// $args is an associative array of stuff like 
+
+		// $args is an associative array of stuff like
 		//	'gid' => '2003-10-30.422.4'  or
 		//	'd' => '2003-12-31' or
 		//	's' => 'my search term'
 		//	'o' => Sort order: 'r' for relevance, 'd' for date
-		
+
 		// $format is the format the data should be rendered in,
 		// using that set of templates (or 'none' for just returning
-		// the data). 
-		
+		// the data).
+
 		global $PAGE;
 
         if ($view == 'search' && (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH))
@@ -157,19 +157,19 @@ class HANSARDLIST {
 		if (isset($PAGE) && isset($data['info'])) {
 			$PAGE->set_hansard_headings($data['info']);
 		}
-		
+
 		// Glossary $view_override (to avoid too much code duplication...)
 		if (isset($args['view_override'])) {
 			$view = $args['view_override'];
 		}
-		
+
 		$return = $this->render($view, $data, $format);
 
 		return $return;
 	}
-	
-	
-	
+
+
+
 	function render($view, $data, $format='html') {
 		// Once we have the data that's to be rendered,
 		// include the template.
@@ -178,24 +178,24 @@ class HANSARDLIST {
 		if ($format == 'none') {
 			return $data;
 		}
-		
+
 		include (INCLUDESPATH."easyparliament/templates/$format/hansard_$view" . ".php");
 		return true;
-	
+
 	}
-	
-	
+
+
 	function total_items() {
-		// Returns number of items in debates or wrans, depending on which class this is, 
+		// Returns number of items in debates or wrans, depending on which class this is,
 		// DEBATELIST or WRANSLIST.
-		
+
 		$q = $this->db->query("SELECT COUNT(*) AS count FROM hansard WHERE major='" . $this->major . "'");
-		
+
 		return $q->field(0, 'count');
 	}
-	
-	
-	
+
+
+
 	function most_recent_day() {
 		// Very simple. Returns an array of stuff about the most recent data
 		// for this major:
@@ -205,48 +205,48 @@ class HANSARDLIST {
 		//		'timestamp' => 124453679,
 		//		'listurl'	=> '/foo/?id=bar'
 		// )
-				
-		// When we do this function the first time we cache the 
+
+		// When we do this function the first time we cache the
 		// results in this variable. As it's an expensive query.
 		if (isset($this->most_recent_day)) {
 			return $this->most_recent_day;
 		}
-		
+
 		// What we return.
 		$data = array();
-		
+
 		$q = $this->db->query("SELECT MAX(hdate) AS hdate
 						FROM 	hansard
 						WHERE	major = '" . $this->major . "'
-						");		
+						");
 		if ($q->rows() > 0) {
-			
+
 			$hdate = $q->field(0, 'hdate');
 			if ($hdate) {
 				$URL = new URL($this->listpage);
 				$URL->insert( array('d'=>$hdate) );
-			
+
 				// Work out a timestamp which is handy for comparing to now.
 				list($year, $month, $date) = explode('-', $hdate);
-				$timestamp = gmmktime (0, 0, 0, $month, $date, $year);			
-				
+				$timestamp = gmmktime (0, 0, 0, $month, $date, $year);
+
 				$data = array (
 					'hdate'		=> $hdate,
 					'timestamp'	=> $timestamp,
 					'listurl'	=> $URL->generate()
 				);
-				
+
 				// This is just because it's an expensive query
 				// and we really want to avoid doing it more than once.
 				// So we're caching it.
 				$this->most_recent_day = $data;
 			}
 		}
-		
+
 		return $data;
 	}
-	
-	
+
+
 	function htype() {
 		return $this->htype;
 	}
@@ -258,23 +258,23 @@ class HANSARDLIST {
 	function gid() {
 		return $this->gid;
 	}
-	
-	
+
+
 	function _get_section($itemdata) {
 		// Pass it an array of data about an item and it will return an
 		// array of data about the item's section heading.
 
 		twfy_debug (get_class($this), "getting an item's section");
-		
+
 		// What we return.
 		$sectiondata = array ();
 
 		if ($itemdata['htype'] != '10') {
 
-			// This item is a subsection, speech or procedural, 
+			// This item is a subsection, speech or procedural,
 			// or a wrans questions/answer,
 			// so get the section info above this item.
-									
+
 			// For getting hansard data.
 			$input = array (
 				'amount' => array (
@@ -284,38 +284,38 @@ class HANSARDLIST {
 					'hansard.epobject_id=' => $itemdata['section_id']
 				)
 			);
-			
+
 			$sectiondata = $this->_get_hansard_data($input);
-			
+
 			if (count($sectiondata) > 0) {
 				$sectiondata = $sectiondata[0];
 			}
-		
+
 		} else {
 			// This item *is* a section, so just return that.
-			
+
 			$sectiondata = $itemdata;
-		
+
 		}
-		
+
 		return $sectiondata;
 	}
-	
-	
+
+
 
 	function _get_subsection($itemdata) {
 		// Pass it an array of data about an item and it will return an
 		// array of data about the item's subsection heading.
 
 		twfy_debug (get_class($this), "getting an item's subsection");
-		
+
 		// What we return.
 		$subsectiondata = array ();
-		
+
 		if ($itemdata['htype'] == '12' || $itemdata['htype'] == '13' ) {
-			// This item is a speech or procedural, so get the 
+			// This item is a speech or procedural, so get the
 			// subsection info above this item.
-			
+
 			// For getting hansard data.
 			$input = array (
 				'amount' => array (
@@ -325,7 +325,7 @@ class HANSARDLIST {
 					'hansard.epobject_id=' => $itemdata['subsection_id']
 				)
 			);
-			
+
 			$subsectiondata = $this->_get_hansard_data($input);
 			if (count($subsectiondata) == 0)
 				$subsectiondata = null;
@@ -339,7 +339,7 @@ class HANSARDLIST {
 
 		return $subsectiondata;
 	}
-	
+
 
 
 	function _get_nextprev_items($itemdata) {
@@ -347,9 +347,9 @@ class HANSARDLIST {
 
 		// Pass it an array of item info, of a section/subsection, and this will return
 		// data for the next/prev items.
-				
+
 		twfy_debug (get_class($this), "getting next/prev items");
-		
+
 		// What we return.
 		$nextprevdata = array();
 
@@ -368,50 +368,50 @@ class HANSARDLIST {
 			// a subsection or section, and is within THIS subsection.
 			$where = "subsection_id = '" . $itemdata['subsection_id'] . "' AND (htype != 10 AND htype != 11)";
 		}
-					
+
 		// Find if there are next/previous debate items of our
 		// chosen type today.
-		
-		// For sections/subsections, 
+
+		// For sections/subsections,
 		// this will find headings with no content, but I failed to find
 		// a vaguely simple way to do this. So this is it for now...
 
 		// Find the epobject_id of the previous item (if any):
-		$q = $this->db->query("SELECT epobject_id 
-						FROM 	hansard 
-						WHERE 	hdate = '" . $itemdata['hdate'] . "' 
-						AND 	hpos < '" . $itemdata['hpos'] . "' 
+		$q = $this->db->query("SELECT epobject_id
+						FROM 	hansard
+						WHERE 	hdate = '" . $itemdata['hdate'] . "'
+						AND 	hpos < '" . $itemdata['hpos'] . "'
 						AND 	major = '" . $itemdata['major'] . "'
 						AND 	$where
 						ORDER BY hpos DESC
 						LIMIT 1");
-		
+
 		if ($q->rows() > 0) {
 			$prev_item_id = $q->field(0, 'epobject_id');
 		}
 
 		// Find the epobject_id of the next item (if any):
-		$q = $this->db->query("SELECT epobject_id 
-						FROM 	hansard 
-						WHERE 	hdate = '" . $itemdata['hdate'] . "' 
-						AND 	hpos > '" . $itemdata['hpos'] . "'  
+		$q = $this->db->query("SELECT epobject_id
+						FROM 	hansard
+						WHERE 	hdate = '" . $itemdata['hdate'] . "'
+						AND 	hpos > '" . $itemdata['hpos'] . "'
 						AND 	major = '" . $itemdata['major'] . "'
 						AND 	$where
 						ORDER BY hpos ASC
 						LIMIT 1");
-		
+
 		if ($q->rows() > 0) {
 			$next_item_id = $q->field(0, 'epobject_id');
 		}
 
 		// Now we're going to get the data for the next and prev items
 		// that we will use to make the links on the page.
-		
+
 		// Previous item.
 		if ($prev_item_id) {
 			// We have a previous one to link to.
 			$wherearr['hansard.epobject_id='] = $prev_item_id;
-			
+
 			// For getting hansard data.
 			$input = array (
 				'amount' => array (
@@ -422,7 +422,7 @@ class HANSARDLIST {
 				'order' => 'hpos DESC',
 				'limit' => 1
 			);
-			
+
 			$prevdata = $this->_get_hansard_data($input);
 
 			if (count($prevdata) > 0) {
@@ -436,7 +436,7 @@ class HANSARDLIST {
 					);
 				} else {
 					// Linking to the prev speaker.
-					
+
 					if (isset($prevdata[0]['speaker']) && count($prevdata[0]['speaker']) > 0) {
 						$title = $prevdata[0]['speaker']['first_name'] . ' ' . $prevdata[0]['speaker']['last_name'];
 					} else {
@@ -455,7 +455,7 @@ class HANSARDLIST {
 		if ($next_item_id) {
 			// We have a next one to link to.
 			$wherearr['hansard.epobject_id='] = $next_item_id;
-			
+
 			// For getting hansard data.
 			$input = array (
 				'amount' => array (
@@ -479,7 +479,7 @@ class HANSARDLIST {
 					);
 				} else {
 					// Linking to the next speaker.
-					
+
 					if (isset($nextdata[0]['speaker']) && count($nextdata[0]['speaker']) > 0) {
 						$title = $nextdata[0]['speaker']['first_name'] . ' ' . $nextdata[0]['speaker']['last_name'];
 					} else {
@@ -507,7 +507,7 @@ class HANSARDLIST {
 			// Create URL for this (sub)section's date.
 			$URL->insert(array('d' => $itemdata['hdate']));
 			$URL->remove(array('id'));
-			$things = $hansardmajors[$itemdata['major']]['title'];	
+			$things = $hansardmajors[$itemdata['major']]['title'];
 			$nextprevdata['up'] = array(
 				'body'	=> "All $things on " . format_date($itemdata['hdate'], SHORTDATEFORMAT),
 				'title'	=> '',
@@ -515,33 +515,33 @@ class HANSARDLIST {
 			);
 		} else {
 			// We'll be setting $nextprevdata['up'] within $this->get_data_by_gid()
-			// because we need to know the name and url of the parent item, which 
+			// because we need to know the name and url of the parent item, which
 			// we don't have here. Life sucks.
 		}
 
 		return $nextprevdata;
 	}
-	
-	
+
+
 	function _get_nextprev_dates($date) {
 		global $hansardmajors;
 		// Pass it a yyyy-mm-dd date and it'll return an array
-		// containing the next/prev dates that contain items from 
+		// containing the next/prev dates that contain items from
 		// $this->major of hansard object.
-		
+
 		twfy_debug (get_class($this), "getting next/prev dates");
-		
+
 		// What we return.
 		$nextprevdata = array ();
 
 		$URL = new URL($this->listpage);
 
 		$looper = array ("next", "prev");
-		
+
 		foreach ($looper as $n => $nextorprev) {
-		
+
 			$URL->reset();
-			
+
 			if ($nextorprev == 'next') {
 				$q = $this->db->query("SELECT MIN(hdate) AS hdate
 							FROM 	hansard
@@ -561,15 +561,15 @@ class HANSARDLIST {
 			if ($q->rows() > 0 && $q->field(0, 'hdate') != NULL) {
 
 				$URL->insert( array( 'd'=>$q->field(0, 'hdate') ) );
-				
+
 				if ($nextorprev == 'next') {
 					$body = 'Next day';
 				} else {
 					$body = 'Previous day';
 				}
-				
+
 				$title = format_date($q->field(0, 'hdate'), SHORTDATEFORMAT);
-				
+
 				$nextprevdata[$nextorprev] = array (
 					'hdate'		=> $q->field(0, 'hdate'),
 					'url'	 	=> $URL->generate(),
@@ -577,13 +577,13 @@ class HANSARDLIST {
 					'title'		=> $title
 				);
 			}
-		}	
+		}
 
 		$year = substr($date, 0, 4);
 		$URL = new URL($hansardmajors[$this->major]['page_year']);
 		$thing = $hansardmajors[$this->major]['plural'];
 		$URL->insert(array('y'=>$year));
-			
+
 		$nextprevdata['up'] = array (
 			'body' 	=> "All of $year's $thing",
 			'title'	=> '',
@@ -601,21 +601,21 @@ class HANSARDLIST {
 		// If $args['date'] is a valid yyyy-mm-dd date, it is returned.
 		// Else false is returned.
 		global $PAGE;
-		
+
 		if (isset($args['date'])) {
 			$date = $args['date'];
 		} else {
 			$PAGE->error_message ("Sorry, we don't have a date.");
 			return false;
 		}
-		
+
 		if (!preg_match("/^(\d\d\d\d)-(\d{1,2})-(\d{1,2})$/", $date, $matches)) {
 			$PAGE->error_message ("Sorry, '".htmlentities($date)."' isn't of the right format (YYYY-MM-DD).");
 			return false;
 		}
-				
+
 		list($string, $year, $month, $day) = $matches;
-		
+
 		if (!checkdate($month, $day, $year)) {
 			$PAGE->error_message ("Sorry, '".htmlentities($date)."' isn't a valid date.");
 			return false;
@@ -628,18 +628,18 @@ class HANSARDLIST {
 		// Valid date!
 		return $date;
 	}
-	
-	
-	
+
+
+
 	function _get_item($args) {
 		global $PAGE;
-	
+
 		if (!isset($args['gid']) && $args['gid'] == '') {
 			$PAGE->error_message ("Sorry, we don't have an item gid.");
 			return false;
 		}
-		
-			
+
+
 		// Get all the data just for this epobject_id.
 		$input = array (
 			'amount' => array (
@@ -674,11 +674,11 @@ class HANSARDLIST {
 			    $itemdata[0]['redirected_gid'] = fix_gid_from_db($redirected_gid);
 			}
 		}
-		
+
 		if (count($itemdata) > 0) {
 			$itemdata = $itemdata[0];
 		}
-			
+
 		if (count($itemdata) == 0) {
 			/* Deal with old links to some Lords pages. Somewhere. I can't remember where */
 			$itemdata = $this->check_gid_change($args['gid'], 'a', ''); if ($itemdata) return $itemdata;
@@ -709,7 +709,7 @@ class HANSARDLIST {
 			$itemdata = $this->check_gid_change($args['gid'], '2005-10-14a', '2005-10-13b'); if ($itemdata) return $itemdata;
 			$itemdata = $this->check_gid_change($args['gid'], '2005-10-18b', '2005-10-10e'); if ($itemdata) return $itemdata;
 			$itemdata = $this->check_gid_change($args['gid'], '2005-11-17b', '2005-11-15c'); if ($itemdata) return $itemdata;
-	
+
 			$itemdata = $this->check_gid_change($args['gid'], '2007-01-08a', '2007-01-08e'); if ($itemdata) return $itemdata;
 
 			/* Right back when Lords began, we sent out email alerts when they weren't on the site. So this was to work that. */
@@ -722,7 +722,7 @@ class HANSARDLIST {
 			$PAGE->error_message ("Sorry, there is no Hansard object with a gid of '".htmlentities($args['gid'])."'.");
 			return false;
 		}
-		
+
 		return $itemdata;
 
 	}
@@ -753,25 +753,25 @@ class HANSARDLIST {
 	function _get_data_by_date($args) {
 		// For displaying the section and subsection headings as
 		// links for an entire day of debates/wrans.
-	
+
 		global $DATA, $this_page;
-		
+
 		twfy_debug (get_class($this), "getting data by date");
-		
+
 		// Where we'll put all the data we want to render.
 		$data = array ();
-		
-		
+
+
 		$date = $this->_validate_date($args);
-	
-		if ($date) {		
-		
+
+		if ($date) {
+
 			$nextprev = $this->_get_nextprev_dates($date);
-			
+
 			// We can then access this from $PAGE and the templates.
 			$DATA->set_page_metadata($this_page, 'nextprev', $nextprev);
-			
-			
+
+
 			// Get all the sections for this date.
 			// Then for each of those we'll get the subsections and rows.
 			$input = array (
@@ -787,21 +787,21 @@ class HANSARDLIST {
 				),
 				'order' => 'hpos'
 			);
-			
+
 			$sections = $this->_get_hansard_data($input);
 
 			if (count($sections) > 0) {
-				
+
 				// Where we'll keep the full list of sections and subsections.
 				$data['rows'] = array();
-				
+
 				for ($n=0; $n<count($sections); $n++) {
 					// For each section on this date, get the subsections within it.
 
 					// Get all the section data.
 					$sectionrow = $this->_get_section($sections[$n]);
-					
-					// Get the subsections within the section.						
+
+					// Get the subsections within the section.
 					$input = array (
 						'amount' => array (
 							'body' => true,
@@ -815,12 +815,12 @@ class HANSARDLIST {
 						),
 						'order' => 'hpos'
 					);
-					
+
 					$rows = $this->_get_hansard_data($input);
 
 					// Put the section at the top of the rows array.
 					array_unshift ($rows, $sectionrow);
-					
+
 					// Add the section heading and the subsections to the full list.
 					$data['rows'] = array_merge ($data['rows'], $rows);
 				}
@@ -830,33 +830,33 @@ class HANSARDLIST {
 			$data['info']['date'] = $date;
 			$data['info']['major'] = $this->major;
 		}
-				
-		return $data;		
+
+		return $data;
 	}
-	
+
 
 	function _get_data_by_recent($args) {
 		// Like _get_data_by_id() and _get_data_by_date()
 		// this returns a $data array suitable for sending to a template.
 		// It lists recent dates with debates/wrans on them, with links.
-				
+
 		if (isset($args['days']) && is_numeric($args['days'])) {
 			$limit = 'LIMIT ' . $args['days'];
 		} else {
 			$limit = '';
 		}
-		
+
 		if ($this->major != '') {
 			// We must be in DEBATELIST or WRANSLIST.
-			
+
 			$major = "WHERE major = '" . $this->major . "'";
 		}
-		
+
 		$data = array ();
-		
+
 		$q = $this->db->query ("SELECT DISTINCT(hdate)
 						FROM 	hansard
-						$major	
+						$major
 						ORDER BY hdate DESC
 						$limit
 						");
@@ -864,34 +864,34 @@ class HANSARDLIST {
 		if ($q->rows() > 0) {
 
 			$URL = new URL($this->listpage);
-			
+
 			for ($n=0; $n<$q->rows(); $n++) {
 				$rowdata = array();
-				
+
 				$rowdata['body'] = format_date($q->field($n, 'hdate'), SHORTDATEFORMAT);
 				$URL->insert(array('d'=>$q->field($n, 'hdate')));
 				$rowdata['listurl'] = $URL->generate();
-				
+
 				$data['rows'][] = $rowdata;
 			}
 		}
-		
+
 		$data['info']['text'] = 'Recent dates';
-		
-		
+
+
 		return $data;
 	}
-	
+
 	# Display a person's most recent debates.
 	# Only used by MP RSS generator now, MP pages use Xapian search
 	# XXX: Abolish this entirely?
 	function _get_data_by_person($args) {
 		global $PAGE, $hansardmajors;
 		$items_to_list = isset($args['max']) ? $args['max'] : 20;
-	
+
 		// Where we'll put all the data we want to render.
 		$data = array();
-		
+
 		if (!isset($args['member_ids']) || !is_string($args['member_ids'])) {
 			$PAGE->error_message ("Sorry, we need a valid string of member IDs.");
 			return $data;
@@ -946,7 +946,7 @@ class HANSARDLIST {
 				);
 				// Cache parent id to speed up _get_listurl
 				$this->epobjectid_to_gid[$q->field($n, 'subsection_id') ] = fix_gid_from_db( $q->field($n, 'gid_subsection') );
-		
+
 				$url_args = array ('m'=>$q->field($n, 'speaker_id'));
 				$speech['listurl'] = $this->_get_listurl($speech, $url_args);
 				$speeches[] = $speech;
@@ -970,8 +970,8 @@ class HANSARDLIST {
 		}
 		return $data;
 	}
-	
-	
+
+
 	function _get_data_by_search_min($args) {
 		return $this->_get_data_by_search($args);
 	}
@@ -979,10 +979,10 @@ class HANSARDLIST {
 		return $this->_get_data_by_search($args);
 	}
 	function _get_data_by_search($args) {
-		
+
 		// Creates a fairly standard $data structure for the search function.
 		// Will probably be rendered by the hansard_search.php template.
-		
+
 		// $args is an associative array with 's'=>'my search term' and
 		// (optionally) 'p'=>1  (the page number of results to show) annd
         // (optionall) 'pop'=>1 (if "popular" search link, so don't log)
@@ -999,9 +999,9 @@ class HANSARDLIST {
 
 		// What we'll return.
 		$data = array ();
-		
+
 		$data['info']['s'] = $args['s'];
-		
+
 		// Allows us to specify how many results we want
 		// Mainly for glossary term adding
 		if (isset($args['num']) && $args['num']) {
@@ -1012,7 +1012,7 @@ class HANSARDLIST {
 		}
 		if ($results_per_page > 1000)
 			$results_per_page = 1000;
-		
+
 		$data['info']['results_per_page'] = $results_per_page;
 
 	    // What page are we on?
@@ -1031,7 +1031,7 @@ class HANSARDLIST {
 
         // Fetch count of number of matches
 		global $SEARCHENGINE;
-	
+
 		// For Xapian's equivalent of an SQL LIMIT clause.
 		$first_result = ($page-1) * $results_per_page;
 		$data['info']['first_result'] = $first_result + 1; // Take account of LIMIT's 0 base.
@@ -1077,16 +1077,16 @@ class HANSARDLIST {
 			return $data;
 		}
 		#if ($sort_order=='created') { print_r($gids); }
-	
+
 		// We'll put all the data in here before giving it to a template.
 		$rows = array();
-		
+
 		// We'll cache the ids=>first_names/last_names of speakers here.
 		$speakers = array();
-		
+
 		// We'll cache (sub)section_ids here:
 		$hansard_to_gid = array();
-		
+
 		// Cycle through each result, munge the data, get more, and put it all in $data.
 		for ($n=0; $n<count($gids); $n++) {
 			$gid = $gids[$n];
@@ -1162,16 +1162,16 @@ class HANSARDLIST {
                     # $PAGE->error_message("Unexpected missing gid $gid while searching");
                     continue;
                 }
-            
+
                 $itemdata = $q->row(0);
                 $itemdata['collapsed']  = $collapsed;
                 $itemdata['gid']        = fix_gid_from_db( $q->field(0, 'gid') );
                 $itemdata['relevance']  = $relevances[$n];
                 $itemdata['extract']    = $this->prepare_search_result_for_display($q->field(0, 'body'));
-    
+
                 //////////////////////////
                 // 2. Create the URL to link to this bit of text.
-    
+
                 $id_data = array (
                     'major'            => $itemdata['major'],
                     'minor'            => $itemdata['minor'],
@@ -1180,19 +1180,19 @@ class HANSARDLIST {
                     'section_id'    => $itemdata['section_id'],
                     'subsection_id'    => $itemdata['subsection_id']
                 );
-    
+
                 // We append the query onto the end of the URL as variable 's'
                 // so we can highlight them on the debate/wrans list page.
                 $url_args = array ('s' => $searchstring);
-    
+
                 $itemdata['listurl'] = $this->_get_listurl($id_data, $url_args, $encode);
-    
+
                 //////////////////////////
                 // 3. Get the speaker for this item, if applicable.
                 if ( $itemdata['speaker_id'] != 0) {
                     $itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
                 }
-    
+
                 //////////////////////////
                 // 4. Get data about the parent (sub)section.
                 if ($itemdata['major'] && $hansardmajors[$itemdata['major']]['type'] == 'debate') {
@@ -1213,13 +1213,13 @@ class HANSARDLIST {
                         } elseif ($itemdata['major'] == 7) {
                             $itemdata['parent']['body'] = 'Scottish Parliament: ' . $itemdata['parent']['body'];
                         }
-    
+
                     } else {
                         // It's a section, so it will be its own title.
                         $itemdata['parent']['body'] = $itemdata['body'];
                         $itemdata['body'] = '';
                     }
-                    
+
                 } else {
                     // Wrans or WMS
                     $section = $this->_get_section($itemdata);
@@ -1270,7 +1270,7 @@ class HANSARDLIST {
 		$data['rows'] = $rows;
 		return $data;
 	}
-	
+
 	function prepare_search_result_for_display($body) {
 		global $SEARCHENGINE;
 		// We want to trim the body to an extract that is centered
@@ -1282,18 +1282,18 @@ class HANSARDLIST {
 
 		// $bestpos is the position of the first search word
 		$bestpos = $SEARCHENGINE->position_of_first_word($extract);
-				
+
 		// Where do we want to extract from the $body to start?
 		$length_of_extract = 400; // characters.
 		$startpos = $bestpos - ($length_of_extract / 2);
 		if ($startpos < 0) {
 			$startpos = 0;
 		}
-			
+
 		// Trim it to length and position, adding ellipses.
 		$extract = trim_characters ($extract, $startpos, $length_of_extract);
 
-		// Highlight search words 
+		// Highlight search words
 		$extract = $SEARCHENGINE->highlight($extract);
 
 		return $extract;
@@ -1302,16 +1302,16 @@ class HANSARDLIST {
 	function _get_data_by_calendar($args) {
 		// We should have come here via _get_data_by_calendar() in
 		// DEBATELIST or WRANLIST, so $this->major should now be set.
-		
+
 		// You can ask for:
 		// * The most recent n months - $args['months'] => n
 		// * All months from one year - $args['year'] => 2004
 		// * One month - $args['year'] => 2004, $args['month'] => 8
 		// * The months from this year so far (no $args variables needed).
-		
-		// $args['onday'] may be like '2004-04-20' - if it appears in the 
+
+		// $args['onday'] may be like '2004-04-20' - if it appears in the
 		// calendar, this date will be highlighted and will have no link.
-		
+
 		// Returns a data structure of years, months and dates:
 		// $data = array(
 		// 		'info' => array (
@@ -1329,12 +1329,12 @@ class HANSARDLIST {
 		// It will just have entries for days for which we have relevant
 		// hansard data.
 		// But months that have no data will still have a month array (empty).
-	
+
 		// $data['info'] may have 'prevlink' => '/debates/?y=2003' or something
 		// if we're viewing recent months.
-		
+
 		global $DATA, $this_page, $PAGE, $hansardmajors;
-		
+
 		// What we return.
 		$data = array(
 			'info' => array(
@@ -1342,21 +1342,21 @@ class HANSARDLIST {
 				'major' => $this->major
 			)
 		);
-		
+
 		// Set a variable so we know what we're displaying...
 		if (isset($args['months']) && is_numeric($args['months'])) {
-		
+
 			// A number of recent months (may wrap around to previous year).
 			$action = 'recentmonths';
-			
+
 			// A check to prevent anyone requestion 500000 months.
 			if ($args['months'] > 12) {
 				$PAGE->error_message("Sorry, you can't view " . $args['months'] . " months.");
 				return $data;
 			}
-		
+
 		} elseif (isset($args['year']) && is_numeric($args['year'])) {
-			
+
 			if (isset($args['month']) && is_numeric($args['month'])) {
 				// A particular month.
 				$action = 'month';
@@ -1364,27 +1364,27 @@ class HANSARDLIST {
 				// A single year.
 				$action = 'year';
 			}
-		
+
 		} else {
 			// The year to date so far.
 			$action = 'recentyear';
 		}
-		
+
 		if (isset($args['onday'])) {
 			// Will be highlighted.
 			$data['info']['onday'] = $args['onday'];
 		}
-		
+
 		// This first if/else section is simply to fill out these variables:
-		
+
 		$firstyear = '';
 		$firstmonth = '';
 		$finalyear = '';
 		$finalmonth = '';
 
 		if ($action == 'recentmonths' || $action == 'recentyear') {
-			
-			// We're either getting the most recent $args['months'] data 
+
+			// We're either getting the most recent $args['months'] data
 			// Or the most recent year's data.
 			// (Not necessarily recent to *now* but compared to the most
 			// recent date for which we have relevant hansard data.)
@@ -1404,13 +1404,13 @@ class HANSARDLIST {
 			}
 
 			// What's the first date of data we need to fetch?
-			list($finalyear, $finalmonth, $day) = explode('-', $recentdate);					
+			list($finalyear, $finalmonth, $day) = explode('-', $recentdate);
 
 			$finalyear = intval($finalyear);
 			$finalmonth = intval($finalmonth);
-				
+
 			if ($action == 'recentmonths') {
-			
+
 				// We're getting this many recent months.
 				$months_to_fetch = $args['months'];
 
@@ -1425,15 +1425,15 @@ class HANSARDLIST {
 					// $firstmonth is negative, hence the '+'.
 					$firstmonth = 12 + $firstmonth; // ()
 				};
-				
+
 			} else {
 				// $action == 'recentyear'
-				
+
 				// Get the most recent year's results.
 				$firstyear = $finalyear;
 				$firstmonth = 1;
 			}
-			
+
 
 
 		} else {
@@ -1458,18 +1458,18 @@ class HANSARDLIST {
 							AND 	hdate <= '" . mysql_real_escape_string($finalyear) . "-" . mysql_real_escape_string($finalmonth) . "-31'
 							LIMIT 	1
 							");
-			
+
 			if ($q->rows() == 0) {
 				// No data in db, so return empty array!
 				return $data;
 			}
-			
+
 		}
 
 		// OK, Now we have $firstyear, $firstmonth, $finalyear, $finalmonth set up.
-	
+
 		// Get the data...
-		
+
 		if ($finalyear > $firstyear || $finalmonth >= $firstmonth) {
 			$where = "AND hdate <= '" . mysql_real_escape_string($finalyear) . "-" . mysql_real_escape_string($finalmonth) . "-31'";
 		} else {
@@ -1483,16 +1483,16 @@ class HANSARDLIST {
 						$where
 						ORDER BY	hdate ASC
 						");
-		
+
 		if ($q->rows() > 0) {
 
 			// We put the data in this array. See top of function for the structure.
 			$years = array();
-			
+
 			for ($row=0; $row<$q->rows(); $row++) {
-				
+
 				list($year, $month, $day) = explode('-', $q->field($row, 'hdate'));
-				
+
 				$month = intval($month);
 				$day = intval($day);
 
@@ -1502,7 +1502,7 @@ class HANSARDLIST {
 
 			// If nothing happened on one month we'll have fetched nothing for it.
 			// So now we need to fill in any gaps with blank months.
-			
+
 			// We cycle through every year and month we're supposed to have fetched.
 			// If it doesn't have an array in $years, we create an empty one for that
 			// month.
@@ -1511,12 +1511,12 @@ class HANSARDLIST {
 				if (!isset($years[$y])) {
 					$years[$y] = array(1=>array(), 2=>array(), 3=>array(), 4=>array(), 5=>array(), 6=>array(), 7=>array(), 8=>array(), 9=>array(), 10=>array(), 11=>array(), 12=>array());
 				} else {
-				
+
 					// This year is set. Check it has all the months...
-					
+
 					$minmonth = $y == $firstyear ? $firstmonth : 1;
 					$maxmonth = $y == $finalyear ? $finalmonth : 12;
-				
+
 					for ($m = $minmonth; $m <= $maxmonth; $m++) {
 						if (!isset($years[$y][$m])) {
 							$years[$y][$m] = array();
@@ -1529,39 +1529,39 @@ class HANSARDLIST {
 
 			$data['years'] = $years;
 		}
-		
+
 		// Set the next/prev links.
 
 		$YEARURL = new URL($hansardmajors[$this->major]['page_year']);
-			
+
 		if (substr($this_page, -4) == 'year') {
 			// Only need next/prev on these pages.
 			// Not sure this is the best place for this, but...
 
 			$nextprev = array();
-			
+
 			if ($action == 'recentyear') {
 				// Assuming there will be a previous year!
-				
+
 				$YEARURL->insert(array('y'=> $firstyear-1));
-				
+
 				$nextprev['prev'] = array (
 					'body' => 'Previous year',
 					'title' => $firstyear - 1,
-					'url' => $YEARURL->generate()				
+					'url' => $YEARURL->generate()
 				);
-			
+
 			} else { // action is 'year'.
 
 				$nextprev['prev'] = array ('body' => 'Previous year');
 				$nextprev['next'] = array ('body' => 'Next year');
-				
+
 				$q = $this->db->query("SELECT DATE_FORMAT(hdate, '%Y') AS year
 							FROM hansard WHERE major = " . $this->major . "
 							AND year(hdate) < " . $firstyear . "
 							ORDER BY hdate DESC
 							LIMIT 1");
-				
+
 				$prevyear = $q->field(0, 'year');
 				$q = $this->db->query("SELECT DATE_FORMAT(hdate, '%Y') AS year
 							FROM hansard WHERE major = " . $this->major . "
@@ -1581,13 +1581,13 @@ class HANSARDLIST {
 					$nextprev['next']['url'] = $YEARURL->generate();
 				}
 			}
-			
+
 			// Will be used in $PAGE.
 			$DATA->set_page_metadata($this_page, 'nextprev', $nextprev);
 		}
-		
+
 		return $data;
-	
+
 	}
 
 	function _get_mentions($spid) {
@@ -1599,7 +1599,7 @@ class HANSARDLIST {
 		for ($i=0; $i < $nrows; $i++) {
 			$result[$i] = $q->row($i);
 		}
-		return $result; 
+		return $result;
 	}
 
 	function _get_hansard_data($input) {
@@ -1607,9 +1607,9 @@ class HANSARDLIST {
 		// Generic function for getting hansard data from the DB.
 		// It returns an empty array if no data was found.
 		// It returns an array of items if 1 or more were found.
-		// Each item is an array of key/value pairs. 
+		// Each item is an array of key/value pairs.
 		// eg:
-		/*	
+		/*
 			array (
 				0	=> array (
 					'epobject_id'	=> '2',
@@ -1623,20 +1623,20 @@ class HANSARDLIST {
 				)
 			);
 		*/
-		
+
 		// $input['amount'] is an associative array indicating what data should be fetched.
 		// It has the structure
 		// 	'key' => true
 		// Where 'true' indicates the data of type 'key' should be fetched.
 		// Leaving a key/value pair out is the same as setting a key to false.
-		
+
 		// $input['amount'] can have any or all these keys:
 		//	'body' 		- Get the body text from the epobject table.
 		//	'comment' 	- Get the first comment (and totalcomments count) for this item.
 		//	'votes'		- Get the user votes for this item.
 		//	'speaker'	- Get the speaker for this item, where applicable.
 		//  'excerpt' 	- For sub/sections get the body text for the first item within them.
-		
+
 		// $input['wherearr'] is an associative array of stuff for the WHERE clause, eg:
 		// 	array ('id=' => '37', 'date>' => '2003-12-31');
 		// $input['order'] is a string for the $order clause, eg 'hpos DESC'.
@@ -1647,18 +1647,18 @@ class HANSARDLIST {
 		$order 			= isset($input['order']) ? $input['order'] : '';
 		$limit 			= isset($input['limit']) ? $input['limit'] : '';
 		$listurl_args	= isset($input['listurl_args']) ? $input['listurl_args'] : array();
-		
-		
+
+
 		// The fields to fetch from db. 'table' => array ('field1', 'field2').
 		$fieldsarr = array (
 			'hansard' => array ('epobject_id', 'htype', 'gid', 'hpos', 'section_id', 'subsection_id', 'hdate', 'htime', 'source_url', 'major', 'minor', 'video_status', 'colnum')
 		);
-		
+
 		if (isset($amount['speaker']) && $amount['speaker'] == true) {
 			$fieldsarr['hansard'][] = 'speaker_id';
 		}
-		
-		if ((isset($amount['body']) && $amount['body'] == true) || 
+
+		if ((isset($amount['body']) && $amount['body'] == true) ||
 			(isset($amount['comment']) && $amount['comment'] == true)
 			) {
 			$fieldsarr['epobject'] = array ('body');
@@ -1667,7 +1667,7 @@ class HANSARDLIST {
 			$join = '';
 		}
 
-		
+
 		$fieldsarr2 = array ();
 		// Construct the $fields clause.
 		foreach ($fieldsarr as $table => $tablesfields) {
@@ -1676,22 +1676,22 @@ class HANSARDLIST {
 			}
 		}
 		$fields = implode(', ', $fieldsarr2);
-		
+
 		$wherearr2 = array ();
 		// Construct the $where clause.
 		foreach ($wherearr as $key => $val) {
 			$wherearr2[] = "$key'" . mysql_real_escape_string($val) . "'";
 		}
 		$where = implode (" AND ", $wherearr2);
-		
-		
+
+
 		if ($order != '') {
 			$order = "ORDER BY $order";
 		}
 		if ($limit != '') {
 			$limit = "LIMIT $limit";
 		}
-		
+
 		// Finally, do the query!
 		$q = $this->db->query ("SELECT $fields
 						FROM 	hansard
@@ -1700,31 +1700,31 @@ class HANSARDLIST {
 						$order
 						$limit
 						");
-		
+
 		// Format the data into an array for returning.
 		$data = array ();
-						
+
 		if ($q->rows() > 0) {
-		
+
 			for ($n=0; $n<$q->rows(); $n++) {
-			
+
 				// Where we'll store the data for this item before adding
 				// it to $data.
 				$item = array();
-				
+
 				// Put each row returned into its own array in $data.
 				foreach ($fieldsarr as $table => $tablesfields) {
 					foreach ($tablesfields as $m => $field) {
 						$item[$field] = $q->field($n, $field);
 					}
 				}
-				
+
 				if (isset($item['gid'])) {
 					// Remove the "uk.org.publicwhip/blah/" from the gid:
 					// (In includes/utility.php)
 					$item['gid'] = fix_gid_from_db( $item['gid'] );
 				}
-				
+
 				// Add mentions if (a) it's a question in the written
 				// answer section or (b) it's in the official reports
 				// and the body text ends in a bracketed SPID.
@@ -1741,35 +1741,35 @@ class HANSARDLIST {
 					if ( preg_match('/\((S\d+\w+-\d+)\)/ms',$stripped_body,$m) ) {
 						$item['mentions'] = $this->_get_mentions($m[1]);
 					}
-				} 
+				}
 
 				// Get the number of items within a section or subsection.
 				// It could be that we can do this in the main query?
 				// Not sure.
 				if ( ($this->major && $hansardmajors[$this->major]['type']=='debate') && ($item['htype'] == '10' || $item['htype'] == '11') ) {
-					
+
 					if ($item['epobject_id'] == 15674958) {
 						global $DATA, $this_page;
 						$DATA->set_page_metadata($this_page, 'robots', 'noindex');
 					}
 
 					if ($item['htype'] == '10') {
-						// Section - get a count of items within this section that 
+						// Section - get a count of items within this section that
 						// don't have a subsection heading.
-						$where = "section_id = '" . $item['epobject_id'] . "' 
+						$where = "section_id = '" . $item['epobject_id'] . "'
 							AND subsection_id = '" . $item['epobject_id'] . "'";
-					
+
 					} else {
 						// Subsection - get a count of items within this subsection.
 						$where = "subsection_id = '" . $item['epobject_id'] . "'";
 					}
-				
-					$r = $this->db->query("SELECT COUNT(*) AS count 
-									FROM 	hansard 
+
+					$r = $this->db->query("SELECT COUNT(*) AS count
+									FROM 	hansard
 									WHERE 	$where
 									AND htype = 12
 									");
-									
+
 					if ($r->rows() > 0) {
 						$item['contentcount'] = $r->field(0, 'count');
 					} else {
@@ -1777,22 +1777,22 @@ class HANSARDLIST {
 					}
 				}
 
-				// Get the body of the first item with the section or 
+				// Get the body of the first item with the section or
 				// subsection. This can then be printed as an excerpt
 				// on the daily list pages.
-				
-				if ((isset($amount['excerpt']) && $amount['excerpt'] == true) && 		
-					($item['htype'] == '10' || 
+
+				if ((isset($amount['excerpt']) && $amount['excerpt'] == true) &&
+					($item['htype'] == '10' ||
 					$item['htype'] == '11')
 					) {
 					if ($item['htype'] == '10') {
-						$where = "hansard.section_id = '" . mysql_real_escape_string($item['epobject_id']) . "' 
-							AND hansard.subsection_id = '" . mysql_real_escape_string($item['epobject_id']) . "'";				
+						$where = "hansard.section_id = '" . mysql_real_escape_string($item['epobject_id']) . "'
+							AND hansard.subsection_id = '" . mysql_real_escape_string($item['epobject_id']) . "'";
 					} elseif ($item['htype'] == '11') {
-						$where = "hansard.subsection_id = '" . mysql_real_escape_string($item['epobject_id']) . "'";					
+						$where = "hansard.subsection_id = '" . mysql_real_escape_string($item['epobject_id']) . "'";
 					}
 
-					$r = $this->db->query("SELECT epobject.body 
+					$r = $this->db->query("SELECT epobject.body
 									FROM 	hansard,
 											epobject
 									WHERE	$where
@@ -1804,8 +1804,8 @@ class HANSARDLIST {
 						$item['excerpt'] = $r->field(0, 'body');
 					}
 				}
-				
-				
+
+
 				// We generate two permalinks for each item:
 				// 'listurl' is the URL of the item in the full list view.
 				// 'commentsurl' is the URL of the item on its own page, with comments.
@@ -1819,11 +1819,11 @@ class HANSARDLIST {
 					'section_id'	=> $item['section_id'],
 					'subsection_id'	=> $item['subsection_id']
 				);
-				
+
 
 				$item['listurl'] = $this->_get_listurl($item_data);
-				
-				
+
+
 				// Create a URL for where we can see all the comments for this item.
 				if (isset($this->commentspage)) {
 					$COMMENTSURL = new URL($this->commentspage);
@@ -1839,64 +1839,64 @@ class HANSARDLIST {
 							$COMMENTSURL->remove(array('id'));
 						}
 						$COMMENTSURL->insert(array ($getvar=>$item['gid']) );
-						$item['commentsurl'] = $COMMENTSURL->generate();	
+						$item['commentsurl'] = $COMMENTSURL->generate();
 					}
-				}					
-					
+				}
+
 				// Get the user/anon votes items that have them.
-				if (($this->major == 3 || $this->major == 8) && (isset($amount['votes']) && $amount['votes'] == true) && 
+				if (($this->major == 3 || $this->major == 8) && (isset($amount['votes']) && $amount['votes'] == true) &&
 					$item['htype'] == '12') {
 					// Debate speech or written answers (not questions).
-				
+
 					$item['votes'] = $this->_get_votes( $item['epobject_id'] );
 				}
 
 				// Get the speaker for this item, if applicable.
 				if ( (isset($amount['speaker']) && $amount['speaker'] == true) &&
 					$item['speaker_id'] != '') {
-					
+
 					$item['speaker'] = $this->_get_speaker($item['speaker_id'], $item['hdate']);
 				}
-				
-				
+
+
 				// Get comment count and (if any) most recent comment for each item.
-				if (isset($amount['comment']) && $amount['comment'] == true) {	
-				
+				if (isset($amount['comment']) && $amount['comment'] == true) {
+
 					// All the things we need to get the comment data.
 					$item_data = array (
 						'htype' => $item['htype'],
 						'epobject_id' => $item['epobject_id']
 					);
-					
+
 					$commentdata = $this->_get_comment($item_data);
 					$item['totalcomments'] = $commentdata['totalcomments'];
 					$item['comment'] = $commentdata['comment'];
 				}
-				
-				
+
+
 				// Add this item on to the array of items we're returning.
 				$data[$n] = $item;
 			}
 		}
-		
+
 		return $data;
 	}
-	
-	
+
+
 	function _get_votes($epobject_id) {
 		// Called from _get_hansard_data().
 		// Separated out here just for clarity.
 		// Returns an array of user and anon yes/no votes for an epobject.
-		
+
 		$votes = array();
-		
+
 		// YES user votes.
 		$q = $this->db->query("SELECT COUNT(vote) as totalvotes
 						FROM	uservotes
 						WHERE	epobject_id = '" . mysql_real_escape_string($epobject_id) . "'
 						AND 	vote = '1'
 						GROUP BY epobject_id");
-		
+
 		if ($q->rows() > 0) {
 			$votes['user']['yes'] = $q->field(0, 'totalvotes');
 		} else {
@@ -1918,29 +1918,29 @@ class HANSARDLIST {
 
 
 		// Get the anon votes for each item.
-		
+
 		$q = $this->db->query("SELECT yes_votes,
 								no_votes
 						FROM	anonvotes
 						WHERE	epobject_id = '" . mysql_real_escape_string($epobject_id) . "'");
-		
+
 		if ($q->rows() > 0) {
 			$votes['anon']['yes'] = $q->field(0, 'yes_votes');
 			$votes['anon']['no'] = $q->field(0, 'no_votes');
 		} else {
 			$votes['anon']['yes'] = '0';
 			$votes['anon']['no'] = '0';
-		}	
-		
+		}
+
 		return $votes;
 	}
-	
-	
+
+
 	function _get_listurl ($id_data, $url_args=array(), $encode='html') {
 		global $hansardmajors;
 		// Generates an item's listurl - this is the 'contextual' url
 		// for an item, in the full list view with an anchor (if appropriate).
-		
+
 		// $id_data is like this:
 		//		$id_data = array (
 		//		'major' 		=> 1,
@@ -1949,13 +1949,13 @@ class HANSARDLIST {
 		//		'section_id'	=> 345,
 		//		'subsection_id'	=> 346
 		// );
-		
+
 		// $url_args is an array of other key/value pairs to be appended in the GET string.
 		if ($id_data['major'])
 			$LISTURL = new URL($hansardmajors[$id_data['major']]['page_all']);
 		else
 			$LISTURL = new URL('wrans');
-		
+
 		$fragment = '';
 
 		if ($id_data['htype'] == '11' || $id_data['htype'] == '10') {
@@ -1971,36 +1971,36 @@ class HANSARDLIST {
 			// A debate speech or question/answer, etc.
 			// We need to get the gid of the parent (sub)section for this item.
 			// We use this with the gid of the item itself as an #anchor.
-			
+
 			$parent_epobject_id = $id_data['subsection_id'];
 			$minor = $id_data['minor'];
-			
+
 			// Find the gid of this item's (sub)section.
 			$parent_gid = '';
-			
+
 			if (isset($this->epobjectid_to_gid[ $parent_epobject_id ])) {
 				// We've previously cached the gid for this epobject_id, so use that.
-				
+
 				$parent_gid = $this->epobjectid_to_gid[ $parent_epobject_id ];
-			
+
 			} else {
 				// We haven't cached the gid, so fetch from db.
-				
+
 				$r = $this->db->query("SELECT gid
 								FROM 	hansard
 								WHERE	epobject_id = '" . mysql_real_escape_string($parent_epobject_id) . "'
 								");
-								
+
 				if ($r->rows() > 0) {
 					// Remove the "uk.org.publicwhip/blah/" from the gid:
 					// (In includes/utility.php)
 					$parent_gid = fix_gid_from_db( $r->field(0, 'gid') );
-					
+
 					// Cache it for if we need it again:
 					$this->epobjectid_to_gid[ $parent_epobject_id ] = $parent_gid;
 				}
 			}
-			
+
 			if ($parent_gid != '') {
 				// We have a gid so add to the URL.
 				if ($id_data['major'] == 6) {
@@ -2024,11 +2024,11 @@ class HANSARDLIST {
 				$fragment = '#g' . gid_to_anchor($id_data['gid']);
 			}
 		}
-				
+
 		if (count($url_args) > 0) {
 			$LISTURL->insert( $url_args);
 		}
-		
+
 		return $LISTURL->generate($encode) . $fragment;
 	}
 
@@ -2036,11 +2036,11 @@ class HANSARDLIST {
 		// Pass it the id of a speaker. If $this->speakers doesn't
 		// already contain data about the speaker, it's fetched from the DB
 		// and put in $this->speakers.
-		
+
 		// So we don't have to keep fetching the same speaker info about chatterboxes.
-		
+
 		if ($speaker_id != 0) {
-		
+
 			if (!isset( $this->speakers[ $speaker_id ] )) {
 				// Speaker isn't cached, so fetch the data.
 
@@ -2053,7 +2053,7 @@ class HANSARDLIST {
 								FROM 	member
 								WHERE	member_id = '" . mysql_real_escape_string($speaker_id) . "'
 								");
-								
+
 				if ($q->rows() > 0) {
 					// *SHOULD* only get one row back here...
 					$house = $q->field(0, 'house');
@@ -2106,7 +2106,7 @@ class HANSARDLIST {
 						}
 					}
 					$this->speakers[ $speaker_id ] = $speaker;
-					
+
 					return $speaker;
 				} else {
 					return array();
@@ -2119,33 +2119,33 @@ class HANSARDLIST {
 			return array();
 		}
 	}
-	
-	
-	
+
+
+
 	function _get_comment($item_data) {
 		// Pass it some variables belonging to an item and the function
 		// returns an array containing:
 		// 1) A count of the comments within this item.
 		// 2) The details of the most recent comment posted to this item.
-		
+
 		// Sections/subsections have (1) (the sum of the comments
 		// of all contained items), but not (2).
-		
+
 		// What we return.
 		$totalcomments = $this->_get_comment_count_for_epobject($item_data);
 		$comment = array();
-		
-		if ($item_data['htype'] == '12' || $item_data['htype'] == '13') {		
-			
+
+		if ($item_data['htype'] == '12' || $item_data['htype'] == '13') {
+
 			// Things which can have comments posted directly to them.
 
 			if ($totalcomments > 0) {
-				
+
 				// Get the first comment.
-				
+
 				// Not doing this for Wrans sections because we don't
 				// need it anywhere. Arbitrary but it'll save us MySQL time!
-				
+
 				$q = $this->db->query("SELECT c.comment_id,
 									c.user_id,
 									c.body,
@@ -2159,7 +2159,7 @@ class HANSARDLIST {
 							ORDER BY c.posted ASC
 							LIMIT	1
 							");
-				
+
 				// Add this comment to the data structure.
 				$comment = array (
 					'comment_id' => $q->field(0, 'comment_id'),
@@ -2169,22 +2169,22 @@ class HANSARDLIST {
 					'username'	=> $q->field(0, 'firstname') .' '. $q->field(0, 'lastname')
 				);
 			}
-			
-		} 	
-		
+
+		}
+
 		// We don't currently allow people to post comments to a section
-		// or subsection itself, only the items within them. So 
+		// or subsection itself, only the items within them. So
 		// we don't get the most recent comment. Because there isn't one.
-		
+
 		$return = array (
 			'totalcomments' => $totalcomments,
 			'comment' => $comment
 		);
-		
+
 		return $return;
 	}
-	
-	
+
+
 	function _get_comment_count_for_epobject($item_data) {
 		global $hansardmajors;
 		// What it says on the tin.
@@ -2193,18 +2193,18 @@ class HANSARDLIST {
 		if (($hansardmajors[$this->major]['type']=='debate') &&
 			($item_data['htype'] == '10' || $item_data['htype'] == '11')
 			) {
-			// We'll be getting a count of the comments on all items 
+			// We'll be getting a count of the comments on all items
 			// within this (sub)section.
 			$from = "comments, hansard";
 			$where = "comments.epobject_id = hansard.epobject_id
 					AND subsection_id = '" . $item_data['epobject_id'] . "'";
 
 			if ($item_data['htype'] == '10') {
-				// Section - get a count of comments within this section that 
+				// Section - get a count of comments within this section that
 				// don't have a subsection heading.
 				$where .= " AND section_id = '" . $item_data['epobject_id'] . "'";
-			} 
-		
+			}
+
 		} else {
 			// Just getting a count of the comments on this item.
 			$from = "comments";
@@ -2215,33 +2215,33 @@ class HANSARDLIST {
 						FROM 	$from
 						WHERE	$where
 						AND		visible = 1
-		
+
 						");
-		
+
 		return $q->field(0, 'count');
 	}
-	
-	
-/*	
+
+
+/*
 	function _get_trackback_data($itemdata) {
 		// Returns a array of data we need to create the Trackback Auto-discovery
 		// RDF on a page.
-		
-		// We're assuming that we're only using this on a page where there's only 
+
+		// We're assuming that we're only using this on a page where there's only
 		// one 'thing' to be trackbacked to. ie, we don't add #anchor data onto the
 		// end of the URL so we can include this RDF in full lists of debate speeches.
-		
+
 		$trackback = array();
-		
+
 		$title = '';
-		
+
 		if (isset($itemdata['speaker']) && isset($itemdata['speaker']['first_name'])) {
 			// This is probably a debate speech.
 			$title .= $itemdata['speaker']['first_name'] . ' ' . $itemdata['speaker']['last_name'] . ': ';
 		}
-		
+
 		$trackback['title'] = $title . trim_characters($itemdata['body'], 0, 200);
-		
+
 		// We're just saying this was in GMT...
 		$trackback['date'] = $itemdata['hdate'] . 'T' . $itemdata['htime'] . '+00:00';
 
@@ -2256,21 +2256,21 @@ class HANSARDLIST {
 			$url = $itemdata['commentsurl'];
 		}
 		$trackback['itemurl'] = 'http://' . DOMAIN . $url;
-		
+
 		// Getting the URL the user needs to ping for this item.
 		$URL = new URL('trackback');
 		$URL->insert(array('e'=>$itemdata['epobject_id']));
 
 		$trackback['pingurl'] = 'http://' . DOMAIN . $URL->generate('html');
-		
-	
+
+
 		return $trackback;
-	
+
 	}
 */
 
 	function _get_data_by_gid($args) {
-	
+
 		// We need to get the data for this gid.
 		// Then depending on what htype it is, we get the data for other items too.
 		global $DATA, $this_page, $hansardmajors;
@@ -2288,7 +2288,7 @@ class HANSARDLIST {
 	            // find the gid of the subheading which holds this part
 	            $input = array (
 	                'amount' => array('gid' => true),
-	                'where' => array ( 
+	                'where' => array (
 	                    'epobject_id=' => $itemdata['subsection_id'],
 	                ),
 	            );
@@ -2349,7 +2349,7 @@ class HANSARDLIST {
 			if (isset($itemdata['redirected_gid'])) {
 				$data['info']['redirected_gid'] = $itemdata['redirected_gid'];
 			}
-			
+
 			// If we have a member id we'll pass it on to the template so it
 			// can highlight all their speeches.
 			if (isset($args['member_id'])) {
@@ -2358,20 +2358,20 @@ class HANSARDLIST {
 			if (isset($args['person_id'])) {
 				$data['info']['person_id'] = $args['person_id'];
 			}
-			
+
 			if (isset($args['s']) && $args['s'] != '') {
 				// We have some search term words that we could highlight
 				// when rendering.
 				$data['info']['searchstring'] = $args['s'];
 			}
-			
+
 			// Shall we turn glossarising on?
 			if (isset($args['glossarise']) && $args['glossarise']) {
 				// We have some search term words that we could highlight
 				// when rendering.
 				$data['info']['glossarise'] = $args['glossarise'];
 			}
-											
+
 			// Get the section and subsection headings for this item.
 			$sectionrow = $this->_get_section($itemdata);
 			$subsectionrow = $this->_get_subsection($itemdata);
@@ -2381,28 +2381,28 @@ class HANSARDLIST {
 			if ($itemdata['htype'] == '10') {
 				$nextprev = $this->_get_nextprev_items( $sectionrow );
 			    $data['info']['text_heading'] = $itemdata['body'];
-			
+
 			} elseif ($itemdata['htype'] == '11') {
 				$nextprev = $this->_get_nextprev_items( $subsectionrow );
 			    $data['info']['text_heading'] = $itemdata['body'];
-			
+
 			} else {
 				// Ordinary lowly item.
 				$nextprev = $this->_get_nextprev_items( $itemdata );
-				
+
 				if (isset($subsectionrow['gid'])) {
 					$nextprev['up']['url'] 		= $subsectionrow['listurl'];
 					$nextprev['up']['title'] 	= $subsectionrow['body'];
 				} else {
 					$nextprev['up']['url'] 		= $sectionrow['listurl'];
-					$nextprev['up']['title'] 	= $sectionrow['body'];	
+					$nextprev['up']['title'] 	= $sectionrow['body'];
 				}
 				$nextprev['up']['body']		= 'See the whole debate';
 			}
-			
+
 			// We can then access this from $PAGE and the templates.
 			$DATA->set_page_metadata($this_page, 'nextprev', $nextprev);
-			
+
 			// Now get all the non-heading rows.
 
 			// What data do we want for each item?
@@ -2414,23 +2414,23 @@ class HANSARDLIST {
 			);
 
 			if ($itemdata['htype'] == '10') {
-				// This item is a section, so we're displaying all the items within 
+				// This item is a section, so we're displaying all the items within
 				// it that aren't within a subsection.
-				
+
 				# $sectionrow['trackback'] = $this->_get_trackback_data($sectionrow);
 
 				$input = array (
 				 	'amount' => $amount,
-				 	'where' => array ( 
+				 	'where' => array (
 						'section_id=' => $itemdata['epobject_id'],
 						'subsection_id=' => $itemdata['epobject_id']
 					),
 					'order' => 'hpos ASC'
 				);
-				
+
 				$data['rows'] = $this->_get_hansard_data($input);
 				if (!count($data['rows']) || (count($data['rows'])==1 && strstr($data['rows'][0]['body'], 'was asked'))) {
-			
+
 					$input = array (
 						'amount' => array (
 							'body' => true,
@@ -2452,29 +2452,29 @@ class HANSARDLIST {
 				}
 			} elseif ($itemdata['htype'] == '11') {
 				// This item is a subsection, so we're displaying everything within it.
-				
+
 				# $subsectionrow['trackback'] = $this->_get_trackback_data($subsectionrow);
-				
+
 				$input = array (
 					'amount' => $amount,
-					'where' => array ( 
+					'where' => array (
 						'subsection_id=' => $itemdata['epobject_id']
 					),
 					'order' => 'hpos ASC'
 				);
-				
+
 				$data['rows'] = $this->_get_hansard_data($input);
-			
-			
+
+
 			} elseif ($itemdata['htype'] == '12' || $itemdata['htype'] == '13') {
 				// Debate speech or procedural, so we're just displaying this one item.
-				
+
 				# $itemdata['trackback'] = $this->_get_trackback_data($itemdata);
 
-				$data['rows'][] = $itemdata;	
-							
+				$data['rows'][] = $itemdata;
+
 			}
-			
+
 			// Put the section and subsection at the top of the rows array.
 			if (count($subsectionrow) > 0 &&
 				$subsectionrow['gid'] != $sectionrow['gid']) {
@@ -2482,9 +2482,9 @@ class HANSARDLIST {
 				// And if the subsectionrow and sectionrow aren't the same.
 				array_unshift ($data['rows'], $subsectionrow);
 			}
-			
-			array_unshift ($data['rows'], $sectionrow);	
-			
+
+			array_unshift ($data['rows'], $sectionrow);
+
 		}
 
 		return $data;
@@ -2525,7 +2525,7 @@ class WMSLIST extends WRANSLIST {
 	}
 	function _get_data_by_recent_wms($args = array()) {
 		return $this->_get_data_by_recent_wrans($args);
-	}		
+	}
 }
 
 class WHALLLIST extends DEBATELIST {
@@ -2576,7 +2576,7 @@ class SPWRANSLIST extends WRANSLIST {
 		if ($gid) return $gid;
 		return null;
 	}
-	function old_get_gid_from_spid($spid) { 
+	function old_get_gid_from_spid($spid) {
 		$q = $this->db->query("select gid from hansard where gid like 'uk.org.publicwhip/spwa/%.$spid.h'");
 		$gid = $q->field(0, 'gid');
 		if ($gid) return str_replace('uk.org.publicwhip/spwa/', '', $gid);
@@ -2596,12 +2596,12 @@ class LORDSDEBATELIST extends DEBATELIST {
 
 class DEBATELIST extends HANSARDLIST {
 	var $major = 1;
-	
+
 	// The page names we want to link to for item permalinks.
 	// If you change listpage, you'll have to change it in _get_listurl too I'm afraid.
 	var $listpage = 'debates';
 	var $commentspage = 'debate';
-	
+
 	function debatelist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'debate/';
@@ -2611,21 +2611,21 @@ class DEBATELIST extends HANSARDLIST {
 		// Get the most highly voted recent speeches.
 		// $args may have 'days'=>7 and/or 'num'=>5
 		// or something like that.
-		
+
 		// The most voted on things during how many recent days?
 		if (isset($args['days']) && is_numeric($args['days'])) {
 			$days = $args['days'];
 		} else {
 			$days = 7;
 		}
-		
+
 		// How many results?
 		if (isset($args['num']) && is_numeric($args['num'])) {
 			$items_to_list = $args['num'];
 		} else {
 			$items_to_list = 5;
 		}
-		
+
 		$q = $this->db->query("SELECT subsection_id,
 								section_id,
 								htype,
@@ -2647,15 +2647,15 @@ class DEBATELIST extends HANSARDLIST {
 						ORDER BY total_vote DESC
 						LIMIT	$items_to_list
 						");
-		
+
 		// What we return.
 		$data = array ();
-		$speeches = array();		
-	
+		$speeches = array();
+
 		if ($q->rows() > 0) {
-		
+
 			for ($n=0; $n<$q->rows(); $n++) {
-			
+
 				$speech = array (
 					'subsection_id'	=> $q->field($n, 'subsection_id'),
 					'section_id'	=> $q->field($n, 'section_id'),
@@ -2666,22 +2666,22 @@ class DEBATELIST extends HANSARDLIST {
 					'body'			=> $q->field($n, 'body'),
 					'votes'			=> $q->field($n, 'total_vote')
 				);
-				
+
 				// Remove the "uk.org.publicwhip/blah/" from the gid:
 				// (In includes/utility.php)
 				$speech['gid'] = fix_gid_from_db( $q->field($n, 'gid') );
-			
+
 				$speech['listurl'] = $this->_get_listurl($speech);
-				
+
 				$speech['speaker'] = $this->_get_speaker($q->field($n, 'speaker_id'), $q->field($n, 'hdate') );
-				
+
 				$speeches[] = $speech;
 			}
 		}
-		
+
 		if (count($speeches) > 0) {
 			// Get the subsection texts.
-			
+
 			for ($n=0; $n<count($speeches); $n++) {
 				//if ($this->major == 1) {
 					// Debate.
@@ -2698,25 +2698,25 @@ class DEBATELIST extends HANSARDLIST {
 				//	$parent = $this->_get_section ($speeches[$n]);
 				//	$speeches[$n]['parent']['body'] = $parent['body'];
 				//}
-				
+
 			}
-			
-			$data['rows'] = $speeches;		
-		
+
+			$data['rows'] = $speeches;
+
 		} else {
 			$data['rows'] = array ();
 		}
 
 		$data['info']['days'] = $days;
-		
+
 		return $data;
 	}
-	
+
 
 	function total_speeches() {
-		
+
 		$q = $this->db->query("SELECT COUNT(*) AS count FROM hansard WHERE major='" . $this->major . "' AND htype = 12");
-		
+
 		return $q->field(0, 'count');
 	}
 
@@ -2844,28 +2844,28 @@ class DEBATELIST extends HANSARDLIST {
     }
 
 	function _get_data_by_biggest_debates($args=array()) {
-		// Returns an array of the debates with most speeches in from 
+		// Returns an array of the debates with most speeches in from
 		// a set number of recent days (that's recent days starting from the
 		// most recent day that had any debates on).
-		
+
 		// $args['days'] is the number of days back to look for biggest debates.
 		// (1 by default)
 		// $args['num'] is the number of links to return (1 by default).
-			
+
 		$data = array();
-		
+
 		// Get the most recent day on which we have a debate.
 		$recentday = $this->most_recent_day();
 		if (!count($recentday))
 			return array();
-		
+
 		if (!isset($args['days']) || !is_numeric($args['days'])) {
 			$args['days'] = 1;
 		}
 		if (!isset($args['num']) || !is_numeric($args['num'])) {
 			$args['num'] = 1;
 		}
-		
+
 		if ($args['num'] == 1) {
 			$datewhere = "h.hdate = '" . mysql_real_escape_string($recentday['hdate']) . "'";
 		} else {
@@ -2873,29 +2873,29 @@ class DEBATELIST extends HANSARDLIST {
 			$datewhere = "h.hdate >= '" . mysql_real_escape_string($firstdate) . "'
 						AND		h.hdate <= '" . mysql_real_escape_string($recentday['hdate']) . "'";
 		}
-			
-		
-		$q = $this->db->query("SELECT COUNT(*) AS count, 
-								body, 
+
+
+		$q = $this->db->query("SELECT COUNT(*) AS count,
+								body,
 								h.hdate,
 								sech.htype,
 								sech.gid,
 								sech.subsection_id,
 								sech.section_id,
 								sech.epobject_id
-						FROM 	hansard h, epobject e, hansard sech 
-						WHERE 	h.major = '" . $this->major . "' 
+						FROM 	hansard h, epobject e, hansard sech
+						WHERE 	h.major = '" . $this->major . "'
 						AND 	$datewhere
-						AND  	h.subsection_id = e.epobject_id 
-						AND 	sech.epobject_id = h.subsection_id 
-						GROUP BY h.subsection_id 
-						ORDER BY count DESC 
+						AND  	h.subsection_id = e.epobject_id
+						AND 	sech.epobject_id = h.subsection_id
+						GROUP BY h.subsection_id
+						ORDER BY count DESC
 						LIMIT 	" . mysql_real_escape_string($args['num']) . "
 						");
-		
+
 
 		for ($row=0; $row<$q->rows; $row++) {
-			
+
 			// This array just used for getting further data about this debate.
 			$item_data = array (
 				'major'			=> $this->major,
@@ -2905,15 +2905,15 @@ class DEBATELIST extends HANSARDLIST {
 				'subsection_id'	=> $q->field($row, 'subsection_id'),
 				'epobject_id'	=> $q->field($row, 'epobject_id')
 			);
-			
+
 			$list_url 		= $this->_get_listurl( $item_data );
 			$totalcomments	= $this->_get_comment_count_for_epobject( $item_data );
-			
+
 			$contentcount	= $q->field($row, 'count');
 			$body 			= $q->field($row, 'body');
 			$hdate			= $q->field($row, 'hdate');
-			
-		
+
+
 			// This array will be added to $data, which is what gets returned.
 			$debate = array (
 				'contentcount'	=> $contentcount,
@@ -2922,28 +2922,28 @@ class DEBATELIST extends HANSARDLIST {
 				'list_url'		=> $list_url,
 				'totalcomments'	=> $totalcomments
 			);
-		
+
 			// If this is a subsection, we're going to prepend the title
 			// of the parent section, so let's get that.
 			if ($item_data['htype'] == 11) {
-				
+
 				$r = $this->db->query("SELECT body
 								FROM	epobject
 								WHERE	epobject_id = '" . mysql_real_escape_string($item_data['section_id']) . "'
 								");
 				$debate['parent']['body'] = $r->field(0, 'body');
 			}
-			
+
 			$data[] = $debate;
 		}
-		
+
 		$data = array (
 			'info' => array(),
 			'data' => $data
 		);
-		
+
 		return $data;
-	
+
 	}
 
 }
@@ -2952,7 +2952,7 @@ class DEBATELIST extends HANSARDLIST {
 class WRANSLIST extends HANSARDLIST {
 
 	var $major = 3;
-	
+
 	// The page names we want to link to for item permalinks.
 	// If you change listpage, you'll have to change it in _get_listurl too I'm afraid.
 	var $listpage = 'wrans';
@@ -3037,7 +3037,7 @@ class WRANSLIST extends HANSARDLIST {
 		$recentday = $this->most_recent_day();
 		if (!count($recentday))
 			return $data;
-		
+
 		if (!isset($args['days']) || !is_numeric($args['days'])) {
 			$args['days'] = 1;
 		}
@@ -3052,8 +3052,8 @@ class WRANSLIST extends HANSARDLIST {
 			$datewhere = "h.hdate >= '" . mysql_real_escape_string($firstdate) . "'
 						AND		h.hdate <= '" . mysql_real_escape_string($recentday['hdate']) . "'";
 		}
-	
-	
+
+
 		// Get a random selection of subsections in wrans.
 		if ($hansardmajors[$this->major]['location'] == 'Scotland') {
 			$htype = 'htype = 10 and section_id = 0';
@@ -3076,7 +3076,7 @@ class WRANSLIST extends HANSARDLIST {
 						ORDER BY RAND()
 						LIMIT 	" . mysql_real_escape_string($args['num']) . "
 						");
-						
+
 		for ($row=0; $row<$q->rows; $row++) {
 			// This array just used for getting further data about this debate.
 			$item_data = array (
@@ -3087,12 +3087,12 @@ class WRANSLIST extends HANSARDLIST {
 				'subsection_id'	=> $q->field($row, 'subsection_id'),
 				'epobject_id'	=> $q->field($row, 'epobject_id')
 			);
-			
+
 			$list_url 		= $this->_get_listurl( $item_data );
-			$totalcomments	= $this->_get_comment_count_for_epobject( $item_data );	
-			
+			$totalcomments	= $this->_get_comment_count_for_epobject( $item_data );
+
 			$body 			= $q->field($row, 'body');
-			$hdate			= $q->field($row, 'hdate');	
+			$hdate			= $q->field($row, 'hdate');
 
 			// Get the parent section for this item.
 			$parentbody = '';
@@ -3104,7 +3104,7 @@ class WRANSLIST extends HANSARDLIST {
 							");
 				$parentbody = $r->field(0, 'body');
 			}
-			
+
 			// Get the question for this item.
 			$r = $this->db->query("SELECT e.body,
 									h.speaker_id, h.hdate
@@ -3116,7 +3116,7 @@ class WRANSLIST extends HANSARDLIST {
 							");
 			$childbody = $r->field(0, 'body');
 			$speaker = $this->_get_speaker($r->field(0, 'speaker_id'), $r->field(0, 'hdate') );
-			
+
 			$data[] = array (
 				'body'			=> $body,
 				'hdate'			=> $hdate,
@@ -3131,17 +3131,17 @@ class WRANSLIST extends HANSARDLIST {
 				)
 			);
 
-		}	
+		}
 
 		$data = array (
 			'info' => array(),
 			'data' => $data
 		);
-		
+
 		return $data;
-	
+
 	}
-	
+
 }
 
 class StandingCommittee extends DEBATELIST {
@@ -3229,7 +3229,7 @@ class StandingCommittee extends DEBATELIST {
 		$data['info']['major'] = $this->major;
 		$data['info']['committee'] = $this->_get_committee($args['id']);
 		$DATA->set_page_metadata($this_page, 'title', $args['title']);
-		return $data;		
+		return $data;
 	}
 
 	function _get_data_by_session($args) {

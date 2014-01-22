@@ -1,8 +1,8 @@
 <?php
   /*
-  
+
   mysql> load data infile '/home/stefan/whitelabel.org/wp/convertedtitles' ignore into table titles;
-  */   
+  */
 function technorati_pretty() {
 	global $arItems;
 	technorati('http://www.theyworkforyou.com' . $_SERVER['REQUEST_URI']);
@@ -34,9 +34,9 @@ function technorati($url) {
 
 # array of technorati links
   $arItems = array();
-  
+
   $itemCount = 0;
-  
+
 # right. now get the technorati links.
   doCosmos($url);
 }
@@ -59,7 +59,7 @@ function doCosmos($urlstring) {
 //  $cacheFilename= $nums[0];
 
   // cache for 30 mins only
-  //  if (!file_exists("cache/{$cacheFilename}.xml")||  (time() - filemtime("cache/{$cacheFilename}.xml") > 1800)||filesize ("cache/{$cacheFilename}.xml")==0 ){ 
+  //  if (!file_exists("cache/{$cacheFilename}.xml")||  (time() - filemtime("cache/{$cacheFilename}.xml") > 1800)||filesize ("cache/{$cacheFilename}.xml")==0 ){
 
 #echo "cache miss!";
 

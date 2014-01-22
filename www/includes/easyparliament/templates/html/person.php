@@ -168,7 +168,7 @@ function person_image($member) {
 	if ($is_lord) {
 		list($image,$sz) = find_rep_image($member['person_id'], false, 'lord');
 	} else {
-		list($image,$sz) = find_rep_image($member['person_id'], false, true);		    
+		list($image,$sz) = find_rep_image($member['person_id'], false, true);
 	}
 	echo '<p class="person">';
 	echo '<img alt="Photo of ', $member['full_name'], '" src="', $image, '"';
@@ -360,7 +360,7 @@ function person_enter_leave_facts($member, $extra_info) {
 	}
 }
 
-function person_majority($extra_info) {	
+function person_majority($extra_info) {
 	if (!isset($extra_info['majority_in_seat'])) return;
 	print '<li>Majority: ' . number_format($extra_info['majority_in_seat']) . ' votes. ';
 	if (isset($extra_info['swing_to_lose_seat_today'])) {
@@ -445,7 +445,7 @@ function person_internal_links($member, $extra_info) {
 	if (isset($extra_info['register_member_interests_html'])) {
 		echo '<li><a href="#register">Register of Members&rsquo; Interests</a></li>';
 	}
-	
+
 	if ($member['has_expenses']) {
 		echo '<li><a href="#expenses">Expenses</a></li>';
 	}
@@ -460,7 +460,7 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
 		} else {
 			$dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
 			$out .= "<!-- distance $dreamid: $dmpscore -->";
-			if ($inverse) 
+			if ($inverse)
 				$dmpscore = 1.0 - $dmpscore;
 			$english = score_to_strongly($dmpscore);
             # XXX Note special casing of 2nd tuition fee policy here
@@ -618,7 +618,7 @@ function person_voting_record($member, $extra_info) {
 <?php
     }
 
-	// Links to full record at Guardian and Public Whip	
+	// Links to full record at Guardian and Public Whip
 	$record = array();
 	if (isset($extra_info['guardian_howtheyvoted'])) {
 		$record[] = '<a href="' . $extra_info['guardian_howtheyvoted'] . '" title="At The Guardian">well-known issues</a> <small>(from the Guardian)</small>';
@@ -634,7 +634,7 @@ function person_voting_record($member, $extra_info) {
 		<p class="morelink">More on <?php echo implode(' &amp; ', $record); ?></p>
 <?php
 	}
-        
+
 
 	if (!$displayed_stuff) {
 		print '<p>No data to display yet.</p>';
@@ -767,15 +767,15 @@ echo'<h2>Topics of interest</h2>';
 	$wrans_dept = false;
 	$wrans_dept_1 = null;
 	$wrans_dept_2 = null;
-	if (isset($extra_info['wrans_departments'])) { 
+	if (isset($extra_info['wrans_departments'])) {
 			$wrans_dept = true;
 			$wrans_dept_1 = "<li><strong>Departments:</strong> ".$extra_info['wrans_departments']."</p>";
-	} 
-	if (isset($extra_info['wrans_subjects'])) { 
+	}
+	if (isset($extra_info['wrans_subjects'])) {
 			$wrans_dept = true;
 			$wrans_dept_2 = "<li><strong>Subjects (based on headings added by Hansard):</strong> ".$extra_info['wrans_subjects']."</p>";
-	} 
-	
+	}
+
 	if ($wrans_dept) {
 		print "<p><strong>Asks most questions about</strong></p>";
 		print '<ul class="no-bullet">';
@@ -805,7 +805,7 @@ echo'<h2>Topics of interest</h2>';
 		}
 		print '</ul>';
 	}
-	
+
 	if ($topics_block_empty) {
 		print "<p><em>This MP is not currently on any public bill committee
 and has had no written questions answered for which we know the department or subject.</em></p>";
@@ -821,13 +821,13 @@ function person_recent_appearances($member) {
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
         $title = '<a href="' . WEBPATH . $rssurl . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="right"></a> ' . $title;
     }
-        
+
     print "<h2>$title</h2>";
 
     //$this->block_start(array('id'=>'hansard', 'title'=>$title));
     // This is really far from ideal - I don't really want $PAGE to know
     // anything about HANSARDLIST / DEBATELIST / WRANSLIST.
-    // But doing this any other way is going to be a lot more work for little 
+    // But doing this any other way is going to be a lot more work for little
     // benefit unfortunately.
     twfy_debug_timestamp();
 
@@ -840,7 +840,7 @@ function person_recent_appearances($member) {
     if (!$recent) {
         $HANSARDLIST = new HANSARDLIST();
         $searchstring = "speaker:$member[person_id]";
-        $SEARCHENGINE = new SEARCHENGINE($searchstring); 
+        $SEARCHENGINE = new SEARCHENGINE($searchstring);
         $args = array (
             's' => $searchstring,
             'p' => 1,
@@ -879,7 +879,7 @@ function person_numerology($member, $extra_info) {
 	print "<h2>Numerology</h2>";
 	$displayed_stuff = 0;
 ?>
-<p><em>Please note that numbers do not measure quality. 
+<p><em>Please note that numbers do not measure quality.
 Also, representatives may do other things not currently covered
 by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p>
 <ul class="no-bullet">
@@ -959,7 +959,7 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 		$displayed_stuff |= display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member['person_id'].'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info);
 		$displayed_stuff |= display_stats_line('reading_age', 'This MP\'s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
 	}
-		
+
 	if (isset($extra_info['number_of_alerts'])) {
 		$displayed_stuff = 1;
 	?>
@@ -1152,7 +1152,7 @@ function person_speaker_special($member, $extra_info) {
 
             <p>mySociety asked likely candidates for the post of Speaker to endorse the
             following principles." ;
-     
+
     print "<p><strong>The three principles are:</strong></p>
 
             <ol>

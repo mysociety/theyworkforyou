@@ -29,7 +29,7 @@ function render_msps_row($msp, $order) {
 		print $parties[$msp['party']];
 	else
 		print $msp['party'];
-	print ',' . $con . ',' .  'http://www.theyworkforyou.com/msp/' . 
+	print ',' . $con . ',' .  'http://www.theyworkforyou.com/msp/' .
 		make_member_url($msp['first_name'].' '.$msp['last_name'], NULL, 4, $msp['person_id']);
 	print "\n";
 }

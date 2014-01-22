@@ -22,12 +22,12 @@ if ($type == 2) {
 	// Glossary.
 	$message = "Sorry, you must be logged in to add a glossary item.";
 	$message2 = "You'll be able to add your glossary item straight after.";
-	
+
 	$URL = new URL('glossary_addterm');
 	$URL->insert(array('g' => get_http_var('g')));
 	$glossary_returl = $URL->generate();
 	$anchor = '';
-	
+
 } else {
 	// Comment.
 	$message = "Sorry, you must be logged in to add an annotation.";

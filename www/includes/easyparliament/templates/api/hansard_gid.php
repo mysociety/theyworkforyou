@@ -1,5 +1,5 @@
 <?php
-// For displaying the main Hansard content listings (by gid), 
+// For displaying the main Hansard content listings (by gid),
 // and individual Hansard items (the comments are handled separately
 // by COMMENTLIST and the comments.php template).
 
@@ -63,6 +63,6 @@ if (isset ($data['rows'])) {
 		}
 	}
 	api_output($out);
-}  else {
+} else {
 	api_error('Nothing');
    }

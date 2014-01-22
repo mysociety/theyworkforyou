@@ -19,7 +19,7 @@
 <dt><a name="use"></a>How do people use TheyWorkForYou?</dt>
 <dd>
 <p>Here are some quotes from our users.</p>
-<p>Jo Brodie, Science Information Officer &amp; Islet Project Coordinator, 
+<p>Jo Brodie, Science Information Officer &amp; Islet Project Coordinator,
 <a href="http://www.diabetes.org.uk">Diabetes UK</a>:
 </p>
 <blockquote>
@@ -74,13 +74,13 @@ press release."</blockquote>
 <ul>
 <li>Hansard Commons debates back to the General Election of <strong>1935</strong>;
 <li>knowledge of MPs back to <strong>1806</strong> or thereabouts;
-<li>Hansard Commons written answers and written ministerial statements 
+<li>Hansard Commons written answers and written ministerial statements
 back to the General Election of June 2001;
-<li>Hansard Commons Public Bill Committees (previously called Standing Committees) back to the 
+<li>Hansard Commons Public Bill Committees (previously called Standing Committees) back to the
 start of the 2000&ndash;01 session.
 <li>Hansard House of Lords Hansard (except Grand Committees) back to around November 1999;
 <li>knowledge of Lords back to the House of Lords Act 1999;
-<li>everything in the various Northern Ireland (Transitional) Assembly debates, and all MLAs; 
+<li>everything in the various Northern Ireland (Transitional) Assembly debates, and all MLAs;
 <li>everything in the Scottish Parliament official report, and all MSPs.
 </ul>
 
@@ -165,7 +165,7 @@ Speaker</a>, that all votes are free.  </P>
 
 <p>If you put in some work, we will add new policies to the voting record
 section. You need to research the policy, and make up a list of divisions in
-Parliament relating to it and which way the votes go. You can then 
+Parliament relating to it and which way the votes go. You can then
 <a href="http://www.publicwhip.org.uk/policies.php">enter these into the Public
 Whip site</a>. When you're done, <a href="/contact">contact us</a> to get us
 to add it to TheyWorkForYou. You must also be prepared to maintain this list of
@@ -196,7 +196,7 @@ use of these statistics.</p>
 <p>We've done two things. We've added the silly statistic, to catch your attention.
 And we've removed the absolute rankings. Instead of saying an MP is exactly
 5th for giving out verbiage in the chamber, we now just say that they are
-"well above average". 
+"well above average".
 
 <p>Our advice &mdash; when you're judging your MP, read some of their speeches,
 check out their website, even go to a local meeting and ask them a question.
@@ -255,12 +255,12 @@ Independent followed by the party name, e.g. <a href="/mp/clare_short/birmingham
 <!-- start new faq entry-->
 <dt><a name="api"></a>Do you have the data as a spreadsheet file, XML or in an API?</dt>
 <dd>
-<p>Yes. We have an <a href="/api">API (Application Programming Interface)</a> which 
+<p>Yes. We have an <a href="/api">API (Application Programming Interface)</a> which
 gives you the power to do almost anything with our data.
 Alternatively, you can <a href="http://ukparse.kforge.net/parlparse">get XML files</a>,
 which can be loaded into many spreadsheets. If you just need a spreadsheet of
-MPs, you'll find one on the right hand side of <a href="/mps">this page</a>. 
-Please <a href="mailto:<?=str_replace('@', '&#64;', CONTACTEMAIL) ?>">mail us</a> if you want help 
+MPs, you'll find one on the right hand side of <a href="/mps">this page</a>.
+Please <a href="mailto:<?=str_replace('@', '&#64;', CONTACTEMAIL) ?>">mail us</a> if you want help
 working out how to use the data, or want to hire us to make something specific
 for you.
 </dd>

@@ -15,7 +15,7 @@ $resources_path = "/gadget/guardian/resources/";
 switch ($action) {
 	# Resources
 	case 'rmi-resource':
-                $title = "Extract from the register of members' interests"; 
+                $title = "Extract from the register of members' interests";
                 $body = "<h1>" . $member->full_name() . ": <span>Member's interests</span></h1>";
                 $body .= "<h2>$title</h2>";
                 $rmi  = $member->extra_info['register_member_interests_html'];
@@ -39,11 +39,11 @@ switch ($action) {
                 $start_year = get_http_var('start_year');
                 if (! preg_match('/^20\d\d$/', $start_year) ){
                     $start_year = null;
-                } 
+                }
                 if (empty($start_year)) {
                     $start_year = '2009';
                 }
-                $int_start_year = intval($start_year) - 2000; 
+                $int_start_year = intval($start_year) - 2000;
 		include_once INCLUDESPATH . 'easyparliament/expenses.php';
 		$title = "Allowances: " . $member->full_name();
                 $body = "<h1>" . $member->full_name() . ": <span>Expenses</span></h1>";
@@ -71,7 +71,7 @@ switch ($action) {
 		$HANSARDLIST = new HANSARDLIST();
 		$searchstring = "speaker:$pid";
 		global $SEARCHENGINE;
-		$SEARCHENGINE = new SEARCHENGINE($searchstring); 
+		$SEARCHENGINE = new SEARCHENGINE($searchstring);
 		$args = array (
 			's' => $searchstring,
 			'p' => 1,
@@ -81,7 +81,7 @@ switch ($action) {
 		);
 		$HANSARDLIST->display('search_min', $args);
 	        twfy_debug_timestamp();
-		echo '<p><a href="http://www.theyworkforyou.com/search/?pid=', $member->guardian_aristotle_id(), '">More 
+		echo '<p><a href="http://www.theyworkforyou.com/search/?pid=', $member->guardian_aristotle_id(), '">More
 speeches from ', $member->full_name(), '</a></p>';
 		break;
 	case 'parliamentary-jobs-component':
@@ -92,12 +92,12 @@ speeches from ', $member->full_name(), '</a></p>';
                 $body = expenses_mostrecent($member->extra_info, $gadget=true);
                 if (strlen($body) == 0){
                     output_error('No data');
-                }  
-		$body .= "<p class=\"more\"><a 
-href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/expenses/$member->guardian_aristotle_id}\">More 
+                }
+		$body .= "<p class=\"more\"><a
+href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/expenses/$member->guardian_aristotle_id}\">More
 expenses</a></p>";
                 $body .= mysociety_footer();
-                output_component($body, 'expenses-brief');                
+                output_component($body, 'expenses-brief');
 		break;
 	case 'rmi-component':
                 $show_more = false;
@@ -113,11 +113,11 @@ expenses</a></p>";
 			$rmi = $m[1];
 			$show_more = true;
 		}
-                $body = "<div id=\"rmi-header\">Extract from the register of members' interests</div>";	
+                $body = "<div id=\"rmi-header\">Extract from the register of members' interests</div>";
                 $body .= $rmi;
 		if ($show_more) {
-			$body .= "<p class=\"more\"><a 
-href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->guardian_aristotle_id}\">Full member's 
+			$body .= "<p class=\"more\"><a
+href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->guardian_aristotle_id}\">Full member's
 interests</a></p>";
 		}
                 $body .= mysociety_footer();
@@ -139,10 +139,10 @@ function load_member($pid) {
 }
 
 function mysociety_footer() {
-        return '<div class="mysociety-footer"><span><a href="http://mysociety.org">Powered by 
-</a></span><a class="mysociety-footer-image-link" href="http://mysociety.org"><img src="http://' . 
-DOMAIN . 
-'/gadget/guardian/mysociety.gif" 
+        return '<div class="mysociety-footer"><span><a href="http://mysociety.org">Powered by
+</a></span><a class="mysociety-footer-image-link" href="http://mysociety.org"><img src="http://' .
+DOMAIN .
+'/gadget/guardian/mysociety.gif"
 alt="mySociety"></a></div>';
 }
 
@@ -155,7 +155,7 @@ function output_error($str, $status_code = "404 Not Found") {
 function output_component($body, $outer_div_id) {
         echo "
 <style type=\"text/css\">@import \"http://" . DOMAIN . "/gadget/guardian/core.css\";</style>
-<!--{microapp-css:/gadget/guardian/core.css}--> 
+<!--{microapp-css:/gadget/guardian/core.css}-->
 <div class=\"mysociety component\">
     <div id=\"$outer_div_id\">
         $body

@@ -97,7 +97,7 @@ function api_getDebates_front() {
 		}
 	},
 	...</pre>
-<?php	
+<?php
 }
 
 function api_getDebates_type($t) {

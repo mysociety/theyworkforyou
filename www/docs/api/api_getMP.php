@@ -28,7 +28,7 @@ This will return all database entries for this person, so will include previous 
 <dt>always_return (optional)</dt>
 <dd>For the postcode and constituency options, sets whether to always try and return an MP, even if the seat is currently vacant
 (due to e.g. the death of an MP, or the period before an election when there are no MPs).</dd>
-<!-- 
+<!--
 <dt>extra (optional)</dt>
 <dd>Returns extra data in one or more categories, separated by commas.</dd>
 -->
@@ -96,7 +96,7 @@ This will return all database entries for this person, so will include previous 
 }]
 </pre>
 
-<?php	
+<?php
 }
 
 function api_getMP_id($id) {
@@ -166,6 +166,6 @@ function _api_getMP_constituency($constituency) {
 		if ($q->rows > 0)
 			return _api_getPerson_row($q->row(0), true);
 	}
-	
+
 	return array();
 }

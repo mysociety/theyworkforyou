@@ -29,8 +29,8 @@ join up too.
 
 http://www.theyworkforyou.com/freeourbills/
 
-This is being organised by the charity who help us keep an eye on our 
-Members of Parliament with the website www.theyworkforyou.com . They'd 
+This is being organised by the charity who help us keep an eye on our
+Members of Parliament with the website www.theyworkforyou.com . They'd
 like information about proposed new laws to be published in a better
 form, so we can all hear about them before it is too late.
 

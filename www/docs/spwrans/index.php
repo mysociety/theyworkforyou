@@ -37,7 +37,7 @@ if (get_http_var('d')) {
 			exit;
 		} else {
 			$PAGE->error_message ("Strange GID ($gid) for that Scottish Parliament ID.");
-		} 
+		}
 	}
 	$PAGE->error_message ("Couldn't match that Scottish Parliament ID to a GID.");
 
@@ -67,7 +67,7 @@ if (get_http_var('d')) {
 	}
 
 	$SPWRANSLIST = new SPWRANSLIST;
-	
+
 	$result = $SPWRANSLIST->display('gid', $args);
     // If it is a redirect, change URL
     if (is_string($result)) {
@@ -81,15 +81,15 @@ if (get_http_var('d')) {
 
 	// Display all comments for this ep object.
 	$COMMENTLIST = new COMMENTLIST;
-	
+
 	$args['user_id'] = get_http_var('u');	// For highlighting their comments.
 	$args['epobject_id'] = $SPWRANSLIST->epobject_id();
-	
+
 	$COMMENTLIST->display('ep', $args);
-	
+
 	$PAGE->stripe_end();
-	
-	
+
+
 	$PAGE->stripe_start('side', 'addcomment');
 
 	$commentdata = array (
@@ -100,7 +100,7 @@ if (get_http_var('d')) {
 	$PAGE->comment_form($commentdata);
 
 	// We show trackbacks on this page.
-	// We need that epobject_id for trackbacks too...	
+	// We need that epobject_id for trackbacks too...
 
 	// Display comment-adding help if user is logged in.
 	if ($THEUSER->isloggedin()) {
@@ -114,13 +114,13 @@ if (get_http_var('d')) {
 	} else {
 		$PAGE->stripe_end();
 	}
-	
+
 #	$TRACKBACK = new TRACKBACK;
-	
+
 #	$TRACKBACK->display('epobject_id', $commentdata);
-		
-	
-	
+
+
+
 } elseif (get_http_var('y') != '') {
 
 	// Show a calendar for a particular year's debates.
@@ -128,11 +128,11 @@ if (get_http_var('d')) {
 	// No date or wrans id. Show recent days with wrans on.
 
 	$this_page = 'spwransyear';
-	
+
 	if (is_numeric(get_http_var('y'))) {
 		$DATA->set_page_metadata($this_page, 'title', get_http_var('y'));
 	}
-	
+
 	$PAGE->page_start();
 
 	$PAGE->stripe_start();
@@ -142,7 +142,7 @@ if (get_http_var('d')) {
 	);
 
 	$LIST = new SPWRANSLIST;
-	
+
 	$LIST->display('calendar', $args);
 
 	$PAGE->stripe_end(array(
@@ -173,7 +173,7 @@ if (get_http_var('d')) {
 } else {
 
 	// No date or wrans id. Show recent days with wrans on.
-	
+
 	$this_page = "spwransfront";
 
 	$PAGE->page_start();
@@ -182,7 +182,7 @@ if (get_http_var('d')) {
 	?>
 				<h2>Some recent written answers</h2>
 <?php
-	
+
 	$SPWRANSLIST = new SPWRANSLIST;
 	$SPWRANSLIST->display('recent_wrans', array('days'=>7, 'num'=>20));
 

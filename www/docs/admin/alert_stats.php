@@ -77,6 +77,6 @@ foreach ($total as $criteria => $tot) {
 	print "<tr><td>$criteria</td><td>$c</td><td>$u</tr>";
 }
 print '</table>';
-$PAGE->block_end();	
+$PAGE->block_end();
 $PAGE->stripe_end();
 $PAGE->page_end();

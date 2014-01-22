@@ -69,7 +69,7 @@ $PAGE->glossary_search_form($args);
 
 if($GLOSSARY->glossary_id != '') {
 // Deal with a single instance in the form of a glossary_id
-	
+
 	// Set up next/prev for this page.
 	$URL = new URL('glossary');
 	$up_link = $URL->generate();
@@ -100,10 +100,10 @@ if($GLOSSARY->glossary_id != '') {
 	$DATA->set_page_metadata($this_page, 'nextprev', $nextprev);
 
 	$PAGE->glossary_display_term($GLOSSARY);
-	
+
 } else {
 
-	
+
 	// Display the results
 	if (isset($GLOSSARY->terms)) {
 		?><ul class="glossary"><?php

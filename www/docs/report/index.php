@@ -22,15 +22,15 @@ if (is_numeric(get_http_var('id'))) {
 		// This comment id didn't exist in the DB.
 		trigger_error("There is no annotation with an ID of '" . htmlentities($comment_id) . "'.", E_USER_NOTICE);
 	}
-	
+
 	// OK, we've got a valid comment ID.
-	
-	
+
+
 	if (get_http_var('submitted') == true) {
 		// The form has been submitted.
-		
+
 		$errors = array();
-		
+
 		if (get_http_var('body') == '') {
 			$errors['body'] = "Please enter a reason why you think this annotation is not appropriate.";
 		}
@@ -46,25 +46,25 @@ if (is_numeric(get_http_var('id'))) {
 				$errors['email'] = "Please enter your email address so we can contact you about this report.";
 			}
 		}
-		
+
 		if (count($errors) > 0) {
 			display_form($COMMENT, $errors);
-			
+
 		} else {
-		
+
 			// Report this comment.
-			
+
 			$REPORT = new COMMENTREPORT;
-		
+
 			$reportdata = array (
 				'body'		=> get_http_var('body'),
 				'firstname'	=> get_http_var('firstname'),
 				'lastname'	=> get_http_var('lastname'),
 				'email'		=> get_http_var('em')
 			);
-			
+
 			$success = $REPORT->create($COMMENT, $reportdata);
-		
+
 			if ($success) {
 					?>
 	<p><strong>The annotation has been reported</strong> and a moderator will look into it as soon as possible. You should receive an email shortly confirming your report. Thanks for taking the time let us know about this.</p>
@@ -82,37 +82,37 @@ if (is_numeric(get_http_var('id'))) {
 <?php
 				}
 
-	
+
 			} else {
 				$PAGE->error_message ("Sorry, we were unable to add the report to the database.");
 			}
 		}
-		
+
 	} else {
 		display_form($COMMENT);
 	}
 
 
 } else {
-	$PAGE->error_message("We need the ID of a annotation before it can be reported.");	
+	$PAGE->error_message("We need the ID of a annotation before it can be reported.");
 }
 
 
 
 function display_form($COMMENT, $errors=array()) {
 	global $this_page, $THEUSER, $PAGE;
-	
+
 	?>
 				<p>Here's the annotation you're reporting. Please enter a brief reason why you think it should be deleted in the form beneath. Thanks for your help!</p>
 <?php
 
 	// First display the comment.
-		
+
 	$COMMENT->display();
-	
-	
+
+
 	// Now display the form.
-	
+
 	$FORMURL = new URL($this_page);
 	$FORMURL->remove(array('id'));
 
@@ -162,12 +162,12 @@ function display_form($COMMENT, $errors=array()) {
 				<textarea name="body" rows="10" cols="45"><?php
 	echo htmlentities(get_http_var('body'));
 	?></textarea></p>
-		
+
 				<div class="row">
 				<span class="label">&nbsp;</span>
 				<span class="formw"><input type="submit" value="Send report"></span>
 				</div>
-				
+
 				<input type="hidden" name="submitted" value="true">
 				<input type="hidden" name="id" value="<?php echo htmlentities($COMMENT->comment_id()); ?>">
 <?php

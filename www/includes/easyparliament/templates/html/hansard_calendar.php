@@ -34,24 +34,24 @@ if (isset($data['years'])) {
 
 			// $month and $year are integers.
 			// $dates is an array of dates that should be links in this month.
-			
+
 			// From http://www.zend.com/zend/trick/tricks-Oct-2002.php
 			// Adjusted for style, putting Monday first, and the URL of the page linked to.
 
-						
+
 			// Create array containing abbreviations of days of week.
 			$daysOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
-			
+
 			// What is the first day of the month in question?
 			$firstDayOfMonth = mktime(0,0,0,$month,1,$year);
-			
+
 			// How many days does this month contain?
 			$numberDays = date('t',$firstDayOfMonth);
-			
+
 			// Retrieve some information about the first day of the
 			// month in question.
 			$dateComponents = getdate($firstDayOfMonth);
-			
+
 			// What is the name of the month in question?
 			$monthName = $dateComponents['month'];
 
@@ -79,15 +79,15 @@ if (isset($data['years'])) {
 
 			// What is the index value (0-6) of the first day of the
 			// month in question.
-			
+
 			// Adjusted to cope with the week starting on Monday.
 			$dayOfWeek = $dateComponents['wday'] - 1;
-			
+
 			// Adjusted to cope with the week starting on Monday.
 			if ($dayOfWeek < 0) {
 				$dayOfWeek = 6;
 			}
-			
+
 			// Create the table tag opener and day headers
 				?>
 				<div class="calendar">
@@ -95,36 +95,36 @@ if (isset($data['years'])) {
 				<caption><?php echo "$monthName $year"; ?></caption>
 				<thead>
 				<tr><?php
-			
+
 			// Create the calendar headers
-			
+
 			foreach($daysOfWeek as $day) {
 				print "<th>$day</th>";
-			} 
-			
+			}
+
 			// Create the rest of the calendar
-			
+
 			// Initiate the day counter, starting with the 1st.
-			
+
 			$currentDay = 1;
-			
+
 			?></tr>
 				</thead>
 				<tbody>
 				<tr><?php
-			
+
 			// The variable $dayOfWeek is used to
 			// ensure that the calendar
 			// display consists of exactly 7 columns.
-			
-			if ($dayOfWeek > 0) { 
-				print "<td colspan=\"$dayOfWeek\">&nbsp;</td>"; 
+
+			if ($dayOfWeek > 0) {
+				print "<td colspan=\"$dayOfWeek\">&nbsp;</td>";
 			}
-			
+
 			$DAYURL = new URL($data['info']['page']);
-			
+
 			while ($currentDay <= $numberDays) {
-			
+
 				// Seventh column (Sunday) reached. Start a new row.
 
 				if ($dayOfWeek == 7) {
@@ -158,46 +158,46 @@ if (isset($data['years'])) {
 				} else {
 					print '<td>';
 				}
-	
+
 				// Is the $currentDay a member of $dates? If so,
 				// the day should be linked.
 				if (in_array($currentDay,$dates)) {
-				
+
 					$date = sprintf("%04d-%02d-%02d", $year, $month, $currentDay);
-					
+
 					if ($currentDay == $toDay) {
 						print '<span>' . $currentDay . '</span></td>';
 					} else {
 						$DAYURL->insert(array('d'=>$date));
 						print "<a href=\"" . $DAYURL->generate() . "\">$currentDay</a></td>";
 					}
-					
+
 					// $currentDay is not a member of $dates.
-				
+
 				} else {
-				
+
 						print '<span>' . $currentDay . '</span></td>';
-				}				
+				}
 				// Increment counters
-				
+
 				$currentDay++;
 				$dayOfWeek++;
 			}
-			
+
 			// Complete the row of the last week in month, if necessary
-			
-			if ($dayOfWeek != 7) { 
-			
+
+			if ($dayOfWeek != 7) {
+
 				$remainingDays = 7 - $dayOfWeek;
-				print "<td colspan=\"$remainingDays\">&nbsp;</td>"; 
+				print "<td colspan=\"$remainingDays\">&nbsp;</td>";
 			}
-			
-			
+
+
 			?></tr>
 				</tbody>
 				</table>
 				</div> <!-- end calendar -->
-				
+
 <?php
 
 		}

@@ -17,7 +17,7 @@ foreach ($all_news as $id => $news_row) {
 		print "<br>";
 		$last = $ym;
 	}
-	
+
 	#	print "<h3>" . format_date(substr($date, 0, 10), LONGDATEFORMAT) . "</h3>";
 }
 

@@ -22,7 +22,7 @@ function api_getMSP_front() {
   &lt;/twfy&gt;
 </pre>
 
-<?php	
+<?php
 }
 
 function api_getMSP_id($id) {

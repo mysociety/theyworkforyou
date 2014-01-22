@@ -34,7 +34,7 @@ going back to the index, finding the first question on that next page and clicki
 link from the last page of the previous batch is not always added,
 so it is very hard to navigate through. For example,
 <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0605.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0605.htm</a>
-has no Next Section link to 
+has no Next Section link to
 <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0607.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0607.htm</a>
 and
 <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0638.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0638.htm</a>

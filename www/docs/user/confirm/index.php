@@ -15,18 +15,18 @@ include_once INCLUDESPATH . "easyparliament/member.php";
 
 if (get_http_var('welcome') == 't') {
 	// The user has successfully clicked the link, been logged in, and
-	// then been redirected here. 
+	// then been redirected here.
 	// So welcome them!
 
 		$this_page = 'userconfirmed';
-		
+
 		$PAGE->page_start();
-		
+
 		$PAGE->stripe_start();
-		
+
 		if ($THEUSER->isloggedin()) {
 			?>
-		
+
 	<p>Hi, and welcome to TheyWorkForYou.com! You are now logged in.</p>
 
 	<p><strong>TheyWorkForYou.com</strong> helps make sense of this vital democratic resource and, crucially, allows you to scribble all over the margins.</p>
@@ -34,7 +34,7 @@ if (get_http_var('welcome') == 't') {
 	<p>Feel free to use it to keep an eye on <strong>your MP</strong>, Peers, add <strong>annotations</strong> next to speeches, or help others by contributing your own <strong>links</strong>.</p>
 
 	<p>Do <a href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">let us know</a> if you find a bug, or have a suggestion.</p>
-	
+
 <?php
 		} else {
 			// Oops, something must have gone wrong when the user was logged in.
@@ -42,16 +42,16 @@ if (get_http_var('welcome') == 't') {
 			$PAGE->error_message("Sorry, we couldn't log you in - TheyWorkForYou requires cookies to keep
 you logged in, so please make sure they're enabled for this site.");
 		}
-		
+
 		$PAGE->stripe_end(array(
 			array (
 				'type'		=> 'include',
 				'content'	=> 'userconfirmed'
 			)
 		));
-		
+
 		$PAGE->page_end();
-		
+
 
 } elseif (get_http_var('email') == 't') {
 		$this_page = 'emailconfirmed';
@@ -100,22 +100,22 @@ you logged in, so please make sure they're enabled for this site.");
 	// We have no registration token, and no notification of welcome...
 
 	confirm_error();
-	
+
 }
 
 function confirm_error() {
 	// Friendly error, not a normal one!
 	global $PAGE, $this_page;
-	
+
 	$this_page = 'userconfirmfailed';
-	
+
 	if ( !$PAGE->page_started() ) {
 		$PAGE->page_start();
 
 		$PAGE->stripe_start();
-	
+
 	?>
-	
+
 	<p>The link you followed to reach this page appears to be incomplete.</p>
 
 <?php
@@ -123,7 +123,7 @@ function confirm_error() {
 		$PAGE->stripe_start();
 	}
 ?>
-	
+
 	<p>If you clicked a link in your confirmation email you may need to manually copy and paste the entire link to the 'Location' bar of the web browser and try again.</p>
 
 	<p>If you still get this message, please do <a href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">email us</a> and let us know, and we'll help out!</p>

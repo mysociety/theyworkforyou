@@ -43,7 +43,7 @@ function api_getWrans_front() {
 	]
 }</pre>
 
-<?php	
+<?php
 }
 
 function api_getWrans_date($d) {

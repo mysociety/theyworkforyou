@@ -65,7 +65,7 @@ if (preg_match("#/(\d\d\d\d)/(\d\d)/(\d\d)/([a-z0-9_]+)(\.php)?$#", $uri, $match
 
 $PAGE->stripe_end(array(
 	array(
-		'type'=>'include', 
+		'type'=>'include',
 		'content'=>'sitenews'
 	)
 ));

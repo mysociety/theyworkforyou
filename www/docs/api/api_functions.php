@@ -150,8 +150,8 @@ function api_log_call($key) {
 
 function api_is_superuser_key($key) {
   $db = new ParlDB;
-  $q = $db->query('SELECT api_key.user_id, users.status 
-	           FROM   api_key, users 
+  $q = $db->query('SELECT api_key.user_id, users.status
+	           FROM   api_key, users
 	           WHERE  users.user_id = api_key.user_id
 	           AND    api_key.api_key="' . mysql_real_escape_string($key) . '"');
   if (!$q->rows())
@@ -244,7 +244,7 @@ function api_header($o, $last_mod=null) {
 			header('HTTP/1.0 304 Not Modified');
 			header('Last-Modified: ' . date('r', $last_mod));
 			return true;
-		} 
+		}
 	}
 	if ($o == 'xml') {
 		$type = 'text/xml';

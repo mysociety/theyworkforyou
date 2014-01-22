@@ -26,15 +26,15 @@ into being more popular.
 
 class SEARCHLOG {
 
-	
+
 	function SEARCHLOG() {
         $this->SEARCHURL = new URL('search');
-        
+
         $this->db = new ParlDB;
 	}
 
 	function add($searchlogdata) {
-	
+
 		$ip = getenv('REMOTE_ADDR');
 		if (preg_match('#66\.249\.(6[4-9]|[78]\d|9[0-5])\.#', $ip)) { # Googlebot
 			return;
@@ -46,7 +46,7 @@ class SEARCHLOG {
         $this->db->query("INSERT INTO search_query_log
             (query_string, page_number, count_hits, ip_address, query_time)
             VALUES ('" . mysql_real_escape_string($searchlogdata['query']) . "',
-            '" . $searchlogdata['page'] . "', '" . $searchlogdata['hits'] . "', 
+            '" . $searchlogdata['page'] . "', '" . $searchlogdata['hits'] . "',
             '" . $ip . "', NOW())");
 
     }
@@ -54,12 +54,12 @@ class SEARCHLOG {
     // Select popular queries
     function popular_recent($count, $max_chars = null) {
 
-        $q =  $this->db->query("SELECT *, count(*) AS c FROM search_query_log 
+        $q =  $this->db->query("SELECT *, count(*) AS c FROM search_query_log
                 WHERE count_hits != 0 AND query_string != 'twat'
 	       AND query_string != 'suffragettes' AND page_number=1
-                AND query_time > date_sub(NOW(), INTERVAL 1 DAY) 
+                AND query_time > date_sub(NOW(), INTERVAL 1 DAY)
                 GROUP BY query_string ORDER BY c desc LIMIT $count;");
-                
+
         $popular_searches = array();
         for ($row=0; $row<$q->rows(); $row++) {
             array_push($popular_searches, $this->_db_row_to_array($q, $row));
@@ -80,13 +80,13 @@ class SEARCHLOG {
             }
             $popular_searches = $correct_amount;
         }
-        
+
         return $popular_searches;
     }
 
     function _db_row_to_array($q, $row) {
         $query = $q->field($row, 'query_string');
-        $this->SEARCHURL->insert(array('s'=>$query, 'pop'=>1)); 
+        $this->SEARCHURL->insert(array('s'=>$query, 'pop'=>1));
         $url = $this->SEARCHURL->generate();
 	$htmlescape = 1;
 	if (preg_match('#speaker:(\d+)#', $query, $m)) {
@@ -108,7 +108,7 @@ class SEARCHLOG {
     }
 
     function admin_recent_searches($count) {
-    
+
         $q = $this->db->query("SELECT query_string, page_number, count_hits, ip_address, query_time
                 FROM search_query_log ORDER BY query_time desc LIMIT $count");
         $searches_array = array();
@@ -120,9 +120,9 @@ class SEARCHLOG {
 
     function admin_popular_searches($count) {
 
-        $q =  $this->db->query("SELECT *, count(*) AS c FROM search_query_log 
+        $q =  $this->db->query("SELECT *, count(*) AS c FROM search_query_log
                 WHERE count_hits != 0 AND query_string NOT LIKE '%speaker:%'
-                AND query_time > date_sub(NOW(), INTERVAL 30 DAY) 
+                AND query_time > date_sub(NOW(), INTERVAL 30 DAY)
                 GROUP BY query_string ORDER BY c desc LIMIT $count;");
 
         $popular_searches = array();

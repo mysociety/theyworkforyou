@@ -25,7 +25,7 @@ if (isset ($data['rows'])) {
 		} else {
 			$has_content = false;
 		}
-		
+
 		$entry = $row;
 		if (isset($row['excerpt']))
 			$entry['excerpt'] = trim_characters($entry['excerpt'], 0, 200);
@@ -36,7 +36,7 @@ if (isset ($data['rows'])) {
 			unset($entry['comment']);
 			unset($entry['totalcomments']);
 		}
-		
+
 		if ($row['htype'] == '10') {
 			$out[] = array('entry' => $entry, 'subs' => array());
 		} else {

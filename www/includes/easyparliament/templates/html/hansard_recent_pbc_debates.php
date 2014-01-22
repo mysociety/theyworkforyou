@@ -11,7 +11,7 @@ foreach ($data as $date => $arr) {
 	} else {
 		$totalcomments = '';
 	}
-	
+
 	$speaker = $wran['child']['speaker'];
 	?>
 	<dt><a name="w<?php echo $count; ?>"></a><strong><a href="<?php echo $wran['list_url']; ?>"><?php echo $wran['parent']['body'] . ': ' . $wran['body']; ?></a></strong> <?php echo format_date($wran['hdate'], LONGDATEFORMAT) . ' ' .$totalcomments; ?></dt>

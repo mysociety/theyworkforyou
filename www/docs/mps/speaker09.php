@@ -16,7 +16,7 @@ you understand more about <strong>what your MP is doing</strong>.</p>
 
 <p>mySociety asked likely candidates for the post of Speaker to endorse the
 following principles.</p>
-     
+
 <p><strong>The three principles are:</strong></p>
 
 <ol>
@@ -83,7 +83,7 @@ for ($i=0; $i<$q->rows(); $i++) {
 	}else{
 		if ($value)
  			echo "(and <strong>was</strong> a candidate for speaker).</td>";
-		else 
+		else
 			echo "(but <strong>was not</strong> a candidate for speaker).</td>";
 	}
 }

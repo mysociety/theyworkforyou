@@ -3,19 +3,19 @@
 
 function expenses_display_table($extra_info, $gadget=false, $start_year=9) {
         $out = '';
-        $latest_year = 9; 
+        $latest_year = 9;
         $earliest_year = 2;
         if ($start_year > $latest_year or $start_year < $earliest_year) {
              $start_year = 9;
         }
-        $end_year = $earliest_year;        
+        $end_year = $earliest_year;
         if ($gadget) {
              $first_year_with_data = '';
              for ($ey=2000+$latest_year; $ey>=2000+$earliest_year; --$ey) {
 	         if (isset($extra_info['expenses'.($ey).'_col1'])){
                       $first_year_with_data = $ey;
                       break;
-                 } 		
+                 }
              }
              if ($first_year_with_data == ''){
                   return '';
@@ -34,20 +34,20 @@ expenses</a></p>";
              $out .= '</div>';
 
              $out .= '<div class="later-expenses-link">';
-             if ($start_year < $latest_year) { 
+             if ($start_year < $latest_year) {
                   $previous_year = 2000 + $start_year + 3;
-                  $out .= "<p><a href=\"?start_year=$previous_year\">See later 
+                  $out .= "<p><a href=\"?start_year=$previous_year\">See later
 expenses</a></p>";
              }
              $out .= '</div>';
-             $out .= '</div>';   
+             $out .= '</div>';
         } else {
 	     $out = '<p class="italic">Figures in brackets are ranks.';
              $out .= 'Data from parliament.uk (<a href="http://www.parliament.uk/mpslordsandoffices/finances.cfm">source</a>).';
 	     if (isset($extra_info['expenses_url']))
 	     	$out .= ' Read <a href="' . $extra_info['expenses_url'] . '">2004/05 &ndash; 2008/09 and 1st quarter 2009/10 receipts</a>.';
 	     $out .= "</p>\n";
-        }         
+        }
         $out .= '<table class="people">';
         $out .= '<tr><th class="left">Type';
         $wide_year = $end_year + 3;
@@ -104,17 +104,17 @@ expenses</a></p>";
 	$out .= expenses_row('total', $extra_info,2, $gadget, $start_year, $end_year, $med_year, $wide_year);
 	$out .= '</tr></tbody></table>';
 
-        if (isset($extra_info['expenses2009_colmp_reg_travel_a']) and $extra_info['expenses2009_col5'] > 0 and $start_year 
+        if (isset($extra_info['expenses2009_colmp_reg_travel_a']) and $extra_info['expenses2009_col5'] > 0 and $start_year
 >= 9 and $end_year <= 9){
             $out .= expenses_extra_travel($extra_info, 2009);
         }
 
-        if (isset($extra_info['expenses2008_colmp_reg_travel_a']) and $extra_info['expenses2008_col5'] > 0 and $start_year >= 
+        if (isset($extra_info['expenses2008_colmp_reg_travel_a']) and $extra_info['expenses2008_col5'] > 0 and $start_year >=
 8 and $end_year <= 8) {
             $out .= expenses_extra_travel($extra_info, 2008);
         }
 
-	if (isset($extra_info['expenses2007_col5a']) and $extra_info['expenses2007_col5'] > 0 and $start_year >= 7 and 
+	if (isset($extra_info['expenses2007_col5a']) and $extra_info['expenses2007_col5'] > 0 and $start_year >= 7 and
 $end_year <= 7) {
 		$out .= '<p class="extra-travel-info"><a name="travel2007"></a><sup>3</sup> <small>';
 		foreach(array('a'=>'Car','b'=>'3rd party','c'=>'Rail','d'=>'Air','e'=>'Other','f'=>'European') as $let => $desc) {
@@ -129,7 +129,7 @@ $end_year <= 7) {
 	}
 
         if ($gadget) {
-             $out .= '<p class="extra-info">Figures in brackets are ranks.<br>'; 
+             $out .= '<p class="extra-info">Figures in brackets are ranks.<br>';
              $out .= 'Source: Parliament\'s <a href="http://www.parliament.uk/mpslordsandoffices/finances.cfm">Members\' Allowances</a>';
              if (isset($extra_info['expenses_url']))
                 $out .= '<br/> Read <a href="' . $extra_info['expenses_url'] . '">2004/05 &ndash; 2008/09 and 1st quarter 2009/10 receipts</a>.';
@@ -142,7 +142,7 @@ $end_year <= 7) {
 function expenses_row($col, $extra_info, $style, $gadget, $start_year, $end_year, $med_year, $wide_year) {
 	$out = '';
         $start_year = 2000 + (int) $start_year;
-        $end_year = 2000 + (int) $end_year; 
+        $end_year = 2000 + (int) $end_year;
         $med_year = 2000 + (int) $med_year;
         $wide_year = 2000 + (int) $wide_year;
 	for ($ey=$start_year; $ey>=$end_year; --$ey) {
@@ -153,8 +153,8 @@ function expenses_row($col, $extra_info, $style, $gadget, $start_year, $end_year
            if ($col=='col7' && $ey==2009) {
                $rowspan = " rowspan='2' style='vertical-align: middle'";
                $extra_class = 'aggregate-value';
-           } 
-           if ($ey == $end_year) $extra_class = 'right'; 
+           }
+           if ($ey == $end_year) $extra_class = 'right';
             if ( $ey <= $wide_year ) {
                 $extra_class .= ' show-for-large-up';
             } else if ( $ey <= $med_year ) {
@@ -186,7 +186,7 @@ function expenses_item($ey, $col, $extra_info, $gadget) {
 		    if ($gadget) {
                         $rank .= 'Joint&nbsp;';
                     } else {
-                        $rank .= 'joint&nbsp;'; 
+                        $rank .= 'joint&nbsp;';
                     }
                 }
 		$rank .= make_ranking($extra_info[$kr]);
@@ -221,7 +221,7 @@ function expenses_extra_travel($extra_info, $year) {
             $out .= '. ';
         }
     }
-               
+
     $other_travel_header = FALSE;
     foreach(array('a'=>'Mileage', 'b' => 'Rail', 'c' => 'Air', 'd' => 'European') as $let => $desc){
         $travel_field = $extra_info['expenses' . $year . '_colmp_other_travel_'.$let];
@@ -289,7 +289,7 @@ function expenses_mostrecent($extra_info, $gadget=false) {
         $out .= '<li class="odd">Members\' Family Travel <div class="expense-value">' . $cols['colfamily_travel_a'] . '</div>';
 	$out .= '<li class="even">Centrally Purchased Stationery <div class="expense-value">' . $cols['col7'] . '</div>';
 	$out .= '<li class="odd">Stationery: Associated Postage Costs <div class="expense-value">' . $cols['col7a'] . '</div>';
-	$out .= '<li class="even">Centrally Provided Computer Equipment <div class="expense-value">' . $cols['col8'] . '</div>'; 
+	$out .= '<li class="even">Centrally Provided Computer Equipment <div class="expense-value">' . $cols['col8'] . '</div>';
 	$out .= '<li class="odd">Other Costs <div class="expense-value">' . $cols['col9'] . '</div>';
 	$out .= '<li class="even" id="total">Total <div class="expense-value">' . $cols['total'] . '</div>';
 	$out .= '</ul>';

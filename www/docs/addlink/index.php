@@ -37,9 +37,9 @@ if (get_http_var("submitterm") != '') {
 
 	// We're submitting a comment.
 	$success = $GLOSSARY->create($data);
-	
+
 	if ($success) {
-		// $success will be the editqueue_id().		
+		// $success will be the editqueue_id().
 		print "<h4>All good so far...</h4><p>Your definition for <strong>&quot;" . $data['title'] . "&quot;</strong> now awaits moderator approval or somesuch thing...</p>";
 		$PAGE->glossary_links();
 	} else {
@@ -50,27 +50,27 @@ if (get_http_var("submitterm") != '') {
 
 	if (get_http_var('definition') != '') {
 
-		// Mock up a "current term" to send to the display function		
+		// Mock up a "current term" to send to the display function
 		$body = get_http_var('definition');
 		$title = get_http_var('g');
-		
+
 		$GLOSSARY->current_term['body'] = filter_user_input($body, 'comment'); // In init.php
 		$GLOSSARY->current_term['title'] = filter_user_input($title, 'comment'); // In init.php
 
 		// Off it goes...
 		print "<p>Your entry should look something like this:</p>";
-		
+
 		print "<p>";
 		$PAGE->glossary_display_term($GLOSSARY);
 		print "</p>";
-		
+
 		// Then, in case they aren't happy with it, show them the form again
 		$PAGE->glossary_add_definition_form($args)
 ;
 	}
 } elseif ($GLOSSARY->query != '') {
 // Deal with all the various searching possiblities...
-	
+
 	if($GLOSSARY->num_search_matches >= 1) {
 		// Offer a list of matching terms
 		$PAGE->glossary_display_match_list($GLOSSARY);
@@ -79,11 +79,11 @@ if (get_http_var("submitterm") != '') {
 	else {
 		// Ok, so now we can see of the word(s) appear in Hansard at all.
 		// The following query was modified from the hansardlist search.
-		// However, no point checking, if the user can't add terms. 
+		// However, no point checking, if the user can't add terms.
 		if ($THEUSER->is_able_to('addterm')) {
-		
+
 			$args['count'] = $GLOSSARY->hansard_count($args);
-			if ($args['count']) {	
+			if ($args['count']) {
 				// Display the Add definition form
 				$PAGE->glossary_add_link_form($args);
 			}
@@ -102,10 +102,10 @@ if (get_http_var("submitterm") != '') {
 	$PAGE->stripe_start();
 
 	// We just arrived here empty handed...
-	
+
 	print "<p>Help make TheyWorkForYou.com better. Add an external URL to the parliamentary record. Webify parliament!</p>";
 	print "<h3>Step 1: Search for a phrase</h3>";
-	
+
 	$PAGE->glossary_search_form($args);
 
 	print "<p><small>Some examples:<br>";
@@ -121,7 +121,7 @@ if (get_http_var("submitterm") != '') {
 			'content'	=> 'glossary_add'
 		)
 	));
-	
+
 	print "<div class=\"break\">&nbsp;</div>";
 	print "<br>";
 }

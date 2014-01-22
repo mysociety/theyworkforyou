@@ -27,7 +27,7 @@ function api_getConstituencies_front() {
     ...
 ]</pre>
 
-<?php    
+<?php
 }
 
 function api_getConstituencies_search($s) {

@@ -33,7 +33,7 @@ function api_getLords_front() {
 	&lt;/match&gt;
 	...
 </pre>
-<?php	
+<?php
 }
 
 /* See api_getMembers.php for these shared functions */

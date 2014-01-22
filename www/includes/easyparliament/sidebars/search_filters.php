@@ -58,7 +58,7 @@ $this->block_start(array( 'title' => "Filtering your results"));
 <label for="person">Person:</label>
 <input type="text" name="person" value="<?=htmlspecialchars($person)?>" size="25">
 <div class="help">
-Enter a name here to restrict results to contributions only by that person. 
+Enter a name here to restrict results to contributions only by that person.
 </div>
 
 <li>

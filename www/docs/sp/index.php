@@ -3,7 +3,7 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
-// For displaying all the SP debates on a day, or a single debate. 
+// For displaying all the SP debates on a day, or a single debate.
 
 if (get_http_var("d") != "") {
 	$this_page = "spdebatesday";
@@ -12,7 +12,7 @@ if (get_http_var("d") != "") {
 	);
 	$LIST = new SPLIST;
 	$LIST->display('date', $args);
-	
+
 } elseif (get_http_var('id') != "") {
 	$this_page = "spdebates";
 	$args = array (
@@ -35,7 +35,7 @@ if (get_http_var("d") != "") {
 	}
 
 	$LIST = new SPLIST;
-	
+
 	$result = $LIST->display('gid', $args);
 	// If it is a redirect, change URL
 	if (is_string($result)) {
@@ -46,13 +46,13 @@ if (get_http_var("d") != "") {
 	}
 
 } elseif (get_http_var('y') != '') {
-	
+
 	$this_page = 'spdebatesyear';
 
 	if (is_numeric(get_http_var('y'))) {
 		$DATA->set_page_metadata($this_page, 'title', get_http_var('y'));
 	}
-	
+
 	$PAGE->page_start();
 
 	$PAGE->stripe_start();
@@ -62,9 +62,9 @@ if (get_http_var("d") != "") {
 	);
 
 	$LIST = new SPLIST;
-	
+
 	$LIST->display('calendar', $args);
-	
+
 	$PAGE->stripe_end(array(
 		array (
 			'type' => 'nextprev'
@@ -74,7 +74,7 @@ if (get_http_var("d") != "") {
 			'content' => "spdebates"
 		)
 	));
-	
+
 } elseif (get_http_var('gid') != '') {
 	$this_page = 'spdebate';
 	$args = array('gid' => get_http_var('gid') );
@@ -120,7 +120,7 @@ if (get_http_var("d") != "") {
 	?>
 				<h2>Busiest debates from the most recent week</h2>
 <?php
-	
+
 	$LIST = new SPLIST;
 	$LIST->display('biggest_debates', array('days'=>7, 'num'=>20));
 
@@ -142,7 +142,7 @@ if (get_http_var("d") != "") {
 			'content' => '<div class="block"><h4><a href="/' . $rssurl . '">RSS feed of most recent debates</a></h4></div>'
 		)
 	));
-	
+
 }
 
 $PAGE->page_end();

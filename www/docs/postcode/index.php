@@ -63,7 +63,7 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
 	global $PAGE;
 	$db = new ParlDB;
 
-	$q = $db->query("SELECT person_id, first_name, last_name, constituency, left_house FROM member 
+	$q = $db->query("SELECT person_id, first_name, last_name, constituency, left_house FROM member
 		WHERE constituency = '" . mysql_real_escape_string(normalise_constituency_name($areas['WMC'])) . "'
 		AND house = 1 ORDER BY left_house DESC LIMIT 1");
 	$mp = array();
@@ -74,15 +74,15 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
 
 	$a = array_values($areas);
 
-	$q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member 
-		WHERE constituency IN ('" . join("','", $a) . "') 
+	$q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
+		WHERE constituency IN ('" . join("','", $a) . "')
 		AND left_reason = 'still_in_office' AND house in (3,4)");
     $current = true;
     if (!$q->rows()) {
         # XXX No results implies dissolution, fix for 2011.
         $current = false;
-        $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member 
-            WHERE constituency IN ('" . join("','", $a) . "') 
+        $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
+            WHERE constituency IN ('" . join("','", $a) . "')
             AND ( (house=3 AND left_house='2011-03-24') OR (house=4 AND left_house='2011-03-23') )");
     }
 

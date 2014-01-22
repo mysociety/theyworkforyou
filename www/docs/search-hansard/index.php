@@ -35,7 +35,7 @@ $PAGE->stripe_end();
 $PAGE->stripe_start();
 ?>
 
-<p>Hansard is the transcript of all parliamentary debates, published by Parliament itself. 
+<p>Hansard is the transcript of all parliamentary debates, published by Parliament itself.
 TheyWorkForYou&rsquo;s version of Hansard is the easiest to use anywhere on the web. </p>
 <p>Search Hansard now by entering any word or phrase in the box above.</p>
 
@@ -53,7 +53,7 @@ TheyWorkForYou&rsquo;s version of Hansard is the easiest to use anywhere on the 
   <li><a href="/">Find out who your MP is</a></li>
   <li><a href="/">Subscribe to custom email alerts for issues you care about in Parliament</a></li>
   <li><a href="/calendar">See what&rsquo;s upcoming in Parliament</a></li>
-</ul>         
+</ul>
 
 <?php
 $PAGE->stripe_end();
