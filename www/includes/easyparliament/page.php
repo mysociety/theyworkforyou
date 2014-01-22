@@ -1099,6 +1099,7 @@ window.fbAsyncInit = function () {
                             var t, js, fjs = d.getElementsByTagName(s)[0];
                             if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
                             js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+
                             return window.twttr || (t = { _e: [], ready: function (f) { t._e.push(f) } });
                         }(document, "script", "twitter-wjs"));
 
@@ -1257,6 +1258,7 @@ pr()//-->
                     </div>
                 </div>
 ';
+
         return $html;
 
     }
@@ -2048,6 +2050,7 @@ pr()//-->
 
         if (!isset($commentdata['epobject_id']) || !is_numeric($commentdata['epobject_id'])) {
             $this->error_message("Sorry, we need an epobject id");
+
             return;
         }
 
@@ -2066,6 +2069,7 @@ pr()//-->
             ?>
                 <p><a href="<?php echo $LOGINURL->generate(); ?>">Sign in</a> or <a href="<?php echo $JOINURL->generate(); ?>">join</a> to post a public annotation.</p>
 <?php
+
             return;
 
         } elseif (!$THEUSER->is_able_to('addcomment')) {
@@ -2074,6 +2078,7 @@ pr()//-->
             ?>
                 <p>You are not allowed to post annotations.</p>
 <?php
+
             return;
         }
 

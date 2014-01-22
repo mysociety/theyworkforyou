@@ -25,16 +25,19 @@ function api_getConstituency_postcode($pc) {
 
     if (!validate_postcode($pc)) {
         api_error('Invalid postcode');
+
         return;
     }
 
     $constituency = postcode_to_constituency($pc, true);
     if ($constituency == 'CONNECTION_TIMED_OUT') {
         api_error('Connection timed out');
+
         return;
     }
     if (!$constituency) {
         api_error('Unknown postcode');
+
         return;
     }
 
@@ -45,8 +48,10 @@ function api_getConstituency_name($constituency) {
     $constituency = normalise_constituency_name($constituency);
     if (!$constituency) {
         api_error('Could not find anything with that name');
+
         return;
     }
+
     return _api_getConstituency_name($constituency);
 }
 

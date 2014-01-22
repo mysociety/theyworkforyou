@@ -3,6 +3,7 @@
 function video_db_connect() {
     $connstr = 'host='.OPTION_BBC_DB_HOST.' port='.OPTION_BBC_DB_PORT.' dbname='.OPTION_BBC_DB_NAME.' user='.OPTION_BBC_DB_USER.' password='.OPTION_BBC_DB_PASS;
     $videodb = pg_connect($connstr);
+
     return $videodb;
 }
 
@@ -20,6 +21,7 @@ function video_from_timestamp($videodb, $date, $time) {
 		AND status = 'available'
 ");
     $video = pg_fetch_array($q);
+
     return $video;
 }
 
@@ -49,5 +51,6 @@ function video_object($video_id, $start, $gid, $stamping = '', $pid = 0) {
 <embed name='video' swliveconnect='true' src='/video/parlvid.swf' width='330' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars' type='application/x-shockwave-flash' pluginspage='http://www.adobe.com/go/getflashplayer'></embed>
 </object>
 </div>";
+
     return $out;
 }

@@ -255,6 +255,7 @@ function add_alert($details) {
 		'text' => "Sorry, we were unable to create this alert. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a>. Thanks."
 		);
 	}
+
     return $message['text'];
 }
 

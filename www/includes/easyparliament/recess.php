@@ -303,6 +303,7 @@ function currently_in_recess() {
             return array($name, trim($from), trim($to));
         }
     }
+
     return false;
 }
 */

@@ -135,7 +135,6 @@ class USER {
             // And, yes, if we've ended up with more than one row returned
             // we're going to show an error too, just in case.
             // *Should* never happen...
-
             return false;
             twfy_debug("USER", "There is more than one user with an id of '".htmlentities($user_id)."'");
 
@@ -377,7 +376,6 @@ class USER {
             }
 
         } else {
-
             return false;
 
         }
@@ -425,7 +423,6 @@ class USER {
         } else {
 
             // Email didn't exist.
-
             return false;
 
         }
@@ -436,10 +433,10 @@ class USER {
 
         if ($q->success()) {
             $this->password = $pwd;
+
             return $pwd;
 
         } else {
-
             return false;
         }
 
@@ -452,6 +449,7 @@ class USER {
 
         if ($this->email() == '') {
             $PAGE->error_message("No email set for this user, so can't send a password reminder.");
+
             return false;
         }
 
@@ -503,8 +501,10 @@ class USER {
             if ($q->rows() > 0) {
                 if ($return_id) {
                     $row = $q->row(0);
+
                     return $row['user_id'];
                 }
+
                 return true;
             } else {
                 return false;
@@ -597,6 +597,7 @@ class USER {
 
             default:
                 $PAGE->error_message ("You need to set permissions for '$action'!");
+
                 return false;
 
 
@@ -750,11 +751,11 @@ class USER {
         // $this->update_self() then $THEUSER will have its variables
         // updated if everything went well.
         if ($q->success()) {
-
             return $details;
 
         } else {
             $PAGE->error_message ("Sorry, we were unable to update user id '" . htmlentities($details["user_id"]) . "'");
+
             return false;
         }
 
@@ -889,9 +890,11 @@ class THEUSER extends USER {
 
         if ($this->loggedin()) {
             twfy_debug("THEUSER", "isloggedin: true");
+
             return true;
         } else {
             twfy_debug("THEUSER", "isloggedin: false");
+
             return false;
         }
     }
@@ -922,6 +925,7 @@ class THEUSER extends USER {
                 // We'll need these when we're going to log in.
                 $this->deleted  = $q->field(0,"deleted") == 1 ? true : false;
                 $this->confirmed = $q->field(0,"confirmed") == 1 ? true : false;
+
                 return true;
 
             } else {
@@ -962,12 +966,15 @@ class THEUSER extends USER {
         // Various checks about the user - if they fail, we exit.
         if ($this->user_id() == "" || $this->password == "") {
             $PAGE->error_message ("We don't have the user_id or password to make the cookie.", true);
+
             return;
         } elseif ($this->deleted) {
             $PAGE->error_message ("This user has been deleted.", true);
+
             return;
         } elseif (!$this->confirmed) {
             $PAGE->error_message ("You have not yet confirmed your account by clicking the link in the confirmation email we sent to you. If you don't have the email, you can <a href='/user/login/?resend=" . $this->user_id() . "'>have it resent</a>. If it still doesn't arrive, get in touch.", true);
+
             return;
         }
 
@@ -1032,6 +1039,7 @@ class THEUSER extends USER {
                 if ($PAGE && $redirect) {
                     $PAGE->error_message ("Sorry, that token seems to have expired");
                 }
+
                 return false;
             }
 

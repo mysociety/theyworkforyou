@@ -758,6 +758,7 @@ function party_to_colour($party) {
 
 function exists_rep_image($pid) {
     $image = find_rep_image($pid, false, false);
+
     return $image[1] !== null;
 }
 

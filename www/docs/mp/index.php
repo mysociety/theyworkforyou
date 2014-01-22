@@ -608,6 +608,7 @@ function regional_list($pc, $area_type, $rep_type) {
             }
         } else {
             $NEWPAGE->error_message('Odd result returned!' . $house);
+
             return;
         }
     }
@@ -724,5 +725,6 @@ function generate_member_links($member) {
                 </div>
             </div> <!-- end block -->
 ";
+
     return $html;
 }

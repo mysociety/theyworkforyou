@@ -54,6 +54,7 @@ function _api_getConstituencies_search($s) {
             $done[] = $name;
         }
     }
+
     return $output;
 }
 
@@ -88,12 +89,14 @@ define('R_e', 6372.8);
 
 function api_getConstituencies_latitude($lat) {
     api_error('Currently disabled, sorry; please get in touch if you need this function.');
+
     return;
 
     $lon = get_http_var('longitude') + 0;
     $d = get_http_var('distance') + 0;
     if (!$lat) {
         api_error('You must supply a latitude and longitude');
+
         return;
     }
     $out = _api_getConstituencies_latitude($lat, $lon, $d);

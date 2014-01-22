@@ -236,6 +236,7 @@ function expenses_extra_travel($extra_info, $year) {
         }
     }
     $out .= '</small></p>';
+
     return $out;
 }
 

@@ -58,9 +58,11 @@ function _api_getGeometry_name($name) {
                 $out = mapit_call('area/geometry', $area_id);
             }
             $out['name'] = $name;
+
             return $out;
         }
     }
+
     return null;
 }
 
@@ -74,6 +76,7 @@ function _api_cacheCheck($fn, $arg='') {
         fwrite($fp, serialize($out));
         fclose($fp);
     }
+
     return $out;
 }
 

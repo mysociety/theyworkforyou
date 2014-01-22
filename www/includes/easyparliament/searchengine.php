@@ -191,6 +191,7 @@ class SEARCHENGINE {
         } catch (Exception $e) {
             # Nothing we can really do with a bad query
             $this->error = htmlspecialchars($e->getMessage());
+
             return null;
         }
 
@@ -299,6 +300,7 @@ class SEARCHENGINE {
         if (!$this->valid) {
             return '[bad query]';
         }
+
         return $this->query_desc;
     }
 
@@ -399,6 +401,7 @@ class SEARCHENGINE {
 
 		$duration = getmicrotime() - $start;
 		twfy_debug ("SEARCH", "Search count took $duration seconds.");
+
         return $count;
     }
 
@@ -453,6 +456,7 @@ class SEARCHENGINE {
             foreach ($body as $k => $b) {
                 $body[$k] = $this->highlight_internal($b, $stemmed_words);
             }
+
             return $body;
         } else {
             return $this->highlight_internal($body, $stemmed_words);
@@ -590,6 +594,7 @@ class SEARCHENGINE {
 
         if ($pos == -1)
             $pos = 0;
+
         return $pos;
     }
 }
@@ -605,12 +610,14 @@ function search_by_usage($search, $house = 0) {
         $count = $SEARCHENGINE->run_count(0, 5000, 'date');
         if ($count <= 0) {
             $data['error'] = 'No results';
+
             return $data;
         }
         $SEARCHENGINE->run_search(0, 5000, 'date');
         $gids = $SEARCHENGINE->get_gids();
         if (count($gids) <= 0) {
             $data['error'] = 'No results';
+
             return $data;
         }
         if (count($gids) == 5000)
@@ -700,11 +707,13 @@ function search_by_usage($search, $house = 0) {
         arsort($party_count);
         if (!$ok) {
             $data['error'] = 'No results';
+
             return $data;
         }
 
         $data['party_count'] = $party_count;
         $data['speakers'] = $speakers;
+
         return $data;
 }
 
@@ -748,6 +757,7 @@ function search_member_db_lookup($searchstring, $current_only=false) {
 					WHERE	$where
 					ORDER BY last_name, first_name, person_id, entered_house desc
 					");
+
     return $q;
 }
 

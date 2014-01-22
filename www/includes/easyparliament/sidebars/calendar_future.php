@@ -26,6 +26,7 @@ $min_future_date = $q->field(0, 'min');
 $max_future_date = $q->field(0, 'max');
 if (!$min_future_date || !$max_future_date) {
     $PAGE->error_message("Couldn't find any future information");
+
     return $data;
 }
 

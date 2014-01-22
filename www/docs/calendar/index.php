@@ -30,6 +30,7 @@ function calendar_summary() {
         $PAGE->error_message('We don&rsquo;t currently have any future information.
 Why not explore our extensive archive using the search box above?');
         $PAGE->page_end();
+
         return;
     }
 

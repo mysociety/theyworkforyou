@@ -234,6 +234,7 @@ function adodb_backtrace($print=true)
     }
     if ($print) print $s;
   }
+
   return $s;
 }
 
@@ -426,6 +427,7 @@ function parse_date($date) {
  * replaced by single spaces, and other HTML tags have been removed. */
 function strip_tags_tospaces($text) {
     $text = preg_replace("#\<(p|br|div|td|tr|th|table)[^>]*\>#i", " ", $text);
+
     return strip_tags(trim($text));
 }
 
@@ -726,6 +728,7 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
  */
 function twfy_verp_envelope_sender($recipient) {
     $envelope_sender = verp_envelope_sender($recipient, 'twfy', EMAILDOMAIN);
+
     return $envelope_sender;
 }
 
@@ -838,6 +841,7 @@ function make_ranking($rank)
     if ($rank % 10 == 3)
         return $rank . "rd";
     # Everything else use th
+
     return $rank . "th";
 }
 

@@ -111,6 +111,7 @@ function person_drop_down() {
     }
 
     $out .= ' </select></span> </div> ';
+
     return $out;
 }
 
@@ -134,6 +135,7 @@ function display_photo_form($errors = array()) {
 
 <p style="clear:both; margin-top: 3em"><a href="/images/mps/photo-status.php">List MPs without photos</a></p>
 EOF;
+
     return $out;
 }
 
@@ -184,6 +186,7 @@ function display_attribution_form($errors = array()) {
 </div>
 </form>
 EOF;
+
     return $out;
 }
 

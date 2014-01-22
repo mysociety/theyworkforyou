@@ -112,11 +112,13 @@ Class MySQLQuery {
 
         if (empty($sql)) {
             $this->success = false;
+
             return;
         }
 
         if (empty($this->conn)) {
             $this->success = false;
+
             return;
         }
 
@@ -275,7 +277,6 @@ Class MySQL {
         twfy_debug ("SQL", "Complete after $duration seconds.");
         // We could also output $q->mysql_info() here, but that's for
         // PHP >= 4.3.0.
-
         return $q;
     }
 

@@ -47,6 +47,7 @@ function _api_getPerson_row($row, $has_party=FALSE) {
     foreach ($row as $k => $r) {
         if (is_string($r)) $row[$k] = html_entity_decode($r);
     }
+
     return $row;
 }
 

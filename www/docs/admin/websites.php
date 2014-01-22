@@ -53,6 +53,7 @@ function edit_member_form() {
         $out .= '<span class="formw"><input name="btnaction" type="submit" value="Save URL"></span>';
         $out .= '</form>';
     }
+
     return $out;
 }
 
@@ -80,6 +81,7 @@ function list_members() {
         $out .= "</li>\n";
     }
     $out .= '</ul>';
+
     return $out;
 }
 
@@ -106,6 +108,7 @@ function update_url() {
     if ($sysretval) {
         $out .= '<p id="warning">Update Successful</p>';
     }
+
     return $out;
 }
 
@@ -120,6 +123,7 @@ function subnav() {
         $rettext .=  '<a href="'. $path . '">'. $label .'</a>';
     }
     $rettext .=  '</div>';
+
     return $rettext;
 }
 

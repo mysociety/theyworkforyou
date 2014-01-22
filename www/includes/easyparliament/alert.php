@@ -107,6 +107,7 @@ class ALERT {
 		  $data[] = $contents;
     }
     $data = array ('alerts' => $data);
+
     return $data;
 	}
 
@@ -368,6 +369,7 @@ class ALERT {
                 'criteria' => $q->field(0, 'criteria'),
             );
         }
+
         return $this->token_checked;
     }
 
@@ -380,6 +382,7 @@ class ALERT {
         $this->criteria = $alert['criteria'];
         $this->email = $alert['email'];
 		$r = $this->db->query("UPDATE alerts SET confirmed = 1, deleted = 0 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
+
         return $r->success();
 	}
 
@@ -389,18 +392,21 @@ class ALERT {
 	function delete($token) {
 		if (!($alert = $this->check_token($token))) return false;
 		$r = $this->db->query("UPDATE alerts SET deleted = 1 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
+
         return $r->success();
 	}
 
 	function suspend($token) {
 		if (!($alert = $this->check_token($token))) return false;
 		$r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
+
         return $r->success();
 	}
 
 	function resume($token) {
 		if (!($alert = $this->check_token($token))) return false;
 		$r = $this->db->query("UPDATE alerts SET deleted = 0 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
+
         return $r->success();
 	}
 

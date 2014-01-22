@@ -3,6 +3,7 @@
 function calendar_min_future_date() {
     $db = new ParlDB();
     $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= DATE(NOW()) AND deleted = 0');
+
     return $q->field(0, 'm');
 }
 
@@ -21,6 +22,7 @@ function calendar_fetch_date($date) {
             $PAGE->error_message('There is currently no information available for that date.');
         else
             $PAGE->error_message('There is no information available for that date.');
+
         return array();
     }
 
@@ -30,6 +32,7 @@ function calendar_fetch_date($date) {
     foreach ($q->data as $row) {
         $data[$row['event_date']][$row['chamber']][] = $row;
     }
+
     return $data;
 }
 

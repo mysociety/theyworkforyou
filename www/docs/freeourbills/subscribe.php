@@ -31,6 +31,7 @@ without your permission.
         "X-Mailer: PHP/" . phpversion();
 
     $success = mail ($to, $subject, $message, $headers);
+
     return $success;
 }
 

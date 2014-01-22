@@ -104,6 +104,7 @@ function search_order_p($searchstring) {
         print '<p>' . $data['error'] . '</p>';
         $PAGE->stripe_end();
         $PAGE->page_end();
+
         return;
     }
 
@@ -253,6 +254,7 @@ function search_order_t($searchstring) {
     if ($count <= 0) {
         print '<p>There were no results.</p>';
         $PAGE->page_end();
+
         return;
     }
     $sort_order = 'date';
@@ -261,6 +263,7 @@ function search_order_t($searchstring) {
     if (count($gids) <= 0) {
         print '<p>There were no results.</p>';
         $PAGE->page_end();
+
         return;
     }
 
@@ -304,6 +307,7 @@ function find_constituency($args) {
         $searchterm = $args['s'];
     } else {
         $PAGE->error_message('No search string');
+
         return false;
     }
 
@@ -358,6 +362,7 @@ function find_users($args) {
         $searchstring = $args['s'];
     } else {
         $PAGE->error_message("No search string");
+
         return false;
     }
 
@@ -430,6 +435,7 @@ foreach ($members as $member) {
 function _find_members_internal($searchstring) {
     if (!$searchstring) {
         $PAGE->error_message("No search string");
+
         return false;
     }
 

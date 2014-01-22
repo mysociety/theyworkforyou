@@ -115,6 +115,7 @@ class SEARCHLOG {
         for ($row=0; $row<$q->rows(); $row++) {
             array_push($searches_array, $this->_db_row_to_array($q, $row));
         }
+
         return $searches_array;
     }
 
@@ -129,6 +130,7 @@ class SEARCHLOG {
         for ($row=0; $row<$q->rows(); $row++) {
             array_push($popular_searches, $this->_db_row_to_array($q, $row));
         }
+
         return $popular_searches;
     }
 
@@ -144,6 +146,7 @@ class SEARCHLOG {
         for ($row=0; $row<$q->rows(); $row++) {
             array_push($searches_array, $this->_db_row_to_array($q, $row));
         }
+
         return $searches_array;
     }
 
