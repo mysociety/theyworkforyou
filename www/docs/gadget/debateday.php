@@ -1,4 +1,4 @@
-<?
+<?php
 
 # Display a particular day's debates in the Google gadget
 

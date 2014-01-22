@@ -121,17 +121,17 @@ to help you find someone appropriate. When you've found someone,
 hit the "I want to write to this Lord" button on their results page
 to go back to WriteToThem.
 </big></strong></p>
-<?
+<?php
     }
 ?>
 <p>Please note that this search is only for the exact word/phrase entered.
 For example, putting in 'autism' won't return results for 'autistic spectrum disorder',
 you will have to search for it separately.</p>
-<table><tr><th>Number of occurences</th><th><?
+<table><tr><th>Number of occurences</th><th><?php
 
     if ($wtt) print 'Speaker';
     else {
-?>Table includes - <?
+?>Table includes - <?php
 
         $URL = new URL($this_page);
         $url_l = $URL->generate('html', array('house'=>2));
@@ -147,7 +147,7 @@ you will have to search for it separately.</p>
         }
 
 } ?></th><th>Date range</th></tr>
-<?
+<?php
     foreach ($data['speakers'] as $pid => $speaker) {
         print '<tr><td align="center">';
         print $speaker['count'] . '</td><td>';
@@ -413,7 +413,7 @@ function find_members ($searchstring) {
 <div id="people_results">
     <h2>People matching &lsquo;<?php echo htmlentities($searchstring); ?>&rsquo;</h2> 
     <ul class="hilites">
-<?
+<?php
 foreach ($members as $member) {
     echo '<li>';
     echo $member[0] . $member[1] . $member[2];
@@ -500,18 +500,18 @@ function find_glossary_items($args) {
         $URL->insert(array('gl' => ""));
 ?>
                 <h2>Matching glossary terms:</h2> 
-                <p><?
+                <p><?php
         $n = 1;
         foreach($GLOSSARY->search_matches as $glossary_id => $term) {
             $URL->update(array("gl" => $glossary_id)); 
-            ?><a href="<?php echo $URL->generate(); ?>"><strong><?php echo htmlentities($term['title']); ?></strong></a><?
+            ?><a href="<?php echo $URL->generate(); ?>"><strong><?php echo htmlentities($term['title']); ?></strong></a><?php
             if ($n < $GLOSSARY->num_search_matches) {
                 print ", ";
             }
             $n++;
         }
         ?></p>
-<?
+<?php
     }
 }
 

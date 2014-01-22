@@ -1,4 +1,4 @@
-<?
+<?php
 
 include 'min-init.php';
 include_once '../api/api_functions.php';

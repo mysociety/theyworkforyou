@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
@@ -14,7 +14,7 @@ function api_getPerson_front() {
 This will return all database entries for this person, so will include previous elections, party changes, etc.</dd>
 </dl>
 
-<?
+<?php
 }
 
 function _api_getPerson_row($row, $has_party=FALSE){

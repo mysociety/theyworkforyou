@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once INCLUDESPATH . '../../commonlib/phplib/rabx.php';
 

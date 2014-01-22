@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'postcode.inc';
@@ -97,7 +97,7 @@ function api_documentation_front($method, $explorer) {
 <p>Try out this function without writing any code!</p>
 <form method="get" action="?#output">
 <p>
-<? foreach ($methods[$method]['parameters'] as $parameter) {
+<?php foreach ($methods[$method]['parameters'] as $parameter) {
 	print $parameter . ': <input type="text" name="'.$parameter.'" value="';
 	if ($val = get_http_var($parameter))
 		print htmlspecialchars($val);
@@ -105,19 +105,19 @@ function api_documentation_front($method, $explorer) {
 }
 ?>
 Output:
-<input id="output_js" type="radio" name="output" value="js"<? if (get_http_var('output')=='js' || !get_http_var('output')) print ' checked'?>>
+<input id="output_js" type="radio" name="output" value="js"<?php if (get_http_var('output')=='js' || !get_http_var('output')) print ' checked'?>>
 <label for="output_js">JS</label>
-<input id="output_xml" type="radio" name="output" value="xml"<? if (get_http_var('output')=='xml') print ' checked'?>>
+<input id="output_xml" type="radio" name="output" value="xml"<?php if (get_http_var('output')=='xml') print ' checked'?>>
 <label for="output_xml">XML</label>
-<input id="output_php" type="radio" name="output" value="php"<? if (get_http_var('output')=='php') print ' checked'?>>
+<input id="output_php" type="radio" name="output" value="php"<?php if (get_http_var('output')=='php') print ' checked'?>>
 <label for="output_php">Serialised PHP</label>
-<input id="output_rabx" type="radio" name="output" value="rabx"<? if (get_http_var('output')=='rabx') print ' checked'?>>
+<input id="output_rabx" type="radio" name="output" value="rabx"<?php if (get_http_var('output')=='rabx') print ' checked'?>>
 <label for="output_rabx">RABX</label>
 
 <input type="submit" value="Go">
 </p>
 </form>
-<?
+<?php
 	if ($explorer) {
 		$qs = array();
 		foreach ($methods[$method]['parameters'] as $parameter) {
@@ -149,11 +149,11 @@ function api_front_page($error = '') {
 
 <ol style="font-size:130%">
 <li>
-<? if ($THEUSER->loggedin()) { ?>
+<?php if ($THEUSER->loggedin()) { ?>
 <a href="key">Get an API key (or view stats of existing keys)</a>.
-<? } else { ?>
+<?php } else { ?>
 <a href="key">Get an API key</a>.
-<? } ?>
+<?php } ?>
 <li>All requests are made by GETting a particular URL with a number of parameters. <em>key</em> is required;
 <em>output</em> is optional, and defaults to <kbd>js</kbd>.
 </ol>
@@ -193,7 +193,7 @@ and in PHP and RABX a serialised array containing one entry with key <code>error
 
 <h3>Usage and Licensing</h3>
 
-<? $em = join('&#64;', array('commercial', 'mysociety.org')); ?>
+<?php $em = join('&#64;', array('commercial', 'mysociety.org')); ?>
 <p>Low volume, charitable use of the API service itself is free. This means
 direct use by registered charities, or individuals pursuing a non-profit
 project on an unpaid basis, with a volume of up to 50,000 calls per year.
@@ -246,7 +246,7 @@ to discuss things.</p>
 <li><a href="http://www.straw-dogs.co.uk/10/15/your-mp-google-desktop-gadget/">Your MP - Google Desktop Gadget</a> - with GPL source code
 </ul>
 
-<?
+<?php
 	$sidebar = api_sidebar();
 	$PAGE->stripe_end(array($sidebar));
 	$PAGE->page_end();

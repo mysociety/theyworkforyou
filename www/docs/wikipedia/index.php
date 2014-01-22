@@ -25,7 +25,7 @@ and that someone in CCHQ has done similar for Oliver Letwin. We can see small, n
 we can see that someone on an idle Friday early lunch decided to just vandalize Andy Murray's page.
 If you know any more IP addresses for political organisations we could add, do <a href="mailto:beta&#64;theyworkforyou.com">let us know at the usual address</a>.</p>
 <p>And we haven't even touched on people sending emails from a Parliament computer winding up a Freemason conspiracy theorist&hellip;</p>
-<p align="center"><?
+<p align="center"><?php
 $out = array();
 foreach ($site as $k => $v) {
 	if ($k == $ip)
@@ -46,7 +46,7 @@ h3 { margin-top: 1em; }
 </style>
 <hr />
 
-<?
+<?php
 $file = file_get_contents("cache/$ip");
 preg_match_all('#<li>.*? \(<a[^>]*>hist</a>\) \(<a href=".*?title=(.*?)&.*?oldid=(.*?)"[^>]*>diff</a>\)  <a[^>]*>(.*?)</a> .*?</li>#', $file, $m, PREG_SET_ORDER);
 foreach ($m as $row) {

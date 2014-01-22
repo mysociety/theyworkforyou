@@ -108,7 +108,7 @@ There are a couple of other minor issues, but that's the important stuff. :)
 
 </dl>
 
-<?
+<?php
 $PAGE->block_end();
 $PAGE->block_start(array ('title'=>'Things not noticeable to the user'));
 ?>
@@ -117,7 +117,7 @@ $PAGE->block_start(array ('title'=>'Things not noticeable to the user'));
 <li>Some XHTML is being output when the pages are in HTML (e.g. &lt;hr/&gt; and even &lt;br&gt;&lt;/br&gt;). Not very important.
 </ul>
 
-<?
+<?php
 $PAGE->block_end();
 
 $includes = array(

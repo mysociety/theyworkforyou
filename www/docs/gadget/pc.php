@@ -1,4 +1,4 @@
-<?
+<?php
 
 # Given a postcode, return a person ID
 

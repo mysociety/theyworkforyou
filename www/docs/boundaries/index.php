@@ -10,7 +10,7 @@ $PAGE->page_start();
 <h1>Scottish and Northern Irish election constituency boundaries</h1>
 
 <div id="boundaries">
-<?
+<?php
 
 $pc = get_http_var('pc');
 $pc = ''; # No form submissions, please
@@ -59,7 +59,7 @@ It does not currently function.
 <a href="http://www.flickr.com/photos/markybon/138214000/" title="Boundaries by MarkyBon, on Flickr"><img src="http://farm1.static.flickr.com/51/138214000_80327fe675.jpg" width="358" height="500" alt="Boundaries"></a>
 <br><small>Boundaries by MarkyBon</small>
 </div>
-<?
+<?php
 }
 
 if ($pc) {
@@ -115,11 +115,11 @@ $(function(){
     boundary.setMap(map);
 });
 </script>
-<?
+<?php
     }
 ?>
     <ul class="results">
-<?
+<?php
     if (count($new)) {
         print "<li>For the Parliament election, you are in the <strong>$new[SPC]</strong> constituency, in the <strong>$new[SPE]</strong> region.";
     } elseif ($country == 'N') {
@@ -131,7 +131,7 @@ $(function(){
     if ($country == 'S') {
         $mp_url = '/msp/' . make_member_url($name, '', 4);
 ?>
-<li>You were in the <strong><?=$current['SPC']?></strong> constituency, in the <strong><?=$current['SPE']?></strong> region; your constituency MSP was <a href='<?=$mp_url?>'><?=$name?></a>, and your regional MSPs were <?
+<li>You were in the <strong><?=$current['SPC']?></strong> constituency, in the <strong><?=$current['SPE']?></strong> region; your constituency MSP was <a href='<?=$mp_url?>'><?=$name?></a>, and your regional MSPs were <?php
         foreach ($mreg as $k => $n) {
             print "<a href='/msp/" . make_member_url($n, '', 4) . "'>$n</a>";
             if ($k < count($mreg)-2) print ', ';
@@ -142,7 +142,7 @@ $(function(){
         $mp_url = '/mla/' . make_member_url($name, '', 3);
 ?>
 <li>You were in the <strong><?=$current['NIE']?></strong> constituency; your constituency MLA was <a href='<?=$mp_url?>'><?=$name?></a>.</li>
-<?
+<?php
     }
     echo '</ul>';
 
@@ -188,6 +188,6 @@ which can provide programmatic access to the constituency for a particular postc
 </ul>
 
 </div>
-<?
+<?php
 
 $PAGE->page_end();

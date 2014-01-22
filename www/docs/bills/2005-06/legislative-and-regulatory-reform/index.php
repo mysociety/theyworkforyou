@@ -35,7 +35,7 @@ Unfortunately, this is only in the form of one big PDF with lots of cross-refere
 ins { color: #009900; }
 del { color: #990000; }
 </style>
-<?
+<?php
 
 if (file_exists('diff.html')) {
 	$out = file_get_contents('diff.html');

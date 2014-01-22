@@ -1,4 +1,4 @@
-<?
+<?php
 # Expenses related functions
 
 function expenses_display_table($extra_info, $gadget=false, $start_year=9) {

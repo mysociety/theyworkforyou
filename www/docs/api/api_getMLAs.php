@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once dirname(__FILE__) . '/api_getMembers.php';
 
@@ -28,7 +28,7 @@ function api_getMLAs_front() {
 	i:1; ...
 </pre>
 
-<?	
+<?php	
 }
 
 /* See api_getMembers.php for these shared functions */

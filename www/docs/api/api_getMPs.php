@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once dirname(__FILE__) . '/api_getMembers.php';
 
@@ -34,7 +34,7 @@ for a default (today) lookup.
 	i:1; ...
 </pre>
 
-<?	
+<?php	
 }
 
 /* See api_getMembers.php for these shared functions */

@@ -116,12 +116,12 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 						<form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
 						<p><strong>Search everything said in Parliament since 2001, or for an ex-MP or constituency</strong><br>
 						<label for="s">Type what you are looking for:</label>&nbsp; <input type="text" name="s" id="s" size="15" maxlength="100" class="text">&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit"></p>
-                        <?
+                        <?php
                             // Display popular queries
                             global $SEARCHLOG;
                             $popular_searches = $SEARCHLOG->popular_recent(10);
                             if (count($popular_searches) > 0) {
-                                ?> <p>Popular searches today: <?
+                                ?> <p>Popular searches today: <?php
                                 $lentotal = 0;
                                 $correct_amount = array();
                                 // Select a number of queries that will fit in the space
@@ -134,7 +134,7 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
                                     array_push($correct_amount, $popular_search['display']);
                                 }
                                 print implode(", ", $correct_amount);
-                                ?> </p> <?
+                                ?> </p> <?php
                             }
                         ?>
 						</form>

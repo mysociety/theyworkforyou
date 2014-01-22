@@ -65,7 +65,7 @@ Enter a name here to restrict results to contributions only by that person.
  <label for="section">Section:</label>
  <select id="section" name="section">
  <option value="">Any
-<?
+<?php
  optgroups(array(
  	'UK Parliament' => array(
 		'uk' => 'All UK',
@@ -107,6 +107,6 @@ Enter a name here to restrict results to contributions only by that person.
 
 </form>
 
-<?
+<?php
 
 $this->block_end();

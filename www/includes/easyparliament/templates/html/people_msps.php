@@ -41,7 +41,7 @@ if (!count($data['data'])) {
 <p>There are currently no MSPs &ndash; we are presumably in the period between the
 dissolution of the Parliament and its next election.</p>
 
-<?
+<?php
 } else {
 
 $MPURL = new URL('yourmp');
@@ -128,7 +128,7 @@ if ($pc_form) { ?>
 ?>
 </tbody>
 </table>
-<?
+<?php
 
 }
 

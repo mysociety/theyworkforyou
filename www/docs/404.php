@@ -29,7 +29,7 @@ in the data we hold.
 and so on.
 </ul>
 
-<?
+<?php
 
 $includes = array(
 	array (

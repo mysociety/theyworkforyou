@@ -1,4 +1,4 @@
-<?
+<?php
 
 function api_convertURL_front() {
 ?>
@@ -8,7 +8,7 @@ function api_convertURL_front() {
 <dl>
 <dt>url (required)</dt>
 <dd>The parliament.uk URL you wish to convert, e.g.
-<?	$db = new ParlDB;
+<?php	$db = new ParlDB;
 	$q = $db->query('SELECT source_url FROM hansard WHERE major=1 AND hdate>"2006-07-01" ORDER BY RAND() LIMIT 1');
 	print $q->field(0, 'source_url');
 ?></dd>
@@ -24,7 +24,7 @@ function api_convertURL_front() {
 <p>This probably counts as "AJAX", though it doesn't use XMLHTTP, asynchronicity, or XML, only cross-site JavaScript... It's definitely Web 2.1, at least.</p>
 
 <ul><li><a href="javascript:function foo(r){if(r.url)window.location=r.url;};(function(){var s=document.createElement('script');s.setAttribute('src','http://theyworkforyou.com/api/convertURL?callback=foo&url='+encodeURIComponent(window.location));s.setAttribute('type','text/javascript');document.getElementsByTagName('head')[0].appendChild(s);})()">Hansard prettifier</a> - drag this bookmarklet to your bookmarks bar, or bookmark it. Then if you ever find yourself on the official site, clicking this will try and take you to the equivalent page on TheyWorkForYou. (Tested in IE, Firefox, Opera.)</li></ul>
-<?	
+<?php	
 }
 
 /* Very similar to function in hansardlist.php, but separated */

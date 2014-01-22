@@ -10,7 +10,7 @@ $notloaded = '';
 data for PublicWhip and TheyWorkForYou.</p>
 <h4>HTML that hasn't been parsed into XML</h4>
 <ul>
-<?
+<?php
 
 $html = RAWDATA . 'cmpages/';
 $xml = RAWDATA . 'scrapedxml/';
@@ -65,7 +65,7 @@ foreach ($dir as $k=>$bit) {
 <h4>XML that hasn't loaded into the database</h4>
 <p>Note this currently only works for new data - ie. if there's any data at all
 in the database for the date, it won't appear hear</p>
-<?
+<?php
 if ($notloaded) print "<ul>$notloaded</ul>";
 
 $PAGE->stripe_end();

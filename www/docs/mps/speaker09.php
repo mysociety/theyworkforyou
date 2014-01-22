@@ -41,7 +41,7 @@ and effectiveness. </li>
 
 <p>These are the responses from all the MPs we contacted. Follow the MP link to read their response, if we have one.</p>
 
-<?
+<?php
 
 $q = $db->query('select max(left_house) as left_house from member where house=1');
 $left_house = $q->field(0, 'left_house');

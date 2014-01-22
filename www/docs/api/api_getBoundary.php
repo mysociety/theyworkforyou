@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once INCLUDESPATH . '../../commonlib/phplib/mapit.php';
 include_once dirname(__FILE__) . '/api_getGeometry.php';
@@ -17,7 +17,7 @@ past constituency boundaries, and so on).</p>
 <dd>Name of the constituency.
 </dl>
 
-<?	
+<?php	
 }
 
 function api_getBoundary_name($name) {

@@ -1,4 +1,4 @@
-<?
+<?php
 // Constants of types used in epobjects and hansard objects
 // $Id: dbtypes.php,v 1.8 2009-04-28 13:13:04 matthew Exp $
 

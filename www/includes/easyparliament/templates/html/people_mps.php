@@ -152,7 +152,7 @@ foreach ($data['data'] as $pid => $mp) {
 				</tbody>
 				</table>
 				
-<?
+<?php
 
 function render_mps_row($mp, &$style, $order, $MPURL, $letter=false) {
 
@@ -177,7 +177,7 @@ function render_mps_row($mp, &$style, $order, $MPURL, $letter=false) {
                 ?>
                 </td>
 				<td class="row-<?php echo $style; ?>"><a href="<?php echo $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1, $mp['person_id']); ?>"><?php echo $name; ?></a>
-<?
+<?php
 if ($mp['left_reason'] == 'general_election_not_standing') {
     print '<br><em>Standing down</em>';
 }

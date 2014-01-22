@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'postcode.inc';
@@ -87,5 +87,5 @@ function api_key_form() {
 <p><input type="submit" value="Get key">
 <input type="hidden" name="create_key" value="1">
 </form>
-<?
+<?php
 }

@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once dirname(__FILE__) . '/api_getHansard.php';
 
@@ -97,7 +97,7 @@ function api_getDebates_front() {
 		}
 	},
 	...</pre>
-<?	
+<?php	
 }
 
 function api_getDebates_type($t) {

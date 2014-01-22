@@ -1,4 +1,4 @@
-<?
+<?php
 
 function api_getAlerts_start_date($start_date) {
   $args = array ('start_date' => $start_date, 'end_date' => get_http_var('end_date'));

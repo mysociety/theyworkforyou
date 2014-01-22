@@ -118,7 +118,7 @@ foreach ($data['data'] as $pid => $mp) {
 ?>
 </tbody>
 </table>
-<?
+<?php
 
 function render_mps_row($mp, &$style, $order, $MPURL, $letter='') {
 	$style = $style == '1' ? '2' : '1';

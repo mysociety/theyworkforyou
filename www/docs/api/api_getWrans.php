@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once dirname(__FILE__) . '/api_getHansard.php';
 
@@ -43,7 +43,7 @@ function api_getWrans_front() {
 	]
 }</pre>
 
-<?	
+<?php	
 }
 
 function api_getWrans_date($d) {

@@ -138,11 +138,11 @@ of what could be done with more structured data.</p>
 
 <h3>We need you!</h3>
 
-<? signup_form() ?>
+<?php signup_form() ?>
 
 <p><a href="/freeourbills">Free our Bills home</a>
 
-<?
+<?php
 #$PAGE->block_end();
 $PAGE->stripe_end();
 $PAGE->page_end ();

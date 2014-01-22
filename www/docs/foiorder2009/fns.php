@@ -1,4 +1,4 @@
-<?
+<?php
 
 $foi2009_message = '
 <p>On the 16th of May 2008 the High Court ruled that MPs&rsquo; expenses must be published under the Freedom of Information Act.

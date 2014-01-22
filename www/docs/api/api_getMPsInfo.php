@@ -1,4 +1,4 @@
-<?
+<?php
 
 function api_getMPsInfo_front() {
 ?>
@@ -14,7 +14,7 @@ function api_getMPsInfo_front() {
 
 <h4>Example Response</h4>
 
-<?	
+<?php	
 }
 
 function _api_getMPsInfo_id($ids) {

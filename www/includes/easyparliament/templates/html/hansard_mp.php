@@ -12,7 +12,7 @@ table#questions td, table#questions th {
 </style>
 <table id="questions">
 <tr><th>Question</th><th>Answer</th></tr>
-<?
+<?php
 foreach ($data['data'] as $row) {
 	print '<tr><th colspan="2" align="left">' . $row['section_body'] . ' : ' . $row['subsection_body'];
 	print ' (' . format_date($row['hdate'], LONGDATEFORMAT) . ')';

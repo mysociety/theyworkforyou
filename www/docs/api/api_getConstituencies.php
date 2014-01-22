@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once dirname(__FILE__) . '/api_getGeometry.php';
 
@@ -27,7 +27,7 @@ function api_getConstituencies_front() {
     ...
 ]</pre>
 
-<?    
+<?php    
 }
 
 function api_getConstituencies_search($s) {

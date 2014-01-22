@@ -1,4 +1,4 @@
-<?
+<?php
 
 # Compile data for MP page in Google gadget
 

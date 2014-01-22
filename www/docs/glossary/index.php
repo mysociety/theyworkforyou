@@ -107,14 +107,14 @@ if($GLOSSARY->glossary_id != '') {
 	
 	// Display the results
 	if (isset($GLOSSARY->terms)) {
-		?><ul class="glossary"><?
+		?><ul class="glossary"><?php
 		$URL = new URL('glossary');
 		foreach ($GLOSSARY->alphabet[$GLOSSARY->current_letter] as $glossary_id) {
 			$URL->insert(array('gl' => $glossary_id));
 			$term_link = $URL->generate('url');
-			?><li><a href="<?php echo $term_link ?>"><?php echo $GLOSSARY->terms[$glossary_id]['title']; ?></a></li><?
+			?><li><a href="<?php echo $term_link ?>"><?php echo $GLOSSARY->terms[$glossary_id]['title']; ?></a></li><?php
 		}
-		?></ul><?
+		?></ul><?php
 	}
 }
 

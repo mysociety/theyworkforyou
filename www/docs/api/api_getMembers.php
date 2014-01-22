@@ -1,4 +1,4 @@
-<?
+<?php
 
 /* Shared API functions for get<Members> */
 

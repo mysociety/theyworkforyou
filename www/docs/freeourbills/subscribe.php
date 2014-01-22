@@ -1,4 +1,4 @@
-<?
+<?php
 
 # Will need: $MEMBER = new MEMBER(array('constituency' => $constituency));
 
@@ -64,7 +64,7 @@ if (!$errors) {
         <p class="free_our_bills_confirm">If you use web-based email or have 'junk mail' filters, you may wish to check your bulk&#47;spam mail folders: sometimes, our messages are marked that way.</p>
         <p class="free_our_bills_confirm">You must now click on the link within the email we've just sent you -<br>if you do not, you will not have joined the Free Our Bills campaign.</p>
 
-        <?
+        <?php
         exit;
        }
    }
@@ -83,18 +83,18 @@ if ($url_token) {
 		?>
 		<p class="free_our_bills_thanks">Thanks for signing up to the campaign! We'll contact you soon.</p>
 		<p class="free_our_bills_thanks">Now invite your friends to sign up too...</p>
-<? 
+<?php 
 $PAGE->block_start(array ('title'=>'Tell your friends about the \'Free our Bills!\' campaign'));
 freeourbills_share_page(); 
 $PAGE->block_end();
 ?>
 		<p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
-		<?
+		<?php
 	} else {
 		?>
 		<p class="free_our_bills_confirm">Please check the link that you've copied from your email, it doesn't seem right.</p>
 		<p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
-		<?
+		<?php
 	}
 	return;
 }

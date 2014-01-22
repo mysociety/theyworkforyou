@@ -9,13 +9,13 @@
 <copyright>Parliamentary Copyright.</copyright>
 <?php if (isset($data['info']['total_results'])) { ?>
 <openSearch:totalResults><?=$data['info']['total_results'] ?></openSearch:totalResults>
-<? }
+<?php }
 	if (isset($data['info']['first_result'])) { ?>
 <openSearch:startIndex><?=$data['info']['first_result'] ?></openSearch:startIndex>
-<? }
+<?php }
 	if (isset($data['info']['results_per_page'])) { ?>
 <openSearch:itemsPerPage><?=$data['info']['results_per_page'] ?></openSearch:itemsPerPage>
-<? }
+<?php }
 
 global $this_page;
 twfy_debug("TEMPLATE", "rss/hansard_search.php");
@@ -33,7 +33,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		$date = "$hdate $htime +0000";
 ?>
 <item>
-<title><?
+<title><?php
 		if (isset($row['parent']) && count($row['parent']) > 0) {
 			echo strip_tags($row['parent']['body']);
 		}

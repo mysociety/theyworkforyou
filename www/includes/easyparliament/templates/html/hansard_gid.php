@@ -47,7 +47,7 @@ if ($data['info']['date'] == date('Y-m-d')) { ?>
 <div style="padding: 4px; margin: 1em; color: #000000; background-color: #ffeeee; border: solid 2px #ff0000;">
 Warning: Showing data from the current day is <strong>experimental</strong> and may not work correctly.
 </div>
-<?
+<?php
 }
 
 if (isset ($data['rows'])) {

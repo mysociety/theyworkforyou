@@ -66,7 +66,7 @@ foreach ($data['data'] as $pid => $peer) {
 				</tbody>
 				</table>
 				
-<?
+<?php
 
 function manymins($p, $d) {
 	return prettify_office($p, $d);

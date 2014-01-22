@@ -615,7 +615,7 @@ function person_voting_record($member, $extra_info) {
 <ul class="no-bullet" id="dreamcomparisons">
 <?=$got_dream ?>
 </ul>
-<?
+<?php
     }
 
 	// Links to full record at Guardian and Public Whip	
@@ -785,7 +785,7 @@ echo'<h2>Topics of interest</h2>';
 		$topics_block_empty = false;
 		$WRANSURL = new URL('search');
 		$WRANSURL->insert(array('pid'=>$member['person_id'], 's'=>'section:wrans', 'pop'=>1));
-	?>							<p><small>(based on <a href="<?=$WRANSURL->generate()?>">written questions asked by <?=$member['full_name']?></a> and answered by departments)</small></p><?
+	?>							<p><small>(based on <a href="<?=$WRANSURL->generate()?>">written questions asked by <?=$member['full_name']?></a> and answered by departments)</small></p><?php
 	}
 
 	# Public Bill Committees
@@ -963,7 +963,7 @@ by this site.</em> (<a href="<?=WEBPATH ?>help/#numbers">More about this</a>)</p
 	if (isset($extra_info['number_of_alerts'])) {
 		$displayed_stuff = 1;
 	?>
-		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking <?
+		<li><strong><?=htmlentities($extra_info['number_of_alerts']) ?></strong> <?=($extra_info['number_of_alerts']==1?'person is':'people are') ?> tracking <?php
 		if ($member['house_disp']==HOUSE_TYPE_COMMONS) print 'this MP';
 		elseif ($member['house_disp']==HOUSE_TYPE_LORDS) print 'this peer';
 		elseif ($member['house_disp']==HOUSE_TYPE_NI) print 'this MLA';
@@ -1074,7 +1074,7 @@ function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $ex
 
 function display_writetothem_numbers($year, $extra_info) {
 	if (isset($extra_info["writetothem_responsiveness_notes_$year"])) {
-	?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com/stats/<?=$year?>/mps">WriteToThem.com</a> in <?=$year?>: <?=$extra_info["writetothem_responsiveness_notes_$year"]?>.</li><?
+	?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com/stats/<?=$year?>/mps">WriteToThem.com</a> in <?=$year?>: <?=$extra_info["writetothem_responsiveness_notes_$year"]?>.</li><?php
 		return true;
 	} elseif (isset($extra_info["writetothem_responsiveness_mean_$year"])) {
 		$mean = $extra_info["writetothem_responsiveness_mean_$year"];

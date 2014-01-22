@@ -109,7 +109,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
 
 <dl class="big-debates front">
 
-<? if (count($last_dates[3])) { ?>
+<?php if (count($last_dates[3])) { ?>
 <dt><a href="<?=$last_dates[3]['listurl']?>">Written answers</a>
 <small><?=format_date($last_dates[3]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
@@ -123,7 +123,7 @@ information from ministers which the government may not wish to reveal.
     $MOREURL = new URL('wransfront');
 ?>
     <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more written answers</a></strong></p>
-<?
+<?php
 }
 
 if (count($last_dates[4])) {
@@ -142,7 +142,7 @@ $MOREURL = new URL('wmsfront');
 
 ?>
     <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more written statements</a></strong></p>
-<?
+<?php
 }
 
 if (count($last_dates[6])) {
@@ -161,7 +161,7 @@ $MOREURL = new URL('pbcfront');
 ?>
     <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Public Bill committees</a></strong></p>
 
-<? } ?>
+<?php } ?>
 
 </div>
 <div class="welcome_col2">
@@ -173,12 +173,12 @@ $MOREURL = new URL('pbcfront');
     </p>
 </div>
 
-<?
+<?php
 $PAGE->include_sidebar_template('front');
 ?>
 
 <dl class="big-debates front">
-<?
+<?php
 if (count($last_dates[1])) {
 ?>
 <dt><a href="<?=$last_dates[1]['listurl']?>">Commons debates</a>
@@ -194,7 +194,7 @@ $DEBATELIST->display('recent_debates', array('days' => 7, 'num' => 1));
 $MOREURL = new URL('debatesfront');
 ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Commons debates</a></strong></p>
-<?
+<?php
 }
 
 if (count($last_dates[2])) {
@@ -211,7 +211,7 @@ $WHALLLIST->display('recent_debates', array('days' => 7, 'num' => 1));
 $MOREURL = new URL('whallfront');
 ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Westminster Hall debates</a></strong></p>
-<?
+<?php
 }
 
 if (count($last_dates[101])) {
@@ -228,7 +228,7 @@ $LORDSDEBATELIST->display('recent_debates', array('days' => 7, 'num' => 1));
 $MOREURL = new URL('lordsdebatesfront');
 ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Lords debates</a></strong></p>
-<?
+<?php
 }
 ?>
 </dl>

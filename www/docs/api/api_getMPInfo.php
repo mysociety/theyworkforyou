@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once dirname(__FILE__) . '/api_getMPsInfo.php';
 
@@ -16,7 +16,7 @@ function api_getMPInfo_front() {
 
 <h4>Example Response</h4>
 
-<?	
+<?php	
 }
 
 function api_getMPinfo_id($id) {

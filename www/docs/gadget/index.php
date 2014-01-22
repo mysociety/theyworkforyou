@@ -22,7 +22,7 @@ and more, from your iGoogle page.</p>
 <a href="http://www.google.co.uk/ig/adde?moduleurl=http://www.theyworkforyou.com/gadget/twfy.xml"><img src="http://www.google.co.uk/politics/images/add.gif" alt="Add to Google"></a>
 </p>
 
-<?
+<?php
 
 $includes = array(
 	array (

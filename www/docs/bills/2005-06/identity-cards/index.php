@@ -30,7 +30,7 @@ href="http://www.theyworkforyou.com/debates/?id=2005-10-18c.717.0">passed in
 the Commons on the 18th October</a>.
 </ul>
 
-<?
+<?php
 $PAGE->block_end();
 $PAGE->block_start(array ('title'=>'House of Lords - Normal Run'));
 ?>
@@ -47,7 +47,7 @@ $PAGE->block_start(array ('title'=>'House of Lords - Normal Run'));
 <li><a href="http://www.publications.parliament.uk/pa/ld200506/ldbills/071/amend/ldam071.htm">Amendments proposed for 3rd reading</a> <a href="http://www.theyworkforyou.com/lords/?id=2006-02-06b.425.0">Third reading</a> was on 6th February, so was sent back to the Commons on the 7th, with the following list of amendments (yes, I know it's published as a Bill):  <a href="http://www.publications.parliament.uk/pa/cm200506/cmbills/126/2006126.htm">Identity Cards Bill [HL] (126)</a>
 </ul>
 
-<?
+<?php
 $PAGE->block_end();
 $PAGE->block_start(array ('title'=>'Ping Pong'));
 ?>
@@ -89,7 +89,7 @@ Motions, <a href="http://www.theyworkforyou.com/debates/?id=2006-03-29a.999.0">d
 <li><strong>Royal Assent:</strong> <a href="http://www.theyworkforyou.com/debates/?id=2006-03-30a.1061.4">Commons</a> and <a href="http://www.theyworkforyou.com/lords/?id=2006-03-30a.861.1">Lords</a></li>
 
 </ul>
-<?
+<?php
 
 $PAGE->block_end();
 

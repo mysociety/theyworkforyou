@@ -42,7 +42,7 @@ if (sizeof($errors)) {
 <br>(<a href="/privacy/">privacy policy</a>)
 <input type="submit" class="submit" value="Send"></p>
 </form>
-<?
+<?php
 } else {
 	$rep_name = $MEMBER->full_name();
 	if ($MEMBER->house_disp==1) $rep_name .= ' MP';

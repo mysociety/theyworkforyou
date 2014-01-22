@@ -21,7 +21,7 @@ other hand, setting attribution needs to be done on the live database, on the li
 version of the site.
 </p>
 
-<?
+<?php
 
 $out = '';
 if (get_http_var('submit')) {

@@ -17,7 +17,7 @@ twfy_debug("TEMPLATE", "hansard_search_video.php");
 are the search results for that for the current day. Hopefully you recognise
 one of them!</p>
 
-<?
+<?php
 
 if (isset ($data['rows']) && count($data['rows']) > 0) {
 	echo '<dl id="searchresults">';

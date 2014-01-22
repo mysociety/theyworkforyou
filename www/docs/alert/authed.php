@@ -1,4 +1,4 @@
-<?
+<?php
 // authed.php:
 // Returns whether an email address has signed up to a TWFY alert for an MP.
 // Uses shared secret for authentication.

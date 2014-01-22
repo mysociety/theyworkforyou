@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once INCLUDESPATH."easyparliament/member.php";
 
@@ -21,7 +21,7 @@ function api_getHansard_front() {
 <dd>Number of results to return.</dd>
 </dl>
 
-<?
+<?php
 }
 
 function api_getHansard_search($s) {

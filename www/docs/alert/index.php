@@ -120,7 +120,7 @@ You are not subscribed to an alert for your current MP,
 <?=$current_mp->full_name() ?>.
 <input type="submit" value="Subscribe">
 </form>
-<?
+<?php
             $PAGE->block_end();
         }
     }
@@ -358,7 +358,7 @@ for.</label> To be alerted on an exact <strong>phrase</strong>, be sure to put i
 Also use quotes around a word to avoid stemming (where &lsquo;horse&rsquo; would
 also match &lsquo;horses&rsquo;).
 
-<?
+<?php
     }
 
     echo '<form action="' . $ACTIONURL->generate() . '" method="post">

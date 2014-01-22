@@ -1,4 +1,4 @@
-<?
+<?php
 
 /* Nasty way of implementing "by department" stuff with the current schema */
 

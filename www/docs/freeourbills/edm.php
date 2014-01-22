@@ -56,7 +56,7 @@ if ($pc) {
 <p>Postcode: <input type="text" name="pc" value="<?=htmlspecialchars($pc)?>">
 <input type="submit" value="Look up"></p>
 </form>
-<?
+<?php
 
 $PAGE->stripe_end();
 $PAGE->page_end();

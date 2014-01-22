@@ -40,7 +40,7 @@ Earlier/ other date:
 <input type="submit" value="Go">
 </form>
 
-<?
+<?php
 } elseif ($this_page == 'msps') {
 ?>
 
@@ -49,7 +49,7 @@ Earlier/ other date:
 <li><a href="?date=1999-05-06">MSPs at 1999 election</a></li>
 <li><a href="<?=$allurl?>">Historical list of all MSPs</a></li>
 
-<?
+<?php
 } else {
 	echo "<li><a href='$allurl'>Historical list of all $rep</a></li>";
 }

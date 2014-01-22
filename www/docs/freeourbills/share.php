@@ -18,7 +18,7 @@ Please sign up and we'll send you easy tasks (like emailing your MP, or coming u
 </p>
 </form>
 
-<?
+<?php
 }
 
 function freeourbills_styles() {
@@ -87,5 +87,5 @@ h2.free_our_bills_confirm {
 
 
 </style>
-<?
+<?php
 }

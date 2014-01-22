@@ -1,4 +1,4 @@
-<?
+<?php
 
 # Display a calendar month in the Google gadget
 

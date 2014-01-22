@@ -176,7 +176,7 @@ function showInstructions() {
 	return false;
 }
 </script>
-<?
+<?php
 	$hidden_int = (isset($_COOKIE['hideVideoInt']) && $_COOKIE['hideVideoInt']);
 	echo '<table id="video_table" border="0" cellspacing="0" cellpadding="5"><tr valign="top"><td width="50%">';
 	if ($gid_actual['video_status']&4) {
@@ -257,7 +257,7 @@ timestamped to the right location, on the relevant page of TheyWorkForYou.</p>
 your timestampings will appear in our chart below &ndash; there may be prizes for best timestampers&hellip; :)
 Registration is not needed to timestamp videos, but you can <a href="/user/?pg=join&ret=/video/">register here</a> if you want.</p>
 
-<p id="video_attract"><?
+<p id="video_attract"><?php
 	if ($totaliser[0]) {
 		echo '<a href="next.php?action=random">Give me a random speech that needs timestamping</a>';
 	} else {
@@ -266,7 +266,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 ?></p>
 
 <div id="top" style="float: left; width: 45%;">
-<?
+<?php
 
 	list($out_today, $rank_today) = display_league(20, 'and date(whenstamped)=current_date');
 	list($out_week, $rank_week) = display_league(40, 'and date(whenstamped)>current_date-interval 28 day');
@@ -291,7 +291,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 <h3>Totaliser</h3>
 <ul><?=$out?></ul>
 
-<?
+<?php
 	$q = $db->query('select video_status&4 as checked,count(*) as c from hansard
 	where major=1 and video_status>0 and video_status<8 and video_status!=2 and htype in (12,13)
 		and hdate=(select max(hdate) from hansard where major=1)
@@ -318,7 +318,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 
 <h3 style="clear:both;margin-top:1em">Latest stamped</h3>
 <ul>
-<?
+<?php
 
 	$q = $db->query('select hansard.gid, body, major from video_timestamps, hansard, epobject
 	where (user_id != -1 or user_id is null) and video_timestamps.deleted=0
@@ -393,7 +393,7 @@ everyone who uses the site :)
 Some videos will be miles out &ndash; if you can't
 find the right point, don't worry, just <a href="/video/next.php?action=random<?=$pid_url?>"><strong>try another speech</strong></a>!
 </p>
-<?
+<?php
 }
 
 function basic_hints($gid_safe, $file, $pid) {
@@ -403,9 +403,9 @@ function basic_hints($gid_safe, $file, $pid) {
 ?>
 
 <ul>
-<?	if (!$THEUSER->loggedin()) { ?>
+<?php	if (!$THEUSER->loggedin()) { ?>
 <li><a href="/user/login/?ret=/video/"><strong>Sign in</strong></a> if you want to get on the <a href="/video/#top">Top Timestampers league table</a>!
-<?	} ?>
+<?php	} ?>
 <li>If the video suddenly <strong>jumps</strong> a couple of hours, or otherwise appears broken, <a href="mailto:<?=str_replace('@', '&#64;', CONTACTEMAIL) ?>?subject=Video%20<?=$file?>'%20for%20ID%20'<?=$gid_safe?>'%20broken">let us know</a>.
 <li>If the speech you're looking for is <strong>beyond the end</strong> of the video,
 <a href="/video/?gid=<?=$gid_safe?>&amp;file=<?=$file+1?>&amp;start=1<?=$pid_url?>">move on to the next video chunk</a>.
@@ -424,7 +424,7 @@ over the video.
 
 <p align="right"><small><b>Credits:</b> Video from <a href='http://www.bbc.co.uk/parliament/'>BBC Parliament</a> and mySociety</small></p>
 
-<?
+<?php
 }
 
 function advanced_hints($gid_safe, $file, $pid) {
@@ -435,9 +435,9 @@ function advanced_hints($gid_safe, $file, $pid) {
 
 <p align="center">Actions:
 <a href="/video/next.php?action=random">Skip</a> |
-<?	if (!$THEUSER->loggedin()) { ?>
+<?php	if (!$THEUSER->loggedin()) { ?>
 <a href="/user/login/?ret=/video/">Log in</a> |
-<?	} ?>
+<?php	} ?>
 <a href="mailto:<?=str_replace('@', '&#64;', CONTACTEMAIL) ?>?subject=Video%20<?=$file?>'%20for%20ID%20'<?=$gid_safe?>'%20broken">Broken video</a> |
 <a href="/video/?gid=<?=$gid_safe?>&amp;file=<?=$file+1?>&amp;start=1<?=$pid_url?>" title="Loads the next video chunk">Speech past end of video</a>
 </p>
@@ -446,13 +446,13 @@ function advanced_hints($gid_safe, $file, $pid) {
 <a style=" border: solid 1px #666666; padding:3px;" onclick="return showInstructions();" href="">Show all instructions</a>
 
 </small></p>
-<?
+<?php
 }
 
 function iframe_search($gid_safe, $file) {
 ?>
 <iframe frameborder=0 style="border: dotted 1px black; margin-top:0.5em" name="video_person_search" width="95%" height="800" src="distance.php?gid=<?=$gid_safe?>&amp;file=<?=$file?>"></iframe>
-<?
+<?php
 }
 
 function previous_speeches($surrounding_speeches, $gids_previous) {

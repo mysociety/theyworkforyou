@@ -1,4 +1,4 @@
-<?
+<?php
 
 function api_getComments_front() {
 ?>
@@ -22,7 +22,7 @@ function api_getComments_front() {
 
 <h4>Example Response</h4>
 
-<?
+<?php
 }
 
 function api_getComments_start_date($start_date) {

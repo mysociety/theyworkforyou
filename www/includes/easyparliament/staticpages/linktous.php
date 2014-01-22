@@ -2,7 +2,7 @@
 
 <p>Alternatively, if you would like to place a TheyWorkForYou search box on your site, like this one&hellip;</p>
 
-<? $link_to_us_form = <<<END
+<?php $link_to_us_form = <<<END
 <!-- TheyWorkForYou box, begin -->
 <div style="position: relative; width: 17em; color: #000000; background-color: #E8FDCB; font-family: Arial, Geneva, Sans-serif; margin-bottom: 1em; border: 1px solid #4d6c25; padding: 0 10px 2em 10px;">
 	<h5 style="font-family: Arial, Geneva, Sans-serif; font-size: 1.4em; position: absolute; margin: 0; bottom: 2px; right: 10px;"  title="TheyWorkForYou.com"><a style="color: #880101; text-decoration: none; font-weight: normal;" href="http://www.TheyWorkForYou.com"><em style="font-weight: bold; font-style: normal;">TheyWorkFor</em><strong style="color: #cc0000; font-weight: bolder;">You</strong>.com</a></h5>
@@ -25,7 +25,7 @@ print $link_to_us_form;
 
 <p>Cut and paste the code below into your webpage:</p>
 <textarea class="sourcecode" style="width: 100%; height: 20em;">
-<? print htmlspecialchars($link_to_us_form); ?>
+<?php print htmlspecialchars($link_to_us_form); ?>
 </textarea>
 
 <p>Please retain the link to <a href="http://www.theyworkforyou.com">theyworkforyou.com</a> (Google points mean prizes). Any questions, just drop us a line at: <a href="http://www.theyworkforyou.com/contact/">http://www.theyworkforyou.com/contact/</a>

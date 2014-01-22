@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once dirname(__FILE__) . '/api_getPerson.php';
@@ -22,7 +22,7 @@ function api_getMSP_front() {
   &lt;/twfy&gt;
 </pre>
 
-<?	
+<?php	
 }
 
 function api_getMSP_id($id) {

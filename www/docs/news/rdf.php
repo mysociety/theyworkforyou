@@ -24,7 +24,7 @@ print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
 
 <items>
 <rdf:Seq>
-<? 
+<?php 
 	$c = 0;
 	foreach ($all_news as $id => $news_row) {
 		if ($c++ == 10) break;
@@ -38,7 +38,7 @@ print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
 
 </channel>
 
-<? 
+<?php 
 	$c = 0;
 	foreach ($all_news as $id => $news_row) {
 		if ($c++ == 10) break;
@@ -56,7 +56,7 @@ print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
 <dc:date><?=$date?></dc:date>
 </item>
 
-<?
+<?php
 	}
 ?>
 

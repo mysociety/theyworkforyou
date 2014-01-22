@@ -42,8 +42,8 @@ campaign and we'll tell you whether your MP has signed.</p>
 
 <h2>We need you!</h2>
 
-<? signup_form() ?>
-<? freeourbills_sharethis_link(); ?>
+<?php signup_form() ?>
+<?php freeourbills_sharethis_link(); ?>
 
 <p></p>
 
@@ -130,10 +130,10 @@ Suck it up and sign up, soldier.
 
 <h2>We need you!</h2>
 
-<? signup_form(); ?>
-<? freeourbills_sharethis_link(); ?>
+<?php signup_form(); ?>
+<?php freeourbills_sharethis_link(); ?>
 
-<?
+<?php
 $PAGE->stripe_end(array(array(
 	'type' => 'html',
 	'content' => '<p align="center"><img title="Duck-billed platypus" src="bill3.jpg" alt="" hspace="10"></p>'

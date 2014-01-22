@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once INCLUDESPATH . '../../commonlib/phplib/mapit.php';
 
@@ -17,7 +17,7 @@ function api_getConstituency_front() {
 <h4>Example Response</h4>
 <pre>{ "name" : "Manchester, Gorton" }</pre>
 
-<?
+<?php
 }
 
 function api_getConstituency_postcode($pc) {

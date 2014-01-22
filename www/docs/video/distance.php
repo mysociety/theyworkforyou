@@ -26,7 +26,7 @@ enter the speaking MP's name and/or something they're saying in this search box
 to search the day's speeches. Find the correct speech and it will say how
 many speeches out the video is &ndash; you can then either reposition the video
 or follow the link to switch to matching that speech instead.</p>
-<?
+<?php
 	search_box($file);
 }
 
@@ -40,7 +40,7 @@ function search_box($file) {
 <input type="hidden" name="file" value="<?=$file?>">
 <input type="submit" value="Search">
 </form>
-<?
+<?php
 }
 
 function day_speeches($search, $type, $date) {

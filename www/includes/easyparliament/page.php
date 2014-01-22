@@ -272,7 +272,7 @@ class PAGE {
 
 </script>
 
-<?      } ?>
+<?php      } ?>
 
 </head>
 
@@ -408,7 +408,7 @@ window.fbAsyncInit = function() {
             <form action="<?php echo $URL->generate(); ?>" method="get">
                <label for="searchbox">Search</label><input id="searchbox" name="s" size="15">
                <input type="submit" class="submit" value="Go">
-               <? /* <input type="hidden" name="section" value="<?=$section?>"> */ ?>
+               <?php /* <input type="hidden" name="section" value="<?=$section?>"> */ ?>
             </form>
             <ul>
                 <li>
@@ -807,7 +807,7 @@ window.fbAsyncInit = function() {
             </div> <!-- end .main -->
             <div class="sidebar">
 
-        <?
+        <?php
         $this->within_stripe_sidebar = true;
         $extrahtml = '';
 
@@ -1559,7 +1559,7 @@ pr()//-->
     <form action="http://www.writetothem.com/lords" method="get">
     <input type="hidden" name="pid" value="<?=htmlentities(get_http_var('pid')) ?>">
     <input type="submit" style="font-size: 150%" value=" I want to write to this Lord "><br>
-<?
+<?php
         }
 
         if (!$wtt && ($value || $person_name)) {
@@ -1601,7 +1601,7 @@ pr()//-->
                     <input type="radio" name="pid" value="<?php echo htmlentities($person_id) ?>" checked>Search only <?php echo htmlentities($person_name) ?>
                     <input type="radio" name="pid" value="">Search all speeches
                     </p>
-                <?
+                <?php
                 }
         }
 
@@ -1898,13 +1898,13 @@ pr()//-->
             ?>
             <h4>Found <?php echo $GLOSSARY->num_search_matches; ?> matches for <em><?php echo $GLOSSARY->query; ?></em></h4>
             <p>It seems we already have <?php echo $definition; ?> for that. Would you care to see <?php echo $plural; ?>?</p>
-            <ul class="glossary"><?
+            <ul class="glossary"><?php
             foreach ($GLOSSARY->search_matches as $match) {
                 $URL = new URL('glossary');
                 $URL->insert(array('gl' => $match['glossary_id']));
                 $URL->remove(array('g'));
                 $term_link = $URL->generate('url');
-                ?><li><a href="<?php echo $term_link ?>"><?php echo $match['title']?></a></li><?
+                ?><li><a href="<?php echo $term_link ?>"><?php echo $match['title']?></a></li><?php
             }
             ?></ul>
 <?php
