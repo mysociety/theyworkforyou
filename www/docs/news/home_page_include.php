@@ -21,5 +21,3 @@ foreach ($all_news as $id => $news_row) {
 
 <p>
 <a href="/news/index.rdf">Site News as RSS</a></p>
-
-

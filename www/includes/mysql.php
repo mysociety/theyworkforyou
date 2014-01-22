@@ -290,4 +290,3 @@ Class MySQL {
 
 // End MySQL class
 }
-

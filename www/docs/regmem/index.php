@@ -336,4 +336,3 @@ function span_row($s, $heading = false) {
 		return "<tr><th colspan=\"2\">$s</th></tr>\n";
 	return "<tr><td colspan=\"2\">$s</td></tr>\n";
 }
-

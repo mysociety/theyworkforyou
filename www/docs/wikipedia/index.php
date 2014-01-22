@@ -62,5 +62,3 @@ foreach ($m as $row) {
 
 $PAGE->stripe_end();
 $PAGE->page_end();
-
-?>

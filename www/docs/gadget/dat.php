@@ -89,4 +89,3 @@ function display_dream_comparison($id, $text, $inverse = false) {
 	$pw .= ' ' . $text . '</li>';
 	return $pw;
 }
-

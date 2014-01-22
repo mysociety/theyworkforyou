@@ -418,4 +418,3 @@ function recess_prettify($day, $month, $year, $body) {
 	}
 	return array($recess, $from, $to);
 }
-?>

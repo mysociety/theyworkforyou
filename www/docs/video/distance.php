@@ -64,4 +64,3 @@ function day_speeches($search, $type, $date) {
     	);
 	$LIST->display('search_video', $args, 'html');
 }
-

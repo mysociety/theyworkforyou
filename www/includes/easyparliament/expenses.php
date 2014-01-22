@@ -295,4 +295,3 @@ function expenses_mostrecent($extra_info, $gadget=false) {
 	$out .= '</ul>';
 	return $out;
 }
-

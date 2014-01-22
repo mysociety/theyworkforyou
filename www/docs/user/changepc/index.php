@@ -38,5 +38,3 @@ $PAGE->postcode_form();
 $PAGE->stripe_end();
 
 $PAGE->page_end();
-
-?>

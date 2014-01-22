@@ -432,5 +432,3 @@ class COMMENTREPORT {
 	
 
 }
-
-?>

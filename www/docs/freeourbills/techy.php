@@ -146,6 +146,3 @@ of what could be done with more structured data.</p>
 #$PAGE->block_end();
 $PAGE->stripe_end();
 $PAGE->page_end ();
-
-
-

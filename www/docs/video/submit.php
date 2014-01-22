@@ -58,4 +58,3 @@ $new_id = $q->insert_id();
 $db->query("update hansard set video_status = video_status | 4 where gid='$q_gid'");
 
 print "<id>$new_id</id>";
-

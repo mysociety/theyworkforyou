@@ -326,5 +326,3 @@ class GLOSSARY {
 	}
 
 }
-
-?>

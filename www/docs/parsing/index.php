@@ -70,4 +70,3 @@ if ($notloaded) print "<ul>$notloaded</ul>";
 
 $PAGE->stripe_end();
 $PAGE->page_end();
-?>

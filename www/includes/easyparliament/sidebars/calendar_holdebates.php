@@ -33,4 +33,3 @@ $LIST = new LORDSDEBATELIST;
 $LIST->display('calendar', $args);
 
 $PAGE->block_end();
-?>

@@ -730,4 +730,3 @@ function generate_member_links ($member) {
 ";
     return $html;
 }
-

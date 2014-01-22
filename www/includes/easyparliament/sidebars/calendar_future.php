@@ -76,4 +76,3 @@ if ($q->rows() > 0) {
 include INCLUDESPATH . 'easyparliament/templates/html/hansard_calendar.php';
 
 $PAGE->block_end();
-

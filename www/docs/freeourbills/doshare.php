@@ -26,4 +26,3 @@ freeourbills_share_page();
 $PAGE->block_end();
 $PAGE->stripe_end();
 $PAGE->page_end ();
-

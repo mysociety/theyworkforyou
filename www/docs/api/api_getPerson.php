@@ -75,4 +75,3 @@ function _api_getPerson_output($q) {
 	}
 	api_output($output, $last_mod);
 }
-

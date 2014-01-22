@@ -404,4 +404,3 @@ function cond_parse_http_date($date) {
 
 	return gmmktime($H, $M, $S, $m, $d, $Y);
 }
-

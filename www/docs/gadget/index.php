@@ -32,4 +32,3 @@ $includes = array(
 );
 $PAGE->stripe_end($includes);
 $PAGE->page_end();
-

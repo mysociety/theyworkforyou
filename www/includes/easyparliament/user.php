@@ -1278,5 +1278,3 @@ class THEUSER extends USER {
 
 // Yes, we instantiate a new global $THEUSER object when every page loads.
 $THEUSER = new THEUSER;
-
-?>

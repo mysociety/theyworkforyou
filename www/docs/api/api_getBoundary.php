@@ -42,4 +42,3 @@ function api_getBoundary_name($name) {
     header("Location: http://mapit.mysociety.org/area/4326/$id.kml");
     exit;
 }
-

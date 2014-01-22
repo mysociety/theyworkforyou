@@ -26,4 +26,3 @@ function api_getLord_id($id) {
 		api_error('Unknown person ID');
 	}
 }
-

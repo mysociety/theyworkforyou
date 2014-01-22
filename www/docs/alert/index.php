@@ -434,4 +434,3 @@ also match &lsquo;horses&rsquo;).
         echo '<input type="hidden" name="site" value="' . htmlspecialchars(get_http_var('site')) . '">';
     echo '</form>';
 }
-

@@ -500,5 +500,3 @@ if ($last_prev['htime'] == $gid_actual['htime']) {
 	echo "<p><small><em>This speech has the same timestamp as the previous speech, so might well be inaccurate.</em></small></p>";
 }
 */
-
-

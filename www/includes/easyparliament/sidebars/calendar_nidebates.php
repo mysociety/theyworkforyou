@@ -31,4 +31,3 @@ $LIST = new NILIST;
 $LIST->display('calendar', $args);
 
 $PAGE->block_end();
-?>

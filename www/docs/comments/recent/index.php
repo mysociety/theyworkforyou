@@ -12,5 +12,3 @@ $args = array(
 $COMMENTLIST->display('recent', $args);
 $PAGE->stripe_end();
 $PAGE->page_end();
-
-?>

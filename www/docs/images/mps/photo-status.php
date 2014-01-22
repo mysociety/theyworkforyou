@@ -31,4 +31,3 @@ print '<h3>Only small photos</h3> <p>';
 print $out['small'];
 $PAGE->stripe_end();
 $PAGE->page_end();
-

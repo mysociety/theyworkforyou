@@ -75,4 +75,3 @@ function error($error = 'Unknown error') {
 	api_error($error);
 	exit;
 }
-

@@ -32,5 +32,3 @@
 </dd>
 <!-- end old faq entry -->
 </dl>
-
-

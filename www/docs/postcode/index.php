@@ -146,4 +146,3 @@ function member_redirect(&$MEMBER) {
 		exit;
 	}
 }
-

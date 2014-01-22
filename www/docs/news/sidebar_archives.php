@@ -22,6 +22,3 @@ foreach ($all_news as $id => $news_row) {
 }
 
 print "</p>";
-
-?>
-

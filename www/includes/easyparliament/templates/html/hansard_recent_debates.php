@@ -64,4 +64,3 @@ foreach ($data['data'] as $debate) {
 <?
 
 }
-

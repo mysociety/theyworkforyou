@@ -79,8 +79,4 @@ foreach ($total as $criteria => $tot) {
 print '</table>';
 $PAGE->block_end();	
 $PAGE->stripe_end();
-$PAGE->page_end(); 
-
-?>
-
-
+$PAGE->page_end();

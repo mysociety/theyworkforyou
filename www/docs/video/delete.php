@@ -18,4 +18,3 @@ if ($q->affected_rows())
 	$db->query("update hansard set video_status = video_status & 11 where gid='$q_gid'");
 
 print "<status>OK</status>";
-

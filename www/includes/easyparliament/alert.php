@@ -470,4 +470,3 @@ function alerts_manage($email) {
 		print '<p>You currently have no email alerts set up.</p>';
 	}
 }
-

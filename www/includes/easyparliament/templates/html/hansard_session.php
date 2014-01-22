@@ -54,5 +54,3 @@ $PAGE->stripe_end(array(
 		'content'	=> $sidebar
 	)
 ));
-
-?>

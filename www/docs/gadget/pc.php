@@ -37,4 +37,3 @@ function get_person_id($c) {
 		return $q->field(0, 'person_id');
 	return false;
 }
-

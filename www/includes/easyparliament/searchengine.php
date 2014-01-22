@@ -791,5 +791,3 @@ function search_constituencies_by_query($searchterm) {
 
     return array($constituencies, $validpostcode);
 }
-
-

@@ -54,4 +54,3 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 } else {
 	echo '<p>No data to display.</p>';
 }
-

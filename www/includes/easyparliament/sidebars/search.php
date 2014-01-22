@@ -9,4 +9,3 @@ $this->block_start(array(
 include  INCLUDESPATH . 'easyparliament/staticpages/search_help.php';
 
 $this->block_end();
-?>

@@ -1086,5 +1086,3 @@ function valid_url($url) {
 	}
 	return $return;
 }
-
-?>

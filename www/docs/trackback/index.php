@@ -44,5 +44,3 @@ if ((strlen(''.$epobject_id)) && (empty($HTTP_GET_VARS['__mode'])) && (strlen(''
 
 
 }
-
-?>

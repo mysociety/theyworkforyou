@@ -26,4 +26,3 @@ $PAGE->block_start(array ('title'=>'Share this with your friends'));
 $PAGE->block_end();
 $PAGE->stripe_end();
 $PAGE->page_end ();
-

@@ -66,4 +66,3 @@ function list_reps($type, $rep_plural, $search_sidebar) {
     }
 
 }
-

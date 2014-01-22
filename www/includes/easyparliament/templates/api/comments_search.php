@@ -10,5 +10,3 @@ if (isset($data['comments'])) {
 	}
 }
 api_output($data);
-
-?>

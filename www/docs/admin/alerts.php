@@ -81,5 +81,3 @@ function generate_rows($q) {
 	}
 	return $rows;
 }
-
-?>

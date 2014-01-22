@@ -195,4 +195,3 @@ if (get_http_var("submitterm") != '') {
 }
 
 $PAGE->page_end();
-

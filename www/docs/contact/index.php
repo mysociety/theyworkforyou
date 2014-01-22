@@ -13,5 +13,3 @@ include INCLUDESPATH . 'easyparliament/staticpages/contact.php';
 $PAGE->stripe_end();
 
 $PAGE->page_end();
-
-?>

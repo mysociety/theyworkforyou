@@ -117,4 +117,3 @@ if ($errors) {
 
 $PAGE->stripe_end();
 $PAGE->page_end();
-

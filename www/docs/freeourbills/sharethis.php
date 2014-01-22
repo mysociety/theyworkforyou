@@ -62,6 +62,3 @@ function freeourbills_sharethis_link() {
         _('Share this'). '</a></p>';
     #freeourbills_share_form();
 }
-
-
-

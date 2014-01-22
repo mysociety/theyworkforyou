@@ -153,4 +153,3 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 ?>
 	<div class="break"></div>
 </div> <!-- end comments -->
-

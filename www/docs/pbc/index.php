@@ -149,4 +149,3 @@ if ($bill_id && !$id) {
 }
 
 $PAGE->page_end();
-

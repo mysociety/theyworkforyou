@@ -78,4 +78,3 @@ function api_getMembers($house, $date = 'now()') {
     _api_getMembers_output('select * from member where house=' . mysql_real_escape_string($house) .
         ' AND entered_house <= date('.$date.') and date('.$date.') <= left_house');
 }
-

@@ -30,4 +30,3 @@ print $link_to_us_form;
 
 <p>Please retain the link to <a href="http://www.theyworkforyou.com">theyworkforyou.com</a> (Google points mean prizes). Any questions, just drop us a line at: <a href="http://www.theyworkforyou.com/contact/">http://www.theyworkforyou.com/contact/</a>
 </p>
-																																																																																																																																																													

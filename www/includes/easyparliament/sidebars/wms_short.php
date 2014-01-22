@@ -9,4 +9,3 @@ $this->block_start(array(
 ));
 
 $this->block_end();
-?>

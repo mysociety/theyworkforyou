@@ -70,5 +70,3 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 	$PAGE->stripe_end();
 }
 ?>
-
-

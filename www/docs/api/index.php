@@ -251,4 +251,3 @@ to discuss things.</p>
 	$PAGE->stripe_end(array($sidebar));
 	$PAGE->page_end();
 }
-

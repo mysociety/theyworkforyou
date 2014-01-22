@@ -13,4 +13,3 @@ $cal = preg_replace('#^.*?(<ul id="hansard-day">)#s', '$1', $cal);
 $cal = preg_replace('#<!-- end hansard-day -->.*$#s', '', $cal);
 $cal = str_replace('<a href="', '<a target="_blank" href="http://www.theyworkforyou.com', $cal);
 print $cal;
-

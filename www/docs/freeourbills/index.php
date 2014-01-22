@@ -139,5 +139,3 @@ $PAGE->stripe_end(array(array(
 	'content' => '<p align="center"><img title="Duck-billed platypus" src="bill3.jpg" alt="" hspace="10"></p>'
 )));
 $PAGE->page_end ();
-
-

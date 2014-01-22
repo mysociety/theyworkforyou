@@ -600,4 +600,3 @@ function construct_search_string() {
 
     return $searchstring;
 }
-

@@ -196,5 +196,3 @@ $PAGE->stripe_end(array(
 ));
 
 $PAGE->page_end();
-
-?>

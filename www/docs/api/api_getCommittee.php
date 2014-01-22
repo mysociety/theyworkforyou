@@ -122,4 +122,3 @@ function api_getCommittee_date($date) {
 		api_error('No committees found');
 	}
 }
-

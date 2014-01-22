@@ -40,4 +40,3 @@ function api_getMPinfo_id($id) {
 function api_getMPinfo_fields($f) {
 	api_error('You must supply a person ID');
 }
-

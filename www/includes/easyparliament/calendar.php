@@ -98,4 +98,3 @@ function calendar_meta($e) {
 
     return array($title, $meta);
 }
-

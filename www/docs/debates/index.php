@@ -255,4 +255,3 @@ if (get_http_var("d") != "") {
 
 $PAGE->page_end();
 twfy_debug_timestamp("page end");
-

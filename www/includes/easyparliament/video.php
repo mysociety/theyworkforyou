@@ -50,5 +50,4 @@ function video_object($video_id, $start, $gid, $stamping = '', $pid = 0) {
 </object>
 </div>";
     return $out;
-} 
-
+}

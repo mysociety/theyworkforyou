@@ -66,5 +66,3 @@ if (isset ($data['rows'])) {
 }  else {
 	api_error('Nothing');
    }
-
-?>

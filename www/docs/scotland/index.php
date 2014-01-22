@@ -77,4 +77,3 @@ $MOREURL = new URL('spdebatesfront');
 
 $PAGE->stripe_end();
 $PAGE->page_end();
-

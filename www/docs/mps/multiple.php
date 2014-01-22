@@ -40,4 +40,3 @@ $PAGE->stripe_end(array(
 	array('type'=>'include', 'content'=>'donate')
 ));
 $PAGE->page_end();
-

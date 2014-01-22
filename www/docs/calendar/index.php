@@ -133,4 +133,3 @@ function calendar_past_date($date) {
 	$PAGE->page_end();
 }
 */
-

@@ -41,4 +41,3 @@ if (stristr($user_agent, 'Firefox/')) {
 ?>
 
 </ul>
-

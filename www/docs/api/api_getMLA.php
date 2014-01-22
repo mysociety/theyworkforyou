@@ -82,4 +82,3 @@ function _api_getMLA_constituency($constituencies) {
 
 	return false;
 }
-

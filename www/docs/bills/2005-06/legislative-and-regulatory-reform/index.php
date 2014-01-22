@@ -328,5 +328,3 @@ function parse_amendments() {
 		}
 	}
 }
-
-?>

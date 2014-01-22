@@ -569,5 +569,3 @@ and a leader, the tabloid MP's 'intimidatingly named' TheyWorkForYou.com
 EOT
 , "2006-04-09 10:01:00"),
 */
-
-

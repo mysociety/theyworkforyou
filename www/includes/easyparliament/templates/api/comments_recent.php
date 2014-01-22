@@ -14,4 +14,3 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 	}
 }
 api_output($data);
-?>

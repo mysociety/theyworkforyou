@@ -61,5 +61,3 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
     $LIST = new HANSARDLIST();
     $LIST->display('search', $args, 'rss');
 }
-
-?>

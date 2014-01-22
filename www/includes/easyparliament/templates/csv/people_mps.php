@@ -36,5 +36,3 @@ function render_mps_row($mp, $order) {
 	elseif ($order == 'debates') print ', ' . $mp['data_value'];
 	print "\n";
 }
-
-?>

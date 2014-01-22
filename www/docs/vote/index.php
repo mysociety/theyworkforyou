@@ -204,6 +204,3 @@ $PAGE->message($message);
 
 
 $PAGE->page_end();
-
-
-?>

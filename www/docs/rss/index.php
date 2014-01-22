@@ -30,5 +30,3 @@ if (validate_postcode($pc)) {
 		$errors['pc'] = "Sorry, ".htmlentities($pc) ." isn't a valid postcode";
 		twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
 	}
-
-

@@ -3328,4 +3328,3 @@ class StandingCommittee extends DEBATELIST {
 		return array(0, 0);
 	}
 }
-

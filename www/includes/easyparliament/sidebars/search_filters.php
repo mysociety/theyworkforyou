@@ -110,4 +110,3 @@ Enter a name here to restrict results to contributions only by that person.
 <?
 
 $this->block_end();
-

@@ -28,5 +28,3 @@ $PAGE->page_start();
 $PAGE->message($message);
 
 $PAGE->page_end();
-
-?>

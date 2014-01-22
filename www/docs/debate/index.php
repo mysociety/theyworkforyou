@@ -89,7 +89,3 @@ if (get_http_var('id') != '') {
 }
 
 $PAGE->page_end();
-
-
-
-?>

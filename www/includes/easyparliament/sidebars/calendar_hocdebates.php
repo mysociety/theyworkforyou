@@ -38,4 +38,3 @@ $LIST->display('calendar', $args);
 
 
 $PAGE->block_end();
-?>

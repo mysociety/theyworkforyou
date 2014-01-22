@@ -156,5 +156,3 @@ function antiTagInTag( $content = '', $format = 'htmlhead' )
   }
 return $content;
 }
-
-?>

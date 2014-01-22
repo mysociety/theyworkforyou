@@ -211,5 +211,3 @@ class DATA {
 }
 
 $DATA = new DATA;
-
-?>

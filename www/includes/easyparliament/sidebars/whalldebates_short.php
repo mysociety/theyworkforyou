@@ -8,4 +8,3 @@ $this->block_start(array(
 	'body'=>false
 ));
 $this->block_end();
-?>

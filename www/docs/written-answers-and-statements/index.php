@@ -85,4 +85,3 @@ $PAGE->stripe_end(array(
 echo '</div>';
 
 $PAGE->page_end();
-

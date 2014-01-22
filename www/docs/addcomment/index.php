@@ -96,9 +96,3 @@ if (get_http_var("submitcomment") != '') {
 	$PAGE->stripe_end();
 	$PAGE->page_end();
 }
-
-
-
-
-
-?>

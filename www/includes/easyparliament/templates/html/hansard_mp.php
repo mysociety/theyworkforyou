@@ -22,4 +22,3 @@ foreach ($data['data'] as $row) {
 print '</table>';
 print '<p></p>';
 print $PAGE->page_links($data['info']);
-?>

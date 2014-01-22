@@ -239,4 +239,3 @@ $MOREURL = new URL('lordsdebatesfront');
     $PAGE->stripe_end();
 
 $PAGE->page_end();
-

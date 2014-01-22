@@ -19,4 +19,3 @@ echo '</ul>';
 
 $PAGE->stripe_end();
 $PAGE->page_end();
-

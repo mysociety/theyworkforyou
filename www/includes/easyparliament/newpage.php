@@ -2407,4 +2407,3 @@ Annotations should be information that adds value to the contribution, not opini
 }
 
 $NEWPAGE = new NEWPAGE;
-

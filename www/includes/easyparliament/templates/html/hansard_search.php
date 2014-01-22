@@ -104,4 +104,3 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 
 }
 // else, no results.
-

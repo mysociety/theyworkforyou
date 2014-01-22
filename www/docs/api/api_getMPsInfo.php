@@ -83,4 +83,3 @@ function api_getMPsInfo_id($ids) {
 function api_getMPsInfo_fields($f) {
 	api_error('You must supply a person ID');
 }
-

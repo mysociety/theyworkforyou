@@ -14,4 +14,3 @@ Class ParlDB extends MySQL {
 		$this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
 	}
 }
-

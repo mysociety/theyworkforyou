@@ -108,4 +108,3 @@ function render_peers_row($peer, &$style, $order, $URL) {
 <?php
 
 }
-

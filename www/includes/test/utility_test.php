@@ -22,4 +22,3 @@ class UtilityTest extends UnitTestCase{
 
 $test = new UtilityTest();
 $test->run(new TextReporter);
-?>

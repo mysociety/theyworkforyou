@@ -9,4 +9,3 @@ if (($date = get_http_var('d')) && preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) 
 }
 
 header("Location: $url");
-

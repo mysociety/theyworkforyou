@@ -25,4 +25,3 @@ $LIST = new DEBATELIST;
 $result = $LIST->display('gid', $args);
 		
 $PAGE->page_end();
-

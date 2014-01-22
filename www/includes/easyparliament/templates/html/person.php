@@ -1183,5 +1183,3 @@ function person_speaker_special($member, $extra_info) {
     }
     $PAGE->block_end();
 }
-
-

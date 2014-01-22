@@ -217,8 +217,3 @@ if (isset($data['years'])) {
 			<p>There is no data, sorry.</p>
 <?php
 }
-
-
-
-
-

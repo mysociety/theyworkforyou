@@ -13,5 +13,3 @@ include INCLUDESPATH . 'easyparliament/staticpages/linktous.php';
 $PAGE->stripe_end();
 
 $PAGE->page_end();
-
-?>

@@ -82,4 +82,3 @@ include_once (INCLUDESPATH."easyparliament/trackback.php");
 include_once (INCLUDESPATH."easyparliament/alert.php");
 
 twfy_debug_timestamp("at end of init.php");
-

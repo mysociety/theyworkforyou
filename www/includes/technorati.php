@@ -136,5 +136,3 @@ function character1Data($parser, $data) {
 	  $itemCount++;
 	}
 }
-
-?>

@@ -1169,4 +1169,3 @@ $this->section = array (
 	)
 
 );
-?>

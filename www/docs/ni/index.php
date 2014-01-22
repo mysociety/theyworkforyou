@@ -224,4 +224,3 @@ $MOREURL = new URL('nidebatesfront');
 $PAGE->stripe_end();
 
 }
-

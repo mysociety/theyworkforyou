@@ -31,5 +31,3 @@ function render_peers_row($peer, $order) {
 		make_member_url($name, NULL, 2, $peer['person_id']);
 	print "\n";
 }
-
-?>

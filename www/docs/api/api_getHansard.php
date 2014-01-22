@@ -112,4 +112,3 @@ function _api_getListObject($type) {
     eval('$list = new ' . strtoupper($type) . 'LIST;');
     return $list;
 }
-
