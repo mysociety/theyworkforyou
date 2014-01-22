@@ -1,7 +1,7 @@
 <?php
 
 // News content is in here
-require_once "editme.php";
+require_once 'editme.php';
 
 print "<p>";
 

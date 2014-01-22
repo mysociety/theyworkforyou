@@ -5,7 +5,7 @@
 // When the logout has happened, we show a page that links to where the user was
 // when they clicked the 'Log out' link.
 
-include_once "../../../includes/easyparliament/init.php";
+include_once '../../../includes/easyparliament/init.php';
 
 $this_page = "userlogout";
 

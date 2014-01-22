@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/video.php';
 
 $action = get_http_var('action');

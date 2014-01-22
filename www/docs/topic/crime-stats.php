@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 
 $NEWPAGE->page_start();
 $NEWPAGE->stripe_start('side');

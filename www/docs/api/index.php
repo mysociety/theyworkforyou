@@ -48,7 +48,7 @@ if ($q_method = get_http_var('method')) {
 			foreach ($data['parameters'] as $parameter) {
 				if ($q_param = trim(get_http_var($parameter))) {
 					$match++;
-					include_once 'api_' . $method . '.php';
+					include_once 'api_'. $method . '.php';
 					api_call_user_func_or_error('api_' . $method . '_' . $parameter, array($q_param), 'API call not yet functional', 'api');
 					break;
 				}
@@ -60,7 +60,7 @@ if ($q_method = get_http_var('method')) {
 						'". Possible choices are: ' .
 						join(', ', $data['parameters']) );
 				} else {
-					include_once 'api_' . $method . '.php';
+					include_once 'api_'. $method . '.php';
 					api_call_user_func_or_error('api_' . $method, array(), 'API call not yet functional', 'api');
 					break;
 				}
@@ -89,7 +89,7 @@ function api_documentation_front($method, $explorer) {
 	$DATA->set_page_metadata($this_page, 'title', "$method function");
 	$PAGE->page_start();
 	$PAGE->stripe_start();
-	include_once 'api_' . $method . '.php';
+	include_once 'api_'. $method . '.php';
 	print '<p align="center"><strong>http://www.theyworkforyou.com/api/' . $method . '</strong></p>';
 	api_call_user_func_or_error('api_' . $method . '_front', array(), 'No documentation yet', 'html');
 ?>

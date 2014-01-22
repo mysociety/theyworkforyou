@@ -15,7 +15,7 @@ display_search_form()	Shows the new form to enter alert data.
 set_criteria()	Sets search criteria from information in MP and Keyword fields.
 */
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . "easyparliament/people.php";
 include_once INCLUDESPATH . "easyparliament/member.php";
 include_once INCLUDESPATH . "easyparliament/searchengine.php";

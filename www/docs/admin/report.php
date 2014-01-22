@@ -5,7 +5,7 @@
 // Pass it a GET string like ?rid=37&cid=54
 // where rid is a report_id and cid is a comment_id.
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once (INCLUDESPATH."easyparliament/commentreport.php");
 
 $this_page = "admin_commentreport";

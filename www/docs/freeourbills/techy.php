@@ -1,6 +1,6 @@
 <?php
-include_once "../../includes/easyparliament/init.php";
-require_once "share.php";
+include_once '../../includes/easyparliament/init.php';
+require_once 'share.php';
 
 $this_page = 'campaign';
 $PAGE->page_start();

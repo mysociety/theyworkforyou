@@ -2,7 +2,7 @@
 
 $this_page = "emailfriend";
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $PAGE->page_start();

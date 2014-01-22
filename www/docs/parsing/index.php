@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 $DATA->set_page_metadata($this_page, 'heading', 'Parsing status page');
 $PAGE->page_start();
 $PAGE->stripe_start();

@@ -1,6 +1,6 @@
 <?php
 
-include_once "../includes/easyparliament/init.php";
+include_once '../includes/easyparliament/init.php';
 
 //set page name (selects relevant bottom menu item)
 $this_page = 'overview';

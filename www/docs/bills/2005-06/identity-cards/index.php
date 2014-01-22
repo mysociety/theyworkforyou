@@ -1,7 +1,7 @@
 <?php
 
 $this_page = 'bill_index';
-include_once "../../../../includes/easyparliament/init.php";
+include_once '../../../../includes/easyparliament/init.php';
 $DATA->set_page_metadata($this_page, 'heading','Identity Cards Act 2006');
 
 $PAGE->page_start();

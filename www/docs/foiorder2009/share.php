@@ -2,7 +2,7 @@
 
 $notevery = true;
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 #require_once "sharethis.php";
 
 // Share page for non-JS browsers

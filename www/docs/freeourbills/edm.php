@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 $this_page = 'campaign_edm';
 
 $pc = get_http_var('pc');

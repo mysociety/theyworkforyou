@@ -26,7 +26,7 @@ Either way, we print the forms.
 
 */
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . "easyparliament/member.php";
 include_once INCLUDESPATH . "postcode.inc";
 include_once INCLUDESPATH . 'technorati.php';

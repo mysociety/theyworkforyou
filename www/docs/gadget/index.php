@@ -4,7 +4,7 @@
 
 $this_page = 'gadget';
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 
 $PAGE->page_start();
 $PAGE->stripe_start();

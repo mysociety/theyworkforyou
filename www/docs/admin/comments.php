@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once (INCLUDESPATH."easyparliament/commentreportlist.php");
 
 $this_page = "admin_comments";

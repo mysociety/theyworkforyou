@@ -2,7 +2,7 @@
 
 $this_page = "hansard_landing";
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 
 $DATA->set_page_metadata($this_page, 'title', 'Hansard');
 $DATA->set_page_metadata($this_page, 'meta_description',

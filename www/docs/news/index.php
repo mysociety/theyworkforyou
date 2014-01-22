@@ -3,7 +3,7 @@
 include_once '../../includes/easyparliament/init.php';
 
 // News content is in here
-require_once "editme.php";
+require_once 'editme.php';
 
 $uri = $_SERVER['REQUEST_URI'];
 if (preg_match("#/(\d\d\d\d)/(\d\d)/(\d\d)/([a-z0-9_]+)(\.php)?$#", $uri, $matches)) {

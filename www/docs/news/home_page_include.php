@@ -3,7 +3,7 @@
 global $all_news;
 
 // News content is in here
-require_once "editme.php";
+require_once 'editme.php';
 
 $c = 0;
 foreach ($all_news as $id => $news_row) {

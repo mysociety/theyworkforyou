@@ -1,7 +1,7 @@
 <?php
 // This code based on stuff from http://wordpress.org/
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 $this_page = 'trackback';
 
 // The gid is the gid of the thing being trackedback to.

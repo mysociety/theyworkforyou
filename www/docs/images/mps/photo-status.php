@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../../includes/easyparliament/init.php";
+include_once '../../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . "easyparliament/member.php";
 $DATA->set_page_metadata($this_page, 'heading', 'MPs photo status on TheyWorkForYou');
 $PAGE->page_start();

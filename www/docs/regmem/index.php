@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 
 $dir = RAWDATA . 'scrapedxml/regmem';
 $dh = opendir($dir);

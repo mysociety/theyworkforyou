@@ -1,7 +1,7 @@
 <?php
 # vim:sw=4:ts=4:et:nowrap
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH."easyparliament/member.php";
 include_once INCLUDESPATH."easyparliament/glossary.php";
 

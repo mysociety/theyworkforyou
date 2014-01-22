@@ -1,7 +1,7 @@
 <?php
 
 $this_page = 'boundaries';
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . '../../commonlib/phplib/mapit.php';
 
 $PAGE->page_start();

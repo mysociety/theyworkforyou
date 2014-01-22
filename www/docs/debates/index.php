@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
 // For displaying all the debates on a day, or a single debate.

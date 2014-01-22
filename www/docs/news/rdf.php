@@ -1,7 +1,7 @@
 <?php
 header('Content-type: application/rss+xml');
 include ($_SERVER['DOCUMENT_ROOT'] . '/../includes/easyparliament/init.php');
-require_once "editme.php";
+require_once 'editme.php';
 print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
 
 <rdf:RDF

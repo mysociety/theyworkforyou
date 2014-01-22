@@ -6,7 +6,7 @@ else {
 	$this_page = "glossary";
 }
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH."easyparliament/glossary.php";
 
 $args = array(

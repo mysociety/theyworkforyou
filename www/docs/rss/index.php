@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH."easyparliament/member.php";
 include_once INCLUDESPATH."postcode.inc";
 

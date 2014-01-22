@@ -2,7 +2,7 @@
 #
 # Index page for written answers/statements.
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 include_once INCLUDESPATH . "easyparliament/member.php";
 

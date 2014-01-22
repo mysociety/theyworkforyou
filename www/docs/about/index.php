@@ -2,7 +2,7 @@
 
 $this_page = "about";
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 
 $PAGE->page_start();
 

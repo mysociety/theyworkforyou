@@ -12,7 +12,7 @@
 
 $this_page = "userprompt";
 
-include_once "../../../includes/easyparliament/init.php";
+include_once '../../../includes/easyparliament/init.php';
 
 
 $type = get_http_var('type');
