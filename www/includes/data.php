@@ -4,7 +4,6 @@
 DATA class v1.1 2003-11-25
 phil@gyford.com
 
-
 REQUIRED:
 	utiltity.php	v1.0
 	GLOBALS:
@@ -64,8 +63,6 @@ and then we do:
 Why? Because doing $this->$type[$item][$key] doesn't seem to work and
 we need to use the reference to get it working.
 
-
-
 Versions
 ========
 v1.1	2003-11-25
@@ -82,11 +79,9 @@ class DATA {
 	
 	}
 
-
 //////////////////////////////////////
 // PUBLIC METADATA ACCESS FUNCTIONS //
 //////////////////////////////////////
-
 
 	// Special function for setting $this_section depending on the value of $this_page.	
 	function set_section () {
@@ -96,7 +91,6 @@ class DATA {
 		$this_section = $this->page_metadata($this_page, "section");
 	}
 	
-
 
 	// Getting page and section metadata
 	// $page/$section is a page name.
@@ -146,8 +140,6 @@ class DATA {
 		}
 	}
 
-
-
 ///////////////////////////////////////
 // PRIVATE METADATA ACCESS FUNCTIONS //
 ///////////////////////////////////////
@@ -186,8 +178,6 @@ class DATA {
 
 		return $return;
 	}
-
-
 
 	function _set_metadata ($args) {
 

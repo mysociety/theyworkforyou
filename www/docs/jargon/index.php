@@ -12,7 +12,6 @@ $PAGE->page_start();
 
 <p>Lots of glossary things and more code here.</p>
 
-
 <?php
 
 $PAGE->page_end();

@@ -1,6 +1,5 @@
 <?php
 
-
 /*	 The class for displaying one or more comments.
 	(There's also a function for adding a new comment to the DB because I wasn't
 	sure where else to put it!).
@@ -545,7 +544,6 @@ class COMMENTLIST {
 		}
 		$where = implode (" AND ", $wherearr2);
 
-
 		if ($order != '') {
 			$order = "ORDER BY $order";
 		}
@@ -561,7 +559,6 @@ class COMMENTLIST {
 						$order
 						$limit
 						");
-
 
 		// Format the data into an array for returning.
 		$data = array ();

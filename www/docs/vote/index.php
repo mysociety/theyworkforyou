@@ -14,7 +14,6 @@ $this_page = "epvote";
 // id=37 				(epobject_id)
 // ret=/fawkes/blah.php (The return URL)
 
-
 // We first check the browser accepts cookies.
 // We set a 'testcookie' and redirect the user to this same URL
 // with 'testing=true' on the end.
@@ -201,6 +200,5 @@ if (get_http_var('ret') != '') {
 }
 
 $PAGE->message($message);
-
 
 $PAGE->page_end();

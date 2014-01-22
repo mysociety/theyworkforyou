@@ -36,5 +36,4 @@ $LIST = new SPWRANSLIST;
 
 $LIST->display('calendar', $args);
 
-
 $PAGE->block_end();

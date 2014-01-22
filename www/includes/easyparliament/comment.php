@@ -207,7 +207,6 @@ class COMMENT {
 	}
 	
 
-
 	function display ($format='html', $template='comments') {
 
 		$data['comments'][0] = array (
@@ -268,7 +267,6 @@ class COMMENT {
 		
 	}
 	
-
 
 	function delete () {
 		// Mark the comment as invisible.
@@ -352,6 +350,5 @@ class COMMENT {
 
 	
 	
-
 
 }

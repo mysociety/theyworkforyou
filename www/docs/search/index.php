@@ -486,7 +486,6 @@ function _find_members_internal($searchstring) {
     return $members;
 }
 
-
 // Checks to see if the search term provided has any similar matching entries in the glossary.
 // If it does, show links off to them.
 function find_glossary_items($args) {

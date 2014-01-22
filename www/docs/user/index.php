@@ -88,11 +88,9 @@ switch (get_http_var("pg")) {
 		}
 }
 
-
 // A little detail... we want to change text in the page depending on whose 
 // info is being changed or added.
 $who = $this_page == "otheruseredit" ? "the user's" : "your";
-
 
 if (get_http_var("submitted") == "true") {
 	// The edit or join form has been submitted, so check input.
@@ -240,8 +238,6 @@ if (get_http_var("submitted") == "true") {
 	
 }
 
-
-
 function check_input ($details) {
 	global $THEUSER, $this_page, $who;
 	
@@ -350,18 +346,14 @@ function check_input ($details) {
 	return $errors;
 }
 
-
-
 function add_user (	$details) {
 	global $THEUSER, $PAGE, $this_page;
-
 
 		
 	// If this goes well, the user will have their data
 	// added to the database and a confirmation email 
 	// will be sent to them.
 	$success = $THEUSER->add ( $details );
-
 
 	if ($success) {
 		// No validation errors.
@@ -596,7 +588,6 @@ function display_form ( $details = array(), $errors = array() ) {
 <?php
 	}
 
-
 	if (isset($errors["password"])) {
 		$PAGE->error_message($errors["password"]);
 	}
@@ -615,7 +606,6 @@ function display_form ( $details = array(), $errors = array() ) {
 				<span class="label"><label for="password2">Repeat password:</label></span>
 				<span class="formw"><input type="password" name="password2" id="password2" value="" maxlength="30" size="20" class="form"></span>
 				</div>
-
 
 				<br style="clear: left;">&nbsp;<br>
 <?php
@@ -637,7 +627,6 @@ function display_form ( $details = array(), $errors = array() ) {
 				<span class="label"><label for="url">Your website:</label></span>
 				<span class="formw"><input type="text" name="url" id="url" value="<?php if (isset($details['url'])) { echo htmlentities($details['url']); } ?>" maxlength="255" size="20" class="form"> <small>Optional and public</small></span>
 				</div>
-
 
 				
 				<div class="row">
@@ -971,7 +960,6 @@ function display_user ($user_id="", $email_changed=false) {
 			$registrationtime = format_date ($date, LONGDATEFORMAT);
 		}
 
-
 			
 		if ($edited && (!$email_changed || $display == 'another user')) {
 			print "\t\t\t\t<p><strong>" . ucfirst($who) . " details have been updated:</strong></p>\n";
@@ -1122,7 +1110,6 @@ function display_user ($user_id="", $email_changed=false) {
 	
 	}
 	
-
 
 	$PAGE->page_end();
 		

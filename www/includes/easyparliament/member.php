@@ -372,7 +372,6 @@ class MEMBER {
 		}
 	}
 
-
     // Grabs extra information (e.g. external links) from the database
     # DISPLAY is whether it's to be displayed on MP page.
     function load_extra_info($display = false) {
@@ -708,7 +707,6 @@ class MEMBER {
 		}
 		return $future_people;
 	}
-
 
     function current_member_anywhere(){
         $is_current = false;

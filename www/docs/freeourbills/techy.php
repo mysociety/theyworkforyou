@@ -135,7 +135,6 @@ the beginning of an idea of a
 way should any of its content be taken as what we would like Parliament to do, only the possibility
 of what could be done with more structured data.</p>
 
-
 <h3>We need you!</h3>
 
 <?php signup_form() ?>

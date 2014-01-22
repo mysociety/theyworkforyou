@@ -36,5 +36,4 @@ $LIST = new WRANSLIST;
 
 $LIST->display('calendar', $args);
 
-
 $PAGE->block_end();

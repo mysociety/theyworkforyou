@@ -68,9 +68,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 
 <?php 
 
-
 }
 // else, no results.
-
 
 ?>

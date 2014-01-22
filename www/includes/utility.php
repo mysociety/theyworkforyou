@@ -55,7 +55,6 @@ function twfy_debug ($header, $text="") {
 	}
 }
 
-
 function exception_handler ($e) {
     trigger_error($e->getMessage());
 }
@@ -148,7 +147,6 @@ function error_handler ($errno, $errmsg, $filename, $linenum, $vars) {
 		$fatal = false;
 	}
 
-
 	// Finally, display errors and stuff...
 
 	if (DEVSITE || get_http_var(DEBUGTAG)) {
@@ -239,7 +237,6 @@ function adodb_backtrace($print=true)
   return $s;
 }
 
-
 // Far from foolproof, but better than nothing.
 function validate_email ($string) {
 	if (!preg_match('/^[-!#$%&\'*+\\.\/0-9=?A-Z^_`a-z{|}~]+'.
@@ -251,7 +248,6 @@ function validate_email ($string) {
 		return true;
 	}
 }
-
 
 function validate_postcode ($postcode) {
 	// See http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
@@ -549,7 +545,6 @@ function prepare_comment_for_display ($text) {
 	return $text;	
 }
 
-
 function htmlentities_notags ($text) {
 	// If you want to do htmlentities() on some text that has HTML tags
 	// in it, then you need this function.
@@ -603,8 +598,6 @@ function htmlentities_notags ($text) {
 
 }
 
-
-
 function fix_gid_from_db ($gid, $keepmajor = false) {
 	// The gids in the database are longer than we use in the site.
 	// Feed this a gid from the db and it will be returned truncated.
@@ -638,7 +631,6 @@ function gid_to_anchor ($gid) {
 	
 	return substr( $gid, (strpos($gid, '.') + 1) );
 }
-
 
 function send_template_email ($data, $merge, $bulk = false, $want_bounces = false) {
 	// We should have some email templates in INCLUDESPATH/easyparliament/templates/emails/.
@@ -794,7 +786,6 @@ function recursive_strip ($a){
 	return $a;
 }
 
-
 // Call this with a key name to get a COOKIE variable.
 function get_cookie_var($name, $default=''){
 	if (array_key_exists($name, $_COOKIE)) {
@@ -803,7 +794,6 @@ function get_cookie_var($name, $default=''){
 	return $default;
 }
 ///////////////////////////////
-
 
 // Pass it an array of key names that should not be generated as
 // hidden form variables. It then outputs hidden form variables 
@@ -819,8 +809,6 @@ function hidden_form_vars ($omit = array()) {
 		}
 	}
 }
-
-
 
 // Deprecated. Use hidden_form_vars, above, instead.
 function hidden_vars ($omit = array()) {

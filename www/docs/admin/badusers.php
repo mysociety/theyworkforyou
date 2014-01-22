@@ -7,13 +7,9 @@ $this_page = "admin_badusers";
 
 $db = new ParlDB;
 
-
 $PAGE->page_start();
 
-
 $PAGE->stripe_start();
-
-
 
 ///////////////////////////////////////////////////////////////
 
@@ -94,8 +90,6 @@ $PAGE->display_table($tabledata);
 <h4>Users who've made most rejected reports</h4>
 <?php
 
-
-
 $q = $db->query("SELECT COUNT(*) AS rejectedcount,
 						cr.user_id,
 						u.firstname,
@@ -153,6 +147,5 @@ $PAGE->stripe_end(array(
 		'content'	=> $menu
 	)
 ));
-
 
 $PAGE->page_end();

@@ -20,18 +20,12 @@ You can then access all the user's variables with appropriately named functions,
     $USER->email();
 etc. Don't access the variables directly because I think that's bad.
 
-
-
 USER is extended into the THEUSER class which is used only for the person currently using the site. ie, it adds functions for logging in and out, checking log in status, etc.
-
 
 GUESTUSER:
 In the database there should be a user with an id of 0 and a status of 'Viewer' (and probably a name of 'Guest').
 
-
-
 The cookie set to indicate a logged in user is called "epuser_id". More on that in THEUSER().
-
 
 Functions here:
 
@@ -85,7 +79,6 @@ class USER {
     //      Add accessor functions way down below...
     //      Alter THEUSER->update_self() to update with the new vars, if appropriate.
     //      Change things in the add/edit/view user page.
-
 
     function USER () {
         $this->db = new ParlDB;
@@ -152,8 +145,6 @@ class USER {
         }
 
     }
-
-
 
     function add ($details, $confirmation_required=true) {
         // Adds a new user's info into the db.
@@ -277,7 +268,6 @@ class USER {
             return false;
         }
     }
-
 
     function send_email_confirmation_email($details) {
         // A brief check of the facts...
@@ -454,8 +444,6 @@ class USER {
         }
 
     }
-
-
 
     function send_password_reminder () {
         global $PAGE;
@@ -876,9 +864,7 @@ class THEUSER extends USER {
 
         $this->update_lastvisit();
 
-
     } // End THEUSER()
-
 
     function update_lastvisit() {
 
@@ -892,7 +878,6 @@ class THEUSER extends USER {
             $this->lastvisit = $date_now;
         }
     }
-
 
     // For completeness, but it's better to call $this->isloggedin()
     // if you want to check the log in status.
@@ -1101,7 +1086,6 @@ class THEUSER extends USER {
 
     }
 
-
     function confirm ($token) {
         // The user has clicked the link in their confirmation email
         // and the confirm page has passed the token from the URL to here.
@@ -1182,12 +1166,10 @@ class THEUSER extends USER {
         twfy_debug('USER', "Set the cookie named '" . POSTCODE_COOKIE . " to '$pc' for " . COOKIEDOMAIN . " domain");
     }
 
-
     function unset_postcode_cookie () {
         if (!headers_sent()) // if in debug mode
             setcookie (POSTCODE_COOKIE, '', time() - 3600, '/', COOKIEDOMAIN);
     }
-
 
     function update_self ($details, $confirm_email = true) {
         // If the user wants to update their details, call this function.
@@ -1269,10 +1251,6 @@ class THEUSER extends USER {
         }
 
     }
-
-
-
-
 
 }
 

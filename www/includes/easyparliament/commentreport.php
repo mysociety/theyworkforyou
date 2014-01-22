@@ -139,7 +139,6 @@ class COMMENTREPORT {
 	function lockedby () 		{ return $this->lockedby; }
 	function upheld () 			{ return $this->upheld; }
 
-
 	function create ($COMMENT, $reportdata) {
 		// For when a user posts a report on a comment.
 		// $reportdata is an array like:

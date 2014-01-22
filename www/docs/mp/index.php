@@ -447,7 +447,6 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     }
 */
 
-
     if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
         global $memcache;
         if (!$memcache) {
@@ -549,10 +548,7 @@ keeping these sorts of records on you...</p></div></div>'
     $NEWPAGE->stripe_end();
 }
 
-
 $NEWPAGE->page_end();
-
-
 
 function member_redirect(&$MEMBER, $code = 301) {
     // We come here after creating a MEMBER object by various methods.

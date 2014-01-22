@@ -58,7 +58,6 @@ $PAGE->stripe_start();
 
 $PAGE->login_form();
 
-
 $PAGE->stripe_end();
 
 $PAGE->page_end();

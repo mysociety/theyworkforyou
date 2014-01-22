@@ -4,7 +4,6 @@
 
 Depends on having the debug() and getmicrotime() functions available elsewhere to output debugging info.
 
-
 Somewhere (probably in includes/easyparliament/init.php) there should be something like:
 
     Class ParlDB extends MySQL {
@@ -23,9 +22,7 @@ $q is then a MySQLQuery object.
 If other databases are needed, we just need to create a class for each, each one
 extending MySQL.
 
-
 Call $db->display_total_duration() at the end of a page to send total query time to debug().
-
 
 (n is 0-based below...)
 

@@ -142,5 +142,4 @@ $PAGE->stripe_end(array(
 	)
 ));
 
-
 ?>

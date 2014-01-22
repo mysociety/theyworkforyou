@@ -3,7 +3,6 @@
 /*
 For doing stuff with trackbacks.
 
-
 To add a new trackback you'll need to do something like:
 	$trackbackdata = array (
 		'epobject_id' 	=> $epobject_id,
@@ -24,7 +23,6 @@ To display stuff you'll need to do something like:
 	);
 	$TRACKBACK = new TRACKBACK;
 	$TRACKBACK->display('epobject_id', $args);
-
 
 */
 
@@ -88,8 +86,6 @@ class TRACKBACK {
 		$this->render($view, $data, $format);
 	}
 
-
-
 	function render ($view, $data, $format='html') {
 		
 		if ($format != 'html') {
@@ -102,7 +98,6 @@ class TRACKBACK {
 		include (INCLUDESPATH."easyparliament/templates/$format/trackbacks" . ".php");
 	
 	}
-
 
 	function add ($trackbackdata) {
 		/*

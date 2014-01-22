@@ -8,7 +8,6 @@ $this_page = "debate";
 // For displaying a SINGLE speech from a debate, with comments and 
 // an 'Add comment' form.
 
-
 if (get_http_var('id') != '') {
 	// We have the id of the gid of a Hansard item to display, so show it.
 

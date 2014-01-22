@@ -1810,7 +1810,6 @@ class HANSARDLIST {
 				// 'listurl' is the URL of the item in the full list view.
 				// 'commentsurl' is the URL of the item on its own page, with comments.
 
-
 				// All the things we need to work out a listurl!
 				$item_data = array (
 					'major'			=> $this->major,
@@ -1851,7 +1850,6 @@ class HANSARDLIST {
 				
 					$item['votes'] = $this->_get_votes( $item['epobject_id'] );
 				}
-
 
 				// Get the speaker for this item, if applicable.
 				if ( (isset($amount['speaker']) && $amount['speaker'] == true) &&
@@ -2033,7 +2031,6 @@ class HANSARDLIST {
 		
 		return $LISTURL->generate($encode) . $fragment;
 	}
-
 
 	function _get_speaker ($speaker_id, $hdate) {
 		// Pass it the id of a speaker. If $this->speakers doesn't

@@ -17,7 +17,6 @@
 	# Thanks to Dan Bogan for dealing with entity decoding outside attributes
 	#
 
-
 	$filter = new lib_filter();
 
 	class lib_filter {
@@ -34,7 +33,6 @@
 			'img' => array('src', 'width', 'height', 'alt'),
 		);
 
-
 		#
 		# tags which should always be self-closing (e.g. "<img />")
 		#
@@ -42,7 +40,6 @@
 		var $no_close = array(
 			'img',
 		);
-
 
 		#
 		# tags which must always have seperate opening and closing tags (e.g. "<b></b>")
@@ -53,7 +50,6 @@
 			'b',
 		);
 
-
 		#
 		# attributes which should be checked for valid protocols
 		#
@@ -62,7 +58,6 @@
 			'src',
 			'href',
 		);
-
 
 		#
 		# protocols which are allowed
@@ -75,7 +70,6 @@
 			'mailto',
 		);
 
-
 		#
 		# tags which should be removed if they contain no content (e.g. "<b></b>" or "<b />")
 		#
@@ -85,13 +79,11 @@
 			'b',
 		);
 
-
 		#
 		# should we remove comments?
 		#
 
 		var $strip_comments = 1;
-
 
 		#
 		# should we try and make a b tag out of "b>"
@@ -99,14 +91,12 @@
 
 		var $always_make_tags = 1;
 
-
 		#
 		# should we allow dec/hex entities within the input?
 		# if you set this to zero, '&#123;' will be converted to '&amp;#123;'
 		#
 
 		var $allow_numbered_entities = 1;
-
 
 		#
 		# these non-numeric entities are allowed. non allowed entities will be 
@@ -120,7 +110,6 @@
 			'quot',
 		);
 
-
 		#
 		# should we convert dec/hex entities in the general doc (not inside protocol attribute)
 		# into raw characters? this is important if you're planning on running autolink on
@@ -133,7 +122,6 @@
 		#
 
 		var $normalise_ascii_entities = 0;
-
 
 		#####################################################################################
 
@@ -154,7 +142,6 @@
 			return $data;
 		}
 
-
 		#####################################################################################
 
 		#
@@ -169,7 +156,6 @@
 
 			return $data;
 		}
-
 
 		#####################################################################################
 
@@ -210,7 +196,6 @@
 			return $data;
 		}
 
-
 		#####################################################################################
 
 		function check_tags($data){
@@ -225,7 +210,6 @@
 
 			return $data;
 		}
-
 
 		#####################################################################################
 
@@ -300,11 +284,9 @@
 				}
 			}
 
-
 			# garbage, ignore it
 			return '';
 		}
-
 
 		#####################################################################################
 
@@ -320,7 +302,6 @@
 
 			return $data;
 		}
-
 
 		#####################################################################################
 
@@ -344,7 +325,6 @@
 			return $data;
 		}
 
-
 		#####################################################################################
 
 		#
@@ -362,7 +342,6 @@
 			$data_notags = Strip_Tags($data);
 			$data_notags = preg_replace('/[^a-zA-Z]/', '', $data_notags);
 
-
 			#
 			# if there are less than 5, just allow it as-is
 			#
@@ -370,7 +349,6 @@
 			if (strlen($data_notags)<5){
 				return $data;
 			}
-
 
 			#
 			# if there are lowercase letters somewhere, allow it as-is
@@ -416,7 +394,6 @@
 			return $m[1].$data.$m[3];
 		}
 
-
 		#####################################################################################
 
 		#
@@ -441,7 +418,6 @@
 				$data = $this->decode_entities($data, $in_attribute);
 			}
 
-
 			#
 			# find every remaining ampersand in the string and check if it looks
 			# like it's an entity (then validate it) or if it's not (then escape
@@ -456,7 +432,6 @@
 
 			return $data;
 		}
-
 
 		#####################################################################################
 
@@ -481,7 +456,6 @@
 			#
 
 			$m[2] = $this->validate_entities($m[2], 0);
-
 
 			#
 			# find any literal quotes outside of tags and replace them 
@@ -518,7 +492,6 @@
 				return '&amp;'.$preamble;
 			}
 
-
 			#
 			# if it's an allowed entity, go for it
 			#
@@ -554,7 +527,6 @@
 
 				return ($m[1] > 127) ? 1 : $this->allow_numbered_entities;
 			}
-
 
 			#
 			# hex entity. over 127 is always allowed, else it's a pref
@@ -605,7 +577,6 @@
 			return $this->decode_num_entity($m[1], intval($m[2]));
 		}
 
-
 		#####################################################################################
 
 		#
@@ -628,7 +599,6 @@
 				if ($orig_type == '%'){ return '%'.dechex($d); }
 				if ($orig_type == '&'){ return "&#$d;"; }
 			}
-
 
 			#
 			# we want to convert this escape sequence into a real character.

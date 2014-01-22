@@ -4,14 +4,11 @@
 URL class v1.3 2003-11-25
 phil@gyford.com
 
-
 REQUIRES:
 	data.php v1.0
 	utiltity.php v1.0
 	GLOBALS:
 		WEBPATH	/directory/
-
-
 
 DOCUMENTATION:
 
@@ -96,7 +93,6 @@ class URL {
 
 	}
 
-
 	function restore() {
 		// Call this to reset the session vars to how they were when
 		// the object was instantiated.
@@ -104,12 +100,10 @@ class URL {
 
 	}
 
-
 	function reset() {
 		// Call this to remove all the session_vars.
 		$this->session_vars = array ();
 	}
-
 
 	function insert($arr) {
 		// $arr is an associative array of key/value pairs.
@@ -119,7 +113,6 @@ class URL {
 			$this->session_vars[$key] = $val;
 		}
 	}
-
 
 	function remove($arr) {
 		// $arr is a list array of key names. Any key/value pairs
@@ -142,8 +135,6 @@ class URL {
 			}
 		}
 	}
-
-
 
 	function generate($encode = "html", $overrideVars=array()) {
 		// Returns a URL with the appropriate session_vars.
@@ -181,7 +172,6 @@ class URL {
 			}
 		}
 	}
-
 
 /* 	DEPRECATED. Use hidden_form_vars() in utility.php instead. */
 

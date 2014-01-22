@@ -99,10 +99,8 @@ if (get_http_var('d')) {
 	);
 	$PAGE->comment_form($commentdata);
 
-
 	// We show trackbacks on this page.
 	// We need that epobject_id for trackbacks too...	
-
 
 	// Display comment-adding help if user is logged in.
 	if ($THEUSER->isloggedin()) {

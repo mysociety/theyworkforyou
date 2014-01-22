@@ -16,7 +16,6 @@ $PAGE->stripe_start();
 
 $menu = $PAGE->admin_menu();
 
-
 //////////////////////////////////////////////////////////////////////////////////
 // Set up the variables and objects we'll need on this page.
 
@@ -70,8 +69,6 @@ if ($REPORT->locked() && $REPORT->lockedby() != $THEUSER->user_id()) {
 
 }
 
-
-
 //////////////////////////////////////////////////////////////////////////////////
 // Now we decide what we're going to do on this page.
 // You could read this if/else stuff from the bottom up to be honest...
@@ -101,7 +98,6 @@ if (get_http_var('resolve') != '') {
 		prepare_emails_for_not_deleting($REPORT, $COMMENT, $FORMURL);
 	}
 
-
 } else {
 	
 
@@ -119,14 +115,12 @@ $PAGE->stripe_end(array(
 
 $PAGE->page_end();
 
-
 //////////////////////////////////////////////////////////////////////////////////
 // Below are the functions for actually displaying each of the pages this file handles:
 // view()
 // prepare_emails_for_deleting()
 // prepare_emails_for_not_deleting()
 // resolve()
-
 
 function view ($REPORT, $COMMENT, $FORMURL) {
 	// First page - viewing the comment and its report.
@@ -211,8 +205,6 @@ function prepare_emails_for_deleting ($REPORT, $COMMENT, $FORMURL) {
 
 }
 
-
-
 function prepare_emails_for_not_deleting($REPORT, $COMMENT, $FORMURL) {
 	// From the view() function, the user has chosen NOT to delete the comment.
 	// Now they can prepare the appropriate emails, or choose not to send them.
@@ -238,9 +230,6 @@ function prepare_emails_for_not_deleting($REPORT, $COMMENT, $FORMURL) {
 		</form>
 <?php
 }
-
-
-
 
 function resolve ($REPORT, $COMMENT) {
 	// The user has chosen to either delete or not delete the comment.
@@ -348,6 +337,5 @@ function resolve ($REPORT, $COMMENT) {
 	
 	print '<p><a href="' . $URL->generate() . '">Back</a></p>';
 }
-
 
 ?>

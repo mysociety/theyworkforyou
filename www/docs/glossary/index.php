@@ -9,7 +9,6 @@ else {
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH."easyparliament/glossary.php";
 
-
 $args = array(
 	'sort'				=> "regexp_replace",
 	'glossary_id'		=> ""

@@ -83,9 +83,6 @@ h2.free_our_bills_confirm {
     font-weight: bold;
 }
 
-
-
-
 </style>
 <?php
 }

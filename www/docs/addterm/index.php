@@ -4,7 +4,6 @@ include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH."easyparliament/glossary.php";
 include_once INCLUDESPATH."easyparliament/glossarylist.php";
 
-
 //$this_page = "glossary_addterm";
 $this_page = "help_us_out";
 
@@ -190,7 +189,6 @@ if (get_http_var("submitterm") != '') {
 			'content'	=> 'glossary_add'
 		)
 	));
-
 
 }
 

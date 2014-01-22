@@ -130,5 +130,4 @@ function display_page( $errors=array() ) {
 
 } // End display_page()
 
-
 ?>

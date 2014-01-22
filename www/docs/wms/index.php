@@ -3,7 +3,6 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
-
 // For displaying all the WMS on a day, or a single WMS. 
 
 if (get_http_var("d") != "") {
@@ -146,9 +145,6 @@ if (get_http_var("d") != "") {
 	
 }
 
-
 $PAGE->page_end();
-
-
 
 ?>

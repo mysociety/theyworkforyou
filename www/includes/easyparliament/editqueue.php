@@ -25,7 +25,6 @@ Specifying which of the above is happening is down to the edit_type field.
     * approved says yay or nay to the edit
     * decided is the datetime when the decision was made 
 
-
 	While we're here...
 	Whenever a term is added to the glossary, it appears in the editqueue first.
 	Here it sits until a moderator has approved it, then it goes on it's merry way
@@ -311,7 +310,6 @@ class EDITQUEUE {
 	}
 
 }
-
 
 // Glossary overrides
 class GLOSSEDITQUEUE extends EDITQUEUE {

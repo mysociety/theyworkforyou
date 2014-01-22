@@ -51,7 +51,6 @@ if (isset($data['comments'][0]['preview']) && $data['comments'][0]['preview'] ==
 	$subheading = 'Annotations';
 }
 
-
 ?>
 				<a name="comments"></a>
 <?php
@@ -146,7 +145,6 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 				</div> <!-- end .comment -->
 <?php
 	}
-
 
 } else {
 

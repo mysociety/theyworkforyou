@@ -26,14 +26,11 @@ if (!$THEUSER->postcode_is_set()) {
 	$DATA->set_page_metadata($this_page, 'title', 'Enter your postcode');
 }
 
-
 $PAGE->page_start();
 
 $PAGE->stripe_start();
 
-
 $PAGE->postcode_form();
-
 
 $PAGE->stripe_end();
 

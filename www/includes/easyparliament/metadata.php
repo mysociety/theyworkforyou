@@ -74,8 +74,6 @@ $this->page = array (
 		'sitetitle'		=> 'TheyWorkForYou',
 	),
 
-
-
 // Every page on the site should have an entry below...
 
 // KEEP THE PAGES IN ALPHABETICAL ORDER! TA.
@@ -1125,8 +1123,6 @@ $this->page = array (
 		'url'			=> 'mla/'
 	),
 );
-
-
 
 // We just use the sections for creating page headings/titles.
 // The 'title' is always used for the <title> tag of the page.

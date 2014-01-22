@@ -5,8 +5,6 @@ include_once (INCLUDESPATH."easyparliament/searchlog.php");
 
 $this_page = "admin_popularsearches";
 
-
-
 $PAGE->page_start();
 
 $PAGE->stripe_start();
@@ -31,7 +29,6 @@ $tabledata = array (
 );
 $PAGE->display_table($tabledata);
 
-
 $menu = $PAGE->admin_menu();
 
 $PAGE->stripe_end(array(
@@ -40,7 +37,5 @@ $PAGE->stripe_end(array(
 		'content'	=> $menu
 	)
 ));
-
-
 
 $PAGE->page_end();

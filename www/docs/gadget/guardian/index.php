@@ -146,7 +146,6 @@ DOMAIN .
 alt="mySociety"></a></div>';
 }
 
-
 function output_error($str, $status_code = "404 Not Found") {
         header("HTTP/1.0 $status_code");
 	echo '<error>', $str, '</error>';

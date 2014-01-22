@@ -9,7 +9,6 @@ $PAGE->page_start();
 
 $PAGE->stripe_start();
 
-
 ?>
 
 <h4>Hansard data in database</h4>
@@ -32,7 +31,6 @@ $dateto = format_date($q->field(0, 'maxdate'), SHORTDATEFORMAT);
 $q = $db->query("SELECT count(distinct hdate) as count from hansard");
 $uniquedates = $q->field(0, 'count');
 ?>
-
 
 <p><b><?=$datefrom?></b> to <b><?=$dateto?></b>. Parliament was sitting for
 <b><?=$uniquedates?></b> of those days.

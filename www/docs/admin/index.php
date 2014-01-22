@@ -7,11 +7,9 @@ $this_page = "admin_home";
 
 $db = new ParlDB;
 
-
 $PAGE->page_start();
 
 $PAGE->stripe_start();
-
 
 ///////////////////////////////////////////////////////////////
 // General stats.
@@ -41,7 +39,6 @@ $weekusers = $q->field(0, 'count');
 
 <?php
 $PAGE->block_end();
-
 
 ///////////////////////////////////////////////////////////////
 // Recent users.
@@ -99,9 +96,6 @@ $tabledata = array (
 
 $PAGE->display_table($tabledata);
 
-
-
-
 $menu = $PAGE->admin_menu();
 
 $PAGE->stripe_end(array(
@@ -110,9 +104,6 @@ $PAGE->stripe_end(array(
 		'content'	=> $menu
 	)
 ));
-
-
-
 
 $PAGE->page_end();
 

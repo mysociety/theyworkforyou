@@ -11,7 +11,6 @@ global $PAGE, $hansardmajors;
 
 twfy_debug("TEMPLATE", "hansard_person.php");
 
-
 if (isset ($data['rows']) && count($data['rows']) > 0) {
 
 	foreach ($data['rows'] as $n => $row) {
@@ -40,7 +39,6 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 		print $text;
 	}
 
-
 } // End display of rows.
 
 else {
@@ -49,6 +47,5 @@ else {
 <p>No data to display.</p>
 <?php
 }
-
 
 ?>

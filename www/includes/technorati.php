@@ -71,7 +71,6 @@ function doCosmos ($urlstring){
     //    fwrite($cachefp, $contents);
     //    fclose($cachefp);
 
-
   $xml_parser = xml_parser_create();
   xml_set_element_handler($xml_parser, "start1Element", "end1Element");
   xml_set_character_data_handler($xml_parser, "character1Data");
@@ -102,7 +101,6 @@ function start1Element($parser, $tagName, $attrs) {
   $curTag .= "^$tagName";
   // 	echo $counter." ".$curTag."<br> ";
 }
-
 
 function end1Element($parser, $tagName) {
   global $curTag;

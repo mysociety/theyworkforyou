@@ -99,7 +99,6 @@ $PAGE->block_end();
 	return;
 }
 
-
 if ($errors) {
 	print '<div id="warning"><ul><li>';
 	print join ('</li><li>', array_values($errors));

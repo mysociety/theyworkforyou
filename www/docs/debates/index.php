@@ -3,9 +3,7 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
-
 // For displaying all the debates on a day, or a single debate. 
-
 
 if (get_http_var("d") != "") {
 	if (get_http_var('c') != '') {
@@ -82,7 +80,6 @@ if (get_http_var("d") != "") {
 #	$TRACKBACK = new TRACKBACK;
 	
 #	$TRACKBACK->display('epobject_id', $args);
-
 
 	
 } elseif (get_http_var('y') != '') {

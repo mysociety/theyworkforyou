@@ -3,9 +3,7 @@
 include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
-
 // For displaying all the WH debates on a day, or a single WH debate. 
-
 
 if (get_http_var("d") != "") {
 	// We have a date. so show all WH debates on this day.
@@ -70,7 +68,6 @@ if (get_http_var("d") != "") {
 #	$TRACKBACK = new TRACKBACK;
 	
 #	$TRACKBACK->display('epobject_id', $args);
-
 
 	
 } elseif (get_http_var('y') != '') {
@@ -185,9 +182,6 @@ if (get_http_var("d") != "") {
 	
 }
 
-
 $PAGE->page_end();
-
-
 
 ?>

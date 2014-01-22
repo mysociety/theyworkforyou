@@ -4,7 +4,6 @@ include_once "../../includes/easyparliament/init.php";
 include_once INCLUDESPATH."easyparliament/glossary.php";
 include_once INCLUDESPATH."easyparliament/glossarylist.php";
 
-
 $this_page = "glossary_addlink";
 
 $args = array( 'action' => $this_page);
@@ -132,7 +131,5 @@ $PAGE->stripe_end();
 print $this_page;
 
 $PAGE->page_end();
-
-
 
 ?>

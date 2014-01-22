@@ -12,7 +12,6 @@ $PAGE->page_start();
 
 <p>The mysteries of parliament explained in simple text for all.</p>
 
-
 <?php
 
 $PAGE->page_end();

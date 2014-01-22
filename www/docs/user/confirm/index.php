@@ -1,6 +1,5 @@
 <?php
 
-
 // This the page users come to when they click the link in their
 // confirmation email after joining the site.
 
@@ -11,11 +10,8 @@
 // This redirects them to this page with welcome=t in the URL.
 // We then print a nice welcome message.
 
-
 include_once "../../../includes/easyparliament/init.php";
 include_once INCLUDESPATH . "easyparliament/member.php";
-
-
 
 if (get_http_var('welcome') == 't') {
 	// The user has successfully clicked the link, been logged in, and
@@ -106,8 +102,6 @@ you logged in, so please make sure they're enabled for this site.");
 	confirm_error();
 	
 }
-
-
 
 function confirm_error() {
 	// Friendly error, not a normal one!

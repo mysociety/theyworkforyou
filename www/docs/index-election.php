@@ -12,7 +12,6 @@ $PAGE->stripe_start();
 ///////////////////////////////////////////////////////////////////////////
 //  SEARCH AND RECENT HANSARD
 
-
 // Get the dates, timestamps and links for the most recent debates and wrans.
 $DEBATELIST = new DEBATELIST;
 $debatesdata = $DEBATELIST->most_recent_day();
@@ -195,7 +194,6 @@ $PAGE->stripe_end(array(
 		'content' => 'sitenews_recent'
 	)
 ));
-
 
 $PAGE->page_end();
 

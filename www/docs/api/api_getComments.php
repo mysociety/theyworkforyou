@@ -34,7 +34,6 @@ function api_getComments_start_date($start_date) {
 	$commentlist->display('dates', $args, 'api');
 }
 
-
 function api_getComments_search($s) {
     	$args = array (
     		's' => $s,

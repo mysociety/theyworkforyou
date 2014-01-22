@@ -20,8 +20,6 @@ print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
 <dc:creator></dc:creator>
 <admin:generatorAgent rdf:resource="http://www.movabletype.org/?v=2.661" />
 
-
-
 <items>
 <rdf:Seq>
 <?php 

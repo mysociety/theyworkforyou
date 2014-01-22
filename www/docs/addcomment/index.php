@@ -7,8 +7,6 @@ $this_page = "addcomment";
 // For previewing and adding a comment.
 // We should have post args of 'body' and 'epobject_id'.
 
-
-
 if (get_http_var("submitcomment") != '') {
 	// We're submitting a comment.
 			

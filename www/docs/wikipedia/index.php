@@ -59,6 +59,5 @@ foreach ($m as $row) {
 		print preg_replace('#href=(\'|")(.*?)\1#', 'href=\1http://en.wikipedia.org\2\1', $m[0]);
 }
 
-
 $PAGE->stripe_end();
 $PAGE->page_end();

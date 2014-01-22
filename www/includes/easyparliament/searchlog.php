@@ -147,7 +147,6 @@ class SEARCHLOG {
         return $searches_array;
     }
 
-
 }
 
 global $SEARCHLOG;

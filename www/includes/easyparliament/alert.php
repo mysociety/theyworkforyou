@@ -110,7 +110,6 @@ class ALERT {
     return $data;
 	}
 
-
 // FUNCTION: fetch
 
 	function fetch ($confirmed, $deleted) {

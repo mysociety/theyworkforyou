@@ -11,7 +11,6 @@ global $PAGE;
 
 twfy_debug("TEMPLATE", "hansard_recent.php");
 
-
 // Will set the page headings and start the page HTML if it hasn't 
 // already been started.
 // Includes the next/prev links.
@@ -42,7 +41,6 @@ if (isset ($data['rows']) && $data['rows'] > 0) {
 		</ul>
 <?php
 
-
 } // End display of rows.
 
 else {
@@ -51,7 +49,6 @@ else {
 <p>No data to display.</p>
 <?php
 }
-
 
 ?>
 	<div class="break"></div>

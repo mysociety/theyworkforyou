@@ -158,7 +158,6 @@ $parties = array (
 	'XB'    => 'Crossbench'
 );
 
-
 /*
 // The htype field in the hansard database table
 $hansardtypes = array (

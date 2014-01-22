@@ -12,7 +12,6 @@ $db = new ParlDB;
 
 $scriptpath = '../../../scripts';
 
-
 $PAGE->page_start();
 $PAGE->stripe_start();
 
@@ -20,7 +19,6 @@ $out = '';
 if (get_http_var('editperson') && get_http_var('action') === 'SaveURL') {
     $out = update_url();
 }
-
 
 if (get_http_var('editperson')) {
     $out .= edit_member_form();
@@ -34,7 +32,6 @@ print '<div id="adminbody">';
 print $subnav;
 print $out;
 print '</div>';
-
 
 function edit_member_form() {
     global $db; 
@@ -125,7 +122,6 @@ function subnav() {
     $rettext .=  '</div>';
     return $rettext;
 }
-
 
 $menu = $PAGE->admin_menu();
 

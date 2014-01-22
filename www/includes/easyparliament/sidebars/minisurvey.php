@@ -80,7 +80,6 @@ if ($show_survey_qn < $current_question && !$has_answered_question) {
     <input type="hidden" name="return_url" value="<?=$page_url ?>">
     <input type="hidden" name="question_no" value="<?=$current_question ?>">
 
-
     <p>
     Did you find what you were looking for on this page?
     </p>

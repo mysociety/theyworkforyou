@@ -47,8 +47,6 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 <?php
 	$PAGE->block_end();
 
-
 } // End display of rows.
-
 
 ?>

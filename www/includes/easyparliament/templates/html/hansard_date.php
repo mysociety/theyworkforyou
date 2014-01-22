@@ -11,7 +11,6 @@ global $PAGE, $DATA, $this_page, $hansardmajors;
 
 twfy_debug("TEMPLATE", "hansard_date.php");
 
-
 $PAGE->page_start();
 
 $PAGE->stripe_start();
@@ -156,6 +155,5 @@ $PAGE->stripe_end(array(
 		'content'	=> $sidebar
 	)
 ));
-
 
 ?>

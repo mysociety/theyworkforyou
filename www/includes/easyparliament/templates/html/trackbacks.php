@@ -80,5 +80,4 @@ if (count($data) > 0) {
 	}
 } // End display of trackbacks.
 
-
 // If there are no trackbacks to display, we display nothing at all.

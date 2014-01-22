@@ -5,7 +5,6 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 
 class NEWPAGE extends PAGE {
 
-
     function page_header () {
         global $DATA, $this_page;
 
@@ -488,7 +487,6 @@ class NEWPAGE extends PAGE {
 <?php
     }
 
-
     function user_bar ($top_highlight='') {
         // Called from menu(), but separated out here for clarity.
         // Does just the bit of the menu related to login/join/etc.
@@ -601,7 +599,6 @@ class NEWPAGE extends PAGE {
         }
     }
 
-
     // Where the actual meat of the page begins, after the title and menu.
     function content_start () {
         global $this_page, $THEUSER;
@@ -642,7 +639,6 @@ class NEWPAGE extends PAGE {
         </div> <!-- end panel -->
         <?php
     }
-
 
     function stripe_start ($type='side', $id='', $extra_class = '') {
         // $type is one of:
@@ -833,7 +829,6 @@ class NEWPAGE extends PAGE {
             }
     }
 
-
     function block_end () {
         if ($this->blockbody_open) {
             ?>
@@ -845,7 +840,6 @@ class NEWPAGE extends PAGE {
 
 <?php
     }
-
 
     function heading() {
         global $this_page, $DATA;
@@ -1649,8 +1643,6 @@ pr()//-->
 <?php
     }
 
-
-
     function mp_search_form ($person_id) {
         // Search box on the MP page.
 
@@ -1667,7 +1659,6 @@ pr()//-->
                 </div>
 <?php
     }
-
 
     function glossary_search_form ($args) {
         // Search box on the glossary page.
@@ -1843,8 +1834,6 @@ pr()//-->
         }
     }
 
-
-
     function glossary_display_match_list(&$GLOSSARY) {
             if ($GLOSSARY->num_search_matches > 1) {
                 $plural = "them";
@@ -1884,7 +1873,6 @@ pr()//-->
         print "<small><a href=\"" . $glossary_addlink_link . "\">Add an external link</a></small>";
     }
 
-
     function glossary_link() {
         // link to the glossary with no epobject_id - i.e. show all entries
         $URL = new URL('glossary');
@@ -1909,7 +1897,6 @@ pr()//-->
         $total_results      = $pagedata['total_results'];
         $results_per_page   = $pagedata['results_per_page'];
         $page               = $pagedata['page'];
-
 
         if ($total_results > $results_per_page) {
 
@@ -2080,7 +2067,6 @@ Annotations should be information that adds value to the contribution, not opini
                 </form>
 <?php
     }
-
 
     function display_commentreport ($data) {
         // $data has key value pairs.

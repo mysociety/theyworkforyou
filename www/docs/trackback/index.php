@@ -23,8 +23,6 @@ if ($title == '' && $url == '' && $blog_name == '') {
 	exit;
 }
 
-
-
 if ((strlen(''.$epobject_id)) && (empty($HTTP_GET_VARS['__mode'])) && (strlen(''.$url))) {
 
 	header('Content-Type: text/xml');
@@ -41,6 +39,5 @@ if ((strlen(''.$epobject_id)) && (empty($HTTP_GET_VARS['__mode'])) && (strlen(''
 	$TRACKBACK = new TRACKBACK();
 
 	$TRACKBACK->add($trackbackdata);
-
 
 }

@@ -100,7 +100,6 @@ function api_getCommittee_name($name) {
 	}
 }
 
-
 function api_getCommittee_date($date) {
 	$db = new ParlDB;
 

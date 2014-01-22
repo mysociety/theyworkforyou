@@ -10,7 +10,6 @@
 	data fetched, etc.). 
 */
 
-
 class COMMENTREPORTLIST {
 
 	function COMMENTREPORTLIST () {
