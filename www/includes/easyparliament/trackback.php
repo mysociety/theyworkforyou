@@ -30,12 +30,12 @@ class TRACKBACK {
 
 
 	// Do trackbacks need moderation before appearing on the site?
-	var $moderate_trackbacks = false;
+	public $moderate_trackbacks = false;
 	// Note, there's no code for processing trackbacks for moderation at the moment.
 	// But switching this to true will mark all incoming trackbacks as invisible.
 
 
-	function TRACKBACK() {
+	public function TRACKBACK() {
 
 		$this->db = new ParlDB;
 
@@ -47,11 +47,11 @@ class TRACKBACK {
 		}
 	}
 
-	function trackbacks_enabled() { return $this->trackbacks_enabled; }
-	function moderate_trackbacks() { return $this->moderate_trackbacks; }
+	public function trackbacks_enabled() { return $this->trackbacks_enabled; }
+	public function moderate_trackbacks() { return $this->moderate_trackbacks; }
 
 
-	function display ($view, $args=array(), $format='html') {
+	public function display ($view, $args=array(), $format='html') {
 		// $view is one of:
 		//	'epobject_id' - display the pings for one epobject.
 		// 	'recent' - to get the most recent pings to anywhere.
@@ -86,7 +86,7 @@ class TRACKBACK {
 		$this->render($view, $data, $format);
 	}
 
-	function render($view, $data, $format='html') {
+	public function render($view, $data, $format='html') {
 
 		if ($format != 'html') {
 			$format = 'html';
@@ -99,7 +99,7 @@ class TRACKBACK {
 
 	}
 
-	function add($trackbackdata) {
+	public function add($trackbackdata) {
 		/*
 		$data = array (
 			'epobject_id' 	=> '34533',
@@ -165,7 +165,7 @@ class TRACKBACK {
 
 
 
-	function _get_trackbacks_by_epobject_id($args) {
+	public function _get_trackbacks_by_epobject_id($args) {
 
 		// Returns an array of the trackback data for this particular
 		// gid.
@@ -215,7 +215,7 @@ class TRACKBACK {
 	}
 
 
-	function _get_trackbacks_by_recent($args) {
+	public function _get_trackbacks_by_recent($args) {
 
 		// Returns an array of the most recent trackback data for all objects.
 
@@ -265,7 +265,7 @@ class TRACKBACK {
 
 
 
-	function _trackback_response($error = 0, $error_message = '') {
+	public function _trackback_response($error = 0, $error_message = '') {
 		// What gets sent back to someone pinging a page here.
 		// This is only called from add().
 

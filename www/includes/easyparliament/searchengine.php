@@ -37,7 +37,7 @@ if (defined('XAPIANDB') AND XAPIANDB != '') {
 
 class SEARCHENGINE {
 
-	function SEARCHENGINE($query, $phrase_allowed=false) {
+	public function SEARCHENGINE($query, $phrase_allowed=false) {
         $this->valid = false;
 
         if (!defined('XAPIANDB') || !XAPIANDB)
@@ -293,7 +293,7 @@ class SEARCHENGINE {
         $this->valid = true;
     }
 
-    function query_description_internal($long) {
+    public function query_description_internal($long) {
         if (!defined('XAPIANDB') || !XAPIANDB) {
             return '';
         }
@@ -305,21 +305,21 @@ class SEARCHENGINE {
     }
 
     // Return textual description of search
-    function query_description_short() {
+    public function query_description_short() {
         return $this->query_description_internal(false);
     }
 
     // Return textual description of search
-    function query_description_long() {
+    public function query_description_long() {
         return $this->query_description_internal(true);
     }
 
     // Return stem of a word
-    function stem($word) {
+    public function stem($word) {
         return $this->stemmer->apply(strtolower($word));
     }
 
-    function get_spelling_correction() {
+    public function get_spelling_correction() {
          if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
@@ -327,7 +327,7 @@ class SEARCHENGINE {
     }
 
     // Perform partial query to get a count of number of matches
-    function run_count($first_result, $results_per_page, $sort_order='relevance') {
+    public function run_count($first_result, $results_per_page, $sort_order='relevance') {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
@@ -406,7 +406,7 @@ class SEARCHENGINE {
     }
 
     // Perform the full search...
-    function run_search($first_result, $results_per_page, $sort_order='relevance') {
+    public function run_search($first_result, $results_per_page, $sort_order='relevance') {
 		$start = getmicrotime();
 
         #$matches = $this->enquire->get_mset($first_result, $results_per_page);
@@ -436,18 +436,18 @@ class SEARCHENGINE {
 		twfy_debug ("SEARCH", "Run search took $duration seconds.");
     }
     // ... use these to get the results
-    function get_gids() {
+    public function get_gids() {
         return $this->gids;
     }
-    function get_relevances() {
+    public function get_relevances() {
         return $this->relevances;
     }
-    function get_createds() {
+    public function get_createds() {
         return $this->created;
     }
 
     // Puts HTML highlighting round all the matching words in the text
-    function highlight($body) {
+    public function highlight($body) {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return $body;
 
@@ -463,7 +463,7 @@ class SEARCHENGINE {
         }
     }
 
-    function highlight_internal($body, $stemmed_words) {
+    public function highlight_internal($body, $stemmed_words) {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return $body;
 
@@ -529,7 +529,7 @@ class SEARCHENGINE {
     }
 
     // Find the position of the first of the search words/phrases in $body.
-    function position_of_first_word($body) {
+    public function position_of_first_word($body) {
         $lcbody = ' ' . html_entity_decode(strtolower($body)) . ' '; // spaces to make regexp mapping easier
         $pos = -1;
 

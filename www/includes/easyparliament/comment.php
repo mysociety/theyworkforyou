@@ -25,23 +25,23 @@
 
 class COMMENT {
 
-	var $comment_id = '';
-	var $user_id = '';
-	var $epobject_id = '';
-	var $body = '';
-	var $posted = '';
-	var $visible = false;
-	var $modflagged = NULL;	// Is a datetime when set.
-	var $firstname = '';	// Of the person who posted it.
-	var $lastname = '';
-	var $url = '';
+	public $comment_id = '';
+	public $user_id = '';
+	public $epobject_id = '';
+	public $body = '';
+	public $posted = '';
+	public $visible = false;
+	public $modflagged = NULL;	// Is a datetime when set.
+	public $firstname = '';	// Of the person who posted it.
+	public $lastname = '';
+	public $url = '';
 
 	// So that after trying to init a comment, we can test for
 	// if it exists in the DB.
-	var $exists = false;
+	public $exists = false;
 
 
-	function COMMENT($comment_id='') {
+	public function COMMENT($comment_id='') {
 
 		$this->db = new ParlDB;
 
@@ -89,22 +89,22 @@ class COMMENT {
 
 
 	// Use these for accessing the object's variables externally.
-	function comment_id() { return $this->comment_id; }
-	function user_id() { return $this->user_id; }
-	function epobject_id() { return $this->epobject_id; }
-	function body() { return $this->body; }
-	function posted() { return $this->posted; }
-	function visible() { return $this->visible; }
-	function modflagged() { return $this->modflagged; }
-	function exists() { return $this->exists; }
-	function firstname() { return $this->firstname; }
-	function lastname() { return $this->lastname; }
-	function url() { return $this->url; }
+	public function comment_id() { return $this->comment_id; }
+	public function user_id() { return $this->user_id; }
+	public function epobject_id() { return $this->epobject_id; }
+	public function body() { return $this->body; }
+	public function posted() { return $this->posted; }
+	public function visible() { return $this->visible; }
+	public function modflagged() { return $this->modflagged; }
+	public function exists() { return $this->exists; }
+	public function firstname() { return $this->firstname; }
+	public function lastname() { return $this->lastname; }
+	public function url() { return $this->url; }
 
-	function comments_enabled() { return $this->comments_enabled; }
+	public function comments_enabled() { return $this->comments_enabled; }
 
 
-	function create($data) {
+	public function create($data) {
 		// Inserts data for this comment into the database.
 		// $data has 'epobject_id' and 'body' elements.
 		// Returns the new comment_id if successful, false otherwise.
@@ -207,7 +207,7 @@ class COMMENT {
 	}
 
 
-	function display($format='html', $template='comments') {
+	public function display($format='html', $template='comments') {
 
 		$data['comments'][0] = array (
 			'comment_id'	=> $this->comment_id,
@@ -229,7 +229,7 @@ class COMMENT {
 	}
 
 
-	function set_modflag($switch) {
+	public function set_modflag($switch) {
 		// $switch is either 'on' or 'off'.
 		// The comment's modflag goes to on when someone reports the comment.
 		// It goes to off when a commentreport has been resolved but the
@@ -268,7 +268,7 @@ class COMMENT {
 	}
 
 
-	function delete() {
+	public function delete() {
 		// Mark the comment as invisible.
 
 		global $THEUSER, $PAGE;
@@ -300,7 +300,7 @@ class COMMENT {
 
 
 
-	function _set_url() {
+	public function _set_url() {
 		global $hansardmajors;
 		// Creates and sets the URL for the comment.
 
@@ -331,7 +331,7 @@ class COMMENT {
 
 
 
-	function _set_username() {
+	public function _set_username() {
 		// Gets and sets the user's name who posted the comment.
 
 		if ($this->firstname == '' && $this->lastname == '') {

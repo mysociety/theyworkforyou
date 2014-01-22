@@ -79,18 +79,18 @@ function alert_details_to_criteria($details) {
 
 class ALERT {
 
-    var $token_checked = null;
-	var $alert_id = "";
-	var $email = "";
-	var $criteria = "";		// Sets the terms that are used to produce the search results.
+    public $token_checked = null;
+	public $alert_id = "";
+	public $email = "";
+	public $criteria = "";		// Sets the terms that are used to produce the search results.
 
-	function ALERT() {
+	public function ALERT() {
 		$this->db = new ParlDB;
 	}
 
 // FUNCTION: fetch_between
 
-	function fetch_between($confirmed, $deleted, $start_date, $end_date) {
+	public function fetch_between($confirmed, $deleted, $start_date, $end_date) {
 	  // Return summary data on all the alerts that were created between $start_date
 	  // and $end_date (inclusive) and whose confirmed and deleted values match the booleans
 	  // passed in $confirmed and $deleted
@@ -113,7 +113,7 @@ class ALERT {
 
 // FUNCTION: fetch
 
-	function fetch($confirmed, $deleted) {
+	public function fetch($confirmed, $deleted) {
 		// Pass it an alert id and it will fetch data about alerts from the db
 		// and put it all in the appropriate variables.
 		// Normal usage is for $confirmed variable to be set to true
@@ -152,7 +152,7 @@ class ALERT {
 			return $data;
 	}
 
-	function add($details, $confirmation_email=false, $instantly_confirm=true) {
+	public function add($details, $confirmation_email=false, $instantly_confirm=true) {
 
 		// Adds a new alert's info into the database.
 		// Then calls another function to send them a confirmation email.
@@ -250,7 +250,7 @@ class ALERT {
 
 // FUNCTION:  send_confirmation_email
 
-	function send_confirmation_email($details) {
+	public function send_confirmation_email($details) {
 
 		// After we've add()ed an alert we'll be sending them
 		// a confirmation email with a link to confirm their address.
@@ -291,7 +291,7 @@ class ALERT {
 		}
 	}
 
-	function send_already_signedup_email($details) {
+	public function send_already_signedup_email($details) {
 		$data = array (
 			'to' 		=> $details['email'],
 			'template' 	=> 'alert_already_signedup'
@@ -314,7 +314,7 @@ class ALERT {
 		}
 	}
 
-	function fetch_by_mp($email, $pid) {
+	public function fetch_by_mp($email, $pid) {
 		$q = $this->db->query("SELECT alert_id FROM alerts
             WHERE confirmed AND NOT deleted
             AND email='" . mysql_real_escape_string($email) . "'
@@ -326,7 +326,7 @@ class ALERT {
 		}
 	}
 
-	function email_exists($email) {
+	public function email_exists($email) {
 		// Returns true if there's a user with this email address.
 
 		if ($email != "") {
@@ -342,7 +342,7 @@ class ALERT {
 
 	}
 
-    function check_token($token) {
+    public function check_token($token) {
         if (!is_null($this->token_checked))
             return $this->token_checked;
 
@@ -377,7 +377,7 @@ class ALERT {
 	// and the confirm page has passed the token from the URL to here.
 	// If all goes well the alert will be confirmed.
 	// The alert will be active when scripts run each day to send the actual emails.
-	function confirm($token) {
+	public function confirm($token) {
 		if (!($alert = $this->check_token($token))) return false;
         $this->criteria = $alert['criteria'];
         $this->email = $alert['email'];
@@ -389,21 +389,21 @@ class ALERT {
 	// The user has clicked the link in their delete confirmation email
 	// and the deletion page has passed the token from the URL to here.
 	// If all goes well the alert will be flagged as deleted.
-	function delete($token) {
+	public function delete($token) {
 		if (!($alert = $this->check_token($token))) return false;
 		$r = $this->db->query("UPDATE alerts SET deleted = 1 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
 
         return $r->success();
 	}
 
-	function suspend($token) {
+	public function suspend($token) {
 		if (!($alert = $this->check_token($token))) return false;
 		$r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
 
         return $r->success();
 	}
 
-	function resume($token) {
+	public function resume($token) {
 		if (!($alert = $this->check_token($token))) return false;
 		$r = $this->db->query("UPDATE alerts SET deleted = 0 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
 
@@ -411,9 +411,9 @@ class ALERT {
 	}
 
 	// Getters
-	function email() { return $this->email; }
-	function criteria() { return $this->criteria; }
-	function criteria_pretty($html = false) {
+	public function email() { return $this->email; }
+	public function criteria() { return $this->criteria; }
+	public function criteria_pretty($html = false) {
 		$criteria = explode(' ',$this->criteria);
 		$words = array(); $spokenby = '';
 		foreach ($criteria as $c) {

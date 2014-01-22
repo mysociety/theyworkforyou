@@ -55,12 +55,12 @@ class HANSARDLIST {
 	// constructors.
 	// If you change this, change it in COMMENTSLIST->_fix_gid() too!
 	// And in TRACKBACK too.
-	var $gidprefix = 'uk.org.publicwhip/';
+	public $gidprefix = 'uk.org.publicwhip/';
 
 
 	// This will be used to cache information about speakers on this page
 	// so we don't have to keep fetching the same data from the DB.
-	var $speakers = array ();
+	public $speakers = array ();
 	/*
 	$this->speakers[ $speaker_id ] = array (
 		"first_name"	=> $first_name,
@@ -74,42 +74,42 @@ class HANSARDLIST {
 
 	// This will be used to cache mappings from epobject_id to gid,
 	// so we don't have to continually fetch the same data in get_hansard_data().
-	var $epobjectid_to_gid = array ();
+	public $epobjectid_to_gid = array ();
 	/*
 	$this->epobjectid_to_gid[ $epobject_id ] => $gid;
 	*/
 
 	# Similarly, cache bill lookups
-	var $bill_lookup = array();
+	public $bill_lookup = array();
 
 	// This is so we can tell what type of thing we're displaying from outside
 	// the object. eg, so we know if we should be able to post comments to the
 	// item. It will have a value set if we are displaying by 'gid' (not 'date').
 	// Use htype() to access it.
-	var $htype;
+	public $htype;
 
 
 	// Reset to the relevant major ID in DEBATELIST or WRANSLIST
-	var $major;
+	public $major;
 
 
 	// When we view a particular item, we set these to the epobject_id and gid
 	// of the item so we can attach Trackbacks etc to it from outside.
-	var $epobject_id;
-	var $gid;
+	public $epobject_id;
+	public $gid;
 
 
 	// This will be set if $this->most_recent_day() is called. Just so we
 	// don't need to call it and it's lengthy query again.
-	var $most_recent_day;
+	public $most_recent_day;
 
-	function HANSARDLIST() {
+	public function HANSARDLIST() {
 		$this->db = new ParlDB;
 	}
 
 
 
-	function display ($view, $args=array(), $format='html') {
+	public function display ($view, $args=array(), $format='html') {
 
 		// $view is what we're viewing by:
 		// 	'gid' is the gid of a hansard object,
@@ -170,7 +170,7 @@ class HANSARDLIST {
 
 
 
-	function render($view, $data, $format='html') {
+	public function render($view, $data, $format='html') {
 		// Once we have the data that's to be rendered,
 		// include the template.
 
@@ -185,7 +185,7 @@ class HANSARDLIST {
 	}
 
 
-	function total_items() {
+	public function total_items() {
 		// Returns number of items in debates or wrans, depending on which class this is,
 		// DEBATELIST or WRANSLIST.
 
@@ -196,7 +196,7 @@ class HANSARDLIST {
 
 
 
-	function most_recent_day() {
+	public function most_recent_day() {
 		// Very simple. Returns an array of stuff about the most recent data
 		// for this major:
 
@@ -247,20 +247,20 @@ class HANSARDLIST {
 	}
 
 
-	function htype() {
+	public function htype() {
 		return $this->htype;
 	}
 
-	function epobject_id() {
+	public function epobject_id() {
 		return $this->epobject_id;
 	}
 
-	function gid() {
+	public function gid() {
 		return $this->gid;
 	}
 
 
-	function _get_section($itemdata) {
+	public function _get_section($itemdata) {
 		// Pass it an array of data about an item and it will return an
 		// array of data about the item's section heading.
 
@@ -303,7 +303,7 @@ class HANSARDLIST {
 
 
 
-	function _get_subsection($itemdata) {
+	public function _get_subsection($itemdata) {
 		// Pass it an array of data about an item and it will return an
 		// array of data about the item's subsection heading.
 
@@ -342,7 +342,7 @@ class HANSARDLIST {
 
 
 
-	function _get_nextprev_items($itemdata) {
+	public function _get_nextprev_items($itemdata) {
 		global $hansardmajors;
 
 		// Pass it an array of item info, of a section/subsection, and this will return
@@ -523,7 +523,7 @@ class HANSARDLIST {
 	}
 
 
-	function _get_nextprev_dates($date) {
+	public function _get_nextprev_dates($date) {
 		global $hansardmajors;
 		// Pass it a yyyy-mm-dd date and it'll return an array
 		// containing the next/prev dates that contain items from
@@ -596,7 +596,7 @@ class HANSARDLIST {
 
 
 
-	function _validate_date($args) {
+	public function _validate_date($args) {
 		// Used when we're viewing things by (_get_data_by_date() functions).
 		// If $args['date'] is a valid yyyy-mm-dd date, it is returned.
 		// Else false is returned.
@@ -631,7 +631,7 @@ class HANSARDLIST {
 
 
 
-	function _get_item($args) {
+	public function _get_item($args) {
 		global $PAGE;
 
 		if (!isset($args['gid']) && $args['gid'] == '') {
@@ -727,7 +727,7 @@ class HANSARDLIST {
 
 	}
 
-	function check_gid_change($gid, $from, $to) {
+	public function check_gid_change($gid, $from, $to) {
 		$input = array (
 			'amount' => array (
 				'body' => true,
@@ -750,7 +750,7 @@ class HANSARDLIST {
 	}
 
 
-	function _get_data_by_date($args) {
+	public function _get_data_by_date($args) {
 		// For displaying the section and subsection headings as
 		// links for an entire day of debates/wrans.
 
@@ -835,7 +835,7 @@ class HANSARDLIST {
 	}
 
 
-	function _get_data_by_recent($args) {
+	public function _get_data_by_recent($args) {
 		// Like _get_data_by_id() and _get_data_by_date()
 		// this returns a $data array suitable for sending to a template.
 		// It lists recent dates with debates/wrans on them, with links.
@@ -885,7 +885,7 @@ class HANSARDLIST {
 	# Display a person's most recent debates.
 	# Only used by MP RSS generator now, MP pages use Xapian search
 	# XXX: Abolish this entirely?
-	function _get_data_by_person($args) {
+	public function _get_data_by_person($args) {
 		global $PAGE, $hansardmajors;
 		$items_to_list = isset($args['max']) ? $args['max'] : 20;
 
@@ -972,13 +972,13 @@ class HANSARDLIST {
 	}
 
 
-	function _get_data_by_search_min($args) {
+	public function _get_data_by_search_min($args) {
 		return $this->_get_data_by_search($args);
 	}
-	function _get_data_by_search_video($args) {
+	public function _get_data_by_search_video($args) {
 		return $this->_get_data_by_search($args);
 	}
-	function _get_data_by_search($args) {
+	public function _get_data_by_search($args) {
 
 		// Creates a fairly standard $data structure for the search function.
 		// Will probably be rendered by the hansard_search.php template.
@@ -1271,7 +1271,7 @@ class HANSARDLIST {
 		return $data;
 	}
 
-	function prepare_search_result_for_display($body) {
+	public function prepare_search_result_for_display($body) {
 		global $SEARCHENGINE;
 		// We want to trim the body to an extract that is centered
 		// around the position of the first search word.
@@ -1299,7 +1299,7 @@ class HANSARDLIST {
 		return $extract;
 	}
 
-	function _get_data_by_calendar($args) {
+	public function _get_data_by_calendar($args) {
 		// We should have come here via _get_data_by_calendar() in
 		// DEBATELIST or WRANLIST, so $this->major should now be set.
 
@@ -1590,7 +1590,7 @@ class HANSARDLIST {
 
 	}
 
-	function _get_mentions($spid) {
+	public function _get_mentions($spid) {
 		$result = array();
 		$q = $this->db->query("select gid, type, date, url, mentioned_gid
 			from mentions where gid like 'uk.org.publicwhip/spq/$spid'
@@ -1602,7 +1602,7 @@ class HANSARDLIST {
 		return $result;
 	}
 
-	function _get_hansard_data($input) {
+	public function _get_hansard_data($input) {
 		global $hansardmajors;
 		// Generic function for getting hansard data from the DB.
 		// It returns an empty array if no data was found.
@@ -1883,7 +1883,7 @@ class HANSARDLIST {
 	}
 
 
-	function _get_votes($epobject_id) {
+	public function _get_votes($epobject_id) {
 		// Called from _get_hansard_data().
 		// Separated out here just for clarity.
 		// Returns an array of user and anon yes/no votes for an epobject.
@@ -1936,7 +1936,7 @@ class HANSARDLIST {
 	}
 
 
-	function _get_listurl ($id_data, $url_args=array(), $encode='html') {
+	public function _get_listurl ($id_data, $url_args=array(), $encode='html') {
 		global $hansardmajors;
 		// Generates an item's listurl - this is the 'contextual' url
 		// for an item, in the full list view with an anchor (if appropriate).
@@ -2032,7 +2032,7 @@ class HANSARDLIST {
 		return $LISTURL->generate($encode) . $fragment;
 	}
 
-	function _get_speaker($speaker_id, $hdate) {
+	public function _get_speaker($speaker_id, $hdate) {
 		// Pass it the id of a speaker. If $this->speakers doesn't
 		// already contain data about the speaker, it's fetched from the DB
 		// and put in $this->speakers.
@@ -2122,7 +2122,7 @@ class HANSARDLIST {
 
 
 
-	function _get_comment($item_data) {
+	public function _get_comment($item_data) {
 		// Pass it some variables belonging to an item and the function
 		// returns an array containing:
 		// 1) A count of the comments within this item.
@@ -2185,7 +2185,7 @@ class HANSARDLIST {
 	}
 
 
-	function _get_comment_count_for_epobject($item_data) {
+	public function _get_comment_count_for_epobject($item_data) {
 		global $hansardmajors;
 		// What it says on the tin.
 		// $item_data must have 'htype' and 'epobject_id' elements. TODO: Check for major==4
@@ -2223,7 +2223,7 @@ class HANSARDLIST {
 
 
 /*
-	function _get_trackback_data($itemdata) {
+	public function _get_trackback_data($itemdata) {
 		// Returns a array of data we need to create the Trackback Auto-discovery
 		// RDF on a page.
 
@@ -2269,7 +2269,7 @@ class HANSARDLIST {
 	}
 */
 
-	function _get_data_by_gid($args) {
+	public function _get_data_by_gid($args) {
 
 		// We need to get the data for this gid.
 		// Then depending on what htype it is, we get the data for other items too.
@@ -2491,7 +2491,7 @@ class HANSARDLIST {
 
 	}
 
-	function _get_data_by_column($args) {
+	public function _get_data_by_column($args) {
 		global $this_page;
 
 		twfy_debug (get_class($this), "getting data by column");
@@ -2516,57 +2516,57 @@ class HANSARDLIST {
 }
 
 class WMSLIST extends WRANSLIST {
-	var $major = 4;
-	var $listpage = 'wms';
-	var $commentspage = 'wms';
-	function wmslist() {
+	public $major = 4;
+	public $listpage = 'wms';
+	public $commentspage = 'wms';
+	public function wmslist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'wms/';
 	}
-	function _get_data_by_recent_wms($args = array()) {
+	public function _get_data_by_recent_wms($args = array()) {
 		return $this->_get_data_by_recent_wrans($args);
 	}
 }
 
 class WHALLLIST extends DEBATELIST {
-	var $major = 2;
-	var $listpage = 'whalls';
-	var $commentspage = 'whall';
-	function whalllist() {
+	public $major = 2;
+	public $listpage = 'whalls';
+	public $commentspage = 'whall';
+	public function whalllist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'westminhall/';
 	}
 }
 
 class NILIST extends DEBATELIST {
-	var $major = 5;
-	var $listpage = 'nidebates';
-	var $commentspage = 'nidebate';
-	function nilist() {
+	public $major = 5;
+	public $listpage = 'nidebates';
+	public $commentspage = 'nidebate';
+	public function nilist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'ni/';
 	}
 }
 
 class SPLIST extends DEBATELIST {
-	var $major = 7;
-	var $listpage = 'spdebates';
-	var $commentspage = 'spdebate';
-	function splist() {
+	public $major = 7;
+	public $listpage = 'spdebates';
+	public $commentspage = 'spdebate';
+	public function splist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'spor/';
 	}
 }
 
 class SPWRANSLIST extends WRANSLIST {
-	var $major = 8;
-	var $listpage = 'spwrans';
-	var $commentspage = 'spwrans';
-	function spwranslist() {
+	public $major = 8;
+	public $listpage = 'spwrans';
+	public $commentspage = 'spwrans';
+	public function spwranslist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'spwa/';
 	}
-	function get_gid_from_spid($spid) {
+	public function get_gid_from_spid($spid) {
 		// Fix the common errors of S.0 instead of S.O and leading
 		// zeros in the numbers:
 		$fixed_spid = preg_replace('/(S[0-9]+)0-([0-9]+)/','${1}O-${2}',$spid);
@@ -2576,7 +2576,7 @@ class SPWRANSLIST extends WRANSLIST {
 		if ($gid) return $gid;
 		return null;
 	}
-	function old_get_gid_from_spid($spid) {
+	public function old_get_gid_from_spid($spid) {
 		$q = $this->db->query("select gid from hansard where gid like 'uk.org.publicwhip/spwa/%.$spid.h'");
 		$gid = $q->field(0, 'gid');
 		if ($gid) return str_replace('uk.org.publicwhip/spwa/', '', $gid);
@@ -2585,29 +2585,29 @@ class SPWRANSLIST extends WRANSLIST {
 }
 
 class LORDSDEBATELIST extends DEBATELIST {
-	var $major = 101;
-	var $listpage = 'lordsdebates';
-	var $commentspage = 'lordsdebate';
-	function lordsdebatelist() {
+	public $major = 101;
+	public $listpage = 'lordsdebates';
+	public $commentspage = 'lordsdebate';
+	public function lordsdebatelist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'lords/';
 	}
 }
 
 class DEBATELIST extends HANSARDLIST {
-	var $major = 1;
+	public $major = 1;
 
 	// The page names we want to link to for item permalinks.
 	// If you change listpage, you'll have to change it in _get_listurl too I'm afraid.
-	var $listpage = 'debates';
-	var $commentspage = 'debate';
+	public $listpage = 'debates';
+	public $commentspage = 'debate';
 
-	function debatelist() {
+	public function debatelist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'debate/';
 	}
 
-	function _get_data_by_recent_mostvotes($args) {
+	public function _get_data_by_recent_mostvotes($args) {
 		// Get the most highly voted recent speeches.
 		// $args may have 'days'=>7 and/or 'num'=>5
 		// or something like that.
@@ -2713,7 +2713,7 @@ class DEBATELIST extends HANSARDLIST {
 	}
 
 
-	function total_speeches() {
+	public function total_speeches() {
 
 		$q = $this->db->query("SELECT COUNT(*) AS count FROM hansard WHERE major='" . $this->major . "' AND htype = 12");
 
@@ -2721,13 +2721,13 @@ class DEBATELIST extends HANSARDLIST {
 	}
 
 
-	function biggest_debates($args=array()) {
+	public function biggest_debates($args=array()) {
 		// So we can just get the data back for special formatting
 		// on the front page, without doing the whole display() thing.
 		return $this->_get_data_by_biggest_debates($args);
 	}
 
-    function _get_data_by_recent_debates($args=array()) {
+    public function _get_data_by_recent_debates($args=array()) {
         // Returns an array of some random recent debates from a set number of
         // recent days (that's recent days starting from the most recent day
         // that had any debates on).
@@ -2843,7 +2843,7 @@ class DEBATELIST extends HANSARDLIST {
 
     }
 
-	function _get_data_by_biggest_debates($args=array()) {
+	public function _get_data_by_biggest_debates($args=array()) {
 		// Returns an array of the debates with most speeches in from
 		// a set number of recent days (that's recent days starting from the
 		// most recent day that had any debates on).
@@ -2951,24 +2951,24 @@ class DEBATELIST extends HANSARDLIST {
 
 class WRANSLIST extends HANSARDLIST {
 
-	var $major = 3;
+	public $major = 3;
 
 	// The page names we want to link to for item permalinks.
 	// If you change listpage, you'll have to change it in _get_listurl too I'm afraid.
-	var $listpage = 'wrans';
-	var $commentspage = 'wrans'; // We don't have a separate page for wrans comments.
+	public $listpage = 'wrans';
+	public $commentspage = 'wrans'; // We don't have a separate page for wrans comments.
 
-	function wranslist() {
+	public function wranslist() {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'wrans/';
 	}
 
-	function total_questions() {
+	public function total_questions() {
 		$q = $this->db->query("SELECT COUNT(*) AS count FROM hansard WHERE major='" . $this->major . "' AND minor = 1");
 		return $q->field(0, 'count');
 	}
 
-	function _get_data_by_mp($args = array()) {
+	public function _get_data_by_mp($args = array()) {
 		global $PAGE;
 		$data = array();
 		if (!isset($args['person_id']) || !is_numeric($args['person_id'])) {
@@ -3024,7 +3024,7 @@ class WRANSLIST extends HANSARDLIST {
 		return array('data'=>$data, 'info'=>$info);
 	}
 
-	function _get_data_by_recent_wrans ($args=array()) {
+	public function _get_data_by_recent_wrans ($args=array()) {
 		global $hansardmajors;
 
 		// $args['days'] is the number of days back to look for biggest debates.
@@ -3145,10 +3145,10 @@ class WRANSLIST extends HANSARDLIST {
 }
 
 class StandingCommittee extends DEBATELIST {
-	var $major = 6;
-	var $listpage = 'pbc_clause';
-	var $commentspage = 'pbc_speech';
-	function StandingCommittee($session='', $title='') {
+	public $major = 6;
+	public $listpage = 'pbc_clause';
+	public $commentspage = 'pbc_speech';
+	public function StandingCommittee($session='', $title='') {
 		$this->db = new ParlDB;
 		$this->gidprefix .= 'standing/';
 		$this->bill_title = $title;
@@ -3156,7 +3156,7 @@ class StandingCommittee extends DEBATELIST {
 		$this->url = urlencode($session) . '/' . urlencode($title) . '/';
 	}
 
-	function _get_committee($bill_id) {
+	public function _get_committee($bill_id) {
 		include_once INCLUDESPATH."easyparliament/member.php";
 		$q = $this->db->query('select count(*) as c from hansard where major=6 and minor=' .
 			mysql_real_escape_string($bill_id) . ' and htype=10');
@@ -3183,7 +3183,7 @@ class StandingCommittee extends DEBATELIST {
 		return $comm;
 	}
 
-	function _get_data_by_bill($args) {
+	public function _get_data_by_bill($args) {
 		global $DATA, $this_page;
 		$data = array();
 		$input = array (
@@ -3232,7 +3232,7 @@ class StandingCommittee extends DEBATELIST {
 		return $data;
 	}
 
-	function _get_data_by_session($args) {
+	public function _get_data_by_session($args) {
 		global $DATA, $this_page;
 		$session = $args['session'];
 		$e_session = mysql_real_escape_string($session);
@@ -3293,7 +3293,7 @@ class StandingCommittee extends DEBATELIST {
 		return $data;
 	}
 
-	function _get_data_by_recent_pbc_debates($args) {
+	public function _get_data_by_recent_pbc_debates($args) {
 		if (!isset($args['num'])) $args['num'] = 20;
 		$q = $this->db->query('select gid, minor, hdate from hansard
 			where htype=10 and major=6
@@ -3319,7 +3319,7 @@ class StandingCommittee extends DEBATELIST {
 	}
 
 	# Given a GID, parse out the sitting number and optional part from it
-	function _get_sitting($gid) {
+	public function _get_sitting($gid) {
 		if (preg_match('#_(\d\d)-(\d)_#', $gid, $m))
 			return array($m[1]+0, $m[2]);
 		return array(0, 0);

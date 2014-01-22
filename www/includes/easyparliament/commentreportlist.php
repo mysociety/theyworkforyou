@@ -12,12 +12,12 @@
 
 class COMMENTREPORTLIST {
 
-	function COMMENTREPORTLIST() {
+	public function COMMENTREPORTLIST() {
 		$this->db = new ParlDB;
 	}
 
 
-	function display() {
+	public function display() {
 
 		// Update any locks on the reports before we get the data.
 		// So that if we're displaying a list of reports that are
@@ -31,7 +31,7 @@ class COMMENTREPORTLIST {
 	}
 
 
-	function render($data) {
+	public function render($data) {
 
 		global $PAGE;
 
@@ -40,7 +40,7 @@ class COMMENTREPORTLIST {
 	}
 
 
-	function _update_locked() {
+	public function _update_locked() {
 		// Unlocks any reports that have been locked for more than some minutes.
 
 		// How old do locks have to be to get unlocked?
@@ -57,7 +57,7 @@ class COMMENTREPORTLIST {
 	}
 
 
-	function _get_data_by_recent() {
+	public function _get_data_by_recent() {
 		// Returns the most recent comment reports in an array.
 		// The array is suitable for rendering by $PAGE->display_table.
 		// Contains 'header' and 'rows' arrays.

@@ -2,7 +2,7 @@
 
 class GLOSSARYLIST {
 
-	function render($data, $format='html', $template='glossary') {
+	public function render($data, $format='html', $template='glossary') {
 		// Once we have the data that's to be rendered,
 		// include the template.
 

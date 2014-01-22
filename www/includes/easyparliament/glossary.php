@@ -28,16 +28,16 @@ include_once INCLUDESPATH."wikipedia.php";
 
 class GLOSSARY {
 
-	var $num_terms;			// how many glossary entries do we have
+	public $num_terms;			// how many glossary entries do we have
 							// (changes depending on how GLOSSARY is called
-	var $hansard_count;		// how many times does the phrase appear in hansard?
-	var $query;				// search term
-	var $glossary_id;		// if this is set then we only have 1 glossary term
-	var $current_term;		// will only be set if we have a valid epobject_id
-	var $current_letter;
+	public $hansard_count;		// how many times does the phrase appear in hansard?
+	public $query;				// search term
+	public $glossary_id;		// if this is set then we only have 1 glossary term
+	public $current_term;		// will only be set if we have a valid epobject_id
+	public $current_letter;
 
 	// constructor...
-	function GLOSSARY($args=array()) {
+	public function GLOSSARY($args=array()) {
 	// We can optionally start the glossary with one of several arguments
 	//		1. glossary_id - treat the glossary as a single term
 	//		2. glossary_term - search within glossary for a term
@@ -80,7 +80,7 @@ class GLOSSARY {
 
 	}
 
-	function get_glossary_item($args=array()) {
+	public function get_glossary_item($args=array()) {
 		// Search for and fetch glossary item with title or glossary_id
 		// We could also search glossary text that contains the title text, for cross references
 
@@ -141,7 +141,7 @@ class GLOSSARY {
 		}
 	}
 
-	function search_glossary($args=array()) {
+	public function search_glossary($args=array()) {
 		// Search for and fetch glossary item with a title
 		// Useful for the search page, and nowhere else (so far)
 
@@ -163,7 +163,7 @@ class GLOSSARY {
 		}
 	}
 
-	function create(&$data) {
+	public function create(&$data) {
 		// Add a Glossary definition.
 		// Sets visiblity to 0, and awaits moderator intervention.
 		// For this we need to start up an epobject of type 2 and then an editqueue item
@@ -245,7 +245,7 @@ class GLOSSARY {
 		}
 	}
 
-	function delete($glossary_id)
+	public function delete($glossary_id)
 	{
 		$q = $this->db->query("DELETE from glossary where glossary_id=$glossary_id LIMIT 1;");
 		// if that worked, we need to update the editqueue,
@@ -256,7 +256,7 @@ class GLOSSARY {
 		}
 	}
 
-	function glossarise($body, $tokenize=0, $urlize=0) {
+	public function glossarise($body, $tokenize=0, $urlize=0) {
 	// Turn a body of text into a link-up wonderland of glossary joy
 
 		global $this_page;

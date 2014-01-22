@@ -10,11 +10,11 @@ $PEOPLE->display('mps');
 
 class PEOPLE {
 
-	function PEOPLE() {
+	public function PEOPLE() {
 		$this->db = new ParlDB;
 	}
 
-	function display ($view, $args=array(), $format='html') {
+	public function display ($view, $args=array(), $format='html') {
 		global $PAGE;
 
 		$validviews = array('mps', 'peers', 'mlas', 'msps');
@@ -39,7 +39,7 @@ class PEOPLE {
 
 
 
-	function render($view, $data, $format='html') {
+	public function render($view, $data, $format='html') {
 		// Once we have the data that's to be rendered,
 		// include the template.
 
@@ -54,27 +54,27 @@ class PEOPLE {
 
 	}
 
-	function _get_data_by_msps($args) {
+	public function _get_data_by_msps($args) {
 		$args['house'] = 4;
 		return $this->_get_data_by_group($args);
 	}
 
-	function _get_data_by_mlas($args) {
+	public function _get_data_by_mlas($args) {
 		$args['house'] = 3;
 		return $this->_get_data_by_group($args);
 	}
 
-	function _get_data_by_peers($args) {
+	public function _get_data_by_peers($args) {
 		$args['house'] = 2;
 		return $this->_get_data_by_group($args);
 	}
 
-	function _get_data_by_mps($args) {
+	public function _get_data_by_mps($args) {
 		$args['house'] = 1;
 		return $this->_get_data_by_group($args);
 	}
 
-	function _get_data_by_group($args) {
+	public function _get_data_by_group($args) {
 		// $args can have an optional 'order' element.
 
         $use_extracol = (isset($args['order']) && in_array($args['order'], array('expenses', 'debates', 'safety')));
@@ -174,7 +174,7 @@ class PEOPLE {
 		return $data;
 
 	}
-	function by_peer_name($a, $b) {
+	public function by_peer_name($a, $b) {
 		if (!$a['last_name'] && !$b['last_name'])
 			return strcmp($a['constituency'], $b['constituency']);
 		if (!$a['last_name'])
@@ -186,7 +186,7 @@ class PEOPLE {
 		return strcmp($a['constituency'], $b['constituency']);
 	}
 
-	function listoptions($args) {
+	public function listoptions($args) {
 		global $THEUSER;
 		$data = $this->_get_data_by_mps($args);
 		if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {

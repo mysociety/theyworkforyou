@@ -55,7 +55,7 @@ v1.3	2003-11-25
 
 class URL {
 
-	function URL($pagename) {
+	public function URL($pagename) {
 		// Initialise.
 		global $DATA;
 
@@ -93,19 +93,19 @@ class URL {
 
 	}
 
-	function restore() {
+	public function restore() {
 		// Call this to reset the session vars to how they were when
 		// the object was instantiated.
 		$this->session_vars = $this->original_session_vars;
 
 	}
 
-	function reset() {
+	public function reset() {
 		// Call this to remove all the session_vars.
 		$this->session_vars = array ();
 	}
 
-	function insert($arr) {
+	public function insert($arr) {
 		// $arr is an associative array of key/value pairs.
 		// These will be used as session_vars in addition to any that
 		// already exist.
@@ -114,7 +114,7 @@ class URL {
 		}
 	}
 
-	function remove($arr) {
+	public function remove($arr) {
 		// $arr is a list array of key names. Any key/value pairs
 		// in session_vars with keys found in $arr will be removed.
 		foreach ($arr as $key) {
@@ -124,7 +124,7 @@ class URL {
 		}
 	}
 
-	function update($arr) {
+	public function update($arr) {
 		// $arr is an associative array of key/value pairs.
 		// Any keys in session_vars that are also in $arr
 		// will have their values overwritten by those in $arr.
@@ -136,7 +136,7 @@ class URL {
 		}
 	}
 
-	function generate($encode = "html", $overrideVars=array()) {
+	public function generate($encode = "html", $overrideVars=array()) {
 		// Returns a URL with the appropriate session_vars.
 		// If $encode is "html", the URL will be suitable to be put in HTML.
 		// If $encode is "none", the URL will be as is.
@@ -180,7 +180,7 @@ class URL {
 	// If you have a form that changes, say, $s, then you'll need to
 	// pass "s" in in the $remove_vars array, so it isn't created as a
 	// hidden variable.
-	function hidden_form_varsOLD ($remove_vars=array(), $insert_vars=array()) {
+	public function hidden_form_varsOLD ($remove_vars=array(), $insert_vars=array()) {
 		// This should really be tidied up lots. That $dont_keep array for a start is NASTY!
 		// You can also pass in an array of variables to remove() and insert().
 

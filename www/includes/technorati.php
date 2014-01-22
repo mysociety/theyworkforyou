@@ -24,9 +24,9 @@ function technorati_pretty() {
 }
 
 class xItem {
-  var $xTitle;
-  var $xLink;
-  var $xPermalink;
+  public $xTitle;
+  public $xLink;
+  public $xPermalink;
 }
 
 function technorati($url) {

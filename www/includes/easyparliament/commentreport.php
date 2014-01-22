@@ -22,25 +22,25 @@
 
 class COMMENTREPORT {
 
-	var $report_id = '';
-	var $comment_id = '';
-	var $firstname = '';
-	var $lastname = '';
-	var $body = '';
-	var $reported = NULL;	// datetime
-	var $resolved = NULL; 	// datetime
-	var $resolvedby = ''; 	// user_id
-	var $locked = NULL; 	// datetime
-	var $lockedby = '';		// user_id
-	var $upheld = ''; 		// boolean
+	public $report_id = '';
+	public $comment_id = '';
+	public $firstname = '';
+	public $lastname = '';
+	public $body = '';
+	public $reported = NULL;	// datetime
+	public $resolved = NULL; 	// datetime
+	public $resolvedby = ''; 	// user_id
+	public $locked = NULL; 	// datetime
+	public $lockedby = '';		// user_id
+	public $upheld = ''; 		// boolean
 
 	// If the user was logged in, this will be set:
-	var $user_id = '';
+	public $user_id = '';
 	// If the user wasn't logged in, this will be set:
-	var $email = '';
+	public $email = '';
 
 
-	function COMMENTREPORT($report_id='') {
+	public function COMMENTREPORT($report_id='') {
 		// Pass it a report id and it gets and sets this report's data.
 
 		$this->db = new ParlDB;
@@ -124,22 +124,22 @@ class COMMENTREPORT {
 	}
 
 
-	function report_id() { return $this->report_id; }
-	function comment_id() { return $this->comment_id; }
-	function user_id() { return $this->user_id; }
-	function user_name() { return $this->firstname . ' ' . $this->lastname; }
-	function firstname() { return $this->firstname; }
-	function lastname() { return $this->lastname; }
-	function email() { return $this->email; }
-	function body() { return $this->body; }
-	function reported() { return $this->reported; }
-	function resolved() { return $this->resolved; }
-	function resolvedby() { return $this->resolvedby; }
-	function locked() { return $this->locked; }
-	function lockedby() { return $this->lockedby; }
-	function upheld() { return $this->upheld; }
+	public function report_id() { return $this->report_id; }
+	public function comment_id() { return $this->comment_id; }
+	public function user_id() { return $this->user_id; }
+	public function user_name() { return $this->firstname . ' ' . $this->lastname; }
+	public function firstname() { return $this->firstname; }
+	public function lastname() { return $this->lastname; }
+	public function email() { return $this->email; }
+	public function body() { return $this->body; }
+	public function reported() { return $this->reported; }
+	public function resolved() { return $this->resolved; }
+	public function resolvedby() { return $this->resolvedby; }
+	public function locked() { return $this->locked; }
+	public function lockedby() { return $this->lockedby; }
+	public function upheld() { return $this->upheld; }
 
-	function create($COMMENT, $reportdata) {
+	public function create($COMMENT, $reportdata) {
 		// For when a user posts a report on a comment.
 		// $reportdata is an array like:
 		//	array (
@@ -279,7 +279,7 @@ class COMMENTREPORT {
 	}
 
 
-	function display() {
+	public function display() {
 
 		$data = array();
 
@@ -304,7 +304,7 @@ class COMMENTREPORT {
 
 
 
-	function render($data) {
+	public function render($data) {
 		global $PAGE;
 
 		$PAGE->display_commentreport($data);
@@ -312,7 +312,7 @@ class COMMENTREPORT {
 	}
 
 
-	function lock() {
+	public function lock() {
 		// Called when an admin user goes to examine a report, so that
 		// only one person can edit at once.
 
@@ -342,7 +342,7 @@ class COMMENTREPORT {
 	}
 
 
-	function unlock() {
+	public function unlock() {
 		// Unlock a comment so it can be examined by someone else.
 
 		$q = $this->db->query ("UPDATE commentreports
@@ -362,7 +362,7 @@ class COMMENTREPORT {
 
 
 
-	function resolve($upheld, $COMMENT) {
+	public function resolve($upheld, $COMMENT) {
 		// Resolve a report.
 		// $upheld is true or false.
 		// $COMMENT is an existing COMMENT object - we need this so

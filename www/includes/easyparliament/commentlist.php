@@ -31,7 +31,7 @@ include_once INCLUDESPATH . 'dbtypes.php';
 
 class COMMENTLIST {
 
-	function COMMENTLIST() {
+	public function COMMENTLIST() {
 		global $this_page;
 
 		$this->db = new ParlDB;
@@ -44,7 +44,7 @@ class COMMENTLIST {
 	}
 
 
-	function display ($view, $args=array(), $format='html') {
+	public function display ($view, $args=array(), $format='html') {
 		// $view is what we're viewing by:
 		//	'ep' is all the comments attached to an epobject.
 		//	'user' is all the comments written by a user.
@@ -87,11 +87,11 @@ class COMMENTLIST {
 		return true;
 	}
 
-	function render($data, $format='html', $template='comments') {
+	public function render($data, $format='html', $template='comments') {
 		include (INCLUDESPATH."easyparliament/templates/$format/$template.php");
 	}
 
-	function _get_data_by_ep($args) {
+	public function _get_data_by_ep($args) {
 		// Get all the data attached to an epobject.
 		global $PAGE;
 
@@ -131,7 +131,7 @@ class COMMENTLIST {
 
 
 
-	function _get_data_by_user($args) {
+	public function _get_data_by_user($args) {
 		// Get a user's most recent comments.
 		// Could perhaps be modified to get different lists of a user's
 		// comments by things in $args?
@@ -265,7 +265,7 @@ class COMMENTLIST {
 
 
 
-	function _get_data_by_recent($args) {
+	public function _get_data_by_recent($args) {
 		// $args should contain 'num', indicating how many to get.
 		// and perhaps pid too, for a particular person
 
@@ -322,7 +322,7 @@ class COMMENTLIST {
 		return $data;
 	}
 
-  function _get_data_by_dates($args) {
+  public function _get_data_by_dates($args) {
     // $args should contain start_date and end_date
 
     	twfy_debug (get_class($this), "getting data by recent");
@@ -344,7 +344,7 @@ class COMMENTLIST {
     	return $data;
   }
 
-	function _get_data_by_search($args) {
+	public function _get_data_by_search($args) {
 		// $args should contain 'num', indicating how many to get.
 
 		twfy_debug (get_class($this), "getting data by search");
@@ -389,7 +389,7 @@ class COMMENTLIST {
 	}
 
 
-	function _comment_url($urldata) {
+	public function _comment_url($urldata) {
 		global $hansardmajors;
 
 		// Pass it the major and gid of the comment's epobject and the comment_id.
@@ -454,7 +454,7 @@ class COMMENTLIST {
 	}
 	*/
 
-	function _get_comment_data($input) {
+	public function _get_comment_data($input) {
 		// Generic function for getting hansard data from the DB.
 		// It returns an empty array if no data was found.
 		// It returns an array of items if 1 or more were found.

@@ -44,13 +44,13 @@ Specifying which of the above is happening is down to the edit_type field.
 
 class EDITQUEUE {
 
-	var $pending_count = '';
+	public $pending_count = '';
 
-	function EDITQUEUE() {
+	public function EDITQUEUE() {
 		$this->db = new ParlDB;
 	}
 
-	function add($data) {
+	public function add($data) {
 		// This does the bare minimum.
 		// The upper object should make sure it's passsing good data.
 		// (for now!)
@@ -96,7 +96,7 @@ class EDITQUEUE {
 		}
 	}
 
-	function approve($data) {
+	public function approve($data) {
 	// Approve items for inclusion
 	// Create new epobject and update the editqueue
 
@@ -189,7 +189,7 @@ class EDITQUEUE {
 		return true;
 	}
 
-	function decline($data) {
+	public function decline($data) {
 	// Decline a list of term submissions from users
 
 		global $THEUSER;
@@ -229,7 +229,7 @@ class EDITQUEUE {
 
 	}
 
-	function modify($args) {
+	public function modify($args) {
 	// Moderate a post,
 	// log it in editqueue,
 	// update glossary_id
@@ -241,7 +241,7 @@ class EDITQUEUE {
 
 	}
 
-	function get_pending() {
+	public function get_pending() {
 	// Fetch all pending editqueue items.
 	// Sets $this->pending and returns a body count.
 	// Return organised by type? - maybe not for the moment
@@ -261,7 +261,7 @@ class EDITQUEUE {
 		}
 	}
 
-	function display() {
+	public function display() {
 	// Print all our pending items out in a nice list or something
 	// Add links later for "approve, decline, refer"
 	// Just get the fucker working for now
@@ -304,7 +304,7 @@ class EDITQUEUE {
 ///////////////////
 // PRIVATE FUNCTIONS
 
-	function update_pending_count() {
+	public function update_pending_count() {
 	// Just makes sure we're showing the right number of pending items
 		$this->pending_count = count($this->pending);
 	}
@@ -314,7 +314,7 @@ class EDITQUEUE {
 // Glossary overrides
 class GLOSSEDITQUEUE extends EDITQUEUE {
 
-	function approve($data) {
+	public function approve($data) {
 	// Approve items for inclusion
 	// Create new epobject and update the editqueue
 

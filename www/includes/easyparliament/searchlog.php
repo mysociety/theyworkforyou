@@ -27,13 +27,13 @@ into being more popular.
 class SEARCHLOG {
 
 
-	function SEARCHLOG() {
+	public function SEARCHLOG() {
         $this->SEARCHURL = new URL('search');
 
         $this->db = new ParlDB;
 	}
 
-	function add($searchlogdata) {
+	public function add($searchlogdata) {
 
 		$ip = getenv('REMOTE_ADDR');
 		if (preg_match('#66\.249\.(6[4-9]|[78]\d|9[0-5])\.#', $ip)) { # Googlebot
@@ -52,7 +52,7 @@ class SEARCHLOG {
     }
 
     // Select popular queries
-    function popular_recent($count, $max_chars = null) {
+    public function popular_recent($count, $max_chars = null) {
 
         $q =  $this->db->query("SELECT *, count(*) AS c FROM search_query_log
                 WHERE count_hits != 0 AND query_string != 'twat'
@@ -84,7 +84,7 @@ class SEARCHLOG {
         return $popular_searches;
     }
 
-    function _db_row_to_array($q, $row) {
+    public function _db_row_to_array($q, $row) {
         $query = $q->field($row, 'query_string');
         $this->SEARCHURL->insert(array('s'=>$query, 'pop'=>1));
         $url = $this->SEARCHURL->generate();
@@ -107,7 +107,7 @@ class SEARCHLOG {
         return $rowarray;
     }
 
-    function admin_recent_searches($count) {
+    public function admin_recent_searches($count) {
 
         $q = $this->db->query("SELECT query_string, page_number, count_hits, ip_address, query_time
                 FROM search_query_log ORDER BY query_time desc LIMIT $count");
@@ -119,7 +119,7 @@ class SEARCHLOG {
         return $searches_array;
     }
 
-    function admin_popular_searches($count) {
+    public function admin_popular_searches($count) {
 
         $q =  $this->db->query("SELECT *, count(*) AS c FROM search_query_log
                 WHERE count_hits != 0 AND query_string NOT LIKE '%speaker:%'
@@ -135,7 +135,7 @@ class SEARCHLOG {
     }
 
 
-    function admin_failed_searches() {
+    public function admin_failed_searches() {
 
         $q = $this->db->query("SELECT query_string, page_number, count_hits, ip_address, query_time,
                 COUNT(*) AS group_count, MIN(query_time) AS min_time, MAX(query_time) AS max_time,
