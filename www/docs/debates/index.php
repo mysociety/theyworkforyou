@@ -145,7 +145,7 @@ if (get_http_var("d") != "") {
 <h4>Search debates</h4>
 <div class="blockbody">
 <form action="/search/" method="get">
-<p><input type="text" name="q" value="" size="40"> <input type="submit" value="Go">
+<p><input type="text" name="q" id="search_input" value="" size="40"> <input type="submit" value="Go">
 <br><input type="checkbox" name="section[]" value="debates" checked id="section_commons">
 <label for="section_commons">Commons</label>
 <input type="checkbox" name="section[]" value="whall" checked id="section_whall">

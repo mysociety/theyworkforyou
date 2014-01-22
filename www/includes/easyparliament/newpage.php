@@ -470,8 +470,8 @@ class NEWPAGE extends PAGE {
                     </li>
                     <li id="search-wrapper">
                         <form action="<?php print $SEARCH->generate(); ?>" method="get">
-                            <label for="s"><img src="/images/search-white.png" /></label>
-                            <input type="text" id="s" name="q" placeholder="Type search terms and hit enter...">
+                            <label for="header_search_input"><img src="/images/search-white.png" /></label>
+                            <input type="text" id="header_search_input" name="q" placeholder="Type search terms and hit enter...">
                         </form>
                     </li>
                     <li class="has-dropdown" id="user_options">
