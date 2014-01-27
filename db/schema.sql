@@ -330,7 +330,7 @@ CREATE TABLE `users` (
   `firstname` varchar(255) NOT NULL default '',
   `lastname` varchar(255) NOT NULL default '',
   `email` varchar(255) NOT NULL default '',
-  `password` varchar(34) NOT NULL default '',
+  `password` varchar(102) NOT NULL default '',
   `lastvisit` datetime NOT NULL default '0000-00-00 00:00:00',
   `registrationtime` datetime NOT NULL default '0000-00-00 00:00:00',
   `registrationip` varchar(20) default NULL,
