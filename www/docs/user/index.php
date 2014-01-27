@@ -523,6 +523,8 @@ function display_form ( $details = array(), $errors = array() ) {
 		
 		if (!$THEUSER->isloggedin()) {
 			?>
+				<p>Joining TheyWorkForYou allows you to leave annotations on debates, as well as
+					making it easier to manage your email alerts.</p>
 				<p>Already joined? <a href="<?php echo $URL->generate(); ?>">Then sign in!</a></p>
 <?php
 		}
