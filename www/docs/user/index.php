@@ -772,7 +772,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
 				<div class="row">
 				<span class="label">&nbsp;</span>
-				<span class="formw">&nbsp;<br><small>Read our <a href="<?php echo $TERMSURL->generate(); ?>">Terms of Use</a>.</small></span>
+				<span class="formw">&nbsp;<br><small>Read our <a href="<?php echo $TERMSURL->generate(); ?>" target="_blank">Terms of Use</a>.</small></span>
 				</div>
 
 				<div class="row">
