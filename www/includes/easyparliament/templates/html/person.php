@@ -561,6 +561,7 @@ function person_voting_record($member, $extra_info) {
         array(6671, 'reducing central government funding of local government'),
         array(6672, 'reducing housing benefit for social tenants deemed to have excess bedrooms (which Labour describe as the "bedroom tax").'),
         array(6673, 'paying higher benefits over longer periods for those unable to work due to illness or disability.'),
+        array(6674, 'raising welfare benefits at least in line with prices.'),
 
         # Unfinished
         # array(856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>"),
