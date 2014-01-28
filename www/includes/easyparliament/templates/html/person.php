@@ -562,6 +562,7 @@ function person_voting_record($member, $extra_info) {
         array(6672, 'reducing housing benefit for social tenants deemed to have excess bedrooms (which Labour describe as the "bedroom tax").'),
         array(6673, 'paying higher benefits over longer periods for those unable to work due to illness or disability.'),
         array(6674, 'raising welfare benefits at least in line with prices.'),
+        array(6676, 'reforming the NHS so GPs buy services on behalf of their patients.'),
         array(6677, 'restricting the provision of services to private patients by the NHS.'),
 
         # Unfinished
