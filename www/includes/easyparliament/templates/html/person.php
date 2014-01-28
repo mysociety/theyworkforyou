@@ -542,7 +542,7 @@ function person_voting_record($member, $extra_info) {
         array(363, "introducing <b>foundation hospitals</b>"),
         array(811, "a <b>smoking ban</b>", true),
         array(826, "equal <b>gay rights</b>"),
-        array(984, "replacing <b>Trident</b>"),
+        array(984, "replacing <b>Trident</b> with a new nuclear weapons system"),
         array(996, "a <b>transparent Parliament</b>"),
         array(1030, "laws to <b>stop climate change</b>"),
         array(1049, "the <b>Iraq war</b>"),
