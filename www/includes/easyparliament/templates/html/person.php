@@ -559,6 +559,7 @@ function person_voting_record($member, $extra_info) {
         array(1110, "increasing the <b>rate of VAT</b>"),
         array(1124, "automatic enrolment in occupational pensions"),
         array(6671, 'reducing central government funding of local government'),
+        array(6672, 'reducing housing benefit for social tenants deemed to have excess bedrooms (which Labour describe as the "bedroom tax").'),
 
         # Unfinished
         # array(856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>"),
