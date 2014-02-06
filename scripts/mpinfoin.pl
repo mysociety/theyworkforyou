@@ -146,9 +146,47 @@ if ($action{'pw'}) {
         $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml", $ua);
         $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords", $ua);
         # Various policy IDs, see http://www.publicwhip.org.uk/policies.php for what they are
-        foreach my $dreamid (1049, 1053, 1050, 363, 826, 1051, 1052, 1132, 856, 811, 975, 996, 984, 1030,
-            837, 1071, 1074, 1077, 1079, 1080, 1087, 1065, 1110, 1084, 1124, 1109) {
-                $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid", $ua);
+        foreach my $dreamid (
+            363,
+            811,
+            826,
+            984,
+            996,
+            1027,
+            1030,
+            1049,
+            1050,
+            1051,
+            1052,
+            1053,
+            1065,
+            1071,
+            1074,
+            1079,
+            1084,
+            1087,
+            1110,
+            1113,
+            1124,
+            1136,
+            6670,
+            6671,
+            6672,
+            6673,
+            6674,
+            6676,
+            6677,
+
+            856,
+            1080,
+            1077,
+
+            837,
+            975,
+            1109,
+            1132
+        ) {
+          $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid", $ua);
         }
 }
 
