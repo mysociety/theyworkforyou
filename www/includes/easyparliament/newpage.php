@@ -1159,6 +1159,13 @@ pr()//-->
 
 <script>
   $(document).foundation();
+  $(function() {
+    setTimeout(function() {
+      try {
+        ga('send', 'event', 'engagement', 'timer', '7');
+      } catch(err){}
+    }, 7000);
+  });
 </script>
 </body>
 <?php
