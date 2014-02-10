@@ -7,21 +7,21 @@ global $PAGE;
 // Contents varies depending on the page we're on...
 
 if ($this_page == 'nidebatesday') {
-	$date = get_http_var('d');
-	list($year, $month, $day) = explode('-', $date);
-	
-	$args = array (
-		'year' => $year,
-		'month' => $month,
-		'onday' => $date
-	);
-	$title = 'Debates this month';
-	
+    $date = get_http_var('d');
+    list($year, $month, $day) = explode('-', $date);
+
+    $args = array (
+        'year' => $year,
+        'month' => $month,
+        'onday' => $date
+    );
+    $title = 'Debates this month';
+
 } else {
-	$args = array (
-		'months' => 1	// How many recent months to show.
-	);
-	$title = 'Recent debates';
+    $args = array (
+        'months' => 1	// How many recent months to show.
+    );
+    $title = 'Recent debates';
 }
 
 $PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
@@ -31,4 +31,3 @@ $LIST = new NILIST;
 $LIST->display('calendar', $args);
 
 $PAGE->block_end();
-?>

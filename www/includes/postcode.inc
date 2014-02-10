@@ -45,7 +45,7 @@ function postcode_to_constituency_internal($postcode, $mp_only=true, $api) {
     # Try and match with regexp to exclude non postcodes quickly
     if (!validate_postcode($postcode))
         return '';
-  
+
     $db = new ParlDB;
 
     $q = $db->query('select name from postcode_lookup where postcode = "'. mysql_real_escape_string($postcode).'"');

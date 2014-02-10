@@ -18,7 +18,7 @@ Please sign up and we'll send you easy tasks (like emailing your MP, or coming u
 </p>
 </form>
 
-<?
+<?php
 }
 
 function freeourbills_styles() {
@@ -35,20 +35,20 @@ p#free_our_bills_banner {
     font-style: italic;
 }
 ul.free_our_bill_reasons {
-	list-style-type: disc;
+    list-style-type: disc;
 }
 
 p#fob_help {
-	font-weight: bold;
-	background: #C00;
-	color: #fff;
-	padding: 0.5em;
-	margin-bottom: 0;
-	margin-left: 0;
+    font-weight: bold;
+    background: #C00;
+    color: #fff;
+    padding: 0.5em;
+    margin-bottom: 0;
+    margin-left: 0;
 }
 
 div.main .free_our_bills_signup p {
-	margin-left: 0;
+    margin-left: 0;
 }
 .free_our_bills_signup {
     display: table;
@@ -83,10 +83,6 @@ h2.free_our_bills_confirm {
     font-weight: bold;
 }
 
-
-
-
 </style>
-<?
+<?php
 }
-

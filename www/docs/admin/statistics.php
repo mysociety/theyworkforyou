@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 $this_page = "admin_statistics";
 
 $db = new ParlDB;
@@ -8,7 +8,6 @@ $db = new ParlDB;
 $PAGE->page_start();
 
 $PAGE->stripe_start();
-
 
 ?>
 
@@ -33,7 +32,6 @@ $q = $db->query("SELECT count(distinct hdate) as count from hansard");
 $uniquedates = $q->field(0, 'count');
 ?>
 
-
 <p><b><?=$datefrom?></b> to <b><?=$dateto?></b>. Parliament was sitting for
 <b><?=$uniquedates?></b> of those days.
 
@@ -51,10 +49,10 @@ Wrans items / in-session day: <?=round($wrans_items/$uniquedates,0)?> -->
 $menu = $PAGE->admin_menu();
 
 $PAGE->stripe_end(array(
-	array(
-		'type'		=> 'html',
-		'content'	=> $menu
-	)
+    array(
+        'type'		=> 'html',
+        'content'	=> $menu
+    )
 ));
 
 $PAGE->page_end();

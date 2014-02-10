@@ -7,18 +7,18 @@ class PAGE {
 
     // So we can tell from other places whether we need to output the page_start or not.
     // Use the page_started() function to do this.
-    var $page_start_done = false;
-    var $supress_heading = false;
-    var $heading_displayed = false;
+    public $page_start_done = false;
+    public $supress_heading = false;
+    public $heading_displayed = false;
 
     // We want to know where we are with the stripes, the main structural elements
     // of most pages, so that if we output an error message we can wrap it in HTML
     // that won't break the rest of the page.
     // Changed in $this->stripe_start().
-    var $within_stripe_main = false;
-    var $within_stripe_sidebar = false;
+    public $within_stripe_main = false;
+    public $within_stripe_sidebar = false;
 
-    function page_start () {
+    public function page_start() {
 
       ob_start();
       set_time_limit(0);
@@ -66,21 +66,21 @@ class PAGE {
     }
 
 
-    function page_end ($extra = null) {
+    public function page_end($extra = null) {
         $this->content_end();
         $this->page_footer($extra);
     }
 
 
-    function page_started () {
+    public function page_started() {
         return $this->page_start_done == true ? true : false;
     }
 
-    function heading_displayed () {
+    public function heading_displayed() {
         return $this->heading_displayed == true ? true : false;
     }
 
-    function within_stripe () {
+    public function within_stripe() {
         if ($this->within_stripe_main == true || $this->within_stripe_sidebar == true) {
             return true;
         } else {
@@ -88,7 +88,7 @@ class PAGE {
         }
     }
 
-    function within_stripe_sidebar () {
+    public function within_stripe_sidebar() {
         if ($this->within_stripe_sidebar == true) {
             return true;
         } else {
@@ -97,7 +97,7 @@ class PAGE {
     }
 
 
-    function page_header () {
+    public function page_header() {
         global $DATA, $this_page;
 
         $linkshtml = "";
@@ -247,7 +247,7 @@ class PAGE {
 
 <script type="text/javascript">
 
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (function (i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function () {
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
@@ -256,30 +256,30 @@ class PAGE {
     ga('set', 'anonymizeIp', true);
     ga('send', 'pageview');
 
-  function recordWTT(link, label) {
+  public function recordWTT(link, label) {
     ga('send', 'event', 'Links', 'WriteToThem', label);
     setTimeout('document.location = "' + link.href + '"', 100);
   }
 
-  function trackFormSubmit(form, category, name, value) {
+  public function trackFormSubmit(form, category, name, value) {
     try {
       ga('send', 'event', category, name, value);
-    } catch(err){}
-    setTimeout(function() {
+    } catch (err) {}
+    setTimeout(function () {
       form.submit();
       }, 100);
     }
 
 </script>
 
-<?      } ?>
+<?php      } ?>
 
 </head>
 
 <?php
     }
 
-    function page_body () {
+    public function page_body() {
         global $this_page;
 
         // Start the body, put in the page headings.
@@ -288,23 +288,23 @@ class PAGE {
 
 <div id="fb-root"></div>
 <script>
-window.fbAsyncInit = function() {
+window.fbAsyncInit = function () {
     FB.init({
     appId      : '227648394066332',
     xfbml      : true
     });
 
-    FB.Event.subscribe('edge.create', function(targetUrl) {
+    FB.Event.subscribe('edge.create', function (targetUrl) {
         ga('send', 'social', 'facebook', 'like', targetUrl);
     });
 
-    FB.Event.subscribe('edge.remove', function(targetUrl) {
+    FB.Event.subscribe('edge.remove', function (targetUrl) {
         ga('send', 'social', 'facebook', 'unlike', targetUrl);
     });
 
 };
 
-(function(d, s, id) {
+(function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
@@ -350,7 +350,7 @@ window.fbAsyncInit = function() {
     }
 
     //render the little mysociety crossell
-    function mysociety_bar () {
+    public function mysociety_bar() {
         global $this_page;
         ?>
             <div id="mysociety_bar">
@@ -380,7 +380,7 @@ window.fbAsyncInit = function() {
         <?php
     }
 
-    function title_bar () {
+    public function title_bar() {
         // The title bit of the page, with possible search box.
         global $this_page, $DATA;
 
@@ -408,7 +408,7 @@ window.fbAsyncInit = function() {
             <form action="<?php echo $URL->generate(); ?>" method="get">
                <label for="searchbox">Search</label><input id="searchbox" name="s" size="15">
                <input type="submit" class="submit" value="Go">
-               <? /* <input type="hidden" name="section" value="<?=$section?>"> */ ?>
+               <?php /* <input type="hidden" name="section" value="<?=$section?>"> */ ?>
             </form>
             <ul>
                 <li>
@@ -431,7 +431,7 @@ window.fbAsyncInit = function() {
 
     // Works out which things to highlight, and which 'country' section we're in.
     // Returns array of 'top' highlight, 'bottom' highlight, and which country section to show
-    function menu_highlights() {
+    public function menu_highlights() {
         global $this_page, $DATA;
 
         // We work out which of the items in the top and bottom menus
@@ -496,7 +496,7 @@ window.fbAsyncInit = function() {
         );
     }
 
-    function menu () {
+    public function menu() {
         global $this_page, $DATA, $THEUSER;
 
         // Page names mapping to those in metadata.php.
@@ -573,8 +573,7 @@ window.fbAsyncInit = function() {
 <?php
     }
 
-
-    function user_bar ($top_highlight='') {
+    public function user_bar($top_highlight='') {
         // Called from menu(), but separated out here for clarity.
         // Does just the bit of the menu related to login/join/etc.
         global $this_page, $DATA, $THEUSER;
@@ -684,9 +683,9 @@ window.fbAsyncInit = function() {
                 $logintext  = $menudata['text'];
                 $logintitle = $menudata['title'];
                 $URL = new URL($item);
-                if($divider){
+                if ($divider) {
                     echo '<li class="divider"><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
-                }else{
+                } else {
                     echo '<li><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
                 }
                 $divider = false;
@@ -695,9 +694,8 @@ window.fbAsyncInit = function() {
         echo '</ul>';
     }
 
-
     // Where the actual meat of the page begins, after the title and menu.
-    function content_start () {
+    public function content_start() {
         global $this_page, $THEUSER;
         echo '<div id="content">';
 
@@ -721,8 +719,7 @@ window.fbAsyncInit = function() {
 
     }
 
-
-    function stripe_start ($type='side', $id='', $extra_class = '') {
+    public function stripe_start($type='side', $id='', $extra_class = '') {
         // $type is one of:
         //  'full' - a full width div
         //  'side' - a white stripe with a coloured sidebar.
@@ -752,7 +749,7 @@ window.fbAsyncInit = function() {
     }
 
 
-    function stripe_end ($contents = array(), $extra = '') {
+    public function stripe_end ($contents = array(), $extra = '') {
         // $contents is an array containing 0 or more hashes.
         // Each hash has two values, 'type' and 'content'.
         // 'Type' could be one of these:
@@ -807,7 +804,7 @@ window.fbAsyncInit = function() {
             </div> <!-- end .main -->
             <div class="sidebar">
 
-        <?
+        <?php
         $this->within_stripe_sidebar = true;
         $extrahtml = '';
 
@@ -852,7 +849,7 @@ window.fbAsyncInit = function() {
 
 
 
-    function include_sidebar_template ($sidebarname) {
+    public function include_sidebar_template($sidebarname) {
         global $this_page, $DATA;
 
             $sidebarpath = INCLUDESPATH.'easyparliament/sidebars/'.$sidebarname.'.php';
@@ -863,7 +860,7 @@ window.fbAsyncInit = function() {
     }
 
 
-    function block_start($data=array()) {
+    public function block_start($data=array()) {
         // Starts a 'block' div, used mostly on the home page,
         // on the MP page, and in the sidebars.
         // $data is a hash like this:
@@ -898,8 +895,7 @@ window.fbAsyncInit = function() {
             }
     }
 
-
-    function block_end () {
+    public function block_end() {
         if ($this->blockbody_open) {
             ?>
                     </div>
@@ -911,8 +907,7 @@ window.fbAsyncInit = function() {
 <?php
     }
 
-
-    function heading() {
+    public function heading() {
         global $this_page, $DATA;
 
         // As well as a page's title, we may display that of its parent.
@@ -976,14 +971,14 @@ window.fbAsyncInit = function() {
 
 
 
-    function content_end () {
+    public function content_end() {
 
         print "</div> <!-- end #content -->";
 
     }
 
     //get <a> links for a particular set of pages defined in metadata.php
-    function get_menu_links ($pages){
+    public function get_menu_links($pages) {
         global $DATA, $this_page;
         $links = array();
 
@@ -999,7 +994,7 @@ window.fbAsyncInit = function() {
             $url = $DATA->page_metadata($page, 'url');
 
             //check for external vs internal menu links
-            if(!valid_url($url)){
+            if (!valid_url($url)) {
                 $URL = new URL($page);
                 $url = $URL->generate();
             }
@@ -1015,7 +1010,7 @@ window.fbAsyncInit = function() {
         return $links;
     }
 
-    function page_footer ($extra = null) {
+    public function page_footer($extra = null) {
         global $DATA, $this_page;
 
                 global $DATA, $this_page;
@@ -1104,7 +1099,8 @@ window.fbAsyncInit = function() {
                             var t, js, fjs = d.getElementsByTagName(s)[0];
                             if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
                             js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
-                            return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+
+                            return window.twttr || (t = { _e: [], ready: function (f) { t._e.push(f) } });
                         }(document, "script", "twitter-wjs"));
 
                         // Used with the Google Analytics Tweet tracking
@@ -1214,7 +1210,7 @@ pr()//-->
         ob_end_flush();
     }
 
-    function postcode_form() {
+    public function postcode_form() {
         // Used on the mp (and yourmp) pages.
         // And the userchangepc page.
         global $THEUSER;
@@ -1240,7 +1236,7 @@ pr()//-->
         $this->block_end();
     }
 
-    function member_rss_block ($urls) {
+    public function member_rss_block($urls) {
         // Returns the html for a person's rss feeds sidebar block.
         // Used on MP/Peer page.
 
@@ -1262,15 +1258,16 @@ pr()//-->
                     </div>
                 </div>
 ';
+
         return $html;
 
     }
 
-    function display_member($member, $extra_info) {
+    public function display_member($member, $extra_info) {
         include_once INCLUDESPATH . 'easyparliament/templates/html/person.php';
     }
 
-    function error_message ($message, $fatal = false, $status = 500) {
+    public function error_message($message, $fatal = false, $status = 500) {
         // If $fatal is true, we exit the page right here.
         // $message is like the array used in $this->message()
 
@@ -1301,7 +1298,7 @@ pr()//-->
     }
 
 
-    function message ($message, $class='') {
+    public function message($message, $class='') {
         // Generates a very simple but common page content.
         // Used for when a user logs out, or votes, or any simple thing
         // where there's a little message and probably a link elsewhere.
@@ -1348,11 +1345,11 @@ pr()//-->
         }
     }
 
-    function informational($text) {
+    public function informational($text) {
         print '<div class="informational left">' . $text . '</div>';
     }
 
-    function set_hansard_headings ($info) {
+    public function set_hansard_headings($info) {
         // Called from HANSARDLIST->display().
         // $info is the $data['info'] array passed to the template.
         // If the page's HTML hasn't already been started, it sets the page
@@ -1394,7 +1391,7 @@ pr()//-->
 
     }
 
-    function nextprevlinks () {
+    public function nextprevlinks() {
 
         // Generally called from $this->stripe_end();
 
@@ -1466,7 +1463,7 @@ pr()//-->
     }
 
 
-    function recess_message() {
+    public function recess_message() {
         // Returns a message if parliament is currently in recess.
         include_once INCLUDESPATH."easyparliament/recess.php";
         $message = '';
@@ -1488,7 +1485,7 @@ pr()//-->
         return $message;
     }
 
-    function trackback_rss ($trackbackdata) {
+    public function trackback_rss($trackbackdata) {
         /*
         Outputs Trackback Auto Discovery RSS for something.
 
@@ -1515,7 +1512,7 @@ pr()//-->
 <?php
     }
 
-    function search_form ($value='') {
+    public function search_form($value='') {
         global $SEARCHENGINE;
         // Search box on the search page.
         // If $value is set then it will be displayed in the form.
@@ -1559,7 +1556,7 @@ pr()//-->
     <form action="http://www.writetothem.com/lords" method="get">
     <input type="hidden" name="pid" value="<?=htmlentities(get_http_var('pid')) ?>">
     <input type="submit" style="font-size: 150%" value=" I want to write to this Lord "><br>
-<?
+<?php
         }
 
         if (!$wtt && ($value || $person_name)) {
@@ -1601,18 +1598,18 @@ pr()//-->
                     <input type="radio" name="pid" value="<?php echo htmlentities($person_id) ?>" checked>Search only <?php echo htmlentities($person_name) ?>
                     <input type="radio" name="pid" value="">Search all speeches
                     </p>
-                <?
+                <?php
                 }
         }
 
         echo '</form> </div>';
     }
 
-    function advanced_search_form() {
+    public function advanced_search_form() {
         include_once INCLUDESPATH . 'easyparliament/templates/html/search_advanced.php';
     }
 
-    function login_form ($errors = array()) {
+    public function login_form ($errors = array()) {
         // Used for /user/login/ and /user/prompt/
         // $errors is a hash of potential errors from a previous log in attempt.
         ?>
@@ -1691,9 +1688,7 @@ pr()//-->
 <?php
     }
 
-
-
-    function mp_search_form ($person_id) {
+    public function mp_search_form($person_id) {
         // Search box on the MP page.
 
         $URL = new URL('search');
@@ -1710,8 +1705,7 @@ pr()//-->
 <?php
     }
 
-
-    function glossary_search_form ($args) {
+    public function glossary_search_form($args) {
         // Search box on the glossary page.
         global $THEUSER;
 
@@ -1746,7 +1740,7 @@ pr()//-->
 <?php
     }
 
-    function glossary_add_definition_form ($args) {
+    public function glossary_add_definition_form($args) {
         // Add a definition for a new Glossary term.
         global $GLOSSARY;
 
@@ -1767,7 +1761,7 @@ pr()//-->
 <?php
     }
 
-    function glossary_add_link_form ($args) {
+    public function glossary_add_link_form($args) {
         // Add an external link to the glossary.
         global $GLOSSARY;
 
@@ -1789,7 +1783,7 @@ pr()//-->
 <?php
     }
 
-    function glossary_atoz(&$GLOSSARY) {
+    public function glossary_atoz(&$GLOSSARY) {
     // Print out a nice list of lettered links to glossary pages
 
         $letters = array ();
@@ -1825,14 +1819,14 @@ pr()//-->
                     <div class="letters">
                         <ul>
     <?php
-        for($n=0; $n<13; $n++) {
+        for ($n=0; $n<13; $n++) {
             print $letters[$n];
         }
         ?>
                         </ul>
                         <ul>
     <?php
-        for($n=13; $n<26; $n++) {
+        for ($n=13; $n<26; $n++) {
             print $letters[$n];
         }
         ?>
@@ -1841,7 +1835,7 @@ pr()//-->
         <?php
     }
 
-    function glossary_display_term(&$GLOSSARY) {
+    public function glossary_display_term(&$GLOSSARY) {
     // Display a single glossary term
         global $this_page;
 
@@ -1850,7 +1844,7 @@ pr()//-->
         $term['body'] = $GLOSSARY->glossarise($term['body'], 0, 1);
 
         // add some extra controls for the administrators
-        if ($this_page == "admin_glossary"){
+        if ($this_page == "admin_glossary") {
             print "<a id=\"gl".$term['glossary_id']."\"></a>";
             print "<h3>" . $term['title'] . "</h3>";
             $URL = new URL('admin_glossary');
@@ -1885,9 +1879,7 @@ pr()//-->
         }
     }
 
-
-
-    function glossary_display_match_list(&$GLOSSARY) {
+    public function glossary_display_match_list(&$GLOSSARY) {
             if ($GLOSSARY->num_search_matches > 1) {
                 $plural = "them";
                 $definition = "some definitions";
@@ -1898,19 +1890,19 @@ pr()//-->
             ?>
             <h4>Found <?php echo $GLOSSARY->num_search_matches; ?> matches for <em><?php echo $GLOSSARY->query; ?></em></h4>
             <p>It seems we already have <?php echo $definition; ?> for that. Would you care to see <?php echo $plural; ?>?</p>
-            <ul class="glossary"><?
+            <ul class="glossary"><?php
             foreach ($GLOSSARY->search_matches as $match) {
                 $URL = new URL('glossary');
                 $URL->insert(array('gl' => $match['glossary_id']));
                 $URL->remove(array('g'));
                 $term_link = $URL->generate('url');
-                ?><li><a href="<?php echo $term_link ?>"><?php echo $match['title']?></a></li><?
+                ?><li><a href="<?php echo $term_link ?>"><?php echo $match['title']?></a></li><?php
             }
             ?></ul>
 <?php
     }
 
-    function glossary_addterm_link() {
+    public function glossary_addterm_link() {
         // print a link to the "add glossary term" page
         $URL = new URL('glossary_addterm');
         $URL->remove(array("g"));
@@ -1918,7 +1910,7 @@ pr()//-->
         print "<small><a href=\"" . $glossary_addterm_link . "\">Add a term to the glossary</a></small>";
     }
 
-    function glossary_addlink_link() {
+    public function glossary_addlink_link() {
         // print a link to the "add external link" page
         $URL = new URL('glossary_addlink');
         $URL->remove(array("g"));
@@ -1926,8 +1918,7 @@ pr()//-->
         print "<small><a href=\"" . $glossary_addlink_link . "\">Add an external link</a></small>";
     }
 
-
-    function glossary_link() {
+    public function glossary_link() {
         // link to the glossary with no epobject_id - i.e. show all entries
         $URL = new URL('glossary');
         $URL->remove(array("g"));
@@ -1935,7 +1926,7 @@ pr()//-->
         print "<small><a href=\"" . $glossary_link . "\">Browse the glossary</a></small>";
     }
 
-    function glossary_links() {
+    public function glossary_links() {
         print "<div>";
         $this->glossary_link();
         print "<br>";
@@ -1943,7 +1934,7 @@ pr()//-->
         print "</div>";
     }
 
-    function page_links ($pagedata) {
+    public function page_links($pagedata) {
         // The next/prev and page links for the search page.
         global $this_page;
 
@@ -1951,7 +1942,6 @@ pr()//-->
         $total_results      = $pagedata['total_results'];
         $results_per_page   = $pagedata['results_per_page'];
         $page               = $pagedata['page'];
-
 
         if ($total_results > $results_per_page) {
 
@@ -2045,7 +2035,7 @@ pr()//-->
 
 
 
-    function comment_form ($commentdata) {
+    public function comment_form($commentdata) {
         // Comment data must at least contain an epobject_id.
         // Comment text is optional.
         // 'return_page' is either 'debate' or 'wran'.
@@ -2060,6 +2050,7 @@ pr()//-->
 
         if (!isset($commentdata['epobject_id']) || !is_numeric($commentdata['epobject_id'])) {
             $this->error_message("Sorry, we need an epobject id");
+
             return;
         }
 
@@ -2078,14 +2069,16 @@ pr()//-->
             ?>
                 <p><a href="<?php echo $LOGINURL->generate(); ?>">Sign in</a> or <a href="<?php echo $JOINURL->generate(); ?>">join</a> to post a public annotation.</p>
 <?php
+
             return;
 
-        } else if (!$THEUSER->is_able_to('addcomment')) {
+        } elseif (!$THEUSER->is_able_to('addcomment')) {
             // The user is logged in but not allowed to post a comment.
 
             ?>
                 <p>You are not allowed to post annotations.</p>
 <?php
+
             return;
         }
 
@@ -2123,8 +2116,7 @@ Annotations should be information that adds value to the contribution, not opini
 <?php
     }
 
-
-    function display_commentreport ($data) {
+    public function display_commentreport($data) {
         // $data has key value pairs.
         // Called from $COMMENT->display_report().
 
@@ -2158,7 +2150,7 @@ Annotations should be information that adds value to the contribution, not opini
     }
 
 
-    function display_commentreportlist ($data) {
+    public function display_commentreportlist($data) {
         // For the admin section.
         // Gets an array of data from COMMENTLIST->render().
         // Passes it on to $this->display_table().
@@ -2217,7 +2209,7 @@ Annotations should be information that adds value to the contribution, not opini
 
 
 
-    function display_calendar_month ($month, $year, $dateArray, $page) {
+    public function display_calendar_month($month, $year, $dateArray, $page) {
         // From http://www.zend.com/zend/trick/tricks-Oct-2002.php
         // Adjusted for style, putting Monday first, and the URL of the page linked to.
 
@@ -2272,7 +2264,7 @@ Annotations should be information that adds value to the contribution, not opini
 
         // Create the calendar headers
 
-        foreach($daysOfWeek as $day) {
+        foreach ($daysOfWeek as $day) {
             $calendar .= "<th>$day</th>";
         }
 
@@ -2352,7 +2344,7 @@ Annotations should be information that adds value to the contribution, not opini
     }
 
 
-    function display_table($data) {
+    public function display_table($data) {
         /* Pass it data to be displayed in a <table> and it renders it
             with stripes.
 
@@ -2412,7 +2404,7 @@ Annotations should be information that adds value to the contribution, not opini
 
 
 
-    function admin_menu () {
+    public function admin_menu() {
         // Returns HTML suitable for putting in the sidebar on Admin pages.
         global $this_page, $DATA;
 
@@ -2449,4 +2441,3 @@ Annotations should be information that adds value to the contribution, not opini
 }
 
 $PAGE = new PAGE;
-

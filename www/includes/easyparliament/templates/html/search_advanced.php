@@ -136,7 +136,7 @@ All broken
 <option value="None">Scottish Parliament Speaker
 <option>SDLP
 <option>SG
-<!-- 
+<!--
 Sinn Fein is broken
 <option value="SF,Sinn F&eacute;in">Sinn F&eacute;in
 -->
@@ -195,4 +195,3 @@ reference), you can restrict results to that.
 <input type="submit" value="Search">
 </p>
 </form>
-

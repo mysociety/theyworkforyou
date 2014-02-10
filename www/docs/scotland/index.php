@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 
 $this_page = 'spoverview';
 $PAGE->page_start();
@@ -77,4 +77,3 @@ $MOREURL = new URL('spdebatesfront');
 
 $PAGE->stripe_end();
 $PAGE->page_end();
-

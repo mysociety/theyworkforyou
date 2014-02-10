@@ -1,15 +1,15 @@
 <?php
 
 function optgroups($data, $current) {
-	foreach ($data as $key => $values) {
-		echo '<optgroup label="', $key, '">';
-		foreach ($values as $k => $v) {
-			echo '<option';
-			if ($current == $k) echo ' selected';
-			echo ' value="', $k, '">', $v;
-		}
- 		echo "</optgroup>\n";
-	}
+    foreach ($data as $key => $values) {
+        echo '<optgroup label="', $key, '">';
+        foreach ($values as $k => $v) {
+            echo '<option';
+            if ($current == $k) echo ' selected';
+            echo ' value="', $k, '">', $v;
+        }
+        echo "</optgroup>\n";
+    }
 }
 
 global $searchstring;
@@ -21,19 +21,19 @@ $filter_ss = $searchstring;
 $from = get_http_var('from');
 $to = get_http_var('to');
 if (preg_match('#\s*([0-9/.-]*)\.\.([0-9/.-]*)#', $filter_ss, $m)) {
-	$from = $m[1];
-	$to = $m[2];
-	$filter_ss =  preg_replace('#\s*([0-9/.-]*)\.\.([0-9/.-]*)#', '', $filter_ss);
+    $from = $m[1];
+    $to = $m[2];
+    $filter_ss =  preg_replace('#\s*([0-9/.-]*)\.\.([0-9/.-]*)#', '', $filter_ss);
 }
 $section = get_http_var('section');
 if (preg_match('#\s*section:([a-z]*)#', $filter_ss, $m)) {
-	$section = $m[1];
-	$filter_ss = preg_replace("#\s*section:$section#", '', $filter_ss);
+    $section = $m[1];
+    $filter_ss = preg_replace("#\s*section:$section#", '', $filter_ss);
 }
 
 $person = trim(get_http_var('person'));
 if ($person) {
-	$filter_ss = preg_replace('#\s*speaker:[0-9]*#', '', $filter_ss);
+    $filter_ss = preg_replace('#\s*speaker:[0-9]*#', '', $filter_ss);
 }
 
 $this->block_start(array( 'title' => "Filtering your results"));
@@ -58,33 +58,33 @@ $this->block_start(array( 'title' => "Filtering your results"));
 <label for="person">Person:</label>
 <input type="text" name="person" value="<?=htmlspecialchars($person)?>" size="25">
 <div class="help">
-Enter a name here to restrict results to contributions only by that person. 
+Enter a name here to restrict results to contributions only by that person.
 </div>
 
 <li>
  <label for="section">Section:</label>
  <select id="section" name="section">
  <option value="">Any
-<?
+<?php
  optgroups(array(
- 	'UK Parliament' => array(
-		'uk' => 'All UK',
-		'debates' => 'House of Commons debates',
-		'whall' => 'Westminster Hall debates',
-		'lords' => 'House of Lords debates',
-		'wrans' => 'Written answers',
-		'wms' => 'Written ministerial statements',
-		'standing' => 'Bill Committees',
+    'UK Parliament' => array(
+        'uk' => 'All UK',
+        'debates' => 'House of Commons debates',
+        'whall' => 'Westminster Hall debates',
+        'lords' => 'House of Lords debates',
+        'wrans' => 'Written answers',
+        'wms' => 'Written ministerial statements',
+        'standing' => 'Bill Committees',
         'future' => 'Future Business',
-	),
-	'Northern Ireland Assembly' => array(
-		'ni' => 'Debates',
-	),
-	'Scottish Parliament' => array(
-		'scotland' => 'All Scotland',
-		'sp' => 'Debates',
-		'spwrans' => 'Written answers',
-	),
+    ),
+    'Northern Ireland Assembly' => array(
+        'ni' => 'Debates',
+    ),
+    'Scottish Parliament' => array(
+        'scotland' => 'All Scotland',
+        'sp' => 'Debates',
+        'spwrans' => 'Written answers',
+    ),
  ), $section);
  ?>
  </select>
@@ -107,7 +107,6 @@ Enter a name here to restrict results to contributions only by that person.
 
 </form>
 
-<?
+<?php
 
 $this->block_end();
-

@@ -29,13 +29,13 @@ in the data we hold.
 and so on.
 </ul>
 
-<?
+<?php
 
 $includes = array(
-	array (
-		'type' => 'include',
-		'content' => 'whatisthissite'
-	),
+    array (
+        'type' => 'include',
+        'content' => 'whatisthissite'
+    ),
 );
 $PAGE->stripe_end($includes);
 $PAGE->page_end();

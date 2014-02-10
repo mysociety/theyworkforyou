@@ -7,5 +7,3 @@
 twfy_debug("TEMPLATE", "hansard_search.php");
 
 api_output($data);
-
-?>

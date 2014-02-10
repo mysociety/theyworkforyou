@@ -1,7 +1,7 @@
 <?php
 
 $notevery = true;
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include 'fns.php';
 $this_page = 'campaign_foi';
 

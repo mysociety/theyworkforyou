@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once INCLUDESPATH . '../../commonlib/phplib/mapit.php';
 include_once dirname(__FILE__) . '/api_getGeometry.php';
@@ -17,29 +17,28 @@ past constituency boundaries, and so on).</p>
 <dd>Name of the constituency.
 </dl>
 
-<?	
+<?php
 }
 
 function api_getBoundary_name($name) {
-	$name = normalise_constituency_name($name);
-	if (!$name) {
-		api_error('Name not recognised');
-		return;
-	}
+    $name = normalise_constituency_name($name);
+    if (!$name) {
+        api_error('Name not recognised');
+        return;
+    }
 
-	$out = array();
-	$areas_info = _api_cacheCheck('areas', 'WMC');
-	$id = null;
-	foreach ($areas_info as $k => $v) {
-		if (normalise_constituency_name($v['name']) == $name) {
-			$id = $k;
-		}
-	}
-	if (!$id) {
-		api_error('No data found for name');
-		return;
-	}
+    $out = array();
+    $areas_info = _api_cacheCheck('areas', 'WMC');
+    $id = null;
+    foreach ($areas_info as $k => $v) {
+        if (normalise_constituency_name($v['name']) == $name) {
+            $id = $k;
+        }
+    }
+    if (!$id) {
+        api_error('No data found for name');
+        return;
+    }
     header("Location: http://mapit.mysociety.org/area/4326/$id.kml");
     exit;
 }
-

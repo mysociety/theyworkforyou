@@ -12,7 +12,6 @@ $this->block_start(array('id'=>'help', 'title'=>"What are Debates?"));
 <!--For more about debates, click <a href="<?php echo $helpurl; ?>#debates">here</a>.-->
 </p>
 
-
 <?php
 $this->block_end();
 ?>

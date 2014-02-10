@@ -15,7 +15,7 @@ Please tell us what you think about <strong>TheyWorkForYou.com</strong>
 <li>Did it work?</li>
 <li>Do you like it? </li>
 <li>How can we improve it? </li>
-</ul> 
+</ul>
 <p>
 We seek responses to all these questions.
 </p>

@@ -1,7 +1,7 @@
 <?php
 # vim:sw=4:ts=4:et:nowrap
 
-include_once "../../../includes/easyparliament/init.php";
+include_once '../../../includes/easyparliament/init.php';
 include_once INCLUDESPATH."easyparliament/member.php";
 include_once INCLUDESPATH."easyparliament/glossary.php";
 
@@ -36,7 +36,7 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
         $searchstring .= " groupby:" . $searchgroupby;
     } // We have only one of these, rather than one in HANSARDLIST also
     global $SEARCHENGINE;
-    $SEARCHENGINE = new SEARCHENGINE($searchstring); 
+    $SEARCHENGINE = new SEARCHENGINE($searchstring);
 
     $pagetitle = "Search: " . $SEARCHENGINE->query_description_short();
 
@@ -61,5 +61,3 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
     $LIST = new HANSARDLIST();
     $LIST->display('search', $args, 'rss');
 }
-
-?>

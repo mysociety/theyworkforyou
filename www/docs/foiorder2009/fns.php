@@ -1,4 +1,4 @@
-<?
+<?php
 
 $foi2009_message = '
 <p>On the 16th of May 2008 the High Court ruled that MPs&rsquo; expenses must be published under the Freedom of Information Act.
@@ -12,7 +12,7 @@ on our Facebook group, 4,000 messages sent to MPs, help from
 <a href="http://twitter.com/stephenfry/statuses/1136046150">Stephen Fry</a>, and a helpful
 <a href="http://www.publications.parliament.uk/pa/ld200809/ldselect/ldmerit/16/1603.htm">4th Report of the House of Lords
 Merits of Statutory Instruments Committee</a>,
-it appears that the vote has been cancelled &ndash; 
+it appears that the vote has been cancelled &ndash;
 <a href="http://www.guardian.co.uk/politics/2009/jan/21/mps-expenses">Guardian</a>,
 <a href="http://www.timesonline.co.uk/tol/news/politics/article5559704.ece">Times</a>,
 <a href="http://news.bbc.co.uk/1/hi/uk_politics/7842402.stm">BBC</a>.

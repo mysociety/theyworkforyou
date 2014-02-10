@@ -14,4 +14,3 @@ activity on someone or something you&rsquo;re interested in.
 <?php
 $this->block_end();
 ?>
-

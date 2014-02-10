@@ -1,12 +1,12 @@
-<?
+<?php
 
 # Will need: $MEMBER = new MEMBER(array('constituency' => $constituency));
 
 require_once '../../includes/easyparliament/init.php';
 require_once '../../includes/postcode.inc';
 require_once '../../../commonlib/phplib/auth.php';
-require_once "share.php";
-require_once "sharethis.php";
+require_once 'share.php';
+require_once 'sharethis.php';
 
 $db = new ParlDB;
 
@@ -31,6 +31,7 @@ without your permission.
         "X-Mailer: PHP/" . phpversion();
 
     $success = mail ($to, $subject, $message, $headers);
+
     return $success;
 }
 
@@ -64,7 +65,7 @@ if (!$errors) {
         <p class="free_our_bills_confirm">If you use web-based email or have 'junk mail' filters, you may wish to check your bulk&#47;spam mail folders: sometimes, our messages are marked that way.</p>
         <p class="free_our_bills_confirm">You must now click on the link within the email we've just sent you -<br>if you do not, you will not have joined the Free Our Bills campaign.</p>
 
-        <?
+        <?php
         exit;
        }
    }
@@ -76,37 +77,36 @@ freeourbills_styles();
 
 $url_token = trim(get_http_var('t'));
 if ($url_token) {
-	
-	$q = $db->query('SELECT * FROM campaigners WHERE token = "' . mysql_real_escape_string($url_token).'"');
- 	if ($q->rows() > 0) {
-		$q = $db->query('UPDATE campaigners SET confirmed = 1 WHERE token = "' . mysql_real_escape_string($url_token).'"');
-		?>
-		<p class="free_our_bills_thanks">Thanks for signing up to the campaign! We'll contact you soon.</p>
-		<p class="free_our_bills_thanks">Now invite your friends to sign up too...</p>
-<? 
+
+    $q = $db->query('SELECT * FROM campaigners WHERE token = "' . mysql_real_escape_string($url_token).'"');
+    if ($q->rows() > 0) {
+        $q = $db->query('UPDATE campaigners SET confirmed = 1 WHERE token = "' . mysql_real_escape_string($url_token).'"');
+        ?>
+        <p class="free_our_bills_thanks">Thanks for signing up to the campaign! We'll contact you soon.</p>
+        <p class="free_our_bills_thanks">Now invite your friends to sign up too...</p>
+<?php
 $PAGE->block_start(array ('title'=>'Tell your friends about the \'Free our Bills!\' campaign'));
-freeourbills_share_page(); 
+freeourbills_share_page();
 $PAGE->block_end();
 ?>
-		<p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
-		<?
-	} else {
-		?>
-		<p class="free_our_bills_confirm">Please check the link that you've copied from your email, it doesn't seem right.</p>
-		<p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
-		<?
-	}
-	return;
+        <p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
+        <?php
+    } else {
+        ?>
+        <p class="free_our_bills_confirm">Please check the link that you've copied from your email, it doesn't seem right.</p>
+        <p><a href="/freeourbills">Return to 'Free our Bills' homepage</a>
+        <?php
+    }
+    return;
 }
 
-
 if ($errors) {
-	print '<div id="warning"><ul><li>';
-	print join ('</li><li>', array_values($errors));
-	print '</li></ul></div>';
+    print '<div id="warning"><ul><li>';
+    print join ('</li><li>', array_values($errors));
+    print '</li></ul></div>';
 
     signup_form();
-}  else {
+} else {
     print "<p class=\"free_our_bills_confirm\">There was a problem signing you up, please try again later.</p>";
 }
 ?>
@@ -117,4 +117,3 @@ if ($errors) {
 
 $PAGE->stripe_end();
 $PAGE->page_end();
-

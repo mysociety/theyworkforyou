@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH."easyparliament/people.php";
 
 if (get_http_var('msp')) {
@@ -66,4 +66,3 @@ function list_reps($type, $rep_plural, $search_sidebar) {
     }
 
 }
-

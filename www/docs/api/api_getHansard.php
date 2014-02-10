@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once INCLUDESPATH."easyparliament/member.php";
 
@@ -21,7 +21,7 @@ function api_getHansard_front() {
 <dd>Number of results to return.</dd>
 </dl>
 
-<?
+<?php
 }
 
 function api_getHansard_search($s) {
@@ -74,13 +74,15 @@ function _api_getHansard_search($array) {
             );
         }
         api_output($out);
+
         return;
     }
 
     global $SEARCHENGINE;
-    $SEARCHENGINE = new SEARCHENGINE($search); 
+    $SEARCHENGINE = new SEARCHENGINE($search);
     if (!$SEARCHENGINE->valid) {
         api_error('Invalid search term');
+
         return;
     }
 #    $query_desc_short = $SEARCHENGINE->query_description_short();
@@ -99,6 +101,7 @@ function _api_getHansard_search($array) {
 function _api_getHansard_gid($type, $gid) {
     $args = array('gid' => $gid);
     $LIST = _api_getListObject($type);
+
     return $LIST->display('gid', $args, 'api');
 }
 
@@ -110,6 +113,6 @@ function _api_getHansard_department($type, $dept) {
 
 function _api_getListObject($type) {
     eval('$list = new ' . strtoupper($type) . 'LIST;');
+
     return $list;
 }
-

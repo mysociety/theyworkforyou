@@ -2,26 +2,26 @@
 // We're within $WRANSLIST->render().
 
 /*
-	$data = array (
-		'info' => '',
-		'data' => array (
-			array (
-				'body'			=> 'Fisheries',
-				'hdate'			=> '2004-03-24',
-				'list_url'		=> '/wrans/?id=2004-03-24.342W.234',
-				'totalcomments'	=> 2,
-				'child'	=> array (
-					'body'		=> '<p>To ask the Secretary of State ... </p>'
-				),
-				'parent'	=> array (
-					'body'		=> 'Environment'
-				)
-			),
-			etc.
-		)
-	);
-	
-	
+    $data = array (
+        'info' => '',
+        'data' => array (
+            array (
+                'body'			=> 'Fisheries',
+                'hdate'			=> '2004-03-24',
+                'list_url'		=> '/wrans/?id=2004-03-24.342W.234',
+                'totalcomments'	=> 2,
+                'child'	=> array (
+                    'body'		=> '<p>To ask the Secretary of State ... </p>'
+                ),
+                'parent'	=> array (
+                    'body'		=> 'Environment'
+                )
+            ),
+            etc.
+        )
+    );
+
+
 */
 
 twfy_debug("TEMPLATE", "hansard_recent_wrans.php");

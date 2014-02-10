@@ -12,12 +12,12 @@ function lensort($a, $b) {
   return strlen($a) < strlen($b);
 }
 
-function wikipedize ($source) {
-	$was_array = false;
-	if (is_array($source)) {
-		$source = join('|||', $source);
-		$was_array = true;
-	}
+function wikipedize($source) {
+    $was_array = false;
+    if (is_array($source)) {
+        $source = join('|||', $source);
+        $was_array = true;
+    }
 
   # Set up various variables
   $capsword = "[A-Z][a-zA-Z'0-9,-]*"; # not starting with number, as catches too much
@@ -99,13 +99,13 @@ function wikipedize ($source) {
 }
 
 #credit: isaac schlueter (lifted from http://uk2.php.net/strip-tags)
-function antiTagInTag( $content = '', $format = 'htmlhead' )
+function antiTagInTag($content = '', $format = 'htmlhead')
 {
   if( !function_exists( 'format_to_output' ) )
     {    // Use the external function if it exists, or fall back on just strip_tags.
       function format_to_output($content, $format)
       {
-	return strip_tags($content);
+    return strip_tags($content);
       }
     }
   $contentwalker = 0;
@@ -117,44 +117,42 @@ function antiTagInTag( $content = '', $format = 'htmlhead' )
       $walker = $tagstart + 1;
       $open = 1;
       while( $open != 0 && $walker < strlen( $content ) )
-	{
-	  $nextopen = strpos( $content, '<', $walker );
-	  $nextclose = strpos( $content, '>', $walker );
-	  if( $nextclose === false )
-	    {    // ERROR! Open waka without close waka!
-	      // echo '<code>Error in antiTagInTag - malformed tag!</code> ';
-	      return $content;
-	    }
-	  if( $nextopen === false || $nextopen > $nextclose )
-	    { // No more opens, but there was a close; or, a close happens before the next open.
-	      // walker goes to the close+1, and open decrements
-	      $open --;
-	      $walker = $nextclose + 1;
-	    }
-	  elseif( $nextopen < $nextclose )
-	    { // an open before the next close
-	      $open ++;
-	      $walker = $nextopen + 1;
-	    }
-	}
+    {
+      $nextopen = strpos( $content, '<', $walker );
+      $nextclose = strpos( $content, '>', $walker );
+      if( $nextclose === false )
+        {    // ERROR! Open waka without close waka!
+          // echo '<code>Error in antiTagInTag - malformed tag!</code> ';
+          return $content;
+        }
+      if( $nextopen === false || $nextopen > $nextclose )
+        { // No more opens, but there was a close; or, a close happens before the next open.
+          // walker goes to the close+1, and open decrements
+          $open --;
+          $walker = $nextclose + 1;
+        }
+      elseif( $nextopen < $nextclose )
+        { // an open before the next close
+          $open ++;
+          $walker = $nextopen + 1;
+        }
+    }
       $tagend = $walker;
       if( $tagend > strlen( $content ) )
-	$tagend = strlen( $content );
+    $tagend = strlen( $content );
       else
-	{
-	  $tagend --;
-	  $tagstart ++;
-	}
+    {
+      $tagend --;
+      $tagstart ++;
+    }
       $tag = substr( $content, $tagstart, $tagend - $tagstart );
       $tags[] = '<' . $tag . '>';
       $newtag = format_to_output( $tag, $format );
       $newtags[] = '<' . $newtag . '>';
       $newtag = format_to_output( $tag, $format );
     }
-  if (isset($tags)&&isset($newtags)){
+  if (isset($tags)&&isset($newtags)) {
   $content = str_replace($tags, $newtags, $content);
   }
 return $content;
 }
-
-?>

@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once INCLUDESPATH . '../../commonlib/phplib/mapit.php';
 
@@ -33,7 +33,7 @@ for the constituency's centroid.
     &lt;parts&gt;1&lt;/parts&gt;
 &lt;/twfy&gt;
 </pre>
-<?
+<?php
 }
 
 function api_getGeometry_name($name) {
@@ -58,9 +58,11 @@ function _api_getGeometry_name($name) {
                 $out = mapit_call('area/geometry', $area_id);
             }
             $out['name'] = $name;
+
             return $out;
         }
     }
+
     return null;
 }
 
@@ -74,6 +76,7 @@ function _api_cacheCheck($fn, $arg='') {
         fwrite($fp, serialize($out));
         fclose($fp);
     }
+
     return $out;
 }
 

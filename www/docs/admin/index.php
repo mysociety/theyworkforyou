@@ -1,17 +1,15 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once (INCLUDESPATH."easyparliament/commentreportlist.php");
 
 $this_page = "admin_home";
 
 $db = new ParlDB;
 
-
 $PAGE->page_start();
 
 $PAGE->stripe_start();
-
 
 ///////////////////////////////////////////////////////////////
 // General stats.
@@ -42,7 +40,6 @@ $weekusers = $q->field(0, 'count');
 <?php
 $PAGE->block_end();
 
-
 ///////////////////////////////////////////////////////////////
 // Recent users.
 
@@ -51,68 +48,62 @@ $PAGE->block_end();
 <?php
 
 $q = $db->query("SELECT firstname,
-						lastname,
-						email,
-						user_id,
-						confirmed,
-						registrationtime
-				FROM	users
-				ORDER BY registrationtime DESC
-				LIMIT 50
-				");
+                        lastname,
+                        email,
+                        user_id,
+                        confirmed,
+                        registrationtime
+                FROM	users
+                ORDER BY registrationtime DESC
+                LIMIT 50
+                ");
 
 $rows = array();
 $USERURL = new URL('userview');
 
 for ($row=0; $row<$q->rows(); $row++) {
 
-	$user_id = $q->field($row, 'user_id');
-	
-	$USERURL->insert(array('u'=>$user_id));
-	
-	if ($q->field($row, 'confirmed') == 1) {
-		$confirmed = 'Yes';
-		$name = '<a href="' . $USERURL->generate() . '">' . htmlspecialchars($q->field($row, 'firstname'))
-			. ' ' . htmlspecialchars($q->field($row, 'lastname')) . '</a>';
-	} else {
-		$confirmed = 'No';
-		$name = htmlspecialchars($q->field($row, 'firstname') . ' ' . $q->field($row, 'lastname'));
-	}
-	
-	$rows[] = array (
-		$name,
-		'<a href="mailto:' . $q->field($row, 'email') . '">' . $q->field($row, 'email') . '</a>',
-		$confirmed,
-		$q->field($row, 'registrationtime')
-	);
+    $user_id = $q->field($row, 'user_id');
+
+    $USERURL->insert(array('u'=>$user_id));
+
+    if ($q->field($row, 'confirmed') == 1) {
+        $confirmed = 'Yes';
+        $name = '<a href="' . $USERURL->generate() . '">' . htmlspecialchars($q->field($row, 'firstname'))
+            . ' ' . htmlspecialchars($q->field($row, 'lastname')) . '</a>';
+    } else {
+        $confirmed = 'No';
+        $name = htmlspecialchars($q->field($row, 'firstname') . ' ' . $q->field($row, 'lastname'));
+    }
+
+    $rows[] = array (
+        $name,
+        '<a href="mailto:' . $q->field($row, 'email') . '">' . $q->field($row, 'email') . '</a>',
+        $confirmed,
+        $q->field($row, 'registrationtime')
+    );
 }
 
 $tabledata = array (
-	'header' => array (
-		'Name',
-		'Email',
-		'Confirmed?',
-		'Registration time'
-	),
-	'rows' => $rows
+    'header' => array (
+        'Name',
+        'Email',
+        'Confirmed?',
+        'Registration time'
+    ),
+    'rows' => $rows
 );
 
 $PAGE->display_table($tabledata);
 
-
-
-
 $menu = $PAGE->admin_menu();
 
 $PAGE->stripe_end(array(
-	array(
-		'type'		=> 'html',
-		'content'	=> $menu
-	)
+    array(
+        'type'		=> 'html',
+        'content'	=> $menu
+    )
 ));
-
-
-
 
 $PAGE->page_end();
 

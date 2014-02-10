@@ -4,7 +4,7 @@
 
 $this_page = 'gadget';
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 
 $PAGE->page_start();
 $PAGE->stripe_start();
@@ -22,14 +22,13 @@ and more, from your iGoogle page.</p>
 <a href="http://www.google.co.uk/ig/adde?moduleurl=http://www.theyworkforyou.com/gadget/twfy.xml"><img src="http://www.google.co.uk/politics/images/add.gif" alt="Add to Google"></a>
 </p>
 
-<?
+<?php
 
 $includes = array(
-	array (
-		'type' => 'include',
-		'content' => 'whatisthissite'
-	),
+    array (
+        'type' => 'include',
+        'content' => 'whatisthissite'
+    ),
 );
 $PAGE->stripe_end($includes);
 $PAGE->page_end();
-

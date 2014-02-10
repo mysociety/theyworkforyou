@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 
 $this_page = 'wales_overview';
 
@@ -22,6 +22,6 @@ the mailing list</a>.</p>
 
 <p>Visit <a href="http://www.assemblywales.org/">the official Welsh Assembly website</a>.</p>
 
-<?
+<?php
 $PAGE->stripe_end();
 $PAGE->page_end();

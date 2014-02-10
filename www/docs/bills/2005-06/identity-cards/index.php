@@ -1,7 +1,7 @@
 <?php
 
 $this_page = 'bill_index';
-include_once "../../../../includes/easyparliament/init.php";
+include_once '../../../../includes/easyparliament/init.php';
 $DATA->set_page_metadata($this_page, 'heading','Identity Cards Act 2006');
 
 $PAGE->page_start();
@@ -30,7 +30,7 @@ href="http://www.theyworkforyou.com/debates/?id=2005-10-18c.717.0">passed in
 the Commons on the 18th October</a>.
 </ul>
 
-<?
+<?php
 $PAGE->block_end();
 $PAGE->block_start(array ('title'=>'House of Lords - Normal Run'));
 ?>
@@ -47,7 +47,7 @@ $PAGE->block_start(array ('title'=>'House of Lords - Normal Run'));
 <li><a href="http://www.publications.parliament.uk/pa/ld200506/ldbills/071/amend/ldam071.htm">Amendments proposed for 3rd reading</a> <a href="http://www.theyworkforyou.com/lords/?id=2006-02-06b.425.0">Third reading</a> was on 6th February, so was sent back to the Commons on the 7th, with the following list of amendments (yes, I know it's published as a Bill):  <a href="http://www.publications.parliament.uk/pa/cm200506/cmbills/126/2006126.htm">Identity Cards Bill [HL] (126)</a>
 </ul>
 
-<?
+<?php
 $PAGE->block_end();
 $PAGE->block_start(array ('title'=>'Ping Pong'));
 ?>
@@ -78,7 +78,7 @@ The Lords <a href="http://www.publications.parliament.uk/pa/ld200506/ldbills/075
 <a href="http://www.publications.parliament.uk/pa/ld200506/ldbills/092/amend/06092a.1-2.html">Motions</a>, <a href="http://www.theyworkforyou.com/lords/?id=2006-03-28a.643.8">Debated</a> on 28th March (22G, 22H dropped, 22J, 22K proposed), back to Commons: <a href="http://www.publications.parliament.uk/pa/cm200506/cmbills/159/2006159.htm">Identity Cards Bill (159)</a>
 
 <li><strong>House of Commons</strong>
-<a href="http://www.publications.parliament.uk/pa/ld200506/ldbills/071/amend/60329m01.htm">Motions</a>, <a href="http://www.theyworkforyou.com/debates/?id=2006-03-29a.875.0">Debated</a> (29th March), disagreed with, back to Lords: <a href=""></a> 
+<a href="http://www.publications.parliament.uk/pa/ld200506/ldbills/071/amend/60329m01.htm">Motions</a>, <a href="http://www.theyworkforyou.com/debates/?id=2006-03-29a.875.0">Debated</a> (29th March), disagreed with, back to Lords: <a href=""></a>
 
 <li><strong>House of Lords</strong>
 Motions, <a href="http://www.theyworkforyou.com/lords/?id=2006-03-29a.796.3">debated</a> (29th March), drop 22J, 22K, propose 22M 22N 22O, back to Commons: <a href=""></a>
@@ -89,17 +89,15 @@ Motions, <a href="http://www.theyworkforyou.com/debates/?id=2006-03-29a.999.0">d
 <li><strong>Royal Assent:</strong> <a href="http://www.theyworkforyou.com/debates/?id=2006-03-30a.1061.4">Commons</a> and <a href="http://www.theyworkforyou.com/lords/?id=2006-03-30a.861.1">Lords</a></li>
 
 </ul>
-<?
+<?php
 
 $PAGE->block_end();
 
-	$includes = array(
-		array (
-			'type' => 'include',
-			'content' => 'bills_intro'
-		),
-	);
+    $includes = array(
+        array (
+            'type' => 'include',
+            'content' => 'bills_intro'
+        ),
+    );
 $PAGE->stripe_end($includes);
 $PAGE->page_end();
-
-?>
