@@ -21,7 +21,7 @@ other hand, setting attribution needs to be done on the live database, on the li
 version of the site.
 </p>
 
-<?
+<?php
 
 $out = '';
 if (get_http_var('submit')) {
@@ -111,6 +111,7 @@ function person_drop_down() {
     }
 
     $out .= ' </select></span> </div> ';
+
     return $out;
 }
 
@@ -134,6 +135,7 @@ function display_photo_form($errors = array()) {
 
 <p style="clear:both; margin-top: 3em"><a href="/images/mps/photo-status.php">List MPs without photos</a></p>
 EOF;
+
     return $out;
 }
 
@@ -184,17 +186,16 @@ function display_attribution_form($errors = array()) {
 </div>
 </form>
 EOF;
+
     return $out;
 }
 
 $menu = $PAGE->admin_menu();
 $PAGE->stripe_end(array(
-	array(
-		'type'		=> 'html',
-		'content'	=> $menu
-	)
+    array(
+        'type'		=> 'html',
+        'content'	=> $menu
+    )
 ));
 
 $PAGE->page_end();
-
-?>

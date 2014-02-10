@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /* TheyWorkForYou.com site news */
 
@@ -19,7 +19,7 @@ habits, and do our business in the light of day - because only then can we
 restore the vital trust between a people and their government."
 
 Read <a href="http://www.mysociety.org/2009/01/21/blimey-it-looks-like-the-internets-won/">our victory mySociety blog post</a>,
-and do join our mailing list. :-) 
+and do join our mailing list. :-)
 EOT
 , '2009-01-21 15:30:00', 'Matthew'),
 
@@ -148,7 +148,7 @@ MLAs who are also MPs only have the one central page, such as
 I've done this voluntarily, in secret &mdash;
 this announcement comes as much as a surprise to everyone else involved with
 TheyWorkForYou as it does to you &mdash;
-partly to try out 
+partly to try out
 <a title="The moment I realised I should simply make &lt;b&gt;, &lt;i&gt;, and &lt;font&gt; nestable to get everything to parse was quite good"
  href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a>,
 partly because I obviously didn't have enough to do writing a
@@ -156,7 +156,7 @@ partly because I obviously didn't have enough to do writing a
 answering mountains of support mail, partly as an early Christmas present for everyone I know in the world
 of the internets (hey guys), and partly to show how easy I think it is and that there's no excuse
 for people not to volunteer to do the Scottish Parliament
-and Welsh Assembly. :) 
+and Welsh Assembly. :)
 <a href="http://project.knowledgeforge.net/ukparse/trac/browser/trunk/parlparse/pyscraper/ni">Here's all the code</a>
 (and there's not much; the scraper is 28 lines long, the name resolver 273, and the parser only 343 &mdash; including comments!)
 for scraping and parsing the Northern Ireland Assembly,
@@ -183,7 +183,7 @@ postcode, the debates for a particular date, the comments left on a certain
 MP's speeches, and so on. It's not complete
 and will hopefully have improvements in future &ndash;
 <a href="/api/">see the
-documentation and have a play with it</a>. Do dive in, and <a href="/contact/">let us 
+documentation and have a play with it</a>. Do dive in, and <a href="/contact/">let us
 know</a> of any interesting or fun applications you come up with! The
 immediate new feature on TheyWorkForYou itself is the list of
 neighbouring constituencies on an MP's page.
@@ -215,7 +215,7 @@ Firefox users can download a
 <a href="http://mycroft.mozdev.org/download.html?name=theyworkforyou">search plugin</a>,
 to enable easy searching of the site from Firefox's search bar.
 
-And a few bugfixes - our handling of when Oral Answers finish should be a bit better than previously, 
+And a few bugfixes - our handling of when Oral Answers finish should be a bit better than previously,
 and when searching a particular person's speeches, we no longer group the results by debate, which
 was confusing, as you obviously expected to see all the speeches for that person that matched your
 search terms.
@@ -243,7 +243,7 @@ EOT
 36 => array("Changes to the Register of Members' Interests", <<<EOT
 One of the many things our site does, probably without you realising, is to track the Register of Members' Interests, in which MPs are "to provide information of any pecuniary interest or other material benefit which a Member receives which might reasonably be thought by others to influence his or her actions, speeches or votes in Parliament, or actions taken in the capacity of a Member of Parliament". The latest entry published on the official site has always been shown on MP pages (<a href="http://www.theyworkforyou.com/mp/tony_blair/sedgefield#register">here's Tony Blair's</a>), however we kept all previous editions of the Register safe and sound. And now, after a bit of coding, you can view a history of the Register, either <a href="http://www.theyworkforyou.com/regmem/?f=2005-12-14">comparing particular editions</a>, or for particular MPs (<a href="http://www.theyworkforyou.com/regmem/?p=10001">Diane Abbott</a>, for example). Entries only have to stay on the Register for a year, so this can make for some interesting reading.
 
-Happy New Year! :) <a href="http://www.theyworkforyou.com/regmem/">Changes to the Register of Members' Interests</a> 
+Happy New Year! :) <a href="http://www.theyworkforyou.com/regmem/">Changes to the Register of Members' Interests</a>
 EOT
 , "2006-01-01 12:36:00"),
 
@@ -252,14 +252,14 @@ We're proud to announce that TheyWorkForYou.com has won the  'Contribution to Ci
 
 Thanks to the kind souls who nominated us. We enjoyed ourselves.
 
- 
+
 EOT
 , "2005-07-05 23:54:13"),
 
 34 => array("NEW! Email this page to a friend", <<<EOT
 At the top right hand side of every (ex)MP's page, we've added a simple new feature: email the page to a friend.
 
-<a href="/mp/">Have a go</a>, and let all your friends know how easy it is to keep tabs on what your former MP did and said in your name during the last Parliament. 
+<a href="/mp/">Have a go</a>, and let all your friends know how easy it is to keep tabs on what your former MP did and said in your name during the last Parliament.
 EOT
 , "2005-04-14 23:43:50"),
 
@@ -272,20 +272,20 @@ To help test the concept,  they've set up a <a href="http://www.pledgebank.com/t
 </i>
 </blockquote>
 
-If you're up for it, why not <a href="http://www.pledgebank.com/theywork">sign up now?</a>  
+If you're up for it, why not <a href="http://www.pledgebank.com/theywork">sign up now?</a>
 EOT
 , "2005-04-13 22:41:23"),
 
 32 => array("NEW! How MPs voted on Key Issues", <<<EOT
 We've added a smashing new feature to all our <a href="/mps/">MP pages</a>, courtesy of Francis at <a href="http://www.publicwhip.org.uk">PublicWhip</a>
 
-You can now check out which way MPs tended vote on half a dozen key issues from the last Parliament (Iraq, Fox Hunting, ID cards. Top Up Fees etc) via a nice, easy to understand panel. 
+You can now check out which way MPs tended vote on half a dozen key issues from the last Parliament (Iraq, Fox Hunting, ID cards. Top Up Fees etc) via a nice, easy to understand panel.
 
 For example, mining the <a href="http://www.theyworkforyou.com/mp/graham_allen/nottingham_north#votingrecord">voting record of Graham Allen</a>, Labour MP for Nottingham North, shows that he was pretty dubious about the Iraq war, but very strongly in favour of a ban on fox hunting.
 
 This information is the result sophisticated mining of PublicWhip's detailed vote data covering hundreds of Parliamentary divisions.
 
-We hope it'll make it easier for you to keep track of where your MP really stands on key issues - after all, They Work For You. 
+We hope it'll make it easier for you to keep track of where your MP really stands on key issues - after all, They Work For You.
 EOT
 , "2005-04-05 22:59:57"),
 
@@ -356,7 +356,7 @@ EOT
 
     - Tom, on behalf of the TheyWorkForYou.com volunteers
 
-     <a href="http://theyworkforyou.com/about/">http://theyworkforyou.com/about/</a>  - New volunteers welcome! 
+     <a href="http://theyworkforyou.com/about/">http://theyworkforyou.com/about/</a>  - New volunteers welcome!
 EOT
 , "2005-02-24 22:02:44"),
 
@@ -373,7 +373,7 @@ The update contains new code for:
 
 Feel free to download it and have a play.
 
-Whilst you're at it, don't forget we also publish a full <a href="http://www.theyworkforyou.com/raw/">XML version of the Hansard data</a>. 
+Whilst you're at it, don't forget we also publish a full <a href="http://www.theyworkforyou.com/raw/">XML version of the Hansard data</a>.
 EOT
 , "2005-01-25 00:15:19"),
 
@@ -383,9 +383,9 @@ Thanks to the sterling efforts of a fine new volunteer (thanks David!), you can 
 
 This is good news for those wanting to keep up to date with issues as they pop up in the Commons.
 
-Next step on search is probably an RSS version of keyword searches. We're still very keen to improve overall relevancy of results - anyone out there fancy lending us a Google Appliance to play with? 
+Next step on search is probably an RSS version of keyword searches. We're still very keen to improve overall relevancy of results - anyone out there fancy lending us a Google Appliance to play with?
 
-As ever, <a href="/contact/">contact us</a> if you've got any suggestions how we might improve the site, or if you fancy volunteering. 
+As ever, <a href="/contact/">contact us</a> if you've got any suggestions how we might improve the site, or if you fancy volunteering.
 EOT
 , "2005-01-25 00:16:09"),
 
@@ -399,11 +399,11 @@ Nope, most of us had never heard of them either, but apparently:
 They are just that - statements on a particular topic by a Government Minister.
 </i>
 
-Well, there you go. You live and learn. 
+Well, there you go. You live and learn.
 
 Next up: Select Committees, which promise to be an order of magnitude more challenging. We'll keep you posted.
 
-PS We're always on the lookout for new volunteers - <a href="/contact/">contact us</a> if you are keen to help in almost any capacity. 
+PS We're always on the lookout for new volunteers - <a href="/contact/">contact us</a> if you are keen to help in almost any capacity.
 EOT
 , "2005-01-17 17:44:47"),
 
@@ -412,16 +412,16 @@ The volunteers have been busy over the past few days, and we are now one stage c
 
 We've included <a href="http://www.theyworkforyou.com/whall/">debates from Westminster Hall</a>, which is a new-ish forum sitting in parallel to the main Commons Chamber. Learn more about it <a href="http://www.explore.parliament.uk/Parliament.aspx?id=10416&glossary=true">here</a>.
 
-<a href="http://www.theyworkforyou.com/whall/">Westminster Hall Debates</a> were introduced in 1999 with the aim of encouraging constructive rather than confrontational debate between MPs. 
+<a href="http://www.theyworkforyou.com/whall/">Westminster Hall Debates</a> were introduced in 1999 with the aim of encouraging constructive rather than confrontational debate between MPs.
 
-As ever, we'll let you be the judge. 
+As ever, we'll let you be the judge.
 
 Next up, parsing all the various House of Commons' Committees... .
 
 
 
 
- 
+
 EOT
 , "2004-12-22 23:47:19"),
 
@@ -435,7 +435,7 @@ For example, the RSS feed of <a href="http://www.theyworkforyou.com/mp/?pid=1050
 
 RSS is a simple way to publish & distribute content which is frequently updated  (<a href="http://news.bbc.co.uk/1/hi/help/3223484.stm">learn more here</a>.)
 
-Some enlightened MPs are now incorporating this useful feed of their Parliamentary activity into their websites. See <a href="http://www.richardallan.org.uk/">Richard Allen's</a> website for a good example. 
+Some enlightened MPs are now incorporating this useful feed of their Parliamentary activity into their websites. See <a href="http://www.richardallan.org.uk/">Richard Allen's</a> website for a good example.
 EOT
 , "2004-11-27 16:38:41"),
 
@@ -444,7 +444,7 @@ At the bottom of <a href="http://www.theyworkforyou.com/mps/">each MP's page</a>
 
 For example, it is good to note that <a href="http://www.theyworkforyou.com/mp/?pid=10508#expenses">Barbara Roche</a>, a North London MP, does not claim excessive travel expenses.
 
-Bear in mind that proper democracy does cost money, so please think twice before using these data as a stick with which to beat your MP. An "expensive" MP might be providing excellent value for money. And vice versa. 
+Bear in mind that proper democracy does cost money, so please think twice before using these data as a stick with which to beat your MP. An "expensive" MP might be providing excellent value for money. And vice versa.
 EOT
 , "2004-11-08 10:11:14"),
 
@@ -487,7 +487,7 @@ EOT
 7 => array("Public Beta Now Live", <<<EOT
 Welcome to the public beta of TheyWorkForYou.com, which launched on Sunday 6th June 2004 at the <a href="http://www.notcon04.com/" title="link to NotCon04 conference website">NotCon04</a> conference.
 
-We hope you enjoy using the service during its public beta phase, which will last for  a while as we unpick all the bugs and tweak the features.  
+We hope you enjoy using the service during its public beta phase, which will last for  a while as we unpick all the bugs and tweak the features.
 
 We want to know everything: what you like, what you hate, what works, what's broken, what could we do better. The lot. Don't hold back.
 
@@ -497,30 +497,30 @@ In the meantime, please enjoy being the first people to scribble in the margins 
 
 <a href="/contact/">Send all bug reports (and feature suggestions) to us</a>.
 
-Finally, a big 'thank you' to everyone who helped test the site during the private beta phase over the past two weeks. Your feedback has been invaluable. 
+Finally, a big 'thank you' to everyone who helped test the site during the private beta phase over the past two weeks. Your feedback has been invaluable.
 
 More than the usuals,
 
-- <i><a href="http://www.theyworkforyou.com/about/" title="link to About Us page">The TheyWorkForYou.com Volunteers</a></i> 
+- <i><a href="http://www.theyworkforyou.com/about/" title="link to About Us page">The TheyWorkForYou.com Volunteers</a></i>
 EOT
 , "2004-06-06 03:02:53"),
 
 6 => array("Want to help make us complete?", <<<EOT
-Please remember that this isn't yet a complete record of our MPs' activities in the House of Commons. For that we need to add the transcripts of Select Committee proceedings and a load of other fiddly and esoteric information.  
+Please remember that this isn't yet a complete record of our MPs' activities in the House of Commons. For that we need to add the transcripts of Select Committee proceedings and a load of other fiddly and esoteric information.
 
 We also want to add data from before 2001. And there's always the Lords... We yearn to be a complete record.
 
-But to do this, we will need to ensure our key developers are kept fed. If you're in a sugar daddy frame of mind, we'd be only too pleased to accept donations. 
+But to do this, we will need to ensure our key developers are kept fed. If you're in a sugar daddy frame of mind, we'd be only too pleased to accept donations.
 
 Just <a href="/contact/">contact us</a>.
- 
+
 EOT
 , "2004-05-21 22:15:22"),
 
 5 => array("Know someone who'd like this website?", <<<EOT
 If you know someone who would appreciate being a beta tester, please <a href="/contact/">contact us</a> with their details.
 
-Many thanks. 
+Many thanks.
 EOT
 , "2004-05-21 22:55:24"),
 
@@ -529,7 +529,7 @@ Hello all, and thank you for helping to road test TheyWorkForYou.com. We hope yo
 
 We've just entered our 'closed beta' phase - you'll need a password to access the site until we move into our open beta phase sometime in June.
 
-Please <a href="/contact/">contact us</a> with your feedback, or you can just add your comments to this blog. 
+Please <a href="/contact/">contact us</a> with your feedback, or you can just add your comments to this blog.
 
 We want to know everything: what you like, what you hate, what works, what's broken, what could we do better. The lot. Don't hold back.
 
@@ -537,37 +537,35 @@ The search engine is our main area of immediate focus - we know we've got months
 
 In the meantime, please enjoy being the first people to scribble in the margins of Hansard. May you be first of many.
 
-- <em>The TheyWorkForYou.com volunteers</em> 
+- <em>The TheyWorkForYou.com volunteers</em>
 EOT
 , "2004-05-21 22:55:24")
 );
 
 // General news functions
 function news_format_body($content) {
-	return "<p>" . str_replace("\n\n", "<p>", $content);
+    return "<p>" . str_replace("\n\n", "<p>", $content);
 }
 function news_format_ref($title) {
-	$x = preg_replace("/[^a-z0-9 ]/", "", strtolower($title));
-	$x = substr(str_replace(" ", "_", $x), 0, 16);
-	return $x;
+    $x = preg_replace("/[^a-z0-9 ]/", "", strtolower($title));
+    $x = substr(str_replace(" ", "_", $x), 0, 16);
+    return $x;
 }
 function news_individual_link($date, $title) {
-	return WEBPATH . "news/archives/" . str_replace("-", "/", substr($date, 0, 10)) . "/" . news_format_ref($title);
+    return WEBPATH . "news/archives/" . str_replace("-", "/", substr($date, 0, 10)) . "/" . news_format_ref($title);
 }
 
 /* Draft I think that Tomski left in MT, probably delete it now?
 37 => array("The Times has a grumble", <<<EOT
-The venerable <i>Times</i> is grumpy. In a <a href="http://www.timesonline.co.uk/article/0,,17129-2060278,00.html">feature article</a> by the tabloid's <a href="http://www.explore.parliament.uk/Parliament.aspx?id=10305&glossary=true">lobby correspondent</a> Greg Hurst, the paper claims that some new MPs are asking frivolous written questions with the sole intention of improving their statistics on TheyWorkForYou.com. 
+The venerable <i>Times</i> is grumpy. In a <a href="http://www.timesonline.co.uk/article/0,,17129-2060278,00.html">feature article</a> by the tabloid's <a href="http://www.explore.parliament.uk/Parliament.aspx?id=10305&glossary=true">lobby correspondent</a> Greg Hurst, the paper claims that some new MPs are asking frivolous written questions with the sole intention of improving their statistics on TheyWorkForYou.com.
 
-Here at TheyWorkForYou.com we are honoured to be featured so prominently in such a venerable organ as <i>The Times</i>.  
+Here at TheyWorkForYou.com we are honoured to be featured so prominently in such a venerable organ as <i>The Times</i>.
 
-And we share a concern that overly crude measurement can distort behaviours. But the volunteers who run this site favour transparent hard data over lobby gossip, anecdote and anonymous parliamentary sources. So we examined the volume of Written Questios 
+And we share a concern that overly crude measurement can distort behaviours. But the volunteers who run this site favour transparent hard data over lobby gossip, anecdote and anonymous parliamentary sources. So we examined the volume of Written Questios
 
-The Times also puiblished a typically despairing leader on the same subject, bemoaning the demise of parliamentary oratory and describing TheyWorkForYou as 'intimidatingly named'. 
+The Times also puiblished a typically despairing leader on the same subject, bemoaning the demise of parliamentary oratory and describing TheyWorkForYou as 'intimidatingly named'.
 
-and a leader, the tabloid MP's 'intimidatingly named' TheyWorkForYou.com  
+and a leader, the tabloid MP's 'intimidatingly named' TheyWorkForYou.com
 EOT
 , "2006-04-09 10:01:00"),
 */
-
-

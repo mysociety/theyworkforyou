@@ -2,12 +2,12 @@
 /*
  * survey/index.php:
  * Ask and store questionnaire for research.
- *  
+ *
  * Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
  * Email: matthew@mysociety.org. WWW: http://www.mysociety.org
  *
  * $Id: index.php,v 1.4 2010-01-20 10:48:58 matthew Exp $
- * 
+ *
  */
 
 include_once INCLUDESPATH . "easyparliament/init.php";
@@ -34,15 +34,15 @@ if ($hide_question) {
     $always_ask = 0;
     $show_survey_qn = $current_question;
     setcookie('survey', $current_question, time()+60*60*24*365, '/');
-} else if ($has_answered_question == $current_question && !$always_ask) {
+} elseif ($has_answered_question == $current_question && !$always_ask) {
     $show_survey_qn = $current_question;
     setcookie('survey', $current_question, time()+60*60*24*365, '/');
-} else if (isset($_COOKIE['survey'])) {
+} elseif (isset($_COOKIE['survey'])) {
     $show_survey_qn = $_COOKIE['survey'];
 }
 
 $survey_id = 'minisurvey';
-if ( $always_ask ) {
+if ($always_ask) {
     $survey_id = 'minisurvey-show';
 }
 
@@ -80,7 +80,6 @@ if ($show_survey_qn < $current_question && !$has_answered_question) {
     <input type="hidden" name="return_url" value="<?=$page_url ?>">
     <input type="hidden" name="question_no" value="<?=$current_question ?>">
 
-
     <p>
     Did you find what you were looking for on this page?
     </p>
@@ -106,7 +105,7 @@ if ($show_survey_qn < $current_question && !$has_answered_question) {
 
 <?php
     $this->block_end();
-} else if ( $has_answered_question ) {
+} elseif ($has_answered_question) {
     $this->block_start(array('id'=>'survey', 'title'=>"Mini survey"));
 ?>
     Thanks for answering.

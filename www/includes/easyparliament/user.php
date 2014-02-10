@@ -20,18 +20,12 @@ You can then access all the user's variables with appropriately named functions,
     $USER->email();
 etc. Don't access the variables directly because I think that's bad.
 
-
-
 USER is extended into the THEUSER class which is used only for the person currently using the site. ie, it adds functions for logging in and out, checking log in status, etc.
-
 
 GUESTUSER:
 In the database there should be a user with an id of 0 and a status of 'Viewer' (and probably a name of 'Guest').
 
-
-
 The cookie set to indicate a logged in user is called "epuser_id". More on that in THEUSER().
-
 
 Functions here:
 
@@ -62,22 +56,22 @@ THEUSER
 
 class USER {
 
-    var $user_id = "0";         // So we have an ID for non-logged in users reporting comments etc.
-    var $firstname = "Guest";   // So we have something to print for non-logged in users.
-    var $lastname = "";
-    var $password = "";         // This will be a crypt()ed version of a plaintext pw.
-    var $email = "";
-    var $emailpublic = "";      // boolean - can other users see this user's email?
-    var $postcode = "";
-    var $url = "";
-    var $lastvisit = "";        // Last time the logged-in user loaded a page (GMT).
-    var $registrationtime = ""; // When they registered (GMT).
-    var $registrationip = "";   // Where they registered from.
-    var $optin = "";            // boolean - Do they want emails from us?
-    var $deleted = "";          // User can't log in or have their info displayed.
-    var $confirmed = '';        // boolean - Has the user confirmed via email?
+    public $user_id = "0";         // So we have an ID for non-logged in users reporting comments etc.
+    public $firstname = "Guest";   // So we have something to print for non-logged in users.
+    public $lastname = "";
+    public $password = "";         // This will be a crypt()ed version of a plaintext pw.
+    public $email = "";
+    public $emailpublic = "";      // boolean - can other users see this user's email?
+    public $postcode = "";
+    public $url = "";
+    public $lastvisit = "";        // Last time the logged-in user loaded a page (GMT).
+    public $registrationtime = ""; // When they registered (GMT).
+    public $registrationip = "";   // Where they registered from.
+    public $optin = "";            // boolean - Do they want emails from us?
+    public $deleted = "";          // User can't log in or have their info displayed.
+    public $confirmed = '';        // boolean - Has the user confirmed via email?
     // Don't use the status to check access privileges - use the is_able_to() function.
-    var $status = "Viewer";
+    public $status = "Viewer";
 
     // If you add more user variables above you should also:
     //      Add the approrprate code to $this->add()
@@ -86,12 +80,11 @@ class USER {
     //      Alter THEUSER->update_self() to update with the new vars, if appropriate.
     //      Change things in the add/edit/view user page.
 
-
-    function USER () {
+    public function USER() {
         $this->db = new ParlDB;
     }
 
-    function init ($user_id) {
+    public function init($user_id) {
         // Pass it a user id and it will fetch the user's data from the db
         // and put it all in the appropriate variables.
         // Returns true if we've found user_id in the DB, false otherwise.
@@ -142,7 +135,6 @@ class USER {
             // And, yes, if we've ended up with more than one row returned
             // we're going to show an error too, just in case.
             // *Should* never happen...
-
             return false;
             twfy_debug("USER", "There is more than one user with an id of '".htmlentities($user_id)."'");
 
@@ -153,9 +145,7 @@ class USER {
 
     }
 
-
-
-    function add ($details, $confirmation_required=true) {
+    public function add($details, $confirmation_required=true) {
         // Adds a new user's info into the db.
         // Then optionally (and usually) calls another function to
         // send them a confirmation email.
@@ -278,8 +268,7 @@ class USER {
         }
     }
 
-
-    function send_email_confirmation_email($details) {
+    public function send_email_confirmation_email($details) {
         // A brief check of the facts...
         if (!is_numeric($this->user_id) ||
             !isset($details['email']) ||
@@ -317,7 +306,7 @@ class USER {
         }
     }
 
-    function send_confirmation_email($details) {
+    public function send_confirmation_email($details) {
         // After we've add()ed a user we'll probably be sending them
         // a confirmation email with a link to confirm their address.
 
@@ -360,7 +349,7 @@ class USER {
     }
 
 
-    function update_other_user ($details) {
+    public function update_other_user($details) {
         // If someone (like an admin) is updating another user, call this
         // function. It checks their privileges before letting them.
 
@@ -372,7 +361,7 @@ class USER {
         if (!isset($details["user_id"])) {
             return false;
 
-        } else if ($THEUSER->is_able_to("edituser")) {
+        } elseif ($THEUSER->is_able_to("edituser")) {
 
             // If the user doing the updating has appropriate privileges...
 
@@ -387,7 +376,6 @@ class USER {
             }
 
         } else {
-
             return false;
 
         }
@@ -395,7 +383,7 @@ class USER {
 
 
 
-    function change_password ($email) {
+    public function change_password($email) {
 
         // This function is called from the Change Password page.
         // It will create a new password for the user with $email address.
@@ -405,7 +393,7 @@ class USER {
         if ($this->email_exists($email)) {
 
             $this->email = $email;
-            for(;;) {
+            for (;;) {
 
                 $pwd=null;
                 $o=null;
@@ -416,14 +404,14 @@ class USER {
                     if($y>350 && $y<601) $d=chr(rand(48,57));
                     if($y<351) $d=chr(rand(65,90));
                     if($y>600) $d=chr(rand(97,122));
-                    if($d!=$o && !preg_match('#[O01lI]#', $d)) {
+                    if ($d!=$o && !preg_match('#[O01lI]#', $d)) {
                         $o=$d; $pwd.=$d; $x++;
                     }
                 }
 
                 // If the PW fits your purpose (e.g. this regexpression) return it, else make a new one
                 // (You can change this regular-expression how you want ....)
-                if(preg_match("/^[a-zA-Z]{1}([a-zA-Z]+[0-9][a-zA-Z]+)+/",$pwd)) {
+                if (preg_match("/^[a-zA-Z]{1}([a-zA-Z]+[0-9][a-zA-Z]+)+/",$pwd)) {
                     break;
                 }
 
@@ -435,7 +423,6 @@ class USER {
         } else {
 
             // Email didn't exist.
-
             return false;
 
         }
@@ -446,24 +433,23 @@ class USER {
 
         if ($q->success()) {
             $this->password = $pwd;
+
             return $pwd;
 
         } else {
-
             return false;
         }
 
     }
 
-
-
-    function send_password_reminder () {
+    public function send_password_reminder() {
         global $PAGE;
 
         // You'll probably have just called $this->change_password().
 
         if ($this->email() == '') {
             $PAGE->error_message("No email set for this user, so can't send a password reminder.");
+
             return false;
         }
 
@@ -490,7 +476,7 @@ class USER {
 
 
 
-    function id_exists ($user_id) {
+    public function id_exists($user_id) {
         // Returns true if there's a user with this user_id.
 
         if (is_numeric($user_id)) {
@@ -507,16 +493,18 @@ class USER {
     }
 
 
-    function email_exists ($email, $return_id = false) {
+    public function email_exists($email, $return_id = false) {
         // Returns true if there's a user with this email address.
 
         if ($email != "") {
             $q = $this->db->query("SELECT user_id FROM users WHERE email='" . mysql_real_escape_string($email) . "'");
             if ($q->rows() > 0) {
-                if ( $return_id ) {
+                if ($return_id) {
                     $row = $q->row(0);
+
                     return $row['user_id'];
                 }
+
                 return true;
             } else {
                 return false;
@@ -528,7 +516,7 @@ class USER {
     }
 
 
-    function is_able_to ( $action ) {
+    public function is_able_to($action) {
         // Call this function to find out if a user is allowed to do something.
         // It uses the user's status to return true or false.
         // Possible actions:
@@ -609,6 +597,7 @@ class USER {
 
             default:
                 $PAGE->error_message ("You need to set permissions for '$action'!");
+
                 return false;
 
 
@@ -621,7 +610,7 @@ class USER {
     // Same for every user...
     // Just returns an array of the possible statuses a user could have.
     // Handy for forms where you edit/view users etc.
-    function possible_statuses () {
+    public function possible_statuses() {
         // Maybe there's a way of fetching these from the DB,
         // so we don't duplicate them here...?
 
@@ -635,29 +624,29 @@ class USER {
 
     // Functions for accessing the user's variables.
 
-    function user_id()              { return $this->user_id; }
-    function firstname()            { return $this->firstname; }
-    function lastname()             { return $this->lastname; }
-    function password()             { return $this->password; }
-    function email()                { return $this->email; }
-    function emailpublic()          { return $this->emailpublic; }
-    function postcode()             { return $this->postcode; }
-    function url()                  { return $this->url; }
-    function lastvisit()            { return $this->lastvisit; }
+    public function user_id() { return $this->user_id; }
+    public function firstname() { return $this->firstname; }
+    public function lastname() { return $this->lastname; }
+    public function password() { return $this->password; }
+    public function email() { return $this->email; }
+    public function emailpublic() { return $this->emailpublic; }
+    public function postcode() { return $this->postcode; }
+    public function url() { return $this->url; }
+    public function lastvisit() { return $this->lastvisit; }
 
-    function registrationtime()     { return $this->registrationtime; }
-    function registrationip()       { return $this->registrationip; }
-    function optin()                { return $this->optin; }
+    public function registrationtime() { return $this->registrationtime; }
+    public function registrationip() { return $this->registrationip; }
+    public function optin() { return $this->optin; }
     // Don't use the status to check access privileges - use the is_able_to() function.
     // But you might use status() to return text to display, describing a user.
     // We can then change what status() does in the future if our permissions system
     // changes.
-    function status()               { return $this->status; }
-    function deleted()              { return $this->deleted; }
-    function confirmed()            { return $this->confirmed; }
+    public function status() { return $this->status; }
+    public function deleted() { return $this->deleted; }
+    public function confirmed() { return $this->confirmed; }
 
 
-    function postcode_is_set () {
+    public function postcode_is_set() {
         // So we can tell if the, er, postcode is set or not.
         // Could maybe put some validation in here at some point.
         if ($this->postcode != '') {
@@ -670,7 +659,7 @@ class USER {
 
 /////////// PRIVATE FUNCTIONS BELOW... ////////////////
 
-    function _update ($details) {
+    public function _update($details) {
         // Update a user's info.
         // DO NOT call this function direct.
         // Call either $this->update_other_user() or $this->update_self().
@@ -762,11 +751,11 @@ class USER {
         // $this->update_self() then $THEUSER will have its variables
         // updated if everything went well.
         if ($q->success()) {
-
             return $details;
 
         } else {
             $PAGE->error_message ("Sorry, we were unable to update user id '" . htmlentities($details["user_id"]) . "'");
+
             return false;
         }
 
@@ -790,10 +779,10 @@ class THEUSER extends USER {
     // who is using the site right NOW. Yes, him, over there.
 
     // This will become true if all goes well...
-    var $loggedin = false;
+    public $loggedin = false;
 
 
-    function THEUSER () {
+    public function THEUSER() {
         // This function is run automatically when a THEUSER
         // object is instantiated.
 
@@ -876,11 +865,9 @@ class THEUSER extends USER {
 
         $this->update_lastvisit();
 
-
     } // End THEUSER()
 
-
-    function update_lastvisit() {
+    public function update_lastvisit() {
 
         if ($this->isloggedin()) {
             // Set last_visit to now.
@@ -893,26 +880,27 @@ class THEUSER extends USER {
         }
     }
 
-
     // For completeness, but it's better to call $this->isloggedin()
     // if you want to check the log in status.
-    function loggedin ()        { return $this->loggedin; }
+    public function loggedin() { return $this->loggedin; }
 
 
-    function isloggedin () {
+    public function isloggedin() {
         // Call this function to check if the user is successfully logged in.
 
         if ($this->loggedin()) {
             twfy_debug("THEUSER", "isloggedin: true");
+
             return true;
         } else {
             twfy_debug("THEUSER", "isloggedin: false");
+
             return false;
         }
     }
 
 
-    function isvalid ($email, $userenteredpassword) {
+    public function isvalid($email, $userenteredpassword) {
         // Returns true if this email and plaintext password match a user in the db.
         // If false returns an array of form error messages.
 
@@ -937,6 +925,7 @@ class THEUSER extends USER {
                 // We'll need these when we're going to log in.
                 $this->deleted  = $q->field(0,"deleted") == 1 ? true : false;
                 $this->confirmed = $q->field(0,"confirmed") == 1 ? true : false;
+
                 return true;
 
             } else {
@@ -954,7 +943,7 @@ class THEUSER extends USER {
 
 
 
-    function login ($returl="", $expire) {
+    public function login($returl="", $expire) {
 
         // This is used to log the user in. Duh.
         // You should already have checked the user's email and password using
@@ -977,12 +966,15 @@ class THEUSER extends USER {
         // Various checks about the user - if they fail, we exit.
         if ($this->user_id() == "" || $this->password == "") {
             $PAGE->error_message ("We don't have the user_id or password to make the cookie.", true);
+
             return;
         } elseif ($this->deleted) {
             $PAGE->error_message ("This user has been deleted.", true);
+
             return;
         } elseif (!$this->confirmed) {
             $PAGE->error_message ("You have not yet confirmed your account by clicking the link in the confirmation email we sent to you. If you don't have the email, you can <a href='/user/login/?resend=" . $this->user_id() . "'>have it resent</a>. If it still doesn't arrive, get in touch.", true);
+
             return;
         }
 
@@ -1005,7 +997,7 @@ class THEUSER extends USER {
 
 
 
-    function logout ($returl) {
+    public function logout($returl) {
 
         // $returl is the URL to redirect the user to after log in, generally the
         // page they were on before. But if it doesn't exist, they'll just go to
@@ -1024,7 +1016,7 @@ class THEUSER extends USER {
         }
     }
 
-    function confirm_email ($token, $redirect=true) {
+    public function confirm_email($token, $redirect=true) {
         $arg = '';
         if (strstr($token, '::')) $arg = '::';
         if (strstr($token, '-')) $arg = '-';
@@ -1044,9 +1036,10 @@ class THEUSER extends USER {
             $expire_time = strtotime($expires);
             if ( $expire_time < time() ) {
                 global $PAGE;
-                if ( $PAGE && $redirect ) {
+                if ($PAGE && $redirect) {
                     $PAGE->error_message ("Sorry, that token seems to have expired");
                 }
+
                 return false;
             }
 
@@ -1075,7 +1068,7 @@ class THEUSER extends USER {
             );
             $ret = $this->_update($details);
 
-            if ( $ret ) {
+            if ($ret) {
                 // and remove the token to be tidy
                 $q = $this->db->query("DELETE
                     FROM    tokens
@@ -1101,8 +1094,7 @@ class THEUSER extends USER {
 
     }
 
-
-    function confirm ($token) {
+    public function confirm($token) {
         // The user has clicked the link in their confirmation email
         // and the confirm page has passed the token from the URL to here.
         // If all goes well they'll be confirmed and then logged in.
@@ -1170,7 +1162,7 @@ class THEUSER extends USER {
     }
 
 
-    function set_postcode_cookie ($pc) {
+    public function set_postcode_cookie($pc) {
         // Set the user's postcode.
         // Doesn't change it in the DB, as it's probably mainly for
         // not-logged-in users.
@@ -1182,14 +1174,12 @@ class THEUSER extends USER {
         twfy_debug('USER', "Set the cookie named '" . POSTCODE_COOKIE . " to '$pc' for " . COOKIEDOMAIN . " domain");
     }
 
-
-    function unset_postcode_cookie () {
+    public function unset_postcode_cookie() {
         if (!headers_sent()) // if in debug mode
             setcookie (POSTCODE_COOKIE, '', time() - 3600, '/', COOKIEDOMAIN);
     }
 
-
-    function update_self ($details, $confirm_email = true) {
+    public function update_self($details, $confirm_email = true) {
         // If the user wants to update their details, call this function.
         // It checks that they're logged in before letting them.
 
@@ -1249,7 +1239,7 @@ class THEUSER extends USER {
                     if ( $r->success() ) {
                         $newdetails['email'] = $email;
                         $newdetails['token'] = $token;
-                        if ( $confirm_email ) {
+                        if ($confirm_email) {
                             return $this->send_email_confirmation_email($newdetails);
                         } else {
                             return true;
@@ -1270,13 +1260,7 @@ class THEUSER extends USER {
 
     }
 
-
-
-
-
 }
 
 // Yes, we instantiate a new global $THEUSER object when every page loads.
 $THEUSER = new THEUSER;
-
-?>

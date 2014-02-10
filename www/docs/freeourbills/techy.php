@@ -1,6 +1,6 @@
 <?php
-include_once "../../includes/easyparliament/init.php";
-require_once "share.php";
+include_once '../../includes/easyparliament/init.php';
+require_once 'share.php';
 
 $this_page = 'campaign';
 $PAGE->page_start();
@@ -49,7 +49,7 @@ just finished its Committee stage; here is <a href="http://www.publications.parl
 <a href="http://www.publications.parliament.uk/pa/cm200809/cmbills/097/amend/pbc0970615m.63-69.html">the list of amendments for 16th June</a>, the first day the Committee met.
 As a first question, can you tell me what Clause 2 would look like if all Stephen O'Brien's
 amendments were accepted? Or what Sandra Gidley's Clause 2 amendment does?
-The 
+The
 <a href="http://www.publications.parliament.uk/pa/cm200809/cmpublic/health/090616/am/90616s01.htm">proceedings of the first meeting</a> are elsewhere, as is the <a href="http://www.publications.parliament.uk/pa/cm200809/cmbills/097/pro0971606p.1-6.html">summary of proceedings</a> &ndash; can you tell me what Clause 2 looked like
 given the proceedings as to which amendments were made or withdrawn?
 
@@ -135,17 +135,13 @@ the beginning of an idea of a
 way should any of its content be taken as what we would like Parliament to do, only the possibility
 of what could be done with more structured data.</p>
 
-
 <h3>We need you!</h3>
 
-<? signup_form() ?>
+<?php signup_form() ?>
 
 <p><a href="/freeourbills">Free our Bills home</a>
 
-<?
+<?php
 #$PAGE->block_end();
 $PAGE->stripe_end();
 $PAGE->page_end ();
-
-
-

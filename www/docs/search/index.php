@@ -1,7 +1,7 @@
 <?php
 # vim:sw=4:ts=4:et:nowrap
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH."easyparliament/member.php";
 include_once INCLUDESPATH."easyparliament/glossary.php";
 
@@ -104,6 +104,7 @@ function search_order_p($searchstring) {
         print '<p>' . $data['error'] . '</p>';
         $PAGE->stripe_end();
         $PAGE->page_end();
+
         return;
     }
 
@@ -121,17 +122,17 @@ to help you find someone appropriate. When you've found someone,
 hit the "I want to write to this Lord" button on their results page
 to go back to WriteToThem.
 </big></strong></p>
-<?
+<?php
     }
 ?>
 <p>Please note that this search is only for the exact word/phrase entered.
 For example, putting in 'autism' won't return results for 'autistic spectrum disorder',
 you will have to search for it separately.</p>
-<table><tr><th>Number of occurences</th><th><?
+<table><tr><th>Number of occurences</th><th><?php
 
     if ($wtt) print 'Speaker';
     else {
-?>Table includes - <?
+?>Table includes - <?php
 
         $URL = new URL($this_page);
         $url_l = $URL->generate('html', array('house'=>2));
@@ -147,7 +148,7 @@ you will have to search for it separately.</p>
         }
 
 } ?></th><th>Date range</th></tr>
-<?
+<?php
     foreach ($data['speakers'] as $pid => $speaker) {
         print '<tr><td align="center">';
         print $speaker['count'] . '</td><td>';
@@ -187,7 +188,7 @@ you will have to search for it separately.</p>
 function search_normal($searchstring) {
     global $PAGE, $DATA, $this_page, $SEARCHENGINE;
 
-    $SEARCHENGINE = new SEARCHENGINE($searchstring); 
+    $SEARCHENGINE = new SEARCHENGINE($searchstring);
     $qd = $SEARCHENGINE->valid ? $SEARCHENGINE->query_description_short() : $searchstring;
     $pagetitle = 'Search for ' . $qd;
     $pagenum = get_http_var('p');
@@ -253,6 +254,7 @@ function search_order_t($searchstring) {
     if ($count <= 0) {
         print '<p>There were no results.</p>';
         $PAGE->page_end();
+
         return;
     }
     $sort_order = 'date';
@@ -261,6 +263,7 @@ function search_order_t($searchstring) {
     if (count($gids) <= 0) {
         print '<p>There were no results.</p>';
         $PAGE->page_end();
+
         return;
     }
 
@@ -292,11 +295,11 @@ function search_order_t($searchstring) {
 # ---
 
 function find_comments($args) {
-    $commentlist = new COMMENTLIST;    
+    $commentlist = new COMMENTLIST;
     $commentlist->display('search', $args);
 }
 
-function find_constituency ($args) {
+function find_constituency($args) {
     // We see if the user is searching for a postcode or constituency.
     global $PAGE;
 
@@ -304,6 +307,7 @@ function find_constituency ($args) {
         $searchterm = $args['s'];
     } else {
         $PAGE->error_message('No search string');
+
         return false;
     }
 
@@ -327,7 +331,7 @@ function find_constituency ($args) {
                 print ' (' . htmlentities(strtoupper($args['s'])) . ')';
             }
             ?></h2>
-            
+
             <p><a href="<?php echo $URL->generate(); ?>"><strong><?php echo $MEMBER->full_name(); ?></strong></a> (<?php echo $MEMBER->party(); ?>)</p>
     <?php
         }
@@ -348,7 +352,7 @@ function find_constituency ($args) {
     }
 }
 
-function find_users ($args) {
+function find_users($args) {
     // Maybe there'll be a better place to put this at some point...
     global $PAGE;
 
@@ -358,6 +362,7 @@ function find_users ($args) {
         $searchstring = $args['s'];
     } else {
         $PAGE->error_message("No search string");
+
         return false;
     }
 
@@ -390,7 +395,7 @@ function find_users ($args) {
             $members[] = '<a href="' . $URL->generate() . '">' . $q->field($n, 'firstname') . ' ' . $q->field($n, 'lastname') . '</a>';
         }
         ?>
-    <h2>Users matching '<?php echo htmlentities($searchstring); ?>'</h2> 
+    <h2>Users matching '<?php echo htmlentities($searchstring); ?>'</h2>
     <ul>
     <li><?php print implode("</li>\n\t<li>", $members); ?></li>
     </ul>
@@ -401,7 +406,7 @@ function find_users ($args) {
 
 }
 
-function find_members ($searchstring) {
+function find_members($searchstring) {
     // Maybe there'll be a better place to put this at some point...
     global $PAGE, $parties;
 
@@ -411,9 +416,9 @@ function find_members ($searchstring) {
     if ($members) {
 ?>
 <div id="people_results">
-    <h2>People matching &lsquo;<?php echo htmlentities($searchstring); ?>&rsquo;</h2> 
+    <h2>People matching &lsquo;<?php echo htmlentities($searchstring); ?>&rsquo;</h2>
     <ul class="hilites">
-<?
+<?php
 foreach ($members as $member) {
     echo '<li>';
     echo $member[0] . $member[1] . $member[2];
@@ -430,6 +435,7 @@ foreach ($members as $member) {
 function _find_members_internal($searchstring) {
     if (!$searchstring) {
         $PAGE->error_message("No search string");
+
         return false;
     }
 
@@ -486,7 +492,6 @@ function _find_members_internal($searchstring) {
     return $members;
 }
 
-
 // Checks to see if the search term provided has any similar matching entries in the glossary.
 // If it does, show links off to them.
 function find_glossary_items($args) {
@@ -499,19 +504,19 @@ function find_glossary_items($args) {
         $URL = new URL('glossary');
         $URL->insert(array('gl' => ""));
 ?>
-                <h2>Matching glossary terms:</h2> 
-                <p><?
+                <h2>Matching glossary terms:</h2>
+                <p><?php
         $n = 1;
-        foreach($GLOSSARY->search_matches as $glossary_id => $term) {
-            $URL->update(array("gl" => $glossary_id)); 
-            ?><a href="<?php echo $URL->generate(); ?>"><strong><?php echo htmlentities($term['title']); ?></strong></a><?
+        foreach ($GLOSSARY->search_matches as $glossary_id => $term) {
+            $URL->update(array("gl" => $glossary_id));
+            ?><a href="<?php echo $URL->generate(); ?>"><strong><?php echo htmlentities($term['title']); ?></strong></a><?php
             if ($n < $GLOSSARY->num_search_matches) {
                 print ", ";
             }
             $n++;
         }
         ?></p>
-<?
+<?php
     }
 }
 
@@ -600,4 +605,3 @@ function construct_search_string() {
 
     return $searchstring;
 }
-

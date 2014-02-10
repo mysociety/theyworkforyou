@@ -4,11 +4,10 @@
 
 Depends on having the debug() and getmicrotime() functions available elsewhere to output debugging info.
 
-
 Somewhere (probably in includes/easyparliament/init.php) there should be something like:
 
     Class ParlDB extends MySQL {
-        function ParlDB () {
+        function ParlDB() {
             $this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
         }
     }
@@ -23,9 +22,7 @@ $q is then a MySQLQuery object.
 If other databases are needed, we just need to create a class for each, each one
 extending MySQL.
 
-
 Call $db->display_total_duration() at the end of a page to send total query time to debug().
-
 
 (n is 0-based below...)
 
@@ -101,25 +98,27 @@ $mysqltotalduration = 0.0;
 
 Class MySQLQuery {
 
-    var $success = true;
-    var $rows = NULL;
-    var $data = array();
-    var $insert_id = NULL;
-    var $affected_rows = NULL;
+    public $success = true;
+    public $rows = NULL;
+    public $data = array();
+    public $insert_id = NULL;
+    public $affected_rows = NULL;
 
-    function MySQLQuery ($conn) {
+    public function MySQLQuery($conn) {
         $this->conn = $conn;
     }
 
-    function query ($sql="") {
+    public function query($sql="") {
 
         if (empty($sql)) {
             $this->success = false;
+
             return;
         }
 
         if (empty($this->conn)) {
             $this->success = false;
+
             return;
         }
 
@@ -156,41 +155,41 @@ Class MySQLQuery {
         }
     }
 
-    function success() {
+    public function success() {
         return $this->success;
     }
 
     // After INSERTS.
-    function insert_id() {
+    public function insert_id() {
         return $this->insert_id;
     }
 
     // After INSERT, UPDATE, DELETE.
-    function affected_rows() {
+    public function affected_rows() {
         return $this->affected_rows;
     }
 
     // After SELECT.
-    function field($row_index, $column_name) {
+    public function field($row_index, $column_name) {
         if ($this->rows > 0)
             return $this->data[$row_index][$column_name];
         return "";
     }
 
     // After SELECT.
-    function rows() {
+    public function rows() {
         return $this->rows;
     }
 
     // After SELECT.
-    function row($row_index) {
+    public function row($row_index) {
         if ($this->success && $this->rows > 0)
             return $this->data[$row_index];
         return array();
     }
 
     # Used when debugging
-    function _display_result() {
+    public function _display_result() {
         $html = "";
 
         if ($this->rows > 0) {
@@ -220,7 +219,7 @@ Class MySQLQuery {
         return $html;
     }
 
-    function error($errormsg) {
+    public function error($errormsg) {
         // When a query goes wrong...
         $this->success = false;
         trigger_error($errormsg, E_USER_ERROR);
@@ -232,7 +231,7 @@ Class MySQLQuery {
 $global_connection = null;
 Class MySQL {
 
-    function init ($db_host, $db_user, $db_pass, $db_name) {
+    public function init($db_host, $db_user, $db_pass, $db_name) {
         global $global_connection;
         // These vars come from config.php.
 
@@ -252,7 +251,7 @@ Class MySQL {
         return true;
     }
 
-    function fatal_error($error) {
+    public function fatal_error($error) {
         echo '
 <html><head><title>TheyWorkForYou - Database error</title></head>
 <body>
@@ -264,7 +263,7 @@ Class MySQL {
         exit;
     }
 
-    function query ($sql) {
+    public function query($sql) {
         // Pass it an SQL query and if the query was successful
         // it returns a MySQLQuery object which you can get results from.
 
@@ -278,16 +277,14 @@ Class MySQL {
         twfy_debug ("SQL", "Complete after $duration seconds.");
         // We could also output $q->mysql_info() here, but that's for
         // PHP >= 4.3.0.
-
         return $q;
     }
 
     // Call at the end of a page.
-    function display_total_duration () {
+    public function display_total_duration() {
         global $mysqltotalduration;
         twfy_debug ("TIME", "Total time for MySQL queries on this page: " . $mysqltotalduration . " seconds.");
     }
 
 // End MySQL class
 }
-

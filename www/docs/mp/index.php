@@ -26,7 +26,7 @@ Either way, we print the forms.
 
 */
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . "easyparliament/member.php";
 include_once INCLUDESPATH . "postcode.inc";
 include_once INCLUDESPATH . 'technorati.php';
@@ -415,7 +415,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         );
         $topics_html = person_committees_and_topics_for_sidebar($member, $MEMBER->extra_info);
 
-        if ( $topics_html ) {
+        if ($topics_html) {
             $sidebars[] = array ( 'type' => 'html', 'content' => $topics_html);
         }
 
@@ -446,7 +446,6 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         );
     }
 */
-
 
     if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
         global $memcache;
@@ -549,10 +548,7 @@ keeping these sorts of records on you...</p></div></div>'
     $NEWPAGE->stripe_end();
 }
 
-
 $NEWPAGE->page_end();
-
-
 
 function member_redirect(&$MEMBER, $code = 301) {
     // We come here after creating a MEMBER object by various methods.
@@ -612,6 +608,7 @@ function regional_list($pc, $area_type, $rep_type) {
             }
         } else {
             $NEWPAGE->error_message('Odd result returned!' . $house);
+
             return;
         }
     }
@@ -637,7 +634,7 @@ function regional_list($pc, $area_type, $rep_type) {
         }
     }
     $out .= '<ul>';
-    foreach($mreg as $reg) {
+    foreach ($mreg as $reg) {
         $out .= '<li><a href="/' . $rep_type . '/?p=' . $reg['person_id'] . '">';
         $out .= $reg['first_name'] . ' ' . $reg['last_name'];
         $out .= '</a>';
@@ -648,7 +645,7 @@ function regional_list($pc, $area_type, $rep_type) {
     $NEWPAGE->page_end();
 }
 
-function generate_member_links ($member) {
+function generate_member_links($member) {
     // Receives its data from $MEMBER->display_links;
     // This returns HTML, rather than outputting it.
     // Why? Because we need this to be in the sidebar, and
@@ -728,6 +725,6 @@ function generate_member_links ($member) {
                 </div>
             </div> <!-- end block -->
 ";
+
     return $html;
 }
-

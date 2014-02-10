@@ -28,16 +28,16 @@ Example usage:
 include_once INCLUDESPATH . 'dbtypes.php';
 
 if (defined('XAPIANDB') AND XAPIANDB != '') {
-    if (file_exists('/usr/share/php/xapian.php')){
+    if (file_exists('/usr/share/php/xapian.php')) {
         include_once '/usr/share/php/xapian.php';
-    }else{
+    } else {
         twfy_debug('SEARCH', '/usr/share/php/xapian.php does not exist');
     }
 }
 
 class SEARCHENGINE {
 
-	function SEARCHENGINE ($query, $phrase_allowed=false) {
+    public function SEARCHENGINE($query, $phrase_allowed=false) {
         $this->valid = false;
 
         if (!defined('XAPIANDB') || !XAPIANDB)
@@ -55,7 +55,7 @@ class SEARCHENGINE {
                 $xapiandb = new XapianDatabase(XAPIANDB);
             }
         }
-		$this->query = $query;
+        $this->query = $query;
         if (!isset($this->stemmer)) $this->stemmer = new XapianStem('english');
         if (!isset($this->enquire)) $this->enquire = new XapianEnquire($xapiandb);
         if (!isset($this->queryparser)) {
@@ -92,7 +92,7 @@ class SEARCHENGINE {
         $this->phrases = array();
         // Items prefixed with a colon (speaker:10024) as an (array of (name, value))
         $this->prefixed = array();
-        
+
         // Split words up into individual words, and quoted phrases
         preg_match_all('/(' .
             '"|' . # match either a quote, or...
@@ -191,6 +191,7 @@ class SEARCHENGINE {
         } catch (Exception $e) {
             # Nothing we can really do with a bad query
             $this->error = htmlspecialchars($e->getMessage());
+
             return null;
         }
 
@@ -269,7 +270,7 @@ class SEARCHENGINE {
             $qd = str_replace("AND_NOT ($mm)", $mmn, $qd);
         }
 
-        foreach( $this->prefixed as $items ) {
+        foreach ($this->prefixed as $items) {
             if ($items[0] == 'groupby') {
                 if ($items[1] == 'debate') {
                     $qd .= ' grouped by debate';
@@ -292,44 +293,45 @@ class SEARCHENGINE {
         $this->valid = true;
     }
 
-    function query_description_internal($long) {
+    public function query_description_internal($long) {
         if (!defined('XAPIANDB') || !XAPIANDB) {
             return '';
         }
         if (!$this->valid) {
             return '[bad query]';
         }
+
         return $this->query_desc;
     }
 
     // Return textual description of search
-    function query_description_short() {
+    public function query_description_short() {
         return $this->query_description_internal(false);
     }
 
     // Return textual description of search
-    function query_description_long() {
+    public function query_description_long() {
         return $this->query_description_internal(true);
     }
 
     // Return stem of a word
-    function stem($word) {
+    public function stem($word) {
         return $this->stemmer->apply(strtolower($word));
     }
 
-    function get_spelling_correction() {
+    public function get_spelling_correction() {
          if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
-            
+
             return $this->queryparser->get_corrected_query_string();
     }
 
     // Perform partial query to get a count of number of matches
-    function run_count($first_result, $results_per_page, $sort_order='relevance') {
+    public function run_count($first_result, $results_per_page, $sort_order='relevance') {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
-		$start = getmicrotime();
+        $start = getmicrotime();
 
         switch ($sort_order) {
             case 'date':
@@ -340,7 +342,7 @@ class SEARCHENGINE {
                 $this->enquire->set_sort_by_value(0, false);
                 break;
             case 'created':
-                $this->enquire->set_sort_by_value(2); 
+                $this->enquire->set_sort_by_value(2);
             default:
                 //do nothing, default ordering is by relevance
                 break;
@@ -352,14 +354,14 @@ class SEARCHENGINE {
         if (preg_match('#(speaker|segment):\d+#', $this->query)) {
             $collapsed = true;
         }
-        foreach( $this->prefixed as $items ) {
+        foreach ($this->prefixed as $items) {
             if ($items[0] == 'groupby') {
                 $collapsed = true;
                 if ($items[1] == 'speech')
                     ; // no collapse key
                 elseif ($items[1] == 'debate')
                     $this->enquire->set_collapse_key(3);
-                else 
+                else
                     $PAGE->error_message("Unknown group by '$items[1]' ignored");
             }
         }
@@ -367,7 +369,7 @@ class SEARCHENGINE {
         // default to grouping by subdebate, i.e. by page
         if (!$collapsed)
             $this->enquire->set_collapse_key(3);
-        
+
         /*
         XXX Helping to debug possible Xapian bug
         foreach (array(0, 50, 100, 200, 300, 400, 460) as $fff) {
@@ -397,21 +399,22 @@ class SEARCHENGINE {
         #    print $this->matches->get_matches_upper_bound();
         #}
 
-		$duration = getmicrotime() - $start;
-		twfy_debug ("SEARCH", "Search count took $duration seconds.");
+        $duration = getmicrotime() - $start;
+        twfy_debug ("SEARCH", "Search count took $duration seconds.");
+
         return $count;
     }
 
     // Perform the full search...
-    function run_search ($first_result, $results_per_page, $sort_order='relevance') {
-		$start = getmicrotime();
+    public function run_search($first_result, $results_per_page, $sort_order='relevance') {
+        $start = getmicrotime();
 
         #$matches = $this->enquire->get_mset($first_result, $results_per_page);
         $matches = $this->matches;
-		$this->gids = array();
+        $this->gids = array();
         $this->created = array();
         $this->collapsed = array();
-		$this->relevances = array();
+        $this->relevances = array();
         $iter = $matches->begin();
         $end = $matches->end();
         while (!$iter->equals($end)) {
@@ -423,28 +426,28 @@ class SEARCHENGINE {
             if ($sort_order == 'created') {
                 array_push($this->created, join('', unpack('N', $doc->get_value(2)))); # XXX Needs fixing
             }
-			twfy_debug("SEARCH", "gid: $gid relevancy: $relevancy% weight: $weight");
-			array_push($this->gids, "uk.org.publicwhip/".$gid);
+            twfy_debug("SEARCH", "gid: $gid relevancy: $relevancy% weight: $weight");
+            array_push($this->gids, "uk.org.publicwhip/".$gid);
             array_push($this->collapsed, $collapsed);
-			array_push($this->relevances, $relevancy);
+            array_push($this->relevances, $relevancy);
             $iter->next();
         }
-		$duration = getmicrotime() - $start;
-		twfy_debug ("SEARCH", "Run search took $duration seconds.");
-    }	
+        $duration = getmicrotime() - $start;
+        twfy_debug ("SEARCH", "Run search took $duration seconds.");
+    }
     // ... use these to get the results
-    function get_gids() {
+    public function get_gids() {
         return $this->gids;
     }
-    function get_relevances() {
+    public function get_relevances() {
         return $this->relevances;
     }
-    function get_createds() {
+    public function get_createds() {
         return $this->created;
     }
 
     // Puts HTML highlighting round all the matching words in the text
-    function highlight($body) {
+    public function highlight($body) {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return $body;
 
@@ -453,13 +456,14 @@ class SEARCHENGINE {
             foreach ($body as $k => $b) {
                 $body[$k] = $this->highlight_internal($b, $stemmed_words);
             }
+
             return $body;
         } else {
             return $this->highlight_internal($body, $stemmed_words);
         }
     }
 
-    function highlight_internal($body, $stemmed_words) {
+    public function highlight_internal($body, $stemmed_words) {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return $body;
 
@@ -467,7 +471,7 @@ class SEARCHENGINE {
         $body = preg_replace('/&#(\d\d\d);/e', 'chr($1)', $body);
         $splitextract = preg_split('/(<[^>]*>|[0-9,.]+|['.$this->wordcharsnodigit.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
         $hlextract = "";
-        foreach( $splitextract as $extractword) {
+        foreach ($splitextract as $extractword) {
             if (preg_match('/^<[^>]*>$/', $extractword)) {
                 $hlextract .= $extractword;
                 continue;
@@ -479,7 +483,7 @@ class SEARCHENGINE {
             }
             $hl = false;
             $matchword = $this->stem($extractword);
-            foreach( $stemmed_words as $word ) {
+            foreach ($stemmed_words as $word) {
                 if ($word == '') continue;
                 if ($matchword == $word) {
                     $hl = true;
@@ -512,7 +516,7 @@ class SEARCHENGINE {
         }
         */
 
-        foreach( $this->phrases as $phrase ) {
+        foreach ($this->phrases as $phrase) {
             $phrasematch = join($phrase, '[^'.$this->wordchars.']+');
             array_push($findwords, "/\b($phrasematch)\b/i");
             $replacewords[] = "<span class=\"hi\">\\1</span>";
@@ -525,12 +529,12 @@ class SEARCHENGINE {
     }
 
     // Find the position of the first of the search words/phrases in $body.
-    function position_of_first_word($body) {
+    public function position_of_first_word($body) {
         $lcbody = ' ' . html_entity_decode(strtolower($body)) . ' '; // spaces to make regexp mapping easier
         $pos = -1;
 
         // look for phrases
-        foreach( $this->phrases as $phrase ) {
+        foreach ($this->phrases as $phrase) {
             $phrasematch = join($phrase, '[^'.$this->wordchars.']+');
             if (preg_match('/([^'.$this->wordchars.']' . $phrasematch . '[^A-Za-z0-9])/', $lcbody, $matches))
             {
@@ -544,25 +548,25 @@ class SEARCHENGINE {
         }
         if ($pos != -1) return $pos;
 
-		$splitextract = preg_split('/([0-9,.]+|['.$this->wordcharsnodigit.']+)/', $lcbody, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $splitextract = preg_split('/([0-9,.]+|['.$this->wordcharsnodigit.']+)/', $lcbody, -1, PREG_SPLIT_DELIM_CAPTURE);
         $stemmed_words = array_map(array($this, 'stem'), $this->words);
-		foreach( $splitextract as $extractword) {
+        foreach ($splitextract as $extractword) {
             $extractword = preg_replace('/&$/', '', $extractword);
             if (!$extractword) continue;
             $wordpos = strpos($lcbody, $extractword);
             if (!$wordpos) continue;
-			foreach( $stemmed_words as $word ) {
-				if ($word == '') continue;
-				$matchword = $this->stem($extractword);
-				if ($matchword == $word && ($wordpos < $pos || $pos==-1)) {
+            foreach ($stemmed_words as $word) {
+                if ($word == '') continue;
+                $matchword = $this->stem($extractword);
+                if ($matchword == $word && ($wordpos < $pos || $pos==-1)) {
                     $pos = $wordpos;
-				}
-			}
-		}
+                }
+            }
+        }
         // only look for earlier words if phrases weren't found
         if ($pos != -1) return $pos;
 
-        foreach( $this->words as $word ) {
+        foreach ($this->words as $word) {
             if (ctype_digit($word)) $word = '(?:'.$word.'|'.number_format($word).')';
             if (preg_match('/([^'.$this->wordchars.']' . $word . '[^'.$this->wordchars. '])/', $lcbody, $matches)) {
                 $wordpos = strpos( $lcbody, $matches[0] );
@@ -576,7 +580,7 @@ class SEARCHENGINE {
         // only look for something containing the word (ie. something stemmed, but doesn't work all the time) if no whole word was found
         if ($pos != -1) return $pos;
 
-        foreach( $this->words as $word ) {
+        foreach ($this->words as $word) {
             if (ctype_digit($word)) $word = '(?:'.$word.'|'.number_format($word).')';
             if (preg_match('/(' . $word . ')/', $lcbody, $matches)) {
                 $wordpos = strpos( $lcbody, $matches[0] );
@@ -590,6 +594,7 @@ class SEARCHENGINE {
 
         if ($pos == -1)
             $pos = 0;
+
         return $pos;
     }
 }
@@ -605,12 +610,14 @@ function search_by_usage($search, $house = 0) {
         $count = $SEARCHENGINE->run_count(0, 5000, 'date');
         if ($count <= 0) {
             $data['error'] = 'No results';
+
             return $data;
         }
         $SEARCHENGINE->run_search(0, 5000, 'date');
         $gids = $SEARCHENGINE->get_gids();
         if (count($gids) <= 0) {
             $data['error'] = 'No results';
+
             return $data;
         }
         if (count($gids) == 5000)
@@ -700,38 +707,40 @@ function search_by_usage($search, $house = 0) {
         arsort($party_count);
         if (!$ok) {
             $data['error'] = 'No results';
+
             return $data;
         }
 
         $data['party_count'] = $party_count;
         $data['speakers'] = $speakers;
+
         return $data;
 }
 
 // Return query result from looking for MPs
 function search_member_db_lookup($searchstring, $current_only=false) {
-	if (!$searchstring) return false;
-	$searchwords = explode(' ', $searchstring, 3);
+    if (!$searchstring) return false;
+    $searchwords = explode(' ', $searchstring, 3);
     foreach ($searchwords as $i => $searchword) {
         $searchwords[$i] = mysql_real_escape_string($searchword);
     }
-	if (count($searchwords) == 1) {
-		$where = "first_name LIKE '%" . $searchwords[0] . "%' OR last_name LIKE '%" . $searchwords[0] . "%'";
-	} elseif (count($searchwords) == 2) {
-		// We don't do anything special if there are more than two search words.
-		// And here we're assuming the user's put the names in the right order.
-		$where = "(first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
+    if (count($searchwords) == 1) {
+        $where = "first_name LIKE '%" . $searchwords[0] . "%' OR last_name LIKE '%" . $searchwords[0] . "%'";
+    } elseif (count($searchwords) == 2) {
+        // We don't do anything special if there are more than two search words.
+        // And here we're assuming the user's put the names in the right order.
+        $where = "(first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
         $where .= " OR (first_name LIKE '%" . $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[0] . "%')";
-		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
+        $where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
         if (strtolower($searchwords[0]) == 'nick') {
-		    $where .= " OR (first_name LIKE '%nicholas%' AND last_name LIKE '%" . $searchwords[1] . "%')";
+            $where .= " OR (first_name LIKE '%nicholas%' AND last_name LIKE '%" . $searchwords[1] . "%')";
         }
-	} else {
+    } else {
         $searchwords[2] = str_replace('of ', '', $searchwords[2]);
-		$where = "(first_name LIKE '%" . $searchwords[0].' '.$searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
+        $where = "(first_name LIKE '%" . $searchwords[0].' '.$searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
         $where .= " OR (first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1].' '.$searchwords[2] . "%')";
-		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND first_name LIKE '%". $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
-		$where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%". $searchwords[1] . "%' AND constituency LIKE '%" . $searchwords[2] . "%')";
+        $where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND first_name LIKE '%". $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
+        $where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%". $searchwords[1] . "%' AND constituency LIKE '%" . $searchwords[2] . "%')";
     }
     $where = "($where)";
 
@@ -740,14 +749,15 @@ function search_member_db_lookup($searchstring, $current_only=false) {
     }
 
     $db = new ParlDB;
-	$q = $db->query("SELECT person_id,
+    $q = $db->query("SELECT person_id,
                             title, first_name, last_name,
-							constituency, party,
+                            constituency, party,
                             entered_house, left_house, house
-					FROM 	member
-					WHERE	$where
-					ORDER BY last_name, first_name, person_id, entered_house desc
-					");
+                    FROM 	member
+                    WHERE	$where
+                    ORDER BY last_name, first_name, person_id, entered_house desc
+                    ");
+
     return $q;
 }
 
@@ -755,26 +765,26 @@ function search_member_db_lookup($searchstring, $current_only=false) {
 // Returns a list of the array of constituencies, then a boolean saying whether
 // it was a postcode used.
 function search_constituencies_by_query($searchterm) {
-	$constituencies = array();
+    $constituencies = array();
     $constituency = '';
-	$validpostcode = false;
+    $validpostcode = false;
 
-	if (validate_postcode($searchterm)) {
-		// Looks like a postcode - can we find the constituency?
-		$constituency = postcode_to_constituency($searchterm);
+    if (validate_postcode($searchterm)) {
+        // Looks like a postcode - can we find the constituency?
+        $constituency = postcode_to_constituency($searchterm);
         if ($constituency != '') {
             $validpostcode = true;
         }
-	}
+    }
 
-	if ($constituency == '' && $searchterm) {
-		// No luck so far - let's see if they're searching for a constituency.
-		$try = strtolower($searchterm);
-		if (normalise_constituency_name($try)) {
-			$constituency = normalise_constituency_name($try);
-		} else {
+    if ($constituency == '' && $searchterm) {
+        // No luck so far - let's see if they're searching for a constituency.
+        $try = strtolower($searchterm);
+        if (normalise_constituency_name($try)) {
+            $constituency = normalise_constituency_name($try);
+        } else {
             $query = "select distinct
-                    (select name from constituency where cons_id = o.cons_id and main_name) as name 
+                    (select name from constituency where cons_id = o.cons_id and main_name) as name
                 from constituency AS o where name like '%" . mysql_real_escape_string($try) . "%'
                 and from_date <= date(now()) and date(now()) <= to_date";
             $db = new ParlDB;
@@ -783,7 +793,7 @@ function search_constituencies_by_query($searchterm) {
                 $constituencies[] = $q->field($n, 'name');
             }
         }
-	} else {
+    } else {
         if ($constituency) {
             $constituencies[] = $constituency;
         }
@@ -791,5 +801,3 @@ function search_constituencies_by_query($searchterm) {
 
     return array($constituencies, $validpostcode);
 }
-
-

@@ -12,27 +12,27 @@
 
 $this_page = "userprompt";
 
-include_once "../../../includes/easyparliament/init.php";
+include_once '../../../includes/easyparliament/init.php';
 
 
 $type = get_http_var('type');
 $returl = get_http_var('ret');
 
 if ($type == 2) {
-	// Glossary.
-	$message = "Sorry, you must be logged in to add a glossary item.";
-	$message2 = "You'll be able to add your glossary item straight after.";
-	
-	$URL = new URL('glossary_addterm');
-	$URL->insert(array('g' => get_http_var('g')));
-	$glossary_returl = $URL->generate();
-	$anchor = '';
-	
+    // Glossary.
+    $message = "Sorry, you must be logged in to add a glossary item.";
+    $message2 = "You'll be able to add your glossary item straight after.";
+
+    $URL = new URL('glossary_addterm');
+    $URL->insert(array('g' => get_http_var('g')));
+    $glossary_returl = $URL->generate();
+    $anchor = '';
+
 } else {
-	// Comment.
-	$message = "Sorry, you must be logged in to add an annotation.";
-	$message2 = "You'll be able to post your annotation straight after.";
-	$anchor = '#addcomment';
+    // Comment.
+    $message = "Sorry, you must be logged in to add an annotation.";
+    $message2 = "You'll be able to post your annotation straight after.";
+    $anchor = '#addcomment';
 }
 
 $URL = new URL('userjoin');
@@ -57,7 +57,6 @@ $PAGE->stripe_start();
 <?php
 
 $PAGE->login_form();
-
 
 $PAGE->stripe_end();
 

@@ -374,7 +374,7 @@
 	margin: 0 auto;
 	font-size: 100%;
     }
-	
+
     .calendar caption {
 	caption-side: top;
 	text-align: left;

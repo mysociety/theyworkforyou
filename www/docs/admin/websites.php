@@ -12,7 +12,6 @@ $db = new ParlDB;
 
 $scriptpath = '../../../scripts';
 
-
 $PAGE->page_start();
 $PAGE->stripe_start();
 
@@ -20,7 +19,6 @@ $out = '';
 if (get_http_var('editperson') && get_http_var('action') === 'SaveURL') {
     $out = update_url();
 }
-
 
 if (get_http_var('editperson')) {
     $out .= edit_member_form();
@@ -35,15 +33,14 @@ print $subnav;
 print $out;
 print '</div>';
 
-
 function edit_member_form() {
-    global $db; 
+    global $db;
     $personid = get_http_var('editperson');
-    $q = $db->query("SELECT member.person_id, house, title, first_name, last_name, constituency, data_value AS mp_website 
+    $q = $db->query("SELECT member.person_id, house, title, first_name, last_name, constituency, data_value AS mp_website
     FROM member LEFT JOIN personinfo ON member.person_id = personinfo.person_id AND  data_key = 'mp_website'
     WHERE member.person_id = '" . mysql_real_escape_string($personid)."';");
 
-    for ($row = 0; $row < $q->rows(); $row++) {    
+    for ($row = 0; $row < $q->rows(); $row++) {
 
         $mpname = member_full_name($q->field($row, 'house'), $q->field($row, 'title'), $q->field($row, 'first_name'), $q->field($row, 'last_name'), $q->field($row, 'constituency'));
 
@@ -56,48 +53,50 @@ function edit_member_form() {
         $out .= '<span class="formw"><input name="btnaction" type="submit" value="Save URL"></span>';
         $out .= '</form>';
     }
+
     return $out;
 }
 
 function list_members() {
-    global $db; 
+    global $db;
     $out = '<ul>';
     # this returns everyone so possibly over the top maybe limit to member.house = '1'
-    $q = $db->query("SELECT member.person_id, house, title, first_name, last_name, constituency, data_value FROM member 
+    $q = $db->query("SELECT member.person_id, house, title, first_name, last_name, constituency, data_value FROM member
     LEFT JOIN personinfo ON member.person_id = personinfo.person_id AND personinfo.data_key = 'mp_website' GROUP BY member.person_id ORDER BY last_name, first_name");
-        
+
     for ($row = 0; $row < $q->rows(); $row++) {
         $out .= '<li>';
         $mpname = member_full_name($q->field($row, 'house'), $q->field($row, 'title'), $q->field($row, 'first_name'), $q->field($row, 'last_name'), $q->field($row, 'constituency'));
         $mp_website = $q->field($row, 'data_value');
         $out .= ' <small>[<a href="websites.php?editperson=' . $q->field($row, 'person_id') . '"';
-	if ($mp_website) {
+    if ($mp_website) {
             $out .= ' title="Change URL ' . $mp_website . '">Edit URL</a>]</small>';
-	} else {
+    } else {
             $out .= '>Add URL</a>]</small>';
-	}
+    }
         $out .= ' ' . $mpname;
         if ($q->field($row, 'constituency') && $q->field($row, 'house')!=2) {
-            $out .= ' (' . $q->field($row, 'constituency') . ')';        
+            $out .= ' (' . $q->field($row, 'constituency') . ')';
         }
         $out .= "</li>\n";
     }
     $out .= '</ul>';
+
     return $out;
 }
 
 function update_url() {
-    global $db; 
-    global $scriptpath; 
+    global $db;
+    global $scriptpath;
     $out = '';
     $sysretval = 0;
     $personid = get_http_var('editperson');
-    
+
     $q  = $db->query("DELETE FROM personinfo WHERE data_key = 'mp_website' AND personinfo.person_id = '".mysql_real_escape_string($personid)."';");
 
     if ($q->success()) {
         $q = $db->query("INSERT INTO personinfo (data_key, person_id, data_value) VALUES ('mp_website', '" . mysql_real_escape_string($personid) . "', '" . mysql_real_escape_string(get_http_var('url')). "');");
-    }    
+    }
 
     if ($q->success()) {
         exec($scriptpath . "/db2xml.pl --update_person --personid=" . escapeshellarg($personid) . " --debug", $exec_output);
@@ -109,6 +108,7 @@ function update_url() {
     if ($sysretval) {
         $out .= '<p id="warning">Update Successful</p>';
     }
+
     return $out;
 }
 
@@ -117,25 +117,23 @@ function subnav() {
     $subnav = array(
         'List Websites' => '/admin/websites.php',
     );
-    
+
     $rettext .= '<div id="subnav_websites">';
     foreach ($subnav as $label => $path) {
         $rettext .=  '<a href="'. $path . '">'. $label .'</a>';
     }
     $rettext .=  '</div>';
+
     return $rettext;
 }
-
 
 $menu = $PAGE->admin_menu();
 
 $PAGE->stripe_end(array(
-	array(
-		'type'		=> 'html',
-		'content'	=> $menu
-	)
+    array(
+        'type'		=> 'html',
+        'content'	=> $menu
+    )
 ));
 
 $PAGE->page_end();
-
-?>

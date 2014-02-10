@@ -4,7 +4,7 @@
  * List all static topics.
  */
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 
 $DATA->set_page_metadata($this_page, 'title', 'Topics');
 

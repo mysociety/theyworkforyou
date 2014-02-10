@@ -1,5 +1,5 @@
 #!/usr/bin/php -q
-<?
+<?php
 
 # This gets the data for the pages which show who has edited what in Wikipedia
 # from Parliament, political party IP addresses etc.

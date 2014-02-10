@@ -1,7 +1,7 @@
 <?php
-include_once "../../includes/easyparliament/init.php";
-require_once "share.php";
-require_once "sharethis.php";
+include_once '../../includes/easyparliament/init.php';
+require_once 'share.php';
+require_once 'sharethis.php';
 
 $this_page = 'campaign';
 $PAGE->page_start();
@@ -42,8 +42,8 @@ campaign and we'll tell you whether your MP has signed.</p>
 
 <h2>We need you!</h2>
 
-<? signup_form() ?>
-<? freeourbills_sharethis_link(); ?>
+<?php signup_form() ?>
+<?php freeourbills_sharethis_link(); ?>
 
 <p></p>
 
@@ -59,7 +59,7 @@ MPs obsessively checking their own stats. -->
 <p>
 It&rsquo;s time for Parliament to improve its act and start publishing these vital
 documents properly in the first place. Quite apart from the fact that we&rsquo;re a
-tiny charity without many resources to fix this information, 
+tiny charity without many resources to fix this information,
 <em>you&rsquo;re paying</em> for them to produce it in a uselessly old
 fashioned way.  Unless Parliament produces better bills:
 
@@ -77,7 +77,7 @@ can&rsquo;t see their involvement with the bill making process.
 enough to think of yet.
 </ul>
 
-<!-- 
+<!--
 <h2>"Why won&rsquo;t Parliament do this?"</h2>
 
 <p>We tried, my dears, we really did. We had meetings, and heard
@@ -130,14 +130,12 @@ Suck it up and sign up, soldier.
 
 <h2>We need you!</h2>
 
-<? signup_form(); ?>
-<? freeourbills_sharethis_link(); ?>
+<?php signup_form(); ?>
+<?php freeourbills_sharethis_link(); ?>
 
-<?
+<?php
 $PAGE->stripe_end(array(array(
-	'type' => 'html',
-	'content' => '<p align="center"><img title="Duck-billed platypus" src="bill3.jpg" alt="" hspace="10"></p>'
+    'type' => 'html',
+    'content' => '<p align="center"><img title="Duck-billed platypus" src="bill3.jpg" alt="" hspace="10"></p>'
 )));
 $PAGE->page_end ();
-
-

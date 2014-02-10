@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
@@ -14,10 +14,10 @@ function api_getPerson_front() {
 This will return all database entries for this person, so will include previous elections, party changes, etc.</dd>
 </dl>
 
-<?
+<?php
 }
 
-function _api_getPerson_row($row, $has_party=FALSE){
+function _api_getPerson_row($row, $has_party=FALSE) {
     global $parties;
     $row['full_name'] = member_full_name($row['house'], $row['title'], $row['first_name'],
         $row['last_name'], $row['constituency']);
@@ -47,6 +47,7 @@ function _api_getPerson_row($row, $has_party=FALSE){
     foreach ($row as $k => $r) {
         if (is_string($r)) $row[$k] = html_entity_decode($r);
     }
+
     return $row;
 }
 
@@ -63,16 +64,15 @@ function api_getPerson_id($id) {
 }
 
 function _api_getPerson_output($q) {
-	$output = array();
-	$last_mod = 0;
-	for ($i=0; $i<$q->rows(); $i++) {
+    $output = array();
+    $last_mod = 0;
+    for ($i=0; $i<$q->rows(); $i++) {
         $house = $q->field($i, 'house');
         $out = _api_getPerson_row($q->row($i), $house == 0 ? false : true);
-		$output[] = $out;
-		$time = strtotime($q->field($i, 'lastupdate'));
-		if ($time > $last_mod)
-			$last_mod = $time;
-	}
-	api_output($output, $last_mod);
+        $output[] = $out;
+        $time = strtotime($q->field($i, 'lastupdate'));
+        if ($time > $last_mod)
+            $last_mod = $time;
+    }
+    api_output($output, $last_mod);
 }
-

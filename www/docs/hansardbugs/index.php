@@ -1,7 +1,7 @@
 <?php
 
 $this_page = 'hansard_bugs';
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 $DATA->set_page_metadata($this_page, 'heading','Official Hansard problems');
 
 $PAGE->page_start();
@@ -12,7 +12,7 @@ $PAGE->block_start(array ('title'=>'Things currently noticeable to the user'));
 
 <style type="text/css">
 dt strong {
-	color: #ff0000;
+    color: #ff0000;
 }
 </style>
 <dl>
@@ -34,7 +34,7 @@ going back to the index, finding the first question on that next page and clicki
 link from the last page of the previous batch is not always added,
 so it is very hard to navigate through. For example,
 <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0605.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0605.htm</a>
-has no Next Section link to 
+has no Next Section link to
 <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0607.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0607.htm</a>
 and
 <a href="http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0638.htm">http://www.publications.parliament.uk/pa/cm200506/cmhansrd/cm060605/text/60605w0638.htm</a>
@@ -108,7 +108,7 @@ There are a couple of other minor issues, but that's the important stuff. :)
 
 </dl>
 
-<?
+<?php
 $PAGE->block_end();
 $PAGE->block_start(array ('title'=>'Things not noticeable to the user'));
 ?>
@@ -117,12 +117,10 @@ $PAGE->block_start(array ('title'=>'Things not noticeable to the user'));
 <li>Some XHTML is being output when the pages are in HTML (e.g. &lt;hr/&gt; and even &lt;br&gt;&lt;/br&gt;). Not very important.
 </ul>
 
-<?
+<?php
 $PAGE->block_end();
 
 $includes = array(
 );
 $PAGE->stripe_end($includes);
 $PAGE->page_end();
-
-?>

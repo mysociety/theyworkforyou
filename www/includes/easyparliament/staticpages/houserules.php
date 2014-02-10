@@ -22,7 +22,7 @@
 
 <dt>Don't impersonate others</dt>
 <dd><p>They tend to get cross. As do we.</p></dd>
- 
+
 <dt>Please don’t link to websites you wouldn't want your granny to visit</dt>
 <dd><p>No porn, no snuff, no filez etc.</p></dd>
 

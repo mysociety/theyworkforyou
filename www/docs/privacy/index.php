@@ -2,7 +2,7 @@
 
 $this_page = "privacy";
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 
 $PAGE->page_start();
 
@@ -18,10 +18,8 @@ $PAGE->stripe_start();
 </ol>
 
 <p><em>We hope you enjoy using the website.</em></p>
-<?
+<?php
 
 $PAGE->stripe_end();
 
 $PAGE->page_end();
-
-?>

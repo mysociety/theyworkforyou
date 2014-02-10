@@ -2,11 +2,11 @@
 
 $this_page = "hansard_landing";
 
-include_once "../../includes/easyparliament/init.php";
+include_once '../../includes/easyparliament/init.php';
 
 $DATA->set_page_metadata($this_page, 'title', 'Hansard');
 $DATA->set_page_metadata($this_page, 'meta_description',
-			 'Find the complete Hansard on TheyWorkForYou.com - transcripts from all UK parliamentary debates in easily-searchable form.');
+             'Find the complete Hansard on TheyWorkForYou.com - transcripts from all UK parliamentary debates in easily-searchable form.');
 $DATA->set_page_metadata($this_page, 'meta_keywords', "hansard, search hansard, hansard transcriptions, hansard record, parliamentary transcripts, parliament transcripts, parliament records, uk hansard, hansard uk, house of commons transcript, house of commons debates, house of commons records");
 
 $PAGE->supress_heading = true;
@@ -35,7 +35,7 @@ $PAGE->stripe_end();
 $PAGE->stripe_start();
 ?>
 
-<p>Hansard is the transcript of all parliamentary debates, published by Parliament itself. 
+<p>Hansard is the transcript of all parliamentary debates, published by Parliament itself.
 TheyWorkForYou&rsquo;s version of Hansard is the easiest to use anywhere on the web. </p>
 <p>Search Hansard now by entering any word or phrase in the box above.</p>
 
@@ -53,7 +53,7 @@ TheyWorkForYou&rsquo;s version of Hansard is the easiest to use anywhere on the 
   <li><a href="/">Find out who your MP is</a></li>
   <li><a href="/">Subscribe to custom email alerts for issues you care about in Parliament</a></li>
   <li><a href="/calendar">See what&rsquo;s upcoming in Parliament</a></li>
-</ul>         
+</ul>
 
 <?php
 $PAGE->stripe_end();

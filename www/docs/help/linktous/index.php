@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../../includes/easyparliament/init.php";
+include_once '../../../includes/easyparliament/init.php';
 
 $this_page = "linktous";
 
@@ -13,5 +13,3 @@ include INCLUDESPATH . 'easyparliament/staticpages/linktous.php';
 $PAGE->stripe_end();
 
 $PAGE->page_end();
-
-?>
