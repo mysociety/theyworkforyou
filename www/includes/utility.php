@@ -120,10 +120,10 @@ function error_handler($errno, $errmsg, $filename, $linenum, $vars) {
 // I'm not sure this bit is actually any use!
 
     // set of errors for which a var trace will be saved.
-//	$user_errors = array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE);
-//	if (in_array($errno, $user_errors)) {
-//		$err .= "Variables:\t" . serialize($vars) . "\n";
-//	}
+//  $user_errors = array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE);
+//  if (in_array($errno, $user_errors)) {
+//      $err .= "Variables:\t" . serialize($vars) . "\n";
+//  }
 
 
     // Add the problematic line if possible.
@@ -228,8 +228,8 @@ function adodb_backtrace($print=true)
 
       $s .= $arr['function'].'('.implode(', ',$args).')';
       //      $s .= sprintf("</font><font color=#808080 size=-1> # line %4d,".
-      //		    " file: <a href=\"file:/%s\">%s</a></font>",
-      //	    $arr['line'],$arr['file'],$arr['file']);
+      //            " file: <a href=\"file:/%s\">%s</a></font>",
+      //        $arr['line'],$arr['file'],$arr['file']);
       $s .= "\n";
     }
     if ($print) print $s;
@@ -264,7 +264,7 @@ function validate_postcode($postcode) {
     $nom = '0123456789';
     $gap = '\s\.';
 
-    if (	preg_match("/^[$fst][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
+    if (    preg_match("/^[$fst][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
             preg_match("/^[$fst][$num][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
             preg_match("/^[$fst][$sec][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
             preg_match("/^[$fst][$sec][$num][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
@@ -371,17 +371,17 @@ function relative_time($datetime) {
     $in_seconds = strtotime($datetime);
     $now = time();
 
-    $diff 	=  $now - $in_seconds;
-    $months	=  floor($diff/2419200);
-    $diff 	-= $months * 2419200;
-    $weeks 	=  floor($diff/604800);
-    $diff	-= $weeks*604800;
-    $days 	=  floor($diff/86400);
-    $diff 	-= $days * 86400;
-    $hours 	=  floor($diff/3600);
-    $diff 	-= $hours * 3600;
+    $diff   =  $now - $in_seconds;
+    $months =  floor($diff/2419200);
+    $diff   -= $months * 2419200;
+    $weeks  =  floor($diff/604800);
+    $diff   -= $weeks*604800;
+    $days   =  floor($diff/86400);
+    $diff   -= $days * 86400;
+    $hours  =  floor($diff/3600);
+    $diff   -= $hours * 3600;
     $minutes = floor($diff/60);
-    $diff 	-= $minutes * 60;
+    $diff   -= $minutes * 60;
     $seconds = $diff;
 
 
@@ -639,16 +639,16 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
 
     // $data is like:
     // array (
-    //	'template' 	=> 'send_confirmation',
-    //	'to'		=> 'phil@gyford.com',
-    //	'subject'	=> 'Your confirmation email'
+    //  'template'  => 'send_confirmation',
+    //  'to'        => 'phil@gyford.com',
+    //  'subject'   => 'Your confirmation email'
     // );
 
     // $merge is like:
     // array (
-    //	'FIRSTNAME' => 'Phil',
-    //	'LATNAME'	=> 'Gyford'
-    // 	etc...
+    //  'FIRSTNAME' => 'Phil',
+    //  'LATNAME'   => 'Gyford'
+    //  etc...
     // );
 
     // In $data, 'template' and 'to' are mandatory. 'template' is the
