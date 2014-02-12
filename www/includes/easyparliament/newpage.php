@@ -604,6 +604,10 @@ class NEWPAGE extends PAGE {
         global $this_page, $THEUSER;
 ?>
         <div class="large-12 large-centered columns">
+<div id="surveyPromoBanner" style="clear:both;padding:1em;margin-top:24px;background:#DDD;">
+We're running a survey to help us understand who uses our sites. If you have 10-15 minutes to spare then we'd be grateful if you could <a href="http://questions.mysociety.org/S/twfy/w/" target="_blank">take part</a>.
+</div>
+
 <?php
 
 /*
