@@ -523,7 +523,14 @@ function find_glossary_items($args) {
 # ---
 
 function construct_search_string() {
-    $search_main = trim(get_http_var('s'));
+
+    // If q has a value (other than the default empty string) use that over s.
+
+    if (get_http_var('q') != '') {
+        $search_main = trim(get_http_var('q'));
+    } else {
+        $search_main = trim(get_http_var('s'));
+    }
 
     $searchstring = '';
 

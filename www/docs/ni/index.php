@@ -181,9 +181,9 @@ function ni_front_page() {
     <!-- Search / alerts -->
     <div id="welcome_search">
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-            <h2><label for="s">Search,  create an alert or RSS feed</label></h2>
+            <h2><label for="search_input">Search,  create an alert or RSS feed</label></h2>
             <p>
-                <input type="text" name="s" id="s" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
+                <input type="text" name="q" id="search_input" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
                 <input type="hidden" name="section" value="ni">
                 <input type="submit" value="Go" class="submit">
                 <small>e.g. a <em>word</em>, <em>phrase</em>, or <em>person</em> | <a href="/search/?adv=1">More options</a></small>

@@ -411,7 +411,7 @@ window.fbAsyncInit = function () {
             ?>
         <div id="search">
             <form action="<?php echo $URL->generate(); ?>" method="get">
-               <label for="searchbox">Search</label><input id="searchbox" name="s" size="15">
+               <label for="search_input">Search</label><input id="header_search_input" name="q" size="15">
                <input type="submit" class="submit" value="Go">
                <?php /* <input type="hidden" name="section" value="<?=$section?>"> */ ?>
             </form>
@@ -1528,8 +1528,13 @@ pr()//-->
         $URL = new URL('search');
         $URL->reset(); // no need to pass any query params as a form action. They are not used.
 
-        if ($value == '')
-            $value = get_http_var('s');
+        if ($value == '') {
+            if (get_http_var('q') !== '') {
+                $value = get_http_var('q');
+            } else {
+                $value = get_http_var('s');
+            }
+        }
 
         $person_name = '';
         if (preg_match_all('#speaker:(\d+)#', $value, $m) == 1) {
@@ -1550,7 +1555,7 @@ pr()//-->
                 if (get_http_var('house')) {
                     echo '<input type="hidden" name="house" value="', htmlentities(get_http_var('house')), '">';
                 }
-                echo '<input type="text" name="s" value="', htmlentities($value), '" size="50"> ';
+                echo '<input type="text" name="q" value="', htmlentities($value), '" size="50"> ';
                 echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
                 $URL = new URL('search');
             $URL->insert(array('adv' => 1));
@@ -1697,12 +1702,12 @@ pr()//-->
         // Search box on the MP page.
 
         $URL = new URL('search');
-        $URL->remove(array('s'));
+        $URL->remove(array('s', 'q'));
         ?>
                 <div class="mpsearchbox">
                     <form action="<?php echo $URL->generate(); ?>" method="get">
                     <p>
-                    <input name="s" size="12">
+                    <input name="q" size="12">
                     <input type="hidden" name="pid" value="<?=$person_id ?>">
                     <input type="submit" class="submit" value="GO"></p>
                     </form>

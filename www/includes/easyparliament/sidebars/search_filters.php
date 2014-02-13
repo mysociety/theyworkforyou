@@ -40,7 +40,7 @@ $this->block_start(array( 'title' => "Filtering your results"));
 
 ?>
 <form method="get" action="/search/">
-<input type="hidden" name="s" value="<?=htmlspecialchars($filter_ss) ?>">
+<input type="hidden" name="q" value="<?=htmlspecialchars($filter_ss) ?>">
 
 <ul>
 
