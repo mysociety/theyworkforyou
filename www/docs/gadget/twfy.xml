@@ -450,7 +450,7 @@
         debates, written answers, and
         written ministerial statements back
         to 2001:</label>
-        <input type="text" id="search" name="s" value="" />
+        <input type="text" id="search" name="q" value="" />
         <input type="submit" value="Search" /></p>
     </form>
     <div id="search-results"></div>
