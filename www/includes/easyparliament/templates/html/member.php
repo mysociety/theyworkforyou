@@ -20,7 +20,7 @@ include_once INCLUDESPATH."easyparliament/templates/html/header.php";
                 </div>
                 <div class="person-content">
                     <div class="person-content__header">
-                        <h1>Overview</h1>
+                        <h2>Overview</h2>
                     </div>
                     <div class="person-panels">
                         <div class="full_page__row">
@@ -35,22 +35,22 @@ include_once INCLUDESPATH."easyparliament/templates/html/header.php";
                         </div>
                         <div class="content">
                             <div class="panel">
-                                <h2>Voting Summary</h2>
+                                <h3>Voting Summary</h3>
                             </div>
                             <div class="panel">
-                                <h2>Recent appearances</h2>
-                            </div>
-
-                            <div class="panel">
-                                <h2>Profile</h2>
+                                <h3>Recent appearances</h3>
                             </div>
 
                             <div class="panel">
-                                <h2>Numerology</h2>
+                                <h3>Profile</h3>
                             </div>
 
                             <div class="panel">
-                                <h2>Register of Interests</h2>
+                                <h3>Numerology</h3>
+                            </div>
+
+                            <div class="panel">
+                                <h3>Register of Interests</h3>
                             </div>
                         </div>
                     </div>
