@@ -70,10 +70,6 @@ strong, b {
     font-weight: $weight_bold;
 }
 
-.full-page {
-    background: #fff;
-    color: #222;
-}
 
 /* Base typography */
 
@@ -223,7 +219,7 @@ form {
 
 /* Brand header */
 .brand-header {
-    background: $colour_black;
+    background: white;
     a:link,
     a:visited {
         color: #fff;
@@ -242,6 +238,7 @@ form {
 }
 
 .brand-header__title {
+    background-color: $primary-color;
     color: #fff;
     font-size: emCalc(24);
     font-weight: $weight_bold;
@@ -329,11 +326,14 @@ form {
     .person-panels {
         @include grid-row;
         .in-page-nav {
+            background-color: white;
             @include grid-column(2);
         }
         .content {
             @include grid-column(10);
             .panel {
+                background-color: white;
+                border: 1px solid $borders;
                 @include grid-row;
             }
         }
@@ -406,7 +406,7 @@ form {
         padding: 0.5em 0.75em;
         &:link,
         &:visited {
-            color: #fff;
+            color: $body-font-color;
         }
         &:hover,
         &:active,
@@ -937,14 +937,12 @@ ul, li {
 
 #footer {
     padding-top: em-calc(40px);
-    color: white;
     clear: both;
     margin-top: 1em;
-    background-color: $footer;
+    background-color: white;
     font-family: "Open Sans", sans-serif;
 
     #stay-up-to-date h5 {
-        color: white;
         padding-bottom: 0.5em;
         border-bottom: solid 1px $light-text;
         font-family: Lato, sans-serif;
@@ -985,7 +983,7 @@ ul, li {
             border-radius: 2px 0px 0px 2px;
         }
         &[type=submit] {
-            background-color: $brand;
+            background-color: $primary-color;
             color: white;
             margin-left: 0px;
             border-radius: 0px 2px 2px 0px;
@@ -994,16 +992,6 @@ ul, li {
 
     div.columns {
         font-size: em-calc(14);
-    }
-    a, a:hover, a:active {
-        color: white;
-        text-decoration: underline;
-        text-decoration-style: dotted;
-        -moz-text-decoration-style: dotted;
-        -webkit-text-decoration-style: dotted;
-    }
-    a:hover {
-        color: darken($links, 10%);
     }
 
     dl {
