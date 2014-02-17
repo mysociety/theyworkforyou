@@ -942,6 +942,14 @@ ul, li {
     background-color: white;
     font-family: "Open Sans", sans-serif;
 
+    #footer-about {
+        @include grid-column(4);
+    }
+
+    #footer-links {
+        @include grid-column(8);
+    }
+
     #stay-up-to-date h5 {
         padding-bottom: 0.5em;
         border-bottom: solid 1px $light-text;
@@ -992,6 +1000,14 @@ ul, li {
 
     div.columns {
         font-size: em-calc(14);
+    }
+
+    .footer_follow__column {
+        @include grid-column(6);
+    }
+
+    .footer_link__column {
+        @include grid-column(3);
     }
 
     dl {

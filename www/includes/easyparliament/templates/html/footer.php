@@ -1,6 +1,6 @@
                 <div id="footer">
-                    <div class="row">
-                        <div class="large-4 columns" id="footer-about">
+                    <div class="full-page__row">
+                        <div id="footer-about">
                             <p>
                                 TheyWorkForYou lets you find out what your MP, MSP or MLA is doing in your name, read debates, written answers, see what&rsquo;s coming up in Parliament, and sign up for email alerts when there&rsquo;s past or future activity on someone or something you&rsquo;re interested in.
                             </p>
@@ -11,7 +11,7 @@
                           If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
                               </p>
                         </div>
-                      <div class="large-8 columns">
+                      <div id="footer-links">
                         <div id="stay-up-to-date" class="row">
                           <div class="large-12 columns">
                                 <h5>
@@ -20,14 +20,14 @@
                           </div>
                         </div>
                         <div class="row">
-                            <div class="large-6 columns">
+                            <div class="footer_follow__column columns">
                               <p>Sign up to our monthly newsletter</p>
                               <form method="post" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
                                   <input placeholder="Your email" type="text" name="email"><input type="submit" value="Sign Up">
                                   <div style="display:none;">Please don't fill in this box: <input type="text" name="username"></div>
                               </form>
                             </div>
-                            <div class="large-6 columns">
+                            <div class="footer_follow__column">
                             <p>
                             Follow us
                             </p>
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                         <div id="footer-nav" class="row">
-                            <div class="large-3 columns">
+                            <div class="footer_link__column">
                                 <dl>
                                     <dt>ABOUT </dt>
                                     <dd>
@@ -98,7 +98,7 @@
                                     </dd>
                                 </dl>
                             </div>
-                            <div class="large-3 columns">
+                            <div class="footer_link__column">
                                 <dl>
                                     <dt>PARLIAMENTS &amp; ASSEMBLIES </dt>
                                     <dd>
@@ -112,7 +112,7 @@
                                     </dd>
                                 </dl>
                             </div>
-                            <div class="large-3 columns">
+                            <div class="footer_link__column">
                                 <dl>
                                     <dt>DEVELOPERS </dt>
                                     <dd>
@@ -126,7 +126,7 @@
                                     </dd>
                                 </dl>
                             </div>
-                            <div class="large-3 columns">
+                            <div class="footer_link__column">
                                 <dl>
                                     <dt>INTERNATIONAL PROJECTS </dt>
                                     <dd>
