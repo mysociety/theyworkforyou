@@ -5,14 +5,463 @@
 @import "normalize";
 
 // Comment out this import if you are customizing you imports below
-@import "foundation";
+// @import "foundation";
 
-@import "ms_header";
+// Import specific parts of Foundation by commenting the import "foundation"
+// and uncommenting what you want below. You must uncomment the following if customizing
 
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700|Open+Sans:400,700&subset=latin,latin-ext);
+@import "foundation/components/global"; // *always required
+//@import "foundation/components/grid";
 
-// Include the Foundation icon font
-@import '../foundation-icons/foundation-icons.css';
+//
+// Use this grid if you want to start using the new Foundation 5 grid early.
+// It will change breakpoints to min-width: 640px and 1024px.
+//
+@import "foundation/components/grid-5";
+//
+
+@import "foundation/components/visibility";
+// @import "foundation/components/block-grid";
+@import "foundation/components/type";
+@import "foundation/components/buttons";
+@import "foundation/components/forms"; // *requires components/buttons
+// @import "foundation/components/custom-forms"; // *requires components/buttons, components/forms
+// @import "foundation/components/button-groups"; // *requires components/buttons
+@import "foundation/components/dropdown-buttons"; // *requires components/buttons
+// @import "foundation/components/split-buttons"; // *requires components/buttons
+// @import "foundation/components/flex-video";
+// @import "foundation/components/section";
+// @import "foundation/components/top-bar";  // *requires components/grid
+// @import "foundation/components/orbit";
+// @import "foundation/components/reveal";
+// @import "foundation/components/joyride";
+// @import "foundation/components/clearing";
+@import "foundation/components/alert-boxes";
+@import "foundation/components/breadcrumbs";
+// @import "foundation/components/keystrokes";
+// @import "foundation/components/labels";
+@import "foundation/components/inline-lists";
+// @import "foundation/components/pagination";
+// @import "foundation/components/panels";
+// @import "foundation/components/pricing-tables";
+// @import "foundation/components/progress-bars";
+// @import "foundation/components/side-nav";
+@import "foundation/components/sub-nav";
+// @import "foundation/components/switch";
+// @import "foundation/components/magellan";
+// @import "foundation/components/tables";
+// @import "foundation/components/thumbs";
+// @import "foundation/components/tooltips";
+@import "foundation/components/dropdown";
+
+@import "compass/css3";
+@import "_twfy-mixins.scss";
+
+
+
+html,
+body {
+    height: 100%;
+    background: $body-bg;
+    color: $body-font-color;
+}
+
+strong, b {
+    font-weight: $weight_bold;
+}
+
+.full-page {
+    background: #fff;
+    color: #222;
+}
+
+/* Base typography */
+
+h1 {
+    letter-spacing: 0.02em;
+}
+
+h2,
+h3 {
+    font-weight: $weight_bold;
+}
+
+h2 {
+    font-size: 1.33em; /* Having to declare this here as Foundation is mkaing it too small, can't work out why or how */
+    @media (min-width: $medium-screen) {
+        font-size: 1.5em;
+    }
+}
+
+.body-text {
+    font-size: emCalc(15);
+}
+
+.skinny-type {
+    font-weight: $weight_light;
+}
+
+.centered {
+    text-align: center;
+}
+
+.pull-right {
+     @media (min-width: $medium-screen) {
+        float: right;
+        margin-left: 1em;
+    }
+}
+.pull-left {
+     @media (min-width: $medium-screen) {
+        float: left;
+        margin-left: 1em;
+    }
+}
+
+ul {
+    margin-left: 1.2em;
+}
+
+pre {
+    padding: 1em;
+    background: $colour_off_white;
+    border: 1px solid $colour_light_grey;
+    line-height: 1.5em;
+    margin-bottom: 1em;
+    @include border-radius(3px);
+    font-size: emCalc(14);
+    font-family: Consolas, 'Liberation Mono', Courier, monospace;
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
+a {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+
+    color: $colour_primary;
+}
+
+a:hover,
+a:focus {
+    text-decoration: underline;
+    color: darken($colour_primary, 10%);
+}
+
+/* Buttons */
+.button {
+    @include box-shadow(none);
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+/* forms */
+.errorlist {
+    @include unstyled-list();
+}
+
+form {
+    margin-bottom: 0;
+}
+
+/* Staging alert-box */
+.alert-box--header {
+    margin-bottom: 0;
+    border: none;
+}
+/* mySociety header */
+.ms-header {
+    background: transparent;
+    border-top: 4px solid #424242;
+}
+
+.ms-header__row {
+    @include grid-row;
+    position: relative;
+}
+
+.ms-header__logo {
+    @extend .image-replacement;
+    display: block;
+    position: absolute;
+    right: 0.75em;
+    top: 0;
+    background-color: #424242;
+    background-repeat: no-repeat;
+    height: 38px;
+    width: 44px;
+    @include border-radius(0 0 0.75em 0.75em);
+    @include background-size(22px);
+    background-position: 11px 7px ;
+    background-image: url('../img/mysociety-bloom.png');
+
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+        background-image: url('../img/mysociety-bloom@2.png');
+    }
+
+    @media (min-width: $medium-screen) {
+        @include border-radius(0 0 1.25em 1.25em);
+        background-position: 16px 10px ;
+        @include background-size(93px 19px);
+        background-image: url('../img/mysociety-logo.png');
+        width: 125px;
+        height: 39px;
+
+        @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+            background-image: url('../img/mysociety-logo@2.png');
+        }
+    }
+
+
+}
+
+/* Brand header */
+.brand-header {
+    background: $colour_black;
+    a:link,
+    a:visited {
+        color: #fff;
+    }
+}
+
+.brand-header__row {
+    @include grid-row;
+}
+
+.brand-header__title-unit {
+    min-width: 15em;
+    float: left;
+    margin-right: 2.4%;
+    margin-left: 0.75em;
+}
+
+.brand-header__title {
+    color: #fff;
+    font-size: emCalc(24);
+    font-weight: $weight_bold;
+    letter-spacing: 0;
+/*
+    height: 1.42em; //prevents a little jump before the JS ticker fires
+    @media (min-width: $medium-screen) {
+        height: auto;
+    }
+*/
+    .subtitle {
+        font-size: .458333333em; /* 11px */
+        @media (min-width: $medium-screen) {
+            font-size: .583333333em; /* 14px */
+        }
+
+        font-weight: $weight_light;
+    }
+}
+
+.brand-header__navigation {
+    display: none; //temporary hide on mobile: #todo: fix on mobile
+    @media (min-width: $medium-screen) {
+        display: block;
+    }
+    float: right;
+    margin-top: 0.95em;
+    margin-right: 145px;
+    a {
+        display: inline-block;
+        margin-right: 1em;
+        font-size: 0.8125em;
+        letter-spacing: 0.02em;
+    }
+}
+
+.admin-menu-container {
+    position: fixed;
+    top: 0;
+    left: 1em;
+    z-index: 500;
+    min-width: 280px;
+    a {
+        &:link {
+            color: $colour_primary;
+        }
+        &:hover,
+        &:active,
+        &:visited {
+            color: darken($colour_primary, 10%);
+        }
+    }
+}
+
+.admin-menu-button {
+    margin-top: 1.1em;
+    /* show at all? */
+    &.button.secondary {
+        /* Override some Foundation stuff */
+        background: transparent;
+        color: #fff;
+        border-color: #333;
+        @include box-shadow(none);
+        &:before {
+            border-color: rgba(255,255,255,0.8) transparent transparent transparent;
+        }
+    }
+}
+
+.person-header {
+    @include columns(12);
+}
+
+.person-navigation {
+    ul {
+        @include unstyled-list;
+        @include inline-list;
+    }
+}
+
+.person-content {
+    .person-content__header {
+        @include grid-row;
+    }
+    .person-panels {
+        @include grid-row;
+        .in-page-nav {
+            @include grid-column(2);
+        }
+        .content {
+            @include grid-column(10);
+            .panel {
+                @include grid-row;
+            }
+        }
+    }
+}
+
+
+.primary-navigation-bar {
+    float: left;
+    width: 100%;
+    @media (min-width: $large-screen) {
+        width: 50%;
+    }
+    .menu-dropdown {
+        display: block;
+        position: absolute;
+        top: 0.75em;
+        right: 0.75em;
+        @media (min-width: $large-screen) {
+            display: none;
+        }
+        line-height: 1.6;
+    }
+    .menu-dropdown--button {
+        @extend .image-replacement;
+        height: 2.4em; /* 36px */
+        width: 2.4em;
+        background-image: url('../img/hamburger.png');
+        @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+            background-image:  url('../img/hamburger@2.png');
+        }
+        background-position: center;
+        background-repeat: no-repeat;
+        @include background-size(28px 26px);
+    }
+    .nav-menu {
+        @include unstyled-list;
+        height: auto;
+        max-height: 1000em;
+        @include transition(max-height 1s ease-in-out);
+        background-color: darken($colour_primary, 10%);
+        position: absolute;
+        right: 0.75em;
+        top: 3.3em;
+        z-index: 400;
+        width: 47%;
+        @include box-shadow(0 2px 2px rgba(0,0,0,0.2));
+        @media (max-width: $large-screen) {
+            &.closed {
+                height: 0;
+                max-height: 0;
+                overflow: hidden;
+                @include transition(max-height 1s ease-in-out);
+            }
+        }
+        @media (min-width: $large-screen) {
+            background-color: transparent;
+            position: static;
+            display: block;
+            @include inline-list;
+            width: auto;
+            @include box-shadow(none);
+        }
+    }
+
+    a {
+        font-size: emCalc(18);
+        letter-spacing: 0.02em;
+        display: block;
+        padding: 0.5em 0.75em;
+        &:link,
+        &:visited {
+            color: #fff;
+        }
+        &:hover,
+        &:active,
+        &:focus {
+            text-decoration: none;
+        }
+        @media (min-width: $large-screen) {
+            display: inline-block;
+            padding: 0.5em;
+            @include border-radius(3px);
+            font-size: emCalc(15);
+            &:hover,
+            &:active,
+            &:focus {
+                background: darken($colour_primary, 5%);
+            }
+        }
+    }
+    .active {
+        a {
+            background: darken($colour_primary, 5%);
+        }
+    }
+}
+
+.grey-section {
+    border-top: 1px solid $colour_light_grey;
+    background-color: $colour_off_white;
+    padding: 1em 0;
+    @media (min-width: $medium-screen) {
+        padding: 4em 0;
+    }
+}
+
+
+.content-page {
+    p, ol, ul {
+        max-width: 37em;
+    }
+    h2 {
+        font-weight: normal;
+        margin-bottom: 0.25em;
+        @media (min-width: $medium-screen) {
+            font-size: emCalc(30);
+        }
+    }
+    dt {
+        font-weight: $weight_bold;
+        font-size: emCalc(18);
+        @media (min-width: $medium-screen) {
+            font-size: emCalc(21);
+        }
+
+    }
+}
 
 // this is from old stylesheets
 .printonly {
