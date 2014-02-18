@@ -9,9 +9,7 @@ if $server_values == undef {
 include '::ntp'
 
 Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
-File { owner => 0, group => 0, mode => 0644 }
-
-group { 'puppet': ensure => present }
+group { 'puppet':   ensure => present }
 group { 'www-data': ensure => present }
 
 user { $::ssh_username:
@@ -208,6 +206,70 @@ define add_dotdeb ($release){
   }
 }
 
+## Begin MailCatcher manifest
+
+if $mailcatcher_values == undef {
+  $mailcatcher_values = hiera('mailcatcher', false)
+}
+
+if $mailcatcher_values['install'] != undef and $mailcatcher_values['install'] == 1 {
+  $mailcatcher_path       = $mailcatcher_values['settings']['path']
+  $mailcatcher_smtp_ip    = $mailcatcher_values['settings']['smtp_ip']
+  $mailcatcher_smtp_port  = $mailcatcher_values['settings']['smtp_port']
+  $mailcatcher_http_ip    = $mailcatcher_values['settings']['http_ip']
+  $mailcatcher_http_port  = $mailcatcher_values['settings']['http_port']
+  $mailcatcher_log        = $mailcatcher_values['settings']['log']
+
+  class { 'mailcatcher':
+    mailcatcher_path => $mailcatcher_path,
+    smtp_ip          => $mailcatcher_smtp_ip,
+    smtp_port        => $mailcatcher_smtp_port,
+    http_ip          => $mailcatcher_http_ip,
+    http_port        => $mailcatcher_http_port,
+  }
+
+  if $::osfamily == 'redhat' and ! defined(Iptables::Allow["tcp/${mailcatcher_smtp_port}"]) {
+    iptables::allow { "tcp/${mailcatcher_smtp_port}":
+      port     => $mailcatcher_smtp_port,
+      protocol => 'tcp'
+    }
+  }
+
+  if $::osfamily == 'redhat' and ! defined(Iptables::Allow["tcp/${mailcatcher_http_port}"]) {
+    iptables::allow { "tcp/${mailcatcher_http_port}":
+      port     => $mailcatcher_http_port,
+      protocol => 'tcp'
+    }
+  }
+
+  if ! defined(Class['supervisord']) {
+    class { 'supervisord':
+      install_pip => true,
+    }
+  }
+
+  $supervisord_mailcatcher_options = sort(join_keys_to_values({
+    ' --smtp-ip'   => $mailcatcher_smtp_ip,
+    ' --smtp-port' => $mailcatcher_smtp_port,
+    ' --http-ip'   => $mailcatcher_http_ip,
+    ' --http-port' => $mailcatcher_http_port
+  }, ' '))
+
+  $supervisord_mailcatcher_cmd = "mailcatcher ${supervisord_mailcatcher_options} -f  >> ${mailcatcher_log}"
+
+  supervisord::program { 'mailcatcher':
+    command     => $supervisord_mailcatcher_cmd,
+    priority    => '100',
+    user        => 'mailcatcher',
+    autostart   => true,
+    autorestart => true,
+    environment => {
+      'PATH' => "/bin:/sbin:/usr/bin:/usr/sbin:${mailcatcher_path}"
+    },
+    require => Package['mailcatcher']
+  }
+}
+
 ## Begin Apache manifest
 
 if $yaml_values == undef {
@@ -267,6 +329,22 @@ if has_key($apache_values, 'mod_pagespeed') and $apache_values['mod_pagespeed'] 
 
 if has_key($apache_values, 'mod_spdy') and $apache_values['mod_spdy'] == 1 {
   class { 'puphpet::apache::modspdy': }
+}
+
+if count($apache_values['vhosts']) > 0 {
+  each( $apache_values['vhosts'] ) |$key, $vhost| {
+    exec { "exec mkdir -p ${vhost['docroot']} @ key ${key}":
+      command => "mkdir -p ${vhost['docroot']}",
+      creates => $vhost['docroot'],
+    }
+
+    if ! defined(File[$vhost['docroot']]) {
+      file { $vhost['docroot']:
+        ensure  => directory,
+        require => Exec["exec mkdir -p ${vhost['docroot']} @ key ${key}"]
+      }
+    }
+  }
 }
 
 create_resources(apache::vhost, $apache_values['vhosts'])
@@ -569,7 +647,7 @@ define mysql_db (
 if has_key($mysql_values, 'phpmyadmin') and $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
   if $::osfamily == 'debian' {
     if $::operatingsystem == 'ubuntu' {
-      apt::key { '80E7349A06ED541C': }
+      apt::key { '80E7349A06ED541C': key_server => 'hkp://keyserver.ubuntu.com:80' }
       apt::ppa { 'ppa:nijel/phpmyadmin': require => Apt::Key['80E7349A06ED541C'] }
     }
 
@@ -598,20 +676,13 @@ if has_key($mysql_values, 'phpmyadmin') and $mysql_values['phpmyadmin'] == 1 and
     }
   }
 
-  exec { 'move phpmyadmin to webroot':
-    command => "mv /usr/share/${phpMyAdmin_folder} ${mysql_pma_webroot_location}/phpmyadmin",
+  exec { 'cp phpmyadmin to webroot':
+    command => "cp -LR /usr/share/${phpMyAdmin_folder} ${mysql_pma_webroot_location}/phpmyadmin",
     onlyif  => "test ! -d ${mysql_pma_webroot_location}/phpmyadmin",
     require => [
       Package[$phpMyAdmin_package],
       File[$mysql_pma_webroot_location]
     ]
-  }
-
-  file { "/usr/share/${phpMyAdmin_folder}":
-    target  => "${mysql_pma_webroot_location}/phpmyadmin",
-    ensure  => link,
-    replace => 'no',
-    require => Exec['move phpmyadmin to webroot']
   }
 }
 
@@ -651,13 +722,144 @@ define mysql_nginx_default_conf (
   }
 }
 
+## Begin MongoDb manifest
+
+if $mongodb_values == undef {
+  $mongodb_values = hiera('mongodb', false)
+}
+
+if $php_values == undef {
+  $php_values = hiera('php', false)
+}
+
+if $apache_values == undef {
+  $apache_values = hiera('apache', false)
+}
+
+if $nginx_values == undef {
+  $nginx_values = hiera('nginx', false)
+}
+
+if is_hash($apache_values) or is_hash($nginx_values) {
+  $mongodb_webserver_restart = true
+} else {
+  $mongodb_webserver_restart = false
+}
+
+if has_key($mongodb_values, 'install') and $mongodb_values['install'] == 1 {
+  case $::osfamily {
+    'debian': {
+      class {'::mongodb::globals':
+        manage_package_repo => true,
+      }->
+      class {'::mongodb::server':
+        auth => $mongodb_values['auth'],
+        port => $mongodb_values['port'],
+      }
+
+      $mongodb_pecl = 'mongo'
+    }
+    'redhat': {
+      class {'::mongodb::globals':
+        manage_package_repo => true,
+      }->
+      class {'::mongodb::server':
+        auth => $mongodb_values['auth'],
+        port => $mongodb_values['port'],
+      }->
+      class {'::mongodb::client': }
+
+      $mongodb_pecl = 'pecl-mongo'
+    }
+  }
+
+  if is_hash($mongodb_values['databases']) and count($mongodb_values['databases']) > 0 {
+    create_resources(mongodb_db, $mongodb_values['databases'])
+  }
+
+  if is_hash($php_values) and ! defined(Php::Pecl::Module[$mongodb_pecl]) {
+    php::pecl::module { $mongodb_pecl:
+      service_autorestart => $mariadb_webserver_restart,
+      require             => Class['::mongodb::server']
+    }
+  }
+}
+
+define mongodb_db (
+  $user,
+  $password
+) {
+  if $name == '' or $password == '' {
+    fail( 'MongoDB requires that name and password be set. Please check your settings!' )
+  }
+
+  mongodb::db { $name:
+    user     => $user,
+    password => $password
+  }
+}
+
 # Begin beanstalkd
 
 if $beanstalkd_values == undef {
   $beanstalkd_values = hiera('beanstalkd', false)
 }
 
+if $php_values == undef {
+  $php_values = hiera('php', false)
+}
+
+if $apache_values == undef {
+  $apache_values = hiera('apache', false)
+}
+
+if $nginx_values == undef {
+  $nginx_values = hiera('nginx', false)
+}
+
+if is_hash($apache_values) {
+  $beanstalk_console_webroot_location = "${puphpet::params::apache_webroot_location}/beanstalk_console"
+} elsif is_hash($nginx_values) {
+  $beanstalk_console_webroot_location = "${puphpet::params::nginx_webroot_location}/beanstalk_console"
+} else {
+  $beanstalk_console_webroot_location = undef
+}
+
 if has_key($beanstalkd_values, 'install') and $beanstalkd_values['install'] == 1 {
-  beanstalkd::config { $beanstalkd_values: }
+  create_resources(beanstalkd::config, {'beanstalkd' => $beanstalkd_values['settings']})
+
+  if has_key($beanstalkd_values, 'beanstalk_console') and $beanstalkd_values['beanstalk_console'] == 1 and $beanstalk_console_webroot_location != undef and is_hash($php_values) {
+    exec { 'delete-beanstalk_console-path-if-not-git-repo':
+      command => "rm -rf ${beanstalk_console_webroot_location}",
+      onlyif  => "test ! -d ${beanstalk_console_webroot_location}/.git"
+    }
+
+    vcsrepo { $beanstalk_console_webroot_location:
+      ensure   => present,
+      provider => git,
+      source   => 'https://github.com/ptrofimov/beanstalk_console.git',
+      require  => Exec['delete-beanstalk_console-path-if-not-git-repo']
+    }
+  }
+}
+
+# Begin rabbitmq
+
+if $rabbitmq_values == undef {
+  $rabbitmq_values = hiera('rabbitmq', false)
+}
+
+if $php_values == undef {
+  $php_values = hiera('php', false)
+}
+
+if has_key($rabbitmq_values, 'install') and $rabbitmq_values['install'] == 1 {
+  class { 'rabbitmq':
+    port => $rabbitmq_values['port']
+  }
+
+  if is_hash($php_values) and ! defined(Php::Pecl::Module['amqp']) {
+    php_pecl_mod { 'amqp': }
+  }
 }
 
