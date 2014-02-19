@@ -346,6 +346,7 @@ form {
             @include grid-column(12);
             @media (min-width: $medium-screen) {
                 @include grid-column(6);
+                text-align: right;
             }
         }
     }
