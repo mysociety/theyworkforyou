@@ -78,9 +78,10 @@ h1 {
     letter-spacing: 0.02em;
 }
 
+h1,
 h2,
 h3 {
-    font-weight: $weight_bold;
+    font-weight: $weight_semibold;
 }
 
 h2 {
