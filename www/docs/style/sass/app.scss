@@ -216,6 +216,7 @@ form {
 }
 
 .brand-header__title-unit {
+    background-color: $primary-color;
     min-width: 15em;
     float: left;
     margin-right: 2.4%;
@@ -223,7 +224,6 @@ form {
 }
 
 .brand-header__title {
-    background-color: $primary-color;
     color: #fff;
     font-size: emCalc(24);
     font-weight: $weight_bold;
