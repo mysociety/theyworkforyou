@@ -322,6 +322,17 @@ form {
             @include grid-column(12);
             @media (min-width: $medium-screen) {
                 @include grid-column(6);
+                text-align: right;
+                form {
+                    padding-top: em-calc(24);
+                    height: $h1-font-size;
+                    input {
+                        padding: em-calc(8);
+                        font-size: em-calc(16);
+                        font-style: italic;
+                        @include radius(3);
+                    }
+                }
             }
         }
         .person-buttons {

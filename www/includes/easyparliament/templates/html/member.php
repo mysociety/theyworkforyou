@@ -12,10 +12,8 @@ include_once INCLUDESPATH."easyparliament/templates/html/header.php";
                 <div class="person-search">
                     <?php $SEARCHURL = new URL('search'); ?>
                     <form action="<?php echo $SEARCHURL->generate(); ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Person'); return false;">
-                        <p>
-                            <input id="person_search_input" name="q" size="24" maxlength="200" placeholder="Search this person's speeches"><input type="submit" class="submit" value="GO">
-                            <input type="hidden" name="pid" value="<?php echo $page_data['person_id']; ?>">
-                        </p>
+                        <input id="person_search_input" name="q" size="24" maxlength="200" placeholder="Search this person's speeches"><input type="submit" class="submit" value="GO">
+                        <input type="hidden" name="pid" value="<?php echo $page_data['person_id']; ?>">
                     </form>
                 </div>
                 <div class="person-buttons">
