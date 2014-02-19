@@ -39,7 +39,7 @@ include_once INCLUDESPATH."easyparliament/templates/html/header.php";
                 </ul>
             </div>
             <div class="person-content__header page-content__row">
-                <h2>Overview</h2>
+                <h1>Overview</h1>
             </div>
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
@@ -53,22 +53,22 @@ include_once INCLUDESPATH."easyparliament/templates/html/header.php";
                 </div>
                 <div class="primary-content__unit">
                     <div class="panel">
-                        <h3>Voting Summary</h3>
+                        <h2>Voting Summary</h2>
                     </div>
                     <div class="panel">
-                        <h3>Recent appearances</h3>
-                    </div>
-
-                    <div class="panel">
-                        <h3>Profile</h3>
+                        <h2>Recent appearances</h2>
                     </div>
 
                     <div class="panel">
-                        <h3>Numerology</h3>
+                        <h2>Profile</h2>
                     </div>
 
                     <div class="panel">
-                        <h3>Register of Interests</h3>
+                        <h2>Numerology</h2>
+                    </div>
+
+                    <div class="panel">
+                        <h2>Register of Interests</h2>
                     </div>
                 </div>
             </div>
