@@ -367,6 +367,10 @@ form {
 .person-panels {
     .in-page-nav {
         background-color: white;
+        ul {
+            @include unstyled-list;
+            font-size: emCalc(16);
+        }
     }
     .panel {
         background-color: white;
