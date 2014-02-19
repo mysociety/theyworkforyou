@@ -57,13 +57,14 @@
 @import "compass/css3";
 @import "_twfy-mixins.scss";
 
-
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,400italic);
 
 html,
 body {
     height: 100%;
     background: $body-bg;
     color: $body-font-color;
+    font-family: $body-font-family;
 }
 
 strong, b {
