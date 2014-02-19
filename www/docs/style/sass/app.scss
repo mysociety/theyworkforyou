@@ -91,10 +91,6 @@ h2 {
     }
 }
 
-.body-text {
-    font-size: emCalc(15);
-}
-
 .skinny-type {
     font-weight: $weight_light;
 }
@@ -228,23 +224,8 @@ form {
 
 .brand-header__title {
     color: #fff;
-    font-size: emCalc(24);
-    font-weight: $weight_bold;
+    font-size: em-calc(24);
     letter-spacing: 0;
-/*
-    height: 1.42em; //prevents a little jump before the JS ticker fires
-    @media (min-width: $medium-screen) {
-        height: auto;
-    }
-*/
-    .subtitle {
-        font-size: .458333333em; /* 11px */
-        @media (min-width: $medium-screen) {
-            font-size: .583333333em; /* 14px */
-        }
-
-        font-weight: $weight_light;
-    }
 }
 
 .brand-header__navigation {
