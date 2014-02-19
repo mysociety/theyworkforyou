@@ -180,7 +180,17 @@ include_once INCLUDESPATH . '../../commonlib/phplib/gaze.php';
             <div class="brand-header__title-unit">
                 <h1 class="brand-header__title"><a href="/">TheyWorkForYou</a></h1>
             </div>
-            <nav class="primary-navigation-bar">
+            <nav class="primary-navigation-bar assembly">
+                <span class="menu-dropdown">
+                    <a href="#" class="button">UK</a>
+                </span>
+                <ul class="nav-menu closed">
+                <?php foreach ($page_data['site_nav'] as $nav_link) {?>
+                    <li><?php print $nav_link['link']; ?></li>
+                <?php } ?>
+                </ul>
+            </nav>
+            <nav class="primary-navigation-bar sections">
                 <span class="menu-dropdown">
                     <a href="#" class="button menu-dropdown--button">Menu</a>
                 </span>

@@ -184,6 +184,13 @@ pr()//-->
 <script src="/js/foundation/foundation.topbar.js"></script>
 
 <script>
+
+$( document ).ready(function() {
+    $(".menu-dropdown").click(function() {
+      $(".nav-menu").toggleClass('closed');
+    });
+});
+
   $(document).foundation();
   $(function() {
     setTimeout(function() {

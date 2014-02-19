@@ -395,19 +395,13 @@ form {
 }
 
 .primary-navigation-bar {
-    float: left;
+    float: right;
     width: 100%;
-    @media (min-width: $large-screen) {
-        width: 50%;
-    }
     .menu-dropdown {
         display: block;
         position: absolute;
         top: 0.75em;
         right: 0.75em;
-        @media (min-width: $large-screen) {
-            display: none;
-        }
         line-height: 1.6;
     }
     .menu-dropdown--button {
@@ -424,6 +418,9 @@ form {
     }
     .nav-menu {
         @include unstyled-list;
+        li {
+            margin-left: 0px;
+        }
         height: auto;
         max-height: 1000em;
         @include transition(max-height 1s ease-in-out);
@@ -434,6 +431,71 @@ form {
         z-index: 400;
         width: 47%;
         @include box-shadow(0 2px 2px rgba(0,0,0,0.2));
+    }
+
+    a {
+        font-size: em-calc(18);
+        letter-spacing: 0.02em;
+        display: block;
+        padding: 0.25em 0.75em;
+        &:link,
+        &:visited {
+            color: $body-font-color;
+        }
+        &:hover,
+        &:active,
+        &:focus {
+            text-decoration: none;
+        }
+    }
+    .active {
+        a {
+            background: darken($colour_primary, 5%);
+        }
+    }
+}
+
+.primary-navigation-bar.assembly {
+    float: left;
+    width: auto;
+    position: relative;
+    .menu-dropdown {
+        position: static;
+        .button {
+            font-size: em-calc(14);
+            font-weight: $weight_semibold;
+            background-color: white;
+            border: none;
+        }
+    }
+    .nav-menu {
+        position: absolute;
+        left: 0em;
+        top: auto;
+        z-index: 400;
+        width: 10em;
+        &.closed {
+            height: 0;
+            max-height: 0;
+            overflow: hidden;
+            @include transition(max-height 1s ease-in-out);
+        }
+    }
+}
+
+.primary-navigation-bar.sections{
+    float: right;
+    width: 100%;
+    @media (min-width: $large-screen) {
+        width: 50%;
+        margin-right: 125px; /* push past mysoc logo */
+    }
+    .menu-dropdown {
+        @media (min-width: $large-screen) {
+            display: none;
+        }
+    }
+    .nav-menu {
         @media (max-width: $large-screen) {
             &.closed {
                 height: 0;
@@ -447,28 +509,18 @@ form {
             position: static;
             display: block;
             @include inline-list;
+            li {
+                margin-left: 0;
+            }
             width: auto;
             @include box-shadow(none);
         }
     }
 
     a {
-        font-size: emCalc(18);
-        letter-spacing: 0.02em;
-        display: block;
-        padding: 0.5em 0.75em;
-        &:link,
-        &:visited {
-            color: $body-font-color;
-        }
-        &:hover,
-        &:active,
-        &:focus {
-            text-decoration: none;
-        }
         @media (min-width: $large-screen) {
             display: inline-block;
-            padding: 0.5em;
+            padding: 0.4em;
             @include border-radius(3px);
             font-size: em-calc(18);
             &:hover,
@@ -478,12 +530,8 @@ form {
             }
         }
     }
-    .active {
-        a {
-            background: darken($colour_primary, 5%);
-        }
-    }
 }
+
 
 .content-page {
     p, ol, ul {
