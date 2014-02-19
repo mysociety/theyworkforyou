@@ -367,6 +367,7 @@ form {
 }
 
 .person-navigation {
+    color: $light-text;
     ul {
         @include unstyled-list;
         @include inline-list;
