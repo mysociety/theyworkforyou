@@ -294,37 +294,85 @@ form {
 }
 
 .person-header {
-    @include columns(12);
+    height: 285px;
+    /*margin-right: -3.3%;*/
+    /*margin-left: -3.3%;*/
+    padding-top: 150px;
+
+    background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(28,28,28,1) 89%, rgba(0,0,0,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(89%,rgba(28,28,28,1)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(28,28,28,1) 89%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(28,28,28,1) 89%,rgba(0,0,0,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(28,28,28,1) 89%,rgba(0,0,0,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(28,28,28,1) 89%,rgba(0,0,0,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+    .person-header__content {
+        color: white;
+        .person-name {
+            @include grid-column(12);
+            @media (min-width: $medium-screen) {
+                @include grid-column(6);
+            }
+        }
+        .person-search{
+            @include grid-column(12);
+            @media (min-width: $medium-screen) {
+                @include grid-column(6);
+            }
+        }
+        .person-buttons {
+            @include grid-column(12);
+            @media (min-width: $medium-screen) {
+                clear: both;
+                @include grid-column(6);
+            }
+        }
+        .person-constituency {
+            @include grid-column(12);
+            @media (min-width: $medium-screen) {
+                @include grid-column(6);
+            }
+        }
+    }
+}
+
+.westminster {
+    background-image: url('/images/westminster.jpg');
+    background-position: center center;
+    background-size: cover;
+}
+
+.scotland {
+    background-image: url();
+}
+
+.ni {
+    background-image: url();
 }
 
 .person-navigation {
     ul {
         @include unstyled-list;
         @include inline-list;
+        font-size: emCalc(18);
     }
 }
 
-.person-content {
-    .person-content__header {
-        @include grid-row;
+.person-content__header {
+    /*@include grid-row;*/
+}
+.person-panels {
+    .in-page-nav {
+        background-color: white;
     }
-    .person-panels {
-        @include grid-row;
-        .in-page-nav {
-            background-color: white;
-            @include grid-column(2);
-        }
-        .content {
-            @include grid-column(10);
-            .panel {
-                background-color: white;
-                border: 1px solid $borders;
-                @include grid-row;
-            }
-        }
+    .panel {
+        background-color: white;
+        border: 1px solid $borders;
+        padding: emCalc(60);
+        margin-bottom: emCalc(40);
     }
 }
-
 
 .primary-navigation-bar {
     float: left;
