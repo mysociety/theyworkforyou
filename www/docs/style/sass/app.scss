@@ -313,6 +313,10 @@ form {
     .person-header__content {
         color: white;
         .person-name {
+            h1 {
+                margin: 0px;
+                padding: 0px;
+            }
             @include grid-column(12);
             @media (min-width: $medium-screen) {
                 @include grid-column(6);

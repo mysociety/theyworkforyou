@@ -6,9 +6,11 @@ include_once INCLUDESPATH."easyparliament/templates/html/header.php";
     <div class="westminster">
         <div class="person-header">
             <div class="person-header__content full-page__row">
-                <h1 class="person-name">
-                    <?=$page_data['name'] ?>
-                </h1>
+                <div class="person-name">
+                    <h1>
+                        <?=$page_data['name'] ?>
+                    </h1>
+                </div>
                 <div class="person-search">
                     <?php $SEARCHURL = new URL('search'); ?>
                     <form action="<?php echo $SEARCHURL->generate(); ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Person'); return false;">
