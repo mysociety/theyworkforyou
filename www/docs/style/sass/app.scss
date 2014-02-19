@@ -370,7 +370,7 @@ form {
     ul {
         @include unstyled-list;
         @include inline-list;
-        font-size: emCalc(18);
+        font-size: em-calc(18);
     }
 }
 
@@ -382,14 +382,14 @@ form {
         background-color: white;
         ul {
             @include unstyled-list;
-            font-size: emCalc(16);
+            font-size: em-calc(16);
         }
     }
     .panel {
         background-color: white;
         border: 1px solid $borders;
-        padding: emCalc(60);
-        margin-bottom: emCalc(40);
+        padding: em-calc(60);
+        margin-bottom: em-calc(40);
     }
 }
 
@@ -469,7 +469,7 @@ form {
             display: inline-block;
             padding: 0.5em;
             @include border-radius(3px);
-            font-size: emCalc(15);
+            font-size: em-calc(18);
             &:hover,
             &:active,
             &:focus {
@@ -492,14 +492,14 @@ form {
         font-weight: normal;
         margin-bottom: 0.25em;
         @media (min-width: $medium-screen) {
-            font-size: emCalc(30);
+            font-size: em-calc(30);
         }
     }
     dt {
         font-weight: $weight_bold;
-        font-size: emCalc(18);
+        font-size: em-calc(18);
         @media (min-width: $medium-screen) {
-            font-size: emCalc(21);
+            font-size: em-calc(21);
         }
 
     }
