@@ -438,8 +438,8 @@ form {
         }
         height: auto;
         max-height: 1000em;
-        @include transition(max-height 1s ease-in-out);
-        background-color: darken($colour_primary, 10%);
+        /*@include transition(max-height 1s ease-in-out);*/
+        background-color: $primary-color;
         position: absolute;
         right: 0.75em;
         top: 3.3em;
@@ -465,7 +465,7 @@ form {
     }
     .active {
         a {
-            background: darken($colour_primary, 5%);
+            background: $primary-color;
         }
     }
 }
@@ -476,24 +476,40 @@ form {
     position: relative;
     .menu-dropdown {
         position: static;
+        margin: 10px 0px 0px 12px;
         .button {
             font-size: em-calc(14);
             font-weight: $weight_semibold;
             background-color: white;
             border: none;
+            margin-bottom: 0px;
+            padding-top: 2px;
+            padding-bottom: 12px;
+            border-radius: 3px 3px 0px 0px;
+            &.open {
+                color: white;
+                background-color: $primary-color;
+            }
         }
     }
     .nav-menu {
+        @include radius;
+        border-radius: 0px 3px 3px 3px;
+        margin-left: 12px;
         position: absolute;
         left: 0em;
         top: auto;
         z-index: 400;
         width: 10em;
+        font-size: em-calc(14px);
+        a {
+            color: white;
+        }
         &.closed {
             height: 0;
             max-height: 0;
             overflow: hidden;
-            @include transition(max-height 1s ease-in-out);
+            /*@include transition(max-height 1s ease-in-out);*/
         }
     }
 }
@@ -503,7 +519,7 @@ form {
     width: 100%;
     @media (min-width: $large-screen) {
         width: 50%;
-        margin-right: 125px; /* push past mysoc logo */
+        margin-right: 145px; /* push past mysoc logo */
     }
     .menu-dropdown {
         @media (min-width: $large-screen) {
@@ -536,13 +552,7 @@ form {
         @media (min-width: $large-screen) {
             display: inline-block;
             padding: 0.4em;
-            @include border-radius(3px);
             font-size: em-calc(18);
-            &:hover,
-            &:active,
-            &:focus {
-                background: darken($colour_primary, 5%);
-            }
         }
     }
 }

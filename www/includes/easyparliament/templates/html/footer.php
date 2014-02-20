@@ -181,13 +181,13 @@ pr()//-->
 
 <script src="/js/foundation/foundation.js"></script>
 <script src="/js/foundation/foundation.magellan.js"></script>
-<script src="/js/foundation/foundation.topbar.js"></script>
 
 <script>
 
 $( document ).ready(function() {
-    $(".menu-dropdown").click(function() {
-      $(".nav-menu").toggleClass('closed');
+    $(".menu-dropdown").click(function(e) {
+      $(e.target).toggleClass('open');
+      $(e.target).parent().next(".nav-menu").toggleClass('closed');
     });
 });
 
