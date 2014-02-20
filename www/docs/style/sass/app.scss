@@ -397,8 +397,8 @@ form {
         }
     }
     .panel {
+        @include radius;
         background-color: white;
-        border: 1px solid $borders;
         padding: em-calc(60);
         margin-bottom: em-calc(40);
     }
