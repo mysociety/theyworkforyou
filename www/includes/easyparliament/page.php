@@ -1020,7 +1020,7 @@ window.fbAsyncInit = function () {
 
                 global $DATA, $this_page;
 
-                $about_links = $this->get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact'));
+                $about_links = $this->get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact', 'topic'));
                 $assembly_links = $this->get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home', 'boundaries'));
                 $international_links = $this->get_menu_links(array ('newzealand', 'australia', 'ireland'));
                 $tech_links = $this->get_menu_links(array ('code', 'api', 'data', 'devmailinglist', 'irc'));
