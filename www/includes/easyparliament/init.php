@@ -33,6 +33,9 @@ define ('POSTCODE_COOKIE', 		'eppc');
 And now all the files we'll include on every page.
 ********************************************************************************/
 
+// The Composer autoloader, which also handles our internal autoloading magic.
+require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
+
 include_once dirname(__FILE__) . '/../../../conf/general';
 include_once INCLUDESPATH . 'utility.php';
 twfy_debug_timestamp("after including utility.php");
