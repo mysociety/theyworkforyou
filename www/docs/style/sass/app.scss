@@ -374,10 +374,26 @@ form {
 }
 .person-panels {
     .in-page-nav {
+        @include radius;
+        padding: 0px;
         background-color: white;
         ul {
-            @include unstyled-list;
+            /*@include unstyled-list;*/
+            margin-left: 0px;
             font-size: em-calc(16);
+            li {
+                list-style-position: inside;
+                padding-left: 0.5em;
+                line-height: 2.6;
+                border-bottom: 1px solid $borders;
+                color: $borders;
+                &.active {
+                    color: $primary-color;
+                }
+                a {
+                    color: $body-font-color;
+                }
+            }
         }
     }
     .panel {
