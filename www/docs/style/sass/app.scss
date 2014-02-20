@@ -195,6 +195,7 @@ form {
 
 /* Brand header */
 .brand-header {
+    line-height: 48px;
     background: white;
     a:link,
     a:visited {
@@ -216,8 +217,12 @@ form {
 }
 
 .brand-header__title {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    line-height: 48px;
+    font-weight: normal;
     color: #fff;
-    font-size: em-calc(24);
+    font-size: em-calc(18);
     letter-spacing: 0;
 }
 
