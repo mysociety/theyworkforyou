@@ -209,10 +209,9 @@ form {
 
 .brand-header__title-unit {
     background-color: $primary-color;
-    min-width: 15em;
     float: left;
-    margin-right: 2.4%;
-    margin-left: 0.75em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
     text-align: center;
 }
 
@@ -224,6 +223,9 @@ form {
     color: #fff;
     font-size: em-calc(18);
     letter-spacing: 0;
+    a:hover {
+        text-decoration: none;
+    }
 }
 
 .brand-header__navigation {
