@@ -5,7 +5,8 @@ include_once INCLUDESPATH."easyparliament/templates/html/header.php";
 ?>
     <div class="westminster">
         <div class="person-header">
-            <div class="person-header__content full-page__row">
+            <div class=" full-page__row">
+            <div class="person-header__content page-content__row">
                 <div class="person-name">
                     <h1>
                         <?=$page_data['name'] ?>
@@ -25,6 +26,7 @@ include_once INCLUDESPATH."easyparliament/templates/html/header.php";
                 <div class="person-constituency">
                      <span class="constituency">constituency</span> <span class="party">party</span>
                 </div>
+            </div>
             </div>
         </div>
     </div>
