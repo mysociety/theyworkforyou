@@ -531,9 +531,19 @@ form {
             padding-top: 2px;
             padding-bottom: 12px;
             border-radius: 3px 3px 0px 0px;
+            &:after {
+                display: inline-block;
+                content: url('../img/caret.png');
+                padding-left: 0.5em;
+            }
             &.open {
                 color: white;
                 background-color: $primary-color;
+                &:after {
+                    -webkit-transform:rotate(180deg);
+                    padding-left: 0em;
+                    padding-right: 0.5em;
+                }
             }
         }
     }
