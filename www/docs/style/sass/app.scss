@@ -311,10 +311,21 @@ form {
                     padding-top: em-calc(24);
                     height: $h1-font-size;
                     input {
+                        -webkit-appearance: none;
                         padding: em-calc(8);
                         font-size: em-calc(16);
                         font-style: italic;
-                        @include radius(3);
+                        border: 1px solid $borders;
+                        border-right: 0px;
+                        border-radius: 3px 0px 0px 3px;
+                        &.submit {
+                            background: transparent url('/images/search.png') no-repeat scroll center center;
+                            background-color: white;
+                            color: transparent;
+                            border-right: 1px solid $borders;
+                            border-left: 0px;
+                            border-radius: 0px 3px 3px 0px;
+                        }
                     }
                 }
             }
