@@ -612,6 +612,10 @@ form {
             @include box-shadow(none);
         }
         .user-menu {
+            /* temporary measure till work out what we're doing */
+            @media (max-width: $large-screen) {
+                display: none;
+            }
             @media (min-width: $large-screen) {
                 position: relative;
                 .menu-dropdown {
