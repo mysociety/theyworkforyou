@@ -639,6 +639,7 @@ form {
                         border-radius: 3px 3px 0px 0px;
                         margin-bottom: 0px;
                         transition: none;
+                        @include background-size(24px 24px);
                         background-image: url('../img/user.png');
                         &:active {
                             box-shadow: none;
