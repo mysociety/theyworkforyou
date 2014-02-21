@@ -256,12 +256,12 @@ class PAGE {
     ga('set', 'anonymizeIp', true);
     ga('send', 'pageview');
 
-  public function recordWTT(link, label) {
+  function recordWTT(link, label) {
     ga('send', 'event', 'Links', 'WriteToThem', label);
     setTimeout('document.location = "' + link.href + '"', 100);
   }
 
-  public function trackFormSubmit(form, category, name, value) {
+  function trackFormSubmit(form, category, name, value) {
     try {
       ga('send', 'event', category, name, value);
     } catch (err) {}
