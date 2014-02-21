@@ -491,6 +491,15 @@ form {
             background-image: url('../img/user.png');
         }
     }
+    .menu-toplevel-dropdown--button {
+        border: none;
+        background-color: white;
+        @include background-size(24px 24px);
+        margin-bottom: 0px;
+        &:active {
+            box-shadow: none;
+        }
+    }
     .nav-menu {
         @include unstyled-list;
         li {
@@ -618,14 +627,7 @@ form {
                 margin-left: 0;
                 &.menu-search {
                     .menu-dropdown--button {
-                        border: none;
-                        background-color: white;
-                        @include background-size(24px 24px);
                         background-image: url('../img/search.png');
-                        margin-bottom: 0px;
-                        &:active {
-                            box-shadow: none;
-                        }
                     }
                 }
             }
@@ -643,16 +645,9 @@ form {
                     position: static;
                     display: inline-block;
                     .menu-dropdown--button {
-                        background-color: white;
-                        border: none;
                         border-radius: 3px 3px 0px 0px;
-                        margin-bottom: 0px;
                         transition: none;
-                        @include background-size(24px 24px);
                         background-image: url('../img/user.png');
-                        &:active {
-                            box-shadow: none;
-                        }
                         &.open {
                             color: white;
                             background-color: $primary-color;
