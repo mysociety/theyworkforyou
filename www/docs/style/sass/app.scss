@@ -462,7 +462,10 @@ form {
         position: absolute;
         top: 0.75em;
         right: 0.75em;
-        line-height: 1.6;
+        line-height: 48px;
+        &.user {
+            display: inline-block;
+        }
     }
     .menu-dropdown--button {
         @extend .image-replacement;
@@ -475,6 +478,9 @@ form {
         background-position: center;
         background-repeat: no-repeat;
         @include background-size(28px 26px);
+        &.user {
+            background-image: url('../img/user.png');
+        }
     }
     .nav-menu {
         @include unstyled-list;
@@ -531,6 +537,10 @@ form {
             padding-top: 2px;
             padding-bottom: 12px;
             border-radius: 3px 3px 0px 0px;
+            transition: none;
+            &:active {
+                box-shadow: none;
+            }
             &:after {
                 display: inline-block;
                 content: url('../img/caret.png');
@@ -571,9 +581,9 @@ form {
 
 .primary-navigation-bar.sections{
     float: right;
-    width: 100%;
+    width: auto;
     @media (min-width: $large-screen) {
-        width: 50%;
+        width: auto;
         margin-right: 145px; /* push past mysoc logo */
     }
     .menu-dropdown {
@@ -600,6 +610,54 @@ form {
             }
             width: auto;
             @include box-shadow(none);
+        }
+        .user-menu {
+            @media (min-width: $large-screen) {
+                position: relative;
+                .menu-dropdown {
+                    position: static;
+                    display: inline-block;
+                    .menu-dropdown--button {
+                        background-color: white;
+                        border: none;
+                        border-radius: 3px 3px 0px 0px;
+                        margin-bottom: 0px;
+                        transition: none;
+                        background-image: url('../img/user.png');
+                        &:active {
+                            box-shadow: none;
+                        }
+                        &.open {
+                            color: white;
+                            background-color: $primary-color;
+                        }
+                    }
+                }
+                .nav-menu {
+                    @include radius;
+                    background-color: $colour_primary;
+                    border-radius: 3px 0px 3px 3px;
+                    margin-left: 12px;
+                    position: absolute;
+                    right: 0px;
+                    top: auto;
+                    z-index: 400;
+                    width: 10em;
+                    font-size: em-calc(14px);
+                    a {
+                        color: white;
+                    }
+                    li {
+                        display: block;
+                    }
+                    &.closed {
+                        display: none;
+                        height: 0;
+                        max-height: 0;
+                        overflow: hidden;
+                    }
+                }
+            }
         }
     }
 

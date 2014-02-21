@@ -198,6 +198,15 @@ include_once INCLUDESPATH . '../../commonlib/phplib/gaze.php';
                 <?php foreach ($page_data['site_nav'] as $nav_link) {?>
                     <li><?php print $nav_link['link']; ?></li>
                 <?php } ?>
+                <li class="user-menu">
+                    <span class="menu-dropdown">
+                        <a href="#" class="button menu-dropdown--button">User</a>
+                    </span>
+                    <ul class="nav-menu closed"><li><a>login<a/></li><li><a>signup</a></li></ul>
+                </li>
+                <li class="menu-search">
+                S
+                </li>
                 </ul>
             </nav>
         </div>
