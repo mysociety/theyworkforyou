@@ -607,6 +607,18 @@ form {
             @include inline-list;
             li {
                 margin-left: 0;
+                &.menu-search {
+                    .menu-dropdown--button {
+                        border: none;
+                        background-color: white;
+                        @include background-size(24px 24px);
+                        background-image: url('../img/search.png');
+                        margin-bottom: 0px;
+                        &:active {
+                            box-shadow: none;
+                        }
+                    }
+                }
             }
             width: auto;
             @include box-shadow(none);

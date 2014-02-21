@@ -205,7 +205,7 @@ include_once INCLUDESPATH . '../../commonlib/phplib/gaze.php';
                     <ul class="nav-menu closed"><li><a>login<a/></li><li><a>signup</a></li></ul>
                 </li>
                 <li class="menu-search">
-                S
+                    <a href="#" class="button menu-dropdown--button">Search</a>
                 </li>
                 </ul>
             </nav>
