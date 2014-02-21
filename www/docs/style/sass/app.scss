@@ -342,6 +342,38 @@ form {
             @media (min-width: $medium-screen) {
                 @include grid-column(6);
                 text-align: right;
+                .constituency {
+                    margin-right: 1em;
+                    &:before {
+                        content: url('../img/location_pin.png');
+                        margin-right: 0.5em;
+                        color: white;
+                    }
+                }
+                .party {
+                    &:before {
+                        font-size: em-calc(12);
+                        content: '';
+                        margin-right: 0.5em;
+                        @include radius(1em);
+                        padding-left: 0.4em;
+                        padding-right: 0.4em;
+                        font-weight: bold;
+                    }
+                    &.conservative:before {
+                        content: 'C';
+                        background-color: labour;
+                    }
+                    &.labour:before {
+                        content: 'L';
+                        background-color: red;
+                    }
+                    &.libdem:before {
+                        color: black;
+                        content: 'L';
+                        background-color: yellow;
+                    }
+                }
             }
         }
     }
