@@ -380,7 +380,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     */
 
     // Send the output for rendering
-    MySociety\TheyWorkForYou\Renderer::output('member', $data);
+    MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
 
 }
 
