@@ -407,6 +407,16 @@ class Renderer
         $data['search_url'] = $SEARCH->generate();
 
         ////////////////////////////////////////////////////////////
+        // Search URL
+        // Footer Links
+
+        $data['footer_links']['about'] = Renderer::get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact'));
+        $data['footer_links']['assemblies'] = Renderer::get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home', 'boundaries'));
+        $data['footer_links']['international'] = Renderer::get_menu_links(array ('newzealand', 'australia', 'ireland', 'mzalendo'));
+        $data['footer_links']['tech'] = Renderer::get_menu_links(array ('code', 'api', 'data', 'pombola', 'devmailinglist', 'irc'));
+        $landing_links = Renderer::get_menu_links(array ('parliament_landing', 'hansard_landing'));
+
+        ////////////////////////////////////////////////////////////
         // Unpack the data we've been passed so it's available for use in the templates.
 
         extract($data);
@@ -417,6 +427,56 @@ class Renderer
         require_once INCLUDESPATH . 'easyparliament/templates/html/header.php';
         require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
         require_once INCLUDESPATH . 'easyparliament/templates/html/footer.php';
+    }
+
+    /**
+     * Get Menu Links
+     *
+     * Takes an array of pages and returns an array suitable for use in links.
+     */
+
+    private static function get_menu_links($pages) {
+
+        global $DATA, $this_page;
+        $links = array();
+
+        foreach ($pages as $page) {
+
+            //get meta data
+            $menu = $DATA->page_metadata($page, 'menu');
+            if ($menu) {
+                $title = $menu['text'];
+            } else {
+                $title = $DATA->page_metadata($page, 'title');
+            }
+            $url = $DATA->page_metadata($page, 'url');
+            $tooltip = $DATA->page_metadata($page, 'heading');
+
+            //check for external vs internal menu links
+            if (!valid_url($url)) {
+                $URL = new \URL($page);
+                $url = $URL->generate();
+            }
+
+            //make the link
+            if ($page == $this_page) {
+                $links[] = array(
+                    'href'    => '#',
+                    'title'   => '',
+                    'classes' => '',
+                    'text'    => $title
+                );
+            } else {
+                $links[] = array(
+                    'href'    => $url,
+                    'title'   => $tooltip,
+                    'classes' => '',
+                    'text'    => $title
+                );
+            }
+        }
+
+        return $links;
     }
 
 }

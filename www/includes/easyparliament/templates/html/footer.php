@@ -89,11 +89,9 @@
                                     <dt>ABOUT </dt>
                                     <dd>
                                         <ul>
-                                            <?php
-                                                foreach ($page_data['about_links'] as $about_link) {
-                                                    echo '<li>' . $about_link . '</li>';
-                                                }
-                                            ?>
+                                            <?php foreach ($footer_links['about'] as $footer_link): ?>
+                                                <li><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
+                                            <?php endforeach; ?>
                                         </ul>
                                     </dd>
                                 </dl>
@@ -103,11 +101,9 @@
                                     <dt>PARLIAMENTS &amp; ASSEMBLIES </dt>
                                     <dd>
                                         <ul>
-                                            <?php
-                                                foreach ($page_data['assembly_links'] as $assembly_link) {
-                                                    echo '<li>' . $assembly_link . '</li> ';
-                                                }
-                                            ?>
+                                            <?php foreach ($footer_links['assemblies'] as $footer_link): ?>
+                                                <li><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
+                                            <?php endforeach; ?>
                                         </ul>
                                     </dd>
                                 </dl>
@@ -117,11 +113,9 @@
                                     <dt>DEVELOPERS </dt>
                                     <dd>
                                         <ul>
-                                            <?php
-                                                foreach ($page_data['tech_links'] as $tech_link) {
-                                                    echo '<li>' . $tech_link . '</li> ';
-                                                }
-                                            ?>
+                                            <?php foreach ($footer_links['tech'] as $footer_link): ?>
+                                                <li><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
+                                            <?php endforeach; ?>
                                         </ul>
                                     </dd>
                                 </dl>
@@ -131,11 +125,9 @@
                                     <dt>INTERNATIONAL PROJECTS </dt>
                                     <dd>
                                         <ul>
-                                            <?php
-                                                foreach ($page_data['international_links'] as $international_link) {
-                                                    echo '<li>' . $international_link . '</li> ';
-                                                }
-                                            ?>
+                                            <?php foreach ($footer_links['international'] as $footer_link): ?>
+                                                <li><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
+                                            <?php endforeach; ?>
                                         </ul>
                                     </dd>
                                 </dl>
