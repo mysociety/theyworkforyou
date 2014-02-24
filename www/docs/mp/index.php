@@ -433,18 +433,22 @@ function person_image ($MEMBER) {
  */
 
 function person_summary_description ($MEMBER) {
+    $entered_house = $MEMBER->entered_house();
+    $current_member = $MEMBER->current_member();
+    $left_house = $MEMBER->left_house();
+
     if (in_array(HOUSE_TYPE_ROYAL, $MEMBER->houses())) { # Royal short-circuit
-        return '<strong>Acceded on ' . $MEMBER->entered_house()[HOUSE_TYPE_ROYAL]['date_pretty']
+        return '<strong>Acceded on ' . $entered_house[HOUSE_TYPE_ROYAL]['date_pretty']
             . '<br>Coronated on 2 June 1953</strong></li>';
     }
     $desc = '';
     foreach ($MEMBER->houses() as $house) {
-        if ($house==HOUSE_TYPE_COMMONS && isset($MEMBER->entered_house()[HOUSE_TYPE_LORDS]))
+        if ($house==HOUSE_TYPE_COMMONS && isset($entered_house[HOUSE_TYPE_LORDS]))
             continue; # Same info is printed further down
 
-        if (!$MEMBER->current_member()[$house]) $desc .= 'Former ';
+        if (!$current_member[$house]) $desc .= 'Former ';
 
-        $party = $MEMBER->left_house()[$house]['party'];
+        $party = $left_house[$house]['party'];
         $party_br = '';
         if (preg_match('#^(.*?)\s*\((.*?)\)$#', $party, $m)) {
             $party_br = $m[2];
@@ -468,7 +472,7 @@ function person_summary_description ($MEMBER) {
             if ($party_br) {
                 $desc .= " ($party_br)";
             }
-            $desc .= ' for ' . $MEMBER->left_house()[$house]['constituency'];
+            $desc .= ' for ' . $left_house[$house]['constituency'];
         }
         if ($house==HOUSE_TYPE_LORDS && $party != 'Bishop') $desc .= ' Peer';
         $desc .= ', ';
@@ -485,12 +489,14 @@ function person_summary_description ($MEMBER) {
 
 function is_member_dead($member) {
 
+    $left_house = $member->left_house();
+
     if (
-        $member->left_house() && (
-            ( in_array(HOUSE_TYPE_COMMONS, $member->left_house()) && $member->left_house()[HOUSE_TYPE_COMMONS]['reason'] && $member->left_house()[HOUSE_TYPE_COMMONS]['reason'] == 'Died' ) ||
-            ( in_array(HOUSE_TYPE_LORDS, $member->left_house()) && $member->left_house()[HOUSE_TYPE_LORDS ]['reason'] && $member->left_house()[HOUSE_TYPE_LORDS]['reason'] == 'Died' ) ||
-            ( in_array(HOUSE_TYPE_SCOTLAND, $member->left_house()) && $member->left_house()[HOUSE_TYPE_SCOTLAND ]['reason'] && $member->left_house()[HOUSE_TYPE_SCOTLAND]['reason'] == 'Died' ) ||
-            ( in_array(HOUSE_TYPE_NI, $member->left_house()) && $member->left_house()[HOUSE_TYPE_NI ]['reason'] && $member->left_house()[HOUSE_TYPE_NI]['reason'] == 'Died' )
+        $left_house && (
+            ( in_array(HOUSE_TYPE_COMMONS, $left_house) && $left_house[HOUSE_TYPE_COMMONS]['reason'] && $left_house[HOUSE_TYPE_COMMONS]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_LORDS, $left_house) && $left_house[HOUSE_TYPE_LORDS ]['reason'] && $left_house[HOUSE_TYPE_LORDS]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_SCOTLAND, $left_house) && $left_house[HOUSE_TYPE_SCOTLAND ]['reason'] && $left_house[HOUSE_TYPE_SCOTLAND]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_NI, $left_house) && $left_house[HOUSE_TYPE_NI ]['reason'] && $left_house[HOUSE_TYPE_NI]['reason'] == 'Died' )
         )
     ) {
         return TRUE;
