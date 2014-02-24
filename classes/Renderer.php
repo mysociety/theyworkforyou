@@ -410,11 +410,10 @@ class Renderer
         // Search URL
         // Footer Links
 
-        $data['footer_links']['about'] = Renderer::get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact'));
-        $data['footer_links']['assemblies'] = Renderer::get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home', 'boundaries'));
-        $data['footer_links']['international'] = Renderer::get_menu_links(array ('newzealand', 'australia', 'ireland', 'mzalendo'));
-        $data['footer_links']['tech'] = Renderer::get_menu_links(array ('code', 'api', 'data', 'pombola', 'devmailinglist', 'irc'));
-        $landing_links = Renderer::get_menu_links(array ('parliament_landing', 'hansard_landing'));
+        $data['footer_links']['about'] = self::get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact'));
+        $data['footer_links']['assemblies'] = self::get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home', 'boundaries'));
+        $data['footer_links']['international'] = self::get_menu_links(array ('newzealand', 'australia', 'ireland', 'mzalendo'));
+        $data['footer_links']['tech'] = self::get_menu_links(array ('code', 'api', 'data', 'pombola', 'devmailinglist', 'irc'));
 
         ////////////////////////////////////////////////////////////
         // Unpack the data we've been passed so it's available for use in the templates.
