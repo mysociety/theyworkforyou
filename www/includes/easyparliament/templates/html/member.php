@@ -1,15 +1,10 @@
-<?php
-
-include_once INCLUDESPATH."easyparliament/templates/html/header.php";
-
-?>
     <div class="westminster">
         <div class="person-header">
             <div class=" full-page__row">
             <div class="person-header__content page-content__row">
                 <div class="person-name">
                     <h1>
-                        <?=$page_data['name'] ?>
+                        <?= $full_name ?>
                     </h1>
                 </div>
                 <div class="person-search">
@@ -77,7 +72,3 @@ include_once INCLUDESPATH."easyparliament/templates/html/header.php";
         </div>
     </div>
 </div>
-
-
-<?php
-include_once INCLUDESPATH."easyparliament/templates/html/footer.php";

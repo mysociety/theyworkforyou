@@ -1,64 +1,62 @@
 <?php
 
-/* For displaying info about a person for a postcode or constituency.
+/*
+ * index.php
+ *
+ * For displaying info about a person for a postcode or constituency.
+ *
+ * This page accepts either 'm' (a member_id), 'pid' (a person_id),
+ * 'c' (a postcode or constituency), or 'n' (a name).
+ *
+ * First, we check to see if a person_id's been submitted.
+ * If so, we display that person.
+ *
+ * Else, we check to see if a member_id's been submitted.
+ * If so, we display that person.
+ *
+ * Otherwise, we then check to see if a postcode's been submitted.
+ * If it's valid we put it in a cookie.
+ *
+ * If no postcode, we check to see if a constituency's been submitted.
+ *
+ * If neither has been submitted, we see if either the user is logged in
+ * and has a postcode set or the user has a cookied postcode from a previous
+ * search.
+ *
+ * If we have a valid constituency after all this, we display its MP.
+ *
+ * Either way, we print the forms.
+ */
 
-This page accepts either 'm' (a member_id), 'pid' (a person_id),
-'c' (a postcode or constituency), or 'n' (a name).
+// Disable the old PAGE or NEWPAGE classes.
+$new_style_template = TRUE;
 
-First, we check to see if a person_id's been submitted.
-If so, we display that person.
-
-Else, we check to see if a member_id's been submitted.
-If so, we display that person.
-
-Otherwise, we then check to see if a postcode's been submitted.
-If it's valid we put it in a cookie.
-
-If no postcode, we check to see if a constituency's been submitted.
-
-If neither has been submitted, we see if either the user is logged in
-and has a postcode set or the user has a cookied postcode from a previous
-search.
-
-If we have a valid constituency after all this, we display its MP.
-
-Either way, we print the forms.
-
-*/
-
+// Include all the things this page needs.
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/member.php";
-include_once INCLUDESPATH . "postcode.inc";
+include_once INCLUDESPATH . 'easyparliament/member.php';
+include_once INCLUDESPATH . 'postcode.inc';
 include_once INCLUDESPATH . 'technorati.php';
 include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
 
-twfy_debug_timestamp("after includes");
-
-$errors = array();
-
-// Some legacy URLs use 'p' rather than 'pid' for person id. So we still
-// need to detect these.
+// Set the PID, name and constituency.
 $pid = get_http_var('pid') != '' ? get_http_var('pid') : get_http_var('p');
 $name = strtolower(str_replace('_', ' ', get_http_var('n')));
 $constituency = strtolower(str_replace('_', ' ', get_http_var('c')));
-if ($constituency == 'mysociety test constituency') {
-    header("Location: stom.html");
-    exit;
-}
 
-# Special case names
-if ($name == 'sion simon') $name = "si\xf4n simon";
-if ($name == 'sian james') $name = "si\xe2n james";
-if ($name == 'lembit opik') $name = "lembit \xf6pik";
-if ($name == 'bairbre de brun') $name = "bairbre de br\xfan";
-if ($name == 'daithi mckay') $name = "daith\xed mckay";
-if ($name == 'caral ni chuilin') $name = "car\xe1l n\xed chuil\xedn";
-if ($name == 'caledon du pre') $name = "caledon du pr\xe9";
-if ($name == 'sean etchingham') $name = "se\xe1n etchingham";
-if ($name == 'john tinne') $name = "john tinn\xe9";
-if ($name == 'renee short') $name = "ren\xe9e short";
+// Fix for names with non-ASCII characters
+if ($name == 'sion simon') $name = 'si\xf4n simon';
+if ($name == 'sian james') $name = 'si\xe2n james';
+if ($name == 'lembit opik') $name = 'lembit \xf6pik';
+if ($name == 'bairbre de brun') $name = 'bairbre de br\xfan';
+if ($name == 'daithi mckay') $name = 'daith\xed mckay';
+if ($name == 'caral ni chuilin') $name = 'car\xe1l n\xed chuil\xedn';
+if ($name == 'caledon du pre') $name = 'caledon du pr\xe9';
+if ($name == 'sean etchingham') $name = 'se\xe1n etchingham';
+if ($name == 'john tinne') $name = 'john tinn\xe9';
+if ($name == 'renee short') $name = 'ren\xe9e short';
 
+// Fix for common misspellings, name changes etc
 $name_fix = array(
     'a j beith' => 'alan beith',
     'micky brady' => 'mickey brady',
@@ -76,6 +74,7 @@ $name_fix = array(
     'louise bagshawe' => 'louise mensch',
     'andrew sawford' => 'andy sawford',
 );
+
 if (array_key_exists($name, $name_fix)) {
     if (is_array($name_fix[$name])) {
         if ($constituency == $name_fix[$name][1]) {
@@ -86,18 +85,19 @@ if (array_key_exists($name, $name_fix)) {
     }
 }
 
-# Special stuff for Ynys Mon
+// Fixes for Ynys Mon, and a Unicode URL
 if ($constituency == 'ynys mon') $constituency = "ynys m\xf4n";
-# And cope with Unicode URL
-if (preg_match("#^ynys m\xc3\xb4n#i", $constituency))
+if (preg_match("#^ynys m\xc3\xb4n#i", $constituency)) {
     $constituency = "ynys m\xf4n";
+}
 
-// Redirect for MP recent appearanecs
+// If this is a request for recent appearances, redirect to search results
 if (get_http_var('recent')) {
     if ($THEUSER->postcode_is_set() && !$pid) {
         $MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
-        if ($MEMBER->person_id())
+        if ($MEMBER->person_id()) {
             $pid = $MEMBER->person_id();
+        }
     }
     if ($pid) {
         $URL = new URL('search');
@@ -261,10 +261,6 @@ elseif ($name)
 // CONSTITUENCY ONLY
 elseif ($constituency)
 {
-    if ($constituency == 'your & my society') {
-        header('Location: /mp/stom%20teinberg');
-        exit;
-    }
     $MEMBER = new MEMBER(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
     member_redirect($MEMBER);
 }
@@ -283,25 +279,22 @@ else
 header('Cache-Control: max-age=900');
 
 if (isset($MEMBER) && is_array($MEMBER->person_id())) {
-    $NEWPAGE->page_start();
-    $NEWPAGE->stripe_start('side');
-    print '<p>That name is not unique. Please select from the following:</p><ul>';
+
     $cs = $MEMBER->constituency();
     $c = 0;
     foreach ($MEMBER->person_id() as $id) {
-        print '<li><a href="' . WEBPATH . 'mp/?pid='.$id.'">' . ucwords(strtolower($name)) . ', ' . $cs[$c++] . '</a></li>';
+        $data['mps'][] = array(
+                'url'  => WEBPATH . 'mp/?pid='.$id,
+                'name' => ucwords(strtolower($name)) . ', ' . $cs[$c++]
+            );
     }
-    print '</ul>';
 
-    $MPSURL = new URL('mps');
-    $sidebar = array(
-        'type' => 'html',
-        'content' => '<div class="block">
-                <h4><a href="' . $MPSURL->generate() . '">Browse all MPs</a></h4>
-            </div>'
-    );
+    $MPSURL = new \URL('mps');
 
-    $NEWPAGE->stripe_end(array($sidebar));
+    $data['all_mps_url'] = $MPSURL->generate();
+
+    // Send the output for rendering
+    MySociety\TheyWorkForYou\Renderer::output('mp/list', $data);
 
 /////////////////////////////////////////////////////////
 // DISPLAY A REPRESENTATIVE
@@ -312,13 +305,16 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $MEMBER->load_extra_info(true);
     twfy_debug_timestamp("after load_extra_info");
 
+    // Basic name, title and description
     $member_name = ucfirst($MEMBER->full_name());
-
     $title = $member_name;
     $desc = "Read $member_name's contributions to Parliament, including speeches and questions";
+
+    // Enhance description if this is a current member
     if ($MEMBER->current_member_anywhere())
         $desc .= ', investigate their voting record, and get email alerts on their activity';
 
+    // Enhance title if this is a member of the Commons
     if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
         if (!$MEMBER->current_member(1)) {
             $title .= ', former';
@@ -326,6 +322,8 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         $title .= ' MP';
         if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
     }
+
+    // Enhance title if this is a member of NIA
     if ($MEMBER->house(HOUSE_TYPE_NI)) {
         if ($MEMBER->house(HOUSE_TYPE_COMMONS) || $MEMBER->house(HOUSE_TYPE_LORDS)) {
             $desc = str_replace('Parliament', 'Parliament and the Northern Ireland Assembly', $desc);
@@ -338,6 +336,8 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         $title .= ' MLA';
         if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
     }
+
+    // Enhance title if this is a member of Scottish Parliament
     if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
         if ($MEMBER->house(HOUSE_TYPE_COMMONS) || $MEMBER->house(HOUSE_TYPE_LORDS)) {
             $desc = str_replace('Parliament', 'the UK and Scottish Parliaments', $desc);
@@ -350,207 +350,50 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         }
         $title .= ' MSP, '.$MEMBER->constituency();
     }
+
+    // Set page metadata
     $DATA->set_page_metadata($this_page, 'title', $title);
     $DATA->set_page_metadata($this_page, 'meta_description', $desc);
-    $DATA->set_page_metadata($this_page, 'heading', '');
 
-    // So we can put a link in the <head> in $NEWPAGE->page_start();
-    $feedurl = $DATA->page_metadata('mp_rss', 'url') . $MEMBER->person_id() . '.rdf';
-    if (file_exists(BASEDIR . '/' . $feedurl))
-        $DATA->set_page_metadata($this_page, 'rss', $feedurl);
+    // Prepare data for the template
+    $data['image'] = person_image($MEMBER);
+    $data['member_summary'] = person_summary_description($MEMBER);
+    $data['full_name'] = $MEMBER->full_name();
+    $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
 
-    twfy_debug_timestamp("before page_start");
-    $NEWPAGE->page_start();
-    twfy_debug_timestamp("after page_start");
+    /*
 
-    twfy_debug_timestamp("before display of MP");
+    $data['member_id'] = $MEMBER->member_id();
+    $data['person_id'] = $MEMBER->person_id();
+    $data['constituency'] = $MEMBER->constituency();
+    $data['party'] = $MEMBER->party_text();
+    $data['other_parties'] = $MEMBER->other_parties;
+    $data['other_constituencies'] = $MEMBER->other_constituencies;
+    $data['houses'] = $MEMBER->houses();
+    $data['entered_house'] = $MEMBER->entered_house();
+    $data['left_house'] = $MEMBER->left_house();
+    $data['current_member'] = $MEMBER->current_member();
+    $data['the_users_mp'] = $MEMBER->the_users_mp();
+    $data['current_member_anywhere'] = $MEMBER->current_member_anywhere();
+    $data['house_disp'] = $MEMBER->house_disp;
 
-    $MEMBER->display();
+    */
 
-    twfy_debug_timestamp("after display of MP");
+    // Send the output for rendering
+    MySociety\TheyWorkForYou\Renderer::output('member', $data);
 
-    // SIDEBAR.
-    $sidebars = array(
-        array (
-            'type'        => 'include',
-            'content'    => 'minisurvey'
-        )
-    );
-
-    if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
-        $previous_people = $MEMBER->previous_mps();
-        if ($previous_people) {
-            $sidebars[] = array(
-                'type' => 'html',
-                'content' => '<div class="block"><div class="moreinfo"><span class="moreinfo-text">Might show odd results due to bugs</span><img src="/images/questionmark.png"></div><h4>Previous MPs in this constituency</h4><div class="blockbody"><ul>'
-                    . $previous_people . '</ul></div></div>'
-            );
-        }
-        $future_people = $MEMBER->future_mps();
-        if ($future_people) {
-            $sidebars[] = array(
-                'type' => 'html',
-                'content' => '<div class="block"><div class="moreinfo"><span class="moreinfo-text">Might show odd results due to bugs</span><img src="/images/questionmark.png"></div><h4>Succeeding MPs in this constituency</h4><div class="blockbody"><ul>'
-                    . $future_people . '</ul></div></div>'
-            );
-        }
-    }
-
-    if ( $MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->current_member_anywhere() ) {
-        $member = array (
-            'member_id' 		=> $MEMBER->member_id(),
-            'person_id'		=> $MEMBER->person_id(),
-            'constituency' 		=> $MEMBER->constituency(),
-            'party'			=> $MEMBER->party_text(),
-            'other_parties'		=> $MEMBER->other_parties,
-            'other_constituencies'	=> $MEMBER->other_constituencies,
-            'houses'		=> $MEMBER->houses(),
-            'entered_house'		=> $MEMBER->entered_house(),
-            'left_house'		=> $MEMBER->left_house(),
-            'current_member'	=> $MEMBER->current_member(),
-            'full_name'		=> $MEMBER->full_name(),
-            'the_users_mp'		=> $MEMBER->the_users_mp(),
-            'current_member_anywhere'   => $MEMBER->current_member_anywhere(),
-            'house_disp'		=> $MEMBER->house_disp,
-        );
-        $topics_html = person_committees_and_topics_for_sidebar($member, $MEMBER->extra_info);
-
-        if ($topics_html) {
-            $sidebars[] = array ( 'type' => 'html', 'content' => $topics_html);
-        }
-
-        $expenses_2004_url = 'http://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
-
-        if ( array_key_exists('expenses_url', $MEMBER->extra_info) ) {
-            $expenses_2004_url = $MEMBER->extra_info['expenses_url'];
-        }
-        $expenses_html = '<div class="block"><h4>Expenses</h4><div class="blockbody">';
-        $expenses_html .= '<p>Expenses data for MPs is availble from 2004 onwards split over several locations.' .
-                         ' At the moment we don\'t have the time to convert it to a format we can display on the site so we just have to point you to where you can find it.</p>';
-        $expenses_html .= '<ul><li><a href="' . $expenses_2004_url . '">Expenses from 2004 to to 2009</a></li>';
-        $expenses_html .= '<li><a href="http://www.parliamentary-standards.org.uk/AnnualisedData.aspx">Expenses from 2010 onwards</a></li></ul>';
-        $expenses_html .= '</div></div>';
-
-        $sidebars[] = array ( 'type' => 'html', 'content' => $expenses_html);
-    }
-
-    // We have to generate this HTML to pass to stripe_end().
-    $linkshtml = generate_member_links($MEMBER);
-    $sidebars[] = array ( 'type' => 'html', 'content' => $linkshtml);
-
-/*
-    if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-        $sidebars[] = array (
-            'type'         => 'html',
-            'content'    => $NEWPAGE->member_rss_block(array('appearances' => WEBPATH . $rssurl))
-        );
-    }
-*/
-
-    if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
-        global $memcache;
-        if (!$memcache) {
-            $memcache = new Memcache;
-            $memcache->connect('localhost', 11211);
-        }
-        $nearby = $memcache->get(OPTION_TWFY_DB_NAME . ':nearby_const:' . $MEMBER->person_id());
-        if ($nearby === false) {
-            $lat = null; $lon = null;
-            $nearby = '';
-            $geometry = _api_getGeometry_name($MEMBER->constituency());
-            if (isset($geometry['centre_lat'])) {
-                $lat = $geometry['centre_lat'];
-                $lon = $geometry['centre_lon'];
-            }
-            if ($lat && $lon) {
-                $nearby_consts = 0; #_api_getConstituencies_latitude($lat, $lon, 300); XXX Currently disabled
-                if ($nearby_consts) {
-                    $conlist = '<ul><!-- '.$lat.','.$lon.' -->';
-                    for ($k=1; $k<=min(5, count($nearby_consts)-1); $k++) {
-                        $name = $nearby_consts[$k]['name'];
-                        $dist = $nearby_consts[$k]['distance'];
-                        $conlist .= '<li><a href="' . WEBPATH . 'mp/?c=' . urlencode($name) . '">';
-                        $conlist .= $nearby_consts[$k]['name'] . '</a>';
-                        $dist_miles = round($dist / 1.609344, 0);
-                        $conlist .= ' <small title="Centre to centre">(' . $dist_miles. ' miles)</small>';
-                        $conlist .= '</li>';
-                    }
-                    $conlist .= '</ul>';
-                    $nearby = $conlist;
-                }
-            }
-            $memcache->set(OPTION_TWFY_DB_NAME . ':nearby_const:' . $MEMBER->person_id(), $nearby, 0, 3600);
-        }
-        if ($nearby) {
-            $sidebars[] = array(
-                'type' => 'html',
-                'content' => '<div class="block"><h4>Nearby constituencies</h4><div class="blockbody">' . $nearby . ' </div></div>'
-            );
-        }
-    }
-
-    if (array_key_exists('office', $MEMBER->extra_info())) {
-        $office = $MEMBER->extra_info();
-        $office = $office['office'];
-        $mins = '';
-        foreach ($office as $row) {
-            if ($row['to_date'] != '9999-12-31') {
-                $mins .= '<li>' . prettify_office($row['position'], $row['dept']);
-                       $mins .= ' (';
-                if (!($row['source'] == 'chgpages/selctee' && $row['from_date'] == '2004-05-28')
-                    && !($row['source'] == 'chgpages/privsec' && $row['from_date'] == '2004-05-13')) {
-                    if ($row['source'] == 'chgpages/privsec' && $row['from_date'] == '2005-11-10')
-                        $mins .= 'before ';
-                    $mins .= format_date($row['from_date'],SHORTDATEFORMAT) . ' ';
-                }
-                $mins .= 'to ';
-                if ($row['source'] == 'chgpages/privsec' && $row['to_date'] == '2005-11-10')
-                    $mins .= 'before ';
-                if ($row['source'] == 'chgpages/privsec' && $row['to_date'] == '2009-01-16')
-                    $mins .= '<a href="/help/#pps_unknown">unknown</a>';
-                else
-                    $mins .= format_date($row['to_date'], SHORTDATEFORMAT);
-                $mins .= ')</li>';
-            }
-        }
-        if ($mins) {
-            $sidebars[] = array('type'=>'html',
-            'content' => '<div class="block"><h4>Other offices held in the past</h4><div class="blockbody"><ul>'.$mins.'</ul></div></div>');
-        }
-    }
-
-/*    $body = technorati_pretty();
-    if ($body) {
-        $sidebars[] = array (
-            'type' => 'html',
-            'content' => '<div class="block"><h4>People talking about this MP</h4><div class="blockbody">' . $body . '</div></div>'
-    );
-    }
-*/
-    $sidebars[] = array('type'=>'html',
-        'content' => '<div class="block"><h4>Note for journalists</h4>
-<div class="blockbody"><p>Please feel free to use the data
-on this page, but if you do you must cite TheyWorkForYou.com in the
-body of your articles as the source of any analysis or
-data you get off this site. If you ignore this, we might have to start
-keeping these sorts of records on you...</p></div></div>'
-    );
-    $NEWPAGE->stripe_end($sidebars, '', false);
-
-} else {
-    // Something went wrong
-    $NEWPAGE->page_start();
-    $NEWPAGE->stripe_start();
-    if (isset($errors['pc'])) {
-        $NEWPAGE->error_message($errors['pc']);
-    }
-    $NEWPAGE->postcode_form();
-    $NEWPAGE->stripe_end();
 }
 
-$NEWPAGE->page_end();
+/////////////////////////////////////////////////////////
+// SUPPORTING FUNCTIONS
 
-function member_redirect(&$MEMBER, $code = 301) {
+/**
+ * Member Redirect
+ *
+ * Redirect to the canonical page for a member.
+ */
+
+function member_redirect (&$MEMBER, $code = 301) {
     // We come here after creating a MEMBER object by various methods.
     // Now we redirect to the canonical MP page, with a person_id.
     if ($MEMBER->person_id()) {
@@ -567,164 +410,245 @@ function member_redirect(&$MEMBER, $code = 301) {
     }
 }
 
-function regional_list($pc, $area_type, $rep_type) {
-    $constituencies = postcode_to_constituencies($pc);
-    if ($constituencies == 'CONNECTION_TIMED_OUT') {
-        $errors['pc'] = "Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.";
-    } elseif (!$constituencies) {
-        $errors['pc'] = 'Sorry, ' . htmlentities($pc) . ' isn\'t a known postcode';
-    } elseif (!isset($constituencies[$area_type])) {
-        $errors['pc'] = htmlentities($pc) . ' does not appear to be a valid postcode';
-    }
-    global $NEWPAGE;
-    $a = array_values($constituencies);
-    $db = new ParlDB;
-    $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
-        WHERE constituency IN ('" . join("','", $a) . "')
-        AND left_reason = 'still_in_office' AND house in (" . HOUSE_TYPE_NI . "," . HOUSE_TYPE_SCOTLAND . ")");
-    $current = true;
-    if (!$q->rows()) {
-        # XXX No results implies dissolution, fix for 2011.
-        $current = false;
-        $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
-            WHERE constituency IN ('" . join("','", $a) . "')
-            AND ( (house=" . HOUSE_TYPE_NI . " AND left_house='2011-03-24') OR (house=" . HOUSE_TYPE_SCOTLAND . " AND left_house='2011-03-23') )");
-        }
-    $mcon = array(); $mreg = array();
-    for ($i=0; $i<$q->rows(); $i++) {
-        $house = $q->field($i, 'house');
-        $pid = $q->field($i, 'person_id');
-        $name = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
-        $cons = $q->field($i, 'constituency');
-        if ($house == HOUSE_TYPE_COMMONS) {
-            continue;
-        } elseif ($house == HOUSE_TYPE_NI) {
-            $mreg[] = $q->row($i);
-        } elseif ($house == HOUSE_TYPE_SCOTLAND) {
-            if ($cons == $constituencies['SPC']) {
-                $mcon = $q->row($i);
-            } elseif ($cons == $constituencies['SPE']) {
-                $mreg[] = $q->row($i);
-            }
-        } else {
-            $NEWPAGE->error_message('Odd result returned!' . $house);
+/**
+ * Person Image
+ *
+ * Return the URL to an image of this person
+ */
 
-            return;
-        }
-    }
-    $NEWPAGE->page_start();
-    $NEWPAGE->stripe_start('full');
-    if ($rep_type == 'msp') {
-        if ($current) {
-            $out = '<p>You have one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
-            $out .= '<p>Your <strong>constituency MSP</strong> is <a href="/msp/?p=' . $mcon['person_id'] . '">';
-            $out .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, MSP for ' . $mcon['constituency'];
-            $out .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> are:</p>';
-        } else {
-            $out = '<p>You had one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
-            $out .= '<p>Your <strong>constituency MSP</strong> was <a href="/msp/?p=' . $mcon['person_id'] . '">';
-            $out .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, MSP for ' . $mcon['constituency'];
-            $out .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> were:</p>';
-        }
+function person_image ($MEMBER) {
+    $is_lord = in_array(HOUSE_TYPE_LORDS, $MEMBER->houses());
+    if ($is_lord) {
+        list($image,$sz) = find_rep_image($MEMBER->person_id(), false, 'lord');
     } else {
-        if ($current) {
-            $out = '<p>You have multiple MLAs (Members of the Legislative Assembly) who represent you in ' . $constituencies['NIE'] . '. They are:</p>';
-        } else {
-            $out = '<p>You had multiple MLAs (Members of the Legislative Assembly) who represented you in ' . $constituencies['NIE'] . '. They were:</p>';
-        }
+        list($image,$sz) = find_rep_image($MEMBER->person_id(), false, true);
     }
-    $out .= '<ul>';
-    foreach ($mreg as $reg) {
-        $out .= '<li><a href="/' . $rep_type . '/?p=' . $reg['person_id'] . '">';
-        $out .= $reg['first_name'] . ' ' . $reg['last_name'];
-        $out .= '</a>';
-    }
-    $out .= '</ul>';
-    echo $out;
-    $NEWPAGE->stripe_end();
-    $NEWPAGE->page_end();
+    return $image;
 }
 
-function generate_member_links($member) {
-    // Receives its data from $MEMBER->display_links;
-    // This returns HTML, rather than outputting it.
-    // Why? Because we need this to be in the sidebar, and
-    // we can't call the MEMBER object from the sidebar includes
-    // to get the links. So we call this function from the mp
-    // page and pass the HTML through to stripe_end(). Better than nothing.
+/**
+ * Person Positions Summary
+ *
+ * Generate the summary of this person's held positions.
+ */
 
-    $links = $member->extra_info();
-
-    // Bah, can't use $this->block_start() for this, as we're returning HTML...
-    $html = '<div class="block">
-            <h4>More useful links for this person</h4>
-            <div class="blockbody">
-            <ul>';
-
-    if (isset($links['maiden_speech'])) {
-        $maiden_speech = fix_gid_from_db($links['maiden_speech']);
-        $html .= '<li><a href="' . WEBPATH . 'debate/?id=' . $maiden_speech . '">Maiden speech</a> (automated, may be wrong)</li>';
+function person_summary_description ($MEMBER) {
+    if (in_array(HOUSE_TYPE_ROYAL, $MEMBER->houses())) { # Royal short-circuit
+        return '<strong>Acceded on ' . $MEMBER->entered_house()[HOUSE_TYPE_ROYAL]['date_pretty']
+            . '<br>Coronated on 2 June 1953</strong></li>';
     }
+    $desc = '';
+    foreach ($MEMBER->houses() as $house) {
+        if ($house==HOUSE_TYPE_COMMONS && isset($MEMBER->entered_house()[HOUSE_TYPE_LORDS]))
+            continue; # Same info is printed further down
 
-    // BIOGRAPHY.
-    global $THEUSER;
-    if (isset($links['mp_website'])) {
-        $html .= '<li><a href="' . $links['mp_website'] . '">'. $member->full_name().'\'s personal website</a>';
-        if ($THEUSER->is_able_to('viewadminsection')) {
-            $html .= ' [<a href="/admin/websites.php?editperson=' .$member->person_id() . '">Edit</a>]';
+        if (!$MEMBER->current_member()[$house]) $desc .= 'Former ';
+
+        $party = $MEMBER->left_house()[$house]['party'];
+        $party_br = '';
+        if (preg_match('#^(.*?)\s*\((.*?)\)$#', $party, $m)) {
+            $party_br = $m[2];
+            $party = $m[1];
         }
-        $html .= '</li>';
-    } elseif ($THEUSER->is_able_to('viewadminsection')) {
-         $html .= '<li>[<a href="/admin/websites.php?editperson=' . $member->person_id() . '">Add personal website</a>]</li>';
+        if ($party != 'unknown')
+            $desc .= htmlentities($party);
+        if ($party == 'Speaker' || $party == 'Deputy Speaker') {
+            $desc .= ', and ';
+            # XXX: Might go horribly wrong if something odd happens
+            if ($party == 'Deputy Speaker') {
+                $last = end($MEMBER->other_parties);
+                $desc .= $last['from'] . ' ';
+            }
+        }
+        if ($house==HOUSE_TYPE_COMMONS || $house==HOUSE_TYPE_NI || $house==HOUSE_TYPE_SCOTLAND) {
+            $desc .= ' ';
+            if ($house==HOUSE_TYPE_COMMONS) $desc .= '<abbr title="Member of Parliament">MP</abbr>';
+            if ($house==HOUSE_TYPE_NI) $desc .= '<abbr title="Member of the Legislative Assembly">MLA</abbr>';
+            if ($house==HOUSE_TYPE_SCOTLAND) $desc .= '<abbr title="Member of the Scottish Parliament">MSP</abbr>';
+            if ($party_br) {
+                $desc .= " ($party_br)";
+            }
+            $desc .= ' for ' . $MEMBER->left_house()[$house]['constituency'];
+        }
+        if ($house==HOUSE_TYPE_LORDS && $party != 'Bishop') $desc .= ' Peer';
+        $desc .= ', ';
+    }
+    $desc = preg_replace('#, $#', '', $desc);
+    return $desc;
+}
+
+/**
+ * Is Person Dead
+ *
+ * @return boolean If the member is dead or not.
+ */
+
+function is_member_dead($member) {
+
+    if (
+        $member->left_house() && (
+            ( in_array(HOUSE_TYPE_COMMONS, $member->left_house()) && $member->left_house()[HOUSE_TYPE_COMMONS]['reason'] && $member->left_house()[HOUSE_TYPE_COMMONS]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_LORDS, $member->left_house()) && $member->left_house()[HOUSE_TYPE_LORDS ]['reason'] && $member->left_house()[HOUSE_TYPE_LORDS]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_SCOTLAND, $member->left_house()) && $member->left_house()[HOUSE_TYPE_SCOTLAND ]['reason'] && $member->left_house()[HOUSE_TYPE_SCOTLAND]['reason'] == 'Died' ) ||
+            ( in_array(HOUSE_TYPE_NI, $member->left_house()) && $member->left_house()[HOUSE_TYPE_NI ]['reason'] && $member->left_house()[HOUSE_TYPE_NI]['reason'] == 'Died' )
+        )
+    ) {
+        return TRUE;
+    } else {
+        return FALSE;
     }
 
-    if (isset($links['twitter_username'])) {
-        $html .= '<li><a href="http://twitter.com/' . $links['twitter_username'] . '">'. $member->full_name().'&rsquo;s Twitter feed</a></li>';
-    }
+}
 
-    if (isset($links['sp_url'])) {
-        $html .= '<li><a href="' . $links['sp_url'] . '">'. $member->full_name().'\'s page on the Scottish Parliament website</a></li>';
-    }
+/**
+ * Person Rebellion Rate
+ *
+ * How often has this person rebelled against their party?
+ *
+ * @return string A HTML summary of this person's rebellion rate.
+ */
 
-    if (isset($links['guardian_biography'])) {
-        $html .= '    <li><a href="' . $links['guardian_biography'] . '">Guardian profile</a></li>';
-    }
-    if (isset($links['wikipedia_url'])) {
-        $html .= '    <li><a href="' . $links['wikipedia_url'] . '">Wikipedia page</a></li>';
-    }
+function person_rebellion_rate ($member) {
 
-    if (isset($links['bbc_profile_url'])) {
-        $html .= '      <li><a href="' . $links['bbc_profile_url'] . '">BBC News profile</a></li>';
-    }
-
-    if (isset($links['diocese_url'])) {
-        $html .= '    <li><a href="' . $links['diocese_url'] . '">Diocese website</a></li>';
-    }
-
-    if ($member->house(HOUSE_TYPE_COMMONS)) {
-        $html .= '<li><a href="http://www.edms.org.uk/mps/' . $member->person_id() . '/">Early Day Motions signed by this MP</a> <small>(From edms.org.uk)</small></li>';
-    }
-
-    if (isset($links['journa_list_link'])) {
-        $html .= '      <li><a href="' . $links['journa_list_link'] . '">Newspaper articles written by this MP</a> <small>(From Journalisted)</small></li>';
-    }
-
-    if (isset($links['guardian_election_results'])) {
-        $html .= '      <li><a href="' . $links['guardian_election_results'] . '">Election results for ' . $member->constituency() . '</a> <small>(From The Guardian)</small></li>';
-    }
+    // Rebellion string may be empty.
+    $rebellion_string = '';
 
     /*
-    # BBC Catalogue is offline
-    $bbc_name = urlencode($member->first_name()) . "%20" . urlencode($member->last_name());
-    if ($member->member_id() == -1)
-        $bbc_name = 'Queen Elizabeth';
-    $html .= '      <li><a href="http://catalogue.bbc.co.uk/catalogue/infax/search/' . $bbc_name . '">TV/radio appearances</a> <small>(From BBC Programme Catalogue)</small></li>';
+
+    if (isset($member->extra_info['public_whip_rebellions']) && $member->extra_info['public_whip_rebellions'] != 'n/a') {
+        $displayed_stuff = 1;
+        $rebels_term = 'rebels';
+        if (is_member_dead($member)) {
+            $rebels_term = 'rebelled';
+        }
+
+        $rebellion_string = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . htmlentities(ucfirst($extra_info['public_whip_rebel_description'])) . ' ' . $rebels_term . '</strong></a> against their party';
+
+        if (isset($member->extra_info['public_whip_rebelrank'])) {
+            if ($member->extra_info['public_whip_data_date'] == 'complete') {
+                $rebellion_string .= ' in their last parliament';
+            } else {
+                $rebellion_string .= ' in this parliament';
+            }
+        }
+    }
+
     */
 
-    $html .= "      </ul>
-                </div>
-            </div> <!-- end block -->
-";
+    return $rebellion_string;
 
-    return $html;
+}
+
+/**
+ * Person Voting Record
+ *
+ * Return an array of this person's votes
+ */
+
+function person_voting_record ($member, $extra_info) {
+
+    $displayed_stuff = 0;
+
+    # ID, display string, MP only
+    $policies = array(
+        array(363, 'introducing <b>foundation hospitals</b>'),
+        array(811, 'a <b>smoking ban</b>', true),
+        array(826, 'equal <b>gay rights</b>'),
+        array(984, 'replacing <b>Trident</b> with a new nuclear weapons system'),
+        array(996, 'a <b>transparent Parliament</b>'),
+        array(1027, 'a referendum on the UK\'s membership of the <b>EU</b>'),
+        array(1030, 'laws to <b>stop climate change</b>'),
+        array(1049, 'the <b>Iraq war</b>'),
+        array(1050, 'the <b>hunting ban</b>'),
+        array(1051, 'introducing <b>ID cards</b>'),
+        array(1052, 'university <b>tuition fees</b>'),
+        array(1053, 'Labour\'s <b title="Including voting to maintain them">anti-terrorism laws</b>', true),
+        array(1065, 'more <b>EU integration</b>'),
+        array(1071, 'allowing ministers to <b>intervene in inquests</b>'),
+        array(1074, 'greater <b>autonomy for schools</b>'),
+        array(1079, 'removing <b>hereditary peers</b> from the House of Lords'),
+        array(1084, 'a more <a href="http://en.wikipedia.org/wiki/Proportional_representation">proportional system</a> for electing MPs'),
+        array(1087, 'a <b>stricter asylum system</b>'),
+        array(1110, 'increasing the <b>rate of VAT</b>'),
+        array(1113, 'an <b>equal number of electors</b> per parliamentary constituency'),
+        array(1124, 'automatic enrolment in <b>occupational pensions</b>'),
+        array(1136, '<b>fewer MPs</b> in the House of Commons'),
+        array(6670, 'a reduction in spending on <b>welfare benefits</b>'),
+        array(6671, 'reducing central government <b>funding of local government</b>'),
+        array(6672, 'reducing <b>housing benefit</b> for social tenants deemed to have excess bedrooms (which Labour describe as the "bedroom tax")'),
+        array(6673, 'paying higher benefits over longer periods for those unable to work due to <b>illness or disability</b>'),
+        array(6674, 'raising <b>welfare benefits</b> at least in line with prices'),
+        array(6676, 'reforming the <b>NHS</b> so GPs buy services on behalf of their patients'),
+        array(6677, 'restricting the provision of services to <b>private patients</b> by the NHS'),
+
+        # Unfinished
+        # array(856, "the <strong>changes to parliamentary scrutiny in the <a href=\"http://en.wikipedia.org/wiki/Legislative_and_Regulatory_Reform_Bill\">Legislative and Regulatory Reform Bill</a></strong>"),
+        # array(1080, "government budgets and associated measures"),
+        # array(1077, "equal extradition terms with the US"),
+    );
+    shuffle($policies);
+
+    $joined = array(
+        1079 => array(837, "a <strong>wholly elected</strong> House of Lords"),
+        1049 => array(975, "an <strong>investigation</strong> into the Iraq war"),
+        1052 => array(1132, 'raising England&rsquo;s undergraduate tuition fee cap to &pound;9,000 per year'),
+        1124 => array(1109, "encouraging occupational pensions"),
+    );
+
+    $got_dream = '';
+    foreach ($policies as $policy) {
+        if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member['houses']))
+            continue;
+        $got_dream .= display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
+        if (isset($joined[$policy[0]])) {
+            $policy = $joined[$policy[0]];
+            $got_dream .= display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
+        }
+    }
+
+    if ($got_dream) {
+        $displayed_stuff = 1;
+        if (in_array(HOUSE_TYPE_COMMONS, $member['houses']) && $member['entered_house'][HOUSE_TYPE_COMMONS]['date'] > '2001-06-07') {
+            $since = '';
+        } elseif (!in_array(HOUSE_TYPE_COMMONS, $member['houses']) && in_array(HOUSE_TYPE_LORDS, $member['houses']) && $member['entered_house'][HOUSE_TYPE_LORDS]['date'] > '2001-06-07') {
+            $since = '';
+        } elseif ($member_has_died) {
+            $since = '';
+        } else {
+            $since = ' since 2001';
+        }
+        # If not current MP/Lord, but current MLA/MSP, need to say voting record is when MP
+        if (!$member['current_member'][HOUSE_TYPE_COMMONS] && !$member['current_member'][HOUSE_TYPE_LORDS] && ($member['current_member'][HOUSE_TYPE_SCOTLAND] || $member['current_member'][HOUSE_TYPE_NI])) {
+            $since .= ' whilst an MP';
+        }
+?>
+
+<h3>How <?=$member['full_name']?> voted on key issues<?=$since?></h3>
+<ul class="no-bullet" id="dreamcomparisons">
+<?=$got_dream ?>
+</ul>
+<?php
+    }
+
+    // Links to full record at Guardian and Public Whip
+    $record = array();
+    if (isset($extra_info['guardian_howtheyvoted'])) {
+        $record[] = '<a href="' . $extra_info['guardian_howtheyvoted'] . '" title="At The Guardian">well-known issues</a> <small>(from the Guardian)</small>';
+    }
+    if ((isset($extra_info['public_whip_division_attendance']) && $extra_info['public_whip_division_attendance'] != 'n/a')
+      || (isset($extra_info['Lpublic_whip_division_attendance']) && $extra_info['Lpublic_whip_division_attendance'] != 'n/a')) {
+        $record[] = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member['member_id'] . '&amp;showall=yes#divisions" title="At Public Whip">their full record</a>';
+    }
+
+    if (count($record) > 0) {
+        $displayed_stuff = 1;
+        ?>
+        <p class="morelink">More on <?php echo implode(' &amp; ', $record); ?></p>
+<?php
+    }
+
+
+    if (!$displayed_stuff) {
+        print '<p>No data to display yet.</p>';
+    }
 }
