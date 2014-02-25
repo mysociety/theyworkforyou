@@ -140,6 +140,34 @@
 
                         <?php endif; ?>
 
+                        <?php if (count($constituency_previous_mps) > 0): ?>
+
+                        <h3>Previous MPs in this constituency</h3>
+
+                        <ul>
+
+                            <?php foreach ($constituency_previous_mps as $constituency_previous_mp): ?>
+                            <li><a href="<?= $constituency_previous_mp['href'] ?>"><?= $constituency_previous_mp['text'] ?></a></li>
+                            <?php endforeach; ?>
+
+                        </ul>
+
+                        <?php endif; ?>
+
+                        <?php if (count($constituency_future_mps) > 0): ?>
+
+                        <h3>Future MPs in this constituency</h3>
+
+                        <ul>
+
+                            <?php foreach ($constituency_future_mps as $constituency_future_mp): ?>
+                            <li><a href="<?= $constituency_future_mp['href'] ?>"><?= $constituency_future_mp['text'] ?></a></li>
+                            <?php endforeach; ?>
+
+                        </ul>
+
+                        <?php endif; ?>
+
                     </div>
 
                     <div class="panel">

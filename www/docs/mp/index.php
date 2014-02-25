@@ -375,6 +375,9 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         $data['expenses_url_2004'] = 'http://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
     }
 
+    $data['constituency_previous_mps'] = constituency_previous_mps($MEMBER);
+    $data['constituency_future_mps'] = constituency_future_mps($MEMBER);
+
     /*
 
     $data['member_id'] = $MEMBER->member_id();
@@ -805,4 +808,20 @@ function person_previous_offices($member) {
     }
 
     return $out;
+}
+
+function constituency_previous_mps($member) {
+    if ($member->house(HOUSE_TYPE_COMMONS)) {
+        return $member->previous_mps_array();
+    } else {
+        return array();
+    }
+}
+
+function constituency_future_mps($member) {
+    if ($member->house(HOUSE_TYPE_COMMONS)) {
+        return $member->future_mps_array();
+    } else {
+        return array();
+    }
 }
