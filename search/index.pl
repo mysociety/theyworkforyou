@@ -101,7 +101,7 @@ if ($action ne "check" && $action ne 'checkfull') {
         from epobject join hansard on epobject.epobject_id = hansard.epobject_id
         left join member on hansard.speaker_id = member.member_id
         left join epobject as section on hansard.section_id = section.epobject_id";
-    (my $sdc = $since_date_condition) =~ s/{{date}}/hdate/;
+    (my $sdc = $since_date_condition) =~ s/{{date}}/hdate/g;
     $sdc =~ s/{{modified}}/hansard.modified/;
     $query .= $sdc;
     $query .= ' and major = ' . $section if ($section);
@@ -203,7 +203,7 @@ if ($action ne "check" && $action ne 'checkfull') {
 
     # Now add Future Business to the index.
     my $fb_query = "SELECT id, body, chamber, event_date, committee_name, debate_type, title, witnesses, location, deleted, pos, unix_timestamp(modified) as modified FROM future";
-    ($sdc = $since_date_condition) =~ s/{{date}}/event_date/;
+    ($sdc = $since_date_condition) =~ s/{{date}}/event_date/g;
     $sdc =~ s/{{modified}}/modified/;
     $fb_query .= $sdc;
 
