@@ -54,7 +54,7 @@
 
                         <p><?= $rebellion_rate ?></p>
 
-                        <h3>How <?= $full_name ?> voted on key issues<?= $key_votes['since_string'] ?></h3>
+                        <h3>How <?= $full_name ?> voted on key issues<?= isset($key_votes['since_string']) ? $key_votes['since_string'] : '' ?></h3>
 
                         <?php if (count($key_votes['key_votes']) > 0): ?>
 
