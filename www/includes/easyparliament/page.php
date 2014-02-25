@@ -411,7 +411,7 @@ window.fbAsyncInit = function () {
             ?>
         <div id="search">
             <form action="<?php echo $URL->generate(); ?>" method="get">
-               <label for="search_input">Search</label><input id="header_search_input" name="q" size="15">
+               <label for="header_search_input">Search</label><input id="header_search_input" name="q" size="15">
                <input type="submit" class="submit" value="Go">
                <?php /* <input type="hidden" name="section" value="<?=$section?>"> */ ?>
             </form>
