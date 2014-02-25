@@ -8,10 +8,9 @@
                     </h1>
                 </div>
                 <div class="person-search">
-                    <?php $SEARCHURL = new URL('search'); ?>
-                    <form action="<?php echo $SEARCHURL->generate(); ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Person'); return false;">
+                    <form action="<?= $search_url ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Person'); return false;">
                         <input id="person_search_input" name="q" size="24" maxlength="200" placeholder="Search this person's speeches"><input type="submit" class="submit" value="GO">
-                        <input type="hidden" name="pid" value="<?php echo $page_data['person_id']; ?>">
+                        <input type="hidden" name="pid" value="<?= $person_id ?>">
                     </form>
                 </div>
                 <div class="person-buttons">
@@ -19,7 +18,7 @@
                     <a href="#" class="button alert">Get email updates</a>
                 </div>
                 <div class="person-constituency">
-                     <span class="constituency">constituency</span> <span class="party">party</span>
+                     <span class="constituency"><?= $constituency ?></span> <span class="party"><?= $party ?></span>
                 </div>
             </div>
             </div>
@@ -49,9 +48,40 @@
                     </ul>
                 </div>
                 <div class="primary-content__unit">
+
                     <div class="panel">
                         <h2>Voting Summary</h2>
+
+                        <p><?= $rebellion_rate ?></p>
+
+                        <h3>How <?= $full_name ?> voted on key issues<?= $key_votes['since_string'] ?></h3>
+
+                        <?php if (count($key_votes['key_votes']) > 0): ?>
+
+                            <ul>
+
+                            <?php foreach ($key_votes['key_votes'] as $key_vote): ?>
+
+                                <li><?= $key_vote ?></li>
+
+                            <?php endforeach; ?>
+
+                            </ul>
+
+                            <?php if (isset($key_votes['more_link'])): ?>
+
+                            <?= $key_votes['more_link'] ?>
+
+                            <?php endif; ?>
+
+                        <?php else: ?>
+
+                            <p>No votes to display.</p>
+
+                        <?php endif; ?>
+
                     </div>
+
                     <div class="panel">
                         <h2>Recent appearances</h2>
                     </div>
@@ -67,6 +97,7 @@
                     <div class="panel">
                         <h2>Register of Interests</h2>
                     </div>
+
                 </div>
             </div>
         </div>
