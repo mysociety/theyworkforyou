@@ -112,14 +112,28 @@
                             <li><a href="http://www.parliamentary-standards.org.uk/AnnualisedData.aspx">Expenses from 2010 onwards</a></li>
                         </ul>
 
-                        <h3>Topics of interest</h3>
-
                         <?php if (count($topics_of_interest) > 0): ?>
+
+                        <h3>Topics of interest</h3>
 
                         <ul>
 
                             <?php foreach ($topics_of_interest as $topic): ?>
                             <li><?= $topic ?></li>
+                            <?php endforeach; ?>
+
+                        </ul>
+
+                        <?php endif; ?>
+
+                        <?php if (count($previous_offices) > 0): ?>
+
+                        <h3>Other offices held in the past</h3>
+
+                        <ul>
+
+                            <?php foreach ($previous_offices as $office): ?>
+                            <li><?= $office ?></li>
                             <?php endforeach; ?>
 
                         </ul>
