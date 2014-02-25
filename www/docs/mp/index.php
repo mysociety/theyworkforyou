@@ -365,6 +365,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
     $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info);
     $data['useful_links'] = person_useful_links($MEMBER);
+    $data['topics_of_interest'] = person_topics($MEMBER);
 
     // Set the expenses URL if we know it
     if (isset($MEMBER->extra_info['expenses_url'])) {
@@ -748,6 +749,24 @@ function person_useful_links($member) {
                 'href' => $links['guardian_election_results'],
                 'text' => 'Election results for ' . $member->constituency()
         );
+    }
+
+    return $out;
+}
+
+function person_topics($member) {
+    $out = array();
+
+    $extra_info = $member->extra_info();
+
+    if (isset($extra_info['wrans_departments'])) {
+        $subjects = explode(',', $extra_info['wrans_departments']);
+        $out = array_merge($out, $subjects);
+    }
+
+    if (isset($extra_info['wrans_subjects'])) {
+        $subjects = explode(',', $extra_info['wrans_subjects']);
+        $out = array_merge($out, $subjects);
     }
 
     return $out;
