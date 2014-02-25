@@ -488,6 +488,10 @@ function person_summary_description ($MEMBER) {
 /**
  * Is Person Dead
  *
+ * Determine if the given member has died or not.
+ *
+ * @param MEMBER $member The member to check for death.
+ *
  * @return boolean If the member is dead or not.
  */
 
@@ -514,6 +518,8 @@ function is_member_dead($member) {
  * Person Rebellion Rate
  *
  * How often has this person rebelled against their party?
+ *
+ * @param MEMBER $member The member to calculate rebellion rate for.
  *
  * @return string A HTML summary of this person's rebellion rate.
  */
@@ -573,7 +579,10 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
 /**
  * Person Voting Record
  *
- * Return an array of this person's votes
+ * Return an array containing this person's votes plus string metadata.
+ *
+ * @param MEMBER $member     The member to generate a record for.
+ * @param array  $extra_info Extra info for the member.
  */
 
 function person_voting_record ($member, $extra_info) {

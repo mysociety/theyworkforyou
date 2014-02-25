@@ -16,6 +16,9 @@ class Renderer
      * Output Page
      *
      * Assembles a completed page from template and sends it to output.
+     *
+     * @param string $template The name of the template file to load.
+     * @param array  $data     An associative array of data to be made available to the template.
      */
 
     public static function output($template, $data = array())
