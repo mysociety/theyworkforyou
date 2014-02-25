@@ -88,6 +88,21 @@
 
                     <div class="panel">
                         <h2>Profile</h2>
+
+                        <p><?= $member_summary ?></p>
+
+                        <?php if (count($useful_links) > 0): ?>
+
+                        <ul>
+
+                            <?php foreach ($useful_links as $link): ?>
+                            <li><a href="<?= $link['href'] ?>"><?= $link['text'] ?></li>
+                            <?php endforeach; ?>
+
+                        </ul>
+
+                        <?php endif; ?>
+
                     </div>
 
                     <div class="panel">

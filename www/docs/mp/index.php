@@ -364,6 +364,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['member_summary'] = person_summary_description($MEMBER);
     $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
     $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info);
+    $data['useful_links'] = person_useful_links($MEMBER);
 
     /*
 
@@ -646,4 +647,92 @@ function person_voting_record ($member, $extra_info) {
 
     return $out;
 
+}
+
+function person_useful_links($member) {
+
+    $links = $member->extra_info();
+
+    $out = array();
+
+    if (isset($links['maiden_speech'])) {
+        $maiden_speech = fix_gid_from_db($links['maiden_speech']);
+        $out[] = array(
+                'href' => WEBPATH . 'debate/?id=' . $maiden_speech,
+                'text' => 'Maiden speech'
+        );
+    }
+
+    // BIOGRAPHY.
+    global $THEUSER;
+    if (isset($links['mp_website'])) {
+        $out[] = array(
+                'href' => $links['mp_website'],
+                'text' => 'Personal website'
+        );
+    }
+
+    if (isset($links['twitter_username'])) {
+        $out[] = array(
+                'href' => 'http://twitter.com/' . $links['twitter_username'],
+                'text' => 'Twitter feed'
+        );
+    }
+
+    if (isset($links['sp_url'])) {
+        $out[] = array(
+                'href' => $links['sp_url'],
+                'text' => 'Page on the Scottish Parliament website'
+        );
+    }
+
+    if (isset($links['guardian_biography'])) {
+        $out[] = array(
+                'href' => $links['guardian_biography'],
+                'text' => 'Guardian profile'
+        );
+    }
+    if (isset($links['wikipedia_url'])) {
+        $out[] = array(
+                'href' => $links['wikipedia_url'],
+                'text' => 'Wikipedia page'
+        );
+    }
+
+    if (isset($links['bbc_profile_url'])) {
+        $out[] = array(
+                'href' => $links['bbc_profile_url'],
+                'text' => 'BBC News profile'
+        );
+    }
+
+    if (isset($links['diocese_url'])) {
+        $out[] = array(
+                'href' => $links['diocese_url'],
+                'text' => 'Diocese website'
+        );
+    }
+
+    if ($member->house(HOUSE_TYPE_COMMONS)) {
+        $out[] = array(
+                'href' => 'http://www.edms.org.uk/mps/' . $member->person_id(),
+                'text' => 'Early Day Motions signed by this MP'
+        );
+    }
+
+    if (isset($links['journa_list_link'])) {
+        $out[] = array(
+                'href' => $links['journa_list_link'],
+                'text' => 'Newspaper articles written by this MP'
+        );
+    }
+
+    if (isset($links['guardian_election_results'])) {
+        $out[] = array(
+                'href' => $links['guardian_election_results'],
+                'text' => 'Election results for ' . $member->constituency()
+        );
+    }
+
+    return $out;
 }
