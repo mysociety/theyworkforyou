@@ -96,12 +96,21 @@
                         <ul>
 
                             <?php foreach ($useful_links as $link): ?>
-                            <li><a href="<?= $link['href'] ?>"><?= $link['text'] ?></li>
+                            <li><a href="<?= $link['href'] ?>"><?= $link['text'] ?></a></li>
                             <?php endforeach; ?>
 
                         </ul>
 
                         <?php endif; ?>
+
+                        <h3>Expenses</h3>
+
+                        <p>Expenses data for MPs is availble from 2004 onwards split over several locations. At the moment we don't have the time to convert it to a format we can display on the site so we just have to point you to where you can find it.</p>
+
+                        <ul>
+                            <li><a href="<?= $expenses_url_2004 ?>">Expenses from 2004 to to 2009</a></li>
+                            <li><a href="http://www.parliamentary-standards.org.uk/AnnualisedData.aspx">Expenses from 2010 onwards</a></li>
+                        </ul>
 
                     </div>
 

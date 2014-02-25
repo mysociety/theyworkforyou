@@ -366,6 +366,13 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info);
     $data['useful_links'] = person_useful_links($MEMBER);
 
+    // Set the expenses URL if we know it
+    if (isset($MEMBER->extra_info['expenses_url'])) {
+        $data['expenses_url_2004'] = $MEMBER->extra_info['expenses_url'];
+    } else {
+        $data['expenses_url_2004'] = 'http://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
+    }
+
     /*
 
     $data['member_id'] = $MEMBER->member_id();
