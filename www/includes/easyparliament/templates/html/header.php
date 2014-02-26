@@ -196,7 +196,7 @@
                         <span class="menu-dropdown">
                             <a href="#" class="button menu-dropdown--button menu-toplevel-dropdown--button">User</a>
                         </span>
-                        <ul class="dropdown">
+                        <ul class="nav-menu closed">
                         <?php foreach ($user_nav_links as $nav_link): ?>
                             <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>"><?= $nav_link['text'] ?></a></li>
                         <?php endforeach; ?>
