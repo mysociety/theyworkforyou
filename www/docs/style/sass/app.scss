@@ -295,6 +295,14 @@ form {
         color: white;
         .person-name {
             h1 {
+                .mp-image {
+                    display: inline-block;
+                    max-height: 48px;
+                    overflow: hidden;
+                    img {
+                        max-width: 48px;
+                    }
+                }
                 color: white;
                 margin: 0px;
                 padding: 0px;

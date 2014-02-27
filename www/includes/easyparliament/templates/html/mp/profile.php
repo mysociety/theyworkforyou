@@ -4,6 +4,11 @@
             <div class="person-header__content page-content__row">
                 <div class="person-name">
                     <h1>
+                        <?php if ( $image ) { ?>
+                        <span class="mp-image">
+                        <img src="<?= $image ?>" height="48">
+                        </span>
+                        <?php } ?>
                         <?= $full_name ?>
                     </h1>
                 </div>
