@@ -402,7 +402,13 @@ form {
 }
 
 .westminster {
-    background-image: url('/images/westminster.jpg');
+    background-image: url('../img/houses-of-parliament-mobile.jpg');
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/houses-of-parliament-tablet.jpg');
+    }
+    @media (min-width: $large-screen) {
+        background-image: url('../img/houses-of-parliament-desktop.jpg');
+    }
     background-position: center center;
     background-size: cover;
 }
