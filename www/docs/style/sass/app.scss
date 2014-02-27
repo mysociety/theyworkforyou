@@ -363,25 +363,37 @@ form {
                 .party {
                     &:before {
                         font-size: em-calc(12);
-                        content: '';
+                        content: 'O';
                         margin-right: 0.5em;
                         @include radius(1em);
                         padding-left: 0.4em;
                         padding-right: 0.4em;
                         font-weight: bold;
+                        color: lightgrey;
+                        background-color: lightgrey;
                     }
-                    &.conservative:before {
+                    &.Con:before {
                         content: 'C';
-                        background-color: labour;
+                        background-color: rgb(22,111,210);
                     }
-                    &.labour:before {
+                    &.Lab:before {
                         content: 'L';
-                        background-color: red;
+                        background-color: rgb(238, 50, 36);
                     }
-                    &.libdem:before {
+                    &.LDem:before {
                         color: black;
                         content: 'L';
-                        background-color: yellow;
+                        background-color: rgb(255, 187, 51);
+                    }
+                    &.SNP:before {
+                        color: black;
+                        content: 'S';
+                        background-color: rgb(255, 249, 93);
+                    }
+                    &.Green:before {
+                        color: white;
+                        content: 'G';
+                        background-color: rgb(106, 176, 35);
                     }
                 }
             }

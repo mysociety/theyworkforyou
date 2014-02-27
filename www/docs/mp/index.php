@@ -360,6 +360,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['person_id'] = $MEMBER->person_id();
     $data['constituency'] = $MEMBER->constituency();
     $data['party'] = $MEMBER->party_text();
+    $data['party_short'] = $MEMBER->party();
     $data['image'] = person_image($MEMBER);
     $data['member_summary'] = person_summary_description($MEMBER);
     $data['rebellion_rate'] = person_rebellion_rate($MEMBER);

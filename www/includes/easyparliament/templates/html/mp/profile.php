@@ -23,7 +23,7 @@
                     <a href="#" class="button alert">Get email updates</a>
                 </div>
                 <div class="person-constituency">
-                     <span class="constituency"><?= $constituency ?></span> <span class="party"><?= $party ?></span>
+                     <span class="constituency"><?= $constituency ?></span> <span class="party <?= $party_short ?>"><?= $party ?></span>
                 </div>
             </div>
             </div>
