@@ -483,6 +483,19 @@ form {
     }
 }
 
+.button {
+    img {
+        position: relative;
+        margin-right: 0.25em;
+        bottom: 0.1em;
+    }
+    &.alert {
+        img {
+            bottom: 0.2em;
+        }
+    }
+}
+
 .primary-navigation-bar {
     float: right;
     width: 100%;

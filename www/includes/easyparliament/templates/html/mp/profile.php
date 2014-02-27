@@ -19,8 +19,8 @@
                     </form>
                 </div>
                 <div class="person-buttons">
-                    <a href="#" class="button wtt">Send a message</a>
-                    <a href="#" class="button alert">Get email updates</a>
+                    <a href="#" class="button wtt"><img src="/style/img/envelope.png">Send a message</a>
+                    <a href="#" class="button alert"><img src="/style/img/plus-circle.png">Get email updates</a>
                 </div>
                 <div class="person-constituency">
                      <span class="constituency"><?= $constituency ?></span> <span class="party <?= $party_short ?>"><?= $party ?></span>
