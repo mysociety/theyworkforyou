@@ -508,9 +508,10 @@ form {
     .menu-dropdown {
         display: block;
         position: absolute;
-        top: 0.75em;
-        right: 0.75em;
+        top: 5px;
+        right: 60px;
         line-height: 48px;
+        box-shadow: none;
         &.user {
             display: inline-block;
         }
@@ -676,7 +677,18 @@ form {
         .user-menu {
             /* temporary measure till work out what we're doing */
             @media (max-width: $large-screen) {
-                display: none;
+                .menu-dropdown {
+                    display: none;
+                }
+                .nav-menu {
+                    display: block;
+                    height: auto;
+                    max-height: none;
+                    position: static;
+                    border-top: 1px solid $borders;
+                    box-shadow: none;
+                    width: 100%;
+                }
             }
             @media (min-width: $large-screen) {
                 position: relative;
