@@ -355,9 +355,9 @@ form {
                 .constituency {
                     margin-right: 1em;
                     &:before {
-                        content: url('../img/location_pin.png');
-                        margin-right: 0.5em;
-                        color: white;
+                        position: relative;
+                        content: url('../img/location-pin.png');
+                        bottom: -0.3em;
                     }
                 }
                 .party {
