@@ -44,19 +44,20 @@
             </div>
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
-                    <ul>
-                        <li><a href="#votes">Votes</a></li>
-                        <li><a href="#appearances">Appearances</a></li>
-                        <li><a href="#profile">Profile</a></li>
-                        <li><a href="#numerology">Numerology</a></li>
-                        <li><a href="#register">Register of Interests</a></li>
+                    <ul data-magellan-expedition="fixed">
+                        <li data-magellan-arrival="votes"><a href="#votes">Votes</a></li>
+                        <li data-magellan-arrival="appearances"><a href="#appearances">Appearances</a></li>
+                        <li data-magellan-arrival="profile"><a href="#profile">Profile</a></li>
+                        <li data-magellan-arrival="numerology"><a href="#numerology">Numerology</a></li>
+                        <li data-magellan-arrival="register"><a href="#register">Register of Interests</a></li>
                     </ul>
+                    <div>&nbsp;</div>
                 </div>
                 <div class="primary-content__unit">
 
                     <div class="panel">
                         <a name="votes"></a>
-                        <h2>Voting Summary</h2>
+                        <h2 data-magellan-destination="votes">Voting Summary</h2>
 
                         <p><?= $rebellion_rate ?></p>
 
@@ -90,12 +91,12 @@
 
                     <div class="panel">
                         <a name="appearances"></a>
-                        <h2>Recent appearances</h2>
+                        <h2 data-magellan-destination="appearances">Recent appearances</h2>
                     </div>
 
                     <div class="panel">
                         <a name="profile"></a>
-                        <h2>Profile</h2>
+                        <h2 data-magellan-destination="profile">Profile</h2>
 
                         <p><?= $member_summary ?></p>
 
@@ -194,7 +195,7 @@
 
                     <div class="panel">
                         <a name="numerology"></a>
-                        <h2>Numerology</h2>
+                        <h2 data-magellan-destination="numerology">Numerology</h2>
 
                         <?php if (count($numerology) > 0): ?>
 
@@ -219,7 +220,7 @@
                     <?php if ($register_interests): ?>
                     <div class="panel">
                         <a name="register"></a>
-                        <h2>Register of Interests</h2>
+                        <h2 data-magellan-destination="register">Register of Interests</h2>
 
                         <div class="moreinfo">
                             <span class="moreinfo-text">

@@ -473,9 +473,11 @@ form {
     .in-page-nav {
         @include radius;
         padding: 0px;
-        background-color: white;
         ul {
-            /*@include unstyled-list;*/
+            &.fixed {
+                width: 16.66667%;
+            }
+            background-color: white;
             margin-left: 0px;
             margin-bottom: 0px;
             font-size: em-calc(16);
