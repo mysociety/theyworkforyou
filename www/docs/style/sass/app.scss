@@ -538,6 +538,9 @@ form {
         right: 60px;
         line-height: 48px;
         box-shadow: none;
+        @media (min-width: $medium-screen) {
+            right: 145px;
+        }
         &.user {
             display: inline-block;
         }
