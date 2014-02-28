@@ -146,8 +146,6 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <?= $country ?>
-
 <?php
         if (isset($country)) {
             if ($country == 'NZ') {
