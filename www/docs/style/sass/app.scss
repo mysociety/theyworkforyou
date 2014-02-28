@@ -278,11 +278,11 @@ form {
 }
 
 .person-header {
-    height: 285px;
     /*margin-right: -3.3%;*/
     /*margin-left: -3.3%;*/
     padding-top: 16px;
-    @media (min-width: $medium-screen) {
+    @media (min-width: $large-screen) {
+        height: 285px;
         padding-top: 150px;
     }
 
