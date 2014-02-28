@@ -361,6 +361,11 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['constituency'] = $MEMBER->constituency();
     $data['party'] = $MEMBER->party_text();
     $data['party_short'] = $MEMBER->party();
+    $data['current_member_anywhere'] = $MEMBER->current_member_anywhere();
+    $data['current_member'] = $MEMBER->current_member();
+    $data['the_users_mp'] = $MEMBER->the_users_mp();
+    $data['user_postcode'] = $THEUSER->postcode;
+
     $data['image'] = person_image($MEMBER);
     $data['member_summary'] = person_summary_description($MEMBER);
     $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
@@ -401,9 +406,6 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['houses'] = $MEMBER->houses();
     $data['entered_house'] = $MEMBER->entered_house();
     $data['left_house'] = $MEMBER->left_house();
-    $data['current_member'] = $MEMBER->current_member();
-    $data['the_users_mp'] = $MEMBER->the_users_mp();
-    $data['current_member_anywhere'] = $MEMBER->current_member_anywhere();
     $data['house_disp'] = $MEMBER->house_disp;
 
     */

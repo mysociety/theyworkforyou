@@ -22,9 +22,19 @@
                     </form>
                 </div>
                 <div class="person-buttons">
-                    <a href="#" class="button wtt"><img src="/style/img/envelope.png">Send a message</a>
+                    <?php if ($current_member_anywhere): ?>
+                    <a href="https://www.writetothem.com/<?php
+                        if ($current_member[HOUSE_TYPE_LORDS]) {
+                            echo "?person=uk.org.publicwhip/person/$person_id";
+                        }
+                        if ($the_users_mp) {
+                            echo "?a=WMC&amp;pc=" . htmlentities(urlencode($user_postcode));
+                        }
+                    ?>" class="button wtt" onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'Person'); return false;"><img src="/style/img/envelope.png">Send a message</a>
+
+                    <?php endif; ?>
                     <?php if ($has_email_alerts): ?>
-                    <a href="#" class="button alert"><img src="/style/img/plus-circle.png">Get email updates</a>
+                    <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#" class="button alert" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;"><img src="/style/img/plus-circle.png">Get email updates</a>
                     <?php endif; ?>
                 </div>
             </div>
