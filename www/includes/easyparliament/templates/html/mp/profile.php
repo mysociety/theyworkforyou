@@ -17,7 +17,7 @@
                 </div>
                 <div class="person-search">
                     <form action="<?= $search_url ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Person'); return false;">
-                        <input id="person_search_input" name="q" size="24" maxlength="200" placeholder="Search this person's speeches"><input type="submit" class="submit" value="GO">
+                        <input id="person_search_input" name="q" maxlength="200" placeholder="Search this person's speeches"><input type="submit" class="submit" value="GO">
                         <input type="hidden" name="pid" value="<?= $person_id ?>">
                     </form>
                 </div>
