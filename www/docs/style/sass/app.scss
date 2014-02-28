@@ -807,10 +807,16 @@ form {
     clear: both;
     margin-top: 1em;
     background-color: white;
-    font-family: "Open Sans", sans-serif;
+
+    p {
+        font-size: 14px;
+    }
 
     #footer-about {
         @include grid-column(4);
+        p {
+            font-size: 18px;
+        }
     }
 
     #footer-links {
@@ -818,10 +824,11 @@ form {
     }
 
     #stay-up-to-date h5 {
+        font-size: 14px;
+        font-weight: normal;
         padding-bottom: 0.5em;
-        border-bottom: solid 1px $light-text;
-        font-family: Lato, sans-serif;
-        font-size: 12px;
+        border-bottom: solid 1px $borders;
+        /*font-size: 12px;*/
     }
 
     .fb-like {
@@ -830,25 +837,30 @@ form {
 
     #footer-nav {
         margin-top: 1em;
-        dt {
-            font-size: 12px;
-            font-weight: bold;
-            font-family: Lato, sans-serif;
+        dl {
+            dt {
+                font-size: 14px;
+                font-weight: normal;
+                border-bottom: solid 1px $borders;
+            }
+            dd {
+                font-size: 14px;
+                ul {
+                    @include unstyled-list;
+                    a {
+                        text-decoration: none;
+                        color: $light-text;
+                    }
+                }
+            }
         }
-        dd {
-            font-size: 12px;
-        }
-    }
-
-    #footer-about {
-        font-size: 14px;
     }
 
     input {
         display: inline;
         border-radius: 2px;
         padding: 0.75em;
-        font-size: 1em;
+        font-size: 14px;
         border: none;
         height: auto;
 
@@ -865,27 +877,11 @@ form {
         }
     }
 
-    div.columns {
-        font-size: em-calc(14);
-    }
-
     .footer_follow__column {
         @include grid-column(6);
     }
 
     .footer_link__column {
         @include grid-column(3);
-    }
-
-    dl {
-        dt {
-            font-weight: bold;
-            border-bottom: solid 1px $light-text;
-        }
-        dd {
-            a {
-                text-decoration: none;
-            }
-        }
     }
 }

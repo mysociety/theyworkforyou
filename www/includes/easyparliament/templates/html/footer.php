@@ -86,7 +86,7 @@
                         <div id="footer-nav" class="row">
                             <div class="footer_link__column">
                                 <dl>
-                                    <dt>ABOUT </dt>
+                                    <dt>ABOUT</dt>
                                     <dd>
                                         <ul>
                                             <?php foreach ($footer_links['about'] as $footer_link): ?>
@@ -98,7 +98,7 @@
                             </div>
                             <div class="footer_link__column">
                                 <dl>
-                                    <dt>PARLIAMENTS &amp; ASSEMBLIES </dt>
+                                    <dt>PARLIAMENTS &amp; ASSEMBLIES</dt>
                                     <dd>
                                         <ul>
                                             <?php foreach ($footer_links['assemblies'] as $footer_link): ?>
@@ -110,7 +110,7 @@
                             </div>
                             <div class="footer_link__column">
                                 <dl>
-                                    <dt>DEVELOPERS </dt>
+                                    <dt>DEVELOPERS</dt>
                                     <dd>
                                         <ul>
                                             <?php foreach ($footer_links['tech'] as $footer_link): ?>
@@ -122,7 +122,7 @@
                             </div>
                             <div class="footer_link__column">
                                 <dl>
-                                    <dt>INTERNATIONAL PROJECTS </dt>
+                                    <dt>INTERNATIONAL PROJECTS</dt>
                                     <dd>
                                         <ul>
                                             <?php foreach ($footer_links['international'] as $footer_link): ?>
