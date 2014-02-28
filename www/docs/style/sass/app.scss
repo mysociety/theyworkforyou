@@ -503,8 +503,11 @@ form {
     .panel {
         @include radius;
         background-color: white;
-        padding: em-calc(60);
+        padding: em-calc(12);
         margin-bottom: em-calc(40);
+        @media (min-width: $medium-screen) {
+            padding: em-calc(60);
+        }
         h2 {
             font-size: em-calc(30);
             font-width: 600;
