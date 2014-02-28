@@ -952,7 +952,7 @@ function person_numerology($member) {
         elseif ($member->house_disp == HOUSE_TYPE_NI) $line .= 'this MLA';
         elseif ($member->house_disp == HOUSE_TYPE_SCOTLAND) $line .= 'this MSP';
         elseif ($member->house_disp == HOUSE_TYPE_ROYAL) $line .= $member['full_name'];
-        if ($current_member[HOUSE_TYPE_ROYAL] || $current_member[HOUSE_TYPE_LORDS] || $current_member[HOUSE_TYPE_NI] || ($current_member[HOUSE_TYPE_COMMONS] && $member->party() != 'Sinn Fein') || $$current_member[HOUSE_TYPE_SCOTLAND]) {
+        if ($current_member[HOUSE_TYPE_ROYAL] || $current_member[HOUSE_TYPE_LORDS] || $current_member[HOUSE_TYPE_NI] || ($current_member[HOUSE_TYPE_COMMONS] && $member->party() != 'Sinn Fein') || $current_member[HOUSE_TYPE_SCOTLAND]) {
             $line .= ' &mdash; <a href="' . WEBPATH . 'alert/?pid='.$member->person_id().'">email me updates on '. $member->full_name(). '&rsquo;s activity</a>';
         }
 
