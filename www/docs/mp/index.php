@@ -379,6 +379,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['constituency_previous_mps'] = constituency_previous_mps($MEMBER);
     $data['constituency_future_mps'] = constituency_future_mps($MEMBER);
     $data['public_bill_committees'] = person_pbc_membership($MEMBER);
+    $data['numerology'] = person_numerology($MEMBER);
 
     /*
 
@@ -849,4 +850,183 @@ function person_pbc_membership($member) {
     }
 
     return $out;
+}
+
+function person_numerology($member) {
+
+    $extra_info = $member->extra_info();
+
+    $out = array();
+
+    $since_text = 'in the last year';
+    $year_ago = date('Y-m-d', strtotime('now -1 year'));
+
+    # Find latest entered house
+    $entered_house = null;
+    foreach ($member->entered_house() as $h => $eh) {
+        if (!$entered_house || $eh['date'] > $entered_house) $entered_house = $eh['date'];
+    }
+    if ($entered_house > $year_ago)
+        $since_text = 'since joining Parliament';
+
+    $MOREURL = new \URL('search');
+    $section = 'section:debates section:whall section:lords section:ni';
+    $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>$section, 'pop'=>1));
+    if ($member->party() != 'Sinn Fein') {
+        $out[] = display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info);
+
+        $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>'section:wrans', 'pop'=>1));
+        // We assume that if they've answered a question, they're a minister
+        $minister = 0; $Lminister = false;
+        if (isset($extra_info['wrans_answered_inlastyear']) && $extra_info['wrans_answered_inlastyear'] > 0 && $extra_info['wrans_asked_inlastyear'] == 0)
+            $minister = 1;
+        if (isset($extra_info['Lwrans_answered_inlastyear']) && $extra_info['Lwrans_answered_inlastyear'] > 0 && $extra_info['Lwrans_asked_inlastyear'] == 0)
+            $Lminister = true;
+        if ($member->party() == 'Speaker' || $member->party() == 'Deputy Speaker') {
+            $minister = 2;
+        }
+        $out[] = display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister);
+    }
+
+    $wtt_displayed = display_writetothem_numbers(2008, $extra_info);
+    $out[] = $wtt_displayed;
+    if (!$wtt_displayed) {
+        $wtt_displayed = display_writetothem_numbers(2007, $extra_info);
+        $out[] = $wtt_displayed;
+        if (!$wtt_displayed) {
+            $wtt_displayed = display_writetothem_numbers(2006, $extra_info);
+            $out[] = $wtt_displayed;
+            if (!$wtt_displayed)
+                $out[] = display_writetothem_numbers(2005, $extra_info);
+        }
+    }
+
+    $after_stuff = ' <small>(From Public Whip)</small>';
+    if ($member->party() == 'Scottish National Party') {
+        $after_stuff .= '<br><em>Note SNP MPs do not vote on legislation not affecting Scotland.</em>';
+    } elseif ($member->party() == 'Speaker' || $member->party() == 'Deputy Speaker') {
+        $after_stuff .= '<br><em>Speakers and deputy speakers cannot vote except to break a tie.</em>';
+    }
+    if ($member->party() != 'Sinn Fein') {
+        $when = 'in this Parliament with this affiliation';
+        # Lords have one record per affiliation until they leave (ignoring name changes, sigh)
+        if ($member->house_disp == HOUSE_TYPE_LORDS) {
+            $when = 'in this House with this affiliation';
+        }
+        $out[] = display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> ' . $when, $after_stuff, $extra_info);
+        /*
+        if ($member->chairmens_panel) {
+            print '<br><em>Members of the Chairmen\'s Panel act for the Speaker when chairing things such as Public Bill Committees, and as such do not vote on Bills they are involved in chairing.</em>';
+        }
+        */
+
+        $out[] = display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member->person_id().'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info);
+        $out[] = display_stats_line('reading_age', 'This MP\'s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
+    }
+
+    if (isset($extra_info['number_of_alerts'])) {
+
+        $current_member = $member->current_member();
+
+        $line = '<strong>' . htmlentities($extra_info['number_of_alerts']) . '</strong> ' . ($extra_info['number_of_alerts']==1?'person is':'people are') . ' tracking ';
+        if ($member->house_disp == HOUSE_TYPE_COMMONS) $line .= 'this MP';
+        elseif ($member->house_disp == HOUSE_TYPE_LORDS) $line .= 'this peer';
+        elseif ($member->house_disp == HOUSE_TYPE_NI) $line .= 'this MLA';
+        elseif ($member->house_disp == HOUSE_TYPE_SCOTLAND) $line .= 'this MSP';
+        elseif ($member->house_disp == HOUSE_TYPE_ROYAL) $line .= $member['full_name'];
+        if ($current_member[HOUSE_TYPE_ROYAL] || $current_member[HOUSE_TYPE_LORDS] || $current_member[HOUSE_TYPE_NI] || ($current_member[HOUSE_TYPE_COMMONS] && $member->party() != 'Sinn Fein') || $$current_member[HOUSE_TYPE_SCOTLAND]) {
+            $line .= ' &mdash; <a href="' . WEBPATH . 'alert/?pid='.$member->person_id().'">email me updates on '. $member->full_name(). '&rsquo;s activity</a>';
+        }
+
+        $out[] = $line;
+    }
+
+    if ($member->party() != 'Sinn Fein') {
+        $out[] = display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="' . WEBPATH . 'help/#numbers">Why is this here?</a>)</small>', $extra_info);
+        if (isset($extra_info['three_word_alliteration_content'])) {
+                print "\n<!-- " . $extra_info['three_word_alliteration_content'] . " -->\n";
+        }
+    }
+
+    return $out;
+
+}
+
+function display_stats_line($category, $blurb, $type, $inwhat, $afterstuff, $extra_info, $minister = false, $Lminister = false) {
+    $return = false;
+    if (isset($extra_info[$category]))
+        $return = display_stats_line_house(HOUSE_TYPE_COMMONS, $category, $blurb, $type, $inwhat, $extra_info, $minister, $afterstuff);
+    if (isset($extra_info["L$category"]))
+        $return = display_stats_line_house(HOUSE_TYPE_LORDS, "L$category", $blurb, $type, $inwhat, $extra_info, $Lminister, $afterstuff);
+    return $return;
+}
+
+function display_stats_line_house($house, $category, $blurb, $type, $inwhat, $extra_info, $minister, $afterstuff) {
+    if ($category == 'wrans_asked_inlastyear' || $category == 'debate_sectionsspoken_inlastyear' || $category =='comments_on_speeches' ||
+        $category == 'Lwrans_asked_inlastyear' || $category == 'Ldebate_sectionsspoken_inlastyear' || $category =='Lcomments_on_speeches') {
+        if ($extra_info[$category]==0) {
+            $blurb = preg_replace('#<a.*?>#', '', $blurb);
+            $inwhat = preg_replace('#<\/a>#', '', $inwhat);
+        }
+    }
+    if ($house==HOUSE_TYPE_LORDS) $inwhat = str_replace('MP', 'Lord', $inwhat);
+    $line = $blurb;
+    $line .= '<strong>' . $extra_info[$category];
+    if ($type) $line .= ' ' . make_plural($type, $extra_info[$category]);
+    $line .= '</strong>';
+    $line .= $inwhat;
+    if ($minister===2) {
+        $line .= ' &#8212; Speakers/ deputy speakers do not ask written questions';
+    } elseif ($minister)
+        $line .= ' &#8212; Ministers do not ask written questions';
+    else {
+        $type = ($house==HOUSE_TYPE_COMMONS?'MP':($house==HOUSE_TYPE_LORDS?'Lord':'MLA'));
+        if (!get_http_var('rem') && isset($extra_info[$category . '_quintile'])) {
+            $line .= ' &#8212; ';
+            $q = $extra_info[$category . '_quintile'];
+            if ($q == 0) {
+                $line .= 'well above average';
+            } elseif ($q == 1) {
+                $line .= 'above average';
+            } elseif ($q == 2) {
+                $line .= 'average';
+            } elseif ($q == 3) {
+                $line .= 'below average';
+            } elseif ($q == 4) {
+                $line .= 'well below average';
+            } else {
+                $line .= '[Impossible quintile!]';
+            }
+            $line .= ' amongst ';
+            $line .= $type . 's';
+        } elseif (!get_http_var('rem') && isset($extra_info[$category . '_rank'])) {
+            $line .= ' &#8212; ';
+            #if (isset($extra_info[$category . '_rank_joint']))
+            #   print 'joint ';
+            $line .= make_ranking($extra_info[$category . '_rank']) . ' out of ' . $extra_info[$category . '_rank_outof'];
+            $line .= ' ' . $type . 's';
+        }
+    }
+    $line .= ".$afterstuff";
+    return $line;
+}
+
+function display_writetothem_numbers($year, $extra_info) {
+    if (isset($extra_info["writetothem_responsiveness_notes_$year"])) {
+    ?><li>Responsiveness to messages sent via <a href="http://www.writetothem.com/stats/<?=$year?>/mps">WriteToThem.com</a> in <?=$year?>: <?=$extra_info["writetothem_responsiveness_notes_$year"]?>.</li><?php
+        return true;
+    } elseif (isset($extra_info["writetothem_responsiveness_mean_$year"])) {
+        $mean = $extra_info["writetothem_responsiveness_mean_$year"];
+
+        $a = $extra_info["writetothem_responsiveness_fuzzy_response_description_$year"];
+        if ($a == 'very low') $a = 'a very low';
+        if ($a == 'low') $a = 'a low';
+        if ($a == 'medium') $a = 'a medium';
+        if ($a == 'high') $a = 'a high';
+        if ($a == 'very high') $a = 'a very high';
+        $extra_info["writetothem_responsiveness_fuzzy_response_description_$year"] = $a;
+
+        return display_stats_line("writetothem_responsiveness_fuzzy_response_description_$year", 'Replied within 2 or 3 weeks to <a href="http://www.writetothem.com/stats/'.$year.'/mps" title="From WriteToThem.com">', "", "</a> <!-- Mean: " . $mean . " --> number of messages sent via WriteToThem.com during ".$year.", according to constituents", "", $extra_info);
+    }
+
 }

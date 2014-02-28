@@ -191,6 +191,25 @@
 
                     <div class="panel">
                         <h2>Numerology</h2>
+
+                        <?php if (count($numerology) > 0): ?>
+
+                        <p>Please note that numbers do not measure quality. Also, representatives may do other things not currently covered by this site.<br><small><a href="<?= WEBPATH ?>help/#numbers">More about this</a></small></p>
+
+                        <ul>
+
+                            <?php foreach ($numerology as $numerology_item): ?>
+                            <li><?= $numerology_item ?></li>
+                            <?php endforeach; ?>
+
+                        </ul>
+
+                        <?php else: ?>
+
+                        <p>No information to display yet.</p>
+
+                        <?php endif; ?>
+
                     </div>
 
                     <div class="panel">
