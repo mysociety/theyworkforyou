@@ -221,7 +221,9 @@ you can find it.</p>
                         <ul>
 
                             <?php foreach ($numerology as $numerology_item): ?>
+                            <?php if ($numerology_item): ?>
                             <li><?= $numerology_item ?></li>
+                            <?php endif; ?>
                             <?php endforeach; ?>
 
                         </ul>
