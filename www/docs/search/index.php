@@ -102,9 +102,6 @@ function search_order_p($searchstring) {
     $PAGE->search_form($searchstring);
     if (isset($data['error'])) {
         print '<p>' . $data['error'] . '</p>';
-        $PAGE->stripe_end();
-        $PAGE->page_end();
-
         return;
     }
 
