@@ -45,16 +45,17 @@
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
                     <ul>
-                        <li>Votes</li>
-                        <li>Appearances</li>
-                        <li>Profile</li>
-                        <li>Numerology</li>
-                        <li>Register of Interests</li>
+                        <li><a href="#votes">Votes</a></li>
+                        <li><a href="#appearances">Appearances</a></li>
+                        <li><a href="#profile">Profile</a></li>
+                        <li><a href="#numerology">Numerology</a></li>
+                        <li><a href="#register">Register of Interests</a></li>
                     </ul>
                 </div>
                 <div class="primary-content__unit">
 
                     <div class="panel">
+                        <a name="votes"></a>
                         <h2>Voting Summary</h2>
 
                         <p><?= $rebellion_rate ?></p>
@@ -88,10 +89,12 @@
                     </div>
 
                     <div class="panel">
+                        <a name="appearances"></a>
                         <h2>Recent appearances</h2>
                     </div>
 
                     <div class="panel">
+                        <a name="profile"></a>
                         <h2>Profile</h2>
 
                         <p><?= $member_summary ?></p>
@@ -190,6 +193,7 @@
                     </div>
 
                     <div class="panel">
+                        <a name="numerology"></a>
                         <h2>Numerology</h2>
 
                         <?php if (count($numerology) > 0): ?>
@@ -214,6 +218,7 @@
 
                     <?php if ($register_interests): ?>
                     <div class="panel">
+                        <a name="register"></a>
                         <h2>Register of Interests</h2>
 
                         <div class="moreinfo">
