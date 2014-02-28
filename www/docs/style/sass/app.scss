@@ -342,6 +342,10 @@ form {
             @media (min-width: $medium-screen) {
                 @include grid-column(6);
                 text-align: right;
+                clear: both;
+                position: relative;
+                left: 50%;
+                right: auto;
                 form {
                     input {
                         width: 20em;
@@ -353,7 +357,9 @@ form {
             @include grid-column(12);
             @media (min-width: $medium-screen) {
                 @include grid-column(6);
-                clear: both;
+                position: relative;
+                right: 50%;
+                left: auto;
             }
         }
         .person-constituency {

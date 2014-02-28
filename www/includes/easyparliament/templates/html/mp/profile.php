@@ -12,6 +12,9 @@
                         <?= $full_name ?>
                     </h1>
                 </div>
+                <div class="person-constituency">
+                     <span class="constituency"><?= $constituency ?></span> <span class="party <?= $party_short ?>"><?= $party ?></span>
+                </div>
                 <div class="person-search">
                     <form action="<?= $search_url ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Person'); return false;">
                         <input id="person_search_input" name="q" size="24" maxlength="200" placeholder="Search this person's speeches"><input type="submit" class="submit" value="GO">
@@ -21,9 +24,6 @@
                 <div class="person-buttons">
                     <a href="#" class="button wtt"><img src="/style/img/envelope.png">Send a message</a>
                     <a href="#" class="button alert"><img src="/style/img/plus-circle.png">Get email updates</a>
-                </div>
-                <div class="person-constituency">
-                     <span class="constituency"><?= $constituency ?></span> <span class="party <?= $party_short ?>"><?= $party ?></span>
                 </div>
             </div>
             </div>
