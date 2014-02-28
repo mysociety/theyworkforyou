@@ -317,28 +317,34 @@ form {
         }
         .person-search{
             @include grid-column(12);
+            form {
+                padding-bottom: 1em;
+                input {
+                    -webkit-appearance: none;
+                    padding: em-calc(8);
+                    font-size: em-calc(16);
+                    font-style: italic;
+                    border: 1px solid $borders;
+                    border-right: 0px;
+                    border-radius: 3px 0px 0px 3px;
+                    width: 90%;
+                    &.submit {
+                        background: transparent url('/images/search.png') no-repeat scroll center center;
+                        background-color: white;
+                        color: transparent;
+                        border-right: 1px solid $borders;
+                        border-left: 0px;
+                        border-radius: 0px 3px 3px 0px;
+                        width: auto;
+                    }
+                }
+            }
             @media (min-width: $medium-screen) {
                 @include grid-column(6);
                 text-align: right;
                 form {
-                    padding-top: em-calc(24);
-                    height: $h1-font-size;
                     input {
-                        -webkit-appearance: none;
-                        padding: em-calc(8);
-                        font-size: em-calc(16);
-                        font-style: italic;
-                        border: 1px solid $borders;
-                        border-right: 0px;
-                        border-radius: 3px 0px 0px 3px;
-                        &.submit {
-                            background: transparent url('/images/search.png') no-repeat scroll center center;
-                            background-color: white;
-                            color: transparent;
-                            border-right: 1px solid $borders;
-                            border-left: 0px;
-                            border-radius: 0px 3px 3px 0px;
-                        }
+                        width: 20em;
                     }
                 }
             }
@@ -346,59 +352,70 @@ form {
         .person-buttons {
             @include grid-column(12);
             @media (min-width: $medium-screen) {
-                clear: both;
                 @include grid-column(6);
+                clear: both;
             }
         }
         .person-constituency {
             @include grid-column(12);
+            @media (min-width: $large-screen) {
+                padding-top: em-calc(24);
+                height: $h1-font-size;
+            }
+            span {
+                display: block;
+                margin-left: 1em;
+                @media (min-width: $medium-screen) {
+                    display: inline;
+                }
+            }
+            .constituency {
+                margin-right: 1em;
+                &:before {
+                    position: relative;
+                    content: url('../img/location-pin.png');
+                    bottom: -0.3em;
+                }
+            }
+            .party {
+                &:before {
+                    font-size: em-calc(12);
+                    content: 'O';
+                    margin-right: 0.5em;
+                    @include radius(1em);
+                    padding-left: 0.4em;
+                    padding-right: 0.4em;
+                    font-weight: bold;
+                    color: lightgrey;
+                    background-color: lightgrey;
+                }
+                &.Con:before {
+                    content: 'C';
+                    background-color: rgb(22,111,210);
+                }
+                &.Lab:before {
+                    content: 'L';
+                    background-color: rgb(238, 50, 36);
+                }
+                &.LDem:before {
+                    color: black;
+                    content: 'L';
+                    background-color: rgb(255, 187, 51);
+                }
+                &.SNP:before {
+                    color: black;
+                    content: 'S';
+                    background-color: rgb(255, 249, 93);
+                }
+                &.Green:before {
+                    color: white;
+                    content: 'G';
+                    background-color: rgb(106, 176, 35);
+                }
+            }
             @media (min-width: $medium-screen) {
                 @include grid-column(6);
                 text-align: right;
-                .constituency {
-                    margin-right: 1em;
-                    &:before {
-                        position: relative;
-                        content: url('../img/location-pin.png');
-                        bottom: -0.3em;
-                    }
-                }
-                .party {
-                    &:before {
-                        font-size: em-calc(12);
-                        content: 'O';
-                        margin-right: 0.5em;
-                        @include radius(1em);
-                        padding-left: 0.4em;
-                        padding-right: 0.4em;
-                        font-weight: bold;
-                        color: lightgrey;
-                        background-color: lightgrey;
-                    }
-                    &.Con:before {
-                        content: 'C';
-                        background-color: rgb(22,111,210);
-                    }
-                    &.Lab:before {
-                        content: 'L';
-                        background-color: rgb(238, 50, 36);
-                    }
-                    &.LDem:before {
-                        color: black;
-                        content: 'L';
-                        background-color: rgb(255, 187, 51);
-                    }
-                    &.SNP:before {
-                        color: black;
-                        content: 'S';
-                        background-color: rgb(255, 249, 93);
-                    }
-                    &.Green:before {
-                        color: white;
-                        content: 'G';
-                        background-color: rgb(106, 176, 35);
-                    }
-                }
             }
         }
     }
