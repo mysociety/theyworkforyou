@@ -212,9 +212,24 @@
 
                     </div>
 
+                    <?php if ($register_interests): ?>
                     <div class="panel">
                         <h2>Register of Interests</h2>
+
+                        <div class="moreinfo">
+                            <span class="moreinfo-text">
+                            <? if ($register_interests['date']): ?>
+                                <nobr>Register last updated: <?= $register_interests['date'] ?>.</nobr>
+                            <? endif; ?>
+                             More about the Register</span><a class="moreinfo-link" href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm"><img src="/images/questionmark.png" alt="" title=""></a>
+                        </div>
+                        <h2>Register of Members&rsquo; Interests</h2>
+                        <?= $register_interests['data'] ?>
+                        <p class="morelink"><strong>
+                            <a href="<?= WEBPATH ?>regmem/?p=<?= $person_id ?>">View the history of this MP&rsquo;s entries in the Register</a>
+                        </strong></p>
                     </div>
+                    <?php endif; ?>
 
                 </div>
             </div>

@@ -368,6 +368,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['useful_links'] = person_useful_links($MEMBER);
     $data['topics_of_interest'] = person_topics($MEMBER);
     $data['previous_offices'] = person_previous_offices($MEMBER);
+    $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
 
     // Set the expenses URL if we know it
     if (isset($MEMBER->extra_info['expenses_url'])) {
@@ -1046,4 +1047,19 @@ function display_writetothem_numbers($year, $extra_info) {
         return display_stats_line("writetothem_responsiveness_fuzzy_response_description_$year", 'Replied within 2 or 3 weeks to <a href="http://www.writetothem.com/stats/'.$year.'/mps" title="From WriteToThem.com">', "", "</a> <!-- Mean: " . $mean . " --> number of messages sent via WriteToThem.com during ".$year.", according to constituents", "", $extra_info);
     }
 
+}
+
+function person_register_interests($member, $extra_info) {
+    if (!isset($extra_info['register_member_interests_html'])) {
+        return;
+    }
+
+    $reg = array( 'date' => '', 'data' => '<p>Nil</p>' );
+    if (isset($extra_info['register_member_interests_date'])) {
+        $reg['date'] = format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
+    }
+    if ($extra_info['register_member_interests_html'] != '') {
+        $reg['data'] = $extra_info['register_member_interests_html'];
+    }
+    return $reg;
 }
