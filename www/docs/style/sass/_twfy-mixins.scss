@@ -139,14 +139,14 @@ $weight_bold: 700;
 // A two thirds / one thirds grid that can be reused
 .primary-content__unit {
   @include grid-column(12);
-  @media (min-width: $large-screen) {
+  @media (min-width: $medium-screen) {
     @include grid-column(10);
   }
 }
 
 .sidebar__unit {
   @include grid-column(12);
-  @media (min-width: $large-screen) {
+  @media (min-width: $medium-screen) {
     @include grid-column(2);
   }
 }
