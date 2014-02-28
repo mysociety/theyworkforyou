@@ -370,6 +370,15 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['previous_offices'] = person_previous_offices($MEMBER);
     $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
 
+    # People who are or were MPs and Lords potentially have voting records, except Sinn Fein MPs
+    $data['has_voting_record'] = ( ($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'SF') || $MEMBER->house(HOUSE_TYPE_LORDS) );
+    # Everyone who is currently somewhere has email alert signup, apart from current Sinn Fein MPs who are not MLAs
+    $data['has_email_alerts'] = ($MEMBER->current_member_anywhere() && !($MEMBER->current_member(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'SF' && !$MEMBER->current_member(HOUSE_TYPE_NI)));
+    # Everyone has recent appearances apart from Sinn Fein MPs who were never MLAs
+    $data['has_recent_appearances'] = !($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'SF' && !$MEMBER->house(HOUSE_TYPE_NI));
+    # XXX This is current behaviour, but should probably now just be any recent MP
+    $data['has_expenses'] = isset($MEMBER->extra_info['expenses2004_col1']) || isset($MEMBER->extra_info['expenses2006_col1']) || isset($MEMBER->extra_info['expenses2007_col1']) || isset($MEMBER->extra_info['expenses2008_col1']);
+
     // Set the expenses URL if we know it
     if (isset($MEMBER->extra_info['expenses_url'])) {
         $data['expenses_url_2004'] = $MEMBER->extra_info['expenses_url'];

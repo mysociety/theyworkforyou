@@ -23,7 +23,9 @@
                 </div>
                 <div class="person-buttons">
                     <a href="#" class="button wtt"><img src="/style/img/envelope.png">Send a message</a>
+                    <?php if ($has_email_alerts): ?>
                     <a href="#" class="button alert"><img src="/style/img/plus-circle.png">Get email updates</a>
+                    <?php endif; ?>
                 </div>
             </div>
             </div>
@@ -45,16 +47,23 @@
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
                     <ul data-magellan-expedition="fixed">
+                      <?php if ($has_voting_record): ?>
                         <li data-magellan-arrival="votes"><a href="#votes">Votes</a></li>
+                      <?php endif; ?>
+                      <?php if ($has_recent_appearances): ?>
                         <li data-magellan-arrival="appearances"><a href="#appearances">Appearances</a></li>
+                      <?php endif; ?>
                         <li data-magellan-arrival="profile"><a href="#profile">Profile</a></li>
                         <li data-magellan-arrival="numerology"><a href="#numerology">Numerology</a></li>
+                      <?php if ($register_interests): ?>
                         <li data-magellan-arrival="register"><a href="#register">Register of Interests</a></li>
+                      <?php endif; ?>
                     </ul>
                     <div>&nbsp;</div>
                 </div>
                 <div class="primary-content__unit">
 
+                    <?php if ($has_voting_record): ?>
                     <div class="panel">
                         <a name="votes"></a>
                         <h2 data-magellan-destination="votes">Voting Summary</h2>
@@ -88,11 +97,14 @@
                         <?php endif; ?>
 
                     </div>
+                    <?php endif; ?>
 
+                    <?php if ($has_recent_appearances): ?>
                     <div class="panel">
                         <a name="appearances"></a>
                         <h2 data-magellan-destination="appearances">Recent appearances</h2>
                     </div>
+                    <?php endif; ?>
 
                     <div class="panel">
                         <a name="profile"></a>
@@ -112,14 +124,19 @@
 
                         <?php endif; ?>
 
+                        <?php if ($has_expenses): ?>
                         <h3>Expenses</h3>
 
-                        <p>Expenses data for MPs is availble from 2004 onwards split over several locations. At the moment we don't have the time to convert it to a format we can display on the site so we just have to point you to where you can find it.</p>
+                        <p>Expenses data for MPs is available from 2004 onwards
+split over several locations. At the moment we don't have the time to convert
+it to a format we can display on the site so we just have to point you to where
+you can find it.</p>
 
                         <ul>
-                            <li><a href="<?= $expenses_url_2004 ?>">Expenses from 2004 to to 2009</a></li>
+                            <li><a href="<?= $expenses_url_2004 ?>">Expenses from 2004 to 2009</a></li>
                             <li><a href="http://www.parliamentary-standards.org.uk/AnnualisedData.aspx">Expenses from 2010 onwards</a></li>
                         </ul>
+                        <?php endif; ?>
 
                         <?php if (count($topics_of_interest) > 0): ?>
 
@@ -224,9 +241,9 @@
 
                         <div class="moreinfo">
                             <span class="moreinfo-text">
-                            <? if ($register_interests['date']): ?>
+                            <?php if ($register_interests['date']): ?>
                                 <nobr>Register last updated: <?= $register_interests['date'] ?>.</nobr>
-                            <? endif; ?>
+                            <?php endif; ?>
                              More about the Register</span><a class="moreinfo-link" href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm"><img src="/images/questionmark.png" alt="" title=""></a>
                         </div>
                         <h2>Register of Members&rsquo; Interests</h2>
