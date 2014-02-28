@@ -173,6 +173,20 @@
 
                         <?php endif; ?>
 
+                        <?php if (count($public_bill_committees) > 0): ?>
+
+                        <h3>Public bill committees <small>(Sittings attended)</small></h3>
+
+                        <ul>
+
+                            <?php foreach ($public_bill_committees as $committee): ?>
+                            <li><a href="<?= $committee['href'] ?>"><?= $committee['text'] ?></a> (<?= $committee['attending'] ?>)</li>
+                            <?php endforeach; ?>
+
+                        </ul>
+
+                        <?php endif; ?>
+
                     </div>
 
                     <div class="panel">

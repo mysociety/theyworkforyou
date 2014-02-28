@@ -378,6 +378,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 
     $data['constituency_previous_mps'] = constituency_previous_mps($MEMBER);
     $data['constituency_future_mps'] = constituency_future_mps($MEMBER);
+    $data['public_bill_committees'] = person_pbc_membership($MEMBER);
 
     /*
 
@@ -825,4 +826,27 @@ function constituency_future_mps($member) {
     } else {
         return array();
     }
+}
+
+function person_pbc_membership($member) {
+
+    $extra_info = $member->extra_info();
+    $out = array();
+
+    # Public Bill Committees
+    if (count($extra_info['pbc'])) {
+        if ($member['party'] == 'Scottish National Party') {
+            $out['info'] = 'SNP MPs only attend sittings where the legislation pertains to Scotland.';
+        }
+        foreach ($extra_info['pbc'] as $bill_id => $arr) {
+            if ($arr['chairman']) print 'Chairman, ';
+            $out[] = array(
+                'href'      => '/pbc/' . $arr['session'] . '/' . urlencode($arr['title']),
+                'text'      => $arr['title'] . ' Committee',
+                'attending' => $arr['attending'] . ' out of ' . $arr['outof']
+            );
+        }
+    }
+
+    return $out;
 }
