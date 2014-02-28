@@ -364,14 +364,19 @@ form {
         }
         .person-constituency {
             @include grid-column(12);
+            padding-bottom: em-calc(8);
+            @media (min-width: $medium-screen) {
+                @include grid-column(6);
+                padding-top: em-calc(12);
+            }
             @media (min-width: $large-screen) {
                 padding-top: em-calc(24);
                 height: $h1-font-size;
+                text-align: right;
             }
             span {
                 display: block;
-                margin-left: 1em;
-                @media (min-width: $medium-screen) {
+                @media (min-width: $large-screen) {
                     display: inline;
                 }
             }
@@ -388,6 +393,10 @@ form {
                     font-size: em-calc(12);
                     content: 'O';
                     margin-right: 0.5em;
+                    margin-left: 0.5em;
+                    @media (min-width: $large-screen) {
+                        margin-left: auto;
+                    }
                     @include radius(1em);
                     padding-left: 0.4em;
                     padding-right: 0.4em;
@@ -418,10 +427,6 @@ form {
                     content: 'G';
                     background-color: rgb(106, 176, 35);
                 }
-            }
-            @media (min-width: $medium-screen) {
-                @include grid-column(6);
-                text-align: right;
             }
         }
     }
