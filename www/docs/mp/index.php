@@ -401,6 +401,23 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     // Send the output for rendering
     MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
 
+/////////////////////////////////////////////////////////
+// Catch and display when something has gone horribly wrong.
+
+} else {
+
+    if (isset($errors['pc'])) {
+        $data['error'] = $errors['pc'];
+    } else {
+        $data['error'] = 'You haven\'t provided a way of identifying which representative you want';
+    }
+
+    // Generate a URL to a full list to try get the user back on track.
+    $MPSURL = new \URL('mps');
+    $data['all_mps_url'] = $MPSURL->generate();
+
+    MySociety\TheyWorkForYou\Renderer::output('mp/error', $data);
+
 }
 
 /////////////////////////////////////////////////////////
