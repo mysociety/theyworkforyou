@@ -853,7 +853,7 @@ function person_pbc_membership($member) {
 
     # Public Bill Committees
     if (count($extra_info['pbc'])) {
-        if ($member['party'] == 'Scottish National Party') {
+        if ($member->party() == 'Scottish National Party') {
             $out['info'] = 'SNP MPs only attend sittings where the legislation pertains to Scotland.';
         }
         foreach ($extra_info['pbc'] as $bill_id => $arr) {
