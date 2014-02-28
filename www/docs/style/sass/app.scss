@@ -244,6 +244,250 @@ form {
     }
 }
 
+.primary-navigation-bar {
+    float: right;
+    width: 100%;
+    .menu-dropdown {
+        display: block;
+        position: absolute;
+        top: 5px;
+        right: 60px;
+        line-height: 48px;
+        box-shadow: none;
+        @media (min-width: $medium-screen) {
+            right: 145px;
+        }
+        &.user {
+            display: inline-block;
+        }
+    }
+    .menu-dropdown--button {
+        @extend .image-replacement;
+        height: 2.4em; /* 36px */
+        width: 2.4em;
+        background-image: url('../img/hamburger.png');
+        @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+            background-image:  url('../img/hamburger@2.png');
+        }
+        background-position: center;
+        background-repeat: no-repeat;
+        @include background-size(28px 26px);
+        &.user {
+            background-image: url('../img/user.png');
+        }
+    }
+    .menu-toplevel-dropdown--button {
+        border: none;
+        background-color: white;
+        @include background-size(24px 24px);
+        margin-bottom: 0px;
+        &:active {
+            box-shadow: none;
+        }
+    }
+    .nav-menu {
+        @include unstyled-list;
+        li {
+            margin-left: 0px;
+        }
+        height: auto;
+        max-height: 1000em;
+        /*@include transition(max-height 1s ease-in-out);*/
+        background-color: $primary-color;
+        position: absolute;
+        right: 0.75em;
+        top: 3.3em;
+        z-index: 400;
+        width: 47%;
+        @include box-shadow(0 2px 2px rgba(0,0,0,0.2));
+    }
+
+    a {
+        font-size: em-calc(18);
+        letter-spacing: 0.02em;
+        display: block;
+        padding: 0.25em 0.75em;
+        &:link,
+        &:visited {
+            color: $body-font-color;
+        }
+        &:hover,
+        &:active,
+        &:focus {
+            text-decoration: none;
+        }
+    }
+    .active {
+        a {
+            background: $primary-color;
+        }
+    }
+}
+
+.primary-navigation-bar.assembly {
+    float: left;
+    width: auto;
+    position: relative;
+    .menu-dropdown {
+        position: static;
+        margin: 10px 0px 0px 12px;
+        .button {
+            font-size: em-calc(14);
+            font-weight: $weight_semibold;
+            background-color: white;
+            border: none;
+            margin-bottom: 0px;
+            padding-top: 2px;
+            padding-bottom: 12px;
+            border-radius: 3px 3px 0px 0px;
+            transition: none;
+            &:active {
+                box-shadow: none;
+            }
+            &:after {
+                display: inline-block;
+                content: url('../img/caret.png');
+                padding-left: 0.5em;
+            }
+            &.open {
+                color: white;
+                background-color: $primary-color;
+                &:after {
+                    -webkit-transform:rotate(180deg);
+                    padding-left: 0em;
+                    padding-right: 0.5em;
+                }
+            }
+        }
+    }
+    .nav-menu {
+        @include radius;
+        border-radius: 0px 3px 3px 3px;
+        margin-left: 12px;
+        position: absolute;
+        left: 0em;
+        top: auto;
+        z-index: 400;
+        width: 10em;
+        font-size: em-calc(14px);
+        a {
+            color: white;
+        }
+        &.closed {
+            height: 0;
+            max-height: 0;
+            overflow: hidden;
+            /*@include transition(max-height 1s ease-in-out);*/
+        }
+    }
+}
+
+.primary-navigation-bar.sections{
+    float: right;
+    width: auto;
+    @media (min-width: $large-screen) {
+        width: auto;
+        margin-right: 145px; /* push past mysoc logo */
+    }
+    .menu-dropdown {
+        @media (min-width: $large-screen) {
+            display: none;
+        }
+    }
+    .nav-menu {
+        @media (max-width: $large-screen) {
+            &.closed {
+                height: 0;
+                max-height: 0;
+                overflow: hidden;
+                @include transition(max-height 1s ease-in-out);
+            }
+        }
+        @media (min-width: $large-screen) {
+            background-color: transparent;
+            position: static;
+            display: block;
+            @include inline-list;
+            li {
+                margin-left: 0;
+                &.menu-search {
+                    .menu-dropdown--button {
+                        background-image: url('../img/search.png');
+                    }
+                }
+            }
+            width: auto;
+            @include box-shadow(none);
+        }
+        .user-menu {
+            /* temporary measure till work out what we're doing */
+            @media (max-width: $large-screen) {
+                .menu-dropdown {
+                    display: none;
+                }
+                .nav-menu {
+                    display: block;
+                    height: auto;
+                    max-height: none;
+                    position: static;
+                    border-top: 1px solid $borders;
+                    box-shadow: none;
+                    width: 100%;
+                }
+            }
+            @media (min-width: $large-screen) {
+                position: relative;
+                .menu-dropdown {
+                    position: static;
+                    display: inline-block;
+                    .menu-dropdown--button {
+                        border-radius: 3px 3px 0px 0px;
+                        transition: none;
+                        background-image: url('../img/user.png');
+                        &.open {
+                            color: white;
+                            background-color: $primary-color;
+                            background-image: url('../img/user-white.png');
+                        }
+                    }
+                }
+                .nav-menu {
+                    @include radius;
+                    background-color: $colour_primary;
+                    border-radius: 3px 0px 3px 3px;
+                    margin-left: 12px;
+                    position: absolute;
+                    right: 0px;
+                    top: auto;
+                    z-index: 400;
+                    width: 10em;
+                    font-size: em-calc(14px);
+                    a {
+                        color: white;
+                    }
+                    li {
+                        display: block;
+                    }
+                    &.closed {
+                        display: none;
+                        height: 0;
+                        max-height: 0;
+                        overflow: hidden;
+                    }
+                }
+            }
+        }
+    }
+
+    a {
+        @media (min-width: $large-screen) {
+            display: inline-block;
+            padding: 0.4em;
+            font-size: em-calc(18);
+        }
+    }
+}
+
 .admin-menu-container {
     position: fixed;
     top: 0;
@@ -536,251 +780,6 @@ form {
         }
     }
 }
-
-.primary-navigation-bar {
-    float: right;
-    width: 100%;
-    .menu-dropdown {
-        display: block;
-        position: absolute;
-        top: 5px;
-        right: 60px;
-        line-height: 48px;
-        box-shadow: none;
-        @media (min-width: $medium-screen) {
-            right: 145px;
-        }
-        &.user {
-            display: inline-block;
-        }
-    }
-    .menu-dropdown--button {
-        @extend .image-replacement;
-        height: 2.4em; /* 36px */
-        width: 2.4em;
-        background-image: url('../img/hamburger.png');
-        @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-            background-image:  url('../img/hamburger@2.png');
-        }
-        background-position: center;
-        background-repeat: no-repeat;
-        @include background-size(28px 26px);
-        &.user {
-            background-image: url('../img/user.png');
-        }
-    }
-    .menu-toplevel-dropdown--button {
-        border: none;
-        background-color: white;
-        @include background-size(24px 24px);
-        margin-bottom: 0px;
-        &:active {
-            box-shadow: none;
-        }
-    }
-    .nav-menu {
-        @include unstyled-list;
-        li {
-            margin-left: 0px;
-        }
-        height: auto;
-        max-height: 1000em;
-        /*@include transition(max-height 1s ease-in-out);*/
-        background-color: $primary-color;
-        position: absolute;
-        right: 0.75em;
-        top: 3.3em;
-        z-index: 400;
-        width: 47%;
-        @include box-shadow(0 2px 2px rgba(0,0,0,0.2));
-    }
-
-    a {
-        font-size: em-calc(18);
-        letter-spacing: 0.02em;
-        display: block;
-        padding: 0.25em 0.75em;
-        &:link,
-        &:visited {
-            color: $body-font-color;
-        }
-        &:hover,
-        &:active,
-        &:focus {
-            text-decoration: none;
-        }
-    }
-    .active {
-        a {
-            background: $primary-color;
-        }
-    }
-}
-
-.primary-navigation-bar.assembly {
-    float: left;
-    width: auto;
-    position: relative;
-    .menu-dropdown {
-        position: static;
-        margin: 10px 0px 0px 12px;
-        .button {
-            font-size: em-calc(14);
-            font-weight: $weight_semibold;
-            background-color: white;
-            border: none;
-            margin-bottom: 0px;
-            padding-top: 2px;
-            padding-bottom: 12px;
-            border-radius: 3px 3px 0px 0px;
-            transition: none;
-            &:active {
-                box-shadow: none;
-            }
-            &:after {
-                display: inline-block;
-                content: url('../img/caret.png');
-                padding-left: 0.5em;
-            }
-            &.open {
-                color: white;
-                background-color: $primary-color;
-                &:after {
-                    -webkit-transform:rotate(180deg);
-                    padding-left: 0em;
-                    padding-right: 0.5em;
-                }
-            }
-        }
-    }
-    .nav-menu {
-        @include radius;
-        border-radius: 0px 3px 3px 3px;
-        margin-left: 12px;
-        position: absolute;
-        left: 0em;
-        top: auto;
-        z-index: 400;
-        width: 10em;
-        font-size: em-calc(14px);
-        a {
-            color: white;
-        }
-        &.closed {
-            height: 0;
-            max-height: 0;
-            overflow: hidden;
-            /*@include transition(max-height 1s ease-in-out);*/
-        }
-    }
-}
-
-.primary-navigation-bar.sections{
-    float: right;
-    width: auto;
-    @media (min-width: $large-screen) {
-        width: auto;
-        margin-right: 145px; /* push past mysoc logo */
-    }
-    .menu-dropdown {
-        @media (min-width: $large-screen) {
-            display: none;
-        }
-    }
-    .nav-menu {
-        @media (max-width: $large-screen) {
-            &.closed {
-                height: 0;
-                max-height: 0;
-                overflow: hidden;
-                @include transition(max-height 1s ease-in-out);
-            }
-        }
-        @media (min-width: $large-screen) {
-            background-color: transparent;
-            position: static;
-            display: block;
-            @include inline-list;
-            li {
-                margin-left: 0;
-                &.menu-search {
-                    .menu-dropdown--button {
-                        background-image: url('../img/search.png');
-                    }
-                }
-            }
-            width: auto;
-            @include box-shadow(none);
-        }
-        .user-menu {
-            /* temporary measure till work out what we're doing */
-            @media (max-width: $large-screen) {
-                .menu-dropdown {
-                    display: none;
-                }
-                .nav-menu {
-                    display: block;
-                    height: auto;
-                    max-height: none;
-                    position: static;
-                    border-top: 1px solid $borders;
-                    box-shadow: none;
-                    width: 100%;
-                }
-            }
-            @media (min-width: $large-screen) {
-                position: relative;
-                .menu-dropdown {
-                    position: static;
-                    display: inline-block;
-                    .menu-dropdown--button {
-                        border-radius: 3px 3px 0px 0px;
-                        transition: none;
-                        background-image: url('../img/user.png');
-                        &.open {
-                            color: white;
-                            background-color: $primary-color;
-                            background-image: url('../img/user-white.png');
-                        }
-                    }
-                }
-                .nav-menu {
-                    @include radius;
-                    background-color: $colour_primary;
-                    border-radius: 3px 0px 3px 3px;
-                    margin-left: 12px;
-                    position: absolute;
-                    right: 0px;
-                    top: auto;
-                    z-index: 400;
-                    width: 10em;
-                    font-size: em-calc(14px);
-                    a {
-                        color: white;
-                    }
-                    li {
-                        display: block;
-                    }
-                    &.closed {
-                        display: none;
-                        height: 0;
-                        max-height: 0;
-                        overflow: hidden;
-                    }
-                }
-            }
-        }
-    }
-
-    a {
-        @media (min-width: $large-screen) {
-            display: inline-block;
-            padding: 0.4em;
-            font-size: em-calc(18);
-        }
-    }
-}
-
 
 .content-page {
     p, ol, ul {
