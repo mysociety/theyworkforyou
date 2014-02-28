@@ -471,6 +471,10 @@ form {
 }
 .person-panels {
     .in-page-nav {
+        display: none;
+        @media (min-width: $medium-screen) {
+            display: block;
+        }
         @include radius;
         padding: 0px;
         ul {
