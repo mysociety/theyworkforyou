@@ -723,7 +723,8 @@ form {
         padding: 0px;
         ul {
             &.fixed {
-                width: 16.66667%;
+                width: 16%;
+                max-width: 187px;
             }
             background-color: white;
             margin-left: 0px;
