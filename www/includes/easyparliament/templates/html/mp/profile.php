@@ -96,7 +96,7 @@
 
                             <?php if (isset($key_votes['more_link'])): ?>
 
-                            <?= $key_votes['more_link'] ?>
+                            <p><?= $key_votes['more_link'] ?></p>
 
                             <?php endif; ?>
 
@@ -113,6 +113,27 @@
                     <div class="panel">
                         <a name="appearances"></a>
                         <h2 data-magellan-destination="appearances">Recent appearances</h2>
+
+                        <?php if (count($recent_appearances) > 0): ?>
+
+                            <ul>
+
+                            <?php foreach ($recent_appearances['appearances'] as $recent_appearance): ?>
+
+                                <li>Appearance!</li>
+
+                            <?php endforeach; ?>
+
+                            </ul>
+
+                            <p><a href="<?= $recent_appearances['more_href'] ?>"><?= $recent_appearances['more_text'] ?></a></p>
+
+                        <?php else: ?>
+
+                            <p>No recent appearances to display.</p>
+
+                        <?php endif; ?>
+
                     </div>
                     <?php endif; ?>
 
