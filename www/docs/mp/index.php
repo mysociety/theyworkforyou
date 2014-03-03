@@ -396,6 +396,14 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['public_bill_committees'] = person_pbc_membership($MEMBER);
     $data['numerology'] = person_numerology($MEMBER);
 
+    $data['current_assembly'] = 'westminster';
+    if ( $this_page == 'msp' || $this_page == 'yourmsp' ) {
+        $data['current_assembly'] = 'scotland';
+    } else if ( $this_page == 'mla' || $this_page == 'yourmla' ) {
+        $data['current_assembly'] = 'ni';
+    }
+
+
     /*
 
     $data['member_id'] = $MEMBER->member_id();

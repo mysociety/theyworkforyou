@@ -1,4 +1,4 @@
-    <div class="westminster">
+    <div class="<?= $current_assembly ?>">
         <div class="person-header">
             <div class=" full-page__row">
             <div class="person-header__content page-content__row">
