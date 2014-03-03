@@ -910,7 +910,9 @@ function person_numerology($member) {
     $section = 'section:debates section:whall section:lords section:ni';
     $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>$section, 'pop'=>1));
     if ($member->party() != 'Sinn Fein') {
-        $out[] = display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info);
+        if (display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info)) {
+            $out[] = display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info);
+        }
 
         $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>'section:wrans', 'pop'=>1));
         // We assume that if they've answered a question, they're a minister
@@ -922,19 +924,31 @@ function person_numerology($member) {
         if ($member->party() == 'Speaker' || $member->party() == 'Deputy Speaker') {
             $minister = 2;
         }
-        $out[] = display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister);
+        if (display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister)) {
+            $out[] = display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister);
+        }
     }
 
     $wtt_displayed = display_writetothem_numbers(2008, $extra_info);
-    $out[] = $wtt_displayed;
+    if ($wtt_displayed) {
+        $out[] = $wtt_displayed;
+    }
     if (!$wtt_displayed) {
         $wtt_displayed = display_writetothem_numbers(2007, $extra_info);
-        $out[] = $wtt_displayed;
+        if ($wtt_displayed) {
+            $out[] = $wtt_displayed;
+        }
         if (!$wtt_displayed) {
             $wtt_displayed = display_writetothem_numbers(2006, $extra_info);
-            $out[] = $wtt_displayed;
-            if (!$wtt_displayed)
-                $out[] = display_writetothem_numbers(2005, $extra_info);
+            if ($wtt_displayed) {
+                $out[] = $wtt_displayed;
+            }
+            if (!$wtt_displayed) {
+                $wtt_displayed = display_writetothem_numbers(2005, $extra_info);
+                if ($wtt_displayed) {
+                    $out[] = $wtt_displayed;
+                }
+            }
         }
     }
 
@@ -950,15 +964,21 @@ function person_numerology($member) {
         if ($member->house_disp == HOUSE_TYPE_LORDS) {
             $when = 'in this House with this affiliation';
         }
-        $out[] = display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> ' . $when, $after_stuff, $extra_info);
+        if (display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> ' . $when, $after_stuff, $extra_info)) {
+            $out[] = display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> ' . $when, $after_stuff, $extra_info);
+        }
         /*
         if ($member->chairmens_panel) {
             print '<br><em>Members of the Chairmen\'s Panel act for the Speaker when chairing things such as Public Bill Committees, and as such do not vote on Bills they are involved in chairing.</em>';
         }
         */
 
-        $out[] = display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member->person_id().'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info);
-        $out[] = display_stats_line('reading_age', 'This MP\'s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
+        if (display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member->person_id().'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info)) {
+            $out[] = display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member->person_id().'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info);
+        }
+        if (display_stats_line('reading_age', 'This MP\'s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info)) {
+            $out[] = display_stats_line('reading_age', 'This MP\'s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
+        }
     }
 
     if (isset($extra_info['number_of_alerts'])) {
@@ -979,9 +999,12 @@ function person_numerology($member) {
     }
 
     if ($member->party() != 'Sinn Fein') {
-        $out[] = display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="' . WEBPATH . 'help/#numbers">Why is this here?</a>)</small>', $extra_info);
-        if (isset($extra_info['three_word_alliteration_content'])) {
-                print "\n<!-- " . $extra_info['three_word_alliteration_content'] . " -->\n";
+        if (display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="' . WEBPATH . 'help/#numbers">Why is this here?</a>)</small>', $extra_info)) {
+            $line = display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="' . WEBPATH . 'help/#numbers">Why is this here?</a>)</small>', $extra_info);
+            if (isset($extra_info['three_word_alliteration_content'])) {
+                $line .= "\n<!-- " . $extra_info['three_word_alliteration_content'] . " -->\n";
+            }
+            $out[] = $line;
         }
     }
 
