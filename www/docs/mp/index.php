@@ -361,6 +361,11 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['constituency'] = $MEMBER->constituency();
     $data['party'] = $MEMBER->party_text();
     $data['party_short'] = $MEMBER->party();
+    $data['current_member_anywhere'] = $MEMBER->current_member_anywhere();
+    $data['current_member'] = $MEMBER->current_member();
+    $data['the_users_mp'] = $MEMBER->the_users_mp();
+    $data['user_postcode'] = $THEUSER->postcode;
+
     $data['image'] = person_image($MEMBER);
     $data['member_summary'] = person_summary_description($MEMBER);
     $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
@@ -369,6 +374,15 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['topics_of_interest'] = person_topics($MEMBER);
     $data['previous_offices'] = person_previous_offices($MEMBER);
     $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
+
+    # People who are or were MPs and Lords potentially have voting records, except Sinn Fein MPs
+    $data['has_voting_record'] = ( ($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'SF') || $MEMBER->house(HOUSE_TYPE_LORDS) );
+    # Everyone who is currently somewhere has email alert signup, apart from current Sinn Fein MPs who are not MLAs
+    $data['has_email_alerts'] = ($MEMBER->current_member_anywhere() && !($MEMBER->current_member(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'SF' && !$MEMBER->current_member(HOUSE_TYPE_NI)));
+    # Everyone has recent appearances apart from Sinn Fein MPs who were never MLAs
+    $data['has_recent_appearances'] = !($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'SF' && !$MEMBER->house(HOUSE_TYPE_NI));
+    # XXX This is current behaviour, but should probably now just be any recent MP
+    $data['has_expenses'] = isset($MEMBER->extra_info['expenses2004_col1']) || isset($MEMBER->extra_info['expenses2006_col1']) || isset($MEMBER->extra_info['expenses2007_col1']) || isset($MEMBER->extra_info['expenses2008_col1']);
 
     // Set the expenses URL if we know it
     if (isset($MEMBER->extra_info['expenses_url'])) {
@@ -392,9 +406,6 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['houses'] = $MEMBER->houses();
     $data['entered_house'] = $MEMBER->entered_house();
     $data['left_house'] = $MEMBER->left_house();
-    $data['current_member'] = $MEMBER->current_member();
-    $data['the_users_mp'] = $MEMBER->the_users_mp();
-    $data['current_member_anywhere'] = $MEMBER->current_member_anywhere();
     $data['house_disp'] = $MEMBER->house_disp;
 
     */
@@ -952,7 +963,7 @@ function person_numerology($member) {
         elseif ($member->house_disp == HOUSE_TYPE_NI) $line .= 'this MLA';
         elseif ($member->house_disp == HOUSE_TYPE_SCOTLAND) $line .= 'this MSP';
         elseif ($member->house_disp == HOUSE_TYPE_ROYAL) $line .= $member['full_name'];
-        if ($current_member[HOUSE_TYPE_ROYAL] || $current_member[HOUSE_TYPE_LORDS] || $current_member[HOUSE_TYPE_NI] || ($current_member[HOUSE_TYPE_COMMONS] && $member->party() != 'Sinn Fein') || $$current_member[HOUSE_TYPE_SCOTLAND]) {
+        if ($current_member[HOUSE_TYPE_ROYAL] || $current_member[HOUSE_TYPE_LORDS] || $current_member[HOUSE_TYPE_NI] || ($current_member[HOUSE_TYPE_COMMONS] && $member->party() != 'Sinn Fein') || $current_member[HOUSE_TYPE_SCOTLAND]) {
             $line .= ' &mdash; <a href="' . WEBPATH . 'alert/?pid='.$member->person_id().'">email me updates on '. $member->full_name(). '&rsquo;s activity</a>';
         }
 
