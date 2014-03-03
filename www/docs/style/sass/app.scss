@@ -780,7 +780,11 @@ form {
                 font-size: em-calc(14);
             }
         }
+        ul {
+            @include unstyled-list();
+        }
         .policies {
+            list-style: disc;
             list-style-position: inside;
             li {
                 border-bottom: 1px solid $borders;
