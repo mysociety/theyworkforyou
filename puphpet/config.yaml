@@ -16,13 +16,14 @@ vagrantfile-local:
                     VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
         provision:
             puppet:
-                manifests_path: puphpet/puppet/manifests
+                manifests_path: puphpet/puppet
+                manifest_file: manifest.pp
                 options:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            WD1dp2TtMIpp:
+            kdzhcXip8ATf:
                 id: vagrant-root
                 source: ./
                 target: /data/twfy
@@ -39,7 +40,7 @@ vagrantfile-local:
         forward_x11: false
         shell: 'bash -l'
     vagrant:
-        host: ':detect'
+        host: detect
 server:
     packages:
         - memcached
@@ -60,12 +61,21 @@ server:
         -
             bash_aliases: null
     _prevent_empty: ''
+mailcatcher:
+    install: 0
+    settings:
+        smtp_ip: 0.0.0.0
+        smtp_port: 1025
+        http_ip: 0.0.0.0
+        http_port: '1080'
+        path: /usr/local/bin
+        log: /var/log/mailcatcher/mailcatcher.log
 apache:
     modules:
         - php
         - rewrite
     vhosts:
-        LqczCSzVMEXM:
+        hnHuBvgWDKle:
             servername: theyworkforyou.dev
             docroot: /data/twfy/www/docs
             port: '80'
@@ -114,7 +124,7 @@ mysql:
     phpmyadmin: 0
     adminer: 0
     databases:
-        yrUHbjAOEWal:
+        WakbbyNssDNr:
             grant:
                 - ALL
             name: twfy
@@ -122,13 +132,24 @@ mysql:
             user: twfy
             password: twfy
             sql_file: /data/twfy/db/schema.sql
+mongodb:
+    install: 0
+    auth: 1
+    port: '27017'
+    databases: {  }
 beanstalkd:
     install: 0
-    listenaddress: 0.0.0.0
-    listenport: '13000'
-    maxjobsize: '65535'
-    maxconnections: '1024'
+    settings:
+        listenaddress: 0.0.0.0
+        listenport: '13000'
+        maxjobsize: '65535'
+        maxconnections: '1024'
+        binlogdir: /var/lib/beanstalkd/binlog
+        binlogfsync: null
+        binlogsize: '10485760'
+    beanstalk_console: 0
     binlogdir: /var/lib/beanstalkd/binlog
-    binlogfsync: null
-    binlogsize: '10485760'
+rabbitmq:
+    install: 0
+    port: '5672'
 
