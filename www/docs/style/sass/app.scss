@@ -669,6 +669,20 @@ form {
             }
         }
     }
+    &.royal,
+    &.peer {
+        .person-name {
+            @media (min-width: $medium-screen) {
+                @include grid-column(11);
+            }
+        }
+        .person-constituency {
+            @media (min-width: $medium-screen) {
+                @include grid-column(1);
+                padding-left: 0px;
+            }
+        }
+    }
 }
 
 .westminster {
