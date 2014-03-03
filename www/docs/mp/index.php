@@ -396,6 +396,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['public_bill_committees'] = person_pbc_membership($MEMBER);
     $data['numerology'] = person_numerology($MEMBER);
 
+    $data['this_page'] = $this_page;
     $data['current_assembly'] = 'westminster';
     if ( $this_page == 'msp' || $this_page == 'yourmsp' ) {
         $data['current_assembly'] = 'scotland';
