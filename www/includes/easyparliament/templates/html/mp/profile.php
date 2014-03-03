@@ -120,7 +120,11 @@
 
                             <?php foreach ($recent_appearances['appearances'] as $recent_appearance): ?>
 
-                                <li>Appearance!</li>
+                                <li>
+                                    <h3><a href="<?= $recent_appearance['listurl'] ?>"><?= $recent_appearance['parent']['body'] ?></a></h3>
+                                    <p><?= date('j M Y', strtotime($recent_appearance['hdate'])) ?></p>
+                                    <blockquote><?= $recent_appearance['extract'] ?></blockquote>
+                                </li>
 
                             <?php endforeach; ?>
 
