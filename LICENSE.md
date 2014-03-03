@@ -1,6 +1,6 @@
 # License
 
-## WriteToThem
+## TheyWorkForYou
 
 Copyright (c) 2003-2004, FaxYourMP Ltd where not otherwise marked
 Copyright (c) 2003-2004, various as marked in individual files
