@@ -47,7 +47,7 @@
         <div class="full-page__unit">
             <div class="person-navigation page-content__row">
                 <ul>
-                    <li>Overview</li>
+                    <li class="active">Overview</li>
                     <li>Voting Record</li>
                 </ul>
             </div>
