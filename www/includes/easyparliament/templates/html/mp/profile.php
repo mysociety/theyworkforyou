@@ -1,5 +1,5 @@
     <div class="<?= $current_assembly ?>">
-        <div class="person-header">
+        <div class="person-header <?= $this_page ?>">
             <div class=" full-page__row">
             <div class="person-header__content page-content__row">
                 <div class="person-name">
