@@ -116,13 +116,12 @@
 
                         <?php if (count($recent_appearances) > 0): ?>
 
-                            <ul>
+                            <ul class="appearances">
 
                             <?php foreach ($recent_appearances['appearances'] as $recent_appearance): ?>
 
                                 <li>
-                                    <h3><a href="<?= $recent_appearance['listurl'] ?>"><?= $recent_appearance['parent']['body'] ?></a></h3>
-                                    <p><?= date('j M Y', strtotime($recent_appearance['hdate'])) ?></p>
+                                    <h4><a href="<?= $recent_appearance['listurl'] ?>"><?= $recent_appearance['parent']['body'] ?></a> <span class="date"><?= date('j M Y', strtotime($recent_appearance['hdate'])) ?></span></h4>
                                     <blockquote><?= $recent_appearance['extract'] ?></blockquote>
                                 </li>
 

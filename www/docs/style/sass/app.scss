@@ -780,6 +780,31 @@ form {
                 font-size: em-calc(14);
             }
         }
+        .appearances {
+            @include unstyled-list();
+
+            h4 {
+                font-size: 18px;
+                font-weight: normal;
+                .date {
+                    font-size: 14px;
+                    color: $light-text;
+                }
+            }
+
+            blockquote {
+                border: none;
+                color: $body-font-color;
+                font-size: 18px;
+                padding: 0px;
+                &:before {
+                    content: '\201C';
+                }
+                &:after {
+                    content: '\201D';
+                }
+            }
+        }
     }
 }
 
@@ -815,6 +840,7 @@ form {
         }
 
     }
+
 }
 
 #footer {
