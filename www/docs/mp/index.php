@@ -370,6 +370,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['member_summary'] = person_summary_description($MEMBER);
     $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
     $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info);
+    $data['recent_appearances'] = person_recent_appearances($MEMBER);
     $data['useful_links'] = person_useful_links($MEMBER);
     $data['topics_of_interest'] = person_topics($MEMBER);
     $data['previous_offices'] = person_previous_offices($MEMBER);
@@ -705,6 +706,67 @@ function person_voting_record ($member, $extra_info) {
     if (count($record) > 0) {
         $displayed_stuff = 1;
         $out['more_link'] = 'More on ' . implode(' &amp; ', $record);
+    }
+
+    return $out;
+
+}
+
+function person_recent_appearances($member) {
+    global $DATA, $SEARCHENGINE, $this_page;
+
+    $out = array();
+    $out['appearances'] = array();
+
+    //$this->block_start(array('id'=>'hansard', 'title'=>$title));
+    // This is really far from ideal - I don't really want $PAGE to know
+    // anything about HANSARDLIST / DEBATELIST / WRANSLIST.
+    // But doing this any other way is going to be a lot more work for little
+    // benefit unfortunately.
+    twfy_debug_timestamp();
+
+    $person_id= $member->person_id();
+
+    global $memcache;
+    if (!$memcache) {
+        $memcache = new Memcache;
+        $memcache->connect('localhost', 11211);
+    }
+    //$recent = $memcache->get(OPTION_TWFY_DB_NAME . ':recent_appear:' . $person_id);
+    $recent = false;
+
+    if (!$recent) {
+	// Initialise the search engine
+        $searchstring = "speaker:$person_id";
+        $SEARCHENGINE = new \SEARCHENGINE($searchstring);
+
+        $hansard = new MySociety\TheyWorkForYou\Hansard();
+        $args = array (
+            's' => $searchstring,
+            'p' => 1,
+            'num' => 3,
+            'pop' => 1,
+            'o' => 'd',
+        );
+        $results = $hansard->search($searchstring, $args);
+        $recent = serialize($results['rows']);
+        $memcache->set(OPTION_TWFY_DB_NAME . ':recent_appear:' . $person_id, $recent, MEMCACHE_COMPRESSED, 3600);
+    }
+    $out['appearances'] = unserialize($recent);
+    twfy_debug_timestamp();
+
+    $MOREURL = new \URL('search');
+    $MOREURL->insert( array('pid'=>$person_id, 'pop'=>1) );
+
+    $out['more_href'] = $MOREURL->generate() . '#n4';
+    $out['more_text'] = 'More of ' . ucfirst($member->full_name()) . '\'s recent appearances';
+
+    if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
+        // If we set an RSS feed for this page.
+        $HELPURL = new \URL('help');
+?>
+        <p class="unneededprintlinks"><a href="<?php echo WEBPATH . $rssurl; ?>" title="XML version of this person's recent appearances">RSS feed</a> (<a href="<?php echo $HELPURL->generate(); ?>#rss" title="An explanation of what RSS feeds are for">?</a>)</p>
+<?php
     }
 
     return $out;
