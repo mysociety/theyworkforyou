@@ -1,8 +1,8 @@
 ---
 vagrantfile-local:
     vm:
-        box: debian-squeeze607-x64-vbox43
-        box_url: 'http://box.puphpet.com/debian-squeeze607-x64-vbox43.box'
+        box: ubuntu-precise12042-x64-vbox43
+        box_url: 'http://box.puphpet.com/ubuntu-precise12042-x64-vbox43.box'
         hostname: null
         network:
             private_network: 192.168.88.10
@@ -23,7 +23,7 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            BPySHmJmNhSb:
+            UsCNPWuATkyg:
                 id: vagrant-root
                 source: ./
                 target: /data/twfy
@@ -75,7 +75,7 @@ apache:
         - php
         - rewrite
     vhosts:
-        sAryCedesifm:
+        1cfq1ETKCqdw:
             servername: theyworkforyou.dev
             docroot: /data/twfy/www/docs
             port: '80'
@@ -125,7 +125,7 @@ mysql:
     phpmyadmin: 0
     adminer: 0
     databases:
-        U02U5eMrqjmN:
+        GD1MimCUZHpL:
             grant:
                 - ALL
             name: twfy

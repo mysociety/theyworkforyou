@@ -130,7 +130,7 @@ case $::operatingsystem {
 
     add_dotdeb { 'packages.dotdeb.org': release => $lsbdistcodename }
 
-   if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
+   if hash_key_equals($php_values, 'install', 1) {
       # Debian Squeeze 6.0 can do PHP 5.3 (default) and 5.4
       if $lsbdistcodename == 'squeeze' and $php_values['version'] == '54' {
         add_dotdeb { 'packages.dotdeb.org-php54': release => 'squeeze-php54' }
@@ -158,7 +158,7 @@ case $::operatingsystem {
 
     apt::ppa { 'ppa:pdoes/ppa': require => Apt::Key['4CBEDD5A'] }
 
-    if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
+    if hash_key_equals($php_values, 'install', 1) {
       # Ubuntu Lucid 10.04, Precise 12.04, Quantal 12.10 and Raring 13.04 can do PHP 5.3 (default <= 12.10) and 5.4 (default <= 13.04)
       if $lsbdistcodename in ['lucid', 'precise', 'quantal', 'raring'] and $php_values['version'] == '54' {
         if $lsbdistcodename == 'lucid' {
@@ -177,7 +177,7 @@ case $::operatingsystem {
     }
   }
   'redhat', 'centos': {
-    if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
+    if hash_key_equals($php_values, 'install', 1) {
       if $php_values['version'] == '54' {
         class { 'yum::repo::remi': }
       }
@@ -212,7 +212,7 @@ if $mailcatcher_values == undef {
   $mailcatcher_values = hiera('mailcatcher', false)
 }
 
-if is_hash($mailcatcher_values) and has_key($mailcatcher_values, 'install') and $mailcatcher_values['install'] == 1 {
+if hash_key_equals($mailcatcher_values, 'install', 1) {
   $mailcatcher_path       = $mailcatcher_values['settings']['path']
   $mailcatcher_smtp_ip    = $mailcatcher_values['settings']['smtp_ip']
   $mailcatcher_smtp_port  = $mailcatcher_values['settings']['smtp_port']
@@ -310,11 +310,11 @@ if ! defined(File[$webroot_location]) {
   }
 }
 
-if is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['install'] == 1 {
+if hash_key_equals($hhvm_values, 'install', 1) {
   $mpm_module           = 'worker'
   $disallowed_modules   = ['php']
   $apache_conf_template = 'puphpet/apache/hhvm-httpd.conf.erb'
-} elsif (is_hash($php_values)) {
+} elsif hash_key_equals($php_values, 'install', 1) {
   $mpm_module           = 'prefork'
   $disallowed_modules   = []
   $apache_conf_template = $apache::params::conf_template
@@ -341,11 +341,11 @@ if $::osfamily == 'redhat' and ! defined(Iptables::Allow['tcp/80']) {
   }
 }
 
-if has_key($apache_values, 'mod_pagespeed') and $apache_values['mod_pagespeed'] == 1 {
+if hash_key_equals($apache_values, 'mod_pagespeed', 1) {
   class { 'puphpet::apache::modpagespeed': }
 }
 
-if has_key($apache_values, 'mod_spdy') and $apache_values['mod_spdy'] == 1 {
+if hash_key_equals($apache_values, 'mod_spdy', 1) {
   class { 'puphpet::apache::modspdy': }
 }
 
@@ -391,7 +391,7 @@ if $nginx_values == undef {
   $nginx_values = hiera('nginx', false)
 }
 
-if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
+if hash_key_equals($php_values, 'install', 1) {
   Class['Php'] -> Class['Php::Devel'] -> Php::Module <| |> -> Php::Pear::Module <| |> -> Php::Pecl::Module <| |>
 
   if $php_prefix == undef {
@@ -511,7 +511,7 @@ if is_hash($php_values) and has_key($php_values, 'install') and $php_values['ins
     webserver   => $php_webserver_service_ini
   }
 
-  if $php_values['composer'] == 1 {
+  if hash_key_equals($php_values, 'composer', 1) {
     class { 'composer':
       target_dir      => '/usr/local/bin',
       composer_file   => 'composer',
@@ -570,8 +570,7 @@ if is_hash($apache_values) {
   $xdebug_webserver_service = undef
 }
 
-if (is_hash($xdebug_values) and has_key($xdebug_values, 'install') and $xdebug_values['install'] == 1)
-  and is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
+if hash_key_equals($xdebug_values, 'install', 1) and hash_key_equals($php_values, 'install', 1) {
   class { 'puphpet::xdebug':
     webserver => $xdebug_webserver_service
   }
@@ -594,7 +593,7 @@ if $drush_values == undef {
   $drush_values = hiera('drush', false)
 }
 
-if is_hash($drush_values) and has_key($drush_values, 'install') and $drush_values['install'] == 1 {
+if hash_key_equals($drush_values, 'install', 1) {
   if ($drush_values['settings']['drush.tag_branch'] != undef) {
     $drush_tag_branch = $drush_values['settings']['drush.tag_branch']
   } else {
@@ -608,17 +607,11 @@ if is_hash($drush_values) and has_key($drush_values, 'install') and $drush_value
 
 if $mysql_values == undef {
   $mysql_values = hiera('mysql', false)
-}
-
-if $php_values == undef {
+} if $php_values == undef {
   $php_values = hiera('php', false)
-}
-
-if $apache_values == undef {
+} if $apache_values == undef {
   $apache_values = hiera('apache', false)
-}
-
-if $nginx_values == undef {
+} if $nginx_values == undef {
   $nginx_values = hiera('nginx', false)
 }
 
@@ -628,10 +621,12 @@ if is_hash($apache_values) or is_hash($nginx_values) {
   $mysql_webserver_restart = false
 }
 
-if (is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1)
-  or (is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['install'] == 1)
-{
+if hash_key_equals($php_values, 'install', 1) {
   $mysql_php_installed = true
+  $mysql_php_package   = 'php'
+} elsif hash_key_equals($hhvm_values, 'install', 1) {
+  $mysql_php_installed = true
+  $mysql_php_package   = 'hhvm'
 } else {
   $mysql_php_installed = false
 }
@@ -645,7 +640,7 @@ if $mysql_values['root_password'] {
     create_resources(mysql_db, $mysql_values['databases'])
   }
 
-  if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 and ! defined(Php::Pecl::Module[$mongodb_pecl]) {
+  if $mysql_php_installed == 'php' and $mysql_php_package == 'php' {
     if $::osfamily == 'redhat' and $php_values['version'] == '53' and ! defined(Php::Module['mysql']) {
       php::module { 'mysql':
         service_autorestart => $mysql_webserver_restart,
@@ -678,7 +673,7 @@ define mysql_db (
   }
 }
 
-if has_key($mysql_values, 'phpmyadmin') and $mysql_values['phpmyadmin'] == 1 and $mysql_php_installed {
+if hash_key_equals($mysql_values, 'phpmyadmin', 1) and $mysql_php_installed {
   if $::osfamily == 'debian' {
     if $::operatingsystem == 'ubuntu' {
       apt::key { '80E7349A06ED541C': key_server => 'hkp://keyserver.ubuntu.com:80' }
@@ -686,10 +681,10 @@ if has_key($mysql_values, 'phpmyadmin') and $mysql_values['phpmyadmin'] == 1 and
     }
 
     $phpMyAdmin_package = 'phpmyadmin'
-    $phpMyAdmin_folder = 'phpmyadmin'
+    $phpMyAdmin_folder  = 'phpmyadmin'
   } elsif $::osfamily == 'redhat' {
     $phpMyAdmin_package = 'phpMyAdmin.noarch'
-    $phpMyAdmin_folder = 'phpMyAdmin'
+    $phpMyAdmin_folder  = 'phpMyAdmin'
   }
 
   if ! defined(Package[$phpMyAdmin_package]) {
@@ -720,7 +715,7 @@ if has_key($mysql_values, 'phpmyadmin') and $mysql_values['phpmyadmin'] == 1 and
   }
 }
 
-if has_key($mysql_values, 'adminer') and $mysql_values['adminer'] == 1 and $mysql_php_installed {
+if hash_key_equals($mysql_values, 'adminer', 1) and $mysql_php_installed {
   if is_hash($apache_values) {
     $mysql_adminer_webroot_location = $puphpet::params::apache_webroot_location
   } elsif is_hash($nginx_values) {
@@ -730,8 +725,9 @@ if has_key($mysql_values, 'adminer') and $mysql_values['adminer'] == 1 and $mysq
   }
 
   class { 'puphpet::adminer':
-    location => "${mysql_adminer_webroot_location}/adminer",
-    owner    => 'www-data'
+    location    => "${mysql_adminer_webroot_location}/adminer",
+    owner       => 'www-data',
+    php_package => $mysql_php_package
   }
 }
 
@@ -781,7 +777,7 @@ if is_hash($apache_values) or is_hash($nginx_values) {
   $mongodb_webserver_restart = false
 }
 
-if has_key($mongodb_values, 'install') and $mongodb_values['install'] == 1 {
+if hash_key_equals($mongodb_values, 'install', 1) {
   case $::osfamily {
     'debian': {
       class {'::mongodb::globals':
@@ -864,18 +860,16 @@ if is_hash($apache_values) {
   $beanstalk_console_webroot_location = undef
 }
 
-if (is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1)
-  or (is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['install'] == 1)
-{
+if hash_key_equals($php_values, 'install', 1) or hash_key_equals($hhvm_values, 'install', 1) {
   $beanstalkd_php_installed = true
 } else {
   $beanstalkd_php_installed = false
 }
 
-if is_hash($beanstalkd_values) and has_key($beanstalkd_values, 'install') and $beanstalkd_values['install'] == 1 {
+if hash_key_equals($beanstalkd_values, 'install', 1) {
   create_resources(beanstalkd::config, {'beanstalkd' => $beanstalkd_values['settings']})
 
-  if has_key($beanstalkd_values, 'beanstalk_console') and $beanstalkd_values['beanstalk_console'] == 1 and $beanstalk_console_webroot_location != undef and $beanstalkd_php_installed {
+  if hash_key_equals($beanstalkd_values, 'beanstalk_console', 1) and $beanstalk_console_webroot_location != undef and $beanstalkd_php_installed {
     exec { 'delete-beanstalk_console-path-if-not-git-repo':
       command => "rm -rf ${beanstalk_console_webroot_location}",
       onlyif  => "test ! -d ${beanstalk_console_webroot_location}/.git"
@@ -900,12 +894,12 @@ if $php_values == undef {
   $php_values = hiera('php', false)
 }
 
-if has_key($rabbitmq_values, 'install') and $rabbitmq_values['install'] == 1 {
+if hash_key_equals($rabbitmq_values, 'install', 1) {
   class { 'rabbitmq':
     port => $rabbitmq_values['port']
   }
 
-  if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 and ! defined(Php::Pecl::Module['amqp']) {
+  if hash_key_equals($php_values, 'install', 1) and ! defined(Php::Pecl::Module['amqp']) {
     php_pecl_mod { 'amqp': }
   }
 }
