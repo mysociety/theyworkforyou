@@ -6,7 +6,7 @@ namespace MySociety\TheyWorkForYou;
  * Hansard
  */
 
-class Hansard {
+class Hansard extends \HANSARDLIST {
 
     /**
      * Search
@@ -19,7 +19,7 @@ class Hansard {
      * @return array An array of search results.
      */
 
-    public static function search($searchstring, $args) {
+    public function search($searchstring, $args) {
 
         if (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH) {
             throw new Exception('FRONT_END_SEARCH is not defined or is false.');
@@ -71,8 +71,8 @@ class Hansard {
             $encode = 'html';
         }
 
-        // Initialise the search engine
-        $SEARCHENGINE = new \SEARCHENGINE($searchstring);
+        // Gloablise the search engine
+        global $SEARCHENGINE;
 
         // For Xapian's equivalent of an SQL LIMIT clause.
         $first_result = ($page-1) * $results_per_page;

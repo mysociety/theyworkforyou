@@ -725,9 +725,13 @@ function person_recent_appearances($member) {
     }
     //$recent = $memcache->get(OPTION_TWFY_DB_NAME . ':recent_appear:' . $person_id);
     $recent = false;
+
     if (!$recent) {
-        $hansard = new MySociety\TheyWorkForYou\Hansard();
+	// Initialise the search engine
         $searchstring = "speaker:$person_id";
+        $SEARCHENGINE = new \SEARCHENGINE($searchstring);
+
+        $hansard = new MySociety\TheyWorkForYou\Hansard();
         $args = array (
             's' => $searchstring,
             'p' => 1,
@@ -735,14 +739,11 @@ function person_recent_appearances($member) {
             'pop' => 1,
             'o' => 'd',
         );
-        ob_start();
         $results = $hansard->search($searchstring, $args);
         $recent = serialize($results['rows']);
         $memcache->set(OPTION_TWFY_DB_NAME . ':recent_appear:' . $person_id, $recent, MEMCACHE_COMPRESSED, 3600);
     }
     $out['appearances'] = unserialize($recent);
-    //var_dump($out['appearances']);
-    //exit();
     twfy_debug_timestamp();
 
     $MOREURL = new \URL('search');
