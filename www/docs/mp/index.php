@@ -358,6 +358,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     // Prepare data for the template
     $data['full_name'] = $MEMBER->full_name();
     $data['person_id'] = $MEMBER->person_id();
+    $data['member_id'] = $MEMBER->member_id();
     $data['constituency'] = $MEMBER->constituency();
     $data['party'] = $MEMBER->party_text();
     $data['party_short'] = $MEMBER->party();
@@ -661,15 +662,12 @@ function person_voting_record ($member, $extra_info) {
         if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
             continue;
         $dream = display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
-        if ($dream !== '') {
-            $key_votes[] = $dream;
-        }
         if (isset($joined[$policy[0]])) {
             $policy = $joined[$policy[0]];
             $dream = display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
-            if ($dream !== '') {
-                $key_votes[] = $dream;
-            }
+        }
+        if ($dream !== '') {
+            $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $dream );
         }
     }
 

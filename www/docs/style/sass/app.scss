@@ -780,6 +780,27 @@ form {
                 font-size: em-calc(14);
             }
         }
+        .policies {
+            list-style-position: inside;
+            li {
+                border-bottom: 1px solid $borders;
+                line-height: 2;
+                &:nth-of-type(1) {
+                    border-top: 1px solid $borders;
+                }
+                .dream_details {
+                    @include radius(1em);
+                    display: none;
+                    background-color: $primary-color;
+                    color: white;
+                    font-size: 14px;
+                    float: right;
+                    margin-top: 0.25em;
+                    padding: 0em 1em;
+                    text-decoration: none;
+                }
+            }
+        }
         .appearances {
             @include unstyled-list();
 

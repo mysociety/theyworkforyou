@@ -84,11 +84,11 @@
 
                         <?php if (count($key_votes['key_votes']) > 0): ?>
 
-                            <ul>
+                            <ul class="policies">
 
                             <?php foreach ($key_votes['key_votes'] as $key_vote): ?>
 
-                                <li><?= $key_vote ?></li>
+                            <li><?= $key_vote['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>">Details</a></li>
 
                             <?php endforeach; ?>
 
