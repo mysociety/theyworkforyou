@@ -271,22 +271,23 @@ you can find it.</p>
                     </div>
 
                     <?php if ($register_interests): ?>
-                    <div class="panel">
+                    <div class="panel register">
                         <a name="register"></a>
-                        <h2 data-magellan-destination="register">Register of Interests</h2>
+                        <h2 data-magellan-destination="register">Register of Members&rsquo; Interests</h2>
 
-                        <div class="moreinfo">
-                            <span class="moreinfo-text">
-                            <?php if ($register_interests['date']): ?>
-                                <nobr>Register last updated: <?= $register_interests['date'] ?>.</nobr>
-                            <?php endif; ?>
-                             More about the Register</span><a class="moreinfo-link" href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm"><img src="/images/questionmark.png" alt="" title=""></a>
-                        </div>
-                        <h2>Register of Members&rsquo; Interests</h2>
+                        <?php if ($register_interests['date']): ?>
+                            <p>Last updated: <?= $register_interests['date'] ?>.</p>
+                        <?php endif; ?>
+
                         <?= $register_interests['data'] ?>
-                        <p class="morelink"><strong>
+
+                        <p>
                             <a href="<?= WEBPATH ?>regmem/?p=<?= $person_id ?>">View the history of this MP&rsquo;s entries in the Register</a>
-                        </strong></p>
+                        </p>
+
+                        <p>
+                             <a class="moreinfo-link" href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm">More about the register</a>
+                        </p>
                     </div>
                     <?php endif; ?>
 

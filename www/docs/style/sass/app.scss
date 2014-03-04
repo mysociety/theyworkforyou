@@ -830,6 +830,27 @@ form {
                 }
             }
         }
+        &.register {
+            .regmemcategory {
+                border-top: 1px solid $borders;
+                font-weight: bold;
+                margin-top: em-calc(16);
+                margin-bottom: em-calc(8);
+                padding-top: em-calc(16);
+
+                &:nth-of-type(1) {
+                    border-top: none;
+                    /*margin-top: 0px;*/
+                    /*padding-top: 0px*/
+                }
+            }
+
+            .regmemitem {
+                margin-bottom: em-calc(8);
+                margin-left: 1em;
+                line-height: 1.6;
+            }
+        }
     }
 }
 
