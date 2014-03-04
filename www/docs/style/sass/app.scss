@@ -602,8 +602,11 @@ form {
             @include grid-column(12);
             @media (max-width: $medium-screen) {
                 .button {
-                    padding-left: 1em;
-                    padding-right: 1em;
+                    padding-left: 0.85em;
+                    padding-right: 0.85em;
+                    img {
+                        display: none;
+                    }
                 }
             }
             @media (min-width: $medium-screen) {
