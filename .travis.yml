@@ -12,7 +12,7 @@ notifications:
       - "irc.mysociety.org#activity"
     use_notice: true
     skip_join: true
-  
+
 env: TWFY_TEST_DB_HOST="127.0.0.1" TWFY_TEST_DB_USER="root" TWFY_TEST_DB_PASS="" TWFY_TEST_DB_NAME="twfy_test"
 
 before_script:
@@ -29,3 +29,5 @@ script:
 
 after_script:
  - php vendor/bin/coveralls -v
+ - wget https://scrutinizer-ci.com/ocular.phar
+ - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
