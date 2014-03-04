@@ -36,7 +36,6 @@ class Hansard extends \HANSARDLIST {
             $searchstring = $args['s'];
         } else {
             throw new Exception('No search string provided.');
-            return false;
         }
 
         // What we'll return.
@@ -130,7 +129,8 @@ class Hansard extends \HANSARDLIST {
         $hansard_to_gid = array();
 
         // Cycle through each result, munge the data, get more, and put it all in $data.
-        for ($n=0; $n<count($gids); $n++) {
+        $gids_count = count($gids);
+        for ($n = 0; $n < $gids_count; $n++) {
             $gid = $gids[$n];
             $relevancy = $relevances[$n];
             $collapsed = $SEARCHENGINE->collapsed[$n];
