@@ -4,3 +4,9 @@ tools:
     php_mess_detector: true
     php_pdepend: true
     external_code_coverage: true
+    php_cpd: true
+    php_cs_fixer: true
+    php_analyzer:
+        config:
+            doc_comment_fixes:
+                enabled:              true
