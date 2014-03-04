@@ -200,8 +200,11 @@
                         <?php endforeach; ?>
                         </ul>
                     </li>
-                    <li class="menu-search">
-                        <a href="#" class="button menu-dropdown--button menu-toplevel-dropdown--button">Search</a>
+                    <li id="search-wrapper">
+                        <form action="/search/" method="get">
+                            <label for="header_search_input"><img src="/style/img/search.png"></label>
+                            <input type="text" id="header_search_input" name="q" placeholder="Type search terms and hit enter...">
+                        </form>
                     </li>
                     <li class="assembly-sub-menu">
                         <ul>

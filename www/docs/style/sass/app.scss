@@ -491,6 +491,62 @@ form {
             }
         }
 
+        #search-wrapper {
+            border-top: 1px solid $borders;
+            label {
+                display: none;
+            }
+            input[type="text"] {
+                margin: 0.25em 0.75em;
+                width: 90%;
+            }
+            @media (min-width: $large-screen) {
+                border: 0px;
+                position: relative;
+                height:48px;
+                width: 48px;
+                padding-left: 10px;
+                input[type="text"] {
+                    width: 0px;
+                    padding: 0;
+                    border: none;
+                    background-color: white;
+                    position: absolute;
+                    bottom: 0px;
+                    right: 35px;
+                    margin-top: 30px;
+                    margin-right: 10px;
+                    border-radius: 2px;
+
+                    color:rgb(150,150,150);
+
+                    -webkit-transition:width 0.5s ease-in-out;
+                       -moz-transition:width 0.5s ease-in-out;
+                            transition:width 0.5s ease-in-out;
+                }
+
+                input[type="text"]:focus,
+                input[type="text"]:active {
+                    background-color: white;
+                    width:480px;
+                    padding-left: 0.5em;
+                }
+
+                label {
+                    display:block;
+                    width:48px;
+                    height:50px;
+                    /*position:absolute;*/
+                    padding:0;
+                    padding-top: 10px;
+                    cursor:pointer;
+                }
+                img {
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+        }
         .assembly-sub-menu {
             border-top: 1px solid $borders;
             display: block;
