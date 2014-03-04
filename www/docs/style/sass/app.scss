@@ -600,6 +600,12 @@ form {
         }
         .person-buttons {
             @include grid-column(12);
+            @media (max-width: $medium-screen) {
+                .button {
+                    padding-left: 1em;
+                    padding-right: 1em;
+                }
+            }
             @media (min-width: $medium-screen) {
                 @include grid-column(6);
                 position: relative;
