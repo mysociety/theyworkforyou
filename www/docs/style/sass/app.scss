@@ -844,6 +844,11 @@ form {
                 }
             }
         }
+        .numerology {
+            li {
+                line-height: 2;
+            }
+        }
         &.register {
             .regmemcategory {
                 border-top: 1px solid $borders;

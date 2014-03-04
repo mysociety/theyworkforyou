@@ -252,7 +252,7 @@ you can find it.</p>
 
                         <p>Please note that numbers do not measure quality. Also, representatives may do other things not currently covered by this site.<br><small><a href="<?= WEBPATH ?>help/#numbers">More about this</a></small></p>
 
-                        <ul>
+                        <ul class="numerology">
 
                             <?php foreach ($numerology as $numerology_item): ?>
                             <?php if ($numerology_item): ?>
