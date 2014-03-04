@@ -60,8 +60,8 @@
 		<field name="house">1</field>
 		<field name="first_name">Test</field>
 		<field name="last_name">Current-MP</field>
-		<field name="constituency">Test Westminister Constituency</field>
-		<field name="party"></field>
+		<field name="constituency">Test Westminster Constituency</field>
+		<field name="party">SF</field>
 		<field name="entered_house">2000-01-01</field>
 		<field name="left_house">9999-12-31</field>
 		<field name="entered_reason">general_election</field>
@@ -91,7 +91,7 @@
 		<field name="first_name">Test</field>
 		<field name="last_name">Current-MLA</field>
 		<field name="constituency">Test Northern Ireland Constituency</field>
-		<field name="party"></field>
+		<field name="party">SF</field>
 		<field name="entered_house">2000-01-01</field>
 		<field name="left_house">9999-12-31</field>
 		<field name="entered_reason">general_election</field>
@@ -120,7 +120,7 @@
 		<field name="house">1</field>
 		<field name="first_name">Test</field>
 		<field name="last_name">Previous-MP</field>
-		<field name="constituency">Test Westminister Constituency</field>
+		<field name="constituency">Test Westminster Constituency</field>
 		<field name="party"></field>
 		<field name="entered_house">1990-01-01</field>
 		<field name="left_house">1999-12-31</field>
@@ -141,7 +141,7 @@
 		<field name="left_house">1999-12-31</field>
 		<field name="entered_reason">appointed</field>
 		<field name="left_reason">died</field>
-		<field name="person_id">7</field>
+		<field name="person_id">7777</field>
 		<field name="title">Mr</field>
 		<field name="lastupdate">2013-08-07 15:06:16</field>
 	</row>
@@ -180,7 +180,7 @@
 		<field name="house">1</field>
 		<field name="first_name">Test</field>
 		<field name="last_name">Duplicate-MP</field>
-		<field name="constituency">Test Westminister Constituency</field>
+		<field name="constituency">Test Westminster Constituency</field>
 		<field name="party"></field>
 		<field name="entered_house">1990-01-01</field>
 		<field name="left_house">1999-12-31</field>
@@ -195,7 +195,7 @@
 		<field name="house">1</field>
 		<field name="first_name">Test</field>
 		<field name="last_name">Duplicate-MP</field>
-		<field name="constituency">Test Westminister Constituency</field>
+		<field name="constituency">Test Westminster Constituency</field>
 		<field name="party"></field>
 		<field name="entered_house">2000-01-01</field>
 		<field name="left_house">9999-12-31</field>
@@ -219,6 +219,36 @@
 		<field name="person_id">11</field>
 		<field name="title">Mrs</field>
 		<field name="lastupdate">2013-08-15 16:53:57</field>
+	</row>
+	<row>
+		<field name="member_id">12</field>
+		<field name="house">1</field>
+		<field name="first_name">Test</field>
+		<field name="last_name">Speaker</field>
+		<field name="constituency">Buckingham</field>
+		<field name="party">SPK</field>
+		<field name="entered_house">2000-01-01</field>
+		<field name="left_house">9999-12-31</field>
+		<field name="entered_reason">general_election</field>
+		<field name="left_reason">still_in_office</field>
+		<field name="person_id">12</field>
+		<field name="title">Mr</field>
+		<field name="lastupdate">2013-08-15 16:53:57</field>
+	</row>
+	<row>
+		<field name="member_id">13</field>
+		<field name="house">1</field>
+		<field name="first_name">Test</field>
+		<field name="last_name">Current-MLA</field>
+		<field name="constituency">Test Northern Ireland Constituency</field>
+		<field name="party">SF</field>
+		<field name="entered_house">2000-01-01</field>
+		<field name="left_house">9999-12-31</field>
+		<field name="entered_reason">general_election</field>
+		<field name="left_reason">still_in_office</field>
+		<field name="person_id">4</field>
+		<field name="title">Miss</field>
+		<field name="lastupdate">2013-08-07 11:15:38</field>
 	</row>
 	</table_data>
 	<table_data name="memberinfo">

@@ -77,7 +77,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetMPByConstituency()
     {
-        $MEMBER = new MEMBER(array('constituency' => 'test westminister constituency'));
+        $MEMBER = new MEMBER(array('constituency' => 'test westminster constituency'));
 
         $this->assertEquals(1, $MEMBER->member_id);
         $this->assertEquals(2, $MEMBER->person_id);
@@ -91,7 +91,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
         global $this_page;
         $this_page = 'mp';
 
-        $MEMBER = new MEMBER(array('name' => 'test current-mp', 'constituency' => 'test westminister constituency'));
+        $MEMBER = new MEMBER(array('name' => 'test current-mp', 'constituency' => 'test westminster constituency'));
 
         $this->assertEquals(1, $MEMBER->member_id);
         $this->assertEquals(2, $MEMBER->person_id);
@@ -120,7 +120,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
     {
         $MEMBER = new MEMBER(array('person_id' => 2));
 
-        $this->assertEquals('http://' . DOMAIN . '/mp/2/test_current-mp/test_westminister_constituency', $MEMBER->url());
+        $this->assertEquals('http://' . DOMAIN . '/mp/2/test_current-mp/test_westminster_constituency', $MEMBER->url());
     }
     
     /**
@@ -150,9 +150,9 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetMLAURL()
     {
-        $MEMBER = new MEMBER(array('person_id' => 4));
+        $MEMBER = new MEMBER(array('person_id' => 7));
 
-        $this->assertEquals('http://' . DOMAIN . '/mla/4/test_current-mla', $MEMBER->url());
+        $this->assertEquals('http://' . DOMAIN . '/mla/7/test_previous-mla', $MEMBER->url());
     }
 
     /**
