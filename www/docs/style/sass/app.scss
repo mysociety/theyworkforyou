@@ -635,7 +635,9 @@ form {
                 }
             }
             .constituency {
-                margin-right: 1em;
+                @media (min-width: $large-screen) {
+                    margin-right: 1em;
+                }
                 &:before {
                     position: relative;
                     content: url('../img/location-pin.png');
