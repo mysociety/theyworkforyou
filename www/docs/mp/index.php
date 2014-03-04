@@ -371,6 +371,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['current_member'] = $MEMBER->current_member();
     $data['the_users_mp'] = $MEMBER->the_users_mp();
     $data['user_postcode'] = $THEUSER->postcode;
+    $data['houses'] = $MEMBER->houses();
 
     $data['image'] = person_image($MEMBER);
     $data['member_summary'] = person_summary_description($MEMBER);
@@ -419,7 +420,6 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 
     $data['other_parties'] = $MEMBER->other_parties;
     $data['other_constituencies'] = $MEMBER->other_constituencies;
-    $data['houses'] = $MEMBER->houses();
     $data['entered_house'] = $MEMBER->entered_house();
     $data['left_house'] = $MEMBER->left_house();
     $data['house_disp'] = $MEMBER->house_disp;
