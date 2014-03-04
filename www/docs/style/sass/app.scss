@@ -325,9 +325,13 @@ form {
 }
 
 .primary-navigation-bar.assembly {
+    display: none;
     float: left;
     width: auto;
     position: relative;
+    @media ( min-width: $medium-screen ) {
+        display: block;
+    }
     .menu-dropdown {
         position: static;
         margin: 10px 0px 0px 12px;
@@ -475,6 +479,17 @@ form {
                         overflow: hidden;
                     }
                 }
+            }
+        }
+
+        .assembly-sub-menu {
+            border-top: 1px solid $borders;
+            display: block;
+            @media ( min-width: $medium-screen ) {
+                display: none;
+            }
+            ul {
+                @include unstyled-list;
             }
         }
     }

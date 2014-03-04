@@ -203,6 +203,13 @@
                     <li class="menu-search">
                         <a href="#" class="button menu-dropdown--button menu-toplevel-dropdown--button">Search</a>
                     </li>
+                    <li class="assembly-sub-menu">
+                        <ul>
+                        <?php foreach ($assembly_nav_links as $nav_link) {?>
+                            <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>"><?= $nav_link['text'] ?></a></li>
+                        <?php } ?>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>
