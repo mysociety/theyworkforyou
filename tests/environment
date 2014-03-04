@@ -1,0 +1,4 @@
+export TWFY_TEST_DB_HOST=127.0.0.1
+export TWFY_TEST_DB_NAME=twfy-test
+export TWFY_TEST_DB_USER=twfy-test
+export TWFY_TEST_DB_PASS=twfy-test
