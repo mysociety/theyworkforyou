@@ -7,3 +7,4 @@ www/docs/docs
 www/docs/style/*.css
 www/docs/style/stylesheets
 .vagrant
+build/
