@@ -131,6 +131,10 @@
 
                             <p><a href="<?= $recent_appearances['more_href'] ?>"><?= $recent_appearances['more_text'] ?></a></p>
 
+                            <?php if (isset($recent_appearances['additional_links'])): ?>
+                            <?= $recent_appearances['additional_links'] ?>
+                            <?php endif; ?>
+
                         <?php else: ?>
 
                             <p>No recent appearances to display.</p>

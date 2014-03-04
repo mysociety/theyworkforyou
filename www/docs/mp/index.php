@@ -355,6 +355,11 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $DATA->set_page_metadata($this_page, 'title', $title);
     $DATA->set_page_metadata($this_page, 'meta_description', $desc);
 
+    // Build the RSS link and add it to page data.
+    $feedurl = $DATA->page_metadata('mp_rss', 'url') . $MEMBER->person_id() . '.rdf';
+    if (file_exists(BASEDIR . '/' . $feedurl))
+        $DATA->set_page_metadata($this_page, 'rss', $feedurl);
+
     // Prepare data for the template
     $data['full_name'] = $MEMBER->full_name();
     $data['person_id'] = $MEMBER->person_id();
@@ -762,9 +767,7 @@ function person_recent_appearances($member) {
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
         // If we set an RSS feed for this page.
         $HELPURL = new \URL('help');
-?>
-        <p class="unneededprintlinks"><a href="<?php echo WEBPATH . $rssurl; ?>" title="XML version of this person's recent appearances">RSS feed</a> (<a href="<?php echo $HELPURL->generate(); ?>#rss" title="An explanation of what RSS feeds are for">?</a>)</p>
-<?php
+        $out['additional_links'] = '<a href="' . WEBPATH . $rssurl . '" title="XML version of this person\'s recent appearances">RSS feed</a> (<a href="' . $HELPURL->generate() . '#rss" title="An explanation of what RSS feeds are for">?</a>)';
     }
 
     return $out;
