@@ -148,7 +148,7 @@
 
                         <?php if (count($useful_links) > 0): ?>
 
-                        <ul>
+                        <ul class="comma-list">
 
                             <?php foreach ($useful_links as $link): ?>
                             <li><a href="<?= $link['href'] ?>"><?= $link['text'] ?></a></li>
@@ -176,7 +176,7 @@ you can find it.</p>
 
                         <h3>Topics of interest</h3>
 
-                        <ul>
+                        <ul class="comma-list">
 
                             <?php foreach ($topics_of_interest as $topic): ?>
                             <li><?= $topic ?></li>
@@ -204,7 +204,7 @@ you can find it.</p>
 
                         <h3>Previous MPs in this constituency</h3>
 
-                        <ul>
+                        <ul class="comma-list">
 
                             <?php foreach ($constituency_previous_mps as $constituency_previous_mp): ?>
                             <li><a href="<?= $constituency_previous_mp['href'] ?>"><?= $constituency_previous_mp['text'] ?></a></li>
@@ -218,7 +218,7 @@ you can find it.</p>
 
                         <h3>Future MPs in this constituency</h3>
 
-                        <ul>
+                        <ul class="comma-list">
 
                             <?php foreach ($constituency_future_mps as $constituency_future_mp): ?>
                             <li><a href="<?= $constituency_future_mp['href'] ?>"><?= $constituency_future_mp['text'] ?></a></li>

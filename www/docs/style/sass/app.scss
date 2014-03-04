@@ -830,6 +830,20 @@ form {
                 }
             }
         }
+        .comma-list{
+            @include inline-list();
+            margin-left: 0px;
+            margin-bottom: em-calc(16);
+            li {
+                margin-left: 0px;
+                &:after {
+                    content: ', ';
+                }
+                &:last-of-type:after {
+                    content: '';
+                }
+            }
+        }
         &.register {
             .regmemcategory {
                 border-top: 1px solid $borders;
