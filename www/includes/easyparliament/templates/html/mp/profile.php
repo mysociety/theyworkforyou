@@ -45,15 +45,6 @@
 <div class="full-page">
     <div class="full-page__row">
         <div class="full-page__unit">
-            <div class="person-navigation page-content__row">
-                <ul>
-                    <li class="active">Overview</li>
-                    <li>Voting Record</li>
-                </ul>
-            </div>
-            <div class="person-content__header page-content__row">
-                <h1>Overview</h1>
-            </div>
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
                     <ul data-magellan-expedition="fixed">

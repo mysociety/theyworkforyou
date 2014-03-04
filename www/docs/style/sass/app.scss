@@ -740,6 +740,7 @@ form {
     /*@include grid-row;*/
 }
 .person-panels {
+    margin-top: em-calc(40);
     .in-page-nav {
         display: none;
         @media (min-width: $medium-screen) {
