@@ -299,7 +299,13 @@ form {
         padding: 0.25em 0.75em;
         &:link,
         &:visited {
-            color: $body-font-color;
+            color: white;
+        }
+        @media ( min-width: $large-screen ) {
+            &:link,
+            &:visited {
+                color: $body-font-color;
+            }
         }
         &:hover,
         &:active,
