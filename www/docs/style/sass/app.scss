@@ -232,22 +232,6 @@ form {
     }
 }
 
-.brand-header__navigation {
-    display: none; //temporary hide on mobile: #todo: fix on mobile
-    @media (min-width: $medium-screen) {
-        display: block;
-    }
-    float: right;
-    margin-top: 0.95em;
-    margin-right: 145px;
-    a {
-        display: inline-block;
-        margin-right: 1em;
-        font-size: 0.8125em;
-        letter-spacing: 0.02em;
-    }
-}
-
 .primary-navigation-bar {
     float: right;
     width: 100%;
@@ -261,9 +245,6 @@ form {
         @media (min-width: $medium-screen) {
             right: 145px;
         }
-        &.user {
-            display: inline-block;
-        }
     }
     .menu-dropdown--button {
         @extend .image-replacement;
@@ -276,9 +257,6 @@ form {
         background-position: center;
         background-repeat: no-repeat;
         @include background-size(28px 26px);
-        &.user {
-            background-image: url('../img/user.png');
-        }
         @media ( max-width: $medium-screen ) {
             background-color: $primary-color;
             &:hover,
@@ -582,42 +560,7 @@ form {
     }
 }
 
-.admin-menu-container {
-    position: fixed;
-    top: 0;
-    left: 1em;
-    z-index: 500;
-    min-width: 280px;
-    a {
-        &:link {
-            color: $colour_primary;
-        }
-        &:hover,
-        &:active,
-        &:visited {
-            color: darken($colour_primary, 10%);
-        }
-    }
-}
-
-.admin-menu-button {
-    margin-top: 1.1em;
-    /* show at all? */
-    &.button.secondary {
-        /* Override some Foundation stuff */
-        background: transparent;
-        color: #fff;
-        border-color: #333;
-        @include box-shadow(none);
-        &:before {
-            border-color: rgba(255,255,255,0.8) transparent transparent transparent;
-        }
-    }
-}
-
 .person-header {
-    /*margin-right: -3.3%;*/
-    /*margin-left: -3.3%;*/
     padding-top: 16px;
     @media (min-width: $large-screen) {
         height: 285px;
