@@ -832,9 +832,9 @@ form {
         @media (min-width: $medium-screen) {
             display: block;
         }
-        @include radius;
         padding: 0px;
         ul {
+            @include radius(3px);
             &.fixed {
                 width: 16%;
                 max-width: 187px;
@@ -851,6 +851,9 @@ form {
                 color: $borders;
                 &.active {
                     color: $primary-color;
+                }
+                &:last-of-type {
+                    border-bottom: 0px;
                 }
                 a {
                     color: $body-font-color;
