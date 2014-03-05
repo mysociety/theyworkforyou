@@ -61,7 +61,7 @@ class PageTest extends PHPUnit_Extensions_Database_TestCase
 
 	public function testSpeaker()
     {
-        $page = $this->fetch_page( array( 'pid' => 12, 'url' => '/mp/12/test_speaker/buckingham' ) );
+        $page = $this->fetch_page( array( 'pid' => 13, 'url' => '/mp/13/test_speaker/buckingham' ) );
         $this->assertContains('<span class="constituency">Buckingham</span> <span class="party SPK">Speaker</span>', $page);
     }
 
