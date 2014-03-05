@@ -815,6 +815,7 @@ form {
             margin-left: 0px;
             margin-right: 30px;
             &.active{
+                color: $body-font-color;
                 border-bottom: 1px solid #6c6b68;
             }
         }
