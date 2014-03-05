@@ -433,7 +433,7 @@ form {
                     height: auto;
                     max-height: none;
                     position: static;
-                    border-top: 1px solid $borders;
+                    border-top: 1px solid lighten($colour_primary, 10%);
                     box-shadow: none;
                     width: 100%;
                 }
@@ -491,7 +491,7 @@ form {
             display: none;
         }
         #search-wrapper {
-            border-top: 1px solid $borders;
+            border-top: 1px solid lighten($colour_primary, 10%);
             label {
                 display: none;
             }
@@ -547,7 +547,7 @@ form {
             }
         }
         .assembly-sub-menu {
-            border-top: 1px solid $borders;
+            border-top: 1px solid lighten($colour_primary, 10%);
             display: block;
             @media ( min-width: $medium-screen ) {
                 display: none;
