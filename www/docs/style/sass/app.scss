@@ -630,11 +630,19 @@ form {
         .person-name {
             h1 {
                 .mp-image {
-                    display: inline-block;
-                    max-height: 48px;
-                    overflow: hidden;
                     img {
-                        max-width: 48px;
+                        width: 48px;
+                    }
+                    @media (min-width: $medium-screen) {
+                        display: inline-block;
+                        float: none;
+                        position: relative;
+                        width: 48px;
+                        img {
+                            bottom: 0px;
+                            position: absolute;
+                            vertical-align: bottom;
+                        }
                     }
                 }
                 color: white;
