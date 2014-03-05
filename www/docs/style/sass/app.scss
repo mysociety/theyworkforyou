@@ -1079,12 +1079,17 @@ form {
         height: auto;
 
         &[type=text] {
+            border: 1px solid $borders;
+            border-right: 0px;
+            box-shadow: none;
             width: 80%;
             margin-right: 0px;
             border-radius: 2px 0px 0px 2px;
         }
         &[type=submit] {
             background-color: $primary-color;
+            border: 1px solid $primary-color;
+            border-left: 0px;
             color: white;
             margin-left: 0px;
             border-radius: 0px 2px 2px 0px;
