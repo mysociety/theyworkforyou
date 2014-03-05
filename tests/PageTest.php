@@ -37,32 +37,54 @@ class PageTest extends PHPUnit_Extensions_Database_TestCase
         return $page;
     }
 
-	public function testSittingSinnFeinMP()
-    {
-        $page = $this->fetch_page( array( 'pid' => 2, 'url' => '/mp/2/test_current-mp/test_westminster_constituency' ) );
-        $this->assertContains('Test Current-MP MP', $page);
-        $this->assertContains('Sinn F&eacute;in MPs do not take their seats in Parliament.', $page);
-    }
-
-	public function testSittingMLA()
-    {
-        $page = $this->fetch_page( array( 'pid' => 4, 'url' => '/mp/4/test_current-mla/test_northern_ireland_constituency' ) );
-        $this->assertContains('Test Current-MLA MP', $page);
-        $this->assertContains('<span class="constituency">Test Northern Ireland Constituency</span> <span class="party SF">Sinn Fein</span>', $page);
-        $this->assertContains('Sinn F&eacute;in MPs do not take their seats in Parliament.', $page);
-    }
-
-	public function testQueenie()
+    public function testQueenie()
     {
         $page = $this->fetch_page( array( 'royal' => 1, 'n' => 'elizabeth_the_second' ) );
         $this->assertContains('Elizabeth the Second', $page);
         $this->assertContains('Coronated on 2 June 1953', $page);
     }
 
+    public function testSittingMP()
+    {
+        $page = $this->fetch_page( array( 'pid' => 2, 'url' => '/mp/2/test_current-mp/test_westminster_constituency' ) );
+        $this->assertContains('Test Current-MP', $page);
+        $this->assertContains('<span class="constituency">Test Westminster Constituency</span>', $page);
+        $this->assertContains('<span class="party Lab">Labour</span>', $page);
+    }
+
+	public function testSittingMLA()
+    {
+        $page = $this->fetch_page( array( 'pid' => 4, 'url' => '/mp/4/test_current-mla/test_northern_ireland_constituency' ) );
+        $this->assertContains('Test Current-MLA', $page);
+        $this->assertContains('<span class="constituency">Test Northern Ireland Constituency</span>', $page);
+        $this->assertContains('<span class="party SF">Sinn Fein</span>', $page);
+    }
+
+    /**
+     * Ensure that the Sinn Fein message is displayed for SF MPs.
+     */
+    public function testSittingSinnFeinMP()
+    {
+        $page = $this->fetch_page( array( 'pid' => 15, 'url' => '/mp/15/test_current-sf-mp/test_westminster_constituency' ) );
+        $this->assertContains('Sinn F&eacute;in MPs do not take their seats in Parliament.', $page);
+    }
+
+    /**
+     * Ensure that the Sinn Fein message is not displayed for non-SF MPs.
+     */
+    public function testSittingNonSinnFeinMP()
+    {
+        $page = $this->fetch_page( array( 'pid' => 2, 'url' => '/mp/2/test_current-mp/test_westminster_constituency' ) );
+        $this->assertNotContains('Sinn F&eacute;in MPs do not take their seats in Parliament.', $page);
+    }
+
+    /**
+     * Ensure that the Speaker is given the correct constituency.
+     */
 	public function testSpeaker()
     {
         $page = $this->fetch_page( array( 'pid' => 13, 'url' => '/mp/13/test_speaker/buckingham' ) );
-        $this->assertContains('<span class="constituency">Buckingham</span> <span class="party SPK">Speaker</span>', $page);
+        $this->assertContains('<span class="party SPK">Speaker</span>', $page);
     }
 
 }
