@@ -117,7 +117,7 @@
 
 </head>
 
-<body class="antialiased">
+<body>
 
     <div id="fb-root"></div>
     <script>
