@@ -955,7 +955,7 @@ form {
         &.register {
             .regmemcategory {
                 border-top: 1px solid $borders;
-                font-weight: bold;
+                font-weight: $weight_semibold;
                 margin-top: em-calc(16);
                 margin-bottom: em-calc(8);
                 padding-top: em-calc(16);

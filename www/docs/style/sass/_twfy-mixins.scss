@@ -153,6 +153,7 @@ $weight_bold: 700;
 
 .button {
     background-color: $colour_primary;
+    font-weight: $weight_semibold;
     border: 0;
     @include border-radius(3px);
     &:hover,
