@@ -192,7 +192,7 @@
                 <?php endforeach; ?>
                     <li class="user-menu">
                         <span class="menu-dropdown">
-                            <a href="#" class="button menu-dropdown--button menu-toplevel-dropdown--button">User</a>
+                            <a href="#" class="button"><img src="/style/img/user.png"></a>
                         </span>
                         <ul class="nav-menu closed">
                         <?php foreach ($user_nav_links as $nav_link): ?>

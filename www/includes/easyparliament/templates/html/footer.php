@@ -178,8 +178,12 @@ pr()//-->
 
 $( document ).ready(function() {
     $(".menu-dropdown").click(function(e) {
-      $(e.target).toggleClass('open');
-      $(e.target).parent().next(".nav-menu").toggleClass('closed');
+      var t = $(e.target);
+      if ( ! t.hasClass('button') ) {
+          t = t.parent('.button');
+      }
+      t.toggleClass('open');
+      t.parent().next(".nav-menu").toggleClass('closed');
     });
 });
 

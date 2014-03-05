@@ -443,14 +443,21 @@ form {
                 .menu-dropdown {
                     position: static;
                     display: inline-block;
-                    .menu-dropdown--button {
+                    line-height: 20px;
+                    .button {
+                        background-color: white;
                         border-radius: 3px 3px 0px 0px;
+                        margin-bottom: 0px;
                         transition: none;
-                        background-image: url('../img/user.png');
+                        &:active {
+                            box-shadow: none;
+                        }
                         &.open {
                             color: white;
                             background-color: $primary-color;
-                            background-image: url('../img/user-white.png');
+                            img {
+                                content: url('../img/user-white.png');
+                            }
                         }
                     }
                 }
