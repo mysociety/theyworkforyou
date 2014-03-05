@@ -846,7 +846,7 @@ form {
                 list-style-position: inside;
                 padding-left: 0.5em;
                 line-height: 2.6;
-                border-bottom: 1px solid $borders;
+                border-bottom: 1px solid $body-bg;
                 color: $borders;
                 &.active {
                     color: $primary-color;
