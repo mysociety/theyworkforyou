@@ -491,7 +491,9 @@ form {
                 }
             }
         }
-
+        #search-fallback {
+            display: none;
+        }
         #search-wrapper {
             border-top: 1px solid $borders;
             label {

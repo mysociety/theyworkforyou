@@ -200,6 +200,9 @@
                         <?php endforeach; ?>
                         </ul>
                     </li>
+                    <li id="search-fallback">
+                        <a href="/search/" id="fallback"><img src="/style/img/search.png"></a>
+                    </li>
                     <li id="search-wrapper">
                         <form action="/search/" method="get">
                             <label for="header_search_input"><img src="/style/img/search.png"></label>
