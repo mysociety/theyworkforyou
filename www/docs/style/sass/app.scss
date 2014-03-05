@@ -205,6 +205,10 @@ form {
 
 .brand-header__row {
     @include grid-row;
+    background-color: $primary-color;
+    @media ( min-width: $medium-screen ) {
+        background-color: white;
+    }
 }
 
 .brand-header__title-unit {
@@ -274,6 +278,13 @@ form {
         @include background-size(28px 26px);
         &.user {
             background-image: url('../img/user.png');
+        }
+        @media ( max-width: $medium-screen ) {
+            background-color: $primary-color;
+            &:hover,
+            &:active {
+                background-color: $primary-color;
+            }
         }
     }
     .menu-toplevel-dropdown--button {
