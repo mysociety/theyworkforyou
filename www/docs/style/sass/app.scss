@@ -575,6 +575,9 @@ form {
 
 .person-header {
     padding-top: 16px;
+    @media (min-width: $medium-screen) {
+        padding-top: 32px;
+    }
     @media (min-width: $large-screen) {
         height: 285px;
         padding-top: 150px;
