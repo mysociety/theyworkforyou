@@ -4,6 +4,9 @@
             "MySociety\\TheyWorkForYou\\": "classes/"
         }
     },
+    "require": {
+        "php": ">=5.3.3"
+    },
     "require-dev": {
         "phpunit/dbunit": ">=1.2",
         "phpdocumentor/phpdocumentor": "2.*"
