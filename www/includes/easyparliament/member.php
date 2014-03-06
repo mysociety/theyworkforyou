@@ -694,6 +694,30 @@ class MEMBER {
         return $previous_people;
     }
 
+    public function previous_mps_array() {
+        $previous_people = array();
+        $entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
+        if (is_null($entered_house)) return '';
+        $q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=' . HOUSE_TYPE_COMMONS . ' AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house < "' . $entered_house['date'] . '" ORDER BY entered_house DESC');
+        for ($r = 0; $r < $q->rows(); $r++) {
+            $pid = $q->field($r, 'person_id');
+            $name = $q->field($r, 'first_name') . ' ' . $q->field($r, 'last_name');
+            $previous_people[] = array(
+                'href' => WEBPATH . 'mp/?pid='.$pid,
+                'text' => $name
+            );
+        }
+        # XXX: This is because George's enter date is before Oona's enter date...
+        # Can't think of an easy fix without another pointless DB lookup
+        # Guess the starting setup of this class should store more information
+        if ($this->person_id() == 10218)
+            $previous_people[] = array(
+                'href' => WEBPATH . 'mp/?pid='.$pid,
+                'text' => $name
+            );
+        return $previous_people;
+    }
+
     public function future_mps() {
         $future_people = '';
         $entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
@@ -704,6 +728,23 @@ class MEMBER {
             $pid = $q->field($r, 'person_id');
             $name = $q->field($r, 'first_name') . ' ' . $q->field($r, 'last_name');
             $future_people .= '<li><a href="' . WEBPATH . 'mp/?pid='.$pid.'">'.$name.'</a></li>';
+        }
+        return $future_people;
+    }
+
+    public function future_mps_array() {
+        $future_people = array();
+        $entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
+        if (is_null($entered_house)) return '';
+        $q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=' . HOUSE_TYPE_COMMONS . ' AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house > "' . $entered_house['date'] . '" ORDER BY entered_house');
+        if ($this->person_id() == 10218) return;
+        for ($r = 0; $r < $q->rows(); $r++) {
+            $pid = $q->field($r, 'person_id');
+            $name = $q->field($r, 'first_name') . ' ' . $q->field($r, 'last_name');
+            $future_people[] = array(
+                'href' => WEBPATH . 'mp/?pid='.$pid,
+                'text' => $name
+            );
         }
         return $future_people;
     }

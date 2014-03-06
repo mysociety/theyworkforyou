@@ -1,0 +1,201 @@
+
+@import "compass/css3";
+@import "settings";
+@import "foundation/components/global"; // *always required
+@import "foundation/components/grid-5";
+
+$small-screen: 0;
+$medium-screen: 51em;
+$large-screen: 65em;
+$huge-screen: 71.25em;
+
+$colour_primary: #60b86b !default;
+$colour_black: #222222;
+$colour_dark_grey: #666361;
+$colour_mid_grey: #ccc7c3;
+$colour_light_grey: #e9e7e4;
+$colour_off_white : #f2f1ef;
+
+$weight_light: 300;
+$weight_semibold: 600;
+$weight_bold: 700;
+
+@mixin unstyled-list {
+    margin-left: 0;
+    list-style: none outside none;
+}
+
+@mixin inline-list {
+    margin-left: -0.5em;
+    margin-bottom: 0;
+    li {
+        display: inline-block;
+        margin-left: 0.5em;
+    }
+}
+
+@mixin clearfix {
+    &:before,
+    &:after {
+        content: " "; /* 1 */
+        display: table; /* 2 */
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    /**
+     * For IE 6/7 only
+     * Include this rule to trigger hasLayout and contain floats.
+     */
+    &{
+        *zoom: 1;
+    }
+}
+
+
+.image-replacement {
+    text-indent: -1000%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@mixin grid-layout {
+    @include clearfix;
+    @media (min-width: $medium-screen) {
+
+    }
+    li {
+        width: 100%;
+        float: left;
+        @media (min-width: $medium-screen) {
+            width: 33.333333333%;
+        }
+
+        @media (min-width: $large-screen) {
+           width: 25%;
+        }
+        @media (min-width: $huge-screen) {
+           width: 20%;
+        }
+    }
+}
+
+.hide-on-small {
+    display: none;
+    visibility: hidden;
+    @media (min-width: $medium-screen) {
+        display: block;
+        visibility: visible;
+    }
+}
+
+.hide-on-medium {
+    @media (min-width: $medium-screen) {
+        display: none;
+        visibility: hidden;
+    }
+    @media (min-width: $large-screen) {
+        display: block;
+        visibility: visible;
+    }
+}
+
+
+.hide-medium-upwards {
+    display: inline-block;
+    visibility: visible;
+    @media (min-width: $medium-screen) {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+.hide-large-upwards {
+    display: inline-block;
+    visibility: visible;
+    @media (min-width: $large-screen) {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+.full-page__row {
+    @include grid-row;
+    // a top-level (un-nested) grid row, used generically to add top-level grid row
+}
+
+.full-page__unit {
+    @include grid-column(12);
+}
+
+.nested-row,
+.page-content__row {
+  @include grid-row(nest);
+  // a nested grid row, used generically to add a nested grid row
+}
+
+// A two thirds / one thirds grid that can be reused
+.primary-content__unit {
+  @include grid-column(12);
+  @media (min-width: $medium-screen) {
+    @include grid-column(10);
+  }
+}
+
+.sidebar__unit {
+  @include grid-column(12);
+  @media (min-width: $medium-screen) {
+    @include grid-column(2);
+  }
+}
+
+.button {
+    background-color: $colour_primary;
+    font-weight: $weight_semibold;
+    border: 0;
+    @include border-radius(3px);
+    &:hover,
+    &:focus {
+        background-color: darken($colour_primary, 10%);
+    }
+}
+
+.secondary-button {
+    background-color: $colour_off_white;
+    border: 1px solid $colour_light_grey;
+    color: $colour_dark_grey;
+    &:hover,
+    &:focus {
+        background-color: darken($colour_off_white, 5%);
+        color: $colour_black;
+        border-color: darken($colour_light_grey, 10%);
+    }
+}
+
+.button--disabled,
+.button--disabled:hover {
+    background-color: lighten($colour_off_white, 3%);
+    border-color: lighten($colour_light_grey, 3%);
+    color: lighten($colour_dark_grey, 8%);
+    cursor: default;
+}
+
+.small-button {
+    font-size: 0.875em;
+    padding: 0.5em 1em 0.45em 1em;
+}
+.reduced-heading {
+    font-size: 1em;
+}
+
+.cleared {
+    clear: both;
+}
+
+/* TODO  - should probably fix this stuff but it's fine for the moment */
+.unstyled,
+.unstyled-list {
+    @include unstyled-list;
+}

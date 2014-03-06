@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+  <parser>
+    <target>www/docs/docs</target>
+  </parser>
+  <transformer>
+    <target>www/docs/docs</target>
+  </transformer>
+  <files>
+    <directory>.</directory>
+    <ignore>vendor/</ignore>
+    <ignore>commonlib/</ignore>
+  </files>
+</phpdoc>
