@@ -33,6 +33,9 @@ define ('POSTCODE_COOKIE', 		'eppc');
 And now all the files we'll include on every page.
 ********************************************************************************/
 
+// The Composer autoloader, which also handles our internal autoloading magic.
+require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
+
 include_once dirname(__FILE__) . '/../../../conf/general';
 include_once INCLUDESPATH . 'utility.php';
 twfy_debug_timestamp("after including utility.php");
@@ -71,8 +74,19 @@ Class ParlDB extends MySQL {
 include_once (INCLUDESPATH."url.php");
 include_once (INCLUDESPATH."lib_filter.php");
 include_once (INCLUDESPATH."easyparliament/user.php");
-include_once (INCLUDESPATH."easyparliament/page.php");
-include_once (INCLUDESPATH."easyparliament/newpage.php");
+
+if (isset($new_style_template) AND $new_style_template === TRUE) {
+
+    // This is a new-style page. Renderer will be autoloaded.
+
+} else {
+
+    // This is an old-style page. Use the old page classes.
+    include_once (INCLUDESPATH."easyparliament/page.php");
+    include_once (INCLUDESPATH."easyparliament/newpage.php");
+
+}
+
 include_once (INCLUDESPATH."easyparliament/hansardlist.php");
 include_once (INCLUDESPATH."easyparliament/commentlist.php");
 include_once (INCLUDESPATH."easyparliament/comment.php");

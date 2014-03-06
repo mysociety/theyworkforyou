@@ -71,9 +71,9 @@ $(function(){
 	$('body').addClass('js');
   // check if touch
   if ( !Modernizr.touch ) {
-      $('#dreamcomparisons li').hover(
-        function() { $(this).children('.votepolicylink').show(); },
-        function() { $(this).children('.votepolicylink').hide(); }
+      $('.policies li').hover(
+        function() { $(this).children('.dream_details').show(); },
+        function() { $(this).children('.dream_details').hide(); }
       );
   } else {
       $('body').addClass('touch');

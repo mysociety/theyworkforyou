@@ -77,6 +77,6 @@ and located at `/vendor/bin/phpunit` should run correctly.
 
 [![Build Status](https://travis-ci.org/mysociety/theyworkforyou.png?branch=master)](https://travis-ci.org/mysociety/theyworkforyou)
 
-[![Coverage Status](https://coveralls.io/repos/mysociety/theyworkforyou/badge.png)](https://coveralls.io/r/mysociety/theyworkforyou)
+[![Code Coverage](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/badges/coverage.png?s=c57f14b63bc4010f6daa58b51c8c5a16be883bc3)](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/)
 
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/badges/quality-score.png?s=438f0b4db5d9ce959aa80e4a87ac77af60d92da2)](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/)

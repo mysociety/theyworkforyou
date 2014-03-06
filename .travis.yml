@@ -12,19 +12,21 @@ notifications:
       - "irc.mysociety.org#activity"
     use_notice: true
     skip_join: true
-  
+
 env: TWFY_TEST_DB_HOST="127.0.0.1" TWFY_TEST_DB_USER="root" TWFY_TEST_DB_PASS="" TWFY_TEST_DB_NAME="twfy_test"
-  
+
 before_script:
  - mysql -e "create database IF NOT EXISTS twfy_test;" -uroot
  - mysql -u root twfy_test < db/schema.sql
  - wget http://getcomposer.org/composer.phar
  - php composer.phar install --dev --no-interaction --prefer-source
  - echo "short_open_tag = On" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+ - echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
  - mkdir -p build/logs
  - vendor/bin/phpunit
 
 after_script:
- - php vendor/bin/coveralls -v
+ - wget https://scrutinizer-ci.com/ocular.phar
+ - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml

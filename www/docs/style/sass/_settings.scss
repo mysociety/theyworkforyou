@@ -4,7 +4,7 @@
 
 // The default font-size is set to 100% of the browser style sheet (usually 16px)
 // for compatibility with browser-based text zoom or user-set defaults.
-$base-font-size: 100% !default;
+$base-font-size: 18px !default;
 
 // $base-line-height is 24px while $base-font-size is 16px
 // $base-line-height: 150%;
@@ -14,7 +14,7 @@ $base-font-size: 100% !default;
 // Since the typical default browser font-size is 16px, that makes the calculation for grid size.
 // If you want your base font-size to be a different size and not have it effect grid size too,
 // set the value of $em-base to $base-font-size ($em-base: $base-font-size;)
-$em-base: 16px !default;
+$em-base: 18px !default;
 
 // It strips the unit of measure and returns it
 @function strip-unit($num) {
@@ -61,28 +61,32 @@ $em-base: 16px !default;
 
 // Various global styles
 
+$body-font-family: "Source Sans Pro", "Helvetica Neue", Arial, "Helvetica", Helvetica, sans-serif;
+$header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+
 $default-float: left;
 
-$column-gutter: em-calc(24);
-$row-width: em-calc(1200);
-$block-grid-default-spacing: em-calc(24);
+$column-gutter: 3%;
+$row-width: em-calc(1140);
+$block-grid-default-spacing: 3%;
 
-$primary-color: #e9e9e9;
+$primary-color: #62b356;
 
 $body-bg: #f3f1eb;
 $body-font-color: #333333;
-$links: #dc6334;
+$links: #2688dc;
 $brand: #149581;
 $footer: #444;
 $topbar-bg-color: $brand;
 $panel-bg: #fff;
 $alert-color: $links;
+$icons: #e04b4b;
 
 $alert-font-color: #fff;
 $alert-font-color-alt: #fff;
 
-$light-text: #666666;
-$borders: #e9e9e9;
+$light-text: #6c6b68;
+$borders: #e4e2dc;
 
 $topbar-link-color: #fff;
 $topbar-link-color-active: #fff;
@@ -93,12 +97,9 @@ $topbar-height: 80px;
 $topbar-breakpoint: em-calc(1060);
 $mobile-breakpoint: em-calc(500);
 
-$header-font-family: Lato, sans-serif;
-$body-font-family: 'Open Sans', sans-serif;
-
-$h1-font-size: em-calc(30);
-$h2-font-size: em-calc(24);
-$h3-font-size: em-calc(18);
+$h1-font-size: em-calc(48);
+$h2-font-size: em-calc(32);
+$h3-font-size: em-calc(21);
 
 $label-font-weight: normal;
 
@@ -222,9 +223,9 @@ $label-font-weight: normal;
 
 // Control header font sizes
 
-$h1-font-size: em-calc(30);
-$h2-font-size: em-calc(24);
-$h3-font-size: em-calc(18);
+/*$h1-font-size: em-calc(30);*/
+/*$h2-font-size: em-calc(24);*/
+/*$h3-font-size: em-calc(18);*/
 // $h4-font-size: em-calc(23);
 // $h5-font-size: em-calc(18);
 // $h6-font-size: 1em;
