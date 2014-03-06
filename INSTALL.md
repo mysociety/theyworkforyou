@@ -11,12 +11,10 @@ assume you have a basic knowledge of Apache, PHP and MySQL.
 
 * Perl 5.8.1
 
-* PHP 5
+* PHP 5.3
 
     `short_open_tag` has to be enabled, and PHP must be configured with curl,
-    using the `--with-curl` option. There's actually only one call that's PHP5
-    specific, it otherwise runs fine in PHP4, but PHP4 has not had security
-    updates since 2008-08-08, so use PHP5 now.
+    using the `--with-curl` option.
 
 * Apache 1.3.28 or 2.2.23
 
@@ -32,6 +30,17 @@ assume you have a basic knowledge of Apache, PHP and MySQL.
     contact us so we can make it optional better. If you do have Xapian
     installed, you'll need to make sure PHP includes the Xapian extension by
     adding extension=xapian.so to your php.ini file.
+
+* [Composer](https://getcomposer.org/)
+
+    Composer is used to generate TheyWorkForYou's autoloader, as well as to
+    manage some development dependencies. If you are running the site, you can
+    generate the required files by running `composer install --no-dev`. If you
+    plan on using development tools such as PHPUnit or PHPDoc, you should run
+    `composer install` instead.
+
+    Composer will automatically manage as many of its own dependencies as
+    possible, but may prompt you if you need to manually install others.
 
 * Other libraries and modules.
 
