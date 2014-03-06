@@ -941,10 +941,14 @@ function person_pbc_membership($member) {
             $out['info'] = 'SNP MPs only attend sittings where the legislation pertains to Scotland.';
         }
         foreach ($extra_info['pbc'] as $bill_id => $arr) {
-            if ($arr['chairman']) print 'Chairman, ';
+            $text = '';
+            if ($arr['chairman']) {
+                $text .= 'Chairman, ';
+            }
+            $text .= $arr['title'] . ' Committee';
             $out[] = array(
                 'href'      => '/pbc/' . $arr['session'] . '/' . urlencode($arr['title']),
-                'text'      => $arr['title'] . ' Committee',
+                'text'      => $text,
                 'attending' => $arr['attending'] . ' out of ' . $arr['outof']
             );
         }
