@@ -56,35 +56,7 @@
 
     <?php if (!DEVSITE): ?>
 
-    <!-- Load GA experiments API for MP alert CTA test -->
-    <script src="//www.google-analytics.com/cx/api.js?experiment=qjU6dnQpTO6imB8iAdsISg"></script>
-
     <script type="text/javascript">
-
-        // Select GA experiment variation
-        var chosenVariation = cxApi.chooseVariation();
-
-        // Text variations to use
-        var pageVariations = [
-            function () {},  // Original
-            function () {    // Verbose
-                document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Receive an update</strong><small> whenever this person is active in Parliament</small>';
-            },
-            function () {    // Slash Separated
-                document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Get email alerts</strong><small> on this person&rsquo;s activity</small>';
-            },
-            function () {    // Variant 3
-                document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Get email updates</strong><small> whenever this person is active in Parliament</small>';
-            },
-            function () {    // Variant 4
-                document.getElementById('mp-alert-cta-text').innerHTML = '<strong>Receive an alert</strong><small> whenever this person is active in Parliament</small>';
-            }
-        ];
-
-        // When page is ready, switch the content
-        $(document).ready(
-            pageVariations[chosenVariation]
-        );
 
         (function (i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function () {
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
