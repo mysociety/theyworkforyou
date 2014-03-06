@@ -777,10 +777,22 @@ form {
 
 .scotland {
     background-image: none;
+    .person-header {
+        @media (min-width: $large-screen) {
+            height: auto;
+            padding-top: 32px;
+        }
+    }
 }
 
 .ni {
     background-image: none;
+    .person-header {
+        @media (min-width: $large-screen) {
+            height: auto;
+            padding-top: 32px;
+        }
+    }
 }
 
 .person-navigation {
