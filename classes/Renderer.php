@@ -282,7 +282,7 @@ class Renderer
             $menudata   = $DATA->page_metadata('userviewself', 'menu');
             $edittext   = $menudata['text'];
             $edittitle  = $menudata['title'];
-            $EDITURL    = new URL('userviewself');
+            $EDITURL    = new \URL('userviewself');
             if ($this_page == 'userviewself' || $this_page == 'useredit' || $top_highlight == 'userviewself') {
                 $editclass = 'on';
             } else {
@@ -294,7 +294,7 @@ class Renderer
             $logouttext = $menudata['text'];
             $logouttitle= $menudata['title'];
 
-            $LOGOUTURL  = new URL('userlogout');
+            $LOGOUTURL  = new \URL('userlogout');
             if ($this_page != 'userlogout') {
                 $LOGOUTURL->insert(array("ret"=>$returl));
                 $logoutclass = '';
