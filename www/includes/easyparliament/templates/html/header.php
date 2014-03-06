@@ -94,7 +94,7 @@
         ga('create', 'UA-660910-1');  // Replace with your property ID.
         ga('send', 'pageview');
 
-        public function trackFormSubmit(form, category, name, value) {
+        function trackFormSubmit(form, category, name, value) {
             try {
                 ga('send', 'event', category, name, value);
             } catch (err) {}
@@ -103,7 +103,7 @@
             }, 100);
         }
 
-        public function trackLinkClick(link, category, name, value) {
+        function trackLinkClick(link, category, name, value) {
             try {
                 ga('send', 'event', category, name, value);
             } catch (err) {}
