@@ -257,7 +257,7 @@ Independent followed by the party name, e.g. <a href="/mp/clare_short/birmingham
 <dd>
 <p>Yes. We have an <a href="/api">API (Application Programming Interface)</a> which
 gives you the power to do almost anything with our data.
-Alternatively, you can <a href="http://ukparse.kforge.net/parlparse">get XML files</a>,
+Alternatively, you can <a href="http://parser.theyworkforyou.com/">get XML files</a>,
 which can be loaded into many spreadsheets. If you just need a spreadsheet of
 MPs, you'll find one on the right hand side of <a href="/mps">this page</a>.
 Please <a href="mailto:<?=str_replace('@', '&#64;', CONTACTEMAIL) ?>">mail us</a> if you want help

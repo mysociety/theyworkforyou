@@ -120,10 +120,10 @@ MPs. This will be based on XML format data published by theyworkforyou.com.
     You need to preserve the directory structure which exists under pwdata, but
     you don't need to get *everything*. Most of the useful stuff is under
     scrapedxml. You'll also need the members directory in the parlparse folder,
-    which is available from http://ukparse.kforge.net/svn/parlparse/. I
-    recommend either using rsync or downloading the zip files containing all the
-    data if you want it - for more information, see
-    http://ukparse.kforge.net/parlparse/ under "Getting the Data".
+    which is available from http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse/.
+    (and via SVN checkout). I recommend either using rsync or downloading the
+    zip files containing all the data if you want it - for more information,
+    see http://parser.theyworkforyou.com/ under "Getting the Data".
 
 2. Now you have that data, you are ready to import it into your database. You do
 this using a script called `xml2db.pl` which is in the `scripts` subdir.

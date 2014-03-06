@@ -961,7 +961,7 @@ We're running a survey to help us understand who uses our sites. If you have 10-
                 $landing_links = $this->get_menu_links(array ('parliament_landing', 'hansard_landing'));
 
         /*
-                $about_links[] = '<a href="' . WEBPATH . 'api/">API</a> / <a href="http://ukparse.kforge.net/parlparse">XML</a>';
+                $about_links[] = '<a href="' . WEBPATH . 'api/">API</a> / <a href="http://parser.theyworkforyou.com/">XML</a>';
                 $about_links[] = '<a href="http://github.com/mysociety/theyworkforyou">Source code</a>';
 
                 $user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? strtolower( $_SERVER['HTTP_USER_AGENT'] ) : '';

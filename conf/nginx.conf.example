@@ -62,7 +62,7 @@ server {
     rewrite ^/B/(.*)$     /freeourbills/subscribe.php?t=$1;
 
     rewrite ^/termsofuse http://www.theyworkforyou.com/about permanent;
-    rewrite ^/raw http://ukparse.kforge.net/parlparse permanent;
+    rewrite ^/raw http://parser.theyworkforyou.com permanent;
 
     # API
     rewrite ^/api/((get|convert).*)$ /api/index.php?method=$1;
