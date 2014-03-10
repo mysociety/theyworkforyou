@@ -38,6 +38,7 @@ class Policies {
         array(1087, 'a <b>stricter asylum system</b>'),
         array(1110, 'increasing the <b>rate of VAT</b>'),
         array(1113, 'an <b>equal number of electors</b> per parliamentary constituency'),
+        array(1120, 'capping <b>civil service redundancy payments</b>'),
         array(1124, 'automatic enrolment in <b>occupational pensions</b>'),
         array(1136, '<b>fewer MPs</b> in the House of Commons'),
         array(6670, 'a reduction in spending on <b>welfare benefits</b>'),
