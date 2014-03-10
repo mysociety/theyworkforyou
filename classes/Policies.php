@@ -52,6 +52,7 @@ class Policies {
         array(6680, 'raising the threshold at which people start to pay <b>income tax</b>'),
         array(6681, 'increasing the tax rate applied to <b>income over £150,000</b>'),
         array(6688, 'use of <b>UK military forces</b> in combat operations overseas'),
+        array(6690, 'measures to reduce <b>tax avoidance</b>'),
     );
 
     /**
