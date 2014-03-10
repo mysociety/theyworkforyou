@@ -45,6 +45,12 @@
 <div class="full-page">
     <div class="full-page__row">
         <div class="full-page__unit">
+            <div class="person-navigation page-content__row">
+                <ul>
+                    <li class="active"><a href="<?= $member_url ?>">Overview</a></li>
+                    <li><a href="<?= $member_url ?>/votes">Voting Record</a></li>
+                </ul>
+            </div>
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
                     <ul data-magellan-expedition="fixed">
@@ -91,11 +97,7 @@
 
                             </ul>
 
-                            <?php if (isset($key_votes['more_link'])): ?>
-
-                            <p><?= $key_votes['more_link'] ?></p>
-
-                            <?php endif; ?>
+                            <p><a href="<?= $member_url ?>/votes">View how <?= $full_name ?>&rsquo; voted on all key issues</a></p>
 
                         <?php else: ?>
 

@@ -399,11 +399,11 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['the_users_mp'] = $MEMBER->the_users_mp();
     $data['user_postcode'] = $THEUSER->postcode;
     $data['houses'] = $MEMBER->houses();
+    $data['member_url'] = $MEMBER->url();
 
     $data['image'] = person_image($MEMBER);
     $data['member_summary'] = person_summary_description($MEMBER);
     $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
-    $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info);
     $data['recent_appearances'] = person_recent_appearances($MEMBER);
     $data['useful_links'] = person_useful_links($MEMBER);
     $data['topics_of_interest'] = person_topics($MEMBER);
@@ -453,8 +453,33 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 
     */
 
-    // Send the output for rendering
-    MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
+    // Do any necessary extra work based on the page type, and send for rendering.
+    switch ($pagetype) {
+
+        case 'votes':
+
+            // Generate full voting record list
+            $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info);
+
+            // Send the output for rendering
+            MySociety\TheyWorkForYou\Renderer::output('mp/votes', $data);
+
+            break;
+
+        case 'profile':
+        default:
+
+            // Generate limited voting record list
+            $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info, 6);
+
+            // Send the output for rendering
+            MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
+
+            break;
+
+    }
+
+
 
 /////////////////////////////////////////////////////////
 // Catch and display when something has gone horribly wrong.
@@ -713,22 +738,26 @@ function person_voting_record ($member, $extra_info, $limit = NULL) {
         if ($i < $policy_limit) {
             if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
                 continue;
+
             $dream = display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
 
-            // If there's a joined policy, run the code for that, but don't increment the counter.
+            // Make sure the dream actually exists
+            if ($dream !== '') {
+                $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $dream );
+                $i++;
+            }
+
+            // If there's a joined policy, run the code for that
             if (isset($joined[$policy[0]])) {
                 $policy = $joined[$policy[0]];
                 $joined_dream = display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
                 if ($joined_dream !== '') {
                     $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $joined_dream );
+                    $i++;
                 }
 
             }
-            if ($dream !== '') {
-                // Only increment the counter if the dream has text, ie member has made a relevant vote
-                $i++;
-                $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $dream );
-            }
+
         } else {
             // We're over the policy limit, no sense still going, break out of the foreach.
             break ;
@@ -762,7 +791,7 @@ function person_voting_record ($member, $extra_info, $limit = NULL) {
     }
     if ((isset($extra_info['public_whip_division_attendance']) && $extra_info['public_whip_division_attendance'] != 'n/a')
       || (isset($extra_info['Lpublic_whip_division_attendance']) && $extra_info['Lpublic_whip_division_attendance'] != 'n/a')) {
-        $record[] = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="At Public Whip">their full record</a>';
+        $record[] = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="At Public Whip">their full voting record on Public Whip</a>';
     }
 
     if (count($record) > 0) {
