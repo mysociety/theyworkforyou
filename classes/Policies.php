@@ -52,6 +52,7 @@ class Policies {
         array(6679, 'reducing the rate of <b>corporation tax</b>'),
         array(6680, 'raising the threshold at which people start to pay <b>income tax</b>'),
         array(6681, 'increasing the tax rate applied to <b>income over £150,000</b>'),
+        array(6682, 'ending <b>financial support</b> for some 16-19 year olds in training and further education'),
         array(6683, 'local councils keeping money raised from <b>taxes on business premises</b> in their areas'),
         array(6684, 'making local councils responsible for helping those in <b>financial need</b> afford their <b>council tax</b> and reducing the amount spent on such support'),
         array(6686, 'allowing <b>marriage</b> between two people of same sex'),
