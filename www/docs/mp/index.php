@@ -645,7 +645,7 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
  * @param array  $extra_info Extra info for the member.
  */
 
-function person_voting_record ($member, $extra_info) {
+function person_voting_record ($member, $extra_info, $limit = NULL) {
 
     $out = array();
 
@@ -653,7 +653,7 @@ function person_voting_record ($member, $extra_info) {
 
     $policies_object = new MySociety\TheyWorkForYou\Policies;
 
-    $policies = $policies_object->shuffle()->policies;
+    $policies = $policies_object->shuffle()->limit(6)->policies;
     $joined = $policies_object->joined;
 
     $member_houses = $member->houses();
@@ -662,17 +662,44 @@ function person_voting_record ($member, $extra_info) {
 
     $member_has_died = is_member_dead($member);
 
+    // Determine the policy limit.
+    if ($limit !== NULL AND is_int($limit))
+    {
+        $policy_limit = $limit;
+    } else {
+        $policy_limit = count($policies);
+    }
+
+    // Set the current policy count to 0
+    $i = 0;
+
     $key_votes = array();
+
+    // Loop around all the policies.
     foreach ($policies as $policy) {
-        if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
-            continue;
-        $dream = display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
-        if (isset($joined[$policy[0]])) {
-            $policy = $joined[$policy[0]];
+        // Are we still within the policy limit?
+        if ($i < $policy_limit) {
+            if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
+                continue;
             $dream = display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
-        }
-        if ($dream !== '') {
-            $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $dream );
+
+            // If there's a joined policy, run the code for that, but don't increment the counter.
+            if (isset($joined[$policy[0]])) {
+                $policy = $joined[$policy[0]];
+                $joined_dream = display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
+                if ($joined_dream !== '') {
+                    $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $joined_dream );
+                }
+
+            }
+            if ($dream !== '') {
+                // Only increment the counter if the dream has text, ie member has made a relevant vote
+                $i++;
+                $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $dream );
+            }
+        } else {
+            // We're over the policy limit, no sense still going, break out of the foreach.
+            break ;
         }
     }
 
