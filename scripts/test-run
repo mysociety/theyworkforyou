@@ -9,6 +9,7 @@
 #   database, so make sure it is never used for anything important
 # * email addresses (email_n below) configured to pipe to ./test-mailin with fast
 #   local delivery.
+# * writable files called MAIL_LOG_PREFIX-{deleted,ignored,unparsed}
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: louise@mysociety.org; WWW: http://www.mysociety.org/
 
@@ -123,12 +124,12 @@ sub signup_for_alert($$){
     my ($email, $test_alert) = @_;
     
     $wth->browser_get($base_url . "/alert/");
-    $wth->browser_check_contents("Request a TheyWorkForYou.com Email Alert");
+    $wth->browser_check_contents("Request a TheyWorkForYou email alert");
   
     $wth->browser_submit_form(form_number => 2,
                               fields => { keyword => $test_alert,
                                           email => $email},);
-    $wth->browser_check_contents("We're nearly done...");
+    $wth->browser_check_contents("You should receive an email shortly");
 
     # Shouldn't consider sending an email alert yet
     my $alerts_output = `$alert_command`;
@@ -616,7 +617,7 @@ sub do_alert_signup_test(){
 sub do_frontpage_test(){
 
     $wth->browser_get($base_url);
-    $wth->browser_check_contents("Recently in the UK Parliament");
+    $wth->browser_check_contents("see how they voted");
 
 } 
 #----------------------------------
