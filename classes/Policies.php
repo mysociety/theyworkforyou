@@ -55,6 +55,7 @@ class Policies {
         array(6687, '<a href="http://en.wikipedia.org/wiki/Academy_(English_school)">academy schools</a>'),
         array(6688, 'use of <b>UK military forces</b> in combat operations overseas'),
         array(6690, 'measures to reduce <b>tax avoidance</b>'),
+        array(6694, 'higher taxes on <b>alcoholic drinks</b>'),
         array(6696, 'the introduction of elected <b>Police and Crime Commissioners</b>'),
         array(6697, 'selling England&rsquo;s state owned <b>forests</b>'),
     );
