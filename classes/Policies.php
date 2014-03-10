@@ -52,6 +52,7 @@ class Policies {
         array(6679, 'reducing the rate of <b>corporation tax</b>'),
         array(6680, 'raising the threshold at which people start to pay <b>income tax</b>'),
         array(6681, 'increasing the tax rate applied to <b>income over £150,000</b>'),
+        array(6684, 'making local councils responsible for helping those in <b>financial need</b> afford their <b>council tax</b> and reducing the amount spent on such support'),
         array(6686, 'allowing <b>marriage</b> between two people of same sex'),
         array(6687, '<a href="http://en.wikipedia.org/wiki/Academy_(English_school)">academy schools</a>'),
         array(6688, 'use of <b>UK military forces</b> in combat operations overseas'),
