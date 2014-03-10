@@ -19,7 +19,7 @@ class Policies {
 
     public $policies = array(
         array(363, 'introducing <b>foundation hospitals</b>'),
-        array(811, 'a <b>smoking ban</b>', true),
+        array(811, '<b>smoking bans</b>', true),
         array(826, 'equal <b>gay rights</b>'),
         array(984, 'replacing <b>Trident</b> with a new nuclear weapons system'),
         array(996, 'a <b>transparent Parliament</b>'),
