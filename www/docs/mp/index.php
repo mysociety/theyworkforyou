@@ -458,8 +458,59 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 
         case 'votes':
 
-            // Generate full voting record list
-            $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info);
+            // Generate voting segments
+            $data['key_votes_segments'] = array(
+                array(
+                    'key'   => 'social',
+                    'title' => 'Social Issues',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'social')
+                ),
+                array(
+                    'key'   => 'foreign',
+                    'title' => 'Foreign Policy and Defence',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'foreignpolicy')
+                ),
+                array(
+                    'key'   => 'welfare',
+                    'title' => 'Welfare and Benefits',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'welfare')
+                ),
+                array(
+                    'key'   => 'taxation',
+                    'title' => 'Taxation and Employment',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'taxation')
+                ),
+                array(
+                    'key'   => 'business',
+                    'title' => 'Business and the Economy',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'business')
+                ),
+                array(
+                    'key'   => 'health',
+                    'title' => 'Health',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'health')
+                ),
+                array(
+                    'key'   => 'education',
+                    'title' => 'Education',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'education')
+                ),
+                array(
+                    'key'   => 'reform',
+                    'title' => 'Governmental Reform',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'reform')
+                ),
+                array(
+                    'key'   => 'home',
+                    'title' => 'Home Affairs',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'home')
+                ),
+                array(
+                    'key'   => 'misc',
+                    'title' => 'Miscellaneous Topics',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'misc')
+                )
+            );
 
             // Send the output for rendering
             MySociety\TheyWorkForYou\Renderer::output('mp/votes', $data);
@@ -470,7 +521,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         default:
 
             // Generate limited voting record list
-            $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info, 6);
+            $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info, 6, 'summary', TRUE);
 
             // Send the output for rendering
             MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
@@ -700,18 +751,28 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
  *
  * @param MEMBER $member     The member to generate a record for.
  * @param array  $extra_info Extra info for the member.
+ * @param int    $limit      The number of results to limit the output to.
+ * @param string $policyset  The name of the policy set to use.
+ * @param bool   $shuffle    Should the set be randomly shuffled?
  */
 
-function person_voting_record ($member, $extra_info, $limit = NULL) {
+function person_voting_record ($member, $extra_info, $limit = NULL, $policyset = NULL, $shuffle = FALSE) {
 
     $out = array();
 
     $displayed_stuff = 0;
 
-    $policies_object = new MySociety\TheyWorkForYou\Policies;
+    $policies = new MySociety\TheyWorkForYou\Policies;
 
-    $policies = $policies_object->shuffle()->limit(6)->policies;
-    $joined = $policies_object->joined;
+    if ($policyset !== NULL) {
+        $policies = $policies->limitToSet($policyset);
+    }
+
+    if ($shuffle) {
+        $policices = $policies->shuffle();
+    }
+
+    $policies = $policies->getArray();
 
     $member_houses = $member->houses();
     $entered_house = $member->entered_house();
@@ -745,17 +806,6 @@ function person_voting_record ($member, $extra_info, $limit = NULL) {
             if ($dream !== '') {
                 $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $dream );
                 $i++;
-            }
-
-            // If there's a joined policy, run the code for that
-            if (isset($joined[$policy[0]])) {
-                $policy = $joined[$policy[0]];
-                $joined_dream = display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
-                if ($joined_dream !== '') {
-                    $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $joined_dream );
-                    $i++;
-                }
-
             }
 
         } else {
