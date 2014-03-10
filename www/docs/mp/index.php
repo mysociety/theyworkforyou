@@ -39,6 +39,13 @@ include_once INCLUDESPATH . 'technorati.php';
 include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
 
+// Ensure that page type is set
+if (get_http_var('pagetype')) {
+    $pagetype = get_http_var('pagetype');
+} else {
+    $pagetype = 'profile';
+}
+
 // Set the PID, name and constituency.
 $pid = get_http_var('pid') != '' ? get_http_var('pid') : get_http_var('p');
 $name = strtolower(str_replace('_', ' ', get_http_var('n')));
@@ -127,9 +134,29 @@ if (is_numeric($pid))
     if ($MEMBER->member_id)
     {
         // Ensure that we're actually at the current, correct and canonical URL for the person. If not, redirect.
-        if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)))
-        {
-            member_redirect($MEMBER);
+        // No need to worry about other URL syntax forms for vote pages, they shouldn't happen.
+        switch ($pagetype) {
+
+            case 'votes':
+
+                if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)) . '/votes')
+                {
+                    exit ('redirecting!');
+                    member_redirect($MEMBER, 301, 'votes');
+                }
+
+                break;
+
+            case 'profile':
+            default:
+
+                if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)))
+                {
+                    member_redirect($MEMBER);
+                }
+
+                break;
+
         }
     }
     else
@@ -457,7 +484,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
  * Redirect to the canonical page for a member.
  */
 
-function member_redirect (&$MEMBER, $code = 301) {
+function member_redirect (&$MEMBER, $code = 301, $pagetype = NULL) {
     // We come here after creating a MEMBER object by various methods.
     // Now we redirect to the canonical MP page, with a person_id.
     if ($MEMBER->person_id()) {
@@ -469,7 +496,12 @@ function member_redirect (&$MEMBER, $code = 301) {
         }
         if (count($params))
             $url .= '?' . join('&', $params);
-        header('Location: ' . $url, true, $code );
+        if ($pagetype !== NULL) {
+            $pagetype = '/' . $pagetype;
+        } else {
+            $pagetype = '';
+        }
+        header('Location: ' . $url . $pagetype, true, $code );
         exit;
     }
 }
