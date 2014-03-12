@@ -79,11 +79,10 @@
                     <?php if ($has_voting_record): ?>
                     <div class="panel">
                         <a name="votes"></a>
-                        <h2 data-magellan-destination="votes">Voting Summary</h2>
+                        <h2 data-magellan-destination="votes">Voting Summary <small><a href="<?= $member_url ?>/votes">More Here</a></small></h2>
 
-                        <p><?= $rebellion_rate ?></p>
-
-                        <h3>How <?= $full_name ?> voted on a selection of key issues<?= isset($key_votes['since_string']) ? $key_votes['since_string'] : '' ?></h3>
+                        <h3>How <?= $full_name ?> voted<?= isset($key_votes['since_string']) ? $key_votes['since_string'] : '' ?><br>
+                        <small>Randomly generated selection of topics. <a href="<?= $member_url ?>/votes">See full list</a>.</small></h3>
 
                         <?php if (count($key_votes['key_votes']) > 0): ?>
 
@@ -97,13 +96,15 @@
 
                             </ul>
 
-                            <p><a href="<?= $member_url ?>/votes">View how <?= $full_name ?>&rsquo; voted on all key issues</a></p>
+                            <p>See our much more detailed, easier-to-read <a href="<?= $member_url ?>/votes">analysis of votes</a> on <a href="<?= $member_url ?>/votes#health">health</a>, <a href="<?= $member_url ?>/votes#welfare">welfare</a>, <a href="<?= $member_url ?>/votes#foreign">foreign policy</a>, <a href="<?= $member_url ?>/votes#social">social issues</a>, <a href="<?= $member_url ?>/votes#taxation">taxation</a> and more.</p>
 
                         <?php else: ?>
 
                             <p>No votes to display.</p>
 
                         <?php endif; ?>
+
+                        <p><?= $full_name ?> <?= $rebellion_rate ?></p>
 
                     </div>
                     <?php endif; ?>

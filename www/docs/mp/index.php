@@ -699,12 +699,9 @@ function person_rebellion_rate ($member) {
 
     if (isset($member->extra_info['public_whip_rebellions']) && $member->extra_info['public_whip_rebellions'] != 'n/a') {
         $displayed_stuff = 1;
-        $rebels_term = 'rebels';
-        if (is_member_dead($member)) {
-            $rebels_term = 'rebelled';
-        }
+        $rebels_term = 'rebelled';
 
-        $rebellion_string = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . htmlentities(ucfirst($member->extra_info['public_whip_rebel_description'])) . ' ' . $rebels_term . '</strong></a> against their party';
+        $rebellion_string = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
 
         if (isset($member->extra_info['public_whip_rebelrank'])) {
             if ($member->extra_info['public_whip_data_date'] == 'complete') {

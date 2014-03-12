@@ -54,7 +54,13 @@
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
                     <ul data-magellan-expedition="fixed">
-                        <li data-magellan-arrival="key"><a href="#key">Key Issues</a></li>
+                        <?php if ($has_voting_record): ?>
+                        <?php foreach ($key_votes_segments as $segment): ?>
+                        <?php if (count($segment['votes']['key_votes']) > 0): ?>
+                        <li data-magellan-arrival="<?= $segment['key'] ?>"><a href="#<?= $segment['key'] ?>"><?= $segment['title'] ?></a></li>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </ul>
                     <div>&nbsp;</div>
                 </div>
@@ -66,22 +72,24 @@
                     </div>
                     <?php endif; ?>
 
-                    <div class="panel">
+                    <?php if ($has_voting_record): ?>
 
-                        <a name="key"></a>
-                        <h2 data-magellan-destination="key">Key Issues</h2>
+                        <?php $displayed_votes = FALSE; ?>
 
-                        <?php if ($has_voting_record): ?>
+                        <?php foreach ($key_votes_segments as $segment): ?>
 
-                            <p><?= $rebellion_rate ?></p>
+                            <?php if (count($segment['votes']['key_votes']) > 0): ?>
 
-                            <h3>How <?= $full_name ?> voted on key issues<?= isset($key_votes['since_string']) ? $key_votes['since_string'] : '' ?></h3>
+                                <div class="panel">
 
-                            <?php if (count($key_votes['key_votes']) > 0): ?>
+                                <h2 id="<?= $segment['key'] ?>" data-magellan-destination="<?= $segment['key'] ?>">
+                                    How <?= $full_name ?> voted on <?= $segment['title'] ?>
+                                    <small><a href="<?= $member_url ?>/votes#<?= $segment['key'] ?>">#</a></small>
+                                </h2>
 
                                 <ul class="policies">
 
-                                <?php foreach ($key_votes['key_votes'] as $key_vote): ?>
+                                <?php foreach ($segment['votes']['key_votes'] as $key_vote): ?>
 
                                 <li><?= $key_vote['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>">Details</a></li>
 
@@ -89,25 +97,33 @@
 
                                 </ul>
 
-                                <?php if (isset($key_votes['more_link'])): ?>
+                                </div>
 
-                                <p><?= $key_votes['more_link'] ?></p>
+                                <?php $displayed_votes = TRUE; ?>
 
-                                <?php endif; ?>
+                            <?php endif; ?>
 
-                            <?php else: ?>
+                        <?php endforeach; ?>
 
-                                <p>No votes to display.</p>
+                        <?php if ($displayed_votes): ?>
+
+                            <?php if (isset($segment['votes']['more_link'])): ?>
+
+                                <div class="panel">
+                                    <p><?= $segment['votes']['more_link'] ?></p>
+                                </div>
 
                             <?php endif; ?>
 
                         <?php else: ?>
 
-                        <p>This person does not have a voting record.</p>
+                            <div class="panel">
+                                <p>This person has not voted on any of the key issues which we keep track of.</p>
+                            </div>
 
                         <?php endif; ?>
 
-                    </div>
+                    <?php endif; ?>
 
                 </div>
             </div>
