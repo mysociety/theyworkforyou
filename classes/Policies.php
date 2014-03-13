@@ -70,6 +70,7 @@ class Policies {
         6688 => 'use of <b>UK military forces</b> in combat operations overseas',
         6690 => 'measures to reduce <b>tax avoidance</b>',
         6691 => 'stronger tax <b>incentives for companies to invest</b> in assets',
+        6693 => 'lower taxes on <b>fuel for motor vehicles</b>',
         6694 => 'higher taxes on <b>alcoholic drinks</b>',
         6696 => 'the introduction of elected <b>Police and Crime Commissioners</b>',
         6697 => 'selling England&rsquo;s state owned <b>forests</b>',
@@ -126,6 +127,7 @@ class Policies {
             6680,
             1110,
             6694,
+            6693,
             6681,
             1109
         ),
