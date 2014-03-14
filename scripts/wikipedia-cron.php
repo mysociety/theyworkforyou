@@ -5,7 +5,7 @@
 # from Parliament, political party IP addresses etc.
 # (the stuff for Wikipedia title links is elsewhere)
 
-require_once '../conf/general';
+require_once dirname(__FILE__) . '/../conf/general';
 
 $dir = BASEDIR . '/wikipedia/cache/';
 
