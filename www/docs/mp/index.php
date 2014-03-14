@@ -39,6 +39,13 @@ include_once INCLUDESPATH . 'technorati.php';
 include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
 
+// Ensure that page type is set
+if (get_http_var('pagetype')) {
+    $pagetype = get_http_var('pagetype');
+} else {
+    $pagetype = 'profile';
+}
+
 // Set the PID, name and constituency.
 $pid = get_http_var('pid') != '' ? get_http_var('pid') : get_http_var('p');
 $name = strtolower(str_replace('_', ' ', get_http_var('n')));
@@ -127,9 +134,29 @@ if (is_numeric($pid))
     if ($MEMBER->member_id)
     {
         // Ensure that we're actually at the current, correct and canonical URL for the person. If not, redirect.
-        if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)))
-        {
-            member_redirect($MEMBER);
+        // No need to worry about other URL syntax forms for vote pages, they shouldn't happen.
+        switch ($pagetype) {
+
+            case 'votes':
+
+                if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)) . '/votes')
+                {
+                    exit ('redirecting!');
+                    member_redirect($MEMBER, 301, 'votes');
+                }
+
+                break;
+
+            case 'profile':
+            default:
+
+                if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)))
+                {
+                    member_redirect($MEMBER);
+                }
+
+                break;
+
         }
     }
     else
@@ -372,11 +399,11 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
     $data['the_users_mp'] = $MEMBER->the_users_mp();
     $data['user_postcode'] = $THEUSER->postcode;
     $data['houses'] = $MEMBER->houses();
+    $data['member_url'] = $MEMBER->url();
 
     $data['image'] = person_image($MEMBER);
     $data['member_summary'] = person_summary_description($MEMBER);
     $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
-    $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info);
     $data['recent_appearances'] = person_recent_appearances($MEMBER);
     $data['useful_links'] = person_useful_links($MEMBER);
     $data['topics_of_interest'] = person_topics($MEMBER);
@@ -426,8 +453,84 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 
     */
 
-    // Send the output for rendering
-    MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
+    // Do any necessary extra work based on the page type, and send for rendering.
+    switch ($pagetype) {
+
+        case 'votes':
+
+            // Generate voting segments
+            $data['key_votes_segments'] = array(
+                array(
+                    'key'   => 'social',
+                    'title' => 'Social Issues',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'social')
+                ),
+                array(
+                    'key'   => 'foreign',
+                    'title' => 'Foreign Policy and Defence',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'foreignpolicy')
+                ),
+                array(
+                    'key'   => 'welfare',
+                    'title' => 'Welfare and Benefits',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'welfare')
+                ),
+                array(
+                    'key'   => 'taxation',
+                    'title' => 'Taxation and Employment',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'taxation')
+                ),
+                array(
+                    'key'   => 'business',
+                    'title' => 'Business and the Economy',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'business')
+                ),
+                array(
+                    'key'   => 'health',
+                    'title' => 'Health',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'health')
+                ),
+                array(
+                    'key'   => 'education',
+                    'title' => 'Education',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'education')
+                ),
+                array(
+                    'key'   => 'reform',
+                    'title' => 'Governmental Reform',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'reform')
+                ),
+                array(
+                    'key'   => 'home',
+                    'title' => 'Home Affairs',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'home')
+                ),
+                array(
+                    'key'   => 'misc',
+                    'title' => 'Miscellaneous Topics',
+                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'misc')
+                )
+            );
+
+            // Send the output for rendering
+            MySociety\TheyWorkForYou\Renderer::output('mp/votes', $data);
+
+            break;
+
+        case 'profile':
+        default:
+
+            // Generate limited voting record list
+            $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info, 6, 'summary', TRUE);
+
+            // Send the output for rendering
+            MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
+
+            break;
+
+    }
+
+
 
 /////////////////////////////////////////////////////////
 // Catch and display when something has gone horribly wrong.
@@ -457,7 +560,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
  * Redirect to the canonical page for a member.
  */
 
-function member_redirect (&$MEMBER, $code = 301) {
+function member_redirect (&$MEMBER, $code = 301, $pagetype = NULL) {
     // We come here after creating a MEMBER object by various methods.
     // Now we redirect to the canonical MP page, with a person_id.
     if ($MEMBER->person_id()) {
@@ -469,7 +572,12 @@ function member_redirect (&$MEMBER, $code = 301) {
         }
         if (count($params))
             $url .= '?' . join('&', $params);
-        header('Location: ' . $url, true, $code );
+        if ($pagetype !== NULL) {
+            $pagetype = '/' . $pagetype;
+        } else {
+            $pagetype = '';
+        }
+        header('Location: ' . $url . $pagetype, true, $code );
         exit;
     }
 }
@@ -591,12 +699,9 @@ function person_rebellion_rate ($member) {
 
     if (isset($member->extra_info['public_whip_rebellions']) && $member->extra_info['public_whip_rebellions'] != 'n/a') {
         $displayed_stuff = 1;
-        $rebels_term = 'rebels';
-        if (is_member_dead($member)) {
-            $rebels_term = 'rebelled';
-        }
+        $rebels_term = 'rebelled';
 
-        $rebellion_string = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . htmlentities(ucfirst($member->extra_info['public_whip_rebel_description'])) . ' ' . $rebels_term . '</strong></a> against their party';
+        $rebellion_string = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
 
         if (isset($member->extra_info['public_whip_rebelrank'])) {
             if ($member->extra_info['public_whip_data_date'] == 'complete') {
@@ -643,18 +748,28 @@ function display_dream_comparison($extra_info, $member, $dreamid, $desc, $invers
  *
  * @param MEMBER $member     The member to generate a record for.
  * @param array  $extra_info Extra info for the member.
+ * @param int    $limit      The number of results to limit the output to.
+ * @param string $policyset  The name of the policy set to use.
+ * @param bool   $shuffle    Should the set be randomly shuffled?
  */
 
-function person_voting_record ($member, $extra_info) {
+function person_voting_record ($member, $extra_info, $limit = NULL, $policyset = NULL, $shuffle = FALSE) {
 
     $out = array();
 
     $displayed_stuff = 0;
 
-    $policies_object = new MySociety\TheyWorkForYou\Policies;
+    $policies = new MySociety\TheyWorkForYou\Policies;
 
-    $policies = $policies_object->shuffle()->policies;
-    $joined = $policies_object->joined;
+    if ($policyset !== NULL) {
+        $policies = $policies->limitToSet($policyset);
+    }
+
+    if ($shuffle) {
+        $policices = $policies->shuffle();
+    }
+
+    $policies = $policies->getArray();
 
     $member_houses = $member->houses();
     $entered_house = $member->entered_house();
@@ -662,17 +777,37 @@ function person_voting_record ($member, $extra_info) {
 
     $member_has_died = is_member_dead($member);
 
+    // Determine the policy limit.
+    if ($limit !== NULL AND is_int($limit))
+    {
+        $policy_limit = $limit;
+    } else {
+        $policy_limit = count($policies);
+    }
+
+    // Set the current policy count to 0
+    $i = 0;
+
     $key_votes = array();
+
+    // Loop around all the policies.
     foreach ($policies as $policy) {
-        if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
-            continue;
-        $dream = display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
-        if (isset($joined[$policy[0]])) {
-            $policy = $joined[$policy[0]];
+        // Are we still within the policy limit?
+        if ($i < $policy_limit) {
+            if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
+                continue;
+
             $dream = display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
-        }
-        if ($dream !== '') {
-            $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $dream );
+
+            // Make sure the dream actually exists
+            if ($dream !== '') {
+                $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $dream );
+                $i++;
+            }
+
+        } else {
+            // We're over the policy limit, no sense still going, break out of the foreach.
+            break ;
         }
     }
 
@@ -703,7 +838,7 @@ function person_voting_record ($member, $extra_info) {
     }
     if ((isset($extra_info['public_whip_division_attendance']) && $extra_info['public_whip_division_attendance'] != 'n/a')
       || (isset($extra_info['Lpublic_whip_division_attendance']) && $extra_info['Lpublic_whip_division_attendance'] != 'n/a')) {
-        $record[] = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="At Public Whip">their full record</a>';
+        $record[] = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="At Public Whip">their full voting record on Public Whip</a>';
     }
 
     if (count($record) > 0) {
