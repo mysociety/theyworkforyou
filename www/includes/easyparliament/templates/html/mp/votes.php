@@ -84,7 +84,7 @@
 
                                 <h2 id="<?= $segment['key'] ?>" data-magellan-destination="<?= $segment['key'] ?>">
                                     How <?= $full_name ?> voted on <?= $segment['title'] ?>
-                                    <small><a href="<?= $member_url ?>/votes#<?= $segment['key'] ?>">#</a></small>
+                                    <small><a class="nav-anchor" href="<?= $member_url ?>/votes#<?= $segment['key'] ?>">#</a></small>
                                 </h2>
 
                                 <ul class="policies">

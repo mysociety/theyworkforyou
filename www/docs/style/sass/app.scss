@@ -876,9 +876,13 @@ form {
         h2 {
             font-size: em-calc(30);
             font-width: 600;
+            a.nav-anchor {
+                text-decoration: none;
+            }
         }
         a {
             text-decoration: underline;
+
         }
         dt {
             font-weight: normal;
