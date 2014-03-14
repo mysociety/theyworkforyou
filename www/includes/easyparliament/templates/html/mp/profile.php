@@ -45,6 +45,12 @@
 <div class="full-page">
     <div class="full-page__row">
         <div class="full-page__unit">
+            <div class="person-navigation page-content__row">
+                <ul>
+                    <li class="active"><a href="<?= $member_url ?>">Overview</a></li>
+                    <li><a href="<?= $member_url ?>/votes">Voting Record</a></li>
+                </ul>
+            </div>
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
                     <ul data-magellan-expedition="fixed">
@@ -73,11 +79,10 @@
                     <?php if ($has_voting_record): ?>
                     <div class="panel">
                         <a name="votes"></a>
-                        <h2 data-magellan-destination="votes">Voting Summary</h2>
+                        <h2 data-magellan-destination="votes">Voting Summary <small><a href="<?= $member_url ?>/votes">More Here</a></small></h2>
 
-                        <p><?= $rebellion_rate ?></p>
-
-                        <h3>How <?= $full_name ?> voted on key issues<?= isset($key_votes['since_string']) ? $key_votes['since_string'] : '' ?></h3>
+                        <h3>How <?= $full_name ?> voted<?= isset($key_votes['since_string']) ? $key_votes['since_string'] : '' ?><br>
+                        <small>Randomly generated selection of topics. <a href="<?= $member_url ?>/votes">See full list</a>.</small></h3>
 
                         <?php if (count($key_votes['key_votes']) > 0): ?>
 
@@ -91,17 +96,15 @@
 
                             </ul>
 
-                            <?php if (isset($key_votes['more_link'])): ?>
-
-                            <p><?= $key_votes['more_link'] ?></p>
-
-                            <?php endif; ?>
+                            <p>See our much more detailed, easier-to-read <a href="<?= $member_url ?>/votes">analysis of votes</a> on <a href="<?= $member_url ?>/votes#health">health</a>, <a href="<?= $member_url ?>/votes#welfare">welfare</a>, <a href="<?= $member_url ?>/votes#foreign">foreign policy</a>, <a href="<?= $member_url ?>/votes#social">social issues</a>, <a href="<?= $member_url ?>/votes#taxation">taxation</a> and more.</p>
 
                         <?php else: ?>
 
                             <p>No votes to display.</p>
 
                         <?php endif; ?>
+
+                        <p><?= $full_name ?> <?= $rebellion_rate ?></p>
 
                     </div>
                     <?php endif; ?>
