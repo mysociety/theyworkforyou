@@ -45,12 +45,14 @@
 <div class="full-page">
     <div class="full-page__row">
         <div class="full-page__unit">
+            <?php if ($has_voting_record): ?>
             <div class="person-navigation page-content__row">
                 <ul>
                     <li class="active"><a href="<?= $member_url ?>">Overview</a></li>
                     <li><a href="<?= $member_url ?>/votes">Voting Record</a></li>
                 </ul>
             </div>
+            <?php endif; ?>
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
                     <ul data-magellan-expedition="fixed">
