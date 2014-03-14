@@ -5,10 +5,9 @@
 <li>To search for a person, just enter their name &ndash; we will search our database of people, as well as searching
 speeches made by that person, or that mention that person.</li>
 
-<li><strike>To search for an exact phrase, use quotes (""). For example to find only documents contain the exact phrase "Hutton Report":<br>
-<span class="example-input">"hutton report"</span></strike>
-Put a word in quotes if you don't want to perform stemming (where e.g. searching for &lsquo;horse&rsquo; will also return results with &lsquo;horses&rsquo;).
-Sadly exact phrase search is currently disabled due to its poor performance. It is still available in email alerts.
+<li>To search for an exact phrase, use quotes (""). For example to find only documents contain the exact phrase "Hutton Report":<br>
+<span class="example-input">"hutton report"</span>
+Put a word in quotes if you don't want to perform stemming (where e.g. searching for <kbd>horse</kbd> will also return results with <kbd>horses</kbd>).
 </li>
 
 <li>To exclude a word from your search, put a minus ("-") sign in front,

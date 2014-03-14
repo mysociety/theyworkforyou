@@ -37,7 +37,7 @@ if (defined('XAPIANDB') AND XAPIANDB != '') {
 
 class SEARCHENGINE {
 
-    public function SEARCHENGINE($query, $phrase_allowed=false) {
+    public function SEARCHENGINE($query) {
         $this->valid = false;
 
         if (!defined('XAPIANDB') || !XAPIANDB)
@@ -183,9 +183,7 @@ class SEARCHENGINE {
         twfy_debug("SEARCH", "query -- ". $this->query);
         $flags = XapianQueryParser::FLAG_BOOLEAN | XapianQueryParser::FLAG_LOVEHATE |
             XapianQueryParser::FLAG_WILDCARD | XapianQueryParser::FLAG_SPELLING_CORRECTION;
-        if ($phrase_allowed) {
-            $flags = $flags | XapianQueryParser::FLAG_PHRASE;
-        }
+        $flags = $flags | XapianQueryParser::FLAG_PHRASE;
         try {
             $query = $this->queryparser->parse_query($this->query, $flags);
         } catch (Exception $e) {
