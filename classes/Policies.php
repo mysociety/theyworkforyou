@@ -113,6 +113,7 @@ class Policies {
         ),
         'foreignpolicy' => array(
             6688,
+            1049,
             975,
             984,
             1065,
@@ -122,7 +123,8 @@ class Policies {
             6672,
             6674,
             6673,
-            6684
+            6684,
+            6670
         ),
         'taxation' => array(
             6680,
@@ -130,7 +132,8 @@ class Policies {
             6694,
             6693,
             6681,
-            1109
+            1109,
+            1124
         ),
         'business' => array(
             6679,
@@ -147,7 +150,8 @@ class Policies {
             1074,
             1132,
             6687,
-            6682
+            6682,
+            1052
         ),
         'reform' => array(
             6671,
@@ -157,7 +161,8 @@ class Policies {
             1084,
             837,
             6683,
-            6678
+            6678,
+            1079
         ),
         'home' => array(
             1087,
