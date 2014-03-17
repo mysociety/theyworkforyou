@@ -497,7 +497,7 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
                 ),
                 array(
                     'key'   => 'reform',
-                    'title' => 'Governmental Reform',
+                    'title' => 'Constitutional Reform',
                     'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'reform')
                 ),
                 array(
