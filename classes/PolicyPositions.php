@@ -60,7 +60,7 @@ class PolicyPositions {
         $this->member = $member;
 
         // Do the actual getting of positions
-        $this->getMemberPolicyPositions();
+        $this->getMemberPolicyPositions($limit);
     }
 
     /**
