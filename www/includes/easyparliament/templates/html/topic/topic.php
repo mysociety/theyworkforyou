@@ -40,6 +40,55 @@
 
                 </ul>
 
+                <?php if (isset($policytitle)): ?>
+
+                    <hr>
+
+                    <h2 id="myrep">How Your MP voted on <?= $policytitle ?></h2>
+
+                    <?php if ($display_postcode_form): ?>
+
+                        <p>Find our how your representative has voted on key issues around <?= $policytitle ?>.</p>
+
+                        <form action="#myrep" method="get">
+                            <p><strong>Enter your UK postcode: </strong>
+
+                                <input type="text" name="pc" value="" maxlength="10" size="10"> <input type="submit" value="GO" class="submit"> <small>(e.g. BS3 1QP)</small>
+                            </p>
+                        </form>
+
+                    <?php endif; ?>
+
+                    <?php if (isset($member_name)): ?>
+
+                        <?php if (count($positions) > 0): ?>
+
+                        <p>Here&rsquo;s how <a href="<?= $member_url ?>"><?= $member_name ?></a> voted on <?= $policytitle ?><?= $sinceString ?>. <a href="<?= $member_url ?>/votes">See all their votes</a>.</p>
+
+                        <div class="panel policies">
+
+                            <ul>
+
+                                <?php foreach ($positions as $position): ?>
+
+                                <li><?= $position['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $position['policy_id'] ?>">Details</a></li>
+
+                                <?php endforeach; ?>
+
+                            </ul>
+
+                        </div>
+
+                        <?php else: ?>
+
+                        <p><a href="<?= $member_url ?>"><?= $member_name ?></a> hasn't voted on any of the key issues on <?= $policytitle ?>. You may want to <a href="<?= $member_url ?>/votes">see all their votes</a>.</p>
+
+                        <?php endif; ?>
+
+                    <?php endif; ?>
+
+                <?php endif; ?>
+
             </div>
         </div>
     </div>

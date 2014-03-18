@@ -20,12 +20,13 @@ include_once '../../includes/easyparliament/init.php';
 $topics = array(
 
     'benefits' => array(
-        'title'     => 'Benefits',
-        'blurb'     => 'Benefits are a major political issue right now - they are mentioned a lot
-            in Parliament, so it can be hard to know exactly where to find the
-            important debates.',
-        'policyset' => 'welfare',
-        'actions'   => array(
+        'title'       => 'Benefits',
+        'blurb'       => 'Benefits are a major political issue right now - they
+            are mentioned a lot in Parliament, so it can be hard to know exactly
+            where to find the important debates.',
+        'policyset'   => 'welfare',
+        'policytitle' => 'Welfare and Benefits',
+        'actions'     => array(
 
             array(
                 'title' => 'Universal Credit Regulations',
@@ -54,6 +55,85 @@ $topics = array(
                 'icon'  => 'megaphone',
                 'href'  => 'http://www.theyworkforyou.com/alert/?alertsearch=%22benefits%22',
                 'blurb' => 'We&rsquo;ll let you know every time benefits are mentioned in Parliament.'
+            )
+
+        )
+
+    ),
+
+    'crime-stats' => array(
+        'title' => 'Crime Statistics',
+        'blurb' => 'MPs and Lords often talk about Crime Statistics, because
+            they&rsquo;re a major political issue.',
+        'actions' => array(
+
+            array(
+                'title' => 'Anti-social Behaviour Crime and Policing Bill (second reading)',
+                'icon'  => 'page',
+                'href'  => 'http://www.theyworkforyou.com/lords/?id=2013-10-29a.1482.5',
+                'blurb' => 'The House of Lords debate a proposed law, making many references to crime statistics.'
+            ),
+
+            array(
+                'title' => 'Police and Public trust',
+                'icon'  => 'comment-quotes',
+                'href'  => 'http://www.theyworkforyou.com/lords/?id=2013-11-28a.1576.0',
+                'blurb' => 'A debate on police misconduct and how much the general public trust the police not to cover up crime statistics, mistakes and misbehaviour.'
+            ),
+
+            array(
+                'title' => 'Search the whole site',
+                'icon'  => 'magnifying-glass',
+                'href'  => 'http://www.theyworkforyou.com/search/?s=%22crime+statistics%22',
+                'blurb' => 'Search TheyWorkForYou to find mentions of crime statistics from all areas of the UK parliament. You may also filter your results by time, speaker and section.'
+            ),
+
+            array(
+                'title' => 'Sign up for email alerts',
+                'icon'  => 'megaphone',
+                'href'  => 'http://www.theyworkforyou.com/alert/?alertsearch=%22crime+statistics%22',
+                'blurb' => 'We&rsquo;ll let you know every time crime statistics are mentioned in Parliament.'
+            )
+
+        )
+
+    ),
+
+    'nhs' => array(
+        'title'       => 'The NHS',
+        'blurb'       => 'The NHS is a major political issue right now &mdash;
+            it&rsquo;s mentioned a lot in Parliament, so it can be hard to know
+            exactly where to find the important debates.',
+        'policyset'   => 'health',
+        'policytitle' => 'Healthcare',
+        'actions'     => array(
+
+            array(
+                'title' => 'Health and Social Care Bill',
+                'icon'  => 'comment-quotes',
+                'href'  => 'http://www.theyworkforyou.com/debates/?id=2011-01-31b.605.0',
+                'blurb' => 'Andrew Lansley, Secretary of State for Health, sets out plans for a reorganisation of the NHS, which MPs then debate and vote on.'
+            ),
+
+            array(
+                'title' => 'NHS (Private Sector)',
+                'icon'  => 'comment-quotes',
+                'href'  => 'http://www.theyworkforyou.com/debates/?id=2012-01-16a.536.0',
+                'blurb' => 'A year later, the opposition puts forward its concerns with the model, ending in a further vote.'
+            ),
+
+            array(
+                'title' => 'Search the whole site',
+                'icon'  => 'magnifying-glass',
+                'href'  => 'http://www.theyworkforyou.com/search/?s=%nhs%22',
+                'blurb' => 'Search TheyWorkForYou to find mentions of the NHS from all areas of the UK parliament. You may also filter your results by time, speaker and section.'
+            ),
+
+            array(
+                'title' => 'Sign up for email alerts',
+                'icon'  => 'megaphone',
+                'href'  => 'http://www.theyworkforyou.com/alert/?alertsearch=%nhs%22',
+                'blurb' => 'We&rsquo;ll let you know every time the NHS is mentioned in Parliament.'
             )
 
         )
@@ -95,19 +175,19 @@ if (isset ($topics[$topicname]))
                     if ($constituency == "connection_timed_out") {
                         throw new Exception('Sorry, we couldn&rsquo;t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
                     } elseif ($constituency == "") {
-                        throw new Exception('Sorry, ' . htmlentities($pc) . ' isn&rsquo;t a known postcode');
                         twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
+                        throw new Exception('Sorry, ' . htmlentities($pc) . ' isn&rsquo;t a known postcode');
                     } else {
                         // Generate the Member object
                         $member = new Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
                         if ($member->person_id()) {
                             // This will cookie the postcode.
-                            $member->set_postcode_cookie($pc);
+                            $THEUSER->set_postcode_cookie($pc);
                         }
                     }
                 } else {
-                    throw new Exception('Sorry, ' . htmlentities($pc) . ' isn&rsquo;t a valid postcode');
                     twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
+                    throw new Exception('Sorry, ' . htmlentities($pc) . ' isn&rsquo;t a valid postcode');
                 }
             } catch (Exception $e) {
                 Renderer::output('topic/error', array('error' => $e->getMessage()));
