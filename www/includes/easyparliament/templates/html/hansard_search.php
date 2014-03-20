@@ -27,7 +27,7 @@ $searchdescription = $data['searchdescription'];
 
 # XXX Hack
 if (preg_match('#budget#', $searchdescription)) { ?>
-<p class="informational"><a href="http://www.theyworkforyou.com/debates/?id=2013-03-20a.931.0">Read the Budget speech and debate</a></p>
+<p class="informational"><a href="http://www.theyworkforyou.com/debates/?id=2014-03-19a.781.1">Read the Budget speech and debate</a></p>
 <?php }
 
 if (isset($info['total_results']) && $info['total_results'] > 0) {
