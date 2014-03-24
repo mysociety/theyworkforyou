@@ -125,6 +125,13 @@
 
                     <?php endif; ?>
 
+                    <div class="panel">
+                        <p>Please feel free to use the data on this page, but if
+                            you do you must cite TheyWorkForYou.com in the body
+                            of your articles as the source of any analysis or
+                            data you get off this site.</p>
+                    </div>
+
                 </div>
             </div>
         </div>
