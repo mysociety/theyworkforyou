@@ -58,4 +58,24 @@ class Member extends \MEMBER {
 
     }
 
+    /**
+    * Image
+    *
+    * Return a URL for the member's image.
+    *
+    * @return string The URL of the member's image.
+    */
+
+    public function image() {
+
+        $is_lord = in_array(HOUSE_TYPE_LORDS, $this->houses());
+        if ($is_lord) {
+            list($image,$sz) = find_rep_image($this->person_id(), false, 'lord');
+        } else {
+            list($image,$sz) = find_rep_image($this->person_id(), false, true);
+        }
+        return $image;
+
+    }
+
 }
