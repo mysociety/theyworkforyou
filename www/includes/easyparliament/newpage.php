@@ -1156,9 +1156,14 @@ pr()//-->
 <script src="/js/foundation/foundation.magellan.js"></script>
 <script src="/js/foundation/foundation.topbar.js"></script>
 
+<script src="/js/riveted.min.js"></script>
+<script src="/js/jquery.scrolldepth.min.js"></script>
+
 <script>
   $(document).foundation();
+  riveted.init();
   $(function() {
+    $.scrollDepth();
     setTimeout(function() {
       try {
         ga('send', 'event', 'engagement', 'timer', '7');

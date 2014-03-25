@@ -1198,9 +1198,14 @@ pr()//-->
 </div> <!-- end #footer -->
 </div> <!-- end #container -->
 
+<script src="/js/riveted.min.js"></script>
+<script src="/js/jquery.scrolldepth.min.js"></script>
+
 <script type="text/javascript" charset="utf-8">
     barSetup();
+    riveted.init();
     $(function() {
+    $.scrollDepth();
     setTimeout(function() {
       try {
         ga('send', 'event', 'engagement', 'timer', '7');
