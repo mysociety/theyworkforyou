@@ -173,10 +173,13 @@ pr()//-->
 
 <script src="/js/foundation/foundation.js"></script>
 <script src="/js/foundation/foundation.magellan.js"></script>
+<script src="/js/riveted.min.js"></script>
+<script src="/js/jquery.scrolldepth.min.js"></script>
 
 <script>
 
-$( document ).ready(function() {
+  $( document ).ready(function() {
+
     $(".menu-dropdown").click(function(e) {
       var t = $(e.target);
       if ( ! t.hasClass('button') ) {
@@ -185,9 +188,15 @@ $( document ).ready(function() {
       t.toggleClass('open');
       t.parent().next(".nav-menu").toggleClass('closed');
     });
-});
+
+    $.scrollDepth();
+
+  });
 
   $(document).foundation();
+
+  riveted.init();
+
   $(function() {
     setTimeout(function() {
       try {
