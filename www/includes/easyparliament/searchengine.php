@@ -763,39 +763,27 @@ function search_member_db_lookup($searchstring, $current_only=false) {
 // Returns a list of the array of constituencies, then a boolean saying whether
 // it was a postcode used.
 function search_constituencies_by_query($searchterm) {
-    $constituencies = array();
-    $constituency = '';
-    $validpostcode = false;
-
     if (validate_postcode($searchterm)) {
         // Looks like a postcode - can we find the constituency?
         $constituency = postcode_to_constituency($searchterm);
-        if ($constituency != '') {
-            $validpostcode = true;
-        }
-    }
-
-    if ($constituency == '' && $searchterm) {
-        // No luck so far - let's see if they're searching for a constituency.
-        $try = strtolower($searchterm);
-        if (normalise_constituency_name($try)) {
-            $constituency = normalise_constituency_name($try);
-        } else {
-            $query = "select distinct
-                    (select name from constituency where cons_id = o.cons_id and main_name) as name
-                from constituency AS o where name like '%" . mysql_real_escape_string($try) . "%'
-                and from_date <= date(now()) and date(now()) <= to_date";
-            $db = new ParlDB;
-            $q = $db->query($query);
-            for ($n=0; $n<$q->rows(); $n++) {
-                $constituencies[] = $q->field($n, 'name');
-            }
-        }
-    } else {
         if ($constituency) {
-            $constituencies[] = $constituency;
+            return array( array($constituency), true );
         }
     }
 
-    return array($constituencies, $validpostcode);
+    // No luck so far - let's see if they're searching for a constituency.
+    $try = strtolower($searchterm);
+    $query = "select distinct
+            (select name from constituency where cons_id = o.cons_id and main_name) as name
+        from constituency AS o where name like '%" . mysql_real_escape_string($try) . "%'
+        and from_date <= date(now()) and date(now()) <= to_date";
+    $db = new ParlDB;
+    $q = $db->query($query);
+
+    $constituencies = array();
+    for ($n=0; $n<$q->rows(); $n++) {
+        $constituencies[] = $q->field($n, 'name');
+    }
+
+    return array( $constituencies, false );
 }

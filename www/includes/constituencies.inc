@@ -42,4 +42,3 @@ function normalise_constituency_names($names) {
 	return $output;
 }
 
-?>
