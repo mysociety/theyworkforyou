@@ -634,6 +634,14 @@ function gid_to_anchor($gid) {
     return substr( $gid, (strpos($gid, '.') + 1) );
 }
 
+function preg_replacement_quote($s) {
+    // This returns $s but with every $ and \ backslash-escaped.
+    // This is to create a string that can be safely used in a
+    // preg_replace replacement string.  This function was suggested here:
+    // http://www.procata.com/blog/archives/2005/11/13/two-preg_replace-escaping-gotchas/
+    return preg_replace('/(\$|\\\\)(?=\d)/', '\\\\\1', $s);
+}
+
 function send_template_email($data, $merge, $bulk = false, $want_bounces = false) {
     // We should have some email templates in INCLUDESPATH/easyparliament/templates/emails/.
 
@@ -711,7 +719,7 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
 
     foreach ($merge as $key => $val) {
         $search[] = '/{'.$key.'}/';
-        $replace[] = $val;
+        $replace[] = preg_replacement_quote($val);
     }
 
     $emailtext = preg_replace($search, $replace, $emailtext);
