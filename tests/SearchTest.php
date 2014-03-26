@@ -2,15 +2,41 @@
 
 /**
  * Provides test methods for search functionality.
- * Currently only the highlighting.
+ * Currently only the highlighting and constituency search.
  */
 
-class SearchTest extends PHPUnit_Framework_TestCase
+class SearchTest extends PHPUnit_Extensions_Database_TestCase
 {
 	public function setUp()
 	{
         parent::setUp();
         include_once('www/includes/easyparliament/searchengine.php');
+    }
+
+    public function getConnection()
+    {
+        $dsn = 'mysql:host=' . OPTION_TWFY_DB_HOST . ' ;dbname=' . OPTION_TWFY_DB_NAME;
+        $username = OPTION_TWFY_DB_USER;
+        $password = OPTION_TWFY_DB_PASS;
+        $pdo = new PDO($dsn, $username, $password);
+        return $this->createDefaultDBConnection($pdo, OPTION_TWFY_DB_NAME);
+    }
+
+    public function getDataSet()
+    {
+        return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/search.xml');
+    }
+
+    public function testConstituencySearch()
+    {
+        $this->assertEquals(
+            array( array( 'Alyn and Deeside' ), false ),
+            search_constituencies_by_query('Alyn')
+        );
+        $this->assertEquals(
+            array( array( 'Alyn and Deeside' ), false ),
+            search_constituencies_by_query('Alyn and Deeside')
+        );
     }
 
     /**
