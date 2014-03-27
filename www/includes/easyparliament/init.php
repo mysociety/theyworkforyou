@@ -88,7 +88,6 @@ if (! isset($new_style_template) OR $new_style_template !== TRUE) {
 
     // This is an old-style page. Use the old page classes.
     include_once (INCLUDESPATH."easyparliament/page.php");
-    include_once (INCLUDESPATH."easyparliament/newpage.php");
 
 }
 

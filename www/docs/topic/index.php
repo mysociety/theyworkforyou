@@ -6,7 +6,7 @@
 
 namespace MySociety\TheyWorkForYou;
 
-// Disable the old PAGE or NEWPAGE classes.
+// Disable the old PAGE class.
 $new_style_template = TRUE;
 
 // Include all the things this page needs.
