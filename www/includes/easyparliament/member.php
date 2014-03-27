@@ -63,7 +63,7 @@ class MEMBER {
         // If just a constituency we currently just get the current member for
         // that constituency.
 
-        global $NEWPAGE,$PAGE, $this_page;
+        global $PAGE, $this_page;
 
         $house = isset($args['house']) ? $args['house'] : null;
 
@@ -233,7 +233,7 @@ class MEMBER {
     }
 
     public function name_to_person_id($name, $const='') {
-        global $NEWPAGE, $PAGE, $this_page;
+        global $PAGE, $this_page;
         if ($name == '') {
             $PAGE->error_message('Sorry, no name was found.');
             return false;
