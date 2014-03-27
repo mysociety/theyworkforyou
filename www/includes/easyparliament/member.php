@@ -653,29 +653,6 @@ class MEMBER {
             return $URL->generate('none') . $member_url;
     }
 
-    public function display() {
-        global $PAGE;
-
-        $member = array (
-            'member_id' 		=> $this->member_id(),
-            'person_id'		=> $this->person_id(),
-            'constituency' 		=> $this->constituency(),
-            'party'			=> $this->party_text(),
-            'other_parties'		=> $this->other_parties,
-            'other_constituencies'	=> $this->other_constituencies,
-            'houses'		=> $this->houses(),
-            'entered_house'		=> $this->entered_house(),
-            'left_house'		=> $this->left_house(),
-            'current_member'	=> $this->current_member(),
-            'full_name'		=> $this->full_name(),
-            'the_users_mp'		=> $this->the_users_mp(),
-            'current_member_anywhere'   => $this->current_member_anywhere(),
-            'house_disp'		=> $this->house_disp,
-        );
-
-        $PAGE->display_member($member, $this->extra_info);
-    }
-
     public function previous_mps() {
         $previous_people = '';
         $entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
