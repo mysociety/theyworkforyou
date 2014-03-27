@@ -261,7 +261,7 @@ class MEMBER {
             if (!$success)
                 $success = preg_match('#^(.*?)() (.*)$#', $name, $m);
             if (!$success) {
-                $NEWPAGE->error_message('Sorry, that name was not recognised.');
+                throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
                 return false;
             }
             $first_name = mysql_real_escape_string($m[1]);
@@ -275,7 +275,7 @@ class MEMBER {
             if (!$success)
                 $success = preg_match('#^(.*?)() (.*)$#', $name, $m);
             if (!$success) {
-                $NEWPAGE->error_message('Sorry, that name was not recognised.');
+                throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
                 return false;
             }
             $first_name = mysql_real_escape_string($m[1]);
@@ -291,7 +291,7 @@ class MEMBER {
             if (!$success)
                 $success = preg_match('#^(.*?)() (.*)$#', $name, $m);
             if (!$success) {
-                $NEWPAGE->error_message('Sorry, that name was not recognised.');
+                throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
                 return false;
             }
             $first_name = $m[1];
@@ -341,7 +341,7 @@ class MEMBER {
         } elseif ($const && $this_page!='peer') {
             return $this->name_to_person_id($name);
         } else {
-            $NEWPAGE->error_message("Sorry, there is no current member with that name.");
+            throw new MySociety\TheyWorkForYou\MemberException('Sorry, there is no current member with that name.');
             return false;
         }
     }
