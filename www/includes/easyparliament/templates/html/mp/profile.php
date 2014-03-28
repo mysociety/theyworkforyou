@@ -167,7 +167,7 @@
                         <?php if ($has_expenses): ?>
                         <h3>Expenses</h3>
 
-                        <p>Expenses data for MPs is available from 2004 onwards
+                        <p class="quiet">Expenses data for MPs is available from 2004 onwards
 split over several locations. At the moment we don't have the time to convert
 it to a format we can display on the site so we just have to point you to where
 you can find it.</p>
@@ -298,10 +298,12 @@ you can find it.</p>
                     <?php endif; ?>
 
                     <div class="panel">
-                        <p>Please feel free to use the data on this page, but if
+                        <p class="quiet">Please feel free to use the information on this page, but if
                             you do you must cite TheyWorkForYou.com in the body
-                            of your articles as the source of any analysis or
-                            data you get off this site.</p>
+                            of your articles as the source.</p>
+
+                        <p class="quiet">Information on this page is compiled from
+                            <a href="http://www.publicwhip.org.uk/">The Public Whip</a>, <a href="http://www.parliament.uk/">UK Parliament</a>, <a href="http://www.scottish.parliament.uk/">Scottish Parliament</a> and <a href="http://www.niassembly.gov.uk/">Northern Ireland Assembly</a>. Where possible information is regularly updated from these sources on either a daily or weekly basis, but may be subject to short delays in processing.</a>
                     </div>
 
                 </div>
