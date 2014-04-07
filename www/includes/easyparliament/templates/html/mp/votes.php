@@ -56,7 +56,7 @@
                     <ul data-magellan-expedition="fixed">
                         <?php if ($has_voting_record): ?>
                         <?php foreach ($key_votes_segments as $segment): ?>
-                        <?php if (count($segment['votes']['key_votes']) > 0): ?>
+                        <?php if (count($segment['votes']->positions) > 0): ?>
                         <li data-magellan-arrival="<?= $segment['key'] ?>"><a href="#<?= $segment['key'] ?>"><?= $segment['title'] ?></a></li>
                         <?php endif; ?>
                         <?php endforeach; ?>
@@ -78,7 +78,7 @@
 
                         <?php foreach ($key_votes_segments as $segment): ?>
 
-                            <?php if (count($segment['votes']['key_votes']) > 0): ?>
+                            <?php if (count($segment['votes']->positions) > 0): ?>
 
                                 <div class="panel">
 
@@ -89,7 +89,7 @@
 
                                 <ul class="policies">
 
-                                <?php foreach ($segment['votes']['key_votes'] as $key_vote): ?>
+                                <?php foreach ($segment['votes']->positions as $key_vote): ?>
 
                                 <li><?= $key_vote['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>">Details</a></li>
 
@@ -107,10 +107,10 @@
 
                         <?php if ($displayed_votes): ?>
 
-                            <?php if (isset($segment['votes']['more_link'])): ?>
+                            <?php if (isset($segment['votes']->moreLinksString)): ?>
 
                                 <div class="panel">
-                                    <p><?= $segment['votes']['more_link'] ?></p>
+                                    <p><?= $segment['votes']->moreLinksString ?></p>
                                 </div>
 
                             <?php endif; ?>

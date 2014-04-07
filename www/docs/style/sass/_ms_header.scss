@@ -1,35 +1,43 @@
-/*
+/* mySociety header */
+.ms-header {
+    background: transparent;
+    border-top: 4px solid #424242;
+}
 
-This is the header that runs across the very top of each mySociety page
+.ms-header__row {
+    @include grid-row;
+    position: relative;
+}
 
-*/
-#ms_logo{
-    text-align:center;
-    font-size: 0.7em;
-    padding:0;
-    background-color: #222;
-    @media #{$topbar-media-query} {
-        background-color: $brand;
+.ms-header__logo {
+    @extend .image-replacement;
+    display: block;
+    position: absolute;
+    right: 0.75em;
+    top: 0;
+    background-color: #424242;
+    background-repeat: no-repeat;
+    height: 38px;
+    width: 44px;
+    @include border-radius(0 0 0.75em 0.75em);
+    @include background-size(22px);
+    background-position: 11px 7px ;
+    background-image: url('../img/mysociety-bloom.png');
+
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+        background-image: url('../img/mysociety-bloom@2.png');
     }
-    a{
-        @extend .ir;
-        width: 10em;
-        display:block;
-        border-radius: 0 0 1.25em 1.25em;
-        color: rgba(255,255,255,0.3);
-        background: #222 url('/images/mysociety-header_logo-mini.png') no-repeat scroll center center;
-        background-size: 80% auto;
-        line-height:2;
-        padding: 0.5em 0;
 
-        .logo-img {
-            display: none;
-        }
+    @media (min-width: $medium-screen) {
+        @include border-radius(0 0 1.25em 1.25em);
+        background-position: 16px 10px ;
+        @include background-size(93px 19px);
+        background-image: url('../img/mysociety-logo.png');
+        width: 125px;
+        height: 39px;
 
-        @media #{$topbar-media-query} {
-            background-color: $brand;
-            background: #222 url('../img/mysociety-header_logo.png') no-repeat scroll center center;
-            background-size: 80% auto;
+        @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+            background-image: url('../img/mysociety-logo@2.png');
         }
     }
 }

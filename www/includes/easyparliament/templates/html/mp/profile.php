@@ -83,14 +83,14 @@
                         <a name="votes"></a>
                         <h2 data-magellan-destination="votes">Voting Summary <small><a href="<?= $member_url ?>/votes">More Here</a></small></h2>
 
-                        <h3>How <?= $full_name ?> voted<?= isset($key_votes['since_string']) ? $key_votes['since_string'] : '' ?><br>
+                        <h3>How <?= $full_name ?> voted<?= isset($policyPositions->sinceString) ? $policyPositions->sinceString : '' ?><br>
                         <small>Randomly generated selection of topics. <a href="<?= $member_url ?>/votes">See full list</a>.</small></h3>
 
-                        <?php if (count($key_votes['key_votes']) > 0): ?>
+                        <?php if (count($policyPositions->positions) > 0): ?>
 
                             <ul class="policies">
 
-                            <?php foreach ($key_votes['key_votes'] as $key_vote): ?>
+                            <?php foreach ($policyPositions->positions as $key_vote): ?>
 
                             <li><?= $key_vote['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>">Details</a></li>
 
