@@ -47,7 +47,7 @@ $topics = array(
                 'title' => 'Search the whole site',
                 'icon'  => 'search',
                 'href'  => 'http://www.theyworkforyou.com/search/?s=%22benefits%22',
-                'blurb' => 'Search TheyWorkForYou to find mentions of benefits from all areas of the UK parliament. You may also filter your results by time, speaker and section.'
+                'blurb' => 'Search TheyWorkForYou to find mentions of benefits. You may also filter your results by time, speaker and section.'
             ),
 
             array(
@@ -85,7 +85,7 @@ $topics = array(
                 'title' => 'Search the whole site',
                 'icon'  => 'search',
                 'href'  => 'http://www.theyworkforyou.com/search/?s=%22crime+statistics%22',
-                'blurb' => 'Search TheyWorkForYou to find mentions of crime statistics from all areas of the UK parliament. You may also filter your results by time, speaker and section.'
+                'blurb' => 'Search TheyWorkForYou to find mentions of crime statistics. You may also filter your results by time, speaker and section.'
             ),
 
             array(
@@ -125,8 +125,8 @@ $topics = array(
             array(
                 'title' => 'Search the whole site',
                 'icon'  => 'search',
-                'href'  => 'http://www.theyworkforyou.com/search/?s=%nhs%22',
-                'blurb' => 'Search TheyWorkForYou to find mentions of the NHS from all areas of the UK parliament. You may also filter your results by time, speaker and section.'
+                'href'  => 'http://www.theyworkforyou.com/search/?s=%22nhs%22',
+                'blurb' => 'Search TheyWorkForYou to find mentions of the NHS. You may also filter your results by time, speaker and section.'
             ),
 
             array(
