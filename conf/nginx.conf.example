@@ -59,6 +59,7 @@ server {
     rewrite ^/A/(.*)$     /alert/index.php?action=Confirm&t=$1;
     rewrite ^/D/(.*)$     /alert/index.php?t=$1;
     rewrite ^/U/(.*)$     /user/confirm/index.php?t=$1;
+    rewrite ^/E/(.*)$     /user/confirm/index.php?c=email&t=$1;
     rewrite ^/B/(.*)$     /freeourbills/subscribe.php?t=$1;
 
     rewrite ^/termsofuse http://www.theyworkforyou.com/about permanent;
@@ -79,6 +80,14 @@ server {
     rewrite ^/calendar/([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])$ /calendar/index.php?d=$1;
 
     # MP pages
+    rewrite ^(/mp/([0-9]+)[\(\)\.a-zA-Z_+,'-/]*)$      /mp/index.php?pid=$2&url=$1;
+
+    # Canonical, numeric MP profile pages
+    rewrite ^(/mp/([0-9]+)[\(\)\.a-zA-Z_+,'-/]*)/votes$  /mp/index.php?pid=$2&url=$1/votes&pagetype=votes;
+    rewrite ^(/mp/([0-9]+)[\(\)\.a-zA-Z_+,'-/]*)$        /mp/index.php?pid=$2&url=$1&pagetype=profile;
+
+    # Assorted other ways of getting to an MP
+
     rewrite ^/mp/(['a-zA-Z_+-]+)/([\(\)\.a-zA-Z_+,'-]+)$      /mp/index.php?n=$1&c=$2;
     rewrite "^/mp/(['a-zA-Z_\ +-]+)\ mp/?$"  /mp/index.php?n=$1;
     rewrite "^/mp/(['a-zA-Z_\ +-]+)/?$"       /mp/index.php?n=$1;
