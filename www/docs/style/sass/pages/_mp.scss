@@ -1,0 +1,411 @@
+.person-header {
+    padding-top: 16px;
+    @media (min-width: $medium-screen) {
+        padding-top: 32px;
+    }
+    @media (min-width: $large-screen) {
+        height: 285px;
+        padding-top: 150px;
+    }
+
+    background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(28,28,28,1) 89%, rgba(0,0,0,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(89%,rgba(28,28,28,1)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(28,28,28,1) 89%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(28,28,28,1) 89%,rgba(0,0,0,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(28,28,28,1) 89%,rgba(0,0,0,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(28,28,28,1) 89%,rgba(0,0,0,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+    .person-header__content {
+        color: white;
+        margin-left: 1.5%;
+        margin-right: 1.5%;
+        @media (min-width: $medium-screen) {
+            margin-left: -1.5%;
+            margin-right: -1.5%;
+        }
+        .person-name {
+            h1 {
+                .mp-image {
+                    img {
+                        width: 48px;
+                    }
+                    @media (min-width: $medium-screen) {
+                        display: inline-block;
+                        float: none;
+                        position: relative;
+                        width: 48px;
+                        img {
+                            bottom: 0px;
+                            position: absolute;
+                            vertical-align: bottom;
+                        }
+                    }
+                }
+                color: white;
+                margin: 0px;
+                padding: 0px;
+            }
+            @include grid-column(12);
+            @media (min-width: $medium-screen) {
+                @include grid-column(6);
+            }
+        }
+        .person-search{
+            @include grid-column(12);
+            form {
+                padding-bottom: 1em;
+                input {
+                    -webkit-appearance: none;
+                    padding: em-calc(8);
+                    font-size: em-calc(16);
+                    font-style: italic;
+                    border: 1px solid $borders;
+                    border-right: 0px;
+                    border-radius: 3px 0px 0px 3px;
+                    width: 85%;
+                    &.submit {
+                        background: transparent url('/images/search.png') no-repeat scroll center center;
+                        background-color: white;
+                        color: transparent;
+                        border-right: 1px solid $borders;
+                        border-left: 0px;
+                        border-radius: 0px 3px 3px 0px;
+                        width: auto;
+                    }
+                }
+            }
+            @media (min-width: $medium-screen) {
+                @include grid-column(6);
+                text-align: right;
+                clear: both;
+                position: relative;
+                left: 50%;
+                right: auto;
+            }
+        }
+        .person-buttons {
+            @include grid-column(12);
+            @media (max-width: $medium-screen) {
+                .button {
+                    padding-left: 0.85em;
+                    padding-right: 0.85em;
+                    img {
+                        display: none;
+                    }
+                }
+            }
+            @media (min-width: $medium-screen) {
+                @include grid-column(6);
+                position: relative;
+                right: 50%;
+                left: auto;
+            }
+        }
+        .person-constituency {
+            @include grid-column(12);
+            padding-bottom: em-calc(8);
+            @media (min-width: $medium-screen) {
+                @include grid-column(6);
+                padding-top: em-calc(12);
+            }
+            @media (min-width: $large-screen) {
+                padding-top: em-calc(24);
+                height: $h1-font-size;
+                text-align: right;
+            }
+            span {
+                display: block;
+                @media (min-width: $large-screen) {
+                    display: inline;
+                }
+            }
+            .constituency {
+                @media (min-width: $large-screen) {
+                    margin-right: 1em;
+                }
+                &:before {
+                    position: relative;
+                    content: url('../img/location-pin.png');
+                    bottom: -0.3em;
+                }
+            }
+            .party {
+                &:before {
+                    font-size: em-calc(12);
+                    content: 'O';
+                    margin-right: 0.5em;
+                    margin-left: 0.5em;
+                    @media (min-width: $large-screen) {
+                        margin-left: auto;
+                    }
+                    @include radius(1em);
+                    padding-left: 0.4em;
+                    padding-right: 0.4em;
+                    font-weight: bold;
+                    color: lightgrey;
+                    background-color: lightgrey;
+                }
+                &.Con:before {
+                    content: 'C';
+                    background-color: rgb(22,111,210);
+                }
+                &.Lab:before {
+                    content: 'L';
+                    background-color: rgb(238, 50, 36);
+                }
+                &.LDem:before {
+                    color: black;
+                    content: 'L';
+                    background-color: rgb(255, 187, 51);
+                }
+                &.SNP:before {
+                    color: black;
+                    content: 'S';
+                    background-color: rgb(255, 249, 93);
+                }
+                &.Green:before {
+                    color: white;
+                    content: 'G';
+                    background-color: rgb(106, 176, 35);
+                }
+            }
+        }
+    }
+    &.royal,
+    &.peer {
+        .person-name {
+            @media (min-width: $medium-screen) {
+                @include grid-column(11);
+            }
+        }
+        .person-constituency {
+            @media (min-width: $medium-screen) {
+                @include grid-column(1);
+                padding-left: 0px;
+            }
+        }
+    }
+}
+
+.westminster {
+    background-image: url('../img/houses-of-parliament-mobile.jpg');
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/houses-of-parliament-tablet.jpg');
+    }
+    @media (min-width: $large-screen) {
+        background-image: url('../img/houses-of-parliament-desktop.jpg');
+    }
+    background-position: center center;
+    background-size: cover;
+}
+
+.scotland {
+    background-image: none;
+    .person-header {
+        @media (min-width: $large-screen) {
+            height: auto;
+            padding-top: 32px;
+        }
+    }
+}
+
+.ni {
+    background-image: none;
+    .person-header {
+        @media (min-width: $large-screen) {
+            height: auto;
+            padding-top: 32px;
+        }
+    }
+}
+
+.person-navigation {
+    color: $light-text;
+    ul {
+        @include unstyled-list;
+        @include inline-list;
+        font-size: em-calc(18);
+        margin-left: 0px;
+        li {
+            top: 1px;
+            position: relative;
+            line-height: 48px;
+            margin-left: 0px;
+            margin-right: 30px;
+            a {
+                color: #6c6b68;
+            }
+            &.active{
+                color: $body-font-color;
+                border-bottom: 1px solid #6c6b68;
+                a {
+                    color: #333;
+                }
+            }
+        }
+        border-bottom: 1px solid #e4e2dc;
+    }
+}
+
+.person-content__header {
+    /*@include grid-row;*/
+}
+.person-panels {
+    margin-top: em-calc(40);
+    .in-page-nav {
+        display: none;
+        @media (min-width: $medium-screen) {
+            display: block;
+        }
+        padding: 0px;
+        ul {
+            @include radius(3px);
+            &.fixed {
+                width: 16%;
+                max-width: 187px;
+            }
+            background-color: white;
+            margin-left: 0px;
+            margin-bottom: 0px;
+            font-size: em-calc(16);
+            li {
+                list-style-position: inside;
+                padding-left: 1.5em;
+                padding-top: 0.5em;
+                padding-bottom: 0.5em;
+                line-height: 1.3em;
+                border-bottom: 1px solid $body-bg;
+                color: $borders;
+                text-indent: -1em;
+                &.active {
+                    color: $primary-color;
+                }
+                &:last-of-type {
+                    border-bottom: 0px;
+                }
+                a {
+                    color: $body-font-color;
+                }
+            }
+        }
+    }
+    .panel {
+        @include radius;
+        background-color: white;
+        padding: em-calc(12);
+        margin-bottom: em-calc(40);
+        @media (min-width: $medium-screen) {
+            padding: em-calc(60);
+        }
+        h2 {
+            font-size: em-calc(30);
+            font-width: 600;
+            a.nav-anchor {
+                text-decoration: none;
+            }
+        }
+        a {
+            text-decoration: underline;
+
+        }
+        dt {
+            font-weight: normal;
+            .date {
+                font-size: em-calc(14);
+            }
+        }
+        ul {
+            @include unstyled-list();
+        }
+        .policies {
+            li {
+                border-bottom: 1px solid $borders;
+                line-height: 1.5em;
+                padding-top: 0.5em;
+                padding-bottom: 0.5em;
+                padding-right: 5em;
+                &:nth-of-type(1) {
+                    border-top: 1px solid $borders;
+                }
+                .dream_details {
+                    @include radius(1em);
+                    display: none;
+                    background-color: $primary-color;
+                    color: white;
+                    font-size: 14px;
+                    float: right;
+                    margin-top: 0.25em;
+                    margin-right: -6.5em;
+                    padding: 0em 1em;
+                    text-decoration: none;
+                }
+            }
+        }
+        .appearances {
+            @include unstyled-list();
+
+            h4 {
+                font-size: 18px;
+                font-weight: normal;
+                .date {
+                    font-size: 14px;
+                    color: $light-text;
+                }
+            }
+
+            blockquote {
+                border: none;
+                color: $body-font-color;
+                font-size: 18px;
+                padding: 0px;
+                &:before {
+                    content: '\201C';
+                }
+                &:after {
+                    content: '\201D';
+                }
+            }
+        }
+        .comma-list{
+            @include inline-list();
+            margin-left: 0px;
+            margin-bottom: em-calc(16);
+            li {
+                margin-left: 0px;
+                &:after {
+                    content: ', ';
+                }
+                &:last-of-type:after {
+                    content: '';
+                }
+            }
+        }
+        .numerology {
+            li {
+                line-height: 2;
+            }
+        }
+        &.register {
+            .regmemcategory {
+                border-top: 1px solid $borders;
+                font-weight: $weight_semibold;
+                margin-top: em-calc(16);
+                margin-bottom: em-calc(8);
+                padding-top: em-calc(16);
+
+                &:nth-of-type(1) {
+                    border-top: none;
+                    /*margin-top: 0px;*/
+                    /*padding-top: 0px*/
+                }
+            }
+
+            .regmemitem {
+                margin-bottom: em-calc(8);
+                margin-left: 1em;
+                line-height: 1.6;
+            }
+        }
+    }
+}
