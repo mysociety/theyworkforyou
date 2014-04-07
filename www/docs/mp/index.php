@@ -101,7 +101,7 @@ if (preg_match("#^ynys m\xc3\xb4n#i", $constituency)) {
 // If this is a request for recent appearances, redirect to search results
 if (get_http_var('recent')) {
     if ($THEUSER->postcode_is_set() && !$pid) {
-        $MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
+        $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
         if ($MEMBER->person_id()) {
             $pid = $MEMBER->person_id();
         }
@@ -128,7 +128,7 @@ if (is_numeric($pid))
 {
 
     // Normal, plain, displaying an MP by person ID.
-    $MEMBER = new MEMBER(array('person_id' => $pid));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => $pid));
 
     // If the member ID doesn't exist then the object won't have it set.
     if ($MEMBER->member_id)
@@ -170,7 +170,7 @@ if (is_numeric($pid))
 elseif (is_numeric(get_http_var('m')))
 {
     // Got a member id, redirect to the canonical MP page, with a person id.
-    $MEMBER = new MEMBER(array('member_id' => get_http_var('m')));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('member_id' => get_http_var('m')));
     member_redirect($MEMBER);
 
 }
@@ -193,7 +193,7 @@ elseif (get_http_var('pc') != '')
             twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
         } else {
             // Redirect to the canonical MP page, with a person id.
-            $MEMBER = new MEMBER(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
+            $MEMBER = new MySociety\TheyWorkForYou\Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
             if ($MEMBER->person_id()) {
                 // This will cookie the postcode.
                 $THEUSER->set_postcode_cookie($pc);
@@ -241,7 +241,7 @@ elseif ($this_page == 'mla' && $THEUSER->postcode_is_set() && $name == '' && $co
 // (Either in their logged-in details or in a cookie from a previous search.)
 elseif ($THEUSER->postcode_is_set() && $name == '' && $constituency == '')
 {
-    $MEMBER = new MEMBER(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
     member_redirect($MEMBER, 302);
 }
 
@@ -249,7 +249,7 @@ elseif ($THEUSER->postcode_is_set() && $name == '' && $constituency == '')
 // NAME AND CONSTITUENCY
 elseif ($name && $constituency)
 {
-    $MEMBER = new MEMBER(array('name'=>$name, 'constituency'=>$constituency));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('name'=>$name, 'constituency'=>$constituency));
 
     // If this person is not unique in name, don't redirect and instead wait to show list
     if (!is_array($MEMBER->person_id()))
@@ -263,7 +263,7 @@ elseif ($name && $constituency)
 // NAME ONLY
 elseif ($name)
 {
-    $MEMBER = new MEMBER(array('name' => $name));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('name' => $name));
 
     // Edge case for Elizabeth II
     if ($name !== 'elizabeth the second') {
@@ -288,7 +288,7 @@ elseif ($name)
 // CONSTITUENCY ONLY
 elseif ($constituency)
 {
-    $MEMBER = new MEMBER(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
     member_redirect($MEMBER);
 }
 
@@ -458,57 +458,79 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 
         case 'votes':
 
+            $policiesList = new MySociety\TheyWorkForYou\Policies;
+
             // Generate voting segments
             $data['key_votes_segments'] = array(
                 array(
                     'key'   => 'social',
                     'title' => 'Social Issues',
-                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'social')
+                    'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                        $policiesList->limitToSet('social'), $MEMBER
+                    )
                 ),
                 array(
                     'key'   => 'foreign',
                     'title' => 'Foreign Policy and Defence',
-                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'foreignpolicy')
+                    'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                        $policiesList->limitToSet('foreignpolicy'), $MEMBER
+                    )
                 ),
                 array(
                     'key'   => 'welfare',
                     'title' => 'Welfare and Benefits',
-                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'welfare')
+                    'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                        $policiesList->limitToSet('welfare'), $MEMBER
+                    )
                 ),
                 array(
                     'key'   => 'taxation',
                     'title' => 'Taxation and Employment',
-                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'taxation')
+                    'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                        $policiesList->limitToSet('taxation'), $MEMBER
+                    )
                 ),
                 array(
                     'key'   => 'business',
                     'title' => 'Business and the Economy',
-                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'business')
+                    'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                        $policiesList->limitToSet('business'), $MEMBER
+                    )
                 ),
                 array(
                     'key'   => 'health',
                     'title' => 'Health',
-                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'health')
+                    'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                        $policiesList->limitToSet('health'), $MEMBER
+                    )
                 ),
                 array(
                     'key'   => 'education',
                     'title' => 'Education',
-                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'education')
+                    'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                        $policiesList->limitToSet('education'), $MEMBER
+                    )
                 ),
                 array(
                     'key'   => 'reform',
                     'title' => 'Constitutional Reform',
-                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'reform')
+                    'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                        $policiesList->limitToSet('reform'), $MEMBER
+                    )
                 ),
                 array(
                     'key'   => 'home',
                     'title' => 'Home Affairs',
-                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'home')
+                    'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                        $policiesList->limitToSet('home'), $MEMBER
+                    )
                 ),
                 array(
                     'key'   => 'misc',
                     'title' => 'Miscellaneous Topics',
-                    'votes' => person_voting_record($MEMBER, $MEMBER->extra_info, NULL, 'misc')
+                    'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                        $policiesList->limitToSet('misc'), $MEMBER
+                    )
                 )
             );
 
@@ -520,8 +542,11 @@ if (isset($MEMBER) && is_array($MEMBER->person_id())) {
         case 'profile':
         default:
 
+            $policiesList = new MySociety\TheyWorkForYou\Policies;
+            $policies = $policiesList->limitToSet('summary')->shuffle();
+
             // Generate limited voting record list
-            $data['key_votes'] = person_voting_record($MEMBER, $MEMBER->extra_info, 6, 'summary', TRUE);
+            $data['policyPositions'] = new MySociety\TheyWorkForYou\PolicyPositions($policies, $MEMBER, 6);
 
             // Send the output for rendering
             MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
@@ -654,35 +679,6 @@ function person_summary_description ($MEMBER) {
 }
 
 /**
- * Is Person Dead
- *
- * Determine if the given member has died or not.
- *
- * @param MEMBER $member The member to check for death.
- *
- * @return boolean If the member is dead or not.
- */
-
-function is_member_dead($member) {
-
-    $left_house = $member->left_house();
-
-    if (
-        $left_house && (
-            ( in_array(HOUSE_TYPE_COMMONS, $left_house) && $left_house[HOUSE_TYPE_COMMONS]['reason'] && $left_house[HOUSE_TYPE_COMMONS]['reason'] == 'Died' ) ||
-            ( in_array(HOUSE_TYPE_LORDS, $left_house) && $left_house[HOUSE_TYPE_LORDS ]['reason'] && $left_house[HOUSE_TYPE_LORDS]['reason'] == 'Died' ) ||
-            ( in_array(HOUSE_TYPE_SCOTLAND, $left_house) && $left_house[HOUSE_TYPE_SCOTLAND ]['reason'] && $left_house[HOUSE_TYPE_SCOTLAND]['reason'] == 'Died' ) ||
-            ( in_array(HOUSE_TYPE_NI, $left_house) && $left_house[HOUSE_TYPE_NI ]['reason'] && $left_house[HOUSE_TYPE_NI]['reason'] == 'Died' )
-        )
-    ) {
-        return TRUE;
-    } else {
-        return FALSE;
-    }
-
-}
-
-/**
  * Person Rebellion Rate
  *
  * How often has this person rebelled against their party?
@@ -713,140 +709,6 @@ function person_rebellion_rate ($member) {
     }
 
     return $rebellion_string;
-
-}
-
-function display_dream_comparison($extra_info, $member, $dreamid, $desc, $inverse=false) {
-    $out = '';
-    if (isset($extra_info["public_whip_dreammp${dreamid}_distance"])) {
-        if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 0) {
-            $dmpdesc = 'Has <strong>never voted</strong> on';
-        } else {
-            $dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
-            $out .= "<!-- distance $dreamid: $dmpscore -->";
-            if ($inverse)
-                $dmpscore = 1.0 - $dmpscore;
-            $english = score_to_strongly($dmpscore);
-            # XXX Note special casing of 2nd tuition fee policy here
-            if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 1 || $dreamid == 1132) {
-                $english = preg_replace('#(very )?(strongly|moderately) #', '', $english);
-            }
-            $dmpdesc = 'Voted <strong>' . $english . '</strong>';
-
-            // How many votes Dream MP and MP both voted (and didn't abstain) in
-            // $extra_info["public_whip_dreammp${dreamid}_both_voted"];
-        }
-        $out .= $dmpdesc . ' ' . $desc;
-    }
-    return $out;
-}
-
-/**
- * Person Voting Record
- *
- * Return an array containing this person's votes plus string metadata.
- *
- * @param MEMBER $member     The member to generate a record for.
- * @param array  $extra_info Extra info for the member.
- * @param int    $limit      The number of results to limit the output to.
- * @param string $policyset  The name of the policy set to use.
- * @param bool   $shuffle    Should the set be randomly shuffled?
- */
-
-function person_voting_record ($member, $extra_info, $limit = NULL, $policyset = NULL, $shuffle = FALSE) {
-
-    $out = array();
-
-    $displayed_stuff = 0;
-
-    $policies = new MySociety\TheyWorkForYou\Policies;
-
-    if ($policyset !== NULL) {
-        $policies = $policies->limitToSet($policyset);
-    }
-
-    if ($shuffle) {
-        $policices = $policies->shuffle();
-    }
-
-    $policies = $policies->getArray();
-
-    $member_houses = $member->houses();
-    $entered_house = $member->entered_house();
-    $current_member = $member->current_member();
-
-    $member_has_died = is_member_dead($member);
-
-    // Determine the policy limit.
-    if ($limit !== NULL AND is_int($limit))
-    {
-        $policy_limit = $limit;
-    } else {
-        $policy_limit = count($policies);
-    }
-
-    // Set the current policy count to 0
-    $i = 0;
-
-    $key_votes = array();
-
-    // Loop around all the policies.
-    foreach ($policies as $policy) {
-        // Are we still within the policy limit?
-        if ($i < $policy_limit) {
-            if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
-                continue;
-
-            $dream = display_dream_comparison($extra_info, $member, $policy[0], $policy[1]);
-
-            // Make sure the dream actually exists
-            if ($dream !== '') {
-                $key_votes[] = array( 'policy_id' => $policy[0], 'desc' => $dream );
-                $i++;
-            }
-
-        } else {
-            // We're over the policy limit, no sense still going, break out of the foreach.
-            break ;
-        }
-    }
-
-    if (count($key_votes) > 0) {
-        $displayed_stuff = 1;
-        if (in_array(HOUSE_TYPE_COMMONS, $member_houses) && $entered_house[HOUSE_TYPE_COMMONS]['date'] > '2001-06-07') {
-            $since = '';
-        } elseif (!in_array(HOUSE_TYPE_COMMONS, $member_houses) && in_array(HOUSE_TYPE_LORDS, $member_houses) && $entered_house[HOUSE_TYPE_LORDS]['date'] > '2001-06-07') {
-            $since = '';
-        } elseif ($member_has_died) {
-            $since = '';
-        } else {
-            $since = ' since 2001';
-        }
-        # If not current MP/Lord, but current MLA/MSP, need to say voting record is when MP
-        if (!$current_member[HOUSE_TYPE_COMMONS] && !$current_member[HOUSE_TYPE_LORDS] && ($current_member[HOUSE_TYPE_SCOTLAND] || $current_member[HOUSE_TYPE_NI])) {
-            $since .= ' whilst an MP';
-        }
-        $out['since_string'] = $since;
-    }
-
-    $out['key_votes'] = $key_votes;
-
-    // Links to full record at Guardian and Public Whip
-    $record = array();
-    if (isset($extra_info['guardian_howtheyvoted'])) {
-        $record[] = '<a href="' . $extra_info['guardian_howtheyvoted'] . '" title="At The Guardian">well-known issues</a> <small>(from the Guardian)</small>';
-    }
-    if ((isset($extra_info['public_whip_division_attendance']) && $extra_info['public_whip_division_attendance'] != 'n/a')
-      || (isset($extra_info['Lpublic_whip_division_attendance']) && $extra_info['Lpublic_whip_division_attendance'] != 'n/a')) {
-        $record[] = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="At Public Whip">their full voting record on Public Whip</a>';
-    }
-
-    if (count($record) > 0) {
-        $displayed_stuff = 1;
-        $out['more_link'] = 'More on ' . implode(' &amp; ', $record);
-    }
-
-    return $out;
 
 }
 

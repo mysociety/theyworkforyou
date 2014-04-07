@@ -24,6 +24,10 @@ class Renderer
     public static function output($template, $data = array())
     {
 
+        // Include includes.
+        // TODO: Wrap these in a class somewhere autoloadable.
+        include_once INCLUDESPATH . 'postcode.inc';
+
         ////////////////////////////////////////////////////////////
         // Find the user's country. Used by header, so a safe bit to do regardless.
         if (get_http_var('country')) {

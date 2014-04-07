@@ -1,0 +1,96 @@
+.topic-header {
+
+    padding-top: 10px;
+
+    @media (min-width: $medium-screen) {
+        padding-top: em-calc(20);
+        padding-bottom: em-calc(120);
+    }
+
+    @media (min-width: $large-screen) {
+        min-height: 200px;
+        padding-top: em-calc(35);
+    }
+
+    background: rgb(28,28,28);
+    @include background-image(linear-gradient(rgb(150,150,150), rgb(28,28,28) 89%, black));
+    background-image: url('../img/topics/generic.jpg');
+
+    background-position: center center;
+    background-size: cover;
+
+    .topic-header__content {
+        color: white;
+        @include grid-column(12);
+        @media (min-width: $medium-screen) {
+            position: relative;
+        }
+        @media (min-width: $large-screen) {
+            @include grid-column(10);
+        }
+        .topic-name {
+            h1 {
+                color: white;
+                margin: 0px;
+                padding: 0px;
+            }
+
+            @include grid-column(12);
+            @media (min-width: $medium-screen) {
+                @include grid-column(8);
+            }
+
+        }
+
+        .topic-postcode-search {
+            background: rgb(243, 241, 235);
+            @include grid-column(12);
+            @media (min-width: $medium-screen) {
+                @include grid-column(4);
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                margin-bottom: em-calc(30);
+            }
+        }
+
+    }
+}
+
+.topic-content {
+    @include grid-column(12);
+    margin-top: em-calc(40);
+    @media (min-width: $medium-screen) {
+        margin-top: em-calc(-80);
+    }
+    @media (min-width: $large-screen) {
+        @include grid-column(10);
+    }
+}
+
+.topic-block {
+    background-color: white;
+    margin-bottom: em-calc(10);
+
+    padding: em-calc(60);
+
+    &.policies {
+
+        .topic-postcode-search {
+            background: rgb(243, 241, 235);
+            @media (min-width: $medium-screen) {
+                margin-top: em-calc(20);
+            }
+        }
+
+        .topic-mp-info {
+            padding-top: em-calc(10);
+            background: rgb(243, 241, 235);
+            @media (min-width: $medium-screen) {
+                margin-top: em-calc(20);
+                margin-bottom: em-calc(20);
+            }
+        }
+    }
+
+}

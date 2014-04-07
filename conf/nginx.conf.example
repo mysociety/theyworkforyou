@@ -105,5 +105,8 @@ server {
     # News
     rewrite ^/news/archives/(.*)$  /news/index.php/archives/$1;
     rewrite ^/news/index.rdf$      /news/rdf.php;
+
+    # Topics
+    rewrite ^/topic/([0-9a-zA-Z-]+)$  /topic/topic.php?topic=$1;
 }
 
