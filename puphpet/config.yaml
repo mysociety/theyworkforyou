@@ -1,8 +1,8 @@
 ---
 vagrantfile-local:
     vm:
-        box: ubuntu-precise12042-x64-vbox43
-        box_url: 'http://box.puphpet.com/ubuntu-precise12042-x64-vbox43.box'
+        box: debian-wheezy72-x64-vbox43
+        box_url: 'http://box.puphpet.com/debian-wheezy72-x64-vbox43.box'
         hostname: null
         network:
             private_network: 192.168.88.10
@@ -23,8 +23,7 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            UsCNPWuATkyg:
-                id: vagrant-root
+            0REkT8W8fkOY:
                 source: ./
                 target: /data/twfy
                 nfs: 'false'
@@ -68,27 +67,52 @@ mailcatcher:
         smtp_port: 1025
         http_ip: 0.0.0.0
         http_port: '1080'
-        path: /usr/local/bin
-        log: /var/log/mailcatcher/mailcatcher.log
+        mailcatcher_path: /usr/local/bin
+        log_path: /var/log/mailcatcher/mailcatcher.log
 apache:
+    install: '1'
+    settings:
+        user: www-data
+        group: www-data
+        default_vhost: true
+        manage_user: false
+        manage_group: false
+        sendfile: 0
     modules:
         - php
         - rewrite
     vhosts:
-        1cfq1ETKCqdw:
+        malTkY6vD0VM:
             servername: theyworkforyou.dev
             docroot: /data/twfy/www/docs
             port: '80'
             override:
                 - All
-    user: www-data
-    group: www-data
-    default_vhost: true
+            custom_fragment: ''
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
     mod_pagespeed: 0
     mod_spdy: 0
+nginx:
+    install: 0
+    vhosts:
+        HcnwB0iqyb9Z:
+            server_name: awesome.dev
+            server_aliases:
+                - www.awesome.dev
+            www_root: /var/www/awesome.dev
+            listen_port: '80'
+            index_files:
+                - index.html
+                - index.htm
+                - index.php
+            envvars:
+                - 'APP_ENV dev'
 php:
     install: '1'
-    version: '53'
+    version: '54'
     composer: '1'
     modules:
         php:
@@ -121,11 +145,12 @@ drush:
     settings:
         drush.tag_branch: 6.x
 mysql:
+    install: '1'
     root_password: flFQ8TS53H
     phpmyadmin: 0
     adminer: 0
     databases:
-        GD1MimCUZHpL:
+        kT20eY2Jff7G:
             grant:
                 - ALL
             name: twfy
@@ -133,11 +158,32 @@ mysql:
             user: twfy
             password: twfy
             sql_file: ''
+postgresql:
+    install: 0
+    settings:
+        root_password: '123'
+        user_group: postgres
+        encoding: UTF8
+        version: '9.3'
+    databases: {  }
+    adminer: 0
+mariadb:
+    install: 0
+    root_password: '123'
+    phpmyadmin: 0
+    adminer: 0
+    databases: {  }
+    version: '10.0'
 mongodb:
     install: 0
-    auth: 1
-    port: '27017'
+    settings:
+        auth: 1
+        port: '27017'
     databases: {  }
+redis:
+    install: 0
+    settings:
+        conf_port: '6379'
 beanstalkd:
     install: 0
     settings:
@@ -152,5 +198,6 @@ beanstalkd:
     binlogdir: /var/lib/beanstalkd/binlog
 rabbitmq:
     install: 0
-    port: '5672'
+    settings:
+        port: '5672'
 
