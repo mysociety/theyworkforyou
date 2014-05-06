@@ -75,6 +75,7 @@ class Policies {
         6694 => 'higher taxes on <b>alcoholic drinks</b>',
         6696 => 'the introduction of elected <b>Police and Crime Commissioners</b>',
         6697 => 'selling England&rsquo;s state owned <b>forests</b>',
+        6702 => 'spending public money to create <b>guaranteed jobs for young people</b> who have spent a long time unemployed',
     );
 
     /**
@@ -124,7 +125,8 @@ class Policies {
             6674,
             6673,
             6684,
-            6670
+            6670,
+            6702,
         ),
         'taxation' => array(
             6680,
