@@ -65,6 +65,7 @@ class Policies {
         6682 => 'ending <b>financial support</b> for some 16-19 year olds in training and further education',
         6683 => 'local councils keeping money raised from <b>taxes on business premises</b> in their areas',
         6684 => 'making local councils responsible for helping those in <b>financial need</b> afford their <b>council tax</b> and reducing the amount spent on such support',
+        6685 => 'a <b>banker&rsquo;s bonus tax</b>',
         6686 => 'allowing <b>marriage</b> between two people of same sex',
         6687 => '<a href="http://en.wikipedia.org/wiki/Academy_(English_school)">academy schools</a>',
         6688 => 'use of <b>UK military forces</b> in combat operations overseas',
@@ -135,7 +136,8 @@ class Policies {
             6693,
             6681,
             1109,
-            1124
+            1124,
+            6685,
         ),
         'business' => array(
             6679,
