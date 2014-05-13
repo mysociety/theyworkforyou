@@ -193,7 +193,7 @@ and in PHP and RABX a serialised array containing one entry with key <code>error
 
 <h3>Usage and Licensing</h3>
 
-<?php $em = join('&#64;', array('commercial', 'mysociety.org')); ?>
+<?php $em = join('&#64;', array('enquiries', 'mysociety.org')); ?>
 <p>Low volume, charitable use of the API service itself is free. This means
 direct use by registered charities, or individuals pursuing a non-profit
 project on an unpaid basis, with a volume of up to 50,000 calls per year.
