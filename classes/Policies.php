@@ -32,7 +32,7 @@ class Policies {
         984 => 'replacing <b>Trident</b> with a new nuclear weapons system',
         996 => 'a <b>transparent Parliament</b>',
         1027 => 'a referendum on the UK\'s membership of the <b>EU</b>',
-        1030 => 'laws to <b>stop climate change</b>',
+        1030 => 'measures to <b>prevent climate change</b>',
         1049 => 'the <b>Iraq war</b>',
         1050 => 'the <b>hunting ban</b>',
         1051 => 'introducing <b>ID cards</b>',
