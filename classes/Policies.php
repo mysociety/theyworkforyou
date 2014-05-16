@@ -44,6 +44,7 @@ class Policies {
         1079 => 'removing <b>hereditary peers</b> from the House of Lords',
         1084 => 'a more <a href="http://en.wikipedia.org/wiki/Proportional_representation">proportional system</a> for electing MPs',
         1087 => 'a <b>stricter asylum system</b>',
+        1105 => 'the privatisation of <b>Royal Mail</b>',
         1109 => 'encouraging <b>occupational pensions</b>',
         1110 => 'increasing the <b>rate of VAT</b>',
         1113 => 'an <b>equal number of electors</b> per parliamentary constituency',
@@ -179,7 +180,8 @@ class Policies {
             6692,
             6697,
             1120,
-            1053
+            1053,
+            1105,
         )
     );
 
