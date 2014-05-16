@@ -78,6 +78,7 @@ class Policies {
         6696 => 'the introduction of elected <b>Police and Crime Commissioners</b>',
         6697 => 'selling England&rsquo;s state owned <b>forests</b>',
         6702 => 'spending public money to create <b>guaranteed jobs for young people</b> who have spent a long time unemployed',
+        6704 => 'financial incentives for <b>low carbon</b> emission <b>electricity generation</b> methods',
     );
 
     /**
@@ -182,6 +183,7 @@ class Policies {
             1120,
             1053,
             1105,
+            6704,
         )
     );
 
