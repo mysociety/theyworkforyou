@@ -18,13 +18,13 @@ my $pwmembers = mySociety::Config::get('PWMEMBERS');
 # Update MP info from Public Whip, FaxYourMP and other places
 unless ($staging) {
     chdir $pwmembers;
-    system 'svn -q update';
+    system 'git -q pull';
 }
 chdir $FindBin::Bin;
 system './mpinfoin.pl';
 
-unless ($staging) {
-    chdir $pwmembers;
-    system 'svn commit -m "apply updates from twfy"';
-}
+#unless ($staging) {
+#    chdir $pwmembers;
+#    system 'svn commit -m "apply updates from twfy"';
+#}
 

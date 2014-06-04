@@ -15,9 +15,9 @@ use strict;
 # www/includes/dbtypes.php in this repository, which should be current.
 #
 # The XML files for Hansard objects come from the Public Whip parser:
-#       http://scm.kforge.net/plugins/scmsvn/cgi-bin/viewcvs.cgi/trunk/parlparse/pyscraper/?root=ukparse
+#       https://github.com/mysociety/parlparse/tree/master/pyscraper
 # And those for MPs are in (semi-)manually updated files here:
-#       http://scm.kforge.net/plugins/scmsvn/cgi-bin/viewcvs.cgi/trunk/parlparse/members/?root=ukparse
+#       https://github.com/mysociety/parlparse/tree/master/members
 
 use FindBin;
 chdir $FindBin::Bin;

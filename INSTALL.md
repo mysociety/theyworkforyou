@@ -1,7 +1,5 @@
 # TheyWorkForYou.com Installation Instructions
 
-$Id: INSTALL.txt,v 1.15 2009-08-04 14:48:49 francis Exp $
-
 ## Introduction
 
 This file explains how to install a working version of theyworkforyou.com. I'll
@@ -129,8 +127,8 @@ MPs. This will be based on XML format data published by theyworkforyou.com.
     You need to preserve the directory structure which exists under pwdata, but
     you don't need to get *everything*. Most of the useful stuff is under
     scrapedxml. You'll also need the members directory in the parlparse folder,
-    which is available from http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse/.
-    (and via SVN checkout). I recommend either using rsync or downloading the
+    which is available from https://github.com/mysociety/parlparse .
+    I recommend either using rsync or downloading the
     zip files containing all the data if you want it - for more information,
     see http://parser.theyworkforyou.com/ under "Getting the Data".
 

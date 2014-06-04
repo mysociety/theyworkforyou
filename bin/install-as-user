@@ -71,7 +71,7 @@ echo $DONE_MSG
 echo -n "Checking out parlparse... "
 if [ ! -e $HOME/parlparse ]; then
     cd $HOME
-    svn co -q http://project.knowledgeforge.net/ukparse/svn/trunk/parlparse
+    git clone https://github.com/mysociety/parlparse
     cd - >/dev/null
 fi
 echo $DONE_MSG
