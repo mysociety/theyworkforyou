@@ -52,7 +52,15 @@ if (DEVSITE) {
 }
 
 set_error_handler("error_handler", $error_level);
-set_exception_handler("exception_handler");
+
+// Decide how to handle exceptions (send to Whoops or use the legacy handler)
+if (DEVSITE) {
+    $whoops = new \Whoops\Run;
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    $whoops->register();
+} else {
+    set_exception_handler("exception_handler");
+}
 
 // The time the page starts, so we can display the total at the end.
 // getmicrotime() is in utiltity.php.
