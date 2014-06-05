@@ -707,8 +707,9 @@ $this->page = array (
     ),
 
     'royal' => array (
-        'title'			=> 'Royal',
-        'url'			=> 'royal/'
+        'parent'        => 'hansard',
+        'title'         => 'Royal',
+        'url'           => 'royal/',
     ),
 
     'search'		=> array (
