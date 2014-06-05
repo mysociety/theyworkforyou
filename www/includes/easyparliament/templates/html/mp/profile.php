@@ -13,7 +13,8 @@
                     </h1>
                 </div>
                 <div class="person-constituency">
-                     <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ) { ?><span class="constituency"><?= $constituency ?></span> <?php } ?><span class="party <?= $party_short ?>"><?= $party ?></span>
+                     <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ) { ?><span class="constituency"><?= $constituency ?></span> <?php } ?>
+                    <?php if ( $party ) { ?><span class="party <?= $party_short ?>"><?= $party ?></span><?php } ?>
                 </div>
                 <div class="person-search">
                     <form action="<?= $search_url ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Person'); return false;">
@@ -22,7 +23,7 @@
                     </form>
                 </div>
                 <div class="person-buttons">
-                    <?php if ($current_member_anywhere): ?>
+                    <?php if ($current_member_anywhere && $this_page != 'royal'): ?>
                     <a href="https://www.writetothem.com/<?php
                         if ($current_member[HOUSE_TYPE_LORDS]) {
                             echo "?person=uk.org.publicwhip/person/$person_id";

@@ -186,6 +186,13 @@
             }
         }
     }
+    &.royal {
+        .person-name {
+            h1 {
+                font-size: 1em !important; // XXX
+            }
+        }
+    }
 }
 
 .westminster {
