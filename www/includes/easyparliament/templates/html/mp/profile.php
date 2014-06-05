@@ -234,13 +234,17 @@ you can find it.</p>
 
                         <?php endif; ?>
 
-                        <?php if (count($public_bill_committees) > 0): ?>
+                        <?php if (count($public_bill_committees['data']) > 0): ?>
 
                         <h3>Public bill committees <small>(Sittings attended)</small></h3>
 
+                        <?php if ($public_bill_committees['info']): ?>
+                            <p><em><?= $public_bill_committees['info'] ?></em></p>
+                        <?php endif; ?>
+
                         <ul>
 
-                            <?php foreach ($public_bill_committees as $committee): ?>
+                            <?php foreach ($public_bill_committees['data'] as $committee): ?>
                             <li><a href="<?= $committee['href'] ?>"><?= $committee['text'] ?></a> (<?= $committee['attending'] ?>)</li>
                             <?php endforeach; ?>
 

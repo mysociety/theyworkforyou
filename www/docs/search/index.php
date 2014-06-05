@@ -329,7 +329,7 @@ function find_constituency($args) {
             }
             ?></h2>
 
-            <p><a href="<?php echo $URL->generate(); ?>"><strong><?php echo $MEMBER->full_name(); ?></strong></a> (<?php echo $MEMBER->party(); ?>)</p>
+            <p><a href="<?php echo $URL->generate(); ?>"><strong><?php echo $MEMBER->full_name(); ?></strong></a> (<?php echo $MEMBER->party_text(); ?>)</p>
     <?php
         }
 

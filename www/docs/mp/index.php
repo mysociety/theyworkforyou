@@ -941,11 +941,11 @@ function constituency_future_mps($member) {
 function person_pbc_membership($member) {
 
     $extra_info = $member->extra_info();
-    $out = array();
+    $out = array('info'=>'', 'data'=>array());
 
     # Public Bill Committees
     if (count($extra_info['pbc'])) {
-        if ($member->party() == 'Scottish National Party') {
+        if ($member->party() == 'SNP') {
             $out['info'] = 'SNP MPs only attend sittings where the legislation pertains to Scotland.';
         }
         foreach ($extra_info['pbc'] as $bill_id => $arr) {
@@ -954,7 +954,7 @@ function person_pbc_membership($member) {
                 $text .= 'Chairman, ';
             }
             $text .= $arr['title'] . ' Committee';
-            $out[] = array(
+            $out['data'][] = array(
                 'href'      => '/pbc/' . $arr['session'] . '/' . urlencode($arr['title']),
                 'text'      => $text,
                 'attending' => $arr['attending'] . ' out of ' . $arr['outof']
@@ -985,7 +985,7 @@ function person_numerology($member) {
     $MOREURL = new \URL('search');
     $section = 'section:debates section:whall section:lords section:ni';
     $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>$section, 'pop'=>1));
-    if ($member->party() != 'Sinn Fein') {
+    if ($member->party() != 'SF') {
         if (display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info)) {
             $out[] = display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info);
         }
@@ -997,7 +997,7 @@ function person_numerology($member) {
             $minister = 1;
         if (isset($extra_info['Lwrans_answered_inlastyear']) && $extra_info['Lwrans_answered_inlastyear'] > 0 && $extra_info['Lwrans_asked_inlastyear'] == 0)
             $Lminister = true;
-        if ($member->party() == 'Speaker' || $member->party() == 'Deputy Speaker') {
+        if ($member->party() == 'SPK' || $member->party() == 'CWM' || $member->party() == 'DCWM') {
             $minister = 2;
         }
         if (display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister)) {
@@ -1029,12 +1029,12 @@ function person_numerology($member) {
     }
 
     $after_stuff = ' <small>(From Public Whip)</small>';
-    if ($member->party() == 'Scottish National Party') {
+    if ($member->party() == 'SNP') {
         $after_stuff .= '<br><em>Note SNP MPs do not vote on legislation not affecting Scotland.</em>';
-    } elseif ($member->party() == 'Speaker' || $member->party() == 'Deputy Speaker') {
+    } elseif ($member->party() == 'SPK' || $member->party() == 'CWM' || $member->party() == 'DCWM') {
         $after_stuff .= '<br><em>Speakers and deputy speakers cannot vote except to break a tie.</em>';
     }
-    if ($member->party() != 'Sinn Fein') {
+    if ($member->party() != 'SF') {
         $when = 'in this Parliament with this affiliation';
         # Lords have one record per affiliation until they leave (ignoring name changes, sigh)
         if ($member->house_disp == HOUSE_TYPE_LORDS) {
@@ -1067,14 +1067,14 @@ function person_numerology($member) {
         elseif ($member->house_disp == HOUSE_TYPE_NI) $line .= 'this MLA';
         elseif ($member->house_disp == HOUSE_TYPE_SCOTLAND) $line .= 'this MSP';
         elseif ($member->house_disp == HOUSE_TYPE_ROYAL) $line .= $member->full_name();
-        if ($current_member[HOUSE_TYPE_ROYAL] || $current_member[HOUSE_TYPE_LORDS] || $current_member[HOUSE_TYPE_NI] || ($current_member[HOUSE_TYPE_COMMONS] && $member->party() != 'Sinn Fein') || $current_member[HOUSE_TYPE_SCOTLAND]) {
+        if ($current_member[HOUSE_TYPE_ROYAL] || $current_member[HOUSE_TYPE_LORDS] || $current_member[HOUSE_TYPE_NI] || ($current_member[HOUSE_TYPE_COMMONS] && $member->party() != 'SF') || $current_member[HOUSE_TYPE_SCOTLAND]) {
             $line .= ' &mdash; <a href="' . WEBPATH . 'alert/?pid='.$member->person_id().'">email me updates on '. $member->full_name(). '&rsquo;s activity</a>';
         }
 
         $out[] = $line;
     }
 
-    if ($member->party() != 'Sinn Fein') {
+    if ($member->party() != 'SF') {
         if (display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="' . WEBPATH . 'help/#numbers">Why is this here?</a>)</small>', $extra_info)) {
             $line = display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="' . WEBPATH . 'help/#numbers">Why is this here?</a>)</small>', $extra_info);
             if (isset($extra_info['three_word_alliteration_content'])) {
