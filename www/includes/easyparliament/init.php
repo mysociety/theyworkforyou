@@ -75,15 +75,11 @@ include_once (INCLUDESPATH."url.php");
 include_once (INCLUDESPATH."lib_filter.php");
 include_once (INCLUDESPATH."easyparliament/user.php");
 
-if (isset($new_style_template) AND $new_style_template === TRUE) {
-
-    // This is a new-style page. Renderer will be autoloaded.
-
-} else {
+// Test to see if this is a new-style template using the renderer class.
+if (! isset($new_style_template) OR $new_style_template !== TRUE) {
 
     // This is an old-style page. Use the old page classes.
     include_once (INCLUDESPATH."easyparliament/page.php");
-    include_once (INCLUDESPATH."easyparliament/newpage.php");
 
 }
 

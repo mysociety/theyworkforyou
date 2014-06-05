@@ -63,7 +63,7 @@ class MEMBER {
         // If just a constituency we currently just get the current member for
         // that constituency.
 
-        global $NEWPAGE,$PAGE, $this_page;
+        global $PAGE, $this_page;
 
         $house = isset($args['house']) ? $args['house'] : null;
 
@@ -233,7 +233,7 @@ class MEMBER {
     }
 
     public function name_to_person_id($name, $const='') {
-        global $NEWPAGE, $PAGE, $this_page;
+        global $PAGE, $this_page;
         if ($name == '') {
             $PAGE->error_message('Sorry, no name was found.');
             return false;
@@ -261,7 +261,7 @@ class MEMBER {
             if (!$success)
                 $success = preg_match('#^(.*?)() (.*)$#', $name, $m);
             if (!$success) {
-                $NEWPAGE->error_message('Sorry, that name was not recognised.');
+                throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
                 return false;
             }
             $first_name = mysql_real_escape_string($m[1]);
@@ -275,7 +275,7 @@ class MEMBER {
             if (!$success)
                 $success = preg_match('#^(.*?)() (.*)$#', $name, $m);
             if (!$success) {
-                $NEWPAGE->error_message('Sorry, that name was not recognised.');
+                throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
                 return false;
             }
             $first_name = mysql_real_escape_string($m[1]);
@@ -291,7 +291,7 @@ class MEMBER {
             if (!$success)
                 $success = preg_match('#^(.*?)() (.*)$#', $name, $m);
             if (!$success) {
-                $NEWPAGE->error_message('Sorry, that name was not recognised.');
+                throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
                 return false;
             }
             $first_name = $m[1];
@@ -341,7 +341,7 @@ class MEMBER {
         } elseif ($const && $this_page!='peer') {
             return $this->name_to_person_id($name);
         } else {
-            $NEWPAGE->error_message("Sorry, there is no current member with that name.");
+            throw new MySociety\TheyWorkForYou\MemberException('Sorry, there is no current member with that name.');
             return false;
         }
     }
@@ -651,29 +651,6 @@ class MEMBER {
             return 'http://' . DOMAIN . $URL->generate('none') . $member_url;
         else
             return $URL->generate('none') . $member_url;
-    }
-
-    public function display() {
-        global $PAGE;
-
-        $member = array (
-            'member_id' 		=> $this->member_id(),
-            'person_id'		=> $this->person_id(),
-            'constituency' 		=> $this->constituency(),
-            'party'			=> $this->party_text(),
-            'other_parties'		=> $this->other_parties,
-            'other_constituencies'	=> $this->other_constituencies,
-            'houses'		=> $this->houses(),
-            'entered_house'		=> $this->entered_house(),
-            'left_house'		=> $this->left_house(),
-            'current_member'	=> $this->current_member(),
-            'full_name'		=> $this->full_name(),
-            'the_users_mp'		=> $this->the_users_mp(),
-            'current_member_anywhere'   => $this->current_member_anywhere(),
-            'house_disp'		=> $this->house_disp,
-        );
-
-        $PAGE->display_member($member, $this->extra_info);
     }
 
     public function previous_mps() {

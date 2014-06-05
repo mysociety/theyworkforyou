@@ -1277,10 +1277,6 @@ pr()//-->
 
     }
 
-    public function display_member($member, $extra_info) {
-        include_once INCLUDESPATH . 'easyparliament/templates/html/person.php';
-    }
-
     public function error_message($message, $fatal = false, $status = 500) {
         // If $fatal is true, we exit the page right here.
         // $message is like the array used in $this->message()
