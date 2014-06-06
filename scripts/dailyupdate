@@ -18,7 +18,7 @@ my $pwmembers = mySociety::Config::get('PWMEMBERS');
 # Update MP info from Public Whip, FaxYourMP and other places
 unless ($staging) {
     chdir $pwmembers;
-    system 'git -q pull';
+    system 'git pull -q';
 }
 chdir $FindBin::Bin;
 system './mpinfoin.pl';
