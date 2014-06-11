@@ -192,7 +192,7 @@ class DATA {
         $key = $args["key"];
         $value = $args["value"];
 
-        twfy_debug("DATA", "Setting: ".$type."[".$item."][".$key."] = '$value'");
+        twfy_debug("DATA", "Setting: ".$type."[".$item."][".$key."] = '" . print_r($value, 1) . "'");
 
         $dataarray =& $this->$type;
         $dataarray[$item][$key] = $value;
