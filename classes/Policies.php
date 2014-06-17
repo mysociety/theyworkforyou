@@ -86,6 +86,7 @@ class Policies {
         6708 => 'transferring <b>more powers to the Welsh Assembly</b>',
         6709 => 'transferring <b>more powers to the Scottish Parliament</b>',
         6710 => '<b>culling badgers</b> to tackle bovine tuberculosis',
+        6711 => 'an annual tax on the value of expensive homes (popularly known as a <b>mansion tax</b>)',
     );
 
     /**
@@ -149,6 +150,7 @@ class Policies {
             1109,
             1124,
             6685,
+            6711,
         ),
         'business' => array(
             6679,
