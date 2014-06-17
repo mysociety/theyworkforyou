@@ -80,6 +80,7 @@ class Policies {
         6702 => 'spending public money to create <b>guaranteed jobs for young people</b> who have spent a long time unemployed',
         6703 => 'laws to promote <b>equality and human rights</b>',
         6704 => 'financial incentives for <b>low carbon</b> emission <b>electricity generation</b> methods',
+        6707 => 'restricting the scope of <b>legal aid</b>',
         6708 => 'transferring <b>more powers to the Welsh Assembly</b>',
         6709 => 'transferring <b>more powers to the Scottish Parliament</b>',
         6710 => '<b>culling badgers</b> to tackle bovine tuberculosis',
@@ -191,6 +192,7 @@ class Policies {
             1053,
             1105,
             6704,
+            6707,
             6710,
         )
     );
