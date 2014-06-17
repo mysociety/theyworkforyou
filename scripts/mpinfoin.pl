@@ -202,6 +202,7 @@ if ($action{'pw'}) {
             6697,
             6702,
             6704,
+            6710,
 
         ) {
           $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid", $ua);

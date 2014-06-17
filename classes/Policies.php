@@ -79,6 +79,7 @@ class Policies {
         6697 => 'selling England&rsquo;s state owned <b>forests</b>',
         6702 => 'spending public money to create <b>guaranteed jobs for young people</b> who have spent a long time unemployed',
         6704 => 'financial incentives for <b>low carbon</b> emission <b>electricity generation</b> methods',
+        6710 => '<b>culling badgers</b> to tackle bovine tuberculosis',
     );
 
     /**
@@ -184,6 +185,7 @@ class Policies {
             1053,
             1105,
             6704,
+            6710,
         )
     );
 
