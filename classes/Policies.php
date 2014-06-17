@@ -25,6 +25,7 @@ class Policies {
 
     protected $policies = array(
         363 => 'introducing <b>foundation hospitals</b>',
+        810 => 'greater <b>regulation of gambling</b>',
         811 => '<b>smoking bans</b>',
         826 => 'equal <b>gay rights</b>',
         837 => 'a <strong>wholly elected</strong> House of Lords',
@@ -190,6 +191,7 @@ class Policies {
             6696
         ),
         'misc' => array(
+            810,
             1030,
             6692,
             6697,
