@@ -78,6 +78,7 @@ class Policies {
         6696 => 'the introduction of elected <b>Police and Crime Commissioners</b>',
         6697 => 'selling England&rsquo;s state owned <b>forests</b>',
         6702 => 'spending public money to create <b>guaranteed jobs for young people</b> who have spent a long time unemployed',
+        6703 => 'laws to promote <b>equality and human rights</b>',
         6704 => 'financial incentives for <b>low carbon</b> emission <b>electricity generation</b> methods',
         6708 => 'transferring <b>more powers to the Welsh Assembly</b>',
         6709 => 'transferring <b>more powers to the Scottish Parliament</b>',
@@ -116,7 +117,8 @@ class Policies {
             826,
             811,
             1050,
-            6686
+            6686,
+            6703,
         ),
         'foreignpolicy' => array(
             6688,
