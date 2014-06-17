@@ -80,6 +80,7 @@ class Policies {
         6702 => 'spending public money to create <b>guaranteed jobs for young people</b> who have spent a long time unemployed',
         6703 => 'laws to promote <b>equality and human rights</b>',
         6704 => 'financial incentives for <b>low carbon</b> emission <b>electricity generation</b> methods',
+        6705 => 'requiring pub companies to offer <b>pub landlords rent-only leases</b>',
         6706 => 'strengthening the <b>Military Covenant</b>',
         6707 => 'restricting the scope of <b>legal aid</b>',
         6708 => 'transferring <b>more powers to the Welsh Assembly</b>',
@@ -194,6 +195,7 @@ class Policies {
             1053,
             1105,
             6704,
+            6705,
             6707,
             6710,
         )
