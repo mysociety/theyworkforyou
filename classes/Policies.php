@@ -79,6 +79,7 @@ class Policies {
         6697 => 'selling England&rsquo;s state owned <b>forests</b>',
         6702 => 'spending public money to create <b>guaranteed jobs for young people</b> who have spent a long time unemployed',
         6704 => 'financial incentives for <b>low carbon</b> emission <b>electricity generation</b> methods',
+        6708 => 'transferring <b>more powers to the Welsh Assembly</b>',
         6709 => 'transferring <b>more powers to the Scottish Parliament</b>',
         6710 => '<b>culling badgers</b> to tackle bovine tuberculosis',
     );
@@ -171,6 +172,7 @@ class Policies {
             6683,
             6678,
             1079,
+            6708,
             6709,
         ),
         'home' => array(
