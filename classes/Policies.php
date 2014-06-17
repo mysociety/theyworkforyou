@@ -80,6 +80,7 @@ class Policies {
         6702 => 'spending public money to create <b>guaranteed jobs for young people</b> who have spent a long time unemployed',
         6703 => 'laws to promote <b>equality and human rights</b>',
         6704 => 'financial incentives for <b>low carbon</b> emission <b>electricity generation</b> methods',
+        6706 => 'strengthening the <b>Military Covenant</b>',
         6707 => 'restricting the scope of <b>legal aid</b>',
         6708 => 'transferring <b>more powers to the Welsh Assembly</b>',
         6709 => 'transferring <b>more powers to the Scottish Parliament</b>',
@@ -127,7 +128,8 @@ class Policies {
             975,
             984,
             1065,
-            1027
+            1027,
+            6706,
         ),
         'welfare' => array(
             6672,
