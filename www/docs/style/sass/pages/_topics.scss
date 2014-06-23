@@ -92,5 +92,51 @@
             }
         }
     }
+}
 
+.topic-home {
+  h1 {
+    font-size: em-calc(68);
+    margin-top: 0.3em; // up from default 0.2em
+    margin-bottom: 0.1em; // down from default 0.5em
+  }
+}
+
+.topic-home__intro {
+  font-size: em-calc(21);
+  color: #A09C91; // lighter, desaturated version of $body-bg
+  max-width: 30em;
+}
+
+.topic-list {
+  background-color: #fff;
+  @include unstyled-list;
+  @include grid-row;
+  margin-top: em-calc(30);
+  margin-bottom: em-calc(30);
+
+  li {
+    display: block;
+    @include grid-column(6);
+    margin-top: 1.5%; // to match margin-left and margin-right;
+
+    @media (min-width: $medium-screen) {
+      @include grid-column(3);
+    }
+
+    &:last-child {
+      margin-bottom: 1.5%;
+    }
+
+    a {
+      font-size: em-calc(21);
+      color: #000;
+      font-weight: bold;
+    }
+
+    img {
+      display: block;
+      margin-bottom: em-calc(5);
+    }
+  }
 }
