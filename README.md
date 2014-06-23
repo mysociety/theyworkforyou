@@ -47,6 +47,9 @@ You will need the latest versions of VirtualBox and Vagrant, then:
 * Stick an entry in your `hosts` file to point `theyworkforyou.dev` at `192.168.88.10`.
 * Run `vagrant up`.
 * Go make a cup of tea. It may take a while whilst Vagrant and Puppet do their thing.
+* `vagrant ssh`, then:
+  * `cd /data/twfy && composer install`
+  * `cp /data/twfyconf/general-example /data/twfyconf/general`
 * Point your web browser at `http://theyworkforyou.dev` and marvel at modern technology.
 
 #### Compiling Static Assets
