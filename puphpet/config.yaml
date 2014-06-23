@@ -1,9 +1,11 @@
 ---
 vagrantfile-local:
     vm:
-        box: debian-wheezy72-x64-vbox43
-        box_url: 'http://box.puphpet.com/debian-wheezy72-x64-vbox43.box'
+        box: puphpet/debian75-x64
+        box_url: puphpet/debian75-x64
         hostname: null
+        memory: '512'
+        chosen_provider: virtualbox
         network:
             private_network: 192.168.88.10
             forwarded_port: {  }
@@ -11,19 +13,23 @@ vagrantfile-local:
             virtualbox:
                 modifyvm:
                     natdnshostresolver1: on
-                    memory: '512'
                 setextradata:
                     VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
+            vmware:
+                numvcpus: 1
+            parallels:
+                cpus: 1
         provision:
             puppet:
                 manifests_path: puphpet/puppet
                 manifest_file: manifest.pp
+                module_path: puphpet/puppet/modules
                 options:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            0REkT8W8fkOY:
+            Qx5u4uGYk57c:
                 source: ./
                 target: /data/twfy
                 nfs: 'false'
@@ -69,12 +75,15 @@ mailcatcher:
         http_port: '1080'
         mailcatcher_path: /usr/local/bin
         log_path: /var/log/mailcatcher/mailcatcher.log
+firewall:
+    install: '1'
+    rules: null
 apache:
     install: '1'
     settings:
         user: www-data
         group: www-data
-        default_vhost: true
+        default_vhost: false
         manage_user: false
         manage_group: false
         sendfile: 0
@@ -82,12 +91,10 @@ apache:
         - php
         - rewrite
     vhosts:
-        malTkY6vD0VM:
+        l8iCflTm1M8H:
             servername: theyworkforyou.dev
             docroot: /data/twfy/www/docs
             port: '80'
-            override:
-                - All
             custom_fragment: ''
             ssl_cert: ''
             ssl_key: ''
@@ -98,7 +105,7 @@ apache:
 nginx:
     install: 0
     vhosts:
-        HcnwB0iqyb9Z:
+        4jcjSYMVR7tE:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
@@ -110,10 +117,13 @@ nginx:
                 - index.php
             envvars:
                 - 'APP_ENV dev'
+            ssl_cert: ''
+            ssl_key: ''
 php:
     install: '1'
     version: '54'
     composer: '1'
+    composer_home: ''
     modules:
         php:
             - cli
@@ -147,10 +157,9 @@ drush:
 mysql:
     install: '1'
     root_password: flFQ8TS53H
-    phpmyadmin: 0
     adminer: 0
     databases:
-        kT20eY2Jff7G:
+        ruxfyNYnPx0I:
             grant:
                 - ALL
             name: twfy
@@ -170,7 +179,6 @@ postgresql:
 mariadb:
     install: 0
     root_password: '123'
-    phpmyadmin: 0
     adminer: 0
     databases: {  }
     version: '10.0'
