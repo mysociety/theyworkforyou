@@ -415,6 +415,58 @@
             }
         }
     }
+    .panel--secondary {
+        @include radius;
+        background-color: #f9f8f5;
+        padding: em-calc(12);
+        margin-bottom: em-calc(40);
+        border: 1px solid #e2dfd9;
+        @media (min-width: $medium-screen) {
+            padding: em-calc(30);
+        }
+
+        :last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.about-this-page {
+    .about-this-page__one-of-two {
+        @include grid-column(12);
+        padding-left: 0;
+        padding-right: 0;
+
+        @media (min-width: $medium-screen) {
+            @include grid-column(6);
+        }
+
+        &:first-child {
+            padding-left: 0;
+        }
+
+        &:last-child {
+            padding-right: 0;
+        }
+    }
+}
+
+.mini-survey {
+    label {
+        font-size: 1em;
+
+        input[type="radio"] {
+            margin-right: 0.5em;
+        }
+    }
+
+    p {
+        margin-bottom: 0.5em;
+    }
+
+    input[type="submit"] {
+        margin-top: 0.5em;
+    }
 }
 
 a[href^="http://www.publicwhip.org"],

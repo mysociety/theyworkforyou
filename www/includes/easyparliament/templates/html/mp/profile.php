@@ -302,11 +302,23 @@ you can find it.</p>
                     </div>
                     <?php endif; ?>
 
-                    <div class="panel">
-                        <p>Please feel free to use the data on this page, but if
-                            you do you must cite TheyWorkForYou.com in the body
-                            of your articles as the source of any analysis or
-                            data you get off this site.</p>
+                    <div class="about-this-page">
+                        <div class="about-this-page__one-of-two">
+                            <form class="panel--secondary mini-survey">
+                                <h3>Did you find what you were looking for?</h3>
+                                <p><label><input type="radio"> Yes, thanks!</label></p>
+                                <p><label><input type="radio"> No, I didn&rsquo;t find it.</label></p>
+                                <p><input type="submit" class="button wtt" value="Answer"></p>
+                            </form>
+                        </div>
+                        <div class="about-this-page__one-of-two">
+                            <div class="panel--secondary">
+                                <p>Please feel free to use the data on this page, but if
+                                    you do you must cite TheyWorkForYou.com in the body
+                                    of your articles as the source of any analysis or
+                                    data you get off this site.</p>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
