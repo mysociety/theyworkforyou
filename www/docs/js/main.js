@@ -82,6 +82,20 @@ $(function(){
       function() { $(this).children('.moreinfo-text').show(); },
       function() { $(this).children('.moreinfo-text').hide(); }
   );
+  if( $('.about-this-page__one-of-two').length ) {
+    // these are usually .panel--secondary elements
+    var $elements = $('.about-this-page__one-of-two').children();
+    var maxHeight = 0;
+    $elements.each(function(){
+      // find height with padding but not margin
+      var thisHeight = $(this).outerHeight(false);
+      maxHeight = Math.max(maxHeight, thisHeight);
+    });
+    $elements.each(function(){
+      // assumes {box-sizing: border-box}
+      $(this).css('height', maxHeight);
+    });
+  }
 	window.setTimeout(function(){
 		if ( $('#minisurvey').length ) {
 			lastAnswered = $.cookie('survey');
