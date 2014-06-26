@@ -1,3 +1,6 @@
 [submodule "commonlib"]
 	path = commonlib
 	url = git://git.mysociety.org/commonlib
+[submodule "foundation"]
+	path = foundation
+	url = https://github.com/zurb/foundation.git
