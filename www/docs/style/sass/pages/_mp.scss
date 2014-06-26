@@ -416,3 +416,26 @@
         }
     }
 }
+
+a[href^="http://www.publicwhip.org"],
+a[href^="http://politics.guardian.co.uk"] {
+    &:after {
+        content: "";
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background: transparent url(/images/external-link-icon.png) 0 -20px no-repeat;
+        background-size: 20px 30px;
+        margin-left: 5px;
+        vertical-align: -1px;
+
+        @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+            background-position: 0 0;
+            background-size: 10px; // 10px width, auto height
+        }
+    }
+
+    &.dream_details:after {
+        background-image: url(/images/external-link-icon-white.png);
+    }
+}
