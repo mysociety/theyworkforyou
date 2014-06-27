@@ -55,15 +55,29 @@
                 }
             }
 
-            h1 {
+            .mp-name-and-position {
                 color: white;
-                margin: 0px;
-                padding: 0px;
-                line-height: 1em;
-
                 display: table-cell; // this won't work in IE7
                 vertical-align: bottom;
                 padding-left: 10px;
+
+                h1 {
+                    margin: 0px;
+                    padding: 0px;
+                    line-height: 1em;
+                    color: inherit;
+                }
+
+                p {
+                    font-size: em-calc(21);
+                    line-height: 1.1em;
+                    margin: 0.1em 0;
+                    color: #ddd;
+
+                    @media (min-width: $medium-screen) {
+                        font-size: em-calc(24);
+                    }
+                }
             }
         }
 
@@ -206,15 +220,9 @@
         }
     }
 
-    &.royal {
-        // Special case for the Queen, bless her.
-        h1 {
-            font-size: 1.5em;
-        }
-        @media (min-width: $large-screen) {
-            h1 {
-                font-size: 2em;
-            }
+    @media (min-width: $large-screen) {
+        // Special case for the Queen, bless her
+        &.royal {
             .person-header__content .person-name {
                 width: auto; // the Queen has no party/constituency, so no need for the 60% width
             }

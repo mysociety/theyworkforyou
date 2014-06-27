@@ -395,6 +395,8 @@ try {
         $data['full_name'] = $MEMBER->full_name();
         $data['person_id'] = $MEMBER->person_id();
         $data['member_id'] = $MEMBER->member_id();
+        $data['current_position'] = Null; // :TODO: Fill with current position, or royal title
+        $data['former_position'] = Null; // :TODO: Fill with former position
         $data['constituency'] = $MEMBER->constituency();
         $data['party'] = $MEMBER->party_text();
         $data['party_short'] = $MEMBER->party();
