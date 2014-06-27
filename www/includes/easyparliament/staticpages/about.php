@@ -13,7 +13,7 @@ little wrong with Parliament that a healthy mixture of transparency and public e
 which is itself a project of UK Citizens Online Democracy, a registered charity.
 It was originally built almost entirely by volunteers (see <a href="#history">History</a> below),
 but now mySociety pays Matthew to keep the site running and up-to-date as part of his
-wider work for mySociety. However, things are still added voluntarily by anyone who wishes. If you want to volunteer to help then you can, just <a href="http://www.mysociety.org/helpus/volunteering-for-theyworkforyou/">take a look at the Volunteering page</a>.
+wider work for mySociety. However, things are still added voluntarily by anyone who wishes. If you want to volunteer to help then you can, just <a href="https://www.mysociety.org/about/get-involved/">take a look at the Volunteering page</a>.
 </p>
 
 <p>The copyright of Hansard remains under
@@ -22,7 +22,7 @@ used under licence.
 
 <p>If you're technically minded, we make all the
 <a href="http://github.com/mysociety/theyworkforyou">TheyWorkForYou source code</a>
-freely available. Do <a href="http://www.mysociety.org/helpus/volunteering-for-theyworkforyou/">let us know if you want to help</a>!
+freely available. Do <a href="https://www.mysociety.org/about/get-involved/">let us know if you want to help</a>!
 </p>
 
 
