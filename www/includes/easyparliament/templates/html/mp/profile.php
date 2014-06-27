@@ -3,18 +3,22 @@
             <div class=" full-page__row">
             <div class="person-header__content page-content__row">
                 <div class="person-name">
-                    <h1>
-                        <?php if ( $image ) { ?>
-                        <span class="mp-image">
+                  <?php if ( $image ) { ?>
+                    <span class="mp-image">
                         <img src="<?= $image ?>" height="48">
-                        </span>
-                        <?php } ?>
+                    </span>
+                  <?php } ?>
+                    <h1>
                         <?= $full_name ?>
                     </h1>
                 </div>
                 <div class="person-constituency">
-                     <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ) { ?><span class="constituency"><?= $constituency ?></span> <?php } ?>
-                    <?php if ( $party ) { ?><span class="party <?= $party_short ?>"><?= $party ?></span><?php } ?>
+                  <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ) { ?>
+                    <span class="constituency"><?= $constituency ?></span>
+                  <?php } ?>
+                  <?php if ( $party ) { ?>
+                    <span class="party <?= $party_short ?>"><?= $party ?></span>
+                  <?php } ?>
                 </div>
                 <div class="person-search">
                     <form action="<?= $search_url ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Person'); return false;">
@@ -23,7 +27,7 @@
                     </form>
                 </div>
                 <div class="person-buttons">
-                    <?php if ($current_member_anywhere && $this_page != 'royal'): ?>
+                  <?php if ($current_member_anywhere && $this_page != 'royal') { ?>
                     <a href="https://www.writetothem.com/<?php
                         if ($current_member[HOUSE_TYPE_LORDS]) {
                             echo "?person=uk.org.publicwhip/person/$person_id";
@@ -33,10 +37,10 @@
                         }
                     ?>" class="button wtt" onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'Person'); return false;"><img src="/style/img/envelope.png">Send a message</a>
 
-                    <?php endif; ?>
-                    <?php if ($has_email_alerts): ?>
+                  <?php } ?>
+                  <?php if ($has_email_alerts) { ?>
                     <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#" class="button alert" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;"><img src="/style/img/plus-circle.png">Get email updates</a>
-                    <?php endif; ?>
+                  <?php } ?>
                 </div>
             </div>
             </div>

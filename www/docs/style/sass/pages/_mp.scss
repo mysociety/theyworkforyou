@@ -4,8 +4,7 @@
         padding-top: 32px;
     }
     @media (min-width: $large-screen) {
-        height: 285px;
-        padding-top: 150px;
+        padding-top: 64px;
     }
 
     background: -moz-linear-gradient(top,  rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%); /* FF3.6+ */
@@ -20,41 +19,68 @@
         color: white;
         margin-left: 1.5%;
         margin-right: 1.5%;
+
         @media (min-width: $medium-screen) {
-            margin-left: -1.5%;
-            margin-right: -1.5%;
+            position: relative; // for search and button positioning
+            padding-bottom: 3em; // space for the search and buttons to absolutely position over
         }
+
+        @media (min-width: $large-screen) {
+            padding-bottom: 5em; // give buttons and search more vertical space
+        }
+
         .person-name {
-            h1 {
-                .mp-image {
-                    img {
-                        width: 48px;
-                    }
-                    @media (min-width: $medium-screen) {
-                        display: inline-block;
-                        float: none;
-                        position: relative;
-                        width: 48px;
-                        img {
-                            bottom: 0px;
-                            position: absolute;
-                            vertical-align: bottom;
-                        }
-                    }
+            display: table; // this won't work in IE7
+
+            @media (min-width: $large-screen) {
+                width: 60%; // leave room for .person-constituency to absolutely position to the right
+            }
+
+            .mp-image {
+                display: table-cell; // this won't work in IE7
+                vertical-align: top;
+                width: 48px;
+
+                *float: left; // fallback for IE7 and below
+                *margin-right: 10px; // fallback for IE7 and below
+
+                @media (min-width: $medium-screen) {
+                    width: 60px; // bit bigger, since h1 now has larger font-size
                 }
+
+                img {
+                    width: 100%;
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                }
+            }
+
+            h1 {
                 color: white;
                 margin: 0px;
                 padding: 0px;
-            }
-            @include grid-column(12);
-            @media (min-width: $medium-screen) {
-                @include grid-column(6);
+                line-height: 1em;
+
+                display: table-cell; // this won't work in IE7
+                vertical-align: bottom;
+                padding-left: 10px;
             }
         }
-        .person-search{
-            @include grid-column(12);
+
+        .person-search {
+            @media (min-width: $medium-screen) {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
+
+            @media (min-width: $large-screen) {
+                bottom: 1em;
+            }
+
             form {
                 padding-bottom: 1em;
+
                 input {
                     -webkit-appearance: none;
                     padding: em-calc(8);
@@ -63,7 +89,8 @@
                     border: 1px solid $borders;
                     border-right: 0px;
                     border-radius: 3px 0px 0px 3px;
-                    width: 85%;
+                    width: 16em;
+
                     &.submit {
                         background: transparent url('/images/search.png') no-repeat scroll center center;
                         background-color: white;
@@ -75,61 +102,67 @@
                     }
                 }
             }
-            @media (min-width: $medium-screen) {
-                @include grid-column(6);
-                text-align: right;
-                clear: both;
-                position: relative;
-                left: 50%;
-                right: auto;
-            }
         }
+
         .person-buttons {
-            @include grid-column(12);
-            @media (max-width: $medium-screen) {
+            .button {
+                padding-left: 0.85em;
+                padding-right: 0.85em;
+
+                img {
+                    display: none;
+                }
+            }
+
+            @media (min-width: $medium-screen) {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+
                 .button {
-                    padding-left: 0.85em;
-                    padding-right: 0.85em;
+                    padding: 0.4em 0.9em;
+                    margin-right: 0.5em;
+
                     img {
-                        display: none;
+                        display: inline-block;
                     }
                 }
             }
-            @media (min-width: $medium-screen) {
-                @include grid-column(6);
-                position: relative;
-                right: 50%;
-                left: auto;
+
+            @media (min-width: $large-screen) {
+                bottom: 1em;
             }
         }
+
         .person-constituency {
-            @include grid-column(12);
-            padding-bottom: em-calc(8);
-            @media (min-width: $medium-screen) {
-                @include grid-column(6);
-                padding-top: em-calc(12);
-            }
+            margin-bottom: 1em;
+            margin-top: 0.5em;
+
             @media (min-width: $large-screen) {
-                padding-top: em-calc(24);
-                height: $h1-font-size;
-                text-align: right;
+                position: absolute;
+                bottom: 5em; // to match padding-bottom on .person-header__content
+                right: 0;
+                margin-bottom: 5px; // match bottom padding on h1 (because of line-height, not really padding)
+                margin-top: 0;
             }
+
             span {
                 display: block;
-                @media (min-width: $large-screen) {
+                @media (min-width: $medium-screen) {
                     display: inline;
                 }
             }
+
             .constituency {
-                @media (min-width: $large-screen) {
-                    margin-right: 1em;
-                }
+                margin-right: 1em;
+
                 &:before {
                     position: relative;
                     content: url('../img/location-pin.png');
                     bottom: -0.3em;
                 }
             }
+
             .party {
                 &:before {
                     font-size: em-calc(12);
@@ -172,24 +205,18 @@
             }
         }
     }
-    &.royal,
-    &.peer {
-        .person-name {
-            @media (min-width: $medium-screen) {
-                @include grid-column(11);
-            }
-        }
-        .person-constituency {
-            @media (min-width: $medium-screen) {
-                @include grid-column(1);
-                padding-left: 0px;
-            }
-        }
-    }
+
     &.royal {
-        .person-name {
+        // Special case for the Queen, bless her.
+        h1 {
+            font-size: 1.5em;
+        }
+        @media (min-width: $large-screen) {
             h1 {
-                font-size: 1em !important; // XXX
+                font-size: 2em;
+            }
+            .person-header__content .person-name {
+                width: auto; // the Queen has no party/constituency, so no need for the 60% width
             }
         }
     }
