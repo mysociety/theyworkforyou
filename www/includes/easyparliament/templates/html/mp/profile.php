@@ -84,34 +84,49 @@
                   <?php endif; ?>
 
                   <?php if ($has_voting_record): ?>
-                    <div class="panel">
+                    <div class="panel vote-summary">
                         <a name="votes"></a>
-                        <h2 data-magellan-destination="votes">Voting Summary <small><a href="<?= $member_url ?>/votes">More Here</a></small></h2>
+                        <h2 data-magellan-destination="votes">Voting Summary <a class="vote-summary__more-link" href="<?= $member_url ?>/votes">Show full voting record</a></h2>
 
-                        <h3>How <?= $full_name ?> voted<?= isset($policyPositions->sinceString) ? $policyPositions->sinceString : '' ?><br>
-                        <small>Randomly generated selection of topics. <a href="<?= $member_url ?>/votes">See full list</a>.</small></h3>
+                      <?php if (count($policyPositions->positions) > 0 || count($hotTopicPositions->positions) > 0): ?>
+                        <p class="vote-summary__intro">Here&rsquo;s a flavour of how <?= $full_name ?> voted on parliamentary bills<?= isset($policyPositions->sinceString) ? $policyPositions->sinceString : '' ?>. Vote strength is determined by the number of votes placed on a topic, and the number of votes missed or abstained.</p>
+                      <?php endif; ?>
 
-                          <?php if (count($policyPositions->positions) > 0): ?>
+                        <div class="vote-summary__summaries">
 
-                            <ul class="policies">
-
-                            <?php foreach ($policyPositions->positions as $key_vote): ?>
-
-                            <li><?= $key_vote['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>">Details</a></li>
-
-                            <?php endforeach; ?>
-
-                            </ul>
-
-                            <p>See our much more detailed, easier-to-read <a href="<?= $member_url ?>/votes">analysis of votes</a> on <a href="<?= $member_url ?>/votes#health">health</a>, <a href="<?= $member_url ?>/votes#welfare">welfare</a>, <a href="<?= $member_url ?>/votes#foreign">foreign policy</a>, <a href="<?= $member_url ?>/votes#social">social issues</a>, <a href="<?= $member_url ?>/votes#taxation">taxation</a> and more.</p>
-
-                          <?php else: ?>
-
-                            <p>No votes to display.</p>
-
+                          <?php if (count($hotTopicPositions->positions) > 0): ?>
+                            <div class="vote-summary__summaries__summary">
+                                <h3>Hot Topics</h3>
+                                <ul class="policies">
+                                  <?php foreach ($hotTopicPositions->positions as $key_vote): ?>
+                                    <li><?= $key_vote['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>"></a></li>
+                                  <?php endforeach; ?>
+                                    <li class="vote-summary__next-step"><a href="<?= $member_url ?>/votes">See how <?= $full_name ?> voted</a> on other issues like health, welfare, foreign policy, social issues, and taxation.</li>
+                                </ul>
+                            </div>
                           <?php endif; ?>
 
-                        <p><?= $full_name ?> <?= $rebellion_rate ?></p>
+                          <?php if (count($policyPositions->positions) > 0): ?>
+                            <div class="vote-summary__summaries__summary">
+                                <h3>Recently Added</h3>
+                                <ul class="policies">
+                                  <?php foreach ($policyPositions->positions as $key_vote): ?>
+                                    <li><?= $key_vote['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>"></a></li>
+                                  <?php endforeach; ?>
+                                    <li class="vote-summary__next-step">
+                                      <?php if ($has_email_alerts): ?>
+                                        <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#">Get email notifications</a> when <?= $full_name ?> votes in parliament.
+                                      <?php else: ?>
+                                        <a href="<?= $member_url ?>/votes">See more votes</a> <?= $full_name ?> has made recently in parliament.</a>
+                                      <?php endif; ?>
+                                    </li>
+                                </ul>
+                            </div>
+                          <?php endif; ?>
+
+                        </div>
+
+                        <p class="vote-summary__rebellion"><?= $full_name ?> <?= $rebellion_rate ?></p>
 
                     </div>
                   <?php endif; ?>

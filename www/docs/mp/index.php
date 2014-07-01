@@ -546,11 +546,14 @@ try {
             case 'profile':
             default:
 
+                // :TODO: Actually get recently added votes - for now use the "summary" set
                 $policiesList = new MySociety\TheyWorkForYou\Policies;
                 $policies = $policiesList->limitToSet('summary')->shuffle();
+                $data['policyPositions'] = new MySociety\TheyWorkForYou\PolicyPositions($policies, $MEMBER, 4);
 
-                // Generate limited voting record list
-                $data['policyPositions'] = new MySociety\TheyWorkForYou\PolicyPositions($policies, $MEMBER, 6);
+                $policiesList = new MySociety\TheyWorkForYou\Policies;
+                $hotTopics = $policiesList->limitToSet('hottopics')->shuffle();
+                $data['hotTopicPositions'] = new MySociety\TheyWorkForYou\PolicyPositions($hotTopics, $MEMBER, 4);
 
                 // Send the output for rendering
                 MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
@@ -708,13 +711,13 @@ function person_rebellion_rate ($member) {
         $displayed_stuff = 1;
         $rebels_term = 'rebelled';
 
-        $rebellion_string = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
+        $rebellion_string = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip">' . htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</a> against their party';
 
         if (isset($member->extra_info['public_whip_rebelrank'])) {
             if ($member->extra_info['public_whip_data_date'] == 'complete') {
-                $rebellion_string .= ' in their last parliament';
+                $rebellion_string .= ' in their last parliamentary session';
             } else {
-                $rebellion_string .= ' in this parliament';
+                $rebellion_string .= ' since the last general election, in May 2010';
             }
         }
     }
