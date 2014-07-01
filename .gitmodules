@@ -4,3 +4,6 @@
 [submodule "foundation"]
 	path = foundation
 	url = https://github.com/zurb/foundation.git
+[submodule "font-awesome"]
+	path = font-awesome
+	url = https://github.com/FortAwesome/Font-Awesome.git
