@@ -3,24 +3,24 @@
             <div class=" full-page__row">
             <div class="person-header__content page-content__row">
                 <div class="person-name">
-                  <?php if ( $image ) { ?>
+                  <?php if ( $image ): ?>
                     <div class="mp-image">
                         <img src="<?= $image ?>" height="48">
                     </div>
-                  <?php } ?>
+                  <?php endif; ?>
                     <div class="mp-name-and-position">
                         <h1><?= $full_name ?></h1>
-                      <?php if ( $current_position ) { ?>
-                         <p><?= $current_position ?></p>
-                      <?php } else if ( $former_position ) { ?>
-                         <p><?= $former_position ?></p>
-                      <?php } ?>
+                          <?php if ( $current_position ): ?>
+                            <p><?= $current_position ?></p>
+                          <?php elseif ( $former_position ): ?>
+                            <p><?= $former_position ?></p>
+                          <?php endif; ?>
                     </div>
                 </div>
                 <div class="person-constituency">
-                  <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ) { ?>
+                  <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ): ?>
                     <span class="constituency"><?= $constituency ?></span>
-                  <?php } ?>
+                  <?php endif; ?>
                     <span class="party <?= $party_short ?>"><?= $party ?></span>
                 </div>
                 <div class="person-search">
@@ -30,7 +30,7 @@
                     </form>
                 </div>
                 <div class="person-buttons">
-                  <?php if ($current_member_anywhere) { ?>
+                  <?php if ($current_member_anywhere): ?>
                     <a href="https://www.writetothem.com/<?php
                         if ($current_member[HOUSE_TYPE_LORDS]) {
                             echo "?person=uk.org.publicwhip/person/$person_id";
@@ -40,10 +40,10 @@
                         }
                     ?>" class="button wtt" onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'Person'); return false;"><img src="/style/img/envelope.png">Send a message</a>
 
-                  <?php } ?>
-                  <?php if ($has_email_alerts) { ?>
+                  <?php endif; ?>
+                  <?php if ($has_email_alerts): ?>
                     <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#" class="button alert" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;"><img src="/style/img/plus-circle.png">Get email updates</a>
-                  <?php } ?>
+                  <?php endif; ?>
                 </div>
             </div>
             </div>
@@ -62,25 +62,25 @@
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
                     <ul data-magellan-expedition="fixed">
-                        <?php if ($has_voting_record): ?>
+                      <?php if ($has_voting_record): ?>
                         <?php foreach ($key_votes_segments as $segment): ?>
-                        <?php if (count($segment['votes']->positions) > 0): ?>
-                        <li data-magellan-arrival="<?= $segment['key'] ?>"><a href="#<?= $segment['key'] ?>"><?= $segment['title'] ?></a></li>
-                        <?php endif; ?>
+                          <?php if (count($segment['votes']->positions) > 0): ?>
+                            <li data-magellan-arrival="<?= $segment['key'] ?>"><a href="#<?= $segment['key'] ?>"><?= $segment['title'] ?></a></li>
+                          <?php endif; ?>
                         <?php endforeach; ?>
-                        <?php endif; ?>
+                      <?php endif; ?>
                     </ul>
                     <div>&nbsp;</div>
                 </div>
                 <div class="primary-content__unit">
 
-                    <?php if ($party == 'Sinn Fein' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+                  <?php if ($party == 'Sinn Fein' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
                     <div class="panel">
                         <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                     </div>
-                    <?php endif; ?>
+                  <?php endif; ?>
 
-                    <?php if ($has_voting_record): ?>
+                  <?php if ($has_voting_record): ?>
 
                         <?php $displayed_votes = FALSE; ?>
 
