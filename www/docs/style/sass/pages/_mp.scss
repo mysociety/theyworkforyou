@@ -491,6 +491,91 @@
     }
 }
 
+.vote-summary__intro {
+  color: #96938A; // mid-weight desaturated taupe colour
+}
+
+.vote-summary__more-link {
+  font-weight: normal;
+  float: right;
+  font-size: 0.6em;
+  margin-top: 0.6em;
+}
+
+.vote-summary__summaries {
+  @include grid-row;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.vote-summary__summaries__summary {
+    @media (min-width: $medium-screen) {
+        @include grid-column(6);
+        padding-right: 3%; // up from default column padding of 1.5%
+        padding-left: 3%; // up from default column padding of 1.5%
+
+        &:first-child {
+            padding-left: 0;
+        }
+
+        &:last-child {
+            padding-right: 0;
+        }
+    }
+
+    // Annoying override for existing policy list styles.
+    // We'll sort this out in the next pull request.
+    .person-panels .panel & li {
+        position: relative;
+        line-height: 1.4em;
+        padding: 0.5em 2em 0.5em 2em;
+
+        &::before {
+            content: "";
+            display: block;
+            width: 8px;
+            height: 8px;
+            position: absolute;
+            top: 50%;
+            left: 1em;
+            margin: -4px 0 0 -4px;
+            border-radius: 100%;
+            background-color: #999;
+        }
+
+        &.vote-summary__next-step {
+            border-bottom: none !important;
+            color: #96938A; // mid-weight desaturated taupe colour
+
+            &::before {
+              display: none;
+            }
+        }
+
+        .dream_details {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            padding: 0 0.5em; // down from (0 1em)
+            margin-top: -1em; // :TODO: This doesn't work for some reason (!?)
+            float: none;
+            margin: 0;
+
+            &::after {
+                margin-left: 0;
+                vertical-align: 0;
+            }
+        }
+    }
+}
+
+.vote-summary__rebellion {
+  margin-bottom: 0;
+  border-top: 1px solid $borders;
+  line-height: 1.4em;
+  padding-top: 1.5em;
+}
+
 .about-this-page {
     .about-this-page__one-of-two {
         @include grid-column(12);
