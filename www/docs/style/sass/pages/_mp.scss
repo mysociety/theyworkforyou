@@ -325,30 +325,6 @@
         ul {
             @include unstyled-list();
         }
-        .policies {
-            li {
-                border-bottom: 1px solid $borders;
-                line-height: 1.5em;
-                padding-top: 0.5em;
-                padding-bottom: 0.5em;
-                padding-right: 5em;
-                &:nth-of-type(1) {
-                    border-top: 1px solid $borders;
-                }
-                .dream_details {
-                    @include radius(1em);
-                    display: none;
-                    background-color: $primary-color;
-                    color: white;
-                    font-size: 14px;
-                    float: right;
-                    margin-top: 0.25em;
-                    margin-right: -6.5em;
-                    padding: 0em 1em;
-                    text-decoration: none;
-                }
-            }
-        }
         .appearances {
             @include unstyled-list();
 
@@ -431,6 +407,86 @@
     }
 }
 
+.vote-descriptions {
+  & > li {
+    position: relative;
+    border-bottom: 1px solid $borders;
+    line-height: 1.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-right: 5em;
+
+    &:first-child {
+      border-top: 1px solid $borders;
+    }
+  }
+}
+
+.vote-description__for,
+.vote-description__against,
+.vote-description__mix {
+  padding-left: 2em;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: 50%;
+    left: 1em;
+    margin: -4px 0 0 -4px;
+    border-radius: 100%;
+    background-color: #999;
+  }
+}
+
+.vote-description__for::before {
+  background-color: green;
+}
+
+.vote-description__against::before {
+  background-color: red;
+}
+
+.vote-description__mix::before {
+  background-color: orange;
+}
+
+.vote-description__source {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -1em;
+  padding: 0 1em;
+  line-height: 2em;
+
+  @include radius(1em);
+  background-color: transparent;
+  color: #cfcabb; // light desaturated taupe colour
+  font-size: 14px;
+  text-decoration: none;
+
+  .person-panels .panel & {
+    text-decoration: none; // override over-zealous selector further up
+  }
+
+  li:hover > &,
+  li:focus > & {
+    background-color: $links;
+    color: #fff;
+
+    &::after {
+      background-image: url(/images/external-link-icon-white.png);
+    }
+
+    &:hover,
+    &:focus {
+      background-color: darken($links, 10%);
+    }
+  }
+}
+
 .vote-summary__intro {
   color: #96938A; // mid-weight desaturated taupe colour
 }
@@ -449,64 +505,45 @@
 }
 
 .vote-summary__summaries__summary {
-    @media (min-width: $medium-screen) {
-        @include grid-column(6);
-        padding-right: 3%; // up from default column padding of 1.5%
-        padding-left: 3%; // up from default column padding of 1.5%
+  @media (min-width: $medium-screen) {
+    @include grid-column(6);
+    padding-right: 3%; // up from default column padding of 1.5%
+    padding-left: 3%; // up from default column padding of 1.5%
 
-        &:first-child {
-            padding-left: 0;
-        }
-
-        &:last-child {
-            padding-right: 0;
-        }
+    &:first-child {
+      padding-left: 0;
     }
 
-    // Annoying override for existing policy list styles.
-    // We'll sort this out in the next pull request.
-    .person-panels .panel & li {
-        position: relative;
-        line-height: 1.4em;
-        padding: 0.5em 2em 0.5em 2em;
-
-        &::before {
-            content: "";
-            display: block;
-            width: 8px;
-            height: 8px;
-            position: absolute;
-            top: 50%;
-            left: 1em;
-            margin: -4px 0 0 -4px;
-            border-radius: 100%;
-            background-color: #999;
-        }
-
-        &.vote-summary__next-step {
-            border-bottom: none !important;
-            color: #96938A; // mid-weight desaturated taupe colour
-
-            &::before {
-              display: none;
-            }
-        }
-
-        .dream_details {
-            position: absolute;
-            top: 50%;
-            right: 0;
-            padding: 0 0.5em; // down from (0 1em)
-            margin-top: -1em; // :TODO: This doesn't work for some reason (!?)
-            float: none;
-            margin: 0;
-
-            &::after {
-                margin-left: 0;
-                vertical-align: 0;
-            }
-        }
+    &:last-child {
+      padding-right: 0;
     }
+  }
+
+  .vote-descriptions > li {
+    line-height: 1.4em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-right: 2em;
+
+    &.vote-summary__next-step {
+      border-bottom: none;
+      color: #96938A; // mid-weight desaturated taupe colour
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  // Minor adjustments because source link has no text content
+  .vote-description__source {
+    padding: 0 0.7em;
+
+    &:after {
+      margin-left: 0;
+      vertical-align: 0;
+    }
+  }
 }
 
 .vote-summary__rebellion {
@@ -570,9 +607,5 @@ a[href^="http://politics.guardian.co.uk"] {
             background-position: 0 0;
             background-size: 10px; // 10px width, auto height
         }
-    }
-
-    &.dream_details:after {
-        background-image: url(/images/external-link-icon-white.png);
     }
 }
