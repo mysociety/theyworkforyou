@@ -47,23 +47,14 @@ You will need the latest versions of VirtualBox and Vagrant, then:
 * Stick an entry in your `hosts` file to point `theyworkforyou.dev` at `192.168.88.10` (Apache doesn't like IP addresses).
 * Run `vagrant up`.
 * Go make a cup of tea. It may take a while whilst Vagrant and Puppet do their thing.
-* `vagrant ssh`, then:
-  * `cd /data/twfy && composer install && git submodule update --init`
-  * `cp /data/twfy/conf/general-example /data/twfy/conf/general`
-* `nano /data/twfy/conf/general` then edit the following definitions:
-  * `OPTION_TWFY_DB_USER` should be `twfy`
-  * `OPTION_TWFY_DB_PASS` should be `twfy`
-  * `BASEDIR` should be `/data/twfy/www/docs`
 * Point your web browser at `http://theyworkforyou.dev` and marvel at modern technology.
 
 #### Compiling Static Assets
 
 If you're working on a page which uses the redesign, you will need to compile
-static assets:
+static assets after changes:
 
 * `vagrant ssh`
-* `sudo gem install zurb-foundation`
-* `sudo gem install compass`
 * `cd /data/twfy/www/docs/style`
 * `compass compile` for a one-off compilation or `compass watch` to recompile on changes
 

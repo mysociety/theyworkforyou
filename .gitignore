@@ -8,3 +8,5 @@ www/docs/style/*.css
 www/docs/style/stylesheets
 .vagrant
 build/
+puphpet/files/dot/ssh
+!puphpet/files/dot/ssh/insecure_private_key
