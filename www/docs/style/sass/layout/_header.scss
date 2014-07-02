@@ -142,7 +142,6 @@
             background-color: white;
             border: none;
             margin-bottom: 0px;
-            padding-top: 2px;
             padding-bottom: 12px;
             border-radius: 3px 3px 0px 0px;
             transition: none;
@@ -270,6 +269,9 @@
                                 content: url('../img/user-white.png');
                             }
                         }
+                        img {
+                            vertical-align: -0.2em // slightly less than normal for a .button>img
+                        }
                     }
                 }
                 .nav-menu {
@@ -354,6 +356,7 @@
                 img {
                     width: 24px;
                     height: 24px;
+                    vertical-align: -5px;
                 }
             }
         }

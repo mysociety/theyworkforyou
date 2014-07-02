@@ -135,14 +135,11 @@ a:focus {
         text-decoration: none;
     }
     img {
-        position: relative;
         margin-right: 0.25em;
-        bottom: 0.1em;
-    }
-    &.alert {
-        img {
-            bottom: 0.2em;
-        }
+        // this is really hard to get right,
+        // because of the variable line-height
+        // for .button elements!!
+        vertical-align: -0.4em;
     }
 }
 
