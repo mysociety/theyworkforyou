@@ -535,13 +535,41 @@
     }
   }
 
-  // Minor adjustments because source link has no text content
+  // The source links on the summary section are slightly different
+  // to the ones on the main vote page (arrow icon, no text label)
   .vote-description__source {
-    padding: 0 0.7em;
+    padding: 0 0.6em;
 
-    &:after {
+    &::after {
       margin-left: 0;
-      vertical-align: 0;
+      vertical-align: -3px;
+      height: 15px;
+      background: transparent url(/images/vote-summary-more-icon.png) 0 -30px no-repeat;
+      background-size: 20px 45px;
+
+      @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+          background-size: 15px; // 10px width, auto height
+      }
+    }
+  }
+
+  // The source links also act a bit differently on hover
+  // (no coloured "button" background, different link icon)
+  li:hover,
+  li:focus {
+    .vote-description__source {
+      background: transparent;
+
+      &::after {
+        background-image: url(/images/vote-summary-more-icon.png);
+      }
+
+      &:hover,
+      &:focus {
+        &::after {
+          background-image: url(/images/vote-summary-more-icon-blue.png);
+        }
+      }
     }
   }
 }
