@@ -18,10 +18,10 @@
                     </div>
                 </div>
                 <div class="person-constituency">
-                  <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ): ?>
-                    <span class="constituency"><?= $constituency ?></span>
-                  <?php endif; ?>
-                    <span class="party <?= $party_short ?>"><?= $party ?></span>
+                   <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ): ?>
+                     <span class="constituency"><?= $constituency ?></span>
+                   <?php endif; ?>
+                     <span class="party <?= $party_short ?>"><?= $party ?></span>
                 </div>
                 <div class="person-search">
                     <form action="<?= $search_url ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Person'); return false;">
@@ -95,14 +95,13 @@
                                     <small><a class="nav-anchor" href="<?= $member_url ?>/votes#<?= $segment['key'] ?>">#</a></small>
                                 </h2>
 
-                                <ul class="policies">
-
-                                <?php foreach ($segment['votes']->positions as $key_vote): ?>
-
-                                <li><?= $key_vote['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>">Details</a></li>
-
-                                <?php endforeach; ?>
-
+                                <ul class="vote-descriptions">
+                                  <?php foreach ($segment['votes']->positions as $key_vote): ?>
+                                    <li>
+                                        <?= $key_vote['desc'] ?>
+                                        <a class="vote-description__source" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>">Source</a>
+                                    </li>
+                                  <?php endforeach; ?>
                                 </ul>
 
                                 </div>

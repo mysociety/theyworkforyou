@@ -111,9 +111,12 @@
                           <?php if (count($hotTopicPositions->positions) > 0): ?>
                             <div class="vote-summary__summaries__summary">
                                 <h3>Hot Topics</h3>
-                                <ul class="policies">
+                                <ul class="vote-descriptions">
                                   <?php foreach ($hotTopicPositions->positions as $key_vote): ?>
-                                    <li><?= $key_vote['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>"></a></li>
+                                    <li>
+                                        <?= $key_vote['desc'] ?>
+                                        <a class="vote-description__source" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>"></a>
+                                    </li>
                                   <?php endforeach; ?>
                                     <li class="vote-summary__next-step"><a href="<?= $member_url ?>/votes">See how <?= $full_name ?> voted</a> on other issues like health, welfare, foreign policy, social issues, and taxation.</li>
                                 </ul>
@@ -123,9 +126,12 @@
                           <?php if (count($policyPositions->positions) > 0): ?>
                             <div class="vote-summary__summaries__summary">
                                 <h3>Recently Added</h3>
-                                <ul class="policies">
+                                <ul class="vote-descriptions">
                                   <?php foreach ($policyPositions->positions as $key_vote): ?>
-                                    <li><?= $key_vote['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>"></a></li>
+                                    <li>
+                                        <?= $key_vote['desc'] ?>
+                                        <a class="vote-description__source" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>"></a>
+                                    </li>
                                   <?php endforeach; ?>
                                     <li class="vote-summary__next-step">
                                       <?php if ($has_email_alerts): ?>
