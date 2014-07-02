@@ -57,25 +57,20 @@ function toggleVisible (sId) {
 function showPersonLinks(sId){
     //change class of image
     $('#speakerimage_' + sId).addClass("hover");
-    
+
     //show links
     $('#personinfo_' + sId).show();
     $('#personinfo_' + sId).mouseleave(function (){
         $('#personinfo_' + sId).hide();
         $('#speakerimage_' + sId).removeClass("hover");
     });
-    
+
 }
 
 $(function(){
 	$('body').addClass('js');
   // check if touch
-  if ( !Modernizr.touch ) {
-      $('.policies li').hover(
-        function() { $(this).children('.dream_details').show(); },
-        function() { $(this).children('.dream_details').hide(); }
-      );
-  } else {
+  if ( Modernizr.touch ) {
       $('body').addClass('touch');
   }
   $('.moreinfo').hover(

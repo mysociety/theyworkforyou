@@ -491,6 +491,55 @@
     }
 }
 
+.vote-descriptions {
+  & > li {
+    position: relative;
+    border-bottom: 1px solid $borders;
+    line-height: 1.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-right: 5em;
+
+    &:first-child {
+      border-top: 1px solid $borders;
+    }
+  }
+}
+
+.vote-description__source {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -1em;
+  padding: 0 1em;
+  line-height: 2em;
+
+  @include radius(1em);
+  background-color: transparent;
+  color: #cfcabb; // light desaturated taupe colour
+  font-size: 14px;
+  text-decoration: none;
+
+  .person-panels .panel & {
+    text-decoration: none; // override over-zealous selector further up
+  }
+
+  li:hover > &,
+  li:focus > & {
+    background-color: $links;
+    color: #fff;
+
+    &::after {
+      background-image: url(/images/external-link-icon-white.png);
+    }
+
+    &:hover,
+    &:focus {
+      background-color: darken($links, 10%);
+    }
+  }
+}
+
 .about-this-page {
     .about-this-page__one-of-two {
         @include grid-column(12);
@@ -545,9 +594,5 @@ a[href^="http://politics.guardian.co.uk"] {
             background-position: 0 0;
             background-size: 10px; // 10px width, auto height
         }
-    }
-
-    &.dream_details:after {
-        background-image: url(/images/external-link-icon-white.png);
     }
 }
