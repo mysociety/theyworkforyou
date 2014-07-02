@@ -174,7 +174,7 @@ class PolicyPositions {
             } elseif ($this->member->isDead()) {
                 $since = '';
             } else {
-                $since = ' since 2001';
+                $since = ' recently';
             }
             # If not current MP/Lord, but current MLA/MSP, need to say voting record is when MP
             if (!$current_member[HOUSE_TYPE_COMMONS] AND

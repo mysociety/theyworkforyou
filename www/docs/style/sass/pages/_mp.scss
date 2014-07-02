@@ -325,30 +325,6 @@
         ul {
             @include unstyled-list();
         }
-        .policies {
-            li {
-                border-bottom: 1px solid $borders;
-                line-height: 1.5em;
-                padding-top: 0.5em;
-                padding-bottom: 0.5em;
-                padding-right: 5em;
-                &:nth-of-type(1) {
-                    border-top: 1px solid $borders;
-                }
-                .dream_details {
-                    @include radius(1em);
-                    display: none;
-                    background-color: $primary-color;
-                    color: white;
-                    font-size: 14px;
-                    float: right;
-                    margin-top: 0.25em;
-                    margin-right: -6.5em;
-                    padding: 0em 1em;
-                    text-decoration: none;
-                }
-            }
-        }
         .appearances {
             @include unstyled-list();
 
@@ -431,6 +407,180 @@
     }
 }
 
+.vote-descriptions {
+  & > li {
+    position: relative;
+    border-bottom: 1px solid $borders;
+    line-height: 1.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-right: 5em;
+
+    &:first-child {
+      border-top: 1px solid $borders;
+    }
+  }
+}
+
+.vote-description__for,
+.vote-description__against,
+.vote-description__mix {
+  padding-left: 2em;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: 50%;
+    left: 1em;
+    margin: -4px 0 0 -4px;
+    border-radius: 100%;
+    background-color: #999;
+  }
+}
+
+.vote-description__for::before {
+  background-color: green;
+}
+
+.vote-description__against::before {
+  background-color: red;
+}
+
+.vote-description__mix::before {
+  background-color: orange;
+}
+
+.vote-description__source {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -1em;
+  padding: 0 1em;
+  line-height: 2em;
+
+  @include radius(1em);
+  background-color: transparent;
+  color: #cfcabb; // light desaturated taupe colour
+  font-size: 14px;
+  text-decoration: none;
+
+  .person-panels .panel & {
+    text-decoration: none; // override over-zealous selector further up
+  }
+
+  li:hover > &,
+  li:focus > & {
+    background-color: $links;
+    color: #fff;
+
+    &::after {
+      background-image: url(/images/external-link-icon-white.png);
+    }
+
+    &:hover,
+    &:focus {
+      background-color: darken($links, 10%);
+    }
+  }
+}
+
+.vote-summary__intro {
+  color: #96938A; // mid-weight desaturated taupe colour
+}
+
+.vote-summary__more-link {
+  font-weight: normal;
+  float: right;
+  font-size: 0.6em;
+  margin-top: 0.6em;
+}
+
+.vote-summary__summaries {
+  @include grid-row;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.vote-summary__summaries__summary {
+  @media (min-width: $medium-screen) {
+    @include grid-column(6);
+    padding-right: 3%; // up from default column padding of 1.5%
+    padding-left: 3%; // up from default column padding of 1.5%
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+
+  .vote-descriptions > li {
+    line-height: 1.4em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-right: 2em;
+
+    &.vote-summary__next-step {
+      border-bottom: none;
+      color: #96938A; // mid-weight desaturated taupe colour
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  // The source links on the summary section are slightly different
+  // to the ones on the main vote page (arrow icon, no text label)
+  .vote-description__source {
+    padding: 0 0.6em;
+
+    &::after {
+      margin-left: 0;
+      vertical-align: -3px;
+      height: 15px;
+      background: transparent url(/images/vote-summary-more-icon.png) 0 -30px no-repeat;
+      background-size: 20px 45px;
+
+      @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+          background-size: 15px; // 10px width, auto height
+      }
+    }
+  }
+
+  // The source links also act a bit differently on hover
+  // (no coloured "button" background, different link icon)
+  li:hover,
+  li:focus {
+    .vote-description__source {
+      background: transparent;
+
+      &::after {
+        background-image: url(/images/vote-summary-more-icon.png);
+      }
+
+      &:hover,
+      &:focus {
+        &::after {
+          background-image: url(/images/vote-summary-more-icon-blue.png);
+        }
+      }
+    }
+  }
+}
+
+.vote-summary__rebellion {
+  margin-bottom: 0;
+  border-top: 1px solid $borders;
+  line-height: 1.4em;
+  padding-top: 1.5em;
+}
+
 .about-this-page {
     .about-this-page__one-of-two {
         @include grid-column(12);
@@ -485,9 +635,5 @@ a[href^="http://politics.guardian.co.uk"] {
             background-position: 0 0;
             background-size: 10px; // 10px width, auto height
         }
-    }
-
-    &.dream_details:after {
-        background-image: url(/images/external-link-icon-white.png);
     }
 }

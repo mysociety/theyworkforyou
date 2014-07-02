@@ -98,6 +98,14 @@ class Policies {
      */
 
     private $sets = array(
+        'hottopics' => array(
+            6670, // reduction in benefits spending
+            6672, // bedroom tax
+            6711, // mansion tax
+            1027, // EU referendum
+            6686, // gay marriage
+            6685, // bankers bonus tax
+        ),
         'summary' => array(
             1113,
             1136,
