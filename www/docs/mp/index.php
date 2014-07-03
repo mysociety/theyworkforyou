@@ -457,6 +457,7 @@ try {
         $data['recent_appearances'] = person_recent_appearances($MEMBER);
         $data['useful_links'] = person_useful_links($MEMBER);
         $data['topics_of_interest'] = person_topics($MEMBER);
+        $data['current_offices'] = $MEMBER->offices('current');
         $data['previous_offices'] = $MEMBER->offices('previous');
         $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
 
