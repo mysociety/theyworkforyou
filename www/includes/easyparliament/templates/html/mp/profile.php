@@ -4,13 +4,18 @@
             <div class="person-header__content page-content__row">
                 <div class="person-name">
                   <?php if ( $image ) { ?>
-                    <span class="mp-image">
+                    <div class="mp-image">
                         <img src="<?= $image ?>" height="48">
-                    </span>
+                    </div>
                   <?php } ?>
-                    <h1>
-                        <?= $full_name ?>
-                    </h1>
+                    <div class="mp-name-and-position">
+                        <h1><?= $full_name ?></h1>
+                      <?php if ($current_position) { ?>
+                         <p><?= $current_position ?></p>
+                      <?php } else if ($former_position) { ?>
+                         <p><?= $former_position ?></p>
+                      <?php } ?>
+                    </div>
                 </div>
                 <div class="person-constituency">
                   <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ) { ?>
