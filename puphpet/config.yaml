@@ -29,10 +29,12 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            Qx5u4uGYk57c:
+            ma1D9AGh227i:
                 source: ./
                 target: /data/twfy
-                nfs: 'false'
+                sync_type: default
+                rsync:
+                    auto: 'false'
         usable_port_range: 2200..2250
     ssh:
         host: null
@@ -83,7 +85,7 @@ apache:
     settings:
         user: www-data
         group: www-data
-        default_vhost: false
+        default_vhost: true
         manage_user: false
         manage_group: false
         sendfile: 0
@@ -91,11 +93,13 @@ apache:
         - php
         - rewrite
     vhosts:
-        l8iCflTm1M8H:
+        tJxeH93FIKsr:
             servername: theyworkforyou.dev
             docroot: /data/twfy/www/docs
             port: '80'
-            custom_fragment: ''
+            override:
+                - All
+            custom_fragment: 'Include /data/twfy/conf/httpd.conf'
             ssl_cert: ''
             ssl_key: ''
             ssl_chain: ''
@@ -105,7 +109,7 @@ apache:
 nginx:
     install: 0
     vhosts:
-        4jcjSYMVR7tE:
+        HrDTWbFl5v7e:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
@@ -131,7 +135,7 @@ php:
             - imagick
             - intl
             - mcrypt
-            - memcached
+            - memcache
             - xsl
         pear: {  }
         pecl:
@@ -159,14 +163,14 @@ mysql:
     root_password: flFQ8TS53H
     adminer: 0
     databases:
-        ruxfyNYnPx0I:
+        w3e8XJldIytJ:
             grant:
                 - ALL
             name: twfy
             host: localhost
             user: twfy
             password: twfy
-            sql_file: ''
+            sql_file: /data/twfy/db/schema.sql
 postgresql:
     install: 0
     settings:
