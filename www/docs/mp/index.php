@@ -413,15 +413,16 @@ try {
             }
         }
 
-        $current_offices = $MEMBER->offices('current');
-        $former_offices = $MEMBER->offices('previous');
+        $current_offices = $MEMBER->offices('current', TRUE);
+        $former_offices = $MEMBER->offices('previous', TRUE);
 
-        // If this person has current named offices, they override the defaults
+        // If this person has current named *priority* offices, they override the defaults
+
         if (count($current_offices) > 0){
             $position_current = implode('<br>', $current_offices);
         }
 
-        // If this person has former named offices, they override the defaults
+        // If this person has former named *priority* offices, they override the defaults
         if (count($former_offices) > 0){
             $position_former = implode('<br>', $former_offices);
         }

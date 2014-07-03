@@ -13,6 +13,13 @@ namespace MySociety\TheyWorkForYou;
 
 class Member extends \MEMBER {
 
+    private $priority_offices = array(
+        'The Prime Minister',
+        'The Deputy Prime Minister ',
+        'Leader of Her Majesty\'s Official Opposition',
+        'The Chancellor of the Exchequer',
+    );
+
     /**
      * Is Dead
      *
@@ -86,7 +93,7 @@ class Member extends \MEMBER {
     * @return array An array of Office objects.
     */
 
-    public function offices($restriction = NULL) {
+    public function offices($restriction = NULL, $priority_only = FALSE) {
 
         $out = array();
 
@@ -109,17 +116,22 @@ class Member extends \MEMBER {
                     $restricted = TRUE;
                 }
 
-                if (!$restricted) {
-                    $officeObject = new Office;
+                $office_title = prettify_office($row['position'], $row['dept']);
 
-                    $officeObject->title = prettify_office($row['position'], $row['dept']);
+                if (($priority_only AND in_array($office_title, $this->priority_offices))
+                    OR !$priority_only) {
+                    if (!$restricted) {
+                        $officeObject = new Office;
 
-                    $officeObject->from_date = $row['from_date'];
-                    $officeObject->to_date = $row['to_date'];
+                        $officeObject->title = $office_title;
 
-                    $officeObject->source = $row['source'];
+                        $officeObject->from_date = $row['from_date'];
+                        $officeObject->to_date = $row['to_date'];
 
-                    $out[] = $officeObject;
+                        $officeObject->source = $row['source'];
+
+                        $out[] = $officeObject;
+                    }
                 }
             }
         }
