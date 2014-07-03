@@ -385,36 +385,45 @@ try {
         // Position if this is a member of the Commons
         if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
             if (!$MEMBER->current_member(1)) {
-                $position = 'Former MP';
-                $position_type = 'former';
+                $position_former = 'Former MP';
+                if ($MEMBER->constituency()) $position_former .= ', ' . $MEMBER->constituency();
             } else {
-                $position = 'MP';
-                $position_type = 'current';
+                $position_current = 'MP';
+                if ($MEMBER->constituency()) $position_current .= ', ' . $MEMBER->constituency();
             }
-            if ($MEMBER->constituency()) $position .= ', ' . $MEMBER->constituency();
         }
 
         // Position if this is a member of NIA
         if ($MEMBER->house(HOUSE_TYPE_NI)) {
             if (!$MEMBER->current_member(HOUSE_TYPE_NI)) {
-                $position = 'Former MLA';
-                $position_type = 'former';
+                $position_former = 'Former MLA';
+                if ($MEMBER->constituency()) $position_former .= ', ' . $MEMBER->constituency();
             } else {
-                $position = 'MLA';
-                $position_type = 'current';
+                $position_current = 'MLA';
+                if ($MEMBER->constituency()) $position_current .= ', ' . $MEMBER->constituency();
             }
-            if ($MEMBER->constituency()) $position .= ', ' . $MEMBER->constituency();
         }
 
         // Position if this is a member of Scottish Parliament
         if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
             if (!$MEMBER->current_member(HOUSE_TYPE_SCOTLAND)) {
-                $position = 'Former MSP';
-                $position_type = 'former';
+                $position_former = 'Former MSP';
             } else {
-                $position = 'MSP, '.$MEMBER->constituency();
-                $position_type = 'current';
+                $position_current = 'MSP, '.$MEMBER->constituency();
             }
+        }
+
+        $current_offices = $MEMBER->offices('current');
+        $former_offices = $MEMBER->offices('previous');
+
+        // If this person has current named offices, they override the defaults
+        if (count($current_offices) > 0){
+            $position_current = implode('<br>', $current_offices);
+        }
+
+        // If this person has former named offices, they override the defaults
+        if (count($former_offices) > 0){
+            $position_former = implode('<br>', $former_offices);
         }
 
         // Set page metadata
@@ -431,16 +440,18 @@ try {
         $data['person_id'] = $MEMBER->person_id();
         $data['member_id'] = $MEMBER->member_id();
 
-        $data['current_position'] = NULL;
-            $data['former_position'] = NULL;
-
-        if (isset($position)) {
-            if ($position_type == 'current') {
-                $data['current_position'] = $position;
-            } else if ($position_type == 'former') {
-                $data['former_position'] = $position;
-            }
+        if (isset($position_current)) {
+            $data['current_position'] = $position_current;
+        } else {
+            $data['current_position'] = NULL;
         }
+
+        if (isset($position_former)) {
+            $data['former_position'] = $position_former;
+        } else {
+            $data['former_position'] = NULL;
+        }
+
         $data['constituency'] = $MEMBER->constituency();
         $data['party'] = $MEMBER->party_text();
         $data['party_short'] = $MEMBER->party();
