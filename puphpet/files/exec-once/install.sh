@@ -17,8 +17,8 @@ sed -i 's/define ("BASEDIR","\/home\/user\/theyworkforyou\/docs");/define ("BASE
 sed -i 's/define ("RAWDATA", "\/home\/twfy\/pwdata\/");/define ("RAWDATA", "\/data\/twfy\/uml-tests\/parldata\/");/g' /data/twfy/conf/general
 sed -i "s/define ('PWMEMBERS', '\/home\/twfy\/parlparse\/members\/');/define ('PWMEMBERS', '\/data\/parlparse\/members\/');/g" /data/twfy/conf/general
 
-sed -i 's/define ("DOMAIN", "www.example.org");/define ("DOMAIN", "www.theyworkforyou.dev");/g' /data/twfy/conf/general
-sed -i 's/define ("COOKIEDOMAIN", "www.example.org");/define ("COOKIEDOMAIN", "www.theyworkforyou.dev");/g' /data/twfy/conf/general
+sed -i 's/define ("DOMAIN", "www.example.org");/define ("DOMAIN", "theyworkforyou.dev");/g' /data/twfy/conf/general
+sed -i 's/define ("COOKIEDOMAIN", "www.example.org");/define ("COOKIEDOMAIN", "theyworkforyou.dev");/g' /data/twfy/conf/general
 
 mkdir /data/parlparse
 git clone https://github.com/mysociety/parlparse.git /data/parlparse
