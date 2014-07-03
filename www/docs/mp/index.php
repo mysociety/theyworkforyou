@@ -382,6 +382,41 @@ try {
             $title .= ' MSP, '.$MEMBER->constituency();
         }
 
+        // Position if this is a member of the Commons
+        if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
+            if (!$MEMBER->current_member(1)) {
+                $position = 'Former MP';
+                $position_type = 'former';
+            } else {
+                $position = 'MP';
+                $position_type = 'current';
+            }
+            if ($MEMBER->constituency()) $position .= ', ' . $MEMBER->constituency();
+        }
+
+        // Position if this is a member of NIA
+        if ($MEMBER->house(HOUSE_TYPE_NI)) {
+            if (!$MEMBER->current_member(HOUSE_TYPE_NI)) {
+                $position = 'Former MLA';
+                $position_type = 'former';
+            } else {
+                $position = 'MLA';
+                $position_type = 'current';
+            }
+            if ($MEMBER->constituency()) $position .= ', ' . $MEMBER->constituency();
+        }
+
+        // Position if this is a member of Scottish Parliament
+        if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
+            if (!$MEMBER->current_member(HOUSE_TYPE_SCOTLAND)) {
+                $position = 'Former MSP';
+                $position_type = 'former';
+            } else {
+                $position = 'MSP, '.$MEMBER->constituency();
+                $position_type = 'current';
+            }
+        }
+
         // Set page metadata
         $DATA->set_page_metadata($this_page, 'title', $title);
         $DATA->set_page_metadata($this_page, 'meta_description', $desc);
@@ -395,8 +430,17 @@ try {
         $data['full_name'] = $MEMBER->full_name();
         $data['person_id'] = $MEMBER->person_id();
         $data['member_id'] = $MEMBER->member_id();
-        $data['current_position'] = Null; // :TODO: Fill with current position, or royal title
-        $data['former_position'] = Null; // :TODO: Fill with former position
+
+        $data['current_position'] = NULL;
+            $data['former_position'] = NULL;
+
+        if (isset($position)) {
+            if ($position_type == 'current') {
+                $data['current_position'] = $position;
+            } else if ($position_type == 'former') {
+                $data['former_position'] = $position;
+            }
+        }
         $data['constituency'] = $MEMBER->constituency();
         $data['party'] = $MEMBER->party_text();
         $data['party_short'] = $MEMBER->party();
