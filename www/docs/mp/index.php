@@ -457,7 +457,7 @@ try {
         $data['recent_appearances'] = person_recent_appearances($MEMBER);
         $data['useful_links'] = person_useful_links($MEMBER);
         $data['topics_of_interest'] = person_topics($MEMBER);
-        $data['previous_offices'] = person_previous_offices($MEMBER);
+        $data['previous_offices'] = $MEMBER->offices('previous');
         $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
 
         # People who are or were MPs and Lords potentially have voting records, except Sinn Fein MPs
@@ -929,40 +929,6 @@ function person_topics($member) {
     if (isset($extra_info['wrans_subjects'])) {
         $subjects = explode(',', $extra_info['wrans_subjects']);
         $out = array_merge($out, $subjects);
-    }
-
-    return $out;
-}
-
-function person_previous_offices($member) {
-    $out = array();
-
-    if (array_key_exists('office', $member->extra_info())) {
-        $office = $member->extra_info();
-        $office = $office['office'];
-
-        foreach ($office as $row) {
-            $office = '';
-            if ($row['to_date'] != '9999-12-31') {
-                $office .= prettify_office($row['position'], $row['dept']);
-                       $office .= ' (';
-                if (!($row['source'] == 'chgpages/selctee' && $row['from_date'] == '2004-05-28')
-                    && !($row['source'] == 'chgpages/privsec' && $row['from_date'] == '2004-05-13')) {
-                    if ($row['source'] == 'chgpages/privsec' && $row['from_date'] == '2005-11-10')
-                        $office .= 'before ';
-                    $office .= format_date($row['from_date'],SHORTDATEFORMAT) . ' ';
-                }
-                $office .= 'to ';
-                if ($row['source'] == 'chgpages/privsec' && $row['to_date'] == '2005-11-10')
-                    $office .= 'before ';
-                if ($row['source'] == 'chgpages/privsec' && $row['to_date'] == '2009-01-16')
-                    $office .= '<a href="/help/#pps_unknown">unknown</a>';
-                else
-                    $office .= format_date($row['to_date'], SHORTDATEFORMAT);
-                $office .= ')';
-                $out[] = $office;
-            }
-        }
     }
 
     return $out;

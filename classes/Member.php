@@ -78,4 +78,54 @@ class Member extends \MEMBER {
 
     }
 
+    /**
+    * Offices
+    *
+    * Return an array of Office objects held (or previously held) by the member.
+    *
+    * @return array An array of Office objects.
+    */
+
+    public function offices($restriction = NULL) {
+
+        $out = array();
+
+        if (array_key_exists('office', $this->extra_info())) {
+            $office = $this->extra_info();
+            $office = $office['office'];
+
+            foreach ($office as $row) {
+
+                // Reset the restriction
+                $restricted = FALSE;
+
+                // If we're restricted, run tests
+                if ($restriction == 'previous' AND $row['to_date'] == '9999-12-31') {
+                    $restricted = TRUE;
+                }
+
+                // If we're restricted, run tests
+                if ($restriction == 'current' AND $row['to_date'] != '9999-12-31') {
+                    $restricted = TRUE;
+                }
+
+                if (!$restricted) {
+                    $officeObject = new Office;
+
+                    $officeObject->title = prettify_office($row['position'], $row['dept']);
+
+                    $officeObject->from_date = $row['from_date'];
+                    $officeObject->to_date = $row['to_date'];
+
+                    $officeObject->source = $row['source'];
+
+                    $out[] = $officeObject;
+                }
+            }
+        }
+
+        return $out;
+
+    }
+
 }

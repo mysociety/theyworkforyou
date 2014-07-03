@@ -209,7 +209,7 @@ you can find it.</p>
                         <ul>
 
                             <?php foreach ($previous_offices as $office): ?>
-                            <li><?= $office ?></li>
+                            <li><?= $office ?> (<?= $office->pretty_dates() ?>)</li>
                             <?php endforeach; ?>
 
                         </ul>
