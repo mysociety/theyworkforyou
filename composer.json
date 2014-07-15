@@ -12,6 +12,6 @@
         "phpunit/phpunit": "4.2.*",
         "phpunit/dbunit": ">=1.2",
         "phpdocumentor/phpdocumentor": "2.*",
-        "codeception/codeception": "*"
+        "codeception/codeception": "2.0.*"
     }
 }
