@@ -75,7 +75,7 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
         }
 ?>
 <p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br>
-In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
+In <?php echo strtoupper(_htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
 <?php
     }
 }
@@ -85,7 +85,7 @@ if ($pc_form) { ?>
     <p><strong>Looking for your <acronym title="Member of Parliament">MP</acronym>,
     <acronym title="Members of the Scottish Parliament">MSP</acronym> or
     <acronym title="Members of the (Northern Irish) Legislative Assembly">MLA</acronym>?</strong><br>
-    <label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
+    <label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo _htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
     </form>
 <?php
 }

@@ -32,7 +32,7 @@ if (isset ($data['rows'])) {
                     if ($speaker['house'] == 1 && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
                         $desc .= $speaker['constituency'] . ', ';
                     }
-                    $desc .= htmlentities($speaker['party']);
+                    $desc .= _htmlentities($speaker['party']);
                 }
                 if ($desc) $row['speaker']['desc'] = $desc;
             }

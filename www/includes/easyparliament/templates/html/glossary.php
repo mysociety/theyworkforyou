@@ -79,7 +79,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
         $USERURL->insert(array('u'=>$comment['user_id']));
         ?>
         <div class="comment">
-            <p><a href="<?php echo $USERURL->generate(); ?>" title="See information about this user"><strong><?php echo htmlentities($comment['firstname']) .' '. htmlentities($comment['lastname']); ?></strong></a><br>
+            <p><a href="<?php echo $USERURL->generate(); ?>" title="See information about this user"><strong><?php echo _htmlentities($comment['firstname']) .' '. _htmlentities($comment['lastname']); ?></strong></a><br>
 <?php
         // Make URLs into links and do <br>s.
         $body = prepare_comment_for_display($comment['body']); // In utility.php

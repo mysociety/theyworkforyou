@@ -189,7 +189,7 @@ class MEMBER {
         if ($q->rows > 0) {
             return $q->field(0, 'person_id');
         } else {
-            $PAGE->error_message("Sorry, there is no member with a member ID of '" . htmlentities($member_id) . "'.");
+            $PAGE->error_message("Sorry, there is no member with a member ID of '" . _htmlentities($member_id) . "'.");
             return false;
         }
     }
@@ -226,7 +226,7 @@ class MEMBER {
             #if ($q->rows > 0) {
             #	return $q->field(0, 'person_id');
             #} else {
-                $PAGE->error_message("Sorry, there is no current member for the '" . htmlentities($constituency) . "' constituency.");
+                $PAGE->error_message("Sorry, there is no current member for the '" . _htmlentities($constituency) . "' constituency.");
                 return false;
             #}
         }

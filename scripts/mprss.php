@@ -46,12 +46,12 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 		
 			// While we're linking to individual speeches,
 			// the text is the body of the parent, ie (sub)section.
-			$title = htmlentities(str_replace('&#8212;', '-', $row['parent']['body']));
+			$title = _htmlentities(str_replace('&#8212;', '-', $row['parent']['body']));
 
 			$link = isset($row['listurl']) ? $row['listurl'] : '';
 			$link = 'http://' . DOMAIN . $link;
 				
-			$description = htmlentities(trim_characters($row['body'], 0, 200));
+			$description = _htmlentities(trim_characters($row['body'], 0, 200));
 			$contentencoded = $row['body'];
 				
 			$hdate = format_date($row['hdate'], 'Y-m-d');

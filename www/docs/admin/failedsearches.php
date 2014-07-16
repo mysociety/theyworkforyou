@@ -23,7 +23,7 @@ foreach ($search_recent as $row) {
     $rows[] = array (
         $row['count_ips'],
         $row['group_count'],
-        '<a href="'.$row['url'].'">'.htmlentities($row['query']).'</a>',
+        '<a href="'.$row['url'].'">'._htmlentities($row['query']).'</a>',
         $max_time,
         $min_time,
     );

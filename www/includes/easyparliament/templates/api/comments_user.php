@@ -44,7 +44,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
             $member_name = '';
         }
 
-        $user_name = htmlentities($comment['firstname'] . ' ' . $comment['lastname']);
+        $user_name = _htmlentities($comment['firstname'] . ' ' . $comment['lastname']);
 
         // We're grouping things by epobject_id, so we're going to display the number
         // of comments on this epobject.

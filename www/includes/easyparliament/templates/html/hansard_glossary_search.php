@@ -33,7 +33,7 @@ if (isset($info['total_results']) && $info['total_results'] > 0) {
         $last_result = $info['total_results'];
     }
 
-    //print "\t\t\t\t<h3>Results " . number_format($info['first_result']) . '-' . number_format($last_result) . ' of ' . number_format($info['total_results']) . " items " . htmlentities($searchdescription) . "</h3>\n";
+    //print "\t\t\t\t<h3>Results " . number_format($info['first_result']) . '-' . number_format($last_result) . ' of ' . number_format($info['total_results']) . " items " . _htmlentities($searchdescription) . "</h3>\n";
 
 }
 

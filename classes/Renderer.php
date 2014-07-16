@@ -114,7 +114,7 @@ class Renderer
                 if (isset($nextprev[$type]) && isset($nextprev[$type]['listurl'])) {
 
                     if (isset($nextprev[$type]['body'])) {
-                        $linktitle = htmlentities( trim_characters($nextprev[$type]['body'], 0, 40) );
+                        $linktitle = _htmlentities( trim_characters($nextprev[$type]['body'], 0, 40) );
                         if (isset($nextprev[$type]['speaker']) &&
                             count($nextprev[$type]['speaker']) > 0) {
                             $linktitle = $nextprev[$type]['speaker']['first_name'] . ' ' . $nextprev[$type]['speaker']['last_name'] . ': ' . $linktitle;
@@ -324,7 +324,7 @@ class Renderer
                 'href'    => $EDITURL->generate(),
                 'title'   => $edittitle,
                 'classes' => $editclass,
-                'text'    => htmlentities($username)
+                'text'    => _htmlentities($username)
             );
 
         } else {

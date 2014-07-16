@@ -69,11 +69,11 @@ for ($row=0; $row<$q->rows(); $row++) {
 
     if ($q->field($row, 'confirmed') == 1) {
         $confirmed = 'Yes';
-        $name = '<a href="' . $USERURL->generate() . '">' . htmlspecialchars($q->field($row, 'firstname'))
-            . ' ' . htmlspecialchars($q->field($row, 'lastname')) . '</a>';
+        $name = '<a href="' . $USERURL->generate() . '">' . _htmlspecialchars($q->field($row, 'firstname'))
+            . ' ' . _htmlspecialchars($q->field($row, 'lastname')) . '</a>';
     } else {
         $confirmed = 'No';
-        $name = htmlspecialchars($q->field($row, 'firstname') . ' ' . $q->field($row, 'lastname'));
+        $name = _htmlspecialchars($q->field($row, 'firstname') . ' ' . $q->field($row, 'lastname'));
     }
 
     $rows[] = array (

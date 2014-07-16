@@ -53,7 +53,7 @@ if ($pc) {
 ?>
 
 <form action="./edm" method="get">
-<p>Postcode: <input type="text" name="pc" value="<?=htmlspecialchars($pc)?>">
+<p>Postcode: <input type="text" name="pc" value="<?=_htmlspecialchars($pc)?>">
 <input type="submit" value="Look up"></p>
 </form>
 <?php

@@ -193,7 +193,7 @@ try {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn&rsquo;t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
             } elseif ($constituency == "") {
                 twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
-                throw new MySociety\TheyWorkForYou\MemberException('Sorry, '.htmlentities($pc) .' isn&rsquo;t a known postcode');
+                throw new MySociety\TheyWorkForYou\MemberException('Sorry, '._htmlentities($pc) .' isn&rsquo;t a known postcode');
             } else {
                 // Redirect to the canonical MP page, with a person id.
                 $MEMBER = new MySociety\TheyWorkForYou\Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
@@ -205,7 +205,7 @@ try {
             }
         } else {
             twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
-            throw new MySociety\TheyWorkForYou\MemberException('Sorry, '.htmlentities($pc) .' isn&rsquo;t a valid postcode');
+            throw new MySociety\TheyWorkForYou\MemberException('Sorry, '._htmlentities($pc) .' isn&rsquo;t a valid postcode');
         }
 
     }
@@ -709,7 +709,7 @@ function person_summary_description ($MEMBER) {
             $party = $m[1];
         }
         if ($party != 'unknown')
-            $desc .= htmlentities($party);
+            $desc .= _htmlentities($party);
         if ($party == 'Speaker' || $party == 'Deputy Speaker') {
             $desc .= ', and ';
             # XXX: Might go horribly wrong if something odd happens
@@ -754,7 +754,7 @@ function person_rebellion_rate ($member) {
         $displayed_stuff = 1;
         $rebels_term = 'rebelled';
 
-        $rebellion_string = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
+        $rebellion_string = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . _htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
 
         if (isset($member->extra_info['public_whip_rebelrank'])) {
             if ($member->extra_info['public_whip_data_date'] == 'complete') {
@@ -1107,7 +1107,7 @@ function person_numerology($member) {
 
         $current_member = $member->current_member();
 
-        $line = '<strong>' . htmlentities($extra_info['number_of_alerts']) . '</strong> ' . ($extra_info['number_of_alerts']==1?'person is':'people are') . ' tracking ';
+        $line = '<strong>' . _htmlentities($extra_info['number_of_alerts']) . '</strong> ' . ($extra_info['number_of_alerts']==1?'person is':'people are') . ' tracking ';
         if ($member->house_disp == HOUSE_TYPE_COMMONS) $line .= 'this MP';
         elseif ($member->house_disp == HOUSE_TYPE_LORDS) $line .= 'this peer';
         elseif ($member->house_disp == HOUSE_TYPE_NI) $line .= 'this MLA';

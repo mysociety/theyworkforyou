@@ -19,7 +19,7 @@ $THEUSER->logout( $URL->generate() );
 $message['title'] = 'You are now logged out';
 
 if (get_http_var("ret")) {
-    $message['linkurl'] = htmlentities(get_http_var("ret"));
+    $message['linkurl'] = _htmlentities(get_http_var("ret"));
     $message['linktext'] = 'Back to previous page';
 }
 

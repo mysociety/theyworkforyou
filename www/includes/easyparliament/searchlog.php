@@ -102,7 +102,7 @@ class SEARCHLOG {
         $rowarray['query'] = $query;
         $rowarray['visible_name'] = $visible_name;
         $rowarray['url'] = $url;
-        $rowarray['display'] = '<a href="' . $url . '">' . ($htmlescape ? htmlentities($visible_name) : $visible_name). '</a>';
+        $rowarray['display'] = '<a href="' . $url . '">' . ($htmlescape ? _htmlentities($visible_name) : $visible_name). '</a>';
 
         return $rowarray;
     }
