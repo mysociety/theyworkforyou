@@ -294,14 +294,14 @@ function api_output_xml($v, $k=null) {
         }
         $out = '';
         foreach ($v as $k => $vv) {
-            $out .= (is_numeric($k) || strpos($k, ' ')) ? '<match><id>' . htmlspecialchars($k) . '</id>' : "<$k>";
+            $out .= (is_numeric($k) || strpos($k, ' ')) ? '<match><id>' . _htmlspecialchars($k) . '</id>' : "<$k>";
             $out .= api_output_xml($vv, $k);
             $out .= (is_numeric($k) || strpos($k, ' ')) ? '</match>' : "</$k>";
             $out .= $verbose;
         }
         return $out;
     } else {
-        return htmlspecialchars($v);
+        return _htmlspecialchars($v);
     }
 }
 

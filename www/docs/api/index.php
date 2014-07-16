@@ -56,7 +56,7 @@ if ($q_method = get_http_var('method')) {
             if ($match == 1 && (get_http_var('output') || !get_http_var('docs'))) {
                 if ($data['required']) {
                     api_error('No parameter provided to function "' .
-                    htmlspecialchars($q_method) .
+                    _htmlspecialchars($q_method) .
                         '". Possible choices are: ' .
                         join(', ', $data['parameters']) );
                 } else {
@@ -70,7 +70,7 @@ if ($q_method = get_http_var('method')) {
     }
     if (!$match) {
         api_log_call($key);
-        api_front_page('Unknown function "' . htmlspecialchars($q_method) .
+        api_front_page('Unknown function "' . _htmlspecialchars($q_method) .
             '". Possible functions are: ' .
             join(', ', array_keys($methods)) );
     } else {
@@ -100,7 +100,7 @@ function api_documentation_front($method, $explorer) {
 <?php foreach ($methods[$method]['parameters'] as $parameter) {
     print $parameter . ': <input type="text" name="'.$parameter.'" value="';
     if ($val = get_http_var($parameter))
-        print htmlspecialchars($val);
+        print _htmlspecialchars($val);
     print '" size="30"><br>';
 }
 ?>
@@ -122,12 +122,12 @@ Output:
         $qs = array();
         foreach ($methods[$method]['parameters'] as $parameter) {
             if (get_http_var($parameter))
-                $qs[] = htmlspecialchars(rawurlencode($parameter) . '=' . urlencode(get_http_var($parameter)));
+                $qs[] = _htmlspecialchars(rawurlencode($parameter) . '=' . urlencode(get_http_var($parameter)));
         }
         print '<h4><a name="output"></a>Output</h4>';
         print '<p>URL for this: <strong>http://www.theyworkforyou.com/api/';
         print $method . '?' . join('&amp;', $qs) . '&amp;output='.get_http_var('output').'</strong></p>';
-        print '<pre>' . htmlspecialchars($explorer) . '</pre>';
+        print '<pre>' . _htmlspecialchars($explorer) . '</pre>';
     }
     $sidebar = api_sidebar();
     $PAGE->stripe_end(array($sidebar));

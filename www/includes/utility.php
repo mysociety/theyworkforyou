@@ -220,7 +220,7 @@ function adodb_backtrace($print=true)
     elseif (is_bool($v)) $args[] = $v ? 'true' : 'false';
     else {
       $v = (string) @$v;
-      $str = htmlspecialchars(substr($v,0,$MAXSTRLEN));
+      $str = _htmlspecialchars(substr($v,0,$MAXSTRLEN));
       if (strlen($v) > $MAXSTRLEN) $str .= '...';
       $args[] = $str;
     }
@@ -600,6 +600,20 @@ function htmlentities_notags($text) {
 
 }
 
+/*
+ * PHP 5.4 changes the default encoding for htmlentities and htmlspecialchars
+ * to be UTF-8, not using the php.ini character encoding until PHP 5.6. So
+ * we have to wrap all uses of these two functions. Windows-1252 is used
+ * because, as above, ISO-8859-1 is empty in PHP 5.4.
+ */
+function _htmlentities($s) {
+    return htmlentities($s, ENT_COMPAT, 'Windows-1252');
+}
+function _htmlspecialchars($s) {
+    return htmlspecialchars($s, ENT_COMPAT, 'Windows-1252');
+}
+
+
 function fix_gid_from_db($gid, $keepmajor = false) {
     // The gids in the database are longer than we use in the site.
     // Feed this a gid from the db and it will be returned truncated.
@@ -682,7 +696,7 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
     $filename = INCLUDESPATH . "easyparliament/templates/emails/" . $data['template'] . ".txt";
 
     if (!file_exists($filename)) {
-        $PAGE->error_message("Sorry, we could not find the email template '" . htmlentities($data['template']) . "'.");
+        $PAGE->error_message("Sorry, we could not find the email template '" . _htmlentities($data['template']) . "'.");
         return false;
     }
 
@@ -816,7 +830,7 @@ function hidden_form_vars ($omit = array()) {
 
     foreach ($session_vars as $n => $key) {
         if (!in_array($key, $omit)) {
-            print "<input type=\"hidden\" name=\"$key\" value=\"" . htmlentities(get_http_var($key)) . "\">\n";
+            print "<input type=\"hidden\" name=\"$key\" value=\"" . _htmlentities(get_http_var($key)) . "\">\n";
         }
     }
 }
@@ -827,7 +841,7 @@ function hidden_vars ($omit = array()) {
 
     foreach ($args as $key => $val) {
         if (!in_array($key, $omit)) {
-            print "<input type=\"hidden\" name=\"$key\" value=\"" . htmlspecialchars($val) . "\">\n";
+            print "<input type=\"hidden\" name=\"$key\" value=\"" . _htmlspecialchars($val) . "\">\n";
         }
     }
 }

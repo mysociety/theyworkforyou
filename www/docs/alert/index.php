@@ -114,7 +114,7 @@ if ($details['email_verified']) {
             $PAGE->block_start(array ('title'=>'Your current MP'));
 ?>
 <form action="/alert/" method="post">
-<input type="hidden" name="t" value="<?=htmlspecialchars(get_http_var('t'))?>">
+<input type="hidden" name="t" value="<?=_htmlspecialchars(get_http_var('t'))?>">
 <input type="hidden" name="pid" value="<?=$current_mp->person_id()?>">
 You are not subscribed to an alert for your current MP,
 <?=$current_mp->full_name() ?>.
@@ -269,8 +269,8 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
     $ACTIONURL = new URL($this_page);
     $ACTIONURL->reset();
     $form_start = '<form action="' . $ACTIONURL->generate() . '" method="post">
-<input type="hidden" name="t" value="' . htmlspecialchars(get_http_var('t')) . '">
-<input type="hidden" name="email" value="' . htmlspecialchars(get_http_var('email')) . '">';
+<input type="hidden" name="t" value="' . _htmlspecialchars(get_http_var('t')) . '">
+<input type="hidden" name="email" value="' . _htmlspecialchars(get_http_var('email')) . '">';
 
     if (isset($details['members']) && $details['members']->rows() > 0) {
         echo '<ul class="hilites">';
@@ -302,9 +302,9 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
             echo "<li>";
             echo $form_start . '<input type="hidden" name="pid" value="' . $MEMBER->person_id() . '">';
             if ($details['valid_postcode'])
-                echo '<input type="hidden" name="pc" value="' . htmlspecialchars($details['alertsearch']) . '">';
+                echo '<input type="hidden" name="pc" value="' . _htmlspecialchars($details['alertsearch']) . '">';
             echo $MEMBER->full_name();
-            echo ' (' . htmlspecialchars($constituency) . ')';
+            echo ' (' . _htmlspecialchars($constituency) . ')';
             echo ' <input type="submit" value="Subscribe"></form>';
             echo "</li>";
         }
@@ -313,14 +313,14 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
 
     if ($details['alertsearch']) {
         echo '<ul class="hilites"><li>';
-        echo $form_start . '<input type="hidden" name="keyword" value="' . htmlspecialchars($details['alertsearch']) . '">';
+        echo $form_start . '<input type="hidden" name="keyword" value="' . _htmlspecialchars($details['alertsearch']) . '">';
         echo 'Mentions of [';
         $alertsearch = $details['alertsearch'];
         if (preg_match('#speaker:(\d+)#', $alertsearch, $m)) {
             $MEMBER = new MEMBER(array('person_id'=>$m[1]));
             $alertsearch = str_replace("speaker:$m[1]", "speaker:" . $MEMBER->full_name(), $alertsearch);
         }
-        echo htmlspecialchars($alertsearch) . '] ';
+        echo _htmlspecialchars($alertsearch) . '] ';
         echo ' <input type="submit" value="Subscribe"></form>';
         if (strstr($alertsearch, ',') > -1) {
             echo '<em class="error">You have used a comma in your search term &ndash; are you sure this is what you want?
@@ -333,7 +333,7 @@ You cannot sign up to multiple search terms using a comma &ndash; either use OR,
         $MEMBER = new MEMBER(array('person_id'=>$details['pid']));
         echo '<ul class="hilites"><li>';
         echo "Signing up for things by " . $MEMBER->full_name();
-        echo ' (' . htmlspecialchars($MEMBER->constituency()) . ')';
+        echo ' (' . _htmlspecialchars($MEMBER->constituency()) . ')';
         echo "</li></ul>";
     }
 
@@ -345,7 +345,7 @@ You cannot sign up to multiple search terms using a comma &ndash; either use OR,
             $MEMBER = new MEMBER(array('person_id'=>$m[1]));
             $alertsearch = str_replace("speaker:$m[1]", "speaker:" . $MEMBER->full_name(), $alertsearch);
         }
-        echo htmlspecialchars($alertsearch) . ']';
+        echo _htmlspecialchars($alertsearch) . ']';
         echo "</li></ul>";
     }
 
@@ -363,7 +363,7 @@ also match &lsquo;horses&rsquo;).
     }
 
     echo '<form action="' . $ACTIONURL->generate() . '" method="post">
-<input type="hidden" name="t" value="' . htmlspecialchars(get_http_var('t')) . '">
+<input type="hidden" name="t" value="' . _htmlspecialchars(get_http_var('t')) . '">
 <input type="hidden" name="submitted" value="1">';
 
     if ((!$details['pid'] && !$details['keyword']) || isset($errors['alertsearch'])) {
@@ -375,16 +375,16 @@ also match &lsquo;horses&rsquo;).
 ?>
 
 <div class="row">
-<input type="text" name="alertsearch" id="alertsearch" value="<?php if ($text) { echo htmlentities($text); } ?>" maxlength="255" size="30" style="font-size:150%">
+<input type="text" name="alertsearch" id="alertsearch" value="<?php if ($text) { echo _htmlentities($text); } ?>" maxlength="255" size="30" style="font-size:150%">
 </div>
 
 <?php
     }
 
     if ($details['pid'])
-        echo '<input type="hidden" name="pid" value="' . htmlspecialchars($details['pid']) . '">';
+        echo '<input type="hidden" name="pid" value="' . _htmlspecialchars($details['pid']) . '">';
     if ($details['keyword'])
-        echo '<input type="hidden" name="keyword" value="' . htmlspecialchars($details['keyword']) . '">';
+        echo '<input type="hidden" name="keyword" value="' . _htmlspecialchars($details['keyword']) . '">';
 
     if (!$details['email_verified']) {
         if (isset($errors["email"]) && $details['submitted']) {
@@ -393,7 +393,7 @@ also match &lsquo;horses&rsquo;).
 ?>
         <div class="row">
             <label for="email">Your email address:</label>
-            <input type="text" name="email" id="email" value="<?php if (isset($details["email"])) { echo htmlentities($details["email"]); } ?>" maxlength="255" size="30" class="form">
+            <input type="text" name="email" id="email" value="<?php if (isset($details["email"])) { echo _htmlentities($details["email"]); } ?>" maxlength="255" size="30" class="form">
         </div>
 <?php
     }
@@ -430,8 +430,8 @@ also match &lsquo;horses&rsquo;).
     </div>
 <?php
     if (get_http_var('sign'))
-        echo '<input type="hidden" name="sign" value="' . htmlspecialchars(get_http_var('sign')) . '">';
+        echo '<input type="hidden" name="sign" value="' . _htmlspecialchars(get_http_var('sign')) . '">';
     if (get_http_var('site'))
-        echo '<input type="hidden" name="site" value="' . htmlspecialchars(get_http_var('site')) . '">';
+        echo '<input type="hidden" name="site" value="' . _htmlspecialchars(get_http_var('site')) . '">';
     echo '</form>';
 }

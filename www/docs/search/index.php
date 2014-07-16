@@ -325,7 +325,7 @@ function find_constituency($args) {
             print '<h2>MP for ' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency);
             if ($validpostcode) {
                 // Display the postcode the user searched for.
-                print ' (' . htmlentities(strtoupper($args['s'])) . ')';
+                print ' (' . _htmlentities(strtoupper($args['s'])) . ')';
             }
             ?></h2>
 
@@ -334,7 +334,7 @@ function find_constituency($args) {
         }
 
     } elseif (count($constituencies)) {
-        print "<h2>MPs in constituencies matching '".htmlentities($searchterm)."'</h2><ul>";
+        print "<h2>MPs in constituencies matching '" . _htmlentities($searchterm) . "'</h2><ul>";
         foreach ($constituencies as $constituency) {
             $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
             $URL = new URL('mp');
@@ -392,7 +392,7 @@ function find_users($args) {
             $members[] = '<a href="' . $URL->generate() . '">' . $q->field($n, 'firstname') . ' ' . $q->field($n, 'lastname') . '</a>';
         }
         ?>
-    <h2>Users matching '<?php echo htmlentities($searchstring); ?>'</h2>
+    <h2>Users matching '<?php echo _htmlentities($searchstring); ?>'</h2>
     <ul>
     <li><?php print implode("</li>\n\t<li>", $members); ?></li>
     </ul>
@@ -413,7 +413,7 @@ function find_members($searchstring) {
     if ($members) {
 ?>
 <div id="people_results">
-    <h2>People matching &lsquo;<?php echo htmlentities($searchstring); ?>&rsquo;</h2>
+    <h2>People matching &lsquo;<?php echo _htmlentities($searchstring); ?>&rsquo;</h2>
     <ul class="hilites">
 <?php
 foreach ($members as $member) {
@@ -506,7 +506,7 @@ function find_glossary_items($args) {
         $n = 1;
         foreach ($GLOSSARY->search_matches as $glossary_id => $term) {
             $URL->update(array("gl" => $glossary_id));
-            ?><a href="<?php echo $URL->generate(); ?>"><strong><?php echo htmlentities($term['title']); ?></strong></a><?php
+            ?><a href="<?php echo $URL->generate(); ?>"><strong><?php echo _htmlentities($term['title']); ?></strong></a><?php
             if ($n < $GLOSSARY->num_search_matches) {
                 print ", ";
             }
