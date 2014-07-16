@@ -3,10 +3,10 @@
 // I couldn't work out how to add these integration tests to our PHPUnit tests
 // in the /tests directory. So they're here. Run them with:
 //
-//     vendor/bin/phpunit --no-configuration ./integration-tests
+//     vendor/bin/phpunit -v --no-configuration ./integration-tests
 //
 // The tests assume there's an instance of TheyWorkForYou running at
-// theyworkforyou.dev, with some sample data in it.
+// theyworkforyou.dev, with some sample data (debates from October 2009).
 
 require 'helpers.php';
 
