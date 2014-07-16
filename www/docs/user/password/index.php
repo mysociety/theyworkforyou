@@ -61,7 +61,7 @@ if (get_http_var("submitted")) {
 
             if ($success) {
 
-                print "<p>A new password has been sent to " . htmlentities($email) . "</p>\n";
+                print "<p>A new password has been sent to " . _htmlentities($email) . "</p>\n";
 
             } else {
 
@@ -74,7 +74,7 @@ if (get_http_var("submitted")) {
         } else {
             // This email address isn't in the DB.
 
-            $errors["passwordchange"] = "Sorry, there was a problem and we couldn't set a new password for " . htmlentities($email);
+            $errors["passwordchange"] = "Sorry, there was a problem and we couldn't set a new password for " . _htmlentities($email);
 
 
             display_page($errors);
@@ -114,7 +114,7 @@ function display_page ($errors=array()) {
 
 <div class="row">
 <div class="left">Email address:</div>
-<div class="right"><input type="text" name="email" value="<?php echo htmlentities(get_http_var("email")); ?>" maxlength="100" size="30" class="form"></div>
+<div class="right"><input type="text" name="email" value="<?php echo _htmlentities(get_http_var("email")); ?>" maxlength="100" size="30" class="form"></div>
 </div>
 
 <div class="row">

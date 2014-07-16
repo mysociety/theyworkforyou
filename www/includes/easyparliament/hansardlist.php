@@ -498,7 +498,7 @@ class HANSARDLIST {
             $URL = new URL('pbc_bill');
             $URL->remove(array('bill'));
             $nextprevdata['up'] = array(
-                'body'	=> htmlspecialchars($this->bill_title),
+                'body'	=> _htmlspecialchars($this->bill_title),
                 'title'	=> '',
                 'url'	=> $URL->generate() . $this->url,
             );
@@ -610,14 +610,14 @@ class HANSARDLIST {
         }
 
         if (!preg_match("/^(\d\d\d\d)-(\d{1,2})-(\d{1,2})$/", $date, $matches)) {
-            $PAGE->error_message ("Sorry, '".htmlentities($date)."' isn't of the right format (YYYY-MM-DD).");
+            $PAGE->error_message ("Sorry, '" . _htmlentities($date) . "' isn't of the right format (YYYY-MM-DD).");
             return false;
         }
 
         list($string, $year, $month, $day) = $matches;
 
         if (!checkdate($month, $day, $year)) {
-            $PAGE->error_message ("Sorry, '".htmlentities($date)."' isn't a valid date.");
+            $PAGE->error_message ("Sorry, '" . _htmlentities($date) . "' isn't a valid date.");
             return false;
         }
 
@@ -719,7 +719,7 @@ class HANSARDLIST {
             #	$u = $q->field(0, 'source_url');
             #	$u = '<br><a href="'. $u . '">' . $u . '</a>';
             #}
-            $PAGE->error_message ("Sorry, there is no Hansard object with a gid of '".htmlentities($args['gid'])."'.");
+            $PAGE->error_message ("Sorry, there is no Hansard object with a gid of '" . _htmlentities($args['gid']) . "'.");
             return false;
         }
 

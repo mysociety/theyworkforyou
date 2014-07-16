@@ -304,7 +304,7 @@ class GLOSSARY {
                 else {
                     $link_url = $URL->generate('url');
                 }
-                $title = htmlentities(trim_characters($term_body, 0, 80));
+                $title = _htmlentities(trim_characters($term_body, 0, 80));
                 $replacewords[] = "<a href=\"$link_url\" title=\"$title\" class=\"glossary\">\\1</a>";
             }
         }

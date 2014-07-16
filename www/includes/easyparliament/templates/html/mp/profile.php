@@ -38,7 +38,7 @@
                             echo "?person=uk.org.publicwhip/person/$person_id";
                         }
                         if ($the_users_mp) {
-                            echo "?a=WMC&amp;pc=" . htmlentities(urlencode($user_postcode));
+                            echo "?a=WMC&amp;pc=" . _htmlentities(urlencode($user_postcode));
                         }
                     ?>" class="button wtt" onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'Person'); return false;"><img src="/style/img/envelope.png">Send a message</a>
 

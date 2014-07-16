@@ -20,7 +20,7 @@ if (is_numeric(get_http_var('id'))) {
 
     if ($COMMENT->exists() == false || !$COMMENT->visible()) {
         // This comment id didn't exist in the DB.
-        trigger_error("There is no annotation with an ID of '" . htmlentities($comment_id) . "'.", E_USER_NOTICE);
+        trigger_error("There is no annotation with an ID of '" . _htmlentities($comment_id) . "'.", E_USER_NOTICE);
     }
 
     // OK, we've got a valid comment ID.
@@ -78,7 +78,7 @@ if (is_numeric(get_http_var('id'))) {
                 }
                 if (get_http_var('ret') != '') {
                     ?>
-    <p><a href="<?php echo htmlentities(get_http_var('ret')); ?>">Return to where you were.</a></p>
+    <p><a href="<?php echo _htmlentities(get_http_var('ret')); ?>">Return to where you were.</a></p>
 <?php
                 }
 
@@ -122,7 +122,7 @@ function display_form($COMMENT, $errors=array()) {
 <?php
     if ($THEUSER->isloggedin()) {
         ?>
-                <p><br><strong>From:</strong> <?php echo htmlentities($THEUSER->firstname() . ' ' . $THEUSER->lastname()); ?></p>
+                <p><br><strong>From:</strong> <?php echo _htmlentities($THEUSER->firstname() . ' ' . $THEUSER->lastname()); ?></p>
 <?php
     } else {
         // Not-logged-in user, so we want their name and email address.
@@ -160,7 +160,7 @@ function display_form($COMMENT, $errors=array()) {
                 <p style="clear: left;"><strong>Why should this annotation be deleted?</strong><br>
                 <small>Check our <a href="<?php echo $RULESURL->generate(); ?>">House Rules</a> and tell us why the annotation breaks them.</small><br>
                 <textarea name="body" rows="10" cols="45"><?php
-    echo htmlentities(get_http_var('body'));
+    echo _htmlentities(get_http_var('body'));
     ?></textarea></p>
 
                 <div class="row">
@@ -169,12 +169,12 @@ function display_form($COMMENT, $errors=array()) {
                 </div>
 
                 <input type="hidden" name="submitted" value="true">
-                <input type="hidden" name="id" value="<?php echo htmlentities($COMMENT->comment_id()); ?>">
+                <input type="hidden" name="id" value="<?php echo _htmlentities($COMMENT->comment_id()); ?>">
 <?php
     if (get_http_var('ret') != '') {
         // Where the user came from to get here.
         ?>
-                <input type="hidden" name="ret" value="<?php echo htmlentities(get_http_var('ret')); ?>">
+                <input type="hidden" name="ret" value="<?php echo _htmlentities(get_http_var('ret')); ?>">
 <?php
     }
     ?>

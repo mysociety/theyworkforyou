@@ -44,10 +44,10 @@ if (isset($info['total_results']) && $info['total_results'] > 0) {
         $last_result = $info['total_results'];
     }
 
-    print "\t\t\t\t<h3 style='font-weight:normal'>Results <strong>" . number_format($info['first_result']) . '-' . number_format($last_result) . '</strong> of ' . number_format($info['total_results']) . " for <strong>" . htmlentities($searchdescription) . "</strong></h3>\n";
+    print "\t\t\t\t<h3 style='font-weight:normal'>Results <strong>" . number_format($info['first_result']) . '-' . number_format($last_result) . '</strong> of ' . number_format($info['total_results']) . " for <strong>" . _htmlentities($searchdescription) . "</strong></h3>\n";
 
 } elseif ($info['total_results'] == 0) {
-    echo '<h3 style="font-weight:normal">Your search for <strong>', htmlentities($searchdescription), '</strong> did not match anything.</h3>';
+    echo '<h3 style="font-weight:normal">Your search for <strong>', _htmlentities($searchdescription), '</strong> did not match anything.</h3>';
 }
 
 if ($info['spelling_correction']) {
@@ -85,7 +85,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
         }
         echo '</small>';
         if ($match = get_http_var('match')) {
-            echo ' &ndash; <a href="/search/record.php?result=', $row['gid'] , '&amp;match=', htmlspecialchars($match), '">This is the correct match</a>';
+            echo ' &ndash; <a href="/search/record.php?result=', $row['gid'] , '&amp;match=', _htmlspecialchars($match), '">This is the correct match</a>';
         }
         echo '</dt> <dd><p>';
         if (isset($row['speaker']) && count($row['speaker'])) {

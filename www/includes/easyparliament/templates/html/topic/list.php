@@ -15,7 +15,7 @@
 
             <li><a href="http://<?= DOMAIN ?><?= $URL->generate(); ?>">
                 <img src="/images/<?= $page ?>.jpg">
-                <?= htmlspecialchars($topic); ?>
+                <?= _htmlspecialchars($topic); ?>
             </a></li>
 
         <?php endforeach; ?>

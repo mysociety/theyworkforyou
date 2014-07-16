@@ -172,7 +172,7 @@ do with this <a href="http://www.boundarycommission.org.uk/pics/big_map_1.jpg">o
 
 <form method="get">
 <p><label for="pc">Enter your Scottish or Northern Irish postcode:</label>
-<input disabled type="text" id="pc" name="pc" value="<?=htmlspecialchars(get_http_var('pc'))?>" size="7">
+<input disabled type="text" id="pc" name="pc" value="<?=_htmlspecialchars(get_http_var('pc'))?>" size="7">
 <input disabled type="submit" value="Look up">
 </p>
 </form>

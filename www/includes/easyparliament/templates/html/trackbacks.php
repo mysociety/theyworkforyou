@@ -62,9 +62,9 @@ if (count($data) > 0) {
         $date = format_date($date, SHORTDATEFORMAT);
         $time = format_time($time, TIMEFORMAT);
         ?>
-        <dt><a href="<?php echo htmlentities($trackback['url']); ?>"><?php echo htmlentities($trackback['title']); ?></a></dt>
-        <dd><?php echo htmlentities($trackback['excerpt']); ?><br>
-            <small>At <?php echo htmlentities($trackback['blog_name']); ?> on <?php echo $date . ' ' . $time; ?></small>
+        <dt><a href="<?php echo _htmlentities($trackback['url']); ?>"><?php echo _htmlentities($trackback['title']); ?></a></dt>
+        <dd><?php echo _htmlentities($trackback['excerpt']); ?><br>
+            <small>At <?php echo _htmlentities($trackback['blog_name']); ?> on <?php echo $date . ' ' . $time; ?></small>
         </dd>
 <?php
 

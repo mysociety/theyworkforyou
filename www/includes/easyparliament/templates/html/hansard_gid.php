@@ -165,7 +165,7 @@ if (isset ($data['rows'])) {
         if ($row['htype'] == '10') {
             $section['title'] = $row['body'];
             $section['hpos'] = $row['hpos'];
-            twfy_debug("DATAMODEL" , "epobjectid " . htmlentities($row['epobject_id']));
+            twfy_debug("DATAMODEL" , "epobjectid " . _htmlentities($row['epobject_id']));
         } elseif ($row['htype'] == '11') {
             $subsection_title = $row['body'];
             $section['hpos'] = $row['hpos'];
@@ -312,7 +312,7 @@ if (isset ($data['rows'])) {
                     if (get_http_var('wordcolours')) {
                         $desc .= '<span style="color: '.party_to_colour($speaker['party']).'">';
                     }
-                    $desc .= htmlentities($speaker['party']);
+                    $desc .= _htmlentities($speaker['party']);
                     if (get_http_var('wordcolours')) {
                         $desc .= '</span>';
                     }
@@ -630,7 +630,7 @@ function generate_commentteaser (&$row, $major, $action_links) {
                 }
             }
 
-            $html .= '<blockquote><p>' . prepare_comment_for_display($commentbody) . '</p><cite>Submitted by ' . htmlentities($comment['username']) . '</cite></small></blockquote>' ;
+            $html .= '<blockquote><p>' . prepare_comment_for_display($commentbody) . '</p><cite>Submitted by ' . _htmlentities($comment['username']) . '</cite></small></blockquote>' ;
 
             if (isset($linktext)) {
                 $html .= ' <a class="morecomments" href="' . $row['commentsurl'] . '#c' . $comment['comment_id'] . '" title="See any annotations posted about this">' . $linktext . '</a>';

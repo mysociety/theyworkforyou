@@ -25,7 +25,7 @@ print $link_to_us_form;
 
 <p>Cut and paste the code below into your webpage:</p>
 <textarea class="sourcecode" style="width: 100%; height: 20em;">
-<?php print htmlspecialchars($link_to_us_form); ?>
+<?php print _htmlspecialchars($link_to_us_form); ?>
 </textarea>
 
 <p>Please retain the link to <a href="http://www.theyworkforyou.com">theyworkforyou.com</a> (Google points mean prizes). Any questions, just drop us a line at: <a href="http://www.theyworkforyou.com/contact/">http://www.theyworkforyou.com/contact/</a>

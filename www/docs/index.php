@@ -60,7 +60,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
                     }
         ?>
             <p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out about <?php echo $mpname; ?>, your <?= $former ?> MP</strong></a><br>
-            In <?php echo strtoupper(htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
+            In <?php echo strtoupper(_htmlentities($THEUSER->postcode())); ?> (<a href="<?php echo $CHANGEURL->generate(); ?>">Change your postcode</a>)</p>
         <?php
                 }
             }
@@ -70,7 +70,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
                 <p><strong>Find out about your <acronym title="Member of Parliament">MP</acronym>/
                 <acronym title="Members of the Scottish Parliament">MSPs</acronym>/
                 <acronym title="Members of the (Northern Irish) Legislative Assembly">MLAs</acronym></strong><br>
-                <label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
+                <label for="pc">Enter your UK postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo _htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
                 </form>
             <?php
             }
@@ -88,7 +88,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Home'); return false;">
             <h2><label for="search_input">Search, create an email alert or RSS feed</label></h2>
             <p>
-                <input type="text" name="q" id="search_input" size="20" maxlength="100" class="text" value="<?=htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
+                <input type="text" name="q" id="search_input" size="20" maxlength="100" class="text" value="<?=_htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
                 <input type="submit" value="Go" class="submit">
                 <small>e.g. <em>word</em>, <em>phrase</em>, or <em>person</em> | <a href="/search/?adv=1">More options</a></small>
             </p>

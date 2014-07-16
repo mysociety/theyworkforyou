@@ -6,9 +6,9 @@
     <title><?= preg_replace('#<[^>]*>#', '', $page_title) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <?php if (isset($meta_description)): ?>
-    <meta name="description" content="<?= htmlentities($meta_description) ?>">
+    <meta name="description" content="<?= _htmlentities($meta_description) ?>">
     <?php endif; ?>
-    <meta name="keywords" content="<?= htmlentities($meta_keywords); ?>">
+    <meta name="keywords" content="<?= _htmlentities($meta_keywords); ?>">
     <?php
         if (DEVSITE) {
             echo '<meta name="robots" content="noindex,nofollow">';

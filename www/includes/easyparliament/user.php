@@ -136,11 +136,11 @@ class USER {
             // we're going to show an error too, just in case.
             // *Should* never happen...
             return false;
-            twfy_debug("USER", "There is more than one user with an id of '".htmlentities($user_id)."'");
+            twfy_debug("USER", "There is more than one user with an id of '" . _htmlentities($user_id) . "'");
 
         } else {
             return false;
-            twfy_debug("USER", "There is no user with an id of '".htmlentities($user_id)."'");
+            twfy_debug("USER", "There is no user with an id of '" . _htmlentities($user_id) . "'");
         }
 
     }
@@ -754,7 +754,7 @@ class USER {
             return $details;
 
         } else {
-            $PAGE->error_message ("Sorry, we were unable to update user id '" . htmlentities($details["user_id"]) . "'");
+            $PAGE->error_message ("Sorry, we were unable to update user id '" . _htmlentities($details["user_id"]) . "'");
 
             return false;
         }
@@ -911,7 +911,7 @@ class THEUSER extends USER {
         // This error string is shared between both email and password errors to
         // prevent leaking of account existence.
 
-        $error_string = 'There is no user registered with an email of ' . htmlentities($email) . ', or the given password is incorrect. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave annotations.';
+        $error_string = 'There is no user registered with an email of ' . _htmlentities($email) . ', or the given password is incorrect. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave annotations.';
 
         $q = $this->db->query("SELECT user_id, password, deleted, confirmed FROM users WHERE email='" . mysql_real_escape_string($email) . "'");
 

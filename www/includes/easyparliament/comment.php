@@ -245,7 +245,7 @@ class COMMENT {
             $flag = 'NULL';
 
         } else {
-            $PAGE->error_message ("Why are you trying to switch this comment's modflag to '".htmlentities($switch)."'!");
+            $PAGE->error_message ("Why are you trying to switch this comment's modflag to '" . _htmlentities($switch) . "'!");
         }
 
         $q = $this->db->query("UPDATE comments

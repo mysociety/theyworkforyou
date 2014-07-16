@@ -138,8 +138,8 @@ function view($REPORT, $COMMENT, $FORMURL) {
         <p><input type="submit" name="yes" value=" Yes "> &nbsp;
         <input type="submit" name="no" value=" No ">
         <input type="hidden" name="takingaction" value="true">
-        <input type="hidden" name="rid" value="<?php echo htmlentities($REPORT->report_id()); ?>">
-        <input type="hidden" name="cid" value="<?php echo htmlentities($REPORT->comment_id()); ?>"></p>
+        <input type="hidden" name="rid" value="<?php echo _htmlentities($REPORT->report_id()); ?>">
+        <input type="hidden" name="cid" value="<?php echo _htmlentities($REPORT->comment_id()); ?>"></p>
     </form>
 <?php
 }
@@ -198,8 +198,8 @@ function prepare_emails_for_deleting($REPORT, $COMMENT, $FORMURL) {
 
             <p><input type="submit" name="resolve" value=" Delete comment ">
             <input type="hidden" name="deletecomment" value="true">
-            <input type="hidden" name="rid" value="<?php echo htmlentities($REPORT->report_id()); ?>">
-            <input type="hidden" name="cid" value="<?php echo htmlentities($REPORT->comment_id()); ?>"></p>
+            <input type="hidden" name="rid" value="<?php echo _htmlentities($REPORT->report_id()); ?>">
+            <input type="hidden" name="cid" value="<?php echo _htmlentities($REPORT->comment_id()); ?>"></p>
         </form>
 <?php
 
@@ -225,8 +225,8 @@ function prepare_emails_for_not_deleting($REPORT, $COMMENT, $FORMURL) {
 
             <p><input type="submit" name="resolve" value=" Resolve this report ">
             <input type="hidden" name="deletecomment" value="false">
-            <input type="hidden" name="rid" value="<?php echo htmlentities($REPORT->report_id()); ?>">
-            <input type="hidden" name="cid" value="<?php echo htmlentities($REPORT->comment_id()); ?>"></p>
+            <input type="hidden" name="rid" value="<?php echo _htmlentities($REPORT->report_id()); ?>">
+            <input type="hidden" name="cid" value="<?php echo _htmlentities($REPORT->comment_id()); ?>"></p>
         </form>
 <?php
 }

@@ -3,7 +3,7 @@
 <form action="/search/" method="get" id="search-form">
 
 <div id="term-search">
-    <label for="advanced_search_input" class="hide">Search</label> <input type="text" id="advanced_search_input" name="q" value="<?=htmlspecialchars(get_http_var('q') != '' ? get_http_var('q') : get_http_var('s')) ?>">
+    <label for="advanced_search_input" class="hide">Search</label> <input type="text" id="advanced_search_input" name="q" value="<?=_htmlspecialchars(get_http_var('q') != '' ? get_http_var('q') : get_http_var('s')) ?>">
     <div class="help">
     Enter what you&rsquo;re looking for here. See the help to the right for how
     to search for <strong>"unstemmed" words</strong>, <strong>-exclude -words</strong>, or perform <strong>OR boolean</strong> searches.
@@ -13,8 +13,8 @@
 <h3>Filters</h3>
 
 <div><label for="from">Date range</label>
-From <input type="text" id="from" name="from" value="<?=htmlspecialchars(get_http_var('from')) ?>" size="22">
- to <input type="text" name="to" value="<?=htmlspecialchars(get_http_var('to')) ?>" size="22">
+From <input type="text" id="from" name="from" value="<?=_htmlspecialchars(get_http_var('from')) ?>" size="22">
+ to <input type="text" name="to" value="<?=_htmlspecialchars(get_http_var('to')) ?>" size="22">
 </div>
 <div class="help">
 You can give a <strong>start date, an end date, or both</strong>, to restrict results to a
@@ -24,7 +24,7 @@ implies the oldest date we have in the system. Dates can be entered in any forma
 </div>
 
 <div><label for="person">Person</label>
-<input type="text" id="person" name="person" value="<?=htmlspecialchars(get_http_var('person')) ?>" size="40">
+<input type="text" id="person" name="person" value="<?=_htmlspecialchars(get_http_var('person')) ?>" size="40">
 </div>
 <div class="help">
 Enter a name here to restrict results to contributions only by that person.
@@ -184,7 +184,7 @@ as Commons Written Answers.
 </div>
 
 <div><label for="column">Column</label>
-<input type="text" id="column" name="column" value="<?=htmlspecialchars(get_http_var('column')) ?>" size="10">
+<input type="text" id="column" name="column" value="<?=_htmlspecialchars(get_http_var('column')) ?>" size="10">
 </div>
 <div class="help">
 If you know the actual column number in Hansard you are interested in (perhaps you&rsquo;re looking up a paper

@@ -61,7 +61,7 @@ if ($action == 'latest') {
     if (isset($output['image'])) $output['image'] = 'http://www.theyworkforyou.com' . $output['image'];
     $output['bbc'] = 'http://news.bbc.co.uk/1/shared/mpdb/html/' . $bbc_cons_id . '.stm';
     $output['link'] = 'http://www.theyworkforyou.com/mp/'
-        . make_member_url(htmlentities($output['full_name']), $cons, 1); # XXX make_member_url needs it encoded!
+        . make_member_url(_htmlentities($output['full_name']), $cons, 1); # XXX make_member_url needs it encoded!
     $output['email_alert'] = 'http://www.theyworkforyou.com/alert/?only=1&pid=' . $pid;
     #$output['writetothem'] = 'http://www.writetothem.com/';
     #$output['hearfromyourmp'] = 'http://www.hearfromyourmp.com/';

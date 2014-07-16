@@ -197,7 +197,7 @@ Class MySQLQuery {
             $html .= "<table border=\"1\">\n<tr>\n";
 
             foreach (array_keys($this->data[0]) as $fieldname) {
-                $html .= "<th>".htmlentities($fieldname)."</th>";
+                $html .= "<th>" . _htmlentities($fieldname) . "</th>";
             }
             $html .= "</tr>\n";
 
@@ -208,7 +208,7 @@ Class MySQLQuery {
                         // Don't want to risk this data being displayed on any page.
                         $html .= "<td>**MASKED**</td>";
                     } else {
-                        $html .= "<td>".htmlentities($field)."</td>";
+                        $html .= "<td>" . _htmlentities($field) . "</td>";
                     }
                 }
                 $html .= "</tr>\n";

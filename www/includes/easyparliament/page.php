@@ -138,7 +138,7 @@ class PAGE {
 
         $meta_description = '';
         if ($meta_description = $DATA->page_metadata($this_page, "meta_description")) {
-            $meta_description = '<meta name="description" content="' . htmlentities($meta_description) . '">';
+            $meta_description = '<meta name="description" content="' . _htmlentities($meta_description) . '">';
         }
 
         if ($this_page != 'overview') {
@@ -159,7 +159,7 @@ class PAGE {
                 if (isset($nextprev[$type]) && isset($nextprev[$type]['listurl'])) {
 
                     if (isset($nextprev[$type]['body'])) {
-                        $linktitle = htmlentities( trim_characters($nextprev[$type]['body'], 0, 40) );
+                        $linktitle = _htmlentities( trim_characters($nextprev[$type]['body'], 0, 40) );
                         if (isset($nextprev[$type]['speaker']) &&
                             count($nextprev[$type]['speaker']) > 0) {
                             $linktitle = $nextprev[$type]['speaker']['first_name'] . ' ' . $nextprev[$type]['speaker']['last_name'] . ': ' . $linktitle;
@@ -202,7 +202,7 @@ class PAGE {
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <title><?php echo preg_replace('#<[^>]*>#', '', $title); ?></title>
     <?=$meta_description ?>
-    <meta name="keywords" content="<?php echo htmlentities($meta_keywords); ?>">
+    <meta name="keywords" content="<?php echo _htmlentities($meta_keywords); ?>">
     <?=$robots ?>
     <link rel="author" title="Send feedback" href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">
     <link rel="home" title="Home" href="http://<?php echo DOMAIN; ?>/">
@@ -626,7 +626,7 @@ window.fbAsyncInit = function () {
             <ul id="user">
             <li><a href="<?php echo $LOGOUTURL->generate(); ?>" title="<?php echo $logouttitle; ?>"<?php echo $logoutclass; ?>><?php echo $logouttext; ?></a></li>
             <li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo $edittext; ?></a></li>
-            <li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo htmlentities($username); ?></a></li>
+            <li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo _htmlentities($username); ?></a></li>
 <?php
 
         } else {
@@ -1242,7 +1242,7 @@ pr()//-->
         ?>
                         <p><strong>Enter your UK postcode: </strong>
 
-                        <input type="text" name="pc" value="<?php echo htmlentities(get_http_var('pc')); ?>" maxlength="10" size="10"> <input type="submit" value="GO" class="submit"> <small>(e.g. BS3 1QP)</small>
+                        <input type="text" name="pc" value="<?php echo _htmlentities(get_http_var('pc')); ?>" maxlength="10" size="10"> <input type="submit" value="GO" class="submit"> <small>(e.g. BS3 1QP)</small>
                         </p>
                         <input type="hidden" name="ch" value="t">
                         </form>
@@ -1555,12 +1555,12 @@ pr()//-->
         if ($wtt<2) {
                 echo '<form action="', $URL->generate(), '" method="get">';
                 if (get_http_var('o')) {
-                    echo '<input type="hidden" name="o" value="', htmlentities(get_http_var('o')), '">';
+                    echo '<input type="hidden" name="o" value="', _htmlentities(get_http_var('o')), '">';
                 }
                 if (get_http_var('house')) {
-                    echo '<input type="hidden" name="house" value="', htmlentities(get_http_var('house')), '">';
+                    echo '<input type="hidden" name="house" value="', _htmlentities(get_http_var('house')), '">';
                 }
-                echo '<input type="text" name="q" value="', htmlentities($value), '" size="50"> ';
+                echo '<input type="text" name="q" value="', _htmlentities($value), '" size="50"> ';
                 echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
                 $URL = new URL('search');
             $URL->insert(array('adv' => 1));
@@ -1569,7 +1569,7 @@ pr()//-->
                 if ($wtt) print '<input type="hidden" name="wtt" value="1">';
         } else { ?>
     <form action="http://www.writetothem.com/lords" method="get">
-    <input type="hidden" name="pid" value="<?=htmlentities(get_http_var('pid')) ?>">
+    <input type="hidden" name="pid" value="<?=_htmlentities(get_http_var('pid')) ?>">
     <input type="submit" style="font-size: 150%" value=" I want to write to this Lord "><br>
 <?php
         }
@@ -1610,7 +1610,7 @@ pr()//-->
             if ($person_name) {
                 ?>
                     <p>
-                    <input type="radio" name="pid" value="<?php echo htmlentities($person_id) ?>" checked>Search only <?php echo htmlentities($person_name) ?>
+                    <input type="radio" name="pid" value="<?php echo _htmlentities($person_id) ?>" checked>Search only <?php echo _htmlentities($person_name) ?>
                     <input type="radio" name="pid" value="">Search all speeches
                     </p>
                 <?php
@@ -1641,7 +1641,7 @@ pr()//-->
 ?>
                 <div class="row">
                 <span class="label"><label for="email">Email address:</label></span>
-                <span class="formw"><input type="text" name="email" id="email" value="<?php echo htmlentities(get_http_var("email")); ?>" maxlength="100" size="30" class="form"></span>
+                <span class="formw"><input type="text" name="email" id="email" value="<?php echo _htmlentities(get_http_var("email")); ?>" maxlength="100" size="30" class="form"></span>
                 </div>
 
 <?php
@@ -1695,7 +1695,7 @@ pr()//-->
                 $returl = $glossary_returl;
             }
             ?>
-                <input type="hidden" name="ret" value="<?php echo htmlentities($returl); ?>">
+                <input type="hidden" name="ret" value="<?php echo _htmlentities($returl); ?>">
 <?php
         }
         ?>
@@ -1730,7 +1730,7 @@ pr()//-->
             $formcontent = "";
         }
         else {
-            $formcontent = htmlentities(get_http_var('g'));
+            $formcontent = _htmlentities(get_http_var('g'));
         }
 
         if ($THEUSER->isloggedin()) {
@@ -1767,7 +1767,7 @@ pr()//-->
         <form action="<?php print $URL->generate(); ?>" method="post">
         <input type="hidden" name="g" value="<?php echo $args['s']; ?>">
         <input type="hidden" name="return_page" value="glossary">
-        <label for="definition"><p><textarea name="definition" id="definition" rows="15" cols="55"><?php echo htmlentities($GLOSSARY->current_term['body']); ?></textarea></p>
+        <label for="definition"><p><textarea name="definition" id="definition" rows="15" cols="55"><?php echo _htmlentities($GLOSSARY->current_term['body']); ?></textarea></p>
 
         <p><input type="submit" name="previewterm" value="Preview" class="submit">
         <input type="submit" name="submitterm" value="Post" class="submit"></p></label>
@@ -2113,7 +2113,7 @@ Annotations should be information that adds value to the contribution, not opini
                 <form action="<?php echo $ADDURL->generate(); ?>" method="post">
                     <p><textarea name="body" rows="15" cols="55"><?php
         if (isset($commentdata['body'])) {
-            echo htmlentities($commentdata['body']);
+            echo _htmlentities($commentdata['body']);
         }
         ?></textarea></p>
 
@@ -2138,16 +2138,16 @@ Annotations should be information that adds value to the contribution, not opini
         if ($data['user_id'] > 0) {
             $USERURL = new URL('userview');
             $USERURL->insert(array('id'=>$data['user_id']));
-            $username = '<a href="' . $USERURL->generate() . '">' . htmlentities($data['user_name']) . '</a>';
+            $username = '<a href="' . $USERURL->generate() . '">' . _htmlentities($data['user_name']) . '</a>';
         } else {
-            $username = htmlentities($data['user_name']);
+            $username = _htmlentities($data['user_name']);
         }
         ?>
                 <div class="comment">
                     <p class="credit"><strong>Annotation report</strong><br>
                     <small>Reported by <?php echo $username; ?> on <?php echo $data['reported']; ?></small></p>
 
-                    <p><?php echo htmlentities($data['body']); ?></p>
+                    <p><?php echo _htmlentities($data['body']); ?></p>
                 </div>
 <?php
         if ($data['resolved'] != 'NULL') {
@@ -2205,8 +2205,8 @@ Annotations should be information that adds value to the contribution, not opini
                 $body = trim_characters($report['body'], 0, 40);
 
                 $tabledata['rows'][] = array (
-                    htmlentities($report['firstname'] . ' ' . $report['lastname']),
-                    htmlentities($body),
+                    _htmlentities($report['firstname'] . ' ' . $report['lastname']),
+                    _htmlentities($body),
                     $report['reported'],
                     $editlink
                 );

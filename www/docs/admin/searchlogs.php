@@ -19,7 +19,7 @@ foreach ($search_recent as $row) {
     $time = relative_time($row['query_time']);
     $time = str_replace(" ago", "", $time);
     $rows[] = array (
-        '<a href="'.$row['url'].'">'.htmlentities($row['query']).'</a>',
+        '<a href="'.$row['url'].'">' . _htmlentities($row['query']) . '</a>',
         $row['page_number'],
         $row['count_hits'],
         $host,

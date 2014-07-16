@@ -188,7 +188,7 @@ class SEARCHENGINE {
             $query = $this->queryparser->parse_query($this->query, $flags);
         } catch (Exception $e) {
             # Nothing we can really do with a bad query
-            $this->error = htmlspecialchars($e->getMessage());
+            $this->error = _htmlspecialchars($e->getMessage());
 
             return null;
         }

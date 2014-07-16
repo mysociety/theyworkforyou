@@ -3,7 +3,7 @@
 <rss version="2.0" xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/">
 <channel>
 <title>TheyWorkForYou.com Search: <?=$SEARCHENGINE->query_description_short() ?></title>
-<link>http://www.theyworkforyou.com<?=htmlentities(str_replace('rss/', '', $_SERVER['REQUEST_URI'])) ?></link>
+<link>http://www.theyworkforyou.com<?=_htmlentities(str_replace('rss/', '', $_SERVER['REQUEST_URI'])) ?></link>
 <description>Search results for <?=$SEARCHENGINE->query_description_short() ?> at TheyWorkForYou.com</description>
 <language>en-gb</language>
 <copyright>Parliamentary Copyright.</copyright>
@@ -47,7 +47,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
             $name = ucfirst(member_full_name($sp['house'], $sp['title'], $sp['first_name'], $sp['last_name'], $sp['constituency']));
             echo entities_to_numbers($name) . ': ';
         }
-        echo htmlspecialchars(str_replace(array('&#8212;', '<span class="hi">', '</span>'), array('-', '<b>', '</b>'), $row['extract'])) . "</description>\n</item>\n";
+        echo _htmlspecialchars(str_replace(array('&#8212;', '<span class="hi">', '</span>'), array('-', '<b>', '</b>'), $row['extract'])) . "</description>\n</item>\n";
     }
 }
 ?>

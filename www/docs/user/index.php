@@ -532,7 +532,7 @@ function display_form ( $details = array(), $errors = array() ) {
         ?>
                 <div class="row">
                 <span class="label">User ID:</span>
-                <span class="formw"><?php echo htmlentities($details["user_id"]); ?></span>
+                <span class="formw"><?php echo _htmlentities($details["user_id"]); ?></span>
                 </div>
 
 <?php
@@ -542,7 +542,7 @@ function display_form ( $details = array(), $errors = array() ) {
         ?>
                 <div class="row">
                 <span class="label">Status:</span>
-                <span class="formw"><?php echo htmlentities($details['status']); ?></span>
+                <span class="formw"><?php echo _htmlentities($details['status']); ?></span>
                 </div>
 <?php
     }
@@ -553,7 +553,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
                 <div class="row">
                 <span class="label"><label for="firstname">Your first name:</label></span>
-                <span class="formw"><input type="text" name="firstname" id="firstname" value="<?php if (isset($details["firstname"])) { echo htmlentities($details["firstname"]); } ?>" maxlength="255" size="30" class="form"></span>
+                <span class="formw"><input type="text" name="firstname" id="firstname" value="<?php if (isset($details["firstname"])) { echo _htmlentities($details["firstname"]); } ?>" maxlength="255" size="30" class="form"></span>
                 </div>
 
 <?php
@@ -563,7 +563,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
                 <div class="row">
                 <span class="label"><label for="lastname">Your last name:</label></span>
-                <span class="formw"><input type="text" name="lastname" id="lastname" value="<?php if (isset($details["lastname"])) { echo htmlentities($details["lastname"]); } ?>" maxlength="255" size="30" class="form"></span>
+                <span class="formw"><input type="text" name="lastname" id="lastname" value="<?php if (isset($details["lastname"])) { echo _htmlentities($details["lastname"]); } ?>" maxlength="255" size="30" class="form"></span>
                 </div>
 
 <?php
@@ -573,7 +573,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
                 <div class="row">
                 <span class="label"><label for="em">Email address:</label></span>
-                <span class="formw"><input type="text" name="em" id="em" value="<?php if (isset($details["email"])) { echo htmlentities($details["email"]); } ?>" maxlength="255" size="30" class="form"></span>
+                <span class="formw"><input type="text" name="em" id="em" value="<?php if (isset($details["email"])) { echo _htmlentities($details["email"]); } ?>" maxlength="255" size="30" class="form"></span>
                 </div>
 
 <?php
@@ -615,7 +615,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
                 <div class="row">
                 <span class="label"><label for="postcode">Your UK postcode:</label></span>
-                <span class="formw"><input type="text" name="postcode" id="postcode" value="<?php if (isset($details["postcode"])) { echo htmlentities($details["postcode"]); } ?>" maxlength="10" size="10" class="form"> <small>Optional and not public</small></span>
+                <span class="formw"><input type="text" name="postcode" id="postcode" value="<?php if (isset($details["postcode"])) { echo _htmlentities($details["postcode"]); } ?>" maxlength="10" size="10" class="form"> <small>Optional and not public</small></span>
                 </div>
 
 <?php
@@ -625,7 +625,7 @@ function display_form ( $details = array(), $errors = array() ) {
 ?>
                 <div class="row">
                 <span class="label"><label for="url">Your website:</label></span>
-                <span class="formw"><input type="text" name="url" id="url" value="<?php if (isset($details['url'])) { echo htmlentities($details['url']); } ?>" maxlength="255" size="20" class="form"> <small>Optional and public</small></span>
+                <span class="formw"><input type="text" name="url" id="url" value="<?php if (isset($details['url'])) { echo _htmlentities($details['url']); } ?>" maxlength="255" size="20" class="form"> <small>Optional and public</small></span>
                 </div>
 
 
@@ -777,21 +777,21 @@ function display_form ( $details = array(), $errors = array() ) {
     if (get_http_var("ret") != "") {
         // The user was probably trying to add a writer but is joining first.
         ?>
-                <input type="hidden" name="ret" value="<?php echo htmlentities(get_http_var("ret")); ?>">
+                <input type="hidden" name="ret" value="<?php echo _htmlentities(get_http_var("ret")); ?>">
 <?php
     }
 
     if (get_http_var("pg") != "") {
         // So that we get to the right page.
         ?>
-                <input type="hidden" name="pg" value="<?php echo htmlentities(get_http_var("pg")); ?>">
+                <input type="hidden" name="pg" value="<?php echo _htmlentities(get_http_var("pg")); ?>">
 <?php
     }
 
     if ($this_page == "otheruseredit") {
         // Need to store the id of the user we're editing.
         ?>
-                <input type="hidden" name="u" value="<?php echo htmlentities($details["user_id"]); ?>">
+                <input type="hidden" name="u" value="<?php echo _htmlentities($details["user_id"]); ?>">
 <?php
     }
 ?>
@@ -979,7 +979,7 @@ function display_user($user_id="", $email_changed=false) {
                 <span class="label">Name</span>
                 <span class="formw"><?php
                 if (substr($name, -3) == ' MP') print '<a href="/mp/' . make_member_url(substr($name, 0, -3)) . '">';
-                echo htmlentities($name);
+                echo _htmlentities($name);
                 if (substr($name, -3) == ' MP') print '</a>';
             ?></span>
                 </div>
@@ -988,7 +988,7 @@ function display_user($user_id="", $email_changed=false) {
                 <span class="label">Email</span>
                 <span class="formw"><?php
         if (isset($email)) {
-            $escaped_email = str_replace('@', '&#64;', htmlentities($email));
+            $escaped_email = str_replace('@', '&#64;', _htmlentities($email));
             ?><a href="mailto:<?php echo $escaped_email . "\">" . $escaped_email; ?></a><?php
         } else {
             ?>Not public<?php
@@ -1012,7 +1012,7 @@ function display_user($user_id="", $email_changed=false) {
             ?>
                 <div class="row">&nbsp;<br>
                 <span class="label">UK Postcode</span>
-                <span class="formw"><?php echo htmlentities($postcode); ?> <small>(not public)</small></span>
+                <span class="formw"><?php echo _htmlentities($postcode); ?> <small>(not public)</small></span>
                 </div>
 
 <?php
@@ -1022,7 +1022,7 @@ function display_user($user_id="", $email_changed=false) {
             if ($url == '') {
                 $url = 'none';
             } else {
-                $url = '<a href="' . htmlentities($url) . '">' . htmlentities($url) . '</a>';
+                $url = '<a href="' . _htmlentities($url) . '">' . _htmlentities($url) . '</a>';
             }
             ?>
                 <div class="row">
@@ -1035,13 +1035,13 @@ function display_user($user_id="", $email_changed=false) {
 
         if (isset($emailpublic)) {
             ?>
-                <div class="row">&nbsp;<br>Let other people see your email address? <strong><?php echo htmlentities($emailpublic); ?></strong></div>
+                <div class="row">&nbsp;<br>Let other people see your email address? <strong><?php echo _htmlentities($emailpublic); ?></strong></div>
 
 <?php
         }
         if (isset($optin)) {
             ?>
-                <div class="row">Receive TheyWorkForYou.com emails? <strong><?php echo htmlentities($optin); ?></strong></div>
+                <div class="row">Receive TheyWorkForYou.com emails? <strong><?php echo _htmlentities($optin); ?></strong></div>
 
 <?php
         }
@@ -1050,7 +1050,7 @@ function display_user($user_id="", $email_changed=false) {
             ?>
                 <div class="row">
                 <span class="label">Status</span>
-                <span class="formw"><?php echo htmlentities($status); ?></span>
+                <span class="formw"><?php echo _htmlentities($status); ?></span>
                 </div>
 <?php
         }
@@ -1058,7 +1058,7 @@ function display_user($user_id="", $email_changed=false) {
             ?>
                 <div class="row">
                 <span class="label">Joined</span>
-                <span class="formw"><?php echo htmlentities($registrationtime); ?></span>
+                <span class="formw"><?php echo _htmlentities($registrationtime); ?></span>
                 </div>
 <?php
         }

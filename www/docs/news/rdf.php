@@ -46,7 +46,7 @@ print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
         $date = str_replace(" ", "T", $date) . "+00:00";
 ?>
 <item rdf:about="<?=$url?>">
-<title><?=htmlspecialchars($title)?></title>
+<title><?=_htmlspecialchars($title)?></title>
 <link><?=$url?></link>
 <description><?=$excerpt?></description>
 <dc:subject></dc:subject>

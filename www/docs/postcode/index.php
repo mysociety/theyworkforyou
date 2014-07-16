@@ -21,7 +21,7 @@ if (validate_postcode($pc)) {
     if ($constituencies == 'CONNECTION_TIMED_OUT') {
         $errors['pc'] = "Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.";
     } elseif (!$constituencies) {
-        $errors['pc'] = "Sorry, ".htmlentities($pc) ." isn't a known postcode";
+        $errors['pc'] = "Sorry, " . _htmlentities($pc) . " isn't a known postcode";
     } elseif (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
         $MEMBER = new MEMBER(array('constituency' => $constituencies['WMC']));
         if ($MEMBER->person_id()) {
@@ -43,7 +43,7 @@ if (validate_postcode($pc)) {
         member_redirect($MEMBER);
     }
 } else {
-    $errors['pc'] = "Sorry, ".htmlentities($pc) ." isn't a valid postcode";
+    $errors['pc'] = "Sorry, " . _htmlentities($pc) . " isn't a valid postcode";
     twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
 }
 

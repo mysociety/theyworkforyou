@@ -176,7 +176,7 @@ if (isset ($topics[$topicname]))
                         throw new Exception('Sorry, we couldn&rsquo;t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
                     } elseif ($constituency == "") {
                         twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
-                        throw new Exception('Sorry, ' . htmlentities($pc) . ' isn&rsquo;t a known postcode');
+                        throw new Exception('Sorry, ' . _htmlentities($pc) . ' isn&rsquo;t a known postcode');
                     } else {
                         // Generate the Member object
                         $member = new Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
@@ -187,7 +187,7 @@ if (isset ($topics[$topicname]))
                     }
                 } else {
                     twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
-                    throw new Exception('Sorry, ' . htmlentities($pc) . ' isn&rsquo;t a valid postcode');
+                    throw new Exception('Sorry, ' . _htmlentities($pc) . ' isn&rsquo;t a valid postcode');
                 }
             } catch (Exception $e) {
                 Renderer::output('topic/error', array('error' => $e->getMessage()));
