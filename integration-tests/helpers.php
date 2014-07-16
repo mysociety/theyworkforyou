@@ -15,4 +15,13 @@ function getFirstElementByCss($context, $selector) {
     return $context->findElement(WebDriverBy::cssSelector($selector));
 }
 
+// Use this at the start of a test to make sure you're on the right URL.
+// If you're already on the right URL, it does nothing. Saves time
+// reloading pages.
+function ensureUrl($webDriver, $url) {
+    if($webDriver->getCurrentURL() != $url) {
+        $webDriver->get($url);
+    }
+}
+
 ?>
