@@ -39,6 +39,7 @@ $new_style_template = TRUE;
 // Include all the things this page needs.
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/glossary.php';
+include_once INCLUDESPATH . 'easyparliament/member.php';
 
 if (get_http_var('id') != '') {
     // We have an id so show that item.
@@ -69,6 +70,53 @@ if (get_http_var('id') != '') {
 
     $SPEECHES = new DEBATELIST;
     $data['speeches'] = $SPEECHES->_get_data_by_gid($args);
+
+    // See dptypes.php for a summary of what
+    // these "major" types actually are.
+    if ($data['speeches']['info']['major'] == 1) {
+        $data['location'] = 'in the House of Commons';
+    } elseif ($data['speeches']['info']['major'] == 2) {
+        $data['location'] = 'in Westminster Hall';
+    } elseif ($data['speeches']['info']['major'] == 3) {
+        $data['location'] = 'in the House of Lords';
+    } else {
+        $data['location'] = '';
+    }
+
+    if (array_key_exists('text_heading', $data['speeches']['info'])) {
+        // The user has requested a full debate
+        $data['heading'] = 'Debate: ' . $data['speeches']['info']['text_heading'];
+        $data['intro'] = 'This debate took place';
+        $data['email_alert_text'] = $data['speeches']['info']['text_heading'];
+    } else {
+        // The user has requested only part of a debate, so find a suitable title
+        foreach ($data['speeches']['rows'] as $row) {
+            if ($row['htype'] == '11') {
+                $data['heading'] = 'Debate: ' . $row['body'];
+                $data['email_alert_text'] = $row['body'];
+                break;
+            }
+        }
+        if (!isset($data['heading'])) {
+            // If we've not found a title, use the GID (better than nothing)
+            $data['heading'] = 'Debate: ID ' . get_http_var('id');
+            $data['email_alert_text'] = '';
+        }
+        $data['intro'] = 'This is part of a debate that took place';
+    }
+
+    $first_speech = $data['speeches']['rows'][0];
+    foreach ($data['speeches']['rows'] as $row) {
+        if ($row['htype'] == '12') {
+            $first_speech = $row;
+            break;
+        }
+    }
+
+    $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
+    $data['debate_day_human'] = format_date($first_speech['hdate'], 'jS F Y');
+    $data['debate_day_link'] = '/debates/?d=' . $first_speech['hdate'];
+
     MySociety\TheyWorkForYou\Renderer::output('debate/debate', $data);
 
 }

@@ -1,0 +1,76 @@
+.debate-header {
+  background-color: #35322E;
+  color: #fff;
+
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+  h1 {
+    color: #fff;
+    margin: 0 0 10px 0;
+    font-size: 42px;
+    line-height: 1.1em; // tighter than normal, for long debate titles
+  }
+
+  p.lead {
+    font-size: 24px;
+    margin-bottom: 16px;
+
+    a {
+      color: #fff;
+      border-bottom: 1px solid #fff;
+      text-decoration: none;
+
+      &:focus, &:hover {
+        border-bottom: none;
+      }
+    }
+  }
+
+  p.cta {
+    margin-bottom: 0;
+
+    .button {
+      padding: 0.25em 0.7em;
+      margin: 0 0.5em 0 0;
+      font-size: 21px;
+      font-weight: normal;
+    }
+  }
+}
+
+.debate-speech {
+  background-color: #fff;
+  border-bottom: 1px solid darken($body-bg, 5%);
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  .unknownspeaker {
+    font-weight: bold;
+  }
+
+  .italic {
+    font-style: italic;
+  }
+}
+
+.debate-speech:nth-child(even) {
+  // IE6,7,8 won't get this zebra-striping, but that's ok
+  background-color: transparent;
+}
+
+.debate-speech__meta {
+  margin: 0;
+  color: #9d9195;
+  font-size: 16px;
+  line-height: 18px;
+
+  li {
+    display: inline;
+    margin-right: 20px;
+  }
+
+  a {
+    color: inherit;
+  }
+}

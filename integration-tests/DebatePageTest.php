@@ -33,7 +33,7 @@ class DebatePageTest extends TWFY_Selenium_TestCase {
 
     public function testMpDetails($path='/debates/?id=2009-10-29a.479.0') {
         ensureUrl(self::$webDriver, self::$base_url . $path);
-        $speeches = getElementsByCss(self::$webDriver, '.speech');
+        $speeches = getElementsByCss(self::$webDriver, '.debate-speech');
         $this->assertCount(128, $speeches);
 
         $firstSpeech = $speeches[0];
@@ -48,7 +48,7 @@ class DebatePageTest extends TWFY_Selenium_TestCase {
 
     public function testHansardLink($path='/debates/?id=2009-10-29a.479.0') {
         ensureUrl(self::$webDriver, self::$base_url . $path);
-        $firstSpeech = getFirstElementByCss(self::$webDriver, '.speech');
+        $firstSpeech = getFirstElementByCss(self::$webDriver, '.debate-speech');
         $url = 'http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0010.htm#09102935001383';
         $hansardLinks = getElementsByCss($firstSpeech, "a[href='$url']");
         $this->assertEquals(1, count($hansardLinks));
