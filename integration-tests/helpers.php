@@ -24,4 +24,22 @@ function ensureUrl($webDriver, $url) {
     }
 }
 
+class TWFY_Selenium_TestCase extends PHPUnit_Framework_TestCase {
+
+    protected static $webDriver;
+    protected static $base_url = 'http://theyworkforyou.dev';
+
+    public static function setUpBeforeClass() {
+        // Instance methods at: http://facebook.github.io/php-webdriver/classes/RemoteWebDriver.html
+        self::$webDriver = RemoteWebDriver::create('http://localhost:4444/wd/hub', DesiredCapabilities::chrome());
+    }
+
+    public static function tearDownAfterClass() {
+        if(isset(self::$webDriver)) {
+            self::$webDriver->close();
+        }
+    }
+
+}
+
 ?>

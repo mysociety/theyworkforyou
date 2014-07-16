@@ -1,30 +1,16 @@
 <?php
 
-// I couldn't work out how to add these integration tests to our PHPUnit tests
-// in the /tests directory. So they're here. Run them with:
+// These tests inherit from TWFY_Selenium_TestCase (in helpers.php)
+// which handles all the Selenium stuff. Run them with:
 //
 //     vendor/bin/phpunit -v --no-configuration ./integration-tests
 //
 // The tests assume there's an instance of TheyWorkForYou running at
 // theyworkforyou.dev, with some sample data (debates from October 2009).
 
-require 'helpers.php';
+require_once('helpers.php');
 
-class DebatePageTest extends PHPUnit_Framework_TestCase {
-
-    protected static $webDriver;
-    protected static $base_url = 'http://theyworkforyou.dev';
-
-    public static function setUpBeforeClass() {
-        // Instance methods at: http://facebook.github.io/php-webdriver/classes/RemoteWebDriver.html
-        self::$webDriver = RemoteWebDriver::create('http://localhost:4444/wd/hub', DesiredCapabilities::chrome());
-    }
-
-    public static function tearDownAfterClass() {
-        if(isset(self::$webDriver)) {
-            self::$webDriver->close();
-        }
-    }
+class DebatePageTest extends TWFY_Selenium_TestCase {
 
     // These tests take the path as an argument so that PHPUnit runs them
     // with the default value first, but we can override the URL later on.
@@ -48,7 +34,7 @@ class DebatePageTest extends PHPUnit_Framework_TestCase {
     public function testMpDetails($path='/debates/?id=2009-10-29a.479.0') {
         ensureUrl(self::$webDriver, self::$base_url . $path);
         $speeches = getElementsByCss(self::$webDriver, '.speech');
-        $this->assertEquals(128, count($speeches));
+        $this->assertCount(128, $speeches);
 
         $firstSpeech = $speeches[0];
 
