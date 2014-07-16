@@ -12,33 +12,30 @@ require 'helpers.php';
 
 class DebatePageTest extends PHPUnit_Framework_TestCase {
 
-    protected $webDriver;
-    protected $base_url = 'http://theyworkforyou.dev';
+    protected static $webDriver;
+    protected static $base_url = 'http://theyworkforyou.dev';
 
-    // TODO(zarino): This test could be sped up by only creating the webDriver
-    // instance once, at the start of the class, using setUpBeforeClass, then
-    // closing it at the end with tearDownAfterClass. But that involves static
-    // methods and they break how $this->webDriver works :-(
-
-    public function setUp() {
+    public static function setUpBeforeClass() {
         // Instance methods at: http://facebook.github.io/php-webdriver/classes/RemoteWebDriver.html
-        $this->webDriver = RemoteWebDriver::create('http://localhost:4444/wd/hub', DesiredCapabilities::chrome());
-        $this->webDriver->get($this->base_url . '/debate/?id=2009-10-29a.479.0');
+        self::$webDriver = RemoteWebDriver::create('http://localhost:4444/wd/hub', DesiredCapabilities::chrome());
+        self::$webDriver->get(self::$base_url . '/debate/?id=2009-10-29a.479.0');
     }
 
-    public function tearDown() {
-        $this->webDriver->close();
+    public static function tearDownAfterClass() {
+        if(isset(self::$webDriver)) {
+            self::$webDriver->close();
+        }
     }
 
     public function testDebateTitle() {
-        $title = $this->webDriver->getTitle();
+        $title = self::$webDriver->getTitle();
         $this->assertContains('Social Care Green Paper', $title);
         $this->assertContains('House of Commons', $title);
         $this->assertContains('debate', strtolower($title));
     }
 
     public function testSpeechesText() {
-        $html = $this->webDriver->getPageSource();
+        $html = self::$webDriver->getPageSource();
         $this->assertContains('considered the matter of the Social Care Green Paper', $html);
         $this->assertContains('welcome sign of the growing debate about the future of social care', $html);
         $this->assertContains('exclude people with any pre-existing health conditions, so the number', $html);
@@ -46,7 +43,7 @@ class DebatePageTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testMpDetails() {
-        $speeches = getElementsByCss($this->webDriver, '.speech');
+        $speeches = getElementsByCss(self::$webDriver, '.speech');
         $this->assertEquals(128, count($speeches));
 
         $firstSpeech = $speeches[0];
@@ -60,7 +57,7 @@ class DebatePageTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testHansardLink() {
-        $firstSpeech = getFirstElementByCss($this->webDriver, '.speech');
+        $firstSpeech = getFirstElementByCss(self::$webDriver, '.speech');
         $url = 'http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0010.htm#09102935001383';
         $hansardLinks = getElementsByCss($firstSpeech, "a[href='$url']");
         $this->assertEquals(1, count($hansardLinks));
