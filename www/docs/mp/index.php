@@ -1230,11 +1230,11 @@ function person_register_interests($member, $extra_info) {
 function regional_list($pc, $area_type, $rep_type) {
     $constituencies = postcode_to_constituencies($pc);
     if ($constituencies == 'CONNECTION_TIMED_OUT') {
-        $errors['pc'] = "Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.";
+        throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn\'t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
     } elseif (!$constituencies) {
-        $errors['pc'] = 'Sorry, ' . htmlentities($pc) . ' isn\'t a known postcode';
+        throw new MySociety\TheyWorkForYou\MemberException('Sorry, ' . htmlentities($pc) . ' isn\'t a known postcode');
     } elseif (!isset($constituencies[$area_type])) {
-        $errors['pc'] = htmlentities($pc) . ' does not appear to be a valid postcode';
+        throw new MySociety\TheyWorkForYou\MemberException(htmlentities($pc) . ' does not appear to be a valid postcode');
     }
     global $PAGE;
     $a = array_values($constituencies);
@@ -1267,8 +1267,7 @@ function regional_list($pc, $area_type, $rep_type) {
                 $mreg[] = $q->row($i);
             }
         } else {
-            $PAGE->error_message('Odd result returned!' . $house);
-            return;
+            throw new MySociety\TheyWorkForYou\MemberException('Odd result returned!' . $house);
         }
     }
     if ($rep_type == 'msp') {
