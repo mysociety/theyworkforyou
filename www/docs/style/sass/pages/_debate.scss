@@ -1,5 +1,6 @@
 .debate-header {
-  background-color: #35322E;
+  background: #35322E url(/images/header-debates-uk.jpg) center center no-repeat;
+  background-size: cover;
   color: #fff;
 
   padding-top: 20px;
@@ -25,13 +26,29 @@
   }
 
   p.cta {
-    margin-bottom: 0;
+    margin-bottom: -15px;
 
     .button {
-      padding: 0.25em 0.7em;
-      margin: 0 0.5em 0 0;
-      font-size: 18px;
+      padding: 5px 14px;
+      margin: 0 15px 15px 0;
+      font-size: 16px;
       font-weight: normal;
+    }
+  }
+
+  .button.subtle {
+    border: 1px solid #ccc;
+    background-color: transparent;
+    background-color: rgba(0,0,0,0.1);
+    padding: 4px 13px;
+
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    transition: all 300ms ease-out;
+
+    &:focus, &:hover {
+      background-color: rgba(100,100,100,0.5);
+      border-color: #fff;
     }
   }
 
@@ -49,9 +66,13 @@
     }
 
     p.cta .button {
-      font-size: 21px;
+      font-size: 18px;
     }
   }
+}
+
+.debate-header + .full-page + #footer {
+  margin-top: 0;
 }
 
 .debate-header__content {
@@ -84,6 +105,11 @@
   }
 
   .italic {
+    font-style: italic;
+  }
+
+  .indent {
+    margin-left: 2em;
     font-style: italic;
   }
 
@@ -176,6 +202,46 @@
 
   a {
     color: inherit;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      background: transparent url(/images/icons/debate-meta-icons.png) 0 0 no-repeat;
+      margin-right: 5px;
+    }
+  }
+
+  .time a::before {
+    background-position: 0 0;
+  }
+
+  .link-to-speech a::before {
+    background-position: -11px 0;
+    width: 14px;
+  }
+
+  .link-to-hansard a::before {
+    background-position: -25px 0;
+  }
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    a::before {
+      background-size: 36px; // 36px width, auto height
+    }
+
+    .time a::before {
+      background-position: 0 -5.5px;
+    }
+
+    .link-to-speech a::before {
+      background-position: -11px -5.5px;
+    }
+
+    .link-to-hansard a::before {
+      background-position: -25px -5.5px;
+    }
   }
 
   @media (min-width: $medium-screen) {

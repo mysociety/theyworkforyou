@@ -3,10 +3,13 @@
         <div class="debate-header__content">
             <h1><?= $heading ?></h1>
             <p class="lead">
-                <?= $intro ?> <?= $location ?> at <?= $debate_time_human ?> on
+                <?= $intro ?> <?= $location ?><br>at <?= $debate_time_human ?> on
                 <a href="<?= $debate_day_link ?>"><?= $debate_day_human ?></a>.
             </p>
             <p class="cta">
+              <?php if(isset($full_debate_url)){ ?>
+                <a class="button subtle" href="<?= $full_debate_url ?>">Show full debate</a>
+              <?php } ?>
                 <a class="button alert" href="/alerts/?alertsearch=<?= urlencode($email_alert_text) ?>">Alert me about debates like this</a>
             </p>
         </div>
@@ -84,13 +87,13 @@
                 if (isset($speech['speaker']['office'])) {
                     $speaker_position = $speech['speaker']['office'][0]['pretty'];
                 } else {
-                    $speaker_position = htmlentities($speech['speaker']['party']) . ' MP';
+                    $speaker_position = htmlentities($speech['speaker']['party']);
                     if ($speech['speaker']['house'] == 1 &&
                         $speech['speaker']['party'] != 'Speaker' &&
                         $speech['speaker']['party'] != 'Deputy Speaker' &&
                         $speech['speaker']['constituency']
                     ) {
-                        $speaker_position .= ', ' . $speech['speaker']['constituency'];
+                        $speaker_position .= ' MP, ' . $speech['speaker']['constituency'];
                     }
                 }
 
@@ -108,12 +111,14 @@
             <ul class="debate-speech__meta">
               <?php if (!isset($previous_speech_time) || $previous_speech_time != $speech['htime']){ ?>
                 <li class="time">
-                    <?= format_time($speech['htime'], 'g:i a') ?>,
-                    <?= format_date($speech['hdate'], 'jS F Y') ?>
+                    <a href="<?= $speech['listurl'] ?>">
+                        <?= format_time($speech['htime'], 'g:i a') ?>,
+                        <?= format_date($speech['hdate'], 'jS F Y') ?>
+                    </a>
                 </li>
               <?php } ?>
                 <li class="link-to-speech"><a href="<?= $speech['listurl'] ?>">Link to this speech</a></li>
-                <li class="link-to-hansard"><a href="<?= $source_url ?>" title="<?= $source_title ?>">Link to Hansard Source</a></li>
+                <li class="link-to-hansard"><a href="<?= $source_url ?>" title="<?= $source_title ?>">Link to Hansard source</a></li>
             </ul>
         </div>
     </div>

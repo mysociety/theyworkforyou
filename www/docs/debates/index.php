@@ -94,6 +94,7 @@ if (get_http_var('id') != '') {
             if ($row['htype'] == '11') {
                 $data['heading'] = 'Debate: ' . $row['body'];
                 $data['email_alert_text'] = $row['body'];
+                $data['full_debate_url'] = $row['listurl'];
                 break;
             }
         }
