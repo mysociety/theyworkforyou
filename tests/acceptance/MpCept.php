@@ -1,6 +1,6 @@
 <?php
 
-$I = new WebGuy($scenario);
+$I = new AcceptanceTester($scenario);
 $I->wantTo('ensure that MP pages work');
 $I->amOnPage('/mp/10001/diane_abbott/hackney_north_and_stoke_newington');
 $I->see('Diane Abbott');

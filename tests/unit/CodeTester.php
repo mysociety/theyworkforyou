@@ -20,7 +20,7 @@ use Codeception\Module\CodeHelper;
  * @method void comment($description)
  * @method void haveFriend($name)
 */
-class CodeGuy extends \Codeception\Actor
+class CodeTester extends \Codeception\Actor
 {
    
 }

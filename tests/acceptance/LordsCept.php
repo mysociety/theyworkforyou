@@ -1,6 +1,6 @@
 <?php
 
-$I = new WebGuy($scenario);
+$I = new AcceptanceTester($scenario);
 $I->wantTo('ensure that the Lords list page works');
 $I->amOnPage('/peers/');
 $I->see('All Members of the House of Lords', 'h1');

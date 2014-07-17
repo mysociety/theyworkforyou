@@ -1,6 +1,6 @@
 <?php
 
-$I = new WebGuy($scenario);
+$I = new AcceptanceTester($scenario);
 $I->wantTo('ensure that Peer pages work');
 $I->amOnPage('peer/24696/lord_aberdare');
 $I->see('Lord Aberdare');

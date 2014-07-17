@@ -1,6 +1,6 @@
 <?php
 
-$I = new WebGuy($scenario);
+$I = new AcceptanceTester($scenario);
 $I->wantTo('ensure that PBC list pages work');
 $I->amOnPage('/pbc');
 $I->see('Public Bill Committees', 'h1');

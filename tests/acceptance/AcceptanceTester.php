@@ -21,7 +21,7 @@ use Codeception\Module\WebHelper;
  * @method void comment($description)
  * @method void haveFriend($name)
 */
-class WebGuy extends \Codeception\Actor
+class AcceptanceTester extends \Codeception\Actor
 {
    
     /**

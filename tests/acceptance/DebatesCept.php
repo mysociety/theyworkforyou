@@ -1,6 +1,6 @@
 <?php
 
-$I = new WebGuy($scenario);
+$I = new AcceptanceTester($scenario);
 $I->wantTo('ensure that debate list pages work');
 $I->amOnPage('/debates');
 $I->see('UK Parliament Hansard Debates', 'h1');

@@ -1,6 +1,6 @@
 <?php
 
-$I = new WebGuy($scenario);
+$I = new AcceptanceTester($scenario);
 $I->wantTo('ensure that changing postcodes works');
 $I->amOnPage('/user/changepc');
 $I->see('Enter your postcode', 'h1');

@@ -1,6 +1,6 @@
 <?php
 
-$I = new WebGuy($scenario);
+$I = new AcceptanceTester($scenario);
 $I->wantTo('ensure that the MPs list page works');
 $I->amOnPage('/mps');
 $I->see('All MPs');

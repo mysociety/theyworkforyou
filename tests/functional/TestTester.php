@@ -21,7 +21,7 @@ use Codeception\Module\TestHelper;
  * @method void comment($description)
  * @method void haveFriend($name)
 */
-class TestGuy extends \Codeception\Actor
+class TestTester extends \Codeception\Actor
 {
    
     /**
