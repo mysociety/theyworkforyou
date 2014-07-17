@@ -98,7 +98,7 @@
                 <a href="<?= $speech['speaker']['url'] ?>">
                     <img src="<?= $image_url ?>" alt="Photo of <?= $speaker_name ?>">
                     <strong class="debate-speech__speaker__name"><?= $speaker_name ?></strong>
-                    <small class="denate-speech__speaker__position"><?= $speaker_position ?></small>
+                    <small class="debate-speech__speaker__position"><?= $speaker_position ?></small>
                 </a>
             </h2>
           <?php } ?>

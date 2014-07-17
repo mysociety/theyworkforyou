@@ -2,28 +2,25 @@
   background-color: #35322E;
   color: #fff;
 
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 
   h1 {
     color: #fff;
     margin: 0 0 10px 0;
-    font-size: 42px;
-    line-height: 1.1em; // tighter than normal, for long debate titles
+    font-size: 34px;
+    line-height: 1em;
   }
 
   p.lead {
-    font-size: 24px;
+    font-size: 21px;
+    line-height: 1.3em;
     margin-bottom: 16px;
 
     a {
       color: #fff;
       border-bottom: 1px solid #fff;
       text-decoration: none;
-
-      &:focus, &:hover {
-        border-bottom: none;
-      }
     }
   }
 
@@ -33,17 +30,54 @@
     .button {
       padding: 0.25em 0.7em;
       margin: 0 0.5em 0 0;
-      font-size: 21px;
+      font-size: 18px;
       font-weight: normal;
     }
+  }
+
+  @media (min-width: $large-screen) {
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    h1 {
+      font-size: 42px;
+      line-height: 1.1em; // tighter than normal, for long debate titles
+    }
+
+    p.lead {
+      font-size: 24px;
+    }
+
+    p.cta .button {
+      font-size: 21px;
+    }
+  }
+}
+
+.debate-header__content {
+  padding-left: 1em;
+  padding-right: 1em;
+  @media (min-width: $large-screen) {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
 .debate-speech {
   background-color: #fff;
   border-bottom: 1px solid darken($body-bg, 5%);
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  &:nth-child(even) {
+    // IE6,7,8 won't get this zebra-striping, but that's ok
+    background-color: transparent;
+  }
+
+  .full-page__row {
+    width: auto;
+    padding: 0 20px;
+  }
 
   .unknownspeaker {
     font-weight: bold;
@@ -52,25 +86,105 @@
   .italic {
     font-style: italic;
   }
+
+  @media (min-width: $large-screen) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    .full-page__row {
+      padding: 0;
+    }
+  }
 }
 
-.debate-speech:nth-child(even) {
-  // IE6,7,8 won't get this zebra-striping, but that's ok
-  background-color: transparent;
+.debate-speech__speaker {
+  margin-top: 0;
+  line-height: 1em;
+
+  img {
+    float: left;
+    margin-right: 10px;
+    max-width: 50px;
+  }
+
+  strong {
+    font-weight: normal;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover strong {
+      text-decoration: underline;
+    }
+  }
+
+  @media (min-width: $medium-screen) {
+    font-size: 1.4em; // down from default 1.7em
+    position: relative;
+    padding-left: 70px;
+
+    img {
+      position: absolute;
+      left: 0;
+    }
+  }
+}
+
+.debate-speech__speaker__position {
+  display: block;
+  line-height: 1em;
+  margin-top: 5px;
+  font-weight: normal;
+  color: #9d9195;
+
+  @media (min-width: $medium-screen) {
+    display: inline;
+    margin: 0 0 0 5px;
+  }
+}
+
+.debate-speech__content {
+  font-size: 14px;
+  max-width: 45em; // keep line lengths readable
+
+  p {
+    line-height: 1.4em;
+    margin-bottom: 0.8em;
+  }
+
+  @media (min-width: $medium-screen) {
+    padding-left: 70px;
+    font-size: 1em;
+
+    p {
+      line-height: 1.6em;
+      margin-bottom: 1em;
+    }
+  }
 }
 
 .debate-speech__meta {
   margin: 0;
   color: #9d9195;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 18px;
 
   li {
-    display: inline;
-    margin-right: 20px;
+    display: block;
   }
 
   a {
     color: inherit;
+  }
+
+  @media (min-width: $medium-screen) {
+    padding-left: 70px;
+    font-size: 16px;
+
+    li {
+      display: inline;
+      margin-right: 20px;
+    }
   }
 }
