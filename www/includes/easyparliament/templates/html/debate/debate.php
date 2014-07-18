@@ -106,7 +106,7 @@
             </h2>
           <?php } ?>
             <div class="debate-speech__content">
-                <?= $speech['body']; ?>
+                <?= annotate_speech($speech['body']); ?>
             </div>
             <ul class="debate-speech__meta">
               <?php if (!isset($previous_speech_time) || $previous_speech_time != $speech['htime']){ ?>

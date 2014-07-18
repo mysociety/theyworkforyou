@@ -41,6 +41,18 @@ include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/glossary.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
+// Highlights search terms in a string.
+// Since the search engine is created in advance (with a search term),
+// there's no need to pass it here.
+function annotate_speech($string){
+    global $SEARCHENGINE;
+    if (isset($SEARCHENGINE)) {
+        return $SEARCHENGINE->highlight($string);
+    } else {
+        return $string;
+    }
+}
+
 if (get_http_var('id') != '') {
     // We have an id so show that item.
     // Could be a section id (so we get a list of all the subsections in it),
@@ -56,8 +68,14 @@ if (get_http_var('id') != '') {
         'glossarise' => 1	// Glossary is on by default
     );
 
-    if (preg_match('/speaker:(\d+)/', get_http_var('s'), $mmm))
+    if (preg_match('/speaker:(\d+)/', get_http_var('s'), $mmm)) {
         $args['person_id'] = $mmm[1];
+    }
+
+    if (isset($args['s']) && $args['s'] != '') {
+        global $SEARCHENGINE;
+        $SEARCHENGINE = new SEARCHENGINE($args['s']);
+    }
 
     // Glossary can be turned off in the url
     if (get_http_var('ug') == 1) {

@@ -51,7 +51,7 @@ class DebatePageTest extends TWFY_Selenium_TestCase {
         $firstSpeech = getFirstElementByCss(self::$webDriver, '.debate-speech');
         $url = 'http://www.publications.parliament.uk/pa/cm200809/cmhansrd/cm091029/debtext/91029-0010.htm#09102935001383';
         $hansardLinks = getElementsByCss($firstSpeech, "a[href='$url']");
-        $this->assertEquals(1, count($hansardLinks));
+        $this->assertCount(1, $hansardLinks);
     }
 
     // This one's a bit meta. We re-run all the previous tests, but on
@@ -62,6 +62,18 @@ class DebatePageTest extends TWFY_Selenium_TestCase {
         $this->testSpeechesText('/debates/?d=2009-10-29&c=479');
         $this->testMpDetails('/debates/?d=2009-10-29&c=479');
         $this->testHansardLink('/debates/?d=2009-10-29&c=479');
+    }
+
+    public function testDebateHighlighting() {
+        // No query highlighting by default
+        ensureUrl(self::$webDriver, self::$base_url . '/debates/?id=2009-10-29a.479.0');
+        $highlights = getElementsByCss(self::$webDriver, '.debate-speech span.hi');
+        $this->assertCount(0, $highlights);
+
+        // Query highlighting via ?s= URL parameter
+        ensureUrl(self::$webDriver, self::$base_url . '/debates/?id=2009-10-29a.479.0&s=and');
+        $highlights = getElementsByCss(self::$webDriver, '.debate-speech span.hi');
+        $this->assertGreaterThan(0, count($highlights));
     }
 
 }
