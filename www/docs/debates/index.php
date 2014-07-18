@@ -41,16 +41,20 @@ include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/glossary.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
-// Highlights search terms in a string.
-// Since the search engine is created in advance (with a search term),
-// there's no need to pass it here.
-function annotate_speech($string){
+// Highlights search terms and creates glossary links in a string.
+// $glossarise should be truthy if you want to create glossary links.
+function annotate_speech($string, $glossarise){
     global $SEARCHENGINE;
+    global $GLOSSARY;
     if (isset($SEARCHENGINE)) {
-        return $SEARCHENGINE->highlight($string);
-    } else {
-        return $string;
+        // No need to define a search term here, since $SEARCHENGINE
+        // has already been created with the search term from $args['s']
+        $string = $SEARCHENGINE->highlight($string);
     }
+    if (isset($GLOSSARY) && isset($glossarise) && $glossarise) {
+        $GLOSSARY->glossarise($string);
+    }
+    return $string;
 }
 
 if (get_http_var('id') != '') {
@@ -80,10 +84,12 @@ if (get_http_var('id') != '') {
     // Glossary can be turned off in the url
     if (get_http_var('ug') == 1) {
         $args['glossarise'] = 0;
-    }
-    else {
-        $args['sort'] = "regexp_replace";
-        $GLOSSARY = new GLOSSARY($args);
+    } else {
+        global $GLOSSARY;
+        $GLOSSARY = new GLOSSARY(array(
+            's' => $args['s'],
+            'sort' => 'regexp_replace'
+        ));
     }
 
     $SPEECHES = new DEBATELIST;

@@ -64,6 +64,20 @@ class DebatePageTest extends TWFY_Selenium_TestCase {
         $this->testHansardLink('/debates/?d=2009-10-29&c=479');
     }
 
+    public function testDebateGlossaries() {
+        // Disable glossaries using the ?ug= URL parameter
+        ensureUrl(self::$webDriver, self::$base_url . '/debates/?id=2009-10-29a.479.0&ug=1');
+        $links = getElementsByCss(self::$webDriver, 'a[href*="/glossary/"]');
+        $this->assertCount(0, $links);
+
+        // Glossary links are inserted by default
+        ensureUrl(self::$webDriver, self::$base_url . '/debates/?id=2009-10-29a.479.0');
+        $links = getElementsByCss(self::$webDriver, 'a[href*="/glossary/?gl=23"]');
+        $this->assertGreaterThan(0, count($links));
+        $this->assertContains('Secretary of State', $links[0].getText());
+        $this->assertContains('originally the title given to the two officials', $links[0].getAttribute('title'));
+    }
+
     public function testDebateHighlighting() {
         // No query highlighting by default
         ensureUrl(self::$webDriver, self::$base_url . '/debates/?id=2009-10-29a.479.0');
