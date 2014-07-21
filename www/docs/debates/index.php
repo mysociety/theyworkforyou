@@ -95,6 +95,14 @@ if (get_http_var('id') != '') {
     $SPEECHES = new DEBATELIST;
     $data['speeches'] = $SPEECHES->_get_data_by_gid($args);
 
+    // Redirect if debatelist data requires it.
+    if (isset($data['info']['redirected_gid'])) {
+        $URL = new URL('debates');
+        $URL->insert( array('id'=>$data['info']['redirected_gid']) );
+        header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
+        exit;
+    }
+
     // See dptypes.php for a summary of what
     // these "major" types actually are.
     if ($data['speeches']['info']['major'] == 1) {
