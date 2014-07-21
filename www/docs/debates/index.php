@@ -103,17 +103,11 @@ if (get_http_var('id') != '') {
         exit;
     }
 
-    // See dptypes.php for a summary of what
-    // these "major" types actually are.
-    if ($data['speeches']['info']['major'] == 1) {
-        $data['location'] = 'in the House of Commons';
-    } elseif ($data['speeches']['info']['major'] == 2) {
-        $data['location'] = 'in Westminster Hall';
-    } elseif ($data['speeches']['info']['major'] == 3) {
-        $data['location'] = 'in the House of Lords';
-    } else {
-        $data['location'] = '';
-    }
+    // Things at /debates are always from the House of Commons.
+    // If and when this page handles requests for other locations,
+    // we might want to compare $data['speeches']['info']['major']
+    // to the IDs in dbtypes.php, to work out the location.
+    $data['location'] = 'in the House of Commons';
 
     if (array_key_exists('text_heading', $data['speeches']['info'])) {
         // The user has requested a full debate
