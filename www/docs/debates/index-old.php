@@ -3,7 +3,11 @@
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
-// For displaying all the debates on a day, or a single debate.
+// "Old-style" debate pages, showing a debate by a given date and column,
+//  a calendar of debates for a particular year, or a list of recent debates.
+
+// Showing a particular debate (or part of a debate) is handled by
+// www/docs/debates/index.php which renders a "new-style" page.
 
 if (get_http_var("d") != "") {
     if (get_http_var('c') != '') {
@@ -27,60 +31,6 @@ if (get_http_var("d") != "") {
 
     $LIST->display('date', $args);
     }
-
-} elseif (get_http_var('id') != "") {
-
-    // We have an id so show that item.
-    // Could be a section id (so we get a list of all the subsections in it),
-    // or a subsection id (so we'd get the whole debate),
-    // or an item id within a debate in which case we just get that item and some headings.
-
-    $this_page = "debates";
-
-    $args = array (
-        'gid' => get_http_var('id'),
-        's'	=> get_http_var('s'),	// Search terms to be highlighted.
-        'member_id' => get_http_var('m'),	// Member's speeches to be highlighted.
-        'glossarise' => 1	// Glossary is on by default
-    );
-
-    if (preg_match('/speaker:(\d+)/', get_http_var('s'), $mmm))
-        $args['person_id'] = $mmm[1];
-
-    // Glossary can be turned off in the url
-    if (get_http_var('ug') == 1) {
-        $args['glossarise'] = 0;
-    }
-    else {
-        $args['sort'] = "regexp_replace";
-        $GLOSSARY = new GLOSSARY($args);
-    }
-
-
-    $LIST = new DEBATELIST;
-
-    $result = $LIST->display('gid', $args);
-
-    // If it is a redirect, change URL
-    if (is_string($result)) {
-        $URL = new URL('debates');
-        $URL->insert( array('id'=>$result) );
-        header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
-        exit;
-    }
-
-
-
-    // We show trackbacks on this page.
-
-    $args = array (
-        'epobject_id' => $LIST->epobject_id()
-    );
-
-#	$TRACKBACK = new TRACKBACK;
-
-#	$TRACKBACK->display('epobject_id', $args);
-
 
 } elseif (get_http_var('y') != '') {
 
