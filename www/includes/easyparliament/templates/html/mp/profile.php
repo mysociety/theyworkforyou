@@ -1,5 +1,5 @@
     <div class="<?= $current_assembly ?>">
-        <div class="person-header <?= $this_page ?>">
+        <div class="person-header <?= $this_page ?> <?= (isset($data['photo_attribution_text'])?'has-data-attribution':'') ?>">
             <div class=" full-page__row">
             <div class="person-header__content page-content__row">
                 <div class="person-name">
@@ -17,6 +17,15 @@
                       <?php } ?>
                     </div>
                 </div>
+              <?php if(isset($data['photo_attribution_text'])) { ?>
+                <div class="person-data-attribution">
+                  <?php if(isset($data['photo_attribution_link'])) { ?>
+                    Profile photo: <a href="<?= $data['photo_attribution_link'] ?>"><?= $data['photo_attribution_text'] ?></a>
+                  <?php } else { ?>
+                    Profile photo: <?= $data['photo_attribution_text'] ?>
+                  <?php } ?>
+                </div>
+              <?php } ?>
                 <div class="person-constituency">
                   <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ) { ?>
                     <span class="constituency"><?= $constituency ?></span>

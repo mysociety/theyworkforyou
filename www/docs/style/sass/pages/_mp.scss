@@ -81,6 +81,26 @@
             }
         }
 
+        .person-data-attribution {
+          margin: 0.5em 0 0 0;
+          font-size: 0.7em;
+          color: rgba(255,255,255,0.7);
+
+          @media (min-width: $large-screen) {
+            position: absolute;
+            bottom: 0;
+            margin-top: 0;
+          }
+
+          a {
+            color: inherit;
+
+            &:hover, &:focus {
+              color: #fff;
+            }
+          }
+        }
+
         .person-search {
             @media (min-width: $medium-screen) {
                 position: absolute;
@@ -221,6 +241,11 @@
     }
 
     @media (min-width: $large-screen) {
+        &.has-data-attribution .person-header__content {
+          margin-bottom: 2em;
+          margin-top: -1em;
+        }
+
         // Special case for the Queen, bless her
         &.royal {
             .person-header__content .person-name {

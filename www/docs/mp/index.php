@@ -450,7 +450,12 @@ try {
         $data['user_postcode'] = $THEUSER->postcode;
         $data['houses'] = $MEMBER->houses();
         $data['member_url'] = $MEMBER->url();
-
+        // If there's photo attribution information, copy it into data
+        foreach (['photo_attribution_text', 'photo_attribution_link'] as $key) {
+            if (isset($MEMBER->extra_info[$key])) {
+                $data[$key] = $MEMBER->extra_info[$key];
+            }
+        }
         $data['image'] = person_image($MEMBER);
         $data['member_summary'] = person_summary_description($MEMBER);
         $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
