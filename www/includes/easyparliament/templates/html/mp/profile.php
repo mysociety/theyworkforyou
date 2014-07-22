@@ -171,6 +171,10 @@
 
                         <p><?= $member_summary ?></p>
 
+                        <?php if ($other_parties): ?>
+                        <p><?= $other_parties ?></p>
+                        <?php endif; ?>
+
                         <?php if (count($useful_links) > 0): ?>
 
                         <ul class="comma-list">
