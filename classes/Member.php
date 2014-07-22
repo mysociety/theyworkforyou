@@ -101,4 +101,22 @@ class Member extends \MEMBER {
 
     }
 
+    /**
+    * Get Other Constituencies String
+    *
+    * Return a readable list of other constituencies for this member.
+    *
+    * @return string|null A readable list of the other constituencies for this member.
+    */
+
+    public function getOtherConstituenciesString() {
+
+        if ($this->other_constituencies) {
+            return 'Also represented ' . join('; ', array_keys($this->other_constituencies));
+        } else {
+            return NULL;
+        }
+
+    }
+
 }
