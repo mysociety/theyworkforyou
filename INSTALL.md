@@ -9,7 +9,7 @@ assume you have a basic knowledge of Apache, PHP and MySQL.
 
 * Perl 5.8.1
 
-* PHP 5.3
+* PHP 5.4
 
     `short_open_tag` has to be enabled, and PHP must be configured with curl,
     using the `--with-curl` option.
