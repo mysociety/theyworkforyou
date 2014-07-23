@@ -458,6 +458,7 @@ try {
         }
         $data['image'] = person_image($MEMBER);
         $data['member_summary'] = person_summary_description($MEMBER);
+        $data['enter_leave'] = $MEMBER->getEnterLeaveStrings();
         $data['other_parties'] = $MEMBER->getOtherPartiesString();
         $data['other_constituencies'] = $MEMBER->getOtherConstituenciesString();
         $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
@@ -500,9 +501,6 @@ try {
         /*
 
         $data['member_id'] = $MEMBER->member_id();
-
-        $data['entered_house'] = $MEMBER->entered_house();
-        $data['left_house'] = $MEMBER->left_house();
         $data['house_disp'] = $MEMBER->house_disp;
 
         */

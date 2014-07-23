@@ -171,6 +171,12 @@
 
                         <p><?= $member_summary ?></p>
 
+                        <?php if (count($enter_leave) > 0): ?>
+                            <?php foreach ($enter_leave as $string): ?>
+                                <p><?= $string ?></p>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
                         <?php if ($other_parties): ?>
                         <p><?= $other_parties ?></p>
                         <?php endif; ?>
