@@ -90,10 +90,13 @@ class Member extends \MEMBER {
     *
     * Return an array of Office objects held (or previously held) by the member.
     *
+    * @param string $include_only  Restrict the list to include only "previous" or "current" offices.
+    * @param bool   $priority_only Restrict the list to include only positions in the $priority_offices list.
+    *
     * @return array An array of Office objects.
     */
 
-    public function offices($restriction = NULL, $priority_only = FALSE) {
+    public function offices($include_only = NULL, $priority_only = FALSE) {
 
         $out = array();
 
@@ -103,24 +106,24 @@ class Member extends \MEMBER {
 
             foreach ($office as $row) {
 
-                // Reset the restriction
-                $restricted = FALSE;
+                // Reset the inclusion of this position
+                $include_office = TRUE;
 
-                // If we're restricted, run tests
-                if ($restriction == 'previous' AND $row['to_date'] == '9999-12-31') {
-                    $restricted = TRUE;
+                // If we should only include previous offices, and the to date is in the future, suppress this office.
+                if ($include_only == 'previous' AND $row['to_date'] == '9999-12-31') {
+                    $include_office = FALSE;
                 }
 
-                // If we're restricted, run tests
-                if ($restriction == 'current' AND $row['to_date'] != '9999-12-31') {
-                    $restricted = TRUE;
+                // If we should only include previous offices, and the to date is in the past, suppress this office.
+                if ($include_only == 'current' AND $row['to_date'] != '9999-12-31') {
+                    $include_office = FALSE;
                 }
 
                 $office_title = prettify_office($row['position'], $row['dept']);
 
                 if (($priority_only AND in_array($office_title, $this->priority_offices))
                     OR !$priority_only) {
-                    if (!$restricted) {
+                    if ($include_office) {
                         $officeObject = new Office;
 
                         $officeObject->title = $office_title;
