@@ -1241,14 +1241,14 @@ function regional_list($pc, $area_type, $rep_type) {
     $db = new ParlDB;
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
         WHERE constituency IN ('" . join("','", $a) . "')
-        AND left_reason = 'still_in_office' AND house in (3,4)");
+        AND left_reason = 'still_in_office' AND house in (" . HOUSE_TYPE_NI . "," . HOUSE_TYPE_SCOTLAND . ")");
     $current = true;
     if (!$q->rows()) {
         # XXX No results implies dissolution, fix for 2011.
         $current = false;
         $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
             WHERE constituency IN ('" . join("','", $a) . "')
-            AND ( (house=3 AND left_house='2011-03-24') OR (house=4 AND left_house='2011-03-23') )");
+            AND ( (house=" . HOUSE_TYPE_NI . " AND left_house='2011-03-24') OR (house=" . HOUSE_TYPE_SCOTLAND . " AND left_house='2011-03-23') )");
         }
     $mcon = array(); $mreg = array();
     for ($i=0; $i<$q->rows(); $i++) {
@@ -1256,11 +1256,11 @@ function regional_list($pc, $area_type, $rep_type) {
         $pid = $q->field($i, 'person_id');
         $name = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
         $cons = $q->field($i, 'constituency');
-        if ($house==1) {
+        if ($house == HOUSE_TYPE_COMMONS) {
             continue;
-        } elseif ($house==3) {
+        } elseif ($house == HOUSE_TYPE_NI) {
             $mreg[] = $q->row($i);
-        } elseif ($house==4) {
+        } elseif ($house == HOUSE_TYPE_SCOTLAND) {
             if ($cons == $constituencies['SPC']) {
                 $mcon = $q->row($i);
             } elseif ($cons == $constituencies['SPE']) {
