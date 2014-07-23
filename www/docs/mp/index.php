@@ -1228,3 +1228,79 @@ function person_register_interests($member, $extra_info) {
     }
     return $reg;
 }
+
+function regional_list($pc, $area_type, $rep_type) {
+    $constituencies = postcode_to_constituencies($pc);
+    if ($constituencies == 'CONNECTION_TIMED_OUT') {
+        throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn\'t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
+    } elseif (!$constituencies) {
+        throw new MySociety\TheyWorkForYou\MemberException('Sorry, ' . htmlentities($pc) . ' isn\'t a known postcode');
+    } elseif (!isset($constituencies[$area_type])) {
+        throw new MySociety\TheyWorkForYou\MemberException(htmlentities($pc) . ' does not appear to be a valid postcode');
+    }
+    global $PAGE;
+    $a = array_values($constituencies);
+    $db = new ParlDB;
+    $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
+        WHERE constituency IN ('" . join("','", $a) . "')
+        AND left_reason = 'still_in_office' AND house in (" . HOUSE_TYPE_NI . "," . HOUSE_TYPE_SCOTLAND . ")");
+    $current = true;
+    if (!$q->rows()) {
+        # XXX No results implies dissolution, fix for 2011.
+        $current = false;
+        $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
+            WHERE constituency IN ('" . join("','", $a) . "')
+            AND ( (house=" . HOUSE_TYPE_NI . " AND left_house='2011-03-24') OR (house=" . HOUSE_TYPE_SCOTLAND . " AND left_house='2011-03-23') )");
+        }
+    $mcon = array(); $mreg = array();
+    for ($i=0; $i<$q->rows(); $i++) {
+        $house = $q->field($i, 'house');
+        $pid = $q->field($i, 'person_id');
+        $name = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
+        $cons = $q->field($i, 'constituency');
+        if ($house == HOUSE_TYPE_COMMONS) {
+            continue;
+        } elseif ($house == HOUSE_TYPE_NI) {
+            $mreg[] = $q->row($i);
+        } elseif ($house == HOUSE_TYPE_SCOTLAND) {
+            if ($cons == $constituencies['SPC']) {
+                $mcon = $q->row($i);
+            } elseif ($cons == $constituencies['SPE']) {
+                $mreg[] = $q->row($i);
+            }
+        } else {
+            throw new MySociety\TheyWorkForYou\MemberException('Odd result returned!' . $house);
+        }
+    }
+    if ($rep_type == 'msp') {
+        if ($current) {
+            $data['members_statement'] = '<p>You have one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
+            $data['members_statement'] .= '<p>Your <strong>constituency MSP</strong> is <a href="/msp/?p=' . $mcon['person_id'] . '">';
+            $data['members_statement'] .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, MSP for ' . $mcon['constituency'];
+            $data['members_statement'] .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> are:</p>';
+        } else {
+            $data['members_statement'] = '<p>You had one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
+            $data['members_statement'] .= '<p>Your <strong>constituency MSP</strong> was <a href="/msp/?p=' . $mcon['person_id'] . '">';
+            $data['members_statement'] .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, MSP for ' . $mcon['constituency'];
+            $data['members_statement'] .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> were:</p>';
+        }
+    } else {
+        if ($current) {
+            $data['members_statement'] = '<p>You have multiple MLAs (Members of the Legislative Assembly) who represent you in ' . $constituencies['NIE'] . '. They are:</p>';
+        } else {
+            $data['members_statement'] = '<p>You had multiple MLAs (Members of the Legislative Assembly) who represented you in ' . $constituencies['NIE'] . '. They were:</p>';
+        }
+    }
+
+    foreach($mreg as $reg) {
+        $data['members'][] = array (
+            'url' => '/' . $rep_type . '/?p=' . $reg['person_id'],
+            'name' => $reg['first_name'] . ' ' . $reg['last_name']
+        );
+
+    }
+
+    // Send the output for rendering
+    MySociety\TheyWorkForYou\Renderer::output('mp/regional_list', $data);
+
+}
