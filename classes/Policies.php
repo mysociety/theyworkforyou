@@ -63,7 +63,7 @@ class Policies {
         6678 => 'greater restrictions on <b>campaigning by third parties</b>, such as charities, during elections',
         6679 => 'reducing the rate of <b>corporation tax</b>',
         6680 => 'raising the threshold at which people start to pay <b>income tax</b>',
-        6681 => 'increasing the tax rate applied to <b>income over £150,000</b>',
+        6681 => 'increasing the tax rate applied to <b>income over &pound;150,000</b>',
         6682 => 'ending <b>financial support</b> for some 16-19 year olds in training and further education',
         6683 => 'local councils keeping money raised from <b>taxes on business premises</b> in their areas',
         6684 => 'making local councils responsible for helping those in <b>financial need</b> afford their <b>council tax</b> and reducing the amount spent on such support',
