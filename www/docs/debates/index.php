@@ -1,35 +1,63 @@
 <?php
 
+/*
+ * debates/index.php
+ *
+ * Displays a debate or a list of debates.
+ *
+ * We use the DEBATELIST class (a subclass of HANSARDLIST)
+ * essentially as a model, without calling its display() method,
+ * because we handle rendering via the newer Renderer class.
+ *
+ */
+
+
+
+// This script doesn't currently handle *all* of the /debates routes.
+//
+// This temporary bit of code does a check, and passes the request
+// off to the existing index-old.php if we can't handle it yet.
+//
+// We have to do the check before easyparliament/init.php is included,
+// because init.php does different things for "new style" and "old style"
+// pages (see $new_style_template).
+
+include_once dirname(__FILE__) . '/../../../conf/general';
+include_once INCLUDESPATH . 'utility.php';
+if (get_http_var('id') == '') {
+    return include 'index-old.php';
+}
+
+// If we've got this far, we know we can handle
+// the request with a "new style" page.
+
+
+
+// Disable the old PAGE class.
+$new_style_template = TRUE;
+
+// Include all the things this page needs.
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/glossary.php";
+include_once INCLUDESPATH . 'easyparliament/glossary.php';
+include_once INCLUDESPATH . 'easyparliament/member.php';
 
-// For displaying all the debates on a day, or a single debate.
-
-if (get_http_var("d") != "") {
-    if (get_http_var('c') != '') {
-        $this_page = 'debatescolumn';
-        $args = array(
-            'date' => get_http_var('d'),
-            'column' => get_http_var('c')
-        );
-        $LIST = new DEBATELIST;
-        $LIST->display('column', $args);
-    } else {
-    // We have a date. so show all debates on this day.
-
-    $this_page = "debatesday";
-
-    $args = array (
-        'date' => get_http_var('d')
-    );
-
-    $LIST = new DEBATELIST;
-
-    $LIST->display('date', $args);
+// Highlights search terms and creates glossary links in a string.
+// $glossarise should be truthy if you want to create glossary links.
+function annotate_speech($string, $glossarise){
+    global $SEARCHENGINE;
+    global $GLOSSARY;
+    if (isset($SEARCHENGINE)) {
+        // No need to define a search term here, since $SEARCHENGINE
+        // has already been created with the search term from $args['s']
+        $string = $SEARCHENGINE->highlight($string);
     }
+    if (isset($GLOSSARY) && isset($glossarise) && $glossarise) {
+        $GLOSSARY->glossarise($string);
+    }
+    return $string;
+}
 
-} elseif (get_http_var('id') != "") {
-
+if (get_http_var('id') != '') {
     // We have an id so show that item.
     // Could be a section id (so we get a list of all the subsections in it),
     // or a subsection id (so we'd get the whole debate),
@@ -44,211 +72,80 @@ if (get_http_var("d") != "") {
         'glossarise' => 1	// Glossary is on by default
     );
 
-    if (preg_match('/speaker:(\d+)/', get_http_var('s'), $mmm))
+    if (preg_match('/speaker:(\d+)/', get_http_var('s'), $mmm)) {
         $args['person_id'] = $mmm[1];
+    }
+
+    if (isset($args['s']) && $args['s'] != '') {
+        global $SEARCHENGINE;
+        $SEARCHENGINE = new SEARCHENGINE($args['s']);
+    }
 
     // Glossary can be turned off in the url
     if (get_http_var('ug') == 1) {
         $args['glossarise'] = 0;
+    } else {
+        global $GLOSSARY;
+        $GLOSSARY = new GLOSSARY(array(
+            's' => $args['s'],
+            'sort' => 'regexp_replace'
+        ));
     }
-    else {
-        $args['sort'] = "regexp_replace";
-        $GLOSSARY = new GLOSSARY($args);
-    }
 
+    $SPEECHES = new DEBATELIST;
+    $data['speeches'] = $SPEECHES->_get_data_by_gid($args);
 
-    $LIST = new DEBATELIST;
-
-    $result = $LIST->display('gid', $args);
-
-    // If it is a redirect, change URL
-    if (is_string($result)) {
+    // Redirect if debatelist data requires it.
+    if (isset($data['info']['redirected_gid'])) {
         $URL = new URL('debates');
-        $URL->insert( array('id'=>$result) );
+        $URL->insert( array('id'=>$data['info']['redirected_gid']) );
         header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
         exit;
     }
 
+    // Things at /debates are always from the House of Commons.
+    // If and when this page handles requests for other locations,
+    // we might want to compare $data['speeches']['info']['major']
+    // to the IDs in dbtypes.php, to work out the location.
+    $data['location'] = 'in the House of Commons';
 
-
-    // We show trackbacks on this page.
-
-    $args = array (
-        'epobject_id' => $LIST->epobject_id()
-    );
-
-#	$TRACKBACK = new TRACKBACK;
-
-#	$TRACKBACK->display('epobject_id', $args);
-
-
-} elseif (get_http_var('y') != '') {
-
-    // Show a calendar for a particular year's debates.
-
-    $this_page = 'debatesyear';
-
-    if (is_numeric(get_http_var('y'))) {
-        $DATA->set_page_metadata($this_page, 'title', get_http_var('y'));
+    if (array_key_exists('text_heading', $data['speeches']['info'])) {
+        // The user has requested a full debate
+        $data['heading'] = 'Debate: ' . $data['speeches']['info']['text_heading'];
+        $data['intro'] = 'This debate took place';
+        $data['email_alert_text'] = $data['speeches']['info']['text_heading'];
+    } else {
+        // The user has requested only part of a debate, so find a suitable title
+        foreach ($data['speeches']['rows'] as $row) {
+            if ($row['htype'] == '11') {
+                $data['heading'] = 'Debate: ' . $row['body'];
+                $data['email_alert_text'] = $row['body'];
+                $data['full_debate_url'] = $row['listurl'];
+                break;
+            }
+        }
+        if (!isset($data['heading'])) {
+            // If we've not found a title, use the GID (better than nothing)
+            $data['heading'] = 'Debate: ID ' . get_http_var('id');
+            $data['email_alert_text'] = '';
+        }
+        $data['intro'] = 'This is part of a debate that took place';
     }
 
-    $PAGE->page_start();
+    $first_speech = $data['speeches']['rows'][0];
+    foreach ($data['speeches']['rows'] as $row) {
+        if ($row['htype'] == '12') {
+            $first_speech = $row;
+            break;
+        }
+    }
 
-    $PAGE->stripe_start();
+    $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
+    $data['debate_day_human'] = format_date($first_speech['hdate'], 'jS F Y');
+    $data['debate_day_link'] = '/debates/?d=' . $first_speech['hdate'];
 
-    $args = array (
-        'year' => get_http_var('y')
-    );
-
-    $LIST = new DEBATELIST;
-
-    $LIST->display('calendar', $args);
-
-    $PAGE->stripe_end(array(
-        array (
-            'type' => 'nextprev'
-        ),
-        array (
-            'type' => 'include',
-            'content' => 'minisurvey'
-        ),
-        array (
-            'type' => 'include',
-            'content' => "hocdebates"
-        )
-    ));
-
-} else {
-    // No date or debate id. Show some recent debates
-
-    $this_page = "alldebatesfront";
-    $PAGE->page_start();
-    $PAGE->stripe_start();
-?>
-    <h2>Recent House of Commons debates</h2>
-<?php
-
-    $DEBATELIST = new DEBATELIST;
-    $DEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>10));
-
-    $rssurl = $DATA->page_metadata($this_page, 'rss');
-    $PAGE->stripe_end(array(
-        # XXX When this is three columns, not one, put this search at the top spanning...
-        array (
-            'type' => 'include',
-            'content' => 'minisurvey'
-        ),
-        array(
-            'type' => 'html',
-            'content' => '
-<div class="block">
-<h4>Search debates</h4>
-<div class="blockbody">
-<form action="/search/" method="get">
-<p><input type="text" name="q" id="search_input" value="" size="40"> <input type="submit" value="Go">
-<br><input type="checkbox" name="section[]" value="debates" checked id="section_commons">
-<label for="section_commons">Commons</label>
-<input type="checkbox" name="section[]" value="whall" checked id="section_whall">
-<label for="section_whall">Westminster Hall</label>
-<input type="checkbox" name="section[]" value="lords" checked id="section_lords">
-<label for="section_lords">Lords</label>
-</p>
-</form>
-</div>
-</div>
-',
-    ),
-        array (
-            'type' => 'include',
-            'content' => 'calendar_hocdebates'
-        ),
-        array (
-            'type' => 'include',
-            'content' => "hocdebates"
-        ),
-        array (
-            'type' => 'html',
-            'content' => '<div class="block">
-<h4>RSS feed</h4>
-<p><a href="' . WEBPATH . $rssurl . '"><img align="middle" src="http://www.theyworkforyou.com/images/rss.gif" border="0" alt="RSS feed"></a>
-<a href="' . WEBPATH . $rssurl . '">RSS feed of most recent debates</a></p>
-</div>'
-        )
-    ));
-
-    $this_page = "whallfront";
-    $PAGE->page_start();
-    $PAGE->stripe_start();
-?>
-    <h2>Recent Westminster Hall debates</h2>
-<?php
-
-    $WHALLLIST = new WHALLLIST;
-    $WHALLLIST->display('biggest_debates', array('days'=>7, 'num'=>10));
-
-    $rssurl = $DATA->page_metadata($this_page, 'rss');
-    $PAGE->stripe_end(array(
-        array (
-            'type' => 'include',
-            'content' => 'minisurvey'
-        ),
-        array (
-            'type' => 'include',
-            'content' => 'calendar_whalldebates'
-        ),
-        array (
-            'type' => 'include',
-            'content' => "whalldebates"
-        ),
-        array (
-            'type' => 'html',
-            'content' => '<div class="block">
-<h4>RSS feed</h4>
-<p><a href="' . WEBPATH . $rssurl . '"><img alt="RSS feed" border="0" align="middle" src="http://www.theyworkforyou.com/images/rss.gif"></a>
-<a href="' . WEBPATH . $rssurl . '">RSS feed of most recent debates</a></p>
-</div>'
-        )
-    ));
-
-    $this_page = "lordsdebatesfront";
-    $PAGE->page_start();
-    $PAGE->stripe_start();
-?>
-    <h2>Recent House of Lords debates</h2>
-<?php
-
-    $LORDSDEBATELIST = new LORDSDEBATELIST;
-    $LORDSDEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>10));
-
-    $rssurl = $DATA->page_metadata($this_page, 'rss');
-    $PAGE->stripe_end(array(
-        array (
-            'type' => 'nextprev'
-        ),
-        array (
-            'type' => 'include',
-            'content' => 'minisurvey'
-        ),
-        array (
-            'type' => 'include',
-            'content' => 'calendar_holdebates'
-        ),
-        array (
-            'type' => 'include',
-            'content' => "holdebates"
-        ),
-        array (
-            'type' => 'html',
-            'content' => '<div class="block">
-<h4>RSS feed</h4>
-<p><a href="' . WEBPATH . $rssurl . '"><img alt="RSS feed" border="0" align="middle" src="http://www.theyworkforyou.com/images/rss.gif"></a>
-<a href="' . WEBPATH . $rssurl . '">RSS feed of most recent debates</a></p>
-</div>'
-        )
-    ));
-
+    MySociety\TheyWorkForYou\Renderer::output('debate/debate', $data);
 
 }
 
-$PAGE->page_end();
-twfy_debug_timestamp("page end");
+?>
