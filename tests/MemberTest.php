@@ -175,4 +175,17 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals('http://' . DOMAIN . '/royal/elizabeth_the_second', $MEMBER->url());
     }
 
+    /**
+     * Test that entered/left house strings are being generated
+     */
+    public function testEnteredLeftHouseString()
+    {
+        $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => 9));
+
+        $this->assertEquals(array(
+            "<strong>Entered the Scottish Parliament on 1 January 1990</strong> &mdash; General election",
+            "<strong>Left the Scottish Parliament on 31 December 1999</strong> &mdash; General election"
+        ), $MEMBER->getEnterLeaveStrings());
+    }
+
 }

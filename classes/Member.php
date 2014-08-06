@@ -222,7 +222,7 @@ class Member extends \MEMBER {
             $output[] = $string;
         }
 
-        if (in_array(HOUSE_TYPE_NI, $this->houses) && !$this->current_member[HOUSE_TYPE_NI]) {
+        if (in_array(HOUSE_TYPE_NI, $this->houses) && !$this->current_member(HOUSE_TYPE_NI)) {
             $string = '<strong>Left the Assembly on '.$this->left_house[HOUSE_TYPE_NI]['date_pretty'].'</strong>';
             if ($this->left_house[HOUSE_TYPE_NI]['reason']) {
                 $string .= ' &mdash; ' . $this->left_house[HOUSE_TYPE_NI]['reason'];
@@ -241,7 +241,7 @@ class Member extends \MEMBER {
             $output[] = $string;
         }
 
-        if (in_array(HOUSE_TYPE_SCOTLAND, $this->houses) && !$this->current_member[HOUSE_TYPE_SCOTLAND]) {
+        if (in_array(HOUSE_TYPE_SCOTLAND, $this->houses) && !$this->current_member(HOUSE_TYPE_SCOTLAND)) {
             $string = '<strong>Left the Scottish Parliament on '.$this->left_house[HOUSE_TYPE_SCOTLAND]['date_pretty'].'</strong>';
             if ($this->left_house[HOUSE_TYPE_SCOTLAND]['reason']) {
                 $string .= ' &mdash; ' . $this->left_house[HOUSE_TYPE_SCOTLAND]['reason'];
