@@ -108,7 +108,7 @@ Class MySQLQuery {
         $this->conn = $conn;
     }
 
-    public function query($sql="") {
+    public function query($sql="", $params = NULL) {
 
         if (empty($sql)) {
             $this->success = false;
@@ -125,17 +125,36 @@ Class MySQLQuery {
         twfy_debug ("SQL", $sql);
 
 
-        // Execute the query
-        $pdoResult = $this->conn->query($sql);
+        if ($params !== NULL) {
+            // Prepare and execute a statement
+            $pdoStatement = $this->conn->prepare($sql);
+
+            foreach ($params as $paramKey => $paramValue) {
+
+                if (is_int($paramValue)) {
+                    $paramType = PDO::PARAM_INT;
+                } else {
+                    $paramType = PDO::PARAM_STR;
+                }
+
+                $pdoStatement->bindValue($paramKey, $paramValue, $paramType);
+            }
+
+            $pdoStatement->execute();
+
+        } else {
+            // Execute the raw query
+            $pdoStatement = $this->conn->query($sql);
+        }
 
         // Test the query actually worked
-        if (!$pdoResult) {
+        if (!$pdoStatement) {
             $this->error($this->conn->errorCode() . ': ' . $this->conn->errorInfo()[2]);
         }
 
         if (!$this->success) return;
 
-        if ( (!$pdoResult) or (empty($pdoResult)) ) {
+        if ( (!$pdoStatement) or (empty($pdoStatement)) ) {
             // A failed query.
             $this->success = false;
 
@@ -144,13 +163,13 @@ Class MySQLQuery {
             // A successful SELECT, SHOW, EXPLAIN or DESCRIBE query.
             $this->success = true;
 
-            $result = $pdoResult->fetchAll();
+            $result = $pdoStatement->fetchAll();
 
             $this->rows = count($result);
             $this->data = $result;
 
             $this->insert_id = $this->conn->lastInsertId();
-            $this->affected_rows = $pdoResult->rowCount();
+            $this->affected_rows = $pdoStatement->rowCount();
 
             twfy_debug ("SQLRESULT", array($this, '_display_result'));
             // mysql_free_result($q);
@@ -258,13 +277,13 @@ Class MySQL {
         return $this->conn->quote($string);
     }
 
-    public function query($sql) {
+    public function query($sql, $params = NULL) {
         // Pass it an SQL query and if the query was successful
         // it returns a MySQLQuery object which you can get results from.
 
         $start = getmicrotime();
         $q = new MySQLQuery($this->conn);
-        $q->query($sql);
+        $q->query($sql, $params);
 
         $duration = getmicrotime() - $start;
         global $mysqltotalduration;
