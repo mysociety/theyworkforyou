@@ -108,8 +108,10 @@ class MEMBER {
             first_name, last_name, constituency, party, lastupdate,
             entered_house, left_house, entered_reason, left_reason, person_id
             FROM member
-            WHERE person_id = '" . mysql_real_escape_string($person_id) . "'
-                        ORDER BY left_house DESC, house");
+            WHERE person_id = :person_id
+            ORDER BY left_house DESC, house", array(
+                ':person_id' => $person_id
+            ));
 
         if (!$q->rows() > 0) {
             $this->valid = false;
@@ -214,9 +216,18 @@ class MEMBER {
         $normalised = normalise_constituency_name($constituency);
         if ($normalised) $constituency = $normalised;
 
-            $q = $this->db->query("SELECT person_id FROM member
-                    WHERE constituency = '" . mysql_real_escape_string($constituency) . "'
-                    AND left_reason = 'still_in_office'" . ($house ? ' AND house='.mysql_real_escape_string($house) : ''));
+            $query = "SELECT person_id FROM member
+                    WHERE constituency = :constituency
+                    AND left_reason = 'still_in_office'";
+
+            if ($house) {
+                $query .= ' AND house = :house';
+            }
+
+            $q = $this->db->query($query, array(
+                    ':constituency' => $constituency,
+                    ':house' => $house
+                ));
 
         if ($q->rows > 0) {
             return $q->field(0, 'person_id');
