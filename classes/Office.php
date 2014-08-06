@@ -39,6 +39,19 @@ class Office {
     *
     * Return a string containing prettified dates of this office.
     *
+    * 2004-05-28 and 2004-05-13 are the first dates for data scraped from the
+    * old selctee/privsec pages on parliament.uk (you can see this in
+    * cmpages/chgpages' privsec0001_2004-06-08.html and
+    * selctee0001_2004-06-08.html). So if the date is those dates for those two
+    * things, you don't want to display it because it's not a known start date,
+    * it could have been before that date. 2005-11-10 is because the PPS changes
+    * did not all happen on that date but the website did not update until that
+    * date so it outputs "before" in either from/to date in that case.
+    * 2009-01-16 is the last date before the page disappeared off parliament.uk
+    * entirely so that displays that fact that after then we don't know.
+    *
+    * @todo https://github.com/mysociety/theyworkforyou/issues/632
+    *
     * @return string The dates of this office in a readable form.
     */
 
