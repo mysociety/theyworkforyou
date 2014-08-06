@@ -191,7 +191,9 @@ class PAGE {
             header('Content-Type: text/html; charset=iso-8859-1');
             if ($this_page == 'overview') {
                 header('Vary: Cookie, X-GeoIP-Country');
-                header('Cache-Control: max-age=600');
+                if (!DEVSITE) {
+                    header('Cache-Control: max-age=600');
+                }
             }
         }
 

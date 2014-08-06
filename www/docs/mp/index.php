@@ -307,7 +307,9 @@ try {
     /////////////////////////////////////////////////////////
     // DISPLAY A LIST OF REPRESENTATIVES
 
-    header('Cache-Control: max-age=900');
+    if (!DEVSITE) {
+        header('Cache-Control: max-age=900');
+    }
 
     if (isset($MEMBER) && is_array($MEMBER->person_id())) {
 

@@ -8,7 +8,9 @@ include_once INCLUDESPATH."easyparliament/glossary.php";
 // From http://cvs.sourceforge.net/viewcvs.py/publicwhip/publicwhip/website/
 include_once INCLUDESPATH."postcode.inc";
 
-header('Cache-Control: max-age=86400'); # Once a day
+if (!DEVSITE) {
+    header('Cache-Control: max-age=86400'); # Once a day
+}
 
 if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') != '') {
 
