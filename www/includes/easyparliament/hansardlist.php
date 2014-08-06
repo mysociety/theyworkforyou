@@ -2687,6 +2687,8 @@ class DEBATELIST extends HANSARDLIST {
 
         $data = array();
 
+        $params = array();
+
         // Get the most recent day on which we have a debate.
         $recentday = $this->most_recent_day();
         if (!count($recentday)) return $data;
@@ -2699,31 +2701,37 @@ class DEBATELIST extends HANSARDLIST {
         }
 
         if ($args['num'] == 1) {
-            $datewhere = "h.hdate = '" . mysql_real_escape_string($recentday['hdate']) . "'";
+            $datewhere = "h.hdate = :hdate";
+            $params[':hdate'] = $recentday['hdate'];
         } else {
             $firstdate = gmdate('Y-m-d', $recentday['timestamp'] - (86400 * $args['days']));
-            $datewhere = "h.hdate >= '" . mysql_real_escape_string($firstdate) . "'
-                        AND h.hdate <= '" . mysql_real_escape_string($recentday['hdate']) . "'";
+            $datewhere = "h.hdate >= :firstdate
+                        AND h.hdate <= :hdate";
+            $params[':firstdate'] = $firstdate;
+            $params[':hdate'] = $recentday['hdate'];
         }
 
-        $q = $this->db->query("SELECT COUNT(*) AS count,
-                                body,
-                                h.hdate,
-                                sech.htype,
-                                sech.gid,
-                                sech.subsection_id,
-                                sech.section_id,
-                                sech.epobject_id
-                        FROM    hansard h, epobject e, hansard sech
-                        WHERE   h.major = '" . $this->major . "'
-                        AND     $datewhere
-                        AND     h.subsection_id = e.epobject_id
-                        AND     sech.epobject_id = h.subsection_id
-                        GROUP BY h.subsection_id
-                        HAVING  count >= 5
-                        ORDER BY RAND()
-                        LIMIT   " . mysql_real_escape_string($args['num']) . "
-                        ");
+        $params[':limit'] = $args['num'];
+
+        $query = "SELECT COUNT(*) AS count,
+                    body,
+                    h.hdate,
+                    sech.htype,
+                    sech.gid,
+                    sech.subsection_id,
+                    sech.section_id,
+                    sech.epobject_id
+            FROM    hansard h, epobject e, hansard sech
+            WHERE   h.major = '" . $this->major . "'
+            AND     $datewhere
+            AND     h.subsection_id = e.epobject_id
+            AND     sech.epobject_id = h.subsection_id
+            GROUP BY h.subsection_id
+            HAVING  count >= 5
+            ORDER BY RAND()
+            LIMIT   :limit";
+
+        $q = $this->db->query($query, $params);
 
         for ($row=0; $row<$q->rows; $row++) {
 
@@ -2919,6 +2927,8 @@ class WRANSLIST extends HANSARDLIST {
 
         $data = array();
 
+        $params = array();
+
         // Get the most recent day on which we have wrans.
         $recentday = $this->most_recent_day();
         if (!count($recentday))
@@ -2932,11 +2942,13 @@ class WRANSLIST extends HANSARDLIST {
         }
 
         if ($args['num'] == 1) {
-            $datewhere = "h.hdate = '" . mysql_real_escape_string($recentday['hdate']) . "'";
+            $datewhere = "h.hdate = :datewhere";
+            $params[':datewhere'] = $recentday['hdate'];
         } else {
             $firstdate = gmdate('Y-m-d', $recentday['timestamp'] - (86400 * $args['days']));
-            $datewhere = "h.hdate >= '" . mysql_real_escape_string($firstdate) . "'
-                        AND		h.hdate <= '" . mysql_real_escape_string($recentday['hdate']) . "'";
+            $datewhere = "h.hdate >= :firstdate AND h.hdate <= :hdate";
+            $params[':firstdate'] = $firstdate;
+            $params[':hdate'] = $recentday['hdate'];
         }
 
 
@@ -2946,22 +2958,26 @@ class WRANSLIST extends HANSARDLIST {
         } else {
             $htype = 'htype = 11 and section_id != 0';
         }
-        $q = $this->db->query("SELECT e.body,
-                                h.hdate,
-                                h.htype,
-                                h.gid,
-                                h.subsection_id,
-                                h.section_id,
-                                h.epobject_id
-                        FROM	hansard h, epobject e
-                        WHERE	h.major = '" . $this->major . "'
-                        AND		$htype
-                        AND		subsection_id = 0
-                        AND		$datewhere
-                        AND		h.epobject_id = e.epobject_id
-                        ORDER BY RAND()
-                        LIMIT 	" . mysql_real_escape_string($args['num']) . "
-                        ");
+
+        $params[':limit'] = $args['num'];
+
+        $query = "SELECT e.body,
+                    h.hdate,
+                    h.htype,
+                    h.gid,
+                    h.subsection_id,
+                    h.section_id,
+                    h.epobject_id
+            FROM    hansard h, epobject e
+            WHERE   h.major = '" . $this->major . "'
+            AND     $htype
+            AND     subsection_id = 0
+            AND     $datewhere
+            AND     h.epobject_id = e.epobject_id
+            ORDER BY RAND()
+            LIMIT   :limit";
+
+        $q = $this->db->query($query, $params);
 
         for ($row=0; $row<$q->rows; $row++) {
             // This array just used for getting further data about this debate.

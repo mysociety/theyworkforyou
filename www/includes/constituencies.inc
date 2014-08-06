@@ -7,8 +7,10 @@ function normalise_constituency_name($name) {
     // In case we still have an &amp; lying around
     $name = str_replace("&amp;", "&", $name);
 
-    $query = "select cons_id from constituency where name like '" . mysql_real_escape_string($name) . "' and from_date <= date(now()) and date(now()) <= to_date";
-    $q1 = $db->query($query);
+    $query = "select cons_id from constituency where name like :name and from_date <= date(now()) and date(now()) <= to_date";
+    $q1 = $db->query($query, array(
+        ':name' => $name
+        ));
     if ($q1->rows <= 0)
         return false;
 
