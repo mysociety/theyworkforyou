@@ -418,12 +418,6 @@ class MEMBER {
     }
 
         // Info specific to member id (e.g. attendance during that period of office)
-    #$q = $this->db->query("SELECT data_key, data_value,
-    #			(SELECT count(member_id) FROM memberinfo AS m2
-    #				WHERE m2.data_key=memberinfo.data_key AND m2.data_value=memberinfo.data_value) AS joint
-    #               FROM 	memberinfo
-    #               WHERE	member_id = '" . mysql_real_escape_string($this->member_id) . "'
-    #               ");
         $q = $this->db->query("SELECT data_key, data_value
                         FROM 	memberinfo
                         WHERE	member_id = :member_id",
@@ -435,11 +429,6 @@ class MEMBER {
         }
 
         // Info specific to person id (e.g. their permanent page on the Guardian website)
-    #$q = $this->db->query("SELECT data_key, data_value, (SELECT person_id FROM personinfo AS p2
-    #		WHERE p2.person_id <> personinfo.person_id AND p2.data_key=personinfo.data_key AND p2.data_value=personinfo.data_value LIMIT 1) AS count
-    #               FROM 	personinfo
-    #               WHERE	person_id = '" . mysql_real_escape_string($this->person_id) . "'
-    #               ");
         $q = $this->db->query("SELECT data_key, data_value
                         FROM 	personinfo
                         WHERE	person_id = :person_id'",
