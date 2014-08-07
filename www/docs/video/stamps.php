@@ -7,12 +7,13 @@ date_default_timezone_set('Europe/London');
 $videodb = video_db_connect();
 
 $gid = get_http_var('gid');
-$q_gid = mysql_real_escape_string("uk.org.publicwhip/$gid");
 
 $db = new ParlDB;
 $q = $db->query("select subsection_id,adate,atime from hansard, video_timestamps
-    where hansard.gid = video_timestamps.gid and hansard.gid='$q_gid'
-        and deleted=0 and (user_id is null or user_id!=-1)");
+    where hansard.gid = video_timestamps.gid and hansard.gid = :gid
+        and deleted=0 and (user_id is null or user_id!=-1)", array(
+        ':gid' => "uk.org.publicwhip/$gid"
+        ));
 $subsection_id = $q->field(0, 'subsection_id');
 $adate = $q->field(0, 'adate');
 $atime = $q->field(0, 'atime');

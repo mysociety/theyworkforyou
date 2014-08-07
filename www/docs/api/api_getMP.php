@@ -102,8 +102,10 @@ This will return all database entries for this person, so will include previous 
 function api_getMP_id($id) {
     $db = new ParlDB;
     $q = $db->query("select * from member
-        where house=1 and person_id = '" . mysql_real_escape_string($id) . "'
-        order by left_house desc");
+        where house=1 and person_id = :id
+        order by left_house desc", array(
+          ':id' => $id
+          ));
     if ($q->rows()) {
         _api_getPerson_output($q);
     } else {
@@ -154,15 +156,19 @@ function _api_getMP_constituency($constituency) {
     if ($normalised) $constituency = $normalised;
 
     $q = $db->query("SELECT * FROM member
-        WHERE constituency = '" . mysql_real_escape_string($constituency) . "'
-        AND left_reason = 'still_in_office' AND house=1");
+        WHERE constituency = :constituency
+        AND left_reason = 'still_in_office' AND house=1", array(
+          ':constituency' => $constituency
+          ));
     if ($q->rows > 0)
         return _api_getPerson_row($q->row(0), true);
 
     if (get_http_var('always_return')) {
         $q = $db->query("SELECT * FROM member
-            WHERE house=1 AND constituency = '".mysql_real_escape_string($constituency)."'
-            ORDER BY left_house DESC LIMIT 1");
+            WHERE house=1 AND constituency = :constituency
+            ORDER BY left_house DESC LIMIT 1", array(
+              ':constituency' => $constituency
+              ));
         if ($q->rows > 0)
             return _api_getPerson_row($q->row(0), true);
     }

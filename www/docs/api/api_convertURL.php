@@ -46,8 +46,9 @@ function get_listurl($q) {
         $parent_gid = '';
         $r = $db->query("SELECT gid
                 FROM 	hansard
-                WHERE	epobject_id = '" . mysql_real_escape_string($parent_epobject_id) . "'
-                ");
+                WHERE	epobject_id = :epobject_id", array(
+                    ':epobject_id' => $parent_epobject_id
+                    ));
         if ($r->rows() > 0) {
             $parent_gid = fix_gid_from_db( $r->field(0, 'gid') );
         }
@@ -71,17 +72,23 @@ function api_converturl_url_output($q) {
 function api_converturl_url($url) {
     $db = new ParlDB;
     $url_nohash = preg_replace('/#.*/', '', $url);
-    $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url = "' . mysql_real_escape_string($url) . '" order by gid limit 1');
+    $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url = :url order by gid limit 1', array(
+        ':url' => $url
+        ));
     if ($q->rows())
         return api_converturl_url_output($q);
 
-    $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url like "' . mysql_real_escape_string($url_nohash) . '%" order by gid limit 1');
+    $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url like :url order by gid limit 1', array(
+        ':url' => $url_nohash . '%'
+        ));
     if ($q->rows())
         return api_converturl_url_output($q);
 
     $url_bound = str_replace('cmhansrd/cm', 'cmhansrd/vo', $url_nohash);
     if ($url_bound != $url_nohash) {
-        $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url like "' . mysql_real_escape_string($url_bound) . '%" order by gid limit 1');
+        $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url like :url order by gid limit 1', array(
+            ':url' => $url_bound . '%'
+            ));
         if ($q->rows())
             return api_converturl_url_output($q);
     }

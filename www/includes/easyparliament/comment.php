@@ -179,16 +179,22 @@ class COMMENT {
         $data['gid'] = $q_gid->field(0, 'gid');
 
         $q = $this->db->query("INSERT INTO comments
-                        (user_id, epobject_id, body, posted, visible, original_gid)
-                        VALUES
-                        (
-                        '" . mysql_real_escape_string($THEUSER->user_id()) . "',
-                        '" . mysql_real_escape_string($data['epobject_id']) . "',
-                        '" . mysql_real_escape_string($body) . "',
-                        '" . $posted . "',
-                        1,
-                        '" . mysql_real_escape_string($data['gid']) . "'
-                        )");
+            (user_id, epobject_id, body, posted, visible, original_gid)
+            VALUES
+            (
+            :user_id,
+            :epobject_id,
+            :body,
+            :posted,
+            1,
+            :gid
+            )", array(
+                ':user_id' => $THEUSER->user_id(),
+                ':epobject_id' => $data['epobject_id'],
+                ':body' => $body,
+                ':posted' => $posted,
+                ':gid' => $data['gid']
+            ));
 
         if ($q->success()) {
             // Set the object varibales up.

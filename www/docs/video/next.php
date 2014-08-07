@@ -14,8 +14,9 @@ if ($action == 'next' || $action=='nextneeded') {
     $time = intval(get_http_var('time'));
     $db = new ParlDB;
     $gid = "uk.org.publicwhip/$gid";
-    $q_gid = mysql_real_escape_string($gid);
-    $q = $db->query("select hdate,hpos,major from hansard where gid='$q_gid'");
+    $q = $db->query("select hdate,hpos,major from hansard where gid = :gid", array(
+        ':gid'= > $gid
+        ));
     if (!$q->rows()) {
         # Shouldn't happen, but means a bot has got the URL somehow or similar
         header('Location: http://www.theyworkforyou.com/video/');

@@ -187,7 +187,9 @@ class MEMBER {
     public function member_id_to_person_id($member_id) {
         global $PAGE;
         $q = $this->db->query("SELECT person_id FROM member
-                    WHERE member_id = '" . mysql_real_escape_string($member_id) . "'");
+                    WHERE member_id = :member_id",
+            array(':member_id' => $member_id)
+        );
         if ($q->rows > 0) {
             return $q->field(0, 'person_id');
         } else {
@@ -216,18 +218,20 @@ class MEMBER {
         $normalised = normalise_constituency_name($constituency);
         if ($normalised) $constituency = $normalised;
 
+            $params = array();
+
             $query = "SELECT person_id FROM member
                     WHERE constituency = :constituency
                     AND left_reason = 'still_in_office'";
 
+            $params[':constituency'] = $constituency;
+
             if ($house) {
                 $query .= ' AND house = :house';
+                $params[':house'] = $house;
             }
 
-            $q = $this->db->query($query, array(
-                    ':constituency' => $constituency,
-                    ':house' => $house
-                ));
+            $q = $this->db->query($query, $params);
 
         if ($q->rows > 0) {
             return $q->field(0, 'person_id');
@@ -252,6 +256,7 @@ class MEMBER {
         # Matthew made this change, but I don't know why.  It broke
         # Iain Duncan Smith, so I've put it back.  FAI 2005-03-14
         #		$success = preg_match('#^(.*? .*?) (.*?)$#', $name, $m);
+        $params = array();
         $q = "SELECT person_id,constituency,max(left_house) AS left_house FROM member WHERE ";
         if ($this_page=='peer') {
             $success = preg_match('#^(.*?) (.*?) of (.*?)$#', $name, $m);
@@ -263,10 +268,11 @@ class MEMBER {
                 $PAGE->error_message('Sorry, that name was not recognised.');
                 return false;
             }
-            $title = mysql_real_escape_string($m[1]);
-            $last_name = mysql_real_escape_string($m[2]);
+            $params[':title'] = $m[1];
+            $params[':last_name'] = $m[2];
+            $params[':house_type_lords'] = HOUSE_TYPE_LORDS;
             $const = $m[3];
-            $q .= "house = " . HOUSE_TYPE_LORDS . " AND title = '$title' AND last_name='$last_name'";
+            $q .= "house = :house_type_lords AND title = :title AND last_name = :last_name";
         } elseif ($this_page=='msp') {
             $success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
             if (!$success)
@@ -275,12 +281,14 @@ class MEMBER {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
                 return false;
             }
-            $first_name = mysql_real_escape_string($m[1]);
-            $middle_name = mysql_real_escape_string($m[2]);
-            $last_name = mysql_real_escape_string($m[3]);
-            $q .= "house = " . HOUSE_TYPE_SCOTLAND . " AND (";
-            $q .= "(first_name='$first_name $middle_name' AND last_name='$last_name')";
-            $q .= " or (first_name='$first_name' AND last_name='$middle_name $last_name') )";
+            $params[':first_name'] = $m[1];
+            $params[':last_name'] = $m[3];
+            $params[':first_and_middle_names'] = $m[1] . ' ' . $m[2];
+            $params[':middle_and_last_names'] = $m[2] . ' ' . $m[3];
+            $params[':house_type_scotland'] = HOUSE_TYPE_SCOTLAND;
+            $q .= "house = :house_type_scotland AND (";
+            $q .= "(first_name=:first_and_middle_names AND last_name=:last_name)";
+            $q .= " or (first_name=:first_name AND last_name=:middle_and_last_names) )";
         } elseif ($this_page=='mla') {
             $success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
             if (!$success)
@@ -289,13 +297,15 @@ class MEMBER {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
                 return false;
             }
-            $first_name = mysql_real_escape_string($m[1]);
-            $middle_name = mysql_real_escape_string($m[2]);
-            $last_name = mysql_real_escape_string($m[3]);
-            $q .= "house = " . HOUSE_TYPE_NI . " AND (
-    (first_name='$first_name $middle_name' AND last_name='$last_name')
-    or (first_name='$first_name' AND last_name='$middle_name $last_name')
-    or (title='$first_name' AND first_name='$middle_name' AND last_name='$last_name')
+            $params[':first_name'] = $m[1];
+            $params[':last_name'] = $m[3];
+            $params[':first_and_middle_names'] = $m[1] . ' ' . $m[2];
+            $params[':middle_and_last_names'] = $m[2] . ' ' . $m[3];
+            $params[':house_type_ni'] = HOUSE_TYPE_NI;
+            $q .= "house = :house_type_ni AND (
+    (first_name=:first_and_middle_names AND last_name=:last_name)
+    or (first_name=:first_name AND last_name=:middle_and_last_names)
+    or (title=:first_name AND first_name=:middle_and_last_names AND last_name=:last_name)
 )";
         } elseif (strstr($this_page, 'mp')) {
             $success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
@@ -308,18 +318,27 @@ class MEMBER {
             $first_name = $m[1];
             $middle_name = $m[2];
             $last_name = $m[3];
-            # if ($title) $q .= 'title = \'' . mysql_real_escape_string($title) . '\' AND ';
-            $q .= "house = " . HOUSE_TYPE_COMMONS . " AND ((first_name='".mysql_real_escape_string($first_name." ".$middle_name)."' AND last_name='".mysql_real_escape_string($last_name)."') OR ".
-            "(first_name='".mysql_real_escape_string($first_name)."' AND last_name='".mysql_real_escape_string($middle_name." ".$last_name)."'))";
+
+
+            $params[':first_name'] = $m[1];
+            $params[':last_name'] = $m[3];
+            $params[':first_and_middle_names'] = $m[1] . ' ' . $m[2];
+            $params[':middle_and_last_names'] = $m[2] . ' ' . $m[3];
+            $params[':house_type_commons'] = HOUSE_TYPE_COMMONS;
+
+            $q .= "house = :house_type_commons AND ((first_name=:first_and_middle_names AND last_name=:last_name) OR ".
+            "(first_name=:first_name AND last_name=:middle_and_last_names))";
         } elseif ($this_page == 'royal') {
-            $q .= ' house = ' . HOUSE_TYPE_ROYAL;
+            $params[':house_type_royal'] = HOUSE_TYPE_ROYAL;
+            $q .= ' house = :house_type_royal';
         }
 
         if ($const || $this_page=='peer') {
-            $q .= ' AND constituency=\''.mysql_real_escape_string($const)."'";
+            $params[':constituency'] = $const;
+            $q .= ' AND constituency=:constituency';
         }
         $q .= ' GROUP BY person_id, constituency ORDER BY left_house DESC';
-        $q = $this->db->query($q);
+        $q = $this->db->query($q, $params);
         if ($q->rows > 1) {
             # Hacky as a very hacky thing that's graduated in hacking from the University of Hacksville
             # Anyone who wants to do it properly, feel free
@@ -361,8 +380,8 @@ class MEMBER {
              $q = $this->db->query("SELECT person_id
                                     FROM 	personinfo
                                     WHERE	data_key = 'guardian_aristotle_id'
-                                    AND data_value = '" . mysql_real_escape_string($this->guardian_aristotle_id) . "'
-                                   ");
+                                    AND data_value = :guardian_aristotle_id",
+                  array(':guardian_aristotle_id', $this->guardian_aristotle_id));
              if ($q->rows > 0) {
                   return $q->field(0, 'person_id');
              } else {
@@ -398,8 +417,8 @@ class MEMBER {
         }
         $this->extra_info = array();
 
-    $q = $this->db->query('SELECT * FROM moffice WHERE person=' .
-        mysql_real_escape_string($this->person_id) . ' ORDER BY from_date DESC');
+        $q = $this->db->query('SELECT * FROM moffice WHERE person=:person_id ORDER BY from_date DESC',
+                              array(':person_id' => $this->person_id));
     for ($row=0; $row<$q->rows(); $row++) {
         $this->extra_info['office'][] = $q->row($row);
     }
@@ -413,8 +432,8 @@ class MEMBER {
     #               ");
         $q = $this->db->query("SELECT data_key, data_value
                         FROM 	memberinfo
-                        WHERE	member_id = '" . mysql_real_escape_string($this->member_id) . "'
-                        ");
+                        WHERE	member_id = :member_id",
+            array(':member_id' => $this->member_id));
         for ($row = 0; $row < $q->rows(); $row++) {
         $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
         #		if ($q->field($row, 'joint') > 1)
@@ -429,8 +448,8 @@ class MEMBER {
     #               ");
         $q = $this->db->query("SELECT data_key, data_value
                         FROM 	personinfo
-                        WHERE	person_id = '" . mysql_real_escape_string($this->person_id) . "'
-                        ");
+                        WHERE	person_id = :person_id'",
+            array(':person_id' => $this->person_id));
         for ($row = 0; $row < $q->rows(); $row++) {
             $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
         #	    if ($q->field($row, 'count') > 1)
@@ -441,7 +460,8 @@ class MEMBER {
     if ($this->house(HOUSE_TYPE_COMMONS)) {
 
             $q = $this->db->query("SELECT data_key, data_value FROM consinfo
-            WHERE constituency = '" . mysql_real_escape_string($this->constituency) . "'");
+            WHERE constituency = :constituency",
+                array(':constituency' => $this->constituency));
         for ($row = 0; $row < $q->rows(); $row++) {
             $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
         }

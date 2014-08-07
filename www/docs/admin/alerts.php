@@ -67,7 +67,9 @@ function generate_rows($q) {
         $email = $q->field($row, 'email');
         $criteria = $q->field($row, 'criteria');
         $SEARCHENGINE = new SEARCHENGINE($criteria);
-        $r = $db->query("SELECT user_id,firstname,lastname FROM users WHERE email = '" . mysql_real_escape_string($email) . "'");
+        $r = $db->query("SELECT user_id,firstname,lastname FROM users WHERE email = :email", array(
+            ':email' => $email
+            ));
         if ($r->rows() > 0) {
             $user_id = $r->field(0, 'user_id');
             $USERURL->insert(array('u'=>$user_id));

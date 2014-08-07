@@ -153,7 +153,9 @@ foreach ($alertdata as $alertitem) {
 		$current['email'] = $email;
 		$current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'];
 		$email_text = '';
-		$q = $db->query('SELECT user_id FROM users WHERE email = \''.mysql_real_escape_string($email)."'");
+		$q = $db->query('SELECT user_id FROM users WHERE email = :email', array(
+            ':email' => $email
+            ));
 		if ($q->rows() > 0) {
 			$user_id = $q->field(0, 'user_id');
 			$registered++;
@@ -214,7 +216,9 @@ foreach ($alertdata as $alertitem) {
 			# 2012 from sending an email alert again.
 			if ($row['hdate'] < '2012-01-18') continue;
 
-			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to=\'uk.org.publicwhip/' . $sects_gid[$major] . '/' . mysql_real_escape_string($row['gid']) . "'");
+			$q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to = :gid_to', array(
+                ':gid_to' => 'uk.org.publicwhip/' . $sects_gid[$major] . '/' . $row['gid']
+                ));
 			if ($q->rows() > 0) continue;
 			--$k;
 			if ($k>=0) {
