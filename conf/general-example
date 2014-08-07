@@ -4,10 +4,21 @@
 
 // *******************************************************************************
 // MySQL database.
-define ("OPTION_TWFY_DB_HOST", "localhost");
-define ("OPTION_TWFY_DB_USER", "username");
-define ("OPTION_TWFY_DB_PASS", "password");
-define ("OPTION_TWFY_DB_NAME", "twfy");
+if (!defined('OPTION_TWFY_DB_HOST')) {
+    define ("OPTION_TWFY_DB_HOST", "localhost");
+}
+
+if (!defined('OPTION_TWFY_DB_USER')) {
+    define ("OPTION_TWFY_DB_USER", 'username');
+}
+
+if (!defined('OPTION_TWFY_DB_PASS')) {
+    define ("OPTION_TWFY_DB_PASS", 'password');
+}
+
+if (!defined('OPTION_TWFY_DB_NAME')) {
+    define ("OPTION_TWFY_DB_NAME", 'twfy');
+}
 
 // Parliamentary video database (we use PostgreSQL for this)
 define ('OPTION_BBC_DB_HOST', 'host');
@@ -30,7 +41,9 @@ define ('EMAILDOMAIN', 'example.org');
 define ("CONTACTEMAIL", "you@yourdomain.com");
 
 // File system path to the top directory of this Theyworkforyou installation; no trailing slash
-define ("BASEDIR","/home/user/theyworkforyou/docs"); 
+if (!defined('BASEDIR')) {
+    define ("BASEDIR",'/home/user/theyworkforyou/docs');
+}
 
 // Webserver path to 'top' directory of the site (possibly just "/"). For example,
 // if the site is at 'http://www.yourdomain.com/public/theyworkforyou', 
