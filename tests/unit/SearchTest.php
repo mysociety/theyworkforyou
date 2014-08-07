@@ -24,7 +24,7 @@ class SearchTest extends PHPUnit_Extensions_Database_TestCase
 
     public function getDataSet()
     {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/search.xml');
+        return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/../_fixtures/search.xml');
     }
 
     public function testConstituencySearch()
