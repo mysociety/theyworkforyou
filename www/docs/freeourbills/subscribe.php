@@ -55,7 +55,12 @@ if (!$errors) {
     if ($constituency != "connection_timed_out" && $constituency != "") {
         $token = auth_random_token();
         if (send_subscribe_email($email, $token)) {
-        $q = $db->query("INSERT INTO campaigners (email, postcode, token, signup_date, constituency) VALUES ('" . mysql_real_escape_string($email) . "', '".mysql_real_escape_string($postcode)."', '".$token."', now(), '".mysql_real_escape_string($constituency)."')");
+        $q = $db->query("INSERT INTO campaigners (email, postcode, token, signup_date, constituency) VALUES (:email, :postcode, :token, now(), :constituency)", array(
+            ':email' => $email,
+            ':postcode' => $postcode,
+            ':token' => $token,
+            ':constituency' => $constituency
+            ));
 
         print "<html><head><title>Check your email! - Free Our Bills - TheyWorkForYou</title></head><body>";
         freeourbills_styles();
@@ -78,9 +83,11 @@ freeourbills_styles();
 $url_token = trim(get_http_var('t'));
 if ($url_token) {
 
-    $q = $db->query('SELECT * FROM campaigners WHERE token = "' . mysql_real_escape_string($url_token).'"');
+    $q = $db->query('SELECT * FROM campaigners WHERE token = :token', array(
+        ':token' => $url_token));
     if ($q->rows() > 0) {
-        $q = $db->query('UPDATE campaigners SET confirmed = 1 WHERE token = "' . mysql_real_escape_string($url_token).'"');
+        $q = $db->query('UPDATE campaigners SET confirmed = 1 WHERE token = :token', array(
+            ':token' => $url_token));
         ?>
         <p class="free_our_bills_thanks">Thanks for signing up to the campaign! We'll contact you soon.</p>
         <p class="free_our_bills_thanks">Now invite your friends to sign up too...</p>

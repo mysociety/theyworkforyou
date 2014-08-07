@@ -28,14 +28,15 @@ $surrounding_speeches = 3;
 $gid = "uk.org.publicwhip/$gid";
 
 # Fetch this GID from the database, and captioner bot time if there is one
-$q_gid = mysql_real_escape_string($gid);
 $db = new ParlDB;
 $q = $db->query("select hdate, htime, adate, atime, hpos, video_status, subsection_id, major,
     (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid,
     (select body from epobject as e where e.epobject_id=hansard.subsection_id) as parent_body
     from hansard
     left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1 and video_timestamps.deleted = 0
-    where hansard.gid='$q_gid'");
+    where hansard.gid = :gid", array(
+        ':gid' => $gid
+        ));
 if (!$q->rows()) {
     $PAGE->error_message('That GID does not appear to exist.', true, 404);
     exit;

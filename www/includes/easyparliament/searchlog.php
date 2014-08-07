@@ -43,11 +43,26 @@ class SEARCHLOG {
             return;
         }
 
-        $this->db->query("INSERT INTO search_query_log
-            (query_string, page_number, count_hits, ip_address, query_time)
-            VALUES ('" . mysql_real_escape_string($searchlogdata['query']) . "',
-            '" . $searchlogdata['page'] . "', '" . $searchlogdata['hits'] . "',
-            '" . $ip . "', NOW())");
+        $this->db->query("INSERT INTO search_query_log (
+                query_string,
+                page_number,
+                count_hits,
+                ip_address,
+                query_time
+            )
+            VALUES (
+                :query_string,
+                :page_number,
+                :count_hits,
+                :ip_address,
+                NOW()
+            )
+        ", array(
+            ':query_string' => $searchlogdata['query'],
+            ':page_number' => $searchlogdata['page'],
+            ':count_hits' => $searchlogdata['hits'],
+            ':ip_address' => $ip
+        ));
 
     }
 

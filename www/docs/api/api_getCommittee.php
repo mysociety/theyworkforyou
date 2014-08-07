@@ -60,9 +60,11 @@ function api_getCommittee_name($name) {
     if ($date) $date = '"' . $date['iso'] . '"';
     else $date = 'date(now())';
     $q = $db->query("select distinct(dept) from moffice
-        where dept like '%" . mysql_real_escape_string($name) . "%Committee'
-        and from_date <= " . $date . ' and '
-        . $date . ' <= to_date');
+        where dept like :department
+        and from_date <= :date and :date <= to_date", array(
+            ':department' => '%' . $name . '%Committee',
+            ':date' => $date
+            ));
     if ($q->rows() > 1) {
         # More than one committee matches
         for ($i=0; $i<$q->rows(); $i++) {
@@ -75,9 +77,12 @@ function api_getCommittee_name($name) {
         # One committee
         $q = $db->query("select * from moffice,member
             where moffice.person = member.person_id
-            and dept like '%" . mysql_real_escape_string($name) . "%Committee'
-            and from_date <= " . $date . ' and ' . $date . " <= to_date
-            and entered_house <= " . $date . ' and ' . $date . ' <= left_house');
+            and dept like :department
+            and from_date <= :date and :date <= to_date
+            and entered_house <= :date and :date <= left_house", array(
+                ':department' => '%' . $name . '%Committee',
+                ':date' => $date
+            ));
         if ($q->rows()) {
             $output = array();
             $output['committee'] = $q->field(0, 'dept');

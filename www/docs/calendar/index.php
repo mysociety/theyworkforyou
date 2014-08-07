@@ -55,7 +55,9 @@ function calendar_date($date) {
 
     $data['majors'] = array();
     if ($this_page == 'calendar_past') {
-        $q = $db->query('SELECT DISTINCT major FROM hansard WHERE hdate = "' . mysql_real_escape_string($date) . '"');
+        $q = $db->query('SELECT DISTINCT major FROM hansard WHERE hdate = :date', array(
+            ':date' => $date
+            ));
         foreach ($q->data as $row) {
             $data['majors'][] = $row['major'];
         }

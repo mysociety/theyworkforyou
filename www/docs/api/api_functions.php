@@ -145,7 +145,11 @@ function api_log_call($key) {
     $query = preg_replace('#key=[A-Za-z0-9]+&?#', '', $query);
     $db = new ParlDB;
     $db->query("INSERT INTO api_stats (api_key, ip_address, query_time, query)
-        VALUES ('$key', '$ip', NOW(), '" . mysql_real_escape_string($query) . "')");
+        VALUES (:key, :ip, NOW(), :query)", array(
+            ':key' => $key,
+            ':ip' => $ip,
+            ':query' => $query
+            ));
 }
 
 function api_is_superuser_key($key) {
@@ -153,7 +157,9 @@ function api_is_superuser_key($key) {
   $q = $db->query('SELECT api_key.user_id, users.status
                FROM   api_key, users
                WHERE  users.user_id = api_key.user_id
-               AND    api_key.api_key="' . mysql_real_escape_string($key) . '"');
+               AND    api_key.api_key = :key', array(
+                ':key' => $key
+                ));
   if (!$q->rows())
     return false;
   if ($q->field(0, 'status') == 'Superuser')
@@ -164,7 +170,9 @@ function api_is_superuser_key($key) {
 
 function api_check_key($key) {
     $db = new ParlDB;
-    $q = $db->query('SELECT user_id, disabled FROM api_key WHERE api_key="' . mysql_real_escape_string($key) . '"');
+    $q = $db->query('SELECT user_id, disabled FROM api_key WHERE api_key = :key', array(
+        ':key' => $key
+        ));
     if (!$q->rows())
         return false;
     if ($q->field(0, 'disabled'))

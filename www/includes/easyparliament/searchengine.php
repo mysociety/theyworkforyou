@@ -719,26 +719,32 @@ function search_by_usage($search, $house = 0) {
 function search_member_db_lookup($searchstring, $current_only=false) {
     if (!$searchstring) return false;
     $searchwords = explode(' ', $searchstring, 3);
-    foreach ($searchwords as $i => $searchword) {
-        $searchwords[$i] = mysql_real_escape_string($searchword);
-    }
+    $params = array();
     if (count($searchwords) == 1) {
-        $where = "first_name LIKE '%" . $searchwords[0] . "%' OR last_name LIKE '%" . $searchwords[0] . "%'";
+        $params[':like_0'] = '%' . $searchwords[0] . '%';
+        $where = "first_name LIKE :like_0 OR last_name LIKE :like_0";
     } elseif (count($searchwords) == 2) {
         // We don't do anything special if there are more than two search words.
         // And here we're assuming the user's put the names in the right order.
-        $where = "(first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
-        $where .= " OR (first_name LIKE '%" . $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[0] . "%')";
-        $where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1] . "%')";
+        $params[':like_0'] = '%' . $searchwords[0] . '%';
+        $params[':like_1'] = '%' . $searchwords[1] . '%';
+        $where = "(first_name LIKE :like_0 AND last_name LIKE :like_1";
+        $where .= " OR (first_name LIKE :like_1 AND last_name LIKE :like_0)";
+        $where .= " OR (title LIKE :like_0 AND last_name LIKE :like_1)";
         if (strtolower($searchwords[0]) == 'nick') {
-            $where .= " OR (first_name LIKE '%nicholas%' AND last_name LIKE '%" . $searchwords[1] . "%')";
+            $where .= " OR (first_name LIKE '%nicholas%' AND last_name LIKE :like_1)";
         }
     } else {
         $searchwords[2] = str_replace('of ', '', $searchwords[2]);
-        $where = "(first_name LIKE '%" . $searchwords[0].' '.$searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
-        $where .= " OR (first_name LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%" . $searchwords[1].' '.$searchwords[2] . "%')";
-        $where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND first_name LIKE '%". $searchwords[1] . "%' AND last_name LIKE '%" . $searchwords[2] . "%')";
-        $where .= " OR (title LIKE '%" . $searchwords[0] . "%' AND last_name LIKE '%". $searchwords[1] . "%' AND constituency LIKE '%" . $searchwords[2] . "%')";
+        $params[':like_0'] = '%' . $searchwords[0] . '%';
+        $params[':like_1'] = '%' . $searchwords[1] . '%';
+        $params[':like_2'] = '%' . $searchwords[2] . '%';
+        $params[':like_0_and_1'] = '%' . $searchwords[0] . ' '. $searchwords[1] . '%';
+        $params[':like_1_and_2'] = '%' . $searchwords[1] . ' '. $searchwords[2] . '%';
+        $where = "(first_name LIKE :like_0_and_1 AND last_name LIKE :like_2)";
+        $where .= " OR (first_name LIKE :like_0 AND last_name LIKE :like_1_and_2)";
+        $where .= " OR (title LIKE :like_0 AND first_name LIKE :like_1 AND last_name LIKE :like_2)";
+        $where .= " OR (title LIKE :like_0 AND last_name LIKE :like_1 AND constituency LIKE :like_2)";
     }
     $where = "($where)";
 
@@ -754,7 +760,7 @@ function search_member_db_lookup($searchstring, $current_only=false) {
                     FROM 	member
                     WHERE	$where
                     ORDER BY last_name, first_name, person_id, entered_house desc
-                    ");
+                    ", $params);
 
     return $q;
 }
@@ -775,10 +781,10 @@ function search_constituencies_by_query($searchterm) {
     $try = strtolower($searchterm);
     $query = "select distinct
             (select name from constituency where cons_id = o.cons_id and main_name) as name
-        from constituency AS o where name like '%" . mysql_real_escape_string($try) . "%'
+        from constituency AS o where name like :try
         and from_date <= date(now()) and date(now()) <= to_date";
     $db = new ParlDB;
-    $q = $db->query($query);
+    $q = $db->query($query, array(':try' => '%' . $try . '%'));
 
     $constituencies = array();
     for ($n=0; $n<$q->rows(); $n++) {

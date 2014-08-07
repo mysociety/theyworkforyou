@@ -31,8 +31,10 @@ function get_person_id($c) {
     if ($c == 'Orkney ') $c = 'Orkney &amp; Shetland';
     $n = normalise_constituency_name($c); if ($n) $c = $n;
     $q = $db->query("SELECT person_id FROM member
-        WHERE constituency = '" . mysql_real_escape_string($c) . "'
-        AND left_reason = 'still_in_office' AND house=1");
+        WHERE constituency = :constituency
+        AND left_reason = 'still_in_office' AND house=1", array(
+            ':constituency' => $c
+            ));
     if ($q->rows > 0)
         return $q->field(0, 'person_id');
     return false;

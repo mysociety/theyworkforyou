@@ -102,12 +102,17 @@ class ALERT {
       // and $end_date (inclusive) and whose confirmed and deleted values match the booleans
       // passed in $confirmed and $deleted
         $q = $this->db->query("SELECT   criteria, count(*) as cnt
-                             FROM     alerts
-                                 WHERE    confirmed = ". $confirmed .
-                               " AND      deleted = " . $deleted .
-                               " AND      created >= '" .  mysql_real_escape_string($start_date) . "'" .
-                             " AND      created <= '" .  mysql_real_escape_string($end_date) . "'" .
-                                " GROUP BY criteria" );
+            FROM     alerts
+            WHERE    confirmed = :confirmed
+            AND      deleted = :deleted
+            AND      created >= :start_date
+            AND      created <= :end_date
+            GROUP BY criteria", array(
+            ':confirmed' => $confirmed,
+            ':deleted' => $deleted,
+            ':start_date' => $start_date,
+            ':end_date' => $end_date
+            ));
         $data = array();
     for ($row=0; $row<$q->rows(); $row++) {
       $contents = array('criteria' => $q->field($row, 'criteria'), 'count' => $q->field($row, 'cnt'));
@@ -172,11 +177,23 @@ class ALERT {
 
         $criteria = alert_details_to_criteria($details);
 
-        $q = $this->db->query("SELECT * FROM alerts WHERE email='".mysql_real_escape_string($details['email'])."' AND criteria='".mysql_real_escape_string($criteria)."' AND confirmed=1");
+        $q = $this->db->query("SELECT * FROM alerts
+            WHERE email = :email
+            AND criteria = :criteria
+            AND confirmed=1", array(
+                ':email' => $details['email'],
+                ':criteria' => $criteria
+            ));
         if ($q->rows() > 0) {
             $deleted = $q->field(0, 'deleted');
             if ($deleted) {
-                $this->db->query("UPDATE alerts SET deleted=0 WHERE email='".mysql_real_escape_string($details['email'])."' AND criteria='".mysql_real_escape_string($criteria)."' AND confirmed=1");
+                $this->db->query("UPDATE alerts SET deleted=0
+                    WHERE email = :email
+                    AND criteria = :criteria
+                    AND confirmed=1", array(
+                        ':email' => $details['email'],
+                        ':criteria' => $criteria
+                    ));
                 return 1;
             } else {
                 return -2;
@@ -186,12 +203,16 @@ class ALERT {
         $q = $this->db->query("INSERT INTO alerts (
                 email, criteria, postcode, deleted, confirmed, created
             ) VALUES (
-                '" . mysql_real_escape_string($details["email"]) . "',
-                '" . mysql_real_escape_string($criteria) . "',
-                '" . mysql_real_escape_string($details['pc']) . "',
+                :email,
+                :criteria,
+                :pc,
                 '0', '0', NOW()
             )
-        ");
+        ", array(
+            ':email' => $details['email'],
+            ':criteria' => $criteria,
+            ':pc' => $details['pc'],
+            ));
 
         if ($q->success()) {
 
@@ -218,9 +239,12 @@ class ALERT {
             // Add that to the database.
 
             $r = $this->db->query("UPDATE alerts
-                        SET registrationtoken = '" . mysql_real_escape_string($this->registrationtoken) . "'
-                        WHERE alert_id = '" . mysql_real_escape_string($this->alert_id) . "'
-                        ");
+                        SET registrationtoken = :registration_token
+                        WHERE alert_id = :alert_id
+                        ", array(
+                            ':registration_token' => $this->registrationtoken,
+                            ':alert_id' => $this->alert_id
+                        ));
 
             if ($r->success()) {
                 // Updated DB OK.
@@ -240,8 +264,10 @@ class ALERT {
                     // No confirmation email needed.
                     $s = $this->db->query("UPDATE alerts
                         SET confirmed = '1'
-                        WHERE alert_id = '" . mysql_real_escape_string($this->alert_id) . "'
-                        ");
+                        WHERE alert_id = :alert_id
+                        ", array(
+                            ':alert_id' => $this->alert_id
+                        ));
                     return 1;
                 }
             } else {
@@ -324,8 +350,11 @@ class ALERT {
     public function fetch_by_mp($email, $pid) {
         $q = $this->db->query("SELECT alert_id FROM alerts
             WHERE confirmed AND NOT deleted
-            AND email='" . mysql_real_escape_string($email) . "'
-            AND criteria='speaker:" . mysql_real_escape_string($pid) . "'");
+            AND email = :email
+            AND criteria = :criteria", array(
+                ':email' => $email,
+                ':criteria' => 'speaker:' . $pid
+            ));
         if ($q->rows() > 0) {
             return true;
         } else {
@@ -337,7 +366,10 @@ class ALERT {
         // Returns true if there's a user with this email address.
 
         if ($email != "") {
-            $q = $this->db->query("SELECT alert_id FROM alerts WHERE email='" . mysql_real_escape_string($email) . "'");
+            $q = $this->db->query("SELECT alert_id FROM alerts
+                WHERE email = :email", array(
+                    ':email' => $email
+                ));
             if ($q->rows() > 0) {
                 return true;
             } else {
@@ -364,9 +396,12 @@ class ALERT {
 
         $q = $this->db->query("SELECT alert_id, email, criteria
                         FROM alerts
-                        WHERE alert_id = '" . mysql_real_escape_string($alert_id) . "'
-                        AND registrationtoken = '" . mysql_real_escape_string($registrationtoken) . "'
-                        ");
+                        WHERE alert_id = :alert_id
+                        AND registrationtoken = :registration_token
+                        ", array(
+                            ':alert_id' => $alert_id,
+                            ':registration_token' => $registrationtoken
+                        ));
         if (!$q->rows()) {
             $this->token_checked = false;
         } else {
@@ -388,7 +423,9 @@ class ALERT {
         if (!($alert = $this->check_token($token))) return false;
         $this->criteria = $alert['criteria'];
         $this->email = $alert['email'];
-        $r = $this->db->query("UPDATE alerts SET confirmed = 1, deleted = 0 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
+        $r = $this->db->query("UPDATE alerts SET confirmed = 1, deleted = 0 WHERE alert_id = :alert_id", array(
+            ':alert_id' => $alert['id']
+            ));
 
         return $r->success();
     }
@@ -398,21 +435,27 @@ class ALERT {
     // If all goes well the alert will be flagged as deleted.
     public function delete($token) {
         if (!($alert = $this->check_token($token))) return false;
-        $r = $this->db->query("UPDATE alerts SET deleted = 1 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
+        $r = $this->db->query("UPDATE alerts SET deleted = 1 WHERE alert_id = :alert_id", array(
+            ':alert_id' => $alert['id']
+            ));
 
         return $r->success();
     }
 
     public function suspend($token) {
         if (!($alert = $this->check_token($token))) return false;
-        $r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
+        $r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = :alert_id", array(
+            ':alert_id' => $alert['id']
+            ));
 
         return $r->success();
     }
 
     public function resume($token) {
         if (!($alert = $this->check_token($token))) return false;
-        $r = $this->db->query("UPDATE alerts SET deleted = 0 WHERE alert_id = " . mysql_real_escape_string($alert['id']));
+        $r = $this->db->query("UPDATE alerts SET deleted = 0 WHERE alert_id = :alert_id", array(
+            ':alert_id' => $alert['id']
+            ));
 
         return $r->success();
     }
@@ -441,8 +484,10 @@ class ALERT {
 
 function alerts_manage($email) {
     $db = new ParlDB;
-    $q = $db->query('SELECT * FROM alerts WHERE email = "' . mysql_real_escape_string($email) . '"
-        AND deleted!=1 ORDER BY created');
+    $q = $db->query('SELECT * FROM alerts WHERE email = :email
+        AND deleted != 1 ORDER BY created', array(
+            ':email' => $email
+        ));
     $out = '';
     for ($i=0; $i<$q->rows(); ++$i) {
         $row = $q->row($i);

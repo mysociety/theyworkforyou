@@ -33,7 +33,9 @@ $q = $db->query("select house, title, first_name, last_name, member.constituency
         left join personinfo on member.person_id = personinfo.person_id
             and personinfo.data_key='date_of_birth'
     where consinfo.data_key = 'bbc_constituency_id'
-        and consinfo.data_value = " . mysql_real_escape_string($bbc_cons_id));
+        and consinfo.data_value = :bbc_cons_id", array(
+            ':bbc_cons_id' => $bbc_cons_id
+            ));
 if (!$q->rows())
     error('Unknown constituency ID');
 

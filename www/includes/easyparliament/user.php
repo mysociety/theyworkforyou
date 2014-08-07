@@ -106,7 +106,8 @@ class USER {
                                 deleted,
                                 confirmed
                         FROM    users
-                        WHERE   user_id='" . mysql_real_escape_string($user_id) . "'");
+                        WHERE   user_id = :user_id",
+                        array(':user_id' => $user_id));
 
 
         if ($q->rows() == 1) {
@@ -187,20 +188,32 @@ class USER {
                 registrationip,
                 deleted
             ) VALUES (
-                '" . mysql_real_escape_string($details["firstname"]) . "',
-                '" . mysql_real_escape_string($details["lastname"]) . "',
-                '" . mysql_real_escape_string($details["email"]) . "',
-                '" . mysql_real_escape_string($emailpublic) . "',
-                '" . mysql_real_escape_string($details["postcode"]) . "',
-                '" . mysql_real_escape_string($details["url"]) . "',
-                '" . mysql_real_escape_string($passwordforDB) . "',
-                '" . mysql_real_escape_string($optin) . "',
-                '" . mysql_real_escape_string($details["status"]) . "',
-                '" . mysql_real_escape_string($registrationtime) . "',
-                '" . mysql_real_escape_string($REMOTE_ADDR) . "',
+                :firstname,
+                :lastname,
+                :email,
+                :emailpublic,
+                :postcode,
+                :url,
+                :password,
+                :optin,
+                :status,
+                :registrationtime,
+                :registrationip,
                 '0'
             )
-        ");
+        ", array(
+            ':firstname' => $details["firstname"],
+            ':lastname' => $details["lastname"],
+            ':email' => $details["email"],
+            ':emailpublic' => $emailpublic,
+            ':postcode' => $details["postcode"],
+            ':url' => $details["url"],
+            ':password' => $passwordforDB,
+            ':optin' => $optin,
+            ':status' => $details["status"],
+            ':registrationtime' => $registrationtime,
+            ':registrationip' => $REMOTE_ADDR
+        ));
 
         if ($q->success()) {
             // Set these so we can log in.
@@ -223,9 +236,12 @@ class USER {
 
             // Add that to the DB.
             $r = $this->db->query("UPDATE users
-                            SET registrationtoken = '" . mysql_real_escape_string($this->registrationtoken) . "'
-                            WHERE   user_id = '" . mysql_real_escape_string($this->user_id) . "'
-                            ");
+                            SET registrationtoken = :registrationtoken
+                            WHERE   user_id = :user_id
+                            ", array (
+                                ':registrationtoken' => $this->registrationtoken,
+                                ':user_id' => $this->user_id
+                            ));
 
             if ($r->success()) {
                 // Updated DB OK.
@@ -429,7 +445,11 @@ class USER {
 
         $passwordforDB = crypt($pwd);
 
-        $q = $this->db->query ("UPDATE users SET password = '" . mysql_real_escape_string($passwordforDB) . "' WHERE email='" . mysql_real_escape_string($email) . "'");
+        $q = $this->db->query ("UPDATE users SET password = :password WHERE email = :email",
+            array(
+                ':password' => $passwordforDB,
+                ':email' => $email
+            ));
 
         if ($q->success()) {
             $this->password = $pwd;
@@ -480,7 +500,8 @@ class USER {
         // Returns true if there's a user with this user_id.
 
         if (is_numeric($user_id)) {
-            $q = $this->db->query("SELECT user_id FROM users WHERE user_id='" . mysql_real_escape_string($user_id) . "'");
+            $q = $this->db->query("SELECT user_id FROM users WHERE user_id = :user_id",
+                array(':user_id' => $user_id));
             if ($q->rows() > 0) {
                 return true;
             } else {
@@ -497,7 +518,7 @@ class USER {
         // Returns true if there's a user with this email address.
 
         if ($email != "") {
-            $q = $this->db->query("SELECT user_id FROM users WHERE email='" . mysql_real_escape_string($email) . "'");
+            $q = $this->db->query("SELECT user_id FROM users WHERE email = :email", array(':email' => $email));
             if ($q->rows() > 0) {
                 if ($return_id) {
                     $row = $q->row(0);
@@ -669,7 +690,11 @@ class USER {
 
         // Update email alerts if email address changed
         if (isset($details['email']) && $this->email != $details['email']) {
-            $this->db->query('UPDATE alerts SET email = "' . mysql_real_escape_string($details['email']) . '" WHERE email = "' . mysql_real_escape_string($this->email) . '"');
+            $this->db->query('UPDATE alerts SET email = :details_email WHERE email = :email',
+            array(
+                ':details_email' => $details['email'],
+                ':email' => $this->email
+            ));
         }
 
         // These are used to put optional fragments of SQL in, depending
@@ -680,6 +705,8 @@ class USER {
         $statussql = "";
         $emailsql = '';
 
+        $params = array();
+
         if (isset($details["password"]) && $details["password"] != "") {
             // The password is being updated.
             // If not, the password fields on the form will be left blank
@@ -688,7 +715,8 @@ class USER {
             // We crypt all passwords going into DB.
             $passwordforDB = crypt($details["password"]);
 
-            $passwordsql = "password    = '" . mysql_real_escape_string($passwordforDB) . "', ";
+            $passwordsql = "password = :password, ";
+            $params[':password'] = $passwordforDB;
         }
 
         if (isset($details["deleted"])) {
@@ -720,12 +748,14 @@ class USER {
         if (isset($details["status"]) && $details["status"] != "") {
             // 'status' won't always be an option (ie, if the user is updating
             // their own info.
-            $statussql = "status    = '" . mysql_real_escape_string($details["status"]) . "', ";
+            $statussql = "status = :status, ";
+            $params[':status'] = $details['status'];
 
         }
 
         if (isset($details['email']) && $details['email']) {
-            $emailsql = "email = '" . mysql_real_escape_string($details['email']) . "', ";
+            $emailsql = "email = :email, ";
+            $params[':email'] = $details['email'];
         }
 
         // Convert internal true/false variables to MySQL BOOL 1/0 variables.
@@ -733,19 +763,27 @@ class USER {
         $optin = $details["optin"] == true ? 1 : 0;
 
         $q = $this->db->query("UPDATE users
-                        SET     firstname   = '" . mysql_real_escape_string($details["firstname"]) . "',
-                                lastname    = '" . mysql_real_escape_string($details["lastname"]) . "',
-                                emailpublic = '" . $emailpublic . "',
-                                postcode    = '" . mysql_real_escape_string($details["postcode"]) . "',
-                                url         = '" . mysql_real_escape_string($details["url"]) . "',"
+                        SET     firstname   = :firstname,
+                                lastname    = :lastname,
+                                emailpublic = :emailpublic,
+                                postcode    = :postcode,
+                                url         = :url,"
                                 . $passwordsql
                                 . $deletedsql
                                 . $confirmedsql
                                 . $emailsql
                                 . $statussql . "
-                                optin       = '" . $optin . "'
-                        WHERE   user_id     = '" . mysql_real_escape_string($details["user_id"]) . "'
-                        ");
+                                optin       = :optin
+                        WHERE   user_id     = :user_id
+                        ", array_merge($params, array(
+                            ':firstname' => $details['firstname'],
+                            ':lastname' => $details['lastname'],
+                            ':emailpublic' => $emailpublic,
+                            ':postcode' => $details['postcode'],
+                            ':url' => $details['url'],
+                            ':optin' => $optin,
+                            ':user_id' => $details['user_id']
+                        )));
 
         // If we're returning to
         // $this->update_self() then $THEUSER will have its variables
@@ -913,7 +951,7 @@ class THEUSER extends USER {
 
         $error_string = 'There is no user registered with an email of ' . _htmlentities($email) . ', or the given password is incorrect. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave annotations.';
 
-        $q = $this->db->query("SELECT user_id, password, deleted, confirmed FROM users WHERE email='" . mysql_real_escape_string($email) . "'");
+        $q = $this->db->query("SELECT user_id, password, deleted, confirmed FROM users WHERE email = :email", array(':email' => $email));
 
         if ($q->rows() == 1) {
             // OK.
@@ -1027,9 +1065,9 @@ class THEUSER extends USER {
         }
         $q = $this->db->query("SELECT expires, data
             FROM    tokens
-            WHERE   token = '" . mysql_real_escape_string($registrationtoken) . "'
+            WHERE   token = :token
             AND   type = 'E'
-        ");
+        ", array (':token' => $registrationtoken));
 
         if ($q->rows() == 1) {
             $expires = $q->field(0, 'expires');
@@ -1072,9 +1110,9 @@ class THEUSER extends USER {
                 // and remove the token to be tidy
                 $q = $this->db->query("DELETE
                     FROM    tokens
-                    WHERE   token = '" . mysql_real_escape_string($registrationtoken) . "'
+                    WHERE   token = :token
                     AND   type = 'E'
-                ");
+                ", array(':token' => $registrationtoken));
 
                 $this->email = $email;
                 $URL = new URL('userconfirmed');
@@ -1111,9 +1149,12 @@ class THEUSER extends USER {
 
         $q = $this->db->query("SELECT email, password, postcode
                         FROM    users
-                        WHERE   user_id = '" . mysql_real_escape_string($user_id) . "'
-                        AND     registrationtoken = '" . mysql_real_escape_string($registrationtoken) . "'
-                        ");
+                        WHERE   user_id = :user_id
+                        AND     registrationtoken = :token
+                        ", array(
+                            ':user_id' => $user_id,
+                            ':token' => $registrationtoken
+                        ));
 
         if ($q->rows() == 1) {
 
@@ -1125,16 +1166,17 @@ class THEUSER extends USER {
             // Set that they're confirmed in the DB.
             $r = $this->db->query("UPDATE users
                             SET     confirmed = '1'
-                            WHERE   user_id = '" . mysql_real_escape_string($user_id) . "'
-                            ");
+                            WHERE   user_id = :user_id
+                            ", array(':user_id' => $user_id));
 
             if ($q->field(0, 'postcode')) {
                 $MEMBER = new MEMBER(array('postcode'=>$q->field(0, 'postcode'), 'house'=>1));
                 $pid = $MEMBER->person_id();
                 # This should probably be in the ALERT class
-                $this->db->query('update alerts set confirmed=1 where email="' .
-                    mysql_real_escape_string($this->email) . '" and criteria="speaker:' .
-                    mysql_real_escape_string($pid) . '"');
+                $this->db->query('update alerts set confirmed=1 where email = :email and criteria = :criteria', array(
+                        ':email' => $this->email,
+                        ':criteria' => 'speaker:' . $pid
+                    ));
             }
 
             if ($r->success()) {
@@ -1229,11 +1271,14 @@ class THEUSER extends USER {
                         VALUES
                         (
                             DATE_ADD(CURRENT_DATE(), INTERVAL 30 DAY),
-                            '" . mysql_real_escape_string( $token ) . "',
+                            :token,
                             'E',
-                            '" . mysql_real_escape_string( $data ) . "'
+                            :data
                         )
-                    ");
+                    ", array(
+                        ':token' => $token,
+                        ':data' => $data
+                    ));
 
                     // send confirmation email here
                     if ( $r->success() ) {

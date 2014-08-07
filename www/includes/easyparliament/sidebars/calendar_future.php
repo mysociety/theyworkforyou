@@ -34,11 +34,14 @@ list($firstyear, $firstmonth, $day) = explode('-', $min_future_date);
 list($finalyear, $finalmonth, $day) = explode('-', $max_future_date);
 
 $q =  $db->query("SELECT DISTINCT(event_date) AS event_date FROM future
-    WHERE event_date >= '" . mysql_real_escape_string($firstyear) . "-" . mysql_real_escape_string($firstmonth) . "-01'
-    AND event_date <= '" . mysql_real_escape_string($finalyear) . "-" . mysql_real_escape_string($finalmonth) . "-31'
+    WHERE event_date >= :firstdate
+    AND event_date <= :finaldate
     AND deleted = 0
     ORDER BY event_date ASC
-");
+", array(
+    ':firstdate' => $firstyear . '-' . $firstmonth . '-01',
+    ':finaldate' => $finalyear . '-' . $finalmonth . '-31'
+));
 
 if ($q->rows() > 0) {
     $years = array();
