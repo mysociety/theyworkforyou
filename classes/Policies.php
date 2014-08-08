@@ -93,6 +93,7 @@ class Policies {
         6711 => 'an annual tax on the value of expensive homes (popularly known as a <b>mansion tax</b>)',
         6715 => 'allowing national security sensitive evidence to be put before <b>courts in secret sessions</b>',
         6716 => 'allowing employees to exchange some employment <b>rights for shares</b> in the company they work for',
+        6721 => 'requiring the mass <b>retention of information about communications</b>',
     );
 
     /**
@@ -197,7 +198,8 @@ class Policies {
             1087,
             1071,
             1051,
-            6696
+            6696,
+            6721,
         ),
         'misc' => array(
             810,
