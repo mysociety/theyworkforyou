@@ -91,6 +91,7 @@ class Policies {
         6709 => 'transferring <b>more powers to the Scottish Parliament</b>',
         6710 => '<b>culling badgers</b> to tackle bovine tuberculosis',
         6711 => 'an annual tax on the value of expensive homes (popularly known as a <b>mansion tax</b>)',
+        6715 => 'allowing national security sensitive evidence to be put before <b>courts in secret sessions</b>',
         6716 => 'allowing employees to exchange some employment <b>rights for shares</b> in the company they work for',
     );
 
@@ -210,6 +211,7 @@ class Policies {
             6705,
             6707,
             6710,
+            6715,
         )
     );
 
