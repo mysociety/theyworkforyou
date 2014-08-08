@@ -90,6 +90,7 @@ class Policies {
         6709 => 'transferring <b>more powers to the Scottish Parliament</b>',
         6710 => '<b>culling badgers</b> to tackle bovine tuberculosis',
         6711 => 'an annual tax on the value of expensive homes (popularly known as a <b>mansion tax</b>)',
+        6716 => 'allowing employees to exchange some employment <b>rights for shares</b> in the company they work for',
     );
 
     /**
@@ -155,6 +156,7 @@ class Policies {
             1124,
             6685,
             6711,
+            6716,
         ),
         'business' => array(
             6679,
