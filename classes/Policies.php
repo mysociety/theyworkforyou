@@ -53,6 +53,7 @@ class Policies {
         1124 => 'automatic enrolment in <b>occupational pensions</b>',
         1132 => 'raising England&rsquo;s <b>undergraduate tuition fee</b> cap to &pound;9,000 per year',
         1136 => '<b>fewer MPs</b> in the House of Commons',
+        6667 => 'the policies included in the 2010 <b><a href="http://webarchive.nationalarchives.gov.uk/20100527091800/http://programmeforgovernment.hmg.gov.uk/">Conservative - Liberal Democrat Coalition Agreement</a></b>',
         6670 => 'a reduction in spending on <b>welfare benefits</b>',
         6671 => 'reducing central government <b>funding of local government</b>',
         6672 => 'reducing <b>housing benefit</b> for social tenants deemed to have excess bedrooms (which Labour describe as the "bedroom tax")',
@@ -220,6 +221,7 @@ class Policies {
             6720,
             6719,
             6718,
+            6667,
         )
     );
 
