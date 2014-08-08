@@ -76,6 +76,7 @@ class Policies {
         6692 => 'slowing the rise in <b>rail fares</b>',
         6693 => 'lower taxes on <b>fuel for motor vehicles</b>',
         6694 => 'higher taxes on <b>alcoholic drinks</b>',
+        6695 => 'more <b>powers for local councils</b>',
         6696 => 'the introduction of elected <b>Police and Crime Commissioners</b>',
         6698 => '<b>fixed periods between parliamentary elections</b>',
         6699 => 'higher <b>taxes on plane tickets</b>',
@@ -189,6 +190,7 @@ class Policies {
             1079,
             6708,
             6709,
+            6695,
         ),
         'home' => array(
             1087,
