@@ -93,6 +93,7 @@ class Policies {
         6711 => 'an annual tax on the value of expensive homes (popularly known as a <b>mansion tax</b>)',
         6715 => 'allowing national security sensitive evidence to be put before <b>courts in secret sessions</b>',
         6716 => 'allowing employees to exchange some employment <b>rights for shares</b> in the company they work for',
+        6719 => 'limits on success <b>fees</b> paid to lawyers in <b>no-win no fee cases</b>',
         6720 => 'a statutory <b>register of lobbyists</b>',
         6721 => 'requiring the mass <b>retention of information about communications</b>',
     );
@@ -216,6 +217,7 @@ class Policies {
             6710,
             6715,
             6720,
+            6719,
         )
     );
 
