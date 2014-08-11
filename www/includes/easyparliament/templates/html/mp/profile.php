@@ -5,7 +5,7 @@
                 <div class="person-name">
                   <?php if ( $image ) { ?>
                     <div class="mp-image">
-                        <img src="<?= $image ?>" height="48">
+                        <img src="<?= $image['url'] ?>" height="48">
                     </div>
                   <?php } ?>
                     <div class="mp-name-and-position">
@@ -17,15 +17,26 @@
                       <?php } ?>
                     </div>
                 </div>
-              <?php if(isset($data['photo_attribution_text'])) { ?>
-                <div class="person-data-attribution">
-                  <?php if(isset($data['photo_attribution_link'])) { ?>
-                    Profile photo: <a href="<?= $data['photo_attribution_link'] ?>"><?= $data['photo_attribution_text'] ?></a>
-                  <?php } else { ?>
-                    Profile photo: <?= $data['photo_attribution_text'] ?>
-                  <?php } ?>
-                </div>
-              <?php } ?>
+                <?php if($image && $image['exists']): ?>
+                    <?php if(isset($data['photo_attribution_text'])) { ?>
+                        <div class="person-data-attribution">
+                          <?php if(isset($data['photo_attribution_link'])) { ?>
+                            Profile photo: <a href="<?= $data['photo_attribution_link'] ?>"><?= $data['photo_attribution_text'] ?></a>
+                          <?php } else { ?>
+                            Profile photo: <?= $data['photo_attribution_text'] ?>
+                          <?php } ?>
+                        </div>
+                    <?php } ?>
+                <?php else: ?>
+                    <div class="person-data-attribution">
+                        We&rsquo;re missing a photo of <?= $full_name ?>. If you have a
+                        photo <em>that you can release under a Creative Commons Attribution-ShareAlike
+                        license</em> or can locate a <em>copyright free</em> photo,
+                        <a href="mailto:<?= str_replace('@', '&#64;', CONTACTEMAIL) ?>">please email it to us</a>.
+                        Please do not email us about copyrighted photos elsewhere on the internet; we can&rsquo;t
+                        use them.
+                    </div>
+                <?php endif; ?>
                 <div class="person-constituency">
                   <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ) { ?>
                     <span class="constituency"><?= $constituency ?></span>

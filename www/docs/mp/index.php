@@ -470,7 +470,7 @@ try {
                 $data[$key] = $MEMBER->extra_info[$key];
             }
         }
-        $data['image'] = person_image($MEMBER);
+        $data['image'] = $MEMBER->image();
         $data['member_summary'] = person_summary_description($MEMBER);
         $data['enter_leave'] = $MEMBER->getEnterLeaveStrings();
         $data['other_parties'] = $MEMBER->getOtherPartiesString();
