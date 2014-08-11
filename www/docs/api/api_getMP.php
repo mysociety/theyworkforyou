@@ -151,7 +151,7 @@ function _api_getMP_constituency($constituency) {
     if ($constituency == 'Orkney ')
         $constituency = 'Orkney &amp; Shetland';
 
-    $normalised = normalise_constituency_name($constituency);
+    $normalised = \MySociety\TheyWorkForYou\Utility\Constituency::normaliseConstituencyName($constituency);
     if ($normalised) $constituency = $normalised;
 
     $q = $db->query("SELECT * FROM member

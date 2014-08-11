@@ -45,7 +45,7 @@ function api_getConstituency_postcode($pc) {
 }
 
 function api_getConstituency_name($constituency) {
-    $constituency = normalise_constituency_name($constituency);
+    $constituency = \MySociety\TheyWorkForYou\Utility\Constituency::normaliseConstituencyName($constituency);
     if (!$constituency) {
         api_error('Could not find anything with that name');
 

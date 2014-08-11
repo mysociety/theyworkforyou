@@ -2,8 +2,6 @@
 
 namespace MySociety\TheyWorkForYou\Utility;
 
-include_once INCLUDESPATH . 'constituencies.inc';
-
 /**
  * Postcode Utilities
  *
@@ -130,7 +128,7 @@ class Postcode
         }
 
         # Normalise name - assume SP and NI are already so...
-        $normalised = normalise_constituency_name(strtolower($areas['WMC']));
+        $normalised = Constituency::normaliseConstituencyName(strtolower($areas['WMC']));
         if ($normalised) {
             $areas['WMC'] = $normalised;
             if (self::postcodeIsScottish($postcode)) {

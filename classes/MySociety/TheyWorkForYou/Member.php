@@ -12,7 +12,6 @@ namespace MySociety\TheyWorkForYou;
  */
 
 include_once INCLUDESPATH."easyparliament/glossary.php";
-include_once INCLUDESPATH."constituencies.inc";
 
 class Member {
 
@@ -231,7 +230,8 @@ class Member {
             $constituency = 'Orkney & Shetland';
         }
 
-        $normalised = normalise_constituency_name($constituency);
+        $normalised = Utility\Constituency::normaliseConstituencyName($constituency);
+
         if ($normalised) $constituency = $normalised;
 
             $params = array();
