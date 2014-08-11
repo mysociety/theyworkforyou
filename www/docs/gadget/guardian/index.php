@@ -2,7 +2,6 @@
 
 ini_set('display_errors', 'On');
 include_once '../min-init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once '../../api/api_functions.php';
 
 $action = get_http_var('action');
@@ -132,7 +131,7 @@ twfy_debug_timestamp();
 # ---
 
 function load_member($pid) {
-    $member = new MEMBER(array('guardian_aristotle_id' => $pid));
+    $member = new \MySociety\TheyWorkForYou\Member(array('guardian_aristotle_id' => $pid));
     if (!$member->valid) output_error('Unknown ID');
     $member->load_extra_info();
     return $member;

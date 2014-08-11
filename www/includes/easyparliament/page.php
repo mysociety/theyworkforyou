@@ -1,7 +1,7 @@
 <?php
 
 include_once INCLUDESPATH . '../../commonlib/phplib/gaze.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
+include_once INCLUDESPATH."postcode.inc";
 
 class PAGE {
 
@@ -1550,7 +1550,7 @@ pr()//-->
         $person_name = '';
         if (preg_match_all('#speaker:(\d+)#', $value, $m) == 1) {
             $person_id = $m[1][0];
-            $member = new MEMBER(array('person_id' => $person_id));
+            $member = new \MySociety\TheyWorkForYou\Member(array('person_id' => $person_id));
             if ($member->valid) {
                 $value = str_replace("speaker:$person_id", '', $value);
                     $person_name = $member->full_name();

@@ -5,13 +5,12 @@
 # XXX Lots here copied from elsewhere... Damn you deadlines.
 
 include_once 'min-init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once '../api/api_functions.php';
 
 $pid = $_GET['pid'];
 if (!$pid) { print '<error>No ID</error>'; exit; }
 
-$member = new MEMBER(array('person_id' => $pid));
+$member = new \MySociety\TheyWorkForYou\Member(array('person_id' => $pid));
 if (!$member->valid) { print '<error>Unknown ID</error>'; exit; }
 $member->load_extra_info();
 

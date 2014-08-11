@@ -1,7 +1,4 @@
 <?php
-
-include_once INCLUDESPATH."easyparliament/member.php";
-
 function api_getHansard_front() {
 ?>
 <p><big>Fetch all Hansard.</big></p>

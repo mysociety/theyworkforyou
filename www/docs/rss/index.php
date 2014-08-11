@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH."easyparliament/member.php";
 include_once INCLUDESPATH."postcode.inc";
 
 $pc = get_http_var('pc');
@@ -16,7 +15,7 @@ if (validate_postcode($pc)) {
             $errors['pc'] = "Sorry, " . _htmlentities($pc) . " isn't a known postcode";
             twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
        } else {
-            $MEMBER = new MEMBER(array('constituency' => $constituency));
+            $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency' => $constituency));
             if ($MEMBER->person_id()) {
                 // This will cookie the postcode.
                 $THEUSER->set_postcode_cookie($pc);

@@ -33,7 +33,6 @@ $new_style_template = TRUE;
 
 // Include all the things this page needs.
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once INCLUDESPATH . 'postcode.inc';
 include_once INCLUDESPATH . 'technorati.php';
 include_once '../api/api_getGeometry.php';
@@ -741,7 +740,7 @@ function person_summary_description ($MEMBER) {
  *
  * How often has this person rebelled against their party?
  *
- * @param MEMBER $member The member to calculate rebellion rate for.
+ * @param \MySociety\TheyWorkForYou\Member $member The member to calculate rebellion rate for.
  *
  * @return string A HTML summary of this person's rebellion rate.
  */

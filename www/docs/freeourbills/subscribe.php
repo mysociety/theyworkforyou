@@ -1,6 +1,6 @@
 <?php
 
-# Will need: $MEMBER = new MEMBER(array('constituency' => $constituency));
+# Will need: $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency' => $constituency));
 
 require_once '../../includes/easyparliament/init.php';
 require_once '../../includes/postcode.inc';

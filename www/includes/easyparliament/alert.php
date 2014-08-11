@@ -468,7 +468,7 @@ class ALERT {
         $words = array(); $spokenby = '';
         foreach ($criteria as $c) {
             if (preg_match('#^speaker:(\d+)#',$c,$m)) {
-                $MEMBER = new MEMBER(array('person_id'=>$m[1]));
+                $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id'=>$m[1]));
                 $spokenby = $MEMBER->full_name();
             } else {
                 $words[] = $c;
@@ -496,7 +496,7 @@ function alerts_manage($email) {
         $current = true;
         foreach ($criteria as $c) {
             if (preg_match('#^speaker:(\d+)#',$c,$m)) {
-                $MEMBER = new MEMBER(array('person_id'=>$m[1]));
+                $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id'=>$m[1]));
                 $ccc[] = 'spoken by ' . $MEMBER->full_name();
                 if (!$MEMBER->current_member_anywhere()) {
                     $current = false;

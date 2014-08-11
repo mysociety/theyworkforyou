@@ -27,21 +27,11 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
     }
 
     /**
-     * Ensures the database is prepared and the member class is included for every test.
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        include_once('www/includes/easyparliament/member.php');
-    }
-
-    /**
      * Test that a member is correctly retrieved by person ID alone.
      */
     public function testGetMPByPersonID()
     {
-        $MEMBER = new MEMBER(array('person_id' => 2));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => 2));
 
         $this->assertEquals(1, $MEMBER->member_id);
         $this->assertEquals(2, $MEMBER->person_id);
@@ -52,7 +42,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetMPByMemberID()
     {
-        $MEMBER = new MEMBER(array('member_id' => 1));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('member_id' => 1));
 
         $this->assertEquals(1, $MEMBER->member_id);
         $this->assertEquals(2, $MEMBER->person_id);
@@ -66,7 +56,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
         global $this_page;
         $this_page = 'mp';
 
-        $MEMBER = new MEMBER(array('name' => 'test current-mp'));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('name' => 'test current-mp'));
 
         $this->assertEquals(1, $MEMBER->member_id);
         $this->assertEquals(2, $MEMBER->person_id);
@@ -77,7 +67,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetMPByConstituency()
     {
-        $MEMBER = new MEMBER(array('constituency' => 'test westminster constituency'));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency' => 'test westminster constituency'));
 
         $this->assertEquals(1, $MEMBER->member_id);
         $this->assertEquals(2, $MEMBER->person_id);
@@ -91,7 +81,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
         global $this_page;
         $this_page = 'mp';
 
-        $MEMBER = new MEMBER(array('name' => 'test current-mp', 'constituency' => 'test westminster constituency'));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('name' => 'test current-mp', 'constituency' => 'test westminster constituency'));
 
         $this->assertEquals(1, $MEMBER->member_id);
         $this->assertEquals(2, $MEMBER->person_id);
@@ -105,7 +95,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
         global $this_page;
         $this_page = 'mp';
 
-        $MEMBER = new MEMBER(array('name' => 'test duplicate-mp'));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('name' => 'test duplicate-mp'));
 
         #var_dump($MEMBER);
 
@@ -118,7 +108,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetMPURL()
     {
-        $MEMBER = new MEMBER(array('person_id' => 2));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => 2));
 
         $this->assertEquals('http://' . DOMAIN . '/mp/2/test_current-mp/test_westminster_constituency', $MEMBER->url());
     }
@@ -130,7 +120,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetMPSpecialCharacterURL()
     {
-        $MEMBER = new MEMBER(array('person_id' => 12));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => 12));
 
         $this->assertEquals('http://' . DOMAIN . '/mp/12/test_special-character-constituency/test_constituency%2C_comma', $MEMBER->url());
     }
@@ -140,7 +130,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetPeerURL()
     {
-        $MEMBER = new MEMBER(array('person_id' => 3));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => 3));
 
         $this->assertEquals('http://' . DOMAIN . '/peer/3/mr_current-lord', $MEMBER->url());
     }
@@ -150,7 +140,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetMLAURL()
     {
-        $MEMBER = new MEMBER(array('person_id' => 8));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => 8));
 
         $this->assertEquals('http://' . DOMAIN . '/mla/8/test_previous-mla', $MEMBER->url());
     }
@@ -160,7 +150,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetMSPURL()
     {
-        $MEMBER = new MEMBER(array('person_id' => 5));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => 5));
 
         $this->assertEquals('http://' . DOMAIN . '/msp/5/test_current-msp', $MEMBER->url());
     }
@@ -170,7 +160,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetElizabethIIURL()
     {
-        $MEMBER = new MEMBER(array('person_id' => 1));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => 1));
 
         $this->assertEquals('http://' . DOMAIN . '/royal/elizabeth_the_second', $MEMBER->url());
     }
@@ -180,7 +170,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testEnteredLeftHouseString()
     {
-        $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => 9));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => 9));
 
         $this->assertEquals(array(
             "<strong>Entered the Scottish Parliament on 1 January 1990</strong> &mdash; General election",
@@ -195,7 +185,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testLoadExtraInfo()
     {
-        $MEMBER = new MEMBER(array('person_id' => 16));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => 16));
 
         $MEMBER->load_extra_info();
 
@@ -226,7 +216,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetByAristotleId()
     {
-        $MEMBER = new MEMBER(array('guardian_aristotle_id' => 123456789));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('guardian_aristotle_id' => 123456789));
 
         $MEMBER->guardian_aristotle_id_to_person_id();
 

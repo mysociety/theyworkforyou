@@ -2,7 +2,6 @@
 
 $this_page = '404';
 include_once dirname(__FILE__) . '/../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $PAGE->page_start();
 $PAGE->stripe_start();

@@ -2,7 +2,6 @@
 # vim:sw=4:ts=4:et:nowrap
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH."easyparliament/member.php";
 include_once INCLUDESPATH."easyparliament/glossary.php";
 
 // From http://cvs.sourceforge.net/viewcvs.py/publicwhip/publicwhip/website/
@@ -320,7 +319,7 @@ function find_constituency($args) {
     if ($constituency != '') {
         // Got a match, display....
 
-        $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency'=>$constituency, 'house' => 1));
         $URL = new URL('mp');
         if ($MEMBER->valid) {
             $URL->insert(array('m'=>$MEMBER->member_id()));
@@ -338,7 +337,7 @@ function find_constituency($args) {
     } elseif (count($constituencies)) {
         print "<h2>MPs in constituencies matching '" . _htmlentities($searchterm) . "'</h2><ul>";
         foreach ($constituencies as $constituency) {
-            $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
+            $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency'=>$constituency, 'house' => 1));
             $URL = new URL('mp');
             if ($MEMBER->valid) {
                 $URL->insert(array('m'=>$MEMBER->member_id()));

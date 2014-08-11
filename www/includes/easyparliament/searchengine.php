@@ -255,7 +255,7 @@ class SEARCHENGINE {
         # Speakers
         preg_match_all('#S(\d+)#', $qd, $m);
         foreach ($m[1] as $mm) {
-                $member = new MEMBER(array('person_id' => $mm));
+                $member = new \MySociety\TheyWorkForYou\Member(array('person_id' => $mm));
                 $name = iconv('iso-8859-1', 'utf-8//TRANSLIT', $member->full_name()); # Names are currently in ISO-8859-1
                 $qd = str_replace("S$mm", "speaker:$name", $qd);
         }

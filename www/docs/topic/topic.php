@@ -158,8 +158,6 @@ if (isset ($topics[$topicname]))
     // Is there a specified set of policy positions to worry about?
     if (isset ($data['policyset'])) {
 
-        include_once INCLUDESPATH . 'easyparliament/member.php';
-
         // Check to see if there's a submitted postcode to try determine policy positions.
         if (get_http_var('pc') != '')
         {

@@ -3,7 +3,6 @@
 // Generates the RSS feeds for currently sitting MPs.
 
 include '../www/includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
 
 // Where all the RSS feeds go.
 $rsspath = BASEDIR . '/rss/mp/';
@@ -28,7 +27,7 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 	$speeches = $HANSARDLIST->display('person', $args, 'none');
 		
 	// Some data about this person that we'll need for the feed.
-	$MEMBER = new MEMBER(array('person_id' => $person_id));
+	$MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => $person_id));
 	$MPURL = new URL('mp');
 	$MPURL->insert(array('pid'=>$person_id));
 	$mpurl = $MPURL->generate();

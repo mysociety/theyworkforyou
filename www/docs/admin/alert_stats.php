@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once '../../includes/easyparliament/member.php';
 
 $this_page = "alert_stats";
 
@@ -25,7 +24,7 @@ for ($i=0; $i<$q->rows(); $i++) {
     $criteria = $q->field($i, 'criteria');
     if (!preg_match('#^speaker:(\d+)#', $criteria, $m)) continue;
     $person_id = $m[1];
-    $MEMBER = new MEMBER(array('person_id'=>$person_id));
+    $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id'=>$person_id));
     if ($MEMBER->valid) {
         if (!array_key_exists($person_id, $tots)) $tots[$person_id] = 0;
         $tots[$person_id] += $c;

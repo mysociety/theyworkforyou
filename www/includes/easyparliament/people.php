@@ -190,7 +190,7 @@ class PEOPLE {
         global $THEUSER;
         $data = $this->_get_data_by_mps($args);
         if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
-            $MEMBER = new MEMBER(array('postcode'=>$THEUSER->postcode(), 'house' => 1));
+            $MEMBER = new \MySociety\TheyWorkForYou\Member(array('postcode'=>$THEUSER->postcode(), 'house' => 1));
             print '<option value="'.$MEMBER->person_id().'">Your MP, '.$MEMBER->full_name().'</option>';
         }
         print '<optgroup label="MPs">';

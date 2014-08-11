@@ -11,7 +11,6 @@ function mlog($message) {
 
 include_once '../www/includes/easyparliament/init.php';
 ini_set('memory_limit', -1);
-include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $global_start = getmicrotime();
 $db = new ParlDB;

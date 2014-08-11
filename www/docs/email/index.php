@@ -3,7 +3,6 @@
 $this_page = "emailfriend";
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $PAGE->page_start();
 
@@ -15,7 +14,7 @@ $sender_email = get_http_var('sender_mail');
 $sender_name = get_http_var('sender_name');
 $pid = intval(get_http_var('pid'));
 if ($pid)
-    $MEMBER = new MEMBER(array('person_id' => $pid));
+    $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => $pid));
 
 //validate them
 $errors = array();

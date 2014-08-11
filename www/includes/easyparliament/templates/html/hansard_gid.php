@@ -12,7 +12,6 @@
 global $PAGE, $this_page, $GLOSSARY, $hansardmajors, $DATA, $THEUSER;
 
 include_once INCLUDESPATH."easyparliament/searchengine.php";
-include_once INCLUDESPATH."easyparliament/member.php";
 
 
 twfy_debug("TEMPLATE", "hansard_gid.php");

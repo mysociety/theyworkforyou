@@ -1,7 +1,6 @@
 <?php
 
 include '../www/includes/easyparliament/init.php';
-# include INCLUDESPATH . 'easyparliament/member.php';
 
 $db = new ParlDB;
 

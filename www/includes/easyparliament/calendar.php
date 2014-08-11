@@ -73,7 +73,7 @@ function calendar_meta($e) {
     } else {
         $title = $e['title'];
         if ($pid = $e['person_id']) {
-            $MEMBER = new MEMBER(array( 'person_id' => $pid ));
+            $MEMBER = new \MySociety\TheyWorkForYou\Member(array( 'person_id' => $pid ));
             $name = $MEMBER->full_name();
             $title .= " &#8211; <a href='/mp/?p=$pid'>$name</a>";
         }

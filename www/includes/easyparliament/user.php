@@ -247,7 +247,7 @@ class USER {
                 // Updated DB OK.
 
                 if ($details['mp_alert'] && $details['postcode']) {
-                    $MEMBER = new MEMBER(array('postcode'=>$details['postcode'], 'house'=>1));
+                    $MEMBER = new \MySociety\TheyWorkForYou\Member(array('postcode'=>$details['postcode'], 'house'=>1));
                     $pid = $MEMBER->person_id();
                     # No confirmation email, but don't automatically confirm
                     $ALERT = new ALERT;
@@ -1170,7 +1170,7 @@ class THEUSER extends USER {
                             ", array(':user_id' => $user_id));
 
             if ($q->field(0, 'postcode')) {
-                $MEMBER = new MEMBER(array('postcode'=>$q->field(0, 'postcode'), 'house'=>1));
+                $MEMBER = new \MySociety\TheyWorkForYou\Member(array('postcode'=>$q->field(0, 'postcode'), 'house'=>1));
                 $pid = $MEMBER->person_id();
                 # This should probably be in the ALERT class
                 $this->db->query('update alerts set confirmed=1 where email = :email and criteria = :criteria', array(

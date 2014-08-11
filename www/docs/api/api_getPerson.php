@@ -1,7 +1,4 @@
 <?php
-
-include_once INCLUDESPATH . 'easyparliament/member.php';
-
 function api_getPerson_front() {
 ?>
 <p><big>Fetch a particular person.</big></p>

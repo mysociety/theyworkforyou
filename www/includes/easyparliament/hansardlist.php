@@ -3127,7 +3127,7 @@ class StandingCommittee extends DEBATELIST {
         $comm = array('sittings'=>$sittings);
         for ($i=0; $i<$q->rows(); $i++) {
             $member_id = $q->field($i, 'member_id');
-            $mp = new MEMBER(array('member_id'=>$member_id));
+            $mp = new \MySociety\TheyWorkForYou\Member(array('member_id'=>$member_id));
             $attending = $q->field($i, 'attending');
             $chairman = $q->field($i, 'chairman');
             $arr = array(

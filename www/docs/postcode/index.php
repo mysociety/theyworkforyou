@@ -3,7 +3,6 @@
 # For looking up a postcode and redirecting or displaying appropriately
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once INCLUDESPATH . 'postcode.inc';
 
 $errors = array();
@@ -23,20 +22,20 @@ if (validate_postcode($pc)) {
     } elseif (!$constituencies) {
         $errors['pc'] = "Sorry, " . _htmlentities($pc) . " isn't a known postcode";
     } elseif (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
-        $MEMBER = new MEMBER(array('constituency' => $constituencies['WMC']));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency' => $constituencies['WMC']));
         if ($MEMBER->person_id()) {
             $THEUSER->set_postcode_cookie($pc);
         }
         list($out, $sidebars) = pick_multiple($pc, $constituencies, 'SPE', 'MSP');
     } elseif (isset($constituencies['NIE'])) {
-        $MEMBER = new MEMBER(array('constituency' => $constituencies['WMC']));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency' => $constituencies['WMC']));
         if ($MEMBER->person_id()) {
             $THEUSER->set_postcode_cookie($pc);
         }
         list($out, $sidebars) = pick_multiple($pc, $constituencies, 'NIE', 'MLA');
     } else {
         # Just have an MP, redirect instantly to the canonical page
-        $MEMBER = new MEMBER(array('constituency' => $constituencies['WMC'], 'house' => 1));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency' => $constituencies['WMC'], 'house' => 1));
         if ($MEMBER->person_id()) {
             $THEUSER->set_postcode_cookie($pc);
         }

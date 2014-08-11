@@ -3,7 +3,6 @@
 # Given a postcode, return a person ID
 
 include_once 'min-init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $pc = $_GET['pc'];
 $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);

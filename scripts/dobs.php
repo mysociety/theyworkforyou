@@ -6,7 +6,6 @@
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
-include INCLUDESPATH . 'easyparliament/member.php';
 $db = new ParlDB;
 $f = file('../../DoBs.csv');
 foreach ($f as $r) {
