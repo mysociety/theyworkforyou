@@ -1,6 +1,6 @@
 <?php
 
-namespace MySociety\TheyWorkForYou;
+namespace MySociety\TheyWorkForYou\Utility;
 
 /**
  * Gaze commonlib Wrapper
@@ -17,7 +17,7 @@ class Gaze
      * Takes an IP address and looks it up against Gaze to return the country.
      */
 
-    public static function get_country_by_ip($ip)
+    public static function getCountryByIp($ip)
     {
 
         include_once INCLUDESPATH . '../../commonlib/phplib/gaze.php';
