@@ -71,10 +71,12 @@ You may find that in some versions of PHPUnit errors are thrown regarding code
 coverage reports. If this is the case, the version installed by [Composer](http://getcomposer.org/)
 and located at `/vendor/bin/phpunit` should run correctly.
 
-### Build Status
+## Build Status
 
-[![Build Status](https://travis-ci.org/mysociety/theyworkforyou.png?branch=master)](https://travis-ci.org/mysociety/theyworkforyou)
+[![Build Status](https://img.shields.io/travis/mysociety/theyworkforyou.svg)](https://travis-ci.org/mysociety/theyworkforyou)
 
-[![Code Coverage](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/badges/coverage.png?s=c57f14b63bc4010f6daa58b51c8c5a16be883bc3)](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/mysociety/theyworkforyou.svg)](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/)
 
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/badges/quality-score.png?s=438f0b4db5d9ce959aa80e4a87ac77af60d92da2)](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/mysociety/theyworkforyou.svg)](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/)
+
+[![mySociety Installability](http://img.shields.io/badge/installability-bronze-8c7853.svg)](http://mysociety.github.io/installation-standards.html)
