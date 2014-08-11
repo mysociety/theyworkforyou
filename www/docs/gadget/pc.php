@@ -7,7 +7,7 @@ include_once 'min-init.php';
 $pc = $_GET['pc'];
 $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
 if (validate_postcode($pc)) {
-    $constituency = postcode_to_constituency($pc);
+    $constituency = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc);
     if ($constituency == 'CONNECTION_TIMED_OUT') {
         error('Connection timed out');
     } elseif ($constituency) {

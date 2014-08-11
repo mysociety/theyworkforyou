@@ -11,8 +11,8 @@ namespace MySociety\TheyWorkForYou;
  * Member
  */
 
-include_once INCLUDESPATH."postcode.inc";
 include_once INCLUDESPATH."easyparliament/glossary.php";
+include_once INCLUDESPATH."constituencies.inc";
 
 class Member {
 
@@ -399,7 +399,7 @@ class Member {
         if (is_object($THEUSER) && $THEUSER->postcode_is_set() && $this->current_member(1)) {
             $pc = $THEUSER->postcode();
             twfy_debug ('MP', "set_users_mp converting postcode to person");
-            $constituency = strtolower(postcode_to_constituency($pc));
+            $constituency = strtolower(\MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc));
             if ($constituency == strtolower($this->constituency())) {
                 $this->the_users_mp = true;
             }

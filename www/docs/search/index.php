@@ -5,7 +5,6 @@ include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH."easyparliament/glossary.php";
 
 // From http://cvs.sourceforge.net/viewcvs.py/publicwhip/publicwhip/website/
-include_once INCLUDESPATH."postcode.inc";
 
 if (!DEVSITE) {
     header('Cache-Control: max-age=900');

@@ -169,7 +169,7 @@ if (isset ($topics[$topicname]))
                 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
                 if (validate_postcode($pc)) {
                     twfy_debug ('MP', "MP lookup by postcode");
-                    $constituency = strtolower(postcode_to_constituency($pc));
+                    $constituency = strtolower(\MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc));
                     if ($constituency == "connection_timed_out") {
                         throw new Exception('Sorry, we couldn&rsquo;t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
                     } elseif ($constituency == "") {

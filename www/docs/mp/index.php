@@ -33,7 +33,6 @@ $new_style_template = TRUE;
 
 // Include all the things this page needs.
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'postcode.inc';
 include_once INCLUDESPATH . 'technorati.php';
 include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
@@ -187,7 +186,7 @@ try {
         $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
         if (validate_postcode($pc)) {
             twfy_debug ('MP', "MP lookup by postcode");
-            $constituency = strtolower(postcode_to_constituency($pc));
+            $constituency = strtolower(\MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc));
             if ($constituency == "connection_timed_out") {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn&rsquo;t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
             } elseif ($constituency == "") {
@@ -216,7 +215,7 @@ try {
     elseif ($this_page == 'msp' && $THEUSER->postcode_is_set() && $name == '' && $constituency == '')
     {
         $this_page = 'yourmsp';
-        if (postcode_is_scottish($THEUSER->postcode())) {
+        if (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish($THEUSER->postcode())) {
             regional_list($THEUSER->postcode(), 'SPC', 'msp');
             exit;
         } else {
@@ -230,7 +229,7 @@ try {
     elseif ($this_page == 'mla' && $THEUSER->postcode_is_set() && $name == '' && $constituency == '')
     {
         $this_page = 'yourmla';
-        if (postcode_is_ni($THEUSER->postcode())) {
+        if (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsNi($THEUSER->postcode())) {
             regional_list($THEUSER->postcode(), 'NIE', 'mla');
             exit;
         } else {
@@ -1194,7 +1193,7 @@ function person_register_interests($member, $extra_info) {
 }
 
 function regional_list($pc, $area_type, $rep_type) {
-    $constituencies = postcode_to_constituencies($pc);
+    $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);
     if ($constituencies == 'CONNECTION_TIMED_OUT') {
         throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn\'t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
     } elseif (!$constituencies) {

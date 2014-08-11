@@ -771,7 +771,7 @@ function search_member_db_lookup($searchstring, $current_only=false) {
 function search_constituencies_by_query($searchterm) {
     if (validate_postcode($searchterm)) {
         // Looks like a postcode - can we find the constituency?
-        $constituency = postcode_to_constituency($searchterm);
+        $constituency = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($searchterm);
         if ($constituency) {
             return array( array($constituency), true );
         }

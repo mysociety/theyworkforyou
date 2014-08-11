@@ -29,7 +29,7 @@ function api_getConstituency_postcode($pc) {
         return;
     }
 
-    $constituency = postcode_to_constituency($pc, true);
+    $constituency = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc, true);
     if ($constituency == 'CONNECTION_TIMED_OUT') {
         api_error('Connection timed out');
 
