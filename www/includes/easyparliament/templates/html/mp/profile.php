@@ -349,6 +349,10 @@ you can find it.</p>
                                     you do you must cite TheyWorkForYou.com in the body
                                     of your articles as the source of any analysis or
                                     data you get off this site.</p>
+
+                                <p>This data was produced by TheyWorkForYou from a variety
+                                    of sources. Voting information from
+                                    <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?= $member_id ?>&amp;showall=yes">Public Whip</a>.</p>
                             </div>
                         </div>
                     </div>
