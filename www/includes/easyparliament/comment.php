@@ -320,10 +320,9 @@ class COMMENT {
 
                 $major = $q->field(0, 'major');
                 $page = $hansardmajors[$major]['page'];
-                $gidvar = $hansardmajors[$major]['gidvar'];
 
                 $URL = new URL($page);
-                $URL->insert(array($gidvar=>$gid));
+                $URL->insert(array('id'=>$gid));
                 $this->url = $URL->generate() . '#c' . $this->comment_id;
             }
         }

@@ -30,7 +30,7 @@ class SectionTest extends PHPUnit_Extensions_Database_TestCase
             $vars[$k] =  $k . '=' . urlencode($v);
         }
         $vars = join('&', $vars);
-        $command = 'parse_str($argv[1], $_GET); include_once("tests/Bootstrap.php"); chdir("www/docs/' . $type . '"); include_once("index.php");';
+        $command = 'parse_str($argv[1], $_GET); include_once("tests/Bootstrap.php"); chdir("www/docs/"); include_once("section.php");';
         $page = `REMOTE_ADDR=127.0.0.1 php -e -r '$command' -- '$vars'`;
         return $page;
     }
@@ -115,15 +115,7 @@ class SectionTest extends PHPUnit_Extensions_Database_TestCase
 
 	public function testDebatesSpeech() {
         foreach ($this->types as $type) {
-            if ($type == 'debates') {
-                $type = 'debate';
-                $gidvar = 'id';
-            } elseif ($type == 'lords' || $type == 'ni' || $type == 'sp' || $type == 'whall') {
-                $gidvar = 'gid';
-            } else {
-                $gidvar = 'id';
-            }
-            $page = $this->fetch_page( array( 'type' => $type, $gidvar => '2014-01-01b.1.3' ) );
+            $page = $this->fetch_page( array( 'type' => $type, 'id' => '2014-01-01b.1.3' ) );
             if ($type == 'wrans' || $type == 'spwrans' || $type == 'wms') {
                 $this->assertRegexp("#Location: .*?/$type/\?id=2014-01-01b\.1\.2#", $page);
             } else {

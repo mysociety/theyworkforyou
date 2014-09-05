@@ -389,7 +389,7 @@ if (isset ($data['rows'])) {
             if ($hansardmajors[$data['info']['major']]['location'] == 'Scotland') {
                 $body = preg_replace('# (S\d[O0WF]-\d+)[, ]#', ' <a href="/spwrans/?spid=$1">$1</a> ', $body);
                 $body = preg_replace('#<citation id="uk\.org\.publicwhip/(.*?)/(.*?)">\[(.*?)\]</citation>#e',
-                    "'[<a href=\"/' . ('$1'=='spor'?'sp/?g':('$1'=='spwa'?'spwrans/?':'debate/?')) . 'id=$2' . '\">$3</a>]'",
+                    "'[<a href=\"/' . ('$1'=='spor'?'sp/?g':('$1'=='spwa'?'spwrans/?':'debates/?')) . 'id=$2' . '\">$3</a>]'",
                     $body);
                 $body = str_replace('href="../../../', 'href="http://www.scottish.parliament.uk/', $body);
             }
@@ -535,7 +535,7 @@ if (isset ($data['rows'])) {
 
 
 
-if ($this_page == 'debates' || $this_page == 'whall' || $this_page == 'lordsdebates' || $this_page == 'nidebates') {
+if ($this_page == 'debates' || $this_page == 'whalls' || $this_page == 'lordsdebates' || $this_page == 'nidebates' || $this_page == 'pbc_clause') {
     // Previous / Index / Next links, if any.
 
     $PAGE->stripe_start('foot');
@@ -874,7 +874,7 @@ pairs along the lines of:
     'htype'            => '12',
     'body'            => 'A lot of text here...',
     'listurl'        => '/debates/?id=2003-12-31.475.0#g2003-12-31.475.3',
-    'commentsurl'    => '/debate/?id=2003-12-31.475.3',
+    'commentsurl'    => '/debates/?id=2003-12-31.475.3',
     'speaker_id'    => '931',
     'speaker'        => array (
         'member_id'        => '931',
@@ -902,7 +902,7 @@ pairs along the lines of:
         )
     ),
     'trackback'        => array (
-        'itemurl'        => 'http://www.easyparliament.com/debate/?id=2003-12-31.475.3',
+        'itemurl'        => 'http://www.easyparliament.com/debates/?id=2003-12-31.475.3',
         'pingurl'        => 'http://www.easyparliament.com/trackback?g=debate_2003-02-28.475.3',
         'title'            => 'Title of this item or page',
         'date'            => '2003-12-31T23:00:00+00:00'

@@ -299,7 +299,7 @@ $this->page = array (
     ),
     'debate'  => array (
         'parent'		=> 'debatesfront',
-        'url'			=> 'debate/',
+        'url'			=> 'debates/',
         'session_vars'	=> array ('id'),
     ),
     'debates'  => array (
@@ -319,7 +319,7 @@ $this->page = array (
         ),
         'parent'		=> 'hansard',
         'title'			=> 'UK Parliament Hansard Debates',
-        'rss'			=> 'debates/debates.rss',
+        'rss'			=> 'rss/debates.rss',
         'url'			=> 'debates/'
     ),
     'debatesfront' => array (
@@ -329,7 +329,7 @@ $this->page = array (
         ),
         'parent'		=> 'alldebatesfront',
         'title'			=> 'House of Commons debates',
-        'rss'			=> 'debates/debates.rss',
+        'rss'			=> 'rss/debates.rss',
         'url'			=> 'debates/'
     ),
     'debatesyear' => array (
@@ -471,7 +471,7 @@ $this->page = array (
     'lordsdebate'  => array (
         'parent'		=> 'lordsdebatesfront',
         'url'			=> 'lords/',
-        'session_vars'	=> array ('gid'),
+        'session_vars'	=> array ('id'),
     ),
     'lordsdebates'  => array (
         'parent'		=> 'lordsdebatesfront',
@@ -490,7 +490,7 @@ $this->page = array (
         ),
         'parent'		=> 'alldebatesfront',
         'title'			=> 'House of Lords debates',
-        'rss'			=> 'lords/lords.rss',
+        'rss'			=> 'rss/lords.rss',
         'url'			=> 'lords/'
     ),
     'lordsdebatesyear' => array (
@@ -596,13 +596,13 @@ $this->page = array (
             'title'			=> "Overview of the Northern Ireland Assembly debates"
         ),
         'title'			=> '',
-        'rss'			=> 'ni/ni.rss',
+        'rss'			=> 'rss/ni.rss',
         'url'			=> 'ni/'
     ),
     'nidebate'  => array (
         'parent'		=> 'nidebatesfront',
         'url'			=> 'ni/',
-        'session_vars'	=> array ('gid'),
+        'session_vars'	=> array ('id'),
     ),
     'nidebates'  => array (
         'parent'		=> 'nidebatesfront',
@@ -621,7 +621,7 @@ $this->page = array (
         ),
         'parent'		=> 'nioverview',
         'title'			=> 'Northern Ireland Assembly debates',
-        'rss'			=> 'ni/ni.rss',
+        'rss'			=> 'rss/ni.rss',
         'url'			=> 'ni/'
     ),
     'nidebatesyear' => array (
@@ -647,7 +647,7 @@ $this->page = array (
         ),
         'parent'		=> 'hansard',
         'title'			=> 'Public Bill Committees',
-        'rss'			=> 'pbc/pbc.rss',
+        'rss'			=> 'rss/pbc.rss',
         'url'			=> 'pbc/'
     ),
     'pbc_session' => array(
@@ -803,7 +803,6 @@ $this->page = array (
         ),
         'parent'		=> 'sp_home',
         'title'			=> 'Scottish Parliament debates',
-        'rss'			=> 'sp/sp.rss',
         'url'			=> 'sp/'
     ),
 
@@ -1005,7 +1004,7 @@ $this->page = array (
         ),
         'parent'		=> 'alldebatesfront',
         'title'			=> 'Westminster Hall debates',
-        'rss'			=> 'whall/whall.rss',
+        'rss'			=> 'rss/whall.rss',
         'url'			=> 'whall/'
     ),
     'whallyear' => array (
@@ -1030,7 +1029,7 @@ $this->page = array (
         ),
         'parent'		=> 'wranswmsfront',
         'title'			=> 'Written Ministerial Statements',
-        'rss'			=> 'wms/wms.rss',
+        'rss'			=> 'rss/wms.rss',
         'url'			=> 'wms/'
     ),
     'wmsyear' => array (

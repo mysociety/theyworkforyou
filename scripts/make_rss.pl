@@ -31,10 +31,10 @@ my $syn = {
     updateBase => '1901-01-01T00:00+00:00',
 };
 
-debates_rss(1, 'House of Commons debates', 'debates/', 'debates/debates.rss');
-debates_rss(101, 'House of Lords debates', 'lords/', 'lords/lords.rss');
-debates_rss(2, 'Westminster Hall debates', 'whall/', 'whall/whall.rss');
-debates_rss(5, 'Northern Ireland Assembly debates', 'ni/', 'ni/ni.rss');
+debates_rss(1, 'House of Commons debates', 'debates/', 'rss/debates.rss');
+debates_rss(101, 'House of Lords debates', 'lords/', 'rss/lords.rss');
+debates_rss(2, 'Westminster Hall debates', 'whall/', 'rss/whall.rss');
+debates_rss(5, 'Northern Ireland Assembly debates', 'ni/', 'rss/ni.rss');
 wms_rss();
 # wrans_rss();
 pbc_rss();
@@ -114,7 +114,7 @@ sub wms_rss {
             description => $result->{body},
         );
     }
-    open (FP, '>' . mySociety::Config::get('BASEDIR') . "/wms/wms.rss") or die $!;
+    open (FP, '>' . mySociety::Config::get('BASEDIR') . "/rss/wms.rss") or die $!;
     print FP $rss->as_string;
     close FP;
 }
@@ -149,7 +149,7 @@ sub wrans_rss {
             description => $result->{body}
         );
     }
-    open (FP, '>' . mySociety::Config::get('BASEDIR') . "/wrans/wrans.rss") or die $!;
+    open (FP, '>' . mySociety::Config::get('BASEDIR') . "/rss/wrans.rss") or die $!;
     print FP $rss->as_string;
     close FP;
 }
@@ -179,7 +179,7 @@ sub pbc_rss {
                 #description => $result->{body
         );
     }
-    open (FP, '>' . mySociety::Config::get('BASEDIR') . "/pbc/pbc.rss") or die $!;
+    open (FP, '>' . mySociety::Config::get('BASEDIR') . "/rss/pbc.rss") or die $!;
     print FP $rss->as_string;
     close FP;
 }
