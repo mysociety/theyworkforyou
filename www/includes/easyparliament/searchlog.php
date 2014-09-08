@@ -39,7 +39,7 @@ class SEARCHLOG {
         if (preg_match('#66\.249\.(6[4-9]|[78]\d|9[0-5])\.#', $ip)) { # Googlebot
             return;
         }
-        if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match('#simplepie#i', $_SERVER['HTTP_USER_AGENT'])) {
+        if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match('#simplepie|bot#i', $_SERVER['HTTP_USER_AGENT'])) {
             return;
         }
 
