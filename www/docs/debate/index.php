@@ -28,8 +28,7 @@ if (get_http_var('id') != '') {
             $URL->insert( array('id'=>$result) );
             $result = $URL->generate('none');
         }
-        header('Location: http://' . DOMAIN . $result, true, 301);
-        exit;
+        redirect($result);
     }
 
 

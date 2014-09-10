@@ -62,8 +62,7 @@ if (get_http_var("d") != "") {
     if (is_string($result)) {
         $URL = new URL('lordsdebates');
         $URL->insert( array('id'=>$result) );
-        header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
-        exit;
+        redirect($URL->generate('none'));
     }
 
     // We show trackbacks on this page.
@@ -115,8 +114,7 @@ if (get_http_var("d") != "") {
     if (is_string($result)) {
         $URL = new URL('lordsdebate');
         $URL->insert( array('gid'=>$result) );
-        header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
-        exit;
+        redirect($URL->generate('none'));
     }
     if ($LORDSDEBATELIST->htype() == '12' || $LORDSDEBATELIST->htype() == '13') {
         $PAGE->stripe_start('side', 'comments');

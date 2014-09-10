@@ -1100,3 +1100,13 @@ function valid_url($url) {
     }
     return $return;
 }
+
+function redirect($url) {
+    $url = 'http://' . DOMAIN . $url;
+    if (defined('TESTING')) {
+        print "Location: $url";
+    } else {
+        header("Location: $url", true, 301);
+    }
+    exit;
+}

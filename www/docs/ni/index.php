@@ -41,8 +41,7 @@ if (get_http_var("d") != "") {
     if (is_string($result)) {
         $URL = new URL('nidebates');
         $URL->insert( array('id'=>$result) );
-        header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
-        exit;
+        redirect($URL->generate('none'));
     }
 
 } elseif (get_http_var('y') != '') {
@@ -88,8 +87,7 @@ if (get_http_var("d") != "") {
     if (is_string($result)) {
         $URL = new URL('nidebate');
         $URL->insert( array('gid'=>$result) );
-        header('Location: http://' . DOMAIN . $URL->generate('none'));
-        exit;
+        redirect($URL->generate('none'));
     }
     if ($NILIST->htype() == '12' || $NILIST->htype() == '13') {
         $PAGE->stripe_start('side', 'comments');

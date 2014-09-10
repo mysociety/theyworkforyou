@@ -26,15 +26,13 @@ if (get_http_var('d')) {
             $URL->reset();
             $URL->insert( array('id' => $m[1]) );
             $fragment_identifier = '#g' . $m[2];
-            header('Location: http://' . DOMAIN . $URL->generate('none') . $fragment_identifier, true, 303);
-            exit;
+            redirect($URL->generate('none') . $fragment_identifier);
         } elseif (preg_match('/uk\.org\.publicwhip\/spor\/(\d{4}-\d\d-\d\d\.(.*))/',$gid,$m)) {
             $URL = new URL('spdebates');
             $URL->reset();
             $URL->insert( array('id' => $m[1]) );
             $fragment_identifier = '#g' . $m[2];
-            header('Location: http://' . DOMAIN . $URL->generate('none') . $fragment_identifier, true, 303);
-            exit;
+            redirect($URL->generate('none') . $fragment_identifier);
         } else {
             $PAGE->error_message ("Strange GID ($gid) for that Scottish Parliament ID.");
         }
@@ -73,8 +71,7 @@ if (get_http_var('d')) {
     if (is_string($result)) {
         $URL = new URL('spwrans');
         $URL->insert( array('id'=>$result) );
-        header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
-        exit;
+        redirect($URL->generate('none'));
     }
 
     $PAGE->stripe_start('side', 'comments');

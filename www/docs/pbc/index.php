@@ -56,8 +56,7 @@ if ($bill_id && !$id) {
     if (is_string($result)) {
         $URL = new URL('pbc_clause');
         $URL->remove(array('id'));
-        header('Location: http://' . DOMAIN . $URL->generate('none'), true, 301);
-        exit;
+        redirect($URL->generate('none'));
     }
 
     /* This section below is shared between here and everywhere else - factor it out! */
@@ -90,8 +89,7 @@ if ($bill_id && !$id) {
 } elseif ($bill && !$bill_id && $session) {
     # Illegal bill title, redirect to session page
     $URL = new URL('pbc_session');
-    header('Location: ' . $URL->generate() . urlencode($session));
-    exit;
+    redirect($URL->generate() . urlencode($session));
 } elseif ($session) {
     # Display the bills for a particular session
     $this_page = 'pbc_session';
