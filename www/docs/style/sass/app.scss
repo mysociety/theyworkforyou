@@ -165,6 +165,7 @@ form {
 
 @import "pages/mp";
 @import "pages/topics";
+@import "pages/section";
 
 .content-page {
     p, ol, ul {
@@ -190,6 +191,10 @@ form {
 
 .unpad-left {
     padding-left: 0;
+}
+
+.button.tertiary {
+    background-color: transparent;
 }
 
 @import "parts/policies";

@@ -137,4 +137,78 @@ class DebatesView extends SectionView {
             )
         ));
     }
+
+    private $first_speech_displayed = 0; // We want to know when to insert the video
+    private $first_video_displayed = 0; // or the advert to do the video
+    private $first_gid = '';
+
+    protected function get_video_html($row, $heading_hpos, $speeches) {
+        if (!$this->first_gid) $this->first_gid = $row['gid'];
+
+        $video_content = '';
+        if (!$this->first_video_displayed && $row['video_status']&4 && !($row['video_status']&8)) {
+            $video_content = $this->video_sidebar($row, $heading_hpos, $speeches);
+            $this->first_video_displayed = true;
+        }
+        if (!$video_content && !$this->first_speech_displayed && $row['video_status']&1 && !($row['video_status']&12)) {
+            $video_content = $this->video_advert($row);
+            $this->first_speech_displayed = true;
+        }
+        return $video_content;
+    }
+
+    private function video_sidebar($row, $heading_hpos, $count) {
+        include_once INCLUDESPATH . 'easyparliament/video.php';
+        $db = new \ParlDB;
+        if ($this->major == 1) {
+            $gid_type = 'debate';
+        } elseif ($this->major == 101) {
+            $gid_type = 'lords';
+        } else {
+            $gid_type = 'unknown';
+        }
+        $vq = $db->query("select id,adate,atime from video_timestamps where gid='uk.org.publicwhip/$gid_type/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 order by (user_id is null) limit 1");
+        $adate = $vq->field(0, 'adate');
+        $time = $vq->field(0, 'atime');
+        $videodb = video_db_connect();
+        if (!$videodb) return '';
+        $video = video_from_timestamp($videodb, $adate, $time);
+        $start = $video['offset'];
+        $out = '';
+        if ($count > 1) {
+            $out .= '<div class="debate__video" id="video_wrap"><div>';
+            if ($row['gid'] != $this->first_gid) {
+                $out .= '<p class="video-instructions">This video starts around ' . ($row['hpos']-$heading_hpos) . ' speeches in (<a href="#g' . gid_to_anchor($row['gid']) . '">move there in text</a>)</p>';
+            }
+        }
+        $out .= video_object($video['id'], $start, "$gid_type/$row[gid]");
+        $flashvars = 'gid=' . "$gid_type/$row[gid]" . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
+        $out .= "<strong>Embed this video</strong><p class='video-instructions'>Copy and paste this code on your website</p><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'></embed>\">";
+        if ($count > 1) {
+            $out .= '<p class="hide-video"><a href="" onclick="return showVideo();">Hide</a></p>';
+            $out .= '</div></div>';
+            $out .= '<div id="video_show" class="show-video" style="display:none;">
+    <p style="margin:0"><a href="" onclick="return hideVideo();">Show video</a></p></div>';
+        }
+        return $out;
+    }
+
+    private function video_advert($row) {
+        if ($this->major == 1) {
+            $gid_type = 'debate';
+        } elseif ($this->major == 101) {
+            $gid_type = 'lords';
+        } else {
+            $gid_type = 'unknown';
+        }
+        return '
+    <div style="border:solid 1px #9999ff; background-color: #ccccff; padding: 4px; text-align: center;
+    background-image: url(\'/images/video-x-generic.png\'); background-repeat: no-repeat; padding-left: 40px;
+    background-position: 0 2px; margin-bottom: 1em;">
+    Help us <a href="/video/?from=debate&amp;gid=' . $gid_type . '/' . $row['gid'] . '">match the video for this speech</a>
+    to get the right video playing here
+    </div>
+    ';
+    }
+
 }

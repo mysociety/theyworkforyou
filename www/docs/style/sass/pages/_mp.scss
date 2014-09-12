@@ -477,14 +477,7 @@
     }
     .panel--secondary {
         @include radius;
-        background-color: #f9f8f5;
-        padding: em-calc(12);
-        margin-bottom: em-calc(40);
-        border: 1px solid #e2dfd9;
-        @media (min-width: $medium-screen) {
-            padding: em-calc(30);
-        }
-
+        @include secondary-panel;
         :last-child {
             margin-bottom: 0;
         }

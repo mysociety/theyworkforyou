@@ -1,0 +1,574 @@
+@charset "UTF-8";
+
+span.hi {
+    background: #ff3;
+}
+
+.debate-header {
+  background: #35322E url(/images/header-debates-uk.jpg) center center no-repeat;
+  background-size: cover;
+  color: #fff;
+  padding-top: 20px;
+
+  .debate-header__content {
+    position: relative;
+    padding-bottom: 20px;
+  }
+
+  h1 {
+    color: #fff;
+    margin: 0 0 10px 0;
+    font-size: 34px;
+    line-height: 1em;
+  }
+
+  p.lead {
+    font-size: 21px;
+    line-height: 1.3em;
+    margin-bottom: 16px;
+    max-width: 32em;
+    a {
+      color: #fff;
+      border-bottom: 1px solid #fff;
+      text-decoration: none;
+    }
+  }
+
+  p.cta {
+    margin-bottom: -15px;
+
+
+  }
+
+  @media (min-width: $large-screen) {
+    padding-top: 50px;
+    .debate-header__content {
+      padding-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 42px;
+      line-height: 1.1em; // tighter than normal, for long debate titles
+    }
+
+    p.lead {
+      font-size: 24px;
+    }
+  }
+}
+
+.debate-header + .full-page + #footer {
+  margin-top: 0;
+}
+
+.debate-header__content {
+  padding-left: 1em;
+  padding-right: 1em;
+  @media (min-width: $large-screen) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.debate-speech {
+  background-color: #fff;
+  border-top: 1px solid $borders;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  &:nth-child(even) {
+    // IE6,7,8 won't get this zebra-striping, but that's ok
+    background-color: transparent;
+  }
+
+  .full-page__row {
+    width: auto;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  .unknownspeaker {
+    font-weight: bold;
+  }
+
+  .italic {
+    font-style: italic;
+  }
+
+  .indent {
+    margin-left: 2em;
+    font-style: italic;
+  }
+
+  @media (min-width: $large-screen) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    .full-page__row {
+      padding: 0;
+    }
+  }
+}
+
+.debate-speech__speaker {
+  margin-top: 0;
+  line-height: 1em;
+  margin-bottom: 0.25em;
+  img {
+    float: left;
+    margin-right: 10px;
+    max-width: 50px;
+  }
+
+  strong {
+    font-weight: normal;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover strong {
+      text-decoration: underline;
+    }
+  }
+
+  @media (min-width: $medium-screen) {
+    font-size: 1.4em; // down from default 1.7em
+    position: relative;
+    padding-left: 70px;
+
+    img {
+      position: absolute;
+      left: 0;
+    }
+  }
+}
+
+.debate-speech__speaker__position {
+  display: block;
+  line-height: 1em;
+  margin-top: 5px;
+  font-weight: normal;
+  color: #9d9195;
+
+  @media (min-width: $medium-screen) {
+    display: inline-block;
+    margin: 0 0 0 5px;
+    max-width: 36em;
+  }
+}
+
+.debate-speech__content {
+  font-size: 14px;
+  max-width: 45em; // keep line lengths readable
+  margin-top: 0.66em;
+  p {
+    line-height: 1.4em;
+    margin-bottom: 0.8em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (min-width: $medium-screen) {
+    padding-left: 70px;
+    font-size: 1em;
+
+    p {
+      line-height: 1.6em;
+      margin-bottom: 1em;
+    }
+  }
+}
+
+.debate-speech__meta__link {
+  color: #9d9195;
+  line-height: 18px;
+  font-size: 14px;
+  @media (min-width: $medium-screen) {
+    font-size: 16px;
+  }
+
+  &:before {
+    content: "";
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    background: transparent url(/images/icons/debate-meta-icons.png) 0 0 no-repeat;
+    margin-right: 5px;
+  }
+
+  &.time {
+    margin-bottom: 0.5em;
+    margin-top: 0.25em;
+    font-weight: normal;
+    @media (min-width: $medium-screen) {
+      margin-left: 0.5em;
+    }
+    &:before {
+      background-position: -1px -1px;
+    }
+  }
+
+  &.link {
+    &:before {
+      background-position: -13px -1px;
+      width: 14px;
+    }
+  }
+
+  &.link {
+    margin-left: 0.5em;
+  }
+
+  &.watch {
+    &:before {
+      background-position: -40px -1px;
+    }
+  }
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+
+    &:before {
+      background-size: 49px; // 49px width, auto height
+      width: 12px;
+      height: 12px;
+    }
+
+    &.time {
+      &:before {
+        background-position: -0.5px -6px;
+      }
+    }
+
+    &.link {
+      &:before {
+        background-position: -12px -6px;
+      }
+    }
+
+    &.watch {
+      &:before {
+        background-position: -38px -6px;
+      }
+    }
+  }
+}
+
+.link-to-hansard {
+  a:before {
+    background-position: -28px -1px;
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+  .link-to-hansard {
+    a:before {
+      background-position: -26px -5px;
+    }
+  }
+}
+
+.link-to-speech__label {
+  display: block;
+  font-size: 14px;
+  line-height: 1.5em;
+  color: lighten(#9d9195, 10%);
+}
+
+.link-to-hansard span {
+    display: none;
+  }
+
+.link-to-hansard:hover span {
+  display: inline;
+  font-size: 14px;
+  color: lighten(#9d9195, 10%);
+  @media (min-width: $medium-screen) {
+    display: block;
+  }
+}
+
+.debate-speech__links {
+  margin: 0;
+  li {
+    display: block;
+  }
+  @media (min-width: $medium-screen) {
+    padding-left: 70px;
+  }
+  @media (min-width: $large-screen) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-left: 0;
+    li {
+      text-align: right;
+    }
+  }
+
+}
+
+.speech-link-in-context {
+  /* Only appears on individual speech pages */
+  @media (min-width: $medium-screen) {
+    padding-left: 70px;
+  }
+}
+
+.subrows,
+.debate-comments {
+  background-color: #fff;
+  padding: 20px 0;
+  @media (min-width: $large-screen) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .full-page__row {
+    width: auto;
+    padding: 0 1em;
+    position: relative;
+  }
+}
+
+.debate-comments {
+    border-top: 1px solid lighten($borders, 7%);
+}
+
+.debate-footer__content {
+  position: relative;
+}
+
+.debate-navigation {
+  background-color: $body-bg;
+  padding:0 1em;
+  text-align: center;
+  @include clearfix;
+  a {
+    display: block;
+    color: $light-text;
+    padding: 0.5em 1em;
+    font-size: 0.777777778em; //14px
+    border-bottom: 1px solid $borders;
+    @media (min-width: 42.0625em) {
+      display: inline-block;
+      border-right: 1px solid $borders;
+      border-bottom: 0;
+    }
+    @media (min-width: $large-screen) {
+      font-size: 0.875em;
+    }
+    &:hover,
+    &:active,
+    &:focus {
+      color: $body-font-color;
+      background-color: darken($body-bg, 5%);
+      text-decoration: none;
+    }
+  }
+}
+
+.debate-navigation--footer {
+  border-bottom: 1px solid $borders;
+  border-top: 1px solid $borders;
+}
+
+.debate-navigation__pagination {
+    display: block;
+    overflow: hidden;
+    @media (min-width: 42.0625em) {
+      border-left: 1px solid $borders;
+      float: right;
+      font-size: 0; //remove the whitespace from display: inline-block
+    }
+
+    > div {
+      font-size: 18px;
+      line-height: 1.6em;
+      @media (min-width: 42.0625em) {
+        display: inline-block;
+      }
+    }
+}
+
+.comment-teaser {
+  padding-top: 0.5em;
+  max-width: 45em;
+  blockquote {
+    border: 0;
+    padding: 0;
+    margin: 0 0 0 30px;
+  }
+  p {
+    font-size: 0.888888889em;
+    &:last-of-type {
+      margin-bottom: 0.25em;
+    }
+  }
+  cite {
+    font-style: normal;
+    display: inline;
+  }
+  @media (min-width: $medium-screen) {
+    margin-left: 70px;
+    padding-left: 26px;
+    background-image: url('../img/elbow.png');
+    background-position: 0 3px;
+    background-repeat: no-repeat;
+    background-size: 24px;
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: url('../img/elbow@2.png');
+    }
+  }
+
+  .morecomments {
+    font-size: 0.72222em;
+    color: #9d9195;
+    &:hover,
+    &:active,
+    &:focus {
+      color: $primary-color;
+    }
+    &:after {
+      content: "  \00BB"; //»
+    }
+  }
+}
+
+.comment-teaser__avatar {
+  background-color: #a94ca6;
+  display: inline-block;
+  @include radius(emCalc(24));
+  color: #fff;
+  text-align: center;
+  width: emCalc(24);
+  height: emCalc(24);
+  float: left;
+  .initial {
+      font-size: emCalc(14);
+      vertical-align: middle;
+      line-height: 1em;
+      font-weight: 600;
+  }
+}
+
+
+.subrows {
+  ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.subrows__list-item {
+  color: #9d9195; //Set this to a light, so we can easily see rows without links.
+  small {
+    font-size: 0.833333333em;
+    color: #9d9195;
+  }
+}
+
+.subrows__excerpt {
+  max-width: 45em;
+  line-height: 1.5em;
+  color: $body-font-color;
+}
+
+/* Video */
+
+.debate__video-wrapper {
+  display: none;
+  visibility: hidden;
+  z-index: 9999;
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  height: auto;
+  max-width: 380px;
+  background-color: #333;
+  color: #fff;
+  padding: 1.4em 1.4em 1em;
+  border-radius: 5px;
+  @media (min-width: $medium-screen) {
+    display: block;
+    visibility: visible;
+  }
+  input {
+    font-family: monospace;
+    background-color: #444;
+    color: #9d9195;
+    border: 0;
+    margin-top: 0.5em;
+    &:focus {
+      background-color: #444;
+      color: #9d9195;
+    }
+    &::selection {
+      background-color: #2688dc;
+      color: #fff;
+    }
+    &::-moz-selection {
+      background-color: #2688dc;
+      color: #fff;
+    }
+  }
+}
+
+.debate__video {
+  > div {
+    position: relative;
+  }
+}
+
+.debate__video__object {
+  width: 330px;
+  height: 230px;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.video-instructions {
+  margin-bottom: 0;
+  font-size: emCalc(13);
+}
+
+.debate-speech__meta__link.watch {
+  display: block;
+
+  @media (min-width: $medium-screen) {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-left: 70px;
+  }
+
+  @media (min-width: $large-screen) {
+    margin-bottom: 0;
+  }
+}
+
+.vidOn {
+  /* This is the class added by the JS watch along functionality*/
+  background-color: #f7efd9 !important;
+}
+
+.hide-video {
+  position: absolute;
+  bottom: -40px;
+  right: 0;
+  font-size: emCalc(13);
+}
+
+.show-video {
+  z-index: 9999;
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  height: auto;
+  max-width: 380px;
+  background-color: #333;
+  color: #fff;
+  padding: 1.4em 1.4em 1em;
+  border-radius: 5px;
+}
