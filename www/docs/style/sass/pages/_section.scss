@@ -1,0 +1,260 @@
+span.hi {
+    background: #ff3;
+}
+
+.debate-header {
+  background: #35322E url(/images/header-debates-uk.jpg) center center no-repeat;
+  background-size: cover;
+  color: #fff;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  h1 {
+    color: #fff;
+    margin: 0 0 10px 0;
+    font-size: 34px;
+    line-height: 1em;
+  }
+
+  p.lead {
+    font-size: 21px;
+    line-height: 1.3em;
+    margin-bottom: 16px;
+
+    a {
+      color: #fff;
+      border-bottom: 1px solid #fff;
+      text-decoration: none;
+    }
+  }
+
+  p.cta {
+    margin-bottom: -15px;
+
+    .button {
+      padding: 5px 14px;
+      margin: 0 15px 15px 0;
+      font-size: 16px;
+      font-weight: normal;
+    }
+  }
+
+  .button.subtle {
+    border: 1px solid #ccc;
+    background-color: transparent;
+    background-color: rgba(0,0,0,0.1);
+    padding: 4px 13px;
+
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    transition: all 300ms ease-out;
+
+    &:focus, &:hover {
+      background-color: rgba(100,100,100,0.5);
+      border-color: #fff;
+    }
+  }
+
+  @media (min-width: $large-screen) {
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    h1 {
+      font-size: 42px;
+      line-height: 1.1em; // tighter than normal, for long debate titles
+    }
+
+    p.lead {
+      font-size: 24px;
+    }
+
+    p.cta .button {
+      font-size: 18px;
+    }
+  }
+}
+
+.debate-header + .full-page + #footer {
+  margin-top: 0;
+}
+
+.debate-header__content {
+  padding-left: 1em;
+  padding-right: 1em;
+  @media (min-width: $large-screen) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.debate-speech {
+  background-color: #fff;
+  border-bottom: 1px solid darken($body-bg, 5%);
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  &:nth-child(even) {
+    // IE6,7,8 won't get this zebra-striping, but that's ok
+    background-color: transparent;
+  }
+
+  .full-page__row {
+    width: auto;
+    padding: 0 20px;
+  }
+
+  .unknownspeaker {
+    font-weight: bold;
+  }
+
+  .italic {
+    font-style: italic;
+  }
+
+  .indent {
+    margin-left: 2em;
+    font-style: italic;
+  }
+
+  @media (min-width: $large-screen) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    .full-page__row {
+      padding: 0;
+    }
+  }
+}
+
+.debate-speech__speaker {
+  margin-top: 0;
+  line-height: 1em;
+
+  img {
+    float: left;
+    margin-right: 10px;
+    max-width: 50px;
+  }
+
+  strong {
+    font-weight: normal;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover strong {
+      text-decoration: underline;
+    }
+  }
+
+  @media (min-width: $medium-screen) {
+    font-size: 1.4em; // down from default 1.7em
+    position: relative;
+    padding-left: 70px;
+
+    img {
+      position: absolute;
+      left: 0;
+    }
+  }
+}
+
+.debate-speech__speaker__position {
+  display: block;
+  line-height: 1em;
+  margin-top: 5px;
+  font-weight: normal;
+  color: #9d9195;
+
+  @media (min-width: $medium-screen) {
+    display: inline;
+    margin: 0 0 0 5px;
+  }
+}
+
+.debate-speech__content {
+  font-size: 14px;
+  max-width: 45em; // keep line lengths readable
+
+  p {
+    line-height: 1.4em;
+    margin-bottom: 0.8em;
+  }
+
+  @media (min-width: $medium-screen) {
+    padding-left: 70px;
+    font-size: 1em;
+
+    p {
+      line-height: 1.6em;
+      margin-bottom: 1em;
+    }
+  }
+}
+
+.debate-speech__meta {
+  margin: 0;
+  color: #9d9195;
+  font-size: 14px;
+  line-height: 18px;
+
+  li {
+    display: block;
+  }
+
+  a {
+    color: inherit;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      background: transparent url(/images/icons/debate-meta-icons.png) 0 0 no-repeat;
+      margin-right: 5px;
+    }
+  }
+
+  .time a::before {
+    background-position: 0 0;
+  }
+
+  .link-to-speech a::before {
+    background-position: -11px 0;
+    width: 14px;
+  }
+
+  .link-to-hansard a::before {
+    background-position: -25px 0;
+  }
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+    a::before {
+      background-size: 36px; // 36px width, auto height
+    }
+
+    .time a::before {
+      background-position: 0 -5.5px;
+    }
+
+    .link-to-speech a::before {
+      background-position: -11px -5.5px;
+    }
+
+    .link-to-hansard a::before {
+      background-position: -25px -5.5px;
+    }
+  }
+
+  @media (min-width: $medium-screen) {
+    padding-left: 70px;
+    font-size: 16px;
+
+    li {
+      display: inline;
+      margin-right: 20px;
+    }
+  }
+}

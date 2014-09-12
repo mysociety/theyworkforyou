@@ -11,169 +11,162 @@
 
 global $PAGE, $this_page, $GLOSSARY, $hansardmajors, $DATA, $THEUSER;
 
-include_once INCLUDESPATH."easyparliament/searchengine.php";
-include_once INCLUDESPATH."easyparliament/member.php";
-
-
-twfy_debug("TEMPLATE", "hansard_gid.php");
-
-// Will set the page headings and start the page HTML if it hasn't
-// already been started.
-if (!isset($data['info'])) {
-    // No data! We'll be exiting here! but send a 404 so that spiders stop indexing the page.
-    header("HTTP/1.0 404 Not Found");
-    # Bots have some fiddled with wrans, so we get errors here sometimes that don't
-    # signify a real problem.
-    #trigger_error("Not enough data to display anything.", E_USER_ERROR);
-    exit;
-}
-
-$PAGE->page_start();
-$PAGE->supress_heading = true;
-/*
-$PAGE->stripe_start('head-1', '');
-
-$sidebar = $hansardmajors[$data['info']['major']]['sidebar_short'];
-
-$PAGE->stripe_end(array(
-    array (
-        'type' =>'include',
-        'noplatypus' => true,
-        'content' => $sidebar
-    )
-));
-*/
-if ($data['info']['date'] == date('Y-m-d')) { ?>
-<div style="padding: 4px; margin: 1em; color: #000000; background-color: #ffeeee; border: solid 2px #ff0000;">
-Warning: Showing data from the current day is <strong>experimental</strong> and may not work correctly.
-</div>
-<?php
-}
+#include_once INCLUDESPATH."easyparliament/searchengine.php";
+#include_once INCLUDESPATH."easyparliament/member.php";
+#
+#twfy_debug("TEMPLATE", "hansard_gid.php");
+#
+#// Will set the page headings and start the page HTML if it hasn't
+#// already been started.
+#if (!isset($data['info'])) {
+#    // No data! We'll be exiting here! but send a 404 so that spiders stop indexing the page.
+#    header("HTTP/1.0 404 Not Found");
+#    # Bots have some fiddled with wrans, so we get errors here sometimes that don't
+#    # signify a real problem.
+#    #trigger_error("Not enough data to display anything.", E_USER_ERROR);
+#    exit;
+#}
+#
+#$PAGE->page_start();
+#$PAGE->supress_heading = true;
+#/*
+#$PAGE->stripe_start('head-1', '');
+#
+#$sidebar = $hansardmajors[$data['info']['major']]['sidebar_short'];
+#
+#$PAGE->stripe_end(array(
+#    array (
+#        'type' =>'include',
+#        'noplatypus' => true,
+#        'content' => $sidebar
+#    )
+#));
+#*/
 
 if (isset ($data['rows'])) {
-    // For highlighting
-    $SEARCHENGINE = null;
-    if (isset($data['info']['searchstring']) && $data['info']['searchstring'] != '') {
-        $SEARCHENGINE = new SEARCHENGINE($data['info']['searchstring']);
-    }
-
-    // Before we print the body text we need to insert glossary links
-    // and highlight search string words.
-
-    $bodies = array();
-    foreach ($data['rows'] as $row) {
-        $body = $row['body'];
-        $body = preg_replace('#<phrase class="honfriend" id="uk.org.publicwhip/member/(\d+)" name="([^"]*?)">(.*?\s*\((.*?)\))</phrase>#', '<a href="/mp/?m=$1" title="Our page on $2 - \'$3\'">$4</a>', $body);
-        $body = preg_replace('#<phrase class="offrep" id="(.*?)/(\d+)-(\d+)-(\d+)\.(.*?)">(.*?)</phrase>#e', '\'<a href="/search/?pop=1&s=date:$2$3$4+column:$5+section:$1">\' . str_replace("Official Report", "Hansard", \'$6\') . \'</a>\'', $body);
-        #$body = preg_replace('#<phrase class="offrep" id="((.*?)/(\d+)-(\d+)-(\d+)\.(.*?))">(.*?)</phrase>#e', "\"<a href='/search/?pop=1&amp;s=date:$3$4$5+column:$6+section:$2&amp;match=$1'>\" . str_replace('Official Report', 'Hansard', '$7') . '</a>'", $body);
-        $bodies[] = $body;
-    }
-    if (isset($data['info']['glossarise']) && $data['info']['glossarise']) {
-        // And glossary phrases
-        twfy_debug_timestamp('Before glossarise');
-        $bodies = $GLOSSARY->glossarise($bodies, $data['info']['glossarise']);
-        twfy_debug_timestamp('After glossarise');
-    }
-    if ($SEARCHENGINE) {
-        // We have some search terms to highlight.
-        twfy_debug_timestamp('Before highlight');
-        $bodies = $SEARCHENGINE->highlight($bodies);
-        twfy_debug_timestamp('After highlight');
-    }
-
-    $speeches = 0;
-    for ($i=0; $i<count($data['rows']); $i++) {
-        if ($data['rows'][$i]['htype'] == 12)
-            $data['rows'][$i]['body'] = $bodies[$i];
-        if ($data['rows'][$i]['htype'] == 12 || $data['rows'][$i]['htype'] == 13)
-            $speeches++;
-
-    }
-
-    // Stores the current time of items, so we can tell when an item appears
-    // at a new time.
-    $timetracker = 0;
-
-    $stripecount = 0; // Used to generate stripes.
+#    // For highlighting
+#    $SEARCHENGINE = null;
+#    if (isset($data['info']['searchstring']) && $data['info']['searchstring'] != '') {
+#        $SEARCHENGINE = new SEARCHENGINE($data['info']['searchstring']);
+#    }
+#
+#    // Before we print the body text we need to insert glossary links
+#    // and highlight search string words.
+#
+#    $bodies = array();
+#    foreach ($data['rows'] as $row) {
+#        $body = $row['body'];
+#        $body = preg_replace('#<phrase class="honfriend" id="uk.org.publicwhip/member/(\d+)" name="([^"]*?)">(.*?\s*\((.*?)\))</phrase>#', '<a href="/mp/?m=$1" title="Our page on $2 - \'$3\'">$4</a>', $body);
+#        $body = preg_replace('#<phrase class="offrep" id="(.*?)/(\d+)-(\d+)-(\d+)\.(.*?)">(.*?)</phrase>#e', '\'<a href="/search/?pop=1&s=date:$2$3$4+column:$5+section:$1">\' . str_replace("Official Report", "Hansard", \'$6\') . \'</a>\'', $body);
+#        #$body = preg_replace('#<phrase class="offrep" id="((.*?)/(\d+)-(\d+)-(\d+)\.(.*?))">(.*?)</phrase>#e', "\"<a href='/search/?pop=1&amp;s=date:$3$4$5+column:$6+section:$2&amp;match=$1'>\" . str_replace('Official Report', 'Hansard', '$7') . '</a>'", $body);
+#        $bodies[] = $body;
+#    }
+#    if (isset($data['info']['glossarise']) && $data['info']['glossarise']) {
+#        // And glossary phrases
+#        twfy_debug_timestamp('Before glossarise');
+#        $bodies = $GLOSSARY->glossarise($bodies, $data['info']['glossarise']);
+#        twfy_debug_timestamp('After glossarise');
+#    }
+#    if ($SEARCHENGINE) {
+#        // We have some search terms to highlight.
+#        twfy_debug_timestamp('Before highlight');
+#        $bodies = $SEARCHENGINE->highlight($bodies);
+#        twfy_debug_timestamp('After highlight');
+#    }
+#
+#    $speeches = 0;
+#    for ($i=0; $i<count($data['rows']); $i++) {
+#        if ($data['rows'][$i]['htype'] == 12)
+#            $data['rows'][$i]['body'] = $bodies[$i];
+#        if ($data['rows'][$i]['htype'] == 12 || $data['rows'][$i]['htype'] == 13)
+#            $speeches++;
+#
+#    }
+#
+#    // Stores the current time of items, so we can tell when an item appears
+#    // at a new time.
+#    $timetracker = 0;
+#
+#    $stripecount = 0; // Used to generate stripes.
 
     $first_speech_displayed = 0; // We want to know when to insert the video
     $first_video_displayed = 0; // or the advert to do the video
 
-    // We're going to be just cycling through each row of data for this page.
-    // When we get the first section, we put its text in $section_title.
-    // When we get the first subsection, we put its text in $subsection_title.
-    // When we get the first item that is neither section or subsection, we
-    // print these titles.
-    $section = array('title' => '&nbsp;');
-    $subsection_title = '&nbsp;';
+#    // We're going to be just cycling through each row of data for this page.
+#    // When we get the first section, we put its text in $section_title.
+#    // When we get the first subsection, we put its text in $subsection_title.
+#    // When we get the first item that is neither section or subsection, we
+#    // print these titles.
+#    $section = array('title' => '&nbsp;');
+#    $subsection_title = '&nbsp;';
 
-    // So we don't keep on printing the titles!
-    $titles_displayed = false;
+#    // So we don't keep on printing the titles!
+#    $titles_displayed = false;
     foreach ($data['rows'] as $row) {
         if (count($row) == 0) {
             // Oops, there's nothing in this row. A check just in case.
             continue;
         }
 
-        // DISPLAY SECTION AND SUBSECTION HEADINGS.
-        if (!$titles_displayed && $row['htype'] != '10' && $row['htype'] != '11') {
-            // Output the titles we've got so far.
-
-            $PAGE->stripe_start('head-1');
-
-            //get section text (e.g. house of commons debate)
-            $parent_page = $DATA->page_metadata($this_page, 'parent');
-            $section_text = $DATA->page_metadata($parent_page, 'title');
-
-            //work out the time the debate started
-            $has_start_time = false;
-            if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00") {
-                $has_start_time = true;
-                $timetracker = substr($row['htime'],0,5); // Set the timetracker to the current time
-            }
-
-            if ($subsection_title != '' && $subsection_title != "&nbsp;") {
-                print "<h1>$subsection_title<br><span>$section[title]</span>";
-            } else {
-                print "<h1>$section[title]";
-            }
-            if ($has_start_time) {
-               print "<br><span class='datetime'>" . format_time($row['htime'], TIMEFORMAT) . '</span>';
-            }
-            print '</h1>';
-
+#        // DISPLAY SECTION AND SUBSECTION HEADINGS.
+#        if (!$titles_displayed && $row['htype'] != '10' && $row['htype'] != '11') {
+#            // Output the titles we've got so far.
+#
+#            $PAGE->stripe_start('head-1');
+#
+#            //get section text (e.g. house of commons debate)
+#            $parent_page = $DATA->page_metadata($this_page, 'parent');
+#            $section_text = $DATA->page_metadata($parent_page, 'title');
+#
+#            //work out the time the debate started
+#            $has_start_time = false;
+#            if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00") {
+#                $has_start_time = true;
+#                $timetracker = substr($row['htime'],0,5); // Set the timetracker to the current time
+#            }
+#
+#            if ($subsection_title != '' && $subsection_title != "&nbsp;") {
+#                print "<h1>$subsection_title<br><span>$section[title]</span>";
+#            } else {
+#                print "<h1>$section[title]";
+#            }
+#            if ($has_start_time) {
+#               print "<br><span class='datetime'>" . format_time($row['htime'], TIMEFORMAT) . '</span>';
+#            }
+#            print '</h1>';
+#
 #           $body = technorati_pretty();
 #           if ($body) {
 #               print '<div class="blockbody">' . $body . '</div>';
 #           }
-
-            // Stripe end
-            $PAGE->stripe_end(array(
-                array (
-                    'noplatypus' => true,
-                    'type' => 'nextprev'
-                )
-            ));
-            //$PAGE->stripe_start('survey');
-            //$PAGE->include_sidebar_template('minisurvey');
-            //$PAGE->stripe_end();
-
-            $titles_displayed = true;
-        }
-
-        // NOW, depending on the contents of this row, we do something different...
-        if ($row['htype'] == '10') {
-            $section['title'] = $row['body'];
-            $section['hpos'] = $row['hpos'];
-            twfy_debug("DATAMODEL" , "epobjectid " . _htmlentities($row['epobject_id']));
-        } elseif ($row['htype'] == '11') {
-            $subsection_title = $row['body'];
-            $section['hpos'] = $row['hpos'];
+#
+#            // Stripe end
+#            $PAGE->stripe_end(array(
+#                array (
+#                    'noplatypus' => true,
+#                    'type' => 'nextprev'
+#                )
+#            ));
+#            //$PAGE->stripe_start('survey');
+#            //$PAGE->include_sidebar_template('minisurvey');
+#            //$PAGE->stripe_end();
+#
+#            $titles_displayed = true;
+#        }
+#
+#        // NOW, depending on the contents of this row, we do something different...
+#        if ($row['htype'] == '10') {
+#            $section['title'] = $row['body'];
+#            $section['hpos'] = $row['hpos'];
+#            twfy_debug("DATAMODEL" , "epobjectid " . _htmlentities($row['epobject_id']));
+#        } elseif ($row['htype'] == '11') {
+#            $subsection_title = $row['body'];
+#            $section['hpos'] = $row['hpos'];
         } elseif ($row['htype'] == '13') {
-            // DEBATE PROCEDURAL.
-
-            $stripecount++;
-            $style = $stripecount % 2 == 0 ? '1' : '2';
+#            // DEBATE PROCEDURAL.
+#
+#            $stripecount++;
+#            $style = $stripecount % 2 == 0 ? '1' : '2';
 
             if (!isset($section['first_gid'])) $section['first_gid'] = $row['gid'];
 
@@ -187,12 +180,12 @@ if (isset ($data['rows'])) {
                 $first_speech_displayed = true;
             }
 
-            $id = '';
-            if ($this_page != 'debate') $id = 'g' . gid_to_anchor($row['gid']);
-            $PAGE->stripe_start('procedural-'.$style, $id);
-            if ($id) echo '<a name="', $id, '"></a>';
-
-            echo $row['body'];
+#            $id = '';
+#            if ($this_page != 'debate') $id = 'g' . gid_to_anchor($row['gid']);
+#            $PAGE->stripe_start('procedural-'.$style, $id);
+#            if ($id) echo '<a name="', $id, '"></a>';
+#
+#            echo $row['body'];
 
             context_link($row);
             $action_links = array( 'Link to this: <a href="' . $row['commentsurl'] . '" class="link">Individually</a> | <a href="' . $row['listurl'] . '">In context</a>' );
@@ -212,10 +205,10 @@ if (isset ($data['rows'])) {
 
 
         } elseif ( $row['htype'] == '12') {
-            // A STANDARD SPEECH OR WRANS TEXT.
-
-            $stripecount++;
-            $style = $stripecount % 2 == 0 ? '1' : '2';
+#            // A STANDARD SPEECH OR WRANS TEXT.
+#
+#            $stripecount++;
+#            $style = $stripecount % 2 == 0 ? '1' : '2';
 
             if (!isset($section['first_gid'])) $section['first_gid'] = $row['gid'];
 
@@ -229,97 +222,97 @@ if (isset ($data['rows'])) {
                 $first_speech_displayed = true;
             }
 
-            // If this item is at a new time, then print the time.
-            if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00" && $stripecount != 1) {
-                $style = $stripecount++;
-                $PAGE->stripe_start('time');
-
-                echo "\t\t\t\t" . '<abbr class="datetime" title="' . $row['hdate'] . $row['htime'] . '">' . format_time($row['htime'], TIMEFORMAT) . "</abbr>\n";
-
-                // Set the timetracker to the current time
-                $timetracker = substr($row['htime'],0,5);
-
-                $stripecount++;
-                $style = $stripecount % 2 == 0 ? '1' : '2';
-                $PAGE->stripe_end();
-            }
-
-
-            if (isset($row['speaker']) && ( (isset($row['speaker']['member_id']) && isset($data['info']['member_id']) && $row['speaker']['member_id'] == $data['info']['member_id']) || (isset($row['speaker']['person_id']) && isset($data['info']['person_id']) && $row['speaker']['person_id'] == $data['info']['person_id']) ) ) {
-                $style .= '-on';
-            }
-
-            // gid_to_anchor() is in utility.php
-            $id = '';
-            if ($this_page != 'debate') $id = 'g' . gid_to_anchor($row['gid']);
-
-            $PAGE->stripe_start($style, $id, "speech ");
-            if ($id) echo '<a name="', $id, '"></a>';
-
-            // Used for action links (link, source, watch etc)
-            $action_links = array();
-
-            if (isset($row['speaker']) && count($row['speaker']) > 0) {
-
-              // We have a speaker to print.
-                $speaker = $row['speaker'];
-                $speakername = ucfirst(member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']));
-
-                //speaker photo
-                $missing_photo_type = 'general';
-                if($data['info']['major'] == 101){
-                    $missing_photo_type = "lord";
-                }
-                list($image,$sz) = find_rep_image($speaker['person_id'], true, $missing_photo_type);
-
-                echo '<a class="speakerimage" id="speakerimage_' . $row['epobject_id'] . '" href="', $speaker['url'], '" title="See more information about ', $speakername, '" onmouseover="showPersonLinks(' . $row['epobject_id'] . ')" >';
-                echo '<span><img src="', $image, '" alt="Photo of ', $speakername, '"';
-                /*
-                if (get_http_var('partycolours')) {
-                    echo ' style="border: 3px solid ', party_to_colour($speaker['party']), ';"';
-                }
-                */
-                echo '></span></a>';
-
-                //speaker links
-                echo '<div class="personinfo" id="personinfo_' . $row['epobject_id']  . '"><ul>';
-                echo '<li><a href="/alert/?pid=' . $speaker['person_id'] . '">Email me when ' . $speakername .  ' speaks</a></li>';
-                if($data['info']['major'] == 101 || $data['info']['major'] == 1){
-                    echo '<li><a href="' . $speaker['url'] . '#votingrecord">View voting record</a></li>';
-                }
-                echo '<li><a href="' . $speaker['url'] . '#hansard">Most recent appearances</a></li>';
-                echo '<li><a href="' . $speaker['url'] . '#numbers">Numerology</a></li>';
-                echo '<li><strong><a href="' . $speaker['url'] . '">Full profile ...</a></strong></li>';
-                echo '</ul></div>';
-
-                // print the speaker name and details
-                echo '<p class="speaker ' . strtolower($speaker['party']) . '"><a href="', $speaker['url'], '" title="See more information about ', $speakername, '">';
-
-                echo '<strong>', $speakername, '</strong></a> <small>';
-                $desc = '';
-                if (isset($speaker['office'])) {
-                    $desc = $speaker['office'][0]['pretty'];
-                    #if (strpos($desc, 'PPS')!==false) $desc .= '; ';
-                    $desc .= '; ';
-                }
-
-                # Try always showing constituency/party too
-                #if (!$desc || strpos($desc, 'PPS')!==false) {
-                    if ($speaker['house'] == 1 && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
-                        $desc .= $speaker['constituency'];
-                        if ($speaker['party']) $desc .= ', ';
-                    }
-                    if (get_http_var('wordcolours')) {
-                        $desc .= '<span style="color: '.party_to_colour($speaker['party']).'">';
-                    }
-                    $desc .= _htmlentities($speaker['party']);
-                    if (get_http_var('wordcolours')) {
-                        $desc .= '</span>';
-                    }
-                #}
-
-                //print $desc
-                if ($desc) print "($desc)";
+#            // If this item is at a new time, then print the time.
+#            if (substr($row['htime'],0,5) != $timetracker && $row['htime'] != "00:00:00" && $stripecount != 1) {
+#                $style = $stripecount++;
+#                $PAGE->stripe_start('time');
+#
+#                echo "\t\t\t\t" . '<abbr class="datetime" title="' . $row['hdate'] . $row['htime'] . '">' . format_time($row['htime'], TIMEFORMAT) . "</abbr>\n";
+#
+#                // Set the timetracker to the current time
+#                $timetracker = substr($row['htime'],0,5);
+#
+#                $stripecount++;
+#                $style = $stripecount % 2 == 0 ? '1' : '2';
+#                $PAGE->stripe_end();
+#            }
+#
+#
+#            if (isset($row['speaker']) && ( (isset($row['speaker']['member_id']) && isset($data['info']['member_id']) && $row['speaker']['member_id'] == $data['info']['member_id']) || (isset($row['speaker']['person_id']) && isset($data['info']['person_id']) && $row['speaker']['person_id'] == $data['info']['person_id']) ) ) {
+#                $style .= '-on';
+#            }
+#
+#            // gid_to_anchor() is in utility.php
+#            $id = '';
+#            if ($this_page != 'debate') $id = 'g' . gid_to_anchor($row['gid']);
+#
+#            $PAGE->stripe_start($style, $id, "speech ");
+#            if ($id) echo '<a name="', $id, '"></a>';
+#
+#            // Used for action links (link, source, watch etc)
+#            $action_links = array();
+#
+#            if (isset($row['speaker']) && count($row['speaker']) > 0) {
+#
+#              // We have a speaker to print.
+#                $speaker = $row['speaker'];
+#                $speakername = ucfirst(member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']));
+#
+#                //speaker photo
+#                $missing_photo_type = 'general';
+#                if($data['info']['major'] == 101){
+#                    $missing_photo_type = "lord";
+#                }
+#                list($image,$sz) = find_rep_image($speaker['person_id'], true, $missing_photo_type);
+#
+#                echo '<a class="speakerimage" id="speakerimage_' . $row['epobject_id'] . '" href="', $speaker['url'], '" title="See more information about ', $speakername, '" onmouseover="showPersonLinks(' . $row['epobject_id'] . ')" >';
+#                echo '<span><img src="', $image, '" alt="Photo of ', $speakername, '"';
+#                /*
+#                if (get_http_var('partycolours')) {
+#                    echo ' style="border: 3px solid ', party_to_colour($speaker['party']), ';"';
+#                }
+#                */
+#                echo '></span></a>';
+#
+#                //speaker links
+#                echo '<div class="personinfo" id="personinfo_' . $row['epobject_id']  . '"><ul>';
+#                echo '<li><a href="/alert/?pid=' . $speaker['person_id'] . '">Email me when ' . $speakername .  ' speaks</a></li>';
+#                if($data['info']['major'] == 101 || $data['info']['major'] == 1){
+#                    echo '<li><a href="' . $speaker['url'] . '#votingrecord">View voting record</a></li>';
+#                }
+#                echo '<li><a href="' . $speaker['url'] . '#hansard">Most recent appearances</a></li>';
+#                echo '<li><a href="' . $speaker['url'] . '#numbers">Numerology</a></li>';
+#                echo '<li><strong><a href="' . $speaker['url'] . '">Full profile ...</a></strong></li>';
+#                echo '</ul></div>';
+#
+#                // print the speaker name and details
+#                echo '<p class="speaker ' . strtolower($speaker['party']) . '"><a href="', $speaker['url'], '" title="See more information about ', $speakername, '">';
+#
+#                echo '<strong>', $speakername, '</strong></a> <small>';
+#                $desc = '';
+#                if (isset($speaker['office'])) {
+#                    $desc = $speaker['office'][0]['pretty'];
+#                    #if (strpos($desc, 'PPS')!==false) $desc .= '; ';
+#                    $desc .= '; ';
+#                }
+#
+#                # Try always showing constituency/party too
+#                #if (!$desc || strpos($desc, 'PPS')!==false) {
+#                    if ($speaker['house'] == 1 && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
+#                        $desc .= $speaker['constituency'];
+#                        if ($speaker['party']) $desc .= ', ';
+#                    }
+#                    if (get_http_var('wordcolours')) {
+#                        $desc .= '<span style="color: '.party_to_colour($speaker['party']).'">';
+#                    }
+#                    $desc .= _htmlentities($speaker['party']);
+#                    if (get_http_var('wordcolours')) {
+#                        $desc .= '</span>';
+#                    }
+#                #}
+#
+#                //print $desc
+#                if ($desc) print "($desc)";
 
                 // show the question number (Scottish Written Answers only)
                 if ($data['info']['major'] == 8 && preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $row['gid'], $m)) {
@@ -327,52 +320,52 @@ if (isset ($data['rows'])) {
                     print " | Question $m[1]";
                 }
 
-                echo "</small>";
-            }
+#                echo "</small>";
+#            }
 
             // link
             if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
                 $action_links["link"] = 'Link to this: <a href="' . $row['commentsurl'] . '" class="link">Individually</a> | <a href="' . $row['listurl'] . '">In context</a>';
             }
 
-            //source
-            if (isset($row['source_url']) && $row['source_url'] != '') {
-                $source_title = '';
-                $major = $data['info']['major'];
-                if ($major==1 || $major==2 || (($major==3 || $major==4) && isset($row['speaker']['house'])) || $major==101 || $major==6) {
-                    $source_title = 'Citation: ';
-                    if ($major==1 || $major==2) {
-                        $source_title .= 'HC';
-                    } elseif ($major==3 || $major==4) {
-                        if ($row['speaker']['house']==1) {
-                            $source_title .= 'HC';
-                        } else {
-                            $source_title .= 'HL';
-                        }
-                    } elseif ($major==6) {
-                        $source_title .= $section['title'];
-                    } else {
-                        $source_title .= 'HL';
-                    }
-                    $source_title .= ' Deb, ' . format_date($data['info']['date'], LONGDATEFORMAT) . ', c' . $row['colnum'];
-                    if ($major==2) {
-                        $source_title .= 'WH';
-                    } elseif ($major==3) {
-                        $source_title .= 'W';
-                    } elseif ($major==4) {
-                        $source_title .= 'WS';
-                    }
-                }
-
-                $text = "Hansard source";
-                if ($hansardmajors[$data['info']['major']]['location']=='Scotland'){
-                    $text = 'Official Report source';
-                }
-                $action_links["source"] = '<a href="' . $row['source_url'] . '" class="source">' . $text . "</a>";
-                if ($source_title) {
-                    $action_links['source'] .= " ($source_title)";
-                }
-            }
+#            //source
+#            if (isset($row['source_url']) && $row['source_url'] != '') {
+#                $source_title = '';
+#                $major = $data['info']['major'];
+#                if ($major==1 || $major==2 || (($major==3 || $major==4) && isset($row['speaker']['house'])) || $major==101 || $major==6) {
+#                    $source_title = 'Citation: ';
+#                    if ($major==1 || $major==2) {
+#                        $source_title .= 'HC';
+#                    } elseif ($major==3 || $major==4) {
+#                        if ($row['speaker']['house']==1) {
+#                            $source_title .= 'HC';
+#                        } else {
+#                            $source_title .= 'HL';
+#                        }
+#                    } elseif ($major==6) {
+#                        $source_title .= $section['title'];
+#                    } else {
+#                        $source_title .= 'HL';
+#                    }
+#                    $source_title .= ' Deb, ' . format_date($data['info']['date'], LONGDATEFORMAT) . ', c' . $row['colnum'];
+#                    if ($major==2) {
+#                        $source_title .= 'WH';
+#                    } elseif ($major==3) {
+#                        $source_title .= 'W';
+#                    } elseif ($major==4) {
+#                        $source_title .= 'WS';
+#                    }
+#                }
+#
+#                $text = "Hansard source";
+#                if ($hansardmajors[$data['info']['major']]['location']=='Scotland'){
+#                    $text = 'Official Report source';
+#                }
+#                $action_links["source"] = '<a href="' . $row['source_url'] . '" class="source">' . $text . "</a>";
+#                if ($source_title) {
+#                    $action_links['source'] .= " ($source_title)";
+#                }
+#            }
 
             //video
             if ($data['info']['major'] == 1 && $this_page != 'debate') { # Commons debates only
@@ -384,37 +377,37 @@ if (isset ($data['rows'])) {
                 }
             }
 
-            $body = $row['body'];
-
-            if ($hansardmajors[$data['info']['major']]['location'] == 'Scotland') {
-                $body = preg_replace('# (S\d[O0WF]-\d+)[, ]#', ' <a href="/spwrans/?spid=$1">$1</a> ', $body);
-                $body = preg_replace('#<citation id="uk\.org\.publicwhip/(.*?)/(.*?)">\[(.*?)\]</citation>#e',
-                    "'[<a href=\"/' . ('$1'=='spor'?'sp/?g':('$1'=='spwa'?'spwrans/?':'debates/?')) . 'id=$2' . '\">$3</a>]'",
-                    $body);
-                $body = str_replace('href="../../../', 'href="http://www.scottish.parliament.uk/', $body);
-            }
-
-            if (preg_match('#\[Official Report, (.*?)[,;] (.*?) (\d+MC)\.\]#', $body)) {
-                # Why, you may ask, would someone have to check whether a
-                # regular expression matches before replacing that regular
-                # expression with some other text? And all I can tell you,
-                # future person reading this, is that otherwise occasionally
-                # this replacement removes the entire contents of $body, even
-                # though it has no matches (it does have e.g. "[Official
-                # Report,", but not at the start of the string). Thanks, PHP.
-                $body = preg_replace('#\[Official Report, (.*?)[,;] (.*?) (\d+MC)\.\]#', '<big>[This section has been corrected on $1, column $3 &mdash; read correction]</big>', $body);
-            }
-            $body = preg_replace('#(<p[^>]*class="[^"]*?)("[^>]*)pwmotiontext="moved"#', '$1 moved$2', $body);
-            $body = str_replace('pwmotiontext="moved"', 'class="moved"', $body);
-            $body = str_replace('<a href="h', '<a rel="nofollow" href="h', $body); # As even sites in Hansard lapse and become spam-sites
-
-            preg_match_all('#<p[^>]* pwmotiontext="yes">.*?</p>#s', $body, $m);
-            foreach ($m as $rrr) {
-                $begtomove = preg_replace('#(That this House |; )(\w+)#', '\1<br><strong>\2</strong>', $rrr);
-                $body = str_replace($rrr, $begtomove, $body);
-            }
-
-            echo str_replace(array('<br/>', '</p><p'), array('</p> <p>', '</p> <p'), $body); # NN4 font size bug
+#            $body = $row['body'];
+#
+#            if ($hansardmajors[$data['info']['major']]['location'] == 'Scotland') {
+#                $body = preg_replace('# (S\d[O0WF]-\d+)[, ]#', ' <a href="/spwrans/?spid=$1">$1</a> ', $body);
+#                $body = preg_replace('#<citation id="uk\.org\.publicwhip/(.*?)/(.*?)">\[(.*?)\]</citation>#e',
+#                    "'[<a href=\"/' . ('$1'=='spor'?'sp/?g':('$1'=='spwa'?'spwrans/?':'debates/?')) . 'id=$2' . '\">$3</a>]'",
+#                    $body);
+#                $body = str_replace('href="../../../', 'href="http://www.scottish.parliament.uk/', $body);
+#            }
+#
+#            if (preg_match('#\[Official Report, (.*?)[,;] (.*?) (\d+MC)\.\]#', $body)) {
+#                # Why, you may ask, would someone have to check whether a
+#                # regular expression matches before replacing that regular
+#                # expression with some other text? And all I can tell you,
+#                # future person reading this, is that otherwise occasionally
+#                # this replacement removes the entire contents of $body, even
+#                # though it has no matches (it does have e.g. "[Official
+#                # Report,", but not at the start of the string). Thanks, PHP.
+#                $body = preg_replace('#\[Official Report, (.*?)[,;] (.*?) (\d+MC)\.\]#', '<big>[This section has been corrected on $1, column $3 &mdash; read correction]</big>', $body);
+#            }
+#            $body = preg_replace('#(<p[^>]*class="[^"]*?)("[^>]*)pwmotiontext="moved"#', '$1 moved$2', $body);
+#            $body = str_replace('pwmotiontext="moved"', 'class="moved"', $body);
+#            $body = str_replace('<a href="h', '<a rel="nofollow" href="h', $body); # As even sites in Hansard lapse and become spam-sites
+#
+#            preg_match_all('#<p[^>]* pwmotiontext="yes">.*?</p>#s', $body, $m);
+#            foreach ($m as $rrr) {
+#                $begtomove = preg_replace('#(That this House |; )(\w+)#', '\1<br><strong>\2</strong>', $rrr);
+#                $body = str_replace($rrr, $begtomove, $body);
+#            }
+#
+#            echo str_replace(array('<br/>', '</p><p'), array('</p> <p>', '</p> <p'), $body); # NN4 font size bug
 
             context_link($row);
 
@@ -462,29 +455,24 @@ if (isset ($data['rows'])) {
         } // End htype 12.
 
 
-        // TRACKBACK AUTO DISCOVERY
-/*        if (isset($row['trackback']) && count($row['trackback']) > 0) {
-
-            $PAGE->trackback_rss($row['trackback']);
-        } */
         ob_flush(); //flush the output buffer
 
     } // End cycling through rows.
 
-    if (!$titles_displayed) {
-        $PAGE->stripe_start('head-2');
-        if($subsection_title != '' && $subsection_title != "&nbsp;") {
-            print "<h1>$subsection_title<br><span>$section[title]</span></h1>";
-        } else {
-            print "<h1>$section[title]</h1>";
-        }
-        $PAGE->stripe_end(array(
-            array (
-                'type' => 'nextprev'
-            )
-        ));
-        $titles_displayed = true;
-    }
+#    if (!$titles_displayed) {
+#        $PAGE->stripe_start('head-2');
+#        if($subsection_title != '' && $subsection_title != "&nbsp;") {
+#            print "<h1>$subsection_title<br><span>$section[title]</span></h1>";
+#        } else {
+#            print "<h1>$section[title]</h1>";
+#        }
+#        $PAGE->stripe_end(array(
+#            array (
+#                'type' => 'nextprev'
+#            )
+#        ));
+#        $titles_displayed = true;
+#    }
 
     if (isset($data['subrows'])) {
         $PAGE->stripe_start();
@@ -855,84 +843,3 @@ to get the right video playing here
 </div>
 ';
 }
-
-/*
-
-Structure of the $data array.
-
-(Notes for the diagram below...)
-The 'info' section is metadata about the results set as a whole.
-
-'rows' is an array of items to display, each of which has a set of Hansard object data and more. The item could be a section heading, subsection, speech, written question, procedural, etc, etc.
-
-
-In the diagram below, 'HansardObjectData' indicates a standard set of key/value
-pairs along the lines of:
-    'epobject_id'    => '31502',
-    'gid'            => '2003-12-31.475.3',
-    'hdate'            => '2003-12-31',
-    'htype'            => '12',
-    'body'            => 'A lot of text here...',
-    'listurl'        => '/debates/?id=2003-12-31.475.0#g2003-12-31.475.3',
-    'commentsurl'    => '/debates/?id=2003-12-31.475.3',
-    'speaker_id'    => '931',
-    'speaker'        => array (
-        'member_id'        => '931',
-        'first_name'    => 'Peter',
-        'last_name'        => 'Hain',
-        'constituency'    => 'Neath',
-        'party'            => 'Lab',
-        'url'            => '/member/?id=931'
-    ),
-    'totalcomments'    => 5,
-    'comment'        => array (
-        'user_id'        => '45',
-        'body'            => 'Comment text here...',
-        'posted'        => '2003-12-31 23:00:00',
-        'username'        => 'William Thornton',
-    ),
-    'votes'    => array (
-        'user'    => array (
-            'yes'    => '21',
-            'no'    => '3'
-        ),
-        'anon'    => array (
-            'yes'    => '132',
-            'no'    => '30'
-        )
-    ),
-    'trackback'        => array (
-        'itemurl'        => 'http://www.easyparliament.com/debates/?id=2003-12-31.475.3',
-        'pingurl'        => 'http://www.easyparliament.com/trackback?g=debate_2003-02-28.475.3',
-        'title'            => 'Title of this item or page',
-        'date'            => '2003-12-31T23:00:00+00:00'
-    )
-    etc.
-
-Note: There are two URLs.
-    'listurl' is a link to the item in context, in the list view.
-    'commentsurl' is the page where we can see this item and all its comments.
-
-Note: The 'trackback' array won't always be there - only if we think we're going to
-    be using it for Auto Discovery on this page.
-
-Note: Speaker's only there if there is a speaker for this item.
-
-
-$data = array (
-
-    'info' => array (
-        'date'    => '2003-12-31',
-        'text'    => 'A brief bit of text for a title...',
-        'searchwords' => array ('fox', 'hunting')
-    ),
-
-    'rows' => array (
-        0 => array ( HansardObjectData ),
-        1 => array ( HansardObjectData ), etc...
-    )
-);
-
-
-*/
-?>

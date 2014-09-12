@@ -24,7 +24,8 @@ class SectionView {
         } elseif ($date = get_http_var('d')) {
             $this->display_day($date);
         } elseif (get_http_var('id')) {
-            $this->display_section_or_speech();
+            $data = $this->display_section_or_speech();
+            return $data;
         } else {
             $this->display_front();
         }
@@ -72,8 +73,6 @@ class SectionView {
     }
 
     protected function display_section_or_speech($args = array()) {
-        global $this_page, $GLOSSARY, $PAGE, $THEUSER;
-
         # += as we *don't* want to override any already supplied argument
         $args += array (
             'gid' => get_http_var('id'),
@@ -95,7 +94,7 @@ class SectionView {
         }
 
         try {
-            $result = $this->list->display('gid', $args);
+            $data = $this->list->display('gid', $args, 'none');
         } catch (\RedirectException $e) {
             $URL = new \URL($this->major_data['page_all']);
             if ($this->major == 6) {
@@ -108,6 +107,7 @@ class SectionView {
             redirect($URL->generate('none'));
         }
 
+/*
         if ($this->list->commentspage == $this_page) {
             $PAGE->stripe_start('side', 'comments');
             $COMMENTLIST = new \COMMENTLIST;
@@ -134,6 +134,127 @@ class SectionView {
                 $PAGE->stripe_end();
             }
         }
+*/
+
+        if (!isset($data['info'])) {
+            header("HTTP/1.0 404 Not Found");
+            exit; # XXX
+        }
+
+        # Okay, let's set up highlighting and glossarisation
+
+        $SEARCHENGINE = null;
+        if (isset($data['info']['searchstring']) && $data['info']['searchstring'] != '') {
+            $SEARCHENGINE = new \SEARCHENGINE($data['info']['searchstring']);
+        }
+
+        // Before we print the body text we need to insert glossary links
+        // and highlight search string words.
+
+        $bodies = array();
+        foreach ($data['rows'] as $row) {
+            $body = $row['body'];
+            $body = preg_replace('#<phrase class="honfriend" id="uk.org.publicwhip/member/(\d+)" name="([^"]*?)">(.*?\s*\((.*?)\))</phrase>#', '<a href="/mp/?m=$1" title="Our page on $2 - \'$3\'">$4</a>', $body);
+            $body = preg_replace('#<phrase class="offrep" id="(.*?)/(\d+)-(\d+)-(\d+)\.(.*?)">(.*?)</phrase>#e', '\'<a href="/search/?pop=1&s=date:$2$3$4+column:$5+section:$1">\' . str_replace("Official Report", "Hansard", \'$6\') . \'</a>\'', $body);
+            #$body = preg_replace('#<phrase class="offrep" id="((.*?)/(\d+)-(\d+)-(\d+)\.(.*?))">(.*?)</phrase>#e', "\"<a href='/search/?pop=1&amp;s=date:$3$4$5+column:$6+section:$2&amp;match=$1'>\" . str_replace('Official Report', 'Hansard', '$7') . '</a>'", $body);
+            $bodies[] = $body;
+        }
+        if (isset($data['info']['glossarise']) && $data['info']['glossarise']) {
+            // And glossary phrases
+            twfy_debug_timestamp('Before glossarise');
+
+            $bodies = $GLOSSARY->glossarise($bodies, $data['info']['glossarise']);
+            twfy_debug_timestamp('After glossarise');
+        }
+        if ($SEARCHENGINE) {
+            // We have some search terms to highlight.
+            twfy_debug_timestamp('Before highlight');
+            $bodies = $SEARCHENGINE->highlight($bodies);
+            twfy_debug_timestamp('After highlight');
+        }
+
+        $speeches = 0;
+        $first_speech = null;
+        $section_title = '';
+        $subsection_title = '';
+        for ($i=0; $i<count($data['rows']); $i++) {
+            $htype = $data['rows'][$i]['htype'];
+            if ($htype == 10) {
+                $section_title = $data['rows'][$i]['body'];
+            } elseif ($htype == 11) {
+                $subsection_title = $data['rows'][$i]['body'];
+            } elseif ($htype == 12) {
+                $data['rows'][$i]['body'] = $bodies[$i];
+            }
+            if ($htype == 12 || $htype == 13) {
+                $speeches++;
+                if (!$first_speech) {
+                    $first_speech = $row;
+                }
+            }
+        }
+
+        if ($subsection_title) {
+            $data['heading'] = $subsection_title;
+        } else {
+            $data['heading'] = $section_title;
+        }
+
+        #$data['location'] = $this->major_data['title'];
+        # ^^^ TODO Not friendly enough
+        if ($this->major == 1) {
+            $data['location'] = 'in the House of Commons';
+        } elseif ($this->major == 2) {
+            $data['location'] = 'in Westminster Hall';
+        } elseif ($this->major == 3) {
+            $data['location'] = 'in Written Answers XXX';
+        } elseif ($this->major == 4) {
+            $data['location'] = 'in Written Ministerial Statements XXX';
+        } elseif ($this->major == 5) {
+            $data['location'] = 'in the Northern Ireland Assembly';
+        } elseif ($this->major == 6) {
+            $data['location'] = 'in a Public Bill Committee';
+        } elseif ($this->major == 7) {
+            $data['location'] = 'in the Scottish Parliament';
+        } elseif ($this->major == 8) {
+            $data['location'] = 'in Scottish Written Answers XXX';
+        } elseif ($this->major == 101) {
+            $data['location'] = 'in the House of Lords';
+        }
+
+        if (array_key_exists('text_heading', $data['info'])) {
+            // The user has requested a full debate
+            if ($subsection_title) {
+                $data['intro'] = "This $section_title debate took place";
+            } else {
+                $data['intro'] = "This debate took place";
+            }
+            $data['email_alert_text'] = $data['info']['text_heading'];
+        } else {
+            // The user has requested only part of a debate, so find a suitable title
+            if ($subsection_title) {
+                $data['intro'] = "This is part of the $section_title debate that took place";
+            } else {
+                $data['intro'] = "This is part of the debate that took place";
+            }
+            foreach ($data['rows'] as $row) {
+                if ($row['htype'] == 10 || $row['htype'] == 11) {
+                    $data['email_alert_text'] = $row['body'];
+                    $data['full_debate_url'] = $row['listurl'];
+                    break;
+                }
+            }
+        }
+
+        $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
+        $data['debate_day_human'] = format_date($first_speech['hdate'], 'jS F Y');
+
+        $URL = new \URL($this->list->listpage);
+        $URL->insert(array('d' => $first_speech['hdate']));
+        $URL->remove(array('id'));
+        $data['debate_day_link'] = $URL->generate();
+  
+        return $data;
     }
 
     protected function display_front() {
