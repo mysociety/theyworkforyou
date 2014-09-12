@@ -8,14 +8,16 @@ include_once INCLUDESPATH . "easyparliament/glossary.php";
 # We no longer want to use the gid parameter, it's all id.
 if (get_http_var('gid')) {
     $url = str_replace('gid', 'id', $_SERVER['REQUEST_URI']);
-    header('Location: http://' . DOMAIN . $url);
-    exit;
+    redirect($url);
 }
 
 if ($type = ucfirst(get_http_var('type'))) {
     $class_name = "MySociety\TheyWorkForYou\SectionView\\${type}View";
     $view = new $class_name();
-    $view->display();
+    $data = $view->display();
+    if ($data) {
+        MySociety\TheyWorkForYou\Renderer::output('section/section', $data);
+    }
 } else {
     $PAGE->error_message("No type specified", true);
 }
