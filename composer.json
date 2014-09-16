@@ -9,7 +9,7 @@
         "filp/whoops": "1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.0.*",
+        "phpunit/phpunit": "4.2.*",
         "phpunit/dbunit": ">=1.2",
         "phpdocumentor/phpdocumentor": "2.*"
     }
