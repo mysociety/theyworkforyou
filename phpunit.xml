@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true" bootstrap="tests/Bootstrap.php" backupGlobals="false">
+<phpunit
+    colors="true"
+    bootstrap="tests/Bootstrap.php"
+    backupGlobals="false"
+    convertErrorsToExceptions="false"
+>
     <testsuite name="TheyWorkForYou Test Suite">
         <directory>tests</directory>
     </testsuite>
