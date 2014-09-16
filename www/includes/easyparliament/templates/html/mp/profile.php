@@ -231,6 +231,20 @@ you can find it.</p>
 
                         <?php endif; ?>
 
+                        <?php if (count($current_offices) > 0): ?>
+
+                        <h3>Currently held offices</h3>
+
+                        <ul>
+
+                            <?php foreach ($current_offices as $office): ?>
+                            <li><?= $office ?></li>
+                            <?php endforeach; ?>
+
+                        </ul>
+
+                        <?php endif; ?>
+
                         <?php if (count($previous_offices) > 0): ?>
 
                         <h3>Other offices held in the past</h3>
@@ -238,7 +252,7 @@ you can find it.</p>
                         <ul>
 
                             <?php foreach ($previous_offices as $office): ?>
-                            <li><?= $office ?></li>
+                            <li><?= $office ?> (<?= $office->pretty_dates() ?>)</li>
                             <?php endforeach; ?>
 
                         </ul>
