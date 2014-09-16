@@ -21,9 +21,7 @@ env: TWFY_TEST_DB_HOST="127.0.0.1" TWFY_TEST_DB_USER="root" TWFY_TEST_DB_PASS=""
 before_script:
  - mysql -e "create database IF NOT EXISTS twfy_test;" -uroot
  - mysql -u root twfy_test < db/schema.sql
- - wget http://getcomposer.org/composer.phar
  - php composer.phar install --dev --no-interaction --prefer-source
- - echo "short_open_tag = On" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
  - echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
@@ -31,5 +29,5 @@ script:
  - vendor/bin/phpunit
 
 after_script:
- - wget https://scrutinizer-ci.com/ocular.phar
- - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+ - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;'
+ - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi;'
