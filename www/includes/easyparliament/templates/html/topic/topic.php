@@ -133,7 +133,7 @@
                         <div class="medium-4 columns topic-mp-info show-for-medium-up">
                             <div class="row">
                                 <div class="small-3 columns">
-                                    <img src="<?= $member_image ?>">
+                                    <img src="<?= $member_image['url'] ?>">
                                 </div>
                                 <div class="small-9 columns">
                                     <h3><?= $member_name ?></h3>
