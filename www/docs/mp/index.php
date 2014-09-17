@@ -682,22 +682,6 @@ function member_redirect (&$MEMBER, $code = 301, $pagetype = NULL) {
 }
 
 /**
- * Person Image
- *
- * Return the URL to an image of this person
- */
-
-function person_image ($MEMBER) {
-    $is_lord = in_array(HOUSE_TYPE_LORDS, $MEMBER->houses());
-    if ($is_lord) {
-        list($image,$sz) = find_rep_image($MEMBER->person_id(), false, 'lord');
-    } else {
-        list($image,$sz) = find_rep_image($MEMBER->person_id(), false, true);
-    }
-    return $image;
-}
-
-/**
  * Person Positions Summary
  *
  * Generate the summary of this person's held positions.
