@@ -309,10 +309,6 @@ class MEMBER {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
                 return false;
             }
-            $first_name = $m[1];
-            $middle_name = $m[2];
-            $last_name = $m[3];
-
 
             $params[':first_name'] = $m[1];
             $params[':last_name'] = $m[3];
