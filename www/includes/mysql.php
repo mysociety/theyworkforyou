@@ -168,7 +168,12 @@ Class MySQLQuery {
             $this->rows = count($result);
             $this->data = $result;
 
-            $this->insert_id = $this->conn->lastInsertId();
+            // Sanity check that lastInsertId() is actually a number, otherwise panic
+            if (is_numeric($this->conn->lastInsertId())) {
+                $this->insert_id = (int) $this->conn->lastInsertId();
+            } else {
+                throw new Exception('Last connection ID was not numeric!');
+            }
             $this->affected_rows = $pdoStatement->rowCount();
 
             twfy_debug ("SQLRESULT", array($this, '_display_result'));
