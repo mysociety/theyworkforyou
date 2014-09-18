@@ -204,7 +204,7 @@ class COMMENTREPORT {
                 ':body' => $body,
                 ':time' => $time,
                 ':user_id' => $THEUSER->user_id()
-            )
+            );
         } else {
             $sql = "INSERT INTO commentreports
                                     (comment_id, body, reported, firstname, lastname, email)
@@ -223,7 +223,7 @@ class COMMENTREPORT {
                 ':firstname' => $reportdata['firstname'],
                 ':lastname' => $reportdata['lastname'],
                 ':email' => $reportdata['email'],
-            )
+            );
         }
 
         $q = $this->db->query($sql, $params);

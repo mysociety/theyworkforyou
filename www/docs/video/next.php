@@ -15,7 +15,7 @@ if ($action == 'next' || $action=='nextneeded') {
     $db = new ParlDB;
     $gid = "uk.org.publicwhip/$gid";
     $q = $db->query("select hdate,hpos,major from hansard where gid = :gid", array(
-        ':gid'= > $gid
+        ':gid' => $gid
         ));
     if (!$q->rows()) {
         # Shouldn't happen, but means a bot has got the URL somehow or similar

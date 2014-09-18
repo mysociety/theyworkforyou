@@ -84,7 +84,7 @@ $url_token = trim(get_http_var('t'));
 if ($url_token) {
 
     $q = $db->query('SELECT * FROM campaigners WHERE token = :token', array(
-        ':token' =. $url_token));
+        ':token' => $url_token));
     if ($q->rows() > 0) {
         $q = $db->query('UPDATE campaigners SET confirmed = 1 WHERE token = :token', array(
             ':token' => $url_token));
