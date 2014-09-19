@@ -43,16 +43,30 @@ twfy_debug_timestamp("after including utility.php");
 // Set the default timezone
 if(function_exists('date_default_timezone_set')) date_default_timezone_set(TIMEZONE);
 
-// The error_handler function is in includes/utility.php
-$error_level = E_ALL & ~E_NOTICE;
-if (DEVSITE) {
-    $error_level = E_ALL | E_STRICT;
-} elseif (version_compare(phpversion(), "5.3") >= 0) {
-    $error_level = $error_level & ~E_DEPRECATED;
-}
+// Only do clever things with errors if we're not testing, otherwise show as default
 
-set_error_handler("error_handler", $error_level);
-set_exception_handler("exception_handler");
+if (!(defined('TESTING') && TESTING == true)) {
+
+    // The error_handler function is in includes/utility.php
+    $error_level = E_ALL & ~E_NOTICE;
+    if (DEVSITE) {
+        $error_level = E_ALL | E_STRICT;
+    } elseif (version_compare(phpversion(), "5.3") >= 0) {
+        $error_level = $error_level & ~E_DEPRECATED;
+    }
+
+    set_error_handler("error_handler", $error_level);
+
+    // Decide how to handle exceptions (send to Whoops or use the legacy handler)
+    if (DEVSITE) {
+        $whoops = new \Whoops\Run;
+        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+        $whoops->register();
+    } else {
+        set_exception_handler("exception_handler");
+    }
+
+}
 
 // The time the page starts, so we can display the total at the end.
 // getmicrotime() is in utiltity.php.
