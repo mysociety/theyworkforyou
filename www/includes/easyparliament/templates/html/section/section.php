@@ -82,7 +82,7 @@
                     $source_title .= 'HL';
                 }
             } elseif ($major==6) {
-                $source_title .= $section['title'];
+                $source_title .= $data['section_title'];
             } else {
                 $source_title .= 'HL';
             }
@@ -151,7 +151,9 @@
               <?php if (!isset($previous_speech_time) || $previous_speech_time != $speech['htime']) { ?>
                 <li class="time">
                     <a href="<?= $speech['listurl'] ?>">
+                      <?php if ($speech['htime']) { ?>
                         <?= format_time($speech['htime'], 'g:i a') ?>,
+                      <?php } ?>
                         <?= format_date($speech['hdate'], 'jS F Y') ?>
                     </a>
                 </li>
@@ -161,7 +163,7 @@
                 if ($source_url) {
 ?>
                 <li class="link-to-hansard"><a href="<?=$source_url ?>"><?=$source_text ?></a>
-                <?php if ($source_title) { ?> (<?=$source_title ?>)<?php } ?></li>
+                <?php if ($source_title) { ?><span> (<?=$source_title ?>)</span><?php } ?></li>
 <?php
                 }
 ?>

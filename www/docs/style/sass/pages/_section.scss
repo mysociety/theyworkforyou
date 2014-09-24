@@ -230,6 +230,14 @@ span.hi {
     background-position: -25px 0;
   }
 
+  .link-to-hansard span {
+    display: none;
+  }
+
+  .link-to-hansard:hover span {
+    display: inline;
+  }
+
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     a::before {
       background-size: 36px; // 36px width, auto height

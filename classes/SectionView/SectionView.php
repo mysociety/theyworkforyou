@@ -175,12 +175,12 @@ class SectionView {
 
         $speeches = 0;
         $first_speech = null;
-        $section_title = '';
+        $data['section_title'] = '';
         $subsection_title = '';
         for ($i=0; $i<count($data['rows']); $i++) {
             $htype = $data['rows'][$i]['htype'];
             if ($htype == 10) {
-                $section_title = $data['rows'][$i]['body'];
+                $data['section_title'] = $data['rows'][$i]['body'];
             } elseif ($htype == 11) {
                 $subsection_title = $data['rows'][$i]['body'];
             } elseif ($htype == 12) {
@@ -197,43 +197,40 @@ class SectionView {
         if ($subsection_title) {
             $data['heading'] = $subsection_title;
         } else {
-            $data['heading'] = $section_title;
+            $data['heading'] = $data['section_title'];
         }
 
-        #$data['location'] = $this->major_data['title'];
-        # ^^^ TODO Not friendly enough
+        if ($subsection_title) {
+            $data['intro'] = "This $data[section_title]";
+        } else {
+            $data['intro'] = "This";
+        }
         if ($this->major == 1) {
-            $data['location'] = 'in the House of Commons';
+            $data['location'] = 'debate took place in the House of Commons';
         } elseif ($this->major == 2) {
-            $data['location'] = 'in Westminster Hall';
+            $data['location'] = 'debate took place in Westminster Hall';
         } elseif ($this->major == 3) {
-            $data['location'] = 'in Written Answers XXX';
+            $data['location'] = 'written question was answered';
         } elseif ($this->major == 4) {
-            $data['location'] = 'in Written Ministerial Statements XXX';
+            $data['location'] = 'written statement was made';
         } elseif ($this->major == 5) {
-            $data['location'] = 'in the Northern Ireland Assembly';
+            $data['location'] = 'debate took place in the Northern Ireland Assembly';
         } elseif ($this->major == 6) {
-            $data['location'] = 'in a Public Bill Committee';
+            $data['location'] = 'debate took place in a Public Bill Committee';
         } elseif ($this->major == 7) {
-            $data['location'] = 'in the Scottish Parliament';
+            $data['location'] = 'debate took place in the Scottish Parliament';
         } elseif ($this->major == 8) {
-            $data['location'] = 'in Scottish Written Answers XXX';
+            $data['location'] = 'Scottish Parliament written question was answered';
         } elseif ($this->major == 101) {
-            $data['location'] = 'in the House of Lords';
+            $data['location'] = 'debate took place in the House of Lords';
         }
 
         if (array_key_exists('text_heading', $data['info'])) {
-            // The user has requested a full debate
-            if ($subsection_title) {
-                $data['intro'] = "This $section_title debate took place";
-            } else {
-                $data['intro'] = "This debate took place";
-            }
             $data['email_alert_text'] = $data['info']['text_heading'];
         } else {
             // The user has requested only part of a debate, so find a suitable title
             if ($subsection_title) {
-                $data['intro'] = "This is part of the $section_title debate that took place";
+                $data['intro'] = "This is part of the $data[section_title] debate that took place";
             } else {
                 $data['intro'] = "This is part of the debate that took place";
             }
