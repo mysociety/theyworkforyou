@@ -15,13 +15,11 @@ class PbcView extends SectionView {
 
     # Public Bill Committees have a somewhat different structure to the rest
     public function display() {
-        global $PAGE;
-        $this->public_bill_committees();
-        $PAGE->page_end();
+        return $this->public_bill_committees();
     }
 
     protected function public_bill_committees() {
-        global $this_page, $DATA;
+        global $this_page, $DATA, $PAGE;
 
         $id = get_http_var('id');
 
@@ -37,7 +35,7 @@ class PbcView extends SectionView {
         }
 
         if ($bill_id && $id) {
-            $this->display_section_or_speech(array(
+            return $this->display_section_or_speech(array(
                 'gid' => $standingprefix . $id,
             ));
         } elseif ($bill_id) {
@@ -65,6 +63,7 @@ class PbcView extends SectionView {
         } else {
             $this->display_front();
         }
+        $PAGE->page_end();
     }
 
     protected function front_content() {

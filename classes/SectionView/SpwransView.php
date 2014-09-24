@@ -12,7 +12,7 @@ class SpwransView extends WransView {
             $this->spwrans_redirect($spid);
             $PAGE->page_end();
         } else {
-            parent::display();
+            return parent::display();
         }
     }
 
