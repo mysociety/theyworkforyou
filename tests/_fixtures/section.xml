@@ -1,0 +1,487 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database name="twfy_staging">
+	<table_data name="bills">
+	<row>
+		<field name="id">1</field>
+		<field name="title">Consumer Rights Bill</field>
+		<field name="url">http://services.parliament.uk/bills/2013-14/consumerrights.html</field>
+		<field name="type">unknown</field>
+		<field name="lords">0</field>
+		<field name="session">2013-14</field>
+		<field name="standingprefix">standing2014-02-11_CONSUMER_</field>
+	</row>
+	</table_data>
+	<table_data name="constituency">
+	<row>
+		<field name="name">Constituency A</field>
+		<field name="main_name">1</field>
+		<field name="from_date">1000-01-01</field>
+		<field name="to_date">9999-12-31</field>
+		<field name="cons_id">1</field>
+	</row>
+	</table_data>
+	<table_data name="epobject">
+	<row> <field name="epobject_id">100</field> <field name="body">HeadingA</field> </row>
+	<row> <field name="epobject_id">101</field> <field name="body">SubheadingA</field> </row>
+	<row> <field name="epobject_id">102</field> <field name="body">SpeechA</field> </row>
+	<row> <field name="epobject_id">200</field> <field name="body">HeadingA</field> </row>
+	<row> <field name="epobject_id">201</field> <field name="body">SubheadingA</field> </row>
+	<row> <field name="epobject_id">202</field> <field name="body">SpeechA</field> </row>
+	<row> <field name="epobject_id">300</field> <field name="body">DepartmentA</field> </row>
+	<row> <field name="epobject_id">301</field> <field name="body">HeadingA</field> </row>
+	<row> <field name="epobject_id">302</field> <field name="body">QuestionA</field> </row>
+	<row> <field name="epobject_id">303</field> <field name="body">AnswerA</field> </row>
+	<row> <field name="epobject_id">304</field> <field name="body">HeadingB</field> </row>
+	<row> <field name="epobject_id">305</field> <field name="body">QuestionB</field> </row>
+	<row> <field name="epobject_id">306</field> <field name="body">AnswerB</field> </row>
+	<row> <field name="epobject_id">400</field> <field name="body">DepartmentA</field> </row>
+	<row> <field name="epobject_id">401</field> <field name="body">HeadingA</field> </row>
+	<row> <field name="epobject_id">402</field> <field name="body">StatementA</field> </row>
+	<row> <field name="epobject_id">500</field> <field name="body">HeadingA</field> </row>
+	<row> <field name="epobject_id">501</field> <field name="body">SubheadingA</field> </row>
+	<row> <field name="epobject_id">502</field> <field name="body">SpeechA</field> </row>
+	<row> <field name="epobject_id">600</field> <field name="body">HeadingA</field> </row>
+	<row> <field name="epobject_id">601</field> <field name="body">SubheadingA</field> </row>
+	<row> <field name="epobject_id">602</field> <field name="body">SpeechA</field> </row>
+	<row> <field name="epobject_id">700</field> <field name="body">HeadingA</field> </row>
+	<row> <field name="epobject_id">701</field> <field name="body">SubheadingA</field> </row>
+	<row> <field name="epobject_id">702</field> <field name="body">SpeechA</field> </row>
+	<row> <field name="epobject_id">800</field> <field name="body">HeadingA</field> </row>
+	<row> <field name="epobject_id">801</field> <field name="body">QuestionA</field> </row>
+	<row> <field name="epobject_id">802</field> <field name="body">AnswerA</field> </row>
+	<row> <field name="epobject_id">10100</field> <field name="body">HeadingA</field> </row>
+	<row> <field name="epobject_id">10101</field> <field name="body">SubheadingA</field> </row>
+	<row> <field name="epobject_id">10102</field> <field name="body">SpeechA</field> </row>
+	</table_data>
+	<table_data name="gidredirect">
+	<row>
+		<field name="gid_from">uk.org.publicwhip/wrans/2014-01-01a.187335.h</field>
+		<field name="gid_to">uk.org.publicwhip/wrans/2014-01-01b.1.2</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="major">3</field>
+	</row>
+	</table_data>
+	<table_data name="hansard">
+	<row>
+		<field name="epobject_id">100</field>
+		<field name="gid">uk.org.publicwhip/debate/2014-01-01b.1.1</field>
+		<field name="htype">10</field>
+		<field name="speaker_id">0</field>
+		<field name="major">1</field>
+		<field name="minor">0</field>
+		<field name="section_id">0</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">1</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">101</field>
+		<field name="gid">uk.org.publicwhip/debate/2014-01-01b.1.2</field>
+		<field name="htype">11</field>
+		<field name="speaker_id">0</field>
+		<field name="major">1</field>
+		<field name="minor">0</field>
+		<field name="section_id">100</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">2</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">102</field>
+		<field name="gid">uk.org.publicwhip/debate/2014-01-01b.1.3</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">1</field>
+		<field name="major">1</field>
+		<field name="minor">0</field>
+		<field name="section_id">100</field>
+		<field name="subsection_id">101</field>
+		<field name="hpos">3</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">200</field>
+		<field name="gid">uk.org.publicwhip/westminhall/2014-01-01b.1.1</field>
+		<field name="htype">10</field>
+		<field name="speaker_id">0</field>
+		<field name="major">2</field>
+		<field name="minor">0</field>
+		<field name="section_id">0</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">1</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">201</field>
+		<field name="gid">uk.org.publicwhip/westminhall/2014-01-01b.1.2</field>
+		<field name="htype">11</field>
+		<field name="speaker_id">0</field>
+		<field name="major">2</field>
+		<field name="minor">0</field>
+		<field name="section_id">200</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">2</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">202</field>
+		<field name="gid">uk.org.publicwhip/westminhall/2014-01-01b.1.3</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">1</field>
+		<field name="major">2</field>
+		<field name="minor">0</field>
+		<field name="section_id">200</field>
+		<field name="subsection_id">201</field>
+		<field name="hpos">3</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">300</field>
+		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.1</field>
+		<field name="htype">10</field>
+		<field name="speaker_id">0</field>
+		<field name="major">3</field>
+		<field name="minor">0</field>
+		<field name="section_id">0</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">1</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">301</field>
+		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.2</field>
+		<field name="htype">11</field>
+		<field name="speaker_id">0</field>
+		<field name="major">3</field>
+		<field name="minor">0</field>
+		<field name="section_id">300</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">2</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">302</field>
+		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.3</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">1</field>
+		<field name="major">3</field>
+		<field name="minor">1</field>
+		<field name="section_id">300</field>
+		<field name="subsection_id">301</field>
+		<field name="hpos">3</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">303</field>
+		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.4</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">2</field>
+		<field name="major">3</field>
+		<field name="minor">2</field>
+		<field name="section_id">300</field>
+		<field name="subsection_id">301</field>
+		<field name="hpos">4</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">304</field>
+		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.5</field>
+		<field name="htype">11</field>
+		<field name="speaker_id">0</field>
+		<field name="major">3</field>
+		<field name="minor">0</field>
+		<field name="section_id">300</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">5</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">305</field>
+		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.6</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">1</field>
+		<field name="major">3</field>
+		<field name="minor">1</field>
+		<field name="section_id">300</field>
+		<field name="subsection_id">304</field>
+		<field name="hpos">6</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">306</field>
+		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.7</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">2</field>
+		<field name="major">3</field>
+		<field name="minor">2</field>
+		<field name="section_id">300</field>
+		<field name="subsection_id">304</field>
+		<field name="hpos">7</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">400</field>
+		<field name="gid">uk.org.publicwhip/wms/2014-01-01b.1.1</field>
+		<field name="htype">10</field>
+		<field name="speaker_id">0</field>
+		<field name="major">4</field>
+		<field name="minor">0</field>
+		<field name="section_id">0</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">1</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">401</field>
+		<field name="gid">uk.org.publicwhip/wms/2014-01-01b.1.2</field>
+		<field name="htype">11</field>
+		<field name="speaker_id">0</field>
+		<field name="major">4</field>
+		<field name="minor">0</field>
+		<field name="section_id">400</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">2</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">402</field>
+		<field name="gid">uk.org.publicwhip/wms/2014-01-01b.1.3</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">1</field>
+		<field name="major">4</field>
+		<field name="minor">0</field>
+		<field name="section_id">400</field>
+		<field name="subsection_id">401</field>
+		<field name="hpos">3</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">500</field>
+		<field name="gid">uk.org.publicwhip/ni/2014-01-01b.1.1</field>
+		<field name="htype">10</field>
+		<field name="speaker_id">0</field>
+		<field name="major">5</field>
+		<field name="minor">0</field>
+		<field name="section_id">0</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">1</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">501</field>
+		<field name="gid">uk.org.publicwhip/ni/2014-01-01b.1.2</field>
+		<field name="htype">11</field>
+		<field name="speaker_id">0</field>
+		<field name="major">5</field>
+		<field name="minor">0</field>
+		<field name="section_id">500</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">2</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">502</field>
+		<field name="gid">uk.org.publicwhip/ni/2014-01-01b.1.3</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">1</field>
+		<field name="major">5</field>
+		<field name="minor">0</field>
+		<field name="section_id">500</field>
+		<field name="subsection_id">501</field>
+		<field name="hpos">3</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">600</field>
+		<field name="gid">uk.org.publicwhip/standing/2014-01-01b.1.1</field>
+		<field name="htype">10</field>
+		<field name="speaker_id">0</field>
+		<field name="major">6</field>
+		<field name="minor">0</field>
+		<field name="section_id">0</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">1</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">700</field>
+		<field name="gid">uk.org.publicwhip/spor/2014-01-01b.1.1</field>
+		<field name="htype">10</field>
+		<field name="speaker_id">0</field>
+		<field name="major">7</field>
+		<field name="minor">0</field>
+		<field name="section_id">0</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">1</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">701</field>
+		<field name="gid">uk.org.publicwhip/spor/2014-01-01b.1.2</field>
+		<field name="htype">11</field>
+		<field name="speaker_id">0</field>
+		<field name="major">7</field>
+		<field name="minor">0</field>
+		<field name="section_id">700</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">2</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">702</field>
+		<field name="gid">uk.org.publicwhip/spor/2014-01-01b.1.3</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">1</field>
+		<field name="major">7</field>
+		<field name="minor">0</field>
+		<field name="section_id">700</field>
+		<field name="subsection_id">701</field>
+		<field name="hpos">3</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">800</field>
+		<field name="gid">uk.org.publicwhip/spwa/2014-01-01b.1.2</field>
+		<field name="htype">10</field>
+		<field name="speaker_id">0</field>
+		<field name="major">8</field>
+		<field name="minor">0</field>
+		<field name="section_id">0</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">1</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">801</field>
+		<field name="gid">uk.org.publicwhip/spwa/2014-01-01b.1.3</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">1</field>
+		<field name="major">8</field>
+		<field name="minor">1</field>
+		<field name="section_id">800</field>
+		<field name="subsection_id">800</field>
+		<field name="hpos">2</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">802</field>
+		<field name="gid">uk.org.publicwhip/spwa/2014-01-01b.1.4</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">2</field>
+		<field name="major">8</field>
+		<field name="minor">2</field>
+		<field name="section_id">800</field>
+		<field name="subsection_id">800</field>
+		<field name="hpos">3</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">10100</field>
+		<field name="gid">uk.org.publicwhip/lords/2014-01-01b.1.1</field>
+		<field name="htype">10</field>
+		<field name="speaker_id">0</field>
+		<field name="major">101</field>
+		<field name="minor">0</field>
+		<field name="section_id">0</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">1</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">10101</field>
+		<field name="gid">uk.org.publicwhip/lords/2014-01-01b.1.2</field>
+		<field name="htype">11</field>
+		<field name="speaker_id">0</field>
+		<field name="major">101</field>
+		<field name="minor">0</field>
+		<field name="section_id">10100</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">2</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">10102</field>
+		<field name="gid">uk.org.publicwhip/lords/2014-01-01b.1.3</field>
+		<field name="htype">12</field>
+		<field name="speaker_id">1</field>
+		<field name="major">101</field>
+		<field name="minor">0</field>
+		<field name="section_id">10100</field>
+		<field name="subsection_id">10101</field>
+		<field name="hpos">3</field>
+		<field name="hdate">2014-01-01</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	</table_data>
+	<table_data name="member">
+	<row>
+		<field name="member_id">1</field>
+		<field name="house">1</field>
+		<field name="first_name">Mp</field>
+		<field name="last_name">Mp</field>
+		<field name="constituency">Highlands and Islands</field>
+		<field name="party">Independent</field>
+		<field name="entered_house">2012-10-23</field>
+		<field name="left_house">9999-12-31</field>
+		<field name="entered_reason">changed_party</field>
+		<field name="left_reason">still_in_office</field>
+		<field name="person_id">1</field>
+		<field name="title"></field>
+		<field name="lastupdate">2013-11-25 10:15:51</field>
+	</row>
+	<row>
+		<field name="member_id">2</field>
+		<field name="house">1</field>
+		<field name="first_name">Mp2</field>
+		<field name="last_name">Mp2</field>
+		<field name="constituency">Birmingham</field>
+		<field name="party">Independent</field>
+		<field name="entered_house">2012-10-23</field>
+		<field name="left_house">9999-12-31</field>
+		<field name="entered_reason">changed_party</field>
+		<field name="left_reason">still_in_office</field>
+		<field name="person_id">2</field>
+		<field name="title"></field>
+		<field name="lastupdate">2013-11-25 10:15:51</field>
+	</row>
+	</table_data>
+	<table_data name="pbc_members">
+	<row>
+		<field name="id">1</field>
+		<field name="member_id">40565</field>
+		<field name="chairman">1</field>
+		<field name="bill_id">1</field>
+		<field name="sitting">01-0</field>
+		<field name="attending">0</field>
+	</row>
+	</table_data>
+</database>
+</mysqldump>

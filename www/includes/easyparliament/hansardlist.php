@@ -49,15 +49,9 @@ Future stuff...
 
 */
 
+class RedirectException extends Exception { }
+
 class HANSARDLIST {
-
-    // We add 'wrans' or 'debate' onto the end of this in the appropriate classes'
-    // constructors.
-    // If you change this, change it in COMMENTSLIST->_fix_gid() too!
-    // And in TRACKBACK too.
-    public $gidprefix = 'uk.org.publicwhip/';
-
-
     // This will be used to cache information about speakers on this page
     // so we don't have to keep fetching the same data from the DB.
     public $speakers = array ();
@@ -103,7 +97,7 @@ class HANSARDLIST {
     // don't need to call it and it's lengthy query again.
     public $most_recent_day;
 
-    public function HANSARDLIST() {
+    public function __construct() {
         $this->db = new ParlDB;
     }
 
@@ -143,9 +137,6 @@ class HANSARDLIST {
             $function = '_get_data_by_'.$view;
             // Get all the data that's to be rendered.
             $data = $this->$function($args);
-            if (isset($data['info']['redirected_gid'])) {
-                return $data['info']['redirected_gid'];
-            }
 
         } else {
             // Don't have a valid $view.
@@ -665,13 +656,11 @@ class HANSARDLIST {
                 $gid = $q->field(0, 'gid_to');
                 $q = $this->db->query("SELECT gid_to FROM gidredirect WHERE gid_from = '" . mysql_real_escape_string($gid) . "'");
             } while ($q->rows() > 0);
-            $redirected_gid = $gid;
-            twfy_debug (get_class($this), "found redirected gid $redirected_gid" );
-            $input['where'] = array('gid=' => $redirected_gid);
+            twfy_debug (get_class($this), "found redirected gid $gid" );
+            $input['where'] = array('gid=' => $gid);
             $itemdata = $this->_get_hansard_data($input);
-            // Store that it is one, in case caller wants to do proper redirect
             if (count($itemdata) > 0 ) {
-                $itemdata[0]['redirected_gid'] = fix_gid_from_db($redirected_gid);
+                throw new RedirectException(fix_gid_from_db($gid));
             }
         }
 
@@ -741,9 +730,7 @@ class HANSARDLIST {
             $input['where'] = array('gid=' => $this->gidprefix . $check_gid);
             $itemdata = $this->_get_hansard_data($input);
             if (count($itemdata) > 0) {
-                $itemdata[0]['redirected_gid'] = $check_gid;
-                $itemdata = $itemdata[0];
-                return $itemdata;
+                throw new RedirectException($check_gid);
             }
         }
         return null;
@@ -1827,7 +1814,6 @@ class HANSARDLIST {
                 // Create a URL for where we can see all the comments for this item.
                 if (isset($this->commentspage)) {
                     $COMMENTSURL = new URL($this->commentspage);
-                    $getvar = $hansardmajors[$this->major]['gidvar'];
                     if ($this->major == 6) {
                         # Another hack...
                         $COMMENTSURL->remove(array('id'));
@@ -1835,10 +1821,7 @@ class HANSARDLIST {
                         $fragment = $this->url . $id;
                         $item['commentsurl'] = $COMMENTSURL->generate() . $fragment;
                     } else {
-                        if ($getvar == 'gid') {
-                            $COMMENTSURL->remove(array('id'));
-                        }
-                        $COMMENTSURL->insert(array ($getvar=>$item['gid']) );
+                        $COMMENTSURL->insert(array('id' => $item['gid']));
                         $item['commentsurl'] = $COMMENTSURL->generate();
                     }
                 }
@@ -2277,28 +2260,28 @@ class HANSARDLIST {
 
         twfy_debug (get_class($this), "getting data by gid");
 
-        // Where we'll put all the data we want to render.
-        $data = array ();
-
         // Get the information about the item this URL refers to.
         $itemdata = $this->_get_item($args);
+        if (!$itemdata) {
+            return array();
+        }
 
-            // If part of a Written Answer (just question or just answer), select the whole thing
-            if (isset($itemdata['major']) && $hansardmajors[$itemdata['major']]['type']=='other' and ($itemdata['htype'] == '12' or $itemdata['htype'] == '13')) {
-                // find the gid of the subheading which holds this part
-                $input = array (
-                    'amount' => array('gid' => true),
-                    'where' => array (
-                        'epobject_id=' => $itemdata['subsection_id'],
-                    ),
-                );
-                $parent = $this->_get_hansard_data($input);
-                // display that item, i.e. the whole of the Written Answer
-                twfy_debug (get_class($this), "instead of " . $args['gid'] . " selecting subheading gid " . $parent[0]['gid'] . " to get whole wrans");
-                $args['gid'] = $parent[0]['gid'];
-                $itemdata = $this->_get_item($args);
-            $itemdata['redirected_gid'] = $args['gid'];
-            }
+        // If part of a Written Answer (just question or just answer), select the whole thing
+        if (isset($itemdata['major']) && $hansardmajors[$itemdata['major']]['type']=='other' and ($itemdata['htype'] == '12' or $itemdata['htype'] == '13')) {
+            // find the gid of the subheading which holds this part
+            $input = array (
+                'amount' => array('gid' => true),
+                'where' => array (
+                    'epobject_id=' => $itemdata['subsection_id'],
+                ),
+            );
+            $parent = $this->_get_hansard_data($input);
+            // display that item, i.e. the whole of the Written Answer
+            twfy_debug (get_class($this), "instead of " . $args['gid'] . " selecting subheading gid " . $parent[0]['gid'] . " to get whole wrans");
+            $args['gid'] = $parent[0]['gid'];
+            $itemdata = $this->_get_item($args);
+            throw new RedirectException($args['gid']);
+        }
 
         # If a WMS main heading, go to next gid
         if (isset($itemdata['major']) && $itemdata['major']==4 && $itemdata['htype'] == '10') {
@@ -2315,177 +2298,167 @@ class HANSARDLIST {
                 twfy_debug (get_class($this), 'instead of ' . $args['gid'] . ' moving to ' . $next[0]['gid']);
                 $args['gid'] = $next[0]['gid'];
                 $itemdata = $this->_get_item($args);
-                $itemdata['redirected_gid'] = $args['gid'];
+                throw new RedirectException($args['gid']);
             }
         }
 
-        # Don't want whole debates on /debate/ page
-            if ($this_page=='debate' && isset($itemdata['major']) && $itemdata['major']==1 && ($itemdata['htype'] == '10' || $itemdata['htype'] == '11')) {
-            $itemdata['redirected_gid'] = '/debates/?id=' . $args['gid'];
-        }
+        // Where we'll put all the data we want to render.
+        $data = array();
 
-        if ($itemdata) {
-
-            // So we know something about this item from outside.
-            // So we can associate trackbacks and things with it.
-            if (isset($itemdata['htype'])) {
-                $this->htype = $itemdata['htype'];
-                # XXX: Can't tell difference between clause and speech at front-end code level :-/
-                if ($this->major == 6 && $this->htype >= 12) {
-                    $this_page = 'pbc_speech';
-                }
-            }
-            if (isset($itemdata['epobject_id'])) {
-                $this->epobject_id = $itemdata['epobject_id'];
-            }
-            if (isset($itemdata['gid'])) {
-                $this->gid = $itemdata['gid'];
-            }
-
-            // We'll use these for page headings/titles:
-            $data['info']['date'] = $itemdata['hdate'];
-            $data['info']['text'] = $itemdata['body'];
-            $data['info']['major'] = $this->major;
-            if (isset($itemdata['redirected_gid'])) {
-                $data['info']['redirected_gid'] = $itemdata['redirected_gid'];
-            }
-
-            // If we have a member id we'll pass it on to the template so it
-            // can highlight all their speeches.
-            if (isset($args['member_id'])) {
-                $data['info']['member_id'] = $args['member_id'];
-            }
-            if (isset($args['person_id'])) {
-                $data['info']['person_id'] = $args['person_id'];
-            }
-
-            if (isset($args['s']) && $args['s'] != '') {
-                // We have some search term words that we could highlight
-                // when rendering.
-                $data['info']['searchstring'] = $args['s'];
-            }
-
-            // Shall we turn glossarising on?
-            if (isset($args['glossarise']) && $args['glossarise']) {
-                // We have some search term words that we could highlight
-                // when rendering.
-                $data['info']['glossarise'] = $args['glossarise'];
-            }
-
-            // Get the section and subsection headings for this item.
-            $sectionrow = $this->_get_section($itemdata);
-            $subsectionrow = $this->_get_subsection($itemdata);
-
-            // Get the nextprev links for this item, to link to next/prev pages.
-            // Duh.
-            if ($itemdata['htype'] == '10') {
-                $nextprev = $this->_get_nextprev_items( $sectionrow );
-                $data['info']['text_heading'] = $itemdata['body'];
-
-            } elseif ($itemdata['htype'] == '11') {
-                $nextprev = $this->_get_nextprev_items( $subsectionrow );
-                $data['info']['text_heading'] = $itemdata['body'];
-
+        if (isset($itemdata['htype'])) {
+            $this->htype = $itemdata['htype'];
+            if ($this->htype >= 12) {
+                $this_page = $this->commentspage;
             } else {
-                // Ordinary lowly item.
-                $nextprev = $this->_get_nextprev_items( $itemdata );
-
-                if (isset($subsectionrow['gid'])) {
-                    $nextprev['up']['url'] 		= $subsectionrow['listurl'];
-                    $nextprev['up']['title'] 	= $subsectionrow['body'];
-                } else {
-                    $nextprev['up']['url'] 		= $sectionrow['listurl'];
-                    $nextprev['up']['title'] 	= $sectionrow['body'];
-                }
-                $nextprev['up']['body']		= 'See the whole debate';
+                $this_page = $this->listpage;
             }
+        }
+        if (isset($itemdata['epobject_id'])) {
+            $this->epobject_id = $itemdata['epobject_id'];
+        }
+        if (isset($itemdata['gid'])) {
+            $this->gid = $itemdata['gid'];
+        }
 
-            // We can then access this from $PAGE and the templates.
-            $DATA->set_page_metadata($this_page, 'nextprev', $nextprev);
+        // We'll use these for page headings/titles:
+        $data['info']['date'] = $itemdata['hdate'];
+        $data['info']['text'] = $itemdata['body'];
+        $data['info']['major'] = $this->major;
 
-            // Now get all the non-heading rows.
+        // If we have a member id we'll pass it on to the template so it
+        // can highlight all their speeches.
+        if (isset($args['member_id'])) {
+            $data['info']['member_id'] = $args['member_id'];
+        }
+        if (isset($args['person_id'])) {
+            $data['info']['person_id'] = $args['person_id'];
+        }
 
-            // What data do we want for each item?
-            $amount = array (
-                'body' => true,
-                'speaker' => true,
-                'comment' => true,
-                'votes' => true
+        if (isset($args['s']) && $args['s'] != '') {
+            // We have some search term words that we could highlight
+            // when rendering.
+            $data['info']['searchstring'] = $args['s'];
+        }
+
+        // Shall we turn glossarising on?
+        if (isset($args['glossarise']) && $args['glossarise']) {
+            // We have some search term words that we could highlight
+            // when rendering.
+            $data['info']['glossarise'] = $args['glossarise'];
+        }
+
+        // Get the section and subsection headings for this item.
+        $sectionrow = $this->_get_section($itemdata);
+        $subsectionrow = $this->_get_subsection($itemdata);
+
+        // Get the nextprev links for this item, to link to next/prev pages.
+        // Duh.
+        if ($itemdata['htype'] == '10') {
+            $nextprev = $this->_get_nextprev_items( $sectionrow );
+            $data['info']['text_heading'] = $itemdata['body'];
+
+        } elseif ($itemdata['htype'] == '11') {
+            $nextprev = $this->_get_nextprev_items( $subsectionrow );
+            $data['info']['text_heading'] = $itemdata['body'];
+
+        } else {
+            // Ordinary lowly item.
+            $nextprev = $this->_get_nextprev_items( $itemdata );
+
+            if (isset($subsectionrow['gid'])) {
+                $nextprev['up']['url'] 		= $subsectionrow['listurl'];
+                $nextprev['up']['title'] 	= $subsectionrow['body'];
+            } else {
+                $nextprev['up']['url'] 		= $sectionrow['listurl'];
+                $nextprev['up']['title'] 	= $sectionrow['body'];
+            }
+            $nextprev['up']['body']		= 'See the whole debate';
+        }
+
+        // We can then access this from $PAGE and the templates.
+        $DATA->set_page_metadata($this_page, 'nextprev', $nextprev);
+
+        // Now get all the non-heading rows.
+
+        // What data do we want for each item?
+        $amount = array (
+            'body' => true,
+            'speaker' => true,
+            'comment' => true,
+            'votes' => true
+        );
+
+        if ($itemdata['htype'] == '10') {
+            // This item is a section, so we're displaying all the items within
+            // it that aren't within a subsection.
+
+            # $sectionrow['trackback'] = $this->_get_trackback_data($sectionrow);
+
+            $input = array (
+                'amount' => $amount,
+                'where' => array (
+                    'section_id=' => $itemdata['epobject_id'],
+                    'subsection_id=' => $itemdata['epobject_id']
+                ),
+                'order' => 'hpos ASC'
             );
 
-            if ($itemdata['htype'] == '10') {
-                // This item is a section, so we're displaying all the items within
-                // it that aren't within a subsection.
-
-                # $sectionrow['trackback'] = $this->_get_trackback_data($sectionrow);
+            $data['rows'] = $this->_get_hansard_data($input);
+            if (!count($data['rows']) || (count($data['rows'])==1 && strstr($data['rows'][0]['body'], 'was asked'))) {
 
                 $input = array (
-                    'amount' => $amount,
-                    'where' => array (
-                        'section_id=' => $itemdata['epobject_id'],
-                        'subsection_id=' => $itemdata['epobject_id']
+                    'amount' => array (
+                        'body' => true,
+                        'comment' => true,
+                        'excerpt' => true
                     ),
-                    'order' => 'hpos ASC'
+                    'where' => array (
+                        'section_id='	=> $sectionrow['epobject_id'],
+                        'htype='		=> '11',
+                        'major='		=> $this->major
+                    ),
+                    'order' => 'hpos'
                 );
-
-                $data['rows'] = $this->_get_hansard_data($input);
-                if (!count($data['rows']) || (count($data['rows'])==1 && strstr($data['rows'][0]['body'], 'was asked'))) {
-
-                    $input = array (
-                        'amount' => array (
-                            'body' => true,
-                            'comment' => true,
-                            'excerpt' => true
-                        ),
-                        'where' => array (
-                            'section_id='	=> $sectionrow['epobject_id'],
-                            'htype='		=> '11',
-                            'major='		=> $this->major
-                        ),
-                        'order' => 'hpos'
-                    );
-                    $data['subrows'] = $this->_get_hansard_data($input);
-                    # If there's only one subheading, and nothing in the heading, redirect to it immediaetly
-                    if (count($data['subrows']) == 1) {
-                        return array('info' => array('redirected_gid' => $data['subrows'][0]['gid']));
-                    }
+                $data['subrows'] = $this->_get_hansard_data($input);
+                # If there's only one subheading, and nothing in the heading, redirect to it immediaetly
+                if (count($data['subrows']) == 1) {
+                    throw new RedirectException($data['subrows'][0]['gid']);
                 }
-            } elseif ($itemdata['htype'] == '11') {
-                // This item is a subsection, so we're displaying everything within it.
-
-                # $subsectionrow['trackback'] = $this->_get_trackback_data($subsectionrow);
-
-                $input = array (
-                    'amount' => $amount,
-                    'where' => array (
-                        'subsection_id=' => $itemdata['epobject_id']
-                    ),
-                    'order' => 'hpos ASC'
-                );
-
-                $data['rows'] = $this->_get_hansard_data($input);
-
-
-            } elseif ($itemdata['htype'] == '12' || $itemdata['htype'] == '13') {
-                // Debate speech or procedural, so we're just displaying this one item.
-
-                # $itemdata['trackback'] = $this->_get_trackback_data($itemdata);
-
-                $data['rows'][] = $itemdata;
-
             }
+        } elseif ($itemdata['htype'] == '11') {
+            // This item is a subsection, so we're displaying everything within it.
 
-            // Put the section and subsection at the top of the rows array.
-            if (count($subsectionrow) > 0 &&
-                $subsectionrow['gid'] != $sectionrow['gid']) {
-                // If we're looking at a section, there may not be a subsection.
-                // And if the subsectionrow and sectionrow aren't the same.
-                array_unshift ($data['rows'], $subsectionrow);
-            }
+            # $subsectionrow['trackback'] = $this->_get_trackback_data($subsectionrow);
 
-            array_unshift ($data['rows'], $sectionrow);
+            $input = array (
+                'amount' => $amount,
+                'where' => array (
+                    'subsection_id=' => $itemdata['epobject_id']
+                ),
+                'order' => 'hpos ASC'
+            );
+
+            $data['rows'] = $this->_get_hansard_data($input);
+
+
+        } elseif ($itemdata['htype'] == '12' || $itemdata['htype'] == '13') {
+            // Debate speech or procedural, so we're just displaying this one item.
+
+            # $itemdata['trackback'] = $this->_get_trackback_data($itemdata);
+
+            $data['rows'][] = $itemdata;
 
         }
+
+        // Put the section and subsection at the top of the rows array.
+        if (count($subsectionrow) > 0 &&
+            $subsectionrow['gid'] != $sectionrow['gid']) {
+            // If we're looking at a section, there may not be a subsection.
+            // And if the subsectionrow and sectionrow aren't the same.
+            array_unshift ($data['rows'], $subsectionrow);
+        }
+
+        array_unshift ($data['rows'], $sectionrow);
 
         return $data;
 
@@ -2519,10 +2492,8 @@ class WMSLIST extends WRANSLIST {
     public $major = 4;
     public $listpage = 'wms';
     public $commentspage = 'wms';
-    public function wmslist() {
-        $this->db = new ParlDB;
-        $this->gidprefix .= 'wms/';
-    }
+    public $gidprefix = 'uk.org.publicwhip/wms/';
+
     public function _get_data_by_recent_wms($args = array()) {
         return $this->_get_data_by_recent_wrans($args);
     }
@@ -2532,40 +2503,29 @@ class WHALLLIST extends DEBATELIST {
     public $major = 2;
     public $listpage = 'whalls';
     public $commentspage = 'whall';
-    public function whalllist() {
-        $this->db = new ParlDB;
-        $this->gidprefix .= 'westminhall/';
-    }
+    public $gidprefix = 'uk.org.publicwhip/westminhall/';
 }
 
 class NILIST extends DEBATELIST {
     public $major = 5;
     public $listpage = 'nidebates';
     public $commentspage = 'nidebate';
-    public function nilist() {
-        $this->db = new ParlDB;
-        $this->gidprefix .= 'ni/';
-    }
+    public $gidprefix = 'uk.org.publicwhip/ni/';
 }
 
 class SPLIST extends DEBATELIST {
     public $major = 7;
     public $listpage = 'spdebates';
     public $commentspage = 'spdebate';
-    public function splist() {
-        $this->db = new ParlDB;
-        $this->gidprefix .= 'spor/';
-    }
+    public $gidprefix = 'uk.org.publicwhip/spor/';
 }
 
 class SPWRANSLIST extends WRANSLIST {
     public $major = 8;
     public $listpage = 'spwrans';
     public $commentspage = 'spwrans';
-    public function spwranslist() {
-        $this->db = new ParlDB;
-        $this->gidprefix .= 'spwa/';
-    }
+    public $gidprefix = 'uk.org.publicwhip/spwa/';
+
     public function get_gid_from_spid($spid) {
         // Fix the common errors of S.0 instead of S.O and leading
         // zeros in the numbers:
@@ -2588,24 +2548,14 @@ class LORDSDEBATELIST extends DEBATELIST {
     public $major = 101;
     public $listpage = 'lordsdebates';
     public $commentspage = 'lordsdebate';
-    public function lordsdebatelist() {
-        $this->db = new ParlDB;
-        $this->gidprefix .= 'lords/';
-    }
+    public $gidprefix = 'uk.org.publicwhip/lords/';
 }
 
 class DEBATELIST extends HANSARDLIST {
     public $major = 1;
-
-    // The page names we want to link to for item permalinks.
-    // If you change listpage, you'll have to change it in _get_listurl too I'm afraid.
     public $listpage = 'debates';
     public $commentspage = 'debate';
-
-    public function debatelist() {
-        $this->db = new ParlDB;
-        $this->gidprefix .= 'debate/';
-    }
+    public $gidprefix = 'uk.org.publicwhip/debate/';
 
     public function _get_data_by_recent_mostvotes($args) {
         // Get the most highly voted recent speeches.
@@ -2950,78 +2900,14 @@ class DEBATELIST extends HANSARDLIST {
 
 
 class WRANSLIST extends HANSARDLIST {
-
     public $major = 3;
-
-    // The page names we want to link to for item permalinks.
-    // If you change listpage, you'll have to change it in _get_listurl too I'm afraid.
     public $listpage = 'wrans';
     public $commentspage = 'wrans'; // We don't have a separate page for wrans comments.
-
-    public function wranslist() {
-        $this->db = new ParlDB;
-        $this->gidprefix .= 'wrans/';
-    }
+    public $gidprefix = 'uk.org.publicwhip/wrans/';
 
     public function total_questions() {
         $q = $this->db->query("SELECT COUNT(*) AS count FROM hansard WHERE major='" . $this->major . "' AND minor = 1");
         return $q->field(0, 'count');
-    }
-
-    public function _get_data_by_mp($args = array()) {
-        global $PAGE;
-        $data = array();
-        if (!isset($args['person_id']) || !is_numeric($args['person_id'])) {
-            $PAGE->error_message ("Sorry, we need a valid person ID.");
-            return $data;
-        }
-        $page = $args['page'] ? $args['page'] : 1;
-        $offset = ($page - 1) * 20;
-        $limit = 20;
-        $person_id = $args['person_id'];
-#		$q = $this->db->query("SELECT COUNT(gid) AS count FROM hansard h, member m
-#					WHERE major = 3 AND htype = 12 AND minor = 1
-#						AND h.speaker_id = m.member_id
-#						AND person_id = $person_id");
-#		$total_results = $q->field(0, 'count');
-        $total_results = 0;
-        $q = $this->db->query("SELECT e.body, es.body AS section_body, ess.body AS subsection_body,
-                        h.hdate, h.htype, h.gid, h.subsection_id, h.section_id, h.epobject_id
-                    FROM hansard h, epobject e, epobject es, epobject ess, member m
-                    WHERE h.htype = 12 AND major = 3 AND minor = 1
-                        AND h.epobject_id = e.epobject_id
-                        AND h.section_id = es.epobject_id
-                        AND h.subsection_id = ess.epobject_id
-                        AND h.speaker_id = m.member_id
-                        AND person_id = $person_id
-                    ORDER BY hdate DESC
-                    LIMIT $offset, $limit");
-        for ($row = 0; $row < $q->rows; $row++) {
-            $subsection_id = $q->field($row, 'subsection_id');
-            $section_body = $q->field($row, 'section_body');
-            $subsection_body = $q->field($row, 'subsection_body');
-            $r = $this->db->query("SELECT e.body
-                            FROM	hansard h, epobject e
-                            WHERE	h.epobject_id = e.epobject_id
-                            AND	minor = 2
-                            AND		h.subsection_id = '" . $q->field($row, 'subsection_id') . "'
-                            ");
-            $answer = $r->field(0, 'body');
-            $data[] = array(
-                'hdate' => $q->field($row, 'hdate'),
-                'section_body' => $section_body,
-                'subsection_body' => $subsection_body,
-                'question' => $q->field($row, 'body'),
-                'answer' => $answer,
-                'gid' => $q->field($row, 'gid')
-            );
-        }
-        $info = array(
-            'page' => $page,
-            'results_per_page' => $limit,
-            'total_results' => $total_results
-        );
-        return array('data'=>$data, 'info'=>$info);
     }
 
     public function _get_data_by_recent_wrans ($args=array()) {
@@ -3148,9 +3034,10 @@ class StandingCommittee extends DEBATELIST {
     public $major = 6;
     public $listpage = 'pbc_clause';
     public $commentspage = 'pbc_speech';
-    public function StandingCommittee($session='', $title='') {
-        $this->db = new ParlDB;
-        $this->gidprefix .= 'standing/';
+    public $gidprefix = 'uk.org.publicwhip/standing/';
+
+    public function __construct($session='', $title='') {
+        parent::__construct();
         $this->bill_title = $title;
         $title = str_replace(' ', '_', $title);
         $this->url = urlencode($session) . '/' . urlencode($title) . '/';

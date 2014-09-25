@@ -407,12 +407,11 @@ class COMMENTLIST {
         // We'll generate permalinks for each comment.
         // Assuming every comment is from the same major...
         $page = $hansardmajors[$major]['page'];
-        $gidvar = $hansardmajors[$major]['gidvar'];
 
         $URL = new URL($page);
 
         $gid = fix_gid_from_db($gid); // In includes/utility.php
-        $URL->insert(array($gidvar => $gid ));
+        $URL->insert(array('id' => $gid ));
         if ($user_id) {
             $URL->insert(array('u' => $user_id));
         }

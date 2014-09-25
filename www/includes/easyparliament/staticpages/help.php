@@ -160,7 +160,7 @@ please bear in mind that this service is run by a tiny charity and some voluntee
 based on these votes.  Follow the "votes" link next to each topic for details.
 Additionally, in many votes, MPs and Peers are told how to vote ('whipped') by their
 parties. Since the Whip is secret, we have to assume, <a
-href="http://www.theyworkforyou.com/debate/?id=2005-02-07.1200.2">like the
+href="http://www.theyworkforyou.com/debates/?id=2005-02-07.1200.2">like the
 Speaker</a>, that all votes are free.  </P>
 
 <p>If you put in some work, we will add new policies to the voting record
@@ -179,7 +179,7 @@ votes as more related ones are cast in future.
 <dd>
 <p>A few people have asked why we publish statistics on how often MPs use
 alliterative phrases, such as "she sells seashells". It has even been <a
-href="/debate/?id=2006-06-28a.348.0">mentioned in the House of Commons</a>.
+href="/debates/?id=2006-06-28a.348.0">mentioned in the House of Commons</a>.
 </p>
 
 <p>Simply put, we realise that data such as the number of debates spoken in

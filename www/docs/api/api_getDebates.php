@@ -131,12 +131,7 @@ function api_getDebates_type($t) {
             'type' => $type,
         ));
     } elseif ($gid = get_http_var('gid')) {
-        $redirect = _api_getHansard_gid($list, $gid);
-        if (is_string($redirect)) {
-            api_output(array(
-                'redirect' => $redirect
-            ));
-        }
+        _api_getHansard_gid($list, $gid);
     } elseif ($y = get_http_var('year')) {
         _api_getHansard_year($list, $y);
     } else {
