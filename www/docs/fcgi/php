@@ -1,3 +1,0 @@
-#!/bin/sh
-PHP_FCGI_CHILDREN=1 PEAR_EXTENSION_DIR=/usr/local/share/pear exec /usr/local/bin/php "$@"
-#PHPRC=/etc/php4/fcgi exec /software/bin/php4 "$@"
