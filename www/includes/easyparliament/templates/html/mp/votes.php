@@ -3,9 +3,9 @@
             <div class=" full-page__row">
             <div class="person-header__content page-content__row">
                 <div class="person-name">
-                  <?php if ( $image ) { ?>
+                  <?php if ( $image['exists'] ) { ?>
                     <div class="mp-image">
-                        <img src="<?= $image ?>" height="48">
+                        <img src="<?= $image['url'] ?>" height="48">
                     </div>
                   <?php } ?>
                     <div class="mp-name-and-position">
