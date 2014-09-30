@@ -267,7 +267,7 @@ Class MySQL {
             try {
                 $conn = new PDO($dsn, $db_user, $db_pass);
             } catch (PDOException $e) {
-                echo 'Connection failed: ' . $e->getMessage();
+                $this->fatal_error('We were unable to connect to the TheyWorkForYou database for some reason. Please try again in a few minutes.');
             }
 
             $global_connection = $conn;
@@ -303,6 +303,18 @@ Class MySQL {
     public function display_total_duration() {
         global $mysqltotalduration;
         twfy_debug ("TIME", "Total time for MySQL queries on this page: " . $mysqltotalduration . " seconds.");
+    }
+
+    public function fatal_error($error) {
+        echo '
+<html><head><title>TheyWorkForYou - Database Error</title></head>
+<body>
+<h1><a href="/"><img border="0" src="/images/theyworkforyoucom.gif" width="293" height="28" alt="TheyWorkForYou"></a></h1>
+<h2>Database error</h2>
+';
+        echo "<p>$error</p>";
+        echo '</body></html>';
+        exit;
     }
 
 // End MySQL class
