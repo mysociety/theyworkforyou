@@ -8,19 +8,40 @@
         <div class="debate-header__content">
             <h1><?= $heading ?></h1>
             <p class="lead">
-                <?= $intro ?> <?= $location ?><br>
+                <?= $intro ?> <?= $location ?>
                 <?php if ($debate_time_human) { ?>at <?= $debate_time_human ?><?php } ?>
                 on <a href="<?= $debate_day_link ?>"><?= $debate_day_human ?></a>.
             </p>
             <p class="cta">
-              <?php if(isset($full_debate_url)) { ?>
-                <a class="button subtle" href="<?= $full_debate_url ?>">Show full debate</a>
-              <?php } ?>
                 <a class="button alert" href="/alerts/?alertsearch=<?= urlencode($email_alert_text) ?>">Alert me about debates like this</a>
             </p>
         </div>
     </div>
+    <nav class="debate-navigation" role="navigation">
+        <div class="full-page__row">
+            <div class="debate-navigation__pagination">
+                <?php if (isset($nextprev['prev'])) { ?>
+                <div class="debate-navigation__previous-debate">
+                    <a href="<?= $nextprev['prev']['url'] ?>" rel="prev">&laquo; <?= $nextprev['prev']['body'] ?></a>
+                </div>
+                <?php } ?>
+
+                <?php if (isset($nextprev['up'])) { ?>
+                <div class="debate-navigation__all-debates">
+                    <a href="<?= $nextprev['up']['url'] ?>" rel="up"><?= $nextprev['up']['body'] ?></a>
+                </div>
+                <?php } ?>
+
+                <?php if (isset($nextprev['next'])) { ?>
+                <div class="debate-navigation__next-debate">
+                    <a href="<?= $nextprev['next']['url'] ?>" rel="next"><?= $nextprev['next']['body'] ?> &raquo;</a>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+    </nav>
 </div>
+
 <div class="full-page">
 
   <?php foreach($data['rows'] as $speech) { ?>
@@ -36,8 +57,16 @@
     if ($speech['htype'] == 12) {
         if ($hansardmajors[$data['info']['major']]['location'] == 'Scotland') {
             $body = preg_replace('# (S\d[O0WF]-\d+)[, ]#', ' <a href="/spwrans/?spid=$1">$1</a> ', $body);
-            $body = preg_replace('#<citation id="uk\.org\.publicwhip/(.*?)/(.*?)">\[(.*?)\]</citation>#e',
-                "'[<a href=\"/' . ('$1'=='spor'?'sp/?g':('$1'=='spwa'?'spwrans/?':'debates/?')) . 'id=$2' . '\">$3</a>]'",
+            $body = preg_replace_callback('#<citation id="uk\.org\.publicwhip/(.*?)/(.*?)">\[(.*?)\]</citation>#', function($matches) {
+                   if ($matches[1] == 'spor') {
+                       $href_segment = 'sp/?g';
+                   } elseif ($matches[1] == 'spwa') {
+                        $href_segment = 'spwrans/?';
+                    } else {
+                        $href_segment = 'debates/?';
+                    }
+                    return '[<a href="' . $href_segment . 'id=' . $matches[2] . '\">' . $matches[3] . '</a>]';
+                },
                 $body);
             $body = str_replace('href="../../../', 'href="http://www.scottish.parliament.uk/', $body);
         }
@@ -145,50 +174,42 @@
                     <strong class="debate-speech__speaker__name"><?= $speaker_name ?></strong>
                     <small class="debate-speech__speaker__position"><?= $speaker_position ?></small>
                 </a>
-            </h2>
-            <?php if (!isset($previous_speech_time) || $previous_speech_time != $speech['htime']) { ?>
-                <div class="debate-speech__meta">
-                    <div class="time">
-                        <a href="<?= $speech['listurl'] ?>">
-                          <?php if ($speech['htime']) { ?>
-                            <?= format_time($speech['htime'], 'g:i a') ?>,
-                          <?php } ?>
-                            <?= format_date($speech['hdate'], 'jS F Y') ?>
-                        </a>
-                    </div>
-                </div>
+                <?php if (!isset($previous_speech_time) || $previous_speech_time != $speech['htime']) { ?>
+                    <a href="<?= $speech['listurl'] ?>" class="debate-speech__meta__link time">
+                      <?php if ($speech['htime']) { ?>
+                        <?= format_time($speech['htime'], 'g:i a') ?>,
+                      <?php } ?>
+                        <?= format_date($speech['hdate'], 'jS F Y') ?>
+                    </a>
               <?php } ?>
+            </h2>
 
               <?php # XXX
                 if ($data['info']['major'] == 8 && preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $speech['gid'], $m)) {
                     print " | Question $m[1]";
                 } ?>
 
+
           <?php } ?>
             <div class="debate-speech__content"><?=$body ?></div>
-            <ul class="debate-speech__meta debate-speech__links">
 
-                <?php if (!$individual_item) { # XXX ?>
-                <li class="link-to-speech"><a href="<?= $speech['listurl'] ?>">Link to this speech</a></li>
-                <?php } ?>
-<?php
-                if ($source_url) {
-?>
-                <li class="link-to-hansard"><a href="<?=$source_url ?>"><?=$source_text ?></a>
-                <?php if ($source_title) { ?><span> (<?=$source_title ?>)</span><?php } ?></li>
-<?php
-                }
-?>
-            </ul>
             <?php if ($speech['voting_data']) { ?>
 
-            <div class="block question">
-            <h4>Does this answer the above question?</h4>
-            <div class="blockbody"><span class="wransvote"><a rel="nofollow" href="<?= $speech['voting_data']['yesvoteurl'] ?>" title="Rate this as answering the question">Yes!</a> <?= $speech['voting_data']['yesvotes'] ?> <?= $speech['voting_data']['yesplural'] ?> so!<br>
-            <a rel="nofollow" href="<?= $speech['voting_data']['novoteurl'] ?>" title="Rate this as NOT answering the question">No!</a> <?= $speech['voting_data']['novotes'] ?> <?= $speech['voting_data']['noplural'] ?> not!</span>
+            <div class="debate-speech__question-answered">
+                <div class="debate-speech__question-anwered-content">
+                    <h3>Does this answer the above question?</h3>
+                    <p class="debate-speech__question-answered-result">
+                        <a rel="nofollow" href="<?= $speech['voting_data']['yesvoteurl'] ?>" title="Rate this as answering the question">Yes!</a> <?= $speech['voting_data']['yesvotes'] ?> <?= $speech['voting_data']['yesplural'] ?> so!
+                    </p>
 
-            <p>Would you like to <strong>ask a question like this yourself</strong>? Use our <a href="http://www.whatdotheyknow.com">Freedom of Information site</a>.</p></div>
+                    <p class="debate-speech__question-answered-result">
+                        <a rel="nofollow" href="<?= $speech['voting_data']['novoteurl'] ?>" title="Rate this as NOT answering the question">No!</a> <?= $speech['voting_data']['novotes'] ?> <?= $speech['voting_data']['noplural'] ?> not!
+                    </p>
 
+                    <p>
+                        Would you like to <strong>ask a question like this yourself</strong>? Use our <a href="http://www.whatdotheyknow.com">Freedom of Information site</a>.
+                    </p>
+                </div>
             </div>
 
             <?php
@@ -197,17 +218,23 @@
             // Video
             if ($data['info']['major'] == 1 && !$individual_item) { # Commons debates only
                 if ($speech['video_status']&4) { ?>
-                    <a href="<?= $speech['commentsurl'] ?>" class="watch" onclick="return moveVideo(\'debate/'<?= $speech['gid'] ?>\');">Watch this</a>
+                    <a href="<?= $speech['commentsurl'] ?>" class="watch debate-speech__meta__link" onclick="return moveVideo(\'debate/'<?= $speech['gid'] ?>\');">Watch this</a>
                 <?php
                 } elseif (!$speech['video'] && $speech['video_status']&1 && !($speech['video_status']&8)) {
                     $gid_type = $data['info']['major'] == 1 ? 'debate' : 'lords'; ?>
-                    <a href="/video/?from=debate&amp;gid=<?= $gid_type ?>/<?= $speech['gid'] ?>" class="timestamp">Video match this</a>
+                    <a href="/video/?from=debate&amp;gid=<?= $gid_type ?>/<?= $speech['gid'] ?>" class="timestamp debate-speech__meta__link">Video match this</a>
                 <?php
                 }
             }
 
-            if (isset($speech['video'])) {
+            if (isset($speech['video']) && $speech['video']) {
+                ?>
+                <div class="debate__video-wrapper">
+                <?php
                 echo $speech['video'];
+                ?>
+                </div>
+                <?php
             }
 
             # XXX
@@ -220,14 +247,20 @@
                     $thing = 'item';
                 }
             ?>
-            <p><small><strong><a href="<?= $speech['listurl'] ?>" class="permalink">See this <?= $thing ?> in context</a></strong></small></p>
+            <p class="speech-link-in-context"><a href="<?= $speech['listurl'] ?>" class="permalink link debate-speech__meta__link">See this <?= $thing ?> in context</a></p>
             <?php
             } # End in context link
 
             if (isset($speech['commentteaser'])) { ?>
             <div class="comment-teaser">
-                <blockquote><p><?= $speech['commentteaser']['body'] ?></p><cite>Submitted by <?= $speech['commentteaser']['username'] ?></cite></small></blockquote>
+                <div class="comment-teaser__avatar">
+                    <span class="initial"><?= substr($speech['commentteaser']['username'], 0, 1); ?></span>
+                </div>
+                <blockquote><p><?= $speech['commentteaser']['body'] ?></p><cite>Submitted by <?= $speech['commentteaser']['username'] ?></cite>
+
                 <a class="morecomments" href="<?= $speech['commentteaser']['commentsurl'] ?>#c<?= $speech['commentteaser']['comment_id'] ?>" title="See any annotations posted about this"><?= $speech['commentteaser']['linktext'] ?></a>
+                </blockquote>
+
              </div>
             <?php
             }
@@ -236,18 +269,35 @@
             }
 
             ?>
+            <ul class="debate-speech__meta debate-speech__links">
+                <?php if (!$individual_item) { # XXX ?>
+                <li class="link-to-speech">
+                    <span class="link-to-speech__label">Link to this speech</span>
 
+                    <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link">In context</a>
+
+                    <a href="<?= $speech['commentsurl'] ?>" class="link debate-speech__meta__link">Individually</a>
+                </li>
+                <?php } ?>
+<?php
+                if ($source_url) {
+?>
+                <li class="link-to-hansard "><a href="<?=$source_url ?>" class="debate-speech__meta__link"><?=$source_text ?></a>
+                <?php if ($source_title) { ?><span> (<?=$source_title ?>)</span><?php } ?></li>
+<?php
+                }
+?>
+            </ul>
         </div>
     </div>
 
     <?php $previous_speech_time = $speech['htime']; ?>
 
   <?php } // end foreach
-
-    if (isset($data['subrows'])) {
-        print '<ul>';
+        if (isset($data['subrows'])) {
+        print '<div class="subrows"><div class="full-page__row"><ul>';
         foreach ($data['subrows'] as $row) {
-            print '<li>';
+            print '<li class="subrows__list-item">';
             if (isset($row['contentcount']) && $row['contentcount'] > 0) {
                 $has_content = true;
             } elseif ($row['htype'] == '11' && $hansardmajors[$row['major']]['type'] == 'other') {
@@ -256,7 +306,7 @@
                 $has_content = false;
             }
             if ($has_content) {
-                print '<a href="' . $row['listurl'] . '"><strong>' . $row['body'] . '</strong></a> ';
+                print '<a href="' . $row['listurl'] . '">' . $row['body'] . '</a> ';
                 // For the "x speeches, x comments" text.
                 $moreinfo = array();
                 if ($hansardmajors[$row['major']]['type'] != 'other') {
@@ -274,27 +324,55 @@
                 }
             } else {
                 // Nothing in this item, so no link.
-                print '<strong>' . $row['body'] . '</strong>';
+                print $row['body'];
             }
             if (isset($row['excerpt'])) {
-                print "<br>\n\t\t\t\t\t<span class=\"excerpt-debates\">" . trim_characters($row['excerpt'], 0, 200) . "</span>";
+                print "<p class=\"subrows__excerpt\">" . trim_characters($row['excerpt'], 0, 200) . "</p>";
             }
         }
-        print '</ul>';
+        print '</ul></div></div>';
     }
-
-    if ($individual_item) {
-        # XXX
-        global $PAGE;
-        $comments['object']->display('ep', $comments['args']);
-        $PAGE->comment_form($comments['commentdata']);
-        # XXX COMMENT SIDEBAR SHOULD GO HERE IF LOGGED IN
+    if ($individual_item) { ?>
+        <div class="debate-comments">
+            <div class="full-page__row">
+            <?php
+                # XXX
+                global $PAGE;
+                $comments['object']->display('ep', $comments['args']);
+                $PAGE->comment_form($comments['commentdata']);
+                # XXX COMMENT SIDEBAR SHOULD GO HERE IF LOGGED IN
+            ?>
+            </div>
+        </div>
+        <?php
     }
 
 ?>
 
 </div>
+<nav class="debate-navigation debate-navigation--footer" role="navigation">
+        <div class="full-page__row">
+            <div class="debate-navigation__pagination">
+                <?php if (isset($nextprev['prev'])) { ?>
+                <div class="debate-navigation__previous-debate">
+                    <a href="<?= $nextprev['prev']['url'] ?>" rel="prev">&laquo; <?= $nextprev['prev']['body'] ?></a>
+                </div>
+                <?php } ?>
 
+                <?php if (isset($nextprev['up'])) { ?>
+                <div class="debate-navigation__all-debates">
+                    <a href="<?= $nextprev['up']['url'] ?>" rel="up"><?= $nextprev['up']['body'] ?></a>
+                </div>
+                <?php } ?>
+
+                <?php if (isset($nextprev['next'])) { ?>
+                <div class="debate-navigation__next-debate">
+                    <a href="<?= $nextprev['next']['url'] ?>" rel="next"><?= $nextprev['next']['body'] ?> &raquo;</a>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+    </nav>
 <?php
 
 /*

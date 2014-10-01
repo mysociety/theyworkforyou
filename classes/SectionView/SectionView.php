@@ -139,11 +139,18 @@ class SectionView {
         // Before we print the body text we need to insert glossary links
         // and highlight search string words.
 
+        $speeches = 0;
         $bodies = array();
         foreach ($data['rows'] as $row) {
+            $htype = $row['htype'];
+            if ($htype == 12 || $htype == 13) {
+                $speeches++;
+            }
             $body = $row['body'];
             $body = preg_replace('#<phrase class="honfriend" id="uk.org.publicwhip/member/(\d+)" name="([^"]*?)">(.*?\s*\((.*?)\))</phrase>#', '<a href="/mp/?m=$1" title="Our page on $2 - \'$3\'">$4</a>', $body);
-            $body = preg_replace('#<phrase class="offrep" id="(.*?)/(\d+)-(\d+)-(\d+)\.(.*?)">(.*?)</phrase>#e', '\'<a href="/search/?pop=1&s=date:$2$3$4+column:$5+section:$1">\' . str_replace("Official Report", "Hansard", \'$6\') . \'</a>\'', $body);
+           $body = preg_replace_callback('#<phrase class="offrep" id="(.*?)/(\d+)-(\d+)-(\d+)\.(.*?)">(.*?)</phrase>#', function($matches) {
+                return '<a href="/search/?pop=1&s=date:' . $matches[2] . $matches[3] . $matches[4] . '+column:' . $matches[5] . '+section:' . $matches[1] .'">' . str_replace("Official Report", "Hansard", $matches[6]) . '</a>';
+            }, $body);
             #$body = preg_replace('#<phrase class="offrep" id="((.*?)/(\d+)-(\d+)-(\d+)\.(.*?))">(.*?)</phrase>#e', "\"<a href='/search/?pop=1&amp;s=date:$3$4$5+column:$6+section:$2&amp;match=$1'>\" . str_replace('Official Report', 'Hansard', '$7') . '</a>'", $body);
             $bodies[] = $body;
         }
@@ -161,7 +168,6 @@ class SectionView {
             twfy_debug_timestamp('After highlight');
         }
 
-        $speeches = 0;
         $first_speech = null;
         $data['section_title'] = '';
         $subsection_title = '';
@@ -179,7 +185,6 @@ class SectionView {
                 $data['rows'][$i]['body'] = $bodies[$i];
             }
             if ($htype == 12 || $htype == 13) {
-                $speeches++;
                 if (!$first_speech) {
                     $first_speech = $data['rows'][$i];
                 }

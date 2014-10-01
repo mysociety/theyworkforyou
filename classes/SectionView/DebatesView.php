@@ -143,7 +143,7 @@ class DebatesView extends SectionView {
     private $first_gid = '';
 
     protected function get_video_html($row, $heading_hpos, $speeches) {
-        if (!isset($this->first_gid)) $this->first_gid = $row['gid'];
+        if (!$this->first_gid) $this->first_gid = $row['gid'];
 
         $video_content = '';
         if (!$this->first_video_displayed && $row['video_status']&4 && !($row['video_status']&8)) {
@@ -159,7 +159,7 @@ class DebatesView extends SectionView {
 
     private function video_sidebar($row, $heading_hpos, $count) {
         include_once INCLUDESPATH . 'easyparliament/video.php';
-        $db = new ParlDB;
+        $db = new \ParlDB;
         if ($this->major == 1) {
             $gid_type = 'debate';
         } elseif ($this->major == 101) {
@@ -175,19 +175,18 @@ class DebatesView extends SectionView {
         $start = $video['offset'];
         $out = '';
         if ($count > 1) {
-            $out .= '<div id="video_wrap"><div style="position:relative">';
+            $out .= '<div class="debate__video" id="video_wrap"><div>';
             if ($row['gid'] != $this->first_gid) {
-                $out .= '<p style="margin:0">This video starts around ' . ($row['hpos']-$heading_hpos) . ' speeches in (<a href="#g' . gid_to_anchor($row['gid']) . '">move there in text</a>)</p>';
+                $out .= '<p class="video-instructions">This video starts around ' . ($row['hpos']-$heading_hpos) . ' speeches in (<a href="#g' . gid_to_anchor($row['gid']) . '">move there in text</a>)</p>';
             }
         }
         $out .= video_object($video['id'], $start, "$gid_type/$row[gid]");
         $flashvars = 'gid=' . "$gid_type/$row[gid]" . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
-        $out .= "<br><b>Add this video to another site:</b><br><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'></embed>\"><br><small>(copy and paste the above)</small>";
-        $out .= "<p style='margin-bottom:0'>Is this not the right video? <a href='mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "?subject=Incorrect%20video,%20id%20$row[gid];$video[id];$ts_id'>Let us know</a></p>";
+        $out .= "<strong>Embed this video</strong><p class='video-instructions'>Copy and paste this code on your website</p><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'></embed>\">";
         if ($count > 1) {
-            $out .= '<p style="position:absolute;bottom:0;right:0;margin:0"><a href="" onclick="return showVideo();">Hide</a></p>';
+            $out .= '<p class="hide-video"><a href="" onclick="return showVideo();">Hide</a></p>';
             $out .= '</div></div>';
-            $out .= '<div id="video_show" style="display:none;position:fixed;bottom:5px;right:5px;border:solid 1px #666666; background-color: #eeeeee; padding: 4px;">
+            $out .= '<div id="video_show" class="show-video" style="display:none;">
     <p style="margin:0"><a href="" onclick="return hideVideo();">Show video</a></p></div>';
         }
         return $out;

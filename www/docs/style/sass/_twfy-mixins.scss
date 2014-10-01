@@ -82,6 +82,16 @@ $weight_bold: 700;
     }
 }
 
+@mixin secondary-panel($padding: 30) {
+    background-color: #f9f8f5;
+    padding: em-calc(12);
+    margin-bottom: em-calc(40);
+    border: 1px solid #e2dfd9;
+    @media (min-width: $medium-screen) {
+        padding: em-calc($padding);
+    }
+}
+
 .hide-on-small {
     display: none;
     visibility: hidden;
@@ -199,3 +209,4 @@ $weight_bold: 700;
 .unstyled-list {
     @include unstyled-list;
 }
+
