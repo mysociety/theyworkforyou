@@ -71,8 +71,15 @@ function alert_confirmation_advert($details) {
 
 function alert_details_to_criteria($details) {
     $criteria = array();
-    if (isset($details['keyword']) && $details['keyword']) $criteria[] = $details['keyword'];
-    if ($details['pid']) $criteria[] = 'speaker:'.$details['pid'];
+
+    if (isset($details['keyword']) && $details['keyword']) {
+        $criteria[] = $details['keyword'];
+    }
+
+    if (isset($details['pid'])) {
+        $criteria[] = 'speaker:'.$details['pid'];
+    }
+
     $criteria = join(' ', $criteria);
     return $criteria;
 }
