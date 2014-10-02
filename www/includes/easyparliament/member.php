@@ -745,47 +745,6 @@ class MEMBER {
     }
 }
 
-# from http://news.bbc.co.uk/nol/shared/bsp/hi/vote2004/css/styles.css
-global $party_colours;
-$party_colours = array(
-    "Conservative" => "#333399",
-    "DU" => "#cc6666",
-    "Ind" => "#eeeeee",
-    "Ind Con" => "#ddddee",
-    "Ind Lab" => "#eedddd",
-    "Ind UU" => "#ccddee",
-    "Labour" => "#cc0000",
-    "Lab/Co-op" => "#cc0000",
-    "LDem" => "#f1cc0a", #"#ff9900",
-    "PC" => "#33CC33",
-    "SDLP" => "#8D9033",
-    "SF" => "#2B7255",
-    "SNP" => "#FFCC00",
-    "UKU" => "#99CCFF",
-    "UU" => "#003677",
-
-    "Speaker" => "#999999",
-    "Deputy Speaker" => "#999999",
-    "CWM" => "#999999",
-    "DCWM" => "#999999",
-    "SPK" => "#999999",
-);
-
-function party_to_colour($party) {
-    global $party_colours;
-    if (isset($party_colours[$party])) {
-        return $party_colours[$party];
-    } else {
-        return "#eeeeee";
-    }
-}
-
-function exists_rep_image($pid) {
-    $image = find_rep_image($pid, false, false);
-
-    return $image[1] !== null;
-}
-
 function find_rep_image($pid, $smallonly = false, $substitute_missing = false) {
     $image = null; $sz = null;
     if (!$smallonly && is_file(BASEDIR . '/images/mpsL/' . $pid . '.jpeg')) {
