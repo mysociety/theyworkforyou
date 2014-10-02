@@ -99,7 +99,7 @@ function person_drop_down() {
         if ($q->field($i, 'party')) $desc .= ' (' . $q->field($i, 'party') . ')';
         $desc .= ', ' . $q->field($i, 'constituency');
 
-        list($dummy, $sz) = find_rep_image($p_id);
+        list($dummy, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($p_id);
         if ($sz == 'L') {
             $desc .= ' [has large photo]';
         } elseif ($sz == 'S') {

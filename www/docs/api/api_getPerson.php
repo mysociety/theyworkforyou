@@ -27,7 +27,7 @@ function _api_getPerson_row($row, $has_party=FALSE) {
     }
     if ($has_party && isset($parties[$row['party']]))
         $row['party'] = $parties[$row['party']];
-    list($image,$sz) = find_rep_image($row['person_id']);
+    list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($row['person_id']);
     if ($image) {
         list($width, $height) = getimagesize(str_replace(IMAGEPATH, BASEDIR . '/images/', $image));
         $row['image'] = $image;

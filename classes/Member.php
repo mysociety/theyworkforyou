@@ -77,9 +77,9 @@ class Member extends \MEMBER {
 
         $is_lord = in_array(HOUSE_TYPE_LORDS, $this->houses());
         if ($is_lord) {
-            list($image,$size) = find_rep_image($this->person_id(), false, 'lord');
+            list($image,$size) = Utility\Member::findMemberImage($this->person_id(), false, 'lord');
         } else {
-            list($image,$size) = find_rep_image($this->person_id(), false, true);
+            list($image,$size) = Utility\Member::findMemberImage($this->person_id(), false, true);
         }
 
         // We can determine if the image exists or not by testing if size is set

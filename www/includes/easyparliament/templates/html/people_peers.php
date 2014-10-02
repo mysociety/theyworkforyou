@@ -89,7 +89,7 @@ function render_peers_row($peer, &$style, $order, $URL) {
             <tr>
                 <td class="row">
                 <?php
-                list($image,$sz) = find_rep_image($peer['person_id'], true, 'lord');
+                list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($peer['person_id'], true, 'lord');
                 if ($image) {
                     echo '<a href="' . $URL->generate().make_member_url($name, null, 2, $peer['person_id']) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
                     echo '></a>';

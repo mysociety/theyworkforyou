@@ -272,7 +272,7 @@ if (isset ($data['rows'])) {
                 if($data['info']['major'] == 101){
                     $missing_photo_type = "lord";
                 }
-                list($image,$sz) = find_rep_image($speaker['person_id'], true, $missing_photo_type);
+                list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($speaker['person_id'], true, $missing_photo_type);
 
                 echo '<a class="speakerimage" id="speakerimage_' . $row['epobject_id'] . '" href="', $speaker['url'], '" title="See more information about ', $speakername, '" onmouseover="showPersonLinks(' . $row['epobject_id'] . ')" >';
                 echo '<span><img src="', $image, '" alt="Photo of ', $speakername, '"';
