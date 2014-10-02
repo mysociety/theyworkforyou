@@ -152,7 +152,9 @@
 
         function escape_comments($data) {
 
-            $data = preg_replace("/<!--(.*?)-->/se", "'<!--'.HtmlSpecialChars(\$this->StripSingle('\\1')).'-->'", $data);
+            $data = preg_replace_callback("/<!--(.*?)-->/s", function($matches) {
+                    return '<!--' . HtmlSpecialChars($this->StripSingle($matches[1])) . '-->';
+                }, $data);
 
             return $data;
         }
@@ -200,7 +202,9 @@
 
         function check_tags($data) {
 
-            $data = preg_replace("/<(.*?)>/se", "\$this->process_tag(\$this->StripSingle('\\1'))",	$data);
+            $data = preg_replace_callback("/<(.*?)>/s", function($matches) {
+                    return $this->process_tag($this->StripSingle($matches[1]));
+                }, $data);
 
             foreach (array_keys($this->tag_counts) as $tag) {
                 for ($i=0; $i<$this->tag_counts[$tag]; $i++) {
@@ -424,9 +428,10 @@
             # it).
             #
 
-            $data = preg_replace(
-                '!&([^&;]*)(?=(;|&|$))!e',
-                "\$this->check_entity(\$this->StripSingle('\\1'), \$this->StripSingle('\\2'))",
+            $data = preg_replace_callback(
+                '!&([^&;]*)(?=(;|&|$))!', function($matches) {
+                    return $this->check_entity($this->StripSingle($matches[1]), $this->StripSingle($matches[2]));
+                },
                 $data
             );
 

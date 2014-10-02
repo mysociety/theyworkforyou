@@ -536,9 +536,15 @@ function prepare_comment_for_display($text) {
   $text = htmlentities_notags($text);
 
     $link_length = 60;
-    $text = preg_replace(
-        "/(?<!\"|\/)((http(s?):\/\/)|(www\.))([a-zA-Z\d\_\.\+\,\;\?\%\~\-\/\#\='\*\$\!\(\)\&\[\]]+)([a-zA-Z\d\_\?\%\~\-\/\#\='\*\$\!\&])/e",
-        '(strlen(\'$0\')>$link_length) ? \'<a href="$0" rel="nofollow">\'.substr(\'$0\',0,$link_length)."...</a>" : \'<a href="$0" rel="nofollow">$0</a>\'',
+    $text = preg_replace_callback(
+        "/(?<!\"|\/)((http(s?):\/\/)|(www\.))([a-zA-Z\d\_\.\+\,\;\?\%\~\-\/\#\='\*\$\!\(\)\&\[\]]+)([a-zA-Z\d\_\?\%\~\-\/\#\='\*\$\!\&])/",
+        function($matches) use ($link_length) {
+            if (strlen($matches[0]) > $link_length) {
+                return '<a href="' . $matches[0] . '" rel="nofollow">' . substr($matches[0], 0, $link_length) . "...</a>";
+            } else {
+                return '<a href="' . $matches[0] . '" rel="nofollow">' . $matches[0] . '</a>';
+            }
+        },
         $text);
     $text = str_replace('<a href="www', '<a href="http://www', $text);
     $text = preg_replace("/([\w\.]+)(@)([\w\.\-]+)/i", "<a href=\"mailto:$0\">$0</a>", $text);
