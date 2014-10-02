@@ -11,8 +11,7 @@ assume you have a basic knowledge of Apache, PHP and MySQL.
 
 * PHP 5.4
 
-    `short_open_tag` has to be enabled, and PHP must be configured with curl,
-    using the `--with-curl` option.
+    PHP must be configured with curl, using the `--with-curl` option.
 
 * Apache 1.3.28 or 2.2.23
 
