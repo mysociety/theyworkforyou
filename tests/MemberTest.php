@@ -188,4 +188,37 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
         ), $MEMBER->getEnterLeaveStrings());
     }
 
+    /**
+     * Test loading extra info
+     *
+     * @todo Implement testing of the Public Whip info loading
+     */
+    public function testLoadExtraInfo()
+    {
+        $MEMBER = new MEMBER(array('person_id' => 16));
+
+        $MEMBER->load_extra_info();
+
+        // Have we correctly loaded the office?
+        $this->assertEquals(1, $MEMBER->extra_info['office'][0]['moffice_id']);
+
+        // Have we correctly loaded the member arbitrary key/value pair?
+        $this->assertEquals('Test Member Value', $MEMBER->extra_info['test_member_key']);
+
+        // Have we correctly loaded the person arbitrary key/value pair?
+        $this->assertEquals('Test Person Value', $MEMBER->extra_info['test_person_key']);
+
+        // Have we correctly loaded the constituency arbitrary key/value pair?
+        $this->assertEquals('Test Constituency Value', $MEMBER->extra_info['test_constituency_key']);
+
+        // Have we correctly loaded the PBC membership?
+        $this->assertEquals(array(
+            'title' => 'Test Bill',
+            'session' => '2013-14',
+            'attending' => 1,
+            'chairman' => 1,
+            'outof' => 0
+            ), $MEMBER->extra_info['pbc'][1]);
+    }
+
 }
