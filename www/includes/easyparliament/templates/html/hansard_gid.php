@@ -278,7 +278,8 @@ if (isset ($data['rows'])) {
                 echo '<span><img src="', $image, '" alt="Photo of ', $speakername, '"';
                 /*
                 if (get_http_var('partycolours')) {
-                    echo ' style="border: 3px solid ', party_to_colour($speaker['party']), ';"';
+                    echo ' style="border: 3px solid ', \MySociety\TheyWorkForYou\Utility\Party::partyToColour($speaker['party']), ';"';
+
                 }
                 */
                 echo '></span></a>';
@@ -312,7 +313,7 @@ if (isset ($data['rows'])) {
                         if ($speaker['party']) $desc .= ', ';
                     }
                     if (get_http_var('wordcolours')) {
-                        $desc .= '<span style="color: '.party_to_colour($speaker['party']).'">';
+                        $desc .= '<span style="color: ' . \MySociety\TheyWorkForYou\Utility\Party::partyToColour($speaker['party']).'">';
                     }
                     $desc .= _htmlentities($speaker['party']);
                     if (get_http_var('wordcolours')) {
