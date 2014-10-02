@@ -387,35 +387,35 @@ class MEMBER {
         }
         $this->extra_info = array();
 
-    $q = $this->db->query('SELECT * FROM moffice WHERE person=' .
-        mysql_real_escape_string($this->person_id) . ' ORDER BY from_date DESC');
-    for ($row=0; $row<$q->rows(); $row++) {
-        $this->extra_info['office'][] = $q->row($row);
-    }
+        $q = $this->db->query('SELECT * FROM moffice WHERE person=' .
+            mysql_real_escape_string($this->person_id) . ' ORDER BY from_date DESC');
+        for ($row=0; $row<$q->rows(); $row++) {
+            $this->extra_info['office'][] = $q->row($row);
+        }
 
-        // Info specific to member id (e.g. attendance during that period of office)
-    #$q = $this->db->query("SELECT data_key, data_value,
-    #			(SELECT count(member_id) FROM memberinfo AS m2
-    #				WHERE m2.data_key=memberinfo.data_key AND m2.data_value=memberinfo.data_value) AS joint
-    #               FROM 	memberinfo
-    #               WHERE	member_id = '" . mysql_real_escape_string($this->member_id) . "'
-    #               ");
+            // Info specific to member id (e.g. attendance during that period of office)
+        #$q = $this->db->query("SELECT data_key, data_value,
+        #			(SELECT count(member_id) FROM memberinfo AS m2
+        #				WHERE m2.data_key=memberinfo.data_key AND m2.data_value=memberinfo.data_value) AS joint
+        #               FROM 	memberinfo
+        #               WHERE	member_id = '" . mysql_real_escape_string($this->member_id) . "'
+        #               ");
         $q = $this->db->query("SELECT data_key, data_value
                         FROM 	memberinfo
                         WHERE	member_id = '" . mysql_real_escape_string($this->member_id) . "'
                         ");
         for ($row = 0; $row < $q->rows(); $row++) {
-        $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
-        #		if ($q->field($row, 'joint') > 1)
-        #			$this->extra_info[$q->field($row, 'data_key').'_joint'] = true;
+            $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
+            #		if ($q->field($row, 'joint') > 1)
+            #			$this->extra_info[$q->field($row, 'data_key').'_joint'] = true;
         }
 
         // Info specific to person id (e.g. their permanent page on the Guardian website)
-    #$q = $this->db->query("SELECT data_key, data_value, (SELECT person_id FROM personinfo AS p2
-    #		WHERE p2.person_id <> personinfo.person_id AND p2.data_key=personinfo.data_key AND p2.data_value=personinfo.data_value LIMIT 1) AS count
-    #               FROM 	personinfo
-    #               WHERE	person_id = '" . mysql_real_escape_string($this->person_id) . "'
-    #               ");
+        #$q = $this->db->query("SELECT data_key, data_value, (SELECT person_id FROM personinfo AS p2
+        #		WHERE p2.person_id <> personinfo.person_id AND p2.data_key=personinfo.data_key AND p2.data_value=personinfo.data_value LIMIT 1) AS count
+        #               FROM 	personinfo
+        #               WHERE	person_id = '" . mysql_real_escape_string($this->person_id) . "'
+        #               ");
         $q = $this->db->query("SELECT data_key, data_value
                         FROM 	personinfo
                         WHERE	person_id = '" . mysql_real_escape_string($this->person_id) . "'
@@ -427,25 +427,25 @@ class MEMBER {
         }
 
         // Info specific to constituency (e.g. election results page on Guardian website)
-    if ($this->house(HOUSE_TYPE_COMMONS)) {
+        if ($this->house(HOUSE_TYPE_COMMONS)) {
 
-            $q = $this->db->query("SELECT data_key, data_value FROM consinfo
-            WHERE constituency = '" . mysql_real_escape_string($this->constituency) . "'");
-        for ($row = 0; $row < $q->rows(); $row++) {
-            $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
-        }
+                $q = $this->db->query("SELECT data_key, data_value FROM consinfo
+                WHERE constituency = '" . mysql_real_escape_string($this->constituency) . "'");
+            for ($row = 0; $row < $q->rows(); $row++) {
+                $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
+            }
 
-        if (array_key_exists('guardian_mp_summary', $this->extra_info)) {
-            $guardian_url = $this->extra_info['guardian_mp_summary'];
-            $this->extra_info['guardian_biography'] = $guardian_url;
+            if (array_key_exists('guardian_mp_summary', $this->extra_info)) {
+                $guardian_url = $this->extra_info['guardian_mp_summary'];
+                $this->extra_info['guardian_biography'] = $guardian_url;
+            }
+                    if (array_key_exists('guardian_aristotle_id', $this->extra_info)) {
+                           $politics_base_url = 'http://politics.guardian.co.uk/person/';
+                           $aristotle_id = $this->extra_info['guardian_aristotle_id'];
+                           $this->extra_info['guardian_howtheyvoted'] =
+                                    $politics_base_url . "howtheyvoted/0,,-$aristotle_id,00.html";
+                    }
         }
-                if (array_key_exists('guardian_aristotle_id', $this->extra_info)) {
-                       $politics_base_url = 'http://politics.guardian.co.uk/person/';
-                       $aristotle_id = $this->extra_info['guardian_aristotle_id'];
-                       $this->extra_info['guardian_howtheyvoted'] =
-                                $politics_base_url . "howtheyvoted/0,,-$aristotle_id,00.html";
-                }
-    }
 
         if (array_key_exists('public_whip_rebellions', $this->extra_info)) {
             $rebellions = $this->extra_info['public_whip_rebellions'];
@@ -463,16 +463,16 @@ class MEMBER {
             $this->extra_info['public_whip_rebel_description'] = $rebel_desc;
         }
 
-    if (isset($this->extra_info['public_whip_attendrank'])) {
-        $prefix = ($this->house(HOUSE_TYPE_LORDS) ? 'L' : '');
-        $this->extra_info[$prefix.'public_whip_division_attendance_rank'] = $this->extra_info['public_whip_attendrank'];
-        $this->extra_info[$prefix.'public_whip_division_attendance_rank_outof'] = $this->extra_info['public_whip_attendrank_outof'];
-        $this->extra_info[$prefix.'public_whip_division_attendance_quintile'] = floor($this->extra_info['public_whip_attendrank'] / ($this->extra_info['public_whip_attendrank_outof']+1) * 5);
-    }
-    if ($this->house(HOUSE_TYPE_LORDS) && isset($this->extra_info['public_whip_division_attendance'])) {
-        $this->extra_info['Lpublic_whip_division_attendance'] = $this->extra_info['public_whip_division_attendance'];
-        unset($this->extra_info['public_whip_division_attendance']);
-    }
+        if (isset($this->extra_info['public_whip_attendrank'])) {
+            $prefix = ($this->house(HOUSE_TYPE_LORDS) ? 'L' : '');
+            $this->extra_info[$prefix.'public_whip_division_attendance_rank'] = $this->extra_info['public_whip_attendrank'];
+            $this->extra_info[$prefix.'public_whip_division_attendance_rank_outof'] = $this->extra_info['public_whip_attendrank_outof'];
+            $this->extra_info[$prefix.'public_whip_division_attendance_quintile'] = floor($this->extra_info['public_whip_attendrank'] / ($this->extra_info['public_whip_attendrank_outof']+1) * 5);
+        }
+        if ($this->house(HOUSE_TYPE_LORDS) && isset($this->extra_info['public_whip_division_attendance'])) {
+            $this->extra_info['Lpublic_whip_division_attendance'] = $this->extra_info['public_whip_division_attendance'];
+            unset($this->extra_info['public_whip_division_attendance']);
+        }
 
         if ($display && array_key_exists('register_member_interests_html', $this->extra_info) && ($this->extra_info['register_member_interests_html'] != '')) {
             $args = array (
@@ -483,39 +483,39 @@ class MEMBER {
         $GLOSSARY->glossarise($this->extra_info['register_member_interests_html']);
         }
 
-    $q = $this->db->query('select count(*) as c from alerts where criteria like "%speaker:'.$this->person_id.'%" and confirmed and not deleted');
-    $this->extra_info['number_of_alerts'] = $q->field(0, 'c');
+        $q = $this->db->query('select count(*) as c from alerts where criteria like "%speaker:'.$this->person_id.'%" and confirmed and not deleted');
+        $this->extra_info['number_of_alerts'] = $q->field(0, 'c');
 
-    if (isset($this->extra_info['reading_ease'])) {
-        $this->extra_info['reading_ease'] = round($this->extra_info['reading_ease'], 2);
-        $this->extra_info['reading_year'] = round($this->extra_info['reading_year'], 0);
-        $this->extra_info['reading_age'] = $this->extra_info['reading_year'] + 4;
-        $this->extra_info['reading_age'] .= '&ndash;' . ($this->extra_info['reading_year'] + 5);
-    }
+        if (isset($this->extra_info['reading_ease'])) {
+            $this->extra_info['reading_ease'] = round($this->extra_info['reading_ease'], 2);
+            $this->extra_info['reading_year'] = round($this->extra_info['reading_year'], 0);
+            $this->extra_info['reading_age'] = $this->extra_info['reading_year'] + 4;
+            $this->extra_info['reading_age'] .= '&ndash;' . ($this->extra_info['reading_year'] + 5);
+        }
 
-    # Public Bill Committees
-    $q = $this->db->query('select member_id from member where person_id = ' . $this->person_id());
-    $member_ids = array(0);
-    for ($i=0; $i<$q->rows(); $i++) {
-        array_push($member_ids, $q->field($i, 'member_id'));
-    }
-    $q = $this->db->query('select bill_id,session,title,sum(attending) as a,sum(chairman) as c
-        from pbc_members, bills
-        where bill_id = bills.id and member_id in (' . join(',', $member_ids)
-         . ') group by bill_id order by session desc');
-    $this->extra_info['pbc'] = array();
-    for ($i=0; $i<$q->rows(); $i++) {
-        $bill_id = $q->field($i, 'bill_id');
-        $c = $this->db->query('select count(*) as c from hansard where major=6 and minor='.$bill_id.' and htype=10');
-        $c = $c->field(0, 'c');
-        $title = $q->field($i, 'title');
-        $attending = $q->field($i, 'a');
-        $chairman = $q->field($i, 'c');
-        $this->extra_info['pbc'][$bill_id] = array(
-            'title' => $title, 'session' => $q->field($i, 'session'),
-            'attending'=>$attending, 'chairman'=>($chairman>0), 'outof' => $c
-        );
-    }
+        # Public Bill Committees
+        $q = $this->db->query('select member_id from member where person_id = ' . $this->person_id());
+        $member_ids = array(0);
+        for ($i=0; $i<$q->rows(); $i++) {
+            array_push($member_ids, $q->field($i, 'member_id'));
+        }
+        $q = $this->db->query('select bill_id,session,title,sum(attending) as a,sum(chairman) as c
+            from pbc_members, bills
+            where bill_id = bills.id and member_id in (' . join(',', $member_ids)
+             . ') group by bill_id order by session desc');
+        $this->extra_info['pbc'] = array();
+        for ($i=0; $i<$q->rows(); $i++) {
+            $bill_id = $q->field($i, 'bill_id');
+            $c = $this->db->query('select count(*) as c from hansard where major=6 and minor='.$bill_id.' and htype=10');
+            $c = $c->field(0, 'c');
+            $title = $q->field($i, 'title');
+            $attending = $q->field($i, 'a');
+            $chairman = $q->field($i, 'c');
+            $this->extra_info['pbc'][$bill_id] = array(
+                'title' => $title, 'session' => $q->field($i, 'session'),
+                'attending'=>$attending, 'chairman'=>($chairman>0), 'outof' => $c
+            );
+        }
 
         $memcache->set($memcache_key, $this->extra_info, MEMCACHE_COMPRESSED, 3600);
     }
