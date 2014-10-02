@@ -41,11 +41,11 @@ class SearchTest extends PHPUnit_Extensions_Database_TestCase
 
     /**
      * Test that glossarising a single word works as expected.
+     *
+     * @group xapian
      */
 	public function testSearchNormal()
     {
-        if (array_key_exists('TRAVIS', $_SERVER)) { return; }
-
         $SEARCHENGINE = new SEARCHENGINE('test');
 
         $this->assertEquals(
@@ -56,11 +56,11 @@ class SearchTest extends PHPUnit_Extensions_Database_TestCase
 
     /**
      * Test that glossarising a single word works as expected.
+     *
+     * @group xapian
      */
 	public function testSearchLink()
     {
-        if (array_key_exists('TRAVIS', $_SERVER)) { return; }
-
         $SEARCHENGINE = new SEARCHENGINE('test');
 
         $this->assertEquals(

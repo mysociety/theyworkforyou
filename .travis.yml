@@ -26,7 +26,7 @@ before_script:
 
 script:
  - mkdir -p build/logs
- - vendor/bin/phpunit
+ - vendor/bin/phpunit --exclude-group xapian
 
 after_script:
  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;'
