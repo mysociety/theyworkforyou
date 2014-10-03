@@ -54,8 +54,10 @@ function _api_getPerson_row($row, $has_party=FALSE) {
 function api_getPerson_id($id) {
     $db = new ParlDB;
     $q = $db->query("select * from member
-        where person_id = '" . mysql_real_escape_string($id) . "'
-        order by left_house desc");
+        where person_id = :person_id
+        order by left_house desc", array(
+            ':person_id' => $id
+            ));
     if ($q->rows()) {
         _api_getPerson_output($q);
     } else {

@@ -28,8 +28,10 @@ function api_getMSP_front() {
 function api_getMSP_id($id) {
     $db = new ParlDB;
     $q = $db->query("select * from member
-        where house=4 and person_id = '" . mysql_real_escape_string($id) . "'
-        order by left_house desc");
+        where house=4 and person_id = :id
+        order by left_house desc", array(
+            ':id' => $id
+            ));
     if ($q->rows()) {
         _api_getPerson_output($q);
     } else {
@@ -71,13 +73,19 @@ function _api_getMSP_constituency($constituencies) {
         if ($constituency == '') continue;
         if ($constituency == 'Orkney ')
             $constituency = 'Orkney & Shetland';
-        $cons[] = mysql_real_escape_string($constituency);
+        $cons[] = $constituency;
     }
 
+    $cons_params = array();
+    $params = array();
+    foreach ($cons as $key => $constituency) {
+        $cons_params[] = ':constituency' + $key;
+        $params[':constituency' + $key] = $constituency;
+    }
 
     $q = $db->query("SELECT * FROM member
-        WHERE constituency in ('" . join("','", $cons) . "')
-        AND left_reason = 'still_in_office' AND house=4");
+        WHERE constituency in (" . join(",", $cons_params) . ")
+        AND left_reason = 'still_in_office' AND house=4", $params);
     if ($q->rows > 0) {
         _api_getPerson_output($q);
         return true;

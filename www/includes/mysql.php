@@ -104,11 +104,11 @@ Class MySQLQuery {
     public $insert_id = NULL;
     public $affected_rows = NULL;
 
-    public function MySQLQuery($conn) {
+    public function __construct($conn) {
         $this->conn = $conn;
     }
 
-    public function query($sql="") {
+    public function query($sql="", $params = NULL) {
 
         if (empty($sql)) {
             $this->success = false;
@@ -123,35 +123,61 @@ Class MySQLQuery {
         }
 
         twfy_debug ("SQL", $sql);
-        $q = mysql_query($sql,$this->conn) or $this->error(mysql_errno().": ".mysql_error());
+
+
+        if ($params !== NULL) {
+            // Prepare and execute a statement
+            $pdoStatement = $this->conn->prepare($sql);
+
+            foreach ($params as $paramKey => $paramValue) {
+
+                if (is_int($paramValue)) {
+                    $paramType = PDO::PARAM_INT;
+                } else {
+                    $paramType = PDO::PARAM_STR;
+                }
+
+                $pdoStatement->bindValue($paramKey, $paramValue, $paramType);
+            }
+
+            $pdoStatement->execute();
+
+        } else {
+            // Execute the raw query
+            $pdoStatement = $this->conn->query($sql);
+        }
+
+        // Test the query actually worked
+        if (!$pdoStatement) {
+            $this->error($this->conn->errorCode() . ': ' . $this->conn->errorInfo()[2]);
+        }
+
         if (!$this->success) return;
 
-        if ( (!$q) or (empty($q)) ) {
+        if ( (!$pdoStatement) or (empty($pdoStatement)) ) {
             // A failed query.
             $this->success = false;
-        } elseif (is_bool($q)) {
-            // A successful query of a type *other* than
-            // SELECT, SHOW, EXPLAIN or DESCRIBE
-
-            // For INSERTs that have generated an id from an AUTO_INCREMENT column.
-            $this->insert_id = mysql_insert_id();
-            $this->affected_rows = mysql_affected_rows();
-            $this->success = true;
 
         } else {
 
             // A successful SELECT, SHOW, EXPLAIN or DESCRIBE query.
             $this->success = true;
 
-            $result = array();
-            while ($row = mysql_fetch_assoc($q)) {
-                $result[] = $row;
-            }
+            $result = $pdoStatement->fetchAll();
 
             $this->rows = count($result);
             $this->data = $result;
+
+            // Sanity check that lastInsertId() is actually a number, otherwise panic
+            if (is_numeric($this->conn->lastInsertId())) {
+                $this->insert_id = (int) $this->conn->lastInsertId();
+            } else {
+                throw new Exception('Last connection ID was not numeric!');
+            }
+            $this->affected_rows = $pdoStatement->rowCount();
+
             twfy_debug ("SQLRESULT", array($this, '_display_result'));
-            mysql_free_result($q);
+            // mysql_free_result($q);
         }
     }
 
@@ -236,40 +262,33 @@ Class MySQL {
         // These vars come from config.php.
 
         if (!$global_connection) {
-            $conn = mysql_connect($db_host, $db_user, $db_pass);
-            if (!$conn)
-                $this->fatal_error('Unfortunately, we could not connect to the database for some reason. Please try again in a few minutes.');
-            if (!mysql_select_db($db_name, $conn))
-                $this->fatal_error('Strangely, the TheyWorkForYou database is missing! Hopefully someone will spot this soon, please try again in a few minutes.');
+            $dsn = 'mysql:dbname=' . $db_name . ';host=' . $db_host;
+
+            try {
+                $conn = new PDO($dsn, $db_user, $db_pass);
+            } catch (PDOException $e) {
+                $this->fatal_error('We were unable to connect to the TheyWorkForYou database for some reason. Please try again in a few minutes.');
+            }
+
             $global_connection = $conn;
         }
-        $this->conn = $global_connection;
 
-        // Select default character set
-        $q = new MySQLQuery($this->conn);
+        $this->conn = $global_connection;
 
         return true;
     }
 
-    public function fatal_error($error) {
-        echo '
-<html><head><title>TheyWorkForYou - Database error</title></head>
-<body>
-<h1><a href="/"><img border="0" src="/images/theyworkforyoucom.gif" width="293" height="28" alt="TheyWorkForYou"></a></h1>
-<h2>Database error</h2>
-';
-        echo "<p>$error</p>";
-        echo '</body></html>';
-        exit;
+    public function quote($string) {
+        return $this->conn->quote($string);
     }
 
-    public function query($sql) {
+    public function query($sql, $params = NULL) {
         // Pass it an SQL query and if the query was successful
         // it returns a MySQLQuery object which you can get results from.
 
         $start = getmicrotime();
         $q = new MySQLQuery($this->conn);
-        $q->query($sql);
+        $q->query($sql, $params);
 
         $duration = getmicrotime() - $start;
         global $mysqltotalduration;
@@ -284,6 +303,18 @@ Class MySQL {
     public function display_total_duration() {
         global $mysqltotalduration;
         twfy_debug ("TIME", "Total time for MySQL queries on this page: " . $mysqltotalduration . " seconds.");
+    }
+
+    public function fatal_error($error) {
+        echo '
+<html><head><title>TheyWorkForYou - Database Error</title></head>
+<body>
+<h1><a href="/"><img border="0" src="/images/theyworkforyoucom.gif" width="293" height="28" alt="TheyWorkForYou"></a></h1>
+<h2>Database error</h2>
+';
+        echo "<p>$error</p>";
+        echo '</body></html>';
+        exit;
     }
 
 // End MySQL class

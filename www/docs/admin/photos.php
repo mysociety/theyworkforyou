@@ -156,10 +156,13 @@ function submit_attribution() {
     # UPDATE
     global $db;
     $query = "INSERT INTO personinfo (person_id,data_key,data_value) VALUES
-            ($pid,'photo_attribution_text','" . mysql_real_escape_string($attr_text) . "'),
-            ($pid,'photo_attribution_link','" . mysql_real_escape_string($attr_link) . "')
+            ($pid,'photo_attribution_text',:attr_text),
+            ($pid,'photo_attribution_link',:attr_link)
         ON DUPLICATE KEY UPDATE data_value=VALUES(data_value)";
-    $q = $db->query($query);
+    $q = $db->query($query, array(
+        ':attr_text' => $attr_text,
+        ':attr_link' => $attr_link
+        ));
 
     return "<p><em>Attribution text/link set for pid $pid</em> &mdash; check how it looks <a href=\"/mp?p=$pid\">on their page</a></p>" . display_attribution_form();
 }

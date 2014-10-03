@@ -63,9 +63,11 @@ class COMMENTREPORT {
                                     users.lastname AS u_lastname
                             FROM	commentreports,
                                     users
-                            WHERE	commentreports.report_id = '" . mysql_real_escape_string($report_id) . "'
+                            WHERE	commentreports.report_id = :report_id
                             AND		commentreports.user_id = users.user_id
-                            ");
+                            ", array(
+                                ':report_id' => $report_id
+                            ));
 
             if ($q->rows() > 0) {
                 $this->report_id		= $report_id;
@@ -103,7 +105,9 @@ class COMMENTREPORT {
                                     commentreports.lastname,
                                     commentreports.email
                             FROM	commentreports
-                            WHERE	commentreports.report_id = '" . mysql_real_escape_string($report_id) . "'");
+                            WHERE	commentreports.report_id = :report_id", array(
+                                ':report_id' => $report_id
+                            ));
 
                 if ($q->rows() > 0) {
                 $this->report_id		= $report_id;
@@ -189,26 +193,40 @@ class COMMENTREPORT {
         if ($THEUSER->isloggedin()) {
             $sql = "INSERT INTO commentreports
                                     (comment_id, body, reported, user_id)
-                            VALUES	('" . mysql_real_escape_string($COMMENT->comment_id()) . "',
-                                    '" . mysql_real_escape_string($body) . "',
-                                    '$time',
-                                    '" . mysql_real_escape_string($THEUSER->user_id()) . "'
+                            VALUES	(:comment_id,
+                                    :body,
+                                    :time,
+                                    :user_id
                                     )
                         ";
+            $params = array(
+                ':comment_id' => $COMMENT->comment_id(),
+                ':body' => $body,
+                ':time' => $time,
+                ':user_id' => $THEUSER->user_id()
+            );
         } else {
             $sql = "INSERT INTO commentreports
                                     (comment_id, body, reported, firstname, lastname, email)
-                            VALUES	('" . mysql_real_escape_string($COMMENT->comment_id()) . "',
-                                    '" . mysql_real_escape_string($body) . "',
-                                    '$time',
-                                    '" . mysql_real_escape_string($reportdata['firstname']) . "',
-                                    '" . mysql_real_escape_string($reportdata['lastname']) . "',
-                                    '" . mysql_real_escape_string($reportdata['email']) . "'
+                            VALUES	(:comment_id,
+                                    :body,
+                                    :time,
+                                    :firstname,
+                                    :lastname,
+                                    :email
                                     )
                         ";
+            $params = array(
+                ':comment_id' => $COMMENT->comment_id(),
+                ':body' => $body,
+                ':time' => $time,
+                ':firstname' => $reportdata['firstname'],
+                ':lastname' => $reportdata['lastname'],
+                ':email' => $reportdata['email'],
+            );
         }
 
-        $q = $this->db->query($sql);
+        $q = $this->db->query($sql, $params);
 
         if ($q->success()) {
             // Inserted OK, so set up this object's variables.
@@ -386,23 +404,28 @@ class COMMENTREPORT {
                         return false;
                     }
 
-                    $upheldsql = '1';
+                    $upheldsql = 1;
 
                 } else {
-                    $upheldsql = '0';
+                    $upheldsql = 0;
 
                     // Report has been removed, so un-modflag this comment.
                     $COMMENT->set_modflag('off');
                 }
 
                 $q = $this->db->query("UPDATE commentreports
-                                SET 	resolved = '$time',
-                                        resolvedby = '" . mysql_real_escape_string($THEUSER->user_id()) . "',
+                                SET 	resolved = :time,
+                                        resolvedby = :resolved_by,
                                         locked = NULL,
                                         lockedby = NULL,
-                                        upheld = '$upheldsql'
-                                WHERE 	report_id = '" . mysql_real_escape_string($this->report_id) . "'
-                                ");
+                                        upheld = :upheld
+                                WHERE 	report_id = :report_id
+                                ", array(
+                                    ':time' => $time,
+                                    ':resolved_by' => $THEUSER->user_id(),
+                                    ':upheld' => $upheldsql,
+                                    ':report_id' => $this->report_id
+                                ));
 
                 if ($q->success()) {
 

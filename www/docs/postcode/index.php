@@ -64,8 +64,10 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     $db = new ParlDB;
 
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, left_house FROM member
-        WHERE constituency = '" . mysql_real_escape_string(normalise_constituency_name($areas['WMC'])) . "'
-        AND house = 1 ORDER BY left_house DESC LIMIT 1");
+        WHERE constituency = :constituency
+        AND house = 1 ORDER BY left_house DESC LIMIT 1", array(
+            ':constituency' => normalise_constituency_name($areas['WMC'])
+            ));
     $mp = array();
     if ($q->rows()) {
         $mp = $q->row(0);

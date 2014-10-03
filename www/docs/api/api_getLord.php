@@ -18,8 +18,10 @@ function api_getLord_front() {
 function api_getLord_id($id) {
     $db = new ParlDB;
     $q = $db->query("select * from member
-        where house=2 and person_id = '" . mysql_real_escape_string($id) . "'
-        order by left_house desc");
+        where house=2 and person_id = :id
+        order by left_house desc", array(
+            ':id' => $id
+            ));
     if ($q->rows()) {
         _api_getPerson_output($q);
     } else {

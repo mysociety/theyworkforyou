@@ -102,7 +102,8 @@ foreach ($alertdata as $alertitem) {
 		$current['email'] = $email;
 		$current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'];
 		$email_text = array();
-		$q = $db->query('SELECT user_id FROM users WHERE email = \''.mysql_real_escape_string($email)."'");
+		$q = $db->query('SELECT user_id FROM users WHERE email = :email', array(
+            ':email' => $email));
         if ($q->rows() > 0) {
             $user_id = $q->field(0, 'user_id');
             $registered++;

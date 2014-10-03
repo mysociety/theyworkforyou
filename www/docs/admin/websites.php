@@ -36,9 +36,14 @@ print '</div>';
 function edit_member_form() {
     global $db;
     $personid = get_http_var('editperson');
-    $q = $db->query("SELECT member.person_id, house, title, first_name, last_name, constituency, data_value AS mp_website
-    FROM member LEFT JOIN personinfo ON member.person_id = personinfo.person_id AND  data_key = 'mp_website'
-    WHERE member.person_id = '" . mysql_real_escape_string($personid)."';");
+    $query = "SELECT member.person_id, house, title, first_name, last_name, constituency, data_value
+        AS mp_website
+        FROM member
+        LEFT JOIN personinfo ON member.person_id = personinfo.person_id AND data_key = 'mp_website'
+        WHERE member.person_id = :person_id";
+    $q = $db->query($query, array(
+        ':person_id' => $personid
+    ));
 
     for ($row = 0; $row < $q->rows(); $row++) {
 
@@ -92,10 +97,15 @@ function update_url() {
     $sysretval = 0;
     $personid = get_http_var('editperson');
 
-    $q  = $db->query("DELETE FROM personinfo WHERE data_key = 'mp_website' AND personinfo.person_id = '".mysql_real_escape_string($personid)."';");
+    $q  = $db->query("DELETE FROM personinfo WHERE data_key = 'mp_website' AND personinfo.person_id = :person_id", array(
+        ':person_id' => $personid
+        ));
 
     if ($q->success()) {
-        $q = $db->query("INSERT INTO personinfo (data_key, person_id, data_value) VALUES ('mp_website', '" . mysql_real_escape_string($personid) . "', '" . mysql_real_escape_string(get_http_var('url')). "');");
+        $q = $db->query("INSERT INTO personinfo (data_key, person_id, data_value) VALUES ('mp_website', :person_id, :url", array(
+            ':person_id' => $personid,
+            ':url' => get_http_var('url')
+            ));
     }
 
     if ($q->success()) {

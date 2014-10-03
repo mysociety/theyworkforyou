@@ -57,7 +57,13 @@ function wikipedize($source) {
   $phrases = array_unique(array_merge($propernounphrases1[0], $propernounphrases2[0],
     $propernounphrases3[1], $propernounphrases4[1], $propernounphrases5[0], $acronyms[0]));
   foreach ($phrases as $i => $phrase) {
-    $phrases[$i] = mysql_real_escape_string(str_replace(' ', '_', trim($phrase)));
+    $phrases[$i] = str_replace(' ', '_', trim($phrase));
+  }
+
+  // Assemble the resulting phrases into a parameter array
+  $params = array();
+  foreach ($phrases as $i => $phrase) {
+    $params[':phrase' . $i] = $phrase;
   }
 
   # Open up a db connection, and whittle our list down even further, against
@@ -65,7 +71,7 @@ function wikipedize($source) {
   $matched = array();
   $db = new ParlDB;
   $source = explode('|||', $source);
-  $q = $db->query("SELECT titles.title FROM titles LEFT JOIN titles_ignored ON titles.title=titles_ignored.title WHERE titles.title IN ('" . join("','", $phrases) . "') AND titles_ignored.title IS NULL");
+  $q = $db->query("SELECT titles.title FROM titles LEFT JOIN titles_ignored ON titles.title=titles_ignored.title WHERE titles.title IN (" . join(',', array_keys($params)) . ") AND titles_ignored.title IS NULL", $params);
   $phrases = array();
   for ($i=0; $i<$q->rows(); $i++) {
     $phrases[] = $q->field($i, 'title');

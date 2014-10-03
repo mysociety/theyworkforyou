@@ -27,9 +27,11 @@ class PbcView extends SectionView {
 
         $bill_id = null;
         if ($this->session && $this->bill) {
-            $q = $this->list->db->query('select id,standingprefix from bills where title="'
-                . mysql_real_escape_string($this->bill) . '"
-                and session = "'.mysql_real_escape_string($this->session).'"');
+            $q = $this->list->db->query('select id,standingprefix from bills where title = :bill
+                and session = :session', array(
+                ':bill' => $this->bill,
+                ':session' => $this->session
+            ));
             if ($q->rows()) {
                 $bill_id = $q->field(0, 'id');
                 $standingprefix = $q->field(0, 'standingprefix');
