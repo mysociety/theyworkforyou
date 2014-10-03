@@ -221,4 +221,17 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
             ), $MEMBER->extra_info['pbc'][1]);
     }
 
+    /**
+     * Test finding a member by Guardian Aristotle ID
+     */
+    public function testGetByAristotleId()
+    {
+        $MEMBER = new MEMBER(array('guardian_aristotle_id' => 123456789));
+
+        $MEMBER->guardian_aristotle_id_to_person_id();
+
+        // Have we correctly loaded the person by Guardian ID?
+        $this->assertEquals(16, $MEMBER->person_id);
+    }
+
 }

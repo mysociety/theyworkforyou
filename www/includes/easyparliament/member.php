@@ -372,7 +372,7 @@ class MEMBER {
                                     FROM 	personinfo
                                     WHERE	data_key = 'guardian_aristotle_id'
                                     AND data_value = :guardian_aristotle_id",
-                  array(':guardian_aristotle_id', $this->guardian_aristotle_id));
+                  array(':guardian_aristotle_id' => $this->guardian_aristotle_id));
              if ($q->rows > 0) {
                   return $q->field(0, 'person_id');
              } else {
