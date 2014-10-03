@@ -79,8 +79,8 @@ function _api_getMSP_constituency($constituencies) {
     $cons_params = array();
     $params = array();
     foreach ($cons as $key => $constituency) {
-        $cons_params[] = ':constituency' + $key;
-        $params[':constituency' + $key] = $constituency;
+        $cons_params[] = ':constituency' . $key;
+        $params[':constituency' . $key] = $constituency;
     }
 
     $q = $db->query("SELECT * FROM member
