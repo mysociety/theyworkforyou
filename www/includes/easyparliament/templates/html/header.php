@@ -12,7 +12,7 @@
     <?php
         if (DEVSITE) {
             echo '<meta name="robots" content="noindex,nofollow">';
-        } elseif ($page_data['robots']) {
+        } elseif (!empty($page_data['robots'])) {
             echo '<meta name="robots" content="' . $page_data['robots'] . '">';
         }
     ?>
