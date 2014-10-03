@@ -193,8 +193,7 @@ class MEMBER {
         if ($q->rows > 0) {
             return $q->field(0, 'person_id');
         } else {
-            $PAGE->error_message("Sorry, there is no member with a member ID of '" . _htmlentities($member_id) . "'.");
-            return false;
+            throw new MySociety\TheyWorkForYou\MemberException('Sorry, there is no member with a member ID of "' . _htmlentities($member_id) . '".');
         }
     }
 
@@ -207,8 +206,7 @@ class MEMBER {
     public function constituency_to_person_id($constituency, $house=null) {
         global $PAGE;
         if ($constituency == '') {
-            $PAGE->error_message("Sorry, no constituency was found.");
-            return false;
+            throw new MySociety\TheyWorkForYou\MemberException('Sorry, no constituency was found.');
         }
 
         if ($constituency == 'Orkney ') {
@@ -236,16 +234,14 @@ class MEMBER {
         if ($q->rows > 0) {
             return $q->field(0, 'person_id');
         } else {
-                $PAGE->error_message("Sorry, there is no current member for the '" . _htmlentities($constituency) . "' constituency.");
-                return false;
+                throw new MySociety\TheyWorkForYou\MemberException('Sorry, there is no current member for the "' . _htmlentities(ucwords($constituency)) . '" constituency.');
         }
     }
 
     public function name_to_person_id($name, $const='') {
         global $PAGE, $this_page;
         if ($name == '') {
-            $PAGE->error_message('Sorry, no name was found.');
-            return false;
+            throw new MySociety\TheyWorkForYou\MemberException('Sorry, no name was found.');
         }
         # Matthew made this change, but I don't know why.  It broke
         # Iain Duncan Smith, so I've put it back.  FAI 2005-03-14
@@ -259,8 +255,7 @@ class MEMBER {
             if (!$success)
                 $success = preg_match('#^(.*?) (.*?)()$#', $name, $m);
             if (!$success) {
-                $PAGE->error_message('Sorry, that name was not recognised.');
-                return false;
+                throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
             }
             $params[':title'] = $m[1];
             $params[':last_name'] = $m[2];
