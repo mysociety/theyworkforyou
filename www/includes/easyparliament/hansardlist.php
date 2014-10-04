@@ -2,7 +2,6 @@
 
 include_once INCLUDESPATH."easyparliament/searchengine.php";
 include_once INCLUDESPATH."easyparliament/searchlog.php";
-include_once INCLUDESPATH."easyparliament/calendar.php";
 
 /*
 
@@ -1123,7 +1122,7 @@ class HANSARDLIST {
                     )))
                         continue;
 
-                list($cal_item, $cal_meta) = calendar_meta($itemdata);
+                list($cal_item, $cal_meta) = \MySociety\TheyWorkForYou\Utility\Calendar::meta($itemdata);
                 $body = $this->prepare_search_result_for_display($cal_item) . '.';
                 if ($cal_meta) {
                     $body .= ' <span class="future_meta">' . join('; ', $cal_meta) . '</span>';

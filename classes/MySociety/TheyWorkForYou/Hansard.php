@@ -161,7 +161,7 @@ class Hansard extends \HANSARDLIST {
                     )))
                         continue;
 
-                list($cal_item, $cal_meta) = calendar_meta($itemdata);
+                list($cal_item, $cal_meta) = Utility\Calendar::displayEntry($itemdata);
                 $body = $this->prepare_search_result_for_display($cal_item) . '.';
                 if ($cal_meta) {
                     $body .= ' <span class="future_meta">' . join('; ', $cal_meta) . '</span>';

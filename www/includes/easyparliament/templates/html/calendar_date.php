@@ -31,7 +31,7 @@ foreach ($data['dates'] as $date => $day_events) {
         print "</h2>\n";
         print $list[$i] ? "<ul class='calendar'>\n" : "<dl class='calendar'>\n";
         foreach ($events as $event) {
-            calendar_display_entry($event);
+            \MySociety\TheyWorkForYou\Utility\Calendar::displayEntry($event);
         }
         print $list[$i] ? "</ul>\n" : "</dl>\n";
     }

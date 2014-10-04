@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/calendar.php";
 
 $date = get_http_var('d');
 if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
@@ -24,7 +23,7 @@ if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
 function calendar_summary() {
     global $PAGE, $this_page;
 
-    $min_future_date = calendar_min_future_date();
+    $min_future_date = \MySociety\TheyWorkForYou\Utility\Calendar::minFutureDate();
     if (!$min_future_date) {
         $this_page = 'calendar_future';
         $PAGE->error_message('We don&rsquo;t currently have any future information.
@@ -51,7 +50,7 @@ function calendar_date($date) {
     $db = new ParlDB();
 
     $data = array();
-    $data['dates'] = calendar_fetch_date($date);
+    $data['dates'] = \MySociety\TheyWorkForYou\Utility\Calendar::fetchDate($date);
 
     $data['majors'] = array();
     if ($this_page == 'calendar_past') {
