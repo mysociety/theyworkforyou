@@ -895,8 +895,8 @@ class HANSARDLIST {
         $params = array();
         $speaker_in_parts = array();
 
-        foreach ($args['member_ids'] as $key => $member_id) {
-            $params[':speaker_in_' . $key] = $args['member_ids'];
+        foreach (explode(',', $args['member_ids']) as $key => $member_id) {
+            $params[':speaker_in_' . $key] = trim($member_id);
             $speaker_in_parts[] = ':speaker_in_' . $key;
         }
 
