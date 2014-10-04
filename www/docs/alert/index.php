@@ -124,7 +124,7 @@ You are not subscribed to an alert for your current MP,
         }
     }
     $PAGE->block_start(array ('title'=>'Your current email alerts'));
-    alerts_manage($details['email']);
+    \MySociety\TheyWorkForYou\Utility\Alert::manage($details['email']);
     $PAGE->block_end();
     $sidebar = ob_get_clean();
 }

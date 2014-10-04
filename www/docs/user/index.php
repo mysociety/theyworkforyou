@@ -1082,7 +1082,7 @@ function display_user($user_id="", $email_changed=false) {
         if ($this_page == 'userviewself') {
             $PAGE->stripe_start();
             print '<h3>Your email alerts</h3>';
-            alerts_manage($THEUSER->email());
+            \MySociety\TheyWorkForYou\Utility\Alert::manage($THEUSER->email());
             $PAGE->stripe_end();
         }
 
