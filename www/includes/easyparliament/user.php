@@ -250,7 +250,7 @@ class USER {
                     $MEMBER = new \MySociety\TheyWorkForYou\Member(array('postcode'=>$details['postcode'], 'house'=>1));
                     $pid = $MEMBER->person_id();
                     # No confirmation email, but don't automatically confirm
-                    $ALERT = new ALERT;
+                    $ALERT = new \MySociety\TheyWorkForYou\Alert;
                     $ALERT->add(array(
                         'email' => $details['email'],
                         'pid' => $pid,

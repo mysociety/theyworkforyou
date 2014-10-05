@@ -2,7 +2,8 @@
 /*
  This is the main file allowing users to manage email alerts.
  It is based on the file /user/index.php.
- The alerts depend on the class ALERT which is established in /includes/easyparliament/alert.php
+ The alerts depend on the class ALERT which is established in
+ /classes/MySociety/TheyWorkForYou/Alert.php
 
 The submitted flag means we've submitted some form of search. Having pid or
 keyword present means we've picked one of those results (or come straight from
@@ -24,7 +25,7 @@ include_once INCLUDESPATH . '../../commonlib/phplib/crosssell.php';
 $this_page = "alert";
 $extra = null;
 
-$ALERT = new ALERT;
+$ALERT = new \MySociety\TheyWorkForYou\Alert;
 $token = get_http_var('t');
 $alert = $ALERT->check_token($token);
 

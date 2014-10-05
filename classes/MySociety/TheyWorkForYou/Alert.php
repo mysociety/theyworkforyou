@@ -1,53 +1,40 @@
 <?php
+/**
+ * Alert Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/*
+namespace MySociety\TheyWorkForYou;
 
-NO HTML IN THIS FILE!!
+/**
+ * Alert
+ *
+ * The Alert class allows us to fetch and alter data about any email alert.
+ *
+ * To create a new alert do:
+ *     $ALERT = new \MySociety\TheyWorkForYou\Alert;
+ *     $ALERT->add();
+ *
+ * You can then access all the alert's variables with appropriately named functions, such as:
+ *     $ALERT->email();
+ * etc.
+ */
 
-// Name: alert.php
-// Author:  Richard Allan richard@sheffieldhallam.org.uk
-// Version: 0.5 beta
-// Date: 6th Jan 2005
-// Description:  This file contains ALERT class.
-
-The ALERT class allows us to fetch and alter data about any email alert.
-Functions here:
-
-ALERT
-
-    fetch_between($confirmed, $deleted, $start_date, $end_date)	Fetch summary data on alerts created between the dates.
-    fetch($confirmed, $deleted)					Fetch all alert data from DB.
-    add($details, $confirmation_email)				Add a new alert to the DB.
-    send_confirmation_email($details)				Done after add()ing the alert.
-    email_exists($email)						Checks if an alert exists with a certain email address.
-    confirm($token)							Confirm a new alert in the DB
-    delete($token)							Remove an existing alert from the DB
-    id_exists()							Checks if an alert_id is valid.
-
-To create a new alert do:
-    $ALERT = new ALERT;
-    $ALERT->add();
-
-You can then access all the alert's variables with appropriately named functions, such as:
-    $ALERT->email();
-etc.
-
-*/
-
-// CLASS:  ALERT
-
-class ALERT {
+class Alert {
 
     public $token_checked = null;
     public $alert_id = "";
     public $email = "";
-    public $criteria = "";		// Sets the terms that are used to produce the search results.
+    public $criteria = "";      // Sets the terms that are used to produce the search results.
 
-    public function ALERT() {
-        $this->db = new ParlDB;
+    public function __construct() {
+        $this->db = new \ParlDB;
     }
 
-// FUNCTION: fetch_between
+    /**
+     * Fetch summary data on alerts created between the dates.
+     */
 
     public function fetch_between($confirmed, $deleted, $start_date, $end_date) {
       // Return summary data on all the alerts that were created between $start_date
@@ -66,16 +53,18 @@ class ALERT {
             ':end_date' => $end_date
             ));
         $data = array();
-    for ($row=0; $row<$q->rows(); $row++) {
-      $contents = array('criteria' => $q->field($row, 'criteria'), 'count' => $q->field($row, 'cnt'));
-          $data[] = $contents;
-    }
-    $data = array ('alerts' => $data);
+        for ($row=0; $row<$q->rows(); $row++) {
+          $contents = array('criteria' => $q->field($row, 'criteria'), 'count' => $q->field($row, 'cnt'));
+              $data[] = $contents;
+        }
+        $data = array ('alerts' => $data);
 
-    return $data;
+        return $data;
     }
 
-// FUNCTION: fetch
+    /**
+     * Fetch all alert data from DB.
+     */
 
     public function fetch($confirmed, $deleted) {
         // Pass it an alert id and it will fetch data about alerts from the db
@@ -100,12 +89,12 @@ class ALERT {
 
             for ($row=0; $row<$q->rows(); $row++) {
                 $contents = array(
-                'alert_id' 	=> $q->field($row, 'alert_id'),
-                'email' 	=> $q->field($row, 'email'),
-                'criteria' 	=> $q->field($row, 'criteria'),
+                'alert_id'  => $q->field($row, 'alert_id'),
+                'email'     => $q->field($row, 'email'),
+                'criteria'  => $q->field($row, 'criteria'),
                 'registrationtoken' => $q->field($row, 'registrationtoken'),
-                'confirmed' 	=> $q->field($row, 'confirmed'),
-                'deleted' 	=> $q->field($row, 'deleted')
+                'confirmed'     => $q->field($row, 'confirmed'),
+                'deleted'   => $q->field($row, 'deleted')
             );
                 $data[] = $contents;
             }
@@ -116,15 +105,19 @@ class ALERT {
             return $data;
     }
 
+    /**
+     * Add a new alert to the DB.
+     */
+
     public function add($details, $confirmation_email=false, $instantly_confirm=true) {
 
         // Adds a new alert's info into the database.
         // Then calls another function to send them a confirmation email.
         // $details is an associative array of all the alert's details, of the form:
         // array (
-        //		"email" => "user@foo.com",
-        //		"criteria"	=> "speaker:521",
-        //		etc... using the same keys as the object variable names.
+        //      "email" => "user@foo.com",
+        //      "criteria"  => "speaker:521",
+        //      etc... using the same keys as the object variable names.
         // )
 
         $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($details);
@@ -233,7 +226,11 @@ class ALERT {
         }
     }
 
-// FUNCTION:  send_confirmation_email
+    /**
+     * Send confirmation email.
+     *
+     * Done after add()ing the alert.
+     */
 
     public function send_confirmation_email($details) {
 
@@ -257,15 +254,15 @@ class ALERT {
 
         // Arrays we need to send a templated email.
         $data = array (
-            'to' 		=> $details['email'],
-            'template' 	=> 'alert_confirmation'
+            'to'        => $details['email'],
+            'template'  => 'alert_confirmation'
         );
 
         $merge = array (
-            'FIRSTNAME' 	=> 'THEY WORK FOR YOU',
-            'LASTNAME' 		=> ' ALERT CONFIRMATION',
-            'CONFIRMURL'	=> $confirmurl,
-            'CRITERIA'	=> $this->criteria_pretty()
+            'FIRSTNAME'     => 'THEY WORK FOR YOU',
+            'LASTNAME'      => ' ALERT CONFIRMATION',
+            'CONFIRMURL'    => $confirmurl,
+            'CRITERIA'  => $this->criteria_pretty()
         );
 
         $success = send_template_email($data, $merge);
@@ -278,17 +275,17 @@ class ALERT {
 
     public function send_already_signedup_email($details) {
         $data = array (
-            'to' 		=> $details['email'],
-            'template' 	=> 'alert_already_signedup'
+            'to'        => $details['email'],
+            'template'  => 'alert_already_signedup'
         );
 
         $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($details);
         $this->criteria = $criteria;
 
         $merge = array (
-            'FIRSTNAME' 	=> 'THEY WORK FOR YOU',
-            'LASTNAME' 		=> ' ALERT ALREADY SIGNED UP',
-            'CRITERIA'	=> $this->criteria_pretty()
+            'FIRSTNAME'     => 'THEY WORK FOR YOU',
+            'LASTNAME'      => ' ALERT ALREADY SIGNED UP',
+            'CRITERIA'  => $this->criteria_pretty()
         );
 
         $success = send_template_email($data, $merge);
@@ -313,6 +310,10 @@ class ALERT {
             return false;
         }
     }
+
+    /**
+     * Checks if an alert exists with a certain email address.
+     */
 
     public function email_exists($email) {
         // Returns true if there's a user with this email address.
@@ -367,10 +368,15 @@ class ALERT {
         return $this->token_checked;
     }
 
-    // The user has clicked the link in their confirmation email
-    // and the confirm page has passed the token from the URL to here.
-    // If all goes well the alert will be confirmed.
-    // The alert will be active when scripts run each day to send the actual emails.
+    /**
+     * Confirm a new alert in the DB.
+     *
+     * The user has clicked the link in their confirmation email
+     * and the confirm page has passed the token from the URL to here.
+     * If all goes well the alert will be confirmed.
+     * The alert will be active when scripts run each day to send the actual emails.
+     */
+
     public function confirm($token) {
         if (!($alert = $this->check_token($token))) return false;
         $this->criteria = $alert['criteria'];
@@ -382,9 +388,14 @@ class ALERT {
         return $r->success();
     }
 
-    // The user has clicked the link in their delete confirmation email
-    // and the deletion page has passed the token from the URL to here.
-    // If all goes well the alert will be flagged as deleted.
+    /**
+     * Remove an existing alert from the DB.
+     *
+     * The user has clicked the link in their delete confirmation email
+     * and the deletion page has passed the token from the URL to here.
+     * If all goes well the alert will be flagged as deleted.
+     */
+
     public function delete($token) {
         if (!($alert = $this->check_token($token))) return false;
         $r = $this->db->query("UPDATE alerts SET deleted = 1 WHERE alert_id = :alert_id", array(
@@ -420,7 +431,7 @@ class ALERT {
         $words = array(); $spokenby = '';
         foreach ($criteria as $c) {
             if (preg_match('#^speaker:(\d+)#',$c,$m)) {
-                $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id'=>$m[1]));
+                $MEMBER = new Member(array('person_id'=>$m[1]));
                 $spokenby = $MEMBER->full_name();
             } else {
                 $words[] = $c;
@@ -433,48 +444,3 @@ class ALERT {
     }
 
 }
-
-function alerts_manage($email) {
-    $db = new ParlDB;
-    $q = $db->query('SELECT * FROM alerts WHERE email = :email
-        AND deleted != 1 ORDER BY created', array(
-            ':email' => $email
-        ));
-    $out = '';
-    for ($i=0; $i<$q->rows(); ++$i) {
-        $row = $q->row($i);
-        $criteria = explode(' ',$row['criteria']);
-        $ccc = array();
-        $current = true;
-        foreach ($criteria as $c) {
-            if (preg_match('#^speaker:(\d+)#',$c,$m)) {
-                $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id'=>$m[1]));
-                $ccc[] = 'spoken by ' . $MEMBER->full_name();
-                if (!$MEMBER->current_member_anywhere()) {
-                    $current = false;
-                }
-            } else {
-                $ccc[] = $c;
-            }
-        }
-        $criteria = join(' ',$ccc);
-        $token = $row['alert_id'] . '-' . $row['registrationtoken'];
-        $action = '<form action="/alert/" method="post"><input type="hidden" name="t" value="'.$token.'">';
-        if (!$row['confirmed']) {
-            $action .= '<input type="submit" name="action" value="Confirm">';
-        } elseif ($row['deleted']==2) {
-            $action .= '<input type="submit" name="action" value="Resume">';
-        } else {
-            $action .= '<input type="submit" name="action" value="Suspend"> <input type="submit" name="action" value="Delete">';
-        }
-        $action .= '</form>';
-        $out .= '<tr><td>' . $criteria . '</td><td align="center">' . $action . '</td></tr>';
-        if (!$current) {
-            $out .= '<tr><td colspan="2"><small>&nbsp;&mdash; <em>not a current member of any body covered by TheyWorkForYou</em></small></td></tr>';
-        }
-    }
-    if ($out) {
-        print '<table cellpadding="3" cellspacing="0"><tr><th>Criteria</th><th>Action</th></tr>' . $out . '</table>';
-    } else {
-        print '<p>You currently have no email alerts set up.</p>';
-    }

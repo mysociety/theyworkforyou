@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Name: alertgonemps.php
  * Description: Mailer for those whose MP has gone
  * $Id: alertgonemps.php,v 1.2 2009-06-16 09:12:09 matthew Exp $
@@ -52,7 +52,7 @@ $unregistered = 0;
 $registered = 0;
 $sentemails = 0;
 
-$LIVEALERTS = new ALERT;
+$LIVEALERTS = new \MySociety\TheyWorkForYou\Alert;
 
 $current = array('email' => '', 'token' => '');
 $email_text = array();
@@ -109,7 +109,7 @@ foreach ($alertdata as $alertitem) {
 		} else {
 			$user_id = 0;
 			$unregistered++;
-		}	
+		}
 		mlog("\nEMAIL: $email, uid $user_id; memory usage : ".memory_get_usage()."\n");
 	}
 

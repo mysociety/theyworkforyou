@@ -102,7 +102,4 @@ include_once (INCLUDESPATH."easyparliament/commentlist.php");
 include_once (INCLUDESPATH."easyparliament/comment.php");
 include_once (INCLUDESPATH."easyparliament/trackback.php");
 
-// Added in as new module by Richard Allan MP
-include_once (INCLUDESPATH."easyparliament/alert.php");
-
 twfy_debug_timestamp("at end of init.php");

@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Name: alertmailer.php
  * Description: Mailer for email alerts
  * $Id: alertmailer.php,v 1.34 2009-06-23 10:11:10 matthew Exp $
@@ -80,7 +80,7 @@ $unregistered = 0;
 $registered = 0;
 $sentemails = 0;
 
-$LIVEALERTS = new ALERT;
+$LIVEALERTS = new \MySociety\TheyWorkForYou\Alert;
 
 $current = array('email' => '', 'token' => '');
 $email_text = '';
