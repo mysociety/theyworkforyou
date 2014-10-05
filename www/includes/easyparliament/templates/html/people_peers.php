@@ -23,7 +23,7 @@ twfy_debug("TEMPLATE", "people_mps.php");
 
 $order = $data['info']['order'];
 
-$URL = new URL($this_page);
+$URL = new \MySociety\TheyWorkForYou\Url($this_page);
 
 if ($order == 'name') {
     $th_name = 'Name';
@@ -56,7 +56,7 @@ if ($order == 'party')
                 <tbody>
 <?php
 
-$URL = new URL(str_replace('s', '', $this_page));
+$URL = new \MySociety\TheyWorkForYou\Url(str_replace('s', '', $this_page));
 $style = '2';
 
 foreach ($data['data'] as $pid => $peer) {

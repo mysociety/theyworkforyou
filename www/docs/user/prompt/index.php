@@ -23,7 +23,7 @@ if ($type == 2) {
     $message = "Sorry, you must be logged in to add a glossary item.";
     $message2 = "You'll be able to add your glossary item straight after.";
 
-    $URL = new URL('glossary_addterm');
+    $URL = new \MySociety\TheyWorkForYou\Url('glossary_addterm');
     $URL->insert(array('g' => get_http_var('g')));
     $glossary_returl = $URL->generate();
     $anchor = '';
@@ -35,7 +35,7 @@ if ($type == 2) {
     $anchor = '#addcomment';
 }
 
-$URL = new URL('userjoin');
+$URL = new \MySociety\TheyWorkForYou\Url('userjoin');
 $URL->insert(array('ret'=>$returl.$anchor));
 $joinurl = $URL->generate();
 

@@ -213,7 +213,7 @@ class HANSARDLIST {
 
             $hdate = $q->field(0, 'hdate');
             if ($hdate) {
-                $URL = new URL($this->listpage);
+                $URL = new \MySociety\TheyWorkForYou\Url($this->listpage);
                 $URL->insert( array('d'=>$hdate) );
 
                 // Work out a timestamp which is handy for comparing to now.
@@ -485,7 +485,7 @@ class HANSARDLIST {
         }
 
         if ($this->major == 6) {
-            $URL = new URL('pbc_bill');
+            $URL = new \MySociety\TheyWorkForYou\Url('pbc_bill');
             $URL->remove(array('bill'));
             $nextprevdata['up'] = array(
                 'body'	=> _htmlspecialchars($this->bill_title),
@@ -493,7 +493,7 @@ class HANSARDLIST {
                 'url'	=> $URL->generate() . $this->url,
             );
         } elseif ($itemdata['htype'] == '10' || $itemdata['htype'] == '11') {
-            $URL = new URL($this->listpage);
+            $URL = new \MySociety\TheyWorkForYou\Url($this->listpage);
             // Create URL for this (sub)section's date.
             $URL->insert(array('d' => $itemdata['hdate']));
             $URL->remove(array('id'));
@@ -524,7 +524,7 @@ class HANSARDLIST {
         // What we return.
         $nextprevdata = array ();
 
-        $URL = new URL($this->listpage);
+        $URL = new \MySociety\TheyWorkForYou\Url($this->listpage);
 
         $looper = array ("next", "prev");
 
@@ -570,7 +570,7 @@ class HANSARDLIST {
         }
 
         $year = substr($date, 0, 4);
-        $URL = new URL($hansardmajors[$this->major]['page_year']);
+        $URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$this->major]['page_year']);
         $thing = $hansardmajors[$this->major]['plural'];
         $URL->insert(array('y'=>$year));
 
@@ -856,7 +856,7 @@ class HANSARDLIST {
 
         if ($q->rows() > 0) {
 
-            $URL = new URL($this->listpage);
+            $URL = new \MySociety\TheyWorkForYou\Url($this->listpage);
 
             for ($n=0; $n<$q->rows(); $n++) {
                 $rowdata = array();
@@ -1542,7 +1542,7 @@ class HANSARDLIST {
 
         // Set the next/prev links.
 
-        $YEARURL = new URL($hansardmajors[$this->major]['page_year']);
+        $YEARURL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$this->major]['page_year']);
 
         if (substr($this_page, -4) == 'year') {
             // Only need next/prev on these pages.
@@ -1855,7 +1855,7 @@ class HANSARDLIST {
 
                 // Create a URL for where we can see all the comments for this item.
                 if (isset($this->commentspage)) {
-                    $COMMENTSURL = new URL($this->commentspage);
+                    $COMMENTSURL = new \MySociety\TheyWorkForYou\Url($this->commentspage);
                     if ($this->major == 6) {
                         # Another hack...
                         $COMMENTSURL->remove(array('id'));
@@ -1978,9 +1978,9 @@ class HANSARDLIST {
 
         // $url_args is an array of other key/value pairs to be appended in the GET string.
         if ($id_data['major'])
-            $LISTURL = new URL($hansardmajors[$id_data['major']]['page_all']);
+            $LISTURL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$id_data['major']]['page_all']);
         else
-            $LISTURL = new URL('wrans');
+            $LISTURL = new \MySociety\TheyWorkForYou\Url('wrans');
 
         $fragment = '';
 
@@ -2084,15 +2084,15 @@ class HANSARDLIST {
                     // *SHOULD* only get one row back here...
                     $house = $q->field(0, 'house');
                     if ($house==1) {
-                        $URL = new URL('mp');
+                        $URL = new \MySociety\TheyWorkForYou\Url('mp');
                     } elseif ($house==2) {
-                        $URL = new URL('peer');
+                        $URL = new \MySociety\TheyWorkForYou\Url('peer');
                     } elseif ($house==3) {
-                        $URL = new URL('mla');
+                        $URL = new \MySociety\TheyWorkForYou\Url('mla');
                     } elseif ($house==4) {
-                        $URL = new URL('msp');
+                        $URL = new \MySociety\TheyWorkForYou\Url('msp');
                     } elseif ($house==0) {
-                        $URL = new URL('royal');
+                        $URL = new \MySociety\TheyWorkForYou\Url('royal');
                     }
                     $URL->insert( array ('m' => $speaker_id) );
                     $speaker = array (
@@ -2283,7 +2283,7 @@ class HANSARDLIST {
         $trackback['itemurl'] = 'http://' . DOMAIN . $url;
 
         // Getting the URL the user needs to ping for this item.
-        $URL = new URL('trackback');
+        $URL = new \MySociety\TheyWorkForYou\Url('trackback');
         $URL->insert(array('e'=>$itemdata['epobject_id']));
 
         $trackback['pingurl'] = 'http://' . DOMAIN . $URL->generate('html');
@@ -3235,7 +3235,7 @@ class StandingCommittee extends DEBATELIST {
             );
         }
 
-        $YEARURL = new URL('pbc_session');
+        $YEARURL = new \MySociety\TheyWorkForYou\Url('pbc_session');
         $nextprev = array();
         $nextprev['prev'] = array ('body' => 'Previous session', 'title'=>'');
         $nextprev['next'] = array ('body' => 'Next session', 'title'=>'');

@@ -102,7 +102,7 @@ function display_page( $errors=array() ) {
 
     if ($THEUSER->isloggedin()) {
         // Shouldn't really get here, but you never know.
-        $URL = new URL('userlogout');
+        $URL = new \MySociety\TheyWorkForYou\Url('userlogout');
         ?>
     <p><strong>You are already logged in. <a href="<?php echo $URL->generate(); ?>">Log out?</a></strong></p>
 <?php
@@ -112,7 +112,7 @@ function display_page( $errors=array() ) {
     }
     ?>
 
-                <p>Not yet a member? <a href="<?php $URL = new URL("userjoin"); echo $URL->generate(); ?>">Join now</a>!</p>
+                <p>Not yet a member? <a href="<?php $URL = new \MySociety\TheyWorkForYou\Url("userjoin"); echo $URL->generate(); ?>">Join now</a>!</p>
 
 <?php
 

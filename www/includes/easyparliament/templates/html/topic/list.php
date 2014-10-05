@@ -11,7 +11,7 @@
 
         <?php foreach ($topics as $page => $topic): ?>
 
-            <?php $URL = new URL($page); ?>
+            <?php $URL = new \MySociety\TheyWorkForYou\Url($page); ?>
 
             <li><a href="http://<?= DOMAIN ?><?= $URL->generate(); ?>">
                 <img src="/images/<?= $page ?>.jpg">

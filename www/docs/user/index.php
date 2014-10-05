@@ -406,7 +406,7 @@ function add_user($details) {
         } else {
             // We'll send the user to the front page after they've joined.
 
-            $URL = new URL("home");
+            $URL = new \MySociety\TheyWorkForYou\Url("home");
             $URL->insert(array("newuser"=>"1"));
             $url = $URL->generate();
         }
@@ -508,7 +508,7 @@ function display_form ( $details = array(), $errors = array() ) {
 
     } else {
 
-        $URL = new URL("userlogin");
+        $URL = new \MySociety\TheyWorkForYou\Url("userlogin");
         $URL->insert(array('ret'=>get_http_var('ret')));
 
         if (!$THEUSER->isloggedin()) {
@@ -520,7 +520,7 @@ function display_form ( $details = array(), $errors = array() ) {
         }
     }
 
-    $ACTIONURL = new URL($this_page);
+    $ACTIONURL = new \MySociety\TheyWorkForYou\Url($this_page);
     $ACTIONURL->reset();
     ?>
 
@@ -757,7 +757,7 @@ function display_form ( $details = array(), $errors = array() ) {
         $submittext = "Join TheyWorkForYou.com";
     }
 
-    $TERMSURL = new URL('houserules');
+    $TERMSURL = new \MySociety\TheyWorkForYou\Url('houserules');
 ?>
                 <div class="row">
                 <span class="label">&nbsp;</span>
@@ -866,7 +866,7 @@ function display_user($user_id="", $email_changed=false) {
 
     } else {
         // Nothing to show!
-        $URL = new URL('userlogin');
+        $URL = new \MySociety\TheyWorkForYou\Url('userlogin');
         $URL->insert(array('ret'=>'/user/'));
         $loginurl = $URL->generate();
         header("Location: $loginurl");
@@ -966,7 +966,7 @@ function display_user($user_id="", $email_changed=false) {
         }
 
         if ($this_page == 'userviewself' && !$edited) {
-            $EDITURL = new URL('useredit');
+            $EDITURL = new \MySociety\TheyWorkForYou\Url('useredit');
             ?>
                 <p><strong>This is how other people see you.</strong> <a href="<?php echo $EDITURL->generate(); ?>">Edit your details</a>.</p>
 <?php
@@ -1067,8 +1067,8 @@ function display_user($user_id="", $email_changed=false) {
         }
 
         if ($edited && $this_page == 'userviewself') {
-            $EDITURL = new URL('useredit');
-            $VIEWURL = new URL('userviewself');
+            $EDITURL = new \MySociety\TheyWorkForYou\Url('useredit');
+            $VIEWURL = new \MySociety\TheyWorkForYou\Url('userviewself');
             ?>
                 <p>&nbsp;<br><a href="<?php echo $EDITURL->generate(); ?>">Edit again</a> or <a href="<?php echo $VIEWURL->generate(); ?>">see how others see you</a>.</p>
 <?php

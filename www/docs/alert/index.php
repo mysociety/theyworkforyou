@@ -266,7 +266,7 @@ function add_alert($details) {
 function display_search_form ( $alert, $details = array(), $errors = array() ) {
     global $this_page, $PAGE;
 
-    $ACTIONURL = new URL($this_page);
+    $ACTIONURL = new \MySociety\TheyWorkForYou\Url($this_page);
     $ACTIONURL->reset();
     $form_start = '<form action="' . $ACTIONURL->generate() . '" method="post">
 <input type="hidden" name="t" value="' . _htmlspecialchars(get_http_var('t')) . '">

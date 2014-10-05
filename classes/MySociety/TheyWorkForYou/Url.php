@@ -1,61 +1,34 @@
 <?php
+/**
+ * Url Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/*
-URL class v1.3 2003-11-25
-phil@gyford.com
+namespace MySociety\TheyWorkForYou;
 
-REQUIRES:
-    data.php v1.0
-    utiltity.php v1.0
-    GLOBALS:
-        WEBPATH	/directory/
+/**
+ * Url
+ *
+ * The URL class is used for generating URLs and other related things.
+ * Relies on there being a get_http_var() function.
+ *
+ * This is probably how you'll use it most:
+ *     $URL = new \MySociety\TheyWorkForYou\Url("yourpagename");
+ *     print $URL->generate();
+ *
+ * In the metadata you should set a session_vars variable, an array.
+ * The default page session_vars may be just array("debug").
+ * These can then be overridden on a per-page basis.
+ * Session vars are GET/POST vars that will be passed by default to that page.
+ * ie, if "foo=bar" is in the current URL and you generate a URL to a page that has "foo"
+ * as a session_var, "foo=bar" will be automatically added to the generated URL.
+ * You can modify the session vars that will be included in the URL generated using the class functions.
+ */
 
-DOCUMENTATION:
+class Url {
 
-The URL class is used for generating URLs and other related things.
-Relies on there being a get_http_var() function.
-
-This is probably how you'll use it most:
-
-    $URL = new URL("yourpagename");
-    print $URL->generate();
-
-In the metadata you should set a session_vars variable, an array.
-The default page session_vars may be just array("debug").
-These can then be overridden on a per-page basis.
-Session vars are GET/POST vars that will be passed by default to that page.
-ie, if "foo=bar" is in the current URL and you generate a URL to a page that has "foo"
-as a session_var, "foo=bar" will be automatically added to the generated URL.
-You can modify the session vars that will be included in the URL generated using the functions below.
-
-
-PUBLICALLY ACCESSIBLE FUNCTIONS:
-
-restore() 	- Sets $URL->session_vars back to how they were when the object was instantiated.
-reset() 	- Sets $URL->session_vars to be an empty array.
-insert() 	- Add/overwrite session key and value pair(s).
-remove() 	- Remove session key/value pair(s).
-update() 	- Update the values of some/all session_vars.
-generate() 	- Generate a URL to the page specified with session vars.
-header_redirect_url()	- Generate a URL with
-hidden_form_vars() - Prints hidden form variables.
-
-
-VERSION HISTORY
-v1.0	2003-07-16
-v1.1	2003-09-10
-            Changed format for $encode in generate().
-            Insert() now overwrites existing variables, rather than maintaining them.
-v1.2	2003-10-03
-            Added support for "pg" variables in the metadata. You can create virtual
-                pages from the same physical file.
-v1.3	2003-11-25
-            Changed from PAGEURL to URL. Now use defined constants instead of globals.
-*/
-
-class URL {
-
-    public function URL($pagename) {
+    public function __construct($pagename) {
         // Initialise.
         global $DATA;
 
@@ -93,6 +66,10 @@ class URL {
 
     }
 
+    /**
+     * Sets $URL->session_vars back to how they were when the object was instantiated.
+     */
+
     public function restore() {
         // Call this to reset the session vars to how they were when
         // the object was instantiated.
@@ -100,11 +77,18 @@ class URL {
 
     }
 
+    /**
+     * Sets $URL->session_vars to be an empty array.
+     */
+
     public function reset() {
         // Call this to remove all the session_vars.
         $this->session_vars = array ();
     }
 
+    /**
+     * Add/overwrite session key and value pair(s).
+     */
     public function insert($arr) {
         // $arr is an associative array of key/value pairs.
         // These will be used as session_vars in addition to any that
@@ -114,6 +98,9 @@ class URL {
         }
     }
 
+    /**
+     * Remove session key/value pair(s).
+     */
     public function remove($arr) {
         // $arr is a list array of key names. Any key/value pairs
         // in session_vars with keys found in $arr will be removed.
@@ -124,6 +111,9 @@ class URL {
         }
     }
 
+    /**
+     * Update the values of some/all session_vars.
+     */
     public function update($arr) {
         // $arr is an associative array of key/value pairs.
         // Any keys in session_vars that are also in $arr
@@ -136,6 +126,9 @@ class URL {
         }
     }
 
+    /**
+     * Generate a URL to the page specified with session vars.
+     */
     public function generate($encode = "html", $overrideVars=array()) {
         // Returns a URL with the appropriate session_vars.
         // If $encode is "html", the URL will be suitable to be put in HTML.
@@ -171,57 +164,6 @@ class URL {
                 return $page_url . "?" . implode("&", $url_args);
             }
         }
-    }
-
-/* 	DEPRECATED. Use hidden_form_vars() in utility.php instead. */
-
-    // Use this when you have a form and want to retain some/all of the
-    // variables in the URL get string.
-    // If you have a form that changes, say, $s, then you'll need to
-    // pass "s" in in the $remove_vars array, so it isn't created as a
-    // hidden variable.
-    public function hidden_form_varsOLD ($remove_vars=array(), $insert_vars=array()) {
-        // This should really be tidied up lots. That $dont_keep array for a start is NASTY!
-        // You can also pass in an array of variables to remove() and insert().
-
-        foreach ($_GET as $key => $val) {
-            $vars[$key] = get_http_var($key);
-        }
-        foreach ($_POST as $key => $val) {
-            $vars[$key] = get_http_var($key);
-        }
-
-        // We'll want to reset things to this when we're done.
-        $old_session_vars = $this->session_vars;
-        $this->reset();
-        $this->insert($vars);
-        $this->remove($remove_vars);
-        $this->insert($insert_vars);
-
-        $html = "";
-
-        // Put keys of any variables you never want to hang on to in here:
-        $dont_keep = array();	// VERY BAD!
-        $this->remove($dont_keep);
-
-        foreach ($this->session_vars as $key => $val) {
-            if (!in_array($key, $dont_keep)) {
-                $html .= '<input type="hidden" name="' . $key . '" value="' . $val . "\">\n";
-
-            }
-        }
-
-        // Reset $session_vars to how it was before.
-        // Otherwise if you call functions after you've generated hidden vars
-        // everything will be changed around from how it was before.
-        $this->session_vars = $old_session_vars;
-
-        if ($html != "") {
-            return $html . "\n";
-        } else {
-            return $html;
-        }
-
     }
 
 }

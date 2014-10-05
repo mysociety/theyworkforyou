@@ -28,7 +28,7 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 		
 	// Some data about this person that we'll need for the feed.
 	$MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id' => $person_id));
-	$MPURL = new URL('mp');
+	$MPURL = new \MySociety\TheyWorkForYou\Url('mp');
 	$MPURL->insert(array('pid'=>$person_id));
 	$mpurl = $MPURL->generate();
 		

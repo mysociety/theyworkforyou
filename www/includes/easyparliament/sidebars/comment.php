@@ -1,7 +1,7 @@
 <?php
 // This sidebar is on the individual debate and wrans pages, by the annotation input.
 
-$URL = new URL('houserules');
+$URL = new \MySociety\TheyWorkForYou\Url('houserules');
 $rulesurl = $URL->generate();
 $this->block_start(array('id'=>'help', 'title'=>"Annotation guidelines"));
 ?>

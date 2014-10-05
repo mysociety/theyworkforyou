@@ -23,7 +23,6 @@ As they are being approved/declined they can be modified (spelling etc...).
 // This handles basic insertion and approval functions for all epobjects
 include_once INCLUDESPATH."easyparliament/editqueue.php";
 include_once INCLUDESPATH."easyparliament/searchengine.php";
-include_once INCLUDESPATH."url.php";
 include_once INCLUDESPATH."wikipedia.php";
 
 class GLOSSARY {
@@ -263,7 +262,7 @@ class GLOSSARY {
 
         $findwords = array();
         $replacewords = array();
-        $URL = new URL("glossary");
+        $URL = new \MySociety\TheyWorkForYou\Url("glossary");
         $URL->insert(array("gl" => ""));
 
         // External links shown within their own definition

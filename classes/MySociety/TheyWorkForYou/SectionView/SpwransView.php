@@ -24,14 +24,14 @@ class SpwransView extends WransView {
         $gid = $SPWRANSLIST->get_gid_from_spid($spid);
         if ($gid) {
             if (preg_match('/uk\.org\.publicwhip\/spwa\/(\d{4}-\d\d-\d\d\.(.*))/',$gid,$m)) {
-                $URL = new \URL('spwrans');
+                $URL = new \MySociety\TheyWorkForYou\Url('spwrans');
                 $URL->reset();
                 $URL->insert( array('id' => $m[1]) );
                 $fragment_identifier = '#g' . $m[2];
                 header('Location: http://' . DOMAIN . $URL->generate('none') . $fragment_identifier, true, 303);
                 exit;
             } elseif (preg_match('/uk\.org\.publicwhip\/spor\/(\d{4}-\d\d-\d\d\.(.*))/',$gid,$m)) {
-                $URL = new \URL('spdebates');
+                $URL = new \MySociety\TheyWorkForYou\Url('spdebates');
                 $URL->reset();
                 $URL->insert( array('id' => $m[1]) );
                 $fragment_identifier = '#g' . $m[2];

@@ -71,7 +71,7 @@ if ($GLOSSARY->glossary_id != '') {
 // Deal with a single instance in the form of a glossary_id
 
     // Set up next/prev for this page.
-    $URL = new URL('glossary');
+    $URL = new \MySociety\TheyWorkForYou\Url('glossary');
     $up_link = $URL->generate();
     $URL->insert(array("gl" => $GLOSSARY->previous_term['glossary_id']));
     $previous_link = $URL->generate('url');
@@ -107,7 +107,7 @@ if ($GLOSSARY->glossary_id != '') {
     // Display the results
     if (isset($GLOSSARY->terms)) {
         ?><ul class="glossary"><?php
-        $URL = new URL('glossary');
+        $URL = new \MySociety\TheyWorkForYou\Url('glossary');
         foreach ($GLOSSARY->alphabet[$GLOSSARY->current_letter] as $glossary_id) {
             $URL->insert(array('gl' => $glossary_id));
             $term_link = $URL->generate('url');
@@ -117,7 +117,7 @@ if ($GLOSSARY->glossary_id != '') {
     }
 }
 
-$URL = new URL('glossary_addterm');
+$URL = new \MySociety\TheyWorkForYou\Url('glossary_addterm');
 $add_url = $URL->generate();
 print "<p>Think you know a phrase that should be here? Help us improve the site by <a href=\"".$add_url."\">adding it</a>.</p>";
 

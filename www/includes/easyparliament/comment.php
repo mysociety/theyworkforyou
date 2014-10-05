@@ -327,7 +327,7 @@ class COMMENT {
                 $major = $q->field(0, 'major');
                 $page = $hansardmajors[$major]['page'];
 
-                $URL = new URL($page);
+                $URL = new \MySociety\TheyWorkForYou\Url($page);
                 $URL->insert(array('id'=>$gid));
                 $this->url = $URL->generate() . '#c' . $this->comment_id;
             }

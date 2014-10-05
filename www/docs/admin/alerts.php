@@ -61,7 +61,7 @@ $PAGE->page_end();
 function generate_rows($q) {
     global $db;
     $rows = array();
-    $USERURL = new URL('userview');
+    $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
     for ($row=0; $row<$q->rows(); $row++) {
         $email = $q->field($row, 'email');
         $criteria = $q->field($row, 'criteria');

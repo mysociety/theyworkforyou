@@ -478,7 +478,7 @@ class USER {
             'template'      => 'new_password'
         );
 
-        $URL = new URL("userlogin");
+        $URL = new \MySociety\TheyWorkForYou\Url("userlogin");
 
         $merge = array (
             'EMAIL'         => $this->email(),
@@ -997,7 +997,7 @@ class THEUSER extends USER {
         global $PAGE;
 
         if ($returl == "") {
-            $URL = new URL("home");
+            $URL = new \MySociety\TheyWorkForYou\Url("home");
             $returl = $URL->generate();
         }
 
@@ -1042,7 +1042,7 @@ class THEUSER extends USER {
         // the front page.
 
         if ($returl == '') {
-            $URL = new URL("home");
+            $URL = new \MySociety\TheyWorkForYou\Url("home");
             $returl = $URL->generate();
         }
 
@@ -1115,7 +1115,7 @@ class THEUSER extends USER {
                 ", array(':token' => $registrationtoken));
 
                 $this->email = $email;
-                $URL = new URL('userconfirmed');
+                $URL = new \MySociety\TheyWorkForYou\Url('userconfirmed');
                 $URL->insert(array('email'=>'t'));
                 $redirecturl = $URL->generate();
                 if ($redirect) {
@@ -1185,7 +1185,7 @@ class THEUSER extends USER {
 
                 // Log the user in, redirecting them to the confirm page
                 // where they should get a nice welcome message.
-                $URL = new URL('userconfirmed');
+                $URL = new \MySociety\TheyWorkForYou\Url('userconfirmed');
                 $URL->insert(array('welcome'=>'t'));
                 $redirecturl = $URL->generate();
 

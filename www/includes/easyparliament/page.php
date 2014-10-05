@@ -31,9 +31,9 @@ class PAGE {
                 // allowed, then show them nothing.
 
                 if (!$THEUSER->isloggedin()) {
-                    $THISPAGE = new URL($this_page);
+                    $THISPAGE = new \MySociety\TheyWorkForYou\Url($this_page);
 
-                    $LOGINURL = new URL('userlogin');
+                    $LOGINURL = new \MySociety\TheyWorkForYou\Url('userlogin');
                     $LOGINURL->insert(array('ret' => $THISPAGE->generate('none') ));
 
                     $text = "<a href=\"" . $LOGINURL->generate() . "\">You'd better sign in!</a>";
@@ -141,7 +141,7 @@ class PAGE {
         }
 
         if ($this_page != 'overview') {
-            $URL = new URL('overview');
+            $URL = new \MySociety\TheyWorkForYou\Url('overview');
 
             $linkshtml = "\t<link rel=\"start\" title=\"Home\" href=\"" . $URL->generate() . "\">\n";
         }
@@ -397,7 +397,7 @@ window.fbAsyncInit = function () {
         $img = '<img src="' . IMAGEPATH . 'logo.png" width="423" height="80" alt="TheyWorkForYou - Hansard and Official Reports for the UK Parliament, Scottish Parliament, and Northern Ireland Assembly">';
 
         if ($this_page != 'overview') {
-            $HOMEURL = new URL('overview');
+            $HOMEURL = new \MySociety\TheyWorkForYou\Url('overview');
             $HOMEURL = $HOMEURL->generate();
             $HOMETITLE = 'To the front page of the site';
             $heading = '<a href="' . $HOMEURL . '" title="' . $HOMETITLE . '">' . $img . '</a>';
@@ -411,7 +411,7 @@ window.fbAsyncInit = function () {
         </div>
 <?php
     #       if ($this_page != 'home' && $this_page != 'search' && $this_page != 'yourmp') {
-            $URL = new URL('search');
+            $URL = new \MySociety\TheyWorkForYou\Url('search');
             $URL->reset();
             ?>
         <div id="search">
@@ -454,7 +454,7 @@ window.fbAsyncInit = function () {
             $bottom_highlight = '';
 
             $selected_top_link = $DATA->page_metadata('hansard', 'menu');
-            $url = new URL('hansard');
+            $url = new \MySociety\TheyWorkForYou\Url('hansard');
             $selected_top_link['link'] = $url->generate();
 
         } else {
@@ -483,7 +483,7 @@ window.fbAsyncInit = function () {
                 # Just in case something's gone wrong
                 $selected_top_link = $DATA->page_metadata('hansard', 'menu');
             }
-            $url = new URL($top_highlight);
+            $url = new \MySociety\TheyWorkForYou\Url($top_highlight);
             $selected_top_link['link'] = $url->generate();
 
         }
@@ -542,7 +542,7 @@ window.fbAsyncInit = function () {
 
                 //get link and description for the menu ans add it to the array
             $class = $toppage == $highlights['top'] ? ' class="on"' : '';
-                $URL = new URL($toppage);
+                $URL = new \MySociety\TheyWorkForYou\Url($toppage);
                 $top_link = array("link" => '<a href="' . $URL->generate() . '" title="' . $title . '"' . $class . '>' . $text . '</a>',
                     "title" => $title);
                 array_push($top_links, $top_link);
@@ -555,7 +555,7 @@ window.fbAsyncInit = function () {
                     $text = $menudata['text'];
                     $title = $menudata['title'];
                     // Where we're linking to.
-                    $URL = new URL($bottompage);
+                    $URL = new \MySociety\TheyWorkForYou\Url($bottompage);
                     $class = $bottompage == $highlights['bottom'] ? ' class="on"' : '';
                     $bottom_links[] = '<a href="' . $URL->generate() . '" title="' . $title . '"' . $class . '>' . $text . '</a>';
                 }
@@ -594,7 +594,7 @@ window.fbAsyncInit = function () {
 
         // We may want to send the user back to this current page after they've
         // joined, logged out or logged in. So we put the URL in $returl.
-        $URL = new URL($this_page);
+        $URL = new \MySociety\TheyWorkForYou\Url($this_page);
         $returl = $URL->generate('none');
 
         //user logged in
@@ -604,7 +604,7 @@ window.fbAsyncInit = function () {
             $menudata   = $DATA->page_metadata('userviewself', 'menu');
             $edittext   = $menudata['text'];
             $edittitle  = $menudata['title'];
-            $EDITURL    = new URL('userviewself');
+            $EDITURL    = new \MySociety\TheyWorkForYou\Url('userviewself');
             if ($this_page == 'userviewself' || $this_page == 'useredit' || $top_highlight == 'userviewself') {
                 $editclass = ' class="on"';
             } else {
@@ -616,7 +616,7 @@ window.fbAsyncInit = function () {
             $logouttext = $menudata['text'];
             $logouttitle= $menudata['title'];
 
-            $LOGOUTURL  = new URL('userlogout');
+            $LOGOUTURL  = new \MySociety\TheyWorkForYou\Url('userlogout');
             if ($this_page != 'userlogout') {
                 $LOGOUTURL->insert(array("ret"=>$returl));
                 $logoutclass = '';
@@ -642,7 +642,7 @@ window.fbAsyncInit = function () {
             $jointext   = $menudata['text'];
             $jointitle  = $menudata['title'];
 
-            $JOINURL    = new URL('userjoin');
+            $JOINURL    = new \MySociety\TheyWorkForYou\Url('userjoin');
             if ($this_page != 'userjoin') {
                 if ($this_page != 'userlogout' && $this_page != 'userlogin') {
                     // We don't do this on the logout page, because then the user
@@ -660,7 +660,7 @@ window.fbAsyncInit = function () {
             $logintext  = $menudata['text'];
             $logintitle = $menudata['title'];
 
-            $LOGINURL   = new URL('userlogin');
+            $LOGINURL   = new \MySociety\TheyWorkForYou\Url('userlogin');
             if ($this_page != 'userlogin') {
                 if ($this_page != "userlogout" &&
                     $this_page != "userpassword" &&
@@ -696,7 +696,7 @@ window.fbAsyncInit = function () {
                 $menudata   = $DATA->page_metadata($item, 'menu');
                 $logintext  = $menudata['text'];
                 $logintitle = $menudata['title'];
-                $URL = new URL($item);
+                $URL = new \MySociety\TheyWorkForYou\Url($item);
                 if ($divider) {
                     echo '<li class="divider"><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
                 } else {
@@ -1009,7 +1009,7 @@ window.fbAsyncInit = function () {
 
             //check for external vs internal menu links
             if (!valid_url($url)) {
-                $URL = new URL($page);
+                $URL = new \MySociety\TheyWorkForYou\Url($page);
                 $url = $URL->generate();
             }
 
@@ -1238,7 +1238,7 @@ pr()//-->
         $this->block_start(array('id'=>'mp', 'title'=>'Find out about your MP/MSPs/MLAs'));
         echo '<form action="/postcode/" method="get">';
         if ($THEUSER->postcode_is_set()) {
-            $FORGETURL = new URL('userchangepc');
+            $FORGETURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
             $FORGETURL->insert(array('forget'=>'t'));
             ?>
                         <p>Your current postcode: <strong><?php echo $THEUSER->postcode(); ?></strong> &nbsp; <small>(<a href="<?php echo $FORGETURL->generate(); ?>" title="The cookie storing your postcode will be erased">Forget this postcode</a>)</small></p>
@@ -1269,7 +1269,7 @@ pr()//-->
             $html .= '<li><a href="' . $urls['appearances'] . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="middle"></a> <a href="' . $urls['appearances'] . '">Most recent appearances</a></li>';
         }
 
-        $HELPURL = new URL('help');
+        $HELPURL = new \MySociety\TheyWorkForYou\Url('help');
 
         $html .= '
                         </ul>
@@ -1448,7 +1448,7 @@ pr()//-->
 
             $uplink = '<span class="up"><a href="' .  $nextprev['up']['url'] . '" title="' . $nextprev['up']['title'] . '">' . $nextprev['up']['body'] . '</a>';
             if (get_http_var('s')) {
-                $URL = new URL($this_page);
+                $URL = new \MySociety\TheyWorkForYou\Url($this_page);
                 $uplink .= '<br><a href="' . $URL->generate() . '">Remove highlighting</a>';
             }
             $uplink .= '</span>';
@@ -1535,7 +1535,7 @@ pr()//-->
 
         $wtt = get_http_var('wtt');
 
-        $URL = new URL('search');
+        $URL = new \MySociety\TheyWorkForYou\Url('search');
         $URL->reset(); // no need to pass any query params as a form action. They are not used.
 
         if ($value == '') {
@@ -1567,7 +1567,7 @@ pr()//-->
                 }
                 echo '<input type="text" name="q" value="', _htmlentities($value), '" size="50"> ';
                 echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
-                $URL = new URL('search');
+                $URL = new \MySociety\TheyWorkForYou\Url('search');
             $URL->insert(array('adv' => 1));
                 echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">More&nbsp;options</a>';
                 echo '<br>';
@@ -1581,7 +1581,7 @@ pr()//-->
 
         if (!$wtt && ($value || $person_name)) {
             echo '<div style="margin-top: 5px">';
-            $orderUrl = new URL('search');
+            $orderUrl = new \MySociety\TheyWorkForYou\Url('search');
             $orderUrl->insert(array('s'=>$value)); # Need the parsed value
                 $ordering = get_http_var('o');
                 if ($ordering != 'r' && $ordering != 'd' && $ordering != 'p' && $ordering != 'o') {
@@ -1633,7 +1633,7 @@ pr()//-->
         // Used for /user/login/ and /user/prompt/
         // $errors is a hash of potential errors from a previous log in attempt.
         ?>
-                <form method="post" action="<?php $URL = new URL('userlogin'); $URL->reset(); echo $URL->generate(); ?>">
+                <form method="post" action="<?php $URL = new \MySociety\TheyWorkForYou\Url('userlogin'); $URL->reset(); echo $URL->generate(); ?>">
 
 
 <?php
@@ -1675,7 +1675,7 @@ pr()//-->
                 <div class="row">
                 <span class="label">&nbsp;</span>
                 <span class="formw"><input type="submit" value="Login" class="submit"> <small><a href="<?php
-        $URL = new URL("userpassword");
+        $URL = new \MySociety\TheyWorkForYou\Url("userpassword");
         $URL->insert(array("email"=>get_http_var("email")));
         echo $URL->generate();
 ?>">Forgotten your password?</a></small></span>
@@ -1711,7 +1711,7 @@ pr()//-->
     public function mp_search_form($person_id) {
         // Search box on the MP page.
 
-        $URL = new URL('search');
+        $URL = new \MySociety\TheyWorkForYou\Url('search');
         $URL->remove(array('s', 'q'));
         ?>
                 <div class="mpsearchbox">
@@ -1739,11 +1739,11 @@ pr()//-->
         }
 
         if ($THEUSER->isloggedin()) {
-            $URL = new URL($args['action']);
+            $URL = new \MySociety\TheyWorkForYou\Url($args['action']);
             $URL->remove(array('g'));
         }
         else {
-            $URL = new URL('userprompt');
+            $URL = new \MySociety\TheyWorkForYou\Url('userprompt');
             $URL->remove(array('g'));
             $type = "<input type=\"hidden\" name=\"type\" value=\"2\">";
         }
@@ -1764,7 +1764,7 @@ pr()//-->
         // Add a definition for a new Glossary term.
         global $GLOSSARY;
 
-        $URL = new URL($args['action']);
+        $URL = new \MySociety\TheyWorkForYou\Url($args['action']);
         $URL->remove(array('g'));
 
         ?>
@@ -1785,7 +1785,7 @@ pr()//-->
         // Add an external link to the glossary.
         global $GLOSSARY;
 
-        $URL = new URL('glossary_addlink');
+        $URL = new \MySociety\TheyWorkForYou\Url('glossary_addlink');
         $URL->remove(array('g'));
         ?>
     <h4>All checks fine and dandy!</h4><p>Just so you know, we found <strong><?php echo $args['count']; ?></strong> occurences of <?php echo $GLOSSARY->query; ?> in Hansard</p>
@@ -1813,7 +1813,7 @@ pr()//-->
             if ($letter == $GLOSSARY->current_letter) {
                 // if we're in item view - show the letter as "on" but make it a link
                 if ($GLOSSARY->current_term != '') {
-                    $URL = new URL('glossary');
+                    $URL = new \MySociety\TheyWorkForYou\Url('glossary');
                     $URL->insert(array('az' => $letter));
                     $letter_link = $URL->generate('url');
 
@@ -1825,7 +1825,7 @@ pr()//-->
                 }
             }
             elseif (!empty($GLOSSARY->alphabet[$letter])) {
-                $URL = new URL('glossary');
+                $URL = new \MySociety\TheyWorkForYou\Url('glossary');
                 $URL->insert(array('az' => $letter));
                 $letter_link = $URL->generate('url');
 
@@ -1867,7 +1867,7 @@ pr()//-->
         if ($this_page == "admin_glossary") {
             print "<a id=\"gl".$term['glossary_id']."\"></a>";
             print "<h3>" . $term['title'] . "</h3>";
-            $URL = new URL('admin_glossary');
+            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary');
             $URL->insert(array("delete_confirm" => $term['glossary_id']));
             $delete_url = $URL->generate();
             $admin_links = "<br><small><a href=\"".$delete_url."\">delete</a></small>";
@@ -1877,7 +1877,7 @@ pr()//-->
         }
 
         if (isset($term['user_id'])) {
-            $URL = new URL('userview');
+            $URL = new \MySociety\TheyWorkForYou\Url('userview');
             $URL->insert(array('u' => $term['user_id']));
             $user_link = $URL->generate('url');
 
@@ -1891,7 +1891,7 @@ pr()//-->
 
         if ($this_page == "glossary_item") {
             // Add a direct search link for current glossary item
-            $URL = new URL('search');
+            $URL = new \MySociety\TheyWorkForYou\Url('search');
             // remember to quote the term for phrase matching in search
             $URL->insert(array('s' => '"'.$term['title'].'"'));
             $search_url = $URL->generate();
@@ -1912,7 +1912,7 @@ pr()//-->
             <p>It seems we already have <?php echo $definition; ?> for that. Would you care to see <?php echo $plural; ?>?</p>
             <ul class="glossary"><?php
             foreach ($GLOSSARY->search_matches as $match) {
-                $URL = new URL('glossary');
+                $URL = new \MySociety\TheyWorkForYou\Url('glossary');
                 $URL->insert(array('gl' => $match['glossary_id']));
                 $URL->remove(array('g'));
                 $term_link = $URL->generate('url');
@@ -1924,7 +1924,7 @@ pr()//-->
 
     public function glossary_addterm_link() {
         // print a link to the "add glossary term" page
-        $URL = new URL('glossary_addterm');
+        $URL = new \MySociety\TheyWorkForYou\Url('glossary_addterm');
         $URL->remove(array("g"));
         $glossary_addterm_link = $URL->generate('url');
         print "<small><a href=\"" . $glossary_addterm_link . "\">Add a term to the glossary</a></small>";
@@ -1932,7 +1932,7 @@ pr()//-->
 
     public function glossary_addlink_link() {
         // print a link to the "add external link" page
-        $URL = new URL('glossary_addlink');
+        $URL = new \MySociety\TheyWorkForYou\Url('glossary_addlink');
         $URL->remove(array("g"));
         $glossary_addlink_link = $URL->generate('url');
         print "<small><a href=\"" . $glossary_addlink_link . "\">Add an external link</a></small>";
@@ -1940,7 +1940,7 @@ pr()//-->
 
     public function glossary_link() {
         // link to the glossary with no epobject_id - i.e. show all entries
-        $URL = new URL('glossary');
+        $URL = new \MySociety\TheyWorkForYou\Url('glossary');
         $URL->remove(array("g"));
         $glossary_link = $URL->generate('url');
         print "<small><a href=\"" . $glossary_link . "\">Browse the glossary</a></small>";
@@ -1987,7 +1987,7 @@ pr()//-->
             }
 
             // Generate all the page links.
-            $URL = new URL($this_page);
+            $URL = new \MySociety\TheyWorkForYou\Url($this_page);
             $URL->insert( array('wtt' => get_http_var('wtt')) );
             if (isset($pagedata['s'])) {
                 # XXX: Should be taken out in *one* place, not here + search_form etc.
@@ -2078,12 +2078,12 @@ pr()//-->
             // The user is not logged in.
 
             // The URL of this page - we'll want to return here after joining/logging in.
-            $THISPAGEURL = new URL($this_page);
+            $THISPAGEURL = new \MySociety\TheyWorkForYou\Url($this_page);
 
             // The URLs to login / join pages.
-            $LOGINURL = new URL('userlogin');
+            $LOGINURL = new \MySociety\TheyWorkForYou\Url('userlogin');
             $LOGINURL->insert(array('ret'=>$THISPAGEURL->generate().'#addcomment'));
-            $JOINURL = new URL('userjoin');
+            $JOINURL = new \MySociety\TheyWorkForYou\Url('userjoin');
             $JOINURL->insert(array('ret'=>$THISPAGEURL->generate().'#addcomment'));
 
             ?>
@@ -2104,8 +2104,8 @@ pr()//-->
 
         // We can post a comment...
 
-        $ADDURL = new URL('addcomment');
-        $RULESURL = new URL('houserules');
+        $ADDURL = new \MySociety\TheyWorkForYou\Url('addcomment');
+        $RULESURL = new \MySociety\TheyWorkForYou\Url('houserules');
         ?>
                 <h4>Type your annotation</h4>
                 <a name="addcomment"></a>
@@ -2141,7 +2141,7 @@ Annotations should be information that adds value to the contribution, not opini
         // Called from $COMMENT->display_report().
 
         if ($data['user_id'] > 0) {
-            $USERURL = new URL('userview');
+            $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
             $USERURL->insert(array('id'=>$data['user_id']));
             $username = '<a href="' . $USERURL->generate() . '">' . _htmlentities($data['user_name']) . '</a>';
         } else {
@@ -2190,7 +2190,7 @@ Annotations should be information that adds value to the contribution, not opini
 
             $tabledata['rows'] = array();
 
-            $EDITURL = new URL('admin_commentreport');
+            $EDITURL = new \MySociety\TheyWorkForYou\Url('admin_commentreport');
 
             foreach ($data as $n => $report) {
 
@@ -2304,7 +2304,7 @@ Annotations should be information that adds value to the contribution, not opini
             $calendar .= "<td colspan=\"$dayOfWeek\">&nbsp;</td>";
         }
 
-        $DAYURL = new URL($page);
+        $DAYURL = new \MySociety\TheyWorkForYou\Url($page);
 
         while ($currentDay <= $numberDays) {
 
@@ -2441,7 +2441,7 @@ Annotations should be information that adds value to the contribution, not opini
             $title = $DATA->page_metadata($page, 'title');
 
             if ($page != $this_page) {
-                $URL = new URL($page);
+                $URL = new \MySociety\TheyWorkForYou\Url($page);
                 $title = '<a href="' . $URL->generate() . '">' . $title . '</a>';
             } else {
                 $title = '<strong>' . $title . '</strong>';

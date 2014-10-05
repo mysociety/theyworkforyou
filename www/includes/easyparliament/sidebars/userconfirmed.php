@@ -1,7 +1,7 @@
 <?php
 // This sidebar is on the page the user sees after they've successfully clicked the link in their 'confirm' email, after joining.
 
-$URL = new URL('houserules');
+$URL = new \MySociety\TheyWorkForYou\Url('houserules');
 $houserulesurl = $URL->generate();
 
 $this->block_start(array('id'=>'help', 'title'=>"Every Community Needs A Few Rules"));

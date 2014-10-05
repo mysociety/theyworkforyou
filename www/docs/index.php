@@ -34,7 +34,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
         <h2>Your representative</h2>
         <?php
 
-        $MPURL = new URL('yourmp');
+        $MPURL = new \MySociety\TheyWorkForYou\Url('yourmp');
             global $THEUSER;
 
             $pc_form = true;
@@ -48,9 +48,9 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
                 if ($MEMBER->valid) {
                     $pc_form = false;
                     if ($THEUSER->isloggedin()) {
-                        $CHANGEURL = new URL('useredit');
+                        $CHANGEURL = new \MySociety\TheyWorkForYou\Url('useredit');
                     } else {
-                        $CHANGEURL = new URL('userchangepc');
+                        $CHANGEURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
                     }
                     $mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
                     $former = "";
@@ -82,7 +82,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
         <?php
             global $SEARCHURL;
             global $SEARCHLOG;
-            $SEARCHURL = new URL('search');
+            $SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
             $popular_searches = $SEARCHLOG->popular_recent(10);
         ?>
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Home'); return false;">
@@ -120,7 +120,7 @@ information from ministers which the government may not wish to reveal.
 <?php
 
     $WRANSLIST->display('recent_wrans', array('days' => 7, 'num' => 1));
-    $MOREURL = new URL('wransfront');
+    $MOREURL = new \MySociety\TheyWorkForYou\Url('wransfront');
 ?>
     <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more written answers</a></strong></p>
 <?php
@@ -138,7 +138,7 @@ having &ldquo;planted&rdquo; questions to elicit Government statements.
 <?php
 
 $WMSLIST->display('recent_wms', array('days' => 7, 'num' => 1));
-$MOREURL = new URL('wmsfront');
+$MOREURL = new \MySociety\TheyWorkForYou\Url('wmsfront');
 
 ?>
     <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more written statements</a></strong></p>
@@ -156,7 +156,7 @@ if (count($last_dates[6])) {
 <?php
 
 $COMMITTEE->display('recent_pbc_debates', array('num' => 5));
-$MOREURL = new URL('pbcfront');
+$MOREURL = new \MySociety\TheyWorkForYou\Url('pbcfront');
 
 ?>
     <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Public Bill committees</a></strong></p>
@@ -191,7 +191,7 @@ debated.
 <h3 class="alt">Random recent Commons debate</h3>
 <?php
 $DEBATELIST->display('recent_debates', array('days' => 7, 'num' => 1));
-$MOREURL = new URL('debatesfront');
+$MOREURL = new \MySociety\TheyWorkForYou\Url('debatesfront');
 ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Commons debates</a></strong></p>
 <?php
@@ -208,7 +208,7 @@ arrangement aimed at fostering a more constructive debate.
 <h3>Random recent Westminster Hall debate</h3>
 <?php
 $WHALLLIST->display('recent_debates', array('days' => 7, 'num' => 1));
-$MOREURL = new URL('whallfront');
+$MOREURL = new \MySociety\TheyWorkForYou\Url('whallfront');
 ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Westminster Hall debates</a></strong></p>
 <?php
@@ -225,7 +225,7 @@ legislation and debate a variety of issues in the House of Lords main chamber.
 <h3 class="alt">Random recent Lords debates</h3>
 <?php
 $LORDSDEBATELIST->display('recent_debates', array('days' => 7, 'num' => 1));
-$MOREURL = new URL('lordsdebatesfront');
+$MOREURL = new \MySociety\TheyWorkForYou\Url('lordsdebatesfront');
 ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more Lords debates</a></strong></p>
 <?php

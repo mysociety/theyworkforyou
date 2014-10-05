@@ -28,7 +28,7 @@ if (
 ) {
     $GLOSSARY->query = "";
     $args['blankform'] = 1;
-    $URL = new URL('help_us_out');
+    $URL = new \MySociety\TheyWorkForYou\Url('help_us_out');
     $backlink = $URL->generate();
     $error_message = "Sorry, that phrase appears too many times to be a useful as a link within the parliamentary record.";
 }
@@ -157,7 +157,7 @@ if (get_http_var("submitterm") != '') {
 
     $PAGE->glossary_search_form($args);
 
-    $URL = new URL('glossary');
+    $URL = new \MySociety\TheyWorkForYou\Url('glossary');
 
     // Early Day Motion
     $URL->insert(array("gl" => "90"));

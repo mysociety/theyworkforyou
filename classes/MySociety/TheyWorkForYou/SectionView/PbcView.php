@@ -53,7 +53,7 @@ class PbcView extends SectionView {
             $this->list->display('bill', $args);
         } elseif ($this->session && $this->bill) {
             # Illegal bill title, redirect to session page
-            $URL = new \URL('pbc_session');
+            $URL = new \MySociety\TheyWorkForYou\Url('pbc_session');
             header('Location: ' . $URL->generate() . urlencode($this->session));
             exit;
         } elseif ($this->session) {

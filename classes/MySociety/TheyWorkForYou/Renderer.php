@@ -89,7 +89,7 @@ class Renderer
 
         if ($this_page != 'overview') {
 
-            $URL = new \URL('overview');
+            $URL = new Url('overview');
 
             $data['header_links'][] = array(
                 'rel'   => 'start',
@@ -167,7 +167,7 @@ class Renderer
             $bottom_highlight = '';
 
             $selected_top_link = $DATA->page_metadata('hansard', 'menu');
-            $url = new \URL('hansard');
+            $url = new Url('hansard');
             $selected_top_link['link'] = $url->generate();
 
         } else {
@@ -196,7 +196,7 @@ class Renderer
                 # Just in case something's gone wrong
                 $selected_top_link = $DATA->page_metadata('hansard', 'menu');
             }
-            $url = new \URL($top_highlight);
+            $url = new Url($top_highlight);
             $selected_top_link['link'] = $url->generate();
 
         }
@@ -237,7 +237,7 @@ class Renderer
 
                 //get link and description for the menu ans add it to the array
             $class = $toppage == $nav_highlights['top'] ? 'on' : '';
-                $URL = new \URL($toppage);
+                $URL = new Url($toppage);
                 $top_link = array(
                     'href'    => $URL->generate(),
                     'title'   => $title,
@@ -254,7 +254,7 @@ class Renderer
                     $text = $menudata['text'];
                     $title = $menudata['title'];
                     // Where we're linking to.
-                    $URL = new \URL($bottompage);
+                    $URL = new Url($bottompage);
                     $class = $bottompage == $nav_highlights['bottom'] ? 'on' : '';
                     $data['section_nav_links'][] = array(
                         'href'    => $URL->generate(),
@@ -275,7 +275,7 @@ class Renderer
 
         // We may want to send the user back to this current page after they've
         // joined, logged out or logged in. So we put the URL in $returl.
-        $URL = new \URL($this_page);
+        $URL = new Url($this_page);
         $returl = $URL->generate('none');
 
         //user logged in
@@ -285,7 +285,7 @@ class Renderer
             $menudata   = $DATA->page_metadata('userviewself', 'menu');
             $edittext   = $menudata['text'];
             $edittitle  = $menudata['title'];
-            $EDITURL    = new \URL('userviewself');
+            $EDITURL    = new Url('userviewself');
             if ($this_page == 'userviewself' || $this_page == 'useredit' || $top_highlight == 'userviewself') {
                 $editclass = 'on';
             } else {
@@ -297,7 +297,7 @@ class Renderer
             $logouttext = $menudata['text'];
             $logouttitle= $menudata['title'];
 
-            $LOGOUTURL  = new \URL('userlogout');
+            $LOGOUTURL  = new Url('userlogout');
             if ($this_page != 'userlogout') {
                 $LOGOUTURL->insert(array("ret"=>$returl));
                 $logoutclass = '';
@@ -334,7 +334,7 @@ class Renderer
             $jointext   = $menudata['text'];
             $jointitle  = $menudata['title'];
 
-            $JOINURL    = new \URL('userjoin');
+            $JOINURL    = new Url('userjoin');
             if ($this_page != 'userjoin') {
                 if ($this_page != 'userlogout' && $this_page != 'userlogin') {
                     // We don't do this on the logout page, because then the user
@@ -352,7 +352,7 @@ class Renderer
             $logintext  = $menudata['text'];
             $logintitle = $menudata['title'];
 
-            $LOGINURL   = new \URL('userlogin');
+            $LOGINURL   = new Url('userlogin');
             if ($this_page != 'userlogin') {
                 if ($this_page != "userlogout" &&
                     $this_page != "userpassword" &&
@@ -395,7 +395,7 @@ class Renderer
                 $menudata   = $DATA->page_metadata($item, 'menu');
                 $logintext  = $menudata['text'];
                 $logintitle = $menudata['title'];
-                $URL = new \URL($item);
+                $URL = new Url($item);
                 $data['user_nav_links'][] = array(
                     'href'    => $URL->generate(),
                     'title'   => '',
@@ -408,7 +408,7 @@ class Renderer
         ////////////////////////////////////////////////////////////
         // Search URL
 
-        $SEARCH = new \URL('search');
+        $SEARCH = new Url('search');
         $SEARCH->reset();
         $data['search_url'] = $SEARCH->generate();
 
@@ -460,7 +460,7 @@ class Renderer
 
             //check for external vs internal menu links
             if (!valid_url($url)) {
-                $URL = new \URL($page);
+                $URL = new Url($page);
                 $url = $URL->generate();
             }
 

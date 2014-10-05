@@ -59,7 +59,7 @@ $q = $db->query("SELECT firstname,
                 ");
 
 $rows = array();
-$USERURL = new URL('userview');
+$USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
 for ($row=0; $row<$q->rows(); $row++) {
 

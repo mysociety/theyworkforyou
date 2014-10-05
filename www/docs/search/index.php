@@ -131,7 +131,7 @@ you will have to search for it separately.</p>
     else {
 ?>Table includes - <?php
 
-        $URL = new URL($this_page);
+        $URL = new \MySociety\TheyWorkForYou\Url($this_page);
         $url_l = $URL->generate('html', array('house'=>2));
         $url_c = $URL->generate('html', array('house'=>1));
         $URL->remove(array('house'));
@@ -319,7 +319,7 @@ function find_constituency($args) {
         // Got a match, display....
 
         $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency'=>$constituency, 'house' => 1));
-        $URL = new URL('mp');
+        $URL = new \MySociety\TheyWorkForYou\Url('mp');
         if ($MEMBER->valid) {
             $URL->insert(array('m'=>$MEMBER->member_id()));
             print '<h2>MP for ' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency);
@@ -337,7 +337,7 @@ function find_constituency($args) {
         print "<h2>MPs in constituencies matching '" . _htmlentities($searchterm) . "'</h2><ul>";
         foreach ($constituencies as $constituency) {
             $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency'=>$constituency, 'house' => 1));
-            $URL = new URL('mp');
+            $URL = new \MySociety\TheyWorkForYou\Url('mp');
             if ($MEMBER->valid) {
                 $URL->insert(array('m'=>$MEMBER->member_id()));
             }
@@ -384,7 +384,7 @@ function find_users($args) {
 
     if ($q->rows() > 0) {
 
-        $URL = new URL('userview');
+        $URL = new \MySociety\TheyWorkForYou\Url('userview');
         $users = array();
 
         for ($n=0; $n<$q->rows(); $n++) {
@@ -442,8 +442,8 @@ function _find_members_internal($searchstring) {
 
     $members = array();
     if ($q->rows() > 0) {
-        $URL1 = new URL('mp');
-        $URL2 = new URL('peer');
+        $URL1 = new \MySociety\TheyWorkForYou\Url('mp');
+        $URL2 = new \MySociety\TheyWorkForYou\Url('peer');
 
         $last_pid = null;
         $entered_house = '';
@@ -475,7 +475,7 @@ function _find_members_internal($searchstring) {
                 $s2 = ' &ndash; ';
                 if ($q->field($n, 'left_house') != '9999-12-31')
                    $s2 .= format_date($q->field($n, 'left_house'), SHORTDATEFORMAT);
-                $MOREURL = new URL('search');
+                $MOREURL = new \MySociety\TheyWorkForYou\Url('search');
                 $MOREURL->insert( array('pid'=>$last_pid, 'pop'=>1, 's'=>null) );
                 $s3 = ') &ndash; <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
                 $members[] = array($s, $s2, $s3);
@@ -498,7 +498,7 @@ function find_glossary_items($args) {
     if (isset($GLOSSARY->num_search_matches) && $GLOSSARY->num_search_matches >= 1) {
 
         // Got a match(es), display....
-        $URL = new URL('glossary');
+        $URL = new \MySociety\TheyWorkForYou\Url('glossary');
         $URL->insert(array('gl' => ""));
 ?>
                 <h2>Matching glossary terms:</h2>

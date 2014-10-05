@@ -51,7 +51,7 @@ if (isset($info['total_results']) && $info['total_results'] > 0) {
 }
 
 if ($info['spelling_correction']) {
-        $u = new URL('search');
+        $u = new \MySociety\TheyWorkForYou\Url('search');
     $u->insert(array('s' => $info['spelling_correction']));
         echo '<p><big>Did you mean: <a href="' . $u->generate(), '">', $info['spelling_correction'] . '</a>?</big></p>';
 }
@@ -77,7 +77,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
             echo ' <em>has video</em> ';
         }
         if (isset($row['collapsed']) && $row['collapsed'] && $row['subsection_id']) {
-            $URL = new URL('search');
+            $URL = new \MySociety\TheyWorkForYou\Url('search');
             $URL->insert(array('s' => $info['s'] . " segment:$row[subsection_id]" ));
             echo ' <a href="', $URL->generate(), '">See ', $row['collapsed'],
             ' other result', $row['collapsed']>1?'s':'', ' from this ',

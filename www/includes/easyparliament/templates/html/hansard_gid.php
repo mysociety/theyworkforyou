@@ -437,7 +437,7 @@ if (isset ($data['rows'])) {
             if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
                 // Build the 'Add an annotation' link.
                 if (!$THEUSER->isloggedin()) {
-                    $URL = new URL('userprompt');
+                    $URL = new \MySociety\TheyWorkForYou\Url('userprompt');
                     $URL->insert(array('ret'=>$row['commentsurl']));
                     $commentsurl = $URL->generate();
                 } else {
@@ -683,10 +683,10 @@ function generate_votes ($votes, $major, $id, $gid) {
     // What we return.
     $html = '';
 
-    $URL = new URL($this_page);
+    $URL = new \MySociety\TheyWorkForYou\Url($this_page);
     $returl = $URL->generate();
 
-    $VOTEURL = new URL('epvote');
+    $VOTEURL = new \MySociety\TheyWorkForYou\Url('epvote');
     $VOTEURL->insert(array('v'=>'1', 'id'=>$id, 'ret'=>$returl));
 
     if (($major == 3 || $major == 8) && ($votelinks_so_far > 0 || preg_match('#r#', $gid) ) ) { # XXX
@@ -772,7 +772,7 @@ function get_question_mentions_html($row_data) {
                 break;
             case 4:
                 if( preg_match('/^uk.org.publicwhip\/spq\/(.*)$/',$row['gid'],$m) ) {
-                    $URL = new URL("spwrans");
+                    $URL = new \MySociety\TheyWorkForYou\Url("spwrans");
                     $URL->insert( array('spid' => $m[1]) );
                     $relative_url = $URL->generate("none");
                     $inner = "Given a <a href=\"$relative_url\">written answer on $date</a>";
@@ -783,7 +783,7 @@ function get_question_mentions_html($row_data) {
                 break;
             case 6:
                 if( preg_match('/^uk.org.publicwhip\/spor\/(.*)$/',$row['mentioned_gid'],$m) ) {
-                    $URL = new URL("spdebates");
+                    $URL = new \MySociety\TheyWorkForYou\Url("spdebates");
                     $URL->insert( array('id' => $m[1]) );
                     $relative_url = $URL->generate("none");
                     $inner = "<a href=\"$relative_url\">Asked in parliament on $date</a>";
@@ -792,7 +792,7 @@ function get_question_mentions_html($row_data) {
             case 7:
                 if( preg_match('/^uk.org.publicwhip\/spq\/(.*)$/',$row['mentioned_gid'],$m) ) {
                     $referencing_spid = $m[1];
-                    $URL = new URL("spwrans");
+                    $URL = new \MySociety\TheyWorkForYou\Url("spwrans");
                     $URL->insert( array('spid' => $referencing_spid) );
                     $relative_url = $URL->generate("none");
                     $inner = "Referenced in <a href=\"$relative_url\">question $referencing_spid</a>";

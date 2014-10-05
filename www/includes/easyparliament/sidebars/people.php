@@ -2,7 +2,7 @@
 
 $rep = preg_replace('#S$#', 's', strtoupper($this_page));
 
-$URL = new URL($this_page);
+$URL = new \MySociety\TheyWorkForYou\Url($this_page);
 $URL->insert(array('f'=>'csv'));
 $csvurl = $URL->generate();
 

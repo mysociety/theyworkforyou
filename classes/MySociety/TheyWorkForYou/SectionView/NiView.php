@@ -25,7 +25,7 @@ class NiView extends SectionView {
         $this_page = "nioverview";
         $PAGE->page_start();
         $PAGE->stripe_start('full');
-        $SEARCHURL = new \URL('search');
+        $SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
     ?>
 
     <div class="welcome_col1">
@@ -67,7 +67,7 @@ class NiView extends SectionView {
     <?php
         $DEBATELIST = new \NILIST;
         $DEBATELIST->display('recent_debates', array('days' => 30, 'num' => 5));
-        $MOREURL = new \URL('nidebatesfront');
+        $MOREURL = new \MySociety\TheyWorkForYou\Url('nidebatesfront');
     ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>?more=1">See more debates</a></strong></p>
     </div>

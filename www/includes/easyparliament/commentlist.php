@@ -408,7 +408,7 @@ class COMMENTLIST {
         // Assuming every comment is from the same major...
         $page = $hansardmajors[$major]['page'];
 
-        $URL = new URL($page);
+        $URL = new \MySociety\TheyWorkForYou\Url($page);
 
         $gid = fix_gid_from_db($gid); // In includes/utility.php
         $URL->insert(array('id' => $gid ));

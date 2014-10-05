@@ -28,7 +28,7 @@ class SEARCHLOG {
 
 
     public function SEARCHLOG() {
-        $this->SEARCHURL = new URL('search');
+        $this->SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
 
         $this->db = new ParlDB;
     }

@@ -37,7 +37,7 @@ function get_listurl($q) {
         'subsection_id' => $q->field(0, 'subsection_id'),
     );
     $db = new ParlDB;
-    $LISTURL = new URL($hansardmajors[$id_data['major']]['page_all']);
+    $LISTURL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$id_data['major']]['page_all']);
     $fragment = '';
     if ($id_data['htype'] == '11' || $id_data['htype'] == '10') {
         $LISTURL->insert( array( 'id' => $id_data['gid'] ) );

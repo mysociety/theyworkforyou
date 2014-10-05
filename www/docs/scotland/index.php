@@ -5,7 +5,7 @@ include_once '../../includes/easyparliament/init.php';
 $this_page = 'spoverview';
 $PAGE->page_start();
 $PAGE->stripe_start('full');
-$SEARCHURL = new URL('search');
+$SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
 
 ?>
 
@@ -45,7 +45,7 @@ $SEARCHURL = new URL('search');
 
 $WRANSLIST = new SPWRANSLIST;
 $WRANSLIST->display('recent_wrans', array('days' => 7, 'num' => 8));
-$MOREURL = new URL('spwransfront');
+$MOREURL = new \MySociety\TheyWorkForYou\Url('spwransfront');
 
 ?>
     <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more written answers</a></strong></p>
@@ -66,7 +66,7 @@ $PAGE->include_sidebar_template('spdebates');
 
 $DEBATELIST = new SPLIST;
 $DEBATELIST->display('recent_debates', array('days' => 7, 'num' => 10));
-$MOREURL = new URL('spdebatesfront');
+$MOREURL = new \MySociety\TheyWorkForYou\Url('spdebatesfront');
 
 ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more debates</a></strong></p>

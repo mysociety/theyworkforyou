@@ -127,8 +127,8 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     }
     $out .= '</ul></ul>';
 
-    $MPSURL = new URL('mps');
-    $REGURL = new URL(strtolower($rep_type) . 's');
+    $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
+    $REGURL = new \MySociety\TheyWorkForYou\Url(strtolower($rep_type) . 's');
     $sidebar = array(array(
         'type' => 'html',
         'content' => '<div class="block"><h4>Browse people</h4>

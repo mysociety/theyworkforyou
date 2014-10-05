@@ -100,7 +100,7 @@ function display_page ($errors=array()) {
     }
 ?>
 
-<form method="get" action="<?php $URL = new URL($this_page); echo $URL->generate(); ?>">
+<form method="get" action="<?php $URL = new \MySociety\TheyWorkForYou\Url($this_page); echo $URL->generate(); ?>">
 
 <?php
     if (isset($errors["email"])) {

@@ -105,7 +105,7 @@ if (get_http_var('recent')) {
         }
     }
     if ($pid) {
-        $URL = new URL('search');
+        $URL = new \MySociety\TheyWorkForYou\Url('search');
         $URL->insert( array('pid'=>$pid, 'pop'=>1) );
         header('Location: http://' . DOMAIN . $URL->generate('none'));
         exit;
@@ -320,7 +320,7 @@ try {
                 );
         }
 
-        $MPSURL = new \URL('mps');
+        $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
 
         $data['all_mps_url'] = $MPSURL->generate();
 
@@ -637,7 +637,7 @@ try {
     $data['error'] = $e->getMessage();
 
     // Generate a URL to a full list to try get the user back on track.
-    $MPSURL = new \URL('mps');
+    $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
     $data['all_mps_url'] = $MPSURL->generate();
 
     // Render it!
@@ -811,7 +811,7 @@ function person_recent_appearances($member) {
     $out['appearances'] = unserialize($recent);
     twfy_debug_timestamp();
 
-    $MOREURL = new \URL('search');
+    $MOREURL = new \MySociety\TheyWorkForYou\Url('search');
     $MOREURL->insert( array('pid'=>$person_id, 'pop'=>1) );
 
     $out['more_href'] = $MOREURL->generate() . '#n4';
@@ -819,7 +819,7 @@ function person_recent_appearances($member) {
 
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
         // If we set an RSS feed for this page.
-        $HELPURL = new \URL('help');
+        $HELPURL = new \MySociety\TheyWorkForYou\Url('help');
         $out['additional_links'] = '<a href="' . WEBPATH . $rssurl . '" title="XML version of this person\'s recent appearances">RSS feed</a> (<a href="' . $HELPURL->generate() . '#rss" title="An explanation of what RSS feeds are for">?</a>)';
     }
 
@@ -993,7 +993,7 @@ function person_numerology($member) {
     if ($entered_house > $year_ago)
         $since_text = 'since joining Parliament';
 
-    $MOREURL = new \URL('search');
+    $MOREURL = new \MySociety\TheyWorkForYou\Url('search');
     $section = 'section:debates section:whall section:lords section:ni';
     $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>$section, 'pop'=>1));
     if ($member->party() != 'SF') {

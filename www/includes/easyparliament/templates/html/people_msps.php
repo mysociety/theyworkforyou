@@ -8,7 +8,7 @@ twfy_debug("TEMPLATE", "people_msps.php");
 
 $order = $data['info']['order'];
 
-$URL = new URL($this_page);
+$URL = new \MySociety\TheyWorkForYou\Url($this_page);
 
 if ($order == 'first_name') {
     $th_first_name = 'First name';
@@ -44,7 +44,7 @@ dissolution of the Parliament and its next election.</p>
 <?php
 } else {
 
-$MPURL = new URL('yourmp');
+$MPURL = new \MySociety\TheyWorkForYou\Url('yourmp');
 global $THEUSER;
 $pc_form = true;
 if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
@@ -57,9 +57,9 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
     if ($MEMBER->valid) {
         $pc_form = false;
         if ($THEUSER->isloggedin()) {
-            $CHANGEURL = new URL('useredit');
+            $CHANGEURL = new \MySociety\TheyWorkForYou\Url('useredit');
         } else {
-            $CHANGEURL = new URL('userchangepc');
+            $CHANGEURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
         }
         $mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
         $former = "";
@@ -114,7 +114,7 @@ if ($pc_form) { ?>
 </thead>
 <tbody>
 <?php
-    $MPURL = new URL(substr($this_page, 0, -1));
+    $MPURL = new \MySociety\TheyWorkForYou\Url(substr($this_page, 0, -1));
     $style = '2';
         $current_letter = 'A';
         foreach ($data['data'] as $pid => $mp) {

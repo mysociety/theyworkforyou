@@ -85,7 +85,6 @@ Class ParlDB extends MySQL {
     }
 }
 
-include_once (INCLUDESPATH."url.php");
 include_once (INCLUDESPATH."lib_filter.php");
 include_once (INCLUDESPATH."easyparliament/user.php");
 

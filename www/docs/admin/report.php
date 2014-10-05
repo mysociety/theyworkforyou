@@ -37,7 +37,7 @@ if ($COMMENT->exists() == false) {
 
 $REPORT = new COMMENTREPORT($report_id);
 
-$FORMURL = new URL($this_page);
+$FORMURL = new \MySociety\TheyWorkForYou\Url($this_page);
 
 
 
@@ -333,7 +333,7 @@ function resolve($REPORT, $COMMENT) {
         }
     }
 
-    $URL = new URL('admin_home');
+    $URL = new \MySociety\TheyWorkForYou\Url('admin_home');
 
     print '<p><a href="' . $URL->generate() . '">Back</a></p>';
 }
