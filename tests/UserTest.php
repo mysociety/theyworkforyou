@@ -62,7 +62,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
 
     public function testEditUser() {
         $_COOKIE['epuser_id'] = '1.5ce7f6e2d7de4db00c297e1da0d48ac';
-        $u = new THEUSER();
+        $u = new \MySociety\TheyWorkForYou\TheUser();
         $u->loggedin = 1;
 
         $this->assertEquals( 'Test', $u->firstname() );
@@ -83,7 +83,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
 
     public function testEditUserEmail() {
         $_COOKIE['epuser_id'] = '1.5ce7f6e2d7de4db00c297e1da0d48ac';
-        $u = new THEUSER();
+        $u = new \MySociety\TheyWorkForYou\TheUser();
         $u->loggedin = 1;
 
         $this->assertEquals( 'user@example.org', $u->email() );
@@ -140,7 +140,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
 
     public function testExpiredToken() {
         $_COOKIE['epuser_id'] = '1.5ce7f6e2d7de4db00c297e1da0d48ac';
-        $u = new THEUSER();
+        $u = new \MySociety\TheyWorkForYou\TheUser();
         $u->loggedin = 1;
 
         $this->assertEquals( 'user@example.org', $u->email(), 'confirming inital email address' );

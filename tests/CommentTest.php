@@ -66,7 +66,7 @@ It also spans multiple lines.");
 
         global $THEUSER;
 
-        $THEUSER = new THEUSER;
+        $THEUSER = new \MySociety\TheyWorkForYou\TheUser;
 
         $THEUSER->init(1);
 
