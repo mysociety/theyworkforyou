@@ -1,36 +1,42 @@
 <?php
+/**
+ * SearchLog Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/*
-For doing stuff with searchlogs.
+namespace MySociety\TheyWorkForYou;
 
-To add a new searchlog do this:
-    global $SEARCHLOG;
-    $SEARCHLOG->add(
-        array('query' => $searchstring,
-              'page' => $page,
-              'hits' => $count));
-The date/time and IP address are automatically stored.
+/**
+ * Search Logging
+ *
+ * To add a new searchlog do this:
+ *     global $SEARCHLOG;
+ *     $SEARCHLOG->add(
+ *         array('query' => $searchstring,
+ *             'page' => $page,
+ *             'hits' => $count));
+ * The date/time and IP address are automatically stored.
+ *
+ * To get the ten most popular searches in the last day:
+ *     global $SEARCHLOG;
+ *     $popular_searches = $SEARCHLOG->popular_recent(10);
+ *
+ * The return value is an array.  Each element of the form
+ *     array(  'query' => '"new york"',
+ *         'visible_name' => 'new york',
+ *         'url' => 'http://www.theyworkforyou.com/search/?s=%22new+york%22&pop=1',
+ *         'display' => '<a href="http://www.theyworkforyou.com/search/?s=%22new+york%22&pop=1">new york</a>")
+ * Note that the url includes "pop=1" which stops popular searches feeding back
+ * into being more popular.
+ */
 
-To get the ten most popular searches in the last day:
-    global $SEARCHLOG;
-    $popular_searches = $SEARCHLOG->popular_recent(10);
-The return value is an array.  Each element of the form
-    array(  'query' => '"new york"',
-            'visible_name' => 'new york',
-            'url' => 'http://www.theyworkforyou.com/search/?s=%22new+york%22&pop=1',
-            'display' => '<a href="http://www.theyworkforyou.com/search/?s=%22new+york%22&pop=1">new york</a>")
-Note that the url includes "pop=1" which stops popular searches feeding back
-into being more popular.
+class SearchLog {
 
-*/
+    public function __construct() {
+        $this->SEARCHURL = new Url('search');
 
-class SEARCHLOG {
-
-
-    public function SEARCHLOG() {
-        $this->SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
-
-        $this->db = new ParlDB;
+        $this->db = new \ParlDB;
     }
 
     public function add($searchlogdata) {
@@ -166,6 +172,3 @@ class SEARCHLOG {
     }
 
 }
-
-global $SEARCHLOG;
-$SEARCHLOG = new SEARCHLOG();

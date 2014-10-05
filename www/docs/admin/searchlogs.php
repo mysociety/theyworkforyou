@@ -1,7 +1,9 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/searchlog.php");
+
+global $SEARCHLOG;
+$SEARCHLOG = new \MySociety\TheyWorkForYou\SearchLog();
 
 $this_page = "admin_searchlogs";
 
@@ -9,7 +11,6 @@ $PAGE->page_start();
 
 $PAGE->stripe_start();
 
-global $SEARCHLOG;
 $search_recent = $SEARCHLOG->admin_recent_searches(50);
 
 $rows = array();

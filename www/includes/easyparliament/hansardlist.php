@@ -1,7 +1,10 @@
 <?php
 
 include_once INCLUDESPATH."easyparliament/searchengine.php";
-include_once INCLUDESPATH."easyparliament/searchlog.php";
+
+global $SEARCHLOG;
+$SEARCHLOG = new \MySociety\TheyWorkForYou\SearchLog();
+
 
 /*
 
