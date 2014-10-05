@@ -67,7 +67,7 @@ if (get_http_var("submitted") == "true") {
     }
 
 } elseif ($resend = get_http_var('resend')) {
-    $USER = new USER();
+    $USER = new \MySociety\TheyWorkForYou\User();
     $USER->init($resend);
     if (!$USER->confirmed()) {
         $details = array(

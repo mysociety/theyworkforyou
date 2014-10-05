@@ -201,7 +201,7 @@ if (get_http_var("submitted") == "true") {
             // So set up a new user object with the id supplied
             // and get the user's info.
 
-            $USER = new USER;
+            $USER = new \MySociety\TheyWorkForYou\User;
             $USER->init( get_http_var("u") );
 
             $details = array();
@@ -268,7 +268,7 @@ function check_input($details) {
 
         } else {
 
-            $USER = new USER;
+            $USER = new \MySociety\TheyWorkForYou\User;
             $id_of_user_with_this_addresss = $USER->email_exists($details["email"], true);
 
             if ($this_page == "useredit" &&
@@ -716,7 +716,7 @@ function display_form ( $details = array(), $errors = array() ) {
                 <span class="label">Security status:</span>
                 <span class="formw"><select name="status">
 <?php
-    $USER = new USER;
+    $USER = new \MySociety\TheyWorkForYou\User;
     $statuses = $USER->possible_statuses();
     foreach ($statuses as $n => $status) {
         print "\t<option value=\"$status\"";
@@ -883,7 +883,7 @@ function display_user($user_id="", $email_changed=false) {
 
         // Viewing someone else's info.
 
-        $USER = new USER;
+        $USER = new \MySociety\TheyWorkForYou\User;
         $valid = $USER->init($user_id);
 
         if ($valid && $USER->confirmed() && !$USER->deleted()) {

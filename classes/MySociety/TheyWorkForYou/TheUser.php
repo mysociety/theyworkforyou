@@ -14,7 +14,7 @@ namespace MySociety\TheyWorkForYou;
  * who is using the site right NOW. Yes, him, over there.
  */
 
-class TheUser extends \USER {
+class TheUser extends User {
 
     // This will become true if all goes well...
     public $loggedin = false;

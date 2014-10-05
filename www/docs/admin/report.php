@@ -260,7 +260,7 @@ function resolve($REPORT, $COMMENT) {
             if ($REPORT->user_id() > 0) {
                 // The reporting user was logged in at the time,
                 // so get their email address.
-                $USER = new USER;
+                $USER = new \MySociety\TheyWorkForYou\User;
                 $USER->init( $REPORT->user_id() );
                 $email = $USER->email();
             } else {
@@ -301,7 +301,7 @@ function resolve($REPORT, $COMMENT) {
 
         if (get_http_var('sendtocommenter') == 'true') {
             // We're telling the commenter that their comment has been deleted.
-            $USER = new USER;
+            $USER = new \MySociety\TheyWorkForYou\User;
             $USER->init($COMMENT->user_id());
 
             // Create the URL for if a user wants to return and post another comment.

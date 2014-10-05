@@ -26,18 +26,8 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
         return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/user.xml');
     }
 
-    /**
-     * Ensures the database is prepared and the user class is included for every test.
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        include_once('www/includes/easyparliament/user.php');
-    }
-
     public function testAddUser() {
-        $u = new USER();
+        $u = new \MySociety\TheyWorkForYou\User();
 
         $details = array(
             "firstname" => 'Test',

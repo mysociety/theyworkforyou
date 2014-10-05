@@ -1,50 +1,44 @@
 <?php
+/**
+ * User Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/*
+namespace MySociety\TheyWorkForYou;
 
-NO HTML IN THIS FILE!!
+/**
+ * All Users
+ *
+ * A $THEUSER variable should be created as part of init. This refers to the
+ * person actually viewing the site. If they have a valid cookie set, $THEUSER's
+ * data will be fetched from the DB and they will be logged in. Otherwise they
+ * will have a minimum access level and will not be logged in.
+ *
+ * The User class allows us to fetch and alter data about any user (rather than $THEUSER).
+ *
+ * To create a new user do:
+ *     $USER = new \MySociety\TheyWorkForYou\User;
+ *     $USER->init($user_id);
+ *
+ * You can then access all the user's variables with appropriately named functions, such as:
+ *     $USER->user_id();
+ *     $USER->email();
+ * etc. Don't access the variables directly because I think that's bad.
+ *
+ * User is extended into the {@see TheUser} class which is used only for the
+ * person currently using the site. ie, it adds functions for logging in and
+ * out, checking log in status, etc.
+ *
+ * GUESTUSER:
+ * In the database there should be a user with an id of 0 and a status of
+ * 'Viewer' (and probably a name of 'Guest').
+ *
+ * The cookie set to indicate a logged in user is called `epuser_id`. More on
+ * that in {@see TheUser}.
+ */
 
-This file contains USER and THEUSER classes.
-
-It automatically instantiates a $THEUSER global object. This refers to the person actually viewing the site. If they have a valid cookie set, $THEUSER's data will be fetched from the DB and they will be logged in. Otherwise they will have a minimum access level and will not be logged in.
-
-
-The USER class allows us to fetch and alter data about any user (rather than $THEUSER).
-
-To create a new user do:
-    $USER = new USER;
-    $USER->init($user_id);
-
-You can then access all the user's variables with appropriately named functions, such as:
-    $USER->user_id();
-    $USER->email();
-etc. Don't access the variables directly because I think that's bad.
-
-USER is extended into the THEUSER class which is used only for the person currently using the site. ie, it adds functions for logging in and out, checking log in status, etc.
-
-GUESTUSER:
-In the database there should be a user with an id of 0 and a status of 'Viewer' (and probably a name of 'Guest').
-
-The cookie set to indicate a logged in user is called "epuser_id". More on that in THEUSER().
-
-Functions here:
-
-USER
-    init()              Send it a user id to fetch data from DB.
-    add()               Add a new user to the DB.
-    send_confirmation_email()   Done after add()ing the user.
-    update_other_user() Update the data of another user.
-    change_password()   Generate a new password and put in DB.
-    id_exists()         Checks if a user_id is valid.
-    email_exists()      Checks if a user exists with a certain email address.
-    is_able_to()        Is the user allowed to perform this action?
-    possible_statuses() Return an array of the possible security statuses for users.
-    Accessor functions for each object variable (eg, user_id()  ).
-    _update()           Private function that updates a user's data in DB.
-
-*/
-
-class USER {
+class User {
 
     public $user_id = "0";         // So we have an ID for non-logged in users reporting comments etc.
     public $firstname = "Guest";   // So we have something to print for non-logged in users.
@@ -70,9 +64,21 @@ class USER {
     //      Alter THEUSER->update_self() to update with the new vars, if appropriate.
     //      Change things in the add/edit/view user page.
 
-    public function USER() {
-        $this->db = new ParlDB;
+    public function __construct() {
+        $this->db = new \ParlDB;
     }
+
+    /**
+     * Retrieve a user's details from the DB and populate the object.
+     *
+     * Pass it a user id and it will fetch the user's data from the db and put
+     * it all in the appropriate variables. Returns true if we've found user_id
+     * in the DB, false otherwise.
+     *
+     * @param int $user_id The ID of the user to retrieve
+     *
+     * @return bool
+     */
 
     public function init($user_id) {
         // Pass it a user id and it will fetch the user's data from the db
@@ -135,6 +141,10 @@ class USER {
         }
 
     }
+
+    /**
+     * Add a new user to the DB.
+     */
 
     public function add($details, $confirmation_required=true) {
         // Adds a new user's info into the db.
@@ -237,10 +247,10 @@ class USER {
                 // Updated DB OK.
 
                 if ($details['mp_alert'] && $details['postcode']) {
-                    $MEMBER = new \MySociety\TheyWorkForYou\Member(array('postcode'=>$details['postcode'], 'house'=>1));
+                    $MEMBER = new Member(array('postcode'=>$details['postcode'], 'house'=>1));
                     $pid = $MEMBER->person_id();
                     # No confirmation email, but don't automatically confirm
-                    $ALERT = new \MySociety\TheyWorkForYou\Alert;
+                    $ALERT = new Alert;
                     $ALERT->add(array(
                         'email' => $details['email'],
                         'pid' => $pid,
@@ -273,6 +283,10 @@ class USER {
             return false;
         }
     }
+
+    /**
+     * Done after add()ing the user.
+     */
 
     public function send_email_confirmation_email($details) {
         // A brief check of the facts...
@@ -354,6 +368,9 @@ class USER {
         }
     }
 
+    /**
+     * Update the data of another user.
+     */
 
     public function update_other_user($details) {
         // If someone (like an admin) is updating another user, call this
@@ -387,7 +404,9 @@ class USER {
         }
     }
 
-
+    /**
+     * Generate a new password and put in DB.
+     */
 
     public function change_password($email) {
 
@@ -468,7 +487,7 @@ class USER {
             'template'      => 'new_password'
         );
 
-        $URL = new \MySociety\TheyWorkForYou\Url("userlogin");
+        $URL = new Url("userlogin");
 
         $merge = array (
             'EMAIL'         => $this->email(),
@@ -483,8 +502,9 @@ class USER {
 
     }
 
-
-
+    /**
+     * Checks if a user_id is valid.
+     */
 
     public function id_exists($user_id) {
         // Returns true if there's a user with this user_id.
@@ -503,6 +523,9 @@ class USER {
 
     }
 
+    /**
+     * Checks if a user exists with a certain email address.
+     */
 
     public function email_exists($email, $return_id = false) {
         // Returns true if there's a user with this email address.
@@ -526,6 +549,9 @@ class USER {
 
     }
 
+    /**
+     * Is the user allowed to perform this action?
+     */
 
     public function is_able_to($action) {
         // Call this function to find out if a user is allowed to do something.
@@ -614,13 +640,17 @@ class USER {
 
         }
 
-
-
     }
 
-    // Same for every user...
-    // Just returns an array of the possible statuses a user could have.
-    // Handy for forms where you edit/view users etc.
+    /**
+     * Possible user statuses.
+     *
+     * Just returns an array of the possible statuses a user could have. Handy
+     * for forms where you edit/view users etc.
+     *
+     * @return array The possible security statuses for users.
+     */
+
     public function possible_statuses() {
         // Maybe there's a way of fetching these from the DB,
         // so we don't duplicate them here...?
@@ -630,8 +660,6 @@ class USER {
         return $statuses;
 
     }
-
-
 
     // Functions for accessing the user's variables.
 
@@ -656,7 +684,6 @@ class USER {
     public function deleted() { return $this->deleted; }
     public function confirmed() { return $this->confirmed; }
 
-
     public function postcode_is_set() {
         // So we can tell if the, er, postcode is set or not.
         // Could maybe put some validation in here at some point.
@@ -667,10 +694,11 @@ class USER {
         }
     }
 
+    /**
+     * Updates a user's data in DB.
+     */
 
-/////////// PRIVATE FUNCTIONS BELOW... ////////////////
-
-    public function _update($details) {
+    protected function _update($details) {
         // Update a user's info.
         // DO NOT call this function direct.
         // Call either $this->update_other_user() or $this->update_self().
@@ -787,11 +815,6 @@ class USER {
             return false;
         }
 
-
     }
 
-
-
-
-
-} // End USER class
+}
