@@ -22,9 +22,12 @@
                         <div class="row">
                             <div class="footer_follow__column columns">
                               <p>Sign up to our monthly newsletter</p>
-                              <form method="post" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
-                                  <input placeholder="Your email" type="text" name="email"><input type="submit" value="Sign Up">
-                                  <div style="display:none;">Please don't fill in this box: <input type="text" name="username"></div>
+                              <form method="post" target="_blank" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511">
+                                <input type="email" placeholder="Your email address" name="EMAIL"/>
+                                <label style="position: absolute; left: -5000px;">
+                                  Leave this box empty: <input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" />
+                                </label>
+                                <input type="submit" value="Subscribe" name="subscribe"/>
                               </form>
                             </div>
                             <div class="footer_follow__column">

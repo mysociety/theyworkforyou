@@ -382,7 +382,7 @@ window.fbAsyncInit = function () {
                         <noscript>
 
                             <a href="http://www.mysociety.org/projects/?cs=1" title="View all mySociety's projects">More mySociety projects...</a>&nbsp;&nbsp;
-                            <a href="https://secure.mysociety.org/admin/lists/mailman/listinfo/news?cs=1" title="mySociety newsletter - about once a month">mySociety newsletter</a>
+                            <a href="http://mysociety.us9.list-manage1.com/subscribe?u=53d0d2026dea615ed488a8834&id=287dc28511" title="mySociety newsletter - about once a month">mySociety newsletter</a>
                         </noscript>
                     </li>
                 </ul>
@@ -1159,10 +1159,12 @@ window.fbAsyncInit = function () {
                   If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
                       </p>
                       <h5>Sign up to our newsletter</h5>
-                      <form method="post" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news">
-                          <input type="text" name="email">
-                          <input type="submit" value="Join">
-                          <div style="display:none;">Please don't fill in this box: <input type="text" name="username"></div>
+                      <form method="post" target="_blank" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511">
+                          <input type="email" placeholder="Your email address" name="EMAIL"/>
+                          <label style="position: absolute; left: -5000px;">
+                              Leave this box empty: <input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" />
+                          </label>
+                          <input type="submit" value="Subscribe" name="subscribe"/>
                       </form>
                       <p>
                           Approximately once a month, spam free.
