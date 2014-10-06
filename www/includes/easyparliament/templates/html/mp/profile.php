@@ -127,7 +127,7 @@
                               <?php endforeach; ?>
                                 <li class="vote-summary__next-step">
                                   <?php if ($has_email_alerts): ?>
-                                    <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#">Get email notifications</a> when <?= $full_name ?> votes in parliament.
+                                    <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#">Get email notifications</a> when <?= $full_name ?> speaks in parliament.
                                   <?php else: ?>
                                     <a href="<?= $member_url ?>/votes">See more votes</a> <?= $full_name ?> has made recently in parliament.</a>
                                   <?php endif; ?>
