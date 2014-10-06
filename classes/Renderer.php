@@ -417,7 +417,7 @@ class Renderer
         // Search URL
         // Footer Links
 
-        $data['footer_links']['about'] = self::get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact'));
+        $data['footer_links']['about'] = self::get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact', 'privacy'));
         $data['footer_links']['assemblies'] = self::get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home', 'boundaries'));
         $data['footer_links']['international'] = self::get_menu_links(array ('newzealand', 'australia', 'ireland', 'mzalendo'));
         $data['footer_links']['tech'] = self::get_menu_links(array ('code', 'api', 'data', 'pombola', 'devmailinglist', 'irc'));
