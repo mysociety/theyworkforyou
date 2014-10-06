@@ -88,7 +88,7 @@ function search_order_p($searchstring) {
         $q_house = get_http_var('house');
 
     # Fetch the results
-    $data = search_by_usage($searchstring, $q_house);
+    $data = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchByUsage($searchstring, $q_house);
 
     $wtt = get_http_var('wtt');
     if ($wtt) {
@@ -308,7 +308,7 @@ function find_constituency($args) {
         return false;
     }
 
-    list ($constituencies, $validpostcode) = search_constituencies_by_query($searchterm);
+    list ($constituencies, $validpostcode) = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchConstituenciesByQuery($searchterm);
 
     $constituency = "";
     if (count($constituencies)==1) {
@@ -437,7 +437,7 @@ function _find_members_internal($searchstring) {
     }
 
     $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $searchstring));
-    $q = search_member_db_lookup($searchstring);
+    $q = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchMemberDbLookup($searchstring);
     if (!$q) return false;
 
     $members = array();
@@ -590,7 +590,7 @@ function construct_search_string() {
 
     # Searching from MP pages
     if ($searchspeaker = trim(get_http_var('person'))) {
-        $q = search_member_db_lookup($searchspeaker);
+        $q = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchMemberDbLookup($searchspeaker);
         $pids = array();
         for ($i=0; $i<$q->rows(); $i++) {
             $pids[$q->field($i, 'person_id')] = true;

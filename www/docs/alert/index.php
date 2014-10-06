@@ -87,8 +87,8 @@ $errors = check_input($details);
 
 // Do the search
 if ($details['alertsearch']) {
-    $details['members'] = search_member_db_lookup($details['alertsearch'], true);
-    list ($details['constituencies'], $details['valid_postcode']) = search_constituencies_by_query($details['alertsearch']);
+    $details['members'] = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchMemberDbLookup($details['alertsearch'], true);
+    list ($details['constituencies'], $details['valid_postcode']) = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchConstituenciesByQuery($details['alertsearch']);
 }
 
 if (!sizeof($errors) && ($details['keyword'] || $details['pid'])) {
