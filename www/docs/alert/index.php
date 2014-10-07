@@ -179,7 +179,7 @@ function check_input($details) {
         $errors['alertsearch'] = 'You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!';
     }
 
-    $se = new SEARCHENGINE($text);
+    $se = new \MySociety\TheyWorkForYou\SearchEngine($text);
     if (!$se->valid) {
         $errors['alertsearch'] = 'That search appears to be invalid - ' . $se->error . ' - please check and try again.';
     }

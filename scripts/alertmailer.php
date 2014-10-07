@@ -169,7 +169,7 @@ foreach ($alertdata as $alertitem) {
 	if (!isset($results[$criteria_batch])) {
 		mlog("  ALERT $active/$outof QUERY $queries : Xapian query '$criteria_batch'");
 		$start = getmicrotime();
-		$SEARCHENGINE = new SEARCHENGINE($criteria_batch);
+		$SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($criteria_batch);
 		#mlog("query_remade: " . $SEARCHENGINE->query_remade() . "\n");
 		$args = array(
 			's' => $criteria_raw, # Note: use raw here for URLs, whereas search engine has batch

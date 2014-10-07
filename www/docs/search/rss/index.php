@@ -36,7 +36,7 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
         $searchstring .= " groupby:" . $searchgroupby;
     } // We have only one of these, rather than one in HANSARDLIST also
     global $SEARCHENGINE;
-    $SEARCHENGINE = new SEARCHENGINE($searchstring);
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring);
 
     $pagetitle = "Search: " . $SEARCHENGINE->query_description_short();
 

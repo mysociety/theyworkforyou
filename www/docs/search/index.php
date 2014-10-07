@@ -185,7 +185,7 @@ you will have to search for it separately.</p>
 function search_normal($searchstring) {
     global $PAGE, $DATA, $this_page, $SEARCHENGINE;
 
-    $SEARCHENGINE = new SEARCHENGINE($searchstring);
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring);
     $qd = $SEARCHENGINE->valid ? $SEARCHENGINE->query_description_short() : $searchstring;
     $pagetitle = 'Search for ' . $qd;
     $pagenum = get_http_var('p');
@@ -239,14 +239,14 @@ function search_normal($searchstring) {
 function search_order_t($searchstring) {
     global $DATA, $PAGE, $this_page, $SEARCHENGINE;
 
-    $SEARCHENGINE = new SEARCHENGINE($searchstring);
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring);
     $pagetitle = $SEARCHENGINE->query_description_short();
     $pagetitle = 'When is ' . $pagetitle . ' said most in debates?';
     $DATA->set_page_metadata($this_page, 'title', $pagetitle);
     $PAGE->page_start();
     $PAGE->stripe_start();
     $PAGE->search_form($searchstring);
-    $SEARCHENGINE = new SEARCHENGINE($searchstring . ' groupby:speech section:debates section:whall');
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring . ' groupby:speech section:debates section:whall');
     $count = $SEARCHENGINE->run_count();
     if ($count <= 0) {
         print '<p>There were no results.</p>';

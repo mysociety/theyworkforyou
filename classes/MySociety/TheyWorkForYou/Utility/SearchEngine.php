@@ -13,9 +13,9 @@ class SearchEngine
 
     public static function searchByUsage($search, $house = 0) {
         $data = array();
-        $SEARCHENGINE = new \SEARCHENGINE($search);
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($search);
         $data['pagetitle'] = $SEARCHENGINE->query_description_short();
-        $SEARCHENGINE = new \SEARCHENGINE($search . ' groupby:speech');
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($search . ' groupby:speech');
         $count = $SEARCHENGINE->run_count(0, 5000, 'date');
         if ($count <= 0) {
             $data['error'] = 'No results';

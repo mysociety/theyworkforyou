@@ -70,7 +70,7 @@ switch ($action) {
         $HANSARDLIST = new HANSARDLIST();
         $searchstring = "speaker:$pid";
         global $SEARCHENGINE;
-        $SEARCHENGINE = new SEARCHENGINE($searchstring);
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring);
         $args = array (
             's' => $searchstring,
             'p' => 1,

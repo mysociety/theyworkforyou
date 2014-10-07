@@ -19,7 +19,7 @@ if (preg_match('#\s*section:([a-z]*)#', $filter_ss, $m)) {
     $filter_ss = preg_replace("#\s*section:$section#", '', $filter_ss);
 }
 if ($section) {
-    $search_engine = new SEARCHENGINE($filter_ss);
+    $search_engine = new \MySociety\TheyWorkForYou\SearchEngine($filter_ss);
     $email_link_anywhere = '/alert/?' . ($filter_ss ? 'alertsearch='.urlencode($filter_ss) : '');
     $email_text_anywhere = $search_engine->query_description_long();
 }

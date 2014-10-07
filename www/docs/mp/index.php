@@ -794,7 +794,7 @@ function person_recent_appearances($member) {
     if (!$recent) {
 	// Initialise the search engine
         $searchstring = "speaker:$person_id";
-        $SEARCHENGINE = new \SEARCHENGINE($searchstring);
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring);
 
         $hansard = new MySociety\TheyWorkForYou\Hansard();
         $args = array (

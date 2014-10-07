@@ -76,7 +76,7 @@ function _api_getHansard_search($array) {
     }
 
     global $SEARCHENGINE;
-    $SEARCHENGINE = new SEARCHENGINE($search);
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($search);
     if (!$SEARCHENGINE->valid) {
         api_error('Invalid search term');
 

@@ -7,11 +7,6 @@
 
 class SearchTest extends PHPUnit_Extensions_Database_TestCase
 {
-	public function setUp()
-	{
-        parent::setUp();
-        include_once('www/includes/easyparliament/searchengine.php');
-    }
 
     public function getConnection()
     {
@@ -93,7 +88,7 @@ class SearchTest extends PHPUnit_Extensions_Database_TestCase
      */
 	public function testSearchNormal()
     {
-        $SEARCHENGINE = new SEARCHENGINE('test');
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine('test');
 
         $this->assertEquals(
             'This is a <span class="hi">test</span> of the highlighting.',
@@ -108,7 +103,7 @@ class SearchTest extends PHPUnit_Extensions_Database_TestCase
      */
 	public function testSearchLink()
     {
-        $SEARCHENGINE = new SEARCHENGINE('test');
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine('test');
 
         $this->assertEquals(
             '<a href="/mp/?m=40584" title="Our page on Mr Test - \'the Member for Birmingham (Mr Test)\'">Mr <span class="hi">Test</span></a>',

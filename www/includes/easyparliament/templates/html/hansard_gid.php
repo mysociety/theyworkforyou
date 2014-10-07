@@ -53,7 +53,7 @@ if (isset ($data['rows'])) {
     // For highlighting
     $SEARCHENGINE = null;
     if (isset($data['info']['searchstring']) && $data['info']['searchstring'] != '') {
-        $SEARCHENGINE = new SEARCHENGINE($data['info']['searchstring']);
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($data['info']['searchstring']);
     }
 
     // Before we print the body text we need to insert glossary links

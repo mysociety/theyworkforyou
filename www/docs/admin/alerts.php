@@ -65,7 +65,7 @@ function generate_rows($q) {
     for ($row=0; $row<$q->rows(); $row++) {
         $email = $q->field($row, 'email');
         $criteria = $q->field($row, 'criteria');
-        $SEARCHENGINE = new SEARCHENGINE($criteria);
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($criteria);
         $r = $db->query("SELECT user_id,firstname,lastname FROM users WHERE email = :email", array(
             ':email' => $email
             ));

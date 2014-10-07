@@ -47,7 +47,7 @@ function day_speeches($search, $type, $date) {
     $search = "$search date:$date section:$type groupby:speech";
 
     global $SEARCHENGINE, $want;
-    $SEARCHENGINE = new SEARCHENGINE($search);
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($search);
 
     $db = new ParlDB;
     $q = $db->query("select hpos from hansard where gid = :gid", array(
