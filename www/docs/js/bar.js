@@ -63,7 +63,7 @@ function barSetup(){
 
     var oNewsletterForm = document.createElement('li');
     oNewsletterForm.className = "bordernodivider";
-    oNewsletterForm.innerHTML = '<form method="post" target="_blank" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511"><input type="email" placeholder="Your email address" class="textbox nodivider" name="EMAIL" id="txtBarEmail"/><div style="position: absolute; left: -5000px;"><input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" /></div><input type="submit" value="Subscribe" name="subscribe"/></form>';
+    oNewsletterForm.innerHTML = '<form method="post" action="http://mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511"><input type="email" placeholder="Your email address" class="textbox nodivider" name="EMAIL" id="txtBarEmail"/><div style="position: absolute; left: -5000px;"><input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" /></div><input type="submit" value="Subscribe" name="subscribe"/></form>';
     oMenu.appendChild(oNewsletterForm);
 
     // add class to first menu item
