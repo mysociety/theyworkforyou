@@ -36,7 +36,7 @@ if ((strlen(''.$epobject_id)) && (empty($HTTP_GET_VARS['__mode'])) && (strlen(''
         'source_ip'		=> $HTTP_SERVER_VARS['REMOTE_ADDR']
     );
 
-    $TRACKBACK = new TRACKBACK();
+    $TRACKBACK = new \MySociety\TheyWorkForYou\Trackback();
 
     $TRACKBACK->add($trackbackdata);
 

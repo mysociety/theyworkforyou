@@ -9,7 +9,7 @@ $PAGE->page_start();
 
 $PAGE->stripe_start();
 
-$TRACKBACK = new TRACKBACK();
+$TRACKBACK = new \MySociety\TheyWorkForYou\Trackback();
 $TRACKBACK->display('recent', array('num'=>30));
 
 $menu = $PAGE->admin_menu();

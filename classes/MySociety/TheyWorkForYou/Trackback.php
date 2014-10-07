@@ -1,32 +1,37 @@
 <?php
+/**
+ * Trackback Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/*
-For doing stuff with trackbacks.
+namespace MySociety\TheyWorkForYou;
 
-To add a new trackback you'll need to do something like:
-    $trackbackdata = array (
-        'epobject_id' 	=> $epobject_id,
-        'url' 			=> $url,
-        'blog_name'		=> $blog_name,
-        'title'			=> $title,
-        'excerpt' 		=> $excerpt,
-        'source_ip'		=> $source_ip
-    );
-    $TRACKBACK = new TRACKBACK();
-    $TRACKBACK->add($trackbackdata);
+/**
+ * For doing stuff with trackbacks.
+ *
+ * To add a new \MySociety\TheyWorkForYou\Trackback you'll need to do something like:
+ *     $trackbackdata = array (
+ *         'epobject_id'   => $epobject_id,
+ *         'url'           => $url,
+ *         'blog_name'     => $blog_name,
+ *         'title'         => $title,
+ *         'excerpt'       => $excerpt,
+ *         'source_ip'     => $source_ip
+ *     );
+ *     $TRACKBACK = new \MySociety\TheyWorkForYou\Trackback();
+ *     $TRACKBACK->add($trackbackdata);
+ *
+ * To display stuff you'll need to do something like:
+ *
+ *     $args = array (
+ *         'epobject_id' => '4352'
+ *     );
+ *     $TRACKBACK = new \MySociety\TheyWorkForYou\Trackback;
+ *     $TRACKBACK->display('epobject_id', $args);
+ */
 
-
-To display stuff you'll need to do something like:
-
-    $args = array (
-        'epobject_id' => '4352'
-    );
-    $TRACKBACK = new TRACKBACK;
-    $TRACKBACK->display('epobject_id', $args);
-
-*/
-
-class TRACKBACK {
+class Trackback {
 
 
     // Do trackbacks need moderation before appearing on the site?
@@ -35,9 +40,9 @@ class TRACKBACK {
     // But switching this to true will mark all incoming trackbacks as invisible.
 
 
-    public function TRACKBACK() {
+    public function __construct() {
 
-        $this->db = new ParlDB;
+        $this->db = new \ParlDB;
 
         // Set in init.php
         if (ALLOWTRACKBACKS == true) {
@@ -53,12 +58,12 @@ class TRACKBACK {
 
     public function display ($view, $args=array(), $format='html') {
         // $view is one of:
-        //	'epobject_id' - display the pings for one epobject.
-        // 	'recent' - to get the most recent pings to anywhere.
+        //  'epobject_id' - display the pings for one epobject.
+        //  'recent' - to get the most recent pings to anywhere.
 
         // $args will have one of:
-        //	'gid' - the gid of a hansard item (of the form 'debate_2003-02-28.475.3').
-        //	'num' - the number of recent pings to show.
+        //  'gid' - the gid of a hansard item (of the form 'debate_2003-02-28.475.3').
+        //  'num' - the number of recent pings to show.
         global $PAGE;
 
         if ($view == 'epobject_id' || $view == 'recent') {
@@ -74,8 +79,8 @@ class TRACKBACK {
         }
 
         $data = array (
-            'data' 	=> $trackbackdata,
-            'info'	=> array (
+            'data'  => $trackbackdata,
+            'info'  => array (
                 'view' => $view
             )
         );
@@ -102,12 +107,12 @@ class TRACKBACK {
     public function add($trackbackdata) {
         /*
         $data = array (
-            'epobject_id' 	=> '34533',
-            'url' 			=> 'http://www.gyford.com/weblog/my_entry.html',
-            'blog_name' 	=> "Phil's weblog",
-            'title' 		=> 'Interesting speech',
-            'excerpt' 		=> 'My MP has posted an interesting speech, etc',
-            'source_ip' 	=> '123.123.123.123'
+            'epobject_id'   => '34533',
+            'url'           => 'http://www.gyford.com/weblog/my_entry.html',
+            'blog_name'     => "Phil's weblog",
+            'title'         => 'Interesting speech',
+            'excerpt'       => 'My MP has posted an interesting speech, etc',
+            'source_ip'     => '123.123.123.123'
         );
         */
 
@@ -122,8 +127,8 @@ class TRACKBACK {
 
         // Check this epobject_id exists.
         $q = $this->db->query("SELECT epobject_id
-                        FROM	epobject
-                        WHERE	epobject_id = '" . addslashes($epobject_id) . "'");
+                        FROM    epobject
+                        WHERE   epobject_id = '" . addslashes($epobject_id) . "'");
 
         if ($q->rows() == 0) {
             $this->_trackback_response(1, "Sorry, we don't have a valid epobject_id.");
@@ -131,14 +136,14 @@ class TRACKBACK {
 
 
         // Still here? Then we're trackbacking to a valid hansard item.
-        $url 		= $trackbackdata['url'];
-        $source_ip	= $trackbackdata['source_ip'];
+        $url        = $trackbackdata['url'];
+        $source_ip  = $trackbackdata['source_ip'];
         // These all strip_tags too.
-        $title 		= trim_characters(html_entity_decode($trackbackdata['title']), 0, 255);
-        $excerpt 	= trim_characters(html_entity_decode($trackbackdata['excerpt']), 0, 255);
-        $blog_name 	= trim_characters(html_entity_decode($trackbackdata['blog_name']), 0, 255);
+        $title      = trim_characters(html_entity_decode($trackbackdata['title']), 0, 255);
+        $excerpt    = trim_characters(html_entity_decode($trackbackdata['excerpt']), 0, 255);
+        $blog_name  = trim_characters(html_entity_decode($trackbackdata['blog_name']), 0, 255);
 
-        $visible 		= $this->moderate_trackbacks ? 0 : 1;
+        $visible        = $this->moderate_trackbacks ? 0 : 1;
 
         $q = $this->db->query("INSERT INTO trackbacks
                         (epobject_id, blog_name, title, excerpt, url, source_ip, posted, visible)
@@ -191,22 +196,22 @@ class TRACKBACK {
                                 excerpt,
                                 url,
                                 posted
-                        FROM 	trackbacks
-                        WHERE 	epobject_id = '" . addslashes($epobject_id) . "'
-                        AND 	visible = 1
+                        FROM    trackbacks
+                        WHERE   epobject_id = '" . addslashes($epobject_id) . "'
+                        AND     visible = 1
                         ORDER BY posted ASC
                         ");
 
         if ($q->rows() > 0) {
             for ($row=0; $row<$q->rows(); $row++) {
                 $trackbackdata[] = array (
-                    'trackback_id' 	=> $q->field($row, 'trackback_id'),
-                    'epobject_id'	=> $q->field($row, 'epobject_id'),
-                    'blog_name' 	=> $q->field($row, 'blog_name'),
-                    'title'			=> $q->field($row, 'title'),
-                    'excerpt'		=> $q->field($row, 'excerpt'),
-                    'url'			=> $q->field($row, 'url'),
-                    'posted'		=> $q->field($row, 'posted')
+                    'trackback_id'  => $q->field($row, 'trackback_id'),
+                    'epobject_id'   => $q->field($row, 'epobject_id'),
+                    'blog_name'     => $q->field($row, 'blog_name'),
+                    'title'         => $q->field($row, 'title'),
+                    'excerpt'       => $q->field($row, 'excerpt'),
+                    'url'           => $q->field($row, 'url'),
+                    'posted'        => $q->field($row, 'posted')
                 );
             }
         }
@@ -240,22 +245,22 @@ class TRACKBACK {
                                 excerpt,
                                 url,
                                 posted
-                        FROM 	trackbacks
-                        WHERE 	visible = 1
+                        FROM    trackbacks
+                        WHERE   visible = 1
                         ORDER BY posted DESC
-                        LIMIt	$num
+                        LIMIt   $num
                         ");
 
         if ($q->rows() > 0) {
             for ($row=0; $row<$q->rows(); $row++) {
                 $trackbackdata[] = array (
-                    'trackback_id' 	=> $q->field($row, 'trackback_id'),
-                    'epobject_id'	=> $q->field($row, 'epobject_id'),
-                    'blog_name' 	=> $q->field($row, 'blog_name'),
-                    'title'			=> $q->field($row, 'title'),
-                    'excerpt'		=> $q->field($row, 'excerpt'),
-                    'url'			=> $q->field($row, 'url'),
-                    'posted'		=> $q->field($row, 'posted')
+                    'trackback_id'  => $q->field($row, 'trackback_id'),
+                    'epobject_id'   => $q->field($row, 'epobject_id'),
+                    'blog_name'     => $q->field($row, 'blog_name'),
+                    'title'         => $q->field($row, 'title'),
+                    'excerpt'       => $q->field($row, 'excerpt'),
+                    'url'           => $q->field($row, 'url'),
+                    'posted'        => $q->field($row, 'posted')
                 );
             }
         }
