@@ -3,7 +3,7 @@
 # Display a calendar month in the Google gadget
 
 include_once '../../includes/easyparliament/init.php';
-$LIST = new DEBATELIST;
+$LIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 # Guess it should really use a View of none, but this way I get all
 # the display stuff done for me...
 ob_start();

@@ -14,7 +14,7 @@ $PAGE->stripe_start();
 <h4>Hansard data in database</h4>
 
 <?php
-$DEBATELIST = new DEBATELIST;
+$DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 $debate_items = $DEBATELIST->total_items();
 
 $WRANSLIST = new WRANSLIST;

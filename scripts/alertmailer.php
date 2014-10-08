@@ -91,7 +91,7 @@ $confirmed = 1; $deleted = 0;
 $alertdata = $LIVEALERTS->fetch($confirmed, $deleted);
 $alertdata = $alertdata['data'];
 
-$DEBATELIST = new DEBATELIST; # Nothing debate specific, but has to be one of them
+$DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList; # Nothing debate specific, but has to be one of them
 
 $sects = array(
     1 => 'Commons debate',

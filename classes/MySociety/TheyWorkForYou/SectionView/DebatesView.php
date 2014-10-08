@@ -4,7 +4,7 @@ namespace MySociety\TheyWorkForYou\SectionView;
 
 class DebatesView extends SectionView {
     protected $major = 1;
-    protected $class = 'DEBATELIST';
+    protected $class = 'MySociety\TheyWorkForYou\HansardList\DebateList';
 
     protected function display_front() {
         global $PAGE, $DATA, $this_page;
@@ -18,7 +18,7 @@ class DebatesView extends SectionView {
         <h2>Recent House of Commons debates</h2>
     <?php
 
-        $DEBATELIST = new \DEBATELIST;
+        $DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
         $DEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>10));
 
         $rssurl = $DATA->page_metadata($this_page, 'rss');

@@ -55,7 +55,7 @@ function day_speeches($search, $type, $date) {
         ));
     $want['hpos'] = $q->field(0, 'hpos');
 
-    $LIST = new DEBATELIST;
+    $LIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
         $args = array (
             's' => $search,
             'p' => 1,

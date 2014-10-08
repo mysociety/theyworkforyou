@@ -12,7 +12,7 @@ $PAGE->stripe_start();
 //  SEARCH AND RECENT HANSARD
 
 // Get the dates, timestamps and links for the most recent debates and wrans.
-$DEBATELIST = new DEBATELIST;
+$DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 $debatesdata = $DEBATELIST->most_recent_day();
 
 $WRANSLIST = new WRANSLIST;
@@ -160,7 +160,7 @@ $PAGE->block_end();
 ///////////////////////////////////////////////////////////////////////////
 //  MOST INTERESTING DEBATES
 
-//$DEBATELIST = new DEBATELIST;
+//$DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 
 // num is how many to display.
 // days is over what period we're looking for the most interesting debates.

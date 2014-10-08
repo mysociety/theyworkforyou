@@ -21,7 +21,7 @@ $args = array (
 );
 
 $GLOSSARY = new GLOSSARY($args);
-$LIST = new DEBATELIST;
+$LIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 $result = $LIST->display('gid', $args);
 
 $PAGE->page_end();

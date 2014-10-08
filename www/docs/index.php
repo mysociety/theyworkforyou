@@ -10,7 +10,7 @@ $PAGE->supress_heading = true;
 $PAGE->stripe_start("full");
 
 $last_dates = array(); // holds the most recent data there is data for, indexed by type
-$DEBATELIST = new DEBATELIST;
+$DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 $LORDSDEBATELIST = new LORDSDEBATELIST;
 $WHALLLIST = new WHALLLIST;
 $WMSLIST = new WMSLIST;

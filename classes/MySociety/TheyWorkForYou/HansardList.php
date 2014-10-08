@@ -13,7 +13,7 @@ namespace MySociety\TheyWorkForYou;
  * The HANSARDLIST class and its children, DEBATELIST and WRANSLIST, display data about
  * Hansard objects. You call display things by doing something like:
  *
- *     $LIST = new DEBATELIST;
+ *     $LIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
  *     $LIST->display('gid', array('gid'=>'2003-10-30.422.4') );
  *
  * The second line could be replaced with something like one of these:
