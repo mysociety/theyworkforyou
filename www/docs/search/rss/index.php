@@ -58,6 +58,6 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
         'num' => $num,
     );
 
-    $LIST = new HANSARDLIST();
+    $LIST = new \MySociety\TheyWorkForYou\HansardList();
     $LIST->display('search', $args, 'rss');
 }

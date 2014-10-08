@@ -67,7 +67,7 @@ switch ($action) {
     case 'recent-speeches-component':
         include_once INCLUDESPATH . 'easyparliament/hansardlist.php';
         include_once INCLUDESPATH . 'easyparliament/searchengine.php';
-        $HANSARDLIST = new HANSARDLIST();
+        $HANSARDLIST = new \MySociety\TheyWorkForYou\HansardList();
         $searchstring = "speaker:$pid";
         global $SEARCHENGINE;
         $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring);

@@ -224,7 +224,7 @@ function search_normal($searchstring) {
     if (!$SEARCHENGINE->valid) {
         $PAGE->error_message($SEARCHENGINE->error);
     } else {
-        $LIST = new HANSARDLIST();
+        $LIST = new \MySociety\TheyWorkForYou\HansardList();
         $LIST->display('search', $args);
     }
 

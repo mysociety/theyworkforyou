@@ -137,7 +137,7 @@ if (get_http_var("submitterm") != '') {
                 // force hansardlist to use the glossary search template,
                 // while still performing a standard search.
                 $args['view_override'] = "glossary_search";
-                $LIST = new HANSARDLIST();
+                $LIST = new \MySociety\TheyWorkForYou\HansardList();
                 $LIST->display('search', $args);
                 print "<p><a href=\"#definition\">Back to form</a></p>";
             }

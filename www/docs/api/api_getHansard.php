@@ -91,7 +91,7 @@ function _api_getHansard_search($array) {
         'pop' => 1,
         'o' => ($o=='d' || $o=='r') ? $o : 'd',
     );
-    $LIST = new HANSARDLIST();
+    $LIST = new \MySociety\TheyWorkForYou\HansardList();
     $LIST->display('search', $args, 'api');
 }
 

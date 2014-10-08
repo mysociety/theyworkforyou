@@ -41,7 +41,7 @@ class HansardTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetDataByPerson()
     {
-        $HANSARD = new HANSARDLIST();
+        $HANSARD = new \MySociety\TheyWorkForYou\HansardList();
 
         $args = array(
             'member_ids' => '1,2'
@@ -64,7 +64,7 @@ class HansardTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testGetDataByDate()
     {
-        $HANSARD = new HANSARDLIST();
+        $HANSARD = new \MySociety\TheyWorkForYou\HansardList();
 
         $HANSARD->major = 1;
         $HANSARD->listpage = 'test';
