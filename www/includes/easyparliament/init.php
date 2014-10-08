@@ -100,6 +100,5 @@ if (! isset($new_style_template) OR $new_style_template !== TRUE) {
 
 include_once (INCLUDESPATH."easyparliament/hansardlist.php");
 include_once (INCLUDESPATH."easyparliament/commentlist.php");
-include_once (INCLUDESPATH."easyparliament/comment.php");
 
 twfy_debug_timestamp("at end of init.php");

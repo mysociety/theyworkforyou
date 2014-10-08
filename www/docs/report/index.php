@@ -16,7 +16,7 @@ if (is_numeric(get_http_var('id'))) {
 
     $comment_id = get_http_var('id');
 
-    $COMMENT = new COMMENT($comment_id);
+    $COMMENT = new \MySociety\TheyWorkForYou\Comment($comment_id);
 
     if ($COMMENT->exists() == false || !$COMMENT->visible()) {
         // This comment id didn't exist in the DB.

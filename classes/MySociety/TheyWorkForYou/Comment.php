@@ -1,29 +1,34 @@
 <?php
+/**
+ * Comment Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/* A class for doing things with single comments.
+namespace MySociety\TheyWorkForYou;
 
-    To access stuff about an existing comment you can do something like:
-        $COMMENT = new COMMENT(37);
-        $COMMENT->display();
-    Where '37' is the comment_id.
+/**
+ * A class for doing things with single comments.
+ *
+ * To access stuff about an existing comment you can do something like:
+ *     $COMMENT = new \MySociety\TheyWorkForYou\Comment(37);
+ *     $COMMENT->display();
+ * Where '37' is the comment_id.
+ *
+ * To create a new comment you should get a $data array prepared of
+ * the key/value pairs needed to create a new comment and do:
+ *     $COMMENT = new \MySociety\TheyWorkForYou\Comment;
+ *     $COMMENT->create ($data);
+ *
+ * You can delete a comment by doing $COMMENT->delete() (it isn't actually
+ * deleted from the database, just set to invisible.
+ *
+ * You can also do $COMMENT->set_modflag() which happens when a user
+ * posts a report about a comment. The flag is unset when/if the report is
+ * rejected.
+ */
 
-    To create a new comment you should get a $data array prepared of
-    the key/value pairs needed to create a new comment and do:
-        $COMMENT = new COMMENT;
-        $COMMENT->create ($data);
-
-    You can delete a comment by doing $COMMENT->delete() (it isn't actually
-    deleted from the database, just set to invisible.
-
-    You can also do $COMMENT->set_modflag() which happens when a user
-    posts a report about a comment. The flag is unset when/if the report is
-    rejected.
-
-*/
-
-
-
-class COMMENT {
+class Comment {
 
     public $comment_id = '';
     public $user_id = '';
@@ -31,8 +36,8 @@ class COMMENT {
     public $body = '';
     public $posted = '';
     public $visible = false;
-    public $modflagged = NULL;	// Is a datetime when set.
-    public $firstname = '';	// Of the person who posted it.
+    public $modflagged = NULL;  // Is a datetime when set.
+    public $firstname = ''; // Of the person who posted it.
     public $lastname = '';
     public $url = '';
 
@@ -41,9 +46,9 @@ class COMMENT {
     public $exists = false;
 
 
-    public function COMMENT($comment_id='') {
+    public function __construct($comment_id='') {
 
-        $this->db = new ParlDB;
+        $this->db = new \ParlDB;
 
         // Set in init.php
         if (ALLOWCOMMENTS == true) {
@@ -62,19 +67,19 @@ class COMMENT {
                                     posted,
                                     visible,
                                     modflagged
-                            FROM	comments
-                            WHERE 	comment_id='" . addslashes($comment_id) . "'
+                            FROM    comments
+                            WHERE   comment_id='" . addslashes($comment_id) . "'
                             ");
 
             if ($q->rows() > 0) {
 
-                $this->comment_id 	= $comment_id;
-                $this->user_id		= $q->field(0, 'user_id');
-                $this->epobject_id	= $q->field(0, 'epobject_id');
-                $this->body			= $q->field(0, 'body');
-                $this->posted		= $q->field(0, 'posted');
-                $this->visible		= $q->field(0, 'visible');
-                $this->modflagged	= $q->field(0, 'modflagged');
+                $this->comment_id   = $comment_id;
+                $this->user_id      = $q->field(0, 'user_id');
+                $this->epobject_id  = $q->field(0, 'epobject_id');
+                $this->body         = $q->field(0, 'body');
+                $this->posted       = $q->field(0, 'posted');
+                $this->visible      = $q->field(0, 'visible');
+                $this->modflagged   = $q->field(0, 'modflagged');
 
                 // Sets the URL and username for this comment. Duh.
                 $this->_set_url();
@@ -117,7 +122,7 @@ class COMMENT {
         }
 
         if (!$THEUSER->is_able_to('addcomment')) {
-            $message = 	array (
+            $message =  array (
                 'title' => 'Sorry',
                 'text' => 'You are not allowed to post annotations.'
             );
@@ -151,9 +156,9 @@ class COMMENT {
             $flood_time_limit = 60; // How many seconds until a user can post again?
 
             $q = $this->db->query("SELECT comment_id
-                            FROM	comments
-                            WHERE	user_id = '" . $THEUSER->user_id() . "'
-                            AND		posted + 0 > NOW() - $flood_time_limit");
+                            FROM    comments
+                            WHERE   user_id = '" . $THEUSER->user_id() . "'
+                            AND     posted + 0 > NOW() - $flood_time_limit");
 
             if ($q->rows() > 0) {
                 $message = array (
@@ -198,12 +203,12 @@ class COMMENT {
 
         if ($q->success()) {
             // Set the object varibales up.
-            $this->comment_id 	= $q->insert_id();
-            $this->user_id	  	= $THEUSER->user_id();
-            $this->epobject_id 	= $data['epobject_id'];
-            $this->body			= $data['body'];
-            $this->posted		= $posted;
-            $this->visible		= 1;
+            $this->comment_id   = $q->insert_id();
+            $this->user_id      = $THEUSER->user_id();
+            $this->epobject_id  = $data['epobject_id'];
+            $this->body         = $data['body'];
+            $this->posted       = $posted;
+            $this->visible      = 1;
 
             return $this->comment_id();
 
@@ -216,20 +221,20 @@ class COMMENT {
     public function display($format='html', $template='comments') {
 
         $data['comments'][0] = array (
-            'comment_id'	=> $this->comment_id,
-            'user_id'		=> $this->user_id,
-            'epobject_id'	=> $this->epobject_id,
-            'body'			=> $this->body,
-            'posted'		=> $this->posted,
-            'modflagged'	=> $this->modflagged,
-            'url'			=> $this->url,
-            'firstname'		=> $this->firstname,
-            'lastname'		=> $this->lastname,
-            'visible'		=> $this->visible,
+            'comment_id'    => $this->comment_id,
+            'user_id'       => $this->user_id,
+            'epobject_id'   => $this->epobject_id,
+            'body'          => $this->body,
+            'posted'        => $this->posted,
+            'modflagged'    => $this->modflagged,
+            'url'           => $this->url,
+            'firstname'     => $this->firstname,
+            'lastname'      => $this->lastname,
+            'visible'       => $this->visible,
         );
 
         // Use the same renderer as the COMMENTLIST class.
-        $COMMENTLIST = new COMMENTLIST();
+        $COMMENTLIST = new \COMMENTLIST();
         $COMMENTLIST->render($data, $format, $template);
 
     }
@@ -255,8 +260,8 @@ class COMMENT {
         }
 
         $q = $this->db->query("UPDATE comments
-                        SET		modflagged = $flag
-                        WHERE 	comment_id = '" . $this->comment_id . "'
+                        SET     modflagged = $flag
+                        WHERE   comment_id = '" . $this->comment_id . "'
                         ");
 
         if ($q->success()) {
@@ -314,8 +319,8 @@ class COMMENT {
 
             $q = $this->db->query("SELECT major,
                                     gid
-                            FROM	hansard
-                            WHERE	epobject_id = '" . addslashes($this->epobject_id) . "'
+                            FROM    hansard
+                            WHERE   epobject_id = '" . addslashes($this->epobject_id) . "'
                             ");
 
             if ($q->rows() > 0) {
@@ -327,7 +332,7 @@ class COMMENT {
                 $major = $q->field(0, 'major');
                 $page = $hansardmajors[$major]['page'];
 
-                $URL = new \MySociety\TheyWorkForYou\Url($page);
+                $URL = new Url($page);
                 $URL->insert(array('id'=>$gid));
                 $this->url = $URL->generate() . '#c' . $this->comment_id;
             }
@@ -342,8 +347,8 @@ class COMMENT {
         if ($this->firstname == '' && $this->lastname == '') {
             $q = $this->db->query("SELECT firstname,
                                     lastname
-                            FROM	users
-                            WHERE	user_id = '" . addslashes($this->user_id) . "'
+                            FROM    users
+                            WHERE   user_id = '" . addslashes($this->user_id) . "'
                             ");
 
             if ($q->rows() > 0) {
@@ -352,8 +357,5 @@ class COMMENT {
             }
         }
     }
-
-
-
 
 }
