@@ -96,7 +96,7 @@ class SectionView {
 
         try {
             $result = $this->list->display('gid', $args);
-        } catch (\RedirectException $e) {
+        } catch (\MySociety\TheyWorkForYou\RedirectException $e) {
             $URL = new \MySociety\TheyWorkForYou\Url($this->major_data['page_all']);
             if ($this->major == 6) {
                 # Magically (as in I can't remember quite why), pbc_clause will

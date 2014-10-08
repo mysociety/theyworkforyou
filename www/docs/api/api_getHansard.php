@@ -101,7 +101,7 @@ function _api_getHansard_gid($type, $gid) {
 
     try {
         return $LIST->display('gid', $args, 'api');
-    } catch (RedirectException $e) {
+    } catch (\MySociety\TheyWorkForYou\RedirectException $e) {
         $url = $_SERVER['REQUEST_URI'];
         $url = str_replace($gid, $e->getMessage(), $url);
         header('Location: http://' . DOMAIN . $url);

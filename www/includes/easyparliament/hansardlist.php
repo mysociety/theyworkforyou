@@ -51,8 +51,6 @@ Future stuff...
 
 */
 
-class RedirectException extends Exception { }
-
 class HANSARDLIST {
     // This will be used to cache information about speakers on this page
     // so we don't have to keep fetching the same data from the DB.
@@ -662,7 +660,7 @@ class HANSARDLIST {
             $input['where'] = array('gid=' => $gid);
             $itemdata = $this->_get_hansard_data($input);
             if (count($itemdata) > 0 ) {
-                throw new RedirectException(fix_gid_from_db($gid));
+                throw new \MySociety\TheyWorkForYou\RedirectException(fix_gid_from_db($gid));
             }
         }
 
@@ -733,7 +731,7 @@ class HANSARDLIST {
             $input['where'] = array('gid=' => $this->gidprefix . $check_gid);
             $itemdata = $this->_get_hansard_data($input);
             if (count($itemdata) > 0) {
-                throw new RedirectException($check_gid);
+                throw new \MySociety\TheyWorkForYou\RedirectException($check_gid);
             }
         }
         return null;
@@ -2325,7 +2323,7 @@ class HANSARDLIST {
             twfy_debug (get_class($this), "instead of " . $args['gid'] . " selecting subheading gid " . $parent[0]['gid'] . " to get whole wrans");
             $args['gid'] = $parent[0]['gid'];
             $itemdata = $this->_get_item($args);
-            throw new RedirectException($args['gid']);
+            throw new \MySociety\TheyWorkForYou\RedirectException($args['gid']);
         }
 
         # If a WMS main heading, go to next gid
@@ -2343,7 +2341,7 @@ class HANSARDLIST {
                 twfy_debug (get_class($this), 'instead of ' . $args['gid'] . ' moving to ' . $next[0]['gid']);
                 $args['gid'] = $next[0]['gid'];
                 $itemdata = $this->_get_item($args);
-                throw new RedirectException($args['gid']);
+                throw new \MySociety\TheyWorkForYou\RedirectException($args['gid']);
             }
         }
 
@@ -2467,7 +2465,7 @@ class HANSARDLIST {
                 $data['subrows'] = $this->_get_hansard_data($input);
                 # If there's only one subheading, and nothing in the heading, redirect to it immediaetly
                 if (count($data['subrows']) == 1) {
-                    throw new RedirectException($data['subrows'][0]['gid']);
+                    throw new \MySociety\TheyWorkForYou\RedirectException($data['subrows'][0]['gid']);
                 }
             }
         } elseif ($itemdata['htype'] == '11') {
