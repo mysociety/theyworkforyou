@@ -76,6 +76,8 @@ if (!isset($_SERVER['WINDIR'])) {
     define ('STARTTIMES', $rusage['ru_stime.tv_sec']*1000000 + $rusage['ru_stime.tv_usec']);
     define ('STARTTIMEU', $rusage['ru_utime.tv_sec']*1000000 + $rusage['ru_utime.tv_usec']);
 }
+
+include_once (INCLUDESPATH."dbtypes.php");
 include_once (INCLUDESPATH."data.php");
 include_once (INCLUDESPATH."mysql.php");
 

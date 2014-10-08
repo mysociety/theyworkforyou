@@ -27,8 +27,6 @@
 
 */
 
-include_once INCLUDESPATH . 'dbtypes.php';
-
 class COMMENTLIST {
 
     public function COMMENTLIST() {
