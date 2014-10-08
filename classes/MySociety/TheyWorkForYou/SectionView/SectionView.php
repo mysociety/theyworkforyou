@@ -110,7 +110,7 @@ class SectionView {
 
         if ($this->list->commentspage == $this_page) {
             $PAGE->stripe_start('side', 'comments');
-            $COMMENTLIST = new \COMMENTLIST;
+            $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList;
             $args['user_id'] = get_http_var('u');
             $args['epobject_id'] = $this->list->epobject_id();
             $COMMENTLIST->display('ep', $args);

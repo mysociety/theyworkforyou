@@ -292,7 +292,7 @@ function search_order_t($searchstring) {
 # ---
 
 function find_comments($args) {
-    $commentlist = new COMMENTLIST;
+    $commentlist = new \MySociety\TheyWorkForYou\CommentList;
     $commentlist->display('search', $args);
 }
 

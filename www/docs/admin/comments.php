@@ -10,7 +10,7 @@ $PAGE->page_start();
 $PAGE->stripe_start();
 
 // Most recent comments.
-$COMMENTLIST = new COMMENTLIST;
+$COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList;
 
 $COMMENTLIST->display('recent', array('num'=>50));
 

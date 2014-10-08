@@ -1092,7 +1092,7 @@ function display_user($user_id="", $email_changed=false) {
                 'page' => get_http_var('p')
             );
 
-            $COMMENTLIST = new COMMENTLIST();
+            $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList();
 
             $COMMENTLIST->display('user', $args);
         }

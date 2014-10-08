@@ -1,38 +1,47 @@
 <?php
+/**
+ * Comment Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/*	 The class for displaying one or more comments.
-    (There's also a function for adding a new comment to the DB because I wasn't
-    sure where else to put it!).
+namespace MySociety\TheyWorkForYou;
 
-    This works similarly to the HANSARDLIST class.
+/**
+ * The class for displaying one or more comments.
+ *
+ * (There's also a function for adding a new comment to the DB because I wasn't
+ * sure where else to put it!).
+ *
+ * This works similarly to the HANSARDLIST class.
+ *
+ * To display all the comments for an epobject you'll do:
+ *
+ *     $args = array ('epobject_id' => $epobject_id);
+ *     $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList;
+ *     $COMMENTLIST->display ('ep', $args);
+ *
+ * This will call the _get_data_by_ep() function which passes variables to the
+ * _get_comment_data() function. This gets the comments from the DB and returns
+ * an array of comments.
+ *
+ * The render() function is then called, which includes a template and
+ * goes through the array, displaying the comments. See the HTML comments.php
+ * template for the format.
+ *
+ * NOTE: You'll need to pass the 'body' of the comment through filter_user_input()
+ * and linkify() first.
+ *
+ * You could also just call the $COMMENTLIST->render() array with an array
+ * of comment data and display directly (used for previewing user input).
+ */
 
-    To display all the comments for an epobject you'll do:
+class CommentList {
 
-        $args = array ('epobject_id' => $epobject_id);
-        $COMMENTLIST = new COMMENTLIST;
-        $COMMENTLIST->display ('ep', $args);
-
-    This will call the _get_data_by_ep() function which passes variables to the
-    _get_comment_data() function. This gets the comments from the DB and returns
-    an array of comments.
-
-    The render() function is then called, which includes a template and
-    goes through the array, displaying the comments. See the HTML comments.php
-    template for the format.
-    NOTE: You'll need to pass the 'body' of the comment through filter_user_input()
-    and linkify() first.
-
-    You could also just call the $COMMENTLIST->render() array with an array
-    of comment data and display directly (used for previewing user input).
-
-*/
-
-class COMMENTLIST {
-
-    public function COMMENTLIST() {
+    public function __construct() {
         global $this_page;
 
-        $this->db = new ParlDB;
+        $this->db = new \ParlDB;
 
         // We use this to create permalinks to comments. For the moment we're
         // assuming they're on the same page we're currently looking at:
@@ -44,17 +53,17 @@ class COMMENTLIST {
 
     public function display ($view, $args=array(), $format='html') {
         // $view is what we're viewing by:
-        //	'ep' is all the comments attached to an epobject.
-        //	'user' is all the comments written by a user.
-        //	'recent' is the most recent comments.
+        //  'ep' is all the comments attached to an epobject.
+        //  'user' is all the comments written by a user.
+        //  'recent' is the most recent comments.
 
         // $args is an associative array of stuff like
-        //	'epobject_id' => '37'
+        //  'epobject_id' => '37'
         // Where 'epobject_id' is an epobject_id.
         // Or 'gid' is a hansard item gid.
 
         // Replace a hansard object gid with an epobject_id.
-//		$args = $this->_fix_gid($args);
+//      $args = $this->_fix_gid($args);
 
         // $format is the format the data should be rendered in.
 
@@ -162,7 +171,7 @@ class COMMENTLIST {
         // We're getting the most recent comments posted to epobjects.
         // We're grouping them by epobject so we can just link to each hansard thing once.
         // When there are numerous comments on an epobject we're getting the most recent
-        // 		comment_id and posted date.
+        //      comment_id and posted date.
         // We're getting the body and speaker details for the epobject.
         // We're NOT getting the comment bodies. Why? Because adding them to this query
         // would fetch the text for the oldest comment on an epobject group, rather
@@ -178,13 +187,13 @@ class COMMENTLIST {
                                 epobject.body,
                                 member.first_name,
                                 member.last_name
-                        FROM 	comments
+                        FROM    comments
                             join hansard  on comments.epobject_id = hansard.epobject_id
                             join users    on comments.user_id = users.user_id
                             join epobject on comments.epobject_id = epobject.epobject_id
                         LEFT OUTER JOIN member ON hansard.speaker_id = member.member_id
-                        where	users.user_id='" . addslashes($args['user_id']) . "'
-                        AND 	visible='1'
+                        where   users.user_id='" . addslashes($args['user_id']) . "'
+                        AND     visible='1'
                         GROUP BY epobject_id
                         ORDER BY posted DESC
                         LIMIT " . $limit
@@ -199,26 +208,26 @@ class COMMENTLIST {
 
                 // All the basic stuff...
                 $comments[$n] = array (
-                    'comment_id'		=> $q->field($n, 'comment_id'),
-                    'posted'			=> $q->field($n, 'posted'),
-                    'total_comments'	=> $q->field($n, 'total_comments'),
-                    'epobject_id'		=> $q->field($n, 'epobject_id'),
-                    'firstname'			=> $q->field($n, 'firstname'),
-                    'lastname'			=> $q->field($n, 'lastname'),
+                    'comment_id'        => $q->field($n, 'comment_id'),
+                    'posted'            => $q->field($n, 'posted'),
+                    'total_comments'    => $q->field($n, 'total_comments'),
+                    'epobject_id'       => $q->field($n, 'epobject_id'),
+                    'firstname'         => $q->field($n, 'firstname'),
+                    'lastname'          => $q->field($n, 'lastname'),
                     // Hansard item body, not comment body.
-                    'hbody'				=> $q->field($n, 'body'),
-                    'speaker'			=> array (
-                        'first_name'	=> $q->field($n, 'first_name'),
-                        'last_name'		=> $q->field($n, 'last_name')
+                    'hbody'             => $q->field($n, 'body'),
+                    'speaker'           => array (
+                        'first_name'    => $q->field($n, 'first_name'),
+                        'last_name'     => $q->field($n, 'last_name')
                     )
                 );
 
                 // Add the URL...
                 $urldata = array (
-                    'major' 		=> $q->field($n, 'major'),
-                    'gid'			=> $q->field($n, 'gid'),
-                    'comment_id'	=> $q->field($n, 'comment_id'),
-                    'user_id'		=> $args['user_id']
+                    'major'         => $q->field($n, 'major'),
+                    'gid'           => $q->field($n, 'gid'),
+                    'comment_id'    => $q->field($n, 'comment_id'),
+                    'user_id'       => $args['user_id']
                 );
 
                 $comments[$n]['url'] = $this->_comment_url($urldata);
@@ -232,8 +241,8 @@ class COMMENTLIST {
 
             $r = $this->db->query("SELECT comment_id,
                                     body
-                            FROM	comments
-                            WHERE	comment_id IN ($in)
+                            FROM    comments
+                            WHERE   comment_id IN ($in)
                             ");
 
             if ($r->rows() > 0) {
@@ -379,10 +388,10 @@ class COMMENTLIST {
 
         $data['comments'] = $commentsdata;
         $data['search'] = $args['s'];
-        #		$data['results_per_page'] = $num;
-        #		$data['page'] = $page;
-        #		$q = $this->db->query('SELECT COUNT(*) AS count FROM comments WHERE visible=1');
-        #		$data['total_results'] = $q->field(0, 'count');
+        #       $data['results_per_page'] = $num;
+        #       $data['page'] = $page;
+        #       $q = $this->db->query('SELECT COUNT(*) AS count FROM comments WHERE visible=1');
+        #       $data['total_results'] = $q->field(0, 'count');
         return $data;
     }
 
@@ -394,8 +403,8 @@ class COMMENTLIST {
         // And optionally the user's id, for highlighting the comments on the destination page.
         // It returns the URL for the comment.
 
-        $major 		= $urldata['major'];
-        $gid 		= $urldata['gid'];
+        $major      = $urldata['major'];
+        $gid        = $urldata['gid'];
         $comment_id = $urldata['comment_id'];
         $user_id = isset($urldata['user_id']) ? $urldata['user_id'] : false;
 
@@ -406,7 +415,7 @@ class COMMENTLIST {
         // Assuming every comment is from the same major...
         $page = $hansardmajors[$major]['page'];
 
-        $URL = new \MySociety\TheyWorkForYou\Url($page);
+        $URL = new Url($page);
 
         $gid = fix_gid_from_db($gid); // In includes/utility.php
         $URL->insert(array('id' => $gid ));
@@ -420,7 +429,7 @@ class COMMENTLIST {
 
 
 
-/*	function _fix_gid($args) {
+/*  function _fix_gid($args) {
 
         // Replace a hansard object gid with an epobject_id.
         // $args may have a 'gid' element. If so, we replace it
@@ -459,14 +468,14 @@ class COMMENTLIST {
         // eg:
         /*
             array (
-                0	=> array (
-                    'comment_id'	=> '2',
-                    'user_id'		=> '10',
-                    'body'			=> 'The text of the comment is here.',
+                0   => array (
+                    'comment_id'    => '2',
+                    'user_id'       => '10',
+                    'body'          => 'The text of the comment is here.',
                     etc...
                 ),
-                1	=> array (
-                    'comment_id'	=> '3',
+                1   => array (
+                    'comment_id'    => '3',
                     etc...
                 )
             );
@@ -474,10 +483,10 @@ class COMMENTLIST {
 
         // $input is an array of things needed for the SQL query:
         // 'amount' has one or more of :
-        //		'user'=>true - Users' names.
-        //  	'hansard'=>true - Body text from the hansard items.
+        //      'user'=>true - Users' names.
+        //      'hansard'=>true - Body text from the hansard items.
         // 'where' is an associative array of stuff for the WHERE clause, eg:
-        // 		array ('id=' => '37', 'posted>' => '2003-12-31 00:00:00');
+        //      array ('id=' => '37', 'posted>' => '2003-12-31 00:00:00');
         // 'order' is a string for the $order clause, eg 'hpos DESC'.
         // 'limit' as a string for the $limit clause, eg '21,20'.
 
@@ -550,7 +559,7 @@ class COMMENTLIST {
 
         // Finally, do the query!
         $q = $this->db->query ("SELECT $fields
-                        FROM 	comments
+                        FROM    comments
                         $join
                         WHERE $where
                         $order
@@ -590,7 +599,7 @@ class COMMENTLIST {
                     'major' => $q->field($n, 'major'),
                     'gid' => $data[$n]['gid'],
                     'comment_id' => $data[$n]['comment_id'],
-#					'user_id' =>
+#                   'user_id' =>
                 );
                 $data[$n]['url'] = $this->_comment_url($urldata);
             }
@@ -599,6 +608,5 @@ class COMMENTLIST {
         return $data;
 
     }
-
 
 }

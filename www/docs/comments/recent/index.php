@@ -4,7 +4,7 @@ $this_page = "comments_recent";
 include_once '../../../includes/easyparliament/init.php';
 $PAGE->page_start();
 $PAGE->stripe_start();
-$COMMENTLIST = new COMMENTLIST;
+$COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList;
 $args = array(
     'page' => get_http_var('p'),
     'pid' => get_http_var('pid')
