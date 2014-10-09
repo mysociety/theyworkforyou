@@ -26,7 +26,7 @@ if ($this_page == 'nidebatesday') {
 
 $PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 
-$LIST = new NILIST;
+$LIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\NiList;
 
 $LIST->display('calendar', $args);
 

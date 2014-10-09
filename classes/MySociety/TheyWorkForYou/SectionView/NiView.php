@@ -4,7 +4,7 @@ namespace MySociety\TheyWorkForYou\SectionView;
 
 class NiView extends SectionView {
     protected $major = 5;
-    protected $class = 'NILIST';
+    protected $class = 'MySociety\TheyWorkForYou\HansardList\DebateList\NiList';
 
     protected function display_front() {
         if (get_http_var('more')) {
@@ -65,7 +65,7 @@ class NiView extends SectionView {
     <div class="welcome_col2">
         <h2>Recent Northern Ireland Assembly debates</h2>
     <?php
-        $DEBATELIST = new \NILIST;
+        $DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\NiList;
         $DEBATELIST->display('recent_debates', array('days' => 30, 'num' => 5));
         $MOREURL = new \MySociety\TheyWorkForYou\Url('nidebatesfront');
     ?>
