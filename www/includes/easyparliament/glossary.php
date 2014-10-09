@@ -22,7 +22,6 @@ As they are being approved/declined they can be modified (spelling etc...).
 
 // This handles basic insertion and approval functions for all epobjects
 include_once INCLUDESPATH."easyparliament/editqueue.php";
-include_once INCLUDESPATH."easyparliament/searchengine.php";
 include_once INCLUDESPATH."wikipedia.php";
 
 class GLOSSARY {

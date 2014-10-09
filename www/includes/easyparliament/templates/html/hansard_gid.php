@@ -11,9 +11,6 @@
 
 global $PAGE, $this_page, $GLOSSARY, $hansardmajors, $DATA, $THEUSER;
 
-include_once INCLUDESPATH."easyparliament/searchengine.php";
-
-
 twfy_debug("TEMPLATE", "hansard_gid.php");
 
 // Will set the page headings and start the page HTML if it hasn't
