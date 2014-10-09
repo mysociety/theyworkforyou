@@ -1,6 +1,17 @@
 <?php
+/**
+ * GlossaryList Class
+ *
+ * @package TheyWorkForYou
+ */
 
-class GLOSSARYLIST {
+namespace MySociety\TheyWorkForYou;
+
+/**
+ * Glossary List
+ */
+
+class GlossaryList {
 
     public function render($data, $format='html', $template='glossary') {
         // Once we have the data that's to be rendered,
