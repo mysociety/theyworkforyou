@@ -5,13 +5,6 @@ include_once INCLUDESPATH."easyparliament/searchengine.php";
 global $SEARCHLOG;
 $SEARCHLOG = new \MySociety\TheyWorkForYou\SearchLog();
 
-class LORDSDEBATELIST extends \MySociety\TheyWorkForYou\HansardList\DebateList {
-    public $major = 101;
-    public $listpage = 'lordsdebates';
-    public $commentspage = 'lordsdebate';
-    public $gidprefix = 'uk.org.publicwhip/lords/';
-}
-
 class StandingCommittee extends \MySociety\TheyWorkForYou\HansardList\DebateList {
     public $major = 6;
     public $listpage = 'pbc_clause';

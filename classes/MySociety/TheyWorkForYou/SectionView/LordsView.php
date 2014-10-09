@@ -4,7 +4,7 @@ namespace MySociety\TheyWorkForYou\SectionView;
 
 class LordsView extends SectionView {
     protected $major = 101;
-    protected $class = 'LORDSDEBATELIST';
+    protected $class = 'MySociety\TheyWorkForYou\HansardList\DebateList\LordsDebateList';
 
     protected function front_content() {
         echo '<h2>Busiest debates from the most recent week</h2>';

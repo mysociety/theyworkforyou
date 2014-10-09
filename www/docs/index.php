@@ -11,7 +11,7 @@ $PAGE->stripe_start("full");
 
 $last_dates = array(); // holds the most recent data there is data for, indexed by type
 $DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
-$LORDSDEBATELIST = new LORDSDEBATELIST;
+$LORDSDEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\LordsDebateList;
 $WHALLLIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\WhallList;
 $WMSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList\WmsList;
 $WRANSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList;

@@ -107,7 +107,7 @@ class DebatesView extends SectionView {
         <h2>Recent House of Lords debates</h2>
     <?php
 
-        $LORDSDEBATELIST = new \LORDSDEBATELIST;
+        $LORDSDEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\LordsDebateList;
         $LORDSDEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>10));
 
         $rssurl = $DATA->page_metadata($this_page, 'rss');

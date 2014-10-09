@@ -28,7 +28,7 @@ if (!$args) {
 
 $PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 
-$LIST = new LORDSDEBATELIST;
+$LIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\LordsDebateList;
 
 $LIST->display('calendar', $args);
 
