@@ -21,7 +21,7 @@ $wransdata = $WRANSLIST->most_recent_day();
 $WHALLLIST = new WHALLLIST;
 $whalldata = $WHALLLIST->most_recent_day();
 
-$WMSLIST = new WMSLIST;
+$WMSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList\WmsList;
 $wmsdata = $WMSLIST->most_recent_day();
 
 if (count($debatesdata) > 0 && count($wransdata) > 0 && count($whalldata) > 0 && count($wmsdata) > 0) {

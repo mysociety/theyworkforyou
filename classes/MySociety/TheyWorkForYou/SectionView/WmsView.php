@@ -4,7 +4,7 @@ namespace MySociety\TheyWorkForYou\SectionView;
 
 class WmsView extends SectionView {
     protected $major = 4;
-    protected $class = 'WMSLIST';
+    protected $class = 'MySociety\TheyWorkForYou\HansardList\WransList\WmsList';
 
     protected function front_content() {
         echo '<h2>Some recent written ministerial statements</h2>';

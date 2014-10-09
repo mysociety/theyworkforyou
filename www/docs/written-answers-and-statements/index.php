@@ -56,7 +56,7 @@ echo '</div>';
 echo '<div id="written-statements">';
 $PAGE->stripe_start();
 echo '<h2>Some recent written ministerial statements</h2>';
-$WMSLIST = new WMSLIST;
+$WMSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList\WmsList;
 $WMSLIST->display('recent_wms', array('days'=>7, 'num'=>20));
 $rssurl = $DATA->page_metadata($this_page, 'rss');
 $PAGE->stripe_end(array(
