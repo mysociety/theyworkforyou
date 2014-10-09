@@ -73,7 +73,7 @@ class DebatesView extends SectionView {
         <h2>Recent Westminster Hall debates</h2>
     <?php
 
-        $WHALLLIST = new \WHALLLIST;
+        $WHALLLIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\WhallList;
         $WHALLLIST->display('biggest_debates', array('days'=>7, 'num'=>10));
 
         $rssurl = $DATA->page_metadata($this_page, 'rss');

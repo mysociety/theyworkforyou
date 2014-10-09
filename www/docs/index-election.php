@@ -18,7 +18,7 @@ $debatesdata = $DEBATELIST->most_recent_day();
 $WRANSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList;
 $wransdata = $WRANSLIST->most_recent_day();
 
-$WHALLLIST = new WHALLLIST;
+$WHALLLIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\WhallList;
 $whalldata = $WHALLLIST->most_recent_day();
 
 $WMSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList\WmsList;
