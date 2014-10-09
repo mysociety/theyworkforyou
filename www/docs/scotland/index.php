@@ -43,7 +43,7 @@ $SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
     <h2>Some recent Scottish Parliament written answers</h2>
 <?php
 
-$WRANSLIST = new SPWRANSLIST;
+$WRANSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList\SpWransList;
 $WRANSLIST->display('recent_wrans', array('days' => 7, 'num' => 8));
 $MOREURL = new \MySociety\TheyWorkForYou\Url('spwransfront');
 

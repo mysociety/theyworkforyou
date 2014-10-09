@@ -32,7 +32,7 @@ if ($this_page == 'wransday') {
 $PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 
 
-$LIST = new SPWRANSLIST;
+$LIST = new \MySociety\TheyWorkForYou\HansardList\WransList\SpWransList;
 
 $LIST->display('calendar', $args);
 

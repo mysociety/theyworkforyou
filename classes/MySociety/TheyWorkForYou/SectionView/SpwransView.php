@@ -4,7 +4,7 @@ namespace MySociety\TheyWorkForYou\SectionView;
 
 class SpwransView extends WransView {
     protected $major = 8;
-    protected $class = 'SPWRANSLIST';
+    protected $class = 'MySociety\TheyWorkForYou\HansardList\WransList\SpWransList';
 
     public function display() {
         global $PAGE;
@@ -20,7 +20,7 @@ class SpwransView extends WransView {
         global $PAGE;
 
         # We have a Scottish Parliament ID, need to find the date
-        $SPWRANSLIST = new \SPWRANSLIST;
+        $SPWRANSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList\SpWransList;
         $gid = $SPWRANSLIST->get_gid_from_spid($spid);
         if ($gid) {
             if (preg_match('/uk\.org\.publicwhip\/spwa\/(\d{4}-\d\d-\d\d\.(.*))/',$gid,$m)) {
