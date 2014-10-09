@@ -15,7 +15,7 @@ $PAGE->stripe_start();
 $DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 $debatesdata = $DEBATELIST->most_recent_day();
 
-$WRANSLIST = new WRANSLIST;
+$WRANSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList;
 $wransdata = $WRANSLIST->most_recent_day();
 
 $WHALLLIST = new WHALLLIST;

@@ -17,7 +17,7 @@ $PAGE->stripe_start();
 $DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 $debate_items = $DEBATELIST->total_items();
 
-$WRANSLIST = new WRANSLIST;
+$WRANSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList;
 $wrans_items = $WRANSLIST->total_items();
 
 $debate_speeches = $DEBATELIST->total_speeches();

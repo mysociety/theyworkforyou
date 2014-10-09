@@ -4,7 +4,7 @@ namespace MySociety\TheyWorkForYou\SectionView;
 
 class WransView extends SectionView {
     protected $major = 3;
-    protected $class = 'WRANSLIST';
+    protected $class = 'MySociety\TheyWorkForYou\HansardList\WransList';
 
     protected function front_content() {
         echo '<h2>Some recent written answers</h2>';

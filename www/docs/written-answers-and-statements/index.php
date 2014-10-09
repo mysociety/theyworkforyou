@@ -14,7 +14,7 @@ $PAGE->page_start();
 echo '<div id="written-answers">';
 $PAGE->stripe_start();
 echo '<h2>Some recent written answers</h2>';
-$WRANSLIST = new WRANSLIST;
+$WRANSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList;
 $WRANSLIST->display('recent_wrans', array('days'=>7, 'num'=>5));
 $PAGE->stripe_end(array(
     array (
