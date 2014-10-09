@@ -64,7 +64,7 @@ $PAGE->include_sidebar_template('spdebates');
 
 <?php
 
-$DEBATELIST = new SPLIST;
+$DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\SpList;
 $DEBATELIST->display('recent_debates', array('days' => 7, 'num' => 10));
 $MOREURL = new \MySociety\TheyWorkForYou\Url('spdebatesfront');
 
