@@ -65,8 +65,12 @@ switch ($action) {
         echo '<p><a href="http://www.guardian.co.uk/politics/person/[aristotle_id]">Full profile</a></p>';
         break;
     case 'recent-speeches-component':
-        include_once INCLUDESPATH . 'easyparliament/hansardlist.php';
-        include_once INCLUDESPATH . 'easyparliament/searchengine.php';
+
+        include_once INCLUDESPATH."easyparliament/searchengine.php";
+
+        global $SEARCHLOG;
+        $SEARCHLOG = new \MySociety\TheyWorkForYou\SearchLog();
+
         $HANSARDLIST = new \MySociety\TheyWorkForYou\HansardList();
         $searchstring = "speaker:$pid";
         global $SEARCHENGINE;

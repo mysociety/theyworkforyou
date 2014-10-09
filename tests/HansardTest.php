@@ -27,16 +27,6 @@ class HansardTest extends PHPUnit_Extensions_Database_TestCase
     }
 
     /**
-     * Ensures the database is prepared and the alert class is included for every test.
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        include_once('www/includes/easyparliament/hansardlist.php');
-    }
-
-    /**
      * Test that getting data by person works
      */
     public function testGetDataByPerson()

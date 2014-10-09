@@ -100,6 +100,9 @@ if (! isset($new_style_template) OR $new_style_template !== TRUE) {
 
 }
 
-include_once (INCLUDESPATH."easyparliament/hansardlist.php");
+include_once INCLUDESPATH."easyparliament/searchengine.php";
+
+global $SEARCHLOG;
+$SEARCHLOG = new \MySociety\TheyWorkForYou\SearchLog();
 
 twfy_debug_timestamp("at end of init.php");
