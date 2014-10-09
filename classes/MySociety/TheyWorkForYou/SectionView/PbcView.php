@@ -4,12 +4,12 @@ namespace MySociety\TheyWorkForYou\SectionView;
 
 class PbcView extends SectionView {
     protected $major = 6;
-    protected $class = 'StandingCommittee';
+    protected $class = 'MySociety\TheyWorkForYou\HansardList\DebateList\StandingCommittee';
 
     function __construct() {
         $this->session = get_http_var('session');
         $this->bill = str_replace('_', ' ', get_http_var('bill'));
-        $this->list = new \StandingCommittee($this->session, $this->bill);
+        $this->list = new \MySociety\TheyWorkForYou\HansardList\DebateList\StandingCommittee($this->session, $this->bill);
         parent::__construct();
     }
 
