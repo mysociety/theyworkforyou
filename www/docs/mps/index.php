@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH."easyparliament/people.php";
 
 if (get_http_var('msp')) {
     list_reps('msps', 'MSPs', 'msp_search');
@@ -53,7 +52,7 @@ function list_reps($type, $rep_plural, $search_sidebar) {
     if (array_key_exists($order, $orders))
         $args['order'] = $orders[$order];
 
-    $PEOPLE = new PEOPLE;
+    $PEOPLE = new \MySociety\TheyWorkForYou\People;
     $PEOPLE->display($type, $args, $format);
 
     if (get_http_var('f') != 'csv') {

@@ -1,17 +1,24 @@
 <?php
-/* For displaying lists of people. Currently just MPs and Peers.
+/**
+ * People Class
+ *
+ * @package TheyWorkForYou
+ */
 
-Do:
+namespace MySociety\TheyWorkForYou;
 
-$PEOPLE = new PEOPLE;
-$PEOPLE->display('mps');
+/**
+ * For displaying lists of people. Currently just MPs and Peers.
+ *
+ * Do:
+ *     $PEOPLE = new \MySociety\TheyWorkForYou\People;
+ *     $PEOPLE->display('mps');
+ */
 
-*/
+class People {
 
-class PEOPLE {
-
-    public function PEOPLE() {
-        $this->db = new ParlDB;
+    public function __construct() {
+        $this->db = new \ParlDB;
     }
 
     public function display ($view, $args=array(), $format='html') {
@@ -134,15 +141,15 @@ class PEOPLE {
                 $data[$p_id]['pos'] = array_merge((array) $data[$p_id]['pos'], (array) $pos);
             } else {
                 $narray = array (
-                    'person_id' 	=> $p_id,
-                    'title' 	=> $q->field($row, 'title'),
-                    'first_name' 	=> $q->field($row, 'first_name'),
-                    'last_name' 	=> $q->field($row, 'last_name'),
-                    'constituency' 	=> $q->field($row, 'constituency'),
-                    'party' 	=> $q->field($row, 'party'),
-                    'left_reason' 	=> $q->field($row, 'left_reason'),
-                    'dept'		=> $dept,
-                    'pos'		=> $pos
+                    'person_id'     => $p_id,
+                    'title'     => $q->field($row, 'title'),
+                    'first_name'    => $q->field($row, 'first_name'),
+                    'last_name'     => $q->field($row, 'last_name'),
+                    'constituency'  => $q->field($row, 'constituency'),
+                    'party'     => $q->field($row, 'party'),
+                    'left_reason'   => $q->field($row, 'left_reason'),
+                    'dept'      => $dept,
+                    'pos'       => $pos
                 );
                 if ($use_extracol) {
                     $narray['data_value'] = $q->field($row, 'data_value');
@@ -190,7 +197,7 @@ class PEOPLE {
         global $THEUSER;
         $data = $this->_get_data_by_mps($args);
         if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
-            $MEMBER = new \MySociety\TheyWorkForYou\Member(array('postcode'=>$THEUSER->postcode(), 'house' => 1));
+            $MEMBER = new Member(array('postcode'=>$THEUSER->postcode(), 'house' => 1));
             print '<option value="'.$MEMBER->person_id().'">Your MP, '.$MEMBER->full_name().'</option>';
         }
         print '<optgroup label="MPs">';
