@@ -91,7 +91,7 @@ class SectionView {
             $args['glossarise'] = 0;
         } else {
             $args['sort'] = "regexp_replace";
-            $GLOSSARY = new \GLOSSARY($args);
+            $GLOSSARY = new \MySociety\TheyWorkForYou\Glossary($args);
         }
 
         try {

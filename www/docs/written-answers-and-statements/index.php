@@ -3,7 +3,6 @@
 # Index page for written answers/statements.
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/glossary.php";
 
 $this_page = 'wranswmsfront';
 $PAGE->page_start();

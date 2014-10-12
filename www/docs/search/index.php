@@ -2,7 +2,6 @@
 # vim:sw=4:ts=4:et:nowrap
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH."easyparliament/glossary.php";
 
 // From http://cvs.sourceforge.net/viewcvs.py/publicwhip/publicwhip/website/
 
@@ -493,7 +492,7 @@ function _find_members_internal($searchstring) {
 // If it does, show links off to them.
 function find_glossary_items($args) {
     $searchterm = $args['s'];
-    $GLOSSARY = new GLOSSARY($args);
+    $GLOSSARY = new \MySociety\TheyWorkForYou\Glossary($args);
 
     if (isset($GLOSSARY->num_search_matches) && $GLOSSARY->num_search_matches >= 1) {
 

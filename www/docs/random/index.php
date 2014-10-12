@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/glossary.php";
 
 $this_page = "debate";
 $this_page = "debates";
@@ -20,7 +19,7 @@ $args = array (
     'sort' => 'regexp_replace',
 );
 
-$GLOSSARY = new GLOSSARY($args);
+$GLOSSARY = new \MySociety\TheyWorkForYou\Glossary($args);
 $LIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 $result = $LIST->display('gid', $args);
 

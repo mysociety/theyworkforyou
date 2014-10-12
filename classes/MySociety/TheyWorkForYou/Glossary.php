@@ -1,43 +1,48 @@
 <?php
+/**
+ * Glossary Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/*
+namespace MySociety\TheyWorkForYou;
 
-The Glossary item handles:
-    1. Search matching for particular items.
-    2. Addition of glossary items
-    3. Removal of glossary items
-    4. Notification of pending glossary additions
+/**
+ * The Glossary item handles:
+ * 1. Search matching for particular items.
+ * 2. Addition of glossary items
+ * 3. Removal of glossary items
+ * 4. Notification of pending glossary additions
+ *
+ * Glossary items can only (at present) be added on the Search page,
+ * and only in the event that the term has not already been defined.
+ *
+ * [?] will it be possible to amend the term?
+ *
+ * It should not be possible to add a term if no results are found during the search.
+ *
+ * All Glossary items need to be confirmed by a moderator (unless posted by a moderator).
+ * As they are being approved/declined they can be modified (spelling etc...).
+ */
 
-Glossary items can only (at present) be added on the Search page,
-and only in the event that the term has not already been defined.
+class Glossary {
 
-[?] will it be possible to amend the term?
-
-It should not be possible to add a term if no results are found during the search.
-
-All Glossary items need to be confirmed by a moderator (unless posted by a moderator).
-As they are being approved/declined they can be modified (spelling etc...).
-
-*/
-
-class GLOSSARY {
-
-    public $num_terms;			// how many glossary entries do we have
+    public $num_terms;          // how many glossary entries do we have
                             // (changes depending on how GLOSSARY is called
-    public $hansard_count;		// how many times does the phrase appear in hansard?
-    public $query;				// search term
-    public $glossary_id;		// if this is set then we only have 1 glossary term
-    public $current_term;		// will only be set if we have a valid epobject_id
+    public $hansard_count;      // how many times does the phrase appear in hansard?
+    public $query;              // search term
+    public $glossary_id;        // if this is set then we only have 1 glossary term
+    public $current_term;       // will only be set if we have a valid epobject_id
     public $current_letter;
 
     // constructor...
-    public function GLOSSARY($args=array()) {
+    public function __construct($args=array()) {
     // We can optionally start the glossary with one of several arguments
-    //		1. glossary_id - treat the glossary as a single term
-    //		2. glossary_term - search within glossary for a term
+    //      1. glossary_id - treat the glossary as a single term
+    //      2. glossary_term - search within glossary for a term
     // With no argument it will pick up all items.
 
-            $this->db = new ParlDB;
+            $this->db = new \ParlDB;
 
             $this->replace_order = array();
             if (isset($args['s']) && ($args['s'] != "")) {
@@ -163,26 +168,26 @@ class GLOSSARY {
         // For this we need to start up an epobject of type 2 and then an editqueue item
         // where editqueue.epobject_id_l = epobject.epobject_id
 
-        $EDITQUEUE = new \MySociety\TheyWorkForYou\GlossaryEditQueue();
+        $EDITQUEUE = new GlossaryEditQueue();
 
         // Assuming that everything is ok, we will need:
         // For epobject:
-        // 		title VARCHAR(255),
-        // 		body TEXT,
-        // 		type INTEGER,
-        // 		created DATETIME,
-        // 		modified DATETIME,
+        //      title VARCHAR(255),
+        //      body TEXT,
+        //      type INTEGER,
+        //      created DATETIME,
+        //      modified DATETIME,
         // and for editqueue:
-        //		edit_id INTEGER PRIMARY KEY NOT NULL,
-        //		user_id INTEGER,
-        //		edit_type INTEGER,
-        //		epobject_id_l INTEGER,
-        //		title VARCHAR(255),
-        //		body TEXT,
-        //		submitted DATETIME,
-        //		editor_id INTEGER,
-        //		approved BOOLEAN,
-        //		decided DATETIME
+        //      edit_id INTEGER PRIMARY KEY NOT NULL,
+        //      user_id INTEGER,
+        //      edit_type INTEGER,
+        //      epobject_id_l INTEGER,
+        //      title VARCHAR(255),
+        //      body TEXT,
+        //      submitted DATETIME,
+        //      editor_id INTEGER,
+        //      approved BOOLEAN,
+        //      decided DATETIME
 
         global $THEUSER;
 
@@ -208,9 +213,9 @@ class GLOSSARY {
             $flood_time_limit = 20; // How many seconds until a user can post again?
 
             $q = $this->db->query("SELECT glossary_id
-                            FROM	editqueue
-                            WHERE	user_id = '" . $THEUSER->user_id() . "'
-                            AND		submitted + 0 > NOW() - $flood_time_limit");
+                            FROM    editqueue
+                            WHERE   user_id = '" . $THEUSER->user_id() . "'
+                            AND     submitted + 0 > NOW() - $flood_time_limit");
 
             if ($q->rows() > 0) {
                 error("Sorry, we limit people to posting one term per $flood_time_limit seconds to help prevent duplicate postings. Please go back and try again, thanks.");
@@ -257,7 +262,7 @@ class GLOSSARY {
 
         $findwords = array();
         $replacewords = array();
-        $URL = new \MySociety\TheyWorkForYou\Url("glossary");
+        $URL = new Url("glossary");
         $URL->insert(array("gl" => ""));
 
         // External links shown within their own definition

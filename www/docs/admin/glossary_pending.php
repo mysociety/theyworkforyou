@@ -2,7 +2,6 @@
 // Some sketchy crap for displaying pending glossary additions
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/glossary.php");
 
 $this_page = "admin_glossary_pending";
 
@@ -11,7 +10,7 @@ $EDITQUEUE = new \MySociety\TheyWorkForYou\GlossaryEditQueue();
 $args = array (
     'sort' => "regexp_replace"
 );
-$GLOSSARY = new GLOSSARY($args);
+$GLOSSARY = new \MySociety\TheyWorkForYou\Glossary($args);
 
 // This will build a list of pending requests for everything by default.
 $EDITQUEUE->get_pending();

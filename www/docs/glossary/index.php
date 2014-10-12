@@ -7,7 +7,6 @@ else {
 }
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH."easyparliament/glossary.php";
 
 $args = array(
     'sort'				=> "regexp_replace",
@@ -25,7 +24,7 @@ if (get_http_var('gl')) {
 // Stop the title generator making nasty glossary titles.
 //$DATA->set_page_metadata ('help_us_out', 'title', '');
 
-$GLOSSARY = new GLOSSARY($args);
+$GLOSSARY = new \MySociety\TheyWorkForYou\Glossary($args);
 
 $term = $GLOSSARY->current_term;
 

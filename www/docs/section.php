@@ -2,7 +2,6 @@
 # For displaying any debate calendar, day, debate, speech page or related.
 
 include_once '../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/glossary.php";
 
 # Redirect shortcut.
 # We no longer want to use the gid parameter, it's all id.

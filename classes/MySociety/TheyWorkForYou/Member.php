@@ -11,8 +11,6 @@ namespace MySociety\TheyWorkForYou;
  * Member
  */
 
-include_once INCLUDESPATH."easyparliament/glossary.php";
-
 class Member {
 
     public $member_id;
@@ -502,7 +500,7 @@ class Member {
             $args = array (
                 "sort" => "regexp_replace"
             );
-            $GLOSSARY = new \GLOSSARY($args);
+            $GLOSSARY = new Glossary($args);
             $this->extra_info['register_member_interests_html'] =
         $GLOSSARY->glossarise($this->extra_info['register_member_interests_html']);
         }

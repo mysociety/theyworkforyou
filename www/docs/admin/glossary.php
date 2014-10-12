@@ -2,7 +2,6 @@
 // Some sketchy crap for displaying pending glossary additions
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/glossary.php");
 
 $this_page = "admin_glossary";
 
@@ -12,7 +11,7 @@ $args = array (
     'sort' => "regexp_replace"
 );
 
-$GLOSSARY = new GLOSSARY($args);
+$GLOSSARY = new \MySociety\TheyWorkForYou\Glossary($args);
 
 // If we're coming back here from a recent action we will have
 // an http POST var of 'approve' or 'decline'.
