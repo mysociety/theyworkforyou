@@ -1,54 +1,61 @@
 <?php
+/**
+ * EditQueue Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/*
+namespace MySociety\TheyWorkForYou;
 
-[From the WIKI]
-The EDITQUEUE is a holding point for submitted content additions or modifications before they are made on the core data. It's quite a wide table, so as to hold as many different types of addition/modification as possible.
+/**
+ * Edit Queue
+ *
+ * The EDITQUEUE is a holding point for submitted content additions or
+ * modifications before they are made on the core data. It's quite a wide table,
+ * so as to hold as many different types of addition/modification as possible.
+ *
+ * These hold details of actions waiting to be approved, such as:
+ *
+ * * creation or modification of glossary entries
+ * * creation or modification of attributes
+ * * associations
+ * * anything else?
+ *
+ * Specifying which of the above is happening is down to the edit_type field.
+ *
+ * * `edit_id` is the unique id of the EditQueue record
+ * * `user_id` is the id of the user who submitted the edit
+ * * `edit_type` is the kind of edit being made
+ * * `epobject_id_l` and `epobject_id_h` hold both `eopbject_ids` in the case
+ *    of a new association, with `epobject_id_l` holding the single
+ *    `epobject_id`if the edit only applies to one object. If there's a
+ *    completely new object being submitted, this is left blank until the
+ *    content is approved and then filled in with the new object id.
+ * * time_start and time_end are for associations
+ * * title and body are for new or changed content for a glossary entry
+ * * submitted is the datetime that the content was initially submitted by the user
+ * * editor_id is the id of the editor who made the decision on it
+ * * approved says yay or nay to the edit
+ * * decided is the datetime when the decision was made
+ *
+ * While we're here... whenever a term is added to the glossary, it appears in
+ * the editqueue first. Here it sits until a moderator has approved it, then it
+ * goes on its merry way to whichever db it be bound.
+ *
+ * @todo What happens when two things with the same name are in the editqueue?
+ */
 
-These hold details of actions waiting to be approved, such as:
-
-    * creation or modification of glossary entries
-    * creation or modification of attributes
-    * associations
-    * anything else?
-
-Specifying which of the above is happening is down to the edit_type field.
-
-    * edit_id is the unique id of the EDITQUEUE record
-    * user_id is the id of the user who submitted the edit
-    * edit_type is the kind of edit being made
-    * epobject_id_l and epobject_id_h hold both eopbject_ids in the case of a new association, with epobject_id_l holding the single epobject_id if the edit only applies to one object. If there's a completely new object being submitted, this is left blank until the content is approved and then filled in with the new object id.
-    * time_start and time_end are for associations
-    * title and body are for new or changed content for a glossary entry
-    * submitted is the datetime that the content was initially submitted by the user
-    * editor_id is the id of the editor who made the decision on it
-    * approved says yay or nay to the edit
-    * decided is the datetime when the decision was made
-
-    While we're here...
-    Whenever a term is added to the glossary, it appears in the editqueue first.
-    Here it sits until a moderator has approved it, then it goes on it's merry way
-    to whichever db it be bound.
-
-    Functions:
-
-    add()			- pop one on the queue (should then alert moderators somehow)
-    approve()		- say "yes!" and forward onwards
-    decline()		- an outright "no!", in the bin you go
-    refer()			- pass back to the user with suggested alterations
-    get_pending()	- fetch a list of all TODOs
-    etc...
-*/
-
-// [TODO] what happens when two things with the same name are in the editqueue?
-
-class EDITQUEUE {
+class EditQueue {
 
     public $pending_count = '';
 
-    public function EDITQUEUE() {
-        $this->db = new ParlDB;
+    public function __construct() {
+        $this->db = new \ParlDB;
     }
+
+    /**
+     * Pop one on the queue (should then alert moderators somehow).
+     */
 
     public function add($data) {
         // This does the bare minimum.
@@ -62,12 +69,12 @@ class EDITQUEUE {
         */
 
         // For editqueue in this instance we need:
-        //		user_id INTEGER,
-        //		edit_type INTEGER,
-        //		(epobject_id_l),
-        //		title VARCHAR(255),
-        //		body TEXT,
-        //		submitted DATETIME,
+        //      user_id INTEGER,
+        //      edit_type INTEGER,
+        //      (epobject_id_l),
+        //      title VARCHAR(255),
+        //      body TEXT,
+        //      submitted DATETIME,
 
         global $THEUSER;
 
@@ -84,10 +91,10 @@ class EDITQUEUE {
 
         if ($q->success()) {
             // Set the object variables up.
-            $this->editqueue_id 	= $q->insert_id();
-            $this->title			= $data['title'];
-            $this->body				= $data['body'];
-            $this->posted			= $data['posted'];
+            $this->editqueue_id     = $q->insert_id();
+            $this->title            = $data['title'];
+            $this->body             = $data['body'];
+            $this->posted           = $data['posted'];
 
             return $this->editqueue_id;
 
@@ -96,9 +103,13 @@ class EDITQUEUE {
         }
     }
 
+    /**
+     * Approve items for inclusion
+     *
+     * Create new epobject and update the editqueue
+     */
+
     public function approve($data) {
-    // Approve items for inclusion
-    // Create new epobject and update the editqueue
 
         global $THEUSER;
 
@@ -111,11 +122,11 @@ class EDITQUEUE {
 
         foreach ($data['approvals'] as $approval_id) {
             // create a new epobject
-            // 		title VARCHAR(255),
-            // 		body TEXT,
-            // 		type INTEGER,
-            // 		created DATETIME,
-            // 		modified DATETIME,
+            //      title VARCHAR(255),
+            //      body TEXT,
+            //      type INTEGER,
+            //      created DATETIME,
+            //      modified DATETIME,
             /*print "<pre>";
             print_r($data);
             print "</pre>";*/
@@ -189,8 +200,11 @@ class EDITQUEUE {
         return true;
     }
 
+    /**
+     * Decline a list of term submissions from users
+     */
+
     public function decline($data) {
-    // Decline a list of term submissions from users
 
         global $THEUSER;
 
@@ -249,7 +263,7 @@ class EDITQUEUE {
         $q = $this->db->query("SELECT eq.edit_id, eq.user_id, u.firstname, u.lastname, eq.glossary_id, eq.title, eq.body, eq.submitted FROM editqueue AS eq, users AS u WHERE eq.user_id = u.user_id AND eq.approved IS NULL ORDER BY eq.submitted DESC;");
         if ($q->success() && $q->rows()) {
             for ($i = 0; $i < ($q->rows()); $i++) {
-                $this->pending[	$q->field($i,"edit_id") ] = $q->row($i);
+                $this->pending[ $q->field($i,"edit_id") ] = $q->row($i);
             }
 
             $this->update_pending_count();
@@ -266,22 +280,22 @@ class EDITQUEUE {
     // Add links later for "approve, decline, refer"
     // Just get the fucker working for now
 
-            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
+            $URL = new Url('admin_glossary_pending');
             $URL->reset();
             $form_link = $URL->generate('url');
 
         ?><form action="<?php echo $form_link ?>" method="post"><?php
         foreach ($this->pending as $editqueue_id => $pender) {
 
-            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
+            $URL = new Url('admin_glossary_pending');
             $URL->insert(array('approve' => $editqueue_id));
             $approve_link = $URL->generate('url');
 
-            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
+            $URL = new Url('admin_glossary_pending');
             $URL->insert(array('modify' => $editqueue_id));
             $modify_link = $URL->generate('url');
 
-            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
+            $URL = new Url('admin_glossary_pending');
             $URL->insert(array('decline' => $editqueue_id));
             $decline_link = $URL->generate('url');
 
@@ -301,11 +315,13 @@ class EDITQUEUE {
         </form><?php
     }
 
-///////////////////
-// PRIVATE FUNCTIONS
+    /**
+     * Update Pending Count
+     *
+     * Just makes sure we're showing the right number of pending items.
+     */
 
-    public function update_pending_count() {
-    // Just makes sure we're showing the right number of pending items
+    private function update_pending_count() {
         $this->pending_count = count($this->pending);
     }
 

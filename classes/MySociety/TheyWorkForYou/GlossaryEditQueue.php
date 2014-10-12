@@ -11,7 +11,7 @@ namespace MySociety\TheyWorkForYou;
  * Glossary Edit Queue
  */
 
-class GlossaryEditQueue extends \EDITQUEUE {
+class GlossaryEditQueue extends EditQueue {
 
     public function approve($data) {
     // Approve items for inclusion

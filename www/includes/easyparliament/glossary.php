@@ -20,9 +20,6 @@ As they are being approved/declined they can be modified (spelling etc...).
 
 */
 
-// This handles basic insertion and approval functions for all epobjects
-include_once INCLUDESPATH."easyparliament/editqueue.php";
-
 class GLOSSARY {
 
     public $num_terms;			// how many glossary entries do we have
