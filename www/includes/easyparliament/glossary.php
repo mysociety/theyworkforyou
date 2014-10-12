@@ -166,7 +166,7 @@ class GLOSSARY {
         // For this we need to start up an epobject of type 2 and then an editqueue item
         // where editqueue.epobject_id_l = epobject.epobject_id
 
-        $EDITQUEUE = new GLOSSEDITQUEUE();
+        $EDITQUEUE = new \MySociety\TheyWorkForYou\GlossaryEditQueue();
 
         // Assuming that everything is ok, we will need:
         // For epobject:

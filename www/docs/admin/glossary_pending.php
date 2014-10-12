@@ -7,7 +7,7 @@ include_once (INCLUDESPATH."easyparliament/glossary.php");
 
 $this_page = "admin_glossary_pending";
 
-$EDITQUEUE = new GLOSSEDITQUEUE();
+$EDITQUEUE = new \MySociety\TheyWorkForYou\GlossaryEditQueue();
 
 $args = array (
     'sort' => "regexp_replace"
