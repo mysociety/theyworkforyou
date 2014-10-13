@@ -3,7 +3,6 @@
     colors="true"
     bootstrap="tests/Bootstrap.php"
     backupGlobals="false"
-    convertErrorsToExceptions="false"
 >
     <testsuite name="TheyWorkForYou Test Suite">
         <directory>tests</directory>
