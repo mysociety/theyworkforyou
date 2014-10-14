@@ -95,8 +95,10 @@ $THEUSER = new \MySociety\TheyWorkForYou\TheUser;
 // Test to see if this is a new-style template using the renderer class.
 if (! isset($new_style_template) OR $new_style_template !== TRUE) {
 
-    // This is an old-style page. Use the old page classes.
-    include_once (INCLUDESPATH."easyparliament/page.php");
+    // This is an old-style page. Old style page class is autoloaded.
+    // We load Gaze manually, as it is used by the Page class.
+    include_once INCLUDESPATH . '../../commonlib/phplib/gaze.php';
+    $PAGE = new \MySociety\TheyWorkForYou\Page;
 
 }
 
