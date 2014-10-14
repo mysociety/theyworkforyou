@@ -52,11 +52,38 @@ class HansardTest extends PHPUnit_Extensions_Database_TestCase
         // Ensure we have four rows
         $this->assertEquals(4, count($response['rows']));
 
-        // Make sure all four rows are the expected ones
+        // Make sure all four rows are the expected ones, in the expected order
         $this->assertEquals(7, $response['rows'][0]['gid']);
         $this->assertEquals(6, $response['rows'][1]['gid']);
-        $this->assertEquals(4, $response['rows'][2]['gid']);
+        $this->assertEquals(5, $response['rows'][2]['gid']);
         $this->assertEquals(3, $response['rows'][3]['gid']);
+    }
+
+    /**
+     * Test that getting data by date works
+     */
+    public function testGetDataByDate()
+    {
+        $HANSARD = new HANSARDLIST();
+
+        $HANSARD->major = 1;
+        $HANSARD->listpage = 'test';
+
+        $args = array(
+            'date' => '2014-01-01'
+        );
+
+        $response = $HANSARD->_get_data_by_date($args);
+
+        // Ensure we have five rows
+        $this->assertEquals(5, count($response['rows']));
+
+        // Make sure all five rows are the expected ones, in the expected order
+        $this->assertEquals(3, $response['rows'][0]['gid']);
+        $this->assertEquals(5, $response['rows'][1]['gid']);
+        $this->assertEquals(4, $response['rows'][2]['gid']);
+        $this->assertEquals(6, $response['rows'][3]['gid']);
+        $this->assertEquals(7, $response['rows'][4]['gid']);
     }
 
 }
