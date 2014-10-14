@@ -1619,7 +1619,7 @@ class HANSARDLIST {
         return $result;
     }
 
-    public function _get_hansard_data($input) {
+    protected function _get_hansard_data($input) {
         global $hansardmajors;
         // Generic function for getting hansard data from the DB.
         // It returns an empty array if no data was found.
@@ -1708,8 +1708,8 @@ class HANSARDLIST {
 
 
         if ($order != '') {
-            $params[':orderby'] = $order;
-            $order_by_clause = "ORDER BY :orderby";
+            # You can't use parameters for order by clauses
+            $order_by_clause = "ORDER BY $order";
         } else {
             $order_by_clause = '';
         }
