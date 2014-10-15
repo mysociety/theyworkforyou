@@ -40,6 +40,53 @@ class SearchTest extends PHPUnit_Extensions_Database_TestCase
     }
 
     /**
+     * Test looking up a person by a single name works as expected.
+     */
+
+    public function testSearchMemberDbLookupSingleName()
+    {
+        // Test a single (first) name.
+        $results = search_member_db_lookup('Joseph');
+
+        $this->assertEquals(1, $results->rows());
+        $this->assertEquals(1, $results->field(0, 'person_id'));
+
+        // Test a single (last) name.
+        $results = search_member_db_lookup('Bloggs');
+
+        $this->assertEquals(1, $results->rows());
+        $this->assertEquals(1, $results->field(0, 'person_id'));
+
+    }
+
+    /**
+     * Test looking up a person by full name works as expected.
+     */
+
+    public function testSearchMemberDbLookupFullName()
+    {
+
+        // Test a full name.
+        $results = search_member_db_lookup('Mary Smith');
+
+        $this->assertEquals(1, $results->rows());
+        $this->assertEquals(2, $results->field(0, 'person_id'));
+
+        // Test an inverse full name.
+        $results = search_member_db_lookup('Smith Mary');
+
+        $this->assertEquals(1, $results->rows());
+        $this->assertEquals(2, $results->field(0, 'person_id'));
+
+        // Test a name with title.
+        $results = search_member_db_lookup('Mrs Smith');
+
+        $this->assertEquals(1, $results->rows());
+        $this->assertEquals(2, $results->field(0, 'person_id'));
+
+    }
+
+    /**
      * Test that glossarising a single word works as expected.
      *
      * @group xapian

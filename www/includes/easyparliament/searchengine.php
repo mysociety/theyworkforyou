@@ -728,7 +728,7 @@ function search_member_db_lookup($searchstring, $current_only=false) {
         // And here we're assuming the user's put the names in the right order.
         $params[':like_0'] = '%' . $searchwords[0] . '%';
         $params[':like_1'] = '%' . $searchwords[1] . '%';
-        $where = "(first_name LIKE :like_0 AND last_name LIKE :like_1";
+        $where = "(first_name LIKE :like_0 AND last_name LIKE :like_1)";
         $where .= " OR (first_name LIKE :like_1 AND last_name LIKE :like_0)";
         $where .= " OR (title LIKE :like_0 AND last_name LIKE :like_1)";
         if (strtolower($searchwords[0]) == 'nick') {
