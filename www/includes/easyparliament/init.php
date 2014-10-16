@@ -78,7 +78,9 @@ if (!isset($_SERVER['WINDIR'])) {
 }
 
 include_once (INCLUDESPATH."dbtypes.php");
-include_once (INCLUDESPATH."data.php");
+
+$DATA = new \MySociety\TheyWorkForYou\Data;
+
 include_once (INCLUDESPATH."mysql.php");
 
 Class ParlDB extends MySQL {
