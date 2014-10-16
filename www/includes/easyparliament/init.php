@@ -86,7 +86,7 @@ global $mysqltotalduration;
 $mysqltotalduration = 0.0;
 $global_connection = null;
 
-include_once (INCLUDESPATH."lib_filter.php");
+$filter = new lib_filter();
 
 // Instantiate a new global $THEUSER object when every page loads.
 $THEUSER = new \MySociety\TheyWorkForYou\TheUser;
