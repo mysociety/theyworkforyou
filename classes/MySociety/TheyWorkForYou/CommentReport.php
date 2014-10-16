@@ -1,38 +1,45 @@
 <?php
+/**
+ * CommentReport Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/*	Comment reports are when a user complains about a comment.
-    A report is logged and an admin user can then either approve or reject
-    the report. If they approve, the associated comment is deleted.
+namespace MySociety\TheyWorkForYou;
 
+/**
+ * Comment reports are when a user complains about a comment.
+ *
+ * A report is logged and an admin user can then either approve or reject
+ * the report. If they approve, the associated comment is deleted.
+ *
+ * To create a new comment report:
+ *     $REPORT = new \MySociety\TheyWorkForYou\CommentReport;
+ *     $REPORT->create($data);
+ *
+ * To view info about an existing report:
+ *     $REPORT = new \MySociety\TheyWorkForYou\CommentReport($report_id);
+ *     $REPORT->display();
+ *
+ *  You can also do $REPORT->lock() and $REPORT->unlock() to ensure only
+ *  one person can process a report at a time.
+ *
+ *  And finally you can $REPORT->resolve() to approve or reject the report.
+ */
 
-    To create a new comment report:
-        $REPORT = new COMMENTREPORT;
-        $REPORT->create($data);
-
-    To view info about an existing report:
-        $REPORT = new COMMENTREPORT($report_id);
-        $REPORT->display();
-
-    You can also do $REPORT->lock() and $REPORT->unlock() to ensure only
-    one person can process a report at a time.
-
-    And finally you can $REPORT->resolve() to approve or reject the report.
-
-*/
-
-class COMMENTREPORT {
+class CommentReport {
 
     public $report_id = '';
     public $comment_id = '';
     public $firstname = '';
     public $lastname = '';
     public $body = '';
-    public $reported = NULL;	// datetime
-    public $resolved = NULL; 	// datetime
-    public $resolvedby = ''; 	// user_id
-    public $locked = NULL; 	// datetime
-    public $lockedby = '';		// user_id
-    public $upheld = ''; 		// boolean
+    public $reported = NULL;    // datetime
+    public $resolved = NULL;    // datetime
+    public $resolvedby = '';    // user_id
+    public $locked = NULL;  // datetime
+    public $lockedby = '';      // user_id
+    public $upheld = '';        // boolean
 
     // If the user was logged in, this will be set:
     public $user_id = '';
@@ -40,10 +47,10 @@ class COMMENTREPORT {
     public $email = '';
 
 
-    public function COMMENTREPORT($report_id='') {
+    public function __construct($report_id='') {
         // Pass it a report id and it gets and sets this report's data.
 
-        $this->db = new ParlDB;
+        $this->db = new \ParlDB;
 
         if (is_numeric($report_id)) {
 
@@ -61,24 +68,24 @@ class COMMENTREPORT {
                                     commentreports.email,
                                     users.firstname AS u_firstname,
                                     users.lastname AS u_lastname
-                            FROM	commentreports,
+                            FROM    commentreports,
                                     users
-                            WHERE	commentreports.report_id = :report_id
-                            AND		commentreports.user_id = users.user_id
+                            WHERE   commentreports.report_id = :report_id
+                            AND     commentreports.user_id = users.user_id
                             ", array(
                                 ':report_id' => $report_id
                             ));
 
             if ($q->rows() > 0) {
-                $this->report_id		= $report_id;
-                $this->comment_id 		= $q->field(0, 'comment_id');
-                $this->body 			= $q->field(0, 'body');
-                $this->reported 		= $q->field(0, 'reported');
-                $this->resolved 		= $q->field(0, 'resolved');
-                $this->resolvedby 		= $q->field(0, 'resolvedby');
-                $this->locked 			= $q->field(0, 'locked');
-                $this->lockedby			= $q->field(0, 'lockedby');
-                $this->upheld 			= $q->field(0, 'upheld');
+                $this->report_id        = $report_id;
+                $this->comment_id       = $q->field(0, 'comment_id');
+                $this->body             = $q->field(0, 'body');
+                $this->reported         = $q->field(0, 'reported');
+                $this->resolved         = $q->field(0, 'resolved');
+                $this->resolvedby       = $q->field(0, 'resolvedby');
+                $this->locked           = $q->field(0, 'locked');
+                $this->lockedby         = $q->field(0, 'lockedby');
+                $this->upheld           = $q->field(0, 'upheld');
 
                 if ($q->field(0, 'user_id') == 0) {
                     // The report was made by a non-logged-in user.
@@ -104,21 +111,21 @@ class COMMENTREPORT {
                                     commentreports.firstname,
                                     commentreports.lastname,
                                     commentreports.email
-                            FROM	commentreports
-                            WHERE	commentreports.report_id = :report_id", array(
+                            FROM    commentreports
+                            WHERE   commentreports.report_id = :report_id", array(
                                 ':report_id' => $report_id
                             ));
 
                 if ($q->rows() > 0) {
-                $this->report_id		= $report_id;
-                $this->comment_id 		= $q->field(0, 'comment_id');
-                $this->body 			= $q->field(0, 'body');
-                $this->reported 		= $q->field(0, 'reported');
-                $this->resolved 		= $q->field(0, 'resolved');
-                $this->resolvedby 		= $q->field(0, 'resolvedby');
-                $this->locked 			= $q->field(0, 'locked');
-                $this->lockedby			= $q->field(0, 'lockedby');
-                $this->upheld 			= $q->field(0, 'upheld');
+                $this->report_id        = $report_id;
+                $this->comment_id       = $q->field(0, 'comment_id');
+                $this->body             = $q->field(0, 'body');
+                $this->reported         = $q->field(0, 'reported');
+                $this->resolved         = $q->field(0, 'resolved');
+                $this->resolvedby       = $q->field(0, 'resolvedby');
+                $this->locked           = $q->field(0, 'locked');
+                $this->lockedby         = $q->field(0, 'lockedby');
+                $this->upheld           = $q->field(0, 'upheld');
                 $this->firstname = $q->field(0, 'firstname');
                 $this->lastname = $q->field(0, 'lastname');
                 $this->email = $q->field(0, 'email');
@@ -146,12 +153,12 @@ class COMMENTREPORT {
     public function create($COMMENT, $reportdata) {
         // For when a user posts a report on a comment.
         // $reportdata is an array like:
-        //	array (
-        //		'body' => 'some text',
-        //		'firstname'	=> 'Billy',
-        //		'lastname'	=> 'Nomates',
-        //		'email'		=> 'billy@nomates.com'
-        //	)
+        //  array (
+        //      'body' => 'some text',
+        //      'firstname' => 'Billy',
+        //      'lastname'  => 'Nomates',
+        //      'email'     => 'billy@nomates.com'
+        //  )
         // But if the report was made by a logged-in user, only the
         // 'body' element should really contain anything, because
         // we use $THEUSER's id to get the rest.
@@ -174,9 +181,9 @@ class COMMENTREPORT {
             $flood_time_limit = 20; // How many seconds until a user can post again?
 
             $q = $this->db->query("SELECT report_id
-                            FROM	commentreports
-                            WHERE	user_id = '" . $THEUSER->user_id() . "'
-                            AND		reported + 0 > NOW() - $flood_time_limit");
+                            FROM    commentreports
+                            WHERE   user_id = '" . $THEUSER->user_id() . "'
+                            AND     reported + 0 > NOW() - $flood_time_limit");
 
             if ($q->rows() > 0) {
                 $PAGE->error_message("Sorry, we limit people to posting one report per $flood_time_limit seconds to help prevent duplicate reports. Please go back and try again, thanks.");
@@ -193,7 +200,7 @@ class COMMENTREPORT {
         if ($THEUSER->isloggedin()) {
             $sql = "INSERT INTO commentreports
                                     (comment_id, body, reported, user_id)
-                            VALUES	(:comment_id,
+                            VALUES  (:comment_id,
                                     :body,
                                     :time,
                                     :user_id
@@ -208,7 +215,7 @@ class COMMENTREPORT {
         } else {
             $sql = "INSERT INTO commentreports
                                     (comment_id, body, reported, firstname, lastname, email)
-                            VALUES	(:comment_id,
+                            VALUES  (:comment_id,
                                     :body,
                                     :time,
                                     :firstname,
@@ -230,19 +237,19 @@ class COMMENTREPORT {
 
         if ($q->success()) {
             // Inserted OK, so set up this object's variables.
-            $this->report_id 	= $q->insert_id();
-            $this->comment_id 	= $COMMENT->comment_id();
-            $this->body			= $body;
-            $this->reported		= $time;
+            $this->report_id    = $q->insert_id();
+            $this->comment_id   = $COMMENT->comment_id();
+            $this->body         = $body;
+            $this->reported     = $time;
 
             if ($THEUSER->isloggedin()) {
-                $this->user_id		= $THEUSER->user_id();
-                $this->firstname	= $THEUSER->firstname();
-                $this->lastname		= $THEUSER->lastname();
+                $this->user_id      = $THEUSER->user_id();
+                $this->firstname    = $THEUSER->firstname();
+                $this->lastname     = $THEUSER->lastname();
             } else {
-                $this->email		= $reportdata['email'];
-                $this->firstname 	= $reportdata['firstname'];
-                $this->lastname		= $reportdata['lastname'];
+                $this->email        = $reportdata['email'];
+                $this->firstname    = $reportdata['firstname'];
+                $this->lastname     = $reportdata['lastname'];
             }
 
 
@@ -252,7 +259,7 @@ class COMMENTREPORT {
 
             // Notify those who need to know that there's a new report.
 
-            $URL = new \MySociety\TheyWorkForYou\Url('admin_commentreport');
+            $URL = new Url('admin_commentreport');
             $URL->insert(array(
                 'rid'=>$this->report_id,
                 'cid'=>$this->comment_id
@@ -275,14 +282,14 @@ class COMMENTREPORT {
             }
 
             $data = array (
-                'to' 			=> $email,
-                'template' 		=> 'report_acknowledge'
+                'to'            => $email,
+                'template'      => 'report_acknowledge'
             );
             $merge = array (
-                'FIRSTNAME' 	=> $this->firstname(),
-                'LASTNAME' 		=> $this->lastname(),
-                'COMMENTURL' 	=> "http://" . DOMAIN . $COMMENT->url(),
-                'REPORTBODY' 	=> strip_tags($this->body())
+                'FIRSTNAME'     => $this->firstname(),
+                'LASTNAME'      => $this->lastname(),
+                'COMMENTURL'    => "http://" . DOMAIN . $COMMENT->url(),
+                'REPORTBODY'    => strip_tags($this->body())
             );
 
 
@@ -303,17 +310,17 @@ class COMMENTREPORT {
 
         if (is_numeric($this->report_id)) {
             $data = array (
-                'report_id' 	=> $this->report_id(),
-                'comment_id' 	=> $this->comment_id(),
-                'user_id' 		=> $this->user_id(),
-                'user_name' 	=> $this->user_name(),
-                'body' 			=> $this->body(),
-                'reported' 		=> $this->reported(),
-                'resolved' 		=> $this->resolved(),
-                'resolvedby' 	=> $this->resolvedby(),
-                'locked' 		=> $this->locked(),
-                'lockedby'		=> $this->lockedby(),
-                'upheld'	 	=> $this->upheld()
+                'report_id'     => $this->report_id(),
+                'comment_id'    => $this->comment_id(),
+                'user_id'       => $this->user_id(),
+                'user_name'     => $this->user_name(),
+                'body'          => $this->body(),
+                'reported'      => $this->reported(),
+                'resolved'      => $this->resolved(),
+                'resolvedby'    => $this->resolvedby(),
+                'locked'        => $this->locked(),
+                'lockedby'      => $this->lockedby(),
+                'upheld'        => $this->upheld()
             );
         }
 
@@ -340,9 +347,9 @@ class COMMENTREPORT {
             $time = gmdate("Y-m-d H:i:s");
 
             $q = $this->db->query ("UPDATE commentreports
-                            SET		locked = '$time',
+                            SET     locked = '$time',
                                     lockedby = '" . $THEUSER->user_id() . "'
-                            WHERE	report_id = '" . $this->report_id . "'
+                            WHERE   report_id = '" . $this->report_id . "'
                             ");
 
             if ($q->success()) {
@@ -364,9 +371,9 @@ class COMMENTREPORT {
         // Unlock a comment so it can be examined by someone else.
 
         $q = $this->db->query ("UPDATE commentreports
-                        SET		locked = NULL,
+                        SET     locked = NULL,
                                 lockedby = NULL
-                        WHERE	report_id = '" . $this->report_id . "'
+                        WHERE   report_id = '" . $this->report_id . "'
                         ");
 
         if ($q->success()) {
@@ -414,12 +421,12 @@ class COMMENTREPORT {
                 }
 
                 $q = $this->db->query("UPDATE commentreports
-                                SET 	resolved = :time,
+                                SET     resolved = :time,
                                         resolvedby = :resolved_by,
                                         locked = NULL,
                                         lockedby = NULL,
                                         upheld = :upheld
-                                WHERE 	report_id = :report_id
+                                WHERE   report_id = :report_id
                                 ", array(
                                     ':time' => $time,
                                     ':resolved_by' => $THEUSER->user_id(),
@@ -450,7 +457,5 @@ class COMMENTREPORT {
             return false;
         }
     }
-
-
 
 }

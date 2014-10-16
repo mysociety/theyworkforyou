@@ -5,7 +5,6 @@
 $this_page = "commentreport";
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/commentreport.php");
 
 $PAGE->page_start();
 
@@ -54,7 +53,7 @@ if (is_numeric(get_http_var('id'))) {
 
             // Report this comment.
 
-            $REPORT = new COMMENTREPORT;
+            $REPORT = new \MySociety\TheyWorkForYou\CommentReport;
 
             $reportdata = array (
                 'body'		=> get_http_var('body'),

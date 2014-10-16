@@ -6,7 +6,6 @@
 // where rid is a report_id and cid is a comment_id.
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/commentreport.php");
 
 $this_page = "admin_commentreport";
 
@@ -35,7 +34,7 @@ if ($COMMENT->exists() == false) {
     trigger_error("This is an invalid comment ID", E_USER_ERROR);
 }
 
-$REPORT = new COMMENTREPORT($report_id);
+$REPORT = new \MySociety\TheyWorkForYou\CommentReport($report_id);
 
 $FORMURL = new \MySociety\TheyWorkForYou\Url($this_page);
 
