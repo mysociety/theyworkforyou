@@ -1,19 +1,28 @@
 <?php
+/**
+ * CommentReportList Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/* 	Just for displaying lists of comment reports.
-    Do
-        $LIST = new COMMENTREPORTLIST;
-        $LIST->display();
+namespace MySociety\TheyWorkForYou;
 
-    The display stuff could all be extended more like COMMENTLIST if we need
-    anything more advanced (templates, different formats, different types of
-    data fetched, etc.).
-*/
+/**
+ * For displaying lists of comment reports.
+ *
+ * Do
+ *     $LIST = new \MySociety\TheyWorkForYou\CommentReportList;
+ *     $LIST->display();
+ *
+ * The display stuff could all be extended more like COMMENTLIST if we need
+ * anything more advanced (templates, different formats, different types of
+ * data fetched, etc.).
+ */
 
-class COMMENTREPORTLIST {
+class CommentReportList {
 
-    public function COMMENTREPORTLIST() {
-        $this->db = new ParlDB;
+    public function __construct() {
+        $this->db = new \ParlDB;
     }
 
 
@@ -49,9 +58,9 @@ class COMMENTREPORTLIST {
         $time = gmdate("Y-m-d H:i:s", (time() - ($minutes * 60)));
 
         $q = $this->db->query("UPDATE commentreports
-                        SET 	locked = NULL,
+                        SET     locked = NULL,
                                 lockedby = 0
-                        WHERE	locked < '$time'
+                        WHERE   locked < '$time'
                         ");
 
     }
@@ -71,14 +80,14 @@ class COMMENTREPORTLIST {
                                 commentreports.locked,
                                 users.firstname,
                                 users.lastname
-                        FROM	comments,
+                        FROM    comments,
                                 users,
                                 commentreports
-                        WHERE	commentreports.resolved IS NULL
-                        AND		commentreports.comment_id = comments.comment_id
-                        AND		commentreports.user_id = users.user_id
+                        WHERE   commentreports.resolved IS NULL
+                        AND     commentreports.comment_id = comments.comment_id
+                        AND     commentreports.user_id = users.user_id
                         ORDER BY commentreports.reported ASC
-                        LIMIT	$number_to_fetch
+                        LIMIT   $number_to_fetch
                         ");
 
         $r = $this->db->query("SELECT comments.comment_id,
@@ -102,13 +111,13 @@ class COMMENTREPORTLIST {
             for ($n=0; $n<$q->rows(); $n++) {
 
                 $data[] = array (
-                    'report_id'		=> $q->field($n,'report_id'),
-                    'comment_id' 	=> $q->field($n,'comment_id'),
-                    'firstname'		=> $q->field($n, 'firstname'),
-                    'lastname'		=> $q->field($n, 'lastname'),
-                    'body'			=> $q->field($n, 'body'),
-                    'reported'		=> $q->field($n, 'reported'),
-                    'locked'		=> $q->field($n, 'locked')
+                    'report_id'     => $q->field($n,'report_id'),
+                    'comment_id'    => $q->field($n,'comment_id'),
+                    'firstname'     => $q->field($n, 'firstname'),
+                    'lastname'      => $q->field($n, 'lastname'),
+                    'body'          => $q->field($n, 'body'),
+                    'reported'      => $q->field($n, 'reported'),
+                    'locked'        => $q->field($n, 'locked')
                 );
             }
 
@@ -116,20 +125,18 @@ class COMMENTREPORTLIST {
         if ($r->rows() > 0) {
             for ($n=0; $n<$r->rows(); $n++) {
                 $data[] = array (
-                    'report_id'		=> $r->field($n,'report_id'),
-                    'comment_id' 	=> $r->field($n,'comment_id'),
-                    'firstname'		=> $r->field($n, 'firstname'),
-                    'lastname'		=> $r->field($n, 'lastname'),
-                    'body'			=> $r->field($n, 'body'),
-                    'reported'		=> $r->field($n, 'reported'),
-                    'locked'		=> $r->field($n, 'locked')
+                    'report_id'     => $r->field($n,'report_id'),
+                    'comment_id'    => $r->field($n,'comment_id'),
+                    'firstname'     => $r->field($n, 'firstname'),
+                    'lastname'      => $r->field($n, 'lastname'),
+                    'body'          => $r->field($n, 'body'),
+                    'reported'      => $r->field($n, 'reported'),
+                    'locked'        => $r->field($n, 'locked')
                 );
             }
         }
 
         return $data;
     }
-
-
 
 }
