@@ -43,10 +43,9 @@ switch ($action) {
                     $start_year = '2009';
                 }
                 $int_start_year = intval($start_year) - 2000;
-        include_once INCLUDESPATH . 'easyparliament/expenses.php';
         $title = "Allowances: " . $member->full_name();
                 $body = "<h1>" . $member->full_name() . ": <span>Expenses</span></h1>";
-                $table = expenses_display_table($member->extra_info, $gadget=true, $int_start_year);
+                $table = \MySociety\TheyWorkForYou\Utility\Expenses::displaytable($member->extra_info, $gadget=true, $int_start_year);
                 if (strlen($table) == 0) {
                     output_error('No data');
                 }
@@ -100,8 +99,7 @@ speeches from ', $member->full_name(), '</a></p>';
         echo 'To do';
         break;
     case 'expenses-component':
-        include_once INCLUDESPATH . 'easyparliament/expenses.php';
-                $body = expenses_mostrecent($member->extra_info, $gadget=true);
+                $body = \MySociety\TheyWorkForYou\Utility\Expenses::mostRecent($member->extra_info, $gadget=true);
                 if (strlen($body) == 0) {
                     output_error('No data');
                 }
