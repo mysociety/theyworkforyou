@@ -15,7 +15,7 @@ namespace MySociety\TheyWorkForYou;
  * @todo At some point all database connectivity should be handled through DI.
  */
 
-class ParlDb extends \MySQL {
+class ParlDb extends MySql {
 
     public function __construct() {
         $this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);

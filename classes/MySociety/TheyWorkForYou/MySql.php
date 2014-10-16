@@ -1,39 +1,34 @@
 <?php
+/**
+ * MySql Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/* MYSQL class
+namespace MySociety\TheyWorkForYou;
 
-Depends on having the debug() and getmicrotime() functions available elsewhere to output debugging info.
+/**
+ * Provides access to MySQL connections and queries.
+ *
+ * Depends on having the `debug()` and `getmicrotime()` functions available
+ * elsewhere to output debugging info.
+ *
+ * The {@see ParlDb} class extends this class to provide connectivity. If other
+ * databases are needed, we just need to create a class for each, each one
+ * extending this class.
+ *
+ * Then, when you need to do queries, you do:
+ *
+ *     $db = new \MySociety\TheyWorkForYou\ParlDb;
+ *     $q = $db->query("SELECT haddock FROM fish");
+ *
+ * `$q` is then a {@see MySql\Query} object.
+ *
+ * Call `$db->display_total_duration()` at the end of a page to send total query
+ * time to debug().
+ */
 
-Somewhere (probably in includes/easyparliament/init.php) there should be something like:
-
-    Class ParlDB extends MySQL {
-        function ParlDB() {
-            $this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
-        }
-    }
-
-Then, when you need to do queries, you do:
-
-    $db = new \MySociety\TheyWorkForYou\ParlDb;
-    $q = $db->query("SELECT haddock FROM fish");
-
-$q is then a \MySociety\TheyWorkForYou\MySql\Query object.
-
-If other databases are needed, we just need to create a class for each, each one
-extending MySQL.
-
-Call $db->display_total_duration() at the end of a page to send total query time to debug().
-
-(n is 0-based below...)
-
-*/
-
-// We'll add up the times of each query so we can output the page total at the end.
-global $mysqltotalduration;
-$mysqltotalduration = 0.0;
-
-$global_connection = null;
-Class MySQL {
+class MySql {
 
     public function init($db_host, $db_user, $db_pass, $db_name) {
         global $global_connection;
@@ -43,8 +38,8 @@ Class MySQL {
             $dsn = 'mysql:dbname=' . $db_name . ';host=' . $db_host;
 
             try {
-                $conn = new PDO($dsn, $db_user, $db_pass);
-            } catch (PDOException $e) {
+                $conn = new \PDO($dsn, $db_user, $db_pass);
+            } catch (\PDOException $e) {
                 $this->fatal_error('We were unable to connect to the TheyWorkForYou database for some reason. Please try again in a few minutes.');
             }
 
@@ -65,7 +60,7 @@ Class MySQL {
         // it returns a \MySociety\TheyWorkForYou\MySql\Query object which you can get results from.
 
         $start = getmicrotime();
-        $q = new \MySociety\TheyWorkForYou\MySql\Query($this->conn);
+        $q = new MySql\Query($this->conn);
         $q->query($sql, $params);
 
         $duration = getmicrotime() - $start;

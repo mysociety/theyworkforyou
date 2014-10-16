@@ -9,5 +9,8 @@ include_once dirname(__FILE__) . "/../../../conf/general";
 $DATA = new \MySociety\TheyWorkForYou\Data;
 
 include_once (INCLUDESPATH."utility.php");
-include_once (INCLUDESPATH."mysql.php");
 
+// Start execution timers for database
+global $mysqltotalduration;
+$mysqltotalduration = 0.0;
+$global_connection = null;

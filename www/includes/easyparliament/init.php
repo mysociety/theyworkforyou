@@ -81,7 +81,10 @@ include_once (INCLUDESPATH."dbtypes.php");
 
 $DATA = new \MySociety\TheyWorkForYou\Data;
 
-include_once (INCLUDESPATH."mysql.php");
+// Start execution timers for database
+global $mysqltotalduration;
+$mysqltotalduration = 0.0;
+$global_connection = null;
 
 include_once (INCLUDESPATH."lib_filter.php");
 
