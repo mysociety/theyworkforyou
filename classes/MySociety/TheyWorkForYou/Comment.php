@@ -48,7 +48,7 @@ class Comment {
 
     public function __construct($comment_id='') {
 
-        $this->db = new \ParlDB;
+        $this->db = new ParlDb;
 
         // Set in init.php
         if (ALLOWCOMMENTS == true) {

@@ -12,7 +12,7 @@ class Constituency
 {
 
     public static function normaliseConstituencyName($name) {
-        $db = new \ParlDB;
+        $db = new \MySociety\TheyWorkForYou\ParlDb;
 
         // In case we still have an &amp; lying around
         $name = str_replace("&amp;", "&", $name);
@@ -34,7 +34,7 @@ class Constituency
 
     // As I don't want to do 646*2 DB queries!
     public static function normaliseConstituencyNames($names) {
-    	$db = new \ParlDB;
+    	$db = new \MySociety\TheyWorkForYou\ParlDb;
     	$q = $db->query('select constituency.name as name,c_main.name as canonical_name
     		from constituency, constituency as c_main
     		where constituency.cons_id = c_main.cons_id

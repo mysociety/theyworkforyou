@@ -13,7 +13,7 @@ include_once '../www/includes/easyparliament/init.php';
 ini_set('memory_limit', -1);
 
 $global_start = getmicrotime();
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $nomail = false;
 $onlyemail = '';

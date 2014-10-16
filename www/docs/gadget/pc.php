@@ -25,7 +25,7 @@ function error($s) {
 }
 
 function get_person_id($c) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     if ($c == '') return false;
     if ($c == 'Orkney ') $c = 'Orkney &amp; Shetland';
     $n = \MySociety\TheyWorkForYou\Utility\Constituency::normaliseConstituencyName($c); if ($n) $c = $n;

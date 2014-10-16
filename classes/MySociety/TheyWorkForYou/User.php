@@ -65,7 +65,7 @@ class User {
     //      Change things in the add/edit/view user page.
 
     public function __construct() {
-        $this->db = new \ParlDB;
+        $this->db = new ParlDb;
     }
 
     /**

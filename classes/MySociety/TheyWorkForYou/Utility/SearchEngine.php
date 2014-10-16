@@ -35,7 +35,7 @@ class SearchEngine
         # Fetch all the speakers of the results, count them up and get min/max date usage
         $speaker_count = array();
         $gids = join('","', $gids);
-        $db = new \ParlDB;
+        $db = new \MySociety\TheyWorkForYou\ParlDb;
         $q = $db->query('SELECT gid,speaker_id,hdate FROM hansard WHERE gid IN ("' . $gids . '")');
         for ($n=0; $n<$q->rows(); $n++) {
             $gid = $q->field($n, 'gid');
@@ -165,7 +165,7 @@ class SearchEngine
             $where .= " AND left_house='9999-12-31'";
         }
 
-        $db = new \ParlDB;
+        $db = new \MySociety\TheyWorkForYou\ParlDb;
         $q = $db->query("SELECT person_id,
                                 title, first_name, last_name,
                                 constituency, party,
@@ -198,7 +198,7 @@ class SearchEngine
                 (select name from constituency where cons_id = o.cons_id and main_name) as name
             from constituency AS o where name like :try
             and from_date <= date(now()) and date(now()) <= to_date";
-        $db = new \ParlDB;
+        $db = new \MySociety\TheyWorkForYou\ParlDb;
         $q = $db->query($query, array(':try' => '%' . $try . '%'));
 
         $constituencies = array();

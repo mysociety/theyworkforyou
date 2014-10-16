@@ -48,7 +48,7 @@ function day_speeches($search, $type, $date) {
     global $SEARCHENGINE, $want;
     $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($search);
 
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select hpos from hansard where gid = :gid", array(
         ':gid' => 'uk.org.publicwhip/' . $want['gid']
         ));

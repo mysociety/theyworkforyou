@@ -29,7 +29,7 @@ class Alert {
     public $criteria = "";      // Sets the terms that are used to produce the search results.
 
     public function __construct() {
-        $this->db = new \ParlDB;
+        $this->db = new ParlDb;
     }
 
     /**

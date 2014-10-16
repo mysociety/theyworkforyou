@@ -18,7 +18,7 @@ $dir = array('debates', 'wrans', 'wms', 'westminhall', 'lordspages', 'ni');
 $majors = array(1,3,4,2,101,5);
 
 $hdates = array();
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $q = $db->query('SELECT DISTINCT(hdate) AS hdate, major FROM hansard');
 for ($i=0; $i<$q->rows(); $i++) {
     $hdates[$q->field($i, 'hdate')][$q->field($i, 'major')] = true;

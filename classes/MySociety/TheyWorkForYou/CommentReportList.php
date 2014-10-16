@@ -22,7 +22,7 @@ namespace MySociety\TheyWorkForYou;
 class CommentReportList {
 
     public function __construct() {
-        $this->db = new \ParlDB;
+        $this->db = new ParlDb;
     }
 
 

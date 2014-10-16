@@ -47,7 +47,7 @@ function calendar_date($date) {
 
     $DATA->set_page_metadata($this_page, 'title', format_date($date, LONGERDATEFORMAT));
 
-    $db = new ParlDB();
+    $db = new \MySociety\TheyWorkForYou\ParlDb();
 
     $data = array();
     $data['dates'] = \MySociety\TheyWorkForYou\Utility\Calendar::fetchDate($date);
@@ -74,7 +74,7 @@ function calendar_past_date($date) {
     $PAGE->set_hansard_headings(array('date'=>$date));
     $URL = new \MySociety\TheyWorkForYou\Url($this_page);
     $nextprevdata = array();
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("SELECT MIN(hdate) AS hdate FROM hansard WHERE hdate > '$date'");
     if ($q->rows() > 0 && $q->field(0, 'hdate') != NULL) {
         $URL->insert( array( 'd'=>$q->field(0, 'hdate') ) );

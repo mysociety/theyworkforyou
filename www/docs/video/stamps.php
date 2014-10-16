@@ -7,7 +7,7 @@ $videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
 
 $gid = get_http_var('gid');
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $q = $db->query("select subsection_id,adate,atime from hansard, video_timestamps
     where hansard.gid = video_timestamps.gid and hansard.gid = :gid
         and deleted=0 and (user_id is null or user_id!=-1)", array(

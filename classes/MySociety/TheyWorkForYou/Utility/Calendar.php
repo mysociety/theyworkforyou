@@ -12,7 +12,7 @@ class Calendar
 {
 
     public static function minFutureDate() {
-        $db = new \ParlDB();
+        $db = new \MySociety\TheyWorkForYou\ParlDb();
         $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= DATE(NOW()) AND deleted = 0');
 
         return $q->field(0, 'm');
@@ -20,7 +20,7 @@ class Calendar
 
     public static function fetchDate($date) {
         global $DATA, $PAGE, $this_page;
-        $db = new \ParlDB();
+        $db = new \MySociety\TheyWorkForYou\ParlDb();
 
         $q = $db->query("SELECT * FROM future
             LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0

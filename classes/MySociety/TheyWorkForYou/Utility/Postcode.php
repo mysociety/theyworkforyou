@@ -66,7 +66,7 @@ class Postcode
         if (!validate_postcode($postcode))
             return '';
 
-        $db = new \ParlDB;
+        $db = new \MySociety\TheyWorkForYou\ParlDb;
 
         $q = $db->query('select name from postcode_lookup where postcode = :postcode', array(
             ':postcode' => $postcode

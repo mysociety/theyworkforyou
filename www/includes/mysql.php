@@ -14,7 +14,7 @@ Somewhere (probably in includes/easyparliament/init.php) there should be somethi
 
 Then, when you need to do queries, you do:
 
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("SELECT haddock FROM fish");
 
 $q is then a MySQLQuery object.

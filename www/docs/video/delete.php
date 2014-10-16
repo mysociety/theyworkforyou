@@ -14,7 +14,7 @@ $params = array(
     ':oops' => $oops
 );
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $q = $db->query("update video_timestamps set deleted=1 where id = :oops and gid = :gid and current_timestamp<whenstamped+interval 30 second", $params);
 if ($q->affected_rows())
     $db->query("update hansard set video_status = video_status & 11 where gid = :gid", $params);

@@ -8,7 +8,7 @@ function api_convertURL_front() {
 <dl>
 <dt>url (required)</dt>
 <dd>The parliament.uk URL you wish to convert, e.g.
-<?php	$db = new ParlDB;
+<?php	$db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query('SELECT source_url FROM hansard WHERE major=1 AND hdate>"2006-07-01" ORDER BY RAND() LIMIT 1');
     print $q->field(0, 'source_url');
 ?></dd>
@@ -36,7 +36,7 @@ function get_listurl($q) {
         'htype' => $q->field(0, 'htype'),
         'subsection_id' => $q->field(0, 'subsection_id'),
     );
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $LISTURL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$id_data['major']]['page_all']);
     $fragment = '';
     if ($id_data['htype'] == '11' || $id_data['htype'] == '10') {
@@ -70,7 +70,7 @@ function api_converturl_url_output($q) {
     api_output($output);
 }
 function api_converturl_url($url) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $url_nohash = preg_replace('/#.*/', '', $url);
     $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url = :url order by gid limit 1', array(
         ':url' => $url

@@ -25,7 +25,7 @@ function api_getMLA_front() {
 }
 
 function api_getMLA_id($id) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select * from member
         where house=3 and person_id = :id
         order by left_house desc", array(
@@ -65,7 +65,7 @@ function api_getMLA_constituency($constituency) {
 # Very similary to MEMBER's constituency_to_person_id
 # Should all be abstracted properly :-/
 function _api_getMLA_constituency($constituencies) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
 
     $cons = array();
     foreach ($constituencies as $constituency) {

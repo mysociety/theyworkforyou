@@ -13,7 +13,7 @@ include_once '../www/includes/easyparliament/init.php';
 ini_set('memory_limit', -1);
 
 $global_start = getmicrotime();
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 # Get current value of latest batch
 $q = $db->query('SELECT max(indexbatch_id) as max_batch_id FROM indexbatch');

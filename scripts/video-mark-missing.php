@@ -5,7 +5,7 @@
 include_once "../www/includes/easyparliament/init.php";
 
 $ARGV = $_SERVER['argv'];
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $from = isset($ARGV[1]) ? $ARGV[1] : '';
 $to = isset($ARGV[2]) ? $ARGV[2] : '';

@@ -265,7 +265,7 @@ function search_order_t($searchstring) {
 
     $hdates = array();
     $big_list = join('","', $gids);
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query('SELECT hdate FROM hansard WHERE gid IN ("' . $big_list . '")');
     print '<!-- Counts: ' . count($gids) . ' vs ' . $q->rows() . ' -->';
     for ($n=0; $n<$q->rows(); $n++) {
@@ -372,7 +372,7 @@ function find_users($args) {
         $where = "(firstname LIKE '%" . addslashes($searchwords[0]) . "%' AND lastname LIKE '%" . addslashes($searchwords[1]) . "%')";
     }
 
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("SELECT user_id,
                         firstname,
                         lastname

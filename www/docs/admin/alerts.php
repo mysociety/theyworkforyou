@@ -4,7 +4,7 @@ include_once '../../includes/easyparliament/init.php';
 
 $this_page = 'admin_alerts';
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $PAGE->page_start();
 $PAGE->stripe_start();

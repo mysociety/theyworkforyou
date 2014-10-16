@@ -59,7 +59,7 @@ $PAGE->page_end();
 
 function pick_multiple($pc, $areas, $area_type, $rep_type) {
     global $PAGE;
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
 
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, left_house FROM member
         WHERE constituency = :constituency

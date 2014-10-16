@@ -35,7 +35,7 @@ function api_getConstituencies_search($s) {
     api_output($output);
 }
 function _api_getConstituencies_search($s) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query('select c_main.name from constituency, constituency as c_main
         where constituency.cons_id = c_main.cons_id
         and c_main.main_name and constituency.name like :constituency_name and constituency.from_date <= date(now())
@@ -68,7 +68,7 @@ function api_getConstituencies_date($date) {
 }
 
 function api_getConstituencies($date = 'now()') {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query('select cons_id, name from constituency
         where main_name and from_date <= date('.$date.') and date('.$date.') <= to_date
         order by name');

@@ -8,7 +8,7 @@ $file = intval(get_http_var('file'));
 
 $gid = "uk.org.publicwhip/$gid";
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $q = $db->query("select hdate, htime, adate, atime from hansard
     left join video_timestamps on hansard.gid=video_timestamps.gid and user_id=-1 and video_timestamps.deleted=0
     where hansard.gid = :gid", array(

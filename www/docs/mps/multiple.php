@@ -2,7 +2,7 @@
 
 include_once '../../includes/easyparliament/init.php';
 
-$db = new ParlDB();
+$db = new \MySociety\TheyWorkForYou\ParlDb();
 
 $PAGE->page_start();
 $PAGE->stripe_start();

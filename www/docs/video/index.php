@@ -27,7 +27,7 @@ $surrounding_speeches = 3;
 $gid = "uk.org.publicwhip/$gid";
 
 # Fetch this GID from the database, and captioner bot time if there is one
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $q = $db->query("select hdate, htime, adate, atime, hpos, video_status, subsection_id, major,
     (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid,
     (select body from epobject as e where e.epobject_id=hansard.subsection_id) as parent_body
@@ -228,7 +228,7 @@ or <a href="/video/next.php?action=random">get a new unstamped speech at random<
 # ---
 
 function video_front_page() {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $statuses = array(
         0 => 'Unstamped',
         4 => 'Timestamped by users',
@@ -340,7 +340,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 
 function display_league($limit, $q = '') {
     global $THEUSER;
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c
         from video_timestamps left join users on video_timestamps.user_id=users.user_id
         where video_timestamps.deleted=0 and (video_timestamps.user_id is null or video_timestamps.user_id!=-1) '

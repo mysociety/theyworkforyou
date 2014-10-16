@@ -34,7 +34,7 @@ function _api_getPerson_row($row, $has_party=FALSE) {
 
     if ($row['house'] == 1 && ($row['left_house'] == '9999-12-31' || $row['left_house'] == '2010-04-12')) { # XXX
         # Ministerialships and Select Committees
-        $db = new ParlDB;
+        $db = new \MySociety\TheyWorkForYou\ParlDb;
         $q = $db->query('SELECT * FROM moffice WHERE to_date="9999-12-31" and person=' . $row['person_id'] . ' ORDER BY from_date DESC');
         for ($i=0; $i<$q->rows(); $i++) {
             $row['office'][] = $q->row($i);
@@ -49,7 +49,7 @@ function _api_getPerson_row($row, $has_party=FALSE) {
 }
 
 function api_getPerson_id($id) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select * from member
         where person_id = :person_id
         order by left_house desc", array(

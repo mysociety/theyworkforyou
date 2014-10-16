@@ -1200,7 +1200,7 @@ pr()//-->
         }
 
         // DAMN, this really shouldn't be in PAGE.
-        $db = new \ParlDB;
+        $db = new ParlDb;
         $db->display_total_duration();
 
         $duration = getmicrotime() - STARTTIME;

@@ -56,7 +56,7 @@ function api_getConstituency_name($constituency) {
 }
 
 function _api_getConstituency_name($constituency) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select constituency, data_key, data_value from consinfo
                      where constituency = :constituency", array(':constituency' => $constituency));
     if ($q->rows()) {

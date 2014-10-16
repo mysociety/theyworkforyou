@@ -41,7 +41,7 @@ class CommentList {
     public function __construct() {
         global $this_page;
 
-        $this->db = new \ParlDB;
+        $this->db = new ParlDb;
 
         // We use this to create permalinks to comments. For the moment we're
         // assuming they're on the same page we're currently looking at:

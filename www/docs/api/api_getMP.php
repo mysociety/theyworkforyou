@@ -99,7 +99,7 @@ This will return all database entries for this person, so will include previous 
 }
 
 function api_getMP_id($id) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select * from member
         where house=1 and person_id = :id
         order by left_house desc", array(
@@ -143,7 +143,7 @@ function api_getMP_constituency($constituency) {
 # Very similary to MEMBER's constituency_to_person_id
 # Should all be abstracted properly :-/
 function _api_getMP_constituency($constituency) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
 
     if ($constituency == '')
         return array();

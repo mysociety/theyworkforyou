@@ -878,7 +878,7 @@ function display_user($user_id="", $email_changed=false) {
 
     // SECOND: Get the data for whoever we're going to show.
 
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     if ($display == "another user") {
 
         // Viewing someone else's info.

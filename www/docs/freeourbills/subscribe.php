@@ -7,7 +7,7 @@ require_once '../../../commonlib/phplib/auth.php';
 require_once 'share.php';
 require_once 'sharethis.php';
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $this_page = 'campaign';
 

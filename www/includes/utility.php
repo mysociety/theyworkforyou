@@ -976,7 +976,7 @@ function prettify_office($pos, $dept) {
 function major_summary($data, $echo = true) {
     global $hansardmajors;
     $html = '';
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $one_date = false;
 
     //if no printed majors passed, default to all

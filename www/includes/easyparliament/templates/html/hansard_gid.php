@@ -812,7 +812,7 @@ function get_question_mentions_html($row_data) {
 }
 
 function video_sidebar($row, $section, $count, $major) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     if ($major == 1) {
         $gid_type = 'debate';
     } elseif ($major == 101) {

@@ -82,7 +82,7 @@ class Member {
 
         $house = isset($args['house']) ? $args['house'] : null;
 
-        $this->db = new \ParlDB;
+        $this->db = new ParlDb;
         $person_id = '';
         if (isset($args['member_id']) && is_numeric($args['member_id'])) {
             $person_id = $this->member_id_to_person_id($args['member_id']);

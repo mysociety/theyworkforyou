@@ -60,7 +60,7 @@ class Alert
     }
 
     public static function manage($email) {
-        $db = new \ParlDB;
+        $db = new \MySociety\TheyWorkForYou\ParlDb;
         $q = $db->query('SELECT * FROM alerts WHERE email = :email
             AND deleted != 1 ORDER BY created', array(
                 ':email' => $email

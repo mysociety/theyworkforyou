@@ -80,7 +80,7 @@ class Wikipedia
       # Open up a db connection, and whittle our list down even further, against
       # the real titles.
       $matched = array();
-      $db = new \ParlDB;
+      $db = new \MySociety\TheyWorkForYou\ParlDb;
       $source = explode('|||', $source);
       $q = $db->query("SELECT titles.title FROM titles LEFT JOIN titles_ignored ON titles.title=titles_ignored.title WHERE titles.title IN (" . join(',', array_keys($params)) . ") AND titles_ignored.title IS NULL", $params);
       $phrases = array();

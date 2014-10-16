@@ -50,7 +50,7 @@ class CommentReport {
     public function __construct($report_id='') {
         // Pass it a report id and it gets and sets this report's data.
 
-        $this->db = new \ParlDB;
+        $this->db = new ParlDb;
 
         if (is_numeric($report_id)) {
 

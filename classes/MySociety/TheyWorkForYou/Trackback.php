@@ -42,7 +42,7 @@ class Trackback {
 
     public function __construct() {
 
-        $this->db = new \ParlDB;
+        $this->db = new ParlDb;
 
         // Set in init.php
         if (ALLOWTRACKBACKS == true) {

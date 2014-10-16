@@ -18,7 +18,7 @@ namespace MySociety\TheyWorkForYou;
 class People {
 
     public function __construct() {
-        $this->db = new \ParlDB;
+        $this->db = new ParlDb;
     }
 
     public function display ($view, $args=array(), $format='html') {

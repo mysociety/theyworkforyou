@@ -42,7 +42,7 @@ class Glossary {
     //      2. glossary_term - search within glossary for a term
     // With no argument it will pick up all items.
 
-            $this->db = new \ParlDB;
+            $this->db = new ParlDb;
 
             $this->replace_order = array();
             if (isset($args['s']) && ($args['s'] != "")) {

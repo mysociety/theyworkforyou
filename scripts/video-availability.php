@@ -2,7 +2,7 @@
 
 include_once "../www/includes/easyparliament/init.php";
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
 $q = pg_query($videodb, "
     SELECT id, broadcast_start, broadcast_end

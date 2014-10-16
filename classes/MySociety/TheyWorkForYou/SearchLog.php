@@ -36,7 +36,7 @@ class SearchLog {
     public function __construct() {
         $this->SEARCHURL = new Url('search');
 
-        $this->db = new \ParlDB;
+        $this->db = new ParlDb;
     }
 
     public function add($searchlogdata) {

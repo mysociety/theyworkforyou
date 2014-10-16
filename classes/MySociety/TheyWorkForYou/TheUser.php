@@ -24,7 +24,7 @@ class TheUser extends User {
         // This function is run automatically when a THEUSER
         // object is instantiated.
 
-        $this->db = new \ParlDB;
+        $this->db = new ParlDb;
 
         // We look at the user's cookie and see if it's valid.
         // If so, we're going to log them in.

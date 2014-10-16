@@ -4,7 +4,7 @@ include_once '../../../includes/easyparliament/init.php';
 $DATA->set_page_metadata($this_page, 'heading', 'MPs photo status on TheyWorkForYou');
 $PAGE->page_start();
 $PAGE->stripe_start();
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $query = 'SELECT person_id, first_name, last_name, constituency, party
     FROM member
     WHERE house=1 AND left_house = (SELECT MAX(left_house) FROM member) ';

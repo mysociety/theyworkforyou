@@ -20,7 +20,7 @@ if (!$pid || !ctype_digit($pid)) print 'not valid';
 else {
     $authed = auth_verify_with_shared_secret($email, OPTION_AUTH_SHARED_SECRET, $sign);
     if ($authed) {
-        $db = new ParlDB;
+        $db = new \MySociety\TheyWorkForYou\ParlDb;
         $q = $db->query('select alert_id from alerts where email = :email and criteria = :criteria and confirmed and not deleted', array(
             ':email' => $email,
             ':criteria' => 'speaker:' . $pid
