@@ -24,4 +24,11 @@ class UtilityTest extends PHPUnit_Framework_TestCase
             preg_replacement_quote($example)
         );
     }
+
+    public function testVerpEnvelopeSenderCanCreateStandardSender() {
+
+        $sender = twfy_verp_envelope_sender('aperson@a.nother.dom');
+        $this->assertEquals('twfy+aperson=a.nother.dom@' . EMAILDOMAIN, $sender);
+
+    }
 }
