@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/video.php';
 
 $gid = get_http_var('gid');
 $time = intval(get_http_var('time'));
@@ -25,9 +24,9 @@ if ($adate) $hdate = $adate;
 if (!$hdate || !$htime || !$time)
     exit;
 
-$videodb = video_db_connect();
+$videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
 if (!$file) {
-    $video = video_from_timestamp($videodb, $hdate, $htime);
+    $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $hdate, $htime);
     $file = $video['id'];
 }
 

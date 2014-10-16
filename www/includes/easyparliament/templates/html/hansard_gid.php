@@ -812,7 +812,6 @@ function get_question_mentions_html($row_data) {
 }
 
 function video_sidebar($row, $section, $count, $major) {
-    include_once INCLUDESPATH . 'easyparliament/video.php';
     $db = new ParlDB;
     if ($major == 1) {
         $gid_type = 'debate';
@@ -823,9 +822,9 @@ function video_sidebar($row, $section, $count, $major) {
     $ts_id = $vq->field(0, 'id'); if (!$ts_id) $ts_id='*';
     $adate = $vq->field(0, 'adate');
     $time = $vq->field(0, 'atime');
-    $videodb = video_db_connect();
+    $videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
     if (!$videodb) return '';
-    $video = video_from_timestamp($videodb, $adate, $time);
+    $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $adate, $time);
     $start = $video['offset'];
     $out = '';
     if ($count > 1) {
@@ -834,7 +833,7 @@ function video_sidebar($row, $section, $count, $major) {
             $out .= '<p style="margin:0">This video starts around ' . ($row['hpos']-$section['hpos']) . ' speeches in (<a href="#g' . gid_to_anchor($row['gid']) . '">move there in text</a>)</p>';
         }
     }
-    $out .= video_object($video['id'], $start, "$gid_type/$row[gid]");
+    $out .= \MySociety\TheyWorkForYou\Utility\Video::object($video['id'], $start, "$gid_type/$row[gid]");
     $flashvars = 'gid=' . "$gid_type/$row[gid]" . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
     $out .= "<br><b>Add this video to another site:</b><br><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'></embed>\"><br><small>(copy and paste the above)</small>";
     $out .= "<p style='margin-bottom:0'>Is this not the right video? <a href='mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "?subject=Incorrect%20video,%20id%20$row[gid];$video[id];$ts_id'>Let us know</a></p>";

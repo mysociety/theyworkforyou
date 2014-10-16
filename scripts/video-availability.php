@@ -1,14 +1,13 @@
 <?php
 
 include_once "../www/includes/easyparliament/init.php";
-include_once INCLUDESPATH . 'easyparliament/video.php';
 
 $db = new ParlDB;
-$videodb = video_db_connect();
+$videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
 $q = pg_query($videodb, "
     SELECT id, broadcast_start, broadcast_end
     FROM programmes
-    WHERE channel_id = 'BBCParl' AND status = 'available' 
+    WHERE channel_id = 'BBCParl' AND status = 'available'
     ORDER BY id
 ");
 while ($row = pg_fetch_array($q)) {
