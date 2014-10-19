@@ -11,13 +11,13 @@ namespace MySociety\TheyWorkForYou;
  * A class for doing things with single comments.
  *
  * To access stuff about an existing comment you can do something like:
- *     $COMMENT = new \MySociety\TheyWorkForYou\Comment(37);
+ *     $COMMENT = new \MySociety\TheyWorkForYou\Comment($the_user, $page, $hansard_majors, 37);
  *     $COMMENT->display();
  * Where '37' is the comment_id.
  *
  * To create a new comment you should get a $data array prepared of
  * the key/value pairs needed to create a new comment and do:
- *     $COMMENT = new \MySociety\TheyWorkForYou\Comment;
+ *     $COMMENT = new \MySociety\TheyWorkForYou\Comment($the_user, $page, $hansard_majors);
  *     $COMMENT->create ($data);
  *
  * You can delete a comment by doing $COMMENT->delete() (it isn't actually
@@ -45,10 +45,23 @@ class Comment {
     // if it exists in the DB.
     public $exists = false;
 
+    private $the_user;
+    private $page;
+    private $hansard_majors;
 
-    public function __construct($comment_id='') {
+    /**
+     * @param TheUser $the_user       The object to represent the current user.
+     * @param Page    $page           The object to represent the current page.
+     * @param array   $hansard_majors A list of the major keys used in Hansard.
+     * @param int     $comment_id     The ID of the comment to retrieve.
+     */
+    public function __construct(TheUser $the_user, Page $page, $hansard_majors, $comment_id='') {
 
         $this->db = new ParlDb;
+
+        $this->the_user = $the_user;
+        $this->page = $page;
+        $this->hansard_majors = $hansard_majors;
 
         // Set in init.php
         if (ALLOWCOMMENTS == true) {
@@ -114,19 +127,17 @@ class Comment {
         // $data has 'epobject_id' and 'body' elements.
         // Returns the new comment_id if successful, false otherwise.
 
-        global $THEUSER, $PAGE;
-
         if ($this->comments_enabled() == false) {
-            $PAGE->error_message("Sorry, the posting of annotations has been temporarily disabled.");
+            $this->page->error_message("Sorry, the posting of annotations has been temporarily disabled.");
             return;
         }
 
-        if (!$THEUSER->is_able_to('addcomment')) {
+        if (!$this->the_user->is_able_to('addcomment')) {
             $message =  array (
                 'title' => 'Sorry',
                 'text' => 'You are not allowed to post annotations.'
             );
-            $PAGE->error_message($message);
+            $this->page->error_message($message);
             return false;
         }
 
@@ -135,7 +146,7 @@ class Comment {
                 'title' => 'Sorry',
                 'text' => "We don't have an epobject id."
             );
-            $PAGE->error_message($message);
+            $this->page->error_message($message);
             return false;
         }
 
@@ -144,12 +155,12 @@ class Comment {
                 'title' => 'Whoops!',
                 'text' => "You haven't entered an annotation!"
             );
-            $PAGE->error_message($message);
+            $this->page->error_message($message);
             return false;
         }
 
 /*
-        if (is_numeric($THEUSER->user_id())) {
+        if (is_numeric($this->the_user->user_id())) {
             // Flood check - make sure the user hasn't just posted a comment recently.
             // To help prevent accidental duplicates, among other nasty things.
 
@@ -157,7 +168,7 @@ class Comment {
 
             $q = $this->db->query("SELECT comment_id
                             FROM    comments
-                            WHERE   user_id = '" . $THEUSER->user_id() . "'
+                            WHERE   user_id = '" . $this->the_user->user_id() . "'
                             AND     posted + 0 > NOW() - $flood_time_limit");
 
             if ($q->rows() > 0) {
@@ -165,7 +176,7 @@ class Comment {
                     'title' => 'Hold your horses!',
                     'text' => "We limit people to posting one comment per $flood_time_limit seconds to help prevent duplicate postings. Please go back and try again, thanks."
                 );
-                $PAGE->error_message($message);
+                $this->page->error_message($message);
                 return false;
             }
         }
@@ -194,7 +205,7 @@ class Comment {
             1,
             :gid
             )", array(
-                ':user_id' => $THEUSER->user_id(),
+                ':user_id' => $this->the_user->user_id(),
                 ':epobject_id' => $data['epobject_id'],
                 ':body' => $body,
                 ':posted' => $posted,
@@ -204,7 +215,7 @@ class Comment {
         if ($q->success()) {
             // Set the object varibales up.
             $this->comment_id   = $q->insert_id();
-            $this->user_id      = $THEUSER->user_id();
+            $this->user_id      = $this->the_user->user_id();
             $this->epobject_id  = $data['epobject_id'];
             $this->body         = $data['body'];
             $this->posted       = $posted;
@@ -245,7 +256,6 @@ class Comment {
         // The comment's modflag goes to on when someone reports the comment.
         // It goes to off when a commentreport has been resolved but the
         // comment HASN'T been deleted.
-        global $PAGE;
 
         if ($switch == 'on') {
             $date = gmdate("Y-m-d H:i:s");
@@ -256,7 +266,7 @@ class Comment {
             $flag = 'NULL';
 
         } else {
-            $PAGE->error_message ("Why are you trying to switch this comment's modflag to '" . _htmlentities($switch) . "'!");
+            $this->page->error_message ("Why are you trying to switch this comment's modflag to '" . _htmlentities($switch) . "'!");
         }
 
         $q = $this->db->query("UPDATE comments
@@ -272,7 +282,7 @@ class Comment {
                 'title' => 'Sorry',
                 'text' => "We couldn't update the annotation's modflag."
             );
-            $PAGE->error_message($message);
+            $this->page->error_message($message);
             return false;
         }
 
@@ -282,9 +292,7 @@ class Comment {
     public function delete() {
         // Mark the comment as invisible.
 
-        global $THEUSER, $PAGE;
-
-        if ($THEUSER->is_able_to('deletecomment')) {
+        if ($this->the_user->is_able_to('deletecomment')) {
             $q = $this->db->query("UPDATE comments SET visible = '0' WHERE comment_id = '" . $this->comment_id . "'");
 
             if ($q->success()) {
@@ -294,7 +302,7 @@ class Comment {
                     'title' => 'Sorry',
                     'text' => "We were unable to delete the annotation."
                 );
-                $PAGE->error_message($message);
+                $this->page->error_message($message);
                 return false;
             }
 
@@ -303,7 +311,7 @@ class Comment {
                 'title' => 'Sorry',
                 'text' => "You are not authorised to delete annotations."
             );
-            $PAGE->error_message($message);
+            $this->page->error_message($message);
             return false;
         }
 
@@ -312,7 +320,6 @@ class Comment {
 
 
     public function _set_url() {
-        global $hansardmajors;
         // Creates and sets the URL for the comment.
 
         if ($this->url == '') {
@@ -330,7 +337,7 @@ class Comment {
                 $gid = fix_gid_from_db($q->field(0, 'gid')); // In includes/utility.php
 
                 $major = $q->field(0, 'major');
-                $page = $hansardmajors[$major]['page'];
+                $page = $this->hansard_majors[$major]['page'];
 
                 $URL = new Url($page);
                 $URL->insert(array('id'=>$gid));

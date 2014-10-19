@@ -15,7 +15,7 @@ if (get_http_var("submitcomment") != '') {
         'body'	=> get_http_var('body')
     );
 
-    $COMMENT = new \MySociety\TheyWorkForYou\Comment();
+    $COMMENT = new \MySociety\TheyWorkForYou\Comment($THEUSER, $PAGE, $hansardmajors);
 
     $success = $COMMENT->create($data);
 

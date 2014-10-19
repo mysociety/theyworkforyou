@@ -27,7 +27,7 @@ if (!is_numeric($report_id) || !is_numeric($comment_id)) {
     trigger_error("We need valid comment and report IDs.", E_USER_ERROR);
 }
 
-$COMMENT = new \MySociety\TheyWorkForYou\Comment($comment_id);
+$COMMENT = new \MySociety\TheyWorkForYou\Comment($THEUSER, $PAGE, $hansardmajors, $comment_id);
 
 if ($COMMENT->exists() == false) {
     // Exit.
