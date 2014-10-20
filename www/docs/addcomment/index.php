@@ -69,7 +69,7 @@ if (get_http_var("submitcomment") != '') {
             'preview' => true	// Extra tag so we know this is just a preview.
         );
 
-        $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList;
+        $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList($PAGE, $hansardmajors);
 
         $COMMENTLIST->render($data, 'html');
 

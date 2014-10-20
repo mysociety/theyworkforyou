@@ -72,7 +72,7 @@ class SectionView {
     }
 
     protected function display_section_or_speech($args = array()) {
-        global $this_page, $GLOSSARY, $PAGE, $THEUSER;
+        global $this_page, $GLOSSARY, $PAGE, $THEUSER, $hansardmajors;
 
         # += as we *don't* want to override any already supplied argument
         $args += array (
@@ -110,7 +110,7 @@ class SectionView {
 
         if ($this->list->commentspage == $this_page) {
             $PAGE->stripe_start('side', 'comments');
-            $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList;
+            $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList($PAGE, $hansardmajors);
             $args['user_id'] = get_http_var('u');
             $args['epobject_id'] = $this->list->epobject_id();
             $COMMENTLIST->display('ep', $args);

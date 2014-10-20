@@ -291,7 +291,7 @@ function search_order_t($searchstring) {
 # ---
 
 function find_comments($args) {
-    $commentlist = new \MySociety\TheyWorkForYou\CommentList;
+    $commentlist = new \MySociety\TheyWorkForYou\CommentList($PAGE, $hansardmajors);
     $commentlist->display('search', $args);
 }
 

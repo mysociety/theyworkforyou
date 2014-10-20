@@ -18,7 +18,7 @@ namespace MySociety\TheyWorkForYou;
  * To display all the comments for an epobject you'll do:
  *
  *     $args = array ('epobject_id' => $epobject_id);
- *     $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList;
+ *     $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList($page, $hansard_majors);
  *     $COMMENTLIST->display ('ep', $args);
  *
  * This will call the _get_data_by_ep() function which passes variables to the
@@ -38,10 +38,16 @@ namespace MySociety\TheyWorkForYou;
 
 class CommentList {
 
-    public function __construct() {
+    private $page_object;
+    private $hansard_majors;
+
+    public function __construct(Page $page, $hansard_majors) {
         global $this_page;
 
         $this->db = new ParlDb;
+
+        $this->page_object = $page;
+        $this->hansard_majors = $hansard_majors;
 
         // We use this to create permalinks to comments. For the moment we're
         // assuming they're on the same page we're currently looking at:
@@ -75,7 +81,7 @@ class CommentList {
 
         } else {
             // Don't have a valid $view;
-            $PAGE->error_message ("You haven't specified a view type.");
+            $this->page->error_message ("You haven't specified a view type.");
             return false;
         }
 
@@ -100,14 +106,13 @@ class CommentList {
 
     public function _get_data_by_ep($args) {
         // Get all the data attached to an epobject.
-        global $PAGE;
 
         twfy_debug (get_class($this), "getting data by epobject");
 
         // What we return.
         $data = array();
         if (!is_numeric($args['epobject_id'])) {
-            $PAGE->error_message ("Sorry, we don't have a valid epobject id");
+            $this->page->error_message ("Sorry, we don't have a valid epobject id");
             return $data;
         }
 
@@ -142,7 +147,6 @@ class CommentList {
         // Get a user's most recent comments.
         // Could perhaps be modified to get different lists of a user's
         // comments by things in $args?
-        global $PAGE;
 
         twfy_debug (get_class($this), "getting data by user");
 
@@ -150,7 +154,7 @@ class CommentList {
         $data = array();
 
         if (!is_numeric($args['user_id'])) {
-            $PAGE->error_message ("Sorry, we don't have a valid user id");
+            $this->page->error_message ("Sorry, we don't have a valid user id");
             return $data;
         }
 
@@ -397,7 +401,6 @@ class CommentList {
 
 
     public function _comment_url($urldata) {
-        global $hansardmajors;
 
         // Pass it the major and gid of the comment's epobject and the comment_id.
         // And optionally the user's id, for highlighting the comments on the destination page.
@@ -413,7 +416,7 @@ class CommentList {
 
         // We'll generate permalinks for each comment.
         // Assuming every comment is from the same major...
-        $page = $hansardmajors[$major]['page'];
+        $page = $this->hansard_majors[$major]['page'];
 
         $URL = new Url($page);
 

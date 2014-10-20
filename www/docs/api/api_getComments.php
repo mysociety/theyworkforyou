@@ -30,7 +30,7 @@ function api_getComments_start_date($start_date) {
             'start_date' => $start_date,
             'end_date' => get_http_var('end_date')
         );
-    $commentlist = new \MySociety\TheyWorkForYou\CommentList;
+    $commentlist = new \MySociety\TheyWorkForYou\CommentList($PAGE, $hansardmajors);
     $commentlist->display('dates', $args, 'api');
 }
 
@@ -40,7 +40,7 @@ function api_getComments_search($s) {
             'p' => get_http_var('page'),
             'num' => get_http_var('num'),
         );
-    $commentlist = new \MySociety\TheyWorkForYou\CommentList;
+    $commentlist = new \MySociety\TheyWorkForYou\CommentList($PAGE, $hansardmajors);
     $commentlist->display('search', $args, 'api');
 }
 
@@ -49,7 +49,7 @@ function api_getComments() {
         'page' => get_http_var('p'),
             'num' => get_http_var('num'),
     );
-    $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList;
+    $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList($PAGE, $hansardmajors);
     $COMMENTLIST->display('recent', $args, 'api');
 }
 
@@ -59,7 +59,7 @@ function api_getComments_pid($pid) {
             'num' => get_http_var('num'),
         'pid' => $pid
     );
-    $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList;
+    $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList($PAGE, $hansardmajors);
     $COMMENTLIST->display('recent', $args, 'api');
 }
 

@@ -245,7 +245,7 @@ class Comment {
         );
 
         // Use the same renderer as the COMMENTLIST class.
-        $COMMENTLIST = new CommentList();
+        $COMMENTLIST = new CommentList($this->page);
         $COMMENTLIST->render($data, $format, $template);
 
     }
