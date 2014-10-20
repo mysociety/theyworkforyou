@@ -34,7 +34,7 @@ if ($COMMENT->exists() == false) {
     trigger_error("This is an invalid comment ID", E_USER_ERROR);
 }
 
-$REPORT = new \MySociety\TheyWorkForYou\CommentReport($report_id);
+$REPORT = new \MySociety\TheyWorkForYou\CommentReport($THEUSER, $PAGE, $report_id);
 
 $FORMURL = new \MySociety\TheyWorkForYou\Url($this_page);
 

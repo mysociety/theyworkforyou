@@ -14,11 +14,11 @@ namespace MySociety\TheyWorkForYou;
  * the report. If they approve, the associated comment is deleted.
  *
  * To create a new comment report:
- *     $REPORT = new \MySociety\TheyWorkForYou\CommentReport;
+ *     $REPORT = new \MySociety\TheyWorkForYou\CommentReport($the_user, $page);
  *     $REPORT->create($data);
  *
  * To view info about an existing report:
- *     $REPORT = new \MySociety\TheyWorkForYou\CommentReport($report_id);
+ *     $REPORT = new \MySociety\TheyWorkForYou\CommentReport($the_user, $page, $report_id);
  *     $REPORT->display();
  *
  *  You can also do $REPORT->lock() and $REPORT->unlock() to ensure only
@@ -46,11 +46,16 @@ class CommentReport {
     // If the user wasn't logged in, this will be set:
     public $email = '';
 
+    private $the_user;
+    private $page;
 
-    public function __construct($report_id='') {
+    public function __construct(TheUser $the_user, Page $page, $report_id='') {
         // Pass it a report id and it gets and sets this report's data.
 
         $this->db = new ParlDb;
+
+        $this->the_user = $the_user;
+        $this->page = $page;
 
         if (is_numeric($report_id)) {
 
@@ -161,19 +166,17 @@ class CommentReport {
         //  )
         // But if the report was made by a logged-in user, only the
         // 'body' element should really contain anything, because
-        // we use $THEUSER's id to get the rest.
+        // we use $this->the_user->'s id to get the rest.
 
         // $COMMENT is an existing COMMENT object, needed for setting
         // its modflag and comment_id.
 
-        global $THEUSER, $PAGE;
-
-        if (!$THEUSER->is_able_to('reportcomment')) {
-            $PAGE->error_message ("Sorry, you are not allowed to post reports.");
+        if (!$this->the_user->is_able_to('reportcomment')) {
+            $this->page->error_message ("Sorry, you are not allowed to post reports.");
             return false;
         }
 
-        if (is_numeric($THEUSER->user_id()) && $THEUSER->user_id() > 0) {
+        if (is_numeric($this->the_user->user_id()) && $this->the_user->user_id() > 0) {
             // Flood check - make sure the user hasn't just posted a report recently.
             // To help prevent accidental duplicates, among other nasty things.
             // (Non-logged in users are all id == 0.)
@@ -182,11 +185,11 @@ class CommentReport {
 
             $q = $this->db->query("SELECT report_id
                             FROM    commentreports
-                            WHERE   user_id = '" . $THEUSER->user_id() . "'
+                            WHERE   user_id = '" . $this->the_user->user_id() . "'
                             AND     reported + 0 > NOW() - $flood_time_limit");
 
             if ($q->rows() > 0) {
-                $PAGE->error_message("Sorry, we limit people to posting one report per $flood_time_limit seconds to help prevent duplicate reports. Please go back and try again, thanks.");
+                $this->page->error_message("Sorry, we limit people to posting one report per $flood_time_limit seconds to help prevent duplicate reports. Please go back and try again, thanks.");
                 return false;
             }
         }
@@ -197,7 +200,7 @@ class CommentReport {
 
         $time = gmdate("Y-m-d H:i:s");
 
-        if ($THEUSER->isloggedin()) {
+        if ($this->the_user->isloggedin()) {
             $sql = "INSERT INTO commentreports
                                     (comment_id, body, reported, user_id)
                             VALUES  (:comment_id,
@@ -210,7 +213,7 @@ class CommentReport {
                 ':comment_id' => $COMMENT->comment_id(),
                 ':body' => $body,
                 ':time' => $time,
-                ':user_id' => $THEUSER->user_id()
+                ':user_id' => $this->the_user->user_id()
             );
         } else {
             $sql = "INSERT INTO commentreports
@@ -242,10 +245,10 @@ class CommentReport {
             $this->body         = $body;
             $this->reported     = $time;
 
-            if ($THEUSER->isloggedin()) {
-                $this->user_id      = $THEUSER->user_id();
-                $this->firstname    = $THEUSER->firstname();
-                $this->lastname     = $THEUSER->lastname();
+            if ($this->the_user->isloggedin()) {
+                $this->user_id      = $this->the_user->user_id();
+                $this->firstname    = $this->the_user->firstname();
+                $this->lastname     = $this->the_user->lastname();
             } else {
                 $this->email        = $reportdata['email'];
                 $this->firstname    = $reportdata['firstname'];
@@ -275,8 +278,8 @@ class CommentReport {
 
             // Send an email to the user to thank them.
 
-            if ($THEUSER->isloggedin()) {
-                $email = $THEUSER->email();
+            if ($this->the_user->isloggedin()) {
+                $email = $this->the_user->email();
             } else {
                 $email = $this->email();
             }
@@ -330,9 +333,8 @@ class CommentReport {
 
 
     public function render($data) {
-        global $PAGE;
 
-        $PAGE->display_commentreport($data);
+        $this->page->display_commentreport($data);
 
     }
 
@@ -341,27 +343,25 @@ class CommentReport {
         // Called when an admin user goes to examine a report, so that
         // only one person can edit at once.
 
-        global $THEUSER, $PAGE;
-
-        if ($THEUSER->is_able_to('deletecomment')) {
+        if ($this->the_user->is_able_to('deletecomment')) {
             $time = gmdate("Y-m-d H:i:s");
 
             $q = $this->db->query ("UPDATE commentreports
                             SET     locked = '$time',
-                                    lockedby = '" . $THEUSER->user_id() . "'
+                                    lockedby = '" . $this->the_user->user_id() . "'
                             WHERE   report_id = '" . $this->report_id . "'
                             ");
 
             if ($q->success()) {
                 $this->locked = $time;
-                $this->lockedby = $THEUSER->user_id();
+                $this->lockedby = $this->the_user->user_id();
                 return true;
             } else {
-                $PAGE->error_message ("Sorry, we were unable to lock this report.");
+                $this->page->error_message ("Sorry, we were unable to lock this report.");
                 return false;
             }
         } else {
-            $PAGE->error_message ("You are not authorised to delete annotations.");
+            $this->page->error_message ("You are not authorised to delete annotations.");
             return false;
         }
     }
@@ -392,11 +392,10 @@ class CommentReport {
         // $upheld is true or false.
         // $COMMENT is an existing COMMENT object - we need this so
         // that we can set its modflagged to off and/or delete it.
-        global $THEUSER, $PAGE;
 
         $time = gmdate("Y-m-d H:i:s");
 
-        if ($THEUSER->is_able_to('deletecomment')) {
+        if ($this->the_user->is_able_to('deletecomment')) {
             // User is allowed to do this.
 
             if (!$this->resolved) {
@@ -429,7 +428,7 @@ class CommentReport {
                                 WHERE   report_id = :report_id
                                 ", array(
                                     ':time' => $time,
-                                    ':resolved_by' => $THEUSER->user_id(),
+                                    ':resolved_by' => $this->the_user->user_id(),
                                     ':upheld' => $upheldsql,
                                     ':report_id' => $this->report_id
                                 ));
@@ -437,23 +436,23 @@ class CommentReport {
                 if ($q->success()) {
 
                     $this->resolved = $time;
-                    $this->resolvedby = $THEUSER->user_id();
+                    $this->resolvedby = $this->the_user->user_id();
                     $this->locked = NULL;
                     $this->lockedby = NULL;
                     $this->upheld = $upheld;
 
                     return true;
                 } else {
-                    $PAGE->error_message ("Sorry, we couldn't resolve this report.");
+                    $this->page->error_message ("Sorry, we couldn't resolve this report.");
                     return false;
                 }
             } else {
-                $PAGE->error_message ("This report has already been resolved (on " . $this->resolved . ")");
+                $this->page->error_message ("This report has already been resolved (on " . $this->resolved . ")");
                 return false;
             }
 
         } else {
-            $PAGE->error_message ("You are not authorised to resolve reports.");
+            $this->page->error_message ("You are not authorised to resolve reports.");
             return false;
         }
     }

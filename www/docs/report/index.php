@@ -53,7 +53,7 @@ if (is_numeric(get_http_var('id'))) {
 
             // Report this comment.
 
-            $REPORT = new \MySociety\TheyWorkForYou\CommentReport;
+            $REPORT = new \MySociety\TheyWorkForYou\CommentReport($THEUSER, $PAGE);
 
             $reportdata = array (
                 'body'		=> get_http_var('body'),
