@@ -133,7 +133,7 @@
             <field name="epobject_id">4</field>
             <field name="gid">com.theyworkforyou/test/hansard/4</field>
             <field name="htype">10</field>
-            <field name="hdate">2014-01-01</field>
+            <field name="hdate">2014-01-02</field>
             <field name="htime">10:03</field>
             <field name="hpos">4</field>
             <field name="speaker_id">3</field>
@@ -146,6 +146,51 @@
 	<table_data name="indexbatch">
 	</table_data>
 	<table_data name="member">
+        <row>
+            <field name="member_id">1</field>
+            <field name="house">1</field>
+            <field name="first_name">Speaker</field>
+            <field name="last_name">One</field>
+            <field name="constituency"></field>
+            <field name="party"></field>
+            <field name="entered_house">2000-01-01</field>
+            <field name="left_house">9999-12-31</field>
+            <field name="entered_reason">general_election</field>
+            <field name="left_reason">still_in_office</field>
+            <field name="person_id">2</field>
+            <field name="title">Mr</field>
+            <field name="lastupdate">2014-01-01 09:00:00</field>
+        </row>
+        <row>
+            <field name="member_id">2</field>
+            <field name="house">1</field>
+            <field name="first_name">Speaker</field>
+            <field name="last_name">Two</field>
+            <field name="constituency"></field>
+            <field name="party"></field>
+            <field name="entered_house">2000-01-01</field>
+            <field name="left_house">9999-12-31</field>
+            <field name="entered_reason">general_election</field>
+            <field name="left_reason">still_in_office</field>
+            <field name="person_id">3</field>
+            <field name="title">Mrs</field>
+            <field name="lastupdate">2014-01-01 09:00:00</field>
+        </row>
+        <row>
+            <field name="member_id">3</field>
+            <field name="house">1</field>
+            <field name="first_name">Speaker</field>
+            <field name="last_name">Three</field>
+            <field name="constituency"></field>
+            <field name="party"></field>
+            <field name="entered_house">2000-01-01</field>
+            <field name="left_house">9999-12-31</field>
+            <field name="entered_reason">general_election</field>
+            <field name="left_reason">still_in_office</field>
+            <field name="person_id">4</field>
+            <field name="title">Mr</field>
+            <field name="lastupdate">2014-01-01 09:00:00</field>
+        </row>
 	</table_data>
 	<table_data name="memberinfo">
 	</table_data>
