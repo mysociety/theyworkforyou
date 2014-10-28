@@ -19,7 +19,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
     $PAGE->block_start(array('id'=>'recentcomments', 'title'=>$title));
 
     if ($this_page != 'home') $PAGE->page_links($data);
-    $USERURL = new URL('userview');
+    $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
     ?>
                         <ul>
 <?php
@@ -45,7 +45,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 <?php
 
     if ($this_page == 'home') {
-        $MOREURL = new URL('comments_recent');
+        $MOREURL = new \MySociety\TheyWorkForYou\Url('comments_recent');
         ?>
                         <p><a href="<?php echo $MOREURL->generate(); ?>#c<?php echo count($data['comments'])+1; ?>">See more annotations posted recently</a></p>
 <?php

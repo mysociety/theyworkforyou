@@ -24,14 +24,14 @@ foreach ($data['dates'] as $date => $day_events) {
         if ($plural[$i]) $chamber .= 's';
         print "<h2 class='calendar'>$chamber";
         if (in_array($major[$i], $data['majors'])) {
-            $URL = new URL($hansardmajors[$major[$i]]['page_all']);
+            $URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$major[$i]]['page_all']);
             $URL->insert( array( 'd' => $date ) );
             print ' &nbsp; <a href="' . $URL->generate() . '">See this day &rarr;</a>';
         }
         print "</h2>\n";
         print $list[$i] ? "<ul class='calendar'>\n" : "<dl class='calendar'>\n";
         foreach ($events as $event) {
-            calendar_display_entry($event);
+            \MySociety\TheyWorkForYou\Utility\Calendar::displayEntry($event);
         }
         print $list[$i] ? "</ul>\n" : "</dl>\n";
     }

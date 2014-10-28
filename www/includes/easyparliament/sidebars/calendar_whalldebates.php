@@ -32,7 +32,7 @@ if ($this_page == 'whallday') {
 $PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 
 
-$LIST = new WHALLLIST;
+$LIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\WhallList;
 
 $LIST->display('calendar', $args);
 

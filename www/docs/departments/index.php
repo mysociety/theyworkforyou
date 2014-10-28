@@ -7,7 +7,7 @@ include_once '../../includes/easyparliament/init.php';
 $dept = get_http_var('dept');
 $PAGE->page_start();
 $PAGE->stripe_start();
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 print '<h1>Departments</h1>';
 

@@ -2,11 +2,8 @@
 # vim:sw=4:ts=4:et:nowrap
 
 include_once '../../../includes/easyparliament/init.php';
-include_once INCLUDESPATH."easyparliament/member.php";
-include_once INCLUDESPATH."easyparliament/glossary.php";
 
 // From http://cvs.sourceforge.net/viewcvs.py/publicwhip/publicwhip/website/
-include_once INCLUDESPATH."postcode.inc";
 
 if (!DEVSITE) {
     header('Cache-Control: max-age=86400'); # Once a day
@@ -38,7 +35,7 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
         $searchstring .= " groupby:" . $searchgroupby;
     } // We have only one of these, rather than one in HANSARDLIST also
     global $SEARCHENGINE;
-    $SEARCHENGINE = new SEARCHENGINE($searchstring);
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring);
 
     $pagetitle = "Search: " . $SEARCHENGINE->query_description_short();
 
@@ -60,6 +57,6 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
         'num' => $num,
     );
 
-    $LIST = new HANSARDLIST();
+    $LIST = new \MySociety\TheyWorkForYou\HansardList();
     $LIST->display('search', $args, 'rss');
 }

@@ -16,7 +16,7 @@ function api_getLord_front() {
 }
 
 function api_getLord_id($id) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select * from member
         where house=2 and person_id = :id
         order by left_house desc", array(

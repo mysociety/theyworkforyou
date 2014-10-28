@@ -1,9 +1,8 @@
 <?php
 
 include '../www/includes/easyparliament/init.php';
-# include INCLUDESPATH . 'easyparliament/member.php';
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $q = $db->query('select count(*) as c from hansard where major=3 and minor=2');
 $answers = $q->field(0, 'c');

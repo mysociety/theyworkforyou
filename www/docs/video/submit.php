@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/video.php';
 
 $gid = get_http_var('gid');
 $time = intval(get_http_var('time'));
@@ -9,7 +8,7 @@ $file = intval(get_http_var('file'));
 
 $gid = "uk.org.publicwhip/$gid";
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $q = $db->query("select hdate, htime, adate, atime from hansard
     left join video_timestamps on hansard.gid=video_timestamps.gid and user_id=-1 and video_timestamps.deleted=0
     where hansard.gid = :gid", array(
@@ -25,9 +24,9 @@ if ($adate) $hdate = $adate;
 if (!$hdate || !$htime || !$time)
     exit;
 
-$videodb = video_db_connect();
+$videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
 if (!$file) {
-    $video = video_from_timestamp($videodb, $hdate, $htime);
+    $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $hdate, $htime);
     $file = $video['id'];
 }
 

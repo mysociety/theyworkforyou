@@ -34,8 +34,6 @@
 
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/member.php";
-include_once INCLUDESPATH . "easyparliament/alert.php";
 
 // Which page we're on all depends on the value of the "pg" variable...
 switch (get_http_var("pg")) {
@@ -203,7 +201,7 @@ if (get_http_var("submitted") == "true") {
             // So set up a new user object with the id supplied
             // and get the user's info.
 
-            $USER = new USER;
+            $USER = new \MySociety\TheyWorkForYou\User;
             $USER->init( get_http_var("u") );
 
             $details = array();
@@ -270,7 +268,7 @@ function check_input($details) {
 
         } else {
 
-            $USER = new USER;
+            $USER = new \MySociety\TheyWorkForYou\User;
             $id_of_user_with_this_addresss = $USER->email_exists($details["email"], true);
 
             if ($this_page == "useredit" &&
@@ -408,7 +406,7 @@ function add_user($details) {
         } else {
             // We'll send the user to the front page after they've joined.
 
-            $URL = new URL("home");
+            $URL = new \MySociety\TheyWorkForYou\Url("home");
             $URL->insert(array("newuser"=>"1"));
             $url = $URL->generate();
         }
@@ -510,7 +508,7 @@ function display_form ( $details = array(), $errors = array() ) {
 
     } else {
 
-        $URL = new URL("userlogin");
+        $URL = new \MySociety\TheyWorkForYou\Url("userlogin");
         $URL->insert(array('ret'=>get_http_var('ret')));
 
         if (!$THEUSER->isloggedin()) {
@@ -522,7 +520,7 @@ function display_form ( $details = array(), $errors = array() ) {
         }
     }
 
-    $ACTIONURL = new URL($this_page);
+    $ACTIONURL = new \MySociety\TheyWorkForYou\Url($this_page);
     $ACTIONURL->reset();
     ?>
 
@@ -718,7 +716,7 @@ function display_form ( $details = array(), $errors = array() ) {
                 <span class="label">Security status:</span>
                 <span class="formw"><select name="status">
 <?php
-    $USER = new USER;
+    $USER = new \MySociety\TheyWorkForYou\User;
     $statuses = $USER->possible_statuses();
     foreach ($statuses as $n => $status) {
         print "\t<option value=\"$status\"";
@@ -759,7 +757,7 @@ function display_form ( $details = array(), $errors = array() ) {
         $submittext = "Join TheyWorkForYou.com";
     }
 
-    $TERMSURL = new URL('houserules');
+    $TERMSURL = new \MySociety\TheyWorkForYou\Url('houserules');
 ?>
                 <div class="row">
                 <span class="label">&nbsp;</span>
@@ -868,7 +866,7 @@ function display_user($user_id="", $email_changed=false) {
 
     } else {
         // Nothing to show!
-        $URL = new URL('userlogin');
+        $URL = new \MySociety\TheyWorkForYou\Url('userlogin');
         $URL->insert(array('ret'=>'/user/'));
         $loginurl = $URL->generate();
         header("Location: $loginurl");
@@ -880,12 +878,12 @@ function display_user($user_id="", $email_changed=false) {
 
     // SECOND: Get the data for whoever we're going to show.
 
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     if ($display == "another user") {
 
         // Viewing someone else's info.
 
-        $USER = new USER;
+        $USER = new \MySociety\TheyWorkForYou\User;
         $valid = $USER->init($user_id);
 
         if ($valid && $USER->confirmed() && !$USER->deleted()) {
@@ -968,7 +966,7 @@ function display_user($user_id="", $email_changed=false) {
         }
 
         if ($this_page == 'userviewself' && !$edited) {
-            $EDITURL = new URL('useredit');
+            $EDITURL = new \MySociety\TheyWorkForYou\Url('useredit');
             ?>
                 <p><strong>This is how other people see you.</strong> <a href="<?php echo $EDITURL->generate(); ?>">Edit your details</a>.</p>
 <?php
@@ -1069,8 +1067,8 @@ function display_user($user_id="", $email_changed=false) {
         }
 
         if ($edited && $this_page == 'userviewself') {
-            $EDITURL = new URL('useredit');
-            $VIEWURL = new URL('userviewself');
+            $EDITURL = new \MySociety\TheyWorkForYou\Url('useredit');
+            $VIEWURL = new \MySociety\TheyWorkForYou\Url('userviewself');
             ?>
                 <p>&nbsp;<br><a href="<?php echo $EDITURL->generate(); ?>">Edit again</a> or <a href="<?php echo $VIEWURL->generate(); ?>">see how others see you</a>.</p>
 <?php
@@ -1083,7 +1081,7 @@ function display_user($user_id="", $email_changed=false) {
         if ($this_page == 'userviewself') {
             $PAGE->stripe_start();
             print '<h3>Your email alerts</h3>';
-            alerts_manage($THEUSER->email());
+            \MySociety\TheyWorkForYou\Utility\Alert::manage($THEUSER->email());
             $PAGE->stripe_end();
         }
 
@@ -1094,7 +1092,7 @@ function display_user($user_id="", $email_changed=false) {
                 'page' => get_http_var('p')
             );
 
-            $COMMENTLIST = new COMMENTLIST();
+            $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList($PAGE, $hansardmajors);
 
             $COMMENTLIST->display('user', $args);
         }

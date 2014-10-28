@@ -35,7 +35,7 @@ if (get_http_var("submitted")) {
         $errors["email"] = "Please enter a valid email address";
     } else {
 
-        $USER = new USER;
+        $USER = new \MySociety\TheyWorkForYou\User;
         $emailexists = $USER->email_exists($email);
         if (!$emailexists) {
             $errors["email"] = 'There is no user registered with that email address. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave annotations.';
@@ -100,7 +100,7 @@ function display_page ($errors=array()) {
     }
 ?>
 
-<form method="get" action="<?php $URL = new URL($this_page); echo $URL->generate(); ?>">
+<form method="get" action="<?php $URL = new \MySociety\TheyWorkForYou\Url($this_page); echo $URL->generate(); ?>">
 
 <?php
     if (isset($errors["email"])) {

@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/video.php';
 
 $action = get_http_var('action');
 $pid = intval(get_http_var('pid'));
@@ -12,7 +11,7 @@ if ($action == 'next' || $action=='nextneeded') {
     $gid = get_http_var('gid');
     $file = intval(get_http_var('file'));
     $time = intval(get_http_var('time'));
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $gid = "uk.org.publicwhip/$gid";
     $q = $db->query("select hdate,hpos,major from hansard where gid = :gid", array(
         ':gid' => $gid
@@ -50,9 +49,9 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
                 order by hpos desc limit 1");
             $adate = $q->field(0, 'adate');
             $atime = $q->field(0, 'atime');
-            $videodb = video_db_connect();
+            $videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
             if ($videodb) {
-                $video = video_from_timestamp($videodb, $adate, $atime);
+                $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $adate, $atime);
                 $file = $video['id'];
                 $time = $video['offset'];
             }
@@ -61,7 +60,7 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
         header('Location: /video/?from=next&file=' . $file . '&gid=' . $new_gid . '&start=' . $time);
     }
 } elseif ($action == 'random' && $pid) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select gid from hansard, member
         where video_status in (1,3) and major=$major
         and (htype=12 or htype=13)
@@ -70,7 +69,7 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
     $new_gid = fix_gid_but_leave_section($q->field(0, 'gid'));
     header('Location: /video/?from=random&pid=' . $pid . '&gid=' . $new_gid);
 } elseif ($action == 'random') {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select gid, hpos, hdate from hansard
         where video_status in (1,3) and major=$major
         and (htype=12 or htype=13)

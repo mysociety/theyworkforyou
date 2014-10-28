@@ -7,7 +7,7 @@
 
 include_once dirname(__FILE__) . '/../www/includes/easyparliament/init.php';
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $q = $db->query('SELECT
     api_key.api_key, api_key.commercial, DATE(api_key.created) AS created, api_key.reason,
     users.firstname, users.lastname, users.email,

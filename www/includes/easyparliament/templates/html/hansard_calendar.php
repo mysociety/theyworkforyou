@@ -121,7 +121,7 @@ if (isset($data['years'])) {
                 print "<td colspan=\"$dayOfWeek\">&nbsp;</td>";
             }
 
-            $DAYURL = new URL($data['info']['page']);
+            $DAYURL = new \MySociety\TheyWorkForYou\Url($data['info']['page']);
 
             while ($currentDay <= $numberDays) {
 
@@ -207,7 +207,7 @@ if (isset($data['years'])) {
             // And it's easier here as we need the date.
             $years = array_keys($data['years']);
             $year = $years[0];
-            $URL = new URL($hansardmajors[$data['info']['major']]['page_year']);
+            $URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$data['info']['major']]['page_year']);
             $URL->insert(array('y'=>$year));
             print '<p><a href="' . $URL->generate() . '">See all of ' . $year . '</a></p>';
         }

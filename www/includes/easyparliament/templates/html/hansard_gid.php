@@ -11,10 +11,6 @@
 
 global $PAGE, $this_page, $GLOSSARY, $hansardmajors, $DATA, $THEUSER;
 
-include_once INCLUDESPATH."easyparliament/searchengine.php";
-include_once INCLUDESPATH."easyparliament/member.php";
-
-
 twfy_debug("TEMPLATE", "hansard_gid.php");
 
 // Will set the page headings and start the page HTML if it hasn't
@@ -54,7 +50,7 @@ if (isset ($data['rows'])) {
     // For highlighting
     $SEARCHENGINE = null;
     if (isset($data['info']['searchstring']) && $data['info']['searchstring'] != '') {
-        $SEARCHENGINE = new SEARCHENGINE($data['info']['searchstring']);
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($data['info']['searchstring']);
     }
 
     // Before we print the body text we need to insert glossary links
@@ -272,13 +268,14 @@ if (isset ($data['rows'])) {
                 if($data['info']['major'] == 101){
                     $missing_photo_type = "lord";
                 }
-                list($image,$sz) = find_rep_image($speaker['person_id'], true, $missing_photo_type);
+                list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($speaker['person_id'], true, $missing_photo_type);
 
                 echo '<a class="speakerimage" id="speakerimage_' . $row['epobject_id'] . '" href="', $speaker['url'], '" title="See more information about ', $speakername, '" onmouseover="showPersonLinks(' . $row['epobject_id'] . ')" >';
                 echo '<span><img src="', $image, '" alt="Photo of ', $speakername, '"';
                 /*
                 if (get_http_var('partycolours')) {
-                    echo ' style="border: 3px solid ', party_to_colour($speaker['party']), ';"';
+                    echo ' style="border: 3px solid ', \MySociety\TheyWorkForYou\Utility\Party::partyToColour($speaker['party']), ';"';
+
                 }
                 */
                 echo '></span></a>';
@@ -312,7 +309,7 @@ if (isset ($data['rows'])) {
                         if ($speaker['party']) $desc .= ', ';
                     }
                     if (get_http_var('wordcolours')) {
-                        $desc .= '<span style="color: '.party_to_colour($speaker['party']).'">';
+                        $desc .= '<span style="color: ' . \MySociety\TheyWorkForYou\Utility\Party::partyToColour($speaker['party']).'">';
                     }
                     $desc .= _htmlentities($speaker['party']);
                     if (get_http_var('wordcolours')) {
@@ -437,7 +434,7 @@ if (isset ($data['rows'])) {
             if ($hansardmajors[$data['info']['major']]['type']=='debate' && $this_page == $hansardmajors[$data['info']['major']]['page_all']) {
                 // Build the 'Add an annotation' link.
                 if (!$THEUSER->isloggedin()) {
-                    $URL = new URL('userprompt');
+                    $URL = new \MySociety\TheyWorkForYou\Url('userprompt');
                     $URL->insert(array('ret'=>$row['commentsurl']));
                     $commentsurl = $URL->generate();
                 } else {
@@ -683,10 +680,10 @@ function generate_votes ($votes, $major, $id, $gid) {
     // What we return.
     $html = '';
 
-    $URL = new URL($this_page);
+    $URL = new \MySociety\TheyWorkForYou\Url($this_page);
     $returl = $URL->generate();
 
-    $VOTEURL = new URL('epvote');
+    $VOTEURL = new \MySociety\TheyWorkForYou\Url('epvote');
     $VOTEURL->insert(array('v'=>'1', 'id'=>$id, 'ret'=>$returl));
 
     if (($major == 3 || $major == 8) && ($votelinks_so_far > 0 || preg_match('#r#', $gid) ) ) { # XXX
@@ -772,7 +769,7 @@ function get_question_mentions_html($row_data) {
                 break;
             case 4:
                 if( preg_match('/^uk.org.publicwhip\/spq\/(.*)$/',$row['gid'],$m) ) {
-                    $URL = new URL("spwrans");
+                    $URL = new \MySociety\TheyWorkForYou\Url("spwrans");
                     $URL->insert( array('spid' => $m[1]) );
                     $relative_url = $URL->generate("none");
                     $inner = "Given a <a href=\"$relative_url\">written answer on $date</a>";
@@ -783,7 +780,7 @@ function get_question_mentions_html($row_data) {
                 break;
             case 6:
                 if( preg_match('/^uk.org.publicwhip\/spor\/(.*)$/',$row['mentioned_gid'],$m) ) {
-                    $URL = new URL("spdebates");
+                    $URL = new \MySociety\TheyWorkForYou\Url("spdebates");
                     $URL->insert( array('id' => $m[1]) );
                     $relative_url = $URL->generate("none");
                     $inner = "<a href=\"$relative_url\">Asked in parliament on $date</a>";
@@ -792,7 +789,7 @@ function get_question_mentions_html($row_data) {
             case 7:
                 if( preg_match('/^uk.org.publicwhip\/spq\/(.*)$/',$row['mentioned_gid'],$m) ) {
                     $referencing_spid = $m[1];
-                    $URL = new URL("spwrans");
+                    $URL = new \MySociety\TheyWorkForYou\Url("spwrans");
                     $URL->insert( array('spid' => $referencing_spid) );
                     $relative_url = $URL->generate("none");
                     $inner = "Referenced in <a href=\"$relative_url\">question $referencing_spid</a>";
@@ -815,8 +812,7 @@ function get_question_mentions_html($row_data) {
 }
 
 function video_sidebar($row, $section, $count, $major) {
-    include_once INCLUDESPATH . 'easyparliament/video.php';
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     if ($major == 1) {
         $gid_type = 'debate';
     } elseif ($major == 101) {
@@ -826,9 +822,9 @@ function video_sidebar($row, $section, $count, $major) {
     $ts_id = $vq->field(0, 'id'); if (!$ts_id) $ts_id='*';
     $adate = $vq->field(0, 'adate');
     $time = $vq->field(0, 'atime');
-    $videodb = video_db_connect();
+    $videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
     if (!$videodb) return '';
-    $video = video_from_timestamp($videodb, $adate, $time);
+    $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $adate, $time);
     $start = $video['offset'];
     $out = '';
     if ($count > 1) {
@@ -837,7 +833,7 @@ function video_sidebar($row, $section, $count, $major) {
             $out .= '<p style="margin:0">This video starts around ' . ($row['hpos']-$section['hpos']) . ' speeches in (<a href="#g' . gid_to_anchor($row['gid']) . '">move there in text</a>)</p>';
         }
     }
-    $out .= video_object($video['id'], $start, "$gid_type/$row[gid]");
+    $out .= \MySociety\TheyWorkForYou\Utility\Video::object($video['id'], $start, "$gid_type/$row[gid]");
     $flashvars = 'gid=' . "$gid_type/$row[gid]" . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
     $out .= "<br><b>Add this video to another site:</b><br><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'></embed>\"><br><small>(copy and paste the above)</small>";
     $out .= "<p style='margin-bottom:0'>Is this not the right video? <a href='mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "?subject=Incorrect%20video,%20id%20$row[gid];$video[id];$ts_id'>Let us know</a></p>";

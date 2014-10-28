@@ -1,10 +1,10 @@
 <?php
 // This sidebar appears on the very front page of the site.
 
-$URL = new URL('sitenews');
+$URL = new \MySociety\TheyWorkForYou\Url('sitenews');
 $sitenewsurl = $URL->generate();
 
-$URL = new URL('sitenews_archive');
+$URL = new \MySociety\TheyWorkForYou\Url('sitenews_archive');
 $archiveurl = $URL->generate();
 
 $this->block_start(array('title'=>"Site news", 'url'=>$sitenewsurl));

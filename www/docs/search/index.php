@@ -2,11 +2,8 @@
 # vim:sw=4:ts=4:et:nowrap
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH."easyparliament/member.php";
-include_once INCLUDESPATH."easyparliament/glossary.php";
 
 // From http://cvs.sourceforge.net/viewcvs.py/publicwhip/publicwhip/website/
-include_once INCLUDESPATH."postcode.inc";
 
 if (!DEVSITE) {
     header('Cache-Control: max-age=900');
@@ -90,7 +87,7 @@ function search_order_p($searchstring) {
         $q_house = get_http_var('house');
 
     # Fetch the results
-    $data = search_by_usage($searchstring, $q_house);
+    $data = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchByUsage($searchstring, $q_house);
 
     $wtt = get_http_var('wtt');
     if ($wtt) {
@@ -133,7 +130,7 @@ you will have to search for it separately.</p>
     else {
 ?>Table includes - <?php
 
-        $URL = new URL($this_page);
+        $URL = new \MySociety\TheyWorkForYou\Url($this_page);
         $url_l = $URL->generate('html', array('house'=>2));
         $url_c = $URL->generate('html', array('house'=>1));
         $URL->remove(array('house'));
@@ -187,7 +184,7 @@ you will have to search for it separately.</p>
 function search_normal($searchstring) {
     global $PAGE, $DATA, $this_page, $SEARCHENGINE;
 
-    $SEARCHENGINE = new SEARCHENGINE($searchstring);
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring);
     $qd = $SEARCHENGINE->valid ? $SEARCHENGINE->query_description_short() : $searchstring;
     $pagetitle = 'Search for ' . $qd;
     $pagenum = get_http_var('p');
@@ -226,7 +223,7 @@ function search_normal($searchstring) {
     if (!$SEARCHENGINE->valid) {
         $PAGE->error_message($SEARCHENGINE->error);
     } else {
-        $LIST = new HANSARDLIST();
+        $LIST = new \MySociety\TheyWorkForYou\HansardList();
         $LIST->display('search', $args);
     }
 
@@ -241,14 +238,14 @@ function search_normal($searchstring) {
 function search_order_t($searchstring) {
     global $DATA, $PAGE, $this_page, $SEARCHENGINE;
 
-    $SEARCHENGINE = new SEARCHENGINE($searchstring);
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring);
     $pagetitle = $SEARCHENGINE->query_description_short();
     $pagetitle = 'When is ' . $pagetitle . ' said most in debates?';
     $DATA->set_page_metadata($this_page, 'title', $pagetitle);
     $PAGE->page_start();
     $PAGE->stripe_start();
     $PAGE->search_form($searchstring);
-    $SEARCHENGINE = new SEARCHENGINE($searchstring . ' groupby:speech section:debates section:whall');
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring . ' groupby:speech section:debates section:whall');
     $count = $SEARCHENGINE->run_count();
     if ($count <= 0) {
         print '<p>There were no results.</p>';
@@ -268,7 +265,7 @@ function search_order_t($searchstring) {
 
     $hdates = array();
     $big_list = join('","', $gids);
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query('SELECT hdate FROM hansard WHERE gid IN ("' . $big_list . '")');
     print '<!-- Counts: ' . count($gids) . ' vs ' . $q->rows() . ' -->';
     for ($n=0; $n<$q->rows(); $n++) {
@@ -294,7 +291,7 @@ function search_order_t($searchstring) {
 # ---
 
 function find_comments($args) {
-    $commentlist = new COMMENTLIST;
+    $commentlist = new \MySociety\TheyWorkForYou\CommentList($PAGE, $hansardmajors);
     $commentlist->display('search', $args);
 }
 
@@ -310,7 +307,7 @@ function find_constituency($args) {
         return false;
     }
 
-    list ($constituencies, $validpostcode) = search_constituencies_by_query($searchterm);
+    list ($constituencies, $validpostcode) = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchConstituenciesByQuery($searchterm);
 
     $constituency = "";
     if (count($constituencies)==1) {
@@ -320,8 +317,8 @@ function find_constituency($args) {
     if ($constituency != '') {
         // Got a match, display....
 
-        $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
-        $URL = new URL('mp');
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency'=>$constituency, 'house' => 1));
+        $URL = new \MySociety\TheyWorkForYou\Url('mp');
         if ($MEMBER->valid) {
             $URL->insert(array('m'=>$MEMBER->member_id()));
             print '<h2>MP for ' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency);
@@ -338,8 +335,8 @@ function find_constituency($args) {
     } elseif (count($constituencies)) {
         print "<h2>MPs in constituencies matching '" . _htmlentities($searchterm) . "'</h2><ul>";
         foreach ($constituencies as $constituency) {
-            $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
-            $URL = new URL('mp');
+            $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency'=>$constituency, 'house' => 1));
+            $URL = new \MySociety\TheyWorkForYou\Url('mp');
             if ($MEMBER->valid) {
                 $URL->insert(array('m'=>$MEMBER->member_id()));
             }
@@ -375,7 +372,7 @@ function find_users($args) {
         $where = "(firstname LIKE '%" . addslashes($searchwords[0]) . "%' AND lastname LIKE '%" . addslashes($searchwords[1]) . "%')";
     }
 
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("SELECT user_id,
                         firstname,
                         lastname
@@ -386,7 +383,7 @@ function find_users($args) {
 
     if ($q->rows() > 0) {
 
-        $URL = new URL('userview');
+        $URL = new \MySociety\TheyWorkForYou\Url('userview');
         $users = array();
 
         for ($n=0; $n<$q->rows(); $n++) {
@@ -439,13 +436,13 @@ function _find_members_internal($searchstring) {
     }
 
     $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $searchstring));
-    $q = search_member_db_lookup($searchstring);
+    $q = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchMemberDbLookup($searchstring);
     if (!$q) return false;
 
     $members = array();
     if ($q->rows() > 0) {
-        $URL1 = new URL('mp');
-        $URL2 = new URL('peer');
+        $URL1 = new \MySociety\TheyWorkForYou\Url('mp');
+        $URL2 = new \MySociety\TheyWorkForYou\Url('peer');
 
         $last_pid = null;
         $entered_house = '';
@@ -477,7 +474,7 @@ function _find_members_internal($searchstring) {
                 $s2 = ' &ndash; ';
                 if ($q->field($n, 'left_house') != '9999-12-31')
                    $s2 .= format_date($q->field($n, 'left_house'), SHORTDATEFORMAT);
-                $MOREURL = new URL('search');
+                $MOREURL = new \MySociety\TheyWorkForYou\Url('search');
                 $MOREURL->insert( array('pid'=>$last_pid, 'pop'=>1, 's'=>null) );
                 $s3 = ') &ndash; <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
                 $members[] = array($s, $s2, $s3);
@@ -495,12 +492,12 @@ function _find_members_internal($searchstring) {
 // If it does, show links off to them.
 function find_glossary_items($args) {
     $searchterm = $args['s'];
-    $GLOSSARY = new GLOSSARY($args);
+    $GLOSSARY = new \MySociety\TheyWorkForYou\Glossary($args);
 
     if (isset($GLOSSARY->num_search_matches) && $GLOSSARY->num_search_matches >= 1) {
 
         // Got a match(es), display....
-        $URL = new URL('glossary');
+        $URL = new \MySociety\TheyWorkForYou\Url('glossary');
         $URL->insert(array('gl' => ""));
 ?>
                 <h2>Matching glossary terms:</h2>
@@ -592,7 +589,7 @@ function construct_search_string() {
 
     # Searching from MP pages
     if ($searchspeaker = trim(get_http_var('person'))) {
-        $q = search_member_db_lookup($searchspeaker);
+        $q = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchMemberDbLookup($searchspeaker);
         $pids = array();
         for ($i=0; $i<$q->rows(); $i++) {
             $pids[$q->field($i, 'person_id')] = true;

@@ -16,7 +16,7 @@
 
 // If we are at the URL www.domain.org/search/?s=blair&page=2
 // and we used the URL class to generate a link to the search page like this:
-// 		$URL = new URL('search');
+// 		$URL = new \MySociety\TheyWorkForYou\Url('search');
 //		$newurl = $URL->generate();
 
 // then $newurl would be: /search/?s=blair

@@ -32,7 +32,7 @@ if ($this_page == 'debatesday') {
 $PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 
 
-$LIST = new DEBATELIST;
+$LIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 
 $LIST->display('calendar', $args);
 

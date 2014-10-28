@@ -15,7 +15,7 @@ if (get_http_var("submitcomment") != '') {
         'body'	=> get_http_var('body')
     );
 
-    $COMMENT = new COMMENT;
+    $COMMENT = new \MySociety\TheyWorkForYou\Comment($THEUSER, $PAGE, $hansardmajors);
 
     $success = $COMMENT->create($data);
 
@@ -26,7 +26,7 @@ if (get_http_var("submitcomment") != '') {
 
         // 'return_page' will be something like 'debate', so we know what page
         // to return to.
-        $URL = new URL(get_http_var('return_page'));
+        $URL = new \MySociety\TheyWorkForYou\Url(get_http_var('return_page'));
         // That c=blah we're putting on the URL does nothing on the page,
         // BUT it makes picky browsers like Opera think it's a whole new page
         // so it reloads it, rather than being clever and thinking no refresh
@@ -69,7 +69,7 @@ if (get_http_var("submitcomment") != '') {
             'preview' => true	// Extra tag so we know this is just a preview.
         );
 
-        $COMMENTLIST = new COMMENTLIST;
+        $COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList($PAGE, $hansardmajors);
 
         $COMMENTLIST->render($data, 'html');
 

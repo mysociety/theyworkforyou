@@ -2,7 +2,7 @@
 
 include_once "../www/includes/easyparliament/init.php";
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $q = $db->query('select distinct(speaker_id) from hansard where video_status in (5,7) and speaker_id>0 limit 5');
 for ($i=0; $i<$q->rows(); $i++) {

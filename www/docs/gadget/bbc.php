@@ -4,7 +4,7 @@ include 'min-init.php';
 include_once '../api/api_functions.php';
 include_once '../api/api_getMP.php';
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $_GET['output'] = 'xml';
 
 $party_sites = array(

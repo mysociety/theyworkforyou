@@ -1,8 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH."easyparliament/glossary.php";
-include_once INCLUDESPATH."easyparliament/glossarylist.php";
 
 //$this_page = "glossary_addterm";
 $this_page = "help_us_out";
@@ -14,11 +12,11 @@ $args = array( 'action' => $this_page);
 if ((get_http_var('g') != '') && (get_http_var('previewterm') == '') ) {
     // We're searching for something.
     $args['s'] = filter_user_input(get_http_var('g'), 'strict');
-    $GLOSSARY = new GLOSSARY($args);
+    $GLOSSARY = new \MySociety\TheyWorkForYou\Glossary($args);
 }
 else {
     $args['sort'] = "regexp_replace";
-    $GLOSSARY = new GLOSSARY($args);
+    $GLOSSARY = new \MySociety\TheyWorkForYou\Glossary($args);
     $args['s'] = filter_user_input(get_http_var('g'), 'strict');
 }
 
@@ -28,14 +26,14 @@ if (
 ) {
     $GLOSSARY->query = "";
     $args['blankform'] = 1;
-    $URL = new URL('help_us_out');
+    $URL = new \MySociety\TheyWorkForYou\Url('help_us_out');
     $backlink = $URL->generate();
     $error_message = "Sorry, that phrase appears too many times to be a useful as a link within the parliamentary record.";
 }
 
 // do a quick searchengine count
 if ($GLOSSARY->query != "") {
-    $SEARCHENGINE= new SEARCHENGINE('"'.$args['s'].'"');
+    $SEARCHENGINE= new \MySociety\TheyWorkForYou\SearchEngine('"'.$args['s'].'"');
     $args['count'] = $SEARCHENGINE->run_count(0, 10000);
     if (!$args['count']) {
         $GLOSSARY->query = "";
@@ -137,7 +135,7 @@ if (get_http_var("submitterm") != '') {
                 // force hansardlist to use the glossary search template,
                 // while still performing a standard search.
                 $args['view_override'] = "glossary_search";
-                $LIST = new HANSARDLIST();
+                $LIST = new \MySociety\TheyWorkForYou\HansardList();
                 $LIST->display('search', $args);
                 print "<p><a href=\"#definition\">Back to form</a></p>";
             }
@@ -157,7 +155,7 @@ if (get_http_var("submitterm") != '') {
 
     $PAGE->glossary_search_form($args);
 
-    $URL = new URL('glossary');
+    $URL = new \MySociety\TheyWorkForYou\Url('glossary');
 
     // Early Day Motion
     $URL->insert(array("gl" => "90"));

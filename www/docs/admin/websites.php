@@ -1,14 +1,10 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-#include_once INCLUDESPATH . 'easyparliament/commentreportlist.php';
-#include_once INCLUDESPATH . 'easyparliament/searchengine.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
-#include_once INCLUDESPATH . 'easyparliament/people.php';
 
 $this_page = 'admin_mpurls';
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $scriptpath = '../../../scripts';
 

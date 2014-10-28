@@ -2,7 +2,6 @@
 
 ini_set('display_errors', 'On');
 include_once '../min-init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once '../../api/api_functions.php';
 
 $action = get_http_var('action');
@@ -44,10 +43,9 @@ switch ($action) {
                     $start_year = '2009';
                 }
                 $int_start_year = intval($start_year) - 2000;
-        include_once INCLUDESPATH . 'easyparliament/expenses.php';
         $title = "Allowances: " . $member->full_name();
                 $body = "<h1>" . $member->full_name() . ": <span>Expenses</span></h1>";
-                $table = expenses_display_table($member->extra_info, $gadget=true, $int_start_year);
+                $table = \MySociety\TheyWorkForYou\Utility\Expenses::displaytable($member->extra_info, $gadget=true, $int_start_year);
                 if (strlen($table) == 0) {
                     output_error('No data');
                 }
@@ -66,12 +64,25 @@ switch ($action) {
         echo '<p><a href="http://www.guardian.co.uk/politics/person/[aristotle_id]">Full profile</a></p>';
         break;
     case 'recent-speeches-component':
-        include_once INCLUDESPATH . 'easyparliament/hansardlist.php';
-        include_once INCLUDESPATH . 'easyparliament/searchengine.php';
-        $HANSARDLIST = new HANSARDLIST();
+
+        if (defined('XAPIANDB') AND XAPIANDB != '') {
+            if (file_exists('/usr/share/php/xapian.php')) {
+                include_once '/usr/share/php/xapian.php';
+            } else {
+                twfy_debug('SEARCH', '/usr/share/php/xapian.php does not exist');
+            }
+        }
+
+        global $SEARCHENGINE;
+        $SEARCHENGINE = null;
+
+        global $SEARCHLOG;
+        $SEARCHLOG = new \MySociety\TheyWorkForYou\SearchLog();
+
+        $HANSARDLIST = new \MySociety\TheyWorkForYou\HansardList();
         $searchstring = "speaker:$pid";
         global $SEARCHENGINE;
-        $SEARCHENGINE = new SEARCHENGINE($searchstring);
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring);
         $args = array (
             's' => $searchstring,
             'p' => 1,
@@ -88,8 +99,7 @@ speeches from ', $member->full_name(), '</a></p>';
         echo 'To do';
         break;
     case 'expenses-component':
-        include_once INCLUDESPATH . 'easyparliament/expenses.php';
-                $body = expenses_mostrecent($member->extra_info, $gadget=true);
+                $body = \MySociety\TheyWorkForYou\Utility\Expenses::mostRecent($member->extra_info, $gadget=true);
                 if (strlen($body) == 0) {
                     output_error('No data');
                 }
@@ -132,7 +142,7 @@ twfy_debug_timestamp();
 # ---
 
 function load_member($pid) {
-    $member = new MEMBER(array('guardian_aristotle_id' => $pid));
+    $member = new \MySociety\TheyWorkForYou\Member(array('guardian_aristotle_id' => $pid));
     if (!$member->valid) output_error('Unknown ID');
     $member->load_extra_info();
     return $member;

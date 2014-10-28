@@ -26,18 +26,8 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
         return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/user.xml');
     }
 
-    /**
-     * Ensures the database is prepared and the user class is included for every test.
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        include_once('www/includes/easyparliament/user.php');
-    }
-
     public function testAddUser() {
-        $u = new USER();
+        $u = new \MySociety\TheyWorkForYou\User();
 
         $details = array(
             "firstname" => 'Test',
@@ -62,7 +52,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
 
     public function testEditUser() {
         $_COOKIE['epuser_id'] = '1.5ce7f6e2d7de4db00c297e1da0d48ac';
-        $u = new THEUSER();
+        $u = new \MySociety\TheyWorkForYou\TheUser();
         $u->loggedin = 1;
 
         $this->assertEquals( 'Test', $u->firstname() );
@@ -83,7 +73,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
 
     public function testEditUserEmail() {
         $_COOKIE['epuser_id'] = '1.5ce7f6e2d7de4db00c297e1da0d48ac';
-        $u = new THEUSER();
+        $u = new \MySociety\TheyWorkForYou\TheUser();
         $u->loggedin = 1;
 
         $this->assertEquals( 'user@example.org', $u->email() );
@@ -140,7 +130,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
 
     public function testExpiredToken() {
         $_COOKIE['epuser_id'] = '1.5ce7f6e2d7de4db00c297e1da0d48ac';
-        $u = new THEUSER();
+        $u = new \MySociety\TheyWorkForYou\TheUser();
         $u->loggedin = 1;
 
         $this->assertEquals( 'user@example.org', $u->email(), 'confirming inital email address' );

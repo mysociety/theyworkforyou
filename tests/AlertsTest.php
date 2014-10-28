@@ -27,21 +27,11 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
     }
 
     /**
-     * Ensures the database is prepared and the alert class is included for every test.
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        include_once('www/includes/easyparliament/alert.php');
-    }
-
-    /**
      * Test that unconfirmed, undeleted tests are correctly retrieved
      */
     public function testFetchUnconfirmedUndeleted()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->fetch(0,0);
 
@@ -58,7 +48,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testFetchConfirmedUndeleted()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->fetch(1,0);
 
@@ -75,7 +65,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testFetchUnconfirmedDeleted()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->fetch(0,1);
 
@@ -92,7 +82,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testFetchConfirmedDeleted()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->fetch(1,1);
 
@@ -109,7 +99,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testFetchBetween()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->fetch_between(1,1, '2014-02-01', '2014-02-02');
 
@@ -122,7 +112,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testAdd()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $details = array(
             'email' => 'test@theyworkforyou.com',
@@ -145,7 +135,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testAddExisting()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $details = array(
             'email' => 'test3@theyworkforyou.com',
@@ -167,7 +157,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testAddDeleted()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $details = array(
             'email' => 'test4@theyworkforyou.com',
@@ -189,7 +179,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testEmailExistsPositive()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->email_exists('test@theyworkforyou.com');
 
@@ -201,7 +191,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testEmailExistsNegative()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->email_exists('badtest@theyworkforyou.com');
 
@@ -213,7 +203,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testCheckTokenCorrect()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->check_token('1::token1');
 
@@ -229,7 +219,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testCheckTokenIncorrectToken()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->check_token('1::token2');
 
@@ -241,7 +231,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testCheckTokenWrongPartsCount()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->check_token('foo');
 
@@ -253,7 +243,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testCheckTokenNonNumericId()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->check_token('one:token1');
 
@@ -265,7 +255,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testCheckFetchByMpExists()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->fetch_by_mp('test5@theyworkforyou.com', 1234);
 
@@ -277,7 +267,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testCheckFetchByMpNotExists()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->fetch_by_mp('test5@theyworkforyou.com', 9876);
 
@@ -289,7 +279,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testConfirm()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->confirm('1::token1');
 
@@ -303,7 +293,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testConfirmInvalid()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->confirm('1::badtoken');
 
@@ -315,7 +305,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testDelete()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->delete('1::token1');
 
@@ -329,7 +319,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testDeleteInvalid()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->delete('1::badtoken');
 
@@ -341,7 +331,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testSuspend()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->suspend('3::token3');
 
@@ -355,7 +345,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testSuspendInvalid()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->suspend('3::badtoken');
 
@@ -367,7 +357,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testResume()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->resume('6::token6');
 
@@ -381,7 +371,7 @@ class AlertsTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function testResumeInvalid()
     {
-        $ALERT = new ALERT();
+        $ALERT = new \MySociety\TheyWorkForYou\Alert();
 
         $response = $ALERT->resume('6::badtoken');
 

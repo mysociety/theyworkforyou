@@ -11,7 +11,6 @@
 // We then print a nice welcome message.
 
 include_once '../../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/member.php";
 
 if (get_http_var('welcome') == 't') {
     // The user has successfully clicked the link, been logged in, and

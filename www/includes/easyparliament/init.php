@@ -76,33 +76,43 @@ if (!isset($_SERVER['WINDIR'])) {
     define ('STARTTIMES', $rusage['ru_stime.tv_sec']*1000000 + $rusage['ru_stime.tv_usec']);
     define ('STARTTIMEU', $rusage['ru_utime.tv_sec']*1000000 + $rusage['ru_utime.tv_usec']);
 }
-include_once (INCLUDESPATH."data.php");
-include_once (INCLUDESPATH."mysql.php");
 
-Class ParlDB extends MySQL {
-    public function ParlDB() {
-        $this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
-    }
-}
+include_once (INCLUDESPATH."dbtypes.php");
 
-include_once (INCLUDESPATH."url.php");
-include_once (INCLUDESPATH."lib_filter.php");
-include_once (INCLUDESPATH."easyparliament/user.php");
+$DATA = new \MySociety\TheyWorkForYou\Data;
+
+// Start execution timers for database
+global $mysqltotalduration;
+$mysqltotalduration = 0.0;
+$global_connection = null;
+
+$filter = new lib_filter();
+
+// Instantiate a new global $THEUSER object when every page loads.
+$THEUSER = new \MySociety\TheyWorkForYou\TheUser;
 
 // Test to see if this is a new-style template using the renderer class.
 if (! isset($new_style_template) OR $new_style_template !== TRUE) {
 
-    // This is an old-style page. Use the old page classes.
-    include_once (INCLUDESPATH."easyparliament/page.php");
+    // This is an old-style page. Old style page class is autoloaded.
+    // We load Gaze manually, as it is used by the Page class.
+    include_once INCLUDESPATH . '../../commonlib/phplib/gaze.php';
+    $PAGE = new \MySociety\TheyWorkForYou\Page;
 
 }
 
-include_once (INCLUDESPATH."easyparliament/hansardlist.php");
-include_once (INCLUDESPATH."easyparliament/commentlist.php");
-include_once (INCLUDESPATH."easyparliament/comment.php");
-include_once (INCLUDESPATH."easyparliament/trackback.php");
+if (defined('XAPIANDB') AND XAPIANDB != '') {
+    if (file_exists('/usr/share/php/xapian.php')) {
+        include_once '/usr/share/php/xapian.php';
+    } else {
+        twfy_debug('SEARCH', '/usr/share/php/xapian.php does not exist');
+    }
+}
 
-// Added in as new module by Richard Allan MP
-include_once (INCLUDESPATH."easyparliament/alert.php");
+global $SEARCHENGINE;
+$SEARCHENGINE = null;
+
+global $SEARCHLOG;
+$SEARCHLOG = new \MySociety\TheyWorkForYou\SearchLog();
 
 twfy_debug_timestamp("at end of init.php");

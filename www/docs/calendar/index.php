@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/calendar.php";
 
 $date = get_http_var('d');
 if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
@@ -24,7 +23,7 @@ if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
 function calendar_summary() {
     global $PAGE, $this_page;
 
-    $min_future_date = calendar_min_future_date();
+    $min_future_date = \MySociety\TheyWorkForYou\Utility\Calendar::minFutureDate();
     if (!$min_future_date) {
         $this_page = 'calendar_future';
         $PAGE->error_message('We don&rsquo;t currently have any future information.
@@ -48,10 +47,10 @@ function calendar_date($date) {
 
     $DATA->set_page_metadata($this_page, 'title', format_date($date, LONGERDATEFORMAT));
 
-    $db = new ParlDB();
+    $db = new \MySociety\TheyWorkForYou\ParlDb();
 
     $data = array();
-    $data['dates'] = calendar_fetch_date($date);
+    $data['dates'] = \MySociety\TheyWorkForYou\Utility\Calendar::fetchDate($date);
 
     $data['majors'] = array();
     if ($this_page == 'calendar_past') {
@@ -73,9 +72,9 @@ function calendar_past_date($date) {
     global $PAGE, $DATA, $this_page, $hansardmajors;
 
     $PAGE->set_hansard_headings(array('date'=>$date));
-    $URL = new URL($this_page);
+    $URL = new \MySociety\TheyWorkForYou\Url($this_page);
     $nextprevdata = array();
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("SELECT MIN(hdate) AS hdate FROM hansard WHERE hdate > '$date'");
     if ($q->rows() > 0 && $q->field(0, 'hdate') != NULL) {
         $URL->insert( array( 'd'=>$q->field(0, 'hdate') ) );
@@ -99,7 +98,7 @@ function calendar_past_date($date) {
         );
     }
     #	$year = substr($date, 0, 4);
-    #	$URL = new URL($hansardmajors[1]['page_year']);
+    #	$URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[1]['page_year']);
     #	$URL->insert(array('y'=>$year));
     #	$nextprevdata['up'] = array (
         #		'body'  => "All of $year",
@@ -122,7 +121,7 @@ function calendar_past_date($date) {
             'date' => $date
         );
         foreach (array_keys($hansardmajors) as $major) {
-            $URL = new URL($hansardmajors[$major]['page_all']);
+            $URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$major]['page_all']);
             $URL->insert(array('d'=>$date));
             $data[$major] = array('listurl'=>$URL->generate());
         }

@@ -1,6 +1,5 @@
 <?php
 
-include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once dirname(__FILE__) . '/api_getPerson.php';
 
 function api_getMLA_front() {
@@ -26,7 +25,7 @@ function api_getMLA_front() {
 }
 
 function api_getMLA_id($id) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select * from member
         where house=3 and person_id = :id
         order by left_house desc", array(
@@ -42,7 +41,7 @@ function api_getMLA_id($id) {
 function api_getMLA_postcode($pc) {
     $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
     if (validate_postcode($pc)) {
-        $constituencies = postcode_to_constituencies($pc, true);
+        $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc, true);
         if ($constituencies == 'CONNECTION_TIMED_OUT') {
             api_error('Connection timed out');
         } elseif (isset($constituencies['NIE'])) {
@@ -66,7 +65,7 @@ function api_getMLA_constituency($constituency) {
 # Very similary to MEMBER's constituency_to_person_id
 # Should all be abstracted properly :-/
 function _api_getMLA_constituency($constituencies) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
 
     $cons = array();
     foreach ($constituencies as $constituency) {

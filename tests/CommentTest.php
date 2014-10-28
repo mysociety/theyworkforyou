@@ -6,6 +6,10 @@
 class CommentTest extends PHPUnit_Extensions_Database_TestCase
 {
 
+    private $page;
+    private $the_user;
+    private $hansard_list;
+
     /**
      * Connects to the testing database.
      */
@@ -19,6 +23,22 @@ class CommentTest extends PHPUnit_Extensions_Database_TestCase
     }
 
     /**
+     * Ensures there is a Page object available for testing.
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->the_user = new \MySociety\TheyWorkForYou\TheUser();
+        $this->page = new \MySociety\TheyWorkForYou\Page();
+
+        global $hansardmajors;
+
+        $this->hansard_majors = $hansardmajors;
+    }
+
+
+    /**
      * Loads the comments testing fixture.
      */
     public function getDataSet()
@@ -27,21 +47,11 @@ class CommentTest extends PHPUnit_Extensions_Database_TestCase
     }
 
     /**
-     * Ensures the database is prepared and the comment class is included for every test.
-     */
-	public function setUp() {
-
-        parent::setUp();
-
-        include_once('www/includes/easyparliament/comment.php');
-    }
-
-    /**
      * Makes sure the body of the test comment is returned correctly, testing HTML cleaning.
      */
     public function testHTMLCleaningGetBody()
     {
-        $comment = new COMMENT(1);
+        $comment = new \MySociety\TheyWorkForYou\Comment($this->the_user, $this->page, $this->hansard_majors, 1);
         $this->assertEquals($comment->body(), "This is a test comment, including http://theyworkforyou.com <a href=\"http://theyworkforyou.com\">links</a>, email addresses like test@theyworkforyou.com, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're rendered correctly.
 
 It also spans multiple lines.");
@@ -52,7 +62,7 @@ It also spans multiple lines.");
      */
     public function testHTMLCleaningPrepareCommentForDisplay()
     {
-        $comment = new COMMENT(1);
+        $comment = new \MySociety\TheyWorkForYou\Comment($this->the_user, $this->page, $this->hansard_majors, 1);
         $this->assertEquals(prepare_comment_for_display($comment->body()), "This is a test comment, including <a href=\"http://theyworkforyou.com\" rel=\"nofollow\">http://theyworkforyou.com</a> <a href=\"http://theyworkforyou.com\">links</a>, email addresses like <a href=\"mailto:test@theyworkforyou.com\">test@theyworkforyou.com</a>, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're rendered correctly.<br>
 <br>
 It also spans multiple lines.");
@@ -64,13 +74,11 @@ It also spans multiple lines.");
 	public function testHTMLCleaningAddComment()
     {
 
-        global $THEUSER;
-
-        $THEUSER = new THEUSER;
+        $THEUSER = new \MySociety\TheyWorkForYou\TheUser;
 
         $THEUSER->init(1);
 
-        $comment = new COMMENT();
+        $comment = new \MySociety\TheyWorkForYou\Comment($THEUSER, $this->page, $this->hansard_majors);
 
         $data = array(
             'epobject_id' => 1,
@@ -87,7 +95,7 @@ It also spans multiple lines.",
         // A correctly inserted comment returns an integer
         $this->assertInternalType('integer', $commentId);
 
-        $comment = new COMMENT($commentId);
+        $comment = new \MySociety\TheyWorkForYou\Comment($THEUSER, $this->page, $this->hansard_majors, $commentId);
 
         $this->assertEquals("This is a test comment, including http://theyworkforyou.com <a href=\"http://theyworkforyou.com\">links</a>, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're not stripped.
 

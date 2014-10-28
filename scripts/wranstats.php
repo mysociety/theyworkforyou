@@ -1,9 +1,8 @@
 <?php
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
-# include INCLUDESPATH . 'easyparliament/member.php';
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $q = $db->query(
 	'select person_id, first_name, last_name, constituency,

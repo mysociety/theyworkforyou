@@ -52,7 +52,7 @@ function api_getCommittee() {
 }
 
 function api_getCommittee_name($name) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
 
     $name = preg_replace('#\s+Committee#', '', $name);
 
@@ -106,7 +106,7 @@ function api_getCommittee_name($name) {
 }
 
 function api_getCommittee_date($date) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
 
     $date = parse_date($date);
     if ($date) $date = '"' . $date['iso'] . '"';

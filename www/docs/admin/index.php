@@ -1,11 +1,10 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/commentreportlist.php");
 
 $this_page = "admin_home";
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $PAGE->page_start();
 
@@ -59,7 +58,7 @@ $q = $db->query("SELECT firstname,
                 ");
 
 $rows = array();
-$USERURL = new URL('userview');
+$USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
 for ($row=0; $row<$q->rows(); $row++) {
 

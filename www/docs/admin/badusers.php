@@ -1,11 +1,10 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/commentreportlist.php");
 
 $this_page = "admin_badusers";
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $PAGE->page_start();
 
@@ -30,7 +29,7 @@ $q = $db->query("SELECT COUNT(*) AS deletedcount,
                 ORDER BY deletedcount DESC");
 
 $rows = array();
-$USERURL = new URL('userview');
+$USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
 for ($row=0; $row<$q->rows(); $row++) {
 
@@ -103,7 +102,7 @@ $q = $db->query("SELECT COUNT(*) AS rejectedcount,
                 ORDER BY rejectedcount DESC");
 
 $rows = array();
-$USERURL = new URL('userview');
+$USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
 for ($row=0; $row<$q->rows(); $row++) {
 

@@ -1,14 +1,10 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/commentreportlist.php';
-include_once INCLUDESPATH . 'easyparliament/searchengine.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
-include_once INCLUDESPATH . 'easyparliament/people.php';
 
 $this_page = 'admin_photos';
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $PAGE->page_start();
 $PAGE->stripe_start();
@@ -99,7 +95,7 @@ function person_drop_down() {
         if ($q->field($i, 'party')) $desc .= ' (' . $q->field($i, 'party') . ')';
         $desc .= ', ' . $q->field($i, 'constituency');
 
-        list($dummy, $sz) = find_rep_image($p_id);
+        list($dummy, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($p_id);
         if ($sz == 'L') {
             $desc .= ' [has large photo]';
         } elseif ($sz == 'S') {

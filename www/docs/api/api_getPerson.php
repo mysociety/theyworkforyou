@@ -1,7 +1,4 @@
 <?php
-
-include_once INCLUDESPATH . 'easyparliament/member.php';
-
 function api_getPerson_front() {
 ?>
 <p><big>Fetch a particular person.</big></p>
@@ -22,12 +19,12 @@ function _api_getPerson_row($row, $has_party=FALSE) {
     $row['full_name'] = member_full_name($row['house'], $row['title'], $row['first_name'],
         $row['last_name'], $row['constituency']);
     if ($row['house'] == 1) {
-        $URL = new URL('mp');
+        $URL = new \MySociety\TheyWorkForYou\Url('mp');
         $row['url'] = $URL->generate('none') . make_member_url($row['full_name'], $row['constituency'], $row['house'], $row['person_id']);
     }
     if ($has_party && isset($parties[$row['party']]))
         $row['party'] = $parties[$row['party']];
-    list($image,$sz) = find_rep_image($row['person_id']);
+    list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($row['person_id']);
     if ($image) {
         list($width, $height) = getimagesize(str_replace(IMAGEPATH, BASEDIR . '/images/', $image));
         $row['image'] = $image;
@@ -37,7 +34,7 @@ function _api_getPerson_row($row, $has_party=FALSE) {
 
     if ($row['house'] == 1 && ($row['left_house'] == '9999-12-31' || $row['left_house'] == '2010-04-12')) { # XXX
         # Ministerialships and Select Committees
-        $db = new ParlDB;
+        $db = new \MySociety\TheyWorkForYou\ParlDb;
         $q = $db->query('SELECT * FROM moffice WHERE to_date="9999-12-31" and person=' . $row['person_id'] . ' ORDER BY from_date DESC');
         for ($i=0; $i<$q->rows(); $i++) {
             $row['office'][] = $q->row($i);
@@ -52,7 +49,7 @@ function _api_getPerson_row($row, $has_party=FALSE) {
 }
 
 function api_getPerson_id($id) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select * from member
         where person_id = :person_id
         order by left_house desc", array(

@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Name: alertgonemps.php
  * Description: Mailer for those whose MP has gone
  * $Id: alertgonemps.php,v 1.2 2009-06-16 09:12:09 matthew Exp $
@@ -11,10 +11,9 @@ function mlog($message) {
 
 include_once '../www/includes/easyparliament/init.php';
 ini_set('memory_limit', -1);
-include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $global_start = getmicrotime();
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $nomail = false;
 $onlyemail = '';
@@ -53,7 +52,7 @@ $unregistered = 0;
 $registered = 0;
 $sentemails = 0;
 
-$LIVEALERTS = new ALERT;
+$LIVEALERTS = new \MySociety\TheyWorkForYou\Alert;
 
 $current = array('email' => '', 'token' => '');
 $email_text = array();
@@ -82,7 +81,7 @@ foreach ($alertdata as $alertitem) {
 	$person_id = $m[1];
 	if (!isset($members[$person_id])) {
         $queries++;
-        $members[$person_id] = new MEMBER(array('person_id' => $person_id));
+        $members[$person_id] = new \MySociety\TheyWorkForYou\Member(array('person_id' => $person_id));
 	}
     $member = $members[$person_id];
     if ($member->current_member_anywhere()) continue;
@@ -110,7 +109,7 @@ foreach ($alertdata as $alertitem) {
 		} else {
 			$user_id = 0;
 			$unregistered++;
-		}	
+		}
 		mlog("\nEMAIL: $email, uid $user_id; memory usage : ".memory_get_usage()."\n");
 	}
 

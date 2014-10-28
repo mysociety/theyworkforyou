@@ -19,7 +19,7 @@ $data = array(
 
 $action = 'all';
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $q = $db->query('SELECT MIN(event_date) AS min, MAX(event_date) AS max FROM future WHERE event_date >= NOW() AND deleted = 0');
 $min_future_date = $q->field(0, 'min');

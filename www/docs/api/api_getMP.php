@@ -1,6 +1,5 @@
 <?php
 
-include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once dirname(__FILE__) . '/api_getPerson.php';
 
 function api_getMP_front() {
@@ -100,7 +99,7 @@ This will return all database entries for this person, so will include previous 
 }
 
 function api_getMP_id($id) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select * from member
         where house=1 and person_id = :id
         order by left_house desc", array(
@@ -116,7 +115,7 @@ function api_getMP_id($id) {
 function api_getMP_postcode($pc) {
     $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
     if (validate_postcode($pc)) {
-        $constituency = postcode_to_constituency($pc, true);
+        $constituency = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc, true);
         if ($constituency == 'CONNECTION_TIMED_OUT') {
             api_error('Connection timed out');
         } elseif ($constituency) {
@@ -144,7 +143,7 @@ function api_getMP_constituency($constituency) {
 # Very similary to MEMBER's constituency_to_person_id
 # Should all be abstracted properly :-/
 function _api_getMP_constituency($constituency) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
 
     if ($constituency == '')
         return array();
@@ -152,7 +151,7 @@ function _api_getMP_constituency($constituency) {
     if ($constituency == 'Orkney ')
         $constituency = 'Orkney &amp; Shetland';
 
-    $normalised = normalise_constituency_name($constituency);
+    $normalised = \MySociety\TheyWorkForYou\Utility\Constituency::normaliseConstituencyName($constituency);
     if ($normalised) $constituency = $normalised;
 
     $q = $db->query("SELECT * FROM member

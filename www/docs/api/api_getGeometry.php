@@ -46,7 +46,7 @@ function _api_getGeometry_name($name) {
     if (!defined('OPTION_MAPIT_URL') || !OPTION_MAPIT_URL)
         return null;
 
-    $name = normalise_constituency_name($name);
+    $name = \MySociety\TheyWorkForYou\Utility\Constituency::normaliseConstituencyName($name);
 
     $areas_info = _api_cacheCheck('areas', 'WMC');
     $ni_geometry = _api_ni_centroids();

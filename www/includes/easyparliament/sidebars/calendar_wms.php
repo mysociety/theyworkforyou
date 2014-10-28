@@ -30,6 +30,6 @@ if ($this_page == 'wmsday') {
 }
 
 $PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
-$LIST = new WMSLIST;
+$LIST = new \MySociety\TheyWorkForYou\HansardList\WransList\WmsList;
 $LIST->display('calendar', $args);
 $PAGE->block_end();

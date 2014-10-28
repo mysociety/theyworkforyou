@@ -2,7 +2,7 @@
 
 include_once '../../includes/easyparliament/init.php';
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $this_page = "epvote";
 
@@ -46,7 +46,7 @@ if (get_http_var('testing') == 'true') {
     $id = get_http_var('id');
     $v = get_http_var('v');
 
-    $URL = new URL($this_page);
+    $URL = new \MySociety\TheyWorkForYou\Url($this_page);
     $URL->reset();
     $URL->insert(array(
         'v'		=> $v,

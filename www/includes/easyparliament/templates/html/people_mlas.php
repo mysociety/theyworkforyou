@@ -8,7 +8,7 @@ twfy_debug("TEMPLATE", "people_mlas.php");
 
 $order = $data['info']['order'];
 
-$URL = new URL($this_page);
+$URL = new \MySociety\TheyWorkForYou\Url($this_page);
 
 if ($order == 'first_name') {
     $th_first_name = 'First name';
@@ -35,7 +35,7 @@ if ($order == 'party') {
     $th_constituency = 'Constituency';
 }
 
-$MPURL = new URL('yourmp');
+$MPURL = new \MySociety\TheyWorkForYou\Url('yourmp');
 global $THEUSER;
 $pc_form = true;
 if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
@@ -44,13 +44,13 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
     // (We don't allow the user to search for a postcode if they
     // already have one set in their prefs.)
 
-    $MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
+    $MEMBER = new \MySociety\TheyWorkForYou\Member(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
     if ($MEMBER->valid) {
         $pc_form = false;
         if ($THEUSER->isloggedin()) {
-            $CHANGEURL = new URL('useredit');
+            $CHANGEURL = new \MySociety\TheyWorkForYou\Url('useredit');
         } else {
-            $CHANGEURL = new URL('userchangepc');
+            $CHANGEURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
         }
         $mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
         $former = "";
@@ -104,7 +104,7 @@ if ($pc_form) { ?>
 <tbody>
 <?php
 
-$MPURL = new URL(str_replace('s', '', $this_page));
+$MPURL = new \MySociety\TheyWorkForYou\Url(str_replace('s', '', $this_page));
 $style = '2';
 $current_letter = 'A';
 foreach ($data['data'] as $pid => $mp) {
@@ -130,7 +130,7 @@ function render_mps_row($mp, &$style, $order, $MPURL, $letter='') {
         if ($letter) {
             echo '<a name="' . $letter . '"></a>';
         }
-    list($image,$sz) = find_rep_image($mp['person_id'], true, true);
+    list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($mp['person_id'], true, true);
     if ($image) {
         echo '<a href="' . $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], NULL, 3, $mp['person_id']) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
         echo '></a>';

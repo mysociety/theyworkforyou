@@ -1,11 +1,10 @@
 <?php
 
 include_once '../../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/member.php";
 $DATA->set_page_metadata($this_page, 'heading', 'MPs photo status on TheyWorkForYou');
 $PAGE->page_start();
 $PAGE->stripe_start();
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $query = 'SELECT person_id, first_name, last_name, constituency, party
     FROM member
     WHERE house=1 AND left_house = (SELECT MAX(left_house) FROM member) ';
@@ -13,7 +12,7 @@ $q = $db->query($query . "ORDER BY last_name, first_name");
 $out = array('both'=>'', 'small'=>'', 'none'=>array());
 for ($i=0; $i<$q->rows(); $i++) {
     $p_id = $q->field($i, 'person_id');
-    list($dummy, $sz) = find_rep_image($p_id);
+    list($dummy, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($p_id);
     if ($sz == 'L') {
         $out['both'] .= $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . ', ';
     } elseif ($sz == 'S') {

@@ -5,7 +5,7 @@ include_once '../../includes/easyparliament/init.php';
 $this_page = 'spoverview';
 $PAGE->page_start();
 $PAGE->stripe_start('full');
-$SEARCHURL = new URL('search');
+$SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
 
 ?>
 
@@ -43,9 +43,9 @@ $SEARCHURL = new URL('search');
     <h2>Some recent Scottish Parliament written answers</h2>
 <?php
 
-$WRANSLIST = new SPWRANSLIST;
+$WRANSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList\SpWransList;
 $WRANSLIST->display('recent_wrans', array('days' => 7, 'num' => 8));
-$MOREURL = new URL('spwransfront');
+$MOREURL = new \MySociety\TheyWorkForYou\Url('spwransfront');
 
 ?>
     <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more written answers</a></strong></p>
@@ -64,9 +64,9 @@ $PAGE->include_sidebar_template('spdebates');
 
 <?php
 
-$DEBATELIST = new SPLIST;
+$DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\SpList;
 $DEBATELIST->display('recent_debates', array('days' => 7, 'num' => 10));
-$MOREURL = new URL('spdebatesfront');
+$MOREURL = new \MySociety\TheyWorkForYou\Url('spdebatesfront');
 
 ?>
         <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>">See more debates</a></strong></p>

@@ -3,7 +3,6 @@
 $this_page = "home";
 
 include_once '../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/member.php";
 
 $PAGE->page_start();
 
@@ -13,16 +12,16 @@ $PAGE->stripe_start();
 //  SEARCH AND RECENT HANSARD
 
 // Get the dates, timestamps and links for the most recent debates and wrans.
-$DEBATELIST = new DEBATELIST;
+$DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 $debatesdata = $DEBATELIST->most_recent_day();
 
-$WRANSLIST = new WRANSLIST;
+$WRANSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList;
 $wransdata = $WRANSLIST->most_recent_day();
 
-$WHALLLIST = new WHALLLIST;
+$WHALLLIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\WhallList;
 $whalldata = $WHALLLIST->most_recent_day();
 
-$WMSLIST = new WMSLIST;
+$WMSLIST = new \MySociety\TheyWorkForYou\HansardList\WransList\WmsList;
 $wmsdata = $WMSLIST->most_recent_day();
 
 if (count($debatesdata) > 0 && count($wransdata) > 0 && count($whalldata) > 0 && count($wmsdata) > 0) {
@@ -69,8 +68,8 @@ if (count($debatesdata) > 0 && count($wransdata) > 0 && count($whalldata) > 0 &&
 
 
 
-$HANSARDURL = new URL('hansard');
-$MPURL = new URL('yourmp');
+$HANSARDURL = new \MySociety\TheyWorkForYou\Url('hansard');
+$MPURL = new \MySociety\TheyWorkForYou\Url('yourmp');
 
 $PAGE->block_start(array ('id'=>'intro', 'title'=>'Election special! Find out how they performed for YOU:'));
 ?>
@@ -85,11 +84,11 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
     // already have one set in their prefs.)
 
     if ($THEUSER->isloggedin()) {
-        $CHANGEURL = new URL('useredit');
+        $CHANGEURL = new \MySociety\TheyWorkForYou\Url('useredit');
     } else {
-        $CHANGEURL = new URL('userchangepc');
+        $CHANGEURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
     }
-    $MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
+    $MEMBER = new \MySociety\TheyWorkForYou\Member(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
     $mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
     ?>
       <p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about how <?php echo $mpname; ?>, your ex-MP, represented you over the last parliament</strong></a><br>
@@ -110,7 +109,7 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 
                         <li>
 <?php
-    $SEARCHURL = new URL('search');
+    $SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
     ?>
                         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
                         <p><strong>Search everything said in Parliament since 2001, or for an ex-MP or constituency</strong><br>
@@ -161,7 +160,7 @@ $PAGE->block_end();
 ///////////////////////////////////////////////////////////////////////////
 //  MOST INTERESTING DEBATES
 
-//$DEBATELIST = new DEBATELIST;
+//$DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
 
 // num is how many to display.
 // days is over what period we're looking for the most interesting debates.
@@ -172,7 +171,7 @@ $PAGE->block_end();
 //  MOST RECENT GLOSSARY ENTRY
 
 // Temporary HTML...
-$URL = new URL('glossary');
+$URL = new \MySociety\TheyWorkForYou\Url('glossary');
 
 //$PAGE->block_start(array('title'=>'Latest glossary entry'));
 ?>

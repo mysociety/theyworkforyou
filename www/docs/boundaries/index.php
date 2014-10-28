@@ -63,7 +63,7 @@ It does not currently function.
 }
 
 if ($pc) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     # Just left politicians
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
         WHERE constituency IN ('" . join("','", $a) . "')

@@ -6,7 +6,6 @@
 // where rid is a report_id and cid is a comment_id.
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/commentreport.php");
 
 $this_page = "admin_commentreport";
 
@@ -28,16 +27,16 @@ if (!is_numeric($report_id) || !is_numeric($comment_id)) {
     trigger_error("We need valid comment and report IDs.", E_USER_ERROR);
 }
 
-$COMMENT = new COMMENT($comment_id);
+$COMMENT = new \MySociety\TheyWorkForYou\Comment($THEUSER, $PAGE, $hansardmajors, $comment_id);
 
 if ($COMMENT->exists() == false) {
     // Exit.
     trigger_error("This is an invalid comment ID", E_USER_ERROR);
 }
 
-$REPORT = new COMMENTREPORT($report_id);
+$REPORT = new \MySociety\TheyWorkForYou\CommentReport($THEUSER, $PAGE, $report_id);
 
-$FORMURL = new URL($this_page);
+$FORMURL = new \MySociety\TheyWorkForYou\Url($this_page);
 
 
 
@@ -260,7 +259,7 @@ function resolve($REPORT, $COMMENT) {
             if ($REPORT->user_id() > 0) {
                 // The reporting user was logged in at the time,
                 // so get their email address.
-                $USER = new USER;
+                $USER = new \MySociety\TheyWorkForYou\User;
                 $USER->init( $REPORT->user_id() );
                 $email = $USER->email();
             } else {
@@ -301,7 +300,7 @@ function resolve($REPORT, $COMMENT) {
 
         if (get_http_var('sendtocommenter') == 'true') {
             // We're telling the commenter that their comment has been deleted.
-            $USER = new USER;
+            $USER = new \MySociety\TheyWorkForYou\User;
             $USER->init($COMMENT->user_id());
 
             // Create the URL for if a user wants to return and post another comment.
@@ -333,7 +332,7 @@ function resolve($REPORT, $COMMENT) {
         }
     }
 
-    $URL = new URL('admin_home');
+    $URL = new \MySociety\TheyWorkForYou\Url('admin_home');
 
     print '<p><a href="' . $URL->generate() . '">Back</a></p>';
 }

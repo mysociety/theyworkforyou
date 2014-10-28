@@ -2,7 +2,8 @@
 /*
  This is the main file allowing users to manage email alerts.
  It is based on the file /user/index.php.
- The alerts depend on the class ALERT which is established in /includes/easyparliament/alert.php
+ The alerts depend on the class ALERT which is established in
+ /classes/MySociety/TheyWorkForYou/Alert.php
 
 The submitted flag means we've submitted some form of search. Having pid or
 keyword present means we've picked one of those results (or come straight from
@@ -16,16 +17,13 @@ set_criteria()	Sets search criteria from information in MP and Keyword fields.
 */
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/people.php";
-include_once INCLUDESPATH . "easyparliament/member.php";
-include_once INCLUDESPATH . "easyparliament/searchengine.php";
 include_once INCLUDESPATH . '../../commonlib/phplib/auth.php';
 include_once INCLUDESPATH . '../../commonlib/phplib/crosssell.php';
 
 $this_page = "alert";
 $extra = null;
 
-$ALERT = new ALERT;
+$ALERT = new \MySociety\TheyWorkForYou\Alert;
 $token = get_http_var('t');
 $alert = $ALERT->check_token($token);
 
@@ -87,8 +85,8 @@ $errors = check_input($details);
 
 // Do the search
 if ($details['alertsearch']) {
-    $details['members'] = search_member_db_lookup($details['alertsearch'], true);
-    list ($details['constituencies'], $details['valid_postcode']) = search_constituencies_by_query($details['alertsearch']);
+    $details['members'] = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchMemberDbLookup($details['alertsearch'], true);
+    list ($details['constituencies'], $details['valid_postcode']) = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchConstituenciesByQuery($details['alertsearch']);
 }
 
 if (!sizeof($errors) && ($details['keyword'] || $details['pid'])) {
@@ -109,7 +107,7 @@ $sidebar = null;
 if ($details['email_verified']) {
     ob_start();
     if ($THEUSER->postcode()) {
-        $current_mp = new MEMBER(array('postcode' => $THEUSER->postcode()));
+        $current_mp = new \MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode()));
         if (!$ALERT->fetch_by_mp($THEUSER->email(), $current_mp->person_id())) {
             $PAGE->block_start(array ('title'=>'Your current MP'));
 ?>
@@ -125,7 +123,7 @@ You are not subscribed to an alert for your current MP,
         }
     }
     $PAGE->block_start(array ('title'=>'Your current email alerts'));
-    alerts_manage($details['email']);
+    \MySociety\TheyWorkForYou\Utility\Alert::manage($details['email']);
     $PAGE->block_end();
     $sidebar = ob_get_clean();
 }
@@ -179,7 +177,7 @@ function check_input($details) {
         $errors['alertsearch'] = 'You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!';
     }
 
-    $se = new SEARCHENGINE($text);
+    $se = new \MySociety\TheyWorkForYou\SearchEngine($text);
     if (!$se->valid) {
         $errors['alertsearch'] = 'That search appears to be invalid - ' . $se->error . ' - please check and try again.';
     }
@@ -212,7 +210,7 @@ function add_alert($details) {
     $advert = false;
     if ($success>0 && !$confirm) {
         if ($details['pid']) {
-            $MEMBER = new MEMBER(array('person_id'=>$details['pid']));
+            $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id'=>$details['pid']));
             $criteria = $MEMBER->full_name();
             if ($details['keyword']) {
                 $criteria .= ' mentions \'' . $details['keyword'] . '\'';
@@ -266,7 +264,7 @@ function add_alert($details) {
 function display_search_form ( $alert, $details = array(), $errors = array() ) {
     global $this_page, $PAGE;
 
-    $ACTIONURL = new URL($this_page);
+    $ACTIONURL = new \MySociety\TheyWorkForYou\Url($this_page);
     $ACTIONURL->reset();
     $form_start = '<form action="' . $ACTIONURL->generate() . '" method="post">
 <input type="hidden" name="t" value="' . _htmlspecialchars(get_http_var('t')) . '">
@@ -298,7 +296,7 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
     if (isset($details['constituencies'])) {
         echo '<ul class="hilites">';
         foreach ($details['constituencies'] as $constituency) {
-            $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
+            $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency'=>$constituency, 'house' => 1));
             echo "<li>";
             echo $form_start . '<input type="hidden" name="pid" value="' . $MEMBER->person_id() . '">';
             if ($details['valid_postcode'])
@@ -317,7 +315,7 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
         echo 'Mentions of [';
         $alertsearch = $details['alertsearch'];
         if (preg_match('#speaker:(\d+)#', $alertsearch, $m)) {
-            $MEMBER = new MEMBER(array('person_id'=>$m[1]));
+            $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id'=>$m[1]));
             $alertsearch = str_replace("speaker:$m[1]", "speaker:" . $MEMBER->full_name(), $alertsearch);
         }
         echo _htmlspecialchars($alertsearch) . '] ';
@@ -330,7 +328,7 @@ You cannot sign up to multiple search terms using a comma &ndash; either use OR,
     }
 
     if ($details['pid']) {
-        $MEMBER = new MEMBER(array('person_id'=>$details['pid']));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id'=>$details['pid']));
         echo '<ul class="hilites"><li>';
         echo "Signing up for things by " . $MEMBER->full_name();
         echo ' (' . _htmlspecialchars($MEMBER->constituency()) . ')';
@@ -342,7 +340,7 @@ You cannot sign up to multiple search terms using a comma &ndash; either use OR,
         echo 'Signing up for results from a search for [';
         $alertsearch = $details['keyword'];
         if (preg_match('#speaker:(\d+)#', $alertsearch, $m)) {
-            $MEMBER = new MEMBER(array('person_id'=>$m[1]));
+            $MEMBER = new \MySociety\TheyWorkForYou\Member(array('person_id'=>$m[1]));
             $alertsearch = str_replace("speaker:$m[1]", "speaker:" . $MEMBER->full_name(), $alertsearch);
         }
         echo _htmlspecialchars($alertsearch) . ']';

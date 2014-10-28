@@ -3,8 +3,6 @@
 # For looking up a postcode and redirecting or displaying appropriately
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
-include_once INCLUDESPATH . 'postcode.inc';
 
 $errors = array();
 
@@ -17,26 +15,26 @@ if (!$pc) {
 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
 $out = ''; $sidebars = array();
 if (validate_postcode($pc)) {
-    $constituencies = postcode_to_constituencies($pc);
+    $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);
     if ($constituencies == 'CONNECTION_TIMED_OUT') {
         $errors['pc'] = "Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.";
     } elseif (!$constituencies) {
         $errors['pc'] = "Sorry, " . _htmlentities($pc) . " isn't a known postcode";
     } elseif (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
-        $MEMBER = new MEMBER(array('constituency' => $constituencies['WMC']));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency' => $constituencies['WMC']));
         if ($MEMBER->person_id()) {
             $THEUSER->set_postcode_cookie($pc);
         }
         list($out, $sidebars) = pick_multiple($pc, $constituencies, 'SPE', 'MSP');
     } elseif (isset($constituencies['NIE'])) {
-        $MEMBER = new MEMBER(array('constituency' => $constituencies['WMC']));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency' => $constituencies['WMC']));
         if ($MEMBER->person_id()) {
             $THEUSER->set_postcode_cookie($pc);
         }
         list($out, $sidebars) = pick_multiple($pc, $constituencies, 'NIE', 'MLA');
     } else {
         # Just have an MP, redirect instantly to the canonical page
-        $MEMBER = new MEMBER(array('constituency' => $constituencies['WMC'], 'house' => 1));
+        $MEMBER = new \MySociety\TheyWorkForYou\Member(array('constituency' => $constituencies['WMC'], 'house' => 1));
         if ($MEMBER->person_id()) {
             $THEUSER->set_postcode_cookie($pc);
         }
@@ -61,12 +59,12 @@ $PAGE->page_end();
 
 function pick_multiple($pc, $areas, $area_type, $rep_type) {
     global $PAGE;
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
 
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, left_house FROM member
         WHERE constituency = :constituency
         AND house = 1 ORDER BY left_house DESC LIMIT 1", array(
-            ':constituency' => normalise_constituency_name($areas['WMC'])
+            ':constituency' => \MySociety\TheyWorkForYou\Utility\Constituency::normaliseConstituencyName($areas['WMC'])
             ));
     $mp = array();
     if ($q->rows()) {
@@ -129,8 +127,8 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     }
     $out .= '</ul></ul>';
 
-    $MPSURL = new URL('mps');
-    $REGURL = new URL(strtolower($rep_type) . 's');
+    $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
+    $REGURL = new \MySociety\TheyWorkForYou\Url(strtolower($rep_type) . 's');
     $sidebar = array(array(
         'type' => 'html',
         'content' => '<div class="block"><h4>Browse people</h4>

@@ -1,7 +1,7 @@
 <?php
 // This sidebar is on the pages that show calendars of dates Westminster Hall debates have occurred on.
 
-$URL = new URL('help');
+$URL = new \MySociety\TheyWorkForYou\Url('help');
 $helpurl = $URL->generate();
 $this->block_start(array('id'=>'help', 'title'=>"What are Westminster Hall Debates?"));
 ?>

@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/video.php';
 
 $file = intval(get_http_var('file'));
 $gid = get_http_var('gid');
@@ -47,15 +46,15 @@ function day_speeches($search, $type, $date) {
     $search = "$search date:$date section:$type groupby:speech";
 
     global $SEARCHENGINE, $want;
-    $SEARCHENGINE = new SEARCHENGINE($search);
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($search);
 
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("select hpos from hansard where gid = :gid", array(
         ':gid' => 'uk.org.publicwhip/' . $want['gid']
         ));
     $want['hpos'] = $q->field(0, 'hpos');
 
-    $LIST = new DEBATELIST;
+    $LIST = new \MySociety\TheyWorkForYou\HansardList\DebateList;
         $args = array (
             's' => $search,
             'p' => 1,

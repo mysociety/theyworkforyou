@@ -2,7 +2,7 @@
 
 include_once "../www/includes/easyparliament/init.php";
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $q = $db->query('select hansard.gid,time_to_sec(atime) as atime,hdate,hpos
 	from hansard, video_timestamps
 	where hansard.gid = video_timestamps.gid

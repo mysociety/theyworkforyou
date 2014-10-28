@@ -1,8 +1,6 @@
     <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH."easyparliament/glossary.php";
-include_once INCLUDESPATH."easyparliament/glossarylist.php";
 
 $this_page = "glossary_addlink";
 
@@ -13,11 +11,11 @@ $args = array( 'action' => $this_page);
 if ((get_http_var('g') != '') && (get_http_var('previewterm') == '') ) {
     // We're searching for something.
     $args['s'] = filter_user_input(get_http_var('g'), 'strict');
-    $GLOSSARY = new GLOSSARY($args);
+    $GLOSSARY = new \MySociety\TheyWorkForYou\Glossary($args);
 }
 else {
     $args['sort'] = "regexp_replace";
-    $GLOSSARY = new GLOSSARY($args);
+    $GLOSSARY = new \MySociety\TheyWorkForYou\Glossary($args);
     $args['s'] = filter_user_input(get_http_var('g'), 'strict');
 }
 

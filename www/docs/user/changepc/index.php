@@ -8,7 +8,7 @@ $this_page = "userchangepc";
 
 if ($THEUSER->isloggedin()) {
     // They can't change their postcode here, so send them to the editing page.
-    $URL = new URL('useredit');
+    $URL = new \MySociety\TheyWorkForYou\Url('useredit');
     header("Location: http://" . DOMAIN . $URL->generate());
 }
 
@@ -17,7 +17,7 @@ if (get_http_var('forget') == 't') {
     $THEUSER->unset_postcode_cookie();
 
     // The cookie will have already been read for this page, so we need to reload.
-    $URL = new URL($this_page);
+    $URL = new \MySociety\TheyWorkForYou\Url($this_page);
     header("Location: http://" . DOMAIN . $URL->generate());
 }
 

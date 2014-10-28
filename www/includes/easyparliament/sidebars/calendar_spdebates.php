@@ -26,7 +26,7 @@ if ($this_page == 'spdebatesday') {
 
 $PAGE->block_start(array('title'=>$title, 'id'=>'calendar'));
 
-$LIST = new SPLIST;
+$LIST = new \MySociety\TheyWorkForYou\HansardList\DebateList\SpList;
 
 $LIST->display('calendar', $args);
 

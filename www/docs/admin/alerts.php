@@ -1,13 +1,10 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/commentreportlist.php';
-include_once INCLUDESPATH . 'easyparliament/searchengine.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $this_page = 'admin_alerts';
 
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 $PAGE->page_start();
 $PAGE->stripe_start();
@@ -62,11 +59,11 @@ $PAGE->page_end();
 function generate_rows($q) {
     global $db;
     $rows = array();
-    $USERURL = new URL('userview');
+    $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
     for ($row=0; $row<$q->rows(); $row++) {
         $email = $q->field($row, 'email');
         $criteria = $q->field($row, 'criteria');
-        $SEARCHENGINE = new SEARCHENGINE($criteria);
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($criteria);
         $r = $db->query("SELECT user_id,firstname,lastname FROM users WHERE email = :email", array(
             ':email' => $email
             ));

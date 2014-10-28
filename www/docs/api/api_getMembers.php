@@ -4,7 +4,7 @@
 
 function _api_getMembers_output($sql, $params) {
     global $parties;
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query($sql, $params);
     $output = array();
     $last_mod = 0;

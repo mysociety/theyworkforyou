@@ -1,13 +1,12 @@
 <?php
-/* 
+/*
  * Name: dobs.php
  * Description: Match up person ids
  * $Id: dobs.php,v 1.1 2006-04-27 14:20:20 twfy-live Exp $
  */
 
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
-include INCLUDESPATH . 'easyparliament/member.php';
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $f = file('../../DoBs.csv');
 foreach ($f as $r) {
 	$a = explode('|', $r);

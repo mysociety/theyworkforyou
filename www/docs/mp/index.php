@@ -33,8 +33,6 @@ $new_style_template = TRUE;
 
 // Include all the things this page needs.
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
-include_once INCLUDESPATH . 'postcode.inc';
 include_once INCLUDESPATH . 'technorati.php';
 include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
@@ -107,7 +105,7 @@ if (get_http_var('recent')) {
         }
     }
     if ($pid) {
-        $URL = new URL('search');
+        $URL = new \MySociety\TheyWorkForYou\Url('search');
         $URL->insert( array('pid'=>$pid, 'pop'=>1) );
         header('Location: http://' . DOMAIN . $URL->generate('none'));
         exit;
@@ -188,7 +186,7 @@ try {
         $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
         if (validate_postcode($pc)) {
             twfy_debug ('MP', "MP lookup by postcode");
-            $constituency = strtolower(postcode_to_constituency($pc));
+            $constituency = strtolower(\MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc));
             if ($constituency == "connection_timed_out") {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn&rsquo;t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
             } elseif ($constituency == "") {
@@ -217,7 +215,7 @@ try {
     elseif ($this_page == 'msp' && $THEUSER->postcode_is_set() && $name == '' && $constituency == '')
     {
         $this_page = 'yourmsp';
-        if (postcode_is_scottish($THEUSER->postcode())) {
+        if (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish($THEUSER->postcode())) {
             regional_list($THEUSER->postcode(), 'SPC', 'msp');
             exit;
         } else {
@@ -231,7 +229,7 @@ try {
     elseif ($this_page == 'mla' && $THEUSER->postcode_is_set() && $name == '' && $constituency == '')
     {
         $this_page = 'yourmla';
-        if (postcode_is_ni($THEUSER->postcode())) {
+        if (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsNi($THEUSER->postcode())) {
             regional_list($THEUSER->postcode(), 'NIE', 'mla');
             exit;
         } else {
@@ -322,7 +320,7 @@ try {
                 );
         }
 
-        $MPSURL = new \URL('mps');
+        $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
 
         $data['all_mps_url'] = $MPSURL->generate();
 
@@ -639,7 +637,7 @@ try {
     $data['error'] = $e->getMessage();
 
     // Generate a URL to a full list to try get the user back on track.
-    $MPSURL = new \URL('mps');
+    $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
     $data['all_mps_url'] = $MPSURL->generate();
 
     // Render it!
@@ -741,7 +739,7 @@ function person_summary_description ($MEMBER) {
  *
  * How often has this person rebelled against their party?
  *
- * @param MEMBER $member The member to calculate rebellion rate for.
+ * @param \MySociety\TheyWorkForYou\Member $member The member to calculate rebellion rate for.
  *
  * @return string A HTML summary of this person's rebellion rate.
  */
@@ -796,9 +794,9 @@ function person_recent_appearances($member) {
     if (!$recent) {
 	// Initialise the search engine
         $searchstring = "speaker:$person_id";
-        $SEARCHENGINE = new \SEARCHENGINE($searchstring);
+        $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($searchstring);
 
-        $hansard = new MySociety\TheyWorkForYou\Hansard();
+        $hansard = new \MySociety\TheyWorkForYou\HansardList();
         $args = array (
             's' => $searchstring,
             'p' => 1,
@@ -813,7 +811,7 @@ function person_recent_appearances($member) {
     $out['appearances'] = unserialize($recent);
     twfy_debug_timestamp();
 
-    $MOREURL = new \URL('search');
+    $MOREURL = new \MySociety\TheyWorkForYou\Url('search');
     $MOREURL->insert( array('pid'=>$person_id, 'pop'=>1) );
 
     $out['more_href'] = $MOREURL->generate() . '#n4';
@@ -821,7 +819,7 @@ function person_recent_appearances($member) {
 
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
         // If we set an RSS feed for this page.
-        $HELPURL = new \URL('help');
+        $HELPURL = new \MySociety\TheyWorkForYou\Url('help');
         $out['additional_links'] = '<a href="' . WEBPATH . $rssurl . '" title="XML version of this person\'s recent appearances">RSS feed</a> (<a href="' . $HELPURL->generate() . '#rss" title="An explanation of what RSS feeds are for">?</a>)';
     }
 
@@ -995,7 +993,7 @@ function person_numerology($member) {
     if ($entered_house > $year_ago)
         $since_text = 'since joining Parliament';
 
-    $MOREURL = new \URL('search');
+    $MOREURL = new \MySociety\TheyWorkForYou\Url('search');
     $section = 'section:debates section:whall section:lords section:ni';
     $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>$section, 'pop'=>1));
     if ($member->party() != 'SF') {
@@ -1195,7 +1193,7 @@ function person_register_interests($member, $extra_info) {
 }
 
 function regional_list($pc, $area_type, $rep_type) {
-    $constituencies = postcode_to_constituencies($pc);
+    $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);
     if ($constituencies == 'CONNECTION_TIMED_OUT') {
         throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn\'t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
     } elseif (!$constituencies) {
@@ -1205,7 +1203,7 @@ function regional_list($pc, $area_type, $rep_type) {
     }
     global $PAGE;
     $a = array_values($constituencies);
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
         WHERE constituency IN ('" . join("','", $a) . "')
         AND left_reason = 'still_in_office' AND house in (" . HOUSE_TYPE_NI . "," . HOUSE_TYPE_SCOTLAND . ")");

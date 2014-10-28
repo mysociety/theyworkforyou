@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/commentreportlist.php");
 
 $this_page = "admin_comments";
 
@@ -10,7 +9,7 @@ $PAGE->page_start();
 $PAGE->stripe_start();
 
 // Most recent comments.
-$COMMENTLIST = new COMMENTLIST;
+$COMMENTLIST = new \MySociety\TheyWorkForYou\CommentList($PAGE, $hansardmajors);
 
 $COMMENTLIST->display('recent', array('num'=>50));
 

@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'postcode.inc';
 include_once './api_functions.php';
 include_once INCLUDESPATH . '../../commonlib/phplib/auth.php';
 
@@ -17,7 +16,7 @@ if ($THEUSER->loggedin()) {
     if (get_http_var('create_key') && get_http_var('reason')) {
         create_key(get_http_var('commercial'), get_http_var('reason'));
     }
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query('SELECT api_key, commercial, created, reason FROM api_key WHERE user_id=' . $THEUSER->user_id());
     $keys = array();
     for ($i=0; $i<$q->rows(); $i++) {
@@ -65,7 +64,7 @@ $PAGE->page_end();
 function create_key($commercial, $reason) {
     global $THEUSER;
     $key = auth_ab64_encode(urandom_bytes(16));
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     if ($commercial=='') $commercial = 0;
     $db->query('INSERT INTO api_key (user_id, api_key, commercial, created, reason) VALUES
         (:user_id, :key, :commercial, NOW(), :reason)', array(

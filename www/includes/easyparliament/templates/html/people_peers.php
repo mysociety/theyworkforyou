@@ -23,7 +23,7 @@ twfy_debug("TEMPLATE", "people_mps.php");
 
 $order = $data['info']['order'];
 
-$URL = new URL($this_page);
+$URL = new \MySociety\TheyWorkForYou\Url($this_page);
 
 if ($order == 'name') {
     $th_name = 'Name';
@@ -56,7 +56,7 @@ if ($order == 'party')
                 <tbody>
 <?php
 
-$URL = new URL(str_replace('s', '', $this_page));
+$URL = new \MySociety\TheyWorkForYou\Url(str_replace('s', '', $this_page));
 $style = '2';
 
 foreach ($data['data'] as $pid => $peer) {
@@ -89,7 +89,7 @@ function render_peers_row($peer, &$style, $order, $URL) {
             <tr>
                 <td class="row">
                 <?php
-                list($image,$sz) = find_rep_image($peer['person_id'], true, 'lord');
+                list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($peer['person_id'], true, 'lord');
                 if ($image) {
                     echo '<a href="' . $URL->generate().make_member_url($name, null, 2, $peer['person_id']) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
                     echo '></a>';

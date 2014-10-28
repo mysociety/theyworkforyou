@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/video.php';
 
 $offset = 10;
 
@@ -28,7 +27,7 @@ $surrounding_speeches = 3;
 $gid = "uk.org.publicwhip/$gid";
 
 # Fetch this GID from the database, and captioner bot time if there is one
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 $q = $db->query("select hdate, htime, adate, atime, hpos, video_status, subsection_id, major,
     (select h.gid from hansard as h where h.epobject_id=hansard.subsection_id) as parent_gid,
     (select body from epobject as e where e.epobject_id=hansard.subsection_id) as parent_body
@@ -128,12 +127,12 @@ $gid_actual['body_first'] = preg_replace('#^(<p[^>]*>)([^<]{1,50}[^<\s]*)#s', '$
 #}
 
 # Work out what video we want, and where in it
-$videodb = video_db_connect();
+$videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
 if (!$videodb) {
     $PAGE->error_message('We appear to be having problems connecting to the database of video timings. Sorry, and please try again later.', true);
     exit;
 }
-$video = video_from_timestamp($videodb, $hdate, $htime);
+$video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $hdate, $htime);
 
 if (!$start)
     $start = $video['offset'] - $offset;
@@ -150,7 +149,7 @@ if (!$file) $file = $video['id'];
 if (get_http_var('adv')) {
     $PAGE->page_start();
     echo '<table id="video_table" border="0" cellspacing="0" cellpadding="5"><tr valign="top"><td width="50%">';
-    print video_object($file, $start, $gid_safe, 1, $pid);
+    print \MySociety\TheyWorkForYou\Utility\Video::object($file, $start, $gid_safe, 1, $pid);
     video_quote($gid_actual, $parent_gid, $parent_body);
     iframe_search($gid_safe, $file);
     echo '</td><td>';
@@ -195,7 +194,7 @@ $gid_safe, '&amp;file=', $file, '&amp;time=', $start,
 '">go to the next unstamped speech on this day</a>,
 or <a href="/video/next.php?action=random">get a new unstamped speech at random</a>.</p>';
     }
-    print video_object($file, $start, $gid_safe, 1, $pid);
+    print \MySociety\TheyWorkForYou\Utility\Video::object($file, $start, $gid_safe, 1, $pid);
     video_quote($gid_actual, $parent_gid, $parent_body);
     if (get_http_var('from') != 'next' || !$hidden_int)
         previous_speeches($surrounding_speeches, $gids_previous);
@@ -229,7 +228,7 @@ or <a href="/video/next.php?action=random">get a new unstamped speech at random<
 # ---
 
 function video_front_page() {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $statuses = array(
         0 => 'Unstamped',
         4 => 'Timestamped by users',
@@ -341,7 +340,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 
 function display_league($limit, $q = '') {
     global $THEUSER;
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $q = $db->query('select firstname,lastname,video_timestamps.user_id,count(*) as c
         from video_timestamps left join users on video_timestamps.user_id=users.user_id
         where video_timestamps.deleted=0 and (video_timestamps.user_id is null or video_timestamps.user_id!=-1) '

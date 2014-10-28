@@ -1,7 +1,4 @@
 <?php
-
-include_once INCLUDESPATH."easyparliament/member.php";
-
 function api_getHansard_front() {
 ?>
 <p><big>Fetch all Hansard.</big></p>
@@ -60,7 +57,7 @@ function _api_getHansard_search($array) {
 
     $o = get_http_var('order');
     if ($o == 'p') {
-        $data = search_by_usage($search);
+        $data = \MySociety\TheyWorkForYou\Utility\SearchEngine::searchByUsage($search);
         $out = array();
         if (!isset($data['speakers'])) $data['speakers'] = array();
         foreach ($data['speakers'] as $pid => $s) {
@@ -79,7 +76,7 @@ function _api_getHansard_search($array) {
     }
 
     global $SEARCHENGINE;
-    $SEARCHENGINE = new SEARCHENGINE($search);
+    $SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($search);
     if (!$SEARCHENGINE->valid) {
         api_error('Invalid search term');
 
@@ -94,7 +91,7 @@ function _api_getHansard_search($array) {
         'pop' => 1,
         'o' => ($o=='d' || $o=='r') ? $o : 'd',
     );
-    $LIST = new HANSARDLIST();
+    $LIST = new \MySociety\TheyWorkForYou\HansardList();
     $LIST->display('search', $args, 'api');
 }
 
@@ -104,7 +101,7 @@ function _api_getHansard_gid($type, $gid) {
 
     try {
         return $LIST->display('gid', $args, 'api');
-    } catch (RedirectException $e) {
+    } catch (\MySociety\TheyWorkForYou\RedirectException $e) {
         $url = $_SERVER['REQUEST_URI'];
         $url = str_replace($gid, $e->getMessage(), $url);
         header('Location: http://' . DOMAIN . $url);

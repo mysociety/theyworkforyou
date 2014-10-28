@@ -3,12 +3,11 @@
 # Given a postcode, return a person ID
 
 include_once 'min-init.php';
-include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $pc = $_GET['pc'];
 $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
 if (validate_postcode($pc)) {
-    $constituency = postcode_to_constituency($pc);
+    $constituency = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc);
     if ($constituency == 'CONNECTION_TIMED_OUT') {
         error('Connection timed out');
     } elseif ($constituency) {
@@ -26,10 +25,10 @@ function error($s) {
 }
 
 function get_person_id($c) {
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     if ($c == '') return false;
     if ($c == 'Orkney ') $c = 'Orkney &amp; Shetland';
-    $n = normalise_constituency_name($c); if ($n) $c = $n;
+    $n = \MySociety\TheyWorkForYou\Utility\Constituency::normaliseConstituencyName($c); if ($n) $c = $n;
     $q = $db->query("SELECT person_id FROM member
         WHERE constituency = :constituency
         AND left_reason = 'still_in_office' AND house=1", array(

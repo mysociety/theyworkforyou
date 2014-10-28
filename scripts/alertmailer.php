@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Name: alertmailer.php
  * Description: Mailer for email alerts
  * $Id: alertmailer.php,v 1.34 2009-06-23 10:11:10 matthew Exp $
@@ -11,10 +11,9 @@ function mlog($message) {
 
 include_once '../www/includes/easyparliament/init.php';
 ini_set('memory_limit', -1);
-include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $global_start = getmicrotime();
-$db = new ParlDB;
+$db = new \MySociety\TheyWorkForYou\ParlDb;
 
 # Get current value of latest batch
 $q = $db->query('SELECT max(indexbatch_id) as max_batch_id FROM indexbatch');
@@ -81,7 +80,7 @@ $unregistered = 0;
 $registered = 0;
 $sentemails = 0;
 
-$LIVEALERTS = new ALERT;
+$LIVEALERTS = new \MySociety\TheyWorkForYou\Alert;
 
 $current = array('email' => '', 'token' => '');
 $email_text = '';
@@ -92,7 +91,7 @@ $confirmed = 1; $deleted = 0;
 $alertdata = $LIVEALERTS->fetch($confirmed, $deleted);
 $alertdata = $alertdata['data'];
 
-$DEBATELIST = new DEBATELIST; # Nothing debate specific, but has to be one of them
+$DEBATELIST = new \MySociety\TheyWorkForYou\HansardList\DebateList; # Nothing debate specific, but has to be one of them
 
 $sects = array(
     1 => 'Commons debate',
@@ -170,7 +169,7 @@ foreach ($alertdata as $alertitem) {
 	if (!isset($results[$criteria_batch])) {
 		mlog("  ALERT $active/$outof QUERY $queries : Xapian query '$criteria_batch'");
 		$start = getmicrotime();
-		$SEARCHENGINE = new SEARCHENGINE($criteria_batch);
+		$SEARCHENGINE = new \MySociety\TheyWorkForYou\SearchEngine($criteria_batch);
 		#mlog("query_remade: " . $SEARCHENGINE->query_remade() . "\n");
 		$args = array(
 			's' => $criteria_raw, # Note: use raw here for URLs, whereas search engine has batch

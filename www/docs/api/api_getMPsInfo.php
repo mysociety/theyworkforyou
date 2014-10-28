@@ -26,7 +26,7 @@ function _api_getMPsInfo_id($ids) {
     }
     $ids = join(',', $safe_ids);
 
-    $db = new ParlDB;
+    $db = new \MySociety\TheyWorkForYou\ParlDb;
     $last_mod = 0;
     $q = $db->query("select person_id, data_key, data_value, lastupdate from personinfo
         where person_id in (" . $ids . ")");

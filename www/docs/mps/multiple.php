@@ -1,9 +1,8 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/member.php";
 
-$db = new ParlDB();
+$db = new \MySociety\TheyWorkForYou\ParlDb();
 
 $PAGE->page_start();
 $PAGE->stripe_start();
@@ -14,7 +13,7 @@ $q = $db->query("select m1.person_id, m1.house as house1, m2.house as house2
         and m1.left_house='9999-12-31' and m2.left_house='9999-12-31'");
 for ($i=0; $i<$q->rows(); $i++) {
     $pid = $q->field($i, 'person_id');
-    $member = new MEMBER(array('person_id' => $pid));
+    $member = new \MySociety\TheyWorkForYou\Member(array('person_id' => $pid));
     $h1 = $q->field($i, 'house1');
     $h2 = $q->field($i, 'house2');
     $out[$h1][$h2][] = $member;
