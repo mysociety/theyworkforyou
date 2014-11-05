@@ -527,6 +527,10 @@ window.fbAsyncInit = function () {
             print '<p class="informational all">Due to changes made to the official Scottish Parliament, our parser that used to fetch their web pages and convert them into more structured information has stopped working. We&rsquo;re afraid we cannot give a timescale as to when we will be able to cover the Scottish Parliament again. Sorry for any inconvenience caused.</p>';
         }
 
+        if ($highlights['section'] == 'ni') {
+            print '<p class="informational all">Due to changes made to the official Northern Ireland Assembly website, the tool we used to fetch their web pages and convert them into more structured information has stopped working. We&rsquo;re afraid we cannot give a timescale as to when we will be able to cover the Northern Ireland Assembly again. Sorry for any inconvenience caused.</p>';
+        }
+
         //get the top and bottom links
         $top_links = array();
         $bottom_links = array();
