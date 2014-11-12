@@ -36,9 +36,7 @@ transcripts of Parliament.
 
 See INSTALL.md for installation questions.
 
-If you have questions, the best place to ask is the mySociety developers-public
-email list at
-https://secure.mysociety.org/admin/lists/mailman/listinfo/developers-public
+If you have questions, the best place to ask is the mySociety TheyWorkForYou email list at https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou
 
 ### Developing with Vagrant
 
