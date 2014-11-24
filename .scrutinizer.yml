@@ -13,3 +13,13 @@ tools:
     sensiolabs_security_checker: true
     external_code_coverage:
         timeout: 600
+
+build_failure_conditions:
+    # No new element rated worse than a D exists
+    - 'elements.rating(<= D).new.exists'
+    # No new major or higher severity issues exist
+    - 'issues.severity(>= MAJOR).new.exists'
+    # No critical issues exist
+    - 'issues.severity(>= CRITICAL).exists'
+    # Code Coverage has not decreased from previous inspection by more than 5%
+    - 'project.metric_change("scrutinizer.test_coverage", < -0.05)'
