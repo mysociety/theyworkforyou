@@ -22,7 +22,7 @@ class Hansard extends \HANSARDLIST {
     public function search($searchstring, $args) {
 
         if (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH) {
-            throw new Exception('FRONT_END_SEARCH is not defined or is false.');
+            throw new \Exception('FRONT_END_SEARCH is not defined or is false.');
         }
 
         // $args is an associative array with 's'=>'my search term' and
@@ -35,7 +35,7 @@ class Hansard extends \HANSARDLIST {
             // eg, by doing filter_user_input($s, 'strict');
             $searchstring = $args['s'];
         } else {
-            throw new Exception('No search string provided.');
+            throw new \Exception('No search string provided.');
         }
 
         // What we'll return.
@@ -198,7 +198,7 @@ class Hansard extends \HANSARDLIST {
                 );
 
                 if ($q->rows() > 1)
-                    throw new Exception('Got more than one row getting data for $gid.');
+                    throw new \Exception('Got more than one row getting data for $gid.');
                 if ($q->rows() == 0) {
                     # This error message is totally spurious, so don't show it
                     # $PAGE->error_message("Unexpected missing gid $gid while searching");

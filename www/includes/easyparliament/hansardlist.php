@@ -49,7 +49,7 @@ Future stuff...
 
 */
 
-class RedirectException extends Exception { }
+class RedirectException extends \Exception { }
 
 class HANSARDLIST {
     // This will be used to cache information about speakers on this page
@@ -2381,13 +2381,6 @@ class HANSARDLIST {
             // We have some search term words that we could highlight
             // when rendering.
             $data['info']['searchstring'] = $args['s'];
-        }
-
-        // Shall we turn glossarising on?
-        if (isset($args['glossarise']) && $args['glossarise']) {
-            // We have some search term words that we could highlight
-            // when rendering.
-            $data['info']['glossarise'] = $args['glossarise'];
         }
 
         // Get the section and subsection headings for this item.

@@ -95,38 +95,45 @@
     }
 
     # TODO Do in the view, not in the template
-    $source_url = '';
+
+    $source = null;
+
     if (isset($speech['source_url']) && $speech['source_url'] != '') {
-        $source_url = $speech['source_url'];
-        $source_title = '';
+        $source = array(
+            'url' => $speech['source_url']
+        );
         $major = $data['info']['major'];
         if ($major==1 || $major==2 || (($major==3 || $major==4) && isset($speech['speaker']['house'])) || $major==101 || $major==6) {
-            $source_title = 'Citation: ';
+            $source['title'] = 'Citation: ';
             if ($major==1 || $major==2) {
-                $source_title .= 'HC';
+                $source['title'] .= 'HC';
             } elseif ($major==3 || $major==4) {
                 if ($speech['speaker']['house']==1) {
-                    $source_title .= 'HC';
+                    $source['title'] .= 'HC';
                 } else {
-                    $source_title .= 'HL';
+                    $source['title'] .= 'HL';
                 }
             } elseif ($major==6) {
-                $source_title .= $data['section_title'];
+                $source['title'] .= $data['section_title'];
             } else {
-                $source_title .= 'HL';
+                $source['title'] .= 'HL';
             }
-            $source_title .= ' Deb, ' . format_date($data['info']['date'], LONGDATEFORMAT) . ', c' . $speech['colnum'];
+            $source['title'] .= ' Deb, ' . format_date($data['info']['date'], LONGDATEFORMAT) . ', c' . $speech['colnum'];
             if ($major==2) {
-                $source_title .= 'WH';
+                $source['title'] .= 'WH';
             } elseif ($major==3) {
-                $source_title .= 'W';
+                $source['title'] .= 'W';
             } elseif ($major==4) {
-                $source_title .= 'WS';
+                $source['title'] .= 'WS';
             }
+        } else {
+            $source['title'] = null;
         }
-        $source_text = "Hansard source";
+
         if ($hansardmajors[$data['info']['major']]['location']=='Scotland'){
-            $source_text = 'Official Report source';
+            $source['text'] = 'Official Report source';
+        } else {
+            $source['text'] = null;
         }
     }
 
@@ -280,10 +287,10 @@
                 </li>
                 <?php } ?>
 <?php
-                if ($source_url) {
+                if ($source != null) {
 ?>
-                <li class="link-to-hansard "><a href="<?=$source_url ?>" class="debate-speech__meta__link"><?=$source_text ?></a>
-                <?php if ($source_title) { ?><span> (<?=$source_title ?>)</span><?php } ?></li>
+                <li class="link-to-hansard "><a href="<?=$source['url'] ?>" class="debate-speech__meta__link"><?=$source['text'] ?></a>
+                <?php if ($source['title']) { ?><span> (<?=$source['title'] ?>)</span><?php } ?></li>
 <?php
                 }
 ?>

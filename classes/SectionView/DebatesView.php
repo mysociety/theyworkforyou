@@ -164,9 +164,10 @@ class DebatesView extends SectionView {
             $gid_type = 'debate';
         } elseif ($this->major == 101) {
             $gid_type = 'lords';
+        } else {
+            $gid_type = 'unknown';
         }
         $vq = $db->query("select id,adate,atime from video_timestamps where gid='uk.org.publicwhip/$gid_type/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 order by (user_id is null) limit 1");
-        $ts_id = $vq->field(0, 'id'); if (!$ts_id) $ts_id='*';
         $adate = $vq->field(0, 'adate');
         $time = $vq->field(0, 'atime');
         $videodb = video_db_connect();
@@ -197,6 +198,8 @@ class DebatesView extends SectionView {
             $gid_type = 'debate';
         } elseif ($this->major == 101) {
             $gid_type = 'lords';
+        } else {
+            $gid_type = 'unknown';
         }
         return '
     <div style="border:solid 1px #9999ff; background-color: #ccccff; padding: 4px; text-align: center;
