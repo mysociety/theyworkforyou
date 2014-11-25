@@ -41,6 +41,16 @@
         </div>
     </nav>
 </div>
+<?php if ($hansardmajors[$data['info']['major']]['location'] == 'Scotland') { ?>
+<div class="full-page">
+    <div class="debate-speech__notice">
+        <div class="full-page__row">
+            Due to changes made to the official Scottish Parliament, our parser that used to fetch their web pages and convert them into more structured information has stopped working. We're afraid we cannot give a timescale as to when we will be able to cover the Scottish Parliament again. Sorry for any inconvenience caused.
+        </div>
+    </div>
+</div>
+
+<?php } ?>
 
 <div class="full-page">
 
@@ -189,12 +199,14 @@
                         <?= format_date($speech['hdate'], 'jS F Y') ?>
                     </a>
               <?php } ?>
-            </h2>
 
               <?php # XXX
                 if ($data['info']['major'] == 8 && preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $speech['gid'], $m)) {
-                    print " | Question $m[1]";
-                } ?>
+                    ?><p class="debate-speech__question_id"><small>
+                    <? print( "Question $m[1]" ); ?>
+                    </small></p>
+              <?php } ?>
+            </h2>
 
 
           <?php } ?>
@@ -271,9 +283,6 @@
              </div>
             <?php
             }
-            if (isset($speech['mentions'])) {
-                echo $speech['mentions'];
-            }
 
             ?>
             <ul class="debate-speech__meta debate-speech__links">
@@ -292,6 +301,9 @@
                 <li class="link-to-hansard "><a href="<?=$source['url'] ?>" class="debate-speech__meta__link"><?=$source['text'] ?></a>
                 <?php if ($source['title']) { ?><span> (<?=$source['title'] ?>)</span><?php } ?></li>
 <?php
+                }
+                if (isset($speech['mentions'])) {
+                    echo $speech['mentions'];
                 }
 ?>
             </ul>

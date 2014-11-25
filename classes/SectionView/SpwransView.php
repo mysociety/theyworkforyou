@@ -44,11 +44,11 @@ class SpwransView extends WransView {
         $PAGE->error_message ("Couldn't match that Scottish Parliament ID to a GID.");
     }
 
-    function get_question_mentions_html($row_data) {
+    protected function get_question_mentions_html($row_data) {
         if( count($row_data) == 0 ) {
             return '';
         }
-        $result = '<ul class="question-mentions">';
+        $result = '';
         $nrows = count($row_data);
         $last_date = NULL;
         $first_difference_output = TRUE;
@@ -76,22 +76,26 @@ class SpwransView extends WransView {
             $reference = FALSE;
             $inner = "BUG: Unknown mention type $row[type]";
             $date = format_date($row['date'], SHORTDATEFORMAT);
+            $url = $row['url'];
+            if ( strpos($url, 'business/businessBulletin') !== FALSE ) {
+                $url = str_replace('www.scottish', 'archive.scottish', $url);
+            }
             switch ($row["type"]) {
                 case 1:
-                    $inner = "Mentioned in <a href=\"$row[url]\">today's business on $date</a>";
+                    $inner = "Mentioned in <a class=\"debate-speech__meta__link\" href=\"$url\">today's business on $date</a>";
                     break;
                 case 2:
-                    $inner = "Mentioned in <a href=\"$row[url]\">tabled oral questions on $date</a>";
+                    $inner = "Mentioned in <a class=\"debate-speech__meta__link\" href=\"$url\">tabled oral questions on $date</a>";
                     break;
                 case 3:
-                    $inner = "Mentioned in <a href=\"$row[url]\">tabled written questions on $date</a>";
+                    $inner = "Mentioned in <a class=\"debate-speech__meta__link\" href=\"$url\">tabled written questions on $date</a>";
                     break;
                 case 4:
                     if( preg_match('/^uk.org.publicwhip\/spq\/(.*)$/',$row['gid'],$m) ) {
                         $URL = new \URL("spwrans");
                         $URL->insert( array('spid' => $m[1]) );
                         $relative_url = $URL->generate("none");
-                        $inner = "Given a <a href=\"$relative_url\">written answer on $date</a>";
+                        $inner = "Given a <a class=\"debate-speech__meta__link\" href=\"$relative_url\">written answer on $date</a>";
                     }
                     break;
                 case 5:
@@ -119,14 +123,14 @@ class SpwransView extends WransView {
             if( $reference ) {
                 $references[] = "\n<li>$inner.";
             } else {
-                $result .= "\n<li>$description$inner.</span>";
+                $result .= "\n<li class=\"link-to-hansard\">$description$inner.</span>";
                 $last_date = $row["date"];
             }
         }
         foreach ($references as $reference_span) {
             $result .= $reference_span;
         }
-        $result .= '</ul>';
+        $result .= '';
         return $result;
     }
 
