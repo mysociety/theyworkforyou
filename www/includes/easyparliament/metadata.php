@@ -431,12 +431,12 @@ $this->page = array (
     'pombola' => array (
         'title'			=> 'Pombola',
         'heading'		=> 'mySociety\'s platform for running a Parliamentary monitoring site like this',
-        'url'			=> 'http://www.mysociety.org/international/pombola/'
+        'url'			=> 'https://www.mysociety.org/projects/parliamentarymonitoring/pombola'
     ),
     'devmailinglist' => array (
         'title'			=> 'Developer mailing list',
         'heading'		=> 'Developer mailing list',
-        'url'			=> 'https://secure.mysociety.org/admin/lists/mailman/listinfo/developers-public'
+        'url'			=> 'https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou'
     ),
     'code' => array (
         'title'			=> 'Source code',

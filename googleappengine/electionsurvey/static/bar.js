@@ -55,7 +55,7 @@ function barSetup(){
         barAddMenuItem(oMenu, 'Get hassled to do something good', 'http://www.hassleme.co.uk', 'HassleMe.co.uk', false);
     }    
     
-    //barAddMenuItem(oText, oMenu, 'Sign up to our newsletter', 'https://secure.mysociety.org/admin/lists/mailman/listinfo/news', 'mySociety newsletter - about once a month', true);
+    //barAddMenuItem(oText, oMenu, 'Sign up to our newsletter', 'http://eepurl.com/3BHlj', 'mySociety newsletter - about once a month', true);
 
     // add newsletter subscribe
     var oNewsletterLabel = document.createElement('li');
@@ -65,7 +65,7 @@ function barSetup(){
 
     var oNewsletterForm = document.createElement('li');
     oNewsletterForm.className = "bordernodivider";
-    oNewsletterForm.innerHTML = '<form method="get" action="https://secure.mysociety.org/admin/lists/mailman/subscribe/news"><input type="text" class="textbox nodivider" name="email" id="txtBarEmail"/><input type="submit" value="Go"/></form>';
+    oNewsletterForm.innerHTML = '<form action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511" method="post"><div style="position: absolute; left: -5000px;"><input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value=""></div><input type="email" name="EMAIL" placeholder="you@email.com" id="txtBarEmail" class="textbox nodivider"><input type="submit" value="Go" name="subscribe"></form>';
     oMenu.appendChild(oNewsletterForm);
 
     // add class to first menu item
