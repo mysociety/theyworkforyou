@@ -232,7 +232,7 @@ the service.
 
 <p>If anyone wishes to write bindings for the API in any language, please
 do so, let us know and we'll link to it here. You might want to
-<a href="https://secure.mysociety.org/admin/lists/mailman/listinfo/developers-public">join our public developer mailing list</a>
+<a href="https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou">join our mailing list</a>
 to discuss things.</p>
 
 <h3>Examples</h3>
