@@ -307,9 +307,16 @@ function canonicalise_data($cat_data) {
     return $cat_data;
 }
 
+function _clean($s) {
+    $s = preg_replace("/&(pound|#163);/", "\xa3", $s);
+    $s = preg_replace("#</?(span|i|em)( [^>]*)?" . ">#i", '', $s);
+    $s = preg_split("/\s*\n\s*/", $s);
+    return $s;
+}
+
 function clean_diff($old, $new) {
-    $old = explode("\n", $old);
-    $new = explode("\n", $new);
+    $old = _clean($old);
+    $new = _clean($new);
     $r = array_diff($old, $new);
     $a = array_diff($new, $old);
     if (!count($r) && !count($a)) return '';
