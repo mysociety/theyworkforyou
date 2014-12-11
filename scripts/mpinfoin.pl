@@ -383,8 +383,7 @@ sub loadregmeminfo
                 $htmlcontent .= '<div class="regmemcategory">';
                 $htmlcontent .= $category->att("type") . ". " . $category->att("name");
                 $htmlcontent .= "</div>\n";
-                for (my $item = $category->first_child('item'); $item;
-                        $item = $item->next_sibling('item'))
+                foreach my $item ($category->descendants('item'))
                 {
                         $htmlcontent .= '<div class="regmemitem">';
                         if ($item->att("subcategory"))
