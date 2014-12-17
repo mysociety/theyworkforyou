@@ -61,9 +61,8 @@ function api_getCommittee_name($name) {
     else $date = 'date(now())';
     $q = $db->query("select distinct(dept) from moffice
         where dept like :department
-        and from_date <= :date and :date <= to_date", array(
+        and from_date <= $date and $date <= to_date", array(
             ':department' => '%' . $name . '%Committee',
-            ':date' => $date
             ));
     if ($q->rows() > 1) {
         # More than one committee matches
@@ -78,10 +77,9 @@ function api_getCommittee_name($name) {
         $q = $db->query("select * from moffice,member
             where moffice.person = member.person_id
             and dept like :department
-            and from_date <= :date and :date <= to_date
-            and entered_house <= :date and :date <= left_house", array(
+            and from_date <= $date and $date <= to_date
+            and entered_house <= $date and $date <= left_house", array(
                 ':department' => '%' . $name . '%Committee',
-                ':date' => $date
             ));
         if ($q->rows()) {
             $output = array();
@@ -113,8 +111,7 @@ function api_getCommittee_date($date) {
     else $date = 'date(now())';
     $q = $db->query("select distinct(dept) from moffice
         where source = 'chgpages/selctee'
-        and from_date <= " . $date . ' and '
-        . $date . ' <= to_date');
+        and from_date <= $date and $date <= to_date");
     if ($q->rows()) {
         for ($i=0; $i<$q->rows(); $i++) {
             $output['committees'][] = array(
