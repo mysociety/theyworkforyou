@@ -25,15 +25,17 @@ if (isset ($data['rows'])) {
                 }
                 $desc = '';
                 if (isset($speaker['office'])) {
-                    $desc = $speaker['office'][0]['pretty'];
-                    if (strpos($desc, 'PPS')!==false) $desc .= ', ';
-                }
-                if (!$desc || strpos($desc, 'PPS')!==false) {
-                    if ($speaker['house'] == 1 && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
-                        $desc .= $speaker['constituency'] . ', ';
+                    $desc = array();
+                    foreach ($speaker['office'] as $off) {
+                        $desc[] = $off['pretty'];
                     }
-                    $desc .= _htmlentities($speaker['party']);
+                    $desc = join(', ', $desc) . '; ';
                 }
+
+                if ($speaker['house'] == 1 && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
+                    $desc .= $speaker['constituency'] . ', ';
+                }
+                $desc .= _htmlentities($speaker['party']);
                 if ($desc) $row['speaker']['desc'] = $desc;
             }
         }

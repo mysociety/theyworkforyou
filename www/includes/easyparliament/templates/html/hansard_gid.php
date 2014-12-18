@@ -300,25 +300,24 @@ if (isset ($data['rows'])) {
                 echo '<strong>', $speakername, '</strong></a> <small>';
                 $desc = '';
                 if (isset($speaker['office'])) {
-                    $desc = $speaker['office'][0]['pretty'];
-                    #if (strpos($desc, 'PPS')!==false) $desc .= '; ';
-                    $desc .= '; ';
+                    $desc = array();
+                    foreach ($speaker['office'] as $off) {
+                        $desc[] = $off['pretty'];
+                    }
+                    $desc = join(', ', $desc) . '; ';
                 }
 
-                # Try always showing constituency/party too
-                #if (!$desc || strpos($desc, 'PPS')!==false) {
-                    if ($speaker['house'] == 1 && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
-                        $desc .= $speaker['constituency'];
-                        if ($speaker['party']) $desc .= ', ';
-                    }
-                    if (get_http_var('wordcolours')) {
-                        $desc .= '<span style="color: '.party_to_colour($speaker['party']).'">';
-                    }
-                    $desc .= _htmlentities($speaker['party']);
-                    if (get_http_var('wordcolours')) {
-                        $desc .= '</span>';
-                    }
-                #}
+                if ($speaker['house'] == 1 && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
+                    $desc .= $speaker['constituency'];
+                    if ($speaker['party']) $desc .= ', ';
+                }
+                if (get_http_var('wordcolours')) {
+                    $desc .= '<span style="color: '.party_to_colour($speaker['party']).'">';
+                }
+                $desc .= _htmlentities($speaker['party']);
+                if (get_http_var('wordcolours')) {
+                    $desc .= '</span>';
+                }
 
                 //print $desc
                 if ($desc) print "($desc)";
