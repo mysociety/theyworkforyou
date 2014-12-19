@@ -77,7 +77,7 @@ class PEOPLE {
     public function _get_data_by_group($args) {
         // $args can have an optional 'order' element.
 
-        $use_extracol = (isset($args['order']) && in_array($args['order'], array('expenses', 'debates', 'safety')));
+        $use_extracol = (isset($args['order']) && in_array($args['order'], array('debates')));
         $use_personinfo = $use_extracol;
 
         # Defaults
@@ -91,9 +91,7 @@ class PEOPLE {
             $sqlorder = 'data_value+0 DESC, last_name, first_name';
             unset($args['date']);
             $key_lookup = array(
-                'expenses' => 'expenses2004_total',
                 'debates' => 'debate_sectionsspoken_inlastyear',
-                'safety' => 'swing_to_lose_seat_today',
             );
             $personinfo_key = $key_lookup[$order];
         }

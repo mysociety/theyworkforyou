@@ -1,24 +1,16 @@
 <?php
 
-/*
-Used on the 'All MPs' page to produce the list of MPs in CSV format.
-*/
-
-global $this_page;
-
 twfy_debug("TEMPLATE", "people_mlas.php");
-
-$order = $data['info']['order'];
 
 header('Content-Type: text/csv');
 print "Person ID,Name,Party,Constituency,URI";
-print "\n";
+print "\r\n";
 
 foreach ($data['data'] as $n => $mla) {
-    render_mlas_row($mla, $order);
+    render_mlas_row($mla);
 }
 
-function render_mlas_row($mla, $order) {
+function render_mlas_row($mla) {
     global $parties;
     $con = $mla['constituency'];
     if (strstr($con, ',')) $con = "\"$con\"";
@@ -31,5 +23,5 @@ function render_mlas_row($mla, $order) {
         print $mla['party'];
     print ',' . $con . ',' .  'http://www.theyworkforyou.com/mla/' .
         make_member_url($mla['first_name'].' '.$mla['last_name'], NULL, 3, $mla['person_id']);
-    print "\n";
+    print "\r\n";
 }

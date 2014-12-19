@@ -47,8 +47,7 @@ function list_reps($type, $rep_plural, $search_sidebar) {
     $order = get_http_var('o');
     $orders = array(
         'n' => 'name', 'f' => 'first_name', 'l' => 'last_name',
-        'c' => 'constituency', 'p' => 'party', 'e' => 'expenses',
-        'd' => 'debates', 's' => 'safety'
+        'c' => 'constituency', 'p' => 'party', 'd' => 'debates',
     );
     if (array_key_exists($order, $orders))
         $args['order'] = $orders[$order];
