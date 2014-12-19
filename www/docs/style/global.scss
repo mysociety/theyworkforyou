@@ -291,7 +291,9 @@ a:hover {
 
 #title {
     position: relative;
-    top: -10px;
+    /*top: -10px;*/
+    // while banner is displayed
+    top: 10px;
     left: 13px;
     width: 423px;
     height: 80px;

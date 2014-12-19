@@ -128,8 +128,8 @@
                 print '<p class="informational banner">Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
             } elseif ($country == 'CA') {
                 print '<p class="informational banner">Check out <a href="http://www.openparliament.ca/">OpenParliament.ca</a></p>';
-            } elseif ($this_page != 'overview') {
-                #print '<p class="informational banner"><a href="http://election.theyworkforyou.com/">Find out what your candidates said on local and national issues in our quiz</a></p>';
+            } else {
+                print '<p class="informational banner">Would you like to work with the team that built this site? <a href="http://mysocietyltd.theresumator.com/">We&rsquo;re hiring</a>.</p>';
             }
         }
 ?>
