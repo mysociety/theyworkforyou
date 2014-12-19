@@ -53,8 +53,6 @@ if (get_http_var('adv') || $warning || !$searchstring) {
 
     if (get_http_var('o')=='p') {
         search_order_p($searchstring);
-/*    } elseif (get_http_var('o') == 't') {
-        search_order_t($searchstring); */
     } else {
         search_normal($searchstring);
     }
@@ -191,13 +189,16 @@ function search_normal($searchstring) {
     $qd = $SEARCHENGINE->valid ? $SEARCHENGINE->query_description_short() : $searchstring;
     $pagetitle = 'Search for ' . $qd;
     $pagenum = get_http_var('p');
-    if (is_numeric($pagenum) && $pagenum > 1) {
+    if (!is_numeric($pagenum)) {
+        $pagenum = 1;
+    }
+    if ($pagenum > 1) {
         $pagetitle .= ", page $pagenum";
     }
 
     $DATA->set_page_metadata($this_page, 'title', $pagetitle);
     $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($searchstring));
-    if (!$pagenum || $pagenum == 1) {
+    if ($pagenum == 1) {
         # Allow indexing of first page of search results
         $DATA->set_page_metadata($this_page, 'robots', '');
     }
@@ -214,9 +215,10 @@ function search_normal($searchstring) {
         'o' => ($o=='d' || $o=='r' || $o=='o') ? $o : 'd',
     );
 
-    if ($args['s'] && !preg_match('#[a-z]+:[a-z0-9]+#', $args['s'])) {
+    if ($pagenum == 1 && $args['s'] && !preg_match('#[a-z]+:[a-z0-9]+#', $args['s'])) {
         find_members($args['s']);
         find_constituency($args);
+        find_glossary_items($args);
     }
 
     if (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH) {
@@ -229,74 +231,9 @@ function search_normal($searchstring) {
         $LIST = new HANSARDLIST();
         $LIST->display('search', $args);
     }
-
-    if ($args['s']) {
-        #        find_users($args);
-        find_glossary_items($args);
-        #        find_comments($args);
-    }
 }
-
-/*
-function search_order_t($searchstring) {
-    global $DATA, $PAGE, $this_page, $SEARCHENGINE;
-
-    $SEARCHENGINE = new SEARCHENGINE($searchstring);
-    $pagetitle = $SEARCHENGINE->query_description_short();
-    $pagetitle = 'When is ' . $pagetitle . ' said most in debates?';
-    $DATA->set_page_metadata($this_page, 'title', $pagetitle);
-    $PAGE->page_start();
-    $PAGE->stripe_start();
-    $PAGE->search_form($searchstring);
-    $SEARCHENGINE = new SEARCHENGINE($searchstring . ' groupby:speech section:debates section:whall');
-    $count = $SEARCHENGINE->run_count();
-    if ($count <= 0) {
-        print '<p>There were no results.</p>';
-        $PAGE->page_end();
-
-        return;
-    }
-    $sort_order = 'date';
-    $SEARCHENGINE->run_search(0, 10000, 'date');
-    $gids = $SEARCHENGINE->get_gids();
-    if (count($gids) <= 0) {
-        print '<p>There were no results.</p>';
-        $PAGE->page_end();
-
-        return;
-    }
-
-    $hdates = array();
-    $big_list = join('","', $gids);
-    $db = new ParlDB;
-    $q = $db->query('SELECT hdate FROM hansard WHERE gid IN ("' . $big_list . '")');
-    print '<!-- Counts: ' . count($gids) . ' vs ' . $q->rows() . ' -->';
-    for ($n=0; $n<$q->rows(); $n++) {
-        $hdate = $q->field($n, 'hdate');
-        if (!isset($hdates[$hdate]))
-            $hdates[$hdate] = 0;
-        $hdates[$hdate]++;
-    }
-    arsort($hdates);
-    print '<table><tr><th>No.</th><th>Date</th></tr>';
-    foreach ($hdates as $hdate => $count) {
-        print '<tr><td>';
-        print $count . '</td><td>';
-        print '<a href="' . WEBPATH . 'hansard/?d=' . $hdate . '">';
-        print $hdate;
-        print '</a>';
-        print '</td></tr>';
-    }
-    print '</table>';
-}
-*/
 
 # ---
-
-function find_comments($args) {
-    $commentlist = new COMMENTLIST;
-    $commentlist->display('search', $args);
-}
 
 function find_constituency($args) {
     // We see if the user is searching for a postcode or constituency.
@@ -349,60 +286,6 @@ function find_constituency($args) {
         }
         print '</ul>';
     }
-}
-
-function find_users($args) {
-    // Maybe there'll be a better place to put this at some point...
-    global $PAGE;
-
-    if ($args['s'] != '') {
-        // $args['s'] should have been tidied up by the time we get here.
-        // eg, by doing filter_user_input($s, 'strict');
-        $searchstring = $args['s'];
-    } else {
-        $PAGE->error_message("No search string");
-
-        return false;
-    }
-
-    $searchwords = explode(' ', $searchstring);
-
-    if (count($searchwords) == 1) {
-        $where = "(firstname LIKE '%" . addslashes($searchwords[0]) . "%' OR lastname LIKE '%" . addslashes($searchwords[0]) . "%')";
-    } else {
-        // We don't do anything special if there are more than two search words.
-        // And here we're assuming the user's put the names in the right order.
-        $where = "(firstname LIKE '%" . addslashes($searchwords[0]) . "%' AND lastname LIKE '%" . addslashes($searchwords[1]) . "%')";
-    }
-
-    $db = new ParlDB;
-    $q = $db->query("SELECT user_id,
-                        firstname,
-                        lastname
-                    FROM    users
-                    WHERE   $where AND confirmed=1
-                    ORDER BY lastname, firstname, user_id
-                    ");
-
-    if ($q->rows() > 0) {
-
-        $URL = new URL('userview');
-        $users = array();
-
-        for ($n=0; $n<$q->rows(); $n++) {
-            $URL->insert(array('u'=>$q->field($n, 'user_id')));
-            $members[] = '<a href="' . $URL->generate() . '">' . $q->field($n, 'firstname') . ' ' . $q->field($n, 'lastname') . '</a>';
-        }
-        ?>
-    <h2>Users matching '<?php echo _htmlentities($searchstring); ?>'</h2>
-    <ul>
-    <li><?php print implode("</li>\n\t<li>", $members); ?></li>
-    </ul>
-<?php
-    }
-
-    // We don't display anything if there were no matches.
-
 }
 
 function find_members($searchstring) {

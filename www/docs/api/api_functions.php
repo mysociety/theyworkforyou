@@ -121,15 +121,8 @@ $methods = array(
         'required' => false,
         'help' => 'Returns comments'
     ),
-    'postComment' => array(
-        'parameters' => array('user_id', 'gid?'),
-        'working' => false,
-        'required' => true,
-        'help' => 'Posts a comment - needs authentication!'
-    ),
     'getAlerts' => array(
         'parameters' => array('start_date', 'end_date'),
-            'working' => true,
         'required' => true,
             'superuser' => true,
             'help' => 'Returns a summary of email alert subscriptions created between two dates'
@@ -186,31 +179,13 @@ function api_sidebar() {
     global $methods;
     $sidebar = '<div class="block"><h4>API Functions</h4> <div class="blockbody"><ul>';
     foreach ($methods as $method => $data) {
-    if (isset($data['superuser']) && $data['superuser']) {
-          continue;
+        if (isset($data['superuser']) && $data['superuser']) {
+            continue;
         }
-        $sidebar .= '<li';
-        if (isset($data['new']))
-            $sidebar .= ' style="border-top: solid 1px #999999;"';
-        $sidebar .= '>';
-        if (!isset($data['working']) || $data['working'])
-            $sidebar .= '<a href="' . WEBPATH . 'api/docs/' . $method . '">';
-        $sidebar .= $method;
-        if (!isset($data['working']) || $data['working'])
-            $sidebar .= '</a>';
-        else
-            $sidebar .= ' - <em>not written yet</em>';
-        #		if ($data['required'])
-        #			$sidebar .= ' (parameter required)';
-        #		else
-        #			$sidebar .= ' (parameter optional)';
-        $sidebar .= '<br>' . $data['help'];
-        #		$sidebar .= '<ul>';
-        #		foreach ($data['parameters'] as $parameter) {
-        #			$sidebar .= '<li>' . $parameter . '</li>';
-        #		}
-        #		$sidebar .= '</ul>';
-        $sidebar .= '</li>';
+        $style = isset($data['new']) ? ' style="border-top: solid 1px #999999;"' : '';
+        $sidebar .= "<li$style>";
+        $sidebar .= "<a href='" . WEBPATH . "api/docs/$method'>$method</a>";
+        $sidebar .= "<br>$data[help]</li>";
     }
     $sidebar .= '</ul></div></div>';
     $sidebar = array(
