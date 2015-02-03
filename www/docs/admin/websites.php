@@ -102,7 +102,7 @@ function update_url() {
         ));
 
     if ($q->success()) {
-        $q = $db->query("INSERT INTO personinfo (data_key, person_id, data_value) VALUES ('mp_website', :person_id, :url", array(
+        $q = $db->query("INSERT INTO personinfo (data_key, person_id, data_value) VALUES ('mp_website', :person_id, :url)", array(
             ':person_id' => $personid,
             ':url' => get_http_var('url')
             ));
