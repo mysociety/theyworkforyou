@@ -370,7 +370,7 @@ window.fbAsyncInit = function () {
             <?php } ?>
                 <ul>
                     <li id="logo">
-                        <a href="http://www.mysociety.org/"><img src="/images/mysociety_small.png" alt="mySociety" width="72" height="16"></a>
+                        <a href="http://www.mysociety.org/"><img src="/images/mysociety_small.png" alt="mySociety" width="72" height="15"></a>
                     </li>
                     <li>
                         <a href="http://www.mysociety.org/donate/?cs=1" title="Like this website? Donate to help keep it running.">Donate</a>

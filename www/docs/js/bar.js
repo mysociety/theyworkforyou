@@ -39,22 +39,6 @@ function barSetup(){
         barAddMenuItem(oMenu, 'Keep tabs on parliament', 'http://www.theyworkforyou.com', 'TheyWorkForYou.com', false);
     }    
     
-    if(sDomain.indexOf('pledgebank.com') == -1){
-        barAddMenuItem(oMenu, 'Gather support for a campaign', 'http://www.pledgebank.com', 'PledgeBank.com', false);
-    }
-    
-    if(sDomain.indexOf('hearfromyourmp.com') == -1){
-        barAddMenuItem(oMenu, 'Get news from your MP', 'http://www.hearfromyourmp.com', 'HearFromYourMP.com', false);
-    }
-
-    if(sDomain.indexOf('groupsnearyou.com') == -1){
-        barAddMenuItem(oMenu, 'Discover a local email group', 'http://www.groupsnearyou.com', 'GroupsNearYou.com', false);
-    }    
-    
-    if(sDomain.indexOf('hassleme.com') == -1){
-        barAddMenuItem(oMenu, 'Get hassled to do something good', 'http://www.hassleme.co.uk', 'HassleMe.co.uk', false);
-    }
-
     // add newsletter subscribe
     var oNewsletterLabel = document.createElement('li');
     oNewsletterLabel.className = "bardivider";
