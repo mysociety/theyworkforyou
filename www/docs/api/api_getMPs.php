@@ -22,7 +22,7 @@ for a default (today) lookup.
 <dd>Fetch the list of MPs that match this search string in their name.</dd>
 </dl>
 
-<h4>Example Response</h4>
+<h4>Example Response, serialised PHP</h4>
 <pre>a:646:{
     i:0; a:5:{
         s:9:"member_id"; s:4:"1368";

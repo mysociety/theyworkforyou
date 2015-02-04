@@ -20,8 +20,6 @@ function api_getComments_front() {
 <dd>Number of results to return.</dd>
 </dl>
 
-<h4>Example Response</h4>
-
 <?php
 }
 

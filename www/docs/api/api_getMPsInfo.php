@@ -12,8 +12,6 @@ function api_getMPsInfo_front() {
 <dd>Which fields you want to return, comma separated (leave blank for all).</dd>
 </dl>
 
-<h4>Example Response</h4>
-
 <?php
 }
 
