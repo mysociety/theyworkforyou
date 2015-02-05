@@ -76,16 +76,19 @@ class SpwransView extends WransView {
             $reference = FALSE;
             $inner = "BUG: Unknown mention type $row[type]";
             $date = format_date($row['date'], SHORTDATEFORMAT);
+            $url = $row['url'];
+            if ( strpos($url, 'business/businessBulletin') !== FALSE ) {
+                $url = str_replace('www.scottish', 'archive.scottish', $url);
             }
             switch ($row["type"]) {
                 case 1:
-                    $inner = "Mentioned in <a class=\"debate-speech__meta__link\" href=\"$row[url]\">today's business on $date</a>";
+                    $inner = "Mentioned in <a class=\"debate-speech__meta__link\" href=\"$url\">today's business on $date</a>";
                     break;
                 case 2:
-                    $inner = "Mentioned in <a class=\"debate-speech__meta__link\" href=\"$row[url]\">tabled oral questions on $date</a>";
+                    $inner = "Mentioned in <a class=\"debate-speech__meta__link\" href=\"$url\">tabled oral questions on $date</a>";
                     break;
                 case 3:
-                    $inner = "Mentioned in <a class=\"debate-speech__meta__link\" href=\"$row[url]\">tabled written questions on $date</a>";
+                    $inner = "Mentioned in <a class=\"debate-speech__meta__link\" href=\"$url\">tabled written questions on $date</a>";
                     break;
                 case 4:
                     if( preg_match('/^uk.org.publicwhip\/spq\/(.*)$/',$row['gid'],$m) ) {
