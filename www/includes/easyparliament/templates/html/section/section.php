@@ -265,9 +265,6 @@
              </div>
             <?php
             }
-            if (isset($speech['mentions'])) {
-                echo $speech['mentions'];
-            }
 
             ?>
             <ul class="debate-speech__meta debate-speech__links">
@@ -286,6 +283,9 @@
                 <li class="link-to-hansard "><a href="<?=$source['url'] ?>" class="debate-speech__meta__link"><?=$source['text'] ?></a>
                 <?php if ($source['title']) { ?><span> (<?=$source['title'] ?>)</span><?php } ?></li>
 <?php
+                }
+                if (isset($speech['mentions'])) {
+                    echo $speech['mentions'];
                 }
 ?>
             </ul>
