@@ -396,4 +396,9 @@ class SectionView {
             'comment_id' => $comment['comment_id'],
         );
     }
+
+    protected function get_question_mentions_html($row_data) {
+        throw new \Exception('get_question_mentions_html called from class with no implementation');
+    }
+
 }
