@@ -431,7 +431,7 @@ my ($dbh,
         $epadd, $epcheck, $epupdate,
         $hadd, $hcheck, $hupdate, $hdelete, $hdeletegid,
         $constituencyadd, $memberadd, $memberexist, $membercheck, 
-        $gradd, $grcheck, $grdeletegid,
+        $gradd, $grdeletegid,
         $scotqadd, $scotqdelete, $scotqbusinessexist, $scotqholdingexist,
         $scotqdategidexist, $scotqreferenceexist,
         $lastid);
@@ -472,7 +472,6 @@ sub db_connect
 
         # gidredirect entries
         $gradd = $dbh->prepare("replace into gidredirect (gid_from, gid_to, hdate, major) values (?,?,?,?)");
-        $grcheck = $dbh->prepare("select gid_from, hdate, major from gidredirect where gid_to = ?");
         $grdeletegid = $dbh->prepare("delete from gidredirect where gid_from = ?");
 
         # scottish question mentions
@@ -888,7 +887,6 @@ sub db_addpair
                 }
         }
         $hcheck->finish();
-        $grcheck->finish();
         
         $epadd->execute(@$epparams);
         my $epid = last_id();
@@ -1323,7 +1321,8 @@ sub add_wrans_day
         $tallygidsmode = 1; %gids = (); %grdests = (); $tallygidsmodedummycount = 10;
         $lordshead = 0;
         parsefile_glob($twig, $parldata . "scrapedxml/wrans/answers" . $curdate. "*.xml");
-        $lordshead = 1;
+        # On 2015-01-26 Lords switched to a system that does give department names, like the Commons
+        $lordshead = 1 if $curdate lt '2015-01-26';
         parsefile_glob($twig, $parldata . "scrapedxml/lordswrans/lordswrans" . $curdate. "*.xml");
         # see if there are deleted gids
         my @gids = keys %gids;
@@ -1334,7 +1333,7 @@ sub add_wrans_day
         $tallygidsmode = 0; %gids = ();
         $lordshead = 0;
         parsefile_glob($twig, $parldata . "scrapedxml/wrans/answers" . $curdate. "*.xml");
-        $lordshead = 1;
+        $lordshead = 1 if $curdate lt '2015-01-26';
         parsefile_glob($twig, $parldata . "scrapedxml/lordswrans/lordswrans" . $curdate. "*.xml");
 
         # and delete anything that has been redirected (moving comments etc)
@@ -1513,9 +1512,13 @@ sub add_wms_day {
                 }, output_filter => $outputfilter );
         $curdate = $date;
 
+        # On 2015-01-26 Lords switched to a system that does give department names, like the Commons
+        my $lordsfn = \&load_lords_wms_speech;
+        $lordsfn = \&load_wms_speech if $curdate ge '2015-01-26';
+
         $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0; $inoralanswers = 0;
         $tallygidsmode = 1; %gids = (); %grdests = (); $tallygidsmodedummycount = 10;
-        $twig->setTwigHandler('speech', \&load_lords_wms_speech);
+        $twig->setTwigHandler('speech', $lordsfn);
         $heading = ''; $subheading = '';
         parsefile_glob($twig, $parldata . "scrapedxml/lordswms/lordswms" . $curdate . "*.xml");
         $twig->setTwigHandler('speech', \&load_wms_speech);
@@ -1528,7 +1531,7 @@ sub add_wms_day {
         # make the modifications
         $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0; $inoralanswers = 0;
         $tallygidsmode = 0; %gids = (); $overhead = undef;
-        $twig->setTwigHandler('speech', \&load_lords_wms_speech);
+        $twig->setTwigHandler('speech', $lordsfn);
         $heading = ''; $subheading = '';
         parsefile_glob($twig, $parldata . "scrapedxml/lordswms/lordswms" . $curdate . "*.xml");
         $twig->setTwigHandler('speech', \&load_wms_speech);
