@@ -49,7 +49,7 @@ function submit_photo() {
         $image->readImage($tmp_name);
         if (!$image)
             array_push($errors, 'Failed to read image from uploaded file');
-            $imageS = $image->clone();
+            $imageS = clone $image;
         if (!$image->scaleImage(0, 118))
             array_push($errors, 'Scaling large failed');
         if (!$imageS->scaleImage(0, 59))
