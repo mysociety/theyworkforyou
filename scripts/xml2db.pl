@@ -1549,16 +1549,22 @@ sub add_wms_day {
 }
 
 sub is_dupe {
-        return 1 if $_[0] =~ /My (?:right )?(?:hon(\.|ourable) )?(?:and )?(?:noble )?friend\s*.*? (?:has )?(?:today )?(?:(?:made|issued) the following (?:Written )?(?:Ministerial )?Statement|published a report)/i;
-        return 0;
+    return 1 if $_[0] =~ /
+        My[ ]
+        ((right|rt)[ ])? (hon(\.|ourable)?[ ])?
+        (and[ ])? (noble[ ])?
+        friend\s*.*?[ ]
+        (has[ ])? (today[ ])?
+        (  (made|issued)[ ]the[ ]following[ ] (Written[ ])? (Ministerial[ ])? (Statement|Announcement)
+         | published[ ]a[ ]report
+        )
+        /ix;
+    return 0;
 }
 sub load_wms_speech {
         my ($twig, $speech) = @_;
         my $text = $speech->sprint(1);
-        if (is_dupe($text)) {
-                $text = "<p class=\"italic\">Probably duplicate of Commons Statement</p> $text";
-                return 1;
-        }
+        return 1 if is_dupe($text);
         do_load_heading($heading, 4, strip_string($heading->sprint(1))) if $heading;
         do_load_subheading($subheading, 4, strip_string($subheading->sprint(1))) if $subheading;
         do_load_speech($speech, 4, 0, $text);
@@ -1566,10 +1572,7 @@ sub load_wms_speech {
 sub load_lords_wms_speech {
         my ($twig, $speech) = @_;
         my $text = $speech->sprint(1);
-        if (is_dupe($text)) {
-                $text = "<p class=\"italic\">Probably duplicate of Commons Statement</p> $text";
-                return 1;
-        }
+        return 1 if is_dupe($text);
         my $firsthead = $heading || $subheading;
         if (!$overhead && $firsthead) {
                 my $ohgid = $firsthead->att('id');
