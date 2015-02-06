@@ -181,6 +181,37 @@ span.hi {
   }
 }
 
+.debate-speech__question-answered{
+  font-size: 14px;
+  max-width: 45em; // keep line lengths readable
+  margin-top: 0.66em;
+  .debate-speech__question-anwered-content {
+    padding-left: 20px;
+    p {
+      line-height: 1.4em;
+      margin-bottom: 0.8em;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &.debate-speech__question-answered-result {
+        a {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $medium-screen) {
+    padding-left: 70px;
+    font-size: 0.8em;
+    p {
+      line-height: 1.6em;
+      padding-left: 0.5em;
+      margin-bottom: 1em;
+    }
+  }
+}
+
 .debate-speech__meta__link {
   color: #9d9195;
   line-height: 18px;
