@@ -842,6 +842,10 @@ sub db_addpair
                 my @hvals = $hcheck->fetchrow_array();
                 $hcheck->finish();
                 my $epid = shift @hvals;
+                if ($hvals[9] gt $hparams->[9]) { # the hdate column
+                    print "not updating hansard object $gid, db date of $hvals[9] greater than $hparams->[9]\n";
+                    return $epid;
+                }
 
                 # Check matching epobject exists
                 my $q = $epcheck->execute($epid);
