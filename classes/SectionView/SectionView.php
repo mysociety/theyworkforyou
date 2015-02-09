@@ -271,6 +271,9 @@ class SectionView {
                 }
             }
         }
+        // strip a couple of common characters that result in encode junk in the
+        // search string
+        $data['email_alert_text'] = preg_replace('/(?:[:()\[\]]|&#\d+;)/', '', $data['email_alert_text']);
 
         $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
         $data['debate_day_human'] = format_date($first_speech['hdate'], 'jS F Y');
