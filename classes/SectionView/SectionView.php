@@ -249,7 +249,13 @@ class SectionView {
         }
 
         if (array_key_exists('text_heading', $data['info'])) {
-            $data['email_alert_text'] = $data['info']['text_heading'];
+            // avoid having Clause 1 etc as the alert text search string on PBC pages as it's
+            // almost certainly not what the person wants
+            if ( $this->major == 6 ) {
+                $data['email_alert_text'] = $data['section_title'];
+            } else {
+                $data['email_alert_text'] = $data['info']['text_heading'];
+            }
         } else {
             // The user has requested only part of a debate, so find a suitable title
             if ($subsection_title) {
