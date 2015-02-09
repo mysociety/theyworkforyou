@@ -1549,18 +1549,25 @@ sub add_wms_day {
 }
 
 sub is_dupe {
+    my $rthon = '(right[ ])? (hon(\.|ourable)[ ])?';
+    my $statement = 'Statement';
+    if ($curdate ge '2015-01-26') {
+        $rthon = '((right|rt)[ ])? (hon(\.|ourable)?[ ])?';
+        $statement = '(Statement|Announcement)';
+    }
     return 1 if $_[0] =~ /
         My[ ]
-        ((right|rt)[ ])? (hon(\.|ourable)?[ ])?
+        $rthon
         (and[ ])? (noble[ ])?
         friend\s*.*?[ ]
         (has[ ])? (today[ ])?
-        (  (made|issued)[ ]the[ ]following[ ] (Written[ ])? (Ministerial[ ])? (Statement|Announcement)
+        (  (made|issued)[ ]the[ ]following[ ] (Written[ ])? (Ministerial[ ])? $statement
          | published[ ]a[ ]report
         )
         /ix;
     return 0;
 }
+
 sub load_wms_speech {
         my ($twig, $speech) = @_;
         my $text = $speech->sprint(1);
