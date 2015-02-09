@@ -41,6 +41,16 @@
         </div>
     </nav>
 </div>
+<?php if ($hansardmajors[$data['info']['major']]['location'] == 'Scotland') { ?>
+<div class="full-page">
+    <div class="debate-speech__notice">
+        <div class="full-page__row">
+            Due to changes made to the official Scottish Parliament, our parser that used to fetch their web pages and convert them into more structured information has stopped working. We're afraid we cannot give a timescale as to when we will be able to cover the Scottish Parliament again. Sorry for any inconvenience caused.
+        </div>
+    </div>
+</div>
+
+<?php } ?>
 
 <div class="full-page">
 

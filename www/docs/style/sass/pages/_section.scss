@@ -110,6 +110,18 @@ span.hi {
   }
 }
 
+.debate-speech__notice {
+  border-top: 1px solid $borders;
+  background-color: transparent;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  .full-page__row {
+    width: auto;
+    padding: 0 20px;
+    position: relative;
+  }
+}
+
 .debate-speech__speaker {
   margin-top: 0;
   line-height: 1em;
