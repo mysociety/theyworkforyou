@@ -86,12 +86,8 @@ function api_getMembers_date($house, $date) {
 }
 
 function api_getMembers($house, $date = 'now()') {
-    # $date may be a function such as now(), the default, and so cannot be used
-    # as a parameter.
-    _api_getMembers_output("SELECT * FROM member
-        WHERE house = :house
-            AND entered_house <= date($date)
-            AND date($date) <= left_house",
-        array(':house' => $house)
-    );
+    _api_getMembers_output('select * from member where house = :house AND entered_house <= date(:date) and date(:date) <= left_house', array(
+        ':house' => $house,
+        ':date' => $date
+        ));
 }

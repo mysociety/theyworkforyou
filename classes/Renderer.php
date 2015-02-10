@@ -110,8 +110,8 @@ class Renderer
             // Four different kinds of back/forth links we might build.
             $links = array ("first", "prev", "up", "next", "last");
 
-            foreach ($links as $n => $type) {
-                if (isset($nextprev[$type]) && isset($nextprev[$type]['listurl'])) {
+            foreach ($links as $type) {
+                if (isset($nextprev[$type]) && isset($nextprev[$type]['url'])) {
 
                     if (isset($nextprev[$type]['body'])) {
                         $linktitle = _htmlentities( trim_characters($nextprev[$type]['body'], 0, 40) );
@@ -127,7 +127,7 @@ class Renderer
                     $data['header_links'][] = array(
                         'rel'   => $type,
                         'title' => $linktitle,
-                        'href'  => $nextprev[$type]['listurl']
+                        'href'  => $nextprev[$type]['url']
                     );
                 }
             }

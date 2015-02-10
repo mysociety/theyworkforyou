@@ -40,7 +40,7 @@ function video_object($video_id, $start, $gid, $stamping = '', $pid = 0) {
 <embed src='http://parlvid.mysociety.org/FLVScrubber3.swf' width='360' height='300' allowfullscreen='true' allowscriptaccess='always' flashvars='file=<?=$video_id ?>&amp;previewImage=http://parlvid.mysociety.org/bbcparl-logo2.jpg&amp;secondsToHide=0&amp;startAt=221' type='application/x-shockwave-flash' pluginspage='http://www.adobe.com/go/getflashplayer'>
 </object>
 */
-    $out = "<div align='center'>
+    $out = "<div class='debate__video__object'>
 <object width='330' height='230' id='video'
     classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'
     codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0'>
