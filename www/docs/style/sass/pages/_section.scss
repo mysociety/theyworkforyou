@@ -182,6 +182,18 @@ span.hi {
     }
   }
 
+  .division-list {
+    list-style-type: none;
+  }
+
+  @media (min-width: 30em) {
+    .division-list {
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
+    }
+  }
+
   @media (min-width: $medium-screen) {
     padding-left: 70px;
     font-size: 1em;
@@ -190,7 +202,22 @@ span.hi {
       line-height: 1.6em;
       margin-bottom: 1em;
     }
+
+    .division-list {
+      -webkit-column-count: 3;
+      -moz-column-count: 3;
+      column-count: 3;
+    }
   }
+
+  @media (min-width: $large-screen) {
+    .division-list {
+      -webkit-column-count: 4;
+      -moz-column-count: 4;
+      column-count: 4;
+    }
+  }
+
 }
 
 .debate-speech__question-answered{
