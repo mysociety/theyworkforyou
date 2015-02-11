@@ -197,28 +197,32 @@ or <a href="/video/next.php?action=random">get a new unstamped speech at random<
     }
     print video_object($file, $start, $gid_safe, 1, $pid);
     video_quote($gid_actual, $parent_gid, $parent_body);
-    if (get_http_var('from') != 'next' || !$hidden_int)
+    if (get_http_var('from') != 'next' || !$hidden_int) {
         previous_speeches($surrounding_speeches, $gids_previous);
+    }
     # print $summary;
     echo '</td><td>';
     echo '<div id="basic_hints"';
-    if ($hidden_int)
+    if ($hidden_int) {
         echo ' style="display:none"';
+    }
     echo '>';
     echo '<p style="float: right; border: solid 1px #666666; padding:3px;"><a onclick="return hideInstructions();" href=""><small>Hide instructions</small></a></p>';
     basic_instructions($pid);
     basic_hints($gid_safe, $file, $pid);
     echo '</div>';
     echo '<div id="advanced_hints"';
-    if (!$hidden_int)
+    if (!$hidden_int) {
         echo ' style="display:none"';
+    }
     echo '>';
     advanced_hints($gid_safe, $file, $pid);
     echo '</div>';
-    if (get_http_var('from') == 'next' && $hidden_int)
+    if (get_http_var('from') == 'next' && $hidden_int) {
         previous_speeches($surrounding_speeches, $gids_previous);
-    else
+    } else {
         iframe_search($gid_safe, $file);
+    }
     echo '</td>';
     echo '</tr></table>';
     $PAGE->page_end();
