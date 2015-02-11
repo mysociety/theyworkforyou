@@ -10,6 +10,7 @@
 <li><a href="#votingrecord">How is the voting record decided?</a></li>
 <li><a href="#numbers">Why should I read in more depth than just the numbers?</a></li>
 <li><a href="#api">Do you have the data as a spreadsheet file, XML or in an API?</a></li>
+<li><a href="#alerts">How do I sign up for and manage alerts?</a></li>
 </ul>
 
 <br>
@@ -90,6 +91,8 @@ do things such as future business, more coverage of Bills, and so on.
 If you want the complete, definitive record, go to the <a
 href="http://www.parliament.uk/" title="Link to parliament website">UK
 Parliament</a> site, and you might be able to find what you want.</p>
+
+<p>Our blog has an article on getting the most out of <a href="https://www.mysociety.org/2014/08/18/using-theyworkforyou-as-a-history-resource/">historic debates</a></p>
 </dd>
 
 <dt><a name="moderation"></a>How do you moderate annotations?</dt>
@@ -265,5 +268,14 @@ working out how to use the data, or want to hire us to make something specific
 for you.
 </dd>
 <!-- end old faq entry -->
+
+<dt><a name="alerts"></a>How do I sign up for and manage alerts?</a</dt>
+<dd>
+<p>
+Our blog has some helpful articles on <a href="https://www.mysociety.org/2014/09/01/well-send-you-an-email-every-time-your-chosen-word-is-mentioned-in-parliament/">creating alerts</a>
+and on <a href="https://www.mysociety.org/2014/09/04/how-to-manage-your-theyworkforyou-alerts/">managing them</a>.
+There's also an article on getting alerts <a href="https://www.mysociety.org/2014/07/23/want-to-know-what-your-mp-is-saying-subscribe-to-a-theyworkforyou-alert/">ever time your MP speaks</a>.
+</p>
+</dd>
 
 </dl>

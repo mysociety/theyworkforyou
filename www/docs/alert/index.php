@@ -423,7 +423,10 @@ also match &lsquo;horses&rsquo;).
         this form once with the word <i>horse</i> and then again with the word
         <i>pony</i> (or you can put <i>horse OR pony</i> with the OR in capitals
         as explained on the right). Do not put <i>horse, pony</i> as that will only
-        sign you up for alerts where <strong>both</strong> horse and pony are mentioned.</p>
+        sign you up for alerts where <strong>both</strong> horse and pony are mentioned.</p><br><br>
+        <p>Our blog has some helpful articles on <a href="https://www.mysociety.org/2014/09/01/well-send-you-an-email-every-time-your-chosen-word-is-mentioned-in-parliament/">creating alerts</a>
+        and on <a href="https://www.mysociety.org/2014/09/04/how-to-manage-your-theyworkforyou-alerts/">managing them</a>.
+        There's also an article on getting alerts <a href="https://www.mysociety.org/2014/07/23/want-to-know-what-your-mp-is-saying-subscribe-to-a-theyworkforyou-alert/">ever time your MP speaks</a>.</p>
 <?php
     }
 ?>
