@@ -143,7 +143,7 @@
         if ($hansardmajors[$data['info']['major']]['location']=='Scotland'){
             $source['text'] = 'Official Report source';
         } else {
-            $source['text'] = null;
+            $source['text'] = 'Hansard source';
         }
     }
 
