@@ -383,16 +383,18 @@ sub loadregmeminfo
                 $htmlcontent .= '<div class="regmemcategory">';
                 $htmlcontent .= $category->att("type") . ". " . $category->att("name");
                 $htmlcontent .= "</div>\n";
-                for (my $item = $category->first_child('item'); $item;
-                        $item = $item->next_sibling('item'))
-                {
-                        $htmlcontent .= '<div class="regmemitem">';
-                        if ($item->att("subcategory"))
+                for (my $record = $category->first_child('record'); $record; $record = $record->next_sibling('record')) {
+                        for (my $item = $record->first_child('item'); $item;
+                                $item = $item->next_sibling('item'))
                         {
-                                $htmlcontent .= "(" . $item->att("subcategory") . ") ";
+                                $htmlcontent .= '<div class="regmemitem">';
+                                if ($item->att("subcategory"))
+                                {
+                                        $htmlcontent .= "(" . $item->att("subcategory") . ") ";
+                                }
+                                $htmlcontent .= $item->sprint(1);
+                                $htmlcontent .= "</div>\n";
                         }
-                        $htmlcontent .= $item->sprint(1);
-                        $htmlcontent .= "</div>\n";
                 }
         }
 
