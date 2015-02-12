@@ -313,6 +313,10 @@ Whether a separate file be used per database.
 
 Allows you to remove the backup scripts. Can be 'present' or 'absent'.
 
+#####`execpath`
+
+Allows you to set a custom PATH should your mysql installation be non-standard places. Defaults to `/usr/bin:/usr/sbin:/bin:/sbin`
+
 #####`time`
 
 An array of two elements to set the backup time.  Allows ['23', '5'] or ['3', '45'] for HH:MM times.
@@ -432,6 +436,25 @@ Creates a database with a user and assigns some privileges.
       host     => 'localhost',
       grant    => ['SELECT', 'UPDATE'],
     }
+```
+
+Or using a different resource name with exported resources,
+
+```puppet
+    @@mysql::db { "mydb_${fqdn}":
+      user     => 'myuser',
+      password => 'mypass',
+      dbname   => 'mydb',
+      host     => ${fqdn},
+      grant    => ['SELECT', 'UPDATE'],
+      tag      => $domain,
+    }
+```
+
+Then collect it on the remote DB server.
+
+```puppet
+    Mysql::Db <<| tag == $domain |>>
 ```
 
 ###Providers

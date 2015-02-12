@@ -1,32 +1,16 @@
 class puphpet::xdebug (
   $install_cli = true,
   $webserver,
-  $ensure = present
+  $compile     = false,
+  $ensure      = present
 ) inherits puphpet::params {
 
-  if $webserver != undef {
-    $notify_service = Service[$webserver]
-  } else {
-    $notify_service = []
-  }
+  warning('puphpet::xdebug is deprecated; please use puphpet::php::xdebug')
 
-  if defined(Package[$puphpet::params::xdebug_package]) == false {
-    package { 'xdebug':
-      name    => $puphpet::params::xdebug_package,
-      ensure  => installed,
-      require => Package['php'],
-      notify  => $notify_service,
-    }
+  class { '::puphpet::php::xdebug':
+    install_cli => $install_cli,
+    webserver   => $webserver,
+    compile     => $compile,
+    ensure      => $ensure,
   }
-
-  # shortcut for xdebug CLI debugging
-  if $install_cli and defined(File['/usr/bin/xdebug']) == false {
-    file { '/usr/bin/xdebug':
-      ensure  => present,
-      mode    => '+X',
-      source  => 'puppet:///modules/puphpet/xdebug_cli_alias.erb',
-      require => Package['php']
-    }
-  }
-
 }

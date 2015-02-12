@@ -15,14 +15,18 @@
         * [Class: apache::default_mods](#class-apachedefault_mods)
         * [Defined Type: apache::mod](#defined-type-apachemod)
         * [Classes: apache::mod::*](#classes-apachemodname)
+        * [Class: apache::mod::info](#class-apachemodinfo)
         * [Class: apache::mod::pagespeed](#class-apachemodpagespeed)
         * [Class: apache::mod::php](#class-apachemodphp)
         * [Class: apache::mod::ssl](#class-apachemodssl)
         * [Class: apache::mod::wsgi](#class-apachemodwsgi)
         * [Class: apache::mod::fcgid](#class-apachemodfcgid)
+        * [Class: apache::mod::negotiation](#class-apachemodnegotiation)
+        * [Class: apache::mod::deflate](#class-apachemoddeflate)
         * [Defined Type: apache::vhost](#defined-type-apachevhost)
         * [Parameter: `directories` for apache::vhost](#parameter-directories-for-apachevhost)
         * [SSL parameters for apache::vhost](#ssl-parameters-for-apachevhost)
+        * [Defined Type: apache::fastcgi::server](#defined-type-fastcgi-server)
     * [Virtual Host Examples - Demonstrations of some configuration options](#virtual-host-examples)
     * [Load Balancing](#load-balancing)
         * [Defined Type: apache::balancer](#defined-type-apachebalancer)
@@ -146,7 +150,7 @@ To set up a virtual host with a wildcard alias for the subdomain mapped to a sam
     apache::vhost { 'subdomain.loc':
       vhost_name       => '*',
       port             => '80',
-      virtual_docroot' => '/var/www/%-2+',
+      virtual_docroot  => '/var/www/%-2+',
       docroot          => '/var/www',
       serveraliases    => ['*.loc',],
     }
@@ -331,6 +335,11 @@ Define additional [LogFormats](https://httpd.apache.org/docs/current/mod/mod_log
 
 Changes the directory where Apache log files for the virtual host are placed. Defaults to '/var/log/httpd' on RedHat, '/var/log/apache2' on Debian, and '/var/log/apache22' on FreeBSD.
 
+#####`logroot_mode`
+
+Overrides the mode the logroot directory is set to. Defaults to undef. Do NOT give people write access to the directory the logs are stored
+in without being aware of the consequences; see http://httpd.apache.org/docs/2.4/logs.html#security for details.
+
 #####`manage_group`
 
 Setting this to 'false' will stop the group resource from being created. This is for when you have a group, created from another Puppet module, you want to use to run Apache. Without this parameter, attempting to use a previously established group would result in a duplicate resource error.
@@ -366,6 +375,10 @@ Changes the name of the file containing Apache ports configuration. Default is `
 #####`purge_configs`
 
 Removes all other Apache configs and vhosts, defaults to 'true'. Setting this to 'false' is a stopgap measure to allow the apache module to coexist with existing or otherwise-managed configuration. It is recommended that you move your configuration entirely to resources within this module.
+
+#####`purge_vhost_configs`
+
+If `vhost_dir` != `confd_dir`, this controls the removal of any configurations that are not managed by puppet within `vhost_dir`. It defaults to the value of `purge_configs`. Setting this to false is a stopgap measure to allow the apache module to coexist with existing or otherwise unmanaged configurations within `vhost_dir`
 
 #####`sendfile`
 
@@ -454,7 +467,7 @@ There are many `apache::mod::[name]` classes within this module that can be decl
 * `fcgid`
 * `headers`
 * `include`
-* `info`
+* `info`*
 * `itk`
 * `ldap`
 * `mime`
@@ -490,6 +503,53 @@ There are many `apache::mod::[name]` classes within this module that can be decl
 Modules noted with a * indicate that the module has settings and, thus, a template that includes parameters. These parameters control the module's configuration. Most of the time, these parameters will not require any configuration or attention.
 
 The modules mentioned above, and other Apache modules that have templates, will cause template files to be dropped along with the mod install and the module will not work without the template. Any module without a template will install the package but drop no files.
+
+####Class: `apache::mod::info`
+
+Installs and manages mod_info which provides a comprehensive overview of the server configuration. 
+
+Full documentation for mod_info is available from [Apache](http://httpd.apache.org/docs/2.2/mod/mod_info.html).
+
+These are the default settings:
+
+```puppet
+  $allow_from      = ['127.0.0.1','::1'],
+  $apache_version  = $::apache::apache_version,
+  $restrict_access = true,
+```
+
+To set the addresses that are allowed to access /server-info add the following:
+
+```puppet
+  class {'apache::mod::info':
+    allow_from      => [
+      '10.10.36',
+      '10.10.38',
+      '127.0.0.1',
+    ],
+  }
+```
+
+To disable the access restrictions add the following:
+
+```puppet
+  class {'apache::mod::info':
+    restrict_access => false,
+  }
+```
+
+It is not recommended to leave this set to false though it can be very useful for testing. For this reason, you can insert this setting in your normal code to temporarily disable the restrictions like so:
+
+```puppet
+  class {'apache::mod::info':
+    restrict_access => false, # false disables the block below
+    allow_from      => [
+      '10.10.36',
+      '10.10.38',
+      '127.0.0.1',
+    ],
+  }
+```
 
 ####Class: `apache::mod::pagespeed`
 
@@ -641,6 +701,50 @@ It is also possible to set the FcgidWrapper per directory per vhost. You must en
 
 See [FcgidWrapper documentation](https://httpd.apache.org/mod_fcgid/mod/mod_fcgid.html#fcgidwrapper) for more information.
 
+####Class: `apache::mod::negotiation`
+
+Installs and configures mod_negotiation. If there are not provided any
+parameter, default apache mod_negotiation configuration is done.
+
+```puppet
+  class { '::apache::mod::negotiation':
+    force_language_priority => 'Prefer',
+    language_priority       => [ 'es', 'en', 'ca', 'cs', 'da', 'de', 'el', 'eo' ],
+  }
+```
+
+**Parameters within `apache::mod::negotiation`:**
+
+#####`force_language_priority`
+
+A string that sets the `ForceLanguagePriority` option. Defaults to `Prefer Fallback`.
+
+#####`language_priority`
+
+An array of languages to set the `LanguagePriority` option of the module.
+
+####Class: `apache::mod::deflate`
+
+Installs and configures mod_deflate. If no parameters are provided, a default configuration is applied.
+
+```puppet
+  class { '::apache::mod::deflate':
+    types => [ 'text/html', 'text/css' ],
+    notes => {
+      'Input' => 'instream',
+      'Ratio' => 'ratio',
+    },
+  }
+```
+
+#####`types`
+
+An array of mime types that will be deflated.
+
+#####`notes`
+
+A hash where the key represents the type and the value represents the note name.
+
 ####Defined Type: `apache::vhost`
 
 The Apache module allows a lot of flexibility in the setup and configuration of virtual hosts. This flexibility is due, in part, to `vhost`'s being a defined resource type, which allows it to be evaluated multiple times with different parameters.
@@ -745,6 +849,10 @@ Sets individual user access to the docroot directory. Defaults to 'root'.
 #####`docroot_mode`
 
 Sets access permissions of the docroot directory. Defaults to 'undef'.
+
+#####`manage_docroot`
+
+Whether to manage to docroot directory at all. Defaults to 'true'.
 
 #####`error_log`
 
@@ -1413,6 +1521,20 @@ Sets the order of processing Allow and Deny statements as per [Apache core docum
     }
 ```
 
+######`satisfy`
+
+Sets a `Satisfy` directive as per the [Apache Core documentation](http://httpd.apache.org/docs/2.2/mod/core.html#satisfy). **Deprecated:** This parameter is being deprecated due to a change in Apache. It will only work with Apache 2.2 and lower.
+
+```puppet
+    apache::vhost { 'sample.example.net':
+      docroot     => '/path/to/directory',
+      directories => [
+        { path    => '/path/to/directory',
+          satisfy => 'Any',
+        }
+      ],
+    }
+
 ######`sethandler`
 
 Sets a `SetHandler` directive as per the [Apache Core documentation](http://httpd.apache.org/docs/2.2/mod/core.html#sethandler). An example:
@@ -1585,6 +1707,56 @@ An array:
 
 Specifies whether or not to use [SSLProxyEngine](http://httpd.apache.org/docs/current/mod/mod_ssl.html#sslproxyengine). Valid values are 'true' and 'false'. Defaults to 'false'.
 
+####Defined Type: FastCGI Server
+
+This type is intended for use with mod_fastcgi. It allows you to define one or more external FastCGI servers to handle specific file types.
+
+Ex:
+
+```puppet
+apache::fastcgi::server { 'php':
+  host       => '127.0.0.1:9000',
+  timeout    => 15,
+  flush      => false,
+  faux_path  => '/var/www/php.fcgi',
+  fcgi_alias => '/php.fcgi',
+  file_type  => 'application/x-httpd-php'
+}
+```
+
+Within your virtual host, you can then configure the specified file type to be handled by the fastcgi server specified above.
+
+```puppet
+apache::vhost { 'www':
+  ...
+  custom_fragment = 'AddType application/x-httpd-php .php'
+  ...
+}
+```
+
+#####`host`
+
+The hostname or IP address and TCP port number (1-65535) of the FastCGI server.
+
+#####`timeout`
+
+The number of seconds of FastCGI application inactivity allowed before the request is aborted and the event is logged (at the error LogLevel). The inactivity timer applies only as long as a connection is pending with the FastCGI application. If a request is queued to an application, but the application doesn't respond (by writing and flushing) within this period, the request will be aborted. If communication is complete with the application but incomplete with the client (the response is buffered), the timeout does not apply.
+
+#####`flush`
+
+Force a write to the client as data is received from the application. By default, mod_fastcgi buffers data in order to free the application as quickly as possible.
+
+#####`faux_path`
+
+`faux_path` does not have to exist in the local filesystem. URIs that Apache resolves to this filename will be handled by this external FastCGI application.
+
+#####`alias`
+
+A unique alias. This is used internally to link the action with the FastCGI server.
+
+#####`file_type`
+
+The MIME-type of the file's that will be processed by the FastCGI server. 
 
 ###Virtual Host Examples
 

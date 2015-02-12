@@ -36,26 +36,7 @@ class puphpet::hhvm(
         fail('Sorry, HHVM currently only works with Debian 7+.')
       }
 
-      $sources_list = '/etc/apt/sources.list'
-
-      $deb_srcs = [
-        'deb http://http.us.debian.org/debian wheezy main',
-        'deb-src http://http.us.debian.org/debian wheezy main',
-        'deb http://security.debian.org/ wheezy/updates main',
-        'deb-src http://security.debian.org/ wheezy/updates main',
-        'deb http://http.us.debian.org/debian wheezy-updates main',
-        'deb-src http://http.us.debian.org/debian wheezy-updates main'
-      ]
-
-      each( $deb_srcs ) |$value| {
-        exec { "add contrib non-free to ${value}":
-          cwd     => '/etc/apt',
-          command => "perl -p -i -e 's#${value}#${value} contrib non-free#gi' ${sources_list}",
-          unless  => "grep -Fxq '${value} contrib non-free' ${sources_list}",
-          path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
-          notify  => Exec['apt_update']
-        }
-      }
+      include ::puphpet::debian::non_free
     }
     'ubuntu': {
       if ! ($lsbdistcodename in ['precise', 'raring', 'trusty']) {
@@ -69,27 +50,14 @@ class puphpet::hhvm(
       }
     }
     'centos': {
-      $jemalloc_url = 'http://files.puphpet.com/centos6/jemalloc-3.6.0-1.el6.x86_64.rpm'
-      $jemalloc_download_location = '/.puphpet-stuff/jemalloc-3.6.0-1.el6.x86_64.rpm'
-
       $require = defined(Class['my_fw::post']) ? {
         true    => Class['my_fw::post'],
         default => [],
       }
 
-      exec { "download jemalloc to ${download_location}":
-        creates => $download_location,
-        command => "wget --quiet --tries=5 --connect-timeout=10 -O '${jemalloc_download_location}' '${jemalloc_url}'",
-        timeout => 30,
-        path    => '/usr/bin',
-        require => $require
-      }
-
       package { 'jemalloc':
         ensure   => latest,
         provider => yum,
-        source   => $download_location,
-        require  => Exec["download jemalloc to ${download_location}"],
       }
 
       yum::managed_yumrepo { 'hop5':
@@ -103,24 +71,7 @@ class puphpet::hhvm(
     }
   }
   if $real_webserver == 'apache2' {
-    if ! defined(Class['apache::mod::mime']) {
-      class { 'apache::mod::mime': }
-    }
-    if ! defined(Class['apache::mod::fastcgi']) {
-      class { 'apache::mod::fastcgi': }
-    }
-    if ! defined(Class['apache::mod::alias']) {
-      class { 'apache::mod::alias': }
-    }
-    if ! defined(Class['apache::mod::proxy']) {
-      class { 'apache::mod::proxy': }
-    }
-    if ! defined(Class['apache::mod::proxy_http']) {
-      class { 'apache::mod::proxy_http': }
-    }
-    if ! defined(Apache::Mod['actions']) {
-      apache::mod{ 'actions': }
-    }
+    include ::puphpet::apache::fpm
   }
 
   $os = downcase($::operatingsystem)
@@ -142,6 +93,10 @@ class puphpet::hhvm(
     }
   }
 
-  ensure_packages( [ $package_name_base ] )
+  if ! defined(Package[$package_name_base]) {
+    package { $package_name_base:
+      ensure => present
+    }
+  }
 
 }

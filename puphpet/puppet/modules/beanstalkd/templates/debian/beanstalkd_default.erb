@@ -54,7 +54,7 @@ BEANSTALKD_BINLOG_SIZE=<%= @binlogsize %>
 <% end -%>
 
 
-
+options=""
 
 ##the debian init script leaves everything to be desired.  so lets put our setup logic here.
 
@@ -103,10 +103,6 @@ case "$1" in
 			echo "increasing open file limit to $BEANSTALKD_MAXCONNECTIONS"
 			ulimit -n $BEANSTALKD_MAXCONNECTIONS
 		fi
-
-		DAEMON_OPTS="-l $BEANSTALKD_LISTEN_ADDR -p $BEANSTALKD_LISTEN_PORT"
-		DAEMON_OPTS="$options"
-
 	;;
 	*)
 		#nothing, please keep moving
@@ -114,7 +110,7 @@ case "$1" in
 esac
 
 
-
+DAEMON_OPTS="$options"
 DAEMONUSER=$BEANSTALKD_USER
 
 

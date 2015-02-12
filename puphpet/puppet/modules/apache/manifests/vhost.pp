@@ -77,6 +77,7 @@
 #
 define apache::vhost(
     $docroot,
+    $manage_docroot              = true,
     $virtual_docroot             = false,
     $port                        = undef,
     $ip                          = undef,
@@ -110,6 +111,7 @@ define apache::vhost(
     $directoryindex              = '',
     $vhost_name                  = '*',
     $logroot                     = $::apache::logroot,
+    $logroot_mode                = undef,
     $log_level                   = undef,
     $access_log                  = true,
     $access_log_file             = undef,
@@ -260,7 +262,7 @@ define apache::vhost(
 
   # This ensures that the docroot exists
   # But enables it to be specified across multiple vhost resources
-  if ! defined(File[$docroot]) {
+  if ! defined(File[$docroot]) and $manage_docroot {
     file { $docroot:
       ensure  => directory,
       owner   => $docroot_owner,
@@ -271,9 +273,10 @@ define apache::vhost(
   }
 
   # Same as above, but for logroot
-  if ! defined(File[$logroot]) {
+  if ! defined(File[$logroot]) and $ensure == 'present' {
     file { $logroot:
       ensure  => directory,
+      mode    => $logroot_mode,
       require => Package['httpd'],
     }
   }

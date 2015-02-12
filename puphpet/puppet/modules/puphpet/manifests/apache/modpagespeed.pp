@@ -30,21 +30,31 @@ class puphpet::apache::modpagespeed (
     notify   => Service['httpd']
   }
 
-  file { [
-    "${apache::params::mod_dir}/pagespeed.load",
-    "${apache::params::mod_dir}/pagespeed.conf",
-    "${apache::params::confd_dir}/pagespeed_libraries.conf"
-  ] :
+  file { "${apache::params::mod_dir}/pagespeed.conf":
     purge => false,
   }
 
   if $apache::params::mod_enable_dir != undef {
-    file { [
-      "${apache::params::mod_enable_dir}/pagespeed.load",
-      "${apache::params::mod_enable_dir}/pagespeed.conf"
-    ] :
+    file { "${apache::params::mod_enable_dir}/pagespeed.conf":
       purge => false,
     }
+  }
+
+  if ! defined(Apache::Mod['pagespeed']) {
+    apache::mod{ 'pagespeed':
+      require => Package[$package],
+    }
+  }
+
+  $pagespeed_load = "${apache::params::mod_dir}/pagespeed.load"
+
+  exec { 'mod_pagespeed httpd 2.4':
+    command => "perl -p -i -e 's#mod_pagespeed.so#mod_pagespeed_ap24.so#gi' ${pagespeed_load}",
+    onlyif  => "test -f ${pagespeed_load}",
+    unless  => "grep -x 'mod_pagespeed_ap24.so' ${pagespeed_load}",
+    path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
+    require => Apache::Mod['pagespeed'],
+    notify  => Service['httpd']
   }
 
 }

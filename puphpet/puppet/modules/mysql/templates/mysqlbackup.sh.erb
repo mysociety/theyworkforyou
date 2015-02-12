@@ -11,7 +11,7 @@
 ##### START CONFIG ###################################################
 
 USER=<%= @backupuser %>
-PASS=<%= @backuppassword %>
+PASS='<%= @backuppassword %>'
 DIR=<%= @backupdir %>
 ROTATE=<%= [ Integer(@backuprotate) - 1, 0 ].max %>
 
@@ -23,7 +23,7 @@ EVENTS="--events"
 <% end %>
 
 ##### STOP CONFIG ####################################################
-PATH=/usr/bin:/usr/sbin:/bin:/sbin
+PATH=<%= @execpath %>
 
 
 
@@ -53,7 +53,7 @@ mysqldump -u${USER} -p${PASS} --opt --flush-logs --single-transaction \
 <% end -%>
 <% else -%>
 <% @backupdatabases.each do |db| -%>
-mysqldump -u${USER} -p${PASS} --opt --flush-logs --single-transaction \ 
+mysqldump -u${USER} -p${PASS} --opt --flush-logs --single-transaction \
     ${EVENTS} \
  <%= db %><% if @backupcompress %>| bzcat -zc <% end %>> ${DIR}/${PREFIX}<%= db %>_`date +%Y%m%d-%H%M%S`.sql<% if @backupcompress %>.bz2<% end  %>
 <% end -%>

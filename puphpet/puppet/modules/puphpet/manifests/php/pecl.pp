@@ -16,7 +16,10 @@ define puphpet::php::pecl (
 
   $pecl = $::osfamily ? {
     'Debian' => {
-      #
+      'mongo' => $::lsbdistcodename ? {
+        'precise' => 'mongo',
+        default   => false,
+      },
     },
     'Redhat' => {
       #
@@ -50,6 +53,8 @@ define puphpet::php::pecl (
         'precise' => false,
         default   => 'php5-mongo',
       },
+      'redis'       => 'php5-redis',
+      'sqlite'      => 'php5-sqlite',
       'zendopcache' => 'php5-zendopcache',
     },
     'Redhat' => {
@@ -59,28 +64,40 @@ define puphpet::php::pecl (
       'memcache'    => 'php-pecl-memcache',
       'memcached'   => 'php-pecl-memcached',
       'mongo'       => 'php-pecl-mongo',
+      'redis'       => 'php-pecl-redis',
+      'sqlite'      => 'php-pecl-sqlite',
       'zendopcache' => 'php-pecl-zendopcache',
     }
   }
 
+  $auto_answer_hash = {
+    'mongo' => 'no\n'
+  }
+
   $downcase_name = downcase($name)
 
-  if has_key($ignore, $downcase_name) {
+  if has_key($auto_answer_hash, $downcase_name) {
+    $auto_answer = $auto_answer_hash[$downcase_name]
+  } else {
+    $auto_answer = '\\n'
+  }
+
+  if has_key($ignore, $downcase_name) and $ignore[$downcase_name] {
     $pecl_name       = $pecl[$downcase_name]
     $package_name    = false
     $preferred_state = 'stable'
   }
-  elsif has_key($pecl, $downcase_name) {
-    $pecl_name       = false
+  elsif has_key($pecl, $downcase_name) and $pecl[$downcase_name] {
+    $pecl_name       = $pecl[$downcase_name]
     $package_name    = false
-    $preferred_state = false
+    $preferred_state = 'stable'
   }
   elsif has_key($pecl_beta, $downcase_name) and $pecl_beta[$downcase_name] {
     $pecl_name       = $pecl_beta[$downcase_name]
     $package_name    = false
     $preferred_state = 'beta'
   }
-  elsif has_key($package, $downcase_name) {
+  elsif has_key($package, $downcase_name) and $package[$downcase_name] {
     $pecl_name    = false
     $package_name = $package[$downcase_name]
   }
@@ -93,6 +110,7 @@ define puphpet::php::pecl (
     ::php::pecl::module { $pecl_name:
       use_package         => false,
       preferred_state     => $preferred_state,
+      auto_answer         => $auto_answer,
       service_autorestart => $service_autorestart,
     }
   }
