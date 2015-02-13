@@ -234,4 +234,91 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals(16, $MEMBER->person_id);
     }
 
+
+    /**
+     * Test to ensure Utility\Member::findMemberImage() works as expected
+     */
+    public function testFindMemberImage()
+    {
+
+        // A missing image with no backup should reply null/null
+        $this->assertEquals(
+            array(null, null),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(1)
+        );
+
+        // Missing, small, use default
+        $this->assertEquals(
+            array('/images/unknownperson_large.png', 'L'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(1, false, true)
+        );
+
+        // Missing, large, use default Lord
+        $this->assertEquals(
+            array('/images/unknownlord_large.png', 'L'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(1, false, 'lord')
+        );
+
+        // Missing, small, use default
+        $this->assertEquals(
+            array('/images/unknownperson.png', 'S'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(1, true, true)
+        );
+
+        // Missing, small, use default Lord
+        $this->assertEquals(
+            array('/images/unknownlord.png', 'S'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(1, true, 'lord')
+        );
+
+        // Does a large JPEG work?
+        $this->assertEquals(
+            array('/images/mpsL/10001.jpeg', 'L'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10001)
+        );
+
+        // Does a small JPEG work?
+        $this->assertEquals(
+            array('/images/mps/10001.jpeg', 'S'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10001, true)
+        );
+
+        // Does a large PNG work?
+        $this->assertEquals(
+            array('/images/mpsL/13943.png', 'L'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(13943)
+        );
+
+        // Does a small PNG work?
+        $this->assertEquals(
+            array('/images/mps/13943.png', 'S'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(13943, true)
+        );
+
+        // Does a large JPG work?
+        $this->assertEquals(
+            array('/images/mpsL/10552.jpg', 'L'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10552)
+        );
+
+        // Does a small JPG work?
+        $this->assertEquals(
+            array('/images/mps/10552.jpg', 'S'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10552, true)
+        );
+
+        // If we request one we know we have, but also say use a substitute?
+        $this->assertEquals(
+            array('/images/mps/10001.jpeg', 'S'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10001, true, true)
+        );
+
+        // If we only have a small, but don't request explicitly?
+        $this->assertEquals(
+            array('/images/mps/10002.jpg', 'S'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10002)
+        );
+
+    }
+
 }

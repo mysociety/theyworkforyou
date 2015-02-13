@@ -24,7 +24,7 @@ $row = array(
     'swing_to_lose_seat_today' => number_format($member->extra_info['swing_to_lose_seat_today']),
 );
 
-list($image, $sz) = find_rep_image($pid, true);
+list($image, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($pid, true);
 if ($image) $row['image'] = $image;
 
 foreach ($member->extra_info['office'] as $office) {
