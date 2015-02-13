@@ -142,7 +142,7 @@ function render_mps_row($mp, &$style, $order, $MPURL, $letter='') {
         if ($letter) {
             echo '<a name="' . $letter . '"></a>';
         }
-    list($image,$sz) = find_rep_image($mp['person_id'], true, true);
+    list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($mp['person_id'], true, true);
     if ($image) {
         echo '<a href="' . $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], NULL, 4, $mp['person_id']) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
         echo '></a>';

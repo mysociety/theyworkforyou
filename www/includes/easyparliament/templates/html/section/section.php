@@ -171,7 +171,7 @@
                     $speaker['constituency']
                 ));
 
-                list($image_url, $size) = find_rep_image(
+                list($image_url, $size) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage(
                     $speaker['person_id'],
                     true,
                     $data['info']['major'] == 101 ? 'lord' : 'general'

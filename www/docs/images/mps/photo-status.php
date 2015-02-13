@@ -13,7 +13,7 @@ $q = $db->query($query . "ORDER BY last_name, first_name");
 $out = array('both'=>'', 'small'=>'', 'none'=>array());
 for ($i=0; $i<$q->rows(); $i++) {
     $p_id = $q->field($i, 'person_id');
-    list($dummy, $sz) = find_rep_image($p_id);
+    list($dummy, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($p_id);
     if ($sz == 'L') {
         $out['both'] .= $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . ', ';
     } elseif ($sz == 'S') {
