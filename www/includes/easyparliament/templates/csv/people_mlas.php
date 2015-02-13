@@ -2,6 +2,7 @@
 
 twfy_debug("TEMPLATE", "people_mlas.php");
 
+header('Content-Disposition: attachment; filename=MLAs.csv');
 header('Content-Type: text/csv');
 print "Person ID,Name,Party,Constituency,URI";
 print "\r\n";

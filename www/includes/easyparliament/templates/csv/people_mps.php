@@ -4,6 +4,7 @@ twfy_debug ("TEMPLATE", "people_mps.php");
 
 $order = $data['info']['order'];
 
+header('Content-Disposition: attachment; filename=MPs.csv');
 header('Content-Type: text/csv');
 print "Person ID,First name,Last name,Party,Constituency,URI";
 if ($order == 'debates') print ',Debates spoken in the last year';
