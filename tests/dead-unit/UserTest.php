@@ -2,7 +2,11 @@
 
 /**
  * Provides test methods for user functionality.
+ *
+ * @backupGlobals disabled
+ * @backupStaticAttributes disabled
  */
+
 class UserTest extends PHPUnit_Extensions_Database_TestCase
 {
 
@@ -23,7 +27,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/../_fixtures/user.xml');
+        return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/../_fixtures/user.xml');
     }
 
     /**
@@ -111,7 +115,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase
             'tokens', 'SELECT type, data FROM tokens WHERE data = "1::user@example.com"'
         );
 
-        $expectedTable = $this->createXmlDataSet(dirname(__FILE__).'/_fixtures/expectedTokens.xml')
+        $expectedTable = $this->createXmlDataSet(dirname(__FILE__).'/../_fixtures/expectedTokens.xml')
                               ->getTable("tokens");
         $this->assertTablesEqual($expectedTable, $queryTable);
 

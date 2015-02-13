@@ -2,7 +2,11 @@
 
 /**
  * Provides test methods for Hansard functionality.
+ *
+ * @backupGlobals disabled
+ * @backupStaticAttributes disabled
  */
+
 class HansardTest extends PHPUnit_Extensions_Database_TestCase
 {
 
@@ -23,7 +27,7 @@ class HansardTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/hansard.xml');
+        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/../_fixtures/hansard.xml');
     }
 
     /**

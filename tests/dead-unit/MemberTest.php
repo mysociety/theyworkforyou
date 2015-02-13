@@ -2,9 +2,15 @@
 
 /**
  * Provides test methods for member functionality.
+ *
+ * @backupGlobals disabled
+ * @backupStaticAttributes disabled
  */
+
 class MemberTest extends PHPUnit_Extensions_Database_TestCase
 {
+
+    protected $backupGlobalsBlacklist = array('globalVariable');
 
     /**
      * Connects to the testing database.

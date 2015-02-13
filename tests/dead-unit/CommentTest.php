@@ -2,7 +2,11 @@
 
 /**
  * Provides test methods for commenting functionality.
+ *
+ * @backupGlobals disabled
+ * @backupStaticAttributes disabled
  */
+
 class CommentTest extends PHPUnit_Extensions_Database_TestCase
 {
 

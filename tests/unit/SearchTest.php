@@ -3,6 +3,9 @@
 /**
  * Provides test methods for search functionality.
  * Currently only the highlighting and constituency search.
+ *
+ * @backupGlobals disabled
+ * @backupStaticAttributes disabled
  */
 
 class SearchTest extends PHPUnit_Extensions_Database_TestCase

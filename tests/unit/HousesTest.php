@@ -2,7 +2,11 @@
 
 /**
  * Provides test methods to ensure constants are available and as expected for all houses.
+ *
+ * @backupGlobals disabled
+ * @backupStaticAttributes disabled
  */
+
 class HousesTest extends PHPUnit_Framework_TestCase
 {
 
