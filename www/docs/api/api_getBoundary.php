@@ -21,7 +21,7 @@ past constituency boundaries, and so on).</p>
 }
 
 function api_getBoundary_name($name) {
-    $name = normalise_constituency_name($name);
+    $name = MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($name);
     if (!$name) {
         api_error('Name not recognised');
         return;
@@ -31,7 +31,7 @@ function api_getBoundary_name($name) {
     $areas_info = _api_cacheCheck('areas', 'WMC');
     $id = null;
     foreach ($areas_info as $k => $v) {
-        if (normalise_constituency_name($v['name']) == $name) {
+        if (MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($v['name']) == $name) {
             $id = $k;
         }
     }

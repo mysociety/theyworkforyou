@@ -66,7 +66,7 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, left_house FROM member
         WHERE constituency = :constituency
         AND house = 1 ORDER BY left_house DESC LIMIT 1", array(
-            ':constituency' => normalise_constituency_name($areas['WMC'])
+            ':constituency' => MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($areas['WMC'])
             ));
     $mp = array();
     if ($q->rows()) {

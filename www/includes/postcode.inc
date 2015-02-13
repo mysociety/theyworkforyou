@@ -1,7 +1,5 @@
 <?php
 
-include_once INCLUDESPATH . 'constituencies.inc';
-
 //returns the constituency name, given uh, a postcode.
 function postcode_to_constituency($postcode, $api = false) {
     global $last_postcode, $last_postcode_value;
@@ -108,7 +106,7 @@ function postcode_to_constituency_internal($postcode, $mp_only=true, $api) {
     }
 
     # Normalise name - assume SP and NI are already so...
-    $normalised = normalise_constituency_name(strtolower($areas['WMC']));
+    $normalised = MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName(strtolower($areas['WMC']));
     if ($normalised) {
         $areas['WMC'] = $normalised;
         if (postcode_is_scottish($postcode)) {
