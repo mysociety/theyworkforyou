@@ -97,6 +97,11 @@ class SectionView {
             } else {
                 $URL->insert( array('id'=>$e->getMessage()) );
             }
+            # put the search term back in so highlighting works.
+            # NB: as we don't see the # part of the URL we lose this :(
+            if ( $args['s'] !== '' ) {
+                $URL->insert( array('s'=>$args['s']) );
+            }
             redirect($URL->generate('none'));
         }
 
