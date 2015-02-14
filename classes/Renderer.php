@@ -24,10 +24,6 @@ class Renderer
     public static function output($template, $data = array())
     {
 
-        // Include includes.
-        // TODO: Wrap these in a class somewhere autoloadable.
-        include_once INCLUDESPATH . 'postcode.inc';
-
         ////////////////////////////////////////////////////////////
         // Find the user's country. Used by header, so a safe bit to do regardless.
         if (get_http_var('country')) {
@@ -388,9 +384,9 @@ class Renderer
         // If the user's postcode is set, then we add a link to Your MP etc.
         if ($THEUSER->postcode_is_set()) {
             $items = array('yourmp');
-            if (postcode_is_scottish($THEUSER->postcode()))
+            if (Utility\Postcode::postcodeIsScottish($THEUSER->postcode()))
                 $items[] = 'yourmsp';
-            elseif (postcode_is_ni($THEUSER->postcode()))
+            elseif (Utility\Postcode::postcodeIsNI($THEUSER->postcode()))
                 $items[] = 'yourmla';
             foreach ($items as $item) {
                 $menudata   = $DATA->page_metadata($item, 'menu');

@@ -689,9 +689,9 @@ window.fbAsyncInit = function () {
         $divider = true;
         if ($THEUSER->postcode_is_set()) {
             $items = array('yourmp');
-            if (postcode_is_scottish($THEUSER->postcode()))
+            if (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish($THEUSER->postcode()))
                 $items[] = 'yourmsp';
-            elseif (postcode_is_ni($THEUSER->postcode()))
+            elseif (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsNI($THEUSER->postcode()))
                 $items[] = 'yourmla';
             foreach ($items as $item) {
                 $menudata   = $DATA->page_metadata($item, 'menu');

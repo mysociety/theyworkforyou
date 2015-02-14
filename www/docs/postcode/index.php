@@ -4,7 +4,6 @@
 
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
-include_once INCLUDESPATH . 'postcode.inc';
 
 $errors = array();
 
@@ -17,7 +16,7 @@ if (!$pc) {
 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
 $out = ''; $sidebars = array();
 if (validate_postcode($pc)) {
-    $constituencies = postcode_to_constituencies($pc);
+    $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);
     if ($constituencies == 'CONNECTION_TIMED_OUT') {
         $errors['pc'] = "Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.";
     } elseif (!$constituencies) {
