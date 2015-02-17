@@ -163,7 +163,7 @@ Class MySQLQuery {
             // A successful SELECT, SHOW, EXPLAIN or DESCRIBE query.
             $this->success = true;
 
-            $result = $pdoStatement->fetchAll();
+            $result = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
 
             $this->rows = count($result);
             $this->data = $result;
