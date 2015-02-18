@@ -173,7 +173,11 @@
                 );
 
                 if (isset($speaker['office'])) {
-                    $speaker_position = $speaker['office'][0]['pretty'];
+                    $desc = array();
+                    foreach ($speaker['office'] as $off) {
+                        $desc[] = $off['pretty'];
+                    }
+                    $speaker_position = join(', ', $desc);
                 } else {
                     $speaker_position = _htmlentities($speaker['party']);
                     if ($speaker['house'] == 1 &&
