@@ -101,6 +101,11 @@
             $body = str_replace($rrr, $begtomove, $body);
         }
 
+        # New written statement/answer links can be internal from 2015-02-06
+        $body = preg_replace('#http://www.parliament.uk/business/publications/written-questions-answers-statements/written-statement/(?:Commons|Lords)/(?!2015-01)(?!2015-02-0[1-5])(\d\d\d\d-\d\d-\d\d)/(H[CL]WS\d+)/#', '/wms/?id=\1.\2.h', $body);
+        # But also can have empty paragraphs in them
+        $body = preg_replace('#<p>\s*</p>#', '', $body);
+
         $body = str_replace(array('<br/>', '</p><p'), array('</p> <p>', '</p> <p'), $body); # NN4 font size bug
     }
 
