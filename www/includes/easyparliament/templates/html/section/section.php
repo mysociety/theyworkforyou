@@ -224,17 +224,17 @@
             <?php if ($speech['voting_data']) { ?>
 
             <div class="debate-speech__question-answered">
-                <div class="debate-speech__question-anwered-content">
+                <div class="debate-speech__question-answered-content">
                     <h3>Does this answer the above question?</h3>
                     <p class="debate-speech__question-answered-result">
-                        <a rel="nofollow" href="<?= $speech['voting_data']['yesvoteurl'] ?>" title="Rate this as answering the question">Yes!</a> <?= $speech['voting_data']['yesvotes'] ?> <?= $speech['voting_data']['yesplural'] ?> so!
+                        <a rel="nofollow" class="button" href="<?= $speech['voting_data']['yesvoteurl'] ?>" title="Rate this as answering the question">Yes</a><span class="question-answered-result__vote-text"><?= $speech['voting_data']['yesvotes'] ?> <?= $speech['voting_data']['yesplural'] ?> so</span>
                     </p>
 
                     <p class="debate-speech__question-answered-result">
-                        <a rel="nofollow" href="<?= $speech['voting_data']['novoteurl'] ?>" title="Rate this as NOT answering the question">No!</a> <?= $speech['voting_data']['novotes'] ?> <?= $speech['voting_data']['noplural'] ?> not!
+                        <a rel="nofollow" class="button" href="<?= $speech['voting_data']['novoteurl'] ?>" title="Rate this as NOT answering the question">No</a><span class="question-answered-result__vote-text"><?= $speech['voting_data']['novotes'] ?> <?= $speech['voting_data']['noplural'] ?> not</span>
                     </p>
 
-                    <p>
+                    <p class="subtle">
                         Would you like to <strong>ask a question like this yourself</strong>? Use our <a href="http://www.whatdotheyknow.com">Freedom of Information site</a>.
                     </p>
                 </div>

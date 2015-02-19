@@ -220,35 +220,34 @@ span.hi {
 
 }
 
-.debate-speech__question-answered{
-  font-size: 14px;
+.debate-speech__question-answered {
   max-width: 45em; // keep line lengths readable
-  margin-top: 0.66em;
-  .debate-speech__question-anwered-content {
-    padding-left: 20px;
-    p {
-      line-height: 1.4em;
-      margin-bottom: 0.8em;
-      &:last-child {
-        margin-bottom: 0;
-      }
-      &.debate-speech__question-answered-result {
-        a {
-          font-weight: bold;
-        }
-      }
-    }
-  }
-
+  margin-top: 1em;
+  margin-bottom: 1em;
   @media (min-width: $medium-screen) {
-    padding-left: 70px;
-    font-size: 0.8em;
-    p {
-      line-height: 1.6em;
-      padding-left: 0.5em;
-      margin-bottom: 1em;
-    }
+    margin-bottom: 0;
   }
+}
+
+.debate-speech__question-answered-content {
+  border: 1px solid #e4e2dc;
+  padding: 1em 1em 0.5em;
+  border-radius: 3px;
+  background-color: rgba(255,255,255,0.4);
+  @media (min-width: $medium-screen) {
+    margin-left: 70px;
+    padding: 1em 1.5em 0.5em;
+  }
+}
+
+.debate-speech__question-answered-result {
+  margin-bottom: 0;
+}
+
+.question-answered-result__vote-text {
+  color: #9d9195;
+  font-size: 0.875em;
+  margin-left: 0.5em;
 }
 
 .debate-speech__meta__link {
