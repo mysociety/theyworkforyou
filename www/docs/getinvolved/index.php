@@ -8,7 +8,7 @@ $PAGE->page_start();
 
 $PAGE->stripe_start();
 
-include INCLUDESPATH . 'easyparliament/staticpages/getinvolved.php';
+readfile(INCLUDESPATH . 'easyparliament/staticpages/getinvolved.html');
 
 $PAGE->stripe_end();
 

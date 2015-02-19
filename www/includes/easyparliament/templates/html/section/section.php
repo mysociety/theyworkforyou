@@ -212,7 +212,7 @@
               <?php # XXX
                 if ($data['info']['major'] == 8 && preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $speech['gid'], $m)) {
                     ?><p class="debate-speech__question_id"><small>
-                    <? print( "Question $m[1]" ); ?>
+                    <?= "Question $m[1]" ?>
                     </small></p>
               <?php } ?>
             </h2>
