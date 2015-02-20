@@ -8,7 +8,7 @@ $PAGE->page_start();
 
 $PAGE->stripe_start();
 
-include INCLUDESPATH . 'easyparliament/staticpages/houserules.php';
+readfile(INCLUDESPATH . 'easyparliament/staticpages/houserules.html');
 
 $PAGE->stripe_end();
 

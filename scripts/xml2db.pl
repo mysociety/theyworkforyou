@@ -1412,12 +1412,20 @@ sub load_debate_division {
 list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip</a>)</p>";
 
         my $divcount = $division->first_child('divisioncount'); # attr ayes noes tellerayes tellernoes
-        my @lists = $division->children('mplist');
+        my ($votes_tag, $vote_tag);
+        if ($major == 101) {
+            $votes_tag = 'lordlist';
+            $vote_tag = 'lord';
+        } else {
+            $votes_tag = 'mplist';
+            $vote_tag = 'mpname';
+        }
+        my @lists = $division->children($votes_tag);
         foreach my $list (@lists) {
                 my $side = $list->att('vote');
-                die unless $side eq 'aye' or $side eq 'no';
+                die unless $side =~ /^(aye|no|content|not-content)$/;
                 $text .= "<h2>\u$side</h2> <ul class='division-list'>";
-                my @names = $list->children('mpname'); # attr ids vote (teller), text is name
+                my @names = $list->children($vote_tag); # attr ids vote (teller), text is name
                 foreach my $person (@names) {
                         my $member_id = $person->att('id');
                         $member_id =~ s/.*\///;
@@ -1425,6 +1433,7 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
                         die unless $vote eq $side;
                         my $teller = $person->att('teller');
                         my $name = $person->sprint(1);
+                        $name =~ s/ *\[Teller\]//; # In Lords
                         $name =~ s/^(.*), (.*)$/$2 $1/;
                         $name =~ s/^(rh|Mr|Sir|Ms|Mrs|Dr) //;
                         $text .= "<li><a href='/mp/?m=$member_id'>$name</a>";
