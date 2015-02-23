@@ -27,11 +27,33 @@ class Divisions {
         $this->db = new \ParlDB;
     }
 
-    public function getMemberDivisionsByPolicy() {
+    public function getMemberDivisionsForPolicy($policyID) {
+        $q = $this->db->query(
+            "SELECT policy_id, division_title, division_date, division_number, vote
+            FROM policydivisions JOIN memberdivisionvotes USING(division_id)
+            WHERE member_id = :member_id AND policy_id = :policy_id
+            ORDER by policy_id, division_date",
+            array(':member_id' => $this->member->person_id, ':policy_id' => $policyID)
+        );
 
+        return $this->divisionsByPolicy($q);
+    }
+
+    public function getMemberAllDivisionsByPolicy() {
+        $q = $this->db->query(
+            "SELECT policy_id, division_title, division_date, division_number, vote
+            FROM policydivisions JOIN memberdivisionvotes USING(division_id)
+            WHERE member_id = :member_id
+            ORDER by policy_id, division_date",
+            array(':member_id' => $this->member->person_id)
+        );
+
+        return $this->divisionsByPolicy($q);
+    }
+
+    private function divisionsByPolicy($q) {
         $policies = array();
 
-        $q = $this->db->query("SELECT policy_id, division_title, division_date, division_number, vote FROM policydivisions JOIN memberdivisionvotes USING(division_id) WHERE member_id = :member_id ORDER by policy_id, division_date", array(':member_id' => $this->member->person_id));
         for ($n=0; $n<$q->rows(); $n++) {
             $division = array();
             $division['text'] = $q->field($n, 'division_title');

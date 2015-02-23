@@ -618,9 +618,16 @@ try {
             case 'divisions':
                 $policiesList = new MySociety\TheyWorkForYou\Policies;
 
+                $policyID = get_http_var('policy');
+
                 $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
-                $data['policydivisions'] = $divisions->getMemberDivisionsByPolicy();
-                $data['policies'] = $policiesList->getPolicies();
+                if ( $policyID ) {
+                    $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
+                    $data['policies'] = array( $policyID => $policiesList->getPolicies()[$policyID] );
+                } else {
+                    $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();
+                    $data['policies'] = $policiesList->getPolicies();
+                }
 
                 // Send the output for rendering
                 MySociety\TheyWorkForYou\Renderer::output('mp/divisions', $data);
