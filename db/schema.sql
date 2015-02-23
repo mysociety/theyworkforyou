@@ -108,6 +108,25 @@ CREATE TABLE `memberinfo` (
   KEY `member_id` (`member_id`)
 );
 
+CREATE TABLE `policydivisions` (
+  `division_id` varchar(100) NOT NULL,
+  `policy_id` varchar(100) NOT NULL default '',
+  `house` varchar(100),
+  `division_title` text NOT NULL,
+  `division_date` date NOT NULL default '1000-01-01',
+  `division_number` int(11),
+  `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  KEY `division_id` (`division_id`)
+);
+
+CREATE TABLE `memberdivisionvotes` (
+  `member_id` int(11) NOT NULL default '0',
+  `division_id` varchar(100) NOT NULL default '',
+  `vote` text NOT NULL,
+  `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  KEY `member_id` (`member_id`)
+);
+
 CREATE TABLE `moffice` (
   `moffice_id` int(11) NOT NULL auto_increment,
   `dept` varchar(255) NOT NULL default '',
