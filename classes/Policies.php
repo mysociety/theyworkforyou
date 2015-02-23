@@ -225,6 +225,10 @@ class Policies {
         )
     );
 
+    public function getPolicies() {
+        return $this->policies;
+    }
+
     /**
      * Get Array
      *

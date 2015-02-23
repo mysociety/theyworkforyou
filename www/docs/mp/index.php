@@ -144,14 +144,23 @@ try {
 
                     if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)) . '/votes')
                     {
-                        exit ('redirecting!');
                         member_redirect($MEMBER, 301, 'votes');
+                    }
+
+                    break;
+
+                case 'divisions':
+
+                    if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)) . '/divisions')
+                    {
+                        member_redirect($MEMBER, 301, 'divisions');
                     }
 
                     break;
 
                 case 'profile':
                 default:
+                    break;
 
                     if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)))
                     {
@@ -606,6 +615,17 @@ try {
 
                 break;
 
+            case 'divisions':
+                $policiesList = new MySociety\TheyWorkForYou\Policies;
+
+                $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
+                $data['policydivisions'] = $divisions->getMemberDivisionsByPolicy();
+                $data['policies'] = $policiesList->getPolicies();
+
+                // Send the output for rendering
+                MySociety\TheyWorkForYou\Renderer::output('mp/divisions', $data);
+
+                break;
             case 'profile':
             default:
 
