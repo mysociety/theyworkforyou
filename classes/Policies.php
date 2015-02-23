@@ -225,6 +225,25 @@ class Policies {
         )
     );
 
+    private $db;
+
+    private $policy_id;
+
+    public function __construct($policy_id = NULL) {
+        $this->db = new \ParlDB;
+
+        if ( $policy_id ) {
+            $this->policy_id = $policy_id;
+            $this->policies = array(
+                $policy_id => $this->policies[$policy_id]
+            );
+        }
+    }
+
+    public function getPolicies() {
+        return $this->policies;
+    }
+
     /**
      * Get Array
      *
@@ -289,11 +308,17 @@ class Policies {
                 {
                     $out[$set_policy] = $this->policies[$set_policy];
                 } else {
-                    throw new \Exception ('Policy ' . $set_policy . ' in set "' . $set . '" does not exist.');
+                    // if we've limited the policies to a single one then we only
+                    // want to complain here if we're looking for that policy and
+                    // it does not exist. Otherwise, if the single policy isn't in
+                    // the set we want to return an empty set
+                    if ( !isset($this->policy_id) || $set_policy == $this->policy_id ) {
+                        throw new \Exception ('Policy ' . $set_policy . ' in set "' . $set . '" does not exist.');
+                    }
                 }
             }
 
-            $new_policies = new self();
+            $new_policies = new self($this->policy_id);
             $new_policies->policies = $out;
 
             return $new_policies;
@@ -301,6 +326,39 @@ class Policies {
         } else {
             throw new \Exception ('Policy set "' . $set . '" does not exist.');
         }
+    }
+
+    public function getPolicyDetails($policyID) {
+        $q = $this->db->query(
+            "SELECT policy_id, title, description, image, image_attrib, image_license, image_license_url, image_source
+            FROM policies WHERE policy_id = :policy_id",
+            array(':policy_id' => $policyID)
+        );
+
+        $props = array(
+            'policy_id' => $q->field(0, 'policy_id'),
+            'title' => $q->field(0, 'title'),
+            // remove full stops from the end of descriptions. Some of them have them and
+            // some of them don't so we enforce consistency here
+            'description' => preg_replace('/\. *$/', '', $q->field(0, 'description')),
+            'image' => '/images/header-debates-uk.jpg', // TODO: get a better default image
+            'image_license' => '',
+            'image_attribution' => '',
+            'image_source' => '',
+            'image_license_url' => ''
+        );
+
+        $image = $q->field(0, 'image');
+
+        if ( $image && file_exists(BASEDIR . '/' . $image)) {
+            $props['image'] = $image;
+            $props['image_license'] = $q->field(0, 'image_license');
+            $props['image_attribution'] = $q->field(0, 'image_attrib');
+            $props['image_source'] = $q->field(0, 'image_source');
+            $props['image_license_url'] = $q->field(0, 'image_license_url');
+        }
+
+        return $props;
     }
 
 }

@@ -176,6 +176,11 @@ $this->page = array (
         'parent'		=> 'admin',
         'url'			=> 'admin/websites.php',
     ),
+    'admin_policies' => array (
+        'title'			=> 'MP Policy details',
+        'parent'		=> 'admin',
+        'url'			=> 'admin/policies.php',
+    ),
 
 // Added by Richard Allan for email alert functions
 

@@ -1,9 +1,11 @@
 <?php
 
+include_once 'FetchPageTestCase.php';
+
 /**
  * Provides test methods to ensure pages contain what we want them to in various ways.
  */
-class PageTest extends PHPUnit_Extensions_Database_TestCase
+class PageTest extends FetchPageTestCase
 {
 
     /**
@@ -28,13 +30,7 @@ class PageTest extends PHPUnit_Extensions_Database_TestCase
 
     private function fetch_page($vars)
     {
-        foreach ($vars as $k => $v) {
-            $vars[$k] =  $k . '=' . urlencode($v);
-        }
-        $vars = join('&', $vars);
-        $command = 'parse_str($argv[1], $_GET); include_once("tests/Bootstrap.php"); chdir("www/docs/mp"); include_once("index.php");';
-        $page = `REMOTE_ADDR=127.0.0.1 php -e -r '$command' -- '$vars'`;
-        return $page;
+        return $this->base_fetch_page('', $vars, 'www/docs/mp');
     }
 
     public function testQueenie()

@@ -108,6 +108,44 @@ CREATE TABLE `memberinfo` (
   KEY `member_id` (`member_id`)
 );
 
+CREATE TABLE `policies` (
+  `policy_id` varchar(100) NOT NULL default '',
+  `title` text NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(200) default '',
+  `image_attrib` varchar(200) default '',
+  `image_license` varchar(200) default '',
+  `image_license_url` text,
+  `image_source` text,
+  UNIQUE KEY `policy_id` (`policy_id`)
+);
+
+CREATE TABLE `policydivisions` (
+  `division_id` varchar(100) NOT NULL,
+  `policy_id` varchar(100) NOT NULL default '',
+  `house` varchar(100),
+  `gid` varchar(100) default '',
+  `direction` enum( 'Majority', 'Majority (strong)', 'minority', 'minority (strong)', 'absent'),
+  `division_title` text NOT NULL,
+  `yes_text` text,
+  `no_text` text,
+  `division_date` date NOT NULL default '1000-01-01',
+  `division_number` int(11),
+  `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  UNIQUE KEY `policy_division` (`division_id`, `policy_id`),
+  KEY `division_id` (`division_id`)
+);
+
+CREATE TABLE `persondivisionvotes` (
+  `person_id` int(11) NOT NULL default '0',
+  `division_id` varchar(100) NOT NULL default '',
+  `vote` enum("yes", "aye", "no", "both", "tellaye", "tellno", "absent", "spoiled") NOT NULL,
+  `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  UNIQUE KEY `person_vote` (`person_id`, `division_id`),
+  KEY `division_id` (`division_id`),
+  KEY `person_id` (`person_id`)
+);
+
 CREATE TABLE `moffice` (
   `moffice_id` int(11) NOT NULL auto_increment,
   `dept` varchar(255) NOT NULL default '',

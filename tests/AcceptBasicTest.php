@@ -1,9 +1,11 @@
 <?php
 
+include_once 'FetchPageTestCase.php';
+
 /**
  * Provides acceptance(ish) tests to ensure key pages are working.
  */
-class AcceptBasicTest extends PHPUnit_Extensions_Database_TestCase
+class AcceptBasicTest extends FetchPageTestCase
 {
 
     /**
@@ -28,16 +30,7 @@ class AcceptBasicTest extends PHPUnit_Extensions_Database_TestCase
 
     private function fetch_page($path, $file = 'index.php', $vars = array())
     {
-
-        foreach ($vars as $k => $v) {
-            $vars[$k] =  $k . '=' . urlencode($v);
-        }
-
-        $vars = join('&', $vars);
-        $command = 'parse_str($argv[1], $_GET); include_once("tests/Bootstrap.php"); chdir("www/docs/' . $path . '"); include_once("' . $file . '");';
-        $page = `REMOTE_ADDR=127.0.0.1 php -e -r '$command' -- '$vars'`;
-
-        return $page;
+        return $this->base_fetch_page('', $vars, "www/docs/$path", $file);
     }
 
     /**

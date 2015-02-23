@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database name="twfy_testing">
+	<table_data name="alerts">
+	</table_data>
+	<table_data name="anonvotes">
+	</table_data>
+	<table_data name="api_key">
+	</table_data>
+	<table_data name="api_stats">
+	</table_data>
+	<table_data name="bills">
+	</table_data>
+	<table_data name="campaigners">
+	</table_data>
+	<table_data name="campaigners_sent_email">
+	</table_data>
+	<table_data name="commentreports">
+	</table_data>
+	<table_data name="comments">
+	</table_data>
+	<table_data name="consinfo">
+		<row>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="data_key">test_constituency_key</field>
+			<field name="data_value">Test Constituency Value</field>
+		</row>
+	</table_data>
+	<table_data name="constituency">
+	</table_data>
+	<table_data name="editqueue">
+	</table_data>
+	<table_data name="epobject">
+	</table_data>
+	<table_data name="future">
+	</table_data>
+	<table_data name="future_people">
+	</table_data>
+	<table_data name="gidredirect">
+	</table_data>
+	<table_data name="glossary">
+	</table_data>
+	<table_data name="hansard">
+	</table_data>
+	<table_data name="indexbatch">
+	</table_data>
+	<table_data name="member">
+		<row>
+			<field name="member_id">1</field>
+			<field name="house">1</field>
+			<field name="first_name">Test</field>
+			<field name="last_name">Current-MP</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party">Lab</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">2</field>
+			<field name="title">Mrs</field>
+			<field name="lastupdate">2013-08-07 15:06:19</field>
+		</row>
+		<row>
+			<field name="member_id">2</field>
+			<field name="house">2</field>
+			<field name="first_name">Test</field>
+			<field name="last_name">Current-Lord</field>
+			<field name="constituency"></field>
+			<field name="party">XB</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">appointed</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">3</field>
+			<field name="title">Mr</field>
+			<field name="lastupdate">2013-08-07 15:06:22</field>
+		</row>
+		<row>
+			<field name="member_id">3</field>
+			<field name="house">3</field>
+			<field name="first_name">Test</field>
+			<field name="last_name">Current-MLA</field>
+			<field name="constituency">Test Northern Ireland Constituency</field>
+			<field name="party">SF</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">4</field>
+			<field name="title">Miss</field>
+			<field name="lastupdate">2013-08-07 11:15:38</field>
+		</row>
+		<row>
+			<field name="member_id">4</field>
+			<field name="house">4</field>
+			<field name="first_name">Test</field>
+			<field name="last_name">Current-MSP</field>
+			<field name="constituency">Test Scotland Constituency</field>
+			<field name="party"></field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">5</field>
+			<field name="title">Ms</field>
+			<field name="lastupdate">2013-08-07 11:15:47</field>
+		</row>
+	</table_data>
+	<table_data name="persondivisionvotes">
+      <row>
+          <field name="person_id">2</field>
+          <field name="division_id">pw-2013-01-01-1-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">2</field>
+          <field name="division_id">pw-2013-01-01-2-commons</field>
+          <field name="vote">No</field>
+      </row>
+      <row>
+          <field name="person_id">2</field>
+          <field name="division_id">pw-2013-01-01-3-commons</field>
+          <field name="vote">absent</field>
+      </row>
+      <row>
+          <field name="person_id">2</field>
+          <field name="division_id">pw-2013-01-01-4-commons</field>
+          <field name="vote">both</field>
+      </row>
+      <row>
+          <field name="person_id">2</field>
+          <field name="division_id">pw-2013-01-01-5-commons</field>
+          <field name="vote">yes</field>
+      </row>
+      <row>
+          <field name="person_id">2</field>
+          <field name="division_id">pw-2013-01-01-6-commons</field>
+          <field name="vote">no</field>
+      </row>
+	</table_data>
+	<table_data name="memberinfo">
+		<row>
+			<field name="member_id">1</field>
+			<field name="data_key">public_whip_dreammp363_distance</field>
+			<field name="data_value">0.87</field>
+		</row>
+		<row>
+			<field name="member_id">1</field>
+			<field name="data_key">public_whip_dreammp363_both_voted</field>
+			<field name="data_value">1</field>
+		</row>
+	</table_data>
+	<table_data name="mentions">
+	</table_data>
+	<table_data name="moffice">
+	</table_data>
+	<table_data name="pbc_members">
+	</table_data>
+	<table_data name="personinfo">
+	</table_data>
+	<table_data name="policies">
+      <row>
+          <field name="policy_id">363</field>
+          <field name="title">Test Policy</field>
+          <field name="description">A policy to test policies</field>
+          <field name="image">/image/test-policy-image.png</field>
+          <field name="image_attrib">test policy attribution</field>
+          <field name="image_license">test license</field>
+          <field name="image_license_url">http://example.org/license</field>
+          <field name="image_source">http://example.org/source</field>
+      </row>
+	</table_data>
+	<table_data name="policydivisions">
+      <row>
+          <field name="division_id">pw-2013-01-01-1-commons</field>
+          <field name="policy_id">363</field>
+          <field name="house">commons</field>
+          <field name="gid"></field>
+          <field name="yes_text">Agreed</field>
+          <field name="no_text">Disagreed</field>
+          <field name="direction">Majority (strong)</field>
+          <field name="division_title">Division Title</field>
+          <field name="division_date">2013-01-01</field>
+          <field name="division_number">1</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-2-commons</field>
+          <field name="policy_id">363</field>
+          <field name="house">commons</field>
+          <field name="gid"></field>
+          <field name="yes_text">Do agree</field>
+          <field name="no_text">Do not agree</field>
+          <field name="direction">Majority</field>
+          <field name="division_title">Disagree Division Title</field>
+          <field name="division_date">2013-01-01</field>
+          <field name="division_number">2</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-3-commons</field>
+          <field name="policy_id">363</field>
+          <field name="house">commons</field>
+          <field name="gid"></field>
+          <field name="yes_text">Agreed</field>
+          <field name="no_text">Disagreed</field>
+          <field name="direction">Minority</field>
+          <field name="division_title">Absent Division Title</field>
+          <field name="division_date">2013-01-01</field>
+          <field name="division_number">3</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-4-commons</field>
+          <field name="policy_id">363</field>
+          <field name="house">commons</field>
+          <field name="gid"></field>
+          <field name="yes_text">Agreed</field>
+          <field name="no_text">Disagreed</field>
+          <field name="direction">Minority (strong)</field>
+          <field name="division_title">Abstained Division Title</field>
+          <field name="division_date">2013-01-01</field>
+          <field name="division_number">4</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-5-commons</field>
+          <field name="policy_id">363</field>
+          <field name="house">commons</field>
+          <field name="gid"></field>
+          <field name="yes_text"></field>
+          <field name="no_text"></field>
+          <field name="direction">Majority (strong)</field>
+          <field name="division_title">Yes Division Title</field>
+          <field name="division_date">2013-01-01</field>
+          <field name="division_number">5</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-6-commons</field>
+          <field name="policy_id">363</field>
+          <field name="house">commons</field>
+          <field name="gid"></field>
+          <field name="yes_text"></field>
+          <field name="no_text"></field>
+          <field name="direction">Majority</field>
+          <field name="division_title">No Division Title</field>
+          <field name="division_date">2013-01-01</field>
+          <field name="division_number">6</field>
+      </row>
+	</table_data>
+	<table_data name="postcode_lookup">
+	</table_data>
+	<table_data name="search_query_log">
+	</table_data>
+	<table_data name="survey">
+	</table_data>
+	<table_data name="titles">
+	</table_data>
+	<table_data name="titles_ignored">
+	</table_data>
+	<table_data name="trackbacks">
+	</table_data>
+	<table_data name="users">
+	</table_data>
+	<table_data name="uservotes">
+	</table_data>
+	<table_data name="video_timestamps">
+	</table_data>
+</database>
+</mysqldump>

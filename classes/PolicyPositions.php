@@ -36,6 +36,8 @@ class PolicyPositions {
 
     public $positions = array();
 
+    public $positionsById = array();
+
     /**
      * 'Since' String
      */
@@ -108,11 +110,16 @@ class PolicyPositions {
                 if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
                     continue;
 
-                $dream = $this->displayDreamComparison($policy[0], $policy[1]);
+                $dream_info = $this->displayDreamComparison($policy[0], $policy[1]);
 
                 // Make sure the dream actually exists
-                if ($dream !== '') {
-                    $this->positions[] = array( 'policy_id' => $policy[0], 'desc' => $dream );
+                if ($dream_info) {
+                    $this->positions[] = array( 'policy_id' => $policy[0], 'desc' => $dream_info['full_sentence'] );
+                    $this->positionsById[$policy[0]] = array(
+                        'policy_id' => $policy[0],
+                        'desc' => $dream_info['full_sentence'],
+                        'voted' => $dream_info['voted']
+                    );
                     $i++;
                 }
 
@@ -131,25 +138,27 @@ class PolicyPositions {
     }
 
     private function displayDreamComparison($dreamid, $desc, $inverse=false) {
-        $out = '';
+        $out = array();
 
         $extra_info = $this->member->extra_info();
 
         if (isset($extra_info["public_whip_dreammp${dreamid}_distance"])) {
             if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 0) {
+                $english = 'never voted';
                 $dmpdesc = 'Has <strong>never voted</strong> on';
             } else {
                 $dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
-                $out .= "<!-- distance $dreamid: $dmpscore -->";
+                $score_text = "<!-- distance $dreamid: $dmpscore -->";
                 if ($inverse)
                     $dmpscore = 1.0 - $dmpscore;
                 $english = score_to_strongly($dmpscore);
-                $dmpdesc = 'Voted <strong>' . $english . '</strong>';
+                $dmpdesc = $score_text . ' Voted <strong>' . $english . '</strong>';
 
                 // How many votes Dream MP and MP both voted (and didn't abstain) in
                 // $extra_info["public_whip_dreammp${dreamid}_both_voted"];
             }
-            $out .= $dmpdesc . ' ' . $desc;
+            $dmpdesc .= ' ' . $desc;
+            $out = array( 'full_sentence' => $dmpdesc, 'voted' => $english );
         }
         return $out;
     }

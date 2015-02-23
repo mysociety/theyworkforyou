@@ -41,10 +41,9 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php if ($has_voting_record): ?>
                     <div class="panel">
                         <a name="votes"></a>
-                        <h2 data-magellan-destination="votes">Voting Summary <small><a href="<?= $member_url ?>/votes">More Here</a></small></h2>
+                        <h2 data-magellan-destination="votes">A selection of <?= $full_name ?>'s votes</h2>
 
-                        <h3>How <?= $full_name ?> voted<?= isset($policyPositions->sinceString) ? $policyPositions->sinceString : '' ?><br>
-                        <small>Randomly generated selection of topics. <a href="<?= $member_url ?>/votes">See full list</a>.</small></h3>
+                        <p><a href="<?= $member_url ?>/votes">See full list of topics voted on</a></p>
 
                         <?php if (count($policyPositions->positions) > 0): ?>
 
@@ -52,19 +51,12 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                               <?php foreach ($policyPositions->positions as $key_vote): ?>
                                 <li>
                                     <?= $key_vote['desc'] ?>
-                                    <a class="vote-description__source" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>">Source</a>
+                                    <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $key_vote['policy_id'] ?>">Details</a>
                                 </li>
                               <?php endforeach; ?>
-                                <li class="vote-summary__next-step">
-                                  <?php if ($has_email_alerts): ?>
-                                    <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#">Get email notifications</a> when <?= $full_name ?> speaks in parliament.
-                                  <?php else: ?>
-                                    <a href="<?= $member_url ?>/votes">See more votes</a> <?= $full_name ?> has made recently in parliament.</a>
-                                  <?php endif; ?>
-                                </li>
                             </ul>
 
-                            <p>See our much more detailed, easier-to-read <a href="<?= $member_url ?>/votes">analysis of votes</a> on <a href="<?= $member_url ?>/votes#health">health</a>, <a href="<?= $member_url ?>/votes#welfare">welfare</a>, <a href="<?= $member_url ?>/votes#foreign">foreign policy</a>, <a href="<?= $member_url ?>/votes#social">social issues</a>, <a href="<?= $member_url ?>/votes#taxation">taxation</a> and more.</p>
+                            <p>New: more <a href="<?= $member_url ?>/votes">analysis of votes</a> on <a href="<?= $member_url ?>/votes#health">health</a>, <a href="<?= $member_url ?>/votes#welfare">welfare</a>, <a href="<?= $member_url ?>/votes#foreign">foreign policy</a>, <a href="<?= $member_url ?>/votes#social">social issues</a>, <a href="<?= $member_url ?>/votes#taxation">taxation</a> and more.</p>
 
                         <?php else: ?>
 

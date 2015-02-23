@@ -15,6 +15,7 @@ $colour_dark_grey: #666361;
 $colour_mid_grey: #ccc7c3;
 $colour_light_grey: #e9e7e4;
 $colour_off_white : #f2f1ef;
+$colour_pale_red: #EF6565;
 
 $weight_light: 300;
 $weight_semibold: 600;
@@ -182,6 +183,14 @@ $weight_bold: 700;
         color: $colour_black;
         border-color: darken($colour_light_grey, 10%);
     }
+}
+
+.button--negative {
+  background-color: $colour_pale_red;
+  &:hover,
+  &:focus {
+      background-color: darken($colour_pale_red, 10%);
+  }
 }
 
 .button--disabled,

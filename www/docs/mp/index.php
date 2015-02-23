@@ -36,6 +36,8 @@ include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once INCLUDESPATH . 'postcode.inc';
 include_once INCLUDESPATH . 'technorati.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/random.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/auth.php';
 include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
 
@@ -144,8 +146,16 @@ try {
 
                     if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)) . '/votes')
                     {
-                        exit ('redirecting!');
                         member_redirect($MEMBER, 301, 'votes');
+                    }
+
+                    break;
+
+                case 'divisions':
+
+                    if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)) . '/divisions')
+                    {
+                        member_redirect($MEMBER, 301, 'divisions');
                     }
 
                     break;
@@ -606,6 +616,33 @@ try {
 
                 break;
 
+            case 'divisions':
+                $policyID = get_http_var('policy');
+                $answered_q = get_http_var('answered');
+                if ( $policyID ) {
+                    $policiesList = new MySociety\TheyWorkForYou\Policies( $policyID );
+                } else {
+                    $policiesList = new MySociety\TheyWorkForYou\Policies;
+                }
+                $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
+                $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER, $positions, $policiesList);
+
+                if ( $policyID ) {
+                    $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
+                } else {
+                    $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();
+                }
+
+                // data for the 'what else would you like to see' question box
+                $data['user_code'] = bin2hex(urandom_bytes(16));
+                $data['auth_signature'] = auth_sign_with_shared_secret($data['user_code'], OPTION_SURVEY_SECRET);
+                $data['page_url'] = "http://" . DOMAIN . $_SERVER['REQUEST_URI'] . ( $policyID ? '&' : '?' ) . 'answered=1';
+                $data['answered_q'] = $answered_q;
+
+                // Send the output for rendering
+                MySociety\TheyWorkForYou\Renderer::output('mp/divisions', $data);
+
+                break;
             case 'profile':
             default:
 
