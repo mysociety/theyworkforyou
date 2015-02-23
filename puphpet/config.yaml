@@ -3,18 +3,18 @@ vagrantfile-local:
     vm:
         box: puphpet/debian75-x64
         box_url: puphpet/debian75-x64
-        hostname: null
+        hostname: ''
         memory: '512'
+        cpus: '1'
         chosen_provider: virtualbox
         network:
             private_network: 192.168.88.10
             forwarded_port: {  }
+        post_up_message: ''
         provider:
             virtualbox:
                 modifyvm:
                     natdnshostresolver1: on
-                setextradata:
-                    VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
             vmware:
                 numvcpus: 1
             parallels:
@@ -22,20 +22,24 @@ vagrantfile-local:
         provision:
             puppet:
                 manifests_path: puphpet/puppet
-                manifest_file: manifest.pp
+                manifest_file: site.pp
                 module_path: puphpet/puppet/modules
                 options:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            ma1D9AGh227i:
+            tXXBGMgqOha9:
+                owner: ''
+                group: ''
                 source: ./
                 target: /data/twfy
                 sync_type: default
                 rsync:
                     auto: 'false'
-        usable_port_range: 2200..2250
+        usable_port_range:
+            start: 10200
+            stop: 10500
     ssh:
         host: null
         port: null
@@ -49,6 +53,7 @@ vagrantfile-local:
     vagrant:
         host: detect
 server:
+    install: '1'
     packages:
         - memcached
         - libemail-localdelivery-perl
@@ -64,19 +69,13 @@ server:
         - python-lxml
         - subversion
         - snarf
-    dot_files:
-        -
-            bash_aliases: null
-    _prevent_empty: ''
-mailcatcher:
-    install: 0
-    settings:
-        smtp_ip: 0.0.0.0
-        smtp_port: 1025
-        http_ip: 0.0.0.0
-        http_port: '1080'
-        mailcatcher_path: /usr/local/bin
-        log_path: /var/log/mailcatcher/mailcatcher.log
+users_groups:
+    install: '1'
+    groups: {  }
+    users: {  }
+cron:
+    install: '1'
+    jobs: {  }
 firewall:
     install: '1'
     rules: null
@@ -90,37 +89,57 @@ apache:
         manage_group: false
         sendfile: 0
     modules:
-        - php
         - rewrite
     vhosts:
-        tJxeH93FIKsr:
+        y9hgbpahzaxy:
             servername: theyworkforyou.dev
             docroot: /data/twfy/www/docs
             port: '80'
-            override:
-                - All
+            directories:
+                sf3tilhgbqyb:
+                    provider: directory
+                    path: /data/twfy/www/docs
+                    options:
+                        - Indexes
+                        - FollowSymlinks
+                        - MultiViews
+                    allow_override:
+                        - All
+                    require:
+                        - all
+                        - granted
+                    custom_fragment: ''
+            engine: php
             custom_fragment: 'Include /data/twfy/conf/httpd.conf'
             ssl_cert: ''
             ssl_key: ''
             ssl_chain: ''
             ssl_certs_dir: ''
     mod_pagespeed: 0
-    mod_spdy: 0
 nginx:
-    install: 0
+    install: '0'
+    settings:
+        default_vhost: 1
+        proxy_buffer_size: 128k
+        proxy_buffers: '4 256k'
+    upstreams: {  }
     vhosts:
-        HrDTWbFl5v7e:
+        9a8g3ukb5lhw:
+            proxy: ''
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
             www_root: /var/www/awesome.dev
             listen_port: '80'
+            location: .php$
             index_files:
                 - index.html
                 - index.htm
                 - index.php
             envvars:
                 - 'APP_ENV dev'
+            engine: php
+            client_max_body_size: 1m
             ssl_cert: ''
             ssl_key: ''
 php:
@@ -145,6 +164,17 @@ php:
         error_reporting: '-1'
         session.save_path: /var/lib/php/session
     timezone: Europe/London
+    mod_php: '1'
+hhvm:
+    install: '0'
+    nightly: 0
+    composer: '1'
+    composer_home: ''
+    settings:
+        host: '0'
+        port: '0'
+    ini: {  }
+    timezone: null
 xdebug:
     install: '1'
     settings:
@@ -154,16 +184,40 @@ xdebug:
         xdebug.remote_enable: '1'
         xdebug.remote_handler: dbgp
         xdebug.remote_port: '9000'
+xhprof:
+    install: '0'
+wpcli:
+    install: '0'
+    version: ''
 drush:
-    install: 0
-    settings:
-        drush.tag_branch: 6.x
+    install: '0'
+    version: ''
+ruby:
+    install: '1'
+    versions:
+        QqgvZPz5gRQk:
+            default: '1'
+            version: 1.9.3
+            gems:
+                - zurb-foundation
+                - compass
+            bundler: '1'
+nodejs:
+    install: '1'
+    npm_packages:
+        - bower
+        - grunt
+python:
+    install: '1'
+    packages: {  }
+    versions: {  }
 mysql:
     install: '1'
+    override_options: {  }
     root_password: flFQ8TS53H
     adminer: 0
     databases:
-        w3e8XJldIytJ:
+        zP2viyh6gpXv:
             grant:
                 - ALL
             name: twfy
@@ -172,7 +226,7 @@ mysql:
             password: twfy
             sql_file: /data/twfy/db/schema.sql
 postgresql:
-    install: 0
+    install: '0'
     settings:
         root_password: '123'
         user_group: postgres
@@ -181,23 +235,37 @@ postgresql:
     databases: {  }
     adminer: 0
 mariadb:
-    install: 0
+    install: '0'
+    override_options: {  }
     root_password: '123'
     adminer: 0
     databases: {  }
     version: '10.0'
+sqlite:
+    install: '0'
+    adminer: 0
+    databases: {  }
 mongodb:
-    install: 0
+    install: '0'
     settings:
         auth: 1
         port: '27017'
     databases: {  }
 redis:
-    install: 0
+    install: '0'
     settings:
         conf_port: '6379'
+mailcatcher:
+    install: '0'
+    settings:
+        smtp_ip: 0.0.0.0
+        smtp_port: 1025
+        http_ip: 0.0.0.0
+        http_port: '1080'
+        mailcatcher_path: /usr/local/rvm/wrappers/default
+        from_email_method: inline
 beanstalkd:
-    install: 0
+    install: '0'
     settings:
         listenaddress: 0.0.0.0
         listenport: '13000'
@@ -209,7 +277,17 @@ beanstalkd:
     beanstalk_console: 0
     binlogdir: /var/lib/beanstalkd/binlog
 rabbitmq:
-    install: 0
+    install: '0'
     settings:
         port: '5672'
+elastic_search:
+    install: '0'
+    settings:
+        version: ''
+        java_install: true
+solr:
+    install: '0'
+    settings:
+        version: ''
+        port: ''
 

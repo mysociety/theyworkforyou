@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-gem install zurb-foundation compass
-
 cd /data/twfy
 
 composer install

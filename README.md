@@ -15,7 +15,9 @@ on below.
 We're pleased to release the TheyWorkForYou.com source code. This is the code
 for the website itself. It's mainly written in PHP, although there are also some
 Perl scripts for database loading and indexing. The backend parser code is
-separate and available from the UKParse Subversion repository on KnowledgeForge.
+separate and available [on GitHub](https://github.com/mysociety/parlparse). You
+can read more about this on
+[TheyWorkForYou's parser info page](http://parser.theyworkforyou.com/parser.html)
 
 The TheyWorkForYou.com source code in this distribution is released under a BSD
 style license. Roughly, this means you are free to copy, use, modify and

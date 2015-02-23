@@ -45,6 +45,13 @@ class nginx::package(
     }
     'suse': {
       class { 'nginx::package::suse':
+        package_name => $package_name,
+        require      => Anchor['nginx::package::begin'],
+        before       => Anchor['nginx::package::end'],
+      }
+    }
+    'archlinux': {
+      class { 'nginx::package::archlinux':
         require => Anchor['nginx::package::begin'],
         before  => Anchor['nginx::package::end'],
       }
@@ -54,8 +61,16 @@ class nginx::package(
         package_name   => $package_name,
         package_source => $package_source,
         package_ensure => $package_ensure,
-        require => Anchor['nginx::package::begin'],
-        before  => Anchor['nginx::package::end'],
+        require        => Anchor['nginx::package::begin'],
+        before         => Anchor['nginx::package::end'],
+      }
+    }
+    'FreeBSD': {
+      class { 'nginx::package::freebsd':
+        package_name   => $package_name,
+        package_ensure => $package_ensure,
+        require        => Anchor['nginx::package::begin'],
+        before         => Anchor['nginx::package::end'],
       }
     }
     default: {
