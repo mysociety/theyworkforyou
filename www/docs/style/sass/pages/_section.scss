@@ -250,6 +250,33 @@ span.hi {
   margin-left: 0.5em;
 }
 
+.qna-result-attachments-container {
+  margin-bottom: 1em;
+}
+
+.qna-result-attachment-container {
+  font-size: 0.777777778em; //14px;
+  color: #9d9195;
+  border-bottom: 1px solid $borders;
+  padding: 1em 0;
+  &:before {
+    content: "\00BB";
+    margin-right: 0.5em;
+    font-weight: 700;
+    color: lighten(#9d9195, 15%);
+  }
+  &:first-of-type {
+    border-top: 1px solid $borders;
+  }
+  a {
+    font-size: 1.285714286em; //18px;
+  }
+}
+
+.qna-result-writtenstatement-joint-statement {
+  font-size: 0.777777778em;
+}
+
 .debate-speech__meta__link {
   color: #9d9195;
   line-height: 18px;
