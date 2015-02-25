@@ -29,7 +29,7 @@ class Divisions {
 
     public function getMemberDivisionsForPolicy($policyID) {
         $q = $this->db->query(
-            "SELECT policy_id, division_title, division_date, division_number, vote
+            "SELECT policy_id, division_title, division_date, division_number, vote, gid
             FROM policydivisions JOIN memberdivisionvotes USING(division_id)
             WHERE member_id = :member_id AND policy_id = :policy_id
             ORDER by policy_id, division_date",
@@ -39,9 +39,9 @@ class Divisions {
         return $this->divisionsByPolicy($q);
     }
 
-    public function getMemberAllDivisionsByPolicy() {
+    public function getAllMemberDivisionsByPolicy() {
         $q = $this->db->query(
-            "SELECT policy_id, division_title, division_date, division_number, vote
+            "SELECT policy_id, division_title, division_date, division_number, vote, gid
             FROM policydivisions JOIN memberdivisionvotes USING(division_id)
             WHERE member_id = :member_id
             ORDER by policy_id, division_date",
@@ -59,6 +59,8 @@ class Divisions {
             $division['text'] = $q->field($n, 'division_title');
             $division['date'] = $q->field($n, 'division_date');
             $division['vote'] = $q->field($n, 'vote');
+            $division['gid'] = fix_gid_from_db($q->field($n, 'gid'));
+            $division['url'] = $this->divisionUrlFromGid($q->field($n, 'gid'));
             $policy_id = $q->field($n, 'policy_id');
             if ( !array_key_exists($policy_id, $policies) ) {
                 $policies[$policy_id] = array(
@@ -71,5 +73,13 @@ class Divisions {
         };
 
         return $policies;
+    }
+
+    private function divisionUrlFromGid($gid) {
+        $page_type = preg_replace('#.*/(.*)/.*#', '\1', $gid);
+        $gid = fix_gid_from_db($gid);
+        $url = new \URL($page_type);
+        $url->insert(array('gid' => $gid));
+        return $url->generate();
     }
 }

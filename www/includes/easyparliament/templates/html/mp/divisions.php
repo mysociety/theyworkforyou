@@ -90,7 +90,7 @@
 
                                 <?php foreach ($policy['divisions'] as $division): ?>
                                     <li>
-                                    <?= $division['text'] ?>: <?= $division['vote'] ?>
+                                    <a href="<?= $division['url'] ?>"><?= $division['text'] ?></a>: <?= $division['vote'] ?> : <?= $division['gid'] ?>
                                     </li>
 
 

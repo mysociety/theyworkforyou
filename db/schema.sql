@@ -123,6 +123,7 @@ CREATE TABLE `policydivisions` (
 CREATE TABLE `memberdivisionvotes` (
   `member_id` int(11) NOT NULL default '0',
   `division_id` varchar(100) NOT NULL default '',
+  `gid` varchar(100) DEFAULT '',
   `vote` text NOT NULL,
   `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   UNIQUE KEY `member_vote` (`member_id`, `division_id`),

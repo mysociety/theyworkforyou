@@ -30,9 +30,9 @@ my $json = JSON::XS->new->latin1;
 
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
 my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
-my $motioncheck = $dbh->prepare("SELECT division_title FROM policydivisions WHERE division_id = ? AND policy_id = ?");
-my $motionadd = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, house, division_title, division_date, division_number) VALUES (?, ?, ?, ?, ?, ?)");
-my $motionupdate = $dbh->prepare("UPDATE policydivisions SET division_title = ? WHERE division_id = ? AND policy_id = ?");
+my $motioncheck = $dbh->prepare("SELECT division_title, gid FROM policydivisions WHERE division_id = ? AND policy_id = ?");
+my $motionadd = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, house, division_title, division_date, division_number, gid) VALUES (?, ?, ?, ?, ?, ?, ?)");
+my $motionupdate = $dbh->prepare("UPDATE policydivisions SET gid = ?, division_title = ? WHERE division_id = ? AND policy_id = ?");
 
 my $votecheck = $dbh->prepare("SELECT member_id, vote FROM memberdivisionvotes WHERE division_id = ?");
 my $voteadd = $dbh->prepare("INSERT INTO memberdivisionvotes (member_id, division_id, vote) VALUES (?, ?, ?)");
@@ -128,6 +128,13 @@ foreach my $dreamid (
         ($motion_num = $motion->{motion}->{id}) =~ s/pw-\d+-\d+-\d+-(\d+)/$1/;
         ($house = $motion->{motion}->{organization_id}) =~ s/uk.parliament.(\w+)/$1/;
 
+        my $sources = $motion->{motion}->{sources};
+        my $gid = '';
+        foreach my $source (@$sources) {
+            if ( defined $source->{gid} ) {
+                $gid = $source->{gid};
+            }
+        }
 
         my $motion_id = $motion->{motion}->{id} . "-$house";
         # JSON is UTF-8, the database and TWFY are not
@@ -135,10 +142,9 @@ foreach my $dreamid (
         my $curr_motion = $dbh->selectrow_hashref($motioncheck, {}, $motion_id, $dreamid);
 
         if ( !defined $curr_motion ) {
-            $motionadd->execute($motion_id, $dreamid, $house, $motion->{motion}->{text}, $motion->{motion}->{date}, $motion_num);
+            $motionadd->execute($motion_id, $dreamid, $house, $motion->{motion}->{text}, $motion->{motion}->{date}, $motion_num, $gid);
         } elsif ( $curr_motion->{division_title} ne $text || $curr_motion->{gid} ne $gid ) {
-            print "updating division from " . $curr_motion->{division_title} . " to $text\n";
-            $motionupdate->execute($text, $motion_id, $dreamid);
+            $motionupdate->execute($gid, $text, $motion_id, $dreamid);
         }
 
         my $curr_votes = $dbh->selectall_hashref($votecheck, 'member_id', {}, $motion_id);
