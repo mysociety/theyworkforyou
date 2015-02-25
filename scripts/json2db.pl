@@ -128,16 +128,20 @@ foreach my $dreamid (
         ($motion_num = $motion->{motion}->{id}) =~ s/pw-\d+-\d+-\d+-(\d+)/$1/;
         ($house = $motion->{motion}->{organization_id}) =~ s/uk.parliament.(\w+)/$1/;
 
+
+        my $motion_id = $motion->{motion}->{id} . "-$house";
         # JSON is UTF-8, the database and TWFY are not
         my $text = Encode::encode( 'iso-8859-1', $motion->{motion}->{text} );
-        my $curr_motion = $dbh->selectrow_array($motioncheck, {}, $motion->{motion}->{id}, $dreamid);
+        my $curr_motion = $dbh->selectrow_hashref($motioncheck, {}, $motion_id, $dreamid);
+
         if ( !defined $curr_motion ) {
-            $motionadd->execute($motion->{motion}->{id}, $dreamid, $house, $motion->{motion}->{text}, $motion->{motion}->{date}, $motion_num);
-        } elsif ( $curr_motion ne $text ) {
-            $motionupdate->execute($text, $motion->{motion}->{id}, $dreamid);
+            $motionadd->execute($motion_id, $dreamid, $house, $motion->{motion}->{text}, $motion->{motion}->{date}, $motion_num);
+        } elsif ( $curr_motion->{division_title} ne $text || $curr_motion->{gid} ne $gid ) {
+            print "updating division from " . $curr_motion->{division_title} . " to $text\n";
+            $motionupdate->execute($text, $motion_id, $dreamid);
         }
 
-        my $curr_votes = $dbh->selectall_hashref($votecheck, 'member_id', {}, $motion->{motion}->{id});
+        my $curr_votes = $dbh->selectall_hashref($votecheck, 'member_id', {}, $motion_id);
 
         for my $vote ( @{ $motion->{motion}->{ vote_events }->[0]->{votes} } ) {
             my $mp_id_num;
@@ -151,9 +155,9 @@ foreach my $dreamid (
             next unless $mp_id_num;
 
             if ( !defined $curr_votes->{$mp_id_num} ) {
-                $voteadd->execute($mp_id_num, $motion->{motion}->{id}, $vote->{option});
+                $voteadd->execute($mp_id_num, $motion_id, $vote->{option});
             } elsif ( $curr_votes->{$mp_id_num}->{vote} ne $vote->{option} ) {
-                $voteupdate->execute($vote->{option}, $mp_id_num, $motion->{motion}->{id});
+                $voteupdate->execute($vote->{option}, $mp_id_num, $motion_id);
             }
         }
     }
