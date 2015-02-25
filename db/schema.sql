@@ -116,6 +116,7 @@ CREATE TABLE `policydivisions` (
   `division_date` date NOT NULL default '1000-01-01',
   `division_number` int(11),
   `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  UNIQUE KEY `policy_division` (`division_id`, `policy_id`),
   KEY `division_id` (`division_id`)
 );
 
@@ -124,6 +125,8 @@ CREATE TABLE `memberdivisionvotes` (
   `division_id` varchar(100) NOT NULL default '',
   `vote` text NOT NULL,
   `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  UNIQUE KEY `member_vote` (`member_id`, `division_id`),
+  KEY `division_id` (`division_id`)
   KEY `member_id` (`member_id`)
 );
 
