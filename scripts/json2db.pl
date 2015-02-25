@@ -30,16 +30,18 @@ my $json = JSON::XS->new->latin1;
 
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
 my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+my $motioncheck = $dbh->prepare("SELECT division_title FROM policydivisions WHERE division_id = ? AND policy_id = ?");
 my $motionadd = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, house, division_title, division_date, division_number) VALUES (?, ?, ?, ?, ?, ?)");
+my $motionupdate = $dbh->prepare("UPDATE policydivisions SET division_title = ? WHERE division_id = ? AND policy_id = ?");
+
+my $votecheck = $dbh->prepare("SELECT member_id, vote FROM memberdivisionvotes WHERE division_id = ?");
 my $voteadd = $dbh->prepare("INSERT INTO memberdivisionvotes (member_id, division_id, vote) VALUES (?, ?, ?)");
+my $voteupdate= $dbh->prepare("UPDATE memberdivisionvotes SET vote = ? WHERE member_id = ? AND division_id = ?");
 
 my $motionsdir = $parldata . "scrapedjson/policy-motions/";
 
 add_mps_and_peers();
 
-print Dumper \%membertoperson;
-
-#$foo = decode_json( $json );
 foreach my $dreamid (
     363,
     810,
@@ -126,16 +128,33 @@ foreach my $dreamid (
         ($motion_num = $motion->{motion}->{id}) =~ s/pw-\d+-\d+-\d+-(\d+)/$1/;
         ($house = $motion->{motion}->{organization_id}) =~ s/uk.parliament.(\w+)/$1/;
 
-        $motionadd->execute($motion->{motion}->{id}, $dreamid, $house, $motion->{motion}->{text}, $motion->{motion}->{date}, $motion_num);
+        # JSON is UTF-8, the database and TWFY are not
+        my $text = Encode::encode( 'iso-8859-1', $motion->{motion}->{text} );
+        my $curr_motion = $dbh->selectrow_array($motioncheck, {}, $motion->{motion}->{id}, $dreamid);
+        if ( !defined $curr_motion ) {
+            $motionadd->execute($motion->{motion}->{id}, $dreamid, $house, $motion->{motion}->{text}, $motion->{motion}->{date}, $motion_num);
+        } elsif ( $curr_motion ne $text ) {
+            $motionupdate->execute($text, $motion->{motion}->{id}, $dreamid);
+        }
+
+        my $curr_votes = $dbh->selectall_hashref($votecheck, 'member_id', {}, $motion->{motion}->{id});
 
         for my $vote ( @{ $motion->{motion}->{ vote_events }->[0]->{votes} } ) {
             my $mp_id_num;
             $mp_id_num = $vote->{id};
             $mp_id_num = $membertoperson{$mp_id_num};
+            if ( !$mp_id_num ) {
+                warn "membertoperson lookup failed for " . $vote->{id} . " in policy $dreamid\n";
+                next;
+            }
             $mp_id_num =~ s:uk.org.publicwhip/person/::;
             next unless $mp_id_num;
 
-            $voteadd->execute($mp_id_num, $motion->{motion}->{id}, $vote->{option});
+            if ( !defined $curr_votes->{$mp_id_num} ) {
+                $voteadd->execute($mp_id_num, $motion->{motion}->{id}, $vote->{option});
+            } elsif ( $curr_votes->{$mp_id_num}->{vote} ne $vote->{option} ) {
+                $voteupdate->execute($vote->{option}, $mp_id_num, $motion->{motion}->{id});
+            }
         }
     }
 }
