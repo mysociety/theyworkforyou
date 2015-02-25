@@ -119,6 +119,10 @@ foreach my $dreamid (
     6721
 ) {
     my $policy_file = $motionsdir . $dreamid . ".json";
+    if ( ! -f $policy_file ) {
+        warn "no json file for policy $dreamid";
+        next;
+    }
     my $policy_json = read_file($policy_file);
     my $policy = $json->decode($policy_json);
     my $motions = @{ $policy->{aspects} };
