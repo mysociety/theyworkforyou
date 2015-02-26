@@ -162,9 +162,16 @@ foreach my $dreamid (
         my $curr_motion = $dbh->selectrow_hashref($motioncheck, {}, $motion_id, $dreamid);
 
         if ( !defined $curr_motion ) {
-            $motionadd->execute($motion_id, $dreamid, $house, $motion->{motion}->{text}, $motion->{motion}->{date}, $motion_num, $gid);
+            my $r = $motionadd->execute($motion_id, $dreamid, $house, $motion->{motion}->{text}, $motion->{motion}->{date}, $motion_num, $gid);
+            unless ( $r > 0 ) {
+                warn "problem creating policymotion for $dreamid, skipping motions\n";
+                next;
+            }
         } elsif ( $curr_motion->{division_title} ne $text || $curr_motion->{gid} ne $gid ) {
-            $motionupdate->execute($gid, $text, $motion_id, $dreamid);
+            my $r = $motionupdate->execute($gid, $text, $motion_id, $dreamid);
+            unless ( $r > 0 ) {
+                warn "problem updating division $motion_id from " . $curr_motion->{division_title} . " to $text AND " . $curr_motion->{gid} . " to $gid\n";
+            }
         }
 
         my $curr_votes = $dbh->selectall_hashref($votecheck, 'member_id', {}, $motion_id);
@@ -175,7 +182,7 @@ foreach my $dreamid (
             $mp_id_num = $vote->{id};
             $mp_id_num = $membertoperson{$mp_id_num};
             if ( !$mp_id_num ) {
-                warn "membertoperson lookup failed for " . $vote->{id} . " in policy $dreamid\n";
+                warn "membertoperson lookup failed for " . $vote->{id} . " in policy $dreamid, skipping vote\n";
                 next;
             }
             $mp_id_num =~ s:uk.org.publicwhip/person/::;
@@ -184,7 +191,13 @@ foreach my $dreamid (
             if ( !defined $curr_votes->{$mp_id_num} ) {
                 $voteadd->execute($mp_id_num, $motion_id, $vote->{option});
             } elsif ( $curr_votes->{$mp_id_num}->{vote} ne $vote->{option} ) {
-                $voteupdate->execute($vote->{option}, $mp_id_num, $motion_id);
+                # because we probably want to know if this ever happens
+                print "updating $motion_id vote for $mp_id_num from " . $curr_votes->{$mp_id_num}->{vote} . " to " . $vote->{option} . "\n";
+                my $r = $voteupdate->execute($vote->{option}, $mp_id_num, $motion_id);
+                unless ( $r > 0 ) {
+                    warn "problem updating $motion_id vote for $mp_id_num from " . $curr_votes->{$mp_id_num}->{vote} . " to " . $vote->{option} . "\n"
+                         . DBI->errstr . "\n";
+                 }
             }
         }
     }
