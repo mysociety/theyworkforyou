@@ -25,7 +25,7 @@ use XML::Twig;
 use Uncapitalise;
 use JSON::XS;
 
-use vars qw(%membertoperson %motions_seen);
+use vars qw(%membertoperson $motion_count $policy_count $vote_count %motions_seen);
 my $json = JSON::XS->new->latin1;
 
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
@@ -40,6 +40,8 @@ my $voteadd = $dbh->prepare("INSERT INTO memberdivisionvotes (member_id, divisio
 my $voteupdate= $dbh->prepare("UPDATE memberdivisionvotes SET vote = ? WHERE member_id = ? AND division_id = ?");
 
 my $motionsdir = $parldata . "scrapedjson/policy-motions/";
+
+$motion_count = $policy_count = $vote_count = 0;
 
 add_mps_and_peers();
 
@@ -128,7 +130,10 @@ foreach my $dreamid (
     my $policy = $json->decode($policy_json);
     my $motions = @{ $policy->{aspects} };
 
+    $policy_count++;
+
     for my $motion ( @{ $policy->{aspects} } ) {
+        $motion_count++;
         my ($motion_num, $house);
         ($motion_num = $motion->{motion}->{id}) =~ s/pw-\d+-\d+-\d+-(\d+)/$1/;
         ($house = $motion->{motion}->{organization_id}) =~ s/uk.parliament.(\w+)/$1/;
@@ -165,6 +170,7 @@ foreach my $dreamid (
         my $curr_votes = $dbh->selectall_hashref($votecheck, 'member_id', {}, $motion_id);
 
         for my $vote ( @{ $motion->{motion}->{ vote_events }->[0]->{votes} } ) {
+            $vote_count++;
             my $mp_id_num;
             $mp_id_num = $vote->{id};
             $mp_id_num = $membertoperson{$mp_id_num};
@@ -184,6 +190,7 @@ foreach my $dreamid (
     }
 }
 
+print "parsed $policy_count policies, $motion_count divisions and $vote_count votes from PW JSON\n";
 
 sub add_mps_and_peers {
     my $pwmembers = mySociety::Config::get('PWMEMBERS');
