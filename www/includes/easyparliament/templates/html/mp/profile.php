@@ -80,6 +80,7 @@
                 <ul>
                     <li class="active"><a href="<?= $member_url ?>">Overview</a></li>
                     <li><a href="<?= $member_url ?>/votes">Voting Record</a></li>
+                    <li><a href="<?= $member_url ?>/divisions">Detailed Voting Record</a></li>
                 </ul>
             </div>
             <?php endif; ?>
