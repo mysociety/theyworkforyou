@@ -99,7 +99,7 @@
                                   <?php foreach ($segment['votes']->positions as $key_vote): ?>
                                     <li>
                                         <?= $key_vote['desc'] ?>
-                                        <a class="vote-description__source" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $key_vote['policy_id'] ?>">Source</a>
+                                        <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $key_vote['policy_id'] ?>">Details</a>
                                     </li>
                                   <?php endforeach; ?>
                                 </ul>
