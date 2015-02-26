@@ -90,7 +90,14 @@
 
                                 <?php foreach ($policy['divisions'] as $division): ?>
                                     <li>
-                                    <a href="<?= $division['url'] ?>"><?= $division['text'] ?></a>: <?= $division['vote'] ?> : <?= $division['gid'] ?>
+                                    <?= $division['date'] ?> -
+                                    <?php // for some very early votes PW doesn't have the gid ?>
+                                    <?php if ( $division['gid'] ) { ?>
+                                    <a href="<?= $division['url'] ?>"><?= $division['text'] ?></a>
+                                    <?php } else { ?>
+                                    <?= $division['date'] ?> - <?= $division['text'] ?>
+                                    <?php } ?>
+                                    : <?= $division['vote'] ?>
                                     </li>
 
 
