@@ -25,12 +25,13 @@ use XML::Twig;
 use Uncapitalise;
 use JSON::XS;
 
-use vars qw(%membertoperson);
+use vars qw(%membertoperson %motions_seen);
 my $json = JSON::XS->new->latin1;
 
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
 my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
 my $motioncheck = $dbh->prepare("SELECT division_title, gid FROM policydivisions WHERE division_id = ? AND policy_id = ?");
+
 my $motionadd = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, house, division_title, division_date, division_number, gid) VALUES (?, ?, ?, ?, ?, ?, ?)");
 my $motionupdate = $dbh->prepare("UPDATE policydivisions SET gid = ?, division_title = ? WHERE division_id = ? AND policy_id = ?");
 
@@ -141,6 +142,16 @@ foreach my $dreamid (
         }
 
         my $motion_id = $motion->{motion}->{id} . "-$house";
+
+        # some divisions are in more than one policy but the votes don't change so
+        # just skip them
+        if ( $motions_seen{$motion_id} ) {
+            #print "seen $motion_id already, skipping\n";
+            next;
+        } else {
+            $motions_seen{$motion_id} = 1;
+        }
+
         # JSON is UTF-8, the database and TWFY are not
         my $text = Encode::encode( 'iso-8859-1', $motion->{motion}->{text} );
         my $curr_motion = $dbh->selectrow_hashref($motioncheck, {}, $motion_id, $dreamid);
