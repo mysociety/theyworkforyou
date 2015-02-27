@@ -65,6 +65,11 @@
                 <div class="sidebar__unit in-page-nav">
                     <ul data-magellan-expedition="fixed">
                         <?php if ($has_voting_record): ?>
+                        <?php foreach ($policydivisions as $policy): ?>
+                        <?php if (count($policy['divisions']) > 0): ?>
+                        <li data-magellan-arrival="<?= $policy['policy_id'] ?>"><a href="#<?= $policy['policy_id'] ?>"><?= $policies[$policy['policy_id']] ?></a></li>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
                     <div>&nbsp;</div>
