@@ -156,6 +156,11 @@ $this->page = array (
         'parent'		=> 'admin',
         'url'			=> 'admin/statistics.php'
     ),
+    'admin_reportstats' => array (
+        'title'			=> 'Reporting statistics',
+        'parent'		=> 'admin',
+        'url'			=> 'admin/reporting_stats.php'
+    ),
     'admin_trackbacks' => array (
         'title'			=> 'Recent trackbacks',
         'parent'		=> 'admin',
