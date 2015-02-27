@@ -97,6 +97,9 @@ class HANSARDLIST {
     // don't need to call it and it's lengthy query again.
     public $most_recent_day;
 
+    // This prefix is used to pick out unique things by type
+    public $gidprefix;
+
     public function __construct() {
         $this->db = new ParlDB;
     }

@@ -49,13 +49,13 @@ class SearchTest extends PHPUnit_Extensions_Database_TestCase
         $results = search_member_db_lookup('Joseph');
 
         $this->assertEquals(1, $results->rows());
-        $this->assertEquals(1, $results->field(0, 'person_id'));
+        $this->assertEquals(2, $results->field(0, 'person_id'));
 
         // Test a single (last) name.
         $results = search_member_db_lookup('Bloggs');
 
         $this->assertEquals(1, $results->rows());
-        $this->assertEquals(1, $results->field(0, 'person_id'));
+        $this->assertEquals(2, $results->field(0, 'person_id'));
 
     }
 
@@ -70,19 +70,19 @@ class SearchTest extends PHPUnit_Extensions_Database_TestCase
         $results = search_member_db_lookup('Mary Smith');
 
         $this->assertEquals(1, $results->rows());
-        $this->assertEquals(2, $results->field(0, 'person_id'));
+        $this->assertEquals(3, $results->field(0, 'person_id'));
 
         // Test an inverse full name.
         $results = search_member_db_lookup('Smith Mary');
 
         $this->assertEquals(1, $results->rows());
-        $this->assertEquals(2, $results->field(0, 'person_id'));
+        $this->assertEquals(3, $results->field(0, 'person_id'));
 
         // Test a name with title.
         $results = search_member_db_lookup('Mrs Smith');
 
         $this->assertEquals(1, $results->rows());
-        $this->assertEquals(2, $results->field(0, 'person_id'));
+        $this->assertEquals(3, $results->field(0, 'person_id'));
 
     }
 

@@ -20,13 +20,18 @@
 	<table_data name="comments">
 	</table_data>
 	<table_data name="consinfo">
+		<row>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="data_key">test_constituency_key</field>
+			<field name="data_value">Test Constituency Value</field>
+		</row>
 	</table_data>
 	<table_data name="constituency">
 	</table_data>
 	<table_data name="editqueue">
 	</table_data>
 	<table_data name="epobject">
-        <row>
+		<row>
             <field name="epobject_id">1</field>
             <field name="body">Test Hansard Section</field>
         </row>
@@ -64,7 +69,7 @@
 	<table_data name="glossary">
 	</table_data>
 	<table_data name="hansard">
-        <row>
+		<row>
             <field name="epobject_id">2</field>
             <field name="gid">com.theyworkforyou/test/hansard/2</field>
             <field name="htype">11</field>
@@ -146,51 +151,66 @@
 	<table_data name="indexbatch">
 	</table_data>
 	<table_data name="member">
-        <row>
-            <field name="member_id">1</field>
-            <field name="house">1</field>
-            <field name="first_name">Speaker</field>
-            <field name="last_name">One</field>
-            <field name="constituency"></field>
-            <field name="party"></field>
-            <field name="entered_house">2000-01-01</field>
-            <field name="left_house">9999-12-31</field>
-            <field name="entered_reason">general_election</field>
-            <field name="left_reason">still_in_office</field>
-            <field name="person_id">2</field>
-            <field name="title">Mr</field>
-            <field name="lastupdate">2014-01-01 09:00:00</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="house">1</field>
-            <field name="first_name">Speaker</field>
-            <field name="last_name">Two</field>
-            <field name="constituency"></field>
-            <field name="party"></field>
-            <field name="entered_house">2000-01-01</field>
-            <field name="left_house">9999-12-31</field>
-            <field name="entered_reason">general_election</field>
-            <field name="left_reason">still_in_office</field>
-            <field name="person_id">3</field>
-            <field name="title">Mrs</field>
-            <field name="lastupdate">2014-01-01 09:00:00</field>
-        </row>
-        <row>
-            <field name="member_id">3</field>
-            <field name="house">1</field>
-            <field name="first_name">Speaker</field>
-            <field name="last_name">Three</field>
-            <field name="constituency"></field>
-            <field name="party"></field>
-            <field name="entered_house">2000-01-01</field>
-            <field name="left_house">9999-12-31</field>
-            <field name="entered_reason">general_election</field>
-            <field name="left_reason">still_in_office</field>
-            <field name="person_id">4</field>
-            <field name="title">Mr</field>
-            <field name="lastupdate">2014-01-01 09:00:00</field>
-        </row>
+		<row>
+			<field name="member_id">1</field>
+			<field name="house">1</field>
+			<field name="first_name">Test</field>
+			<field name="last_name">Current-MP</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party">Lab</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">2</field>
+			<field name="title">Mrs</field>
+			<field name="lastupdate">2013-08-07 15:06:19</field>
+		</row>
+		<row>
+			<field name="member_id">2</field>
+			<field name="house">2</field>
+			<field name="first_name">Test</field>
+			<field name="last_name">Current-Lord</field>
+			<field name="constituency"></field>
+			<field name="party">XB</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">appointed</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">3</field>
+			<field name="title">Mr</field>
+			<field name="lastupdate">2013-08-07 15:06:22</field>
+		</row>
+		<row>
+			<field name="member_id">3</field>
+			<field name="house">3</field>
+			<field name="first_name">Test</field>
+			<field name="last_name">Current-MLA</field>
+			<field name="constituency">Test Northern Ireland Constituency</field>
+			<field name="party">SF</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">4</field>
+			<field name="title">Miss</field>
+			<field name="lastupdate">2013-08-07 11:15:38</field>
+		</row>
+		<row>
+			<field name="member_id">4</field>
+			<field name="house">4</field>
+			<field name="first_name">Test</field>
+			<field name="last_name">Current-MSP</field>
+			<field name="constituency">Test Scotland Constituency</field>
+			<field name="party"></field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">5</field>
+			<field name="title">Ms</field>
+			<field name="lastupdate">2013-08-07 11:15:47</field>
+		</row>
 	</table_data>
 	<table_data name="memberinfo">
 	</table_data>
@@ -212,7 +232,9 @@
 	</table_data>
 	<table_data name="titles_ignored">
 	</table_data>
-	<table_data name="tokens">
+	<table_data name="trackbacks">
+	</table_data>
+	<table_data name="users">
 	</table_data>
 	<table_data name="uservotes">
 	</table_data>
