@@ -175,6 +175,9 @@ foreach my $dreamid (
         }
 
         my $curr_votes = $dbh->selectall_hashref($votecheck, 'member_id', {}, $motion_id);
+        unless ($curr_votes) {
+            $curr_votes = {};
+        }
 
         for my $vote ( @{ $motion->{motion}->{ vote_events }->[0]->{votes} } ) {
             $vote_count++;
@@ -190,6 +193,7 @@ foreach my $dreamid (
 
             if ( !defined $curr_votes->{$mp_id_num} ) {
                 $voteadd->execute($mp_id_num, $motion_id, $vote->{option});
+                $curr_votes->{$mp_id_num} = { vote => $vote->{option}};
             } elsif ( $curr_votes->{$mp_id_num}->{vote} ne $vote->{option} ) {
                 # because we probably want to know if this ever happens
                 print "updating $motion_id vote for $mp_id_num from " . $curr_votes->{$mp_id_num}->{vote} . " to " . $vote->{option} . "\n";
