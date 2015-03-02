@@ -123,7 +123,7 @@ foreach my $dreamid (
 ) {
     my $policy_file = $motionsdir . $dreamid . ".json";
     if ( ! -f $policy_file ) {
-        warn "no json file for policy $dreamid";
+        warn "no json file for policy $dreamid at $policy_file";
         next;
     }
     my $policy_json = read_file($policy_file);
