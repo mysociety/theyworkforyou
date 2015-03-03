@@ -47,11 +47,13 @@ function _api_getGeometry_name($name) {
         return null;
 
     $name = normalise_constituency_name($name);
+    # Names are currently in ISO-8859-1, but MapIt is in UTF-8
+    $name_utf8 = iconv('iso-8859-1', 'utf-8//TRANSLIT', $name);
 
     $areas_info = _api_cacheCheck('areas', 'WMC');
     $ni_geometry = _api_ni_centroids();
     foreach ($areas_info as $area_id => $area) {
-        if ($name == $area['name']) {
+        if ($name_utf8 == $area['name']) {
             if (isset($ni_geometry[$area_id])) {
                 $out = $ni_geometry[$area_id];
             } else {
