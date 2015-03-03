@@ -27,11 +27,15 @@ class Divisions {
         $this->db = new \ParlDB;
     }
 
-    public function getMemberDivisionsForPolicy($policyID) {
+    public function getMemberDivisionsForPolicy($policyID, $onlyStrong = TRUE) {
+        $extraWhere = '';
+        if ( $onlyStrong ) {
+            $extraWhere = " AND direction in ('Majority (strong)', 'minority (strong)')";
+        }
         $q = $this->db->query(
-            "SELECT policy_id, division_title, division_date, division_number, vote, gid
+            "SELECT policy_id, division_title, division_date, division_number, vote, gid, direction
             FROM policydivisions JOIN memberdivisionvotes USING(division_id)
-            WHERE member_id = :member_id AND policy_id = :policy_id
+            WHERE member_id = :member_id AND policy_id = :policy_id $extraWhere
             ORDER by policy_id, division_date",
             array(':member_id' => $this->member->person_id, ':policy_id' => $policyID)
         );
@@ -39,11 +43,15 @@ class Divisions {
         return $this->divisionsByPolicy($q);
     }
 
-    public function getAllMemberDivisionsByPolicy() {
+    public function getAllMemberDivisionsByPolicy($onlyStrong = TRUE) {
+        $extraWhere = '';
+        if ( $onlyStrong ) {
+            $extraWhere = " AND direction in ('Majority (strong)', 'minority (strong)')";
+        }
         $q = $this->db->query(
-            "SELECT policy_id, division_title, division_date, division_number, vote, gid
+            "SELECT policy_id, division_title, division_date, division_number, vote, gid, direction
             FROM policydivisions JOIN memberdivisionvotes USING(division_id)
-            WHERE member_id = :member_id
+            WHERE member_id = :member_id $extraWhere
             ORDER by policy_id, division_date",
             array(':member_id' => $this->member->person_id)
         );

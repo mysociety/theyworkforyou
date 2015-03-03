@@ -619,13 +619,14 @@ try {
                 $policiesList = new MySociety\TheyWorkForYou\Policies;
 
                 $policyID = get_http_var('policy');
+                $onlyStrong = get_http_var('showAll') == 1 ? FALSE : TRUE;
 
                 $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
                 if ( $policyID ) {
-                    $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
+                    $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID, $onlyStrong);
                     $data['policies'] = array( $policyID => $policiesList->getPolicies()[$policyID] );
                 } else {
-                    $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();
+                    $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy($onlyStrong);
                     $data['policies'] = $policiesList->getPolicies();
                 }
 

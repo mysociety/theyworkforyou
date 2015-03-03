@@ -30,10 +30,10 @@ my $json = JSON::XS->new->latin1;
 
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
 my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
-my $motioncheck = $dbh->prepare("SELECT division_title, gid FROM policydivisions WHERE division_id = ? AND policy_id = ?");
+my $motioncheck = $dbh->prepare("SELECT division_title, gid, direction FROM policydivisions WHERE division_id = ? AND policy_id = ?");
 
-my $motionadd = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, house, division_title, division_date, division_number, gid) VALUES (?, ?, ?, ?, ?, ?, ?)");
-my $motionupdate = $dbh->prepare("UPDATE policydivisions SET gid = ?, division_title = ? WHERE division_id = ? AND policy_id = ?");
+my $motionadd = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, house, direction, division_title, division_date, division_number, gid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+my $motionupdate = $dbh->prepare("UPDATE policydivisions SET gid = ?, division_title = ?, direction = ? WHERE division_id = ? AND policy_id = ?");
 
 my $votecheck = $dbh->prepare("SELECT member_id, vote FROM memberdivisionvotes WHERE division_id = ?");
 my $voteadd = $dbh->prepare("INSERT INTO memberdivisionvotes (member_id, division_id, vote) VALUES (?, ?, ?)");
@@ -162,13 +162,13 @@ foreach my $dreamid (
         my $curr_motion = $dbh->selectrow_hashref($motioncheck, {}, $motion_id, $dreamid);
 
         if ( !defined $curr_motion ) {
-            my $r = $motionadd->execute($motion_id, $dreamid, $house, $motion->{motion}->{text}, $motion->{motion}->{date}, $motion_num, $gid);
+            my $r = $motionadd->execute($motion_id, $dreamid, $house, $motion->{direction}, $motion->{motion}->{text}, $motion->{motion}->{date}, $motion_num, $gid);
             unless ( $r > 0 ) {
                 warn "problem creating policymotion for $dreamid, skipping motions\n";
                 next;
             }
-        } elsif ( $curr_motion->{division_title} ne $text || $curr_motion->{gid} ne $gid ) {
-            my $r = $motionupdate->execute($gid, $text, $motion_id, $dreamid);
+        } elsif ( $curr_motion->{division_title} ne $text || $curr_motion->{gid} ne $gid || $motion->{direction} ne $curr_motion->{direction} ) {
+            my $r = $motionupdate->execute($gid, $text, $motion->{direction}, $motion_id, $dreamid);
             unless ( $r > 0 ) {
                 warn "problem updating division $motion_id from " . $curr_motion->{division_title} . " to $text AND " . $curr_motion->{gid} . " to $gid\n";
             }
