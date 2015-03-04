@@ -126,6 +126,7 @@ span.hi {
   margin-top: 0;
   line-height: 1em;
   margin-bottom: 0.25em;
+  max-width: 33em; //prevent overflow into context links
   img {
     float: left;
     margin-right: 10px;
