@@ -175,6 +175,7 @@ span.hi {
   font-size: 14px;
   max-width: 45em; // keep line lengths readable
   margin-top: 0.66em;
+  min-width: 3.6em; //leave room for the various links on the right that are positioned absolutely on large screebs
   p {
     line-height: 1.4em;
     margin-bottom: 0.8em;
