@@ -326,7 +326,7 @@
             display: block;
         }
         padding: 0px;
-        ul {
+        & > * {
             @include radius(3px);
             &.fixed {
                 width: 16%;
@@ -336,26 +336,31 @@
             margin-left: 0px;
             margin-bottom: 0px;
             font-size: em-calc(16);
-            li {
-                list-style-position: inside;
-                padding-left: 1.5em;
-                padding-top: 0.5em;
-                padding-bottom: 0.5em;
-                line-height: 1.3em;
-                border-bottom: 1px solid $body-bg;
-                color: $borders;
-                text-indent: -1em;
-                &.active {
-                    color: $primary-color;
-                }
-                &:last-of-type {
-                    border-bottom: 0px;
-                }
-                a {
-                    color: $body-font-color;
-                }
+        }
+        li {
+            list-style-position: inside;
+            padding-left: 1.5em;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            line-height: 1.3em;
+            border-bottom: 1px solid $body-bg;
+            color: $borders;
+            text-indent: -1em;
+            &.active {
+                color: $primary-color;
+            }
+            &:last-of-type {
+                border-bottom: 0px;
+            }
+            a {
+                color: $body-font-color;
             }
         }
+    }
+    .policy-votes-intro {
+        padding: 1em;
+        margin-bottom: 1em;
+        line-height: 1.2em;
     }
     .panel {
         @include radius;
@@ -482,6 +487,63 @@
             margin-bottom: 0;
         }
     }
+    .policy-votes-hero {
+        position: relative;
+        margin-bottom: 0;
+        border-radius: $global-radius $global-radius 0 0;
+        color: #fff;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.6);
+        background: #666 url('../img/topics/generic.jpg') 50% 50% no-repeat;
+        background-size: cover;
+
+        h2 {
+            color: inherit;
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.3em;
+            max-width: 24em; // avoid long lines
+
+            @media (min-width: $medium-screen) {
+                font-size: 1.2em;
+                margin-bottom: 0;
+            }
+        }
+
+        & + .panel {
+            border-radius: 0 0 $global-radius $global-radius;
+
+            @media (min-width: $medium-screen) {
+                padding-top: em-calc(40);
+            }
+        }
+    }
+}
+
+.policy-votes-hero__image-attribution {
+    font-size: 0.7em;
+    color: #ddd;
+
+    a {
+        color: inherit;
+        text-decoration: none !important;
+    }
+
+    a:hover, a:focus {
+        color: #fff;
+        text-decoration: underline !important;
+    }
+
+    @media (min-width: $medium-screen) {
+        position: absolute;
+        bottom: em-calc(24);
+        right: em-calc(24);
+    }
+}
+
+.policy-vote-overall-stance {
+    margin-bottom: 1em;
 }
 
 .vote-descriptions {
@@ -497,6 +559,35 @@
       border-top: 1px solid $borders;
     }
   }
+
+  &.policy-votes > li {
+      padding-top: 1em;
+      padding-bottom: 1em;
+      padding-right: 7em;
+
+      @media (min-width: $medium-screen) {
+          padding-right: 10em; // make room for longer "Show full debate" button
+      }
+  }
+}
+
+.policy-vote--minor {
+    color: #b5af9d; // desaturated taupe colour
+    line-height: 1.3em !important;
+
+    span {
+        font-size: 0.9em;
+    }
+
+    .policy-vote__date {
+        color: inherit;
+        display: inline;
+    }
+}
+
+.policy-vote__date {
+    display: block;
+    color: #b5af9d; // desaturated taupe colour
 }
 
 .vote-description__source {
@@ -531,6 +622,18 @@
       background-color: darken($links, 10%);
     }
   }
+}
+
+.policy-votes__byline {
+    font-size: 0.8em;
+    color: #cfcabb; // light desaturated taupe colour
+    margin-bottom: 0;
+
+    @media (min-width: $medium-screen) {
+        text-align: right;
+        margin-right: 1em; // line up with "Show full debate" links
+        margin-top: 2em;
+    }
 }
 
 .about-this-page {

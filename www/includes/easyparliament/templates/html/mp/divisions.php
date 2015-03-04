@@ -1,3 +1,81 @@
+<?php
+
+// I'm temporarily overriding the database, to display a set of votes about
+// fox hunting, for demonstration purposes.
+
+// It's worth bearing in mind that I'm only expecting this page to show votes
+// on one policy at a time. But I'm retaining the convention of $policydivisions
+// being an array of policies, because that's how the View is set up.
+
+// Just remember that $policydivisions should have only one item in it.
+
+$policydivisions = array(
+    1050 => array(
+        'policy_id' => '1050',
+        'divisions' => array(
+            array(
+                'title' => 'Hunting with Dogs: Ban',
+                'text' => 'voted to ban hunting with dogs instead of allowing it to continue under either a self-supervision or a licensing scheme.',
+                'date' => '2002-03-18',
+                'vote' => 'absent',
+                'gid' => '2002-03-18.136.2',
+                'url' => '/debates/?gid=2002-03-18.136.2',
+                'strong' => True
+            ),
+            array(
+                'title' => 'Hunting Bill &#8212; New Clause 6 &#8212; Use of Dogs Below Ground (No. 2)',
+                'text' => 'voted to amend the Hunting Bill to allow the use of terriers for hunting underground.',
+                'date' => '2003-06-30',
+                'vote' => 'aye',
+                'gid' => '2003-06-30.131.0',
+                'url' => '/debates/?gid=2003-06-30.131.0',
+                'strong' => False
+            ),
+            array(
+                'title' => 'Hunting Bill &#8212; New Clause 11 &#8212; Registration in Respect of Hunting of Foxes',
+                'text' => 'voted against an absolute ban on the hunting of foxes with dogs, whether registered or not.',
+                'date' => '2003-06-30',
+                'vote' => 'no',
+                'gid' => '2003-06-30.135.2',
+                'url' => '/debates/?gid=2003-06-30.135.2',
+                'strong' => True
+            ),
+            array(
+                'title' => 'Hunting Bill &#8212; New Clause 14 &#8212; Registration in Respect of Hunting of Mink',
+                'text' => 'voted against an amendment to the Hunting Bill that would absolutely ban the hunting of mink with dogs.',
+                'date' => '2003-06-30',
+                'vote' => 'no',
+                'gid' => '2003-06-30.139.0',
+                'url' => '/debates/?gid=2003-06-30.139.0',
+                'strong' => False
+            ),
+            array(
+                'title' => 'Hunting Bill',
+                'text' => 'voted against enacting the Hunting Bill, which would ban the hunting of almost all wild mammals.',
+                'date' => '2004-09-15',
+                'vote' => 'no',
+                'gid' => '2004-09-15.1351.0',
+                'url' => '/debates/?gid=2004-09-15.1351.0',
+                'strong' => True
+            )
+        )
+    )
+);
+
+$policyinformation = array(
+    1050 => array(
+        'title' => 'Hunting Ban',
+        'description' => 'A vote for a hunting ban is a vote against people being allowed to hunt wild animals (primarily foxes) with hounds.',
+        'image' => '/style/img/topics/hunting-ban.jpg',
+        'image_attribution' => 'Not enough megapixels',
+        'image_license' => 'CC BY-NC-ND 2.0',
+        'image_license_url' => 'https://creativecommons.org/licenses/by-nc-nd/2.0/',
+        'image_source' => 'https://www.flickr.com/photos/bamberry/6590260745'
+    )
+);
+
+?>
+
 
     <div class="<?= $current_assembly ?>">
         <div class="person-header <?= $this_page ?>">
@@ -57,22 +135,17 @@
             <div class="person-navigation page-content__row">
                 <ul>
                     <li><a href="<?= $member_url ?>">Overview</a></li>
-                    <li><a href="<?= $member_url ?>/votes">Voting Record</a></li>
-                    <li class="active"><a href="<?= $member_url ?>/divisions">Detailed Voting Record</a></li>
+                    <li class="active"><a href="<?= $member_url ?>/votes">Voting Record</a></li>
                 </ul>
             </div>
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
-                    <ul data-magellan-expedition="fixed">
-                        <?php if ($has_voting_record): ?>
-                        <?php foreach ($policydivisions as $policy): ?>
-                        <?php if (count($policy['divisions']) > 0): ?>
-                        <li data-magellan-arrival="<?= $policy['policy_id'] ?>"><a href="#<?= $policy['policy_id'] ?>"><?= $policies[$policy['policy_id']] ?></a></li>
-                        <?php endif; ?>
-                        <?php endforeach; ?>
-                        <?php endif; ?>
+                    <p class="policy-votes-intro">
+                        How <?= $full_name ?> voted on <?= $policies[$policydivisions[array_keys($policydivisions)[0]]['policy_id']] ?>.
+                    </p>
+                    <ul>
+                        <li><a href="/votes">Back to all topics</a></li>
                     </ul>
-                    <div>&nbsp;</div>
                 </div>
                 <div class="primary-content__unit">
 
@@ -87,31 +160,43 @@
                         <?php $displayed_votes = FALSE; ?>
 
                         <?php foreach ($policydivisions as $policy): ?>
-                                <div class="panel">
-                                <h2 id="<?= $policy['policy_id'] ?>" data-magellan-destination="<?= $policy['policy_id'] ?>">
-                                    How <?= $full_name ?> voted on <?= $policies[$policy['policy_id']] ?>
-                                </h2>
-                                <ul class="vote-descriptions">
+                        <?php /* remember, $policydivisions should only contain one $policy */ ?>
 
+                            <div class="panel policy-votes-hero" style="background-image: url('<?php echo $policyinformation[$policy['policy_id']]['image']; ?>');">
+                                <h2><?php echo $policyinformation[$policy['policy_id']]['title']; ?></h2>
+                                <p><?php echo $policyinformation[$policy['policy_id']]['description']; ?></p>
+                                <span class="policy-votes-hero__image-attribution">
+                                    Photo:
+                                    <a href="<?php echo $policyinformation[$policy['policy_id']]['image_source']; ?>">
+                                        <?php echo $policyinformation[$policy['policy_id']]['image_attribution']; ?>
+                                    </a>
+                                    <a href="<?php echo $policyinformation[$policy['policy_id']]['image_license_url']; ?>">
+                                        <?php echo $policyinformation[$policy['policy_id']]['image_license']; ?>
+                                    </a>
+                                </span>
+                            </div>
 
+                            <div class="panel">
+                                <h3 class="policy-vote-overall-stance">
+                                    <?= $full_name ?> voted strongly against <?= $policies[$policy['policy_id']] ?>
+                                </h3>
+
+                                <ul class="vote-descriptions policy-votes">
                                 <?php foreach ($policy['divisions'] as $division): ?>
-                                    <li>
-                                    <?= $division['date'] ?> -
-                                    <?php // for some very early votes PW doesn't have the gid ?>
-                                    <?php if ( $division['gid'] ) { ?>
-                                    <a href="<?= $division['url'] ?>"><?= $division['text'] ?></a>
-                                    <?php } else { ?>
-                                    <?= $division['date'] ?> - <?= $division['text'] ?>
-                                    <?php } ?>
-                                    : <?= $division['vote'] ?>
+                                    <li class="<?= $division['strong'] ? 'policy-vote--major' : 'policy-vote--minor' ?>">
+                                        <span class="policy-vote__date">On <?= strftime('%e %b %Y', strtotime($division['date'])) ?>:</span>
+                                        <span class="policy-vote__text"><?= $full_name ?> <?= $division['text'] ?></span>
+                                        <?php if ( $division['gid'] ) { ?>
+                                            <a class="vote-description__source" href="<?= $division['url'] ?>">Show full debate</a>
+                                        <?php } ?>
                                     </li>
-
 
                                 <?php $displayed_votes = TRUE; ?>
 
                                 <?php endforeach; ?>
                                 </ul>
-                                </div>
+                                <p class="policy-votes__byline">Vote information from <a href="http://www.publicwhip.org.uk">PublicWhip</a></p>
+                            </div>
                         <?php endforeach; ?>
 
                         <?php if (!$displayed_votes): ?>
