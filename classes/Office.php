@@ -57,6 +57,10 @@ class Office {
 
     public function pretty_dates() {
 
+        if ($this->to_date == '9999-12-31') {
+            return 'since ' . format_date($this->from_date, SHORTDATEFORMAT);
+        }
+
         $output = '';
 
         if (

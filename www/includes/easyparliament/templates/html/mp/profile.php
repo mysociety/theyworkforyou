@@ -246,10 +246,10 @@ you can find it.</p>
 
                         <h3>Currently held offices</h3>
 
-                        <ul>
+                        <ul class='list-dates'>
 
                             <?php foreach ($current_offices as $office): ?>
-                            <li><?= $office ?></li>
+                            <li><?= $office ?> <small>(<?= $office->pretty_dates() ?>)</small></li>
                             <?php endforeach; ?>
 
                         </ul>
@@ -260,10 +260,10 @@ you can find it.</p>
 
                         <h3>Other offices held in the past</h3>
 
-                        <ul>
+                        <ul class='list-dates'>
 
                             <?php foreach ($previous_offices as $office): ?>
-                            <li><?= $office ?> (<?= $office->pretty_dates() ?>)</li>
+                            <li><?= $office ?> <small>(<?= $office->pretty_dates() ?>)</small></li>
                             <?php endforeach; ?>
 
                         </ul>
