@@ -90,11 +90,19 @@ function wikipedize($source) {
         continue 2;
     }
 
-    # Go ahead
     twfy_debug("WIKIPEDIA", "Matched '$phrase'");
     # 1 means only replace one match for phrase per paragraph
-    # The regex here ensures that the phrase is only matched if it's not already within <a> tags, preventing double-linking. Kudos to http://stackoverflow.com/questions/7798829/php-regular-expression-to-match-keyword-outside-html-tag-a
-    $source = preg_replace ('/\b(' . $phrase . ')\b(?!(?>[^<]*(?:<(?!\/?a\b)[^<]*)*)<\/a>)/', "<a href=\"http://en.wikipedia.org/wiki/$wikistring\">\\1</a>", $source, 1);
+    $source = preg_replace ('{
+    \b(' . $phrase . ')\b    # Match the phrase itself
+    (?!                      # Match as long as the following does *not* apply:
+        (?:                  #   Match, possessively, as many strings of:
+         [^<]+               #     non-"<" characters,
+         |                   #     or
+         <(?!/?a\b)          #     a "<" as long as it is not followed by "a"
+        )*+                  #     as a word on its own (ie. "<a " or "</a>")
+        </a>                 #   Match a "</a>"
+    )                        # ie. match as long as we do not find a </a> and have not found a <a>
+    }x', "<a href=\"http://en.wikipedia.org/wiki/$wikistring\">\\1</a>", $source, 1);
     array_push($matched, $phrase);
   }
 
