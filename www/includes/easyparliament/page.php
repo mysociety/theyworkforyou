@@ -216,18 +216,16 @@ class PAGE {
     <meta property="og:description" content="TheyWorkForYou is a website which makes it easy to keep track of your local MP's activities.">
     <meta property="fb:admins" content="143203489083755">
 
-    <script type="text/javascript" src="/js/jquery.js"></script>
-    <script type="text/javascript" src="/js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="/jslib/share/share.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/bar.js"></script>
+    <script type="text/javascript" src="<?= cache_version("js/jquery.js") ?>"></script>
+    <script type="text/javascript" src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
+    <script type="text/javascript" src="<?= cache_version("js/main.js") ?>"></script>
+    <script type="text/javascript" src="<?= cache_version("js/bar.js") ?>"></script>
 <?php
         echo $linkshtml;
     # XXX Below line for speed
 ?>
-    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/global.css" type="text/css">
-    <link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="<?php echo WEBPATH; ?>style/print.css" type="text/css" media="print">
+    <link rel="stylesheet" href="<?= cache_version("style/global.css") ?>" type="text/css">
+    <link rel="stylesheet" href="<?= cache_version("style/print.css") ?>" type="text/css" media="print">
 <?php
 
         if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {

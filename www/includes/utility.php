@@ -1116,3 +1116,12 @@ function redirect($url) {
     }
     exit;
 }
+
+function cache_version($file) {
+    static $version_hash = array();
+    if (!isset($version_hash[$file]) || DEVSITE) {
+        $version_hash[$file] = stat(BASEDIR . "/$file")[9];
+        $file .= '?' . $version_hash[$file];
+    }
+    return WEBPATH . $file;
+}
