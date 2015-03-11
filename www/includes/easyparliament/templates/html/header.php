@@ -28,22 +28,20 @@
     <meta property="og:description" content="TheyWorkForYou is a website which makes it easy to keep track of your local MP's activities.">
     <meta property="fb:admins" content="143203489083755">
 
-    <script type="text/javascript" src="/js/jquery.js"></script>
-    <script type="text/javascript" src="/js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="/js/jquery.fittext.js"></script>
-    <script type="text/javascript" src="/jslib/share/share.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/bar.js"></script>
-    <script type="text/javascript" src="/js/custom.modernizr.js"></script>
+    <script type="text/javascript" src="<?= cache_version("js/jquery.js") ?>"></script>
+    <script type="text/javascript" src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
+    <script type="text/javascript" src="<?= cache_version("js/jquery.fittext.js") ?>"></script>
+    <script type="text/javascript" src="<?= cache_version("js/main.js") ?>"></script>
+    <script type="text/javascript" src="<?= cache_version("js/bar.js") ?>"></script>
+    <script type="text/javascript" src="<?= cache_version("js/custom.modernizr.js") ?>"></script>
 
     <?php foreach ($header_links as $link): ?>
     <link rel="<?= $link['rel'] ?>" title="<?= $link['title'] ?>" href="<?= $link['href'] ?>">
     <?php endforeach; ?>
 
-    <link rel="stylesheet" href="<?= WEBPATH ?>style/stylesheets/app.css" type="text/css">
-    <!--[if IE 8]><link rel="stylesheet" href="<?= WEBPATH ?>style/stylesheets/ie8.css" type="text/css"><![endif]-->
-    <link rel="stylesheet" href="/jslib/share/share.css" type="text/css" media="screen">
-    <script type="text/javascript" src="/js/respond.min.js"></script>
+    <link rel="stylesheet" href="<?= cache_version("style/stylesheets/app.css") ?>" type="text/css">
+    <!--[if IE 8]><link rel="stylesheet" href="<?= cache_version("style/stylesheets/ie8.css") ?>" type="text/css"><![endif]-->
+    <script type="text/javascript" src="<?= cache_version("js/respond.min.js") ?>"></script>
 
     <?php if (isset ($page_rss_url)): ?>
     <link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="<?= $page_rss_url ?>">
