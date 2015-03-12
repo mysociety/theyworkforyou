@@ -72,7 +72,7 @@ class Postcode
      */
     private static function postcodeToConstituencyInternal($postcode) {
         # Try and match with regexp to exclude non postcodes quickly
-        if (!validate_postcode($postcode))
+        if (!Validation::validatePostcode($postcode))
             return '';
 
         $db = new \ParlDB;

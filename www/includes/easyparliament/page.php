@@ -1009,7 +1009,7 @@ window.fbAsyncInit = function () {
             $url = $DATA->page_metadata($page, 'url');
 
             //check for external vs internal menu links
-            if (!valid_url($url)) {
+            if (!\MySociety\TheyWorkForYou\Utility\Validation::validateUrl($url)) {
                 $URL = new URL($page);
                 $url = $URL->generate();
             }

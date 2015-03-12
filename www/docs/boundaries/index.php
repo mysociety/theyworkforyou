@@ -14,7 +14,7 @@ $PAGE->page_start();
 
 $pc = get_http_var('pc');
 $pc = ''; # No form submissions, please
-if ($pc && !validate_postcode($pc)) {
+if ($pc && !\MySociety\TheyWorkForYou\Utility\Validation::validatePostcode($pc)) {
     print '<p class="error">Sorry, that doesn&rsquo;t appear to be a valid postcode.</p>';
     $pc = '';
 }

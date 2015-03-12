@@ -31,7 +31,7 @@ if (get_http_var("submitted")) {
 
     if ($email == "") {
         $errors["email"] = "Please enter your email address";
-    } elseif (!validate_email($email)) {
+    } elseif (!\MySociety\TheyWorkForYou\Utility\Validation::validateEmail($email)) {
         $errors["email"] = "Please enter a valid email address";
     } else {
 

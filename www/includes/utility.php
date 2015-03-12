@@ -237,45 +237,6 @@ function adodb_backtrace($print=true)
   return $s;
 }
 
-// Far from foolproof, but better than nothing.
-function validate_email($string) {
-    if (!preg_match('/^[-!#$%&\'*+\\.\/0-9=?A-Z^_`a-z{|}~]+'.
-        '@'.
-        '[-!#$%&\'*.\\+\/0-9=?A-Z^_`a-z{|}~]+\.'.
-        '[-!#$%&\'*+\\.\/0-9=?A-Z^_`a-z{|}~]+$/', $string)) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function validate_postcode($postcode) {
-    // See http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
-
-    $postcode = trim($postcode);
-
-    $in  = 'ABDEFGHJLNPQRSTUWXYZ';
-    $fst = 'ABCDEFGHIJKLMNOPRSTUWYZ';
-    $sec = 'ABCDEFGHJKLMNOPQRSTUVWXY';
-    $thd = 'ABCDEFGHJKSTUW';
-    $fth = 'ABEHMNPRVWXY';
-    $num = '0123456789';
-    $nom = '0123456789';
-    $gap = '\s\.';
-
-    if (    preg_match("/^[$fst][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
-            preg_match("/^[$fst][$num][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
-            preg_match("/^[$fst][$sec][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
-            preg_match("/^[$fst][$sec][$num][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
-            preg_match("/^[$fst][$num][$thd][$gap]*[$nom][$in][$in]$/i", $postcode) ||
-            preg_match("/^[$fst][$sec][$num][$fth][$gap]*[$nom][$in][$in]$/i", $postcode)
-        ) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 // Returns the unixtime in microseconds.
 function getmicrotime() {
     $mtime = microtime();
@@ -1096,14 +1057,6 @@ function score_to_strongly($dmpscore) {
     elseif ($dmpscore >= 0.0)
         $dmpdesc = "very strongly for";
     return $dmpdesc;
-}
-
-function valid_url($url) {
-    $return = false;
-    if (preg_match("/^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(:(\d+))?/i", $url)) {
-        $return = true;
-    }
-    return $return;
 }
 
 function redirect($url) {

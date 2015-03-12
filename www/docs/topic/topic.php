@@ -169,7 +169,7 @@ if (isset ($topics[$topicname]))
                 // User has submitted a postcode, so we want to display that.
                 $pc = get_http_var('pc');
                 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
-                if (validate_postcode($pc)) {
+                if (\MySociety\TheyWorkForYou\Utility\Validation::validatePostcode($pc)) {
                     twfy_debug ('MP', "MP lookup by postcode");
                     $constituency = strtolower(MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc));
                     if ($constituency == "connection_timed_out") {

@@ -264,8 +264,8 @@ function check_input($details) {
         if ($details["email"] == "") {
             $errors["email"] = "Please enter $who email address";
 
-        } elseif (!validate_email($details["email"])) {
-            // validate_email() is in includes/utilities.php
+        } elseif (!\MySociety\TheyWorkForYou\Utility\Validation::validateEmail($details["email"])) {
+            // \MySociety\TheyWorkForYou\Utility\Validation::validateEmail() is in includes/utilities.php
             $errors["email"] = "Please enter a valid email address";
 
         } else {
@@ -326,7 +326,7 @@ function check_input($details) {
     }
 
     // Check postcode (which is not a compulsory field).
-    if ($details["postcode"] != "" && !validate_postcode($details["postcode"])) {
+    if ($details["postcode"] != "" && !\MySociety\TheyWorkForYou\Utility\Validation::validatePostcode($details["postcode"])) {
         $errors["postcode"] = "Sorry, this isn't a valid UK postcode.";
     }
 

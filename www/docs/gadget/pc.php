@@ -7,7 +7,7 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $pc = $_GET['pc'];
 $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
-if (validate_postcode($pc)) {
+if (\MySociety\TheyWorkForYou\Utility\Validation::validatePostcode($pc)) {
     $constituency = MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc);
     if ($constituency == 'CONNECTION_TIMED_OUT') {
         error('Connection timed out');

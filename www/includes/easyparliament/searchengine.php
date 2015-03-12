@@ -769,7 +769,7 @@ function search_member_db_lookup($searchstring, $current_only=false) {
 // Returns a list of the array of constituencies, then a boolean saying whether
 // it was a postcode used.
 function search_constituencies_by_query($searchterm) {
-    if (validate_postcode($searchterm)) {
+    if (\MySociety\TheyWorkForYou\Utility\Validation::validatePostcode($searchterm)) {
         // Looks like a postcode - can we find the constituency?
         $constituency = MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($searchterm);
         if ($constituency) {

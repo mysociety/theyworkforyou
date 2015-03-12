@@ -38,14 +38,14 @@ $errors = array();
 $email = trim(get_http_var('email'));
 if (!$email) {
     $errors[] = 'Please enter your e-mail address';
-} elseif (!validate_email($email)) {
+} elseif (!\MySociety\TheyWorkForYou\Utility\Validation::validateEmail($email)) {
     $errors[] = 'Please enter a valid e-mail address';
 }
 $postcode = trim(get_http_var('postcode'));
 $postcode = preg_replace('#[^A-Z0-9]#i', '', $postcode);
 if (!$postcode) {
     $errors[] = 'Please enter your postcode';
-} elseif (!validate_postcode($postcode)) {
+} elseif (!\MySociety\TheyWorkForYou\Utility\Validation::validatePostcode($postcode)) {
     $errors[] = 'Please enter a valid postcode';
 }
 

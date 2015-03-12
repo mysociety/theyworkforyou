@@ -24,7 +24,7 @@ if (!$pid)
     $errors[] = 'You did not get to this page from an MP or Peer page. Please go back and try again.';
 if (!preg_match('#^[^@]+@#', $recipient_email))
     $errors[] = "'$recipient_email' is not a valid recipient email address. Please have another go.";
-if (!validate_email($sender_email))
+if (!\MySociety\TheyWorkForYou\Utility\Validation::validateEmail($sender_email))
     $errors[] = "'$sender_email' is not a valid sender email address. Please have another go.";
 if (!$sender_name)
     $errors[] = "If you don't give us your name, we can't tell the recipient who sent them the link. We won't store it or use for any other purpose than sending this email.";

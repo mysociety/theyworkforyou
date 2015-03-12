@@ -23,7 +23,7 @@ function api_getConstituency_front() {
 function api_getConstituency_postcode($pc) {
     $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
 
-    if (!validate_postcode($pc)) {
+    if (!\MySociety\TheyWorkForYou\Utility\Validation::validatePostcode($pc)) {
         api_error('Invalid postcode');
 
         return;

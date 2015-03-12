@@ -159,8 +159,8 @@ function check_input($details) {
     // Check email address is valid and unique.
     if (!$details['email']) {
         $errors["email"] = "Please enter your email address";
-    } elseif (!validate_email($details["email"])) {
-        // validate_email() is in includes/utilities.php
+    } elseif (!\MySociety\TheyWorkForYou\Utility\Validation::validateEmail($details["email"])) {
+        // \MySociety\TheyWorkForYou\Utility\Validation::validateEmail() is in includes/utilities.php
         $errors["email"] = "Please enter a valid email address";
     }
 
