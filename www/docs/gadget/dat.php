@@ -29,7 +29,7 @@ if ($image) $row['image'] = $image;
 
 foreach ($member->extra_info['office'] as $office) {
     if ($office['to_date'] == '9999-12-31' && $office['source'] == 'chgpages/selctee') {
-        $row['selctee'][] = prettify_office($office['position'], $office['dept']);
+        $row['selctee'][] = \MySociety\TheyWorkForYou\Utility\Office::prettifyOffice($office['position'], $office['dept']);
     }
 }
 

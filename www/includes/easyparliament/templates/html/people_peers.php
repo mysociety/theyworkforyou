@@ -69,7 +69,7 @@ foreach ($data['data'] as $pid => $peer) {
 <?php
 
 function manymins($p, $d) {
-    return prettify_office($p, $d);
+    return \MySociety\TheyWorkForYou\Utility\Office::prettifyOffice($p, $d);
 }
 
 function render_peers_row($peer, &$style, $order, $URL) {
@@ -100,7 +100,7 @@ function render_peers_row($peer, &$style, $order, $URL) {
                 <td class="row-<?php echo $style; ?>"><?php echo $party; ?></td>
                 <td class="row-<?php echo $style; ?>"><?php
     if (is_array($peer['dept'])) print join('<br>', array_map('manymins', $peer['pos'], $peer['dept']));
-    elseif ($peer['dept']) print prettify_office($peer['pos'], $peer['dept']);
+    elseif ($peer['dept']) print \MySociety\TheyWorkForYou\Utility\Office::prettifyOffice($peer['pos'], $peer['dept']);
     else print '&nbsp;'
 ?></td>
 

@@ -2130,7 +2130,7 @@ class HANSARDLIST {
                                     'dept' => $dept,
                                     'position' => $pos,
                                     'source' => $source,
-                                    'pretty' => prettify_office($pos, $dept)
+                                    'pretty' => \MySociety\TheyWorkForYou\Utility\Office::prettifyOffice($pos, $dept)
                                 );
                             }
                         }

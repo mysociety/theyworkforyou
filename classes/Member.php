@@ -131,7 +131,7 @@ class Member extends \MEMBER {
                     $include_office = FALSE;
                 }
 
-                $office_title = prettify_office($row['position'], $row['dept']);
+                $office_title = \MySociety\TheyWorkForYou\Utility\Office::prettifyOffice($row['position'], $row['dept']);
 
                 if (($priority_only AND in_array($office_title, $this->priority_offices))
                     OR !$priority_only) {

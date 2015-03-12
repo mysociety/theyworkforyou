@@ -185,8 +185,8 @@ if ($mp['left_reason'] == 'general_election_not_standing') {
                 <td class="row-<?php echo $style; ?>"><?php echo $mp['party']; ?></td>
                 <td class="row-<?php echo $style; ?>"><?php echo $mp['constituency']; ?></td>
                 <td class="row-<?php echo $style; ?>"><?php
-    if (is_array($mp['pos'])) print join('<br>', array_map('prettify_office', $mp['pos'], $mp['dept']));
-    elseif ($mp['pos'] || $mp['dept']) print prettify_office($mp['pos'], $mp['dept']);
+    if (is_array($mp['pos'])) print join('<br>', array_map('\MySociety\TheyWorkForYou\Utility\Office::prettifyOffice', $mp['pos'], $mp['dept']));
+    elseif ($mp['pos'] || $mp['dept']) print \MySociety\TheyWorkForYou\Utility\Office::prettifyOffice($mp['pos'], $mp['dept']);
     else print '&nbsp;';
 ?></td>
 <?php	if ($order == 'expenses') { ?>
