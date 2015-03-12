@@ -572,6 +572,12 @@
     margin-bottom: 1em;
 }
 
+.policy-vote-agree-disagree {
+  .button + .button {
+    margin-left: 1em;
+  }
+}
+
 .vote-descriptions {
   & > li {
     position: relative;

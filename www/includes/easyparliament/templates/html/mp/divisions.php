@@ -192,6 +192,11 @@ $policyinformation = array(
                                     <?= $full_name ?> voted strongly against <?= $policies[$policy['policy_id']] ?>
                                 </h3>
 
+                                <p class="policy-vote-agree-disagree">
+                                    <button class="button">I agree</button>
+                                    <button class="button button--negative">I disagree</button>
+                                </p>
+
                                 <ul class="vote-descriptions policy-votes">
                                 <?php foreach ($policy['divisions'] as $division): ?>
                                     <li class="<?= $division['strong'] ? 'policy-vote--major' : 'policy-vote--minor' ?>">
