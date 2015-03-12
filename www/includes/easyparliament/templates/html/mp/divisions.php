@@ -197,6 +197,8 @@ $policyinformation = array(
                                     <button class="button button--negative">I disagree</button>
                                 </p>
 
+                                <h3 class="policy-votes-list-header">Key votes about <?= $policies[$policy['policy_id']] ?>:</h3>
+
                                 <ul class="vote-descriptions policy-votes">
                                 <?php foreach ($policy['divisions'] as $division): ?>
                                     <li class="<?= $division['strong'] ? 'policy-vote--major' : 'policy-vote--minor' ?>">
@@ -211,7 +213,21 @@ $policyinformation = array(
 
                                 <?php endforeach; ?>
                                 </ul>
-                                <p class="policy-votes__byline">Vote information from <a href="http://www.publicwhip.org.uk">PublicWhip</a></p>
+
+                                <div class="policy-votes-list-footer">
+                                    <p class="policy-votes__byline">Vote information from <a href="http://www.publicwhip.org.uk">PublicWhip</a></p>
+                                    <p><button class="button secondary-button small js-show-all-votes">Show all votes, including 2 less important votes</button></p>
+                                </div>
+
+                                <script type="text/javascript">
+                                $(function(){
+                                    $('.js-show-all-votes').on('click', function(){
+                                        $(this).fadeOut();
+                                        $('.policy-vote--minor').slideDown();
+                                    });
+                                })
+                                </script>
+
                             </div>
                         <?php endforeach; ?>
 

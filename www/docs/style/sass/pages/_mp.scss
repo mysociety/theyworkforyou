@@ -578,6 +578,10 @@
   }
 }
 
+.policy-votes-list-header {
+    margin-top: 2em;
+}
+
 .vote-descriptions {
   & > li {
     position: relative;
@@ -604,16 +608,17 @@
 }
 
 .policy-vote--minor {
-    color: #b5af9d; // desaturated taupe colour
-    line-height: 1.3em !important;
+    display: none;
+    padding-left: 1.5em;
+    line-height: 1.3em !important; // override .vote-descriptions .policy-votes > li
 
-    span {
+    .policy-vote__text,
+    .policy-vote__date {
         font-size: 0.9em;
     }
 
-    .policy-vote__date {
-        color: inherit;
-        display: inline;
+    .policy-vote__text {
+        color: #666;
     }
 }
 
@@ -656,15 +661,32 @@
   }
 }
 
+.policy-votes-list-footer {
+    p {
+        margin-bottom: 0.5em;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+
+    @media (min-width: $medium-screen) {
+        margin-top: 2em;
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+}
+
 .policy-votes__byline {
     font-size: 0.8em;
     color: #cfcabb; // light desaturated taupe colour
-    margin-bottom: 0;
 
     @media (min-width: $medium-screen) {
-        text-align: right;
+        float: right;
+        margin-top: 0.3em; // line up baseline with "show all votes" button
         margin-right: 1em; // line up with "Show full debate" links
-        margin-top: 2em;
     }
 }
 
