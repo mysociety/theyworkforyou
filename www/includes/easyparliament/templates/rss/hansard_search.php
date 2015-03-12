@@ -24,9 +24,9 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
     for ($i=0; $i<count($data['rows']); $i++) {
         $row = $data['rows'][$i];
 
-        $hdate = format_date($row['hdate'], 'D, d M Y');
+        $hdate = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($row['hdate'], 'D, d M Y');
         if (isset($row['htime']) && $row['htime'] != NULL) {
-            $htime = format_time($row['htime'], 'H:i:s');
+            $htime = \MySociety\TheyWorkForYou\Utility\DateTime::formatTime($row['htime'], 'H:i:s');
         } else {
             $htime = '00:00:00';
         }
@@ -37,7 +37,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
         if (isset($row['parent']) && count($row['parent']) > 0) {
             echo strip_tags($row['parent']['body']);
         }
-        echo (' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ')');
+        echo (' (' . \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($row['hdate'], SHORTDATEFORMAT) . ')');
 ?></title>
 <link>http://www.theyworkforyou.com<?=$row['listurl'] ?></link>
 <pubDate><?=$date ?></pubDate>

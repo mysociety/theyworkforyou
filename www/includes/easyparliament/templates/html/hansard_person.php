@@ -25,7 +25,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
             $text = "<a name=\"n$count\"></a><strong><a href=\"" . $row['listurl'] . "\">$text</a></strong> ";
         }
 
-        $text .= '<small>' . format_date($row['hdate'], SHORTDATEFORMAT);
+        $text .= '<small>' . \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($row['hdate'], SHORTDATEFORMAT);
 
         if ($hansardmajors[$row['major']]['type'] == 'debate') {
             $plural = $row['total_speeches'] == 1 ? 'speech' : 'speeches';

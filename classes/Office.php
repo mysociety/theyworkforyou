@@ -58,7 +58,7 @@ class Office {
     public function pretty_dates() {
 
         if ($this->to_date == '9999-12-31') {
-            return 'since ' . format_date($this->from_date, SHORTDATEFORMAT);
+            return 'since ' . Utility\DateTime::formatDate($this->from_date, SHORTDATEFORMAT);
         }
 
         $output = '';
@@ -70,7 +70,7 @@ class Office {
             if ($this->source == 'chgpages/privsec' && $this->from_date == '2005-11-10') {
                 $output .= 'before ';
             }
-            $output .= format_date($this->from_date,SHORTDATEFORMAT) . ' ';
+            $output .= Utility\DateTime::formatDate($this->from_date,SHORTDATEFORMAT) . ' ';
         }
 
         $output .= 'to ';
@@ -82,7 +82,7 @@ class Office {
         if ($this->source == 'chgpages/privsec' && $this->to_date == '2009-01-16') {
             $output .= '<a href="/help/#pps_unknown">unknown</a>';
         } else {
-            $output .= format_date($this->to_date, SHORTDATEFORMAT);
+            $output .= Utility\DateTime::formatDate($this->to_date, SHORTDATEFORMAT);
         }
 
         return $output;

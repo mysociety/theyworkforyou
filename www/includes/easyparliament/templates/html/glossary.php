@@ -92,8 +92,8 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
         <p> Posted on
 <?php
         list($date, $time) = explode(' ', $comment['posted']);
-        $date = format_date($date, SHORTDATEFORMAT);
-        $time = format_time($time, TIMEFORMAT);
+        $date = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($date, SHORTDATEFORMAT);
+        $time = \MySociety\TheyWorkForYou\Utility\DateTime::formatTime($time, TIMEFORMAT);
 
         echo $date; ?>,
 <?php

@@ -46,7 +46,7 @@ Why not explore our extensive archive using the search box above?');
 function calendar_date($date) {
     global $DATA, $this_page;
 
-    $DATA->set_page_metadata($this_page, 'title', format_date($date, LONGERDATEFORMAT));
+    $DATA->set_page_metadata($this_page, 'title', \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($date, LONGERDATEFORMAT));
 
     $db = new ParlDB();
 
@@ -79,7 +79,7 @@ function calendar_past_date($date) {
     $q = $db->query("SELECT MIN(hdate) AS hdate FROM hansard WHERE hdate > '$date'");
     if ($q->rows() > 0 && $q->field(0, 'hdate') != NULL) {
         $URL->insert( array( 'd'=>$q->field(0, 'hdate') ) );
-        $title = format_date($q->field(0, 'hdate'), SHORTDATEFORMAT);
+        $title = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($q->field(0, 'hdate'), SHORTDATEFORMAT);
         $nextprevdata['next'] = array (
             'hdate'         => $q->field(0, 'hdate'),
             'url'           => $URL->generate(),
@@ -90,7 +90,7 @@ function calendar_past_date($date) {
     $q = $db->query("SELECT MAX(hdate) AS hdate FROM hansard WHERE hdate < '$date'");
     if ($q->rows() > 0 && $q->field(0, 'hdate') != NULL) {
         $URL->insert( array( 'd'=>$q->field(0, 'hdate') ) );
-        $title = format_date($q->field(0, 'hdate'), SHORTDATEFORMAT);
+        $title = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($q->field(0, 'hdate'), SHORTDATEFORMAT);
         $nextprevdata['prev'] = array (
             'hdate'         => $q->field(0, 'hdate'),
             'url'           => $URL->generate(),

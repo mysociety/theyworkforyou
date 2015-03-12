@@ -51,7 +51,7 @@ foreach ($data['data'] as $debate) {
         $debateline .= $debate['parent']['body'] . ': ';
     }
     $debateline .= $debate['body'] . '</a> <small>'
-        . format_date($debate['hdate'], LONGERDATEFORMAT)
+        . \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($debate['hdate'], LONGERDATEFORMAT)
         . '; ' . implode(', ', $extrainfo)
         . '</small>';
 ?>

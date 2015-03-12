@@ -13,12 +13,12 @@ foreach ($all_news as $id => $news_row) {
     $ym = substr($date, 0, 7);
     if ($ym != $last) {
         $url = WEBPATH . "news/archives/".str_replace("-", "/", $ym);
-        print "<a href=\"$url\">".format_date($ym."-01", "F Y")."</a>";
+        print "<a href=\"$url\">".\MySociety\TheyWorkForYou\Utility\DateTime::formatDate($ym."-01", "F Y")."</a>";
         print "<br>";
         $last = $ym;
     }
 
-    #	print "<h3>" . format_date(substr($date, 0, 10), LONGDATEFORMAT) . "</h3>";
+    #	print "<h3>" . \MySociety\TheyWorkForYou\Utility\DateTime::formatDate(substr($date, 0, 10), LONGDATEFORMAT) . "</h3>";
 }
 
 print "</p>";

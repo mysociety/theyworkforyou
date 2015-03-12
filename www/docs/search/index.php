@@ -42,7 +42,7 @@ if (get_http_var('adv') || $warning || !$searchstring) {
     // We're searching for something.
     $searchstring = filter_user_input($searchstring, 'strict');
     #$searchstring2 = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $searchstring));
-    #$time = parse_date($searchstring2);
+    #$time = \MySociety\TheyWorkForYou\Utility\DateTime::parseDate($searchstring2);
     #if ($time['iso']) {
     #    header('Location: /hansard/?d=' . $time['iso']);
     #    exit;
@@ -169,10 +169,10 @@ you will have to search for it separately.</p>
         print '</td> <td>';
         $pmindate = $speaker['pmindate'];
         $pmaxdate = $speaker['pmaxdate'];
-        if (format_date($pmindate, 'M Y') == format_date($pmaxdate, 'M Y')) {
-            print format_date($pmindate, 'M Y');
+        if (\MySociety\TheyWorkForYou\Utility\DateTime::formatDate($pmindate, 'M Y') == \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($pmaxdate, 'M Y')) {
+            print \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($pmindate, 'M Y');
         } else {
-            print str_replace(' ', '&nbsp;', format_date($pmindate, 'M Y') . ' &ndash; ' . format_date($pmaxdate, 'M Y'));
+            print str_replace(' ', '&nbsp;', \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($pmindate, 'M Y') . ' &ndash; ' . \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($pmaxdate, 'M Y'));
         }
         print '</td></tr>';
     }
@@ -333,7 +333,7 @@ function _find_members_internal($searchstring) {
             if ($q->field($n, 'person_id') != $last_pid) {
                 # First, stick the oldest entered house from last PID on to its end!
                 if ($entered_house)
-                    $members[count($members)-1][1] = format_date($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
+                    $members[count($members)-1][1] = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
                 $last_pid = $q->field($n, 'person_id');
                 if ($q->field($n, 'left_house') != '9999-12-31') {
                     $former = 'formerly ';
@@ -356,7 +356,7 @@ function _find_members_internal($searchstring) {
                     $s .= $party . ', ';
                 $s2 = ' &ndash; ';
                 if ($q->field($n, 'left_house') != '9999-12-31')
-                   $s2 .= format_date($q->field($n, 'left_house'), SHORTDATEFORMAT);
+                   $s2 .= \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($q->field($n, 'left_house'), SHORTDATEFORMAT);
                 $MOREURL = new URL('search');
                 $MOREURL->insert( array('pid'=>$last_pid, 'pop'=>1, 's'=>null) );
                 $s3 = ') &ndash; <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
@@ -365,7 +365,7 @@ function _find_members_internal($searchstring) {
             $entered_house = $q->field($n, 'entered_house');
         }
         if ($entered_house)
-            $members[count($members)-1][1] = format_date($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
+            $members[count($members)-1][1] = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
     }
 
     return $members;
@@ -423,10 +423,10 @@ function construct_search_string() {
     }
 
     if (get_http_var('from') || get_http_var('to')) {
-        $from = parse_date(get_http_var('from'));
+        $from = \MySociety\TheyWorkForYou\Utility\DateTime::parseDate(get_http_var('from'));
         if ($from) $from = $from['iso'];
         else $from = '1935-10-01';
-        $to = parse_date(get_http_var('to'));
+        $to = \MySociety\TheyWorkForYou\Utility\DateTime::parseDate(get_http_var('to'));
         if ($to) $to = $to['iso'];
         else $to = date('Y-m-d');
         $searchstring .= " $from..$to";

@@ -46,7 +46,7 @@ foreach ($data['data'] as $wran) {
     $speaker = $wran['child']['speaker'];
     echo '<dt><a name="w', $count, '"></a><strong><a href="', $wran['list_url'], '">';
     if ($wran['parent']['body']) echo $wran['parent']['body'], ': ';
-    echo $wran['body'], '</a></strong> <small>answered ', format_date($wran['hdate'], LONGDATEFORMAT),
+    echo $wran['body'], '</a></strong> <small>answered ', \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($wran['hdate'], LONGDATEFORMAT),
         $totalcomments, '</small></dt><dd>';
     if (sizeof($speaker)) {
         $body = preg_replace('/<p[^>]*>/', '', $wran['child']['body'], 1);

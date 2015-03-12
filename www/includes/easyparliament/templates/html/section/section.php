@@ -133,7 +133,7 @@
             } else {
                 $source['title'] .= 'HL';
             }
-            $source['title'] .= ' Deb, ' . format_date($data['info']['date'], LONGDATEFORMAT) . ', c' . $speech['colnum'];
+            $source['title'] .= ' Deb, ' . \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($data['info']['date'], LONGDATEFORMAT) . ', c' . $speech['colnum'];
             if ($major==2) {
                 $source['title'] .= 'WH';
             } elseif ($major==3) {
@@ -203,9 +203,9 @@
                 <?php if (!isset($previous_speech_time) || $previous_speech_time != $speech['htime']) { ?>
                     <a href="<?= $speech['listurl'] ?>" class="debate-speech__meta__link time">
                       <?php if ($speech['htime']) { ?>
-                        <?= format_time($speech['htime'], 'g:i a') ?>,
+                        <?= \MySociety\TheyWorkForYou\Utility\DateTime::formatTime($speech['htime'], 'g:i a') ?>,
                       <?php } ?>
-                        <?= format_date($speech['hdate'], 'jS F Y') ?>
+                        <?= \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($speech['hdate'], 'jS F Y') ?>
                     </a>
               <?php } ?>
 

@@ -59,8 +59,8 @@ if (count($data) > 0) {
     foreach ($data as $n => $trackback) {
 
         list($date, $time) = explode(' ', $trackback['posted']);
-        $date = format_date($date, SHORTDATEFORMAT);
-        $time = format_time($time, TIMEFORMAT);
+        $date = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($date, SHORTDATEFORMAT);
+        $time = \MySociety\TheyWorkForYou\Utility\DateTime::formatTime($time, TIMEFORMAT);
         ?>
         <dt><a href="<?php echo _htmlentities($trackback['url']); ?>"><?php echo _htmlentities($trackback['title']); ?></a></dt>
         <dd><?php echo _htmlentities($trackback['excerpt']); ?><br>

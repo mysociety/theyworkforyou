@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Name: alertmailer.php
  * Description: Mailer for email alerts
  * $Id: alertmailer.php,v 1.34 2009-06-23 10:11:10 matthew Exp $
@@ -228,7 +228,7 @@ foreach ($alertdata as $alertitem) {
 				if (isset($row['speaker']) && count($row['speaker'])) $body = member_full_name($row['speaker']['house'], $row['speaker']['title'], $row['speaker']['first_name'], $row['speaker']['last_name'], $row['speaker']['constituency']) . ': ' . $body;
 
 				$body = wordwrap($body, 72);
-				$o[$major] .= $parentbody . ' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ")\nhttp://www.theyworkforyou.com" . $row['listurl'] . "\n";
+				$o[$major] .= $parentbody . ' (' . \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($row['hdate'], SHORTDATEFORMAT) . ")\nhttp://www.theyworkforyou.com" . $row['listurl'] . "\n";
 				$o[$major] .= $body . "\n\n";
 			}
 			$total++;

@@ -40,15 +40,15 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
         if (isset($row['video_status']) && ($row['video_status'] == 5 || $row['video_status'] == 7)) {
             echo ' <small><em>has video</em></small> ';
         }
-    $year = 0; intval(format_date($row['hdate'], 'y'));
+    $year = 0; intval(\MySociety\TheyWorkForYou\Utility\DateTime::formatDate($row['hdate'], 'y'));
         ?></dt>
         <dd>
         <div class="appearance-date">
-            <div class="day"><?php echo format_date($row['hdate'], 'j' ) ?></div><!--
+            <div class="day"><?php echo \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($row['hdate'], 'j' ) ?></div><!--
             <?php if ($year < $cur_year) { ?>
-            --><div class="month"><?php echo format_date($row['hdate'], 'M y' ) ?></div>
+            --><div class="month"><?php echo \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($row['hdate'], 'M y' ) ?></div>
             <?php } else { ?>
-            --><div class="month"><?php echo format_date($row['hdate'], 'M' ) ?></div>
+            --><div class="month"><?php echo \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($row['hdate'], 'M' ) ?></div>
             <?php } ?>
         </div>
 

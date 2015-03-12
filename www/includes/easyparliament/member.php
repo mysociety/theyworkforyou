@@ -571,7 +571,7 @@ class MEMBER {
         } elseif ($month==0 && $day==0) {
             return $year;
         } elseif (checkdate($month, $day, $year) && $year != '9999') {
-            return format_date($entered_house, LONGDATEFORMAT);
+            return \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($entered_house, LONGDATEFORMAT);
         } else {
             return "n/a";
         }
@@ -587,7 +587,7 @@ class MEMBER {
         if (!$left_house) return '';
         list($year, $month, $day) = explode('-', $left_house);
         if (checkdate($month, $day, $year) && $year != '9999') {
-            return format_date($left_house, LONGDATEFORMAT);
+            return \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($left_house, LONGDATEFORMAT);
         } elseif ($month==0 && $day==0) {
             return $year;
         } else {

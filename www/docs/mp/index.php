@@ -1185,7 +1185,7 @@ function person_register_interests($member, $extra_info) {
 
     $reg = array( 'date' => '', 'data' => '<p>Nil</p>' );
     if (isset($extra_info['register_member_interests_date'])) {
-        $reg['date'] = format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
+        $reg['date'] = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
     }
     if ($extra_info['register_member_interests_html'] != '') {
         $reg['data'] = $extra_info['register_member_interests_html'];

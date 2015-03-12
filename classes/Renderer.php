@@ -117,7 +117,7 @@ class Renderer
                         }
 
                     } elseif (isset($nextprev[$type]['hdate'])) {
-                        $linktitle = format_date($nextprev[$type]['hdate'], SHORTDATEFORMAT);
+                        $linktitle = Utility\DateTime::formatDate($nextprev[$type]['hdate'], SHORTDATEFORMAT);
                     }
 
                     $data['header_links'][] = array(

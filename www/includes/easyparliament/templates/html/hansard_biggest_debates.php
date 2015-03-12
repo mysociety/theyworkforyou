@@ -54,7 +54,7 @@ foreach ($data['data'] as $debate) {
         $firstline = $debateline;
         $secondline = '';
     }
-    $secondline .= format_date($debate['hdate'], LONGERDATEFORMAT);
+    $secondline .= \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($debate['hdate'], LONGERDATEFORMAT);
 
     ?>
                 <dt><a name="d<?php echo $count; ?>"></a><?php echo $firstline; ?></dt>

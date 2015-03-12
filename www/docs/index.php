@@ -111,7 +111,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
 
 <?php if (count($last_dates[3])) { ?>
 <dt><a href="<?=$last_dates[3]['listurl']?>">Written answers</a>
-<small><?=format_date($last_dates[3]['hdate'], LONGERDATEFORMAT); ?></small>
+<small><?=\MySociety\TheyWorkForYou\Utility\DateTime::formatDate($last_dates[3]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
 <dd>The parliamentary question is a great way for MPs and peers to discover
 information from ministers which the government may not wish to reveal.
@@ -129,7 +129,7 @@ information from ministers which the government may not wish to reveal.
 if (count($last_dates[4])) {
 ?>
 <dt><a href="<?=$last_dates[4]['listurl']?>">Written ministerial statements</a>
-<small><?=format_date($last_dates[4]['hdate'], LONGERDATEFORMAT); ?></small>
+<small><?=\MySociety\TheyWorkForYou\Utility\DateTime::formatDate($last_dates[4]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
 <dd>Written ministerial statements were introduced to stop the practice of
 having &ldquo;planted&rdquo; questions to elicit Government statements.
@@ -148,7 +148,7 @@ $MOREURL = new URL('wmsfront');
 if (count($last_dates[6])) {
 ?>
 <dt><a href="<?=$last_dates[6]['listurl']?>">Public Bill committees</a>
-<small><?=format_date($last_dates[6]['hdate'], LONGERDATEFORMAT); ?></small>
+<small><?=\MySociety\TheyWorkForYou\Utility\DateTime::formatDate($last_dates[6]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
 <dd>Previously called Standing Committees, these study proposed legislation (bills) in detail, debating each clause and sending amendments to the Commons.
 
@@ -182,7 +182,7 @@ $PAGE->include_sidebar_template('front');
 if (count($last_dates[1])) {
 ?>
 <dt><a href="<?=$last_dates[1]['listurl']?>">Commons debates</a>
-<small><?=format_date($last_dates[1]['hdate'], LONGERDATEFORMAT); ?></small>
+<small><?=\MySociety\TheyWorkForYou\Utility\DateTime::formatDate($last_dates[1]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
 <dd>The main chamber of the House of Commons is where debates are held
 on a variety of topics, oral questions are answered, and new legislation is
@@ -200,7 +200,7 @@ $MOREURL = new URL('debatesfront');
 if (count($last_dates[2])) {
 ?>
 <dt><a href="<?=$last_dates[2]['listurl']?>">Westminster Hall</a>
-<small><?=format_date($last_dates[2]['hdate'], LONGERDATEFORMAT); ?></small>
+<small><?=\MySociety\TheyWorkForYou\Utility\DateTime::formatDate($last_dates[2]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
 <dd>Westminster Hall is a secondary MP debating chamber, in a horseshoe
 arrangement aimed at fostering a more constructive debate.
@@ -217,7 +217,7 @@ $MOREURL = new URL('whallfront');
 if (count($last_dates[101])) {
 ?>
 <dt><a href="<?=$last_dates[101]['listurl']?>">Lords debates</a>
-<small><?=format_date($last_dates[101]['hdate'], LONGERDATEFORMAT); ?></small>
+<small><?=\MySociety\TheyWorkForYou\Utility\DateTime::formatDate($last_dates[101]['hdate'], LONGERDATEFORMAT); ?></small>
 </dt>
 <dd>Peers from all parties (and crossbench and bishops) scrutinise government
 legislation and debate a variety of issues in the House of Lords main chamber.

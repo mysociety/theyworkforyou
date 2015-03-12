@@ -78,7 +78,7 @@ function api_getMembers_search($house, $s) {
 }
 
 function api_getMembers_date($house, $date) {
-    if ($date = parse_date($date)) {
+    if ($date = \MySociety\TheyWorkForYou\Utility\DateTime::parseDate($date)) {
         api_getMembers($house, '"' . $date['iso'] . '"');
     } else {
         api_error('Invalid date format');

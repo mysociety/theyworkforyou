@@ -91,7 +91,7 @@ Please be aware that changes in typography/styling at the source might mean some
     foreach ($files as $i => $_) {
         if ($_ <= $earliest) break;
         $iso = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $_);
-        $pretty = format_date($iso, LONGDATEFORMAT);
+        $pretty = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($iso, LONGDATEFORMAT);
         $oout = '';
         foreach ($data[$_] as $cat_type => $cat_data) {
             $old = array_key_exists($cat_type, $data[$files[$i+1]]) ? $data[$files[$i+1]][$cat_type] : '';
@@ -108,7 +108,7 @@ Please be aware that changes in typography/styling at the source might mean some
             $out .= span_row("<h2>$pretty - <a href=\"./?d=$iso#$p\">View full entry</a></h2>", true) . $oout;
     }
     $_ = $earliest;
-    $pretty = format_date(preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $_), LONGDATEFORMAT);
+    $pretty = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate(preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $_), LONGDATEFORMAT);
     $out .= span_row("<h2>$pretty (first entry we have)</h2>", true);
     if (array_key_exists($_, $nil)) {
         $out .= span_row('Nothing');
@@ -137,10 +137,10 @@ function register_history($f) {
     $old = $new+1;
     $old = $files[$old];
     $old_iso = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $old);
-    $old_pretty = format_date($old_iso, LONGDATEFORMAT);
+    $old_pretty = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($old_iso, LONGDATEFORMAT);
     $new = $files[$new];
     $new_iso = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $new);
-    $new_pretty = format_date($new_iso, LONGDATEFORMAT);
+    $new_pretty = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($new_iso, LONGDATEFORMAT);
     $old = file_get_contents($old);
     $new = file_get_contents($new);
 
@@ -256,7 +256,7 @@ function show_register($d) {
     if (!in_array($d, $files))
         $d = $files[0];
     $d_iso = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $d);
-    $d_pretty = format_date($d_iso, LONGDATEFORMAT);
+    $d_pretty = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($d_iso, LONGDATEFORMAT);
     $d = file_get_contents($d);
     $data = array();
     parse_file($d, 'only', $data);

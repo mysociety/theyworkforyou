@@ -280,8 +280,8 @@ class SectionView {
         // search string
         $data['email_alert_text'] = preg_replace('/(?:[:()\[\]]|&#\d+;)/', '', $data['email_alert_text']);
 
-        $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
-        $data['debate_day_human'] = format_date($first_speech['hdate'], 'jS F Y');
+        $data['debate_time_human'] = \MySociety\TheyWorkForYou\Utility\DateTime::formatTime($first_speech['htime'], 'g:i a');
+        $data['debate_day_human'] = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($first_speech['hdate'], 'jS F Y');
 
         $URL = new \URL($this->list->listpage);
         $URL->insert(array('d' => $first_speech['hdate']));

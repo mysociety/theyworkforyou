@@ -16,8 +16,8 @@ $rows = array();
 foreach ($search_recent as $row) {
     $host = gethostbyaddr($row['ip_address']);
     $host = trim_characters($host, strlen($host) - 25, 100);
-    $min_time = relative_time($row['min_time']);
-    $max_time = relative_time($row['max_time']);
+    $min_time = \MySociety\TheyWorkForYou\Utility\DateTime::relativeTime($row['min_time']);
+    $max_time = \MySociety\TheyWorkForYou\Utility\DateTime::relativeTime($row['max_time']);
     $min_time = str_replace(" ago", "", $min_time);
     $max_time = str_replace(" ago", "", $max_time);
     $rows[] = array (

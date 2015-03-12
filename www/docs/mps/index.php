@@ -24,9 +24,9 @@ function list_reps($type, $rep_plural, $search_sidebar) {
 
     $date = get_http_var('date');
     if ($date) {
-        $date = parse_date($date);
+        $date = \MySociety\TheyWorkForYou\Utility\DateTime::parseDate($date);
         if ($date) {
-            $DATA->set_page_metadata($this_page, 'title', $rep_plural . ', as on ' . format_date($date['iso'], LONGDATEFORMAT));
+            $DATA->set_page_metadata($this_page, 'title', $rep_plural . ', as on ' . \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($date['iso'], LONGDATEFORMAT));
             $args['date'] = $date['iso'];
         }
     } elseif (get_http_var('all')) {

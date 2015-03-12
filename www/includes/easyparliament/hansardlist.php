@@ -503,7 +503,7 @@ class HANSARDLIST {
             $URL->remove(array('id'));
             $things = $hansardmajors[$itemdata['major']]['title'];
             $nextprevdata['up'] = array(
-                'body'	=> "All $things on " . format_date($itemdata['hdate'], SHORTDATEFORMAT),
+                'body'	=> "All $things on " . \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($itemdata['hdate'], SHORTDATEFORMAT),
                 'title'	=> '',
                 'url' 	=> $URL->generate()
             );
@@ -562,7 +562,7 @@ class HANSARDLIST {
                     $body = 'Previous day';
                 }
 
-                $title = format_date($q->field(0, 'hdate'), SHORTDATEFORMAT);
+                $title = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($q->field(0, 'hdate'), SHORTDATEFORMAT);
 
                 $nextprevdata[$nextorprev] = array (
                     'hdate'		=> $q->field(0, 'hdate'),
@@ -865,7 +865,7 @@ class HANSARDLIST {
             for ($n=0; $n<$q->rows(); $n++) {
                 $rowdata = array();
 
-                $rowdata['body'] = format_date($q->field($n, 'hdate'), SHORTDATEFORMAT);
+                $rowdata['body'] = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($q->field($n, 'hdate'), SHORTDATEFORMAT);
                 $URL->insert(array('d'=>$q->field($n, 'hdate')));
                 $rowdata['listurl'] = $URL->generate();
 
@@ -3266,7 +3266,7 @@ class StandingCommittee extends DEBATELIST {
         for ($i=0; $i<$q->rows(); $i++) {
             $minor = $q->field($i, 'minor');
             $gid = $q->field($i, 'gid');
-            $hdate = format_date($q->field($i, 'hdate'), LONGDATEFORMAT);
+            $hdate = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($q->field($i, 'hdate'), LONGDATEFORMAT);
             $qq = $this->db->query('select title, session from bills where id='.$minor);
             $title = $qq->field(0, 'title');
             $session = $qq->field(0, 'session');

@@ -168,7 +168,7 @@ class Member extends \MEMBER {
         if ($this->other_parties && $this->party != 'Speaker' && $this->party != 'Deputy Speaker') {
             $output = 'Changed party ';
             foreach ($this->other_parties as $r) {
-                $other_parties[] = 'from ' . $r['from'] . ' on ' . format_date($r['date'], SHORTDATEFORMAT);
+                $other_parties[] = 'from ' . $r['from'] . ' on ' . Utility\DateTime::formatDate($r['date'], SHORTDATEFORMAT);
             }
             $output .= join('; ', $other_parties);
             return $output;

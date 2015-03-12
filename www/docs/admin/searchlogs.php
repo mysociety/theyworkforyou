@@ -16,7 +16,7 @@ $rows = array();
 foreach ($search_recent as $row) {
     $host = gethostbyaddr($row['ip_address']);
     $host = trim_characters($host, strlen($host) - 25, 100);
-    $time = relative_time($row['query_time']);
+    $time = \MySociety\TheyWorkForYou\Utility\DateTime::relativeTime($row['query_time']);
     $time = str_replace(" ago", "", $time);
     $rows[] = array (
         '<a href="'.$row['url'].'">' . _htmlentities($row['query']) . '</a>',

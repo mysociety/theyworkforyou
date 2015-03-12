@@ -75,7 +75,7 @@ class SpwransView extends WransView {
             }
             $reference = FALSE;
             $inner = "BUG: Unknown mention type $row[type]";
-            $date = format_date($row['date'], SHORTDATEFORMAT);
+            $date = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($row['date'], SHORTDATEFORMAT);
             $url = $row['url'];
             if ( strpos($url, 'business/businessBulletin') !== FALSE ) {
                 $url = str_replace('www.scottish', 'archive.scottish', $url);

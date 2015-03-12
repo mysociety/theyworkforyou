@@ -116,8 +116,8 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
         $USERURL->insert(array('u'=>$comment['user_id']));
 
         list($date, $time) = explode(' ', $comment['posted']);
-        $date = format_date($date, SHORTDATEFORMAT);
-        $time = format_time($time, TIMEFORMAT);
+        $date = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($date, SHORTDATEFORMAT);
+        $time = \MySociety\TheyWorkForYou\Utility\DateTime::formatTime($time, TIMEFORMAT);
         ?>
                     <p class="credit"><a href="<?php echo $USERURL->generate(); ?>" title="See information about this user"><strong><?php echo _htmlentities($comment['firstname']) .' '. _htmlentities($comment['lastname']); ?></strong></a><br>
                     <small>Posted on <?php echo $date;

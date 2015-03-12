@@ -51,7 +51,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
         if (isset($row['parent']) && count($row['parent']) > 0) {
             echo ('<strong>' . $row['parent']['body'] . '</strong>');
         }
-        echo ('</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT) . ')</small>');
+        echo ('</a> <small>(' . \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($row['hdate'], SHORTDATEFORMAT) . ')</small>');
         ?></dt>
                     <dd><p><?php
 

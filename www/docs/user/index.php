@@ -957,7 +957,7 @@ function display_user($user_id="", $email_changed=false) {
         if (isset($registrationtime)) {
             // Make registration time more user-friendly.
             list($date, $time) = explode(' ', $registrationtime);
-            $registrationtime = format_date ($date, LONGDATEFORMAT);
+            $registrationtime = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($date, LONGDATEFORMAT);
         }
 
 

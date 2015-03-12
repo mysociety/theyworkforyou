@@ -88,9 +88,9 @@ function calendar_meta($e) {
 
     if ($e['time_start'] || $e['location']) {
         if ($e['time_start']) {
-            $time = format_time($e['time_start'], TIMEFORMAT);
+            $time = \MySociety\TheyWorkForYou\Utility\DateTime::formatTime($e['time_start'], TIMEFORMAT);
             if ($e['time_end'])
-                $time .= ' &#8211; ' . format_time($e['time_end'], TIMEFORMAT);
+                $time .= ' &#8211; ' . \MySociety\TheyWorkForYou\Utility\DateTime::formatTime($e['time_end'], TIMEFORMAT);
             $meta[] = $time;
         }
         if ($e['location'])

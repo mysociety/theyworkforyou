@@ -166,7 +166,7 @@ class PAGE {
                         }
 
                     } elseif (isset($nextprev[$type]['hdate'])) {
-                        $linktitle = format_date($nextprev[$type]['hdate'], SHORTDATEFORMAT);
+                        $linktitle = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($nextprev[$type]['hdate'], SHORTDATEFORMAT);
                     }
 
                     $linkshtml .= "\t<link rel=\"$type\" title=\"$linktitle\" href=\"" . $nextprev[$type]['listurl'] . "\">\n";
@@ -1394,7 +1394,7 @@ pr()//-->
             if ($page_title != '') {
                 $page_title .= ': ';
             }
-            $page_title .= format_date ($info['date'], SHORTDATEFORMAT);
+            $page_title .= \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($info['date'], SHORTDATEFORMAT);
         }
 
         if ($page_title != '') {
@@ -1403,7 +1403,7 @@ pr()//-->
 
         if (isset($info['date'])) {
             // Set the page heading (displayed on the page).
-            $page_heading = format_date($info['date'], LONGERDATEFORMAT);
+            $page_heading = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($info['date'], LONGERDATEFORMAT);
             $DATA->set_page_metadata($this_page, 'heading', $page_heading);
         }
 
@@ -1489,8 +1489,8 @@ pr()//-->
         if ($name) {
             $message = 'The Houses of Parliament are in their ' . $name . ' ';
             if ($from && $to) {
-                $from = format_date($from, SHORTDATEFORMAT);
-                $to = format_date($to, SHORTDATEFORMAT);
+                $from = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($from, SHORTDATEFORMAT);
+                $to = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($to, SHORTDATEFORMAT);
                 if (substr($from, -4, 4) == substr($to, -4, 4)) {
                     $from = substr($from, 0, strlen($from) - 4);
                 }

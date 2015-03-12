@@ -25,7 +25,7 @@ switch ($action) {
                 $body .= $rmi;
         if (isset($member->extra_info['register_member_interests_date'])) {
             $body .= '<div class="rmi-lastupdate">Register last updated: ';
-            $body .= format_date($member->extra_info['register_member_interests_date'], SHORTDATEFORMAT);
+            $body .= \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($member->extra_info['register_member_interests_date'], SHORTDATEFORMAT);
             $body .= '. </div>';
             }
                 $body .= mysociety_footer();

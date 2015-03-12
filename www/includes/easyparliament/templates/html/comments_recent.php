@@ -30,14 +30,14 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 
         $commenttext = trim_characters($comment['body'], 0, 200, 40);
         list($date, $time) = explode(' ', $comment['posted']);
-        $date = format_date($date, SHORTDATEFORMAT);
-        $time = format_time($time, TIMEFORMAT);
+        $date = \MySociety\TheyWorkForYou\Utility\DateTime::formatDate($date, SHORTDATEFORMAT);
+        $time = \MySociety\TheyWorkForYou\Utility\DateTime::formatTime($time, TIMEFORMAT);
 
         $count = $n+1;
 
         $USERURL->insert(array('u'=>$comment['user_id']));
 
-        ?><a name="c<?php echo $count; ?>"></a><strong><?php echo _htmlentities($comment['firstname'] . ' ' . $comment['lastname']); ?>:</strong> <?php echo $commenttext; ?> <small>(<?php echo relative_time($comment['posted']); ?>)</small><br><a href="<?php echo $comment['url']; ?>">Read annotation</a> | <a href="<?php echo $USERURL->generate(); ?>" title="See more information about this user">All by this user</a> </li>
+        ?><a name="c<?php echo $count; ?>"></a><strong><?php echo _htmlentities($comment['firstname'] . ' ' . $comment['lastname']); ?>:</strong> <?php echo $commenttext; ?> <small>(<?php echo \MySociety\TheyWorkForYou\Utility\DateTime::relativeTime($comment['posted']); ?>)</small><br><a href="<?php echo $comment['url']; ?>">Read annotation</a> | <a href="<?php echo $USERURL->generate(); ?>" title="See more information about this user">All by this user</a> </li>
 <?php
     }
     ?>
