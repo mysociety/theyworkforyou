@@ -42,7 +42,7 @@ function api_getMLA_id($id) {
 function api_getMLA_postcode($pc) {
     $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
     if (validate_postcode($pc)) {
-        $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc, true);
+        $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);
         if ($constituencies == 'CONNECTION_TIMED_OUT') {
             api_error('Connection timed out');
         } elseif (isset($constituencies['NIE'])) {

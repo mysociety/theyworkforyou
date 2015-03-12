@@ -28,7 +28,7 @@ class Postcode
 
         $start = getmicrotime();
         twfy_debug_timestamp();
-        $ret = self::postcodeToConstituencyInternal($postcode, true);
+        $ret = self::postcodeToConstituencyInternal($postcode);
         $duration = getmicrotime() - $start;
         twfy_debug ("TIME", "Postcode $postcode lookup took $duration seconds, returned " . is_string($ret) ? $ret : $ret['WMC']);
         twfy_debug_timestamp();
@@ -44,7 +44,6 @@ class Postcode
      * Postcode To Constituency (Internal)
      *
      * @param string $postcode The postcode to convert
-     * @param bool   $mp_only
      *
      * @return string|array
      */
@@ -56,7 +55,7 @@ class Postcode
             return $last_postcode_value;
         }
 
-        $ret = self::postcodeToConstituencyInternal($postcode, false);
+        $ret = self::postcodeToConstituencyInternal($postcode);
         if (is_string($ret)) return $ret;
 
         $last_postcode = $postcode;
@@ -68,11 +67,10 @@ class Postcode
      * Postcode To Constituency (Internal)
      *
      * @param string $postcode The postcode to convert.
-     * @param bool   $mp_only
      *
      * @return array
      */
-    private static function postcodeToConstituencyInternal($postcode, $mp_only=true) {
+    private static function postcodeToConstituencyInternal($postcode) {
         # Try and match with regexp to exclude non postcodes quickly
         if (!validate_postcode($postcode))
             return '';
@@ -97,15 +95,6 @@ class Postcode
                 return array('WMC' => $name);
             }
         }
-
-        # So as not to disturb Scot/NI lookup
-        #if ($mp_only) {
-        #    $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($postcode)));
-        #    if ($xml) {
-        #        if ($xml->error) return '';
-        #        return array('WMC' => iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency));
-        #    }
-        #}
 
         $filename = '/postcode/' . rawurlencode($postcode);
         $ch = curl_init('http://mapit.mysociety.org' . $filename);
@@ -166,7 +155,7 @@ class Postcode
      *
      * Turn a given postcode string into a canonical (trimmed, upper case, formatted) version.
      *
-     * @param string $postcode The postcode to make canonical.
+     * @param string $pc The postcode to make canonical.
      *
      * @return string The canonical version of the postcode.
      */
@@ -181,7 +170,7 @@ class Postcode
     /**
      * Is Postcode Scottish?
      *
-     * @param string $postcode The postcode
+     * @param string $pc The postcode
      *
      * @return bool Is the postcode Scottish?
      */
@@ -226,7 +215,7 @@ class Postcode
     /**
      * Is Postcode NI?
      *
-     * @param string $postcode The postcode
+     * @param string $pc The postcode
      *
      * @return bool Is the postcode NI?
      */
