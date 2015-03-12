@@ -5,8 +5,7 @@ General utility functions v1.1 (well, it was).
 
 */
 
-include_once INCLUDESPATH . '../../commonlib/phplib/email.php';
-include_once INCLUDESPATH . '../../commonlib/phplib/datetime.php';
+
 
 # Pass it a brief header word and some debug text and it'll be output.
 # If TEXT is an array, call the user function, assuming it's a class.

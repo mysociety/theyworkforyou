@@ -37,6 +37,10 @@ And now all the files we'll include on every page.
 require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
 
 include_once dirname(__FILE__) . '/../../../conf/general';
+
+include_once INCLUDESPATH . '../../commonlib/phplib/email.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/datetime.php';
+
 include_once INCLUDESPATH . 'utility.php';
 twfy_debug_timestamp("after including utility.php");
 
