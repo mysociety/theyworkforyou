@@ -98,8 +98,6 @@ if ($action{'links'}) {
         #$twig->parsefile($pwmembers . "wikipedia-standingdown.xml", ErrorContext => 2);
         print "  Bishops\n" if $verbose;
         $twig->parsefile($pwmembers . "diocese-bishops.xml", ErrorContext => 2);
-        print "  EDMs\n" if $verbose;
-        $twig->parsefile($pwmembers . "edm-links.xml", ErrorContext => 2);
         print "  BBC\n" if $verbose;
         $twig->parsefile($pwmembers . "bbc-links.xml", ErrorContext => 2);
         print "  BBC IDs\n" if $verbose;
@@ -108,9 +106,6 @@ if ($action{'links'}) {
         $twig->parsefile($pwmembers . "constituency-links.xml", ErrorContext => 2);
         print "  dates of birth\n" if $verbose;
         $twig->parsefile($pwmembers . "dates-of-birth.xml", ErrorContext => 2);
-        # TODO: Update Guardian links
-        print "  Guardian\n" if $verbose;
-        $twig->parsefile($pwmembers . "guardian-links.xml", ErrorContext => 2);
         # TODO: Update websites (esp. with new MPs)
         print "  Personal websites\n" if $verbose;
         $twig->parsefile($pwmembers . 'websites.xml', ErrorContext => 2);
@@ -469,11 +464,6 @@ sub makerankings {
                 $speeches = $thisrow[0];
                 $personinfohash->{$person_fullid}->{"wrans_answered_inlastyear"} += $speeches;
 
-                if ($left_house eq '9999-12-31' && $memberinfohash->{$fullid}->{"swing_to_lose_seat"})
-                {
-                        $memberinfohash->{$fullid}->{"swing_to_lose_seat_today"} = $memberinfohash->{$fullid}->{"swing_to_lose_seat"};
-                }
-
                 $tth = $dbh->prepare("select count(*) as c, body from hansard as h1
                                         left join epobject on h1.section_id = epobject.epobject_id
                                         where h1.major = 3 and h1.minor =
@@ -633,7 +623,6 @@ sub makerankings {
         enrankify($personinfohash, "only_asked_why", 0);
         enrankify($personinfohash, "Lthree_word_alliterations", 0);
         enrankify($personinfohash, "Lending_with_a_preposition", 0);
-        enrankify($memberinfohash, "swing_to_lose_seat_today", 0);
         enrankify($personinfohash, "reading_ease", 0);
         enrankify($personinfohash, "reading_year", 0);
         enrankify($personinfohash, "writetothem_responsiveness_mean_2005", 0);

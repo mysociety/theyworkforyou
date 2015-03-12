@@ -20,8 +20,6 @@ $row = array(
     'full_name' => $member->full_name(),
     'constituency' => $member->constituency(),
     'party' => $member->party_text(),
-    'majority_in_seat' => number_format($member->extra_info['majority_in_seat']),
-    'swing_to_lose_seat_today' => number_format($member->extra_info['swing_to_lose_seat_today']),
 );
 
 list($image, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($pid, true);

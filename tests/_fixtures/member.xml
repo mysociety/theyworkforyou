@@ -330,11 +330,6 @@
 			<field name="data_key">test_person_key</field>
 			<field name="data_value">Test Person Value</field>
 		</row>
-		<row>
-			<field name="person_id">16</field>
-			<field name="data_key">guardian_aristotle_id</field>
-			<field name="data_value">123456789</field>
-		</row>
 	</table_data>
 	<table_data name="postcode_lookup">
 	</table_data>

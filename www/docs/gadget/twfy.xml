@@ -114,8 +114,6 @@
             var party    = getValue(response, 'party');
             var cons     = getValue(response, 'constituency');
             var image    = getValue(response, 'image');
-            var majority = getValue(response, 'majority_in_seat');
-            var swing    = getValue(response, 'swing_to_lose_seat_today');
             var comm     = getArray(response, 'selctee');
             var pw       = getValue(response, 'pw_data');
 
@@ -134,11 +132,7 @@
 
 	    var html = ['<p><big><strong>', name, ' MP</strong></big><br/>',
 		    party, ', ', cons, '<br/>' ]
-        if (majority) {
-            html.push('Majority: ', majority, '. ')
-        }
         html.push('<a href="http://www.theyworkforyou.com/mp/?p=', pid, '" target="_blank">more</a></p>')
-	    // html.push('<p>Majority: ', majority, '</p>') // , ', ', swing, '% swing to lose</p>')
 
             _gel('recent-header').innerHTML = '';
             var logo = _IG_GetImage('http://www.theyworkforyou.com/gadget/twfy.png');

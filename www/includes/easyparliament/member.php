@@ -7,7 +7,6 @@ class MEMBER {
 
     public $member_id;
     public $person_id;
-        var $guardian_aristotle_id;
     public $first_name;
     public $title;
     public $last_name;
@@ -80,10 +79,7 @@ class MEMBER {
             $person_id = $this->postcode_to_person_id($args['postcode'], $house);
         } elseif (isset($args['person_id']) && is_numeric($args['person_id'])) {
             $person_id = $args['person_id'];
-        } elseif (isset($args['guardian_aristotle_id']) && is_numeric($args['guardian_aristotle_id'])) {
-                        $this->guardian_aristotle_id = $args['guardian_aristotle_id'];
-                        $person_id = $this->guardian_aristotle_id_to_person_id();
-            }
+        }
 
         if (!$person_id) {
             $this->valid = false;
@@ -362,19 +358,6 @@ class MEMBER {
         }
     }
 
-        function guardian_aristotle_id_to_person_id() {
-             $q = $this->db->query("SELECT person_id
-                                    FROM 	personinfo
-                                    WHERE	data_key = 'guardian_aristotle_id'
-                                    AND data_value = :guardian_aristotle_id",
-                  array(':guardian_aristotle_id' => $this->guardian_aristotle_id));
-             if ($q->rows > 0) {
-                  return $q->field(0, 'person_id');
-             } else {
-                  return false;
-             }
-        }
-
     public function set_users_mp() {
         // Is this MP THEUSER's MP?
         global $THEUSER;
@@ -440,17 +423,6 @@ class MEMBER {
             for ($row = 0; $row < $q->rows(); $row++) {
                 $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
             }
-
-            if (array_key_exists('guardian_mp_summary', $this->extra_info)) {
-                $guardian_url = $this->extra_info['guardian_mp_summary'];
-                $this->extra_info['guardian_biography'] = $guardian_url;
-            }
-                    if (array_key_exists('guardian_aristotle_id', $this->extra_info)) {
-                           $politics_base_url = 'http://politics.guardian.co.uk/person/';
-                           $aristotle_id = $this->extra_info['guardian_aristotle_id'];
-                           $this->extra_info['guardian_howtheyvoted'] =
-                                    $politics_base_url . "howtheyvoted/0,,-$aristotle_id,00.html";
-                    }
         }
 
         if (array_key_exists('public_whip_rebellions', $this->extra_info)) {

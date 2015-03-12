@@ -574,8 +574,7 @@
     }
 }
 
-a[href^="http://www.publicwhip.org"],
-a[href^="http://politics.guardian.co.uk"] {
+a[href^="http://www.publicwhip.org"] {
     &:after {
         content: "";
         display: inline-block;

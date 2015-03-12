@@ -1,1 +1,0 @@
-"|IFS=' ' && exec /usr/local/bin/procmail || exit 75 #fawkes"
