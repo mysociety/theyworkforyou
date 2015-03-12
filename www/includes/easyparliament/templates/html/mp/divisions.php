@@ -155,6 +155,17 @@ $policyinformation = array(
                     </div>
                     <?php endif; ?>
 
+                    <form action="some-action" class="panel panel--feedback">
+                        <p>
+                            <strong>This page is new!</strong>
+                            Is there anything else you&rsquo;d like to see on it?
+                        </p>
+                        <p>
+                            <input type="text" name="policy-page-suggestion" placeholder="I want to see&hellip;">
+                            <input type="submit" class="button small" value="Make it happen!">
+                        </p>
+                    </form>
+
                     <?php if ($has_voting_record): ?>
 
                         <?php $displayed_votes = FALSE; ?>

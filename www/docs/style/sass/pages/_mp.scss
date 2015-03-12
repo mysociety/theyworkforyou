@@ -487,6 +487,32 @@
             margin-bottom: 0;
         }
     }
+    .panel--feedback {
+        background-color: #ffc;
+        margin-bottom: 1em;
+
+        p {
+          margin-bottom: 0.5em;
+        }
+
+        p:last-child {
+          margin-bottom: 0.2em;
+        }
+
+        @media (min-width: $medium-screen) {
+          padding: em-calc(24); // up from em-calc(12) on mobile, em-calc(60) default desktop padding
+
+          input {
+            margin-bottom: 0;
+          }
+
+          input[type="text"] {
+            display: inline;
+            margin-right: 1em;
+            width: 75%;
+          }
+        }
+    }
     .policy-votes-hero {
         position: relative;
         margin-bottom: 0;
