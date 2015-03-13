@@ -59,7 +59,7 @@ class USER {
     public $user_id = "0";         // So we have an ID for non-logged in users reporting comments etc.
     public $firstname = "Guest";   // So we have something to print for non-logged in users.
     public $lastname = "";
-    public $password = "";         // This will be a crypt()ed version of a plaintext pw.
+    public $password = "";         // This will be a hashed version of a plaintext pw.
     public $email = "";
     public $emailpublic = "";      // boolean - can other users see this user's email?
     public $postcode = "";
@@ -163,8 +163,7 @@ class USER {
 
         $registrationtime = gmdate("YmdHis");
 
-        // We crypt all passwords going into DB.
-        $passwordforDB = crypt($details["password"]);
+        $passwordforDB = password_hash($details["password"], PASSWORD_BCRYPT);
 
         if (!isset($details["status"])) {
             $details["status"] = "User";
@@ -224,12 +223,12 @@ class USER {
 
             // We have to set the user's registration token.
             // This will be sent to them via email, so we can confirm they exist.
-            // The token will be the first 16 characters of a crypt.
+            // The token will be the first 16 characters of a hash.
 
-            $token = substr( crypt($details["email"] . microtime()), 12, 16 );
+            $token = substr( password_hash($details["email"] . microtime(), PASSWORD_BCRYPT), 29, 16 );
 
             // Full stops don't work well at the end of URLs in emails,
-            // so replace them. We won't be doing anything clever with the crypt
+            // so replace them. We won't be doing anything clever with the hash
             // stuff, just need to match this token.
 
             $this->registrationtoken = strtr($token, '.', 'X');
@@ -443,7 +442,7 @@ class USER {
 
         }
 
-        $passwordforDB = crypt($pwd);
+        $passwordforDB = password_hash($pwd, PASSWORD_BCRYPT);
 
         $q = $this->db->query ("UPDATE users SET password = :password WHERE email = :email",
             array(
@@ -712,8 +711,7 @@ class USER {
             // If not, the password fields on the form will be left blank
             // so we don't want to overwrite the user's pw in the DB!
 
-            // We crypt all passwords going into DB.
-            $passwordforDB = crypt($details["password"]);
+            $passwordforDB = password_hash($details["password"], PASSWORD_BCRYPT);
 
             $passwordsql = "password = :password, ";
             $params[':password'] = $passwordforDB;
@@ -955,9 +953,8 @@ class THEUSER extends USER {
 
         if ($q->rows() == 1) {
             // OK.
-            // The password in the DB is crypted.
             $dbpassword = $q->field(0,"password");
-            if (crypt($userenteredpassword, $dbpassword) == $dbpassword) {
+            if (password_verify($userenteredpassword, $dbpassword)) {
                 $this->user_id  = $q->field(0,"user_id");
                 $this->password = $dbpassword;
                 // We'll need these when we're going to log in.
@@ -1021,7 +1018,7 @@ class THEUSER extends USER {
         // user. We don't want it hanging around as it causes confusion.
         $this->unset_postcode_cookie();
 
-        // Reminder: $this->password is actually a crypted version of the plaintext pw.
+        // Reminder: $this->password is actually a hashed version of the plaintext pw.
         $cookie = $this->user_id() . "." . md5 ($this->password());
 
         if ($expire == 'never') {
@@ -1264,7 +1261,7 @@ class THEUSER extends USER {
                 }
 
                 if ($email && $email != $this->email) {
-                    $token = substr( crypt($email . microtime()), 12, 16 );
+                    $token = substr( password_hash($email . microtime(), PASSWORD_BCRYPT), 29, 16 );
                     $data = $this->user_id() . '::' . $email;
                     $r = $this->db->query("INSERT INTO tokens
                         ( expires, token, type, data )

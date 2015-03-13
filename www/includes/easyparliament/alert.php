@@ -223,15 +223,15 @@ class ALERT {
 
             // We have to set the alert's registration token.
             // This will be sent to them via email, so we can confirm they exist.
-            // The token will be the first 16 characters of a crypt.
+            // The token will be the first 16 characters of a hash.
 
             // This gives a code for their email address which is then joined
             // to the timestamp so as to provide a unique ID for each alert.
 
-            $token = substr( crypt($details["email"] . microtime() ), 12, 16 );
+            $token = substr( password_hash($details["email"] . microtime(), PASSWORD_BCRYPT), 29, 16 );
 
             // Full stops don't work well at the end of URLs in emails,
-            // so replace them. We won't be doing anything clever with the crypt
+            // so replace them. We won't be doing anything clever with the hash
             // stuff, just need to match this token.
 
             $this->registrationtoken = strtr($token, '.', 'X');
