@@ -18,10 +18,9 @@ config.set_file(os.path.abspath(package_dir + "/../conf/general"))
 
 # And now we have config, find parlparse
 sys.path.append( os.path.normpath(config.get('PWMEMBERS') + '../pyscraper') )
-sys.path.append( os.path.normpath(config.get('PWMEMBERS') + '../pyscraper/lords') )
 # This name matching could be done a lot better
 from resolvemembernames import memberList
-from resolvelordsnames import lordsList
+from lords.resolvenames import lordsList
 
 CALENDAR_URL = 'http://services.parliament.uk/calendar/all.rss'
 
