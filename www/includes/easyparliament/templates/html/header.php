@@ -10,13 +10,10 @@
     <?php endif; ?>
     <meta name="keywords" content="<?= _htmlentities($meta_keywords); ?>">
     <?php
-        if (DEVSITE) {
-            echo '<meta name="robots" content="noindex,nofollow">';
-        } elseif (!empty($page_data['robots'])) {
-            echo '<meta name="robots" content="' . $page_data['robots'] . '">';
+        if (!empty($robots)) {
+            echo '<meta name="robots" content="' . $robots . '">';
         }
     ?>
-
 
     <link rel="author" title="Send feedback" href="mailto:<?= str_replace('@', '&#64;', CONTACTEMAIL) ?>">
     <link rel="home" title="Home" href="http://<?= DOMAIN ?>/">

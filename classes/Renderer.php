@@ -422,6 +422,13 @@ class Renderer
         $data['footer_links']['international'] = self::get_menu_links(array ('newzealand', 'australia', 'ireland', 'mzalendo'));
         $data['footer_links']['tech'] = self::get_menu_links(array ('code', 'api', 'data', 'pombola', 'devmailinglist', 'irc'));
 
+        # Robots header
+        if (DEVSITE) {
+            $data['robots'] = 'noindex,nofollow';
+        } elseif ($robots = $DATA->page_metadata($this_page, 'robots')) {
+            $data['robots'] = $robots;
+        }
+
         ////////////////////////////////////////////////////////////
         // Unpack the data we've been passed so it's available for use in the templates.
 

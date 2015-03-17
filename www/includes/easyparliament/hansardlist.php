@@ -1775,15 +1775,15 @@ class HANSARDLIST {
                     }
                 }
 
+                if ($item['epobject_id'] == 15674958 || $item['epobject_id'] == 15674959) {
+                    global $DATA, $this_page;
+                    $DATA->set_page_metadata($this_page, 'robots', 'noindex');
+                }
+
                 // Get the number of items within a section or subsection.
                 // It could be that we can do this in the main query?
                 // Not sure.
                 if ( ($this->major && $hansardmajors[$this->major]['type']=='debate') && ($item['htype'] == '10' || $item['htype'] == '11') ) {
-
-                    if ($item['epobject_id'] == 15674958) {
-                        global $DATA, $this_page;
-                        $DATA->set_page_metadata($this_page, 'robots', 'noindex');
-                    }
 
                     if ($item['htype'] == '10') {
                         // Section - get a count of items within this section that
