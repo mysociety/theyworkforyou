@@ -286,13 +286,9 @@ class PAGE {
         ?>
 <body>
 
-<?php
-/*
 <div id="surveyPromoBanner" style="clear:both;padding:1em;margin-top:24px;background:#DDD;">
-Read the <a href="http://www.theyworkforyou.com/debates/?id=2014-03-19a.781.1">2014 Budget speech and debate</a>
+Read the <a href="http://www.theyworkforyou.com/debates/?id=2015-03-18a.765.1">2015 Budget speech and debate</a>
 </div>
-*/
-?>
 
 
 <div id="fb-root"></div>
