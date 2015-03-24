@@ -47,7 +47,7 @@ CREATE TABLE `hansard` (
   `epobject_id` int(11) NOT NULL default '0',
   `gid` varchar(100) default NULL,
   `htype` int(11) NOT NULL default '0',
-  `speaker_id` int(11) NOT NULL default '0',
+  `person_id` int(11) NOT NULL default '0',
   `major` int(11) NOT NULL default '0',
   `section_id` int(11) NOT NULL default '0',
   `subsection_id` int(11) NOT NULL default '0',
@@ -66,14 +66,14 @@ CREATE TABLE `hansard` (
   KEY `subsection_id` (`subsection_id`),
   KEY `section_id` (`section_id`),
   KEY `hdate` (`hdate`),
-  KEY `speaker_id` (`speaker_id`),
+  KEY `person_id` (`person_id`),
   KEY `major` (`major`),
   KEY `htype` (`htype`),
   KEY `majorhdate` (`major`,`hdate`),
   KEY `modified` (`modified`),
   KEY `source_url` (`source_url`),
   KEY `video_status` (`video_status`),
-  KEY `hansard_speaker_id_hdate_hpos` (`speaker_id`,`hdate`,`hpos`),
+  KEY `hansard_person_id_hdate_hpos` (`person_id`,`hdate`,`hpos`),
   KEY `hansard_major_minor_htype` (`major`,`minor`,`htype`)
 );
 
@@ -158,13 +158,13 @@ CREATE TABLE `bills` (
 
 CREATE TABLE `pbc_members` (
   `id` int(11) NOT NULL auto_increment,
-  `member_id` int(11) NOT NULL,
+  `person_id` int(11) NOT NULL,
   `chairman` tinyint(1) NOT NULL,
   `bill_id` int(11) NOT NULL,
   `sitting` varchar(4) NOT NULL,
   `attending` tinyint(1) NOT NULL,
   PRIMARY KEY  (`id`),
-  KEY `member_id` (`member_id`),
+  KEY `person_id` (`person_id`),
   KEY `bill_id` (`bill_id`)
 );
 

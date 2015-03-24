@@ -4,16 +4,16 @@ include_once "../www/includes/easyparliament/init.php";
 
 $db = new ParlDB;
 
-$q = $db->query('select distinct(speaker_id) from hansard where video_status in (5,7) and speaker_id>0 limit 5');
+$q = $db->query('select distinct(person_id) from hansard where video_status in (5,7) and person_id>0 limit 5');
 for ($i=0; $i<$q->rows(); $i++) {
-    $spid = $q->field($i, 'speaker_id');
+    $spid = $q->field($i, 'person_id');
     calculate_speed($db, $spid);
 }
 
 # 1604 = Diane Abbott
 #1629 = Boris
 function calculate_speed($db, $spid) {
-    $q = $db->query("select hpos,hdate,hansard.gid,htime,time_to_sec(atime) as atime,body from hansard,video_timestamps,epobject where hansard.gid=video_timestamps.gid and deleted=0 and video_status in (5,7) and speaker_id =$spid and epobject.epobject_id=hansard.epobject_id group by hansard.gid order by hansard.gid");
+    $q = $db->query("select hpos,hdate,hansard.gid,htime,time_to_sec(atime) as atime,body from hansard,video_timestamps,epobject where hansard.gid=video_timestamps.gid and deleted=0 and video_status in (5,7) and person_id =$spid and epobject.epobject_id=hansard.epobject_id group by hansard.gid order by hansard.gid");
     $total = 0;
     $total_words = 0;
     $total_speed = 0;
@@ -41,7 +41,7 @@ function calculate_speed($db, $spid) {
 
     $total_min = $total/60;
 
-    print "Member ID $spid\n";
+    print "Person ID $spid\n";
     print "Average length = " . ($total/$num) . "s\n";
     print "Average speed = " . ($total_words/$total_min) . "wpm\n";
     print "Average of speeds = " . ($total_speed/$num) . "wpm\n";

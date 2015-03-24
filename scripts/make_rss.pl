@@ -83,7 +83,8 @@ sub wms_rss {
                 h.epobject_id, m.house, m.title, m.first_name, m.last_name, m.constituency, m.person_id
         FROM hansard h, epobject e, member m
         WHERE h.major=4 AND htype=12 AND section_id != 0 AND subsection_id != 0
-        AND h.epobject_id = e.epobject_id AND h.speaker_id = m.member_id
+        AND h.epobject_id = e.epobject_id
+        AND h.person_id = m.person_id AND m.entered_house <= h.hdate and h.hdate <= m.left_house AND m.house IN (1,2)
         ORDER BY h.hdate desc, h.epobject_id desc LIMIT 20");
     $query->execute;
 

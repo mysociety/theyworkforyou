@@ -317,7 +317,7 @@
 	<table_data name="pbc_members">
 		<row>
 			<field name="id">1</field>
-			<field name="member_id">15</field>
+			<field name="person_id">16</field>
 			<field name="chairman">1</field>
 			<field name="bill_id">1</field>
 			<field name="sitting">01-0</field>

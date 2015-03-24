@@ -59,7 +59,7 @@ class HansardTest extends PHPUnit_Extensions_Database_TestCase
         $HANSARD = new HANSARDLIST();
 
         $args = array(
-            'member_ids' => '1,2'
+            'person_id' => '2'
         );
 
         $response = $HANSARD->_get_data_by_person($args);
@@ -153,10 +153,10 @@ class HansardTest extends PHPUnit_Extensions_Database_TestCase
     {
         $HANSARD = new HANSARDLIST();
 
-        $response = $HANSARD->_get_speaker(1, '2014-01-01');
+        $response = $HANSARD->_get_speaker(3, '2014-01-01', '00:00:00', 1);
 
         // Ensure the response is the expected object
-        $this->assertEquals(1, $response['member_id']);
+        $this->assertEquals(3, $response['person_id']);
     }
 
 }

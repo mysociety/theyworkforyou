@@ -62,19 +62,19 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
     }
 } elseif ($action == 'random' && $pid) {
     $db = new ParlDB;
-    $q = $db->query("select gid from hansard, member
-        where video_status in (1,3) and major=$major
+    $q = $db->query("select gid from hansard
+        where video_status in (1,3) and major=:major
         and (htype=12 or htype=13)
-        and hansard.speaker_id = member.member_id and person_id=$pid
-        ORDER BY RAND() LIMIT 1");
+        and hansard.person_id=:pid
+        ORDER BY RAND() LIMIT 1", array(':major' => $major, ':pid' => $pid));
     $new_gid = fix_gid_but_leave_section($q->field(0, 'gid'));
     header('Location: /video/?from=random&pid=' . $pid . '&gid=' . $new_gid);
 } elseif ($action == 'random') {
     $db = new ParlDB;
     $q = $db->query("select gid, hpos, hdate from hansard
-        where video_status in (1,3) and major=$major
+        where video_status in (1,3) and major=:major
         and (htype=12 or htype=13)
-        ORDER BY RAND() LIMIT 1");
+        ORDER BY RAND() LIMIT 1", array(':major' => $major));
     $gid = $q->field(0, 'gid');
     /*
     $hpos = $q->field(0, 'hpos');

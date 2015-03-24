@@ -67,7 +67,7 @@
 		<field name="epobject_id">100</field>
 		<field name="gid">uk.org.publicwhip/debate/2014-01-01b.1.1</field>
 		<field name="htype">10</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">1</field>
 		<field name="minor">0</field>
 		<field name="section_id">0</field>
@@ -80,7 +80,7 @@
 		<field name="epobject_id">101</field>
 		<field name="gid">uk.org.publicwhip/debate/2014-01-01b.1.2</field>
 		<field name="htype">11</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">1</field>
 		<field name="minor">0</field>
 		<field name="section_id">100</field>
@@ -93,7 +93,7 @@
 		<field name="epobject_id">102</field>
 		<field name="gid">uk.org.publicwhip/debate/2014-01-01b.1.3</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">1</field>
+		<field name="person_id">1</field>
 		<field name="major">1</field>
 		<field name="minor">0</field>
 		<field name="section_id">100</field>
@@ -106,7 +106,7 @@
 		<field name="epobject_id">200</field>
 		<field name="gid">uk.org.publicwhip/westminhall/2014-01-01b.1.1</field>
 		<field name="htype">10</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">2</field>
 		<field name="minor">0</field>
 		<field name="section_id">0</field>
@@ -119,7 +119,7 @@
 		<field name="epobject_id">201</field>
 		<field name="gid">uk.org.publicwhip/westminhall/2014-01-01b.1.2</field>
 		<field name="htype">11</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">2</field>
 		<field name="minor">0</field>
 		<field name="section_id">200</field>
@@ -132,7 +132,7 @@
 		<field name="epobject_id">202</field>
 		<field name="gid">uk.org.publicwhip/westminhall/2014-01-01b.1.3</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">1</field>
+		<field name="person_id">1</field>
 		<field name="major">2</field>
 		<field name="minor">0</field>
 		<field name="section_id">200</field>
@@ -145,7 +145,7 @@
 		<field name="epobject_id">300</field>
 		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.1</field>
 		<field name="htype">10</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">3</field>
 		<field name="minor">0</field>
 		<field name="section_id">0</field>
@@ -158,7 +158,7 @@
 		<field name="epobject_id">301</field>
 		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.2</field>
 		<field name="htype">11</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">3</field>
 		<field name="minor">0</field>
 		<field name="section_id">300</field>
@@ -171,7 +171,7 @@
 		<field name="epobject_id">302</field>
 		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.3</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">1</field>
+		<field name="person_id">1</field>
 		<field name="major">3</field>
 		<field name="minor">1</field>
 		<field name="section_id">300</field>
@@ -184,7 +184,7 @@
 		<field name="epobject_id">303</field>
 		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.4</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">2</field>
+		<field name="person_id">2</field>
 		<field name="major">3</field>
 		<field name="minor">2</field>
 		<field name="section_id">300</field>
@@ -197,7 +197,7 @@
 		<field name="epobject_id">304</field>
 		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.5</field>
 		<field name="htype">11</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">3</field>
 		<field name="minor">0</field>
 		<field name="section_id">300</field>
@@ -210,7 +210,7 @@
 		<field name="epobject_id">305</field>
 		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.6</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">1</field>
+		<field name="person_id">1</field>
 		<field name="major">3</field>
 		<field name="minor">1</field>
 		<field name="section_id">300</field>
@@ -223,7 +223,7 @@
 		<field name="epobject_id">306</field>
 		<field name="gid">uk.org.publicwhip/wrans/2014-01-01b.1.7</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">2</field>
+		<field name="person_id">2</field>
 		<field name="major">3</field>
 		<field name="minor">2</field>
 		<field name="section_id">300</field>
@@ -236,7 +236,7 @@
 		<field name="epobject_id">400</field>
 		<field name="gid">uk.org.publicwhip/wms/2014-01-01b.1.1</field>
 		<field name="htype">10</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">4</field>
 		<field name="minor">0</field>
 		<field name="section_id">0</field>
@@ -249,7 +249,7 @@
 		<field name="epobject_id">401</field>
 		<field name="gid">uk.org.publicwhip/wms/2014-01-01b.1.2</field>
 		<field name="htype">11</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">4</field>
 		<field name="minor">0</field>
 		<field name="section_id">400</field>
@@ -262,7 +262,7 @@
 		<field name="epobject_id">402</field>
 		<field name="gid">uk.org.publicwhip/wms/2014-01-01b.1.3</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">1</field>
+		<field name="person_id">1</field>
 		<field name="major">4</field>
 		<field name="minor">0</field>
 		<field name="section_id">400</field>
@@ -275,7 +275,7 @@
 		<field name="epobject_id">500</field>
 		<field name="gid">uk.org.publicwhip/ni/2014-01-01b.1.1</field>
 		<field name="htype">10</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">5</field>
 		<field name="minor">0</field>
 		<field name="section_id">0</field>
@@ -288,7 +288,7 @@
 		<field name="epobject_id">501</field>
 		<field name="gid">uk.org.publicwhip/ni/2014-01-01b.1.2</field>
 		<field name="htype">11</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">5</field>
 		<field name="minor">0</field>
 		<field name="section_id">500</field>
@@ -301,7 +301,7 @@
 		<field name="epobject_id">502</field>
 		<field name="gid">uk.org.publicwhip/ni/2014-01-01b.1.3</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">1</field>
+		<field name="person_id">1</field>
 		<field name="major">5</field>
 		<field name="minor">0</field>
 		<field name="section_id">500</field>
@@ -314,7 +314,7 @@
 		<field name="epobject_id">600</field>
 		<field name="gid">uk.org.publicwhip/standing/2014-01-01b.1.1</field>
 		<field name="htype">10</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">6</field>
 		<field name="minor">0</field>
 		<field name="section_id">0</field>
@@ -327,7 +327,7 @@
 		<field name="epobject_id">700</field>
 		<field name="gid">uk.org.publicwhip/spor/2014-01-01b.1.1</field>
 		<field name="htype">10</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">7</field>
 		<field name="minor">0</field>
 		<field name="section_id">0</field>
@@ -340,7 +340,7 @@
 		<field name="epobject_id">701</field>
 		<field name="gid">uk.org.publicwhip/spor/2014-01-01b.1.2</field>
 		<field name="htype">11</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">7</field>
 		<field name="minor">0</field>
 		<field name="section_id">700</field>
@@ -353,7 +353,7 @@
 		<field name="epobject_id">702</field>
 		<field name="gid">uk.org.publicwhip/spor/2014-01-01b.1.3</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">1</field>
+		<field name="person_id">1</field>
 		<field name="major">7</field>
 		<field name="minor">0</field>
 		<field name="section_id">700</field>
@@ -366,7 +366,7 @@
 		<field name="epobject_id">800</field>
 		<field name="gid">uk.org.publicwhip/spwa/2014-01-01b.1.2</field>
 		<field name="htype">10</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">8</field>
 		<field name="minor">0</field>
 		<field name="section_id">0</field>
@@ -379,7 +379,7 @@
 		<field name="epobject_id">801</field>
 		<field name="gid">uk.org.publicwhip/spwa/2014-01-01b.1.3</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">1</field>
+		<field name="person_id">1</field>
 		<field name="major">8</field>
 		<field name="minor">1</field>
 		<field name="section_id">800</field>
@@ -392,7 +392,7 @@
 		<field name="epobject_id">802</field>
 		<field name="gid">uk.org.publicwhip/spwa/2014-01-01b.1.4</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">2</field>
+		<field name="person_id">2</field>
 		<field name="major">8</field>
 		<field name="minor">2</field>
 		<field name="section_id">800</field>
@@ -405,7 +405,7 @@
 		<field name="epobject_id">10100</field>
 		<field name="gid">uk.org.publicwhip/lords/2014-01-01b.1.1</field>
 		<field name="htype">10</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">101</field>
 		<field name="minor">0</field>
 		<field name="section_id">0</field>
@@ -418,7 +418,7 @@
 		<field name="epobject_id">10101</field>
 		<field name="gid">uk.org.publicwhip/lords/2014-01-01b.1.2</field>
 		<field name="htype">11</field>
-		<field name="speaker_id">0</field>
+		<field name="person_id">0</field>
 		<field name="major">101</field>
 		<field name="minor">0</field>
 		<field name="section_id">10100</field>
@@ -431,7 +431,7 @@
 		<field name="epobject_id">10102</field>
 		<field name="gid">uk.org.publicwhip/lords/2014-01-01b.1.3</field>
 		<field name="htype">12</field>
-		<field name="speaker_id">1</field>
+		<field name="person_id">1</field>
 		<field name="major">101</field>
 		<field name="minor">0</field>
 		<field name="section_id">10100</field>
@@ -476,7 +476,7 @@
 	<table_data name="pbc_members">
 	<row>
 		<field name="id">1</field>
-		<field name="member_id">40565</field>
+		<field name="person_id">40565</field>
 		<field name="chairman">1</field>
 		<field name="bill_id">1</field>
 		<field name="sitting">01-0</field>

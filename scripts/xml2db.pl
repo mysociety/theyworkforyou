@@ -280,6 +280,13 @@ sub process_type {
         }
 }
 
+# Load member->person data
+my $pwmembers = mySociety::Config::get('PWMEMBERS');
+my $twig = XML::Twig->new(twig_handlers => { 'person' => \&loadperson },
+    output_filter => $outputfilter);
+$twig->parsefile($pwmembers . "people.xml");
+undef $twig;
+
 # Process main data
 process_type(["debates"], [$debatesdir], \&add_debates_day) if ($debates) ;
 process_type(["answers", "lordswrans"], [$wransdir, $lordswransdir], \&add_wrans_day) if ($wrans);
@@ -449,10 +456,10 @@ sub db_connect
         $epupdate = $dbh->prepare("update epobject set body = ?, modified = NOW() where epobject_id = ?");
 
         # hansard object queries
-        $hadd = $dbh->prepare("insert into hansard (epobject_id, gid, colnum, htype, speaker_id, major, minor, section_id, subsection_id, hpos, hdate, htime, source_url, created, modified)
+        $hadd = $dbh->prepare("insert into hansard (epobject_id, gid, colnum, htype, person_id, major, minor, section_id, subsection_id, hpos, hdate, htime, source_url, created, modified)
                 values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
-        $hcheck = $dbh->prepare("select epobject_id, gid, colnum, htype, speaker_id, major, minor, section_id, subsection_id, hpos, hdate, htime, source_url from hansard where gid = ?");
-        $hupdate = $dbh->prepare("update hansard set gid = ?, colnum = ?, htype = ?, speaker_id = ?, major = ?, minor = ?, section_id = ?, subsection_id = ?, hpos = ?, hdate = ?, htime = ?, source_url = ?, modified = NOW()
+        $hcheck = $dbh->prepare("select epobject_id, gid, colnum, htype, person_id, major, minor, section_id, subsection_id, hpos, hdate, htime, source_url from hansard where gid = ?");
+        $hupdate = $dbh->prepare("update hansard set gid = ?, colnum = ?, htype = ?, person_id = ?, major = ?, minor = ?, section_id = ?, subsection_id = ?, hpos = ?, hdate = ?, htime = ?, source_url = ?, modified = NOW()
                 where epobject_id = ? and gid = ?");
         $hdelete = $dbh->prepare("delete from hansard where gid = ? and epobject_id = ?");
         $hdeletegid = $dbh->prepare("delete from hansard where gid = ?");
@@ -1006,11 +1013,6 @@ sub add_mps_and_peers {
         $twig->parsefile($pwmembers . "constituencies.xml");
         undef $twig;
         $twig = XML::Twig->new(twig_handlers => 
-                { 'person' => \&loadperson },
-                output_filter => $outputfilter );
-        $twig->parsefile($pwmembers . "people.xml");
-        undef $twig;
-        $twig = XML::Twig->new(twig_handlers => 
                 { 'member' => \&loadmember },
                 output_filter => $outputfilter );
         $twig->parsefile($pwmembers . "all-members.xml");
@@ -1089,7 +1091,6 @@ sub loadmoffice {
 
     my $person = $membertoperson{$moff->att('matchid')};
     die "mp " . $mpid . " " . $moff->att('name') . " has no person" if !defined($person);
-    $person =~ s#uk.org.publicwhip/person/##;
 
     my $pos = $moff->att('position');
     if ($moff->att('responsibility')) {
@@ -1143,7 +1144,6 @@ sub loadmember {
         my $id = $member->att('id');
         my $person_id = $membertoperson{$id};
         $id =~ s:uk.org.publicwhip/member/::;
-        $person_id =~ s:uk.org.publicwhip/person/::;
 
         my $house = 1;
         if ($member->att('house') ne "commons") {
@@ -1179,7 +1179,6 @@ sub loadlord {
         my $id = $member->att('id');
         my $person_id = $membertoperson{$id};
         $id =~ s:uk.org.publicwhip/lord/::;
-        $person_id =~ s:uk.org.publicwhip/person/::;
 #        print "$id $person_id ".$member->att('title').' '.$member->att('lordname')."\n"; 
 
         my $house = 2;
@@ -1211,7 +1210,6 @@ sub loadroyal {
         my $id = $member->att('id');
         my $person_id = $membertoperson{$id};
         $id =~ s:uk.org.publicwhip/royal/::;
-        $person_id =~ s:uk.org.publicwhip/person/::;
 
         my $house = 0;
         my $fromdate = $member->att('fromdate');
@@ -1234,7 +1232,6 @@ sub loadni {
         my $id = $member->att('id');
         my $person_id = $membertoperson{$id};
         $id =~ s:uk.org.publicwhip/member/::;
-        $person_id =~ s:uk.org.publicwhip/person/::;
         my $house = 3;
         db_memberadd($id, 
                 $person_id,
@@ -1253,7 +1250,6 @@ sub loadmsp {
         my $id = $member->att('id');
         my $person_id = $membertoperson{$id};
         $id =~ s:uk.org.publicwhip/member/::;
-        $person_id =~ s:uk.org.publicwhip/person/::;
         my $house = 4;
         db_memberadd($id, 
                 $person_id,
@@ -1272,6 +1268,7 @@ sub loadmsp {
 sub loadperson {
     my ($twig, $person) = @_;
     my $curperson = $person->att('id');
+    $curperson =~ s#uk.org.publicwhip/person/##;
 
     for (my $office = $person->first_child('office'); $office;
         $office = $office->next_sibling('office'))
@@ -1427,8 +1424,8 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
                 $text .= "<h2>\u$side</h2> <ul class='division-list'>";
                 my @names = $list->children($vote_tag); # attr ids vote (teller), text is name
                 foreach my $person (@names) {
-                        my $member_id = $person->att('id');
-                        $member_id =~ s/.*\///;
+                        my $person_id = $person->att('person_id') || $membertoperson{$person->att('id')};
+                        $person_id =~ s/.*\///;
                         my $vote = $person->att('vote');
                         die unless $vote eq $side;
                         my $teller = $person->att('teller');
@@ -1436,7 +1433,7 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
                         $name =~ s/ *\[Teller\]//; # In Lords
                         $name =~ s/^(.*), (.*)$/$2 $1/;
                         $name =~ s/^(rh|Mr|Sir|Ms|Mrs|Dr) //;
-                        $text .= "<li><a href='/mp/?m=$member_id'>$name</a>";
+                        $text .= "<li><a href='/mp/?p=$person_id'>$name</a>";
                         $text .= ' (teller)' if $teller;
                         $text .= "</li>\n";
                 }
@@ -1711,6 +1708,9 @@ sub load_scotland_division {
         while ($text =~ m#<mspname id="uk\.org\.publicwhip/member/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
                 push @{$out{$2}}, '<a href="/msp/?m=' . $1 . '">' . $3 . '</a>';
         }
+        while ($text =~ m#<mspname id="uk\.org\.publicwhip/person/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
+                push @{$out{$2}}, '<a href="/msp/?p=' . $1 . '">' . $3 . '</a>';
+        }
         $text = "<p class='divisionheading'>Division number $divnumber</p> <p class='divisionbody'>";
         foreach ('for','against','abstentions','spoiled votes') {
                 next unless $out{$_};
@@ -1800,18 +1800,18 @@ sub add_standing_day {
                         foreach (@names) {
                                 my $chairman = ($_->parent()->tag() eq 'chairmen');
                                 my $attending = ($_->att('attending') eq 'true');
-                                (my $member_id = $_->att('memberid')) =~ s:uk.org.publicwhip/member/::;
+                                my $person_id = $_->att('person_id') || $membertoperson{$_->att('memberid')};
                                 $current_file =~ /_(\d\d-\d)_/;
                                 my $sitting = $1;
-                                if (my ($id, $curr_attending) = $dbh->selectrow_array('select id,attending from pbc_members where member_id=? and bill_id=?
-                                        and sitting=?', {}, $member_id, $bill_id, $sitting)) {
+                                if (my ($id, $curr_attending) = $dbh->selectrow_array('select id,attending from pbc_members where person_id=? and bill_id=?
+                                        and sitting=?', {}, $person_id, $bill_id, $sitting)) {
                                         if ($curr_attending != $attending) {
                                                 $dbh->do('update pbc_members set attending=? where id=?', {},
                                                         $attending, $id);
                                         }
                                 } else {
-                                        $dbh->do('insert into pbc_members (bill_id, sitting, member_id, attending, chairman) values
-                                                (?, ?, ?, ?, ?)', {}, $bill_id, $sitting, $member_id, $attending, $chairman);
+                                        $dbh->do('insert into pbc_members (bill_id, sitting, person_id, attending, chairman) values
+                                                (?, ?, ?, ?, ?)', {}, $bill_id, $sitting, $person_id, $attending, $chairman);
                                 }
                         }
                 },
@@ -1890,11 +1890,11 @@ sub load_standing_division {
         my @names = $division->descendants('mpname');
         my %out = ( aye => '', no => '' );
         foreach (@names) {
-                my $id = $_->att('memberid');
-                $id =~ s/.*\///;
+                my $person_id = $_->att('person_id') || $membertoperson{$_->att('memberid')};
+                $person_id =~ s/.*\///;
                 my $name = $_->att('membername');
                 my $v = $_->att('vote');
-                $out{$v} .= '<a href="/mp/?m=' . $id . '">' . $name . '</a>, ';
+                $out{$v} .= '<a href="/mp/?p=' . $person_id . '">' . $name . '</a>, ';
         }
         $out{aye} =~ s/, $//;
         $out{no} =~ s/, $//;
@@ -2044,33 +2044,29 @@ sub do_load_speech
 
         die "speech without (sub)heading $id '$text'" if $currsection == 0 and $currsubsection == 0;
 
-	$hpos++;
-	my $htime = $speech->att('time');
+        $hpos++;
+        my $htime = $speech->att('time');
         $htime = canon_time($htime) if defined $htime;
-	my $url = $speech->att('url') || '';
+        my $url = $speech->att('url') || '';
 
         my $type;
-        my $speaker;
+        my $speaker = 0;
         my $pretext = "";
-        if ($speech->att('speakerid'))
-        {
-                # with speaker
-                $type = 12;
-                $speaker = $speech->att('speakerid');
-                $speaker =~ s:uk.org.publicwhip/(member|lord|royal)/::;
-                if ($speaker eq "unknown")
-                {
-                        $speaker = 0;
-                        my $encoded = HTML::Entities::encode_entities(
-                                $speech->att('speakername'));
-                        $pretext = '<p class="unknownspeaker">' . $encoded . ':</p> ';
-                }
-        }
-        else
-        {
-                # procedural
-                $type = 13;
+        if ($speech->att('person_id') || $speech->att('speakerid')) {
+            $type = 12;
+            if ($speech->att('person_id')) {
+                ($speaker = $speech->att('person_id')) =~ s#uk.org.publicwhip/person/##;
+            } else {
+                $speaker = $membertoperson{$speech->att('speakerid')} || 'unknown';
+            }
+            if ($speaker eq "unknown") {
                 $speaker = 0;
+                my $encoded = HTML::Entities::encode_entities($speech->att('speakername'));
+                $pretext = '<p class="unknownspeaker">' . $encoded . ':</p> ';
+            }
+        } else {
+            # procedural
+            $type = 13;
         }
 
         my @epparam = ($pretext . $text);

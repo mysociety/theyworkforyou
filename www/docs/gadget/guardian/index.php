@@ -81,7 +81,7 @@ switch ($action) {
         );
         $HANSARDLIST->display('search_min', $args);
             twfy_debug_timestamp();
-        echo '<p><a href="http://www.theyworkforyou.com/search/?pid=', $member->guardian_aristotle_id(), '">More
+        echo '<p><a href="http://www.theyworkforyou.com/search/?pid=', $member->person_id(), '">More
 speeches from ', $member->full_name(), '</a></p>';
         break;
     case 'parliamentary-jobs-component':
@@ -93,9 +93,6 @@ speeches from ', $member->full_name(), '</a></p>';
                 if (strlen($body) == 0) {
                     output_error('No data');
                 }
-        $body .= "<p class=\"more\"><a
-href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/expenses/$member->guardian_aristotle_id}\">More
-expenses</a></p>";
                 $body .= mysociety_footer();
                 output_component($body, 'expenses-brief');
         break;
@@ -115,11 +112,6 @@ expenses</a></p>";
         }
                 $body = "<div id=\"rmi-header\">Extract from the register of members' interests</div>";
                 $body .= $rmi;
-        if ($show_more) {
-            $body .= "<p class=\"more\"><a
-href=\"{microapp-href:http://" . DOMAIN . $resources_path . "mp/rmi/$member->guardian_aristotle_id}\">Full member's
-interests</a></p>";
-        }
                 $body .= mysociety_footer();
                 output_component($body, 'rmi-brief');
         break;
