@@ -253,6 +253,19 @@ class SectionView {
             $data['location'] = '&ndash; in the House of Lords';
         }
 
+        $data['current_assembly'] = "westminster--debate";
+        switch ($data['assembly_nav_current']) {
+            case "UK":
+                $data['current_assembly'] = "westminster--debate";
+                break;
+            case "SCOTLAND":
+                $data['current_assembly'] = "scotland";
+                break;
+            case "NORTHERN IRELAND":
+                $data['current_assembly'] = "ni";
+                break;
+        }
+
         if (array_key_exists('text_heading', $data['info'])) {
             // avoid having Clause 1 etc as the alert text search string on PBC pages as it's
             // almost certainly not what the person wants

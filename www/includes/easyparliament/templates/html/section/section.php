@@ -2,8 +2,11 @@
     global $hansardmajors;
 
     twfy_debug("TEMPLATE", "hansard_gid.php");
+
 ?>
-<div class="debate-header">
+
+<div class="debate-header regional-header regional-header--<?= $current_assembly ?>">
+    <div class="regional-header__overlay"></div>
     <div class="full-page__row">
         <div class="debate-header__content">
             <h1><?= $heading ?></h1>

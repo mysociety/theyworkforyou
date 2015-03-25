@@ -439,6 +439,7 @@ span.hi {
   padding:0 1em;
   text-align: center;
   @include clearfix;
+  position: relative;
   a {
     display: block;
     color: $light-text;

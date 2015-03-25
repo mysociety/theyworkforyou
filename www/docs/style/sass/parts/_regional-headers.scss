@@ -1,0 +1,60 @@
+    /*
+    These classes control which background images are shown in the various headers
+    around the site. Depending on the region.
+ */
+
+.regional-header {
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+}
+
+.regional-header__overlay {
+    background-color: rgba(0,0,0,0.4);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 0; //keep it behind the content
+}
+
+.regional-header--westminster {
+    background-image: url('../img/houses-of-parliament-mobile.jpg');
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/houses-of-parliament-tablet.jpg');
+    }
+    @media (min-width: $large-screen) {
+        background-image: url('../img/houses-of-parliament-desktop.jpg');
+    }
+}
+
+.regional-header--westminster--debate {
+    background-image: url(../img/uk-debates-mobile.jpg);
+    @media (min-width: $medium-screen) {
+        background-image: url(../img/uk-debates-tablet.jpg);
+    }
+    @media (min-width: $large-screen) {
+        background-image: url(../img/uk-debates-desktop.jpg);
+    }
+}
+
+.regional-header--scotland {
+    background-image: url('../img/scottish-parliament-mobile.jpg');
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/scottish-parliament-tablet.jpg');
+    }
+    @media (min-width: $large-screen) {
+        background-image: url('../img/scottish-parliament-desktop.jpg');
+    }
+}
+
+.regional-header--ni {
+    background-image: url('../img/ni-parliament-mobile.jpg');
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/ni-parliament-tablet.jpg');
+    }
+    @media (min-width: $large-screen) {
+        background-image: url('../img/ni-parliament-desktop.jpg');
+    }
+}
