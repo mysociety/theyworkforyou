@@ -233,6 +233,8 @@ class SectionView {
         } else {
             $data['intro'] = "";
         }
+
+        $country = 'UK';
         if ($this->major == 1) {
             $data['location'] = '&ndash; in the House of Commons';
         } elseif ($this->major == 2) {
@@ -242,19 +244,22 @@ class SectionView {
         } elseif ($this->major == 4) {
             $data['location'] = 'written statement &ndash; made';
         } elseif ($this->major == 5) {
+            $country = 'NORTHERN IRELAND';
             $data['location'] = '&ndash; in the Northern Ireland Assembly';
         } elseif ($this->major == 6) {
             $data['location'] = '&ndash; in a Public Bill Committee';
         } elseif ($this->major == 7) {
+            $country = 'SCOTLAND';
             $data['location'] = '&ndash; in the Scottish Parliament';
         } elseif ($this->major == 8) {
+            $country = 'SCOTLAND';
             $data['location'] = '&ndash; Scottish Parliament written question &ndash; answered';
         } elseif ($this->major == 101) {
             $data['location'] = '&ndash; in the House of Lords';
         }
 
         $data['current_assembly'] = "westminster--debate";
-        switch ($data['assembly_nav_current']) {
+        switch ($country) {
             case "UK":
                 $data['current_assembly'] = "westminster--debate";
                 break;
