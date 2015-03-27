@@ -1,4 +1,5 @@
-    <div class="<?= $current_assembly ?>">
+    <div class="regional-header regional-header--<?= $current_assembly ?>">
+        <div class="regional-header__overlay"></div>
         <div class="person-header <?= $this_page ?>">
             <div class=" full-page__row">
             <div class="person-header__content page-content__row">
