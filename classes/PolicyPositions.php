@@ -144,6 +144,10 @@ class PolicyPositions {
                 if ($inverse)
                     $dmpscore = 1.0 - $dmpscore;
                 $english = score_to_strongly($dmpscore);
+                # We don't want to give a degree of strength when there's only one vote
+                if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 1) {
+                    $english = preg_replace('#(very )?(strongly|moderately) #', '', $english);
+                }
                 $dmpdesc = 'Voted <strong>' . $english . '</strong>';
 
                 // How many votes Dream MP and MP both voted (and didn't abstain) in

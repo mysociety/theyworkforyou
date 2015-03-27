@@ -100,6 +100,8 @@ class Policies {
         6721 => 'requiring the mass <b>retention of information about communications</b>',
     );
 
+    private $policiesCommonsOnly = array(1053);
+
     /**
      * Policy Sets
      *
@@ -236,10 +238,14 @@ class Policies {
         $out = array();
         foreach ($this->policies as $policy_id => $policy_text)
         {
-            $out[] = array(
+            $pol = array(
                 $policy_id,
                 $policy_text
             );
+            if (in_array($policy_id, $this->policiesCommonsOnly)) {
+                $pol[] = true;
+            }
+            $out[] = $pol;
         }
         return $out;
     }
