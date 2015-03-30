@@ -218,9 +218,13 @@ class MEMBER {
 
             $params = array();
 
+            $left = "left_reason = 'still_in_office'";
+            if (DISSOLUTION_DATE) {
+                $left = "($left OR left_house = '" . DISSOLUTION_DATE . "')";
+            }
             $query = "SELECT person_id FROM member
                     WHERE constituency = :constituency
-                    AND left_reason = 'still_in_office'";
+                    AND $left";
 
             $params[':constituency'] = $constituency;
 

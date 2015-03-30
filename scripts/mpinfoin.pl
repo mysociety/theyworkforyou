@@ -1,8 +1,6 @@
 #! /usr/bin/perl -w
-# vim:sw=8:ts=8:et:nowrap
-use strict;
 
-# $Id: mpinfoin.pl,v 1.50 2010-01-28 09:21:17 matthew Exp $
+use strict;
 
 # Reads XML files with info about MPs and constituencies into
 # the memberinfo table of the fawkes DB
@@ -410,12 +408,12 @@ sub makerankings {
                 #"( 10001 )");
                     '(select person_id from member where house=1 AND curdate() <= left_house) order by person_id, entered_house');
         $sth->execute();
-        if ($sth->rows == 0) {
+        if ($sth->rows == 0 && mySociety::Config::get('DISSOLUTION_DATE')) {
                 $sth = $dbh->prepare($query .
-                        '(select person_id from member where left_house = \'2010-04-12\')');
-                $sth->execute();
+                        '(select person_id from member where left_house = ?)');
+                $sth->execute(mySociety::Config::get('DISSOLUTION_DATE'));
                 if ($sth->rows == 0) {
-                        print "Failed to find any MPs for rankings, change General Election date here if you are near one";
+                        print "Failed to find any MPs for rankings, change dissolution date if you are near one";
                         return;
                 }
         }

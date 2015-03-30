@@ -72,6 +72,8 @@ define ("TIMEZONE", "Europe/London");
 define ("RAWDATA", "/home/twfy/pwdata/");
 define ('PWMEMBERS', '/home/twfy/parlparse/members/');
 
+define('DISSOLUTION_DATE', '');
+
 // Prefix for files logging incoming mail
 define ("OPTION_MAIL_LOG_PREFIX", '/var/mail/twfy-');
 
@@ -142,4 +144,3 @@ define('OPTION_PHP_DEBUG_LEVEL', 0);
 
 define('OPTION_SURVEY_URL', '');
 define('OPTION_SURVEY_SECRET', '');
-
