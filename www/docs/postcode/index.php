@@ -10,54 +10,70 @@ $errors = array();
 
 $pc = get_http_var('pc');
 if (!$pc) {
-    $PAGE->error_message('Please supply a postcode!', true);
-    exit;
+    postcode_error('Please supply a postcode!');
 }
 
 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
-$out = ''; $sidebars = array();
-if (validate_postcode($pc)) {
-    $constituencies = postcode_to_constituencies($pc);
-    if ($constituencies == 'CONNECTION_TIMED_OUT') {
-        $errors['pc'] = "Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.";
-    } elseif (!$constituencies) {
-        $errors['pc'] = "Sorry, " . _htmlentities($pc) . " isn't a known postcode";
-    } elseif (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
-        $MEMBER = new MEMBER(array('constituency' => $constituencies['WMC']));
-        if ($MEMBER->person_id()) {
-            $THEUSER->set_postcode_cookie($pc);
-        }
-        list($out, $sidebars) = pick_multiple($pc, $constituencies, 'SPE', 'MSP');
-    } elseif (isset($constituencies['NIE'])) {
-        $MEMBER = new MEMBER(array('constituency' => $constituencies['WMC']));
-        if ($MEMBER->person_id()) {
-            $THEUSER->set_postcode_cookie($pc);
-        }
-        list($out, $sidebars) = pick_multiple($pc, $constituencies, 'NIE', 'MLA');
-    } else {
-        # Just have an MP, redirect instantly to the canonical page
-        $MEMBER = new MEMBER(array('constituency' => $constituencies['WMC'], 'house' => 1));
-        if ($MEMBER->person_id()) {
-            $THEUSER->set_postcode_cookie($pc);
-        }
-        member_redirect($MEMBER);
-    }
-} else {
-    $errors['pc'] = "Sorry, " . _htmlentities($pc) . " isn't a valid postcode";
+if (!validate_postcode($pc)) {
     twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
+    postcode_error("Sorry, " . _htmlentities($pc) . " isn't a valid postcode");
+}
+
+$constituencies = postcode_to_constituencies($pc);
+if ($constituencies == 'CONNECTION_TIMED_OUT') {
+    postcode_error("Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.");
+} elseif (!$constituencies) {
+    postcode_error("Sorry, " . _htmlentities($pc) . " isn't a known postcode");
+}
+
+$out = ''; $sidebars = array();
+if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
+    $MEMBER = fetch_mp($pc, $constituencies);
+    list($out, $sidebars) = pick_multiple($pc, $constituencies, 'SPE', 'MSP');
+} elseif (isset($constituencies['NIE'])) {
+    $MEMBER = fetch_mp($pc, $constituencies);
+    list($out, $sidebars) = pick_multiple($pc, $constituencies, 'NIE', 'MLA');
+} else {
+    # Just have an MP, redirect instantly to the canonical page
+    $MEMBER = fetch_mp($pc, $constituencies, 1);
+    member_redirect($MEMBER);
 }
 
 $PAGE->page_start();
 $PAGE->stripe_start();
-if (isset($errors['pc'])) {
-    $PAGE->error_message($errors['pc']);
-    $PAGE->postcode_form();
-}
 echo $out;
 $PAGE->stripe_end($sidebars);
 $PAGE->page_end();
 
 # ---
+
+function postcode_error($error) {
+    global $PAGE;
+    $PAGE->page_start();
+    $PAGE->stripe_start();
+    $PAGE->error_message($error);
+    $PAGE->postcode_form();
+    $PAGE->stripe_end();
+    $PAGE->page_end();
+    exit;
+}
+
+function fetch_mp($pc, $constituencies, $house=null) {
+    global $THEUSER;
+    $args = array('constituency' => $constituencies['WMC']);
+    if ($house) {
+        $args['house'] = $house;
+    }
+    try {
+        $MEMBER = new MEMBER($args);
+    } catch (MySociety\TheyWorkForYou\MemberException $e){
+        postcode_error($e->getMessage());
+    }
+    if ($MEMBER->person_id()) {
+        $THEUSER->set_postcode_cookie($pc);
+    }
+    return $MEMBER;
+}
 
 function pick_multiple($pc, $areas, $area_type, $rep_type) {
     global $PAGE;
