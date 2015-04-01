@@ -287,7 +287,7 @@ class PAGE {
 <body>
 
 <div id="surveyPromoBanner" style="clear:both;padding:1em;margin-top:24px;background:#DDD;">
-Read the <a href="http://www.theyworkforyou.com/debates/?id=2015-03-18a.765.1">2015 Budget speech and debate</a>
+Find out who your candidates in the 2015 General Election are at <a href="https://yournextmp.com">YourNextMP</a>
 </div>
 
 
