@@ -96,10 +96,8 @@ if ($action ne "check" && $action ne 'checkfull') {
     # Get data for items to update from MySQL 
     my $query = "select epobject.epobject_id, epobject.body, section.body as section_body,
         hdate, htime, gid, major, section_id, subsection_id, colnum,
-        unix_timestamp(hansard.created) as created, hpos,
-        person_id, member.title, first_name, last_name, constituency, party, house
+        unix_timestamp(hansard.created) as created, hpos, person_id
         from epobject join hansard on epobject.epobject_id = hansard.epobject_id
-        left join member on hansard.speaker_id = member.member_id
         left join epobject as section on hansard.section_id = section.epobject_id";
     (my $sdc = $since_date_condition) =~ s/{{date}}/hdate/g;
     $sdc =~ s/{{modified}}/hansard.modified/;
@@ -140,29 +138,12 @@ if ($action ne "check" && $action ne 'checkfull') {
 
         my $subsection_or_id = $$row{'subsection_id'}==0 ? $$row{'epobject_id'} : $$row{'subsection_id'};
 
-        my $date = $$row{'hdate'};
+        my $date = $row->{hdate};
         $date =~ s/-//g;
+        my $htime = $row->{htime} || 0;
+        $htime =~ s/[^0-9]//g;
 
-        my $name = '';
-        my $house = $$row{house} || -1;
-        my ($first_name, $last_name, $constituency);
-        if ($house > -1) {
-            $first_name = $$row{first_name};
-            $last_name = $$row{last_name};
-            $constituency = $$row{constituency};
-        }
-        if ($house == 1 || $house == 3 || $house == 4) {
-            $name = "$first_name $last_name";
-            $name = "$$row{title} $name" if $$row{title};
-        } elsif ($house == 2) {
-            $name = '';
-            $name = 'the ' unless $last_name;
-            $name .= $$row{title};
-            $name .= " $last_name" if $last_name;
-            $name .= " of $constituency" if $constituency;
-        } elsif ($house == 0) { # Queen
-            $name = "$first_name $last_name";
-        }
+        my ($name, $party) = get_person($person_id, $date, $htime, $major);
 
         my $dept = $$row{section_body} || '';
         $dept =~ s/[^a-z]//gi;
@@ -175,7 +156,7 @@ if ($action ne "check" && $action ne 'checkfull') {
         $doc->add_term("Q$gid");
         $doc->add_term("B$new_indexbatch"); # For email alerts
         $doc->add_term("M$$row{major}");
-        $doc->add_term("P\L$$row{party}") if $$row{party};
+        $doc->add_term("P\L$party") if $party;
         $doc->add_term("S$person_id");
         $doc->add_term("U$subsection_or_id"); # For searching within one debate
         $doc->add_term("D$date");
@@ -183,8 +164,6 @@ if ($action ne "check" && $action ne 'checkfull') {
         $doc->add_term("C$$row{colnum}") if $$row{colnum};
 
         # For sort by date (although all wrans have same time of 00:00, no?)
-        my $htime = $$row{htime} || 0;
-        $htime =~ s/[^0-9]//g;
         $doc->add_value(0, pack('N', $date+0) . pack('N', $htime+0));
         # XXX lenny Search::Xapian doesn't have sortable_serialise
         #my $datetimenum = "$date$htime";
@@ -338,4 +317,57 @@ if ($action ne "check" && $action ne 'checkfull') {
             }
         }
     }
+}
+
+
+my $q_person = $dbh->prepare(
+    "SELECT house, title, first_name, last_name, party, constituency
+    FROM member
+    WHERE person_id = ? AND entered_house <= ? and ? <= left_house
+    ORDER BY entered_house");
+
+my %major_to_house = (
+    1 => { 1 => 1 },
+    2 => { 1 => 1 },
+    3 => { 1 => 1, 2 => 1 },
+    4 => { 1 => 1, 2 => 1 },
+    5 => { 3 => 1 },
+    6 => { 1 => 1 },
+    7 => { 4 => 1 },
+    8 => { 4 => 1 },
+    101 => { 2 => 1 },
+);
+
+sub get_person {
+    my ($person_id, $hdate, $htime, $major) = @_;
+    return unless $person_id;
+
+    my @matches = @{$dbh->selectall_arrayref($q_person, { Slice => {} }, $person_id, $hdate, $hdate)};
+    if (@matches > 1) {
+        @matches = grep { $major_to_house{$major}{$_->{house}} } @matches;
+    }
+    # Note identical code to this in hansardlist.php
+    if (@matches > 1) {
+        # Couple of special cases for the election of the NI Speaker
+        if ($person_id == 13799 && $hdate eq '2007-05-08') {
+            @matches = $matches[$htime < 1100 ? 0 : 1];
+        }
+        if ($person_id == 13831 && $hdate eq '2015-01-12') {
+            @matches = $matches[$htime < 1300 ? 0 : 1];
+        }
+    }
+    die "No options for person id $person_id on $hdate, major $major" if @matches < 1;
+    die "Multiple options for person id $person_id on $hdate, major $major" if @matches > 1;
+
+    my $member = $matches[0];
+    my $name = '';
+    if ($member->{house} == 2) {
+        $name = $member->{title};
+        $name .= " $member->{last_name}" if $member->{last_name};
+        $name .= " of $member->{constituency}" if $member->{constituency};
+    } else {
+        $name = "$member->{first_name} $member->{last_name}";
+        $name = "$member->{title} $name" if $member->{title};
+    }
+    return ($name, $member->{party});
 }

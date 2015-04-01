@@ -79,7 +79,7 @@ if ($q->rows()) {
 $q = $db->query("select hansard.gid, body, htype, htime, adate, atime, hpos, first_name, last_name, video_status
     from hansard
         inner join epobject on hansard.epobject_id=epobject.epobject_id
-        left join member on hansard.speaker_id=member.member_id
+        left join member on hansard.person_id=member.person_id AND member.entered_house <= hansard.hdate AND hansard.hdate <= member.left_house AND member.house = 1
                 left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1 and video_timestamps.deleted = 0
     where hpos>=$hpos-$surrounding_speeches and hpos<=$hpos+$surrounding_speeches and hdate='$hdate' and major=$major
     ORDER BY hpos desc
@@ -106,7 +106,7 @@ for ($i=0; $i<$q->rows(); $i++) {
 $q = $db->query("select hansard.gid, body, htype, hpos, first_name, last_name
     from hansard
         inner join epobject on hansard.epobject_id=epobject.epobject_id
-        left join member on hansard.speaker_id=member.member_id
+        left join member on hansard.person_id=member.person_id XXX
     where subsection_id = $parent_epid
     ORDER BY hpos
 ");

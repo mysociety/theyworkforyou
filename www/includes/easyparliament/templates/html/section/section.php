@@ -425,7 +425,7 @@ pairs along the lines of:
     'body'            => 'A lot of text here...',
     'listurl'        => '/debates/?id=2003-12-31.475.0#g2003-12-31.475.3',
     'commentsurl'    => '/debates/?id=2003-12-31.475.3',
-    'speaker_id'    => '931',
+    'person_id'    => '931',
     'speaker'        => array (
         'member_id'        => '931',
         'first_name'    => 'Peter',

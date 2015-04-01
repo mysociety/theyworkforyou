@@ -794,7 +794,7 @@ function person_recent_appearances($member) {
     $recent = false;
 
     if (!$recent) {
-	// Initialise the search engine
+        // Initialise the search engine
         $searchstring = "speaker:$person_id";
         $SEARCHENGINE = new \SEARCHENGINE($searchstring);
 
@@ -866,12 +866,6 @@ function person_useful_links($member) {
         );
     }
 
-    if (isset($links['guardian_biography'])) {
-        $out[] = array(
-                'href' => $links['guardian_biography'],
-                'text' => 'Guardian profile'
-        );
-    }
     if (isset($links['wikipedia_url'])) {
         $out[] = array(
                 'href' => $links['wikipedia_url'],
@@ -904,13 +898,6 @@ function person_useful_links($member) {
         $out[] = array(
                 'href' => $links['journa_list_link'],
                 'text' => 'Newspaper articles written by this MP'
-        );
-    }
-
-    if (isset($links['guardian_election_results'])) {
-        $out[] = array(
-                'href' => $links['guardian_election_results'],
-                'text' => 'Election results for ' . $member->constituency()
         );
     }
 

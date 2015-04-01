@@ -15,16 +15,14 @@ $HANSARDLIST = new HANSARDLIST();
 $db = $HANSARDLIST->db;
 
 // Get all the person ids we need feeds for...
-$q = $db->query("SELECT person_id, group_concat(member_id order by member_id separator ',') as member_ids
-			FROM member GROUP BY person_id HAVING max(left_house)='9999-12-31'");
+$q = $db->query("SELECT person_id FROM member WHERE left_house='9999-12-31'");
 if ($q->rows() <= 0) exit;
 
 $starttime = time();
-for ($personrow=0; $personrow<$q->rows(); $personrow++) {
-	$person_id = $q->field($personrow, 'person_id');
-	$member_ids = $q->field($personrow, 'member_ids');
+for ($row=0; $row<$q->rows(); $row++) {
+	$person_id = $q->field($row, 'person_id');
 
-	$args = array ( 'member_ids' => $member_ids );
+	$args = array ( 'person_id' => $person_id );
 	$speeches = $HANSARDLIST->display('person', $args, 'none');
 		
 	// Some data about this person that we'll need for the feed.

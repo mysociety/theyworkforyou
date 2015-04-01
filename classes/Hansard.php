@@ -190,7 +190,7 @@ class Hansard extends \HANSARDLIST {
                 $q = $this->db->query("SELECT hansard.gid, hansard.hdate,
                     hansard.htime, hansard.section_id, hansard.subsection_id,
                     hansard.htype, hansard.major, hansard.minor,
-                    hansard.speaker_id, hansard.hpos, hansard.video_status,
+                    hansard.person_id, hansard.hpos, hansard.video_status,
                     epobject.epobject_id, epobject.body
                 FROM hansard, epobject
                 WHERE hansard.gid = '$gid'
@@ -231,8 +231,8 @@ class Hansard extends \HANSARDLIST {
 
                 //////////////////////////
                 // 3. Get the speaker for this item, if applicable.
-                if ($itemdata['speaker_id'] != 0) {
-                    $itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
+                if ($itemdata['person_id'] != 0) {
+                    $itemdata['speaker'] = $this->_get_speaker($itemdata['person_id'], $itemdata['hdate'], $itemdata['htime'], $itemdata['major']);
                 }
 
                 //////////////////////////
@@ -293,9 +293,9 @@ class Hansard extends \HANSARDLIST {
                         if (count($ddata)) {
                             $itemdata['body'] = $ddata[0]['body'];
                             $itemdata['extract'] = $this->prepare_search_result_for_display($ddata[0]['body']);
-                            $itemdata['speaker_id'] = $ddata[0]['speaker_id'];
-                            if ($itemdata['speaker_id']) {
-                                $itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
+                            $itemdata['person_id'] = $ddata[0]['person_id'];
+                            if ($itemdata['person_id']) {
+                                $itemdata['speaker'] = $this->_get_speaker($itemdata['person_id'], $itemdata['hdate'], $itemdata['htime'], $itemdata['major']);
                             }
                         }
                     } elseif ($itemdata['htype'] == 10) {

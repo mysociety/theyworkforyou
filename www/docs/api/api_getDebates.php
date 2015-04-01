@@ -45,7 +45,7 @@ function api_getDebates_front() {
         "section_id" : "11432880",
         "subsection_id" : "11432880",
         "relevance" : 17,
-        "speaker_id" : "100176",
+        "person_id" : "100176",
         "hpos" : "29",
         "body" : ...
         "listurl" : "/lords/?id=2006-07-14a.901.2&amp;s=fish+section%3Alords#g946.0",
@@ -72,7 +72,7 @@ function api_getDebates_front() {
         "section_id" : "11432688",
         "subsection_id" : "11432688",
         "relevance" : 28,
-        "speaker_id" : "100549",
+        "person_id" : "100549",
         "hpos" : "179",
         "body" : ...
         "listurl" : "/lords/?id=2006-07-13a.871.2&amp;s=fish+section%3Alords#g874.0",

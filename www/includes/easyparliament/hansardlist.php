@@ -56,13 +56,13 @@ class HANSARDLIST {
     // so we don't have to keep fetching the same data from the DB.
     public $speakers = array ();
     /*
-    $this->speakers[ $speaker_id ] = array (
+    $this->speakers[ $person_id ] = array (
         "first_name"	=> $first_name,
         "last_name"		=> $last_name,
         "constituency"	=> $constituency,
         "party"			=> $party,
         "person_id"	    => $person_id,
-        "url"			=> "/member/?id=$speaker_id"
+        "url"			=> "/member/?p=$person_id"
     );
     */
 
@@ -890,20 +890,15 @@ class HANSARDLIST {
         // Where we'll put all the data we want to render.
         $data = array();
 
-        if (!isset($args['member_ids']) || !is_string($args['member_ids'])) {
-            $PAGE->error_message ("Sorry, we need a valid string of member IDs.");
+        if (!isset($args['person_id'])) {
+            $PAGE->error_message ("Sorry, we need a valid person ID.");
             return $data;
         }
 
         $params = array();
-        $speaker_in_parts = array();
 
-        foreach (explode(',', $args['member_ids']) as $key => $member_id) {
-            $params[':speaker_in_' . $key] = trim($member_id);
-            $speaker_in_parts[] = ':speaker_in_' . $key;
-        }
-
-        $where = 'hansard.speaker_id in (' . implode(',', $speaker_in_parts) . ')';
+        $where = 'hansard.person_id = :person_id';
+        $params[':person_id'] = trim($args['person_id']);
 
         if (isset($this->major)) {
             $majorwhere = "AND hansard.major = :hansard_major ";
@@ -915,7 +910,7 @@ class HANSARDLIST {
 
         $q = $this->db->query("SELECT hansard.subsection_id, hansard.section_id,
                     hansard.htype, hansard.gid, hansard.major, hansard.minor,
-                    hansard.hdate, hansard.htime, hansard.speaker_id,
+                    hansard.hdate, hansard.htime, hansard.person_id,
                     epobject.body, epobject_section.body AS body_section,
                     epobject_subsection.body AS body_subsection,
                                     hansard_subsection.gid AS gid_subsection
@@ -945,7 +940,7 @@ class HANSARDLIST {
                     'minor'		=> $q->field($n, 'minor'),
                     'hdate'		=> $q->field($n, 'hdate'),
                     'htime'		=> $q->field($n, 'htime'),
-                    'speaker_id'	=> $q->field($n, 'speaker_id'),
+                    'person_id'	=> $q->field($n, 'person_id'),
                     'body'		=> $q->field($n, 'body'),
                     'body_section'  => $q->field($n, 'body_section'),
                     'body_subsection' => $q->field($n, 'body_subsection'),
@@ -954,7 +949,7 @@ class HANSARDLIST {
                 // Cache parent id to speed up _get_listurl
                 $this->epobjectid_to_gid[$q->field($n, 'subsection_id') ] = fix_gid_from_db( $q->field($n, 'gid_subsection') );
 
-                $url_args = array ('m'=>$q->field($n, 'speaker_id'));
+                $url_args = array ('p'=>$q->field($n, 'person_id'));
                 $speech['listurl'] = $this->_get_listurl($speech, $url_args);
                 $speeches[] = $speech;
             }
@@ -1155,7 +1150,7 @@ class HANSARDLIST {
                 $q = $this->db->query("SELECT hansard.gid, hansard.hdate,
                     hansard.htime, hansard.section_id, hansard.subsection_id,
                     hansard.htype, hansard.major, hansard.minor,
-                    hansard.speaker_id, hansard.hpos, hansard.video_status,
+                    hansard.person_id, hansard.hpos, hansard.video_status,
                     epobject.epobject_id, epobject.body
                 FROM hansard, epobject
                 WHERE hansard.gid = :gid
@@ -1196,8 +1191,8 @@ class HANSARDLIST {
 
                 //////////////////////////
                 // 3. Get the speaker for this item, if applicable.
-                if ($itemdata['speaker_id'] != 0) {
-                    $itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
+                if ($itemdata['person_id'] != 0) {
+                    $itemdata['speaker'] = $this->_get_speaker($itemdata['person_id'], $itemdata['hdate'], $itemdata['htime'], $itemdata['major']);
                 }
 
                 //////////////////////////
@@ -1258,9 +1253,9 @@ class HANSARDLIST {
                         if (count($ddata)) {
                             $itemdata['body'] = $ddata[0]['body'];
                             $itemdata['extract'] = $this->prepare_search_result_for_display($ddata[0]['body']);
-                            $itemdata['speaker_id'] = $ddata[0]['speaker_id'];
-                            if ($itemdata['speaker_id']) {
-                                $itemdata['speaker'] = $this->_get_speaker($itemdata['speaker_id'], $itemdata['hdate']);
+                            $itemdata['person_id'] = $ddata[0]['person_id'];
+                            if ($itemdata['person_id']) {
+                                $itemdata['speaker'] = $this->_get_speaker($itemdata['person_id'], $itemdata['hdate'], $itemdata['htime'], $itemdata['major']);
                             }
                         }
                     } elseif ($itemdata['htype'] == 10) {
@@ -1677,7 +1672,7 @@ class HANSARDLIST {
         $params = array();
 
         if (isset($amount['speaker']) && $amount['speaker'] == true) {
-            $fieldsarr['hansard'][] = 'speaker_id';
+            $fieldsarr['hansard'][] = 'person_id';
         }
 
         if ((isset($amount['body']) && $amount['body'] == true) ||
@@ -1882,9 +1877,9 @@ class HANSARDLIST {
 
                 // Get the speaker for this item, if applicable.
                 if ( (isset($amount['speaker']) && $amount['speaker'] == true) &&
-                    $item['speaker_id'] != '') {
+                    $item['person_id'] != '') {
 
-                    $item['speaker'] = $this->_get_speaker($item['speaker_id'], $item['hdate']);
+                    $item['speaker'] = $this->_get_speaker($item['person_id'], $item['hdate'], $item['htime'], $this->major);
                 }
 
 
@@ -2062,95 +2057,135 @@ class HANSARDLIST {
         return $LISTURL->generate($encode) . $fragment;
     }
 
-    public function _get_speaker($speaker_id, $hdate) {
-        // Pass it the id of a speaker. If $this->speakers doesn't
-        // already contain data about the speaker, it's fetched from the DB
-        // and put in $this->speakers.
+    private $major_to_house = array(
+        1 => array(1),
+        2 => array(1),
+        3 => array(1, 2),
+        4 => array(1, 2),
+        5 => array(3),
+        6 => array(1),
+        7 => array(4),
+        8 => array(4),
+        101 => array(2),
+    );
 
-        // So we don't have to keep fetching the same speaker info about chatterboxes.
-
-        if ($speaker_id != 0) {
-
-            if (!isset( $this->speakers[ $speaker_id ] )) {
-                // Speaker isn't cached, so fetch the data.
-
-                $q = $this->db->query("SELECT title, first_name,
-                                        last_name,
-                                        house,
-                                        constituency,
-                                        party,
-                                        person_id
-                                FROM 	member
-                                WHERE	member_id = :member_id",
-                    array(':member_id' => $speaker_id));
-
-                if ($q->rows() > 0) {
-                    // *SHOULD* only get one row back here...
-                    $house = $q->field(0, 'house');
-                    if ($house==1) {
-                        $URL = new URL('mp');
-                    } elseif ($house==2) {
-                        $URL = new URL('peer');
-                    } elseif ($house==3) {
-                        $URL = new URL('mla');
-                    } elseif ($house==4) {
-                        $URL = new URL('msp');
-                    } elseif ($house==0) {
-                        $URL = new URL('royal');
-                    }
-                    $URL->insert( array ('m' => $speaker_id) );
-                    $speaker = array (
-                        'member_id'		=> $speaker_id,
-                        'title'			=> $q->field(0, 'title'),
-                        "first_name"	=> $q->field(0, "first_name"),
-                        "last_name"		=> $q->field(0, "last_name"),
-                        'house'			=> $q->field(0, 'house'),
-                        "constituency"	=> $q->field(0, "constituency"),
-                        "party"			=> $q->field(0, "party"),
-                        "person_id"		=> $q->field(0, "person_id"),
-                        "url"			=> $URL->generate(),
-                    );
-
-                    global $parties;
-                    // Manual fix for Speakers.
-                    if (isset($parties[$speaker['party']])) {
-                        $speaker['party'] = $parties[$speaker['party']];
-                    }
-
-                    $q = $this->db->query("SELECT dept, position, source FROM moffice WHERE person=$speaker[person_id]
-                                AND to_date>='$hdate' AND from_date<='$hdate'");
-                    if ($q->rows() > 0) {
-                        for ($row=0; $row<$q->rows(); $row++) {
-                            $dept = $q->field($row, 'dept');
-                            $pos = $q->field($row, 'position');
-                            $source = $q->field($row, 'source');
-                            if ($source == 'chgpages/libdem' && $hdate > '2009-01-15') continue;
-                            if ($pos && $pos != 'Chairman') {
-                                $speaker['office'][] = array(
-                                    'dept' => $dept,
-                                    'position' => $pos,
-                                    'source' => $source,
-                                    'pretty' => prettify_office($pos, $dept)
-                                );
-                            }
-                        }
-                    }
-                    $this->speakers[ $speaker_id ] = $speaker;
-
-                    return $speaker;
-                } else {
-                    return array();
-                }
-            } else {
-                // Already cached, so just return that.
-                return $this->speakers[ $speaker_id ];
-            }
-        } else {
+    public function _get_speaker($person_id, $hdate, $htime, $major) {
+        if ($person_id == 0) {
             return array();
         }
+
+        # Special exemption below for when NI Speaker becomes Speaker
+        # mid-debate, so we don't want to cache
+        if (isset($this->speakers[$person_id]) && !($person_id == 13831 && $hdate == '2015-01-12')) {
+            return $this->speakers[$person_id];
+        }
+
+        $q = $this->db->query("SELECT title, first_name,
+                                last_name,
+                                house,
+                                constituency,
+                                party,
+                                member_id
+                        FROM    member
+                        WHERE	person_id = :person_id
+                            AND entered_house <= :hdate AND :hdate <= left_house
+                        ORDER BY entered_house",
+            array(':person_id' => $person_id, ':hdate' => $hdate));
+        $member = $this->_get_speaker_alone($q->data, $person_id, $hdate, $htime, $major);
+
+        $URL = $this->_get_speaker_url($member['house']);
+        $URL->insert( array ('p' => $person_id) );
+
+        $speaker = array (
+            'member_id' => $member['member_id'],
+            'title' => $member['title'],
+            "first_name" => $member["first_name"],
+            "last_name" => $member["last_name"],
+            'house' => $member['house'],
+            "constituency" => $member["constituency"],
+            "party" => $member["party"],
+            "person_id" => $person_id,
+            "url" => $URL->generate(),
+        );
+
+        global $parties;
+        // Manual fix for Speakers.
+        if (isset($parties[$speaker['party']])) {
+            $speaker['party'] = $parties[$speaker['party']];
+        }
+
+        $speaker['office'] = $this->_get_speaker_offices($speaker, $hdate);
+        $this->speakers[$person_id] = $speaker;
+        return $speaker;
     }
 
+    private function _get_speaker_alone($members, $person_id, $hdate, $htime, $major) {
+        if (count($members) > 1) {
+            $members = array_filter($members, function($m) use ($major) {
+                return in_array($m['house'], $this->major_to_house[$major]);
+            });
+            # Of course, remember PHP treats lists as dictionaries
+            $members = array_values($members);
+        }
+        # Note identical code to this in search/index.pl
+        if (count($members) > 1) {
+            # Couple of special cases for the election of the NI Speaker
+            if ($person_id == 13799 && $hdate == '2007-05-08') {
+                $members = array($members[$htime < '11:00' ? 0 : 1]);
+            } elseif ($person_id == 13831 && $hdate == '2015-01-12') {
+                $members = array($members[$htime < '13:00' ? 0 : 1]);
+            }
+        }
+        if (count($members) != 1) {
+            throw new \Exception('Wanted one result, but got ' . count($members));
+        }
 
+        return $members[0];
+    }
+
+    private function _get_speaker_url($house) {
+        $URL = new URL('mp'); # Default, house=1
+        if ($house==2) {
+            $URL = new URL('peer');
+        } elseif ($house==3) {
+            $URL = new URL('mla');
+        } elseif ($house==4) {
+            $URL = new URL('msp');
+        } elseif ($house==0) {
+            $URL = new URL('royal');
+        }
+        return $URL;
+    }
+
+    private function _get_speaker_offices($speaker, $hdate) {
+        $offices = array();
+        $q = $this->db->query("SELECT dept, position, source FROM moffice
+            WHERE person=:person_id
+            AND from_date <= :hdate and :hdate <= to_date",
+            array(':person_id' => $speaker['person_id'], ':hdate' => $hdate));
+        $rows = $q->rows();
+        if (!$rows) {
+            return $offices;
+        }
+        for ($row=0; $row<$rows; $row++) {
+            $dept = $q->field($row, 'dept');
+            $pos = $q->field($row, 'position');
+            $source = $q->field($row, 'source');
+            if ($source == 'chgpages/libdem' && $hdate > '2009-01-15') {
+                continue;
+            }
+            if (!$pos || $pos == 'Chairman') {
+                continue;
+            }
+            $offices[] = array(
+                'dept' => $dept,
+                'position' => $pos,
+                'source' => $source,
+                'pretty' => prettify_office($pos, $dept)
+            );
+        }
+        return $offices;
+    }
 
     public function _get_comment($item_data) {
         // Pass it some variables belonging to an item and the function
@@ -2626,8 +2661,8 @@ class DEBATELIST extends HANSARDLIST {
                                 htype,
                                 gid,
                                 major, minor,
-                                hdate,
-                                speaker_id,
+                                hdate, htime,
+                                person_id,
                                 epobject.body,
                                 SUM(uservotes.vote) + anonvotes.yes_votes AS total_vote
                         FROM	hansard,
@@ -2668,7 +2703,7 @@ class DEBATELIST extends HANSARDLIST {
 
                 $speech['listurl'] = $this->_get_listurl($speech);
 
-                $speech['speaker'] = $this->_get_speaker($q->field($n, 'speaker_id'), $q->field($n, 'hdate') );
+                $speech['speaker'] = $this->_get_speaker($q->field($n, 'person_id'), $q->field($n, 'hdate'), $q->field($n, 'htime'), $this->major );
 
                 $speeches[] = $speech;
             }
@@ -2811,7 +2846,7 @@ class DEBATELIST extends HANSARDLIST {
 
             // Get the question for this item.
             $r = $this->db->query("SELECT e.body,
-                                    h.speaker_id, h.hdate
+                                    h.person_id, h.hdate, h.htime
                             FROM    hansard h, epobject e
                             WHERE   h.epobject_id = e.epobject_id
                             AND     h.subsection_id = '" . $item_data['epobject_id'] . "'
@@ -2819,7 +2854,7 @@ class DEBATELIST extends HANSARDLIST {
                             LIMIT 1
                             ");
             $childbody = $r->field(0, 'body');
-            $speaker = $this->_get_speaker($r->field(0, 'speaker_id'), $r->field(0, 'hdate') );
+            $speaker = $this->_get_speaker($r->field(0, 'person_id'), $r->field(0, 'hdate'), $r->field(0, 'htime'), $this->major );
 
             $data[] = array(
                 'contentcount'  => $contentcount,
@@ -3057,7 +3092,7 @@ class WRANSLIST extends HANSARDLIST {
 
             // Get the question for this item.
             $r = $this->db->query("SELECT e.body,
-                                    h.speaker_id, h.hdate
+                                    h.person_id, h.hdate, h.htime
                             FROM	hansard h, epobject e
                             WHERE	h.epobject_id = e.epobject_id
                             AND 	h.subsection_id = '" . $q->field($row, 'epobject_id') . "'
@@ -3065,7 +3100,7 @@ class WRANSLIST extends HANSARDLIST {
                             LIMIT 1
                             ");
             $childbody = $r->field(0, 'body');
-            $speaker = $this->_get_speaker($r->field(0, 'speaker_id'), $r->field(0, 'hdate') );
+            $speaker = $this->_get_speaker($r->field(0, 'person_id'), $r->field(0, 'hdate'), $r->field(0, 'htime'), $this->major );
 
             $data[] = array (
                 'body'			=> $body,
@@ -3116,14 +3151,14 @@ class StandingCommittee extends DEBATELIST {
         );
         $sittings = $q->field(0, 'c');
         $q = $this->db->query(
-            'select member_id,sum(attending) as attending, sum(chairman) as chairman
+            'select person_id,sum(attending) as attending, sum(chairman) as chairman
                 from pbc_members
-                where bill_id = :bill_id group by member_id',
+                where bill_id = :bill_id group by person_id',
             array(':bill_id' => $bill_id));
         $comm = array('sittings'=>$sittings);
         for ($i=0; $i<$q->rows(); $i++) {
-            $member_id = $q->field($i, 'member_id');
-            $mp = new MEMBER(array('member_id'=>$member_id));
+            $person_id = $q->field($i, 'person_id');
+            $mp = new MEMBER(array('person_id'=>$person_id));
             $attending = $q->field($i, 'attending');
             $chairman = $q->field($i, 'chairman');
             $arr = array(
@@ -3131,9 +3166,9 @@ class StandingCommittee extends DEBATELIST {
                 'attending' => $attending,
             );
             if ($chairman) {
-                $comm['chairmen'][$member_id] = $arr;
+                $comm['chairmen'][$person_id] = $arr;
             } else {
-                $comm['members'][$member_id] = $arr;
+                $comm['members'][$person_id] = $arr;
             }
         }
         return $comm;
