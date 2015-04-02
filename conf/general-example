@@ -45,6 +45,11 @@ if (!defined('BASEDIR')) {
     define ("BASEDIR","/home/user/theyworkforyou/docs");
 }
 
+// File system path to the application logs directory
+if (!defined('APPLOGDIR')) {
+    define ("APPLOGDIR","/data/twfylogs");
+}
+
 // Webserver path to 'top' directory of the site (possibly just "/"). For example,
 // if the site is at 'http://www.yourdomain.com/public/theyworkforyou', 
 // this would be '/public/theyworkforyou'
