@@ -21,7 +21,8 @@ sed -i 's/define ("COOKIEDOMAIN", "www.example.org");/define ("COOKIEDOMAIN", "t
 mkdir /data/parlparse
 git clone https://github.com/mysociety/parlparse.git /data/parlparse
 
-/data/twfy/scripts/xml2db.pl --members --wrans --westminhall --debates --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing --all
+/data/twfy/scripts/xml2db.pl --wrans --westminhall --debates --wms --lordsdebates --ni --scotland --scotwrans --scotqs --standing --all
+/data/twfy/scripts/load-people
 /data/twfy/scripts/mpinfoin.pl
 
 cd /data/twfy/www/docs/style

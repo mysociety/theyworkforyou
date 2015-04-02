@@ -17,6 +17,7 @@ CREATE TABLE `constituency` (
   `from_date` date NOT NULL default '1000-01-01',
   `to_date` date NOT NULL default '9999-12-31',
   `cons_id` int(11) default NULL,
+  UNIQUE KEY `constituency_cons_id_name` (`cons_id`,`name`),
   KEY `from_date` (`from_date`),
   KEY `to_date` (`to_date`),
   KEY `name` (`name`),
