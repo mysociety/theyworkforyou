@@ -143,7 +143,7 @@ if ($action ne "check" && $action ne 'checkfull') {
         my $htime = $row->{htime} || 0;
         $htime =~ s/[^0-9]//g;
 
-        my ($name, $party) = get_person($person_id, $date, $htime, $major);
+        my ($name, $party) = get_person($person_id, $date, $htime, $row->{major});
 
         my $dept = $$row{section_body} || '';
         $dept =~ s/[^a-z]//gi;

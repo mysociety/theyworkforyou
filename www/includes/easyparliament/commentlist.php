@@ -165,7 +165,7 @@ class COMMENTLIST {
         // We're grouping them by epobject so we can just link to each hansard thing once.
         // When there are numerous comments on an epobject we're getting the most recent
         // 		comment_id and posted date.
-        // We're getting the body and speaker details for the epobject.
+        // We're getting the body details for the epobject.
         // We're NOT getting the comment bodies. Why? Because adding them to this query
         // would fetch the text for the oldest comment on an epobject group, rather
         // than the most recent. So we'll get the comment bodies later...
@@ -177,14 +177,11 @@ class COMMENTLIST {
                                 hansard.gid,
                                 users.firstname,
                                 users.lastname,
-                                epobject.body,
-                                member.first_name,
-                                member.last_name
+                                epobject.body
                         FROM 	comments
                             join hansard  on comments.epobject_id = hansard.epobject_id
                             join users    on comments.user_id = users.user_id
                             join epobject on comments.epobject_id = epobject.epobject_id
-                        LEFT OUTER JOIN member ON hansard.speaker_id = member.member_id
                         where	users.user_id='" . addslashes($args['user_id']) . "'
                         AND 	visible='1'
                         GROUP BY epobject_id
@@ -209,10 +206,6 @@ class COMMENTLIST {
                     'lastname'			=> $q->field($n, 'lastname'),
                     // Hansard item body, not comment body.
                     'hbody'				=> $q->field($n, 'body'),
-                    'speaker'			=> array (
-                        'first_name'	=> $q->field($n, 'first_name'),
-                        'last_name'		=> $q->field($n, 'last_name')
-                    )
                 );
 
                 // Add the URL...
@@ -308,16 +301,18 @@ class COMMENTLIST {
         $data['comments'] = $commentsdata;
         $data['results_per_page'] = $num;
         $data['page'] = $page;
+        $params = array();
         if (isset($args['pid']) && is_numeric($args['pid'])) {
             $data['pid'] = $args['pid'];
             $q = 'SELECT title, first_name, last_name, constituency, house FROM member WHERE left_house="9999-12-31" and person_id = ' . $args['pid'];
             $q = $this->db->query($q);
             $data['full_name'] = member_full_name($q->field(0, 'house'), $q->field(0, 'title'), $q->field(0, 'first_name'), $q->field(0, 'last_name'), $q->field(0,'constituency'));
-            $q = 'SELECT COUNT(*) AS count FROM comments,hansard,member WHERE visible=1 AND comments.epobject_id = hansard.epobject_id and hansard.speaker_id = member.member_id and person_id = ' . $args['pid'];
+            $q = 'SELECT COUNT(*) AS count FROM comments,hansard WHERE visible=1 AND comments.epobject_id = hansard.epobject_id and hansard.person_id = :pid';
+            $params[':pid'] = $args['pid'];
         } else {
             $q = 'SELECT COUNT(*) AS count FROM comments WHERE visible=1';
         }
-        $q = $this->db->query($q);
+        $q = $this->db->query($q, $params);
         $data['total_results'] = $q->field(0, 'count');
         return $data;
     }
@@ -511,12 +506,6 @@ class COMMENTLIST {
         // Add on that we need to get the hansard item's body.
         if (isset($amount['hansard']) && $amount['hansard'] == true) {
             $fieldsarr['epobject'] = array('body');
-            $fieldsarr['member'] = array ('first_name', 'last_name');
-            $join .= ' LEFT OUTER JOIN member ON hansard.speaker_id = member.member_id';
-        }
-
-        if (isset($wherearr['person_id='])) {
-            $join .= ' INNER JOIN member ON hansard.speaker_id = member.member_id';
         }
 
         $fieldsarr2 = array ();

@@ -1879,7 +1879,7 @@ class HANSARDLIST {
                 if ( (isset($amount['speaker']) && $amount['speaker'] == true) &&
                     $item['person_id'] != '') {
 
-                    $item['speaker'] = $this->_get_speaker($item['person_id'], $item['hdate'], $item['htime'], $this->major);
+                    $item['speaker'] = $this->_get_speaker($item['person_id'], $item['hdate'], $item['htime'], $item['major']);
                 }
 
 
