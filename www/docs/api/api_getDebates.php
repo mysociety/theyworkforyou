@@ -58,7 +58,7 @@ function api_getDebates_front() {
             "constituency" : "",
             "party" : "Conservative",
             "person_id" : "13665",
-            "url" : "/peer/?m=100176"
+            "url" : "/peer/?p=100176"
         },
         "parent" : {
             "body" : "Climate Change (EAC Report)"
@@ -85,7 +85,7 @@ function api_getDebates_front() {
             "constituency" : "",
             "party" : "Labour",
             "person_id" : "10511",
-            "url" : "/peer/?m=100549",
+            "url" : "/peer/?p=100549",
             "office" : [{
                 "dept" : "Department for Environment, Food and Rural Affairs",
                 "position" : "Minister of State (Sustainable Farming and Food)",

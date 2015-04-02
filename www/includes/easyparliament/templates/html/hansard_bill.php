@@ -110,14 +110,14 @@ if (isset($data['info']['committee']) && isset($data['info']['committee']['membe
         else $list .= 'man';
         $list .= '</h5> <ul>';
         foreach ($data['info']['committee']['chairmen'] as $id => $member) {
-            $list .= '<li><a href="/mp/?m=' . $id . '">' . $member['name'] . '</a>';
+            $list .= '<li><a href="/mp/?p=' . $id . '">' . $member['name'] . '</a>';
             $list .= ' <small>('.$member['attending'].')</small>';
         }
         $list .= '</ul>';
     }
     $list .= '<h5>Members</h5> <ul>';
     foreach ($data['info']['committee']['members'] as $id => $member) {
-        $list .= '<li><a href="/mp/?m=' . $id . '">' . $member['name'] . '</a>';
+        $list .= '<li><a href="/mp/?p=' . $id . '">' . $member['name'] . '</a>';
         $list .= ' <small>('.$member['attending'].')</small>';
     }
     $list .= '</ul>
