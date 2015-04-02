@@ -16,15 +16,49 @@ if (!$pc) {
 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
 if (!validate_postcode($pc)) {
     twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
+
+    $eventLog->addInfo('Unable to check postcode, postcode invalid', array(
+        'search' => 'postcode',
+        'success' => false,
+        'error' => 'invalid',
+        'postcode' => $pc
+    ));
+
     postcode_error("Sorry, " . _htmlentities($pc) . " isn't a valid postcode");
 }
 
 $constituencies = postcode_to_constituencies($pc);
 if ($constituencies == 'CONNECTION_TIMED_OUT') {
+
+    $eventLog->addError('Unable to check postcode, connection timed out', array(
+        'search' => 'postcode',
+        'success' => false,
+        'error' => 'timeout',
+        'postcode' => $pc
+    ));
+
     postcode_error("Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.");
+
 } elseif (!$constituencies) {
+
+    $eventLog->addInfo('Unable to find constituency, postcode unknown', array(
+        'search' => 'postcode',
+        'success' => false,
+        'error' => 'unknown',
+        'postcode' => $pc
+    ));
+
     postcode_error("Sorry, " . _htmlentities($pc) . " isn't a known postcode");
+
 }
+
+$eventLog->addInfo('Search for postcode', array(
+    'search' => 'postcode',
+    'success' => true,
+    'error' => null,
+    'postcode' => $pc,
+    'constituencies' => $constituencies
+));
 
 $out = ''; $sidebars = array();
 if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
