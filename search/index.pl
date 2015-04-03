@@ -87,6 +87,24 @@ $termgenerator->set_database($db);
 $termgenerator->set_stemmer($stemmer);
 # $termgenerator->set_stopper();
 
+my $q_person = $dbh->prepare(
+    "SELECT house, title, first_name, last_name, party, constituency
+    FROM member
+    WHERE person_id = ? AND entered_house <= ? and ? <= left_house
+    ORDER BY entered_house");
+
+my %major_to_house = (
+    1 => { 1 => 1 },
+    2 => { 1 => 1 },
+    3 => { 1 => 1, 2 => 1 },
+    4 => { 1 => 1, 2 => 1 },
+    5 => { 3 => 1 },
+    6 => { 1 => 1 },
+    7 => { 4 => 1 },
+    8 => { 4 => 1 },
+    101 => { 2 => 1 },
+);
+
 if ($action ne "check" && $action ne 'checkfull') {
 
     # Batch numbers - each new stuff gets a new batch number
@@ -319,24 +337,6 @@ if ($action ne "check" && $action ne 'checkfull') {
     }
 }
 
-
-my $q_person = $dbh->prepare(
-    "SELECT house, title, first_name, last_name, party, constituency
-    FROM member
-    WHERE person_id = ? AND entered_house <= ? and ? <= left_house
-    ORDER BY entered_house");
-
-my %major_to_house = (
-    1 => { 1 => 1 },
-    2 => { 1 => 1 },
-    3 => { 1 => 1, 2 => 1 },
-    4 => { 1 => 1, 2 => 1 },
-    5 => { 3 => 1 },
-    6 => { 1 => 1 },
-    7 => { 4 => 1 },
-    8 => { 4 => 1 },
-    101 => { 2 => 1 },
-);
 
 sub get_person {
     my ($person_id, $hdate, $htime, $major) = @_;
