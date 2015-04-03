@@ -187,3 +187,10 @@
             </nav>
         </div>
     </header>
+    <div class="banner">
+        <div class="full-page__row">
+            <div class="banner__content">
+                Find out who your candidates in the 2015 General Election are at <a href="https://yournextmp.com">YourNextMP</a>
+            </div>
+        </div>
+    </div>
