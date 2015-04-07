@@ -125,7 +125,7 @@ CREATE TABLE `policydivisions` (
   `policy_id` varchar(100) NOT NULL default '',
   `house` varchar(100),
   `gid` varchar(100) default '',
-  `direction` enum( 'Majority', 'Majority (strong)', 'minority', 'minority (strong)', 'absent'),
+  `direction` enum( 'Majority', 'Majority (strong)', 'minority', 'minority (strong)', 'absent', 'both', 'abstention', 'spoiled'),
   `division_title` text NOT NULL,
   `yes_text` text,
   `no_text` text,
