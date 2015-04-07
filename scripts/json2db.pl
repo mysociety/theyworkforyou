@@ -103,8 +103,8 @@ foreach my $dreamid ( @policyids ) {
         my $yes_text = '';
         my $no_text = '';
         if ( $motion->{motion}->{actions} ) {
-            $yes_text = $motion->{motion}->{actions}->{yes};
-            $no_text = $motion->{motion}->{actions}->{no};
+            $yes_text = Encode::encode( 'iso-8859-1', $motion->{motion}->{actions}->{yes} );
+            $no_text = Encode::encode( 'iso-8859-1', $motion->{motion}->{actions}->{no} );
         }
 
         if ( !defined $curr_motion ) {
