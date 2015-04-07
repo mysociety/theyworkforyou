@@ -98,8 +98,14 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         <h3 class="policy-votes-list-header"><span id="policy-votes-type">All</span> votes about <?= $policy['desc'] ?>:</h3>
 
                                         <ul class="vote-descriptions policy-votes">
+                                        <?php
+                                            $show_all = FALSE;
+                                            if ( $policy['weak_count'] == count($policy['divisions']) ) {
+                                                $show_all = TRUE;
+                                            }
+                                        ?>
                                         <?php foreach ($policy['divisions'] as $division) { ?>
-                                            <li id="<?= $division['division_id'] ?>" class="<?= $division['strong'] ? 'policy-vote--major' : 'policy-vote--minor' ?>">
+                                            <li id="<?= $division['division_id'] ?>" class="<?= $division['strong'] || $show_all ? 'policy-vote--major' : 'policy-vote--minor' ?>">
                                                 <span class="policy-vote__date">On <?= strftime('%e %b %Y', strtotime($division['date'])) ?>:</span>
                                                 <span class="policy-vote__text"><?= $full_name ?><?= $division['text'] ?></span>
                                                 <?php if ( $division['url'] ) { ?>
@@ -114,14 +120,16 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                                         <div class="policy-votes-list-footer">
                                             <p class="policy-votes__byline">Vote information from <a href="http://www.publicwhip.org.uk">PublicWhip</a></p>
-                                            <?php if ( $policy['weak_count'] > 0 ) { ?>
+                                            <?php if ( !$show_all && $policy['weak_count'] > 0 ) { ?>
                                             <p><button class="button secondary-button small js-show-all-votes">Show all votes, including <?= $policy['weak_count'] ?> less important <?= $policy['weak_count'] == 1 ? 'vote' : 'votes' ?></button></p>
                                             <?php } ?>
                                         </div>
 
                                         <script type="text/javascript">
                                         $(function(){
+                                            <?php if ( !$show_all ) { ?>
                                             $('#policy-votes-type').text('Key');
+                                            <? } ?>
                                             $('.js-show-all-votes').on('click', function(){
                                                 $(this).fadeOut();
                                                 $('.policy-vote--minor').slideDown();
