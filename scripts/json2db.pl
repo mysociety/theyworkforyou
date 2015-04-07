@@ -86,7 +86,7 @@ foreach my $dreamid ( @policyids ) {
         my $motion_id = $motion->{motion}->{id};
 
         if ( !$motion->{direction} ) {
-            print "$motion_id in policy $dreamid has no direction, skipping\n"
+            print "$motion_id in policy $dreamid has no direction, skipping\n";
             next;
         }
 
