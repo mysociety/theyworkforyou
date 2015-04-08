@@ -181,6 +181,11 @@ $this->page = array (
         'parent'		=> 'admin',
         'url'			=> 'admin/policies.php',
     ),
+    'admin_banner' => array (
+        'title'			=> 'Edit Banner',
+        'parent'		=> 'admin',
+        'url'			=> 'admin/banner.php',
+    ),
 
 // Added by Richard Allan for email alert functions
 

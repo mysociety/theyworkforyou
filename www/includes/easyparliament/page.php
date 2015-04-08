@@ -281,14 +281,18 @@ class PAGE {
 
     public function page_body() {
         global $this_page;
+        $banner = new MySociety\TheyWorkForYou\Model\Banner;
+        $banner_text = $banner->get_text();
 
         // Start the body, put in the page headings.
         ?>
 <body>
 
+<?php if ( $banner_text ) { ?>
 <div id="surveyPromoBanner" style="clear:both;padding:1em;margin-top:24px;background:#DDD;">
-Find out who your candidates in the 2015 General Election are at <a href="https://yournextmp.com">YourNextMP</a>
+<?= $banner_text ?>
 </div>
+<?php } ?>
 
 
 <div id="fb-root"></div>
