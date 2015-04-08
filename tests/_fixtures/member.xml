@@ -349,5 +349,7 @@
 	</table_data>
 	<table_data name="video_timestamps">
 	</table_data>
+	<table_data name="editorial">
+	</table_data>
 </database>
 </mysqldump>

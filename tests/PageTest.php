@@ -69,4 +69,19 @@ class PageTest extends FetchPageTestCase
         $this->assertContains('<span class="party SPK">Speaker</span>', $page);
     }
 
+    public function testBanner() {
+        $banner = new MySociety\TheyWorkForYou\Model\Banner;
+
+        $page = $this->fetch_page( array( 'url' => '/' ) );
+        $this->assertNotContains('This is a banner', $page);
+
+        $banner->set_text('This is a banner');
+        $page = $this->fetch_page( array( 'url' => '/' ) );
+        $this->assertContains('This is a banner', $page);
+
+        $banner->set_text('');
+        $page = $this->fetch_page( array( 'url' => '/' ) );
+        $this->assertNotContains('This is a banner', $page);
+    }
+
 }
