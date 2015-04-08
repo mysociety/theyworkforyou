@@ -187,10 +187,12 @@
             </nav>
         </div>
     </header>
+    <?php if ( isset($banner_text) ) { ?>
     <div class="banner">
         <div class="full-page__row">
             <div class="banner__content">
-                Find out who your candidates in the 2015 General Election are at <a href="https://yournextmp.com">YourNextMP</a>
+                <?= $banner_text ?>
             </div>
         </div>
     </div>
+    <?php } ?>

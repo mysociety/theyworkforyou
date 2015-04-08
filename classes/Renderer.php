@@ -422,6 +422,10 @@ class Renderer
         $data['footer_links']['international'] = self::get_menu_links(array ('newzealand', 'australia', 'ireland', 'mzalendo'));
         $data['footer_links']['tech'] = self::get_menu_links(array ('code', 'api', 'data', 'pombola', 'devmailinglist', 'irc'));
 
+        # banner text
+        $b = new Model\Banner;
+        $data['banner_text'] = $b->get_text();
+
         # Robots header
         if (DEVSITE) {
             $data['robots'] = 'noindex,nofollow';
