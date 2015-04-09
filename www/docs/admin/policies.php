@@ -29,7 +29,9 @@ if (get_http_var('editpolicy')) {
 $subnav = subnav();
 
 print '<div id="adminbody">';
-print $subnav;
+if (get_http_var('editpolicy')) {
+    print $subnav;
+}
 print $out;
 print '</div>';
 
@@ -45,25 +47,25 @@ function edit_policy_form() {
 
     for ($row = 0; $row < $q->rows(); $row++) {
 
-        $out = "<h3>Edit policy " . $q->field($row, 'title') . "</h3>\n";
+        $out = "<h3>Edit policy: " . $q->field($row, 'title') . "</h3>\n";
 
         $out .= '<form action="policies.php?editpolicy=' . $q->field($row, 'policy_id') . '" method="post">';
         $out .= '<input name="action" type="hidden" value="Save">';
-        $out .= '<label for="title">Title</label>';
-        $out .= '<span class="formw"><input id="title" name="title" type="text"  size="60" value="' . htmlentities($q->field($row, 'title')) . '"></span>' . "<br>\n";
-        $out .= '<label for="description">Description</label>';
-        $out .= '<span class="formw"><input id="description" name="description" type="text"  size="60" value="' . htmlentities($q->field($row, 'description')) . '"></span>' . "<br>\n";
-        $out .= '<label for="image">Image URL:</label>';
-        $out .= '<span class="formw"><input id="image" name="image" type="text"  size="60" value="' . htmlentities($q->field($row, 'image')) . '"></span>' . "<br>\n";
-        $out .= '<label for="image_attrib">Image attribution</label>';
-        $out .= '<span class="formw"><input id="image_attrib" name="image_attrib" type="text"  size="60" value="' . htmlentities($q->field($row, 'image_attrib')) . '"></span>' . "<br>\n";
-        $out .= '<label for="image_license">Image license</label>';
-        $out .= '<span class="formw"><input id="image_license" name="image_license" type="text"  size="60" value="' . htmlentities($q->field($row, 'image_license')) . '"></span>' . "<br>\n";
-        $out .= '<label for="image_license_url">Image license URL:</label>';
-        $out .= '<span class="formw"><input id="image_license_url" name="image_license_url" type="text"  size="60" value="' . htmlentities($q->field($row, 'image_license_url')) . '"></span>' . "<br>\n";
-        $out .= '<label for="image_source">Image source:</label>';
-        $out .= '<span class="formw"><input id="image_source" name="image_source" type="text"  size="60" value="' . htmlentities($q->field($row, 'image_source')) . '"></span>' . "<br>\n";
-        $out .= '<span class="formw"><input name="btnaction" type="submit" value="Save"></span>';
+        $out .= '<p><label for="title">Title: </label>';
+        $out .= '<span class="formw"><input id="title-textbox" name="title" type="text"  size="60" value="' . htmlentities($q->field($row, 'title')) . '"></span>' . "</p>\n";
+        $out .= '<p><label for="description">Description</label><br>';
+        $out .= '<span class="formw"><textarea id="description" name="description" rows="10" cols="100">' . htmlentities($q->field($row, 'description')) . '</textarea></span>' . "</p>\n";
+        $out .= '<p><label for="image">Image URL: </label>';
+        $out .= '<span class="formw"><input id="image" name="image" type="text"  size="60" value="' . htmlentities($q->field($row, 'image')) . '"></span>' . "</p>\n";
+        $out .= '<p><label for="image_attrib">Image attribution: </label>';
+        $out .= '<span class="formw"><input id="image_attrib" name="image_attrib" type="text"  size="60" value="' . htmlentities($q->field($row, 'image_attrib')) . '"></span>' . "</p>\n";
+        $out .= '<p><label for="image_license">Image license: </label>';
+        $out .= '<span class="formw"><input id="image_license" name="image_license" type="text"  size="60" value="' . htmlentities($q->field($row, 'image_license')) . '"></span>' . "</p>\n";
+        $out .= '<p><label for="image_license_url">Image license URL: </label>';
+        $out .= '<span class="formw"><input id="image_license_url" name="image_license_url" type="text"  size="60" value="' . htmlentities($q->field($row, 'image_license_url')) . '"></span>' . "</p>\n";
+        $out .= '<p><label for="image_source">Image source: </label>';
+        $out .= '<span class="formw"><input id="image_source" name="image_source" type="text"  size="60" value="' . htmlentities($q->field($row, 'image_source')) . '"></span>' . "</p>\n";
+        $out .= '<p><span class="formw"><input name="btnaction" type="submit" value="Save"></span>';
         $out .= '</form>';
     }
 
@@ -74,11 +76,11 @@ function list_policies() {
     global $db;
     $out = '<ul>';
     # this returns everyone so possibly over the top maybe limit to member.house = '1'
-    $q = $db->query("SELECT policy_id, title, description, image_attrib, image_license, image_license_url, image_source FROM policies");
+    $q = $db->query("SELECT policy_id, title, description, image_attrib, image_license, image_license_url, image_source FROM policies ORDER by CAST(policy_id as UNSIGNED)");
 
     for ($row = 0; $row < $q->rows(); $row++) {
-        $out .= '<li>';
-        $out .= sprintf('%s - %s', htmlentities($q->field($row, 'title')), htmlentities($q->field($row, 'description')));
+        $out .= '<li style="margin-bottom: 1em;">';
+        $out .= sprintf('<strong>%d</strong>: %s - %s', $q->field($row, 'policy_id'), htmlentities($q->field($row, 'title')), htmlentities($q->field($row, 'description')));
         $out .= ' <small>[<a href="policies.php?editpolicy=' . $q->field($row, 'policy_id') . '">Edit Policy</a>]</small>';
         $out .= "</li>\n";
     }
@@ -118,7 +120,7 @@ function update_policy() {
 function subnav() {
     $rettext = '';
     $subnav = array(
-        'List Policies' => '/admin/policies.php',
+        'Back to All Policies' => '/admin/policies.php',
     );
 
     $rettext .= '<div id="subnav_websites">';
