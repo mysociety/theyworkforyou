@@ -34,7 +34,6 @@ my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::
 
 my $policycheck = $dbh->prepare("SELECT policy_id from policies where policy_id = ?");
 my $policyadd = $dbh->prepare("INSERT INTO policies (policy_id, title, description) VALUES (?, ?, ?)");
-my $policyupdate = $dbh->prepare("UPDATE policies SET title = ?, description = ? WHERE policy_id = ?");
 
 my $motioncheck = $dbh->prepare("SELECT division_title, gid, direction, yes_text, no_text FROM policydivisions WHERE division_id = ? AND policy_id = ?");
 
@@ -61,9 +60,9 @@ foreach my $dreamid ( @policyids ) {
 
 
     my $curr_policy = $dbh->selectrow_hashref($policycheck, {}, $dreamid);
-    if ( $curr_policy ) {
-        $policyupdate->execute($policy->{title} || '', $policy->{text}, $dreamid);
-    } else {
+    # we don't update the policy title or text as we use slightly different
+    # descriptions on TWFY in some cases
+    if ( !$curr_policy ) {
         $policyadd->execute($dreamid, $policy->{title} || '', $policy->{text});
     }
 

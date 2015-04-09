@@ -66,7 +66,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 <?php if ( isset($policy['header']) ) { ?>
                                     <div class="panel policy-votes-hero" style="background-image: url('<?php echo $policy['header']['image']; ?>');">
                                         <h2><?php echo $policy['header']['title']; ?></h2>
-                                        <p>Someone who voted for this agreed that <?php echo $policy['header']['description']; ?>.</p>
+                                        <p><?php echo $policy['header']['description']; ?>.</p>
                                         <?php if ( $policy['header']['image_source'] ) { ?>
                                         <span class="policy-votes-hero__image-attribution">
                                             Photo:

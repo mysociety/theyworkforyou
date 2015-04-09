@@ -12,6 +12,8 @@
  * Take the path to the CSV file with the details
  * Columns should be:
  * 1: policy id
+ * 3: title
+ * 4: description
  * 6: source: url of the original image
  * 7: image attribution - name of photographer
  * 8: license URL - url of the CC licence of photo
@@ -47,16 +49,20 @@ $count = 0;
 while ( ( $policy = fgetcsv($file) ) !== FALSE ) {
     if ( intval($policy[0]) ) {
         $policy_id = $policy[0];
+        $title = $policy[2];
+        $description = $policy[3];
         $attribution = $policy[6];
         $licence_url = $policy[7];
         $source = $policy[5];
 
         $q = $db->query("UPDATE policies SET
             image = :image, image_source = :image_source, image_attrib = :image_attribution,
-            image_license_url = :license_url WHERE
+            image_license_url = :license_url, title = :title, description = :description WHERE
             policy_id = :policy_id
             ", array(
                 ':policy_id' => $policy_id,
+                ':title' => $title,
+                ':description' => $description,
                 ':image' => "/images/policies/" . $policy_id . ".jpg",
                 ':image_source' => $source,
                 ':image_attribution' => $attribution,
