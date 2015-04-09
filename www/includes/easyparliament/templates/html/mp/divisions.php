@@ -85,7 +85,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 <?php if ( isset($policy['position']) ) { ?>
                                     <div class="panel">
                                         <h3 class="policy-vote-overall-stance">
-                                            <?= $full_name ?> voted <?= $policy['position']['voted'] ?> <?= $policy['desc'] ?>
+                                            <?= $full_name ?> <?= $policy['position']['voted'] == 'never voted' ? $policy['position']['voted'] . ' on' : 'voted ' .$policy['position']['voted'] ?> <?= $policy['desc'] ?>
                                         </h3>
 
                                         <?php if ( DEVSITE ) { ?>
