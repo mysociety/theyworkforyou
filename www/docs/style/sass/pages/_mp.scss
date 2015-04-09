@@ -590,6 +590,13 @@
     }
 }
 
+.policy-vote--major,
+.policy-vote--minor {
+    &:target {
+        background-color: #ffc;
+    }
+}
+
 .policy-vote--minor {
     padding-left: 1.5em;
     line-height: 1.3em !important; // override .vote-descriptions .policy-votes > li
@@ -601,6 +608,14 @@
 
     .policy-vote__text {
         color: #666;
+    }
+}
+
+.policy-vote__permalink {
+    float: right;
+    color: #b5af9d; // desaturated taupe colour
+    @media (min-width: $medium-screen) {
+        margin-right: -9em;
     }
 }
 

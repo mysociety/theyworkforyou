@@ -107,6 +107,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     ?>
                                     <?php foreach ($policy['divisions'] as $division) { ?>
                                         <li id="<?= $division['division_id'] ?>" class="<?= $division['strong'] || $show_all ? 'policy-vote--major' : 'policy-vote--minor' ?>">
+                                            <a class="policy-vote__permalink" href="<?= $page_url ?>#<?= $division['division_id'] ?>" title="Link to this vote">#</a>
                                             <span class="policy-vote__date">On <?= strftime('%e %b %Y', strtotime($division['date'])) ?>:</span>
                                             <span class="policy-vote__text"><?= $full_name ?><?= $division['text'] ?></span>
                                             <?php if ( $division['url'] ) { ?>
