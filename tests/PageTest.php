@@ -72,6 +72,7 @@ class PageTest extends FetchPageTestCase
     public function testBanner() {
         $banner = new MySociety\TheyWorkForYou\Model\Banner;
 
+        $banner->set_text('');
         $page = $this->fetch_page( array( 'url' => '/' ) );
         $this->assertNotContains('This is a banner', $page);
 

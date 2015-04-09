@@ -508,4 +508,3 @@ CREATE TABLE `research_qual2_log` (
   `timer` int(11) DEFAULT NULL
 );
 
-

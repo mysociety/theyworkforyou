@@ -18,7 +18,7 @@ function _postcode_to_constituencies($postcode, $mp_only) {
 
     if ($last_postcode == $postcode) {
         $return_value = $mp_only ? $last_postcode_value['WMC'] : $last_postcode_value;
-        twfy_debug ("TIME", "Postcode $postcode looked up last time, is " . $return_value);
+        twfy_debug ("TIME", "Postcode $postcode looked up last time, is " . ( is_array($return_value) ? implode(', ', $return_value) : $return_value ));
         return $return_value;
     }
 

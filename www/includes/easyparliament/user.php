@@ -976,6 +976,13 @@ class THEUSER extends USER {
 
     }
 
+    public function has_postcode() {
+        $has_postcode = false;
+        if ( $this->isloggedin() && $this->postcode() != '' || $this->postcode_is_set() ) {
+            $has_postcode = true;
+        }
+        return $has_postcode;
+    }
 
 
     public function login($returl="", $expire) {

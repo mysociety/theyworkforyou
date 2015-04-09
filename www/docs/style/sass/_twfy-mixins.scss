@@ -5,17 +5,19 @@
 @import "foundation/components/grid-5";
 
 $small-screen: 0;
-$medium-screen: 51em;
+$medium-screen: 48em;
 $large-screen: 65em;
 $huge-screen: 71.25em;
 
-$colour_primary: #60b86b !default;
+$colour_primary: #62b356 !default;
 $colour_black: #222222;
 $colour_dark_grey: #666361;
+$colour_grey: #7E7B78;
 $colour_mid_grey: #ccc7c3;
 $colour_light_grey: #e9e7e4;
 $colour_off_white : #f2f1ef;
 $colour_pale_red: #EF6565;
+$colour_violet: #a94ca6;
 
 $weight_light: 300;
 $weight_semibold: 600;
@@ -204,6 +206,16 @@ $weight_bold: 700;
     font-size: 0.875em;
     padding: 0.5em 1em 0.45em 1em;
 }
+
+.button--violet {
+    background-color: $colour_violet;
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: darken($colour_violet, 10%);
+  }
+}
+
 .reduced-heading {
     font-size: 1em;
 }

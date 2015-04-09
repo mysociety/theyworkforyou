@@ -27,7 +27,10 @@ class SectionView {
             $data = $this->display_section_or_speech();
             return $data;
         } else {
-            $this->display_front();
+            $skip_end = $this->display_front();
+            if ( $skip_end ) {
+                return;
+            }
         }
         $PAGE->page_end();
     }

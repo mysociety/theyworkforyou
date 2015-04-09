@@ -318,4 +318,45 @@ class MemberTest extends TWFY_Database_TestCase
         $this->assertEquals($MEMBER->getEntryDate(5), '');
     }
 
+    public function testGetRegionalList() {
+        $this->assertEquals(array(), \MySociety\TheyWorkForYou\Member::getRegionalList('', '', ''));
+
+        $msps = array(
+            array(
+             'person_id' => "19",
+              'name' => "Mr Regional MSP1",
+              'constituency' => "Mid Scotland and Fife",
+              'house' => "4"
+            ),
+            array(
+                'person_id' => "20",
+                'name' => "Mr Regional MSP2",
+                'constituency' => "Mid Scotland and Fife",
+                'house' => "4"
+            )
+        );
+        $this->assertEquals($msps, \MySociety\TheyWorkForYou\Member::getRegionalList('KY16 8YG', 4, 'SPE'));
+        $mlas = array(
+            array(
+              'person_id' => "21",
+              'name' => "Mr Regional MLA1",
+              'constituency' => "Belfast West",
+              'house' => "3"
+            ),
+            array(
+                'person_id' => "22",
+                'name' => "Mr Regional MLA2",
+                'constituency' => "Belfast West",
+                'house' => "3"
+            )
+        );
+        $this->assertEquals($mlas, \MySociety\TheyWorkForYou\Member::getRegionalList('BT17 0XD', 3, 'NIE'));
+        $this->assertEquals(array(), \MySociety\TheyWorkForYou\Member::getRegionalList('BT17 0XD', 4, 'NIE'));
+        $this->assertEquals(array(), \MySociety\TheyWorkForYou\Member::getRegionalList('BT17 0XD', 3, 'SPE'));
+        $this->assertEquals(array(), \MySociety\TheyWorkForYou\Member::getRegionalList('KY16 8YG', 3, 'SPE'));
+        $this->assertEquals(array(), \MySociety\TheyWorkForYou\Member::getRegionalList('KY16 8YG', 4, 'NIE'));
+        $this->assertEquals(array(), \MySociety\TheyWorkForYou\Member::getRegionalList('KY16 8YG', 4, ''));
+        $this->assertEquals(array(), \MySociety\TheyWorkForYou\Member::getRegionalList('KY16 8YG', '', ''));
+    }
+
 }

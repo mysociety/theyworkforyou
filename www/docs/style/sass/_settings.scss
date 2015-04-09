@@ -74,8 +74,8 @@ $primary-color: #62b356;
 
 $body-bg: #f3f1eb;
 $body-font-color: #333333;
-$links: #2688dc;
-$brand: #149581;
+$links: #4faded;
+$brand: $primary-color;
 $footer: #444;
 $topbar-bg-color: $brand;
 $panel-bg: #fff;
@@ -165,7 +165,7 @@ $label-font-weight: normal;
 
 // Media Queries
 
-// $small-screen: 768px;
+ $small-screen: 47em;
 // $medium-screen: 1280px;
 // $large-screen: 1440px;
 

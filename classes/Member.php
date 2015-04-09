@@ -376,4 +376,63 @@ class Member extends \MEMBER {
         return $output;
     }
 
+    public static function getRegionalList($postcode, $house, $type) {
+        $db = new \ParlDB;
+
+        $dissolution_dates = array(
+            3 => '2011-03-24',
+            4 => '2011-03-23'
+        );
+        $mreg = array();
+        $constituencies = postcode_to_constituencies($postcode);
+        if ( isset($constituencies[$type]) ) {
+            $cons_name = $constituencies[$type];
+            $q = $db->query("SELECT member.person_id, title, lordofname, given_name, family_name, constituency, house
+                FROM member, person_names
+                WHERE
+                member.person_id = person_names.person_id
+                AND constituency = :cons_name
+                AND entered_house >= start_date
+                AND left_house <= end_date
+                AND left_reason = 'still_in_office' AND house = :house",
+                array(
+                    ':house' => $house,
+                    ':cons_name' => $cons_name
+                )
+            );
+            if ( !$q->rows() ) {
+                $q = $db->query("SELECT member.person_id, title, lordofname, given_name, family_name, constituency, house
+                    FROM member, person_names
+                    WHERE
+                    member.person_id = person_names.person_id
+                    AND constituency = :cons_name
+                    AND house = :house
+                    AND entered_house >= start_date
+                    AND left_house <= end_date
+                    AND left_house = :dissolution_date",
+                    array(
+                        ':house' => $house,
+                        ':cons_name' => $cons_name,
+                        ':dissolution_date' => $dissolution_dates[$house]
+                    )
+                );
+            }
+
+            for ($i = 0; $i < $q->rows; $i++) {
+                $name = member_full_name($house, $q->field($i, 'title'),
+                    $q->field($i, 'given_name'), $q->field($i, 'family_name'),
+                    $q->field($i, 'lordofname'));
+
+                $mreg[] = array(
+                    'person_id' 	=> $q->field($i, 'person_id'),
+                    'name' => $name,
+                    'house' => $q->field($i, 'house'),
+                    'constituency' 	=> $q->field($i, 'constituency')
+                );
+            }
+        }
+
+        return $mreg;
+    }
+
 }

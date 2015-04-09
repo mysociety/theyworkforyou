@@ -132,7 +132,7 @@ class HANSARDLIST {
         if ($view == 'search' && (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH))
             return false;
 
-        $validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_min', 'search_video', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates', 'recent_pbc_debates');
+        $validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_min', 'search_video', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates', 'recent_pbc_debates', 'featured_gid');
         if (in_array($view, $validviews)) {
 
             // What function do we call for this view?
@@ -2765,6 +2765,126 @@ class DEBATELIST extends HANSARDLIST {
         return $this->_get_data_by_biggest_debates($args);
     }
 
+    public function _get_data_by_featured_gid($args=array()) {
+        $params = array();
+        $data = array();
+
+        $params[':gid'] = $args['gid'];
+        $params[':major'] = $this->major;
+
+        $query = "SELECT
+                    body,
+                    title,
+                    h.hdate,
+                    h.htime,
+                    h.htype,
+                    h.minor,
+                    h.gid,
+                    h.person_id,
+                    h.subsection_id,
+                    h.section_id,
+                    h.epobject_id
+            FROM    hansard h, epobject e
+            WHERE   h.major = :major
+            AND     h.gid = :gid
+            AND     h.epobject_id = e.epobject_id";
+
+        $q = $this->db->query($query, $params);
+
+        if ( $q->rows ) {
+
+            // This array just used for getting further data about this debate.
+            $item_data = array (
+                'major'         => $this->major,
+                'minor'         => $q->field(0, 'minor'),
+                'gid'           => fix_gid_from_db( $q->field(0, 'gid') ),
+                'htype'         => $q->field(0, 'htype'),
+                'section_id'    => $q->field(0, 'section_id'),
+                'subsection_id' => $q->field(0, 'subsection_id'),
+                'epobject_id'   => $q->field(0, 'epobject_id')
+            );
+
+            $list_url      = $this->_get_listurl( $item_data );
+            $totalcomments = $this->_get_comment_count_for_epobject( $item_data );
+
+            $body          = $q->field(0, 'body');
+            $hdate         = $q->field(0, 'hdate');
+            $htime         = $q->field(0, 'htime');
+
+            // If this is a subsection, we're going to prepend the title
+            // of the parent section, so let's get that.
+            $parentbody = '';
+            if ($item_data['htype'] == 11 || $item_data['htype'] == 12) {
+                $r = $this->db->query("SELECT sec.body as sec_body, sec.title as sec_title,
+                                              sub.body as sub_body, sub.title as sub_title
+                                FROM    epobject sec, epobject sub
+                                WHERE   sec.epobject_id = :section_id
+                                AND     sub.epobject_id = :subsection_id",
+                                array(
+                                    ':section_id' => $item_data['section_id'],
+                                    ':subsection_id' => $item_data['subsection_id'],
+                                )
+                            );
+                $section_body  = $r->field(0, 'sec_body');
+                $subsection_body = $r->field(0, 'sub_body');
+                if ( $section_body && $subsection_body ) {
+                    $parentbody = "$section_body : $subsection_body";
+                } else {
+                    $parentbody = "$section_body$subsection_body";
+                }
+            } else if ( $item_data['htype'] == 10 ) {
+                $parentbody = $body;
+            }
+
+            // Get the question for this item.
+            if ( $item_data['htype'] == 12 ) {
+                $childbody = $body;
+                $speaker = $this->_get_speaker($q->field(0, 'person_id'), $q->field(0, 'hdate'), $q->field(0, 'htime'), $this->major );
+            } else {
+                $r = $this->db->query("SELECT e.body, e.title,
+                                        h.person_id, h.hdate, h.htime
+                                FROM    hansard h, epobject e
+                                WHERE   h.epobject_id = e.epobject_id
+                                AND     h.subsection_id = :object_id
+                                ORDER BY hpos
+                                LIMIT 1
+                                ",
+                                array( ':object_id' => $item_data['epobject_id'] )
+                );
+                $childbody = $r->field(0, 'body');
+                $speaker = $this->_get_speaker($r->field(0, 'person_id'), $r->field(0, 'hdate'), $r->field(0, 'htime'), $this->major );
+            }
+
+            global $hansardmajors;
+            $more_url = new \URL( $hansardmajors[$this->major]['page_all'] );
+            $details = array(
+                'body'          => $body,
+                'hdate'         => $hdate,
+                'htime'         => $htime,
+                'list_url'      => $list_url,
+                'totalcomments' => $totalcomments,
+                'child'         => array(
+                    'body'      => $childbody,
+                    'speaker'   => $speaker
+                ),
+                'parent'        => array(
+                    'body'      => $parentbody
+                ),
+                'desc' => $hansardmajors[$this->major]['title'],
+                'more_url' => $more_url->generate()
+            );
+
+            $data = array (
+                'gid' => $args['gid'],
+                'major' => $this->major,
+                'info' => array(),
+                'data' => $details,
+            );
+        }
+
+        return $data;
+
+    }
     public function _get_data_by_recent_debates($args=array()) {
         // Returns an array of some random recent debates from a set number of
         // recent days (that's recent days starting from the most recent day
@@ -2806,6 +2926,7 @@ class DEBATELIST extends HANSARDLIST {
                     body,
                     h.hdate,
                     sech.htype,
+                    sech.htime,
                     sech.gid,
                     sech.subsection_id,
                     sech.section_id,
@@ -2840,6 +2961,7 @@ class DEBATELIST extends HANSARDLIST {
             $contentcount  = $q->field($row, 'count');
             $body          = $q->field($row, 'body');
             $hdate         = $q->field($row, 'hdate');
+            $htime         = $q->field($row, 'htime');
 
             // If this is a subsection, we're going to prepend the title
             // of the parent section, so let's get that.
@@ -2868,6 +2990,7 @@ class DEBATELIST extends HANSARDLIST {
                 'contentcount'  => $contentcount,
                 'body'          => $body,
                 'hdate'         => $hdate,
+                'htime'         => $htime,
                 'list_url'      => $list_url,
                 'totalcomments' => $totalcomments,
                 'child'         => array(

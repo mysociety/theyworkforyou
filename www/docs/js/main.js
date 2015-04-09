@@ -67,6 +67,19 @@ function showPersonLinks(sId){
 
 }
 
+function swapCalendar(direction) {
+  var current = $('.cal-wrapper.visible');
+  var num = parseInt(current.attr('data-count'), 10);
+  var new_num = num + direction;
+  var next = $('#day-' + new_num);
+  if ( next.length ) {
+    var date = next.attr('data-date');
+    current.addClass('hidden').removeClass('visible');
+    next.addClass('visible').removeClass('hidden');
+    $('.controls__current a').text(date);
+  }
+}
+
 $(function(){
 	$('body').addClass('js');
   // check if touch
@@ -91,6 +104,25 @@ $(function(){
       $(this).css('height', maxHeight);
     });
   }
+  $('.controls__prev').on('click', function prevDay() {
+    swapCalendar(-1);
+    return false;
+  });
+  $('.controls__next').on('click', function nextDay() {
+    swapCalendar(1);
+    return false;
+  });
+  $('.button--show-all').on('click', function fpShowAll() {
+    $self = $(this);
+    if ( $self.text() == 'Show more' ) {
+      $('.recently__list-more').show();
+      $self.text('Show less');
+    } else {
+      $('.recently__list-more').hide();
+      $self.text('Show more');
+    }
+    return false;
+  });
 	window.setTimeout(function(){
 		if ( $('#minisurvey').length ) {
 			lastAnswered = $.cookie('survey');

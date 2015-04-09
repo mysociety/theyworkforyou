@@ -5,6 +5,7 @@ include_once INCLUDESPATH."easyparliament/glossary.php";
 
 class MEMBER {
 
+    public $valid;
     public $member_id;
     public $person_id;
     public $title;

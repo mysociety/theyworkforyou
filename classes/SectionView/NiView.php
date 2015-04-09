@@ -11,6 +11,7 @@ class NiView extends SectionView {
             parent::display_front();
         } else {
             $this->display_front_ni();
+            return true;
         }
     }
 
@@ -20,59 +21,69 @@ class NiView extends SectionView {
     }
 
     protected function display_front_ni() {
-        global $this_page, $PAGE, $THEUSER, $SEARCHURL;
-
+        global $this_page;
         $this_page = "nioverview";
-        $PAGE->page_start();
-        $PAGE->stripe_start('full');
-        $SEARCHURL = new \URL('search');
-    ?>
 
-    <div class="welcome_col1">
+        $data = array();
+        $urls = array();
 
-    <div id="welcome_ni" class="welcome_actions">
+        $data['popular_searches'] = NULL;
 
-        <div>
-            <h2>Your representative</h2>
-                <form action="/postcode/" method="get">
-                <p><strong>Find out about your <acronym title="Members of the Legislative Assembly">MLAs</acronym></strong><br>
-                <label for="pc">Enter your postcode here:</label>&nbsp; <input type="text" name="pc" id="pc" size="8" maxlength="10" value="<?php echo _htmlentities($THEUSER->postcode()); ?>" class="text">&nbsp;&nbsp;<input type="submit" value=" Go " class="submit"></p>
-                </form>
-            <p>Read debates they&rsquo;ve taken part in, see how they voted, sign up for an email alert, and more.</p>
-        </div>
-        <!-- Search / alerts -->
-        <div id="welcome_search">
-            <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
-                <h2><label for="search_input">Search,  create an alert or RSS feed</label></h2>
-                <p>
-                    <input type="text" name="q" id="search_input" size="20" maxlength="100" class="text" value="<?=_htmlspecialchars(get_http_var("keyword"))?>">&nbsp;&nbsp;
-                    <input type="hidden" name="section" value="ni">
-                    <input type="submit" value="Go" class="submit">
-                    <small>e.g. a <em>word</em>, <em>phrase</em>, or <em>person</em> | <a href="/search/?adv=1">More options</a></small>
-                </p>
-            </form>
-        </div>
+        $search = new \URL('search');
+        $urls['search'] = $search->generate();
 
-        <a class="credit" href="http://www.flickr.com/photos/lyng883/255250716/">Photo by Lyn Gateley</a>
+        $alert = new \URL('alert');
+        $urls['alert'] = $alert->generate();
 
-        <br class="clear">
-    </div>
-    <?php
-        $PAGE->include_sidebar_template('nidebates');
-    ?>
-    </div>
+        $data['urls'] = $urls;
 
-    <div class="welcome_col2">
-        <h2>Recent Northern Ireland Assembly debates</h2>
-    <?php
         $DEBATELIST = new \NILIST;
-        $DEBATELIST->display('recent_debates', array('days' => 30, 'num' => 5));
-        $MOREURL = new \URL('nidebatesfront');
-    ?>
-        <p align="right"><strong><a href="<?php echo $MOREURL->generate(); ?>?more=1">See more debates</a></strong></p>
-    </div>
 
-    <?php
-        $PAGE->stripe_end();
+        $debates = $DEBATELIST->display('recent_debates', array('days' => 30, 'num' => 6), 'none');
+        $MOREURL = new \URL('nidebatesfront');
+        $MOREURL->insert( array( 'more' => 1 ) );
+
+        // this makes sure that we don't repeat this debate in the list below
+        $random_debate = NULL;
+        if ( isset($debates['data']) && count($debates['data']) ) {
+            $random_debate = $debates['data'][0];
+        }
+
+        $recent = array();
+        if ( isset($debates['data']) && count($debates['data']) ) {
+            for ( $i = 1; $i < 6; $i++ ) {
+                $debate = $debates['data'][$i];
+                $debate['desc'] = "Northern Ireland Assembly debates";
+                $debate['more_url'] = $MOREURL->generate();
+                $recent[] = $debate;
+            }
+        }
+
+        $featured = array();
+        if ( $random_debate ) {
+            $featured = $random_debate;
+            $featured['more_url'] = $MOREURL->generate();
+            $featured['desc'] = 'Northern Ireland Assembly debate';
+            $featured['related'] = array();
+            $featured['featured'] = false;
+        }
+
+        $data['featured'] = $featured;
+        $data['debates'] = array( 'recent' => $recent);
+
+        $data['regional'] = $this->getMLAList();
+
+        \MySociety\TheyWorkForYou\Renderer::output('ni/index', $data);
+    }
+
+    protected function getMLAList() {
+        global $THEUSER;
+
+        $mreg = array();
+        if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
+            return \MySociety\TheyWorkForYou\Member::getRegionalList($THEUSER->postcode, 3, 'NIE');
+        }
+
+        return $mreg;
     }
 }
