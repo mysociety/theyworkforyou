@@ -119,7 +119,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         </ul>
 
                                         <div class="policy-votes-list-footer">
-                                            <p class="policy-votes__byline">Vote information from <a href="http://www.publicwhip.org.uk">PublicWhip</a></p>
+                                            <p class="policy-votes__byline">Vote information from <a href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $policy['policy_id'] ?>">PublicWhip</a></p>
                                             <?php if ( !$show_all && $policy['weak_count'] > 0 ) { ?>
                                             <p><button class="button secondary-button small js-show-all-votes">Show all votes, including <?= $policy['weak_count'] ?> less important <?= $policy['weak_count'] == 1 ? 'vote' : 'votes' ?></button></p>
                                             <?php } ?>
