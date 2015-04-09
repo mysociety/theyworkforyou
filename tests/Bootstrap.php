@@ -38,5 +38,7 @@ define('TESTING', TRUE);
 
 // Load up the init script (handles the rest of the config, DB connection etc)
 include_once('www/includes/easyparliament/init.php');
+include_once 'TWFY_Database_TestCase.php';
+include_once 'FetchPageTestCase.php';
 
 // Go!

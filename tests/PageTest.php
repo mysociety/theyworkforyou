@@ -1,24 +1,10 @@
 <?php
 
-include_once 'FetchPageTestCase.php';
-
 /**
  * Provides test methods to ensure pages contain what we want them to in various ways.
  */
 class PageTest extends FetchPageTestCase
 {
-
-    /**
-     * Connects to the testing database.
-     */
-    public function getConnection()
-    {
-        $dsn = 'mysql:host=' . OPTION_TWFY_DB_HOST . ' ;dbname=' . OPTION_TWFY_DB_NAME;
-        $username = OPTION_TWFY_DB_USER;
-        $password = OPTION_TWFY_DB_PASS;
-        $pdo = new PDO($dsn, $username, $password);
-        return $this->createDefaultDBConnection($pdo, OPTION_TWFY_DB_NAME);
-    }
 
     /**
      * Loads the member testing fixture.

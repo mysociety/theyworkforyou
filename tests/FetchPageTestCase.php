@@ -3,7 +3,7 @@
 /**
  * Provides acceptance(ish) tests for API functions.
  */
-abstract class FetchPageTestCase extends PHPUnit_Extensions_Database_TestCase
+abstract class FetchPageTestCase extends TWFY_Database_TestCase
 {
 
     protected function base_fetch_page($method, $vars = array(), $dir, $page = 'index.php', $ENV = '')

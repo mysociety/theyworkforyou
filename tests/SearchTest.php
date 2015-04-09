@@ -5,21 +5,12 @@
  * Currently only the highlighting and constituency search.
  */
 
-class SearchTest extends PHPUnit_Extensions_Database_TestCase
+class SearchTest extends TWFY_Database_TestCase
 {
 	public function setUp()
 	{
         parent::setUp();
         include_once('www/includes/easyparliament/searchengine.php');
-    }
-
-    public function getConnection()
-    {
-        $dsn = 'mysql:host=' . OPTION_TWFY_DB_HOST . ' ;dbname=' . OPTION_TWFY_DB_NAME;
-        $username = OPTION_TWFY_DB_USER;
-        $password = OPTION_TWFY_DB_PASS;
-        $pdo = new PDO($dsn, $username, $password);
-        return $this->createDefaultDBConnection($pdo, OPTION_TWFY_DB_NAME);
     }
 
     public function getDataSet()

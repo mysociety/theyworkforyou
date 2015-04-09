@@ -3,20 +3,8 @@
 /**
  * Provides test methods for glossary functionality.
  */
-class GlossaryTest extends PHPUnit_Extensions_Database_TestCase
+class GlossaryTest extends TWFY_Database_TestCase
 {
-
-    /**
-     * Connects to the testing database.
-     */
-    public function getConnection()
-    {
-        $dsn = 'mysql:host=' . OPTION_TWFY_DB_HOST . ' ;dbname=' . OPTION_TWFY_DB_NAME;
-        $username = OPTION_TWFY_DB_USER;
-        $password = OPTION_TWFY_DB_PASS;
-        $pdo = new PDO($dsn, $username, $password);
-        return $this->createDefaultDBConnection($pdo, OPTION_TWFY_DB_NAME);
-    }
 
     /**
      * Loads the glossary testing fixture.

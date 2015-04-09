@@ -1,23 +1,10 @@
 <?php
 
-include_once 'FetchPageTestCase.php';
 /**
  * Provides acceptance(ish) tests for API functions.
  */
 class AcceptApiTest extends FetchPageTestCase
 {
-
-    /**
-     * Connects to the testing database.
-     */
-    public function getConnection()
-    {
-        $dsn = 'mysql:host=' . OPTION_TWFY_DB_HOST . ' ;dbname=' . OPTION_TWFY_DB_NAME;
-        $username = OPTION_TWFY_DB_USER;
-        $password = OPTION_TWFY_DB_PASS;
-        $pdo = new PDO($dsn, $username, $password);
-        return $this->createDefaultDBConnection($pdo, OPTION_TWFY_DB_NAME);
-    }
 
     /**
      * Loads the api testing fixture.
