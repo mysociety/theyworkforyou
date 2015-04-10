@@ -88,7 +88,7 @@ class Divisions {
         if ( $short_text ) {
             $text .= $short_text;
         } else {
-            $text .= "$direction on $title";
+            $text .= "$direction on <em>$title</em>";
         }
 
         return $text;
@@ -112,10 +112,15 @@ class Divisions {
                 $description = $this->constructYesNoVoteDescription('no', $division_title, $no_text);
                 break;
             case 'absent':
-                $description = ' was absent for a vote on ' . $division_title;
+                $description = ' was absent for a vote on <em>' . $division_title . '</em>';
                 break;
             case 'both':
-                $description = ' abstained on a vote on ' . $division_title;
+                $description = ' abstained on a vote on <em>' . $division_title . '</em>';
+                break;
+            case 'tellyes':
+            case 'tellno':
+            case 'tellaye':
+                $description = ' acted as teller for a vote on <em>' . $division_title . '</em>';
                 break;
             default:
                 $description = $division_title;
