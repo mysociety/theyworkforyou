@@ -137,6 +137,16 @@
           <field name="division_id">pw-2013-01-01-6-commons</field>
           <field name="vote">no</field>
       </row>
+      <row>
+          <field name="person_id">2</field>
+          <field name="division_id">pw-2013-01-01-7-commons</field>
+          <field name="vote">tellno</field>
+      </row>
+      <row>
+          <field name="person_id">2</field>
+          <field name="division_id">pw-2013-01-01-8-commons</field>
+          <field name="vote">tellaye</field>
+      </row>
 	</table_data>
 	<table_data name="memberinfo">
 		<row>
@@ -242,6 +252,30 @@
           <field name="division_title">No Division Title</field>
           <field name="division_date">2013-01-01</field>
           <field name="division_number">6</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-7-commons</field>
+          <field name="policy_id">363</field>
+          <field name="house">commons</field>
+          <field name="gid"></field>
+          <field name="yes_text"></field>
+          <field name="no_text"></field>
+          <field name="direction">Majority</field>
+          <field name="division_title">Tell No Division Title</field>
+          <field name="division_date">2013-01-01</field>
+          <field name="division_number">7</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-8-commons</field>
+          <field name="policy_id">363</field>
+          <field name="house">commons</field>
+          <field name="gid"></field>
+          <field name="yes_text"></field>
+          <field name="no_text"></field>
+          <field name="direction">Majority</field>
+          <field name="division_title">Tell Yes Division Title</field>
+          <field name="division_date">2013-01-01</field>
+          <field name="division_number">8</field>
       </row>
 	</table_data>
 	<table_data name="postcode_lookup">

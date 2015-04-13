@@ -74,22 +74,32 @@ class DivisionsTest extends FetchPageTestCase
 
     public function testVotedAbsent() {
         $page = $this->fetch_division_page();
-        $this->assertContains('Test Current-MP was absent for a vote on Absent Division Title', $page);
+        $this->assertContains('Test Current-MP was absent for a vote on <em>Absent Division Title</em>', $page);
     }
 
     public function testVotedAbstain() {
         $page = $this->fetch_division_page();
-        $this->assertContains('Test Current-MP abstained on a vote on Abstained Division Title', $page);
+        $this->assertContains('Test Current-MP abstained on a vote on <em>Abstained Division Title</em>', $page);
     }
 
     public function testVotedYesWithYesSentence() {
         $page = $this->fetch_division_page();
-        $this->assertContains('Test Current-MP voted yes on Yes Division Title', $page);
+        $this->assertContains('Test Current-MP voted yes on <em>Yes Division Title</em>', $page);
     }
 
-    public function testVotedYesWithNoSentence() {
+    public function testVotedNoWithNoSentence() {
         $page = $this->fetch_division_page();
-        $this->assertContains('Test Current-MP voted no on No Division Title', $page);
+        $this->assertContains('Test Current-MP voted no on <em>No Division Title</em>', $page);
+    }
+
+    public function testVotedTellNoWithNoSentence() {
+        $page = $this->fetch_division_page();
+        $this->assertContains('Test Current-MP acted as teller for a vote on <em>Tell No Division Title</em>', $page);
+    }
+
+    public function testVotedTellYesWithYesSentence() {
+        $page = $this->fetch_division_page();
+        $this->assertContains('Test Current-MP acted as teller for a vote on <em>Tell Yes Division Title</em>', $page);
     }
 
     public function testStrongIndicators() {
@@ -102,6 +112,6 @@ class DivisionsTest extends FetchPageTestCase
 
     public function testWeakCount() {
         $page = $this->fetch_division_page();
-        $this->assertContains('including 3 less important votes', $page);
+        $this->assertContains('including 5 less important votes', $page);
     }
 }
