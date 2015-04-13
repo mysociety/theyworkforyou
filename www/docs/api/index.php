@@ -142,27 +142,76 @@ function api_front_page($error = '') {
     if ($error) {
         print "<p style='color: #cc0000'>$error</p>";
     }
+
+$em = join('&#64;', array('enquiries', 'mysociety.org'));
+
 ?>
-<p>Welcome to TheyWorkForYou's API section, where you can learn how to query our database for information.</p>
 
 <h3>Overview</h3>
+<p>
+    Welcome to TheyWorkForYou's API section. The API (Application Programming
+    Interface) is a way of querying our database for information.
+</p>
+<p>
+    To use the API you need <a href="key">an API key</a>, and you may need a
+    license from us.
+</p>
+<p>
+    The documentation for each individual API function is linked from this
+    page: you can read what each function does, and test it out, without
+    needing an API key or to write any code.
+</p>
 
-<ol style="font-size:130%">
-<li>
-<?php if ($THEUSER->loggedin()) { ?>
-<a href="key">Get an API key (or view stats of existing keys)</a>.
-<?php } else { ?>
-<a href="key">Get an API key</a>.
-<?php } ?>
-<li>All requests are made by GETting a particular URL with a number of parameters. <em>key</em> is required;
-<em>output</em> is optional, and defaults to <kbd>js</kbd>.
-</ol>
+<h3>Terms of usage</h3>
+<p>
+    Low volume, charitable use of the API is free. This means direct use by
+    registered charities, or individuals pursuing a non-profit project on an
+    unpaid basis, with a volume of up to 50,000 calls per year. All other use
+    requires a licence, as a contribution towards the costs of providing this
+    service. Please email us at <a href="mailto:<?=$em?>"><?=$em?></a> if your
+    usage is likely to fall into the non-free bracket: <strong>unlicensed users
+    may be blocked without warning</strong>.
+</p>
 
-<p align="center"><strong>http://www.theyworkforyou.com/api/<em>function</em>?key=<em>key</em>&amp;output=<em>output</em>&amp;<em>other_variables</em></strong></p>
+<h3>Pricing</h3>
+<p>
+    &pound;500 per year for up to 50,000 calls (free for charitable usage)<br/>
+    &pound;1,000 per year for up to 100,000 calls<br/>
+    &pound;2,000 per year for up to 200,000 calls<br/>
+    &pound;2,500 per year for up to 300,000 calls<br/>
+    &pound;3,000 per year for up to 500,000 calls<br/>
+</p>
+<p>In addition, we offer a 50% discount on the above rates for charitable usage.</p>
 
-<p>The current version of the API is <em>1.0.0</em>. If we make changes to the
-API functions, we'll increase the version number and make it an argument so you
-can still use the old version.</p>
+<h3>Credits</h3>
+<p>Parliamentary material (that's data returned from getDebates, getWrans, and
+getWMS) may be reused under the terms of the
+<a href="http://www.parliament.uk/site-information/copyright/">Open Parliament Licence</a>.
+Our own data &ndash; lists of MPs, Lords, constituencies and so on &ndash; is
+available under the
+<a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative Commons
+Attribution-ShareAlike license version 2.5</a>.
+
+<p>Please credit us by linking to <a href="http://www.theyworkforyou.com/">TheyWorkForYou</a>
+with wording such as "Data service provided by TheyWorkForYou" on the page
+where the data is used. This attribution is optional if you've paid for use of
+the service.
+
+
+<h3>Technical documentation</h3>
+<p>
+    All requests are made by GETting a particular URL with a number of
+    parameters. <em>key</em> is required; <em>output</em> is optional, and
+    defaults to <kbd>js</kbd>.
+</p>
+<p align="center">
+    <strong>http://www.theyworkforyou.com/api/<em>function</em>?key=<em>key</em>&amp;output=<em>output</em>&amp;<em>other_variables</em></strong>
+</p>
+<p>
+    The current version of the API is <em>1.0.0</em>. If we make changes to
+    the API functions, we'll increase the version number and make it an
+    argument so you can still use the old version.
+</p>
 
 <table>
 <tr valign="top">
@@ -190,29 +239,6 @@ in JS <code>{"error":"ERROR"}</code>;
 and in PHP and RABX a serialised array containing one entry with key <code>error</code>.
 
 </td></tr></table>
-
-<h3>Usage and Licensing</h3>
-
-<?php $em = join('&#64;', array('enquiries', 'mysociety.org')); ?>
-<p>Low volume, charitable use of the API service itself is free. This means
-direct use by registered charities, or individuals pursuing a non-profit
-project on an unpaid basis, with a volume of up to 50,000 calls per year.
-Please email us at <a href="mailto:<?=$em?>"><?=$em?></a> for all other use. If you are using
-the API for a charitable purpose and are unsure of the likely volume please
-contact us in advance by emailing <a href="mailto:<?=$em?>"><?=$em?></a>.
-
-<p>Parliamentary material (that's data returned from getDebates, getWrans, and
-getWMS) may be reused under the terms of the
-<a href="http://www.parliament.uk/site-information/copyright/">Open Parliament Licence</a>.
-Our own data &ndash; lists of MPs, Lords, constituencies and so on &ndash; is
-available under the
-<a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative Commons
-Attribution-ShareAlike license version 2.5</a>.
-
-<p>Please credit us by linking to <a href="http://www.theyworkforyou.com/">TheyWorkForYou</a>
-with wording such as "Data service provided by TheyWorkForYou" on the page
-where the data is used. This attribution is optional if you've paid for use of
-the service.
 
 <h3>Bindings</h3>
 
