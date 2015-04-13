@@ -129,7 +129,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         $(function(){
                                             <?php if ( !$show_all ) { ?>
                                             $('#policy-votes-type').text('Key');
-                                            <? } ?>
+                                            <?php } ?>
                                             $('.js-show-all-votes').on('click', function(){
                                                 $(this).fadeOut();
                                                 $('.policy-vote--minor').slideDown();
