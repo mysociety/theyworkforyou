@@ -450,6 +450,7 @@ CREATE TABLE `api_key` (
   `created` datetime NOT NULL,
   `disabled` datetime default NULL,
   `reason` text NOT NULL,
+  `estimated_usage` int(9) NOT NULL default 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `api_key` (`api_key`)
 );
