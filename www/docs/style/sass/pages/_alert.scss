@@ -1,0 +1,201 @@
+.alerts-header {
+  text-align: center;
+  padding: 1em 0;
+  color: #000; // improve contrast against light background image
+
+  background-image: url(/images/person-sitting-in-light.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 70%;
+
+  @media (min-width: $medium-screen) {
+    padding: 2em 0;
+  }
+
+  @media (min-width: $large-screen), (min-height: 600px) {
+    padding: 50px 0;
+  }
+
+  @media (min-height: 700px) {
+    padding: 75px 0;
+  }
+
+  // Stop hero content crashing into the sides of the window
+  .full-page__unit {
+    padding-left: 1em;
+    padding-right: 1em;
+
+    @media (min-width: $medium-screen) {
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+  }
+
+  h1 {
+    margin-top: 0;
+    line-height: 1.1em;
+    font-size: 1.6em;
+    color: inherit;
+
+    @media (min-width: $medium-screen) {
+      font-size: 2em;
+    }
+
+    @media (min-width: $large-screen) {
+      font-size: 2.5em;
+    }
+  }
+
+  p.lead {
+    line-height: 1.4em; // down from default 1.6em
+  }
+}
+
+// An extra big header, designed for pages where all
+// the important content is already in the header.
+.alerts-header--jumbo {
+
+  @media (min-width: $medium-screen) {
+    padding: 100px 0 125px 0;
+  }
+
+  @media (min-width: $large-screen) and (min-height: 600px) {
+    padding: 100px 0 125px 0;
+  }
+
+  @media (min-width: $large-screen) and (min-height: 700px) {
+    padding: 150px 0 200px 0;
+  }
+
+  @media (min-width: $large-screen) and (min-height: 800px) {
+    padding: 200px 0 250px 0;
+  }
+}
+
+.alerts-form {
+  max-width: 14em;
+  margin: 0 auto;
+
+  label {
+    width: 100%;
+    text-align: left;
+    color: inherit;
+    font-size: 0.8em;
+    margin-bottom: 0.4em;
+  }
+
+  .button {
+    margin: 0;
+  }
+
+  input[type="text"] {
+    border-color: #999;
+    margin: 0;
+    height: auto; // allow input to be sized by content's default height
+    font-size: 1.4em;
+    line-height: 1em;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+  }
+
+  @media (min-width: $medium-screen) {
+    max-width: none; // let the form fill the whole width of the parent
+
+    p {
+      display: inline-block;
+      vertical-align: bottom; // line up the bottom of the three inputs
+      margin: 0;
+    }
+
+    p + p {
+      margin-left: 1em;
+    }
+
+    .button {
+      vertical-align: bottom; // line up with bottom of parent
+    }
+  }
+}
+
+.alerts-message {
+  max-width: 36em;
+  margin: 2em auto 0 auto;
+
+  & > :first-child {
+    margin-top: 0;
+  }
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+
+  .button {
+    margin-bottom: 0;
+  }
+}
+
+.alerts-message--reminder,
+.alerts-message--error {
+  margin-bottom: 2em;
+  padding: 1em 0;
+
+  h2 {
+    color: inherit;
+    font-size: 1.2em;
+    margin-right: 0.5em;
+  }
+}
+
+.alerts-message--reminder {
+  border-top: 1px solid #99c;
+  border-bottom: 1px solid #99c;
+  color: #669;
+}
+
+.alerts-message--error {
+  border-top: 1px solid #c99;
+  border-bottom: 1px solid #c99;
+  color: #900;
+
+  h2 {
+    display: inline;
+  }
+
+  p {
+    display: inline;
+  }
+}
+
+.alerts-message--confirmation-sent,
+.alerts-message--confirmation-received {
+  border-top: 1px solid #ccc;
+  padding: 2em 0;
+}
+
+// If browser supports background-size,
+// and we have space, give the message an icon
+@media (min-width: $medium-screen) {
+  html.backgroundsize {
+
+    .alerts-message--confirmation-sent,
+    .alerts-message--confirmation-received {
+      text-align: left;
+      padding-left: 25%;
+      background: transparent url(/images/icons/circle-tick.png) 6% 50% no-repeat;
+      background-size: 20%;
+
+      @media (min-width: $large-screen) {
+        background-position: 15% 50%;
+      }
+    }
+
+    .alerts-message--confirmation-sent {
+      background-image: url(/images/icons/circle-email.png);
+    }
+
+    .alerts-message--confirmation-received {
+      // Quick hack to visually centre the icon for this particular message
+      padding-bottom: 0;
+    }
+  }
+}
