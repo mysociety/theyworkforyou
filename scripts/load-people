@@ -16,11 +16,35 @@ use mySociety::Config;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
 use DBI;
+use File::Slurp;
+use JSON;
 use XML::Twig;
 use Data::Dumper;
 
 db_connect();
-add_mps_and_peers();
+
+my $pwmembers = mySociety::Config::get('PWMEMBERS');
+my $twig = XML::Twig->new(twig_handlers => {
+    'person' => \&loadperson,
+    'constituency' => \&loadconstituency,
+    'member' => \&loadmp,
+    'lord' => \&loadlord,
+    'royal' => \&loadroyal,
+    'member_ni' => \&loadni,
+    'member_sp' => \&loadmsp,
+});
+$twig->parsefile($pwmembers . "people.xml");
+$twig->parsefile($pwmembers . "constituencies.xml");
+$twig->parsefile($pwmembers . "all-members.xml");
+$twig->parsefile($pwmembers . "all-members-2010.xml");
+$twig->parsefile($pwmembers . "peers-ucl.xml");
+$twig->parsefile($pwmembers . "royals.xml");
+$twig->parsefile($pwmembers . "ni-members.xml");
+$twig->parsefile($pwmembers . "sp-members.xml");
+loadmoffices();
+check_member_ids();
+
+# ---
 
 my ($dbh, $constituencyadd, $memberadd, $memberexist, $membercheck);
 use vars qw(%membertoperson);
@@ -41,32 +65,6 @@ sub db_connect {
         and entered_reason = ? and left_reason = ?");
 }
 
-sub add_mps_and_peers {
-    my $pwmembers = mySociety::Config::get('PWMEMBERS');
-    my $twig = XML::Twig->new(twig_handlers => {
-        'person' => \&loadperson,
-        'constituency' => \&loadconstituency,
-        'member' => \&loadmp,
-        'lord' => \&loadlord,
-        'royal' => \&loadroyal,
-        'member_ni' => \&loadni,
-        'member_sp' => \&loadmsp,
-        'moffice' => \&loadmoffice,
-    });
-    $twig->parsefile($pwmembers . "people.xml");
-    $twig->parsefile($pwmembers . "constituencies.xml");
-    $twig->parsefile($pwmembers . "all-members.xml");
-    $twig->parsefile($pwmembers . "all-members-2010.xml");
-    $twig->parsefile($pwmembers . "peers-ucl.xml");
-    $twig->parsefile($pwmembers . "royals.xml");
-    $twig->parsefile($pwmembers . "ni-members.xml");
-    $twig->parsefile($pwmembers . "sp-members.xml");
-    $twig->parsefile($pwmembers . "ministers.xml");
-    $twig->parsefile($pwmembers . "ministers-2010.xml");
-    loadmoffices();
-    check_member_ids();
-}
-
 sub loadperson {
     my ($twig, $person) = @_;
     my $curperson = $person->att('id');
@@ -81,7 +79,18 @@ sub loadperson {
 }
 
 my @moffices = ();
+my %organizations;
 sub loadmoffices {
+    foreach ('ministers.json', 'ministers-2010.json') {
+        my $j = decode_json(read_file($pwmembers . $_));
+        foreach (@{$j->{organizations}}) {
+            $organizations{$_->{id}} = $_->{name};
+        }
+        foreach (@{$j->{memberships}}) {
+            loadmoffice($_);
+        }
+    }
+
     # XXX: Surely the XML should join two consecutive offices together somewhere?!
     # Also, have to check all previous offices as offices are not consecutive in XML. <sigh>
     @moffices = sort { $a->[3] cmp $b->[3] } @moffices;
@@ -104,31 +113,16 @@ sub loadmoffices {
     }
 }
 
-# Add office
 sub loadmoffice {
-    my ($twig, $moff) = @_;
+    my $moff = shift;
 
-    my $mofficeid = $moff->att('id');
-    $mofficeid =~ s#uk.org.publicwhip/moffice/##;
-    my $mpid = $moff->att('matchid');
-    return unless $mpid;
+    (my $mofficeid = $moff->{id}) =~ s#uk.org.publicwhip/moffice/##;
+    (my $person = $moff->{person_id}) =~ s#uk.org.publicwhip/person/##;
+    my $pos = $moff->{role} || 'Member';
+    my $dept = $organizations{$moff->{organization_id}} || die $!;
+    $dept = '' if $dept eq 'House of Commons';
 
-    my $person = $membertoperson{$moff->att('matchid')};
-    die "mp " . $mpid . " " . $moff->att('name') . " has no person" if !defined($person);
-
-    my $pos = $moff->att('position');
-    if ($moff->att('responsibility')) {
-        $pos .= ' (' . $moff->att('responsibility') . ')';
-    }
-
-    my $dept = $moff->att('dept');
-    # Hack
-    return if ($pos eq 'PPS (Rt Hon Peter Hain, Secretary of State)' && $dept eq 'Northern Ireland Office' && $person == 10518);
-    return if ($pos eq 'PPS (Rt Hon Peter Hain, Secretary of State)' && $dept eq 'Office of the Secretary of State for Wales' && $person == 10458);
-
-    push @moffices, [$mofficeid, $dept, $pos, $moff->att('fromdate'),
-        $moff->att('todate'), $person, $moff->att('source') ];
-    $twig->purge;
+    push @moffices, [ $mofficeid, $dept, $pos, $moff->{start_date}, $moff->{end_date}, $person, '' ];
 }
 
 sub loadconstituency {
