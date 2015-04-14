@@ -81,6 +81,11 @@ class SectionTest extends FetchPageTestCase
                 $this->assertContains("DepartmentA", $page);
                 $this->assertContains("QuestionA", $page);
                 $this->assertContains("AnswerA", $page);
+                $this->assertContains('Mp Mp', $page);
+                $this->assertContains('Highlands and Islands', $page);
+                $this->assertContains('Mp2 Mp2', $page);
+                $this->assertContains('Birmingham', $page);
+                $this->assertContains('Independent', $page);
             } elseif ($type == 'wms') {
                 $this->assertContains('DepartmentA', $page);
                 $this->assertContains('StatementA', $page);

@@ -180,7 +180,7 @@
                     $data['info']['major'] == 101 ? 'lord' : 'general'
                 );
 
-                if (isset($speaker['office'])) {
+                if (count($speaker['office'])) {
                     $desc = array();
                     foreach ($speaker['office'] as $off) {
                         $desc[] = $off['pretty'];
