@@ -822,13 +822,8 @@ function person_recent_appearances($member) {
 
     $person_id= $member->person_id();
 
-    global $memcache;
-    if (!$memcache) {
-        $memcache = new Memcache;
-        $memcache->connect('localhost', 11211);
-    }
-    //$recent = $memcache->get(OPTION_TWFY_DB_NAME . ':recent_appear:' . $person_id);
-    $recent = false;
+    $memcache = new MySociety\TheyWorkForYou\Memcache;
+    $recent = $memcache->get('recent_appear:' . $person_id);
 
     if (!$recent) {
         // Initialise the search engine
@@ -845,7 +840,7 @@ function person_recent_appearances($member) {
         );
         $results = $hansard->search($searchstring, $args);
         $recent = serialize($results['rows']);
-        $memcache->set(OPTION_TWFY_DB_NAME . ':recent_appear:' . $person_id, $recent, MEMCACHE_COMPRESSED, 3600);
+        $memcache->set('recent_appear:' . $person_id, $recent);
     }
     $out['appearances'] = unserialize($recent);
     twfy_debug_timestamp();
