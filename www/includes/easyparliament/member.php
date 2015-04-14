@@ -378,12 +378,8 @@ class MEMBER {
     // Grabs extra information (e.g. external links) from the database
     # DISPLAY is whether it's to be displayed on MP page.
     public function load_extra_info($display = false) {
-        global $memcache;
-        if (!$memcache) {
-            $memcache = new Memcache;
-            $memcache->connect('localhost', 11211);
-        }
-        $memcache_key = OPTION_TWFY_DB_NAME . ':extra_info:' . $this->person_id . ($display ? '' : ':plain');
+        $memcache = new MySociety\TheyWorkForYou\Memcache;
+        $memcache_key = 'extra_info:' . $this->person_id . ($display ? '' : ':plain');
         $this->extra_info = $memcache->get($memcache_key);
         if (!DEVSITE && $this->extra_info) {
             return;
@@ -494,7 +490,7 @@ class MEMBER {
             );
         }
 
-        $memcache->set($memcache_key, $this->extra_info, MEMCACHE_COMPRESSED, 3600);
+        $memcache->set($memcache_key, $this->extra_info);
     }
 
     // Functions for accessing things about this Member.
