@@ -541,8 +541,8 @@ class COMMENTLIST {
             $order = "ORDER BY $order";
         }
         if ($limit != '') {
-            $params[':limit'] = $limit;
-            $limit = "LIMIT :limit";
+            # Can't use parameter as >1 argument
+            $limit = "LIMIT $limit";
         }
 
         // Finally, do the query!
