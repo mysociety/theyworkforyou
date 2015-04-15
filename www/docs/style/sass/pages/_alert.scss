@@ -116,3 +116,73 @@
     }
   }
 }
+
+.alerts-message {
+  max-width: 36em;
+  margin: 2em auto 0 auto;
+
+  & > :first-child {
+    margin-top: 0;
+  }
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+
+  .button {
+    margin-bottom: 0;
+  }
+}
+
+.alerts-message--error {
+  margin-bottom: 2em;
+  border-top: 1px solid #c99;
+  border-bottom: 1px solid #c99;
+  padding: 1em 0;
+  color: #900;
+
+  h2 {
+    display: inline;
+    color: inherit;
+    font-size: 1.2em;
+    margin-right: 0.5em;
+  }
+
+  p {
+    display: inline;
+  }
+}
+
+.alerts-message--confirmation-sent,
+.alerts-message--confirmation-received {
+  border-top: 1px solid #ccc;
+  padding: 2em 0;
+}
+
+// If browser supports background-size,
+// and we have space, give the message an icon
+@media (min-width: $medium-screen) {
+  html.backgroundsize {
+
+    .alerts-message--confirmation-sent,
+    .alerts-message--confirmation-received {
+      text-align: left;
+      padding-left: 25%;
+      background: transparent url(/images/icons/circle-tick.png) 6% 50% no-repeat;
+      background-size: 20%;
+
+      @media (min-width: $large-screen) {
+        background-position: 15% 50%;
+      }
+    }
+
+    .alerts-message--confirmation-sent {
+      background-image: url(/images/icons/circle-email.png);
+    }
+
+    .alerts-message--confirmation-received {
+      // Quick hack to visually centre the icon for this particular message
+      padding-bottom: 0;
+    }
+  }
+}
