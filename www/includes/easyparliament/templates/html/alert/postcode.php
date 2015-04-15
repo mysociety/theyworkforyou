@@ -8,11 +8,19 @@
             <form class="alerts-form">
                 <p>
                     <label for="id_postcode">Your postcode</label>
+                  <?php if (isset($data['postcode'])): ?>
+                    <input type="text" id="id_postcode" value="<?php echo $data['postcode']; ?>">
+                  <?php else: ?>
                     <input type="text" id="id_postcode">
+                  <?php endif ?>
                 </p>
                 <p>
                     <label for="id_email">Your email address</label>
+                  <?php if (isset($data['email'])): ?>
+                    <input type="text" id="id_email" value="<?php echo $data['email']; ?>">
+                  <?php else: ?>
                     <input type="text" id="id_email">
+                  <?php endif ?>
                 </p>
                 <p>
                     <button type="submit" class="button radius">Set up alerts</button>
