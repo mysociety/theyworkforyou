@@ -51,6 +51,27 @@
   }
 }
 
+// An extra big header, designed for pages where all
+// the important content is already in the header.
+.alerts-header--jumbo {
+
+  @media (min-width: $medium-screen) {
+    padding: 100px 0 125px 0;
+  }
+
+  @media (min-width: $large-screen) and (min-height: 600px) {
+    padding: 100px 0 125px 0;
+  }
+
+  @media (min-width: $large-screen) and (min-height: 700px) {
+    padding: 150px 0 200px 0;
+  }
+
+  @media (min-width: $large-screen) and (min-height: 800px) {
+    padding: 200px 0 250px 0;
+  }
+}
+
 .alerts-form {
   max-width: 14em;
   margin: 0 auto;
@@ -63,7 +84,7 @@
     margin-bottom: 0.4em;
   }
 
-  button {
+  .button {
     margin: 0;
   }
 
@@ -88,6 +109,10 @@
 
     p + p {
       margin-left: 1em;
+    }
+
+    .button {
+      vertical-align: bottom; // line up with bottom of parent
     }
   }
 }
