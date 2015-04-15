@@ -182,11 +182,12 @@ class COMMENTLIST {
                             join hansard  on comments.epobject_id = hansard.epobject_id
                             join users    on comments.user_id = users.user_id
                             join epobject on comments.epobject_id = epobject.epobject_id
-                        where	users.user_id='" . addslashes($args['user_id']) . "'
+                        where	users.user_id=:user_id
                         AND 	visible='1'
                         GROUP BY epobject_id
                         ORDER BY posted DESC
-                        LIMIT " . $limit
+                        LIMIT " . $limit,
+                        array(':user_id' => $args['user_id'])
                         );
 
         $comments = array();
@@ -526,9 +527,13 @@ class COMMENTLIST {
 
 
         $wherearr2 = array ();
+        $params = array();
+        $i = 0;
         // Construct the $where clause.
         foreach ($wherearr as $key => $val) {
-            $wherearr2[] = "$key'" . addslashes($val) . "'";
+            $wherearr2[] = "$key :where$i";
+            $params[":where$i"] = $val;
+            $i++;
         }
         $where = implode (" AND ", $wherearr2);
 
@@ -536,7 +541,8 @@ class COMMENTLIST {
             $order = "ORDER BY $order";
         }
         if ($limit != '') {
-            $limit = "LIMIT $limit";
+            $params[':limit'] = $limit;
+            $limit = "LIMIT :limit";
         }
 
         // Finally, do the query!
@@ -546,7 +552,7 @@ class COMMENTLIST {
                         WHERE $where
                         $order
                         $limit
-                        ");
+                        ", $params);
 
         // Format the data into an array for returning.
         $data = array ();

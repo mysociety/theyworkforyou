@@ -126,7 +126,7 @@ Output:
         }
         print '<h4><a name="output"></a>Output</h4>';
         print '<p>URL for this: <strong>http://www.theyworkforyou.com/api/';
-        print $method . '?' . join('&amp;', $qs) . '&amp;output='.get_http_var('output').'</strong></p>';
+        print $method . '?' . join('&amp;', $qs) . '&amp;output='._htmlspecialchars(get_http_var('output')).'</strong></p>';
         print '<pre>' . _htmlspecialchars($explorer) . '</pre>';
     }
     $sidebar = api_sidebar();

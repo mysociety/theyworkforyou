@@ -63,8 +63,8 @@ class COMMENT {
                                     visible,
                                     modflagged
                             FROM	comments
-                            WHERE 	comment_id='" . addslashes($comment_id) . "'
-                            ");
+                            WHERE 	comment_id=:comment_id",
+                    array(':comment_id' => $comment_id));
 
             if ($q->rows() > 0) {
 
@@ -175,7 +175,7 @@ class COMMENT {
         $posted = date('Y-m-d H:i:s', time());
 
 
-        $q_gid = $this->db->query("select gid from hansard where epobject_id = '".addslashes($data['epobject_id'])."'");
+        $q_gid = $this->db->query("select gid from hansard where epobject_id = :epobject_id", array(':epobject_id' => $data['epobject_id']));
         $data['gid'] = $q_gid->field(0, 'gid');
 
         $q = $this->db->query("INSERT INTO comments
@@ -315,8 +315,8 @@ class COMMENT {
             $q = $this->db->query("SELECT major,
                                     gid
                             FROM	hansard
-                            WHERE	epobject_id = '" . addslashes($this->epobject_id) . "'
-                            ");
+                            WHERE	epobject_id = :epobject_id",
+                            array(':epobject_id' => $this->epobject_id));
 
             if ($q->rows() > 0) {
                  // If you change stuff here, you might have to change it in
@@ -343,8 +343,8 @@ class COMMENT {
             $q = $this->db->query("SELECT firstname,
                                     lastname
                             FROM	users
-                            WHERE	user_id = '" . addslashes($this->user_id) . "'
-                            ");
+                            WHERE	user_id = :user_id",
+                            array(':user_id' => $this->user_id));
 
             if ($q->rows() > 0) {
                 $this->firstname = $q->field(0, 'firstname');

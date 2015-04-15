@@ -32,7 +32,7 @@ table#regmem h2 { margin: 0; margin-top: 0.5em; padding-top: 0.5em; border-top: 
 </style>
 <?php
 $f = get_http_var('f'); if (!preg_match('#^\d\d\d\d-\d\d-\d\d$#', $f)) $f='';
-$p = get_http_var('p'); if (!ctype_digit($p)) $p='';
+$p = (integer) get_http_var('p');
 $d = get_http_var('d'); if (!preg_match('#^\d\d\d\d-\d\d-\d\d$#', $d)) $d='';
 
 $link = '<p align="center"><a href="./"><strong>List all MPs and Register editions</strong></a></p>';

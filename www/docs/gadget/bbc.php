@@ -21,9 +21,10 @@ $party_sites = array(
     'Ulster Unionist' => 'http://www.uup.org/',
 );
 
-$bbc_cons_id = get_http_var('id');
-if (!ctype_digit($bbc_cons_id) || !$bbc_cons_id)
+$bbc_cons_id = (integer) get_http_var('id');
+if (!$bbc_cons_id) {
     error('Invalid constituency ID');
+}
 
 $q = $db->query("select house, title, first_name, last_name, member.constituency,
         party, member.person_id, personinfo.data_value as dob
