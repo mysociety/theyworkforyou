@@ -85,16 +85,16 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 
     <div class="glossaryaddbox">
         <form action="<?php echo $form_action; ?>" method="post">
-        <input type="hidden" name="modify" value="<?php echo $glossary_id; ?>">
+        <input type="hidden" name="modify" value="<?php echo _htmlspecialchars($glossary_id); ?>">
         <input type="hidden" name="userid" value="<?php echo $user_id; ?>">
-        <input type="text" name="g" value="<?php echo $title; ?>" size="80">
+        <input type="text" name="g" value="<?php echo _htmlspecialchars($title); ?>" size="80">
         <label for="definition"><p><textarea name="definition" id="definition" rows="10" cols="40"><?php echo _htmlentities($body); ?></textarea></p>
 
     <?php
 
     // Wiki woo!
     // We need to work out how best to work this...
-    $wiki_link = "http://en.wikipedia.org/wiki/" . strtr($title, " ", "_");
+    $wiki_link = _htmlspecialchars("http://en.wikipedia.org/wiki/" . strtr($title, " ", "_"));
 ?>
         <p>Guessing the wikipedia link - give it a go:<br>
         <a href="<?php echo $wiki_link; ?>" target="_blank"><?php echo $wiki_link; ?></a></p>

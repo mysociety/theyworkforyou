@@ -11,9 +11,9 @@ Please sign up and we'll send you easy tasks (like emailing your MP, or coming u
 </p>
 
 <p><label for="email">Your email:</label>
-<input type="text" name="email" id="email" value="<?=get_http_var('email')?>" size="30">
+<input type="text" name="email" id="email" value="<?=_htmlspecialchars(get_http_var('email'))?>" size="30">
 <br><label for="postcode">Your postcode:</label>
-<input type="text" name="postcode" id="postcode" value="<?=get_http_var('postcode')?>" size="10">
+<input type="text" name="postcode" id="postcode" value="<?=_htmlspecialchars(get_http_var('postcode'))?>" size="10">
 &nbsp; <input type="submit" class="submit" value="Join up">
 </p>
 </form>

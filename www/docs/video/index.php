@@ -10,7 +10,7 @@ $gid = get_http_var('gid');
 $start = intval(get_http_var('start'));
 $file = intval(get_http_var('file'));
 $pid = intval(get_http_var('pid'));
-$gid_safe = $gid;
+$gid_safe = _htmlspecialchars($gid);
 if (!$gid) {
     $this_page = 'video_front';
     $PAGE->page_start();
@@ -411,7 +411,7 @@ function basic_hints($gid_safe, $file, $pid) {
 <?php	if (!$THEUSER->loggedin()) { ?>
 <li><a href="/user/login/?ret=/video/"><strong>Sign in</strong></a> if you want to get on the <a href="/video/#top">Top Timestampers league table</a>!
 <?php	} ?>
-<li>If the video suddenly <strong>jumps</strong> a couple of hours, or otherwise appears broken, <a href="mailto:<?=str_replace('@', '&#64;', CONTACTEMAIL) ?>?subject=Video%20<?=$file?>'%20for%20ID%20'<?=$gid_safe?>'%20broken">let us know</a>.
+<li>If the video suddenly <strong>jumps</strong> a couple of hours, or otherwise appears broken, <a href="mailto:<?=str_replace('@', '&#64;', CONTACTEMAIL) ?>?subject=Video%20<?=$file?>%20for%20ID%20<?=$gid_safe?>%20broken">let us know</a>.
 <li>If the speech you're looking for is <strong>beyond the end</strong> of the video,
 <a href="/video/?gid=<?=$gid_safe?>&amp;file=<?=$file+1?>&amp;start=1<?=$pid_url?>">move on to the next video chunk</a>.
 <li>If you're right at the start of a day, it's quite possible the start of the video
@@ -443,7 +443,7 @@ function advanced_hints($gid_safe, $file, $pid) {
 <?php	if (!$THEUSER->loggedin()) { ?>
 <a href="/user/login/?ret=/video/">Log in</a> |
 <?php	} ?>
-<a href="mailto:<?=str_replace('@', '&#64;', CONTACTEMAIL) ?>?subject=Video%20<?=$file?>'%20for%20ID%20'<?=$gid_safe?>'%20broken">Broken video</a> |
+<a href="mailto:<?=str_replace('@', '&#64;', CONTACTEMAIL) ?>?subject=Video%20<?=$file?>%20for%20ID%20<?=$gid_safe?>%20broken">Broken video</a> |
 <a href="/video/?gid=<?=$gid_safe?>&amp;file=<?=$file+1?>&amp;start=1<?=$pid_url?>" title="Loads the next video chunk">Speech past end of video</a>
 </p>
 

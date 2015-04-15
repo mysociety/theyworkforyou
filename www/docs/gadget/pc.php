@@ -10,18 +10,18 @@ $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
 if (validate_postcode($pc)) {
     $constituency = postcode_to_constituency($pc);
     if ($constituency == 'CONNECTION_TIMED_OUT') {
-        error('Connection timed out');
+        gadget_pc_error('Connection timed out');
     } elseif ($constituency) {
         $pid = get_person_id($constituency);
         echo 'pid,', $pid;
     } else {
-        error('Unknown postcode');
+        gadget_pc_error('Unknown postcode');
     }
 } else {
-    error('Invalid postcode');
+    gadget_pc_error('Invalid postcode');
 }
 
-function error($s) {
+function gadget_pc_error($s) {
     echo 'error,', $s;
 }
 

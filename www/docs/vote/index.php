@@ -101,7 +101,7 @@ if (is_numeric(get_http_var('id')) && is_numeric(get_http_var('v'))) {
     }
 
     // Make sure it's a valid epobject_id.
-    $q = $db->query("SELECT epobject_id FROM epobject WHERE epobject_id='" . addslashes($epobject_id) . "'");
+    $q = $db->query("SELECT epobject_id FROM epobject WHERE epobject_id=:epobject_id", array(':epobject_id' => $epobject_id));
     if ($q->rows() != 1) {
         voteerror("We need a valid epobject id.");
     }
@@ -130,19 +130,19 @@ if (is_numeric(get_http_var('id')) && is_numeric(get_http_var('v'))) {
         }
 
         // Vote!
-        $q = $db->query("SELECT epobject_id FROM anonvotes WHERE epobject_id = '" . addslashes($epobject_id) . "'");
+        $q = $db->query("SELECT epobject_id FROM anonvotes WHERE epobject_id=:epobject_id", array(':epobject_id' => $epobject_id));
 
         if ($q->rows() == 1) {
             if ($vote == 1) {
-                $q = $db->query("UPDATE anonvotes SET yes_votes = yes_votes + 1 WHERE epobject_id = '" . addslashes($epobject_id) . "'");
+                $q = $db->query("UPDATE anonvotes SET yes_votes = yes_votes + 1 WHERE epobject_id=:epobject_id", array(':epobject_id' => $epobject_id));
             } else {
-                $q = $db->query("UPDATE anonvotes SET no_votes = no_votes + 1 WHERE epobject_id = '" . addslashes($epobject_id) . "'");
+                $q = $db->query("UPDATE anonvotes SET no_votes = no_votes + 1 WHERE epobject_id=:epobject_id", array(':epobject_id' => $epobject_id));
             }
         } else {
             if ($vote == 1) {
-                $q = $db->query("INSERT INTO anonvotes (epobject_id, yes_votes) VALUES ('" . addslashes($epobject_id) . "', '1')");
+                $q = $db->query("INSERT INTO anonvotes (epobject_id, yes_votes) VALUES (:epobject_id, '1')", array(':epobject_id' => $epobject_id));
             } else {
-                $q = $db->query("INSERT INTO anonvotes (epobject_id, no_votes) VALUES ('" . addslashes($epobject_id) . "', '1')");
+                $q = $db->query("INSERT INTO anonvotes (epobject_id, no_votes) VALUES (:epobject_id, '1')", array(':epobject_id' => $epobject_id));
             }
         }
         if (!$q->success()) {
@@ -165,7 +165,7 @@ if (is_numeric(get_http_var('id')) && is_numeric(get_http_var('v'))) {
         // User is logged in.
 
         // See if the user's already voted for this.
-        $q = $db->query("SELECT vote FROM uservotes WHERE epobject_id = '" . addslashes($epobject_id) . "' AND user_id = '" . addslashes($THEUSER->user_id()) . "'");
+        $q = $db->query("SELECT vote FROM uservotes WHERE epobject_id = :epobject_id AND user_id = :user_id", array(':user_id' => $THEUSER->user_id(), ':epobject_id' => $epobject_id));
         if (!$q->success()) {
             voteerror("Something went wrong and we couldn't register your vote");
         }
@@ -174,7 +174,7 @@ if (is_numeric(get_http_var('id')) && is_numeric(get_http_var('v'))) {
             voteerror("You have already rated this item. You can only rate something once.");
         } else {
             // Add the vote.
-            $q = $db->query("INSERT INTO uservotes (user_id, epobject_id, vote) VALUES ('" . addslashes($THEUSER->user_id()) . "', '" . addslashes($epobject_id) . "', '" . addslashes($vote) . "')");
+            $q = $db->query("INSERT INTO uservotes (user_id, epobject_id, vote) VALUES (:user_id, :epobject_id, :vote)", array(':user_id' => $THEUSER->user_id(), ':vote' => $vote, ':epobject_id' => $epobject_id));
             if (!$q->success()) {
                 voteerror("Something went wrong and we couldn't register your vote");
             }

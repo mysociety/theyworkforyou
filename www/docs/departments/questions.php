@@ -23,7 +23,7 @@ if (!$dept) {
         $ids[] = $q->field($i, 'epobject_id');
     }
 
-    print '<h2>' . ucwords($dept) . '</h2>';
+    print '<h2>' . _htmlspecialchars(ucwords($dept)) . '</h2>';
     print '<h3>Written Questions from the past week</h3>';
     $q = $db->query('select gid,body from hansard,epobject
         where hansard.epobject_id=epobject.epobject_id and major=3 and subsection_id=0
