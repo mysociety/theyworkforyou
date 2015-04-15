@@ -50,7 +50,6 @@ function twfy_debug($header, $text="") {
         // If we can show this header, then, er, show it.
         if ( in_array($header, $allowed_headers) || $debug_level >= 4) {
             if (is_array($text)) $text = call_user_func($text);
-            $text = _htmlspecialchars($text);
             print "<p><span style=\"color:#039;\"><strong>$header</strong></span> $text</p>\n";
         }
     }
