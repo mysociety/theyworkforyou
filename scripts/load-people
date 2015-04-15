@@ -1,0 +1,245 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+# Loads XML member files into TheyWorkForYou.
+# The XML files are stored in (semi-)manually updated files here:
+#       https://github.com/mysociety/parlparse/tree/master/members
+
+use FindBin;
+chdir $FindBin::Bin;
+use lib "$FindBin::Bin";
+use lib "$FindBin::Bin/../commonlib/perllib";
+
+use mySociety::Config;
+mySociety::Config::set_file("$FindBin::Bin/../conf/general");
+
+use DBI;
+use File::Slurp;
+use JSON;
+use XML::Twig;
+use Data::Dumper;
+
+db_connect();
+
+my $pwmembers = mySociety::Config::get('PWMEMBERS');
+my $twig = XML::Twig->new(twig_handlers => {
+    'person' => \&loadperson,
+    'constituency' => \&loadconstituency,
+    'member' => \&loadmp,
+    'lord' => \&loadlord,
+    'royal' => \&loadroyal,
+    'member_ni' => \&loadni,
+    'member_sp' => \&loadmsp,
+});
+$twig->parsefile($pwmembers . "people.xml");
+$twig->parsefile($pwmembers . "constituencies.xml");
+$twig->parsefile($pwmembers . "all-members.xml");
+$twig->parsefile($pwmembers . "all-members-2010.xml");
+$twig->parsefile($pwmembers . "peers-ucl.xml");
+$twig->parsefile($pwmembers . "royals.xml");
+$twig->parsefile($pwmembers . "ni-members.xml");
+$twig->parsefile($pwmembers . "sp-members.xml");
+loadmoffices();
+check_member_ids();
+
+# ---
+
+my ($dbh, $constituencyadd, $memberadd, $memberexist, $membercheck);
+use vars qw(%membertoperson);
+
+sub db_connect {
+    #DBI->trace(1);
+    my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
+    $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+
+    $constituencyadd = $dbh->prepare("replace into constituency (cons_id, name, main_name, from_date, to_date) values (?, ?, ?, ?, ?)");
+    $memberadd = $dbh->prepare("replace into member (member_id, person_id, house, title, first_name, last_name,
+        constituency, party, entered_house, left_house, entered_reason, left_reason)
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $memberexist = $dbh->prepare("select member_id from member where member_id = ?");
+    $membercheck = $dbh->prepare("select member_id from member where
+        member_id = ? and person_id = ? and house = ? and title = ? and first_name = ? and last_name = ?
+        and constituency = ? and party = ? and entered_house = ? and left_house = ?
+        and entered_reason = ? and left_reason = ?");
+}
+
+sub loadperson {
+    my ($twig, $person) = @_;
+    my $curperson = $person->att('id');
+    $curperson =~ s#uk.org.publicwhip/person/##;
+
+    for (my $office = $person->first_child('office'); $office;
+        $office = $office->next_sibling('office'))
+    {
+        $membertoperson{$office->att('id')} = $curperson;
+    }
+    $twig->purge;
+}
+
+my @moffices = ();
+my %organizations;
+sub loadmoffices {
+    foreach ('ministers.json', 'ministers-2010.json') {
+        my $j = decode_json(read_file($pwmembers . $_));
+        foreach (@{$j->{organizations}}) {
+            $organizations{$_->{id}} = $_->{name};
+        }
+        foreach (@{$j->{memberships}}) {
+            loadmoffice($_);
+        }
+    }
+
+    # XXX: Surely the XML should join two consecutive offices together somewhere?!
+    # Also, have to check all previous offices as offices are not consecutive in XML. <sigh>
+    @moffices = sort { $a->[3] cmp $b->[3] } @moffices;
+    for (my $i=0; $i<@moffices; $i++) {
+        for (my $j=0; $j<$i; $j++) {
+            next unless $moffices[$j];
+            if ($moffices[$i][5] eq $moffices[$j][5] && $moffices[$i][1] eq $moffices[$j][1]
+                && $moffices[$i][2] eq $moffices[$j][2] && $moffices[$i][3] eq $moffices[$j][4]) {
+                $moffices[$j][4] = $moffices[$i][4];
+                delete $moffices[$i];
+                last;
+            }
+        }
+    }
+    $dbh->do("delete from moffice");
+    foreach my $row (@moffices) {
+        next unless $row;
+        my $sth = $dbh->do("insert into moffice (dept, position, from_date, to_date, person, source) values (?, ?, ?, ?, ?, ?)", {},
+        $row->[1], $row->[2], $row->[3], $row->[4], $row->[5], $row->[6]);
+    }
+}
+
+sub loadmoffice {
+    my $moff = shift;
+
+    (my $mofficeid = $moff->{id}) =~ s#uk.org.publicwhip/moffice/##;
+    (my $person = $moff->{person_id}) =~ s#uk.org.publicwhip/person/##;
+    my $pos = $moff->{role} || 'Member';
+    my $dept = $organizations{$moff->{organization_id}} || die $!;
+    $dept = '' if $dept eq 'House of Commons';
+
+    push @moffices, [ $mofficeid, $dept, $pos, $moff->{start_date}, $moff->{end_date}, $person, '' ];
+}
+
+sub loadconstituency {
+    my ($twig, $cons) = @_;
+
+    my $consid = $cons->att('id');
+    $consid =~ s#uk.org.publicwhip/cons/##;
+
+    my $fromdate = $cons->att('fromdate');
+    $fromdate .= '-00-00' if length($fromdate) == 4;
+    my $todate = $cons->att('todate');
+    $todate .= '-00-00' if length($todate) == 4;
+
+    my $main_name = 1;
+    for (my $name = $cons->first_child('name'); $name; $name = $name->next_sibling('name')) {
+        $constituencyadd->execute(
+            $consid,
+            Encode::encode('iso-8859-1', $name->att('text')),
+            $main_name,
+            $fromdate,
+            $todate,
+        );
+        $main_name = 0;
+    }
+    $twig->purge;
+}
+
+sub loadroyal { load_member(0, @_); }
+sub loadmp { load_member(1, @_); }
+sub loadlord { load_member(2, @_); }
+sub loadni { load_member(3, @_); }
+sub loadmsp {
+    my ($twig, $member) = @_;
+    my $spurl = $member->att('spurl');
+    my $person_id = load_member(4, @_);
+    $dbh->do('replace into personinfo (person_id, data_key, data_value) values (?, ?, ?)', {},
+        $person_id, 'sp_url', $spurl);
+}
+
+my %member_ids = ();
+sub load_member {
+    my ($house, $twig, $member) = @_;
+
+    die "Unknown house" if $house == 1 && $member->att('house') ne "commons";
+    die "Unknown house" if $house == 2 && $member->att('house') ne "lords";
+
+    my $id = $member->att('id');
+    my $person_id = $membertoperson{$id};
+    $id =~ s:uk.org.publicwhip/(member|lord|royal)/::;
+
+    my $fromdate = $member->att('fromdate');
+    $fromdate .= '-00-00' if length($fromdate) == 4;
+    $fromdate = '0000-00-00' unless $fromdate;
+    my $todate = $member->att('todate');
+    $todate .= '-00-00' if length($todate) == 4;
+
+    my $first_name_field = $house == 2 ? 'forenames' : 'firstname';
+    my $last_name_field = $house == 2 ? 'lordname' : 'lastname';
+    my $constituency_field = $house == 2 ? 'lordofname' : 'constituency';
+    my $party_field = $house == 2 ? 'affiliation' : 'party';
+
+    my $party = $member->att($party_field) || '';
+    $party = '' if $party eq 'unknown';
+
+    db_memberadd(
+        $id,
+        $person_id,
+        $house,
+        $member->att('title'),
+        $member->att($first_name_field),
+        $member->att($last_name_field),
+        $member->att($constituency_field) || '',
+        $party,
+        $fromdate, $todate,
+        $member->att('fromwhy') || '',
+        $member->att('towhy') || '',
+    );
+
+    $member_ids{$id} = 1;
+    $twig->purge;
+    return $person_id;
+}
+
+sub db_memberadd {
+    my $id = $_[0];
+    my @params = @_;
+
+    my $q = $memberexist->execute($id);
+    die "More than one existing member of same id $id" if $q > 1;
+
+    for (4..7) {
+        $params[$_] = Encode::encode('iso-8859-1', $params[$_]);
+    }
+
+    if ($q == 1) {
+        # Member already exists, check they are the same
+        $q = $membercheck->execute(@params);
+        if ($q == 0) {
+            print "Replacing existing member with new data for $id\n";
+            print "This is for your information only, just check it looks OK.\n";
+            print "\n";
+            print Dumper(\@params);
+            $memberadd->execute(@params);
+        }
+    } else {
+        print "Adding new member with identifier $id\n";
+        print "This is for your information only, just check it looks OK.\n";
+        print "\n";
+        print Dumper(\@params);
+        $memberadd->execute(@params);
+    }
+}
+
+sub check_member_ids {
+    my $q = $dbh->prepare("select member_id from member");
+    $q->execute();
+    while (my @row = $q->fetchrow_array) {
+            print "Member $row[0] in DB, not in XML\n" if (!$member_ids{$row[0]});
+    }
+}

@@ -138,9 +138,10 @@ this using a script called `xml2db.pl` which is in the `scripts` subdir.
 using the variables `RAWDATA` and `PWMEMBERS`. `PWMEMBERS` should point to the
 `members` subdir which you fetched above.
 
-4. now run `xml2db.pl` as follows:  
+4. now import some data as follows:  
 
-        $ ./xml2db.pl --wrans --debates --members --lords --all
+        $ ./xml2db.pl --wrans --debates --lords --all
+        $ ./load-people
 
     That will process all written answers, debates and members. Running the
     script with no args gives usage.

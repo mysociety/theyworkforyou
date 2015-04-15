@@ -1,10 +1,8 @@
 #! /usr/bin/perl -w
-# vim:sw=8:ts=8:et:nowrap
+
 use strict;
 
-# $Id: xml2db.pl,v 1.53 2010-01-28 09:21:17 matthew Exp $
-#
-# Loads XML written answer, debate and member files into the fawkes database.
+# Loads XML written answer/debate/etc files into TheyWorkForYou.
 # 
 # Magic numbers, and other properties of the destination schema
 # used to be documented here:
@@ -16,8 +14,6 @@ use strict;
 #
 # The XML files for Hansard objects come from the Public Whip parser:
 #       https://github.com/mysociety/parlparse/tree/master/pyscraper
-# And those for MPs are in (semi-)manually updated files here:
-#       https://github.com/mysociety/parlparse/tree/master/members
 
 use FindBin;
 chdir $FindBin::Bin;
@@ -39,11 +35,6 @@ use Data::Dumper;
 
 use Uncapitalise;
 
-# Memory profiling (used to have a problem with long runs of this script eating all system memory)
-#use GTop ();
-#my $gtop = GTop->new;
-#my @attrs = qw(size vsize resident share rss);
-
 # output_filter 'safe' uses entities &#nnnn; to encode characters, this is
 # the easiest/most reliable way to get the encodings correct for content
 # output with Twig's ->sprint (content, rather than attributes)
@@ -51,7 +42,7 @@ my $outputfilter = 'safe';
 #DBI->trace(1);
 
 use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall
-    $wms $lordsdebates $ni $members $force $quiet $cronquiet $memtest $standing
+    $wms $lordsdebates $ni $force $quiet $cronquiet $standing
     $scotland $scotwrans $scotqs %scotqspreloaded
 );
 my $result = GetOptions ( "all" => \$all,
@@ -69,9 +60,7 @@ my $result = GetOptions ( "all" => \$all,
                         "scotwrans" => \$scotwrans,
                         "scotqs" => \$scotqs,
                         "standing" => \$standing,
-                        "members" => \$members,
                         "force" => \$force,
-                        "memtest" => \$memtest,
                         "quiet" => \$quiet,
                         "cronquiet" => \$cronquiet,
                         );
@@ -81,13 +70,12 @@ $c++ if $all;
 $c++ if $recent;
 $c++ if $date;
 $c++ if ($datefrom || $dateto);
-$c = 1 if $memtest;
 
-if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$members && !$memtest && !$lordsdebates && !$ni && !$standing && !$scotland && !$scotwrans && !$scotqs))
+if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$lordsdebates && !$ni && !$standing && !$scotland && !$scotwrans && !$scotqs))
 {
 print <<END;
 
-Loads XML files from the parldata (pwdata) directory into the fawkes database.
+Loads XML files from the parldata directory into TheyWorkForYou.
 The input files contain debates, written answers and so on, and were generated
 by pyscraper from parlparse. This script synchronises the database to the
 files, so existing entries with the same gid are updated preserving their
@@ -95,7 +83,6 @@ database id.
 
 --wrans - process Written Answers (C&L)
 --debates - process Commons Debates
---members - process Members
 --westminhall - process Westminster Hall
 --wms - process Written Ministerial Statements (C&L)
 --lordsdebates - process Lords Debates
@@ -137,12 +124,6 @@ if ($date)
 }
 
 db_connect();
-
-if ($memtest)
-{
-        print "Mem test not enabled - need lib GTop and uncomment the code\n";
-        #memory_test();
-}
 
 ##########################################################################
 
@@ -287,6 +268,17 @@ my $twig = XML::Twig->new(twig_handlers => { 'person' => \&loadperson },
 $twig->parsefile($pwmembers . "people.xml");
 undef $twig;
 
+sub loadperson {
+    my ($twig, $person) = @_;
+    my $curperson = $person->att('id');
+    $curperson =~ s#uk.org.publicwhip/person/##;
+
+    for (my $office = $person->first_child('office'); $office;
+        $office = $office->next_sibling('office')) {
+        $membertoperson{$office->att('id')} = $curperson;
+    }
+}
+
 # Process main data
 process_type(["debates"], [$debatesdir], \&add_debates_day) if ($debates) ;
 process_type(["answers", "lordswrans"], [$wransdir, $lordswransdir], \&add_wrans_day) if ($wrans);
@@ -300,11 +292,6 @@ process_type(['standing'], [$standingdir], \&add_standing_day) if $standing;
 
 # Process the question mentions for the Scottish Parliament
 process_mentions('spq', $scotqsdir) if $scotqs;
-
-# Process members
-if ($members) {
-        add_mps_and_peers();
-}
 
 ##########################################################################
 # Utility
@@ -437,7 +424,6 @@ sub parsefile_glob {
 my ($dbh, 
         $epadd, $epcheck, $epupdate,
         $hadd, $hcheck, $hupdate, $hdelete, $hdeletegid,
-        $constituencyadd, $memberadd, $memberexist, $membercheck, 
         $gradd, $grdeletegid,
         $scotqadd, $scotqdelete, $scotqbusinessexist, $scotqholdingexist,
         $scotqdategidexist, $scotqreferenceexist,
@@ -463,19 +449,6 @@ sub db_connect
                 where epobject_id = ? and gid = ?");
         $hdelete = $dbh->prepare("delete from hansard where gid = ? and epobject_id = ?");
         $hdeletegid = $dbh->prepare("delete from hansard where gid = ?");
-
-        # member (MP) queries
-        $constituencyadd = $dbh->prepare("insert into constituency
-                (cons_id, name, main_name, from_date, to_date) values
-                (?, ?, ?, ?, ?)");
-        $memberadd = $dbh->prepare("replace into member (member_id, person_id, house, title, first_name, last_name,
-                constituency, party, entered_house, left_house, entered_reason, left_reason) 
-                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $memberexist = $dbh->prepare("select member_id from member where member_id = ?");
-        $membercheck = $dbh->prepare("select member_id from member where
-                member_id = ? and person_id = ? and house = ? and title = ? and first_name = ? and last_name = ?
-                and constituency = ? and party = ? and entered_house = ? and left_house = ?
-                and entered_reason = ? and left_reason = ?"); 
 
         # gidredirect entries
         $gradd = $dbh->prepare("replace into gidredirect (gid_from, gid_to, hdate, major) values (?,?,?,?)");
@@ -910,43 +883,6 @@ sub db_addpair
         return $epid;
 }
 
-my %member_ids = ();
-# Add member of parliament to database
-sub db_memberadd {
-        my $id = $_[0];
-        my @params = @_;
-        my $q = $memberexist->execute($id);
-        $memberexist->finish();
-        die "More than one existing member of same id $id" if $q > 1;
-
-        $params[4] = Encode::encode('iso-8859-1', $params[4]);
-        $params[5] = Encode::encode('iso-8859-1', $params[5]);
-        $params[6] = Encode::encode('iso-8859-1', $params[6]);
-        if ($q == 1) {
-                # Member already exists, check they are the same
-                $q = $membercheck->execute(@params);
-                $membercheck->finish();
-                if ($q == 0) {
-                        print "Replacing existing member with new data for $id\n";
-                        print "This is for your information only, just check it looks OK.\n";
-                        print "\n";
-                        print Dumper(\@params);
-                        $memberadd->execute(@params);
-                        $memberadd->finish();
-                }
-        } else {
-                print "Adding new member with identifier $id\n";
-                print "This is for your information only, just check it looks OK.\n";
-                print "\n";
-                print Dumper(\@params);
-                $memberadd->execute(@params);
-                $memberadd->finish();
-        }
-
-        $member_ids{$id} = 1;
-        # print "added member " . $id . "\n";
-}
-
 # Autoincrement id of last added item
 sub last_id
 {
@@ -954,327 +890,6 @@ sub last_id
         my @arr = $lastid->fetchrow_array();
         $lastid->finish();
         return $arr[0];
-}
-
-##########################################################################
-# Testing / debugging
-
-=doc
-sub mem_use_begin
-{
-        my $before = $gtop->proc_mem($$);
-        return $before;
-}
-
-sub mem_use_end
-{
-        my $desc = shift;
-        my $before = shift;
-        my $after = $gtop->proc_mem($$);
-
-        my %after = map {$_ => $after->$_()} @attrs;
-        my %before = map { $_ => $before->$_() } @attrs;
-        warn $desc . "\n";
-        warn sprintf "%-10s : %-5s\n", $_,
-                GTop::size_string($after{$_} - $before{$_}),
-             for sort @attrs;
-}
-
-sub memory_test
-{
-        print "Memory test";
-
-        my $memmark;
-        for (my $i = 0; $i < 10; ++$i)
-        {
-                $memmark = mem_use_begin();
-                        add_debates_day("2004-04-01");
-                mem_use_end("add_debates_day", $memmark);
-                my $qq = $dbh->do('delete from hansard where hdate="2004-04-01"');
-                delete_lonely_epobjects();
-        }
-        db_disconnect();
-        exit(0);
-}
-
-=cut
-
-
-##########################################################################
-# MPs and Peers, also constituencies, people
-
-sub add_mps_and_peers {
-        $dbh->do("delete from moffice");
-        $dbh->do("delete from constituency");
-        my $pwmembers = mySociety::Config::get('PWMEMBERS');
-        my $twig = XML::Twig->new(twig_handlers => 
-                { 'constituency' => \&loadconstituency }, 
-                output_filter => $outputfilter );
-        $twig->parsefile($pwmembers . "constituencies.xml");
-        undef $twig;
-        $twig = XML::Twig->new(twig_handlers => 
-                { 'member' => \&loadmember },
-                output_filter => $outputfilter );
-        $twig->parsefile($pwmembers . "all-members.xml");
-        $twig->parsefile($pwmembers . "all-members-2010.xml");
-        undef $twig;
-        $twig = XML::Twig->new(twig_handlers => 
-                { 'lord' => \&loadlord },
-                output_filter => $outputfilter );
-        $twig->parsefile($pwmembers . "peers-ucl.xml");
-        undef $twig;
-        $twig = XML::Twig->new(twig_handlers => 
-                { 'royal' => \&loadroyal },
-                output_filter => $outputfilter );
-        $twig->parsefile($pwmembers . "royals.xml");
-        undef $twig;
-        $twig = XML::Twig->new(twig_handlers => 
-                { 'member_ni' => \&loadni },
-                output_filter => $outputfilter );
-        $twig->parsefile($pwmembers . "ni-members.xml");
-        undef $twig;
-        $twig = XML::Twig->new(twig_handlers => 
-                { 'member_sp' => \&loadmsp },
-                output_filter => $outputfilter );
-        $twig->parsefile($pwmembers . "sp-members.xml");
-        undef $twig;
-        $twig = XML::Twig->new(twig_handlers => 
-                { 'moffice' => \&loadmoffice }, 
-                output_filter => $outputfilter );
-        $twig->parsefile($pwmembers . "ministers.xml");
-        $twig->parsefile($pwmembers . "ministers-2010.xml");
-        undef $twig;
-        loadmoffices();
-        check_member_ids();
-}
-
-sub check_member_ids {
-        my $q = $dbh->prepare("select member_id from member"); 
-        $q->execute();
-        while (my @row = $q->fetchrow_array) {
-                print "Member $row[0] in DB, not in XML\n" if (!$member_ids{$row[0]});
-        }
-}
-
-my @moffices = ();
-sub loadmoffices {
-        # XXX: Surely the XML should join two consecutive offices together somewhere?!
-        # Also, have to check all previous offices as offices are not consecutive in XML. <sigh>
-        my $add = 1;
-        @moffices = sort { $a->[3] cmp $b->[3] } @moffices;
-        for (my $i=0; $i<@moffices; $i++) {
-                for (my $j=0; $j<$i; $j++) {
-                        next unless $moffices[$j];
-                        if ($moffices[$i][5] eq $moffices[$j][5] && $moffices[$i][1] eq $moffices[$j][1]
-                            && $moffices[$i][2] eq $moffices[$j][2] && $moffices[$i][3] eq $moffices[$j][4]) {
-                                $moffices[$j][4] = $moffices[$i][4];
-                                delete $moffices[$i];
-                                last;
-                        }
-                }
-        }
-        foreach my $row (@moffices) {
-                next unless $row;
-                my $sth = $dbh->do("insert into moffice (dept, position, from_date, to_date, person, source) values (?, ?, ?, ?, ?, ?)", {}, 
-                $row->[1], $row->[2], $row->[3], $row->[4], $row->[5], $row->[6]);
-        }
-}
-
-# Add office
-sub loadmoffice {
-    my ($twig, $moff) = @_;
-
-    my $mofficeid = $moff->att('id');
-    $mofficeid =~ s#uk.org.publicwhip/moffice/##;
-    my $mpid = $moff->att('matchid');
-    return unless $mpid;
-
-    my $person = $membertoperson{$moff->att('matchid')};
-    die "mp " . $mpid . " " . $moff->att('name') . " has no person" if !defined($person);
-
-    my $pos = $moff->att('position');
-    if ($moff->att('responsibility')) {
-        $pos .= ' (' . $moff->att('responsibility') . ')';
-    }
-
-    my $dept = $moff->att('dept');
-    # Hack
-    return if ($pos eq 'PPS (Rt Hon Peter Hain, Secretary of State)' && $dept eq 'Northern Ireland Office' && $person == 10518);
-    return if ($pos eq 'PPS (Rt Hon Peter Hain, Secretary of State)' && $dept eq 'Office of the Secretary of State for Wales' && $person == 10458);
-
-        push @moffices, [$mofficeid, $dept, $pos, $moff->att('fromdate'),
-                $moff->att('todate'), $person, $moff->att('source') ];
-}
-
-# Add constituency
-sub loadconstituency {
-    my ($twig, $cons) = @_;
-
-    my $consid = $cons->att('id');
-    $consid =~ s#uk.org.publicwhip/cons/##;
-
-    my $fromdate = $cons->att('fromdate');
-    $fromdate .= '-00-00' if length($fromdate) == 4;
-    my $todate = $cons->att('todate');
-    $todate .= '-00-00' if length($todate) == 4;
-
-    my $main_name = 1;
-    for (my $name = $cons->first_child('name'); $name;
-        $name = $name->next_sibling('name')) {
-
-        $constituencyadd->execute(
-            $consid,
-            Encode::encode('iso-8859-1', $name->att('text')),
-            $main_name,
-            $fromdate,
-            $todate,
-            );
-        $constituencyadd->finish();
-#        if ($main_name) {
-#                print $name->att('text') . "\n";
-#        }
-        $main_name = 0;
-    }
-}
-
-# Add members of parliament (from all-members.xml file)
-sub loadmember {
-        my ($twig, $member) = @_;
-
-        my $id = $member->att('id');
-        my $person_id = $membertoperson{$id};
-        $id =~ s:uk.org.publicwhip/member/::;
-
-        my $house = 1;
-        if ($member->att('house') ne "commons") {
-                die "Unknown house"; 
-        }
-        
-        my $fromdate = $member->att('fromdate');
-        $fromdate .= '-00-00' if length($fromdate) == 4;
-        my $todate = $member->att('todate');
-        $todate .= '-00-00' if length($todate) == 4;
-
-        my $party = $member->att('party');
-        $party = '' if $party eq 'unknown';
-
-        db_memberadd($id, 
-                $person_id,
-                $house, 
-                $member->att('title'),
-                $member->att('firstname'),
-                $member->att('lastname'),
-                $member->att('constituency'),
-                $party,
-                $fromdate, $todate,
-                $member->att('fromwhy'), $member->att('towhy'));
-
-        $twig->purge;
-}
-
-# Add members of parliament (from all-lords*.xml file)
-sub loadlord {
-        my ($twig, $member) = @_;
-
-        my $id = $member->att('id');
-        my $person_id = $membertoperson{$id};
-        $id =~ s:uk.org.publicwhip/lord/::;
-#        print "$id $person_id ".$member->att('title').' '.$member->att('lordname')."\n"; 
-
-        my $house = 2;
-        if ($member->att('house') ne "lords") {
-                die "Unknown house"; 
-        }
-        
-        my $fromdate = $member->att('fromdate');
-        $fromdate = "$fromdate-01-01" if length($fromdate)==4;
-        $fromdate = '0000-00-00' unless $fromdate;
-        my $affiliation = $member->att('affiliation') || '';
-        my $towhy = $member->att('towhy') || '';
-        db_memberadd($id,
-                $person_id,
-                $house,
-                $member->att('title'),
-                $member->att('forenames'),
-                $member->att('lordname'), 
-                $member->att('lordofname'),
-                $affiliation,
-                $fromdate, $member->att('todate'),
-                '', $towhy);
-}
-
-# Load the Queen
-sub loadroyal {
-        my ($twig, $member) = @_;
-
-        my $id = $member->att('id');
-        my $person_id = $membertoperson{$id};
-        $id =~ s:uk.org.publicwhip/royal/::;
-
-        my $house = 0;
-        my $fromdate = $member->att('fromdate');
-        my $towhy = $member->att('towhy') || '';
-        db_memberadd($id,
-                $person_id,
-                $house,
-                $member->att('title'),
-                $member->att('firstname'),
-                $member->att('lastname'),
-                '', # No constituency, all land is "held of the Crown"
-                '', # No party, constitutionally
-                $member->att('fromdate'), $member->att('todate'),
-                $member->att('fromwhy'), $member->att('towhy')
-        );
-}
-
-sub loadni {
-        my ($twig, $member) = @_;
-        my $id = $member->att('id');
-        my $person_id = $membertoperson{$id};
-        $id =~ s:uk.org.publicwhip/member/::;
-        my $house = 3;
-        db_memberadd($id, 
-                $person_id,
-                $house, 
-                $member->att('title'),
-                $member->att('firstname'),
-                $member->att('lastname'),
-                $member->att('constituency'),
-                Encode::encode('iso-8859-1', $member->att('party')),
-                $member->att('fromdate'), $member->att('todate'),
-                $member->att('fromwhy'), $member->att('towhy'));
-}
-
-sub loadmsp {
-        my ($twig, $member) = @_;
-        my $id = $member->att('id');
-        my $person_id = $membertoperson{$id};
-        $id =~ s:uk.org.publicwhip/member/::;
-        my $house = 4;
-        db_memberadd($id, 
-                $person_id,
-                $house, 
-                $member->att('title'),
-                $member->att('firstname'),
-                $member->att('lastname'),
-                $member->att('constituency'),
-                Encode::encode('iso-8859-1', $member->att('party')),
-                $member->att('fromdate'), $member->att('todate'),
-                $member->att('fromwhy'), $member->att('towhy'));
-        $dbh->do('replace into personinfo (person_id, data_key, data_value) values (?, ?, ?)', {},
-                $person_id, 'sp_url', $member->att('spurl'));
-}
-
-sub loadperson {
-    my ($twig, $person) = @_;
-    my $curperson = $person->att('id');
-    $curperson =~ s#uk.org.publicwhip/person/##;
-
-    for (my $office = $person->first_child('office'); $office;
-        $office = $office->next_sibling('office'))
-    {
-        $membertoperson{$office->att('id')} = $curperson;
-    }
 }
 
 ##########################################################################
