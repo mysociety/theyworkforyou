@@ -27,7 +27,9 @@ my $parldata = mySociety::Config::get('RAWDATA');
 my $lastupdatedir = mySociety::Config::get('INCLUDESPATH') . "../../../xml2db/";
 
 use DBI; 
+use File::Slurp;
 use HTML::Entities;
+use JSON;
 use XML::Twig;
 use File::Find;
 use Getopt::Long;
@@ -263,20 +265,10 @@ sub process_type {
 
 # Load member->person data
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
-my $twig = XML::Twig->new(twig_handlers => { 'person' => \&loadperson },
-    output_filter => $outputfilter);
-$twig->parsefile($pwmembers . "people.xml");
-undef $twig;
-
-sub loadperson {
-    my ($twig, $person) = @_;
-    my $curperson = $person->att('id');
-    $curperson =~ s#uk.org.publicwhip/person/##;
-
-    for (my $office = $person->first_child('office'); $office;
-        $office = $office->next_sibling('office')) {
-        $membertoperson{$office->att('id')} = $curperson;
-    }
+my $j = decode_json(read_file($pwmembers . 'people.json'));
+foreach (@{$j->{memberships}}) {
+    (my $person_id = $_->{person_id}) =~ s#uk.org.publicwhip/person/##;
+    $membertoperson{$_->{id}} = $person_id;
 }
 
 # Process main data

@@ -21,33 +21,28 @@ use JSON;
 use XML::Twig;
 use Data::Dumper;
 
+my %slug_to_house_id = (
+    'crown' => 0,
+    'house-of-commons' => 1,
+    'house-of-lords' => 2,
+    'northern-ireland-assembly' => 3,
+    'scottish-parliament' => 4,
+);
+
 db_connect();
 
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
 my $twig = XML::Twig->new(twig_handlers => {
-    'person' => \&loadperson,
     'constituency' => \&loadconstituency,
-    'member' => \&loadmp,
-    'lord' => \&loadlord,
-    'royal' => \&loadroyal,
-    'member_ni' => \&loadni,
-    'member_sp' => \&loadmsp,
 });
-$twig->parsefile($pwmembers . "people.xml");
 $twig->parsefile($pwmembers . "constituencies.xml");
-$twig->parsefile($pwmembers . "all-members.xml");
-$twig->parsefile($pwmembers . "all-members-2010.xml");
-$twig->parsefile($pwmembers . "peers-ucl.xml");
-$twig->parsefile($pwmembers . "royals.xml");
-$twig->parsefile($pwmembers . "ni-members.xml");
-$twig->parsefile($pwmembers . "sp-members.xml");
+load_people_json();
 loadmoffices();
 check_member_ids();
 
 # ---
 
 my ($dbh, $constituencyadd, $memberadd, $memberexist, $membercheck);
-use vars qw(%membertoperson);
 
 sub db_connect {
     #DBI->trace(1);
@@ -65,29 +60,19 @@ sub db_connect {
         and entered_reason = ? and left_reason = ?");
 }
 
-sub loadperson {
-    my ($twig, $person) = @_;
-    my $curperson = $person->att('id');
-    $curperson =~ s#uk.org.publicwhip/person/##;
-
-    for (my $office = $person->first_child('office'); $office;
-        $office = $office->next_sibling('office'))
-    {
-        $membertoperson{$office->att('id')} = $curperson;
-    }
-    $twig->purge;
-}
-
-my @moffices = ();
 my %organizations;
+my %posts;
+
 sub loadmoffices {
+    my @moffices;
+
     foreach ('ministers.json', 'ministers-2010.json') {
         my $j = decode_json(read_file($pwmembers . $_));
         foreach (@{$j->{organizations}}) {
             $organizations{$_->{id}} = $_->{name};
         }
         foreach (@{$j->{memberships}}) {
-            loadmoffice($_);
+            push @moffices, loadmoffice($_);
         }
     }
 
@@ -122,7 +107,7 @@ sub loadmoffice {
     my $dept = $organizations{$moff->{organization_id}} || die $!;
     $dept = '' if $dept eq 'House of Commons';
 
-    push @moffices, [ $mofficeid, $dept, $pos, $moff->{start_date}, $moff->{end_date}, $person, '' ];
+    return [ $mofficeid, $dept, $pos, $moff->{start_date}, $moff->{end_date}, $person, '' ];
 }
 
 sub loadconstituency {
@@ -150,59 +135,63 @@ sub loadconstituency {
     $twig->purge;
 }
 
-sub loadroyal { load_member(0, @_); }
-sub loadmp { load_member(1, @_); }
-sub loadlord { load_member(2, @_); }
-sub loadni { load_member(3, @_); }
-sub loadmsp {
-    my ($twig, $member) = @_;
-    my $spurl = $member->att('spurl');
-    my $person_id = load_member(4, @_);
-    $dbh->do('replace into personinfo (person_id, data_key, data_value) values (?, ?, ?)', {},
-        $person_id, 'sp_url', $spurl);
+sub load_people_json {
+    my $j = decode_json(read_file($pwmembers . 'people.json'));
+    foreach (@{$j->{organizations}}) {
+        $organizations{$_->{id}} = $_;
+    }
+    foreach (@{$j->{posts}}) {
+        $posts{$_->{id}} = $_;
+    }
+    foreach (@{$j->{memberships}}) {
+        load_member($_);
+    }
 }
 
 my %member_ids = ();
+
 sub load_member {
-    my ($house, $twig, $member) = @_;
+    my ($member) = @_;
 
-    die "Unknown house" if $house == 1 && $member->att('house') ne "commons";
-    die "Unknown house" if $house == 2 && $member->att('house') ne "lords";
+    (my $id = $member->{id}) =~ s:uk.org.publicwhip/(member|lord|royal)/::;
+    (my $person_id = $member->{person_id}) =~ s#uk.org.publicwhip/person/##;
 
-    my $id = $member->att('id');
-    my $person_id = $membertoperson{$id};
-    $id =~ s:uk.org.publicwhip/(member|lord|royal)/::;
+    my $start_date = $member->{start_date} || '0000-00-00';
+    $start_date .= '-00-00' if length($start_date) == 4;
+    my $end_date = $member->{end_date} || '9999-12-31';
+    $end_date .= '-00-00' if length($end_date) == 4;
 
-    my $fromdate = $member->att('fromdate');
-    $fromdate .= '-00-00' if length($fromdate) == 4;
-    $fromdate = '0000-00-00' unless $fromdate;
-    my $todate = $member->att('todate');
-    $todate .= '-00-00' if length($todate) == 4;
+    my $org_slug;
+    if ($member->{post_id}) {
+        $org_slug = $posts{$member->{post_id}}{organization_id};
+    } else {
+        $org_slug = $member->{organization_id};
+    }
+    my $last_name_field = $org_slug eq 'house-of-lords' ? 'lordname' : 'family_name';
+    my $constituency = '';
+    if ($org_slug eq 'house-of-lords') {
+        $constituency = $member->{name}{lordofname};
+    } elsif ($org_slug ne 'crown') {
+        $constituency = $posts{$member->{post_id}}{area}{name};
+    }
 
-    my $first_name_field = $house == 2 ? 'forenames' : 'firstname';
-    my $last_name_field = $house == 2 ? 'lordname' : 'lastname';
-    my $constituency_field = $house == 2 ? 'lordofname' : 'constituency';
-    my $party_field = $house == 2 ? 'affiliation' : 'party';
-
-    my $party = $member->att($party_field) || '';
-    $party = '' if $party eq 'unknown';
+    my $party = $member->{on_behalf_of_id} ? $organizations{$member->{on_behalf_of_id}}{name} : '';
 
     db_memberadd(
         $id,
         $person_id,
-        $house,
-        $member->att('title'),
-        $member->att($first_name_field),
-        $member->att($last_name_field),
-        $member->att($constituency_field) || '',
+        $slug_to_house_id{$org_slug},
+        $member->{name}{honorific_prefix} || '',
+        $member->{name}{given_name},
+        $member->{name}{$last_name_field},
+        $constituency,
         $party,
-        $fromdate, $todate,
-        $member->att('fromwhy') || '',
-        $member->att('towhy') || '',
+        $start_date, $end_date,
+        $member->{start_reason} || '',
+        $member->{end_reason} || ($end_date eq '9999-12-31' && $org_slug ne 'house-of-lords' ? 'still_in_office' : ''),
     );
 
     $member_ids{$id} = 1;
-    $twig->purge;
     return $person_id;
 }
 

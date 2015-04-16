@@ -28,7 +28,7 @@ use Getopt::Long;
 use DBI; 
 use XML::Twig;
 
-use vars qw($cronquiet $update_person $personid $members_xml_file $dbh $parldata $pwmembers $passer $debug
+use vars qw($cronquiet $update_person $personid $dbh $parldata $pwmembers $passer $debug
 );
 
 $parldata = mySociety::Config::get('RAWDATA');
@@ -41,19 +41,12 @@ my $result = GetOptions (
                         "debug" => \$debug,
                         );
 
-#my $pwmembers = mySociety::Config::get('PWMEMBERS');
-#$members_xml_file = $pwmembers . 'all-members.xml';
-
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
 $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
-
 
 if ($update_person && $personid) {
     update_person();
 }
-
-
-
 
 sub update_person {
 
