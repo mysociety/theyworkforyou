@@ -42,3 +42,20 @@
         </div>
         </div>
     </div>
+    <div class="full-page__row">
+        <div class="homepage-panels">
+            <div class="panel panel--flushtop clearfix">
+                <div class="row nested-row">
+                    <div class="homepage-in-the-news homepage-content-section">
+                        <?php include 'homepage/featured.php' ?>
+                    </div>
+                    <div class="homepage-create-alert homepage-content-section">
+                        <h2>Create an alert</h2>
+                        <h3 class="create-alert__heading">Stay informed!</h3>
+                        <p>Get an email every time an issue you care about is mentioned in Parliament (and more)</p>
+                        <a href="<?= $urls['alert'] ?>" class="button create-alert__button button--violet">Create an alert &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

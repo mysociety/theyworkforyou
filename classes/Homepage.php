@@ -17,6 +17,8 @@ class Homepage {
         $data = array();
 
         $data['mp_data'] = $this->getMP();
+        $data['urls'] = $this->getURLs();
+        $data['featured'] = $this->getEditorialContent();
 
         return $data;
     }
@@ -56,9 +58,59 @@ class Homepage {
         return $mp_data;
     }
 
+    function getEditorialContent() {
+        $debatelist = new \DEBATELIST;
+        $featured = new Model\Featured;
+        $gid = $featured->get_gid();
+        if ( $gid ) {
+            $title = $featured->get_title();
+            $related = $featured->get_related();
+            $item = $this->getFeaturedDebate($gid, $title, $related);
+        } else {
+            $item = $debatelist->display('recent_debates', array('days' => 7, 'num' => 1), 'none');
+            $item = $item['data'][0];
+            $more_url = new \URL('debates');
+            $item['more_url'] = $more_url->generate();
+            $item['desc'] = 'Commons Debates';
+            $item['related'] = array();
+            $item['featured'] = false;
+        }
+
+        return $item;
+    }
+
+    public function getFeaturedDebate($gid, $title, $related) {
+        $debatelist = new \DEBATELIST;
+
+        $item = $debatelist->display('featured_gid', array('gid' => $gid), 'none');
+        $item = $item['data'];
+        $item['headline'] = $title;
+        $item['featured'] = true;
+
+        $related_debates = array();
+        foreach ( $related as $related_gid ) {
+            if ( $related_gid ) {
+                $related_item = $debatelist->display('featured_gid', array('gid' => $related_gid), 'none');
+                $related_debates[] = $related_item['data'];
+            }
+        }
+        $item['related'] = $related_debates;
+        return $item;
+    }
+
+    function getURLs() {
+        $urls = array();
+
+        $alert = new \URL('alert');
+        $urls['alert'] = $alert->generate();
+
+        return $urls;
+    }
+
 
 function old() {
 //set page name (selects relevant bottom menu item)
+    /*
 $this_page = 'overview';
 
 $PAGE->page_start();
