@@ -181,6 +181,11 @@ $this->page = array (
         'parent'		=> 'admin',
         'url'			=> 'admin/policies.php',
     ),
+    'admin_featured' => array (
+        'title'			=> 'Featured debates',
+        'parent'		=> 'admin',
+        'url'			=> 'admin/featured.php',
+    ),
 
 // Added by Richard Allan for email alert functions
 
