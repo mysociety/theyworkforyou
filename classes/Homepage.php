@@ -16,9 +16,11 @@ class Homepage {
 
         $data = array();
 
+        $data['debates'] = $this->getDebatesData();
         $data['mp_data'] = $this->getMP();
         $data['popular_searches'] = $this->getPopularSearches();
         $data['urls'] = $this->getURLs();
+        $data['calendar'] = $this->getCalendarData();
         $data['featured'] = $this->getEditorialContent();
 
         return $data;
@@ -111,6 +113,59 @@ class Homepage {
         return $urls;
     }
 
+    function getDebatesData() {
+        $debates = array(); // holds the most recent data there is data for, indexed by type
+        $DEBATELIST = new \DEBATELIST;
+        $LORDSDEBATELIST = new \LORDSDEBATELIST;
+        $WHALLLIST = new \WHALLLIST;
+        $WMSLIST = new \WMSLIST;
+        $WRANSLIST = new \WRANSLIST;
+        $COMMITTEE = new \StandingCommittee();
+        $last_dates[1] = $DEBATELIST->most_recent_day();
+        $last_dates[101] = $LORDSDEBATELIST->most_recent_day();
+        $last_dates[4] = $WMSLIST->most_recent_day();
+        $last_dates[2] = $WHALLLIST->most_recent_day();
+        $last_dates[3] = $WRANSLIST->most_recent_day();
+        $last_dates[6] = $COMMITTEE->most_recent_day();
+
+        $debates['last_dates'] = $last_dates;
+
+        $recent_wrans = $WRANSLIST->display('recent_wrans', array('days' => 7, 'num' => 1), 'none');
+        $debates['recent_wrans'] = $recent_wrans['data'][0];
+        $more_wrans = new \URL('wransfront');
+        $debates['more_wrans'] = $more_wrans->generate();
+
+        $recent_content = array();
+        $classes = array(
+            'DEBATELIST' => array('recent_debates', 'debatesfront', 'Commons debates'),
+            'LORDSDEBATELIST' => array('recent_debates', 'lordsdebatesfront', 'Lords debates'),
+            'WHALLLIST' => array('recent_debates', 'whallfront', 'Westminster Hall debates'),
+            'WMSLIST' => array('recent_wms', 'wmsfront', 'Written ministerial statements'),
+            'WRANSLIST' => array('recent_wrans', 'wransfront', 'Written answers'),
+            'StandingCommittee' => array('recent_pbc_debates', 'pbcfront', 'Public Bill committees')
+        );
+
+        foreach ( $classes as $class => $recent ) {
+            $class = "\\$class";
+            $instance = new $class();
+            $content = $instance->display($recent[0], array('days' => 7, 'num' => 1), 'none');
+            $more_url = new \URL($recent[1]);
+            $content['data'][0]['more_url'] = $more_url->generate();
+            $content['data'][0]['desc'] = $recent[2];
+            if ( $recent[0] == 'recent_pbc_debates' ) {
+                $content = array( 'data' => $instance->display($recent[0], array('num' => 5), 'none') );
+                $content['more_url'] = $more_url->generate();
+                $content['desc'] = $recent[2];
+                $recent_content[] = $content;
+            } else {
+                $recent_content[] = $content['data'][0];
+            }
+        }
+
+        $debates['recent'] = $recent_content;
+
+        return $debates;
+    }
 
     function getPopularSearches() {
         global $SEARCHLOG;
@@ -119,6 +174,28 @@ class Homepage {
         return $popular_searches;
     }
 
+    function getCalendarData() {
+        $date = date('Y-m-d');
+        $date = '2013-03-01';
+        $q = $this->db->query("SELECT * FROM future
+            LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
+            WHERE event_date >= :date
+            AND deleted = 0
+            ORDER BY chamber, pos",
+            array( ':date' => $date )
+        );
+
+        if (!$q->rows()) {
+            return array();
+        }
+
+        $data = array();
+        foreach ($q->data as $row) {
+            $data[$row['event_date']][$row['chamber']][] = $row;
+        }
+
+        return $data;
+    }
 
 function old() {
 //set page name (selects relevant bottom menu item)

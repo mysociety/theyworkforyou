@@ -84,5 +84,91 @@
                     </div>
                 </div>
             </div>
+            <div class="panel panel--flushtop clearfix">
+                <div class="row nested-row">
+                    <div class="homepage-recently homepage-content-section">
+                        <h2>Recently in Parliament</h2>
+                        <ul class="recently__list">
+                            <?php for ( $i = 0; $i < 3; $i++ ) {
+                                $recent = $debates['recent'][$i];
+                                include 'homepage/recent-debates.php';
+                            } ?>
+                        </ul>
+                        <ul class="recently__list recently__list-more">
+                            <?php for ( $i = 3; $i < count($debates['recent']); $i++ ) {
+                                $recent = $debates['recent'][$i];
+                                include 'recent-debates.html';
+                            } ?>
+                        </ul>
+                        <a href="#" class="button button--show-all button--full-width" onclick="$('.recently__list-more').show(); return false;">Show more</a>
+                    </div>
+                    <div class="homepage-upcoming homepage-content-section">
+                        <h2>Upcoming</h2>
+                        <div class="upcoming__controls">
+                            <!--
+                                These controls should make the upcoming section slide to the next day.
+                                We should have a weeks' work of upcoming content, before we show a message that links to upcoming
+                            -->
+                            <div class="row nested">
+                                <div class="small-2 columns">
+                                    <a href="#" class="controls__prev">&larr;</a>
+                                </div>
+                                <div class="small-8 columns controls__current">
+                                    <a href="#"><?= format_date(array_keys($calendar)[0], SHORTDATEFORMAT); ?></a>
+                                </div>
+                                <div class="small-2 columns">
+                                    <a href="#" class="controls__next">&rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php $first = true; $count = 0;
+                            foreach ( $calendar as $date => $events ) {
+                            $count++;
+                            $commons = $events['Commons: Main Chamber']; ?>
+                            <div class="cal-wrapper <?= $first ? 'visible' : 'hidden' ?>" id="day-<?= $count ?>" data-count="<?= $count ?>" data-date="<?= format_date($date, SHORTDATEFORMAT); ?>">
+                        <?php $first = false; ?>
+                        <h3>Commons: Main Chamber</h3>
+                        <ul class="upcoming__list">
+                            <?php for ( $i = 0; $i < 3; $i++ ) {
+                                if ( isset( $commons[$i] ) ) { ?>
+                            <li>
+                                <h4 class="upcoming__title"><a href="<?= $commons[$i]['link_external'] ?>"><?= $commons[$i]['title'] ?></a></h4>
+                                <p class="meta"><?= $commons[$i]['debate_type'] ?><?= $commons[$i]['time_start'] != '00:00:00' ? ';' . $commons[$i]['time_start'] : '' ?></p>
+                            </li>
+                            <?php } ?>
+                            <?php } ?>
+                        </ul>
+                        <?php if ( count($commons) - 3 > 0 ) { ?>
+                        <a href="#" class="upcoming__more">And <?= count($commons) - 3 ?> more</a><!-- (just links to relevant upcoming page) -->
+                        <?php } ?>
+                        </div>
+                        <?php } ?>
+                    </div>
+                    <script>
+                        $(function setupCalendar() {
+                            $('.controls__prev').on('click', function prevDay() {
+                                swapCalendar(-1);
+                                return false;
+                            });
+                            $('.controls__next').on('click', function nextDay() {
+                                swapCalendar(1);
+                                return false;
+                            });
+                            function swapCalendar(direction) {
+                                var current = $('.cal-wrapper.visible');
+                                var num = parseInt(current.attr('data-count'), 10);
+                                var new_num = num + direction;
+                                var next = $('#day-' + new_num);
+                                if ( next.length ) {
+                                    var date = next.attr('data-date');
+                                    current.addClass('hidden').removeClass('visible');
+                                    next.addClass('visible').removeClass('hidden');
+                                    $('.controls__current a').text(date);
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
         </div>
     </div>

@@ -282,6 +282,9 @@ input.homepage-search__button {
     padding-bottom: 2em;
 }
 
+.js .recently__list-more {
+    display: none;
+}
 
 .recently__list {
     @extend .unstyled-list;
@@ -366,6 +369,10 @@ input.homepage-search__button {
     h3 {
         font-size: 1em;
         color: $colour_dark_grey;
+    }
+
+    .hidden {
+        display: none;
     }
 }
 
