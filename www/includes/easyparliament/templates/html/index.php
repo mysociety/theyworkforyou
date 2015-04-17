@@ -57,5 +57,32 @@
                     </div>
                 </div>
             </div>
+            <div class="panel panel--inverted">
+                <div class="row nested-row">
+                    <div class="home__search">
+                        <form action="<?= $urls['search'] ?>" method="GET"onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Home'); return false;">
+                            <label>Search debates, written questions and hansard</label>
+                            <div class="row collapse">
+                                <div class="medium-9 columns">
+                                    <input name="q" id="postcode" class="homepage-search__input" type="text" placeholder="Enter a keyword, phrase, or person" />
+                                </div>
+                                <div class="medium-3 columns">
+                                    <input type="submit" value="Search" class="button homepage-search__button" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="home__search-suggestions">
+                        <?php if (count($popular_searches)) { ?>
+                        <h3>Popular searches today</h3>
+                        <ul class="search-suggestions__list">
+                            <?php foreach ($popular_searches as $i => $popular_search) { ?>
+                            <li><?= $popular_search['display']; ?></li>
+                            <?php } ?>
+                        </ul>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>

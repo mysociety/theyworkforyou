@@ -17,6 +17,7 @@ class Homepage {
         $data = array();
 
         $data['mp_data'] = $this->getMP();
+        $data['popular_searches'] = $this->getPopularSearches();
         $data['urls'] = $this->getURLs();
         $data['featured'] = $this->getEditorialContent();
 
@@ -101,10 +102,21 @@ class Homepage {
     function getURLs() {
         $urls = array();
 
+        $search = new \URL('search');
+        $urls['search'] = $search->generate();
+
         $alert = new \URL('alert');
         $urls['alert'] = $alert->generate();
 
         return $urls;
+    }
+
+
+    function getPopularSearches() {
+        global $SEARCHLOG;
+        $popular_searches = $SEARCHLOG->popular_recent(10);
+
+        return $popular_searches;
     }
 
 
