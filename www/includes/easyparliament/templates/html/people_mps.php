@@ -90,12 +90,12 @@ if ($pc_form) { ?>
 <?php
 }
 
-if (!count($data['data'])) {
+if (!count($data['data']) && DISSOLUTION_DATE) {
     # No MPs. Election period!
 ?>
     <div class="informational left">
         During the period from the dissolution of Parliament to the general election, there are no Members of Parliament.
-        <a href="/mps/?date=2015-03-30">View list of MPs as it was when Parliament was dissolved</a>
+        <a href="/mps/?date=<?=DISSOLUTION_DATE ?>">View list of MPs as it was when Parliament was dissolved</a>
     </div>
 <?php
 }
