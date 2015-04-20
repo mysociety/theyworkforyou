@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 
-# Loads XML member files into TheyWorkForYou.
-# The XML files are stored in (semi-)manually updated files here:
+# Loads JSON member files into TheyWorkForYou.
+# The JSON files are stored in files here:
 #       https://github.com/mysociety/parlparse/tree/master/members
 
 use FindBin;
@@ -18,7 +18,6 @@ mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 use DBI;
 use File::Slurp;
 use JSON;
-use XML::Twig;
 use Data::Dumper;
 
 my %slug_to_house_id = (
@@ -32,10 +31,7 @@ my %slug_to_house_id = (
 db_connect();
 
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
-my $twig = XML::Twig->new(twig_handlers => {
-    'constituency' => \&loadconstituency,
-});
-$twig->parsefile($pwmembers . "constituencies.xml");
+load_constituencies();
 load_people_json();
 loadmoffices();
 check_member_ids();
@@ -110,29 +106,28 @@ sub loadmoffice {
     return [ $mofficeid, $dept, $pos, $moff->{start_date}, $moff->{end_date}, $person, '' ];
 }
 
-sub loadconstituency {
-    my ($twig, $cons) = @_;
+sub load_constituencies {
+    my $j = decode_json(read_file($pwmembers . 'constituencies.json'));
+    foreach my $cons (@$j) {
+        (my $consid = $cons->{id}) =~ s#uk.org.publicwhip/cons/##;
 
-    my $consid = $cons->att('id');
-    $consid =~ s#uk.org.publicwhip/cons/##;
+        my $start_date = $cons->{start_date};
+        $start_date .= '-00-00' if length($start_date) == 4;
+        my $end_date = $cons->{end_date} || '9999-12-31';
+        $end_date .= '-00-00' if length($end_date) == 4;
 
-    my $fromdate = $cons->att('fromdate');
-    $fromdate .= '-00-00' if length($fromdate) == 4;
-    my $todate = $cons->att('todate');
-    $todate .= '-00-00' if length($todate) == 4;
-
-    my $main_name = 1;
-    for (my $name = $cons->first_child('name'); $name; $name = $name->next_sibling('name')) {
-        $constituencyadd->execute(
-            $consid,
-            Encode::encode('iso-8859-1', $name->att('text')),
-            $main_name,
-            $fromdate,
-            $todate,
-        );
-        $main_name = 0;
+        my $main_name = 1;
+        foreach my $name (@{$cons->{names}}) {
+            $constituencyadd->execute(
+                $consid,
+                Encode::encode('iso-8859-1', $name),
+                $main_name,
+                $start_date,
+                $end_date,
+            );
+            $main_name = 0;
+        }
     }
-    $twig->purge;
 }
 
 sub load_people_json {
@@ -229,6 +224,6 @@ sub check_member_ids {
     my $q = $dbh->prepare("select member_id from member");
     $q->execute();
     while (my @row = $q->fetchrow_array) {
-            print "Member $row[0] in DB, not in XML\n" if (!$member_ids{$row[0]});
+            print "Member $row[0] in DB, not in JSON\n" if (!$member_ids{$row[0]});
     }
 }
