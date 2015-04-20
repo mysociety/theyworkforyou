@@ -374,28 +374,42 @@ span.hi {
   color: lighten(#9d9195, 10%);
 }
 
-.link-to-hansard span {
-  display: inline;
+.link-to-hansard {
+  margin-bottom: 5px;
   font-size: 14px;
   color: lighten(#9d9195, 10%);
-  @media (min-width: $medium-screen) {
-    display: block;
+
+  span, .debate-speech__meta__link {
+    display: inline;
+
+    @media (min-width: $medium-screen) {
+      display: block;
+    }
+  }
+
+  .question-mention-gap {
+    display: inline; // This should always be inline, no matter what the width
   }
 }
 
 .debate-speech__links {
   margin: 0;
+
   li {
     display: block;
   }
+
   @media (min-width: $medium-screen) {
     padding-left: 70px;
   }
+
   @media (min-width: $large-screen) {
     position: absolute;
     top: 0;
     right: 0;
     padding-left: 0;
+    width: 16em;
+
     li {
       text-align: right;
     }
