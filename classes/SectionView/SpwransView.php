@@ -123,7 +123,7 @@ class SpwransView extends WransView {
             if( $reference ) {
                 $references[] = "\n<li>$inner.";
             } else {
-                $result .= "\n<li class=\"link-to-hansard\">$description$inner.</span>";
+                $result .= "\n<li class=\"link-to-hansard\">$description$inner</span>";
                 $last_date = $row["date"];
             }
         }
