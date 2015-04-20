@@ -4,6 +4,9 @@ $rep = preg_replace('#S$#', 's', strtoupper($this_page));
 
 $URL = new URL($this_page);
 $URL->insert(array('f'=>'csv'));
+if ($date = parse_date(get_http_var('date'))) {
+    $URL->insert(array('date' => $date['iso']));
+}
 $csvurl = $URL->generate();
 
 $URL->reset();
