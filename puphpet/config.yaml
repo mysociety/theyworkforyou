@@ -92,7 +92,7 @@ apache:
         - rewrite
     vhosts:
         y9hgbpahzaxy:
-            servername: theyworkforyou.dev
+            servername: twfy.mysociety
             docroot: /data/twfy/www/docs
             port: '80'
             directories:
