@@ -161,6 +161,8 @@
         <div class="full-page__row">
             <a name="g<?= gid_to_anchor($speech['gid']) ?>"></a>
 
+            <div class="debate-speech__speaker-and-content">
+
           <?php if(isset($speech['speaker']) && count($speech['speaker']) > 0) { ?>
             <h2 class="debate-speech__speaker">
                 <?php
@@ -297,6 +299,8 @@
             }
 
             ?>
+            </div>
+
             <ul class="debate-speech__meta debate-speech__links">
                 <?php if (!$individual_item) { # XXX ?>
                 <li class="link-to-speech">

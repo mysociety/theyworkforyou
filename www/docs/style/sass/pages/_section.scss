@@ -76,6 +76,8 @@ span.hi {
   padding-top: 20px;
   padding-bottom: 20px;
 
+  @include clearfix;
+
   &:nth-child(even) {
     // IE6,7,8 won't get this zebra-striping, but that's ok
     background-color: transparent;
@@ -122,11 +124,18 @@ span.hi {
   }
 }
 
+.debate-speech__speaker-and-content {
+  @media (min-width: $medium-screen) {
+    width: 60%;
+    float: left;
+  }
+}
+
 .debate-speech__speaker {
   margin-top: 0;
   line-height: 1em;
   margin-bottom: 0.25em;
-  max-width: 33em; //prevent overflow into context links
+
   img {
     float: left;
     margin-right: 10px;
@@ -173,9 +182,7 @@ span.hi {
 
 .debate-speech__content {
   font-size: 14px;
-  max-width: 45em; // keep line lengths readable
   margin-top: 0.66em;
-  min-width: 3.6em; //leave room for the various links on the right that are positioned absolutely on large screebs
   p {
     line-height: 1.4em;
     margin-bottom: 0.8em;
@@ -393,28 +400,22 @@ span.hi {
 }
 
 .debate-speech__links {
-  margin: 0;
+  margin: 1em 0 0 0;
 
   li {
     display: block;
   }
 
   @media (min-width: $medium-screen) {
-    padding-left: 70px;
+    float: right;
+    width: 35%;
+    text-align: right;
+    margin-top: 0;
   }
 
-  @media (min-width: $large-screen) {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding-left: 0;
-    width: 16em;
-
-    li {
-      text-align: right;
-    }
+  @media (min-width: $medium-screen) {
+    width: 30%;
   }
-
 }
 
 .speech-link-in-context {
