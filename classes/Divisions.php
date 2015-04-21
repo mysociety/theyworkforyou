@@ -61,7 +61,7 @@ class Divisions {
         $q = $this->db->query(
             "SELECT policy_id, division_id, division_title, yes_text, no_text, division_date, division_number, vote, gid, direction
             FROM policydivisions JOIN persondivisionvotes USING(division_id)
-            WHERE person_id = :person_id $where_extra
+            WHERE person_id = :person_id AND direction <> 'abstention' $where_extra
             ORDER by policy_id, division_date",
             $args
         );
