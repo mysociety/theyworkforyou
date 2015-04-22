@@ -445,8 +445,6 @@
 	<row>
 		<field name="member_id">1</field>
 		<field name="house">1</field>
-		<field name="first_name">Mp</field>
-		<field name="last_name">Mp</field>
 		<field name="constituency">Highlands and Islands</field>
 		<field name="party">Independent</field>
 		<field name="entered_house">2012-10-23</field>
@@ -454,14 +452,11 @@
 		<field name="entered_reason">changed_party</field>
 		<field name="left_reason">still_in_office</field>
 		<field name="person_id">1</field>
-		<field name="title"></field>
 		<field name="lastupdate">2013-11-25 10:15:51</field>
 	</row>
 	<row>
 		<field name="member_id">2</field>
 		<field name="house">1</field>
-		<field name="first_name">Mp2</field>
-		<field name="last_name">Mp2</field>
 		<field name="constituency">Birmingham</field>
 		<field name="party">Independent</field>
 		<field name="entered_house">2012-10-23</field>
@@ -469,8 +464,25 @@
 		<field name="entered_reason">changed_party</field>
 		<field name="left_reason">still_in_office</field>
 		<field name="person_id">2</field>
-		<field name="title"></field>
 		<field name="lastupdate">2013-11-25 10:15:51</field>
+	</row>
+	</table_data>
+	<table_data name="person_names">
+	<row>
+		<field name="given_name">Mp</field>
+		<field name="family_name">Mp</field>
+		<field name="start_date">2012-10-23</field>
+		<field name="end_date">9999-12-31</field>
+		<field name="person_id">1</field>
+		<field name="title"></field>
+	</row>
+	<row>
+		<field name="given_name">Mp2</field>
+		<field name="family_name">Mp2</field>
+		<field name="start_date">2012-10-23</field>
+		<field name="end_date">9999-12-31</field>
+		<field name="person_id">2</field>
+		<field name="title"></field>
 	</row>
 	</table_data>
 	<table_data name="pbc_members">

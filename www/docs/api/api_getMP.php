@@ -39,8 +39,8 @@ This will return all database entries for this person, so will include previous 
 [{
   "member_id" : "1368",
   "house" : "1",
-  "first_name" : "Hywel",
-  "last_name" : "Francis",
+  "given_name" : "Hywel",
+  "family_name" : "Francis",
   "constituency" : "Aberavon",
   "party" : "Labour",
   "entered_house" : "2005-05-05",
@@ -77,8 +77,8 @@ This will return all database entries for this person, so will include previous 
 {
   "member_id" : "900",
   "house" : "1",
-  "first_name" : "Hywel",
-  "last_name" : "Francis",
+  "given_name" : "Hywel",
+  "family_name" : "Francis",
   "constituency" : "Aberavon",
   "party" : "Labour",
   "entered_house" : "2001-06-07",
@@ -100,54 +100,25 @@ This will return all database entries for this person, so will include previous 
 }
 
 function api_getMP_id($id) {
-    $db = new ParlDB;
-    $q = $db->query("select * from member
-        where house=1 and person_id = :id
-        order by left_house desc", array(
-          ':id' => $id
-          ));
-    if ($q->rows()) {
-        _api_getPerson_output($q);
-    } else {
-        api_error('Unknown person ID');
-    }
+    return api_getPerson_id($id, HOUSE_TYPE_COMMONS);
 }
 
 function api_getMP_postcode($pc) {
-    $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
-    if (validate_postcode($pc)) {
-        $constituency = postcode_to_constituency($pc, true);
-        if ($constituency == 'CONNECTION_TIMED_OUT') {
-            api_error('Connection timed out');
-        } elseif ($constituency) {
-            $person = _api_getMP_constituency($constituency);
-            $output = $person;
-            api_output($output, isset($output['lastupdate']) ? strtotime($output['lastupdate']) : null);
-        } else {
-            api_error('Unknown postcode');
-        }
-    } else {
-        api_error('Invalid postcode');
-    }
+    api_getPerson_postcode($pc, HOUSE_TYPE_COMMONS);
 }
 
 function api_getMP_constituency($constituency) {
-    $person = _api_getMP_constituency($constituency);
-    if ($person) {
-        $output = $person;
-        api_output($output, strtotime($output['lastupdate']));
-    } else {
-        api_error('Unknown constituency, or no MP for that constituency');
-    }
+    api_getPerson_constituency($constituency, HOUSE_TYPE_COMMONS);
 }
 
 # Very similary to MEMBER's constituency_to_person_id
 # Should all be abstracted properly :-/
 function _api_getMP_constituency($constituency) {
     $db = new ParlDB;
+    $out = null;
 
     if ($constituency == '')
-        return array();
+        return false;
 
     if ($constituency == 'Orkney ')
         $constituency = 'Orkney &amp; Shetland';
@@ -155,23 +126,35 @@ function _api_getMP_constituency($constituency) {
     $normalised = normalise_constituency_name($constituency);
     if ($normalised) $constituency = $normalised;
 
-    $q = $db->query("SELECT * FROM member
+    $q = $db->query("SELECT member.*, p.title, p.given_name, p.family_name, p.lordofname
+        FROM member, person_names p
         WHERE constituency = :constituency
-        AND left_reason = 'still_in_office' AND house=1", array(
+            AND member.person_id = p.person_id AND p.type = 'name'
+            AND p.start_date <= left_house and left_house <= p.end_date
+        AND left_reason = 'still_in_office' AND house=:house", array(
+          ':house' => HOUSE_TYPE_COMMONS,
           ':constituency' => $constituency
           ));
     if ($q->rows > 0)
-        return _api_getPerson_row($q->row(0), true);
+        $out = _api_getPerson_row($q->row(0), true);
 
-    if (get_http_var('always_return')) {
-        $q = $db->query("SELECT * FROM member
-            WHERE house=1 AND constituency = :constituency
+    if (!$out && get_http_var('always_return')) {
+        $q = $db->query("SELECT member.*, p.title, p.given_name, p.family_name, p.lordofname
+            FROM member, person_names p
+            WHERE house=:house AND constituency = :constituency
+                AND member.person_id = p.person_id AND p.type = 'name'
+                AND p.start_date <= left_house and left_house <= p.end_date
             ORDER BY left_house DESC LIMIT 1", array(
+              ':house' => HOUSE_TYPE_COMMONS,
               ':constituency' => $constituency
               ));
         if ($q->rows > 0)
-            return _api_getPerson_row($q->row(0), true);
+            $out = _api_getPerson_row($q->row(0), true);
     }
 
-    return array();
+    if ($out) {
+        api_output($out, isset($out['lastupdate']) ? strtotime($out['lastupdate']) : null);
+        return true;
+    }
+    return false;
 }

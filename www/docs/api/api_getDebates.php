@@ -52,8 +52,7 @@ function api_getDebates_front() {
         "speaker" : {
             "member_id" : "100176",
             "title" : "Lord",
-            "first_name" : "Robert",
-            "last_name" : "Dixon-Smith",
+            "name" : "Robert Dixon-Smith",
             "house" : "2",
             "constituency" : "",
             "party" : "Conservative",
@@ -79,8 +78,7 @@ function api_getDebates_front() {
         "speaker" : {
             "member_id" : "100549",
             "title" : "Lord",
-            "first_name" : "Jeff",
-            "last_name" : "Rooker",
+            "name" : "Jeff Rooker",
             "house" : "2",
             "constituency" : "",
             "party" : "Labour",

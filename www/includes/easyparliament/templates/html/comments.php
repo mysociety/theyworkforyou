@@ -21,8 +21,6 @@
                 'url'			=> '/permalink/to/this/comment/?id=304#c1',
                 'hbody'			=> 'To answer the honourable gentleman...',
                 'major'			=> 1,
-                'first_name'	=> 'Tony',
-                'last_name'		=> 'Blair'
             ),
             1 => array (
                 etc....

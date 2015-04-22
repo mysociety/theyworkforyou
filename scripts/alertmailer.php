@@ -225,7 +225,7 @@ foreach ($alertdata as $alertitem) {
 				$any_content = true;
 				$parentbody = text_html_to_email($row['parent']['body']);
 				$body = text_html_to_email($row['extract']);
-				if (isset($row['speaker']) && count($row['speaker'])) $body = member_full_name($row['speaker']['house'], $row['speaker']['title'], $row['speaker']['first_name'], $row['speaker']['last_name'], $row['speaker']['constituency']) . ': ' . $body;
+				if (isset($row['speaker']) && count($row['speaker'])) $body = $row['speaker']['name'] . ': ' . $body;
 
 				$body = wordwrap($body, 72);
 				$o[$major] .= $parentbody . ' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ")\nhttp://www.theyworkforyou.com" . $row['listurl'] . "\n";

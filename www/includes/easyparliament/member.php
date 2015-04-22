@@ -7,9 +7,10 @@ class MEMBER {
 
     public $member_id;
     public $person_id;
-    public $first_name;
     public $title;
-    public $last_name;
+    public $given_name;
+    public $family_name;
+    public $lordofname;
     public $constituency;
     public $party;
     public $other_parties;
@@ -62,7 +63,7 @@ class MEMBER {
         // If just a constituency we currently just get the current member for
         // that constituency.
 
-        global $PAGE, $this_page;
+        global $this_page;
 
         $house = isset($args['house']) ? $args['house'] : null;
 
@@ -88,24 +89,19 @@ class MEMBER {
         }
 
         if (is_array($person_id)) {
-            if ($this_page == 'peer') {
-                # Hohoho, how long will I get away with this for?
-                #   Not very long, it made Lord Patel go wrong
-                $person_id = $person_id[0];
-            } else {
-                $this->valid = false;
-                $this->person_id = $person_id;
-                return;
-            }
+            $this->valid = false;
+            $this->person_id = $person_id;
+            return;
         }
         $this->valid = true;
 
         // Get the data.
         $q = $this->db->query("SELECT member_id, house, title,
-            first_name, last_name, constituency, party, lastupdate,
-            entered_house, left_house, entered_reason, left_reason, person_id
-            FROM member
-            WHERE person_id = :person_id
+            given_name, family_name, lordofname, constituency, party, lastupdate,
+            entered_house, left_house, entered_reason, left_reason, member.person_id
+            FROM member, person_names pn
+            WHERE member.person_id = :person_id
+                AND member.person_id = pn.person_id AND pn.type = 'name' AND pn.start_date <= left_house AND left_house <= pn.end_date
             ORDER BY left_house DESC, house", array(
                 ':person_id' => $person_id
             ));
@@ -156,8 +152,9 @@ class MEMBER {
 
                 $this->member_id	= $q->field($row, 'member_id');
                 $this->title		= $q->field($row, 'title');
-                $this->first_name	= $q->field($row, 'first_name');
-                $this->last_name	= $q->field($row, 'last_name');
+                $this->given_name = $q->field($row, 'given_name');
+                $this->family_name = $q->field($row, 'family_name');
+                $this->lordofname = $q->field($row, 'lordofname');
                 $this->person_id	= $q->field($row, 'person_id');
             }
 
@@ -182,7 +179,6 @@ class MEMBER {
     }
 
     public function member_id_to_person_id($member_id) {
-        global $PAGE;
         $q = $this->db->query("SELECT person_id FROM member
                     WHERE member_id = :member_id",
             array(':member_id' => $member_id)
@@ -201,7 +197,6 @@ class MEMBER {
     }
 
     public function constituency_to_person_id($constituency, $house=null) {
-        global $PAGE;
         if ($constituency == '') {
             throw new MySociety\TheyWorkForYou\MemberException('Sorry, no constituency was found.');
         }
@@ -213,42 +208,41 @@ class MEMBER {
         $normalised = normalise_constituency_name($constituency);
         if ($normalised) $constituency = $normalised;
 
-            $params = array();
+        $params = array();
 
-            $left = "left_reason = 'still_in_office'";
-            if (DISSOLUTION_DATE) {
-                $left = "($left OR left_house = '" . DISSOLUTION_DATE . "')";
-            }
-            $query = "SELECT person_id FROM member
-                    WHERE constituency = :constituency
-                    AND $left";
+        $left = "left_reason = 'still_in_office'";
+        if (DISSOLUTION_DATE) {
+            $left = "($left OR left_house = '" . DISSOLUTION_DATE . "')";
+        }
+        $query = "SELECT person_id FROM member
+                WHERE constituency = :constituency
+                AND $left";
 
-            $params[':constituency'] = $constituency;
+        $params[':constituency'] = $constituency;
 
-            if ($house) {
-                $query .= ' AND house = :house';
-                $params[':house'] = $house;
-            }
+        if ($house) {
+            $query .= ' AND house = :house';
+            $params[':house'] = $house;
+        }
 
-            $q = $this->db->query($query, $params);
+        $q = $this->db->query($query, $params);
 
         if ($q->rows > 0) {
             return $q->field(0, 'person_id');
         } else {
-                throw new MySociety\TheyWorkForYou\MemberException('Sorry, there is no current member for the "' . _htmlentities(ucwords($constituency)) . '" constituency.');
+            throw new MySociety\TheyWorkForYou\MemberException('Sorry, there is no current member for the "' . _htmlentities(ucwords($constituency)) . '" constituency.');
         }
     }
 
     public function name_to_person_id($name, $const='') {
-        global $PAGE, $this_page;
+        global $this_page;
         if ($name == '') {
             throw new MySociety\TheyWorkForYou\MemberException('Sorry, no name was found.');
         }
-        # Matthew made this change, but I don't know why.  It broke
-        # Iain Duncan Smith, so I've put it back.  FAI 2005-03-14
-        #		$success = preg_match('#^(.*? .*?) (.*?)$#', $name, $m);
         $params = array();
-        $q = "SELECT person_id,constituency,max(left_house) AS left_house FROM member WHERE ";
+        $q = "SELECT member.person_id, constituency, max(left_house) AS left_house
+            FROM member, person_names pn
+            WHERE member.person_id = pn.person_id AND pn.type = 'name' AND pn.start_date <= left_house AND left_house <= pn.end_date AND ";
         if ($this_page=='peer') {
             $success = preg_match('#^(.*?) (.*?) of (.*?)$#', $name, $m);
             if (!$success)
@@ -259,10 +253,10 @@ class MEMBER {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
             }
             $params[':title'] = $m[1];
-            $params[':last_name'] = $m[2];
+            $params[':family_name'] = $m[2];
             $params[':house_type_lords'] = HOUSE_TYPE_LORDS;
-            $const = $m[3];
-            $q .= "house = :house_type_lords AND title = :title AND last_name = :last_name";
+            $params[':lordofname'] = $m[3];
+            $q .= "house = :house_type_lords AND title = :title AND family_name = :family_name AND lordofname=:lordofname";
         } elseif ($this_page=='msp') {
             $success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
             if (!$success)
@@ -271,14 +265,14 @@ class MEMBER {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
                 return false;
             }
-            $params[':first_name'] = $m[1];
-            $params[':last_name'] = $m[3];
+            $params[':given_name'] = $m[1];
+            $params[':family_name'] = $m[3];
             $params[':first_and_middle_names'] = $m[1] . ' ' . $m[2];
             $params[':middle_and_last_names'] = $m[2] . ' ' . $m[3];
             $params[':house_type_scotland'] = HOUSE_TYPE_SCOTLAND;
             $q .= "house = :house_type_scotland AND (";
-            $q .= "(first_name=:first_and_middle_names AND last_name=:last_name)";
-            $q .= " or (first_name=:first_name AND last_name=:middle_and_last_names) )";
+            $q .= "(given_name=:first_and_middle_names AND family_name=:family_name)";
+            $q .= " or (given_name=:given_name AND family_name=:middle_and_last_names) )";
         } elseif ($this_page=='mla') {
             $success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
             if (!$success)
@@ -287,16 +281,16 @@ class MEMBER {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
                 return false;
             }
-            $params[':first_name'] = $m[1];
+            $params[':given_name'] = $m[1];
             $params[':middle_name'] = $m[2];
-            $params[':last_name'] = $m[3];
+            $params[':family_name'] = $m[3];
             $params[':first_and_middle_names'] = $m[1] . ' ' . $m[2];
             $params[':middle_and_last_names'] = $m[2] . ' ' . $m[3];
             $params[':house_type_ni'] = HOUSE_TYPE_NI;
             $q .= "house = :house_type_ni AND (
-    (first_name=:first_and_middle_names AND last_name=:last_name)
-    or (first_name=:first_name AND last_name=:middle_and_last_names)
-    or (title=:first_name AND first_name=:middle_name AND last_name=:last_name)
+    (given_name=:first_and_middle_names AND family_name=:family_name)
+    or (given_name=:given_name AND family_name=:middle_and_last_names)
+    or (title=:given_name AND given_name=:middle_name AND family_name=:family_name)
 )";
         } elseif (strstr($this_page, 'mp')) {
             $success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
@@ -307,20 +301,20 @@ class MEMBER {
                 return false;
             }
 
-            $params[':first_name'] = $m[1];
-            $params[':last_name'] = $m[3];
+            $params[':given_name'] = $m[1];
+            $params[':family_name'] = $m[3];
             $params[':first_and_middle_names'] = $m[1] . ' ' . $m[2];
             $params[':middle_and_last_names'] = $m[2] . ' ' . $m[3];
             $params[':house_type_commons'] = HOUSE_TYPE_COMMONS;
 
-            $q .= "house = :house_type_commons AND ((first_name=:first_and_middle_names AND last_name=:last_name) OR ".
-            "(first_name=:first_name AND last_name=:middle_and_last_names))";
+            $q .= "house = :house_type_commons AND ((given_name=:first_and_middle_names AND family_name=:family_name) OR ".
+            "(given_name=:given_name AND family_name=:middle_and_last_names))";
         } elseif ($this_page == 'royal') {
             $params[':house_type_royal'] = HOUSE_TYPE_ROYAL;
             $q .= ' house = :house_type_royal';
         }
 
-        if ($const || $this_page=='peer') {
+        if ($const) {
             $params[':constituency'] = $const;
             $q .= ' AND constituency=:constituency';
         }
@@ -349,11 +343,6 @@ class MEMBER {
             $this->constituency = $consts;
             return $person_ids;
         } elseif ($q->rows > 0) {
-            if ($q->field(0, 'left_house') != '9999-12-31') {
-                $qq = $this->db->query('SELECT MAX(left_house) AS left_house FROM member
-                    WHERE person_id=' . $q->field(0, 'person_id')
-                );
-            }
             return $q->field(0, 'person_id');
         } elseif ($const && $this_page!='peer') {
             return $this->name_to_person_id($name);
@@ -498,13 +487,13 @@ class MEMBER {
 
     public function member_id() { return $this->member_id; }
     public function person_id() { return $this->person_id; }
-    public function first_name() { return $this->first_name; }
-    public function last_name() { return $this->last_name; }
+    public function given_name() { return $this->given_name; }
+    public function family_name() { return $this->family_name; }
     public function full_name($no_mp_title = false) {
         $title = $this->title;
         if ($no_mp_title && ($this->house_disp==HOUSE_TYPE_COMMONS || $this->house_disp==HOUSE_TYPE_NI || $this->house_disp==HOUSE_TYPE_SCOTLAND))
             $title = '';
-        return member_full_name($this->house_disp, $title, $this->first_name, $this->last_name, $this->constituency);
+        return member_full_name($this->house_disp, $title, $this->given_name, $this->family_name, $this->lordofname);
     }
     public function houses() {
         return $this->houses;
@@ -627,77 +616,47 @@ class MEMBER {
             return $URL->generate('none') . $member_url;
     }
 
-    public function previous_mps() {
-        $previous_people = '';
+    private function _previous_future_mps_query($direction) {
         $entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
         if (is_null($entered_house)) return '';
-        $q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=' . HOUSE_TYPE_COMMONS . ' AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house < "' . $entered_house['date'] . '" ORDER BY entered_house DESC');
+        if ($direction == '>') {
+            $order = '';
+        } else {
+            $order = 'DESC';
+        }
+        $q = $this->db->query('SELECT *
+            FROM member, person_names pn
+            WHERE member.person_id = pn.person_id AND pn.type = "name"
+                AND pn.start_date <= member.left_house AND member.left_house <= pn.end_date
+                AND house = :house AND constituency = :cons
+                AND member.person_id != :pid AND entered_house ' . $direction . ' :date ORDER BY entered_house ' . $order,
+            array(
+                ':house' => HOUSE_TYPE_COMMONS,
+                ':cons' => $this->constituency(),
+                ':pid' => $this->person_id(),
+                ':date' => $entered_house['date'],
+            ));
+        $mships = array(); $last_pid = null;
         for ($r = 0; $r < $q->rows(); $r++) {
             $pid = $q->field($r, 'person_id');
-            $name = $q->field($r, 'first_name') . ' ' . $q->field($r, 'last_name');
-            $previous_people .= '<li><a href="' . WEBPATH . 'mp/?pid='.$pid.'">'.$name.'</a></li>';
+            $name = $q->field($r, 'given_name') . ' ' . $q->field($r, 'family_name');
+            if ($last_pid != $pid) {
+                $mships[] = array(
+                    'href' => WEBPATH . 'mp/?pid='.$pid,
+                    'text' => $name
+                );
+                $last_pid = $pid;
+            }
         }
-        # XXX: This is because George's enter date is before Oona's enter date...
-        # Can't think of an easy fix without another pointless DB lookup
-        # Guess the starting setup of this class should store more information
-        if ($this->person_id() == 10218)
-            $previous_people = '<li><a href="' . WEBPATH . 'mp/?pid=10341">Oona King</a></li>';
-        return $previous_people;
+        return $mships;
     }
 
-    public function previous_mps_array() {
-        $previous_people = array();
-        $entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
-        if (is_null($entered_house)) return '';
-        $q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=' . HOUSE_TYPE_COMMONS . ' AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house < "' . $entered_house['date'] . '" ORDER BY entered_house DESC');
-        for ($r = 0; $r < $q->rows(); $r++) {
-            $pid = $q->field($r, 'person_id');
-            $name = $q->field($r, 'first_name') . ' ' . $q->field($r, 'last_name');
-            $previous_people[] = array(
-                'href' => WEBPATH . 'mp/?pid='.$pid,
-                'text' => $name
-            );
-        }
-        # XXX: This is because George's enter date is before Oona's enter date...
-        # Can't think of an easy fix without another pointless DB lookup
-        # Guess the starting setup of this class should store more information
-        if ($this->person_id() == 10218)
-            $previous_people[] = array(
-                'href' => WEBPATH . 'mp/?pid='.$pid,
-                'text' => $name
-            );
-        return $previous_people;
+    public function previous_mps() {
+        return $this->_previous_future_mps_query('<');
     }
 
     public function future_mps() {
-        $future_people = '';
-        $entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
-        if (is_null($entered_house)) return '';
-        $q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=' . HOUSE_TYPE_COMMONS . ' AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house > "' . $entered_house['date'] . '" ORDER BY entered_house');
-        if ($this->person_id() == 10218) return;
-        for ($r = 0; $r < $q->rows(); $r++) {
-            $pid = $q->field($r, 'person_id');
-            $name = $q->field($r, 'first_name') . ' ' . $q->field($r, 'last_name');
-            $future_people .= '<li><a href="' . WEBPATH . 'mp/?pid='.$pid.'">'.$name.'</a></li>';
-        }
-        return $future_people;
-    }
-
-    public function future_mps_array() {
-        $future_people = array();
-        $entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
-        if (is_null($entered_house)) return '';
-        $q = $this->db->query('SELECT DISTINCT(person_id), first_name, last_name FROM member WHERE house=' . HOUSE_TYPE_COMMONS . ' AND constituency = "'.$this->constituency() . '" AND person_id != ' . $this->person_id() . ' AND entered_house > "' . $entered_house['date'] . '" ORDER BY entered_house');
-        if ($this->person_id() == 10218) return;
-        for ($r = 0; $r < $q->rows(); $r++) {
-            $pid = $q->field($r, 'person_id');
-            $name = $q->field($r, 'first_name') . ' ' . $q->field($r, 'last_name');
-            $future_people[] = array(
-                'href' => WEBPATH . 'mp/?pid='.$pid,
-                'text' => $name
-            );
-        }
-        return $future_people;
+        return $this->_previous_future_mps_query('>');
     }
 
     public function current_member_anywhere() {

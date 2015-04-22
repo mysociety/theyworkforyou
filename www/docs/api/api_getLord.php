@@ -16,15 +16,5 @@ function api_getLord_front() {
 }
 
 function api_getLord_id($id) {
-    $db = new ParlDB;
-    $q = $db->query("select * from member
-        where house=2 and person_id = :id
-        order by left_house desc", array(
-            ':id' => $id
-            ));
-    if ($q->rows()) {
-        _api_getPerson_output($q);
-    } else {
-        api_error('Unknown person ID');
-    }
+    return api_getPerson_id($id, 2);
 }

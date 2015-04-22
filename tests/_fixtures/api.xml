@@ -50,6 +50,13 @@
 		<field name="cons_id">10</field>
 	</row>
 	<row>
+		<field name="name">Belfast West</field>
+		<field name="main_name">1</field>
+		<field name="from_date">1922-00-00</field>
+		<field name="to_date">9999-12-31</field>
+		<field name="cons_id">136</field>
+	</row>
+	<row>
 		<field name="name">Cities of London and Westminster</field>
 		<field name="main_name">1</field>
 		<field name="from_date">1983-00-00</field>
@@ -77,8 +84,6 @@
 		<row>
 			<field name="member_id">1</field>
 			<field name="house">1</field>
-			<field name="first_name">Test</field>
-			<field name="last_name">Current-MP</field>
 			<field name="constituency">Amber Valley</field>
 			<field name="party">Lab</field>
 			<field name="entered_house">2000-01-01</field>
@@ -86,14 +91,11 @@
 			<field name="entered_reason">general_election</field>
 			<field name="left_reason">still_in_office</field>
 			<field name="person_id">2</field>
-			<field name="title">Mrs</field>
 			<field name="lastupdate">2013-08-07 15:06:19</field>
 		</row>
 		<row>
 			<field name="member_id">2</field>
 			<field name="house">1</field>
-			<field name="first_name">Test</field>
-			<field name="last_name">Current-City-MP</field>
 			<field name="constituency">Cities of London and Westminster</field>
 			<field name="party">Lab</field>
 			<field name="entered_house">2000-01-01</field>
@@ -101,7 +103,30 @@
 			<field name="entered_reason">general_election</field>
 			<field name="left_reason">still_in_office</field>
 			<field name="person_id">3</field>
-			<field name="title">Mr</field>
+			<field name="lastupdate">2013-08-07 15:06:19</field>
+		</row>
+		<row>
+			<field name="member_id">101</field>
+			<field name="house">3</field>
+			<field name="constituency">Belfast West</field>
+			<field name="party">DUP</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">101</field>
+			<field name="lastupdate">2013-08-07 15:06:19</field>
+		</row>
+		<row>
+			<field name="member_id">102</field>
+			<field name="house">3</field>
+			<field name="constituency">Belfast West</field>
+			<field name="party">DUP</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">102</field>
 			<field name="lastupdate">2013-08-07 15:06:19</field>
 		</row>
 	</table_data>
@@ -112,6 +137,40 @@
 	<table_data name="moffice">
 	</table_data>
 	<table_data name="pbc_members">
+	</table_data>
+	<table_data name="person_names">
+		<row>
+			<field name="given_name">Test</field>
+			<field name="family_name">Current-MP</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">2</field>
+			<field name="title">Mrs</field>
+		</row>
+		<row>
+			<field name="given_name">Test</field>
+			<field name="family_name">Current-City-MP</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">3</field>
+			<field name="title">Mr</field>
+		</row>
+		<row>
+			<field name="given_name">Test1</field>
+			<field name="family_name">Nimember</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">101</field>
+			<field name="title">Mr</field>
+		</row>
+		<row>
+			<field name="given_name">Test2</field>
+			<field name="family_name">Nimember</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">102</field>
+			<field name="title">Ms</field>
+		</row>
 	</table_data>
 	<table_data name="personinfo">
 	</table_data>

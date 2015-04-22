@@ -38,8 +38,8 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
         $date = format_date($date, SHORTDATEFORMAT);
 
         // Get the name of the member whose epobject was commented upon (if any).
-        if (isset($comment['speaker']) && $comment['speaker']['first_name'] != '') {
-            $member_name = $comment['speaker']['first_name'] . ' ' . $comment['speaker']['last_name'] . ': ';
+        if (isset($comment['speaker']) && $comment['speaker']['name'] != '') {
+            $member_name = $comment['speaker']['name'] . ': ';
         } else {
             $member_name = '';
         }

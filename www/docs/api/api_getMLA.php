@@ -26,68 +26,13 @@ function api_getMLA_front() {
 }
 
 function api_getMLA_id($id) {
-    $db = new ParlDB;
-    $q = $db->query("select * from member
-        where house=3 and person_id = :id
-        order by left_house desc", array(
-            ':id' => $id
-            ));
-    if ($q->rows()) {
-        _api_getPerson_output($q);
-    } else {
-        api_error('Unknown person ID');
-    }
+    return api_getPerson_id($id, HOUSE_TYPE_NI);
 }
 
 function api_getMLA_postcode($pc) {
-    $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
-    if (validate_postcode($pc)) {
-        $constituencies = postcode_to_constituencies($pc, true);
-        if ($constituencies == 'CONNECTION_TIMED_OUT') {
-            api_error('Connection timed out');
-        } elseif (isset($constituencies['NIE'])) {
-            _api_getMLA_constituency($constituencies);
-        } elseif (isset($constituencies['WMC'])) {
-            api_error('Non-N. Irish postcode');
-        } else {
-            api_error('Unknown postcode');
-        }
-    } else {
-        api_error('Invalid postcode');
-    }
+    api_getPerson_postcode($pc, HOUSE_TYPE_NI);
 }
 
 function api_getMLA_constituency($constituency) {
-    $output = _api_getMLA_constituency(array($constituency));
-    if (!$output)
-        api_error('Unknown constituency, or no MLA for that constituency');
-}
-
-# Very similary to MEMBER's constituency_to_person_id
-# Should all be abstracted properly :-/
-function _api_getMLA_constituency($constituencies) {
-    $db = new ParlDB;
-
-    $cons = array();
-    foreach ($constituencies as $constituency) {
-        if ($constituency == '') continue;
-        $cons[] = $constituency;
-    }
-
-    $cons_params = array();
-    $params = array();
-    foreach ($cons as $key => $constituency) {
-        $cons_params[] = ':constituency' . $key;
-        $params[':constituency' . $key] = $constituency;
-    }
-
-    $q = $db->query("SELECT * FROM member
-        WHERE constituency in (" . join(",", $cons_params) . ")
-        AND left_reason = 'still_in_office' AND house=3", $params);
-    if ($q->rows > 0) {
-        _api_getPerson_output($q);
-        return true;
-    }
-
-    return false;
+    api_getPerson_constituency($constituency, HOUSE_TYPE_NI);
 }

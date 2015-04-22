@@ -956,7 +956,7 @@ function person_topics($member) {
 
 function constituency_previous_mps($member) {
     if ($member->house(HOUSE_TYPE_COMMONS)) {
-        return $member->previous_mps_array();
+        return $member->previous_mps();
     } else {
         return array();
     }
@@ -964,7 +964,7 @@ function constituency_previous_mps($member) {
 
 function constituency_future_mps($member) {
     if ($member->house(HOUSE_TYPE_COMMONS)) {
-        return $member->future_mps_array();
+        return $member->future_mps();
     } else {
         return array();
     }
@@ -1222,22 +1222,27 @@ function regional_list($pc, $area_type, $rep_type) {
     global $PAGE;
     $a = array_values($constituencies);
     $db = new ParlDB;
-    $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
+    $q = $db->query("SELECT member.person_id, given_name, family_name, constituency, house
+        FROM member, person_names pn
         WHERE constituency IN ('" . join("','", $a) . "')
+            AND member.person_id = pn.person_id AND pn.type = 'name'
+            AND pn.end_date = (SELECT MAX(end_date) FROM person_names WHERE person_names.person_id = member.person_id)
         AND left_reason = 'still_in_office' AND house in (" . HOUSE_TYPE_NI . "," . HOUSE_TYPE_SCOTLAND . ")");
     $current = true;
     if (!$q->rows()) {
         # XXX No results implies dissolution, fix for 2011.
         $current = false;
-        $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
+        $q = $db->query("SELECT member.person_id, given_name, family_name, constituency, house
+            FROM member, person_names pn
             WHERE constituency IN ('" . join("','", $a) . "')
+                AND member.person_id = pn.person_id AND pn.type = 'name'
+                AND pn.end_date = (SELECT MAX(end_date) FROM person_names WHERE person_names.person_id = member.person_id)
             AND ( (house=" . HOUSE_TYPE_NI . " AND left_house='2011-03-24') OR (house=" . HOUSE_TYPE_SCOTLAND . " AND left_house='2011-03-23') )");
         }
     $mcon = array(); $mreg = array();
     for ($i=0; $i<$q->rows(); $i++) {
         $house = $q->field($i, 'house');
         $pid = $q->field($i, 'person_id');
-        $name = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
         $cons = $q->field($i, 'constituency');
         if ($house == HOUSE_TYPE_COMMONS) {
             continue;
@@ -1257,12 +1262,12 @@ function regional_list($pc, $area_type, $rep_type) {
         if ($current) {
             $data['members_statement'] = '<p>You have one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
             $data['members_statement'] .= '<p>Your <strong>constituency MSP</strong> is <a href="/msp/?p=' . $mcon['person_id'] . '">';
-            $data['members_statement'] .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, MSP for ' . $mcon['constituency'];
+            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MSP for ' . $mcon['constituency'];
             $data['members_statement'] .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> are:</p>';
         } else {
             $data['members_statement'] = '<p>You had one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
             $data['members_statement'] .= '<p>Your <strong>constituency MSP</strong> was <a href="/msp/?p=' . $mcon['person_id'] . '">';
-            $data['members_statement'] .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, MSP for ' . $mcon['constituency'];
+            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MSP for ' . $mcon['constituency'];
             $data['members_statement'] .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> were:</p>';
         }
     } else {
@@ -1276,7 +1281,7 @@ function regional_list($pc, $area_type, $rep_type) {
     foreach($mreg as $reg) {
         $data['members'][] = array (
             'url' => '/' . $rep_type . '/?p=' . $reg['person_id'],
-            'name' => $reg['first_name'] . ' ' . $reg['last_name']
+            'name' => $reg['given_name'] . ' ' . $reg['family_name']
         );
 
     }

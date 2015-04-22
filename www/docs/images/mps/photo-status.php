@@ -6,20 +6,20 @@ $DATA->set_page_metadata($this_page, 'heading', 'MPs photo status on TheyWorkFor
 $PAGE->page_start();
 $PAGE->stripe_start();
 $db = new ParlDB;
-$query = 'SELECT person_id, first_name, last_name, constituency, party
+$query = 'SELECT person_id, constituency, party
     FROM member
     WHERE house=1 AND left_house = (SELECT MAX(left_house) FROM member) ';
-$q = $db->query($query . "ORDER BY last_name, first_name");
+$q = $db->query($query . "ORDER BY person_id");
 $out = array('both'=>'', 'small'=>'', 'none'=>array());
 for ($i=0; $i<$q->rows(); $i++) {
     $p_id = $q->field($i, 'person_id');
     list($dummy, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($p_id);
     if ($sz == 'L') {
-        $out['both'] .= $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . ', ';
+        $out['both'] .= $q->field($i, 'person_id') . ', ';
     } elseif ($sz == 'S') {
-        $out['small'] .= $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . ', ';
+        $out['small'] .= $q->field($i, 'person_id') . ', ';
     } else {
-        array_push($out['none'], '<li>' . $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name') . ' (' . $q->field($i, 'party') . ')' . ', ' . $q->field($i, 'constituency'));
+        array_push($out['none'], '<li>' . $q->field($i, 'person_id') . ' (' . $q->field($i, 'party') . ')' . ', ' . $q->field($i, 'constituency'));
     }
 }
 print '<h3>Missing completely ('.count($out['none']).')</h3> <ul>';

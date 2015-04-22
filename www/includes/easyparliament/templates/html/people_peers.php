@@ -5,11 +5,10 @@ Used on the 'All Peers' page to produce the list of Peers.
 
 $data = array (
     'info' => array (
-        'order' => 'first_name'
+        'order' => 'given_name'
     ),
     'data' => array (
-        'first_name'	=> 'Fred',
-        'last_name'		=> 'Bloggs,
+        'name' => 'Fred Bloggs',
         'person_id'		=> 23,
         'constituency'	=> 'Here',
         'party'			=> 'Them'
@@ -78,7 +77,6 @@ function render_peers_row($peer, &$style, $order, $URL) {
     // Stripes
     $style = $style == '1' ? '2' : '1';
 
-    $name = member_full_name(2, $peer['title'], $peer['first_name'], $peer['last_name'], $peer['constituency']);
     if (array_key_exists($peer['party'], $parties))
         $party = $parties[$peer['party']];
     else
@@ -91,12 +89,12 @@ function render_peers_row($peer, &$style, $order, $URL) {
                 <?php
                 list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($peer['person_id'], true, 'lord');
                 if ($image) {
-                    echo '<a href="' . $URL->generate().make_member_url($name, null, 2, $peer['person_id']) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
+                    echo '<a href="' . $URL->generate() . $peer['url'] . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
                     echo '></a>';
                 }
                 ?>
                 </td>
-                <td class="row-<?php echo $style; ?>"><a href="<?php echo $URL->generate().make_member_url($name, null, 2, $peer['person_id']); ?>"><?php echo ucfirst($name); ?></a></td>
+                <td class="row-<?php echo $style; ?>"><a href="<?php echo $URL->generate() . $peer['url']; ?>"><?php echo ucfirst($peer['name']); ?></a></td>
                 <td class="row-<?php echo $style; ?>"><?php echo $party; ?></td>
                 <td class="row-<?php echo $style; ?>"><?php
     if (is_array($peer['dept'])) print join('<br>', array_map('manymins', $peer['pos'], $peer['dept']));

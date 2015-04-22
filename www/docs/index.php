@@ -52,7 +52,7 @@ $last_dates[6] = $COMMITTEE->most_recent_day();
                     } else {
                         $CHANGEURL = new URL('userchangepc');
                     }
-                    $mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
+                    $mpname = $MEMBER->full_name();
                     $former = "";
                     $left_house = $MEMBER->left_house();
                     if ($left_house[1]['date'] != '9999-12-31') {

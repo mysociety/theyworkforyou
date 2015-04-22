@@ -39,102 +39,70 @@ class AcceptApiTest extends FetchPageTestCase
         $this->assertEquals('{"error":"Invalid API key."}', $page);
     }
 
-    /**
-     * Test getting a list of all constituencies
-     */
-    public function testGetConstituencies()
-    {
-        $page = $this->fetch_page('getConstituencies', array(
-            'key' => 'test_key'
-        ));
-        $this->assertEquals('[{"name":"Alyn and Deeside"},{"name":"Amber Valley"},{"name":"Cities of London and Westminster"}]', $page);
-    }
-
-    /**
-     * Test getting a constituency by name
-     */
-    public function testGetConstituencyByName()
-    {
-        $page = $this->fetch_page('getConstituency', array(
+    private function _testGetJSON($page, $key, $value, $result) {
+        $page = $this->fetch_page($page, array(
             'key' => 'test_key',
-            'name' => 'Amber Valley'
+            $key => $value
         ));
-        $this->assertEquals('{"name":"Amber Valley"}', $page);
+        $this->assertEquals(json_decode($result), json_decode($page));
     }
 
-    /**
-     * Test getting a constituency by postcode
-     */
-    public function testGetConstituencyByPostcode()
-    {
-        $page = $this->fetch_page('getConstituency', array(
-            'key' => 'test_key',
-            'postcode' => 'SW1A 1AA'
-        ));
-        $this->assertEquals('{"name":"Cities of London and Westminster"}', $page);
+    public function testGetConstituencies() {
+        $this->_testGetJSON('getConstituencies', 'dummy', 1, '[
+            {"name":"Alyn and Deeside"},
+            {"name":"Amber Valley"},
+            {"name":"Belfast West"},
+            {"name":"Cities of London and Westminster"}
+            ]');
     }
 
-    /**
-     * Test getting a constituency by an alternate name
-     */
-    public function testGetConstituencyByAlternateName()
-    {
-        $page = $this->fetch_page('getConstituency', array(
-            'key' => 'test_key',
-            'name' => 'Alyn & Deeside'
-        ));
-        $this->assertEquals('{"name":"Alyn and Deeside"}', $page);
+    public function testGetConstituencyByName() {
+        $this->_testGetJSON('getConstituency', 'name', 'Amber Valley',
+            '{"name":"Amber Valley"}');
     }
 
-    /**
-     * Test getting a constituency by incorrect name
-     */
-    public function testGetConstituencyByIncorrectName()
-    {
-        $page = $this->fetch_page('getConstituency', array(
-            'key' => 'test_key',
-            'name' => 'No Such Constituency'
-        ));
-        $this->assertEquals('{"error":"Could not find anything with that name"}', $page);
+    public function testGetConstituencyByPostcode() {
+        $this->_testGetJSON('getConstituency', 'postcode', 'SW1A 1AA',
+            '{"name":"Cities of London and Westminster"}');
     }
 
-    /**
-     * Test getting a MP by postcode
-     */
+    public function testGetConstituencyByAlternateName() {
+        $this->_testGetJSON('getConstituency', 'name', 'Alyn & Deeside',
+            '{"name":"Alyn and Deeside"}');
+    }
+
+    public function testGetConstituencyByIncorrectName() {
+        $this->_testGetJSON('getConstituency', 'name', 'No Such Constituency',
+            '{"error":"Could not find anything with that name"}');
+    }
+
     public function testGetMpByPostcode()
     {
-        $page = $this->fetch_page('getMP', array(
-            'key' => 'test_key',
-            'postcode' => 'SW1A 1AA'
-        ));
-        $page = json_decode($page);
-        $this->assertEquals(json_decode('{"member_id":"2","house":"1","first_name":"Test","last_name":"Current-City-MP","constituency":"Cities of London and Westminster","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"3","title":"Mr","lastupdate":"2013-08-07 15:06:19","full_name":"Mr Test Current-City-MP","url":"/mp/3/mr_test_current-city-mp/cities_of_london_and_westminster"}'), $page);
+        $this->_testGetJSON('getMP', 'postcode', 'SW1A 1AA',
+            '{"member_id":"2","house":"1","given_name":"Test","family_name":"Current-City-MP","constituency":"Cities of London and Westminster","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"3","title":"Mr","lastupdate":"2013-08-07 15:06:19","full_name":"Mr Test Current-City-MP","url":"/mp/3/mr_test_current-city-mp/cities_of_london_and_westminster"}');
     }
 
-    /**
-     * Test getting a MP by constituency
-     */
     public function testGetMpByConstituency()
     {
-        $page = $this->fetch_page('getMP', array(
-            'key' => 'test_key',
-            'constituency' => 'Amber Valley'
-        ));
-        $page = json_decode($page);
-        $this->assertEquals(json_decode('{"member_id":"1","house":"1","first_name":"Test","last_name":"Current-MP","constituency":"Amber Valley","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"2","title":"Mrs","lastupdate":"2013-08-07 15:06:19","full_name":"Mrs Test Current-MP","url":"/mp/2/mrs_test_current-mp/amber_valley"}'), $page);
+        $this->_testGetJSON('getMP', 'constituency', 'Amber Valley',
+            '{"member_id":"1","house":"1","given_name":"Test","family_name":"Current-MP","constituency":"Amber Valley","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"2","title":"Mrs","lastupdate":"2013-08-07 15:06:19","full_name":"Mrs Test Current-MP","url":"/mp/2/mrs_test_current-mp/amber_valley"}');
     }
 
-    /**
-     * Test getting a MP by ID
-     */
     public function testGetMpById()
     {
-        $page = $this->fetch_page('getMP', array(
-            'key' => 'test_key',
-            'id' => '2'
-        ));
-        $page = json_decode($page);
-        $this->assertEquals(json_decode('[{"member_id":"1","house":"1","first_name":"Test","last_name":"Current-MP","constituency":"Amber Valley","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"2","title":"Mrs","lastupdate":"2013-08-07 15:06:19","full_name":"Mrs Test Current-MP","url":"/mp/2/mrs_test_current-mp/amber_valley"}]'), $page);
+        $this->_testGetJSON('getMP', 'id', '2',
+            '[{"member_id":"1","house":"1","given_name":"Test","family_name":"Current-MP","constituency":"Amber Valley","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"2","title":"Mrs","lastupdate":"2013-08-07 15:06:19","full_name":"Mrs Test Current-MP","url":"/mp/2/mrs_test_current-mp/amber_valley"}]');
+    }
+
+    public function testGetMlasLookup() {
+        $result = '[
+{"member_id":"101","house":"3","given_name":"Test1","family_name":"Nimember","constituency":"Belfast West","party":"DUP","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"101","title":"Mr","lastupdate":"2013-08-07 15:06:19","full_name":"Mr Test1 Nimember"},
+{"member_id":"102","house":"3","given_name":"Test2","family_name":"Nimember","constituency":"Belfast West","party":"DUP","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"102","title":"Ms","lastupdate":"2013-08-07 15:06:19","full_name":"Ms Test2 Nimember"}
+        ]';
+        $this->_testGetJSON('getMLA', 'postcode', 'BT17 0XD', $result);
+        $this->_testGetJSON('getMLA', 'constituency', 'Belfast West', $result);
+        $this->_testGetJSON('getMLA', 'id', '101',
+            '[{"member_id":"101","house":"3","given_name":"Test1","family_name":"Nimember","constituency":"Belfast West","party":"DUP","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"101","title":"Mr","lastupdate":"2013-08-07 15:06:19","full_name":"Mr Test1 Nimember"}]');
     }
 
 }

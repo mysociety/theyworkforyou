@@ -34,7 +34,7 @@ foreach (@$alerts) {
 	my $criteria = $_->[3];
 
 	if ($criteria =~ /speaker:(\d+)/) {
-		my $name = $dbh->selectrow_array("select concat(first_name,' ',last_name) from member where person_id=? limit 1", {}, $1);
+		my $name = $dbh->selectrow_array("select concat(given_name,' ',family_name) from person_names where type='name' and person_id=? order by end_date desc limit 1", {}, $1);
 		$criteria =~ s/speaker:\d+/spoken by $name/;
 	}
 	my $url = "http://theyworkforyou.com/alert/confirm/?t=$id"."::$token";

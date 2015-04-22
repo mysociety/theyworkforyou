@@ -162,7 +162,7 @@ class PAGE {
                         $linktitle = _htmlentities( trim_characters($nextprev[$type]['body'], 0, 40) );
                         if (isset($nextprev[$type]['speaker']) &&
                             count($nextprev[$type]['speaker']) > 0) {
-                            $linktitle = $nextprev[$type]['speaker']['first_name'] . ' ' . $nextprev[$type]['speaker']['last_name'] . ': ' . $linktitle;
+                            $linktitle = $nextprev[$type]['speaker']['name'] . ': ' . $linktitle;
                         }
 
                     } elseif (isset($nextprev[$type]['hdate'])) {

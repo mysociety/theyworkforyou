@@ -76,10 +76,11 @@ if ($q->rows()) {
 }
 
 # Fetch preceding/following speeches data *
-$q = $db->query("select hansard.gid, body, htype, htime, adate, atime, hpos, first_name, last_name, video_status
+$q = $db->query("select hansard.gid, body, htype, htime, adate, atime, hpos, given_name, family_name, video_status
     from hansard
         inner join epobject on hansard.epobject_id=epobject.epobject_id
         left join member on hansard.person_id=member.person_id AND member.entered_house <= hansard.hdate AND hansard.hdate <= member.left_house AND member.house = 1
+        join person_names pn on member.person_id = pn.person_id AND pn.type = 'name' AND pn.start_date <= hansard.hdate AND hansard.hdate <= pn.end_date
                 left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1 and video_timestamps.deleted = 0
     where hpos>=$hpos-$surrounding_speeches and hpos<=$hpos+$surrounding_speeches and hdate='$hdate' and major=$major
     ORDER BY hpos desc
@@ -103,10 +104,9 @@ for ($i=0; $i<$q->rows(); $i++) {
 
 # Summary of debate
 /*
-$q = $db->query("select hansard.gid, body, htype, hpos, first_name, last_name
+$q = $db->query("select hansard.gid, body, htype, hpos, person_id
     from hansard
         inner join epobject on hansard.epobject_id=epobject.epobject_id
-        left join member on hansard.person_id=member.person_id XXX
     where subsection_id = $parent_epid
     ORDER BY hpos
 ");
@@ -115,7 +115,7 @@ for ($i=0; $i<$q->rows(); $i++) {
     $row = $q->row($i);
     $count = count(explode(' ', $row['body']));
     $summary .= '<li>';
-$row[first_name] $row[last_name] : $count words";
+$row[person_id] : $count words";
 }
 */
 
@@ -377,7 +377,7 @@ function display_league($limit, $q = '') {
 function video_quote($gid_actual, $parent_gid, $parent_body) {
     #echo '<h4>Press &ldquo;Play&rdquo;, then click &ldquo;Now!&rdquo; when you hear:</h4>';
     echo '<div id="video_quote">';
-    echo '<span class="video_name">' . $gid_actual['first_name'] . ' ' . $gid_actual['last_name'] . '</span> ';
+    echo '<span class="video_name">' . $gid_actual['given_name'] . ' ' . $gid_actual['family_name'] . '</span> ';
     echo $gid_actual['body_first'];
     echo '<p align="right">&mdash; from debate entitled &ldquo;<a title="View entire debate" href="' . $parent_gid . '">' . $parent_body . '</a>&rdquo;</p>';
     echo '</div>';
@@ -478,7 +478,7 @@ function disp_speech($row, $count) {
     echo '>';
     if ($count) echo "<em>$count earlier:</em> ";
     if ($row['htype']==12)
-        echo '<span class="video_name">' . $row['first_name'] . ' ' . $row['last_name'] . '</span> ';
+        echo '<span class="video_name">' . $row['given_name'] . ' ' . $row['family_name'] . '</span> ';
     echo $row['body'];
     echo '</li>';
 }

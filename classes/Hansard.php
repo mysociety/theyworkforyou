@@ -122,7 +122,7 @@ class Hansard extends \HANSARDLIST {
         // We'll put all the data in here before giving it to a template.
         $rows = array();
 
-        // We'll cache the ids=>first_names/last_names of speakers here.
+        // We'll cache the ids=>names of speakers here.
         $speakers = array();
 
         // We'll cache (sub)section_ids here:

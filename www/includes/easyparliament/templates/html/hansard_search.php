@@ -89,8 +89,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
         }
         echo '</dt> <dd><p>';
         if (isset($row['speaker']) && count($row['speaker'])) {
-            $sp = $row['speaker'];
-            echo "<em>" . ucfirst(member_full_name($sp['house'], $sp['title'], $sp['first_name'], $sp['last_name'], $sp['constituency'])) . "</em>";
+            echo "<em>" . ucfirst($row['speaker']['name']) . "</em>";
             if ($row['extract']) echo ": ";
         }
 

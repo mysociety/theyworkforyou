@@ -5,11 +5,10 @@ Used on the 'All MPs' page to produce the list of MPs.
 
 $data = array (
     'info' => array (
-        'order' => 'first_name'
+        'order' => 'given_name'
     ),
     'data' => array (
-        'first_name'	=> 'Fred',
-        'last_name'		=> 'Bloggs,
+        'name' => 'Fred Bloggs',
         'person_id'		=> 23,
         'constituency'	=> 'Here',
         'party'			=> 'Them'
@@ -25,18 +24,18 @@ $order = $data['info']['order'];
 
 $URL = new URL($this_page);
 
-if ($order == 'first_name') {
-    $th_first_name = 'First Name |';
+if ($order == 'given_name') {
+    $th_given_name = 'First Name |';
 } else {
     $URL->insert(array('o'=>'f'));
-    $th_first_name = '<a href="'. $URL->generate() .'">First name</a> |';
+    $th_given_name = '<a href="'. $URL->generate() .'">First name</a> |';
 }
 
-if ($order == 'last_name') {
-    $th_last_name = 'Last name |';
+if ($order == 'family_name') {
+    $th_family_name = 'Last name |';
 } else {
     $URL->insert(array('o'=>'l'));
-    $th_last_name = '<a href="' . $URL->generate() . '">Last name</a> |';
+    $th_family_name = '<a href="' . $URL->generate() . '">Last name</a> |';
 }
 
 $URL->insert(array('o'=>'p'));
@@ -67,7 +66,7 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
         } else {
             $CHANGEURL = new URL('userchangepc');
         }
-        $mpname = $MEMBER->first_name() . ' ' . $MEMBER->last_name();
+        $mpname = $MEMBER->full_name();
         $former = "";
         $left_house = $MEMBER->left_house();
         if ($left_house[1]['date'] != '9999-12-31') {
@@ -104,8 +103,8 @@ if (!count($data['data']) && DISSOLUTION_DATE) {
                 <div class="sort">
                     Sort by:
                     <ul>
-                        <li><?php echo $th_last_name; ?></li>
-                        <li><?php echo $th_first_name; ?></li>
+                        <li><?php echo $th_family_name; ?></li>
+                        <li><?php echo $th_given_name; ?></li>
                         <li><?php echo $th_party; ?></li>
                         <?php	if ($order == 'expenses') { ?>
                             <li>2004 Expenses Grand Total</li>
@@ -118,7 +117,7 @@ if (!count($data['data']) && DISSOLUTION_DATE) {
                     </ul>
                 </div>
                 <?php
-                if ($order == 'last_name' || $order == 'first_name') {
+                if ($order == 'family_name' || $order == 'given_name') {
                     echo('<div class="sort">');
                     for ($i = 65; $i <= 90; $i++) {
                         $c = chr($i);
@@ -170,8 +169,6 @@ function render_mps_row($mp, &$style, $order, $MPURL, $letter=false) {
     // Stripes
     $style = $style == '1' ? '2' : '1';
 
-    $name = member_full_name(1, $mp['title'], $mp['first_name'], $mp['last_name'], $mp['constituency']);
-
 #	$MPURL->insert(array('pid'=>$mp['person_id']));
     ?>
                 <tr>
@@ -182,12 +179,12 @@ function render_mps_row($mp, &$style, $order, $MPURL, $letter=false) {
                                 }
                 list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($mp['person_id'], true, true);
                 if ($image) {
-                    echo '<a href="' . $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1, $mp['person_id']) . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
+                    echo '<a href="' . $MPURL->generate() . $mp['url'] . '" class="speakerimage"><img height="59" alt="" src="', $image, '"';
                     echo '></a>';
                 }
                 ?>
                 </td>
-                <td class="row-<?php echo $style; ?>"><a href="<?php echo $MPURL->generate().make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1, $mp['person_id']); ?>"><?php echo $name; ?></a>
+                <td class="row-<?php echo $style; ?>"><a href="<?php echo $MPURL->generate() . $mp['url']; ?>"><?php echo $mp['name']; ?></a>
 <?php
 if ($mp['left_reason'] == 'general_election_not_standing') {
     print '<br><em>Standing down</em>';

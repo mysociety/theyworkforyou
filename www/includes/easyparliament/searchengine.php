@@ -644,22 +644,24 @@ function search_by_usage($search, $house = 0) {
         $speakers = array();
         if (count($speaker_count)) {
             $person_ids = join(',', array_keys($speaker_count));
-            $q = $db->query('SELECT member_id, person_id, title,first_name,last_name,constituency,house,party,
+            $q = $db->query('SELECT member_id, member.person_id, title, given_name, family_name, lordofname,
+                                constituency, house, party,
                                 moffice_id, dept, position, from_date, to_date, left_house
                             FROM member LEFT JOIN moffice ON member.person_id = moffice.person
-                            WHERE person_id IN (' . $person_ids . ')
+                                JOIN person_names pn ON member.person_id = pn.person_id AND pn.type="name" AND pn.start_date <= left_house AND left_house <= pn.end_date
+                            WHERE member.person_id IN (' . $person_ids . ')
                             ' . ($house ? " AND house=$house" : '') . '
                             ORDER BY left_house DESC');
             for ($n=0; $n<$q->rows(); $n++) {
                 $mid = $q->field($n, 'member_id');
                 if (!isset($pids[$mid])) {
                     $title = $q->field($n, 'title');
-                    $first = $q->field($n, 'first_name');
-                    $last = $q->field($n, 'last_name');
-                    $cons = $q->field($n, 'constituency');
+                    $first = $q->field($n, 'given_name');
+                    $last = $q->field($n, 'family_name');
+                    $lordofname = $q->field($n, 'lordofname');
                     $house = $q->field($n, 'house');
                     $party = $q->field($n, 'party');
-                    $full_name = ucfirst(member_full_name($house, $title, $first, $last, $cons));
+                    $full_name = ucfirst(member_full_name($house, $title, $first, $last, $lordofname));
                     $pid = $q->field($n, 'person_id');
                     $pids[$mid] = $pid;
                     $speakers[$pid]['house'] = $house;
@@ -715,17 +717,17 @@ function search_member_db_lookup($searchstring, $current_only=false) {
     $params = array();
     if (count($searchwords) == 1) {
         $params[':like_0'] = '%' . $searchwords[0] . '%';
-        $where = "first_name LIKE :like_0 OR last_name LIKE :like_0";
+        $where = "given_name LIKE :like_0 OR family_name LIKE :like_0";
     } elseif (count($searchwords) == 2) {
         // We don't do anything special if there are more than two search words.
         // And here we're assuming the user's put the names in the right order.
         $params[':like_0'] = '%' . $searchwords[0] . '%';
         $params[':like_1'] = '%' . $searchwords[1] . '%';
-        $where = "(first_name LIKE :like_0 AND last_name LIKE :like_1)";
-        $where .= " OR (first_name LIKE :like_1 AND last_name LIKE :like_0)";
-        $where .= " OR (title LIKE :like_0 AND last_name LIKE :like_1)";
+        $where = "(given_name LIKE :like_0 AND family_name LIKE :like_1)";
+        $where .= " OR (given_name LIKE :like_1 AND family_name LIKE :like_0)";
+        $where .= " OR (title LIKE :like_0 AND family_name LIKE :like_1)";
         if (strtolower($searchwords[0]) == 'nick') {
-            $where .= " OR (first_name LIKE '%nicholas%' AND last_name LIKE :like_1)";
+            $where .= " OR (given_name LIKE '%nicholas%' AND family_name LIKE :like_1)";
         }
     } else {
         $searchwords[2] = str_replace('of ', '', $searchwords[2]);
@@ -734,10 +736,10 @@ function search_member_db_lookup($searchstring, $current_only=false) {
         $params[':like_2'] = '%' . $searchwords[2] . '%';
         $params[':like_0_and_1'] = '%' . $searchwords[0] . ' '. $searchwords[1] . '%';
         $params[':like_1_and_2'] = '%' . $searchwords[1] . ' '. $searchwords[2] . '%';
-        $where = "(first_name LIKE :like_0_and_1 AND last_name LIKE :like_2)";
-        $where .= " OR (first_name LIKE :like_0 AND last_name LIKE :like_1_and_2)";
-        $where .= " OR (title LIKE :like_0 AND first_name LIKE :like_1 AND last_name LIKE :like_2)";
-        $where .= " OR (title LIKE :like_0 AND last_name LIKE :like_1 AND constituency LIKE :like_2)";
+        $where = "(given_name LIKE :like_0_and_1 AND family_name LIKE :like_2)";
+        $where .= " OR (given_name LIKE :like_0 AND family_name LIKE :like_1_and_2)";
+        $where .= " OR (title LIKE :like_0 AND given_name LIKE :like_1 AND family_name LIKE :like_2)";
+        $where .= " OR (title LIKE :like_0 AND family_name LIKE :like_1 AND constituency LIKE :like_2)";
     }
     $where = "($where)";
 
@@ -746,13 +748,15 @@ function search_member_db_lookup($searchstring, $current_only=false) {
     }
 
     $db = new ParlDB;
-    $q = $db->query("SELECT person_id,
-                            title, first_name, last_name,
+    $q = $db->query("SELECT member.person_id,
+                            title, given_name, family_name, lordofname,
                             constituency, party,
                             entered_house, left_house, house
-                    FROM 	member
+                    FROM 	member, person_names pn
                     WHERE	$where
-                    ORDER BY last_name, first_name, person_id, entered_house desc
+                        AND member.person_id = pn.person_id
+                        AND pn.start_date <= member.left_house AND member.left_house <= pn.end_date
+                    ORDER BY family_name, lordofname, given_name, person_id, entered_house desc
                     ", $params);
 
     return $q;

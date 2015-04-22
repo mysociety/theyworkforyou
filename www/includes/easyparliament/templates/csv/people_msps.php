@@ -14,14 +14,13 @@ function render_msps_row($msp) {
     global $parties;
     $con = $msp['constituency'];
     if (strstr($con, ',')) $con = "\"$con\"";
-    $name = member_full_name(4, $msp['title'], $msp['first_name'], $msp['last_name'], $msp['constituency']);
+    $name = $msp['name'];
     if (strstr($name, ',')) $name = "\"$name\"";
     print $msp['person_id'] . ',' . ucfirst($name) . ',';
     if (array_key_exists($msp['party'], $parties))
         print $parties[$msp['party']];
     else
         print $msp['party'];
-    print ',' . $con . ',' .  'http://www.theyworkforyou.com/msp/' .
-        make_member_url($msp['first_name'].' '.$msp['last_name'], NULL, 4, $msp['person_id']);
+    print ',' . $con . ',' .  'http://www.theyworkforyou.com/msp/' . $msp['url'];
     print "\r\n";
 }

@@ -80,11 +80,12 @@ sub debates_rss {
 sub wms_rss {
     my $query = $dbh->prepare("
         SELECT e.body, h.hdate, h.htype, h.gid, h.subsection_id, h.section_id,
-                h.epobject_id, m.house, m.title, m.first_name, m.last_name, m.constituency, m.person_id
-        FROM hansard h, epobject e, member m
+                h.epobject_id, m.house, p.title, p.given_name, p.family_name, p.lordofname, m.person_id
+        FROM hansard h, epobject e, member m, person_names p
         WHERE h.major=4 AND htype=12 AND section_id != 0 AND subsection_id != 0
         AND h.epobject_id = e.epobject_id
         AND h.person_id = m.person_id AND m.entered_house <= h.hdate and h.hdate <= m.left_house AND m.house IN (1,2)
+        AND m.person_id = p.person_id AND p.type = 'name' AND p.start_date <= h.hdate and h.hdate <= p.end_date
         ORDER BY h.hdate desc, h.epobject_id desc LIMIT 20");
     $query->execute;
 
@@ -189,21 +190,19 @@ sub member_full_name {
     my $result = shift;
     my $house = $result->{house};
     my $title = $result->{title};
-    my $first_name = $result->{first_name};
-    my $last_name = $result->{last_name};
-    my $con = $result->{constituency};
+    my $family_name = $result->{family_name};
     my $s = 'ERROR';
     if ($house == 1) {
-        $s = $first_name . ' ' . $last_name;
-        if ($title) {
-            $s = $title . ' ' . $s;
-        }
+        my $given_name = $result->{given_name};
+        $s = "$given_name $family_name";
+        $s = "$title $s" if $title;
     } elsif ($house == 2) {
+        my $lordofname = $result->{lordofname};
         $s = '';
-        $s = 'The ' if (!$last_name);
+        $s = 'The ' if !$family_name;
         $s .= $title;
-        $s .= ' ' . $last_name if $last_name;
-        $s .= ' of ' . $con if $con;
+        $s .= ' ' . $family_name if $family_name;
+        $s .= ' of ' . $lordofname if $lordofname;
     }
     return $s;
 }

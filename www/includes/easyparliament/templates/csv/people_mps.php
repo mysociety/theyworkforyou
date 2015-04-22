@@ -18,13 +18,12 @@ function render_mps_row($mp, $order) {
     $con = $mp['constituency'];
     if (strstr($con, ',')) $con = "\"$con\"";
     print $mp['person_id'] . ',';
-    print $mp['first_name'] . ',' . $mp['last_name'] . ',';
+    print $mp['given_name'] . ',' . $mp['family_name'] . ',';
     if (array_key_exists($mp['party'], $parties))
         print $parties[$mp['party']];
     else
         print $mp['party'];
-    print ',' . $con . ',' .  'http://www.theyworkforyou.com/mp/' .
-        make_member_url($mp['first_name'].' '.$mp['last_name'], $mp['constituency'], 1, $mp['person_id']);
+    print ',' . $con . ',' .  'http://www.theyworkforyou.com/mp/' . $mp['url'];
     if ($order == 'debates') print ',' . $mp['data_value'];
     print "\r\n";
 }
