@@ -81,14 +81,15 @@ class PEOPLE {
         $use_personinfo = $use_extracol;
 
         # Defaults
-        $order = 'last_name';
-        $sqlorder = 'last_name, first_name';
+        $order = 'family_name';
+        $sqlorder = 'family_name, given_name';
 
-        $query = 'SELECT distinct member.person_id, title, first_name, last_name, constituency, party, left_reason, dept, position ';
+        $params = array();
+        $query = 'SELECT distinct member.person_id, title, given_name, family_name, lordofname, constituency, party, left_reason, dept, position ';
         if ($use_extracol) {
             $query .= ', data_value ';
             $order = $args['order'];
-            $sqlorder = 'data_value+0 DESC, last_name, first_name';
+            $sqlorder = 'data_value+0 DESC, family_name, given_name';
             unset($args['date']);
             $key_lookup = array(
                 'debates' => 'debate_sectionsspoken_inlastyear',
@@ -96,31 +97,38 @@ class PEOPLE {
             $personinfo_key = $key_lookup[$order];
         }
         $query .= 'FROM member LEFT OUTER JOIN moffice ON member.person_id = moffice.person ';
-        if (isset($args['date']))
-            $query .= 'AND from_date <= date("' . $args['date'] . '") AND date("' . $args['date'] . '") <= to_date ';
-        else
+        if (isset($args['date'])) {
+            $query .= 'AND from_date <= :date AND :date <= to_date ';
+            $params[':date'] = $args['date'];
+        } else {
             $query .= 'AND to_date="9999-12-31" ';
+        }
         if ($use_personinfo) {
             $query .= 'LEFT OUTER JOIN personinfo ON member.person_id = personinfo.person_id AND data_key="' . $personinfo_key . '" ';
         }
+        $query .= ' JOIN person_names p ON p.person_id = member.person_id AND p.type = "name" ';
+        if (isset($args['date']))
+            $query .= 'AND start_date <= :date AND :date <= end_date ';
+        else
+            $query .= 'AND end_date="9999-12-31" ';
         $query .= 'WHERE house=' . $args['house'] . ' ';
         if (isset($args['date']))
-            $query .= 'AND entered_house <= date("' . $args['date'] . '") AND date("' . $args['date'] . '") <= left_house ';
+            $query .= 'AND entered_house <= :date AND :date <= left_house ';
         elseif (!isset($args['all']) || $args['house'] == 1)
             $query .= 'AND left_house = (SELECT MAX(left_house) FROM member) ';
 
         if (isset($args['order'])) {
             $order = $args['order'];
-            if ($args['order'] == 'first_name') {
-                $sqlorder = 'first_name, last_name';
+            if ($args['order'] == 'given_name') {
+                $sqlorder = 'given_name, family_name';
             } elseif ($args['order'] == 'constituency') {
                 $sqlorder = 'constituency';
             } elseif ($args['order'] == 'party') {
-                $sqlorder = 'party, last_name, first_name, constituency';
+                $sqlorder = 'party, family_name, given_name, constituency';
             }
         }
 
-        $q = $this->db->query($query . "ORDER BY $sqlorder");
+        $q = $this->db->query($query . "ORDER BY $sqlorder", $params);
 
         $data = array();
         for ($row=0; $row<$q->rows(); $row++) {
@@ -131,12 +139,19 @@ class PEOPLE {
                 $data[$p_id]['dept'] = array_merge((array) $data[$p_id]['dept'], (array) $dept);
                 $data[$p_id]['pos'] = array_merge((array) $data[$p_id]['pos'], (array) $pos);
             } else {
+                $name = member_full_name($args['house'], $q->field($row, 'title'),
+                    $q->field($row, 'given_name'), $q->field($row, 'family_name'),
+                    $q->field($row, 'lordofname'));
+                $constituency = $q->field($row, 'constituency');
+                $url = make_member_url($name, $constituency, $args['house'], $p_id);
                 $narray = array (
                     'person_id' 	=> $p_id,
-                    'title' 	=> $q->field($row, 'title'),
-                    'first_name' 	=> $q->field($row, 'first_name'),
-                    'last_name' 	=> $q->field($row, 'last_name'),
-                    'constituency' 	=> $q->field($row, 'constituency'),
+                    'given_name' => $q->field($row, 'given_name'),
+                    'family_name' => $q->field($row, 'family_name'),
+                    'lordofname' => $q->field($row, 'lordofname'),
+                    'name' => $name,
+                    'url' => $url,
+                    'constituency' 	=> $constituency,
                     'party' 	=> $q->field($row, 'party'),
                     'left_reason' 	=> $q->field($row, 'left_reason'),
                     'dept'		=> $dept,
@@ -173,60 +188,15 @@ class PEOPLE {
 
     }
     public function by_peer_name($a, $b) {
-        if (!$a['last_name'] && !$b['last_name'])
-            return strcmp($a['constituency'], $b['constituency']);
-        if (!$a['last_name'])
-            return strcmp($a['constituency'], $b['last_name']);
-        if (!$b['last_name'])
-            return strcmp($a['last_name'], $b['constituency']);
-        if (strcmp($a['last_name'], $b['last_name']))
-            return strcmp($a['last_name'], $b['last_name']);
-        return strcmp($a['constituency'], $b['constituency']);
-    }
-
-    public function listoptions($args) {
-        global $THEUSER;
-        $data = $this->_get_data_by_mps($args);
-        if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
-            $MEMBER = new MEMBER(array('postcode'=>$THEUSER->postcode(), 'house' => 1));
-            print '<option value="'.$MEMBER->person_id().'">Your MP, '.$MEMBER->full_name().'</option>';
-        }
-        print '<optgroup label="MPs">';
-        foreach ($data['data'] as $row) {
-            print '<option';
-            if (isset($args['pid']) && $args['pid']==$row['person_id']) print ' selected';
-            print ' value="'.$row['person_id'].'">' . $row['first_name'].' '.$row['last_name'];
-            print ', ' . $row['constituency'];
-            print '</option>';
-        }
-        print '</optgroup> <optgroup label="Peers">';
-        $data = $this->_get_data_by_peers($args);
-        foreach ($data['data'] as $row) {
-            print '<option';
-            if (isset($args['pid']) && $args['pid']==$row['person_id']) print ' selected';
-            print ' value="'.$row['person_id'].'">';
-            print ucfirst(member_full_name(2, $row['title'], $row['first_name'], $row['last_name'], $row['constituency']));
-            print '</option>';
-        }
-        print '</optgroup> <optgroup label="MLAs">';
-        $data = $this->_get_data_by_mlas($args);
-        foreach ($data['data'] as $row) {
-            print '<option';
-            if (isset($args['pid']) && $args['pid']==$row['person_id']) print ' selected';
-            print ' value="'.$row['person_id'].'">';
-            print ucfirst(member_full_name(3, $row['title'], $row['first_name'], $row['last_name'], $row['constituency']));
-            print '</option>';
-        }
-        print '</optgroup> <optgroup label="MSPs">';
-        $data = $this->_get_data_by_msps($args);
-        foreach ($data['data'] as $row) {
-            print '<option';
-            if (isset($args['pid']) && $args['pid']==$row['person_id']) print ' selected';
-            print ' value="'.$row['person_id'].'">';
-            print ucfirst(member_full_name(4, $row['title'], $row['first_name'], $row['last_name'], $row['constituency']));
-            print '</option>';
-        }
-        print '</optgroup>';
+        if (!$a['family_name'] && !$b['family_name'])
+            return strcmp($a['lordofname'], $b['lordofname']);
+        if (!$a['family_name'])
+            return strcmp($a['lordofname'], $b['family_name']);
+        if (!$b['family_name'])
+            return strcmp($a['family_name'], $b['lordofname']);
+        if (strcmp($a['family_name'], $b['family_name']))
+            return strcmp($a['family_name'], $b['family_name']);
+        return strcmp($a['lordofname'], $b['lordofname']);
     }
 
 }

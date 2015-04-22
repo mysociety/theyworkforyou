@@ -82,10 +82,13 @@ function person_drop_down() {
 <span class="label"><label for="form_pid">Person:</label></span>
 <span class="formw"><select id="form_pid" name="pid"></span>
 ';
-    $query = 'SELECT house, person_id, title, first_name, last_name, constituency, party
-        FROM member
-        WHERE house>0 GROUP by person_id
-        ORDER BY house, last_name, first_name
+    $query = 'SELECT house, member.person_id, title, given_name, family_name, lordofname, constituency, party
+        FROM member, person_names,
+        (SELECT person_id, MAX(end_date) max_date FROM person_names WHERE type="name" GROUP by person_id) md
+        WHERE house>0 AND member.person_id = person_names.person_id AND person_names.type = "name"
+        AND md.person_id = person_names.person_id AND md.max_date = person_names.end_date
+        GROUP by person_id
+        ORDER BY house, family_name, lordofname, given_name
     ';
     $q = $db->query($query);
 
@@ -94,10 +97,12 @@ function person_drop_down() {
     for ($i=0; $i<$q->rows(); $i++) {
         $p_id = $q->field($i, 'person_id');
         $house = $q->field($i, 'house');
-        $desc = $q->field($i, 'last_name') . ', ' . $q->field($i, 'title') . ' ' . $q->field($i, 'first_name') .
+        $desc = member_full_name($house, $q->field($i, 'title'), $q->field($i, 'given_name'), $q->field($i, 'family_name'), $q->field($i, 'lordofname')) .
                 " " . $houses[$house];
         if ($q->field($i, 'party')) $desc .= ' (' . $q->field($i, 'party') . ')';
-        $desc .= ', ' . $q->field($i, 'constituency');
+        if ($q->field($i, 'constituency')) {
+            $desc .= ', ' . $q->field($i, 'constituency');
+        }
 
         list($dummy, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($p_id);
         if ($sz == 'L') {

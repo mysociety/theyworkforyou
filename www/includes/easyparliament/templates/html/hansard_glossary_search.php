@@ -55,8 +55,8 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
         ?></dt>
                     <dd><p><?php
 
-        if (isset($row['speaker']['first_name'])) {
-            echo "<em>" . $row['speaker']['first_name'] . ' ' . $row['speaker']['last_name'] . "</em>: ";
+        if (isset($row['speaker']['name'])) {
+            echo "<em>" . $row['speaker']['name'] . "</em>: ";
         }
 
         echo $row['extract'] . "</p></dd>\n";

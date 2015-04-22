@@ -50,7 +50,7 @@ foreach ($data['data'] as $wran) {
         $totalcomments, '</small></dt><dd>';
     if (sizeof($speaker)) {
         $body = preg_replace('/<p[^>]*>/', '', $wran['child']['body'], 1);
-        echo '<p><a href="', $speaker['url'], '">', member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']), '</a>: ';
+        echo '<p><a href="', $speaker['url'], '">', $speaker['name'], '</a>: ';
     } else {
         $body = $wran['child']['body'];
     }

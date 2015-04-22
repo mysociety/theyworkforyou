@@ -169,13 +169,7 @@
                 <?php
 
                 $speaker = $speech['speaker'];
-                $speaker_name = ucfirst(member_full_name(
-                    $speaker['house'],
-                    $speaker['title'],
-                    $speaker['first_name'],
-                    $speaker['last_name'],
-                    $speaker['constituency']
-                ));
+                $speaker_name = ucfirst($speaker['name']);
 
                 list($image_url, $size) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage(
                     $speaker['person_id'],
@@ -436,8 +430,7 @@ pairs along the lines of:
     'person_id'    => '931',
     'speaker'        => array (
         'member_id'        => '931',
-        'first_name'    => 'Peter',
-        'last_name'        => 'Hain',
+        'name'    => 'Peter Hain',
         'constituency'    => 'Neath',
         'party'            => 'Lab',
         'url'            => '/member/?id=931'

@@ -14,14 +14,13 @@ function render_mlas_row($mla) {
     global $parties;
     $con = $mla['constituency'];
     if (strstr($con, ',')) $con = "\"$con\"";
-    $name = member_full_name(3, $mla['title'], $mla['first_name'], $mla['last_name'], $mla['constituency']);
+    $name = $mla['name'];
     if (strstr($name, ',')) $name = "\"$name\"";
     print $mla['person_id'] . ',' . ucfirst($name) . ',';
     if (array_key_exists($mla['party'], $parties))
         print $parties[$mla['party']];
     else
         print $mla['party'];
-    print ',' . $con . ',' .  'http://www.theyworkforyou.com/mla/' .
-        make_member_url($mla['first_name'].' '.$mla['last_name'], NULL, 3, $mla['person_id']);
+    print ',' . $con . ',' .  'http://www.theyworkforyou.com/mla/' . $mla['url'];
     print "\r\n";
 }

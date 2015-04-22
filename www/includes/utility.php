@@ -924,21 +924,21 @@ function make_member_url($name, $const = '', $house = HOUSE_TYPE_COMMONS, $pid =
     return $out;
 }
 
-function member_full_name($house, $title, $first_name, $last_name, $constituency) {
+function member_full_name($house, $title, $given_name, $family_name, $lordofname) {
     $s = 'ERROR';
     if ($house == HOUSE_TYPE_COMMONS || $house == HOUSE_TYPE_NI || $house == HOUSE_TYPE_SCOTLAND) {
-        $s = $first_name . ' ' . $last_name;
+        $s = "$given_name $family_name";
         if ($title) {
             $s = $title . ' ' . $s;
         }
     } elseif ($house == HOUSE_TYPE_LORDS) {
         $s = '';
-        if (!$last_name) $s = 'the ';
+        if (!$family_name) $s = 'the ';
         $s .= $title;
-        if ($last_name) $s .= ' ' . $last_name;
-        if ($constituency) $s .= ' of ' . $constituency;
+        if ($family_name) $s .= ' ' . $family_name;
+        if ($lordofname) $s .= ' of ' . $lordofname;
     } elseif ($house == HOUSE_TYPE_ROYAL) { # Queen
-        $s = "$first_name $last_name";
+        $s = "$given_name $family_name";
     }
     return $s;
 }

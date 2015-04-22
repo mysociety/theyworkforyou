@@ -356,7 +356,7 @@ function _find_members_internal($searchstring) {
                 } else {
                     $former = '';
                 }
-                $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'first_name'), $q->field($n, 'last_name'), $q->field($n, 'constituency') );
+                $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'given_name'), $q->field($n, 'family_name'), $q->field($n, 'lordofname') );
                 if ($q->field($n, 'house') == 1) {
                     $URL1->insert(array('pid'=>$last_pid));
                     $s = '<a href="' . $URL1->generate() . '"><strong>';

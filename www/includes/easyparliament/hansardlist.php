@@ -57,8 +57,7 @@ class HANSARDLIST {
     public $speakers = array ();
     /*
     $this->speakers[ $person_id ] = array (
-        "first_name"	=> $first_name,
-        "last_name"		=> $last_name,
+        "name" => $name,
         "constituency"	=> $constituency,
         "party"			=> $party,
         "person_id"	    => $person_id,
@@ -432,7 +431,7 @@ class HANSARDLIST {
                     // Linking to the prev speaker.
 
                     if (isset($prevdata[0]['speaker']) && count($prevdata[0]['speaker']) > 0) {
-                        $title = $prevdata[0]['speaker']['first_name'] . ' ' . $prevdata[0]['speaker']['last_name'];
+                        $title = $prevdata[0]['speaker']['name'];
                     } else {
                         $title = '';
                     }
@@ -475,7 +474,7 @@ class HANSARDLIST {
                     // Linking to the next speaker.
 
                     if (isset($nextdata[0]['speaker']) && count($nextdata[0]['speaker']) > 0) {
-                        $title = $nextdata[0]['speaker']['first_name'] . ' ' . $nextdata[0]['speaker']['last_name'];
+                        $title = $nextdata[0]['speaker']['name'];
                     } else {
                         $title = '';
                     }
@@ -1083,7 +1082,7 @@ class HANSARDLIST {
         // We'll put all the data in here before giving it to a template.
         $rows = array();
 
-        // We'll cache the ids=>first_names/last_names of speakers here.
+        // We'll cache the ids=>names of speakers here.
         $speakers = array();
 
         // We'll cache (sub)section_ids here:
@@ -2080,15 +2079,16 @@ class HANSARDLIST {
             return $this->speakers[$person_id];
         }
 
-        $q = $this->db->query("SELECT title, first_name,
-                                last_name,
+        $q = $this->db->query("SELECT title, given_name, family_name, lordofname,
                                 house,
                                 constituency,
                                 party,
                                 member_id
-                        FROM    member
-                        WHERE	person_id = :person_id
+                        FROM    member m, person_names p
+                        WHERE	m.person_id = :person_id
                             AND entered_house <= :hdate AND :hdate <= left_house
+                            AND p.person_id = m.person_id AND p.type = 'name'
+                            AND p.start_date <= :hdate AND :hdate <= p.end_date
                         ORDER BY entered_house",
             array(':person_id' => $person_id, ':hdate' => $hdate));
         $member = $this->_get_speaker_alone($q->data, $person_id, $hdate, $htime, $major);
@@ -2096,11 +2096,10 @@ class HANSARDLIST {
         $URL = $this->_get_speaker_url($member['house']);
         $URL->insert( array ('p' => $person_id) );
 
+        $name = member_full_name($member['house'], $member['title'], $member['given_name'], $member['family_name'], $member['lordofname']);
         $speaker = array (
             'member_id' => $member['member_id'],
-            'title' => $member['title'],
-            "first_name" => $member["first_name"],
-            "last_name" => $member["last_name"],
+            "name" => $name,
             'house' => $member['house'],
             "constituency" => $member["constituency"],
             "party" => $member["party"],
@@ -2137,7 +2136,7 @@ class HANSARDLIST {
             }
         }
         if (count($members) != 1) {
-            throw new \Exception('Wanted one result, but got ' . count($members));
+            throw new \Exception('Wanted one result, but got ' . count($members) . " for $person_id, $hdate, $major.");
         }
 
         return $members[0];
@@ -2299,9 +2298,9 @@ class HANSARDLIST {
 
         $title = '';
 
-        if (isset($itemdata['speaker']) && isset($itemdata['speaker']['first_name'])) {
+        if (isset($itemdata['speaker']) && isset($itemdata['speaker']['name'])) {
             // This is probably a debate speech.
-            $title .= $itemdata['speaker']['first_name'] . ' ' . $itemdata['speaker']['last_name'] . ': ';
+            $title .= $itemdata['speaker']['name'] . ': ';
         }
 
         $trackback['title'] = $title . trim_characters($itemdata['body'], 0, 200);

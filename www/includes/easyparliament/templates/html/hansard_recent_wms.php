@@ -48,7 +48,7 @@ foreach ($data['data'] as $wran) {
     $speaker = $wran['child']['speaker'];
     ?>
                 <dt><a name="w<?php echo $count; ?>"></a><strong><a href="<?php echo $wran['list_url']; ?>"><?php echo $wran['parent']['body'] . ': ' . $wran['body']; ?></a></strong> <?php echo format_date($wran['hdate'], LONGDATEFORMAT) . ' ' .$totalcomments; ?></dt>
-                <dd><?php if (sizeof($speaker)) { ?><a href="<?php echo $speaker['url']; ?>"><?php echo member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']); ?></a>: <?php }
+                <dd><?php if (sizeof($speaker)) { ?><a href="<?php echo $speaker['url']; ?>"><?php echo $speaker['name']; ?></a>: <?php }
                 echo trim_characters($wran['child']['body'], 0, 200); ?></dd>
 <?php
 }

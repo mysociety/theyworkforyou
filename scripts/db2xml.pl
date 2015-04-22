@@ -133,7 +133,7 @@ sub xml_load_person {
 sub db_load_person {
     my $person_db_vals = {};
     $passer->{'person_db_vals'} = {};
-    my $get_person_sql = qq[SELECT member.person_id, house, title, first_name, last_name, constituency, data_value AS mp_website FROM personinfo LEFT JOIN member ON member.person_id =  personinfo.person_id WHERE data_key = 'mp_website' AND member.person_id = ] . $dbh->quote($personid);
+    my $get_person_sql = qq[SELECT member.person_id, data_value AS mp_website FROM personinfo LEFT JOIN member ON member.person_id =  personinfo.person_id WHERE data_key = 'mp_website' AND member.person_id = ] . $dbh->quote($personid);
     my $sth = $dbh->prepare($get_person_sql);
 	$sth->execute();
 		while (my $ref = $sth->fetchrow_hashref()) {

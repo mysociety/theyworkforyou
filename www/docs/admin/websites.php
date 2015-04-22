@@ -36,20 +36,23 @@ print '</div>';
 function edit_member_form() {
     global $db;
     $personid = get_http_var('editperson');
-    $query = "SELECT member.person_id, house, title, first_name, last_name, constituency, data_value
+    # XXX This is stupid, it fetches all memberships and then displays the last
+    $query = "SELECT member.person_id, house, title, given_name, family_name, lordofname, constituency, data_value
         AS mp_website
-        FROM member
+        FROM person_names pn, member
         LEFT JOIN personinfo ON member.person_id = personinfo.person_id AND data_key = 'mp_website'
-        WHERE member.person_id = :person_id";
+        WHERE member.person_id = :person_id
+            AND member.person_id = pn.person_id AND pn.type='name'
+            AND pn.end_date = (SELECT MAX(end_date) FROM person_names WHERE person_id=:person_id AND type='name')";
     $q = $db->query($query, array(
         ':person_id' => $personid
     ));
 
     for ($row = 0; $row < $q->rows(); $row++) {
 
-        $mpname = member_full_name($q->field($row, 'house'), $q->field($row, 'title'), $q->field($row, 'first_name'), $q->field($row, 'last_name'), $q->field($row, 'constituency'));
+        $name = member_full_name($q->field($row, 'house'), $q->field($row, 'title'), $q->field($row, 'given_name'), $q->field($row, 'family_name'), $q->field($row, 'lordofname'));
 
-        $out = "<h3>Edit person: $mpname</h3>\n";
+        $out = "<h3>Edit person: $name</h3>\n";
 
         $out .= '<form action="websites.php?editperson=' . $q->field($row, 'person_id') . '" method="post">';
         $out .= '<input name="action" type="hidden" value="SaveURL">';
@@ -66,21 +69,28 @@ function list_members() {
     global $db;
     $out = '<ul>';
     # this returns everyone so possibly over the top maybe limit to member.house = '1'
-    $q = $db->query("SELECT member.person_id, house, title, first_name, last_name, constituency, data_value FROM member
-    LEFT JOIN personinfo ON member.person_id = personinfo.person_id AND personinfo.data_key = 'mp_website' GROUP BY member.person_id ORDER BY last_name, first_name");
+    $q = $db->query("SELECT house, member.person_id, title, given_name, family_name, lordofname, constituency, data_value
+        FROM
+        (SELECT person_id, MAX(end_date) max_date FROM person_names WHERE type='name' GROUP by person_id) md,
+        person_names, member
+        LEFT JOIN personinfo ON member.person_id = personinfo.person_id AND personinfo.data_key = 'mp_website'
+        WHERE member.person_id = person_names.person_id AND person_names.type = 'name'
+        AND md.person_id = person_names.person_id AND md.max_date = person_names.end_date
+        GROUP by person_id
+        ORDER BY house, family_name, lordofname, given_name");
 
     for ($row = 0; $row < $q->rows(); $row++) {
         $out .= '<li>';
-        $mpname = member_full_name($q->field($row, 'house'), $q->field($row, 'title'), $q->field($row, 'first_name'), $q->field($row, 'last_name'), $q->field($row, 'constituency'));
+        $name = member_full_name($q->field($row, 'house'), $q->field($row, 'title'), $q->field($row, 'given_name'), $q->field($row, 'family_name'), $q->field($row, 'lordofname'));
         $mp_website = $q->field($row, 'data_value');
         $out .= ' <small>[<a href="websites.php?editperson=' . $q->field($row, 'person_id') . '"';
-    if ($mp_website) {
+        if ($mp_website) {
             $out .= ' title="Change URL ' . $mp_website . '">Edit URL</a>]</small>';
-    } else {
+        } else {
             $out .= '>Add URL</a>]</small>';
-    }
-        $out .= ' ' . $mpname;
-        if ($q->field($row, 'constituency') && $q->field($row, 'house')!=2) {
+        }
+        $out .= ' ' . $name;
+        if ($q->field($row, 'constituency')) {
             $out .= ' (' . $q->field($row, 'constituency') . ')';
         }
         $out .= "</li>\n";

@@ -79,8 +79,11 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     global $PAGE;
     $db = new ParlDB;
 
-    $q = $db->query("SELECT person_id, first_name, last_name, constituency, left_house FROM member
+    $q = $db->query("SELECT member.person_id, given_name, family_name, constituency, left_house
+        FROM member, person_names pn
         WHERE constituency = :constituency
+            AND member.person_id = pn.person_id AND pn.type = 'name'
+            AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
         AND house = 1 ORDER BY left_house DESC LIMIT 1", array(
             ':constituency' => normalise_constituency_name($areas['WMC'])
             ));
@@ -92,15 +95,21 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
 
     $a = array_values($areas);
 
-    $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
+    $q = $db->query("SELECT member.person_id, given_name, family_name, constituency, house
+        FROM member, person_names pn
         WHERE constituency IN ('" . join("','", $a) . "')
+            AND member.person_id = pn.person_id AND pn.type = 'name'
+            AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
         AND left_reason = 'still_in_office' AND house in (3,4)");
     $current = true;
     if (!$q->rows()) {
         # XXX No results implies dissolution, fix for 2011.
         $current = false;
-        $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
+        $q = $db->query("SELECT member.person_id, given_name, family_name, constituency, house
+            FROM member, person_names pn
             WHERE constituency IN ('" . join("','", $a) . "')
+                AND member.person_id = pn.person_id AND pn.type = 'name'
+                AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
             AND ( (house=3 AND left_house='2011-03-24') OR (house=4 AND left_house='2011-03-23') )");
     }
 
@@ -127,12 +136,12 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     $out .= '<ul><li>Your ';
     if (isset($mp['former'])) $out .= 'former ';
     $out .= '<strong>MP</strong> (Member of Parliament) is <a href="/mp/?p=' . $mp['person_id'] . '">';
-    $out .= $mp['first_name'] . ' ' . $mp['last_name'] . '</a>, ' . $mp['constituency'] . '</li>';
+    $out .= $mp['given_name'] . ' ' . $mp['family_name'] . '</a>, ' . $mp['constituency'] . '</li>';
     if ($mcon) {
         $out .= '<li>Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) ';
         $out .= $current ? 'is' : 'was';
         $out .= ' <a href="/msp/?p=' . $mcon['person_id'] . '">';
-        $out .= $mcon['first_name'] . ' ' . $mcon['last_name'] . '</a>, ' . $mcon['constituency'] . '</li>';
+        $out .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, ' . $mcon['constituency'] . '</li>';
     }
     $out .= '<li>Your <strong>' . $areas[$area_type] . ' ' . $rep_type . 's</strong> ';
     if ($rep_type=='MLA') $out .= '(Members of the Legislative Assembly)';
@@ -140,7 +149,7 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     $out .= '<ul>';
     foreach ($mreg as $reg) {
         $out .= '<li><a href="/' . strtolower($rep_type) . '/?p=' . $reg['person_id'] . '">';
-        $out .= $reg['first_name'] . ' ' . $reg['last_name'];
+        $out .= $reg['given_name'] . ' ' . $reg['family_name'];
         $out .= '</a>';
     }
     $out .= '</ul></ul>';

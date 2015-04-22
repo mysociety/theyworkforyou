@@ -81,8 +81,6 @@ CREATE TABLE `hansard` (
 CREATE TABLE `member` (
   `member_id` int(11) NOT NULL default '0',
   `house` int(11) default NULL,
-  `first_name` varchar(100) collate latin1_spanish_ci NOT NULL default '',
-  `last_name` varchar(255) collate latin1_spanish_ci NOT NULL default '',
   `constituency` varchar(100) collate latin1_spanish_ci NOT NULL default '',
   `party` varchar(100) collate latin1_spanish_ci NOT NULL default '',
   `entered_house` date NOT NULL default '1000-01-01',
@@ -90,7 +88,6 @@ CREATE TABLE `member` (
   `entered_reason` enum('unknown','general_election','by_election','changed_party','changed_name','reinstated','appointed','devolution','election','accession','regional_election','replaced_in_region','became_presiding_officer', 'general_election_probably') collate latin1_spanish_ci NOT NULL default 'unknown',
   `left_reason` enum('unknown','still_in_office','general_election','general_election_standing','general_election_not_standing','changed_party','changed_name','died','declared_void','resigned','disqualified','became_peer','devolution','dissolution','retired','regional_election','became_presiding_officer') collate latin1_spanish_ci NOT NULL default 'unknown',
   `person_id` int(11) NOT NULL default '0',
-  `title` varchar(50) collate latin1_spanish_ci NOT NULL default '',
   `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`member_id`),
   KEY `person_id` (`person_id`),
@@ -99,6 +96,20 @@ CREATE TABLE `member` (
   KEY `left_house_house` (`left_house`,`house`)
 );
 ALTER TABLE `member` COLLATE latin1_spanish_ci;
+
+CREATE TABLE `person_names` (
+  `id` int(11) NOT NULL auto_increment,
+  `person_id` int(11) NOT NULL,
+  `title` varchar(50) collate latin1_spanish_ci NOT NULL default '',
+  `given_name` varchar(100) collate latin1_spanish_ci NOT NULL default '',
+  `family_name` varchar(255) collate latin1_spanish_ci NOT NULL default '',
+  `lordofname` varchar(100) collate latin1_spanish_ci NOT NULL default '',
+  `start_date` date NOT NULL default '1000-01-01',
+  `end_date` date NOT NULL default '9999-12-31',
+  `type` enum('name', 'alias') not null default 'name',
+  PRIMARY KEY  (`id`),
+  KEY `person_id_type_start_date_end_date` (`person_id`,`type`,`start_date`,`end_date`)
+);
 
 CREATE TABLE `memberinfo` (
   `member_id` int(11) NOT NULL default '0',

@@ -145,7 +145,7 @@ You are not subscribed to an alert for your current MP,
     $sidebar = ob_get_clean();
 }
 
-$PAGE->block_start(array ('id'=>'alerts', 'title'=>'Request a TheyWorkForYou email alert'));
+$PAGE->block_start(array ('id'=>'alerts', 'title'=>'Request a new TheyWorkForYou email alert'));
 display_search_form($alert, $details, $errors);
 $PAGE->block_end();
 
@@ -297,8 +297,8 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
                 echo '<li>';
                 echo $form_start . '<input type="hidden" name="pid" value="' . $last_pid . '">';
                 echo 'Things by ';
-                $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'first_name'), $q->field($n, 'last_name'), $q->field($n, 'constituency') );
-                if ($q->field($n, 'house') != 2) {
+                $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'given_name'), $q->field($n, 'family_name'), $q->field($n, 'lordofname') );
+                if ($q->field($n, 'constituency')) {
                     echo $name . ' (' . $q->field($n, 'constituency') . ') ';
                 } else {
                     echo $name;

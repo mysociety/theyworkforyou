@@ -46,7 +46,7 @@ and effectiveness. </li>
 $q = $db->query('select max(left_house) as left_house from member where house=1');
 $left_house = $q->field(0, 'left_house');
 
-$q = $db->query("select personinfo.person_id, first_name, last_name from personinfo, member
+$q = $db->query("select personinfo.person_id from personinfo, member
     where personinfo.person_id=member.person_id and left_house='$left_house'
     and data_key='speaker_candidate_contacted_on'");
 $pids = array();
@@ -57,10 +57,10 @@ for ($i=0; $i<$q->rows(); $i++) {
 }
 
 $pids_str = join(',', $pids);
-$q = $db->query("select personinfo.person_id, data_value, data_key, last_name from personinfo, member
+$q = $db->query("select personinfo.person_id, data_value, data_key from personinfo, member
     where personinfo.person_id=member.person_id and left_house='$left_house'
     and personinfo.person_id in ($pids_str) and data_key in ('speaker_candidate_response_summary', 'is_speaker_candidate')
-    order by last_name asc, data_key desc");
+    order by data_key desc");
 echo '<table>';
 $oldpid = null;
 for ($i=0; $i<$q->rows(); $i++) {

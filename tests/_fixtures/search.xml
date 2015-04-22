@@ -64,8 +64,6 @@
 		<row>
 			<field name="member_id">1</field>
 			<field name="house">1</field>
-			<field name="first_name">Joseph</field>
-			<field name="last_name">Bloggs</field>
 			<field name="constituency"></field>
 			<field name="party"></field>
 			<field name="entered_house">2000-01-01</field>
@@ -73,14 +71,11 @@
 			<field name="entered_reason">general_election</field>
 			<field name="left_reason">still_in_office</field>
 			<field name="person_id">2</field>
-			<field name="title">Mr</field>
 			<field name="lastupdate">2014-01-01 09:00:00</field>
 		</row>
 		<row>
 			<field name="member_id">2</field>
 			<field name="house">1</field>
-			<field name="first_name">Mary</field>
-			<field name="last_name">Smith</field>
 			<field name="constituency"></field>
 			<field name="party"></field>
 			<field name="entered_house">2000-01-01</field>
@@ -88,7 +83,6 @@
 			<field name="entered_reason">general_election</field>
 			<field name="left_reason">still_in_office</field>
 			<field name="person_id">3</field>
-			<field name="title">Mrs</field>
 			<field name="lastupdate">2014-01-01 09:00:00</field>
 		</row>
 	</table_data>
@@ -99,6 +93,24 @@
 	<table_data name="moffice">
 	</table_data>
 	<table_data name="pbc_members">
+	</table_data>
+	<table_data name="person_names">
+		<row>
+			<field name="given_name">Joseph</field>
+			<field name="family_name">Bloggs</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">2</field>
+			<field name="title">Mr</field>
+		</row>
+		<row>
+			<field name="given_name">Mary</field>
+			<field name="family_name">Smith</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">3</field>
+			<field name="title">Mrs</field>
+		</row>
 	</table_data>
 	<table_data name="personinfo">
 	</table_data>

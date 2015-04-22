@@ -43,8 +43,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 <pubDate><?=$date ?></pubDate>
 <description><?php
         if (isset($row['speaker']) && count($row['speaker'])) {
-            $sp = $row['speaker'];
-            $name = ucfirst(member_full_name($sp['house'], $sp['title'], $sp['first_name'], $sp['last_name'], $sp['constituency']));
+            $name = ucfirst($row['speaker']['name']);
             echo entities_to_numbers($name) . ': ';
         }
         echo _htmlspecialchars(str_replace(array('&#8212;', '<span class="hi">', '</span>'), array('-', '<b>', '</b>'), $row['extract'])) . "</description>\n</item>\n";

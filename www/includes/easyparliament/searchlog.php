@@ -103,14 +103,19 @@ class SEARCHLOG {
         $query = $q->field($row, 'query_string');
         $this->SEARCHURL->insert(array('s'=>$query, 'pop'=>1));
         $url = $this->SEARCHURL->generate();
-    $htmlescape = 1;
-    if (preg_match('#speaker:(\d+)#', $query, $m)) {
-        $qq = $this->db->query('SELECT first_name, last_name FROM member WHERE person_id="' . $m[1] . '" LIMIT 1');
-        if ($qq->rows()) {
-            $query = preg_replace('#speaker:(\d+)#', $qq->field(0, 'first_name') . ' ' . $qq->field(0, 'last_name'), $query);
-            #$htmlescape = 0;
+        $htmlescape = 1;
+        if (preg_match('#speaker:(\d+)#', $query, $m)) {
+            $qq = $this->db->query('SELECT house, title, given_name, family_name, lordofname
+                FROM member, person_names pn
+                WHERE member.person_id = pn.person_id and member.person_id=:pid
+                AND pn.type="name" AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id=member.person_id)
+                ORDER BY end_date DESC LIMIT 1', array(':pid' => $m[1]));
+            if ($qq->rows()) {
+                $name = member_full_name($qq->field(0, 'house'), $qq->field(0, 'title'), $qq->field(0, 'given_name'), $qq->field(0, 'family_name'), $qq->field(0, 'lordofname'));
+                $query = preg_replace('#speaker:(\d+)#', $name, $query);
+                #$htmlescape = 0;
+            }
         }
-    }
         $visible_name = preg_replace('/"/', '', $query);
 
         $rowarray = $q->row($row);

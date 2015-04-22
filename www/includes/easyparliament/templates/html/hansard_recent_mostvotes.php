@@ -31,7 +31,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
         if (isset($row['speaker']) && isset($row['speaker']['member_id'])) {
             $URL = new URL('member');
             $URL->insert(array('id'=>$row['speaker']['member_id']));
-            $member = '<a href="' . $URL->generate() . '">' . $row['speaker']['first_name'] . ' ' . $row['speaker']['last_name'] . '</a>: ';
+            $member = '<a href="' . $URL->generate() . '">' . $row['speaker']['name'] . '</a>: ';
         } else {
             $member = '';
         }

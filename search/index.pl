@@ -88,9 +88,10 @@ $termgenerator->set_stemmer($stemmer);
 # $termgenerator->set_stopper();
 
 my $q_person = $dbh->prepare(
-    "SELECT house, title, first_name, last_name, party, constituency
-    FROM member
-    WHERE person_id = ? AND entered_house <= ? and ? <= left_house
+    "SELECT house, title, given_name, family_name, lordofname, party
+    FROM member, person_names p
+    WHERE member.person_id = ? AND entered_house <= ? and ? <= left_house
+        AND member.person_id = p.person_id AND p.type = 'name' AND p.start_date <= ? and ? <= p.end_date
     ORDER BY entered_house");
 
 my %major_to_house = (
@@ -342,7 +343,7 @@ sub get_person {
     my ($person_id, $hdate, $htime, $major) = @_;
     return unless $person_id;
 
-    my @matches = @{$dbh->selectall_arrayref($q_person, { Slice => {} }, $person_id, $hdate, $hdate)};
+    my @matches = @{$dbh->selectall_arrayref($q_person, { Slice => {} }, $person_id, $hdate, $hdate, $hdate, $hdate)};
     if (@matches > 1) {
         @matches = grep { $major_to_house{$major}{$_->{house}} } @matches;
     }
@@ -363,10 +364,10 @@ sub get_person {
     my $name = '';
     if ($member->{house} == 2) {
         $name = $member->{title};
-        $name .= " $member->{last_name}" if $member->{last_name};
-        $name .= " of $member->{constituency}" if $member->{constituency};
+        $name .= " $member->{family_name}" if $member->{family_name};
+        $name .= " of $member->{lordofname}" if $member->{lordofname};
     } else {
-        $name = "$member->{first_name} $member->{last_name}";
+        $name = "$member->{given_name} $member->{family_name}";
         $name = "$member->{title} $name" if $member->{title};
     }
     return ($name, $member->{party});

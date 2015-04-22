@@ -51,21 +51,28 @@ verbose("End");
 
 # ---
 
-my ($dbh, $memberadd, $memberexist, $membercheck);
+my ($dbh, $memberadd, $memberexist, $membercheck, $nameadd, $nameupdate, $namefetch, $namedelete);
 
 sub db_connect {
     #DBI->trace(1);
     my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
     $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
 
-    $memberadd = $dbh->prepare("replace into member (member_id, person_id, house, title, first_name, last_name,
+    $memberadd = $dbh->prepare("replace into member (member_id, person_id, house,
         constituency, party, entered_house, left_house, entered_reason, left_reason)
-        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $memberexist = $dbh->prepare("select member_id from member where member_id = ?");
     $membercheck = $dbh->prepare("select member_id from member where
-        member_id = ? and person_id = ? and house = ? and title = ? and first_name = ? and last_name = ?
+        member_id = ? and person_id = ? and house = ?
         and constituency = ? and party = ? and entered_house = ? and left_house = ?
         and entered_reason = ? and left_reason = ?");
+
+    $nameadd = $dbh->prepare("insert into person_names (person_id, title, given_name,
+        family_name, lordofname, start_date, end_date) values (?, ?, ?, ?, ?, ?, ?)");
+    $nameupdate = $dbh->prepare("replace into person_names (id, person_id, title, given_name,
+        family_name, lordofname, start_date, end_date) values (?, ?, ?, ?, ?, ?, ?, ?)");
+    $namefetch = $dbh->prepare("select id from person_names where person_id = ? and end_date >= ? ORDER BY id");
+    $namedelete = $dbh->prepare('delete from person_names where id=?');
 }
 
 my %organizations;
@@ -137,6 +144,9 @@ sub load_people {
     foreach (@{$j->{memberships}}) {
         load_member($_);
     }
+    foreach (@{$j->{persons}}) {
+        load_names($_);
+    }
 }
 
 my %member_ids = ();
@@ -162,11 +172,9 @@ sub load_member {
     } else {
         $org_slug = $member->{organization_id};
     }
-    my $last_name_field = $org_slug eq 'house-of-lords' ? 'lordname' : 'family_name';
+
     my $constituency = '';
-    if ($org_slug eq 'house-of-lords') {
-        $constituency = $member->{name}{lordofname};
-    } elsif ($org_slug ne 'crown') {
+    if ($org_slug ne 'house-of-lords' && $org_slug ne 'crown') {
         $constituency = $posts{$member->{post_id}}{area}{name};
     }
 
@@ -176,17 +184,53 @@ sub load_member {
         $id,
         $person_id,
         $slug_to_house_id{$org_slug},
-        $member->{name}{honorific_prefix} || '',
-        $member->{name}{given_name},
-        $member->{name}{$last_name_field},
         $constituency,
         $party,
         $start_date, $end_date,
         $member->{start_reason} || '',
         $member->{end_reason} || ($end_date eq '9999-12-31' && $org_slug ne 'house-of-lords' ? 'still_in_office' : ''),
     );
+}
 
-    return $person_id;
+sub load_names {
+    my $person = shift;
+
+    (my $id = $person->{id}) =~ s#uk.org.publicwhip/person/##;
+
+    my @names;
+    foreach my $name (@{$person->{other_names}}) {
+        next unless $name->{note} eq 'Main';
+
+        my $start_date = $name->{start_date} || '0000-00-00';
+        $start_date .= '-00-00' if length($start_date) == 4;
+        my $end_date = $name->{end_date} || '9999-12-31';
+        $end_date .= '-00-00' if length($end_date) == 4;
+
+        next unless $end_date ge $from;
+
+        push @names, [
+            $id,
+            $name->{honorific_prefix} || '',
+            Encode::encode('iso-8859-1', $name->{given_name}),
+            Encode::encode('iso-8859-1', $name->{lordname} // $name->{family_name}),
+            Encode::encode('iso-8859-1', $name->{lordofname} // ''),
+            $start_date, $end_date,
+        ];
+    }
+
+    return unless @names;
+
+    $namefetch->execute($id, $from || '0000-00-00');
+    while (my $row = $namefetch->fetchrow_arrayref) {
+        if (@names) {
+            $nameupdate->execute($row->[0], @{shift @names});
+        } else {
+            $namedelete->execute($row->[0]);
+        }
+    }
+    while (@names) {
+        $nameadd->execute(@{shift @names});
+    }
 }
 
 sub db_memberadd {
@@ -196,7 +240,7 @@ sub db_memberadd {
     my $q = $memberexist->execute($id);
     die "More than one existing member of same id $id" if $q > 1;
 
-    for (4..7) {
+    for (3..4) {
         $params[$_] = Encode::encode('iso-8859-1', $params[$_]);
     }
 

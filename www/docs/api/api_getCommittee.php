@@ -74,8 +74,9 @@ function api_getCommittee_name($name) {
         api_output($output);
     } elseif ($q->rows()) {
         # One committee
-        $q = $db->query("select * from moffice,member
+        $q = $db->query("select * from moffice, member, person_names pn
             where moffice.person = member.person_id
+                AND member.person_id = pn.person_id AND pn.type='name' AND pn.start_date <= $date AND $date <= pn.end_date
             and dept like :department
             and from_date <= $date and $date <= to_date
             and entered_house <= $date and $date <= left_house", array(
@@ -86,8 +87,8 @@ function api_getCommittee_name($name) {
             $output['committee'] = $q->field(0, 'dept');
             for ($i=0; $i<$q->rows(); $i++) {
                 $member = array(
-'person_id' => $q->field($i, 'person'),
-'name' => $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name'),
+                    'person_id' => $q->field($i, 'person'),
+                    'name' => $q->field($i, 'given_name') . ' ' . $q->field($i, 'family_name'),
                 );
                 if ($q->field($i, 'position') == 'Chairman') {
                     $member['position'] = $q->field($i, 'position');
