@@ -148,7 +148,7 @@ CREATE TABLE `persondivisionvotes` (
 );
 
 CREATE TABLE `moffice` (
-  `moffice_id` int(11) NOT NULL auto_increment,
+  `moffice_id` varchar(100) NOT NULL,
   `dept` varchar(255) NOT NULL default '',
   `position` varchar(200) NOT NULL default '',
   `from_date` date NOT NULL default '1000-01-01',

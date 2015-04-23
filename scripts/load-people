@@ -39,14 +39,13 @@ check_member_ids();
 
 # ---
 
-my ($dbh, $constituencyadd, $memberadd, $memberexist, $membercheck);
+my ($dbh, $memberadd, $memberexist, $membercheck);
 
 sub db_connect {
     #DBI->trace(1);
     my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
     $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
 
-    $constituencyadd = $dbh->prepare("replace into constituency (cons_id, name, main_name, from_date, to_date) values (?, ?, ?, ?, ?)");
     $memberadd = $dbh->prepare("replace into member (member_id, person_id, house, title, first_name, last_name,
         constituency, party, entered_house, left_house, entered_reason, left_reason)
         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -60,54 +59,25 @@ sub db_connect {
 my %organizations;
 my %posts;
 
-sub loadmoffices {
-    my @moffices;
-
+sub load_moffices {
+    my $moffreplace = $dbh->prepare("replace into moffice (moffice_id, dept, position, from_date, to_date, person, source) values (?, ?, ?, ?, ?, ?, ?)");
     foreach ('ministers.json', 'ministers-2010.json') {
         my $j = decode_json(read_file($pwmembers . $_));
         foreach (@{$j->{organizations}}) {
             $organizations{$_->{id}} = $_->{name};
         }
         foreach (@{$j->{memberships}}) {
-            push @moffices, loadmoffice($_);
+            (my $person = $_->{person_id}) =~ s#uk.org.publicwhip/person/##;
+            my $pos = $_->{role} || 'Member';
+            my $dept = $organizations{$_->{organization_id}} || die $!;
+            $dept = '' if $dept eq 'House of Commons';
+            $moffreplace->execute($_->{id}, $dept, $pos, $_->{start_date}, $_->{end_date}, $person, '');
         }
     }
-
-    # XXX: Surely the XML should join two consecutive offices together somewhere?!
-    # Also, have to check all previous offices as offices are not consecutive in XML. <sigh>
-    @moffices = sort { $a->[3] cmp $b->[3] } @moffices;
-    for (my $i=0; $i<@moffices; $i++) {
-        for (my $j=0; $j<$i; $j++) {
-            next unless $moffices[$j];
-            if ($moffices[$i][5] eq $moffices[$j][5] && $moffices[$i][1] eq $moffices[$j][1]
-                && $moffices[$i][2] eq $moffices[$j][2] && $moffices[$i][3] eq $moffices[$j][4]) {
-                $moffices[$j][4] = $moffices[$i][4];
-                delete $moffices[$i];
-                last;
-            }
-        }
-    }
-    $dbh->do("delete from moffice");
-    foreach my $row (@moffices) {
-        next unless $row;
-        my $sth = $dbh->do("insert into moffice (dept, position, from_date, to_date, person, source) values (?, ?, ?, ?, ?, ?)", {},
-        $row->[1], $row->[2], $row->[3], $row->[4], $row->[5], $row->[6]);
-    }
-}
-
-sub loadmoffice {
-    my $moff = shift;
-
-    (my $mofficeid = $moff->{id}) =~ s#uk.org.publicwhip/moffice/##;
-    (my $person = $moff->{person_id}) =~ s#uk.org.publicwhip/person/##;
-    my $pos = $moff->{role} || 'Member';
-    my $dept = $organizations{$moff->{organization_id}} || die $!;
-    $dept = '' if $dept eq 'House of Commons';
-
-    return [ $mofficeid, $dept, $pos, $moff->{start_date}, $moff->{end_date}, $person, '' ];
 }
 
 sub load_constituencies {
+    my $constituencyadd = $dbh->prepare("replace into constituency (cons_id, name, main_name, from_date, to_date) values (?, ?, ?, ?, ?)");
     my $j = decode_json(read_file($pwmembers . 'constituencies.json'));
     foreach my $cons (@$j) {
         (my $consid = $cons->{id}) =~ s#uk.org.publicwhip/cons/##;
