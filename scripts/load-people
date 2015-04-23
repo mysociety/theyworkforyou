@@ -18,7 +18,9 @@ mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 use DBI;
 use Encode;
 use File::Slurp;
+use Getopt::Long;
 use JSON;
+use POSIX qw(strftime);
 use Data::Dumper;
 
 my %slug_to_house_id = (
@@ -29,13 +31,22 @@ my %slug_to_house_id = (
     'scottish-parliament' => 4,
 );
 
+my $verbose;
+my $from = '';
+GetOptions ("verbose!" => \$verbose, "from=s" => \$from) or die $!;
+my $start_time = time();
+verbose("Start");
 db_connect();
 
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
+verbose("Constituencies");
 load_constituencies();
-load_people_json();
-loadmoffices();
+verbose("People");
+load_people();
+verbose("Offices");
+load_moffices();
 check_member_ids();
+verbose("End");
 
 # ---
 
@@ -71,6 +82,7 @@ sub load_moffices {
             my $pos = $_->{role} || 'Member';
             my $dept = $organizations{$_->{organization_id}} || die $!;
             $dept = '' if $dept eq 'House of Commons';
+            next unless $_->{end_date} ge $from;
             $moffreplace->execute($_->{id}, $dept, $pos, $_->{start_date}, $_->{end_date}, $person, '');
         }
     }
@@ -87,6 +99,8 @@ sub load_constituencies {
         my $end_date = $cons->{end_date} || '9999-12-31';
         $end_date .= '-00-00' if length($end_date) == 4;
 
+        next unless $end_date ge $from;
+
         my $main_name = 1;
         foreach my $name (@{$cons->{names}}) {
             $constituencyadd->execute(
@@ -101,7 +115,7 @@ sub load_constituencies {
     }
 }
 
-sub load_people_json {
+sub load_people {
     my $j = decode_json(read_file($pwmembers . 'people.json'));
     foreach (@{$j->{organizations}}) {
         $organizations{$_->{id}} = $_;
@@ -122,10 +136,14 @@ sub load_member {
     (my $id = $member->{id}) =~ s:uk.org.publicwhip/(member|lord|royal)/::;
     (my $person_id = $member->{person_id}) =~ s#uk.org.publicwhip/person/##;
 
+    $member_ids{$id} = 1;
+
     my $start_date = $member->{start_date} || '0000-00-00';
     $start_date .= '-00-00' if length($start_date) == 4;
     my $end_date = $member->{end_date} || '9999-12-31';
     $end_date .= '-00-00' if length($end_date) == 4;
+
+    return unless $end_date ge $from;
 
     my $org_slug;
     if ($member->{post_id}) {
@@ -157,7 +175,6 @@ sub load_member {
         $member->{end_reason} || ($end_date eq '9999-12-31' && $org_slug ne 'house-of-lords' ? 'still_in_office' : ''),
     );
 
-    $member_ids{$id} = 1;
     return $person_id;
 }
 
@@ -197,4 +214,11 @@ sub check_member_ids {
     while (my @row = $q->fetchrow_array) {
             print "Member $row[0] in DB, not in JSON\n" if (!$member_ids{$row[0]});
     }
+}
+
+sub verbose {
+    my $s = shift;
+    return unless $verbose;
+    my $duration = time() - $start_time;
+    print "$duration $s\n";
 }
