@@ -497,8 +497,6 @@ try {
         $data['has_voting_record'] = ( ($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'SF') || $MEMBER->house(HOUSE_TYPE_LORDS) );
         # Everyone who is currently somewhere has email alert signup, apart from current Sinn Fein MPs who are not MLAs
         $data['has_email_alerts'] = ($MEMBER->current_member_anywhere() && !($MEMBER->current_member(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'SF' && !$MEMBER->current_member(HOUSE_TYPE_NI)));
-        # Everyone has recent appearances apart from Sinn Fein MPs who were never MLAs
-        $data['has_recent_appearances'] = !($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'SF' && !$MEMBER->house(HOUSE_TYPE_NI));
         # XXX This is current behaviour, but should probably now just be any recent MP
         $data['has_expenses'] = isset($MEMBER->extra_info['expenses2004_col1']) || isset($MEMBER->extra_info['expenses2006_col1']) || isset($MEMBER->extra_info['expenses2007_col1']) || isset($MEMBER->extra_info['expenses2008_col1']);
 
@@ -512,7 +510,7 @@ try {
         $data['constituency_previous_mps'] = constituency_previous_mps($MEMBER);
         $data['constituency_future_mps'] = constituency_future_mps($MEMBER);
         $data['public_bill_committees'] = person_pbc_membership($MEMBER);
-        $data['numerology'] = person_numerology($MEMBER);
+        $data['numerology'] = person_numerology($MEMBER, $data['has_email_alerts']);
 
         $data['this_page'] = $this_page;
         $data['current_assembly'] = 'westminster';
@@ -849,12 +847,12 @@ function person_recent_appearances($member) {
     $MOREURL->insert( array('pid'=>$person_id, 'pop'=>1) );
 
     $out['more_href'] = $MOREURL->generate() . '#n4';
-    $out['more_text'] = 'More of ' . ucfirst($member->full_name()) . '\'s recent appearances';
+    $out['more_text'] = 'More of ' . ucfirst($member->full_name()) . '&rsquo;s recent appearances';
 
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
         // If we set an RSS feed for this page.
         $HELPURL = new \URL('help');
-        $out['additional_links'] = '<a href="' . WEBPATH . $rssurl . '" title="XML version of this person\'s recent appearances">RSS feed</a> (<a href="' . $HELPURL->generate() . '#rss" title="An explanation of what RSS feeds are for">?</a>)';
+        $out['additional_links'] = '<a href="' . WEBPATH . $rssurl . '" title="XML version of this person&rsquo;s recent appearances">RSS feed</a> (<a href="' . $HELPURL->generate() . '#rss" title="An explanation of what RSS feeds are for">?</a>)';
     }
 
     return $out;
@@ -997,7 +995,7 @@ function person_pbc_membership($member) {
     return $out;
 }
 
-function person_numerology($member) {
+function person_numerology($member, $has_email_alerts) {
 
     $extra_info = $member->extra_info();
 
@@ -1089,17 +1087,14 @@ function person_numerology($member) {
         }
     }
 
-    if (isset($extra_info['number_of_alerts'])) {
-
-        $current_member = $member->current_member();
-
+    if (isset($extra_info['number_of_alerts']) && ($extra_info['number_of_alerts']>0 || $has_email_alerts)) {
         $line = '<strong>' . _htmlentities($extra_info['number_of_alerts']) . '</strong> ' . ($extra_info['number_of_alerts']==1?'person is':'people are') . ' tracking ';
         if ($member->house_disp == HOUSE_TYPE_COMMONS) $line .= 'this MP';
         elseif ($member->house_disp == HOUSE_TYPE_LORDS) $line .= 'this peer';
         elseif ($member->house_disp == HOUSE_TYPE_NI) $line .= 'this MLA';
         elseif ($member->house_disp == HOUSE_TYPE_SCOTLAND) $line .= 'this MSP';
         elseif ($member->house_disp == HOUSE_TYPE_ROYAL) $line .= $member->full_name();
-        if ($current_member[HOUSE_TYPE_ROYAL] || $current_member[HOUSE_TYPE_LORDS] || $current_member[HOUSE_TYPE_NI] || ($current_member[HOUSE_TYPE_COMMONS] && $member->party() != 'SF') || $current_member[HOUSE_TYPE_SCOTLAND]) {
+        if ($has_email_alerts) {
             $line .= ' &mdash; <a href="' . WEBPATH . 'alert/?pid='.$member->person_id().'">email me updates on '. $member->full_name(). '&rsquo;s activity</a>';
         }
 
