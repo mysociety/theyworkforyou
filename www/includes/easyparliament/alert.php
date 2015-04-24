@@ -301,7 +301,11 @@ class ALERT {
 
         $urltoken = $this->alert_id . '-' . $this->registrationtoken;
 
-        $confirmurl = 'http://' . DOMAIN . '/A/' . $urltoken;
+        if ( $details['confirm_base'] ) {
+            $confirmurl = $details['confirm_base'] . $urltoken;
+        } else {
+            $confirmurl = 'http://' . DOMAIN . '/A/' . $urltoken;
+        }
 
         // Arrays we need to send a templated email.
         $data = array (

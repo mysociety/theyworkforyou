@@ -4,7 +4,14 @@
 
             <h1>Track your <?php if ($data['recent_election']): ?>new<?php endif ?> MP&rsquo;s parliamentary activity</h1>
 
-          <?php if (isset($data['confirmation_sent'])): ?>
+          <?php if (isset($data['already_signed_up'])): ?>
+
+            <div class="alerts-message alerts-message--confirmation-received">
+                <h2>You are already signed up</h2>
+                <p>You are already receiving alerts when your MP speaks in Parliament or receives an answer to a written question.</p>
+                <p><a href="#" class="button radius">Show my email settings</a></p>
+            </div>
+          <?php elseif (isset($data['confirmation_sent'])): ?>
 
             <div class="alerts-message alerts-message--confirmation-sent">
                 <h2>Almost there!</h2>
@@ -12,12 +19,18 @@
                 <p>Please click the link in the email we just sent you.</p>
             </div>
 
-          <?php elseif (isset($data['confirmation_received'])): ?>
+          <?php elseif (isset($data['signedup_no_confirm']) || isset($data['confirmation_received'])): ?>
 
             <div class="alerts-message alerts-message--confirmation-received">
                 <h2>Thanks for subscribing!</h2>
                 <p>You will now receive alerts when your MP speaks in Parliament or receives an answer to a written question.</p>
                 <p><a href="#" class="button radius">Show my email settings</a></p>
+            </div>
+
+          <?php elseif (isset($data['error'])): ?>
+            <div class="alerts-message alerts-message--error">
+                <h2>Something went wrong</h2>
+                <p>Sorry, we were unable to create this alert. Please <a href="mailto:<?= str_replace('@', '&#64;', CONTACTEMAIL) ?>">let us know</a>. Thanks.</p>
             </div>
 
           <?php else: ?>
@@ -31,11 +44,19 @@
             </div>
           <?php endif ?>
 
+          <?php if (isset($data['bad-constituency'])): ?>
+            <div class="alerts-message alerts-message--error">
+                <h2>Oops!</h2>
+                <p>We can't find an MP for that postcode.</p>
+            </div>
+          <?php endif ?>
+
             <form class="alerts-form" method="post">
+                <input type="hidden" name="add-alert" value="1">
                 <p>
                     <label for="id_postcode">Your postcode</label>
                   <?php if (isset($data['postcode'])): ?>
-                    <input type="text" name="postcode" id="id_postcode" value="<?php echo $data['postcode']; ?>">
+                    <input type="text" name="postcode" id="id_postcode" value="<?= _htmlentities($data['postcode']) ?>">
                   <?php else: ?>
                     <input type="text" name="postcode" id="id_postcode">
                   <?php endif ?>
@@ -43,7 +64,7 @@
                 <p>
                     <label for="id_email">Your email address</label>
                   <?php if (isset($data['email'])): ?>
-                    <input type="text" name="email" id="id_email" value="<?php echo $data['email']; ?>">
+                    <input type="text" name="email" id="id_email" value="<?= _htmlentities($data['email']) ?>">
                   <?php else: ?>
                     <input type="text" name="email" id="id_email">
                   <?php endif ?>
