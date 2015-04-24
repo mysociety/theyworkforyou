@@ -5,7 +5,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 <div class="full-page">
     <div class="full-page__row">
         <div class="full-page__unit">
-            <?php if ($has_voting_record): ?>
+            <?php if (count($policyPositions->positions) > 0): ?>
             <div class="person-navigation page-content__row">
                 <ul>
                     <li class="active"><a href="<?= $member_url ?>">Overview</a></li>
@@ -16,14 +16,16 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
             <div class="person-panels page-content__row">
                 <div class="sidebar__unit in-page-nav">
                     <ul data-magellan-expedition="fixed">
-                      <?php if ($has_voting_record): ?>
+                      <?php if (count($policyPositions->positions) > 0): ?>
                         <li data-magellan-arrival="votes"><a href="#votes">Votes</a></li>
                       <?php endif; ?>
-                      <?php if ($has_recent_appearances): ?>
+                      <?php if (count($recent_appearances['appearances'])): ?>
                         <li data-magellan-arrival="appearances"><a href="#appearances">Appearances</a></li>
                       <?php endif; ?>
                         <li data-magellan-arrival="profile"><a href="#profile">Profile</a></li>
+                      <?php if (count($numerology) > 0): ?>
                         <li data-magellan-arrival="numerology"><a href="#numerology">Numerology</a></li>
+                      <?php endif; ?>
                       <?php if ($register_interests): ?>
                         <li data-magellan-arrival="register"><a href="#register">Register of Interests</a></li>
                       <?php endif; ?>
@@ -38,7 +40,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     </div>
                     <?php endif; ?>
 
-                    <?php if ($has_voting_record): ?>
+                    <?php if (count($policyPositions->positions) > 0): ?>
                     <div class="panel">
                         <a name="votes"></a>
                         <h2 data-magellan-destination="votes">A selection of <?= $full_name ?>'s votes</h2>
@@ -69,12 +71,12 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     </div>
                     <?php endif; ?>
 
-                    <?php if ($has_recent_appearances): ?>
+                    <?php if (count($recent_appearances['appearances'])): ?>
                     <div class="panel">
                         <a name="appearances"></a>
                         <h2 data-magellan-destination="appearances">Recent appearances</h2>
 
-                        <?php if (count($recent_appearances) > 0): ?>
+                        <?php if (count($recent_appearances['appearances']) > 0): ?>
 
                             <ul class="appearances">
 
@@ -240,11 +242,11 @@ you can find it.</p>
 
                     </div>
 
+                    <?php if (count($numerology) > 0): ?>
+
                     <div class="panel">
                         <a name="numerology"></a>
                         <h2 data-magellan-destination="numerology">Numerology</h2>
-
-                        <?php if (count($numerology) > 0): ?>
 
                         <p>Please note that numbers do not measure quality. Also, representatives may do other things not currently covered by this site.<br><small><a href="<?= WEBPATH ?>help/#numbers">More about this</a></small></p>
 
@@ -258,13 +260,9 @@ you can find it.</p>
 
                         </ul>
 
-                        <?php else: ?>
-
-                        <p>No information to display yet.</p>
-
-                        <?php endif; ?>
-
                     </div>
+
+                    <?php endif; ?>
 
                     <?php if ($register_interests): ?>
                     <div class="panel register">
