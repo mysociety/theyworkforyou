@@ -18,6 +18,7 @@
             <p class="cta">
                 <a class="button alert" href="/alerts/?alertsearch=<?= urlencode($email_alert_text) ?>">Alert me about debates like this</a>
             </p>
+            <p class="cta" hidden id="research-qual2-bucket2"><a class="button alert" href="/action/where-next">What to do with the information on this page?</a></p>
         </div>
     </div>
     <nav class="debate-navigation" role="navigation">
@@ -385,6 +386,9 @@
 ?>
 
 </div>
+
+<?php include INCLUDESPATH . 'easyparliament/templates/research/qual2.php'; ?>
+
 <nav class="debate-navigation debate-navigation--footer" role="navigation">
         <div class="full-page__row">
             <div class="debate-navigation__pagination">

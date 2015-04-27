@@ -1,0 +1,58 @@
+.action-hero {
+    text-align: center;
+    padding: 16px 0;
+    max-width: 30em;
+    margin: 0 auto;
+
+    @media (min-width: $medium-screen) {
+        padding: 32px 0;
+
+        p {
+            font-size: 1.2em;
+        }
+    }
+
+    p {
+        margin-bottom: 0.2em;
+    }
+}
+
+.action-section {
+    max-width: 50em;
+    margin: 0 auto 16px auto;
+    padding: 16px;
+    background-color: #fff;
+    @include radius;
+
+    @media (min-width: $medium-screen) {
+        margin-bottom: 32px;
+        padding: 32px;
+    }
+}
+
+.action-option {
+    margin-top: 1em;
+
+    & > :last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: $medium-screen) {
+    .action-section {
+        @include clearfix;
+    }
+
+    .action-option-heading {
+        text-align: center;
+    }
+
+    .action-option {
+        width: 46%;
+        float: left;
+
+        & + & {
+            float: right;
+        }
+    }
+}

@@ -33,7 +33,7 @@
 // @import "foundation/components/section";
 // @import "foundation/components/top-bar";  // *requires components/grid
 // @import "foundation/components/orbit";
-// @import "foundation/components/reveal";
+@import "foundation/components/reveal";
 // @import "foundation/components/joyride";
 // @import "foundation/components/clearing";
 @import "foundation/components/alert-boxes";
@@ -170,6 +170,7 @@ form {
 @import "pages/mp";
 @import "pages/topics";
 @import "pages/section";
+@import "pages/action";
 
 .content-page {
     p, ol, ul {
