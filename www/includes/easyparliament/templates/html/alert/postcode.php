@@ -4,14 +4,7 @@
 
             <h1>Track your <?php if ($data['recent_election']): ?>new<?php endif ?> MP&rsquo;s parliamentary activity</h1>
 
-          <?php if (isset($data['already_signed_up'])): ?>
-
-            <div class="alerts-message alerts-message--confirmation-received">
-                <h2>You are already signed up</h2>
-                <p>You are already receiving alerts when your MP speaks in Parliament or receives an answer to a written question.</p>
-                <p><a href="#" class="button radius">Show my email settings</a></p>
-            </div>
-          <?php elseif (isset($data['confirmation_sent'])): ?>
+          <?php if (isset($data['confirmation_sent'])): ?>
 
             <div class="alerts-message alerts-message--confirmation-sent">
                 <h2>Almost there!</h2>
@@ -50,6 +43,14 @@
                 <p>We can't find an MP for that postcode.</p>
             </div>
           <?php endif ?>
+
+          <?php if (isset($data['user_signed_in']) && isset($data['already_signed_up'])): ?>
+            <div class="alerts-message alerts-message--reminder">
+                <h2>You are already signed up</h2>
+                <p>You are already receiving alerts when your MP<?= isset($data['mp_name']) ? ', ' . $data['mp_name'] . ',' : '' ?> speaks in Parliament or receives an answer to a written question.</p>
+                <p><a href="#" class="button radius">Show my email settings</a></p>
+            </div>
+           <?php endif ?>
 
             <form class="alerts-form" method="post">
                 <input type="hidden" name="add-alert" value="1">

@@ -134,18 +134,31 @@
   }
 }
 
+.alerts-message--reminder,
 .alerts-message--error {
   margin-bottom: 2em;
+  padding: 1em 0;
+
+  h2 {
+    color: inherit;
+    font-size: 1.2em;
+    margin-right: 0.5em;
+  }
+}
+
+.alerts-message--reminder {
+  border-top: 1px solid #99c;
+  border-bottom: 1px solid #99c;
+  color: #669;
+}
+
+.alerts-message--error {
   border-top: 1px solid #c99;
   border-bottom: 1px solid #c99;
-  padding: 1em 0;
   color: #900;
 
   h2 {
     display: inline;
-    color: inherit;
-    font-size: 1.2em;
-    margin-right: 0.5em;
   }
 
   p {

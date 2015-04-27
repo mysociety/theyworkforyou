@@ -20,6 +20,9 @@ class AlertView {
     public function display() {
         $data = array();
         $data['recent_election'] = True;
+        if ( $this->user->loggedin() ) {
+            $data['user_signed_in'] = true;
+        }
 
         if (get_http_var('add-alert')) {
 
@@ -37,6 +40,8 @@ class AlertView {
 
             if ( $this->isEmailSignedUpForPostCode( $data['email'], $data['postcode'] ) ) {
                 $data['already_signed_up'] = True;
+                $mp = $this->getPersonFromPostcode($data['postcode']);
+                $data['mp_name'] = $mp->first_name . ' ' . $mp->last_name;
             }
         }
 
