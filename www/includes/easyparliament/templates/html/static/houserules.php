@@ -1,3 +1,6 @@
+<div class="full-page">
+    <div class="full-page__row">
+        <div class="full-page__unit">
 <dl>
 <dt>Contributions must be civil and tasteful</dt>
 <dd><p>Please be nice to each other. Please respect MPs and Peers. If you think they have an easy job, you're very, very wrong.</p></dd>
@@ -32,3 +35,7 @@
 <dt>Break these House Rules once, and we'll let you off with a warning.</dt>
 <dd><p>After that, we reserve the right to get medieval.</p></dd>
 </dl>
+
+</div>
+</div>
+</div>

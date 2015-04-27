@@ -2,14 +2,6 @@
 
 include_once '../../includes/easyparliament/init.php';
 
+$data = array();
 $this_page = "getinvolved";
-
-$PAGE->page_start();
-
-$PAGE->stripe_start();
-
-readfile(INCLUDESPATH . 'easyparliament/staticpages/getinvolved.html');
-
-$PAGE->stripe_end();
-
-$PAGE->page_end();
+MySociety\TheyWorkForYou\Renderer::output('static\getinvolved', $data);

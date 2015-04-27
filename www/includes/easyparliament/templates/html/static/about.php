@@ -1,3 +1,6 @@
+<div class="full-page">
+    <div class="full-page__row">
+        <div class="full-page__unit">
 <p>For all its faults and foibles, our democracy is a profound gift from previous generations.
 Yet most people don't know the name of their MP, nor their constituency, let alone what their
 MP does or says in their name.</p>
@@ -108,3 +111,6 @@ on.</p>
     <li>Scottish Parliament photo courtesy of Mark Longair <small><a href="https://www.flickr.com/photos/mhl20/3925817094/">https://www.flickr.com/photos/mhl20/3925817094/</a></small></li>
     <li>Commons debate photo courtesy of UK Parliament <small><a href="https://www.flickr.com/photos/uk_parliament/8737200208/">https://www.flickr.com/photos/uk_parliament/8737200208/</a></small></li>
 </ul>
+</div>
+</div>
+</div>

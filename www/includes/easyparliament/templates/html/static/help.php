@@ -1,3 +1,7 @@
+<div class="full-page">
+    <div class="full-page__row">
+        <div class="full-page__unit">
+
 <ul>
 <li><a href="#use">How do people use TheyWorkForYou?</a></li>
 <li><a href="#coverage">Is this the whole of Hansard?</a></li>
@@ -267,3 +271,6 @@ for you.
 <!-- end old faq entry -->
 
 </dl>
+</div>
+</div>
+</div>
