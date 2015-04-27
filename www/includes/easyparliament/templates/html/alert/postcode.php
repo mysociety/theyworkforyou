@@ -17,7 +17,9 @@
             <div class="alerts-message alerts-message--confirmation-received">
                 <h2>Thanks for subscribing!</h2>
                 <p>You will now receive alerts when your MP speaks in Parliament or receives an answer to a written question.</p>
-                <p><a href="#" class="button radius">Show my email settings</a></p>
+                <?php if (isset($data['user_signed_in'])): ?>
+                <p><a href="/alert/" class="button radius">Show my email settings</a></p>
+                <?php endif ?>
             </div>
 
           <?php elseif (isset($data['error'])): ?>
@@ -48,7 +50,7 @@
             <div class="alerts-message alerts-message--reminder">
                 <h2>You are already signed up</h2>
                 <p>You are already receiving alerts when your MP<?= isset($data['mp_name']) ? ', ' . $data['mp_name'] . ',' : '' ?> speaks in Parliament or receives an answer to a written question.</p>
-                <p><a href="#" class="button radius">Show my email settings</a></p>
+                <p><a href="/alert/" class="button radius">Show my email settings</a></p>
             </div>
            <?php endif ?>
 
