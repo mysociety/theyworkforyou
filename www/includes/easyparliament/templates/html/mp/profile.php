@@ -29,6 +29,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                       <?php if ($register_interests): ?>
                         <li data-magellan-arrival="register"><a href="#register">Register of Interests</a></li>
                       <?php endif; ?>
+                        <li hidden id="research-qual2-bucket2"><a href="/action/where-next">What to do with the information on this page?</a></li>
                     </ul>
                     <div>&nbsp;</div>
                 </div>
@@ -286,15 +287,7 @@ you can find it.</p>
                     <?php endif; ?>
 
                     <div class="about-this-page">
-                        <div class="about-this-page__one-of-two">
-                            <form class="panel--secondary mini-survey">
-                                <h3>Did you find what you were looking for?</h3>
-                                <p><label><input type="radio"> Yes, thanks!</label></p>
-                                <p><label><input type="radio"> No, I didn&rsquo;t find it.</label></p>
-                                <p><input type="submit" class="button wtt" value="Answer"></p>
-                            </form>
-                        </div>
-                        <div class="about-this-page__one-of-two">
+                        <div class="about-this-page__one-of-one">
                             <div class="panel--secondary">
                                 <p>Please feel free to use the data on this page, but if
                                     you do you must cite TheyWorkForYou.com in the body
@@ -313,3 +306,18 @@ you can find it.</p>
         </div>
     </div>
 </div>
+
+<div id="whereNextModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <h2 id="modalTitle">Where to next?</h2>
+    <p class="lead">Do you know what would you like to do with the information on this page?</p>
+    <ul>
+        <li><a id="research-qual2-bucket1-wherenext" href="/action/where-next">I&rsquo;m not sure &mdash; Click here for suggestions on what to do next</a></li>
+        <li><a data-research-qual2-bucket1-linkname="write-mp">I&rsquo;m going to write to an MP</a></li>
+        <li><a data-research-qual2-bucket1-linkname="social-share">I&rsquo;m going to share this information on social media</a></li>
+        <li><a data-research-qual2-bucket1-linkname="work">I&rsquo;m going to use this information for work purposes</a></li>
+        <li><a data-research-qual2-bucket1-linkname="browsing">I don&rsquo;t need to do anything with this information &mdash; I was just browsing</a></li>
+    </ul>
+</div>
+
+<script src="<?= cache_version('js/jquery.storageapi.min.js') ?>"></script>
+<script src="<?= cache_version('js/qual2.js') ?>"></script>

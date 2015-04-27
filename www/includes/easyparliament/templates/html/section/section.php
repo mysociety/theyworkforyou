@@ -18,6 +18,7 @@
             <p class="cta">
                 <a class="button alert" href="/alerts/?alertsearch=<?= urlencode($email_alert_text) ?>">Alert me about debates like this</a>
             </p>
+            <p class="cta" hidden id="research-qual2-bucket2"><a class="button alert" href="/action/where-next">What to do with the information on this page?</a></p>
         </div>
     </div>
     <nav class="debate-navigation" role="navigation">
@@ -385,6 +386,22 @@
 ?>
 
 </div>
+
+<div id="whereNextModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <h2 id="modalTitle">Where to next?</h2>
+    <p class="lead">Do you know what would you like to do with the information on this page?</p>
+    <ul>
+        <li><a id="research-qual2-bucket1-wherenext" href="/action/where-next">I&rsquo;m not sure &mdash; Click here for suggestions on what to do next</a></li>
+        <li><a data-research-qual2-bucket1-linkname="write-mp">I&rsquo;m going to write to an MP</a></li>
+        <li><a data-research-qual2-bucket1-linkname="social-share">I&rsquo;m going to share this information on social media</a></li>
+        <li><a data-research-qual2-bucket1-linkname="work">I&rsquo;m going to use this information for work purposes</a></li>
+        <li><a data-research-qual2-bucket1-linkname="browsing">I don&rsquo;t need to do anything with this information &mdash; I was just browsing</a></li>
+    </ul>
+</div>
+
+<script src="<?= cache_version('js/jquery.storageapi.min.js') ?>"></script>
+<script src="<?= cache_version('js/qual2.js') ?>"></script>
+
 <nav class="debate-navigation debate-navigation--footer" role="navigation">
         <div class="full-page__row">
             <div class="debate-navigation__pagination">
