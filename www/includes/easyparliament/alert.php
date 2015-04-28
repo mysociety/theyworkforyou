@@ -301,7 +301,7 @@ class ALERT {
 
         $urltoken = $this->alert_id . '-' . $this->registrationtoken;
 
-        if ( $details['confirm_base'] ) {
+        if ( isset($details['confirm_base']) && $details['confirm_base'] !== '' ) {
             $confirmurl = $details['confirm_base'] . $urltoken;
         } else {
             $confirmurl = 'http://' . DOMAIN . '/A/' . $urltoken;
@@ -417,6 +417,26 @@ class ALERT {
         }
 
         return $this->token_checked;
+    }
+
+    public function fetch_by_token($confirmation) {
+        $q = $this->db->query("SELECT alert_id, email, criteria
+                        FROM alerts
+                        WHERE registrationtoken = :registration_token
+                        ", array(
+                            ':registration_token' => $confirmation
+                        )
+                    );
+
+        if (!$q->rows()) {
+            return false;
+        } else {
+            return array(
+                'id' => $q->field(0, 'alert_id'),
+                'email' => $q->field(0, 'email'),
+                'criteria' => $q->field(0, 'criteria'),
+            );
+        }
     }
 
     // The user has clicked the link in their confirmation email

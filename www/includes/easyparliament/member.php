@@ -74,7 +74,8 @@ class MEMBER {
             $con = isset($args['constituency']) ? $args['constituency'] : '';
             $person_id = $this->name_to_person_id($args['name'], $con);
         } elseif (isset($args['constituency'])) {
-            $person_id = $this->constituency_to_person_id($args['constituency'], $house);
+            $still_in_office = isset($args['still_in_office']) ? $args['still_in_office'] : false;
+            $person_id = $this->constituency_to_person_id($args['constituency'], $house, $still_in_office);
         } elseif (isset($args['postcode'])) {
             $person_id = $this->postcode_to_person_id($args['postcode'], $house);
         } elseif (isset($args['person_id']) && is_numeric($args['person_id'])) {
@@ -199,7 +200,7 @@ class MEMBER {
         return $this->constituency_to_person_id($constituency, $house);
     }
 
-    public function constituency_to_person_id($constituency, $house=null) {
+    public function constituency_to_person_id($constituency, $house=null, $still_in_office=false) {
         global $PAGE;
         if ($constituency == '') {
             throw new MySociety\TheyWorkForYou\MemberException('Sorry, no constituency was found.');
@@ -215,7 +216,7 @@ class MEMBER {
             $params = array();
 
             $left = "left_reason = 'still_in_office'";
-            if (DISSOLUTION_DATE) {
+            if (DISSOLUTION_DATE && !$still_in_office) {
                 $left = "($left OR left_house = '" . DISSOLUTION_DATE . "')";
             }
             $query = "SELECT person_id FROM member

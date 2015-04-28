@@ -1,0 +1,32 @@
+Subject: Your TheyWorkForYou email alert
+Dear TheyWorkForYou alert subscriber,
+
+You signed up to receive email alerts for:
+
+{DATA}
+
+{MPS} left Parliament at the recent general election.
+
+You can use the {LINKS} below to update your {ALERTS2} to the new
+{MPS2}.
+
+{CHANGE}
+
+(You may have other, live, alerts not listed here.)
+
+Best wishes,
+TheyWorkForYou
+
+mySociety Ltd,
+483 Green Lanes,
+London,
+N13 4BS,
+United Kingdom
+
+-------------------------------------------------------------------
+TheyWorkForYou email alerts need love and support to look
+after. Please consider donating to mySociety to help us
+continue and expand:
+        http://www.mysociety.org/donate/
+-------------------------------------------------------------------
+
