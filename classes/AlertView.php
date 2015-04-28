@@ -31,6 +31,12 @@ class AlertView {
 
             $result = $this->createAlertForPostCode($data['email'], $data['postcode']);
             $data = array_merge( $data, $result );
+        } elseif (get_http_var('update')) {
+            $result = $this->getNewMP(get_http_var('update'));
+            $data = array_merge( $data, $result );
+        } elseif (get_http_var('update-alert')) {
+            $success = $this->replaceAlert( get_http_var('confirmation') );
+            $data['confirmation_received'] = $success;
         } elseif (get_http_var('confirmed')) {
             $success = $this->confirmAlert( get_http_var('confirmed') );
             $data['confirmation_received'] = $success;
@@ -123,6 +129,26 @@ class AlertView {
         return $this->alert->confirm($token);
     }
 
+    private function replaceAlert($confirmation) {
+        $existing = $this->alert->fetch_by_token($confirmation);
+        $criteria = str_replace('speaker:', '', $existing['criteria']);
+        $old_mp = new Member(array( 'person_id' => $criteria ) );
+        $new_mp = new Member(array( 'constituency' => $old_mp->constituency ));
+        $details = array(
+            'email' => $existing['email'],
+            'pid' => $new_mp->person_id,
+            'pc' => '',
+        );
+
+        $this->alert->delete($existing['id'] . '::' . $confirmation);
+        $result = $this->alert->add($details, False);
+
+        return array(
+            'signedup_no_confirm' => True,
+            'new_mp' => $new_mp->full_name(),
+        );
+    }
+
     private function isEmailSignedUpForPostCode($email, $postcode) {
         $is_signed_up = false;
 
@@ -135,5 +161,48 @@ class AlertView {
             }
         }
         return $is_signed_up;
+    }
+
+    private function getNewMP($confirmation) {
+        if (!$confirmation) {
+            return array();
+        }
+
+        $existing = $this->alert->fetch_by_token($confirmation);
+        $criteria = str_replace('speaker:', '', $existing['criteria']);
+        $data = array();
+
+        $old_mp = new Member(array( 'person_id' => $criteria ) );
+        if ( $old_mp->current_member_anywhere() ) {
+            $data = array(
+                'old_mp' => $old_mp->full_name(),
+                'still_in_post' => True,
+            );
+        } else {
+            $new_mp = new Member(array( 'constituency' => $old_mp->constituency ));
+            if ( $old_mp->person_id == $new_mp->person_id ) {
+                $data = array(
+                    'old_mp' => $old_mp->full_name(),
+                    'new_mp' => '',
+                    'still_in_post' => True,
+                );
+            } else if ( $this->alert->fetch_by_mp( $existing['email'], $new_mp->person_id) ) {
+                $data = array(
+                    'already_signed_up' => True,
+                    'old_mp' => $old_mp->full_name(),
+                    'mp_name' => $new_mp->full_name(),
+                );
+            } else {
+                $data = array(
+                    'old_mp' => $old_mp->full_name(),
+                    'new_mp' => $new_mp->full_name(),
+                );
+            }
+        }
+
+        $data['update'] = True;
+        $data['confirmation'] = $confirmation;
+
+        return $data;
     }
 }

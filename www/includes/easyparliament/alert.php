@@ -419,6 +419,26 @@ class ALERT {
         return $this->token_checked;
     }
 
+    public function fetch_by_token($confirmation) {
+        $q = $this->db->query("SELECT alert_id, email, criteria
+                        FROM alerts
+                        WHERE registrationtoken = :registration_token
+                        ", array(
+                            ':registration_token' => $confirmation
+                        )
+                    );
+
+        if (!$q->rows()) {
+            return false;
+        } else {
+            return array(
+                'id' => $q->field(0, 'alert_id'),
+                'email' => $q->field(0, 'email'),
+                'criteria' => $q->field(0, 'criteria'),
+            );
+        }
+    }
+
     // The user has clicked the link in their confirmation email
     // and the confirm page has passed the token from the URL to here.
     // If all goes well the alert will be confirmed.
