@@ -44,7 +44,7 @@ class Banner {
     }
 
     public function set_text($text) {
-        $q = $this->db->query("UPDATE editorial set value = :banner_text WHERE item = 'banner'",
+        $q = $this->db->query("REPLACE INTO editorial set item = 'banner', value = :banner_text",
             array(
                 ':banner_text' => $text
             )
