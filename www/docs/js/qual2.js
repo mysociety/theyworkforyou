@@ -76,8 +76,7 @@ $(document).ready(function() {
           'page': document.URL,
           'bucket': researchUser.bucket,
           'data': link.data('research-qual2-bucket1-linkname'),
-          'timer': timer,
-          'timeout': 300
+          'timer': timer
         },
         dataType: 'json'
       });
