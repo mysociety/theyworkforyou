@@ -261,7 +261,11 @@ function find_constituency($args) {
         $URL = new URL('mp');
         if ($MEMBER->valid) {
             $URL->insert(array('p'=>$MEMBER->person_id()));
-            print '<h2>MP for ' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency);
+            print '<h2>';
+            if (!$MEMBER->current_member(1)) {
+                print 'Former ';
+            }
+            print 'MP for ' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency);
             if ($validpostcode) {
                 // Display the postcode the user searched for.
                 print ' (' . _htmlentities(strtoupper($args['s'])) . ')';
@@ -273,18 +277,27 @@ function find_constituency($args) {
         }
 
     } elseif (count($constituencies)) {
-        print "<h2>MPs in constituencies matching '" . _htmlentities($searchterm) . "'</h2><ul>";
+        $out = '';
+        $heading = array();
         foreach ($constituencies as $constituency) {
             $MEMBER = new MEMBER(array('constituency'=>$constituency, 'house' => 1));
-            $URL = new URL('mp');
             if ($MEMBER->valid) {
-                $URL->insert(array('p'=>$MEMBER->person_id()));
+                if ($MEMBER->current_member(1)) {
+                    $heading[] = 'MPs';
+                } else {
+                    $heading[] = 'Former MPs';
+                }
+                $URL = new URL('mp');
+                $URL->insert(array('p' => $MEMBER->person_id()));
+                $out .= '<li><a href="'.$URL->generate().'"><strong>' . $MEMBER->full_name() .
+                    '</strong></a> (' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency) .
+                    ', '.$MEMBER->party().')</li>';
             }
-            print '<li><a href="'.$URL->generate().'"><strong>' . $MEMBER->full_name() .
-                '</strong></a> (' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency) .
-                ', '.$MEMBER->party().')</li>';
         }
-        print '</ul>';
+        print '<h2>';
+        print join(" and ", array_unique($heading));
+        print " in constituencies matching &lsquo;" . _htmlentities($searchterm) . "&rsquo;</h2>";
+        print "<ul>$out</ul>";
     }
 }
 
