@@ -91,6 +91,21 @@ if ($details['alertsearch']) {
     list ($details['constituencies'], $details['valid_postcode']) = search_constituencies_by_query($details['alertsearch']);
 }
 
+# If the above search returned one result for member or constituency search,
+# use it immediately
+
+if (isset($details['members']) && $details['members']->rows() == 1) {
+    $details['pid'] = $details['members']->field(0, 'person_id');
+    unset($details['members']);
+}
+
+if (isset($details['constituencies']) && count($details['constituencies']) == 1 && $details['valid_postcode']) {
+    $MEMBER = new MEMBER(array('constituency' => $details['constituencies'][0], 'house' => 1));
+    $details['pid'] = $MEMBER->person_id();
+    $details['pc'] = $details['alertsearch'];
+    unset($details['constituencies']);
+}
+
 if (!sizeof($errors) && ($details['keyword'] || $details['pid'])) {
     $message = add_alert( $details );
     $details['keyword'] = '';
