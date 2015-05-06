@@ -295,4 +295,27 @@ class MemberTest extends TWFY_Database_TestCase
 
     }
 
+    public function testIsNew() {
+        $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => 17));
+
+        $this->assertNotTrue($MEMBER->isNew());
+
+        $this->db->query("UPDATE member SET entered_house = NOW() WHERE person_id = 17");
+
+        // do this to force a reload
+        $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => 17));
+        $this->assertTrue($MEMBER->isNew());
+    }
+
+    public function testGetEntryDate() {
+        $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => 18));
+
+        $this->assertEquals($MEMBER->getEntryDate(), '2014-05-01');
+        $this->assertEquals($MEMBER->getEntryDate(1), '2014-05-01');
+        $this->assertEquals($MEMBER->getEntryDate(2), '2010-05-01');
+        $this->assertEquals($MEMBER->getEntryDate(3), '2012-05-01');
+        $this->assertEquals($MEMBER->getEntryDate(4), '2004-05-01');
+        $this->assertEquals($MEMBER->getEntryDate(5), '');
+    }
+
 }

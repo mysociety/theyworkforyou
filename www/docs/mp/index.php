@@ -483,6 +483,8 @@ try {
         $data['image'] = $MEMBER->image();
         $data['member_summary'] = person_summary_description($MEMBER);
         $data['enter_leave'] = $MEMBER->getEnterLeaveStrings();
+        $data['entry_date'] = $MEMBER->getEntryDate();
+        $data['is_new_mp'] = $MEMBER->isNew();
         $data['other_parties'] = $MEMBER->getOtherPartiesString();
         $data['other_constituencies'] = $MEMBER->getOtherConstituenciesString();
         $data['rebellion_rate'] = person_rebellion_rate($MEMBER);

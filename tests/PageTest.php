@@ -84,4 +84,12 @@ class PageTest extends FetchPageTestCase
         $this->assertNotContains('This is a banner', $page);
     }
 
+    public function testNewMPMessage() {
+        $page = $this->fetch_page( array( 'pid' => 17, 'url' => '/mp/17/recent_mp/test_westminster_constituency' ) );
+        $this->assertNotContains('is a recently elected MP', $page);
+        $this->db->query('UPDATE member SET entered_house = NOW() WHERE person_id = 17');
+        $page = $this->fetch_page( array( 'pid' => 17, 'url' => '/mp/17/recent_mp/test_westminster_constituency' ) );
+        $this->assertContains('is a recently elected MP', $page);
+    }
+
 }

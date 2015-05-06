@@ -294,6 +294,81 @@
 			<field name="title">Mr</field>
 			<field name="lastupdate">2013-08-07 15:06:19</field>
 		</row>
+		<row>
+			<field name="member_id">16</field>
+			<field name="house">1</field>
+			<field name="first_name">Recent</field>
+			<field name="last_name">MP</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party"></field>
+			<field name="entered_house">2014-05-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">17</field>
+			<field name="title">Mr</field>
+			<field name="lastupdate">2015-05-01 15:06:19</field>
+		</row>
+		<row>
+			<field name="member_id">17</field>
+			<field name="house">1</field>
+			<field name="first_name">House1</field>
+			<field name="last_name">MP</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party"></field>
+			<field name="entered_house">2014-05-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">18</field>
+			<field name="title">Mr</field>
+			<field name="lastupdate">2015-05-01 15:06:19</field>
+		</row>
+		<row>
+			<field name="member_id">18</field>
+			<field name="house">2</field>
+			<field name="first_name">House2</field>
+			<field name="last_name">Lord</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party"></field>
+			<field name="entered_house">2010-05-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">18</field>
+			<field name="title">Mr</field>
+			<field name="lastupdate">2015-05-01 15:06:19</field>
+		</row>
+		<row>
+			<field name="member_id">19</field>
+			<field name="house">3</field>
+			<field name="first_name">House3</field>
+			<field name="last_name">MLA</field>
+			<field name="constituency">Test NI Constituency</field>
+			<field name="party"></field>
+			<field name="entered_house">2012-05-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">18</field>
+			<field name="title">Mr</field>
+			<field name="lastupdate">2015-05-01 15:06:19</field>
+		</row>
+		<row>
+			<field name="member_id">20</field>
+			<field name="house">4</field>
+			<field name="first_name">House4</field>
+			<field name="last_name">MSP</field>
+			<field name="constituency">Test Scottish Constituency</field>
+			<field name="party"></field>
+			<field name="entered_house">2004-05-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">18</field>
+			<field name="title">Mr</field>
+			<field name="lastupdate">2015-05-01 15:06:19</field>
+		</row>
 	</table_data>
 	<table_data name="memberinfo">
 		<row>

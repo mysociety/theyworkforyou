@@ -65,6 +65,51 @@ class Member extends \MEMBER {
 
     }
 
+    /*
+     * Determine if the member is a new member of a house where new is
+     * within the last 6 months.
+     *
+     * @param int house - identifier for the house, defaults to 1 for westminster
+     *
+     * @return boolean
+     */
+
+    public function isNew($house = 1) {
+        $date_entered = $this->getEntryDate($house);
+
+        if ($date_entered) {
+            $date_entered = new \DateTime($date_entered);
+            $now = new \DateTime();
+
+            $diff = $date_entered->diff($now);
+            if ( $diff->y == 0 && $diff->m <= 6 ) {
+                return TRUE;
+            }
+        }
+
+        return FALSE;
+    }
+
+    /*
+     * Get the date the person first entered a house. May not be for their current seat.
+     *
+     * @param int house - identifier for the house, defaults to 1 for westminster
+     *
+     * @return string - blank if no entry date for that house otherwise in YYYY-MM-DD format
+     */
+
+    public function getEntryDate($house = 1) {
+        $date_entered = '';
+
+        $entered_house = $this->entered_house($house);
+
+        if ( $entered_house ) {
+            $date_entered = $entered_house['date'];
+        }
+
+        return $date_entered;
+    }
+
     /**
     * Image
     *

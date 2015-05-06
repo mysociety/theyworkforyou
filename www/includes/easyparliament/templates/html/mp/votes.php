@@ -30,6 +30,12 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <div class="panel">
                         <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                     </div>
+                    <?php elseif (isset($is_new_mp) && $is_new_mp && !$has_voting_record): ?>
+                    <div class="panel--secondary">
+                        <h3><?= $full_name ?> is a recently elected MP - elected on <?= format_date($entry_date, LONGDATEFORMAT) ?></h3>
+
+                        <p>When <?= $full_name ?> starts to vote on bills, that information will appear on this page.</p>
+                    </div>
                     <?php endif; ?>
 
                     <?php if ($has_voting_record): ?>

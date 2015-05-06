@@ -39,6 +39,16 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <div class="panel">
                         <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                     </div>
+                    <?php elseif (isset($is_new_mp) && $is_new_mp && count($recent_appearances['appearances']) == 0): ?>
+                    <div class="panel--secondary">
+                        <h3><?= $full_name ?> is a recently elected MP &ndash; elected on <?= format_date($entry_date, LONGDATEFORMAT) ?></h3>
+
+                        <p>When <?= $full_name ?> starts to speak in debates and vote on bills, that information will appear on this page.</p>
+
+                      <?php if ($has_email_alerts) { ?>
+                        <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;">Sign up for email alerts to be the first to know when that happens.</a>
+                      <?php } ?>
+                    </div>
                     <?php endif; ?>
 
                     <?php if (count($policyPositions->positions) > 0): ?>
