@@ -31,6 +31,12 @@ class AlertView {
 
             $result = $this->createAlertForPostCode($data['email'], $data['postcode']);
             $data = array_merge( $data, $result );
+        } elseif (get_http_var('update')) {
+            $result = $this->getNewMP(get_http_var('update'));
+            $data = array_merge( $data, $result );
+        } elseif (get_http_var('update-alert')) {
+            $success = $this->replaceAlert( get_http_var('confirmation') );
+            $data['confirmation_received'] = $success;
         } elseif (get_http_var('confirmed')) {
             $success = $this->confirmAlert( get_http_var('confirmed') );
             $data['confirmation_received'] = $success;
@@ -123,6 +129,49 @@ class AlertView {
         return $this->alert->confirm($token);
     }
 
+    private function replaceAlert($confirmation) {
+        $existing = $this->alert->fetch_by_token($confirmation);
+        preg_match('/speaker:(\d+)/', $existing['criteria'], $matches);
+        $old_mp_id = $matches[1];
+        $old_mp = new Member(array( 'person_id' => $old_mp_id ) );
+        $new_mp = new Member(array( 'constituency' => $old_mp->constituency ));
+
+        $q = $this->db->query(
+            "SELECT alert_id, criteria, registrationtoken FROM alerts
+             WHERE email = :email
+             AND criteria LIKE :criteria
+             AND confirmed = 1
+             AND deleted = 0",
+            array(
+                ':email' => $existing['email'],
+                ':criteria' => '%speaker:' . $old_mp_id . '%'
+            )
+        );
+
+        for ( $i = 0; $i < $q->rows; $i++ ) {
+            // need to reset this otherwise delete does not work
+            $this->alert->token_checked = null;
+            $other_criteria = trim(preg_replace('/speaker:\d+/', '', $q->field($i, 'criteria')));
+
+            $details = array(
+                'email' => $existing['email'],
+                'pid' => $new_mp->person_id,
+                'pc' => '',
+            );
+            if ( $other_criteria ) {
+                $details['keyword'] = $other_criteria;
+            }
+
+            $this->alert->delete($q->field($i, 'alert_id') . '::' . $q->field($i ,'registrationtoken'));
+            $result = $this->alert->add($details, False);
+        }
+
+        return array(
+            'signedup_no_confirm' => True,
+            'new_mp' => $new_mp->full_name(),
+        );
+    }
+
     private function isEmailSignedUpForPostCode($email, $postcode) {
         $is_signed_up = false;
 
@@ -135,5 +184,37 @@ class AlertView {
             }
         }
         return $is_signed_up;
+    }
+
+    private function getNewMP($confirmation) {
+        if (!$confirmation) {
+            return array();
+        }
+
+        $existing = $this->alert->fetch_by_token($confirmation);
+        preg_match('/speaker:(\d+)/', $existing['criteria'], $matches);
+        $criteria = $matches[1];
+        $data = array();
+
+        $old_mp = new Member(array( 'person_id' => $criteria ) );
+        $new_mp = new Member(array( 'constituency' => $old_mp->constituency ));
+
+        if ( $this->alert->fetch_by_mp( $existing['email'], $new_mp->person_id) ) {
+            $data = array(
+                'already_signed_up' => True,
+                'old_mp' => $old_mp->full_name(),
+                'mp_name' => $new_mp->full_name(),
+            );
+        } else {
+            $data = array(
+                'old_mp' => $old_mp->full_name(),
+                'new_mp' => $new_mp->full_name(),
+            );
+        }
+
+        $data['update'] = True;
+        $data['confirmation'] = $confirmation;
+
+        return $data;
     }
 }
