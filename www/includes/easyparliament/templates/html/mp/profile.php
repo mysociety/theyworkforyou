@@ -35,7 +35,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 </div>
                 <div class="primary-content__unit">
 
-                    <?php if ($party == 'Sinn Fein' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+                    <?php if (($party == 'Sinn Fein' || $party == utf8_decode('Sinn Féin')) && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
                     <div class="panel">
                         <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                     </div>
