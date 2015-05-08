@@ -90,10 +90,10 @@ foreach ($alertdata as $alertitem) {
     if ($member->current_member_anywhere()) continue;
 
     // skip if they didn't lose their westminster seat in the most recent election
-    if ($member->left_house[1]['date'] != DISSOLUTION_DATE) continue;
+    if ($member->left_house[1]['date'] != '2015-03-30') continue;
 
     if ( !isset($cons[$member->constituency]) ) {
-        $cons_member = new MEMBER(array('constituency' => $member->constituency, 'house' => 1, 'still_in_office' => true));
+        $cons_member = new MEMBER(array('constituency' => $member->constituency, 'house' => 1));
         if ( !$cons_member ) {
             continue;
         }
