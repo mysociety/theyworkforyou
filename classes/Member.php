@@ -120,7 +120,7 @@ class Member extends \MEMBER {
 
     public function image() {
 
-        $is_lord = in_array(HOUSE_TYPE_LORDS, $this->houses());
+        $is_lord = $this->house(HOUSE_TYPE_LORDS);
         if ($is_lord) {
             list($image,$size) = Utility\Member::findMemberImage($this->person_id(), false, 'lord');
         } else {
@@ -292,8 +292,8 @@ class Member extends \MEMBER {
             $output[] = $string;
         }
 
-        if (in_array(HOUSE_TYPE_LORDS, $this->houses) && !$this->current_member(HOUSE_TYPE_LORDS)) {
-            $string = '<strong>Left House of Commons on '.$this->left_house[HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
+        if ($this->house(HOUSE_TYPE_LORDS) && !$this->current_member(HOUSE_TYPE_LORDS)) {
+            $string = '<strong>Left House of Lords on '.$this->left_house[HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
             if ($this->left_house[HOUSE_TYPE_LORDS]['reason']) {
                 $string .= ' &mdash; ' . $this->left_house[HOUSE_TYPE_LORDS]['reason'];
             }
@@ -319,7 +319,8 @@ class Member extends \MEMBER {
             $output[] = $string;
         }
 
-        if (in_array(HOUSE_TYPE_COMMONS, $this->houses) && !$this->current_member(HOUSE_TYPE_COMMONS) && !isset($this->entered_house[HOUSE_TYPE_LORDS])) {
+        # If they became a Lord, we handled this above.
+        if ($this->house(HOUSE_TYPE_COMMONS) && !$this->current_member(HOUSE_TYPE_COMMONS) && !$this->house(HOUSE_TYPE_LORDS)) {
             $string = '<strong>Left Parliament ';
             if (strlen($this->left_house[HOUSE_TYPE_COMMONS]['date_pretty'])==4) {
                 $string .= 'in ';
@@ -344,7 +345,7 @@ class Member extends \MEMBER {
             $output[] = $string;
         }
 
-        if (in_array(HOUSE_TYPE_NI, $this->houses) && !$this->current_member(HOUSE_TYPE_NI)) {
+        if ($this->house(HOUSE_TYPE_NI) && !$this->current_member(HOUSE_TYPE_NI)) {
             $string = '<strong>Left the Assembly on '.$this->left_house[HOUSE_TYPE_NI]['date_pretty'].'</strong>';
             if ($this->left_house[HOUSE_TYPE_NI]['reason']) {
                 $string .= ' &mdash; ' . $this->left_house[HOUSE_TYPE_NI]['reason'];
@@ -363,7 +364,7 @@ class Member extends \MEMBER {
             $output[] = $string;
         }
 
-        if (in_array(HOUSE_TYPE_SCOTLAND, $this->houses) && !$this->current_member(HOUSE_TYPE_SCOTLAND)) {
+        if ($this->house(HOUSE_TYPE_SCOTLAND) && !$this->current_member(HOUSE_TYPE_SCOTLAND)) {
             $string = '<strong>Left the Scottish Parliament on '.$this->left_house[HOUSE_TYPE_SCOTLAND]['date_pretty'].'</strong>';
             if ($this->left_house[HOUSE_TYPE_SCOTLAND]['reason']) {
                 $string .= ' &mdash; ' . $this->left_house[HOUSE_TYPE_SCOTLAND]['reason'];
