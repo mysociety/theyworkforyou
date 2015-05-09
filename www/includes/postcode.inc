@@ -2,52 +2,44 @@
 
 include_once INCLUDESPATH . 'constituencies.inc';
 
-//returns the constituency name, given uh, a postcode.
 function postcode_to_constituency($postcode, $api = false) {
-    global $last_postcode, $last_postcode_value;
-    $postcode = canonicalise_postcode($postcode);
-    if ($last_postcode == $postcode) {
-        twfy_debug ("TIME", "Postcode $postcode looked up last time, is " . $last_postcode_value['WMC']);
-        return $last_postcode_value['WMC'];
-    }
-
-    $start = getmicrotime();
-    twfy_debug_timestamp();
-    $ret = postcode_to_constituency_internal($postcode, true, $api);
-    $duration = getmicrotime() - $start;
-    twfy_debug ("TIME", "Postcode $postcode lookup took $duration seconds, returned " . is_string($ret) ? $ret : $ret['WMC']);
-    twfy_debug_timestamp();
-
-    if (is_string($ret)) return $ret;
-
-    $last_postcode = $postcode;
-    $last_postcode_value = $ret;
-    return $ret['WMC'];
+    return _postcode_to_constituencies($postcode, true);
 }
 
 function postcode_to_constituencies($postcode, $api = false) {
+    return _postcode_to_constituencies($postcode, false);
+}
+
+function _postcode_to_constituencies($postcode, $mp_only) {
     global $last_postcode, $last_postcode_value;
+
+    $postcode = preg_replace('#[^a-z0-9]#i', '', $postcode);
     $postcode = canonicalise_postcode($postcode);
+
     if ($last_postcode == $postcode) {
-        twfy_debug ("TIME", "Postcode $postcode looked up last time, is $last_postcode_value .");
-        return $last_postcode_value;
+        $return_value = $mp_only ? $last_postcode_value['WMC'] : $last_postcode_value;
+        twfy_debug ("TIME", "Postcode $postcode looked up last time, is " . $return_value);
+        return $return_value;
     }
 
-    $ret = postcode_to_constituency_internal($postcode, false, $api);
+    if (!validate_postcode($postcode)) {
+        return '';
+    }
+
+    $ret = _postcode_fetch_from_db($postcode);
+    if (!$ret) {
+        $ret = _postcode_fetch_from_mapit($postcode);
+    }
+
     if (is_string($ret)) return $ret;
 
     $last_postcode = $postcode;
     $last_postcode_value = $ret;
-    return $ret;
+    return $mp_only ? $ret['WMC'] : $ret;
 }
 
-function postcode_to_constituency_internal($postcode, $mp_only=true, $api) {
-    # Try and match with regexp to exclude non postcodes quickly
-    if (!validate_postcode($postcode))
-        return '';
-
+function _postcode_fetch_from_db($postcode) {
     $db = new ParlDB;
-
     $q = $db->query('select name from postcode_lookup where postcode = :postcode', array(
         ':postcode' => $postcode
         ));
@@ -66,16 +58,9 @@ function postcode_to_constituency_internal($postcode, $mp_only=true, $api) {
             return array('WMC' => $name);
         }
     }
+}
 
-    # So as not to disturb Scot/NI lookup
-    #if ($mp_only) {
-    #    $xml = simplexml_load_string(@file_get_contents(POSTCODE_API_URL . urlencode($postcode)));
-    #    if ($xml) {
-    #        if ($xml->error) return '';
-    #        return array('WMC' => iconv('utf-8', 'iso-8859-1//TRANSLIT', (string)$xml->future_constituency));
-    #    }
-    #}
-
+function _postcode_fetch_from_mapit($postcode) {
     $filename = '/postcode/' . rawurlencode($postcode);
     $ch = curl_init('http://mapit.mysociety.org' . $filename);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -90,11 +75,11 @@ function postcode_to_constituency_internal($postcode, $mp_only=true, $api) {
     curl_close($ch);
 
     $r = json_decode($file, true);
-    if (!$file) {
+    if (!$r) {
         trigger_error("Postcode database is not working. Content:\n".$file.", request: ". $filename, E_USER_WARNING);
         return '';
     }
-    if (isset($r['error'])) {
+    if (isset($r['error']) || !isset($r['areas'])) {
         return '';
     }
     $areas = array();
@@ -118,6 +103,7 @@ function postcode_to_constituency_internal($postcode, $mp_only=true, $api) {
         } else {
             $serialized = $normalised;
         }
+        $db = new ParlDB;
         $db->query('replace into postcode_lookup values(:postcode, :serialized)',
             array(
                 ':postcode' => $postcode,
