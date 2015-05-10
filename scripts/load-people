@@ -82,8 +82,9 @@ sub load_moffices {
             my $pos = $_->{role} || 'Member';
             my $dept = $organizations{$_->{organization_id}} || die $!;
             $dept = '' if $dept eq 'House of Commons';
-            next unless $_->{end_date} ge $from;
-            $moffreplace->execute($_->{id}, $dept, $pos, $_->{start_date}, $_->{end_date}, $person, '');
+            my $end_date = $_->{end_date} || '9999-12-31';
+            next unless $end_date ge $from;
+            $moffreplace->execute($_->{id}, $dept, $pos, $_->{start_date}, $end_date, $person, '');
         }
     }
 }
