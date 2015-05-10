@@ -107,7 +107,8 @@ class AcceptApiTest extends FetchPageTestCase
             'key' => 'test_key',
             'postcode' => 'SW1A 1AA'
         ));
-        $this->assertEquals('{"member_id":"2","house":"1","first_name":"Test","last_name":"Current-City-MP","constituency":"Cities of London and Westminster","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"3","title":"Mr","lastupdate":"2013-08-07 15:06:19","full_name":"Mr Test Current-City-MP","url":"/mp/3/mr_test_current-city-mp/cities_of_london_and_westminster"}', $page);
+        $page = json_decode($page);
+        $this->assertEquals(json_decode('{"member_id":"2","house":"1","first_name":"Test","last_name":"Current-City-MP","constituency":"Cities of London and Westminster","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"3","title":"Mr","lastupdate":"2013-08-07 15:06:19","full_name":"Mr Test Current-City-MP","url":"/mp/3/mr_test_current-city-mp/cities_of_london_and_westminster"}'), $page);
     }
 
     /**
@@ -119,7 +120,8 @@ class AcceptApiTest extends FetchPageTestCase
             'key' => 'test_key',
             'constituency' => 'Amber Valley'
         ));
-        $this->assertEquals('{"member_id":"1","house":"1","first_name":"Test","last_name":"Current-MP","constituency":"Amber Valley","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"2","title":"Mrs","lastupdate":"2013-08-07 15:06:19","full_name":"Mrs Test Current-MP","url":"/mp/2/mrs_test_current-mp/amber_valley"}', $page);
+        $page = json_decode($page);
+        $this->assertEquals(json_decode('{"member_id":"1","house":"1","first_name":"Test","last_name":"Current-MP","constituency":"Amber Valley","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"2","title":"Mrs","lastupdate":"2013-08-07 15:06:19","full_name":"Mrs Test Current-MP","url":"/mp/2/mrs_test_current-mp/amber_valley"}'), $page);
     }
 
     /**
@@ -131,7 +133,8 @@ class AcceptApiTest extends FetchPageTestCase
             'key' => 'test_key',
             'id' => '2'
         ));
-        $this->assertEquals('[{"member_id":"1","house":"1","first_name":"Test","last_name":"Current-MP","constituency":"Amber Valley","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"2","title":"Mrs","lastupdate":"2013-08-07 15:06:19","full_name":"Mrs Test Current-MP","url":"/mp/2/mrs_test_current-mp/amber_valley"}]', $page);
+        $page = json_decode($page);
+        $this->assertEquals(json_decode('[{"member_id":"1","house":"1","first_name":"Test","last_name":"Current-MP","constituency":"Amber Valley","party":"Labour","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"2","title":"Mrs","lastupdate":"2013-08-07 15:06:19","full_name":"Mrs Test Current-MP","url":"/mp/2/mrs_test_current-mp/amber_valley"}]'), $page);
     }
 
 }
