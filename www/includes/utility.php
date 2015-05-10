@@ -530,14 +530,14 @@ function prepare_comment_for_display($text) {
     // Makes any URLs into HTML links.
     // Turns \n's into <br>
 
-  // Encode HTML entities.
-  // Can't do htmlentities() because it'll turn the few tags we allow into &lt;
-  // Must go before the URL stuff.
-  $text = htmlentities_notags($text);
+    // Encode HTML entities.
+    // Can't do htmlentities() because it'll turn the few tags we allow into &lt;
+    // Must go before the URL stuff.
+    $text = htmlentities_notags($text);
 
     $link_length = 60;
     $text = preg_replace_callback(
-        "/(?<!\"|\/)((http(s?):\/\/)|(www\.))([a-zA-Z\d\_\.\+\,\;\?\%\~\-\/\#\='\*\$\!\(\)\&\[\]]+)([a-zA-Z\d\_\?\%\~\-\/\#\='\*\$\!\&])/",
+        "/(?<!\"|\/)((http(s?):\/\/)|(www\.))([a-zA-Z\d_.+,;:?%~\-\/#='*$!()&[\]]+)([a-zA-Z\d_?%~\-\/#='*$!&])/",
         function($matches) use ($link_length) {
             if (strlen($matches[0]) > $link_length) {
                 return '<a href="' . $matches[0] . '" rel="nofollow">' . substr($matches[0], 0, $link_length) . "...</a>";

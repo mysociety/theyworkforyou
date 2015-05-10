@@ -30,6 +30,16 @@ It also spans multiple lines.</field>
 		<field name="visible">1</field>
 		<field name="original_gid" xsi:nil="true" />
 	</row>
+	<row>
+		<field name="comment_id">2</field>
+		<field name="user_id">1</field>
+		<field name="epobject_id">1</field>
+		<field name="body">http://theyworkforyou.example.org/this/is/a/coment/with/a/very/long/URL/that/contains/http://something/as/it/is/an/archive</field>
+		<field name="posted" xsi:nil="true" />
+		<field name="modflagged" xsi:nil="true" />
+		<field name="visible">1</field>
+		<field name="original_gid" xsi:nil="true" />
+	</row>
 	</table_data>
 	<table_data name="consinfo">
 	</table_data>

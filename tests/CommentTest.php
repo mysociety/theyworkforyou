@@ -46,6 +46,13 @@ It also spans multiple lines.");
 It also spans multiple lines.");
     }
 
+    public function testCommentWithVeryLongLink()
+    {
+        $comment = new COMMENT(2);
+        $this->assertEquals(prepare_comment_for_display($comment->body()),
+            '<a href="http://theyworkforyou.example.org/this/is/a/coment/with/a/very/long/URL/that/contains/http://something/as/it/is/an/archive" rel="nofollow">http://theyworkforyou.example.org/this/is/a/coment/with/a/ve...</a>');
+    }
+
     /**
      * Tests adding a new comment, testing HTML cleaning.
      */
