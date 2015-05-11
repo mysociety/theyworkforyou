@@ -1,5 +1,7 @@
 var researchUser;
 var startTime = new Date();
+var recordEndpoint = 'http://logbook.mysociety.org/quant2';
+var siteTag = 'twfy';
 
 $(document).ready(function() {
 
@@ -15,21 +17,21 @@ $(document).ready(function() {
 
   // Record this page view and bucket
   $.ajax({
-    url: '/action/record.php',
-    type: 'POST',
+    url: recordEndpoint,
     data: {
+      'site': siteTag,
       'method': 'view',
       'page': document.URL,
       'bucket': researchUser.bucket
     },
-    dataType: 'json'
+    dataType: 'jsonp'
   });
 
   // Choose which action to take
   if (researchUser.bucket == 1) {
 
     // Bind the "where next" click event
-    $('#research-qual2-bucket1-wherenext').click(function(e){
+    $('#research-quant2-bucket1-wherenext').click(function(e){
 
       e.preventDefault();
 
@@ -40,16 +42,16 @@ $(document).ready(function() {
       timer /= 1000;
 
       $.ajax({
-        url: '/action/record.php',
-        type: 'POST',
+        url: recordEndpoint,
         data: {
+          'site': siteTag,
           'method': 'click_popup_link',
           'page': document.URL,
           'bucket': researchUser.bucket,
           'data': 'where-next',
           'timer': timer
         },
-        dataType: 'json',
+        dataType: 'jsonp',
         timeout: 300
       }).always(function() {
         window.location.assign(link.attr('href'));
@@ -58,7 +60,7 @@ $(document).ready(function() {
     });
 
     // Bind the "where next" click event
-    $('[data-research-qual2-bucket1-linkname]').click(function(e){
+    $('[data-research-quant2-bucket1-linkname]').click(function(e){
 
       e.preventDefault();
 
@@ -69,16 +71,16 @@ $(document).ready(function() {
       timer /= 1000;
 
       $.ajax({
-        url: '/action/record.php',
-        type: 'POST',
+        url: recordEndpoint,
         data: {
+          'site': siteTag,
           'method': 'click_popup_link',
           'page': document.URL,
           'bucket': researchUser.bucket,
-          'data': link.data('research-qual2-bucket1-linkname'),
+          'data': link.data('research-quant2-bucket1-linkname'),
           'timer': timer
         },
-        dataType: 'json'
+        dataType: 'jsonp'
       });
 
       $('#whereNextModal').foundation('reveal', 'close');
@@ -96,29 +98,29 @@ $(document).ready(function() {
 
         $('#whereNextModal').foundation('reveal', 'open');
         $.ajax({
-          url: '/action/record.php',
-          type: 'POST',
+          url: recordEndpoint,
           data: {
+            'site': siteTag,
             'method': 'show_popup',
             'page': document.URL,
             'bucket': researchUser.bucket,
             'data': 'timed'
           },
-          dataType: 'json'
+          dataType: 'jsonp'
         });
 
       } else {
 
         $.ajax({
-          url: '/action/record.php',
-          type: 'POST',
+          url: recordEndpoint,
           data: {
-            'method': 'surpressed_popup',
+            'site': siteTag,
+            'method': 'suppressed_popup',
             'page': document.URL,
             'bucket': researchUser.bucket,
             'data': 'timed'
           },
-          dataType: 'json'
+          dataType: 'jsonp'
         });
 
       }
@@ -127,10 +129,10 @@ $(document).ready(function() {
 
   } else if (researchUser.bucket == 2) {
 
-    $('#research-qual2-bucket2').show();
+    $('#research-quant2-bucket2').show();
 
     // Bind the click event
-    $('#research-qual2-bucket2 a').click(function(e){
+    $('#research-quant2-bucket2 a').click(function(e){
 
       e.preventDefault();
 
@@ -141,15 +143,15 @@ $(document).ready(function() {
       timer /= 1000;
 
       $.ajax({
-        url: '/action/record.php',
-        type: 'POST',
+        url: recordEndpoint,
         data: {
+          'site': siteTag,
           'method': 'click_nav_link',
           'page': document.URL,
           'bucket': researchUser.bucket,
           'timer': timer
         },
-        dataType: 'json',
+        dataType: 'jsonp',
         timeout: 300
       }).always(function() {
         window.location.assign(link.attr('href'));
