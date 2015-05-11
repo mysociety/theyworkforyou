@@ -197,7 +197,7 @@ class AlertView {
         $data = array();
 
         $old_mp = new Member(array( 'person_id' => $criteria ) );
-        $new_mp = new Member(array( 'constituency' => $old_mp->constituency ));
+        $new_mp = new Member(array( 'constituency' => $old_mp->constituency, house => 1 ));
 
         if ( $this->alert->fetch_by_mp( $existing['email'], $new_mp->person_id) ) {
             $data = array(
