@@ -134,7 +134,7 @@ class AlertView {
         preg_match('/speaker:(\d+)/', $existing['criteria'], $matches);
         $old_mp_id = $matches[1];
         $old_mp = new Member(array( 'person_id' => $old_mp_id ) );
-        $new_mp = new Member(array( 'constituency' => $old_mp->constituency ));
+        $new_mp = new Member(array( 'constituency' => $old_mp->constituency, house => 1 ));
 
         $q = $this->db->query(
             "SELECT alert_id, criteria, registrationtoken FROM alerts
