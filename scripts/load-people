@@ -22,6 +22,7 @@ use Getopt::Long;
 use JSON;
 use POSIX qw(strftime);
 use Data::Dumper;
+use Unicode::Collate;
 
 my %slug_to_house_id = (
     'crown' => 0,
@@ -93,6 +94,7 @@ sub load_constituencies {
     my $constituencyadd = $dbh->prepare("replace into constituency (cons_id, name, main_name, from_date, to_date) values (?, ?, ?, ?, ?)");
     my $j = decode_json(read_file($pwmembers . 'constituencies.json'));
     my %seen;
+    my $Collator = Unicode::Collate->new(normalization => undef, level => 1);
     foreach my $cons (@$j) {
         (my $consid = $cons->{id}) =~ s#uk.org.publicwhip/cons/##;
 
@@ -105,11 +107,12 @@ sub load_constituencies {
 
         my $main_name = 1;
         foreach my $name (@{$cons->{names}}) {
-            # need this becuase mysql is case insensitive by default so can't distinguish
-            # between Berwick-upon-Tweed and Berwick-Upon-Tweed and so you end up setting
-            # main_name to 0 when it replaces the second of these. This then breaks the
-            # constituency name search
-            next if $seen{lc($name)};
+            # need this because this table is using the latin_spanish_ci
+            # collation and doesn't distinguish between Berwick-upon-Tweed and
+            # Berwick-Upon-Tweed, or Ynys Mon with/without accent, and so you
+            # end up setting main_name to 0 when it replaces the second of
+            # these. This then breaks the constituency name search.
+            next if $seen{$Collator->getSortKey($name)};
             $constituencyadd->execute(
                 $consid,
                 Encode::encode('iso-8859-1', $name),
@@ -117,7 +120,7 @@ sub load_constituencies {
                 $start_date,
                 $end_date,
             );
-            $seen{lc($name)} = 1;
+            $seen{$Collator->getSortKey($name)} = 1;
             $main_name = 0;
         }
     }
