@@ -23,6 +23,9 @@ unless ($staging) {
 chdir $FindBin::Bin;
 system './mpinfoin.pl';
 
+# update individual division votes
+system './json2db.pl';
+
 #unless ($staging) {
 #    chdir $pwmembers;
 #    system 'svn commit -m "apply updates from twfy"';
