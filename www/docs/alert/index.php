@@ -343,6 +343,45 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
             echo '<em class="error">You have used a comma in your search term &ndash; are you sure this is what you want?
 You cannot sign up to multiple search terms using a comma &ndash; either use OR, or fill in this form multiple times.</em>';
         }
+        if ( preg_match('#([A-Z]{1,2}\d+[A-Z]? ?\d[A-Z]{2})#i', $alertsearch, $m) && strlen($alertsearch) > strlen($m[1]) && validate_postcode($m[1]) ) {
+            $scottish_text = '';
+            $mp_display_text = '';
+            if (postcode_is_scottish($m[1])) {
+                $mp_display_text = 'your MP, ';
+                $scottish_text = ' or MSP';
+            }
+            echo '<em class="error">You have used a postcode and something else in your search term &ndash; are you sure this is what you want?
+                  You will only get an alert if all of these are mentioned in the same debate. Did you mean to get alerts for when your MP'
+                  . $scottish_text . ' mentions something instead? If so click subscribe below.</em></li>';
+
+            try {
+                $MEMBER = new MEMBER(array('postcode'=>$m[1]));
+                // move the postcode to the front just to be tidy
+                $tidy_alertsearch= $m[1] . " " . trim(str_replace("$m[1]", "", $alertsearch));
+                $alertsearch_display = str_replace("$m[1] ", "", $tidy_alertsearch);
+                $alertsearch = str_replace("$m[1]", "speaker:" . $MEMBER->person_id, $tidy_alertsearch);
+                echo "<li>";
+                echo $form_start . '<input type="hidden" name="keyword" value="' . _htmlspecialchars($alertsearch) . '">';
+                echo 'Mentions of [';
+                echo _htmlspecialchars($alertsearch_display) . '] by ' . $mp_display_text . $MEMBER->full_name();
+                echo ' <input type="submit" value="Subscribe"></form>';
+                if ( $scottish_text ) {
+                    $constituencies = postcode_to_constituencies($m[1]);
+                    if ( isset($constituencies['SPC']) ) {
+                        $MEMBER = new MEMBER(array('constituency' => $constituencies['SPC'], 'house' => 4));
+                        // move the postcode to the front just to be tidy
+                        $alertsearch = str_replace("$m[1]", "speaker:" . $MEMBER->person_id, $tidy_alertsearch);
+                        echo "</li><li>";
+                        echo $form_start . '<input type="hidden" name="keyword" value="' . _htmlspecialchars($alertsearch) . '">';
+                        echo 'Mentions of [';
+                        echo _htmlspecialchars($alertsearch_display) . '] by your MSP, ' . $MEMBER->full_name();
+                        echo ' <input type="submit" value="Subscribe"></form>';
+                    }
+                }
+            } catch ( MySociety\TheyWorkForYou\MemberException $e ) {
+                echo '<p>We had a problem looking up your representative.</p>';
+            }
+        }
         echo "</li></ul>";
     }
 
