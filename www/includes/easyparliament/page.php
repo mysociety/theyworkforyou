@@ -2431,9 +2431,9 @@ Annotations should be information that adds value to the contribution, not opini
 
         $pages = array ('admin_home',
                 'admin_comments','admin_trackbacks', 'admin_searchlogs', 'admin_popularsearches', 'admin_failedsearches',
-                'admin_statistics', 'admin_reportstats',
+                'alert_stats', 'admin_statistics', 'admin_reportstats',
                 'admin_commentreports', 'admin_glossary', 'admin_glossary_pending', 'admin_badusers',
-                'admin_alerts', 'admin_photos', 'admin_mpurls', 'admin_policies', 'admin_banner'
+                'admin_photos', 'admin_mpurls', 'admin_policies', 'admin_banner'
                 );
 
         $links = array();

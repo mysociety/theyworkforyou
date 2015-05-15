@@ -90,13 +90,8 @@ $this->page = array (
         'url'			=> 'addcomment/',
     ),
 
-    'admin_alerts' => array (
-        'title'			=> 'Email alerts',
-        'parent'		=> 'admin',
-        'url'			=> 'admin/alerts.php',
-    ),
     'alert_stats' => array (
-        'title'			=> 'Email alerts',
+        'title'			=> 'Email alerts statistics',
         'parent'		=> 'admin',
         'url'			=> 'admin/alert_stats.php',
     ),
