@@ -671,13 +671,37 @@ try {
     }
 
 } catch (MySociety\TheyWorkForYou\MemberException $e){
+    global $this_page;
+
+    switch($this_page) {
+    case 'mla':
+        $rep = 'MLA';
+        $SEARCHURL = '/postcode/';
+        $MPSURL = new \URL('mlas');
+        break;
+    case 'msp':
+        $rep = 'MSP';
+        $SEARCHURL = '/postcode/';
+        $MPSURL = new \URL('msps');
+        break;
+    case 'peer':
+        $rep = 'Lord';
+        $SEARCHURL = '';
+        $MPSURL = new \URL('peers');
+        break;
+    default:
+        $rep = 'MP';
+        $SEARCHURL = new \URL('mp');
+        $SEARCHURL = $SEARCHURL->generate();
+        $MPSURL = new \URL('mps');
+    }
 
     // The message belongs in the output...
     $data['error'] = $e->getMessage();
 
-    // Generate a URL to a full list to try get the user back on track.
-    $MPSURL = new \URL('mps');
+    $data['rep_name'] = $rep;
     $data['all_mps_url'] = $MPSURL->generate();
+    $data['rep_search_url'] = $SEARCHURL;
 
     // Render it!
     MySociety\TheyWorkForYou\Renderer::output('mp/error', $data);

@@ -545,7 +545,7 @@ $this->page = array (
 ),
     'mla' => array (
         'parent'		=> 'mlas',
-        'title'			=> 'MLA',
+        'title'			=> 'Find your MLA',
         'url'			=> 'mla/'
     ),
     'mlas' => array (
@@ -568,13 +568,13 @@ $this->page = array (
     ),
     'msp' => array (
         'parent'		=> 'msps',
-        'title'			=> 'MSP',
+        'title'			=> 'Find your MSP',
         'url'			=> 'msp/'
     ),
     /* Not 'Your MP', whose name is 'yourmp'... */
     'mp' => array (
         'parent'			=> 'mps',
-        'title'			=> 'MP',
+        'title'			=> 'Find your MP',
         'url'			=> 'mp/'
     ),
     'emailfriend' => array (
