@@ -691,6 +691,8 @@ function search_by_usage($search, $house = 0) {
                     $speakers[$pid]['office'][$moffice_id] = prettify_office($posn, $dept);
                 if (!isset($speakers[$pid]['name'])) {
                     $speakers[$pid]['name'] = $full_name . ($house==1?' MP':'');
+                }
+                if ( !isset($speakers[$pid]['party']) && $party ) {
                     $speakers[$pid]['party'] = $party;
                 }
             }
@@ -771,7 +773,13 @@ function search_member_db_lookup($searchstring, $current_only=false) {
 
     $db = new ParlDB;
     $q = $db->query("SELECT person_id FROM person_names WHERE type='name' AND ($where)", $params);
-    if (!$q->rows) {
+    return $q;
+}
+
+function search_member_db_lookup_with_names($searchstring, $current_only=false) {
+    $q = search_member_db_lookup($searchstring, $current_only);
+
+    if ( !$q->rows ) {
         return $q;
     }
 
