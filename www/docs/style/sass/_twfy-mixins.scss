@@ -214,6 +214,18 @@ $weight_bold: 700;
     &:focus {
       background-color: darken($colour_violet, 10%);
   }
+
+.form-control,
+input.form-control {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 0.35em 0.4em;
+    margin: 0;
+    border: 1px solid $colour_mid_grey;
+    @include border-radius(3px);
 }
 
 .form-control,
