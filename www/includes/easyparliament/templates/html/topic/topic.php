@@ -1,38 +1,30 @@
 <div class="topic-header">
     <div class="full-page">
         <div class="full-page__row">
-            <div class="topic-header__content page-content__row">
 
-                <div class="topic-name">
-
-                    <h1><?= $title ?></h1>
-                    <h1 class="subheader">&amp; the UK Parliament</h1>
-
-                    <p class="lead"><?= $blurb ?> Here are some places you might want to start.</p>
-
-                </div>
-
-                <?php if (isset($policytitle) AND $display_postcode_form): ?>
-
-                <div class="topic-postcode-search">
-                    <h3>What does your MP think?</h3>
-
-                    <form action="#yourrep" method="get">
-
-                        <div class="row collapse">
-                            <div class="small-10 columns">
-                                <input type="text" name="pc" value="" maxlength="10" size="10" placeholder="Your postcode">
-                            </div>
-                            <div class="small-2 columns">
-                                <input type="submit" value="GO" class="button prefix">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <?php endif; ?>
-
+            <div class="topic-name">
+                <h1><?= $title ?></h1>
+                <h1 class="subheader">&amp; the UK Parliament</h1>
+                <p class="lead"><?= $blurb ?> Here are some places you might want to start.</p>
             </div>
+
+          <?php if (isset($policytitle) AND $display_postcode_form): ?>
+            <div class="topic-postcode-search">
+                <h3>What does your MP think?</h3>
+
+                <form action="#yourrep" method="get">
+                    <div class="row collapse">
+                        <div class="small-10 columns">
+                            <input type="text" name="pc" value="" maxlength="10" size="10" placeholder="Your postcode">
+                        </div>
+                        <div class="small-2 columns">
+                            <input type="submit" value="GO" class="button prefix">
+                        </div>
+                    </div>
+                </form>
+            </div>
+          <?php endif; ?>
+
         </div>
     </div>
 </div>
