@@ -276,33 +276,49 @@
     }
 }
 
-.person-content__header {
-    /*@include grid-row;*/
-}
 .person-panels {
-    margin-top: em-calc(40);
+    padding-top: em-calc(36);
+    clear: both;
+
     .in-page-nav {
         display: none;
+
         @media (min-width: $medium-screen) {
             display: block;
         }
-        padding: 0px;
+
         & > * {
             @include radius(3px);
+
             &.fixed {
-                width: 16%;
-                max-width: 187px;
+                // Use Foundation functions to work out the width of a 2-column
+                // grid unit, minus default gutter.
+                $percentWidth: gridCalc(2, 12) - $column-gutter; // 13.666666%
+                width: $percentWidth;
+
+                // Element is position:fixed, so width is relative to viewport,
+                // not parent. To stop the element expanding when the window is
+                // wider than 1140px, we cap it to a max-width of X% of 1140px.
+                max-width: 1140px * strip-unit($percentWidth) / 100;
             }
+
             background-color: white;
             margin-left: 0px;
             margin-bottom: 0px;
             font-size: em-calc(16);
         }
+
+        .magellan-placeholder {
+          display: none;
+        }
+
+        .fixed + .magellan-placeholder {
+          display: block;
+        }
+
         li {
             list-style-position: inside;
-            padding-left: 1.5em;
-            padding-top: 0.5em;
-            padding-bottom: 0.5em;
+            padding: 0.5em 0.5em 0.5em 1.5em;
             line-height: 1.3em;
             border-bottom: 1px solid $body-bg;
             color: $borders;
