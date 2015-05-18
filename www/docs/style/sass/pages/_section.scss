@@ -61,15 +61,6 @@ span.hi {
   margin-top: 0;
 }
 
-.debate-header__content {
-  padding-left: 1em;
-  padding-right: 1em;
-  @media (min-width: $large-screen) {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
 .debate-speech {
   background-color: #fff;
   border-top: 1px solid $borders;
@@ -85,7 +76,6 @@ span.hi {
 
   .full-page__row {
     width: auto;
-    padding: 0 20px;
     position: relative;
   }
 
@@ -105,10 +95,6 @@ span.hi {
   @media (min-width: $large-screen) {
     padding-top: 40px;
     padding-bottom: 40px;
-
-    .full-page__row {
-      padding: 0;
-    }
   }
 }
 
@@ -451,10 +437,10 @@ span.hi {
 
 .debate-navigation {
   background-color: $body-bg;
-  padding:0 1em;
   text-align: center;
   @include clearfix;
   position: relative;
+
   a {
     display: block;
     color: $light-text;
