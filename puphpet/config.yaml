@@ -64,10 +64,13 @@ server:
         - liberror-perl
         - libxml-twig-perl
         - libyaml-perl
+        - libfile-slurp-perl
+        - libjson-perl
         - libsearch-xapian-perl
         - python-mysqldb
         - python-lxml
-        - subversion
+        - python-yaml
+        - python-egenix-mxdatetime
         - snarf
 users_groups:
     install: '1'
@@ -203,10 +206,7 @@ ruby:
                 - compass
             bundler: '1'
 nodejs:
-    install: '1'
-    npm_packages:
-        - bower
-        - grunt
+    install: '0'
 python:
     install: '1'
     packages: {  }
