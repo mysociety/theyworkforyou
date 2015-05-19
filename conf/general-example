@@ -94,7 +94,7 @@ define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");
 // Location of the directory that is the Xapian search database.
 // To use the Xapian remote backend, specify server:port.
 // If non-empty will use XAPIAN search.
-define ("XAPIANDB", '');
+define ("XAPIANDB", "");
 // To allow back end to still index/send alerts, but turn off front end.
 define ('FRONT_END_SEARCH', 1);
 

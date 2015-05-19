@@ -2,13 +2,14 @@ class puphpet::python::pip {
 
   Exec { path => [ '/usr/bin/', '/usr/local/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin' ] }
 
-  if ! defined(Package['python-setuptools']) {
-    package { 'python-setuptools': }
+  exec { 'install_setuptools':
+    command => "curl https://bootstrap.pypa.io/ez_setup.py | python",
+    cwd     => '/tmp',
+    before  => Exec['easy_install pip']
   }
 
   exec { 'easy_install pip':
     unless  => 'which pip',
-    require => Package['python-setuptools'],
   }
 
   if $::osfamily == 'RedHat' {
