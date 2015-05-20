@@ -2,6 +2,7 @@
     global $hansardmajors;
 
     twfy_debug("TEMPLATE", "hansard_gid.php");
+    $previous_speech_time = null;
 
 ?>
 
@@ -206,7 +207,7 @@
                     <strong class="debate-speech__speaker__name"><?= $speaker_name ?></strong>
                     <small class="debate-speech__speaker__position"><?= $speaker_position ?></small>
                 </a>
-                <?php if (!isset($previous_speech_time) || $previous_speech_time != $speech['htime']) { ?>
+                <?php if ($previous_speech_time != $speech['htime']) { ?>
                     <a href="<?= $speech['listurl'] ?>" class="debate-speech__meta__link time">
                       <?php if ($speech['htime']) { ?>
                         <?= format_time($speech['htime'], 'g:i a') ?>,
