@@ -500,7 +500,10 @@ function construct_search_string() {
 
     $searchstring = trim($searchstring);
     if ($search_main && $searchstring) {
-        $searchstring = "($search_main) $searchstring";
+        if (strpos($search_main, 'OR') !== false) {
+            $search_main = "($search_main)";
+        }
+        $searchstring = "$search_main $searchstring";
     } elseif ($search_main) {
         $searchstring = $search_main;
     }
