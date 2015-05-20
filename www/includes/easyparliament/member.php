@@ -112,6 +112,7 @@ class MEMBER {
         }
 
         $this->house_disp = 0;
+        $last_party = null;
         for ($row=0; $row<$q->rows(); $row++) {
             $house          = $q->field($row, 'house');
             if (!in_array($house, $this->houses)) $this->houses[] = $house;
@@ -158,12 +159,13 @@ class MEMBER {
                 $this->person_id	= $q->field($row, 'person_id');
             }
 
-            if ($left_reason == 'changed_party') {
+            if (($last_party && $party != $last_party) || $left_reason == 'changed_party') {
                 $this->other_parties[] = array(
-                    'from' => $this->party_text($q->field($row, 'party')),
-                    'date' => $q->field($row, 'left_house')
+                    'from' => $this->party_text($party),
+                    'date' => $left_house,
                 );
             }
+            $last_party = $party;
 
             if ($const != $this->constituency) {
                 $this->other_constituencies[$const] = true;
