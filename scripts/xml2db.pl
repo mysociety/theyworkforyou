@@ -132,7 +132,7 @@ db_connect();
 use vars qw($hpos $curdate);
 use vars qw($currsection $currsubsection $inoralanswers $promotedheading);
 use vars qw(%gids %grdests %ignorehistorygids $tallygidsmode $tallygidsmodedummycount);
-use vars qw(%membertoperson);
+use vars qw(%membertoperson %personredirect);
 use vars qw($current_file);
 
 use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir
@@ -267,8 +267,19 @@ sub process_type {
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
 my $j = decode_json(read_file($pwmembers . 'people.json'));
 foreach (@{$j->{memberships}}) {
+    next if $_->{redirect};
     (my $person_id = $_->{person_id}) =~ s#uk.org.publicwhip/person/##;
     $membertoperson{$_->{id}} = $person_id;
+}
+foreach (@{$j->{memberships}}) {
+    next unless $_->{redirect};
+    $membertoperson{$_->{id}} = $membertoperson{$_->{redirect}};
+}
+foreach (@{$j->{persons}}) {
+    next unless $_->{redirect};
+    (my $id = $_->{id}) =~ s#uk.org.publicwhip/person/##;
+    (my $redirect = $_->{redirect}) =~ s#uk.org.publicwhip/person/##;
+    $personredirect{$id} = $redirect;
 }
 
 # Process main data
@@ -884,6 +895,14 @@ sub last_id
     return $arr[0];
 }
 
+sub person_id {
+    my ($item, $member_id_attr) = @_;
+    my $person_id = $item->att('person_id') || $membertoperson{$item->att($member_id_attr)} || 'unknown';
+    $person_id =~ s/.*\///;
+    $person_id = $personredirect{$person_id} || $person_id;
+    return $person_id;
+}
+
 ##########################################################################
 # Written Answers
 
@@ -1030,13 +1049,12 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
         die unless $side =~ /^(aye|no|content|not-content)$/;
         $text .= "<h2>\u$side</h2> <ul class='division-list'>";
         my @names = $list->children($vote_tag); # attr ids vote (teller), text is name
-        foreach my $person (@names) {
-            my $person_id = $person->att('person_id') || $membertoperson{$person->att('id')};
-            $person_id =~ s/.*\///;
-            my $vote = $person->att('vote');
+        foreach my $vote (@names) {
+            my $person_id = person_id($vote, 'id');
+            my $vote = $vote->att('vote');
             die unless $vote eq $side;
-            my $teller = $person->att('teller');
-            my $name = $person->sprint(1);
+            my $teller = $vote->att('teller');
+            my $name = $vote->sprint(1);
             $name =~ s/ *\[Teller\]//; # In Lords
             $name =~ s/^(.*), (.*)$/$2 $1/;
             $name =~ s/^(rh|Mr|Sir|Ms|Mrs|Dr) //;
@@ -1407,7 +1425,7 @@ sub add_standing_day {
             foreach (@names) {
                 my $chairman = ($_->parent()->tag() eq 'chairmen');
                 my $attending = ($_->att('attending') eq 'true');
-                my $person_id = $_->att('person_id') || $membertoperson{$_->att('memberid')};
+                my $person_id = person_id($_, 'memberid');
                 $current_file =~ /_(\d\d-\d)_/;
                 my $sitting = $1;
                 if (my ($id, $curr_attending) = $dbh->selectrow_array('select id,attending from pbc_members where person_id=? and bill_id=?
@@ -1497,8 +1515,7 @@ sub load_standing_division {
     my @names = $division->descendants('mpname');
     my %out = ( aye => '', no => '' );
     foreach (@names) {
-        my $person_id = $_->att('person_id') || $membertoperson{$_->att('memberid')};
-        $person_id =~ s/.*\///;
+        my $person_id = person_id($_, 'memberid');
         my $name = $_->att('membername');
         my $v = $_->att('vote');
         $out{$v} .= '<a href="/mp/?p=' . $person_id . '">' . $name . '</a>, ';
@@ -1661,11 +1678,7 @@ sub do_load_speech
     my $pretext = "";
     if ($speech->att('person_id') || $speech->att('speakerid')) {
         $type = 12;
-        if ($speech->att('person_id')) {
-            ($speaker = $speech->att('person_id')) =~ s#uk.org.publicwhip/person/##;
-        } else {
-            $speaker = $membertoperson{$speech->att('speakerid')} || 'unknown';
-        }
+        $speaker = person_id($speech, 'speakerid');
         if ($speaker eq "unknown") {
             $speaker = 0;
             my $encoded = HTML::Entities::encode_entities($speech->att('speakername'));
