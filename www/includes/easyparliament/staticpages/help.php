@@ -81,7 +81,7 @@ start of the 2000&ndash;01 session.
 <li>Hansard House of Lords Hansard (except Grand Committees) back to around November 1999;
 <li>knowledge of Lords back to the House of Lords Act 1999;
 <li>everything in the various Northern Ireland (Transitional) Assembly debates, and all MLAs;
-<li>everything in the Scottish Parliament official report, and all MSPs.
+<li>everything in the Scottish Parliament official report until August 2014, and all MSPs.
 </ul>
 
 <p>But this is by no means everything. Think of what we've done thus far as a
@@ -163,14 +163,12 @@ parties. Since the Whip is secret, we have to assume, <a
 href="http://www.theyworkforyou.com/debates/?id=2005-02-07.1200.2">like the
 Speaker</a>, that all votes are free.  </P>
 
-<p>If you put in some work, we will add new policies to the voting record
-section. You need to research the policy, and make up a list of divisions in
-Parliament relating to it and which way the votes go. You can then
-<a href="http://www.publicwhip.org.uk/policies.php">enter these into the Public
-Whip site</a>. When you're done, <a href="/contact">contact us</a> to get us
-to add it to TheyWorkForYou. You must also be prepared to maintain this list of
-votes as more related ones are cast in future.
-</p>
+<p>Details of the votes on which each policy position is based are available on
+the <a href="http://www.publicwhip.org.uk/">Public Whip</a> website. You can
+<a href="http://www.mysociety.org/2010/03/24/theyworkforyou-policy-update/">read
+more about the process we follow when researching the policy positions on our
+blog</a>. Please <a href="/contact/">contact us</a> if you've spotted something
+which needs to be updated or corrected.</p>
 
 </dd>
 
@@ -213,30 +211,23 @@ address</a>. We've got a few ideas ourselves, to keep you on your toes.
 
 <dt><a name="pps_unknown"></a>Why are the PPS positions out of date?</dt>
 <dd>
-<p>TheyWorkForYou got its ministerial information, as with much else, by
-scraping various pages on the official parliament.uk site. Since the 16th of
-January 2009, the <a
-href="http://www.parliament.uk/directories/hciolists/Pps.cfm">page on
-Parliamentary Private Secretaries</a>, that until that date listed them all,
-simply says they do not maintain such a list. This means our scraper can no
-longer find and work out the information, and so we do not know the current
-PPSes.</p>
-
-<p>This is obviously disappointing, but without a central list of Parliamentary
-Private Secretaries, there doesn't appear to be a lot we can do. Apologies for
-any inconvenience caused.</p>
+<p>TheyWorkForYou used to get its ministerial information, as with much else,
+by scraping various pages on the official parliament.uk site. The official site
+stopped maintaining a list of PPSs in January 2009, which means our scraper could
+no longer find and work out the information. Without a central list of
+Parliamentary Private Secretaries, there isn't a lot we can do.</p>
 
 </dd>
 
 <dt><a name="dates_wrong"></a>The date someone starts/ends a ministerial position is wrong!</dt>
 <dd>
-<p>TheyWorkForYou got its ministerial information, as with much else, by
-scraping various pages on the official parliament.uk site. Sadly, the site was
-sometimes out of date or incorrect, which will of course lead to incorrect
-information appearing on our site too. Due to the way it all hangs together
-(with lots of bits of string), it is not at all simple to override or fix these
-at present.
-
+<p>TheyWorkForYou gets its current ministerial position information from
+<a href="http://data.parliament.uk/membersdataplatform/memberquery.aspx">Parliament's official API</a>,
+so for any issues with current dates, please contact Parliament. We used to
+obtain data by scraping various pages on the official parliament.uk site, so
+there might be issues on our site with older data. We hope to also fetch old
+ministerial information from Parliament's API in future, which should hopefully
+fix any outstanding issues.</p>
 </dd>
 
 <dt><a name="independent"></a>What is an Independent, or Independent &lt;party&gt; MP?</dt>
