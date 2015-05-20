@@ -51,9 +51,10 @@ if (isset($info['total_results']) && $info['total_results'] > 0) {
 }
 
 if ($info['spelling_correction']) {
-        $u = new URL('search');
+    $u = new URL('search');
+    $u->reset();
     $u->insert(array('s' => $info['spelling_correction']));
-        echo '<p><big>Did you mean: <a href="' . $u->generate(), '">', $info['spelling_correction'] . '</a>?</big></p>';
+    echo '<p><big>Did you mean: <a href="' . $u->generate(), '">', $info['spelling_correction'] . '</a>?</big></p>';
 }
 
 if ($match = get_http_var('match')) {
