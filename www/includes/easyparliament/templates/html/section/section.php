@@ -8,7 +8,7 @@
 <div class="debate-header regional-header regional-header--<?= $current_assembly ?>">
     <div class="regional-header__overlay"></div>
     <div class="full-page__row">
-        <div class="debate-header__content">
+        <div class="debate-header__content full-page__unit">
             <h1><?= $heading ?></h1>
             <p class="lead">
                 <?= $intro ?> <?= $location ?>
@@ -23,24 +23,26 @@
     </div>
     <nav class="debate-navigation" role="navigation">
         <div class="full-page__row">
-            <div class="debate-navigation__pagination">
-                <?php if (isset($nextprev['prev'])) { ?>
-                <div class="debate-navigation__previous-debate">
-                    <a href="<?= $nextprev['prev']['url'] ?>" rel="prev">&laquo; <?= $nextprev['prev']['body'] ?></a>
-                </div>
-                <?php } ?>
+            <div class="full-page__unit">
+                <div class="debate-navigation__pagination">
+                    <?php if (isset($nextprev['prev'])) { ?>
+                    <div class="debate-navigation__previous-debate">
+                        <a href="<?= $nextprev['prev']['url'] ?>" rel="prev">&laquo; <?= $nextprev['prev']['body'] ?></a>
+                    </div>
+                    <?php } ?>
 
-                <?php if (isset($nextprev['up'])) { ?>
-                <div class="debate-navigation__all-debates">
-                    <a href="<?= $nextprev['up']['url'] ?>" rel="up"><?= $nextprev['up']['body'] ?></a>
-                </div>
-                <?php } ?>
+                    <?php if (isset($nextprev['up'])) { ?>
+                    <div class="debate-navigation__all-debates">
+                        <a href="<?= $nextprev['up']['url'] ?>" rel="up"><?= $nextprev['up']['body'] ?></a>
+                    </div>
+                    <?php } ?>
 
-                <?php if (isset($nextprev['next'])) { ?>
-                <div class="debate-navigation__next-debate">
-                    <a href="<?= $nextprev['next']['url'] ?>" rel="next"><?= $nextprev['next']['body'] ?> &raquo;</a>
+                    <?php if (isset($nextprev['next'])) { ?>
+                    <div class="debate-navigation__next-debate">
+                        <a href="<?= $nextprev['next']['url'] ?>" rel="next"><?= $nextprev['next']['body'] ?> &raquo;</a>
+                    </div>
+                    <?php } ?>
                 </div>
-                <?php } ?>
             </div>
         </div>
     </nav>
@@ -49,7 +51,9 @@
 <div class="full-page">
     <div class="debate-speech__notice">
         <div class="full-page__row">
-            Due to changes made to the official Scottish Parliament, our parser that used to fetch their web pages and convert them into more structured information has stopped working. We're afraid we cannot give a timescale as to when we will be able to cover the Scottish Parliament again. Sorry for any inconvenience caused.
+            <div class="full-page__unit">
+                Due to changes made to the official Scottish Parliament, our parser that used to fetch their web pages and convert them into more structured information has stopped working. We're afraid we cannot give a timescale as to when we will be able to cover the Scottish Parliament again. Sorry for any inconvenience caused.
+            </div>
         </div>
     </div>
 </div>
@@ -160,6 +164,8 @@
 
     <div class="debate-speech" id="g<?= gid_to_anchor($speech['gid']) ?>">
         <div class="full-page__row">
+            <div class="full-page__unit">
+
             <a name="g<?= gid_to_anchor($speech['gid']) ?>"></a>
 
             <div class="debate-speech__speaker-and-content">
@@ -318,6 +324,9 @@
                 }
 ?>
             </ul>
+
+        </div>
+
         </div>
     </div>
 
@@ -325,7 +334,7 @@
 
   <?php } // end foreach
         if (isset($data['subrows'])) {
-        print '<div class="subrows"><div class="full-page__row"><ul>';
+        print '<div class="subrows"><div class="full-page__row"><div class="full-page__unit"><ul>';
         foreach ($data['subrows'] as $row) {
             print '<li class="subrows__list-item">';
             if (isset($row['contentcount']) && $row['contentcount'] > 0) {
@@ -360,18 +369,20 @@
                 print "<p class=\"subrows__excerpt\">" . trim_characters($row['excerpt'], 0, 200) . "</p>";
             }
         }
-        print '</ul></div></div>';
+        print '</ul></div></div></div>';
     }
     if ($individual_item) { ?>
         <div class="debate-comments">
             <div class="full-page__row">
-            <?php
-                # XXX
-                global $PAGE;
-                $comments['object']->display('ep', $comments['args']);
-                $PAGE->comment_form($comments['commentdata']);
-                # XXX COMMENT SIDEBAR SHOULD GO HERE IF LOGGED IN
-            ?>
+                <div class="full-page__unit">
+                <?php
+                    # XXX
+                    global $PAGE;
+                    $comments['object']->display('ep', $comments['args']);
+                    $PAGE->comment_form($comments['commentdata']);
+                    # XXX COMMENT SIDEBAR SHOULD GO HERE IF LOGGED IN
+                ?>
+                </div>
             </div>
         </div>
         <?php

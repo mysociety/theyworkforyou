@@ -141,8 +141,7 @@ $weight_bold: 700;
     @include grid-column(12);
 }
 
-.nested-row,
-.page-content__row {
+.nested-row {
   @include grid-row(nest);
   // a nested grid row, used generically to add a nested grid row
 }

@@ -19,41 +19,35 @@
     background-position: center center;
     background-size: cover;
 
-    .topic-header__content {
-        color: white;
+    .full-page__row {
+        position: relative; // for .topic-postcode-search absolute position
+    }
+
+    .topic-name {
+        color: #fff;
+        @include grid-column(12);
+
+        @media (min-width: $medium-screen) {
+            @include grid-column(8);
+        }
+
+        h1 {
+            color: inherit;
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+
+    .topic-postcode-search {
+        background: rgb(243, 241, 235);
         @include grid-column(12);
         @media (min-width: $medium-screen) {
-            position: relative;
+            @include grid-column(4);
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin-bottom: em-calc(30);
         }
-        @media (min-width: $large-screen) {
-            @include grid-column(10);
-        }
-        .topic-name {
-            h1 {
-                color: white;
-                margin: 0px;
-                padding: 0px;
-            }
-
-            @include grid-column(12);
-            @media (min-width: $medium-screen) {
-                @include grid-column(8);
-            }
-
-        }
-
-        .topic-postcode-search {
-            background: rgb(243, 241, 235);
-            @include grid-column(12);
-            @media (min-width: $medium-screen) {
-                @include grid-column(4);
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                margin-bottom: em-calc(30);
-            }
-        }
-
     }
 }
 
