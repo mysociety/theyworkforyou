@@ -56,7 +56,7 @@ function twfy_debug($header, $text="") {
 }
 
 function exception_handler($e) {
-    trigger_error($e->getMessage());
+    trigger_error($e->getMessage(), E_USER_ERROR);
 }
 
 function error_handler($errno, $errmsg, $filename, $linenum, $vars) {
