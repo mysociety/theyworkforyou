@@ -123,7 +123,7 @@ Class MySQLQuery {
         }
 
         twfy_debug ("SQL", $sql);
-
+        twfy_debug ("SQL", print_r($params, 1));
 
         if ($params !== NULL) {
             // Prepare and execute a statement
