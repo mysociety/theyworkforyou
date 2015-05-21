@@ -5,7 +5,7 @@
             <div class="search-page__section search-page__section--search">
                 <div class="search-page__section__primary">
                     <p class="search-page-main-inputs">
-                        <input type="text" class="form-control">
+                        <input type="text" name="q" value="<?= $searchstring ?>" class="form-control">
                         <button type="submit" class="button">Search</button>
                     </p>
                     <p>
@@ -44,7 +44,7 @@
                     <div class="search-option">
                         <div class="search-option__control">
                             <select name="section">
-                                <option>Any</option>
+                                <option></option>
                                 <optgroup label="UK Parliament">
                                     <option value="uk">All UK</option>
                                     <option value="debates">House of Commons debates</option>
@@ -85,6 +85,7 @@
             </div>
         </form>
 
+        <?php if ( $searchstring ) { ?>
         <div class="search-page__section search-page__section--results">
             <div class="search-page__section__primary">
                 <h2>People matching <em class="current-search-term">Peacock</em></h2>
@@ -117,21 +118,12 @@
                     <li><a href="./by-person.php">Group by person</a></li>
                 </ul>
 
+                <?php foreach ( $rows as $result ) { ?>
                 <div class="search-result search-result--generic">
-                    <h3 class="search-result__title"><a href="#">Women: Contribution to Economic Life &mdash; Motion to Take Note</a> (6 March 2014)</h3>
-                    <p class="search-result__description">Baroness Bottomley of Nettlestone: &hellip;people would think that academia was quite a female-friendly environment. Of course&mdash;and these are factors that you see in business and elsewhere&mdash;you continually have to publish, promote yourself, assert yourself and be a <em class="current-search-term">peacock</em>. As we understand, the real difference between men and women in the workplace is that women are far less likely to push themselves forward and to be&hellip;</p>
+                <h3 class="search-result__title"><a href="<?= $result['listurl'] ?>"><?= $result['parent']['body'] ?></a> (<?= format_date($result['hdate'], SHORTDATEFORMAT) ?>)</h3>
+                    <p class="search-result__description"><?= isset($result['speaker']) ? $result['speaker']['name'] . ': ' : '' ?><?= $result['extract'] ?></p>
                 </div>
-
-                <div class="search-result search-result--generic">
-                    <h3 class="search-result__title"><a href="#">Public Bill Committee: Consumer Rights Bill: Clause 54 - Consumer&rsquo;s rights to enforce terms about services</a> (4 March 2014)</h3>
-                    <p class="search-result__description">Adjourned till Thursday 6 March at half-past Eleven o&rsquo;clock.  Written evidence reported to the House CR 22 David <em class="current-search-term">Peacock</em> CR 23 Newspaper Society and the Newspaper Publishers Association</p>
-                </div>
-
-                <div class="search-result search-result--generic">
-                    <h3 class="search-result__title"><a href="#">Previous Business &ndash; Commons: Select Committee</a> (18 December 2013)</h3>
-                    <p class="search-result__description">Science and Technology: Antimicrobial resistance (AMR). 10:15 am; The Thatcher Room, Portcullis House<br/>
-Witnesses: Dr Pat Goodwin, Society of Biology, Professor Laura Piddock, British Society for Antimicrobial Chemotherapy, Professor John Threlfall, Society for Applied Microbiology and Professor Sharon <em class="current-search-term">Peacock</em>, Cambridge Infectious Diseases Initiative, University of Cambridge</p>
-                </div>
+                <?php } ?>
 
                 <hr>
 
@@ -180,6 +172,7 @@ Witnesses: Dr Pat Goodwin, Society of Biology, Professor Laura Piddock, British 
                 </form>
             </div>
         </div>
+        <?php } ?>
 
     </div>
 </div>
