@@ -178,6 +178,15 @@ class SEARCHENGINE {
             $this->query .= " 19990101..$to";
         }
 
+        # Merged people
+        $db = new ParlDB;
+        $merged = $db->query('SELECT * FROM gidredirect WHERE gid_from LIKE :gid_from', array(':gid_from' => "uk.org.publicwhip/person/%"));
+        for ($n=0; $n<$merged->rows(); $n++) {
+            $from_id = str_replace('uk.org.publicwhip/person/', '', $merged->field($n, 'gid_from'));
+            $to_id = str_replace('uk.org.publicwhip/person/', '', $merged->field($n, 'gid_to'));
+            $this->query = preg_replace("#speaker:($from_id|$to_id)#i", "(speaker:$from_id OR speaker:$to_id)", $this->query);
+        }
+
         twfy_debug("SEARCH", "prefixed: " . var_export($this->prefixed, true));
 
         twfy_debug("SEARCH", "query -- ". $this->query);
@@ -253,11 +262,17 @@ class SEARCHENGINE {
         }
 
         # Speakers
+        for ($n=0; $n<$merged->rows(); $n++) {
+            $from_id = str_replace('uk.org.publicwhip/person/', '', $merged->field($n, 'gid_from'));
+            $to_id = str_replace('uk.org.publicwhip/person/', '', $merged->field($n, 'gid_to'));
+            $qd = preg_replace("#\(S$from_id OR S$to_id\)#", "S$to_id", $qd);
+        }
+
         preg_match_all('#S(\d+)#', $qd, $m);
         foreach ($m[1] as $mm) {
-                $member = new MEMBER(array('person_id' => $mm));
-                $name = iconv('iso-8859-1', 'utf-8//TRANSLIT', $member->full_name()); # Names are currently in ISO-8859-1
-                $qd = str_replace("S$mm", "speaker:$name", $qd);
+            $member = new MEMBER(array('person_id' => $mm));
+            $name = iconv('iso-8859-1', 'utf-8//TRANSLIT', $member->full_name()); # Names are currently in ISO-8859-1
+            $qd = str_replace("S$mm", "speaker:$name", $qd);
         }
 
         # Simplify display of excluded words

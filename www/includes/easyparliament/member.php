@@ -81,6 +81,13 @@ class MEMBER {
             $person_id = $this->postcode_to_person_id($args['postcode'], $house);
         } elseif (isset($args['person_id']) && is_numeric($args['person_id'])) {
             $person_id = $args['person_id'];
+            $q = $this->db->query("SELECT gid_to FROM gidredirect
+                    WHERE gid_from = :gid_from",
+                array(':gid_from' => "uk.org.publicwhip/person/$person_id")
+            );
+            if ($q->rows > 0) {
+                $person_id = str_replace('uk.org.publicwhip/person/', '', $q->field(0, 'gid_to'));
+            }
         }
 
         if (!$person_id) {
@@ -185,6 +192,13 @@ class MEMBER {
                     WHERE member_id = :member_id",
             array(':member_id' => $member_id)
         );
+        if ($q->rows == 0) {
+            $q = $this->db->query("SELECT person_id FROM gidredirect, member
+                    WHERE gid_from = :gid_from AND
+                        CONCAT('uk.org.publicwhip/member/', member_id) = gid_to",
+                array(':gid_from' => "uk.org.publicwhip/member/$member_id")
+            );
+        }
         if ($q->rows > 0) {
             return $q->field(0, 'person_id');
         } else {

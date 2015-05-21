@@ -51,7 +51,7 @@ verbose("End");
 
 # ---
 
-my ($dbh, $memberadd, $memberexist, $membercheck, $nameadd, $nameupdate, $namefetch, $namedelete);
+my ($dbh, $memberadd, $memberexist, $membercheck, $nameadd, $nameupdate, $namefetch, $namedelete, $gradd, $grdelete);
 
 sub db_connect {
     #DBI->trace(1);
@@ -73,6 +73,9 @@ sub db_connect {
         family_name, lordofname, start_date, end_date) values (?, ?, ?, ?, ?, ?, ?, ?)");
     $namefetch = $dbh->prepare("select id from person_names where person_id = ? and end_date >= ? ORDER BY id");
     $namedelete = $dbh->prepare('delete from person_names where id=?');
+
+    $gradd = $dbh->prepare("replace into gidredirect (gid_from, gid_to) values (?,?)");
+    $grdelete = $dbh->prepare("delete from gidredirect where gid_from = ?");
 }
 
 my %organizations;
@@ -142,10 +145,18 @@ sub load_people {
         $posts{$_->{id}} = $_;
     }
     foreach (@{$j->{memberships}}) {
-        load_member($_);
+        if ($_->{redirect}) {
+            $gradd->execute($_->{id}, $_->{redirect});
+        } else {
+            load_member($_);
+        }
     }
     foreach (@{$j->{persons}}) {
-        load_names($_);
+        if ($_->{redirect}) {
+            $gradd->execute($_->{id}, $_->{redirect});
+        } else {
+            load_names($_);
+        }
     }
 }
 
@@ -154,7 +165,9 @@ my %member_ids = ();
 sub load_member {
     my ($member) = @_;
 
-    (my $id = $member->{id}) =~ s:uk.org.publicwhip/(member|lord|royal)/::;
+    my $id = $member->{id};
+    $grdelete->execute($id);
+    $id =~ s:uk.org.publicwhip/(member|lord|royal)/::;
     (my $person_id = $member->{person_id}) =~ s#uk.org.publicwhip/person/##;
 
     $member_ids{$id} = 1;
@@ -195,7 +208,9 @@ sub load_member {
 sub load_names {
     my $person = shift;
 
-    (my $id = $person->{id}) =~ s#uk.org.publicwhip/person/##;
+    my $id = $person->{id};
+    $grdelete->execute($id);
+    $id =~ s#uk.org.publicwhip/person/##;
 
     my @names;
     foreach my $name (@{$person->{other_names}}) {
