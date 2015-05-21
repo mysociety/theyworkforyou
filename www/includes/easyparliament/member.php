@@ -166,7 +166,7 @@ class MEMBER {
                 $this->person_id	= $q->field($row, 'person_id');
             }
 
-            if (($last_party && $party != $last_party) || $left_reason == 'changed_party') {
+            if (($last_party && $party && $party != $last_party) || $left_reason == 'changed_party') {
                 $this->other_parties[] = array(
                     'from' => $this->party_text($party),
                     'date' => $left_house,
