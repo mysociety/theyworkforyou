@@ -2173,7 +2173,7 @@ class HANSARDLIST {
             if ($source == 'chgpages/libdem' && $hdate > '2009-01-15') {
                 continue;
             }
-            if (!$pos || $pos == 'Chairman') {
+            if (!$pos || $pos == 'Chairman' || $pos == 'Member') {
                 continue;
             }
             $offices[] = array(
