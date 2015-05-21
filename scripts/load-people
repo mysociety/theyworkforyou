@@ -110,7 +110,7 @@ sub load_constituencies {
         my $start_date = $cons->{start_date};
         $start_date .= '-00-00' if length($start_date) == 4;
         my $end_date = $cons->{end_date} || '9999-12-31';
-        $end_date .= '-00-00' if length($end_date) == 4;
+        $end_date = ($end_date+1) . '-00-00' if length($end_date) == 4;
 
         next unless $end_date ge $from;
 
@@ -175,7 +175,7 @@ sub load_member {
     my $start_date = $member->{start_date} || '0000-00-00';
     $start_date .= '-00-00' if length($start_date) == 4;
     my $end_date = $member->{end_date} || '9999-12-31';
-    $end_date .= '-00-00' if length($end_date) == 4;
+    $end_date = ($end_date+1) . '-00-00' if length($end_date) == 4;
 
     return unless $end_date ge $from;
 
@@ -219,7 +219,7 @@ sub load_names {
         my $start_date = $name->{start_date} || '0000-00-00';
         $start_date .= '-00-00' if length($start_date) == 4;
         my $end_date = $name->{end_date} || '9999-12-31';
-        $end_date .= '-00-00' if length($end_date) == 4;
+        $end_date = ($end_date+1) . '-00-00' if length($end_date) == 4;
 
         next unless $end_date ge $from;
 

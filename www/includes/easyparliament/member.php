@@ -563,7 +563,8 @@ class MEMBER {
         if (checkdate($month, $day, $year) && $year != '9999') {
             return format_date($left_house, LONGDATEFORMAT);
         } elseif ($month==0 && $day==0) {
-            return $year;
+            # Left house date is stored as 1942-00-00 to mean "at some point in 1941"
+            return $year - 1;
         } else {
             return "n/a";
         }
