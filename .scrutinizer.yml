@@ -12,7 +12,7 @@ tools:
     php_changetracking: true
     sensiolabs_security_checker: true
     external_code_coverage:
-        timeout: 600
+        timeout: 1800
 
 build_failure_conditions:
     # No new element rated worse than a D exists
