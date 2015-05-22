@@ -79,7 +79,7 @@ class Entry(object):
                         except:
                             pass
                     if id:
-                        self.people.append(int(memberList.membertoperson(id).replace('uk.org.publicwhip/person/', '')))
+                        self.people.append(int(id.replace('uk.org.publicwhip/person/', '')))
 
                 if len(self.people) == len(person_texts):
                     title_text = title_text.replace(' - ' + m.group(1), '')
@@ -98,7 +98,7 @@ class Entry(object):
             for mp in m:
                 id, name, cons = memberList.matchfullnamecons(mp, None, self.event_date)
                 if not id: continue
-                pid = int(memberList.membertoperson(id).replace('uk.org.publicwhip/person/', ''))
+                pid = int(id.replace('uk.org.publicwhip/person/', ''))
                 mp_link = '<a href="/mp/?p=%d">%s</a>' % (pid, mp)
                 self.witnesses.append(pid)
                 self.witnesses_str = self.witnesses_str.replace(mp, mp_link)
