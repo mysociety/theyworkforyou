@@ -97,6 +97,7 @@ if ($details['alertsearch']) {
 if (isset($details['members']) && $details['members']->rows() == 1) {
     $details['pid'] = $details['members']->field(0, 'person_id');
     unset($details['members']);
+    unset($details['alertsearch']);
 }
 
 if (isset($details['constituencies']) && count($details['constituencies']) == 1 && $details['valid_postcode']) {
@@ -104,6 +105,7 @@ if (isset($details['constituencies']) && count($details['constituencies']) == 1 
     $details['pid'] = $MEMBER->person_id();
     $details['pc'] = $details['alertsearch'];
     unset($details['constituencies']);
+    unset($details['alertsearch']);
 }
 
 if (!sizeof($errors) && ($details['keyword'] || $details['pid'])) {
