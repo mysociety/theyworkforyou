@@ -30,7 +30,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                   <?php if ($register_interests): ?>
                     <li data-magellan-arrival="register"><a href="#register">Register of Interests</a></li>
                   <?php endif; ?>
-                    <li hidden id="research-qual2-bucket2"><a href="/action/where-next">What to do with the information on this page?</a></li>
+                    <li hidden id="research-quant2-bucket2"><a href="/action/where-next">What to do with the information on this page?</a></li>
                 </ul>
                 <div class="magellan-placeholder">&nbsp;</div>
             </div>
@@ -317,4 +317,4 @@ you can find it.</p>
     </div>
 </div>
 
-<?php include INCLUDESPATH . 'easyparliament/templates/research/qual2.php'; ?>
+<?php include INCLUDESPATH . 'easyparliament/templates/research/quant2.php'; ?>

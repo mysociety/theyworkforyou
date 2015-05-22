@@ -20,13 +20,13 @@
                 <div class="action-option">
                     <h5>&hellip;with a public body or organisation</h5>
                     <p>The Ombudsman Association can help you find the right organisation to take your complaint to:<br>
-                    <a href="http://www.ombudsmanassociation.org/">http://www.ombudsmanassociation.org/</a></p>
+                    <a href="http://www.ombudsmanassociation.org/" onclick="trackLinkClick(this, 'Links', 'WhereNext', 'OmbudsmanAssociation'); return false;">http://www.ombudsmanassociation.org/</a></p>
                 </div>
 
                 <div class="action-option">
                     <h5>&hellip;with your own personal circumstances</h5>
                     <p>The Citizens Advice Bureau can help you with everything from budgeting, to pensions, to workplace complaints, and more:<br>
-                    <a href="http://www.adviceguide.org.uk/england.htm">http://www.adviceguide.org.uk/england.htm</a></p>
+                    <a href="http://www.adviceguide.org.uk/england.htm" onclick="trackLinkClick(this, 'Links', 'WhereNext', 'CAB'); return false;">http://www.adviceguide.org.uk/england.htm</a></p>
                 </div>
 
             </div>
@@ -37,28 +37,25 @@
                 <div class="action-option">
                     <h5>&hellip;about how Parliament works</h5>
                     <p>OpenDemocracy can provide you with more information about democracy and politics in the UK:<br>
-                    <a href="https://www.opendemocracy.net/">https://www.opendemocracy.net/</a></p>
+                    <a href="https://www.opendemocracy.net/" onclick="trackLinkClick(this, 'Links', 'WhereNext', 'OpenDemocracy'); return false;">https://www.opendemocracy.net/</a></p>
                 </div>
 
                 <div class="action-option">
                     <h5>&hellip;from a public authority</h5>
                     <p>You can ask for information from any publicly-funded body in the UK, using WhatDoTheyKnow.com. You can also view requests made by other people, and see the responses that they received:<br>
-                    <a href="https://www.whatdotheyknow.com/">https://www.whatdotheyknow.com/</a></p>
+                    <a href="https://www.whatdotheyknow.com/" onclick="trackLinkClick(this, 'Links', 'WhereNext', 'WDTK'); return false;">https://www.whatdotheyknow.com/</a></p>
                 </div>
 
             </div>
-
-            <!--
 
             <div class="action-section">
 
                 <h3 class="action-option-heading">If you want to tell your MP how you feel about what you&rsquo;ve just read</h3>
                 <p>You can use WriteToThem.com to get in touch with them directly:<br>
-                <a href="https://www.writetothem.com/">https://www.writetothem.com/</a></p>
+                <a href="https://www.writetothem.com/" onclick="trackLinkClick(this, 'Links', 'WhereNext', 'WTT'); return false;">https://www.writetothem.com/</a></p>
 
             </div>
 
-            -->
         </div>
     </div>
 </div>
