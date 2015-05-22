@@ -343,6 +343,11 @@ sub get_person {
     my ($person_id, $hdate, $htime, $major) = @_;
     return unless $person_id;
 
+    # Special exemptions for people 'speaking' after they have died
+    # Note identical code to this in hansardlist.php
+    $hdate = '2014-09-07' if $person_id == 10170 && $hdate == '2014-09-08';
+    $hdate = '2008-08-13' if $person_id == 11068 && substr($hdate, 0, 7) == '2008-09';
+
     my @matches = @{$dbh->selectall_arrayref($q_person, { Slice => {} }, $person_id, $hdate, $hdate, $hdate, $hdate)};
     if (@matches > 1) {
         @matches = grep { $major_to_house{$major}{$_->{house}} } @matches;

@@ -2079,6 +2079,15 @@ class HANSARDLIST {
             return $this->speakers[$person_id];
         }
 
+        # Special exemptions for people 'speaking' after they have died
+        # Note identical code to this in search/index.pl
+        if ($person_id == 10170 && $hdate == '2014-09-08') {
+            $hdate = '2014-09-07';
+        }
+        if ($person_id == 11068 && substr($hdate, 0, 7) == '2008-09') {
+            $hdate = '2008-08-13';
+        }
+
         $q = $this->db->query("SELECT title, given_name, family_name, lordofname,
                                 house,
                                 constituency,
