@@ -48,8 +48,6 @@
 
             </div>
 
-            <!--
-
             <div class="action-section">
 
                 <h3 class="action-option-heading">If you want to tell your MP how you feel about what you&rsquo;ve just read</h3>
@@ -58,7 +56,6 @@
 
             </div>
 
-            -->
         </div>
     </div>
 </div>
