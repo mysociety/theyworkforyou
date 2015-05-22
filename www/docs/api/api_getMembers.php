@@ -67,11 +67,8 @@ function api_getMembers_search($house, $s) {
             AND p.start_date <= date(now()) and date(now()) <= p.end_date
         and (given_name like :name
         or family_name like :name
+        or lordofname like :name
         or concat(given_name,' ',family_name) like :name";
-
-        if ($house == 2) {
-            $query .= " or constituency like :name";
-        }
 
         $query .= ") and entered_house <= date(now()) and date(now()) <= left_house";
 
