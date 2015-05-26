@@ -147,7 +147,7 @@
                                         <?php } ?>
                                     </ul>
                                     <?php if ( count($events) - 3 > 0 ) { ?>
-                                    <a href="#" class="upcoming__more">And <?= count($events) - 3 ?> more</a><!-- (just links to relevant upcoming page) -->
+                                    <a href="/calendar/?d=<?= format_date($date, 'Y-m-d') ?>" class="upcoming__more">And <?= count($events) - 3 ?> more</a><!-- (just links to relevant upcoming page) -->
                                     <?php } ?>
                             <?php } ?>
                                 </div>
