@@ -738,9 +738,14 @@ function search_member_db_lookup($searchstring, $current_only=false) {
         // And here we're assuming the user's put the names in the right order.
         $params[':like_0'] = '%' . $searchwords[0] . '%';
         $params[':like_1'] = '%' . $searchwords[1] . '%';
+        $params[':like_0_and_1'] = '%' . $searchwords[0] . ' '. $searchwords[1] . '%';
+        $params[':like_0_and_1_hyphen'] = '%' . $searchwords[0] . '-'. $searchwords[1] . '%';
         $where = "(given_name LIKE :like_0 AND family_name LIKE :like_1)";
         $where .= " OR (given_name LIKE :like_1 AND family_name LIKE :like_0)";
         $where .= " OR (title LIKE :like_0 AND family_name LIKE :like_1)";
+        $where .= " OR given_name LIKE :like_0_and_1 OR given_name LIKE :like_0_and_1_hyphen";
+        $where .= " OR family_name LIKE :like_0_and_1 OR family_name LIKE :like_0_and_1_hyphen";
+        $where .= " OR lordofname LIKE :like_0_and_1";
         if (strtolower($searchwords[0]) == 'nick') {
             $where .= " OR (given_name LIKE '%nicholas%' AND family_name LIKE :like_1)";
         }
@@ -751,8 +756,10 @@ function search_member_db_lookup($searchstring, $current_only=false) {
         $params[':like_2'] = '%' . $searchwords[2] . '%';
         $params[':like_0_and_1'] = '%' . $searchwords[0] . ' '. $searchwords[1] . '%';
         $params[':like_1_and_2'] = '%' . $searchwords[1] . ' '. $searchwords[2] . '%';
+        $params[':like_1_and_2_hyphen'] = '%' . $searchwords[1] . '-'. $searchwords[2] . '%';
         $where = "(given_name LIKE :like_0_and_1 AND family_name LIKE :like_2)";
         $where .= " OR (given_name LIKE :like_0 AND family_name LIKE :like_1_and_2)";
+        $where .= " OR (given_name LIKE :like_0 AND family_name LIKE :like_1_and_2_hyphen)";
         $where .= " OR (title LIKE :like_0 AND given_name LIKE :like_1 AND family_name LIKE :like_2)";
         $where .= " OR (title LIKE :like_0 AND family_name LIKE :like_1 AND lordofname LIKE :like_2)";
     }
