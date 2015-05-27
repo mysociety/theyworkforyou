@@ -35,6 +35,6 @@
         <?php } else { ?>
         <p>Why not <a href="<?= $all_mps_url ?>">browse all <?= $rep_name ?>s</a>?</p>
         </div>
-        <? } ?>
+        <?php } ?>
     </div>
 </div>

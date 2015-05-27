@@ -36,10 +36,10 @@ if (defined('XAPIANDB') AND XAPIANDB != '') {
 }
 
 class SEARCHENGINE {
+    public $valid = false;
+    public $error;
 
     public function SEARCHENGINE($query) {
-        $this->valid = false;
-
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
