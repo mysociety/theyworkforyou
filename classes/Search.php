@@ -37,6 +37,7 @@ class Search {
         }
 
         $data['searchstring'] = $this->search_string;
+        $data['pagination_links'] = $this->generate_pagination($data['info']);
 
         return $data;
     }
@@ -145,6 +146,90 @@ class Search {
 
         twfy_debug('SEARCH', _htmlspecialchars($searchstring));
         return $searchstring;
+    }
+
+    private function generate_pagination($data) {
+        global $this_page;
+
+        $total_results      = $data['total_results'];
+        $results_per_page   = $data['results_per_page'];
+        $page               = $data['page'];
+        $pagelinks          = array();
+        $numlinks           = array();
+
+        if ($total_results > $results_per_page) {
+
+            $numpages = ceil($total_results / $results_per_page);
+
+            // How many links are we going to display on the page - don't want to
+            // display all of them if we have 100s...
+            if ($page < 10) {
+                $firstpage = 1;
+                $lastpage = 10;
+            } else {
+                $firstpage = $page - 4;
+                $lastpage = $page + 5;
+            }
+
+            if ($firstpage < 1) {
+                $firstpage = 1;
+            }
+            if ($lastpage > $numpages) {
+                $lastpage = $numpages;
+            }
+
+            $URL = new \URL($this_page);
+            $URL->insert(array( 's' => $data['s'] ) );
+            for ($n = $firstpage; $n <= $lastpage; $n++) {
+
+                if ($n > 1) {
+                    $URL->insert(array('p'=>$n));
+                } else {
+                    // No page number for the first page.
+                    $URL->remove(array('p'));
+                }
+                if (isset($pagedata['pid'])) {
+                    $URL->insert(array('pid'=>$pagedata['pid']));
+                }
+
+                $link = array(
+                    'url' => $URL->generate(),
+                    'page' => $n,
+                    'current' => ( $n == $page )
+                );
+
+                $numlinks[] = $link;
+            }
+
+            $pagelinks['nums'] = $numlinks;
+            $pagelinks['first_result'] = $page == 1 ? 1 : ( ( $page - 1 ) * $results_per_page ) + 1;
+            $pagelinks['last_result'] = $page == $numpages ? $total_results : $pagelinks['first_result'] + ( $results_per_page - 1 );
+
+            if ( $page != 1 ) {
+                $prev_page = $page - 1;
+                $URL->insert(array( 'p' => $prev_page ) );
+                $pagelinks['prev'] = array(
+                    'url' => $URL->generate()
+                );
+                $URL->insert(array( 'p' => 1 ) );
+                $pagelinks['firstpage'] = array(
+                    'url' => $URL->generate()
+                );
+            }
+            if ($page != $numpages) {
+                $next_page = $page + 1;
+                $URL->insert(array( 'p' => $next_page ) );
+                $pagelinks['next'] = array(
+                    'url' => $URL->generate()
+                );
+                $URL->insert(array( 'p' => $numpages ) );
+                $pagelinks['lastpage'] = array(
+                    'url' => $URL->generate()
+                );
+            }
+        }
+
+        return $pagelinks;
     }
 
     private function search_normal($searchstring) {

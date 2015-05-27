@@ -110,13 +110,25 @@
 
                 <hr>
 
-                <h2>Results 1&ndash;20 of 11,034 for <em class="current-search-term">Peacock</em></h2>
+                <h2>
+                <?php if ( $pagination_links ) { ?>
+                Results <?= $pagination_links['first_result'] ?>&ndash;<?= $pagination_links['last_result'] ?> of <?= $info['total_results'] ?>
+                <?php } else if ( $info['total_results'] == 1 ) { ?>
+                The only result
+                <?php } else if ( $info['total_results'] == 0 ) { ?>
+                There were no results
+                <?php } else { ?>
+                All <?= $info['total_results'] ?> results
+                <?php } ?>
+                for <em class="current-search-term"><?= _htmlentities($info['s']) ?></em></h2>
 
+                <?php if ( $info['total_results'] ) { ?>
                 <ul class="search-result-display-options">
                     <li>Sorted by relevance</li>
                     <li>Sort by date: <a href="#">newest</a> / <a href="#">oldest</a></li>
                     <li><a href="./by-person.php">Group by person</a></li>
                 </ul>
+                <?php } ?>
 
                 <?php foreach ( $rows as $result ) { ?>
                 <div class="search-result search-result--generic">
@@ -127,18 +139,21 @@
 
                 <hr>
 
+                <?php if ( $pagination_links ) { ?>
                 <div class="search-result-pagination">
-                    <a href="#" class="search-result-pagination__current-page">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
-                    <a href="#">9</a>
-                    <a href="#">10</a>
+                    <?php if ( isset($pagination_links['prev']) ) { ?>
+                    <a href="<?= $pagination_links['firstpage']['url'] ?>">&lt;&lt;</a>
+                    <a href="<?= $pagination_links['prev']['url'] ?>">&lt;</a>
+                    <?php }
+                    foreach ( $pagination_links['nums'] as $link ) { ?>
+                    <a href="<?= $link['url'] ?>"<?= $link['current'] ? ' class="search-result-pagination__current-page"' : '' ?>><?= $link['page'] ?></a>
+                    <?php }
+                    if ( isset($pagination_links['next']) ) { ?>
+                    <a href="<?= $pagination_links['next']['url'] ?>">&gt;</a>
+                    <a href="<?= $pagination_links['lastpage']['url'] ?>">&gt;&gt;</a>
+                    <?php } ?>
                 </div>
+                <?php } ?>
             </div>
 
             <div class="search-page__section__secondary search-page-sidebar">
