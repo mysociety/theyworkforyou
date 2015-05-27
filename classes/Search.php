@@ -272,13 +272,11 @@ class Search {
             'o' => ($o=='d' || $o=='r' || $o=='o') ? $o : 'd',
         );
 
-        /*
         if ($pagenum == 1 && $args['s'] && !preg_match('#[a-z]+:[a-z0-9]+#', $args['s'])) {
-            $this->find_members($args['s']);
-            $this->find_constituency($args);
-            $this->find_glossary_items($args);
+            $members = $this->find_members($args['s']);
+            //$this->find_constituency($args);
+            //$this->find_glossary_items($args);
         }
-         */
 
         if (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH) {
             print '<p>Apologies, search has been turned off currently for performance reasons.</p>';
@@ -288,7 +286,9 @@ class Search {
             $PAGE->error_message($SEARCHENGINE->error);
         } else {
             $LIST = new \HANSARDLIST();
-            return $LIST->display('search', $args , 'none');
+            $data = $LIST->display('search', $args , 'none');
+            $data['members'] = $members;
+            return $data;
         }
     }
 
@@ -464,89 +464,26 @@ private function find_constituency($args) {
     }
 }
 
-private function find_members($searchstring) {
-    // Maybe there'll be a better place to put this at some point...
-    global $PAGE, $parties;
+    private function find_members($searchstring) {
+        $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $searchstring));
+        $q = search_member_db_lookup($searchstring);
+        if (!$q) return array();
 
-    $members = $this->_find_members_internal($searchstring);
+        $members = array();
+        if ($q->rows() > 0) {
+            $URL1 = new \URL('mp');
+            $URL2 = new \URL('peer');
 
-    // We don't display anything if there were no matches.
-    if ($members) {
-?>
-<div id="people_results">
-    <h2>People matching &lsquo;<?php echo _htmlentities($searchstring); ?>&rsquo;</h2>
-    <ul class="hilites">
-<?php
-foreach ($members as $member) {
-    echo '<li>';
-    echo $member[0] . $member[1] . $member[2];
-    echo "</li>\n";
-}
-?>
-    </ul>
-</div>
-<?php
-    }
-}
-
-// Given a search string, searches in the names of members and returns a list of those found
-private function _find_members_internal($searchstring) {
-    if (!$searchstring) {
-        $PAGE->error_message("No search string");
-
-        return false;
-    }
-
-    $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $searchstring));
-    $q = search_member_db_lookup($searchstring);
-    if (!$q) return false;
-
-    $members = array();
-    if ($q->rows() > 0) {
-        $URL1 = new \URL('mp');
-        $URL2 = new \URL('peer');
-
-        for ($n=0; $n<$q->rows(); $n++) {
-            $pid = $q->field($n, 'person_id');
-            if ($q->field($n, 'left_house') != '9999-12-31') {
-                $former = 'formerly ';
-            } else {
-                $former = '';
+            $last_pid = null;
+            $entered_house = '';
+            for ($n=0; $n<$q->rows(); $n++) {
+                $member = new Member(array('person_id' => $q->field($n, 'person_id')));
+                $members[] = $member;
             }
-            $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'given_name'), $q->field($n, 'family_name'), $q->field($n, 'lordofname') );
-            if ($q->field($n, 'house') == 1) {
-                $URL1->insert(array('pid'=>$pid));
-                $s = '<a href="' . $URL1->generate() . '"><strong>';
-                $s .= $name . '</strong></a> (' . $former . $q->field($n, 'constituency') . ', ';
-            } else {
-                $URL2->insert(array('pid'=>$pid));
-                $s = '<a href="' . $URL2->generate() . '"><strong>' . $name . '</strong></a> (';
-            }
-            $party = $q->field($n, 'party');
-            if (isset($parties[$party])) {
-                $party = $parties[$party];
-            }
-            if ($party) {
-                $s .= $party . ', ';
-            }
-            $s2 = ' &ndash; ';
-            if (substr($q->field($n, 'left_house'), 5, 5) == '00-00') {
-                $s2 .= substr($q->field($n, 'left_house'), 0, 4) - 1;
-            } elseif ($q->field($n, 'left_house') != '9999-12-31') {
-                $s2 .= format_date($q->field($n, 'left_house'), SHORTDATEFORMAT);
-            }
-            if ($entered_house = $q->field($n, 'min_entered_house')) {
-                $s2 = format_date($entered_house, SHORTDATEFORMAT) . $s2;
-            }
-            $MOREURL = new URL('search');
-            $MOREURL->insert( array('pid'=>$pid, 'pop'=>1, 's'=>null) );
-            $s3 = ') &ndash; <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
-            $members[] = array($s, $s2, $s3);
         }
-    }
 
-    return $members;
-}
+        return $members;
+    }
 
 // Checks to see if the search term provided has any similar matching entries in the glossary.
 // If it does, show links off to them.
