@@ -5,7 +5,7 @@ include_once INCLUDESPATH."easyparliament/glossary.php";
 
 class MEMBER {
 
-    public $valid;
+    public $valid = false;
     public $member_id;
     public $person_id;
     public $title;
@@ -92,18 +92,9 @@ class MEMBER {
         }
 
         if (!$person_id) {
-            $this->valid = false;
             return;
         }
 
-        if (is_array($person_id)) {
-            $this->valid = false;
-            $this->person_id = $person_id;
-            return;
-        }
-        $this->valid = true;
-
-        // Get the data.
         $q = $this->db->query("SELECT member_id, house, title,
             given_name, family_name, lordofname, constituency, party, lastupdate,
             entered_house, left_house, entered_reason, left_reason, member.person_id
@@ -115,9 +106,10 @@ class MEMBER {
             ));
 
         if (!$q->rows() > 0) {
-            $this->valid = false;
             return;
         }
+
+        $this->valid = true;
 
         $this->house_disp = 0;
         $last_party = null;
@@ -256,11 +248,10 @@ class MEMBER {
         if ($name == '') {
             throw new MySociety\TheyWorkForYou\MemberException('Sorry, no name was found.');
         }
+
         $params = array();
-        $q = "SELECT member.person_id, constituency, max(left_house) AS left_house
-            FROM member, person_names pn
-            WHERE member.person_id = pn.person_id AND pn.type = 'name' AND pn.start_date <= left_house AND left_house <= pn.end_date AND ";
-        if ($this_page=='peer') {
+        $q = "SELECT person_id FROM person_names WHERE type = 'name' ";
+        if ($this_page == 'peer') {
             $success = preg_match('#^(.*?) (.*?) of (.*?)$#', $name, $m);
             if (!$success)
                 $success = preg_match('#^(.*?)() of (.*?)$#', $name, $m);
@@ -271,101 +262,77 @@ class MEMBER {
             }
             $params[':title'] = $m[1];
             $params[':family_name'] = $m[2];
-            $params[':house_type_lords'] = HOUSE_TYPE_LORDS;
             $params[':lordofname'] = $m[3];
-            $q .= "house = :house_type_lords AND title = :title AND family_name = :family_name AND lordofname=:lordofname";
-        } elseif ($this_page=='msp') {
+            $q .= "AND title = :title AND family_name = :family_name AND lordofname = :lordofname";
+        } elseif ($this_page == 'msp' || $this_page == 'mla' || strstr($this_page, 'mp')) {
             $success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
             if (!$success)
                 $success = preg_match('#^(.*?)() (.*)$#', $name, $m);
             if (!$success) {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
-                return false;
-            }
-            $params[':given_name'] = $m[1];
-            $params[':family_name'] = $m[3];
-            $params[':first_and_middle_names'] = $m[1] . ' ' . $m[2];
-            $params[':middle_and_last_names'] = $m[2] . ' ' . $m[3];
-            $params[':house_type_scotland'] = HOUSE_TYPE_SCOTLAND;
-            $q .= "house = :house_type_scotland AND (";
-            $q .= "(given_name=:first_and_middle_names AND family_name=:family_name)";
-            $q .= " or (given_name=:given_name AND family_name=:middle_and_last_names) )";
-        } elseif ($this_page=='mla') {
-            $success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
-            if (!$success)
-                $success = preg_match('#^(.*?)() (.*)$#', $name, $m);
-            if (!$success) {
-                throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
-                return false;
             }
             $params[':given_name'] = $m[1];
             $params[':middle_name'] = $m[2];
             $params[':family_name'] = $m[3];
             $params[':first_and_middle_names'] = $m[1] . ' ' . $m[2];
             $params[':middle_and_last_names'] = $m[2] . ' ' . $m[3];
-            $params[':house_type_ni'] = HOUSE_TYPE_NI;
-            $q .= "house = :house_type_ni AND (
-    (given_name=:first_and_middle_names AND family_name=:family_name)
-    or (given_name=:given_name AND family_name=:middle_and_last_names)
-    or (title=:given_name AND given_name=:middle_name AND family_name=:family_name)
-)";
-        } elseif (strstr($this_page, 'mp')) {
-            $success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
-            if (!$success)
-                $success = preg_match('#^(.*?)() (.*)$#', $name, $m);
-            if (!$success) {
-                throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
-                return false;
-            }
-
-            $params[':given_name'] = $m[1];
-            $params[':family_name'] = $m[3];
-            $params[':first_and_middle_names'] = $m[1] . ' ' . $m[2];
-            $params[':middle_and_last_names'] = $m[2] . ' ' . $m[3];
-            $params[':house_type_commons'] = HOUSE_TYPE_COMMONS;
-
-            $q .= "house = :house_type_commons AND ((given_name=:first_and_middle_names AND family_name=:family_name) OR ".
-            "(given_name=:given_name AND family_name=:middle_and_last_names))";
-        } elseif ($this_page == 'royal') {
-            $params[':house_type_royal'] = HOUSE_TYPE_ROYAL;
-            $q .= ' house = :house_type_royal';
+            # Note this works only because MySQL ignores trailing whitespace
+            $q .= "AND (
+                (given_name=:first_and_middle_names AND family_name=:family_name)
+                OR (given_name=:given_name AND family_name=:middle_and_last_names)
+                OR (title=:given_name AND given_name=:middle_name AND family_name=:family_name)
+            )";
         }
 
+        $q = $this->db->query($q, $params);
+        if (!$q->rows) {
+            throw new MySociety\TheyWorkForYou\MemberException('Sorry, we could not find anyone with that name.');
+        } elseif ($q->rows == 1) {
+            return $q->field(0, 'person_id');
+        }
+
+        # More than one person ID matching the given name
+        $person_ids = array();
+        for ($i=0; $i<$q->rows; ++$i) {
+            $pid = $q->field($i, 'person_id');
+            $person_ids[$pid] = 1;
+        }
+        $pids = array_keys($person_ids);
+
+        $params = array();
+        if ($this_page == 'peer') {
+            $params[':house'] = HOUSE_TYPE_LORDS;
+        } elseif ($this_page == 'msp') {
+            $params[':house'] = HOUSE_TYPE_SCOTLAND;
+        } elseif ($this_page == 'mla') {
+            $params[':house'] = HOUSE_TYPE_NI;
+        } elseif ($this_page == 'royal') {
+            $params[':house'] = HOUSE_TYPE_ROYAL;
+        } else {
+            $params[':house'] = HOUSE_TYPE_COMMONS;
+        }
+
+        $pids_str = join(',', $pids);
+        $q = "SELECT person_id, constituency FROM member WHERE person_id IN ($pids_str) AND house = :house";
         if ($const) {
             $params[':constituency'] = $const;
             $q .= ' AND constituency=:constituency';
         }
-        $q .= ' GROUP BY person_id, constituency ORDER BY left_house DESC';
+        $q .= ' GROUP BY person_id';
+
         $q = $this->db->query($q, $params);
         if ($q->rows > 1) {
-            # Hacky as a very hacky thing that's graduated in hacking from the University of Hacksville
-            # Anyone who wants to do it properly, feel free
-
-            $person_ids = array(); $consts = array();
+            $person_ids = array();
             for ($i=0; $i<$q->rows(); ++$i) {
-                $pid = $q->field($i, 'person_id');
-
-                # XXX A hack within a hack
-                # There are two Mark Durkan MLAs - the current one is the
-                # nephew of the old one. To stop this page constantly asking
-                # you to pick between them, shortcircuit the current one
-                if ($pid == 25143) return $pid;
-
-                if (!in_array($pid, $person_ids)) {
-                    $person_ids[] = $pid;
-                    $consts[] = $q->field($i, 'constituency');
-                }
+                $person_ids[$q->field($i, 'person_id')] = $q->field($i, 'constituency');
             }
-            if (sizeof($person_ids) == 1) return $person_ids[0];
-            $this->constituency = $consts;
-            return $person_ids;
+            throw new MySociety\TheyWorkForYou\MemberMultipleException($person_ids);
         } elseif ($q->rows > 0) {
             return $q->field(0, 'person_id');
-        } elseif ($const && $this_page!='peer') {
+        } elseif ($const) {
             return $this->name_to_person_id($name);
         } else {
             throw new MySociety\TheyWorkForYou\MemberException('Sorry, there is no current member with that name.');
-            return false;
         }
     }
 

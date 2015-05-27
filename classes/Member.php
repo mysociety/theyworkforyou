@@ -387,29 +387,23 @@ class Member extends \MEMBER {
         $constituencies = postcode_to_constituencies($postcode);
         if ( isset($constituencies[$type]) ) {
             $cons_name = $constituencies[$type];
-            $q = $db->query("SELECT member.person_id, title, lordofname, given_name, family_name, constituency, house
+            $query_base = "SELECT member.person_id, title, lordofname, given_name, family_name, constituency, house
                 FROM member, person_names
                 WHERE
                 member.person_id = person_names.person_id
+                AND person_names.type = 'name'
                 AND constituency = :cons_name
-                AND entered_house >= start_date
-                AND left_house <= end_date
-                AND left_reason = 'still_in_office' AND house = :house",
+                AND house = :house
+                AND left_house >= start_date
+                AND left_house <= end_date";
+            $q = $db->query("$query_base AND left_reason = 'still_in_office'",
                 array(
                     ':house' => $house,
                     ':cons_name' => $cons_name
                 )
             );
             if ( !$q->rows() ) {
-                $q = $db->query("SELECT member.person_id, title, lordofname, given_name, family_name, constituency, house
-                    FROM member, person_names
-                    WHERE
-                    member.person_id = person_names.person_id
-                    AND constituency = :cons_name
-                    AND house = :house
-                    AND entered_house >= start_date
-                    AND left_house <= end_date
-                    AND left_house = :dissolution_date",
+                $q = $db->query("$query_base AND left_house = :dissolution_date",
                     array(
                         ':house' => $house,
                         ':cons_name' => $cons_name,

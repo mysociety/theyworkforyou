@@ -95,22 +95,17 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
 
     $a = array_values($areas);
 
-    $q = $db->query("SELECT member.person_id, given_name, family_name, constituency, house
+    $query_base = "SELECT member.person_id, given_name, family_name, constituency, house
         FROM member, person_names pn
         WHERE constituency IN ('" . join("','", $a) . "')
             AND member.person_id = pn.person_id AND pn.type = 'name'
-            AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
-        AND left_reason = 'still_in_office' AND house in (3,4)");
+            AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)";
+    $q = $db->query($query_base . " AND left_reason = 'still_in_office' AND house in (3,4)");
     $current = true;
     if (!$q->rows()) {
         # XXX No results implies dissolution, fix for 2011.
         $current = false;
-        $q = $db->query("SELECT member.person_id, given_name, family_name, constituency, house
-            FROM member, person_names pn
-            WHERE constituency IN ('" . join("','", $a) . "')
-                AND member.person_id = pn.person_id AND pn.type = 'name'
-                AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
-            AND ( (house=3 AND left_house='2011-03-24') OR (house=4 AND left_house='2011-03-23') )");
+        $q = $db->query($query_base . " AND ( (house=3 AND left_house='2011-03-24') OR (house=4 AND left_house='2011-03-23') )");
     }
 
     $mcon = array(); $mreg = array();
