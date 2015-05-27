@@ -17,7 +17,7 @@
                 <?php } else { ?>
                 <h1>Does your MP represent you?</h1>
                 <div class="row collapse">
-                    <form action="/postcode/" class="mp-search__form">
+                    <form action="/postcode/" class="mp-search__form"  onsubmit="trackFormSubmit(this, 'PostcodeSearch', 'Submit', 'Home'); return false;">
                         <label for="postcode">Your postcode</label>
                         <div class="medium-9 columns">
                             <input name="pc" id="postcode" class="homepage-search__input" type="text" placeholder="TF1 8GH" />

@@ -29,7 +29,7 @@
                 <?php } else { ?>
                 <h1>Do your MSPs represent you?</h1>
                 <div class="row collapse">
-                    <form action="/postcode/" class="mp-search__form">
+                    <form action="/postcode/" class="mp-search__form"  onsubmit="trackFormSubmit(this, 'PostcodeSearch', 'Submit', 'ScotlandHome'); return false;">
                         <label for="postcode">Your Scottish postcode</label>
                         <div class="medium-9 columns">
                             <input id="postcode" name="pc" class="homepage-search__input" type="text" placeholder="TF1 8GH" />

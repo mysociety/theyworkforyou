@@ -12,7 +12,7 @@
                         <?php } ?>
                         </ul>
                     <?php } else { ?>
-                    <form action="/postcode/" class="mp-search__form">
+                    <form action="/postcode/" class="mp-search__form"  onsubmit="trackFormSubmit(this, 'PostcodeSearch', 'Submit', 'NIHome'); return false;">
                         <label for="postcode">Your Northern Ireland postcode</label>
                         <div class="medium-9 columns">
                             <input id="postcode" name="pc" class="homepage-search__input" type="text" placeholder="TF1 8GH" />
