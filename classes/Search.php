@@ -267,7 +267,7 @@ class Search {
 
         if ($pagenum == 1 && $args['s'] && !preg_match('#[a-z]+:[a-z0-9]+#', $args['s'])) {
             $members = $this->find_members($args['s']);
-            //$this->find_constituency($args);
+            $cons = $this->find_constituency($args);
             //$this->find_glossary_items($args);
         }
 
@@ -281,6 +281,7 @@ class Search {
             $LIST = new \HANSARDLIST();
             $data = $LIST->display('search', $args , 'none');
             $data['members'] = $members;
+            $data['cons'] = $cons;
             return $data;
         }
     }
@@ -406,55 +407,26 @@ private function find_constituency($args) {
         $constituency = $constituencies[0];
     }
 
-    if ($constituency != '') {
-        // Got a match, display....
+    $cons = array();
+    try {
+        if ($constituency != '') {
+            // Got a match, display....
 
-        $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
-        $URL = new \URL('mp');
-        /*
-        if ($MEMBER->valid) {
-            $URL->insert(array('p'=>$MEMBER->person_id()));
-            print '<h2>';
-            if (!$MEMBER->current_member(1)) {
-                print 'Former ';
-            }
-            print 'MP for ' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency);
-            if ($validpostcode) {
-                // Display the postcode the user searched for.
-                print ' (' . _htmlentities(strtoupper($args['s'])) . ')';
-            }
-            ?></h2>
-
-            <p><a href="<?php echo $URL->generate(); ?>"><strong><?php echo $MEMBER->full_name(); ?></strong></a> (<?php echo $MEMBER->party_text(); ?>)</p>
-    <?php
-        }
-         */
-
-    } elseif (count($constituencies)) {
-        $out = '';
-        $heading = array();
-        foreach ($constituencies as $constituency) {
             $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
-            if ($MEMBER->valid) {
-                if ($MEMBER->current_member(1)) {
-                    $heading[] = 'MPs';
-                } else {
-                    $heading[] = 'Former MPs';
-                }
-                $URL = new URL('mp');
-                $URL->insert(array('p' => $MEMBER->person_id()));
-                $out .= '<li><a href="'.$URL->generate().'"><strong>' . $MEMBER->full_name() .
-                    '</strong></a> (' . preg_replace('#' . preg_quote($searchterm, '#') . '#i', '<span class="hi">$0</span>', $constituency) .
-                    ', '.$MEMBER->party().')</li>';
+            $cons[] = $MEMBER;
+        } elseif (count($constituencies)) {
+            $out = '';
+            $heading = array();
+            foreach ($constituencies as $constituency) {
+                $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
+                $cons[] = $MEMBER;
             }
         }
-        /*
-        print '<h2>';
-        print join(" and ", array_unique($heading));
-        print " in constituencies matching &lsquo;" . _htmlentities($searchterm) . "&rsquo;</h2>";
-        print "<ul>$out</ul>";
-         */
+    } catch ( MemberException $e ) {
+        $cons = array();
     }
+
+    return $cons;
 }
 
     private function find_members($searchstring) {

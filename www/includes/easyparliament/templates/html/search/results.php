@@ -88,18 +88,22 @@
         <?php if ( $searchstring ) { ?>
         <div class="search-page__section search-page__section--results">
             <div class="search-page__section__primary">
+                <?php if ( $cons ) { ?>
+                    <?php if ( count($cons) > 1 ) { ?>
+                    <h2>MPs in constituencies matching <em class="current-search-term"><?= $info['s'] ?></em></h2>
+                    <?php } else { ?>
+                    <h2>MP for <em class="current-search-term"><?= $info['s'] ?></em></h2>
+                    <?php } ?>
+                    <?php foreach ( $cons as $member ) { ?>
+                        <?php include('person.php'); ?>
+                    <?php } ?>
+                <?php } ?>
+
                 <?php if ( $members ) { ?>
                 <h2>People matching <em class="current-search-term"><?= $info['s'] ?></em></h2>
 
                 <?php foreach ( $members as $member ) { ?>
-                <div class="search-result search-result--person">
-                    <img src="<?= $member->image()['url'] ?>" alt="">
-                    <h3 class="search-result__title"><a href="<?= $member->url() ?>"><?= $member->full_name() ?></a></h3>
-                    <p class="search-result__description">
-                    <?php $details = $member->getMostRecentMembership(); ?>
-                    <?= $details['left_house'] != '9999-12-31' ? 'Former ' : '' ?><?= $details['party'] ? $details['party'] . ' ' : '' ?><?= $details['rep_name'] ?>, <?= $details['cons'] ? $details['cons'] . ', ' : ''?><?= format_date($details['entered_house'], SHORTDATEFORMAT) ?> &ndash; <?= $details['left_house'] != '9999-12-31' ? format_date($details['left_house'], SHORTDATEFORMAT) : '' ?>
-                    </p>
-                </div>
+                    <?php include('person.php'); ?>
                 <?php } ?>
 
                 <hr>
