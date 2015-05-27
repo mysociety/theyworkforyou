@@ -47,6 +47,9 @@ if (get_http_var('pagetype')) {
 } else {
     $pagetype = 'profile';
 }
+if ($pagetype == 'profile') {
+    $pagetype = '';
+}
 
 // Set the PID, name and constituency.
 $pid = get_http_var('pid') != '' ? get_http_var('pid') : get_http_var('p');
@@ -124,555 +127,489 @@ elseif (get_http_var('mla')) $this_page = 'mla';
 elseif (get_http_var('msp')) $this_page = 'msp';
 else $this_page = 'mp';
 
-// Try all this, because things may go wrong and we can catch it all at the end.
 try {
-
-    /////////////////////////////////////////////////////////
-    // CANONICAL PERSON ID
-    if (is_numeric($pid))
-    {
-
-        // Normal, plain, displaying an MP by person ID.
-        $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => $pid));
-
-        // If the member ID doesn't exist then the object won't have it set.
-        if ($MEMBER->member_id)
-        {
-            // Ensure that we're actually at the current, correct and canonical URL for the person. If not, redirect.
-            // No need to worry about other URL syntax forms for vote pages, they shouldn't happen.
-            switch ($pagetype) {
-
-                case 'votes':
-
-                    if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)) . '/votes')
-                    {
-                        member_redirect($MEMBER, 301, 'votes');
-                    }
-
-                    break;
-
-                case 'divisions':
-
-                    if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)) . '/divisions')
-                    {
-                        member_redirect($MEMBER, 301, 'divisions');
-                    }
-
-                    break;
-
-                case 'profile':
-                default:
-
-                    if (str_replace('/mp/', '/' . $this_page . '/', get_http_var('url')) !== urldecode($MEMBER->url(FALSE)))
-                    {
-                        member_redirect($MEMBER);
-                    }
-
-                    break;
-
-            }
-        }
-        else
-        {
-            throw new MySociety\TheyWorkForYou\MemberException('Sorry, that ID number wasn\'t recognised.');
-        }
-    }
-
-    /////////////////////////////////////////////////////////
-    // MEMBER ID
-    elseif (is_numeric(get_http_var('m')))
-    {
-        // Got a member id, redirect to the canonical MP page, with a person id.
-        $MEMBER = new MySociety\TheyWorkForYou\Member(array('member_id' => get_http_var('m')));
-        member_redirect($MEMBER);
-
-    }
-
-    /////////////////////////////////////////////////////////
-    // CHECK SUBMITTED POSTCODE
-
-    elseif (get_http_var('pc') != '')
-    {
-        // User has submitted a postcode, so we want to display that.
-        $pc = get_http_var('pc');
-        $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
-        if (validate_postcode($pc)) {
-            twfy_debug ('MP', "MP lookup by postcode");
-            $constituency = strtolower(postcode_to_constituency($pc));
-            if ($constituency == "connection_timed_out") {
-                throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn&rsquo;t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
-            } elseif ($constituency == "") {
-                twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
-                throw new MySociety\TheyWorkForYou\MemberException('Sorry, '._htmlentities($pc) .' isn&rsquo;t a known postcode');
-            } else {
-                // Redirect to the canonical MP page, with a person id.
-                $MEMBER = new MySociety\TheyWorkForYou\Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
-                if ($MEMBER->person_id()) {
-                    // This will cookie the postcode.
-                    $THEUSER->set_postcode_cookie($pc);
-                }
-                member_redirect($MEMBER, 302);
-            }
-        } else {
-            twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
-            throw new MySociety\TheyWorkForYou\MemberException('Sorry, '._htmlentities($pc) .' isn&rsquo;t a valid postcode');
-        }
-
-    }
-
-    /////////////////////////////////////////////////////////
-    // DOES THE USER HAVE A POSTCODE ALREADY SET (SCOTLAND)?
-    // (Either in their logged-in details or in a cookie from a previous search.)
-
-    elseif ($this_page == 'msp' && $THEUSER->postcode_is_set() && $name == '' && $constituency == '')
-    {
-        $this_page = 'yourmsp';
-        if (postcode_is_scottish($THEUSER->postcode())) {
-            regional_list($THEUSER->postcode(), 'SPC', 'msp');
-            exit;
-        } else {
-            throw new MySociety\TheyWorkForYou\MemberException('Your set postcode is not in Scotland.');
-        }
-    }
-
-    /////////////////////////////////////////////////////////
-    // DOES THE USER HAVE A POSTCODE ALREADY SET (NI)?
-    // (Either in their logged-in details or in a cookie from a previous search.)
-    elseif ($this_page == 'mla' && $THEUSER->postcode_is_set() && $name == '' && $constituency == '')
-    {
-        $this_page = 'yourmla';
-        if (postcode_is_ni($THEUSER->postcode())) {
-            regional_list($THEUSER->postcode(), 'NIE', 'mla');
-            exit;
-        } else {
-            throw new MySociety\TheyWorkForYou\MemberException('Your set postcode is not in Northern Ireland.');
-        }
-    }
-
-    /////////////////////////////////////////////////////////
-    // DOES THE USER HAVE A POSTCODE ALREADY SET (WESTMINISTER)?
-    // (Either in their logged-in details or in a cookie from a previous search.)
-    elseif ($THEUSER->postcode_is_set() && $name == '' && $constituency == '')
-    {
-        $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
-        member_redirect($MEMBER, 302);
-    }
-
-    /////////////////////////////////////////////////////////
-    // NAME AND CONSTITUENCY
-    elseif ($name && $constituency)
-    {
-        $MEMBER = new MySociety\TheyWorkForYou\Member(array('name'=>$name, 'constituency'=>$constituency));
-
-        // If this person is not unique in name, don't redirect and instead wait to show list
-        if (!is_array($MEMBER->person_id()))
-        {
-            twfy_debug ('MP', 'Redirecting for member found by name and constituency');
-            member_redirect($MEMBER);
-        }
-    }
-
-    /////////////////////////////////////////////////////////
-    // NAME ONLY
-    elseif ($name)
-    {
-        $MEMBER = new MySociety\TheyWorkForYou\Member(array('name' => $name));
-
-        // Edge case for Elizabeth II
-        if ($name !== 'elizabeth the second') {
-
-            // Only attempt further detection if this isn't the Queen.
-
-            if (preg_match('#^(mr|mrs|ms)#', $name)) {
-                member_redirect($MEMBER);
-            }
-
-            // If this person is not unique in name, don't redirect and instead wait to show list
-            if (!is_array($MEMBER->person_id()))
-            {
-                twfy_debug ('MP', 'Redirecting for MP found by name only');
-                member_redirect($MEMBER);
-            }
-
-        }
-    }
-
-    /////////////////////////////////////////////////////////
-    // CONSTITUENCY ONLY
-    elseif ($constituency)
-    {
-        $MEMBER = new MySociety\TheyWorkForYou\Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
-        member_redirect($MEMBER);
-    }
-
-    /////////////////////////////////////////////////////////
-    // UNABLE TO IDENTIFY MP
-    else
-    {
-        // No postcode, member_id or person_id to use.
+    if (is_numeric($pid)) {
+        $MEMBER = get_person_by_id($pid);
+    } elseif (is_numeric(get_http_var('m'))) {
+        get_person_by_member_id(get_http_var('m'));
+    } elseif (get_http_var('pc')) {
+        get_person_by_postcode(get_http_var('pc'));
+    } elseif ($name) {
+        $MEMBER = get_person_by_name($name, $constituency);
+    } elseif ($constituency) {
+        get_mp_by_constituency($constituency);
+    } elseif (($this_page == 'msp' || $this_page == 'mla') && $THEUSER->postcode_is_set()) {
+        get_regional_by_user_postcode($THEUSER->postcode(), $this_page);
+        exit;
+    } elseif ($THEUSER->postcode_is_set()) {
+        get_mp_by_user_postcode($THEUSER->postcode());
+    } else {
         twfy_debug ('MP', "We don't have any way of telling what MP to display");
         throw new MySociety\TheyWorkForYou\MemberException('Sorry, but we can&rsquo;t tell which representative to display.');
     }
+    if (!isset($MEMBER) || !$MEMBER->valid) {
+        throw new MySociety\TheyWorkForYou\MemberException('You haven&rsquo;t provided a way of identifying which representative you want');
+    }
+} catch (MySociety\TheyWorkForYou\MemberMultipleException $e) {
+    person_list_page($e->ids);
+    exit;
+} catch (MySociety\TheyWorkForYou\MemberException $e) {
+    person_error_page($e->getMessage());
+    exit;
+}
 
-    /////////////////////////////////////////////////////////
-    // DISPLAY A LIST OF REPRESENTATIVES
+# We have successfully looked up one person to show now.
 
+if (!DEVSITE) {
+    header('Cache-Control: max-age=900');
+}
+
+twfy_debug_timestamp("before load_extra_info");
+$MEMBER->load_extra_info(true);
+twfy_debug_timestamp("after load_extra_info");
+
+// Basic name, title and description
+$member_name = ucfirst($MEMBER->full_name());
+$title = $member_name;
+$desc = "Read $member_name's contributions to Parliament, including speeches and questions";
+
+// Enhance description if this is a current member
+if ($MEMBER->current_member_anywhere())
+    $desc .= ', investigate their voting record, and get email alerts on their activity';
+
+// Enhance title if this is a member of the Commons
+if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
+    if (!$MEMBER->current_member(1)) {
+        $title .= ', former';
+    }
+    $title .= ' MP';
+    if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
+}
+
+// Enhance title if this is a member of NIA
+if ($MEMBER->house(HOUSE_TYPE_NI)) {
+    if ($MEMBER->house(HOUSE_TYPE_COMMONS) || $MEMBER->house(HOUSE_TYPE_LORDS)) {
+        $desc = str_replace('Parliament', 'Parliament and the Northern Ireland Assembly', $desc);
+    } else {
+        $desc = str_replace('Parliament', 'the Northern Ireland Assembly', $desc);
+    }
+    if (!$MEMBER->current_member(HOUSE_TYPE_NI)) {
+        $title .= ', former';
+    }
+    $title .= ' MLA';
+    if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
+}
+
+// Enhance title if this is a member of Scottish Parliament
+if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
+    if ($MEMBER->house(HOUSE_TYPE_COMMONS) || $MEMBER->house(HOUSE_TYPE_LORDS)) {
+        $desc = str_replace('Parliament', 'the UK and Scottish Parliaments', $desc);
+    } else {
+        $desc = str_replace('Parliament', 'the Scottish Parliament', $desc);
+    }
+    $desc = str_replace(', and get email alerts on their activity', '', $desc);
+    if (!$MEMBER->current_member(HOUSE_TYPE_SCOTLAND)) {
+        $title .= ', former';
+    }
+    $title .= ' MSP, '.$MEMBER->constituency();
+}
+
+// Position if this is a member of the Commons
+if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
+    if (!$MEMBER->current_member(1)) {
+        $position_former = 'Former MP';
+        if ($MEMBER->constituency()) $position_former .= ', ' . $MEMBER->constituency();
+    } else {
+        $position_current = 'MP';
+        if ($MEMBER->constituency()) $position_current .= ', ' . $MEMBER->constituency();
+    }
+}
+
+// Position if this is a member of NIA
+if ($MEMBER->house(HOUSE_TYPE_NI)) {
+    if (!$MEMBER->current_member(HOUSE_TYPE_NI)) {
+        $position_former = 'Former MLA';
+        if ($MEMBER->constituency()) $position_former .= ', ' . $MEMBER->constituency();
+    } else {
+        $position_current = 'MLA';
+        if ($MEMBER->constituency()) $position_current .= ', ' . $MEMBER->constituency();
+    }
+}
+
+// Position if this is a member of Scottish Parliament
+if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
+    if (!$MEMBER->current_member(HOUSE_TYPE_SCOTLAND)) {
+        $position_former = 'Former MSP';
+    } else {
+        $position_current = 'MSP, '.$MEMBER->constituency();
+    }
+}
+
+$current_offices = $MEMBER->offices('current', TRUE);
+$former_offices = $MEMBER->offices('previous', TRUE);
+
+// If this person has current named *priority* offices, they override the defaults
+
+if (count($current_offices) > 0){
+    $position_current = implode('<br>', $current_offices);
+}
+
+// If this person has former named *priority* offices, they override the defaults
+if (count($former_offices) > 0){
+    $position_former = implode('<br>', $former_offices);
+}
+
+// Set page metadata
+$DATA->set_page_metadata($this_page, 'title', $title);
+$DATA->set_page_metadata($this_page, 'meta_description', $desc);
+
+// Build the RSS link and add it to page data.
+$feedurl = $DATA->page_metadata('mp_rss', 'url') . $MEMBER->person_id() . '.rdf';
+if (file_exists(BASEDIR . '/' . $feedurl))
+    $DATA->set_page_metadata($this_page, 'rss', $feedurl);
+
+// Prepare data for the template
+$data['full_name'] = $MEMBER->full_name();
+$data['person_id'] = $MEMBER->person_id();
+$data['member_id'] = $MEMBER->member_id();
+
+if (isset($position_current)) {
+    $data['current_position'] = $position_current;
+} else {
+    $data['current_position'] = NULL;
+}
+
+if (isset($position_former)) {
+    $data['former_position'] = $position_former;
+} else {
+    $data['former_position'] = NULL;
+}
+
+$data['constituency'] = $MEMBER->constituency();
+$data['party'] = $MEMBER->party_text();
+$data['party_short'] = $MEMBER->party();
+$data['current_member_anywhere'] = $MEMBER->current_member_anywhere();
+$data['current_member'] = $MEMBER->current_member();
+$data['the_users_mp'] = $MEMBER->the_users_mp();
+$data['user_postcode'] = $THEUSER->postcode;
+$data['houses'] = $MEMBER->houses();
+$data['member_url'] = $MEMBER->url();
+// If there's photo attribution information, copy it into data
+foreach (['photo_attribution_text', 'photo_attribution_link'] as $key) {
+    if (isset($MEMBER->extra_info[$key])) {
+        $data[$key] = $MEMBER->extra_info[$key];
+    }
+}
+$data['image'] = $MEMBER->image();
+$data['member_summary'] = person_summary_description($MEMBER);
+$data['enter_leave'] = $MEMBER->getEnterLeaveStrings();
+$data['entry_date'] = $MEMBER->getEntryDate();
+$data['is_new_mp'] = $MEMBER->isNew();
+$data['other_parties'] = $MEMBER->getOtherPartiesString();
+$data['other_constituencies'] = $MEMBER->getOtherConstituenciesString();
+$data['rebellion_rate'] = person_rebellion_rate($MEMBER);
+$data['recent_appearances'] = person_recent_appearances($MEMBER);
+$data['useful_links'] = person_useful_links($MEMBER);
+$data['topics_of_interest'] = person_topics($MEMBER);
+$data['current_offices'] = $MEMBER->offices('current');
+$data['previous_offices'] = $MEMBER->offices('previous');
+$data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
+
+# People who are or were MPs and Lords potentially have voting records, except Sinn Fein MPs
+$data['has_voting_record'] = ( ($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'SF') || $MEMBER->house(HOUSE_TYPE_LORDS) );
+# Everyone who is currently somewhere has email alert signup, apart from current Sinn Fein MPs who are not MLAs
+$data['has_email_alerts'] = ($MEMBER->current_member_anywhere() && !($MEMBER->current_member(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'SF' && !$MEMBER->current_member(HOUSE_TYPE_NI)));
+# XXX This is current behaviour, but should probably now just be any recent MP
+$data['has_expenses'] = isset($MEMBER->extra_info['expenses2004_col1']) || isset($MEMBER->extra_info['expenses2006_col1']) || isset($MEMBER->extra_info['expenses2007_col1']) || isset($MEMBER->extra_info['expenses2008_col1']);
+
+// Set the expenses URL if we know it
+if (isset($MEMBER->extra_info['expenses_url'])) {
+    $data['expenses_url_2004'] = $MEMBER->extra_info['expenses_url'];
+} else {
+    $data['expenses_url_2004'] = 'http://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
+}
+
+$data['constituency_previous_mps'] = constituency_previous_mps($MEMBER);
+$data['constituency_future_mps'] = constituency_future_mps($MEMBER);
+$data['public_bill_committees'] = person_pbc_membership($MEMBER);
+$data['numerology'] = person_numerology($MEMBER, $data['has_email_alerts']);
+
+$data['this_page'] = $this_page;
+$data['current_assembly'] = 'westminster';
+if ( $this_page == 'msp' || $this_page == 'yourmsp' ) {
+    $data['current_assembly'] = 'scotland';
+} else if ( $this_page == 'mla' || $this_page == 'yourmla' ) {
+    $data['current_assembly'] = 'ni';
+}
+
+// Do any necessary extra work based on the page type, and send for rendering.
+switch ($pagetype) {
+
+    case 'votes':
+
+        $policiesList = new MySociety\TheyWorkForYou\Policies;
+
+        // Generate voting segments
+        $data['key_votes_segments'] = array(
+            array(
+                'key'   => 'social',
+                'title' => 'Social Issues',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('social'), $MEMBER
+                )
+            ),
+            array(
+                'key'   => 'foreign',
+                'title' => 'Foreign Policy and Defence',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('foreignpolicy'), $MEMBER
+                )
+            ),
+            array(
+                'key'   => 'welfare',
+                'title' => 'Welfare and Benefits',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('welfare'), $MEMBER
+                )
+            ),
+            array(
+                'key'   => 'taxation',
+                'title' => 'Taxation and Employment',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('taxation'), $MEMBER
+                )
+            ),
+            array(
+                'key'   => 'business',
+                'title' => 'Business and the Economy',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('business'), $MEMBER
+                )
+            ),
+            array(
+                'key'   => 'health',
+                'title' => 'Health',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('health'), $MEMBER
+                )
+            ),
+            array(
+                'key'   => 'education',
+                'title' => 'Education',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('education'), $MEMBER
+                )
+            ),
+            array(
+                'key'   => 'reform',
+                'title' => 'Constitutional Reform',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('reform'), $MEMBER
+                )
+            ),
+            array(
+                'key'   => 'home',
+                'title' => 'Home Affairs',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('home'), $MEMBER
+                )
+            ),
+            array(
+                'key'   => 'misc',
+                'title' => 'Miscellaneous Topics',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('misc'), $MEMBER
+                )
+            )
+        );
+
+        // Send the output for rendering
+        MySociety\TheyWorkForYou\Renderer::output('mp/votes', $data);
+
+        break;
+
+    case 'divisions':
+        $policyID = get_http_var('policy');
+        $answered_q = get_http_var('answered');
+        if ( $policyID ) {
+            $policiesList = new MySociety\TheyWorkForYou\Policies( $policyID );
+        } else {
+            $policiesList = new MySociety\TheyWorkForYou\Policies;
+        }
+        $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
+        $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER, $positions, $policiesList);
+
+        if ( $policyID ) {
+            $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
+        } else {
+            $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();
+        }
+
+        // data for the 'what else would you like to see' question box
+        $data['user_code'] = bin2hex(urandom_bytes(16));
+        $data['auth_signature'] = auth_sign_with_shared_secret($data['user_code'], OPTION_SURVEY_SECRET);
+        $data['page_url'] = "http://" . DOMAIN . $_SERVER['REQUEST_URI'] . ( $policyID ? '&' : '?' ) . 'answered=1';
+        $data['answered_q'] = $answered_q;
+
+        // Send the output for rendering
+        MySociety\TheyWorkForYou\Renderer::output('mp/divisions', $data);
+
+        break;
+    case '':
+    default:
+
+        $policiesList = new MySociety\TheyWorkForYou\Policies;
+        $policies = $policiesList->limitToSet('summary')->shuffle();
+
+        // Generate limited voting record list
+        $data['policyPositions'] = new MySociety\TheyWorkForYou\PolicyPositions($policies, $MEMBER, 6);
+
+        // Send the output for rendering
+        MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
+
+        break;
+
+}
+
+
+/////////////////////////////////////////////////////////
+// SUPPORTING FUNCTIONS
+
+/* Person lookup functions */
+
+function get_person_by_id($pid) {
+    global $pagetype, $this_page;
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => $pid));
+    if (!$MEMBER->valid) {
+        throw new MySociety\TheyWorkForYou\MemberException('Sorry, that ID number wasn&rsquo;t recognised.');
+    }
+    // Ensure that we're actually at the current, correct and canonical URL for the person. If not, redirect.
+    // No need to worry about other URL syntax forms for vote pages, they shouldn't happen.
+    $at = str_replace('/mp/', "/$this_page/", get_http_var('url'));
+    $shouldbe = urldecode($MEMBER->url(FALSE));
+    if ($pagetype) {
+        $shouldbe .= "/$pagetype";
+    }
+    if ($at !== $shouldbe) {
+        member_redirect($MEMBER, 301, $pagetype);
+    }
+    return $MEMBER;
+}
+
+function get_person_by_member_id($member_id) {
+    // Got a member id, redirect to the canonical MP page, with a person id.
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('member_id' => $member_id));
+    member_redirect($MEMBER);
+}
+
+function get_person_by_postcode($pc) {
+    global $THEUSER;
+    $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
+    if (!validate_postcode($pc)) {
+        twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
+        throw new MySociety\TheyWorkForYou\MemberException('Sorry, '._htmlentities($pc) .' isn&rsquo;t a valid postcode');
+    }
+    twfy_debug ('MP', "MP lookup by postcode");
+    $constituency = strtolower(postcode_to_constituency($pc));
+    if ($constituency == "connection_timed_out") {
+        throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn&rsquo;t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
+    } elseif ($constituency == "") {
+        twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
+        throw new MySociety\TheyWorkForYou\MemberException('Sorry, '._htmlentities($pc) .' isn&rsquo;t a known postcode');
+    } else {
+        // Redirect to the canonical MP page, with a person id.
+        $MEMBER = new MySociety\TheyWorkForYou\Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
+        if ($MEMBER->person_id()) {
+            // This will cookie the postcode.
+            $THEUSER->set_postcode_cookie($pc);
+        }
+        member_redirect($MEMBER, 302);
+    }
+}
+
+function get_person_by_name($name, $const='') {
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('name' => $name, 'constituency' => $const));
+    // Edge case, only attempt further detection if this isn't the Queen.
+    if ($name !== 'elizabeth the second' || $const) {
+        twfy_debug ('MP', 'Redirecting for MP found by name/constituency');
+        member_redirect($MEMBER);
+    }
+    return $MEMBER;
+}
+
+function get_mp_by_constituency($constituency) {
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
+    member_redirect($MEMBER);
+}
+
+function get_regional_by_user_postcode($pc, $page) {
+    global $this_page;
+    $this_page = "your$page";
+    if ($page == 'msp' && postcode_is_scottish($pc)) {
+        regional_list($pc, 'SPC', $page);
+    } elseif ($page == 'mla' && postcode_is_ni($pc)) {
+        regional_list($pc, 'NIE', $page);
+    } else {
+        throw new MySociety\TheyWorkForYou\MemberException('Your set postcode is not in the right region.');
+    }
+}
+
+function get_mp_by_user_postcode($pc) {
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $pc, 'house' => HOUSE_TYPE_COMMONS));
+    member_redirect($MEMBER, 302);
+}
+
+/**
+ * Member Redirect
+ *
+ * Redirect to the canonical page for a member.
+ */
+
+function member_redirect (&$MEMBER, $code = 301, $pagetype = NULL) {
+    // We come here after creating a MEMBER object by various methods.
+    // Now we redirect to the canonical MP page, with a person_id.
+    if ($MEMBER->person_id()) {
+        $url = $MEMBER->url();
+        $params = array();
+        foreach ($_GET as $key => $value) {
+            if (substr($key, 0, 4) == 'utm_' || $key == 'gclid')
+                $params[] = "$key=$value";
+        }
+        if (count($params))
+            $url .= '?' . join('&', $params);
+        if ($pagetype) {
+            $pagetype = '/' . $pagetype;
+        } else {
+            $pagetype = '';
+        }
+        header('Location: ' . $url . $pagetype, true, $code );
+        exit;
+    }
+}
+
+/* Error list page */
+
+function person_list_page($ids) {
+    global $name;
     if (!DEVSITE) {
         header('Cache-Control: max-age=900');
     }
-
-    if (isset($MEMBER) && is_array($MEMBER->person_id())) {
-
-        $cs = $MEMBER->constituency();
-        $c = 0;
-        foreach ($MEMBER->person_id() as $id) {
-            $data['mps'][] = array(
-                    'url'  => WEBPATH . 'mp/?pid='.$id,
-                    'name' => ucwords(strtolower($name)) . ', ' . $cs[$c++]
-                );
-        }
-
-        $MPSURL = new \URL('mps');
-
-        $data['all_mps_url'] = $MPSURL->generate();
-
-        // Send the output for rendering
-        MySociety\TheyWorkForYou\Renderer::output('mp/list', $data);
-
-    /////////////////////////////////////////////////////////
-    // DISPLAY A REPRESENTATIVE
-
-    } elseif (isset($MEMBER) && $MEMBER->person_id()) {
-
-        twfy_debug_timestamp("before load_extra_info");
-        $MEMBER->load_extra_info(true);
-        twfy_debug_timestamp("after load_extra_info");
-
-        // Basic name, title and description
-        $member_name = ucfirst($MEMBER->full_name());
-        $title = $member_name;
-        $desc = "Read $member_name's contributions to Parliament, including speeches and questions";
-
-        // Enhance description if this is a current member
-        if ($MEMBER->current_member_anywhere())
-            $desc .= ', investigate their voting record, and get email alerts on their activity';
-
-        // Enhance title if this is a member of the Commons
-        if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
-            if (!$MEMBER->current_member(1)) {
-                $title .= ', former';
-            }
-            $title .= ' MP';
-            if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
-        }
-
-        // Enhance title if this is a member of NIA
-        if ($MEMBER->house(HOUSE_TYPE_NI)) {
-            if ($MEMBER->house(HOUSE_TYPE_COMMONS) || $MEMBER->house(HOUSE_TYPE_LORDS)) {
-                $desc = str_replace('Parliament', 'Parliament and the Northern Ireland Assembly', $desc);
-            } else {
-                $desc = str_replace('Parliament', 'the Northern Ireland Assembly', $desc);
-            }
-            if (!$MEMBER->current_member(HOUSE_TYPE_NI)) {
-                $title .= ', former';
-            }
-            $title .= ' MLA';
-            if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
-        }
-
-        // Enhance title if this is a member of Scottish Parliament
-        if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
-            if ($MEMBER->house(HOUSE_TYPE_COMMONS) || $MEMBER->house(HOUSE_TYPE_LORDS)) {
-                $desc = str_replace('Parliament', 'the UK and Scottish Parliaments', $desc);
-            } else {
-                $desc = str_replace('Parliament', 'the Scottish Parliament', $desc);
-            }
-            $desc = str_replace(', and get email alerts on their activity', '', $desc);
-            if (!$MEMBER->current_member(HOUSE_TYPE_SCOTLAND)) {
-                $title .= ', former';
-            }
-            $title .= ' MSP, '.$MEMBER->constituency();
-        }
-
-        // Position if this is a member of the Commons
-        if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
-            if (!$MEMBER->current_member(1)) {
-                $position_former = 'Former MP';
-                if ($MEMBER->constituency()) $position_former .= ', ' . $MEMBER->constituency();
-            } else {
-                $position_current = 'MP';
-                if ($MEMBER->constituency()) $position_current .= ', ' . $MEMBER->constituency();
-            }
-        }
-
-        // Position if this is a member of NIA
-        if ($MEMBER->house(HOUSE_TYPE_NI)) {
-            if (!$MEMBER->current_member(HOUSE_TYPE_NI)) {
-                $position_former = 'Former MLA';
-                if ($MEMBER->constituency()) $position_former .= ', ' . $MEMBER->constituency();
-            } else {
-                $position_current = 'MLA';
-                if ($MEMBER->constituency()) $position_current .= ', ' . $MEMBER->constituency();
-            }
-        }
-
-        // Position if this is a member of Scottish Parliament
-        if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
-            if (!$MEMBER->current_member(HOUSE_TYPE_SCOTLAND)) {
-                $position_former = 'Former MSP';
-            } else {
-                $position_current = 'MSP, '.$MEMBER->constituency();
-            }
-        }
-
-        $current_offices = $MEMBER->offices('current', TRUE);
-        $former_offices = $MEMBER->offices('previous', TRUE);
-
-        // If this person has current named *priority* offices, they override the defaults
-
-        if (count($current_offices) > 0){
-            $position_current = implode('<br>', $current_offices);
-        }
-
-        // If this person has former named *priority* offices, they override the defaults
-        if (count($former_offices) > 0){
-            $position_former = implode('<br>', $former_offices);
-        }
-
-        // Set page metadata
-        $DATA->set_page_metadata($this_page, 'title', $title);
-        $DATA->set_page_metadata($this_page, 'meta_description', $desc);
-
-        // Build the RSS link and add it to page data.
-        $feedurl = $DATA->page_metadata('mp_rss', 'url') . $MEMBER->person_id() . '.rdf';
-        if (file_exists(BASEDIR . '/' . $feedurl))
-            $DATA->set_page_metadata($this_page, 'rss', $feedurl);
-
-        // Prepare data for the template
-        $data['full_name'] = $MEMBER->full_name();
-        $data['person_id'] = $MEMBER->person_id();
-        $data['member_id'] = $MEMBER->member_id();
-
-        if (isset($position_current)) {
-            $data['current_position'] = $position_current;
-        } else {
-            $data['current_position'] = NULL;
-        }
-
-        if (isset($position_former)) {
-            $data['former_position'] = $position_former;
-        } else {
-            $data['former_position'] = NULL;
-        }
-
-        $data['constituency'] = $MEMBER->constituency();
-        $data['party'] = $MEMBER->party_text();
-        $data['party_short'] = $MEMBER->party();
-        $data['current_member_anywhere'] = $MEMBER->current_member_anywhere();
-        $data['current_member'] = $MEMBER->current_member();
-        $data['the_users_mp'] = $MEMBER->the_users_mp();
-        $data['user_postcode'] = $THEUSER->postcode;
-        $data['houses'] = $MEMBER->houses();
-        $data['member_url'] = $MEMBER->url();
-        // If there's photo attribution information, copy it into data
-        foreach (['photo_attribution_text', 'photo_attribution_link'] as $key) {
-            if (isset($MEMBER->extra_info[$key])) {
-                $data[$key] = $MEMBER->extra_info[$key];
-            }
-        }
-        $data['image'] = $MEMBER->image();
-        $data['member_summary'] = person_summary_description($MEMBER);
-        $data['enter_leave'] = $MEMBER->getEnterLeaveStrings();
-        $data['entry_date'] = $MEMBER->getEntryDate();
-        $data['is_new_mp'] = $MEMBER->isNew();
-        $data['other_parties'] = $MEMBER->getOtherPartiesString();
-        $data['other_constituencies'] = $MEMBER->getOtherConstituenciesString();
-        $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
-        $data['recent_appearances'] = person_recent_appearances($MEMBER);
-        $data['useful_links'] = person_useful_links($MEMBER);
-        $data['topics_of_interest'] = person_topics($MEMBER);
-        $data['current_offices'] = $MEMBER->offices('current');
-        $data['previous_offices'] = $MEMBER->offices('previous');
-        $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
-
-        # People who are or were MPs and Lords potentially have voting records, except Sinn Fein MPs
-        $data['has_voting_record'] = ( ($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'SF') || $MEMBER->house(HOUSE_TYPE_LORDS) );
-        # Everyone who is currently somewhere has email alert signup, apart from current Sinn Fein MPs who are not MLAs
-        $data['has_email_alerts'] = ($MEMBER->current_member_anywhere() && !($MEMBER->current_member(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'SF' && !$MEMBER->current_member(HOUSE_TYPE_NI)));
-        # XXX This is current behaviour, but should probably now just be any recent MP
-        $data['has_expenses'] = isset($MEMBER->extra_info['expenses2004_col1']) || isset($MEMBER->extra_info['expenses2006_col1']) || isset($MEMBER->extra_info['expenses2007_col1']) || isset($MEMBER->extra_info['expenses2008_col1']);
-
-        // Set the expenses URL if we know it
-        if (isset($MEMBER->extra_info['expenses_url'])) {
-            $data['expenses_url_2004'] = $MEMBER->extra_info['expenses_url'];
-        } else {
-            $data['expenses_url_2004'] = 'http://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
-        }
-
-        $data['constituency_previous_mps'] = constituency_previous_mps($MEMBER);
-        $data['constituency_future_mps'] = constituency_future_mps($MEMBER);
-        $data['public_bill_committees'] = person_pbc_membership($MEMBER);
-        $data['numerology'] = person_numerology($MEMBER, $data['has_email_alerts']);
-
-        $data['this_page'] = $this_page;
-        $data['current_assembly'] = 'westminster';
-        if ( $this_page == 'msp' || $this_page == 'yourmsp' ) {
-            $data['current_assembly'] = 'scotland';
-        } else if ( $this_page == 'mla' || $this_page == 'yourmla' ) {
-            $data['current_assembly'] = 'ni';
-        }
-
-
-        /*
-
-        $data['member_id'] = $MEMBER->member_id();
-        $data['house_disp'] = $MEMBER->house_disp;
-
-        */
-
-        // Do any necessary extra work based on the page type, and send for rendering.
-        switch ($pagetype) {
-
-            case 'votes':
-
-                $policiesList = new MySociety\TheyWorkForYou\Policies;
-
-                // Generate voting segments
-                $data['key_votes_segments'] = array(
-                    array(
-                        'key'   => 'social',
-                        'title' => 'Social Issues',
-                        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                            $policiesList->limitToSet('social'), $MEMBER
-                        )
-                    ),
-                    array(
-                        'key'   => 'foreign',
-                        'title' => 'Foreign Policy and Defence',
-                        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                            $policiesList->limitToSet('foreignpolicy'), $MEMBER
-                        )
-                    ),
-                    array(
-                        'key'   => 'welfare',
-                        'title' => 'Welfare and Benefits',
-                        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                            $policiesList->limitToSet('welfare'), $MEMBER
-                        )
-                    ),
-                    array(
-                        'key'   => 'taxation',
-                        'title' => 'Taxation and Employment',
-                        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                            $policiesList->limitToSet('taxation'), $MEMBER
-                        )
-                    ),
-                    array(
-                        'key'   => 'business',
-                        'title' => 'Business and the Economy',
-                        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                            $policiesList->limitToSet('business'), $MEMBER
-                        )
-                    ),
-                    array(
-                        'key'   => 'health',
-                        'title' => 'Health',
-                        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                            $policiesList->limitToSet('health'), $MEMBER
-                        )
-                    ),
-                    array(
-                        'key'   => 'education',
-                        'title' => 'Education',
-                        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                            $policiesList->limitToSet('education'), $MEMBER
-                        )
-                    ),
-                    array(
-                        'key'   => 'reform',
-                        'title' => 'Constitutional Reform',
-                        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                            $policiesList->limitToSet('reform'), $MEMBER
-                        )
-                    ),
-                    array(
-                        'key'   => 'home',
-                        'title' => 'Home Affairs',
-                        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                            $policiesList->limitToSet('home'), $MEMBER
-                        )
-                    ),
-                    array(
-                        'key'   => 'misc',
-                        'title' => 'Miscellaneous Topics',
-                        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                            $policiesList->limitToSet('misc'), $MEMBER
-                        )
-                    )
-                );
-
-                // Send the output for rendering
-                MySociety\TheyWorkForYou\Renderer::output('mp/votes', $data);
-
-                break;
-
-            case 'divisions':
-                $policyID = get_http_var('policy');
-                $answered_q = get_http_var('answered');
-                if ( $policyID ) {
-                    $policiesList = new MySociety\TheyWorkForYou\Policies( $policyID );
-                } else {
-                    $policiesList = new MySociety\TheyWorkForYou\Policies;
-                }
-                $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
-                $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER, $positions, $policiesList);
-
-                if ( $policyID ) {
-                    $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
-                } else {
-                    $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();
-                }
-
-                // data for the 'what else would you like to see' question box
-                $data['user_code'] = bin2hex(urandom_bytes(16));
-                $data['auth_signature'] = auth_sign_with_shared_secret($data['user_code'], OPTION_SURVEY_SECRET);
-                $data['page_url'] = "http://" . DOMAIN . $_SERVER['REQUEST_URI'] . ( $policyID ? '&' : '?' ) . 'answered=1';
-                $data['answered_q'] = $answered_q;
-
-                // Send the output for rendering
-                MySociety\TheyWorkForYou\Renderer::output('mp/divisions', $data);
-
-                break;
-            case 'profile':
-            default:
-
-                $policiesList = new MySociety\TheyWorkForYou\Policies;
-                $policies = $policiesList->limitToSet('summary')->shuffle();
-
-                // Generate limited voting record list
-                $data['policyPositions'] = new MySociety\TheyWorkForYou\PolicyPositions($policies, $MEMBER, 6);
-
-                // Send the output for rendering
-                MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
-
-                break;
-
-        }
-
-
-
-    /////////////////////////////////////////////////////////
-    // Catch and display when something has gone horribly wrong.
-
-    } else {
-
-        throw new MySociety\TheyWorkForYou\MemberException('You haven\'t provided a way of identifying which representative you want');
-
+    $data = array('mps' => array());
+    foreach ($ids as $id => $constituency) {
+        $data['mps'][] = array(
+            'url'  => WEBPATH . 'mp/?pid=' . $id,
+            'name' => ucwords(strtolower($name)) . ', ' . $constituency,
+        );
     }
+    $MPSURL = new \URL('mps');
+    $data['all_mps_url'] = $MPSURL->generate();
+    MySociety\TheyWorkForYou\Renderer::output('mp/list', $data);
+}
 
-} catch (MySociety\TheyWorkForYou\MemberException $e){
+/* Error page */
+
+function person_error_page($message) {
     global $this_page;
-
     switch($this_page) {
     case 'mla':
         $rep = 'MLA';
@@ -696,50 +633,13 @@ try {
         $MPSURL = new \URL('mps');
     }
 
-    // The message belongs in the output...
-    $data['error'] = $e->getMessage();
-
-    $data['rep_name'] = $rep;
-    $data['all_mps_url'] = $MPSURL->generate();
-    $data['rep_search_url'] = $SEARCHURL;
-
-    // Render it!
+    $data = array(
+        'error' => $message,
+        'rep_name' => $rep,
+        'all_mps_url' => $MPSURL->generate(),
+        'rep_search_url' => $SEARCHURL,
+    );
     MySociety\TheyWorkForYou\Renderer::output('mp/error', $data);
-
-    // We're done here
-    exit();
-
-}
-
-/////////////////////////////////////////////////////////
-// SUPPORTING FUNCTIONS
-
-/**
- * Member Redirect
- *
- * Redirect to the canonical page for a member.
- */
-
-function member_redirect (&$MEMBER, $code = 301, $pagetype = NULL) {
-    // We come here after creating a MEMBER object by various methods.
-    // Now we redirect to the canonical MP page, with a person_id.
-    if ($MEMBER->person_id()) {
-        $url = $MEMBER->url();
-        $params = array();
-        foreach ($_GET as $key => $value) {
-            if (substr($key, 0, 4) == 'utm_' || $key == 'gclid')
-                $params[] = "$key=$value";
-        }
-        if (count($params))
-            $url .= '?' . join('&', $params);
-        if ($pagetype !== NULL) {
-            $pagetype = '/' . $pagetype;
-        } else {
-            $pagetype = '';
-        }
-        header('Location: ' . $url . $pagetype, true, $code );
-        exit;
-    }
 }
 
 /**
@@ -1101,15 +1001,15 @@ function person_numerology($member, $has_email_alerts) {
         }
         /*
         if ($member->chairmens_panel) {
-            print '<br><em>Members of the Chairmen\'s Panel act for the Speaker when chairing things such as Public Bill Committees, and as such do not vote on Bills they are involved in chairing.</em>';
+            print '<br><em>Members of the Chairmen&rsquo;s Panel act for the Speaker when chairing things such as Public Bill Committees, and as such do not vote on Bills they are involved in chairing.</em>';
         }
         */
 
         if (display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member->person_id().'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info)) {
             $out[] = display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member->person_id().'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info);
         }
-        if (display_stats_line('reading_age', 'This MP\'s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info)) {
-            $out[] = display_stats_line('reading_age', 'This MP\'s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
+        if (display_stats_line('reading_age', 'This MP&rsquo;s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info)) {
+            $out[] = display_stats_line('reading_age', 'This MP&rsquo;s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
         }
     }
 
@@ -1237,9 +1137,9 @@ function person_register_interests($member, $extra_info) {
 function regional_list($pc, $area_type, $rep_type) {
     $constituencies = postcode_to_constituencies($pc);
     if ($constituencies == 'CONNECTION_TIMED_OUT') {
-        throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn\'t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
+        throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn&rsquo;t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
     } elseif (!$constituencies) {
-        throw new MySociety\TheyWorkForYou\MemberException('Sorry, ' . htmlentities($pc) . ' isn\'t a known postcode');
+        throw new MySociety\TheyWorkForYou\MemberException('Sorry, ' . htmlentities($pc) . ' isn&rsquo;t a known postcode');
     } elseif (!isset($constituencies[$area_type])) {
         throw new MySociety\TheyWorkForYou\MemberException(htmlentities($pc) . ' does not appear to be a valid postcode');
     }

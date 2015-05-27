@@ -292,22 +292,18 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
     if (isset($details['members']) && $details['members']->rows() > 0) {
         echo '<ul class="hilites">';
         $q = $details['members'];
-        $last_pid = null;
         for ($n=0; $n<$q->rows(); $n++) {
-            if ($q->field($n, 'person_id') != $last_pid) {
-                $last_pid = $q->field($n, 'person_id');
-                echo '<li>';
-                echo $form_start . '<input type="hidden" name="pid" value="' . $last_pid . '">';
-                echo 'Things by ';
-                $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'given_name'), $q->field($n, 'family_name'), $q->field($n, 'lordofname') );
-                if ($q->field($n, 'constituency')) {
-                    echo $name . ' (' . $q->field($n, 'constituency') . ') ';
-                } else {
-                    echo $name;
-                }
-                echo ' <input type="submit" value="Subscribe"></form>';
-                echo "</li>\n";
+            echo '<li>';
+            echo $form_start . '<input type="hidden" name="pid" value="' . $q->field($n, 'person_id') . '">';
+            echo 'Things by ';
+            $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'given_name'), $q->field($n, 'family_name'), $q->field($n, 'lordofname') );
+            if ($q->field($n, 'constituency')) {
+                echo $name . ' (' . $q->field($n, 'constituency') . ') ';
+            } else {
+                echo $name;
             }
+            echo ' <input type="submit" value="Subscribe"></form>';
+            echo "</li>\n";
         }
         echo '</ul>';
     }
