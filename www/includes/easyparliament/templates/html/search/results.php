@@ -88,27 +88,22 @@
         <?php if ( $searchstring ) { ?>
         <div class="search-page__section search-page__section--results">
             <div class="search-page__section__primary">
-                <h2>People matching <em class="current-search-term">Peacock</em></h2>
+                <?php if ( $members ) { ?>
+                <h2>People matching <em class="current-search-term"><?= $info['s'] ?></em></h2>
 
+                <?php foreach ( $members as $member ) { ?>
                 <div class="search-result search-result--person">
-                    <img src="http://www.theyworkforyou.com/images/unknownperson_large.png" alt="">
-                    <h3 class="search-result__title"><a href="#">Mrs Elizabeth Peacock</a></h3>
-                    <p class="search-result__description">Former MP, Batley and Spen, 9 Jun 1983 &ndash; 8 Apr 2997</p>
+                    <img src="<?= $member->image()['url'] ?>" alt="">
+                    <h3 class="search-result__title"><a href="<?= $member->url() ?>"><?= $member->full_name() ?></a></h3>
+                    <p class="search-result__description">
+                    <?php $details = $member->getMostRecentMembership(); ?>
+                    <?= $details['left_house'] != '9999-12-31' ? 'Former ' : '' ?><?= $details['party'] ? $details['party'] . ' ' : '' ?><?= $details['rep_name'] ?>, <?= $details['cons'] ? $details['cons'] . ', ' : ''?><?= format_date($details['entered_house'], SHORTDATEFORMAT) ?> &ndash; <?= $details['left_house'] != '9999-12-31' ? format_date($details['left_house'], SHORTDATEFORMAT) : '' ?>
+                    </p>
                 </div>
-
-                <div class="search-result search-result--person">
-                    <img src="http://www.theyworkforyou.com/images/mpsL/14076.png" alt="">
-                    <h3 class="search-result__title"><a href="#">Peter Peacock</a></h3>
-                    <p class="search-result__description">Former Labour MSP, Highlands and Islands, 6 May 1999 &ndash; 23 Mar 2011</p>
-                </div>
-
-                <div class="search-result search-result--person">
-                    <img src="http://www.theyworkforyou.com/images/unknownperson_large.png" alt="">
-                    <h3 class="search-result__title"><a href="#">Mr Richard Peacock</a></h3>
-                    <p class="search-result__description">Former MP, Gorton, 4 Dec 1885 &ndash; 22 Mar 1889</p>
-                </div>
+                <?php } ?>
 
                 <hr>
+                <?php } ?>
 
                 <h2>
                 <?php if ( $pagination_links ) { ?>
