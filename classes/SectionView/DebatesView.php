@@ -138,8 +138,8 @@ class DebatesView extends SectionView {
         ));
     }
 
-    private $first_speech_displayed = 0; // We want to know when to insert the video
-    private $first_video_displayed = 0; // or the advert to do the video
+    private $first_speech_displayed = false; // We want to know when to insert the video
+    private $first_video_displayed = false; // or the advert to do the video
     private $first_gid = '';
 
     protected function get_video_html($row, $heading_hpos, $speeches) {
@@ -157,16 +157,20 @@ class DebatesView extends SectionView {
         return $video_content;
     }
 
+    private function video_gid_type() {
+        if ($this->major == 1) {
+            return 'debate';
+        } elseif ($this->major == 101) {
+            return 'lords';
+        } else {
+            return 'unknown';
+        }
+    }
+
     private function video_sidebar($row, $heading_hpos, $count) {
         include_once INCLUDESPATH . 'easyparliament/video.php';
         $db = new \ParlDB;
-        if ($this->major == 1) {
-            $gid_type = 'debate';
-        } elseif ($this->major == 101) {
-            $gid_type = 'lords';
-        } else {
-            $gid_type = 'unknown';
-        }
+        $gid_type = $this->video_gid_type();
         $vq = $db->query("select id,adate,atime from video_timestamps where gid='uk.org.publicwhip/$gid_type/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 order by (user_id is null) limit 1");
         $adate = $vq->field(0, 'adate');
         $time = $vq->field(0, 'atime');
@@ -194,13 +198,7 @@ class DebatesView extends SectionView {
     }
 
     private function video_advert($row) {
-        if ($this->major == 1) {
-            $gid_type = 'debate';
-        } elseif ($this->major == 101) {
-            $gid_type = 'lords';
-        } else {
-            $gid_type = 'unknown';
-        }
+        $gid_type = $this->video_gid_type();
         return '
     <div style="border:solid 1px #9999ff; background-color: #ccccff; padding: 4px; text-align: center;
     background-image: url(\'/images/video-x-generic.png\'); background-repeat: no-repeat; padding-left: 40px;

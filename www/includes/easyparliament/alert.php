@@ -87,11 +87,13 @@ function alert_details_to_criteria($details) {
 class ALERT {
 
     public $token_checked = null;
-    public $alert_id = "";
+    private $alert_id = "";
     public $email = "";
     public $criteria = "";		// Sets the terms that are used to produce the search results.
 
-    public function ALERT() {
+    private $db;
+
+    public function __construct() {
         $this->db = new ParlDB;
     }
 

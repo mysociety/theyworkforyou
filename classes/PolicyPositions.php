@@ -75,16 +75,10 @@ class PolicyPositions {
 
     private function getMemberPolicyPositions ($limit = NULL) {
 
-        $out = array();
-
         // Make sure member info has actually been set.
         if (count($this->member->extra_info) === 0) {
             throw new \Exception('Member extra information has not been loaded; cannot find policy positions.');
         }
-
-        $extra_info = $this->member->extra_info;
-
-        $displayed_stuff = 0;
 
         $policies = $this->policies->getArray();
 
@@ -113,7 +107,7 @@ class PolicyPositions {
                 $dream_info = $this->displayDreamComparison($policy[0], $policy[1]);
 
                 // Make sure the dream actually exists
-                if ($dream_info) {
+                if (!empty($dream_info)) {
                     $this->positions[] = array( 'policy_id' => $policy[0], 'desc' => $dream_info['full_sentence'] );
                     $this->positionsById[$policy[0]] = array(
                         'policy_id' => $policy[0],
@@ -221,7 +215,6 @@ class PolicyPositions {
         }
 
         if (count($record) > 0) {
-            $displayed_stuff = 1;
             return 'More on ' . implode(' &amp; ', $record);
         } else {
             return '';

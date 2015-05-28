@@ -163,7 +163,7 @@ class AlertView {
             }
 
             $this->alert->delete($q->field($i, 'alert_id') . '::' . $q->field($i ,'registrationtoken'));
-            $result = $this->alert->add($details, False);
+            $this->alert->add($details, False);
         }
 
         return array(
@@ -194,7 +194,6 @@ class AlertView {
         $existing = $this->alert->fetch_by_token($confirmation);
         preg_match('/speaker:(\d+)/', $existing['criteria'], $matches);
         $criteria = $matches[1];
-        $data = array();
 
         $old_mp = new Member(array( 'person_id' => $criteria ) );
         $new_mp = new Member(array( 'constituency' => $old_mp->constituency, 'house' => 1 ));
