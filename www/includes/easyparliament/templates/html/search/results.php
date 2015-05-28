@@ -125,7 +125,7 @@
                 <ul class="search-result-display-options">
                     <li>Sorted by relevance</li>
                     <li>Sort by date: <a href="#">newest</a> / <a href="#">oldest</a></li>
-                    <li><a href="./by-person.php">Group by person</a></li>
+                    <li><a href="/search/?q=<?= $searchstring ?>&amp;o=p">Group by person</a></li>
                 </ul>
                 <?php } ?>
 
