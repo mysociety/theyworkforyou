@@ -733,15 +733,20 @@ function search_member_db_lookup($searchstring, $current_only=false) {
     $params = array();
     if (count($searchwords) == 1) {
         $params[':like_0'] = '%' . $searchwords[0] . '%';
-        $where = "given_name LIKE :like_0 OR family_name LIKE :like_0";
+        $where = "given_name LIKE :like_0 OR family_name LIKE :like_0 OR lordofname LIKE :like_0";
     } elseif (count($searchwords) == 2) {
         // We don't do anything special if there are more than two search words.
         // And here we're assuming the user's put the names in the right order.
         $params[':like_0'] = '%' . $searchwords[0] . '%';
         $params[':like_1'] = '%' . $searchwords[1] . '%';
+        $params[':like_0_and_1'] = '%' . $searchwords[0] . ' '. $searchwords[1] . '%';
+        $params[':like_0_and_1_hyphen'] = '%' . $searchwords[0] . '-'. $searchwords[1] . '%';
         $where = "(given_name LIKE :like_0 AND family_name LIKE :like_1)";
         $where .= " OR (given_name LIKE :like_1 AND family_name LIKE :like_0)";
         $where .= " OR (title LIKE :like_0 AND family_name LIKE :like_1)";
+        $where .= " OR given_name LIKE :like_0_and_1 OR given_name LIKE :like_0_and_1_hyphen";
+        $where .= " OR family_name LIKE :like_0_and_1 OR family_name LIKE :like_0_and_1_hyphen";
+        $where .= " OR lordofname LIKE :like_0_and_1";
         if (strtolower($searchwords[0]) == 'nick') {
             $where .= " OR (given_name LIKE '%nicholas%' AND family_name LIKE :like_1)";
         }
@@ -752,28 +757,51 @@ function search_member_db_lookup($searchstring, $current_only=false) {
         $params[':like_2'] = '%' . $searchwords[2] . '%';
         $params[':like_0_and_1'] = '%' . $searchwords[0] . ' '. $searchwords[1] . '%';
         $params[':like_1_and_2'] = '%' . $searchwords[1] . ' '. $searchwords[2] . '%';
+        $params[':like_1_and_2_hyphen'] = '%' . $searchwords[1] . '-'. $searchwords[2] . '%';
         $where = "(given_name LIKE :like_0_and_1 AND family_name LIKE :like_2)";
         $where .= " OR (given_name LIKE :like_0 AND family_name LIKE :like_1_and_2)";
+        $where .= " OR (given_name LIKE :like_0 AND family_name LIKE :like_1_and_2_hyphen)";
         $where .= " OR (title LIKE :like_0 AND given_name LIKE :like_1 AND family_name LIKE :like_2)";
-        $where .= " OR (title LIKE :like_0 AND family_name LIKE :like_1 AND constituency LIKE :like_2)";
-    }
-    $where = "($where)";
-
-    if ($current_only) {
-        $where .= " AND left_house='9999-12-31'";
+        $where .= " OR (title LIKE :like_0 AND family_name LIKE :like_1 AND lordofname LIKE :like_2)";
     }
 
     $db = new ParlDB;
+    $q = $db->query("SELECT person_id, title, given_name, family_name, lordofname
+                    FROM person_names
+                    WHERE $where
+                    ORDER BY family_name, lordofname, given_name, person_id
+                    ", $params);
+    if (!$q->rows) {
+        return $q;
+    }
+
+    $person_ids = array();
+    for ($i=0; $i<$q->rows(); ++$i) {
+        $pid = $q->field($i, 'person_id');
+        $person_ids[$pid] = 1;
+    }
+    $pids = array_keys($person_ids);
+    $pids_str = join(',', $pids);
+
+    $where = '';
+    if ($current_only) {
+        $where = "AND left_house='9999-12-31'";
+    }
+
+    # This returns all memberships for these people, so that search results can
+    # show min/max dates
     $q = $db->query("SELECT member.person_id,
                             title, given_name, family_name, lordofname,
                             constituency, party,
-                            entered_house, left_house, house
-                    FROM 	member, person_names pn
-                    WHERE	$where
+                            (SELECT MIN(entered_house) FROM member m WHERE m.person_id=member.person_id) min_entered_house,
+                            left_house, house
+                    FROM member, person_names pn
+                    WHERE member.person_id IN ($pids_str) $where
                         AND member.person_id = pn.person_id
                         AND pn.start_date <= member.left_house AND member.left_house <= pn.end_date
-                    ORDER BY family_name, lordofname, given_name, person_id, entered_house desc
-                    ", $params);
+                        AND left_house = (SELECT MAX(left_house) FROM member m WHERE m.person_id=member.person_id)
+                    GROUP BY person_id
+                    ORDER BY family_name, lordofname, given_name, person_id");
 
     return $q;
 }

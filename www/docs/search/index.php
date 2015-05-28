@@ -343,45 +343,43 @@ function _find_members_internal($searchstring) {
         $URL1 = new URL('mp');
         $URL2 = new URL('peer');
 
-        $last_pid = null;
-        $entered_house = '';
         for ($n=0; $n<$q->rows(); $n++) {
-            if ($q->field($n, 'person_id') != $last_pid) {
-                # First, stick the oldest entered house from last PID on to its end!
-                if ($entered_house)
-                    $members[count($members)-1][1] = format_date($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
-                $last_pid = $q->field($n, 'person_id');
-                if ($q->field($n, 'left_house') != '9999-12-31') {
-                    $former = 'formerly ';
-                } else {
-                    $former = '';
-                }
-                $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'given_name'), $q->field($n, 'family_name'), $q->field($n, 'lordofname') );
-                if ($q->field($n, 'house') == 1) {
-                    $URL1->insert(array('pid'=>$last_pid));
-                    $s = '<a href="' . $URL1->generate() . '"><strong>';
-                    $s .= $name . '</strong></a> (' . $former . $q->field($n, 'constituency') . ', ';
-                } else {
-                    $URL2->insert(array('pid'=>$last_pid));
-                    $s = '<a href="' . $URL2->generate() . '"><strong>' . $name . '</strong></a> (';
-                }
-                $party = $q->field($n, 'party');
-                if (isset($parties[$party]))
-                    $party = $parties[$party];
-                if ($party)
-                    $s .= $party . ', ';
-                $s2 = ' &ndash; ';
-                if ($q->field($n, 'left_house') != '9999-12-31')
-                   $s2 .= format_date($q->field($n, 'left_house'), SHORTDATEFORMAT);
-                $MOREURL = new URL('search');
-                $MOREURL->insert( array('pid'=>$last_pid, 'pop'=>1, 's'=>null) );
-                $s3 = ') &ndash; <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
-                $members[] = array($s, $s2, $s3);
+            $pid = $q->field($n, 'person_id');
+            if ($q->field($n, 'left_house') != '9999-12-31') {
+                $former = 'formerly ';
+            } else {
+                $former = '';
             }
-            $entered_house = $q->field($n, 'entered_house');
+            $name = member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'given_name'), $q->field($n, 'family_name'), $q->field($n, 'lordofname') );
+            if ($q->field($n, 'house') == 1) {
+                $URL1->insert(array('pid'=>$pid));
+                $s = '<a href="' . $URL1->generate() . '"><strong>';
+                $s .= $name . '</strong></a> (' . $former . $q->field($n, 'constituency') . ', ';
+            } else {
+                $URL2->insert(array('pid'=>$pid));
+                $s = '<a href="' . $URL2->generate() . '"><strong>' . $name . '</strong></a> (';
+            }
+            $party = $q->field($n, 'party');
+            if (isset($parties[$party])) {
+                $party = $parties[$party];
+            }
+            if ($party) {
+                $s .= $party . ', ';
+            }
+            $s2 = ' &ndash; ';
+            if (substr($q->field($n, 'left_house'), 5, 5) == '00-00') {
+                $s2 .= substr($q->field($n, 'left_house'), 0, 4) - 1;
+            } elseif ($q->field($n, 'left_house') != '9999-12-31') {
+                $s2 .= format_date($q->field($n, 'left_house'), SHORTDATEFORMAT);
+            }
+            if ($entered_house = $q->field($n, 'min_entered_house')) {
+                $s2 = format_date($entered_house, SHORTDATEFORMAT) . $s2;
+            }
+            $MOREURL = new URL('search');
+            $MOREURL->insert( array('pid'=>$pid, 'pop'=>1, 's'=>null) );
+            $s3 = ') &ndash; <a href="' . $MOREURL->generate() . '">View recent appearances</a>';
+            $members[] = array($s, $s2, $s3);
         }
-        if ($entered_house)
-            $members[count($members)-1][1] = format_date($entered_house, SHORTDATEFORMAT) . $members[count($members)-1][1];
     }
 
     return $members;

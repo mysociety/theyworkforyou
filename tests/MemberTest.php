@@ -93,12 +93,14 @@ class MemberTest extends TWFY_Database_TestCase
         global $this_page;
         $this_page = 'mp';
 
-        $MEMBER = new MEMBER(array('name' => 'test duplicate-mp'));
-
-        #var_dump($MEMBER);
-
-        $this->assertEquals(NULL, $MEMBER->member_id);
-        $this->assertEquals(array(11, 10), $MEMBER->person_id);
+        try {
+            $MEMBER = new MEMBER(array('name' => 'test duplicate-mp'));
+        } catch (MySociety\TheyWorkForYou\MemberMultipleException $e) {
+            $this->assertEquals(array(11 => 'Test Westminster Constituency',
+                10 => 'Test Westminster Constituency'), $e->ids);
+            return;
+        }
+        $this->fail('Multiple member exception not raised');
     }
 
     /**
