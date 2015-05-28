@@ -265,7 +265,8 @@ class SEARCHENGINE {
         for ($n=0; $n<$merged->rows(); $n++) {
             $from_id = str_replace('uk.org.publicwhip/person/', '', $merged->field($n, 'gid_from'));
             $to_id = str_replace('uk.org.publicwhip/person/', '', $merged->field($n, 'gid_to'));
-            $qd = preg_replace("#\(S$from_id OR S$to_id\)#", "S$to_id", $qd);
+            $qd = str_replace("(S$from_id OR S$to_id)", "S$to_id", $qd);
+            $qd = str_replace("S$from_id OR S$to_id", "S$to_id", $qd);
         }
 
         preg_match_all('#S(\d+)#', $qd, $m);
