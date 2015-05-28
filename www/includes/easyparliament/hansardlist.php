@@ -2073,8 +2073,8 @@ class HANSARDLIST {
 
         # Special exemption below for when NI Speaker becomes Speaker
         # mid-debate, so we don't want to cache
-        if (isset($this->speakers[$person_id]) && !($person_id == 13831 && $hdate == '2015-01-12')) {
-            return $this->speakers[$person_id];
+        if (isset($this->speakers["$person_id-$hdate"]) && !($person_id == 13831 && $hdate == '2015-01-12')) {
+            return $this->speakers["$person_id-$hdate"];
         }
 
         # Special exemptions for people 'speaking' after they have died
@@ -2121,7 +2121,7 @@ class HANSARDLIST {
         }
 
         $speaker['office'] = $this->_get_speaker_offices($speaker, $hdate);
-        $this->speakers[$person_id] = $speaker;
+        $this->speakers["$person_id-$hdate"] = $speaker;
         return $speaker;
     }
 
