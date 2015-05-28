@@ -32,12 +32,14 @@ class Search {
                 $data['template'] = 'search/by-person';
             } else {
                 $data = $this->search_normal($this->search_string);
+                $data['pagination_links'] = $this->generate_pagination($data['info']);
                 $data['template'] = 'search/results';
             }
         }
 
         $data['searchstring'] = $this->search_string;
-        $data['pagination_links'] = $this->generate_pagination($data['info']);
+        $data['this_url'] = $this->construct_url();
+        $data['ungrouped_url'] = $this->construct_url(false);
 
         return $data;
     }
@@ -146,6 +148,23 @@ class Search {
 
         twfy_debug('SEARCH', _htmlspecialchars($searchstring));
         return $searchstring;
+    }
+
+    private function construct_url($params = true) {
+        global $this_page;
+        $url = new \URL($this_page);
+        $url->insert(array('q' => $this->search_string));
+        if ( $params ) {
+            if ( get_http_var('o') ) {
+                $url->insert(array('o' => get_http_var('o')));
+            }
+            if ( get_http_var('wtt') ) {
+                $url->insert(array('wtt' => get_http_var('wtt')));
+            }
+        } else {
+            $url->remove(array('o', 'house'));
+        }
+        return $url;
     }
 
     private function generate_pagination($data) {
@@ -265,6 +284,8 @@ class Search {
             'o' => ($o=='d' || $o=='r' || $o=='o') ? $o : 'd',
         );
 
+        $members = null;
+        $cons = null;
         if ($pagenum == 1 && $args['s'] && !preg_match('#[a-z]+:[a-z0-9]+#', $args['s'])) {
             $members = $this->find_members($args['s']);
             $cons = $this->find_constituency($args);
@@ -290,102 +311,30 @@ class Search {
         global $DATA, $PAGE, $this_page;
 
         $q_house = '';
-        if (ctype_digit(get_http_var('house')))
+        if (ctype_digit(get_http_var('house'))) {
             $q_house = get_http_var('house');
+        }
+
+        $wtt = get_http_var('wtt');
+        if ($wtt) {
+            $q_house = 2;
+        }
 
         # Fetch the results
         $data = search_by_usage($searchstring, $q_house);
 
-        $wtt = get_http_var('wtt');
         if ($wtt) {
+            $q_house = 2;
             $pagetitle = 'League table of Lords who say ' . $data['pagetitle'];
         } else {
             $pagetitle = 'Who says ' . $data['pagetitle'] . ' the most?';
         }
         $DATA->set_page_metadata($this_page, 'title', $pagetitle);
-        $PAGE->page_start();
-        $PAGE->stripe_start();
-        $PAGE->search_form($searchstring);
-        if (isset($data['error'])) {
-            print '<p>' . $data['error'] . '</p>';
-            return;
-        }
 
-        if (isset($data['limit_reached'])) {
-            print '<p><em>This service runs on a maximum number of 5,000 results, to conserve memory</em></p>';
-        }
-        print "\n\n<!-- ";
-        foreach ($data['party_count'] as $party => $count) {
-            print "$party:$count<br>";
-        }
-        print " -->\n\n";
-        if ($wtt) { ?>
-    <p><strong><big>Now, try reading what a couple of these Lords are saying,
-    to help you find someone appropriate. When you've found someone,
-    hit the "I want to write to this Lord" button on their results page
-    to go back to WriteToThem.
-    </big></strong></p>
-    <?php
-        }
-    ?>
-    <p>Please note that this search is only for the exact word/phrase entered.
-    For example, putting in 'autism' won't return results for 'autistic spectrum disorder',
-    you will have to search for it separately.</p>
-    <table><tr><th>Number of occurences</th><th><?php
 
-        if ($wtt) print 'Speaker';
-        else {
-    ?>Table includes - <?php
-
-            $URL = new URL($this_page);
-            $url_l = $URL->generate('html', array('house'=>2));
-            $url_c = $URL->generate('html', array('house'=>1));
-            $URL->remove(array('house'));
-            $url_b = $URL->generate();
-            if ($q_house==1) {
-                print 'MPs | <a href="' . $url_l . '">Lords</a> | <a href="' . $url_b . '">Both</a>';
-            } elseif ($q_house==2) {
-                print '<a href="' . $url_c . '">MPs</a> | Lords | <a href="' . $url_b . '">Both</a>';
-            } else {
-                print '<a href="' . $url_c . '">MPs</a> | <a href="' . $url_l . '">Lords</a> | Both';
-            }
-
-    } ?></th><th>Date range</th></tr>
-    <?php
-        foreach ($data['speakers'] as $pid => $speaker) {
-            print '<tr><td align="center">';
-            print $speaker['count'] . '</td><td>';
-            if ($pid) {
-                $house = $speaker['house'];
-                $left = $speaker['left'];
-                if ($house==1) {
-                    print '<span style="color:#009900">&bull;</span> ';
-                } elseif ($house==2) {
-                    print '<span style="color:#990000">&bull;</span> ';
-                }
-                if (!$wtt || $left == '9999-12-31')
-                    print '<a href="' . WEBPATH . 'search/?s='.urlencode($searchstring).'&amp;pid=' . $pid;
-                if ($wtt && $left == '9999-12-31')
-                    print '&amp;wtt=2';
-                if (!$wtt || $left == '9999-12-31')
-                    print '">';
-            }
-            print $speaker['name'];
-            if ($pid) print '</a>';
-            if ($speaker['party']) print ' (' . $speaker['party'] . ')';
-            if (isset($speaker['office']))
-                print ' - ' . join('; ', $speaker['office']);
-            print '</td> <td>';
-            $pmindate = $speaker['pmindate'];
-            $pmaxdate = $speaker['pmaxdate'];
-            if (format_date($pmindate, 'M Y') == format_date($pmaxdate, 'M Y')) {
-                print format_date($pmindate, 'M Y');
-            } else {
-                print str_replace(' ', '&nbsp;', format_date($pmindate, 'M Y') . ' &ndash; ' . format_date($pmaxdate, 'M Y'));
-            }
-            print '</td></tr>';
-        }
-        print '</table>';
+        $data['house'] = $q_house;
+        $data['wtt'] = $wtt;
+        return $data;
     }
 
 private function find_constituency($args) {

@@ -690,6 +690,8 @@ function search_by_usage($search, $house = 0) {
                     $speakers[$pid]['office'][$moffice_id] = prettify_office($posn, $dept);
                 if (!isset($speakers[$pid]['name'])) {
                     $speakers[$pid]['name'] = $full_name . ($house==1?' MP':'');
+                }
+                if ( !isset($speakers[$pid]['party']) && $party ) {
                     $speakers[$pid]['party'] = $party;
                 }
             }
@@ -699,13 +701,16 @@ function search_by_usage($search, $house = 0) {
         $party_count = array();
         $ok = 0;
         foreach ($speaker_count as $pid => $count) {
-            $speakers[$pid]['count'] = $count;
-            $speakers[$pid]['pmaxdate'] = $maxdate[$pid];
-            $speakers[$pid]['pmindate'] = $mindate[$pid];
-            $ok = 1;
-            if (!isset($party_count[$speakers[$pid]['party']]))
-                $party_count[$speakers[$pid]['party']] = 0;
-            $party_count[$speakers[$pid]['party']] += $count;
+            // we may have a count for a speaker not in $house
+            if ( isset($speakers[$pid] ) ) {
+                $speakers[$pid]['count'] = $count;
+                $speakers[$pid]['pmaxdate'] = $maxdate[$pid];
+                $speakers[$pid]['pmindate'] = $mindate[$pid];
+                $ok = 1;
+                if (!isset($party_count[$speakers[$pid]['party']]))
+                    $party_count[$speakers[$pid]['party']] = 0;
+                $party_count[$speakers[$pid]['party']] += $count;
+            }
         }
         function sort_by_count($a, $b) {
             if ($a['count'] > $b['count']) return -1;
