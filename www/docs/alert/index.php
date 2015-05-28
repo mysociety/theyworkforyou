@@ -339,7 +339,8 @@ function display_search_form ( $alert, $details = array(), $errors = array() ) {
         }
         echo _htmlspecialchars($alertsearch) . '] ';
         echo ' <input type="submit" value="Subscribe"></form>';
-        if (strstr($alertsearch, ',') > -1) {
+        # Use original alertsearch variable here, because name replacement might introduce a comma
+        if (strstr($details['alertsearch'], ',') > -1) {
             echo '<em class="error">You have used a comma in your search term &ndash; are you sure this is what you want?
 You cannot sign up to multiple search terms using a comma &ndash; either use OR, or fill in this form multiple times.</em>';
         }
