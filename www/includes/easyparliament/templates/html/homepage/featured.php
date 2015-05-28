@@ -1,7 +1,7 @@
                         <?php if ( $featured['featured'] ) { ?>
                         <h2>In the news</h2>
                         <?php if ( isset($featured['headline']) ) { ?>
-                        <h3 class="in-the-news__topic"><?= $featured['headline'] ?></h3>
+                        <h3 class="in-the-news__topic"><a href="<?= $featured['list_url'] ?>"><?= $featured['headline'] ?></a></h3>
                         <?php if ( isset($featured['context']) ) { ?>
                         <p class="in-the-news__context"><?= $featured['context'] ?></p>
                         <?php } ?>
