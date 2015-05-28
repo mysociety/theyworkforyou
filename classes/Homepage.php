@@ -121,7 +121,11 @@ class Homepage {
     }
 
     public function getFeaturedDebate($gid, $title, $context, $related) {
-        $debatelist = new \DEBATELIST;
+        if (strpos($gid, 'lords') !== false) {
+            $debatelist = new \LORDSDEBATELIST;
+        } else {
+            $debatelist = new \DEBATELIST;
+        }
 
         $item = $debatelist->display('featured_gid', array('gid' => $gid), 'none');
         $item = $item['data'];

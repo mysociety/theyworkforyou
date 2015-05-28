@@ -18,7 +18,7 @@ if (get_http_var('preview')) {
 
 print '<div id="adminbody">';
 print $out;
-print '<p><b>This currently only works for debates in the House of Commons</b></p>';
+print '<p><b>This currently only works for debates in the House of Commons or Lords</b></p>';
 edit_featured_form();
 print '</div>';
 
@@ -159,7 +159,12 @@ function get_gid_from_url($url) {
     parse_str($parts['query'], $query);
 
     if ( $query['id'] ) {
-        $gid = "uk.org.publicwhip/debate/" . $query['id'];
+        if (strpos($parts['path'], 'lords') !== false) {
+            $gid = 'uk.org.publicwhip/lords/';
+        } else {
+            $gid = 'uk.org.publicwhip/debate/';
+        }
+        $gid .= $query['id'];
     }
     return $gid;
 }
