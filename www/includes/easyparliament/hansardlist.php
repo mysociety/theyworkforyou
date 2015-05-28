@@ -99,6 +99,16 @@ class HANSARDLIST {
     // This prefix is used to pick out unique things by type
     public $gidprefix;
 
+    // These are used to specify the pages for each subclass
+    public $listpage;
+    public $commentspage;
+
+    # Only used by StandingCommittee subclass
+    public $bill_title;
+    public $url;
+
+    public $db;
+
     public function __construct() {
         $this->db = new ParlDB;
     }
@@ -259,9 +269,6 @@ class HANSARDLIST {
 
         twfy_debug (get_class($this), "getting an item's section");
 
-        // What we return.
-        $sectiondata = array ();
-
         if ($itemdata['htype'] != '10') {
 
             // This item is a subsection, speech or procedural,
@@ -403,6 +410,7 @@ class HANSARDLIST {
         // Previous item.
         if ($prev_item_id) {
             // We have a previous one to link to.
+            $wherearr = array();
             $wherearr['hansard.epobject_id='] = $prev_item_id;
 
             // For getting hansard data.
@@ -447,6 +455,7 @@ class HANSARDLIST {
         // Next item.
         if ($next_item_id) {
             // We have a next one to link to.
+            $wherearr = array();
             $wherearr['hansard.epobject_id='] = $next_item_id;
 
             // For getting hansard data.
@@ -607,7 +616,7 @@ class HANSARDLIST {
             return false;
         }
 
-        list($string, $year, $month, $day) = $matches;
+        list(, $year, $month, $day) = $matches;
 
         if (!checkdate($month, $day, $year)) {
             $PAGE->error_message ("Sorry, '" . _htmlentities($date) . "' isn't a valid date.");
@@ -672,36 +681,35 @@ class HANSARDLIST {
 
         if (count($itemdata) == 0) {
             /* Deal with old links to some Lords pages. Somewhere. I can't remember where */
-            $itemdata = $this->check_gid_change($args['gid'], 'a', ''); if ($itemdata) return $itemdata;
+            $this->check_gid_change($args['gid'], 'a', '');
 
             if (substr($args['gid'], -1) == 'L') {
                 $letts = array('a','b','c','d','e');
                 for ($i=0; $i<4; $i++) {
-                    $itemdata = $this->check_gid_change($args['gid'], $letts[$i], $letts[$i+1]);
-                    if ($itemdata) return $itemdata;
+                    $this->check_gid_change($args['gid'], $letts[$i], $letts[$i+1]);
                 }
             }
 
             /* A lot of written answers were moved from 10th to 11th May and 11th May to 12th May.
                Deal with the bots who have stored links to those now non-existant written answers. */
             /* 2007-05-31: And then they were moved BACK in the volume edition, ARGH */
-            $itemdata = $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-10c'); if ($itemdata) return $itemdata;
-            $itemdata = $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-11d'); if ($itemdata) return $itemdata;
-            $itemdata = $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-11d'); if ($itemdata) return $itemdata;
-            $itemdata = $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-12c'); if ($itemdata) return $itemdata;
-            $itemdata = $this->check_gid_change($args['gid'], '2006-05-11c', '2006-05-10c'); if ($itemdata) return $itemdata;
-            $itemdata = $this->check_gid_change($args['gid'], '2006-05-12b', '2006-05-11d'); if ($itemdata) return $itemdata;
+            $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-10c');
+            $this->check_gid_change($args['gid'], '2006-05-10a', '2006-05-11d');
+            $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-11d');
+            $this->check_gid_change($args['gid'], '2006-05-11b', '2006-05-12c');
+            $this->check_gid_change($args['gid'], '2006-05-11c', '2006-05-10c');
+            $this->check_gid_change($args['gid'], '2006-05-12b', '2006-05-11d');
 
-            $itemdata = $this->check_gid_change($args['gid'], '2007-01-08', '2007-01-05'); if ($itemdata) return $itemdata;
-            $itemdata = $this->check_gid_change($args['gid'], '2007-02-19', '2007-02-16'); if ($itemdata) return $itemdata;
+            $this->check_gid_change($args['gid'], '2007-01-08', '2007-01-05');
+            $this->check_gid_change($args['gid'], '2007-02-19', '2007-02-16');
 
             /* More movearounds... */
-            $itemdata = $this->check_gid_change($args['gid'], '2005-10-10d', '2005-09-12a'); if ($itemdata) return $itemdata;
-            $itemdata = $this->check_gid_change($args['gid'], '2005-10-14a', '2005-10-13b'); if ($itemdata) return $itemdata;
-            $itemdata = $this->check_gid_change($args['gid'], '2005-10-18b', '2005-10-10e'); if ($itemdata) return $itemdata;
-            $itemdata = $this->check_gid_change($args['gid'], '2005-11-17b', '2005-11-15c'); if ($itemdata) return $itemdata;
+            $this->check_gid_change($args['gid'], '2005-10-10d', '2005-09-12a');
+            $this->check_gid_change($args['gid'], '2005-10-14a', '2005-10-13b');
+            $this->check_gid_change($args['gid'], '2005-10-18b', '2005-10-10e');
+            $this->check_gid_change($args['gid'], '2005-11-17b', '2005-11-15c');
 
-            $itemdata = $this->check_gid_change($args['gid'], '2007-01-08a', '2007-01-08e'); if ($itemdata) return $itemdata;
+            $this->check_gid_change($args['gid'], '2007-01-08a', '2007-01-08e');
 
             /* Right back when Lords began, we sent out email alerts when they weren't on the site. So this was to work that. */
             #$lord_gid_like = 'uk.org.publicwhip/lords/' . $args['gid'] . '%';
@@ -719,7 +727,7 @@ class HANSARDLIST {
 
     }
 
-    public function check_gid_change($gid, $from, $to) {
+    private function check_gid_change($gid, $from, $to) {
         $input = array (
             'amount' => array (
                 'body' => true,
@@ -736,7 +744,6 @@ class HANSARDLIST {
                 throw new RedirectException($check_gid);
             }
         }
-        return null;
     }
 
 
@@ -785,7 +792,8 @@ class HANSARDLIST {
                 // Where we'll keep the full list of sections and subsections.
                 $data['rows'] = array();
 
-                for ($n=0; $n<count($sections); $n++) {
+                $num_sections = count($sections);
+                for ($n=0; $n<$num_sections; $n++) {
                     // For each section on this date, get the subsections within it.
 
                     // Get all the section data.
@@ -956,7 +964,8 @@ class HANSARDLIST {
 
         if (count($speeches) > 0) {
             // Get the subsection texts.
-            for ($n=0; $n<count($speeches); $n++) {
+            $num_speeches = count($speeches);
+            for ($n=0; $n<$num_speeches; $n++) {
                 $thing = $hansardmajors[$speeches[$n]['major']]['title'];
                 // Add the parent's body on...
                 $speeches[$n]['parent']['body'] = $speeches[$n]['body_section'] . ' | ' . $thing;
@@ -1082,14 +1091,9 @@ class HANSARDLIST {
         // We'll put all the data in here before giving it to a template.
         $rows = array();
 
-        // We'll cache the ids=>names of speakers here.
-        $speakers = array();
-
-        // We'll cache (sub)section_ids here:
-        $hansard_to_gid = array();
-
         // Cycle through each result, munge the data, get more, and put it all in $data.
-        for ($n=0; $n<count($gids); $n++) {
+        $num_gids = count($gids);
+        for ($n=0; $n<$num_gids; $n++) {
             $gid = $gids[$n];
             $relevancy = $relevances[$n];
             $collapsed = $SEARCHENGINE->collapsed[$n];
@@ -1122,7 +1126,7 @@ class HANSARDLIST {
 
                 list($cal_item, $cal_meta) = calendar_meta($itemdata);
                 $body = $this->prepare_search_result_for_display($cal_item) . '.';
-                if ($cal_meta) {
+                if (!empty($cal_meta)) {
                     $body .= ' <span class="future_meta">' . join('; ', $cal_meta) . '</span>';
                 }
                 if ($itemdata['witnesses']) {
@@ -1137,7 +1141,7 @@ class HANSARDLIST {
                     $title = 'Previous Business';
                 }
                 $itemdata['gid']            = $id;
-                $itemdata['relevance']      = $relevances[$n];
+                $itemdata['relevance']      = $relevancy;
                 $itemdata['parent']['body'] = $title . ' &#8211; ' . $itemdata['chamber'];
                 $itemdata['extract']        = $body;
                 $itemdata['listurl']        = '/calendar/?d=' . $itemdata['event_date'] . '#cal' . $itemdata['id'];
@@ -1167,7 +1171,7 @@ class HANSARDLIST {
                 $itemdata = $q->row(0);
                 $itemdata['collapsed']  = $collapsed;
                 $itemdata['gid']        = fix_gid_from_db( $q->field(0, 'gid') );
-                $itemdata['relevance']  = $relevances[$n];
+                $itemdata['relevance']  = $relevancy;
                 $itemdata['extract']    = $this->prepare_search_result_for_display($q->field(0, 'body'));
 
                 //////////////////////////
@@ -1377,11 +1381,6 @@ class HANSARDLIST {
         }
 
         // This first if/else section is simply to fill out these variables:
-
-        $firstyear = '';
-        $firstmonth = '';
-        $finalyear = '';
-        $finalmonth = '';
 
         if ($action == 'recentmonths' || $action == 'recentyear') {
 
@@ -1660,7 +1659,6 @@ class HANSARDLIST {
         $wherearr 		= isset($input['where']) ? $input['where'] : array();
         $order 			= isset($input['order']) ? $input['order'] : '';
         $limit 			= isset($input['limit']) ? $input['limit'] : '';
-        $listurl_args	= isset($input['listurl_args']) ? $input['listurl_args'] : array();
 
 
         // The fields to fetch from db. 'table' => array ('field1', 'field2').
@@ -2368,7 +2366,7 @@ class HANSARDLIST {
             // display that item, i.e. the whole of the Written Answer
             twfy_debug (get_class($this), "instead of " . $args['gid'] . " selecting subheading gid " . $parent[0]['gid'] . " to get whole wrans");
             $args['gid'] = $parent[0]['gid'];
-            $itemdata = $this->_get_item($args);
+            $this->_get_item($args);
             throw new RedirectException($args['gid']);
         }
 
@@ -2383,10 +2381,10 @@ class HANSARDLIST {
                 'limit' => 1
             );
             $next = $this->_get_hansard_data($input);
-            if ($next) {
+            if (!empty($next)) {
                 twfy_debug (get_class($this), 'instead of ' . $args['gid'] . ' moving to ' . $next[0]['gid']);
                 $args['gid'] = $next[0]['gid'];
-                $itemdata = $this->_get_item($args);
+                $this->_get_item($args);
                 throw new RedirectException($args['gid']);
             }
         }
@@ -2720,7 +2718,8 @@ class DEBATELIST extends HANSARDLIST {
         if (count($speeches) > 0) {
             // Get the subsection texts.
 
-            for ($n=0; $n<count($speeches); $n++) {
+            $num_speeches = count($speeches);
+            for ($n=0; $n<$num_speeches; $n++) {
                 //if ($this->major == 1) {
                     // Debate.
                     $parent = $this->_get_subsection ($speeches[$n]);
@@ -3324,7 +3323,8 @@ class StandingCommittee extends DEBATELIST {
         $sections = $this->_get_hansard_data($input);
         if (count($sections) > 0) {
             $data['rows'] = array();
-            for ($n=0; $n<count($sections); $n++) {
+            $num_sections = count($sections);
+            for ($n=0; $n<$num_sections; $n++) {
                 $sectionrow = $sections[$n];
                 list($sitting, $part) = $this->_get_sitting($sectionrow['gid']);
                 $sectionrow['sitting'] = $sitting;
