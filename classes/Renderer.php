@@ -86,8 +86,7 @@ class Renderer
         ////////////////////////////////////////////////////////////
         // Header <link>s
 
-        $header_links = array();
-
+        $data['header_links'] = array();
         if ($this_page != 'overview') {
 
             $URL = new \URL('overview');
@@ -223,8 +222,6 @@ class Renderer
         );
 
         //get the top and bottom links
-        $top_links = array();
-        $bottom_links = array();
         foreach ($nav_items as $bottompages) {
             $toppage = array_shift($bottompages);
 
@@ -395,7 +392,6 @@ class Renderer
             foreach ($items as $item) {
                 $menudata   = $DATA->page_metadata($item, 'menu');
                 $logintext  = $menudata['text'];
-                $logintitle = $menudata['title'];
                 $URL = new \URL($item);
                 $data['user_nav_links'][] = array(
                     'href'    => $URL->generate(),

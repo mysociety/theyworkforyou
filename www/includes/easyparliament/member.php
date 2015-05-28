@@ -54,7 +54,7 @@ class MEMBER {
 
     );
 
-    public function MEMBER($args) {
+    public function __construct($args) {
         // $args is a hash like one of:
         // member_id 		=> 237
         // person_id 		=> 345

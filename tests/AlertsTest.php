@@ -173,30 +173,6 @@ class AlertsTest extends TWFY_Database_TestCase
     }
 
     /**
-     * Test that email_exists() returns true for correct emails
-     */
-    public function testEmailExistsPositive()
-    {
-        $ALERT = new ALERT();
-
-        $response = $ALERT->email_exists('test@theyworkforyou.com');
-
-        $this->assertEquals(true, $response);
-    }
-
-    /**
-     * Test that email_exists() returns false for incorrect emails
-     */
-    public function testEmailExistsNegative()
-    {
-        $ALERT = new ALERT();
-
-        $response = $ALERT->email_exists('badtest@theyworkforyou.com');
-
-        $this->assertEquals(false, $response);
-    }
-
-    /**
      * Test that a correct token will pass
      */
     public function testCheckTokenCorrect()

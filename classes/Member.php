@@ -212,6 +212,7 @@ class Member extends \MEMBER {
 
         if ($this->other_parties && $this->party != 'Speaker' && $this->party != 'Deputy Speaker') {
             $output = 'Changed party ';
+            $other_parties = array();
             foreach ($this->other_parties as $r) {
                 $other_parties[] = 'from ' . $r['from'] . ' on ' . format_date($r['date'], SHORTDATEFORMAT);
             }
@@ -245,135 +246,72 @@ class Member extends \MEMBER {
     * Get Entered/Left Strings
     *
     * Return an array of readable strings covering when people entered or left
-    * various houses. Returns an array since it's *possible* (although unlikely)
-    * for a member to have done several of these things.
+    * various houses. Returns an array since it's possible for a member to have
+    * done several of these things.
     *
     * @return array An array of strings of when this member entered or left houses.
     */
     public function getEnterLeaveStrings() {
-
         $output = array();
 
+        $output[] = $this->entered_house_line(HOUSE_TYPE_LORDS, 'House of Lords');
+
         if (isset($this->left_house[HOUSE_TYPE_COMMONS]) && isset($this->entered_house[HOUSE_TYPE_LORDS])) {
-            $string = '<strong>Entered the House of Lords ';
-            if (strlen($this->entered_house[HOUSE_TYPE_LORDS]['date_pretty'])==4) {
-                $string .= 'in ';
-            } else {
-                $string .= 'on ';
-            }
-            $string .= $this->entered_house[HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
-            $string .= '</strong>';
-            if ($this->entered_house[HOUSE_TYPE_LORDS]['reason']) {
-                $string .= ' &mdash; ' . $this->entered_house[HOUSE_TYPE_LORDS]['reason'];
-            }
-
-            $output[] = $string;
-
             $string = '<strong>Previously MP for ';
             $string .= $this->left_house[HOUSE_TYPE_COMMONS]['constituency'] . ' until ';
-            $string .= $this->left_house[HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
+            $string .= $this->left_house[HOUSE_TYPE_COMMONS]['date_pretty'] . '</strong>';
             if ($this->left_house[HOUSE_TYPE_COMMONS]['reason']) {
                 $string .= ' &mdash; ' . $this->left_house[HOUSE_TYPE_COMMONS]['reason'];
             }
-
-            $output[] = $string;
-
-        } elseif (isset($this->entered_house[HOUSE_TYPE_LORDS]['date'])) {
-            $string = '<strong>Became a Lord ';
-            if (strlen($this->entered_house[HOUSE_TYPE_LORDS]['date_pretty'])==4)
-                $string .= 'in ';
-            else
-                $string .= 'on ';
-            $string .= $this->entered_house[HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
-            if ($this->entered_house[HOUSE_TYPE_LORDS]['reason']) {
-                $string .= ' &mdash; ' . $this->entered_house[HOUSE_TYPE_LORDS]['reason'];
-            }
-
             $output[] = $string;
         }
 
-        if ($this->house(HOUSE_TYPE_LORDS) && !$this->current_member(HOUSE_TYPE_LORDS)) {
-            $string = '<strong>Left House of Lords on '.$this->left_house[HOUSE_TYPE_LORDS]['date_pretty'].'</strong>';
-            if ($this->left_house[HOUSE_TYPE_LORDS]['reason']) {
-                $string .= ' &mdash; ' . $this->left_house[HOUSE_TYPE_LORDS]['reason'];
-            }
+        $output[] = $this->left_house_line(HOUSE_TYPE_LORDS, 'House of Lords');
 
-            $output[] = $string;
-        }
-
-        if (isset($extra_info['lordbio'])) {
-            $string = '<strong>Positions held at time of appointment:</strong> ' . $extra_info['lordbio'] .
+        if (isset($this->extra_info['lordbio'])) {
+            $output[] = '<strong>Positions held at time of appointment:</strong> ' . $this->extra_info['lordbio'] .
                 ' <small>(from <a href="' .
-                $extra_info['lordbio_from'] . '">Number 10 press release</a>)</small>';
-
-            $output[] = $string;
+                $this->extra_info['lordbio_from'] . '">Number 10 press release</a>)</small>';
         }
 
-        if (isset($this->entered_house[HOUSE_TYPE_COMMONS]['date'])) {
-            $string = '<strong>Entered House of Commons on ';
-            $string .= $this->entered_house[HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
-            if ($this->entered_house[HOUSE_TYPE_COMMONS]['reason']) {
-                $string .= ' &mdash; ' . $this->entered_house[HOUSE_TYPE_COMMONS]['reason'];
-            }
-
-            $output[] = $string;
-        }
+        $output[] = $this->entered_house_line(HOUSE_TYPE_COMMONS, 'House of Commons');
 
         # If they became a Lord, we handled this above.
         if ($this->house(HOUSE_TYPE_COMMONS) && !$this->current_member(HOUSE_TYPE_COMMONS) && !$this->house(HOUSE_TYPE_LORDS)) {
-            $string = '<strong>Left Parliament ';
-            if (strlen($this->left_house[HOUSE_TYPE_COMMONS]['date_pretty'])==4) {
-                $string .= 'in ';
-            } else {
-                $string .= 'on ';
-            }
-            $string .= $this->left_house[HOUSE_TYPE_COMMONS]['date_pretty'].'</strong>';
-            if ($this->left_house[HOUSE_TYPE_COMMONS]['reason']) {
-                $string .= ' &mdash; ' . $this->left_house[HOUSE_TYPE_COMMONS]['reason'];
-            }
-
-            $output[] = $string;
+            $output[] = $this->left_house_line(HOUSE_TYPE_COMMONS, 'House of Commons');
         }
 
-        if (isset($this->entered_house[HOUSE_TYPE_NI]['date'])) {
-            $string = '<strong>Entered the Assembly on ';
-            $string .= $this->entered_house[HOUSE_TYPE_NI]['date_pretty'].'</strong>';
-            if ($this->entered_house[HOUSE_TYPE_NI]['reason']) {
-                $string .= ' &mdash; ' . $this->entered_house[HOUSE_TYPE_NI]['reason'];
-            }
+        $output[] = $this->entered_house_line(HOUSE_TYPE_NI, 'Assembly');
+        $output[] = $this->left_house_line(HOUSE_TYPE_NI, 'Assembly');
+        $output[] = $this->entered_house_line(HOUSE_TYPE_SCOTLAND, 'Scottish Parliament');
+        $output[] = $this->left_house_line(HOUSE_TYPE_SCOTLAND, 'Scottish Parliament');
 
-            $output[] = $string;
-        }
-
-        if ($this->house(HOUSE_TYPE_NI) && !$this->current_member(HOUSE_TYPE_NI)) {
-            $string = '<strong>Left the Assembly on '.$this->left_house[HOUSE_TYPE_NI]['date_pretty'].'</strong>';
-            if ($this->left_house[HOUSE_TYPE_NI]['reason']) {
-                $string .= ' &mdash; ' . $this->left_house[HOUSE_TYPE_NI]['reason'];
-            }
-
-            $output[] = $string;
-        }
-
-        if (isset($this->entered_house[HOUSE_TYPE_SCOTLAND]['date'])) {
-            $string = '<strong>Entered the Scottish Parliament on ';
-            $string .= $this->entered_house[HOUSE_TYPE_SCOTLAND]['date_pretty'].'</strong>';
-            if ($this->entered_house[HOUSE_TYPE_SCOTLAND]['reason']) {
-                $string .= ' &mdash; ' . $this->entered_house[HOUSE_TYPE_SCOTLAND]['reason'];
-            }
-
-            $output[] = $string;
-        }
-
-        if ($this->house(HOUSE_TYPE_SCOTLAND) && !$this->current_member(HOUSE_TYPE_SCOTLAND)) {
-            $string = '<strong>Left the Scottish Parliament on '.$this->left_house[HOUSE_TYPE_SCOTLAND]['date_pretty'].'</strong>';
-            if ($this->left_house[HOUSE_TYPE_SCOTLAND]['reason']) {
-                $string .= ' &mdash; ' . $this->left_house[HOUSE_TYPE_SCOTLAND]['reason'];
-            }
-
-            $output[] = $string;
-        }
-
+        $output = array_values(array_filter($output));
         return $output;
+    }
+
+    private function entered_house_line($house, $house_name) {
+        if (isset($this->entered_house[$house]['date'])) {
+            $string = "<strong>Entered the $house_name ";
+            $string .= strlen($this->entered_house[$house]['date_pretty'])==4 ? 'in ' : 'on ';
+            $string .= $this->entered_house[$house]['date_pretty'] . '</strong>';
+            if ($this->entered_house[$house]['reason']) {
+                $string .= ' &mdash; ' . $this->entered_house[$house]['reason'];
+            }
+            return $string;
+        }
+    }
+
+    private function left_house_line($house, $house_name) {
+        if ($this->house($house) && !$this->current_member($house)) {
+            $string = "<strong>Left the $house_name ";
+            $string .= strlen($this->left_house[$house]['date_pretty'])==4 ? 'in ' : 'on ';
+            $string .= $this->left_house[$house]['date_pretty'] . '</strong>';
+            if ($this->left_house[$house]['reason']) {
+                $string .= ' &mdash; ' . $this->left_house[$house]['reason'];
+            }
+            return $string;
+        }
     }
 
     public static function getRegionalList($postcode, $house, $type) {

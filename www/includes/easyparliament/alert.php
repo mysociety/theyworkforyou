@@ -19,7 +19,6 @@ ALERT
     fetch($confirmed, $deleted)					Fetch all alert data from DB.
     add($details, $confirmation_email)				Add a new alert to the DB.
     send_confirmation_email($details)				Done after add()ing the alert.
-    email_exists($email)						Checks if an alert exists with a certain email address.
     confirm($token)							Confirm a new alert in the DB
     delete($token)							Remove an existing alert from the DB
     id_exists()							Checks if an alert_id is valid.
@@ -87,11 +86,13 @@ function alert_details_to_criteria($details) {
 class ALERT {
 
     public $token_checked = null;
-    public $alert_id = "";
+    private $alert_id;
     public $email = "";
     public $criteria = "";		// Sets the terms that are used to produce the search results.
 
-    public function ALERT() {
+    private $db;
+
+    public function __construct() {
         $this->db = new ParlDB;
     }
 
@@ -359,30 +360,7 @@ class ALERT {
                 ':email' => $email,
                 ':criteria' => 'speaker:' . $pid
             ));
-        if ($q->rows() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function email_exists($email) {
-        // Returns true if there's a user with this email address.
-
-        if ($email != "") {
-            $q = $this->db->query("SELECT alert_id FROM alerts
-                WHERE email = :email", array(
-                    ':email' => $email
-                ));
-            if ($q->rows() > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-
+        return ($q->rows() > 0);
     }
 
     public function check_token($token) {
@@ -454,34 +432,28 @@ class ALERT {
         return $r->success();
     }
 
+    private function _set_delete_state($token, $state) {
+        if (!($alert = $this->check_token($token))) return false;
+        $r = $this->db->query("UPDATE alerts SET deleted = :deleted WHERE alert_id = :alert_id", array(
+            ':alert_id' => $alert['id'],
+            ':deleted' => $state,
+            ));
+        return $r->success();
+    }
+
     // The user has clicked the link in their delete confirmation email
     // and the deletion page has passed the token from the URL to here.
     // If all goes well the alert will be flagged as deleted.
     public function delete($token) {
-        if (!($alert = $this->check_token($token))) return false;
-        $r = $this->db->query("UPDATE alerts SET deleted = 1 WHERE alert_id = :alert_id", array(
-            ':alert_id' => $alert['id']
-            ));
-
-        return $r->success();
+        return $this->_set_delete_state($token, 1);
     }
 
     public function suspend($token) {
-        if (!($alert = $this->check_token($token))) return false;
-        $r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = :alert_id", array(
-            ':alert_id' => $alert['id']
-            ));
-
-        return $r->success();
+        return $this->_set_delete_state($token, 2);
     }
 
     public function resume($token) {
-        if (!($alert = $this->check_token($token))) return false;
-        $r = $this->db->query("UPDATE alerts SET deleted = 0 WHERE alert_id = :alert_id", array(
-            ':alert_id' => $alert['id']
-            ));
-
-        return $r->success();
+        return $this->_set_delete_state($token, 0);
     }
 
     // Getters

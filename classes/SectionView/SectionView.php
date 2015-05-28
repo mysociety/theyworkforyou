@@ -4,12 +4,17 @@
 namespace MySociety\TheyWorkForYou\SectionView;
 
 class SectionView {
+    protected $major;
+    protected $class;
+    protected $list;
+    private $major_data;
+    private $page_base;
 
-    function __construct() {
+    public function __construct() {
         global $hansardmajors;
         $this->major_data = $hansardmajors[$this->major];
         $this->page_base = str_replace('year', '', $this->major_data['page_year']);
-        if (!property_exists($this, 'list')) {
+        if (!$this->list) {
             $this->class = "\\" . $this->class;
             $this->list = new $this->class();
         }

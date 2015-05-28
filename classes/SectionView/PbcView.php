@@ -6,7 +6,10 @@ class PbcView extends SectionView {
     protected $major = 6;
     protected $class = 'StandingCommittee';
 
-    function __construct() {
+    private $bill;
+    private $session;
+
+    public function __construct() {
         $this->session = get_http_var('session');
         $this->bill = str_replace('_', ' ', get_http_var('bill'));
         $this->list = new \StandingCommittee($this->session, $this->bill);
