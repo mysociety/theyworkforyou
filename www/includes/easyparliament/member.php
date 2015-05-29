@@ -14,7 +14,7 @@ class MEMBER {
     public $lordofname;
     public $constituency;
     public $party;
-    public $other_parties;
+    public $other_parties = array();
     public $other_constituencies;
     public $houses = array();
     public $entered_house = array();
@@ -171,6 +171,7 @@ class MEMBER {
                 $this->other_constituencies[$const] = true;
             }
         }
+        $this->other_parties = array_reverse($this->other_parties);
 
         // Loads extra info from DB - you now have to call this from outside
             // when you need it, as some uses of MEMBER are lightweight (e.g.

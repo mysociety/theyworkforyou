@@ -211,9 +211,9 @@ class Member extends \MEMBER {
     public function getOtherPartiesString() {
 
         if ($this->other_parties && $this->party != 'Speaker' && $this->party != 'Deputy Speaker') {
-            $output = 'Changed party ';
+            $output = 'Party was ';
             foreach ($this->other_parties as $r) {
-                $other_parties[] = 'from ' . $r['from'] . ' on ' . format_date($r['date'], SHORTDATEFORMAT);
+                $other_parties[] = $r['from'] . ' until ' . format_date($r['date'], SHORTDATEFORMAT);
             }
             $output .= join('; ', $other_parties);
             return $output;
