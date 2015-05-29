@@ -6,6 +6,7 @@ namespace MySociety\TheyWorkForYou;
 class Search {
 
     private $searchstring;
+    private $searchkeyword;
 
     public function __construct() {
         global $this_page;
@@ -17,6 +18,7 @@ class Search {
         $this->search_string = $this->construct_search_string();
 
         if ( !$this->search_string ) {
+            $data = $this->get_form_params($data);
             $data['searchstring'] = '';
             $data['template'] = 'search/results';
             return $data;
@@ -40,6 +42,7 @@ class Search {
         $data['searchstring'] = $this->search_string;
         $data['this_url'] = $this->construct_url();
         $data['ungrouped_url'] = $this->construct_url(false);
+        $data = $this->get_form_params($data);
 
         return $data;
     }
@@ -65,6 +68,8 @@ class Search {
         } else {
             $search_main = trim(get_http_var('s'));
         }
+
+        $this->searchkeyword = $search_main;
 
         $searchstring = '';
 
@@ -144,6 +149,7 @@ class Search {
             if (strpos($search_main, 'OR') !== false) {
                 $search_main = "($search_main)";
             }
+            $searchstring = "$search_main $searchstring";
         } elseif ($search_main) {
             $searchstring = $search_main;
         }
@@ -177,6 +183,70 @@ class Search {
         return $url;
     }
 
+    private function prettify_search_section($section) {
+        $name = '';
+        switch ($section) {
+        case 'wrans':
+            $name = 'Written Answers';
+            break;
+        case 'uk':
+            $name = 'All UK';
+            break;
+        case 'debates':
+            $name = 'House of Commons debates';
+            break;
+        case 'whall':
+            $name = 'Westminster Hall debates';
+            break;
+        case 'lords':
+            $name = 'House of Lords debates';
+            break;
+        case 'wms':
+            $name = 'Written ministerial statements';
+            break;
+        case 'standing':
+            $name = 'Bill Committees';
+            break;
+        case 'future':
+            $name = 'Future Business';
+            break;
+        case 'ni':
+            $name = 'Northern Ireland Assembly Debates';
+            break;
+        case 'scotland':
+            $name = 'All Scotland';
+            break;
+        case 'sp':
+            $name = 'Scottish Parliament Debates';
+            break;
+        case 'spwrans':
+            $name = 'Scottish Parliament Written answers';
+            break;
+        }
+
+        return $name;
+    }
+
+    private function get_form_params($data) {
+        $data['search_keyword'] = $this->searchkeyword;
+
+        $is_adv = false;
+        foreach ( array('to', 'from', 'person', 'section', 'column' ) as $var ) {
+            $key = "search_$var";
+            $data[$key] = get_http_var( $var );
+            if ( $data[$key] ) {
+                $is_adv = true;
+            }
+        }
+
+        if ( isset($data['search_section']) ) {
+            $data['search_section_pretty'] = $this->prettify_search_section($data['search_section']);
+        }
+
+        $data['is_adv'] = $is_adv;
+        return $data;
+    }
+
     private function generate_pagination($data) {
         global $this_page;
 
@@ -185,6 +255,9 @@ class Search {
         $page               = $data['page'];
         $pagelinks          = array();
         $numlinks           = array();
+
+        $URL = new \URL($this_page);
+        $URL->insert(array( 's' => $data['s'] ) );
 
         if ($total_results > $results_per_page) {
 
@@ -207,8 +280,6 @@ class Search {
                 $lastpage = $numpages;
             }
 
-            $URL = new \URL($this_page);
-            $URL->insert(array( 's' => $data['s'] ) );
             for ($n = $firstpage; $n <= $lastpage; $n++) {
 
                 if ($n > 1) {
