@@ -210,7 +210,7 @@ class Member extends \MEMBER {
 
     public function getOtherPartiesString() {
 
-        if ($this->other_parties && $this->party != 'Speaker' && $this->party != 'Deputy Speaker') {
+        if (!empty($this->other_parties) && $this->party != 'Speaker' && $this->party != 'Deputy Speaker') {
             $output = 'Party was ';
             foreach ($this->other_parties as $r) {
                 $other_parties[] = $r['from'] . ' until ' . format_date($r['date'], SHORTDATEFORMAT);

@@ -658,6 +658,7 @@ function search_by_usage($search, $house = 0) {
 
         # Fetch details of all the speakers
         $speakers = array();
+        $pids = array();
         if (count($speaker_count)) {
             $person_ids = join(',', array_keys($speaker_count));
             $q = $db->query('SELECT member_id, member.person_id, title, given_name, family_name, lordofname,
@@ -694,25 +695,26 @@ function search_by_usage($search, $house = 0) {
                 }
             }
         }
-        $pids[0] = 0;
-        $speakers[0] = array('party'=>'', 'name'=>'Headings, procedural text, etc.', 'house'=>0, 'count'=>0);
+        if (isset($speaker_count[0])) {
+            $speakers[0] = array('party'=>'', 'name'=>'Headings, procedural text, etc.', 'house'=>0, 'count'=>0);
+        }
         $party_count = array();
         $ok = 0;
-        foreach ($speaker_count as $pid => $count) {
-            $speakers[$pid]['count'] = $count;
-            $speakers[$pid]['pmaxdate'] = $maxdate[$pid];
-            $speakers[$pid]['pmindate'] = $mindate[$pid];
+        foreach ($speakers as $pid => &$speaker) {
+            $speaker['count'] = $speaker_count[$pid];
+            $speaker['pmaxdate'] = $maxdate[$pid];
+            $speaker['pmindate'] = $mindate[$pid];
             $ok = 1;
-            if (!isset($party_count[$speakers[$pid]['party']]))
-                $party_count[$speakers[$pid]['party']] = 0;
-            $party_count[$speakers[$pid]['party']] += $count;
+            if (!isset($party_count[$speaker['party']]))
+                $party_count[$speaker['party']] = 0;
+            $party_count[$speaker['party']] += $count;
         }
+
         function sort_by_count($a, $b) {
             if ($a['count'] > $b['count']) return -1;
             if ($a['count'] < $b['count']) return 1;
             return 0;
         }
-        if ($speakers[0]['count']==0) unset($speakers[0]);
         uasort($speakers, 'sort_by_count');
         arsort($party_count);
         if (!$ok) {
