@@ -5,7 +5,7 @@
  * Currently only the highlighting and constituency search.
  */
 
-class SearchTest extends TWFY_Database_TestCase
+class SearchTest extends FetchPageTestCase
 {
 	public function setUp()
 	{
@@ -16,6 +16,11 @@ class SearchTest extends TWFY_Database_TestCase
     public function getDataSet()
     {
         return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/search.xml');
+    }
+
+    private function fetch_page($vars)
+    {
+        return $this->base_fetch_page('', $vars, 'www/docs/search');
     }
 
     public function testConstituencySearch()
@@ -107,4 +112,98 @@ class SearchTest extends TWFY_Database_TestCase
         );
     }
 
+    /**
+     * Test fetching the search page
+     *
+     * @group xapian
+     */
+    public function testSearchPage()
+    {
+        $page = $this->fetch_page( array( ) );
+        $this->assertContains('Search', $page);
+    }
+
+    /**
+     * Test searching for an MP
+     *
+     * @group xapian
+     */
+    public function testSearchPageMP()
+    {
+        $page = $this->fetch_page( array( 's' => 'Mary Smith' ) );
+        $this->assertContains('Mary Smith', $page);
+        $this->assertContains('MP, Amber Valley', $page);
+    }
+
+    /**
+     * Test that matches for multiple MPs are displayed
+     *
+     * @group xapian
+     */
+    public function testSearchPageMultipleMP()
+    {
+        $page = $this->fetch_page( array( 's' => 'Jones' ) );
+        $this->assertContains('People matching <em class="current-search-term">Jones</em>', $page);
+        $this->assertContains('Andrew Jones', $page);
+        $this->assertContains('Simon Jones', $page);
+    }
+
+    /**
+     * Test that matching a consituency name lists the MP
+     *
+     * @group xapian
+     */
+    public function testSearchPageCons() {
+        $page = $this->fetch_page( array( 's' => 'Amber' ) );
+        $this->assertContains('MP for <em class="current-search-term">Amber</em>', $page);
+        $this->assertContains('Mary Smith', $page);
+    }
+
+    /**
+     * Test that if the matching constituency does not have an MP the
+     * exception is handled
+     *
+     * @group xapian
+     */
+    public function testSearchPageConsWithNoMp() {
+        $page = $this->fetch_page( array( 's' => 'Alyn' ) );
+        $this->assertNotContains('MP for <em class="current-search-term">Alyn</em>', $page);
+        $this->assertNotContains('MPs in constituencies matching', $page);
+    }
+
+    /**
+     * Test that if the search term matched multiple constituency names the
+     * MPs for all of them are displayed
+     *
+     * @group xapian
+     */
+    public function testSearchPageMultipleCons() {
+        $page = $this->fetch_page( array( 's' => 'Liverpool' ) );
+        $this->assertContains('MPs in constituencies matching <em class="current-search-term">Liverpool</em>', $page);
+        $this->assertContains('Susan Brown', $page);
+        $this->assertContains('MP, Liverpool, Riverside', $page);
+        $this->assertContains('Andrew Jones', $page);
+        $this->assertContains('MP, Liverpool, Walton', $page);
+    }
+
+    /**
+     * Test that glossary matches are displayed
+     *
+     * @group xapian
+     */
+    public function testSearchPageGlossary() {
+        $page = $this->fetch_page( array( 's' => 'other place' ) );
+        $this->assertContains('Matching glossary items', $page);
+        $this->assertContains('<a href="/glossary/?gl=1">other place', $page);
+    }
+
+    /**
+     * Test that spelling corrections are displayed
+     *
+     * @group xapian
+     */
+    public function testSearchPageSpellCorrect() {
+        $page = $this->fetch_page( array( 's' => 'plice' ) );
+        $this->assertContains('Did you mean <a href="/search/?q=place">place', $page);
+    }
 }
