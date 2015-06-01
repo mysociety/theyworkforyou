@@ -457,3 +457,218 @@ table.search-results-grouped {
       background-image: url('../img/search-alert-icon-rss@2.png');
   }
 }
+
+.sidebar-item-with-icon--excel {
+  background-image: url('../img/search-sidebar-icon-excel.png');
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: url('../img/search-sidebar-icon-excel@2.png');
+  }
+}
+
+.sidebar-item-with-icon--date {
+  background-image: url('../img/search-sidebar-icon-past.png');
+
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-image: url('../img/search-sidebar-icon-past@2.png');
+  }
+}
+
+.people-list-alphabet {
+  margin-top: 1em;
+  margin-left: -0.2em;
+
+  a {
+    color: $light-text;
+    text-decoration: none;
+    padding: 0.2em;
+
+    &:hover,
+    &:focus {
+      color: $colour_primary;
+    }
+  }
+}
+
+.people-list {
+  margin-top: 1em;
+}
+
+.people-list__person {
+  display: block;
+  padding: 1.2em 0 1.2em 60px;
+  border-top: 1px solid $body-bg;
+  position: relative;
+  color: inherit;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: inherit;
+
+    .people-list__person__name {
+      color: $colour_primary;
+      text-decoration: underline;
+    }
+  }
+}
+
+.people-list__person__image {
+  position: absolute;
+  top: 1.2em;
+  left: 0;
+  width: 45px;
+}
+
+.people-list__person__name {
+  color: inherit;
+  margin: 0;
+  line-height: 1.2em;
+}
+
+.people-list__person__memberships {
+  margin: 0.2em -0.3em 0 -0.3em;
+  line-height: 1.4em;
+  color: mix($light-text, $body-bg, 80%);
+
+  & > * {
+    margin: 0 0.3em;
+  }
+}
+
+.people-list__person__party {
+  white-space: nowrap;
+
+  &:before {
+    content: "";
+    display: inline-block;
+    height: 0.6em;
+    width: 0.6em;
+    @include border-radius(0.6em);
+    background-color: #ccc;
+    margin-right: 0.3em;
+    vertical-align: 0.05em;
+  }
+
+  &.conservative:before {
+    background-color: rgb(22,111,210);
+  }
+
+  &.labour:before {
+    background-color: rgb(238, 50, 36);
+  }
+
+  &.liberal:before {
+    background-color: rgb(255, 187, 51);
+  }
+
+  &.snp:before {
+    background-color: rgb(255, 249, 93);
+  }
+
+  &.green:before {
+    background-color: rgb(106, 176, 35);
+  }
+}
+
+.people-list__person__positions {
+  @include unstyled-list();
+
+  color: mix($light-text, $body-bg, 60%);
+  max-width: 26em;
+  margin: 0;
+
+  li {
+    font-weight: normal;
+    font-size: 0.8em;
+    line-height: 1.2em;
+    margin-top: 0.5em;
+  }
+}
+
+.search-page__section--your-mp {
+  background-color: #FFFCD9; // very light yellow
+}
+
+.people-list__your-mp {
+  .people-list__person {
+    border-top-color: mix(#000, #FFFCD9, 10%);
+    margin-top: 0.5em;
+    padding-bottom: 0;
+  }
+}
+
+.people-list__your-mp__header {
+  h3 {
+    font-weight: normal;
+    font-size: 1.2em;
+    color: $light-text;
+    margin: 0;
+  }
+
+  p {
+    color: mix($light-text, #FFFCD9, 70%);
+    margin-bottom: 0.5em;
+
+    a {
+      margin-left: 0.2em;
+    }
+  }
+
+  @media (min-width: $medium-screen) {
+    @include clearfix();
+
+    h3 {
+      float: left;
+    }
+
+    p {
+      float: right;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.pick-a-date {
+  display: block;
+
+  &:after {
+    display: inline-block;
+    content: "";
+    border: 0.3em solid transparent;
+    border-top-color: mix($light-text, $body-bg, 60%);
+    margin-left: 0.2em;
+    vertical-align: -0.15em;
+  }
+}
+
+.past-list-dates {
+  font-size: 0.9em;
+
+  a {
+    display: block;
+    border-bottom: 1px solid darken($body-bg, 5%);
+    padding: 0.3em 0;
+  }
+
+  label {
+    display: block;
+    padding: 0.5em 0;
+  }
+
+  .input-appended {
+    @include clearfix();
+
+    input {
+      margin-bottom: 0;
+      float: left;
+      width: 60%;
+    }
+
+    .button {
+      float: right;
+      width: 35%;
+      padding: 0.55em 0;
+    }
+  }
+}
