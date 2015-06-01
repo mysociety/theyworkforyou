@@ -40,6 +40,7 @@ class Search {
         }
 
         $data['searchstring'] = $this->search_string;
+        $data['urls'] = $this->get_urls();
         $data['this_url'] = $this->construct_url();
         $data['ungrouped_url'] = $this->construct_url(false);
         $data = $this->get_form_params($data);
@@ -170,6 +171,23 @@ class Search {
         }
         return $url;
     }
+
+    private function get_urls() {
+        global $this_page;
+        $urls = array();
+
+        $url = new \URL($this_page);
+        $url->insert(array('q' => $this->search_string));
+        $url->insert(array('o' => 'r'));
+        $urls['relevance'] = $url->generate();
+        $url->insert(array('o' => 'o'));
+        $urls['oldest'] = $url->generate();
+        $url->insert(array('o' => 'd'));
+        $urls['newest'] = $url->generate();
+
+        return $urls;
+    }
+
 
     private function get_form_params($data) {
         $data['search_keyword'] = get_http_var('q');
@@ -333,6 +351,13 @@ class Search {
             'o' => ($o=='d' || $o=='r' || $o=='o') ? $o : 'd',
         );
 
+        $sort_order = 'newest';
+        if ( $o == 'o' ) {
+            $sort_order = 'oldest';
+        } else if ( $o == 'r' ) {
+            $sort_order = 'relevance';
+        }
+
         $members = null;
         $cons = null;
         $glossary = null;
@@ -351,6 +376,7 @@ class Search {
         } else {
             $LIST = new \HANSARDLIST();
             $data = $LIST->display('search', $args , 'none');
+            $data['sort_order'] = $sort_order;
             $data['members'] = $members;
             $data['cons'] = $cons;
             $data['glossary'] = $glossary;

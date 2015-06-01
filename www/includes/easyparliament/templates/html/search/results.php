@@ -58,8 +58,16 @@
 
                 <?php if ( $info['total_results'] ) { ?>
                 <ul class="search-result-display-options">
+                    <?php if ( $sort_order == 'relevance' ) { ?>
                     <li>Sorted by relevance</li>
-                    <li>Sort by date: <a href="#">newest</a> / <a href="#">oldest</a></li>
+                    <li>Sort by date: <a href="<?= $urls['newest'] ?>">newest</a> / <a href="<?= $urls['oldest'] ?>">oldest</a></li>
+                    <?php } else if ( $sort_order == 'oldest' ) { ?>
+                    <li>Sort by <a href="<?= $urls['relevance'] ?>">relevance</a><li>
+                    <li>Sorted by date: <a href="<?= $urls['newest'] ?>">newest</a> / oldest</li>
+                    <?php } else { ?>
+                    <li>Sort by <a href="<?= $urls['relevance'] ?>">relevance</a><li>
+                    <li>Sorted by date: newest / <a href="<?= $urls['oldest'] ?>">oldest</a></li>
+                    <?php } ?>
                     <li><a href="/search/?q=<?= $searchstring ?>&amp;o=p">Group by person</a></li>
                 </ul>
                 <?php } ?>
