@@ -36,6 +36,7 @@ class Search {
                 $data = $this->search_normal($this->search_string);
                 $data['pagination_links'] = $this->generate_pagination($data['info']);
                 $data['template'] = 'search/results';
+                $data['search_sidebar'] = $this->get_sidebar_links($this->search_string);
             }
         }
 
@@ -245,6 +246,34 @@ class Search {
 
         $data['is_adv'] = $is_adv;
         return $data;
+    }
+
+    private function get_sidebar_links($searchstring) {
+        global $DATA, $SEARCHENGINE, $this_page;
+
+        $links = array();
+        $links['rss'] = $DATA->page_metadata($this_page, 'rss');
+
+        if ($SEARCHENGINE) {
+            $links['email'] = '/alert/?' . ($searchstring ? 'alertsearch='.urlencode($searchstring) : '');
+            $links['email_desc'] = $SEARCHENGINE->query_description_long();
+        }
+
+        $filter_ss = $searchstring;
+        $section = get_http_var('section');
+        if (preg_match('#\s*section:([a-z]*)#', $filter_ss, $m)) {
+            $section = $m[1];
+            $filter_ss = preg_replace("#\s*section:$section#", '', $filter_ss);
+        }
+        if ($section && $filter_ss) {
+            $search_engine = new \SEARCHENGINE($filter_ss);
+            $links['email_section'] = $links['email'];
+            $links['email_desc_section'] = $links['email_desc'];
+            $links['email'] = '/alert/?' . ($filter_ss ? 'alertsearch='.urlencode($filter_ss) : '');
+            $links['email_desc'] = $search_engine->query_description_long();
+        }
+
+        return $links;
     }
 
     private function generate_pagination($data) {
