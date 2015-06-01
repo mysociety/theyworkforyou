@@ -38,6 +38,9 @@
                 All <?= $info['total_results'] ?> results
                 <?php } ?>
                 for <em class="current-search-term"><?= _htmlentities($info['s']) ?></em></h2>
+                <?php if ( $info['spelling_correction'] ) { ?>
+                <p>Did you mean <a href="/search/?q=<?= urlencode($info['spelling_correction']) ?>"><?= _htmlentities( $info['spelling_correction'] ) ?></a>?</p>
+                <?php } ?>
 
                 <?php if ( $info['total_results'] ) { ?>
                 <ul class="search-result-display-options">
