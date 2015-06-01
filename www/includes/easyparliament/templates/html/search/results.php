@@ -27,6 +27,20 @@
                 <hr>
                 <?php } ?>
 
+                <?php if ($glossary) { ?>
+                <h2>Matching glossary items</h2>
+
+                <ul class="search-result-display-options">
+                    <?php foreach ( $glossary as $item ) { ?>
+                    <li>
+                    <a href="<?= $item['url'] ?>"><?= _htmlentities( $item['term'] ) ?></a>
+                    </li>
+                    <?php } ?>
+                </ul>
+
+                <hr>
+                <?php } ?>
+
                 <h2>
                 <?php if ( $pagination_links ) { ?>
                 Results <?= $pagination_links['first_result'] ?>&ndash;<?= $pagination_links['last_result'] ?> of <?= $info['total_results'] ?>

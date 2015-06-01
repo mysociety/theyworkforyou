@@ -393,10 +393,11 @@ class Search {
 
         $members = null;
         $cons = null;
+        $glossary = null;
         if ($pagenum == 1 && $args['s'] && !preg_match('#[a-z]+:[a-z0-9]+#', $args['s'])) {
             $members = $this->find_members($args['s']);
             $cons = $this->find_constituency($args);
-            //$this->find_glossary_items($args);
+            $glossary = $this->find_glossary_items($args);
         }
 
         if (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH) {
@@ -410,6 +411,7 @@ class Search {
             $data = $LIST->display('search', $args , 'none');
             $data['members'] = $members;
             $data['cons'] = $cons;
+            $data['glossary'] = $glossary;
             return $data;
         }
     }
@@ -495,34 +497,23 @@ private function find_constituency($args) {
         return $members;
     }
 
-// Checks to see if the search term provided has any similar matching entries in the glossary.
-// If it does, show links off to them.
-private function find_glossary_items($args) {
-    $searchterm = $args['s'];
-    $GLOSSARY = new \GLOSSARY($args);
+    private function find_glossary_items($args) {
+        $GLOSSARY = new \GLOSSARY($args);
+        $items = array();
 
-    if (isset($GLOSSARY->num_search_matches) && $GLOSSARY->num_search_matches >= 1) {
-
-        // Got a match(es), display....
-        $URL = new URL('glossary');
-        $URL->insert(array('gl' => ""));
-?>
-                <h2>Matching glossary terms:</h2>
-                <p><?php
-        $n = 1;
-        foreach ($GLOSSARY->search_matches as $glossary_id => $term) {
-            $URL->update(array("gl" => $glossary_id));
-            ?><a href="<?php echo $URL->generate(); ?>"><strong><?php echo _htmlentities($term['title']); ?></strong></a><?php
-            if ($n < $GLOSSARY->num_search_matches) {
-                print ", ";
+        if (isset($GLOSSARY->num_search_matches) && $GLOSSARY->num_search_matches >= 1) {
+            $URL = new \URL('glossary');
+            $URL->insert(array('gl' => ""));
+            foreach ($GLOSSARY->search_matches as $glossary_id => $term) {
+                $URL->update(array("gl" => $glossary_id));
+                $items[] = array(
+                    'url' => $URL->generate(),
+                    'term' => $term['title'],
+                    'body' => $term['body']
+                );
             }
-            $n++;
         }
-        ?></p>
-<?php
+        return $items;
     }
-}
-
-# ---
 
 }
