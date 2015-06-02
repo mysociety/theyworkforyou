@@ -163,14 +163,25 @@ class Member extends \MEMBER {
                 }
             }
         }
-        return array(
-            'entered_house' => $this->entered_house($last_house)['date'],
-            'left_house' => $this->left_house($last_house)['date'],
+        $details = array(
+            'entered_house' => '',
+            'left_house' => '',
             'cons' => $last_cons,
             'party' => $last_party,
             'house' => $last_house,
             'rep_name' => $this->getRepNameForHouse($last_house)
         );
+
+        $entered_house = $this->entered_house($last_house);
+        $left_house = $this->left_house($last_house);
+        if ( isset($entered_house['date']) ) {
+            $details['entered_house'] = $entered_house['date'];
+        }
+        if ( isset($left_house['date']) ) {
+            $details['left_house'] = $left_house['date'];
+        }
+
+        return $details;
     }
 
     /**
