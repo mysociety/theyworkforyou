@@ -41,6 +41,10 @@
                 <hr>
                 <?php } ?>
 
+                <?php if ( isset($pid) && $wtt == 2 ) { ?>
+                    <p>I want to <a href="https://www.writetothem.com/lords/?pid=<?= $pid ?>">write to <?= $wtt_lord_name ?></a></p>
+                <?php } ?>
+
                 <h2>
                 <?php if ( $pagination_links ) { ?>
                 Results <?= $pagination_links['first_result'] ?>&ndash;<?= $pagination_links['last_result'] ?> of <?= $info['total_results'] ?>
@@ -52,6 +56,7 @@
                 All <?= $info['total_results'] ?> results
                 <?php } ?>
                 for <em class="current-search-term"><?= _htmlentities($info['s']) ?></em></h2>
+
                 <?php if ( $info['spelling_correction'] ) { ?>
                 <p>Did you mean <a href="/search/?q=<?= urlencode($info['spelling_correction']) ?>"><?= _htmlentities( $info['spelling_correction'] ) ?></a>?</p>
                 <?php } ?>

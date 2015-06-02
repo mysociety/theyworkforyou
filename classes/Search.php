@@ -45,6 +45,7 @@ class Search {
         $data['this_url'] = $this->construct_url();
         $data['ungrouped_url'] = $this->construct_url(false);
         $data = $this->get_form_params($data);
+        $data = $this->set_wtt_options($data);
 
         return $data;
     }
@@ -262,6 +263,26 @@ class Search {
         }
 
         $data['is_adv'] = $is_adv;
+        return $data;
+    }
+
+    private function set_wtt_options($data) {
+        if ( $wtt = get_http_var('wtt') ) {
+            $data['wtt'] = $wtt;
+            if ( $wtt == 2 && $pid = get_http_var('pid') ) {
+                $data['pid'] = null;
+                try {
+                    $lord = new Member(array('person_id' => $pid, 'house' => 2));
+                } catch ( MemberException $e ) {
+                    return $data;
+                }
+                if ( $lord->valid ) {
+                    $data['pid'] = $pid;
+                    $data['wtt_lord_name'] = $lord->full_name();
+                }
+            }
+        }
+
         return $data;
     }
 
