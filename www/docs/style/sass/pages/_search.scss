@@ -391,6 +391,15 @@ table.search-results-grouped {
     font-weight: bold;
   }
 
+  span.example-input {
+    display: block;
+    background: #eee;
+    margin: 0.7em 0 0.4em 0;
+    padding: 2px;
+    border-top: 1px solid #666;
+    border-left: 1px solid #666;
+  }
+
   // e.g. "Did you find what you were looking for?"
   form {
 

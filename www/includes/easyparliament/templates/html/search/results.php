@@ -127,6 +127,6 @@ $(function(){
   });
   <?= $is_adv ? '' : '$("#options").find(":input").attr("disabled", "disabled");' ?>
 
-  $( $('.js-toggle-search-options').attr('href') ).hide();
+  $('.js-toggle-search-options').each( function (idx) { $( $( this ).attr('href') ).hide(); });
 });
 </script>
