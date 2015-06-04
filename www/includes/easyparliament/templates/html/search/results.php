@@ -61,6 +61,10 @@
                 <p>Did you mean <a href="/search/?q=<?= urlencode($info['spelling_correction']) ?>"><?= _htmlentities( $info['spelling_correction'] ) ?></a>?</p>
                 <?php } ?>
 
+                <?php if ( $suggestions ) { ?>
+                <p>We think it's quite likely that <a href="<?= $suggestions ?>">this is what you are looking for</a></p>
+                <?php } ?>
+
                 <?php if ( $info['total_results'] ) { ?>
                 <ul class="search-result-display-options">
                     <?php if ( $sort_order == 'relevance' ) { ?>

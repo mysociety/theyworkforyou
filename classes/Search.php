@@ -382,10 +382,12 @@ class Search {
         $members = null;
         $cons = null;
         $glossary = null;
+        $suggestions = null;
         if ($pagenum == 1 && $args['s'] && !preg_match('#[a-z]+:[a-z0-9]+#', $args['s'])) {
             $members = $this->find_members($args['s']);
             $cons = $this->find_constituency($args);
             $glossary = $this->find_glossary_items($args);
+            $suggestions = $this->find_suggestions($args);
         }
 
         if (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH) {
@@ -401,6 +403,7 @@ class Search {
             $data['members'] = $members;
             $data['cons'] = $cons;
             $data['glossary'] = $glossary;
+            $data['suggestions'] = $suggestions;
             return $data;
         }
     }
@@ -513,6 +516,12 @@ private function find_constituency($args) {
             }
         }
         return $items;
+    }
+
+    private function find_suggestions($args) {
+        $suggestions = new Model\Suggestions();
+        $url = $suggestions->get_suggestion($args['s']);
+        return $url;
     }
 
 }
