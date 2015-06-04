@@ -193,8 +193,8 @@ class SearchTest extends FetchPageTestCase
      */
     public function testSearchPageGlossary() {
         $page = $this->fetch_page( array( 's' => 'other place' ) );
-        $this->assertContains('Matching glossary items', $page);
-        $this->assertContains('<a href="/glossary/?gl=1">other place', $page);
+        $this->assertContains('Glossary items matching', $page);
+        $this->assertContains('<a href="/glossary/?gl=1">&ldquo;other place', $page);
     }
 
     /**

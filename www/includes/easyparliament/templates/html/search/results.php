@@ -28,15 +28,11 @@
                 <?php } ?>
 
                 <?php if ($glossary) { ?>
-                <h2>Matching glossary items</h2>
+                <h2>Glossary items matching <em class="current-search-term"><?= $info['s'] ?></em></h2>
 
-                <ul class="search-result-display-options">
-                    <?php foreach ( $glossary as $item ) { ?>
-                    <li>
-                    <a href="<?= $item['url'] ?>"><?= _htmlentities( $item['term'] ) ?></a>
-                    </li>
-                    <?php } ?>
-                </ul>
+                  <?php foreach ( $glossary as $item ) { ?>
+                    <?php include('glossary.php'); ?>
+                  <?php } ?>
 
                 <hr>
                 <?php } ?>
