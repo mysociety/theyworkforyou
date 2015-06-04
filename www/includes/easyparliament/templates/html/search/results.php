@@ -1,5 +1,5 @@
 <div class="full-page">
-    <div class="full-page__row search-page">
+    <div class="full-page__row search-page <?php if ( !$searchstring ) { ?>search-page--blank<?php } ?>">
 
         <?php include 'form.php'; ?>
 

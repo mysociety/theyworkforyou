@@ -32,6 +32,23 @@
   }
 }
 
+.search-page--blank {
+  @media (min-width: $medium-screen) {
+    margin-top: 5em;
+    margin-bottom: 5em;
+  }
+
+  @media (min-width: $medium-screen) and (min-height: 700px) {
+    margin-top: 7em;
+    margin-bottom: 10em;
+  }
+
+  @media (min-width: $medium-screen) and (min-height: 900px) {
+    margin-top: 9em;
+    margin-bottom: 15em;
+  }
+}
+
 .search-page__section {
   border-bottom: 1px solid $body-bg;
   @include clearfix();
