@@ -1051,8 +1051,8 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
         my @names = $list->children($vote_tag); # attr ids vote (teller), text is name
         foreach my $vote (@names) {
             my $person_id = person_id($vote, 'id');
-            my $vote = $vote->att('vote');
-            die unless $vote eq $side;
+            my $vote_direction = $vote->att('vote');
+            die unless $vote_direction eq $side;
             my $teller = $vote->att('teller');
             my $name = $vote->sprint(1);
             $name =~ s/ *\[Teller\]//; # In Lords
