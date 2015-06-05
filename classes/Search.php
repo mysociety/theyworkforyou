@@ -413,7 +413,7 @@ class Search {
     }
 
     private function search_normal($searchstring) {
-        global $PAGE, $DATA, $this_page, $SEARCHENGINE;
+        global $DATA, $this_page, $SEARCHENGINE;
 
         $SEARCHENGINE = new \SEARCHENGINE($searchstring);
         $qd = $SEARCHENGINE->valid ? $SEARCHENGINE->query_description_short() : $searchstring;
@@ -459,11 +459,13 @@ class Search {
         }
 
         if (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH) {
-            print '<p>Apologies, search has been turned off currently for performance reasons.</p>';
+            return array(
+                'error' =>'Apologies, search has been turned off currently for performance reasons.'
+            );
         }
 
         if (!$SEARCHENGINE->valid) {
-            $PAGE->error_message($SEARCHENGINE->error);
+            return array('error' => $SEARCHENGINE->error);
         } else {
             $LIST = new \HANSARDLIST();
             $data = $LIST->display('search', $args , 'none');
