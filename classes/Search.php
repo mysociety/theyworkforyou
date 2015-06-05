@@ -507,39 +507,39 @@ class Search {
         return $data;
     }
 
-private function find_constituency($args) {
-    if ($args['s'] != '') {
-        $searchterm = $args['s'];
-    } else {
-        return false;
-    }
+    private function find_constituency($args) {
+        if ($args['s'] != '') {
+            $searchterm = $args['s'];
+        } else {
+            return false;
+        }
 
-    list ($constituencies, ) = search_constituencies_by_query($searchterm);
+        list ($constituencies, ) = search_constituencies_by_query($searchterm);
 
-    $constituency = "";
-    if (count($constituencies)==1) {
-        $constituency = $constituencies[0];
-    }
+        $constituency = "";
+        if (count($constituencies)==1) {
+            $constituency = $constituencies[0];
+        }
 
-    $cons = array();
-    try {
-        if ($constituency != '') {
-            // Got a match, display....
+        $cons = array();
+        try {
+            if ($constituency != '') {
+                // Got a match, display....
 
-            $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
-            $cons[] = $MEMBER;
-        } elseif (count($constituencies)) {
-            foreach ($constituencies as $constituency) {
                 $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
                 $cons[] = $MEMBER;
+            } elseif (count($constituencies)) {
+                foreach ($constituencies as $constituency) {
+                    $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
+                    $cons[] = $MEMBER;
+                }
             }
+        } catch ( MemberException $e ) {
+            $cons = array();
         }
-    } catch ( MemberException $e ) {
-        $cons = array();
-    }
 
-    return $cons;
-}
+        return $cons;
+    }
 
     private function find_members($searchstring) {
         $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $searchstring));
