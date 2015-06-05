@@ -42,8 +42,8 @@ class Search {
 
         $data['searchstring'] = $this->search_string;
         $data['urls'] = $this->get_urls();
-        $data['this_url'] = $this->construct_url();
-        $data['ungrouped_url'] = $this->construct_url(false);
+        $data['this_url'] = $this->get_search_url($data['info']);
+        $data['ungrouped_url'] = $this->get_search_url($data['info'], false);
         $data = $this->get_form_params($data);
         $data = $this->set_wtt_options($data);
 
@@ -167,23 +167,6 @@ class Search {
 
         twfy_debug('SEARCH', _htmlspecialchars($searchstring));
         return $searchstring;
-    }
-
-    private function construct_url($params = true) {
-        global $this_page;
-        $url = new \URL($this_page);
-        $url->insert(array('q' => $this->search_string));
-        if ( $params ) {
-            if ( get_http_var('o') ) {
-                $url->insert(array('o' => get_http_var('o')));
-            }
-            if ( get_http_var('wtt') ) {
-                $url->insert(array('wtt' => get_http_var('wtt')));
-            }
-        } else {
-            $url->remove(array('o', 'house'));
-        }
-        return $url;
     }
 
     private function prettify_search_section($section) {
@@ -314,17 +297,66 @@ class Search {
         return $links;
     }
 
-    private function generate_pagination($data) {
+    private function generate_pagination_links($data, $url, $first, $last) {
+        $links = array();
+
+        for ($n = $first; $n <= $last; $n++) {
+
+            if ($n > 1) {
+                $url->insert(array('p'=>$n));
+            } else {
+                // No page number for the first page.
+                $url->remove(array('p'));
+            }
+
+            $link = array(
+                'url' => $url->generate(),
+                'page' => $n,
+                'current' => ( $n == $data['page'] )
+            );
+
+            $links[] = $link;
+        }
+
+        return $links;
+    }
+
+    private function get_search_url($data, $params = true) {
         global $this_page;
 
+        $url = new \URL($this_page);
+
+        if (isset($data['s'])) {
+            $value = $data['s'];
+            if (preg_match_all('#speaker:(\d+)#', $value, $m) == 1) {
+                $person_id = $m[1][0];
+                $value = str_replace('speaker:' . $person_id, '', $value);
+                $url->insert(array('pid' => $person_id));
+                }
+            $url->insert(array('s' => $value));
+        }
+
+        if ( $params ) {
+            if ( get_http_var('house') ) {
+                $url->insert(array('house' => get_http_var('house')));
+            }
+            if ( get_http_var('wtt') ) {
+                $url->insert(array('wtt' => get_http_var('wtt')));
+            }
+        } else {
+            $url->remove(array('o', 'house'));
+        }
+
+        return $url;
+    }
+
+    private function generate_pagination($data) {
         $total_results      = $data['total_results'];
         $results_per_page   = $data['results_per_page'];
         $page               = $data['page'];
         $pagelinks          = array();
-        $numlinks           = array();
 
-        $URL = new \URL($this_page);
-        $URL->insert(array( 's' => $data['s'] ) );
+        $URL = $this->get_search_url($data);
 
         if ($total_results > $results_per_page) {
 
@@ -347,26 +379,7 @@ class Search {
                 $lastpage = $numpages;
             }
 
-            for ($n = $firstpage; $n <= $lastpage; $n++) {
-
-                if ($n > 1) {
-                    $URL->insert(array('p'=>$n));
-                } else {
-                    // No page number for the first page.
-                    $URL->remove(array('p'));
-                }
-                if (isset($pagedata['pid'])) {
-                    $URL->insert(array('pid'=>$pagedata['pid']));
-                }
-
-                $link = array(
-                    'url' => $URL->generate(),
-                    'page' => $n,
-                    'current' => ( $n == $page )
-                );
-
-                $numlinks[] = $link;
-            }
+            $numlinks = $this->generate_pagination_links($data, $URL, $firstpage, $lastpage);
 
             $pagelinks['nums'] = $numlinks;
             $pagelinks['first_result'] = $page == 1 ? 1 : ( ( $page - 1 ) * $results_per_page ) + 1;
