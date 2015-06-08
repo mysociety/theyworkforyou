@@ -30,7 +30,7 @@ $PAGE->stripe_start();
 <p>In order to improve the site we're asking some questions to help us understand who uses the site and what they want. The answers are completely anonymous.</p>
 
 <h3>What data do you collect about me?</h3>
-<p>We use Extreme DB and Google Analytics to track aggregated traffic through the website.These tools tell us the answers to questions such as: Which search terms bring the most people to the site? What type of page do people spend the most time on, and from what type of page do they generally leave the site? Where might users find it difficult to understand what to click next?</p>
+<p>We use Google Analytics to track aggregated traffic through the website. This tool tells us the answers to questions such as: Which search terms bring the most people to the site? What type of page do people spend the most time on, and from what type of page do they generally leave the site? Where might users find it difficult to understand what to click next?</p>
 
 <p>Rest assured, we only track usage data for one reason: to help us understand how we can make the site work better for you, our users.</p>
 

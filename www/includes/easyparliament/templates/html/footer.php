@@ -139,21 +139,6 @@
                   </div>
             </div>
         <?php
-        // This makes the tracker appear on all sections, but only actually on theyworkforyou.com
-                //if ($DATA->page_metadata($this_page, 'track') ) {
-        if (DOMAIN == 'www.theyworkforyou.com') {
-                    // We want to track this page.
-            // Kind of fake URLs needed for the tracker.
-            $url = urlencode('http://' . DOMAIN . '/' . $this_page);
-            ?>
-<script type="text/javascript"><!--
-an=navigator.appName;sr='http://x3.extreme-dm.com/';srw="na";srb="na";d=document;r=41;function pr(n) {
-d.write("<img alt='' src=\""+sr+"n\/?tag=fawkes&p=<?php echo $url; ?>&j=y&srw="+srw+"&srb="+srb+"&l="+escape(d.referrer)+"&rs="+r+"\" height='1' width='1'>");}
-s=screen;srw=s.width;an!="Netscape"?srb=s.colorDepth:srb=s.pixelDepth
-pr()//-->
-</script><noscript><img alt="" src="http://x3.extreme-dm.com/z/?tag=fawkes&amp;p=<?php echo $url; ?>&amp;j=n" height="1" width="1"></noscript>
-<?php
-        }
 
         // DAMN, this really shouldn't be in PAGE.
         $db = new ParlDB;

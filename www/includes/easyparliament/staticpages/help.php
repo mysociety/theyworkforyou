@@ -139,7 +139,7 @@ please bear in mind that this service is run by a tiny charity and some voluntee
 <!-- start new faq entry-->
 <dt><a name="extreme"></a>What's that weird 'extreme tracker' and 'urchin' javascript I spy in your page source?</dt>
 <dd>
-<p>We use Extreme DB and Google Analytics to track aggregated traffic through the website. It captures nothing that you won't find in an Apache logfile, but has an interface we like, and is dead easy to use. Rest assured, we only track usage data for one reason only: to help us understand how we can make the site work better for you lot. If anyone wants to whinge about 'Web Bugs', expect short shrift. </p>
+<p>We use Google Analytics to track aggregated traffic through the website. Rest assured, we only track usage data for one reason only: to help us understand how we can make the site work better for you lot. If anyone wants to whinge about 'Web Bugs', expect short shrift. </p>
 </dd>
 <!-- end old faq entry -->
 
