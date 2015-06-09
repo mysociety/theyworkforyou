@@ -19,8 +19,8 @@ $q = $db->query("SELECT person_id FROM member WHERE left_house='9999-12-31'");
 if ($q->rows() <= 0) exit;
 
 $starttime = time();
-for ($row=0; $row<$q->rows(); $row++) {
-	$person_id = $q->field($row, 'person_id');
+for ($personrow=0; $personrow<$q->rows(); $personrow++) {
+	$person_id = $q->field($personrow, 'person_id');
 
 	$args = array ( 'person_id' => $person_id );
 	$speeches = $HANSARDLIST->display('person', $args, 'none');
