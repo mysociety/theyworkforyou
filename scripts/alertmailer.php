@@ -43,6 +43,11 @@ for ($i=$lastbatch + 1; $i <= $max_batch_id; $i++) {
 $batch_query_fragment = trim($batch_query_fragment);
 mlog("batch_query_fragment: " . $batch_query_fragment . "\n");
 
+if (!$batch_query_fragment) {
+	mlog("No new batches since last run - nothing to run over!");
+    exit;
+}
+
 # For testing purposes, specify nomail on command line to not send out emails
 $nomail = false;
 $onlyemail = '';
