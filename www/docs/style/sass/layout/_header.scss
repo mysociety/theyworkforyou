@@ -87,14 +87,13 @@
         line-height: 31px;
         height: auto;
         max-height: 1000em;
-        /*@include transition(max-height 1s ease-in-out);*/
         background-color: $primary-color;
         position: absolute;
         right: 0.75em;
         top: 3.3em;
         z-index: 400;
         width: 47%;
-        @include box-shadow(0 2px 2px rgba(0,0,0,0.2));
+        @include box-shadow(0 1px 1px rgba(0,0,0,0.2));
     }
 
     a {
@@ -204,6 +203,9 @@
             display: none;
         }
     }
+    & > .nav-menu {
+        @include box-shadow(none);
+    }
     .nav-menu {
         @media (max-width: $large-screen) {
             width: 100%;
@@ -230,7 +232,6 @@
                 }
             }
             width: auto;
-            @include box-shadow(none);
         }
         .user-menu {
             /* temporary measure till work out what we're doing */
@@ -263,11 +264,7 @@
                             box-shadow: none;
                         }
                         &.open {
-                            color: white;
-                            background-color: $primary-color;
-                            img {
-                                content: url('../img/user-white.png');
-                            }
+                            background-color: $body-bg;
                         }
                         img {
                             vertical-align: -0.2em // slightly less than normal for a .button>img
@@ -276,20 +273,22 @@
                 }
                 .nav-menu {
                     @include radius;
-                    background-color: $colour_primary;
+                    background-color: $body-bg;
                     border-radius: 3px 0px 3px 3px;
+                    padding: 0.2em 0;
                     margin-left: 12px;
                     position: absolute;
                     right: 0px;
                     top: auto;
                     z-index: 400;
                     width: 10em;
-                    font-size: em-calc(14px);
-                    a {
-                        color: white;
-                    }
                     li {
                         display: block;
+                    }
+                    a {
+                        display: block;
+                        padding: 0.4em 0.6em;
+                        line-height: 1.2em;
                     }
                     &.closed {
                         display: none;
