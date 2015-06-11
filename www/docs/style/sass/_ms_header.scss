@@ -1,43 +1,43 @@
 /* mySociety header */
+
+$mysociety-banner-background: #333333;
+$mysociety-banner-height: 41px;
+
 .ms-header {
-    background: transparent;
-    border-top: 4px solid #424242;
+    background-color: $mysociety-banner-background;
 }
 
 .ms-header__row {
-    @include grid-row;
-    position: relative;
+    @include grid-row();
 }
 
 .ms-header__logo {
-    @extend .image-replacement;
-    display: block;
-    position: absolute;
-    right: 0.75em;
-    top: 0;
-    background-color: #424242;
-    background-repeat: no-repeat;
-    height: 38px;
-    width: 44px;
-    @include border-radius(0 0 0.75em 0.75em);
-    @include background-size(22px);
-    background-position: 11px 7px ;
-    background-image: url('../img/mysociety-bloom.png');
-
-    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-        background-image: url('../img/mysociety-bloom@2.png');
-    }
+    @include grid-column(12);
+    height: $mysociety-banner-height;
+    text-align: right;
+    float: right;
 
     @media (min-width: $medium-screen) {
-        @include border-radius(0 0 1.25em 1.25em);
-        background-position: 16px 10px ;
-        @include background-size(93px 19px);
-        background-image: url('../img/mysociety-logo.png');
-        width: 125px;
-        height: 39px;
+        // Using gridCalc saves us cluttering up the generated CSS
+        // with the rest of the cruft that grid-column() generates
+        width: gridCalc(4, 12);
+    }
+
+    @media (min-width: $large-screen) {
+        width: gridCalc(2, 12);
+    }
+
+    a {
+        display: inline-block;
+        height: 0;
+        padding-top: $mysociety-banner-height;
+        width: 101px;
+        overflow: hidden;
+        background: transparent image-url("/style/img/mysociety-header_logo.png") center center no-repeat;
 
         @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-            background-image: url('../img/mysociety-logo@2.png');
+            background-image: image-url("/style/img/mysociety-header_logo@2.png");
+            background-size: 101px 21px;
         }
     }
 }
