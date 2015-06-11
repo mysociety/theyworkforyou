@@ -131,62 +131,69 @@
 
     <div class="ms-header">
         <nav class="ms-header__row">
-            <a class="ms-header__logo" href="http://www.mysociety.org">mySociety</a>
+            <div class="ms-header__logo">
+                <a href="http://www.mysociety.org">mySociety</a>
+            </div>
         </nav>
     </div>
-    <header class="brand-header">
-        <div class="brand-header__row">
-            <div class="brand-header__title-unit">
-                <h1 class="brand-header__title"><a href="/">TheyWorkForYou</a></h1>
-            </div>
-            <nav class="primary-navigation-bar assembly">
-                <span class="menu-dropdown">
-                    <a href="#" class="button"><?= $assembly_nav_current ?></a>
-                </span>
-                <ul class="nav-menu closed">
-                <?php foreach ($assembly_nav_links as $nav_link) {?>
-                    <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>"><?= $nav_link['text'] ?></a></li>
-                <?php } ?>
-                </ul>
-            </nav>
-            <nav class="primary-navigation-bar sections">
-                <span class="menu-dropdown">
-                    <a href="#" class="button menu-dropdown--button">Menu</a>
-                </span>
-                <ul class="nav-menu closed">
-                <?php foreach ($section_nav_links as $nav_link): ?>
-                    <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>"><?= $nav_link['text'] ?></a></li>
-                <?php endforeach; ?>
-                    <li class="user-menu">
-                        <span class="menu-dropdown">
-                            <a href="#" class="button"><img src="/style/img/user.png"></a>
-                        </span>
-                        <ul class="nav-menu closed">
-                        <?php foreach ($user_nav_links as $nav_link): ?>
+
+    <header class="site-header">
+        <div class="site-header__row">
+
+            <h1 class="site-header__logo">
+                <a href="/">TheyWorkForYou</a>
+            </h1>
+
+            <a href="#main-nav" class="site-header__mobile-nav-toggle js-toggle">Menu</a>
+
+            <nav class="site-header__main-nav" id="main-nav">
+                <ul class="site-header__main-nav__section site-header__main-nav__section--assemblies">
+                    <li>
+                        <a href="#nav-assemblies" class="site-header__dropdown-toggle js-toggle js-toggle-until-click-outside"><?= $assembly_nav_current ?></a>
+                        <ul id="nav-assemblies">
+                          <?php foreach ($assembly_nav_links as $nav_link) { ?>
                             <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>"><?= $nav_link['text'] ?></a></li>
-                        <?php endforeach; ?>
-                        </ul>
-                    </li>
-                    <li id="search-fallback">
-                        <a href="/search/" id="fallback"><img src="/style/img/search.png"></a>
-                    </li>
-                    <li id="search-wrapper">
-                        <form action="/search/" method="get">
-                            <label for="header_search_input"><img src="/style/img/search.png"></label>
-                            <input type="text" id="header_search_input" name="q" placeholder="Type search terms and hit enter...">
-                        </form>
-                    </li>
-                    <li class="assembly-sub-menu">
-                        <ul>
-                        <?php foreach ($assembly_nav_links as $nav_link) {?>
-                            <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>"><?= $nav_link['text'] ?></a></li>
-                        <?php } ?>
+                          <?php } ?>
                         </ul>
                     </li>
                 </ul>
+
+                <ul class="site-header__main-nav__section site-header__main-nav__section--pages">
+                    <li>
+                        <a href="#nav-pages" class="site-header__dropdown-toggle js-toggle js-toggle-until-click-outside">Go to&hellip;</a>
+                        <ul id="nav-pages">
+                          <?php foreach ($section_nav_links as $nav_link) { ?>
+                            <li>
+                                <a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>"><?= $nav_link['text'] ?></a>
+                            </li>
+                          <?php } ?>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="site-header__main-nav__section site-header__main-nav__section--actions">
+                    <li>
+                        <a href="#nav-user" class="site-header__user-button site-header__dropdown-toggle js-toggle js-toggle-until-click-outside">
+                            <img src="/style/img/user@2.png" width="24" height="24" alt=""><span>Your Profile</span>
+                        </a>
+                        <ul id="nav-user">
+                          <?php foreach ($user_nav_links as $nav_link){ ?>
+                            <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>"><?= $nav_link['text'] ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="/search/" class="site-header__search-button js-fancy-search">
+                            <img src="/style/img/search@2.png" width="24" height="24" alt=""><span>Search</span>
+                        </a>
+                    </li>
+                </ul>
             </nav>
+
         </div>
     </header>
+
     <?php if ( isset($banner_text) ) { ?>
     <div class="banner">
         <div class="full-page__row">

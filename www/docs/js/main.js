@@ -86,6 +86,86 @@ $(function(){
   if ( Modernizr.touch ) {
       $('body').addClass('touch');
   }
+
+  $('.js-toggle').on('click', function(e){
+    e.preventDefault();
+    var $link = $(this);
+    var $el = $( $link.attr('href') );
+    var eventName = 'click.toggle-until-click-outside-' + $el.attr('id');
+
+    if( $el.is('.toggled') ){
+      $el.removeClass('toggled');
+      $link.removeClass('toggled');
+      $('body').off(eventName);
+      $el.off(eventName);
+      $link.off(eventName);
+    } else {
+      $el.addClass('toggled');
+      $link.addClass('toggled');
+
+      if($link.is('.js-toggle-until-click-outside')){
+        // Timeout is a bit hacky, but avoids cancelling the click
+        // event before the current callback has ended
+        setTimeout(function(){
+          $el.on(eventName, function(e){
+            e.stopPropagation();
+          });
+          $link.on(eventName, function(e){
+            e.stopPropagation();
+          })
+          $('body').on(eventName, function(){
+            $link.removeClass('toggled');
+            $el.removeClass('toggled');
+            $('body').off(eventName);
+            $el.off(eventName);
+            $link.off(eventName);
+          });
+        }, 250);
+      }
+    }
+  });
+
+  $('.js-fancy-search').each(function(){
+    var $a = $(this);
+    var $li = $a.parents('li');
+    var $nav = $a.parents('nav');
+
+    var $form = $('<form>').attr({
+      'class': 'fancy-search__form',
+      'action': '/search/'
+    });
+
+    var $input = $('<input>').attr({
+      'class': 'fancy-search__input',
+      'name': 'q',
+      'type': 'text',
+      'placeholder': 'Type a search term and press Enter'
+    }).appendTo($form);
+
+    $('<input>').attr({
+      'class': 'fancy-search__submit',
+      'type': 'submit'
+    }).appendTo($form);
+
+    $form.insertAfter($a);
+
+    $a.on('click', function(e){
+      e.preventDefault();
+      if($nav.is('.fancy-search-active')){
+        $nav.removeClass('fancy-search-active');
+      } else {
+        $nav.addClass('fancy-search-active');
+        $input.focus();
+      }
+    });
+
+    $input.on('blur', function(){
+      setTimeout(function(){
+          $nav.removeClass('fancy-search-active');
+      }, 100);
+    });
+  });
+
   $('.moreinfo').hover(
       function() { $(this).children('.moreinfo-text').show(); },
       function() { $(this).children('.moreinfo-text').hide(); }
