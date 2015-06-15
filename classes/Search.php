@@ -50,6 +50,7 @@ class Search {
         $data['ungrouped_url'] = $this->get_search_url(false);
         $data = $this->get_form_params($data);
         $data = $this->set_wtt_options($data);
+        $this->set_page_title($data);
 
         return $data;
     }
@@ -256,6 +257,7 @@ class Search {
     }
 
     private function set_wtt_options($data) {
+        $data['wtt'] = '';
         if ( $wtt = get_http_var('wtt') ) {
             $data['wtt'] = $wtt;
             if ( $wtt == 2 && $pid = get_http_var('pid') ) {
@@ -356,6 +358,25 @@ class Search {
         return $url;
     }
 
+    private function set_page_title($data) {
+        global $DATA, $this_page;
+
+        $pagetitle = '';
+        if ( isset($data['search_type']) && $data['search_type'] == 'person' ) {
+            if (isset($data['wtt'])) {
+                $pagetitle = 'League table of Lords who say ' . $data['pagetitle'];
+            } else {
+                $pagetitle = 'Who says ' . $data['pagetitle'] . ' the most?';
+            }
+        } else {
+            $pagetitle = 'Search for ' . $data['searchdescription'];
+            if (isset($data['info']['page']) && $data['info']['page'] > 1) {
+                $pagetitle .= ", page " . $data['info']['page'];
+            }
+        }
+        $DATA->set_page_metadata($this_page, 'title', $pagetitle);
+    }
+
     private function generate_pagination($data) {
         $total_results      = $data['total_results'];
         $results_per_page   = $data['results_per_page'];
@@ -422,17 +443,12 @@ class Search {
         global $DATA, $this_page, $SEARCHENGINE;
 
         $SEARCHENGINE = new \SEARCHENGINE($this->searchstring);
-        $qd = $SEARCHENGINE->valid ? $SEARCHENGINE->query_description_short() : $this->searchstring;
-        $pagetitle = 'Search for ' . $qd;
+
         $pagenum = get_http_var('p');
         if (!is_numeric($pagenum)) {
             $pagenum = 1;
         }
-        if ($pagenum > 1) {
-            $pagetitle .= ", page $pagenum";
-        }
 
-        $DATA->set_page_metadata($this_page, 'title', $pagetitle);
         $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($this->searchstring));
         if ($pagenum == 1) {
             # Allow indexing of first page of search results
@@ -475,6 +491,7 @@ class Search {
         } else {
             $LIST = new \HANSARDLIST();
             $data = $LIST->display('search', $args , 'none');
+            $data['search_type'] = 'normal';
             $data['sort_order'] = $sort_order;
             $data['members'] = $members;
             $data['cons'] = $cons;
@@ -484,8 +501,6 @@ class Search {
     }
 
     private function search_order_p() {
-        global $DATA, $this_page;
-
         $q_house = '';
         if (ctype_digit(get_http_var('house'))) {
             $q_house = get_http_var('house');
@@ -499,17 +514,8 @@ class Search {
         # Fetch the results
         $data = search_by_usage($this->searchstring, $q_house);
 
-        if ($wtt) {
-            $q_house = 2;
-            $pagetitle = 'League table of Lords who say ' . $data['pagetitle'];
-        } else {
-            $pagetitle = 'Who says ' . $data['pagetitle'] . ' the most?';
-        }
-        $DATA->set_page_metadata($this_page, 'title', $pagetitle);
-
-
         $data['house'] = $q_house;
-        $data['wtt'] = $wtt;
+        $data['search_type'] = 'person';
         return $data;
     }
 
