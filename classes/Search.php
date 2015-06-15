@@ -28,6 +28,10 @@ class Search {
         $warnings = $this->validate_search_string();
         if ( $warnings ) {
             $data['warnings'] = $warnings;
+            $data['template'] = 'search/results';
+            $data['searchstring'] = $this->searchstring;
+            $data = $this->get_form_params($data);
+            return $data;
         } else {
             if (get_http_var('o')=='p') {
                 $data = $this->search_order_p($this->searchstring);

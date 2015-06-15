@@ -5,6 +5,11 @@
                         <input type="text" name="q" value="<?= $search_keyword ?>" class="form-control">
                         <button type="submit" class="button">Search</button>
                     </p>
+                    <?php if (isset($warnings) ) { ?>
+                    <p class="error">
+                        <?= $warnings ?>
+                    </p>
+                    <?php } ?>
                     <p>
                         <ul class="search-result-display-options">
                         <li><a href="#options" class="search-options-toggle js-toggle-search-options">Advanced search</a></li>

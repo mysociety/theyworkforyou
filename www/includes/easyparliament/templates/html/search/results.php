@@ -3,7 +3,7 @@
 
         <?php include 'form.php'; ?>
 
-        <?php if ( $searchstring ) { ?>
+        <?php if ( $searchstring && !isset($warnings) ) { ?>
         <div class="search-page__section search-page__section--results">
             <div class="search-page__section__primary">
                 <?php if ( $cons ) { ?>
