@@ -60,7 +60,13 @@
                             <td><?= $speaker['count'] ?></td>
                             <td>
                                 <?php if ( $pid ) { ?>
-                                <a href="/search/?s=<?= _htmlentities( $searchstring ) ?>&amp;pid=<?= $pid ?><?= isset($wtt) ? '&amp;wtt=2' : '' ?>"><?= isset($speaker['name']) ? $speaker['name'] : 'N/A' ?></a>
+                                    <?php if ( !$wtt || $speaker['left'] == '9999-12-31' ) { ?>
+                                    <a href="/search/?s=<?= _htmlentities( $searchstring ) ?>&amp;pid=<?= $pid ?><?= isset($wtt) && $speaker['left'] == '9999-12-31' ? '&amp;wtt=2' : '' ?>">
+                                    <?php } ?>
+                                    <?= isset($speaker['name']) ? $speaker['name'] : 'N/A' ?>
+                                    <?php if ( !$wtt || $speaker['left'] == '9999-12-31' ) { ?>
+                                    </a>
+                                    <?php } ?>
                                 <?php if ( $house != 2 ) { ?>
                                 <span class="search-results-grouped__speaker-party">(<?= $speaker['party'] ?>)</span>
                                 <?= isset($speaker['office']) ? ' - ' . join('; ', $speaker['office']) : '' ?>
