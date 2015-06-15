@@ -5,10 +5,6 @@ namespace MySociety\TheyWorkForYou;
 require_once INCLUDESPATH . "../../commonlib/phplib/random.php";
 require_once INCLUDESPATH . "../../commonlib/phplib/auth.php";
 
-/**
- * Hansard
- */
-
 class MiniSurvey {
 
     public function get_values() {
