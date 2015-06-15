@@ -2,7 +2,7 @@
             <div class="search-page__section search-page__section--search">
                 <div class="search-page__section__primary">
                     <p class="search-page-main-inputs">
-                        <input type="text" name="q" value="<?= $search_keyword ?>" class="form-control">
+                        <input type="text" name="s" value="<?= $search_keyword ?>" class="form-control">
                         <button type="submit" class="button">Search</button>
                     </p>
                     <?php if (isset($warnings) ) { ?>
