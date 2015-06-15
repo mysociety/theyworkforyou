@@ -15,32 +15,32 @@ class Search {
 
     public function display() {
         $data = array();
-        $this->search_string = $this->construct_search_string();
+        $this->searchstring = $this->construct_search_string();
 
-        if ( !$this->search_string ) {
+        if ( !$this->searchstring ) {
             $data = $this->get_form_params($data);
             $data['searchstring'] = '';
             $data['template'] = 'search/results';
             return $data;
         }
 
-        $this->searchstring = filter_user_input($this->search_string, 'strict');
+        $this->searchstring = filter_user_input($this->searchstring, 'strict');
         $warnings = $this->validate_search_string();
         if ( $warnings ) {
             $data['warnings'] = $warnings;
         } else {
             if (get_http_var('o')=='p') {
-                $data = $this->search_order_p($this->search_string);
+                $data = $this->search_order_p($this->searchstring);
                 $data['template'] = 'search/by-person';
             } else {
-                $data = $this->search_normal($this->search_string);
+                $data = $this->search_normal($this->searchstring);
                 $data['pagination_links'] = $this->generate_pagination($data['info']);
                 $data['template'] = 'search/results';
-                $data['search_sidebar'] = $this->get_sidebar_links($this->search_string);
+                $data['search_sidebar'] = $this->get_sidebar_links($this->searchstring);
             }
         }
 
-        $data['searchstring'] = $this->search_string;
+        $data['searchstring'] = $this->searchstring;
         $data['urls'] = $this->get_urls();
         $data['this_url'] = $this->get_search_url($data['info']);
         $data['ungrouped_url'] = $this->get_search_url($data['info'], false);
@@ -218,7 +218,7 @@ class Search {
         $urls = array();
 
         $url = new \URL($this_page);
-        $url->insert(array('q' => $this->search_string));
+        $url->insert(array('s' => $this->searchstring));
         $url->insert(array('o' => 'r'));
         $urls['relevance'] = $url->generate();
         $url->insert(array('o' => 'o'));
