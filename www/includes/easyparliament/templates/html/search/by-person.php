@@ -94,21 +94,3 @@
 
     </div>
 </div>
-
-<script type="text/javascript">
-$(function(){
-  $('.js-toggle-search-options').on('click', function(e){
-    e.preventDefault();
-    var id = $(this).attr('href');
-    if($(id).is(':visible')){
-      $('.js-toggle-search-options[href="' + id + '"]').removeClass('toggled');
-      $(id).slideUp(250);
-    } else {
-      $('.js-toggle-search-options[href="' + id + '"]').addClass('toggled');
-      $(id).slideDown(250);
-    }
-  });
-
-  $( $('.js-toggle-search-options').attr('href') ).hide();
-});
-</script>
