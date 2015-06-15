@@ -72,7 +72,7 @@
                         <li>Sort by <a href="<?= $urls['relevance'] ?>">relevance</a><li>
                         <li>Sorted by date: newest / <a href="<?= $urls['oldest'] ?>">oldest</a></li>
                         <?php } ?>
-                        <li><a href="/search/?q=<?= $searchstring ?>&amp;o=p">Group by person</a></li>
+                        <li><a href="<?= $urls['by-person'] ?>">Group by person</a></li>
                     </ul>
                     <?php } ?>
 

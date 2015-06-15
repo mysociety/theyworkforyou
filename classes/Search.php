@@ -46,8 +46,8 @@ class Search {
 
         $data['searchstring'] = $this->searchstring;
         $data['urls'] = $this->get_urls();
-        $data['this_url'] = $this->get_search_url($data['info']);
-        $data['ungrouped_url'] = $this->get_search_url($data['info'], false);
+        $data['this_url'] = $this->get_search_url();
+        $data['ungrouped_url'] = $this->get_search_url(false);
         $data = $this->get_form_params($data);
         $data = $this->set_wtt_options($data);
 
@@ -229,6 +229,8 @@ class Search {
         $urls['oldest'] = $url->generate();
         $url->insert(array('o' => 'd'));
         $urls['newest'] = $url->generate();
+        $url->insert(array('o' => 'p'));
+        $urls['by-person'] = $url->generate();
 
         return $urls;
     }
@@ -325,13 +327,13 @@ class Search {
         return $links;
     }
 
-    private function get_search_url($data, $params = true) {
+    private function get_search_url($params = true) {
         global $this_page;
 
         $url = new \URL($this_page);
 
-        if (isset($data['s'])) {
-            $value = $data['s'];
+        if (isset($this->searchstring)) {
+            $value = $this->searchstring;
             if (preg_match_all('#speaker:(\d+)#', $value, $m) == 1) {
                 $person_id = $m[1][0];
                 $value = str_replace('speaker:' . $person_id, '', $value);
