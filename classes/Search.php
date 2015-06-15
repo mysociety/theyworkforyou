@@ -269,18 +269,18 @@ class Search {
         return $data;
     }
 
-    private function get_sidebar_links($searchstring) {
+    private function get_sidebar_links() {
         global $DATA, $SEARCHENGINE, $this_page;
 
         $links = array();
         $links['rss'] = $DATA->page_metadata($this_page, 'rss');
 
         if ($SEARCHENGINE) {
-            $links['email'] = '/alert/?' . ($searchstring ? 'alertsearch='.urlencode($searchstring) : '');
+            $links['email'] = '/alert/?' . ($this->searchstring ? 'alertsearch='.urlencode($this->searchstring) : '');
             $links['email_desc'] = $SEARCHENGINE->query_description_long();
         }
 
-        $filter_ss = $searchstring;
+        $filter_ss = $this->searchstring;
         $section = get_http_var('section');
         if (preg_match('#\s*section:([a-z]*)#', $filter_ss, $m)) {
             $section = $m[1];
@@ -412,11 +412,11 @@ class Search {
         return $pagelinks;
     }
 
-    private function search_normal($searchstring) {
+    private function search_normal() {
         global $DATA, $this_page, $SEARCHENGINE;
 
-        $SEARCHENGINE = new \SEARCHENGINE($searchstring);
-        $qd = $SEARCHENGINE->valid ? $SEARCHENGINE->query_description_short() : $searchstring;
+        $SEARCHENGINE = new \SEARCHENGINE($this->searchstring);
+        $qd = $SEARCHENGINE->valid ? $SEARCHENGINE->query_description_short() : $this->searchstring;
         $pagetitle = 'Search for ' . $qd;
         $pagenum = get_http_var('p');
         if (!is_numeric($pagenum)) {
@@ -427,7 +427,7 @@ class Search {
         }
 
         $DATA->set_page_metadata($this_page, 'title', $pagetitle);
-        $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($searchstring));
+        $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($this->searchstring));
         if ($pagenum == 1) {
             # Allow indexing of first page of search results
             $DATA->set_page_metadata($this_page, 'robots', '');
@@ -435,7 +435,7 @@ class Search {
 
         $o = get_http_var('o');
         $args = array (
-            's' => $searchstring,
+            's' => $this->searchstring,
             'p' => $pagenum,
             'num' => get_http_var('num'),
             'pop' => get_http_var('pop'),
@@ -477,7 +477,7 @@ class Search {
         }
     }
 
-    private function search_order_p($searchstring) {
+    private function search_order_p() {
         global $DATA, $this_page;
 
         $q_house = '';
@@ -491,7 +491,7 @@ class Search {
         }
 
         # Fetch the results
-        $data = search_by_usage($searchstring, $q_house);
+        $data = search_by_usage($this->searchstring, $q_house);
 
         if ($wtt) {
             $q_house = 2;
@@ -541,8 +541,8 @@ class Search {
         return $cons;
     }
 
-    private function find_members($searchstring) {
-        $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $searchstring));
+    private function find_members() {
+        $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $this->searchstring));
         $q = search_member_db_lookup($searchstring);
         if (!$q) return array();
 
