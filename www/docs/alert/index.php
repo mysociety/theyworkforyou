@@ -87,7 +87,7 @@ $errors = check_input($details);
 
 // Do the search
 if ($details['alertsearch']) {
-    $details['members'] = search_member_db_lookup($details['alertsearch'], true);
+    $details['members'] = search_member_db_lookup_with_names($details['alertsearch'], true);
     list ($details['constituencies'], $details['valid_postcode']) = search_constituencies_by_query($details['alertsearch']);
 }
 

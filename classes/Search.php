@@ -563,7 +563,9 @@ class Search {
             $row_count = $q->rows();
             for ($n=0; $n<$row_count; $n++) {
                 $member = new Member(array('person_id' => $q->field($n, 'person_id')));
-                $members[] = $member;
+                // search_member_db_lookup returns dups so we
+                // key by person_id to work round this
+                $members[$member->person_id] = $member;
             }
         }
 
