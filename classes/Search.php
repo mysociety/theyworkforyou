@@ -484,20 +484,10 @@ class Search {
         return $pagelinks;
     }
 
-    private function search_normal() {
-        global $DATA, $this_page, $SEARCHENGINE;
-
-        $SEARCHENGINE = new \SEARCHENGINE($this->searchstring);
-
+    private function get_sort_args() {
         $pagenum = get_http_var('p');
         if (!is_numeric($pagenum)) {
             $pagenum = 1;
-        }
-
-        $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($this->searchstring));
-        if ($pagenum == 1) {
-            # Allow indexing of first page of search results
-            $DATA->set_page_metadata($this_page, 'robots', '');
         }
 
         $o = get_http_var('o');
@@ -509,21 +499,46 @@ class Search {
             'o' => ($o=='d' || $o=='r' || $o=='o') ? $o : 'd',
         );
 
-        $sort_order = 'newest';
-        if ( $o == 'o' ) {
-            $sort_order = 'oldest';
-        } else if ( $o == 'r' ) {
-            $sort_order = 'relevance';
-        }
+        return $args;
+    }
 
+    private function get_first_page_data($args) {
         $members = null;
         $cons = null;
         $glossary = null;
-        if ($pagenum == 1 && $args['s'] && !preg_match('#[a-z]+:[a-z0-9]+#', $args['s'])) {
-            $members = $this->find_members($args['s']);
+
+        if ($args['p'] == 1 && $args['s'] && !preg_match('#[a-z]+:[a-z0-9]+#', $args['s'])) {
+            $members = $this->find_members();
             $cons = $this->find_constituency($args);
             $glossary = $this->find_glossary_items($args);
         }
+
+        return array($members, $cons, $glossary);
+    }
+
+    private function search_normal() {
+        global $DATA, $this_page, $SEARCHENGINE;
+
+        $SEARCHENGINE = new \SEARCHENGINE($this->searchstring);
+
+        $args = $this->get_sort_args();
+
+        $pagenum = $args['p'];
+
+        $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($this->searchstring));
+        if ($pagenum == 1) {
+            # Allow indexing of first page of search results
+            $DATA->set_page_metadata($this_page, 'robots', '');
+        }
+
+        $sort_order = 'newest';
+        if ( $args['o'] == 'o' ) {
+            $sort_order = 'oldest';
+        } else if ( $args['o'] == 'r' ) {
+            $sort_order = 'relevance';
+        }
+
+        list($members, $cons, $glossary) = $this->get_first_page_data($args);
 
         if (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH) {
             return array(
