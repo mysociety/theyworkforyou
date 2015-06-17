@@ -67,8 +67,8 @@
                                     <?php if ( !$wtt || $speaker['left'] == '9999-12-31' ) { ?>
                                     </a>
                                     <?php } ?>
-                                <?php if ( $house != 2 ) { ?>
                                 <span class="search-results-grouped__speaker-party">(<?= $speaker['party'] ?>)</span>
+                                <?php if ( $house != 2 ) { ?>
                                 <?= isset($speaker['office']) ? ' - ' . join('; ', $speaker['office']) : '' ?>
                                 <?php } ?>
                                 <?php } else { ?>
