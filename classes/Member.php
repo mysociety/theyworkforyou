@@ -151,7 +151,7 @@ class Member extends \MEMBER {
             $houses = array_keys(array_filter($this->current_member(), 'strlen'));
             $last_cons = $this->constituency;
             $last_party = $this->party;
-            $last_house = min($houses);
+            $last_house = $this->house_disp;
         } else {
             $max_date = null;
             foreach ( array_keys($this->left_house) as $house ) {
