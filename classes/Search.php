@@ -534,20 +534,24 @@ class Search {
         }
 
         $cons = array();
-        try {
-            if ($constituency != '') {
-                // Got a match, display....
+        if ($constituency != '') {
+            try {
+            // Got a match, display....
 
                 $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
                 $cons[] = $MEMBER;
-            } elseif (count($constituencies)) {
-                foreach ($constituencies as $constituency) {
+            } catch ( MemberException $e ) {
+                $cons = array();
+            }
+        } elseif (count($constituencies)) {
+            foreach ($constituencies as $constituency) {
+                try {
                     $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
                     $cons[] = $MEMBER;
+                } catch ( MemberException $e ) {
+                    continue;
                 }
             }
-        } catch ( MemberException $e ) {
-            $cons = array();
         }
 
         return $cons;
