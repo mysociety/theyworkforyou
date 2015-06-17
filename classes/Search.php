@@ -67,21 +67,9 @@ class Search {
         return $warning;
     }
 
-    private function construct_search_string() {
-
-        // If q has a value (other than the default empty string) use that over s.
-
-        if (get_http_var('q') != '') {
-            $search_main = trim(get_http_var('q'));
-        } else {
-            $search_main = trim(get_http_var('s'));
-        }
-
-        $this->searchkeyword = $search_main;
-
+    private function parse_advanced_params() {
         $searchstring = '';
 
-        # Stuff from advanced search form
         if ($advphrase = get_http_var('phrase')) {
             $searchstring .= ' "' . $advphrase . '"';
         }
@@ -89,6 +77,12 @@ class Search {
         if ($advexclude = get_http_var('exclude')) {
             $searchstring .= ' -' . join(' -', preg_split('/\s+/', $advexclude));
         }
+
+        return $searchstring;
+    }
+
+    private function parse_date_params() {
+        $searchstring = '';
 
         if (get_http_var('from') || get_http_var('to')) {
             $from = parse_date(get_http_var('from'));
@@ -100,13 +94,11 @@ class Search {
             $searchstring .= " $from..$to";
         }
 
-        if ($advdept = get_http_var('department')) {
-            $searchstring .= ' department:' . preg_replace('#[^a-z]#i', '', $advdept);
-        }
+        return $searchstring;
+    }
 
-        if ($advparty = get_http_var('party')) {
-            $searchstring .= ' party:' . join(' party:', explode(',', $advparty));
-        }
+    private function parse_column_params() {
+        $searchstring = '';
 
         if ($column = trim(get_http_var('column'))) {
             if (preg_match('#^(\d+)W$#', $column, $m)) {
@@ -120,18 +112,21 @@ class Search {
             }
         }
 
-        $advsection = get_http_var('section');
-        if (!$advsection)
-            $advsection = get_http_var('maj'); # Old URLs had this
-        if (is_array($advsection)) {
-            $searchstring .= ' section:' . join(' section:', $advsection);
-        } elseif ($advsection) {
-            $searchstring .= " section:$advsection";
-        }
+        return $searchstring;
+    }
+
+    private function parse_groupby_params() {
+        $searchstring = '';
 
         if ($searchgroupby = trim(get_http_var('groupby'))) {
             $searchstring .= " groupby:$searchgroupby";
         }
+
+        return $searchstring;
+    }
+
+    private function parse_person_params() {
+        $searchstring = '';
 
         # Searching from MP pages
         if ($searchspeaker = trim(get_http_var('pid'))) {
@@ -152,6 +147,33 @@ class Search {
             }
         }
 
+        return $searchstring;
+    }
+
+    private function parse_search_restrictions() {
+        $searchstring = '';
+
+        if ($advdept = get_http_var('department')) {
+            $searchstring .= ' department:' . preg_replace('#[^a-z]#i', '', $advdept);
+        }
+
+        if ($advparty = get_http_var('party')) {
+            $searchstring .= ' party:' . join(' party:', explode(',', $advparty));
+        }
+
+        $advsection = get_http_var('section');
+        if (!$advsection)
+            $advsection = get_http_var('maj'); # Old URLs had this
+        if (is_array($advsection)) {
+            $searchstring .= ' section:' . join(' section:', $advsection);
+        } elseif ($advsection) {
+            $searchstring .= " section:$advsection";
+        }
+
+        return $searchstring;
+    }
+
+    private function tidy_search_string($search_main, $searchstring) {
         $searchstring = trim($searchstring);
         if ($search_main && $searchstring) {
             if (strpos($search_main, 'OR') !== false) {
@@ -169,6 +191,29 @@ class Search {
         if ($searchstring_conv) {
             $searchstring = $searchstring_conv;
         }
+
+        return $searchstring;
+    }
+
+    private function construct_search_string() {
+
+        // If q has a value (other than the default empty string) use that over s.
+        if (get_http_var('q') != '') {
+            $search_main = trim(get_http_var('q'));
+        } else {
+            $search_main = trim(get_http_var('s'));
+        }
+
+        $this->searchkeyword = $search_main;
+
+        $searchstring = $this->parse_advanced_params();
+        $searchstring .= $this->parse_date_params();
+        $searchstring .= $this->parse_column_params();
+        $searchstring .= $this->parse_search_restrictions();
+        $searchstring .= $this->parse_groupby_params();
+        $searchstring .= $this->parse_person_params();
+
+        $searchstring = $this->tidy_search_string($search_main, $searchstring);
 
         twfy_debug('SEARCH', _htmlspecialchars($searchstring));
         return $searchstring;
