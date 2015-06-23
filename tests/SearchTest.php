@@ -206,4 +206,15 @@ class SearchTest extends FetchPageTestCase
         $page = $this->fetch_page( array( 's' => 'plice' ) );
         $this->assertContains('Did you mean <a href="/search/?q=place">place', $page);
     }
+
+    /**
+     * Test that grouping by speaker works
+     *
+     * @group xapian
+     */
+    public function testSearchBySpeakerNoResults() {
+        $page = $this->fetch_page( array( 's' => 'splice', 'o' => 'p' ) );
+        $this->assertContains('Who says splice the most', $page);
+        $this->assertContains('No results', $page);
+    }
 }
