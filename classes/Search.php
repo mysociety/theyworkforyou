@@ -15,7 +15,9 @@ class Search {
 
     public function display() {
         $data = array();
-        $this->searchstring = $this->construct_search_string();
+        $argparser = new Search\ParseArgs();
+        $this->searchstring = $argparser->construct_search_string();
+        $this->searchkeyword = $argparser->searchkeyword;
 
         if ( !$this->searchstring ) {
             $data = $this->get_form_params($data);
@@ -34,10 +36,12 @@ class Search {
             return $data;
         } else {
             if (get_http_var('o')=='p') {
-                $data = $this->search_order_p($this->searchstring);
+                $search = new Search\ByUsage();
+                $data = $search->search($this->searchstring);
                 $data['template'] = 'search/by-person';
             } else {
-                $data = $this->search_normal($this->searchstring);
+                $search = new Search\Normal();
+                $data = $search->search($this->searchstring);
                 $data['pagination_links'] = $this->generate_pagination($data['info']);
                 $data['template'] = 'search/results';
                 $data['search_sidebar'] = $this->get_sidebar_links($this->searchstring);
@@ -65,158 +69,6 @@ class Search {
         }
 
         return $warning;
-    }
-
-    private function parse_advanced_params() {
-        $searchstring = '';
-
-        if ($advphrase = get_http_var('phrase')) {
-            $searchstring .= ' "' . $advphrase . '"';
-        }
-
-        if ($advexclude = get_http_var('exclude')) {
-            $searchstring .= ' -' . join(' -', preg_split('/\s+/', $advexclude));
-        }
-
-        return $searchstring;
-    }
-
-    private function parse_date_params() {
-        $searchstring = '';
-
-        if (get_http_var('from') || get_http_var('to')) {
-            $from = parse_date(get_http_var('from'));
-            if ($from) $from = $from['iso'];
-            else $from = '1935-10-01';
-            $to = parse_date(get_http_var('to'));
-            if ($to) $to = $to['iso'];
-            else $to = date('Y-m-d');
-            $searchstring .= " $from..$to";
-        }
-
-        return $searchstring;
-    }
-
-    private function parse_column_params() {
-        $searchstring = '';
-
-        if ($column = trim(get_http_var('column'))) {
-            if (preg_match('#^(\d+)W$#', $column, $m)) {
-                $searchstring .= " column:$m[1] section:wrans";
-            } elseif (preg_match('#^(\d+)WH$#', $column, $m)) {
-                $searchstring .= " column:$m[1] section:whall";
-            } elseif (preg_match('#^(\d+)WS$#', $column, $m)) {
-                $searchstring .= " column:$m[1] section:wms";
-            } elseif (preg_match('#^\d+$#', $column)) {
-                $searchstring .= " column:$column";
-            }
-        }
-
-        return $searchstring;
-    }
-
-    private function parse_groupby_params() {
-        $searchstring = '';
-
-        if ($searchgroupby = trim(get_http_var('groupby'))) {
-            $searchstring .= " groupby:$searchgroupby";
-        }
-
-        return $searchstring;
-    }
-
-    private function parse_person_params() {
-        $searchstring = '';
-
-        # Searching from MP pages
-        if ($searchspeaker = trim(get_http_var('pid'))) {
-            $searchstring .= " speaker:$searchspeaker";
-        }
-
-        # Searching from MP pages
-        if ($searchspeaker = trim(get_http_var('person'))) {
-            $q = search_member_db_lookup($searchspeaker);
-            $pids = array();
-            $row_count = $q->rows();
-            for ($i=0; $i<$row_count; $i++) {
-                $pids[$q->field($i, 'person_id')] = true;
-            }
-            $pids = array_keys($pids);
-            if (count($pids) > 0) {
-                $searchstring .= ' speaker:' . join(' speaker:', $pids);
-            }
-        }
-
-        return $searchstring;
-    }
-
-    private function parse_search_restrictions() {
-        $searchstring = '';
-
-        if ($advdept = get_http_var('department')) {
-            $searchstring .= ' department:' . preg_replace('#[^a-z]#i', '', $advdept);
-        }
-
-        if ($advparty = get_http_var('party')) {
-            $searchstring .= ' party:' . join(' party:', explode(',', $advparty));
-        }
-
-        $advsection = get_http_var('section');
-        if (!$advsection)
-            $advsection = get_http_var('maj'); # Old URLs had this
-        if (is_array($advsection)) {
-            $searchstring .= ' section:' . join(' section:', $advsection);
-        } elseif ($advsection) {
-            $searchstring .= " section:$advsection";
-        }
-
-        return $searchstring;
-    }
-
-    private function tidy_search_string($search_main, $searchstring) {
-        $searchstring = trim($searchstring);
-        if ($search_main && $searchstring) {
-            if (strpos($search_main, 'OR') !== false) {
-                $search_main = "($search_main)";
-            }
-            $searchstring = "$search_main $searchstring";
-        } elseif ($search_main) {
-            $searchstring = $search_main;
-        }
-
-        $searchstring_conv = @iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $searchstring);
-        if (!$searchstring_conv) {
-            $searchstring_conv = @iconv('Windows-1252', 'ISO-8859-1//TRANSLIT', $searchstring);
-        }
-        if ($searchstring_conv) {
-            $searchstring = $searchstring_conv;
-        }
-
-        return $searchstring;
-    }
-
-    private function construct_search_string() {
-
-        // If q has a value (other than the default empty string) use that over s.
-        if (get_http_var('q') != '') {
-            $search_main = trim(get_http_var('q'));
-        } else {
-            $search_main = trim(get_http_var('s'));
-        }
-
-        $this->searchkeyword = $search_main;
-
-        $searchstring = $this->parse_advanced_params();
-        $searchstring .= $this->parse_date_params();
-        $searchstring .= $this->parse_column_params();
-        $searchstring .= $this->parse_search_restrictions();
-        $searchstring .= $this->parse_groupby_params();
-        $searchstring .= $this->parse_person_params();
-
-        $searchstring = $this->tidy_search_string($search_main, $searchstring);
-
-        twfy_debug('SEARCH', _htmlspecialchars($searchstring));
-        return $searchstring;
     }
 
     private function prettify_search_section($section) {
@@ -408,7 +260,7 @@ class Search {
 
         $pagetitle = '';
         if ( isset($data['search_type']) && $data['search_type'] == 'person' ) {
-            if (isset($data['wtt'])) {
+            if (isset($data['wtt']) && $data['wtt'] > 0) {
                 $pagetitle = 'League table of Lords who say ' . $data['pagetitle'];
             } else {
                 $pagetitle = 'Who says ' . $data['pagetitle'] . ' the most?';
@@ -482,177 +334,6 @@ class Search {
         }
 
         return $pagelinks;
-    }
-
-    private function get_sort_args() {
-        $pagenum = get_http_var('p');
-        if (!is_numeric($pagenum)) {
-            $pagenum = 1;
-        }
-
-        $o = get_http_var('o');
-        $args = array (
-            's' => $this->searchstring,
-            'p' => $pagenum,
-            'num' => get_http_var('num'),
-            'pop' => get_http_var('pop'),
-            'o' => ($o=='d' || $o=='r' || $o=='o') ? $o : 'd',
-        );
-
-        return $args;
-    }
-
-    private function get_first_page_data($args) {
-        $members = null;
-        $cons = null;
-        $glossary = null;
-
-        if ($args['p'] == 1 && $args['s'] && !preg_match('#[a-z]+:[a-z0-9]+#', $args['s'])) {
-            $members = $this->find_members();
-            $cons = $this->find_constituency($args);
-            $glossary = $this->find_glossary_items($args);
-        }
-
-        return array($members, $cons, $glossary);
-    }
-
-    private function search_normal() {
-        global $DATA, $this_page, $SEARCHENGINE;
-
-        $SEARCHENGINE = new \SEARCHENGINE($this->searchstring);
-
-        $args = $this->get_sort_args();
-
-        $pagenum = $args['p'];
-
-        $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($this->searchstring));
-        if ($pagenum == 1) {
-            # Allow indexing of first page of search results
-            $DATA->set_page_metadata($this_page, 'robots', '');
-        }
-
-        $sort_order = 'newest';
-        if ( $args['o'] == 'o' ) {
-            $sort_order = 'oldest';
-        } else if ( $args['o'] == 'r' ) {
-            $sort_order = 'relevance';
-        }
-
-        list($members, $cons, $glossary) = $this->get_first_page_data($args);
-
-        if (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH) {
-            return array(
-                'error' =>'Apologies, search has been turned off currently for performance reasons.'
-            );
-        }
-
-        if (!$SEARCHENGINE->valid) {
-            return array('error' => $SEARCHENGINE->error);
-        } else {
-            $LIST = new \HANSARDLIST();
-            $data = $LIST->display('search', $args , 'none');
-            $data['search_type'] = 'normal';
-            $data['sort_order'] = $sort_order;
-            $data['members'] = $members;
-            $data['cons'] = $cons;
-            $data['glossary'] = $glossary;
-            return $data;
-        }
-    }
-
-    private function search_order_p() {
-        $q_house = '';
-        if (ctype_digit(get_http_var('house'))) {
-            $q_house = get_http_var('house');
-        }
-
-        $wtt = get_http_var('wtt');
-        if ($wtt) {
-            $q_house = 2;
-        }
-
-        # Fetch the results
-        $data = search_by_usage($this->searchstring, $q_house);
-
-        $data['house'] = $q_house;
-        $data['search_type'] = 'person';
-        return $data;
-    }
-
-    private function find_constituency($args) {
-        if ($args['s'] != '') {
-            $searchterm = $args['s'];
-        } else {
-            return false;
-        }
-
-        list ($constituencies, ) = search_constituencies_by_query($searchterm);
-
-        $constituency = "";
-        if (count($constituencies)==1) {
-            $constituency = $constituencies[0];
-        }
-
-        $cons = array();
-        if ($constituency != '') {
-            try {
-            // Got a match, display....
-
-                $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
-                $cons[] = $MEMBER;
-            } catch ( MemberException $e ) {
-                $cons = array();
-            }
-        } elseif (count($constituencies)) {
-            foreach ($constituencies as $constituency) {
-                try {
-                    $MEMBER = new Member(array('constituency'=>$constituency, 'house' => 1));
-                    $cons[] = $MEMBER;
-                } catch ( MemberException $e ) {
-                    continue;
-                }
-            }
-        }
-
-        return $cons;
-    }
-
-    private function find_members() {
-        $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $this->searchstring));
-        $q = search_member_db_lookup($searchstring);
-        if (!$q) return array();
-
-        $members = array();
-        if ($q->rows() > 0) {
-            $row_count = $q->rows();
-            for ($n=0; $n<$row_count; $n++) {
-                $member = new Member(array('person_id' => $q->field($n, 'person_id')));
-                // search_member_db_lookup returns dups so we
-                // key by person_id to work round this
-                $members[$member->person_id] = $member;
-            }
-        }
-
-        return $members;
-    }
-
-    private function find_glossary_items($args) {
-        $GLOSSARY = new \GLOSSARY($args);
-        $items = array();
-
-        if (isset($GLOSSARY->num_search_matches) && $GLOSSARY->num_search_matches >= 1) {
-            $URL = new \URL('glossary');
-            $URL->insert(array('gl' => ""));
-            foreach ($GLOSSARY->search_matches as $glossary_id => $term) {
-                $URL->update(array("gl" => $glossary_id));
-                $items[] = array(
-                    'url' => $URL->generate(),
-                    'term' => $term['title'],
-                    'body' => $term['body']
-                );
-            }
-        }
-        return $items;
     }
 
 }
