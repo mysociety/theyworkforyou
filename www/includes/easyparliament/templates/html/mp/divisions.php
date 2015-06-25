@@ -89,6 +89,11 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         <?= $full_name ?> <?= $policy['position']['voted'] == 'never voted' ? $policy['position']['voted'] . ' on' : 'voted ' .$policy['position']['voted'] ?> <?= $policy['desc'] ?>
                                     </h3>
 
+                                    <?php if ( isset($party_position) ) { ?>
+                                    <h3>
+                                        Other <?= $party ?> MPs voted <?= $party_position ?> this policy.
+                                    </h3>
+                                    <?php } ?>
                                     <?php if ( DEVSITE ) { ?>
                                     <p class="policy-vote-agree-disagree">
                                         <button class="button">I agree with this MP</button>
