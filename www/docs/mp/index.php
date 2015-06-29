@@ -458,6 +458,47 @@ switch ($pagetype) {
         MySociety\TheyWorkForYou\Renderer::output('mp/divisions', $data);
 
         break;
+    case 'partycompare':
+        $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
+        $policiesList = new MySociety\TheyWorkForYou\Policies;
+        $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
+
+        $party_positions = $party->getAllPolicyPositions($policiesList);
+
+        $policy_diffs = array();
+
+        foreach ( $positions->positionsById as $policy_id => $details ) {
+            if ( $details['score'] != -1 ) {
+                $mp_score = $details['score'];
+                $party_score = $party_positions[$policy_id]['score'];
+
+                $score_diff = abs($mp_score - $party_score);
+                // if they are on opposite sides of mixture of for and against
+                if (
+                    ( $mp_score < 0.4 && $party_score > 0.6 ) ||
+                    ( $mp_score > 0.6 && $party_score < 0.4 )
+                ) {
+                    $score_diff += 2;
+                // if on is mixture of for and against and one is for/against
+                } else if (
+                    ( $mp_score > 0.4 && $mp_score < 0.6 && ( $party_score > 0.6 || $party_score < 0.4 ) ) ||
+                    ( $party_score > 0.4 && $party_score < 0.6 && ( $mp_score > 0.6 || $mp_score < 0.4 ) )
+                ) {
+                    $score_diff += 1;
+                }
+                $policy_diffs[$policy_id] = $score_diff;
+            }
+        }
+
+        $score_diffs = arsort($policy_diffs);
+        $data['sorted_diffs'] = $policy_diffs;
+        $data['party_positions'] = $party_positions;
+        $data['positions'] = $positions->positionsById;
+        $data['policies'] = $policiesList->getPolicies();
+
+        MySociety\TheyWorkForYou\Renderer::output('mp/party_compare', $data);
+
+        break;
     case '':
     default:
 

@@ -112,6 +112,7 @@ class PolicyPositions {
                     $this->positionsById[$policy[0]] = array(
                         'policy_id' => $policy[0],
                         'desc' => $dream_info['full_sentence'],
+                        'score' => $dream_info['score'],
                         'voted' => $dream_info['voted']
                     );
                     $i++;
@@ -138,6 +139,7 @@ class PolicyPositions {
 
         if (isset($extra_info["public_whip_dreammp${dreamid}_distance"])) {
             if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 0) {
+                $dmpscore = -1;
                 $english = 'never voted';
                 $dmpdesc = 'Has <strong>never voted</strong> on';
             } else {
@@ -152,7 +154,7 @@ class PolicyPositions {
                 // $extra_info["public_whip_dreammp${dreamid}_both_voted"];
             }
             $dmpdesc .= ' ' . $desc;
-            $out = array( 'full_sentence' => $dmpdesc, 'voted' => $english );
+            $out = array( 'full_sentence' => $dmpdesc, 'voted' => $english, 'score' => $dmpscore );
         }
         return $out;
     }
