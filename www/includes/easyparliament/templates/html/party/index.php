@@ -5,7 +5,7 @@
 
                 <h1><?= $party ?></h1>
 
-                <?php if (($party == 'Sinn Fein' || $party == utf8_decode('Sinn Féin')) && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+                <?php if (($party == 'Sinn Fein' || $party == utf8_decode('Sinn Féin'))): ?>
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                 </div>
